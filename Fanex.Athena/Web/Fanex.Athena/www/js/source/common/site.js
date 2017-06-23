@@ -284,7 +284,7 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             var currencyId = $("#CurrencyId").attr('data-original');
             var baseCurrency = $("#BaseCurrency").attr('data-original');
 
-            var $currencyItem = $("#CurrencyId option[value=" +currencyId + "]");
+            var $currencyItem = $("#CurrencyId option[value=" + currencyId + "]");
             var currencyName = $currencyItem.length ? $currencyItem.text() : $("#CurrencyName").val();
 
             return setLicenseeOption(urlOrParams, currencyId, currencyName, baseCurrency);
@@ -527,6 +527,26 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             return window.location;
         }
 
+        function debounce(func, wait, immediate) {
+            var timeout;
+            return function () {
+                var context = this,
+                    args = arguments;
+                var later = function () {
+                    timeout = null;
+                    if (!immediate) {
+                        func.apply(context, args);
+                    }
+                };
+                var callNow = immediate && !timeout;
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait || 500);
+                if (callNow) {
+                    func.apply(context, args);
+                }
+            };
+        }
+
         return {
             initialize: initialize,
             setProductCodeListParam: setProductCodeListParam,
@@ -563,6 +583,7 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             redirect: redirect,
             getCurrentUrl: getCurrentUrl,
             getLocation: getLocation,
-            initSelectElements: initSelectElements
+            initSelectElements: initSelectElements,
+            debounce: debounce
         };
     });

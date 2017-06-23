@@ -1,5 +1,5 @@
 ﻿// require option properties: suggestionDropdown, url, target
-define(["jquery", "materialize-autocomplete"], function ($) {
+define(["jquery", "common/site", "materialize-autocomplete"], function ($, Site) {
     "use strict";
 
     var mainOption = {
@@ -7,6 +7,8 @@ define(["jquery", "materialize-autocomplete"], function ($) {
         url: null,
         target: null
     };
+
+    var DELAY_MILLISECOND = 600;
 
     var _autoComplete;
 
@@ -18,12 +20,12 @@ define(["jquery", "materialize-autocomplete"], function ($) {
 
         initEvent: function () {
             $('body').click(function () {
-                _me.hideDropdown.call(_autoComplete);
+                _me.hideDropdown();
             });
 
             $(mainOption.target).keyup(function (e) {
                 if (e.keyCode === 13) {
-                    _me.hideDropdown.call(_autoComplete);
+                    _me.hideDropdown();
                 }
             });
         },
@@ -36,35 +38,37 @@ define(["jquery", "materialize-autocomplete"], function ($) {
 
             _autoComplete = $(mainOption.target).materialize_autocomplete({ // jshint ignore:line
                 ignoreCase: false,
-                multiple: {
-                    enable: false
-                },
                 dropdown: {
                     el: mainOption.suggestionDropdown
                 },
-                getData: function (value, callback) {
-                    var url = mainOption.url + "?query=" + value;
-
-                    $.ajax({
-                        type: "GET",
-                        dataType: "json",
-                        url: url,
-                        success: function (response) {
-                            var suggestions = response.suggestions;
-
-                            if (suggestions && suggestions.length > 0) {
-                                var data = suggestions.map(function (item) {
-                                    return { id: item, text: item };
-                                });
-
-                                callback(value, data);
-                            }
-                        }
-                    });
-                }
+                getData: Site.debounce(_me.search, DELAY_MILLISECOND),
             });
 
             _me.updateWidthOfSuggestionDropdown();
+        },
+
+        search: function (value, callback) {
+            var url = mainOption.url + "?query=" + value;
+
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: url,
+                success: function (response) {
+                    var suggestions = response.suggestions;
+
+                    if (suggestions && suggestions.length > 0) {
+                        var data = suggestions.map(function (item) {
+                            return { id: item, text: item };
+                        });
+
+                        callback(value, data);
+                    }
+                    else {
+                        _me.hideDropdown();
+                    }
+                }
+            });
         },
 
         updateWidthOfSuggestionDropdown: function () {
@@ -76,7 +80,7 @@ define(["jquery", "materialize-autocomplete"], function ($) {
         },
 
         hideDropdown: function () {
-            this.$dropdown.html('').hide();
+            _autoComplete.$dropdown.html('').hide();
         }
     };
 

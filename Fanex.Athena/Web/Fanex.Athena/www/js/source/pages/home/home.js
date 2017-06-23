@@ -3,13 +3,13 @@
 define([
     "common/site",
     "./recheckin",
+    "components/pluginhelper/autocomplete",
     "lib/jquery.cookie",
     "lib/jquery.marquee",
     "materialize-autocomplete",
     "components/selectlist"],
-    function (Site, Recheckin) {
+    function (Site, Recheckin, AutoComplete) {
         var $searchBox;
-        var _autocomplete;
 
         function initialize() {
             Site.initialize();
@@ -25,6 +25,11 @@ define([
             if ($('#HasRecheckIn').val() === "1") {
                 Recheckin.init();
             }
+
+            AutoComplete.initialize({
+                url: Site.resolveClientUrl("CustomerAPI/SearchCustomer"),
+                target: "#searchbox"
+            });
         }
 
         function initVariables() {
@@ -32,15 +37,12 @@ define([
         }
 
         function initEvent() {
-            initAutoComplete();
-
             $searchBox.keyup(function (e) {
                 e = e || window.event;
                 var key = e.keyCode || e.which;
 
                 if (key === 13) {
                     searchByUserName();
-                    _autocomplete.$dropdown.html('').hide();
                 }
             });
 
@@ -67,10 +69,6 @@ define([
                 }
             });
 
-            $('html').click(function () {
-                _autocomplete.$dropdown.html('').hide();
-            });
-
             $('.collapsible2').on("click.menuevent", ".collapsible-body  a", function () {
                 var $currentMenuItem = $(this);
                 document.title = 'LRF' + ' - ' + $(".active > .menu-title").text() + ' - ' + $currentMenuItem.text();
@@ -86,7 +84,7 @@ define([
             $(window).on('blur', function () {
                 $('.dropdown-button').dropdown('close');
                 $('#ddlLicensee').selectList("close");
-                _autocomplete.$dropdown.html('').hide();
+                $("#suggestionDropdown").hide();
             });
         }
 
@@ -99,38 +97,6 @@ define([
             var url = Site.resolveClientUrl("Customer/CustomerList?userName=" + userName);
             top.main.location.href = url;
             $('.collapsible2').collapsibleMenu('activeMenuItem', $('#MenuItem43'));
-        }
-
-        function initAutoComplete() {
-            _autocomplete = $searchBox.materialize_autocomplete({ // jshint ignore:line
-                ignoreCase: false,
-                multiple: {
-                    enable: false
-                },
-                dropdown: {
-                    el: '#suggestionDropdown'
-                },
-                getData: function (value, callback) {
-                    var url = Site.resolveClientUrl("CustomerAPI/SearchCustomer?query=" + value);
-
-                    $.ajax({
-                        type: "GET",
-                        dataType: "json",
-                        url: url,
-                        success: function (response) {
-                            var suggestions = response.suggestions;
-
-                            if (suggestions && suggestions.length > 0) {
-                                var data = suggestions.map(function (item) {
-                                    return { id: item, text: item };
-                                });
-
-                                callback(value, data);
-                            }
-                        }
-                    });
-                }
-            });
         }
 
         function changeLanguage($target) {
