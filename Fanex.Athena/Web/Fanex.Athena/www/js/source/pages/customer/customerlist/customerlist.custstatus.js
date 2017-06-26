@@ -21,7 +21,7 @@ define(["jquery", "common/site"], function ($, Site) {
             });
 
             $("#UpdateCustStatus").on("change", ".chkCustStatus", function () {
-                _me.changeStatus();
+                _me.checkStatusChange();
             });
 
             $("html").click(function (e) {
@@ -37,13 +37,19 @@ define(["jquery", "common/site"], function ($, Site) {
             var $popup = $("#UpdateCustStatus");
 
             var position = $context.offset();
+            var isOverFlow = position.top + $popup.outerHeight() > window.innerHeight - 15;
+
+            var popupTop = isOverFlow ? position.top - $popup.outerHeight() - 1 :
+                                        position.top + $context.outerHeight() + 1;
+
             $popup.css({
-                top: position.top + $context.outerHeight() + 1,
+                top: popupTop,
                 left: position.left,
                 width: "auto"
             });
 
             if ($popup.data("custid") === custId) {
+                _me.checkStatusChange();
                 $popup.fadeToggle();
             }
             else {
@@ -111,6 +117,9 @@ define(["jquery", "common/site"], function ($, Site) {
                         $statusLink.text(statusText);
                         $statusLink.data("isclosed", isClosed);
                         $statusLink.data("issuspended", isSuspended);
+
+                        $popup.data("closed", isClosed);
+                        $popup.data("suspended", isSuspended);
                     }
                     else {
                         alert(result.Message);
@@ -119,7 +128,7 @@ define(["jquery", "common/site"], function ($, Site) {
             });
         },
 
-        changeStatus: function () {
+        checkStatusChange: function () {
             var $popup = $("#UpdateCustStatus");
             var isSuspended = $("#custStatus-suspended").prop('checked');
             var isClosed = $("#custStatus-closed").prop('checked');

@@ -142,7 +142,7 @@
             sortable: false,
             frozen: true,
             formatter: function (cellValue, options, rowObject) {
-                return "<a href='javascript:;' class='grid-dropdown oddsGroup " + (rowObject.BAStatus ? "disabled" : "")
+                return "<a href='javascript:;' class='grid-dropdown oddsGroup" + (rowObject.BAStatus ? " disabled" : "")
                     + "' data-custid='" + rowObject.CustId + "' data-group='" + cellValue + "'>"
                     + "<span class='grid-dropdown-item grid-dropdown-label group-" + cellValue + "'>"
                     + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</span>"

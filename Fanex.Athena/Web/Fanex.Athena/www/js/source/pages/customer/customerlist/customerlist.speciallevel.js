@@ -10,11 +10,12 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
             $("#report-content").on("click", ".specialLevel", function () {
                 _$specialLevelCell = $(this);
                 CustomerListService.showGridDropdownById("LevelListContainer", _$specialLevelCell);
+                return false;
             });
 
             $("#report-content").on("focusout", ".specialLevel", function (e) {
-                if (!$(e.relatedTarget).is(".levelLink")) {
-                    $("#LevelListContainer").fadeToggle();
+                if (!$(e.relatedTarget).is(".specialLevel") && !$(e.relatedTarget).is(".levelLink")) {
+                    $("#LevelListContainer").hide();
                 }
             });
 

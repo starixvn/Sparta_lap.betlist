@@ -20,8 +20,8 @@
                 });
 
                 $("#report-content").on("focusout", ".custoptionlink", function (e) {
-                    if (!$(e.relatedTarget).is(".viewOptionLink")) {
-                        $("#ViewOptionList").fadeToggle();
+                    if (!$(e.relatedTarget).is(".custoptionlink") && !$(e.relatedTarget).is(".viewOptionLink")) {
+                        $("#ViewOptionList").hide();
                     }
                 });
 

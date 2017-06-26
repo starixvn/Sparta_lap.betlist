@@ -221,22 +221,27 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
         showGridDropdownById: function (listId, $context) {
             var $popup = $("#" + listId);
             var position = $context.offset();
+            var isOverFlow = position.top + $popup.outerHeight() > window.innerHeight - 15;
+
+            var popupTop = isOverFlow ? position.top - $popup.outerHeight() - 1 :
+                                        position.top + $context.outerHeight() + 1;
+
             $popup.css({
-                top: position.top + $context.outerHeight() + 1,
+                top: popupTop,
                 left: position.left,
                 width: $context.outerWidth()
             });
 
             var custId = $context.data("custid");
             if ($popup.data("custid") === custId) {
-                $popup.fadeToggle();
+                $popup.toggle();
             }
             else {
                 var $customerOption = $("#cust-option-link-" + custId);
                 $popup.data("custid", custId);
                 $popup.data("externalid", $customerOption.data("externalid"));
                 $popup.data("systemid", $customerOption.data("systemid"));
-                $popup.fadeIn();
+                $popup.show();
             }
 
             return false;

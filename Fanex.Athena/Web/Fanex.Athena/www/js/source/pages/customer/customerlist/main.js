@@ -8,8 +8,9 @@ define(["jquery", "common/site", "common/querystring", "./customerlist.filter", 
             CustomerListGrid.initialize();
             CustomerListViewOption.initialize();
 
-            if (QueryString.getParam(window.location.href, "userName") ||
-                QueryString.getParam(window.location.href, "groupId")) {
+            var url = Site.getCurrentUrl();
+            if (QueryString.getParam(url, "userName") ||
+                QueryString.getParam(url, "groupId")) {
                 setTimeout(CustomerListService.submit, 500);
             } else {
                 Site.unBlockUI();
