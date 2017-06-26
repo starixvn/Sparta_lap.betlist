@@ -19070,6 +19070,7 @@ webpackJsonp([48],[
 	
 	        var _me = {
 	            initialize: function () {
+	                BetList.initialize();
 	                _me.initEvent();
 	                _me.submit();
 	                Site.addUserGuide({
@@ -19111,7 +19112,6 @@ webpackJsonp([48],[
 	            },
 	
 	            submit: function () {
-	                BetList.initialize();
 	                var actionName = Site.getLocation().pathname.split('/').pop();
 	                var params = Site.setLicenseeOptionParam();
 	                var url = Site.resolveClientUrl('api/RunningBettypesBetList/' + actionName);
