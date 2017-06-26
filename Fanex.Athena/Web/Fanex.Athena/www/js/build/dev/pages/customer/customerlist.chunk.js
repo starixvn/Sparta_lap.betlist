@@ -3938,8 +3938,9 @@ webpackJsonp([56],{
 	            CustomerListGrid.initialize();
 	            CustomerListViewOption.initialize();
 	
-	            if (QueryString.getParam(window.location.href, "userName") ||
-	                QueryString.getParam(window.location.href, "groupId")) {
+	            var url = Site.getCurrentUrl();
+	            if (QueryString.getParam(url, "userName") ||
+	                QueryString.getParam(url, "groupId")) {
 	                setTimeout(CustomerListService.submit, 500);
 	            } else {
 	                Site.unBlockUI();
@@ -4357,22 +4358,27 @@ webpackJsonp([56],{
 	        showGridDropdownById: function (listId, $context) {
 	            var $popup = $("#" + listId);
 	            var position = $context.offset();
+	            var isOverFlow = position.top + $popup.outerHeight() > window.innerHeight - 15;
+	
+	            var popupTop = isOverFlow ? position.top - $popup.outerHeight() - 1 :
+	                                        position.top + $context.outerHeight() + 1;
+	
 	            $popup.css({
-	                top: position.top + $context.outerHeight() + 1,
+	                top: popupTop,
 	                left: position.left,
 	                width: $context.outerWidth()
 	            });
 	
 	            var custId = $context.data("custid");
 	            if ($popup.data("custid") === custId) {
-	                $popup.fadeToggle();
+	                $popup.toggle();
 	            }
 	            else {
 	                var $customerOption = $("#cust-option-link-" + custId);
 	                $popup.data("custid", custId);
 	                $popup.data("externalid", $customerOption.data("externalid"));
 	                $popup.data("systemid", $customerOption.data("systemid"));
-	                $popup.fadeIn();
+	                $popup.show();
 	            }
 	
 	            return false;
@@ -4562,7 +4568,7 @@ webpackJsonp([56],{
 	            sortable: false,
 	            frozen: true,
 	            formatter: function (cellValue, options, rowObject) {
-	                return "<a href='javascript:;' class='grid-dropdown oddsGroup " + (rowObject.BAStatus ? "disabled" : "")
+	                return "<a href='javascript:;' class='grid-dropdown oddsGroup" + (rowObject.BAStatus ? " disabled" : "")
 	                    + "' data-custid='" + rowObject.CustId + "' data-group='" + cellValue + "'>"
 	                    + "<span class='grid-dropdown-item grid-dropdown-label group-" + cellValue + "'>"
 	                    + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</span>"
@@ -5656,11 +5662,12 @@ webpackJsonp([56],{
 	            $("#report-content").on("click", ".specialLevel", function () {
 	                _$specialLevelCell = $(this);
 	                CustomerListService.showGridDropdownById("LevelListContainer", _$specialLevelCell);
+	                return false;
 	            });
 	
 	            $("#report-content").on("focusout", ".specialLevel", function (e) {
-	                if (!$(e.relatedTarget).is(".levelLink")) {
-	                    $("#LevelListContainer").fadeToggle();
+	                if (!$(e.relatedTarget).is(".specialLevel") && !$(e.relatedTarget).is(".levelLink")) {
+	                    $("#LevelListContainer").hide();
 	                }
 	            });
 	
@@ -5792,8 +5799,8 @@ webpackJsonp([56],{
 	            });
 	
 	            $("#report-content").on("focusout", ".oddsGroup", function (e) {
-	                if (!$(e.relatedTarget).is(".oddsGroupLink")) {
-	                    $("#OddsGroupListContainer").fadeToggle();
+	                if (!$(e.relatedTarget).is(".oddsGroup") && !$(e.relatedTarget).is(".oddsGroupLink")) {
+	                    $("#OddsGroupListContainer").hide();
 	                }
 	            });
 	
@@ -5864,7 +5871,7 @@ webpackJsonp([56],{
 	            });
 	
 	            $("#UpdateCustStatus").on("change", ".chkCustStatus", function () {
-	                _me.changeStatus();
+	                _me.checkStatusChange();
 	            });
 	
 	            $("html").click(function (e) {
@@ -5880,13 +5887,19 @@ webpackJsonp([56],{
 	            var $popup = $("#UpdateCustStatus");
 	
 	            var position = $context.offset();
+	            var isOverFlow = position.top + $popup.outerHeight() > window.innerHeight - 15;
+	
+	            var popupTop = isOverFlow ? position.top - $popup.outerHeight() - 1 :
+	                                        position.top + $context.outerHeight() + 1;
+	
 	            $popup.css({
-	                top: position.top + $context.outerHeight() + 1,
+	                top: popupTop,
 	                left: position.left,
 	                width: "auto"
 	            });
 	
 	            if ($popup.data("custid") === custId) {
+	                _me.checkStatusChange();
 	                $popup.fadeToggle();
 	            }
 	            else {
@@ -5954,6 +5967,9 @@ webpackJsonp([56],{
 	                        $statusLink.text(statusText);
 	                        $statusLink.data("isclosed", isClosed);
 	                        $statusLink.data("issuspended", isSuspended);
+	
+	                        $popup.data("closed", isClosed);
+	                        $popup.data("suspended", isSuspended);
 	                    }
 	                    else {
 	                        alert(result.Message);
@@ -5962,7 +5978,7 @@ webpackJsonp([56],{
 	            });
 	        },
 	
-	        changeStatus: function () {
+	        checkStatusChange: function () {
 	            var $popup = $("#UpdateCustStatus");
 	            var isSuspended = $("#custStatus-suspended").prop('checked');
 	            var isClosed = $("#custStatus-closed").prop('checked');
@@ -6435,8 +6451,8 @@ webpackJsonp([56],{
 	                });
 	
 	                $("#report-content").on("focusout", ".custoptionlink", function (e) {
-	                    if (!$(e.relatedTarget).is(".viewOptionLink")) {
-	                        $("#ViewOptionList").fadeToggle();
+	                    if (!$(e.relatedTarget).is(".custoptionlink") && !$(e.relatedTarget).is(".viewOptionLink")) {
+	                        $("#ViewOptionList").hide();
 	                    }
 	                });
 	
