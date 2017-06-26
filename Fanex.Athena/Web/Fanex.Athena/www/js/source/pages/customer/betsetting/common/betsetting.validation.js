@@ -93,10 +93,6 @@ define(["jquery", "common/site", "./betsetting.helper"], function ($, Site, BetS
             return true;
         },
 
-        checkValidation: function (sportIds) {
-            return _me.checkLimitMinMaxBets(sportIds);
-        },
-
         checkLimitMinMaxBets: function (sportIds) {
             for (var i = 0; i < sportIds.length; i++) {
                 if (_me.checkLimitMinMaxBet(sportIds[i]) === false) {

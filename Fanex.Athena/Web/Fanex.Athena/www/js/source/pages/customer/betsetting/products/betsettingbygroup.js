@@ -58,8 +58,7 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
                 });
 
                 $("#btnSubmitBetSetting").on("click", function () {
-                    var isValid = _me.isValid();
-                    if (!isValid) {
+                    if (!_me.isValid()) {
                         return;
                     }
 
@@ -68,9 +67,7 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
                     BetSettingBase.showComfirm($(this), messageResource, _me.updateBetSetting);
                 });
 
-                $("#btnReset").on("click", function () {
-                    _me.resetSetting();
-                });
+                $("#btnReset").on("click", _me.resetSetting);
 
                 $("#btnUpdateStatus").click(function () {
                     _me.updateStatus($(this));

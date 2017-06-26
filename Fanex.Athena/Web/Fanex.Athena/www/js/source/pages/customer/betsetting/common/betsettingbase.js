@@ -55,7 +55,7 @@ define(["jquery", "common/site", "common/popup", "./constant", "lib/numberformat
                 var productId = parseInt($("#ProductId").val());
                 var isValid = productId === Product.LiveCasino ? true :
                              (productId === Product.NumberGame ? BetSettingValidation.checkValidationNumberGame() :
-                                                                BetSettingValidation.checkValidation(_me.getSportIds()));
+                                                                BetSettingValidation.checkLimitMinMaxBets(_me.getSportIds()));
                 if (!isValid) {
                     return;
                 }
@@ -155,14 +155,10 @@ define(["jquery", "common/site", "common/popup", "./constant", "lib/numberformat
                     data: params,
                     dataType: "json",
                     success: function (result) {
-                        _me.showUpdateSettingResult(result);
+                        var messageResource = Number(result.Code) === 0 ? "MessageSuccess" : "Fail";
+                        BetSettingHelper.showDialogMesage(Site.getSingleResource(messageResource), result.Message);
                     }
                 });
-            },
-
-            showUpdateSettingResult: function (result) {
-                var messageResource = Number(result.Code) === 0 ? "MessageSuccess" : "Fail";
-                BetSettingHelper.showDialogMesage(Site.getSingleResource(messageResource), result.Message);
             }
         };
 

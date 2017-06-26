@@ -1,5 +1,10 @@
 ﻿"use strict";
 define(["jquery", "common/site", "common/popup", "lib/jquery.balloon"], function ($, Site, Popup) {
+    
+    function isInteger(text) {
+        return /^\+?\d+$/.test(text);
+    }
+
     var _me = {
         showDialogMesage: function (title, message) {
             var options = {
@@ -34,47 +39,12 @@ define(["jquery", "common/site", "common/popup", "lib/jquery.balloon"], function
             var temp = str.replace(/,/g, "");
             var temp2 = temp.replace(".", "");
 
-            if (_me.isInteger(temp2)) {
+            if (isInteger(temp2)) {
                 return parseFloat(temp);
             }
             else {
                 return NaN;
             }
-        },
-
-        isInteger: function (s) {
-            var i;
-
-            if (_me.isEmpty(s)) {
-                return false;
-            }
-            else {
-                for (i = 0; i < s.length; i++) {
-                    var c = s.charAt(i);
-
-                    if (!_me.isDigit(c)) { return false; }
-                }
-            }
-
-            return true;
-        },
-
-        isDigit: function (c) {
-            return ((c >= "0") && (c <= "9"));
-        },
-
-        isEmpty: function (s) {
-            var empty = ((s == null) || (s.length === 0));
-            if (!empty) {
-                var news = s.replace(" ", "");
-                if (news.length > 0) {
-                    return false;
-                }
-                else {
-                    return true;
-                }
-            }
-            return empty;
         },
 
         showBalloonMsg: function (elementSelector, strMsg) {
