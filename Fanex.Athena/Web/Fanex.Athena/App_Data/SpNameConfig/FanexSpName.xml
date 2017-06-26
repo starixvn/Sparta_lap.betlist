@@ -27,7 +27,7 @@
     <Setting Key="Lrf_LicenseeUserFunctionsDel" SpName="Lrf_LicenseeUserFunctionsDel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_LicenseeUserFunctionsIns" SpName="Lrf_LicenseeUserFunctionsIns" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelCheckBelonging" SpName="Lrf_CustomerSelCheckBelonging" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_LicenseeProductSel" SpName="Lrf_LicenseeProductSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_LicenseeProductSel" SpName="Lrf_LicenseeProductSel_UAT3" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_LicenseeSelBySiteName" SpName="Lrf_LicenseeSelBySiteName" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet">
       <Mapping DataField="LicenseeID" ObjectProperty="Id"/>
       <Mapping DataField="LicenseeName" ObjectProperty="Name"/>
@@ -177,8 +177,8 @@
     <Setting Key="Lrf_CustomerUpdMember_MinMaxBetKN" SpName="Lrf_CustomerUpdMember_MinMaxBetKN" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="TP_User_CustGameType_UpdStakeLevel" SpName="TP_User_CustGameType_UpdStakeLevel" DbName="live_casino" />
     <Setting Key="WriteLog_UserLog_RunSP" SpName="WriteLog_UserLog_RunSP" DbName="DBLOG.bodb_CustomerLog.bodbLicenseeNet" />
-    <Setting Key="Acc_Dep_CustSetting_StatusSettingSelect" SpName="Acc_Dep_CustSetting_StatusSettingSelect" DbName="DBCUST.CustDB.bodbLicenseeNet" />
-    <Setting Key="Acc_Dep_CustSetting_DisableStatUpd" SpName="Acc_Dep_CustSetting_DisableStatUpd" DbName="DBCUST.CustDB.bodbLicenseeNet" />
+    <Setting Key="Acc_Dep_CustSetting_StatusSettingSelect" SpName="Acc_Dep_CustSetting_StatusSettingSelect_UAT3" DbName="DBCUST.CustDB.bodbLicenseeNet" />
+    <Setting Key="Acc_Dep_CustSetting_DisableStatUpd" SpName="Acc_Dep_CustSetting_DisableStatUpd_UAT3" DbName="DBCUST.CustDB.bodbLicenseeNet" />
   </Function>
 
   <Function Name="CustomerSettingsThridParty">
