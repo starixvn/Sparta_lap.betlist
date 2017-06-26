@@ -481,6 +481,11 @@
 
         private static void CreateProductListParameters(IObjectDb db, string productCodeList, IEnumerable<string> supportedProducts = null)
         {
+            if (string.IsNullOrWhiteSpace(productCodeList))
+            {
+                return;
+            }
+
             IEnumerable<string> products = productCodeList.Split(',');
 
             if (supportedProducts != null)
