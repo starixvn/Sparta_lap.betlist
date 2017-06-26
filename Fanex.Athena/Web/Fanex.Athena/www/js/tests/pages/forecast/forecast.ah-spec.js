@@ -2,8 +2,7 @@
     function ($, Site, RefreshCountDown, Popup, ForecastAh) {
         describe("ForecastAh", function () {
             beforeAll(function () {
-                spyOn(Site, "initialize");
-                spyOn(ForecastAh, "resizePopup");
+                spyOn(Site, "initialize");              
                 spyOn(RefreshCountDown, "initialize");
                 spyOn(RefreshCountDown, "initEvent");
                 spyOn(Site, "resolveClientUrl").and.callFake(function (text) {
@@ -17,6 +16,8 @@
             describe("initialize()", function () {
                 it("initEvent() should be called.", function () {
                     spyOn(ForecastAh, "initEvent");
+                    spyOn(ForecastAh, "resizePopup");
+
                     ForecastAh.initialize();
 
                     expect(ForecastAh.initEvent).toHaveBeenCalled();
@@ -68,6 +69,21 @@
                     expect(spyEvent).toHaveBeenTriggered();
                 });
 
+                it("viewBetlist() should not be called when #txtCurrentscore raises event keyup with keyCode <> 13.", function () {
+                    setFixtures('<div id="reportContent"><input id="txtCurrentscore"></input></div>');
+                    appendSetFixtures('<input id="btnCurrentscore" />');
+
+                    var spyEvent = spyOnEvent($('#btnCurrentscore'), 'click');
+
+                    ForecastAh.initEvent();
+                    var e = $.Event('keyup');
+                    e.keyCode = 12;
+                    
+                    $("#txtCurrentscore").trigger(e);
+
+                    expect(spyEvent).not.toHaveBeenTriggered();
+                });
+
                 it("setCurrentScore() should be called when #btnCurrentscore is clicked.", function () {
                     setFixtures('<div id="reportContent"><input id="btnCurrentscore"></input></div>');
                     spyOn(ForecastAh, "setCurrentScore");
@@ -111,6 +127,7 @@
                 beforeAll(function () {
                     setFixtures('<div id="hidden-data" data-match-id="1" data-basecurrency="USD" data-currencyid="20" data-currencyname="UUS"></div>');
                     spyOn(ForecastAh, "initEvent");
+                    spyOn(ForecastAh, "resizePopup");
                     ForecastAh.initialize();
                 });
                 it("Popup.updateCurrentPopup() should be called with correct params.", function () {
@@ -137,6 +154,25 @@
                     ForecastAh.setCurrentScore();
 
                     expect(ForecastAh.loadForecast).toHaveBeenCalledWith('1', '123');
+                });
+
+                it("loadForecast() should not be called if data is invalid", function () {
+                    appendSetFixtures('<div id="reportContent"><a class="view-betlist" data-bettype="123" /></div>');
+                    spyOn(ForecastAh, "loadForecast");
+
+                    ForecastAh.setCurrentScore();
+
+                    expect(ForecastAh.loadForecast).not.toHaveBeenCalled();
+                });
+            });
+
+            describe("resizePopup()", function () {
+                it("Popup.updateCurrentPopup should be called with correct params.", function () {
+                    spyOn(Popup, "updateCurrentPopup");
+
+                    ForecastAh.resizePopup();
+
+                    expect(Popup.updateCurrentPopup).toHaveBeenCalledWith(null, { width: 700, height: 250, title: "Forecast" });
                 });
             });
         });

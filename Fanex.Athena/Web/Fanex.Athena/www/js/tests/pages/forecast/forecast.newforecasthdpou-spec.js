@@ -98,7 +98,9 @@
                     beforeEach(function () {
                         $("#context1").addClass("active");
                         $("#context3").addClass("active");
-                        spyOn($.fn, "slideUp");
+                        spyOn($.fn, "slideUp").and.callFake(function (options) {
+                            options.complete();
+                        });
                     });
 
                     it("slideUp function of jquery should be called with correct parameters", function () {
@@ -137,11 +139,14 @@
 
                         expect(result).toBe("false");
                     });
+
                 });
 
                 describe("Element is collapsing", function () {
                     beforeEach(function () {
-                        spyOn($.fn, "slideDown");
+                        spyOn($.fn, "slideDown").and.callFake(function (options) {
+                            options.complete();
+                        });
                     });
 
                     it("slideUp function of jquery should be called with correct parameters", function () {
@@ -225,6 +230,47 @@
                 it("'#SubmitButton' should not be disable", function () {
                     var result = $("#SubmitButton").prop("disabled");
                     expect(result).toBe(false);
+                });
+            });
+
+            describe("loadMatchList(leagueId)", function () {
+                var request;
+                beforeEach(function (done) {
+                    setFixtures(
+                        '<button id="SubmitButton" disabled="disabled"></button>'
+                        );
+
+                    jasmine.Ajax.install();
+                    jasmine.Ajax
+                        .stubRequest(/NewHandicapOverUnderForecast\/GetMatchListByLeague\?leagueid=1/i)
+                        .andReturn({
+                            'status': 200,
+                            'contentType': 'application/json',
+                            'responseText': '<option>Test</option>'
+                        });
+
+                    NewForecastHdpOu.loadMatchList(1);
+                    request = jasmine.Ajax.requests.mostRecent();
+
+                    setTimeout(done, 10);
+                });
+
+                afterEach(function () {
+                    jasmine.Ajax.uninstall();
+                });
+
+                it("ajax request should be called with correct url", function () {
+                    var url = "NewHandicapOverUnderForecast/GetMatchListByLeague?LeagueId=1";
+                    var expectedUrl = url.replace(/[&|?][^=]*/g, function (match) {
+                        return match.toLowerCase();
+                    });
+
+                    expect(request.url).toBe(expectedUrl);
+                });
+
+                it("'#SubmitButton' should be disable if matchId is undefined", function () {
+                    var result = $("#SubmitButton").prop("disabled");
+                    expect(result).toBe(true);
                 });
             });
 

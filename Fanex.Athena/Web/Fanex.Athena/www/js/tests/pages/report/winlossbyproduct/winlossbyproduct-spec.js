@@ -160,16 +160,6 @@
                     });
                 });
 
-                describe("setReportTitle(currencyId, fromdate, todate, currencyName)", function () {
-                    it("'div.report-title' should be correct", function () {
-                        setFixtures("<div class='report-title' />");
-
-                        WinLossByProduct.setReportTitle(1, new Date("Apr 10, 2015"), new Date("Apr 15, 2015"), "USD");
-
-                        expect($('.report-title').html()).toBe('WinLossByProduct, 04/10/2015 → 04/15/2015 - Viewin');
-                    });
-                });
-
                 describe("ajaxComplete(level, response)", function () {
                     beforeEach(function () {
                         setFixtures("<input type='checkbox' name='ReportBy' checked='checked' value='test' />");
@@ -261,6 +251,53 @@
                     });
                     it("WinLossByProduct.ajaxComplete(level, response) should be called", function () {
                         expect(WinLossByProduct.ajaxComplete).toHaveBeenCalled();
+                    });
+                });
+
+                describe("setReportTitle(currencyId, fromdate, todate, currencyName)", function () {
+                    it("'div.report-title' should be correct  with no product option", function () {
+                        spyOn($, "parseJSON").and.returnValue([]);
+                        setFixtures("<div class='report-title' />");
+
+                        WinLossByProduct.setReportTitle(1, new Date("Apr 10, 2015"), new Date("Apr 15, 2015"), "USD");
+
+                        expect($('.report-title').html()).toBe('WinLossByProduct, 04/10/2015 → 04/15/2015 - Viewin');
+                    });
+
+                    it("'div.report-title' should be correct", function () {
+                        spyOn(Report, "setOriginalProduct");
+                        spyOn(Report, "ValidProducts").and.returnValue(true);
+                        spyOn(Site, "updateOriginalLicenseeOption");
+                        spyOn(WinLossByProduct, "setExcelUrl").and.returnValue(true);
+                        spyOn(WinLossByProduct, "ajaxComplete");
+                        spyOn($.fn, "serializeObject").and.returnValue({
+                            DrawFilter: 1,
+                            CurrencyId: 3,
+                            ReportBy: 0,
+                            FromDate: "01/01/2017",
+                            ToDate: "01/30/2017",
+                            CurrencyName: "USD",
+                            IsExcludedTestData: false
+                        });
+
+                        spyOn($, "ajax").and.callFake(function (options) {
+                            options.success({
+                                ProductOptions: '[{"Code":"SB","Name":"Sportsbook","Status":true},{"Code":"RB","Name":"Racing","Status":false}]',
+                                SystemId: 1,
+                                MemberId: 2
+                            });
+                        }).and.returnValue({
+                            abort: function () { }
+                        });
+                        spyOn($, "parseJSON").and.returnValue([{ "Code": "SB", "Name": "Sportsbook", "Status": true }, { "Code": "RB", "Name": "Racing", "Status": false }]);
+
+                        WinLossByProduct.submit();
+
+                        setFixtures("<div class='report-title' />");
+
+                        WinLossByProduct.setReportTitle(1, new Date("Apr 10, 2015"), new Date("Apr 15, 2015"), "USD");
+
+                        expect($('.report-title').html()).toBe('WinLossByProduct, 04/10/2015 → 04/15/2015 - Viewin, LicenseeW_L(SB)');
                     });
                 });
 
@@ -557,6 +594,46 @@
                         WinLossByProduct.openBetlistPopUp(dataDrillDown);
 
                         expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { id: "betlist-popup", width: 950, height: 250, title: "Customer Bet List" });
+                    });
+                });
+
+                describe("drillDown(level, currencyId, customerId, datetime, currencyName)", function () {
+                    var dateRange = {
+                        FromDate: new Date("01/01/2017"),
+                        ToDate: new Date("30/01/2017")
+                    };
+
+                    beforeAll(function () {
+                        spyOn(Report, "GetDrilldownDateRange").and.returnValue(dateRange);
+                        spyOn(Site, "blockUI");
+                        spyOn(Site, "unBlockUI");
+                        spyOn(WinLossByProduct, "ajaxComplete");
+                        spyOn($, "parseJSON").and.returnValue("[]");
+                        spyOn(JSON, "stringify").and.returnValue("[]");
+                    });
+
+                    it("setExcelUrl and setReportTitle should be called with correct params when level is 1", function () {
+                        var level = 1,
+                            currencyId = 0,
+                            customerId = 1,
+                            datetime = "01/01/2017",
+                            currencyName = "ALL";
+                        spyOn(WinLossByProduct, "setReportTitle");
+                        spyOn(WinLossByProduct, "setExcelUrl");
+                        spyOn($, "ajax").and.callFake(function (options) {
+                            options.beforeSend();
+                            options.success({
+                                Data: [{
+                                    Index: 1
+                                }]
+                            });
+                            options.complete();
+                        });
+
+                        WinLossByProduct.drillDown(level, currencyId, customerId, datetime, currencyName);
+
+                        expect(WinLossByProduct.setExcelUrl).toHaveBeenCalledWith(level, currencyId, customerId, dateRange.FromDate, dateRange.ToDate, currencyName);
+                        expect(WinLossByProduct.setReportTitle).toHaveBeenCalled();
                     });
                 });
             });
