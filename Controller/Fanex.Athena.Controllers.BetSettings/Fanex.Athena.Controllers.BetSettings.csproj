@@ -107,6 +107,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BetradarVsBetSettingController.cs" />
     <Compile Include="VirtualSportsBetSettingController.cs" />
     <Compile Include="KenoBetSettingController.cs" />
     <Compile Include="LiveCasinoBetSettingController.cs" />

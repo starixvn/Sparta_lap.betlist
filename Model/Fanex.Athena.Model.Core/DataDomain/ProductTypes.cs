@@ -47,5 +47,7 @@ namespace Fanex.Athena.Model.Core.DataDomain
         public const int FishingWorld = 24;
 
         public const int CashOut = 25;
+
+        public const int BetradarVirtualSports = 27;
     }
 }

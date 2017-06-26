@@ -933,6 +933,7 @@
     <Content Include="Views\Desktop\Customer\CustomerComm\CreateNewGroup.cshtml" />
     <Content Include="www\css\build\dev\pages\customer\commgroupdetail.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\customer\commgroupdetail.css.map" />
+    <Content Include="Views\Customer\BetSetting\BetradarVirtualSports.cshtml" />
     <None Include="www\css\source\pages\utility\um.scss" />
     <Content Include="www\css\build\images\bg-login.jpg" />
     <Content Include="www\css\build\images\excel-icon.svg" />
