@@ -102,7 +102,7 @@ webpackJsonp([52],{
 	                var productId = parseInt($("#ProductId").val());
 	                var isValid = productId === Product.LiveCasino ? true :
 	                             (productId === Product.NumberGame ? BetSettingValidation.checkValidationNumberGame() :
-	                                                                BetSettingValidation.checkValidation(_me.getSportIds()));
+	                                                                BetSettingValidation.checkLimitMinMaxBets(_me.getSportIds()));
 	                if (!isValid) {
 	                    return;
 	                }
@@ -202,14 +202,10 @@ webpackJsonp([52],{
 	                    data: params,
 	                    dataType: "json",
 	                    success: function (result) {
-	                        _me.showUpdateSettingResult(result);
+	                        var messageResource = Number(result.Code) === 0 ? "MessageSuccess" : "Fail";
+	                        BetSettingHelper.showDialogMesage(Site.getSingleResource(messageResource), result.Message);
 	                    }
 	                });
-	            },
-	
-	            showUpdateSettingResult: function (result) {
-	                var messageResource = Number(result.Code) === 0 ? "MessageSuccess" : "Fail";
-	                BetSettingHelper.showDialogMesage(Site.getSingleResource(messageResource), result.Message);
 	            }
 	        };
 	
@@ -1197,6 +1193,11 @@ webpackJsonp([52],{
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(245)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+	    
+	    function isInteger(text) {
+	        return /^\+?\d+$/.test(text);
+	    }
+	
 	    var _me = {
 	        showDialogMesage: function (title, message) {
 	            var options = {
@@ -1231,47 +1232,12 @@ webpackJsonp([52],{
 	            var temp = str.replace(/,/g, "");
 	            var temp2 = temp.replace(".", "");
 	
-	            if (_me.isInteger(temp2)) {
+	            if (isInteger(temp2)) {
 	                return parseFloat(temp);
 	            }
 	            else {
 	                return NaN;
 	            }
-	        },
-	
-	        isInteger: function (s) {
-	            var i;
-	
-	            if (_me.isEmpty(s)) {
-	                return false;
-	            }
-	            else {
-	                for (i = 0; i < s.length; i++) {
-	                    var c = s.charAt(i);
-	
-	                    if (!_me.isDigit(c)) { return false; }
-	                }
-	            }
-	
-	            return true;
-	        },
-	
-	        isDigit: function (c) {
-	            return ((c >= "0") && (c <= "9"));
-	        },
-	
-	        isEmpty: function (s) {
-	            var empty = ((s == null) || (s.length === 0));
-	            if (!empty) {
-	                var news = s.replace(" ", "");
-	                if (news.length > 0) {
-	                    return false;
-	                }
-	                else {
-	                    return true;
-	                }
-	            }
-	            return empty;
 	        },
 	
 	        showBalloonMsg: function (elementSelector, strMsg) {
@@ -1674,10 +1640,6 @@ webpackJsonp([52],{
 	            return true;
 	        },
 	
-	        checkValidation: function (sportIds) {
-	            return _me.checkLimitMinMaxBets(sportIds);
-	        },
-	
 	        checkLimitMinMaxBets: function (sportIds) {
 	            for (var i = 0; i < sportIds.length; i++) {
 	                if (_me.checkLimitMinMaxBet(sportIds[i]) === false) {
@@ -1771,35 +1733,32 @@ webpackJsonp([52],{
 	
 	    var _me = {
 	        checkCopyAllValues: function ($checkbox) {
-	            var arrayItemMinBet = $('input[id^="min"]');
-	            var arrayItemMaxBet = $('input[id^="max-bet"]');
-	            var arrayItemMaxPerBet = $('input[id^="max-per"]');
-	            var enable = $checkbox.prop("checked");
+	            var enabled = $checkbox.prop("checked");
 	
-	            _me.setCopyValueBetSetting(arrayItemMinBet, enable);
-	            _me.setCopyValueBetSetting(arrayItemMaxBet, enable);
-	            _me.setCopyValueBetSetting(arrayItemMaxPerBet, enable);
+	            _me.setCopyValueBetSetting($('input[id^="min"]'), enabled);
+	            _me.setCopyValueBetSetting($('input[id^="max-bet"]'), enabled);
+	            _me.setCopyValueBetSetting($('input[id^="max-per"]'), enabled);
 	        },
 	
-	        setCopyValueBetSetting: function ($elementList, enabled) {
-	            var copyValue = $elementList.first().val();
+	        setCopyValueBetSetting: function ($inputTextList, enabled) {
+	            var copyValue = $inputTextList.first().val();
 	
-	            // Enable or disable textbox, except the first
-	            $elementList.not(':eq(0)').each(function () {
+	            // Enable or disable textbox, except the first one
+	            $inputTextList.not(':eq(0)').each(function () {
 	                $(this).prop('disabled', enabled);
 	            });
 	
 	            var productId = parseInt($("#ProductId").val());
 	            var firstSportId = productId === Product.Sportsbook ? 1 :
 	                            (productId === Product.Keno ? _sportIds[0] : "151_41");
-	            // Check limit min max bet
+	
 	            if (!BetSettingValidation.checkLimitMinMaxBet(firstSportId)) {
 	                return false;
 	            }
 	
 	            if (enabled) {
 	                // Copy value to textboxes
-	                $elementList.not(':eq(0)').each(function () {
+	                $inputTextList.not(':eq(0)').each(function () {
 	                    $(this).val(copyValue);
 	                });
 	            }
