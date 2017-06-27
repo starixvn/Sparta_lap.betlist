@@ -22,7 +22,7 @@ namespace Fanex.Athena.Model.Report.MetaModel
             CurrencyId = 0;
             DrawFilter = DataDomain.DrawFilterType.Normal;
             PlatformType = DataDomain.PlatformType.All;
-            IsExcludeTest = true;
+            IsExcludeTestData = true;
         }
 
         public int Level { get; set; }
@@ -49,7 +49,7 @@ namespace Fanex.Athena.Model.Report.MetaModel
 
         public int PlatformType { get; set; }
 
-        public bool IsExcludeTest { get; set; }
+        public bool IsExcludeTestData { get; set; }
 
         public override bool IsValid
         {
