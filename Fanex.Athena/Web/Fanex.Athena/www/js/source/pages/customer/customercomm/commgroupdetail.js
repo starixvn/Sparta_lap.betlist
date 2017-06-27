@@ -12,8 +12,7 @@
 
          function initEvent() {
              $("#GroupName").keyup(function () {
-                 $("#GroupName").removeClass("invalid");
-                 $("#GroupName").removeClass("valid");
+                 $("#GroupName").removeClass("invalid valid");
                  $("#Add").prop("disabled", false);
              });
 
@@ -53,25 +52,21 @@
          }
 
          function checkAvailableGroup(groupName) {
-             //Check empty group name
              if (groupName.length < 1) {
                  displayGroupNameError(Site.getSingleResource("GroupNameNotEmptyMsg"));
                  return;
              }
 
-             //Check if group name lengh greater than 100.
              if (groupName.length >= 100) {
                  displayGroupNameError(Site.getSingleResource("GroupNameNotExceed100CharactersMsg"));
                  return;
              }
 
-             //Check if group name is "none".
              if ($.trim(groupName).toLowerCase() === "none") {
                  displayGroupNameError(Site.getSingleResource("ChooseGroupNameMsg"));
                  return;
              }
 
-             // Check valid group name (allow characters and number only).
              if (!groupName.match("^[a-zA-Z0-9 ]+$")) {
                  displayGroupNameError(Site.getSingleResource("GroupNameOnlyContainCharactersAndNumberMsg"));
                  return;

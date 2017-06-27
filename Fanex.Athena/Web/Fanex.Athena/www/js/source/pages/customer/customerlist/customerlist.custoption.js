@@ -32,10 +32,7 @@
             },
 
             closeCustOption: function () {
-                var popup = $(OPTIONLIST_SELECTOR);
-                if (popup.is(":visible")) {
-                    popup.hide();
-                }
+                $(OPTIONLIST_SELECTOR).hide();
             },
 
             viewBetSetting: function () {

@@ -14,8 +14,7 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
         updateBASetting: function ($context) {
             var canUpdateBA = $("#CanUpdateBA").val();
             if (!canUpdateBA) {
-                var canUpdateBAMessage = $("#CanUpdateBAMessage").val();
-                alert(canUpdateBAMessage);
+                alert($("#CanUpdateBAMessage").val());
                 return;
             }
 

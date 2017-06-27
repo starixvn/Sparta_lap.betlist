@@ -8,7 +8,6 @@
             initialize: function () {
                 _state = CustomerListState.getState();
 
-                // bind customer button event
                 $('#MoveToGroup').click(function () {
                     _me.showMoveCustomerToGroup();
                 });
@@ -24,7 +23,6 @@
                     _me.newGroupChanged(this);
                 });
 
-                // Commission dropdownlist change
                 $('#CustSBComm1').on('change', function () {
                     _me.commissionOnChange($(this).val(), 'CustSBComm');
                 });
@@ -272,7 +270,6 @@
                     },
                     success: function (result) {
                         if (result.Success) {
-                            //updated = true;
                             _me.showMsg(Site.getSingleResource('UpdateCommSucessfulMsg'), result.Success);
 
                             CustomerListGrid.updateGridGroupAndComm(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor,
