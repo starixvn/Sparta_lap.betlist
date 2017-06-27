@@ -3007,4 +3007,12 @@
   <data name="CashOutAmount" xml:space="preserve">
     <value>Cash Out Amount</value>
   </data>
+  <data name="Note" xml:space="preserve">
+    <value>Note</value>
+    <comment>78931</comment>
+  </data>
+  <data name="SystemParlayDetailNote" xml:space="preserve">
+    <value>Win Loss is rounded for reference only. Therefore, Sub Total amount may be different from the sum of Win Loss when it sums all the actual Win Loss amounts.</value>
+    <comment>78931</comment>
+  </data>
 </root>

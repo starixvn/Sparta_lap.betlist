@@ -11,6 +11,13 @@
     <link href="@Url.ContentLink("/Content/BetList/systemparlaydetail.css")" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    @Html.Raw(Model.DetailText)
+    <div class="content-data">
+        @Html.Raw(Model.DetailText)
+    </div>
+
+    <div class="note-block">
+        <p class="text-bold"><span class="red-text">* </span>@ViewResources.Note</p>
+        <p>@ViewResources.SystemParlayDetailNote</p>
+    </div>
 </body>
 </html>

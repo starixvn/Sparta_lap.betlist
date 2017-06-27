@@ -45,3 +45,19 @@
 {
     background-color: #B2DFEF;
 }
+
+.note-block{
+    margin-top: 10px;
+}
+
+.note-content{
+    font-weight: bold;
+}
+
+.asterisk{
+    color: red;
+}
+
+.text-content{
+    font-size: 12px;
+}
