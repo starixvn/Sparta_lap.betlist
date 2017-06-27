@@ -5725,8 +5725,7 @@ webpackJsonp([56],{
 	        updateBASetting: function ($context) {
 	            var canUpdateBA = $("#CanUpdateBA").val();
 	            if (!canUpdateBA) {
-	                var canUpdateBAMessage = $("#CanUpdateBAMessage").val();
-	                alert(canUpdateBAMessage);
+	                alert($("#CanUpdateBAMessage").val());
 	                return;
 	            }
 	
@@ -6005,7 +6004,6 @@ webpackJsonp([56],{
 	            initialize: function () {
 	                _state = CustomerListState.getState();
 	
-	                // bind customer button event
 	                $('#MoveToGroup').click(function () {
 	                    _me.showMoveCustomerToGroup();
 	                });
@@ -6021,7 +6019,6 @@ webpackJsonp([56],{
 	                    _me.newGroupChanged(this);
 	                });
 	
-	                // Commission dropdownlist change
 	                $('#CustSBComm1').on('change', function () {
 	                    _me.commissionOnChange($(this).val(), 'CustSBComm');
 	                });
@@ -6269,7 +6266,6 @@ webpackJsonp([56],{
 	                    },
 	                    success: function (result) {
 	                        if (result.Success) {
-	                            //updated = true;
 	                            _me.showMsg(Site.getSingleResource('UpdateCommSucessfulMsg'), result.Success);
 	
 	                            CustomerListGrid.updateGridGroupAndComm(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor,
@@ -6463,10 +6459,7 @@ webpackJsonp([56],{
 	            },
 	
 	            closeCustOption: function () {
-	                var popup = $(OPTIONLIST_SELECTOR);
-	                if (popup.is(":visible")) {
-	                    popup.hide();
-	                }
+	                $(OPTIONLIST_SELECTOR).hide();
 	            },
 	
 	            viewBetSetting: function () {

@@ -1748,11 +1748,8 @@ webpackJsonp([52],{
 	                $(this).prop('disabled', enabled);
 	            });
 	
-	            var productId = parseInt($("#ProductId").val());
-	            var firstSportId = productId === Product.Sportsbook ? 1 :
-	                            (productId === Product.Keno ? _sportIds[0] : "151_41");
-	
-	            if (!BetSettingValidation.checkLimitMinMaxBet(firstSportId)) {
+	            var firstSportsbookSportId = 1;
+	            if (!BetSettingValidation.checkLimitMinMaxBet(firstSportsbookSportId)) {
 	                return false;
 	            }
 	

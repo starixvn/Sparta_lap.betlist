@@ -25,7 +25,9 @@ webpackJsonp([55],{
 	    }
 	
 	    function setPageTitle(title) {
-	        $("#page-title", window.parent.document).text(title);
+	        if (isParentSameOrigin) {
+	            $("#page-title", window.parent.document).text(title);
+	        }
 	    }
 	
 	    function isParentSameOrigin() {
