@@ -1400,6 +1400,7 @@
     <Content Include="www\js\tests\extensions\jquery.extension-spec.js" />
     <Content Include="www\js\tests\helpers\daterange-spec.js" />
     <Content Include="www\js\source\helpers\excel.js" />
+    <Content Include="www\js\tests\helpers\excel-spec.js" />
     <Content Include="www\js\tests\helpers\sortableheader-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlist-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlistcancelledbets-spec.js" />
