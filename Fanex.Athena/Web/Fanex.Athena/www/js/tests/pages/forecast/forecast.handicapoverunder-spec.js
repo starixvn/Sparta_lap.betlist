@@ -65,12 +65,16 @@
             describe("openForecast(matchId, betType)", function () {
                 it("Popup.openPopupWithIframe() should be called with correct params.", function () {
                     spyOn(Popup, "openPopupWithIframe");
+                    var url = "AhForecast/Index?matchid=123&bettype=456&CurrencyName=";
+                    var expectedUrl = url.replace(/[&|?][^=]*/g, function (match) {
+                        return match.toLowerCase();
+                    });
 
                     ForecastHDPOU.initialize();
 
                     ForecastHDPOU.openForecast(123, 456);
 
-                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith("AhForecast/Index?matchid=123&bettype=456&CurrencyName=",
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(expectedUrl,
                         { width: 700, height: 250, title: 'Forecast', id: 'forecast-dialog' });
                 });
             });

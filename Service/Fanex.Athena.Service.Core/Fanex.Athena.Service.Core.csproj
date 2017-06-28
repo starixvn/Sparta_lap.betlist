@@ -91,7 +91,7 @@
       <HintPath>..\..\DLLs\ONEbook.Security\ONEbook.Security.dll</HintPath>
     </Reference>
     <Reference Include="RSACryptoPad, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\RSACryptoPad_ReUpLoad.1.0.0.0\lib\net40\RSACryptoPad.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.RSACryptoPad.1.0\lib\net40\RSACryptoPad.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SPSRemoting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

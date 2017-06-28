@@ -81,12 +81,15 @@
 
                     var queryString = "matchid=1&bettype=2&CurrencyId=2&CurrencyName=uus&BaseCurrency=3";
                     var url = "AhForecast/Index?" + queryString;
+                    var expectedUrl = url.replace(/[&|?][^=]*/g, function (match) {
+                        return match.toLowerCase();
+                    });
                     spyOn(Popup, "openPopupWithIframe");
 
                     HandicapOU.viewForecast(1, 2);
                     var option = { width: 700, height: 250, title: "Forecast", id: "forecast-dialog" };
 
-                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, option);
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(expectedUrl, option);
                 });
             });
 

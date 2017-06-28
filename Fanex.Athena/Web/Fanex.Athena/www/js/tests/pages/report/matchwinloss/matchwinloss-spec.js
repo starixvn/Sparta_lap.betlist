@@ -2,6 +2,14 @@
     "components/pluginhelper/multiselect", "pages/report/matchwinloss/matchwinloss", "extensions/jquery.extension"],
     function ($, Site, QueryString, DatePicker, GridHelper, MultiSelect, MatchWinLoss) {
         describe("MatchWinLoss", function () {
+            function transformQueryParamNameToLowerCase(url) {
+                var paramNameRegex = /[&|?][^=]*/g;
+
+                return url.replace(paramNameRegex, function (match) {
+                    return match.toLowerCase();
+                });
+            }
+
             beforeAll(function () {
                 spyOn(Site, "getSingleResource").and.callFake(function (resource) { return resource; });
                 spyOn(Site, "resolveClientUrl").and.callFake(function (url) { return url; });
@@ -352,9 +360,10 @@
                 });
 
                 it("data-bettype is 1, IsLive param has empty value - Site.redirect(url) should be called with correct parameter", function () {
-                    var expectedParam = "MatchWinlossBetList/MatchBetType?fromdate=05/01/2017&date=05/01/2017" +
+                    var param = "MatchWinlossBetList/MatchBetType?fromdate=05/01/2017&date=05/01/2017" +
                         "&matchid=2&leagueid=1&raceno=&bettype=1&LiveIndicator=&homeid=10&awayid=11" +
                         "&ProductOptions[0].Code=SB&ProductOptions[0].Name=SB&ProductOptions[0].Status=true";
+                    var expectedParam = transformQueryParamNameToLowerCase(param);
                     var element = document.getElementById("parent");
 
                     MatchWinLoss.viewMatchWinlossBetList(element);
@@ -363,9 +372,10 @@
                 });
 
                 it("data-bettype is 86, IsLive param has value - Site.redirect(url) should be called with correct parameter", function () {
-                    var expectedParam = "MatchWinlossBetList/MatchBetType?fromdate=05/01/2017&date=05/01/2017" +
+                    var param = "MatchWinlossBetList/MatchBetType?fromdate=05/01/2017&date=05/01/2017" +
                         "&matchid=2&leagueid=1&raceno=&bettype=86&LiveIndicator=true&homeid=10&awayid=11" +
                         "&ProductOptions[0].Code=SB&ProductOptions[0].Name=SB&ProductOptions[0].Status=true";
+                    var expectedParam = transformQueryParamNameToLowerCase(param);
                     var element = document.getElementById("child1");
 
                     MatchWinLoss.viewMatchWinlossBetList(element);
@@ -374,9 +384,10 @@
                 });
 
                 it("data-bettype is undefined, bettype will be 0 and IsLive param has empty value - Site.redirect(url) should be called with correct parameter", function () {
-                    var expectedParam = "MatchWinlossBetList/MatchBetType?fromdate=05/01/2017&date=05/01/2017" +
+                    var param = "MatchWinlossBetList/MatchBetType?fromdate=05/01/2017&date=05/01/2017" +
                         "&matchid=2&leagueid=1&raceno=&bettype=0&LiveIndicator=&homeid=10&awayid=11" +
                         "&ProductOptions[0].Code=SB&ProductOptions[0].Name=SB&ProductOptions[0].Status=true";
+                    var expectedParam = transformQueryParamNameToLowerCase(param);
                     var element = document.getElementById("child2");
 
                     MatchWinLoss.viewMatchWinlossBetList(element);
@@ -404,8 +415,9 @@
                 });
 
                 it("bettype value is not 10 - Site.redirect(url) should be called with correct parameter", function () {
-                    var expectedParam = "MatchWinlossBetList/MixParlay?fromdate=05/01/2017&todate=05/01/2017&bettype=1" +
+                    var param = "MatchWinlossBetList/MixParlay?fromdate=05/01/2017&todate=05/01/2017&bettype=1" +
                         "&ProductOptions[0].Code=SB&ProductOptions[0].Name=SB&ProductOptions[0].Status=true&showSB=true";
+                    var expectedParam = transformQueryParamNameToLowerCase(param);
                     var bettype = 1;
 
                     MatchWinLoss.viewOutrightMixParlay(bettype);
@@ -414,8 +426,9 @@
                 });
 
                 it("bettype value is 10 - Site.redirect(url) should be called with correct parameter", function () {
-                    var expectedParam = "MatchWinlossBetList/Outright?fromdate=05/01/2017&todate=05/01/2017&bettype=10" +
+                    var param = "MatchWinlossBetList/Outright?fromdate=05/01/2017&todate=05/01/2017&bettype=10" +
                         "&ProductOptions[0].Code=SB&ProductOptions[0].Name=SB&ProductOptions[0].Status=true&showSB=true";
+                    var expectedParam = transformQueryParamNameToLowerCase(param);
                     var bettype = 10;
 
                     MatchWinLoss.viewOutrightMixParlay(bettype);

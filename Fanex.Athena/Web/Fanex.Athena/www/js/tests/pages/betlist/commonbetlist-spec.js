@@ -43,6 +43,14 @@
             });
 
             describe("exportToExcel()", function () {
+                function transformQueryParamNameToLowerCase(url) {
+                    var paramNameRegex = /[&|?][^=]*/g;
+
+                    return url.replace(paramNameRegex, function (match) {
+                        return match.toLowerCase();
+                    });
+                }
+
                 beforeEach(function () {
                     appendSetFixtures('<input id="ExportToExcel" type="button" />');
                     appendSetFixtures('<input id="IsExportAll" value="1" />');
@@ -83,19 +91,21 @@
                 it("url to export excel should be correct with no sort param", function () {
                     spyOn(BetList, "getSortParams").and.returnValue(null);
                     var url = "http://localhost?PageIndex=1&PageSize=50&IsServerPaging=true&IsExportExcel=true";
+                    var expectedUrl = transformQueryParamNameToLowerCase(url);
 
                     CommonBetList.exportToExcel();
 
-                    expect(Site.redirect).toHaveBeenCalledWith(url);
+                    expect(Site.redirect).toHaveBeenCalledWith(expectedUrl);
                 });
 
                 it("url to export excel should be correct with sort param", function () {
                     spyOn(BetList, "getSortParams").and.returnValue({ SortBy: "Index", SortOrder: "asc" });
                     var url = "http://localhost?PageIndex=1&PageSize=50&IsServerPaging=true&SortBy=Index&SortOrder=asc&IsExportExcel=true";
+                    var expectedUrl = transformQueryParamNameToLowerCase(url);
 
                     CommonBetList.exportToExcel();
 
-                    expect(Site.redirect).toHaveBeenCalledWith(url);
+                    expect(Site.redirect).toHaveBeenCalledWith(expectedUrl);
                 });
             });
         });

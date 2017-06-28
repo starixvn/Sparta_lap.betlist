@@ -1,6 +1,14 @@
 ﻿define(['jquery', 'common/site', 'components/refreshcountdown', 'common/popup', 'pages/forecast/forecast.onextwo'],
     function ($, Site, RefreshCountDown, Popup, ForecastOneXTwo) {
         describe("ForecastOneXTwo", function () {
+            function transformQueryParamNameToLowerCase(url) {
+                var paramNameRegex = /[&|?][^=]*/g;
+
+                return url.replace(paramNameRegex, function (match) {
+                    return match.toLowerCase();
+                });
+            }
+
             beforeAll(function () {
                 spyOn(Site, "initialize");
                 spyOn(ForecastOneXTwo, "resizePopup");
@@ -68,33 +76,38 @@
                 it("Popup.updateCurrentPopup() should be called with correct params if it is a popup.", function () {
                     setFixtures('<input type="text" id="IsPopUp" value="true" />');
                     spyOn(Popup, "updateCurrentPopup");
+                    var url = "RunningMatchBetList/Index?matchid=123&bettype=456";
+                    var expectedUrl = transformQueryParamNameToLowerCase(url);
 
                     ForecastOneXTwo.initialize();
 
                     ForecastOneXTwo.openForecast(123, 456);
 
-                    expect(Popup.updateCurrentPopup).toHaveBeenCalledWith("RunningMatchBetList/Index?matchid=123&bettype=456",
+                    expect(Popup.updateCurrentPopup).toHaveBeenCalledWith(expectedUrl,
                         { width: 900, height: 200, title: 'BetList' });
                 });
 
                 it("Site.redirect() should be called with correct params if it is not a popup.", function () {
                     spyOn(Site, "redirect");
+                    var url = "RunningMatchBetList/Index?CurrencyName=&matchid=123&bettype=456";
+                    var expectedUrl = transformQueryParamNameToLowerCase(url);
 
                     ForecastOneXTwo.initialize();
 
                     ForecastOneXTwo.openForecast(123, 456);
 
-                    expect(Site.redirect).toHaveBeenCalledWith("RunningMatchBetList/Index?CurrencyName=&matchid=123&bettype=456");
+                    expect(Site.redirect).toHaveBeenCalledWith(expectedUrl);
                 });
             });
 
             describe("getBetListUrl(url, matchId, betType)", function () {
                 it("Popup.updateCurrentPopup() should be called with correct params if it is a popup.", function () {
                     setFixtures('<input type="text" id="CurrencyId-Hidden" value="2" /> <input type="text" id="BaseCurrency-Hidden" value="3" />');
-
                     var url = ForecastOneXTwo.getBetListUrl("localhost", 123, 456);
+                    var originUrl = "localhost?CurrencyId=2&BaseCurrency=3&matchid=123&bettype=456";
+                    var expectedUrl = transformQueryParamNameToLowerCase(originUrl);
 
-                    expect(url).toBe("localhost?CurrencyId=2&BaseCurrency=3&matchid=123&bettype=456");
+                    expect(url).toBe(expectedUrl);
                 });
             });
 

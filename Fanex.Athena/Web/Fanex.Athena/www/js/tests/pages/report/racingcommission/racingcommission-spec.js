@@ -163,7 +163,11 @@
 
                 it("Site.redirect(url) should be called with correct parameter", function () {
                     var url = "RacingCommissionBetList/Index?basecurrency=1&fromdate=03/01/2017&todate=03/31/2017&custid=1&systemId=2&externalId=3";
-                    expect(Site.redirect).toHaveBeenCalledWith(url);
+                    var expectedUrl = url.replace(/[&|?][^=]*/g, function (match) {
+                        return match.toLowerCase();
+                    });
+
+                    expect(Site.redirect).toHaveBeenCalledWith(expectedUrl);
                 });
             });
 

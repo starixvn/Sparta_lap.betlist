@@ -2,6 +2,14 @@
     ['jquery', 'common/site', 'common/querystring', 'pages/betlist/betlist', 'components/pluginhelper/daterangepicker', 'pages/betlist/betlistdaily'],
     function ($, Site, QueryString, BetList, DatePicker, BetListDaily) {
         describe("BetListDaily", function () {
+            function transformQueryParamNameToLowerCase(url) {
+                var paramNameRegex = /[&|?][^=]*/g;
+
+                return url.replace(paramNameRegex, function (match) {
+                    return match.toLowerCase();
+                });
+            }
+
             beforeAll(function () {
                 spyOn(Site, "getSingleResource").and.callFake(function (text) {
                     return text;
@@ -103,7 +111,8 @@
                     spyOn(Site, "initialize");
                     spyOn(Site, "setLicenseeOptionParam").and.callFake(function (url) { return url + "?currencyid=1&basecurrency=EUR" });
                     spyOn(BetList, "loadDataPaging");
-                    var expectedUrl = "api/DailyBetList/index?currencyid=1&basecurrency=EUR&productCode=2&status=won&date=03/28/2017";
+                    var url = "api/DailyBetList/index?currencyid=1&basecurrency=EUR&productCode=2&status=won&date=03/28/2017";
+                    var expectedUrl = transformQueryParamNameToLowerCase(url);
 
                     BetListDaily.submit();
 
@@ -124,7 +133,8 @@
                     spyOn(Site, "setLicenseeOptionParam").and.callFake(function (url) { return url + "?currencyid=1&basecurrency=EUR" });
                     spyOn(BetList, "getSortParams").and.returnValue({ SortBy: "test-column", SortOrder: "asc" });
 
-                    var expectedUrl = "localhost?currencyid=1&basecurrency=EUR&IsExportExcel=true&date=03/28/2017&productCode=2&DailyBetListStatus=won&PageIndex=1&PageSize=10&SortBy=test-column&SortOrder=asc";
+                    var url = "localhost?currencyid=1&basecurrency=EUR&IsExportExcel=true&date=03/28/2017&productCode=2&DailyBetListStatus=won&PageIndex=1&PageSize=10&SortBy=test-column&SortOrder=asc";
+                    var expectedUrl = transformQueryParamNameToLowerCase(url);
 
                     BetListDaily.exportToExcel();
 

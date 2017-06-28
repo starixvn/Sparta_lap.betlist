@@ -68,13 +68,16 @@
 
                     var queryString = "matchid=1&bettype=2&ispopup=true&CurrencyId=2&CurrencyName=uus&BaseCurrency=3";
                     var url = "OneXTwoForecast/Popup?" + queryString;
+                    var expectedUrl = url.replace(/[&|?][^=]*/g, function (match) {
+                        return match.toLowerCase();
+                    });
                     window.innerHeight = 500;
                     spyOn(Popup, "openPopupWithIframe");
 
                     OddEvenDND.viewForecast1X2(1, 2);
                     var option = { width: 700, height: 400, title: "Forecast - OneXTwo", id: "forecast-dialog" };
 
-                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, option);
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(expectedUrl, option);
                 });
             });
 

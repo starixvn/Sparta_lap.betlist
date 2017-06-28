@@ -188,8 +188,11 @@
 
                 spyOn(Site, "getCurrentUrl");
                 spyOn(Site, "setLicenseeOptionOriginalParam").and.returnValue("localhost-test?currencyid=7&currencyname=eur&basecurrency=eur");
-                var expectedUrl = "localhost-test?currencyid=7&currencyname=eur&basecurrency=eur&LeagueId=1&MatchId=2&BetType=3&CurrentScore=4&" +
+                var url = "localhost-test?currencyid=7&currencyname=eur&basecurrency=eur&LeagueId=1&MatchId=2&BetType=3&CurrentScore=4&" +
                     "IsShowFt=true&IsShowFh=true&HomeTeamId=10&AwayTeamId=11";
+                var expectedUrl = url.replace(/[&|?][^=]*/g, function (match) {
+                    return match.toLowerCase();
+                });
 
                 var result = RefreshCountDown.calculateUrl();
 
