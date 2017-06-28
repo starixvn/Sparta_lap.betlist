@@ -8,7 +8,7 @@ define(["jquery", "common/site", "common/popup", "lib/jquery.balloon"], function
     var _me = {
         showDialogMesage: function (title, message) {
             var options = {
-                title: Site.getSingleResource("Confirmation"),
+                title: title,
                 height: "auto",
                 id: "result-update-betsetting",
                 onOpen: function () {
