@@ -1,5 +1,13 @@
 ﻿define(['jquery', "common/popup", 'common/site', 'components/selectlist'], function ($, Popup, Site) {
     describe("Site", function () {
+        function transformQueryParamNameToLowerCase(url) {
+            var paramNameRegex = /[&|?][^=]*/g;
+
+            return url.replace(paramNameRegex, function (match) {
+                return match.toLowerCase();
+            });
+        }
+
         describe("getLicenseeId()", function () {
             it("return a correct value", function () {
                 setFixtures('<input id="LicenseeId" value="2" />');
@@ -47,8 +55,12 @@
             });
 
             it("return an url with query string if 'urlOrParams' is a string", function () {
+                var url = "localhost?CurrencyId=1&CurrencyName=&BaseCurrency=USD";
+                var expectedUrl = transformQueryParamNameToLowerCase(url);
+
                 var result = Site.setLicenseeOptionParam("localhost");
-                expect(result).toBe("localhost?CurrencyId=1&CurrencyName=&BaseCurrency=USD");
+
+                expect(result).toBe(expectedUrl);
             });
 
             it("return an object with query string if 'urlOrParams' is an object", function () {
@@ -58,26 +70,35 @@
 
             it("url should return correct value when currency name not in option tag", function () {
                 $("#CurrencyId").html("");
+                var url = "localhost?CurrencyName=AAA&BaseCurrency=USD";
+                var expectedUrl = transformQueryParamNameToLowerCase(url);
 
                 var result = Site.setLicenseeOptionParam("localhost");
-                expect(result).toBe("localhost?CurrencyName=AAA&BaseCurrency=USD");
+
+                expect(result).toBe(expectedUrl);
             });
         });
 
         describe("setLicenseeOptionOriginalParam(urlOrParams)", function () {
             it("build an url from 'data-original' attributes of html tags", function () {
                 setFixtures('<select id="CurrencyId" data-original="2" /> <input id="BaseCurrency" data-original="USD" />');
+                var url = "localhost?CurrencyId=2&CurrencyName=&BaseCurrency=USD";
+                var expectedUrl = transformQueryParamNameToLowerCase(url);
 
                 var result = Site.setLicenseeOptionOriginalParam("localhost");
-                expect(result).toBe("localhost?CurrencyId=2&CurrencyName=&BaseCurrency=USD");
+
+                expect(result).toBe(expectedUrl);
             });
 
             it("url should return correct value when currency name not in option tag", function () {
                 setFixtures('<select id="CurrencyId" data-original="2"></select>' +
                     '<input id="CurrencyName" value="AAA" /> <input id="BaseCurrency" data-original="USD" />');
+                var url = "localhost?CurrencyId=2&CurrencyName=AAA&BaseCurrency=USD";
+                var expectedUrl = transformQueryParamNameToLowerCase(url);
 
                 var result = Site.setLicenseeOptionOriginalParam("localhost");
-                expect(result).toBe("localhost?CurrencyId=2&CurrencyName=AAA&BaseCurrency=USD");
+
+                expect(result).toBe(expectedUrl);
             });
         });
 
@@ -94,8 +115,12 @@
 
         describe("setProductOptionParam(url, counter, productCode, status)", function () {
             it("build an url with production options", function () {
+                var url = "localhost?ProductOptions[1].Code=SB&ProductOptions[1].Name=SB&ProductOptions[1].Status=true";
+                var expectedUrl = transformQueryParamNameToLowerCase(url);
+
                 var result = Site.setProductOptionParam("localhost", 1, "SB", true);
-                expect(result).toBe("localhost?ProductOptions[1].Code=SB&ProductOptions[1].Name=SB&ProductOptions[1].Status=true");
+
+                expect(result).toBe(expectedUrl);
             });
         });
 
@@ -328,7 +353,8 @@
             it("url should return correct value", function () {
                 setFixtures('<input id="FromDate" data-original="1/1/2017" /> <input id="ToDate" data-original="4/13/2017" />');
                 var url = "localhosttest";
-                var expectedResult = "localhosttest?FromDate=1/1/2017&ToDate=4/13/2017";
+                var result = "localhosttest?FromDate=1/1/2017&ToDate=4/13/2017";
+                var expectedResult = transformQueryParamNameToLowerCase(result);
 
                 var result = Site.setDateRangeOriginalParam(url);
 
@@ -340,7 +366,8 @@
             it("url should return correct value", function () {
                 setFixtures('<input id="FromDate" value="1/1/2017" /> <input id="ToDate" value="4/13/2017" />');
                 var url = "localhosttest";
-                var expectedResult = "localhosttest?FromDate=1/1/2017&ToDate=4/13/2017";
+                var result = "localhosttest?FromDate=1/1/2017&ToDate=4/13/2017";
+                var expectedResult = transformQueryParamNameToLowerCase(result);
 
                 var result = Site.setDateRangeParam(url);
 
@@ -356,10 +383,11 @@
             });
 
             it("param is query string - url should return correct value", function () {
-                var url = "localhosttest";
-                var expectedUrl = "localhosttest?ProductOptions[0].Code=SB&ProductOptions[0].Name=SB&ProductOptions[0].Status=true";
+                var host = "localhosttest";
+                var url = "localhosttest?ProductOptions[0].Code=SB&ProductOptions[0].Name=SB&ProductOptions[0].Status=true";
+                var expectedUrl = transformQueryParamNameToLowerCase(url);
 
-                var result = Site.setProductOptionOriginalParamList(url);
+                var result = Site.setProductOptionOriginalParamList(host);
 
                 expect(result).toBe(expectedUrl);
             });
@@ -385,10 +413,11 @@
             });
 
             it("param is query string - url should return correct value", function () {
-                var url = "localhosttest";
-                var expectedUrl = "localhosttest?ProductOptions[0].Code=SB&ProductOptions[0].Name=SB&ProductOptions[0].Status=true";
+                var host = "localhosttest";
+                var url = "localhosttest?ProductOptions[0].Code=SB&ProductOptions[0].Name=SB&ProductOptions[0].Status=true";
+                var expectedUrl = transformQueryParamNameToLowerCase(url);
 
-                var result = Site.setProductOptionParamList(url);
+                var result = Site.setProductOptionParamList(host);
 
                 expect(result).toBe(expectedUrl);
             });
@@ -538,7 +567,7 @@
 
             it("Popup.openPopup function should be called with correct parameter when exceed range", function () {
                 Site.setConstraintMonthRange(2, "localhost");
-                
+
                 $("#form").submit();
 
                 var expectedParam1 = '<div title="LrfNotification"><p class="notification">Exceed 2!</p></div>';

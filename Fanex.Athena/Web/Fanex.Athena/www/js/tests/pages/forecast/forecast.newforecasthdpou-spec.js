@@ -211,7 +211,12 @@
                 });
 
                 it("ajax request should be called with correct url", function () {
-                    expect(request.url).toBe("NewHandicapOverUnderForecast/GetMatchListByLeague?LeagueId=1");
+                    var url = "NewHandicapOverUnderForecast/GetMatchListByLeague?LeagueId=1";
+                    var expectedUrl = url.replace(/[&|?][^=]*/g, function (match) {
+                        return match.toLowerCase();
+                    });
+
+                    expect(request.url).toBe(expectedUrl);
                 });
                 it("'#DdlMatchId' should be contain correct responsed text", function () {
                     var result = $("#DdlMatchId").html();

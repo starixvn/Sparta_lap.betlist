@@ -83,11 +83,15 @@
                             SortOrder: "abc"
                         };
                     });
+                    var url = "localhost?CurrencyName=&IsExportExcel=true&SortBy=Column1&SortOrder=abc";
+                    var expectedUrl = url.replace(/[&|?][^=]*/g, function (match) {
+                        return match.toLowerCase();
+                    });
 
                     BetListRunningBettypes.initEvent();
                     $("#ExportToExcel").click();
 
-                    expect(Site.redirect).toHaveBeenCalledWith("localhost?CurrencyName=&IsExportExcel=true&SortBy=Column1&SortOrder=abc");
+                    expect(Site.redirect).toHaveBeenCalledWith(expectedUrl);
                 });
             });
 
