@@ -81,7 +81,9 @@
             {
                 Id = 1
             };
-            var tokenInfo = new OneAuthToken { UserID = "1" };
+            var currencies = new OneAuthCurrency[] { new OneAuthCurrency() };
+            var permissions = new OneAuthPermission[] { new OneAuthPermission() };
+            var tokenInfo = new OneAuthToken { UserID = "1", Currency = currencies, Permissions = permissions };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
             _sessionService.UserSession.Returns(x => null);
@@ -204,7 +206,9 @@
 
             var counter = 0;
 
-            var tokenInfo = new OneAuthToken { UserSEQ = 1, UserID = "alex", VendorID = "spondemo" };
+            var currencies = new OneAuthCurrency[] { new OneAuthCurrency() };
+            var permissions = new OneAuthPermission[] { new OneAuthPermission() };
+            var tokenInfo = new OneAuthToken { UserSEQ = 1, UserID = "alex", VendorID = "spondemo", Currency = currencies, Permissions = permissions };
             var userSession = new UserSession
             {
                 UserId = 1,
@@ -263,7 +267,15 @@
 
         private OneAuthToken FakeSessionFixToken(int licenseeId)
         {
-            var tokenInfo = new OneAuthToken { UserSEQ = 1, UserID = "alex", VendorID = "spondemo", ActionLink = "LiceenseeWLReport" };
+            var tokenInfo = new OneAuthToken
+            {
+                UserSEQ = 1,
+                UserID = "alex",
+                VendorID = "spondemo",
+                ActionLink = "LiceenseeWLReport",
+                Currency = new OneAuthCurrency[] { new OneAuthCurrency() },
+                Permissions = new OneAuthPermission[] { new OneAuthPermission() }
+            };
             var userSession = new UserSession
             {
                 UserId = tokenInfo.UserSEQ,

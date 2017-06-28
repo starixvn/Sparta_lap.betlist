@@ -48,7 +48,9 @@
         public void SignIn_NotFoundUser_ReturnErrorNotFoundUser()
         {
             // Arrange
-            var tokenInfo = new OneAuthToken { UserSEQ = 1, UserID = "pgmAlex", SiteName = "spondemo" };
+            var currencies = new OneAuthCurrency[] { new OneAuthCurrency() };
+            var permissions = new OneAuthPermission[] { new OneAuthPermission() };
+            var tokenInfo = new OneAuthToken { UserSEQ = 1, UserID = "pgmAlex", SiteName = "spondemo", Currency = currencies, Permissions = permissions };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
             _userService.GetByUsername(tokenInfo.UserID, Arg.Any<int>()).Returns(x => null);
@@ -70,7 +72,9 @@
             // Arrange
             var counter = 0;
             var exptectedUserId = 10;
-            var tokenInfo = new OneAuthToken { UserSEQ = 1, UserID = "pgmAlex", SiteName = "spondemo" };
+            var currencies = new OneAuthCurrency[] { new OneAuthCurrency() };
+            var permissions = new OneAuthPermission[] { new OneAuthPermission() };
+            var tokenInfo = new OneAuthToken { UserSEQ = 1, UserID = "pgmAlex", SiteName = "spondemo", Currency = currencies, Permissions = permissions };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
             _userService.GetByUsername(tokenInfo.UserID, Arg.Any<int>()).Returns(x => new User { UserID = exptectedUserId });
