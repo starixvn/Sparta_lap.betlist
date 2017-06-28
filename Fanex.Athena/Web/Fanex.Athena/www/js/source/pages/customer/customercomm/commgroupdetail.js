@@ -88,8 +88,7 @@
                  },
                  success: function (result) {
                      if (result === "OK") {
-                         $("#GroupName").removeClass("invalid");
-                         $("#GroupName").addClass("valid");
+                         $("#GroupName").removeClass("invalid").addClass("valid");
                          $("#Add").prop("disabled", false);
                      }
                      else {

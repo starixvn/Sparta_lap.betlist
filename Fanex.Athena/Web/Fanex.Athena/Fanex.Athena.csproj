@@ -1418,6 +1418,10 @@
     <Content Include="www\js\tests\pages\customer\customercomm\commgroupadd-spec.js" />
     <Content Include="www\js\tests\pages\customer\customercomm\commgroupdetail-spec.js" />
     <Content Include="www\js\tests\pages\customer\customercomm\commgrouplist-spec.js" />
+    <Content Include="www\js\tests\pages\customer\customerlist\customerlist.bastatus-spec.js" />
+    <Content Include="www\js\tests\pages\customer\customerlist\customerlist.oddsgroup-spec.js" />
+    <Content Include="www\js\tests\pages\customer\customerlist\customerlist.speciallevel-spec.js" />
+    <Content Include="www\js\tests\pages\customer\customerlist\customerlist.state-spec.js" />
     <Content Include="www\js\tests\pages\customer\customerlog\common.option-spec.js" />
     <Content Include="www\js\tests\pages\customer\customerlog\customerlog.service-spec.js" />
     <Content Include="www\js\tests\pages\customer\customerlog\customersetting\customersetting-spec.js" />
