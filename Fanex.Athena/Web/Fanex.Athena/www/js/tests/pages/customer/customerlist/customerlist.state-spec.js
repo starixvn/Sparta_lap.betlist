@@ -3,13 +3,13 @@
         describe("getState()", function () {
             var state = null;
 
-            if ("state should be initialized if state is not existing", function () {
+            it("state should be initialized if state is not existing", function () {
                 state = CustomerListState.getState();
 
-                expect(state).isNotNull();
+                expect(state).not.toBeNull();
             });
 
-            if ("state should be initialized if state is not existing", function () {
+            it("state should be initialized if state is not existing", function () {
                 state.checkedAllRows = true;
 
                 var newState = CustomerListState.getState();

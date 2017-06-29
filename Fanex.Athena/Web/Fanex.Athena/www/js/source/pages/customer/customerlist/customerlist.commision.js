@@ -189,11 +189,9 @@
                 var selectedCustomers = _state.selectedCustomers;
 
                 for (var custId in selectedCustomers) {
-                    if (selectedCustomers.hasOwnProperty(custId)) {
-                        if (selectedCustomers[custId] !== "0") {
-                            isShowInfo = true;
-                            break;
-                        }
+                    if (selectedCustomers.hasOwnProperty(custId) && selectedCustomers[custId] !== "0") {
+                        isShowInfo = true;
+                        break;
                     }
                 }
 
@@ -327,7 +325,7 @@
                 var groupList = [];
 
                 for (var customerId in checkedCustomers) {
-                    if (checkedCustomers[customerId] > 0) {
+                    if (checkedCustomers.hasOwnProperty(customerId) && checkedCustomers[customerId] > 0) {
                         groupList.push(checkedCustomers[customerId]);
                     }
                 }
