@@ -4,7 +4,9 @@ define(["jquery", "common/site", "./betsetting.helper"], function ($, Site, BetS
 
     var _me = {
         checkValidationNumberGame: function () {
-            if (false === _me.checkLimitMinMaxBet(SPORTID_NUMBERGAME)) { return false; }
+            if (!_me.checkLimitMinMaxBet(SPORTID_NUMBERGAME)) {
+                return false;
+            }
 
             var maxPerBallSelector = "#max-per-ball-161";
             var maxPerBall = BetSettingHelper.convertToFloat($(maxPerBallSelector).val());
@@ -95,7 +97,7 @@ define(["jquery", "common/site", "./betsetting.helper"], function ($, Site, BetS
 
         checkLimitMinMaxBets: function (sportIds) {
             for (var i = 0; i < sportIds.length; i++) {
-                if (_me.checkLimitMinMaxBet(sportIds[i]) === false) {
+                if (!_me.checkLimitMinMaxBet(sportIds[i])) {
                     return false;
                 }
             }
