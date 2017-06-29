@@ -510,4 +510,9 @@ body {
   .system-parlay-detail-container .system-parlay-total td {
     background-color: #B1E0AC; }
 
+.note-block {
+  margin-top: 5px; }
+  .note-block p {
+    margin: 0; }
+
 /*# sourceMappingURL=systemparlaydetail.css.map*/
