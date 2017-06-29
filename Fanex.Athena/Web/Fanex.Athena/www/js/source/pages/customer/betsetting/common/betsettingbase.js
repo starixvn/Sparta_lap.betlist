@@ -2,14 +2,9 @@
 define(["jquery", "common/site", "common/popup", "./constant", "lib/numberformat", "./betsetting.helper", "./betsetting.validation"],
     function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
         var Product = Constant.Product;
-        var _formatter = new NumberFormatter();
-        var _isEnable;
 
         var _me = {
             initialize: function () {
-                var editable = $("#editable").val();
-                _isEnable = !editable || editable === "True";
-
                 $("#product-dropdown").on('change', function (event) {
                     var url = $(this).find("option:selected").data("href");
                     Site.blockUI();
@@ -24,22 +19,26 @@ define(["jquery", "common/site", "common/popup", "./constant", "lib/numberformat
 
             setEnable: function () {
                 var sportIds = _me.getSportIds();
+                var editable = $("#editable").val();
+                var isEnable = !editable || editable === "True";
 
                 for (var i = 0; i < sportIds.length; i++) {
                     var sportId = sportIds[i];
                     var selector = "#min-bet-" + sportId + "," + "#max-bet-" + sportId + "," + "#max-per-match-" + sportId;
-                    $(selector).prop("disabled", !_isEnable);
+                    $(selector).prop("disabled", !isEnable);
                 }
 
-                if (!_isEnable) {
+                if (!isEnable) {
                     $("#btnSubmitBetSetting, #btnReset").prop('disabled', true).addClass("disabled");
                 }
             },
 
             formatInputText: function () {
+                var formatter = new NumberFormatter();
+
                 $("input[type=text]").blur(function () {
                     var inputValue = $(this).val().replace(/,/g, "");
-                    var formattedValue = _formatter.formatNumber(inputValue, { format: "#,###,##0.##" });
+                    var formattedValue = formatter.formatNumber(inputValue, { format: "#,###,##0.##" });
                     $(this).val(formattedValue);
                 });
             },
@@ -64,8 +63,7 @@ define(["jquery", "common/site", "common/popup", "./constant", "lib/numberformat
                 var userName = $target.attr("data-user-name");
                 var nickName = $target.attr("data-nick-name");
 
-                _me.showConfirmAction(Site.getSingleResource(resourceMessage),
-                                    custId, userName, nickName, callback);
+                _me.showConfirmAction(Site.getSingleResource(resourceMessage), custId, userName, nickName, callback);
             },
 
             showConfirmAction: function (message, custId, userName, nickName, callback) {
@@ -111,13 +109,13 @@ define(["jquery", "common/site", "common/popup", "./constant", "lib/numberformat
             },
 
             getBetSettingParams: function (sportId) {
-                var minBetId = $("#min-bet-" + sportId);
-                var maxBetId = $("#max-bet-" + sportId);
-                var maxPerMatchId = $("#max-per-match-" + sportId);
+                var $minbet = $("#min-bet-" + sportId);
+                var $maxbet = $("#max-bet-" + sportId);
+                var $maxPerMatch = $("#max-per-match-" + sportId);
 
-                if (minBetId.length === 0 ||
-                    maxBetId.length === 0 ||
-                    maxPerMatchId.length === 0) {
+                if ($minbet.length === 0 ||
+                    $maxbet.length === 0 ||
+                    $maxPerMatch.length === 0) {
                     return "";
                 }
 
@@ -127,16 +125,16 @@ define(["jquery", "common/site", "common/popup", "./constant", "lib/numberformat
                 var originalMaxPerMatch = $('#max-per-match-' + sportId).attr('data-original');
 
                 // Check if data is changed
-                if (minBetId.val() === originalMinBet
-                    && maxBetId.val() === originalMaxBet
-                    && maxPerMatchId.val() === originalMaxPerMatch) {
+                if ($minbet.val() === originalMinBet
+                    && $maxbet.val() === originalMaxBet
+                    && $maxPerMatch.val() === originalMaxPerMatch) {
                     isUpdate = false;
                 }
 
                 // Data is changed, update it
-                var minBet = BetSettingHelper.convertToFloat(minBetId.val());
-                var maxBet = BetSettingHelper.convertToFloat(maxBetId.val());
-                var maxPerMatcth = BetSettingHelper.convertToFloat(maxPerMatchId.val());
+                var minBet = BetSettingHelper.convertToFloat($minbet.val());
+                var maxBet = BetSettingHelper.convertToFloat($maxbet.val());
+                var maxPerMatcth = BetSettingHelper.convertToFloat($maxPerMatch.val());
 
                 var result = {};
                 result["minbet" + sportId] = minBet;

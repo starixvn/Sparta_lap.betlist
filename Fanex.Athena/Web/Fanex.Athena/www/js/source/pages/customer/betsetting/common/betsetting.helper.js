@@ -58,7 +58,7 @@ define(["jquery", "common/site", "common/popup", "lib/jquery.balloon"], function
         },
         hideBalloonMsg: function (elementSelector) {
             $(elementSelector).hideBalloon();
-        },
+        }
     };
 
     return _me;
