@@ -10,10 +10,10 @@ define(["jquery", "common/site", "./betsetting.helper"], function ($, Site, BetS
                 dataType: "json",
                 success: function (result) {
                     var messageResource = result.IsSuccessful ? "MessageSuccess" : "Fail";
-                    BetSettingHelper.showDialogMesage(Site.getSingleResource(messageResource), result.Message, false);
+                    BetSettingHelper.showDialogMesage(Site.getSingleResource(messageResource), result.Message);
                 },
                 error: function (request, status, err) {
-                    BetSettingHelper.showDialogMesage(Site.getSingleResource("Error"), err, false);
+                    BetSettingHelper.showDialogMesage(Site.getSingleResource("Error"), err);
                 }
             });
         },
@@ -30,7 +30,7 @@ define(["jquery", "common/site", "./betsetting.helper"], function ($, Site, BetS
                 nickname: nickName,
                 status: status,
                 custid: custId
-            }
+            };
         }
     };
 

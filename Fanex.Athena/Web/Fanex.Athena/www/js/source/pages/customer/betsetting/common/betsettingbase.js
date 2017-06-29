@@ -29,7 +29,7 @@ define(["jquery", "common/site", "common/popup", "./constant", "lib/numberformat
                     var sportId = sportIds[i];
                     var selector = "#min-bet-" + sportId + "," + "#max-bet-" + sportId + "," + "#max-per-match-" + sportId;
                     $(selector).prop("disabled", !_isEnable);
-                };
+                }
 
                 if (!_isEnable) {
                     $("#btnSubmitBetSetting, #btnReset").prop('disabled', true).addClass("disabled");
@@ -54,8 +54,8 @@ define(["jquery", "common/site", "common/popup", "./constant", "lib/numberformat
             showComfirm: function ($target, resourceMessage, callback) {
                 var productId = parseInt($("#ProductId").val());
                 var isValid = productId === Product.LiveCasino ? true :
-                             (productId === Product.NumberGame ? BetSettingValidation.checkValidationNumberGame() :
-                                                                BetSettingValidation.checkLimitMinMaxBets(_me.getSportIds()));
+                             productId === Product.NumberGame ? BetSettingValidation.checkValidationNumberGame() :
+                                                                BetSettingValidation.checkLimitMinMaxBets(_me.getSportIds());
                 if (!isValid) {
                     return;
                 }

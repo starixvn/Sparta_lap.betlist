@@ -1,5 +1,5 @@
 ﻿var basePath = "pages/customer/betsetting/common/";
-var modulePath = ["jquery", "common/site", "common/popup", basePath + "betsetting.helper"]
+var modulePath = ["jquery", "common/site", "common/popup", basePath + "betsetting.helper"];
 
 define(modulePath, function ($, Site, Popup, BetSettingHelper) {
     describe("BetSettingHelper", function () {
@@ -133,7 +133,7 @@ define(modulePath, function ($, Site, Popup, BetSettingHelper) {
         describe("showBalloonMsg(elementSelector, strMsg)", function () {
             var showOption;
             beforeEach(function () {
-                setFixtures('<input id="txtForm" />')
+                setFixtures('<input id="txtForm" />');
                 spyOn($.fn, "showBalloon").and.callFake(function (option) { showOption = option; });
                 spyOn($.fn, "hideBalloon");
             });
@@ -144,7 +144,7 @@ define(modulePath, function ($, Site, Popup, BetSettingHelper) {
                 var contents = '<div onclick="hideBalloonMsg(\'' + elementSelector + '\')" style="width:140px;" class="msgerr">' + message + '</div>';
                 var expectedResult = {
                     contents: contents
-                }
+                };
 
                 BetSettingHelper.showBalloonMsg(elementSelector, message);
 

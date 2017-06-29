@@ -1423,6 +1423,7 @@
     <Content Include="www\js\tests\pages\betlist\lastbetmonitoring\lastbet.grid-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\common\betsetting.copy-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\common\betsetting.helper-spec.js" />
+    <Content Include="www\js\tests\pages\customer\betsetting\common\betsetting.status-spec.js" />
     <Content Include="www\js\tests\pages\customer\customercomm\commgroup-spec.js" />
     <Content Include="www\js\tests\pages\customer\customercomm\commgroupedit-spec.js" />
     <Content Include="www\js\tests\pages\customer\customercomm\commgroupadd-spec.js" />
