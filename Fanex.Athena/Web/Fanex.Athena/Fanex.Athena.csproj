@@ -846,16 +846,7 @@
     <Content Include="Views\Desktop\Customer\CustomerComm\GroupCommList.cshtml" />
     <Content Include="Views\Desktop\Customer\CustomerComm\Header.cshtml" />
     <Content Include="Views\Desktop\Customer\CustomerComm\Content.cshtml" />
-    <Content Include="www\css\build\fonts\font-icon\icomoon\demo-files\demo.css" />
-    <Content Include="www\css\build\fonts\font-icon\icomoon\demo-files\demo.js" />
-    <Content Include="www\css\build\fonts\font-icon\icomoon\demo.html" />
-    <Content Include="www\css\build\fonts\font-icon\icomoon\fonts\icomoon.eot" />
-    <Content Include="www\css\build\fonts\font-icon\icomoon\fonts\icomoon.svg" />
-    <Content Include="www\css\build\fonts\font-icon\icomoon\fonts\icomoon.ttf" />
-    <Content Include="www\css\build\fonts\font-icon\icomoon\fonts\icomoon.woff" />
-    <Content Include="www\css\build\fonts\font-icon\icomoon\Read Me.txt" />
     <Content Include="www\css\build\fonts\font-icon\icomoon\selection.json" />
-    <Content Include="www\css\build\fonts\font-icon\icomoon\style.css" />
     <Content Include="www\css\build\images\checked-dark.png" />
     <Content Include="www\css\build\images\checked-light.png" />
     <Content Include="www\css\build\images\transparent.png" />
