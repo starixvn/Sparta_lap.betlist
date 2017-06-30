@@ -1,8 +1,10 @@
-﻿@model Fanex.Athena.Model.BetList.MetaModel.BetListMetaModel
+﻿@model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
 
 @{
     var appSettings = new AppSettings();
-    var minDate = Model.BetListName == "betlist" ? Model.MoveBetsDay.AddDays(1) : appSettings.HistoryDate;
+    var metaModel = Model.Param;
+
+    var minDate = metaModel.BetListName == "betlist" ? metaModel.MoveBetsDay.AddDays(1) : appSettings.HistoryDate;
 
     var viewOptionTextList = new Dictionary<string, string>
     {
@@ -15,7 +17,7 @@
     {
         Value = c.Key,
         Text = c.Value,
-        Selected = c.Key == Model.BetListName
+        Selected = c.Key == metaModel.BetListName
     });
 }
 
@@ -29,7 +31,7 @@
         </div>
 
         <div class="input-field input col l3 m3 s12 calendar date-range">
-            @DesktopRazorHelper.DateRangePicker(Model.FromDate, Model.ToDate, minDate, appSettings.MaxDate)
+            @DesktopRazorHelper.DateRangePicker(metaModel.FromDate, metaModel.ToDate, minDate, appSettings.MaxDate)
         </div>
 
         @DesktopRazorHelper.RenderProductFilter(Model.ProductOptions)
@@ -39,7 +41,7 @@
         </div>
     </div>
 
-    if (Model.BetListName == "dailystatement")
+    if (metaModel.BetListName == "dailystatement")
     {
         <div class="row">
             <div class="col s12">
@@ -51,6 +53,6 @@
         </div>
     }
 
-    <input type="hidden" name="LicenseeId" id="LicenseeId" value="@Model.LicenseeId" />
+    <input type="hidden" name="LicenseeId" id="LicenseeId" value="@metaModel.LicenseeId" />
     <input type="hidden" name="IsExportExcel" id="IsExportExcel" value="" />
 }

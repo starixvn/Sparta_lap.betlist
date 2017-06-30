@@ -9,7 +9,7 @@
             return {
                 CustId: $optionList.data("custid"),
                 SystemId: $optionList.data("systemid"),
-                ExternalId: $optionList.data("externalid"),
+                ExternalId: $optionList.data("externalid")
             };
         }
 

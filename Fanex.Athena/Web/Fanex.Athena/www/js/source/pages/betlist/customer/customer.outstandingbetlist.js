@@ -10,7 +10,13 @@ define(["jquery", "common/site", "common/querystring", "pages/report/report", ".
                 "betlistrunning": { title: Site.getSingleResource("BetListRunning"), hiddenColumn: "externalid,systemid,winloss,licenseewl", submit: _me.submitRunningBetList },
                 "betlist": { title: Site.getSingleResource("BetList"), hiddenColumn: "externalid,systemid", submit: _me.submitCompletedBetList },
                 "dailystatement": { title: Site.getSingleResource("DailyStatement"), hiddenColumn: "externalid,systemid", submit: _me.submitDailyStatementBetList }
-            }
+            };
+        }
+
+        function setProductOptionParamList(params) {
+            var productCodeList = $("#grid-products-multiselect").multiSelect("getCheckedItems");
+            params.ProductCodeList = productCodeList.toString();
+            return params;
         }
 
         var _me = {
@@ -32,7 +38,13 @@ define(["jquery", "common/site", "common/querystring", "pages/report/report", ".
                 _me.initEvent();
 
                 var params = _me.getParamsSubmit();
-                _me.submit(params);
+                if (params.ProductCodeList) {
+                    _me.submit(params);
+                }
+                else {
+                    $("#ProductList").addClass("invalid");
+                    $("#SubmitButton").prop("disabled", true);
+                }
             },
             initEvent: function () {
                 $("#ViewOption").change(function () {
@@ -86,7 +98,7 @@ define(["jquery", "common/site", "common/querystring", "pages/report/report", ".
                 params.FromDate = $("#FromDate").val();
                 params.ToDate = $("#ToDate").val();
 
-                return Site.setProductOptionParamList(params);
+                return setProductOptionParamList(params);
             },
 
             submitCompletedBetList: function (params) {

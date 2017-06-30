@@ -18,18 +18,17 @@ define(["jquery", "common/site", "common/popup", "./constant", "lib/numberformat
             },
 
             setEnable: function () {
-                var sportIds = _me.getSportIds();
                 var editable = $("#editable").val();
                 var isEnable = !editable || editable === "True";
 
-                for (var i = 0; i < sportIds.length; i++) {
-                    var sportId = sportIds[i];
-                    var selector = "#min-bet-" + sportId + "," + "#max-bet-" + sportId + "," + "#max-per-match-" + sportId;
-                    $(selector).prop("disabled", !isEnable);
-                }
-
                 if (!isEnable) {
-                    $("#btnSubmitBetSetting, #btnReset").prop('disabled', true).addClass("disabled");
+                    var sportIds = _me.getSportIds();
+
+                    for (var i = 0; i < sportIds.length; i++) {
+                        var sportId = sportIds[i];
+                        var selector = "#min-bet-" + sportId + "," + "#max-bet-" + sportId + "," + "#max-per-match-" + sportId;
+                        $(selector).prop("disabled", true);
+                    }
                 }
             },
 

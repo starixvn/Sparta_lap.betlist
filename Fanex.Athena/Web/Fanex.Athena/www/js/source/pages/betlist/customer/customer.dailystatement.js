@@ -40,7 +40,7 @@ define(["jquery", "common/site", "common/querystring", "./customer.dailystatemen
                 gridOption.gridComplete = function () {
                     jqGridAdditional.updateGridWidth($(this));
                     jqGridAdditional.updateGridHeight();
-                }
+                };
 
                 $("#BetListGrid").jqGrid(gridOption);
             }
