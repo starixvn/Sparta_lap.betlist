@@ -1,6 +1,7 @@
-﻿define(['jquery', 'common/site', 'common/querystring', 'components/pluginhelper/daterangepicker', 'pages/report/winlossbyproduct/winlossbyproduct.option', 'pages/report/winlossbyproduct/winlossbyproduct',
-    'pages/report/report', 'lib/jqgrid/jquery.jqgrid.additional', 'common/popup', 'components/pluginhelper/multiselect', "components/pluginhelper/autocomplete"],
-        function ($, Site, DatePicker, WinLossByProductOption, WinLossByProduct, Report, jqGridAdditional, Popup, MultiSelect, AutoComplete) {
+﻿define(['jquery', 'common/site', 'common/querystring', 'components/pluginhelper/daterangepicker', 'pages/report/winlossbyproduct/winlossbyproduct.option',
+    'pages/report/winlossbyproduct/winlossbyproduct', 'pages/report/report', 'lib/jqgrid/jquery.jqgrid.additional', 'common/popup',
+    'components/pluginhelper/multiselect', 'helpers/daterange', 'helpers/excel', 'components/pluginhelper/autocomplete'],
+        function ($, Site, QueryString, DatePicker, WinLossByProductOption, WinLossByProduct, Report, jqGridAdditional, Popup, MultiSelect, DateHelper, ExcelHelper, AutoComplete) {
             describe("WinLossByProduct", function () {
                 beforeAll(function () {
                     spyOn(Site, "getSingleResource").and.callFake(function (resource) { return resource; });
@@ -574,7 +575,7 @@
                         var dataDrillDown = {
                             DrillDownFromDate: "05/01/2017",
                             DrillDownToDate: "05/30/2017"
-                        }
+                        };
 
                         var url = "LicenseeWinLossBetList/Index?param";
 
@@ -587,7 +588,7 @@
                         var dataDrillDown = {
                             DrillDownFromDate: new Date("05/01/2017"),
                             DrillDownToDate: new Date("05/30/2017")
-                        }
+                        };
 
                         var url = "LicenseeWinLossBetList/Index?param";
 
