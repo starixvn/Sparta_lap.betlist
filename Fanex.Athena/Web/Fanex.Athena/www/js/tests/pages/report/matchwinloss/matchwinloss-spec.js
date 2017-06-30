@@ -171,7 +171,7 @@
                         '</table></div>');
 
                     spyOn(Site, "setLicenseeOptionOriginalParam").and.callFake(function (param) { return param; });
-                    spyOn(MatchWinLoss, "getProductOption").and.returnValues(["SB"]);
+                    spyOn(MatchWinLoss, "getProductCodeList").and.returnValues(["SB"]);
                     spyOn(MatchWinLoss, "clearDetailRows");
                     spyOn($, "ajax").and.callFake(function (option) { ajaxOption = option; });
 
@@ -345,8 +345,8 @@
 
                     spyOn(Site, "setLicenseeOptionOriginalParam").and.callFake(function (param) { return param; });
 
-                    var productOption = [{ Code: "SB", Status: true }];
-                    spyOn(MatchWinLoss, "getProductOption").and.returnValues(productOption);
+                    var productOption = "SB";
+                    spyOn(MatchWinLoss, "getProductCodeList").and.returnValues(productOption);
                     spyOn(Site, "blockUI");
                     spyOn(Site, "redirect");
                 });
@@ -362,7 +362,7 @@
                 it("data-bettype is 1, IsLive param has empty value - Site.redirect(url) should be called with correct parameter", function () {
                     var param = "MatchWinlossBetList/MatchBetType?fromdate=05/01/2017&date=05/01/2017" +
                         "&matchid=2&leagueid=1&raceno=&bettype=1&LiveIndicator=&homeid=10&awayid=11" +
-                        "&ProductOptions[0].Code=SB&ProductOptions[0].Name=SB&ProductOptions[0].Status=true";
+                        "&productcodelist=SB";
                     var expectedParam = transformQueryParamNameToLowerCase(param);
                     var element = document.getElementById("parent");
 
@@ -374,7 +374,7 @@
                 it("data-bettype is 86, IsLive param has value - Site.redirect(url) should be called with correct parameter", function () {
                     var param = "MatchWinlossBetList/MatchBetType?fromdate=05/01/2017&date=05/01/2017" +
                         "&matchid=2&leagueid=1&raceno=&bettype=86&LiveIndicator=true&homeid=10&awayid=11" +
-                        "&ProductOptions[0].Code=SB&ProductOptions[0].Name=SB&ProductOptions[0].Status=true";
+                        "&productcodelist=SB";
                     var expectedParam = transformQueryParamNameToLowerCase(param);
                     var element = document.getElementById("child1");
 
@@ -386,7 +386,7 @@
                 it("data-bettype is undefined, bettype will be 0 and IsLive param has empty value - Site.redirect(url) should be called with correct parameter", function () {
                     var param = "MatchWinlossBetList/MatchBetType?fromdate=05/01/2017&date=05/01/2017" +
                         "&matchid=2&leagueid=1&raceno=&bettype=0&LiveIndicator=&homeid=10&awayid=11" +
-                        "&ProductOptions[0].Code=SB&ProductOptions[0].Name=SB&ProductOptions[0].Status=true";
+                        "&productcodelist=SB";
                     var expectedParam = transformQueryParamNameToLowerCase(param);
                     var element = document.getElementById("child2");
 
@@ -398,11 +398,16 @@
 
             describe("viewOutrightMixParlay(betType)", function () {
                 beforeEach(function () {
-                    setFixtures('<div id="Date" data-original="05/01/2017"></div>');
+                    var productListHtml = '<div id="ProductList">'
+                        + '<div class="childCheckbox" data-product-code="SB" data-original="true">SB</div>'
+                        + '<div class="childCheckbox" data-product-code="RB" data-original="true">RB</div>'
+                        + '<div class="childCheckbox" data-product-code="BA" data-original="true">BA</div>'
+                        + '<div class="childCheckbox" data-product-code="VS" data-original="false">VS</div>'
+                        + '</div>';
+
+                    setFixtures('<div id="Date" data-original="05/01/2017"></div>' + productListHtml);
 
                     spyOn(Site, "setLicenseeOptionOriginalParam").and.callFake(function (param) { return param; });
-                    var productOption = [{ Code: "SB", Status: true }];
-                    spyOn(MatchWinLoss, "getProductOption").and.returnValues(productOption);
 
                     spyOn(Site, "blockUI");
                     spyOn(Site, "redirect");
@@ -415,8 +420,7 @@
                 });
 
                 it("bettype value is not 10 - Site.redirect(url) should be called with correct parameter", function () {
-                    var param = "MatchWinlossBetList/MixParlay?fromdate=05/01/2017&todate=05/01/2017&bettype=1" +
-                        "&ProductOptions[0].Code=SB&ProductOptions[0].Name=SB&ProductOptions[0].Status=true&showSB=true";
+                    var param = "MatchWinlossBetList/MixParlay?fromdate=05/01/2017&todate=05/01/2017&bettype=1&productcodelist=SB,BA";
                     var expectedParam = transformQueryParamNameToLowerCase(param);
                     var bettype = 1;
 
@@ -426,8 +430,7 @@
                 });
 
                 it("bettype value is 10 - Site.redirect(url) should be called with correct parameter", function () {
-                    var param = "MatchWinlossBetList/Outright?fromdate=05/01/2017&todate=05/01/2017&bettype=10" +
-                        "&ProductOptions[0].Code=SB&ProductOptions[0].Name=SB&ProductOptions[0].Status=true&showSB=true";
+                    var param = "MatchWinlossBetList/Outright?fromdate=05/01/2017&todate=05/01/2017&bettype=10&productcodelist=SB,BA";
                     var expectedParam = transformQueryParamNameToLowerCase(param);
                     var bettype = 10;
 
@@ -437,37 +440,32 @@
                 });
             });
 
-            describe("getProductOption(productCode)", function () {
+            describe("getProductCodeList(productCode)", function () {
                 beforeEach(function () {
-                    setFixtures('<input id="productsData" value=[{"Code":"SB","Name":"Sportsbook","Status":true},{"Code":"RB","Name":"Racing","Status":true},{"Code":"BA","Name":"BA","Status":false}] />');
+                    var productListHtml = '<div id="ProductList">'
+                        + '<div class="childCheckbox" data-product-code="SB" data-original="true">SB</div>'
+                        + '<div class="childCheckbox" data-product-code="RB" data-original="true">RB</div>'
+                        + '<div class="childCheckbox" data-product-code="BA" data-original="true">BA</div>'
+                        + '<div class="childCheckbox" data-product-code="VS" data-original="false">VS</div>'
+                        + '</div>';
+
+                    setFixtures(productListHtml);
                 });
 
                 it("productCode param is special products - return correct product option data", function () {
-                    var expectedResult = [{ Code: "SB", Name: "Sportsbook", Status: true }];
+                    var expectedResult = "SB,BA";
 
                     var productCode = "SB";
-                    var result = MatchWinLoss.getProductOption(productCode);
+                    var result = MatchWinLoss.getProductCodeList(productCode);
 
                     expect(result).toEqual(expectedResult);
                 });
 
                 it("productCode param is not special products - return correct product option data", function () {
-                    var expectedResult = [{ Code: "RB", Name: "Racing", Status: true }];
+                    var expectedResult = "RB";
 
                     var productCode = "RB";
-                    var result = MatchWinLoss.getProductOption(productCode);
-
-                    expect(result).toEqual(expectedResult);
-                });
-
-                it("productCode param is array which contain special products - return correct product option data", function () {
-                    var expectedResult = [
-                        { Code: "SB", Name: "Sportsbook", Status: true },
-                        { Code: "RB", Name: "Racing", Status: true }
-                    ];
-
-                    var productCode = ["SB", "BA", "RB"];
-                    var result = MatchWinLoss.getProductOption(productCode);
+                    var result = MatchWinLoss.getProductCodeList(productCode);
 
                     expect(result).toEqual(expectedResult);
                 });

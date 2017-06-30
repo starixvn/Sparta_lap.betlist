@@ -1,6 +1,6 @@
 ﻿define(['jquery', 'common/site', 'components/pluginhelper/daterangepicker', 'pages/report/winlossbyproduct/winlossbyproduct.option', 'pages/report/winlossbyproduct/winlossbyproduct',
-    'pages/report/report', 'lib/jqgrid/jquery.jqgrid.additional', 'common/popup', 'components/pluginhelper/multiselect'],
-        function ($, Site, DatePicker, WinLossByProductOption, WinLossByProduct, Report, jqGridAdditional, Popup, MultiSelect) {
+    'pages/report/report', 'lib/jqgrid/jquery.jqgrid.additional', 'common/popup', 'components/pluginhelper/multiselect', "components/pluginhelper/autocomplete"],
+        function ($, Site, DatePicker, WinLossByProductOption, WinLossByProduct, Report, jqGridAdditional, Popup, MultiSelect, AutoComplete) {
             describe("WinLossByProduct", function () {
                 beforeAll(function () {
                     spyOn(Site, "getSingleResource").and.callFake(function (resource) { return resource; });
@@ -18,6 +18,7 @@
                     beforeAll(function () {
                         spyOn(WinLossByProduct, "initEvent");
                         spyOn(WinLossByProduct, "initSetting");
+                        spyOn(AutoComplete, "initialize");
                     });
 
                     beforeEach(function () {
@@ -36,6 +37,9 @@
                     });
                     it("Site.addUserGuide(options) should be called with correct parameter", function () {
                         expect(Site.addUserGuide).toHaveBeenCalledWith({ resourceName: "WinLossByProduct", title: Site.getSingleResource("WinLossByProduct") });
+                    });
+                    it("AutoComplete.initialize(option) should be called with correct parameter", function () {
+                        expect(AutoComplete.initialize).toHaveBeenCalledWith({ url: Site.resolveClientUrl("CustomerAPI/SearchCustomer"), target: "#Username" });
                     });
                 });
 

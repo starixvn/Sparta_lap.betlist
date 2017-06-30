@@ -3,6 +3,15 @@
     'components/pluginhelper/multiselect', "components/paging"],
         function ($, Site, DatePicker, WinLossByLeagueOption, WinLossByLeagueFilter, WinLossByLeague, Report, jqGridAdditional, Popup, MultiSelect, PagingHelper) {
             describe("WinLossByLeague", function () {
+                function createPostData(data) {
+                    setFixtures('<input id="CurrencyName" value="USD" />');
+                    spyOn(WinLossByLeagueFilter, "isValid").and.returnValue(true);
+                    spyOn($.fn, "serializeObject").and.returnValue(data);
+                    spyOn($, "ajax").and.returnValue({ abort: function () { } });
+
+                    WinLossByLeague.submit();
+                }
+
                 beforeAll(function () {
                     spyOn(Site, "getSingleResource").and.callFake(function (resource) { return resource; });
                     spyOn(Site, "initialize");
@@ -243,12 +252,28 @@
                 });
 
                 describe("drillDownBetList(custId, externalId, systemId)", function () {
-                    it("WinLossByLeagueFilter.buildProductsParams() should be called", function () {
-                        spyOn(WinLossByLeagueFilter, "buildProductsParams");
+                    var postData;
+                    beforeAll(function () {
+                        postData = {
+                            BaseCurrency: "eur",
+                            Odds: 0,
+                            FromDate: "06/01/2017",
+                            ToDate: "06/30/2017",
+                            CurrencyId: 1,
+                            Match: 2,
+                            ShowWin: true,
+                            ShowLoss: true,
+                            ShowDraw: true
+                        };
+                        createPostData(postData);
+                    });
+
+                    it("WinLossByLeagueFilter.buildProductsParams() should be called with correct parameter", function () {
+                        spyOn(WinLossByLeagueFilter, "buildProductCodeList").and.returnValue([]);
 
                         WinLossByLeague.drillDownBetList(0, 0, 0);
 
-                        expect(WinLossByLeagueFilter.buildProductsParams).toHaveBeenCalled();
+                        expect(WinLossByLeagueFilter.buildProductCodeList).toHaveBeenCalledWith(postData);
                     });
 
                     it("window.open() should be called", function () {
@@ -256,7 +281,10 @@
 
                         WinLossByLeague.drillDownBetList(0, 0, 0);
 
-                        expect(window.open).toHaveBeenCalledWith(jasmine.stringMatching(/WinlossByLeagueBetList\/Index\?.*/), "", 'modal=no');
+                        var url = "WinlossByLeagueBetList/Index?IsConvert=true&Odds=0&FromDate=06%2F01%2F2017&ToDate=06%2F30%2F2017&BaseCurrency=EUR" +
+                            "&CurrencyId=1&CurrencyName=USD&CustId=0&ExternalId=0&SystemId=0&LeagueId=-1&MatchId=2&ShowWin=true&ShowLoss=true&ShowDraw=true&ProductCodeList=";
+
+                        expect(window.open).toHaveBeenCalledWith(url, "", 'modal=no');
                     });
                 });
 
@@ -285,7 +313,6 @@
                     });
 
                     it("leagueid should be posted to server", function () {
-                       
                         WinLossByLeague.drillDown(leagueid, "leaguename");
 
                         var postdata = $.ajax.calls.mostRecent().args[0].data;
@@ -336,7 +363,7 @@
                             WinLossByLeague.drillDown(leagueid, "leaguename");
                             var ajaxOption = $.ajax.calls.mostRecent().args[0];
 
-                            ajaxOption.success({ Data: [ 1 ] });
+                            ajaxOption.success({ Data: [1] });
 
                             var args = WinLossByLeague.setReportTitle.calls.mostRecent().args;
                             expect(args[0]).toBe(1);
@@ -350,7 +377,7 @@
                             WinLossByLeague.drillDown(leagueid, "leaguename");
                             var ajaxOption = $.ajax.calls.mostRecent().args[0];
 
-                            ajaxOption.success({ Data: [ 1 ], TotalRows: 0 });
+                            ajaxOption.success({ Data: [1], TotalRows: 0 });
 
                             expect($("#paging").is(":hidden")).toBe(true);
                             expect(PagingHelper.render).not.toHaveBeenCalled();
@@ -447,7 +474,7 @@
                         setFixtures("<select id='League'><option value='999' selected>League Name</option></select>");
                         spyOn(WinLossByLeagueOption, "addLeagueGroupRow");
 
-                        WinLossByLeague.bindData(0, { Data: [ 0 ] });
+                        WinLossByLeague.bindData(0, { Data: [0] });
 
                         expect(WinLossByLeagueOption.addLeagueGroupRow).toHaveBeenCalledWith('999', 'League Name');
                     });

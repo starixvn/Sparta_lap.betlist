@@ -879,6 +879,7 @@
                     spyOn(QueryString, "setParams");
                     spyOn(Site, "setProductOptionParam");
                     spyOn(Popup, "openPopupWithIframe");
+                    spyOn(Site, "setProductCodeListParam");
 
                     PlatformWinLoss.submit();
                     PlatformWinLoss.drillDown(1, { PlatformType: 0 });
