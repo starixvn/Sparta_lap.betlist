@@ -2,7 +2,7 @@ webpackJsonp([72],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(318);
+	module.exports = __webpack_require__(317);
 
 
 /***/ },
@@ -20477,11 +20477,10 @@ webpackJsonp([72],[
 /* 314 */,
 /* 315 */,
 /* 316 */,
-/* 317 */,
-/* 318 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(319)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CashOutWinLoss) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(318)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CashOutWinLoss) {
 	    "use strict";
 	    $(function () {
 	        CashOutWinLoss.initialize();
@@ -20490,12 +20489,12 @@ webpackJsonp([72],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 319 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(320), __webpack_require__(230), __webpack_require__(209),
-	        __webpack_require__(220), __webpack_require__(102), __webpack_require__(9), __webpack_require__(321),
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(319), __webpack_require__(230), __webpack_require__(209),
+	        __webpack_require__(220), __webpack_require__(102), __webpack_require__(9), __webpack_require__(320),
 	        __webpack_require__(237), __webpack_require__(212), __webpack_require__(213)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, CashOutWinLossOption, Report, jqGridAdditional, DatePicker, moment, Popup, DateHelper) {
 	        var cacheData = {};
 	        var ajaxRequest = null;
@@ -20777,7 +20776,7 @@ webpackJsonp([72],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 320 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -21140,7 +21139,7 @@ webpackJsonp([72],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 321 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";

@@ -2,7 +2,7 @@ webpackJsonp([75],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(329);
+	module.exports = __webpack_require__(328);
 
 
 /***/ },
@@ -16354,11 +16354,10 @@ webpackJsonp([75],[
 /* 274 */,
 /* 275 */,
 /* 276 */,
-/* 277 */,
-/* 278 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(279)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(278)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 	        "use strict";
 	        var PICKER_SELECTOR = "#month-picker";
 	        var FORMAT = "MM/dd/yyyy";
@@ -16419,7 +16418,7 @@ webpackJsonp([75],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 279 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -17256,6 +17255,7 @@ webpackJsonp([75],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
+/* 279 */,
 /* 280 */,
 /* 281 */,
 /* 282 */,
@@ -17304,21 +17304,20 @@ webpackJsonp([75],[
 /* 325 */,
 /* 326 */,
 /* 327 */,
-/* 328 */,
-/* 329 */
+/* 328 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(330)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LiveReport) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(329)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LiveReport) {
 	    "use strict";
 	    $(LiveReport.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 330 */
+/* 329 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(220), __webpack_require__(278), __webpack_require__(331)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, DatePicker, MonthPicker, Helper) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(220), __webpack_require__(277), __webpack_require__(330)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, DatePicker, MonthPicker, Helper) {
 	        "use strict";
 	
 	        function initialize() {
@@ -17409,13 +17408,7 @@ webpackJsonp([75],[
 	            url = QueryString.setParam(url, "todate", $("#ToDate").attr('data-original-to'));
 	            url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
 	            url = Helper.setSumParams(url, totalValue);
-	            // [Jacob] Cheat for live report mix parlay, must send
-	            url = QueryString.setParam(url, "showsb", false);
-	            url = QueryString.setParam(url, "showba", false);
-	            $(productOptions).each(function (index, element) {
-	                url = Site.setProductOptionParam(url, index, element.toUpperCase(), true);
-	                url = QueryString.setParam(url, "show" + element, true);
-	            });
+	            url = Site.setProductCodeListParam(url, productOptions);
 	
 	            Site.blockUI();
 	            Site.redirect(url);
@@ -17442,28 +17435,19 @@ webpackJsonp([75],[
 	            };
 	
 	            var url = urlMap["Key" + jsonData.SportId];
-	            var showBetList = url !== null && url !== undefined;
-	            url = url === null || url === undefined
-	                    ? Site.resolveClientUrl("LiveReport/MatchList")
-	                    : Site.resolveClientUrl(url);
-	            if (showBetList) {
-	                viewBetList(url, jsonData.TotalValue, productOptions);
+	            if (url) {
+	                viewBetList(Site.resolveClientUrl(url), jsonData.TotalValue, productOptions);
 	            }
 	            else {
 	                // Match List
+	                url = Site.resolveClientUrl("LiveReport/MatchList");
 	                url = Site.setLicenseeOptionOriginalParam(url);
 	                url = QueryString.setParam(url, "SportId", jsonData.SportId);
 	                url = QueryString.setParam(url, "ProductCode", productCode);
 	                url = QueryString.setParam(url, "FromDate", $("#FromDate").attr('data-original-from'));
 	                url = QueryString.setParam(url, "ToDate", $("#ToDate").attr('data-original-to'));
-	                url = QueryString.setParam(url, "showsb", true);
-	                url = QueryString.setParam(url, "showba", false);
 	                url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
-	
-	                $(productOptions).each(function (index, element) {
-	                    url = Site.setProductOptionParam(url, index, element, true);
-	                    url = QueryString.setParam(url, "show" + element, true);
-	                });
+	                url = Site.setProductCodeListParam(url, productOptions);
 	
 	                Site.blockUI();
 	                Site.redirect(url);
@@ -17476,7 +17460,7 @@ webpackJsonp([75],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 331 */
+/* 330 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(8)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString) {

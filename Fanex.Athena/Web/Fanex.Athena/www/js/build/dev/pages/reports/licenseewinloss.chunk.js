@@ -2,7 +2,7 @@ webpackJsonp([74],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(325);
+	module.exports = __webpack_require__(324);
 
 
 /***/ },
@@ -20542,23 +20542,22 @@ webpackJsonp([74],[
 /* 321 */,
 /* 322 */,
 /* 323 */,
-/* 324 */,
-/* 325 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(326)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LicenseeWinLoss) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(325)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LicenseeWinLoss) {
 	    "use strict";
 	    $(LicenseeWinLoss.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 326 */
+/* 325 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(230), __webpack_require__(327), __webpack_require__(209),
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(230), __webpack_require__(326), __webpack_require__(209),
 	        __webpack_require__(220), __webpack_require__(102), __webpack_require__(9), __webpack_require__(233),
-	        __webpack_require__(212), __webpack_require__(213), __webpack_require__(237), __webpack_require__(328)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup, MultiSelect) {
+	        __webpack_require__(212), __webpack_require__(213), __webpack_require__(237), __webpack_require__(327)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup, MultiSelect) {
 	        "use strict";
 	        var REPORT_BY_MONTHLY = 2;
 	
@@ -20978,8 +20977,6 @@ webpackJsonp([74],[
 	                url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
 	                url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
 	                url = QueryString.setParam(url, "BaseCurrency", dataDrillDown.BaseCurrency);
-	                url = QueryString.setParam(url, "OriginalCurrenceId", dataDrillDown.CurrencyId);
-	                url = QueryString.setParam(url, "OriginalCurrencyName", dataDrillDown.CurrencyName);
 	
 	                url = Site.setProductOptionOriginalParamList(url);
 	
@@ -20999,7 +20996,7 @@ webpackJsonp([74],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 327 */
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
@@ -21008,7 +21005,7 @@ webpackJsonp([74],[
 	*  "0" for master,"1" for agent and "2" for member
 	*/
 	
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(209), __webpack_require__(328)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(209), __webpack_require__(327)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional) {
 	        "use strict";
 	        var IGNORED_LICENSEEWL_PRODUCTS = ["RB", "BA", "CO"];
 	        var IGNORED_TURNOVER_PRODUCTS = ["BT", "CO"];
@@ -21817,7 +21814,7 @@ webpackJsonp([74],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 328 */
+/* 327 */
 /***/ function(module, exports) {
 
 	/*--------------------------------------------------------------------------

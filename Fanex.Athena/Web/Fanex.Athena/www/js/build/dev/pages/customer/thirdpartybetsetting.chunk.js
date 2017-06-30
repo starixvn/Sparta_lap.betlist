@@ -3,7 +3,7 @@ webpackJsonp([65],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(296);
+	module.exports = __webpack_require__(295);
 
 
 /***/ },
@@ -47,16 +47,11 @@ webpackJsonp([65],{
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(240), __webpack_require__(242), __webpack_require__(244), __webpack_require__(246)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(240), __webpack_require__(242), __webpack_require__(243), __webpack_require__(245)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
 	        var Product = Constant.Product;
-	        var _formatter = new NumberFormatter();
-	        var _isEnable;
 	
 	        var _me = {
 	            initialize: function () {
-	                var editable = $("#editable").val();
-	                _isEnable = !editable || editable === "True";
-	
 	                $("#product-dropdown").on('change', function (event) {
 	                    var url = $(this).find("option:selected").data("href");
 	                    Site.blockUI();
@@ -70,23 +65,26 @@ webpackJsonp([65],{
 	            },
 	
 	            setEnable: function () {
-	                var sportIds = _me.getSportIds();
+	                var editable = $("#editable").val();
+	                var isEnable = !editable || editable === "True";
 	
-	                for (var i = 0; i < sportIds.length; i++) {
-	                    var sportId = sportIds[i];
-	                    var selector = "#min-bet-" + sportId + "," + "#max-bet-" + sportId + "," + "#max-per-match-" + sportId;
-	                    $(selector).prop("disabled", !_isEnable);
-	                };
+	                if (!isEnable) {
+	                    var sportIds = _me.getSportIds();
 	
-	                if (!_isEnable) {
-	                    $("#btnSubmitBetSetting, #btnReset").prop('disabled', true).addClass("disabled");
+	                    for (var i = 0; i < sportIds.length; i++) {
+	                        var sportId = sportIds[i];
+	                        var selector = "#min-bet-" + sportId + "," + "#max-bet-" + sportId + "," + "#max-per-match-" + sportId;
+	                        $(selector).prop("disabled", true);
+	                    }
 	                }
 	            },
 	
 	            formatInputText: function () {
+	                var formatter = new NumberFormatter();
+	
 	                $("input[type=text]").blur(function () {
 	                    var inputValue = $(this).val().replace(/,/g, "");
-	                    var formattedValue = _formatter.formatNumber(inputValue, { format: "#,###,##0.##" });
+	                    var formattedValue = formatter.formatNumber(inputValue, { format: "#,###,##0.##" });
 	                    $(this).val(formattedValue);
 	                });
 	            },
@@ -101,8 +99,8 @@ webpackJsonp([65],{
 	            showComfirm: function ($target, resourceMessage, callback) {
 	                var productId = parseInt($("#ProductId").val());
 	                var isValid = productId === Product.LiveCasino ? true :
-	                             (productId === Product.NumberGame ? BetSettingValidation.checkValidationNumberGame() :
-	                                                                BetSettingValidation.checkLimitMinMaxBets(_me.getSportIds()));
+	                             productId === Product.NumberGame ? BetSettingValidation.checkValidationNumberGame() :
+	                                                                BetSettingValidation.checkLimitMinMaxBets(_me.getSportIds());
 	                if (!isValid) {
 	                    return;
 	                }
@@ -111,8 +109,7 @@ webpackJsonp([65],{
 	                var userName = $target.attr("data-user-name");
 	                var nickName = $target.attr("data-nick-name");
 	
-	                _me.showConfirmAction(Site.getSingleResource(resourceMessage),
-	                                    custId, userName, nickName, callback);
+	                _me.showConfirmAction(Site.getSingleResource(resourceMessage), custId, userName, nickName, callback);
 	            },
 	
 	            showConfirmAction: function (message, custId, userName, nickName, callback) {
@@ -158,13 +155,13 @@ webpackJsonp([65],{
 	            },
 	
 	            getBetSettingParams: function (sportId) {
-	                var minBetId = $("#min-bet-" + sportId);
-	                var maxBetId = $("#max-bet-" + sportId);
-	                var maxPerMatchId = $("#max-per-match-" + sportId);
+	                var $minbet = $("#min-bet-" + sportId);
+	                var $maxbet = $("#max-bet-" + sportId);
+	                var $maxPerMatch = $("#max-per-match-" + sportId);
 	
-	                if (minBetId.length === 0 ||
-	                    maxBetId.length === 0 ||
-	                    maxPerMatchId.length === 0) {
+	                if ($minbet.length === 0 ||
+	                    $maxbet.length === 0 ||
+	                    $maxPerMatch.length === 0) {
 	                    return "";
 	                }
 	
@@ -174,16 +171,16 @@ webpackJsonp([65],{
 	                var originalMaxPerMatch = $('#max-per-match-' + sportId).attr('data-original');
 	
 	                // Check if data is changed
-	                if (minBetId.val() === originalMinBet
-	                    && maxBetId.val() === originalMaxBet
-	                    && maxPerMatchId.val() === originalMaxPerMatch) {
+	                if ($minbet.val() === originalMinBet
+	                    && $maxbet.val() === originalMaxBet
+	                    && $maxPerMatch.val() === originalMaxPerMatch) {
 	                    isUpdate = false;
 	                }
 	
 	                // Data is changed, update it
-	                var minBet = BetSettingHelper.convertToFloat(minBetId.val());
-	                var maxBet = BetSettingHelper.convertToFloat(maxBetId.val());
-	                var maxPerMatcth = BetSettingHelper.convertToFloat(maxPerMatchId.val());
+	                var minBet = BetSettingHelper.convertToFloat($minbet.val());
+	                var maxBet = BetSettingHelper.convertToFloat($maxbet.val());
+	                var maxPerMatcth = BetSettingHelper.convertToFloat($maxPerMatch.val());
 	
 	                var result = {};
 	                result["minbet" + sportId] = minBet;
@@ -217,7 +214,7 @@ webpackJsonp([65],{
 /***/ 242:
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 	 * jquery.numberformatter - Formatting/Parsing Numbers in jQuery
 	 *
 	 * Originally written by
@@ -232,967 +229,323 @@ webpackJsonp([65],{
 	 * @author Sven Busse
 	 **/
 	
-	var _assign = __webpack_require__(243);
+	// Customize to use AMD module
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	    function NumberFormatter() {
+	        this.defaults = {
+	            format: "#,###.00",
+	            locale: "us",
+	            decimalSeparatorAlwaysShown: false,
+	            nanForceZero: true,
+	            round: true,
+	            isFullLocale: false,
+	            overrideGroupSep: null,
+	            overrideDecSep: null,
+	            overrideNegSign: null,
+	            isPercentage: false,            // treats the input as a percentage (i.e. input multiplied by 100)
+	            autoDetectPercentage: true      // will search if the format string ends with '%', if it does then the above option is implicitly set
+	        };
 	
-	function NumberFormatter() {
+	        var nfLocales = { initialized: false };
 	
-	    this.defaults = {
-	        format: "#,###.00",
-	        locale: "us",
-	        decimalSeparatorAlwaysShown: false,
-	        nanForceZero: true,
-	        round: true,
-	        isFullLocale: false,
-	        overrideGroupSep: null,
-	        overrideDecSep: null,
-	        overrideNegSign: null,
-	        isPercentage: false,            // treats the input as a percentage (i.e. input multiplied by 100)
-	        autoDetectPercentage: true      // will search if the format string ends with '%', if it does then the above option is implicitly set
-	    };
+	        var nfLocalesLikeUS = ['ae', 'ar', 'au', 'ca', 'cn', 'eg', 'gb', 'hk', 'il', 'in', 'jp', 'mx', 'sa', 'sk', 'th', 'tw', 'us', 'za'];
+	        var nfLocalesLikeDE = ['at', 'be', 'br', 'de', 'dk', 'ee', 'es', 'gr', 'it', 'lt', 'lv', 'nl', 'pt', 'tr', 'vn'];
+	        var nfLocalesLikeFR = ['bg', 'cz', 'fi', 'fr', 'no', 'pl', 'ro', 'ru', 'se'];
+	        var nfLocalesLikeCH = ['ch'];
 	
-	    var nfLocales = {initialized: false};
+	        var nfLocaleFormatting = [[".", ","], [",", "."], [",", " "], [".", "'"]];
+	        var nfAllLocales = [nfLocalesLikeUS, nfLocalesLikeDE, nfLocalesLikeFR, nfLocalesLikeCH];
 	
-	    var nfLocalesLikeUS = ['ae', 'ar', 'au', 'ca', 'cn', 'eg', 'gb', 'hk', 'il', 'in', 'jp', 'mx', 'sa', 'sk', 'th', 'tw', 'us', 'za'];
-	    var nfLocalesLikeDE = ['at', 'be', 'br', 'de', 'dk', 'ee', 'es', 'gr', 'it', 'lt', 'lv', 'nl', 'pt', 'tr', 'vn'];
-	    var nfLocalesLikeFR = ['bg', 'cz', 'fi', 'fr', 'no', 'pl', 'ro', 'ru', 'se'];
-	    var nfLocalesLikeCH = ['ch'];
-	
-	    var nfLocaleFormatting = [[".", ","], [",", "."], [",", " "], [".", "'"]];
-	    var nfAllLocales = [nfLocalesLikeUS, nfLocalesLikeDE, nfLocalesLikeFR, nfLocalesLikeCH];
-	
-	    function init() {
-	        // write the arrays into the hashtable
-	        for (var localeGroupIdx = 0; localeGroupIdx < nfAllLocales.length; localeGroupIdx++) {
-	            var localeGroup = nfAllLocales[localeGroupIdx];
-	            for (var i = 0; i < localeGroup.length; i++) {
-	                nfLocales[localeGroup[i]] = localeGroupIdx;
-	            }
-	        }
-	
-	        nfLocales.initialized = true;
-	    }
-	
-	    function formatCodes(locale, isFullLocale) {
-	        if (!nfLocales.initialized)
-	            init();
-	
-	        // default values
-	        var dec = ".";
-	        var group = ",";
-	        var neg = "-";
-	
-	        if (isFullLocale == false) {
-	            // Extract and convert to lower-case any language code from a real 'locale' formatted string, if not use as-is
-	            // (To prevent locale format like : "fr_FR", "en_US", "de_DE", "fr_FR", "en-US", "de-DE")
-	            if (locale.indexOf('_') != -1)
-	                locale = locale.split('_')[1].toLowerCase();
-	            else if (locale.indexOf('-') != -1)
-	                locale = locale.split('-')[1].toLowerCase();
-	        }
-	
-	        // hashtable lookup to match locale with codes
-	        var codesIndex = nfLocales[locale];
-	        if (codesIndex) {
-	            var codes = nfLocaleFormatting[codesIndex];
-	            if (codes) {
-	                dec = codes[0];
-	                group = codes[1];
-	            }
-	        }
-	        return {dec: dec, group: group, neg: neg};
-	    }
-	
-	    function _roundNumber(number, decimalPlaces) {
-	        var power = Math.pow(10, decimalPlaces || 0);
-	        var value = String(Math.round(number * power) / power);
-	
-	        // ensure the decimal places are there
-	        if (decimalPlaces > 0) {
-	            var dp = value.indexOf(".");
-	            if (dp == -1) {
-	                value += '.';
-	                dp = 0;
-	            } else {
-	                dp = value.length - (dp + 1);
-	            }
-	
-	            while (dp < decimalPlaces) {
-	                value += '0';
-	                dp++;
-	            }
-	        }
-	        return value;
-	    }
-	
-	    /**
-	     * Formats a Number object into a string, using the given formatting options
-	     *
-	     * @param {Object} numberString
-	     * @param {Object} options
-	     */
-	    function _formatNumber(number, options, suffix, prefix, negativeInFront) {
-	        options = _assign({}, this.defaults, options);
-	        var formatData = formatCodes(options.locale.toLowerCase(), options.isFullLocale);
-	
-	        var dec = formatData.dec;
-	        var group = formatData.group;
-	        var neg = formatData.neg;
-	
-	        // check overrides
-	        if (options.overrideGroupSep != null) {
-	            group = options.overrideGroupSep;
-	        }
-	        if (options.overrideDecSep != null) {
-	            dec = options.overrideDecSep;
-	        }
-	        if (options.overrideNegSign != null) {
-	            neg = options.overrideNegSign;
-	        }
-	
-	        // Check NAN handling
-	        var forcedToZero = false;
-	        if (isNaN(number)) {
-	            if (options.nanForceZero == true) {
-	                number = 0;
-	                forcedToZero = true;
-	            } else {
-	                return '';
-	            }
-	        }
-	
-	        // special case for percentages
-	        if (options.isPercentage == true || (options.autoDetectPercentage && suffix.charAt(suffix.length - 1) == '%')) {
-	            number = number * 100;
-	        }
-	
-	        var returnString = "";
-	        if (options.format.indexOf(".") > -1) {
-	            var decimalPortion = dec;
-	            var decimalFormat = options.format.substring(options.format.lastIndexOf(".") + 1);
-	
-	            // round or truncate number as needed
-	            if (options.round == true)
-	                number = Number(_roundNumber(number, decimalFormat.length));
-	            else {
-	                var numStr = number.toString();
-	                if (numStr.lastIndexOf('.') > 0) {
-	                    numStr = numStr.substring(0, numStr.lastIndexOf('.') + decimalFormat.length + 1);
+	        function init() {
+	            // write the arrays into the hashtable
+	            for (var localeGroupIdx = 0; localeGroupIdx < nfAllLocales.length; localeGroupIdx++) {
+	                var localeGroup = nfAllLocales[localeGroupIdx];
+	                for (var i = 0; i < localeGroup.length; i++) {
+	                    nfLocales[localeGroup[i]] = localeGroupIdx;
 	                }
-	                number = Number(numStr);
 	            }
 	
-	            var decimalValue = Number(number.toString().substring(number.toString().indexOf('.')));
-	            var decimalString = String(_roundNumber(decimalValue, decimalFormat.length));
-	            decimalString = decimalString.substring(decimalString.lastIndexOf('.') + 1);
-	            for (var i = 0; i < decimalFormat.length; i++) {
-	                if (decimalFormat.charAt(i) == '#' && decimalString.charAt(i) != '0') {
-	                    decimalPortion += decimalString.charAt(i);
-	                } else if (decimalFormat.charAt(i) == '#' && decimalString.charAt(i) == '0') {
-	                    var notParsed = decimalString.substring(i);
-	                    if (notParsed.match('[1-9]')) {
+	            nfLocales.initialized = true;
+	        }
+	
+	        function formatCodes(locale, isFullLocale) {
+	            if (!nfLocales.initialized)
+	                init();
+	
+	            // default values
+	            var dec = ".";
+	            var group = ",";
+	            var neg = "-";
+	
+	            if (isFullLocale == false) {
+	                // Extract and convert to lower-case any language code from a real 'locale' formatted string, if not use as-is
+	                // (To prevent locale format like : "fr_FR", "en_US", "de_DE", "fr_FR", "en-US", "de-DE")
+	                if (locale.indexOf('_') != -1)
+	                    locale = locale.split('_')[1].toLowerCase();
+	                else if (locale.indexOf('-') != -1)
+	                    locale = locale.split('-')[1].toLowerCase();
+	            }
+	
+	            // hashtable lookup to match locale with codes
+	            var codesIndex = nfLocales[locale];
+	            if (codesIndex) {
+	                var codes = nfLocaleFormatting[codesIndex];
+	                if (codes) {
+	                    dec = codes[0];
+	                    group = codes[1];
+	                }
+	            }
+	            return { dec: dec, group: group, neg: neg };
+	        }
+	
+	        function _roundNumber(number, decimalPlaces) {
+	            var power = Math.pow(10, decimalPlaces || 0);
+	            var value = String(Math.round(number * power) / power);
+	
+	            // ensure the decimal places are there
+	            if (decimalPlaces > 0) {
+	                var dp = value.indexOf(".");
+	                if (dp == -1) {
+	                    value += '.';
+	                    dp = 0;
+	                } else {
+	                    dp = value.length - (dp + 1);
+	                }
+	
+	                while (dp < decimalPlaces) {
+	                    value += '0';
+	                    dp++;
+	                }
+	            }
+	            return value;
+	        }
+	
+	        /**
+	         * Formats a Number object into a string, using the given formatting options
+	         *
+	         * @param {Object} numberString
+	         * @param {Object} options
+	         */
+	        function _formatNumber(number, options, suffix, prefix, negativeInFront) {
+	            options = $.extend({}, this.defaults, options);
+	            var formatData = formatCodes(options.locale.toLowerCase(), options.isFullLocale);
+	
+	            var dec = formatData.dec;
+	            var group = formatData.group;
+	            var neg = formatData.neg;
+	
+	            // check overrides
+	            if (options.overrideGroupSep != null) {
+	                group = options.overrideGroupSep;
+	            }
+	            if (options.overrideDecSep != null) {
+	                dec = options.overrideDecSep;
+	            }
+	            if (options.overrideNegSign != null) {
+	                neg = options.overrideNegSign;
+	            }
+	
+	            // Check NAN handling
+	            var forcedToZero = false;
+	            if (isNaN(number)) {
+	                if (options.nanForceZero == true) {
+	                    number = 0;
+	                    forcedToZero = true;
+	                } else {
+	                    return '';
+	                }
+	            }
+	
+	            // special case for percentages
+	            if (options.isPercentage == true || (options.autoDetectPercentage && suffix.charAt(suffix.length - 1) == '%')) {
+	                number = number * 100;
+	            }
+	
+	            var returnString = "";
+	            if (options.format.indexOf(".") > -1) {
+	                var decimalPortion = dec;
+	                var decimalFormat = options.format.substring(options.format.lastIndexOf(".") + 1);
+	
+	                // round or truncate number as needed
+	                if (options.round == true)
+	                    number = Number(_roundNumber(number, decimalFormat.length));
+	                else {
+	                    var numStr = number.toString();
+	                    if (numStr.lastIndexOf('.') > 0) {
+	                        numStr = numStr.substring(0, numStr.lastIndexOf('.') + decimalFormat.length + 1);
+	                    }
+	                    number = Number(numStr);
+	                }
+	
+	                var decimalValue = Number(number.toString().substring(number.toString().indexOf('.')));
+	                var decimalString = String(_roundNumber(decimalValue, decimalFormat.length));
+	                decimalString = decimalString.substring(decimalString.lastIndexOf('.') + 1);
+	                for (var i = 0; i < decimalFormat.length; i++) {
+	                    if (decimalFormat.charAt(i) == '#' && decimalString.charAt(i) != '0') {
 	                        decimalPortion += decimalString.charAt(i);
-	                    } else
-	                        break;
-	                } else if (decimalFormat.charAt(i) == "0")
-	                    decimalPortion += decimalString.charAt(i);
-	            }
-	            returnString += decimalPortion
-	        } else
-	            number = Math.round(number);
-	
-	        var ones = Math.floor(number);
-	        if (number < 0)
-	            ones = Math.ceil(number);
-	
-	        var onesFormat = "";
-	        if (options.format.indexOf(".") == -1)
-	            onesFormat = options.format;
-	        else
-	            onesFormat = options.format.substring(0, options.format.indexOf("."));
-	
-	        var onePortion = "";
-	        if (!(ones == 0 && onesFormat.substr(onesFormat.length - 1) == '#') || forcedToZero) {
-	            // find how many digits are in the group
-	            var oneText = String(Math.abs(ones));
-	            var groupLength = 9999;
-	            if (onesFormat.lastIndexOf(",") != -1)
-	                groupLength = onesFormat.length - onesFormat.lastIndexOf(",") - 1;
-	            var groupCount = 0;
-	            for (i = oneText.length - 1; i > -1; i--) {
-	                onePortion = oneText.charAt(i) + onePortion;
-	                groupCount++;
-	                if (groupCount == groupLength && i != 0) {
-	                    onePortion = group + onePortion;
-	                    groupCount = 0;
+	                    } else if (decimalFormat.charAt(i) == '#' && decimalString.charAt(i) == '0') {
+	                        var notParsed = decimalString.substring(i);
+	                        if (notParsed.match('[1-9]')) {
+	                            decimalPortion += decimalString.charAt(i);
+	                        } else
+	                            break;
+	                    } else if (decimalFormat.charAt(i) == "0")
+	                        decimalPortion += decimalString.charAt(i);
 	                }
-	            }
+	                returnString += decimalPortion
+	            } else
+	                number = Math.round(number);
 	
-	            // account for any pre-data padding
-	            if (onesFormat.length > onePortion.length) {
-	                var padStart = onesFormat.indexOf('0');
-	                if (padStart != -1) {
-	                    var padLen = onesFormat.length - padStart;
+	            var ones = Math.floor(number);
+	            if (number < 0)
+	                ones = Math.ceil(number);
 	
-	                    // pad to left with 0's or group char
-	                    var pos = onesFormat.length - onePortion.length - 1;
-	                    while (onePortion.length < padLen) {
-	                        var padChar = onesFormat.charAt(pos);
-	                        // replace with real group char if needed
-	                        if (padChar == ',')
-	                            padChar = group;
-	                        onePortion = padChar + onePortion;
-	                        pos--;
+	            var onesFormat = "";
+	            if (options.format.indexOf(".") == -1)
+	                onesFormat = options.format;
+	            else
+	                onesFormat = options.format.substring(0, options.format.indexOf("."));
+	
+	            var onePortion = "";
+	            if (!(ones == 0 && onesFormat.substr(onesFormat.length - 1) == '#') || forcedToZero) {
+	                // find how many digits are in the group
+	                var oneText = String(Math.abs(ones));
+	                var groupLength = 9999;
+	                if (onesFormat.lastIndexOf(",") != -1)
+	                    groupLength = onesFormat.length - onesFormat.lastIndexOf(",") - 1;
+	                var groupCount = 0;
+	                for (i = oneText.length - 1; i > -1; i--) {
+	                    onePortion = oneText.charAt(i) + onePortion;
+	                    groupCount++;
+	                    if (groupCount == groupLength && i != 0) {
+	                        onePortion = group + onePortion;
+	                        groupCount = 0;
+	                    }
+	                }
+	
+	                // account for any pre-data padding
+	                if (onesFormat.length > onePortion.length) {
+	                    var padStart = onesFormat.indexOf('0');
+	                    if (padStart != -1) {
+	                        var padLen = onesFormat.length - padStart;
+	
+	                        // pad to left with 0's or group char
+	                        var pos = onesFormat.length - onePortion.length - 1;
+	                        while (onePortion.length < padLen) {
+	                            var padChar = onesFormat.charAt(pos);
+	                            // replace with real group char if needed
+	                            if (padChar == ',')
+	                                padChar = group;
+	                            onePortion = padChar + onePortion;
+	                            pos--;
+	                        }
 	                    }
 	                }
 	            }
-	        }
 	
-	        if (!onePortion && onesFormat.indexOf('0', onesFormat.length - 1) !== -1)
-	            onePortion = '0';
+	            if (!onePortion && onesFormat.indexOf('0', onesFormat.length - 1) !== -1)
+	                onePortion = '0';
 	
-	        returnString = onePortion + returnString;
+	            returnString = onePortion + returnString;
 	
-	        // handle special case where negative is in front of the invalid characters
-	        if (number < 0 && negativeInFront && prefix.length > 0)
-	            prefix = neg + prefix;
-	        else if (number < 0)
-	            returnString = neg + returnString;
+	            // handle special case where negative is in front of the invalid characters
+	            if (number < 0 && negativeInFront && prefix.length > 0)
+	                prefix = neg + prefix;
+	            else if (number < 0)
+	                returnString = neg + returnString;
 	
-	        if (!options.decimalSeparatorAlwaysShown) {
-	            if (returnString.lastIndexOf(dec) == returnString.length - 1) {
-	                returnString = returnString.substring(0, returnString.length - 1);
-	            }
-	        }
-	        returnString = prefix + returnString + suffix;
-	        return returnString;
-	    }
-	
-	    /*  Formatting Methods  */
-	
-	    /**
-	     * First parses a string and reformats it with the given options.
-	     *
-	     * @param {Object} numberString
-	     * @param {Object} options
-	     */
-	    this.formatNumber = function (numberString, options) {
-	        options = _assign({}, this.defaults, options);
-	        var formatData = formatCodes(options.locale.toLowerCase(), options.isFullLocale);
-	
-	        var dec = formatData.dec;
-	        var group = formatData.group;
-	        var neg = formatData.neg;
-	
-	        var validFormat = "0#-,.";
-	
-	        // in the prefix & suffix part of the format string, characters can be escaped
-	        // by surrounding them in single quotes, so they are not intepreted as formatting placeholders
-	        var singleQuote = '\'';
-	        var nextCharIsQuoted = false;
-	
-	        // strip all the invalid characters at the beginning and the end
-	        // of the format, and we'll stick them back on at the end
-	        // make a special case for the negative sign "-" though, so
-	        // we can have formats like -$23.32
-	        var prefix = "";
-	        var negativeInFront = false;
-	        for (var i = 0; i < options.format.length; i++) {
-	            if (options.format.charAt(i) == singleQuote) {
-	                if (options.format.charAt(i + 1) == singleQuote) {
-	                    prefix = prefix + singleQuote;
+	            if (!options.decimalSeparatorAlwaysShown) {
+	                if (returnString.lastIndexOf(dec) == returnString.length - 1) {
+	                    returnString = returnString.substring(0, returnString.length - 1);
 	                }
-	                nextCharIsQuoted = !nextCharIsQuoted && options.format.charAt(i + 2) == singleQuote;
-	            } else if (validFormat.indexOf(options.format.charAt(i)) == -1 || nextCharIsQuoted) {
-	                prefix = prefix + options.format.charAt(i);
-	            } else {
-	                if (i == 0 && options.format.charAt(i) == '-') {
-	                    negativeInFront = true;
+	            }
+	            returnString = prefix + returnString + suffix;
+	            return returnString;
+	        }
+	
+	        /*  Formatting Methods  */
+	
+	        /**
+	         * First parses a string and reformats it with the given options.
+	         *
+	         * @param {Object} numberString
+	         * @param {Object} options
+	         */
+	        this.formatNumber = function (numberString, options) {
+	            options = $.extend({}, this.defaults, options);
+	            var formatData = formatCodes(options.locale.toLowerCase(), options.isFullLocale);
+	
+	            var dec = formatData.dec;
+	            var group = formatData.group;
+	            var neg = formatData.neg;
+	
+	            var validFormat = "0#-,.";
+	
+	            // in the prefix & suffix part of the format string, characters can be escaped
+	            // by surrounding them in single quotes, so they are not intepreted as formatting placeholders
+	            var singleQuote = '\'';
+	            var nextCharIsQuoted = false;
+	
+	            // strip all the invalid characters at the beginning and the end
+	            // of the format, and we'll stick them back on at the end
+	            // make a special case for the negative sign "-" though, so
+	            // we can have formats like -$23.32
+	            var prefix = "";
+	            var negativeInFront = false;
+	            for (var i = 0; i < options.format.length; i++) {
+	                if (options.format.charAt(i) == singleQuote) {
+	                    if (options.format.charAt(i + 1) == singleQuote) {
+	                        prefix = prefix + singleQuote;
+	                    }
+	                    nextCharIsQuoted = !nextCharIsQuoted && options.format.charAt(i + 2) == singleQuote;
+	                } else if (validFormat.indexOf(options.format.charAt(i)) == -1 || nextCharIsQuoted) {
+	                    prefix = prefix + options.format.charAt(i);
 	                } else {
-	                    // end of prefix has been reached, remove it from format string
-	                    options.format = options.format.substring(i, options.format.length);
+	                    if (i == 0 && options.format.charAt(i) == '-') {
+	                        negativeInFront = true;
+	                    } else {
+	                        // end of prefix has been reached, remove it from format string
+	                        options.format = options.format.substring(i, options.format.length);
+	                        break;
+	                    }
+	                }
+	            }
+	            var suffix = "";
+	            for (i = options.format.length - 1; i >= 0; i--) {
+	                if (options.format.charAt(i) == singleQuote) {
+	                    if (options.format.charAt(i - 1) == singleQuote) {
+	                        suffix = singleQuote + suffix;
+	                    }
+	                    nextCharIsQuoted = !nextCharIsQuoted && options.format.charAt(i - 2) == singleQuote;
+	                } else if (validFormat.indexOf(options.format.charAt(i)) == -1 || nextCharIsQuoted) {
+	                    suffix = options.format.charAt(i) + suffix;
+	                } else {
+	                    // beginning of suffix has been reached, remove it from format string
+	                    options.format = options.format.substring(0, i + 1);
 	                    break;
 	                }
 	            }
-	        }
-	        var suffix = "";
-	        for (i = options.format.length - 1; i >= 0; i--) {
-	            if (options.format.charAt(i) == singleQuote) {
-	                if (options.format.charAt(i - 1) == singleQuote) {
-	                    suffix = singleQuote + suffix;
-	                }
-	                nextCharIsQuoted = !nextCharIsQuoted && options.format.charAt(i - 2) == singleQuote;
-	            } else if (validFormat.indexOf(options.format.charAt(i)) == -1 || nextCharIsQuoted) {
-	                suffix = options.format.charAt(i) + suffix;
-	            } else {
-	                // beginning of suffix has been reached, remove it from format string
-	                options.format = options.format.substring(0, i + 1);
-	                break;
-	            }
-	        }
 	
-	        // now we need to convert it into a number
-	        //while (numberString.indexOf(group) > -1)
-	        //  numberString = numberString.replace(group, '');
-	        //var number = new Number(numberString.replace(dec, ".").replace(neg, "-"));
-	        var number = Number(numberString);
+	            // now we need to convert it into a number
+	            //while (numberString.indexOf(group) > -1)
+	            //  numberString = numberString.replace(group, '');
+	            //var number = new Number(numberString.replace(dec, ".").replace(neg, "-"));
+	            var number = Number(numberString);
 	
-	        return _formatNumber(number, options, suffix, prefix, negativeInFront);
-	    };
-	}
+	            return _formatNumber(number, options, suffix, prefix, negativeInFront);
+	        };
+	    }
 	
-	module.exports = NumberFormatter;
+	    return NumberFormatter;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))
 
 /***/ },
 
 /***/ 243:
-/***/ function(module, exports) {
-
-	/**
-	 * lodash (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modularize exports="npm" -o ./`
-	 * Copyright jQuery Foundation and other contributors <https://jquery.org/>
-	 * Released under MIT license <https://lodash.com/license>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 */
-	
-	/** Used as references for various `Number` constants. */
-	var MAX_SAFE_INTEGER = 9007199254740991;
-	
-	/** `Object#toString` result references. */
-	var argsTag = '[object Arguments]',
-	    funcTag = '[object Function]',
-	    genTag = '[object GeneratorFunction]';
-	
-	/** Used to detect unsigned integer values. */
-	var reIsUint = /^(?:0|[1-9]\d*)$/;
-	
-	/**
-	 * A faster alternative to `Function#apply`, this function invokes `func`
-	 * with the `this` binding of `thisArg` and the arguments of `args`.
-	 *
-	 * @private
-	 * @param {Function} func The function to invoke.
-	 * @param {*} thisArg The `this` binding of `func`.
-	 * @param {Array} args The arguments to invoke `func` with.
-	 * @returns {*} Returns the result of `func`.
-	 */
-	function apply(func, thisArg, args) {
-	  switch (args.length) {
-	    case 0: return func.call(thisArg);
-	    case 1: return func.call(thisArg, args[0]);
-	    case 2: return func.call(thisArg, args[0], args[1]);
-	    case 3: return func.call(thisArg, args[0], args[1], args[2]);
-	  }
-	  return func.apply(thisArg, args);
-	}
-	
-	/**
-	 * The base implementation of `_.times` without support for iteratee shorthands
-	 * or max array length checks.
-	 *
-	 * @private
-	 * @param {number} n The number of times to invoke `iteratee`.
-	 * @param {Function} iteratee The function invoked per iteration.
-	 * @returns {Array} Returns the array of results.
-	 */
-	function baseTimes(n, iteratee) {
-	  var index = -1,
-	      result = Array(n);
-	
-	  while (++index < n) {
-	    result[index] = iteratee(index);
-	  }
-	  return result;
-	}
-	
-	/**
-	 * Creates a unary function that invokes `func` with its argument transformed.
-	 *
-	 * @private
-	 * @param {Function} func The function to wrap.
-	 * @param {Function} transform The argument transform.
-	 * @returns {Function} Returns the new function.
-	 */
-	function overArg(func, transform) {
-	  return function(arg) {
-	    return func(transform(arg));
-	  };
-	}
-	
-	/** Used for built-in method references. */
-	var objectProto = Object.prototype;
-	
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-	
-	/**
-	 * Used to resolve the
-	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
-	 * of values.
-	 */
-	var objectToString = objectProto.toString;
-	
-	/** Built-in value references. */
-	var propertyIsEnumerable = objectProto.propertyIsEnumerable;
-	
-	/* Built-in method references for those with the same name as other `lodash` methods. */
-	var nativeKeys = overArg(Object.keys, Object),
-	    nativeMax = Math.max;
-	
-	/** Detect if properties shadowing those on `Object.prototype` are non-enumerable. */
-	var nonEnumShadows = !propertyIsEnumerable.call({ 'valueOf': 1 }, 'valueOf');
-	
-	/**
-	 * Creates an array of the enumerable property names of the array-like `value`.
-	 *
-	 * @private
-	 * @param {*} value The value to query.
-	 * @param {boolean} inherited Specify returning inherited property names.
-	 * @returns {Array} Returns the array of property names.
-	 */
-	function arrayLikeKeys(value, inherited) {
-	  // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
-	  // Safari 9 makes `arguments.length` enumerable in strict mode.
-	  var result = (isArray(value) || isArguments(value))
-	    ? baseTimes(value.length, String)
-	    : [];
-	
-	  var length = result.length,
-	      skipIndexes = !!length;
-	
-	  for (var key in value) {
-	    if ((inherited || hasOwnProperty.call(value, key)) &&
-	        !(skipIndexes && (key == 'length' || isIndex(key, length)))) {
-	      result.push(key);
-	    }
-	  }
-	  return result;
-	}
-	
-	/**
-	 * Assigns `value` to `key` of `object` if the existing value is not equivalent
-	 * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
-	 * for equality comparisons.
-	 *
-	 * @private
-	 * @param {Object} object The object to modify.
-	 * @param {string} key The key of the property to assign.
-	 * @param {*} value The value to assign.
-	 */
-	function assignValue(object, key, value) {
-	  var objValue = object[key];
-	  if (!(hasOwnProperty.call(object, key) && eq(objValue, value)) ||
-	      (value === undefined && !(key in object))) {
-	    object[key] = value;
-	  }
-	}
-	
-	/**
-	 * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
-	 *
-	 * @private
-	 * @param {Object} object The object to query.
-	 * @returns {Array} Returns the array of property names.
-	 */
-	function baseKeys(object) {
-	  if (!isPrototype(object)) {
-	    return nativeKeys(object);
-	  }
-	  var result = [];
-	  for (var key in Object(object)) {
-	    if (hasOwnProperty.call(object, key) && key != 'constructor') {
-	      result.push(key);
-	    }
-	  }
-	  return result;
-	}
-	
-	/**
-	 * The base implementation of `_.rest` which doesn't validate or coerce arguments.
-	 *
-	 * @private
-	 * @param {Function} func The function to apply a rest parameter to.
-	 * @param {number} [start=func.length-1] The start position of the rest parameter.
-	 * @returns {Function} Returns the new function.
-	 */
-	function baseRest(func, start) {
-	  start = nativeMax(start === undefined ? (func.length - 1) : start, 0);
-	  return function() {
-	    var args = arguments,
-	        index = -1,
-	        length = nativeMax(args.length - start, 0),
-	        array = Array(length);
-	
-	    while (++index < length) {
-	      array[index] = args[start + index];
-	    }
-	    index = -1;
-	    var otherArgs = Array(start + 1);
-	    while (++index < start) {
-	      otherArgs[index] = args[index];
-	    }
-	    otherArgs[start] = array;
-	    return apply(func, this, otherArgs);
-	  };
-	}
-	
-	/**
-	 * Copies properties of `source` to `object`.
-	 *
-	 * @private
-	 * @param {Object} source The object to copy properties from.
-	 * @param {Array} props The property identifiers to copy.
-	 * @param {Object} [object={}] The object to copy properties to.
-	 * @param {Function} [customizer] The function to customize copied values.
-	 * @returns {Object} Returns `object`.
-	 */
-	function copyObject(source, props, object, customizer) {
-	  object || (object = {});
-	
-	  var index = -1,
-	      length = props.length;
-	
-	  while (++index < length) {
-	    var key = props[index];
-	
-	    var newValue = customizer
-	      ? customizer(object[key], source[key], key, object, source)
-	      : undefined;
-	
-	    assignValue(object, key, newValue === undefined ? source[key] : newValue);
-	  }
-	  return object;
-	}
-	
-	/**
-	 * Creates a function like `_.assign`.
-	 *
-	 * @private
-	 * @param {Function} assigner The function to assign values.
-	 * @returns {Function} Returns the new assigner function.
-	 */
-	function createAssigner(assigner) {
-	  return baseRest(function(object, sources) {
-	    var index = -1,
-	        length = sources.length,
-	        customizer = length > 1 ? sources[length - 1] : undefined,
-	        guard = length > 2 ? sources[2] : undefined;
-	
-	    customizer = (assigner.length > 3 && typeof customizer == 'function')
-	      ? (length--, customizer)
-	      : undefined;
-	
-	    if (guard && isIterateeCall(sources[0], sources[1], guard)) {
-	      customizer = length < 3 ? undefined : customizer;
-	      length = 1;
-	    }
-	    object = Object(object);
-	    while (++index < length) {
-	      var source = sources[index];
-	      if (source) {
-	        assigner(object, source, index, customizer);
-	      }
-	    }
-	    return object;
-	  });
-	}
-	
-	/**
-	 * Checks if `value` is a valid array-like index.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
-	 * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
-	 */
-	function isIndex(value, length) {
-	  length = length == null ? MAX_SAFE_INTEGER : length;
-	  return !!length &&
-	    (typeof value == 'number' || reIsUint.test(value)) &&
-	    (value > -1 && value % 1 == 0 && value < length);
-	}
-	
-	/**
-	 * Checks if the given arguments are from an iteratee call.
-	 *
-	 * @private
-	 * @param {*} value The potential iteratee value argument.
-	 * @param {*} index The potential iteratee index or key argument.
-	 * @param {*} object The potential iteratee object argument.
-	 * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
-	 *  else `false`.
-	 */
-	function isIterateeCall(value, index, object) {
-	  if (!isObject(object)) {
-	    return false;
-	  }
-	  var type = typeof index;
-	  if (type == 'number'
-	        ? (isArrayLike(object) && isIndex(index, object.length))
-	        : (type == 'string' && index in object)
-	      ) {
-	    return eq(object[index], value);
-	  }
-	  return false;
-	}
-	
-	/**
-	 * Checks if `value` is likely a prototype object.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
-	 */
-	function isPrototype(value) {
-	  var Ctor = value && value.constructor,
-	      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
-	
-	  return value === proto;
-	}
-	
-	/**
-	 * Performs a
-	 * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
-	 * comparison between two values to determine if they are equivalent.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.0.0
-	 * @category Lang
-	 * @param {*} value The value to compare.
-	 * @param {*} other The other value to compare.
-	 * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
-	 * @example
-	 *
-	 * var object = { 'a': 1 };
-	 * var other = { 'a': 1 };
-	 *
-	 * _.eq(object, object);
-	 * // => true
-	 *
-	 * _.eq(object, other);
-	 * // => false
-	 *
-	 * _.eq('a', 'a');
-	 * // => true
-	 *
-	 * _.eq('a', Object('a'));
-	 * // => false
-	 *
-	 * _.eq(NaN, NaN);
-	 * // => true
-	 */
-	function eq(value, other) {
-	  return value === other || (value !== value && other !== other);
-	}
-	
-	/**
-	 * Checks if `value` is likely an `arguments` object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.1.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an `arguments` object,
-	 *  else `false`.
-	 * @example
-	 *
-	 * _.isArguments(function() { return arguments; }());
-	 * // => true
-	 *
-	 * _.isArguments([1, 2, 3]);
-	 * // => false
-	 */
-	function isArguments(value) {
-	  // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
-	  return isArrayLikeObject(value) && hasOwnProperty.call(value, 'callee') &&
-	    (!propertyIsEnumerable.call(value, 'callee') || objectToString.call(value) == argsTag);
-	}
-	
-	/**
-	 * Checks if `value` is classified as an `Array` object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.1.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an array, else `false`.
-	 * @example
-	 *
-	 * _.isArray([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isArray(document.body.children);
-	 * // => false
-	 *
-	 * _.isArray('abc');
-	 * // => false
-	 *
-	 * _.isArray(_.noop);
-	 * // => false
-	 */
-	var isArray = Array.isArray;
-	
-	/**
-	 * Checks if `value` is array-like. A value is considered array-like if it's
-	 * not a function and has a `value.length` that's an integer greater than or
-	 * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.0.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
-	 * @example
-	 *
-	 * _.isArrayLike([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isArrayLike(document.body.children);
-	 * // => true
-	 *
-	 * _.isArrayLike('abc');
-	 * // => true
-	 *
-	 * _.isArrayLike(_.noop);
-	 * // => false
-	 */
-	function isArrayLike(value) {
-	  return value != null && isLength(value.length) && !isFunction(value);
-	}
-	
-	/**
-	 * This method is like `_.isArrayLike` except that it also checks if `value`
-	 * is an object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.0.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an array-like object,
-	 *  else `false`.
-	 * @example
-	 *
-	 * _.isArrayLikeObject([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isArrayLikeObject(document.body.children);
-	 * // => true
-	 *
-	 * _.isArrayLikeObject('abc');
-	 * // => false
-	 *
-	 * _.isArrayLikeObject(_.noop);
-	 * // => false
-	 */
-	function isArrayLikeObject(value) {
-	  return isObjectLike(value) && isArrayLike(value);
-	}
-	
-	/**
-	 * Checks if `value` is classified as a `Function` object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.1.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a function, else `false`.
-	 * @example
-	 *
-	 * _.isFunction(_);
-	 * // => true
-	 *
-	 * _.isFunction(/abc/);
-	 * // => false
-	 */
-	function isFunction(value) {
-	  // The use of `Object#toString` avoids issues with the `typeof` operator
-	  // in Safari 8-9 which returns 'object' for typed array and other constructors.
-	  var tag = isObject(value) ? objectToString.call(value) : '';
-	  return tag == funcTag || tag == genTag;
-	}
-	
-	/**
-	 * Checks if `value` is a valid array-like length.
-	 *
-	 * **Note:** This method is loosely based on
-	 * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.0.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
-	 * @example
-	 *
-	 * _.isLength(3);
-	 * // => true
-	 *
-	 * _.isLength(Number.MIN_VALUE);
-	 * // => false
-	 *
-	 * _.isLength(Infinity);
-	 * // => false
-	 *
-	 * _.isLength('3');
-	 * // => false
-	 */
-	function isLength(value) {
-	  return typeof value == 'number' &&
-	    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
-	}
-	
-	/**
-	 * Checks if `value` is the
-	 * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
-	 * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.1.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
-	 * @example
-	 *
-	 * _.isObject({});
-	 * // => true
-	 *
-	 * _.isObject([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObject(_.noop);
-	 * // => true
-	 *
-	 * _.isObject(null);
-	 * // => false
-	 */
-	function isObject(value) {
-	  var type = typeof value;
-	  return !!value && (type == 'object' || type == 'function');
-	}
-	
-	/**
-	 * Checks if `value` is object-like. A value is object-like if it's not `null`
-	 * and has a `typeof` result of "object".
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.0.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
-	 * @example
-	 *
-	 * _.isObjectLike({});
-	 * // => true
-	 *
-	 * _.isObjectLike([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObjectLike(_.noop);
-	 * // => false
-	 *
-	 * _.isObjectLike(null);
-	 * // => false
-	 */
-	function isObjectLike(value) {
-	  return !!value && typeof value == 'object';
-	}
-	
-	/**
-	 * Assigns own enumerable string keyed properties of source objects to the
-	 * destination object. Source objects are applied from left to right.
-	 * Subsequent sources overwrite property assignments of previous sources.
-	 *
-	 * **Note:** This method mutates `object` and is loosely based on
-	 * [`Object.assign`](https://mdn.io/Object/assign).
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.10.0
-	 * @category Object
-	 * @param {Object} object The destination object.
-	 * @param {...Object} [sources] The source objects.
-	 * @returns {Object} Returns `object`.
-	 * @see _.assignIn
-	 * @example
-	 *
-	 * function Foo() {
-	 *   this.a = 1;
-	 * }
-	 *
-	 * function Bar() {
-	 *   this.c = 3;
-	 * }
-	 *
-	 * Foo.prototype.b = 2;
-	 * Bar.prototype.d = 4;
-	 *
-	 * _.assign({ 'a': 0 }, new Foo, new Bar);
-	 * // => { 'a': 1, 'c': 3 }
-	 */
-	var assign = createAssigner(function(object, source) {
-	  if (nonEnumShadows || isPrototype(source) || isArrayLike(source)) {
-	    copyObject(source, keys(source), object);
-	    return;
-	  }
-	  for (var key in source) {
-	    if (hasOwnProperty.call(source, key)) {
-	      assignValue(object, key, source[key]);
-	    }
-	  }
-	});
-	
-	/**
-	 * Creates an array of the own enumerable property names of `object`.
-	 *
-	 * **Note:** Non-object values are coerced to objects. See the
-	 * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
-	 * for more details.
-	 *
-	 * @static
-	 * @since 0.1.0
-	 * @memberOf _
-	 * @category Object
-	 * @param {Object} object The object to query.
-	 * @returns {Array} Returns the array of property names.
-	 * @example
-	 *
-	 * function Foo() {
-	 *   this.a = 1;
-	 *   this.b = 2;
-	 * }
-	 *
-	 * Foo.prototype.c = 3;
-	 *
-	 * _.keys(new Foo);
-	 * // => ['a', 'b'] (iteration order is not guaranteed)
-	 *
-	 * _.keys('hi');
-	 * // => ['0', '1']
-	 */
-	function keys(object) {
-	  return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
-	}
-	
-	module.exports = assign;
-
-
-/***/ },
-
-/***/ 244:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(245)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(244)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
 	    
 	    function isInteger(text) {
 	        return /^\+?\d+$/.test(text);
@@ -1201,7 +554,7 @@ webpackJsonp([65],{
 	    var _me = {
 	        showDialogMesage: function (title, message) {
 	            var options = {
-	                title: Site.getSingleResource("Confirmation"),
+	                title: title,
 	                height: "auto",
 	                id: "result-update-betsetting",
 	                onOpen: function () {
@@ -1251,7 +604,7 @@ webpackJsonp([65],{
 	        },
 	        hideBalloonMsg: function (elementSelector) {
 	            $(elementSelector).hideBalloon();
-	        },
+	        }
 	    };
 	
 	    return _me;
@@ -1259,7 +612,7 @@ webpackJsonp([65],{
 
 /***/ },
 
-/***/ 245:
+/***/ 244:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -1542,16 +895,18 @@ webpackJsonp([65],{
 
 /***/ },
 
-/***/ 246:
+/***/ 245:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(244)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingHelper) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(243)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingHelper) {
 	    var SPORTID_NUMBERGAME = 161;
 	
 	    var _me = {
 	        checkValidationNumberGame: function () {
-	            if (false === _me.checkLimitMinMaxBet(SPORTID_NUMBERGAME)) { return false; }
+	            if (!_me.checkLimitMinMaxBet(SPORTID_NUMBERGAME)) {
+	                return false;
+	            }
 	
 	            var maxPerBallSelector = "#max-per-ball-161";
 	            var maxPerBall = BetSettingHelper.convertToFloat($(maxPerBallSelector).val());
@@ -1642,7 +997,7 @@ webpackJsonp([65],{
 	
 	        checkLimitMinMaxBets: function (sportIds) {
 	            for (var i = 0; i < sportIds.length; i++) {
-	                if (_me.checkLimitMinMaxBet(sportIds[i]) === false) {
+	                if (!_me.checkLimitMinMaxBet(sportIds[i])) {
 	                    return false;
 	                }
 	            }
@@ -1656,11 +1011,11 @@ webpackJsonp([65],{
 
 /***/ },
 
-/***/ 247:
+/***/ 246:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(244)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingHelper) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(243)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingHelper) {
 	    var _me = {
 	        update: function (url, postData) {
 	            $.ajax({
@@ -1671,10 +1026,10 @@ webpackJsonp([65],{
 	                dataType: "json",
 	                success: function (result) {
 	                    var messageResource = result.IsSuccessful ? "MessageSuccess" : "Fail";
-	                    BetSettingHelper.showDialogMesage(Site.getSingleResource(messageResource), result.Message, false);
+	                    BetSettingHelper.showDialogMesage(Site.getSingleResource(messageResource), result.Message);
 	                },
 	                error: function (request, status, err) {
-	                    BetSettingHelper.showDialogMesage(Site.getSingleResource("Error"), err, false);
+	                    BetSettingHelper.showDialogMesage(Site.getSingleResource("Error"), err);
 	                }
 	            });
 	        },
@@ -1691,7 +1046,7 @@ webpackJsonp([65],{
 	                nickname: nickName,
 	                status: status,
 	                custid: custId
-	            }
+	            };
 	        }
 	    };
 	
@@ -1700,23 +1055,23 @@ webpackJsonp([65],{
 
 /***/ },
 
-/***/ 296:
+/***/ 295:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(297)], __WEBPACK_AMD_DEFINE_RESULT__ = function (ThirdPartyBetSetting) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(296)], __WEBPACK_AMD_DEFINE_RESULT__ = function (ThirdPartyBetSetting) {
 	    $(ThirdPartyBetSetting.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
 
-/***/ 297:
+/***/ 296:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* Macau, MgcLiveCasino, Colossusbets, MgcRngCasino, BetTrade, Cashout */
 	"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(240), __webpack_require__(241), __webpack_require__(247)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Constant, BetSettingBase, BetSettingStatus) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(240), __webpack_require__(241), __webpack_require__(246)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Constant, BetSettingBase, BetSettingStatus) {
 	        var Product = Constant.Product;
 	        var CHECKBOX_SELECTOR = "#enable-product";
 	        var PRODUCT_CONTAIN_CHECKBOX = [Product.MgcLiveCasino, Product.MgcRngCasino, Product.BetTrade, Product.Cashout];

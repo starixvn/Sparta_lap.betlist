@@ -3,15 +3,15 @@ webpackJsonp([54],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(256);
+	module.exports = __webpack_require__(255);
 
 
 /***/ },
 
-/***/ 253:
+/***/ 252:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(254), __webpack_require__(255)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, CustomerCommGroup) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(253), __webpack_require__(254)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, CustomerCommGroup) {
 	         "use strict";
 	
 	         function initialize(titleResource) {
@@ -100,8 +100,7 @@ webpackJsonp([54],{
 	                 },
 	                 success: function (result) {
 	                     if (result === "OK") {
-	                         $("#GroupName").removeClass("invalid");
-	                         $("#GroupName").addClass("valid");
+	                         $("#GroupName").removeClass("invalid").addClass("valid");
 	                         $("#Add").prop("disabled", false);
 	                     }
 	                     else {
@@ -227,7 +226,7 @@ webpackJsonp([54],{
 
 /***/ },
 
-/***/ 254:
+/***/ 253:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
@@ -270,7 +269,7 @@ webpackJsonp([54],{
 
 /***/ },
 
-/***/ 255:
+/***/ 254:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/**
@@ -631,10 +630,10 @@ webpackJsonp([54],{
 
 /***/ },
 
-/***/ 256:
+/***/ 255:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(257)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupEdit) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(256)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupEdit) {
 	    "use strict";
 	
 	    $(CustomerCommGroupEdit.initialize);
@@ -643,10 +642,10 @@ webpackJsonp([54],{
 
 /***/ },
 
-/***/ 257:
+/***/ 256:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(253)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, CommGroupDetail) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(252)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, CommGroupDetail) {
 	         "use strict";
 	
 	         var FORM_SELECTOR = "#customer-comm-group-edit";

@@ -2,7 +2,7 @@ webpackJsonp([84],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(353);
+	module.exports = __webpack_require__(352);
 
 
 /***/ },
@@ -16649,8 +16649,7 @@ webpackJsonp([84],[
 /* 320 */,
 /* 321 */,
 /* 322 */,
-/* 323 */,
-/* 324 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -16691,6 +16690,7 @@ webpackJsonp([84],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
+/* 324 */,
 /* 325 */,
 /* 326 */,
 /* 327 */,
@@ -16707,8 +16707,7 @@ webpackJsonp([84],[
 /* 338 */,
 /* 339 */,
 /* 340 */,
-/* 341 */,
-/* 342 */
+/* 341 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -16761,6 +16760,7 @@ webpackJsonp([84],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
+/* 342 */,
 /* 343 */,
 /* 344 */,
 /* 345 */,
@@ -16770,18 +16770,17 @@ webpackJsonp([84],[
 /* 349 */,
 /* 350 */,
 /* 351 */,
-/* 352 */,
-/* 353 */
+/* 352 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(354)], __WEBPACK_AMD_DEFINE_RESULT__ = function (WinLossByBetType) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(353)], __WEBPACK_AMD_DEFINE_RESULT__ = function (WinLossByBetType) {
 	    $(WinLossByBetType.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 354 */
+/* 353 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -16790,8 +16789,8 @@ webpackJsonp([84],[
 	    __webpack_require__(7),
 	    __webpack_require__(8),
 	    __webpack_require__(220),
-	    __webpack_require__(324),
-	    __webpack_require__(342),
+	    __webpack_require__(323),
+	    __webpack_require__(341),
 	    __webpack_require__(237)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, DatePicker, GridHelper, SortableHeader) {
 	        var _me = {
 	            initialize: function () {

@@ -2,7 +2,7 @@ webpackJsonp([80],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(343);
+	module.exports = __webpack_require__(342);
 
 
 /***/ },
@@ -16649,8 +16649,7 @@ webpackJsonp([80],[
 /* 320 */,
 /* 321 */,
 /* 322 */,
-/* 323 */,
-/* 324 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -16691,6 +16690,7 @@ webpackJsonp([80],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
+/* 324 */,
 /* 325 */,
 /* 326 */,
 /* 327 */,
@@ -16708,22 +16708,21 @@ webpackJsonp([80],[
 /* 339 */,
 /* 340 */,
 /* 341 */,
-/* 342 */,
-/* 343 */
+/* 342 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(344)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Result) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(343)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Result) {
 	    $(Result.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 344 */
+/* 343 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(220), __webpack_require__(9), __webpack_require__(324), __webpack_require__(237)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, DatePicker, Popup, GridHelper) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(220), __webpack_require__(9), __webpack_require__(323), __webpack_require__(237)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, DatePicker, Popup, GridHelper) {
 	        var api = "ResultReport/Index";
 	        var apiExcel = "ResultReport/ResultExcel?";
 	        var apiSport = "ResultReport/GetSports";

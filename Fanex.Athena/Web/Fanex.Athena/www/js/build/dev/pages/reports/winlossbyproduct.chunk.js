@@ -2,7 +2,7 @@ webpackJsonp([86],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(359);
+	module.exports = __webpack_require__(358);
 
 
 /***/ },
@@ -20483,12 +20483,11 @@ webpackJsonp([86],[
 /* 262 */,
 /* 263 */,
 /* 264 */,
-/* 265 */,
-/* 266 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// require option properties: suggestionDropdown, url, target
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(267)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(266)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
 	    "use strict";
 	
 	    var mainOption = {
@@ -20577,7 +20576,7 @@ webpackJsonp([86],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 267 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
@@ -21042,6 +21041,7 @@ webpackJsonp([86],[
 
 
 /***/ },
+/* 267 */,
 /* 268 */,
 /* 269 */,
 /* 270 */,
@@ -21094,8 +21094,7 @@ webpackJsonp([86],[
 /* 317 */,
 /* 318 */,
 /* 319 */,
-/* 320 */,
-/* 321 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -21146,6 +21145,7 @@ webpackJsonp([86],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
+/* 321 */,
 /* 322 */,
 /* 323 */,
 /* 324 */,
@@ -21162,8 +21162,7 @@ webpackJsonp([86],[
 /* 335 */,
 /* 336 */,
 /* 337 */,
-/* 338 */,
-/* 339 */
+/* 338 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -21202,6 +21201,7 @@ webpackJsonp([86],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))
 
 /***/ },
+/* 339 */,
 /* 340 */,
 /* 341 */,
 /* 342 */,
@@ -21220,11 +21220,10 @@ webpackJsonp([86],[
 /* 355 */,
 /* 356 */,
 /* 357 */,
-/* 358 */,
-/* 359 */
+/* 358 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(360)], __WEBPACK_AMD_DEFINE_RESULT__ = function (WinLossByProduct) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(359)], __WEBPACK_AMD_DEFINE_RESULT__ = function (WinLossByProduct) {
 	    "use strict";
 	
 	    $(WinLossByProduct.initialize);
@@ -21232,12 +21231,12 @@ webpackJsonp([86],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 360 */
+/* 359 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(209), __webpack_require__(361), __webpack_require__(102), __webpack_require__(9),
-	    __webpack_require__(220), __webpack_require__(230), __webpack_require__(233), __webpack_require__(266),
-	    __webpack_require__(321), __webpack_require__(339),
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(209), __webpack_require__(360), __webpack_require__(102), __webpack_require__(9),
+	    __webpack_require__(220), __webpack_require__(230), __webpack_require__(233), __webpack_require__(265),
+	    __webpack_require__(320), __webpack_require__(338),
 	    __webpack_require__(237), __webpack_require__(212), __webpack_require__(213)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report, MultiSelect, AutoComplete, DateHelper, ExcelHelper) {
 	        "use strict";
 	
@@ -21659,7 +21658,7 @@ webpackJsonp([86],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 361 */
+/* 360 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(209)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
