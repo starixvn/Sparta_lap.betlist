@@ -74,13 +74,16 @@
         });
 
         describe("showUpdatePopUp($context)", function () {
-            it("checkStatusChange() should be called if context cusid and popup custid are the same", function () {
+            beforeEach(function () {
                 spyOn(CustomerListCustStatus, "checkStatusChange");
-                setFixtures('<div id="report-content"><button class="custStatusOption" data-custid="1"></button></div>'
-                    + '<div id="UpdateCustStatus" data-custid="1"></div>');
                 spyOn($.fn, "offset").and.returnValue({ top: 0, left: 0 });
                 spyOn($.fn, "outerHeight").and.returnValue(100);
                 spyOn($.fn, "css");
+            });
+
+            it("checkStatusChange() should be called if context cusid and popup custid are the same", function () {
+                setFixtures('<div id="report-content"><button class="custStatusOption" data-custid="1"></button></div>'
+                    + '<div id="UpdateCustStatus" data-custid="1"></div>');
                 window.innerHeight = 500;
 
                 CustomerListCustStatus.showUpdatePopUp($(".custStatusOption"));
@@ -96,10 +99,6 @@
                     + '<input type="hidden" id="custStatus-externalId">'
                     + '<input type="checkbox" id="custStatus-suspended">'
                     + '<input type="checkbox" id="custStatus-closed">');
-                spyOn(CustomerListCustStatus, "checkStatusChange");
-                spyOn($.fn, "offset").and.returnValue({ top: 0, left: 0 });
-                spyOn($.fn, "outerHeight").and.returnValue(100);
-                spyOn($.fn, "css");
                 window.innerHeight = 50;
 
                 CustomerListCustStatus.showUpdatePopUp($(".custStatusOption"));

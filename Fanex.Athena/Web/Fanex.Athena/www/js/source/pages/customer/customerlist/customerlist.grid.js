@@ -91,7 +91,7 @@ define([
 
                     if (isCheckedAll) {
                         _state.cachedData.Data.map(function (item) {
-                            selectedCustomers[item.CustId] = true;
+                            selectedCustomers[item.CustId] = item.GroupCommId;
                         });
                     }
 
@@ -102,7 +102,7 @@ define([
 
                 $("#report-content").on("change", ".select-cust-checkbox", function () {
                     var custid = Number(this.id);
-                    var group = $(this).attr("data-group-comm-id");
+                    var group = $(this).data("group-comm-id");
                     var selectedCustomers = _state.selectedCustomers;
 
                     if (this.checked) {

@@ -13,7 +13,7 @@
                 });
 
                 $('#UpdateComm').click(function () {
-                    var groupCommId = $('#UpdateComm').attr('data-group-id');
+                    var groupCommId = $('#UpdateComm').data('group-id');
                     _me.showUpdateCustComm(groupCommId);
                 });
 
@@ -115,9 +115,9 @@
             },
 
             moveCustomerToGroup: function () {
-                var groupid = $('#GroupListSelect').val();
+                var groupid = Number($('#GroupListSelect').val());
 
-                if (groupid === "-1") {
+                if (groupid === -1) {
                     _me.showMsg(Site.getSingleResource('ChooseGroupMsg'), false);
                     return;
                 }
@@ -189,7 +189,7 @@
                 var selectedCustomers = _state.selectedCustomers;
 
                 for (var custId in selectedCustomers) {
-                    if (selectedCustomers.hasOwnProperty(custId) && selectedCustomers[custId] !== "0") {
+                    if (selectedCustomers.hasOwnProperty(custId) && selectedCustomers[custId] !== 0) {
                         isShowInfo = true;
                         break;
                     }

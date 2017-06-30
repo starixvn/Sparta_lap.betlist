@@ -52,7 +52,7 @@
                     CustomerListCommision.initialize();
                     $("#UpdateComm").click();
 
-                    expect(CustomerListCommision.showUpdateCustComm).toHaveBeenCalledWith("1");
+                    expect(CustomerListCommision.showUpdateCustComm).toHaveBeenCalledWith(1);
                 });
 
                 it("showRemoveFromGroup() should be called when #RemoveFromGroup is clicked", function () {
@@ -374,9 +374,9 @@
                     expect(CustomerListCommision.showMsg).toHaveBeenCalledWith("YouNotChooseAnyCustomerMsg", false);
                 });
 
-                it("shows message 'CustomersExistedinGroupMsg' if selected groups are in selected group", function () {
+                it("shows message 'CustomersExistedinGroupMsg' if selected groups are the group wish to move", function () {
                     var getSelectedCustomer = function () {
-                        this.cus1 = "group1";
+                        this.cus1 = 1;
                     };
                     getSelectedCustomer.prototype = { "test": "" };
                     var selectedCustomers = new getSelectedCustomer();
@@ -384,7 +384,7 @@
                     spyOn(CustomerListState, "getState").and.returnValue({
                         selectedCustomers: selectedCustomers
                     });
-                    setFixtures('<select id="GroupListSelect"><option value="group1" selected></option></select>');
+                    setFixtures('<select id="GroupListSelect"><option value="1" selected></option></select>');
 
                     CustomerListCommision.initialize();
                     CustomerListCommision.moveCustomerToGroup();
@@ -435,9 +435,9 @@
 
                 it("CustomerListGrid.updateGridGroupAndComm should be called if API calling succeeds with correct params", function () {
                     spyOn(CustomerListState, "getState").and.returnValue({
-                        selectedCustomers: { "cust1": "group2" }
+                        selectedCustomers: { "cust1": "2" }
                     });
-                    setFixtures('<select id="GroupListSelect"><option value="group1" selected></option></select>');
+                    setFixtures('<select id="GroupListSelect"><option value="1" selected></option></select>');
                     spyOn(CustomerListGrid, "updateGridGroupAndComm");
 
                     jasmine.Ajax.install();
@@ -459,7 +459,7 @@
                     CustomerListCommision.moveCustomerToGroup();
 
                     expect(CustomerListGrid.updateGridGroupAndComm).toHaveBeenCalledWith(
-                        "group1",
+                        1,
                         "<span title='This name is more than 17 characters'>This name is m...</span>",
                         extendedData.GroupColor,
                         extendedData.SBComm,
@@ -476,7 +476,7 @@
                     spyOn(CustomerListCommision, "clearNotification");
                     spyOn(Popup, "openPopupWithButton");
                     spyOn(CustomerListState, "getState").and.returnValue({
-                        selectedCustomers: { "cust1": "0" }
+                        selectedCustomers: { "cust1": 0 }
                     });
 
                     CustomerListCommision.initialize();

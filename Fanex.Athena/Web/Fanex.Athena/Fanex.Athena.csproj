@@ -1427,7 +1427,10 @@
     <Content Include="www\js\tests\pages\customer\customerlist\customerlist.custoption-spec.js" />
     <Content Include="www\js\tests\pages\customer\customerlist\customerlist.custstatus-spec.js" />
     <Content Include="www\js\tests\pages\customer\customerlist\customerlist.filter-spec.js" />
+    <Content Include="www\js\tests\pages\customer\customerlist\customerlist.grid-spec.js" />
     <Content Include="www\js\tests\pages\customer\customerlist\customerlist.oddsgroup-spec.js" />
+    <Content Include="www\js\tests\pages\customer\customerlist\customerlist.option-spec.js" />
+    <Content Include="www\js\tests\pages\customer\customerlist\customerlist.service-spec.js" />
     <Content Include="www\js\tests\pages\customer\customerlist\customerlist.speciallevel-spec.js" />
     <Content Include="www\js\tests\pages\customer\customerlist\customerlist.state-spec.js" />
     <Content Include="www\js\tests\pages\customer\customerlog\common.option-spec.js" />
