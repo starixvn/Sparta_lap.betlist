@@ -1,6 +1,7 @@
 ﻿describe("PlatformWinLoss", function () {
     describe("initialize()", function () {
         beforeEach(function () {
+            spyOn(ProductListHelper, 'initProductList');
             spyOn(PlatformWinLoss, "initEvent");
             spyOn(PlatformWinLoss, "initSetting");
             spyOn($.fn, "autocomplete");

@@ -12,6 +12,7 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Web.Mvc;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.MetaModel.Product;
+    using Model.BetList.ViewModel;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Web.ActionFilter;
@@ -22,9 +23,6 @@ namespace Fanex.Athena.Controllers.BetList
         private const string BetListCustomerOutstandingName = "BetList_CustomerOutstanding";
         private const string BetListCustomerOutstandingRunningName = "BetList_CustomerOutstandingRunning";
 
-        private static readonly string[] IgnoredProductInBetListRunning = new string[] { "BT", "CO" };
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults", Justification = "Reviewd.")]
         public ActionResult Index(BetListMetaModel metaModel)
         {
             var isRunningBetlist = metaModel.BetListName.Equals("betlistrunning", StringComparison.OrdinalIgnoreCase);
@@ -37,40 +35,32 @@ namespace Fanex.Athena.Controllers.BetList
                 SessionService.UserSession.Language,
                 isRunningBetlist ? BetListCustomerOutstandingRunningName : BetListCustomerOutstandingName);
 
-            AssignProductOption(metaModel, productAccess);
-
-            return View("~/Views/BetList/CustomerOutstanding/Main.cshtml", metaModel);
+            var viewModel = new BetListBaseViewModel
+            {
+                Param = metaModel,
+                ProductOptions = GetProductOptions(metaModel.ProductCodeList, productAccess.ProductList)
+            };
+            return View("~/Views/BetList/CustomerOutstanding/Main.cshtml", viewModel);
         }
 
-        private static void AssignProductOption(BetListMetaModel metaModel, ProductAccess productAccess)
+        private static IEnumerable<ProductOption> GetProductOptions(string productCodeList, IEnumerable<Product> allProducts)
         {
-            var isFirstTimeLoading = !metaModel.ProductOptions.Any();
-            var previousCheckedProducts = metaModel.ProductOptions.Where(x => x.Status).ToList();
+            var isFirstTimeLoading = string.IsNullOrEmpty(productCodeList);
+            var previousCheckedProducts = isFirstTimeLoading ? new string[] { } : productCodeList.Split(',');
 
             var productOptions = new List<ProductOption>();
 
-            foreach (var product in productAccess.ProductList)
+            foreach (var product in allProducts)
             {
                 productOptions.Add(new ProductOption
                 {
                     Code = product.ProductCode,
                     Name = product.ProductName,
-                    Status = isFirstTimeLoading || previousCheckedProducts.Any(p => p.Code == product.ProductCode)
+                    Status = isFirstTimeLoading || previousCheckedProducts.Any(p => p.Equals(product.ProductCode, StringComparison.OrdinalIgnoreCase))
                 });
             }
 
-            if (productOptions.Any(p => p.Code == Product.SB) && ShouldCheckSportsbook(previousCheckedProducts))
-            {
-                var sportbookProduct = productOptions.First(p => p.Code == Product.SB);
-                sportbookProduct.Status = true;
-            }
-
-            metaModel.ProductOptions = productOptions;
-        }
-
-        private static bool ShouldCheckSportsbook(IEnumerable<ProductOption> previousCheckedProducts)
-        {
-            return previousCheckedProducts.Any(i => IgnoredProductInBetListRunning.Contains(i.Code));
+            return productOptions;
         }
     }
 }

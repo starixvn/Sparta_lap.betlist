@@ -102,9 +102,9 @@ namespace Fanex.Athena.DataAccess.Report
                     db.AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
                     db.AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
 
-                    foreach (var item in metaModel.ProductOptions)
+                    foreach (var item in metaModel.ProductCodeList.Split(','))
                     {
-                        db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
+                        db.AddInParameter("show" + item, DbType.Boolean, true);
                     }
 
                     using (var reader = db.ExecuteReader())

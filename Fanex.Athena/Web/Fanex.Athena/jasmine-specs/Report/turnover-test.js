@@ -11,6 +11,7 @@
             affix("input#IsAllowedCasinoTransfer[value=true]");
             affix("input#IsAllowBa[value=false]");
 
+            spyOn(ProductListHelper, 'initProductList');
             spyOn(Turnover, "initMonthPicker");
             spyOn(Turnover, "initEvent");
             spyOn(Turnover, "initAutoComplete");

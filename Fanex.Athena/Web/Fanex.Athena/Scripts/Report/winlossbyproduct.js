@@ -1,4 +1,4 @@
-﻿/*global Site, Report, QueryString, jqGridAdditional, WinLossByProductOption*/
+﻿/*global Site, Report, QueryString, jqGridAdditional, WinLossByProductOption, ProductListHelper*/
 /// <reference path="/@JSense.js" />
 
 var WinLossByProduct = (function ($) {
@@ -69,6 +69,7 @@ var WinLossByProduct = (function ($) {
     return {
     //#region Init
     initialize: function () {
+        ProductListHelper.initProductList();
         WinLossByProduct.initEvent();
         WinLossByProduct.initSetting();
         initAutoComplete();
@@ -554,8 +555,6 @@ var WinLossByProduct = (function ($) {
         url = QueryString.setParam(url, "custid", dataDrillDown.CustomerId);
         url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
         url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
-        url = QueryString.setParam(url, "OriginalCurrenceId", dataDrillDown.CurrencyId);
-        url = QueryString.setParam(url, "OriginalCurrencyName", dataDrillDown.CurrencyName);
 
         var popH = Math.min($(window).height() - 100, 500), popW = 920;
         var dialogForm = '<div title="Customer Bet List"><iframe scrolling="no" frameborder="0" width="' + popW +

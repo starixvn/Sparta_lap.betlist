@@ -16434,13 +16434,7 @@ webpackJsonp([53],[
 	            url = QueryString.setParam(url, "todate", $("#ToDate").attr('data-original-to'));
 	            url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
 	            url = Helper.setSumParams(url, totalValue);
-	            // [Jacob] Cheat for live report mix parlay, must send
-	            url = QueryString.setParam(url, "showsb", false);
-	            url = QueryString.setParam(url, "showba", false);
-	            $(productOptions).each(function (index, element) {
-	                url = Site.setProductOptionParam(url, index, element.toUpperCase(), true);
-	                url = QueryString.setParam(url, "show" + element, true);
-	            });
+	            url = Site.setProductCodeListParam(url, productOptions);
 	
 	            Site.blockUI();
 	            Site.redirect(url);
@@ -16467,28 +16461,19 @@ webpackJsonp([53],[
 	            };
 	
 	            var url = urlMap["Key" + jsonData.SportId];
-	            var showBetList = url !== null && url !== undefined;
-	            url = url === null || url === undefined
-	                    ? Site.resolveClientUrl("LiveReport/MatchList")
-	                    : Site.resolveClientUrl(url);
-	            if (showBetList) {
-	                viewBetList(url, jsonData.TotalValue, productOptions);
+	            if (url) {
+	                viewBetList(Site.resolveClientUrl(url), jsonData.TotalValue, productOptions);
 	            }
 	            else {
 	                // Match List
+	                url = Site.resolveClientUrl("LiveReport/MatchList");
 	                url = Site.setLicenseeOptionOriginalParam(url);
 	                url = QueryString.setParam(url, "SportId", jsonData.SportId);
 	                url = QueryString.setParam(url, "ProductCode", productCode);
 	                url = QueryString.setParam(url, "FromDate", $("#FromDate").attr('data-original-from'));
 	                url = QueryString.setParam(url, "ToDate", $("#ToDate").attr('data-original-to'));
-	                url = QueryString.setParam(url, "showsb", true);
-	                url = QueryString.setParam(url, "showba", false);
 	                url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
-	
-	                $(productOptions).each(function (index, element) {
-	                    url = Site.setProductOptionParam(url, index, element, true);
-	                    url = QueryString.setParam(url, "show" + element, true);
-	                });
+	                url = Site.setProductCodeListParam(url, productOptions);
 	
 	                Site.blockUI();
 	                Site.redirect(url);

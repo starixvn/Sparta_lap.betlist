@@ -1,10 +1,12 @@
 ﻿describe("OutstandingBetList", function () {
     describe("initialize()", function () {
+        var param = { ProductCodeList: "SB" };
         beforeEach(function () {
+            spyOn(ProductListHelper, 'initProductList');
             spyOn(OutstandingBetList, 'showHideProductsList');
             spyOn(OutstandingBetList, 'hiddenColList');
             spyOn(OutstandingBetList, 'initEvent');
-            spyOn(OutstandingBetList, 'getParamsSubmit');
+            spyOn(OutstandingBetList, 'getParamsSubmit').and.returnValue(param);
             spyOn(OutstandingBetList, 'submit');
 
             OutstandingBetList.initialize();
@@ -27,7 +29,7 @@
         });
 
         it("submit(params) should be called", function () {
-            expect(OutstandingBetList.submit).toHaveBeenCalled();
+            expect(OutstandingBetList.submit).toHaveBeenCalledWith(param);
         });
     });
 

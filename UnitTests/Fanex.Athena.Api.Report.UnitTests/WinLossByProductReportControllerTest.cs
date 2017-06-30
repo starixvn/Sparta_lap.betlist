@@ -112,7 +112,7 @@
             });
 
             // Action
-            var result = _controller.Index(metaModel, null, null, Level, CurrencyId, CustId);
+            _controller.Index(metaModel, null, null, Level, CurrencyId, CustId);
 
             // Assert
             Assert.That(metaModel.MemberId, Is.EqualTo(123));
@@ -210,7 +210,7 @@
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
 
             // Action
-            var result = _controller.Index(metaModel, null, null, Level, CurrencyId, CustId);
+            _controller.Index(metaModel, null, null, Level, CurrencyId, CustId);
 
             // Assert
             _controller.Received().ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>());

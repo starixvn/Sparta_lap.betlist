@@ -341,14 +341,14 @@
 
             url = QueryString.setParams(url, param);
 
-            var count = 0;
+            var productCodeList = [];
             for (var i = 0; i < onLevelData.ProductOptions.length; i++) {
                 var product = onLevelData.ProductOptions[i];
-                if ($.inArray(product.Code, BETLIST_IGNORED_PRODUCTS)) {
-                    url = Site.setProductOptionParam(url, count, product.Code, product.Status);
-                    count++;
+                if (product.Status && $.inArray(product.Code, BETLIST_IGNORED_PRODUCTS)) {
+                    productCodeList.push(product.Code);
                 }
             }
+            url = Site.setProductCodeListParam(url, productCodeList);
 
             var popH = Math.min($(window).height() - 100, 650), popW = 920;
             var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: "Customer Bet List" };

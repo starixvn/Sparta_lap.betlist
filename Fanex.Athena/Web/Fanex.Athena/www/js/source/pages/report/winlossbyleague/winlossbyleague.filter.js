@@ -15,7 +15,7 @@
 
         var _me = {
             initialize: function () {
-                _productCount = parseInt($("#ProductListCount").val());
+                _productCount = $("#ProductList .childCheckbox[type=checkbox]").length;
 
                 MultiSelect.initProductList();
                 MonthPicker.initMonthPicker({
@@ -168,7 +168,16 @@
                     paramObject["ProductOptions[" + i + "].Status"] = postData["ProductOptions[" + i + "].Status"];
                 }
             },
+            buildProductCodeList: function (postData) {
+                var productCodeList = [];
+                for (var i = 0; i < _productCount; i++) {
+                    if (postData["ProductOptions[" + i + "].Status"] === "true") {
+                        productCodeList.push(postData["ProductOptions[" + i + "].Code"]);
+                    }
+                }
 
+                return productCodeList;
+            },
             isValid: function () {
                 var checkedProductCount = $("#ProductList .childCheckbox:checked").length;
                 var ticketFilterCount = $("#TickerFilter input:checked").length;

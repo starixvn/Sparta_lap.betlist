@@ -1,4 +1,4 @@
-﻿/*global Site, Report, QueryString, PlatformWinLossOption, JSLINQ,jqGridAdditional*/
+﻿/*global Site, Report, QueryString, PlatformWinLossOption, JSLINQ,jqGridAdditional, ProductListHelper*/
 /// <reference path="/@JSense.js" />
 /// //##
 /*
@@ -47,6 +47,7 @@ var PlatformWinLoss = (function ($) {
     return {
         //#region Init
         initialize: function () {
+            ProductListHelper.initProductList();
             PlatformWinLoss.initSetting();
             PlatformWinLoss.initMonthPicker();
             PlatformWinLoss.initEvent();
@@ -422,14 +423,14 @@ var PlatformWinLoss = (function ($) {
             url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
             url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
 
-            var count = 0;
+            var productCodeList = [];
             for (var i = 0; i < _drilldownData.ProductOptions.length; i++) {
                 var product = _drilldownData.ProductOptions[i];
-                if ($.inArray(product.Code, BETLIST_IGNORED_PRODUCTS)) {
-                    url = Site.setProductOptionParam(url, count, product.Code, product.Status);
-                    count++;
+                if (product.Status && $.inArray(product.Code, BETLIST_IGNORED_PRODUCTS)) {
+                    productCodeList.push(product.Code);
                 }
             }
+            url = Site.setProductCodeListParam(url, productCodeList);
 
             var popH = Math.min(600, window.innerHeight - 100), popW = 920;
             var dialogForm = '<div title="Customer Bet List"><iframe frameborder="0" width="' + popW + '" height="100%" src="' + url + '" ></iframe></div>';

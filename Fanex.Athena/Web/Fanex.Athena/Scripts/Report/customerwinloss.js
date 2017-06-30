@@ -1,4 +1,4 @@
-﻿/*global Site, QueryString*/
+﻿/*global Site, QueryString, ProductListHelper*/
 /// <reference path="/@JSense.js" />
 var CustomerWinLoss = (function ($) {
     "use strict";
@@ -22,6 +22,7 @@ var CustomerWinLoss = (function ($) {
             $(".report-content").css("max-height", "");
         },
         initialize: function () {
+            ProductListHelper.initProductList();
             CustomerWinLoss.initEvent();
             CustomerWinLoss.initMonthPicker();
             Site.createSortingIcon(CustomerWinLoss.sortReport);

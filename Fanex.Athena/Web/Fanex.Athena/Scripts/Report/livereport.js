@@ -15,10 +15,10 @@ var LiveReport = (function ($) {
             $("#switchreport").click(function () {
                 var mod = $(this).attr("data-history-mode");
                 if (mod === "False") {
-                    location.href = Site.resolveClientUrl("LiveReport?isViewedHistory=True");
+                    Site.redirect(Site.resolveClientUrl("LiveReport?isViewedHistory=True"));
                 }
                 else {
-                    location.href = Site.resolveClientUrl("LiveReport?isViewedHistory=False");
+                    Site.redirect(Site.resolveClientUrl("LiveReport?isViewedHistory=False"));
                 }
             });
 
@@ -123,16 +123,9 @@ var LiveReport = (function ($) {
             url = QueryString.setParam(url, "todate", $("#ToDate").attr('data-original'));
             url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
             url = LiveReport.setSumParams(url, totalValue);
-            // [Jacob] Cheat for live report mix parlay, must send
-            url = QueryString.setParam(url, "showsb", false);
-            url = QueryString.setParam(url, "showba", false);
-            $(productOptions).each(function (index, element) {
-                url = Site.setProductOptionParam(url, index, element.toUpperCase(), true);
-                url = QueryString.setParam(url, "show" + element, true);
-            });
-
+            url = Site.setProductCodeListParam(url, productOptions);
             Site.blockUI();
-            location.href = url;
+            Site.redirect(url);
         },
 
         getMatchListProductOption: function (sportId, productCode) {
@@ -187,32 +180,23 @@ var LiveReport = (function ($) {
             };
 
             var url = urlMap["Key" + jsonData.SportId];
-            var showBetList = url !== null && url !== undefined;
-            url = url === null || url === undefined
-                    ? Site.resolveClientUrl("LiveReport/MatchList")
-                    : Site.resolveClientUrl(url);
-
-            if (showBetList) {
-                LiveReport.viewBetList(url, jsonData.TotalValue, productOptions);
+            
+            if (url) {
+                LiveReport.viewBetList(Site.resolveClientUrl(url), jsonData.TotalValue, productOptions);
             }
             else {
+                url = Site.resolveClientUrl("LiveReport/MatchList");
                 // Match List
                 url = Site.setLicenseeOptionOriginalParam(url);
                 url = QueryString.setParam(url, "SportId", jsonData.SportId);
                 url = QueryString.setParam(url, "ProductCode", productCode);
                 url = QueryString.setParam(url, "FromDate", $("#FromDate").attr('data-original'));
                 url = QueryString.setParam(url, "ToDate", $("#ToDate").attr('data-original'));
-                url = QueryString.setParam(url, "showsb", true);
-                url = QueryString.setParam(url, "showba", false);
                 url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
 
-                $(productOptions).each(function (index, element) {
-                    url = Site.setProductOptionParam(url, index, element, true);
-                    url = QueryString.setParam(url, "show" + element, true);
-                });
-
+                url = Site.setProductCodeListParam(url, productOptions);
                 Site.blockUI();
-                location.href = url;
+                Site.redirect(url);
             }
         },
         ajaxStart: function () {

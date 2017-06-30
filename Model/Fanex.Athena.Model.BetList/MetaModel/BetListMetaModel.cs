@@ -7,55 +7,31 @@
 namespace Fanex.Athena.Model.BetList.MetaModel
 {
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
-    using System.Linq;
-    using Fanex.Athena.Model.Core.MetaModel.Product;
     using Model.Core.MetaModel;
 
-    /// <summary>
-    /// BetListMetaModel class.
-    /// </summary>
     public class BetListMetaModel : BaseMetaModel
     {
         public BetListMetaModel()
         {
-            ProductOptions = new HashSet<ProductOption>();
             FromDate = DateTime.Today;
             Date = DateTime.Today;
             ToDate = DateTime.Today;
             PageIndex = 1;
             PageSize = int.MaxValue - 1;
-            IsLastBetMonitoring = false;
         }
+
+        public string ProductCodeList { get; set; } = string.Empty;
 
         public string ExcelFileName { get; set; }
 
         public bool IsShowSumStake { get; set; }
-
-        public IEnumerable<ProductOption> ProductOptions { get; set; }
 
         public bool IsServerPaging { get; set; }
 
         public string SortBy { get; set; }
 
         public string SortOrder { get; set; }
-
-        #region Currency chosen on filter
-
-        public int OriginalCurrenceId { get; set; }
-
-        public string OriginalCurrencyName { get; set; }
-
-        #endregion Currency chosen on filter
-
-        public bool ShowWin { get; set; }
-
-        public bool ShowLoss { get; set; }
-
-        public bool ShowDraw { get; set; }
-
-        public decimal Odds { get; set; }
 
         public bool IsExportExcel { get; set; }
 
@@ -123,23 +99,11 @@ namespace Fanex.Athena.Model.BetList.MetaModel
 
         public string RaceNo { get; set; }
 
-        public int SportType { get; set; }
-
         public int DrawFilter { get; set; }
-
-        public string CurrencyIdList { get; set; }
-
-        public string BetTypeLastBets { get; set; }
-
-        public int LimitRowCount { get; set; }
-
-        public string SpecialLevel { get; set; }
 
         public long TransId { get; set; }
 
         public long TransType { get; set; }
-
-        public bool IsLastBetMonitoring { get; set; }
 
         public int PlatformType { get; set; }
 
@@ -147,16 +111,12 @@ namespace Fanex.Athena.Model.BetList.MetaModel
 
         public string Handicap { get; set; }
 
-        public string ProductCode { get; set; }
-
-        public string DailyBetListStatus { get; set; }
-
         public virtual bool IsValid
         {
             get
             {
                 return FromDate <= ToDate
-                    && ProductOptions.Any(p => p.Status);
+                    && !string.IsNullOrWhiteSpace(ProductCodeList);
             }
         }
     }

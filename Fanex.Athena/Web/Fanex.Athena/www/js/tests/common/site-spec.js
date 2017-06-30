@@ -384,7 +384,7 @@
 
             it("param is query string - url should return correct value", function () {
                 var host = "localhosttest";
-                var url = "localhosttest?ProductOptions[0].Code=SB&ProductOptions[0].Name=SB&ProductOptions[0].Status=true";
+                var url = "localhosttest?ProductCodeList=SB";
                 var expectedUrl = transformQueryParamNameToLowerCase(url);
 
                 var result = Site.setProductOptionOriginalParamList(host);
@@ -393,10 +393,9 @@
             });
 
             it("param is object - url should return correct value", function () {
-                var param = { ProductOptions: [] };
-                var productOption = [{ Code: "SB", Name: "SB", Status: 'true' }];
+                var param = {};
                 var expectedParam = {
-                    ProductOptions: productOption
+                    ProductCodeList: "SB"
                 };
 
                 var result = Site.setProductOptionOriginalParamList(param);

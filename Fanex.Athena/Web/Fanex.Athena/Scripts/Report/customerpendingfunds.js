@@ -1,4 +1,4 @@
-﻿/*global Site, QueryString*/
+﻿/*global Site, QueryString, ProductListHelper*/
 /// <reference path="/@JSense.js" />
 var CustPendingFunds = (function ($) {
     "use strict";
@@ -16,6 +16,7 @@ var CustPendingFunds = (function ($) {
             $grid.css("max-height", gridHeight);
         },
         initialize: function () {
+            ProductListHelper.initProductList();
             CustPendingFunds.initEvent();
             Site.createSortingIcon(CustPendingFunds.sortReport);
             CustPendingFunds.resizeGrid();

@@ -24,13 +24,8 @@ var ColossusBets = (function ($) {
         url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
         url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
         url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
-        url = QueryString.setParam(url, "OriginalCurrenceId", _submitData.CurrencyId);
-        url = QueryString.setParam(url, "OriginalCurrencyName", _submitData.CurrencyName);
-        url = QueryString.setParam(url, "productoptions[0].code", "CB");
-        url = QueryString.setParam(url, "productoptions[0].status", "true");
         url = QueryString.setParam(url, "excelfilename", "ColossusBetsWinLossBetList");
-
-        url = Site.setProductOptionOriginalParamList(url);
+        url = Site.setProductCodeListParam(url, "CB");
 
         var popH = Math.min($(window).height() - 100, 650), popW = 920;
         var dialogForm = '<div title="Customer Bet List"><iframe scrolling="no" frameborder="0" width="' +

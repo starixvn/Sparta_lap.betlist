@@ -31,7 +31,12 @@
             _metaModel = new MatchWinLossMetaModel
             {
                 BaseCurrency = "USD",
-                ProductOptions = GetProductOptions(),
+                ProductCodeList = "SB",
+                ProductOptions = new List<ProductOption>
+                {
+                    new ProductOption { Code = "SB", Status = true },
+                    new ProductOption { Code = "NG", Status = false }
+                },
                 AgentListXml = "<xml>",
                 Date = new DateTime(2017, 1, 1),
                 PageSize = 100
@@ -162,7 +167,6 @@
             objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
             objectDb.Received().AddInParameter("LeagueId", DbType.Int32, _metaModel.LeagueId);
             objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-            objectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
         }
 
         [Test]
@@ -181,15 +185,6 @@
             objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
             objectDb.Received().AddInParameter("showsb", DbType.Boolean, true);
             objectDb.Received().AddInParameter("showba", DbType.Boolean, false);
-        }
-
-        private IList<ProductOption> GetProductOptions()
-        {
-            return new List<ProductOption>
-            {
-                new ProductOption { Code = "SB", Status = true },
-                new ProductOption { Code = "NG", Status = false }
-            };
         }
     }
 }

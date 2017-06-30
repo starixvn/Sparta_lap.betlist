@@ -31,7 +31,7 @@ namespace Fanex.Athena.Controllers.BetList
         private const string BetListDailyBetListName = "BetList_DailyBetList";
 
         [HttpGet]
-        public ActionResult Index(BetListMetaModel metaModel)
+        public ActionResult Index(DailyBetListMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;

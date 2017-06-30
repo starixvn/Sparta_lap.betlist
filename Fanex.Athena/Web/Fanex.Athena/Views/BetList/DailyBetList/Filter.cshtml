@@ -1,8 +1,9 @@
-﻿@using Fanex.Athena.Model.Report.ViewModel
-@using Fanex.Athena.Model.Core.MetaModel.Product
+﻿@using Fanex.Athena.Model.BetList.MetaModel
 @model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
 @{
     var appSettings = new AppSettings();
+    var metaModel = Model.Param as DailyBetListMetaModel;
+    
     //-----------------------------Date---------------------------------------//
     <div class="grid_2 filter-label">
         <label>@ViewResources.Date</label>
@@ -45,7 +46,7 @@
         <select id="ProductCode" name="ProductCode">            
             @foreach (var prd in Model.ProductAccess.ProductList)
             {
-                <option value="@prd.ProductCode" @(prd.ProductCode == Model.Param.ProductCode ? "selected='selected'" : string.Empty)>
+                <option value="@prd.ProductCode" @(prd.ProductCode == metaModel.ProductCode ? "selected='selected'" : string.Empty)>
                     @prd.ProductName</option>
             }
         </select>
@@ -57,9 +58,9 @@
     </div> 
     <div class="grid_2 filter-input">
         <select id="DailyBetListStatus" name="DailyBetListStatus" class="based-currency">
-            <option value="won" @(Model.Param.DailyBetListStatus == "won" ? "selected='selected'" : string.Empty)>@ViewResources.Won</option>
-            <option value="lose" @(Model.Param.DailyBetListStatus == "lose" ? "selected='selected'" : string.Empty)>@ViewResources.Lose</option>
-            <option value="draw" @(Model.Param.DailyBetListStatus == "draw" ? "selected='selected'" : string.Empty)>@ViewResources.Draw</option>
+            <option value="won" @(metaModel.DailyBetListStatus == "won" ? "selected='selected'" : string.Empty)>@ViewResources.Won</option>
+            <option value="lose" @(metaModel.DailyBetListStatus == "lose" ? "selected='selected'" : string.Empty)>@ViewResources.Lose</option>
+            <option value="draw" @(metaModel.DailyBetListStatus == "draw" ? "selected='selected'" : string.Empty)>@ViewResources.Draw</option>
         </select>
     </div>
     <div class="grid_2 filter-label">

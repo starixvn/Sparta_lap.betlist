@@ -21335,9 +21335,7 @@ webpackJsonp([64],[
 	                    drawfilter: dataDrillDown.DrawFilter,
 	                    custid: dataDrillDown.CustomerId,
 	                    systemId: dataDrillDown.SystemId,
-	                    externalId: dataDrillDown.ExternalId,
-	                    OriginalCurrenceId: dataDrillDown.CurrencyId,
-	                    OriginalCurrencyName: dataDrillDown.CurrencyName
+	                    externalId: dataDrillDown.ExternalId
 	                });
 	
 	                var popH = Math.min($(window).height() - 100, 500), popW = 920;

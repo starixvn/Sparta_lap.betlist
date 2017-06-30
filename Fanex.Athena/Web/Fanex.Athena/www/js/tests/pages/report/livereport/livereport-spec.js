@@ -146,7 +146,7 @@
                 appendSetFixtures("<a class='sport-detailt-link' data-drill-down='{\"SportId\":1}'></a>");
                 LiveReport.initialize();
                 $('.sport-detailt-link').click();
-                var urlPattern = /LiveReport\/MatchList\?currencyname=\&sportid=1\&productcode=AG\&showsb=true\&showba=false\&productoptions\[0\]\.code=AG\&productoptions\[0\]\.name=AG\&productoptions\[0\]\.status=true\&showag=true/i;
+                var urlPattern = /LiveReport\/MatchList\?currencyname=\&sportid=1\&productcode=AG\&productcodelist=AG/i;
 
                 expect(Site.redirect).toHaveBeenCalledWith(jasmine.stringMatching(urlPattern));
             });
@@ -159,7 +159,7 @@
                 appendSetFixtures("<a class='sport-detailt-link' data-drill-down='{\"SportId\":161}'></a>");
                 LiveReport.initialize();
                 $('.sport-detailt-link').click();
-                var urlPattern = /LiveReportBetList\/NumberGame\?currencyname=\&showsb=false\&showba=false\&productoptions\[0\]\.code=AG\&productoptions\[0\]\.name=AG\&productoptions\[0\]\.status=true\&showag=true/i;
+                var urlPattern = /LiveReportBetList\/NumberGame\?currencyname=\&productcodelist=AG/i;
 
                 expect(Site.redirect).toHaveBeenCalledWith(jasmine.stringMatching(urlPattern));
             });

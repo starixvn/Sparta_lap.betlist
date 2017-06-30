@@ -1,6 +1,7 @@
 ﻿describe("WinLossByProduct", function () {
     describe("initialize()", function () {
         beforeEach(function () {
+            spyOn(ProductListHelper, 'initProductList');
             spyOn(WinLossByProduct, "initEvent");
             spyOn(WinLossByProduct, "initSetting");
             spyOn($.fn, "autocomplete");

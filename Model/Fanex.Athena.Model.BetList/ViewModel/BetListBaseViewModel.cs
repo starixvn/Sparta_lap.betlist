@@ -6,14 +6,15 @@
 
 namespace Fanex.Athena.Model.BetList.ViewModel
 {
+    using System.Collections.Generic;
+    using Core.MetaModel.Product;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Model.Core.ViewModel;
 
-    /// <summary>
-    /// BetListBaseViewModel class.
-    /// </summary>
     public class BetListBaseViewModel : BaseViewModel
     {
         public BetListMetaModel Param { get; set; }
+
+        public IEnumerable<ProductOption> ProductOptions { get; set; } = new HashSet<ProductOption>();
     }
 }

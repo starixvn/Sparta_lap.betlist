@@ -19,7 +19,7 @@ namespace Fanex.Athena.Api.BetList
     public class WinlossByLeagueBetListController : ApiBetListBaseController
     {
         [HttpPost]
-        public dynamic Index(BetListMetaModel metaModel)
+        public dynamic Index(WinLossByLeagueBetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;

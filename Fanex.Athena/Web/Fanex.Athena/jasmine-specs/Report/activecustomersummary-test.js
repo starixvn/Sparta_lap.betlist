@@ -1,5 +1,6 @@
 ﻿describe("ActiveCustomer", function () {
     beforeEach(function () {
+        spyOn(ProductListHelper, 'initProductList');
         spyOn($.fn, "dialog");
     });
 

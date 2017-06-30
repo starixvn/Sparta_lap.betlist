@@ -1,4 +1,4 @@
-﻿/*global jqGridAdditional, JSLINQ, LicenseeWinLossOption, QueryString, Report, Site */
+﻿/*global jqGridAdditional, JSLINQ, LicenseeWinLossOption, QueryString, Report, Site, ProductListHelper */
 /// <reference path="/@JSense.js" />
 ///
 var LicenseeWinLoss = (function ($) {
@@ -31,6 +31,7 @@ var LicenseeWinLoss = (function ($) {
             return totalRowCount;
         },
         initialize: function () {
+            ProductListHelper.initProductList();
             LicenseeWinLoss.initEvent();
             LicenseeWinLoss.initSetting();
             LicenseeWinLossOption.gridOption.onSortCol = function (index/*, columnIndex, sortOrder*/) {
@@ -490,8 +491,6 @@ var LicenseeWinLoss = (function ($) {
             url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
             url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
             url = QueryString.setParam(url, "BaseCurrency", dataDrillDown.BaseCurrency);
-            url = QueryString.setParam(url, "OriginalCurrenceId", dataDrillDown.CurrencyId);
-            url = QueryString.setParam(url, "OriginalCurrencyName", dataDrillDown.CurrencyName);
 
             url = Site.setProductOptionOriginalParamList(url);
 

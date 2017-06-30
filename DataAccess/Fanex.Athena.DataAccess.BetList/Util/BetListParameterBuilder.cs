@@ -11,7 +11,7 @@
     [System.CLSCompliant(false)]
     public static class BetListParameterBuilder
     {
-        private static readonly Dictionary<string, Action<IObjectDb, BetListMetaModel>> AddingSqlParameters = 
+        private static readonly Dictionary<string, Action<IObjectDb, BetListMetaModel>> AddingSqlParameters =
             new Dictionary<string, Action<IObjectDb, BetListMetaModel>>
         {
             { "Lrf_BetList_WinlostByLeague_Mem", (db, metalModel) => CreateWinlossByLeagueParameters(db, metalModel) },
@@ -82,10 +82,10 @@
             db.AddInParameter("betteam", DbType.String, metaModel.BetTeam);
         }
 
-        private static void CreateWinlossByLeagueParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreateWinlossByLeagueParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
         {
-            var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status == true);
-            var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status == true);
+            var metaModel = betlistMetaModel as WinLossByLeagueBetListMetaModel;
+            var products = metaModel.ProductCodeList.Split(',');
 
             db.AddInParameter("CustID", DbType.Int32, metaModel.CustId);
             db.AddInParameter("LeagueID", DbType.Int32, metaModel.LeagueId);
@@ -99,8 +99,8 @@
             db.AddInParameter("ShowWin", DbType.Boolean, metaModel.ShowWin);
             db.AddInParameter("ShowLoss", DbType.Boolean, metaModel.ShowLoss);
             db.AddInParameter("ShowDraw", DbType.Boolean, metaModel.ShowDraw);
-            db.AddInParameter("ShowSB", DbType.Boolean, showSb);
-            db.AddInParameter("ShowBA", DbType.Boolean, showBa);
+            db.AddInParameter("ShowSB", DbType.Boolean, products.Contains(Product.SB));
+            db.AddInParameter("ShowBA", DbType.Boolean, products.Contains(Product.BA));
         }
 
         private static void CreateRunningBetListByForeCastMatchParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -140,7 +140,7 @@
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
-            CreateBetlistProductOptionParameters(db, metaModel);
+            CreateProductListParameters(db, metaModel.ProductCodeList);
         }
 
         private static void CreateDailyStatementBetListOldParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -172,7 +172,7 @@
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
-            CreateBetlistProductOptionParameters(db, metaModel);
+            CreateProductListParameters(db, metaModel.ProductCodeList);
         }
 
         private static void CreatePlatformWinLossBetListParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -181,7 +181,7 @@
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetlistBUParameters(db, metaModel);
-            CreateBetlistProductOptionParameters(db, metaModel);
+            CreateProductListParameters(db, metaModel.ProductCodeList);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
             db.AddInParameter("drawfilter", DbType.Int16, metaModel.DrawFilter);
@@ -198,12 +198,8 @@
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
-            var suportProducts = new string[5] { Product.SB, Product.NG, Product.BA, Product.LC, Product.VS };
-            var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
-            foreach (var product in products)
-            {
-                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
-            }
+            var supportedProducts = new string[5] { Product.SB, Product.NG, Product.BA, Product.LC, Product.VS };
+            CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
         private static void CreateMatchWLOutRightBetListParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -214,12 +210,8 @@
             CreateBetListSortingParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
-            var suportProducts = new string[2] { Product.SB, Product.BA };
-            var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
-            foreach (var product in products)
-            {
-                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
-            }
+            var supportedProducts = new string[2] { Product.SB, Product.BA };
+            CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
         private static void CreateMatchWLBettypeBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -234,12 +226,8 @@
             CreateBetlistSummaryParameters(db);
             db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
 
-            var suportProducts = new string[5] { Product.SB, Product.NG, Product.BA, Product.LC, Product.VS };
-            var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
-            foreach (var product in products)
-            {
-                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
-            }
+            var supportedProducts = new string[5] { Product.SB, Product.NG, Product.BA, Product.LC, Product.VS };
+            CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
         private static void CreateMatchWLRacingBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -255,8 +243,10 @@
             CreateBetlistSummaryParameters(db);
         }
 
-        private static void CreateLiveReportBetListRacingParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreateLiveReportBetListRacingParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
         {
+            var metaModel = betlistMetaModel as LiveReportBetListMetaModel;
+
             CreateBetListSortingParameters(db, metaModel);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
@@ -274,28 +264,26 @@
             db.AddOutParameter("SUMLicenseeWLGBP", DbType.Currency, 8);
         }
 
-        private static void CreateLiveReportParlayBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreateLiveReportParlayBetlistParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
         {
+            var metaModel = betlistMetaModel as LiveReportBetListMetaModel;
+
             CreateBetListSortingParameters(db, metaModel);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
             db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
-            var suportProducts = new string[2] { Product.SB, Product.BA };
-            var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
-
-            foreach (var product in products)
-            {
-                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
-            }
-
             db.AddInParameter("Bettype", DbType.Int32, metaModel.BetType);
             db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
+            var supportedProducts = new string[2] { Product.SB, Product.BA };
+            CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
-        private static void CreaeteLiveReportNumberGameBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreaeteLiveReportNumberGameBetlistParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
         {
+            var metaModel = betlistMetaModel as LiveReportBetListMetaModel;
+
             CreateBetListSortingParameters(db, metaModel);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
@@ -305,34 +293,30 @@
             db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
         }
 
-        private static void CreateLiveReportBetListByMatchParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreateLiveReportBetListByMatchParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
         {
+            var metaModel = betlistMetaModel as LiveReportBetListMetaModel;
+
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("MatchID", DbType.Int32, metaModel.MatchId);
             db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
             db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
-            var suportProducts = new string[6] { Product.SB, Product.BA, Product.LC, Product.VS, Product.MGCLC, Product.MGCRNG };
-            var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
-            foreach (var product in products)
-            {
-                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
-            }
+            var supportedProducts = new string[6] { Product.SB, Product.BA, Product.LC, Product.VS, Product.MGCLC, Product.MGCRNG };
+            CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
-        private static void CreateLiveReportOutRightBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreateLiveReportOutRightBetlistParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
         {
+            var metaModel = betlistMetaModel as LiveReportBetListMetaModel;
+
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
             db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
-            var suportProducts = new string[2] { Product.SB, Product.BA };
-            var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
-            foreach (var product in products)
-            {
-                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
-            }
+            var supportedProducts = new string[2] { Product.SB, Product.BA };
+            CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
         private static void CreateLicenseeWLBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -341,14 +325,15 @@
             db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetlistBUParameters(db, metaModel);
-            CreateBetlistProductOptionParameters(db, metaModel);
+            CreateProductListParameters(db, metaModel.ProductCodeList);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
             db.AddInParameter("drawfilter", DbType.Int16, metaModel.DrawFilter);
         }
 
-        private static void CreateDailyWLBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreateDailyWLBetlistParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
         {
+            var metaModel = betlistMetaModel as DailyBetListMetaModel;
             CreateBetListSortingParameters(db, metaModel);
 
             db.AddInParameter("date", DbType.DateTime, metaModel.Date);
@@ -394,7 +379,7 @@
             CreateBetlistBUParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
-            CreateBetlistProductOptionParameters(db, metaModel);
+            CreateProductListParameters(db, metaModel.ProductCodeList);
         }
 
         private static void CreateRacingCommissionBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -494,11 +479,23 @@
             db.AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
         }
 
-        private static void CreateBetlistProductOptionParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreateProductListParameters(IObjectDb db, string productCodeList, IEnumerable<string> supportedProducts = null)
         {
-            foreach (var productOption in metaModel.ProductOptions)
+            if (string.IsNullOrWhiteSpace(productCodeList))
             {
-                db.AddInParameter("show" + productOption.Code, DbType.Boolean, productOption.Status);
+                return;
+            }
+
+            IEnumerable<string> products = productCodeList.Split(',');
+
+            if (supportedProducts != null)
+            {
+                products = products.Where(x => supportedProducts.Contains(x)).ToList();
+            }
+
+            foreach (var productCode in products)
+            {
+                db.AddInParameter("show" + productCode, DbType.Boolean, true);
             }
         }
     }

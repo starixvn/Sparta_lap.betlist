@@ -1,4 +1,4 @@
-﻿/*global Site, jqGridAdditional, PagingHeper, WinLossByLeagueOption*/
+﻿/*global Site, jqGridAdditional, PagingHeper, WinLossByLeagueOption, ProductListHelper*/
 /// <reference path="/@JSense.js" />
 "use strict";
 var WinLossByLeague = (function ($) {
@@ -141,6 +141,17 @@ var WinLossByLeague = (function ($) {
         }
     }
 
+    function buildProductCodeList() {
+        var productCodeList = [];
+        for (var i = 0; i < _productCount; i++) {
+            if (_postdata["ProductOptions[" + i + "].Status"] === "true") {
+                productCodeList.push(_postdata["ProductOptions[" + i + "].Code"]);
+            }
+        }
+
+        return productCodeList;
+    }
+
     var me = {
         ajaxPaging: function () {
             _pagingOption = PagingHeper.getSetting();
@@ -149,6 +160,7 @@ var WinLossByLeague = (function ($) {
         },
         //#region Init
         initialize: function () {
+            ProductListHelper.initProductList();
             WinLossByLeague.initEvent();
             WinLossByLeague.initSetting();
 
@@ -371,17 +383,15 @@ var WinLossByLeague = (function ($) {
                 CurrencyId: _postdata.CurrencyId,
                 CurrencyName: _currencyName,
                 CustId: custId,
-                Level: 2,
                 ExternalId: externalId,
                 SystemId: systemId,
                 LeagueId: _leagueid,
                 MatchId: _postdata.Match,
                 ShowWin: _postdata.ShowWin,
                 ShowLoss: _postdata.ShowLoss,
-                ShowDraw: _postdata.ShowDraw
+                ShowDraw: _postdata.ShowDraw,
+                ProductCodeList: buildProductCodeList().toString()
             };
-
-            buildProductsParams(param);
 
             var url = Site.resolveClientUrl("WinlossByLeagueBetList/Index?") + $.param(param);
             window.open(url, "", "modal=no");

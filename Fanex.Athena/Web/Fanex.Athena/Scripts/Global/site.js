@@ -73,6 +73,9 @@ var Site = (function ($) {
                 }
             });
         },
+        setProductCodeListParam: function(url, productCodeList){
+            return QueryString.setParam(url, "ProductCodeList", productCodeList);
+        },
         reload: function () {
             window.location.reload();
         },
@@ -209,7 +212,7 @@ var Site = (function ($) {
             $container.append($handler);
 
             var originalHeight = $container.height();
-            var originalTop = originalHeight - 15;
+            var originalTop = originalHeight - 20;
             var isCollapsed = false;
             $handler.css("top", originalTop);
             $handler.click(function () {
@@ -290,55 +293,20 @@ var Site = (function ($) {
             });
         },
 
-        setProductOptionParamList: function (urlOrParams) {
-            // Set Url
-            if (typeof (urlOrParams) === "string") {
-                var counter = 0;
-                $(".childCheckbox", "#ProductList").each(function (index, element) {
-                    var productCode = $(element).attr('data-product-code');
-                    if (productCode !== undefined && productCode.length > 0) {
-                        urlOrParams = Site.setProductOptionParam(urlOrParams, counter, productCode, $(element).prop("checked"));
-                        counter++;
-                    }
-                });
-
-                return urlOrParams;
-            }
-            else {
-                urlOrParams.ProductOptions = [];
-                $(".childCheckbox", "#ProductList").each(function (index, element) {
-                    var productCode = $(element).attr('data-product-code');
-                    if (productCode !== undefined && productCode.length > 0) {
-                        urlOrParams.ProductOptions.push({ Code: productCode, Name: productCode, Status: $(element).prop("checked") });
-                    }
-                });
-
-                return urlOrParams;
-            }
-        },
-
         setProductOptionOriginalParamList: function (urlOrParams) {
+            var productCodeList = [];
+            $(".childCheckbox", "#ProductList").each(function (index, element) {
+                var productCode = $(element).attr('data-product-code');
+                if (productCode && $(element).attr("data-original") === 'true') {
+                    productCodeList.push(productCode.toUpperCase());
+                }
+            });
+            
             if (typeof (urlOrParams) === "string") {
-                var counter = 0;
-                $(".childCheckbox", "#ProductList").each(function (index, element) {
-                    var productCode = $(element).attr('data-product-code');
-                    if (productCode !== undefined && productCode.length > 0) {
-                        urlOrParams = Site.setProductOptionParam(urlOrParams, counter, productCode, $(element).attr("data-original"));
-                        counter++;
-                    }
-                });
-
-                return urlOrParams;
+                return QueryString.setParam(urlOrParams, "ProductCodeList", productCodeList);
             }
             else {
-                urlOrParams.ProductOptions = [];
-                $(".childCheckbox']", "#ProductList").each(function (index, element) {
-                    var productCode = $(element).attr('data-product-code');
-                    if (productCode !== undefined && productCode.length > 0) {
-                        urlOrParams.ProductOptions.push({ Code: productCode, Name: productCode, Status: $(element).attr("data-original") });
-                    }
-                });
-
+                urlOrParams.ProductCodeList = productCodeList.toString();
                 return urlOrParams;
             }
         },

@@ -19988,19 +19988,25 @@ webpackJsonp([63],[
 	
 	            //#region drillDown
 	            drillDownBetList: function (custId, externalId, systemId) {
-	                var temp = {
+	                var param = {
 	                    IsConvert: _postdata.BaseCurrency !== "",
+	                    Odds: _postdata.Odds,
+	                    FromDate: _postdata.FromDate.toString(),
+	                    ToDate: _postdata.ToDate.toString(),
+	                    BaseCurrency: _postdata.BaseCurrency,
+	                    CurrencyId: _postdata.CurrencyId,
 	                    CurrencyName: _currencyName,
 	                    CustId: custId,
-	                    Level: 2,
 	                    ExternalId: externalId,
 	                    SystemId: systemId,
-	                    LeagueId: _leagueid
+	                    LeagueId: _leagueid,
+	                    MatchId: _postdata.Match,
+	                    ShowWin: _postdata.ShowWin,
+	                    ShowLoss: _postdata.ShowLoss,
+	                    ShowDraw: _postdata.ShowDraw,
+	                    ProductCodeList: WinLossByLeagueFilter.buildProductCodeList(_postdata).toString()
 	                };
-	                var param = $.extend({}, _postdata, temp);
-	
-	                WinLossByLeagueFilter.buildProductsParams(param, _postdata);
-	
+	                
 	                var url = Site.resolveClientUrl("WinlossByLeagueBetList/Index?") + $.param(param);
 	                window.open(url, "", "modal=no");
 	            },
@@ -20331,7 +20337,7 @@ webpackJsonp([63],[
 	
 	        var _me = {
 	            initialize: function () {
-	                _productCount = parseInt($("#ProductListCount").val());
+	                _productCount = $("#ProductList .childCheckbox[type=checkbox]").length;
 	
 	                MultiSelect.initProductList();
 	                MonthPicker.initMonthPicker({
@@ -20484,7 +20490,16 @@ webpackJsonp([63],[
 	                    paramObject["ProductOptions[" + i + "].Status"] = postData["ProductOptions[" + i + "].Status"];
 	                }
 	            },
+	            buildProductCodeList: function (postData) {
+	                var productCodeList = [];
+	                for (var i = 0; i < _productCount; i++) {
+	                    if (postData["ProductOptions[" + i + "].Status"] === "true") {
+	                        productCodeList.push(postData["ProductOptions[" + i + "].Code"]);
+	                    }
+	                }
 	
+	                return productCodeList;
+	            },
 	            isValid: function () {
 	                var checkedProductCount = $("#ProductList .childCheckbox:checked").length;
 	                var ticketFilterCount = $("#TickerFilter input:checked").length;

@@ -1,4 +1,4 @@
-﻿/*global Site */
+﻿/*global Site, ProductListHelper */
 /// <reference path="/@JSense.js" />
 var CustBalance = (function ($) {
     "use strict";
@@ -20,6 +20,7 @@ var CustBalance = (function ($) {
             $grid.css("max-height", gridHeight);
         },
         initialize: function () {
+            ProductListHelper.initProductList();
             CustBalance.initEvent();
             CustBalance.resizeGrid();
             Site.addUserGuide({
