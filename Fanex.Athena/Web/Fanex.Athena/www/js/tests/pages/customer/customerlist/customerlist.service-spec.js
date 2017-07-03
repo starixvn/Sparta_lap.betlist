@@ -88,7 +88,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
 
                 CustomerListService.updateIndexColumnFormatter(column, showingColumns);
 
-                expect(typeof(column.formatter)).toBe("function");
+                expect(typeof (column.formatter)).toBe("function");
             });
 
             it("return new correct formatter of column if that Groupcolumn is showed", function () {
@@ -193,7 +193,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
                 spyOn(window, "alert");
             });
 
-            beforeEach(function () {                
+            beforeEach(function () {
                 jasmine.Ajax.install();
             });
 
@@ -442,6 +442,68 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
                 var data = CustomerListService.getPostData();
 
                 expect(data).toEqual(expectedData);
+            });
+        });
+
+        describe("bindData(response, keepScrollPosition)", function () {
+            beforeAll(function () {
+                spyOn(jqGridAdditional, "clearGrid");
+                spyOn(PagingHelper, "render");
+                spyOn($.fn, "jqGrid");
+                spyOn(CustomerListOption, "setGroupHeaderColumns");
+                spyOn(CustomerListService, "resizeGrid");
+                spyOn(CustomerListService, "addGridScrollEventToHidePopups");
+                spyOn(CustomerListService, "processGridOption").and.returnValue({});
+            });
+
+            it("shows No row if data is empty", function () {
+                spyOn(jqGridAdditional, "setNoInfo");
+
+                CustomerListService.bindData({ TotalRows: 0 }, true);
+
+                expect(jqGridAdditional.setNoInfo).toHaveBeenCalled();
+            });
+
+            it("shows grid if data is not empty", function () {
+                CustomerListService.bindData({ TotalRows: 1, Data: { Index: 1 } }, true);
+
+                expect(PagingHelper.render).toHaveBeenCalled();
+                expect(CustomerListService.processGridOption).toHaveBeenCalled();
+                expect($.fn.jqGrid).toHaveBeenCalled();
+                expect(CustomerListOption.setGroupHeaderColumns).toHaveBeenCalled();
+                expect(CustomerListService.resizeGrid).toHaveBeenCalled();
+                expect(CustomerListService.addGridScrollEventToHidePopups).toHaveBeenCalled();
+            });
+
+            it("shows chekbox in Index column if Group column is shown", function () {
+                setFixtures('<div id="jqgh_ReportGrid_Index"></div>');
+                spyOn($.fn, "serializeObject").and.returnValue({ Group: "Group" });
+
+                CustomerListService.bindData({ TotalRows: 1, Data: { Index: 1 } }, false);
+
+                expect($("#jqgh_ReportGrid_Index").html()).toEqual('<input type="checkbox" id="CheckAll"><label for="CheckAll"></label>');
+            });
+        });
+
+        describe("toggleColumn(gridOption, showingColumns)", function () {
+            it("removes columns if they are not shown", function () {
+                var showingColumns = { Index: "Index", AAComm: "AAComm", BBComm: "BBComm", Column1: "Column1" };
+                var gridOption = {
+                    colNames: ["Index", "AAComm", "BBComm", "CCComm", "DDComm", "Column1"],
+                    colModel: [
+                        { name: "Index" },
+                        { name: "AAComm" },
+                        { name: "BBComm" },
+                        { name: "CCComm" },
+                        { name: "DDComm" },
+                        { name: "Column1" }
+                    ]
+                };
+
+                CustomerListService.toggleColumn(gridOption, showingColumns);
+
+                expect(showingColumns["BBCommission"]).toBe(undefined);
+                expect(showingColumns["CCCommission"]).toBe(undefined);
             });
         });
     });
