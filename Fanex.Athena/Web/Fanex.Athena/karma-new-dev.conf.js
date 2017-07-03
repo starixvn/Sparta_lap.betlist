@@ -11,7 +11,8 @@
             { pattern: "node_modules/materialize-autocomplete/**/*.js", included: false },
             { pattern: 'www/js/source/**/*.js', included: false },
 
-            { pattern: 'www/js/tests/pages/customer/customerlist/*-spec.js', included: false },
+            { pattern: 'www/js/tests/pages/customer/betsetting/products/thirdparty-spec.js', included: false
+        },
             'www/js/tests/test-main.js'
         ],
         proxies: {

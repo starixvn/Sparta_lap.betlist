@@ -1418,6 +1418,12 @@
     <Content Include="www\js\tests\pages\customer\betsetting\common\betsetting.validation-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\common\betsettingbase-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\products\betsettingbygroup-spec.js" />
+    <Content Include="www\js\tests\pages\customer\betsetting\products\betsettingmain-spec.js" />
+    <Content Include="www\js\tests\pages\customer\betsetting\products\dcsbetsetting-spec.js" />
+    <Content Include="www\js\tests\pages\customer\betsetting\products\keno-spec.js" />
+    <Content Include="www\js\tests\pages\customer\betsetting\products\livecasino-spec.js" />
+    <Content Include="www\js\tests\pages\customer\betsetting\products\numbergame-spec.js" />
+    <Content Include="www\js\tests\pages\customer\betsetting\products\thirdparty-spec.js" />
     <Content Include="www\js\tests\pages\customer\customercomm\commgroup-spec.js" />
     <Content Include="www\js\tests\pages\customer\customercomm\commgroupedit-spec.js" />
     <Content Include="www\js\tests\pages\customer\customercomm\commgroupadd-spec.js" />

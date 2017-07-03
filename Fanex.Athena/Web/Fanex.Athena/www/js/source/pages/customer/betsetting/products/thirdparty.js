@@ -18,9 +18,7 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
                     _me.updateStatus($(this));
                 });
 
-                $("#btnReset").on("click", function () {
-                    _me.reset();
-                });
+                $("#btnReset").on("click", _me.reset);
             },
 
             reset: function () {
@@ -31,6 +29,10 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
             updateStatus: function ($context) {
                 var productId = parseInt($("#ProductId").val());
                 var url = _me.getUrlByProduct(productId);
+                if (url === null) {
+                    return;
+                }
+
                 var params = BetSettingStatus.getCommonPostData($context);
 
                 if (PRODUCT_CONTAIN_CHECKBOX.indexOf(productId) > -1) {
