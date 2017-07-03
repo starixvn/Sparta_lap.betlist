@@ -4,8 +4,6 @@ define(["jquery", "common/site", "common/querystring", "./customer.dailystatemen
     function ($, Site, QueryString, DailyStatementOption, BetList, jqGridAdditional) {
         var _me = {
             loadData: function (params, url) {
-                jqGridAdditional.clearGrid("BetListGrid");
-
                 $.ajax({
                     type: "POST",
                     data: JSON.stringify(params),
@@ -33,11 +31,17 @@ define(["jquery", "common/site", "common/querystring", "./customer.dailystatemen
             },
 
             bindData: function (response) {
+                jqGridAdditional.clearGrid("BetListGrid");
                 var data = response.Main;
+                if (data.length === 0) {
+                    jqGridAdditional.setNoInfo();
+                    return;
+                }
 
                 var gridOption = _me.getGridOption();
                 gridOption.data = data;
                 gridOption.gridComplete = function () {
+                    jqGridAdditional.gridComplete();
                     jqGridAdditional.updateGridWidth($(this));
                     jqGridAdditional.updateGridHeight();
                 };
