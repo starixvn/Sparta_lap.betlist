@@ -15485,8 +15485,14 @@ webpackJsonp([49],[
 	            setNoInfo: function (message) {
 	                var noInfoText = message || Site.getSingleResource("NoInfo");
 	                var htmlNoInfor = '<p id="noInfoRow" class="no-info-row">' + noInfoText + '</p>';
-	                $('#noInfoRow').remove();
-	                $('.theme_jqGrid').append(htmlNoInfor);
+	
+	                var $noInforRow = $('#noInfoRow');
+	                if ($noInforRow.length) {
+	                    $noInforRow.html(noInfoText);
+	                }
+	                else {
+	                    $('.theme_jqGrid').append(htmlNoInfor);
+	                }
 	                $("div.ui-jqgrid-sdiv").hide();
 	            },
 	
@@ -21153,8 +21159,6 @@ webpackJsonp([49],[
 	    __webpack_require__(209), __webpack_require__(212), __webpack_require__(213)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, DailyStatementOption, BetList, jqGridAdditional) {
 	        var _me = {
 	            loadData: function (params, url) {
-	                jqGridAdditional.clearGrid("BetListGrid");
-	
 	                $.ajax({
 	                    type: "POST",
 	                    data: JSON.stringify(params),
@@ -21182,11 +21186,17 @@ webpackJsonp([49],[
 	            },
 	
 	            bindData: function (response) {
+	                jqGridAdditional.clearGrid("BetListGrid");
 	                var data = response.Main;
+	                if (data.length === 0) {
+	                    jqGridAdditional.setNoInfo();
+	                    return;
+	                }
 	
 	                var gridOption = _me.getGridOption();
 	                gridOption.data = data;
 	                gridOption.gridComplete = function () {
+	                    jqGridAdditional.gridComplete();
 	                    jqGridAdditional.updateGridWidth($(this));
 	                    jqGridAdditional.updateGridHeight();
 	                };

@@ -276,8 +276,14 @@ webpackJsonp([56],{
 	            setNoInfo: function (message) {
 	                var noInfoText = message || Site.getSingleResource("NoInfo");
 	                var htmlNoInfor = '<p id="noInfoRow" class="no-info-row">' + noInfoText + '</p>';
-	                $('#noInfoRow').remove();
-	                $('.theme_jqGrid').append(htmlNoInfor);
+	
+	                var $noInforRow = $('#noInfoRow');
+	                if ($noInforRow.length) {
+	                    $noInforRow.html(noInfoText);
+	                }
+	                else {
+	                    $('.theme_jqGrid').append(htmlNoInfor);
+	                }
 	                $("div.ui-jqgrid-sdiv").hide();
 	            },
 	
@@ -5552,7 +5558,7 @@ webpackJsonp([56],{
 	
 	                    if (isCheckedAll) {
 	                        _state.cachedData.Data.map(function (item) {
-	                            selectedCustomers[item.CustId] = true;
+	                            selectedCustomers[item.CustId] = item.GroupCommId;
 	                        });
 	                    }
 	
@@ -5563,7 +5569,7 @@ webpackJsonp([56],{
 	
 	                $("#report-content").on("change", ".select-cust-checkbox", function () {
 	                    var custid = Number(this.id);
-	                    var group = $(this).attr("data-group-comm-id");
+	                    var group = $(this).data("group-comm-id");
 	                    var selectedCustomers = _state.selectedCustomers;
 	
 	                    if (this.checked) {
@@ -6009,7 +6015,7 @@ webpackJsonp([56],{
 	                });
 	
 	                $('#UpdateComm').click(function () {
-	                    var groupCommId = $('#UpdateComm').attr('data-group-id');
+	                    var groupCommId = $('#UpdateComm').data('group-id');
 	                    _me.showUpdateCustComm(groupCommId);
 	                });
 	
@@ -6111,9 +6117,9 @@ webpackJsonp([56],{
 	            },
 	
 	            moveCustomerToGroup: function () {
-	                var groupid = $('#GroupListSelect').val();
+	                var groupid = Number($('#GroupListSelect').val());
 	
-	                if (groupid === "-1") {
+	                if (groupid === -1) {
 	                    _me.showMsg(Site.getSingleResource('ChooseGroupMsg'), false);
 	                    return;
 	                }
@@ -6185,7 +6191,7 @@ webpackJsonp([56],{
 	                var selectedCustomers = _state.selectedCustomers;
 	
 	                for (var custId in selectedCustomers) {
-	                    if (selectedCustomers.hasOwnProperty(custId) && selectedCustomers[custId] !== "0") {
+	                    if (selectedCustomers.hasOwnProperty(custId) && selectedCustomers[custId] !== 0) {
 	                        isShowInfo = true;
 	                        break;
 	                    }
