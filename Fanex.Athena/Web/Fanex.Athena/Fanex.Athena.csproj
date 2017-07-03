@@ -1418,6 +1418,7 @@
     <Content Include="www\js\tests\pages\customer\betsetting\common\betsetting.validation-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\common\betsettingbase-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\products\betsettingbygroup-spec.js" />
+    <Content Include="www\js\tests\pages\customer\betsetting\products\rngcasino-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\products\betsettingmain-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\products\dcsbetsetting-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\products\keno-spec.js" />
