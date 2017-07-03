@@ -296,8 +296,9 @@
                         createPostData(postData);
                     });
 
-                    it("WinLossByLeagueFilter.buildProductsParams() should be called with correct parameter", function () {
+                    it("WinLossByLeagueFilter.buildProductCodeList() should be called with correct parameter", function () {
                         spyOn(WinLossByLeagueFilter, "buildProductCodeList").and.returnValue([]);
+                        spyOn(window, "open");
 
                         WinLossByLeague.drillDownBetList(0, 0, 0);
 
@@ -305,12 +306,13 @@
                     });
 
                     it("window.open() should be called", function () {
+                        spyOn(WinLossByLeagueFilter, "buildProductCodeList").and.returnValue(["SB"]);
                         spyOn(window, "open");
 
                         WinLossByLeague.drillDownBetList(0, 0, 0);
 
                         var url = "WinlossByLeagueBetList/Index?IsConvert=true&Odds=0&FromDate=06%2F01%2F2017&ToDate=06%2F30%2F2017&BaseCurrency=EUR" +
-                            "&CurrencyId=1&CurrencyName=USD&CustId=0&ExternalId=0&SystemId=0&LeagueId=-1&MatchId=2&ShowWin=true&ShowLoss=true&ShowDraw=true&ProductCodeList=";
+                            "&CurrencyId=1&CurrencyName=USD&CustId=0&ExternalId=0&SystemId=0&LeagueId=-1&MatchId=2&ShowWin=true&ShowLoss=true&ShowDraw=true&ProductCodeList=SB";
 
                         expect(window.open).toHaveBeenCalledWith(url, "", 'modal=no');
                     });

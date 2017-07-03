@@ -5,7 +5,6 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
 
         var _bettingGroupLimitCache;
         var _productId;
-        var _formatter = new NumberFormatter();
 
         function disableSubmitButtons(isDisabled) {
             var $button = $("#btnSubmitBetSetting, #btnReset").prop('disabled', isDisabled);
@@ -33,6 +32,8 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
             },
 
             initEvent: function () {
+                var formatter = new NumberFormatter();
+
                 $('#betSettingGroup').on('change', function () {
                     var selectedGroupType = this.value;
                     var groupFilter = function (item) {
@@ -44,8 +45,8 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
                         var game = _bettingGroupLimitCache[i];
                         var group = game.Groups.filter(groupFilter)[0];
                         if (group) {
-                            $("#min-" + game.GameType).html(_formatter.formatNumber(group.Min, { format: "#,###" }));
-                            $("#max-" + game.GameType).html(_formatter.formatNumber(group.Max, { format: "#,###" }));
+                            $("#min-" + game.GameType).html(formatter.formatNumber(group.Min, { format: "#,###" }));
+                            $("#max-" + game.GameType).html(formatter.formatNumber(group.Max, { format: "#,###" }));
                         } else {
                             $("#min-" + game.GameType).html("");
                             $("#max-" + game.GameType).html("");
@@ -62,7 +63,7 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
                     }
 
                     var messageResource = _productId === Product.AgCasino ? 'UpdateAgCasinoBetSettings' :
-                                        (_productId === Product.GoldDeluxe ? 'UpdateGoldDeluxeBetSettings' : '');
+                                        _productId === Product.GoldDeluxe ? 'UpdateGoldDeluxeBetSettings' : '';
                     BetSettingBase.showComfirm($(this), messageResource, _me.updateBetSetting);
                 });
 
@@ -84,7 +85,11 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
 
             updateBetSetting: function (custId, userName, nickName) {
                 var url = _productId === Product.AgCasino ? 'AgCasinoBetSetting/UpdateBetSetting' :
-                                        (_productId === Product.GoldDeluxe ? 'GoldDeluxeBetSetting/UpdateBetSetting' : null);
+                                        _productId === Product.GoldDeluxe ? 'GoldDeluxeBetSetting/UpdateBetSetting' : null;
+
+                if (url === null) {
+                    return;
+                }
 
                 var params = {
                     custid: custId,
@@ -98,7 +103,11 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
 
             updateStatus: function ($context) {
                 var url = _productId === Product.AgCasino ? 'AgCasinoBetSetting/UpdateStatus' :
-                                        (_productId === Product.GoldDeluxe ? 'GoldDeluxeBetSetting/UpdateStatus' : null);
+                                        _productId === Product.GoldDeluxe ? 'GoldDeluxeBetSetting/UpdateStatus' : null;
+
+                if (url === null) {
+                    return;
+                }
 
                 var params = BetSettingStatus.getCommonPostData($context);
                 BetSettingStatus.update(Site.resolveClientUrl(url), params);
@@ -117,7 +126,7 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
                     return false;
                 }
 
-                if (_me.checkApiContainGroup(group) === false) {
+                if (!_me.checkApiContainGroup(group)) {
                     alert(Site.getSingleResource("AGCasinoNoGroupChosenErrMsg"));
                     return false;
                 }
