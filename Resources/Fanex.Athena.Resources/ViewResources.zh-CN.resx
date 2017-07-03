@@ -2563,4 +2563,8 @@
     <value>金额≥ 30,000英镑</value>
     <comment>#78085</comment>
   </data>
+  <data name="SystemParlayDetailNote" xml:space="preserve">
+    <value>输赢的进位值仅供参考。因此，所有输赢相加的总计有可能和小计有差数。</value>
+    <comment>78931</comment>
+  </data>
 </root>
