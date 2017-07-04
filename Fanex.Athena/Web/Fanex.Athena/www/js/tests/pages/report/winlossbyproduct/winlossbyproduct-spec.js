@@ -3,6 +3,52 @@
     'components/pluginhelper/multiselect', 'helpers/daterange', 'helpers/excel', 'components/pluginhelper/autocomplete'],
         function ($, Site, QueryString, DatePicker, WinLossByProductOption, WinLossByProduct, Report, jqGridAdditional, Popup, MultiSelect, DateHelper, ExcelHelper, AutoComplete) {
             describe("WinLossByProduct", function () {
+                var ajaxOption;
+                function createSubmitData(expectedData, response) {
+                    var defaultSubmitData = {
+                        ProductOptions: "[]",
+                        DrawFilter: 1,
+                        CurrencyId: 1,
+                        ReportBy: 1,
+                        FromDate: "07/01/2017",
+                        ToDate: "07/31/2017",
+                        CurrencyName: "EUR",
+                        IsExcludedTestData: true,
+                        SystemId: 1,
+                        MemberId: 2
+                    };
+
+                    $.extend(defaultSubmitData, expectedData);
+
+                    var formData = {
+                        DrawFilter: defaultSubmitData.DrawFilter,
+                        CurrencyId: defaultSubmitData.CurrencyId,
+                        ReportBy: defaultSubmitData.ReportBy,
+                        FromDate: defaultSubmitData.FromDate,
+                        ToDate: defaultSubmitData.ToDate,
+                        CurrencyName: defaultSubmitData.CurrencyName,
+                        IsExcludedTestData: defaultSubmitData.IsExcludedTestData
+                    };
+
+                    spyOn(Report, "setOriginalProduct");
+                    spyOn(Report, "ValidProducts").and.returnValue(true);
+                    spyOn(Site, "updateOriginalLicenseeOption");
+                    spyOn($.fn, "serializeObject").and.returnValue(formData);
+                    spyOn($, "ajax").and.callFake(function (option) { ajaxOption = option; return { abort: function () { } }; });
+
+                    spyOn(WinLossByProduct, "setExcelUrl");
+                    spyOn(WinLossByProduct, "ajaxComplete");
+
+                    var defaultResponse = {
+                        ProductOptions: defaultSubmitData.ProductOptions,
+                        SystemId: defaultSubmitData.SystemId,
+                        MemberId: defaultSubmitData.MemberId
+                    };
+
+                    WinLossByProduct.submit();
+                    ajaxOption.success(response || defaultResponse);
+                }
+
                 beforeAll(function () {
                     spyOn(Site, "getSingleResource").and.callFake(function (resource) { return resource; });
                     spyOn(DateHelper, "setConstraintMonthRange");
@@ -257,12 +303,33 @@
 
                 describe("setReportTitle(currencyId, fromdate, todate, currencyName)", function () {
                     it("'div.report-title' should be correct  with no product option", function () {
-                        spyOn($, "parseJSON").and.returnValue([]);
+                        var submitData = { ProductOptions: null, SystemId: null };
+                        createSubmitData(submitData);
+
                         setFixtures("<div class='report-title' />");
 
                         WinLossByProduct.setReportTitle(1, new Date("Apr 10, 2015"), new Date("Apr 15, 2015"), "USD");
 
                         expect($('.report-title').html()).toBe('WinLossByProduct, 04/10/2015 → 04/15/2015 - Viewin');
+                    });
+
+                    it("'div.report-title' should be correct  with product option value", function () {
+                        var submitData = { ProductOptions: JSON.stringify([{ Code: "SB", Status: true }]), SystemId: null };
+                        createSubmitData(submitData);
+                        setFixtures("<div class='report-title' />");
+
+                        WinLossByProduct.setReportTitle(1, new Date("Apr 10, 2015"), new Date("Apr 15, 2015"), "USD");
+
+                        expect($('.report-title').html()).toBe('WinLossByProduct, 04/10/2015 → 04/15/2015 - Viewin, LicenseeW_L(SB)');
+                    });
+
+                    it("When not pass currencyName param - Report.getCurrencyNameForReportTitle(currencyId) should be called with correct parameter", function () {
+                        spyOn(Report, "getCurrencyNameForReportTitle");
+                        setFixtures("<div class='report-title' />");
+
+                        WinLossByProduct.setReportTitle(1, new Date("Apr 10, 2015"), new Date("Apr 15, 2015"));
+
+                        expect(Report.getCurrencyNameForReportTitle).toHaveBeenCalledWith(1);
                     });
 
                     it("'div.report-title' should be correct", function () {
@@ -601,19 +668,19 @@
                 describe("drillDown(level, currencyId, customerId, datetime, currencyName)", function () {
                     var dateRange = {
                         FromDate: new Date("01/01/2017"),
-                        ToDate: new Date("30/01/2017")
+                        ToDate: new Date("01/30/2017")
                     };
 
                     beforeAll(function () {
                         spyOn(Report, "GetDrilldownDateRange").and.returnValue(dateRange);
                         spyOn(Site, "blockUI");
                         spyOn(Site, "unBlockUI");
-                        spyOn(WinLossByProduct, "ajaxComplete");
                         spyOn($, "parseJSON").and.returnValue("[]");
                         spyOn(JSON, "stringify").and.returnValue("[]");
                     });
 
                     it("setExcelUrl and setReportTitle should be called with correct params when level is 1", function () {
+                        spyOn(WinLossByProduct, "ajaxComplete");
                         var level = 1,
                             currencyId = 0,
                             customerId = 1,
@@ -629,12 +696,68 @@
                                 }]
                             });
                             options.complete();
+
+                            return { abort: function () { } };
                         });
 
                         WinLossByProduct.drillDown(level, currencyId, customerId, datetime, currencyName);
 
                         expect(WinLossByProduct.setExcelUrl).toHaveBeenCalledWith(level, currencyId, customerId, dateRange.FromDate, dateRange.ToDate, currencyName);
                         expect(WinLossByProduct.setReportTitle).toHaveBeenCalled();
+                    });
+
+                    it("response is null - Notihng happen", function () {
+                        spyOn(WinLossByProduct, "ajaxComplete");
+                        var level = 1,
+                            currencyId = 0,
+                            customerId = 1,
+                            datetime = "01/01/2017",
+                            currencyName = "ALL";
+                        spyOn(WinLossByProduct, "setReportTitle");
+                        spyOn(WinLossByProduct, "setExcelUrl");
+                        spyOn($, "ajax").and.callFake(function (options) {
+                            options.beforeSend();
+                            options.success(null);
+                            options.complete();
+
+                            return { abort: function () { } };
+                        });
+
+                        WinLossByProduct.drillDown(level, currencyId, customerId, datetime, currencyName);
+
+                        expect(WinLossByProduct.setExcelUrl).not.toHaveBeenCalled();
+                        expect(WinLossByProduct.setReportTitle).not.toHaveBeenCalled();
+                    });
+                });
+
+                describe("call success in ajax option", function () {
+                    var dateRange = {
+                        FromDate: new Date("01/01/2017"),
+                        ToDate: new Date("01/30/2017")
+                    };
+                    it("level > 0 and currencyId = 0 - WinLossByProduct.setReportTitle should be called with correct parameter", function () {
+                        spyOn(Report, "GetDrilldownDateRange").and.returnValue(dateRange);
+                        spyOn($, "parseJSON").and.returnValue("[]");
+                        spyOn(WinLossByProduct, "setReportTitle");
+                        var level = 1,
+                            currencyId = "0",
+                            customerId = 1,
+                            datetime = "01/01/2017",
+                            currencyName = "ALL";
+
+                        var response = {
+                            Data: [{
+                                Index: 1
+                            }]
+                        };
+                        createSubmitData({ CurrencyId: "0" }, response);
+
+                        WinLossByProduct.drillDown(level, currencyId, customerId, datetime, currencyName);
+                        ajaxOption.success(response);
+
+                        var result = WinLossByProduct.setReportTitle.calls.mostRecent().args;
+
+                        expect(result).toEqual([currencyId, dateRange.FromDate, dateRange.ToDate, currencyName]);
                     });
                 });
             });

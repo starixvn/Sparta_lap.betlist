@@ -72,9 +72,7 @@
                 data: data,
                 dataType: "json",
                 url: Site.resolveClientUrl("LiveReport/Detail"),
-                success: function () {
-                },
-                beforeSend: Site.blockUI(),
+                beforeSend: Site.blockUI,
                 complete: function (jqXHR) {
                     if (jqXHR.readyState === 4) {
                         $("#ProductCode").val(data.productCode);

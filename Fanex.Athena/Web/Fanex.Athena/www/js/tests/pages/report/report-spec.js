@@ -1,4 +1,4 @@
-﻿define(['jquery', 'common/site', 'common/popup', 'pages/report/report'],
+﻿define(['jquery', 'common/site', 'common/popup', 'pages/report/report', 'lib/jqgrid/jquery.jqGrid.min'],
     function ($, Site, Popup, Report) {
         var popupOption;
         describe("Report", function () {
@@ -139,6 +139,18 @@
 
                     expect($('.level2').is(':visible')).toBe(true);
                 });
+
+                it("licenseeId is 12Bet - .level1 should be showed and has class 'active'", function () {
+                    var level = 1, licensee12Bet = 1;
+                    appendSetFixtures('<div id="level-link-container"><div class="level0"></div><div class="level1"></div></div>');
+
+                    Report.renderBreadCrumb(level, licensee12Bet);
+                    var level1Visible = $('.level1').is(':visible');
+                    var level1HasActiveClass = $('.level1').hasClass("active");
+
+                    expect(level1Visible).toBe(true);
+                    expect(level1HasActiveClass).toBe(true);
+                });
             });
 
             describe("bindSummaryTotal(columnModel, summaryTotal)", function () {
@@ -162,9 +174,54 @@
                 });
 
                 beforeEach(function () {
-                    var htmlTableFooter = '<table class="ui-jqgrid-ftable"><tr><td></td><td></td><td></td></tr></table>';
+                    var htmlTableFooter = '<table class="ui-jqgrid-ftable"><tbody><tr><td></td><td></td><td></td></tr></tbody></table>';
 
                     setFixtures(htmlTableFooter);
+                });
+
+                it("summaryData is object - .ui-jqgrid-ftable should has correct html content", function () {
+                    var summaryData = {
+                        "EUR": { Col0: "Date", Col1: 10.01, Col2: -5 }
+                    };
+                    var expectedHtmlContent = '<tbody><tr><td class="group-EUR" title="Total in EUR">Total in EUR</td><td title="10.01">10.01</td><td>-5</td></tr></tbody>';
+
+                    Report.bindSummaryTotal(columnModel, summaryData);
+                    var result = $(".ui-jqgrid-ftable").html();
+
+                    expect(result).toBe(expectedHtmlContent);
+                });
+
+                it("summaryData is array - returning rowcount value should be correct", function () {
+                    var summaryData = {
+                        "EUR": [{ Col0: "Date", Col1: 10.01, Col2: -5 }, { Col0: "Date", Col1: 10.01, Col2: -5 }, { Col0: "Date", Col1: 10.01, Col2: -5 }]
+                    };
+                    var expectedRowCount = 3;
+
+                    var result = Report.bindSummaryTotal(columnModel, summaryData);
+
+                    expect(result).toBe(expectedRowCount);
+                });
+
+                it("'data-total-currency-list' attribute should be correct", function () {
+                    var summaryData = {
+                        "EUR": { Col0: "Date", Col1: 10.01, Col2: -5 },
+                        "USD": { Col0: "Date", Col1: 10.01, Col2: -5 }
+                    };
+                    var expectedResult = "EUR,USD";
+
+                    Report.bindSummaryTotal(columnModel, summaryData);
+                    var result = $(".ui-jqgrid-ftable").attr("data-total-currency-list");
+
+                    expect(result).toBe(expectedResult);
+                });
+
+                it("have no data - .ui-jqgrid-ftable should has correct html content", function () {
+                    var expectedResult = '<tbody><tr><td></td><td></td><td></td></tr></tbody>';
+
+                    Report.bindSummaryTotal(columnModel);
+                    var result = $(".ui-jqgrid-ftable").html();
+
+                    expect(result).toBe(expectedResult);
                 });
             });
         });

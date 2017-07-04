@@ -12,7 +12,6 @@
             describe("initialize()", function () {
                 beforeAll(function () {
                     spyOn(WinlossByLeagueFilter, "initEvent");
-                    setFixtures('<input type="hidden" id="ProductListCount" value="17">');
 
                     WinlossByLeagueFilter.initialize();
                 });
@@ -362,6 +361,87 @@
 
                     expect(result).toEqual(true);
                     expect($("#Odds").val()).toEqual("0");
+                });
+            });
+
+            describe("buildProductsParams(paramObject, postData)", function () {
+                beforeAll(function () {
+                    spyOn(WinlossByLeagueFilter, "initEvent");
+                });
+
+                it("when call with paramObject is empty - paramObject should be correct", function () {
+                    var htmlCheckBoxList = '<input type="checkbox" class="childCheckbox">';
+                    setFixtures('<div id="ProductList">' + htmlCheckBoxList + '</div>');
+                    WinlossByLeagueFilter.initialize();
+
+                    var paramObject = {};
+                    var postData = {
+                        "ProductOptions[0].Code": 1,
+                        "ProductOptions[0].Name": "SB",
+                        "ProductOptions[0].Status": true
+                    }
+
+                    WinlossByLeagueFilter.buildProductsParams(paramObject, postData);
+
+                    expect(paramObject).toEqual(postData);
+                });
+
+                it("when call with paramObject is not empty - paramObject should be correct", function () {
+                    var htmlCheckBoxList = '<input type="checkbox" class="childCheckbox">';
+                    setFixtures('<div id="ProductList">' + htmlCheckBoxList + '</div>');
+                    WinlossByLeagueFilter.initialize();
+
+                    var paramObject = {
+                        Id: 1,
+                        Name: "Test",
+                        "ProductOptions[0].Code": 0,
+                        "ProductOptions[0].Name": "CB",
+                        "ProductOptions[0].Status": false
+                    };
+                    var postData = {
+                        "ProductOptions[0].Code": 1,
+                        "ProductOptions[0].Name": "SB",
+                        "ProductOptions[0].Status": true
+                    }
+
+                    var expectedResult = {
+                        Id: 1,
+                        Name: "Test",
+                        "ProductOptions[0].Code": 1,
+                        "ProductOptions[0].Name": "SB",
+                        "ProductOptions[0].Status": true
+                    };
+
+                    WinlossByLeagueFilter.buildProductsParams(paramObject, postData);
+
+                    expect(paramObject).toEqual(expectedResult);
+                });
+            });
+
+            describe("buildProductCodeList(postData)", function () {
+                beforeAll(function () {
+                    spyOn(WinlossByLeagueFilter, "initEvent");
+                });
+
+                it("when call - return correct value", function () {
+                    var htmlCheckBoxList = '<input type="checkbox" class="childCheckbox"><input type="checkbox" class="childCheckbox"><input type="checkbox" class="childCheckbox">';
+                    setFixtures('<div id="ProductList">' + htmlCheckBoxList + '</div>');
+                    WinlossByLeagueFilter.initialize();
+
+                    var postData = {
+                        "ProductOptions[0].Code": "SB",
+                        "ProductOptions[0].Status": "true",
+                        "ProductOptions[1].Code": "RB",
+                        "ProductOptions[1].Status": "true",
+                        "ProductOptions[2].Code": "CO",
+                        "ProductOptions[2].Status": "false"
+                    }
+
+                    var expectedResult = ["SB", "RB"];
+
+                    var result = WinlossByLeagueFilter.buildProductCodeList(postData);
+
+                    expect(result).toEqual(expectedResult);
                 });
             });
         });

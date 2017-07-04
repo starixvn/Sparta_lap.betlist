@@ -60,6 +60,18 @@
             });
         });
 
+        describe("call window.onbeforeunload", function () {
+            it("#ProductCode should has empty value", function () {
+                setFixtures('<input id="ProductCode" value="abc" />');
+
+                LiveReport.initialize();
+                window.onbeforeunload();
+                var result = $("#ProductCode").val();
+
+                expect(result).toBe("");
+            });
+        });
+
         describe("Export excel", function () {
             var spyEvent;
             beforeEach(function () {
@@ -103,7 +115,7 @@
             });
         });
 
-        describe("view product detail", function () {
+        describe("viewProductDetail", function () {
             beforeEach(function () {
                 jasmine.Ajax.install();
                 jasmine.Ajax
@@ -131,6 +143,56 @@
                 setTimeout(done, 10);
                 expect(request.url).toBe('LiveReport/Detail');
                 expect(request.params).toBe('FromDate=1%2F1%2F2016&ToDate=2%2F2%2F2016&CurrencyName=');
+            });
+
+            it("call complete - #ProductCode should has correct value", function () {
+                var ajaxOption;
+                spyOn($, "ajax").and.callFake(function (option) { ajaxOption = option; });
+
+                setFixtures('<div class="product-detail-link" data-product-code="SB"></div> <input id="ProductCode" />');
+                LiveReport.initialize();
+
+                $('.product-detail-link').click();
+
+                ajaxOption.complete({ readyState: 4 });
+                var result = $("#ProductCode").val();
+
+                expect(result).toBe("SB");
+            });
+
+            it("call complete - #detail-content should has correct html content", function () {
+                var ajaxOption;
+                spyOn($, "ajax").and.callFake(function (option) { ajaxOption = option; });
+                var expectedResult = "html content";
+
+                setFixtures('<div class="product-detail-link" data-product-code="SB"></div> <input id="ProductCode" /> <div id="detail-content"></div>');
+                LiveReport.initialize();
+
+                $('.product-detail-link').click();
+
+                ajaxOption.complete({ readyState: 4, responseText: expectedResult });
+                var result = $("#detail-content").html();
+
+                expect(result).toBe(expectedResult);
+            });
+
+            it("call complete - jqXHR.readyState is not equal 4 - #ProductCode and #detail-content should not be updated", function () {
+                var ajaxOption;
+                spyOn($, "ajax").and.callFake(function (option) { ajaxOption = option; });
+                var expectedProductCode = "AB";
+                var expectedHtmlContent = "ABC";
+
+                setFixtures('<div class="product-detail-link" data-product-code="SB"></div> <input id="ProductCode" value="AB" /> <div id="detail-content">ABC</div>');
+                LiveReport.initialize();
+
+                $('.product-detail-link').click();
+
+                ajaxOption.complete({ readyState: 5, responseText: "html content" });
+                var productCode = $("#ProductCode").val();
+                var detailContent = $("#detail-content").html();
+
+                expect(productCode).toBe(expectedProductCode);
+                expect(detailContent).toBe(expectedHtmlContent);
             });
         });
 
