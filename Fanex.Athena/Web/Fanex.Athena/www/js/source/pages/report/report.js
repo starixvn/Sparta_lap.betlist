@@ -68,12 +68,6 @@
         },
 
         bindSummaryTotal: function (columnModel, summaryTotal) {
-            /// <summary>
-            /// Bind summary total data to footer rows
-            /// </summary>
-            /// <param name="columnModel"></param>
-            /// <param name="summaryTotal"></param>
-            /// <returns type="int">Number of iserted row</returns>
             if (!summaryTotal || summaryTotal.length === 0) {
                 return;
             }
@@ -82,38 +76,30 @@
             var rowCount = 0;
             var currencyList = [];
 
-            function processColumnModel(columnModel, dataItem) {
-                var firstCell = null;
-
+            function processColumnModel(dataItem) {
                 var row = mainFooter.clone();
-                row.insertAfter(mainFooter);
                 var cellList = $("td", row);
 
                 $(columnModel).each(function (cellIndex, modelElement) {
-                    var cell = cellList.get(cellIndex);
                     var isCustomFormater = typeof modelElement.formatter === "function";
                     var rawValue = dataItem[modelElement.name];
                     var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
                                 $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
-                    var titleValue = value;
-                    if ($.isNumeric(rawValue) && rawValue < 0) {
-                        var wrapper = document.createElement('div');
-                        wrapper.innerHTML = value;
-                        titleValue = wrapper.outerHtml;
-                    }
 
-                    $(cell).html(value).attr("title", titleValue);
-                    firstCell = !firstCell ? $(cell) : firstCell;
+                    var $cell = $(cellList.get(cellIndex));
+                    if (cellIndex === 0) {
+                        var content = "Total in " + currency;
+                        $cell.html(content)
+                            .addClass("group-" + currency)
+                            .attr("title", content);
+                    }
+                    else {
+                        var title = $.isNumeric(rawValue) && rawValue < 0 ? undefined : value;
+                        $cell.html(value).attr("title", title);
+                    }
                 });
 
-                return firstCell;
-            }
-
-            function renderDataForSummaryTotalRow(dataRow) {
-                var currentFirstCell = processColumnModel(columnModel, dataRow);
-
-                currentFirstCell.html("Total in " + currency);
-                currentFirstCell.addClass("group-" + currency);
+                row.insertAfter(mainFooter);
                 rowCount++;
             }
 
@@ -121,10 +107,10 @@
                 currencyList.push(currency);
                 var summaryData = summaryTotal[currency];
                 if (Array.isArray(summaryData)) {
-                    summaryData.forEach(renderDataForSummaryTotalRow);
+                    summaryData.forEach(processColumnModel);
                 }
                 else {
-                    renderDataForSummaryTotalRow(summaryData);
+                    processColumnModel(summaryData);
                 }
             }
 
@@ -159,7 +145,7 @@
 
                 var isLevel2 = level === 2;
                 $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
-                
+
                 var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
                 $("#level-link-container .level1").toggle(allowShowLevel1);
                 $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
