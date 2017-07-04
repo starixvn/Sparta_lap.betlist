@@ -1051,7 +1051,7 @@ webpackJsonp([52],{
 	            $("#btnSubmitBetSetting").on("click", function () {
 	                var productId = parseInt($("#ProductId").val());
 	                var messageResource = productId === Product.Sportsbook ? "UpdateSportsbookBetSettings" :
-	                        (productId === Product.Racing ? "UpdateRacingBetSettings" : "");
+	                        productId === Product.Racing ? "UpdateRacingBetSettings" : "";
 	
 	                BetSettingBase.showComfirm($(this), messageResource, _me.updateBetSetting);
 	            });
@@ -1063,7 +1063,11 @@ webpackJsonp([52],{
 	        updateBetSetting: function (custId, userName, nickName) {
 	            var productId = parseInt($("#ProductId").val());
 	            var url = productId === Product.Sportsbook ? "SportsbookBetSetting/UpdateBetSetting" :
-	                    (productId === Product.Racing ? "RacingBetSetting/updateBetSetting" : null);
+	                    productId === Product.Racing ? "RacingBetSetting/UpdateBetSetting" : null;
+	
+	            if (url === null) {
+	                return;
+	            }
 	
 	            var params = BetSettingBase.getBetSettingParamsForSports();
 	            params.custid = custId;

@@ -27,13 +27,12 @@
 
 @{
     const string FormatDecimal = "#,###,##0.##";
-    var hasData = Model.MainData.Count > 0;
 }
 
 @Html.Hidden("editable", Model.Editable)
 @Html.Hidden("IDList", Model.MainData.First().SportId)
 
-@if (!hasData)
+@if (Model.MainData.Count == 0)
 {
     <p class="no-info-row">@ViewResources.NoInfo</p>
 }

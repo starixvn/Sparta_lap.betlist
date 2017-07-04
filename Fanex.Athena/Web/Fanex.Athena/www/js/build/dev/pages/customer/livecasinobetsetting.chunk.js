@@ -1080,9 +1080,7 @@ webpackJsonp([61],{
 	        },
 	
 	        initEvent: function () {
-	            $("#btnReset").on("click", function () {
-	                _me.reset();
-	            });
+	            $("#btnReset").on("click", _me.reset);
 	
 	            $("#btnSubmitBetSetting").on("click", function () {
 	                BetSettingBase.showComfirm($(this), 'UpdateLiveCasinoBetSettings', _me.updateBetSetting);
@@ -1117,7 +1115,7 @@ webpackJsonp([61],{
 	        updateBetSetting: function (custId, userName, nickName) {
 	            var url = Site.resolveClientUrl('LiveCasinoBetSetting/UpdateBetSetting');
 	
-	            var gameTypeCount = $("#gameTypeCount").val();
+	            var gameTypeCount = parseInt($("#gameTypeCount").val());
 	            var params = {
 	                custId: custId,
 	                nickName: nickName,
