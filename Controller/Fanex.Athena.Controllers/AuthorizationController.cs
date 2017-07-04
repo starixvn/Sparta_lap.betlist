@@ -265,7 +265,7 @@ namespace Fanex.Athena.Controllers
         public ActionResult InternalSignOut()
         {
             DoSignOut();
-            return RedirectToAction("OneTokenRestriction?code=100", "Utility");
+            return RedirectToAction("OneTokenRestriction", "Utility", new { Code = 100 });
         }
 
         /// <summary>
