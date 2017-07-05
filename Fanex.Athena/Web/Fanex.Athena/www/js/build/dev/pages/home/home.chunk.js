@@ -1627,7 +1627,7 @@ webpackJsonp([70],{
 	    __webpack_require__(300),
 	    __webpack_require__(314),
 	    __webpack_require__(266),
-	    __webpack_require__(13)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Site, Recheckin, AutoComplete) {
+	    __webpack_require__(12)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Site, Recheckin, AutoComplete) {
 	        var $searchBox;
 	
 	        function initialize() {
