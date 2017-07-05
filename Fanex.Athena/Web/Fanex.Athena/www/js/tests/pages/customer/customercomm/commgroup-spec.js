@@ -2,7 +2,7 @@
     function ($, Site, CustomerCommGroup) {
         describe("CustomerCommGroup", function () {
             describe("setPageTitle(title)", function () {
-                it("change page title with correct param", function () {
+                it("changes page title with correct param", function () {
                     var expectedTitle = "title";
                     spyOn($.fn, "text");
                     spyOn(Site, "getSingleResource").and.callFake(function (str) {
@@ -12,6 +12,25 @@
                     CustomerCommGroup.setPageTitle(expectedTitle);
 
                     expect($("#page-title", window.parent.document).text).toHaveBeenCalledWith(expectedTitle);
+                });
+
+                it("does not change page title if parent host is the same with current host", function () {
+                    var expectedTitle = "title";
+                    window.parent = {
+                        location: {
+                            host: "parent"
+                        }
+
+                    };
+
+                    spyOn($.fn, "text");
+                    spyOn(Site, "getSingleResource").and.callFake(function (str) {
+                        return str;
+                    });
+
+                    CustomerCommGroup.setPageTitle(expectedTitle);
+
+                    expect($("#page-title", window.parent.document).text).not.toHaveBeenCalledWith(expectedTitle);
                 });
             });
 
@@ -33,6 +52,11 @@
                     window.parent.document = "ul";
                     spyOn(CustomerCommGroup, "setPageTitle");
                     spyOn(Site, "redirect");
+                    window.parent = {
+                        location: {
+                            host: window.location.host
+                        }
+                    };
 
                     CustomerCommGroup.goToCustomerList(1);
 
@@ -45,13 +69,7 @@
                     spyOn(Site, "redirect");
                     window.parent = {
                         location: {
-                            host: new Error()
-                        }
-
-                    };
-                    window = {
-                        location: {
-                            host: "child"
+                            host: "parent"
                         }
                     };
 
