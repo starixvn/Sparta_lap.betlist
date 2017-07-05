@@ -43,15 +43,30 @@
                 expect(result).toBe("http://localhost?a=2");
             });
 
+            it("does not update value in a query string if value is undefined", function () {
+                var result = QueryString.setParam("http://localhost?a=1", "a", undefined);
+                expect(result).toBe("http://localhost?a=1");
+            });
+
             it("remove null value", function () {
                 var result = QueryString.setParam("http://localhost?a=1", "a", null);
                 expect(result).toBe("http://localhost?");
+            });
+
+            it("returns url if parameter name is null", function () {
+                var result = QueryString.setParam("http://localhost?a=1", null, "");
+                expect(result).toBe("http://localhost?a=1");
             });
         });
 
         describe("setParams(url, parameters)", function () {
             it("add new value to a query string if it does not exist", function () {
-                var result = QueryString.setParams("http://localhost", { a: 2 });
+                var paramObj = function () {
+                    this["a"] = 2;
+                };
+                paramObj.prototype = { "b": 1 };
+
+                var result = QueryString.setParams("http://localhost", new paramObj());
                 expect(result).toBe("http://localhost?a=2");
             });
 
@@ -68,8 +83,8 @@
 
         describe("getParam(url, name)", function () {
             it("return a correct value if it exists", function () {
-                var result = QueryString.getParam("http://localhost?a=1", "a");
-                expect(result).toBe("1");
+                var result = QueryString.getParam("http://localhost?b=1&a=2&c", "a");
+                expect(result).toBe("2");
             });
 
             it("return a null if it does not exist", function () {

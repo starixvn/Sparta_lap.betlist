@@ -108,6 +108,15 @@
 
                 expect(result).toBe(expectedUrl);
             });
+
+            it("build an url with undefined production", function () {
+                var url = "localhost?ProductOptions[1].Status=true";
+                var expectedUrl = transformQueryParamNameToLowerCase(url);
+
+                var result = Site.setProductOptionParam("localhost", 1, undefined, true);
+
+                expect(result).toBe(expectedUrl);
+            });
         });
 
         describe("asBool()", function () {
@@ -250,6 +259,22 @@
 
                 expect(result).not.toBe(date);
                 expect(result).toEqual(date);
+            });
+
+            it("return correct date value when passed param is Object type", function () {
+                var obj = function () {
+                    this["prop"] = "prop";
+                };
+                obj.prototype = { "prop2": "" };
+                var clonedObj = new obj();
+                var expectedObj = {
+                    prop: "prop"
+                };
+
+                var result = Site.clone(clonedObj);
+
+                expect(result).not.toBe(clonedObj);
+                expect(result).toEqual(expectedObj);
             });
         });
 
@@ -471,6 +496,7 @@
                 Site.addUserGuide({ resourceName: "AAA" });
 
                 $("#UserGuide").click();
+                $("#UserGuide").click();
                 spyOn(Popup, "openPopup");
                 jasmine.clock().install();
                 callback("test", "success");
@@ -576,6 +602,52 @@
                     expect(result).toBe(false);
                     expect(window.alert).toHaveBeenCalledWith("ErrorProcessingMsg");
                 });
+
+                it(".block-body should be hidden and window.alert should be called when calling status 400", function () {
+                    ajaxOption.statusCode["400"]();
+
+                    var result = $("block-body").is(":visible");
+
+                    expect(result).toBe(false);
+                    expect(window.alert).toHaveBeenCalledWith("InvalidRequestMsg");
+                });
+            });
+        });
+
+        describe("debounce(func, wait, immediate)", function () {
+            it("call function immediately", function () {
+                var func = jasmine.createSpyObj("func", ["call"]);
+
+                var result = Site.debounce(func.call, 1000, true);
+                result();
+
+                expect(func.call).toHaveBeenCalled();
+            });
+
+            it("call function with timeout", function () {
+                var func = jasmine.createSpyObj("func", ["call"]);
+
+                jasmine.clock().install();
+
+                var result = Site.debounce(func.call, 300, false);
+                result();
+                jasmine.clock().tick(301);
+
+                expect(func.call).toHaveBeenCalled();
+                jasmine.clock().uninstall();
+            });
+
+            it("call function with timeout", function () {
+                var func = jasmine.createSpyObj("func", ["call"]);
+
+                jasmine.clock().install();
+
+                var result = Site.debounce(func.call, false, false);
+                result();
+                jasmine.clock().tick(501);
+
+                expect(func.call).toHaveBeenCalled();
+                jasmine.clock().uninstall();
             });
         });
     });

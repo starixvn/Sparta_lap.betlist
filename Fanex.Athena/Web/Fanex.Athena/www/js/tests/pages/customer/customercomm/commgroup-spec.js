@@ -20,7 +20,6 @@
                         location: {
                             host: "parent"
                         }
-
                     };
 
                     spyOn($.fn, "text");
