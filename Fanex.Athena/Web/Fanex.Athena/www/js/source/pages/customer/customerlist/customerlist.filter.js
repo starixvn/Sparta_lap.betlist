@@ -1,5 +1,5 @@
 ﻿"use strict";
-define(["jquery", "common/site", "./customerlist.state", "./customerlist.service", "components/pluginhelper/autocomplete"],
+define(["jquery", "common/site", "./customerlist.state", "./customerlist.service", "components/pluginhelper/autocomplete", "lib/jquery.multiselect"],
     function ($, Site, CustomerListState, CustomerListService, AutoComplete) {
         var _state;
 
