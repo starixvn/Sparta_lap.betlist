@@ -630,7 +630,7 @@
                 var urlParam = $("#casino-hand-history-" + refNo).attr('url-param');
 
                 url += urlParam;
-                window.location = url;
+                Site.redirect(url);
             },
 
             viewCashOutHistory: function (transId, refNo, betType, betdaqId) {

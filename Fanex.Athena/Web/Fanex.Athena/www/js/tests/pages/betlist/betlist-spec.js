@@ -20,6 +20,9 @@
                 spyOn(Site, "resolveClientUrl").and.callFake(function (url) {
                     return url;
                 });
+                spyOn(Site, "getResources").and.callFake(function (resources) {
+                    return resources;
+                });
                 //BetList.initialize();
             });
 
@@ -60,12 +63,22 @@
             });
 
             describe("gridComplete(grid)", function () {
-                beforeEach(function () {
-                    spyOn(jqGridAdditional, "addSortableHeader");
-                    spyOn(jqGridAdditional, "gridComplete");
-                    spyOn(jqGridAdditional, "updateGridHeight");
+                var gridOption;
 
-                    appendSetFixtures('<table class="ui-jqgrid-ftable" id="grid"></tbody>');
+                function setSortColumnName(colName) {
+                    spyOn(Site, "blockUI");
+                    spyOn(jqGridAdditional, "setColumnVisible");
+                    spyOn(BetList, "loadDataPaging");
+                    spyOn(BetList, "loadData");
+
+                    appendSetFixtures('<input id="HiddenColumnList" />');
+
+                    gridOption = BetList.getGridOption();
+                    gridOption.onSortCol(colName);
+                }
+
+                function createGridData() {
+                    setFixtures('<table class="ui-jqgrid-ftable" id="grid"></tbody>');
 
                     var grid = $("#grid");
                     grid[0].p = {
@@ -105,6 +118,14 @@
                                 + '</th>'
                         }]
                     };
+                }
+
+                beforeEach(function () {
+                    spyOn(jqGridAdditional, "addSortableHeader");
+                    spyOn(jqGridAdditional, "gridComplete");
+                    spyOn(jqGridAdditional, "updateGridHeight");
+
+                    createGridData();
                 });
 
                 it("Add text for summary odd cell if _isShowSumStake is 1", function () {
@@ -136,15 +157,71 @@
                     expect($(".ui-jqgrid-ftable td[aria-describedby=BetListGrid_Odds]").html(), "");
                     expect($(".ui-jqgrid-ftable td[aria-describedby=BetListGrid_Stake]").html(), "GrandTotal");
                 });
+
+                describe("call jqGridAdditional.addSortableHeader($grid, sortCol, _sortOrder) by sortColumnName", function () {
+                    beforeEach(function () {
+                        $("#SortBy").remove();
+                        $("#SortOrder").remove();
+                    });
+
+                    it("sortColumnName is WinLoss - Call correct parameter", function () {
+                        var sortColumnName = "WinLoss", sortOrder = "desc";
+                        setSortColumnName(sortColumnName);
+
+                        BetList.gridComplete("#grid");
+
+                        expect(jqGridAdditional.addSortableHeader).toHaveBeenCalledWith($("#grid"), sortColumnName, sortOrder);
+                    });
+
+                    it("sortColumnName is nickname - Call correct parameter", function () {
+                        var sortColumnName = "ExternalId", sortOrder = "desc";
+                        setSortColumnName("nickname");
+
+                        BetList.gridComplete("#grid");
+
+                        expect(jqGridAdditional.addSortableHeader).toHaveBeenCalledWith($("#grid"), sortColumnName, sortOrder);
+                    });
+
+                    it("sortColumnName is UserName - Call correct parameter", function () {
+                        var sortColumnName = "SystemId", sortOrder = "desc";
+                        setSortColumnName("UserName");
+
+                        BetList.gridComplete("#grid");
+
+                        expect(jqGridAdditional.addSortableHeader).toHaveBeenCalledWith($("#grid"), sortColumnName, sortOrder);
+                    });
+
+                    it("sortColumnName is WinLoss - Call correct parameter", function () {
+                        setSortColumnName(undefined);
+
+                        BetList.gridComplete("#grid");
+
+                        expect(jqGridAdditional.addSortableHeader).not.toHaveBeenCalled();
+                    });
+
+                    it("sortColumnName is UserName - toggle order correctly (asc & desc)", function () {
+                        var sortColumnName = "SystemId", sortOrder = "desc", columnInData = "UserName";
+                        setSortColumnName(columnInData);
+
+                        BetList.gridComplete("#grid");
+                        expect(jqGridAdditional.addSortableHeader).toHaveBeenCalledWith($("#grid"), sortColumnName, sortOrder);
+
+                        gridOption.onSortCol(columnInData);
+                        BetList.gridComplete("#grid");
+                        expect(jqGridAdditional.addSortableHeader).toHaveBeenCalledWith($("#grid"), sortColumnName, "asc");
+
+                        gridOption.onSortCol(columnInData);
+                        BetList.gridComplete("#grid");
+                        expect(jqGridAdditional.addSortableHeader).toHaveBeenCalledWith($("#grid"), sortColumnName, sortOrder);
+                    });
+                });
             });
 
             describe("getGridOption()", function () {
                 beforeEach(function () {
                     spyOn(Site, "blockUI");
                     spyOn(jqGridAdditional, "setColumnVisible");
-                    spyOn(Site, "getResources").and.callFake(function (resources) {
-                        return resources;
-                    });
+                    
                     appendSetFixtures('<input type="hidden" id="HiddenColumnList" value="externalid,systemid">');
                     appendSetFixtures('<input type="hidden" id="ShowSummary" value="0">');
                 });
@@ -174,6 +251,24 @@
 
                     var columnName = BetListOption.gridOption.colNames[winLossColumnIndex];
                     expect(columnName, expectedName);
+                });
+
+                it("hiddenColumnList has 'licenseewl' column - footerrow if gridOption should be false", function () {
+                    setFixtures('<input id="ShowSummary" value="1" /><input id="HiddenColumnList" value="licenseewl" />');
+
+                    var gridOption = BetList.getGridOption();
+                    var result = gridOption.footerrow;
+
+                    expect(result).toBe(false);
+                });
+
+                it("hiddenColumnList has no 'licenseewl' column - footerrow if gridOption should be true", function () {
+                    setFixtures('<input id="ShowSummary" value="1" /><input id="HiddenColumnList" value="" />');
+
+                    var gridOption = BetList.getGridOption();
+                    var result = gridOption.footerrow;
+
+                    expect(result).toBe(true);
                 });
 
                 describe("onSortCol", function () {
@@ -222,6 +317,19 @@
 
                         expect($("#SortBy").val()).toEqual(expectedSortColumnName);
                         expect($("#SortOrder").val()).toEqual(expectedSortOrder);
+                    });
+
+                    it("change _sortColumnName and column 'ExternalId' is sorting - #SortBy value should be 'nickname'", function () {
+                        window.disableBetListSorting = false;
+                        window.CorrectScoreBetList = true;
+                        var sortBy = $("#SortBy").val();
+                        var sortOrder = $("#SortOrder").val();
+                        var index = "ExternalId";
+                        var expectedSortColumnName = "nickname";
+
+                        BetListOption.gridOption.onSortCol(index);
+
+                        expect($("#SortBy").val()).toEqual(expectedSortColumnName);
                     });
 
                     it("does not change $('SortBy').val() and $('#SortOrder').val() when CorrectScoreBetList and CancelledBetsBetList are false", function () {
@@ -444,6 +552,20 @@
                     expect(gridOption.userDataOnFooter).toBe(false);
                     expect(gridOption.footerrow).toBe(false);
                 });
+
+                it("Call gridComplete in gridOption - BetList.gridComplete should be called", function () {
+                    var gridOption;
+                    appendSetFixtures('<div id="HiddenColumnList"></div> <input id="IsShowSumStake" value="1" />');
+                    var totalData = { SumWinLoss: 10, SumLicenseeWl: 15, SumBetEffective: 0, SumStake: 100 };
+                    spyOn($.fn, 'jqGrid').and.callFake(function (param) { gridOption = param; });
+                    spyOn(BetList, "gridComplete");
+
+                    BetList.initialize();
+                    BetList.bindData({ Main: { Value: "Test Value" }, Total: totalData, IsShowTotal: true, LeagueName: "Test league" });
+                    gridOption.gridComplete();
+
+                    expect(BetList.gridComplete).toHaveBeenCalled();
+                });
             });
 
             describe("getMixParlayResultUrl(refno, winlostdate, bettype)", function () {
@@ -522,7 +644,23 @@
                     expect(BetList.getSportBookResultUrl).toHaveBeenCalled();
                 });
 
-                it("$.fn.dialog() should be called if sporttype is NOT Microgaming", function () {
+                it("BetList.getMixParlayResultUrl() should be called if bettype is FastMarket", function () {
+                    var BETTYPE_FASTMARKET = 222;
+                    spyOn(BetList, 'getSportBookResultUrl').and.returnValue("localhost");
+                    var expectedUrl = "localhost";
+                    var expectedPOpupOption = {
+                        width: 775,
+                        height: 370,
+                        title: "Result",
+                        id: "betlist-popup-result"
+                    };
+
+                    BetList.viewResult(null, null, BETTYPE_FASTMARKET);
+
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(expectedUrl, expectedPOpupOption);
+                });
+
+                it("Popup.openPopupWithIframe should be called if sporttype is NOT Microgaming", function () {
                     spyOn(BetList, 'getSportBookResultUrl');
                     BetList.viewResult(null, null);
 
@@ -813,7 +951,7 @@
             });
 
             describe("viewCashOutHistory(transId, refNo, betType, betdaqId)", function () {
-                it("shows showResultPopUp with correct params", function () {
+                it("betdaqId < 1 - shows showResultPopUp with correct params", function () {
                     var refNo = 1, transId = 2, betType = 1, betdaqId = 0;
                     var url = "CashOutBetList/Detail?transId=" + transId + "&refNo=" + refNo + "&betType=" + betType + "&betdaqId=" + betdaqId + "&BaseCurrency=" + "usd" + "&isCashout=true";
                     var expectedUrl = transformQueryParamNameToLowerCase(url);
@@ -824,6 +962,33 @@
                     BetList.viewCashOutHistory(transId, refNo, betType, betdaqId);
 
                     expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(expectedUrl, { width: 890, height: 600, title: "CashOutDetails", id: "betlist-popup-detail" });
+                });
+
+                it("ticket is not Cash out - shows showResultPopUp with correct params", function () {
+                    var refNo = 1, transId = 2, betType = 1, betdaqId = 1;
+                    var url = "CashOutBetList/Detail?transId=" + transId + "&refNo=" + refNo + "&betType=" + betType + "&betdaqId=" + betdaqId + "&BaseCurrency=" + "usd" + "&isCashout=false";
+                    var expectedUrl = transformQueryParamNameToLowerCase(url);
+                    spyOn(Popup, "openPopupWithIframe");
+                    spyOn($.fn, "height").and.returnValue(700);
+                    appendSetFixtures('<input id="BaseCurrency" value="usd" />');
+
+                    BetList.viewCashOutHistory(transId, refNo, betType, betdaqId);
+
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(expectedUrl, { width: 890, height: 600, title: "BoughtDetails", id: "betlist-popup-detail" });
+                });
+
+                it("#BaseCurrency is not exist - get baseCurrency from metaModel - shows showResultPopUp with correct params", function () {
+                    $("#BaseCurrency").remove();
+                    spyOn($, "parseJSON").and.returnValue({ BaseCurrency: "usd" });
+                    var refNo = 1, transId = 2, betType = 1, betdaqId = 1;
+                    var url = "CashOutBetList/Detail?transId=" + transId + "&refNo=" + refNo + "&betType=" + betType + "&betdaqId=" + betdaqId + "&BaseCurrency=" + "usd" + "&isCashout=false";
+                    var expectedUrl = transformQueryParamNameToLowerCase(url);
+                    spyOn(Popup, "openPopupWithIframe");
+                    spyOn($.fn, "height").and.returnValue(700);
+
+                    BetList.viewCashOutHistory(transId, refNo, betType, betdaqId);
+
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(expectedUrl, { width: 890, height: 600, title: "BoughtDetails", id: "betlist-popup-detail" });
                 });
             });
 
@@ -1001,6 +1166,19 @@
 
                         expect(BetList.showMixParlayDetail).toHaveBeenCalledWith(transId, $("#divEvent_12"));
                     });
+                });
+            });
+
+            describe("ViewCasinoHandHistory", function () {
+                it("Site.redirect should be called with correct parameter", function () {
+                    var refNo = 1;
+                    setFixtures('<div id="casino-hand-history-1" url-param="?refno=1&currencyId=2"></div>');
+                    spyOn(Site, "redirect");
+                    var expectedUrl = "HandHistory/RNGCasino?refno=1&currencyId=2";
+
+                    BetList.ViewCasinoHandHistory(refNo);
+
+                    expect(Site.redirect).toHaveBeenCalledWith(expectedUrl);
                 });
             });
         });

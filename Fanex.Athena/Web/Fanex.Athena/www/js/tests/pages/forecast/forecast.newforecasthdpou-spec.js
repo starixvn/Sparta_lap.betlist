@@ -304,10 +304,10 @@
             });
 
             describe("openBetlist(betChoice, param, betType, handicap)", function () {
-                var queryString = "betchoice=1&matchid=11&leagueid=12&currencyid=13&currencyname=14&basecurrency=15&bettype=2&handicap=3";
-                var url = "RunningMatchChoiceBetList/Index?" + queryString;
-
                 it("window.open should be called with correct url", function () {
+                    var queryString = "betchoice=1&matchid=11&leagueid=12&currencyid=13&currencyname=14&basecurrency=15&bettype=2&handicap=3";
+                    var url = "RunningMatchChoiceBetList/Index?" + queryString;
+
                     var param = {
                         MatchId: 11,
                         LeagueId: 12,
@@ -318,6 +318,24 @@
                     spyOn(window, "open");
 
                     NewForecastHdpOu.openBetlist(1, param, 2, 3);
+
+                    expect(window.open.calls.argsFor(0)[0].toLowerCase()).toBe(url.toLowerCase());
+                });
+
+                it("handicap is undefined - set to empty string - window.open should be called with correct url", function () {
+                    var queryString = "betchoice=1&matchid=11&leagueid=12&currencyid=13&currencyname=14&basecurrency=15&bettype=2&handicap=";
+                    var url = "RunningMatchChoiceBetList/Index?" + queryString;
+
+                    var param = {
+                        MatchId: 11,
+                        LeagueId: 12,
+                        CurrencyId: 13,
+                        CurrencyName: 14,
+                        BaseCurrency: 15
+                    };
+                    spyOn(window, "open");
+
+                    NewForecastHdpOu.openBetlist(1, param, 2);
 
                     expect(window.open.calls.argsFor(0)[0].toLowerCase()).toBe(url.toLowerCase());
                 });

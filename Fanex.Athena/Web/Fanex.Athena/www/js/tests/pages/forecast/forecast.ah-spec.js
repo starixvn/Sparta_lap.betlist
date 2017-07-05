@@ -96,12 +96,20 @@
             });
 
             describe("loadForecast(selectedScore, bettype)", function () {
-                var SELECTED_SCORE = 1;
                 var BETTYPE = 2;
                 
-                beforeEach(function (done) {
+                beforeEach(function () {
                     setFixtures('<div id="reportContent"></div>');
                     jasmine.Ajax.install();
+                });
+
+                afterEach(function () {
+                    jasmine.Ajax.uninstall();
+                });
+
+                it("#reportContent should have html value returned from ajax.", function (done) {
+                    var selectedScore = 1;
+
                     jasmine.Ajax
                         .stubRequest(/AhForecast\/Index\?matchid=undefined&bettype=2\&currentscore=1/i)
                         .andReturn({
@@ -109,17 +117,23 @@
                             'dataType': 'html',
                             'responseText': 'Hello World'
                         });
-                    ForecastAh.loadForecast(SELECTED_SCORE, BETTYPE);
+                    ForecastAh.loadForecast(selectedScore, BETTYPE);
 
                     setTimeout(done, 10);
-                });
 
-                afterEach(function () {
-                    jasmine.Ajax.uninstall();
-                });
-
-                it("#reportContent should have html value returned from ajax.", function () {
                     expect($('#reportContent').html()).toBe("Hello World");
+                });
+
+                it("url should be correct", function (done) {
+                    var selectedScore = null;
+
+                    jasmine.Ajax
+                        .stubRequest(/AhForecast\/Index\?matchid=undefined&bettype=2/i);;
+                    ForecastAh.loadForecast(selectedScore, BETTYPE);
+
+                    setTimeout(done, 10);
+
+                    expect(jasmine.Ajax.requests.mostRecent().url).toBe('AhForecast/Index?matchid=undefined&bettype=2');
                 });
             });
 

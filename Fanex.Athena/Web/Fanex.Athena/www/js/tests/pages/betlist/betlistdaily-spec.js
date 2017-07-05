@@ -119,7 +119,7 @@
                         '<input id="Date" value="03/28/2017" />'
                         );
                     spyOn(Site, "initialize");
-                    spyOn(Site, "setLicenseeOptionParam").and.callFake(function (url) { return url + "?currencyid=1&basecurrency=EUR" });
+                    spyOn(Site, "setLicenseeOptionParam").and.callFake(function (url) { return url + "?currencyid=1&basecurrency=EUR"; });
                     spyOn(BetList, "loadDataPaging");
                     var url = "api/DailyBetList/index?currencyid=1&basecurrency=EUR&productCode=2&status=won&date=03/28/2017";
                     var expectedUrl = transformQueryParamNameToLowerCase(url);
@@ -139,11 +139,29 @@
                     spyOn(Site, "redirect");
                     spyOn(Site, "getCurrentUrl").and.returnValue("localhost");
                     spyOn($.fn, "getGridParam").and.callFake(function (param) { if (param === "rowNum") { return 10; } return null; });
-                    //spyOn($.fn, "getGridParam").and.returnValue(10);
-                    spyOn(Site, "setLicenseeOptionParam").and.callFake(function (url) { return url + "?currencyid=1&basecurrency=EUR" });
+                    spyOn(Site, "setLicenseeOptionParam").and.callFake(function (url) { return url + "?currencyid=1&basecurrency=EUR"; });
                     spyOn(BetList, "getSortParams").and.returnValue({ SortBy: "test-column", SortOrder: "asc" });
 
                     var url = "localhost?currencyid=1&basecurrency=EUR&IsExportExcel=true&date=03/28/2017&productCode=2&DailyBetListStatus=won&PageIndex=1&PageSize=10&SortBy=test-column&SortOrder=asc";
+                    var expectedUrl = transformQueryParamNameToLowerCase(url);
+
+                    BetListDaily.exportToExcel();
+
+                    expect(Site.redirect).toHaveBeenCalledWith(expectedUrl);
+                });
+
+                it("Do not have sortParams - Site.redirect(url) should be called with correct parameter", function () {
+                    setFixtures('<input id="ProductCode" value="2" />' +
+                        '<input id="DailyBetListStatus" value="won" />' +
+                        '<input id="Date" value="03/28/2017" />'
+                        );
+                    spyOn(Site, "redirect");
+                    spyOn(Site, "getCurrentUrl").and.returnValue("localhost");
+                    spyOn($.fn, "getGridParam").and.callFake(function (param) { if (param === "rowNum") { return 10; } return null; });
+                    spyOn(Site, "setLicenseeOptionParam").and.callFake(function (url) { return url + "?currencyid=1&basecurrency=EUR"; });
+                    spyOn(BetList, "getSortParams").and.returnValue(null);
+
+                    var url = "localhost?currencyid=1&basecurrency=EUR&IsExportExcel=true&date=03/28/2017&productCode=2&DailyBetListStatus=won&PageIndex=1&PageSize=10";
                     var expectedUrl = transformQueryParamNameToLowerCase(url);
 
                     BetListDaily.exportToExcel();

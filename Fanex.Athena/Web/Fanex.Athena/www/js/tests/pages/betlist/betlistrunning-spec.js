@@ -48,19 +48,37 @@
                     expect(BetListRunning.submit).toHaveBeenCalled();
                 });
 
-                it("Site.redirect() should be called with correct url when #ExportToExcel is clicked.", function () {
+                it("#ExportToExcel is clicked - Site.redirect() should be called with correct url", function () {
                     setFixtures('<input id="ExportToExcel" type="button" />');
                     spyOn(Site, "redirect");
                     spyOn(Site, "getCurrentUrl").and.callFake(function () {
                         return "localhost";
                     });
-                    spyOn(BetList, "getSortParams").and.callFake(function () {
-                        return {
-                            SortBy: "Column1",
-                            SortOrder: "abc"
-                        };
-                    });
+
+                    var sortParam = {
+                        SortBy: "Column1",
+                        SortOrder: "abc"
+                    };
+                    spyOn(BetList, "getSortParams").and.returnValue(sortParam);
                     var url = "localhost?CurrencyName=&IsExportExcel=true&SortBy=Column1&SortOrder=abc";
+                    var expectedUrl = url.replace(/[&|?][^=]*/g, function (match) {
+                        return match.toLowerCase();
+                    });
+
+                    BetListRunning.initEvent();
+                    $("#ExportToExcel").click();
+
+                    expect(Site.redirect).toHaveBeenCalledWith(expectedUrl);
+                });
+
+                it("#ExportToExcel is clicked with do not has sort param - Site.redirect() should be called with correct url.", function () {
+                    setFixtures('<input id="ExportToExcel" type="button" />');
+                    spyOn(Site, "redirect");
+                    spyOn(Site, "getCurrentUrl").and.callFake(function () {
+                        return "localhost";
+                    });
+                    spyOn(BetList, "getSortParams").and.returnValue(null);
+                    var url = "localhost?CurrencyName=&IsExportExcel=true";
                     var expectedUrl = url.replace(/[&|?][^=]*/g, function (match) {
                         return match.toLowerCase();
                     });
