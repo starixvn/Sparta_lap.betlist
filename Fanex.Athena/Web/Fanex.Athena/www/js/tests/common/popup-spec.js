@@ -15,6 +15,21 @@
             });
         });
 
+        describe("closePopup(id)", function () {
+            it("hides popup and unblock body", function () {
+                spyOn($.fn, "fadeOut");
+
+                var popupId = "popup";
+                setFixtures('<div id="' + popupId + '"></div>'
+                    + '<div class="popup-block-body"></div>');
+
+                PopUp.closePopup(popupId);
+
+                expect($.fn.fadeOut).toHaveBeenCalledWith(300);
+                expect($(".popup-block-body").is(":hidden")).toBe(true);
+            });
+        });
+
         describe("openPopupWithIframe(url, option)", function () {
             it("Bet List popup should be called with correct url", function () {
                 spyOn($.fn, "flatPopup");
@@ -116,6 +131,136 @@
                 var result = $(".txt-title").html();
 
                 expect(result).toBe("Current Title");
+            });
+        });
+
+        describe("show($popup, isModal)", function () {
+            it("flatPopup function should be called to show popup", function () {
+                spyOn($.fn, "flatPopup");
+                setFixtures('<div id="PopUp"></div>');
+                var isModal = true;
+
+                PopUp.show($("#PopUp"), isModal);
+
+                expect($.fn.flatPopup).toHaveBeenCalledWith("show", isModal);
+            });
+        });
+
+        describe("openPopupWithButton(element, option, buttons)", function () {
+            beforeAll(function () {
+                spyOn($.fn, "flatPopup").and.callFake(function () {
+                    var $element = $(this);
+                    appendSetFixtures($element);
+                    $element.append('<a class="popup-close"></a>');
+                    $(".popup-close").on("click", function () {
+                        $element.hide();
+                    });
+                });
+            });
+
+            it("buttons should not be appended to popup is popup is existing", function () {
+                var element = '<div id="PopUp" class="flat-popup"></div>';
+                var option = {
+                    id: "PopUp"
+                };
+                setFixtures(element);
+
+                PopUp.openPopupWithButton(element, option, {});
+
+                expect($.fn.flatPopup).toHaveBeenCalledWith({ id: "PopUp", padding: 15 });
+            });
+
+            it("buttons should be appended to new popup", function () {
+                var element = '<div></div>';
+                var option = {
+                    id: "PopUp"
+                };
+                var button = [
+                 {
+                     text: "OK",
+                     isClosedOnClick: true
+                 }];
+
+                PopUp.openPopupWithButton(element, option, button);
+
+                expect($(".popup-button").length).toBeGreaterThan(0);
+            });
+
+            it("first button should be autofocused", function () {
+                var element = '<div></div>';
+                var option = null;
+                var button = [
+                 {
+                     id: "btnOK",
+                     text: "OK",
+                     isClosedOnClick: true,
+                     click: function () { },
+                     classes: "btn"
+                 }, {
+                     text: "Cancel",
+                     isClosedOnClick: true,
+                     classes: "btn"
+                 }];
+
+                PopUp.openPopupWithButton(element, option, button);
+
+                expect($(".popup-button button").first().attr("autofocus")).toBe("autofocus");
+                expect($(".popup-button button").last().attr("autofocus")).toBe(undefined);
+            });
+
+            it("button function should be called if button is clicked", function () {
+                var callback = jasmine.createSpyObj("callback", ["call"]);
+                var element = '<div></div>';
+                var option = null;
+                var button = [
+                 {
+                     id: "btnOK",
+                     text: "OK",
+                     click: callback.call,
+                     classes: "btn"
+                 }];
+
+                PopUp.openPopupWithButton(element, option, button);
+                $("#btnOK").click();
+
+                expect(callback.call).toHaveBeenCalled();
+            });
+
+            it("popup should be closed if button is clicked with isClosedOnClick is true", function () {
+                var element = '<div id="popup"></div>';
+                var option = null;
+                var button = [
+                 {
+                     id: "btnOK",
+                     text: "OK",
+                     isClosedOnClick: true,
+                     classes: "btn"
+                 }];
+
+                PopUp.openPopupWithButton(element, option, button);
+                $("#btnOK").click();
+
+                expect($("#popup").is(":hidden")).toBe(true);
+            });
+
+            it("popup should be closed and button function should be called if button is clicked with isClosedOnClick is true", function () {
+                var callback = jasmine.createSpyObj("callback", ["call"]);
+                var element = '<div id="popup"></div>';
+                var option = null;
+                var button = [
+                 {
+                     id: "btnOK",
+                     text: "OK",
+                     isClosedOnClick: true,
+                     click: callback.call,
+                     classes: "btn"
+                 }];
+
+                PopUp.openPopupWithButton(element, option, button);
+                $("#btnOK").click();
+
+                expect(callback.call).toHaveBeenCalled();
+                expect($("#popup").is(":hidden")).toBe(true);
             });
         });
     });

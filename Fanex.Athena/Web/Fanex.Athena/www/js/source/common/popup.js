@@ -78,13 +78,14 @@
         */
         openPopupWithButton: function (element, option, buttons) {
             var defaultOption = {
-                padding: 15
+                padding: 15,
+                id: "popup-content"
             };
 
             $.extend(defaultOption, option || {});
 
             var $element = $(element);
-            var $popup = $("#" + option.id);
+            var $popup = $("#" + defaultOption.id);
             if ($popup.length === 0 || $popup.hasClass('flat-popup') === false) {
                 $element.append('<div class="right popup-button"></div>');
                 var $blockButton = $element.find(".popup-button");
