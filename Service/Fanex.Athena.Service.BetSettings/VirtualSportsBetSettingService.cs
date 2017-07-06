@@ -34,10 +34,10 @@ namespace Fanex.Athena.Service.BetSettings
             _betSettingDataAccess = betSettingDataAccess;
         }
 
-        public BetSettingViewModel GetViewModel(int licenseeId, int custId)
+        public BetSettingViewModel GetViewModel(int licenseeId, int custId, int productId)
         {
             var betSettings = HasPermissionOnData(licenseeId, custId)
-                        ? _betSettingDataAccess.GetBetSetting(custId)
+                        ? _betSettingDataAccess.GetBetSetting(custId, productId)
                         : new List<BetSetting>();
             return new BetSettingViewModel
             {
@@ -45,10 +45,10 @@ namespace Fanex.Athena.Service.BetSettings
             };
         }
 
-        public IResultInfo UpdateBetSetting(int licenseeId, int custId, int userId, string language, string ip, IEnumerable<VSBetSetting> betSettings)
+        public IResultInfo UpdateBetSetting(int licenseeId, int custId, int userId, string ip, IEnumerable<VSBetSetting> betSettings)
         {
-            const string XMLPattern = "<settings>{0}</settings>";
-            const string XMLElement = "<setting sporttype=\"{0}\" minbet=\"{1}\" maxbet=\"{2}\" maxpermatch=\"{3}\" ></setting>";
+            const string XMLPattern = "<ROOT>{0}</ROOT>";
+            const string XMLElement = "<BetLimit SportType=\"{0}\" MinBet=\"{1}\" MaxBet=\"{2}\" MaxPerMatch=\"{3}\" ></BetLimit>";
             if (!HasPermissionOnData(licenseeId, custId))
             {
                 return ErrorResult(ViewResources.AccessDeniedMsg);
@@ -66,7 +66,6 @@ namespace Fanex.Athena.Service.BetSettings
             return _betSettingDataAccess.UpdateBetSetting(
                 custId,
                 userId,
-                language,
                 ip,
                 xmlparam);
         }

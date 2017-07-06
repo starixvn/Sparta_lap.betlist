@@ -180,6 +180,7 @@
     <Setting Key="Acc_Dep_CustSetting_StatusSettingSelect" SpName="Acc_Dep_CustSetting_StatusSettingSelect_UAT1" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Acc_Dep_CustSetting_DisableStatUpd" SpName="Acc_Dep_CustSetting_DisableStatUpd_UAT1" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Acc_Dep_CustSetting_BetLimitSettingSelect" SpName="Acc_Dep_CustSetting_BetLimitSettingSelect_UAT1" DbName="DBCUST.CustDB.bodbLicenseeNet" />
+    <Setting Key="Acc_Dep_CustSetting_BetLimitUpd" SpName="Acc_Dep_CustSetting_BetLimitUpd_UAT1" DbName="DBCUST.CustDB.bodbLicenseeNet" />
   </Function>
 
   <Function Name="CustomerSettingsThridParty">

@@ -16,7 +16,7 @@
         private const int LicenseeId = 1;
         private const int UserId = 2;
         private const int CustId = 3;
-        private const string Language = "en-US";
+        private const int ProductId = 5;
 
         private IAuthorizationService _authorizationService;
         private IVirtualSportsBetSettingDataAccess _dataAccess;
@@ -47,10 +47,10 @@
             {
                 new BetSetting()
             };
-            _dataAccess.GetBetSetting(CustId).Returns(betSettings);
+            _dataAccess.GetBetSetting(CustId, ProductId).Returns(betSettings);
 
             // Action
-            var result = _service.GetViewModel(LicenseeId, CustId);
+            var result = _service.GetViewModel(LicenseeId, CustId, ProductId);
 
             // Assert
             Assert.That(result.MainData.Count, Is.EqualTo(betSettings.Count));
@@ -61,7 +61,7 @@
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            const string ExpectedXmlParam = "<settings><setting sporttype=\"1\" minbet=\"100\" maxbet=\"200\" maxpermatch=\"300\" ></setting></settings>";
+            const string ExpectedXmlParam = "<ROOT><BetLimit SportType=\"1\" MinBet=\"100\" MaxBet=\"200\" MaxPerMatch=\"300\" ></BetLimit></ROOT>";
 
             var betSettings = new List<VSBetSetting>
             {
@@ -75,10 +75,10 @@
             };
 
             // Action
-            var result = _service.UpdateBetSetting(LicenseeId, CustId, UserId, Language, "ip", betSettings);
+            var result = _service.UpdateBetSetting(LicenseeId, CustId, UserId, "ip", betSettings);
 
             // Assert
-            _dataAccess.Received().UpdateBetSetting(CustId, UserId, Language, "ip", ExpectedXmlParam);
+            _dataAccess.Received().UpdateBetSetting(CustId, UserId, "ip", ExpectedXmlParam);
         }
 
         [Test]
@@ -92,7 +92,7 @@
             };
 
             // Action
-            var result = _service.UpdateBetSetting(LicenseeId, CustId, UserId, Language, "ip", betSettings);
+            var result = _service.UpdateBetSetting(LicenseeId, CustId, UserId, "ip", betSettings);
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(1));

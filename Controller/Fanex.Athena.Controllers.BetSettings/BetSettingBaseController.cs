@@ -78,6 +78,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         protected CommonBetSetting GetBetSettingCommonParam()
         {
             var userSession = SessionService.UserSession;
+            
             var commonItem = new CommonBetSetting
             {
                 LicenseeId = SessionService.LicenseeSession.LicenseeId,

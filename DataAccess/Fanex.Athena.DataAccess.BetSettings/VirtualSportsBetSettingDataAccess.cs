@@ -17,15 +17,16 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
     public class VirtualSportsBetSettingDataAccess : BaseDataAccess, IVirtualSportsBetSettingDataAccess
     {
-        public IList<BetSetting> GetBetSetting(int custId)
+        public IList<BetSetting> GetBetSetting(int custId, int productId)
         {
-            var uspName = "Lrf_CustomerSelMember_MinMaxBetVS";
+            var uspName = "Acc_Dep_CustSetting_BetLimitSettingSelect";
 
             var dataList = new List<BetSetting>();
 
             using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("custid", DbType.Int32, custId);
+                db.AddInParameter("productid", DbType.Int32, productId);
 
                 var reader = db.ExecuteReader();
                 while (reader.Read())
@@ -34,16 +35,14 @@ namespace Fanex.Athena.DataAccess.BetSettings
                     var virtualSportsItem = new BetSetting
                     {
                         MinBet = reader.ToDecimal("minbet"),
-                        BetValueMin = reader.ToDecimal("minminbet"),
+                        BetValueMin = reader.ToDecimal("minbetmin"),
                         MaxBet = reader.ToDecimal("maxbet"),
-                        BetValueMax = reader.ToDecimal("maxmaxbet"),
+                        BetValueMax = reader.ToDecimal("maxbetmax"),
                         MaxPerMatch = reader.ToDecimal("maxpermatch"),
-                        MaxPerMatchMax = reader.ToDecimal("maxmaxpermatch"),
-                        MaxPerMatchMin = reader.ToDecimal("maxpermatch_min"),
-                        SportId = sportId
+                        MaxPerMatchMax = reader.ToDecimal("maxpermatchmax"),
+                        SportId = sportId,
+                        BetSettingType = CacheRef.GetSportName(sportId)
                     };
-
-                    virtualSportsItem.BetSettingType = CacheRef.GetSportName(sportId);
 
                     dataList.Add(virtualSportsItem);
                 }
@@ -52,17 +51,16 @@ namespace Fanex.Athena.DataAccess.BetSettings
             return dataList;
         }
 
-        public IResultInfo UpdateBetSetting(int custId, int userId, string language, string ip, string xmlData)
+        public IResultInfo UpdateBetSetting(int custId, int userId, string ip, string xmlData)
         {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBetVS";
+            var uspName = "Acc_Dep_CustSetting_BetLimitUpd";
 
             using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("custid", DbType.Int32, custId);
                 db.AddInParameter("userid", DbType.Int32, userId);
-                db.AddInParameter("language", DbType.String, language);
                 db.AddInParameter("ip", DbType.String, ip);
-                db.AddInParameter("dataxml", DbType.String, xmlData);
+                db.AddInParameter("betlimit", DbType.String, xmlData);
                 db.AddOutParameter("errcode", DbType.Int32, 4);
                 db.AddOutParameter("errmsg", DbType.String, 8000);
                 db.ExecuteNonQuery();

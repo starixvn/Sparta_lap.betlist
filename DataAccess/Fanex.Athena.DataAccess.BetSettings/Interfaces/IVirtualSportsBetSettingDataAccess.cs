@@ -12,8 +12,8 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
 
     public interface IVirtualSportsBetSettingDataAccess
     {
-        IList<BetSetting> GetBetSetting(int custId);
+        IList<BetSetting> GetBetSetting(int custId, int productId);
 
-        IResultInfo UpdateBetSetting(int custId, int userId, string language, string ip, string xmlData);
+        IResultInfo UpdateBetSetting(int custId, int userId, string ip, string xmlData);
     }
 }

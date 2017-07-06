@@ -67,8 +67,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BetradarVsBetSettingService.cs" />
-    <Compile Include="Interfaces\IBetradarVsBetSettingService.cs" />
     <Compile Include="Interfaces\IVirtualSportsBetSettingService.cs" />
     <Compile Include="VirtualSportsBetSettingService.cs" />
     <Compile Include="Interfaces\IKenoBetSettingService.cs" />
