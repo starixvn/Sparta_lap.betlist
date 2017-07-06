@@ -48,7 +48,7 @@
             var isSyncLiveCasino = true;
 
             // Action
-            var result = _service.UpdateStatus(LicenseeId, UserId, CustId, status, Language, ip, isSyncLiveCasino);
+            _service.UpdateStatus(LicenseeId, UserId, CustId, status, Language, ip, isSyncLiveCasino);
 
             // Assert
             _dataAccess.Received().UpdateStatus(UserId, CustId, status, Language, ip);
@@ -126,7 +126,7 @@
                 .Returns(new ResultInfo(), new ResultInfo());
 
             // Action
-            var result = _service.UpdateBetSetting(LicenseeId, UserId, CustId, betSettings, ip, Language, isDisableLiveCasino);
+            _service.UpdateBetSetting(LicenseeId, UserId, CustId, betSettings, ip, Language, isDisableLiveCasino);
 
             // Assert
             _dataAccess.Received(2).UpdateBetSetting(UserId, CustId, Arg.Any<LiveCasinoBetSetting>(), ip, Language);

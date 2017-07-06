@@ -104,8 +104,9 @@
                 _userService.Received().Logout(SessionOnUserId);
                 _formAuthenticationService.Received().SignOut();
 
-                Assert.That(result.RouteValues["action"], Is.EqualTo("OneTokenRestriction?code=100"));
+                Assert.That(result.RouteValues["action"], Is.EqualTo("OneTokenRestriction"));
                 Assert.That(result.RouteValues["controller"], Is.EqualTo("Utility"));
+                Assert.That(result.RouteValues["Code"], Is.EqualTo(100));
             }
         }
 

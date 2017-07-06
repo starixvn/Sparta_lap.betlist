@@ -4,6 +4,7 @@
     using System.Net.Http;
     using System.Web.Http;
     using System.Web.Http.Hosting;
+    using System.Web.Http.Results;
     using Fanex.Athena.Service.Report.Interfaces;
     using Model.Core.DTO.Users;
     using Model.Report.DTO;
@@ -11,6 +12,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Report;
+    using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
 
@@ -83,6 +85,19 @@
                 Assert.That(result.Data.Count, Is.EqualTo(numberOfRow));
                 Assert.That(result.Total.CustomerComm, Is.EqualTo(ExpectedCustomerComm));
             });
+        }
+
+        [Test]
+        public void Index_WhenCallWithInvalidModel_ReturnBadRequestWithCorrectMessage()
+        {
+            // Arrange
+            var metaModel = new PlatformWinLossMetaModel { CurrencyId = 99 };
+
+            // Action
+            var result = _controller.Index(metaModel) as BadRequestErrorMessageResult;
+
+            // Assert
+            Assert.That(result.Message, Is.EqualTo(ViewResources.InvalidParams));
         }
 
         private void FakeSummaryData(int numberOfRow)
