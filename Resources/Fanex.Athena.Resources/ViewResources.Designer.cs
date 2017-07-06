@@ -5218,6 +5218,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Note.
+        /// </summary>
+        public static string Note {
+            get {
+                return ResourceManager.GetString("Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Passwords are not identical.
         /// </summary>
         public static string NotIdenticalPasswordMsg {
@@ -7095,6 +7104,15 @@ namespace Fanex.Athena.Resources {
         public static string SystemParlay {
             get {
                 return ResourceManager.GetString("SystemParlay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Win Loss is rounded for reference only. Therefore, Sub Total amount may be different from the sum of Win Loss when it sums all the actual Win Loss amounts..
+        /// </summary>
+        public static string SystemParlayDetailNote {
+            get {
+                return ResourceManager.GetString("SystemParlayDetailNote", resourceCulture);
             }
         }
         

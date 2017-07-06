@@ -15,6 +15,11 @@
 <body>
     <div class="system-parlay-detail-container">
         @Html.Raw(Model.DetailText)
+
+        <div class="note-block">
+            <p class="text-bold"><span class="red-text">* </span>@ViewResources.Note</p>
+            <p>@ViewResources.SystemParlayDetailNote</p>
+        </div>
     </div>
 </body>
 </html>
