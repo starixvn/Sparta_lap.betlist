@@ -52,3 +52,5 @@ bower_components
 
 UnitTestCoverage_*.xml
 UnitTestResult_*.xml
+
+stats.json
