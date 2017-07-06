@@ -291,7 +291,7 @@ webpackJsonp([53],{
 	    }
 	
 	    function setPageTitle(title) {
-	        if (isParentSameOrigin) {
+	        if (isParentSameOrigin()) {
 	            $("#page-title", window.parent.document).text(title);
 	        }
 	    }
