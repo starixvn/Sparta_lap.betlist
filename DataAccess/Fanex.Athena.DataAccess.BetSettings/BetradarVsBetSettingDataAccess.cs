@@ -6,19 +6,21 @@
     using Fanex.Athena.Model.BetSettings.DTO;
     using Fanex.Common.Extensions;
     using Interfaces;
+    using Model.Core.DataDomain;
     using Model.Core.Helper;
 
     public class BetradarVsBetSettingDataAccess : BaseDataAccess, IBetradarVsBetSettingDataAccess
     {
         public IList<BetSetting> GetBetSetting(int custId)
         {
-            var uspName = "Lrf_CustomerSelMember_MinMaxBetVS";
+            var uspName = "Acc_Dep_CustSetting_BetLimitSettingSelect";
 
             var dataList = new List<BetSetting>();
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = GetObjectDb(uspName))
             {
                 db.AddInParameter("custid", DbType.Int32, custId);
+                db.AddInParameter("productid", DbType.Int32, ProductTypes.BetradarVirtualSports);
 
                 var reader = db.ExecuteReader();
                 while (reader.Read())
@@ -27,12 +29,8 @@
                     var virtualSportsItem = new BetSetting
                     {
                         MinBet = reader.ToDecimal("minbet"),
-                        BetValueMin = reader.ToDecimal("minminbet"),
                         MaxBet = reader.ToDecimal("maxbet"),
-                        BetValueMax = reader.ToDecimal("maxmaxbet"),
                         MaxPerMatch = reader.ToDecimal("maxpermatch"),
-                        MaxPerMatchMax = reader.ToDecimal("maxmaxpermatch"),
-                        MaxPerMatchMin = reader.ToDecimal("maxpermatch_min"),
                         SportId = sportId,
                         BetSettingType = CacheRef.GetSportName(sportId)
                     };

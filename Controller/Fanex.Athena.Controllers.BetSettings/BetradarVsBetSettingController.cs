@@ -20,7 +20,7 @@
         {
             var viewModel = _betSettingService.GetViewModel(SessionService.LicenseeSession.LicenseeId, metaModel.CustId);
             AssignRequiredProperties(viewModel, metaModel);
-            return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
+            return View("~/Views/Customer/BetSetting/BetradarVirtualSports.cshtml", viewModel);
         }
     }
 }

@@ -5920,6 +5920,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Betradar Virtual Sports.
+        /// </summary>
+        public static string ProductBRVS {
+            get {
+                return ResourceManager.GetString("ProductBRVS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bet Trade.
         /// </summary>
         public static string ProductBT {
