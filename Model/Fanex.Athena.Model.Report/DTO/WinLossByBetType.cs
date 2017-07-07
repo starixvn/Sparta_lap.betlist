@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Model.Report.DTO
 {
+    using Core.DTO.Common;
     using Fanex.Athena.Model.Core.Helper;
     using Resources;
 
@@ -27,8 +28,7 @@ namespace Fanex.Athena.Model.Report.DTO
             {
                 if (_betTypeName == null)
                 {
-                    _betTypeName = CacheRef.GetBettype(_betType, _liveIndicator) +
-                        (Validator.IsValidBettype("VS", _betType) ? " (" + ViewResources.ProductVS + ")" : string.Empty);
+                    _betTypeName = CacheRef.GetBettype(_betType, _liveIndicator) + GetSportName();
                 }
 
                 return _betTypeName;
@@ -67,6 +67,21 @@ namespace Fanex.Athena.Model.Report.DTO
         public decimal CustomerTotal
         {
             get { return CustomerWinLoss + CustomerComm; }
+        }
+
+        private string GetSportName()
+        {
+            if(Validator.IsValidBettype(Product.VS, _betType))
+            {
+                return " (" + ViewResources.ProductVS + ")";
+            }
+
+            if(Validator.IsValidBettype(Product.BRVS, _betType))
+            {
+                return " (" + ViewResources.ProductBRVS + ")";
+            }
+
+            return string.Empty;
         }
     }
 }
