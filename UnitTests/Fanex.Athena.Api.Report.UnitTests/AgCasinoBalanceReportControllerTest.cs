@@ -187,7 +187,11 @@
             _sessionService.LicenseeSession.Returns(licenseeSession);
         }
 
-        private string GetSerializationData(int totalRow, IEnumerable<AgCasinoBalance> data, IEnumerable<AgCasinoBalance> total, Dictionary<string, AgCasinoBalance> summaryTotal)
+        private string GetSerializationData(
+            int totalRow,
+            IEnumerable<AgCasinoBalance> data,
+            IEnumerable<AgCasinoBalance> total,
+            Dictionary<string, AgCasinoBalance> summaryTotal)
         {
             return _serializer.Serialize(
                 new
