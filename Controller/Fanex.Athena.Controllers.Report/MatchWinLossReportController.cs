@@ -110,7 +110,7 @@
             var reportData = _matchWinLossService.GetDataList(metaModel);
             var reportDataOutrightParlay = new List<MatchWinLoss>();
 
-            if (metaModel.ProductOptions.Any(i => (i.Code == Product.BA || i.Code == Product.SB) && i.Status))
+            if (metaModel.ProductOptions.Any(i => (i.Code == Product.BA || i.Code == Product.SB || i.Code == Product.BRVS) && i.Status))
             {
                 reportDataOutrightParlay = _matchWinLossService.GetOutrightParlayList(metaModel).ToList();
             }

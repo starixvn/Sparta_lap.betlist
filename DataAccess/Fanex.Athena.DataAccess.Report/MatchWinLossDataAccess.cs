@@ -128,14 +128,16 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 using (var db = this.GetObjectDb(uspName))
                 {
-                    var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status == true);
-                    var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status == true);
+                    var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status);
+                    var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status);
+                    var showBrvs = metaModel.ProductOptions.Any(i => i.Code == Product.BRVS && i.Status);
 
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
                     db.AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
                     db.AddInParameter("showsb", DbType.Boolean, showSb);
                     db.AddInParameter("showba", DbType.Boolean, showBa);
+                    db.AddInParameter("showbrvs", DbType.Boolean, showBrvs);
 
                     using (var reader = db.ExecuteReader())
                     {
