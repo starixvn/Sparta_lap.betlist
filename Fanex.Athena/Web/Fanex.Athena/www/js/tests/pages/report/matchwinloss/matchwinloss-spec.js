@@ -171,7 +171,7 @@
                         '</table></div>');
 
                     spyOn(Site, "setLicenseeOptionOriginalParam").and.callFake(function (param) { return param; });
-                    spyOn(MatchWinLoss, "getProductCodeList").and.returnValues(["SB"]);
+                    spyOn(MatchWinLoss, "getProductCodeList").and.returnValues("SB");
                     spyOn(MatchWinLoss, "clearDetailRows");
                     spyOn($, "ajax").and.callFake(function (option) { ajaxOption = option; });
 
@@ -217,7 +217,7 @@
                         MatchId: 2,
                         ProductCode: "SB",
                         Date: "05/01/2017",
-                        ProductOptions: ["SB"]
+                        ProductCodeList: "SB"
                     };
 
                     MatchWinLoss.viewMatchWinlossDetail($element);
