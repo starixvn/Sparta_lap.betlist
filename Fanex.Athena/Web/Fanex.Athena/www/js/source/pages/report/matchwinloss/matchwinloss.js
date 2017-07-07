@@ -85,7 +85,7 @@ define(["jquery", "common/site", "common/querystring", "components/pluginhelper/
 
                 submitData = Site.setLicenseeOptionOriginalParam(submitData);
                 submitData.Date = $(Selector.date).attr('data-original');
-                submitData.ProductOptions = _me.getProductCodeList(submitData.ProductCode);
+                submitData.ProductCodeList = _me.getProductCodeList(submitData.ProductCode);
 
                 var isExpanding = $this.closest("tr").hasClass(ClassName.active);
                 _me.clearDetailRows($parentRow);
