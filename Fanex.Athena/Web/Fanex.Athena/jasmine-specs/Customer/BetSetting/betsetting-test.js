@@ -549,13 +549,14 @@
             affix("input#min-bet-1[value=10]");
             affix("input#max-bet-1[value=10]");
             affix("input#max-per-match-1[value=10]");
+            affix("input#bet-type-1[value=10]");
             $("#min-bet-1").attr("data-original", 20);
             $("#max-bet-1").attr("data-original", 20);
             $("#max-per-match-1").attr("data-original", 20);
         });
 
         it("Value returned should be equal with expected object when value not equal data-original", function () {
-            var expectedObj = { minbet1: 10, maxbet1: 10, maxpermatch1: 10, update1: true };
+            var expectedObj = { minbet1: 10, maxbet1: 10, maxpermatch1: 10, update1: true, bettype1: '10' };
 
             var result = BetSetting.getBetSettingParams(1);
 
@@ -566,7 +567,7 @@
             $("#min-bet-1").val(20);
             $("#max-bet-1").val(20);
             $("#max-per-match-1").val(20);
-            var expectedObj = { minbet1: 20, maxbet1: 20, maxpermatch1: 20, update1: false };
+            var expectedObj = { minbet1: 20, maxbet1: 20, maxpermatch1: 20, update1: false, bettype1: '10' };
 
             var result = BetSetting.getBetSettingParams(1);
 
