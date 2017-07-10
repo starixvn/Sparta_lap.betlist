@@ -112,6 +112,19 @@ namespace Fanex.Athena.Controllers.BetSettings
                        : value;
         }
 
+        protected int GetIntRequest(string name, int defaultValue)
+        {
+            if (string.IsNullOrEmpty(HttpContext.Request[name]))
+            {
+                return defaultValue;
+            }
+
+            int value;
+            return !int.TryParse(HttpContext.Request[name], out value)
+                       ? defaultValue
+                       : value;
+        }
+
         private static void DisableBetSettingProduct(IEnumerable<BetSettingProduct> products, int productId)
         {
             var product = products.FirstOrDefault(x => x.IsEnable && x.ProductId == productId);

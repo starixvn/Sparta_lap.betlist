@@ -85,7 +85,8 @@ namespace Fanex.Athena.Controllers.BetSettings
                     MaxBet = GetDecimalRequest("maxbet" + sport, 0),
                     MinBet = GetDecimalRequest("minbet" + sport, 0),
                     MaxPerMatch = GetDecimalRequest("maxpermatch" + sport, 0),
-                    SportId = sport
+                    SportId = sport,
+                    BetType = GetIntRequest("bettype" + sport, 0),
                 });
             }
 

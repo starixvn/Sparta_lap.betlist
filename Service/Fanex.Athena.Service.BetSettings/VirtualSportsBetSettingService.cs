@@ -48,7 +48,7 @@ namespace Fanex.Athena.Service.BetSettings
         public IResultInfo UpdateBetSetting(int licenseeId, int custId, int userId, string ip, IEnumerable<VSBetSetting> betSettings)
         {
             const string XMLPattern = "<ROOT>{0}</ROOT>";
-            const string XMLElement = "<BetLimit SportType=\"{0}\" MinBet=\"{1}\" MaxBet=\"{2}\" MaxPerMatch=\"{3}\" ></BetLimit>";
+            const string XMLElement = "<BetLimit SportType=\"{0}\" BetType=\"{1}\" MinBet=\"{2}\" MaxBet=\"{3}\" MaxPerMatch=\"{4}\" ></BetLimit>";
             if (!HasPermissionOnData(licenseeId, custId))
             {
                 return ErrorResult(ViewResources.AccessDeniedMsg);
@@ -58,7 +58,7 @@ namespace Fanex.Athena.Service.BetSettings
 
             foreach (var setting in betSettings)
             {
-                xmlElementBuilder.Append(string.Format(XMLElement, setting.SportId, setting.MinBet, setting.MaxBet, setting.MaxPerMatch));
+                xmlElementBuilder.Append(string.Format(XMLElement, setting.SportId, setting.BetType, setting.MinBet, setting.MaxBet, setting.MaxPerMatch));
             }
 
             var xmlparam = string.Format(XMLPattern, xmlElementBuilder.ToString());

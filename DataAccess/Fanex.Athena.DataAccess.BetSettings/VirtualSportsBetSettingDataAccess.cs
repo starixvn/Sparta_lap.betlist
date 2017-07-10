@@ -41,7 +41,8 @@ namespace Fanex.Athena.DataAccess.BetSettings
                         MaxPerMatch = reader.ToDecimal("maxpermatch"),
                         MaxPerMatchMax = reader.ToDecimal("maxpermatchmax"),
                         SportId = sportId,
-                        BetSettingType = CacheRef.GetSportName(sportId)
+                        BetSettingType = CacheRef.GetSportName(sportId),
+                        BetType = reader.ToInt("bettype")
                     };
 
                     dataList.Add(virtualSportsItem);

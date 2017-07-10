@@ -74,6 +74,7 @@
                 esportText = "& " + Fanex.Athena.Model.Core.Helper.CacheRef.GetSportName(43);
             }
         <div class="content-row">
+            <input id="bet-type-@(item.SportId)" type="hidden" value="@item.BetType" />
             <div class="row text-data first-column" style="width: 190px">
                 <div>@item.BetSettingType @esportText</div>
             </div>

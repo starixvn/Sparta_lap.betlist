@@ -18,5 +18,7 @@ namespace Fanex.Athena.Model.BetSettings.DTO
         public decimal MaxPerMatch { get; set; }
 
         public string SportId { get; set; }
+
+        public int BetType { get; set; }
     }
 }

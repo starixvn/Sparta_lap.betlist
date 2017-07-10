@@ -40,6 +40,8 @@ namespace Fanex.Athena.Model.BetSettings.DTO
 
         public string SportId { get; set; }
 
+        public int BetType { get; set; }
+
         public EsportSettingType EsportSetting { get; set; }
     }
 }
