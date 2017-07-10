@@ -32,7 +32,6 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_PlatformWinLoss_Mem" EnvironmentText="_xpre"></SpNameConfig>
   
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelMatchResultParlay" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Result_MatchSelByLeague" EnvironmentText="_xpre"></SpNameConfig>
 
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_MatchSelResultEntered" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_LicWinloss" EnvironmentText="_xtest"></SpNameConfig>
@@ -43,6 +42,7 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_WinlossByProductDetail" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_MatchWinLoss" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_MatchWinLossByOutrightParlay" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_MatchWinLossDetail" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_MatchWinLoss_ExportExcel" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_MatchWinLossByBettype" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_WinLossByBettype" EnvironmentText="_xtest"></SpNameConfig>
@@ -53,4 +53,13 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Result_MatchSelByLeague" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Result_MatchSelByLeague_Detail" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_WinLoss" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_LiveReportSummary" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_LiveReportSummaryDetail" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_LiveReportBySport" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_LiveReportWinlossByMatch" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_Outstanding" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_CustomerBalance" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_CustomerTurnOver" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_SelSportDetail " EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_SelBetTypeBySport" EnvironmentText="_xtest"></SpNameConfig>
 </Root>

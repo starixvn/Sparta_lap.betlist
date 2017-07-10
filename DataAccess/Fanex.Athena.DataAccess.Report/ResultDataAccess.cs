@@ -91,7 +91,6 @@ namespace Fanex.Athena.DataAccess.Report
                 {
                     db.AddInParameter("eventdate", DbType.DateTime, dateValue);
                     db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
-                    db.AddInParameter("movebetsday", DbType.DateTime, this.BalanceUp.MoveBetsDay);
                     using (var reader = db.ExecuteReader())
                     {
                         var data = new List<Sport>();
@@ -395,8 +394,7 @@ namespace Fanex.Athena.DataAccess.Report
                 fromdate = metalModel.FromDate,
                 sporttype = metalModel.SportId,
                 leagueid = metalModel.LeagueId,
-                isshowall = true,
-                movebetsday = this.BalanceUp.MoveBetsDay
+                isshowall = true
             };
 
             try
