@@ -58,7 +58,8 @@
                 MaxPerMatch = 40m,
                 BetValueMax = 20m,
                 BetValueMin = 15m,
-                SportId = "SportIdTest"
+                SportId = "SportIdTest",
+                BetType = 1
             };
 
             var reader = Substitute.For<IDataReader>();
@@ -75,6 +76,7 @@
             Assert.That(result.BetValueMax, Is.EqualTo(expected.BetValueMax));
             Assert.That(result.BetValueMin, Is.EqualTo(expected.BetValueMin));
             Assert.That(result.SportId, Is.EqualTo(expected.SportId));
+            Assert.That(result.BetType, Is.EqualTo(expected.BetType));
         }
 
         [Test]
@@ -137,6 +139,7 @@
             reader["maxbetmax"].Returns(expected.BetValueMax);
             reader["maxpermatch"].Returns(expected.MaxPerMatch);
             reader["maxpermatchmax"].Returns(expected.MaxPerMatchMax);
+            reader["bettype"].Returns(expected.BetType);
         }
     }
 }

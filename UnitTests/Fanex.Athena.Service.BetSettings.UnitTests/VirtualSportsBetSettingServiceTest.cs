@@ -61,7 +61,7 @@
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            const string ExpectedXmlParam = "<ROOT><BetLimit SportType=\"1\" MinBet=\"100\" MaxBet=\"200\" MaxPerMatch=\"300\" ></BetLimit></ROOT>";
+            const string ExpectedXmlParam = "<ROOT><BetLimit SportType=\"1\" BetType=\"1\" MinBet=\"100\" MaxBet=\"200\" MaxPerMatch=\"300\" ></BetLimit></ROOT>";
 
             var betSettings = new List<VSBetSetting>
             {
@@ -70,7 +70,8 @@
                     SportId = "1",
                     MinBet = 100,
                     MaxBet = 200,
-                    MaxPerMatch = 300
+                    MaxPerMatch = 300,
+                    BetType = 1
                 }
             };
 
