@@ -8125,6 +8125,24 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Virtual Soccer League.
+        /// </summary>
+        public static string VirtualSoccerLeague {
+            get {
+                return ResourceManager.GetString("VirtualSoccerLeague", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Virtual Soccer Nation.
+        /// </summary>
+        public static string VirtualSoccerNation {
+            get {
+                return ResourceManager.GetString("VirtualSoccerNation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Virtual Speedway.
         /// </summary>
         public static string VirtualSpeedway {

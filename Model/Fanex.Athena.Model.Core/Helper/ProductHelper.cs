@@ -67,6 +67,15 @@
                 case "VB":
                     return ViewResources.ProductVB;
 
+                case "BRVS":
+                    return ViewResources.ProductBRVS;
+
+                case "BRVS190":
+                    return ViewResources.VirtualSoccerLeague;
+
+                case "BRVS191":
+                    return ViewResources.VirtualSoccerNation;
+
                 default:
                     return defaultValue ?? productCode;
             }
