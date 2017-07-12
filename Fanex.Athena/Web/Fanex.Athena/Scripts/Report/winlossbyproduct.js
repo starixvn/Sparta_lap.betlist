@@ -52,7 +52,7 @@ var WinLossByProduct = (function ($) {
     function getLicenseeWLNote(productOptionJson, caption) {
         var productOptions = productOptionJson ? $.parseJSON(productOptionJson) : [];
         var resultProducts = [];
-        var availableProducts = ["SB", "LC", "NG", "VS", "CS", "BG", "KN", "BT", "MGCLC", "MGCRNG", "VB"];
+        var availableProducts = ["SB", "LC", "NG", "VS", "CS", "BG", "KN", "BT", "MGCLC", "MGCRNG", "VB", "BRVS"];
         $.each(productOptions, function (index, item) {
             if (Site.asBool(item.Status) && $.inArray(item.Code, availableProducts) > -1) {
                 resultProducts.push(item.Code);

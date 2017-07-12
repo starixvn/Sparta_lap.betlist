@@ -19,8 +19,8 @@
   </Group>
 
   <Group Name="BetList">
-    <Function Name="BetList_CustomerOutstanding" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,BT,AGC,MGCLC,MGCRNG,VB,AB,CB,FW,CO"></Function>
-    <Function Name="BetList_CustomerOutstandingRunning" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,AGC,MGCLC,MGCRNG,VB,AB,CB,FW"></Function>
+    <Function Name="BetList_CustomerOutstanding" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,BT,AGC,MGCLC,MGCRNG,VB,AB,CB,FW,CO,BRVS"></Function>
+    <Function Name="BetList_CustomerOutstandingRunning" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,AGC,MGCLC,MGCRNG,VB,AB,CB,FW,BRVS"></Function>
     <Function Name="BetList_DailyBetList" Product="SB,BA,NG,LC,VS,KN,RB,BG,BRVS"></Function>
   </Group>
 
