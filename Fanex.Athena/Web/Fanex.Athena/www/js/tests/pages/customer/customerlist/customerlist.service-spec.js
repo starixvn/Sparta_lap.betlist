@@ -446,6 +446,8 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
         });
 
         describe("bindData(response, keepScrollPosition)", function () {
+            var gridOption = {};
+
             beforeAll(function () {
                 spyOn(jqGridAdditional, "clearGrid");
                 spyOn(PagingHelper, "render");
@@ -453,7 +455,8 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
                 spyOn(CustomerListOption, "setGroupHeaderColumns");
                 spyOn(CustomerListService, "resizeGrid");
                 spyOn(CustomerListService, "addGridScrollEventToHidePopups");
-                spyOn(CustomerListService, "processGridOption").and.returnValue({});
+                spyOn(CustomerListService, "processGridOption").and.returnValue(gridOption);
+                spyOn(jqGridAdditional, "gridComplete");
             });
 
             it("shows No row if data is empty", function () {
@@ -466,7 +469,9 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
 
             it("shows grid if data is not empty", function () {
                 CustomerListService.bindData({ TotalRows: 1, Data: { Index: 1 } }, true);
+                gridOption.gridComplete();
 
+                expect(jqGridAdditional.gridComplete).toHaveBeenCalled();
                 expect(PagingHelper.render).toHaveBeenCalled();
                 expect(CustomerListService.processGridOption).toHaveBeenCalled();
                 expect($.fn.jqGrid).toHaveBeenCalled();

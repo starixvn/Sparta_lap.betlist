@@ -19,10 +19,10 @@
                     CustomerListService.showGridDropdownById("ViewOptionList", $(this));
                 });
 
-                $("#report-content").on("focusout", ".custoptionlink", function (e) {
-                    if (!$(e.relatedTarget).is(".custoptionlink") && !$(e.relatedTarget).is(".viewOptionLink")) {
+                $("#report-content").on("blur", ".custoptionlink", function (e) {
+                    setTimeout(function () {
                         $("#ViewOptionList").hide();
-                    }
+                    }, 300);
                 });
 
                 $("#bet-setting-link").on("click", _me.viewBetSetting);

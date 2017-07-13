@@ -35,29 +35,14 @@
                 it("#LevelListContainer should be hidden if .specialLevel is loss focus", function () {
                     setFixtures('<div id="report-content"><a class="specialLevel"></a><div id="LevelListContainer"></div></div>');
                     spyOn(CustomerListService, "showGridDropdownById");
+                    jasmine.clock().install();
 
                     CustomerListSpecialLevel.initialize();
-                    $(".specialLevel").focusout();
+                    $(".specialLevel").blur();
+                    jasmine.clock().tick(301);
 
                     expect($("#LevelListContainer").is(":hidden")).toBe(true);
-                });
-
-                it("#LevelListContainer should not be hidden if .specialLevel is loss focus but levelLink is focused", function () {
-                    setFixtures('<div id="report-content">' +
-                        '<a href="javascript:;" class="specialLevel"></a>' +
-                        '<div id="LevelListContainer" style="display:none"><div class="levelLink"></div></div>' +
-                        '</div>');
-                    spyOn(CustomerListService, "showGridDropdownById").and.callFake(function () {
-                        $("#LevelListContainer").show();
-                    });
-
-                    CustomerListSpecialLevel.initialize();
-                    $(".specialLevel").click();
-                    var event = $.Event("focusout");
-                    event.relatedTarget = '<div class="levelLink"></div>';
-                    $(".specialLevel").trigger(event);
-
-                    expect($("#LevelListContainer").is(":hidden")).toBe(false);
+                    jasmine.clock().uninstall();
                 });
 
                 it("setValue(level) should be called if .levelLink is click", function () {

@@ -33,29 +33,14 @@
                 it("#ViewOptionList should be hidden if .custoptionlink is loss focus", function () {
                     setFixtures('<div id="report-content"><a class="custoptionlink"></a><div id="ViewOptionList"></div></div>');
                     spyOn(CustomerListService, "showGridDropdownById");
+                    jasmine.clock().install();
 
                     CustomerListCustOption.initialize();
-                    $(".custoptionlink").focusout();
+                    $(".custoptionlink").blur();
+                    jasmine.clock().tick(301);
 
                     expect($("#ViewOptionList").is(":hidden")).toBe(true);
-                });
-
-                it("#ViewOptionList should not be hidden if .custoptionlink is loss focus but viewOptionLink is focused", function () {
-                    setFixtures('<div id="report-content">'
-                        + '<a href="javascript:;" class="custoptionlink"></a>'
-                        + '<div id="ViewOptionList" style="display:none"><div class="viewOptionLink"></div></div>'
-                        + '</div>');
-                    spyOn(CustomerListService, "showGridDropdownById").and.callFake(function () {
-                        $("#ViewOptionList").show();
-                    });
-
-                    CustomerListCustOption.initialize();
-                    $(".custoptionlink").click();
-                    var event = $.Event("focusout");
-                    event.relatedTarget = '<div class="viewOptionLink"></div>';
-                    $(".custoptionlink").trigger(event);
-
-                    expect($("#ViewOptionList").is(":hidden")).toBe(false);
+                    jasmine.clock().uninstall();
                 });
 
                 it("viewBetSetting() should be called if bet-setting-link is clicked", function () {

@@ -12,10 +12,10 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
                 _me.showGridDropdown();
             });
 
-            $("#report-content").on("focusout", ".oddsGroup", function (e) {
-                if (!$(e.relatedTarget).is(".oddsGroup") && !$(e.relatedTarget).is(".oddsGroupLink")) {
+            $("#report-content").on("blur", ".oddsGroup", function (e) {
+                setTimeout(function () {
                     $("#OddsGroupListContainer").hide();
-                }
+                }, 300);
             });
 
             $("#OddsGroupListContainer").on("click", ".oddsGroupLink", function () {

@@ -5056,6 +5056,9 @@ webpackJsonp([56],{
 	            var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();
 	            var gridOption = _me.processGridOption(showingColumns);
 	            gridOption.data = response.Data;
+	            gridOption.gridComplete = function () {
+	                jqGridAdditional.gridComplete();
+	            };
 	
 	            // Show the grid
 	            var reportGrid = $("#ReportGrid");
@@ -6463,10 +6466,10 @@ webpackJsonp([56],{
 	                return false;
 	            });
 	
-	            $("#report-content").on("focusout", ".specialLevel", function (e) {
-	                if (!$(e.relatedTarget).is(".specialLevel") && !$(e.relatedTarget).is(".levelLink")) {
+	            $("#report-content").on("blur", ".specialLevel", function (e) {
+	                setTimeout(function () {
 	                    $("#LevelListContainer").hide();
-	                }
+	                }, 300);
 	            });
 	
 	            $("#LevelListContainer").on("click", ".levelLink", function () {
@@ -6595,10 +6598,10 @@ webpackJsonp([56],{
 	                _me.showGridDropdown();
 	            });
 	
-	            $("#report-content").on("focusout", ".oddsGroup", function (e) {
-	                if (!$(e.relatedTarget).is(".oddsGroup") && !$(e.relatedTarget).is(".oddsGroupLink")) {
+	            $("#report-content").on("blur", ".oddsGroup", function (e) {
+	                setTimeout(function () {
 	                    $("#OddsGroupListContainer").hide();
-	                }
+	                }, 300);
 	            });
 	
 	            $("#OddsGroupListContainer").on("click", ".oddsGroupLink", function () {
@@ -7242,10 +7245,10 @@ webpackJsonp([56],{
 	                    CustomerListService.showGridDropdownById("ViewOptionList", $(this));
 	                });
 	
-	                $("#report-content").on("focusout", ".custoptionlink", function (e) {
-	                    if (!$(e.relatedTarget).is(".custoptionlink") && !$(e.relatedTarget).is(".viewOptionLink")) {
+	                $("#report-content").on("blur", ".custoptionlink", function (e) {
+	                    setTimeout(function () {
 	                        $("#ViewOptionList").hide();
-	                    }
+	                    }, 300);
 	                });
 	
 	                $("#bet-setting-link").on("click", _me.viewBetSetting);

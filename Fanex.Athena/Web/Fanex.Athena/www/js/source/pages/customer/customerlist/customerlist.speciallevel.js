@@ -13,10 +13,10 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
                 return false;
             });
 
-            $("#report-content").on("focusout", ".specialLevel", function (e) {
-                if (!$(e.relatedTarget).is(".specialLevel") && !$(e.relatedTarget).is(".levelLink")) {
+            $("#report-content").on("blur", ".specialLevel", function (e) {
+                setTimeout(function () {
                     $("#LevelListContainer").hide();
-                }
+                }, 300);
             });
 
             $("#LevelListContainer").on("click", ".levelLink", function () {

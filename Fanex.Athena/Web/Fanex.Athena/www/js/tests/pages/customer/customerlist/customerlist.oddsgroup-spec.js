@@ -27,37 +27,23 @@
                     spyOn(CustomerListOddsGroup, "showGridDropdown");
 
                     CustomerListOddsGroup.initialize();
-                    $(".oddsGroup").click();
+                    $(".oddsGroup").click();                   
 
                     expect(CustomerListOddsGroup.showGridDropdown).toHaveBeenCalled();
+
                 });
 
                 it("#OddsGroupListContainer should be hidden if .oddsGroup is loss focus", function () {
                     setFixtures('<div id="report-content"><a class="oddsGroup"></a><div id="OddsGroupListContainer"></div></div>');
                     spyOn(CustomerListOddsGroup, "showGridDropdown");
+                    jasmine.clock().install();
 
                     CustomerListOddsGroup.initialize();
-                    $(".oddsGroup").focusout();
+                    $(".oddsGroup").blur();
+                    jasmine.clock().tick(301);
 
                     expect($("#OddsGroupListContainer").is(":hidden")).toBe(true);
-                });
-
-                it("#OddsGroupListContainer should not be hidden if .oddsGroup is loss focus but oddsGroupLink is focused", function () {
-                    setFixtures('<div id="report-content">' +
-                        '<a href="javascript:;" class="oddsGroup"></a>' +
-                        '<div id="OddsGroupListContainer" style="display:none"><div class="oddsGroupLink"></div></div>' +
-                        '</div>');
-                    spyOn(CustomerListOddsGroup, "showGridDropdown").and.callFake(function () {
-                        $("#OddsGroupListContainer").show();
-                    });
-
-                    CustomerListOddsGroup.initialize();
-                    $(".oddsGroup").click();
-                    var event = $.Event("focusout");
-                    event.relatedTarget = '<div class="oddsGroupLink"></div>';
-                    $(".oddsGroup").trigger(event);
-
-                    expect($("#OddsGroupListContainer").is(":hidden")).toBe(false);
+                    jasmine.clock().uninstall();
                 });
 
                 it("setValue(oddsGroup) should be called if .oddsGroupLink is click", function () {
