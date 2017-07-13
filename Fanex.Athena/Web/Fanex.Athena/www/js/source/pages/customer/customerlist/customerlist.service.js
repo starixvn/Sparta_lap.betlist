@@ -124,6 +124,9 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
             var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();
             var gridOption = _me.processGridOption(showingColumns);
             gridOption.data = response.Data;
+            gridOption.gridComplete = function () {
+                jqGridAdditional.gridComplete();
+            };
 
             // Show the grid
             var reportGrid = $("#ReportGrid");
