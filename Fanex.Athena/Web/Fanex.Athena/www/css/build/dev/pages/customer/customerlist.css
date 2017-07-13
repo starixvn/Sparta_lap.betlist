@@ -2095,4 +2095,9 @@ input[type="checkbox"] + label {
 a.grid-dropdown {
   display: block; }
 
+@media only screen and (min-width: 751px) {
+  .ba-time-notice {
+    float: right;
+    margin-right: 20px; } }
+
 /*# sourceMappingURL=customerlist.css.map*/
