@@ -70,10 +70,10 @@
 
 #LevelListContainer, #OddsGroupListContainer, #ViewOptionList, #UpdateCustStatus {
     display: none;
-    position: absolute;  
+    position: absolute;
 }
 
-#LevelListContainer, #OddsGroupListContainer{
+#LevelListContainer, #OddsGroupListContainer {
     border: 1px solid #969292;
 }
 
@@ -114,25 +114,25 @@
 }
 
 /* Cust Status Form */
-.custStatusPopup{
+.custStatusPopup {
     padding: 10px;
     border: 0;
     box-shadow: 0 1px 12px rgba(0, 0, 0, 0.175);
 
-    .custStatus{
-        &-row{
+    .custStatus {
+        &-row {
             margin-bottom: 10px;
         }
 
-        &-title{
+        &-title {
             font-size: 13px;
         }
 
-        &-button-block{
+        &-button-block {
             margin-top: 15px;
             margin-bottom: 0;
 
-            .btn{
+            .btn {
                 height: 27px;
                 line-height: 27px;
             }
@@ -232,4 +232,11 @@ input[type="checkbox"] + label {
 
 a.grid-dropdown {
     display: block;
+}
+
+@media only screen and (min-width: 751px) {
+    .ba-time-notice {
+        float: right;
+        margin-right: 20px;
+    }
 }
