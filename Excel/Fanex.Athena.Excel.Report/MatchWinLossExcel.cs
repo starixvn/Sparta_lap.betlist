@@ -20,7 +20,6 @@ namespace Fanex.Athena.Excel.Report
     using Common;
     using Fanex.Athena.Excel.Base.Extension;
     using Model.Core.DataDomain;
-    using Model.Core.DTO.Common;
     using Model.Core.Helper;
     using Model.Report.MetaModel;
     using NPOI.SS.UserModel;
@@ -255,6 +254,33 @@ namespace Fanex.Athena.Excel.Report
             return cellIndex;
         }
 
+        private static string GetFormatMatchName(DataRow exportRow, string matchName)
+        {
+            string formatMatchName;
+
+            switch ((int)exportRow["newproductid"])
+            {
+                case ProductTypes.Racing:
+                    formatMatchName = matchName.Replace("Race", "Race ");
+                    break;
+
+                case ProductTypes.NumberGame:
+                case ProductTypes.LiveCasino:
+                case ProductTypes.VirtualSports:
+                    formatMatchName = matchName;
+                    break;
+
+                default:
+                    string homeName = CacheRef.GetTeamName(exportRow["homeid"]) +
+                                      (Converter.ToBool(exportRow["isneutral"]) ? " " + "(N)" : string.Empty);
+                    string awayName = CacheRef.GetTeamName(exportRow["awayid"]);
+                    formatMatchName = homeName + "\n" + awayName;
+                    break;
+            }
+
+            return formatMatchName;
+        }
+
         /// <summary>
         /// Sum column: race book revenue, total win loss, sum total win loss, sum race book revenue.
         /// </summary>
@@ -441,48 +467,12 @@ namespace Fanex.Athena.Excel.Report
         {
             IList<string> currencyColumnList = GetCommonColumnNameList();
 
-            currencyColumnList.Remove("productname");
-
             for (int i = 0; i < currencyColumnList.Count; i++)
             {
                 currencyColumnList[i] = "sum" + currencyColumnList[i];
             }
 
             return currencyColumnList.Select(item => item.Equals("sumbetcount", StringComparison.OrdinalIgnoreCase) ? item : GetCurrencyColumn(item)).ToList();
-        }
-
-        /// <summary>
-        /// Get format of match name, based on product.
-        /// </summary>
-        /// <param name="exportRow">Data table row.</param>
-        /// <param name="matchName">Match name.</param>
-        /// <returns>The real match name.</returns>
-        private string GetFormatMatchName(DataRow exportRow, string matchName)
-        {
-            string formatMatchName;
-
-            // Match name
-            switch (exportRow["productname"].ToString())
-            {
-                case Product.RB:
-                    formatMatchName = matchName.Replace("Race", "Race ");
-                    break;
-
-                case Product.NG:
-                case Product.LC:
-                case Product.VS:
-                    formatMatchName = matchName;
-                    break;
-
-                default:
-                    string homeName = CacheRef.GetTeamName(exportRow["homeid"]) +
-                                      (Converter.ToBool(exportRow["isneutral"]) ? " " + "(N)" : string.Empty);
-                    string awayName = CacheRef.GetTeamName(exportRow["awayid"]);
-                    formatMatchName = homeName + "\n" + awayName;
-                    break;
-            }
-
-            return formatMatchName;
         }
     }
 }

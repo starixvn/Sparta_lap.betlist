@@ -13,14 +13,8 @@ namespace Fanex.Athena.Model.Report.DTO
     public class WinLossByBetType : ICustomerWinLoss
     {
         private string _betTypeName;
-        private int _betType;
-        private bool _liveIndicator;
 
-        public int BetType
-        {
-            get { return _betType; }
-            set { _betType = value; }
-        }
+        public int BetType { get; set; }
 
         public string BetTypeName
         {
@@ -28,7 +22,7 @@ namespace Fanex.Athena.Model.Report.DTO
             {
                 if (_betTypeName == null)
                 {
-                    _betTypeName = CacheRef.GetBettype(_betType, _liveIndicator) + GetSportName();
+                    _betTypeName = CacheRef.GetBettype(BetType, LiveIndicator) + GetSportName(BetType);
                 }
 
                 return _betTypeName;
@@ -58,25 +52,21 @@ namespace Fanex.Athena.Model.Report.DTO
 
         public decimal AmtDueToRacing { get; set; }
 
-        public bool LiveIndicator
-        {
-            get { return _liveIndicator; }
-            set { _liveIndicator = value; }
-        }
+        public bool LiveIndicator { get; set; }
 
         public decimal CustomerTotal
         {
             get { return CustomerWinLoss + CustomerComm; }
         }
 
-        private string GetSportName()
+        private static string GetSportName(int bettype)
         {
-            if(Validator.IsValidBettype(Product.VS, _betType))
+            if (Validator.IsValidBettype(Product.VS, bettype))
             {
                 return " (" + ViewResources.ProductVS + ")";
             }
 
-            if(Validator.IsValidBettype(Product.BRVS, _betType))
+            if (Validator.IsValidBettype(Product.BRVS, bettype))
             {
                 return " (" + ViewResources.ProductBRVS + ")";
             }
