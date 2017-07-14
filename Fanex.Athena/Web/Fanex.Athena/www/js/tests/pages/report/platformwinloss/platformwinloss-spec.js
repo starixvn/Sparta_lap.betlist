@@ -859,7 +859,7 @@
                     spyOn($.fn, "serializeObject").and.returnValue({
                         FromDate: "5/1/2017",
                         ToDate: "5/7/2017",
-                        IsExcludeTest: false,
+                        IsExcludedTestData: false,
                         DrawFilter: 0,
                         BaseCurrency: "usd"
                     });
