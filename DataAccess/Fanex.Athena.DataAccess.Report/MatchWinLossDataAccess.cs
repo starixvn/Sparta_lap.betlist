@@ -128,9 +128,9 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 using (var db = this.GetObjectDb(uspName))
                 {
-                    var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status);
-                    var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status);
-                    var showBrvs = metaModel.ProductOptions.Any(i => i.Code == Product.BRVS && i.Status);
+                    var showSb = metaModel.ProductOptions.Any(i => i.Status && i.Code == Product.SB);
+                    var showBa = metaModel.ProductOptions.Any(i => i.Status && i.Code == Product.BA);
+                    var showBrvs = metaModel.ProductOptions.Any(i => i.Status && i.Code == Product.BRVS);
 
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("Date", DbType.DateTime, metaModel.Date);

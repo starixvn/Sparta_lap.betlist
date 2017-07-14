@@ -112,11 +112,5 @@ namespace Fanex.Athena.Excel.Base.Entities
             get;
             set;
         }
-
-        public bool BRVSVisible
-        {
-            get;
-            set;
-        }
     }
 }

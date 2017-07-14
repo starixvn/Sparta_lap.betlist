@@ -9,7 +9,7 @@ namespace Fanex.Athena.Model.Report.DTO.LiveReports
     using System;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.Helper;
-
+    using Resources;
     /// <summary>
     /// LiveReport class.
     /// </summary>
@@ -53,6 +53,9 @@ namespace Fanex.Athena.Model.Report.DTO.LiveReports
 
                             case 103:
                                 return CacheRef.GetBettype((int)BetType.Outright);
+
+                            case 104:
+                                return CacheRef.GetBettype((int)BetType.BetradarVsMixParlay, false) + " (" + ViewResources.ProductBRVS + ")";
 
                             default:
                                 return CacheRef.GetSportName(_productCode);

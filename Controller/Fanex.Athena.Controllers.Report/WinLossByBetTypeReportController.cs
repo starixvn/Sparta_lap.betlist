@@ -145,7 +145,6 @@ namespace Fanex.Athena.Controllers.Report
                 SBVisible = productAccess.IsAllowSB,
                 LCVisible = productAccess.IsAllowLC,
                 VSVisible = productAccess.IsAllowVS,
-                BRVSVisible = productAccess.IsAllowBRVS,
                 CustomerCommVisible = this.SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 

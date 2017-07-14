@@ -109,11 +109,6 @@ namespace Fanex.Athena.Model.Core.Helper
                 return betTypeName;
             }
 
-            if (betType >= (int)BetType.BetradarVsFt1X2 && betType <= (int)BetType.BetradarVsMixParlay)
-            {
-                return betTypeName + " (" + ViewResources.ProductBRVS + ")";
-            }
-
             return betTypeName;
         }
 
