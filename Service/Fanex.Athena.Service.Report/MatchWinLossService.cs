@@ -161,6 +161,8 @@ namespace Fanex.Athena.Service.Report
                 dataList.Where(p => p.ProductName == Product.LC).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
             result.AddRange(
                 dataList.Where(p => p.ProductName == Product.VS).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
+            result.AddRange(
+                dataList.Where(p => p.ProductName == Product.BRVS).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
 
             return result;
         }

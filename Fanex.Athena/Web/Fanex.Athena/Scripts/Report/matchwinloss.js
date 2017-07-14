@@ -70,7 +70,7 @@ var MatchWinLoss = (function ($) {
         },
 
         getProductCodeList: function (productCode) {
-            var codeList = ["RB", "NG", "LC", "VS"];
+            var codeList = ["RB", "NG", "LC", "VS", "BRVS"];
             var productCodeList= [];
             if ((productCode === 'SB' || productCode === 'BA') && isProductOriginalChecked('SB')) {
                 productCodeList.push('SB');
