@@ -110,7 +110,8 @@
                 Key182: "LiveReportBetList/Racing?SportType=182",
                 Key183: "LiveReportBetList/Racing?SportType=183",
                 Key184: "LiveReportBetList/Racing?SportType=184",
-                Key185: "LiveReportBetList/Racing?SportType=185"
+                Key185: "LiveReportBetList/Racing?SportType=185",
+                Key104: "LiveReportBetList/MixParlay?bettype=2799",
             };
 
             var url = urlMap["Key" + jsonData.SportId];

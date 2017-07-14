@@ -22,6 +22,9 @@
             else if (sportId === 162) {
                 productOptions.push("LC");
             }
+            else if (sportId === 190 || sportId === 191) {
+                productOptions.push("BRVS");
+            }
             else {
                 if (productCode === "SB" || productCode === "ALL") {
                     productOptions.push("SB");
@@ -33,7 +36,7 @@
         }
         else {
             if (productCode === "ALL") {
-                productOptions = ["SB", "BA", "NG", "RB", "LC", "VS", "CS", "BG"];
+                productOptions = ["SB", "BA", "NG", "RB", "LC", "VS", "CS", "BG", "BRVS"];
             }
             else {
                 productOptions.push(productCode);
