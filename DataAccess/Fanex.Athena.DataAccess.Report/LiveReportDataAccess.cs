@@ -19,6 +19,9 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
+    using Model.Core.DataDomain;
+    using Model.Core.Helper;
+    using Resources;
 
     public class LiveReportDataAccess : BaseDataAccess, ILiveReportDataAccess
     {
@@ -41,11 +44,13 @@ namespace Fanex.Athena.DataAccess.Report
                         var currency = metaModel.BaseCurrency;
                         while (reader.Read())
                         {
+                            var productName = reader.ToString("ProductName");
+                            var productCode = reader.ToString("ProductCode");
+
                             items.Add(new LiveReport
                             {
-                                ReportType = 1,
-                                ProductName = reader.ToString("ProductName"),
-                                ProductCode = reader.ToString("ProductCode"),
+                                ProductName = ProductHelper.GetProductName(productCode, productName),
+                                ProductCode = productCode,
                                 TurnOver = reader.ToDecimal("Turnover" + currency),
                                 CustomerWinLoss = reader.ToDecimal("Winlost" + currency),
                                 CustomerComm = reader.ToDecimal("PlayerComm" + currency),
@@ -88,11 +93,11 @@ namespace Fanex.Athena.DataAccess.Report
                     {
                         while (reader.Read())
                         {
+                            var sportType = reader.ToString("SportType");
                             items.Add(new LiveReport
                             {
-                                ReportType = 2,
-                                ProductName = reader.ToString("SportType"),
-                                ProductCode = reader.ToString("SportType"),
+                                ProductName = GetProductNameBySport(sportType),
+                                ProductCode = sportType,
                                 TurnOver = reader.ToDecimal("Turnover" + currency),
                                 CustomerWinLoss = reader.ToDecimal("Winlost" + currency),
                                 CustomerComm = reader.ToDecimal("PlayerComm" + currency),
@@ -207,6 +212,30 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
+        private static string GetProductNameBySport(string sportType)
+        {
+            var sportId = string.IsNullOrEmpty(sportType) ? 0 : Convert.ToInt32(sportType);
+
+            // 101 -> 104: const from SP to separate names for special bettypes
+            switch (sportId)
+            {
+                case 101:
+                    return CacheRef.GetBettype((int)BetType.MixParlay);
+
+                case 102:
+                    return CacheRef.GetBettype((int)BetType.CombinationMixParlay);
+
+                case 103:
+                    return CacheRef.GetBettype((int)BetType.Outright);
+
+                case 104:
+                    return CacheRef.GetBettype((int)BetType.BetradarVsMixParlay, false) + " (" + ViewResources.ProductBRVS + ")";
+
+                default:
+                    return CacheRef.GetSportName(sportType);
+            }
+        }
+
         private static IList<LiveReport> ReadDetailByCurrency(IDataReader reader, string currency)
         {
             var list = new List<LiveReport>();
@@ -215,7 +244,6 @@ namespace Fanex.Athena.DataAccess.Report
                 var productName = reader.ToString("Currency");
                 list.Add(new LiveReport
                 {
-                    ReportType = 0,
                     ProductName = productName,
                     ProductCode = productName,
                     TurnOver = reader.ToDecimal("Turnover" + currency),
@@ -236,11 +264,11 @@ namespace Fanex.Athena.DataAccess.Report
             var dataList = new List<LiveReport>();
             while (reader.Read())
             {
+                var bettype = reader.ToString("bettype");
                 dataList.Add(new LiveReport
                 {
-                    ReportType = 3,
-                    ProductName = reader.ToString("bettype"),
-                    ProductCode = reader.ToString("bettype"),
+                    ProductName = CacheRef.GetBettype(Convert.ToInt32(bettype), false),
+                    ProductCode = bettype,
                     TurnOver = reader.ToDecimal("Turnover" + currency),
                     CustomerWinLoss = reader.ToDecimal("Winlost" + currency),
                     CustomerComm = reader.ToDecimal("PlayerComm" + currency),
