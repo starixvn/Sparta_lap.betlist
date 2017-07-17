@@ -128,7 +128,6 @@
             {
                 objectDb.Received().AddInParameter("eventdate", DbType.DateTime, date);
                 objectDb.Received().AddInParameter("licenseeid", DbType.Int32, licenseeId);
-                objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
             });
         }
 
@@ -985,7 +984,7 @@
             objectDb.ExecuteReader(Arg.Do<dynamic>(x => param = x));
             _metaModel.SportId = 1;
             _metaModel.LeagueId = 2;
-            var expected = "{\"fromdate\":\"\\/Date(1483203600000)\\/\",\"sporttype\":1,\"leagueid\":2,\"isshowall\":true,\"movebetsday\":\"\\/Date(1470762000000)\\/\"}";
+            var expected = "{\"fromdate\":\"\\/Date(1483203600000)\\/\",\"sporttype\":1,\"leagueid\":2,\"isshowall\":true}";
 
             // Action
             _dataAccess.GetMatches<Sportsbook>(_metaModel);
