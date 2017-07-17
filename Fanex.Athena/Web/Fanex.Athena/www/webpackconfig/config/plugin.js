@@ -5,6 +5,8 @@ var CleanWebpackPlugin = require('clean-webpack-plugin');
 var cssRootPath = pathConfig.cssPaths.build;
 
 function generatePlugins(environment) {
+    var cssBetlistPath = cssRootPath + "/" + environment + "/pages/betlist";
+    var cssPagePath = cssRootPath + "/" + environment + "/pages";
     var commonPlugins = [
         new CleanWebpackPlugin([pathConfig.scriptPaths.build + "/" + environment], {
             root: process.cwd()
@@ -13,22 +15,15 @@ function generatePlugins(environment) {
             root: process.cwd(),
             exclude: ['fonts', 'images', 'dev', 'pro']
         }),
-        new CleanWebpackPlugin([`${cssRootPath}/dev/pages`], {
+        new CleanWebpackPlugin([cssPagePath], {
             root: process.cwd(),
             exclude: ['betlist']
         }),
-        new CleanWebpackPlugin([`${cssRootPath}/pro/pages`], {
-            root: process.cwd(),
-            exclude: ['betlist']
-        }),
-        new CleanWebpackPlugin([`${cssRootPath}/dev/pages/betlist`], {
+        new CleanWebpackPlugin([cssBetlistPath], {
             root: process.cwd(),
             exclude: ['images']
         }),
-        new CleanWebpackPlugin([`${cssRootPath}/pro/pages/betlist`], {
-            root: process.cwd(),
-            exclude: ['images']
-        }),
+       
         new webpack.optimize.CommonsChunkPlugin({
             name: "common",
             filename: "www/js/build/" + environment + "/common.chunk.js",
