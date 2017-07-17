@@ -1722,7 +1722,7 @@
     <value>Successfully updated commission.</value>
   </data>
   <data name="YouNotChooseAnyCustomerMsg" xml:space="preserve">
-    <value>You still not choose any customer.</value>
+    <value>You did not choose any customers.</value>
   </data>
   <data name="CreateNewGroup" xml:space="preserve">
     <value>Create New Group</value>
@@ -2910,7 +2910,7 @@
     <value>Token is invalid</value>
   </data>
   <data name="YouAreNotAllowToAccessThisPage" xml:space="preserve">
-    <value>You are not allowed to access this page !!!</value>
+    <value>You are not allowed to access this page, please contact your administrator account.</value>
   </data>
   <data name="ProductFW" xml:space="preserve">
     <value>Fishing World</value>
@@ -3017,7 +3017,7 @@
     <comment>#77447</comment>
   </data>
   <data name="UserNotHaveCurrency" xml:space="preserve">
-    <value>User does not have any currency</value>
+    <value>You do not have any currency permissions to view this report, please contact your administrator account.</value>
     <comment>#73925</comment>
   </data>
 </root>

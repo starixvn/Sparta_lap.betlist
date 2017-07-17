@@ -2566,4 +2566,7 @@
     <value>輸贏的進位值僅供參考。因此，所有輸贏相加的總計有可能和小計有差數。</value>
     <comment>78931</comment>
   </data>
+  <data name="UserNotHaveCurrency" xml:space="preserve">
+    <value>您沒有任何幣別的權限可以觀看這份報告, 請聯絡貴司的後台管理人員.</value>
+  </data>
 </root>

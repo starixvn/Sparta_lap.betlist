@@ -8008,7 +8008,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User does not have any currency.
+        ///   Looks up a localized string similar to You do not have any currency permissions to view this report, please contact your administrator account..
         /// </summary>
         public static string UserNotHaveCurrency {
             get {
@@ -8368,7 +8368,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are not allowed to access this page !!!.
+        ///   Looks up a localized string similar to You are not allowed to access this page, please contact your administrator account..
         /// </summary>
         public static string YouAreNotAllowToAccessThisPage {
             get {
@@ -8377,7 +8377,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You still not choose any customer..
+        ///   Looks up a localized string similar to You did not choose any customers..
         /// </summary>
         public static string YouNotChooseAnyCustomerMsg {
             get {
