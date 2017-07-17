@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Web.ActionFilter
 {
     using System;
+    using System.Linq;
     using System.Net;
     using System.Web.Mvc;
     using System.Web.Routing;
@@ -59,6 +60,10 @@ namespace Fanex.Athena.Web.ActionFilter
                       authorization.HasPermissions(userSession.PortalFunctionList, PermissionKeys) :
 
                       authorization.HasPermissions(userSession.FunctionIdList, PermissionKeys);
+                if (userSession.IsInternal && PermissionKeys.Contains(Model.Core.DataDomain.PermissionKeys.AccountManageAccount))
+                {
+                    authorized = false;
+                }
             }
 
             if (!authorized)
