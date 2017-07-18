@@ -1,14 +1,14 @@
-webpackJsonp([77],{
+webpackJsonp([54],{
 
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(345);
+	module.exports = __webpack_require__(269);
 
 
 /***/ }),
 
-/***/ 344:
+/***/ 268:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(8)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString) {
@@ -35,6 +35,9 @@ webpackJsonp([77],{
 	            else if (sportId === 162) {
 	                productOptions.push("LC");
 	            }
+	            else if (productCode === "BRVS") {
+	                productOptions.push("BRVS");
+	            }
 	            else {
 	                if (productCode === "SB" || productCode === "ALL") {
 	                    productOptions.push("SB");
@@ -46,7 +49,7 @@ webpackJsonp([77],{
 	        }
 	        else {
 	            if (productCode === "ALL") {
-	                productOptions = ["SB", "BA", "NG", "RB", "LC", "VS", "CS", "BG"];
+	                productOptions = ["SB", "BA", "NG", "RB", "LC", "VS", "CS", "BG", "BRVS"];
 	            }
 	            else {
 	                productOptions.push(productCode);
@@ -64,10 +67,10 @@ webpackJsonp([77],{
 
 /***/ }),
 
-/***/ 345:
+/***/ 269:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(346)], __WEBPACK_AMD_DEFINE_RESULT__ = function (MatchList) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(270)], __WEBPACK_AMD_DEFINE_RESULT__ = function (MatchList) {
 	    "use strict";
 	    $(MatchList.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -75,10 +78,10 @@ webpackJsonp([77],{
 
 /***/ }),
 
-/***/ 346:
+/***/ 270:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(8), __webpack_require__(7), __webpack_require__(344)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString, Site, Helper) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(8), __webpack_require__(7), __webpack_require__(268)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString, Site, Helper) {
 	    "use strict";
 	
 	    function initialize() {
