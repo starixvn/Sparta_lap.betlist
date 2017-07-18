@@ -11,6 +11,7 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
 {
     using System.Collections.Generic;
     using Fanex.Athena.Model.Core.DTO.Users;
+    using Model.Core.DataDomain;
 
     public interface ISessionService
     {
@@ -28,7 +29,8 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
             string userName,
             bool isInternal,
             int licenseeId = 0,
-            string language = "en-US");
+            string language = "en-US",
+             ClientViewType viewType = ClientViewType.Default);
 
         void UpdateLiceseeSession(int licenseeId);
 

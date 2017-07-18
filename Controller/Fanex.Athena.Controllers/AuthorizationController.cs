@@ -155,7 +155,8 @@ namespace Fanex.Athena.Controllers
                         _userService.LoginOnUser(user, Session.SessionID, user.ServerId, Request.UserHostAddress),
                         user.Username,
                         user.IsInternal,
-                        user.Licensee.Id);
+                        user.Licensee.Id,
+                        viewType: ClientViewType.Desktop);
 
                     _formAuthenticationService.SetAuthCookie(user.Username, false);
 

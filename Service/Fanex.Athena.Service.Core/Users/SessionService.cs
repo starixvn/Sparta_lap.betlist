@@ -91,7 +91,8 @@ namespace Fanex.Athena.Service.Core.Users
             string userName,
             bool isInternal,
             int licenseeId = 0,
-            string language = "en-US")
+            string language = "en-US",
+            ClientViewType viewType = ClientViewType.Default)
         {
             var licenseeList = _licenseeService.GetByUser(userId);
             var functionList = _functionService.GetUserFunctionList(licenseeId, userId);
@@ -106,7 +107,8 @@ namespace Fanex.Athena.Service.Core.Users
                 FunctionIdList = functionIdList,
                 Language = language,
                 DefaultReportUrl = GetDefaultReportUrl(functionIdList, functionList),
-                ApplicationMode = AppMode.Self
+                ApplicationMode = AppMode.Self,
+                ViewType = viewType
             };
 
             AssignCurrenciesToUserSession(userSession, licenseeId);

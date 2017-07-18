@@ -16,6 +16,7 @@ namespace Fanex.Athena.Service.Core.Users
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Users.Interfaces;
+    using Model.Core.DataDomain;
     using Utility;
     using Utility.Interfaces;
 
@@ -263,7 +264,8 @@ namespace Fanex.Athena.Service.Core.Users
                     user.Username,
                     true,
                     user.Licensee.Id,
-                    languageCode);
+                    languageCode,
+                    viewType: ClientViewType.Default);
             }
 
             resultInfo = loginResultInfo;
