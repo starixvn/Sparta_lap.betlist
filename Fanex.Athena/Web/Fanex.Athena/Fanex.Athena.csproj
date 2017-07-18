@@ -752,6 +752,7 @@
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
     <Content Include="www\assets\images\15.jpg" />
     <Content Include="www\assets\images\logo-text.svg" />
+    <Content Include="www\assets\images\licenseelist-logo.png" />
     <Content Include="www\assets\images\robot.jpg" />
     <Content Include="www\css\build\dev\home.chunk.js" />
     <Content Include="www\css\build\dev\home.css" />
@@ -835,6 +836,8 @@
     <Content Include="www\css\build\dev\pages\totalbet\totalbetlayout.css" />
     <Content Include="www\css\build\dev\pages\utility\error.chunk.js" />
     <Content Include="www\css\build\dev\pages\utility\error.css" />
+    <Content Include="www\css\build\dev\pages\utility\licenseelist.chunk.js" />
+    <Content Include="www\css\build\dev\pages\utility\licenseelist.css" />
     <Content Include="www\css\build\dev\um.chunk.js" />
     <Content Include="www\css\build\dev\um.css" />
     <Content Include="www\css\build\fonts\flags\flags\cn.svg" />
@@ -902,6 +905,9 @@
     <Content Include="www\css\build\dev\um.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\betlist\customeroutstanding.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\betlist\customeroutstanding.css.map" />
+    <Content Include="Views\Desktop\LicenseeList\Index.cshtml" />
+    <Content Include="www\css\build\dev\pages\utility\licenseelist.chunk.js.map" />
+    <Content Include="www\css\build\dev\pages\utility\licenseelist.css.map" />
     <None Include="www\css\source\pages\customer\customerlist.scss" />
     <Content Include="www\css\source\pages\customer\customerlog.scss" />
     <Content Include="www\css\source\components\tab\_tab.scss" />
@@ -1081,6 +1087,7 @@
     <None Include="www\css\source\pages\report\turnover.scss" />
     <Content Include="www\css\source\pages\report\winlossbybettype.scss" />
     <None Include="www\css\source\pages\report\winlossbyleague.scss" />
+    <None Include="www\css\source\pages\utility\licenseelist.scss" />
     <Content Include="www\js\build\dev\common.chunk.js" />
     <Content Include="www\js\build\dev\language.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlist.chunk.js" />

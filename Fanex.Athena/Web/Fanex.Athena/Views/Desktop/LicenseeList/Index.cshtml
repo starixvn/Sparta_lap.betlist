@@ -1,0 +1,35 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LRF &bull; Select a Licensee</title>
+
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/utility/licenseelist.css")" rel="stylesheet" />
+</head>
+<body>
+    <div id="header">
+        <div class="align-right">
+            <a id="btnLogout" href='javascript:Site.signOut()' class="label label-primary">
+                @ViewResources.Logout
+            </a>
+        </div>
+        <div id="welcome" class="align-right">
+            <span>@ViewResources.Welcome @ViewBag.CurrentUsername</span>
+        </div>
+    </div>
+    <div class="page-title">@ViewResources.SelectLicenseeMsg</div>
+    <div class="main-container">
+        @foreach (Fanex.Athena.Model.Core.DTO.Common.Licensee item in ViewBag.LicenseeList)
+        {
+            <p class="label label-default" onclick="document.location.href='@Url.Content("~/LicenseeList/Index?licenseeid=")@item.Id'">
+                <a>
+                    @item.Name
+                </a>
+            </p>
+        }
+    </div>
+</body>
+</html>

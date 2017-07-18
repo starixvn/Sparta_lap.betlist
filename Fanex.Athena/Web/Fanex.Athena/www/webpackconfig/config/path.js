@@ -52,7 +52,8 @@ var cssPaths = {
     customerlog: ["./www/css/source/pages/customer/customerlog.scss"],
     customerlist: ["./www/css/source/pages/customer/customerlist.scss"],
     customeroutstanding: ["./www/css/source/pages/betlist/customeroutstanding.scss"],
-    betsetting: ["./www/css/source/pages/customer/betsetting.scss"]
+    betsetting: ["./www/css/source/pages/customer/betsetting.scss"],
+    licenseelist: ["./www/css/source/pages/utility/licenseelist.scss"]
 };
 
 var scriptPaths = {
