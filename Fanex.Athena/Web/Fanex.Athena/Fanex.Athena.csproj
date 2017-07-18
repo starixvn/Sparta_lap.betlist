@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -5694,7 +5694,7 @@
     <Content Include="Views\Utility\UnderMaintenance.cshtml" />
     <Content Include="Views\Authorization\SignIn.cshtml" />
     <Content Include="Views\Utility\LocationRestriction.cshtml" />
-    <Content Include="Views\Utility\SelectLicensee.cshtml" />
+    <Content Include="Views\LicenseeList\Index.cshtml" />
     <Content Include="Views\Utility\ChangePass.cshtml" />
     <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Views\BetList\RunningBetListMultipleBettypes\Filter.cshtml" />
