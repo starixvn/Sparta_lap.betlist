@@ -59,7 +59,7 @@ a {
   font-weight: bold;
   float: right;
   margin-right: 5px;
-  padding-top: 2px;
+  padding-top: 5px;
   text-align: center; }
   #btnLogout:hover {
     background-color: #1E86E7; }
@@ -68,7 +68,7 @@ a {
   font-weight: bold;
   margin-right: 20px;
   height: 39px;
-  padding-top: 21px; }
+  padding-top: 25px; }
 
 .page-title {
   position: relative;
