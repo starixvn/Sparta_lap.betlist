@@ -109,7 +109,7 @@
                 var result = controller.Index(0) as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/Utility/SelectLicensee.cshtml"));
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/LicenseeList/Index.cshtml"));
             }
         }
 

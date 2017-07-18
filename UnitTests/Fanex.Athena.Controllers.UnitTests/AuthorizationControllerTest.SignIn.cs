@@ -2,6 +2,7 @@
 {
     using System.Web.Mvc;
     using Base.UnitTests;
+    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using Model.Core.MetaModel.Authorization;
@@ -129,7 +130,7 @@
                 }) as RedirectToRouteResult;
 
                 // Assert
-                SessionService.Received().CreateNewSession(111, Arg.Any<int>(), Arg.Any<string>(), Arg.Any<bool>(), Arg.Any<int>());
+                SessionService.Received().CreateNewSession(111, Arg.Any<int>(), Arg.Any<string>(), Arg.Any<bool>(), Arg.Any<int>(), viewType: ClientViewType.Desktop);
                 Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
                 Assert.That(result.RouteValues["controller"], Is.EqualTo("LicenseeList"));
             }
