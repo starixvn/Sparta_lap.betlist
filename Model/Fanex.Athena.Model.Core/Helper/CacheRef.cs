@@ -9,6 +9,7 @@ namespace Fanex.Athena.Model.Core.Helper
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Threading;
+    using DTO.Common;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using RemotingRef;
@@ -107,6 +108,18 @@ namespace Fanex.Athena.Model.Core.Helper
                 }
 
                 return betTypeName;
+            }
+
+            return betTypeName;
+        }
+
+        public static string GetBettypeWithProductName(int betType, bool liveIndicator = false)
+        {
+            var betTypeName = GetBettype(betType, liveIndicator);
+
+            if (Validator.IsValidBettype(Product.BRVS, betType))
+            {
+                return betTypeName + " (" + ViewResources.ProductBRVS + ")";
             }
 
             return betTypeName;
