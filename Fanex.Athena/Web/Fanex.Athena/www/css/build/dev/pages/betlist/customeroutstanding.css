@@ -853,4 +853,7 @@ ul.ui-multiselect-checkboxes {
     margin-left: 15px;
     padding: 0; }
 
+.theme_jqGrid .ui-jqgrid .ui-jqgrid-sortable {
+  cursor: default; }
+
 /*# sourceMappingURL=customeroutstanding.css.map*/
