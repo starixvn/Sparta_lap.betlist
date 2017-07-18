@@ -168,7 +168,7 @@ namespace Fanex.Athena.DataAccess.Report
             var hasProductName = reader.HasColumn("productname");
             var hasLiveIndicator = reader.HasColumn("liveindicator");
             var hasIsNeutral = reader.HasColumn("isneutral");
-            var hasKickofTime = reader.HasColumn("KickoffTime");
+            var hasKickOffTime = reader.HasColumn("KickoffTime");
             var hasShowTime = reader.HasColumn("showtime");
             var hasSportType = reader.HasColumn("sporttype");
 
@@ -197,7 +197,7 @@ namespace Fanex.Athena.DataAccess.Report
                 matchWinLoss.IsNeutral = hasIsNeutral && Converter.ToBool(reader["isNeutral"]);
                 matchWinLoss.ShowTime = hasShowTime ? reader.ToString("showtime") : string.Empty;
                 matchWinLoss.SportType = hasSportType ? reader.ToShort("sporttype") : (short)0;
-                matchWinLoss.KickofTime = hasKickofTime ? reader.ToDateTime("KickoffTime") : DateTime.MinValue;
+                matchWinLoss.KickOffTime = hasKickOffTime ? reader.ToDateTime("KickoffTime") : DateTime.MinValue;
                 dataList.Add(matchWinLoss);
             }
 

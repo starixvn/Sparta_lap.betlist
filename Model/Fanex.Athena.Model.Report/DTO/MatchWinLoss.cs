@@ -17,7 +17,7 @@ namespace Fanex.Athena.Model.Report.DTO
         private int _betType;
         private bool _isLive;
 
-        public DateTime KickofTime { get; set; }
+        public DateTime KickOffTime { get; set; }
 
         public int LeagueId { get; set; }
 

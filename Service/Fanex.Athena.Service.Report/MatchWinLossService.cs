@@ -200,7 +200,7 @@ namespace Fanex.Athena.Service.Report
 
                     if (RacingSportTypes.Contains(matchWinLoss.SportType))
                     {
-                        return string.Format(EnglishCulture, KickOfTimeFormat, matchWinLoss.KickofTime);
+                        return string.Format(EnglishCulture, KickOfTimeFormat, matchWinLoss.KickOffTime);
                     }
 
                     var homeName = CacheRef.GetTeamName(matchWinLoss.HomeId) +
