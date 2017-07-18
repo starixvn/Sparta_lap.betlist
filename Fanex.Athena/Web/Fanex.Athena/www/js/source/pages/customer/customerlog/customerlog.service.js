@@ -53,17 +53,31 @@ define(["jquery", "common/site",
             },
 
             bindData: function (data, gridOption, hasCheckbox) {
+                var grid = $('#ReportGrid');
+
                 gridOption.data = data;
                 gridOption.gridComplete = function () {
                     if (hasCheckbox) {
                         _me.checkShowAll();
                     }
 
+                    var colModels = grid[0].p.colModel;
+                    $.each(grid[0].grid.headers, function (index, value) {
+                        if (!colModels[index].sortable) {
+                            $(".ui-jqgrid-sortable", value.el).css({ cursor: "default" });
+                        }
+                    });
+
                     jqGridAdditional.gridComplete();
                     _me.resizeGrid();
                 };
 
-                $('#ReportGrid').jqGrid(gridOption);
+                gridOption.onSortCol = function (index, columIndex) {
+                    $(".ui-jqgrid-sortable", "th").css({ "text-decoration": "none" });
+                    $(".ui-jqgrid-sortable", grid[0].grid.headers[columIndex].el).css({ "text-decoration": "underline" });
+                };
+
+                grid.jqGrid(gridOption);
             },
 
             resizeGrid: function () {
