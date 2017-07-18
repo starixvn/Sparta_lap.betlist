@@ -111,6 +111,19 @@
             });
 
             describe("bindData(data, gridOption, hasCheckbox)", function () {
+                beforeEach(function () {
+                    setFixtures("<table id='ReportGrid'><tr>"
+                        + "<th id='col1'><div class='ui-jqgrid-sortable' style='{cursor: pointer;}'></div></th>"
+                        + "<th id='col2'><div class='ui-jqgrid-sortable' style='{cursor: pointer;}'></div></th></tr></table>");
+                    var grid = $("#ReportGrid");
+                    grid[0].p = {
+                        colModel: [{ name: "col1", sortable: false }, { name: "col2", sortable: true }]
+                    };
+                    grid[0].grid = {
+                        headers: [{ el: "#col1" }, { el: "#col2" }]
+                    };
+                });
+
                 it("$.fn.jqGrid should be called with correct param", function () {
                     var gridOption = { colNames: ["index"] };
                     var hasCheckBox = true;
@@ -122,6 +135,34 @@
                     expect(gridOption.data).toBe(data);
                     expect(typeof (gridOption.gridComplete)).toEqual("function");
                     expect($("#ReportGrid").jqGrid).toHaveBeenCalled();
+                });
+
+                it("unsortable column should be removed hand cursor", function () {
+                    var gridOption = { colNames: ["index"] };
+                    var hasCheckBox = false;
+                    var data = [{ index: 0 }, { index: 1 }];
+                    spyOn(jqGridAdditional, "gridComplete");
+                    spyOn(CustomerLogService, "resizeGrid");
+                    spyOn($.fn, "jqGrid");
+
+                    CustomerLogService.bindData(data, gridOption, hasCheckBox);
+                    gridOption.gridComplete();
+
+                    expect($(".ui-jqgrid-sortable", "#col1").css("cursor")).toBe("default");
+                });
+
+                it("underline header title of sorted column", function () {
+                    var gridOption = { colNames: ["index"] };
+                    var hasCheckBox = false;
+                    var data = [{ index: 0 }, { index: 1 }];
+                    spyOn(jqGridAdditional, "gridComplete");
+                    spyOn(CustomerLogService, "resizeGrid");
+                    spyOn($.fn, "jqGrid");
+
+                    CustomerLogService.bindData(data, gridOption, hasCheckBox);
+                    gridOption.onSortCol("", 1);
+
+                    expect($(".ui-jqgrid-sortable", "#col2").css("text-decoration")).toBe("underline");
                 });
 
                 it("resizeGrid should be called after grid completed", function () {
