@@ -263,7 +263,7 @@ namespace Fanex.Athena.Controllers.Report
                 detailedData,
                 new ResultSetting
                 {
-                    SportType = (SportType)sportType,
+                    SportType = (Result.Core.Base.SportType)sportType,
                     LanguageCode = SessionService.UserSession.Language
                 });
 
@@ -321,6 +321,10 @@ namespace Fanex.Athena.Controllers.Report
         #region Utilities
 
         #region popup-page
+        private static bool IsPalayBetType(int betType)
+        {
+            return betType == ParlayBetType || betType == SystemParlayBetType || betType == (int)Model.Core.DataDomain.BetType.BetradarVsMixParlay;
+        }
 
         /// <summary>
         /// Get data for pop-up page.
@@ -333,7 +337,7 @@ namespace Fanex.Athena.Controllers.Report
             {
                 SportType = sportType,
                 IsOutright = metalModel.IsOutRight.HasValue && metalModel.IsOutRight.Value > 0,
-                IsParlayPopUp = metalModel.Bettype == ParlayBetType || metalModel.Bettype == SystemParlayBetType,
+                IsParlayPopUp = IsPalayBetType(metalModel.Bettype),
                 IsPopUp = true,
                 LanguageCode = SessionService.UserSession.Language,
                 EnableCheckScoreCalculated = true
