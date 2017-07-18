@@ -191,6 +191,9 @@ var MatchWinLoss = (function ($) {
             if (isProductOriginalChecked('BA')) {
                 productCodeList.push("BA");
             }
+            if (isProductOriginalChecked('BRVS')) {
+                productCodeList.push("BRVS");
+            }
 
             url = Site.setProductCodeListParam(url, productCodeList);
 

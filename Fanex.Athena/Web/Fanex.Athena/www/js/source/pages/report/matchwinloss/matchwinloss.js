@@ -173,6 +173,9 @@ define(["jquery", "common/site", "common/querystring", "components/pluginhelper/
                 if (isProductOriginalChecked('BA')) {
                     productCodeList.push("BA");
                 }
+                if (isProductOriginalChecked('BRVS')) {
+                    productCodeList.push("BRVS");
+                }
                 url = Site.setProductCodeListParam(url, productCodeList);
 
                 Site.blockUI();

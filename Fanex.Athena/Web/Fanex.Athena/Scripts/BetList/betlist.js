@@ -7,7 +7,7 @@ showColossusBetsDetails, showGlobalGaming, ViewCashOutHistory*/
 var BetList = (function ($) {
     "use strict";
     var BETTYPE_CASHOUT = 911;
-    var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29;
+    var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29, BETTYPE_MIXPARLAY_BETRADAR = 2799;
     var MIN_BETTYPE_FASTMARKET = 221;
     var MAX_BETTYPE_FASTMARKET = 225;
     var SPORT_MICROGAMMING_LC = 203;
@@ -471,7 +471,7 @@ var BetList = (function ($) {
             }
             else {
                 bettype = Number(bettype);
-                var isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY;
+                var isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY || bettype === BETTYPE_MIXPARLAY_BETRADAR;
                 var url = isParlay
                     ? BetList.getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
                     : BetList.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, betid, betcheck, custid);
