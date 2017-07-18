@@ -1,19 +1,19 @@
-webpackJsonp([78],{
+webpackJsonp([79],{
 
 /***/ 0:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(346);
+	module.exports = __webpack_require__(337);
 
 
-/***/ }),
+/***/ },
 
-/***/ 101:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 103:
+/***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
 	///
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(102)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(104)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
 	    "use strict";
 	    var jqGridAdditional = (function () {
 	        return {
@@ -406,10 +406,10 @@ webpackJsonp([78],{
 	    return jqGridAdditional;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
-/***/ 102:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 104:
+/***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/MikeMcl/bignumber.js/LICENCE */
 	
@@ -3150,10 +3150,10 @@ webpackJsonp([78],{
 	})(this);
 
 
-/***/ }),
+/***/ },
 
-/***/ 222:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 213:
+/***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {;(function($){
 	/**
@@ -3328,10 +3328,10 @@ webpackJsonp([78],{
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ }),
+/***/ },
 
-/***/ 223:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 214:
+/***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* 
 	* jqGrid  4.6.0 - jQuery Grid 
@@ -3679,10 +3679,10 @@ webpackJsonp([78],{
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ }),
+/***/ },
 
-/***/ 240:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 231:
+/***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
 	    "use strict";
@@ -3842,13 +3842,13 @@ webpackJsonp([78],{
 	    return _me;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
-/***/ 243:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 234:
+/***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(244)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(235)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
 	    var _me = {
 	        initProductList: function () {
 	            var selector = "#grid-products-multiselect";
@@ -3902,10 +3902,10 @@ webpackJsonp([78],{
 	    return _me;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
-/***/ 244:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 235:
+/***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
 	(function ($) {
@@ -4691,10 +4691,10 @@ webpackJsonp([78],{
 	})(jQuery);
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ }),
+/***/ },
 
-/***/ 248:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 239:
+/***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
 	"use strict";
@@ -4942,12 +4942,12 @@ webpackJsonp([78],{
 	});
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ }),
+/***/ },
 
-/***/ 288:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 279:
+/***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(289)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(280)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 	        "use strict";
 	        var PICKER_SELECTOR = "#month-picker";
 	        var FORMAT = "MM/dd/yyyy";
@@ -5007,10 +5007,10 @@ webpackJsonp([78],{
 	        };
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
-/***/ 289:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 280:
+/***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
 	/*
@@ -5845,10 +5845,10 @@ webpackJsonp([78],{
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ }),
+/***/ },
 
-/***/ 338:
-/***/ (function(module, exports) {
+/***/ 329:
+/***/ function(module, exports) {
 
 	/*--------------------------------------------------------------------------
 	* linq.js - LINQ for JavaScript
@@ -8584,37 +8584,37 @@ webpackJsonp([78],{
 	    return Enumerable;
 	})()
 
-/***/ }),
+/***/ },
 
-/***/ 346:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 337:
+/***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(347)], __WEBPACK_AMD_DEFINE_RESULT__ = function (PlatformWinLoss) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(338)], __WEBPACK_AMD_DEFINE_RESULT__ = function (PlatformWinLoss) {
 	    "use strict";
 	    $(PlatformWinLoss.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ }),
+/***/ },
 
-/***/ 347:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 338:
+/***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
 	    __webpack_require__(1),
 	    __webpack_require__(8),
 	    __webpack_require__(7),
-	    __webpack_require__(240),
-	    __webpack_require__(348),
-	    __webpack_require__(101),
-	    __webpack_require__(288),
-	    __webpack_require__(243),
+	    __webpack_require__(231),
+	    __webpack_require__(339),
+	    __webpack_require__(103),
+	    __webpack_require__(279),
+	    __webpack_require__(234),
 	    __webpack_require__(9),
-	    __webpack_require__(349),
-	    __webpack_require__(222),
-	    __webpack_require__(223),
-	    __webpack_require__(248),
-	    __webpack_require__(338)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, PlatformWinLossOption, jqGridAdditional, MonthPicker, MultiSelect, Popup, ExcelHelper) {
+	    __webpack_require__(340),
+	    __webpack_require__(213),
+	    __webpack_require__(214),
+	    __webpack_require__(239),
+	    __webpack_require__(329)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, PlatformWinLossOption, jqGridAdditional, MonthPicker, MultiSelect, Popup, ExcelHelper) {
 	        "use strict";
 	
 	        var BETLIST_IGNORED_PRODUCTS = ["AB"];
@@ -9019,10 +9019,10 @@ webpackJsonp([78],{
 	        return _me;
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
-/***/ 348:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 339:
+/***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
 	/*
@@ -9030,7 +9030,7 @@ webpackJsonp([78],{
 	*  "0" for master and "1" for member
 	*/
 	
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(101)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(103)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
 	        "use strict";
 	        var BA_PRODUCTCODE = "BA";
 	        var RB_PRODUCTCODE = "RB";
@@ -9438,10 +9438,10 @@ webpackJsonp([78],{
 	        return _me;
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
-/***/ 349:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 340:
+/***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
@@ -9478,7 +9478,7 @@ webpackJsonp([78],{
 	    return _me;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))
 
-/***/ })
+/***/ }
 
 });
 //# sourceMappingURL=platformwinloss.chunk.js.map
