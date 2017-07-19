@@ -58,9 +58,7 @@ webpackJsonp([71],{
 	                    el: mainOption.suggestionDropdown
 	                },
 	                getData: Site.debounce(_me.search, DELAY_MILLISECOND),
-	            });
-	
-	            _me.updateWidthOfSuggestionDropdown();
+	            });       
 	        },
 	
 	        search: function (value, callback) {
@@ -78,6 +76,7 @@ webpackJsonp([71],{
 	                            return { id: item, text: item };
 	                        });
 	
+	                        _me.updateWidthOfSuggestionDropdown();
 	                        callback(value, data);
 	                    }
 	                    else {
@@ -90,8 +89,8 @@ webpackJsonp([71],{
 	        updateWidthOfSuggestionDropdown: function () {
 	            var $autoCompleteTarget = $(mainOption.target);
 	            var $suggestionDropdown = $(mainOption.suggestionDropdown);
-	            if ($suggestionDropdown.width() !== $autoCompleteTarget.width()) {
-	                $suggestionDropdown.width($autoCompleteTarget.width());
+	            if ($suggestionDropdown.innerWidth() !== $autoCompleteTarget.innerWidth()) {
+	                $suggestionDropdown.innerWidth($autoCompleteTarget.innerWidth());
 	            }
 	        },
 	
