@@ -95,8 +95,8 @@
                 var cm = $grid[0].p.colModel;
                 $.each($grid[0].grid.headers, function (index, value) {
                     var cmi = cm[index];
-                    if (cmi.sortable) {
-                        $('.ui-jqgrid-sortable', value.el).css({ cursor: "pointer" });
+                    if (!cmi.sortable) {
+                        $('.ui-jqgrid-sortable', value.el).css({ cursor: "default" });
                     }
                 });
 
