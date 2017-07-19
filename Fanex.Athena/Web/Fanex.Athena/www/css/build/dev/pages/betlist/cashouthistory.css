@@ -419,6 +419,28 @@ table tbody tr.row-group-level1 td {
 .disabled {
   pointer-events: none; }
 
+.sortable {
+  cursor: pointer; }
+  .sortable:hover .sort-heading {
+    text-decoration: underline; }
+
+.sorted-heading {
+  text-decoration: underline; }
+
+.sort-icon {
+  display: inline-block;
+  margin-left: 4px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent; }
+  .sort-icon-asc {
+    border-bottom: 5px solid; }
+    .sort-icon-asc.light {
+      border-bottom-color: #fff; }
+  .sort-icon-desc {
+    border-top: 5px solid; }
+    .sort-icon-desc.light {
+      border-top-color: #fff; }
+
 .betlist-popup {
   padding: 5px 20px; }
 
