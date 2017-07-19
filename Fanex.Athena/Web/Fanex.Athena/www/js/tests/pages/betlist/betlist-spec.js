@@ -132,10 +132,10 @@
                     appendSetFixtures('<div id="HiddenColumnList"></div> <input id="IsShowSumStake" value="1" />');
                     BetList.initialize();
                     $("#grid").html('<tbody><tr><td aria-describedby="BetListGrid_Odds" title="Odd"></td><td aria-describedby="BetListGrid_Stake" title="Stake"></td></tr>');
-                    var idHeadersHavePointerCursor = [];
+                    var idHeadersDoNotHavePointerCursor = [];
                     spyOn($.fn, "css").and.callFake(function (propertyNames) {
                         if (propertyNames.cursor) {
-                            idHeadersHavePointerCursor.push($(this).attr("id"));
+                            idHeadersDoNotHavePointerCursor.push($(this).attr("id"));
                         }
                     });
 
@@ -143,8 +143,9 @@
 
                     expect($(".ui-jqgrid-ftable td[aria-describedby=BetListGrid_Odds]").html(), "GrandTotal");
                     expect($(".ui-jqgrid-ftable td[aria-describedby=BetListGrid_Stake]").html(), "");
-                    expect(idHeadersHavePointerCursor.length).toEqual(1);
-                    expect(idHeadersHavePointerCursor[0]).toEqual("jqgh_grid_ExternalId");
+                    expect(idHeadersDoNotHavePointerCursor.length).toEqual(2);
+                    expect(idHeadersDoNotHavePointerCursor[0]).toEqual("jqgh_grid_Index");
+                    expect(idHeadersDoNotHavePointerCursor[1]).toEqual("jqgh_grid_SystemId");
                 });
 
                 it("Add text for summary stake cell if _isShowSumStake is 0", function () {
