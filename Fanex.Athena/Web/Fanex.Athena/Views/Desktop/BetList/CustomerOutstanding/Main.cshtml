@@ -15,7 +15,7 @@
 }
 @section ContentTitle
 {
-    @Model.Param.ExternalId (@(Model.Param.SystemId)) - <span class="base-currency">@DesktopRazorHelper.ViewBaseCurrency(Model.Param.CurrencyName, Model.Param.BaseCurrency)</span>
+    <span class="content-title">@Model.Param.ExternalId (@(Model.Param.SystemId))</span> - <span class="base-currency">@DesktopRazorHelper.ViewBaseCurrency(Model.Param.CurrencyName, Model.Param.BaseCurrency)</span>
 }
 @section ContentFilter
 {
