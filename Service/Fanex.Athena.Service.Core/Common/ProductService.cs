@@ -27,9 +27,6 @@ namespace Fanex.Athena.Service.Core.Common
 
     #endregion
 
-    /// <summary>
-    ///     The product service.
-    /// </summary>
     public class ProductService : IProductService
     {
         private const int CacheTimeoutMinute = 15;
@@ -56,16 +53,6 @@ namespace Fanex.Athena.Service.Core.Common
 
         #region Public Methods and Operators
 
-        /// <summary>
-        ///     The get product list.
-        /// </summary>
-        /// <param name="licenseeId">
-        ///     The licensee id.
-        /// </param>
-        /// <param name="languageCode">The language code.</param>
-        /// <returns>
-        /// The product list.
-        /// </returns>
         public IList<Product> GetProductList(int licenseeId, string languageCode)
         {
             var cache = Fanex.Caching.CacheService.CreateInstance(CacheType.MemoryCache);
@@ -137,23 +124,8 @@ namespace Fanex.Athena.Service.Core.Common
             return new ProductAccess(products);
         }
 
-        /// <summary>
-        /// Check allowable currency for SA tote.
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <returns>True if this customer's allowed.</returns>
-        public bool IsAllowedSaToteCurrency(int custId)
-        {
-            return this._productDataAccess.IsAllowedSaToteCurrency(custId);
-        }
-
         #endregion
 
-        /// <summary>
-        /// Get Allowed Products.
-        /// </summary>
-        /// <param name="functionName">Function name.</param>
-        /// <returns>Product code array.</returns>
         private string[] GetAllowedProducts(string functionName = null)
         {
             const string FunctionAllowedProductsKey = "FunctionAllowedProducts";
@@ -168,7 +140,7 @@ namespace Fanex.Athena.Service.Core.Common
             {
                 var filePath = HostingEnvironment.MapPath(_appSettings.GetValue("FunctionAllowedProductFile"));
                 functions = _xmlWrapper.Load(filePath).Descendants(nameof(Function));
-                if (functions != null && functions.Count() > 0)
+                if (functions != null && functions.Any())
                 {
                     CacheService.Set(FunctionAllowedProductsKey, functions);
                 }

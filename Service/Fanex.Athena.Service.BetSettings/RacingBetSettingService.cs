@@ -60,5 +60,16 @@ namespace Fanex.Athena.Service.BetSettings
 
             return _betSettingDataAccess.UpdateBetSetting(racingParam);
         }
+
+
+        /// <summary>
+        /// Check allowable currency for SA tote.
+        /// </summary>
+        /// <param name="custId">The customer id.</param>
+        /// <returns>True if this customer's allowed.</returns>
+        public bool IsAllowedSaToteCurrency(int custId)
+        {
+            return this._betSettingDataAccess.IsAllowedSaToteCurrency(custId);
+        }
     }
 }

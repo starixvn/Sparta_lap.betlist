@@ -70,6 +70,51 @@
             _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
         }
 
+        [Test]
+        public void IsAllowedSaToteCurrency_WhenCall_ParametersPassedCorrectly()
+        {
+            // Arrange
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CheckHRAllowedCurrency")).Returns(_objectDb);
+            var custId = 1;
+
+            // Action
+            _dataAccess.IsAllowedSaToteCurrency(custId);
+
+            // Assert
+            _objectDb.Received().AddInParameter("custid", DbType.Int32, custId);
+            _objectDb.Received().AddOutParameter("allowed", DbType.Boolean, sizeof(bool));
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void IsAllowedSaToteCurrency_WhenCall_ParametersPassedCorrectly(bool expected)
+        {
+            // Arrange
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CheckHRAllowedCurrency")).Returns(_objectDb);
+            _objectDb.GetParameterValue("allowed").Returns(expected);
+            var custId = 1;
+
+            // Action
+            var result = _dataAccess.IsAllowedSaToteCurrency(custId);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [TestCase(1, true)]
+        [TestCase(2, false)]
+        public void IsAllowedSaToteCurrency_WhenCall_ReturnCorrectValue(int custId, bool expected)
+        {
+            // Arrange
+            _dataAccess.IsAllowedSaToteCurrency(custId).Returns(expected);
+
+            // Action
+            var result = _dataAccess.IsAllowedSaToteCurrency(custId);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
         private RacingBetSetting GetRacingBetSetting()
         {
             var custId = 1;

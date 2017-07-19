@@ -14,5 +14,7 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
         IList<BetSetting> GetBetSetting(int custId, bool isAllowSaToreCurrency);
 
         IDictionary<string, string> UpdateBetSetting(Dictionary<string, RacingBetSetting> racingBetSettingList);
+
+        bool IsAllowedSaToteCurrency(int custId);
     }
 }

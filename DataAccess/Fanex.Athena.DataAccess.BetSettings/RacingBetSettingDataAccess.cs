@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using Common;
     using Core.Exception;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -79,14 +80,38 @@ namespace Fanex.Athena.DataAccess.BetSettings
                     continue;
                 }
 
-                code += ";" + racingBetSetting.Value.ResultInfo.Code;
-                message += ";" + racingBetSetting.Value.ResultInfo.Message;
+                code = ";" + racingBetSetting.Value.ResultInfo.Code;
+                message = ";" + racingBetSetting.Value.ResultInfo.Message;
             }
 
             result.Add("Code", code);
             result.Add("Message", message);
 
             return result;
+        }
+
+        public bool IsAllowedSaToteCurrency(int custId)
+        {
+            const string UspName = "Lrf_CheckHRAllowedCurrency";
+
+            try
+            {
+                using (var db = this.GetObjectDb(UspName))
+                {
+                    db.AddInParameter("custid", DbType.Int32, custId);
+
+                    db.AddOutParameter("allowed", DbType.Boolean, sizeof(bool));
+
+                    db.ExecuteNonQuery();
+
+                    return Converter.ToBool(db.GetParameterValue("allowed"));
+                }
+            }
+            catch (ObjectDbException sqlException)
+            {
+                LogService.Error(sqlException.Message, sqlException);
+                throw new DataAccessException(sqlException.Message, UspName, new { });
+            }
         }
 
         private static IList<BetSetting> RenderRacingBetSetting(IDataReader reader, bool isAllowSaToteCurrency)
@@ -179,6 +204,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName, "No params");
             }
-        }       
+        }
     }
 }

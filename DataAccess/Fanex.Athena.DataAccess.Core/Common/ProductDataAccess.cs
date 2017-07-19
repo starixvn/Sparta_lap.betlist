@@ -19,19 +19,8 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Logging;
     using Resources;
 
-    /// <summary>
-    ///   The product data access.
-    /// </summary>
     public class ProductDataAccess : BaseDataAccess, IProductDataAccess
     {
-        #region Public Methods and Operators
-
-        /// <summary>
-        ///   The get product access list.
-        /// </summary>
-        /// <param name="licenseeId"> The licensee id. </param>
-        /// <param name="isActiveCustomerSummaryReport">todo: describe isActiveCustomerSummaryReport parameter on GetProductAccessList</param>
-        /// <returns> The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public IList<Product> GetProductAccessList(int licenseeId, bool isActiveCustomerSummaryReport = false)
@@ -72,36 +61,5 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 throw new DataAccessException(sqlException.Message, uspName);
             }
         }
-
-        /// <summary>
-        /// Allow Tote currency.
-        /// </summary>
-        /// <param name="custId">Customer ID value.</param>
-        /// <returns>The result value.</returns>
-        public bool IsAllowedSaToteCurrency(int custId)
-        {
-            const string UspName = "Lrf_CheckHRAllowedCurrency";
-
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("custid", DbType.Int32, custId);
-
-                    db.AddOutParameter("allowed", DbType.Boolean, sizeof(bool));
-
-                    db.ExecuteNonQuery();
-
-                    return Converter.ToBool(db.GetParameterValue("allowed"));
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, UspName, new { });
-            }
-        }
-
-        #endregion Public Methods and Operators
     }
 }

@@ -15,5 +15,7 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
         BetSettingViewModel GetViewModel(int licenseeId, int custId, bool isAllowSaToteCurrency);
 
         IDictionary<string, string> UpdateBetSetting(int licenseeId, Dictionary<string, RacingBetSetting> racingParam);
+
+        bool IsAllowedSaToteCurrency(int custId);
     }
 }
