@@ -9,7 +9,7 @@
         <tr>
             <td>@Model.Resource["SpecialLevel"]</td>
             <td>
-                <p>@level</p>
+                <p class="@(isChangeSpecialLevel ? "red-text" : string.Empty)">@level</p>
                 <p class="old-value @(isChangeSpecialLevel ? string.Empty : "hide")">@levelOld</p>
             </td>
         </tr>
