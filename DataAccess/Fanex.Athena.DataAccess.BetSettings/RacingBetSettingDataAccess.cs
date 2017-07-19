@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Text;
     using Common;
     using Core.Exception;
     using Fanex.Athena.DataAccess.Core;
@@ -20,7 +21,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
     public class RacingBetSettingDataAccess : BaseDataAccess, IRacingBetSettingDataAccess
     {
-        public IList<BetSetting> GetBetSetting(int custId, bool isAllowSaToreCurrency)
+        public IList<BetSetting> GetBetSetting(int custId)
         {
             var uspName = "Lrf_CustomerSelEditRB";
 
@@ -31,7 +32,8 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 {
                     if (reader.Read())
                     {
-                        return RenderRacingBetSetting(reader, isAllowSaToreCurrency);
+                        var isAllowedSaToteCurrency = IsAllowedSaToteCurrency(custId);
+                        return RenderRacingBetSetting(reader, isAllowedSaToteCurrency);
                     }
                 }
             }
@@ -39,10 +41,10 @@ namespace Fanex.Athena.DataAccess.BetSettings
             return new List<BetSetting>();
         }
 
-        public IDictionary<string, string> UpdateBetSetting(Dictionary<string, RacingBetSetting> racingBetSettingList)
+        public IDictionary<string, string> UpdateBetSetting(IDictionary<string, RacingBetSetting> racingBetSettingList)
         {
-            var code = string.Empty;
-            var message = string.Empty;
+            var code = new StringBuilder();
+            var message = new StringBuilder();
 
             var result = new Dictionary<string, string>();
 
@@ -80,38 +82,14 @@ namespace Fanex.Athena.DataAccess.BetSettings
                     continue;
                 }
 
-                code = ";" + racingBetSetting.Value.ResultInfo.Code;
-                message = ";" + racingBetSetting.Value.ResultInfo.Message;
+                code.Append(";" + racingBetSetting.Value.ResultInfo.Code);
+                message.Append(";" + racingBetSetting.Value.ResultInfo.Message);
             }
 
-            result.Add("Code", code);
-            result.Add("Message", message);
+            result.Add("Code", code.ToString());
+            result.Add("Message", message.ToString());
 
             return result;
-        }
-
-        public bool IsAllowedSaToteCurrency(int custId)
-        {
-            const string UspName = "Lrf_CheckHRAllowedCurrency";
-
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("custid", DbType.Int32, custId);
-
-                    db.AddOutParameter("allowed", DbType.Boolean, sizeof(bool));
-
-                    db.ExecuteNonQuery();
-
-                    return Converter.ToBool(db.GetParameterValue("allowed"));
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, UspName, new { });
-            }
         }
 
         private static IList<BetSetting> RenderRacingBetSetting(IDataReader reader, bool isAllowSaToteCurrency)
@@ -134,6 +112,30 @@ namespace Fanex.Athena.DataAccess.BetSettings
             BetSettingHelper.RenderSport(reader, "153_51", racingList); // Harness Aust
 
             return racingList;
+        }
+
+        private bool IsAllowedSaToteCurrency(int custId)
+        {
+            const string UspName = "Lrf_CheckHRAllowedCurrency";
+
+            try
+            {
+                using (var db = this.GetObjectDb(UspName))
+                {
+                    db.AddInParameter("custid", DbType.Int32, custId);
+
+                    db.AddOutParameter("allowed", DbType.Boolean, sizeof(bool));
+
+                    db.ExecuteNonQuery();
+
+                    return Converter.ToBool(db.GetParameterValue("allowed"));
+                }
+            }
+            catch (ObjectDbException sqlException)
+            {
+                LogService.Error(sqlException.Message, sqlException);
+                throw new DataAccessException(sqlException.Message, UspName, new { });
+            }
         }
 
         private void Update15131(CommonBetSetting racingBetSetting)

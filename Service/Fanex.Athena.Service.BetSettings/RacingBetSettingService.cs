@@ -34,10 +34,10 @@ namespace Fanex.Athena.Service.BetSettings
             _betSettingDataAccess = betSettingDataAccess;
         }
 
-        public BetSettingViewModel GetViewModel(int licenseeId, int custId, bool isAllowSaToteCurrency)
+        public BetSettingViewModel GetViewModel(int licenseeId, int custId)
         {
             var betSettings = HasPermissionOnData(licenseeId, custId)
-                        ? _betSettingDataAccess.GetBetSetting(custId, isAllowSaToteCurrency)
+                        ? _betSettingDataAccess.GetBetSetting(custId)
                         : new List<BetSetting>();
             return new BetSettingViewModel
             {
@@ -45,7 +45,7 @@ namespace Fanex.Athena.Service.BetSettings
             };
         }
 
-        public IDictionary<string, string> UpdateBetSetting(int licenseeId, Dictionary<string, RacingBetSetting> racingParam)
+        public IDictionary<string, string> UpdateBetSetting(int licenseeId, IDictionary<string, RacingBetSetting> racingParam)
         {
             if (racingParam == null || racingParam.Count == 0)
             {
@@ -59,17 +59,6 @@ namespace Fanex.Athena.Service.BetSettings
             }
 
             return _betSettingDataAccess.UpdateBetSetting(racingParam);
-        }
-
-
-        /// <summary>
-        /// Check allowable currency for SA tote.
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <returns>True if this customer's allowed.</returns>
-        public bool IsAllowedSaToteCurrency(int custId)
-        {
-            return this._betSettingDataAccess.IsAllowedSaToteCurrency(custId);
         }
     }
 }

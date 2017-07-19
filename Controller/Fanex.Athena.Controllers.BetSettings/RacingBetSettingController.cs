@@ -29,8 +29,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
-            var isAllowSaToteCurrency = _betSettingService.IsAllowedSaToteCurrency(metaModel.CustId);
-            var viewModel = _betSettingService.GetViewModel(SessionService.LicenseeSession.LicenseeId, metaModel.CustId, isAllowSaToteCurrency);
+            var viewModel = _betSettingService.GetViewModel(SessionService.LicenseeSession.LicenseeId, metaModel.CustId);
             AssignRequiredProperties(viewModel, metaModel);
 
             return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);

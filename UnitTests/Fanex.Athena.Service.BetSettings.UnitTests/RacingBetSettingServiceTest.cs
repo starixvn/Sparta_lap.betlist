@@ -41,15 +41,14 @@
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            var isAllowSaToteCurrency = true;
             var betSettings = new List<BetSetting>()
             {
                 new BetSetting()
             };
-            _dataAccess.GetBetSetting(CustId, isAllowSaToteCurrency).Returns(betSettings);
+            _dataAccess.GetBetSetting(CustId).Returns(betSettings);
 
             // Action
-            var result = _service.GetViewModel(LicenseeId, CustId, isAllowSaToteCurrency);
+            var result = _service.GetViewModel(LicenseeId, CustId);
 
             // Assert
             Assert.That(result.MainData.Count, Is.EqualTo(betSettings.Count));
