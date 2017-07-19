@@ -42,13 +42,14 @@ define(["jquery", "crypto-js"], function ($, CryptoJS) {
         setTimeout(getValidateImage, 120000);
     }
 
-    function isValidData() {
-        return !($("#userName").val() === "" || $("#passWord").val() === "" || $('#captcha').val() === "");
-    }
-
-    function getError() {
+    function checkInputValid() {
         var $username = $("#userName");
         var $password = $("#passWord");
+        var $captcha = $('#captcha');
+
+        if ($username.val() && $password.val() && $captcha.val()) {
+            return true;
+        }
 
         var $errorMessage = $("#errmsg");
         $errorMessage.html(LanguageMessages.errUserName);
@@ -83,11 +84,11 @@ define(["jquery", "crypto-js"], function ($, CryptoJS) {
             }
         }
 
-        $(document).on("submit", "#fLogin", function () {
+        document.fLogin.onsubmit = function () {
             var $username = $("#userName");
             $username.val($.trim($username.val()));
-            if (!isValidData()) {
-                return getError();
+            if (!checkInputValid()) {
+                return false;
             }
 
             $('#btnLogin').prop('disabled', true);
@@ -102,22 +103,8 @@ define(["jquery", "crypto-js"], function ($, CryptoJS) {
             var hashPassword = CryptoJS.SHA1($password.val() + userSalt).toString(CryptoJS.enc.Hex).toUpperCase();
             var encryptedPass = CryptoJS.SHA1(hashPassword + $loginToken.val() + userSalt).toString(CryptoJS.enc.Hex).toUpperCase();
             $password.val(encryptedPass);
-
             return true;
-        });
-
-        $("#fLogin").on("keydown", "input", function (event) {
-            event = event || window.event;
-            var key = event.keyCode || event.which;
-
-            if (key === 13) {
-                $("#fLogin").submit();
-            }
-        });
-
-        $("#btnLogin").on("click", function () {
-            $("#fLogin").submit();
-        });
+        };
 
         $("#captcha-img").on("click", function () {
             getValidateImage();

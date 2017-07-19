@@ -859,6 +859,7 @@
     <Content Include="www\css\build\pro\pages\customer\commgrouplist.css" />
     <Content Include="www\css\build\pro\pages\customer\customerlist.css" />
     <Content Include="www\css\build\pro\pages\customer\customerlog.css" />
+    <Content Include="www\css\build\pro\pages\utility\licenseelist.css" />
     <Content Include="www\css\build\pro\um.css" />
     <Content Include="www\css\source\components\jquery.colorpicker\colorPicker.css" />
     <Content Include="www\css\source\pages\customer\commgrouplist.scss" />
