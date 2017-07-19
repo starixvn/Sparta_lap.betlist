@@ -42,9 +42,7 @@ define(["jquery", "common/site", "materialize-autocomplete"], function ($, Site)
                     el: mainOption.suggestionDropdown
                 },
                 getData: Site.debounce(_me.search, DELAY_MILLISECOND),
-            });
-
-            _me.updateWidthOfSuggestionDropdown();
+            });       
         },
 
         search: function (value, callback) {
@@ -62,6 +60,7 @@ define(["jquery", "common/site", "materialize-autocomplete"], function ($, Site)
                             return { id: item, text: item };
                         });
 
+                        _me.updateWidthOfSuggestionDropdown();
                         callback(value, data);
                     }
                     else {
@@ -74,8 +73,8 @@ define(["jquery", "common/site", "materialize-autocomplete"], function ($, Site)
         updateWidthOfSuggestionDropdown: function () {
             var $autoCompleteTarget = $(mainOption.target);
             var $suggestionDropdown = $(mainOption.suggestionDropdown);
-            if ($suggestionDropdown.width() !== $autoCompleteTarget.width()) {
-                $suggestionDropdown.width($autoCompleteTarget.width());
+            if ($suggestionDropdown.innerWidth() !== $autoCompleteTarget.innerWidth()) {
+                $suggestionDropdown.innerWidth($autoCompleteTarget.innerWidth());
             }
         },
 
