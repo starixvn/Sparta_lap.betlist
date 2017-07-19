@@ -21,6 +21,16 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
     public class RacingBetSettingDataAccess : BaseDataAccess, IRacingBetSettingDataAccess
     {
+        private static readonly IDictionary<string, string> RacingSportSpNameMap = new Dictionary<string, string>
+        {
+            { "151_31", "Lrf_CustomerUpdMember_MinMaxBet151_31" },
+            { "151_41", "Lrf_CustomerUpdMember_MinMaxBet151_41" },
+            { "151_51", "Lrf_CustomerUpdMember_MinMaxBet151_51" },
+            { "152_41", "Lrf_CustomerUpdMember_MinMaxBet152_41" },
+            { "152_51", "Lrf_CustomerUpdMember_MinMaxBet152_51" },
+            { "153_51", "Lrf_CustomerUpdMember_MinMaxBet153_51" }
+        };
+
         public IList<BetSetting> GetBetSetting(int custId)
         {
             var uspName = "Lrf_CustomerSelEditRB";
@@ -50,40 +60,14 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
             foreach (var racingBetSetting in racingBetSettingList.Where(r => r.Value.IsDataChange))
             {
-                switch (racingBetSetting.Key)
+                var uspName = RacingSportSpNameMap[racingBetSetting.Key];
+                RacingUpdatingProcess(uspName, racingBetSetting.Value);
+
+                if (racingBetSetting.Value.ResultInfo.Code != 0)
                 {
-                    case "151_31":
-                        Update15131(racingBetSetting.Value);
-                        break;
-
-                    case "151_41":
-                        Update15141(racingBetSetting.Value);
-                        break;
-
-                    case "151_51":
-                        Update15151(racingBetSetting.Value);
-                        break;
-
-                    case "152_41":
-                        Update15241(racingBetSetting.Value);
-                        break;
-
-                    case "152_51":
-                        Update15251(racingBetSetting.Value);
-                        break;
-
-                    case "153_51":
-                        Update15351(racingBetSetting.Value);
-                        break;
+                    code.Append(";" + racingBetSetting.Value.ResultInfo.Code);
+                    message.Append(";" + racingBetSetting.Value.ResultInfo.Message);
                 }
-
-                if (racingBetSetting.Value.ResultInfo.Code == 0)
-                {
-                    continue;
-                }
-
-                code.Append(";" + racingBetSetting.Value.ResultInfo.Code);
-                message.Append(";" + racingBetSetting.Value.ResultInfo.Message);
             }
 
             result.Add("Code", code.ToString());
@@ -136,48 +120,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, new { });
             }
-        }
-
-        private void Update15131(CommonBetSetting racingBetSetting)
-        {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBet151_31";
-
-            RacingUpdatingProcess(uspName, racingBetSetting);
-        }
-
-        private void Update15141(CommonBetSetting racingBetSetting)
-        {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBet151_41";
-
-            RacingUpdatingProcess(uspName, racingBetSetting);
-        }
-
-        private void Update15151(CommonBetSetting racingBetSetting)
-        {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBet151_51";
-
-            RacingUpdatingProcess(uspName, racingBetSetting);
-        }
-
-        private void Update15241(CommonBetSetting racingBetSetting)
-        {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBet152_41";
-
-            RacingUpdatingProcess(uspName, racingBetSetting);
-        }
-
-        private void Update15251(CommonBetSetting racingBetSetting)
-        {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBet152_51";
-
-            RacingUpdatingProcess(uspName, racingBetSetting);
-        }
-
-        private void Update15351(CommonBetSetting racingBetSetting)
-        {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBet153_51";
-
-            RacingUpdatingProcess(uspName, racingBetSetting);
         }
 
         private void RacingUpdatingProcess(string uspName, CommonBetSetting racingBetSetting)

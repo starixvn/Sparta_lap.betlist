@@ -66,7 +66,7 @@
             };
 
             // Action
-            var result = _service.UpdateBetSetting(LicenseeId, racingParam);
+            _service.UpdateBetSetting(LicenseeId, racingParam);
 
             // Assert
             _dataAccess.Received().UpdateBetSetting(Arg.Any<Dictionary<string, RacingBetSetting>>());
@@ -77,7 +77,6 @@
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            var commonBetSetting = new CommonBetSetting();
             Dictionary<string, RacingBetSetting> racingParam = null;
 
             // Action
