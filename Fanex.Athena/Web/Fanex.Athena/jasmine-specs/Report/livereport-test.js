@@ -159,13 +159,13 @@
                 expect(result).toEqual(expected);
             });
 
-            it("Result should return with ['BRVS'] when sportType equal 190 or 191", function () {
+            it("Result should return with ['BRVS'] when product code equals BRVS", function () {
                 var expected = ["BRVS"];
 
-                var result = LiveReport.getMatchListProductOption(190, "ALL");
+                var result = LiveReport.getMatchListProductOption(190, "BRVS");
                 expect(result).toEqual(expected);
 
-                result = LiveReport.getMatchListProductOption(191, "ALL");
+                result = LiveReport.getMatchListProductOption(191, "BRVS");
                 expect(result).toEqual(expected);
             });
         });
