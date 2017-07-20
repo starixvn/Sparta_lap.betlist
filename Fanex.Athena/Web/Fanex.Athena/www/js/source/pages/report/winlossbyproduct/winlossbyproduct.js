@@ -23,14 +23,13 @@
         function getLicenseeWLNote(productOptionJson, caption) {
             var productOptions = $.parseJSON(productOptionJson || "[]");
             var resultProducts = [];
-            var availableProducts = ["SB", "LC", "NG", "VS", "CS", "BG", "KN", "BT", "MGCLC", "MGCRNG", "VB", "BRVS"];
             $.each(productOptions, function (index, item) {
-                if (Site.asBool(item.Status) && $.inArray(item.Code, availableProducts) > -1) {
+                if (Site.asBool(item.Status)) {
                     resultProducts.push(item.Code);
                 }
             });
             if (resultProducts.length > 0) {
-                return (caption || Site.getSingleResource("LicenseeW_L")) + "(" + resultProducts.join() + ")";
+                return (caption || Site.getSingleResource("LicenseeW_L")) + "(" + resultProducts.join(', ') + ")";
             }
             else {
                 return caption || "";

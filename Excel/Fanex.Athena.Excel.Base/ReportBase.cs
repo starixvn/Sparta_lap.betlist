@@ -268,14 +268,12 @@ namespace Fanex.Athena.Excel.Base
             Justification = "Reviewed. Suppression is OK here.")]
         protected internal virtual string GetLicenseeWLProduct(string caption = null)
         {
-            var prdOptionTitleList =
-                ProductOptions.Where(p => p.Code != Product.BA && p.Code != Product.RB);
-            var prdText = prdOptionTitleList.Where(prd => prd.Status)
-                            .Aggregate(string.Empty, (current, prd) => current + (string.IsNullOrEmpty(current) ? prd.Code : ", " + prd.Code));
+            var productCodeList = ProductOptions.Where(p => p.Status)
+                            .Aggregate(string.Empty, (current, p) => current + (string.IsNullOrEmpty(current) ? p.Code : ", " + p.Code));
 
-            return string.IsNullOrEmpty(prdText)
+            return string.IsNullOrEmpty(productCodeList)
                 ? string.IsNullOrWhiteSpace(caption) ? string.Empty : ", " + caption
-                      : string.Format(", {0} ({1})", string.IsNullOrWhiteSpace(caption) ? ViewResources.LicenseeW_L : caption, prdText);
+                      : string.Format(", {0} ({1})", string.IsNullOrWhiteSpace(caption) ? ViewResources.LicenseeW_L : caption, productCodeList);
         }
 
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
