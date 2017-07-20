@@ -1,19 +1,19 @@
-webpackJsonp([29],{
+webpackJsonp([23],{
 
 /***/ 0:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(71);
+	module.exports = __webpack_require__(60);
 
 
-/***/ }),
+/***/ },
 
-/***/ 71:
-/***/ (function(module, exports) {
+/***/ 60:
+/***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
-/***/ })
+/***/ }
 
 });
 //# sourceMappingURL=reportjqgridlayout.chunk.js.map
