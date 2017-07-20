@@ -203,7 +203,18 @@
                         title: Site.getSingleResource("UpdateCustomerCommission"),
                         id: 'UpdateCustCommPopUp',
                         height: "auto",
-                        width: 500
+                        width: 500,
+                        onOpen: function () {
+                            $(".commission-selection").each(function (index, value) {
+                                var $this = $(this);
+                                $this.val(0);
+                                $this.selectList("update", {
+                                    isDisabled: false,
+                                    selectionId: "select-list-" + value.id,
+                                    labelText: "0"
+                                });
+                            });
+                        }
                     },
                     [
                         {

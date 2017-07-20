@@ -530,6 +530,29 @@
 
                     expect(CustomerListCommision.updateCustomerComm).toHaveBeenCalled();
                 });
+
+                it("commission select should be reset if popup is opened", function () {
+                    setFixtures('<select class="commission-selection" id="id"></select>')
+                    var option, selectFunction, selectOption;
+                    spyOn(Popup, "openPopupWithButton").and.callFake(function (element, options, buttons) {
+                        option = options;
+                    });
+                    spyOn(CustomerListCommision, "clearNotification");
+                    spyOn(CustomerListState, "getState").and.returnValue({
+                        selectedCustomers: {}
+                    });
+                    spyOn($.fn, "selectList").and.callFake(function (func, option) {
+                        selectFunction = func;
+                        selectOption = option
+                    });
+
+                    CustomerListCommision.showUpdateCustComm();
+                    option.onOpen();
+
+                    expect($.fn.selectList).toHaveBeenCalled();
+                    expect(selectFunction).toBe("update");
+                    expect(selectOption.labelText).toBe("0");
+                });
             });
 
             describe("initCommissionParam(id)", function () {

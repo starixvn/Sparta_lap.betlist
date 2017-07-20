@@ -200,7 +200,14 @@ var CustomerComm = (function ($) {
                             $(this).dialog("close");
                         }
                     }
-                ]
+                ],
+                open: function () {
+                    $(".commission-selection").each(function (index, id) {
+                        var $this = $(this);
+                        $this.val(0);
+                        $this.removeAttr('disabled');
+                    });
+                }
             });
         },
         initCommissionParam: function (id) {
