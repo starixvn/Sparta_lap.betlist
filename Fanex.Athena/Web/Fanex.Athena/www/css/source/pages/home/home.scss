@@ -28,12 +28,15 @@
     }
 
     .select-list-container {
+        margin-bottom: 0;
         .selection {
-            border-bottom-color: $white;
+            border-bottom-color: rgba(255, 255, 255, 0.8);
+            vertical-align: middle;
         }
 
         .selection-icon-arrow {
             border-top-color: $white;
+            border-width: 3.5px 3.5px 0 3.5px;
         }
     }
 }
@@ -71,4 +74,12 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+.clock-block {
+    padding: 0 1rem;
+}
+
+#clock{
+    margin-left: 5px;
 }

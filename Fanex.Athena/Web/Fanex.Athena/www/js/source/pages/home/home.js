@@ -32,6 +32,14 @@ define([
             });
         }
 
+        // init clock
+        $('#clock').jclock({
+            utc: true,
+            utcOffset: -4,
+            format: '%H:%M:%S %b %d, %Y GMT'
+        });
+    }
+
         function initVariables() {
             $searchBox = $('#searchbox');
         }
