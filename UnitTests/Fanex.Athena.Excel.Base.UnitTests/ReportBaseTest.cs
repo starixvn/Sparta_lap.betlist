@@ -125,8 +125,8 @@
             Assert.That(result, Is.EqualTo(expected));
         }
 
-        [TestCase("Caption", ", Caption (SB, CS)")]
-        [TestCase(null, ", Licensee W/L (SB, CS)")]
+        [TestCase("Caption", ", Caption (SB, CS, BA)")]
+        [TestCase(null, ", Licensee W/L (SB, CS, BA)")]
         public void GetLicenseeWLProduct_ProductOptionListHasData_ReturnCorrectValue(string caption, string expected)
         {
             // Arrange
