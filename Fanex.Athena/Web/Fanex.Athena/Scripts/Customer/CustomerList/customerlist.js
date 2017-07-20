@@ -687,7 +687,6 @@ var CustomerList = (function ($) {
                 },
                 error: function () {
                     Site.unBlockUI();
-                    alert(Site.getSingleResource("ErrorProcessingMsg"));
                 }
             };
             if (ajaxRequest != null) {

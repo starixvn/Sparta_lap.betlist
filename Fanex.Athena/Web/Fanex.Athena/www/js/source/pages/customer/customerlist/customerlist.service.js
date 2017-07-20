@@ -37,7 +37,6 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
                 },
                 error: function () {
                     Site.unBlockUI();
-                    alert(Site.getSingleResource("ErrorProcessingMsg"));
                 }
             };
 
