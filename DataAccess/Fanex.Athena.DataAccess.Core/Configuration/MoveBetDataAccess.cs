@@ -8,7 +8,6 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
 {
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Configuration.Interfaces;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Common.Extensions;
     using Fanex.Data;
@@ -19,11 +18,11 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
         public MoveBetNotification GetMoveBetNotification()
         {
             const string UspName = "Acc_ShowNotificationWhenProcessingData";
+            var moveBet = new MoveBetNotification();
             try
             {
                 using (var db = this.GetObjectDb(UspName))
                 {
-                    var moveBet = new MoveBetNotification();
                     using (var reader = db.ExecuteReader())
                     {
                         if (reader.Read())
@@ -38,15 +37,14 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
                             moveBet.ContentByLanguage.Add("vi-VN", reader.ToString("Content_VI"));
                         }
                     }
-
-                    return moveBet;
                 }
             }
             catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, UspName);
             }
+
+            return moveBet;
         }
     }
 }
