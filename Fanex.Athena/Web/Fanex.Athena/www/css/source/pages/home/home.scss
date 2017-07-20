@@ -18,29 +18,6 @@
     box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 1px 1px -2px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.12);
 }
 
-.licensees-block {
-    padding: 0 1rem;
-    width: 150px;
-
-    .select-licensee {
-        display: inline-block;
-        width: 100%;
-    }
-
-    .select-list-container {
-        margin-bottom: 0;
-        .selection {
-            border-bottom-color: rgba(255, 255, 255, 0.8);
-            vertical-align: middle;
-        }
-
-        .selection-icon-arrow {
-            border-top-color: $white;
-            border-width: 3.5px 3.5px 0 3.5px;
-        }
-    }
-}
-
 .select-list-result-container {
     top: 65px !important;
 }
@@ -74,10 +51,6 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-}
-
-.clock-block {
-    padding: 0 1rem;
 }
 
 #clock{
