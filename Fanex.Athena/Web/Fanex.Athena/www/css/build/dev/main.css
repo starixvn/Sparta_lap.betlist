@@ -3971,6 +3971,9 @@ textarea {
 .icon-checkmark:before {
   content: "\EA10"; }
 
+.icon-clock:before {
+  content: "\E94E"; }
+
 @font-face {
   font-family: 'Montserrat Regular';
   src: url("../fonts/montserrat/Montserrat-Bold.tff") format("truetype");
@@ -4084,15 +4087,6 @@ main {
   cursor: pointer; }
   .icon-book.right {
     margin-left: 10px; }
-
-.icon-pencil, .icon-edit {
-  color: #066CC0 !important; }
-
-.icon-bin, .icon-delete {
-  color: #d91a1a !important; }
-
-.icon-checkmark {
-  color: #4eb85e !important; }
 
 .text-center {
   text-align: center; }
