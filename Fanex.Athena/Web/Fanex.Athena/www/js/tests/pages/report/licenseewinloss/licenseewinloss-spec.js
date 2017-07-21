@@ -626,7 +626,7 @@
 
                 describe("level equal 0", function () {
                     beforeEach(function () {
-                        LicenseeWinLoss.drillDown(0, 9, 0, '2017-02-04T00:00:00', 'EUR');
+                        LicenseeWinLoss.drillDown(0, 9, 0, '2017-03-04T00:00:00', 'EUR');
                         var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
                         ajaxOptionForDrillingDown.success({ Data: [{ Name: "Test Level 0" }] });
                         LicenseeWinLoss.goBack(0);
