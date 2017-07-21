@@ -328,14 +328,6 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
                 expect(ajaxObj.abort).toHaveBeenCalled();
             });
 
-            it("window.alert should be called to show error message if calling ajax fails", function () {
-                CustomerListService.submit();
-
-                ajaxOption.error();
-
-                expect(window.alert).toHaveBeenCalledWith("ErrorProcessingMsg");
-            });
-
             it("bindData(response) should be called if calling ajax successfully", function () {
                 CustomerListService.submit();
 
