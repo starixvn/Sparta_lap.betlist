@@ -1,15 +1,15 @@
 ﻿@import "../abstracts/_variables.scss";
 
 @mixin searchBarFocusedMobile() {
-    position: absolute;
+    position: fixed;
     width: 100%;
     background: #fff;
-    right: 0;
     margin-right: 0;
     color: #333;
     padding-left: 10px;
     z-index: 3;
-    height: 34px;
+    height: 25px;
+    top: 70px;
 
     label {
         color: #333 !important;
@@ -17,11 +17,14 @@
 
     #label-search {
         left: 10px;
+        top: 0;
     }
 }
 
 @mixin inputFocusedMobile() {
     opacity: 1;
+    height: 25px;
+    border-bottom: none;
 
     &:focus {
         border-bottom: none;
@@ -30,22 +33,22 @@
 }
 
 @mixin searchBarMobile() {
-    position: absolute;
+    position: fixed;
     right: 0;
     width: 100%;
     margin-right: 0;
-    height: 34px;
-    top: 63px;
+    height: 25px;
+    top: 70px;
 
     #label-search {
+        top: -2px !important;
         right: 10px;
     }
 }
 
-@mixin clockMobile() {
-    position: absolute;
-    top: 48px;
-    right: 35px;
+@mixin heightForRightBlock() {
+    height: 32px;
+    line-height: 32px;
 }
 
 header {
@@ -74,6 +77,10 @@ header {
         line-height: 64px;
         top: 0;
         right: 0;
+
+        i {
+            @include heightForRightBlock()
+        }
     }
 }
 
@@ -186,9 +193,19 @@ header {
             color: $yellow;
         }
     }
+    //--------------- Clock -------------------//
+    .clock-block {
+        position: absolute;
+        top: 0;
+        right: 15px;
+        @include heightForRightBlock()
+    }
 
-    .right {
-        padding-right: 0.5rem;
+    .right-block {
+        position: absolute;
+        right: 15px;
+        top: 27px;
+        @include heightForRightBlock();
 
         > * {
             float: right;
@@ -197,7 +214,6 @@ header {
         .navbar-avatar {
             position: relative;
             z-index: 2;
-            padding: 0 0.8rem;
         }
 
         .avatar {
@@ -225,24 +241,12 @@ header {
 
         .profile-items {
             width: 17rem !important;
-            top: 64px !important;
+            top: 38px !important;
 
             .icon {
                 font-size: 14px;
                 padding-left: 10px;
                 vertical-align: middle;
-            }
-        }
-        //--------------- Clock -------------------//
-        .clock-block {
-            padding: 0 1rem;
-            // ----------- iPhone 5 and 5S Portrait ----------- //
-            @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
-                @include clockMobile()
-            }
-            // ----------- iPhone 6 Portrait ----------- //
-            @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
-                @include clockMobile()
             }
         }
         //------------ Search block -------------------//
@@ -276,13 +280,11 @@ header {
                 color: #fff;
                 cursor: pointer;
                 border-radius: 50%;
+                line-height: 25px;
 
                 i {
-                    position: relative;
-                    bottom: 20px;
-                    text-align: center;
                     font-size: 15px;
-                    height: initial;
+                    vertical-align: top;
                 }
             }
 
@@ -315,13 +317,11 @@ header {
 
                 .placeholder {
                     border-bottom: 1px solid #fff;
-                    box-shadow: 0 1px 0 0 #fff;
                     vertical-align: middle;
                     background: transparent none repeat scroll 0 0;
 
                     &:focus {
                         border-bottom: 1px solid #fff;
-                        box-shadow: 0 1px 0 0 #fff;
                     }
                     // ----------- iPhone 5 and 5S Portrait ----------- //
                     @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
@@ -367,7 +367,7 @@ header {
 
             .language-items {
                 width: 15rem !important;
-                top: 64px !important;
+                top: 38px !important;
 
                 > li {
                     min-height: 4rem;
