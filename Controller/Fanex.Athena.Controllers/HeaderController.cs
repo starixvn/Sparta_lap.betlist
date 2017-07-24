@@ -41,7 +41,8 @@ namespace Fanex.Athena.Controllers
                 IsDisabledRecheckIn = AppSettings.Environment.Equals("DEV", System.StringComparison.OrdinalIgnoreCase),
                 SupportedLanguageList = Util.SupportedLanguages,
                 UserName = userSession.UserName,
-                CurrentLicenseeId = SessionService.LicenseeSession.LicenseeId
+                CurrentLicenseeId = SessionService.LicenseeSession.LicenseeId,
+                IsAllowedManagementMember = userSession.FunctionIdList.Contains((int)FunctionType.CustomerList)
             };
             return View("~/Views/Header/Index.cshtml", viewModel);
         }

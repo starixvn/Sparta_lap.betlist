@@ -29,5 +29,7 @@ namespace Fanex.Athena.Model.Core.ViewModel
         public string UserName { get; set; }
 
         public int CurrentLicenseeId { get; set; }
+
+        public bool IsAllowedManagementMember { get; set; }
     }
 }
