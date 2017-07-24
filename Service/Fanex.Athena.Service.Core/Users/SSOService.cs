@@ -264,8 +264,7 @@ namespace Fanex.Athena.Service.Core.Users
                     user.Username,
                     true,
                     user.Licensee.Id,
-                    languageCode,
-                    viewType: ClientViewType.Default);
+                    languageCode);
             }
 
             resultInfo = loginResultInfo;

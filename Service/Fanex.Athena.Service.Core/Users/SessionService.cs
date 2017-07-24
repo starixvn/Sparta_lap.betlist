@@ -92,12 +92,11 @@ namespace Fanex.Athena.Service.Core.Users
             bool isInternal,
             int licenseeId = 0,
             string language = "en-US",
-            ClientViewType viewType = ClientViewType.Default)
+            ClientViewType viewType = ClientViewType.None)
         {
             var licenseeList = _licenseeService.GetByUser(userId);
             var functionList = _functionService.GetUserFunctionList(licenseeId, userId);
             var functionIdList = functionList.Select(f => f.FunctionId).ToList();
-
             var userSession = new UserSession
             {
                 UserId = userId,
