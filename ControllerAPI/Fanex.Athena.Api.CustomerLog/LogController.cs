@@ -203,7 +203,7 @@ namespace Fanex.Athena.Api.CustomerLog
             var viewName = GetActionViewName(actionId);
             var templatePath = HostingEnvironment.MapPath(viewName);
             var template = File.ReadAllText(templatePath);
-            return Engine.Razor.RunCompile(template, actionId.ToString(), null, viewModel);
+            return Engine.Razor.RunCompile(template, viewName, null, viewModel);
         }
 
         private string GetActionViewName(int actionId)
