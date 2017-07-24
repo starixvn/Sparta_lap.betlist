@@ -101,6 +101,7 @@ webpackJsonp([55],{
 	                 success: function (result) {
 	                     if (result === "OK") {
 	                         $("#GroupName").removeClass("invalid").addClass("valid");
+	                         $("label[for=GroupName]").attr("data-success", "");
 	                         $("#Add").prop("disabled", false);
 	                     }
 	                     else {
@@ -666,6 +667,7 @@ webpackJsonp([55],{
 	                 if ($groupName.val() === _originalGroupName) {
 	                     $groupName.removeClass("invalid");
 	                     $groupName.addClass("valid");
+	                     $("label[for=GroupName]").attr("data-success", "")
 	                     $("#Add").prop("disabled", false);
 	                     return;
 	                 }
