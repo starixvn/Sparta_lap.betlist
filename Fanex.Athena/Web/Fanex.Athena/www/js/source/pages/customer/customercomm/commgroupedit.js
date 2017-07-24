@@ -21,7 +21,7 @@
                      $groupName.removeClass("invalid");
                      $groupName.addClass("valid");
                      $("label[for=GroupName]").attr("data-success", "")
-                     $("#Add").prop("disabled", false);
+                     $("#Submit").prop("disabled", false);
                      return;
                  }
 

@@ -13,7 +13,7 @@
          function initEvent() {
              $("#GroupName").keyup(function () {
                  $("#GroupName").removeClass("invalid valid");
-                 $("#Add").prop("disabled", false);
+                 $("#Submit").prop("disabled", false);
              });
 
              $("#Cancel").click(function () {
@@ -90,7 +90,7 @@
                      if (result === "OK") {
                          $("#GroupName").removeClass("invalid").addClass("valid");
                          $("label[for=GroupName]").attr("data-success", "");
-                         $("#Add").prop("disabled", false);
+                         $("#Submit").prop("disabled", false);
                      }
                      else {
                          displayGroupNameError(Site.getSingleResource("GroupNameExistedMsg"));
@@ -104,7 +104,7 @@
          function displayGroupNameError(errorMsg) {
              $('label[for="GroupName"]').attr("data-error", errorMsg);
              $("#GroupName").addClass("invalid").focus();
-             $("#Add").prop("disabled", true);
+             $("#Submit").prop("disabled", true);
          }
 
          function commissionOnChange(value, idName) {

@@ -34,14 +34,14 @@
 
             describe("initEvent()", function () {
                 it("remove validation class on #GroupName when inputting data in it", function () {
-                    setFixtures('<input type="text" id="GroupName" class="invalid valid">' + '<button id="Add" disabled="disabled"></button>');
+                    setFixtures('<input type="text" id="GroupName" class="invalid valid">' + '<button id="Submit" disabled="disabled"></button>');
 
                     CustomerCommGroupDetail.initEvent();
                     $("#GroupName").keyup();
 
                     expect($("#GroupName").hasClass("invalid")).toEqual(false);
                     expect($("#GroupName").hasClass("valid")).toEqual(false);
-                    expect($("#Add").is("disabled")).toEqual(false);
+                    expect($("#Submit").is("disabled")).toEqual(false);
                 });
 
                 it("redirect to Index if Cancel button is clicked", function () {
@@ -251,7 +251,7 @@
                 beforeEach(function () {
                     setFixtures('<input type="text" id="GroupName">');
                     appendSetFixtures('<label for="GroupName"></label>');
-                    appendSetFixtures('<button id="Add"></button>');
+                    appendSetFixtures('<button id="Submit"></button>');
                 });
 
                 it("display GroupNameNotEmptyMsg if group name is empty", function () {
@@ -259,7 +259,7 @@
 
                     expect($('label[for="GroupName"]').attr("data-error")).toEqual("GroupNameNotEmptyMsg");
                     expect($("#GroupName").hasClass("invalid")).toEqual(true);
-                    expect($("#Add").is(":disabled")).toEqual(true);
+                    expect($("#Submit").is(":disabled")).toEqual(true);
                 });
 
                 it("display GroupNameNotEmptyMsg if group name lengh greater than 100", function () {
@@ -272,7 +272,7 @@
 
                     expect($('label[for="GroupName"]').attr("data-error")).toEqual("GroupNameNotExceed100CharactersMsg");
                     expect($("#GroupName").hasClass("invalid")).toEqual(true);
-                    expect($("#Add").is(":disabled")).toEqual(true);
+                    expect($("#Submit").is(":disabled")).toEqual(true);
                 });
 
                 it("display ChooseGroupNameMsg if group name is 'none'", function () {
@@ -280,7 +280,7 @@
 
                     expect($('label[for="GroupName"]').attr("data-error")).toEqual("ChooseGroupNameMsg");
                     expect($("#GroupName").hasClass("invalid")).toEqual(true);
-                    expect($("#Add").is(":disabled")).toEqual(true);
+                    expect($("#Submit").is(":disabled")).toEqual(true);
                 });
 
                 it("display GroupNameOnlyContainCharactersAndNumberMsg if group name has special characters", function () {
@@ -288,7 +288,7 @@
 
                     expect($('label[for="GroupName"]').attr("data-error")).toEqual("GroupNameOnlyContainCharactersAndNumberMsg");
                     expect($("#GroupName").hasClass("invalid")).toEqual(true);
-                    expect($("#Add").is(":disabled")).toEqual(true);
+                    expect($("#Submit").is(":disabled")).toEqual(true);
                 });
 
                 it("display GroupNameExistedMsg if group name is existing", function () {
@@ -304,7 +304,7 @@
 
                     expect($('label[for="GroupName"]').attr("data-error")).toEqual("GroupNameExistedMsg");
                     expect($("#GroupName").hasClass("invalid")).toEqual(true);
-                    expect($("#Add").is(":disabled")).toEqual(true);
+                    expect($("#Submit").is(":disabled")).toEqual(true);
                     expect(Site.blockUI).toHaveBeenCalled();
                 });
 
@@ -320,7 +320,7 @@
 
                     expect($("#GroupName").hasClass("valid")).toEqual(true);
                     expect($("#GroupName").hasClass("invalid")).toEqual(false);
-                    expect($("#Add").is(":disabled")).toEqual(false);
+                    expect($("#Submit").is(":disabled")).toEqual(false);
                 });
             });
 
