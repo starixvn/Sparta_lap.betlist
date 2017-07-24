@@ -71,7 +71,8 @@ define([], function () {
             loadonce: true,
             gridview: true,
             sortorder: "desc",
-            pager: '#ppdata'
+            pager: '#ppdata',
+            loadtext: ''
         },
 
         getColNames: function () {

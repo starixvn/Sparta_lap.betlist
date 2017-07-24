@@ -60,7 +60,8 @@ define([], function () {
             loadonce: true,
             gridview: true,
             sortorder: "desc",
-            pager: null
+            pager: null,
+            loadtext: ''
         },
 
         getColNames: function () {
