@@ -25,8 +25,8 @@
                         DrawFilter: 0,
                         CurrencyId: 1,
                         ReportBy: 2,
-                        FromDate: "2017-02-01T00:00:00",
-                        ToDate: "2017-03-31T00:00:00",
+                        FromDate: "2017-02-01T01:00:00",
+                        ToDate: "2017-03-31T01:00:00",
                         CurrencyName: "EUR",
                         IsExcludedTestData: true
                     };
@@ -53,7 +53,7 @@
                 });
 
                 it("Report.renderBreadCrumb(level, licenseeId) should be called with correct parameter", function () {
-                    LicenseeWinLoss.drillDown(0, 9, 0, '2017-02-04T00:00:00', 'EUR');
+                    LicenseeWinLoss.drillDown(0, 9, 0, '2017-02-04T01:00:00', 'EUR');
                     var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
                     ajaxOptionForDrillingDown.success({ Data: [{ Name: "Test Level 0" }] });
                     LicenseeWinLoss.goBack(0);
@@ -61,7 +61,7 @@
                     expect(Report.renderBreadCrumb).toHaveBeenCalledWith(0, 0);
                 });
                 it("LicenseeWinLoss.bindData(level) should be called with correct parameter", function () {
-                    LicenseeWinLoss.drillDown(0, 9, 0, '2017-02-04T00:00:00', 'EUR');
+                    LicenseeWinLoss.drillDown(0, 9, 0, '2017-02-04T01:00:00', 'EUR');
                     var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
                     ajaxOptionForDrillingDown.success({ Data: [{ Name: "Test Level 0" }] });
                     LicenseeWinLoss.goBack(0);

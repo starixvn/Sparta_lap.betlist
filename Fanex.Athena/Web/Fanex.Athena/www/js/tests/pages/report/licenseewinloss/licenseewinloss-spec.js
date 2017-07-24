@@ -624,8 +624,8 @@
                         DrawFilter: 0,
                         CurrencyId: 1,
                         ReportBy: 2,
-                        FromDate: "2017-03-01T00:00:00",
-                        ToDate: "2017-03-31T00:00:00",
+                        FromDate: "2017-03-01T01:00:00",
+                        ToDate: "2017-03-31T01:00:00",
                         CurrencyName: "EUR",
                         IsExcludedTestData: true
                     };
@@ -643,7 +643,7 @@
                     spyOn(Popup, "openPopupWithIframe");
                     $(window).height(300);
 
-                    dataDrilldown = '{"DrillDownFromDate":"2017-01-01T00:00:00","DrillDownToDate":"2017-03-20T00:00:00","DrillDownCurrencyId":9,"DrillDownCurrencyName":"AUD",' +
+                    dataDrilldown = '{"DrillDownFromDate":"2017-01-01T01:00:00","DrillDownToDate":"2017-03-20T01:00:00","DrillDownCurrencyId":9,"DrillDownCurrencyName":"AUD",' +
                         '"CustomerId":6507355,"ExternalId":"DEWSNIP","SystemId":"12BETAUD01159"}';
                 });
                 afterEach(function () {
@@ -652,8 +652,8 @@
                         DrawFilter: 0,
                         CurrencyId: 1,
                         ReportBy: 2,
-                        FromDate: "2017-03-01T00:00:00",
-                        ToDate: "2017-03-31T00:00:00",
+                        FromDate: "2017-03-01T01:00:00",
+                        ToDate: "2017-03-31T01:00:00",
                         CurrencyName: "EUR",
                         IsExcludedTestData: true
                     };
@@ -681,8 +681,8 @@
                     });
 
                     it("Popup.openPopupWithIframe(url, option) should be called with correct parameter when DrillDownDate equal to date in submit data", function () {
-                        submitData.FromDate = "2017-01-10T00:00:00";
-                        submitData.ToDate = "2017-01-15T00:00:00";
+                        submitData.FromDate = "2017-01-10T01:00:00";
+                        submitData.ToDate = "2017-01-15T01:00:00";
 
                         LicenseeWinLoss.submit();
                         var ajaxOption = $.ajax.calls.mostRecent().args[0];
@@ -711,8 +711,8 @@
                             DrawFilter: 0,
                             CurrencyId: 1,
                             ReportBy: 2,
-                            FromDate: "2017-03-01T00:00:00",
-                            ToDate: "2017-03-31T00:00:00",
+                            FromDate: "2017-03-01T01:00:00",
+                            ToDate: "2017-03-31T01:00:00",
                             CurrencyName: "EUR",
                             IsExcludedTestData: true
                         };
