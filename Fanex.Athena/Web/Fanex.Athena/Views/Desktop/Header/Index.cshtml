@@ -33,7 +33,8 @@
                 </ul>
             </div>
         }
-
+        @if (Model.LicenseeList.Count > 1)
+        {
         <div class="licensees-block s2-selectSite">
             <select id="ddlLicensee" name="ddlLicensee" class="select-licensee hide">
                 @foreach (var licensee in Model.LicenseeList)
@@ -43,7 +44,7 @@
                 }
             </select>
         </div>
-
+        }
         <div class="languages-block">
             @{
                 var currentLanguage = Model.SupportedLanguageList.FirstOrDefault(p => p.Key.Equals(Model.Language)).Value;
