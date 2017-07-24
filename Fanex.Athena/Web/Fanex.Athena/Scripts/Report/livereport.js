@@ -140,7 +140,7 @@ var LiveReport = (function ($) {
                 else if (sportId === 162) {
                     productOptions.push("LC");
                 }
-                else if (productCode === "BRVS") {
+                else if (sportId === 190 || sportId === 191 || sportId === 104) {
                     productOptions.push("BRVS");
                 }
                 else {
