@@ -21,7 +21,7 @@
                 {
                     var msg = ViewBag.Result.Message;
                     var errorMsg = string.IsNullOrEmpty(ViewBag.Result.ErrorMessage)
-                    ? (ViewData.ModelState["GroupName"].Errors.Any() ? ViewData.ModelState["GroupName"].Errors[0].ErrorMessage : string.Empty)
+                    ? (ViewData.ModelState.Count > 0 && ViewData.ModelState["GroupName"].Errors.Any() ? ViewData.ModelState["GroupName"].Errors[0].ErrorMessage : string.Empty)
                     : ViewBag.Result.ErrorMessage;
 
                     @Html.TextBoxFor(model => model.GroupName, new { @class = ViewBag.Result.Success ? "validate valid" : "validate invalid", autofocus = "autofocus" })
@@ -32,7 +32,7 @@
                     @Html.TextBoxFor(model => model.GroupName, new { @class = "validate", autofocus = "autofocus" })
                     <label for="GroupName" data-error="" data-success="">@ViewResources.GroupName</label>
                 }
-                <input type="hidden" id="OriginalGroupName" value="@(Model.GroupName)" />
+                @Html.HiddenFor(model => model.OriginalGroupName)
             </div>
             <div class="input-field col l5 m4 s12 button-block">
                 <input type="button" class="btn btn-nav" id="Validate" value="@ViewResources.Checkavailability" />

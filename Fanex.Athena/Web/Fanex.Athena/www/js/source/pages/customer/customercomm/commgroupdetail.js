@@ -89,6 +89,7 @@
                  success: function (result) {
                      if (result === "OK") {
                          $("#GroupName").removeClass("invalid").addClass("valid");
+                         $("label[for=GroupName]").attr("data-success", "");
                          $("#Add").prop("disabled", false);
                      }
                      else {

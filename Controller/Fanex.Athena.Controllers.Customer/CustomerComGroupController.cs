@@ -172,6 +172,11 @@ namespace Fanex.Athena.Controllers.Customer
                 }
             }
 
+            if(result.Success)
+            {
+                ModelState.Clear();
+            }
+
             ViewBag.Result = result;
 
             return View("~/Views/Customer/CustomerComm/UpdateGroup.cshtml", metaModel);
@@ -387,6 +392,7 @@ namespace Fanex.Athena.Controllers.Customer
         {
             metaModel.IsResetDefault = false;
             metaModel.DefaultGroupId = metaModel.IsDefaultGroup ? metaModel.GroupCommId : metaModel.DefaultGroupId;
+            metaModel.OriginalGroupName = metaModel.GroupName;
         }
 
         private void CreateMetaModel(GroupCommMetaModel metaModel)
@@ -402,6 +408,7 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsUpdateLC = productAccess.IsAllowLC;
             metaModel.IsUpdateCS = productAccess.IsAllowCS;
             metaModel.DefaultGroupId = defaultGroupId;
+            metaModel.OriginalGroupName = metaModel.GroupName;
         }
 
         private ResultViewModel UpdateGroupComm(GroupCommMetaModel metaModel)
