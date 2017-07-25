@@ -150,9 +150,10 @@ namespace Fanex.Athena.Controllers
                 var user = _userService.ValidateUserForLrfSystem(requestUser, model.LogInToken, out resultInfo);
                 if (resultInfo.IsSuccessful)
                 {
+                    var onuserId = _userService.LoginOnUser(user, Session.SessionID, user.ServerId, Request.UserHostAddress);
                     SessionService.CreateNewSession(
                         user.UserID,
-                        _userService.LoginOnUser(user, Session.SessionID, user.ServerId, Request.UserHostAddress),
+                        onuserId,
                         user.Username,
                         user.IsInternal,
                         user.Licensee.Id);
