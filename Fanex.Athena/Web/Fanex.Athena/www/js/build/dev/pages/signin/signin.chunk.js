@@ -1,17 +1,17 @@
-webpackJsonp([65],{
+webpackJsonp([88],{
 
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(300);
+	module.exports = __webpack_require__(363);
 
 
 /***/ }),
 
-/***/ 300:
+/***/ 363:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(301)], __WEBPACK_AMD_DEFINE_RESULT__ = function (SignIn) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(364)], __WEBPACK_AMD_DEFINE_RESULT__ = function (SignIn) {
 	    "use strict";
 	    $(window).on("load", function () {
 	        SignIn.InitLogin();
@@ -21,12 +21,12 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 301:
+/***/ 364:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global _page, resolveClientUrl */
 	
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(302)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, CryptoJS) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(365)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, CryptoJS) {
 	    "use strict";
 	    function isIE() { return (/msie/i).test(navigator.userAgent) && !/opera/i.test(navigator.userAgent); }
 	    window.IE = isIE();
@@ -68,13 +68,14 @@ webpackJsonp([65],{
 	        setTimeout(getValidateImage, 120000);
 	    }
 	
-	    function isValidData() {
-	        return !($("#userName").val() === "" || $("#passWord").val() === "" || $('#captcha').val() === "");
-	    }
-	
-	    function getError() {
+	    function checkInputValid() {
 	        var $username = $("#userName");
 	        var $password = $("#passWord");
+	        var $captcha = $('#captcha');
+	
+	        if ($username.val() && $password.val() && $captcha.val()) {
+	            return true;
+	        }
 	
 	        var $errorMessage = $("#errmsg");
 	        $errorMessage.html(LanguageMessages.errUserName);
@@ -109,11 +110,11 @@ webpackJsonp([65],{
 	            }
 	        }
 	
-	        $(document).on("submit", "#fLogin", function () {
+	        document.fLogin.onsubmit = function () {
 	            var $username = $("#userName");
 	            $username.val($.trim($username.val()));
-	            if (!isValidData()) {
-	                return getError();
+	            if (!checkInputValid()) {
+	                return false;
 	            }
 	
 	            $('#btnLogin').prop('disabled', true);
@@ -128,22 +129,8 @@ webpackJsonp([65],{
 	            var hashPassword = CryptoJS.SHA1($password.val() + userSalt).toString(CryptoJS.enc.Hex).toUpperCase();
 	            var encryptedPass = CryptoJS.SHA1(hashPassword + $loginToken.val() + userSalt).toString(CryptoJS.enc.Hex).toUpperCase();
 	            $password.val(encryptedPass);
-	
 	            return true;
-	        });
-	
-	        $("#fLogin").on("keydown", "input", function (event) {
-	            event = event || window.event;
-	            var key = event.keyCode || event.which;
-	
-	            if (key === 13) {
-	                $("#fLogin").submit();
-	            }
-	        });
-	
-	        $("#btnLogin").on("click", function () {
-	            $("#fLogin").submit();
-	        });
+	        };
 	
 	        $("#captcha-img").on("click", function () {
 	            getValidateImage();
@@ -157,13 +144,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 302:
+/***/ 365:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(304), __webpack_require__(305), __webpack_require__(306), __webpack_require__(307), __webpack_require__(308), __webpack_require__(309), __webpack_require__(310), __webpack_require__(311), __webpack_require__(312), __webpack_require__(313), __webpack_require__(314), __webpack_require__(315), __webpack_require__(316), __webpack_require__(317), __webpack_require__(318), __webpack_require__(319), __webpack_require__(320), __webpack_require__(321), __webpack_require__(322), __webpack_require__(323), __webpack_require__(324), __webpack_require__(325), __webpack_require__(326), __webpack_require__(327), __webpack_require__(328), __webpack_require__(329), __webpack_require__(330), __webpack_require__(331), __webpack_require__(332), __webpack_require__(333), __webpack_require__(334), __webpack_require__(335));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(367), __webpack_require__(368), __webpack_require__(369), __webpack_require__(370), __webpack_require__(371), __webpack_require__(372), __webpack_require__(373), __webpack_require__(374), __webpack_require__(375), __webpack_require__(376), __webpack_require__(377), __webpack_require__(378), __webpack_require__(379), __webpack_require__(380), __webpack_require__(381), __webpack_require__(382), __webpack_require__(383), __webpack_require__(384), __webpack_require__(385), __webpack_require__(386), __webpack_require__(387), __webpack_require__(388), __webpack_require__(389), __webpack_require__(390), __webpack_require__(391), __webpack_require__(392), __webpack_require__(393), __webpack_require__(394), __webpack_require__(395), __webpack_require__(396), __webpack_require__(397), __webpack_require__(398));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -181,7 +168,7 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 303:
+/***/ 366:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
@@ -947,13 +934,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 304:
+/***/ 367:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303));
+			module.exports = exports = factory(__webpack_require__(366));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -1257,13 +1244,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 305:
+/***/ 368:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303));
+			module.exports = exports = factory(__webpack_require__(366));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -1339,13 +1326,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 306:
+/***/ 369:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303));
+			module.exports = exports = factory(__webpack_require__(366));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -1494,13 +1481,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 307:
+/***/ 370:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303));
+			module.exports = exports = factory(__webpack_require__(366));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -1635,13 +1622,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 308:
+/***/ 371:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303));
+			module.exports = exports = factory(__webpack_require__(366));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -1909,13 +1896,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 309:
+/***/ 372:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303));
+			module.exports = exports = factory(__webpack_require__(366));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -2065,13 +2052,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 310:
+/***/ 373:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303));
+			module.exports = exports = factory(__webpack_require__(366));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -2270,13 +2257,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 311:
+/***/ 374:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(310));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(373));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -2356,13 +2343,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 312:
+/***/ 375:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(304));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(367));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -2685,13 +2672,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 313:
+/***/ 376:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(304), __webpack_require__(312));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(367), __webpack_require__(375));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -2774,13 +2761,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 314:
+/***/ 377:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(304));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(367));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -3103,13 +3090,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 315:
+/***/ 378:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303));
+			module.exports = exports = factory(__webpack_require__(366));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -3376,13 +3363,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 316:
+/***/ 379:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303));
+			module.exports = exports = factory(__webpack_require__(366));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -3525,13 +3512,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 317:
+/***/ 380:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(309), __webpack_require__(316));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(372), __webpack_require__(379));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -3676,13 +3663,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 318:
+/***/ 381:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(309), __webpack_require__(316));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(372), __webpack_require__(379));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -3814,13 +3801,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 319:
+/***/ 382:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303));
+			module.exports = exports = factory(__webpack_require__(366));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -4695,13 +4682,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 320:
+/***/ 383:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(319));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(382));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -4779,13 +4766,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 321:
+/***/ 384:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(319));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(382));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -4843,13 +4830,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 322:
+/***/ 385:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(319));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(382));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -4965,13 +4952,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 323:
+/***/ 386:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(319));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(382));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -5025,13 +5012,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 324:
+/***/ 387:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(319));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(382));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -5071,13 +5058,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 325:
+/***/ 388:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(319));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(382));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -5126,13 +5113,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 326:
+/***/ 389:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(319));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(382));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -5176,13 +5163,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 327:
+/***/ 390:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(319));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(382));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -5222,13 +5209,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 328:
+/***/ 391:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(319));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(382));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -5273,13 +5260,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 329:
+/***/ 392:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(319));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(382));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -5309,13 +5296,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 330:
+/***/ 393:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(319));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(382));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -5381,13 +5368,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 331:
+/***/ 394:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(307), __webpack_require__(308), __webpack_require__(318), __webpack_require__(319));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(370), __webpack_require__(371), __webpack_require__(381), __webpack_require__(382));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -5619,13 +5606,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 332:
+/***/ 395:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(307), __webpack_require__(308), __webpack_require__(318), __webpack_require__(319));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(370), __webpack_require__(371), __webpack_require__(381), __webpack_require__(382));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -6395,13 +6382,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 333:
+/***/ 396:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(307), __webpack_require__(308), __webpack_require__(318), __webpack_require__(319));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(370), __webpack_require__(371), __webpack_require__(381), __webpack_require__(382));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -6540,13 +6527,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 334:
+/***/ 397:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(307), __webpack_require__(308), __webpack_require__(318), __webpack_require__(319));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(370), __webpack_require__(371), __webpack_require__(381), __webpack_require__(382));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -6738,13 +6725,13 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 335:
+/***/ 398:
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(303), __webpack_require__(307), __webpack_require__(308), __webpack_require__(318), __webpack_require__(319));
+			module.exports = exports = factory(__webpack_require__(366), __webpack_require__(370), __webpack_require__(371), __webpack_require__(381), __webpack_require__(382));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
