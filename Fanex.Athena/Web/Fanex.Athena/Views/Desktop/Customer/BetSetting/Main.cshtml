@@ -91,7 +91,10 @@ else
                         }
 
                         <tr>
-                            <td>@item.BetSettingType @esportText</td>
+                            <td>
+                                @item.BetSettingType @esportText
+                                <input id="bet-type-@(item.SportId)" type="hidden" value="@item.BetType" />
+                            </td>
                             <td>
                                 <input id="min-bet-@(item.SportId)" type="text" value="@item.MinBet.ToString(FormatDecimal)" maxlength="14" class="right-align"
                                        data-min-value="@item.BetValueMin.ToString(FormatDecimal)" data-original="@item.MinBet.ToString(FormatDecimal)" />

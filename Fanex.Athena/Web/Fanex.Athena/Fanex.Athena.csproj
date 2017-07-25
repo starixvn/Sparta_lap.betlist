@@ -909,6 +909,7 @@
     <Content Include="Views\Desktop\LicenseeList\Index.cshtml" />
     <Content Include="www\css\build\dev\pages\utility\licenseelist.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\utility\licenseelist.css.map" />
+    <Content Include="Views\Desktop\Customer\BetSetting\BetradarVirtualSports.cshtml" />
     <None Include="www\css\source\pages\customer\customerlist.scss" />
     <Content Include="www\css\source\pages\customer\customerlog.scss" />
     <Content Include="www\css\source\components\tab\_tab.scss" />
@@ -1294,11 +1295,13 @@
     <Content Include="www\js\source\pages\customer\betsetting\main-numbergame.js" />
     <Content Include="www\js\source\pages\customer\betsetting\main-rngcasino.js" />
     <Content Include="www\js\source\pages\customer\betsetting\main-thirdparty.js" />
+    <Content Include="www\js\source\pages\customer\betsetting\products\betradarvirtualsports.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\betsettingbygroup.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\dcsbetsetting.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\betsettingmain.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\keno.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\livecasino.js" />
+    <Content Include="www\js\source\pages\customer\betsetting\main-betradarvirtualsports.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\numbergame.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\rngcasino.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\thirdparty.js" />
@@ -1427,6 +1430,7 @@
     <Content Include="www\js\tests\pages\customer\betsetting\common\betsetting.validation-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\common\betsettingbase-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\products\betsettingbygroup-spec.js" />
+    <Content Include="www\js\tests\pages\customer\betsetting\products\betradarvirtualsports-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\products\rngcasino-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\products\betsettingmain-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\products\dcsbetsetting-spec.js" />

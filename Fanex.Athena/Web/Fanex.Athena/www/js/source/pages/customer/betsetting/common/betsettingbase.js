@@ -134,12 +134,14 @@ define(["jquery", "common/site", "common/popup", "./constant", "lib/numberformat
                 var minBet = BetSettingHelper.convertToFloat($minbet.val());
                 var maxBet = BetSettingHelper.convertToFloat($maxbet.val());
                 var maxPerMatcth = BetSettingHelper.convertToFloat($maxPerMatch.val());
+                var betType = $("#bet-type-" + sportId).val();
 
                 var result = {};
                 result["minbet" + sportId] = minBet;
                 result["maxbet" + sportId] = maxBet;
                 result["maxpermatch" + sportId] = maxPerMatcth;
                 result["update" + sportId] = isUpdate;
+                result["bettype" + sportId] = betType;
 
                 return result;
             },
