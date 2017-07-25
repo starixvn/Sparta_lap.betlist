@@ -172,7 +172,7 @@ namespace Fanex.Athena.Controllers.Customer
                 }
             }
 
-            if(result.Success)
+            if (result.Success)
             {
                 ModelState.Clear();
             }
