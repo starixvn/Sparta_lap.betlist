@@ -1,19 +1,19 @@
-webpackJsonp([21],{
+webpackJsonp([27],{
 
 /***/ 0:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(56);
+	module.exports = __webpack_require__(67);
 
 
-/***/ },
+/***/ }),
 
-/***/ 56:
-/***/ function(module, exports) {
+/***/ 67:
+/***/ (function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
-/***/ }
+/***/ })
 
 });
 //# sourceMappingURL=platformwinloss.chunk.js.map

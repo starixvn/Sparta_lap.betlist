@@ -105,8 +105,7 @@
 ----------------------------------------------------------*/
 .selectedDayWrap {
   width: 100%;
-  color: #444;
-  z-index: 1 !important; }
+  color: #444; }
 
 .dayPickr {
   padding: 3px 0;
@@ -158,7 +157,11 @@
 
 .pagingContainer {
   padding: 3px;
-  font-size: 1.1rem; }
+  font-size: 1.1rem;
+  background-color: #EFF3F8;
+  border-left: 1px solid #d1dae1;
+  border-right: 1px solid #d1dae1;
+  border-bottom: 1px solid #d1dae1; }
   .pagingContainer .icon {
     font-family: 'icomoon' !important;
     speak: none;
@@ -247,6 +250,11 @@ input[type="checkbox"] {
     left: 1px;
     border-right: 1px solid #2c2c2c;
     border-bottom: 1px solid #2c2c2c; }
+  input[type="checkbox"]:disabled + label:after {
+    border-color: rgba(0, 0, 0, 0.26); }
+  input[type="checkbox"]:disabled:checked + label:before {
+    border-right-color: rgba(0, 0, 0, 0.26);
+    border-bottom-color: rgba(0, 0, 0, 0.26); }
 
 .invalid input[type="checkbox"] + label:after {
   border: 2px solid #d91a1a; }
@@ -315,30 +323,7 @@ input[type="checkbox"] {
   color: #2c2c2c;
   font-size: 1.3rem; }
 
-.panel-heading {
-  position: relative; }
-
 .decimal-odds {
   color: #d91a1a; }
-
-.excel-container {
-  background: #fff;
-  padding-left: 5px;
-  padding-right: 5px;
-  height: 27px;
-  text-align: center;
-  position: absolute;
-  top: 1px;
-  right: 1px; }
-  .excel-container .icon-back {
-    display: inline-block;
-    font-size: 16px;
-    vertical-align: top;
-    line-height: 27px;
-    margin-right: 5px;
-    color: #555; }
-  .excel-container .icon-excel {
-    display: inline-block;
-    margin-top: 4px; }
 
 /*# sourceMappingURL=winlossbyleague.css.map*/
