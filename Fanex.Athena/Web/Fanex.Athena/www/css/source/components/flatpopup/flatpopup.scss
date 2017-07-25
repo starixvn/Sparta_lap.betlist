@@ -13,13 +13,13 @@ $bgTitlebar: $bgHeaderTableLevel1;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 10000;
+    z-index: 100;
 }
 
 .flat-popup {
     background: $white;
     position: absolute;
-    z-index: 99999;
+    z-index: 101;
     -webkit-background-clip: padding-box; /* for Safari */
     background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
     .title-bar {
@@ -38,7 +38,7 @@ $bgTitlebar: $bgHeaderTableLevel1;
             color: #BFBDBF;
             float: right;
 
-            .icon-close{
+            .icon-close {
                 font-size: 18px;
             }
 
@@ -51,6 +51,11 @@ $bgTitlebar: $bgHeaderTableLevel1;
     .wrapContent {
         overflow-y: auto;
         height: calc(100% - 38px); // 38 is height of title bar
+        .popup-button {
+            .btn {
+                margin: 15px 0 0 15px;
+            }
+        }
 
         h1, h2, h3, h4, h5, h6 {
             font-weight: bold;

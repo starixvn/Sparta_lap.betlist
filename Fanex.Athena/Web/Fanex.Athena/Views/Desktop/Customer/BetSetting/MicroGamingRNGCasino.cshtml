@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "~/Views/Desktop/Shared/_BetSettingLayout.cshtml";
+}
+@model Fanex.Athena.Model.BetSettings.ViewModel.ThirdPartyBetSettingViewModel
+
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/thirdpartybetsetting.chunk.js")"></script>
+}
+
+@section Menu{
+    @{Html.RenderPartial("~/Views/Desktop/Customer/BetSetting/Menu.cshtml", Model);}
+}
+
+@section ContentTitle{
+    @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
+}
+
+@if (!Model.IsLineEnabled)
+{
+    <p class="no-info-row">@ViewResources.MicroGamingRNGCasinoNotOfferCurrency</p>
+}
+else
+{
+    var status = Model.IsEnabled.HasValue && Model.IsEnabled.Value ? 1 : 0;
+    <div class="filter-input">
+        <input id="enable-product" type="checkbox" name="enable-product"
+               @(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? "checked" : string.Empty)
+               class="childCheckbox" data-original="@status" @(Model.Editable ? string.Empty : "disabled") />
+        <label for="enable-product" class="text-bold">@ViewResources.EnableMicrogamingRNGCasino</label>
+    </div>
+    if (Model.Editable)
+    {
+        <div class="right button-block">
+            <button type="button" class="btn btn-submit"
+                    data-status="@status"
+                    data-cust-id="@Model.Param.CustId"
+                    data-nick-name="@Model.Param.NickName"
+                    id="btnUpdateStatus">
+                @ViewResources.Submit
+            </button>
+            <button id="btnReset" type="reset" class="btn btn-cancel">@ViewResources.Reset</button>
+        </div>
+    }
+}

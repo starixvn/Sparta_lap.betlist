@@ -41,15 +41,14 @@
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            var isAllowSaToteCurrency = true;
             var betSettings = new List<BetSetting>()
             {
                 new BetSetting()
             };
-            _dataAccess.GetBetSetting(CustId, isAllowSaToteCurrency).Returns(betSettings);
+            _dataAccess.GetBetSetting(CustId).Returns(betSettings);
 
             // Action
-            var result = _service.GetViewModel(LicenseeId, CustId, isAllowSaToteCurrency);
+            var result = _service.GetViewModel(LicenseeId, CustId);
 
             // Assert
             Assert.That(result.MainData.Count, Is.EqualTo(betSettings.Count));
@@ -67,7 +66,7 @@
             };
 
             // Action
-            var result = _service.UpdateBetSetting(LicenseeId, racingParam);
+            _service.UpdateBetSetting(LicenseeId, racingParam);
 
             // Assert
             _dataAccess.Received().UpdateBetSetting(Arg.Any<Dictionary<string, RacingBetSetting>>());
@@ -78,7 +77,6 @@
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            var commonBetSetting = new CommonBetSetting();
             Dictionary<string, RacingBetSetting> racingParam = null;
 
             // Action

@@ -19,6 +19,8 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
     using Service.Report;
     using Service.Report.Interfaces;
 
@@ -30,6 +32,15 @@ namespace Fanex.Athena.Api.Report
         public AgCasinoBalanceReportController()
         {
             _agcasinoBalanceService = new AgCasinoBalanceService();
+        }
+
+        public AgCasinoBalanceReportController(
+            IAgCasinoBalanceService agcasinoBalanceService,
+            ISessionService sessionService,
+            IProductService productService)
+            : base(sessionService, productService)
+        {
+            _agcasinoBalanceService = agcasinoBalanceService;
         }
 
         [HttpPost]

@@ -1,12 +1,13 @@
-﻿define(['jquery', 'common/site', 'common/popup', 'pages/report/report'],
+﻿define(['jquery', 'common/site', 'common/popup', 'pages/report/report', 'lib/jqgrid/jquery.jqGrid.min'],
     function ($, Site, Popup, Report) {
+        var popupOption;
         describe("Report", function () {
             beforeEach(function () {
                 spyOn(Site, "getSingleResource").and.callFake(function (text) {
                     return text;
                 });
                 spyOn(Site, "initialize");
-                spyOn(Popup, "openPopup");
+                spyOn(Popup, "openPopup").and.callFake(function ($element, option) { popupOption = option; });
                 $checkbox = setFixtures("<input class='childCheckbox' type='checkbox'></input>");
             });
 
@@ -19,7 +20,7 @@
                 });
 
                 it("if report by = 2, return correct fromdate and todate", function () {
-                    var result = Report.GetDrilldownDateRange(2, new Date(2017, 1, 2), new Date(2017, 1, 3), new Date(2017, 1, 4));
+                    var result = Report.GetDrilldownDateRange(2, new Date(2017, 1, 2), new Date(2017, 1, 3), "02/04/2017");
 
                     expect(result.FromDate).toEqual(new Date(2017, 1, 2));
                     expect(result.ToDate).toEqual(new Date(2017, 1, 3));
@@ -53,6 +54,24 @@
 
                     expect(result).toBe(expected);
                 });
+
+                it("call onOpen() function in Popup - #SubmitButton should be disabled", function () {
+                    setFixtures('<button id="SubmitButton"></button>');
+
+                    popupOption.onOpen();
+                    var result = $("#SubmitButton").prop("disabled");
+
+                    expect(result).toBe(true);
+                });
+
+                it("call onClose() function in Popup - #SubmitButton should be enabled", function () {
+                    setFixtures('<button id="SubmitButton" disabled></button>');
+
+                    popupOption.onClose();
+                    var result = $("#SubmitButton").prop("disabled");
+
+                    expect(result).toBe(false);
+                });
             });
 
             describe("setOriginalProduct()", function () {
@@ -78,7 +97,7 @@
                     expect(result).toBe("View in GBP");
                 });
                 it("return correct title for currencyid from dropdownlist", function () {
-                    setFixtures('<select id="CurrencyId"><option value="1">UUS</option></select>')
+                    setFixtures('<select id="CurrencyId"><option value="1">UUS</option></select>');
                     Site.getSingleResource = jasmine.createSpy().and.returnValue("View in {0}");
 
                     var result = Report.getCurrencyNameForReportTitle("1");
@@ -119,6 +138,90 @@
                     Report.renderBreadCrumb(2);
 
                     expect($('.level2').is(':visible')).toBe(true);
+                });
+
+                it("licenseeId is 12Bet - .level1 should be showed and has class 'active'", function () {
+                    var level = 1, licensee12Bet = 1;
+                    appendSetFixtures('<div id="level-link-container"><div class="level0"></div><div class="level1"></div></div>');
+
+                    Report.renderBreadCrumb(level, licensee12Bet);
+                    var level1Visible = $('.level1').is(':visible');
+                    var level1HasActiveClass = $('.level1').hasClass("active");
+
+                    expect(level1Visible).toBe(true);
+                    expect(level1HasActiveClass).toBe(true);
+                });
+            });
+
+            describe("bindSummaryTotal(columnModel, summaryTotal)", function () {
+                var col0 = {
+                    name: "Col0",
+                    formatter: "format"
+                }
+                var col1 = {
+                    name: "Col1",
+                    formatter: function (value) { return value; }
+                }
+                var col2 = {
+                    name: "Col2",
+                    formatter: function (value) { return value; }
+                }
+
+                var columnModel = [col0, col1, col2];
+
+                beforeAll(function () {
+                    spyOn($.fn, "fmatter").and.callFake(function (formatter, value) { return value; });
+                });
+
+                beforeEach(function () {
+                    var htmlTableFooter = '<table class="ui-jqgrid-ftable"><tbody><tr><td></td><td></td><td></td></tr></tbody></table>';
+
+                    setFixtures(htmlTableFooter);
+                });
+
+                it("summaryData is object - .ui-jqgrid-ftable should has correct html content", function () {
+                    var summaryData = {
+                        "EUR": { Col0: "Date", Col1: 10.01, Col2: -5 }
+                    };
+                    var expectedHtmlContent = '<tbody><tr><td class="group-EUR" title="Total in EUR">Total in EUR</td><td title="10.01">10.01</td><td>-5</td></tr></tbody>';
+
+                    Report.bindSummaryTotal(columnModel, summaryData);
+                    var result = $(".ui-jqgrid-ftable").html();
+
+                    expect(result).toBe(expectedHtmlContent);
+                });
+
+                it("summaryData is array - returning rowcount value should be correct", function () {
+                    var summaryData = {
+                        "EUR": [{ Col0: "Date", Col1: 10.01, Col2: -5 }, { Col0: "Date", Col1: 10.01, Col2: -5 }, { Col0: "Date", Col1: 10.01, Col2: -5 }]
+                    };
+                    var expectedRowCount = 3;
+
+                    var result = Report.bindSummaryTotal(columnModel, summaryData);
+
+                    expect(result).toBe(expectedRowCount);
+                });
+
+                it("'data-total-currency-list' attribute should be correct", function () {
+                    var summaryData = {
+                        "EUR": { Col0: "Date", Col1: 10.01, Col2: -5 },
+                        "USD": { Col0: "Date", Col1: 10.01, Col2: -5 }
+                    };
+                    var expectedResult = "EUR,USD";
+
+                    Report.bindSummaryTotal(columnModel, summaryData);
+                    var result = $(".ui-jqgrid-ftable").attr("data-total-currency-list");
+
+                    expect(result).toBe(expectedResult);
+                });
+
+                it("have no data - .ui-jqgrid-ftable should has correct html content", function () {
+                    var expectedResult = '<tbody><tr><td></td><td></td><td></td></tr></tbody>';
+
+                    Report.bindSummaryTotal(columnModel);
+                    var result = $(".ui-jqgrid-ftable").html();
+
+                    expect(result).toBe(expectedResult);
                 });
             });
         });

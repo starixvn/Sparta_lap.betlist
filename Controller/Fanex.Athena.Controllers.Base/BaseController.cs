@@ -18,6 +18,7 @@ namespace Fanex.Athena.Controllers
     using Logging;
     using Model.Core.MetaModel;
     using Service.Core.Common;
+    using Service.Core.Helpers;
     using Service.Core.Users;
 
     [CustomAuthorize]

@@ -50,7 +50,6 @@ var GroupComm = (function ($) {
         },
         initEvent: function () {
             $('#ExportToExcel').click(function () {
-                $('#IsExportExcel').val(true);
                 $('#CommissionGroupForm').submit();
             });
 

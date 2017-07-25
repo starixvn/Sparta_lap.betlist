@@ -1,15 +1,13 @@
 ﻿/*global _language_en_US*/
-define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "lib/jquery.multiselect", "extensions/prototype", "components/selectlist"],
+define(["jquery", "common/querystring", "common/popup", "extensions/prototype", "components/selectlist"],  
     function ($, QueryString, Popup) {// jshint ignore:line
         "use strict";
         var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
         var REQUEST_VERIFICATION_TOKEN;
         var _historyDate = null;
         var _licenseeId = null;
-        var _isLoadedNotificationPopup = false;
         var _rootUrl = null;
         var _pageLanguage = null;
-        var _userCurrencies = null;
 
         function setProductCodeListParam(url, productCodeList){
             return QueryString.setParam(url, "ProductCodeList", productCodeList);
@@ -17,32 +15,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
 
         function reload() {
             window.location.reload();
-        }
-
-        function addNoticationPopup() {
-            var $marquee = $("#notification-marquee");
-            if ("marquee" in $marquee) {
-                $marquee.marquee({ speed: 30 });
-            }
-
-            if (_isLoadedNotificationPopup === true) {
-                return;
-            }
-
-            var $popup = $("#NotificationPopup");
-            if ($popup.length > 0) {
-                var options = {
-                    height: 160,
-                    title: getSingleResource("Notification")
-                };
-                var popup = $popup.flatPopup(options);
-                popup.show();
-
-                $popup.find(".popup-close").click(function () {
-                    $.cookie("isClosedNotification", "1", { path: '/' });
-                });
-                _isLoadedNotificationPopup = true;
-            }
         }
 
         function resolveClientUrl(relativeUrl) {
@@ -66,10 +38,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             return urlOrParams;
         }
 
-        function getDifferenceMonth(fromDate, toDate) {
-            return toDate.getMonth() - fromDate.getMonth() + (12 * (toDate.getFullYear() - fromDate.getFullYear())) + 1;
-        }
-
         function initSelectElements() {
             $('select.select').not('#CurrencyId').selectList();
 
@@ -84,16 +52,8 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             _historyDate = new Date($("#HistoryDate").val());
             _rootUrl = $('#RootUrl').val();
             _pageLanguage = $('#PageLanguage').val();
-            var userCurrencies = $('#UserCurrencies').val();
-            if (userCurrencies) {
-                _userCurrencies = JSON.parse(userCurrencies);
-            }
-            addNoticationPopup();
-            overrideInnerSize();
         }
         function initEvent() {
-            $(window).resize(overrideInnerSize);
-
             $("#CurrencyId").change(function () {
                 currencyConstraint(true);
             });
@@ -120,79 +80,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
                     }
                 }
             });
-        }
-
-        function exportExcel(postData, url, method) {
-            var data = clone(postData);
-            data.IsExportExcel = true;
-            var $form = $('<form id="ExportExcelForm">').attr({ action: url, method: method || 'post' })
-                .appendTo('body');
-            for (var property in data) {
-                if (data.hasOwnProperty(property)) {
-                    var value = data[property];
-                    if (property === "ProductOptions") {
-                        var products = typeof (value) === "object" ? value : JSON.parse(value);
-                        for (var i = 0; i < products.length; i++) {
-                            var product = products[i];
-                            $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Code', value: product.Code }).appendTo($form);
-                            $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Status', value: product.Status }).appendTo($form);
-                        }
-                    } else {
-                        $('<input type="hidden">').attr({ name: property, value: value }).appendTo($form);
-                    }
-                }
-            }
-            if (!data["__RequestVerificationToken"]) {
-                $('<input type="hidden">').attr({ name: '__RequestVerificationToken', value: REQUEST_VERIFICATION_TOKEN }).appendTo($form);
-            }
-
-            $form.submit();
-            $form.remove();
-        }
-
-        function setConstraintMonthRange(monthRange, url) {
-            var errorMessage = getSingleResource("DateRangeExceedMsg").replace("{0}", monthRange);
-
-            function isValidRange() {
-                var fromDate = new Date($("#FromDate").val());
-                var toDate = new Date($("#ToDate").val());
-
-                return getDifferenceMonth(fromDate, toDate) <= monthRange;
-            }
-
-            if (url && typeof url === "string") {
-                $(document).ajaxSend(function (event, jqxhr, settings) {
-                    if (settings.url.search(new RegExp(url, "i")) > -1 && isValidRange() === false) {
-                        showMessaegBox(errorMessage);
-                        jqxhr.abort();
-                    }
-                });
-            }
-
-            $("form").on("submit", function () {
-                if (isValidRange() === false) {
-                    showMessaegBox(errorMessage);
-                    return false;
-                }
-
-                return true;
-            });
-        }
-        function showMessaegBox(message) {
-            var title = getSingleResource("LrfNotification");
-            var dialogForm = '<div title="' + title + '"><p class="notification">' + message + '!</p></div>';
-
-            Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification" });
-        }
-        function getLicenseeId() {
-            if (!_licenseeId) {
-                _licenseeId = parseInt($("#LicenseeId").val());
-            }
-
-            return _licenseeId;
-        }
-        function getCurrencyName(currencyId) {
-            return _userCurrencies[currencyId];
         }
         function getHistoryDate() {
             return _historyDate;
@@ -234,14 +121,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
                 }
             });
         }
-        function overrideInnerSize() {
-            if (window.innerHeight === undefined) {
-                parent.innerHeight = parent.document.documentElement.clientHeight;
-                window.innerHeight = window.document.documentElement.clientHeight;
-                parent.innerWidth = parent.document.documentElement.clientWidth;
-                window.innerWidth = window.document.documentElement.clientWidth;
-            }
-        }
         function asNull(text) {
             if (text != null) {
                 text = text.trim();
@@ -251,14 +130,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             }
 
             return text;
-        }
-
-        function gotoErrorPage(status) {
-            if (status === undefined || status !== 0) {
-                window.location.href = resolveClientUrl("Utility/Error");
-            } else {
-                unBlockUI();
-            }
         }
 
         function unBlockUI() {
@@ -284,7 +155,7 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             var currencyId = $("#CurrencyId").attr('data-original');
             var baseCurrency = $("#BaseCurrency").attr('data-original');
 
-            var $currencyItem = $("#CurrencyId option[value=" +currencyId + "]");
+            var $currencyItem = $("#CurrencyId option[value=" + currencyId + "]");
             var currencyName = $currencyItem.length ? $currencyItem.text() : $("#CurrencyName").val();
 
             return setLicenseeOption(urlOrParams, currencyId, currencyName, baseCurrency);
@@ -527,22 +398,35 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             return window.location;
         }
 
+        function debounce(func, wait, immediate) {
+            var timeout;
+            return function () {
+                var context = this,
+                    args = arguments;
+                var later = function () {
+                    timeout = null;
+                    if (!immediate) {
+                        func.apply(context, args);
+                    }
+                };
+                var callNow = immediate && !timeout;
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait || 500);
+                if (callNow) {
+                    func.apply(context, args);
+                }
+            };
+        }
+
         return {
             initialize: initialize,
             setProductCodeListParam: setProductCodeListParam,
             reload: reload,
             resolveClientUrl: resolveClientUrl,
-            exportExcel: exportExcel,
-            setConstraintMonthRange: setConstraintMonthRange,
-            showMessaegBox: showMessaegBox,
-            getLicenseeId: getLicenseeId,
-            getCurrencyName: getCurrencyName,
             getHistoryDate: getHistoryDate,
             isBaseCurrency: isBaseCurrency,
             addUserGuide: addUserGuide,
-            overrideInnerSize: overrideInnerSize,
             asNull: asNull,
-            gotoErrorPage: gotoErrorPage,
             unBlockUI: unBlockUI,
             blockUI: blockUI,
             setLicenseeOptionParam: setLicenseeOptionParam,
@@ -563,6 +447,7 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             redirect: redirect,
             getCurrentUrl: getCurrentUrl,
             getLocation: getLocation,
-            initSelectElements: initSelectElements
+            initSelectElements: initSelectElements,
+            debounce: debounce
         };
     });

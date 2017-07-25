@@ -1,0 +1,44 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="page-form">
+    @using (Html.BeginForm("ExportExcel", "CustomerComGroup", FormMethod.Post, new { @id = "CommissionGroupForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col">
+                <span class="circle"></span>
+                <span>
+                    @ViewResources.GroupCommNote
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            @*<div class="col l2 m2 s12 button-block">
+                <a id="NewGroupButton" class="btn btn-add" href="@Url.Action("Create", "CustomerComGroup")" title="@ViewResources.CreateNewGroup">@ViewResources.NewGroup</a>
+            </div>*@
+            <div class="col icon-block">
+                <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+                <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
+            </div>
+        </div>
+    }
+</div>
+<div class="page-action">
+    <a id="NewGroupButton" class="btn btn-add" href="@Url.Action("Create", "CustomerComGroup")" title="@ViewResources.CreateNewGroup">@ViewResources.NewGroup</a>
+</div>
+<div id="confirm-delete-comm-group">
+    <div>
+        <input type="radio" value="false" class="with-gap" name="IsRemovePlayerComm" id="IsNotRemovePlayerComm" />
+        <label for="IsNotRemovePlayerComm">
+            @ViewResources.KeepCurrentComm
+        </label>
+    </div>
+    <div>
+        <input type="radio" class="with-gap" value="true" checked="checked" name="IsRemovePlayerComm" id="IsRemovePlayerComm" />
+        <label for="IsRemovePlayerComm">
+            @ViewResources.ClearCurrentComm
+        </label>
+    </div>
+</div>

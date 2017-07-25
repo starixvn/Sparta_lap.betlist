@@ -27,7 +27,6 @@
 <body>
     <input type="hidden" id="RootUrl" value="@Url.Content("~/")" />
     <input type="hidden" id="PageLanguage" value="@System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag" />
-    <input type="hidden" id="UserCurrencies" value="@JsonHelper.ToJson(userCurrencies)" />
     <input type="hidden" id="HasCustComm" value="@( hasCustComm ? 1 : 0)" />
     <input type="hidden" id="HistoryDate" value="@( appSettings.HistoryDate)" />
     @Html.AntiForgeryToken()

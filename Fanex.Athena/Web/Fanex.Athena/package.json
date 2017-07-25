@@ -42,6 +42,7 @@
     "webpack-merge": "^0.14.1"
   },
   "scripts": {
+    "stats": "webpack --config www/webpackconfig/build/webpack.dev.conf.js --json > stats.json",
     "test": "karma start --reporters kjhtml,junit,dots,coverage,progress",
     "test-new": "karma start karma-new.conf.js --reporters kjhtml,junit,dots,coverage,progress",
     "build-dev": "webpack --config www/webpackconfig/build/webpack.dev.conf.js",

@@ -1,7 +1,7 @@
-﻿define(["jquery", "common/querystring", "common/site", "pages/report/cashoutwinloss/cashoutwinloss.option", "pages/report/report",
-        "lib/jqgrid/jquery.jqgrid.additional", "components/pluginhelper/daterangepicker", "common/popup", "pages/report/cashoutwinloss/cashoutwinloss",
+﻿define(["jquery", "common/querystring", "common/site", "pages/report/cashoutwinloss/cashoutwinloss.option", "pages/report/report", "lib/jqgrid/jquery.jqgrid.additional",
+        "components/pluginhelper/daterangepicker", "common/popup", "helpers/daterange", "pages/report/cashoutwinloss/cashoutwinloss",
         "extensions/jquery.extension", "lib/jqgrid/jquery.jqGrid.min"],
-    function ($, QueryString, Site, CashOutWinLossOption, Report, jqGridAdditional, DatePicker, Popup, CashOutWinLoss) {
+    function ($, QueryString, Site, CashOutWinLossOption, Report, jqGridAdditional, DatePicker, Popup, DateHelper, CashOutWinLoss) {
         describe("CashOutWinLoss", function () {
             var ajaxOption, ajaxRequest;
             function CreateSubmitData(submitData) {
@@ -43,7 +43,7 @@
                     spyOn(Site, "initialize");
                     spyOn(DatePicker, "initDateRangePicker");
                     spyOn(Site, "addUserGuide");
-                    spyOn(Site, "setConstraintMonthRange");
+                    spyOn(DateHelper, "setConstraintMonthRange");
                     spyOn(CashOutWinLoss, "initEvent");
                     spyOn(CashOutWinLoss, "initSetting");
                     spyOn(CashOutWinLoss, "registerGlobalFunction");
@@ -60,8 +60,8 @@
                 it("Site.addUserGuide(option) should be called with correct parameter", function () {
                     expect(Site.addUserGuide).toHaveBeenCalledWith({ resourceName: "CashOutWL", title: "CashOutWinLoss" });
                 });
-                it("Site.setConstraintMonthRange(monthRange, url) should be called with correct parameter", function () {
-                    expect(Site.setConstraintMonthRange).toHaveBeenCalledWith(3, "api/CashOutWinLossReport/Index");
+                it("DateHelper.setConstraintMonthRange(monthRange, url) should be called with correct parameter", function () {
+                    expect(DateHelper.setConstraintMonthRange).toHaveBeenCalledWith(3, "api/CashOutWinLossReport/Index");
                 });
                 it("CashOutWinLoss.initEvent() should be called", function () {
                     expect(CashOutWinLoss.initEvent).toHaveBeenCalled();

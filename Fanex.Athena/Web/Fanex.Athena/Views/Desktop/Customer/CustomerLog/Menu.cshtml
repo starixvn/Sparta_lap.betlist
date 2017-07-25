@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+@{
+    var sessionService = new Fanex.Athena.Service.Core.Users.SessionService();
+    var hasCustComm = sessionService.LicenseeSession != null && sessionService.LicenseeSession.IsAllowedCustomerComm;
+}
+
+<div class="header-tab">
+    <ul class="tabs">
+        <!--Login log tab-->
+        <li class="tab">
+            <a href="@Url.Action("LogInLog", "CustomerLog")" id="loginlogTab">
+                @ViewResources.General
+            </a>
+        </li>
+        <!--/Login log tab-->
+        <!--Customer setting log-->
+        <li class="tab">
+            <a href="@Url.Action("CustomerSetting", "CustomerLog")" id="customersettinglogTab">
+                @ViewResources.CustomerSetting
+            </a>
+        </li>
+        <!--/Customer setting log-->
+        <!--Group commission tab-->
+        @if (hasCustComm)
+            {
+            <li class="tab"><a href="@Url.Action("GroupCommission", "CustomerLog")" id="groupcommlogTab">@ViewResources.GroupCommission</a></li>
+        }
+        <!--/Group commission tab-->
+    </ul>
+
+</div>

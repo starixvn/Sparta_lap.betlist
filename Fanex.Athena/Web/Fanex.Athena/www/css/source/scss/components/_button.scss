@@ -59,3 +59,73 @@
         color: inherit;
     }
 }
+
+.btn-primary {
+    background: #f05b1f;
+    color: #fff;
+
+    &:hover {
+        background: lighten(#f05b1f, 10%);
+    }
+
+    &:focus {
+        background: #f05b1f;
+    }
+}
+
+.btn-add {
+    background: #4caf50;
+    color: #fff;
+
+    &:hover {
+        background: lighten(#4caf50, 10%);
+    }
+
+    &:focus {
+        background: #4caf50;
+    }
+}
+
+.btn-cancel {
+    background: #757575;
+    color: #fff;
+
+    &:hover {
+        background: lighten(#757575, 10%);
+    }
+
+    &:focus {
+        background: #757575;
+    }
+}
+
+.btn-submit {
+    background: #4e68b6;
+    color: #fff;
+
+    &:hover {
+        background: lighten(#4e68b6, 10%);
+    }
+
+    &:focus {
+        background: #4e68b6;
+    }
+}
+
+.btn-nav {
+    background: #fff;
+    color: #4c6375;
+    border: 1px solid #4c6375;
+
+    &:hover {
+        background: lighten(#4c6375, 10%);
+        color: #fff;
+        border: 0;
+    }
+
+    &:focus {
+        background: #fff;
+        color: #4c6375;
+        border: 1px solid #4c6375;
+    }
+}

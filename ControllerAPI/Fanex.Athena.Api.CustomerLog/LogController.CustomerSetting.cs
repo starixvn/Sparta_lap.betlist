@@ -8,22 +8,10 @@ namespace Fanex.Athena.Api.CustomerLog
 {
     using System.Collections.Generic;
     using System.Web.Http;
-    using Base.Attributes;
     using Fanex.Athena.Model.Customer.MetaModel.CustomerLog;
-    using Model.Core.DataDomain;
 
     public partial class LogController
     {
-        /// <summary>
-        /// Get customer setting's log.
-        /// </summary>
-        /// <param name="username">User name (customer).</param>
-        /// <param name="viewbyid">View by id (login user).</param>
-        /// <param name="year">Filter by year.</param>
-        /// <param name="month">Filter by month.</param>
-        /// <param name="fromday">Filter by From-day.</param>
-        /// <param name="today">Filter by To-day.</param>
-        /// <returns>A list of rows.</returns>
         [HttpGet]
         public dynamic CustomerSetting(string username, int viewbyid, int year, int month, int fromday, int today)
         {

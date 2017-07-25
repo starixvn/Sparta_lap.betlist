@@ -1,0 +1,110 @@
+﻿@{
+    Layout = null;
+
+    var isAllowNg = ViewBag.IsAllowNG;
+    var isAllowRc = ViewBag.IsAllowRC;
+    var isAllowLc = ViewBag.IsAllowLC;
+    var isAllowCs = ViewBag.IsAllowCS;
+}
+<div class="page-results">
+    <div class="result-content">
+        <div class="main-content">
+            @if (Model.Count == 0)
+            {
+                <p class="no-info-row">@ViewResources.NoInfo</p>
+            }
+            else
+            {
+                <table class="table table-bordered" id="comm-group-list">
+                    <thead>
+                        <tr>
+                            <th class="col-small">#</th>
+                            <th class="col-child medium">@ViewResources.GroupId</th>
+                            <th class="col-medium large">@ViewResources.GroupName</th>
+                            <th class="col-child medium">@ViewResources.DefaultGroup</th>
+                            <th class="col-child medium">@ViewResources.NoOfCustmer</th>
+                            <th class="col-child medium">@ViewResources.SBComm (%)</th>
+                            @if (isAllowRc)
+                            {
+                                <th class="col-child medium">@ViewResources.RacingComm (%)</th>
+                            }
+                            @if (isAllowNg)
+                            {
+                                <th class="col-child medium">@ViewResources.NGComm (%)</th>
+                            }
+                            @if (isAllowLc)
+                            {
+                                <th class="col-child medium">@ViewResources.LCComm (%)</th>
+                            }
+                            @if (isAllowCs)
+                            {
+                                <th class="col-child medium">@ViewResources.CSComm (%)</th>
+                            }
+                            <th class="col-child medium">@ViewResources.GroupColor</th>
+                            <th class="col-child medium">@ViewResources.EditGroup</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int number = 1;
+                            foreach (var groupComm in Model)
+                            {
+                                <tr>
+                                    <td class="center-align">@(number++)</td>
+                                    <td class="center-align">@groupComm.GroupCommId</td>
+                                    <td class="left-align">
+                                        <a href="@Url.Action("Update", "CustomerComGroup", new { groupId = @groupComm.GroupCommId })" title="@ViewResources.EditGroup" class="truncate">
+                                            @groupComm.GroupName
+                                        </a>
+                                    </td>
+                                    <td class="center-align @(groupComm.IsDefaultGroup ? "icon-checkmark" : string.Empty)"></td>
+                                    <td class="center-align">
+                                        <a class="no-customer-border customer-list-link" data-id="@groupComm.GroupCommId">
+                                            @groupComm.NumberOfCustomer
+                                        </a>
+                                    </td>
+                                    <td class="center-align">
+                                        @(groupComm.SBComm.ToString("P2"))
+                                    </td>
+                                    @if (isAllowRc)
+                                    {
+                                        <td class="center-align">
+                                            @(groupComm.RCComm.ToString("P2"))
+                                        </td>
+                                    }
+                                    @if (isAllowNg)
+                                    {
+                                        <td class="center-align">
+                                            @(groupComm.NGComm.ToString("P2"))
+                                        </td>
+                                    }
+                                    @if (isAllowLc)
+                                    {
+                                        <td class="center-align">
+                                            @(groupComm.LCComm.ToString("P2"))
+                                        </td>
+                                    }
+                                    @if (isAllowCs)
+                                    {
+                                        <td class="center-align">
+                                            @(groupComm.CSComm.ToString("P2"))
+                                        </td>
+                                    }
+                                    <td class="center-align">
+                                        <div class="group-color-box" style="background-color:@groupComm.GroupColor;"></div>
+                                    </td>
+                                    <td class="center-align">
+                                        <a class="icon-pencil" href="@Url.Action("Update", "CustomerComGroup", new { groupId = @groupComm.GroupCommId })" title="@ViewResources.EditGroup">
+                                        </a>
+                                        <a class="icon-bin delete-comm-group" data-id="@groupComm.GroupCommId" title="@ViewResources.DeleteGroup">
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                            }
+        </div>
+    </div>
+</div>

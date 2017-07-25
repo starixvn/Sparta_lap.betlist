@@ -60,7 +60,7 @@
                 ViewBag.LicenseeList = licenseeList;
             }
 
-            return View("~/Views/Utility/SelectLicensee.cshtml");
+            return View("~/Views/LicenseeList/Index.cshtml");
         }
 
         private ActionResult RedirectToHome(int licenseeId)

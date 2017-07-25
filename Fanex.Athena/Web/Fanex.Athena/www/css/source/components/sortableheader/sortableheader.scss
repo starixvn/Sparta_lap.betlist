@@ -19,7 +19,7 @@
     border-right: 5px solid transparent;
 
     &-asc {
-        border-bottom: 5px solid #2c3d4b;
+        border-bottom: 5px solid;
 
         &.light {
             border-bottom-color: #fff;
@@ -27,7 +27,7 @@
     }
 
     &-desc {
-        border-top: 5px solid #2c3d4b;
+        border-top: 5px solid;
 
         &.light {
             border-top-color: #fff;

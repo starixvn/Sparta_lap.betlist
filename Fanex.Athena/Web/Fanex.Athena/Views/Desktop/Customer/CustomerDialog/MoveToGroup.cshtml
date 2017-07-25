@@ -1,0 +1,72 @@
+﻿@model Fanex.Athena.Model.Customer.ViewModel.CustomerListViewModel
+<div class="row">
+    <div class="col l8 m8 s8 input-field">
+        <select id="GroupListSelect" class="select">
+            @foreach (var group in Model.GroupCommDataList)
+        {
+                <option value="@group.GroupCommId">@group.GroupName</option>
+            }
+        </select>
+        @foreach (var group in Model.GroupCommDataList)
+        {
+            @Html.Hidden("SBComm" + @group.GroupCommId, NumberHelper.DecFormat((group.SBComm * 100)))
+            @Html.Hidden("ParlayComm" + @group.GroupCommId, NumberHelper.DecFormat((group.ParlayComm * 100)))
+            @Html.Hidden("RBComm" + @group.GroupCommId, NumberHelper.DecFormat((group.RCComm * 100)))
+            @Html.Hidden("NGComm" + @group.GroupCommId, NumberHelper.DecFormat((group.NGComm * 100)))
+            @Html.Hidden("LCComm" + @group.GroupCommId, NumberHelper.DecFormat((group.LCComm * 100)))
+            @Html.Hidden("CSComm" + @group.GroupCommId, NumberHelper.DecFormat((group.CSComm * 100)))
+        }
+        <label>@ViewResources.SelectGroup</label>
+    </div>
+</div>
+<div class="row">
+    <div class="col l6 m6 s6 input-field">
+        <span class="input-label" id="NewSbComm" >@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].SBComm * 100), 2) : string.Empty)</span>
+        %
+        <label>@ViewResources.SBComm</label>
+    </div>
+</div>
+<div class="row">
+    <div class="col l6 m6 s6 input-field">
+            <span class="input-label" id="NewParlayComm">@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].ParlayComm * 100), 2) : string.Empty)</span>
+            %
+        <label>@ViewResources.ParlayComm</label>
+    </div>
+</div>
+<div class="row @(!Model.ProductAccess.IsAllowRB ? "hide" : "")">
+    <div class="col l6 m6 s6 input-field">
+        <span class="input-label" id="NewRbComm">@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].RCComm * 100), 2) : string.Empty)</span>
+        %
+        <label>@ViewResources.RBComm</label>
+    </div>
+</div>
+<div class="row @(!Model.ProductAccess.IsAllowNG ? "hide" : "")">
+    <div class="col l6 m6 s6 input-field">
+        <span class="input-label" id="NewNgComm">@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].NGComm * 100), 2) : string.Empty)</span>
+        %
+        <label>@ViewResources.NGComm</label>
+    </div>
+</div>
+<div class="row @(!Model.ProductAccess.IsAllowLC ? "hide" : "")">
+    <div class="col l6 m6 s6 input-field">
+        <span class="input-label" id="NewLcComm">@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].LCComm * 100), 2) : string.Empty)</span>
+        %
+        <label>@ViewResources.LCComm</label>
+    </div>
+</div>
+<div class="row @(!Model.ProductAccess.IsAllowCS ? "hide" : "")">
+    <div class="col l6 m6 s6 input-field">
+        <span class="input-label" id="NewCsComm">@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].CSComm * 100), 2) : string.Empty)</span>
+        %
+        <label>@ViewResources.CSComm</label>
+    </div>
+</div>
+<div class="row">
+    <div class="col l12 m12 s12 success-message">
+    </div>
+    <div class="col l12 m12 s12 error-message">
+    </div>
+    <div class="col l12 m12 s12 ajax-loading">
+        <img alt="Sending" src="@Url.ContentLink("/Content/Customer/images/ajax-loader.gif")" />
+    </div>
+</div>

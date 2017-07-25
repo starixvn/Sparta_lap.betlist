@@ -8,6 +8,7 @@ define(['jquery'], function ($) {
             var defaultOptions = {
                 width: 640,
                 height: 480,
+                padding: 0,
                 id: "popup-content",
                 className: "",
                 title: "&nbsp;",
@@ -27,12 +28,12 @@ define(['jquery'], function ($) {
                     $blockBody = $('<div class="popup-block-body" style="display: none"></div>');
                     $container.append($blockBody);
                 }
-
-                var isNew = $("#" + options.id).length === 0;
-                if (isNew) {
+                
+                var $popupElement = $("#" + options.id);
+                if ($popupElement.length === 0 || $popupElement.hasClass('flat-popup') === false) {
                     $self.attr("id", options.id);
                     $self.addClass("flat-popup " + options.className);
-                    $self.children().wrapAll("<div class='wrapContent'></div>");
+                    $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");
                     $self.hide()
                          .prepend('<div class="title-bar popup-title"><div class="txt-title">'
                              + options.title
@@ -73,6 +74,10 @@ define(['jquery'], function ($) {
             //Set the center alignment padding + border see css style
             var left = ($(window).width() - $self.width()) / 2;
             var top = ($(window).height() - $self.height()) / 2;
+
+            if (top > 300) {
+                top -= 100;
+            }
 
             $self.css({
                 'top': top + "px",

@@ -33,10 +33,9 @@
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelEditRB")).Returns(_objectDb);
             var custId = 1;
-            var isAllowSaToreCurrency = true;
 
             // Action
-            _dataAccess.GetBetSetting(custId, isAllowSaToreCurrency);
+            _dataAccess.GetBetSetting(custId);
 
             // Assert
             _objectDb.Received().AddInParameter("CustID", DbType.Int32, custId);

@@ -29,6 +29,13 @@ namespace Fanex.Athena.DataAccess.BetList
     public class BetListDataAccess : BaseBetListDataAccess, IBetListDataAccess
     {
         private const string UspExceptionName = "\n UspName=";
+        private static readonly string[] TransTypeHasBetList = { "get", "com", "post", "bet", "gp" };
+
+        private static readonly Dictionary<string, int> TransTypeIdMap = new Dictionary<string, int>
+            {
+                { "betting statement", 1 }, { "void/cancelled bet", 2 },
+                { "outstanding bet", 3 }, { "grand prize", 4 }
+            };
 
         public TicketResult GetMixParlayDetailTicket(long transId)
         {
@@ -233,12 +240,6 @@ namespace Fanex.Athena.DataAccess.BetList
         {
             const string FormatRemark = "<span class='bl-underdog'>{0} <br/>- {1}</span>";
             const string UspKey = "Lrf_Statement_Mem";
-            var transTypeHasBetList = new[] { "get", "com", "post", "bet", "gp" };
-            var transTypeIdMap = new Dictionary<string, int>
-            {
-                { "betting statement", 1 }, { "void/cancelled bet", 2 },
-                { "outstanding bet", 3 }, { "grand prize", 4 }
-            };
             var index = 1;
             var result = new List<DailyStatement>();
             var commissionColumn = "commission" + metaModel.BaseCurrency;
@@ -262,7 +263,7 @@ namespace Fanex.Athena.DataAccess.BetList
                             var winlostDate = reader.ToDateTime("winlostdate");
                             var transType = reader.ToString("transtype").ToLower(currentCulture);
                             var transDesc = reader.ToString("transdesc");
-                            var transTypeId = transTypeIdMap.ContainsKey(transDesc.ToLower(currentCulture)) ? transTypeIdMap[transDesc.ToLower(currentCulture)] : 0;
+                            var transTypeId = TransTypeIdMap.ContainsKey(transDesc.ToLower(currentCulture)) ? TransTypeIdMap[transDesc.ToLower(currentCulture)] : 0;
                             var credit = transDesc.ToLower(currentCulture) == "outstanding bet" || transType == "bal" ? 0 : reader.ToDecimal(totalAmtColumn);
                             var comm = reader.ToDecimal(commissionColumn);
 
@@ -280,7 +281,7 @@ namespace Fanex.Athena.DataAccess.BetList
                                 ExternalId = metaModel.ExternalId == null ? "0" : metaModel.ExternalId,
                                 SystemId = metaModel.SystemId == null ? "0" : metaModel.SystemId,
                                 FullStatementDate = $"{winlostDate:dddd} <br/> {winlostDate}",
-                                TransTypeHasBetList = transTypeHasBetList.Contains(transType),
+                                TransTypeHasBetList = TransTypeHasBetList.Contains(transType),
                                 Index = index++,
                                 Date = winlostDate.ToShortDateString(),
                                 Remark = string.Format(FormatRemark, transType.ToUpper(currentCulture), transDesc),

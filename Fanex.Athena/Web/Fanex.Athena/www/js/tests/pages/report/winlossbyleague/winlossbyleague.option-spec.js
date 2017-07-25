@@ -121,5 +121,55 @@
                     expect(WinLossByLeagueOption.getColModel).toHaveBeenCalledWith(0);
                 });
             });
+
+            describe("drilldownLink", function () {
+                it("externalIdColumn should be formatted correctly", function () {
+                    var level = 1;
+                    var colModel = WinLossByLeagueOption.getColModel(level);
+                    var externalIdColumn = colModel[1];
+                    var rowObject = {
+                        CustomerId: 1,
+                        ExternalId: "ExternalId",
+                        SystemId: 2
+                    };
+                    var cellvalue = 1;
+                    var expectedFormatter = '<a class="drilldown" href="javascript:;" data-custid="1" data-externalid="ExternalId" data-systemid="2">1</a>';
+
+                    var formatter = externalIdColumn.formatter(cellvalue, {}, rowObject);
+
+                    expect(formatter).toEqual(expectedFormatter);
+                });
+
+                it("systemIdColumn should be formatted correctly", function () {
+                    var level = 1;
+                    var colModel = WinLossByLeagueOption.getColModel(level);
+                    var systemIdColumn = colModel[2];
+                    var rowObject = {
+                        CustomerId: 1,
+                        ExternalId: "ExternalId",
+                        SystemId: 2
+                    };
+                    var cellvalue = 1;
+                    var expectedFormatter = '<a class="drilldown" href="javascript:;" data-custid="1" data-externalid="ExternalId" data-systemid="2">1</a>';
+
+                    var formatter = systemIdColumn.formatter(cellvalue, {}, rowObject);
+
+                    expect(formatter).toEqual(expectedFormatter);
+                });
+            });
+
+            describe("addLeagueGroupRow ", function () {
+                it("should be added correct html", function () {
+                    setFixtures('<table id="ReportGrid"></table>');
+                    $("table").append('<tr class="jqgrow"><tr>');
+                    $("table").append('<tr class="jqgrow"><tr>');
+
+                    var leagueid = 1, leagueName = "leagueName";
+                    WinLossByLeagueOption.addLeagueGroupRow(leagueid, leagueName);
+                    var expectedFormatter = '<td colspan="8">&nbsp;&nbsp;&nbsp; <a id="leagueHeader" data-leagueid="1" href="javascript:;">leagueName</a></td>';
+
+                    expect($("#ReportGrid").find("tr.jqgrow:first").siblings().html()).toEqual(expectedFormatter);
+                });
+            });
         });
     });

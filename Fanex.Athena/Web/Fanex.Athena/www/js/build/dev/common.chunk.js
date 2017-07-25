@@ -12,7 +12,9 @@
 /******/ 			installedChunks[chunkId] = 0;
 /******/ 		}
 /******/ 		for(moduleId in moreModules) {
-/******/ 			modules[moduleId] = moreModules[moduleId];
+/******/ 			if(Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
+/******/ 				modules[moduleId] = moreModules[moduleId];
+/******/ 			}
 /******/ 		}
 /******/ 		if(parentJsonpFunction) parentJsonpFunction(chunkIds, moreModules);
 /******/ 		while(callbacks.length)
@@ -76,7 +78,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"1":"www/css/build/dev/home","2":"www/css/build/dev/main","3":"www/css/build/dev/pages/betlist/betlistLayout","4":"www/css/build/dev/pages/betlist/betlistResult","5":"www/css/build/dev/pages/betlist/betlistSimpleLayout","6":"www/css/build/dev/pages/betlist/betlistdaily","7":"www/css/build/dev/pages/betlist/cashouthistory","8":"www/css/build/dev/pages/betlist/colossusbetdetail","9":"www/css/build/dev/pages/betlist/lastbetmonitoring","10":"www/css/build/dev/pages/betlist/systemparlaydetail","11":"www/css/build/dev/pages/forecast/ahforecast","12":"www/css/build/dev/pages/forecast/forecastonextwo","13":"www/css/build/dev/pages/forecast/newforecast","14":"www/css/build/dev/pages/login/login","15":"www/css/build/dev/pages/reports/balance","16":"www/css/build/dev/pages/reports/cashoutwinloss","17":"www/css/build/dev/pages/reports/dailyracingwinloss","18":"www/css/build/dev/pages/reports/licenseewinloss","19":"www/css/build/dev/pages/reports/livereport","20":"www/css/build/dev/pages/reports/matchwinloss","21":"www/css/build/dev/pages/reports/platformwinloss","22":"www/css/build/dev/pages/reports/racingcommission","23":"www/css/build/dev/pages/reports/reportjqgridlayout","24":"www/css/build/dev/pages/reports/result","25":"www/css/build/dev/pages/reports/settledmatchcount","26":"www/css/build/dev/pages/reports/turnover","27":"www/css/build/dev/pages/reports/weeklylivematch","28":"www/css/build/dev/pages/reports/winlossbybettype","29":"www/css/build/dev/pages/reports/winlossbyleague","30":"www/css/build/dev/pages/reports/winlossbyproduct","31":"www/css/build/dev/pages/totalbet/mixparlay","32":"www/css/build/dev/pages/totalbet/totalbetlayout","33":"www/css/build/dev/pages/utility/error","34":"www/css/build/dev/um","35":"www/js/build/dev/language","36":"www/js/build/dev/pages/betlist/betlist","37":"www/js/build/dev/pages/betlist/betlistcancelledbets","38":"www/js/build/dev/pages/betlist/betlistcorrectscore","39":"www/js/build/dev/pages/betlist/betlistdaily","40":"www/js/build/dev/pages/betlist/betlistrunning","41":"www/js/build/dev/pages/betlist/betlistrunningmultiplebettypes","42":"www/js/build/dev/pages/betlist/betlistsimple","43":"www/js/build/dev/pages/betlist/lastbetmonitoring","44":"www/js/build/dev/pages/forecast/ahforecast","45":"www/js/build/dev/pages/forecast/forecasthdpou","46":"www/js/build/dev/pages/forecast/forecastonextwo","47":"www/js/build/dev/pages/forecast/newforecasthdpou","48":"www/js/build/dev/pages/home/home","49":"www/js/build/dev/pages/reports/balance","50":"www/js/build/dev/pages/reports/cashoutwinloss","51":"www/js/build/dev/pages/reports/dailyracingwinloss","52":"www/js/build/dev/pages/reports/licenseewinloss","53":"www/js/build/dev/pages/reports/livereport","54":"www/js/build/dev/pages/reports/livereportmatchlist","55":"www/js/build/dev/pages/reports/matchwinloss","56":"www/js/build/dev/pages/reports/platformwinloss","57":"www/js/build/dev/pages/reports/racingcommission","58":"www/js/build/dev/pages/reports/result","59":"www/js/build/dev/pages/reports/settledmatchcount","60":"www/js/build/dev/pages/reports/turnover","61":"www/js/build/dev/pages/reports/weeklylivematch","62":"www/js/build/dev/pages/reports/winlossbybettype","63":"www/js/build/dev/pages/reports/winlossbyleague","64":"www/js/build/dev/pages/reports/winlossbyproduct","65":"www/js/build/dev/pages/signin/signin","66":"www/js/build/dev/pages/totalbet/firstgoallastgoal","67":"www/js/build/dev/pages/totalbet/halftimefulltime","68":"www/js/build/dev/pages/totalbet/handicapoverunder","69":"www/js/build/dev/pages/totalbet/homedrawawaynobet","70":"www/js/build/dev/pages/totalbet/moneyline","71":"www/js/build/dev/pages/totalbet/oddevendrawnodraw","72":"www/js/build/dev/pages/totalbet/outright","73":"www/js/build/dev/pages/totalbet/totalgoal"}[chunkId]||chunkId) + ".chunk.js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"1":"www/css/build/dev/home","2":"www/css/build/dev/main","3":"www/css/build/dev/pages/betlist/betlistLayout","4":"www/css/build/dev/pages/betlist/betlistResult","5":"www/css/build/dev/pages/betlist/betlistSimpleLayout","6":"www/css/build/dev/pages/betlist/betlistdaily","7":"www/css/build/dev/pages/betlist/cashouthistory","8":"www/css/build/dev/pages/betlist/colossusbetdetail","9":"www/css/build/dev/pages/betlist/customeroutstanding","10":"www/css/build/dev/pages/betlist/lastbetmonitoring","11":"www/css/build/dev/pages/betlist/systemparlaydetail","12":"www/css/build/dev/pages/customer/betsetting","13":"www/css/build/dev/pages/customer/commgroupdetail","14":"www/css/build/dev/pages/customer/commgrouplist","15":"www/css/build/dev/pages/customer/customerlist","16":"www/css/build/dev/pages/customer/customerlog","17":"www/css/build/dev/pages/forecast/ahforecast","18":"www/css/build/dev/pages/forecast/forecastonextwo","19":"www/css/build/dev/pages/forecast/newforecast","20":"www/css/build/dev/pages/login/login","21":"www/css/build/dev/pages/reports/balance","22":"www/css/build/dev/pages/reports/cashoutwinloss","23":"www/css/build/dev/pages/reports/dailyracingwinloss","24":"www/css/build/dev/pages/reports/licenseewinloss","25":"www/css/build/dev/pages/reports/livereport","26":"www/css/build/dev/pages/reports/matchwinloss","27":"www/css/build/dev/pages/reports/platformwinloss","28":"www/css/build/dev/pages/reports/racingcommission","29":"www/css/build/dev/pages/reports/reportjqgridlayout","30":"www/css/build/dev/pages/reports/result","31":"www/css/build/dev/pages/reports/settledmatchcount","32":"www/css/build/dev/pages/reports/turnover","33":"www/css/build/dev/pages/reports/weeklylivematch","34":"www/css/build/dev/pages/reports/winlossbybettype","35":"www/css/build/dev/pages/reports/winlossbyleague","36":"www/css/build/dev/pages/reports/winlossbyproduct","37":"www/css/build/dev/pages/totalbet/mixparlay","38":"www/css/build/dev/pages/totalbet/totalbetlayout","39":"www/css/build/dev/pages/utility/error","40":"www/css/build/dev/pages/utility/licenseelist","41":"www/css/build/dev/um","42":"www/js/build/dev/language","43":"www/js/build/dev/pages/betlist/betlist","44":"www/js/build/dev/pages/betlist/betlistcancelledbets","45":"www/js/build/dev/pages/betlist/betlistcorrectscore","46":"www/js/build/dev/pages/betlist/betlistdaily","47":"www/js/build/dev/pages/betlist/betlistrunning","48":"www/js/build/dev/pages/betlist/betlistrunningmultiplebettypes","49":"www/js/build/dev/pages/betlist/betlistsimple","50":"www/js/build/dev/pages/betlist/customeroutstanding","51":"www/js/build/dev/pages/betlist/lastbetmonitoring","52":"www/js/build/dev/pages/customer/betsettingbygroup","53":"www/js/build/dev/pages/customer/betsettingmain","54":"www/js/build/dev/pages/customer/commgroupadd","55":"www/js/build/dev/pages/customer/commgroupedit","56":"www/js/build/dev/pages/customer/commgrouplist","57":"www/js/build/dev/pages/customer/customerlist","58":"www/js/build/dev/pages/customer/customersetting","59":"www/js/build/dev/pages/customer/dcsbetsetting","60":"www/js/build/dev/pages/customer/groupcommission","61":"www/js/build/dev/pages/customer/kenobetsetting","62":"www/js/build/dev/pages/customer/livecasinobetsetting","63":"www/js/build/dev/pages/customer/loginlog","64":"www/js/build/dev/pages/customer/numbergamebetsetting","65":"www/js/build/dev/pages/customer/rngcasinobetsetting","66":"www/js/build/dev/pages/customer/thirdpartybetsetting","67":"www/js/build/dev/pages/forecast/ahforecast","68":"www/js/build/dev/pages/forecast/forecasthdpou","69":"www/js/build/dev/pages/forecast/forecastonextwo","70":"www/js/build/dev/pages/forecast/newforecasthdpou","71":"www/js/build/dev/pages/home/home","72":"www/js/build/dev/pages/reports/balance","73":"www/js/build/dev/pages/reports/cashoutwinloss","74":"www/js/build/dev/pages/reports/dailyracingwinloss","75":"www/js/build/dev/pages/reports/licenseewinloss","76":"www/js/build/dev/pages/reports/livereport","77":"www/js/build/dev/pages/reports/livereportmatchlist","78":"www/js/build/dev/pages/reports/matchwinloss","79":"www/js/build/dev/pages/reports/platformwinloss","80":"www/js/build/dev/pages/reports/racingcommission","81":"www/js/build/dev/pages/reports/result","82":"www/js/build/dev/pages/reports/settledmatchcount","83":"www/js/build/dev/pages/reports/turnover","84":"www/js/build/dev/pages/reports/weeklylivematch","85":"www/js/build/dev/pages/reports/winlossbybettype","86":"www/js/build/dev/pages/reports/winlossbyleague","87":"www/js/build/dev/pages/reports/winlossbyproduct","88":"www/js/build/dev/pages/signin/signin","89":"www/js/build/dev/pages/totalbet/firstgoallastgoal","90":"www/js/build/dev/pages/totalbet/halftimefulltime","91":"www/js/build/dev/pages/totalbet/handicapoverunder","92":"www/js/build/dev/pages/totalbet/homedrawawaynobet","93":"www/js/build/dev/pages/totalbet/moneyline","94":"www/js/build/dev/pages/totalbet/oddevendrawnodraw","95":"www/js/build/dev/pages/totalbet/outright","96":"www/js/build/dev/pages/totalbet/totalgoal"}[chunkId]||chunkId) + ".chunk.js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -96,7 +98,7 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
 	__webpack_require__(4);
@@ -104,36 +106,36 @@
 	module.exports = __webpack_require__(8);
 
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["$"] = __webpack_require__(2);
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["jQuery"] = __webpack_require__(3);
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	 * jQuery JavaScript Library v3.1.1
+	 * jQuery JavaScript Library v3.2.1
 	 * https://jquery.com/
 	 *
 	 * Includes Sizzle.js
 	 * https://sizzlejs.com/
 	 *
-	 * Copyright jQuery Foundation and other contributors
+	 * Copyright JS Foundation and other contributors
 	 * Released under the MIT license
 	 * https://jquery.org/license
 	 *
-	 * Date: 2016-09-22T22:30Z
+	 * Date: 2017-03-20T18:59Z
 	 */
 	( function( global, factory ) {
 	
@@ -212,7 +214,7 @@
 	
 	
 	var
-		version = "3.1.1",
+		version = "3.2.1",
 	
 		// Define a local copy of jQuery
 		jQuery = function( selector, context ) {
@@ -360,11 +362,11 @@
 	
 					// Recurse if we're merging plain objects or arrays
 					if ( deep && copy && ( jQuery.isPlainObject( copy ) ||
-						( copyIsArray = jQuery.isArray( copy ) ) ) ) {
+						( copyIsArray = Array.isArray( copy ) ) ) ) {
 	
 						if ( copyIsArray ) {
 							copyIsArray = false;
-							clone = src && jQuery.isArray( src ) ? src : [];
+							clone = src && Array.isArray( src ) ? src : [];
 	
 						} else {
 							clone = src && jQuery.isPlainObject( src ) ? src : {};
@@ -402,8 +404,6 @@
 		isFunction: function( obj ) {
 			return jQuery.type( obj ) === "function";
 		},
-	
-		isArray: Array.isArray,
 	
 		isWindow: function( obj ) {
 			return obj != null && obj === obj.window;
@@ -477,10 +477,6 @@
 		// Microsoft forgot to hump their vendor prefix (#9572)
 		camelCase: function( string ) {
 			return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
-		},
-	
-		nodeName: function( elem, name ) {
-			return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
 		},
 	
 		each: function( obj, callback ) {
@@ -2967,6 +2963,13 @@
 	
 	var rneedsContext = jQuery.expr.match.needsContext;
 	
+	
+	
+	function nodeName( elem, name ) {
+	
+	  return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
+	
+	};
 	var rsingleTag = ( /^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|)$/i );
 	
 	
@@ -3318,7 +3321,18 @@
 			return siblings( elem.firstChild );
 		},
 		contents: function( elem ) {
-			return elem.contentDocument || jQuery.merge( [], elem.childNodes );
+	        if ( nodeName( elem, "iframe" ) ) {
+	            return elem.contentDocument;
+	        }
+	
+	        // Support: IE 9 - 11 only, iOS 7 only, Android Browser <=4.3 only
+	        // Treat the template element as a regular one in browsers that
+	        // don't support it.
+	        if ( nodeName( elem, "template" ) ) {
+	            elem = elem.content || elem;
+	        }
+	
+	        return jQuery.merge( [], elem.childNodes );
 		}
 	}, function( name, fn ) {
 		jQuery.fn[ name ] = function( until, selector ) {
@@ -3416,7 +3430,7 @@
 			fire = function() {
 	
 				// Enforce single-firing
-				locked = options.once;
+				locked = locked || options.once;
 	
 				// Execute callbacks for all pending executions,
 				// respecting firingIndex overrides and runtime changes
@@ -3585,7 +3599,7 @@
 		throw ex;
 	}
 	
-	function adoptValue( value, resolve, reject ) {
+	function adoptValue( value, resolve, reject, noValue ) {
 		var method;
 	
 		try {
@@ -3601,9 +3615,10 @@
 			// Other non-thenables
 			} else {
 	
-				// Support: Android 4.0 only
-				// Strict mode functions invoked without .call/.apply get global-object context
-				resolve.call( undefined, value );
+				// Control `resolve` arguments by letting Array#slice cast boolean `noValue` to integer:
+				// * false: [ value ].slice( 0 ) => resolve( value )
+				// * true: [ value ].slice( 1 ) => resolve()
+				resolve.apply( undefined, [ value ].slice( noValue ) );
 			}
 	
 		// For Promises/A+, convert exceptions into rejections
@@ -3613,7 +3628,7 @@
 	
 			// Support: Android 4.0 only
 			// Strict mode functions invoked without .call/.apply get global-object context
-			reject.call( undefined, value );
+			reject.apply( undefined, [ value ] );
 		}
 	}
 	
@@ -3938,7 +3953,8 @@
 	
 			// Single- and empty arguments are adopted like Promise.resolve
 			if ( remaining <= 1 ) {
-				adoptValue( singleValue, master.done( updateFunc( i ) ).resolve, master.reject );
+				adoptValue( singleValue, master.done( updateFunc( i ) ).resolve, master.reject,
+					!remaining );
 	
 				// Use .then() to unwrap secondary thenables (cf. gh-3000)
 				if ( master.state() === "pending" ||
@@ -4009,15 +4025,6 @@
 		// A counter to track how many items to wait for before
 		// the ready event fires. See #6781
 		readyWait: 1,
-	
-		// Hold (or release) the ready event
-		holdReady: function( hold ) {
-			if ( hold ) {
-				jQuery.readyWait++;
-			} else {
-				jQuery.ready( true );
-			}
-		},
 	
 		// Handle when the DOM is ready
 		ready: function( wait ) {
@@ -4254,7 +4261,7 @@
 			if ( key !== undefined ) {
 	
 				// Support array or space separated string of keys
-				if ( jQuery.isArray( key ) ) {
+				if ( Array.isArray( key ) ) {
 	
 					// If key is an array of keys...
 					// We always set camelCase keys, so remove that.
@@ -4480,7 +4487,7 @@
 	
 				// Speed up dequeue by getting out quickly if this is just a lookup
 				if ( data ) {
-					if ( !queue || jQuery.isArray( data ) ) {
+					if ( !queue || Array.isArray( data ) ) {
 						queue = dataPriv.access( elem, type, jQuery.makeArray( data ) );
 					} else {
 						queue.push( data );
@@ -4857,7 +4864,7 @@
 			ret = [];
 		}
 	
-		if ( tag === undefined || tag && jQuery.nodeName( context, tag ) ) {
+		if ( tag === undefined || tag && nodeName( context, tag ) ) {
 			return jQuery.merge( [ context ], ret );
 		}
 	
@@ -5464,7 +5471,7 @@
 	
 				// For checkbox, fire native event so checked state will be right
 				trigger: function() {
-					if ( this.type === "checkbox" && this.click && jQuery.nodeName( this, "input" ) ) {
+					if ( this.type === "checkbox" && this.click && nodeName( this, "input" ) ) {
 						this.click();
 						return false;
 					}
@@ -5472,7 +5479,7 @@
 	
 				// For cross-browser consistency, don't fire native .click() on links
 				_default: function( event ) {
-					return jQuery.nodeName( event.target, "a" );
+					return nodeName( event.target, "a" );
 				}
 			},
 	
@@ -5749,11 +5756,12 @@
 		rscriptTypeMasked = /^true\/(.*)/,
 		rcleanScript = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g;
 	
+	// Prefer a tbody over its parent table for containing new rows
 	function manipulationTarget( elem, content ) {
-		if ( jQuery.nodeName( elem, "table" ) &&
-			jQuery.nodeName( content.nodeType !== 11 ? content : content.firstChild, "tr" ) ) {
+		if ( nodeName( elem, "table" ) &&
+			nodeName( content.nodeType !== 11 ? content : content.firstChild, "tr" ) ) {
 	
-			return elem.getElementsByTagName( "tbody" )[ 0 ] || elem;
+			return jQuery( ">tbody", elem )[ 0 ] || elem;
 		}
 	
 		return elem;
@@ -6283,12 +6291,18 @@
 	
 	function curCSS( elem, name, computed ) {
 		var width, minWidth, maxWidth, ret,
+	
+			// Support: Firefox 51+
+			// Retrieving style before computed somehow
+			// fixes an issue with getting wrong values
+			// on detached elements
 			style = elem.style;
 	
 		computed = computed || getStyles( elem );
 	
-		// Support: IE <=9 only
-		// getPropertyValue is only needed for .css('filter') (#12537)
+		// getPropertyValue is needed for:
+		//   .css('filter') (IE 9 only, #12537)
+		//   .css('--customProperty) (#3144)
 		if ( computed ) {
 			ret = computed.getPropertyValue( name ) || computed[ name ];
 	
@@ -6354,6 +6368,7 @@
 		// except "table", "table-cell", or "table-caption"
 		// See here for display values: https://developer.mozilla.org/en-US/docs/CSS/display
 		rdisplayswap = /^(none|table(?!-c[ea]).+)/,
+		rcustomProp = /^--/,
 		cssShow = { position: "absolute", visibility: "hidden", display: "block" },
 		cssNormalTransform = {
 			letterSpacing: "0",
@@ -6381,6 +6396,16 @@
 				return name;
 			}
 		}
+	}
+	
+	// Return a property mapped along what jQuery.cssProps suggests or to
+	// a vendor prefixed property.
+	function finalPropName( name ) {
+		var ret = jQuery.cssProps[ name ];
+		if ( !ret ) {
+			ret = jQuery.cssProps[ name ] = vendorPropName( name ) || name;
+		}
+		return ret;
 	}
 	
 	function setPositiveNumber( elem, value, subtract ) {
@@ -6443,43 +6468,30 @@
 	
 	function getWidthOrHeight( elem, name, extra ) {
 	
-		// Start with offset property, which is equivalent to the border-box value
-		var val,
-			valueIsBorderBox = true,
+		// Start with computed style
+		var valueIsBorderBox,
 			styles = getStyles( elem ),
+			val = curCSS( elem, name, styles ),
 			isBorderBox = jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
 	
-		// Support: IE <=11 only
-		// Running getBoundingClientRect on a disconnected node
-		// in IE throws an error.
-		if ( elem.getClientRects().length ) {
-			val = elem.getBoundingClientRect()[ name ];
+		// Computed unit is not pixels. Stop here and return.
+		if ( rnumnonpx.test( val ) ) {
+			return val;
 		}
 	
-		// Some non-html elements return undefined for offsetWidth, so check for null/undefined
-		// svg - https://bugzilla.mozilla.org/show_bug.cgi?id=649285
-		// MathML - https://bugzilla.mozilla.org/show_bug.cgi?id=491668
-		if ( val <= 0 || val == null ) {
+		// Check for style in case a browser which returns unreliable values
+		// for getComputedStyle silently falls back to the reliable elem.style
+		valueIsBorderBox = isBorderBox &&
+			( support.boxSizingReliable() || val === elem.style[ name ] );
 	
-			// Fall back to computed then uncomputed css if necessary
-			val = curCSS( elem, name, styles );
-			if ( val < 0 || val == null ) {
-				val = elem.style[ name ];
-			}
-	
-			// Computed unit is not pixels. Stop here and return.
-			if ( rnumnonpx.test( val ) ) {
-				return val;
-			}
-	
-			// Check for style in case a browser which returns unreliable values
-			// for getComputedStyle silently falls back to the reliable elem.style
-			valueIsBorderBox = isBorderBox &&
-				( support.boxSizingReliable() || val === elem.style[ name ] );
-	
-			// Normalize "", auto, and prepare for extra
-			val = parseFloat( val ) || 0;
+		// Fall back to offsetWidth/Height when value is "auto"
+		// This happens for inline elements with no explicit setting (gh-3571)
+		if ( val === "auto" ) {
+			val = elem[ "offset" + name[ 0 ].toUpperCase() + name.slice( 1 ) ];
 		}
+	
+		// Normalize "", auto, and prepare for extra
+		val = parseFloat( val ) || 0;
 	
 		// Use the active box-sizing model to add/subtract irrelevant styles
 		return ( val +
@@ -6544,10 +6556,15 @@
 			// Make sure that we're working with the right name
 			var ret, type, hooks,
 				origName = jQuery.camelCase( name ),
+				isCustomProp = rcustomProp.test( name ),
 				style = elem.style;
 	
-			name = jQuery.cssProps[ origName ] ||
-				( jQuery.cssProps[ origName ] = vendorPropName( origName ) || origName );
+			// Make sure that we're working with the right name. We don't
+			// want to query the value if it is a CSS custom property
+			// since they are user-defined.
+			if ( !isCustomProp ) {
+				name = finalPropName( origName );
+			}
 	
 			// Gets hook for the prefixed version, then unprefixed version
 			hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
@@ -6583,7 +6600,11 @@
 				if ( !hooks || !( "set" in hooks ) ||
 					( value = hooks.set( elem, value, extra ) ) !== undefined ) {
 	
-					style[ name ] = value;
+					if ( isCustomProp ) {
+						style.setProperty( name, value );
+					} else {
+						style[ name ] = value;
+					}
 				}
 	
 			} else {
@@ -6602,11 +6623,15 @@
 	
 		css: function( elem, name, extra, styles ) {
 			var val, num, hooks,
-				origName = jQuery.camelCase( name );
+				origName = jQuery.camelCase( name ),
+				isCustomProp = rcustomProp.test( name );
 	
-			// Make sure that we're working with the right name
-			name = jQuery.cssProps[ origName ] ||
-				( jQuery.cssProps[ origName ] = vendorPropName( origName ) || origName );
+			// Make sure that we're working with the right name. We don't
+			// want to modify the value if it is a CSS custom property
+			// since they are user-defined.
+			if ( !isCustomProp ) {
+				name = finalPropName( origName );
+			}
 	
 			// Try prefixed name followed by the unprefixed name
 			hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
@@ -6631,6 +6656,7 @@
 				num = parseFloat( val );
 				return extra === true || isFinite( num ) ? num || 0 : val;
 			}
+	
 			return val;
 		}
 	} );
@@ -6730,7 +6756,7 @@
 					map = {},
 					i = 0;
 	
-				if ( jQuery.isArray( name ) ) {
+				if ( Array.isArray( name ) ) {
 					styles = getStyles( elem );
 					len = name.length;
 	
@@ -6868,13 +6894,18 @@
 	
 	
 	var
-		fxNow, timerId,
+		fxNow, inProgress,
 		rfxtypes = /^(?:toggle|show|hide)$/,
 		rrun = /queueHooks$/;
 	
-	function raf() {
-		if ( timerId ) {
-			window.requestAnimationFrame( raf );
+	function schedule() {
+		if ( inProgress ) {
+			if ( document.hidden === false && window.requestAnimationFrame ) {
+				window.requestAnimationFrame( schedule );
+			} else {
+				window.setTimeout( schedule, jQuery.fx.interval );
+			}
+	
 			jQuery.fx.tick();
 		}
 	}
@@ -7101,7 +7132,7 @@
 			name = jQuery.camelCase( index );
 			easing = specialEasing[ name ];
 			value = props[ index ];
-			if ( jQuery.isArray( value ) ) {
+			if ( Array.isArray( value ) ) {
 				easing = value[ 1 ];
 				value = props[ index ] = value[ 0 ];
 			}
@@ -7160,12 +7191,19 @@
 	
 				deferred.notifyWith( elem, [ animation, percent, remaining ] );
 	
+				// If there's more to do, yield
 				if ( percent < 1 && length ) {
 					return remaining;
-				} else {
-					deferred.resolveWith( elem, [ animation ] );
-					return false;
 				}
+	
+				// If this was an empty animation, synthesize a final progress notification
+				if ( !length ) {
+					deferred.notifyWith( elem, [ animation, 1, 0 ] );
+				}
+	
+				// Resolve the animation and report its conclusion
+				deferred.resolveWith( elem, [ animation ] );
+				return false;
 			},
 			animation = deferred.promise( {
 				elem: elem,
@@ -7230,6 +7268,13 @@
 			animation.opts.start.call( elem, animation );
 		}
 	
+		// Attach callbacks from options
+		animation
+			.progress( animation.opts.progress )
+			.done( animation.opts.done, animation.opts.complete )
+			.fail( animation.opts.fail )
+			.always( animation.opts.always );
+	
 		jQuery.fx.timer(
 			jQuery.extend( tick, {
 				elem: elem,
@@ -7238,11 +7283,7 @@
 			} )
 		);
 	
-		// attach callbacks from options
-		return animation.progress( animation.opts.progress )
-			.done( animation.opts.done, animation.opts.complete )
-			.fail( animation.opts.fail )
-			.always( animation.opts.always );
+		return animation;
 	}
 	
 	jQuery.Animation = jQuery.extend( Animation, {
@@ -7293,8 +7334,8 @@
 			easing: fn && easing || easing && !jQuery.isFunction( easing ) && easing
 		};
 	
-		// Go to the end state if fx are off or if document is hidden
-		if ( jQuery.fx.off || document.hidden ) {
+		// Go to the end state if fx are off
+		if ( jQuery.fx.off ) {
 			opt.duration = 0;
 	
 		} else {
@@ -7486,7 +7527,7 @@
 		for ( ; i < timers.length; i++ ) {
 			timer = timers[ i ];
 	
-			// Checks the timer has not already been removed
+			// Run the timer and safely remove it when done (allowing for external removal)
 			if ( !timer() && timers[ i ] === timer ) {
 				timers.splice( i--, 1 );
 			}
@@ -7500,30 +7541,21 @@
 	
 	jQuery.fx.timer = function( timer ) {
 		jQuery.timers.push( timer );
-		if ( timer() ) {
-			jQuery.fx.start();
-		} else {
-			jQuery.timers.pop();
-		}
+		jQuery.fx.start();
 	};
 	
 	jQuery.fx.interval = 13;
 	jQuery.fx.start = function() {
-		if ( !timerId ) {
-			timerId = window.requestAnimationFrame ?
-				window.requestAnimationFrame( raf ) :
-				window.setInterval( jQuery.fx.tick, jQuery.fx.interval );
+		if ( inProgress ) {
+			return;
 		}
+	
+		inProgress = true;
+		schedule();
 	};
 	
 	jQuery.fx.stop = function() {
-		if ( window.cancelAnimationFrame ) {
-			window.cancelAnimationFrame( timerId );
-		} else {
-			window.clearInterval( timerId );
-		}
-	
-		timerId = null;
+		inProgress = null;
 	};
 	
 	jQuery.fx.speeds = {
@@ -7640,7 +7672,7 @@
 			type: {
 				set: function( elem, value ) {
 					if ( !support.radioValue && value === "radio" &&
-						jQuery.nodeName( elem, "input" ) ) {
+						nodeName( elem, "input" ) ) {
 						var val = elem.value;
 						elem.setAttribute( "type", value );
 						if ( val ) {
@@ -8071,7 +8103,7 @@
 				} else if ( typeof val === "number" ) {
 					val += "";
 	
-				} else if ( jQuery.isArray( val ) ) {
+				} else if ( Array.isArray( val ) ) {
 					val = jQuery.map( val, function( value ) {
 						return value == null ? "" : value + "";
 					} );
@@ -8130,7 +8162,7 @@
 								// Don't return options that are disabled or in a disabled optgroup
 								!option.disabled &&
 								( !option.parentNode.disabled ||
-									!jQuery.nodeName( option.parentNode, "optgroup" ) ) ) {
+									!nodeName( option.parentNode, "optgroup" ) ) ) {
 	
 							// Get the specific value for the option
 							value = jQuery( option ).val();
@@ -8182,7 +8214,7 @@
 	jQuery.each( [ "radio", "checkbox" ], function() {
 		jQuery.valHooks[ this ] = {
 			set: function( elem, value ) {
-				if ( jQuery.isArray( value ) ) {
+				if ( Array.isArray( value ) ) {
 					return ( elem.checked = jQuery.inArray( jQuery( elem ).val(), value ) > -1 );
 				}
 			}
@@ -8477,7 +8509,7 @@
 	function buildParams( prefix, obj, traditional, add ) {
 		var name;
 	
-		if ( jQuery.isArray( obj ) ) {
+		if ( Array.isArray( obj ) ) {
 	
 			// Serialize array item.
 			jQuery.each( obj, function( i, v ) {
@@ -8529,7 +8561,7 @@
 			};
 	
 		// If an array was passed in, assume that it is an array of form elements.
-		if ( jQuery.isArray( a ) || ( a.jquery && !jQuery.isPlainObject( a ) ) ) {
+		if ( Array.isArray( a ) || ( a.jquery && !jQuery.isPlainObject( a ) ) ) {
 	
 			// Serialize the form elements
 			jQuery.each( a, function() {
@@ -8575,7 +8607,7 @@
 					return null;
 				}
 	
-				if ( jQuery.isArray( val ) ) {
+				if ( Array.isArray( val ) ) {
 					return jQuery.map( val, function( val ) {
 						return { name: elem.name, value: val.replace( rCRLF, "\r\n" ) };
 					} );
@@ -10000,13 +10032,6 @@
 	
 	
 	
-	/**
-	 * Gets a window from an element
-	 */
-	function getWindow( elem ) {
-		return jQuery.isWindow( elem ) ? elem : elem.nodeType === 9 && elem.defaultView;
-	}
-	
 	jQuery.offset = {
 		setOffset: function( elem, options, i ) {
 			var curPosition, curLeft, curCSSTop, curTop, curOffset, curCSSLeft, calculatePosition,
@@ -10071,13 +10096,14 @@
 					} );
 			}
 	
-			var docElem, win, rect, doc,
+			var doc, docElem, rect, win,
 				elem = this[ 0 ];
 	
 			if ( !elem ) {
 				return;
 			}
 	
+			// Return zeros for disconnected and hidden (display: none) elements (gh-2310)
 			// Support: IE <=11 only
 			// Running getBoundingClientRect on a
 			// disconnected node in IE throws an error
@@ -10087,20 +10113,14 @@
 	
 			rect = elem.getBoundingClientRect();
 	
-			// Make sure element is not hidden (display: none)
-			if ( rect.width || rect.height ) {
-				doc = elem.ownerDocument;
-				win = getWindow( doc );
-				docElem = doc.documentElement;
+			doc = elem.ownerDocument;
+			docElem = doc.documentElement;
+			win = doc.defaultView;
 	
-				return {
-					top: rect.top + win.pageYOffset - docElem.clientTop,
-					left: rect.left + win.pageXOffset - docElem.clientLeft
-				};
-			}
-	
-			// Return zeros for disconnected and hidden elements (gh-2310)
-			return rect;
+			return {
+				top: rect.top + win.pageYOffset - docElem.clientTop,
+				left: rect.left + win.pageXOffset - docElem.clientLeft
+			};
 		},
 	
 		position: function() {
@@ -10126,7 +10146,7 @@
 	
 				// Get correct offsets
 				offset = this.offset();
-				if ( !jQuery.nodeName( offsetParent[ 0 ], "html" ) ) {
+				if ( !nodeName( offsetParent[ 0 ], "html" ) ) {
 					parentOffset = offsetParent.offset();
 				}
 	
@@ -10173,7 +10193,14 @@
 	
 		jQuery.fn[ method ] = function( val ) {
 			return access( this, function( elem, method, val ) {
-				var win = getWindow( elem );
+	
+				// Coalesce documents and windows
+				var win;
+				if ( jQuery.isWindow( elem ) ) {
+					win = elem;
+				} else if ( elem.nodeType === 9 ) {
+					win = elem.defaultView;
+				}
 	
 				if ( val === undefined ) {
 					return win ? win[ prop ] : elem[ method ];
@@ -10282,7 +10309,16 @@
 		}
 	} );
 	
+	jQuery.holdReady = function( hold ) {
+		if ( hold ) {
+			jQuery.readyWait++;
+		} else {
+			jQuery.ready( true );
+		}
+	};
+	jQuery.isArray = Array.isArray;
 	jQuery.parseJSON = JSON.parse;
+	jQuery.nodeName = nodeName;
 	
 	
 	
@@ -10339,14 +10375,13 @@
 	
 	
 	
-	
 	return jQuery;
 	} );
 
 
-/***/ },
+/***/ }),
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(jQuery, $, __webpack_provided_window_dot_jQuery) {// Check for jQuery.
 	if (typeof(jQuery) === 'undefined') {
@@ -11526,17 +11561,17 @@
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(1), __webpack_require__(1)))
 
-/***/ },
+/***/ }),
 /* 5 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
-/***/ },
+/***/ }),
 /* 6 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*! Hammer.JS - v2.0.7 - 2016-04-22
 	 * http://hammerjs.github.io/
@@ -14183,21 +14218,19 @@
 	})(window, document, 'Hammer');
 
 
-/***/ },
+/***/ }),
 /* 7 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global _language_en_US*/
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(9), __webpack_require__(4), __webpack_require__(11), __webpack_require__(12), __webpack_require__(13)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Popup) {// jshint ignore:line
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(9), __webpack_require__(11), __webpack_require__(12)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Popup) {// jshint ignore:line
 	        "use strict";
 	        var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
 	        var REQUEST_VERIFICATION_TOKEN;
 	        var _historyDate = null;
 	        var _licenseeId = null;
-	        var _isLoadedNotificationPopup = false;
 	        var _rootUrl = null;
 	        var _pageLanguage = null;
-	        var _userCurrencies = null;
 	
 	        function setProductCodeListParam(url, productCodeList){
 	            return QueryString.setParam(url, "ProductCodeList", productCodeList);
@@ -14205,32 +14238,6 @@
 	
 	        function reload() {
 	            window.location.reload();
-	        }
-	
-	        function addNoticationPopup() {
-	            var $marquee = $("#notification-marquee");
-	            if ("marquee" in $marquee) {
-	                $marquee.marquee({ speed: 30 });
-	            }
-	
-	            if (_isLoadedNotificationPopup === true) {
-	                return;
-	            }
-	
-	            var $popup = $("#NotificationPopup");
-	            if ($popup.length > 0) {
-	                var options = {
-	                    height: 160,
-	                    title: getSingleResource("Notification")
-	                };
-	                var popup = $popup.flatPopup(options);
-	                popup.show();
-	
-	                $popup.find(".popup-close").click(function () {
-	                    $.cookie("isClosedNotification", "1", { path: '/' });
-	                });
-	                _isLoadedNotificationPopup = true;
-	            }
 	        }
 	
 	        function resolveClientUrl(relativeUrl) {
@@ -14254,10 +14261,6 @@
 	            return urlOrParams;
 	        }
 	
-	        function getDifferenceMonth(fromDate, toDate) {
-	            return toDate.getMonth() - fromDate.getMonth() + (12 * (toDate.getFullYear() - fromDate.getFullYear())) + 1;
-	        }
-	
 	        function initSelectElements() {
 	            $('select.select').not('#CurrencyId').selectList();
 	
@@ -14272,16 +14275,8 @@
 	            _historyDate = new Date($("#HistoryDate").val());
 	            _rootUrl = $('#RootUrl').val();
 	            _pageLanguage = $('#PageLanguage').val();
-	            var userCurrencies = $('#UserCurrencies').val();
-	            if (userCurrencies) {
-	                _userCurrencies = JSON.parse(userCurrencies);
-	            }
-	            addNoticationPopup();
-	            overrideInnerSize();
 	        }
 	        function initEvent() {
-	            $(window).resize(overrideInnerSize);
-	
 	            $("#CurrencyId").change(function () {
 	                currencyConstraint(true);
 	            });
@@ -14308,79 +14303,6 @@
 	                    }
 	                }
 	            });
-	        }
-	
-	        function exportExcel(postData, url, method) {
-	            var data = clone(postData);
-	            data.IsExportExcel = true;
-	            var $form = $('<form id="ExportExcelForm">').attr({ action: url, method: method || 'post' })
-	                .appendTo('body');
-	            for (var property in data) {
-	                if (data.hasOwnProperty(property)) {
-	                    var value = data[property];
-	                    if (property === "ProductOptions") {
-	                        var products = typeof (value) === "object" ? value : JSON.parse(value);
-	                        for (var i = 0; i < products.length; i++) {
-	                            var product = products[i];
-	                            $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Code', value: product.Code }).appendTo($form);
-	                            $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Status', value: product.Status }).appendTo($form);
-	                        }
-	                    } else {
-	                        $('<input type="hidden">').attr({ name: property, value: value }).appendTo($form);
-	                    }
-	                }
-	            }
-	            if (!data["__RequestVerificationToken"]) {
-	                $('<input type="hidden">').attr({ name: '__RequestVerificationToken', value: REQUEST_VERIFICATION_TOKEN }).appendTo($form);
-	            }
-	
-	            $form.submit();
-	            $form.remove();
-	        }
-	
-	        function setConstraintMonthRange(monthRange, url) {
-	            var errorMessage = getSingleResource("DateRangeExceedMsg").replace("{0}", monthRange);
-	
-	            function isValidRange() {
-	                var fromDate = new Date($("#FromDate").val());
-	                var toDate = new Date($("#ToDate").val());
-	
-	                return getDifferenceMonth(fromDate, toDate) <= monthRange;
-	            }
-	
-	            if (url && typeof url === "string") {
-	                $(document).ajaxSend(function (event, jqxhr, settings) {
-	                    if (settings.url.search(new RegExp(url, "i")) > -1 && isValidRange() === false) {
-	                        showMessaegBox(errorMessage);
-	                        jqxhr.abort();
-	                    }
-	                });
-	            }
-	
-	            $("form").on("submit", function () {
-	                if (isValidRange() === false) {
-	                    showMessaegBox(errorMessage);
-	                    return false;
-	                }
-	
-	                return true;
-	            });
-	        }
-	        function showMessaegBox(message) {
-	            var title = getSingleResource("LrfNotification");
-	            var dialogForm = '<div title="' + title + '"><p class="notification">' + message + '!</p></div>';
-	
-	            Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification" });
-	        }
-	        function getLicenseeId() {
-	            if (!_licenseeId) {
-	                _licenseeId = parseInt($("#LicenseeId").val());
-	            }
-	
-	            return _licenseeId;
-	        }
-	        function getCurrencyName(currencyId) {
-	            return _userCurrencies[currencyId];
 	        }
 	        function getHistoryDate() {
 	            return _historyDate;
@@ -14422,14 +14344,6 @@
 	                }
 	            });
 	        }
-	        function overrideInnerSize() {
-	            if (window.innerHeight === undefined) {
-	                parent.innerHeight = parent.document.documentElement.clientHeight;
-	                window.innerHeight = window.document.documentElement.clientHeight;
-	                parent.innerWidth = parent.document.documentElement.clientWidth;
-	                window.innerWidth = window.document.documentElement.clientWidth;
-	            }
-	        }
 	        function asNull(text) {
 	            if (text != null) {
 	                text = text.trim();
@@ -14439,14 +14353,6 @@
 	            }
 	
 	            return text;
-	        }
-	
-	        function gotoErrorPage(status) {
-	            if (status === undefined || status !== 0) {
-	                window.location.href = resolveClientUrl("Utility/Error");
-	            } else {
-	                unBlockUI();
-	            }
 	        }
 	
 	        function unBlockUI() {
@@ -14472,7 +14378,7 @@
 	            var currencyId = $("#CurrencyId").attr('data-original');
 	            var baseCurrency = $("#BaseCurrency").attr('data-original');
 	
-	            var $currencyItem = $("#CurrencyId option[value=" +currencyId + "]");
+	            var $currencyItem = $("#CurrencyId option[value=" + currencyId + "]");
 	            var currencyName = $currencyItem.length ? $currencyItem.text() : $("#CurrencyName").val();
 	
 	            return setLicenseeOption(urlOrParams, currencyId, currencyName, baseCurrency);
@@ -14715,22 +14621,35 @@
 	            return window.location;
 	        }
 	
+	        function debounce(func, wait, immediate) {
+	            var timeout;
+	            return function () {
+	                var context = this,
+	                    args = arguments;
+	                var later = function () {
+	                    timeout = null;
+	                    if (!immediate) {
+	                        func.apply(context, args);
+	                    }
+	                };
+	                var callNow = immediate && !timeout;
+	                clearTimeout(timeout);
+	                timeout = setTimeout(later, wait || 500);
+	                if (callNow) {
+	                    func.apply(context, args);
+	                }
+	            };
+	        }
+	
 	        return {
 	            initialize: initialize,
 	            setProductCodeListParam: setProductCodeListParam,
 	            reload: reload,
 	            resolveClientUrl: resolveClientUrl,
-	            exportExcel: exportExcel,
-	            setConstraintMonthRange: setConstraintMonthRange,
-	            showMessaegBox: showMessaegBox,
-	            getLicenseeId: getLicenseeId,
-	            getCurrencyName: getCurrencyName,
 	            getHistoryDate: getHistoryDate,
 	            isBaseCurrency: isBaseCurrency,
 	            addUserGuide: addUserGuide,
-	            overrideInnerSize: overrideInnerSize,
 	            asNull: asNull,
-	            gotoErrorPage: gotoErrorPage,
 	            unBlockUI: unBlockUI,
 	            blockUI: blockUI,
 	            setLicenseeOptionParam: setLicenseeOptionParam,
@@ -14751,13 +14670,14 @@
 	            redirect: redirect,
 	            getCurrentUrl: getCurrentUrl,
 	            getLocation: getLocation,
-	            initSelectElements: initSelectElements
+	            initSelectElements: initSelectElements,
+	            debounce: debounce
 	        };
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 /* 8 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
@@ -14860,18 +14780,34 @@
 	    };
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 /* 9 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(10)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 	    "use strict";
+	    /*
+	    var defaultOptions = {
+	        width: 640,
+	        height: 480,
+	        id: "popup-content",
+	        className: "",
+	        title: "&nbsp;",
+	        container: "body",
+	        modal: DEFAULT_MODAL,
+	        onOpen: null,
+	        onClose: null
+	    };
+	    */
 	
 	    var _me = {
 	        openPopup: function (element, option) {
 	            return $(element).flatPopup(option);
 	        },
-	
+	        closePopup: function (id) {
+	            $("#" + id).fadeOut(300);
+	            $(".popup-block-body").hide();
+	        },
 	        openPopupWithIframe: function (url, option) {
 	            var $popUp = $("#" + option.id);
 	            var iframe = '<iframe id="popupFrame" src="' + url + '" ></iframe>';
@@ -14914,15 +14850,68 @@
 	
 	        show: function ($popup, isModal) {
 	            $popup.flatPopup("show", isModal);
+	        },
+	
+	        /*
+	        var buttons = [
+	                {
+	                    text: "OK",
+	                    click: function () { },
+	                    classes: "btn btn-primary",
+	                    id: "",
+	                    isClosedOnClick: false
+	                }];
+	        */
+	        openPopupWithButton: function (element, option, buttons) {
+	            var defaultOption = {
+	                padding: 15,
+	                id: "popup-content"
+	            };
+	
+	            $.extend(defaultOption, option || {});
+	
+	            var $element = $(element);
+	            var $popup = $("#" + defaultOption.id);
+	            if ($popup.length === 0 || $popup.hasClass('flat-popup') === false) {
+	                $element.append('<div class="right popup-button"></div>');
+	                var $blockButton = $element.find(".popup-button");
+	
+	                var firstButton = true;
+	                $.each(buttons, function (index, button) {
+	                    var id = button.id ? ' id="' + button.id + '"' : '';
+	                    var className = button.classes ? ' class="' + button.classes + '"' : '';
+	                    var autoFocus = firstButton ? " autofocus" : "";
+	
+	                    var $button = $('<button type="button"' + id + className + autoFocus + '>'
+	                        + button.text + '</button>');
+	                    $blockButton.append($button);
+	                    if (button.isClosedOnClick) {
+	                        $button.on("click", function () {
+	                            $element.find('a.popup-close').trigger('click');
+	
+	                            if (typeof button.click === "function") {
+	                                button.click();
+	                            }
+	                        });
+	                    }
+	                    else {
+	                        $button.on("click", button.click);
+	                    }
+	
+	                    firstButton = false;
+	                });
+	            }
+	
+	            return $element.flatPopup(defaultOption);
 	        }
 	    };
 	
 	    return _me;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 /* 10 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
@@ -14934,6 +14923,7 @@
 	            var defaultOptions = {
 	                width: 640,
 	                height: 480,
+	                padding: 0,
 	                id: "popup-content",
 	                className: "",
 	                title: "&nbsp;",
@@ -14953,12 +14943,12 @@
 	                    $blockBody = $('<div class="popup-block-body" style="display: none"></div>');
 	                    $container.append($blockBody);
 	                }
-	
-	                var isNew = $("#" + options.id).length === 0;
-	                if (isNew) {
+	                
+	                var $popupElement = $("#" + options.id);
+	                if ($popupElement.length === 0 || $popupElement.hasClass('flat-popup') === false) {
 	                    $self.attr("id", options.id);
 	                    $self.addClass("flat-popup " + options.className);
-	                    $self.children().wrapAll("<div class='wrapContent'></div>");
+	                    $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");
 	                    $self.hide()
 	                         .prepend('<div class="title-bar popup-title"><div class="txt-title">'
 	                             + options.title
@@ -15000,6 +14990,10 @@
 	            var left = ($(window).width() - $self.width()) / 2;
 	            var top = ($(window).height() - $self.height()) / 2;
 	
+	            if (top > 300) {
+	                top -= 100;
+	            }
+	
 	            $self.css({
 	                'top': top + "px",
 	                'left': left + "px"
@@ -15031,797 +15025,9 @@
 	    };
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 /* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
-	(function ($) {
-	    var currentTriggerEvents = [];
-	    var methods = {
-	        createMultiselect: function (opts) {
-	            opts = $.extend({}, $.fn.multiSelect.defaults, opts);
-	            return this.each(function () {
-	                return new MultiSelect(this, opts);
-	            });
-	        },
-	        appendItem: function (item) {
-	        },
-	        removeItem: function (item) {
-	        },
-	        updateItems: function (opts) {
-	            opts = $.extend({}, $.fn.multiSelect.defaults, opts);
-	            return this.each(function () {
-	                return new MultiSelect(this, opts);
-	            });
-	        },
-	        checkAllItems: function () {
-	            var $inputs = $(this).next('div.ui-multiselect-options').find('label').not('.ui-multiselect-state-disabled').find('input');
-	            $inputs.not(':disabled').attr('checked', 'checked');
-	            var numChecked = $(this).next('div.ui-multiselect-options').find('label').not('.ui-multiselect-state-disabled').not('.ui-multiselect-group-mark').find('input').not("#" + $(this).attr('id') + "HeaderCheckBox").filter('[checked]').length;
-	            if (o.isUsedCustomCheckAllText) {
-	                $(this).find('input').val(o.customCheckAllText);
-	            }
-	            else {
-	                $(this).find('input').val(numChecked + " selected");
-	            }
-	        },
-	        unCheckAllItems: function () {
-	            var $inputs = $(this).next('div.ui-multiselect-options').find('label').not('.ui-multiselect-state-disabled').find('input');
-	            $inputs.not(':disabled').removeAttr('checked');
-	            var numChecked = $(this).next('div.ui-multiselect-options').find('label').not('.ui-multiselect-state-disabled').find('input').filter('[checked]').length;
-	
-	            $(this).find('input').val($.fn.multiSelect.defaults.noneSelectedText);
-	        },
-	        getUncheckItems: function () {
-	            var listChecked = $(this).next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(:checked)').not("#" + $(this).attr('id') + "HeaderCheckBox");
-	            var tempArray = [];
-	            for (var i = 0; i < listChecked.length; i++) {
-	                tempArray.push(listChecked[i].value);
-	            }
-	            return tempArray;
-	        },
-	        getCheckedItems: function () {
-	            var listChecked = $(this).next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(#' + $(this).attr('id') + "HeaderCheckBox)").filter('[checked]');
-	            var tempArray = [];
-	            for (var i = 0; i < listChecked.length; i++) {
-	                tempArray.push(listChecked[i].value);
-	            }
-	            return tempArray;
-	        },
-	        getCheckedItemsByText: function () {
-	            var listChecked = $(this).next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(#' + $(this).attr('id') + "HeaderCheckBox)").filter('[checked]');
-	            var tempArray = [];
-	            for (var i = 0; i < listChecked.length; i++) {
-	                tempArray.push(listChecked[i].title);
-	            }
-	            return tempArray;
-	        },
-	        hideMe: function () {
-	            $(this).next('div.ui-multiselect-options').trigger('close', true, false);
-	        },
-	        openMe: function (waiting) {
-	            //$(this).find('#ui-multiselect-options-' + $(this).find(":first-child").attr("id")).trigger('open', false);
-	            $(this).next('div.ui-multiselect-options').trigger('open', false);
-	        }
-	    };
-	
-	    $.fn.multiSelect = function (opts) {
-	        if (methods[opts]) {
-	            return methods[opts].apply(this, Array.prototype.slice.call(arguments, 1));
-	        }
-	        else if (typeof opts === 'object' || !opts) {
-	            // Default to "createMultiselect"
-	            return methods.createMultiselect.apply(this, arguments);
-	        }
-	        else {
-	            //throw error
-	        }
-	    };
-	    //// Detect Browser
-	    //// Grid Scroller
-	    var matchedBrowser, browserDectect;
-	
-	    // Use of jQuery.browser is frowned upon.
-	    // More details: http://api.jquery.com/jQuery.browser
-	    // jQuery.uaMatch maintained for back-compat
-	    function ubMatch(ua) {
-	        ua = ua.toLowerCase();
-	
-	        var match = /(chrome)[ \/]([\w.]+)/.exec(ua) ||
-	        /(webkit)[ \/]([\w.]+)/.exec(ua) ||
-	        /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) ||
-	        /(msie) ([\w.]+)/.exec(ua) ||
-	        ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua) ||
-	        [];
-	
-	        return {
-	            browserDectect: match[1] || "",
-	            version: match[2] || "0"
-	        };
-	    };
-	
-	    matchedBrowser = ubMatch(navigator.userAgent);
-	    browserDectect = {};
-	
-	    if (matchedBrowser.browserDectect) {
-	        browserDectect[matchedBrowser.browserDectect] = true;
-	        browserDectect.version = matchedBrowser.version;
-	    }
-	
-	    // Chrome is Webkit, but Webkit is also Safari.
-	    if (browserDectect.chrome) {
-	        browserDectect.webkit = true;
-	    } else if (browserDectect.webkit) {
-	        browserDectect.safari = true;
-	    }
-	
-	    // counter to dynamically generate label/option IDs if they don't exist
-	    var multiselectID = 0;
-	    // built up a multiselect
-	    var MultiSelect = function (select, o) {
-	        //global variables
-	        var $original = $(select);
-	        var $select = $original,
-	            $options, $header, $labels, $footer, $listGroupCheckBox, $body, $listItem, $listCollapse, $divHover,
-	            $allLabel, $inputHeaderCheckBox, $selectinput, $headerCheckbox, $checkedInput, $dropdownlist,
-	            html = [],
-	            optgroups = [],
-	            isDisabled = $select.is(':disabled'),
-	            id = select.id || 'ui-multiselect-' + multiselectID++, // unique ID for the label & option tags
-	            listData = o.listData,
-	            isShowGroup = false,
-	            isOpenning = false,
-	            numGroup = 0;
-	        //render MultiSleclect Interface
-	        var RenderInterface = function (id, idDisable, noneSelectedText, title) {
-	            //remove old
-	            if ($select.prev().is('div.ui-multiselect-options')) {
-	                $select.prev().remove();
-	            }
-	            if ($select.next().is('div.ui-multiselect-options')) {
-	                $select.next().remove();
-	            }
-	
-	            //render new
-	            var tempHtml = [];
-	            tempHtml.push('<a id="' + id + '" class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default ' + (idDisable ? ' ui-multiselect-state-disabled' : '') + '">');
-	            tempHtml.push('<input readonly="readonly" type="text" class="ui-multiselect-state-default" value="' + noneSelectedText + '" title="' + select.title + '" /><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
-	            return tempHtml.join('');
-	        };
-	        //render Header
-	        var checkShouldShowGroupOrNo = function () {
-	            for (var i = 0; i < o.listData.length; i++) {
-	                if (typeof o.listData[i].Items !== 'undefined' && o.listData[i].Items.length > 0) {
-	                    isShowGroup = true;
-	                    break;
-	                }
-	            }
-	        }
-	        var RenderHeader = function (id, checkAllText) {
-	            var tempHtml = [];
-	            //html.push('<div class="ui-multiselect-widget-header ui-multiselect-helper-clearfix ui-multiselect-corner-all ui-multiselect-header">');
-	            //html.push('<ul class="ui-multiselect-helper-reset ui-multiselect-checkboxes" style="overflow-y:hidden;">');
-	            tempHtml.push('<div class="ui-multiselect-widget-header ui-multiselect-helper-clearfix ui-multiselect-header custom-ui-widget-header">');
-	            tempHtml.push('<ul class="ui-multiselect-helper-reset ui-multiselect-checkboxes-head" style="overflow-y:hidden;">');
-	            tempHtml.push('<li style="display:inline;">');
-	            tempHtml.push('<label class="ui-multiselect-corner-all" style="color: #000;" for="' + id + "HeaderCheckBox" + '">');
-	            tempHtml.push('<input type="checkbox" id="' + id + "HeaderCheckBox" + '">' + checkAllText + '</label></li>');
-	            if (isShowGroup) {
-	                tempHtml.push('<li class="ui-multiselect-icon-dropdown ui-multiselect-icon-collapse" title="Collapse/Expand" style="display:inline; float:right; cursor:pointer;" id="' + id + "CollapseButton" + '" >&nbsp;</li>');
-	            }
-	            //tempHtml.push('</li>');
-	            tempHtml.push('</ul>');
-	            tempHtml.push('</div>');
-	            return tempHtml.join('');
-	        };
-	        var RenderNoItemHeader = function (id, noItemText) {
-	            var tempHtml = [];
-	            tempHtml.push('<div class="ui-multiselect-widget-header ui-multiselect-helper-clearfix ui-multiselect-corner-all ui-multiselect-header custom-ui-widget-header">');
-	            tempHtml.push('<ul class="ui-multiselect-helper-reset ui-multiselect-checkboxes-head" style="overflow-y:hidden;">');
-	            tempHtml.push('<li style="display:inline;">');
-	            tempHtml.push('<label class="ui-multiselect-corner-all" style="color: #000000" >' + noItemText + '</label>');
-	            tempHtml.push('</ul>');
-	            tempHtml.push('</div>');
-	            return tempHtml.join('');
-	        };
-	        //render Body
-	        var InsertRow = function (tempData, index, isChild, isLastChildItem, isNoGroup, siblingGroup, currentParentGroupId, currentGroupId) {
-	            var tempHtml = [];
-	            var title = tempData.Text || "",
-	            value = tempData.Value || "",
-	            inputID = tempData.Id || "ui-multiselect-" + id + "-option-" + index,
-	            isDisabled = !tempData.Enable,
-	            labelClasses = tempData.CssClass || "",
-	            currentGroupStatus = (tempData.Show == false ? false : true),
-	            liClasses = "",
-	            divClasses = "ui-multiselect-div ui-multiselect-corner-all",
-	            divHtml = "";
-	            var groupIdAttr = "ui-multiselect-option-group-" + currentGroupId;
-	            if (typeof value != 'undefined') {
-	                if (isDisabled) {
-	                    labelClasses += ' ui-multiselect-state-disabled';
-	                }
-	                if (typeof tempData.Items !== 'undefined' && (typeof isChild === 'undefined' || isChild === false) && siblingGroup) {
-	                    labelClasses += ' ui-multiselect-group-mark';
-	                }
-	
-	                liClasses += (isNoGroup == false ? 'rtLI ' : ' rtLI');
-	                liClasses += (isDisabled ? ' ui-multiselect-disabled ' : '');
-	                liClasses += (isLastChildItem == true ? " rtLast" : "");
-	                liClasses += (index === 0 && isNoGroup == false) ? " rtFirst" : "";
-	
-	                if (!isShowGroup && o.columnNumber > 0) {
-	                    var style = "float: left; width:" + (100 / o.columnNumber).toFixed(0) + "%;";
-	                    tempHtml.push('<li class="' + liClasses + '" style="' + style + '">');
-	                }
-	                else {
-	                    tempHtml.push('<li class="' + liClasses + '">');
-	                }
-	
-	                if (siblingGroup == false) {
-	                    if (isNoGroup == true && isShowGroup) {
-	                        divClasses += (isShowGroup == false ? "" : ((isLastChildItem == true) ? ' rtBot' : ' rtMid'));
-	                        tempHtml.push('<div class="' + divClasses + '">');
-	                    }
-	                    else {
-	                        tempHtml.push('<div class="' + divClasses + '" style="margin-left:10px;">');
-	                    }
-	                }
-	                else {
-	                    divClasses += (index === 0) ? " rtMid" : " rtMid rtSelected";
-	                    divClasses += (isLastChildItem === true ? " rtBot" : "");
-	                    tempHtml.push('<div class="' + divClasses + '">');
-	                    if (tempData.Items != null && tempData.Items.length !== 0) {
-	                        tempHtml.push('<span class="collapseClass rtMinus" showstatus="' + currentGroupStatus + '"></span>');
-	                    }
-	                }
-	
-	                labelClasses += " ui-multiselect-corner-all";
-	                tempHtml.push('<label for="' + inputID + '" class="' + labelClasses + '" style="' + tempData.CssClass + '">');
-	                tempHtml.push('<input id="' + inputID + '" type="' + (o.multiple ? 'checkbox' : 'radio') + '" name="' + value + '" value="' + value + '" title="' + title + '" childgroupid="' + currentParentGroupId + '"');
-	
-	                if (o.isCheckAll) {
-	                    tempHtml.push(' checked="checked"');
-	                }
-	                else if (tempData.Checked) {
-	                    tempHtml.push(' checked="checked"');
-	                }
-	                if (isDisabled) {
-	                    tempHtml.push(' disabled="disabled"');
-	                }
-	                tempHtml.push(' />' + title + '</label>');
-	                tempHtml.push('</div>');
-	
-	                if (typeof tempData.Items !== 'undefined' && tempData.Items.length > 0) {
-	                    //var nextGroupIdAtt = "ui-multiselect-option-group-" + currentGroupId + "-" + index.toString();
-	                    tempHtml.push('<ul class="ui-multiselect-ul-group custom-multi-select-rtUL" childgroupid="' + groupIdAttr + '">');
-	                    for (var j = 0; j < tempData.Items.length; j++) {
-	                        if (typeof tempData.Items[j].Items === 'undefined'
-	                        || tempData.Items[j].Items == null
-	                        || tempData.Items[j].Items.length === 0) {
-	                            tempHtml.push(InsertRow(tempData.Items[j], j,
-	                                true, (j === tempData.Items.length - 1 ? true : false), true, siblingGroup, groupIdAttr, currentGroupId));
-	                        }
-	                        else {
-	                            currentGroupId += "-" + j.toString();
-	                            tempHtml.push(InsertRow(tempData.Items[j], j,
-	                                false, (j === tempData.Items.length - 1 ? true : false), false, siblingGroup, groupIdAttr, currentGroupId));
-	                        }
-	
-	                        //tempHtml.push(InsertRow(tempData.Items[j], j, true, (j === tempData.Items.length - 1 ? true : false), false, false));
-	                    }
-	                    tempHtml.push("</ul>");
-	                }
-	
-	                tempHtml.push('</li>');
-	            }
-	            return tempHtml.join('');
-	        };
-	        var RenderBody = function () {
-	            var tempHtml = [];
-	            var groupIdAttr = "ui-multiselect-option-group-0";
-	            tempHtml.push('<ul class="ui-multiselect-checkboxes ui-multiselect-helper-reset rtUL ' + (isShowGroup ? "rtLines" : "") + ' ui-multiselect-ul-group" childgroupid="' + groupIdAttr + '">');
-	            for (var i = 0; i < listData.length; i++) {
-	                var tempGroup = listData[i];
-	                var isChild = tempGroup.Items == null || tempGroup.Items.length === 0;
-	                var isLastChildItem = (i === listData.length - 1 ? true : false);
-	                var isNoGroup = (typeof tempGroup.Items === 'undefined' || (typeof tempGroup.Items !== 'undefined' && tempGroup.Items.length === 0)) ? true : false;
-	                var siblingIsGroup = isShowGroup ? true : false;
-	                var currentGroupId = "0-" + i.toString();
-	                numGroup++;
-	                tempHtml.push(InsertRow(tempGroup, i, isChild, isLastChildItem, isNoGroup, siblingIsGroup, groupIdAttr, currentGroupId));
-	            }
-	            tempHtml.push('</ul>');
-	            return tempHtml.join('');
-	        };
-	        //render Footer
-	        var RenderFooter = function () {
-	            var tempHtml = [];
-	            tempHtml.push('<div class="ui-multiselect-widget-header ui-multiselect-helper-clearfix ui-multiselect-corner-all ui-multiselect-footer custom-ui-widget-header">');
-	            tempHtml.push('<a class="ui-multiselect-update-result" href="">' + o.updateResult + '</a>');
-	            tempHtml.push('</div>');
-	            return tempHtml.join('');
-	        };
-	        //add property value
-	        var AddPropertyValue = function () {
-	            // calculate widths
-	            var iconWidth = $select.find('span.ui-multiselect-icon').width();
-	            var inputWidth = o.minWidth - iconWidth + 3;
-	
-	            // set widths
-	            $select.width(o.minWidth).find('input').width(inputWidth);
-	        };
-	        // binding event
-	        var checkCheckAll = function () {
-	            if (numGroup == $options.find('input[childgroupid="ui-multiselect-option-group-0"]').filter('[checked]').length) {
-	                $headerCheckbox.prop('checked', true);
-	                $headerCheckbox.attr('checked', 'checked');
-	                $listGroupCheckBox.prop('checked', true);
-	                $listGroupCheckBox.attr('checked', 'checked');
-	            }
-	        };
-	        var UpdateSelected = function () {
-	            var $inputs = $inputHeaderCheckBox,
-	                    $checked = $inputs.filter('[checked]'),
-	                    value = '',
-	                    numChecked = $checked.length;
-	
-	            if (numChecked === 0) {
-	                value = o.noneSelectedText;
-	            } else {
-	                if (o.isUsedCustomCheckAllText && $inputs.length === numChecked) {
-	                    value = o.customCheckAllText;
-	                }
-	                else {
-	                    if (isShowGroup == false) {
-	                        var arrayItemChecked = [];
-	                        for (var i = 0; i < numChecked; i++) {
-	                            arrayItemChecked.push($checked[i].title);
-	                        }
-	                        value = arrayItemChecked.join(', ');
-	                        if (value.length * 8 > o.minWidth) {
-	                            value = o.selectedText.replace('#', numChecked).replace('#', $inputs.length);
-	                        }
-	                    }
-	                    else {
-	                        value = o.selectedText.replace('#', numChecked).replace('#', $inputs.length);
-	                    }
-	                }
-	            }
-	
-	            // Update tooltip
-	            if (o.showTooltip) {
-	                var tooltipValue = $checked.map(function () { return this.title; }).get().join(', ');
-	                if (tooltipValue == '') {
-	                    tooltipValue = o.tooltipNoItem;
-	                }
-	                $select.attr("original-title", tooltipValue);
-	            }
-	
-	            $select.find('input').val(value);
-	            return value;
-	        };
-	
-	        var UpdateSelectedFromChild = function (currentGroup) {
-	            var parentGroup = currentGroup.parent().parent();
-	            if (parentGroup.prop("tagName").toLowerCase() == 'ul' && parentGroup.length > 0) {
-	                var currentChildren = parentGroup.find("li > div > label > input");
-	                var currentChildSelected = currentChildren.filter('[checked]').length;
-	                if (currentChildren.length == currentChildSelected) {
-	                    parentGroup.prev().find('input').prop('checked', true);
-	                    parentGroup.prev().find('input').attr('checked', 'checked');
-	                }
-	                UpdateSelectedFromChild(parentGroup);
-	            }
-	        };
-	
-	        var UpdateRemoveParentSelected = function (currentGroup) {
-	            if (currentGroup.hasClass('ui-multiselect-ul-group') && currentGroup.length > 0) {
-	                if (currentGroup.prev().find('input').prop('checked') == true) {//true) {
-	                    currentGroup.prev().find('input').prop('checked', false);
-	                    currentGroup.prev().find('input').removeAttr('checked');
-	                    $headerCheckbox.prop('checked', false);
-	                    $headerCheckbox.removeAttr('checked');
-	                }
-	                UpdateRemoveParentSelected(currentGroup.parent().parent());
-	            }
-	        };
-	
-	        var BindingEvent = function () {
-	            // build header links
-	            if (o.showHeader) {
-	                $header.find('input').click(function (e) {
-	                    var $this = $(this);
-	                    if ($this.prop('checked') == true) {
-	                        $this.attr('checked', 'checked');
-	                        $options.find('label').not('.ui-multiselect-state-disabled').find('input').prop('checked', true);
-	                        $options.find('label').not('.ui-multiselect-state-disabled').find('input').attr('checked', 'checked');
-	                    }
-	                    else {
-	                        $this.removeAttr('checked');
-	                        $options.find('label').not('.ui-multiselect-state-disabled').find('input').prop('checked', false);
-	                        $options.find('label').not('.ui-multiselect-state-disabled').find('input').removeAttr('checked');
-	                    }
-	                    UpdateSelected();
-	                });
-	            }
-	            //build footer link
-	            if (o.showFooter) {
-	                $footer.find('a').click(function (e) {
-	                    o.onUpdateResult.call(this);
-	                    e.preventDefault();
-	                });
-	            }
-	
-	            if (o.showTooltip) {
-	                try {
-	                    $select.tipsy(
-	                        {
-	                            html: true,
-	                            opacity: 0.9,
-	                            gravity: 'sw'
-	                        }
-	                    );
-	                }
-	                catch (e) { };
-	            }
-	            //add handler event collapse
-	            $listCollapse.each(function () {
-	                var $this = $(this);
-	                $this.click(function () {
-	                    if ($(this).hasClass('rtMinus')) {
-	                        //alert("aaa");
-	                        $(this).removeClass('rtMinus').addClass('rtPlus');
-	                    }
-	                    else {
-	                        $(this).removeClass('rtPlus').addClass('rtMinus');
-	                    }
-	                    $(this).parent().next().toggle();
-	                });
-	
-	                var currentStatus = $this.attr('showstatus');
-	                if (currentStatus == 'false') {
-	                    $this.removeClass('rtMinus').addClass('rtPlus');
-	                    $this.parent().next().hide();
-	                    //$this.trigger('click');
-	                }
-	            });
-	            // the select box events
-	            $select.bind({
-	                click: function () {
-	                    $options.trigger('toggle');
-	                },
-	                keypress: function (e) {
-	                    switch (e.keyCode) {
-	                        case 27: // esc
-	                        case 38: // up
-	                            $options.trigger('close');
-	                            break;
-	                        case 40: // down
-	                        case 0: // space
-	                            $options.trigger('toggle');
-	                            break;
-	                    }
-	                },
-	                mouseenter: function () {
-	                    if (!$select.hasClass('ui-multiselect-state-disabled')) {
-	                        $(this).addClass('ui-multiselect-state-hover');
-	                    };
-	                },
-	                mouseleave: function () {
-	                    $(this).removeClass('ui-multiselect-state-hover');
-	                },
-	                focus: function () {
-	                    if (!$select.hasClass('ui-multiselect-state-disabled')) {
-	                        $(this).addClass('ui-multiselect-state-focus');
-	                    }
-	                },
-	                blur: function () {
-	                    $(this).removeClass('ui-multiselect-state-focus');
-	                }
-	            });
-	            // bind custom events to the options div
-	            $options.bind({
-	                'close': function (e, others, isRetrieveData, targetId) {
-	                    if ($options.css('display') != 'none') {
-	                        others = others || false;
-	
-	                        // hides all other options but the one clicked
-	                        if (others === true) {
-	                            $('div.ui-multiselect-options')
-	                                .filter(':visible')
-	                                .fadeOut(o.fadeSpeed)
-	                                .prev('a.ui-multiselect')
-	                                .removeClass('ui-multiselect-state-active')
-	                                .trigger('mouseout');
-	
-	                            // hides the clicked options
-	                        } else {
-	                            $select.removeClass('ui-multiselect-state-active').trigger('mouseout');
-	                            $options.fadeOut(o.fadeSpeed);
-	                        }
-	                        if (o.isRetrieveDataAfterClose) {
-	                            isRetrieveData = isRetrieveData || false;
-	                            if (isRetrieveData) {
-	                                $allLabel.find('input[ischeck="true"]').attr('checked', 'checked');
-	                                if (isOpenning == true) {
-	                                    $allLabel.find('input[ischeck!="true"]').removeAttr('checked');
-	                                }
-	                            }
-	                            $allLabel.find('input').removeAttr('isCheck');
-	                            isOpenning = false;
-	                        }
-	                        UpdateSelected();
-	                        //$.fn.multiSelect.defaults.onLeave();
-	                        if (typeof (targetId) != "undefined" && (targetId != $select.attr("id") || targetId == 'html')) {
-	                            o.onLeave.call($select);
-	                        }
-	                    }
-	                },
-	                'open': function (e, closeOthers) {
-	                    // bail if this widget is disabled
-	                    if ($select.hasClass('ui-multiselect-state-disabled')) {
-	                        return;
-	                    }
-	
-	                    //currentTriggerEvents.push(e.)
-	
-	                    // use position() if inside ui-widget-content, because offset() won't cut it.
-	                    var offset = $select.position(),
-	                            $container = $options.find('ul:last'),
-	                            top, width;
-	
-	                    // calling select is active
-	                    $select.addClass('ui-multiselect-state-active');
-	
-	                    // hide all other options
-	                    if (closeOthers || typeof closeOthers === 'undefined') {
-	                        //$options.trigger('close', [true, true]);
-	                        $('div.ui-multiselect-options').trigger('close', [true, true]);
-	                    }
-	
-	                    // calculate positioning
-	                    if (o.position === 'middle') {
-	                        top = (offset.top + ($select.height() / 2) - ($options.outerHeight() / 2));
-	                    } else if (o.position === 'top') {
-	                        top = (offset.top - $options.outerHeight());
-	                    } else {
-	                        top = (offset.top + $select.outerHeight());
-	                    }
-	                    top += 3; // padding extra 3px to seperate options with multi select div
-	
-	                    // calculate the width of the options menu
-	                    if (browserDectect.msie) {
-	                        width = $select.width() - 2 - parseInt($options.css('padding-left'), 10) - parseInt($options.css('padding-right'), 10);
-	                    } else {
-	                        width = $select.width() + 2 - parseInt($options.css('padding-left'), 10) - parseInt($options.css('padding-right'), 10);
-	                    }
-	
-	                    // select the first option
-	                    //$labels.filter('label:first').trigger('mouseenter').trigger('focus');
-	
-	                    // show the options div + position it
-	                    $options.css({
-	                        position: 'absolute',
-	                        top: top + 'px',
-	                        left: offset.left + 'px',
-	                        width: width + 'px'
-	                    }).show();
-	
-	                    // set the scroll of the checkbox container
-	                    $container.scrollTop(0);
-	
-	                    // set the height of the checkbox container
-	
-	                    if (o.maxHeight) {
-	                        if (o.maxHeight <= $body.height()) {
-	                            $body.css('max-height', o.maxHeight);
-	                        }
-	                    }
-	                    if (o.isRetrieveDataAfterClose) {
-	                        $allLabel.find('input').filter('[checked]').attr("ischeck", "true");
-	                        isOpenning = true;
-	                    }
-	                    //o.onOpen.call($options[0]);
-	                },
-	                'toggle': function () {
-	                    var isHide = $(this).is(':hidden');
-	                    if (isHide) {
-	                        $options.trigger('open');
-	                    }
-	                    else {
-	                        $options.trigger('close', [true, true]);
-	                    }
-	                }
-	            });
-	            // checkbox click event handle
-	            $listItem.each(function () {
-	                var $this = $(this);
-	                //handle group checkbox click event
-	                $this.prev().children().not('span.collapseClass').find('input').click(function () {
-	                    if ($(this).prop('checked') == true) {
-	                        $(this).attr('checked', 'checked');
-	                        $(this).parent().parent().next().find('input:not(:disabled)').prop('checked', true);
-	                        UpdateSelectedFromChild($this);
-	                        checkCheckAll();
-	                    }
-	                    else {
-	                        $(this).parent().parent().next().find('input:not(:disabled)').removeAttr('checked');
-	                        $(this).parent().parent().next().find('input:not(:disabled)').prop('checked', false);
-	                        $headerCheckbox.removeAttr('checked');
-	                        $headerCheckbox.prop('checked', false);
-	                    }
-	                    o.onCheck.call(this);
-	                    UpdateSelected();
-	                });
-	
-	                //handler chilren checkbox event
-	                var childrenNodes = $this.find('input[childgroupid="' + $this.attr("childgroupid") + '"]');
-	                childrenNodes.click(function () {
-	                    var parent = $this;
-	                    var current = $(this);
-	                    if (current.prop('checked') == false) {
-	                        current.removeAttr('checked');
-	                        UpdateRemoveParentSelected(parent);
-	                    }
-	                    else if (current.prop('checked') == true) {
-	                        current.attr('checked', 'checked');
-	                        var currentGroup = parent;
-	                        var currentChildSelected = childrenNodes.filter('[checked]').length;
-	                        var currentChildLength = childrenNodes.length;
-	                        if (currentChildLength == currentChildSelected) {
-	                            currentGroup.prev().find('input').prop('checked', true);
-	                            currentGroup.prev().find('input').attr('checked', 'checked');
-	                            UpdateSelectedFromChild(current.parent().parent().parent().parent());
-	                        }
-	
-	                        //                        if (currentGroup.find('label').not('.ui-multiselect-state-disabled').not('.ui-multiselect-group-mark').find('input').not("#" + currentGroup.attr('id') + "HeaderCheckBox").filter('[checked]').length
-	                        //                                === currentGroup.find('label').not('.ui-multiselect-state-disabled').not('.ui-multiselect-group-mark').find('input').not("#" + currentGroup.attr('id') + "HeaderCheckBox").length) {
-	                        //                            currentGroup.prev().find('input').attr('checked', 'checked');
-	                        //                        }
-	                        //                        if (parent.find('input:not(:disabled)').length === (parent.find('input[checked]').length)) {
-	                        //                            parent.prev().find('input').attr('checked', 'checked');
-	                        //                        }
-	
-	                        checkCheckAll();
-	                    }
-	                    o.onCheck.call(this);
-	                    UpdateSelected();
-	                });
-	            });
-	            //handle collapse button
-	            $('#' + id + "CollapseButton").click(function () {
-	                if ($(this).hasClass("ui-multiselect-icon-collapse")) {
-	                    $(this).removeClass("ui-multiselect-icon-collapse").addClass("ui-multiselect-icon-expand");
-	                    $options.find('ul.ui-multiselect-ul-group:not(.ui-multiselect-checkboxes):visible').hide();
-	                    $options.find('span.collapseClass').removeClass('rtMinus').addClass('rtPlus');;
-	                    //$(this).text('Expande All');
-	                }
-	                else {
-	                    $options.find('ul.ui-multiselect-ul-group:not(.ui-multiselect-checkboxes):hidden').show();
-	                    $options.find('span.collapseClass').removeClass('rtPlus').addClass('rtMinus');
-	                    $(this).removeClass("ui-multiselect-icon-expand").addClass("ui-multiselect-icon-collapse");
-	                }
-	            });
-	        };
-	        //initial setup
-	        var InitialSetup = function () {
-	            if (o.isCheckAll === true) {
-	                $headerCheckbox.attr('checked', 'checked');
-	            }
-	            // open by default?
-	            if (o.state === 'open') {
-	                $options.trigger('open', [false]);
-	            }
-	
-	            // update the number of selected elements when the page initially loads, and use that as the defaultValue.  necessary for form resets when options are pre-selected.
-	            $select.find('input')[0].defaultValue = UpdateSelected();
-	            //$options.trigger('closed', [true]);
-	            //            $('div.ui-multiselect-options').trigger('close', [true]);
-	            $options.hide();
-	        };
-	
-	        //Render All
-	        (function () {
-	            checkShouldShowGroupOrNo();
-	            html.push(RenderInterface(id, isDisabled || o.disabled, o.noneSelectedText));
-	            html.push('<div class="ui-multiselect-options RadTreeView RadTreeView_Office2010Silver' + (o.shadow ? ' ui-multiselect-shadow' : '') + ' ui-multiselect-widget ui-multiselect-widget-content ui-multiselect-corner-all" >');
-	            if (o.listData.length != 0) {
-	                html.push(RenderHeader(id, o.checkAllText));
-	                html.push(RenderBody());
-	            }
-	            else {
-	                html.push(RenderNoItemHeader(id, o.noItemText));
-	            }
-	            if (o.showFooter == true) {
-	                html.push(RenderFooter());
-	            }
-	            html.push('</div>');
-	
-	            //add global variable
-	
-	            $select = $select.after(html.join('')).next('a.ui-multiselect');
-	            $options = $select.next('div.ui-multiselect-options');
-	            $options.attr('id', 'ui-multiselect-options-' + id);
-	            $options = $('#ui-multiselect-options-' + id);
-	            $header = $options.find('div.ui-multiselect-header');
-	            $body = $options.find('ul.ui-multiselect-checkboxes');
-	            $footer = $options.find('div.ui-multiselect-footer');
-	            $labels = $options.find('label').not('.ui-multiselect-state-disabled').not('.ui-multiselect-group-mark');
-	            $allLabel = $options.find('label');
-	            $listItem = $options.find('ul.ui-multiselect-ul-group');
-	            $listCollapse = $options.find('span.collapseClass');
-	            $listGroupCheckBox = $options.find('label.ui-multiselect-group-mark').find('input');
-	            $divHover = $options.find('div.ui-multiselect-div');
-	
-	            AddPropertyValue();
-	            BindingEvent();
-	
-	            $inputHeaderCheckBox = $labels.find('input').not("#" + id + "HeaderCheckBox");
-	            $selectinput = $select.find('input');
-	            $headerCheckbox = $options.find("#" + id + "HeaderCheckBox");
-	            $checkedInput = $labels.find('input[checked]');
-	
-	            InitialSetup();
-	            // remove the original input element
-	
-	            $original.remove();
-	        })();
-	        return $select;
-	    };
-	    // close each select when clicking on any other element/anywhere else on the page
-	    $(document).delegate('html', 'click', function (e, isInsideCall) {
-	        var $target = $(e.target);
-	        if (!$target.closest('div.ui-multiselect-options').length && !$target.parent().hasClass('ui-multiselect')) {
-	            if (!$target.hasClass('exeption-multiselect-click')) {
-	                $('div.ui-multiselect-options').trigger('close', [true, true, ($target.attr("id") || 'html')]);
-	            }
-	        }
-	    });
-	    // default options
-	    $.fn.multiSelect.defaults = {
-	        showHeader: true,
-	        showFooter: true,
-	        showTooltip: false,
-	        maxHeight: 175, /* max height of the checkbox container (scroll) in pixels */
-	        minWidth: 215, /* min width of the entire widget in pixels. setting to 'auto' will disable */
-	        checkAllText: 'Check All',
-	        noItemText: 'No league found.',
-	        unCheckAllText: 'Uncheck All',
-	        updateResult: 'Update Result Table',
-	        noneSelectedText: 'Select options',
-	        selectedText: '# selected',
-	        tooltipNoItem: 'There is no selected item.',
-	        selectedList: 0,
-	        position: 'bottom', /* top|middle|bottom */
-	        shadow: false,
-	        fadeSpeed: 100,
-	        disabled: false,
-	        state: 'closed',
-	        multiple: true,
-	        isCheckAll: false,
-	        hasOptGroup: false,
-	        isRetrieveDataAfterClose: false,
-	        listData: [],
-	        buttons: [],
-	        isUsedCustomCheckAllText: false,
-	        customCheckAllText: '',
-	        columnNumber: 1,
-	        onLeave: function () { },
-	        onCheck: function () { }, /* when an individual checkbox is clicked */
-	        onOpen: function () { }, /* when the select menu is opened */
-	        onCheckAll: function () { }, /* when the check all link is clicked */
-	        onUncheckAll: function () { }, /* when the uncheck all link is clicked */
-	        onOptgroupToggle: function () { }, /* when the optgroup heading is clicked */
-	        onUpdateResult: function () { }
-	    };
-	})(jQuery);
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ },
-/* 12 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/// <reference path="/@JSense.js" />
 	///
@@ -15929,9 +15135,9 @@
 	
 	/* jshint ignore:end */
 
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 	    "use strict";
@@ -15954,16 +15160,16 @@
 	        return isShow ? '<div class="select-list-dropdown-search"><input class="select-list-search-results" autocomplete="off" /></div>' : '';
 	    }
 	
-	    function getOptionItemHtml(key, value) {
-	        return '<li class="option-item" data-key="' + key + '">' + value + '</li>';
+	    function getOptionItemHtml(dataItem) {
+	        return '<li class="option-item ' +  dataItem.className + '" data-key="' + dataItem.key + '">' + dataItem.value + '</li>';
 	    }
 	
 	    function getOptionListHtml(dataList) {
 	        var htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
 	
 	        for (var i = 0; i < dataList.length; i++) {
-	            var item = dataList[i];
-	            htmlArray.push(getOptionItemHtml(item.key, item.value));
+	            var dataItem = dataList[i];
+	            htmlArray.push(getOptionItemHtml(dataItem));
 	        }
 	
 	        htmlArray.push('</ul></div>');
@@ -15978,7 +15184,7 @@
 	            var key = item.value;
 	            var text = item.text;
 	
-	            return { key: key, value: text };
+	            return { key: key, value: text, className: item.className };
 	        });
 	        var selectedValue = $originalSelectElement.val();
 	
@@ -16180,6 +15386,6 @@
 	    };
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }
+/***/ })
 /******/ ]);
 //# sourceMappingURL=common.chunk.js.map

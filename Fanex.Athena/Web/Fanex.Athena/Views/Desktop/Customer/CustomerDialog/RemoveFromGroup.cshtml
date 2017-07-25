@@ -1,0 +1,21 @@
+﻿<p id="RemoveConfirmMsg">@ViewResources.RemoveGroupMsg</p>
+<p>
+    <b>@ViewResources.ConfirmCommission</b>
+</p>
+<div>
+    <input type="radio" class="with-gap" name="RadioComm" id="KeepComm" />
+    <label for="KeepComm">
+        @ViewResources.KeepCurrentComm
+    </label>
+</div>
+<div>
+    <input type="radio" class="with-gap" name="RadioComm" id="ClearComm" checked="checked" />
+    <label for="ClearComm">
+        @ViewResources.ClearCurrentComm
+    </label>
+</div>
+<div class="success-message"></div>
+<div class="error-message"></div>
+<div class="ajax-loading">
+    <img alt="Sending" src="@Url.ContentLink("/Content/Customer/images/ajax-loader.gif")" />
+</div>

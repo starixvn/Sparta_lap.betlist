@@ -1,0 +1,147 @@
+﻿@using Fanex.Athena.Model.Customer.ViewModel;
+@using Fanex.Athena.Model.Customer.MetaModel;
+@model CustomerListViewModel
+@{
+    var showOddsGroupFilter = Model.Param.OddsGroups != null;
+}
+<div class="page-form">
+    @using (Html.BeginForm("CustomerList", "Customer", FormMethod.Post, new { @id = "CustomerForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col l2 m2 s12 input-field">
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
+                <label>@ViewResources.Currency</label>
+            </div>
+            <div class="col l2 m2 s12 input-field">
+                @DesktopRazorHelper.BasedCurrency(Model.Param.BaseCurrency)
+                <label>@ViewResources.Based</label>
+            </div>
+            <div class="col l2 m2 s12 input-field">
+                <div class="multiselect-container">
+                    <select id="grid-columns-multiselect">
+                        @for (var i = 0; i < Model.Param.GridColumns.Count; i++)
+                        {
+                            <option value="@Model.Param.GridColumns[i].ID">@Model.Param.GridColumns[i].Name</option>
+                        }
+                    </select>
+                </div>
+                <label>@ViewResources.Show/@ViewResources.hide</label>
+            </div>
+            @if (showOddsGroupFilter)
+            {
+                <div class="col l2 m2 s12 input-field">
+                    <div class="multiselect-container">
+                        <select id="odds-group-multiselect" name="odds-group-multiselect"></select>
+                    </div>
+                    <label>@ViewResources.OddsGroup</label>
+                </div>
+            }
+
+            @if (Model.Param.IsShowStatusDropdown)
+            {
+                <div class="col l2 m2 s12 input-field">
+                    @Html.DropDownList("CustStatusOption", new SelectList(new Dictionary<string, string>
+                    {
+                        {"",ViewResources.All},
+                        {"Open", ViewResources.Open},
+                        {"Closed", ViewResources.Closed},
+                        {"Suspended",ViewResources.Suspended},
+                    }, "Key", "Value", Model.Param.CustStatus), new { @style = "position: relative", @class = "select hide" })
+                    <label>
+                        @ViewResources.Status
+                    </label>
+                </div>
+            }
+
+            <div class="col right icon-block">
+                <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col l2 m2 s12 input-field">
+                <select id="special-level-list-search" class="select hide @("level-" + Model.Param.SpecialLevel)">
+                    <option value="-1" class="level-0" @(Model.Param.SpecialLevel == -1 ? "selected=selected" : "")>@ViewResources.All</option>
+                    @for (var i = 0; i <= 10; i++)
+                    {
+                        <option value="@i" class="@("level-" + i)" @(Model.Param.SpecialLevel == i ? "selected=selected" : "")>
+                            @(i == 0 ? ViewResources.None : i.ToString())
+                        </option>
+                    }
+                </select>
+                <label>@ViewResources.SpecialLevel</label>
+            </div>
+
+            @if (Model.ProductAccess.IsAllowBA)
+            {
+                <div class="col l2 m2 s12 input-field">
+                    @Html.DropDownList("BAFilterOption", new SelectList(new Dictionary<string, string>
+                       {
+                           {"0", ViewResources.All},
+                           {"1",Fanex.Athena.Model.Core.DTO.Common.Product.BA},
+                           {"2",ViewResources.Normal},
+                       }, "Key", "Value", Model.Param.BAFilter), new { @style = "position: relative", @class = "select hide" })
+                    <label>@ViewResources.ProductBA</label>
+                </div>
+            }
+            @{
+                var oldGroup = new GroupCommMetaModel();
+            }
+            @if (Model.IsAllowedCustomerCommission)
+            {
+                <div class="col l2 m2 s12 input-field">
+                    <select id="DdlGroupCommId" class="select hide">
+                        @{
+                            var groupList = new List<GroupCommMetaModel>(Model.GroupCommDataList);
+                            groupList.Insert(0, new GroupCommMetaModel { GroupCommId = -1, GroupName = ViewResources.All });
+                            groupList.Insert(1, new GroupCommMetaModel { GroupCommId = 0, GroupName = ViewResources.None });
+                        }
+                        @foreach (GroupCommMetaModel group in groupList)
+                        {
+                        var selected = string.Empty;
+                        if (group.GroupCommId == Model.Param.GroupCommId)
+                        {
+                            selected = "selected=selected";
+                            oldGroup = group;
+                        }
+                        <option @selected value="@group.GroupCommId">@group.GroupName</option>
+                        }
+                    </select>
+                    <label>@ViewResources.Group</label>
+                </div>
+            }
+
+            <div class="col l2 m2 s12 input-field">
+                @Html.TextBox("Username", null, new { placeholder = ViewResources.ExternalIdOrSystemId, autocomplete = "off" })
+                <label>@ViewResources.Username</label>
+                <ul id="suggestionDropdown" class="dropdown-content ac-dropdown"></ul>
+            </div>
+
+            <div class="col l2 m2 s12 button-block">
+                <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
+            </div>
+        </div>
+        <div id="hiddenfield">
+            @Html.Hidden("CurrencyId", Model.Param.CurrencyId)
+            @Html.Hidden("BaFilter", Model.Param.BAFilter)
+            @Html.Hidden("CustStatus", Model.Param.CustStatus)
+            @Html.Hidden("SpecialLevel", Model.Param.SpecialLevel)
+            @Html.Hidden("GroupCommId", Model.Param.GroupCommId)
+            @Html.Hidden("Username", Model.Param.Username)
+            @Html.Hidden("OldSbComm", oldGroup.SBComm)
+            @Html.Hidden("OldRbComm", oldGroup.RCComm)
+            @Html.Hidden("OldNgComm", oldGroup.NGComm)
+            @Html.Hidden("OldLcComm", oldGroup.LCComm)
+            @if (Model.Param.IsShowStatusDropdown)
+            {
+                <input type="hidden" name="CustStatusOption" id="CustStatusOption" value="" />
+            }
+        </div>
+    }
+</div>
+@Html.Hidden("AllowedGridColumns", Model.Param.GridColumns.ToJson())
+@if (showOddsGroupFilter)
+{
+    @Html.Hidden("OddsGroups", Model.Param.OddsGroups.ToJson())
+}

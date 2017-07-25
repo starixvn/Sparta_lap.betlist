@@ -16,6 +16,7 @@ namespace Fanex.Athena.Service.Core.Users
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Users.Interfaces;
+    using Model.Core.DataDomain;
     using Utility;
     using Utility.Interfaces;
 

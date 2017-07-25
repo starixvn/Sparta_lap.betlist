@@ -58,6 +58,22 @@ function generateConfig(environment) {
             [`${jsPath}/pages/reports/platformwinloss`]: [pathConfig.scriptPaths.platformwinloss],
             [`${jsPath}/pages/reports/winlossbybettype`]: [pathConfig.scriptPaths.winlossbybettype],
             [`${jsPath}/pages/betlist/lastbetmonitoring`]: [pathConfig.scriptPaths.lastbetmonitoring],
+            [`${jsPath}/pages/customer/commgrouplist`]: [pathConfig.scriptPaths.customercommgrouplist],
+            [`${jsPath}/pages/customer/commgroupadd`]: [pathConfig.scriptPaths.customercommgroupadd],
+            [`${jsPath}/pages/customer/commgroupedit`]: [pathConfig.scriptPaths.customercommgroupedit],
+            [`${jsPath}/pages/customer/loginlog`]: [pathConfig.scriptPaths.loginlog],
+            [`${jsPath}/pages/customer/customerlist`]: [pathConfig.scriptPaths.customerlist],
+            [`${jsPath}/pages/customer/customersetting`]: [pathConfig.scriptPaths.customersetting],
+            [`${jsPath}/pages/customer/groupcommission`]: [pathConfig.scriptPaths.groupcommission],
+            [`${jsPath}/pages/betlist/customeroutstanding`]: [pathConfig.scriptPaths.customeroutstanding],
+            [`${jsPath}/pages/customer/rngcasinobetsetting`]: [pathConfig.scriptPaths.rngcasinobetsetting],
+            [`${jsPath}/pages/customer/betsettingmain`]: [pathConfig.scriptPaths.betsettingmain],
+            [`${jsPath}/pages/customer/betsettingbygroup`]: [pathConfig.scriptPaths.betsettingbygroup],
+            [`${jsPath}/pages/customer/dcsbetsetting`]: [pathConfig.scriptPaths.dcsbetsetting],
+            [`${jsPath}/pages/customer/thirdpartybetsetting`]: [pathConfig.scriptPaths.thirdpartybetsetting],
+            [`${jsPath}/pages/customer/kenobetsetting`]: [pathConfig.scriptPaths.kenobetsetting],
+            [`${jsPath}/pages/customer/livecasinobetsetting`]: [pathConfig.scriptPaths.livecasinobetsetting],
+            [`${jsPath}/pages/customer/numbergamebetsetting`]: [pathConfig.scriptPaths.numbergamebetsetting],
 
             [`${cssPath}/pages/reports/reportjqgridlayout`]: pathConfig.cssPaths.reportjqgridlayout,
             [`${cssPath}/pages/reports/livereport`]: pathConfig.cssPaths.livereport,
@@ -94,7 +110,15 @@ function generateConfig(environment) {
             [`${cssPath}/pages/reports/matchwinloss`]: pathConfig.cssPaths.matchwinloss,
             [`${cssPath}/pages/reports/platformwinloss`]: pathConfig.cssPaths.platformwinloss,
             [`${cssPath}/pages/reports/winlossbybettype`]: pathConfig.cssPaths.winlossbybettype,
-            [`${cssPath}/pages/betlist/lastbetmonitoring`]: pathConfig.cssPaths.lastbetmonitoring
+            [`${cssPath}/pages/betlist/lastbetmonitoring`]: pathConfig.cssPaths.lastbetmonitoring,
+            [`${cssPath}/pages/customer/commgrouplist`]: pathConfig.cssPaths.customercommgrouplist,
+            [`${cssPath}/pages/customer/commgroupdetail`]: pathConfig.cssPaths.customercommgroupdetail,
+            [`${cssPath}/pages/customer/customerlog`]: pathConfig.cssPaths.customerlog,
+            [`${cssPath}/pages/customer/customerlist`]: pathConfig.cssPaths.customerlist,
+            [`${cssPath}/pages/betlist/customeroutstanding`]: pathConfig.cssPaths.customeroutstanding,
+            [`${cssPath}/pages/customer/betsetting`]: pathConfig.cssPaths.betsetting,
+            [`${cssPath}/pages/utility/licenseelist`]: pathConfig.cssPaths.licenseelist
+            
         },
         output: {
             path: pathConfig.projectRoot,
@@ -103,7 +127,17 @@ function generateConfig(environment) {
         module: {
             loaders: loader.commonLoaders
         },
-        plugins: pluginGenerator(environment)
+        plugins: pluginGenerator(environment),
+        stats: {
+            assets: false,
+            colors: true,
+            version: false,
+            hash: false,
+            timings: true,
+            chunks: false,
+            chunkModules: false,
+            children: true
+        }
     };
 
     return commonConfigs;

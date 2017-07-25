@@ -1,0 +1,34 @@
+﻿@{
+    Layout = "~/Views/Desktop/Shared/_BetSettingLayout.cshtml";
+}
+@model Fanex.Athena.Model.BetSettings.ViewModel.BetSettingBaseViewModel
+
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/dcsbetsetting.chunk.js")"></script>
+}
+
+@section Menu{
+    @{Html.RenderPartial("~/Views/Desktop/Customer/BetSetting/Menu.cshtml", Model);}
+}
+
+@section ContentTitle{
+    @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
+}
+
+<!--Content-->
+<p class="no-info-row">@String.Format(ViewResources.CannotUpdateBetLimitForProduct, ViewResources.ProductVB)</p>
+<!--/Content-->
+<!--SubmitButton-->
+@if (Model.Editable && Model.IsEnabled.HasValue)
+{
+    <div class="right button-block">
+        <button type="button" class="btn btn-submit"
+                data-status="@(Model.IsEnabled.Value ? 0 : 1)"
+                data-cust-id="@Model.Param.CustId"
+                data-nick-name="@Model.Param.NickName"
+                id="btnUpdateStatus">
+            @(Model.IsEnabled.Value ? ViewResources.DisableMacauGames : ViewResources.EnableMacauGames)
+        </button>
+    </div>
+}
+<!--/SubmitButton-->

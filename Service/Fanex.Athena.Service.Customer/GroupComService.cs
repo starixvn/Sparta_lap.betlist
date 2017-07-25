@@ -24,16 +24,10 @@ namespace Fanex.Athena.Service.Customer
 
     #endregion
 
-    /// <summary>
-    ///     Group service.
-    /// </summary>
     public class GroupComService : IGroupComService
     {
         #region Constants and Fields
 
-        /// <summary>
-        ///     The _group data access.
-        /// </summary>
         private readonly IGroupComDataAccess _groupDataAccess;
 
         #endregion
@@ -47,14 +41,14 @@ namespace Fanex.Athena.Service.Customer
 
         public GroupComService(IGroupComDataAccess groupDataAccess)
         {
-            this._groupDataAccess = groupDataAccess;
+            _groupDataAccess = groupDataAccess;
         }
 
         #endregion
 
         public IList<GroupCommMetaModel> GetAll(int licenseeId)
         {
-            return this._groupDataAccess.GetAll(licenseeId);
+            return _groupDataAccess.GetAll(licenseeId);
         }
 
         public DataTable GetDataForExcel(int licenseeId)
@@ -62,38 +56,20 @@ namespace Fanex.Athena.Service.Customer
             return _groupDataAccess.GetDataForExcel(licenseeId);
         }
 
-        /// <summary>
-        /// Get commission group by group id.
-        /// </summary>
-        /// <param name="groupCommId">The group id.</param>
-        /// <returns>The group commission.</returns>
         public GroupCommMetaModel GetById(int groupCommId)
         {
             return _groupDataAccess.GetById(groupCommId);
         }
 
-        /// <summary>
-        /// Get default group.
-        /// </summary>
-        /// <param name="groupList">The group list.</param>
-        /// <returns>The group id.</returns>
         public int GetDefaultGroup(IList<GroupCommMetaModel> groupList)
         {
             return groupList.Where(g => g.IsDefaultGroup).Select(g => g.GroupCommId).FirstOrDefault();
         }
 
-        /// <summary>
-        /// Insert group.
-        /// </summary>
-        /// <param name="item">The group info.</param>
-        /// <param name="request">The request info.</param>
-        /// <param name="userId">The user id.</param>
-        /// <param name="result">Out put parameter:Result view model.</param>
-        /// <returns>Return the group id if processing is successful.</returns>
         public int InsertGroup(GroupCommMetaModel item, IRequest request, int userId, out ResultViewModel result)
         {
             IResultInfo dataResultInfo;
-            var data = this._groupDataAccess.InsertGroup(item, request, userId, out dataResultInfo);
+            var data = _groupDataAccess.InsertGroup(item, request, userId, out dataResultInfo);
 
             result = new ResultViewModel
             {
@@ -106,19 +82,11 @@ namespace Fanex.Athena.Service.Customer
             return data;
         }
 
-        /// <summary>
-        /// Update group.
-        /// </summary>
-        /// <param name="newItem">The group info.</param>
-        /// <param name="request">The request info.</param>
-        /// <param name="user">The user session.</param>
-        /// <param name="result">Out put parameter:Result view model.</param>
-        /// <returns>True if processing's successful.</returns>
         public bool UpdateGroup(GroupCommMetaModel newItem, IRequest request, UserSession user, out ResultViewModel result)
         {
             IResultInfo dataResultInfo;
 
-            var data = this._groupDataAccess.UpdateGroup(newItem, request, user.UserId, out dataResultInfo);
+            var data = _groupDataAccess.UpdateGroup(newItem, request, user.UserId, out dataResultInfo);
             var callApiSuccess = true;
             result = new ResultViewModel
             {
@@ -157,20 +125,10 @@ namespace Fanex.Athena.Service.Customer
             return data;
         }
 
-        /// <summary>
-        /// Delete group.
-        /// </summary>
-        /// <param name="model">Input parameters.</param>
-        /// <param name="result">Out put parameter:Result view model.</param>
-        /// <returns>Return group id.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage(
-            "StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public int DeleteGroup(DeleteGroupMetaModel model, out ResultViewModel result)
         {
             IResultInfo dataResultInfo;
-            var returnValue = this._groupDataAccess.DeleteGroup(
+            var returnValue = _groupDataAccess.DeleteGroup(
                 model.GroupId,
                 model.LicenseeId,
                 model.UserId,
@@ -216,15 +174,9 @@ namespace Fanex.Athena.Service.Customer
             return returnValue;
         }
 
-        /// <summary>
-        /// Check existence of  group name.
-        /// </summary>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <param name="groupName">The group name.</param>
-        /// <returns>True,if this group doesn't exist.</returns>
-        public bool CheckByName(int licenseeId, string groupName)
+        public bool CheckExistingGroupByName(int licenseeId, string groupName)
         {
-            return this._groupDataAccess.CheckByName(licenseeId, groupName);
+            return _groupDataAccess.CheckByName(licenseeId, groupName);
         }
     }
 }

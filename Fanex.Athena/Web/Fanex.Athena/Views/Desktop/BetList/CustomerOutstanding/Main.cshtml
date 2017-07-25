@@ -1,0 +1,29 @@
+﻿@{
+    var formatTitle = "{0} {1} {2} - {3}";
+    ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.Report, ViewResources.DailyBetList);
+    ViewBag.MasterClass = "bet-list-popup";
+    Layout = "~/Views/Desktop/Shared/_BetListLayout.cshtml";
+}
+
+@model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
+
+@section pagecss {
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/betlist/customeroutstanding.css")" rel="stylesheet" />
+}
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/betlist/customeroutstanding.chunk.js")" type="text/javascript"></script>
+}
+@section ContentTitle
+{
+    <span class="content-title">@Model.Param.ExternalId (@(Model.Param.SystemId))</span> - <span class="base-currency">@DesktopRazorHelper.ViewBaseCurrency(Model.Param.CurrencyName, Model.Param.BaseCurrency)</span>
+}
+@section ContentFilter
+{
+    @{
+        Html.RenderPartial("~/Views/Desktop/BetList/CustomerOutStanding/Filter.cshtml");
+    }
+}
+@{
+    <input type="hidden" id="BetListMetaModel" value="@Model.Param.ToJson()" />
+    <input type="hidden" id="HiddenColumnList" value="" />
+}

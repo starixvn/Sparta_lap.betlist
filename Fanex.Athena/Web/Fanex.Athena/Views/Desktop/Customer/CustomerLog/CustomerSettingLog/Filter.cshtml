@@ -1,0 +1,53 @@
+﻿@model Fanex.Athena.Model.Customer.ViewModel.CustomerLog.CustomerLogViewModel
+@{
+    var beginOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+    var minDate = beginOfMonth.AddMonths(-18);
+}
+
+@using (Html.BeginForm("CustomerSetting", "CustomerLog", FormMethod.Post, new { @id = "SearchForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col l2 m2 s12 input-field">
+            @Html.TextBox("Username", null, new { placeholder = ViewResources.ExternalIdOrSystemId, autocomplete = "off" })
+            <label>@ViewResources.Username</label>
+            <ul id="suggestionDropdown" class="dropdown-content ac-dropdown"></ul>
+        </div>
+
+        <div class="col l2 m2 s12 input-field">
+            <select id="ViewBy" class="select">
+                <option value="0" @(Model.Param.ViewById == 0 ? "selected='selected'" : string.Empty)>@ViewResources.All</option>
+                @if (Model.Param.IsAllowBA)
+                {
+                    <option value="1" @(Model.Param.ViewById == 1 ? "selected='selected'" : string.Empty)>@ViewResources.ProductBA</option>
+                }
+                <option value="2" @(Model.Param.ViewById == 2 ? "selected='selected'" : string.Empty)>@ViewResources.Status</option>
+                @if (Model.Param.IsAllowCustComm)
+                {
+                    <option value="3" @(Model.Param.ViewById == 3 ? "selected='selected'" : string.Empty)>@ViewResources.Commission</option>
+                }
+                <option value="4" @(Model.Param.ViewById == 4 ? "selected='selected'" : string.Empty)>@ViewResources.SpecialLevel</option>
+                <option value="5" @(Model.Param.ViewById == 5 ? "selected='selected'" : string.Empty)>@ViewResources.Currency</option>
+            </select>
+            <label>@ViewResources.ViewBy</label>
+        </div>
+
+        @DesktopRazorHelper.MonthPicker(Model.Param.FromDate, Model.Param.ToDate)
+
+        <div class="col l2 m2 s12 button-block">
+            <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
+        </div>
+
+        <div class="input-field col l2 m2 s12">
+            <input id="showall" type="checkbox" checked="checked" />
+            <label for="showall">@ViewResources.ShowOldValue</label>
+        </div>
+
+        <div class="col right icon-block">
+            <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+        </div>
+    </div>
+
+    <input type="hidden" id="MinDate" value="@minDate.ToString("MM/dd/yyyy")" />
+}

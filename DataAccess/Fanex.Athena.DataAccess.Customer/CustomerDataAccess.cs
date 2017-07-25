@@ -49,12 +49,6 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        /// <summary>
-        /// Advance search customer.
-        /// </summary>
-        /// <param name="metaModel">Meta model contains the filter such as: BA type, special level type, ... value.</param>
-        /// <param name="totalRows">Total rows value.</param>
-        /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
                     Justification = "Reviewed. Suppression is OK here.")]
         public IList<CustomerDTO> Search(CustomerListMetaModel metaModel, ref int totalRows)
@@ -129,11 +123,6 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        /// <summary>
-        /// Get customer Information such as: SyncCasino, DisableBingo, ...
-        /// </summary>
-        /// <param name="custId">Customer ID value.</param>
-        /// <returns>The result value.</returns>
         public CustomerInfo GetCustomerInfo(int custId)
         {
             const string UspName = "Lrf_CustomerSelStatus";
@@ -143,9 +132,7 @@ namespace Fanex.Athena.DataAccess.Customer
                 {
                     db.AddInParameter("custid", DbType.Int32, custId);
 
-                    var resultList = db.Query<CustomerInfo>();
-
-                    return resultList.Any() ? resultList.First() : new CustomerInfo();
+                    return db.QueryEntity<CustomerInfo>();
                 }
             }
             catch (ObjectDbException sqlException)
@@ -159,12 +146,6 @@ namespace Fanex.Athena.DataAccess.Customer
 
         #region LogInfo
 
-        /// <summary>
-        /// Get customer login information, last transfer time, ...
-        /// </summary>
-        /// <param name="custId">Customer ID value.</param>
-        /// <param name="licenseeId">Licensee ID value.</param>
-        /// <returns>The result value.</returns>
         public LogInfo GetCustomerLoginInfo(int custId, int licenseeId)
         {
             const string UspName = "Lrf_CustomerLoginInfo";
@@ -175,7 +156,7 @@ namespace Fanex.Athena.DataAccess.Customer
                     db.AddInParameter("custid", DbType.Int32, custId);
                     db.AddInParameter(nameof(licenseeId), DbType.Int32, licenseeId);
 
-                    return db.Query<LogInfo>().FirstOrDefault();
+                    return db.QueryEntity<LogInfo>();
                 }
             }
             catch (ObjectDbException sqlException)
@@ -231,11 +212,6 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        /// <summary>
-        /// Remove customer from commission group.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <returns>The result value.</returns>
         public IResultInfo RemoveCustomersFromGroup(RemoveFromGroupComMetaModel metaModel)
         {
             const string UspName = "Lrf_CustomerRemoveGroupComm";
@@ -271,11 +247,6 @@ namespace Fanex.Athena.DataAccess.Customer
 
         #region Update
 
-        /// <summary>
-        /// Update customer odds group.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <returns>The result value.</returns>
         public IResultInfo UpdateOddsGroup(CustomerOddsGroupMetaModel metaModel)
         {
             try
@@ -301,11 +272,6 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        /// <summary>
-        /// Update customer closed status.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <returns>The result value.</returns>
         public IResultInfo UpdateCustClosed(CustomerStatusMetaModel metaModel)
         {
             try
@@ -331,11 +297,6 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        /// <summary>
-        /// Update customer suspend status.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <returns>The result value.</returns>
         public IResultInfo UpdateCustSuspend(CustomerStatusMetaModel metaModel)
         {
             try
@@ -361,15 +322,6 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        /// <summary>
-        /// Update customer ba status.
-        /// </summary>
-        /// <param name="licenseeId">Licensee ID value.</param>
-        /// <param name="custId">Customer ID value.</param>
-        /// <param name="modifiedBy">Modify by value.</param>
-        /// <param name="allowBA">Allow BA value.</param>
-        /// <param name="request">Request value.</param>
-        /// <returns>The result value.</returns>
         public IResultInfo UpdateCustomerBAStatus(int licenseeId, int custId, int modifiedBy, bool allowBA, Request request)
         {
             const string UspName = "Lrf_CustomerUpdMemberBAStatus";
@@ -400,11 +352,6 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        /// <summary>
-        ///  Update customer commission setting.
-        /// </summary>
-        /// <param name="metaModel">Item value.</param>
-        /// <returns>The result value.</returns>
         public IResultInfo UpdateCustomersCommission(UpdatedCustomerComMetaModel metaModel)
         {
             const string UspName = "Lrf_LicenseeCustCommUpd";
@@ -446,15 +393,6 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        /// <summary>
-        /// Update customer special level.
-        /// </summary>
-        /// <param name="userId">User ID value.</param>
-        /// <param name="custId">Customer ID value.</param>
-        /// <param name="level">Level value.</param>
-        /// <param name="ip">IP parameter value.</param>
-        /// <param name="language">Language value.</param>
-        /// <returns>The result value.</returns>
         public IResultInfo UpdateSpecialLevel(int userId, int custId, int level, string ip, string language)
         {
             const string UspName = "Lrf_CustomerUpdSpecialLevel";
@@ -480,15 +418,6 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        /// <summary>
-        /// Update customer odds group.
-        /// </summary>
-        /// <param name="userId">User ID value.</param>
-        /// <param name="custId">Customer ID value.</param>
-        /// <param name="group">Level value.</param>
-        /// <param name="ip">IP parameter value.</param>
-        /// <param name="language">Language value.</param>
-        /// <returns>The result value.</returns>
         public IResultInfo UpdateOddsGroup(int userId, int custId, string group, string ip, string language)
         {
             const string UspName = "Lrf_CustomerUpdOddsGroup";

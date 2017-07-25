@@ -73,37 +73,6 @@
             Assert.That(result[1].AllowWinloss, Is.EqualTo(expected[0].AllowWinloss));
         }
 
-        [Test]
-        public void IsAllowedSaToteCurrency_WhenCall_ParametersPassedCorrectly()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CheckHRAllowedCurrency")).Returns(_objectDb);
-            var custId = 1;
-
-            // Action
-            _dataAccess.IsAllowedSaToteCurrency(custId);
-
-            // Assert
-            _objectDb.Received().AddInParameter("custid", DbType.Int32, custId);
-            _objectDb.Received().AddOutParameter("allowed", DbType.Boolean, sizeof(bool));
-        }
-
-        [TestCase(true)]
-        [TestCase(false)]
-        public void IsAllowedSaToteCurrency_WhenCall_ParametersPassedCorrectly(bool expected)
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CheckHRAllowedCurrency")).Returns(_objectDb);
-            _objectDb.GetParameterValue("allowed").Returns(expected);
-            var custId = 1;
-
-            // Action
-            var result = _dataAccess.IsAllowedSaToteCurrency(custId);
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
         private void ConfigureReader()
         {
             _reader.Read().Returns(true, false);

@@ -19,10 +19,9 @@
 </div>
 <div class="clear" style="height: 5px">
 </div>
-@using (Html.BeginForm("Index", "CustomerComGroup", FormMethod.Post, new { @id = "CommissionGroupForm" }))
+@using (Html.BeginForm("ExportExcel", "CustomerComGroup", FormMethod.Post, new { @id = "CommissionGroupForm" }))
 {
     @Html.AntiForgeryToken()
-    @Html.Hidden("IsExportExcel", false)
     <div class="container_26">
         <div class="grid_3">
             <input type="button" id="NewGroupButton" value="@ViewResources.NewGroup" class="button" style="margin-bottom: 5px;"

@@ -17,7 +17,7 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
 
                 var gridTop = $bdiv.offset().top;
                 var pagingHeight = $(".paging:visible").length ? $(".paging:visible").height() : 0;
-                pagingHeight = pagingHeight || $("#paging:visible").length ? $("#paging:visible").height() : 0;
+                pagingHeight = pagingHeight || ($("#paging:visible").length ? $("#paging:visible").height() : 0);
                 var footerHeight = $(".ui-jqgrid-sdiv:visible").length ? $(".ui-jqgrid-sdiv:visible").height() : 0;
                 var jqgridPagerHeight = $(".ui-jqgrid-pager:visible").length ? $(".ui-jqgrid-pager:visible").outerHeight(true) : 0;
                 var footerSite = 18;
@@ -263,8 +263,14 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
             setNoInfo: function (message) {
                 var noInfoText = message || Site.getSingleResource("NoInfo");
                 var htmlNoInfor = '<p id="noInfoRow" class="no-info-row">' + noInfoText + '</p>';
-                $('#noInfoRow').remove();
-                $('.theme_jqGrid').append(htmlNoInfor);
+
+                var $noInforRow = $('#noInfoRow');
+                if ($noInforRow.length) {
+                    $noInforRow.html(noInfoText);
+                }
+                else {
+                    $('.theme_jqGrid').append(htmlNoInfor);
+                }
                 $("div.ui-jqgrid-sdiv").hide();
             },
 

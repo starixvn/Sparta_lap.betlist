@@ -1,0 +1,54 @@
+﻿@using Fanex.Athena.Model.Report.ViewModel
+@model Fanex.Athena.Model.Customer.ViewModel.CustomerListViewModel
+
+<input id="CanUpdateBAMessage" type="hidden" value="@Model.CanUpdateBAMessage" />
+<input id="CanUpdateBA" type="hidden" value="@(Model.CanUpdateBA ? 1 : 0)" />
+
+<!-- Update Customer Status Form Popup -->
+<div id="UpdateCustStatus" class="custStatusPopup">
+    <p class="custStatus-row custStatus-title">
+        @Html.Raw(string.Format(ViewResources.ChangeStatus, "<b id='custStatus-externalId'></b>"))
+    </p>
+
+    <div class="custStatus-row custStatus-form">
+        <input type="checkbox" id="custStatus-suspended" class="chkCustStatus" />
+        <label for="custStatus-suspended">@ViewResources.Suspended</label>
+    </div>
+    <div class="custStatus-row custStatus-form">
+        <input type="checkbox" id="custStatus-closed" class="chkCustStatus" />
+        <label for="custStatus-closed">@ViewResources.Close</label>
+    </div>
+    
+    <div class="custStatus-row custStatus-button-block">
+        <button type="button" class="btn btn-submit" id="custStatusUpdate" disabled>@ViewResources.Update</button>
+        <button type="button" class="btn btn-cancel" id="custStatusCancel">@ViewResources.Cancel</button>
+    </div>
+</div>
+<div id="ViewOptionList" class="viewOptionList">
+    <a href="javascript:;" id="bet-setting-link" class="viewOptionLink" title="@ViewResources.View @ViewResources.BetSetting">@ViewResources.BetSetting</a>
+    <a href="javascript:;" id="bet-list-link" class="viewOptionLink" title="@ViewResources.View @ViewResources.BetList">@ViewResources.BetList</a>
+    <a href="javascript:;" id="statement-link" class="viewOptionLink" title="@ViewResources.View @ViewResources.Statement">@ViewResources.Statement</a>
+    <a href="javascript:;" id="login-info-link" class="viewOptionLink" title="@ViewResources.View @ViewResources.LogInfo">@ViewResources.LogInfo</a>
+</div>
+
+ <!-- /Dropdown Special Level -->
+<div id="LevelListContainer" >
+    <div id="LevelList" style="width:100%" class="level-0">
+    <div class="link levelLink level-0" data-level="0" title="None">None</div>
+    @for (var i = 1; i <= 10; i++)
+    {
+        <div class="link levelLink level-@(i)"  data-level="@(i)">@(i)</div>
+    }
+    </div>    
+</div>    
+<!-- /Dropdown Special Level -->
+ <!-- /Dropdown Odds Group -->
+<div id="OddsGroupListContainer" >
+    <div id="OddsGroupList" style="width:100%">
+    <div class="link oddsGroupLink group-A" data-group="A" title="A">A</div>
+    <div class="link oddsGroupLink group-B" data-group="B" title="B">B</div>
+    <div class="link oddsGroupLink group-C" data-group="C" title="C">C</div>
+    <div class="link oddsGroupLink group-D" data-group="D" title="D">D</div>
+    </div>
+</div>    
+<!-- /Dropdown Odds Group  -->

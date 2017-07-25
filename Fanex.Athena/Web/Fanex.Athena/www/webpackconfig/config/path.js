@@ -46,7 +46,14 @@ var cssPaths = {
     matchwinloss: ["./www/css/source/pages/report/matchwinloss.scss"],
     platformwinloss: ["./www/css/source/pages/report/platformwinloss.scss"],
     winlossbybettype: ["./www/css/source/pages/report/winlossbybettype.scss"],
-    lastbetmonitoring: ["./www/css/source/pages/betlist/lastbetmonitoring.scss"]
+    lastbetmonitoring: ["./www/css/source/pages/betlist/lastbetmonitoring.scss"],
+    customercommgrouplist: ["./www/css/source/pages/customer/commgrouplist.scss"],
+    customercommgroupdetail: ["./www/css/source/pages/customer/commgrouplist-detail.scss"],
+    customerlog: ["./www/css/source/pages/customer/customerlog.scss"],
+    customerlist: ["./www/css/source/pages/customer/customerlist.scss"],
+    customeroutstanding: ["./www/css/source/pages/betlist/customeroutstanding.scss"],
+    betsetting: ["./www/css/source/pages/customer/betsetting.scss"],
+    licenseelist: ["./www/css/source/pages/utility/licenseelist.scss"]
 };
 
 var scriptPaths = {
@@ -94,7 +101,24 @@ var scriptPaths = {
     matchwinloss: "./www/js/source/pages/report/matchwinloss/main.js",
     platformwinloss: "./www/js/source/pages/report/platformwinloss/main-platformwinloss.js",
     winlossbybettype: "./www/js/source/pages/report/winlossbybettype/main.js",
-    lastbetmonitoring: "./www/js/source/pages/betlist/lastbetmonitoring/main.js"
+    lastbetmonitoring: "./www/js/source/pages/betlist/lastbetmonitoring/main.js",
+    customercommgrouplist: "./www/js/source/pages/customer/customercomm/main-commgrouplist.js",
+    customercommgroupadd: "./www/js/source/pages/customer/customercomm/main-commgroupadd.js",
+    customercommgroupedit: "./www/js/source/pages/customer/customercomm/main-commgroupedit.js",
+    loginlog: "./www/js/source/pages/customer/customerlog/loginlog/main.js",
+    customerlist: "./www/js/source/pages/customer/customerlist/main.js",
+    loginlog: "./www/js/source/pages/customer/customerlog/loginlog/main.js",
+    customersetting: "./www/js/source/pages/customer/customerlog/customersetting/main.js",
+    groupcommission: "./www/js/source/pages/customer/customerlog/groupcommission/main.js",
+    customeroutstanding: "./www/js/source/pages/betlist/customer/main.js",
+    rngcasinobetsetting: "./www/js/source/pages/customer/betsetting/main-rngcasino.js",
+    betsettingmain: "./www/js/source/pages/customer/betsetting/main-betsetting.js",
+    betsettingbygroup: "./www/js/source/pages/customer/betsetting/main-betsettingbygroup.js",
+    dcsbetsetting: "./www/js/source/pages/customer/betsetting/main-dcsbetsetting.js",
+    thirdpartybetsetting: "./www/js/source/pages/customer/betsetting/main-thirdparty.js",
+    kenobetsetting: "./www/js/source/pages/customer/betsetting/main-keno.js",
+    livecasinobetsetting: "./www/js/source/pages/customer/betsetting/main-livecasino.js",
+    numbergamebetsetting: "./www/js/source/pages/customer/betsetting/main-numbergame.js"
 };
 
 module.exports = {

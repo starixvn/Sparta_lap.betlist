@@ -1,0 +1,74 @@
+﻿@using Fanex.Athena.Controllers
+@{
+    Layout = null;
+}
+@model Fanex.Athena.Model.Customer.ViewModel.LogInfoViewModel
+@{var logInfo = Model.LogInfo;}
+<div class="log-info-container">
+    <table class="table">
+        <tr>
+            <td colspan="2" class="center-align text-bold">
+                @logInfo.NickName (@logInfo.UserName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @ViewResources.CreatedDate
+            </td>
+            <td class="right-align text-bold">
+                @RazorHelper.FullDateFormat(logInfo.CreateDate)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @ViewResources.LastLogin
+            </td>
+            <td class="right-align text-bold">
+                @RazorHelper.FullDateFormat(logInfo.LastLogged)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @ViewResources.LastTxn
+            </td>
+            <td class="right-align text-bold">
+                @RazorHelper.FullDateFormat(logInfo.LastTransferDate)
+            </td>
+        </tr>
+        @if (Model.ProductAccess.IsAllowBA)
+        {
+            <tr>
+                <td>
+                    @ViewResources.BAUpdatedBy
+                </td>
+                <td class="right-align text-bold">
+                    @logInfo.BAUpdatedBy
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @ViewResources.LastUpdatedBA
+                </td>
+                <td class="right-align text-bold">
+                    @RazorHelper.FullDateFormat(logInfo.LastUpdateBA)
+                </td>
+            </tr>
+        }
+        <tr>
+            <td>
+                @ViewResources.SpecialLevel
+            </td>
+            <td class="right-align text-bold">
+                @logInfo.SpecialLevelUpdateBy
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @ViewResources.LastUpdatedMsg
+            </td>
+            <td class="right-align text-bold">
+                @RazorHelper.FullDateFormat(logInfo.SpecialLevelUpdateDate)
+            </td>
+        </tr>
+    </table>
+</div>

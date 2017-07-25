@@ -118,7 +118,15 @@ selectedBasedCurrency = selectedBasedCurrency.ToLower();
         <option value="" @(selectedBasedCurrency == "" ? new HtmlString("selected=selected") : new HtmlString(""))>@CurrencyName</option>
     </select>
 }
-
+@helper GroupComSettingDropDownList(string name, Dictionary<int, int> items, decimal selectedValue = 0, string className = "")
+{
+    <select id="@name" name="@name" class="@className hide select commission-selection" data-original="@selectedValue">
+        @foreach (var item in items)
+        {
+            <option @(selectedValue == item.Value ? "selected=selected" : string.Empty) value="@item.Value">@item.Key.ToString("0.#")</option>
+        }
+    </select>
+}
 @helper HighlightNegativeFormat(decimal value, bool isHiglight = true)
 {
     <span@(isHiglight && value < 0 ? new HtmlString(" class='negative-number'") : new HtmlString(""))>
@@ -355,7 +363,6 @@ var Url = new UrlHelper(Context.Request.RequestContext);
         <label for="ShowLoss">@ViewResources.Loss</label>
         <input type="checkbox" id="ShowDraw" name="ShowDraw" value="true" checked />
         <label for="ShowDraw">@ViewResources.Draw</label>
-        <img src="@Url.Content("/Content/Report/Images/icon_error.gif")" alt="" id="ticket-null" class="hide" />
     </div>
     <label>@ViewResources.TicketFilter *</label>
 }
@@ -421,3 +428,5 @@ productText = string.IsNullOrEmpty(productText) ? string.Empty : string.Format("
 
     @productText
 }
+
+

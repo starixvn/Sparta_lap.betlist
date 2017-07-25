@@ -1,0 +1,17 @@
+﻿@{
+    var level = Model.Data["SpecialLevel"];
+    var levelOld = Model.Data["SpecialLevelOld"];
+    var isChangeSpecialLevel = level != levelOld;
+}
+
+<table class="nested-table table-2-column">
+    <tbody>
+        <tr>
+            <td>@Model.Resource["SpecialLevel"]</td>
+            <td>
+                <p class="@(isChangeSpecialLevel ? "red-text" : string.Empty)">@level</p>
+                <p class="old-value @(isChangeSpecialLevel ? string.Empty : "hide")">@levelOld</p>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -3121,6 +3121,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group Management.
+        /// </summary>
+        public static string GroupManagement {
+            get {
+                return ResourceManager.GetString("GroupManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Group Name.
         /// </summary>
         public static string GroupName {

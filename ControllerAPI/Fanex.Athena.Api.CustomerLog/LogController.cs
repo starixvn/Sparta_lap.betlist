@@ -9,10 +9,13 @@ namespace Fanex.Athena.Api.CustomerLog
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
+    using System.Linq;
+    using System.Text.RegularExpressions;
     using System.Web.Hosting;
     using System.Xml;
     using Base;
     using Base.Attributes;
+    using Extension.Utility;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Model.Customer.ViewModel.CustomerLog;
     using Fanex.Athena.Service.Customer;
@@ -20,26 +23,43 @@ namespace Fanex.Athena.Api.CustomerLog
     using RazorEngine;
     using RazorEngine.Templating;
     using Resources;
+    using Service.Core.Helpers;
+    using Service.Core.Users;
+    using Service.Core.Users.Interfaces;
+    using Service.Customer.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.CustomerInfoCustomerLog)]
     public partial class LogController : BaseApiController
     {
         #region Field
 
-        /// <summary>
-        /// Customer log service .
-        /// </summary>
-        private readonly CustomerLogService _customerLogService;
+        private readonly ICustomerLogService _customerLogService;
 
-        /// <summary>
-        /// Log in log service .
-        /// </summary>
-        private readonly LogInLogService _logInLogService;
+        private readonly ILogInLogService _logInLogService;
 
-        /// <summary>
-        /// Resources Map.
-        /// </summary>
-        private IDictionary<string, string> _resourcesMap;
+        private readonly ISessionService _sessionService;
+
+        private readonly IAppSettings _appSettings;
+
+        private readonly IDictionary<string, string> _resourcesMap = new Dictionary<string, string>
+        {
+            { "Closed", ViewResources.Closed },
+            { "Suspended", ViewResources.Suspended },
+            { "SpecialLevel", ViewResources.SpecialLevel },
+            { "GroupId", ViewResources.GroupId },
+            { "GroupName", ViewResources.GroupName },
+            { "GroupColor", ViewResources.GroupColor },
+            { "SBComm", ViewResources.SBComm },
+            { "RBComm", ViewResources.RBComm },
+            { "NGComm", ViewResources.NGComm },
+            { "LCComm", ViewResources.LCComm },
+            { "CSComm", ViewResources.CS + " " + ViewResources.Comm },
+            { "Yes", ViewResources.Yes },
+            { "No", ViewResources.No },
+            { "OldColor", ViewResources.OldColor }
+        };
+
+        private readonly IEnumerable<int> _actionIdListForBA = new List<int> { 2401, 2403, 2801 };
 
         #endregion Field
 
@@ -49,6 +69,8 @@ namespace Fanex.Athena.Api.CustomerLog
         {
             _customerLogService = new CustomerLogService();
             _logInLogService = new LogInLogService();
+            _sessionService = new SessionService();
+            _appSettings = new AppSettings();
         }
 
         #endregion Constructor
@@ -64,31 +86,38 @@ namespace Fanex.Athena.Api.CustomerLog
         /// <returns>Tracking Value has been removed HTML Tag.</returns>
         private static string StripTags(string source)
         {
-            source = source.Replace(@"/", string.Empty);
-            source = source.Replace(@"<", string.Empty);
-            source = source.Replace(@">", string.Empty);
+            var regex = new Regex("[/<>]");
+            return regex.Replace(source, string.Empty);
+        }
 
-            return source;
+        /// <summary>
+        /// Remove HTML Tag.
+        /// </summary>
+        /// <param name="datalist">A list of Customer Log.</param>
+        /// <returns>A list of customer log has been removed HTML tag.</returns>
+        private static IList<CustomerLog> RemoveHtmlTag(IList<CustomerLog> datalist)
+        {
+            foreach (var item in datalist)
+            {
+                var trackingCharCount = item.TrackingValue.Length;
+                var trackingOldCharCount = item.TrackingValueOld.Length;
+
+                // Remove HTML tag inside tracking value
+                if (trackingCharCount > 0 && trackingOldCharCount > 0)
+                {
+                    var trackingValue = item.TrackingValue.Substring(1, trackingCharCount - 3);
+                    var trackingValueOld = item.TrackingValueOld.Substring(1, trackingOldCharCount - 3);
+
+                    // Add </> tag after remove all html tag
+                    item.TrackingValue = "<" + StripTags(trackingValue) + "/>";
+                    item.TrackingValueOld = "<" + StripTags(trackingValueOld) + "/>";
+                }
+            }
+
+            return datalist;
         }
 
         #endregion Remove HTML tag
-
-        #region Parse dictonary to razor view
-
-        /// <summary>
-        /// Parse dictionary to razor view.
-        /// </summary>
-        /// <param name="actionId">Action id.</param>
-        /// <param name="viewModel">View Model.</param>
-        /// <returns> HTML string.</returns>
-        private static string ParseDictonaryToRazorView(int actionId, ActionViewModel viewModel)
-        {
-            var templatePath = HostingEnvironment.MapPath($"~/Views/Customer/CustomerLog/Action/{actionId}.cshtml");
-            var template = File.ReadAllText(templatePath);
-            return Engine.Razor.RunCompile(template, actionId.ToString(), null, viewModel);
-        }
-
-        #endregion Parse dictonary to razor view
 
         #region Get XML attribute
 
@@ -161,65 +190,45 @@ namespace Fanex.Athena.Api.CustomerLog
 
         #endregion Get XML attribute
 
-        #endregion Utility
+        #region Parse dictonary to razor view
 
         /// <summary>
-        /// Remove HTML Tag.
+        /// Parse dictionary to razor view.
         /// </summary>
-        /// <param name="datalist">A list of Customer Log.</param>
-        /// <returns>A list of customer log has been removed HTML tag.</returns>
-        private static IList<CustomerLog> RemoveHtmlTag(IList<CustomerLog> datalist)
+        /// <param name="actionId">Action id.</param>
+        /// <param name="viewModel">View Model.</param>
+        /// <returns> HTML string.</returns>
+        private string ParseDictonaryToRazorView(int actionId, ActionViewModel viewModel)
         {
-            foreach (var item in datalist)
-            {
-                var trackingCharCount = item.TrackingValue.Length;
-                var trackingOldCharCount = item.TrackingValueOld.Length;
-
-                // Remove HTML tag inside tracking value
-                if (trackingCharCount > 0 && trackingOldCharCount > 0)
-                {
-                    var trackingValue = item.TrackingValue.Substring(1, trackingCharCount - 3);
-                    var trackingValueOld = item.TrackingValueOld.Substring(1, trackingOldCharCount - 3);
-
-                    // Add </> tag after remove all html tag
-                    item.TrackingValue = "<" + StripTags(trackingValue) + "/>";
-                    item.TrackingValueOld = "<" + StripTags(trackingValueOld) + "/>";
-                }
-            }
-
-            return datalist;
+            var viewName = GetActionViewName(actionId);
+            var templatePath = HostingEnvironment.MapPath(viewName);
+            var template = File.ReadAllText(templatePath);
+            return Engine.Razor.RunCompile(template, viewName, null, viewModel);
         }
+
+        private string GetActionViewName(int actionId)
+        {
+            var actionView = $"~/Views/Customer/CustomerLog/Action/{actionId}.cshtml";
+            var userSession = _sessionService.UserSession;
+
+            var option = userSession != null && userSession.ViewType != ClientViewType.None ?
+                userSession.ViewType : (ClientViewType)int.Parse(_appSettings.ClientViewType);
+
+            return ClientViewHelper.GetViewPath(actionView, option);
+        }
+
+        #endregion Parse dictonary to razor view
+        
+        #endregion Utility
 
         #region Get detail data
 
-        /// <summary>
-        /// Get details column.
-        /// </summary>
-        /// <param name="dataList">A list of customer log.</param>
-        /// <returns>A list has been formatted.</returns>
         private IList<CustomerLog> GetDetails(IList<CustomerLog> dataList)
         {
-            _resourcesMap = new Dictionary<string, string>
-            {
-                { "Closed", ViewResources.Closed },
-                { "Suspended", ViewResources.Suspended },
-                { "SpecialLevel", ViewResources.SpecialLevel },
-                { "GroupId", ViewResources.GroupId },
-                { "GroupName", ViewResources.GroupName },
-                { "GroupColor", ViewResources.GroupColor },
-                { "SBComm", ViewResources.SBComm },
-                { "RBComm", ViewResources.RBComm },
-                { "NGComm", ViewResources.NGComm },
-                { "LCComm", ViewResources.LCComm },
-                { "CSComm", ViewResources.CS + " " + ViewResources.Comm },
-                { "Yes", ViewResources.Yes },
-                { "No", ViewResources.No },
-                { "OldColor", ViewResources.OldColor }
-            };
             foreach (var item in dataList)
             {
                 // No need to read xml data for BA
-                if (item.ActionId == 2401 || item.ActionId == 2403 || item.ActionId == 2801)
+                if (_actionIdListForBA.Contains(item.ActionId))
                 {
                     item.Details = string.Empty;
                     continue;

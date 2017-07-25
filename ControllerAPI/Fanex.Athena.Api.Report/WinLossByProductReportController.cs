@@ -31,7 +31,6 @@ namespace Fanex.Athena.Api.Report
     [ApiFunctionAuthorization(PermissionKeys.ReportWinLossByProduct)]
     public class WinLossByProductReportController : ApiReportBaseController
     {
-        private const string ParrentUrl = "Report/WinLossByProduct";
         private readonly IWinLossByProductService _winlossByProductService;
 
         public WinLossByProductReportController()

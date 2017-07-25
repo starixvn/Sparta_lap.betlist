@@ -32,6 +32,8 @@ namespace Fanex.Athena.Model.Customer.MetaModel
          ErrorMessageResourceType = typeof(ViewResources), ErrorMessageResourceName = "GroupNameOnlyContainCharactersAndNumberMsg")]
         public string GroupName { get; set; }
 
+        public string OriginalGroupName { get; set; }
+
         public int NumberOfCustomer { get; set; }
 
         [Required]

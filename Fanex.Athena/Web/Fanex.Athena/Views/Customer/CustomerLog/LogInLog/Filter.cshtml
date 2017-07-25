@@ -2,6 +2,7 @@
 @model Fanex.Athena.Model.Customer.ViewModel.CustomerLog.LogInLogViewModel
 @using (Html.BeginForm("LogInLog", "CustomerLog", FormMethod.Get, new { @id = "LogInLogForm" }))
 {
+    @Html.AntiForgeryToken()
     <div class="grid_2 filter-label">
         @ViewResources.Username
     </div>

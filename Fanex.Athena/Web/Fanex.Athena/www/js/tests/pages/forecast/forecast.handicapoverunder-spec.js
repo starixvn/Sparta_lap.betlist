@@ -127,5 +127,72 @@
                     expect(ForecastHDPOU.loadData).toHaveBeenCalledWith(jasmine.stringMatching(urlPattern));
                 });
             });
+
+            describe("resizeGrid", function () {
+                beforeEach(function () {
+                    setFixtures('<div class="body-content" style="height: 400px"></div>');
+                    window.innerHeight = 500;
+                    var $grid = $(".body-content");
+                    spyOn($.fn, "offset").and.returnValue({ top: 10 });
+                });
+
+                it("$grid should has correct height value", function () {
+                    var expectedHeight = "400px";
+
+                    ForecastHDPOU.resizeGrid();
+                    var result = $(".body-content").css("height");
+
+                    expect(result).toBe(expectedHeight);
+                });
+
+                it("$grid should contain class 'hasScroll' when have no vertical scrollbar", function () {
+                    spyOn($.fn, "hasVerticalScrollBar").and.returnValue(false);
+
+                    ForecastHDPOU.resizeGrid();
+                    var result = $(".body-content").hasClass("hasScroll");
+
+                    expect(result).toBe(true);
+                });
+
+                it("$grid should contain class 'hasScroll' when have no vertical scrollbar", function () {
+                    spyOn($.fn, "hasVerticalScrollBar").and.returnValue(true);
+                    var $grid = $(".body-content");
+                    $grid.width(200);
+                    $grid.append('<table id="table"></table>');
+
+                    var expectedWidth = 183;
+
+                    ForecastHDPOU.resizeGrid();
+                    var result = $("#table").width();
+
+                    expect(result).toBe(expectedWidth);
+                });
+            });
+
+            describe("submit", function () {
+                var data = { Id: 1, Name: "Test" };
+                beforeAll(function () {
+                    spyOn(Site, "blockUI");
+                    spyOn($.fn, "serializeObject").and.returnValue(data);
+                    spyOn(Site, "updateOriginalLicenseeOption");
+                    spyOn(ForecastHDPOU, "loadData");
+                });
+
+                beforeEach(function () {
+                    ForecastHDPOU.submit();
+                });
+
+                it("Site.blockUI() should be called", function () {
+                    expect(Site.blockUI).toHaveBeenCalled();
+                });
+
+                it("Site.updateOriginalLicenseeOption() should be called", function () {
+                    expect(Site.updateOriginalLicenseeOption).toHaveBeenCalled();
+                });
+
+                it("ForecastHDPOU.loadData() should be called with correct parameter", function () {
+                    expect(ForecastHDPOU.loadData).toHaveBeenCalledWith(null, data);
+                });
+            });
         });
     });

@@ -1,8 +1,8 @@
 ﻿"use strict";
-define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option", "../report",
-        "lib/jqgrid/jquery.jqgrid.additional", "components/pluginhelper/daterangepicker", "moment", "common/popup",
+define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option", "../report", "lib/jqgrid/jquery.jqgrid.additional",
+        "components/pluginhelper/daterangepicker", "moment", "common/popup", "helpers/daterange",
         "extensions/jquery.extension", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min"],
-    function ($, QueryString, Site, CashOutWinLossOption, Report, jqGridAdditional, DatePicker, moment, Popup) {
+    function ($, QueryString, Site, CashOutWinLossOption, Report, jqGridAdditional, DatePicker, moment, Popup, DateHelper) {
         var cacheData = {};
         var ajaxRequest = null;
         var _level = 0;
@@ -17,7 +17,7 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
                     resourceName: "CashOutWL",
                     title: Site.getSingleResource("CashOutWinLoss")
                 });
-                Site.setConstraintMonthRange(VALID_MONTH_RANGE, CashOutWinLossOption.urlExcelData);
+                DateHelper.setConstraintMonthRange(VALID_MONTH_RANGE, CashOutWinLossOption.urlExcelData);
                 _me.initEvent();
                 _me.initSetting();
                 _me.registerGlobalFunction();

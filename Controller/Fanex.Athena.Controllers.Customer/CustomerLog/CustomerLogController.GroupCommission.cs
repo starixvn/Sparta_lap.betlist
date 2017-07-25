@@ -11,17 +11,9 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Model.Customer.MetaModel.CustomerLog;
     using Fanex.Athena.Model.Customer.ViewModel.CustomerLog;
-    using Fanex.Athena.Web.ActionFilter;
 
-    /// <summary>
-    /// Group commission log.
-    /// </summary>
     public partial class CustomerLogController
     {
-        /// <summary>
-        /// Group commission action.
-        /// </summary>
-        /// <returns>Group commission log view.</returns>
         [HttpGet]
         public ActionResult GroupCommission()
         {

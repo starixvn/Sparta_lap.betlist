@@ -1,0 +1,143 @@
+﻿@{
+    Layout = "~/Views/Desktop/Shared/_BetSettingLayout.cshtml";
+}
+@model Fanex.Athena.Model.BetSettings.ViewModel.GoldDeluxeBetSettingViewModel
+@using Fanex.Athena.Model.Core.DataDomain;
+
+@helper RenderFirstRow()
+{
+    <tr class="first-row">
+        <td class="col-medium large"></td>
+        <td class="col-medium large"></td>
+        <td class="col-medium large"></td>
+    </tr>
+}
+
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/betsettingbygroup.chunk.js")"></script>
+}
+
+@section Menu{
+    @{Html.RenderPartial("~/Views/Desktop/Customer/BetSetting/Menu.cshtml", Model);}
+}
+
+@section ContentTitle{
+    @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
+}
+
+@{
+    const string FormatDecimal = "#,###,##0.##";
+    var hasData = Model.Games.Count > 0;
+    var isLineEnabled = Model.BetSetting.IsLineEnabled;
+    var isBetSettingEnabled = Model.IsEnabled.HasValue && Model.IsEnabled.Value;
+    var tableTextClass = isBetSettingEnabled ? "" : "disabled-text";
+}
+@if (isLineEnabled)
+{
+    if (isBetSettingEnabled && hasData)
+    {
+        <div class="row setting-group-seletion">
+            <div class="col l3 m4 s12">
+                <select id="betSettingGroup" class="select hide" data-default="@Model.BetSetting.Group">
+                    @foreach (var item in Model.BetSetting.CheckedGroups)
+                    {
+                        <option value="@item" @(item == Model.BetSetting.Group ? "selected" : null)>@item</option>
+                    }
+                </select>
+                <label>@ViewResources.BetSettingGroups</label>
+            </div>
+        </div>
+    }
+    else
+    {
+        @(ViewResources.BetSettingGroups + ":")
+        <span class="@tableTextClass">@Model.BetSetting.Group</span>
+    }
+
+    @Html.Hidden("editable", Model.Editable)
+    @Html.Hidden("BettingLimit", new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Games))
+}
+@if (isLineEnabled && !hasData)
+{
+    var currencyId = Model.BetSetting.CurrencyId;
+    if (currencyId == CurrencyType.Aud || currencyId == CurrencyType.Chf || currencyId == CurrencyType.Eur || currencyId == CurrencyType.Gbp)
+    {
+        <p class="no-info-row">@ViewResources.CurrencyNotSupportedForGoldDeluxe</p>
+    }
+    else
+    {
+        <p class="no-info-row">@ViewResources.ProblemDisplayBetSetting</p>
+    }
+}
+else if (!isLineEnabled)
+{
+    <p class="no-info-row">@ViewResources.GoldDeluxeNotOfferCurrency</p>
+}
+else
+{
+    <!--Header-->
+    <div class="table-content">
+        <div class="header-content">
+            <table class="table">
+                <thead>
+                    @RenderFirstRow()
+                    <tr>
+                        <th>@ViewResources.GameType</th>
+                        <th>@ViewResources.MinBet</th>
+                        <th>@ViewResources.MaxBet</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <!--/Header-->
+        <!--Content-->
+        <div class="body-content">
+            <table class="table betsetting-form">
+                <tbody>
+                    @RenderFirstRow()
+                    @foreach (var game in Model.Games)
+                    {
+                        var group = game.Groups.Where(x => x.GroupType == Model.BetSetting.Group).FirstOrDefault();
+                        <tr>
+                            <td>@game.Name</td>
+                            <td id="min-@(game.GameType)" class="@tableTextClass">
+                                @(group != null ? group.Min.ToString(FormatDecimal) : string.Empty)
+                            </td>
+                            <td id="max-@(game.GameType)" class="@tableTextClass">
+                                @(group != null ? group.Max.ToString(FormatDecimal) : string.Empty)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+<!--SubmitButton-->
+@if (Model.Editable)
+{
+    var disabledText = isLineEnabled && isBetSettingEnabled && hasData ? null : "disabled";
+    <div class="right button-block">
+        <button type="button" @disabledText class="btn btn-submit"
+                data-cust-id="@Model.Param.CustId"
+                data-user-name="@Model.Param.UserName"
+                data-nick-name="@Model.Param.NickName"
+                id="btnSubmitBetSetting">
+            @ViewResources.Submit
+        </button>
+        <button type="button" @disabledText class="btn btn-cancel" id="btnReset">
+            @ViewResources.Reset
+        </button>
+        @if (isLineEnabled)
+        {
+            <button type="button" class="btn btn-submit"
+                    data-status="@(isBetSettingEnabled ? 0 : 1)"
+                    data-cust-id="@Model.Param.CustId"
+                    data-nick-name="@Model.Param.NickName"
+                    id="btnUpdateStatus">
+                @(isBetSettingEnabled ? ViewResources.DisableGoldDeluxe : ViewResources.EnableGoldDeluxe)
+            </button>
+        }
+    </div>
+}
+<!--/SubmitButton-->

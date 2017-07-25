@@ -21,7 +21,7 @@
             </div>
 
             <div class="input-field col l2 m3 s12">
-                @Html.TextBox("Username", Model.Param.Username, new { placeholder = ViewResources.ExternalIdOrSystemId })
+                @Html.TextBox("Username", Model.Param.Username, new { placeholder = ViewResources.ExternalIdOrSystemId, autocomplete = "off" })
                 <label>@ViewResources.Username</label>
                 <ul id="suggestionDropdown" class="dropdown-content ac-dropdown"></ul>
             </div>

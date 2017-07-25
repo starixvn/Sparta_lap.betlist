@@ -8,20 +8,6 @@
             });
         }
 
-        describe("getLicenseeId()", function () {
-            it("return a correct value", function () {
-                setFixtures('<input id="LicenseeId" value="2" />');
-                var result = Site.getLicenseeId();
-
-                expect(result).toBe(2);
-
-                spyOn(window, "parseInt").and.callThrough();
-                Site.getLicenseeId();
-
-                expect(window.parseInt.calls.count()).toBe(0);
-            });
-        });
-
         describe("asNull(text)", function () {
             it("return null if the param 'text' is an empty string", function () {
                 var result = Site.asNull("");
@@ -119,6 +105,15 @@
                 var expectedUrl = transformQueryParamNameToLowerCase(url);
 
                 var result = Site.setProductOptionParam("localhost", 1, "SB", true);
+
+                expect(result).toBe(expectedUrl);
+            });
+
+            it("build an url with undefined production", function () {
+                var url = "localhost?ProductOptions[1].Status=true";
+                var expectedUrl = transformQueryParamNameToLowerCase(url);
+
+                var result = Site.setProductOptionParam("localhost", 1, undefined, true);
 
                 expect(result).toBe(expectedUrl);
             });
@@ -264,6 +259,22 @@
 
                 expect(result).not.toBe(date);
                 expect(result).toEqual(date);
+            });
+
+            it("return correct date value when passed param is Object type", function () {
+                var obj = function () {
+                    this["prop"] = "prop";
+                };
+                obj.prototype = { "prop2": "" };
+                var clonedObj = new obj();
+                var expectedObj = {
+                    prop: "prop"
+                };
+
+                var result = Site.clone(clonedObj);
+
+                expect(result).not.toBe(clonedObj);
+                expect(result).toEqual(expectedObj);
             });
         });
 
@@ -485,6 +496,7 @@
                 Site.addUserGuide({ resourceName: "AAA" });
 
                 $("#UserGuide").click();
+                $("#UserGuide").click();
                 spyOn(Popup, "openPopup");
                 jasmine.clock().install();
                 callback("test", "success");
@@ -523,64 +535,6 @@
                 var result = Site.getHistoryDate();
 
                 expect(result).toEqual(expectedResult);
-            });
-        });
-
-        describe("getCurrencyName(currencyId)", function () {
-            it("return correct value", function () {
-                var jsonData = JSON.stringify({ 1: "USD" });
-                setFixtures('<input id="UserCurrencies" value=\'' + jsonData + '\' />');
-                Site.initialize();
-
-                var result = Site.getCurrencyName(1);
-
-                expect(result).toEqual("USD");
-            });
-        });
-
-        describe("showMessaegBox(message)", function () {
-            it("Popup.openPopup function should be called with correct parameter", function () {
-                setFixtures('<input id="PageLanguage" value="en-US" />');
-                window["_language_en_US"] = { "LrfNotification": "LrfNotification" };
-                Site.initialize();
-
-                spyOn(Popup, "openPopup");
-                var message = "Test";
-                var expectedParam1 = '<div title="LrfNotification"><p class="notification">' + message + '!</p></div>';
-                var expectedParam2 = { width: 350, height: 120, title: "LrfNotification", className: "popup-notification" };
-
-                Site.showMessaegBox(message);
-
-                expect(Popup.openPopup).toHaveBeenCalledWith(expectedParam1, expectedParam2);
-            });
-        });
-
-        xdescribe("setConstraintMonthRange(monthRange, url)", function () {
-            beforeEach(function () {
-                spyOn(Popup, "openPopup");
-                setFixtures('<input id="PageLanguage" value="en-US" /> <input id="FromDate" value="4/1/2017" /> <input id="ToDate" value="7/1/2017" />' +
-                    '<form id="form"></form>');
-                window["_language_en_US"] = { "DateRangeExceedMsg": "Exceed {0}" };
-                Site.initialize();
-            });
-
-            it("Popup.openPopup function should be called with correct parameter when exceed range", function () {
-                Site.setConstraintMonthRange(2, "localhost");
-
-                $("#form").submit();
-
-                var expectedParam1 = '<div title="LrfNotification"><p class="notification">Exceed 2!</p></div>';
-                var expectedParam2 = { width: 350, height: 120, title: "LrfNotification", className: "popup-notification" };
-
-                expect(Popup.openPopup).toHaveBeenCalledWith(expectedParam1, expectedParam2);
-            });
-
-            it("Popup.openPopup function should not be called when range is valid", function () {
-                Site.setConstraintMonthRange(4, "localhost");
-
-                $("#form").submit();
-
-                expect(Popup.openPopup).not.toHaveBeenCalled();
             });
         });
 
@@ -648,6 +602,52 @@
                     expect(result).toBe(false);
                     expect(window.alert).toHaveBeenCalledWith("ErrorProcessingMsg");
                 });
+
+                it(".block-body should be hidden and window.alert should be called when calling status 400", function () {
+                    ajaxOption.statusCode["400"]();
+
+                    var result = $("block-body").is(":visible");
+
+                    expect(result).toBe(false);
+                    expect(window.alert).toHaveBeenCalledWith("InvalidRequestMsg");
+                });
+            });
+        });
+
+        describe("debounce(func, wait, immediate)", function () {
+            it("call function immediately", function () {
+                var func = jasmine.createSpyObj("func", ["call"]);
+
+                var result = Site.debounce(func.call, 1000, true);
+                result();
+
+                expect(func.call).toHaveBeenCalled();
+            });
+
+            it("call function with timeout", function () {
+                var func = jasmine.createSpyObj("func", ["call"]);
+
+                jasmine.clock().install();
+
+                var result = Site.debounce(func.call, 300, false);
+                result();
+                jasmine.clock().tick(301);
+
+                expect(func.call).toHaveBeenCalled();
+                jasmine.clock().uninstall();
+            });
+
+            it("call function with timeout", function () {
+                var func = jasmine.createSpyObj("func", ["call"]);
+
+                jasmine.clock().install();
+
+                var result = Site.debounce(func.call, false, false);
+                result();
+                jasmine.clock().tick(501);
+
+                expect(func.call).toHaveBeenCalled();
+                jasmine.clock().uninstall();
             });
         });
     });

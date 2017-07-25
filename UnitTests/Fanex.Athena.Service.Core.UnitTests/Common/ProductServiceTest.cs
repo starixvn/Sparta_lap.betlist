@@ -243,19 +243,5 @@
             Assert.That(result.IsAllow(100), Is.True);
             Assert.That(result.IsAllow(200), Is.True);
         }
-
-        [TestCase(1, true)]
-        [TestCase(2, false)]
-        public void IsAllowedSaToteCurrency_WhenCall_ReturnCorrectValue(int custId, bool expected)
-        {
-            // Arrange
-            _productDataAccess.IsAllowedSaToteCurrency(custId).Returns(expected);
-
-            // Action
-            var result = _productService.IsAllowedSaToteCurrency(custId);
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expected));
-        }
     }
 }

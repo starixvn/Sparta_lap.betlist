@@ -3758,7 +3758,7 @@ textarea {
   content: "\E904"; }
 
 .icon-customer:before {
-  content: "\E905"; }
+  content: "\E906"; }
 
 .icon-home:before {
   content: "\E908"; }
@@ -3781,14 +3781,20 @@ textarea {
 .icon-xs-arrow:before {
   content: "\E90E"; }
 
-.icon-spinner6:before {
-  content: "\E97F"; }
-
 .icon-back:before {
   content: "\EA38"; }
 
 .icon-refresh:before {
   content: "\EA2E"; }
+
+.icon-pencil:before, .icon-edit:before {
+  content: "\E905"; }
+
+.icon-bin:before, .icon-delete:before {
+  content: "\E9AC"; }
+
+.icon-checkmark:before {
+  content: "\EA10"; }
 
 @font-face {
   font-family: 'Montserrat Regular';
@@ -3903,6 +3909,15 @@ main {
   cursor: pointer; }
   .icon-book.right {
     margin-left: 10px; }
+
+.icon-pencil, .icon-edit {
+  color: #066CC0 !important; }
+
+.icon-bin, .icon-delete {
+  color: #d91a1a !important; }
+
+.icon-checkmark {
+  color: #4eb85e !important; }
 
 .text-center {
   text-align: center; }
@@ -5852,11 +5867,11 @@ header nav {
 
 .select-list-result-container {
   position: absolute;
-  z-index: 100; }
+  z-index: 200; }
   .select-list-result-container .select-list-dropdown {
     background-color: #fff;
     border: 1px solid #ccc;
-    z-index: 1051; }
+    z-index: 201; }
     .select-list-result-container .select-list-dropdown-search {
       padding: 4px; }
       .select-list-result-container .select-list-dropdown-search .select-list-search-results {
@@ -5914,7 +5929,8 @@ header nav {
 .dropdown-content {
   opacity: 1;
   top: 50px;
-  width: 20rem; }
+  width: 20rem;
+  margin-left: 20px; }
   .dropdown-content .ac-item.ac-hover {
     background: #eee; }
 

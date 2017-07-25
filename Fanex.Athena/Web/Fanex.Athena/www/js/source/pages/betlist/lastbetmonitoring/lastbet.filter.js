@@ -1,8 +1,7 @@
 ﻿"use strict";
 define(
-    ['jquery', 'common/site', "components/pluginhelper/multiselect",
-    "./lastbet.grid", "lib/jquery.multiselect", 'extensions/jquery.extension'],
-    function ($, Site, MultiSelect, LastBetGrid) {
+    ['jquery', 'common/site', "./lastbet.grid", "lib/jquery.multiselect", 'extensions/jquery.extension'],
+    function ($, Site, LastBetGrid) {
         var _me = {};
 
         var _highLightSubmitIntervalId = 0;

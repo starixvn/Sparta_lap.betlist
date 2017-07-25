@@ -19,16 +19,16 @@
         return isShow ? '<div class="select-list-dropdown-search"><input class="select-list-search-results" autocomplete="off" /></div>' : '';
     }
 
-    function getOptionItemHtml(key, value) {
-        return '<li class="option-item" data-key="' + key + '">' + value + '</li>';
+    function getOptionItemHtml(dataItem) {
+        return '<li class="option-item ' +  dataItem.className + '" data-key="' + dataItem.key + '">' + dataItem.value + '</li>';
     }
 
     function getOptionListHtml(dataList) {
         var htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
 
         for (var i = 0; i < dataList.length; i++) {
-            var item = dataList[i];
-            htmlArray.push(getOptionItemHtml(item.key, item.value));
+            var dataItem = dataList[i];
+            htmlArray.push(getOptionItemHtml(dataItem));
         }
 
         htmlArray.push('</ul></div>');
@@ -43,7 +43,7 @@
             var key = item.value;
             var text = item.text;
 
-            return { key: key, value: text };
+            return { key: key, value: text, className: item.className };
         });
         var selectedValue = $originalSelectElement.val();
 

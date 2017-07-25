@@ -286,7 +286,7 @@ define(["common/site"], function (Site) {
                     nextText: 'Next Month',
                     prevText: 'Previous Month',
                     monPickrText: 'Show/hide Month Picker',
-                    zIndex: 9999,
+                    zIndex: 1,
 
                     beforeChangeMonth: function () { },
                     afterChangeMonth: function () { },

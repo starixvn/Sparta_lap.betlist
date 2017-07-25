@@ -79,7 +79,7 @@
                     $("#BetListGrid").remove();
                 });
 
-                it("window.alert should be called when totalRows > MAXIMUM_EXCEL_ROWS", function () {
+                it("Export All - window.alert should be called when totalRows > MAXIMUM_EXCEL_ROWS", function () {
                     spyOn(window, "alert");
                     spyOn($.fn, "jqGrid").and.returnValue(66000);
 
@@ -88,7 +88,16 @@
                     expect(window.alert).toHaveBeenCalledWith("ExcelExceedRowsMsg");
                 });
 
-                it("url to export excel should be correct with no sort param", function () {
+                it("Do not Export All - jqGrid should not be called", function () {
+                    $("#IsExportAll").val(0);
+                    spyOn($.fn, "jqGrid");
+
+                    CommonBetList.exportToExcel();
+
+                    expect($.fn.jqGrid).not.toHaveBeenCalled();
+                });
+
+                it("Server Paging - url to export excel should be correct with no sort param", function () {
                     spyOn(BetList, "getSortParams").and.returnValue(null);
                     var url = "http://localhost?PageIndex=1&PageSize=50&IsServerPaging=true&IsExportExcel=true";
                     var expectedUrl = transformQueryParamNameToLowerCase(url);
@@ -98,9 +107,20 @@
                     expect(Site.redirect).toHaveBeenCalledWith(expectedUrl);
                 });
 
-                it("url to export excel should be correct with sort param", function () {
+                it("Server Paging - url to export excel should be correct with sort param", function () {
                     spyOn(BetList, "getSortParams").and.returnValue({ SortBy: "Index", SortOrder: "asc" });
                     var url = "http://localhost?PageIndex=1&PageSize=50&IsServerPaging=true&SortBy=Index&SortOrder=asc&IsExportExcel=true";
+                    var expectedUrl = transformQueryParamNameToLowerCase(url);
+
+                    CommonBetList.exportToExcel();
+
+                    expect(Site.redirect).toHaveBeenCalledWith(expectedUrl);
+                });
+
+                it("No Server Paging - url to export excel should be correct with sort param", function () {
+                    $("#IsServerPaging").val(0);
+                    spyOn(BetList, "getSortParams").and.returnValue({ SortBy: "Index", SortOrder: "asc" });
+                    var url = "http://localhost?SortBy=Index&SortOrder=asc&IsExportExcel=true";
                     var expectedUrl = transformQueryParamNameToLowerCase(url);
 
                     CommonBetList.exportToExcel();

@@ -22,9 +22,10 @@
 
             describe("initialize()", function () {
                 beforeEach(function () {
+                    setFixtures('<input id="LicenseeId" value="1" />');
+
                     spyOn(Site, "initialize");
                     spyOn(BetListDaily, "initEvent");
-                    spyOn(Site, "getLicenseeId").and.returnValue(1);
                     spyOn(Site, "addUserGuide");
                     spyOn(DatePicker, "initSingleDatePicker");
 
@@ -75,8 +76,17 @@
                 });
 
                 describe("'#CurrencyId' fire change event", function () {
+                    beforeEach(function () {
+                        appendSetFixtures('<input id="LicenseeId" value="2" />');
+
+                        spyOn(Site, "initialize");
+                        spyOn(Site, "addUserGuide");
+                        spyOn(DatePicker, "initSingleDatePicker");
+                    });
+
                     it("'#ExportToExcel' should be showed when licensee is KeenOcean (96)", function () {
-                        spyOn(Site, "getLicenseeId").and.returnValue(96);
+                        $("#LicenseeId").val(96);
+                        BetListDaily.initialize();
 
                         $("#CurrencyId").change();
 
@@ -84,7 +94,7 @@
                     });
 
                     it("'#ExportToExcel' should be showed when we select specific currencyId value and licensee is not KeenOcean (96)", function () {
-                        spyOn(Site, "getLicenseeId").and.returnValue(2);
+                        BetListDaily.initialize();
 
                         $("#CurrencyId").change();
 
@@ -92,7 +102,7 @@
                     });
 
                     it("'#ExportToExcel' should be hidden when we select all currency and licensee is not KeenOcean (96)", function () {
-                        spyOn(Site, "getLicenseeId").and.returnValue(2);
+                        BetListDaily.initialize();
                         $("#CurrencyId").val(0);
 
                         $("#CurrencyId").change();
@@ -109,7 +119,7 @@
                         '<input id="Date" value="03/28/2017" />'
                         );
                     spyOn(Site, "initialize");
-                    spyOn(Site, "setLicenseeOptionParam").and.callFake(function (url) { return url + "?currencyid=1&basecurrency=EUR" });
+                    spyOn(Site, "setLicenseeOptionParam").and.callFake(function (url) { return url + "?currencyid=1&basecurrency=EUR"; });
                     spyOn(BetList, "loadDataPaging");
                     var url = "api/DailyBetList/index?currencyid=1&basecurrency=EUR&productCode=2&status=won&date=03/28/2017";
                     var expectedUrl = transformQueryParamNameToLowerCase(url);
@@ -129,11 +139,29 @@
                     spyOn(Site, "redirect");
                     spyOn(Site, "getCurrentUrl").and.returnValue("localhost");
                     spyOn($.fn, "getGridParam").and.callFake(function (param) { if (param === "rowNum") { return 10; } return null; });
-                    //spyOn($.fn, "getGridParam").and.returnValue(10);
-                    spyOn(Site, "setLicenseeOptionParam").and.callFake(function (url) { return url + "?currencyid=1&basecurrency=EUR" });
+                    spyOn(Site, "setLicenseeOptionParam").and.callFake(function (url) { return url + "?currencyid=1&basecurrency=EUR"; });
                     spyOn(BetList, "getSortParams").and.returnValue({ SortBy: "test-column", SortOrder: "asc" });
 
                     var url = "localhost?currencyid=1&basecurrency=EUR&IsExportExcel=true&date=03/28/2017&productCode=2&DailyBetListStatus=won&PageIndex=1&PageSize=10&SortBy=test-column&SortOrder=asc";
+                    var expectedUrl = transformQueryParamNameToLowerCase(url);
+
+                    BetListDaily.exportToExcel();
+
+                    expect(Site.redirect).toHaveBeenCalledWith(expectedUrl);
+                });
+
+                it("Do not have sortParams - Site.redirect(url) should be called with correct parameter", function () {
+                    setFixtures('<input id="ProductCode" value="2" />' +
+                        '<input id="DailyBetListStatus" value="won" />' +
+                        '<input id="Date" value="03/28/2017" />'
+                        );
+                    spyOn(Site, "redirect");
+                    spyOn(Site, "getCurrentUrl").and.returnValue("localhost");
+                    spyOn($.fn, "getGridParam").and.callFake(function (param) { if (param === "rowNum") { return 10; } return null; });
+                    spyOn(Site, "setLicenseeOptionParam").and.callFake(function (url) { return url + "?currencyid=1&basecurrency=EUR"; });
+                    spyOn(BetList, "getSortParams").and.returnValue(null);
+
+                    var url = "localhost?currencyid=1&basecurrency=EUR&IsExportExcel=true&date=03/28/2017&productCode=2&DailyBetListStatus=won&PageIndex=1&PageSize=10";
                     var expectedUrl = transformQueryParamNameToLowerCase(url);
 
                     BetListDaily.exportToExcel();

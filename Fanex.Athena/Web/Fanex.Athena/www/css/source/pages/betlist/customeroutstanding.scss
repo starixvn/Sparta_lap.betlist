@@ -1,0 +1,14 @@
+﻿@import "../../components/daterangepicker/daterangepicker-ex";
+@import "../../components/multiselect/multiselect.main";
+.betlist-container {
+    padding-top: 5px;
+
+    .content-title {
+        margin-left: 15px;
+        padding: 0;
+    }
+}
+
+.theme_jqGrid .ui-jqgrid .ui-jqgrid-sortable {
+    cursor: default;
+}

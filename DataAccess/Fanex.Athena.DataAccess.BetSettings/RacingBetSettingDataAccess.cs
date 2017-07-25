@@ -9,6 +9,8 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Text;
+    using Common;
     using Core.Exception;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -19,7 +21,17 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
     public class RacingBetSettingDataAccess : BaseDataAccess, IRacingBetSettingDataAccess
     {
-        public IList<BetSetting> GetBetSetting(int custId, bool isAllowSaToreCurrency)
+        private static readonly IDictionary<string, string> RacingSportSpNameMap = new Dictionary<string, string>
+        {
+            { "151_31", "Lrf_CustomerUpdMember_MinMaxBet151_31" },
+            { "151_41", "Lrf_CustomerUpdMember_MinMaxBet151_41" },
+            { "151_51", "Lrf_CustomerUpdMember_MinMaxBet151_51" },
+            { "152_41", "Lrf_CustomerUpdMember_MinMaxBet152_41" },
+            { "152_51", "Lrf_CustomerUpdMember_MinMaxBet152_51" },
+            { "153_51", "Lrf_CustomerUpdMember_MinMaxBet153_51" }
+        };
+
+        public IList<BetSetting> GetBetSetting(int custId)
         {
             var uspName = "Lrf_CustomerSelEditRB";
 
@@ -30,7 +42,8 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 {
                     if (reader.Read())
                     {
-                        return RenderRacingBetSetting(reader, isAllowSaToreCurrency);
+                        var isAllowedSaToteCurrency = IsAllowedSaToteCurrency(custId);
+                        return RenderRacingBetSetting(reader, isAllowedSaToteCurrency);
                     }
                 }
             }
@@ -38,53 +51,27 @@ namespace Fanex.Athena.DataAccess.BetSettings
             return new List<BetSetting>();
         }
 
-        public IDictionary<string, string> UpdateBetSetting(Dictionary<string, RacingBetSetting> racingBetSettingList)
+        public IDictionary<string, string> UpdateBetSetting(IDictionary<string, RacingBetSetting> racingBetSettingList)
         {
-            var code = string.Empty;
-            var message = string.Empty;
+            var code = new StringBuilder();
+            var message = new StringBuilder();
 
             var result = new Dictionary<string, string>();
 
             foreach (var racingBetSetting in racingBetSettingList.Where(r => r.Value.IsDataChange))
             {
-                switch (racingBetSetting.Key)
+                var uspName = RacingSportSpNameMap[racingBetSetting.Key];
+                RacingUpdatingProcess(uspName, racingBetSetting.Value);
+
+                if (racingBetSetting.Value.ResultInfo.Code != 0)
                 {
-                    case "151_31":
-                        Update15131(racingBetSetting.Value);
-                        break;
-
-                    case "151_41":
-                        Update15141(racingBetSetting.Value);
-                        break;
-
-                    case "151_51":
-                        Update15151(racingBetSetting.Value);
-                        break;
-
-                    case "152_41":
-                        Update15241(racingBetSetting.Value);
-                        break;
-
-                    case "152_51":
-                        Update15251(racingBetSetting.Value);
-                        break;
-
-                    case "153_51":
-                        Update15351(racingBetSetting.Value);
-                        break;
+                    code.Append(";" + racingBetSetting.Value.ResultInfo.Code);
+                    message.Append(";" + racingBetSetting.Value.ResultInfo.Message);
                 }
-
-                if (racingBetSetting.Value.ResultInfo.Code == 0)
-                {
-                    continue;
-                }
-
-                code += ";" + racingBetSetting.Value.ResultInfo.Code;
-                message += ";" + racingBetSetting.Value.ResultInfo.Message;
             }
 
-            result.Add("Code", code);
-            result.Add("Message", message);
+            result.Add("Code", code.ToString());
+            result.Add("Message", message.ToString());
 
             return result;
         }
@@ -111,46 +98,28 @@ namespace Fanex.Athena.DataAccess.BetSettings
             return racingList;
         }
 
-        private void Update15131(CommonBetSetting racingBetSetting)
+        private bool IsAllowedSaToteCurrency(int custId)
         {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBet151_31";
+            const string UspName = "Lrf_CheckHRAllowedCurrency";
 
-            RacingUpdatingProcess(uspName, racingBetSetting);
-        }
+            try
+            {
+                using (var db = this.GetObjectDb(UspName))
+                {
+                    db.AddInParameter("custid", DbType.Int32, custId);
 
-        private void Update15141(CommonBetSetting racingBetSetting)
-        {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBet151_41";
+                    db.AddOutParameter("allowed", DbType.Boolean, sizeof(bool));
 
-            RacingUpdatingProcess(uspName, racingBetSetting);
-        }
+                    db.ExecuteNonQuery();
 
-        private void Update15151(CommonBetSetting racingBetSetting)
-        {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBet151_51";
-
-            RacingUpdatingProcess(uspName, racingBetSetting);
-        }
-
-        private void Update15241(CommonBetSetting racingBetSetting)
-        {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBet152_41";
-
-            RacingUpdatingProcess(uspName, racingBetSetting);
-        }
-
-        private void Update15251(CommonBetSetting racingBetSetting)
-        {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBet152_51";
-
-            RacingUpdatingProcess(uspName, racingBetSetting);
-        }
-
-        private void Update15351(CommonBetSetting racingBetSetting)
-        {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBet153_51";
-
-            RacingUpdatingProcess(uspName, racingBetSetting);
+                    return Converter.ToBool(db.GetParameterValue("allowed"));
+                }
+            }
+            catch (ObjectDbException sqlException)
+            {
+                LogService.Error(sqlException.Message, sqlException);
+                throw new DataAccessException(sqlException.Message, UspName, new { });
+            }
         }
 
         private void RacingUpdatingProcess(string uspName, CommonBetSetting racingBetSetting)
@@ -179,6 +148,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName, "No params");
             }
-        }       
+        }
     }
 }

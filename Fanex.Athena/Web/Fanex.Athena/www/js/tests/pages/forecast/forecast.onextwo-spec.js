@@ -11,7 +11,6 @@
 
             beforeAll(function () {
                 spyOn(Site, "initialize");
-                spyOn(ForecastOneXTwo, "resizePopup");
                 spyOn(RefreshCountDown, "initialize");
                 spyOn(RefreshCountDown, "initEvent");
                 spyOn(Site, "resolveClientUrl").and.callFake(function (text) {
@@ -24,6 +23,7 @@
 
             describe("initialize()", function () {
                 it("Relevant methods should be called.", function () {
+                    spyOn(ForecastOneXTwo, "resizePopup");
                     spyOn(ForecastOneXTwo, "initEvent");
                     spyOn(Site, "addUserGuide");
 
@@ -36,7 +36,6 @@
                     });
                     expect(RefreshCountDown.initialize).toHaveBeenCalled();
                     expect(RefreshCountDown.initEvent).toHaveBeenCalled();
-
                 });
             });
 
@@ -78,6 +77,7 @@
                     spyOn(Popup, "updateCurrentPopup");
                     var url = "RunningMatchBetList/Index?matchid=123&bettype=456";
                     var expectedUrl = transformQueryParamNameToLowerCase(url);
+                    spyOn(Math, "min").and.returnValue(200);
 
                     ForecastOneXTwo.initialize();
 
@@ -120,6 +120,59 @@
                     ForecastOneXTwo.submit();
 
                     expect(spyEvent).toHaveBeenTriggered();
+                });
+            });
+
+            describe("resizePopup", function () {
+                it("Popup.updateCurrentPopup should be called with correct parameter", function () {
+                    spyOn(Popup, "updateCurrentPopup");
+                    parent.innerHeight = 500;
+                    var title = "Forecast - OneXTwo";
+
+                    ForecastOneXTwo.resizePopup();
+
+                    expect(Popup.updateCurrentPopup).toHaveBeenCalledWith(null, { width: 700, height: 400, title: title });
+                });
+            });
+
+            describe("resizeGrid", function () {
+                beforeEach(function () {
+                    setFixtures('<div class="body-content"></div>');
+                    window.innerHeight = 500;
+                    var $grid = $(".body-content");
+                    spyOn($.fn, "offset").and.returnValue({ top: 10 });
+                });
+
+                it("$grid should has correct max-height value", function () {
+                    var expectedHeight = "462px";
+
+                    ForecastOneXTwo.resizeGrid();
+                    var result = $(".body-content").css("max-height");
+
+                    expect(result).toBe(expectedHeight);
+                });
+
+                it("$grid should contain class 'hasScroll' when have no vertical scrollbar", function () {
+                    spyOn($.fn, "hasVerticalScrollBar").and.returnValue(false);
+
+                    ForecastOneXTwo.resizeGrid();
+                    var result = $(".body-content").hasClass("hasScroll");
+
+                    expect(result).toBe(true);
+                });
+
+                it("$grid should contain class 'hasScroll' when have no vertical scrollbar", function () {
+                    spyOn($.fn, "hasVerticalScrollBar").and.returnValue(true);
+                    var $grid = $(".body-content");
+                    $grid.width(200);
+                    $grid.append('<table id="table"></table>');
+
+                    var expectedWidth = 183;
+
+                    ForecastOneXTwo.resizeGrid();
+                    var result = $("#table").width();
+
+                    expect(result).toBe(expectedWidth);
                 });
             });
         });

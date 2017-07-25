@@ -1,7 +1,7 @@
 ﻿define(["jquery", "common/site", "common/querystring", "lib/jqgrid/jquery.jqgrid.additional", "./winlossbyleague.option",
-    "./winlossbyleague.filter", "../report", "moment", "components/paging",
+    "./winlossbyleague.filter", "../report", "moment", "components/paging", "helpers/excel",
     "extensions/jquery.extension", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min"],
-    function ($, Site, QueryString, jqGridAdditional, WinLossByLeagueOption, WinLossByLeagueFilter, Report, moment, PagingHeper) {
+    function ($, Site, QueryString, jqGridAdditional, WinLossByLeagueOption, WinLossByLeagueFilter, Report, moment, PagingHeper, ExcelHelper) {
         "use strict";
 
         var ajaxRequest = null;
@@ -63,7 +63,7 @@
                 $("#ExportToExcel").click(function (e) {
                     _postdata.LeagueName = _leaguename;
                     _postdata.Level = _level;
-                    Site.exportExcel(_postdata, Site.resolveClientUrl("api/WinLossByLeagueReport/Excel"));
+                    ExcelHelper.exportExcel(_postdata, Site.resolveClientUrl("api/WinLossByLeagueReport/Excel"));
                     e.preventDefault();
                 });
 

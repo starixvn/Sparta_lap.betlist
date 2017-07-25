@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.CustomerList;
+    Layout = "~/Views/Desktop/Shared/_Report.jqGridLayout.cshtml";
+}
+@model Fanex.Athena.Model.Customer.ViewModel.CustomerListViewModel
+@section pagecss {
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/customer/customerlist.css")" rel="stylesheet" />
+}
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/customerlist.chunk.js")"></script>
+}
+@section Filter
+{
+    @{Html.RenderPartial("~/Views/Desktop/Customer/Filter.cshtml", Model);}
+}
+@section Content
+{
+    @if (Model.IsAllowedUserEditComm && Model.IsAllowedCustomerCommission)
+    {
+        <div class="page-button">
+            <input type="button" id="MoveToGroup" class="btn btn-back" value="@ViewResources.MoveToGroup" />
+            <input type="button" id="UpdateComm" value="@ViewResources.UpdateCommission" class="btn btn-back" data-group-id="@Model.Param.GroupCommId" />
+            <input type="button" id="RemoveFromGroup" value="@ViewResources.RemoveFromGroup" class="btn btn-back" />
+        </div>
+    }
+
+    <div class="page-results">
+        <div class="result-content">
+            <div class="panel-heading active hide">
+                <div class="panel-title">
+                    <div class="report-title" style="">
+                        @ViewResources.SearchResult:
+                        <span id="num-of-customer" class="num-of-customer">0 </span>@ViewResources.Customers.ToLower()
+                        <p class="ba-time-notice">@Model.BATimeCheck</p>
+                    </div>
+                </div>
+                <div class="excel-container">
+                    @using (Html.BeginForm("ExportExcel", "Customer", FormMethod.Post, new { @id = "CustomerExcelForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="excelParam" id="excelParam" value="@Model.Param.ToJson()" />
+                        <i class="icon-excel" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
+                    }
+                </div>
+            </div>
+            <div class="main-content" id="report-content">
+                <div class="theme_jqGrid">
+                    <div style="width: 100%">
+                        <table id="ReportGrid" class="table" data-hidden-column="">
+                        </table>
+                        <div class="paging">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.IsAllowedCustomerCommission)
+    {
+        <div id="MoveToGroupPopUp" title="@ViewResources.MoveToGroup" style="display: none">
+            @{
+                Html.RenderPartial("~/Views/Desktop/Customer/CustomerDialog/MoveToGroup.cshtml");
+            }
+        </div>
+        <div id="UpdateCustCommPopUp" title="@ViewResources.UpdateCustomerCommission" style="display: none">
+            @{
+                Html.RenderPartial("~/Views/Desktop/Customer/CustomerDialog/UpdateCustComm.cshtml", Model.ProductAccess);
+            }
+        </div>
+        <div id="ConfirmRemoveFromGroupPopUp" title="@ViewResources.RemoveFromGroup" style="display: none">
+            @{
+                Html.RenderPartial("~/Views/Desktop/Customer/CustomerDialog/RemoveFromGroup.cshtml");
+            }
+        </div>
+    }
+    @if (Model.DataList != null)
+    {
+        @Html.Hidden("NumOfCheckBox", Model.DataList.Count)
+    }
+    @{ Html.RenderPartial("~/Views/Desktop/Customer/ContextMenu.cshtml", Model); }
+    <!--/popup-->
+    <input type="hidden" id="IsAllowedCustomerCommission" value="@(Model.IsAllowedCustomerCommission.ToString())" />
+    <input type="hidden" id="ProductAccess" value="@(Model.ProductAccess.ToJson())" />
+}

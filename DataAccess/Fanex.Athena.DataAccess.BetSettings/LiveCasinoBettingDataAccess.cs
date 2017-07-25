@@ -48,7 +48,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
                     listCasinoBetSetting.Add(liveCasinoItem);
                 }
 
-                return listCasinoBetSetting;
+                return listCasinoBetSetting.OrderBy(x => x.GameTypeId).ToList();
             }
         }
 

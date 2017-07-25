@@ -1,6 +1,6 @@
 ﻿define(
     ['jquery', 'common/site', 'common/querystring', 'lib/jqgrid/jquery.jqgrid.additional', './betlist.option', 'moment', 'common/popup',
-        'lib/jqgrid/jquery.jqGrid.en', 'lib/jqgrid/jquery.jqGrid.min', "vendor-materialize"],
+        'lib/jqgrid/jquery.jqGrid.en', 'lib/jqgrid/jquery.jqGrid.min'],
     function ($, Site, QueryString, jqGridAdditional, BetListOption, moment, Popup) {
         "use strict";
         var BETTYPE_CASHOUT = 911;
@@ -95,8 +95,8 @@
                 var cm = $grid[0].p.colModel;
                 $.each($grid[0].grid.headers, function (index, value) {
                     var cmi = cm[index];
-                    if (cmi.sortable) {
-                        $('.ui-jqgrid-sortable', value.el).css({ cursor: "pointer" });
+                    if (!cmi.sortable) {
+                        $('.ui-jqgrid-sortable', value.el).css({ cursor: "default" });
                     }
                 });
 
@@ -630,7 +630,7 @@
                 var urlParam = $("#casino-hand-history-" + refNo).attr('url-param');
 
                 url += urlParam;
-                window.location = url;
+                Site.redirect(url);
             },
 
             viewCashOutHistory: function (transId, refNo, betType, betdaqId) {

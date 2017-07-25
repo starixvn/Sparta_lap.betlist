@@ -1,7 +1,8 @@
 ﻿define(["jquery", "common/site", "common/querystring", "lib/jqgrid/jquery.jqgrid.additional", "./winlossbyproduct.option", "moment", "common/popup",
     "components/pluginhelper/daterangepicker", "../report", "components/pluginhelper/multiselect", "components/pluginhelper/autocomplete",
+    "helpers/daterange", "helpers/excel",
     "extensions/jquery.extension", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min"],
-    function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report, MultiSelect, AutoComplete) {
+    function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report, MultiSelect, AutoComplete, DateHelper, ExcelHelper) {
         "use strict";
 
         var VALID_MONTH_RANGE = 3;
@@ -41,7 +42,7 @@
                 Site.initialize();
                 DatePicker.initDateRangePicker();
                 MultiSelect.initProductList();
-                Site.setConstraintMonthRange(VALID_MONTH_RANGE, WinLossByProductOption.urlExcelData);
+                DateHelper.setConstraintMonthRange(VALID_MONTH_RANGE, WinLossByProductOption.urlExcelData);
                 Site.addUserGuide({
                     resourceName: "WinLossByProduct",
                     title: Site.getSingleResource("WinLossByProduct")
@@ -87,7 +88,7 @@
                 $('#ExportToExcel').click(function () {
                     var data = getPostData();
                     var url = Site.resolveClientUrl(WinLossByProductOption.urlExcelData);
-                    Site.exportExcel(data, url);
+                    ExcelHelper.exportExcel(data, url);
                     return false;
                 });
 

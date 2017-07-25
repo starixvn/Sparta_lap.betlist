@@ -21,6 +21,9 @@ module.exports = function(grunt) {
 		browsers: ['PhantomJS'],
 		logLevel: 'ERROR'*/
 	  },
+	  unitdev: {
+	      configFile: 'karma.conf-dev.js'
+	  },
 	  unit2: {
 		  configFile: 'karma-new.conf.js'
 		  /*port: 9999,

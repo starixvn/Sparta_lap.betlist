@@ -1,0 +1,108 @@
+﻿<!--Delete group template-->
+@using Fanex.Common
+@{
+    const string FormatComm = "0.####";
+
+    var sbComm = Converter.ToDecimal(Model.Data["SBComm"]);
+    var sbCommOld = Converter.ToDecimal(Model.Data["SBCommOld"]);
+    var rbComm = Converter.ToDecimal(Model.Data["RacingComm"]);
+    var rbCommOld = Converter.ToDecimal(Model.Data["RacingCommOld"]);
+    var ngComm = Converter.ToDecimal(Model.Data["NGComm"]);
+    var ngCommOld = Converter.ToDecimal(Model.Data["NGCommOld"]);
+    var lcComm = Converter.ToDecimal(Model.Data["LCComm"]);
+    var lcCommOld = Converter.ToDecimal(Model.Data["LCCommOld"]);
+    var csComm = Converter.ToDecimal(Model.Data["RNGComm"]);
+    var csCommOld = Converter.ToDecimal(Model.Data["RNGCommOld"]);
+
+    var groupId = Model.Data["GroupCommID"];
+    var groupColor = Model.Data["GroupColor"];
+    var groupColorOld = Model.Data["GroupColorOld"];
+    var groupName = Model.Data["GroupName"];
+    var groupNameOld = Model.Data["GroupNameOld"];
+
+    var isChangeSbComm = sbComm != sbCommOld;
+    var isChangeRacingComm = rbComm != rbCommOld;
+    var isChangeNgComm = ngComm != ngCommOld;
+    var isChangeLcComm = lcComm != lcCommOld;
+    var isChangeCsComm = csComm != csCommOld;
+    var isChangeGroupColor = groupColor != groupColorOld;
+    var isChangeGroupName = groupName != groupNameOld;
+
+    var sbCommTitle = sbCommOld.ToString(FormatComm) + "-->" + sbComm.ToString(FormatComm);
+    var RacingCommTitle = rbCommOld.ToString(FormatComm) + "-->" + rbComm.ToString(FormatComm);
+    var ngCommTitle = ngCommOld.ToString(FormatComm) + "-->" + ngComm.ToString(FormatComm);
+    var lcCommTitle = lcCommOld.ToString(FormatComm) + "-->" + lcComm.ToString(FormatComm);
+    var csCommTitle = csCommOld.ToString(FormatComm) + "-->" + csComm.ToString(FormatComm);
+
+    var groupNameLength = groupName.Length;
+    var groupNameOldLength = groupNameOld.Length;
+    var groupNameDisplay = groupNameLength > 25 ? groupName.Substring(0, 25) : groupName;
+    var groupNameOldDisplay = groupNameOldLength > 25 ? groupNameOld.Substring(0, 25) : groupNameOld;
+}
+
+@functions
+{
+    public static string GetClassName(bool isDataChanged)
+    {
+        return isDataChanged ? "old-value" : "hide";
+    }
+}
+
+<table class="nested-table">
+    <thead>
+        <tr>
+            <th>@Model.Resource["GroupId"]</th>
+            <th>@Model.Resource["GroupName"]</th>
+            <th>@Model.Resource["GroupColor"]</th>
+            <th>@Model.Resource["SBComm"]</th>
+            <th>@Model.Resource["RBComm"]</th>
+            <th>@Model.Resource["NGComm"]</th>
+            <th>@Model.Resource["LCComm"]</th>
+            <th>@Model.Resource["CSComm"]</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @groupId
+            </td>
+
+            <td>
+                <p>@groupNameDisplay</p>
+                <p class="@GetClassName(isChangeGroupName)" @(groupNameOldLength > 25 ? @Raw("title='" + groupNameOld + "'") : "")>@groupNameOldDisplay</p>
+            </td>
+
+            <td>
+                <p style="background-color:@groupColor;" class="group-color-box"></p>
+                <div class="@GetClassName(isChangeGroupColor)">
+                    <p title="@Model.Resource["OldColor"]" style="background-color:@groupColorOld;" class="group-color-box"></p>
+                </div>
+            </td>
+
+            <td title="@sbCommTitle">
+                <p>@sbComm.ToString(FormatComm)</p>
+                <p class="@GetClassName(isChangeSbComm) red-text">@sbCommOld.ToString(FormatComm)</p>
+            </td>
+
+            <td title="@RacingCommTitle">
+                <p>@rbComm.ToString(FormatComm)</p>
+                <p class="@GetClassName(isChangeRacingComm) red-text">@rbCommOld.ToString(FormatComm)</p>
+            </td>
+
+            <td title="@ngCommTitle">
+                <p>@ngComm.ToString(FormatComm)</p>
+                <p class="@GetClassName(isChangeNgComm) red-text">@ngCommOld.ToString(FormatComm)</p>
+            </td>
+
+            <td title="@lcCommTitle">
+                <p>@lcComm.ToString(FormatComm)</p>
+                <p class="@GetClassName(isChangeLcComm) red-text">@lcCommOld.ToString(FormatComm)</p>
+            </td>
+
+            <td title="@csCommTitle">
+                <p>@csComm.ToString(FormatComm)</p>
+                <p class="@GetClassName(isChangeCsComm) red-text">@csCommOld.ToString(FormatComm)</p>
+            </td>
+        </tr>
+    </tbody>
+</table>

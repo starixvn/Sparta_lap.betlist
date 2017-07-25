@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.GroupManagement + " - " + @ViewResources.EditGroup;
+    Layout = "~/Views/Desktop/Shared/_Layout.cshtml";
+}
+@section css {
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/customer/commgroupdetail.css")" rel="stylesheet" />
+}
+@section js {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/commgroupedit.chunk.js")"></script>
+}
+
+@model Fanex.Athena.Model.Customer.MetaModel.GroupCommMetaModel
+
+<div class="row page-form">
+    <form class="col" id="customer-comm-group-edit" action=@Url.Content("~/CustomerComGroup/Update") method="post">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="row">
+            <div class="input-field col l5 m8 s12">
+                @if (ViewBag.Result != null)
+                {
+                    var msg = ViewBag.Result.Message;
+                    var errorMsg = string.IsNullOrEmpty(ViewBag.Result.ErrorMessage)
+                    ? (ViewData.ModelState.Count > 0 && ViewData.ModelState["GroupName"].Errors.Any() ? ViewData.ModelState["GroupName"].Errors[0].ErrorMessage : string.Empty)
+                    : ViewBag.Result.ErrorMessage;
+
+                    @Html.TextBoxFor(model => model.GroupName, new { @class = ViewBag.Result.Success ? "validate valid" : "validate invalid", autofocus = "autofocus" })
+                    <label for="GroupName" data-error="@errorMsg" data-success="@msg">@ViewResources.GroupName</label>
+                }
+                else
+                {
+                    @Html.TextBoxFor(model => model.GroupName, new { @class = "validate", autofocus = "autofocus" })
+                    <label for="GroupName" data-error="" data-success="">@ViewResources.GroupName</label>
+                }
+                @Html.HiddenFor(model => model.OriginalGroupName)
+            </div>
+            <div class="input-field col l5 m4 s12 button-block">
+                <input type="button" class="btn btn-nav" id="Validate" value="@ViewResources.Checkavailability" />
+            </div>
+        </div>
+        @{ Html.RenderPartial("~/Views/Desktop/Customer/CustomerComm/CommGroup.cshtml");}
+        <div class="row">
+            <div class="col s12">
+                <input type="checkbox" id="IsDefaultGroup" name="IsDefaultGroup" @(Model.IsDefaultGroup ? "checked = checked" : string.Empty) />
+                <label for="IsDefaultGroup">@ViewResources.SetAsDefaultGroup</label>
+                <input type="hidden" id="IsResetDefault" name="IsResetDefault" value="@Model.IsResetDefault.ToString()" />
+                <input type="hidden" id="DefaultGroupId" name="DefaultGroupId" value="@Model.DefaultGroupId" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <span class="circle"></span>
+                <span>
+                    @ViewResources.GroupCommNote
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 text-bold input-field">
+                @ViewResources.GroupColor
+            </div>
+        </div>
+        <div class="row">
+            <div class="col input-field">
+                @Html.HiddenFor(model => model.GroupColor)
+                @Html.ValidationMessageFor(model => model.GroupColor)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col input-field">
+                <button type="button" id="Cancel" class="btn btn-cancel">@ViewResources.Cancel</button>
+            </div>
+            <div class="col input-field">
+                <button type="button" id="CustList" class="btn btn-back">@ViewResources.GotoCustomerList</button>
+            </div>
+            <div class="col input-field">
+                <button type="button" id="Submit" class="btn btn-submit">@ViewResources.Submit</button>
+            </div>
+        </div>
+        @Html.HiddenFor(model => model.LicenseeId)
+        @Html.ValidationMessageFor(model => model.LicenseeId)
+        @Html.HiddenFor(model => model.GroupCommId)
+        @Html.ValidationMessageFor(model => model.GroupCommId)
+        @Html.HiddenFor(model => model.IsUpdateNG)
+        @Html.HiddenFor(model => model.IsUpdateRacing)
+        @Html.HiddenFor(model => model.IsUpdateLC)
+        @Html.HiddenFor(model => model.IsUpdateCS)
+    </form>
+</div>

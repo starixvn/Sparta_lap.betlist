@@ -33,7 +33,8 @@
                 </ul>
             </div>
         }
-
+        @if (Model.LicenseeList.Count > 1)
+        {
         <div class="licensees-block s2-selectSite">
             <select id="ddlLicensee" name="ddlLicensee" class="select-licensee hide">
                 @foreach (var licensee in Model.LicenseeList)
@@ -43,7 +44,7 @@
                 }
             </select>
         </div>
-
+        }
         <div class="languages-block">
             @{
                 var currentLanguage = Model.SupportedLanguageList.FirstOrDefault(p => p.Key.Equals(Model.Language)).Value;
@@ -65,11 +66,13 @@
                 }
             </ul>
         </div>
-
+        @if (Model.IsAllowedManagementMember)
+        {
         <form class="search_bar" id="CustomerSearchForm">
             <input type="text" autocomplete="off" name="query" id="searchbox" class="placeholder" placeholder="@ViewResources.ExternalIdOrSystemId" />
             <label id="label-search" for="search" class="active"><i class="icon icon-search"></i></label>
             <ul id="suggestionDropdown" class="dropdown-content ac-dropdown"></ul>
         </form>
+        }
     </div>
 </nav>

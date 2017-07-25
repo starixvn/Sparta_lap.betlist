@@ -49,7 +49,7 @@
                 </div>
             </div>
         </div>
-        if (Model.Param.AllowLicensees.Contains(Model.Param.LicenseeId.ToString()))
+        if (Model.Param.IsShowStatusDropdown)
         {
         <div class="grid_2 filter-label new-line">
             <label>@ViewResources.Status
@@ -110,7 +110,7 @@
         <div class="grid_3 filter-input">
             <select id="DdlGroupCommId" style="width: 122px">
                 @{
-            var groupList = Model.GroupCommDataList;
+            var groupList = new List<GroupCommMetaModel>(Model.GroupCommDataList);
             groupList.Insert(0, new GroupCommMetaModel { GroupCommId = -1, GroupName = ViewResources.All });
             groupList.Insert(1, new GroupCommMetaModel { GroupCommId = 0, GroupName = ViewResources.None });
                 }
@@ -159,7 +159,7 @@
             @Html.Hidden("OldRbComm", oldGroup.RCComm)
             @Html.Hidden("OldNgComm", oldGroup.NGComm)
             @Html.Hidden("OldLcComm", oldGroup.LCComm)
-            @if (Model.Param.AllowLicensees.Contains(Model.Param.LicenseeId.ToString()))
+            @if (Model.Param.IsShowStatusDropdown)
             {
                 <input type="hidden" name="CustStatusOption" id="CustStatusOption" value="" />
             }

@@ -73,7 +73,7 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public void Index_ExportExcelMember_PassCustomerCommVisibleToExcelCorrectly(bool hasLicenseeComm)
+        public void Index_ExportExcelMemberWithLevel1_PassCustomerCommVisibleInShowingOptionToExcelCorrectly(bool hasLicenseeComm)
         {
             // Arrange
             FakeLicenseeSession(hasLicenseeComm);
@@ -107,7 +107,7 @@
         }
 
         [Test]
-        public void Index_ExportExcelMember_PassProductionOptionToExcelCorrectly()
+        public void Index_ExportExcelMemberWithLevel1_PassProductionOptionToExcelCorrectly()
         {
             // Arrange
             _metalModel.Level = 1;
@@ -138,6 +138,51 @@
 
             // Assert
             VerifyShowingOption(_metalModel.ProductOptions, expetedShowingOption);
+        }
+
+        [Test]
+        public void Index_ExportExcelSummaryWithLevel0_PassCorrectParamsToCreateExcel()
+        {
+            // Arrange
+            const string ExpectedBaseCurrency = "ABC";
+            const string ExpectedCurrencyName = "123";
+            _metalModel.Level = 0;
+            _metalModel.BaseCurrency = ExpectedBaseCurrency;
+            _metalModel.CurrencyName = ExpectedCurrencyName;
+
+            FakeGetSummaryData();
+
+            var excel = Substitute.ForPartsOf<PlatformWinLossSummaryExcel>(
+                string.Empty,
+                _metalModel,
+                Arg.Any<IList<PlatformWinLossSummary>>(),
+                Arg.Any<PlatformWinLossSummary>(),
+                Arg.Any<ConvertingOption>());
+
+            excel.When(x => x.Export()).DoNotCallBase();
+
+            _controller.CreateExcelSummary(
+                null,
+                _metalModel,
+                Arg.Any<IList<PlatformWinLossSummary>>(),
+                Arg.Any<PlatformWinLossSummary>(),
+                Arg.Any<ConvertingOption>())
+                .Returns(excel);
+
+            // Action
+            _controller.Index(_metalModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _controller.Received().CreateExcelSummary(
+                    Arg.Any<string>(),
+                    _metalModel,
+                    Arg.Is<IList<PlatformWinLossSummary>>(x => x.Count == 2),
+                    Arg.Is<PlatformWinLossSummary>(x => x.CustomerComm == ExpectedCustomerComm),
+                    Arg.Is<ConvertingOption>(x => x.BaseCurrency == ExpectedBaseCurrency.ToLower() && x.CurrencyName == ExpectedCurrencyName));
+                Assert.That(_metalModel.AgentListXml, Is.EqualTo("XmlData"));
+            });
         }
 
         private static void VerifyShowingOption(IList<ProductOption> productOptions, ShowingOption expetedShowingOption)
@@ -175,6 +220,24 @@
             var rand = new Random();
 
             return productOptions.Select(p => new ProductOption { Code = p, Status = rand.Next(1, 13) % 2 == 0 }).ToList();
+        }
+
+        private void FakeGetSummaryData()
+        {
+            var summaryData = new List<PlatformWinLossSummary>
+            {
+                new PlatformWinLossSummary(),
+                new PlatformWinLossSummary()
+            };
+            PlatformWinLossSummary totalSummaryData;
+            _service.GetSummaryData(Arg.Any<PlatformWinLossMetaModel>(), out totalSummaryData).Returns(x =>
+            {
+                x[1] = new PlatformWinLossSummary
+                {
+                    CustomerComm = ExpectedCustomerComm
+                };
+                return summaryData;
+            });
         }
 
         private void FakeProductAccess()

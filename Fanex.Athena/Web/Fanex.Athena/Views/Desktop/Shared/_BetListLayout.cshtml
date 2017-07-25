@@ -10,7 +10,7 @@
 {
     @RenderSection("pagejs", required: false)
 }
-<div class="report-container">
+<div class="report-container betlist-container">
     @if (IsSectionDefined("ContentTitle"))
     {
         <div class="page-tab">
@@ -21,7 +21,7 @@
         @RenderSection("ContentFilter", required: false)
     </div>
     <div class="page-results">
-        <div class="betlist-container" id="report-container">
+        <div id="report-container">
             <div class="theme_jqGrid">
                 <div id="pager1">
                 </div>

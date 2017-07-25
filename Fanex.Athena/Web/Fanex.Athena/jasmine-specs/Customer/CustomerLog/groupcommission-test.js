@@ -129,21 +129,12 @@
             affix("#GroupCommLogGrid");
 
             spyOn($.fn, "jqGrid");
-            spyOn(CustomerSettingLogOption, "getColumnNames");
-            spyOn(CustomerSettingLogOption, "getColModels");
 
             GroupCommLog.loadGrid(true);
         });
 
         it("jqGrid function of jquery should be called with correct parameter", function () {
             expect($.fn.jqGrid).toHaveBeenCalledWith("GridUnload");
-        });
-
-        it("CustomerSettingLogOption.getColumnNames() should be called", function () {
-            expect(CustomerSettingLogOption.getColumnNames).toHaveBeenCalled();
-        });
-        it("CustomerSettingLogOption.getColModels() should be called", function () {
-            expect(CustomerSettingLogOption.getColModels).toHaveBeenCalled();
         });
 
         it("jqGrid function of jquery should be called two times", function () {

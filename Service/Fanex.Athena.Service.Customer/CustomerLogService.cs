@@ -14,9 +14,6 @@ namespace Fanex.Athena.Service.Customer
     using Fanex.Athena.Model.Customer.MetaModel.CustomerLog;
     using Fanex.Athena.Service.Customer.Interfaces;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class CustomerLogService : ICustomerLogService
     {
         #region Field
@@ -41,21 +38,14 @@ namespace Fanex.Athena.Service.Customer
 
         public IList<CustomerLog> GetCustomerSettingList(CustomerLogMetaModel metaModel)
         {
-            var dataList = this._customerLogDataAccess.GetCustomerSettingList(metaModel).OrderByDescending(x => x.LogId).ToList();
-
-            return dataList;
+            return _customerLogDataAccess.GetCustomerSettingList(metaModel)
+                .OrderByDescending(x => x.LogId)
+                .ToList();
         }
 
-        /// <summary>
-        /// Get group commission data list.
-        /// </summary>
-        /// <param name="metaModel">Customer log parameter.</param>
-        /// <returns>The customer-log list.</returns>
         public IList<CustomerLog> GetGroupCommList(CustomerLogMetaModel metaModel)
         {
-            var dataList = this._customerLogDataAccess.GetGroupCommList(metaModel);
-
-            return dataList;
+            return _customerLogDataAccess.GetGroupCommList(metaModel);
         }
     }
 }

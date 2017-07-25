@@ -11,11 +11,7 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Model.Customer.MetaModel.CustomerLog;
     using Fanex.Athena.Model.Customer.ViewModel.CustomerLog;
-    using Fanex.Athena.Web.ActionFilter;
 
-    /// <summary>
-    /// Log in log controller.
-    /// </summary>
     public partial class CustomerLogController
     {
         [HttpGet]

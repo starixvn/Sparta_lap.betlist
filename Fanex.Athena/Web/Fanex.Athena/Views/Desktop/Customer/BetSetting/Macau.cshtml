@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "~/Views/Desktop/Shared/_BetSettingLayout.cshtml";
+}
+@model Fanex.Athena.Model.BetSettings.ViewModel.ThirdPartyBetSettingViewModel
+
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/thirdpartybetsetting.chunk.js")"></script>
+}
+
+@section Menu{
+    @{Html.RenderPartial("~/Views/Desktop/Customer/BetSetting/Menu.cshtml", Model);}
+}
+
+@section ContentTitle{
+    @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
+}
+<!--Content-->
+@if (Model.IsLineEnabled)
+{
+    <p class="no-info-row">@String.Format(ViewResources.CannotUpdateBetLimitForProduct, ViewResources.ProductVG)</p>
+}
+else
+{
+    <p class="no-info-row">@ViewResources.MacauNotOfferCurrency</p>
+}
+<!--/Content-->
+<!--SubmitButton-->
+@if (Model.Editable)
+{
+    <div class="right button-block">
+        @if (Model.IsLineEnabled)
+        {
+            <button type="button" class="btn btn-submit"
+                    data-status="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? 0 : 1)"
+                    data-cust-id="@Model.Param.CustId"
+                    data-nick-name="@Model.Param.NickName"
+                    id="btnUpdateStatus">
+                @(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? ViewResources.DisableMacau : ViewResources.EnableMacau)
+            </button>
+        }
+    </div>
+}
+<!--/SubmitButton-->
