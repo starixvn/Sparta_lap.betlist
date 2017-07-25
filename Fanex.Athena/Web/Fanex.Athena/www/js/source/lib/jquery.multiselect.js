@@ -750,7 +750,7 @@
         maxHeight: 175, /* max height of the checkbox container (scroll) in pixels */
         minWidth: 215, /* min width of the entire widget in pixels. setting to 'auto' will disable */
         checkAllText: 'Check All',
-        noItemText: 'No league found.',
+        noItemText: 'No item found.',
         unCheckAllText: 'Uncheck All',
         updateResult: 'Update Result Table',
         noneSelectedText: 'Select options',

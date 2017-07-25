@@ -130,7 +130,7 @@
                 }) as RedirectToRouteResult;
 
                 // Assert
-                SessionService.Received().CreateNewSession(111, Arg.Any<int>(), Arg.Any<string>(), Arg.Any<bool>(), Arg.Any<int>(), viewType: ClientViewType.Desktop);
+                SessionService.Received().CreateNewSession(111, Arg.Any<int>(), Arg.Any<string>(), Arg.Any<bool>(), Arg.Any<int>());
                 Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
                 Assert.That(result.RouteValues["controller"], Is.EqualTo("LicenseeList"));
             }

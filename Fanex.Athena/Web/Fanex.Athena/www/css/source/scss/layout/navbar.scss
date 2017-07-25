@@ -1,5 +1,56 @@
 ﻿@import "../abstracts/_variables.scss";
 
+@mixin searchBarFocusedMobile() {
+    position: fixed;
+    width: 100%;
+    background: #fff;
+    margin-right: 0;
+    color: #333;
+    padding-left: 10px;
+    z-index: 3;
+    height: 25px;
+    top: 70px;
+
+    label {
+        color: #333 !important;
+    }
+
+    #label-search {
+        left: 10px;
+        top: 0;
+    }
+}
+
+@mixin inputFocusedMobile() {
+    opacity: 1;
+    height: 25px;
+    border-bottom: none;
+
+    &:focus {
+        border-bottom: none;
+        box-shadow: none;
+    }
+}
+
+@mixin searchBarMobile() {
+    position: fixed;
+    right: 0;
+    width: 100%;
+    margin-right: 0;
+    height: 25px;
+    top: 70px;
+
+    #label-search {
+        top: -2px !important;
+        right: 10px;
+    }
+}
+
+@mixin heightForRightBlock() {
+    height: 32px;
+    line-height: 32px;
+}
+
 header {
     nav {
         background: #4C6375;
@@ -26,6 +77,10 @@ header {
         line-height: 64px;
         top: 0;
         right: 0;
+
+        i {
+            @include heightForRightBlock()
+        }
     }
 }
 
@@ -98,8 +153,8 @@ header {
         z-index: 2;
 
         .icon-hambuger {
-           margin-left: 0;
-           text-align: left;
+            margin-left: 0;
+            text-align: left;
         }
     }
 }
@@ -138,9 +193,19 @@ header {
             color: $yellow;
         }
     }
+    //--------------- Clock -------------------//
+    .clock-block {
+        position: absolute;
+        top: 0;
+        right: 15px;
+        @include heightForRightBlock()
+    }
 
-    .right {
-        padding-right: 0.5rem;
+    .right-block {
+        position: absolute;
+        right: 15px;
+        top: 27px;
+        @include heightForRightBlock();
 
         > * {
             float: right;
@@ -149,7 +214,6 @@ header {
         .navbar-avatar {
             position: relative;
             z-index: 2;
-            padding: 0 0.8rem;
         }
 
         .avatar {
@@ -159,7 +223,7 @@ header {
             white-space: nowrap;
             border-radius: 50%;
             vertical-align: middle;
-            width: 32px;
+            width: 25px;
             border: 2px solid #708291;
         }
 
@@ -177,42 +241,12 @@ header {
 
         .profile-items {
             width: 17rem !important;
-            top: 64px !important;
+            top: 38px !important;
 
             .icon {
                 font-size: 14px;
                 padding-left: 10px;
                 vertical-align: middle;
-            }
-        }
-        //--------------- Notification -------------------//
-        .notification {
-            display: inline-block;
-            position: relative;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 2;
-
-            .icon-notification {
-                font-size: 15px;
-            }
-
-            .badge {
-                display: inline-block;
-                min-width: 10px;
-                padding: 2px 5px;
-                font-size: 10px;
-                font-weight: 400;
-                line-height: 1;
-                color: #fff;
-                background-color: #f44336;
-                text-align: center;
-                white-space: normal;
-                vertical-align: middle;
-                position: absolute;
-                top: 19px;
-                border-radius: 15px;
-                right: 14px;
             }
         }
         //------------ Search block -------------------//
@@ -227,25 +261,11 @@ header {
             z-index: 1;
             // ----------- iPhone 5 and 5S Portrait ----------- //
             @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
-                position: absolute;
-                right: 0;
-                width: 100%;
-                margin-right: 0;
-
-                #label-search {
-                    right: 215px;
-                }
+                @include searchBarMobile()
             }
             // ----------- iPhone 6 Portrait ----------- //
             @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
-                position: absolute;
-                right: 0;
-                width: 100%;
-                margin-right: 0;
-
-                #label-search {
-                    right: 215px;
-                }
+                @include searchBarMobile()
             }
 
             form {
@@ -254,19 +274,17 @@ header {
 
             #label-search {
                 position: absolute;
-                top: 20px;
+                top: 5px;
                 width: 25px;
                 height: 25px;
                 color: #fff;
                 cursor: pointer;
                 border-radius: 50%;
+                line-height: 25px;
 
                 i {
-                    position: relative;
-                    bottom: 20px;
-                    text-align: center;
                     font-size: 15px;
-                    height: initial;
+                    vertical-align: top;
                 }
             }
 
@@ -274,12 +292,13 @@ header {
                 background: transparent none repeat scroll 0 0;
                 display: block;
                 margin-left: 2rem;
-                width: calc(100% - 4rem);
+                width: calc(100% - 2.7rem);
                 margin-top: 16px;
                 padding-left: 5px;
                 border-bottom: none;
                 opacity: 0.7;
                 font-size: 13px;
+                margin: 0 0 0 25px;
                 // ----------- iPhone 6 Portrait ----------- //
                 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
                     opacity: 0;
@@ -293,36 +312,24 @@ header {
             }
 
             &.focused {
-                width: 20rem;
+                width: 17rem;
                 transition: all 0.2s ease-out;
 
                 .placeholder {
                     border-bottom: 1px solid #fff;
-                    box-shadow: 0 1px 0 0 #fff;
                     vertical-align: middle;
                     background: transparent none repeat scroll 0 0;
 
                     &:focus {
                         border-bottom: 1px solid #fff;
-                        box-shadow: 0 1px 0 0 #fff;
                     }
                     // ----------- iPhone 5 and 5S Portrait ----------- //
                     @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
-                        opacity: 1;
-
-                        &:focus {
-                            border-bottom: none;
-                            box-shadow: none;
-                        }
+                        @include inputFocusedMobile()
                     }
                     // ----------- iPhone 6 Portrait ----------- //
                     @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
-                        opacity: 1;
-
-                        &:focus {
-                            border-bottom: none;
-                            box-shadow: none;
-                        }
+                        @include inputFocusedMobile()
                     }
                 }
 
@@ -331,41 +338,11 @@ header {
                 }
                 // ----------- iPhone 5 and 5S Portrait ----------- //
                 @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
-                    position: absolute;
-                    width: 100%;
-                    background: #fff;
-                    right: 0;
-                    margin-right: 0;
-                    color: #333;
-                    padding-left: 10px;
-                    z-index: 3;
-
-                    label {
-                        color: #333 !important;
-                    }
-
-                    #label-search {
-                        left: 10px;
-                    }
+                    @include searchBarFocusedMobile()
                 }
                 // ----------- iPhone 6 Portrait ----------- //
                 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
-                    position: absolute;
-                    width: 100%;
-                    background: #fff;
-                    right: 0;
-                    margin-right: 0;
-                    color: #333;
-                    padding-left: 10px;
-                    z-index: 3;
-
-                    label {
-                        color: #333 !important;
-                    }
-
-                    #label-search {
-                        left: 10px;
-                    }
+                    @include searchBarFocusedMobile()
                 }
             }
         }
@@ -377,20 +354,20 @@ header {
 
             .dropdown-button {
                 display: inline-block;
-                height: 28px;
+                height: 26px;
                 vertical-align: middle;
-                line-height: 28px;
+                line-height: 26px;
                 border-bottom: 1px solid rgba(255,255,255,0.8);
 
                 .icon-menu-down {
-                    height: 28px;
-                    line-height: 28px;
+                    height: 26px;
+                    line-height: 26px;
                 }
             }
 
             .language-items {
                 width: 15rem !important;
-                top: 64px !important;
+                top: 38px !important;
 
                 > li {
                     min-height: 4rem;
@@ -402,35 +379,28 @@ header {
                 }
             }
         }
-        //------------------Notification block --------------//
-        .notification-items {
-            width: 25rem !important;
-            top: 64px !important;
+        //------------ Licensee block -------------------//
+        .licensees-block {
+            padding: 0 1rem;
+            width: 120px;
 
-            > li {
-                padding: 15px;
-                border-bottom: 1px solid #e0e0e0;
-            }
-
-            .notification-content {
-                padding-left: 10px;
-
-                .text-small {
-                    font-size: 12px;
-                    font-style: italic;
-                    margin-top: 5px;
-                }
-            }
-
-            .icon {
+            .select-licensee {
                 display: inline-block;
-                width: 30px;
-                height: 30px;
-                text-align: center;
-                line-height: 30px;
-                border-radius: 50%;
-                font-size: 13px;
-                float: left;
+                width: 100%;
+            }
+
+            .select-list-container {
+                margin-bottom: 0;
+
+                .selection {
+                    border-bottom-color: rgba(255, 255, 255, 0.8);
+                    vertical-align: middle;
+                }
+
+                .selection-icon-arrow {
+                    border-top-color: $white;
+                    border-width: 3.5px 3.5px 0 3.5px;
+                }
             }
         }
     }
@@ -471,5 +441,12 @@ header {
         @media only screen and (max-width: 992px) {
             padding-left: 0;
         }
+    }
+}
+
+// ----------- iPhone 5 and 5S Portrait ----------- //
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+    .select-list-result-container {
+        z-index: 999 !important;
     }
 }

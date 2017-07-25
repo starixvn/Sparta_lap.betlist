@@ -93,7 +93,7 @@
             _ssoService.SSO();
 
             // Assert
-            _sessionService.Received().CreateNewSession(1, onuserId, "user1", true, 2, "en-US");
+            _sessionService.Received().CreateNewSession(1, onuserId, "user1", true, 2, "en-US", viewType: Model.Core.DataDomain.ClientViewType.Default);
             _formsAuthenticationService.Received().SetAuthCookie("user1", Arg.Any<bool>());
         }
 
@@ -104,8 +104,6 @@
             var timeSpan = DateTime.Now.Ticks;
             var decryptedQueryString = "licname=spondemo&username=user2&pwd=123&loginurl=null&lang=abc&timestamp=" + timeSpan;
             _rsaEncryptor.DecryptString(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<string>()).Returns(decryptedQueryString);
-
-            var user = HttpContext.Current.User;
 
             var userSession = new UserSession
             {
