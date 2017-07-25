@@ -6,10 +6,8 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
         switch (productId) {
             case Product.Sportsbook:
                 return "UpdateSportsbookBetSettings";
-                break;
             case Product.Racing:
                 return "UpdateRacingBetSettings";
-                break;
             case Product.VirtualSports:
                 return "UpdateVirtualSportsBetSettings";
             default:
@@ -21,10 +19,8 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
         switch (productId) {
             case Product.Sportsbook:
                 return "SportsbookBetSetting/UpdateBetSetting";
-                break;
             case Product.Racing:
                 return "RacingBetSetting/UpdateBetSetting";
-                break;
             case Product.VirtualSports:
                 return "VirtualSportsBetSetting/UpdateBetSetting";
             default:

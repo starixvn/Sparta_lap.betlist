@@ -79,7 +79,17 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingCopy, BetSetting
                 expect(BetSettingBase.showComfirm).toHaveBeenCalledWith($submit, "UpdateRacingBetSettings", BetSettingMain.updateBetSetting);
             });
 
-            it("#btnSubmitBetSetting fire click event with product neither Sporsbook nor Racing - BetSettingBase.showComfirm() should be called with correct parameter", function () {
+            it("#btnSubmitBetSetting fire click event with product Virtual Sports - BetSettingBase.showComfirm() should be called with correct parameter", function () {
+                appendSetFixtures('<input id="ProductId" value="5" />');
+                spyOn(BetSettingBase, "showComfirm");
+                var $submit = $("#btnSubmitBetSetting");
+
+                $submit.click();
+
+                expect(BetSettingBase.showComfirm).toHaveBeenCalledWith($submit, "UpdateVirtualSportsBetSettings", BetSettingMain.updateBetSetting);
+            });
+
+            it("#btnSubmitBetSetting fire click event with product which is not supported  - BetSettingBase.showComfirm() should be called with correct parameter", function () {
                 appendSetFixtures('<input id="ProductId" value="10" />');
                 spyOn(BetSettingBase, "showComfirm");
                 var $submit = $("#btnSubmitBetSetting");
@@ -128,7 +138,16 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingCopy, BetSetting
                 expect(BetSettingBase.updateBetSetting).toHaveBeenCalledWith(expectedUrl, expectedParam);
             });
 
-            it("When Product is neither Sportsbook nor Racing - BetSettingBase.updateBetSetting should not be called", function () {
+            it("When Product is Virtual Sports - BetSettingBase.updateBetSetting should be called with correct parameter", function () {
+                appendSetFixtures('<input id="ProductId" value="5" />');
+                var expectedUrl = "VirtualSportsBetSetting/UpdateBetSetting";
+
+                BetSettingMain.updateBetSetting(custId, userName, nickName);
+
+                expect(BetSettingBase.updateBetSetting).toHaveBeenCalledWith(expectedUrl, expectedParam);
+            });
+
+            it("When Product which is not supported should not be called", function () {
                 appendSetFixtures('<input id="ProductId" value="10" />');
 
                 BetSettingMain.updateBetSetting(custId, userName, nickName);
