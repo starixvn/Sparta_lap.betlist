@@ -7,7 +7,8 @@ define([
     "lib/jquery.cookie",
     "lib/jquery.marquee",
     "materialize-autocomplete",
-    "components/selectlist"],
+    "components/selectlist",
+    "lib/jquery.jclock"],
     function (Site, Recheckin, AutoComplete) {
         var $searchBox;
 
@@ -38,7 +39,6 @@ define([
             utcOffset: -4,
             format: '%H:%M:%S %b %d, %Y GMT'
         });
-    }
 
         function initVariables() {
             $searchBox = $('#searchbox');
@@ -122,7 +122,9 @@ define([
                 success: function (result) {
                     if (result === "1") {
                         if ($.cookie("isClosedNotification") !== "1") {
-                            $.cookie('isFirstLoad', '1', { path: '/' });
+                            $.cookie('isFirstLoad', '1', {
+                                path: '/'
+                            });
                         }
                         top.location.reload();
                     }

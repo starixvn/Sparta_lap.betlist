@@ -70,13 +70,16 @@
             </ul>
         </div>
 
-        <div class="search-block">
-            <form class="search_bar" id="CustomerSearchForm">
-                <input type="text" autocomplete="off" name="query" id="searchbox" class="placeholder" placeholder="@ViewResources.ExternalIdOrSystemId" />
-                <label id="label-search" for="search" class="active"><i class="icon icon-search"></i></label>
-                <ul id="suggestionDropdown" class="dropdown-content ac-dropdown"></ul>
-            </form>
-        </div>
+        @if (Model.IsAllowedManagementMember)
+        {
+            <div class="search-block">
+                <form class="search_bar" id="CustomerSearchForm">
+                    <input type="text" autocomplete="off" name="query" id="searchbox" class="placeholder" placeholder="@ViewResources.ExternalIdOrSystemId" />
+                    <label id="label-search" for="search" class="active"><i class="icon icon-search"></i></label>
+                    <ul id="suggestionDropdown" class="dropdown-content ac-dropdown"></ul>
+                </form>
+            </div>
+        }
     </div>
 
     <div class="clock-block">
