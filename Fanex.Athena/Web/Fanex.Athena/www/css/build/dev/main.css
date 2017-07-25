@@ -4088,6 +4088,15 @@ main {
   .icon-book.right {
     margin-left: 10px; }
 
+.icon-pencil, .icon-edit {
+  color: #066CC0 !important; }
+
+.icon-bin, .icon-delete {
+  color: #d91a1a !important; }
+
+.icon-checkmark {
+  color: #4eb85e !important; }
+
 .text-center {
   text-align: center; }
 
