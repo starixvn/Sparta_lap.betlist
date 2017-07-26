@@ -119,10 +119,10 @@ var CustTurnover = (function ($) {
                 e.g. Safari backspace.
                 --------------------------------------------------------------*/
                 if (!event.which ||
-                // Control keys in most browsers. e.g. Firefox tab is 0
+                    // Control keys in most browsers. e.g. Firefox tab is 0
                  (48 <= event.which && event.which <= 57) ||
-                // Always 0 through 9
-                //(48 == event.which && $(this).attr("value")) ||   // No 0 first digit
+                    // Always 0 through 9
+                    //(48 == event.which && $(this).attr("value")) ||   // No 0 first digit
                     isControlKey) {
                     // Opera assigns values for control keys.
                     return;
@@ -333,7 +333,6 @@ var CustTurnover = (function ($) {
         submitForm: function () {
             var username = $('#Username').val();
             var odds = parseFloat($('#Odds').val());
-            var isValid = true;
             if (username === '' || username === CustTurnover.defaultUserName) {
                 username = "";
             }
@@ -350,11 +349,9 @@ var CustTurnover = (function ($) {
 
             var diffDays = Math.round(Math.abs((fromDate.getTime() - toDate.getTime()) / (oneDay)));
             if (diffDays > 31) {
-                isValid = false;
                 return alert(Site.getSingleResource("CustomerTurnOverNote"));
             }
             if (CustTurnover.checkedSports.length === 0) {
-                isValid = false;
                 $("#sport-null").removeClass("hide");
                 return;
             } else {
@@ -362,43 +359,39 @@ var CustTurnover = (function ($) {
             }
 
             if (CustTurnover.checkedBettypes.length === 0) {
-                isValid = false;
                 $("#bettype-null").removeClass("hide");
                 return;
             } else {
                 $("#bettype-null").addClass("hide");
             }
             if ($("#TickerFilter input:checked").length === 0) {
-                isValid = false;
                 return $("#ticket-null").removeClass("hide");
             } else {
                 $("#ticket-null").addClass("hide");
             }
 
-            if (isValid) {
-                //get parameters
-                CustTurnover.excelParam.fromdate = $("#FromDate").val();
-                CustTurnover.excelParam.todate = $("#ToDate").val();
-                CustTurnover.excelParam.reportby = $("input[name='ReportBy']:checked").val();
-                CustTurnoverOption.reportBy = CustTurnover.excelParam.reportby;
-                CustTurnover.excelParam.showwin = $("#ShowWin").is(':checked');
-                CustTurnover.excelParam.showloss = $("#ShowLoss").is(':checked');
-                CustTurnover.excelParam.showdraw = $("#ShowDraw").is(':checked');
-                CustTurnover.excelParam.odds = odds;
-                CustTurnover.excelParam.username = username;
-                CustTurnover.excelParam.currencyid = $("#CurrencyId").val();
-                CustTurnover.excelParam.isexportexcel = CustTurnover.isExportExcel;
-                CustTurnover.excelParam.SportProducts = CustTurnover.checkedSports;
-                CustTurnover.excelParam.bettypes = CustTurnover.checkedBettypes;
-                /*reset page index*/
-                CustTurnover.pagingOption.pageindex = 1;
-                if (CustTurnover.isExportExcel) {
-                    CustTurnover.exportExcel();
-                } else {
-                    CustTurnover.param = Site.clone(CustTurnover.excelParam);
-                    CustTurnover.loadData();
-                    $(".report-title").removeClass("hide");
-                }
+            //get parameters
+            CustTurnover.excelParam.fromdate = $("#FromDate").val();
+            CustTurnover.excelParam.todate = $("#ToDate").val();
+            CustTurnover.excelParam.reportby = $("input[name='ReportBy']:checked").val();
+            CustTurnoverOption.reportBy = CustTurnover.excelParam.reportby;
+            CustTurnover.excelParam.showwin = $("#ShowWin").is(':checked');
+            CustTurnover.excelParam.showloss = $("#ShowLoss").is(':checked');
+            CustTurnover.excelParam.showdraw = $("#ShowDraw").is(':checked');
+            CustTurnover.excelParam.odds = odds;
+            CustTurnover.excelParam.username = username;
+            CustTurnover.excelParam.currencyid = $("#CurrencyId").val();
+            CustTurnover.excelParam.isexportexcel = CustTurnover.isExportExcel;
+            CustTurnover.excelParam.SportProducts = CustTurnover.checkedSports;
+            CustTurnover.excelParam.bettypes = CustTurnover.checkedBettypes;
+            /*reset page index*/
+            CustTurnover.pagingOption.pageindex = 1;
+            if (CustTurnover.isExportExcel) {
+                CustTurnover.exportExcel();
+            } else {
+                CustTurnover.param = Site.clone(CustTurnover.excelParam);
+                CustTurnover.loadData();
+                $(".report-title").removeClass("hide");
             }
         },
         exportExcel: function () {

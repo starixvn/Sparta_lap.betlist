@@ -58,7 +58,7 @@ var CustTurnoverOption = (function () {
     var sportColumn = {
         name: 'SportType',
         index: 'SportType',
-        width: 80,
+        width: 110,
         align: 'left',
         sortable: false,
         resizable: false,
@@ -68,7 +68,7 @@ var CustTurnoverOption = (function () {
     var bettypeColumn = {
         name: 'Bettype',
         index: 'Bettype',
-        width: 160,
+        width: 140,
         align: 'left',
         sortable: false,
         resizable: false,
@@ -169,7 +169,7 @@ var CustTurnoverOption = (function () {
             data: [],
             height: 'auto',
             viewrecords: true,
-            autowidth: true,
+            autowidth: false,
             forceFit: false,
             shrinkToFit: true,
             minWidth: 800,
