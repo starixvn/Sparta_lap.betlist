@@ -423,10 +423,11 @@ var BetSetting = (function ($) {
             params.custid = custId;
             params.userName = userName;
             params.nickName = nickName;
+            params.productId = parseInt($("#ProductId").val());
 
             $.ajax({
                 type: 'POST',
-                url: Site.resolveClientUrl('VirtualSportsBetSetting/updateBetSetting?'),
+                url: Site.resolveClientUrl('DcsBetSetting/updateBetSetting?'),
                 cache: false,
                 data: params,
                 dataType: "json",
@@ -758,10 +759,10 @@ var BetSetting = (function ($) {
             return true;
         },
         isDigit: function (c) {
-            return ((c >= "0") && (c <= "9"));
+            return (c >= "0" && c <= "9");
         },
         isEmpty: function (s) {
-            var empty = ((s == null) || (s.length === 0));
+            var empty = ((s === null) || (s.length === 0));
             if (!empty) {
                 var news = s.replace(" ", "");
                 if (news.length > 0) {

@@ -67,8 +67,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IVirtualSportsBetSettingService.cs" />
-    <Compile Include="VirtualSportsBetSettingService.cs" />
     <Compile Include="Interfaces\IKenoBetSettingService.cs" />
     <Compile Include="Interfaces\ILiveCasinoBetSettingService.cs" />
     <Compile Include="Interfaces\IRngCasinoBetSettingService.cs" />

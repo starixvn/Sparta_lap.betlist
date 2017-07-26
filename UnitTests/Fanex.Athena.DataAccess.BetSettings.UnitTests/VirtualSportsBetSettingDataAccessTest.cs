@@ -11,13 +11,13 @@
     public class VirtualSportsBetSettingDataAccessTest
     {
         private IObjectDb _objectDb;
-        private VirtualSportsBetSettingDataAccess _dataAccess;
+        private DcsBetSettingDataAccess _dataAccess;
 
         [OneTimeSetUp]
         public void SetUp()
         {
             _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<VirtualSportsBetSettingDataAccess>();
+            _dataAccess = Substitute.ForPartsOf<DcsBetSettingDataAccess>();
         }
 
         [OneTimeTearDown]

@@ -19,15 +19,15 @@
         private const int ProductId = 5;
 
         private IAuthorizationService _authorizationService;
-        private IVirtualSportsBetSettingDataAccess _dataAccess;
-        private IVirtualSportsBetSettingService _service;
+        private IDcsBetSettingDataAccess _dataAccess;
+        private IDcsBetSettingService _service;
 
         [OneTimeSetUp]
         public void SetUp()
         {
             _authorizationService = Substitute.For<IAuthorizationService>();
-            _dataAccess = Substitute.For<IVirtualSportsBetSettingDataAccess>();
-            _service = new VirtualSportsBetSettingService(_authorizationService, _dataAccess);
+            _dataAccess = Substitute.For<IDcsBetSettingDataAccess>();
+            _service = new DcsBetSettingService(_dataAccess, _authorizationService);
         }
 
         [OneTimeTearDown]
@@ -39,7 +39,7 @@
         }
 
         [Test]
-        public void GetViewModel_WhenCall_ReturnDataFromDataAcccess()
+        public void GetBetSettings_WhenCall_ReturnDataFromDataAcccess()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
@@ -50,10 +50,10 @@
             _dataAccess.GetBetSetting(CustId, ProductId).Returns(betSettings);
 
             // Action
-            var result = _service.GetViewModel(LicenseeId, CustId, ProductId);
+            var result = _service.GetBetSettings(LicenseeId, CustId, ProductId);
 
             // Assert
-            Assert.That(result.MainData.Count, Is.EqualTo(betSettings.Count));
+            Assert.That(result.Count, Is.EqualTo(betSettings.Count));
         }
 
         [Test]
@@ -63,9 +63,9 @@
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
             const string ExpectedXmlParam = "<ROOT><BetLimit SportType=\"1\" BetType=\"1\" MinBet=\"100\" MaxBet=\"200\" MaxPerMatch=\"300\" ></BetLimit></ROOT>";
 
-            var betSettings = new List<VSBetSetting>
+            var betSettings = new List<DcsBetSetting>
             {
-                new VSBetSetting
+                new DcsBetSetting
                 {
                     SportId = "1",
                     MinBet = 100,
@@ -76,7 +76,7 @@
             };
 
             // Action
-            var result = _service.UpdateBetSetting(LicenseeId, CustId, UserId, "ip", betSettings);
+            _service.UpdateBetSetting(LicenseeId, CustId, UserId, "ip", betSettings);
 
             // Assert
             _dataAccess.Received().UpdateBetSetting(CustId, UserId, "ip", ExpectedXmlParam);
@@ -87,9 +87,9 @@
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
-            var betSettings = new List<VSBetSetting>
+            var betSettings = new List<DcsBetSetting>
             {
-                new VSBetSetting()
+                new DcsBetSetting()
             };
 
             // Action
