@@ -97,7 +97,7 @@
   <ItemGroup>
     <Compile Include="CoreBetSettingServiceTest.cs" />
     <Compile Include="DcsBetSettingServiceTest.cs" />
-    <Compile Include="VirtualSportsBetSettingServiceTest.cs" />
+    <Compile Include="DcsBetSettingServiceTest.BetLimit.cs" />
     <Compile Include="ThirdPartyBetSettingServiceTest.cs" />
     <Compile Include="SportsbookBetSettingServiceTest.cs" />
     <Compile Include="RacingBetSettingServiceTest.cs" />

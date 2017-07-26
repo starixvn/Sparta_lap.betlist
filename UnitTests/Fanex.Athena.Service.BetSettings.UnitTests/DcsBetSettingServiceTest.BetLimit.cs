@@ -1,43 +1,14 @@
 ﻿namespace Fanex.Athena.Service.BetSettings.UnitTests
 {
     using System.Collections.Generic;
-    using BetSettings;
-    using Core.Users.Interfaces;
-    using DataAccess.BetSettings.Interfaces;
-    using Interfaces;
     using Model.BetSettings.DTO;
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
 
     [TestFixture]
-    public class VirtualSportsBetSettingServiceTest
+    public partial class DcsBetSettingServiceTest
     {
-        private const int LicenseeId = 1;
-        private const int UserId = 2;
-        private const int CustId = 3;
-        private const int ProductId = 5;
-
-        private IAuthorizationService _authorizationService;
-        private IDcsBetSettingDataAccess _dataAccess;
-        private IDcsBetSettingService _service;
-
-        [OneTimeSetUp]
-        public void SetUp()
-        {
-            _authorizationService = Substitute.For<IAuthorizationService>();
-            _dataAccess = Substitute.For<IDcsBetSettingDataAccess>();
-            _service = new DcsBetSettingService(_dataAccess, _authorizationService);
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _authorizationService = null;
-            _dataAccess = null;
-            _service = null;
-        }
-
         [Test]
         public void GetBetSettings_WhenCall_ReturnDataFromDataAcccess()
         {
@@ -47,10 +18,10 @@
             {
                 new BetSetting()
             };
-            _dataAccess.GetBetSetting(CustId, ProductId).Returns(betSettings);
+            _betSettingDataAccess.GetBetSetting(CustId, ProductId).Returns(betSettings);
 
             // Action
-            var result = _service.GetBetSettings(LicenseeId, CustId, ProductId);
+            var result = _dcsBettingService.GetBetSettings(LicenseeId, CustId, ProductId);
 
             // Assert
             Assert.That(result.Count, Is.EqualTo(betSettings.Count));
@@ -76,10 +47,10 @@
             };
 
             // Action
-            _service.UpdateBetSetting(LicenseeId, CustId, UserId, "ip", betSettings);
+            _dcsBettingService.UpdateBetSetting(LicenseeId, CustId, UserId, "ip", betSettings);
 
             // Assert
-            _dataAccess.Received().UpdateBetSetting(CustId, UserId, "ip", ExpectedXmlParam);
+            _betSettingDataAccess.Received().UpdateBetSetting(CustId, UserId, "ip", ExpectedXmlParam);
         }
 
         [Test]
@@ -93,7 +64,7 @@
             };
 
             // Action
-            var result = _service.UpdateBetSetting(LicenseeId, CustId, UserId, "ip", betSettings);
+            var result = _dcsBettingService.UpdateBetSetting(LicenseeId, CustId, UserId, "ip", betSettings);
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(1));
