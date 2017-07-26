@@ -65,14 +65,8 @@ namespace Fanex.Athena.Api.Report
         {
             var userSession = SessionService.UserSession;
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/AgCasinoWinLoss.xls");
-
-            var currencyList = userSession.CurrencyList;
-
-            var currency = currencyList.SingleOrDefault(i => i.Key == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
-            var exportedFileName = string.Format(
-                "AGWinLoss_{0:ddMMMyyyy}_{1}.xls",
-                metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate,
-                currency.Key == 0 ? "All" : currency.Value);
+            var currency = userSession.CurrencyList.SingleOrDefault(i => i.Key == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
+            var exportedFileName = $"AGWinLoss_{(metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate):ddMMMyyyy}_{(currency.Key == 0 ? "All" : currency.Value)}.xls";
             var convertingOption = new ConvertingOption
             {
                 IsConvert = metaModel.IsConvert,
@@ -80,15 +74,11 @@ namespace Fanex.Athena.Api.Report
                 CurrencyName = currency.Value
             };
 
-            if (metaModel.DrillDownLevel > 0 && metaModel.CurrencyId > 0)
-            {
-                metaModel.CurrencyId = metaModel.DrillDownCurrencyId;
-            }
-
             if (metaModel.DrillDownLevel > 0)
             {
                 metaModel.FromDate = metaModel.DrillDownFromDate;
                 metaModel.ToDate = metaModel.DrillDownToDate;
+                metaModel.CurrencyId = metaModel.CurrencyId > 0 ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;
             }
 
             var exccelModel = new AgCasinoWinLossViewModel
@@ -123,6 +113,7 @@ namespace Fanex.Athena.Api.Report
                 metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;
                 metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(level > 0 ? currencyId : metaModel.CurrencyId, metaModel.IsExcludedTestData);
+
                 IDictionary<string, AgCasinoWinLoss> summaryTotal;
                 SortableList<AgCasinoWinLoss> dataList;
                 GetData(metaModel, out dataList, out summaryTotal);

@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.DataAccess.Report
 {
-    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
@@ -124,6 +123,7 @@ namespace Fanex.Athena.DataAccess.Report
             var hasExternalId = reader.HasColumn("nickname");
             var hasCustomerId = reader.HasColumn("custid");
             var hasWinlostDate = reader.HasColumn("winlostdate");
+
             var index = 1;
             while (reader.Read())
             {
@@ -139,7 +139,7 @@ namespace Fanex.Athena.DataAccess.Report
                     LicenseeWL = reader.ToDecimal(licenseewlColumn),
                     TurnOver = reader.ToDecimal(turnoverColumn),
                     TotalTransaction = reader.ToInt("totaltrans"),
-                    Date = hasWinlostDate ? (DateTime?)reader.ToDateTime("winlostdate") : metaModel.DrillDownFromDate
+                    Date = hasWinlostDate ? reader.ToDateTime("winlostdate") : metaModel.DrillDownFromDate
                 };
 
                 result.Add(item);

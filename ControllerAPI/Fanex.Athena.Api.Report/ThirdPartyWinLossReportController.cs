@@ -99,15 +99,11 @@ namespace Fanex.Athena.Api.Report
                 CurrencyName = currency.Value
             };
 
-            if (metaModel.DrillDownLevel > 0 && metaModel.CurrencyId > 0)
-            {
-                metaModel.CurrencyId = metaModel.DrillDownCurrencyId;
-            }
-
             if (metaModel.DrillDownLevel > 0)
             {
                 metaModel.FromDate = metaModel.DrillDownFromDate;
                 metaModel.ToDate = metaModel.DrillDownToDate;
+                metaModel.CurrencyId = metaModel.CurrencyId > 0 ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;
             }
 
             var excelModel = new ThirdPartyWinLossViewModel
@@ -162,6 +158,7 @@ namespace Fanex.Athena.Api.Report
                 metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;
                 metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(level == 0 ? metaModel.CurrencyId : currencyId, metaModel.IsExcludedTestData);
+
                 IDictionary<string, ThirdPartyWinLoss> summaryTotal;
                 SortableList<ThirdPartyWinLoss> dataList;
                 GetData(metaModel, out dataList, out summaryTotal);

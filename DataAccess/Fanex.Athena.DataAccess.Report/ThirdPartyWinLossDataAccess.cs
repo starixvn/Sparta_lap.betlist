@@ -119,6 +119,7 @@ namespace Fanex.Athena.DataAccess.Report
             var hasExternalId = reader.HasColumn("nickname");
             var hasCustomerId = reader.HasColumn("custid");
             var hasWinlostDate = reader.HasColumn("winlostdate");
+
             var index = 1;
             while (reader.Read())
             {
@@ -153,7 +154,7 @@ namespace Fanex.Athena.DataAccess.Report
 
         private static void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
         {
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml); 
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("productid", DbType.Int32, metaModel.ProductId);
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
