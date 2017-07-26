@@ -105,7 +105,6 @@ var scriptPaths = {
     customercommgrouplist: "./www/js/source/pages/customer/customercomm/main-commgrouplist.js",
     customercommgroupadd: "./www/js/source/pages/customer/customercomm/main-commgroupadd.js",
     customercommgroupedit: "./www/js/source/pages/customer/customercomm/main-commgroupedit.js",
-    loginlog: "./www/js/source/pages/customer/customerlog/loginlog/main.js",
     customerlist: "./www/js/source/pages/customer/customerlist/main.js",
     loginlog: "./www/js/source/pages/customer/customerlog/loginlog/main.js",
     customersetting: "./www/js/source/pages/customer/customerlog/customersetting/main.js",

@@ -482,7 +482,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest("VirtualSportsBetSetting/updateBetSetting?")
+                .stubRequest("DcsBetSetting/updateBetSetting?")
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -500,8 +500,8 @@
             jasmine.Ajax.uninstall();
         });
 
-        it("ajax request should be called with url is 'VirtualSportsBetSetting/updateBetSetting?'", function () {
-            expect(request.url).toBe("VirtualSportsBetSetting/updateBetSetting?");
+        it("ajax request should be called with url is 'DcsBetSetting/updateBetSetting?'", function () {
+            expect(request.url).toBe("DcsBetSetting/updateBetSetting?");
         });
 
         it("BetSetting.getBetSettingParamsForSports(sportIds) should be called", function () {

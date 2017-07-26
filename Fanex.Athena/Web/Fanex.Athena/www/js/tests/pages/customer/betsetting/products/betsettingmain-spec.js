@@ -123,6 +123,7 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingCopy, BetSetting
             it("When Product is Sportsbook - BetSettingBase.updateBetSetting should be called with correct parameter", function () {
                 appendSetFixtures('<input id="ProductId" value="0" />');
                 var expectedUrl = "SportsbookBetSetting/UpdateBetSetting";
+                expectedParam.productId = 0;
 
                 BetSettingMain.updateBetSetting(custId, userName, nickName);
 
@@ -132,6 +133,7 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingCopy, BetSetting
             it("When Product is Racing - BetSettingBase.updateBetSetting should be called with correct parameter", function () {
                 appendSetFixtures('<input id="ProductId" value="1" />');
                 var expectedUrl = "RacingBetSetting/UpdateBetSetting";
+                expectedParam.productId = 1;
 
                 BetSettingMain.updateBetSetting(custId, userName, nickName);
 
@@ -140,7 +142,8 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingCopy, BetSetting
 
             it("When Product is Virtual Sports - BetSettingBase.updateBetSetting should be called with correct parameter", function () {
                 appendSetFixtures('<input id="ProductId" value="5" />');
-                var expectedUrl = "VirtualSportsBetSetting/UpdateBetSetting";
+                var expectedUrl = "DcsBetSetting/UpdateBetSetting";
+                expectedParam.productId = 5;
 
                 BetSettingMain.updateBetSetting(custId, userName, nickName);
 
@@ -149,6 +152,7 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingCopy, BetSetting
 
             it("When Product which is not supported should not be called", function () {
                 appendSetFixtures('<input id="ProductId" value="10" />');
+                expectedParam.productId = 10;
 
                 BetSettingMain.updateBetSetting(custId, userName, nickName);
 
