@@ -81,10 +81,18 @@ namespace Fanex.Athena.Api.Report
 
                 if (property == null)
                 {
-                    // The two last characters is product code.
-                    var indexProductCode = sortBy.Length - 2;
-                    var propertyName = sortBy.Substring(0, indexProductCode);
-                    var productCode = sortBy.Substring(indexProductCode);
+                    string propertyName, productCode;
+
+                    if (sortBy.Contains(nameof(LicenseeWinLoss.LicenseeWL)))
+                    {
+                        propertyName = nameof(LicenseeWinLoss.LicenseeWL);
+                        productCode = sortBy.Substring(propertyName.Length);
+                    }
+                    else
+                    {
+                        propertyName = nameof(LicenseeWinLoss.TurnOver);
+                        productCode = sortBy.Substring(propertyName.Length);
+                    }
 
                     dataList.SortByDictionary<string, decimal>(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
                 }
