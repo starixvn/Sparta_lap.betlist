@@ -28,6 +28,8 @@ $colorText: #484848;
     }
 
     .bet-list-link {
+        cursor: pointer;
+
         &:hover {
             text-decoration: underline;
         }
