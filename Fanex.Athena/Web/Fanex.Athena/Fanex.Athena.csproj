@@ -761,7 +761,7 @@
     <Content Include="Scripts\Report\customerwinloss.option.js" />
     <Content Include="Scripts\Report\customerbalance.option.js" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
-    <Content Include="webpack.react.conf.js" />
+    <Content Include="www\webpackconfig\build\webpack.react.conf.js" />
     <Content Include="www\assets\images\15.jpg" />
     <Content Include="www\assets\images\lap-restriction-page.png" />
     <Content Include="www\assets\images\location-restriction-page.png" />
