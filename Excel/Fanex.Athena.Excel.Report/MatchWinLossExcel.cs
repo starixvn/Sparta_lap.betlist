@@ -132,7 +132,7 @@ namespace Fanex.Athena.Excel.Report
             {
                 var exportRow = ExportData.Rows[index];
                 var betType = Converter.ToInt(exportRow["bettype"]);
-                if (betType == (int)BetType.MixParlay || betType == (int)BetType.Outright || betType == (int)BetType.CombinationMixParlay)
+                if (betType == (int)BetType.MixParlay || betType == (int)BetType.Outright || betType == (int)BetType.CombinationMixParlay || betType == (int)BetType.BetradarVsMixParlay)
                 {
                     specialBetType.Add(exportRow);
                     continue;
@@ -167,7 +167,7 @@ namespace Fanex.Athena.Excel.Report
 
             currentRowIndex = AssignMatchData(sheet, matchInfoList, formatMatchName, currentRowIndex, currentIndex);
 
-            ExportData.DefaultView.RowFilter = "bettype <> '9' and bettype <> '10' and bettype <> '29'";
+            ExportData.DefaultView.RowFilter = "bettype <> '9' and bettype <> '10' and bettype <> '29' and bettype <> '2799'";
             var sumTable = ExportData.DefaultView.ToTable();
 
             if (ExportData.Rows.Count > sumTable.Rows.Count)
@@ -409,7 +409,7 @@ namespace Fanex.Athena.Excel.Report
                 DataRow dataRow = exportData[i];
                 IRow betTypeRow = sheet.CopyRow(TemplateSheet, RowSpecialBetTypeTemplate, currentRowIndex);
                 int betType = Converter.ToInt(dataRow["bettype"]);
-                string betTypeName = CacheRef.GetBettype(betType, false);
+                string betTypeName = betType == (int)BetType.BetradarVsMixParlay ? CacheRef.GetBettypeWithProductName(betType, false) : CacheRef.GetBettype(betType, false);
 
                 betTypeRow.Cells[0].SetCellValue(betTypeName);
                 AssignRowContent(betTypeRow, dataRow, columnNameList, 2);
