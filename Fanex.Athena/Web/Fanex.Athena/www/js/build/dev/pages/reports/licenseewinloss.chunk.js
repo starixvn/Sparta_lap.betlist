@@ -22911,11 +22911,14 @@ webpackJsonp([76],[
 	
 	                var mainForm = $("#licenseewinloss");
 	                var data = mainForm.serializeObject();
+	                if (_sortColumnName) {
+	                    data.sortby = _sortColumnName;
+	                    data.sortOrder = _sortOrder;
+	                }
+	
 	                var option = {
 	                    type: "POST",
-	                    data: mainForm.serialize() +
-	                        (_sortColumnName ?
-	                            "&sortby=" + encodeURI(_sortColumnName) + "&sortOrder=" + _sortOrder : ""),
+	                    data: data,
 	                    dataType: "json",
 	                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 	                    cache: false,
