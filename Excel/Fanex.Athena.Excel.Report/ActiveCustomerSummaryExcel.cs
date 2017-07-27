@@ -26,9 +26,9 @@ namespace Fanex.Athena.Excel.Report
     {
         private const int ColumnDate = 0;
         private const int ColumnFirstProduct = 1;
-        private const int ColumnLastProduct = 17;
-        private const int ColumnTotalTransaction = 18;
-        private const int ColumnTemplateCount = 19;
+        private const int ColumnLastProduct = 18;
+        private const int ColumnTotalTransaction = 19;
+        private const int ColumnTemplateCount = 20;
 
         private const int RowTableHeader = 1;
         private const int RowContentTemplate = 3;
@@ -113,7 +113,8 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.ProductMGCRNG,
                 ViewResources.ProductAB,
                 ViewResources.ProductVB,
-                ViewResources.ProductFW
+                ViewResources.ProductFW,
+                ViewResources.ProductBRVS
             };
 
             int index = ColumnFirstProduct;
@@ -210,12 +211,13 @@ namespace Fanex.Athena.Excel.Report
                 new ProductOption { Code = Product.MGCRNG, Status = false },
                 new ProductOption { Code = Product.AB, Status = false },
                 new ProductOption { Code = Product.VB, Status = false },
-                new ProductOption { Code = Product.FW, Status = false }
+                new ProductOption { Code = Product.FW, Status = false },
+                new ProductOption { Code = Product.BRVS, Status = false }
             };
 
             for (var i = 0; i < newProducts.Count; i++)
             {
-                var product = products.Where(x => x.Code == newProducts[i].Code).FirstOrDefault();
+                var product = products.FirstOrDefault(x => x.Code == newProducts[i].Code);
                 if (product == null)
                 {
                     _hiddenColumnIndexes.Add(ColumnFirstProduct + i);
