@@ -2,9 +2,6 @@
 var modulePath = ["jquery", "common/site", basePath + "common/betsettingbase", basePath + "common/betsetting.copy", basePath + "products/betsettingmain"];
 
 define(modulePath, function ($, Site, BetSettingBase, BetSettingCopy, BetSettingMain) {
-    var PRODUCTID_SPORTSBOOK = 0;
-    var PRODUCTID_RACING = 1;
-
     describe("BetSettingMain", function () {
         describe("initialize()", function () {
             beforeAll(function () {
@@ -79,16 +76,6 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingCopy, BetSetting
                 expect(BetSettingBase.showComfirm).toHaveBeenCalledWith($submit, "UpdateRacingBetSettings", BetSettingMain.updateBetSetting);
             });
 
-            it("#btnSubmitBetSetting fire click event with product Virtual Sports - BetSettingBase.showComfirm() should be called with correct parameter", function () {
-                appendSetFixtures('<input id="ProductId" value="5" />');
-                spyOn(BetSettingBase, "showComfirm");
-                var $submit = $("#btnSubmitBetSetting");
-
-                $submit.click();
-
-                expect(BetSettingBase.showComfirm).toHaveBeenCalledWith($submit, "UpdateVirtualSportsBetSettings", BetSettingMain.updateBetSetting);
-            });
-
             it("#btnSubmitBetSetting fire click event with product which is not supported  - BetSettingBase.showComfirm() should be called with correct parameter", function () {
                 appendSetFixtures('<input id="ProductId" value="10" />');
                 spyOn(BetSettingBase, "showComfirm");
@@ -123,7 +110,6 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingCopy, BetSetting
             it("When Product is Sportsbook - BetSettingBase.updateBetSetting should be called with correct parameter", function () {
                 appendSetFixtures('<input id="ProductId" value="0" />');
                 var expectedUrl = "SportsbookBetSetting/UpdateBetSetting";
-                expectedParam.productId = 0;
 
                 BetSettingMain.updateBetSetting(custId, userName, nickName);
 
@@ -133,17 +119,6 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingCopy, BetSetting
             it("When Product is Racing - BetSettingBase.updateBetSetting should be called with correct parameter", function () {
                 appendSetFixtures('<input id="ProductId" value="1" />');
                 var expectedUrl = "RacingBetSetting/UpdateBetSetting";
-                expectedParam.productId = 1;
-
-                BetSettingMain.updateBetSetting(custId, userName, nickName);
-
-                expect(BetSettingBase.updateBetSetting).toHaveBeenCalledWith(expectedUrl, expectedParam);
-            });
-
-            it("When Product is Virtual Sports - BetSettingBase.updateBetSetting should be called with correct parameter", function () {
-                appendSetFixtures('<input id="ProductId" value="5" />');
-                var expectedUrl = "DcsBetSetting/UpdateBetSetting";
-                expectedParam.productId = 5;
 
                 BetSettingMain.updateBetSetting(custId, userName, nickName);
 
@@ -152,7 +127,6 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingCopy, BetSetting
 
             it("When Product which is not supported should not be called", function () {
                 appendSetFixtures('<input id="ProductId" value="10" />');
-                expectedParam.productId = 10;
 
                 BetSettingMain.updateBetSetting(custId, userName, nickName);
 
