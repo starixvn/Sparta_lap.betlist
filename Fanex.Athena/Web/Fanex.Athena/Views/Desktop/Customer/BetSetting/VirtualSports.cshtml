@@ -30,15 +30,6 @@
     const string FormatDecimal = "#,###,##0.##";
 }
 
-@if (Model.Param.ProductId == ProductTypes.Sportsbook)
-{
-    <!--Check box-->
-    <div id="copy-settting" class="copy-setting">
-        <input id="chkCopyAll" name="chkCopyAll" type="checkbox">
-        <label for="chkCopyAll" class="text-bold">@(Model.Param.ProductId == ProductTypes.Sportsbook ? ViewResources.CopyBetSettingFromSoccer : ViewResources.CopyBetSettingFromRacing)</label>
-    </div>
-    <!--Check box-->
-}
 @Html.Hidden("IDList", String.Join(",", Model.MainData.Select(x => x.SportId)))
 @Html.Hidden("editable", Model.Editable)
 
