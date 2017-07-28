@@ -5,7 +5,6 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
         var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
         var REQUEST_VERIFICATION_TOKEN;
         var _historyDate = null;
-        var _licenseeId = null;
         var _rootUrl = null;
         var _pageLanguage = null;
 

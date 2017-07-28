@@ -1,7 +1,6 @@
 ﻿"use strict";
-define(["jquery", "./constant", "./betsetting.validation"], function ($, Constant, BetSettingValidation) {
-    var Product = Constant.Product;
-
+define(["jquery", "./betsetting.validation"], function ($, BetSettingValidation) {
+    
     var _me = {
         checkCopyAllValues: function ($checkbox) {
             var enabled = $checkbox.prop("checked");

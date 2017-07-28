@@ -2,7 +2,8 @@
     "components/pluginhelper/daterangepicker", "../report", "components/pluginhelper/multiselect", "components/pluginhelper/autocomplete",
     "helpers/daterange", "helpers/excel",
     "extensions/jquery.extension", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min"],
-    function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report, MultiSelect, AutoComplete, DateHelper, ExcelHelper) {
+    function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report,
+        MultiSelect, AutoComplete, DateHelper, ExcelHelper) {
         "use strict";
 
         var VALID_MONTH_RANGE = 3;

@@ -5,7 +5,7 @@ define(["jquery", "common/site", "common/popup", "./constant", "lib/numberformat
 
         var _me = {
             initialize: function () {
-                $("#product-dropdown").on('change', function (event) {
+                $("#product-dropdown").on('change', function () {
                     var url = $(this).find("option:selected").data("href");
                     Site.blockUI();
                     Site.redirect(url);

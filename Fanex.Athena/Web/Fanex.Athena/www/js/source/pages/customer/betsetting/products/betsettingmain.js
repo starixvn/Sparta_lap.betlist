@@ -1,5 +1,6 @@
 ﻿"use strict";
-define(["jquery", "common/site", "../common/constant", "../common/betsettingbase", "../common/betsetting.copy"], function ($, Site, Constant, BetSettingBase, BetSettingCopy) {
+define(["jquery", "common/site", "../common/constant", "../common/betsettingbase", "../common/betsetting.copy"],
+    function ($, Site, Constant, BetSettingBase, BetSettingCopy) {
     var Product = Constant.Product;
 
     function getConfirmMessage(productId) {

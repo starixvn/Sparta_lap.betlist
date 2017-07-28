@@ -12,7 +12,7 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
                 _me.showGridDropdown();
             });
 
-            $("#report-content").on("blur", ".oddsGroup", function (e) {
+            $("#report-content").on("blur", ".oddsGroup", function () {
                 setTimeout(function () {
                     $("#OddsGroupListContainer").hide();
                 }, 300);
