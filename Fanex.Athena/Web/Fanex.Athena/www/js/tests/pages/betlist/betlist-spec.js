@@ -1087,7 +1087,7 @@
                             Texts: ["text1", "text2"]
                         });
                     });
-                    var expectedContent = 'text1text2Choice1<div class="line"></div>Choice2';
+                    var expectedContent = 'text1text2<div class="line"></div>Choice1<div class="line"></div>Choice2';
 
                     BetList.showNewParlayDetail(transId, transIndex);
 
