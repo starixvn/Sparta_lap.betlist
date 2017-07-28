@@ -27,7 +27,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             { ProductTypes.AllBet, "AllBet" },
             { ProductTypes.Voidbridge, "Voidbridge" },
             { ProductTypes.FishingWorld, "FishingWorld" },
-            { ProductTypes.VirtualSports, "Main" },
+            { ProductTypes.VirtualSports, "VirtualSports" },
             { ProductTypes.BetradarVirtualSports, "BetradarVirtualSports" }
         };
 

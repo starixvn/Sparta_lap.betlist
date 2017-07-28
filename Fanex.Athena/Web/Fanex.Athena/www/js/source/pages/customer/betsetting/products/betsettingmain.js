@@ -8,8 +8,6 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
                 return "UpdateSportsbookBetSettings";
             case Product.Racing:
                 return "UpdateRacingBetSettings";
-            case Product.VirtualSports:
-                return "UpdateVirtualSportsBetSettings";
             default:
                 return "";
         }
@@ -21,8 +19,6 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
                 return "SportsbookBetSetting/UpdateBetSetting";
             case Product.Racing:
                 return "RacingBetSetting/UpdateBetSetting";
-            case Product.VirtualSports:
-                return "DcsBetSetting/UpdateBetSetting";
             default:
                 return null;
         }
@@ -70,7 +66,6 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
             params.custid = custId;
             params.userName = userName;
             params.nickName = nickName;
-            params.productId = productId;
 
             BetSettingBase.updateBetSetting(Site.resolveClientUrl(url), params);
         }
