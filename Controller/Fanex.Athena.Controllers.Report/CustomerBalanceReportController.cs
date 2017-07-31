@@ -13,11 +13,9 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Model.Core.MetaModel.Product;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
-    using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
     using Resources;
-    using Service.Report.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportCustomerBalance)]
     public class CustomerBalanceReportController : ReportBaseController

@@ -397,7 +397,8 @@ namespace Fanex.Athena.DataAccess.Report
                 fromdate = metalModel.FromDate,
                 sporttype = metalModel.SportId,
                 leagueid = metalModel.LeagueId,
-                movebetsday = _balanceUp.MoveBetsDay            };
+                movebetsday = _balanceUp.MoveBetsDay
+            };
 
             try
             {

@@ -6,8 +6,6 @@
 
 namespace Fanex.Athena.Model.Report.ViewModel
 {
-    using System.Collections.Generic;
-    using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Model.Core.ViewModel;
 

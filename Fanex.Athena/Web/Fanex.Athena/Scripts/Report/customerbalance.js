@@ -7,6 +7,8 @@ var CustomerBalance = (function ($) {
     var FORM_SELECTOR = "#CustomerBalanceForm";
     var GRID_ID = "ReportGrid";
     var ajaxRequest = null;
+    var sortColumnIndex = "";
+    var sortType = "desc";
 
     function getPostData() {
         return $(FORM_SELECTOR).serializeObject();
@@ -15,7 +17,6 @@ var CustomerBalance = (function ($) {
     return {
         resizeGrid: function () {
             var reportGrid = $("#" + GRID_ID);
-            //jqGridAdditional.resetLayout(reportGrid);
             jqGridAdditional.resizeGrid();
         },
 
@@ -31,8 +32,7 @@ var CustomerBalance = (function ($) {
         },
 
         initEvent: function () {
-            $('#SubmitButton').click(function () {
-                $('#IsExportExcel').val(false);
+            $('#SubmitButton').click(function () {               
                 CustomerBalance.submit();
             });
 
@@ -48,14 +48,16 @@ var CustomerBalance = (function ($) {
         },
 
         setReportTitle: function () {
-            var titlePattern = "{0}, {1} → {2}";
+            var titlePattern = "{0}, {1} → {2}, {3}";
             var sortByName = $("#OrderItem option:selected").text();
 
-            var title = $.format(titlePattern, Site.getSingleResource('CustomerBalance'), $("#FromDate").val().toString("M/dd/yyyy"), $("#ToDate").val().toString("M/dd/yyyy"));
+            var title = $.format(titlePattern, Site.getSingleResource('CustomerBalance'), $("#FromDate").val().toString("M/dd/yyyy"), $("#ToDate").val().toString("M/dd/yyyy"), Site.getSingleResource('Viewin').replace("{0}", $("#CurrencyName").val()));
             $("div.report-title").html(title);
         },
 
         submit: function () {
+            $('#IsExportExcel').val(false);
+
             Site.updateOriginalLicenseeOption();
             var data = getPostData();
 
@@ -89,11 +91,32 @@ var CustomerBalance = (function ($) {
             CustomerBalanceOption.hasCustomerComm = response.HasCustomerComm;
             CustomerBalanceOption.isAllowBA = response.IsAllowBA;
 
+            var reportGrid = $("#" + GRID_ID);
             var isEmpty = response == null ||
                  $.isEmptyObject(response.Data) || response.Data.length === 0;
 
             var gridOption = CustomerBalanceOption.getGridOption();
             gridOption.data = response.Data;
+            gridOption.onSortCol = function (index) {
+                if (!isEmpty) {
+                    Site.blockUI();
+                    sortType = index === sortColumnIndex ? (sortType === "desc" ? "asc" : "desc") : "desc";
+                    window.setTimeout(function () {
+                        var orderColumnCode = CustomerBalanceOption.getOrderColumnCode(index, sortType);
+                        if (orderColumnCode === 0) {
+                            sortColumnIndex = "";
+                            sortType = "";
+                        }
+                        else{
+                            sortColumnIndex = index;
+                        }
+                        $("#OrderItem").val(orderColumnCode);
+                        CustomerBalance.submit();
+                        Site.unBlockUI();
+                    }, 100);
+                }
+                return 'stop';
+            };
             gridOption.gridComplete = function () {
                 jqGridAdditional.gridComplete(this, gridOption, 1);
 
@@ -101,6 +124,24 @@ var CustomerBalance = (function ($) {
                     jqGridAdditional.setNoInfo(gridOption.colModel);
                 }
                 else {
+                    var cm = reportGrid[0].p.colModel;
+                    $.each(reportGrid[0].grid.headers, function (index, value) {
+                        var cmi = cm[index];
+                        if (cmi.sortable) {
+                            $('.ui-jqgrid-sortable', value.el).css({ cursor: "pointer" }).find(".s-ico").remove();
+                        }
+                        if (cmi.index === sortColumnIndex && sortType !== "") {
+                            var header = $('.ui-jqgrid-sortable', value.el);
+                            header.addClass("sorted-heading");
+                            if (sortType == "desc") {
+                                header.append("<span class='sort-desc'></span>");
+                            }
+                            else {
+                                header.append("<span class='sort-asc'></span>");
+                            }
+                        }
+                    });
+
                     jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
                     jqGridAdditional.setGroupFooters(CustomerBalanceOption.totalColspan);
                 }
@@ -111,7 +152,6 @@ var CustomerBalance = (function ($) {
             CustomerBalance.setReportTitle();
 
             gridOption.shrinkToFit = isEmpty;
-            var reportGrid = $("#" + GRID_ID);
             reportGrid.jqGrid(gridOption);
 
             CustomerBalanceOption.setGroupHeaderColumns(reportGrid);

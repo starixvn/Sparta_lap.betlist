@@ -40,9 +40,9 @@ var CustomerBalanceOption = (function () {
     {
         name: "OpeningBalance",
         index: "OpeningBalance",
-        width: 90,
+        width: 110,
         align: "right",
-        sortable: false,
+        sortable: true,
         resizable: false,
         formatter: "currency",
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
@@ -52,9 +52,9 @@ var CustomerBalanceOption = (function () {
     {
         name: "Deposit",
         index: "Deposit",
-        width: 100,
+        width: 90,
         align: "right",
-        sortable: false,
+        sortable: true,
         resizable: false,
         formatter: "currency",
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
@@ -66,7 +66,7 @@ var CustomerBalanceOption = (function () {
         index: "Withdrawal",
         width: 100,
         align: "right",
-        sortable: false,
+        sortable: true,
         resizable: false,
         formatter: "currency",
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
@@ -102,7 +102,7 @@ var CustomerBalanceOption = (function () {
         index: "Turnover",
         width: 100,
         align: "right",
-        sortable: false,
+        sortable: true,
         resizable: false,
         formatter: "currency",
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
@@ -146,11 +146,11 @@ var CustomerBalanceOption = (function () {
 
     var customerWinLossMergeColumn =
     {
-        name: "CustomerW_L",
+        name: "WinLoss",
         index: "CustomerW_L",
         width: 200,
         align: "right",
-        sortable: false,
+        sortable: true,
         resizable: false,
         formatter: "currency",
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
@@ -162,7 +162,7 @@ var CustomerBalanceOption = (function () {
         index: "CustomerWinLoss",
         width: 100,
         align: "right",
-        sortable: false,
+        sortable: true,
         resizable: false,
         formatter: "currency",
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
@@ -198,7 +198,7 @@ var CustomerBalanceOption = (function () {
         index: "ClosingBalance",
         width: 100,
         align: "right",
-        sortable: false,
+        sortable: true,
         resizable: false,
         formatter: "currency",
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
@@ -319,7 +319,7 @@ var CustomerBalanceOption = (function () {
             colNames: [],
             colModel: [],
             data: [],
-            height: '100%',
+            height: 'auto',
             autowidth: true,
             forceFit: true,
             shrinkToFit: true,
@@ -328,11 +328,12 @@ var CustomerBalanceOption = (function () {
             loadonce: true,
             footerrow: true,
             userDataOnFooter: false,
-            grouping: true,
-            viewrecords: true,
+            viewrecords: false,
             gridview: true,
             rownumbers: false,
-            sortable: false
+            sortable: false,
+            scroll: 1,
+            rowNum: 40,
         },
 
         getGridOption: function () {
@@ -401,8 +402,31 @@ var CustomerBalanceOption = (function () {
             return colModels;
         },
 
-        getOrderColumnCode: function (indexColumn) {
-
+        getOrderColumnCode: function (indexColumn, sortType) {
+            if (sortType === "asc" && indexColumn !== customerWinLossColumn.index && indexColumn !== customerWinLossMergeColumn.index) {
+                return 0;
+            }
+                
+            switch (indexColumn) {
+                case customerWinLossColumn.index:
+                case customerWinLossMergeColumn.index:
+                    if (sortType === "desc") {
+                        return 4;
+                    }
+                    return 5;
+                case depositColumn.index:
+                    return 1;
+                case withdrawalColumn.index:
+                    return 2;
+                case turnoverColumn.index:
+                    return 3;
+                case openingBalanceColumn.index:
+                    return 6;
+                case closingBalanceColumn.index:
+                    return 7;
+                default:
+                    return 0;
+            }
         }
     }
 
