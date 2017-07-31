@@ -10,7 +10,7 @@
 @section pagejs {
     <script src="@Url.ContentLink("/Scripts/Customer/BetSetting/rngcasino.js")" type="text/javascript"></script>
 }
-@{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model);}
+@{Html.RenderPartial("~/Views/Customer/BetSetting/_Menu.cshtml", Model);}
 <div class="content-title">
     @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
 </div>
@@ -94,7 +94,7 @@
         else
         {
             <p>
-            @string.Format(ViewResources.CustomerHasNeverPlayed, "RNG Casino")
+            @string.Format(ViewResources.CustomerHasNeverPlayed, ViewResources.ProductCS)
             </p>
         }
     </div>

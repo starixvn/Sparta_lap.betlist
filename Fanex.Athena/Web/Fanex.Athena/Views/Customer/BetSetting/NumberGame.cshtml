@@ -10,7 +10,7 @@
 @section pagejs
 {
 }
-@{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model);}
+@{Html.RenderPartial("~/Views/Customer/BetSetting/_Menu.cshtml", Model);}
  @Html.Hidden("IDList", String.Join(",", Model.MainData.Select(x => x.SportId)))
 <div class="data-content">
     <!--Title-->

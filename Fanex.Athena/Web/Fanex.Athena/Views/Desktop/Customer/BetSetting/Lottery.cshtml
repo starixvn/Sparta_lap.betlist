@@ -1,0 +1,129 @@
+﻿@{
+    Layout = "~/Views/Desktop/Shared/_BetSettingLayout.cshtml";
+}
+@model Fanex.Athena.Model.BetSettings.ViewModel.BetSettingViewModel
+
+@helper RenderFirstRow()
+{
+    <tr class="first-row">
+        <td class="col-medium"></td>
+        <td class="col-medium"></td>
+        <td class="col-medium"></td>
+        <td class="col-medium"></td>
+    </tr>
+}
+
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/dcsbetsetting.chunk.js")"></script>
+}
+
+@section Menu{
+    @{Html.RenderPartial("~/Views/Desktop/Customer/BetSetting/_Menu.cshtml", Model);}
+}
+
+@section ContentTitle{
+    @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
+}
+
+@{
+    const string FormatDecimal = "#,###,##0.##";
+}
+
+@Html.Hidden("IsEnabled", Model.IsEnabled.Value ? 1 : 0)
+@Html.Hidden("IDList", Model.MainData.First().SportId)
+
+@if (Model.MainData.Count == 0)
+{
+    <p class="no-info-row">@ViewResources.NoInfo</p>
+}
+else
+{
+    <div class="table-content">
+        <div class="header-content">
+            <table class="table">
+                <thead>
+                    @RenderFirstRow()
+
+                    <tr>
+                        <th>@ViewResources.Sport</th>
+                        <th>@ViewResources.MinBet</th>
+                        <th>@ViewResources.MaxBet</th>
+                        <th>@ViewResources.MaxPerMatch</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+        <div class="body-content">
+            <table class="table betsetting-form">
+                <tbody>
+                    @RenderFirstRow()
+
+                    @foreach (var item in Model.MainData)
+                    {
+                        <tr>
+                            <td>
+                                @item.BetSettingType
+                                <input id="bet-type-@(item.SportId)" type="hidden" value="@item.BetType" />
+                            </td>
+                            <td>
+                                <input id="min-bet-@(item.SportId)" type="text" value="@item.MinBet.ToString(FormatDecimal)" maxlength="14" class="right-align"
+                                       data-min-value="@item.BetValueMin.ToString(FormatDecimal)" data-original="@item.MinBet.ToString(FormatDecimal)" />
+                                @if (item.BetValueMin > 0)
+                                {
+                                    <span>&gt;=@item.BetValueMin.ToString(FormatDecimal)</span>
+                                }
+                            </td>
+                            <td>
+                                <input id="max-bet-@(item.SportId)" type="text" value="@item.MaxBet.ToString(FormatDecimal)" maxlength="14" class="right-align"
+                                       data-max-value="@item.BetValueMax.ToString(FormatDecimal)" data-original="@item.MaxBet.ToString(FormatDecimal)" />
+                                @if (item.BetValueMax > 0)
+                                {
+                                    <span>&lt;=@item.BetValueMax.ToString(FormatDecimal)</span>
+                                }
+                            </td>
+                            <td>
+                                <input id="max-per-match-@(item.SportId)" type="text" value="@item.MaxPerMatch.ToString(FormatDecimal)" maxlength="14" class="right-align"
+                                       data-min-value="@item.MaxPerMatchMin.ToString(FormatDecimal)" data-max-value="@item.MaxPerMatchMax.ToString(FormatDecimal)" data-original="@item.MaxPerMatch.ToString(FormatDecimal)" />
+                                @if (item.MaxPerMatchMax > 0)
+                                {
+                                    <span>&lt;=@item.MaxPerMatchMax.ToString(FormatDecimal)</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--SubmitButton-->
+    if (Model.Editable && Model.MainData.Count > 0)
+    {
+        <div class="right button-block">
+            <button type="button" id="btnSubmitBetSetting" class="btn btn-submit"
+                    data-cust-id="@Model.Param.CustId" data-user-name="@Model.Param.UserName" data-nick-name="@Model.Param.NickName">
+                @ViewResources.Submit
+            </button>
+            <button type="button" id="btnReset" class="btn btn-cancel">@ViewResources.Reset</button>
+            @if (Model.IsEnabled.HasValue)
+            {
+                <button type="button" class="btn btn-submit"
+                        data-status="@(Model.IsEnabled.Value ? 0 : 1)"
+                        data-cust-id="@Model.Param.CustId"
+                        data-nick-name="@Model.Param.NickName"
+                        id="btnUpdateStatus">
+                    @(string.Format(Model.IsEnabled.Value ? ViewResources.DisableProduct : ViewResources.EnableProduct, ViewResources.ProductLT))
+                </button>
+            }
+
+        </div>
+        if (!Model.IsEnabled.HasValue)
+        {
+            <p>
+                @string.Format(ViewResources.CustomerHasNeverPlayed, ViewResources.ProductLT)
+            </p>
+        }
+    }
+    <!--/SubmitButton-->
+}

@@ -17,7 +17,7 @@
 }
 
 @section Menu{
-    @{Html.RenderPartial("~/Views/Desktop/Customer/BetSetting/Menu.cshtml", Model);}
+    @{Html.RenderPartial("~/Views/Desktop/Customer/BetSetting/_Menu.cshtml", Model);}
 }
 
 @section ContentTitle{
@@ -120,7 +120,7 @@ else
         if (!Model.IsEnabled.HasValue)
         {
                 <p>
-                    @string.Format(ViewResources.CustomerHasNeverPlayed, "RNG Casino")
+                    @string.Format(ViewResources.CustomerHasNeverPlayed, ViewResources.ProductCS)
                 </p>
             }
         }
