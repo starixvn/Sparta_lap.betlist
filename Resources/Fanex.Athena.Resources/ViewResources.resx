@@ -3032,13 +3032,25 @@
     <value>Virtual Soccer Nation</value>
     <comment>#78241</comment>
   </data>
-  <data name="UpdateVirtualSports2BetSettings" xml:space="preserve">
-    <value>Are you sure you want to update all Virtual Sports 2 bet settings?</value>
-    <comment>78241</comment>
+  <data name="ProductLT" xml:space="preserve">
+    <value>Lottery</value>
+    <comment>79997</comment>
   </data>
-  <data name="UpdateVirtualSports2BetSettingSuccessMsg" xml:space="preserve">
-    <value>The Virtual Sports 2 bet setting of {0} was updated successfully</value>
-    <comment>78241</comment>
+  <data name="DisableProduct" xml:space="preserve">
+    <value>Disable {0}</value>
+    <comment>79997</comment>
+  </data>
+  <data name="EnableProduct" xml:space="preserve">
+    <value>Enable {0}</value>
+    <comment>79997</comment>
+  </data>
+  <data name="UpdateProductBetSettings" xml:space="preserve">
+    <value>Are you sure you want to update all {0} bet settings?</value>
+    <comment>79997</comment>
+  </data>
+  <data name="UpdateProductBetSettingSuccessMsg" xml:space="preserve">
+    <value>The {0} bet setting of {1} was updated successfully</value>
+    <comment>79997</comment>
   </data>
   <data name="Tablet" xml:space="preserve">
     <value>Tablet</value>

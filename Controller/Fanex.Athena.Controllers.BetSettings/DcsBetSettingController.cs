@@ -16,6 +16,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Model.BetSettings.MetaModel;
     using Model.BetSettings.ViewModel;
     using Model.Core.DataDomain;
+    using Model.Core.Helper;
     using Resources;
     using Service.BetSettings;
     using Service.BetSettings.Interfaces;
@@ -28,23 +29,26 @@ namespace Fanex.Athena.Controllers.BetSettings
             { ProductTypes.Voidbridge, "Voidbridge" },
             { ProductTypes.FishingWorld, "FishingWorld" },
             { ProductTypes.VirtualSports, "VirtualSports" },
-            { ProductTypes.VirtualSports2, "VirtualSports2" }
+            { ProductTypes.VirtualSports2, "VirtualSports2" },
+            { ProductTypes.Lottery, "Lottery" }
         };
 
         private static readonly IEnumerable<int> ProductsHasStatus = new int[]
         {
-             ProductTypes.AllBet, ProductTypes.Voidbridge, ProductTypes.FishingWorld
+             ProductTypes.AllBet, ProductTypes.Voidbridge, ProductTypes.FishingWorld,
+             ProductTypes.Lottery
         };
 
         private static readonly IEnumerable<int> ProductsHasBetLimit = new int[]
         {
-             ProductTypes.VirtualSports, ProductTypes.VirtualSports2
+             ProductTypes.VirtualSports, ProductTypes.VirtualSports2, ProductTypes.Lottery
         };
 
         private static readonly IDictionary<int, string[]> ProductSportList = new Dictionary<int, string[]>
         {
             [ProductTypes.VirtualSports] = new string[] { "180", "181", "182", "183", "184", "185", "186" },
-            [ProductTypes.VirtualSports2] = new string[] { "190", "191", "199" }
+			[ProductTypes.VirtualSports2] = new string[] { "190", "191", "199" },
+            [ProductTypes.Lottery] = new string[] { "220" }
         };
 
         private readonly IDcsBetSettingService _betSettingService;
@@ -120,7 +124,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             var commonParam = GetBetSettingCommonParam();
             var parameters = GetParameters(productId);
 
-            if (parameters.Count == 0 || commonParam.UserId == 0 || commonParam.CustId == 0)
+            if (!parameters.Any() || commonParam.UserId == 0 || commonParam.CustId == 0)
             {
                 return Json(new ResultInfo { Code = 0, Message = ViewResources.InvalidParams }, JsonRequestBehavior.AllowGet);
             }
@@ -134,17 +138,15 @@ namespace Fanex.Athena.Controllers.BetSettings
 
             if (result.Code == 0)
             {
-                result.Message = string.Format(
-                    productId == ProductTypes.VirtualSports
-                    ? ViewResources.UpdateVirtualSportsBetSettingSuccessMsg
-                    : ViewResources.UpdateVirtualSports2BetSettingSuccessMsg,
-                    nickName);
+                var productCodeResource = "Product" + ProductHelper.GetProductCode(productId);
+                var productName = ViewResources.ResourceManager.GetString(productCodeResource);
+                result.Message = string.Format(ViewResources.UpdateProductBetSettingSuccessMsg, productName, nickName);
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        private IList<DcsBetSetting> GetParameters(int productId)
+        private IEnumerable<DcsBetSetting> GetParameters(int productId)
         {
             if (!ProductSportList.ContainsKey(productId))
             {

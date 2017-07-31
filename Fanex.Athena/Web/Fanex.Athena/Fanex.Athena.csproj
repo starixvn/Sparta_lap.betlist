@@ -884,7 +884,7 @@
     <Content Include="Views\Desktop\BetList\CustomerOutstanding\Main.cshtml" />
     <Content Include="www\css\source\pages\betlist\customeroutstanding.scss" />
     <Content Include="Views\Desktop\Customer\BetSetting\Main.cshtml" />
-    <Content Include="Views\Desktop\Customer\BetSetting\Menu.cshtml" />
+    <Content Include="Views\Desktop\Customer\BetSetting\_Menu.cshtml" />
     <Content Include="www\css\source\pages\customer\betsetting.scss" />
     <Content Include="Views\Desktop\Customer\BetSetting\Macau.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\BetTrade.cshtml" />
@@ -914,6 +914,8 @@
     <Content Include="Views\Desktop\Customer\BetSetting\VirtualSports.cshtml" />
     <Content Include="Views\BetList\LiveReport\VirtualSports.cshtml" />
     <Content Include="Views\Desktop\BetList\LiveReport\VirtualSports.cshtml" />
+    <Content Include="Views\Desktop\Customer\BetSetting\Lottery.cshtml" />
+    <Content Include="Views\Customer\BetSetting\Lottery.cshtml" />
     <None Include="www\css\source\pages\customer\customerlist.scss" />
     <Content Include="www\css\source\pages\customer\customerlog.scss" />
     <Content Include="www\css\source\components\tab\_tab.scss" />
@@ -5431,7 +5433,7 @@
     <Content Include="Views\Customer\ContextMenu.cshtml" />
     <Content Include="Views\Customer\BetSetting\Main.cshtml" />
     <Content Include="Views\Shared\_BetSettingLayout.cshtml" />
-    <Content Include="Views\Customer\BetSetting\Menu.cshtml" />
+    <Content Include="Views\Customer\BetSetting\_Menu.cshtml" />
     <Content Include="Views\Customer\BetSetting\LiveCasino.cshtml" />
     <Content Include="Views\Desktop\Customer\CustomerDialog\LogInfo.cshtml" />
     <Content Include="Views\Customer\BetSetting\NumberGame.cshtml" />

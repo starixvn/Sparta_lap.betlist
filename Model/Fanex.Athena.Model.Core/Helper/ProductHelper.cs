@@ -1,11 +1,29 @@
 ﻿namespace Fanex.Athena.Model.Core.Helper
 {
+    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using DTO.Common;
     using Resources;
 
     public static class ProductHelper
     {
+        private static readonly IDictionary<int, string> ProductCodeMap = new Dictionary<int, string>
+        {
+            { ProductTypes.Sportsbook, Product.SB },
+            { ProductTypes.VirtualSports, Product.VS },
+            { ProductTypes.Lottery, Product.LT },
+        };
+
+        public static string GetProductCode(int productId)
+        {
+            if (ProductCodeMap.ContainsKey(productId))
+            {
+                return ProductCodeMap[productId];
+            }
+
+            return string.Empty;
+        }
+
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         public static string GetProductName(string productCode, string defaultValue = null)
         {
