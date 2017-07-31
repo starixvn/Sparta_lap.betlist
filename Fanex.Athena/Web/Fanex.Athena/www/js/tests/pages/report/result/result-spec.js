@@ -302,11 +302,11 @@
                     jasmine.Ajax.install();
 
                     jasmine.Ajax
-                        .stubRequest(/ResultReport\/KenoResult.*/)
+                        .stubRequest(/ResultKenoReport\/Index.*/)
                         .andReturn({
                             'status': 200,
                             'contentType': 'application/json',
-                            'responseText': '{ "UserId": 0, "Url": "localhost" }'
+                            'responseText': '{ "UserId": 0, "Url": "localhost/keno" }'
                         });
 
                     Result.showKeno();
@@ -320,11 +320,11 @@
                 });
 
                 it("window.open should be called with correct parameter", function () {
-                    expect(window.open).toHaveBeenCalledWith("", '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
+                    expect(window.open).toHaveBeenCalledWith("localhost/keno", '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
                 });
 
                 it("url should be correct when ajax request is called", function () {
-                    expect(request.url.indexOf("ResultReport/KenoResult") > -1).toBe(true);
+                    expect(request.url.indexOf("ResultKenoReport/Index") > -1).toBe(true);
                 });
                 it("Site.blockUI should be called", function () {
                     expect(Site.blockUI).toHaveBeenCalled();
@@ -352,7 +352,7 @@
                         type: "POST",
                         cache: false,
                         data: "userid=0",
-                        url: "ResultReport/KenoResult"
+                        url: "ResultKenoReport/KeepSession"
                     };
 
                     Result.extendKenoSession();

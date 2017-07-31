@@ -3,15 +3,16 @@
 var result = (function () {
     "use strict";
 
-    var api = "ResultReport/Index";
-    var apiExcel = "ResultReport/ResultExcel?";
-    var apiSport = "ResultReport/GetSports";
-    var kenoResultApi = "ResultReport/KenoResult";
-    var ajaxRequest = null;
-    var ajaxFilterRequest = null;
-    var kenoAjaxRequest = null;
-    var kenoIntervalId = 0;
-    var kenoUserId = 0;
+    var DATA_API = "ResultReport/Index";
+    var EXCEL_API = "ResultReport/ResultExcel?";
+    var SPORT_API = "ResultReport/GetSports";
+    var KENO_RESULT_API = "ResultKenoReport/Index";
+    var KENO_RESULT_SESSION_API = "ResultKenoReport/KeepSession";
+    var _ajaxRequest = null;
+    var _ajaxFilterRequest = null;
+    var _kenoAjaxRequest = null;
+    var _kenoIntervalId = 0;
+    var _kenoUserId = 0;
     var param =
         {
             FromDate: "",
@@ -36,15 +37,14 @@ var result = (function () {
     var showKeno = function () {
         if ($("#submit-keno").length) {
             $("#submit-keno").click(function () {
-                var kenoWindow = window.open("", '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
                 var option = {
                     type: "GET",
                     cache: false,
-                    url: Site.resolveClientUrl(kenoResultApi),
+                    url: Site.resolveClientUrl(KENO_RESULT_API),
                     success: function (response) {
-                        kenoUserId = response.UserId;
-                        kenoWindow.location = response.Url;
-                        clearInterval(kenoIntervalId);
+                        _kenoUserId = response.UserId;
+                        window.open(response.Url, '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
+                        clearInterval(_kenoIntervalId);
                         extendKenoSession();
                     },
                     beforeSend: function () {
@@ -54,25 +54,25 @@ var result = (function () {
                         Site.unBlockUI();
                     }
                 };
-                if (kenoAjaxRequest != null) {
-                    kenoAjaxRequest.abort();
+                if (_kenoAjaxRequest != null) {
+                    _kenoAjaxRequest.abort();
                 }
-                kenoAjaxRequest = $.ajax(option);
+                _kenoAjaxRequest = $.ajax(option);
             });
         }
     };
     var extendKenoSession = function () {
-        kenoIntervalId = setInterval(function () {
+        _kenoIntervalId = setInterval(function () {
             var option = {
                 type: "POST",
                 cache: false,
-                data: "userid=" + kenoUserId,
-                url: Site.resolveClientUrl(kenoResultApi)
+                data: "userid=" + _kenoUserId,
+                url: Site.resolveClientUrl(KENO_RESULT_SESSION_API)
             };
-            if (kenoAjaxRequest != null) {
-                kenoAjaxRequest.abort();
+            if (_kenoAjaxRequest != null) {
+                _kenoAjaxRequest.abort();
             }
-            kenoAjaxRequest = $.ajax(option);
+            _kenoAjaxRequest = $.ajax(option);
         }, 6000);
     };
     var getData = function () {
@@ -120,7 +120,7 @@ var result = (function () {
         }
     };
     var getFilter = function () {
-        var url = Site.resolveClientUrl(apiSport);
+        var url = Site.resolveClientUrl(SPORT_API);
         var option = {
             type: "POST",
             dataType: "json",
@@ -142,16 +142,16 @@ var result = (function () {
             complete: function () {
             }
         };
-        if (ajaxFilterRequest != null) {
-            ajaxFilterRequest.abort();
+        if (_ajaxFilterRequest != null) {
+            _ajaxFilterRequest.abort();
         }
-        if (ajaxRequest != null) {
-            ajaxRequest.abort();
+        if (_ajaxRequest != null) {
+            _ajaxRequest.abort();
         }
-        ajaxFilterRequest = $.ajax(option);
+        _ajaxFilterRequest = $.ajax(option);
     };
     var exportExcel = function () {
-        var url = Site.resolveClientUrl(apiExcel);
+        var url = Site.resolveClientUrl(EXCEL_API);
         url += "FromDate=" + param.FromDate;
         url += "&ToDate=" + param.ToDate;
         url += "&IsOutRight=" + param.IsOutRight;
@@ -166,7 +166,7 @@ var result = (function () {
         $('#iframe').attr('src', "");
     };
     var getReportData = function () {
-        var url = Site.resolveClientUrl(api);
+        var url = Site.resolveClientUrl(DATA_API);
         var option = {
             type: "POST",
             cache: false,
@@ -189,10 +189,10 @@ var result = (function () {
                 Site.unBlockUI();
             }
         };
-        if (ajaxRequest != null) {
-            ajaxRequest.abort();
+        if (_ajaxRequest != null) {
+            _ajaxRequest.abort();
         }
-        ajaxRequest = $.ajax(option);
+        _ajaxRequest = $.ajax(option);
     };
 
     return {

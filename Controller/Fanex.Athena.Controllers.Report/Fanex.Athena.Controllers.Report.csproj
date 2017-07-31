@@ -209,6 +209,7 @@
     <Compile Include="MicrogamingWinlossReportController.cs" />
     <Compile Include="PlatformWinLossReportController.cs" />
     <Compile Include="RacingCommissionReportController.cs" />
+    <Compile Include="ResultKenoReportController.cs" />
     <Compile Include="ResultReportController.cs" />
     <Compile Include="RNGCasino\HandHistoryController.cs" />
     <Compile Include="SettledMatchCountReportController.cs" />

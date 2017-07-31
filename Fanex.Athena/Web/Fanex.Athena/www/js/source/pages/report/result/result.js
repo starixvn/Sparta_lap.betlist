@@ -1,10 +1,11 @@
 ﻿"use strict";
 define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "common/popup", "components/scrollablegrid", "extensions/jquery.extension"],
     function ($, Site, DatePicker, Popup, GridHelper) {
-        var api = "ResultReport/Index";
-        var apiExcel = "ResultReport/ResultExcel?";
-        var apiSport = "ResultReport/GetSports";
-        var kenoResultApi = "ResultReport/KenoResult";
+        var DATA_API = "ResultReport/Index";
+        var EXCEL_API = "ResultReport/ResultExcel?";
+        var SPORT_API = "ResultReport/GetSports";
+        var KENO_RESULT_API = "ResultKenoReport/Index";
+        var KENO_RESULT_SESSION_API = "ResultKenoReport/KeepSession";
         var ajaxRequest = null;
         var ajaxFilterRequest = null;
         var kenoAjaxRequest = null;
@@ -149,14 +150,13 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
             },
 
             showKeno: function () {
-                var kenoWindow = window.open("", '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
                 var option = {
                     type: "GET",
                     cache: false,
-                    url: Site.resolveClientUrl(kenoResultApi),
+                    url: Site.resolveClientUrl(KENO_RESULT_API),
                     success: function (response) {
                         kenoUserId = response.UserId;
-                        kenoWindow.location = response.Url;
+                        window.open(response.Url, '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
                         clearInterval(kenoIntervalId);
                         _me.extendKenoSession();
                     },
@@ -177,7 +177,7 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                         type: "POST",
                         cache: false,
                         data: "userid=" + kenoUserId,
-                        url: Site.resolveClientUrl(kenoResultApi)
+                        url: Site.resolveClientUrl(KENO_RESULT_SESSION_API)
                     };
                     _me.stopAjaxRequest(kenoAjaxRequest);
                     kenoAjaxRequest = $.ajax(option);
@@ -193,7 +193,7 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
             },
 
             exportExcel: function () {
-                var url = Site.resolveClientUrl(apiExcel);
+                var url = Site.resolveClientUrl(EXCEL_API);
                 url += "FromDate=" + param.FromDate;
                 url += "&ToDate=" + param.ToDate;
                 url += "&IsOutRight=" + param.IsOutRight;
@@ -205,7 +205,7 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
             },
 
             getFilter: function () {
-                var url = Site.resolveClientUrl(apiSport);
+                var url = Site.resolveClientUrl(SPORT_API);
                 var option = {
                     type: "POST",
                     dataType: "json",
@@ -231,7 +231,7 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
             },
 
             getReportData: function () {
-                var url = Site.resolveClientUrl(api);
+                var url = Site.resolveClientUrl(DATA_API);
                 var option = {
                     type: "POST",
                     cache: false,
