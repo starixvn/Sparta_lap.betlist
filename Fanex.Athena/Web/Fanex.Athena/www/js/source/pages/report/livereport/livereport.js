@@ -25,12 +25,6 @@
                 }
             });
 
-            /*back button*/
-            /*-affect the action excel*/
-            window.onbeforeunload = function () {
-                $("#ProductCode").val("");
-            };
-
             $("body").on("click", ".product-detail-link", function () {
                 viewProductDetail(this);
             });
@@ -99,6 +93,10 @@
             var data = $(target).attr("data-drill-down");
             var jsonData = $.parseJSON(data);
             var productCode = $("#ProductCode").val();
+            // after users back from match list, 
+            // the report does not show detailed data, 
+            // so remove product code to not show detailed data in EXPORT EXCEL
+            $("#ProductCode").val("");
             var productOptions = Helper.getMatchListProductOption(jsonData.SportId, productCode);
             var urlMap = {
                 Key101: "LiveReportBetList/MixParlay?bettype=9",

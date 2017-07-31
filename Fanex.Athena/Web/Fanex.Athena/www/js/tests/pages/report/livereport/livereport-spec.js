@@ -60,18 +60,6 @@
             });
         });
 
-        describe("call window.onbeforeunload", function () {
-            it("#ProductCode should has empty value", function () {
-                setFixtures('<input id="ProductCode" value="abc" />');
-
-                LiveReport.initialize();
-                window.onbeforeunload();
-                var result = $("#ProductCode").val();
-
-                expect(result).toBe("");
-            });
-        });
-
         describe("Export excel", function () {
             var spyEvent;
             beforeEach(function () {

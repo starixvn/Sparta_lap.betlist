@@ -65,7 +65,6 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
 
-            var isExportedExcel = metaModel.IsExportExcel || Request.Form["exporttoexcel.x"] != null;
             var balance = BalanceUpService.BalanceUpInfo;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
@@ -83,7 +82,7 @@ namespace Fanex.Athena.Controllers.Report
                 MainResult = liveReportService.GetLiveReportSummary(metaModel)
             };
 
-            return isExportedExcel
+            return metaModel.IsExportExcel
                        ? Excel(model)
                        : View("~/Views/Report/LiveReport/Main.cshtml", model);
         }
