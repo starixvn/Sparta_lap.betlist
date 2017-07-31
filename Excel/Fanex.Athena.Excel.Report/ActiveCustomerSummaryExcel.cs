@@ -38,10 +38,10 @@ namespace Fanex.Athena.Excel.Report
             Product.AGC, Product.MGCLC, Product.CB, Product.MGCRNG, Product.AB, Product.VB, Product.FW, Product.VS2, Product.LT
         };
 
-        private readonly IList<ActiveCustomer> _activeCustomerList;
+        private readonly IEnumerable<ActiveCustomer> _activeCustomerList;
 
         private readonly ActiveCustomerMetaModel _metaModel;
-        private readonly IList<ProductOption> _allProductOptions;
+        private readonly IEnumerable<ProductOption> _allProductOptions;
         private readonly int _totalCustomer;
         private readonly IList<int> _hiddenColumnIndexes = new List<int>();
 
@@ -61,9 +61,9 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignData()
         {
-            int numOfDataRow = _activeCustomerList.Count;
+            var numOfDataRow = _activeCustomerList.Count();
 
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
             AssignTitle(sheet);
@@ -109,21 +109,22 @@ namespace Fanex.Athena.Excel.Report
         protected override void AssignSheetData(ISheet sheet)
         {
             int index;
-            var rowCount = _activeCustomerList.Count;
+            var rowCount = _activeCustomerList.Count();
 
             for (index = 0; index < rowCount; index++)
             {
-                var activeCustomer = _activeCustomerList[index];
+                var activeCustomer = _activeCustomerList.ElementAt(index);
 
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
 
                 row.Cells[ColumnDate].SetCellValue(activeCustomer.TransactionDate.ToString("MM/yyyy"));
                 row.Cells[ColumnTotalTransaction].SetCellValue(activeCustomer.TotalCustomer);
-                for (int i = 0; i < _allProductOptions.Count; i++)
+                for (int i = 0; i < _allProductOptions.Count(); i++)
                 {
-                    if (_allProductOptions[i].Status)
+                    var productOption = _allProductOptions.ElementAt(i);
+                    if (productOption.Status)
                     {
-                        row.Cells[ColumnFirstProduct + i].SetCellValue(activeCustomer.CustomerCount[_allProductOptions[i].Code]);
+                        row.Cells[ColumnFirstProduct + i].SetCellValue(activeCustomer.CustomerCount[productOption.Code]);
                     }
                     else
                     {
@@ -154,7 +155,7 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        protected IList<ProductOption> GetAllProductOptions(IEnumerable<ProductOption> products)
+        protected IEnumerable<ProductOption> GetAllProductOptions(IEnumerable<ProductOption> products)
         {
             var result = new List<ProductOption>();
 
