@@ -1,18 +1,9 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="IKenoApi.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.Service.Report.Keno.Interfaces
+﻿namespace Fanex.Athena.Service.Report.Result.Interfaces
 {
     using System;
     using Fanex.Athena.Model.Report.DTO.Keno;
     using Fanex.Athena.Model.Report.MetaModel.Keno;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public interface IKenoApi
     {
         KenoAuthorization Authorize(KenoResultMetalModel setting, string userId);

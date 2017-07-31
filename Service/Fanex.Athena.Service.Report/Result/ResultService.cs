@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="ResultService.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.Service.Report
+﻿namespace Fanex.Athena.Service.Report.Result
 {
     using System;
     using System.Collections.Generic;
@@ -14,11 +8,11 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.MetaModel;
-    using Fanex.Athena.Service.Report.Interfaces;
     using Fanex.Result.Core.LiveCasino.DTO;
     using Fanex.Result.Core.NumberGame.DTO;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
+    using Service.Result.Interfaces;
 
     [System.CLSCompliant(false)]
     public class ResultService : IResultService

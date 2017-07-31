@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="IResultService.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.Service.Report.Interfaces
+﻿namespace Fanex.Athena.Service.Result.Interfaces
 {
     using System;
     using System.Collections.Generic;

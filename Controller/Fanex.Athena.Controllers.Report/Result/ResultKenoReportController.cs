@@ -1,11 +1,11 @@
-﻿namespace Fanex.Athena.Controllers.Report
+﻿namespace Fanex.Athena.Controllers.Report.Result
 {
     using System;
     using System.Web.Mvc;
     using Logging;
     using Model.Report.MetaModel.Keno;
-    using Service.Report.Keno;
-    using Service.Report.Keno.Interfaces;
+    using Service.Report.Result;
+    using Service.Report.Result.Interfaces;
     using Web.ActionFilter;
 
     [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]

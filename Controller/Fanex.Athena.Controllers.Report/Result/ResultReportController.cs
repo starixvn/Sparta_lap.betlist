@@ -1,10 +1,4 @@
-// -----------------------------------------------------------------------
-// <copyright file="ReportController.ResultPage.cs" company="">
-// ReportController copyright.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.Controllers.Report
+namespace Fanex.Athena.Controllers.Report.Result
 {
     using System;
     using System.Collections.Generic;
@@ -21,21 +15,19 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Service.Casino;
     using Fanex.Athena.Service.Casino.Interfaces;
-    using Fanex.Athena.Service.Report;
-    using Fanex.Athena.Service.Report.Interfaces;
-    using Fanex.Athena.Service.Report.Keno;
-    using Fanex.Athena.Service.Report.Keno.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Result.Core;
+    using Fanex.Result.Core.AllBetCasino;
     using Fanex.Result.Core.Base;
+    using Fanex.Result.Core.GlobalGaming;
+    using Fanex.Result.Core.GlobalGaming.DTO;
     using Fanex.Result.Core.MicroGaming;
     using Fanex.Result.Core.MicroGaming.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
+    using Fanex.Result.Core.Voidbridge;
     using Resources;
-    using Result.Core.AllBetCasino;
-    using Result.Core.GlobalGaming;
-    using Result.Core.GlobalGaming.DTO;
-    using Result.Core.Voidbridge;
+    using Service.Report.Result;
+    using Service.Result.Interfaces;
 
     public class ResultReportController : ReportBaseController
     {
@@ -254,7 +246,7 @@ namespace Fanex.Athena.Controllers.Report
                 detailedData,
                 new ResultSetting
                 {
-                    SportType = (Result.Core.Base.SportType)sportType,
+                    SportType = (Fanex.Result.Core.Base.SportType)sportType,
                     LanguageCode = SessionService.UserSession.Language
                 });
 

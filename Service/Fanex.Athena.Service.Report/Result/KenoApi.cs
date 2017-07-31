@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="KenoApi.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.Service.Report.Keno
+﻿namespace Fanex.Athena.Service.Report.Result
 {
     using System;
     using System.Net;
@@ -13,11 +7,8 @@ namespace Fanex.Athena.Service.Report.Keno
     using System.Web.Script.Serialization;
     using Fanex.Athena.Model.Report.DTO.Keno;
     using Fanex.Athena.Service.Core.Exception;
-    using Fanex.Athena.Service.Report.Keno.Interfaces;
+    using Interfaces;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class KenoApi : IKenoApi
     {
         private const string SERVICENAME = "KenoApi";
