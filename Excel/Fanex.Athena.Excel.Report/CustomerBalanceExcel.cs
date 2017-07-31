@@ -11,7 +11,7 @@ namespace Fanex.Athena.Excel.Report
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Model.Report.DTO;
-    using Model.Report.ViewModel;
+    using Model.Report.MetaModel;
     using NPOI.SS.UserModel;
     using Resources;
 
@@ -46,22 +46,21 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTotalTemplate = 4;
 
         private readonly IList<CustBalance> _exportData;
-        private readonly CustomerBalanceViewModel _model;
-        private readonly string _sortBy;
+        private readonly CustomerBalanceMetaModel _model;
         private readonly CustBalance _totalList;
 
         public CustomerBalanceExcel(
                                     string templatePath,
-                                    CustomerBalanceViewModel model,
+                                    CustomerBalanceMetaModel model,
+                                    IList<CustBalance> exportData,
+                                    CustBalance totalList,
                                     ShowingOption showingOption,
-                                    ConvertingOption convertingOption,
-                                    string sortBy)
+                                    ConvertingOption convertingOption)
             : base(templatePath, showingOption, convertingOption)
         {
             _model = model;
-            _sortBy = sortBy;
-            _exportData = model.DataList;
-            _totalList = model.TotalData;
+            _exportData = exportData;
+            _totalList = totalList;
             HeaderTextList = new List<string>
             {
                 "#",
@@ -209,12 +208,11 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignTitle(ISheet sheet)
         {
-            string pattern = ViewResources.CustomerBalance + ", {0} - {1}," + ViewResources.SortBy + " {2}, {3}";
+            string pattern = ViewResources.CustomerBalance + ", {0} - {1}, {2}";
             ReportTitle = string.Format(
                                         pattern,
-                                        _model.Param.FromDate.ToString("MM/dd/yyyy"),
-                                        _model.Param.ToDate.ToString("MM/dd/yyyy"),
-                                        _sortBy,
+                                        _model.FromDate.ToString("MM/dd/yyyy"),
+                                        _model.ToDate.ToString("MM/dd/yyyy"),
                                         GetTitleCurrencyName());
 
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);

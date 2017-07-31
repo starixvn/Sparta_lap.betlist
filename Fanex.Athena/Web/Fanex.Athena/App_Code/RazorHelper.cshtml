@@ -140,11 +140,11 @@ if (pagingVisible)
         </div>
 }
 }
-@helper RenderProductFilter(IEnumerable<ProductOption> productOptions, int LabelSpan)
+@helper RenderProductFilter(IEnumerable<ProductOption> productOptions, int LabelSpan, bool isNewLine = true)
 {
 var Url = new UrlHelper(Context.Request.RequestContext);
 var i = 0;
-    <div class="grid_@(LabelSpan) filter-label new-line">
+    <div class="grid_@(LabelSpan) filter-label @(isNewLine ? "new-line" : null)">
         <label>
             @ViewResources.Product
         </label>

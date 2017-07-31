@@ -36,9 +36,11 @@ namespace Fanex.Athena.DataAccess.Report
                 var result = new List<CustBalance>();
                 using (var reader = db.ExecuteReader())
                 {
+                    var index = 0;
                     while (reader.Read())
                     {
-                        result.Add(ReadDataItem(reader));
+                        result.Add(ReadDataItem(reader, index));
+                        index++;
                     }
 
                     if (result.Count > 0 && reader.NextResult() && reader.Read())
@@ -52,10 +54,11 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private static CustBalance ReadDataItem(IDataReader reader)
+        private static CustBalance ReadDataItem(IDataReader reader, int index)
         {
             return new CustBalance
             {
+                Index = index,
                 ExternalId = reader.ToString("nickname"),
                 SystemId = reader.ToString("username"),
                 OpeningBalance = reader.ToDecimal("openingbalance"),

@@ -16,12 +16,6 @@ namespace Fanex.Athena.Model.Report.ViewModel
     /// </summary>
     public class CustomerBalanceViewModel : BaseViewModel
     {
-        public bool IsValidTimeRequest { get; set; }
-
-        public IList<CustBalance> DataList { get; set; }
-
-        public CustBalance TotalData { get; set; }
-
         public CustomerBalanceMetaModel Param { get; set; }
     }
 }

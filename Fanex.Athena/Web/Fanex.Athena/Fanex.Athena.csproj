@@ -743,6 +743,7 @@
     <Content Include="Content\Plugin\ColorPicker\images\transparent.png" />
     <Content Include="Content\Plugin\ColorPicker\images\checked-light.png" />
     <Content Include="Content\Report\cashoutwinloss.css" />
+    <Content Include="Content\Report\customertbalance.css" />
     <Content Include="Content\Utility\images\UM.png" />
     <Content Include="Content\Utility\UM.css" />
     <Content Include="jasmine-specs\BetList\lastbet.filter-test.js" />
@@ -757,6 +758,7 @@
     <Content Include="Scripts\Customer\CustomerList\customerlist.custoption.js" />
     <Content Include="Scripts\Report\cashoutwinloss.js" />
     <Content Include="Scripts\Report\cashoutwinloss.option.js" />
+    <Content Include="Scripts\Report\customerbalance.option.js" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
     <Content Include="www\assets\images\15.jpg" />
     <Content Include="www\assets\images\lap-restriction-page.png" />
@@ -5080,7 +5082,6 @@
     <Content Include="Content\Plugin\Note\note.css" />
     <Content Include="Content\Report\customerpendingfunds.css" />
     <Content Include="Content\Report\customerwinloss.css" />
-    <Content Include="Content\Report\customertbalance.css" />
     <Content Include="Content\Report\customerturnover.css" />
     <Content Include="Content\Report\dailyracingwinloss.css" />
     <Content Include="Content\Report\images\arrow-down.png" />

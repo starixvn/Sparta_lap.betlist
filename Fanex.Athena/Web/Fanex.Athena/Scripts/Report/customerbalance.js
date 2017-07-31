@@ -1,46 +1,130 @@
-﻿/*global Site, ProductListHelper */
+﻿/*global Site, ProductListHelper, CustomerBalanceOption */
 /// <reference path="/@JSense.js" />
-var CustBalance = (function ($) {
+var CustomerBalance = (function ($) {
     "use strict";
+
+    var VALID_MONTH_RANGE = 2;
+    var FORM_SELECTOR = "#CustomerBalanceForm";
+    var GRID_ID = "ReportGrid";
+    var ajaxRequest = null;
+
+    function getPostData() {
+        return $(FORM_SELECTOR).serializeObject();
+    }
+
     return {
         resizeGrid: function () {
-            var $grid = $("#data-content");
-            if ($grid.length === 0) {
-                return;
-            }
-
-            var gridTop = $grid.offset().top;
-            var pagerHeight = $(".pagingContainer").height();
-            if (pagerHeight > 0) {
-                pagerHeight += 15;
-            }
-
-            var gridHeight = window.innerHeight - gridTop - $("#total-content").height() - pagerHeight - 30;
-            gridHeight = Math.max(120, gridHeight);
-            $grid.css("max-height", gridHeight);
+            var reportGrid = $("#" + GRID_ID);
+            //jqGridAdditional.resetLayout(reportGrid);
+            jqGridAdditional.resizeGrid();
         },
+
         initialize: function () {
             ProductListHelper.initProductList();
-            CustBalance.initEvent();
-            CustBalance.resizeGrid();
+            CustomerBalance.initEvent();
+            Site.setConstraintMonthRange(VALID_MONTH_RANGE, CustomerBalanceOption.urlExcelData);
             Site.addUserGuide({
                 resourceName: "CustomerBalance",
                 title: Site.getSingleResource("CustomerBalance")
             });
             Site.addFilterCollapseExpand();
         },
+
         initEvent: function () {
-            $("#data-content").scroll(function () {
-                $('#total-content').scrollLeft($('#data-content').scrollLeft());
-                $('#header-content').scrollLeft($('#data-content').scrollLeft());
+            $('#SubmitButton').click(function () {
+                $('#IsExportExcel').val(false);
+                CustomerBalance.submit();
+            });
+
+            $('#ExportToExcel').click(function () {
+                $('#IsExportExcel').val(true);
+                var mainForm = $(FORM_SELECTOR);
+                var url = Site.resolveClientUrl(CustomerBalanceOption.urlExcelData);
+                mainForm.attr("action", url);
+                mainForm.submit();
+                $('#IsExportExcel').val(false);
+                return false;
             });
         },
+
+        setReportTitle: function () {
+            var titlePattern = "{0}, {1} → {2}";
+            var sortByName = $("#OrderItem option:selected").text();
+
+            var title = $.format(titlePattern, Site.getSingleResource('CustomerBalance'), $("#FromDate").val().toString("M/dd/yyyy"), $("#ToDate").val().toString("M/dd/yyyy"));
+            $("div.report-title").html(title);
+        },
+
+        submit: function () {
+            Site.updateOriginalLicenseeOption();
+            var data = getPostData();
+
+            var option =
+            {
+                type: "POST",
+                data: data,
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                cache: false,
+                url: Site.resolveClientUrl(CustomerBalanceOption.urlData),
+                success: function (response) {
+                    CustomerBalance.bindData(response);
+                },
+                beforeSend: function () {
+                    Site.blockUI();
+                }
+            };
+
+            if (ajaxRequest != null) {
+                ajaxRequest.abort();
+            }
+
+            ajaxRequest = $.ajax(option);
+            return true;
+        },
+
+        bindData: function (response) {
+            jqGridAdditional.clearGrid(GRID_ID);
+
+            CustomerBalanceOption.hasCustomerComm = response.HasCustomerComm;
+            CustomerBalanceOption.isAllowBA = response.IsAllowBA;
+
+            var isEmpty = response == null ||
+                 $.isEmptyObject(response.Data) || response.Data.length === 0;
+
+            var gridOption = CustomerBalanceOption.getGridOption();
+            gridOption.data = response.Data;
+            gridOption.gridComplete = function () {
+                jqGridAdditional.gridComplete(this, gridOption, 1);
+
+                if (isEmpty) {
+                    jqGridAdditional.setNoInfo(gridOption.colModel);
+                }
+                else {
+                    jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
+                    jqGridAdditional.setGroupFooters(CustomerBalanceOption.totalColspan);
+                }
+
+                Site.unBlockUI();
+            };
+
+            CustomerBalance.setReportTitle();
+
+            gridOption.shrinkToFit = isEmpty;
+            var reportGrid = $("#" + GRID_ID);
+            reportGrid.jqGrid(gridOption);
+
+            CustomerBalanceOption.setGroupHeaderColumns(reportGrid);
+        },
+
         ajaxStart: function () {
             Site.blockUI();
         },
+
         ajaxComplete: function () {
             Site.unBlockUI();
         },
+
         checkIsValidTimeRequest: function () {
             var isShowWarningPopup = $('#IsValidTimeRequest').val() === 'False';
             if (isShowWarningPopup) {
@@ -54,13 +138,12 @@ var CustBalance = (function ($) {
 
 $(window).load(function () {
     "use strict";
-    CustBalance.initialize();
-    CustBalance.checkIsValidTimeRequest();
+    CustomerBalance.initialize();
 });
 
 $(window).resize(function () {
     "use strict";
-    CustBalance.resizeGrid();
+    CustomerBalance.resizeGrid();
 });
 
 $(window).unload(function () {
