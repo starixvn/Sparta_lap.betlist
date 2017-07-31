@@ -9,7 +9,6 @@ namespace Fanex.Athena.DataAccess.Core
     using System;
     using System.Data;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Common;
     using Fanex.Data;
 
@@ -18,13 +17,6 @@ namespace Fanex.Athena.DataAccess.Core
         protected BaseDataAccess()
         {
         }
-
-        protected BaseDataAccess(BalanceUp balanceUp)
-        {
-            this.BalanceUp = balanceUp;
-        }
-
-        public BalanceUp BalanceUp { get; set; }
 
         [CLSCompliant(false)]
         protected static void AddResultParam(IObjectDb db)

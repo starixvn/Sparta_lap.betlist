@@ -40,21 +40,17 @@ namespace Fanex.Athena.Controllers.Report
         {
             var total = new CustTurnover();
             var totalRow = 0;
-            IList<CustTurnover> data = new List<CustTurnover>();
 
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            if (metaModel.IsValid)
-            {
-                data = GetData(metaModel, out total, out totalRow);
-            }
+            var data = metaModel.IsValid ? GetData(metaModel, out total, out totalRow) : new List<CustTurnover>();
 
             return Json(new { Data = data, Total = total, TotalRow = totalRow });
         }
 
-        private IList<CustTurnover> GetData(CustomerTurnoverMetaModel metalModel, out CustTurnover totalData, out int totalRow)
+        private IEnumerable<CustTurnover> GetData(CustomerTurnoverMetaModel metalModel, out CustTurnover totalData, out int totalRow)
         {
             totalData = new CustTurnover();
             totalRow = 0;

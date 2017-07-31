@@ -6,8 +6,9 @@
 
 namespace Fanex.Athena.DataAccess.Report
 {
+    using System;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
+    using Data;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Utility;
@@ -18,31 +19,20 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class CustomerWinlossDataAccess : BaseDataAccess, ICustWinlossDataAccess
     {
+        private readonly BalanceUp _balanceUp;
+
         public CustomerWinlossDataAccess(BalanceUp balanceUp)
-            : base(balanceUp)
         {
+            _balanceUp = balanceUp;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public SortableList<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel, out CustomerWinLoss totalData, out int totalRows)
         {
             totalRows = 0;
             totalData = new CustomerWinLoss();
             using (var db = this.GetObjectDb("Lrf_Rpt_WinLoss"))
             {
-                db.AddInParameter("drawfilter", DbType.Int32, metaModel.DrawFilter);
-                db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-                db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-                db.AddInParameter("pagesize", DbType.Int32, metaModel.IsExportExcel ? metaModel.PageSizeExcel : metaModel.PageSize);
-                db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
-                db.AddInParameter("movebetsday", DbType.DateTime, BalanceUp.MoveBetsDay);
-                db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                foreach (var item in metaModel.ProductOptions)
-                {
-                    db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
-                }
+                AddParameters(db, metaModel, _balanceUp.MoveBetsDay);
 
                 using (var reader = db.ExecuteReader())
                 {
@@ -51,7 +41,6 @@ namespace Fanex.Athena.DataAccess.Report
                     {
                         result.Add(new CustomerWinLoss
                         {
-                            // Add data to CustBalance Item List
                             CustId = reader.ToInt("CustID"),
                             ExternalId = reader.ToString("nickname"),
                             SystemId = reader.ToString("username"),
@@ -70,29 +59,49 @@ namespace Fanex.Athena.DataAccess.Report
                         });
                     }
 
-                    if (result.Count > 0 && reader.NextResult())
+                    if (result.Count > 0 && reader.NextResult() && reader.Read())
                     {
-                        if (reader.Read())
-                        {
-                            totalData.Turnover = reader.ToDecimal("sumturnover" + metaModel.BaseCurrency);
-                            totalData.TotalTransaction = reader.ToInt("sumbetcount");
-                            totalData.MemberWL = reader.ToDecimal("summemberwinlost" + metaModel.BaseCurrency);
-                            totalData.PlayerComm = reader.ToDecimal("sumplayercomm" + metaModel.BaseCurrency);
-                            totalData.LicenseeWL = reader.ToDecimal("sumlicenseewl" + metaModel.BaseCurrency);
-                            totalData.BAComm = reader.ToDecimal("sumcommba" + metaModel.BaseCurrency);
-                            totalData.RacingRevenue = reader.ToDecimal("sumwinlossrb" + metaModel.BaseCurrency)
-                                + reader.ToDecimal("sumcommrb" + metaModel.BaseCurrency);
-                            totalData.AmtDueToBA = reader.ToDecimal("sumamtduetoba" + metaModel.BaseCurrency);
-                            totalData.AmtDueToRacing = reader.ToDecimal("sumamtduetorb" + metaModel.BaseCurrency);
-                            totalData.BetEffective = reader.ToDecimal("sumbeteffective" + metaModel.BaseCurrency);
-
-                            totalRows = reader.ToInt("TotalRows");
-                        }
+                        totalData = ReadTotalData(reader, metaModel.BaseCurrency);
+                        totalRows = reader.ToInt("TotalRows");
                     }
 
                     return result;
                 }
             }
+        }
+
+        private static void AddParameters(IObjectDb db, CustomerWinLossMetaModel metaModel, DateTime moveBetsDay)
+        {
+            db.AddInParameter("drawfilter", DbType.Int32, metaModel.DrawFilter);
+            db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
+            db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
+            db.AddInParameter("pagesize", DbType.Int32, metaModel.IsExportExcel ? metaModel.PageSizeExcel : metaModel.PageSize);
+            db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
+            db.AddInParameter("movebetsday", DbType.DateTime, moveBetsDay);
+            db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            foreach (var item in metaModel.ProductOptions)
+            {
+                db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
+            }
+        }
+
+        private static CustomerWinLoss ReadTotalData(IDataReader reader, string baseCurrency)
+        {
+            return new CustomerWinLoss
+            {
+                Turnover = reader.ToDecimal("sumturnover" + baseCurrency),
+                TotalTransaction = reader.ToInt("sumbetcount"),
+                MemberWL = reader.ToDecimal("summemberwinlost" + baseCurrency),
+                PlayerComm = reader.ToDecimal("sumplayercomm" + baseCurrency),
+                LicenseeWL = reader.ToDecimal("sumlicenseewl" + baseCurrency),
+                BAComm = reader.ToDecimal("sumcommba" + baseCurrency),
+                RacingRevenue = reader.ToDecimal("sumwinlossrb" + baseCurrency)
+                + reader.ToDecimal("sumcommrb" + baseCurrency),
+                AmtDueToBA = reader.ToDecimal("sumamtduetoba" + baseCurrency),
+                AmtDueToRacing = reader.ToDecimal("sumamtduetorb" + baseCurrency),
+                BetEffective = reader.ToDecimal("sumbeteffective" + baseCurrency)
+            };
         }
     }
 }

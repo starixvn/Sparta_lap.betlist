@@ -18,7 +18,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
@@ -27,11 +26,6 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class AgCasinoBalanceDataAccess : BaseDataAccess, IAgCasinoBalanceDataAccess
     {
-        public AgCasinoBalanceDataAccess(BalanceUp balanceUp)
-            : base(balanceUp)
-        {
-        }
-
         public SortableList<AgCasinoBalance> GetSummaryWinloss(AgCasinoBalanceMetaModel metaModel, out IDictionary<string, AgCasinoBalance> summaryTotal)
         {
             var uspName = "Lrf_Rpt_AGCasinoBalance";

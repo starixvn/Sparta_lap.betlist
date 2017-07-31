@@ -8,7 +8,6 @@ namespace Fanex.Athena.DataAccess.Report
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using Extension.Helper;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
@@ -42,23 +41,11 @@ namespace Fanex.Athena.DataAccess.Report
             return GetData("Lrf_Rpt_ColossusBetsWinloss_detail", metaModel, out summaryTotal);
         }
 
-        #region Private
-
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private static SortableList<ColossusBetWinLoss> ReadData(
             IDataReader reader,
             ThirdPartyWinLossMetaModel metaModel,
             out IDictionary<string, ColossusBetWinLoss> summaryTotal)
         {
-            var result = new SortableList<ColossusBetWinLoss>();
-
-            summaryTotal = new Dictionary<string, ColossusBetWinLoss>();
-            foreach (var currency in SystemConstants.BaseCurrencyList)
-            {
-                summaryTotal.Add(currency, new ColossusBetWinLoss());
-            }
-
             var turnoverColumn = "turnover" + metaModel.BaseCurrency;
             var memberWinningColumn = "winningprize" + metaModel.BaseCurrency;
             var cashOutColumn = "cashoutamt" + metaModel.BaseCurrency;
@@ -73,6 +60,15 @@ namespace Fanex.Athena.DataAccess.Report
             var index = 1;
             var isFirstLevel = metaModel.DrillDownLevel == 0;
             var isMonthly = metaModel.ReportBy == ReportByType.Monthly;
+
+            var result = new SortableList<ColossusBetWinLoss>();
+
+            summaryTotal = new Dictionary<string, ColossusBetWinLoss>();
+            foreach (var currency in SystemConstants.BaseCurrencyList)
+            {
+                summaryTotal.Add(currency, new ColossusBetWinLoss());
+            }
+
             while (reader.Read())
             {
                 var item = new ColossusBetWinLoss
@@ -94,19 +90,24 @@ namespace Fanex.Athena.DataAccess.Report
                 };
 
                 result.Add(item);
-                foreach (var currency in SystemConstants.BaseCurrencyList)
-                {
-                    summaryTotal[currency].TotalTransaction += item.TotalTransaction;
-                    summaryTotal[currency].TurnOver += reader.ToDecimal("turnover" + currency);
-                    summaryTotal[currency].MemberWinning += reader.ToDecimal("winningprize" + currency);
-                    summaryTotal[currency].CashOut += reader.ToDecimal("cashoutamt" + currency);
-                    summaryTotal[currency].CashOutShare += reader.ToDecimal("cashinamt" + currency);
-                    summaryTotal[currency].CommissionShare += reader.ToDecimal("commamt" + currency);
-                    summaryTotal[currency].GrandPrize += reader.ToDecimal("grandamt" + currency);
-                }
+                ReadSummaryTotal(reader, summaryTotal);
             }
 
             return result;
+        }
+
+        private static void ReadSummaryTotal(IDataReader reader, IDictionary<string, ColossusBetWinLoss> summaryTotal)
+        {
+            foreach (var currency in SystemConstants.BaseCurrencyList)
+            {
+                summaryTotal[currency].TotalTransaction += reader.ToInt("totaltrans");
+                summaryTotal[currency].TurnOver += reader.ToDecimal("turnover" + currency);
+                summaryTotal[currency].MemberWinning += reader.ToDecimal("winningprize" + currency);
+                summaryTotal[currency].CashOut += reader.ToDecimal("cashoutamt" + currency);
+                summaryTotal[currency].CashOutShare += reader.ToDecimal("cashinamt" + currency);
+                summaryTotal[currency].CommissionShare += reader.ToDecimal("commamt" + currency);
+                summaryTotal[currency].GrandPrize += reader.ToDecimal("grandamt" + currency);
+            }
         }
 
         private SortableList<ColossusBetWinLoss> GetData(string spname, ThirdPartyWinLossMetaModel metaModel, out IDictionary<string, ColossusBetWinLoss> summaryTotal)
@@ -137,7 +138,5 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
         }
-
-        #endregion Private
     }
 }

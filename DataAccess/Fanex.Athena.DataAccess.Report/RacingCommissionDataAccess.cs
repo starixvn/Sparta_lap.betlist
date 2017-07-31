@@ -20,9 +20,11 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class RacingCommissionDataAccess : BaseDataAccess, IRacingCommissionDataAccess
     {
+        private readonly BalanceUp _balanceUp;
+
         public RacingCommissionDataAccess(BalanceUp balanceUp)
-            : base(balanceUp)
         {
+            _balanceUp = balanceUp;
         }
 
         public SortableList<RacingCommission> GetDataList(RacingCommissionMetaModel metaModel, ref RacingCommission total)
@@ -33,7 +35,7 @@ namespace Fanex.Athena.DataAccess.Report
                 AgentList = metaModel.AgentListXml,
                 metaModel.FromDate,
                 metaModel.ToDate,
-                BalanceUp.MoveBetsDay,
+                _balanceUp.MoveBetsDay,
                 metaModel.PageSize,
                 metaModel.PageIndex
             };

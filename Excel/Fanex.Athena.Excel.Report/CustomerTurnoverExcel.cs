@@ -41,14 +41,14 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTableHeaderTemplate = 1;
         private const int RowTotalTemplate = 4;
 
-        private readonly IList<CustTurnover> _customerTurnoverList;
+        private readonly IEnumerable<CustTurnover> _customerTurnoverList;
         private readonly string _formatDateTime;
         private readonly CustTurnover _total;
 
         public CustomerTurnoverExcel(
                                      string templatePath,
                                      ShowingOption showingOption,
-                                     IList<CustTurnover> customerTurnoverList,
+                                     IEnumerable<CustTurnover> customerTurnoverList,
                                      CustTurnover total,
                                      string formatDateTime)
             : base(templatePath, showingOption, new ConvertingOption())
@@ -77,7 +77,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         protected override void AssignData()
         {
-            int numOfDataRow = _customerTurnoverList.Count;
+            int numOfDataRow = _customerTurnoverList.Count();
             ISheet sheet;
 
             if (numOfDataRow == 0)

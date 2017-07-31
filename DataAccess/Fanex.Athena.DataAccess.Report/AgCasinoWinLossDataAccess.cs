@@ -24,11 +24,6 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class AgCasinoWinLossDataAccess : BaseDataAccess, IAgCasinoWinLossDataAccess
     {
-        public AgCasinoWinLossDataAccess(BalanceUp balanceUp)
-            : base(balanceUp)
-        {
-        }
-
         public SortableList<AgCasinoWinLoss> GetSummaryWinloss(AgCasinoWinLossMetaModel metaModel, out IDictionary<string, AgCasinoWinLoss> summaryTotal)
         {
             var uspName = "Lrf_Rpt_AGCasinoWinloss";

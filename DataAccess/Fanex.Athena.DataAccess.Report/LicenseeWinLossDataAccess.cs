@@ -31,9 +31,11 @@ namespace Fanex.Athena.DataAccess.Report
         private static readonly string[] IgnoredLicenseeWLProducts = new string[] { Product.BA, Product.RB };
         private static readonly string[] IgnoredTurnoverProducts = new string[] { Product.BT };
 
+        private readonly BalanceUp _balanceUp;
+
         public LicenseeWinLossDataAccess(BalanceUp balanceUp)
-            : base(balanceUp)
         {
+            _balanceUp = balanceUp;
         }
 
         public SortableList<LicenseeWinLoss> GetSummaryWinloss(LicenseeWinLossMetaModel metaModel, out IDictionary<string, LicenseeWinLoss> summaryTotal)
@@ -268,7 +270,7 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
             db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);
             db.AddInParameter("drawfilter", DbType.Int32, metaModel.DrawFilter);
-            db.AddInParameter("movebetsday", DbType.DateTime, this.BalanceUp.MoveBetsDay);
+            db.AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
 
             foreach (var product in metaModel.ProductOptions)
             {

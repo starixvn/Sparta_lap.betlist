@@ -120,7 +120,7 @@ namespace Fanex.Athena.Controllers.Report
             return new ExcelResult(excel.Workbook, FileName);
         }
 
-        private IList<CustTurnover> GetData(CustomerTurnoverMetaModel metalModel, out CustTurnover totalData, out int totalRow)
+        private IEnumerable<CustTurnover> GetData(CustomerTurnoverMetaModel metalModel, out CustTurnover totalData, out int totalRow)
         {
             totalData = new CustTurnover();
             totalRow = 0;

@@ -29,10 +29,10 @@ namespace Fanex.Athena.DataAccess.Report
 
         public SortableList<ActiveCustomer> GetActiveCustomers(ActiveCustomerMetaModel metaModel, out int totalCustomer)
         {
-            var uspName = "Lrf_Rpt_ActiveMember";
+            const string UspName = "Lrf_Rpt_ActiveMember";
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     UpdateUspParams(db, metaModel);
                     db.AddOutParameter("TotalActive", DbType.Int32, 10);
@@ -50,7 +50,7 @@ namespace Fanex.Athena.DataAccess.Report
             catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, uspName, metaModel);
+                throw new DataAccessException(sqlException.Message, UspName, metaModel);
             }
         }
 

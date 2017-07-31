@@ -21,9 +21,11 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class CustomerTurnoverDataAccess : BaseDataAccess, ICustTurnoverDataAccess
     {
+        private readonly BalanceUp _balanceUp;
+
         public CustomerTurnoverDataAccess(BalanceUp balanceUp)
-            : base(balanceUp)
         {
+            _balanceUp = balanceUp;
         }
 
         public IList<CustTurnover> GetDataList(CustomerTurnoverMetaModel metaModel, string languageCode, out CustTurnover total, out int totalRow)
@@ -59,18 +61,15 @@ namespace Fanex.Athena.DataAccess.Report
                         });
                     }
 
-                    if (reader.NextResult())
+                    if (reader.NextResult() && reader.Read())
                     {
-                        if (reader.Read())
-                        {
-                            total.TotalTransactions = reader.ToInt("SumBetCount");
-                            total.Turnover = reader.ToDecimal("SumTurnover");
-                            total.TotalTurnover = reader.ToDecimal("SumTurnover");
-                            total.CustomerWinLoss = reader.ToDecimal("SumWinlost");
-                            total.CustomerComm = reader.ToDecimal("SumComm");
-                            total.EffectiveBettingValue = reader.ToDecimal("SumBetEffective");
-                            totalRow = reader.ToInt("TotalRows");
-                        }
+                        total.TotalTransactions = reader.ToInt("SumBetCount");
+                        total.Turnover = reader.ToDecimal("SumTurnover");
+                        total.TotalTurnover = reader.ToDecimal("SumTurnover");
+                        total.CustomerWinLoss = reader.ToDecimal("SumWinlost");
+                        total.CustomerComm = reader.ToDecimal("SumComm");
+                        total.EffectiveBettingValue = reader.ToDecimal("SumBetEffective");
+                        totalRow = reader.ToInt("TotalRows");
                     }
 
                     return result;
@@ -88,8 +87,8 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("odds", DbType.Decimal, metaModel.Odds);
             db.AddInParameter("reportby", DbType.Int32, metaModel.ReportBy);
             db.AddInParameter("username", DbType.String, string.IsNullOrWhiteSpace(metaModel.Username) ? null : metaModel.Username);
-            db.AddInParameter("movebetsday", DbType.DateTime, BalanceUp.MoveBetsDay);
-            db.AddInParameter("balanceupday", DbType.DateTime, BalanceUp.BalanceUpDay);
+            db.AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
+            db.AddInParameter("balanceupday", DbType.DateTime, _balanceUp.BalanceUpDay);
             db.AddInParameter("Langkey", DbType.String, languageCode);
             db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);

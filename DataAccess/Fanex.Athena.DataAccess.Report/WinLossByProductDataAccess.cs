@@ -27,9 +27,11 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class WinLossByProductDataAccess : BaseDataAccess, IWinLossByProductDataAccess
     {
+        private readonly BalanceUp _balanceUp;
+
         public WinLossByProductDataAccess(BalanceUp balanceUp)
-            : base(balanceUp)
         {
+            _balanceUp = balanceUp;
         }
 
         public IList<WinLossByProduct> GetWinlossByProducts(
@@ -212,7 +214,7 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate.Date : metaModel.ToDate.Date);
             db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);
             db.AddInParameter("drawfilter", DbType.Int32, metaModel.DrawFilter);
-            db.AddInParameter("movebetsday", DbType.DateTime, this.BalanceUp.MoveBetsDay);
+            db.AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
 
             foreach (var product in metaModel.ProductOptions)
             {

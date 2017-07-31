@@ -22,9 +22,11 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class PlatformWinLossDataAccess : BaseDataAccess, IPlatformWinLossDataAccess
     {
+        private readonly BalanceUp _balanceUp;
+
         public PlatformWinLossDataAccess(BalanceUp balanceUp)
-            : base(balanceUp)
         {
+            _balanceUp = balanceUp;
         }
 
         public IList<PlatformWinLossSummary> GetSummaryData(PlatformWinLossMetaModel metaModel, out PlatformWinLossSummary totalData)
@@ -210,7 +212,7 @@ namespace Fanex.Athena.DataAccess.Report
         private void UpdateUspParams(IObjectDb db, PlatformWinLossMetaModel metaModel)
         {
             db.AddInParameter("PlatformType", DbType.Byte, metaModel.PlatformType);
-            db.AddInParameter("movebetsday", DbType.DateTime, BalanceUp.MoveBetsDay);
+            db.AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
             db.AddInParameter("DrawFilter", DbType.Int16, metaModel.DrawFilter);
             db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
             db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);

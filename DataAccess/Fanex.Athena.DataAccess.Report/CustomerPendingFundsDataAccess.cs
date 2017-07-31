@@ -18,7 +18,6 @@ namespace Fanex.Athena.DataAccess.Report
     {
         public SortableList<CustPendingFunds> GetDataList(CustomerPendingFundsMetaModel metaModel, ref CustPendingFunds totalData, ref int totalRows)
         {
-            SortableList<CustPendingFunds> result = new SortableList<CustPendingFunds>();
             using (var db = this.GetObjectDb("Lrf_Rpt_Outstanding"))
             {
                 db.AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
@@ -29,6 +28,7 @@ namespace Fanex.Athena.DataAccess.Report
                     db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
                 }
 
+                var result = new SortableList<CustPendingFunds>();
                 using (var reader = db.ExecuteReader())
                 {
                     while (reader.Read())
@@ -43,22 +43,19 @@ namespace Fanex.Athena.DataAccess.Report
                         });
                     }
 
-                    if (result.Count > 0 && reader.NextResult())
+                    if (result.Count > 0 && reader.NextResult() && reader.Read())
                     {
-                        while (reader.Read())
+                        totalData = new CustPendingFunds
                         {
-                            totalData = new CustPendingFunds
-                            {
-                                BetCounts = reader.ToInt("SumBetCounts"),
-                                PendingFunds = reader.ToDecimal("SumOutstanding" + metaModel.BaseCurrency)
-                            };
-                            totalRows = reader.ToInt("TotalRows");
-                        }
+                            BetCounts = reader.ToInt("SumBetCounts"),
+                            PendingFunds = reader.ToDecimal("SumOutstanding" + metaModel.BaseCurrency)
+                        };
+                        totalRows = reader.ToInt("TotalRows");
                     }
                 }
-            }
 
-            return result;
+                return result;
+            }
         }
     }
 }

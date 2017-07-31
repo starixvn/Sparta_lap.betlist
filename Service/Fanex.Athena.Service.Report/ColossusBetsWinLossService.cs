@@ -27,7 +27,7 @@ namespace Fanex.Athena.Service.Report
             _balanceUpService = new BalanceUpService();
             this._colossusBetsWinLossDataAccess = new ColossusBetsWinLossDataAccess(_balanceUpService.BalanceUpInfo);
         }
-        
+
         public SortableList<ColossusBetWinLoss> GetWinlossDetail(
             ThirdPartyWinLossMetaModel metaModel,
             out IDictionary<string, ColossusBetWinLoss> summaryTotal)
@@ -59,9 +59,9 @@ namespace Fanex.Athena.Service.Report
             return result;
         }
 
-        public IList<ColossusBetWinLoss> CalculateTotal(IList<ColossusBetWinLoss> dataList)
+        public IEnumerable<ColossusBetWinLoss> CalculateTotal(IEnumerable<ColossusBetWinLoss> dataList)
         {
-            if (dataList == null || dataList.Count == 0)
+            if (!dataList.Any())
             {
                 return new List<ColossusBetWinLoss>();
             }

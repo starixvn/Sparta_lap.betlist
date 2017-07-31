@@ -9,7 +9,6 @@ namespace Fanex.Athena.DataAccess.Report
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
@@ -94,10 +93,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        #region Private
-
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private static SortableList<ThirdPartyWinLoss> GetData(
             IDataReader reader,
             ThirdPartyWinLossMetaModel metaModel,
@@ -139,17 +134,21 @@ namespace Fanex.Athena.DataAccess.Report
                 };
 
                 result.Add(item);
-
-                foreach (var currency in SystemConstants.BaseCurrencyList)
-                {
-                    summaryTotal[currency].CustomerWinLoss += reader.ToDecimal("winlost" + currency);
-                    summaryTotal[currency].TotalTransaction += reader.ToInt("totaltrans");
-                    summaryTotal[currency].LicenseeWL += reader.ToDecimal("licenseewinlost" + currency);
-                    summaryTotal[currency].TurnOver += reader.ToDecimal("turnover" + currency);
-                }
+                ReadSummaryTotal(reader, summaryTotal);
             }
 
             return result;
+        }
+
+        private static void ReadSummaryTotal(IDataReader reader, IDictionary<string, ThirdPartyWinLoss> summaryTotal)
+        {
+            foreach (var currency in SystemConstants.BaseCurrencyList)
+            {
+                summaryTotal[currency].CustomerWinLoss += reader.ToDecimal("winlost" + currency);
+                summaryTotal[currency].TotalTransaction += reader.ToInt("totaltrans");
+                summaryTotal[currency].LicenseeWL += reader.ToDecimal("licenseewinlost" + currency);
+                summaryTotal[currency].TurnOver += reader.ToDecimal("turnover" + currency);
+            }
         }
 
         private static void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
@@ -159,7 +158,5 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
         }
-
-        #endregion Private
     }
 }

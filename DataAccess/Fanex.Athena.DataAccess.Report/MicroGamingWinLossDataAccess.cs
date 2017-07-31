@@ -15,7 +15,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
@@ -24,11 +23,6 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class MicroGamingWinLossDataAccess : BaseDataAccess, IMicroGamingWinLossDataAccess
     {
-        public MicroGamingWinLossDataAccess(BalanceUp balanceUp)
-            : base(balanceUp)
-        {
-        }
-
         public SortableList<MicroGamingWinLoss> GetSummaryWinloss(MicroGamingWinLossMetaModel metaModel, out IDictionary<string, MicroGamingWinLoss> summaryTotal)
         {
             var uspName = "LRF_Rpt_MicroGamingWinloss";

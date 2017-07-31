@@ -15,9 +15,6 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Report.Interfaces;
 
-    /// <summary>
-    /// Customer win-loss service class.
-    /// </summary>
     public class CustomerWinlossService : ICustWinlossService
     {
         private readonly IBalanceUpService _balanceUpService;

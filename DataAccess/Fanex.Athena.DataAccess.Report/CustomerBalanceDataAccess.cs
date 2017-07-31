@@ -18,7 +18,6 @@ namespace Fanex.Athena.DataAccess.Report
     {
         public IList<CustBalance> GetDataList(CustomerBalanceMetaModel metaModel, ref CustBalance totalData, ref int totalRow)
         {
-            IList<CustBalance> result = new List<CustBalance>();
             using (var db = this.GetObjectDb("Lrf_Rpt_CustomerBalance"))
             {
                 db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
@@ -34,6 +33,7 @@ namespace Fanex.Athena.DataAccess.Report
                     db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
                 }
 
+                var result = new List<CustBalance>();
                 using (var reader = db.ExecuteReader())
                 {
                     while (reader.Read())
@@ -47,9 +47,9 @@ namespace Fanex.Athena.DataAccess.Report
                         totalRow = reader.ToInt("TotalRows");
                     }
                 }
-            }
 
-            return result;
+                return result;
+            }
         }
 
         private static CustBalance ReadDataItem(IDataReader reader)

@@ -28,7 +28,7 @@ namespace Fanex.Athena.Service.Report
             _custTurnoverDataAccess = new CustomerTurnoverDataAccess(_balanceUpService.BalanceUpInfo);
         }
 
-        public IList<CustTurnover> GetDataList(CustomerTurnoverMetaModel metaModel, string languageCode, out CustTurnover total, out int totalRows)
+        public IEnumerable<CustTurnover> GetDataList(CustomerTurnoverMetaModel metaModel, string languageCode, out CustTurnover total, out int totalRows)
         {
             total = new CustTurnover();
             totalRows = 0;
@@ -49,7 +49,7 @@ namespace Fanex.Athena.Service.Report
             "StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private static IList<CustTurnover> RestructureData(IList<CustTurnover> datalist, int startRowIndex)
+        private static IEnumerable<CustTurnover> RestructureData(IEnumerable<CustTurnover> datalist, int startRowIndex)
         {
             var sortedData = datalist.OrderByDescending(i => i.ReportBy).ThenBy(i => i.UserName)
                 .ThenBy(i => i.SportType).ThenBy(i => i.Bettype).ToArray();

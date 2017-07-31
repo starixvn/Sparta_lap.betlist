@@ -9,6 +9,7 @@
 
 namespace Fanex.Athena.Service.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Athena.DataAccess.Report;
@@ -16,20 +17,15 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
-    using Fanex.Athena.Service.Core.Configuration;
-    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Report.Interfaces;
 
     public class AgCasinoWinLossService : IAgCasinoWinLossService
     {
-        private readonly IBalanceUpService _balanceService;
-
         private readonly IAgCasinoWinLossDataAccess _agcasinoWinLossDataAccess;
 
         public AgCasinoWinLossService()
         {
-            this._balanceService = new BalanceUpService();
-            this._agcasinoWinLossDataAccess = new AgCasinoWinLossDataAccess(this._balanceService.BalanceUpInfo);
+            this._agcasinoWinLossDataAccess = new AgCasinoWinLossDataAccess();
         }
 
         public SortableList<AgCasinoWinLoss> GetAgentWinlossDetail(
@@ -56,13 +52,13 @@ namespace Fanex.Athena.Service.Report
         {
             summaryTotal = new Dictionary<string, AgCasinoWinLoss>();
             var result = this._agcasinoWinLossDataAccess.GetSummaryWinloss(metaModel, out summaryTotal);
-            var date = new System.DateTime();
+            var date = new DateTime();
             var index = 1;
             foreach (var item in result)
             {
                 if (date != item.Date)
                 {
-                    date = item.Date ?? new System.DateTime();
+                    date = item.Date ?? new DateTime();
                     item.RowSpan = result.Count(x => x.Date == item.Date);
                     item.Index = index++;
                 }
@@ -75,9 +71,9 @@ namespace Fanex.Athena.Service.Report
             return result;
         }
 
-        public IList<AgCasinoWinLoss> TotalCalc(IList<AgCasinoWinLoss> dataList)
+        public IEnumerable<AgCasinoWinLoss> CalculateTotal(IEnumerable<AgCasinoWinLoss> dataList)
         {
-            if (dataList == null || dataList.Count == 0)
+            if (!dataList.Any())
             {
                 return new SortableList<AgCasinoWinLoss>();
             }
