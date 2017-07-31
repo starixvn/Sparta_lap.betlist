@@ -186,8 +186,7 @@ namespace Fanex.Athena.Api.Report
         {
             var permissionKey = new string[] { _productPermissionMap[productId] };
 
-            return
-                user.ApplicationMode == AppMode.Parasitic ?
+            return user.ApplicationMode == AppMode.Parasitic ?
                 _authorizationService.HasPermissions(user.PortalFunctionList, permissionKey) :
                 _authorizationService.HasPermissions(user.FunctionIdList, permissionKey);
         }

@@ -104,7 +104,7 @@ namespace Fanex.Athena.Controllers.Report
             var firstOrDefault = orderItemList.FirstOrDefault(i => i.Value == metaModel.OrderItem.ToString(CultureInfo.InvariantCulture));
             if (firstOrDefault != null)
             {
-                this.ViewBag.SortByText = firstOrDefault.Text;
+                ViewBag.SortByText = firstOrDefault.Text;
             }
 
             var isExportedExcel = Request.Form["exporttoexcel.x"];

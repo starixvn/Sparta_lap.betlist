@@ -150,7 +150,7 @@ namespace Fanex.Athena.Excel.Report
             int maxGroup = Math.Min(_customerTurnoverList.Last().Index, checked(pageIndex * PageSize));
             var dataInRange = _customerTurnoverList.Where(x => x.Index > minGroup && x.Index <= maxGroup).ToList();
 
-            for (int index = 0; index < dataInRange.Count(); index++)
+            for (int index = 0; index < dataInRange.Count; index++)
             {
                 CustTurnover customerTurnover = dataInRange[index];
                 var realIndex = rowIndex + RowContentTemplate;

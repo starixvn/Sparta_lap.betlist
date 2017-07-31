@@ -136,8 +136,6 @@ namespace Fanex.Athena.Api.Report
             int currencyId = 0,
             int custId = 0)
         {
-            var userSession = SessionService.UserSession;
-
             if (IsValidRequest(metaModel, currencyId))
             {
                 metaModel.DrillDownLevel = level;

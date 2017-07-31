@@ -97,7 +97,7 @@ namespace Fanex.Athena.Controllers.Report
             var currencyName = userSession.CurrencyList
                 .Where(i => i.Key == metaModel.CurrencyId).Select(i => i.Value).SingleOrDefault();
 
-            var totalData = new CustTurnover();
+            CustTurnover totalData;
             var totalRow = 0;
             var data = GetData(metaModel, out totalData, out totalRow);
             var usernameExcelTitle = string.IsNullOrEmpty(metaModel.Username) ?

@@ -67,7 +67,8 @@ namespace Fanex.Athena.Api.Report
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/AgCasinoWinLoss.xls");
             var currency = userSession.CurrencyList.SingleOrDefault(i => i.Key == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
             var fromDate = metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate;
-            var exportedFileName = $"AGWinLoss_{fromDate:ddMMMyyyy}_{(currency.Key == 0 ? "All" : currency.Value)}.xls";
+            var currencyText = currency.Key == 0 ? "All" : currency.Value;
+            var exportedFileName = $"AGWinLoss_{fromDate:ddMMMyyyy}_{currencyText}.xls";
             var convertingOption = new ConvertingOption
             {
                 IsConvert = metaModel.IsConvert,
@@ -124,7 +125,7 @@ namespace Fanex.Athena.Api.Report
                     return ExportExcel(metaModel, dataList, summaryTotal);
                 }
 
-                if (dataList != null && dataList.Count > 0)
+                if (dataList.Count > 0)
                 {
                     return new
                     {
