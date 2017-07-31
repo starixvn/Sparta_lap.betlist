@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -761,7 +761,7 @@
     <Content Include="Scripts\Report\customerwinloss.option.js" />
     <Content Include="Scripts\Report\customerbalance.option.js" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
-    <Content Include="www\webpackconfig\build\webpack.react.conf.js" />
+    <Content Include="www\webpackconfig\build\webpack.react.dev.conf.js" />
     <Content Include="www\assets\images\15.jpg" />
     <Content Include="www\assets\images\lap-restriction-page.png" />
     <Content Include="www\assets\images\location-restriction-page.png" />
