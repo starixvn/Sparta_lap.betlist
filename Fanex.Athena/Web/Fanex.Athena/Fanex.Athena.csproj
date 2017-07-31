@@ -761,6 +761,7 @@
     <Content Include="Scripts\Report\customerwinloss.option.js" />
     <Content Include="Scripts\Report\customerbalance.option.js" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
+    <Content Include="www\webpackconfig\build\webpack.react.base.conf.js" />
     <Content Include="www\webpackconfig\build\webpack.react.dev.conf.js" />
     <Content Include="www\assets\images\15.jpg" />
     <Content Include="www\assets\images\lap-restriction-page.png" />
@@ -1253,7 +1254,6 @@
     <Content Include="www\js\build\dev\pages\totalbet\oddevendrawnodraw.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\outright.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\totalgoal.chunk.js" />
-    <Content Include="www\js\build\dev\reactsample.chunk.js" />
     <Content Include="www\js\build\pro\common.chunk.js" />
     <Content Include="www\js\build\pro\language.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlist.chunk.js" />
@@ -2329,6 +2329,7 @@
     <Content Include="www\js\build\dev\pages\customer\numbergamebetsetting.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\rngcasinobetsetting.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\thirdpartybetsetting.chunk.js.map" />
+    <Content Include="www\webpackconfig\build\webpack.react.pro.conf.js" />
     <Content Include="www\css\source\scss\fonts\roboto\_style.scss" />
     <Content Include="www\js\build\dev\pages\reports\activecustomersummary.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\reports\customerbalance.chunk.js.map" />

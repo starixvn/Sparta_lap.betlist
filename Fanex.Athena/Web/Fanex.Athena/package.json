@@ -55,10 +55,15 @@
     "build-dev": "webpack --config www/webpackconfig/build/webpack.dev.conf.js",
     "build-pro": "webpack --config www/webpackconfig/build/webpack.pro.conf.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "build-react":  "webpack --config webpack.react.conf.js"
 =======
     "build-react": "webpack-dev-server --hot --inline --config www/webpackconfig/build/webpack.react.dev.conf.js"
 >>>>>>> 00000 - Add Hot Module Replacement to react config
+=======
+    "build-react-dev": "webpack-dev-server --hot --inline --config www/webpackconfig/build/webpack.react.dev.conf.js",
+    "build-react-pro": "webpack --config www/webpackconfig/build/webpack.react.pro.conf.js"
+>>>>>>> 00000 - Separate dev and pro config for react
   },
   "author": "Sparta",
   "license": "vn",
