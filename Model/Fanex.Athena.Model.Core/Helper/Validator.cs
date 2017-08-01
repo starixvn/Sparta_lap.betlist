@@ -44,8 +44,8 @@ namespace Fanex.Athena.Model.Core.Helper
         private const int AllBetMaxBetType = 2499;
         private const int FWMinBetType = 1011;
         private const int FWMaxBetType = 1020;
-        private const int BRVSMinBetType = 2701;
-        private const int BRVSMaxBetType = 2799;
+        private const int VS2MinBetType = 2700;
+        private const int VS2MaxBetType = 2899;
 
         #endregion BetType Range
 
@@ -94,8 +94,8 @@ namespace Fanex.Athena.Model.Core.Helper
                     return bettype >= AllBetMinBetType && bettype <= AllBetMaxBetType;
                 case Product.FW:
                     return bettype >= FWMinBetType && bettype <= FWMaxBetType;
-                case Product.BRVS:
-                    return bettype >= BRVSMinBetType && bettype <= BRVSMaxBetType;
+                case Product.VS2:
+                    return bettype >= VS2MinBetType && bettype <= VS2MaxBetType;
             }
 
             return false;

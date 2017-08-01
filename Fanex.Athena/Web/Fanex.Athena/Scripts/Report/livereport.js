@@ -141,7 +141,7 @@ var LiveReport = (function ($) {
                     productOptions.push("LC");
                 }
                 else if (sportId === 190 || sportId === 191 || sportId === 104) {
-                    productOptions.push("BRVS");
+                    productOptions.push("VS2");
                 }
                 else {
                     if (productCode === "SB" || productCode === "ALL") {
@@ -154,7 +154,7 @@ var LiveReport = (function ($) {
             }
             else {
                 if (productCode === "ALL") {
-                    productOptions = ["SB", "BA", "NG", "RB", "LC", "VS", "CS", "BG", "BRVS"];
+                    productOptions = ["SB", "BA", "NG", "RB", "LC", "VS", "CS", "BG", "VS2"];
                 }
                 else {
                     productOptions.push(productCode);

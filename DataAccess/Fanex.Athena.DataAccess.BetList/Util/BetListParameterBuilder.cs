@@ -198,7 +198,7 @@
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
-            var supportedProducts = new string[6] { Product.SB, Product.NG, Product.BA, Product.LC, Product.VS, Product.BRVS };
+            var supportedProducts = new string[6] { Product.SB, Product.NG, Product.BA, Product.LC, Product.VS, Product.VS2 };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
@@ -226,7 +226,7 @@
             CreateBetlistSummaryParameters(db);
             db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
 
-            var supportedProducts = new string[6] { Product.SB, Product.NG, Product.BA, Product.LC, Product.VS, Product.BRVS };
+            var supportedProducts = new string[6] { Product.SB, Product.NG, Product.BA, Product.LC, Product.VS, Product.VS2 };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
@@ -276,7 +276,7 @@
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
             db.AddInParameter("Bettype", DbType.Int32, metaModel.BetType);
             db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
-            var supportedProducts = new string[3] { Product.SB, Product.BA, Product.BRVS };
+            var supportedProducts = new string[3] { Product.SB, Product.BA, Product.VS2 };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
@@ -302,7 +302,7 @@
             db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
             db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
-            var supportedProducts = new string[7] { Product.SB, Product.BA, Product.LC, Product.VS, Product.MGCLC, Product.MGCRNG, Product.BRVS };
+            var supportedProducts = new string[7] { Product.SB, Product.BA, Product.LC, Product.VS, Product.MGCLC, Product.MGCRNG, Product.VS2 };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 

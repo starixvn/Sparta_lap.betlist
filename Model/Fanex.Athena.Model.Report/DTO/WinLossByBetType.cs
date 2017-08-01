@@ -66,9 +66,9 @@ namespace Fanex.Athena.Model.Report.DTO
                 return " (" + ViewResources.ProductVS + ")";
             }
 
-            if (Validator.IsValidBettype(Product.BRVS, bettype))
+            if (Validator.IsValidBettype(Product.VS2, bettype))
             {
-                return " (" + ViewResources.ProductBRVS + ")";
+                return " (" + ViewResources.ProductVS2 + ")";
             }
 
             return string.Empty;

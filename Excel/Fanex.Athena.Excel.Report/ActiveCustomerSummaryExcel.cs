@@ -35,7 +35,7 @@ namespace Fanex.Athena.Excel.Report
         private static readonly IEnumerable<string> OfferedProducts = new string[]
         {
             Product.SB, Product.RB, Product.NG, Product.BA, Product.LC, Product.VS, Product.CS, Product.BG, Product.KN,
-            Product.PTCS, Product.AGC, Product.MGCLC, Product.CB, Product.MGCRNG, Product.AB, Product.VB, Product.FW, Product.BRVS
+            Product.PTCS, Product.AGC, Product.MGCLC, Product.CB, Product.MGCRNG, Product.AB, Product.VB, Product.FW, Product.VS2
         };
 
         private readonly IList<ActiveCustomer> _activeCustomerList;

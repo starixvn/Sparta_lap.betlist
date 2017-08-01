@@ -3020,8 +3020,8 @@
     <value>You do not have any currency permissions to view this report, please contact your administrator account.</value>
     <comment>#73925</comment>
   </data>
-  <data name="ProductBRVS" xml:space="preserve">
-    <value>Betradar Virtual Sports</value>
+  <data name="ProductVS2" xml:space="preserve">
+    <value>Virtual Sports 2</value>
     <comment>#78241</comment>
   </data>
   <data name="VirtualSoccerLeague" xml:space="preserve">

@@ -78,7 +78,7 @@ namespace Fanex.Athena.Excel.Report
                 { Product.MGCLC, false }, { Product.MGCRNG, false },
                 { Product.NG, false }, { Product.RB, false },
                 { Product.CS, false }, { Product.VS, false },
-                { Product.BRVS, false }
+                { Product.VS2, false }
             };
 
         private readonly bool _isAllowBA;

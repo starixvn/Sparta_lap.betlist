@@ -104,14 +104,6 @@ namespace Fanex.Athena.Model.Core.DTO.Common
             }
         }
 
-        public bool IsAllowBRVS
-        {
-            get
-            {
-                return ProductList.Any(p => p.ProductCode == Product.BRVS);
-            }
-        }
-
         public bool IsAllow(int productId)
         {
             return ProductList.Any(p => p.ProductID == productId);

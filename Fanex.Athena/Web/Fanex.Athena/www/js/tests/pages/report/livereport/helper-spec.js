@@ -46,20 +46,20 @@
                     expect(result).toEqual(expected);
                 });
 
-                it("Result should return with ['BRVS'] when product code equals BRVS", function () {
-                    var expected = ["BRVS"];
+                it("Result should return with ['VS2'] when product code equals VS2", function () {
+                    var expected = ["VS2"];
 
-                    var result = Helper.getMatchListProductOption(190, "BRVS");
+                    var result = Helper.getMatchListProductOption(190, "VS2");
                     expect(result).toEqual(expected);
 
-                    var result = Helper.getMatchListProductOption(191, "BRVS");
+                    Helper.getMatchListProductOption(191, "VS2");
                     expect(result).toEqual(expected);
                 });
             });
 
             describe("sportId less than or equal 0", function () {
-                it("Result should return with ['SB', 'BA', 'NG', 'RB', 'LC', 'VS', 'CS', 'BG', 'BRVS'] when productCode equal ALL", function () {
-                    var expected = ['SB', 'BA', 'NG', 'RB', 'LC', 'VS', 'CS', 'BG', 'BRVS'];
+                it("Result should return with ['SB', 'BA', 'NG', 'RB', 'LC', 'VS', 'CS', 'BG', 'VS2'] when productCode equal ALL", function () {
+                    var expected = ['SB', 'BA', 'NG', 'RB', 'LC', 'VS', 'CS', 'BG', 'VS2'];
 
                     var result = Helper.getMatchListProductOption(0, "ALL");
                     expect(result).toEqual(expected);
