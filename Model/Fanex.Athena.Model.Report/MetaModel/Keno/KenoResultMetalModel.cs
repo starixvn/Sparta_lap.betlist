@@ -35,5 +35,7 @@ namespace Fanex.Athena.Model.Report.MetaModel.Keno
         public string KickOutUrl { get; set; }
 
         public string Language { get; set; }
+
+        public int VendorProduct { get; set; }
     }
 }

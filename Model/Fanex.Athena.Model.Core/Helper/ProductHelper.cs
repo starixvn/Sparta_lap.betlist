@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using DataDomain;
     using DTO.Common;
     using Resources;
 

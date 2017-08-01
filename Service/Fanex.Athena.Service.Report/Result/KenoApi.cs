@@ -8,21 +8,24 @@
     using Fanex.Athena.Model.Report.DTO.Keno;
     using Fanex.Athena.Service.Core.Exception;
     using Interfaces;
+    using Model.Core.DataDomain;
 
     public class KenoApi : IKenoApi
     {
-        private const string SERVICENAME = "KenoApi";
-        private const string GAMENAME = "Keno";
+        private const string KENOSERVICENAME = "KenoApi";
+        private const string KENOGAMENAME = "Keno";
+        private const string LOTTERYSERVICENAME = "LotteryApi";
+        private const string LOTTERYGAMENAME = "Lottery";
 
         public KenoAuthorization Authorize(Model.Report.MetaModel.Keno.KenoResultMetalModel setting, string userId)
         {
             try
             {
-                var authorizedUrl = string.Format(setting.AuthorizedUrl, setting.Vendor, setting.VenderKey, userId);
+                var authorizedUrl = string.Format(setting.AuthorizedUrl, setting.Vendor, setting.VenderKey, userId, setting.VendorProduct);
                 var data = DownLoadData(authorizedUrl);
                 if (string.IsNullOrEmpty(data))
                 {
-                    throw new ServiceException("Couldn't get authorized data from:" + authorizedUrl, SERVICENAME);
+                    throw new ServiceException("Couldn't get authorized data from:" + authorizedUrl, GetServiceName(setting.VendorProduct));
                 }
 
                 var serialize = new JavaScriptSerializer();
@@ -30,7 +33,7 @@
             }
             catch (Exception exception)
             {
-                throw new ServiceException(exception.Message, SERVICENAME);
+                throw new ServiceException(exception.Message, GetServiceName(setting.VendorProduct));
             }
         }
 
@@ -44,11 +47,11 @@
         {
             try
             {
-                var extendedUrl = string.Format(setting.ExtendTokenUrl, setting.Vendor, setting.VenderKey, userId);
+                var extendedUrl = string.Format(setting.ExtendTokenUrl, setting.Vendor, setting.VenderKey, userId, setting.VendorProduct);
                 var data = DownLoadData(extendedUrl);
                 if (string.IsNullOrEmpty(data))
                 {
-                    throw new ServiceException("Couldn't get authorized data from:" + extendedUrl, SERVICENAME);
+                    throw new ServiceException("Couldn't get authorized data from:" + extendedUrl, GetServiceName(setting.VendorProduct));
                 }
 
                 var serialize = new JavaScriptSerializer();
@@ -56,7 +59,7 @@
             }
             catch (Exception exception)
             {
-                throw new ServiceException(exception.Message, SERVICENAME);
+                throw new ServiceException(exception.Message, GetServiceName(setting.VendorProduct));
             }
         }
 
@@ -72,12 +75,12 @@
             var authorizedData = this.Authorize(setting, userId);
             if (authorizedData.ErrorCode > 0)
             {
-                throw new ServiceException(authorizedData.ErrorMsg, SERVICENAME);
+                throw new ServiceException(authorizedData.ErrorMsg, GetServiceName(setting.VendorProduct));
             }
 
             var kenoResultUrl = new StringBuilder(setting.ResultUrl);
             kenoResultUrl.Append("?Authorization=" + authorizedData.Data.Authorization);
-            kenoResultUrl.Append("&cust=" + GAMENAME);
+            kenoResultUrl.Append("&cust=" + GetGameName(setting.VendorProduct));
             kenoResultUrl.Append("&siteID=" + setting.SiteID);
             kenoResultUrl.Append("&action=R");
             kenoResultUrl.Append("&lang=" + setting.Language);
@@ -93,6 +96,16 @@
                 client.Headers[HttpRequestHeader.ContentType] = "application/json";
                 return client.DownloadString(url);
             }
+        }
+
+        private static string GetServiceName(int vendorProductId)
+        {
+            return vendorProductId == VendorProductTypes.Keno ? KENOSERVICENAME : LOTTERYSERVICENAME;
+        }
+
+        private static string GetGameName(int vendorProductId)
+        {
+            return vendorProductId == VendorProductTypes.Keno ? KENOGAMENAME : LOTTERYGAMENAME;
         }
     }
 }

@@ -351,11 +351,14 @@
                     var expectedOption = {
                         type: "POST",
                         cache: false,
-                        data: "userid=0",
+                        data: {
+                            userId: 0,
+                            vendorProductId: 1
+                        },
                         url: "ResultKenoReport/KeepSession"
                     };
 
-                    Result.extendKenoSession();
+                    Result.extendKenoSession(1);
                     jasmine.clock().tick(6001);
 
                     expect(option).toEqual(expectedOption);
@@ -422,7 +425,7 @@
 
             describe("getFilter()", function () {
                 beforeEach(function () {
-                    jasmine.Ajax.install();                    
+                    jasmine.Ajax.install();
                 });
                 afterEach(function () {
                     jasmine.Ajax.uninstall();
@@ -457,7 +460,7 @@
                     });
 
                     it("Result.renderFilter() should be called with correct parameter", function () {
-                        expect(Result.renderFilter).toHaveBeenCalledWith({Sports: ["SB", "RC"]});
+                        expect(Result.renderFilter).toHaveBeenCalledWith({ Sports: ["SB", "RC"] });
                     });
                     it("Result.getReportData() should be called", function () {
                         expect(Result.getReportData).toHaveBeenCalled();
@@ -592,7 +595,7 @@
                         spyOn(Result, "renderLeagueFilter");
                         spyOn(Site, "initSelectElements");
 
-                        Result.renderFilter({ Sports: ["SB", "RC"], Leagues: ["V-League", "Premier League"]});
+                        Result.renderFilter({ Sports: ["SB", "RC"], Leagues: ["V-League", "Premier League"] });
                     });
 
                     it("Result.renderSportFilter(sportData) should be called", function () {

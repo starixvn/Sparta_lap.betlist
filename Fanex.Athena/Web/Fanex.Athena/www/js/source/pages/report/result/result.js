@@ -11,6 +11,9 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
         var kenoAjaxRequest = null;
         var kenoIntervalId = 0;
         var kenoUserId = 0;
+        var lotteryAjaxRequest = null;
+        var lotteryIntervalId = 0;
+        var lotteryUserId = 0;
         var param = {
             FromDate: "",
             ToDate: "",
@@ -131,12 +134,18 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
 
                 if ($("#submitKeno").length) {
                     $("#submitKeno").click(function () {
-                        _me.showKeno();
+                        _me.showKeno($(this).data("vendorproductid"));
+                    });
+                }
+
+                if ($("#submitLottery").length) {
+                    $("#submitLottery").click(function () {
+                        _me.showLottery($(this).data("vendorproductid"));
                     });
                 }
             },
 
-            submit: function(){
+            submit: function () {
                 _me.clearExcelExport();
                 _me.clearResult();
                 var isShowOutright = $("#submitOutright").attr("data-isoutright") === "1";
@@ -149,16 +158,17 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                 _me.getData();
             },
 
-            showKeno: function () {
+            showKeno: function (vendorProductId) {
                 var option = {
                     type: "GET",
                     cache: false,
+                    data: { vendorProductId: vendorProductId },
                     url: Site.resolveClientUrl(KENO_RESULT_API),
                     success: function (response) {
                         kenoUserId = response.UserId;
                         window.open(response.Url, '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
                         clearInterval(kenoIntervalId);
-                        _me.extendKenoSession();
+                        _me.extendKenoSession(vendorProductId);
                     },
                     beforeSend: function () {
                         Site.blockUI();
@@ -171,16 +181,58 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                 kenoAjaxRequest = $.ajax(option);
             },
 
-            extendKenoSession: function () {
+            showLottery: function (vendorProductId) {
+                var option = {
+                    type: "GET",
+                    cache: false,
+                    data: { vendorProductId: vendorProductId },
+                    url: Site.resolveClientUrl(KENO_RESULT_API),
+                    success: function (response) {
+                        lotteryUserId = response.UserId;
+                        window.open(response.Url, '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
+                        clearInterval(lotteryIntervalId);
+                        _me.extendLotterySession(vendorProductId);
+                    },
+                    beforeSend: function () {
+                        Site.blockUI();
+                    },
+                    complete: function () {
+                        Site.unBlockUI();
+                    }
+                };
+                _me.stopAjaxRequest(lotteryAjaxRequest);
+                lotteryAjaxRequest = $.ajax(option);
+            },
+
+            extendKenoSession: function (vendorProductId) {
                 kenoIntervalId = setInterval(function () {
                     var option = {
                         type: "POST",
                         cache: false,
-                        data: "userid=" + kenoUserId,
+                        data: {
+                            userId: kenoUserId,
+                            vendorProductId: vendorProductId
+                        },
                         url: Site.resolveClientUrl(KENO_RESULT_SESSION_API)
                     };
                     _me.stopAjaxRequest(kenoAjaxRequest);
                     kenoAjaxRequest = $.ajax(option);
+                }, 6000);
+            },
+
+            extendLotterySession: function (vendorProductId) {
+                lotteryIntervalId = setInterval(function () {
+                    var option = {
+                        type: "POST",
+                        cache: false,
+                        data: {
+                            userId: lotteryUserId,
+                            vendorProductId: vendorProductId
+                        },
+                        url: Site.resolveClientUrl(KENO_RESULT_SESSION_API)
+                    };
+                    _me.stopAjaxRequest(lotteryAjaxRequest);
+                    lotteryAjaxRequest = $.ajax(option);
                 }, 6000);
             },
 
@@ -290,7 +342,7 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                 if (leagueList !== null && leagueList.length > 0) {
                     var $league = $("#ddlLeague");
                     $.each(leagueList, function (index, value) {
-                        $league.append('<option value="' +value.LeagueId + '">' + value.LeagueName + '</option>');
+                        $league.append('<option value="' + value.LeagueId + '">' + value.LeagueName + '</option>');
                     });
                     $league.val(param.LeagueId);
                 }

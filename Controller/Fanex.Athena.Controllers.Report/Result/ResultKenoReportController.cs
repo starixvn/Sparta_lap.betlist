@@ -3,6 +3,7 @@
     using System;
     using System.Web.Mvc;
     using Logging;
+    using Model.Core.DataDomain;
     using Model.Report.MetaModel.Keno;
     using Service.Report.Result;
     using Service.Report.Result.Interfaces;
@@ -24,13 +25,13 @@
 
         [HttpGet]
         [AjaxRequest]
-        public ActionResult Index()
+        public ActionResult Index(int vendorProductId)
         {
             var userId = SessionService.UserSession.UserId;
             return Json(
                 new
                 {
-                    Url = _kenoApi.CreateKenoResultUrl(GetKenoSetting(), userId.ToString(), DateTime.Now),
+                    Url = _kenoApi.CreateKenoResultUrl(GetKenoSetting(vendorProductId), userId.ToString(), DateTime.Now),
                     UserId = userId
                 },
             JsonRequestBehavior.AllowGet);
@@ -39,16 +40,16 @@
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        public string KeepSession(string userId)
+        public string KeepSession(string userId, int vendorProductId)
         {
             if (string.IsNullOrEmpty(userId) || !SessionService.UserSession.UserId.ToString().Equals(userId))
             {
-                Fanex.Logging.LogService.Error("Keno Result page just submited invalid userId");
+                LogService.Error("Keno Result page just submited invalid userId");
 
                 return Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme);
             }
 
-            var result = _kenoApi.ExtendToken(GetKenoSetting(), userId);
+            var result = _kenoApi.ExtendToken(GetKenoSetting(vendorProductId), userId);
 
             if (result.ErrorCode > 0)
             {
@@ -59,7 +60,7 @@
             return string.Empty;
         }
 
-        private KenoResultMetalModel GetKenoSetting()
+        private KenoResultMetalModel GetKenoSetting(int vendorProductId)
         {
             return new KenoResultMetalModel
             {
@@ -70,8 +71,9 @@
                 ExtendTokenUrl = AppSettings.GetValue("KenoExtendTokenUrl"),
                 VenderKey = AppSettings.GetValue("KenoVenderKey"),
                 Vendor = AppSettings.GetValue("KenoVendor"),
-                ResultUrl = AppSettings.GetValue("KenoResultUrl"),
-                KickOutUrl = Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme)
+                ResultUrl = vendorProductId == VendorProductTypes.Keno ? AppSettings.GetValue("KenoResultUrl") : AppSettings.GetValue("LotteryResultUrl"),
+                KickOutUrl = Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme),
+                VendorProduct = vendorProductId
             };
         }
     }
