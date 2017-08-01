@@ -242,7 +242,7 @@ var BetSetting = (function ($) {
                     showComfirm('UpdateNumberGameBetSettings', BetSetting.updateNumberGameBetSetting);
                     break;
                 case TAB_VIRTUALSPORTS:
-                    showComfirm('UpdateVirtualSportsBetSettings', BetSetting.updateVirtualSportsBetSetting);
+                    showComfirm('UpdateVirtualSportsBetSettings', BetSetting.updateDcsBetSetting);
                     break;
                 case TAB_LIVECASINO:
                     showComfirm('UpdateLiveCasinoBetSettings', BetSetting.updateLiveCasinoBetSetting);
@@ -418,7 +418,7 @@ var BetSetting = (function ($) {
             });
         },
         // Update Virtual Sports
-        updateVirtualSportsBetSetting: function (custId, userName, nickName) {
+        updateDcsBetSetting: function (custId, userName, nickName) {
             var params = BetSetting.getBetSettingParamsForSports(_sportIds);
             params.custid = custId;
             params.userName = userName;

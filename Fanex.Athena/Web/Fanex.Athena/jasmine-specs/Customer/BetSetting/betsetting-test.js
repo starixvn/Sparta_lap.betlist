@@ -474,7 +474,7 @@
         });
     });
 
-    describe("updateVirtualSportsBetSetting(custId, userName, nickName)", function () {
+    describe("updateDcsBetSetting(custId, userName, nickName)", function () {
         var request;
         beforeEach(function (done) {
             spyOn(BetSetting, "getBetSettingParamsForSports").and.returnValue({});
@@ -489,7 +489,7 @@
                     'responseText': '{ }'
                 });
 
-            BetSetting.updateVirtualSportsBetSetting(1, "user01", "walter");
+            BetSetting.updateDcsBetSetting(1, "user01", "walter");
 
             request = jasmine.Ajax.requests.mostRecent();
 
