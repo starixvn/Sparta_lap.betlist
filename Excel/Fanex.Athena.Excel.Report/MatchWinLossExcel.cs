@@ -48,6 +48,11 @@ namespace Fanex.Athena.Excel.Report
         private const int RowGrandTotalTemplate = 8;
         private const int RowNoInfoTemplate = 9;
 
+        private static readonly IEnumerable<int> SpecialBettypes = new int[]
+        {
+            (int)BetType.MixParlay, (int)BetType.Outright, (int)BetType.CombinationMixParlay, (int)BetType.BetradarVsMixParlay
+        };
+
         private readonly MatchWinLossMetaModel _model;
         private readonly DataTable _totalData;
 
@@ -132,7 +137,7 @@ namespace Fanex.Athena.Excel.Report
             {
                 var exportRow = ExportData.Rows[index];
                 var betType = Converter.ToInt(exportRow["bettype"]);
-                if (betType == (int)BetType.MixParlay || betType == (int)BetType.Outright || betType == (int)BetType.CombinationMixParlay || betType == (int)BetType.BetradarVsMixParlay)
+                if (SpecialBettypes.Contains(betType))
                 {
                     specialBetType.Add(exportRow);
                     continue;
