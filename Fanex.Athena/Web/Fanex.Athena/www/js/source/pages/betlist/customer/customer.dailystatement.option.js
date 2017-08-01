@@ -78,6 +78,7 @@ define(["jquery", "common/site"], function ($, Site) {
         gridOption: {
             datatype: 'local',
             height: "auto",
+            rowNum: 5000,
             colModel: columnModel,
             colNames: [],
             autowidth: false,
