@@ -1,16 +1,35 @@
 ﻿var webpack = require('webpack');
 var merge = require('webpack-merge');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 var utils = require('./utils');
+var pathConfig = require('../config/path');
+
 var baseWebpackConfigGenerator = require('./webpack.base.conf');
 
-var baseConfigs = baseWebpackConfigGenerator("dev");
+var environment = "dev";
+var baseConfigs = baseWebpackConfigGenerator(environment);
+var cssRootPath = `${pathConfig.cssPaths.build}/${environment}`;
 
 module.exports = merge(baseConfigs,
     utils.setDefinePlugin('process.env.NODE_ENV', 'development'),
     {
         devtool: 'source-map',
         watch: true,
-        keepalive: true
+        keepalive: true,
+        plugins: [
+            new CleanWebpackPlugin([`${pathConfig.scriptPaths.build}/${environment}`], {
+                root: process.cwd(),
+                exclude: ['react']
+            }),
+            new CleanWebpackPlugin([`${cssRootPath}/pages`], {
+                root: process.cwd(),
+                exclude: ['betlist']
+            }),
+            new CleanWebpackPlugin([`${cssRootPath}/pages/betlist`], {
+                root: process.cwd(),
+                exclude: ['images']
+            })
+        ]
     },
     utils.extractCSS(false)
 );

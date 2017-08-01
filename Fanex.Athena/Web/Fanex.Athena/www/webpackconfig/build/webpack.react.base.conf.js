@@ -2,7 +2,7 @@
 var pathConfig = require('../config/path');
 
 function generateConfig(environment) {
-    var jsPath = `${pathConfig.scriptPaths.build}/${environment}`;
+    var jsPath = `${pathConfig.scriptPaths.build}/${environment}/react`;
 
     var commonConfigs = {
         entry: {
