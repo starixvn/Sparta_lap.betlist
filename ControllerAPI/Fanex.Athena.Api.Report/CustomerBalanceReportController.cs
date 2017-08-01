@@ -44,7 +44,8 @@
                 Data = dataList,
                 Total = totalData,
                 HasCustomerComm = licenseeSession.IsAllowedCustomerComm,
-                IsAllowBA = productAccess.IsAllowBA
+                IsAllowBA = productAccess.IsAllowBA,
+                TotalRows = totalRows
             };
         }
 

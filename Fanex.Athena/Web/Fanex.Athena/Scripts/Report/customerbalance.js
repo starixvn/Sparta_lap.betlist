@@ -1,4 +1,4 @@
-﻿/*global Site, ProductListHelper, CustomerBalanceOption */
+﻿/*global Site, ProductListHelper, CustomerBalanceOption, PagingHeper */
 /// <reference path="/@JSense.js" />
 var CustomerBalance = (function ($) {
     "use strict";
@@ -9,6 +9,17 @@ var CustomerBalance = (function ($) {
     var ajaxRequest = null;
     var sortColumnIndex = "";
     var sortType = "desc";
+    var pagingOption =
+    {
+        pageindex: 1,
+        pagesize: 1000,
+        pagelist: [1000, 2000],
+        totalrow: 1,
+        elementcontainer: ".paging",
+        method: "AJAX",
+        ajaxfunction: "CustomerBalance.ajaxPaging()",
+        alwayshow: true
+    };
 
     function getPostData() {
         return $(FORM_SELECTOR).serializeObject();
@@ -32,7 +43,8 @@ var CustomerBalance = (function ($) {
         },
 
         initEvent: function () {
-            $('#SubmitButton').click(function () {               
+            $('#SubmitButton').click(function () {
+                pagingOption.pageindex = 1;
                 CustomerBalance.submit();
             });
 
@@ -56,10 +68,12 @@ var CustomerBalance = (function ($) {
         },
 
         submit: function () {
-            $('#IsExportExcel').val(false);
-
+            //Report.setOriginalProduct();
             Site.updateOriginalLicenseeOption();
+
             var data = getPostData();
+            data.PageIndex = pagingOption.pageindex;
+            data.PageSize = pagingOption.pagesize;
 
             var option =
             {
@@ -85,6 +99,11 @@ var CustomerBalance = (function ($) {
             return true;
         },
 
+        ajaxPaging: function () {
+            pagingOption = PagingHeper.getSetting();
+            CustomerBalance.submit();
+        },
+
         bindData: function (response) {
             jqGridAdditional.clearGrid(GRID_ID);
 
@@ -92,13 +111,20 @@ var CustomerBalance = (function ($) {
             CustomerBalanceOption.isAllowBA = response.IsAllowBA;
 
             var reportGrid = $("#" + GRID_ID);
-            var isEmpty = response == null ||
-                 $.isEmptyObject(response.Data) || response.Data.length === 0;
+
+            pagingOption.totalrow = parseInt(response.TotalRows);
+            if (pagingOption.totalrow > 0 && pagingOption.totalrow > pagingOption.pagesize) {
+                $(".paging").show();
+                PagingHeper.render(pagingOption);
+            }
+            else {
+                $(".paging").hide();
+            }
 
             var gridOption = CustomerBalanceOption.getGridOption();
             gridOption.data = response.Data;
             gridOption.onSortCol = function (index) {
-                if (!isEmpty) {
+                if (pagingOption.totalrow > 0) {
                     Site.blockUI();
                     sortType = index === sortColumnIndex ? (sortType === "desc" ? "asc" : "desc") : "desc";
                     window.setTimeout(function () {
@@ -107,7 +133,7 @@ var CustomerBalance = (function ($) {
                             sortColumnIndex = "";
                             sortType = "";
                         }
-                        else{
+                        else {
                             sortColumnIndex = index;
                         }
                         $("#OrderItem").val(orderColumnCode);
@@ -120,7 +146,7 @@ var CustomerBalance = (function ($) {
             gridOption.gridComplete = function () {
                 jqGridAdditional.gridComplete(this, gridOption, 1);
 
-                if (isEmpty) {
+                if (pagingOption.totalrow <= 0) {
                     jqGridAdditional.setNoInfo(gridOption.colModel);
                 }
                 else {
@@ -151,7 +177,7 @@ var CustomerBalance = (function ($) {
 
             CustomerBalance.setReportTitle();
 
-            gridOption.shrinkToFit = isEmpty;
+            gridOption.shrinkToFit = pagingOption.totalrow <= 0;
             reportGrid.jqGrid(gridOption);
 
             CustomerBalanceOption.setGroupHeaderColumns(reportGrid);

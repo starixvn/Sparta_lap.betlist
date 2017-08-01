@@ -87,55 +87,5 @@ namespace Fanex.Athena.Controllers.Report
 
             return result;
         }
-
-        private static IEnumerable<SelectListItem> GenerateOrderItemList(short orderItem)
-        {
-            var result = new List<SelectListItem>
-                {
-                    new SelectListItem
-                        {
-                            Value = "1",
-                            Text = ViewResources.Deposit,
-                            Selected = orderItem == 1,
-                        },
-                    new SelectListItem
-                        {
-                            Value = "2",
-                            Text = ViewResources.Withdrawal,
-                            Selected = orderItem == 2,
-                        },
-                    new SelectListItem
-                        {
-                            Value = "3",
-                            Text = ViewResources.Turnover,
-                            Selected = orderItem == 3,
-                        },
-                    new SelectListItem
-                        {
-                            Value = "4",
-                            Text = ViewResources.Win,
-                            Selected = orderItem == 4,
-                        },
-                    new SelectListItem
-                        {
-                            Value = "5",
-                            Text = ViewResources.Loss,
-                            Selected = orderItem == 5,
-                        },
-                    new SelectListItem
-                        {
-                            Value = "6",
-                            Text = ViewResources.OpeningBalance,
-                            Selected = orderItem == 6,
-                        },
-                    new SelectListItem
-                        {
-                            Value = "7",
-                            Text = ViewResources.ClosingBalance,
-                            Selected = orderItem == 7,
-                        }
-                };
-            return result;
-        }
     }
 }

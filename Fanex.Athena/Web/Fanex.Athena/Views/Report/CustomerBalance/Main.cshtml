@@ -6,10 +6,12 @@
 @model Fanex.Athena.Model.Report.ViewModel.CustomerBalanceViewModel
 
 @section pagecss {
+    <link href="@Url.ContentLink("/Content/Global/Paging.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.ContentLink("/Content/Report/CustomertBalance.css")" rel="stylesheet" type="text/css" />
 }
 
 @section pagejs {
+    <script src="@Url.ContentLink("/Scripts/Global/Paging.js")" type="text/javascript"></script>
     <script src="@Url.ContentLink("/Scripts/Report/CustomerBalance.option.js")" type="text/javascript"></script>
     <script src="@Url.ContentLink("/Scripts/Report/CustomerBalance.js")" type="text/javascript"></script>
 }

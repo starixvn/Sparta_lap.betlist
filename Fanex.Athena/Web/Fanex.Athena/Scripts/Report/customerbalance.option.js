@@ -22,7 +22,10 @@ var CustomerBalanceOption = (function () {
         width: 120,
         align: "left",
         valign: "middle",
-        sortable: false
+        sortable: false,
+        cellattr: function (rowId, cellValue, rowObject) {
+            return ' style="text-overflow: ellipsis"';
+        }
     };
 
     var systemIdColumn =
@@ -333,7 +336,7 @@ var CustomerBalanceOption = (function () {
             rownumbers: false,
             sortable: false,
             scroll: 1,
-            rowNum: 40,
+            rowNum: 40
         },
 
         getGridOption: function () {
