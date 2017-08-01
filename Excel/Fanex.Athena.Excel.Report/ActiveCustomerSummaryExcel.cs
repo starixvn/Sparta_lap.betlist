@@ -19,9 +19,6 @@ namespace Fanex.Athena.Excel.Report
     using NPOI.SS.UserModel;
     using Resources;
 
-    /// <summary>
-    /// Active Customer - Export excel.
-    /// </summary>
     public class ActiveCustomerSummaryExcel : ReportBase
     {
         private const int ColumnDate = 0;
@@ -34,6 +31,12 @@ namespace Fanex.Athena.Excel.Report
         private const int RowContentTemplate = 3;
         private const int RowGrantTotal = 4;
         private const int RowNoInfoTemplate = 5;
+
+        private static readonly IEnumerable<string> OfferedProducts = new string[]
+        {
+            Product.SB, Product.RB, Product.NG, Product.BA, Product.LC, Product.VS, Product.CS, Product.BG, Product.KN,
+            Product.PTCS, Product.AGC, Product.MGCLC, Product.CB, Product.MGCRNG, Product.AB, Product.VB, Product.FW, Product.BRVS
+        };
 
         private readonly IList<ActiveCustomer> _activeCustomerList;
 
@@ -56,9 +59,6 @@ namespace Fanex.Athena.Excel.Report
             _allProductOptions = GetAllProductOptions(metaModel.ProductOptions);
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
         protected override void AssignData()
         {
             int numOfDataRow = _activeCustomerList.Count;
@@ -82,45 +82,21 @@ namespace Fanex.Athena.Excel.Report
             HideColumn(sheet, _hiddenColumnIndexes.ToArray());
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignHeader(ISheet sheet)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnDate].SetCellValue(ViewResources.Month);
             row.Cells[ColumnFirstProduct].SetCellValue(ViewResources.Product);
             row.Cells[ColumnTotalTransaction].SetCellValue(ViewResources.Total);
 
-            IRow row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
-
-            var prdHeaderList = new List<string>
-            {
-                ViewResources.Sportsbook,
-                ViewResources.ProductRB,
-                ViewResources.ProductNG,
-                ViewResources.ProductBA,
-                ViewResources.ProductLC,
-                ViewResources.ProductVS,
-                ViewResources.ProductCS,
-                ViewResources.ProductBG,
-                ViewResources.ProductKN,
-                ViewResources.ProductPTCS,
-                ViewResources.ProductAGC,
-                ViewResources.ProductMGCLC,
-                ViewResources.ProductCB,
-                ViewResources.ProductMGCRNG,
-                ViewResources.ProductAB,
-                ViewResources.ProductVB,
-                ViewResources.ProductFW,
-                ViewResources.ProductBRVS
-            };
+            var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 
             int index = ColumnFirstProduct;
-            foreach (string item in prdHeaderList)
+
+            foreach (string productCode in OfferedProducts)
             {
-                row2.Cells[index++].SetCellValue(item);
+                var header = ViewResources.ResourceManager.GetString($"Product{productCode}");
+                row2.Cells[index++].SetCellValue(header);
             }
         }
 
@@ -130,10 +106,6 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignSheetData(ISheet sheet)
         {
             int index;
@@ -166,10 +138,6 @@ namespace Fanex.Athena.Excel.Report
             sheet.MergeCells(totalRowIndex, ColumnDate, totalRowIndex, ColumnTotalTransaction);
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignTitle(ISheet sheet)
         {
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
@@ -186,49 +154,26 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        /// <summary>
-        /// Get full product option list for active customer report with exactly 8 products.
-        /// </summary>
-        /// <param name="products">The product option list. This list may contain 0-8 items.</param>
-        /// <returns>The full product option list.</returns>
-        protected IList<ProductOption> GetAllProductOptions(IList<ProductOption> products)
+        protected IList<ProductOption> GetAllProductOptions(IEnumerable<ProductOption> products)
         {
-            var newProducts = new List<ProductOption>
-            {
-                new ProductOption { Code = Product.SB, Status = false },
-                new ProductOption { Code = Product.RB, Status = false },
-                new ProductOption { Code = Product.NG, Status = false },
-                new ProductOption { Code = Product.BA, Status = false },
-                new ProductOption { Code = Product.LC, Status = false },
-                new ProductOption { Code = Product.VS, Status = false },
-                new ProductOption { Code = Product.CS, Status = false },
-                new ProductOption { Code = Product.BG, Status = false },
-                new ProductOption { Code = Product.KN, Status = false },
-                new ProductOption { Code = Product.PTCS, Status = false },
-                new ProductOption { Code = Product.AGC, Status = false },
-                new ProductOption { Code = Product.MGCLC, Status = false },
-                new ProductOption { Code = Product.CB, Status = false },
-                new ProductOption { Code = Product.MGCRNG, Status = false },
-                new ProductOption { Code = Product.AB, Status = false },
-                new ProductOption { Code = Product.VB, Status = false },
-                new ProductOption { Code = Product.FW, Status = false },
-                new ProductOption { Code = Product.BRVS, Status = false }
-            };
+            var result = new List<ProductOption>();
 
-            for (var i = 0; i < newProducts.Count; i++)
+            for (var i = 0; i < OfferedProducts.Count(); i++)
             {
-                var product = products.FirstOrDefault(x => x.Code == newProducts[i].Code);
+                var product = products.FirstOrDefault(x => x.Code == OfferedProducts.ElementAt(i));
+                result.Add(new ProductOption
+                {
+                    Code = OfferedProducts.ElementAt(i),
+                    Status = product != null
+                });
+
                 if (product == null)
                 {
                     _hiddenColumnIndexes.Add(ColumnFirstProduct + i);
                 }
-                else
-                {
-                    newProducts[i].Status = product.Status;
-                }
             }
 
-            return newProducts;
+            return result;
         }
     }
 }
