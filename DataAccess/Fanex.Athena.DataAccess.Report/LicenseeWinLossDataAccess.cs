@@ -38,10 +38,10 @@ namespace Fanex.Athena.DataAccess.Report
 
         public SortableList<LicenseeWinLoss> GetSummaryWinloss(LicenseeWinLossMetaModel metaModel, out IDictionary<string, LicenseeWinLoss> summaryTotal)
         {
-            var uspName = "Lrf_Rpt_LicWinloss";
+            const string UspName = "Lrf_Rpt_LicWinloss";
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
                     UpdateUspParams(db, metaModel, false);
@@ -55,7 +55,7 @@ namespace Fanex.Athena.DataAccess.Report
             catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, uspName, metaModel);
+                throw new DataAccessException(sqlException.Message, UspName, metaModel);
             }
         }
 
@@ -63,10 +63,10 @@ namespace Fanex.Athena.DataAccess.Report
             LicenseeWinLossMetaModel metaModel,
             out IDictionary<string, LicenseeWinLoss> summaryTotal)
         {
-            var uspName = "Lrf_Rpt_LicWinlossDetail";
+            const string UspName = "Lrf_Rpt_LicWinlossDetail";
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
                     UpdateUspParams(db, metaModel, true);
@@ -79,7 +79,7 @@ namespace Fanex.Athena.DataAccess.Report
             catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, uspName, metaModel);
+                throw new DataAccessException(sqlException.Message, UspName, metaModel);
             }
         }
 
@@ -87,10 +87,10 @@ namespace Fanex.Athena.DataAccess.Report
             LicenseeWinLossMetaModel metaModel,
             out IDictionary<string, LicenseeWinLoss> summaryTotal)
         {
-            var uspName = "Lrf_Rpt_LicWinlossDetail_Ag";
+            const string UspName = "Lrf_Rpt_LicWinlossDetail_Ag";
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
@@ -102,7 +102,7 @@ namespace Fanex.Athena.DataAccess.Report
             catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, uspName, metaModel);
+                throw new DataAccessException(sqlException.Message, UspName, metaModel);
             }
         }
 
@@ -151,8 +151,7 @@ namespace Fanex.Athena.DataAccess.Report
                     var licenseeWlColumnName = "LicenseeWL" + product.Code + baseCurrency;
                     var turnOverColumnName = "turnover" + product.Code + baseCurrency;
 
-                    if (!IsIgnoredLicenseeWLProduct(product.Code) &&
-                        reader.HasColumn(licenseeWlColumnName))
+                    if (!IsIgnoredLicenseeWLProduct(product.Code) && reader.HasColumn(licenseeWlColumnName))
                     {
                         licenseeWLColumns.Add(licenseeWlColumnName, product.Code);
                     }
