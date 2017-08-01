@@ -56,6 +56,7 @@
     "build-pro": "webpack --config www/webpackconfig/build/webpack.pro.conf.js",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     "build-react":  "webpack --config webpack.react.conf.js"
 =======
     "build-react": "webpack-dev-server --hot --inline --config www/webpackconfig/build/webpack.react.dev.conf.js"
@@ -64,6 +65,12 @@
     "build-react-dev": "webpack-dev-server --hot --inline --config www/webpackconfig/build/webpack.react.dev.conf.js",
     "build-react-pro": "webpack --config www/webpackconfig/build/webpack.react.pro.conf.js"
 >>>>>>> 00000 - Separate dev and pro config for react
+=======
+    "build-react-hmr": "webpack-dev-server --hot --inline --config www/webpackconfig/build/webpack.react.hmr.conf.js",
+    "build-react-dev": "webpack --config www/webpackconfig/build/webpack.react.dev.conf.js",
+    "build-react-pro": "webpack --config www/webpackconfig/build/webpack.react.pro.conf.js",
+    "build-react-both": "webpack --config www/webpackconfig/build/webpack.react.pro.conf.js && webpack --config www/webpackconfig/build/webpack.react.dev.conf.js"
+>>>>>>> 00000 - Configure task runner for react
   },
   "author": "Sparta",
   "license": "vn",

@@ -761,9 +761,11 @@
     <Content Include="Scripts\Report\customerwinloss.option.js" />
     <Content Include="Scripts\Report\customerbalance.option.js" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
+    <Content Include="www\js\build\dev\react\reactsample.chunk.js" />
     <Content Include="www\js\build\pro\react\reactsample.chunk.js" />
     <Content Include="www\webpackconfig\build\webpack.react.base.conf.js" />
     <Content Include="www\webpackconfig\build\webpack.react.dev.conf.js" />
+    <Content Include="www\webpackconfig\build\webpack.react.hmr.conf.js" />
     <Content Include="www\assets\images\15.jpg" />
     <Content Include="www\assets\images\lap-restriction-page.png" />
     <Content Include="www\assets\images\location-restriction-page.png" />
