@@ -727,7 +727,7 @@ window.alert = function (message, fallback) {
             width: 'auto'
         });
 };
-$(window).load(function () {
+$(function () {
     Site.initBlockUI();
     Site.initialize();
     Site.needOverrideInnerSize = window.innerHeight === undefined;

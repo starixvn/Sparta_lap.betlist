@@ -922,7 +922,7 @@ if (!window._IsInJsTestingMode) {
 
         if (QueryString.getParam(window.location.href, "userName") ||
             QueryString.getParam(window.location.href, "groupId")) {
-            setTimeout(CustomerList.submit, 500);
+            CustomerList.submit();
         } else {
             Site.unBlockUI();
         }
