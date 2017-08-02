@@ -154,7 +154,7 @@ var LiveReport = (function ($) {
             }
             else {
                 if (productCode === "ALL") {
-                    productOptions = ["SB", "BA", "NG", "RB", "LC", "VS", "CS", "BG", "VS2"];
+                    productOptions = ["SB", "BA", "NG", "RB", "LC", "VS", "CS", "BG", "VS2", "LT"];
                 }
                 else {
                     productOptions.push(productCode);

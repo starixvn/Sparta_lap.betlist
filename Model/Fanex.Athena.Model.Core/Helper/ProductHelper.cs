@@ -96,6 +96,9 @@
                 case "VS2191":
                     return ViewResources.VirtualSoccerNation;
 
+                case Product.LT:
+                    return ViewResources.ProductLT;
+
                 default:
                     return defaultValue ?? productCode;
             }

@@ -23,9 +23,9 @@ namespace Fanex.Athena.Excel.Report
     {
         private const int ColumnDate = 0;
         private const int ColumnFirstProduct = 1;
-        private const int ColumnLastProduct = 18;
-        private const int ColumnTotalTransaction = 19;
-        private const int ColumnTemplateCount = 20;
+        private const int ColumnLastProduct = 19;
+        private const int ColumnTotalTransaction = 20;
+        private const int ColumnTemplateCount = 21;
 
         private const int RowTableHeader = 1;
         private const int RowContentTemplate = 3;
@@ -34,8 +34,8 @@ namespace Fanex.Athena.Excel.Report
 
         private static readonly IEnumerable<string> OfferedProducts = new string[]
         {
-            Product.SB, Product.RB, Product.NG, Product.BA, Product.LC, Product.VS, Product.CS, Product.BG, Product.KN,
-            Product.PTCS, Product.AGC, Product.MGCLC, Product.CB, Product.MGCRNG, Product.AB, Product.VB, Product.FW, Product.VS2
+            Product.SB, Product.RB, Product.NG, Product.BA, Product.LC, Product.VS, Product.CS, Product.BG, Product.KN, Product.PTCS,
+            Product.AGC, Product.MGCLC, Product.CB, Product.MGCRNG, Product.AB, Product.VB, Product.FW, Product.VS2, Product.LT
         };
 
         private readonly IList<ActiveCustomer> _activeCustomerList;
