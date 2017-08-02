@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Excel.Report
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
@@ -45,14 +46,14 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTableHeaderTemplate = 1;
         private const int RowTotalTemplate = 4;
 
-        private readonly IList<CustBalance> _exportData;
+        private readonly IEnumerable<CustBalance> _exportData;
         private readonly CustomerBalanceMetaModel _model;
         private readonly CustBalance _totalList;
 
         public CustomerBalanceExcel(
                                     string templatePath,
                                     CustomerBalanceMetaModel model,
-                                    IList<CustBalance> exportData,
+                                    IEnumerable<CustBalance> exportData,
                                     CustBalance totalList,
                                     ShowingOption showingOption,
                                     ConvertingOption convertingOption)
@@ -84,12 +85,9 @@ namespace Fanex.Athena.Excel.Report
             };
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
         protected override void AssignData()
         {
-            int numOfDataRow = _exportData.Count;
+            int numOfDataRow = _exportData.Count();
 
             if (numOfDataRow == 0)
             {
@@ -97,20 +95,17 @@ namespace Fanex.Athena.Excel.Report
                 AssignTitle(sheet);
                 AssignHeader(sheet);
                 AssignNoInfoRow(sheet);
-
-                // Hide unnecessary column
                 ProcessUI(sheet);
             }
             else
             {
-                int rowCount = _exportData.Count;
-                int sheetCount = rowCount % MaxRowCount == 0
-                                 ? rowCount / MaxRowCount
-                                 : (rowCount / MaxRowCount) + 1;
+                int sheetCount = numOfDataRow % MaxRowCount == 0
+                                 ? numOfDataRow / MaxRowCount
+                                 : (numOfDataRow / MaxRowCount) + 1;
                 var rowIndex = 0;
                 for (int i = 0; i < sheetCount; i++)
                 {
-                    ISheet sheet = Workbook.CloneSheet("Template", "Customer Balance" + (i + 1));
+                    var sheet = Workbook.CloneSheet("Template", "Customer Balance" + (i + 1));
                     AssignTitle(sheet);
                     AssignHeader(sheet);
                     rowIndex = AssignSheetData(sheet, i);
@@ -125,10 +120,6 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignHeader(ISheet sheet)
         {
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
@@ -148,24 +139,14 @@ namespace Fanex.Athena.Excel.Report
             row2.Cells[ColumnAmountDueToBa].SetCellValue(ViewResources.AmtDueTo);
         }
 
-        /// <summary>
-        /// Assign no info row.
-        /// </summary>
-        /// <param name="sheet"> Excel sheet.</param>
         protected override void AssignNoInfoRow(ISheet sheet)
         {
             SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
 
-        /// <summary>
-        /// Assign data row.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="pageIndex">The page index. </param>
-        /// <returns>The row index.</returns>
         protected override int AssignSheetData(ISheet sheet, int pageIndex)
         {
-            int rowCount = _exportData.Count;
+            int rowCount = _exportData.Count();
             int startIndex = checked(pageIndex * MaxRowCount);
             int endIndex = startIndex + MaxRowCount > rowCount ? rowCount : startIndex + MaxRowCount;
             int rowIndex = 0;
@@ -173,28 +154,28 @@ namespace Fanex.Athena.Excel.Report
             for (int index = startIndex; index < endIndex; index++)
             {
                 IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
-                CustBalance dataRow = _exportData[index];
+                var item = _exportData.ElementAt(index);
 
                 row.Cells[ColumnIndex].SetCellValue(index + 1);
-                row.Cells[ColumnExternalId].SetCellValue(dataRow.ExternalId);
-                row.Cells[ColumnSystemId].SetCellValue(dataRow.SystemId);
-                row.Cells[ColumnOpeningBalance].SetCellValue(dataRow.OpeningBalance);
-                row.Cells[ColumnDeposit].SetCellValue(dataRow.Deposit);
-                row.Cells[ColumnWithdrawal].SetCellValue(dataRow.Withdrawal);
-                row.Cells[ColumnBonus].SetCellValue(dataRow.Bonus);
-                row.Cells[ColumnAdjustment].SetCellValue(dataRow.Adjustment);
-                row.Cells[ColumnTurnOver].SetCellValue(dataRow.Turnover);
-                row.Cells[ColumnDrawGame].SetCellValue(dataRow.DrawGame);
-                row.Cells[ColumnNetTurnOver].SetCellValue(dataRow.NetTurnover);
-                row.Cells[ColumnPendingFunds].SetCellValue(dataRow.PendingFunds);
-                row.Cells[ColumnCustomerWinLoss].SetCellValue(dataRow.WinLoss);
-                row.Cells[ColumnCustomerComm].SetCellValue(dataRow.PlayerComm);
-                row.Cells[ColumnCustomerTotal].SetCellValue(dataRow.WinLoss + dataRow.PlayerComm);
-                row.Cells[ColumnClosingBalance].SetCellValue(dataRow.ClosingBalance);
-                row.Cells[ColumnAffiliateTransfer].SetCellValue(dataRow.AffiliateTransfer);
-                row.Cells[ColumnTurnoverBa].SetCellValue(dataRow.TurnoverBA);
-                row.Cells[ColumnCommBa].SetCellValue(dataRow.CommBA);
-                row.Cells[ColumnAmountDueToBa].SetCellValue(dataRow.AmountDueToBA);
+                row.Cells[ColumnExternalId].SetCellValue(item.ExternalId);
+                row.Cells[ColumnSystemId].SetCellValue(item.SystemId);
+                row.Cells[ColumnOpeningBalance].SetCellValue(item.OpeningBalance);
+                row.Cells[ColumnDeposit].SetCellValue(item.Deposit);
+                row.Cells[ColumnWithdrawal].SetCellValue(item.Withdrawal);
+                row.Cells[ColumnBonus].SetCellValue(item.Bonus);
+                row.Cells[ColumnAdjustment].SetCellValue(item.Adjustment);
+                row.Cells[ColumnTurnOver].SetCellValue(item.Turnover);
+                row.Cells[ColumnDrawGame].SetCellValue(item.DrawGame);
+                row.Cells[ColumnNetTurnOver].SetCellValue(item.NetTurnover);
+                row.Cells[ColumnPendingFunds].SetCellValue(item.PendingFunds);
+                row.Cells[ColumnCustomerWinLoss].SetCellValue(item.WinLoss);
+                row.Cells[ColumnCustomerComm].SetCellValue(item.PlayerComm);
+                row.Cells[ColumnCustomerTotal].SetCellValue(item.WinLoss + item.PlayerComm);
+                row.Cells[ColumnClosingBalance].SetCellValue(item.ClosingBalance);
+                row.Cells[ColumnAffiliateTransfer].SetCellValue(item.AffiliateTransfer);
+                row.Cells[ColumnTurnoverBa].SetCellValue(item.TurnoverBA);
+                row.Cells[ColumnCommBa].SetCellValue(item.CommBA);
+                row.Cells[ColumnAmountDueToBa].SetCellValue(item.AmountDueToBA);
 
                 rowIndex++;
             }
@@ -202,10 +183,6 @@ namespace Fanex.Athena.Excel.Report
             return rowIndex;
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignTitle(ISheet sheet)
         {
             string pattern = ViewResources.CustomerBalance + ", {0} - {1}, {2}";
@@ -221,10 +198,6 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        /// <summary>
-        /// Process UI, hide redundant row and column.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
@@ -247,12 +220,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign total row.
-        /// </summary>
-        /// <param name="sheet"> Excel sheet.</param>
-        /// <param name="rowTotal">The total value.</param>
-        protected void AssignTotalData(ISheet sheet, int rowTotal)
+        private void AssignTotalData(ISheet sheet, int rowTotal)
         {
             IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, rowTotal);
 

@@ -5491,9 +5491,6 @@
     <Content Include="Views\Report\Balance\Filter.cshtml" />
     <Content Include="Views\Report\Balance\Main.cshtml" />
     <Content Include="Views\Report\CustomerBalance\Content.cshtml" />
-    <Content Include="Views\Report\CustomerBalance\Content.Data.cshtml" />
-    <Content Include="Views\Report\CustomerBalance\Content.Header.cshtml" />
-    <Content Include="Views\Report\CustomerBalance\Content.Total.cshtml" />
     <Content Include="Views\Report\CustomerBalance\Filter.cshtml" />
     <Content Include="Views\Report\CustomerBalance\Main.cshtml" />
     <Content Include="Views\Note\LiveReport.cshtml" />

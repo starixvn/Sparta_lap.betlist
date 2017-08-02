@@ -84,7 +84,7 @@
             return ExcelStream(custBalanceExcel.Workbook, FileName);
         }
 
-        private IList<CustBalance> GetData(CustomerBalanceMetaModel metaModel, ref CustBalance totalData, ref int totalRow)
+        private IEnumerable<CustBalance> GetData(CustomerBalanceMetaModel metaModel, ref CustBalance totalData, ref int totalRow)
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
             return _custBalanceService.GetDataList(metaModel, ref totalData, ref totalRow);

@@ -36,14 +36,17 @@
             <label>@ViewResources.SelectTop</label>
         </div>
         <div class="grid_3 filter-input">
-            @Html.DropDownList("TopCount", ViewBag.TopCountList as List<SelectListItem>, new { })
+            <select id="TopCount">
+                <option value="0">@ViewResources.All</option>
+                <option value="100">100</option>
+                <option value="500">500</option>
+            </select>
         </div>
         @RazorHelper.RenderProductFilter(Model.Param.ProductOptions, 3, false)
         <div class="grid_3 filter-label new-line">
             &nbsp;
         </div>
         @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
-        @Html.Hidden("OrderItem", Model.Param.OrderItem)
         <div class="grid_2 filter-input">
             <input type="button" value="@ViewResources.Submit" id="SubmitButton" class="button" />
         </div>

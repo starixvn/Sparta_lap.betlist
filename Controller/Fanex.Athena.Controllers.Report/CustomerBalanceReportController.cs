@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -15,7 +14,6 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
-    using Resources;
 
     [FunctionAuthorization(PermissionKeys.ReportCustomerBalance)]
     public class CustomerBalanceReportController : ReportBaseController
@@ -54,38 +52,7 @@ namespace Fanex.Athena.Controllers.Report
                 Param = metaModel
             };
 
-            ViewBag.TopCountList = GenerateTopCountList(metaModel.TopCount);
-
             return View("~/Views/Report/CustomerBalance/Main.cshtml", model);
-        }
-
-        private static IList<SelectListItem> GenerateTopCountList(int topCount)
-        {
-            const string Label100 = "100";
-            const string Label500 = "500";
-            var result = new List<SelectListItem>
-                {
-                    new SelectListItem
-                        {
-                            Value = "0",
-                            Text = ViewResources.All,
-                            Selected = topCount == 0,
-                        },
-                    new SelectListItem
-                        {
-                            Value = Label100,
-                            Text = Label100,
-                            Selected = topCount == 100,
-                        },
-                    new SelectListItem
-                        {
-                            Value = Label500,
-                            Text = Label500,
-                            Selected = topCount == 500,
-                        }
-                };
-
-            return result;
         }
     }
 }

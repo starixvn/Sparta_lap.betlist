@@ -54,7 +54,6 @@
             _objectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
             _objectDb.Received().AddInParameter("todate", DbType.DateTime, _metaModel.ToDate);
             _objectDb.Received().AddInParameter("topcount", DbType.Int32, _metaModel.TopCount);
-            _objectDb.Received().AddInParameter("orderitem", DbType.Byte, _metaModel.OrderItem);
             _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("pagesize", DbType.Int32, _metaModel.PageSize);
             _objectDb.Received().AddInParameter("pageindex", DbType.Int32, _metaModel.PageIndex);
