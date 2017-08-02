@@ -10,8 +10,6 @@ namespace Fanex.Athena.Api.BetList
     #region Using
 
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Web.Http;
     using Base.Attributes;
     using Fanex.Athena.Extension.Helper;
@@ -23,15 +21,6 @@ namespace Fanex.Athena.Api.BetList
     [ApiFunctionAuthorization(PermissionKeys.ReportLiveReport)]
     public class LiveReportBetListController : ApiBetListBaseController
     {
-        private static readonly IEnumerable<int> RacingSportTypes = new List<int>()
-                {
-                    (int)SportType.VirtualHorseRacing,
-                    (int)SportType.VirtualGreyhound,
-                    (int)SportType.VirtualMotoRacing,
-                    (int)SportType.VirtualSpeedway,
-                    (int)SportType.VirtualCycling
-                };
-
         [HttpPost]
         public dynamic Match(LiveReportBetListMetaModel metaModel)
         {
@@ -175,8 +164,7 @@ namespace Fanex.Athena.Api.BetList
             string sortBy = null,
             string sortOrder = null)
         {
-            const string UspKeyRacing = "Lrf_BetList_LiveReport_SelWinlossRacing";
-            const string UspKeyVHRacing = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
+            const string UspName = "Lrf_BetList_LiveReport_SelWinlossRacing";
 
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
@@ -199,9 +187,55 @@ namespace Fanex.Athena.Api.BetList
                     SportType = sportType
                 };
 
-                var uspKey = RacingSportTypes.Contains(sportType) ? UspKeyVHRacing : UspKeyRacing;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                return GetPagingData(metaModel, uspKey, page, rows);
+                return GetPagingData(metaModel, UspName, page, rows);
+            }
+
+            return null;
+        }
+
+        [HttpGet]
+        public dynamic VirtualSports(
+            int page,
+            int rows,
+            int currencyId,
+            int sportType,
+            DateTime fromDate,
+            DateTime toDate,
+            decimal sumComm,
+            decimal sumLicenseeWL,
+            decimal sumPlayerComm,
+            decimal sumWinLost,
+            int totalRows,
+            string baseCurrency,
+            string sortBy = null,
+            string sortOrder = null)
+        {
+            const string UspName = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
+
+            var userSession = SessionService.UserSession;
+            var currencyList = userSession.CurrencyList;
+
+            if (currencyId == 0 || currencyList.ContainsKey(currencyId))
+            {
+                var metaModel = new LiveReportBetListMetaModel
+                {
+                    CurrencyId = currencyId,
+                    FromDate = fromDate.Date,
+                    ToDate = toDate.Date,
+                    SumComm = sumComm,
+                    SumLicenseeWL = sumLicenseeWL,
+                    SumPlayerComm = sumPlayerComm,
+                    SumWinlost = sumWinLost,
+                    TotalRows = totalRows,
+                    BaseCurrency = baseCurrency,
+                    SortBy = sortBy,
+                    SortOrder = sortOrder,
+                    SportType = sportType
+                };
+
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+                return GetPagingData(metaModel, UspName, page, rows);
             }
 
             return null;
