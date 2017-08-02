@@ -142,39 +142,57 @@
         [HttpGet]
         public ActionResult Racing(LiveReportBetListMetaModel metaModel)
         {
-            const string UspKeyRacing = "Lrf_BetList_LiveReport_SelWinlossRacing";
-            const string UspKeyVHRacing = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
+            const string UspName = "Lrf_BetList_LiveReport_SelWinlossRacing";
 
             metaModel = CreateDefaultMetaModel(metaModel);
-            if (metaModel.IsExportExcel)
+            var sportName = CacheRef.GetSportName(metaModel.SportType);
+            if (!metaModel.IsExportExcel)
             {
-                var currencyList = SessionService.UserSession.CurrencyList;
-
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
-                {
-                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                    var currencyName = string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
-                    var title = ViewResources.BetList
-                        + $" - {ViewResources.ProductRB} - {metaModel.FromDate.ToShortDateString()} --> {metaModel.ToDate.ToShortDateString()} - {currencyName}";
-
-                    var racingBettypes = new List<int>
-                    {
-                        (int)SportType.VirtualHorseRacing,
-                        (int)SportType.VirtualGreyhound,
-                        (int)SportType.VirtualMotoRacing,
-                        (int)SportType.VirtualSpeedway,
-                        (int)SportType.VirtualCycling
-                    };
-
-                    var spkey = racingBettypes.Contains(metaModel.SportType) ? UspKeyVHRacing : UspKeyRacing;
-
-                    return Excel(metaModel, spkey, title);
-                }
-
-                return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+                ViewBag.SportName = sportName;
+                return View("~/Views/BetList/LiveReport/Racing.cshtml", metaModel);
             }
 
-            return View("~/Views/BetList/LiveReport/Racing.cshtml", metaModel);
+            var currencyList = SessionService.UserSession.CurrencyList;
+
+            if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
+            {
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+                var currencyName = string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
+                var title = ViewResources.BetList
+                    + $" - {sportName} - {metaModel.FromDate.ToShortDateString()} --> {metaModel.ToDate.ToShortDateString()} - {currencyName}";
+
+                return Excel(metaModel, UspName, title);
+            }
+
+            return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+        }
+
+        [HttpGet]
+        public ActionResult VirtualSports(LiveReportBetListMetaModel metaModel)
+        {
+            const string UspName = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
+
+            metaModel = CreateDefaultMetaModel(metaModel);
+            var sportName = CacheRef.GetSportName(metaModel.SportType);
+            if (!metaModel.IsExportExcel)
+            {
+                ViewBag.SportName = sportName;
+                return View("~/Views/BetList/LiveReport/VirtualSports.cshtml", metaModel);
+            }
+
+            var currencyList = SessionService.UserSession.CurrencyList;
+
+            if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
+            {
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+                var currencyName = string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
+                var title = ViewResources.BetList
+                    + $" - {sportName} - {metaModel.FromDate.ToShortDateString()} --> {metaModel.ToDate.ToShortDateString()} - {currencyName}";
+
+                return Excel(metaModel, UspName, title);
+            }
+
+            return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
 
         private ActionResult Excel(BetListMetaModel metaModel, string uspKey, string title)

@@ -181,11 +181,11 @@ var LiveReport = (function ($) {
                 Key151: "LiveReportBetList/Racing?SportType=151",
                 Key152: "LiveReportBetList/Racing?SportType=152",
                 Key153: "LiveReportBetList/Racing?SportType=153",
-                Key181: "LiveReportBetList/Racing?SportType=181",
-                Key182: "LiveReportBetList/Racing?SportType=182",
-                Key183: "LiveReportBetList/Racing?SportType=183",
-                Key184: "LiveReportBetList/Racing?SportType=184",
-                Key185: "LiveReportBetList/Racing?SportType=185",
+                Key181: "LiveReportBetList/VirtualSports?SportType=181",
+                Key182: "LiveReportBetList/VirtualSports?SportType=182",
+                Key183: "LiveReportBetList/VirtualSports?SportType=183",
+                Key184: "LiveReportBetList/VirtualSports?SportType=184",
+                Key185: "LiveReportBetList/VirtualSports?SportType=185",
                 Key104: "LiveReportBetList/MixParlay?bettype=2799"
             };
 
