@@ -21,5 +21,7 @@ namespace Fanex.Athena.Model.Report.MetaModel
         public bool IsExcludeTest { get; set; }
 
         public int TopCount { get; set; }
+
+        public short OrderItem { get; set; }
     }
 }

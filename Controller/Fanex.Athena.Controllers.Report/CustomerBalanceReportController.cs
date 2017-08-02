@@ -45,9 +45,6 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.ProductOptions = productOption;
             var model = new CustomerBalanceViewModel
             {
-                ShowEmptyContent = true,
-                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                ProductAccess = productAccess,
                 CurrencyList = userSession.CurrencyList,
                 Param = metaModel
             };

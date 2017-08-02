@@ -23,6 +23,7 @@ namespace Fanex.Athena.DataAccess.Report
                 db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
                 db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
                 db.AddInParameter("topcount", DbType.Int32, metaModel.TopCount);
+                db.AddInParameter("orderitem", DbType.Byte, metaModel.OrderItem);
                 db.AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
                 db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
                 db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);

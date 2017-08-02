@@ -1,4 +1,5 @@
 ﻿/*global Site, jqGridAdditional*/
+/*exported CustomerBalanceOption*/
 /// <reference path="/@JSense.js" />
 
 var CustomerBalanceOption = (function () {
@@ -23,7 +24,7 @@ var CustomerBalanceOption = (function () {
         align: "left",
         valign: "middle",
         sortable: false,
-        cellattr: function (rowId, cellValue, rowObject) {
+        cellattr: function () {
             return ' style="text-overflow: ellipsis"';
         }
     };
@@ -305,12 +306,12 @@ var CustomerBalanceOption = (function () {
         $.each(insertedColumns, function (index, item) {
             columns.insertAfter(item, insertedIndex);
         });
-    };
+    }
 
     var me =
     {
-        urlData: 'api/CustomerBalanceReport/Index',
-        urlExcelData: 'api/CustomerBalanceReport/Index',
+        urlData: "api/CustomerBalanceReport/Index",
+        urlExcelData: "api/CustomerBalanceReport/Index",
         hasCustomerComm: true,
         isAllowBA: true,
         customerCommIndex: 11,
@@ -318,16 +319,16 @@ var CustomerBalanceOption = (function () {
         totalColspan: 3,
         gridOption:
         {
-            datatype: 'local',
+            datatype: "local",
             colNames: [],
             colModel: [],
             data: [],
-            height: 'auto',
+            height: "auto",
             autowidth: true,
             forceFit: true,
             shrinkToFit: true,
-            loadtext: 'loading...',
-            loadui: 'disable',
+            loadtext: "loading...",
+            loadui: "disable",
             loadonce: true,
             footerrow: true,
             userDataOnFooter: false,
@@ -336,7 +337,7 @@ var CustomerBalanceOption = (function () {
             rownumbers: false,
             sortable: false,
             scroll: 1,
-            rowNum: 40
+            rowNum: 100
         },
 
         getGridOption: function () {
@@ -348,19 +349,19 @@ var CustomerBalanceOption = (function () {
         setGroupHeaderColumns: function (grid) {
             var groupCustomerWinloss = me.hasCustomerComm ?
             {
-                startColumnName: 'WinLoss',
+                startColumnName: "WinLoss",
                 numberOfColumns: 3,
-                titleText: Site.getSingleResource('CustomerW_L')
+                titleText: Site.getSingleResource("CustomerW_L")
             } : {};
 
             var groupProductBA = me.isAllowBA ?
             {
-                startColumnName: 'TurnoverBA',
+                startColumnName: "TurnoverBA",
                 numberOfColumns: 3,
-                titleText: Site.getSingleResource('ProductBA')
+                titleText: Site.getSingleResource("ProductBA")
             } : {};
 
-            grid.jqGrid('setGroupHeaders',
+            grid.jqGrid("setGroupHeaders",
             {
                 useColSpanStyle: true,
                 groupHeaders: [groupCustomerWinloss, groupProductBA]
@@ -409,7 +410,7 @@ var CustomerBalanceOption = (function () {
             if (sortType === "asc" && indexColumn !== customerWinLossColumn.index && indexColumn !== customerWinLossMergeColumn.index) {
                 return 0;
             }
-                
+
             switch (indexColumn) {
                 case customerWinLossColumn.index:
                 case customerWinLossMergeColumn.index:
@@ -431,7 +432,7 @@ var CustomerBalanceOption = (function () {
                     return 0;
             }
         }
-    }
+    };
 
     return me;
 })();
