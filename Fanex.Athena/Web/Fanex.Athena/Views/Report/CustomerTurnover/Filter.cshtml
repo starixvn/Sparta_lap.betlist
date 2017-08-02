@@ -4,7 +4,10 @@
 }
 
 @model Fanex.Athena.Model.Report.ViewModel.CustomerTurnoverViewModel
-@{var minDate = DateTime.Today.AddMonths(-3).AddDays(1 - DateTime.Today.Day);}
+@{
+    var minDate = DateTime.Today.AddMonths(-3).AddDays(1 - DateTime.Today.Day);
+    var maxOddDigits = 4;
+}
 <div class="grid_26 content-filter new-line">
     @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, appSettings.MaxDate, "from-date", "to-date", 3, 4, 2, 7)
     <div class="grid_2 userguide-group">
@@ -56,7 +59,7 @@
         <span class="decimal-odds">(@ViewResources.DecimalOdds)</span>
     </div>
     <div class="grid_4 filter-input" style="margin-right: 0px; width: 155px;">
-        @Html.TextBox("Odds", Model.Param.Odds, new { })
+        @Html.TextBox("Odds", Model.Param.Odds, new { @maxlength = maxOddDigits })
     </div>
     <div class="grid_2 filter-label">@ViewResources.Currency</div>
     <div class="grid_7 filter-input">

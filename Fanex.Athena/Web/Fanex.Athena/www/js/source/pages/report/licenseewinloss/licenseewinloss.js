@@ -1,10 +1,11 @@
 ﻿define(
     ["jquery", "common/querystring", "common/site", "../report", "./licenseewinloss.option", "lib/jqgrid/jquery.jqgrid.additional",
-        "components/pluginhelper/daterangepicker", "moment", "common/popup", "components/pluginhelper/multiselect",
+        "components/pluginhelper/daterangepicker", "moment", "common/popup", "components/pluginhelper/multiselect", "helpers/daterange",
         "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension", "lib/linq"],
-    function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup, MultiSelect) {
+    function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup, MultiSelect, DateHelper) {
         "use strict";
         var REPORT_BY_MONTHLY = 2;
+        var VALID_MONTH_RANGE = 3;
 
         var cacheData = {};
         var ajaxRequest = null;
@@ -48,6 +49,7 @@
                 });
                 MultiSelect.initProductList();
                 DatePicker.initDateRangePicker();
+                DateHelper.setConstraintMonthRange(VALID_MONTH_RANGE, LicenseeWinLossOption.urlExcelData);
             },
 
             registerGlobalFunction: function () {
