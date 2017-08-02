@@ -158,7 +158,7 @@ function activeDefaultLink() {
     parent.document.title = 'LRF' + ' - ' + parentMenuText + ' - ' + $defaultPage.html();
 }
 
-$(window).load(function () {
+$(function () {
     // auto suggest username
     var txtUserName = $('#txtUserName');
     var serUrl = "../CustomerAPI/SearchCustomer";

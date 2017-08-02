@@ -4736,7 +4736,7 @@ webpackJsonp([57],{
 	            var url = Site.getCurrentUrl();
 	            if (QueryString.getParam(url, "userName") ||
 	                QueryString.getParam(url, "groupId")) {
-	                setTimeout(CustomerListService.submit, 500);
+	                CustomerListService.submit();
 	            } else {
 	                Site.unBlockUI();
 	            }
