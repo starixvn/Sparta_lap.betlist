@@ -2,6 +2,36 @@
 define(["jquery", "common/site", "../common/constant", "../common/betsettingbase", "../common/betsetting.copy"], function ($, Site, Constant, BetSettingBase, BetSettingCopy) {
     var Product = Constant.Product;
 
+    function getConfirmMessage(productId) {
+        switch (productId) {
+            case Product.Sportsbook:
+                return "UpdateSportsbookBetSettings";
+                break;
+            case Product.Racing:
+                return "UpdateRacingBetSettings";
+                break;
+            case Product.VirtualSports:
+                return "UpdateVirtualSportsBetSettings";
+            default:
+                return "";
+        }
+    }
+
+    function getUpdateUrl(productId) {
+        switch (productId) {
+            case Product.Sportsbook:
+                return "SportsbookBetSetting/UpdateBetSetting";
+                break;
+            case Product.Racing:
+                return "RacingBetSetting/UpdateBetSetting";
+                break;
+            case Product.VirtualSports:
+                return "VirtualSportsBetSetting/UpdateBetSetting";
+            default:
+                return null;
+        }
+    }
+
     var _me = {
         initialize: function () {
             Site.initialize();
@@ -23,8 +53,7 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
 
             $("#btnSubmitBetSetting").on("click", function () {
                 var productId = parseInt($("#ProductId").val());
-                var messageResource = productId === Product.Sportsbook ? "UpdateSportsbookBetSettings" :
-                        productId === Product.Racing ? "UpdateRacingBetSettings" : "";
+                var messageResource = getConfirmMessage(productId);
 
                 BetSettingBase.showComfirm($(this), messageResource, _me.updateBetSetting);
             });
@@ -35,8 +64,7 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
 
         updateBetSetting: function (custId, userName, nickName) {
             var productId = parseInt($("#ProductId").val());
-            var url = productId === Product.Sportsbook ? "SportsbookBetSetting/UpdateBetSetting" :
-                    productId === Product.Racing ? "RacingBetSetting/UpdateBetSetting" : null;
+            var url = getUpdateUrl(productId);
 
             if (url === null) {
                 return;
