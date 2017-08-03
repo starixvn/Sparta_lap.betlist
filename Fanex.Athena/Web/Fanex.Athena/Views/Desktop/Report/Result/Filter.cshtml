@@ -33,13 +33,13 @@
                 <a href="javascript:;" class="center-align label label-primary" id="submitOutright" data-isOutright="0">@ViewResources.Outright</a>
                 @if (ViewBag.IsAllowedKeno)
                 {
-                    <a href="javascript:;" class="center-align label label-primary" id="submitKeno" data-vendorProductId="@VendorProductTypes.Keno">
+                    <a href="javascript:;" class="center-align label label-primary" id="submitKeno" data-vendorProductId="@ResultVendorProductTypes.Keno">
                         @ViewResources.ProductKN
                     </a>
                 }
                 @if (ViewBag.IsAllowedLottery)
                 {
-                    <a href="javascript:;" class="center-align label label-primary" id="submitLottery" data-vendorProductId="@VendorProductTypes.Lottery">
+                    <a href="javascript:;" class="center-align label label-primary" id="submitLottery" data-vendorProductId="@ResultVendorProductTypes.Lottery">
                         @ViewResources.ProductLT
                     </a>
                 }

@@ -60,9 +60,9 @@
             return string.Empty;
         }
 
-        private KenoResultMetalModel GetKenoSetting(int vendorProductId)
+        private KenoResultMetaModel GetKenoSetting(int vendorProductId)
         {
-            return new KenoResultMetalModel
+            return new KenoResultMetaModel
             {
                 Language = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName,
                 SiteID = AppSettings.GetValue("KenoSiteID"),
@@ -71,7 +71,7 @@
                 ExtendTokenUrl = AppSettings.GetValue("KenoExtendTokenUrl"),
                 VenderKey = AppSettings.GetValue("KenoVenderKey"),
                 Vendor = AppSettings.GetValue("KenoVendor"),
-                ResultUrl = vendorProductId == VendorProductTypes.Keno ? AppSettings.GetValue("KenoResultUrl") : AppSettings.GetValue("LotteryResultUrl"),
+                ResultUrl = vendorProductId == ResultVendorProductTypes.Keno ? AppSettings.GetValue("KenoResultUrl") : AppSettings.GetValue("LotteryResultUrl"),
                 KickOutUrl = Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme),
                 VendorProduct = vendorProductId
             };

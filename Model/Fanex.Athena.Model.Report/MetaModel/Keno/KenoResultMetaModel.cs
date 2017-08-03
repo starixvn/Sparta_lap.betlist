@@ -1,17 +1,9 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="KenoResultMetalModel.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
 namespace Fanex.Athena.Model.Report.MetaModel.Keno
 {
     using System.Diagnostics.CodeAnalysis;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
-    public class KenoResultMetalModel
+    public class KenoResultMetaModel
     {
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Reviewed. Suppression is OK here.")]
         public string ResultUrl { get; set; }

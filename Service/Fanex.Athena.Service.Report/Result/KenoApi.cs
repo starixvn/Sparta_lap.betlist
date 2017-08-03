@@ -9,6 +9,7 @@
     using Fanex.Athena.Service.Core.Exception;
     using Interfaces;
     using Model.Core.DataDomain;
+    using Model.Report.MetaModel.Keno;
 
     public class KenoApi : IKenoApi
     {
@@ -17,7 +18,7 @@
         private const string LOTTERYSERVICENAME = "LotteryApi";
         private const string LOTTERYGAMENAME = "Lottery";
 
-        public KenoAuthorization Authorize(Model.Report.MetaModel.Keno.KenoResultMetalModel setting, string userId)
+        public KenoAuthorization Authorize(KenoResultMetaModel setting, string userId)
         {
             try
             {
@@ -43,7 +44,7 @@
         /// <param name="setting">Setting value.</param>
         /// <param name="userId">User Id value.</param>
         /// <returns>KenoExtendedToken value.</returns>
-        public KenoExtendedToken ExtendToken(Model.Report.MetaModel.Keno.KenoResultMetalModel setting, string userId)
+        public KenoExtendedToken ExtendToken(KenoResultMetaModel setting, string userId)
         {
             try
             {
@@ -63,14 +64,7 @@
             }
         }
 
-        /// <summary>
-        /// Create Keno Result Url.
-        /// </summary>
-        /// <param name="setting">Setting value.</param>
-        /// <param name="userId">User Id value.</param>
-        /// <param name="resultDate">Result date value.</param>
-        /// <returns>String Url value.</returns>
-        public string CreateKenoResultUrl(Model.Report.MetaModel.Keno.KenoResultMetalModel setting, string userId, DateTime resultDate)
+        public string CreateKenoResultUrl(KenoResultMetaModel setting, string userId, DateTime resultDate)
         {
             var authorizedData = this.Authorize(setting, userId);
             if (authorizedData.ErrorCode > 0)
@@ -100,12 +94,12 @@
 
         private static string GetServiceName(int vendorProductId)
         {
-            return vendorProductId == VendorProductTypes.Keno ? KENOSERVICENAME : LOTTERYSERVICENAME;
+            return vendorProductId == ResultVendorProductTypes.Keno ? KENOSERVICENAME : LOTTERYSERVICENAME;
         }
 
         private static string GetGameName(int vendorProductId)
         {
-            return vendorProductId == VendorProductTypes.Keno ? KENOGAMENAME : LOTTERYGAMENAME;
+            return vendorProductId == ResultVendorProductTypes.Keno ? KENOGAMENAME : LOTTERYGAMENAME;
         }
     }
 }
