@@ -7,31 +7,11 @@
     {
         string[] BasedCurrency { get; }
 
-        int ColumnWidth { get; }
-
         bool EnableAssignCurrency { get; }
-
-        bool EnableNumberGame { get; }
-
-        bool EnableRacing { get; }
-
-        bool EnableRacingGreyhoundAust { get; }
-
-        bool EnableRacingGreyhoundUk { get; }
-
-        bool EnableRacingHarnessAust { get; }
-
-        bool EnableRacingHRAust { get; }
-
-        bool EnableRacingHRSa { get; }
-
-        bool EnableRacingHRUk { get; }
 
         bool EnableSessionValidatingService { get; }
 
         string Environment { get; }
-
-        IList<int> ExcludeFunctionIdList { get; }
 
         DateTime HistoryDate { get; }
 

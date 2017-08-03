@@ -42,7 +42,6 @@ namespace Fanex.Athena.Controllers
             var userSession = SessionService.UserSession;
             var licenseeSession = SessionService.LicenseeSession;
             var systemFunctions = userSession.FunctionIdList;
-            var excludeFunctions = AppSettings.ExcludeFunctionIdList;
 
             var canManageMember = userSession.FunctionIdList.Contains((int)FunctionType.CustomerList);
 
