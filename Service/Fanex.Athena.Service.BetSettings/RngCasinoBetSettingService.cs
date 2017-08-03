@@ -56,7 +56,7 @@ namespace Fanex.Athena.Service.BetSettings
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+                return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
             if (isSyncCasino && !_appSettings.IsDisableRngCasino)
@@ -76,7 +76,7 @@ namespace Fanex.Athena.Service.BetSettings
         {
             if (isDisableCasino || !HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId))
             {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+                return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
             var result = false;

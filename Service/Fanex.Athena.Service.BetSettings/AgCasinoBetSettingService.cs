@@ -86,7 +86,7 @@ namespace Fanex.Athena.Service.BetSettings
 
             if (!agcasinoSetting.IsEnabled || !HasPermissionOnData(setting.LicenseeId, setting.CustId))
             {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+                return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
             return _betSettingDataAccess.UpdateBetSetting(setting, group);
@@ -96,7 +96,7 @@ namespace Fanex.Athena.Service.BetSettings
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+                return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
             return _betSettingDataAccess.UpdateStatus(userId, custId, language, ip, isEnabled);

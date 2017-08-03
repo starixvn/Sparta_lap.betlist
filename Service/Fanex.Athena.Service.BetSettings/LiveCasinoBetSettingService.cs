@@ -38,7 +38,7 @@ namespace Fanex.Athena.Service.BetSettings
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+                return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
             if (isSyncLiveCasino)
@@ -96,7 +96,7 @@ namespace Fanex.Athena.Service.BetSettings
         {
             if (isDisableLiveCasino || !HasPermissionOnData(licenseeId, custId))
             {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+                return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
             var errCode = string.Empty;

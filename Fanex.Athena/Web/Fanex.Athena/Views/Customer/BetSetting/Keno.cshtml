@@ -46,7 +46,7 @@
     else
     {
         var item = Model.MainData[0];
-        
+        @Html.Hidden("IDList", Model.MainData.First().SportId)
         <div class="content-row">
             <div class="row text-data first-column" style="width: 190px">
                 <div>@ViewResources.ProductKN</div>
@@ -76,9 +76,7 @@
     }
 </div>
 <!--/Content-->
-<!-- Hidden-->
-@Html.Hidden("IDList", Model.MainData.First().SportId)
-<!--/Hidden-->
+
 <!--SubmitButton-->
 @if (Model.Editable && hasData)
 {

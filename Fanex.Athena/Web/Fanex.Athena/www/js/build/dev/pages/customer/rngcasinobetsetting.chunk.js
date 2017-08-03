@@ -3,12 +3,12 @@ webpackJsonp([65],{
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(295);
+	module.exports = __webpack_require__(306);
 
 
 /***/ }),
 
-/***/ 239:
+/***/ 250:
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -259,7 +259,7 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 242:
+/***/ 253:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -294,11 +294,11 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 243:
+/***/ 254:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(242), __webpack_require__(244), __webpack_require__(245), __webpack_require__(247)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(253), __webpack_require__(255), __webpack_require__(256), __webpack_require__(258)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
 	        var Product = Constant.Product;
 	
 	        var _me = {
@@ -462,7 +462,7 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 244:
+/***/ 255:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -792,11 +792,11 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 245:
+/***/ 256:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(246)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(257)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
 	    
 	    function isInteger(text) {
 	        return /^\+?\d+$/.test(text);
@@ -863,7 +863,7 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 246:
+/***/ 257:
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -1146,11 +1146,11 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 247:
+/***/ 258:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(245)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingHelper) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(256)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingHelper) {
 	    var SPORTID_NUMBERGAME = 161;
 	
 	    var _me = {
@@ -1262,11 +1262,11 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 248:
+/***/ 259:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(245)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingHelper) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(256)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingHelper) {
 	    var _me = {
 	        update: function (url, postData) {
 	            $.ajax({
@@ -1306,21 +1306,21 @@ webpackJsonp([65],{
 
 /***/ }),
 
-/***/ 295:
+/***/ 306:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(296)], __WEBPACK_AMD_DEFINE_RESULT__ = function (RngCasinoBetSetting) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(307)], __WEBPACK_AMD_DEFINE_RESULT__ = function (RngCasinoBetSetting) {
 	    $(RngCasinoBetSetting.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 
-/***/ 296:
+/***/ 307:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(243), __webpack_require__(248), __webpack_require__(239)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, BetSettingBase, BetSettingStatus) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(254), __webpack_require__(259), __webpack_require__(250)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, BetSettingBase, BetSettingStatus) {
 	        "use strict";
 	
 	        function initialize() {

@@ -16,6 +16,7 @@
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using Resources;
 
     [TestFixture]
     public class GoldDeluxeBetSettingTest
@@ -288,7 +289,7 @@
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(1));
-            Assert.That(result.Message, Is.EqualTo("Invalid parameter. Invalid custId."));
+            Assert.That(result.Message, Is.EqualTo(ViewResources.AccessDeniedMsg));
         }
 
         [Test]
@@ -307,7 +308,7 @@
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(1));
-            Assert.That(result.Message, Is.EqualTo("Invalid parameter. Invalid custId."));
+            Assert.That(result.Message, Is.EqualTo(ViewResources.AccessDeniedMsg));
         }
 
         [Test]
@@ -332,7 +333,7 @@
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(1));
-            Assert.That(result.Message, Is.EqualTo("Invalid parameter. Invalid custId."));
+            Assert.That(result.Message, Is.EqualTo(ViewResources.ErrorProcessingMsg));
         }
 
         [Test]
@@ -371,7 +372,7 @@
             var expectedResult = new ResultInfo
             {
                 Code = 1,
-                Message = "Invalid parameter. Invalid custId."
+                Message = ViewResources.AccessDeniedMsg
             };
             var userId = 1;
             var language = "en-US";
@@ -398,7 +399,7 @@
             var expectedResult = new ResultInfo
             {
                 Code = 1,
-                Message = "Invalid parameter. Invalid custId."
+                Message = ViewResources.AccessDeniedMsg
             };
             var userId = 1;
             var language = "en-US";

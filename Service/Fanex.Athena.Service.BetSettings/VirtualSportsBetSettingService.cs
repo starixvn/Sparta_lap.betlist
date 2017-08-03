@@ -51,7 +51,7 @@ namespace Fanex.Athena.Service.BetSettings
             const string XMLElement = "<setting sporttype=\"{0}\" minbet=\"{1}\" maxbet=\"{2}\" maxpermatch=\"{3}\" ></setting>";
             if (!HasPermissionOnData(licenseeId, custId))
             {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+                return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
             var xmlElementBuilder = new StringBuilder();

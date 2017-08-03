@@ -61,7 +61,7 @@ namespace Fanex.Athena.Service.BetSettings
 
             if (!HasPermissionOnData(setting.LicenseeId, setting.CustId))
             {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+                return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
             return _betSettingDataAccess.UpdateBetSetting(setting, hashParam);

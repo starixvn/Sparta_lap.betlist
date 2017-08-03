@@ -105,7 +105,7 @@ namespace Fanex.Athena.Service.BetSettings
             var setting = _betSettingDataAccess.GetBetSetting(custId, ProductTypes.GoldDeluxe);
             if (!setting.IsEnabled || !HasPermissionOnData(licenseeId, custId))
             {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+                return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
             var uri = new Uri(_appSettings.GetValue("GoldDeluxeSetUserGroupApiUrl"));
@@ -127,20 +127,20 @@ namespace Fanex.Athena.Service.BetSettings
                 LogHelper.WriteError(exception);
             }
 
-            return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+            return ErrorResult(ViewResources.ErrorProcessingMsg);
         }
 
         public IResultInfo UpdateStatus(int licenseeId, int userId, int custId, string language, string ip, bool isEnabled)
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+                return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
             var setting = _betSettingDataAccess.GetBetSetting(custId, ProductTypes.GoldDeluxe);
             if (!setting.IsLineEnabled)
             {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+                return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
             return _betSettingDataAccess.UpdateStatus(ProductTypes.GoldDeluxe, userId, custId, language, ip, isEnabled);
