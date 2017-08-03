@@ -30,7 +30,6 @@
 }
 
 @Html.Hidden("editable", Model.Editable)
-@Html.Hidden("IDList", Model.MainData.First().SportId)
 
 @if (Model.MainData.Count == 0)
 {
@@ -39,7 +38,7 @@
 else
 {
     var item = Model.MainData[0];
-
+    @Html.Hidden("IDList", Model.MainData.First().SportId)
     <div class="table-content">
         <!--Header-->
         <div class="header-content">
