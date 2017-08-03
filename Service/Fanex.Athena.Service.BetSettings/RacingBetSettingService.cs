@@ -55,7 +55,7 @@ namespace Fanex.Athena.Service.BetSettings
             var custId = racingParam.First().Value.CustId;
             if (!HasPermissionOnData(licenseeId, custId))
             {
-                throw new ServiceException(ViewResources.UpdateSpecialLevelMsg, "BetSetting");
+                throw new ServiceException(ViewResources.AccessDeniedMsg, "BetSetting");
             }
 
             return _betSettingDataAccess.UpdateBetSetting(racingParam);

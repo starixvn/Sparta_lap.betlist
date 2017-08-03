@@ -51,13 +51,13 @@ namespace Fanex.Athena.Service.BetSettings
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+                return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
             var setting = _betSettingDataAccess.GetBetSetting(custId, productId);
             if (!setting.IsLineEnabled)
             {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+                return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
             return _betSettingDataAccess.UpdateStatus(productId, userId, custId, language, ip, isEnabled);

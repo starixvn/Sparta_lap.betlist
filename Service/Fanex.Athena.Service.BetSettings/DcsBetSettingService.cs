@@ -45,7 +45,7 @@ namespace Fanex.Athena.Service.BetSettings
                 return new ResultInfo
                 {
                     Code = 1,
-                    Message = ViewResources.UpdateSpecialLevelMsg
+                    Message = ViewResources.AccessDeniedMsg
                 };
             }
 
