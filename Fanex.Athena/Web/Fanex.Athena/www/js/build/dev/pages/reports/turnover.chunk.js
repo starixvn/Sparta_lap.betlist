@@ -1,8 +1,8 @@
-webpackJsonp([83],[
+webpackJsonp([84],[
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(360);
+	module.exports = __webpack_require__(362);
 
 
 /***/ }),
@@ -20741,7 +20741,9 @@ webpackJsonp([83],[
 /* 276 */,
 /* 277 */,
 /* 278 */,
-/* 279 */
+/* 279 */,
+/* 280 */,
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
@@ -21209,8 +21211,6 @@ webpackJsonp([83],[
 
 
 /***/ }),
-/* 280 */,
-/* 281 */,
 /* 282 */,
 /* 283 */,
 /* 284 */,
@@ -21219,10 +21219,12 @@ webpackJsonp([83],[
 /* 287 */,
 /* 288 */,
 /* 289 */,
-/* 290 */
+/* 290 */,
+/* 291 */,
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(291)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(293)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 	        "use strict";
 	        var PICKER_SELECTOR = "#month-picker";
 	        var FORMAT = "MM/dd/yyyy";
@@ -21283,7 +21285,7 @@ webpackJsonp([83],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 291 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -21955,9 +21957,7 @@ webpackJsonp([83],[
 	                        if (!data.expandDayOnhover) {
 	                            // Collapse all day picker dropdowns when users click outside the picker
 	                            $('html').on('click', function (e) {
-	                                var $target = $(e.target);
-	                                var targetId = $target.attr("id");
-	                                targetId = targetId === undefined ? $target.parent().attr("id") : targetId;
+	                                var targetId = $(e.target).attr("id");
 	
 	                                if (targetId !== data.fromDayId && targetId !== data.toDayId) {
 	                                    _hideDropDown(data, data.ddlFromDate);
@@ -22122,8 +22122,6 @@ webpackJsonp([83],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 292 */,
-/* 293 */,
 /* 294 */,
 /* 295 */,
 /* 296 */,
@@ -22190,10 +22188,12 @@ webpackJsonp([83],[
 /* 357 */,
 /* 358 */,
 /* 359 */,
-/* 360 */
+/* 360 */,
+/* 361 */,
+/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(361)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Turnover) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(363)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Turnover) {
 	    "use strict";
 	    $(function () {
 	        Turnover.initialize();
@@ -22209,12 +22209,12 @@ webpackJsonp([83],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 361 */
+/* 363 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(362),
-	        __webpack_require__(103), __webpack_require__(106), __webpack_require__(290), __webpack_require__(245),
-	        __webpack_require__(224), __webpack_require__(225), __webpack_require__(250), __webpack_require__(279)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, TurnoverOption, jqGridAdditional, moment, MonthPicker, MultiSelect) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(364),
+	        __webpack_require__(103), __webpack_require__(106), __webpack_require__(292), __webpack_require__(245),
+	        __webpack_require__(224), __webpack_require__(225), __webpack_require__(250), __webpack_require__(281)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, TurnoverOption, jqGridAdditional, moment, MonthPicker, MultiSelect) {
 	        "use strict";
 	    var ajaxRequest = null;
 	    var _fromDate, _toDate, _currencyName, _currencyId;
@@ -22468,7 +22468,7 @@ webpackJsonp([83],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 362 */
+/* 364 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(103)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional) {

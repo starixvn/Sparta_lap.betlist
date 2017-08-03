@@ -1,214 +1,23 @@
-webpackJsonp([52],{
+webpackJsonp([53],{
 
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(251);
+	module.exports = __webpack_require__(248);
 
 
 /***/ }),
 
-/***/ 251:
-/***/ (function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(252)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetSettingByGroup) {
-	    $(BetSettingByGroup.initialize);
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-
-/***/ 252:
+/***/ 242:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(253), __webpack_require__(254), __webpack_require__(259), __webpack_require__(255)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Constant, BetSettingBase, BetSettingStatus, NumberFormatter) {
-	        var Product = Constant.Product;
-	
-	        var _bettingGroupLimitCache;
-	        var _productId;
-	
-	        function disableSubmitButtons(isDisabled) {
-	            var $button = $("#btnSubmitBetSetting, #btnReset").prop('disabled', isDisabled);
-	            $button.toggleClass("disabled", isDisabled);
-	        }
-	
-	        var _me = {
-	            initialize: function () {
-	                Site.initialize();
-	                BetSettingBase.initialize();
-	
-	                _bettingGroupLimitCache = JSON.parse($("#BettingLimit").val());
-	
-	                _productId = parseInt($("#ProductId").val());
-	                _me.initEvent();
-	
-	                var $betSettingGroup = $('#betSettingGroup');
-	                if ($betSettingGroup.length) {
-	                    if ($betSettingGroup.data("default") === "") {
-	                        $betSettingGroup.prop("selectedIndex", -1);
-	                        disableSubmitButtons(true);
-	                    }
-	                    $betSettingGroup.change();
-	                }
-	            },
-	
-	            initEvent: function () {
-	                var formatter = new NumberFormatter();
-	
-	                $('#betSettingGroup').on('change', function () {
-	                    var selectedGroupType = this.value;
-	                    var groupFilter = function (item) {
-	                        return item.GroupType === selectedGroupType;
-	                    };
-	                    var disableSubmit = false;
-	
-	                    for (var i = 0; i < _bettingGroupLimitCache.length; i++) {
-	                        var game = _bettingGroupLimitCache[i];
-	                        var group = game.Groups.filter(groupFilter)[0];
-	                        if (group) {
-	                            $("#min-" + game.GameType).html(formatter.formatNumber(group.Min, { format: "#,###" }));
-	                            $("#max-" + game.GameType).html(formatter.formatNumber(group.Max, { format: "#,###" }));
-	                        } else {
-	                            $("#min-" + game.GameType).html("");
-	                            $("#max-" + game.GameType).html("");
-	                            disableSubmit = true;
-	                        }
-	                    }
-	
-	                    disableSubmitButtons(disableSubmit);
-	                });
-	
-	                $("#btnSubmitBetSetting").on("click", function () {
-	                    if (!_me.isValid()) {
-	                        return;
-	                    }
-	
-	                    var messageResource = _productId === Product.AgCasino ? 'UpdateAgCasinoBetSettings' :
-	                                        _productId === Product.GoldDeluxe ? 'UpdateGoldDeluxeBetSettings' : '';
-	                    BetSettingBase.showComfirm($(this), messageResource, _me.updateBetSetting);
-	                });
-	
-	                $("#btnReset").on("click", _me.resetSetting);
-	
-	                $("#btnUpdateStatus").click(function () {
-	                    _me.updateStatus($(this));
-	                });
-	            },
-	
-	            resetSetting: function () {
-	                var $dropdown = $("#betSettingGroup");
-	                if ($dropdown.data("default") === "") {
-	                    $dropdown.prop("selectedIndex", -1).change();
-	                } else {
-	                    $dropdown.val($dropdown.data("default")).change();
-	                }
-	            },
-	
-	            updateBetSetting: function (custId, userName, nickName) {
-	                var url = _productId === Product.AgCasino ? 'AgCasinoBetSetting/UpdateBetSetting' :
-	                                        _productId === Product.GoldDeluxe ? 'GoldDeluxeBetSetting/UpdateBetSetting' : null;
-	
-	                if (url === null) {
-	                    return;
-	                }
-	
-	                var params = {
-	                    custid: custId,
-	                    userName: userName,
-	                    nickName: nickName,
-	                    group: $("#betSettingGroup").val()
-	                };
-	
-	                BetSettingBase.updateBetSetting(Site.resolveClientUrl(url), params);
-	            },
-	
-	            updateStatus: function ($context) {
-	                var url = _productId === Product.AgCasino ? 'AgCasinoBetSetting/UpdateStatus' :
-	                                        _productId === Product.GoldDeluxe ? 'GoldDeluxeBetSetting/UpdateStatus' : null;
-	
-	                if (url === null) {
-	                    return;
-	                }
-	
-	                var params = BetSettingStatus.getCommonPostData($context);
-	                BetSettingStatus.update(Site.resolveClientUrl(url), params);
-	            },
-	
-	            checkApiContainGroup: function (groupType) {
-	                var groupFilter = function (item) {
-	                    return item.GroupType === groupType;
-	                };
-	                return _bettingGroupLimitCache[0].Groups.filter(groupFilter).length > 0;
-	            },
-	
-	            isValid: function () {
-	                var group = $("#betSettingGroup").val();
-	                if (!group) {
-	                    return false;
-	                }
-	
-	                if (!_me.checkApiContainGroup(group)) {
-	                    alert(Site.getSingleResource("AGCasinoNoGroupChosenErrMsg"));
-	                    return false;
-	                }
-	
-	                return true;
-	            }
-	        };
-	
-	        return _me;
-	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ }),
-
-/***/ 253:
-/***/ (function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-	    var Product = {
-	        Sportsbook: 0,
-	        Racing: 1,
-	        NumberGame: 2,
-	        LiveCasino: 4,
-	        VirtualSports: 5,
-	        RngCasino: 6,
-	        Keno: 8,
-	        AgCasino: 10,
-	        GoldDeluxe: 11,
-	        Macau: 12,
-	        BetTrade: 13,
-	        MgcLiveCasino: 14,
-	        Colossusbets: 15,
-	        MgcRngCasino: 17,
-	        AllBet: 21,
-	        VoidBridge: 22,
-	        FishingWorld: 24,
-	        Cashout: 25,
-	        VirtualSports2: 27,
-	    };
-	
-	    var _me = {
-	        Product: Product
-	    };
-	
-	    return _me;
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ }),
-
-/***/ 254:
-/***/ (function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(253), __webpack_require__(255), __webpack_require__(256), __webpack_require__(258)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(243), __webpack_require__(244), __webpack_require__(245), __webpack_require__(247)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
 	        var Product = Constant.Product;
 	
 	        var _me = {
 	            initialize: function () {
-	                $("#product-dropdown").on('change', function () {
+	                $("#product-dropdown").on('change', function (event) {
 	                    var url = $(this).find("option:selected").data("href");
 	                    Site.blockUI();
 	                    Site.redirect(url);
@@ -369,7 +178,43 @@ webpackJsonp([52],{
 
 /***/ }),
 
-/***/ 255:
+/***/ 243:
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	    var Product = {
+	        Sportsbook: 0,
+	        Racing: 1,
+	        NumberGame: 2,
+	        LiveCasino: 4,
+	        VirtualSports: 5,
+	        RngCasino: 6,
+	        Keno: 8,
+	        AgCasino: 10,
+	        GoldDeluxe: 11,
+	        Macau: 12,
+	        BetTrade: 13,
+	        MgcLiveCasino: 14,
+	        Colossusbets: 15,
+	        MgcRngCasino: 17,
+	        AllBet: 21,
+	        VoidBridge: 22,
+	        FishingWorld: 24,
+	        Cashout: 25,
+	        Lottery: 28
+	    };
+	
+	    var _me = {
+	        Product: Product
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 244:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -699,11 +544,11 @@ webpackJsonp([52],{
 
 /***/ }),
 
-/***/ 256:
+/***/ 245:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(257)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(246)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
 	    
 	    function isInteger(text) {
 	        return /^\+?\d+$/.test(text);
@@ -770,7 +615,7 @@ webpackJsonp([52],{
 
 /***/ }),
 
-/***/ 257:
+/***/ 246:
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -1053,11 +898,11 @@ webpackJsonp([52],{
 
 /***/ }),
 
-/***/ 258:
+/***/ 247:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(256)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingHelper) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(245)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingHelper) {
 	    var SPORTID_NUMBERGAME = 161;
 	
 	    var _me = {
@@ -1169,11 +1014,166 @@ webpackJsonp([52],{
 
 /***/ }),
 
-/***/ 259:
+/***/ 248:
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(249)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetSettingByGroup) {
+	    $(BetSettingByGroup.initialize);
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+
+/***/ 249:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(256)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingHelper) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(243), __webpack_require__(242), __webpack_require__(250), __webpack_require__(244)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Constant, BetSettingBase, BetSettingStatus, NumberFormatter) {
+	        var Product = Constant.Product;
+	
+	        var _bettingGroupLimitCache;
+	        var _productId;
+	
+	        function disableSubmitButtons(isDisabled) {
+	            var $button = $("#btnSubmitBetSetting, #btnReset").prop('disabled', isDisabled);
+	            $button.toggleClass("disabled", isDisabled);
+	        }
+	
+	        var _me = {
+	            initialize: function () {
+	                Site.initialize();
+	                BetSettingBase.initialize();
+	
+	                _bettingGroupLimitCache = JSON.parse($("#BettingLimit").val());
+	
+	                _productId = parseInt($("#ProductId").val());
+	                _me.initEvent();
+	
+	                var $betSettingGroup = $('#betSettingGroup');
+	                if ($betSettingGroup.length) {
+	                    if ($betSettingGroup.data("default") === "") {
+	                        $betSettingGroup.prop("selectedIndex", -1);
+	                        disableSubmitButtons(true);
+	                    }
+	                    $betSettingGroup.change();
+	                }
+	            },
+	
+	            initEvent: function () {
+	                var formatter = new NumberFormatter();
+	
+	                $('#betSettingGroup').on('change', function () {
+	                    var selectedGroupType = this.value;
+	                    var groupFilter = function (item) {
+	                        return item.GroupType === selectedGroupType;
+	                    };
+	                    var disableSubmit = false;
+	
+	                    for (var i = 0; i < _bettingGroupLimitCache.length; i++) {
+	                        var game = _bettingGroupLimitCache[i];
+	                        var group = game.Groups.filter(groupFilter)[0];
+	                        if (group) {
+	                            $("#min-" + game.GameType).html(formatter.formatNumber(group.Min, { format: "#,###" }));
+	                            $("#max-" + game.GameType).html(formatter.formatNumber(group.Max, { format: "#,###" }));
+	                        } else {
+	                            $("#min-" + game.GameType).html("");
+	                            $("#max-" + game.GameType).html("");
+	                            disableSubmit = true;
+	                        }
+	                    }
+	
+	                    disableSubmitButtons(disableSubmit);
+	                });
+	
+	                $("#btnSubmitBetSetting").on("click", function () {
+	                    if (!_me.isValid()) {
+	                        return;
+	                    }
+	
+	                    var messageResource = _productId === Product.AgCasino ? 'UpdateAgCasinoBetSettings' :
+	                                        _productId === Product.GoldDeluxe ? 'UpdateGoldDeluxeBetSettings' : '';
+	                    BetSettingBase.showComfirm($(this), messageResource, _me.updateBetSetting);
+	                });
+	
+	                $("#btnReset").on("click", _me.resetSetting);
+	
+	                $("#btnUpdateStatus").click(function () {
+	                    _me.updateStatus($(this));
+	                });
+	            },
+	
+	            resetSetting: function () {
+	                var $dropdown = $("#betSettingGroup");
+	                if ($dropdown.data("default") === "") {
+	                    $dropdown.prop("selectedIndex", -1).change();
+	                } else {
+	                    $dropdown.val($dropdown.data("default")).change();
+	                }
+	            },
+	
+	            updateBetSetting: function (custId, userName, nickName) {
+	                var url = _productId === Product.AgCasino ? 'AgCasinoBetSetting/UpdateBetSetting' :
+	                                        _productId === Product.GoldDeluxe ? 'GoldDeluxeBetSetting/UpdateBetSetting' : null;
+	
+	                if (url === null) {
+	                    return;
+	                }
+	
+	                var params = {
+	                    custid: custId,
+	                    userName: userName,
+	                    nickName: nickName,
+	                    group: $("#betSettingGroup").val()
+	                };
+	
+	                BetSettingBase.updateBetSetting(Site.resolveClientUrl(url), params);
+	            },
+	
+	            updateStatus: function ($context) {
+	                var url = _productId === Product.AgCasino ? 'AgCasinoBetSetting/UpdateStatus' :
+	                                        _productId === Product.GoldDeluxe ? 'GoldDeluxeBetSetting/UpdateStatus' : null;
+	
+	                if (url === null) {
+	                    return;
+	                }
+	
+	                var params = BetSettingStatus.getCommonPostData($context);
+	                BetSettingStatus.update(Site.resolveClientUrl(url), params);
+	            },
+	
+	            checkApiContainGroup: function (groupType) {
+	                var groupFilter = function (item) {
+	                    return item.GroupType === groupType;
+	                };
+	                return _bettingGroupLimitCache[0].Groups.filter(groupFilter).length > 0;
+	            },
+	
+	            isValid: function () {
+	                var group = $("#betSettingGroup").val();
+	                if (!group) {
+	                    return false;
+	                }
+	
+	                if (!_me.checkApiContainGroup(group)) {
+	                    alert(Site.getSingleResource("AGCasinoNoGroupChosenErrMsg"));
+	                    return false;
+	                }
+	
+	                return true;
+	            }
+	        };
+	
+	        return _me;
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 250:
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(245)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingHelper) {
 	    var _me = {
 	        update: function (url, postData) {
 	            $.ajax({

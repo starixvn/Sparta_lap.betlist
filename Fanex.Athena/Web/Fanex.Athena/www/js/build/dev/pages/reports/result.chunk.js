@@ -1,8 +1,8 @@
-webpackJsonp([81],[
+webpackJsonp([82],[
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(356);
+	module.exports = __webpack_require__(358);
 
 
 /***/ }),
@@ -18063,7 +18063,9 @@ webpackJsonp([81],[
 /* 334 */,
 /* 335 */,
 /* 336 */,
-/* 337 */
+/* 337 */,
+/* 338 */,
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -18092,10 +18094,10 @@ webpackJsonp([81],[
 	
 	        updateWidth: function ($grid) {
 	            if (!$grid.hasVerticalScrollBar()) {
-	                $grid.addClass("noScroll").find("table").css("width", "");
+	                $grid.addClass("noScroll");
 	            }
 	            else {
-	                $grid.removeClass("noScroll").find("table").css("width", $grid.width() - 17);
+	                $grid.find("table").width($grid.width() - 17);
 	            }
 	        }
 	    };
@@ -18104,8 +18106,6 @@ webpackJsonp([81],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 338 */,
-/* 339 */,
 /* 340 */,
 /* 341 */,
 /* 342 */,
@@ -18122,30 +18122,36 @@ webpackJsonp([81],[
 /* 353 */,
 /* 354 */,
 /* 355 */,
-/* 356 */
+/* 356 */,
+/* 357 */,
+/* 358 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(357)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Result) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(359)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Result) {
 	    $(Result.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 357 */
+/* 359 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(232), __webpack_require__(9), __webpack_require__(337), __webpack_require__(250)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, DatePicker, Popup, GridHelper) {
-	        var api = "ResultReport/Index";
-	        var apiExcel = "ResultReport/ResultExcel?";
-	        var apiSport = "ResultReport/GetSports";
-	        var kenoResultApi = "ResultReport/KenoResult";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(232), __webpack_require__(9), __webpack_require__(339), __webpack_require__(250)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, DatePicker, Popup, GridHelper) {
+	        var DATA_API = "ResultReport/Index";
+	        var EXCEL_API = "ResultReport/ResultExcel?";
+	        var SPORT_API = "ResultReport/GetSports";
+	        var KENO_RESULT_API = "ResultKenoReport/Index";
+	        var KENO_RESULT_SESSION_API = "ResultKenoReport/KeepSession";
 	        var ajaxRequest = null;
 	        var ajaxFilterRequest = null;
 	        var kenoAjaxRequest = null;
 	        var kenoIntervalId = 0;
 	        var kenoUserId = 0;
+	        var lotteryAjaxRequest = null;
+	        var lotteryIntervalId = 0;
+	        var lotteryUserId = 0;
 	        var param = {
 	            FromDate: "",
 	            ToDate: "",
@@ -18257,7 +18263,9 @@ webpackJsonp([81],[
 	                });
 	
 	                $(window).on("resize", function () {
-	                    GridHelper.resizeGrid($(".fn-rs-content-scroll"));
+	                    if ($(".fn-rs-content-scroll").length > 0) {
+	                        GridHelper.resizeGrid($(".fn-rs-content-scroll"));
+	                    }
 	                });
 	
 	                $(window).on("unload", function () {
@@ -18266,12 +18274,18 @@ webpackJsonp([81],[
 	
 	                if ($("#submitKeno").length) {
 	                    $("#submitKeno").click(function () {
-	                        _me.showKeno();
+	                        _me.showKeno($(this).data("vendorproductid"));
+	                    });
+	                }
+	
+	                if ($("#submitLottery").length) {
+	                    $("#submitLottery").click(function () {
+	                        _me.showLottery($(this).data("vendorproductid"));
 	                    });
 	                }
 	            },
 	
-	            submit: function(){
+	            submit: function () {
 	                _me.clearExcelExport();
 	                _me.clearResult();
 	                var isShowOutright = $("#submitOutright").attr("data-isoutright") === "1";
@@ -18284,17 +18298,17 @@ webpackJsonp([81],[
 	                _me.getData();
 	            },
 	
-	            showKeno: function () {
-	                var kenoWindow = window.open("", '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
+	            showKeno: function (vendorProductId) {
 	                var option = {
 	                    type: "GET",
 	                    cache: false,
-	                    url: Site.resolveClientUrl(kenoResultApi),
+	                    data: { vendorProductId: vendorProductId },
+	                    url: Site.resolveClientUrl(KENO_RESULT_API),
 	                    success: function (response) {
 	                        kenoUserId = response.UserId;
-	                        kenoWindow.location = response.Url;
+	                        window.open(response.Url, '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
 	                        clearInterval(kenoIntervalId);
-	                        _me.extendKenoSession();
+	                        _me.extendKenoSession(vendorProductId);
 	                    },
 	                    beforeSend: function () {
 	                        Site.blockUI();
@@ -18307,16 +18321,58 @@ webpackJsonp([81],[
 	                kenoAjaxRequest = $.ajax(option);
 	            },
 	
-	            extendKenoSession: function () {
+	            showLottery: function (vendorProductId) {
+	                var option = {
+	                    type: "GET",
+	                    cache: false,
+	                    data: { vendorProductId: vendorProductId },
+	                    url: Site.resolveClientUrl(KENO_RESULT_API),
+	                    success: function (response) {
+	                        lotteryUserId = response.UserId;
+	                        window.open(response.Url, '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
+	                        clearInterval(lotteryIntervalId);
+	                        _me.extendLotterySession(vendorProductId);
+	                    },
+	                    beforeSend: function () {
+	                        Site.blockUI();
+	                    },
+	                    complete: function () {
+	                        Site.unBlockUI();
+	                    }
+	                };
+	                _me.stopAjaxRequest(lotteryAjaxRequest);
+	                lotteryAjaxRequest = $.ajax(option);
+	            },
+	
+	            extendKenoSession: function (vendorProductId) {
 	                kenoIntervalId = setInterval(function () {
 	                    var option = {
 	                        type: "POST",
 	                        cache: false,
-	                        data: "userid=" + kenoUserId,
-	                        url: Site.resolveClientUrl(kenoResultApi)
+	                        data: {
+	                            userId: kenoUserId,
+	                            vendorProductId: vendorProductId
+	                        },
+	                        url: Site.resolveClientUrl(KENO_RESULT_SESSION_API)
 	                    };
 	                    _me.stopAjaxRequest(kenoAjaxRequest);
 	                    kenoAjaxRequest = $.ajax(option);
+	                }, 6000);
+	            },
+	
+	            extendLotterySession: function (vendorProductId) {
+	                lotteryIntervalId = setInterval(function () {
+	                    var option = {
+	                        type: "POST",
+	                        cache: false,
+	                        data: {
+	                            userId: lotteryUserId,
+	                            vendorProductId: vendorProductId
+	                        },
+	                        url: Site.resolveClientUrl(KENO_RESULT_SESSION_API)
+	                    };
+	                    _me.stopAjaxRequest(lotteryAjaxRequest);
+	                    lotteryAjaxRequest = $.ajax(option);
 	                }, 6000);
 	            },
 	
@@ -18329,7 +18385,7 @@ webpackJsonp([81],[
 	            },
 	
 	            exportExcel: function () {
-	                var url = Site.resolveClientUrl(apiExcel);
+	                var url = Site.resolveClientUrl(EXCEL_API);
 	                url += "FromDate=" + param.FromDate;
 	                url += "&ToDate=" + param.ToDate;
 	                url += "&IsOutRight=" + param.IsOutRight;
@@ -18341,7 +18397,7 @@ webpackJsonp([81],[
 	            },
 	
 	            getFilter: function () {
-	                var url = Site.resolveClientUrl(apiSport);
+	                var url = Site.resolveClientUrl(SPORT_API);
 	                var option = {
 	                    type: "POST",
 	                    dataType: "json",
@@ -18367,7 +18423,7 @@ webpackJsonp([81],[
 	            },
 	
 	            getReportData: function () {
-	                var url = Site.resolveClientUrl(api);
+	                var url = Site.resolveClientUrl(DATA_API);
 	                var option = {
 	                    type: "POST",
 	                    cache: false,
@@ -18426,7 +18482,7 @@ webpackJsonp([81],[
 	                if (leagueList !== null && leagueList.length > 0) {
 	                    var $league = $("#ddlLeague");
 	                    $.each(leagueList, function (index, value) {
-	                        $league.append('<option value="' +value.LeagueId + '">' + value.LeagueName + '</option>');
+	                        $league.append('<option value="' + value.LeagueId + '">' + value.LeagueName + '</option>');
 	                    });
 	                    $league.val(param.LeagueId);
 	                }

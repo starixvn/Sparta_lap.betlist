@@ -1,8 +1,8 @@
-webpackJsonp([78],[
+webpackJsonp([79],[
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(347);
+	module.exports = __webpack_require__(349);
 
 
 /***/ }),
@@ -18908,7 +18908,9 @@ webpackJsonp([78],[
 /* 334 */,
 /* 335 */,
 /* 336 */,
-/* 337 */
+/* 337 */,
+/* 338 */,
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -18937,10 +18939,10 @@ webpackJsonp([78],[
 	
 	        updateWidth: function ($grid) {
 	            if (!$grid.hasVerticalScrollBar()) {
-	                $grid.addClass("noScroll").find("table").css("width", "");
+	                $grid.addClass("noScroll");
 	            }
 	            else {
-	                $grid.removeClass("noScroll").find("table").css("width", $grid.width() - 17);
+	                $grid.find("table").width($grid.width() - 17);
 	            }
 	        }
 	    };
@@ -18949,8 +18951,6 @@ webpackJsonp([78],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 338 */,
-/* 339 */,
 /* 340 */,
 /* 341 */,
 /* 342 */,
@@ -18958,10 +18958,12 @@ webpackJsonp([78],[
 /* 344 */,
 /* 345 */,
 /* 346 */,
-/* 347 */
+/* 347 */,
+/* 348 */,
+/* 349 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(348)], __WEBPACK_AMD_DEFINE_RESULT__ = function (MatchWinLoss) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(350)], __WEBPACK_AMD_DEFINE_RESULT__ = function (MatchWinLoss) {
 	    "use strict";
 	
 	    $(MatchWinLoss.initialize);
@@ -18969,12 +18971,12 @@ webpackJsonp([78],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 348 */
+/* 350 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(232),
-	    __webpack_require__(337), __webpack_require__(245), __webpack_require__(250)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, DatePicker, GridHelper, MultiSelect) {
+	    __webpack_require__(339), __webpack_require__(245), __webpack_require__(250)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, DatePicker, GridHelper, MultiSelect) {
 	        var ClassName = {
 	            active: "active",
 	            expanded: "expanded"
@@ -19078,7 +19080,6 @@ webpackJsonp([78],[
 	                        var rowspan = $(Selector.detailRow).length + 1;
 	                        $parentRow.find("td:first").attr("rowspan", rowspan);
 	                        $parentRow.addClass(ClassName.active);
-	                        GridHelper.resizeGrid();
 	                    },
 	                    beforeSend: Site.blockUI,
 	                    complete: Site.unBlockUI

@@ -1,9 +1,9 @@
-webpackJsonp([79],{
+webpackJsonp([80],{
 
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(349);
+	module.exports = __webpack_require__(351);
 
 
 /***/ }),
@@ -4944,10 +4944,10 @@ webpackJsonp([79],{
 
 /***/ }),
 
-/***/ 290:
+/***/ 292:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(291)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(293)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 	        "use strict";
 	        var PICKER_SELECTOR = "#month-picker";
 	        var FORMAT = "MM/dd/yyyy";
@@ -5009,7 +5009,7 @@ webpackJsonp([79],{
 
 /***/ }),
 
-/***/ 291:
+/***/ 293:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -5681,9 +5681,7 @@ webpackJsonp([79],{
 	                        if (!data.expandDayOnhover) {
 	                            // Collapse all day picker dropdowns when users click outside the picker
 	                            $('html').on('click', function (e) {
-	                                var $target = $(e.target);
-	                                var targetId = $target.attr("id");
-	                                targetId = targetId === undefined ? $target.parent().attr("id") : targetId;
+	                                var targetId = $(e.target).attr("id");
 	
 	                                if (targetId !== data.fromDayId && targetId !== data.toDayId) {
 	                                    _hideDropDown(data, data.ddlFromDate);
@@ -5849,7 +5847,7 @@ webpackJsonp([79],{
 
 /***/ }),
 
-/***/ 341:
+/***/ 343:
 /***/ (function(module, exports) {
 
 	/*--------------------------------------------------------------------------
@@ -8588,10 +8586,10 @@ webpackJsonp([79],{
 
 /***/ }),
 
-/***/ 349:
+/***/ 351:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(350)], __WEBPACK_AMD_DEFINE_RESULT__ = function (PlatformWinLoss) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(352)], __WEBPACK_AMD_DEFINE_RESULT__ = function (PlatformWinLoss) {
 	    "use strict";
 	    $(PlatformWinLoss.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -8599,7 +8597,7 @@ webpackJsonp([79],{
 
 /***/ }),
 
-/***/ 350:
+/***/ 352:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -8607,16 +8605,16 @@ webpackJsonp([79],{
 	    __webpack_require__(8),
 	    __webpack_require__(7),
 	    __webpack_require__(242),
-	    __webpack_require__(351),
+	    __webpack_require__(353),
 	    __webpack_require__(103),
-	    __webpack_require__(290),
+	    __webpack_require__(292),
 	    __webpack_require__(245),
 	    __webpack_require__(9),
-	    __webpack_require__(352),
+	    __webpack_require__(354),
 	    __webpack_require__(224),
 	    __webpack_require__(225),
 	    __webpack_require__(250),
-	    __webpack_require__(341)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, PlatformWinLossOption, jqGridAdditional, MonthPicker, MultiSelect, Popup, ExcelHelper) {
+	    __webpack_require__(343)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, PlatformWinLossOption, jqGridAdditional, MonthPicker, MultiSelect, Popup, ExcelHelper) {
 	        "use strict";
 	
 	        var BETLIST_IGNORED_PRODUCTS = ["AB"];
@@ -9024,7 +9022,7 @@ webpackJsonp([79],{
 
 /***/ }),
 
-/***/ 351:
+/***/ 353:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
@@ -9445,7 +9443,7 @@ webpackJsonp([79],{
 
 /***/ }),
 
-/***/ 352:
+/***/ 354:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";

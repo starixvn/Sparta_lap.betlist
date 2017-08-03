@@ -1,9 +1,9 @@
-webpackJsonp([59],{
+webpackJsonp([60],{
 
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(293);
+	module.exports = __webpack_require__(295);
 
 
 /***/ }),
@@ -12,43 +12,7 @@ webpackJsonp([59],{
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-	    var Product = {
-	        Sportsbook: 0,
-	        Racing: 1,
-	        NumberGame: 2,
-	        LiveCasino: 4,
-	        VirtualSports: 5,
-	        RngCasino: 6,
-	        Keno: 8,
-	        AgCasino: 10,
-	        GoldDeluxe: 11,
-	        Macau: 12,
-	        BetTrade: 13,
-	        MgcLiveCasino: 14,
-	        Colossusbets: 15,
-	        MgcRngCasino: 17,
-	        AllBet: 21,
-	        VoidBridge: 22,
-	        FishingWorld: 24,
-	        Cashout: 25,
-	        VirtualSports2: 27,
-	    };
-	
-	    var _me = {
-	        Product: Product
-	    };
-	
-	    return _me;
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ }),
-
-/***/ 254:
-/***/ (function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(253), __webpack_require__(255), __webpack_require__(256), __webpack_require__(258)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(254), __webpack_require__(255), __webpack_require__(256), __webpack_require__(258)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
 	        var Product = Constant.Product;
 	
 	        var _me = {
@@ -211,6 +175,42 @@ webpackJsonp([59],{
 	
 	        return _me;
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 254:
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	    var Product = {
+	        Sportsbook: 0,
+	        Racing: 1,
+	        NumberGame: 2,
+	        LiveCasino: 4,
+	        VirtualSports: 5,
+	        RngCasino: 6,
+	        Keno: 8,
+	        AgCasino: 10,
+	        GoldDeluxe: 11,
+	        Macau: 12,
+	        BetTrade: 13,
+	        MgcLiveCasino: 14,
+	        Colossusbets: 15,
+	        MgcRngCasino: 17,
+	        AllBet: 21,
+	        VoidBridge: 22,
+	        FishingWorld: 24,
+	        Cashout: 25,
+	        Lottery: 28
+	    };
+	
+	    var _me = {
+	        Product: Product
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
@@ -1014,7 +1014,7 @@ webpackJsonp([59],{
 
 /***/ }),
 
-/***/ 259:
+/***/ 261:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -1058,34 +1058,33 @@ webpackJsonp([59],{
 
 /***/ }),
 
-/***/ 293:
+/***/ 295:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(294)], __WEBPACK_AMD_DEFINE_RESULT__ = function (DcsBetSetting) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(296)], __WEBPACK_AMD_DEFINE_RESULT__ = function (DcsBetSetting) {
 	    $(DcsBetSetting.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 
-/***/ 294:
+/***/ 296:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* AllBet, VoidBridge, FishingWorld */
 	"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(253),__webpack_require__(254), __webpack_require__(259)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Constant, BetSettingBase, BetSettingStatus) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(254),__webpack_require__(253), __webpack_require__(261)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Constant, BetSettingBase, BetSettingStatus) {
 	        var Product = Constant.Product;
+	        var ProductCodeMap = {};
+	        ProductCodeMap[Product.VirtualSports] = "VS";
+	        ProductCodeMap[Product.Lottery] = "LT";
 	
 	        function getConfirmMessage(productId) {
-	            switch (productId) {
-	                case Product.VirtualSports:
-	                    return "UpdateVirtualSportsBetSettings";
-	                case Product.VirtualSports2:
-	                    return "UpdateVirtualSports2BetSettings";
-	                default:
-	                    return "";
-	            }
+	            var productNameResource = "Product" + ProductCodeMap[productId];
+	            var message = Site.getSingleResource("UpdateProductBetSettings");
+	            debugger;
+	            return message.replace("{0}", Site.getSingleResource(productNameResource));
 	        }
 	
 	        var _me = {
@@ -1093,6 +1092,7 @@ webpackJsonp([59],{
 	                Site.initialize();
 	                BetSettingBase.initialize();
 	                _me.initEvent();
+	                _me.checkToDisableInput();
 	            },
 	
 	            initEvent: function () {
@@ -1106,6 +1106,7 @@ webpackJsonp([59],{
 	
 	                $("#btnSubmitBetSetting").on("click", function () {
 	                    var productId = parseInt($("#ProductId").val());
+	                    Site.getSingleResource("UpdateProductBetSettings");
 	                    var messageResource = getConfirmMessage(productId);
 	
 	                    BetSettingBase.showComfirm($(this), messageResource, _me.updateBetSetting);
@@ -1114,7 +1115,14 @@ webpackJsonp([59],{
 	                // Formating number in text box.
 	                BetSettingBase.formatInputText();
 	            },
+	            checkToDisableInput: function () {
+	                var enabled = $("#IsEnabled").val() === "1";
 	
+	                if (!enabled) {
+	                    $(".table-content input[type=text]").prop('disabled', true).addClass("disabled");
+	                    $("#btnSubmitBetSetting, #btnReset").prop('disabled', true).addClass("disabled");
+	                }
+	            },
 	            updateStatus: function ($context) {
 	                var url = Site.resolveClientUrl("DcsBetSetting/UpdateStatus");
 	                var params = BetSettingStatus.getCommonPostData($context);
