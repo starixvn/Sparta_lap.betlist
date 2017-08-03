@@ -1083,7 +1083,6 @@ webpackJsonp([60],{
 	        function getConfirmMessage(productId) {
 	            var productNameResource = "Product" + ProductCodeMap[productId];
 	            var message = Site.getSingleResource("UpdateProductBetSettings");
-	            debugger;
 	            return message.replace("{0}", Site.getSingleResource(productNameResource));
 	        }
 	
