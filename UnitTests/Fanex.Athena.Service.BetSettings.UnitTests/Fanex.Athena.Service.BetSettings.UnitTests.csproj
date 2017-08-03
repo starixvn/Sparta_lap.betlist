@@ -133,6 +133,10 @@
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
       <Name>Fanex.Athena.Model.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Resources\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
+      <Project>{17B0022C-4902-4C61-908A-5DB81568DC3A}</Project>
+      <Name>Fanex.Athena.Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Service\Fanex.Athena.Service.BetSettings\Fanex.Athena.Service.BetSettings.csproj">
       <Project>{E3C3C559-CF7C-45ED-8179-0BB9159E40A8}</Project>
       <Name>Fanex.Athena.Service.BetSettings</Name>

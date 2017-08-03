@@ -12,6 +12,7 @@
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using Resources;
 
     [TestFixture]
     public class AgCasinoBetSettingServiceTest
@@ -165,7 +166,7 @@
             var expectedResult = new ResultInfo()
             {
                 Code = 1,
-                Message = "Invalid parameter. Invalid custId."
+                Message = ViewResources.AccessDeniedMsg
             };
             var group = "A";
             var setting = new CommonBetSetting
@@ -192,7 +193,7 @@
             var expectedResult = new ResultInfo()
             {
                 Code = 1,
-                Message = "Invalid parameter. Invalid custId."
+                Message = ViewResources.AccessDeniedMsg
             };
             var group = "A";
             var setting = new CommonBetSetting
@@ -243,7 +244,7 @@
             var expectedResult = new ResultInfo
             {
                 Code = 1,
-                Message = "Invalid parameter. Invalid custId."
+                Message = ViewResources.AccessDeniedMsg
             };
             var licenseeId = 1;
             var userId = 2;

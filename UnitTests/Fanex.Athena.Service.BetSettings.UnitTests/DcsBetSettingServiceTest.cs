@@ -5,6 +5,7 @@
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using Resources;
 
     [TestFixture]
     public class DcsBetSettingServiceTest
@@ -82,7 +83,7 @@
         {
             // Arrange
             _authorizationService.HasPermissionOnData(LicenseeId, CustId, Arg.Any<long>()).Returns(false);
-            var expectedResult = new ResultInfo { Code = 1, Message = "Invalid parameter. Invalid custId." };
+            var expectedResult = new ResultInfo { Code = 1, Message = ViewResources.AccessDeniedMsg };
             var userId = 4;
             var ip = string.Empty;
             var status = true;
