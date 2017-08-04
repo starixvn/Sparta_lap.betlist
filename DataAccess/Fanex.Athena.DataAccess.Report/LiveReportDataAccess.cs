@@ -127,7 +127,7 @@ namespace Fanex.Athena.DataAccess.Report
             LiveReportMetaModel metaModel,
             DateTime moveBetsDate,
             string productCode,
-            IList<Product> products)
+            IEnumerable<Product> products)
         {
             var currency = metaModel.BaseCurrency;
             const string UspName = "Lrf_Rpt_LiveReportSummaryDetail";
@@ -263,7 +263,7 @@ namespace Fanex.Athena.DataAccess.Report
             return list;
         }
 
-        private static IList<LiveReportByBetType> ReadDetailByBettype(IDataReader reader, IList<Product> products, string currency)
+        private static IList<LiveReportByBetType> ReadDetailByBettype(IDataReader reader, IEnumerable<Product> products, string currency)
         {
             var dataList = new List<LiveReport>();
             while (reader.Read())
@@ -288,7 +288,7 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 foreach (var product in products.Where(p => !IgnoredProductInBettypeSection.Contains(p.ProductCode)))
                 {
-                    var bettypeList = dataList.Where(i => product.ValidateBettype(Convert.ToInt32(i.ProductCode))).ToList();
+                    var bettypeList = dataList.Where(i => ProductValidator.IsValidBettype(product.ProductCode, Convert.ToInt32(i.ProductCode))).ToList();
                     if (bettypeList.Any())
                     {
                         result.Add(new LiveReportByBetType

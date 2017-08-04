@@ -61,12 +61,12 @@ namespace Fanex.Athena.Model.Report.DTO
 
         private static string GetSportName(int bettype)
         {
-            if (Validator.IsValidBettype(Product.VS, bettype))
+            if (ProductValidator.IsValidBettype(Product.VS, bettype))
             {
                 return " (" + ViewResources.ProductVS + ")";
             }
 
-            if (Validator.IsValidBettype(Product.VS2, bettype))
+            if (ProductValidator.IsValidBettype(Product.VS2, bettype))
             {
                 return " (" + ViewResources.ProductVS2 + ")";
             }

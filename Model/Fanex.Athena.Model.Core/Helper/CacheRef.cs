@@ -90,7 +90,7 @@ namespace Fanex.Athena.Model.Core.Helper
         {
             var betTypeName = GetBettype(betType, liveIndicator);
 
-            if (Validator.IsValidBettype(Product.VS2, betType))
+            if (ProductValidator.IsValidBettype(Product.VS2, betType))
             {
                 return betTypeName + " (" + ViewResources.ProductVS2 + ")";
             }

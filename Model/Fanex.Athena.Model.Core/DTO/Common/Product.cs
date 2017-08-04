@@ -85,16 +85,6 @@ namespace Fanex.Athena.Model.Core.DTO.Common
 
         public bool IsOfferedSingleWallet { get; set; }
 
-        /// <summary>
-        /// Bet type validation - check if bet type is correct with product.
-        /// </summary>
-        /// <param name="bettype">Bet type value.</param>
-        /// <returns>Bet type is valid or not.</returns>
-        public bool ValidateBettype(int bettype)
-        {
-            return Validator.IsValidBettype(ProductCode, bettype);
-        }
-
         #endregion Property
     }
 }

@@ -22,7 +22,7 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
             LiveReportMetaModel metaModel,
             DateTime moveBetsDate,
             string productCode,
-            IList<Product> products);
+            IEnumerable<Product> products);
 
         IList<LiveReportWinLossByMatch> GetLiveReportWinlossByMatch(LiveReportMatchListMetalModel metaModel, DateTime moveBetsDate);
     }
