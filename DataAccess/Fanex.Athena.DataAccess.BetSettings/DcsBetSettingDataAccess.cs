@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Xml.Linq;
     using Core;
     using Fanex.Common.Extensions;
     using Interfaces;
@@ -70,11 +71,9 @@
 
                 db.ExecuteNonQuery();
 
-                return new ResultInfo
-                {
-                    Code = (int)db.GetParameterValue("ErrCode"),
-                    Message = (string)db.GetParameterValue("ErrMsg")
-                };
+                var result = GetResult(db);
+                result.Message = GetErrorMessage(result.Message);
+                return result;
             }
         }
 
@@ -127,13 +126,33 @@
                 db.AddOutParameter("errmsg", DbType.String, 8000);
                 db.ExecuteNonQuery();
 
-                return GetResult(db);
+                var result = GetResult(db);
+                result.Message = GetErrorMessage(result.Message);
+                return result;
             }
         }
 
         private static string BuildProductStatusXml(int productId, bool status)
         {
             return string.Format(UpdateStatusXmlFormat, ProductSporttypeMap[productId], ProductBettypeMap[productId], status ? 0 : 1);
+        }
+
+        private static string GetErrorMessage(string xmlErrorMessage)
+        {
+            if (!string.IsNullOrEmpty(xmlErrorMessage) && xmlErrorMessage.StartsWith("<"))
+            {
+                try
+                {
+                    var doc = XDocument.Parse(xmlErrorMessage);
+                    return doc.Root.Attribute("Msg").Value;
+                }
+                catch
+                {
+                    Logging.LogService.Error("Invalid xml content: " + xmlErrorMessage);
+                }
+            }
+
+            return xmlErrorMessage;
         }
     }
 }
