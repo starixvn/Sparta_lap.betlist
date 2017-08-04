@@ -3,7 +3,7 @@ webpackJsonp([61],{
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(286);
+	module.exports = __webpack_require__(297);
 
 
 /***/ }),
@@ -3152,7 +3152,7 @@ webpackJsonp([61],{
 
 /***/ }),
 
-/***/ 213:
+/***/ 224:
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {;(function($){
@@ -3330,7 +3330,7 @@ webpackJsonp([61],{
 
 /***/ }),
 
-/***/ 214:
+/***/ 225:
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* 
@@ -3681,11 +3681,11 @@ webpackJsonp([61],{
 
 /***/ }),
 
-/***/ 269:
+/***/ 280:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// require option properties: suggestionDropdown, url, target
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(270)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(281)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
 	    "use strict";
 	
 	    var mainOption = {
@@ -3774,7 +3774,7 @@ webpackJsonp([61],{
 
 /***/ }),
 
-/***/ 270:
+/***/ 281:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
@@ -3788,6 +3788,8 @@ webpackJsonp([61],{
 	    }
 	
 	}(this, function ($) {
+	
+	    var noop = function () {};
 	
 	    var template = function (text) {
 	        var matcher = new RegExp('<%=([\\s\\S]+?)%>|<%([\\s\\S]+?)%>|$', 'g');
@@ -3893,7 +3895,7 @@ webpackJsonp([61],{
 	            el: '',
 	            tagName: 'ul',
 	            className: 'ac-appender',
-	            tagTemplate: '<div class="chip" data-id="<%= item.id %>" data-text="<% item.text %>"><%= item.text %>(<%= item.id %>)<i class="material-icons close">close</i></div>'
+	            tagTemplate: '<div class="chip" data-id="<%= item.id %>" data-text="<%= item.text %>"><%= item.text %>(<%= item.id %>)<i class="material-icons close">close</i></div>'
 	        },
 	        dropdown: {
 	            el: '',
@@ -3902,13 +3904,10 @@ webpackJsonp([61],{
 	            itemTemplate: '<li class="ac-item" data-id="<%= item.id %>" data-text="<%= item.text %>"><a href="javascript:void(0)"><%= item.text %></a></li>',
 	            noItem: ''
 	        },
-	        handlers: {
-	            'setValue': '.ac-dropdown .ac-item',
-	            '.ac-appender .ac-tag .close': 'remove'
-	        },
 	        getData: function (value, callback) {
 	            callback(value, []);
 	        },
+	        onSelect: noop,
 	        ignoreCase: true,
 	        throttling: true
 	    };
@@ -4116,7 +4115,7 @@ webpackJsonp([61],{
 	                }
 	
 	                if (self.options.hidden.inputName) {
-	                    self.$el.attr('name', self.options.hidden.inputName);
+	                    self.$hidden.attr('name', self.options.hidden.inputName);
 	                }
 	
 	                if (self.options.hidden.required) {
@@ -4156,7 +4155,7 @@ webpackJsonp([61],{
 	            if (self.value.length >= self.options.multiple.maxSize) {
 	
 	                if ('function' === typeof self.options.multiple.onExceed) {
-	                    self.options.multiple.onExceed.call(this, self.options.multiple.maxSize);
+	                    self.options.multiple.onExceed.call(this, self.options.multiple.maxSize, item);
 	                }
 	
 	                return false;
@@ -4217,6 +4216,10 @@ webpackJsonp([61],{
 	            if (self.options.hidden.enable) {
 	                self.$hidden.val(item.id);
 	            }
+	
+	            if ('function' === typeof self.options.onSelect) {
+	                self.options.onSelect.call(self, item);
+	            }
 	        }
 	    };
 	
@@ -4240,7 +4243,7 @@ webpackJsonp([61],{
 
 /***/ }),
 
-/***/ 280:
+/***/ 291:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -4330,10 +4333,10 @@ webpackJsonp([61],{
 
 /***/ }),
 
-/***/ 281:
+/***/ 292:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(282)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(293)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 	        "use strict";
 	        var PICKER_SELECTOR = "#month-picker";
 	        var FORMAT = "MM/dd/yyyy";
@@ -4395,7 +4398,7 @@ webpackJsonp([61],{
 
 /***/ }),
 
-/***/ 282:
+/***/ 293:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -5067,7 +5070,9 @@ webpackJsonp([61],{
 	                        if (!data.expandDayOnhover) {
 	                            // Collapse all day picker dropdowns when users click outside the picker
 	                            $('html').on('click', function (e) {
-	                                var targetId = $(e.target).attr("id");
+	                                var $target = $(e.target);
+	                                var targetId = $target.attr("id");
+	                                targetId = targetId === undefined ? $target.parent().attr("id") : targetId;
 	
 	                                if (targetId !== data.fromDayId && targetId !== data.toDayId) {
 	                                    _hideDropDown(data, data.ddlFromDate);
@@ -5233,12 +5238,12 @@ webpackJsonp([61],{
 
 /***/ }),
 
-/***/ 283:
+/***/ 294:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7),
-	    __webpack_require__(103), __webpack_require__(213), __webpack_require__(214)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
+	    __webpack_require__(103), __webpack_require__(224), __webpack_require__(225)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
 	        var GRID_ID = "ReportGrid";
 	        var _ajaxRequest = null;
 	
@@ -5340,23 +5345,23 @@ webpackJsonp([61],{
 
 /***/ }),
 
-/***/ 286:
+/***/ 297:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(287)], __WEBPACK_AMD_DEFINE_RESULT__ = function (GroupCommission) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(298)], __WEBPACK_AMD_DEFINE_RESULT__ = function (GroupCommission) {
 	    $(GroupCommission.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 
-/***/ 287:
+/***/ 298:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(269), __webpack_require__(280),
-	    __webpack_require__(281), __webpack_require__(283)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, AutoComplete, CommonOption, MonthPicker, CustomerLogService) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(280), __webpack_require__(291),
+	    __webpack_require__(292), __webpack_require__(294)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, AutoComplete, CommonOption, MonthPicker, CustomerLogService) {
 	        var _me = {
 	            initialize: function () {
 	                CustomerLogService.initialize();
