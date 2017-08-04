@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Functions SiteId="31" SiteName="LRF">
   <Function Name="DashboardAPI">
-    <Setting Key="Lrf_GetLicenseeTurnoverByPlatform" SpName="Lrf_GetLicenseeTurnoverByPlatform" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_GetLicenseeWLByPlatform" SpName="Lrf_GetLicenseeWLByPlatform" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_GetLicenseeTurnoverByPlatform" SpName="Lrf_GetLicenseeTurnoverByPlatform_UAT1" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_GetLicenseeWLByPlatform" SpName="Lrf_GetLicenseeWLByPlatform_UAT1" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_GetLicenseeTodayDeposit" SpName="Lrf_GetLicenseeTodayDeposit" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_GetLicenseeTodayWithdrawal" SpName="Lrf_GetLicenseeTodayWithdrawal" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_GetLicenseePendingFunds" SpName="Lrf_GetLicenseePendingFunds" DbName="DBACC.bodb02.bodbLicenseeNet" />
@@ -63,15 +63,15 @@
     <Setting Key="Lrf_Result_MatchSelByLeague_Detail" SpName="Lrf_Result_MatchSelByLeague_Detail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Result_MatchSelNumberGameByLeague" SpName="Lrf_Result_MatchSelNumberGameByLeague" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Result_LeagueSelByDate" SpName="Lrf_Result_LeagueSelByDate" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_PlatformWinloss" SpName="Lrf_Rpt_PlatformWinloss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_PlatformWinlossDetail" SpName="Lrf_Rpt_PlatformWinlossDetail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_MatchWinLossDetail" SpName="Lrf_Rpt_MatchWinLossDetail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_MatchWinLoss" SpName="Lrf_Rpt_MatchWinLoss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_MatchWinLossByBettype" SpName="Lrf_Rpt_MatchWinLossByBettype" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_MatchWinLossByOutrightParlay" SpName="Lrf_Rpt_MatchWinLossByOutrightParlay" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_LicWinloss" SpName="Lrf_Rpt_LicWinloss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_LicWinlossDetail" SpName="Lrf_Rpt_LicWinlossDetail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_LicWinlossDetail_Ag" SpName="Lrf_Rpt_LicWinlossDetail_Ag" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_PlatformWinloss" SpName="Lrf_Rpt_PlatformWinloss_UAT1" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_PlatformWinlossDetail" SpName="Lrf_Rpt_PlatformWinlossDetail_UAT1" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_MatchWinLossDetail" SpName="Lrf_Rpt_MatchWinLossDetail_xtest" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_MatchWinLoss" SpName="Lrf_Rpt_MatchWinLoss_xtest" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_MatchWinLossByBettype" SpName="Lrf_Rpt_MatchWinLossByBettype_xtest" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_MatchWinLossByOutrightParlay" SpName="Lrf_Rpt_MatchWinLossByOutrightParlay_xtest" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_LicWinloss" SpName="Lrf_Rpt_LicWinloss_xtest" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_LicWinlossDetail" SpName="Lrf_Rpt_LicWinlossDetail_xtest" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_LicWinlossDetail_Ag" SpName="Lrf_Rpt_LicWinlossDetail_Ag_xtest" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_WinlostRacing" SpName="Lrf_Rpt_WinlostRacing" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_LiveReportWinlossByMatch" SpName="Lrf_Rpt_LiveReportWinlossByMatch" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Rpt_LiveReportSummary" SpName="Lrf_Rpt_LiveReportSummary" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
