@@ -21,10 +21,14 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Data;
     using Model.Core.DataDomain;
     using Model.Core.Helper;
-    using Resources;
 
     public class LiveReportDataAccess : BaseDataAccess, ILiveReportDataAccess
     {
+        private static readonly IEnumerable<string> IgnoredProductInBettypeSection = new string[]
+        {
+            Product.MGCLC, Product.MGCRNG, Product.BA
+        };
+
         public IList<LiveReport> GetLiveReportSummary(LiveReportMetaModel metaModel, DateTime moveBetsDate)
         {
             const string UspName = "Lrf_Rpt_LiveReportSummary";
@@ -282,29 +286,21 @@ namespace Fanex.Athena.DataAccess.Report
             var result = new List<LiveReportByBetType>();
             if (dataList.Any())
             {
-                foreach (var product in products)
+                foreach (var product in products.Where(p => !IgnoredProductInBettypeSection.Contains(p.ProductCode)))
                 {
-                    if (!IsIgnoredProduct(product, result))
+                    var bettypeList = dataList.Where(i => product.ValidateBettype(Convert.ToInt32(i.ProductCode))).ToList();
+                    if (bettypeList.Any())
                     {
-                        var bettypeList = dataList.Where(i => product.ValidateBettype(Convert.ToInt32(i.ProductCode))).ToList();
-                        if (bettypeList.Any())
+                        result.Add(new LiveReportByBetType
                         {
-                            result.Add(new LiveReportByBetType
-                            {
-                                ProductName = product.ProductName,
-                                LiveReports = bettypeList
-                            });
-                        }
+                            ProductName = product.ProductName,
+                            LiveReports = bettypeList
+                        });
                     }
                 }
             }
 
             return result;
         }
-
-        private static bool IsIgnoredProduct(Product product, IList<LiveReportByBetType> resultByBettype) =>
-            product.ProductCode == Product.MGCLC || product.ProductCode == Product.MGCRNG ||
-            product.ProductCode == Product.BA ||
-            resultByBettype.Any(p => p.ProductName == product.ProductName);
     }
 }
