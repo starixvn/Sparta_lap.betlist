@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers
 {
+    using System.Text;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -47,7 +48,12 @@
 
             var returnUrl = "~/Utility/OneTokenRestriction?code=";
             var errMsg = string.Empty;
-            if (!string.IsNullOrWhiteSpace(token))
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                errMsg = "Token param is empty.";
+                returnUrl += OneAuthorizationErrorCode.TokenIsInValid;
+            }
+            else
             {
                 var tokenInfo = _oneAuthenticationService.GetTokenInfo(token);
                 if (tokenInfo != null && VerifyToken(tokenInfo))
@@ -59,7 +65,7 @@
                     else
                     {
                         var result = _oneAuthenticationService.SignIn(HttpContext, tokenInfo);
-                        returnUrl = result.IsSuccessful ? "~/" + result.ExtendedData : returnUrl += result.Code;
+                        returnUrl = result.IsSuccessful ? "~/" + result.ExtendedData : returnUrl + result.Code;
                     }
                 }
                 else
@@ -71,7 +77,11 @@
 
             if (_appSetting.GetValue("EnableLogForOneAuthorization") == "1" && !string.IsNullOrEmpty(errMsg))
             {
-                _logger.Error("OneAuthorization Token is invalid - Token = " + errMsg);
+                var message = new StringBuilder();
+                message.AppendLine("OneAuthorization Token is invalid - Token = " + errMsg);
+                message.AppendLine("Url: " + Request.Url);
+                message.AppendLine("UrlReferrer: " + Request.UrlReferrer);
+                _logger.Error(message.ToString());
             }
 
             return Redirect(Url.Content(returnUrl));

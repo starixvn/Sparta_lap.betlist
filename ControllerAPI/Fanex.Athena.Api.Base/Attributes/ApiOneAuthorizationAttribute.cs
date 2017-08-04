@@ -43,7 +43,6 @@
         {
             try
             {
-                var headers = actionContext.Request.Headers;
                 var tokenParam = actionContext.Request.GetQueryNameValuePairs().FirstOrDefault(x => x.Key.Equals(KeyName, StringComparison.OrdinalIgnoreCase));
 
                 if (tokenParam.Key == null)
