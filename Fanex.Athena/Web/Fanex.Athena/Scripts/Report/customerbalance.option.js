@@ -340,9 +340,9 @@ var CustomerBalanceOption = (function () {
             rowNum: 100
         },
 
-        getGridOption: function () {
+        getGridOption: function (totalRows) {
             me.gridOption.colNames = me.getColName();
-            me.gridOption.colModel = me.getColModel();
+            me.gridOption.colModel = me.getColModel(totalRows);
             return Site.clone(me.gridOption);
         },
 
@@ -387,7 +387,7 @@ var CustomerBalanceOption = (function () {
             return Site.getResources(colNames);
         },
 
-        getColModel: function () {
+        getColModel: function (totalRows) {
             var colModels = Site.clone(colModelList);
 
             if (me.hasCustomerComm) {
@@ -401,6 +401,12 @@ var CustomerBalanceOption = (function () {
 
             if (me.isAllowBA) {
                 insertColumns(colModels, productBA.productBAColumns, me.productBAIndex);
+            }
+
+            if (totalRows <= 1) {
+                $.each(colModels, function (index, item) {
+                    item.sortable = false;
+                })
             }
 
             return colModels;
