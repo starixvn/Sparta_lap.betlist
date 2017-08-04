@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -761,8 +761,10 @@
     <Content Include="Scripts\Report\customerwinloss.option.js" />
     <Content Include="Scripts\Report\customerbalance.option.js" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
+    <None Include="www\css\source\reactpages\main.scss" />
     <Content Include="www\js\build\dev\react\reactsample.chunk.js" />
     <Content Include="www\js\build\pro\react\reactsample.chunk.js" />
+    <Content Include="www\js\source\reactpages\pages\operatorperformance\index.jsx" />
     <Content Include="www\webpackconfig\build\webpack.react.base.conf.js" />
     <Content Include="www\webpackconfig\build\webpack.react.dev.conf.js" />
     <Content Include="www\webpackconfig\build\webpack.react.hmr.conf.js" />
@@ -6016,6 +6018,19 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Logs\" />
+    <Folder Include="www\css\source\reactpages\components\" />
+    <Folder Include="www\css\source\reactpages\lib\" />
+    <Folder Include="www\css\source\reactpages\pages\" />
+    <Folder Include="www\css\source\reactpages\vendors\" />
+    <Folder Include="www\js\source\reactpages\components\" />
+    <Folder Include="www\js\source\reactpages\lib\" />
+    <Folder Include="www\js\source\reactpages\pages\operatorperformance\components\" />
+    <Folder Include="www\js\source\reactpages\pages\operatorperformance\store\" />
+    <Folder Include="www\js\source\reactpages\store\" />
+    <Folder Include="www\js\source\reactpages\vendors\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="www\js\source\reactpages\pages\operatorperformance\main.tsx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
