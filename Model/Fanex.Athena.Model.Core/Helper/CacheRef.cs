@@ -48,33 +48,6 @@ namespace Fanex.Athena.Model.Core.Helper
             return RefData.GetLeagueName(leagueId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
         }
 
-        public static string GetFncIndexName(object indexId)
-        {
-            return RefData.GetFncIndexName(indexId.ToString(), GetCurrentIBCLanguageCode());
-        }
-
-        public static string GetHorseTeamName(object codeId)
-        {
-            return RefData.GetHorseTeamName(codeId.ToString(), GetCurrentIBCLanguageCode());
-        }
-
-        public static string GetOddsTypeName(object oddsTypeId)
-        {
-            return RefData.GetOddsTypeName(oddsTypeId.ToString(), GetCurrentIBCLanguageCode());
-        }
-
-        public static string GetCasinoBetItem(object betTeam)
-        {
-            var betTeamString = betTeam == null ? string.Empty : betTeam.ToString();
-            return RefData.GetCasinoBetItem(betTeamString, GetCurrentIBCLanguageCode());
-        }
-
-        public static string GetRouletteBetItem(object betTeam)
-        {
-            var betTeamString = betTeam == null ? string.Empty : betTeam.ToString();
-            return RefData.GetRouletteBetItem(betTeamString, GetCurrentIBCLanguageCode());
-        }
-
         /// <summary>
         /// Get bet type text by bet type and live indicator.
         /// </summary>
