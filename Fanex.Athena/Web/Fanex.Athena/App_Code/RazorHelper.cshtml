@@ -10,6 +10,32 @@
         <div id="notification-marquee" style="color: #C02603"></div>
     </div>
 }
+@helper  PlatformList(string id, int width)
+{
+    <select name="@id" style="width: @(width)px;" id="@id">
+        <option value="@PlatformType.All">
+            @ViewResources.All
+        </option>
+        <option value="@PlatformType.Asia">
+            @ViewResources.Asia
+        </option>
+        <option value="@PlatformType.China">
+            @ViewResources.China
+        </option>
+        <option value="@PlatformType.Euro">
+            @ViewResources.Euro
+        </option>
+        <option value="@PlatformType.Wap">
+            @ViewResources.Wap
+        </option>
+        <option value="@PlatformType.SmartSite">
+            @ViewResources.SmartSite
+        </option>
+        <option value="@PlatformType.Tablet">
+            @ViewResources.Tablet
+        </option>
+    </select>
+}
 @helper ReportTitleLicenseeWLProductCodeList(IEnumerable<ProductOption> productOptions)
 {
 var productCodeList = string.Empty;

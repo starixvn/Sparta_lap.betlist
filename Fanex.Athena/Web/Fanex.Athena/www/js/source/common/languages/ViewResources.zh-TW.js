@@ -1,4 +1,4 @@
-﻿// Generated at: 8/1/2017 3:09:34 PM
+﻿// Generated at: 8/4/2017 4:45:53 PM
 window._language_zh_TW = {
 AA:"客客",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",

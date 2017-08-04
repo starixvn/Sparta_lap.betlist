@@ -140,26 +140,7 @@
             @ViewResources.Platform</label>
     </div>
     <div class="grid_3 filter-input">
-        <select style="width: 100px;" id="bet-form">
-            <option value="0">
-                @ViewResources.All
-            </option>
-            <option value="1">
-                @ViewResources.Asia
-            </option>
-            <option value="2">
-                @ViewResources.NewAsia
-            </option>
-            <option value="3">
-                @ViewResources.Euro
-            </option>
-            <option value="4">
-                @ViewResources.Wap
-            </option>
-            <option value="5">
-                @ViewResources.SmartSite
-            </option>
-        </select>
+        @RazorHelper.PlatformList("bet-form", 100)
     </div>
     <div id="pagesize" class="grid_3 cmd-button" style="width: 160px; padding-right:0px">
         <span style="padding-top: 5px;">@ViewResources.Last</span>

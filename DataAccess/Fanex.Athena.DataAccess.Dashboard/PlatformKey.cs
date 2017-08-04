@@ -8,7 +8,7 @@ namespace Fanex.Athena.DataAccess.Dashboard
         {
             { All, nameof(All) },
             { Asia, nameof(Asia) },
-            { NewAsia, nameof(NewAsia) },
+            { China, nameof(China) },
             { Euro, nameof(Euro) },
             { Wap, nameof(Wap) },
             { Mobile, nameof(Mobile) }
@@ -18,7 +18,7 @@ namespace Fanex.Athena.DataAccess.Dashboard
 
         public const int Asia = 1;
 
-        public const int NewAsia = 2;
+        public const int China = 2;
 
         public const int Euro = 3;
 

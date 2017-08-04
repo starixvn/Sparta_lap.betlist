@@ -145,7 +145,7 @@
             switch (code.Trim().ToLower())
             {
                 case "a":
-                    return ViewResources.NewAsia;
+                    return ViewResources.China;
 
                 case "d":
                     return ViewResources.Asia;

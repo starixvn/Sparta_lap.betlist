@@ -2,9 +2,34 @@
 @using Fanex.Athena.Extension.Helper;
 @using Fanex.Athena.Model.Core.MetaModel.Product;
 @using Fanex.Athena.Model.Core.DataDomain;
-@using Fanex.Athena.Model.Core.DTO.Common;
 @using Fanex.Athena.Resources;
 
+@helper  PlatformList(string id, string className = null)
+{
+    <select id="@id" name="@id" class="select @className">
+        <option value="@PlatformType.All">
+            @ViewResources.All
+        </option>
+        <option value="@PlatformType.Asia">
+            @ViewResources.Asia
+        </option>
+        <option value="@PlatformType.China">
+            @ViewResources.China
+        </option>
+        <option value="@PlatformType.Euro">
+            @ViewResources.Euro
+        </option>
+        <option value="@PlatformType.Wap">
+            @ViewResources.Wap
+        </option>
+        <option value="@PlatformType.SmartSite">
+            @ViewResources.SmartSite
+        </option>
+        <option value="@PlatformType.Tablet">
+            @ViewResources.Tablet
+        </option>
+    </select>
+}
 @helper DateRangePicker(DateTime fromDate, DateTime toDate, DateTime minDate, DateTime maxDate)
 {
     <input name="DateRange" id="DateRange" class="datepicker" type="text" readonly="readonly" autocomplete="off"

@@ -3,15 +3,6 @@
 @{
     Layout = null;
     var appSettings = new AppSettings();
-    var platformList = new Dictionary<int, string>
-    {
-        {0, ViewResources.All},
-        {PlatformType.Asia, ViewResources.Asia},
-        {PlatformType.NewAsia, ViewResources.NewAsia},
-        {PlatformType.Euro, ViewResources.Euro},
-        {PlatformType.Wap, ViewResources.Wap},
-        {PlatformType.SmartSite, ViewResources.SmartSite}
-    };
 }
 
 <div class="page-form">
@@ -28,12 +19,7 @@
                 <label>@ViewResources.Based</label>
             </div>
             <div class="input-field col l2 m2 s12">
-                <select name="PlatformType" id="PlatformType" class="select hide">
-                    @foreach (var item in platformList)
-                    {
-                        <option value="@item.Key">@item.Value</option>
-                    }
-                </select>
+                @DesktopRazorHelper.PlatformList("PlatformType", "hide")
                 <label>@ViewResources.Platform</label>
             </div>
         </div>

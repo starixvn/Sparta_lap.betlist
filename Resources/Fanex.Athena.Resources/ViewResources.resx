@@ -2771,7 +2771,7 @@
     <value>Asia</value>
     <comment>#50939</comment>
   </data>
-  <data name="NewAsia" xml:space="preserve">
+  <data name="China" xml:space="preserve">
     <value>China</value>
     <comment>#50939</comment>
   </data>
@@ -3039,5 +3039,9 @@
   <data name="UpdateVirtualSports2BetSettingSuccessMsg" xml:space="preserve">
     <value>The Virtual Sports 2 bet setting of {0} was updated successfully</value>
     <comment>78241</comment>
+  </data>
+  <data name="Tablet" xml:space="preserve">
+    <value>Tablet</value>
+    <comment>80687</comment>
   </data>
 </root>
