@@ -42,7 +42,7 @@ define(["jquery", "common/site", "../common/constant","../common/betsettingbase"
                 BetSettingBase.formatInputText();
             },
             checkToDisableInput: function () {
-                var enabled = $("#IsEnabled").val() === "1";
+                var enabled = $("#IsEnabled").val() !== "0";
 
                 if (!enabled) {
                     $(".table-content input[type=text]").prop('disabled', true).addClass("disabled");
