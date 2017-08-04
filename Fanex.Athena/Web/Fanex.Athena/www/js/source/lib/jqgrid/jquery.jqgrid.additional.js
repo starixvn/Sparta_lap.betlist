@@ -386,6 +386,45 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
                                 $this.addClass("sortable sort-heading sorted-heading");
                             }
                         });
+            },
+
+            removeAndAddSortableHeader: function ($grid, sortColumn, sortOrder, isLightText) {
+                var sortClass = "sort-icon-" + sortOrder + (isLightText ? " light" : "");
+                sortColumn = "_" + sortColumn;
+
+                $grid.closest(".ui-jqgrid-view")
+                        .find(".ui-jqgrid-sortable")
+                        .each(function (index, element) {
+                            var $this = $(element);
+                            $this.find(".s-ico").remove();
+
+                            if (element.id.endsWith(sortColumn)) {
+                                var sortSpan = $this.find(".sort-icon");
+                                if (sortSpan.length) {
+                                    sortSpan.removeClass().addClass("sort-icon " + sortClass);
+                                }
+                                else {
+                                    sortSpan = $("<span class='sort-icon'></span>");
+                                    sortSpan.addClass(sortClass);
+                                    $this.append(sortSpan);
+                                    $this.addClass("sortable sort-heading sorted-heading");
+                                }
+                            }
+                            else {
+                                $this.removeClass("sortable sort-heading sorted-heading");
+                                $this.find(".sort-icon").remove();
+                            }
+                        });
+            },
+
+            removeCursorOnNonSortableHeader: function ($grid) {
+                var cm = $grid[0].p.colModel;
+                $.each($grid[0].grid.headers, function (index, value) {
+                    var cmi = cm[index];
+                    if (!cmi.sortable) {
+                        $('.ui-jqgrid-sortable', value.el).css({ cursor: "default" });
+                    }
+                });
             }
         };
     })();

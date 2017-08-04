@@ -406,7 +406,7 @@ var CustomerBalanceOption = (function () {
             if (totalRows <= 1) {
                 $.each(colModels, function (index, item) {
                     item.sortable = false;
-                })
+                });
             }
 
             return colModels;

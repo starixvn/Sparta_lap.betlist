@@ -74,6 +74,7 @@ function generateConfig(environment) {
             [`${jsPath}/pages/customer/kenobetsetting`]: [pathConfig.scriptPaths.kenobetsetting],
             [`${jsPath}/pages/customer/livecasinobetsetting`]: [pathConfig.scriptPaths.livecasinobetsetting],
             [`${jsPath}/pages/customer/numbergamebetsetting`]: [pathConfig.scriptPaths.numbergamebetsetting],
+            [`${jsPath}/pages/reports/activecustomersummary`]: [pathConfig.scriptPaths.activecustomersummary],
 
             [`${cssPath}/pages/reports/reportjqgridlayout`]: pathConfig.cssPaths.reportjqgridlayout,
             [`${cssPath}/pages/reports/livereport`]: pathConfig.cssPaths.livereport,
@@ -117,7 +118,8 @@ function generateConfig(environment) {
             [`${cssPath}/pages/customer/customerlist`]: pathConfig.cssPaths.customerlist,
             [`${cssPath}/pages/betlist/customeroutstanding`]: pathConfig.cssPaths.customeroutstanding,
             [`${cssPath}/pages/customer/betsetting`]: pathConfig.cssPaths.betsetting,
-            [`${cssPath}/pages/utility/licenseelist`]: pathConfig.cssPaths.licenseelist
+            [`${cssPath}/pages/utility/licenseelist`]: pathConfig.cssPaths.licenseelist,
+            [`${cssPath}/pages/reports/activecustomersummary`]: pathConfig.cssPaths.activecustomersummary
             
         },
         output: {

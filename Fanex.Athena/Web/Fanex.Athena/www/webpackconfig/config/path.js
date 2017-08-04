@@ -53,7 +53,8 @@ var cssPaths = {
     customerlist: ["./www/css/source/pages/customer/customerlist.scss"],
     customeroutstanding: ["./www/css/source/pages/betlist/customeroutstanding.scss"],
     betsetting: ["./www/css/source/pages/customer/betsetting.scss"],
-    licenseelist: ["./www/css/source/pages/utility/licenseelist.scss"]
+    licenseelist: ["./www/css/source/pages/utility/licenseelist.scss"],
+    activecustomersummary: ["./www/css/source/pages/report/activecustomersummary.scss"]
 };
 
 var scriptPaths = {
@@ -117,7 +118,9 @@ var scriptPaths = {
     thirdpartybetsetting: "./www/js/source/pages/customer/betsetting/main-thirdparty.js",
     kenobetsetting: "./www/js/source/pages/customer/betsetting/main-keno.js",
     livecasinobetsetting: "./www/js/source/pages/customer/betsetting/main-livecasino.js",
-    numbergamebetsetting: "./www/js/source/pages/customer/betsetting/main-numbergame.js"
+    numbergamebetsetting: "./www/js/source/pages/customer/betsetting/main-numbergame.js",
+    betradarvsbetsetting: "./www/js/source/pages/customer/betsetting/main-betradarvirtualsports.js",
+    activecustomersummary: "./www/js/source/pages/report/activecustomersummary/main.js"
 };
 
 module.exports = {

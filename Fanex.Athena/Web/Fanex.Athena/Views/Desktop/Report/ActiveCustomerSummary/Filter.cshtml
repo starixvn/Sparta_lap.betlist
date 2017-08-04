@@ -1,0 +1,44 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.ActiveCustomerViewModel
+@{
+    var appSettings = new AppSettings();
+    var minDate = new DateTime(2015, 1, 1);
+    var maxDate = DateTime.Today.AddDays(-1);
+}
+<div class="page-form">
+    <!--grid_26-->
+    <form id="mainform" name="mainform" method="post" action="">
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="input-field input col l3 m4 s12 calendar date-range">
+                @DesktopRazorHelper.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, maxDate)
+            </div>
+
+            <div class="input-field col l2 m3 s12">
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, true)
+                <label>@ViewResources.Currency</label>
+            </div>
+            <div class="col right icon-block">
+                <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+                <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
+            </div>
+        </div>
+        <div class="row">
+            @DesktopRazorHelper.RenderProductFilter(Model.Param.ProductOptions)
+            <div class="input-field input col l2 m3 s12">
+                <input type="radio" value="true" class="with-gap" @(Model.Param.IsExcludeTest == true ? "checked=checked" : "") name="IsExcludeTest" id="IsExcludeTest0" />
+                <label for="IsExcludeTest0">
+                    @ViewResources.Yes
+                </label>
+                <input type="radio" class="with-gap" value="false" @(Model.Param.IsExcludeTest == false ? "checked=checked" : "") name="IsExcludeTest" id="IsExcludeTest1" />
+                <label for="IsExcludeTest1">
+                    @ViewResources.No
+                </label>
+               <label class="active">@ViewResources.ExcludeTestData</label>
+            </div>
+            <div class="col l2 m2 s12 button-block">
+                <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
+            </div>
+        </div>      
+        @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+    </form>
+</div>

@@ -1,0 +1,21 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.ActiveCustomerViewModel
+@{
+    ViewBag.Title = "LRF - " + ViewResources.Report + ViewResources.ActiveCustomerSummary;
+    Layout = "~/Views/Desktop/Shared/_Report.jqGridLayout.cshtml";
+}
+@section pagecss {
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/reports/activecustomersummary.css")" rel="stylesheet" />
+}
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/reports/activecustomersummary.chunk.js")"></script>
+}
+
+@section Filter
+{
+    @{Html.RenderPartial("~/Views/Desktop/Report/ActiveCustomerSummary/Filter.cshtml");}
+}
+
+@section Content
+{
+    @{Html.RenderPartial("~/Views/Desktop/Report/ActiveCustomerSummary/Content.cshtml");}
+}
