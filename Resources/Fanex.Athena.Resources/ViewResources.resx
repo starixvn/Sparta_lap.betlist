@@ -3056,4 +3056,7 @@
     <value>Tablet</value>
     <comment>80687</comment>
   </data>
+  <data name="OperatorPerformance" xml:space="preserve">
+    <value>Operator Performance</value>
+  </data>
 </root>

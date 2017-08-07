@@ -762,6 +762,8 @@
     <Content Include="Scripts\Report\customerbalance.option.js" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
     <None Include="bundleconfig.json" />
+    <Content Include="Views\Desktop\Report\OperatorPerformance\Main.cshtml" />
+    <Content Include="Views\Desktop\Shared\_ReactPageLayout.cshtml" />
     <None Include="www\css\source\reactpages\main.scss" />
     <Content Include="www\js\build\dev\react\reactsample.chunk.js" />
     <Content Include="www\js\build\pro\react\reactsample.chunk.js" />

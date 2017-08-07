@@ -628,6 +628,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Operator Performance.
+        /// </summary>
+        public static string Menu_73 {
+            get {
+                return ResourceManager.GetString("Menu_73", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Money Line.
         /// </summary>
         public static string Menu_8 {
