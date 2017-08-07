@@ -15,7 +15,7 @@
     }
 }
 
-.table{
+.table {
     table-layout: fixed;
 }
 
@@ -24,4 +24,34 @@
     border: 1px solid #ccc;
     padding: 5px;
     background: $white;
+}
+
+.filter-handle {
+    position: absolute;
+    background-color: $colorHeaderNav;
+    cursor: pointer;
+    width: 25px;
+    bottom: 0;
+    height: 12px;
+    text-align: center;
+    color: #fff;
+    left: 50%;
+    margin-left: -12.5px;
+    font-size: 9px;
+
+    .icon-arrow {
+        transform: rotate(180deg);
+        display: inline-block;
+    }
+}
+
+.filter-collapse {
+    *:not(.filter-handle) {
+        display: none;
+    }
+
+    .filter-handle .icon-arrow {
+        transform: rotate(0);
+        display: inline-block;
+    }
 }

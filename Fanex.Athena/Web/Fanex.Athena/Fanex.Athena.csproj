@@ -1366,6 +1366,7 @@
     <Content Include="www\js\source\pages\home\main.js" />
     <Content Include="www\js\source\pages\home\recheckin.js" />
     <Content Include="www\js\source\pages\report\activecustomersummary\activecustomersummary.js" />
+    <Content Include="www\js\source\pages\report\activecustomersummary\activecustomersummary.option.js" />
     <Content Include="www\js\source\pages\report\activecustomersummary\main.js" />
     <Content Include="www\js\source\pages\report\agcasinowinloss\agcasinowinloss.js" />
     <Content Include="www\js\source\pages\report\agcasinowinloss\agcasinowinloss.option.js" />
