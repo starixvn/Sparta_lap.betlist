@@ -1,0 +1,59 @@
+﻿@using Fanex.Athena.Model.Core.DataDomain
+@model Fanex.Athena.Model.Report.ViewModel.AgCasinoWinLossViewModel
+@{
+    var appSettings = new AppSettings();
+}
+
+<div class="page-form">
+    <form id="MainForm" name="MainForm" method="post" action="">
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="input-field input col l3 m3 s12 calendar date-range">
+                @DesktopRazorHelper.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, appSettings.HistoryDate, DateTime.Today)
+            </div>
+
+            <div class="input-field col l2 m2 s12">
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, true)
+                <label>@ViewResources.Currency</label>
+            </div>
+
+            <div class="input-field input col l2 m2 s12">
+                <input type="radio" class="with-gap" value="1" @(Model.Param.ReportBy == ReportByType.Daily ? "checked=checked" : "") name="ReportBy" id="reportbydaily" />
+                <label for="reportbydaily">
+                    @ViewResources.Daily
+                </label>
+                <input type="radio" class="with-gap" value="2" @(Model.Param.ReportBy == ReportByType.Monthly ? "checked=checked" : "") name="ReportBy" id="reportbymonthly" />
+                <label for="reportbymonthly">
+                    @ViewResources.Monthly
+                </label>
+
+                <label class="active">@ViewResources.ReportBy</label>
+            </div>
+
+            <div class="input-field input col l2 m2 s12">
+                <input type="radio" value="true" class="with-gap" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData0" />
+                <label for="IsExcludedTestData0">
+                    @ViewResources.Yes
+                </label>
+                <input type="radio" class="with-gap" value="false" @(Model.Param.IsExcludedTestData == false ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData1" />
+                <label for="IsExcludedTestData1">
+                    @ViewResources.No
+                </label>
+
+                <label class="active">@ViewResources.ExcludeTestData</label>
+            </div>
+
+            <div class="col l2 m2 s12 button-block">
+                <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
+            </div>
+
+            <div class="col right icon-block">
+                <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+                <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
+            </div>
+        </div>
+
+        @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+    </form>
+</div>
