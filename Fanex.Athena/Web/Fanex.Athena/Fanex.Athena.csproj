@@ -2132,9 +2132,6 @@
     <Content Include="www\js\build\dev\pages\reports\winlossbyleague.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\reports\winlossbybettype.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\betlist\lastbetmonitoring.chunk.js.map" />
-    <Content Include="www\css\source\scss\fonts\roboto\Roboto-Regular.ttf" />
-    <Content Include="www\css\source\scss\fonts\roboto\Roboto-Regular.woff" />
-    <Content Include="www\css\source\scss\fonts\roboto\Roboto-Regular.woff2" />
     <Content Include="www\js\build\dev\pages\customer\commgrouplist.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\customerlist.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\customersetting.chunk.js.map" />
@@ -2151,6 +2148,7 @@
     <Content Include="www\js\build\dev\pages\customer\numbergamebetsetting.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\rngcasinobetsetting.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\thirdpartybetsetting.chunk.js.map" />
+    <Content Include="www\css\source\scss\fonts\roboto\_style.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
