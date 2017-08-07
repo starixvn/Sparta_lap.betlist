@@ -306,7 +306,6 @@ var PlatformWinLoss = (function ($) {
             var data = $("#MainForm").serializeObject();
             data.FromDate = fromdate;
             data.ToDate = todate;
-            data.IsExcludeTest = $('#IsExcludeTest').is(':checked');
             data.Level = _level;
             $.ajax({
                 type: "POST",
@@ -327,7 +326,7 @@ var PlatformWinLoss = (function ($) {
                         FromDate: new Date(data.FromDate),
                         ToDate: new Date(data.ToDate),
                         CurrencyName: data.CurrencyName,
-                        IsExcludeTest: data.IsExcludeTest,
+                        IsExcludedTestData: data.IsExcludedTestData,
                         BaseCurrency: data.BaseCurrency
                     };
                     cacheData[_level] = response;
@@ -366,7 +365,7 @@ var PlatformWinLoss = (function ($) {
                 ProductOptions: productOptions,
                 PlatformType: data.PlatformType,
                 DrawFilter: _submitData.DrawFilter,
-                IsExcludeTest: _submitData.IsExcludeTest,
+                IsExcludedTestData: _submitData.IsExcludedTestData,
                 CurrencyId: _submitData.CurrencyId,
                 BaseCurrency: _submitData.BaseCurrency,
                 CurrencyName: _submitData.CurrencyName,
@@ -414,7 +413,6 @@ var PlatformWinLoss = (function ($) {
             url = QueryString.setParam(url, "fromdate", _submitData.FromDate.toString("M/d/yyyy"));
             url = QueryString.setParam(url, "todate", _submitData.ToDate.toString("M/d/yyyy"));
             url = QueryString.setParam(url, "PlatformType", _drilldownData.PlatformType);
-            url = QueryString.setParam(url, "excludetest", _submitData.IsExcludeTest);
             url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
             url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
             url = QueryString.setParam(url, "drawfilter", _submitData.DrawFilter);

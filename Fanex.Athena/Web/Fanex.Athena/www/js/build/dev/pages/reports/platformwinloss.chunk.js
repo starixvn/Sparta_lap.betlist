@@ -8746,7 +8746,7 @@ webpackJsonp([79],{
 	                    FromDate: data.FromDate,
 	                    ToDate: data.ToDate,
 	                    CurrencyName: data.CurrencyName,
-	                    IsExcludeTest: data.IsExcludeTest,
+	                    IsExcludedTestData: data.IsExcludedTestData,
 	                    BaseCurrency: data.BaseCurrency
 	                };
 	                _filterData[gridControl.level] = submitData;
@@ -8934,7 +8934,6 @@ webpackJsonp([79],{
 	                FromDate: onLevelData.FromDate,
 	                ToDate: onLevelData.ToDate,
 	                PlatformType: onLevelData.PlatformType,
-	                ExcludeTest: onLevelData.IsExcludeTest,
 	                CurrencyId: dataDrillDown.DrillDownCurrencyId,
 	                CurrencyName: dataDrillDown.DrillDownCurrencyName,
 	                DrawFilter: onLevelData.DrawFilter,
