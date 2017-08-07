@@ -1,5 +1,6 @@
 webpackJsonp([59],{
 
+<<<<<<< HEAD
 /***/ 165:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13,6 +14,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         url = QueryString.setParam(url, "sumcomm", totalValue.LicenseeComm);
         url = QueryString.setParam(url, "sumturnover", totalValue.TurnOver);
         url = QueryString.setParam(url, "sumamtdueto3rd", totalValue.AmountDue);
+=======
+/***/ 0:
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(334);
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
         return url;
     }
@@ -58,16 +65,22 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
+<<<<<<< HEAD
 /***/ 234:
 /***/ (function(module, exports, __webpack_require__) {
+=======
+/***/ 333:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 module.exports = __webpack_require__(235);
 
 
-/***/ }),
+/***/ },
 
+<<<<<<< HEAD
 /***/ 235:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -77,9 +90,20 @@ module.exports = __webpack_require__(235);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+=======
+/***/ 334:
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ }),
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(335)], __WEBPACK_AMD_DEFINE_RESULT__ = function (MatchList) {
+	    "use strict";
+	    $(MatchList.initialize);
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
+/***/ },
+
+<<<<<<< HEAD
 /***/ 236:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -127,8 +151,56 @@ module.exports = __webpack_require__(235);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+=======
+/***/ 335:
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ })
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(8), __webpack_require__(7), __webpack_require__(333)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString, Site, Helper) {
+	    "use strict";
+	
+	    function initialize() {
+	        Site.initialize();
+	        initEvent();
+	    }
+	
+	    function initEvent() {
+	        $("body").on("click", ".match-detail-link", function () {
+	            viewMatchBetList(this);
+	        });
+	    }
+	
+	    function viewMatchBetList(target) {
+	        var url = Site.resolveClientUrl("LiveReportBetList/Match");
+	
+	        var currencyName = $('#CurrencyName').attr('data-original');
+	        var data = $(target).attr("data-drill-down");
+	        data = $.parseJSON(data);
+	        url = Site.setLicenseeOptionOriginalParam(url);
+	        url = Site.setDateRangeOriginalParam(url);
+	        url = QueryString.setParam(url, "CurrencyName", currencyName);
+	        url = QueryString.setParam(url, "MatchId", data.MatchId);
+	        url = QueryString.setParam(url, "HomeId", data.HomeId);
+	        url = QueryString.setParam(url, "AwayId", data.AwayId);
+	        url = QueryString.setParam(url, "BetType", data.BetType);
+	        url = QueryString.setParam(url, "LiveIndicator", data.LiveIndicator);
+	        url = Helper.setSumParams(url, data);
+	
+	        var productOptions = Helper.getMatchListProductOption($("#SportId").val(), $("#ProductCode").val());
+	
+	        url = Site.setProductCodeListParam(url, productOptions);
+	
+	        Site.blockUI();
+	        Site.redirect(url);
+	    }
+	
+	    return {
+	        initialize: initialize
+	    };
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
+
+/***/ }
 
 },[234]);
 //# sourceMappingURL=livereportmatchlist.chunk.js.map

@@ -1,7 +1,12 @@
 webpackJsonp([56],{
 
+<<<<<<< HEAD
 /***/ 188:
 /***/ (function(module, exports, __webpack_require__) {
+=======
+/***/ 0:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 __webpack_require__(189);
 __webpack_require__(190);
@@ -10,10 +15,15 @@ __webpack_require__(192);
 module.exports = __webpack_require__(193);
 
 
-/***/ }),
+/***/ },
 
+<<<<<<< HEAD
 /***/ 189:
 /***/ (function(module, exports) {
+=======
+/***/ 97:
+/***/ function(module, exports) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 ﻿// Generated at: 9/26/2017 12:41:12 PM
 window._language_en_US = {
@@ -954,10 +964,15 @@ YouNotChooseAnyCustomerMsg:"You did not choose any customers."
 };
 
 
-/***/ }),
+/***/ },
 
+<<<<<<< HEAD
 /***/ 190:
 /***/ (function(module, exports) {
+=======
+/***/ 98:
+/***/ function(module, exports) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 ﻿// Generated at: 9/26/2017 12:41:12 PM
 window._language_zh_CN = {
@@ -1765,10 +1780,15 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 };
 
 
-/***/ }),
+/***/ },
 
+<<<<<<< HEAD
 /***/ 191:
 /***/ (function(module, exports) {
+=======
+/***/ 99:
+/***/ function(module, exports) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 ﻿// Generated at: 9/26/2017 12:41:12 PM
 window._language_zh_TW = {
@@ -2576,10 +2596,15 @@ YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 };
 
 
-/***/ }),
+/***/ },
 
+<<<<<<< HEAD
 /***/ 192:
 /***/ (function(module, exports) {
+=======
+/***/ 100:
+/***/ function(module, exports) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 ﻿// Generated at: 9/26/2017 12:41:12 PM
 window._language_zh_Hans = {
@@ -3373,10 +3398,15 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 };
 
 
-/***/ }),
+/***/ },
 
+<<<<<<< HEAD
 /***/ 193:
 /***/ (function(module, exports) {
+=======
+/***/ 101:
+/***/ function(module, exports) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 ﻿// Generated at: 9/26/2017 12:41:12 PM
 window._language_ko_KR = {
@@ -4145,7 +4175,7 @@ YouNotChooseAnyCustomerMsg:"고객을 아직 선택하지 않았습니다."
 };
 
 
-/***/ })
+/***/ }
 
 },[188]);
 //# sourceMappingURL=language.chunk.js.map

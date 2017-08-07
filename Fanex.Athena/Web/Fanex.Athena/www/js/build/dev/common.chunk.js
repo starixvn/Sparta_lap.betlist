@@ -13,9 +13,7 @@
 /******/ 			installedChunks[chunkId] = 0;
 /******/ 		}
 /******/ 		for(moduleId in moreModules) {
-/******/ 			if(Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
-/******/ 				modules[moduleId] = moreModules[moduleId];
-/******/ 			}
+/******/ 			modules[moduleId] = moreModules[moduleId];
 /******/ 		}
 /******/ 		if(parentJsonpFunction) parentJsonpFunction(chunkIds, moreModules, executeModules);
 /******/ 		while(resolves.length) {
@@ -150,6 +148,7 @@
 /******/ 	return __webpack_require__(__webpack_require__.s = 181);
 /******/ })
 /************************************************************************/
+<<<<<<< HEAD
 /******/ ({
 
 /***/ 1:
@@ -438,6 +437,11 @@ module.exports = __webpack_amd_options__;
 
 /***/ 176:
 /***/ (function(module, exports, __webpack_require__) {
+=======
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
     "use strict";
@@ -790,10 +794,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
+<<<<<<< HEAD
 /***/ }),
 
 /***/ 181:
 /***/ (function(module, exports, __webpack_require__) {
+=======
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 __webpack_require__(1);
 __webpack_require__(184);
@@ -801,18 +811,30 @@ __webpack_require__(2);
 module.exports = __webpack_require__(118);
 
 
+<<<<<<< HEAD
 /***/ }),
 
 /***/ 182:
 /***/ (function(module, exports, __webpack_require__) {
+=======
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 /* WEBPACK VAR INJECTION */(function(global) {module.exports = global["$"] = __webpack_require__(183);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)))
 
+<<<<<<< HEAD
 /***/ }),
 
 /***/ 183:
 /***/ (function(module, exports, __webpack_require__) {
+=======
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
  * jQuery JavaScript Library v3.2.1
@@ -14683,13 +14705,20 @@ Manager.prototype = {
             this.remove(existing);
         }
 
+<<<<<<< HEAD
         this.recognizers.push(recognizer);
         recognizer.manager = this;
+=======
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
         this.touchAction.update();
         return recognizer;
     },
 
+<<<<<<< HEAD
     /**
      * remove a recognizer by name or instance
      * @param {Recognizer|String} recognizer
@@ -14699,13 +14728,24 @@ Manager.prototype = {
         if (invokeArrayArg(recognizer, 'remove', this)) {
             return this;
         }
+=======
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
         recognizer = this.get(recognizer);
 
+<<<<<<< HEAD
         // let's make sure this recognizer exists
         if (recognizer) {
             var recognizers = this.recognizers;
             var index = inArray(recognizers, recognizer);
+=======
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
             if (index !== -1) {
                 recognizers.splice(index, 1);
@@ -14716,6 +14756,7 @@ Manager.prototype = {
         return this;
     },
 
+<<<<<<< HEAD
     /**
      * bind event
      * @param {String} events
@@ -14729,6 +14770,11 @@ Manager.prototype = {
         if (handler === undefined) {
             return;
         }
+=======
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
         var handlers = this.handlers;
         each(splitStr(events), function(event) {
@@ -14738,6 +14784,7 @@ Manager.prototype = {
         return this;
     },
 
+<<<<<<< HEAD
     /**
      * unbind event, leave emit blank to remove all handlers
      * @param {String} events
@@ -14910,12 +14957,23 @@ if (true) {
 }
 
 })(window, document, 'Hammer');
+=======
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 
+<<<<<<< HEAD
 /***/ }),
 
 /***/ 186:
 /***/ (function(module, exports, __webpack_require__) {
+=======
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
@@ -15031,10 +15089,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
+<<<<<<< HEAD
 /***/ }),
 
 /***/ 187:
 /***/ (function(module, exports, __webpack_require__) {
+=======
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 "use strict";
 ﻿/// <reference path="/@JSense.js" />
@@ -15047,7 +15111,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 *
 */
 
+<<<<<<< HEAD
 //#region String Prototype
+=======
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 /* jshint ignore:start */
 String.prototype.format = function () {
@@ -15143,10 +15213,16 @@ Array.prototype.insertBefore = function (value, before) {
 
 /* jshint ignore:end */
 
+<<<<<<< HEAD
 /***/ }),
 
 /***/ 2:
 /***/ (function(module, exports, __webpack_require__) {
+=======
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _language_en_US*/
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(118), __webpack_require__(120), __webpack_require__(187), __webpack_require__(176)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Popup) {// jshint ignore:line
@@ -15618,7 +15694,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
+<<<<<<< HEAD
 /***/ })
 
 /******/ });
+=======
+/***/ }
+/******/ ]);
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 //# sourceMappingURL=common.chunk.js.map

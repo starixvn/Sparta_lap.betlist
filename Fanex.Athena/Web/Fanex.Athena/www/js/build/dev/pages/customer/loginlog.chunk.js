@@ -1,5 +1,6 @@
 webpackJsonp([36],{
 
+<<<<<<< HEAD
 /***/ 119:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19,6 +20,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
                 if ($bdiv.length === 0) {
                     return;
                 }
+=======
+/***/ 0:
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(290);
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
                 var gridTop = $bdiv.offset().top;
                 var pagingHeight = $(".paging:visible").length ? $(".paging:visible").height() : 0;
@@ -633,8 +640,9 @@ $.extend($.jgrid,{
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ }),
+/***/ },
 
+<<<<<<< HEAD
 /***/ 123:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3239,11 +3247,16 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
                 if ( g1 > 0 && len > 0 ) {
                     i = len % g1 || g1;
                     intPart = intDigits.substr( 0, i );
+=======
+/***/ 103:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
                     for ( ; i < len; i += g1 ) {
                         intPart += groupSeparator + intDigits.substr( i, g1 );
                     }
 
+<<<<<<< HEAD
                     if ( g2 > 0 ) intPart += groupSeparator + intDigits.slice(i);
                     if (isNeg) intPart = '-' + intPart;
                 }
@@ -3255,11 +3268,18 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
                     : fractionPart )
                   : intPart;
             }
+=======
+/***/ },
+
+/***/ 104:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
             return str;
         };
 
 
+<<<<<<< HEAD
         /*
          * Return a string array representing the value of this BigNumber as a simple fraction with
          * an integer numerator and an integer denominator. The denominator will be a positive
@@ -3727,12 +3747,23 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
         globalObj.BigNumber = BigNumber;
     }
 })(this);
+=======
+/***/ },
+
+/***/ 213:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 
-/***/ }),
+/***/ },
 
+<<<<<<< HEAD
 /***/ 141:
 /***/ (function(module, exports, __webpack_require__) {
+=======
+/***/ 214:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
 
@@ -4201,8 +4232,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 }));
 
 
-/***/ }),
+/***/ },
 
+<<<<<<< HEAD
 /***/ 148:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4294,9 +4326,102 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
     return _me;
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+=======
+/***/ 267:
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ }),
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// require option properties: suggestionDropdown, url, target
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(268)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+	    "use strict";
+	
+	    var mainOption = {
+	        suggestionDropdown: '#suggestionDropdown',
+	        url: null,
+	        target: null
+	    };
+	
+	    var DELAY_MILLISECOND = 600;
+	
+	    var _autoComplete;
+	
+	    var _me = {
+	        initialize: function (option) {
+	            _me.initAutoComplete(option);
+	            _me.initEvent();
+	        },
+	
+	        initEvent: function () {
+	            $('body').click(function () {
+	                _me.hideDropdown();
+	            });
+	
+	            $(mainOption.target).keyup(function (e) {
+	                if (e.keyCode === 13) {
+	                    _me.hideDropdown();
+	                }
+	            });
+	        },
+	
+	        initAutoComplete: function (option) {
+	            $.extend(mainOption, option);
+	            if (!mainOption.url || !mainOption.target) {
+	                throw Error("Missing data in option");
+	            }
+	
+	            _autoComplete = $(mainOption.target).materialize_autocomplete({ // jshint ignore:line
+	                ignoreCase: false,
+	                dropdown: {
+	                    el: mainOption.suggestionDropdown
+	                },
+	                getData: Site.debounce(_me.search, DELAY_MILLISECOND),
+	            });       
+	        },
+	
+	        search: function (value, callback) {
+	            var url = mainOption.url + "?query=" + value;
+	
+	            $.ajax({
+	                type: "GET",
+	                dataType: "json",
+	                url: url,
+	                success: function (response) {
+	                    var suggestions = response.suggestions;
+	
+	                    if (suggestions && suggestions.length > 0) {
+	                        var data = suggestions.map(function (item) {
+	                            return { id: item, text: item };
+	                        });
+	
+	                        _me.updateWidthOfSuggestionDropdown();
+	                        callback(value, data);
+	                    }
+	                    else {
+	                        _me.hideDropdown();
+	                    }
+	                }
+	            });
+	        },
+	
+	        updateWidthOfSuggestionDropdown: function () {
+	            var $autoCompleteTarget = $(mainOption.target);
+	            var $suggestionDropdown = $(mainOption.suggestionDropdown);
+	            if ($suggestionDropdown.innerWidth() !== $autoCompleteTarget.innerWidth()) {
+	                $suggestionDropdown.innerWidth($autoCompleteTarget.innerWidth());
+	            }
+	        },
+	
+	        hideDropdown: function () {
+	            _autoComplete.$dropdown.html('').hide();
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
+/***/ },
+
+<<<<<<< HEAD
 /***/ 161:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4381,6 +4506,470 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
                 grid.jqGrid(gridOption);
             },
+=======
+/***/ 268:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
+	
+	    if(typeof module === 'object' && module.exports) {
+	        module.exports = factory(__webpack_require__(1));
+	    } else if(true) {
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    } else {
+	        factory(root.jQuery);
+	    }
+	
+	}(this, function ($) {
+	
+	    var template = function (text) {
+	        var matcher = new RegExp('<%=([\\s\\S]+?)%>|<%([\\s\\S]+?)%>|$', 'g');
+	
+	        var escapes = {
+	            "'": "'",
+	            '\\': '\\',
+	            '\r': 'r',
+	            '\n': 'n',
+	            '\u2028': 'u2028',
+	            '\u2029': 'u2029'
+	        };
+	
+	        var escapeRegExp = /\\|'|\r|\n|\u2028|\u2029/g;
+	
+	        var escapeChar = function(match) {
+	            return '\\' + escapes[match];
+	        };
+	
+	        var index = 0;
+	        var source = "__p+='";
+	
+	        text.replace(matcher, function(match, interpolate, evaluate, offset) {
+	            source += text.slice(index, offset).replace(escapeRegExp, escapeChar);
+	            index = offset + match.length;
+	
+	            if (interpolate) {
+	                source += "'+\n((__t=(" + interpolate + "))==null?'':__t)+\n'";
+	            } else if (evaluate) {
+	                source += "';\n" + evaluate + "\n__p+='";
+	            }
+	
+	            return match;
+	        });
+	
+	        source += "';\n";
+	        source = 'with(obj||{}){\n' + source + '}\n';
+	        source = "var __t,__p='',__j=Array.prototype.join," +
+	            "print=function(){__p+=__j.call(arguments,'');};\n" +
+	            source + 'return __p;\n';
+	
+	        var render;
+	
+	        try {
+	            render = new Function('obj', source);
+	        } catch (e) {
+	            e.source = source;
+	            throw e;
+	        }
+	
+	        var _template = function(data) {
+	            return render.call(this, data);
+	        };
+	
+	        _template.source = 'function(obj){\n' + source + '}';
+	
+	        return _template;
+	    };
+	
+	    var Autocomplete = function (el, options) {
+	        this.options = $.extend(true, {}, Autocomplete.defaults, options);
+	        this.$el = $(el);
+	        this.$wrapper = this.$el.parent();
+	        this.compiled = {};
+	        this.$dropdown = null;
+	        this.$appender = null;
+	        this.$hidden = null;
+	        this.resultCache = {};
+	        this.value = '';
+	        this.initialize();
+	    };
+	
+	    Autocomplete.defaults = {
+	        cacheable: true,
+	        limit: 10,
+	        multiple: {
+	            enable: false,
+	            maxSize: 4,
+	            onExist: function (item) {
+	                Materialize.toast('Tag: ' + item.text + '(' + item.id + ') is already added!', 2000);
+	            },
+	            onExceed: function (maxSize, item) {
+	                Materialize.toast('Can\'t add over ' + maxSize + ' tags!', 2000);
+	            },
+	            onAppend: function (item) {
+	                var self = this;
+	                self.$el.removeClass('active');
+	                self.$el.click();
+	            },
+	            onRemove: function (item) {
+	                var self = this;
+	                self.$el.removeClass('active');
+	                self.$el.click();
+	            }
+	        },
+	        hidden: {
+	            enable: true,
+	            el: '',
+	            inputName: '',
+	            required: false
+	        },
+	        appender: {
+	            el: '',
+	            tagName: 'ul',
+	            className: 'ac-appender',
+	            tagTemplate: '<div class="chip" data-id="<%= item.id %>" data-text="<% item.text %>"><%= item.text %>(<%= item.id %>)<i class="material-icons close">close</i></div>'
+	        },
+	        dropdown: {
+	            el: '',
+	            tagName: 'ul',
+	            className: 'ac-dropdown',
+	            itemTemplate: '<li class="ac-item" data-id="<%= item.id %>" data-text="<%= item.text %>"><a href="javascript:void(0)"><%= item.text %></a></li>',
+	            noItem: ''
+	        },
+	        handlers: {
+	            'setValue': '.ac-dropdown .ac-item',
+	            '.ac-appender .ac-tag .close': 'remove'
+	        },
+	        getData: function (value, callback) {
+	            callback(value, []);
+	        },
+	        ignoreCase: true,
+	        throttling: true
+	    };
+	
+	    Autocomplete.prototype = {
+	        constructor: Autocomplete,
+	        initialize: function () {
+	            var self = this;
+	            var timer;
+	            var fetching = false;
+	
+	            function getItemsHtml (list) {
+	                var itemsHtml = '';
+	
+	                if (!list.length) {
+	                    return self.options.dropdown.noItem;
+	                }
+	
+	                list.forEach(function (item, idx) {
+	
+	                    if (idx >= self.options.limit) {
+	                        return false;
+	                    }
+	
+	                    itemsHtml += self.compiled.item({ 'item': item});
+	                });
+	
+	                return itemsHtml;
+	            }
+	
+	            function handleList (value, list) {
+	                var itemsHtml = getItemsHtml(list);
+	                var currentValue = self.$el.val();
+	
+	                if (self.options.ignoreCase) {
+	                    currentValue = currentValue.toUpperCase();
+	                }
+	
+	                if (self.options.cacheable && !self.resultCache.hasOwnProperty(value)) {
+	                    self.resultCache[value] = list;
+	                }
+	
+	                if (value !== currentValue) {
+	                    return false;
+	                }
+	
+	                if(itemsHtml) {
+	                    self.$dropdown.html(itemsHtml);
+	                    self.$dropdown.show();
+	                } else {
+	                    self.$dropdown.hide();
+	                }
+	
+	            }
+	
+	            self.value = self.options.multiple.enable ? [] : '';
+	
+	            self.compiled.tag = template(self.options.appender.tagTemplate);
+	            self.compiled.item = template(self.options.dropdown.itemTemplate);
+	
+	            self.render();
+	
+	            self.$el.on('input', function (e) {
+	                var $t = $(this);
+	                var value = $t.val();
+	
+	                if (!value) {
+	                    self.$dropdown.hide();
+	                    return false;
+	                }
+	
+	                if (self.options.ignoreCase) {
+	                    value = value.toUpperCase();
+	                }
+	
+	                if (self.resultCache.hasOwnProperty(value) && self.resultCache[value]) {
+	                    handleList(value, self.resultCache[value]);
+	                    return true;
+	                }
+	
+	                if (self.options.throttling) {
+	                    clearTimeout(timer);
+	                    timer = setTimeout(function () {
+	                        self.options.getData(value, handleList);
+	                    }, 200);
+	                    return true;
+	                }
+	
+	                self.options.getData(value, handleList);
+	            });
+	
+	            self.$el.on('keydown', function (e) {
+	                var $t = $(this);
+	                var keyCode = e.keyCode;
+	                var $items, $hover;
+	                // BACKSPACE KEY
+	                if (keyCode == '8' && !$t.val()) {
+	
+	                    if (!self.options.multiple.enable) {
+	                        return true;
+	                    }
+	
+	                    if (!self.value.length) {
+	                        return true;
+	                    }
+	
+	                    var lastItem = self.value[self.value.length - 1];
+	                    self.remove(lastItem);
+	                    return false;
+	                }
+	                // UP DOWN ARROW KEY
+	                if (keyCode == '38' || keyCode == '40') {
+	
+	                    $items = self.$dropdown.find('[data-id]');
+	
+	                    if (!$items.length) {
+	                        return false;
+	                    }
+	
+	                    $hover = $items.filter('.ac-hover');
+	
+	                    if (!$hover.length) {
+	                        $items.removeClass('ac-hover');
+	                        $items.eq(keyCode == '40' ? 0 : -1).addClass('ac-hover');
+	                    } else {
+	                        var index = $hover.index();
+	                        $items.removeClass('ac-hover');
+	                        $items.eq(keyCode == '40' ? (index + 1) % $items.length : index - 1).addClass('ac-hover');
+	                    }
+	
+	                    return false;
+	                }
+	                // ENTER KEY CODE
+	                if (keyCode == '13') {
+	                    $items = self.$dropdown.find('[data-id]');
+	
+	                    if (!$items.length) {
+	                        return false;
+	                    }
+	
+	                    $hover = $items.filter('.ac-hover');
+	
+	                    if (!$hover.length) {
+	                        return false;
+	                    }
+	
+	                    self.setValue({
+	                        id: $hover.data('id'),
+	                        text: $hover.data('text')
+	                    });
+	
+	                    return false;
+	                }
+	
+	            });
+	
+	            self.$dropdown.on('click', '[data-id]', function (e) {
+	                var $t = $(this);
+	                var item = {
+	                    id: $t.data('id'),
+	                    text: $t.data('text')
+	                };
+	
+	                self.setValue(item);
+	            });
+	
+	            self.$appender.on('click', '[data-id] .close', function (e) {
+	                var $t = $(this);
+	                var $li = $t.closest('[data-id]');
+	                var item = {
+	                    id: $li.data('id'),
+	                    text: $li.data('text')
+	                };
+	
+	                self.remove(item);
+	            });
+	
+	        },
+	        render: function () {
+	            var self = this;
+	
+	            if (self.options.dropdown.el) {
+	                self.$dropdown = $(self.options.dropdown.el);
+	            } else {
+	                self.$dropdown = $(document.createElement(self.options.dropdown.tagName));
+	                self.$dropdown.insertAfter(self.$el);
+	            }
+	
+	            self.$dropdown.addClass(self.options.dropdown.className);
+	
+	            if (self.options.appender.el) {
+	                self.$appender = $(self.options.appender.el);
+	            } else {
+	                self.$appender = $(document.createElement(self.options.appender.tagName));
+	                self.$appender.insertBefore(self.$el);
+	            }
+	
+	            if (self.options.hidden.enable) {
+	
+	                if (self.options.hidden.el) {
+	                    self.$hidden = $(self.options.hidden.el);
+	                } else {
+	                    self.$hidden = $('<input type="hidden" class="validate" />');
+	                    self.$wrapper.append(self.$hidden);
+	                }
+	
+	                if (self.options.hidden.inputName) {
+	                    self.$el.attr('name', self.options.hidden.inputName);
+	                }
+	
+	                if (self.options.hidden.required) {
+	                    self.$hidden.attr('required', 'required');
+	                }
+	
+	            }
+	
+	            self.$appender.addClass(self.options.appender.className);
+	
+	        },
+	        setValue: function (item) {
+	            var self = this;
+	
+	            if (self.options.multiple.enable) {
+	                self.append(item);
+	            } else {
+	                self.select(item);
+	            }
+	
+	        },
+	        append: function (item) {
+	            var self = this;
+	            var $tag = self.compiled.tag({ 'item': item });
+	
+	            if (self.value.some(function (selectedItem) {
+	                    return selectedItem.id === item.id;
+	                })) {
+	
+	                if ('function' === typeof self.options.multiple.onExist) {
+	                    self.options.multiple.onExist.call(this, item);
+	                }
+	
+	                return false;
+	            }
+	
+	            if (self.value.length >= self.options.multiple.maxSize) {
+	
+	                if ('function' === typeof self.options.multiple.onExceed) {
+	                    self.options.multiple.onExceed.call(this, self.options.multiple.maxSize);
+	                }
+	
+	                return false;
+	            }
+	
+	            self.value.push(item);
+	            self.$appender.append($tag);
+	
+	            var valueStr = self.value.map(function (selectedItem) {
+	                return selectedItem.id;
+	            }).join(',');
+	
+	            if (self.options.hidden.enable) {
+	                self.$hidden.val(valueStr);
+	            }
+	
+	            self.$el.val('');
+	            self.$el.data('value', valueStr);
+	            self.$dropdown.html('').hide();
+	
+	            if ('function' === typeof self.options.multiple.onAppend) {
+	                self.options.multiple.onAppend.call(self, item);
+	            }
+	
+	        },
+	        remove: function (item) {
+	            var self = this;
+	
+	            self.$appender.find('[data-id="' + item.id + '"]').remove();
+	            self.value = self.value.filter(function (selectedItem) {
+	                return selectedItem.id !== item.id;
+	            });
+	
+	            var valueStr = self.value.map(function (selectedItem) {
+	                return selectedItem.id;
+	            }).join(',');
+	
+	            if (self.options.hidden.enable) {
+	                self.$hidden.val(valueStr);
+	                self.$el.data('value', valueStr);
+	            }
+	
+	            self.$dropdown.html('').hide();
+	
+	            if ('function' === typeof self.options.multiple.onRemove) {
+	                self.options.multiple.onRemove.call(self, item);
+	            }
+	
+	        },
+	        select: function (item) {
+	            var self = this;
+	
+	            self.value = item.text;
+	            self.$el.val(item.text);
+	            self.$el.data('value', item.id);
+	            self.$dropdown.html('').hide();
+	
+	            if (self.options.hidden.enable) {
+	                self.$hidden.val(item.id);
+	            }
+	        }
+	    };
+	
+	    $.fn.materialize_autocomplete = function (options) {
+	        var el = this;
+	        var $el = $(el).eq(0);
+	        var instance = $el.data('autocomplete');
+	
+	        if (instance && arguments.length) {
+	            return instance;
+	        }
+	
+	        var autocomplete = new Autocomplete(el, options);
+	        $el.data('autocomplete', autocomplete);
+	        $el.dropdown();
+	        return autocomplete;
+	    };
+	
+	}));
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
             resizeGrid: function () {
                 var $grid = $("#" + GRID_ID);
@@ -4404,16 +4993,124 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
+<<<<<<< HEAD
 /***/ 354:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(355);
 
+=======
+/***/ 281:
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ }),
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7),
+	    __webpack_require__(103), __webpack_require__(213), __webpack_require__(214)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
+	        var GRID_ID = "ReportGrid";
+	        var _ajaxRequest = null;
+	
+	        var _me = {
+	            initialize: function () {
+	                Site.initialize();
+	                Site.addUserGuide({
+	                    resourceName: "CustomerLog",
+	                    title: Site.getSingleResource("CustomerLog")
+	                });
+	
+	                $(window).on("resize", function () {
+	                    _me.resizeGrid();
+	                });
+	
+	                $(window).on("unload", function () {
+	                    $(window).off("resize");
+	                });
+	            },
+	
+	            loadGrid: function (url, gridOption, hasCheckbox) {
+	                var option = {
+	                    type: "GET",
+	                    url: url,
+	                    dataType: "json",
+	                    contentType: "application/json",
+	                    cache: false,
+	                    success: function (response) {
+	                        jqGridAdditional.clearGrid(GRID_ID);
+	
+	                        var data = response.rows;
+	                        if (data.length === 0) {
+	                            jqGridAdditional.setNoInfo();
+	                            return;
+	                        }
+	
+	                        _me.bindData(data, gridOption, hasCheckbox);
+	                    },
+	                    beforeSend: function () {
+	                        Site.blockUI();
+	                    },
+	                    complete: function () {
+	                        Site.unBlockUI();
+	                    }
+	                };
+	
+	                _me.stopAjaxRequest();
+	                _ajaxRequest = $.ajax(option);
+	            },
+	
+	            bindData: function (data, gridOption, hasCheckbox) {
+	                var grid = $('#ReportGrid');
+	
+	                gridOption.data = data;
+	                gridOption.gridComplete = function () {
+	                    if (hasCheckbox) {
+	                        _me.checkShowAll();
+	                    }
+	
+	                    var colModels = grid[0].p.colModel;
+	                    $.each(grid[0].grid.headers, function (index, value) {
+	                        if (!colModels[index].sortable) {
+	                            $(".ui-jqgrid-sortable", value.el).css({ cursor: "default" });
+	                        }
+	                    });
+	
+	                    jqGridAdditional.gridComplete();
+	                    _me.resizeGrid();
+	                };
+	
+	                gridOption.onSortCol = function (index, columIndex) {
+	                    $(".ui-jqgrid-sortable", "th").css({ "text-decoration": "none" });
+	                    $(".ui-jqgrid-sortable", grid[0].grid.headers[columIndex].el).css({ "text-decoration": "underline" });
+	                };
+	
+	                grid.jqGrid(gridOption);
+	            },
+	
+	            resizeGrid: function () {
+	                var $grid = $("#" + GRID_ID);
+	                jqGridAdditional.updateGridHeight();
+	                jqGridAdditional.updateGridWidth($grid);
+	            },
+	
+	            checkShowAll: function () {
+	                var checked = $('#showall').is(':checked');
+	                $('.old-value').toggleClass("hide", !checked);
+	            },
+	
+	            stopAjaxRequest: function () {
+	                if (_ajaxRequest !== null) {
+	                    _ajaxRequest.abort();
+	                }
+	            }
+	        };
+	
+	        return _me;
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
+/***/ },
+
+<<<<<<< HEAD
 /***/ 355:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4424,9 +5121,20 @@ module.exports = __webpack_require__(355);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+=======
+/***/ 290:
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ }),
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(291)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LoginLog) {
+	    $(LoginLog.initialize);
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
+/***/ },
+
+<<<<<<< HEAD
 /***/ 356:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4476,11 +5184,65 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         return _me;
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+=======
+/***/ 291:
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ }),
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(267), __webpack_require__(292), __webpack_require__(281)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, AutoComplete, LoginLogOption, CustomerLog) {
+	        var _me = {
+	            initialize: function () {
+	                CustomerLog.initialize();
+	                _me.initEvent();
+	                AutoComplete.initialize({
+	                    url: Site.resolveClientUrl("CustomerAPI/SearchCustomer"),
+	                    target: "#Username"
+	                });
+	
+	                // Set menu active
+	                $('#loginlogTab').addClass('active');
+	            },
+	
+	            initEvent: function () {
+	                $('#SubmitButton').on('click', function () {
+	                    _me.loadGrid();
+	                });
+	
+	                $("#Username").keyup(function (e) {
+	                    if (e.keyCode === 13) {
+	                        _me.loadGrid();
+	                    }
+	                });
+	            },
+	
+	            loadGrid: function () {
+	                var gridOption = LoginLogOption.gridOption;
+	                var colNames = Site.clone(LoginLogOption.getColNames());
+	                gridOption.colNames = Site.getResources(colNames);
+	                var url = _me.getUrl();
+	
+	                CustomerLog.loadGrid(url, gridOption);
+	            },
+	
+	            getUrl: function () {
+	                var userName = $('#Username').val();
+	                return Site.resolveClientUrl('api/Log/LoginLog?UserName=' + encodeURIComponent(userName));
+	            }
+	        };
+	
+	        return _me;
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
+/***/ },
+
+<<<<<<< HEAD
 /***/ 357:
 /***/ (function(module, exports, __webpack_require__) {
+=======
+/***/ 292:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
@@ -4558,7 +5320,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ })
+/***/ }
 
 },[354]);
 //# sourceMappingURL=loginlog.chunk.js.map

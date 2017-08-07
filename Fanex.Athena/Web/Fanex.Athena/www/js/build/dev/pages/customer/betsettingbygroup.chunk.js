@@ -1,5 +1,6 @@
 webpackJsonp([40],{
 
+<<<<<<< HEAD
 /***/ 131:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10,6 +11,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     function isInteger(text) {
         return /^\+?\d+$/.test(text);
     }
+=======
+/***/ 0:
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(240);
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
     var _me = {
         showDialogMesage: function (title, message) {
@@ -71,8 +78,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
+<<<<<<< HEAD
 /***/ 138:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -109,9 +117,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     return _me;
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+=======
+/***/ 240:
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ }),
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(241)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetSettingByGroup) {
+	    $(BetSettingByGroup.initialize);
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
+/***/ },
+
+<<<<<<< HEAD
 /***/ 142:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -440,11 +459,159 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
     return NumberFormatter;
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))
+=======
+/***/ 241:
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ }),
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(242), __webpack_require__(243), __webpack_require__(248), __webpack_require__(244)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Constant, BetSettingBase, BetSettingStatus, NumberFormatter) {
+	        var Product = Constant.Product;
+	
+	        var _bettingGroupLimitCache;
+	        var _productId;
+	
+	        function disableSubmitButtons(isDisabled) {
+	            var $button = $("#btnSubmitBetSetting, #btnReset").prop('disabled', isDisabled);
+	            $button.toggleClass("disabled", isDisabled);
+	        }
+	
+	        var _me = {
+	            initialize: function () {
+	                Site.initialize();
+	                BetSettingBase.initialize();
+	
+	                _bettingGroupLimitCache = JSON.parse($("#BettingLimit").val());
+	
+	                _productId = parseInt($("#ProductId").val());
+	                _me.initEvent();
+	
+	                var $betSettingGroup = $('#betSettingGroup');
+	                if ($betSettingGroup.length) {
+	                    if ($betSettingGroup.data("default") === "") {
+	                        $betSettingGroup.prop("selectedIndex", -1);
+	                        disableSubmitButtons(true);
+	                    }
+	                    $betSettingGroup.change();
+	                }
+	            },
+	
+	            initEvent: function () {
+	                var formatter = new NumberFormatter();
+	
+	                $('#betSettingGroup').on('change', function () {
+	                    var selectedGroupType = this.value;
+	                    var groupFilter = function (item) {
+	                        return item.GroupType === selectedGroupType;
+	                    };
+	                    var disableSubmit = false;
+	
+	                    for (var i = 0; i < _bettingGroupLimitCache.length; i++) {
+	                        var game = _bettingGroupLimitCache[i];
+	                        var group = game.Groups.filter(groupFilter)[0];
+	                        if (group) {
+	                            $("#min-" + game.GameType).html(formatter.formatNumber(group.Min, { format: "#,###" }));
+	                            $("#max-" + game.GameType).html(formatter.formatNumber(group.Max, { format: "#,###" }));
+	                        } else {
+	                            $("#min-" + game.GameType).html("");
+	                            $("#max-" + game.GameType).html("");
+	                            disableSubmit = true;
+	                        }
+	                    }
+	
+	                    disableSubmitButtons(disableSubmit);
+	                });
+	
+	                $("#btnSubmitBetSetting").on("click", function () {
+	                    if (!_me.isValid()) {
+	                        return;
+	                    }
+	
+	                    var messageResource = _productId === Product.AgCasino ? 'UpdateAgCasinoBetSettings' :
+	                                        _productId === Product.GoldDeluxe ? 'UpdateGoldDeluxeBetSettings' : '';
+	                    BetSettingBase.showComfirm($(this), messageResource, _me.updateBetSetting);
+	                });
+	
+	                $("#btnReset").on("click", _me.resetSetting);
+	
+	                $("#btnUpdateStatus").click(function () {
+	                    _me.updateStatus($(this));
+	                });
+	            },
+	
+	            resetSetting: function () {
+	                var $dropdown = $("#betSettingGroup");
+	                if ($dropdown.data("default") === "") {
+	                    $dropdown.prop("selectedIndex", -1).change();
+	                } else {
+	                    $dropdown.val($dropdown.data("default")).change();
+	                }
+	            },
+	
+	            updateBetSetting: function (custId, userName, nickName) {
+	                var url = _productId === Product.AgCasino ? 'AgCasinoBetSetting/UpdateBetSetting' :
+	                                        _productId === Product.GoldDeluxe ? 'GoldDeluxeBetSetting/UpdateBetSetting' : null;
+	
+	                if (url === null) {
+	                    return;
+	                }
+	
+	                var params = {
+	                    custid: custId,
+	                    userName: userName,
+	                    nickName: nickName,
+	                    group: $("#betSettingGroup").val()
+	                };
+	
+	                BetSettingBase.updateBetSetting(Site.resolveClientUrl(url), params);
+	            },
+	
+	            updateStatus: function ($context) {
+	                var url = _productId === Product.AgCasino ? 'AgCasinoBetSetting/UpdateStatus' :
+	                                        _productId === Product.GoldDeluxe ? 'GoldDeluxeBetSetting/UpdateStatus' : null;
+	
+	                if (url === null) {
+	                    return;
+	                }
+	
+	                var params = BetSettingStatus.getCommonPostData($context);
+	                BetSettingStatus.update(Site.resolveClientUrl(url), params);
+	            },
+	
+	            checkApiContainGroup: function (groupType) {
+	                var groupFilter = function (item) {
+	                    return item.GroupType === groupType;
+	                };
+	                return _bettingGroupLimitCache[0].Groups.filter(groupFilter).length > 0;
+	            },
+	
+	            isValid: function () {
+	                var group = $("#betSettingGroup").val();
+	                if (!group) {
+	                    return false;
+	                }
+	
+	                if (!_me.checkApiContainGroup(group)) {
+	                    alert(Site.getSingleResource("AGCasinoNoGroupChosenErrMsg"));
+	                    return false;
+	                }
+	
+	                return true;
+	            }
+	        };
+	
+	        return _me;
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
+/***/ },
+
+<<<<<<< HEAD
 /***/ 143:
 /***/ (function(module, exports, __webpack_require__) {
+=======
+/***/ 242:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
@@ -559,8 +726,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
+<<<<<<< HEAD
 /***/ 145:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -730,11 +898,185 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         return _me;
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+=======
+/***/ 243:
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ }),
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(242), __webpack_require__(244), __webpack_require__(245), __webpack_require__(247)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
+	        var Product = Constant.Product;
+	
+	        var _me = {
+	            initialize: function () {
+	                $("#product-dropdown").on('change', function () {
+	                    var url = $(this).find("option:selected").data("href");
+	                    Site.blockUI();
+	                    Site.redirect(url);
+	                });
+	            },
+	
+	            getSportIds: function () {
+	                var $idList = $("#IDList");
+	                return $idList.length ? $idList.val().split(",") : [];
+	            },
+	
+	            setEnable: function () {
+	                var editable = $("#editable").val();
+	                var isEnable = !editable || editable === "True";
+	
+	                if (!isEnable) {
+	                    var sportIds = _me.getSportIds();
+	
+	                    for (var i = 0; i < sportIds.length; i++) {
+	                        var sportId = sportIds[i];
+	                        var selector = "#min-bet-" + sportId + "," + "#max-bet-" + sportId + "," + "#max-per-match-" + sportId;
+	                        $(selector).prop("disabled", true);
+	                    }
+	                }
+	            },
+	
+	            formatInputText: function () {
+	                var formatter = new NumberFormatter();
+	
+	                $("input[type=text]").blur(function () {
+	                    var inputValue = $(this).val().replace(/,/g, "");
+	                    var formattedValue = formatter.formatNumber(inputValue, { format: "#,###,##0.##" });
+	                    $(this).val(formattedValue);
+	                });
+	            },
+	
+	            resetInput: function () {
+	                $('#chkCopyAll').removeAttr('checked');
+	                $('input[id^="min"], input[id^="max-bet"], input[id^="max-per"]').each(function () {
+	                    $(this).val($(this).attr('data-original')).prop('disabled', false);
+	                });
+	            },
+	
+	            showComfirm: function ($target, resourceMessage, callback) {
+	                var productId = parseInt($("#ProductId").val());
+	                var isValid = productId === Product.LiveCasino ? true :
+	                             productId === Product.NumberGame ? BetSettingValidation.checkValidationNumberGame() :
+	                                                                BetSettingValidation.checkLimitMinMaxBets(_me.getSportIds());
+	                if (!isValid) {
+	                    return;
+	                }
+	
+	                var custId = $target.attr("data-cust-id");
+	                var userName = $target.attr("data-user-name");
+	                var nickName = $target.attr("data-nick-name");
+	
+	                _me.showConfirmAction(Site.getSingleResource(resourceMessage), custId, userName, nickName, callback);
+	            },
+	
+	            showConfirmAction: function (message, custId, userName, nickName, callback) {
+	                var options = {
+	                    title: Site.getSingleResource("Confirmation"),
+	                    height: "auto",
+	                    id: "confirm-update-betsetting",
+	                    onOpen: function () {
+	                        $('#btnSubmitBetSetting, #btnReset').prop('disabled', true);
+	                    },
+	                    onClose: function () {
+	                        $('#btnSubmitBetSetting, #btnReset').removeAttr('disabled');
+	                        $("#confirm-update-betsetting").remove();
+	                    },
+	                    width: 450
+	                };
+	
+	                var buttons = [
+	                    {
+	                        text: Site.getSingleResource("OK"),
+	                        isClosedOnClick: true,
+	                        click: function () {
+	                            callback(custId, userName, nickName);
+	                        },
+	                        classes: "btn btn-submit"
+	                    }, {
+	                        text: Site.getSingleResource("Cancel"),
+	                        isClosedOnClick: true,
+	                        classes: "btn btn-cancel"
+	                    }];
+	
+	                Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
+	            },
+	
+	            getBetSettingParamsForSports: function () {
+	                var params = {};
+	                var sportIds = _me.getSportIds();
+	                for (var i = 0; i < sportIds.length; i++) {
+	                    $.extend(params, _me.getBetSettingParams(sportIds[i]));
+	                }
+	
+	                return params;
+	            },
+	
+	            getBetSettingParams: function (sportId) {
+	                var $minbet = $("#min-bet-" + sportId);
+	                var $maxbet = $("#max-bet-" + sportId);
+	                var $maxPerMatch = $("#max-per-match-" + sportId);
+	
+	                if ($minbet.length === 0 ||
+	                    $maxbet.length === 0 ||
+	                    $maxPerMatch.length === 0) {
+	                    return "";
+	                }
+	
+	                var isUpdate = true;
+	                var originalMinBet = $('#min-bet-' + sportId).attr('data-original');
+	                var originalMaxBet = $('#max-bet-' + sportId).attr('data-original');
+	                var originalMaxPerMatch = $('#max-per-match-' + sportId).attr('data-original');
+	
+	                // Check if data is changed
+	                if ($minbet.val() === originalMinBet
+	                    && $maxbet.val() === originalMaxBet
+	                    && $maxPerMatch.val() === originalMaxPerMatch) {
+	                    isUpdate = false;
+	                }
+	
+	                // Data is changed, update it
+	                var minBet = BetSettingHelper.convertToFloat($minbet.val());
+	                var maxBet = BetSettingHelper.convertToFloat($maxbet.val());
+	                var maxPerMatcth = BetSettingHelper.convertToFloat($maxPerMatch.val());
+	                var betType = $("#bet-type-" + sportId).val();
+	
+	                var result = {};
+	                result["minbet" + sportId] = minBet;
+	                result["maxbet" + sportId] = maxBet;
+	                result["maxpermatch" + sportId] = maxPerMatcth;
+	                result["update" + sportId] = isUpdate;
+	                result["bettype" + sportId] = betType;
+	
+	                return result;
+	            },
+	
+	            updateBetSetting: function (url, params) {
+	                $.ajax({
+	                    type: 'POST',
+	                    cache: false,
+	                    url: url,
+	                    data: params,
+	                    dataType: "json",
+	                    success: function (result) {
+	                        var messageResource = Number(result.Code) === 0 ? "MessageSuccess" : "Fail";
+	                        BetSettingHelper.showDialogMesage(Site.getSingleResource(messageResource), result.Message);
+	                    }
+	                });
+	            }
+	        };
+	
+	        return _me;
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
+/***/ },
+
+<<<<<<< HEAD
 /***/ 146:
 /***/ (function(module, exports, __webpack_require__) {
+=======
+/***/ 244:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
 /**
@@ -1014,8 +1356,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 })(jQuery);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ }),
+/***/ },
 
+<<<<<<< HEAD
 /***/ 153:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1059,17 +1402,93 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     return _me;
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+=======
+/***/ 245:
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ }),
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(246)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+	    
+	    function isInteger(text) {
+	        return /^\+?\d+$/.test(text);
+	    }
+	
+	    var _me = {
+	        showDialogMesage: function (title, message) {
+	            var options = {
+	                title: title,
+	                height: "auto",
+	                id: "result-update-betsetting",
+	                onOpen: function () {
+	                    $('#btnSubmitBetSetting, #btnReset').prop('disabled', true);
+	                },
+	                onClose: function () {
+	                    $("#result-update-betsetting").remove();
+	                    $('#btnSubmitBetSetting, #btnReset').removeAttr('disabled');
+	                    setTimeout(function () {
+	                        Site.blockUI();
+	                        Site.getLocation().reload();
+	                    }, 500);
+	                },
+	                width: 450
+	            };
+	
+	            var buttons = [
+	                {
+	                    text: Site.getSingleResource("OK"),
+	                    isClosedOnClick: true,
+	                    classes: "btn btn-submit"
+	                }];
+	
+	            Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
+	        },
+	
+	        convertToFloat: function (str) {
+	            var temp = str.replace(/,/g, "");
+	            var temp2 = temp.replace(".", "");
+	
+	            if (isInteger(temp2)) {
+	                return parseFloat(temp);
+	            }
+	            else {
+	                return NaN;
+	            }
+	        },
+	
+	        showBalloonMsg: function (elementSelector, strMsg) {
+	            var contents = '<div onclick="hideBalloonMsg(\'' + elementSelector + '\')" style="width:140px;" class="msgerr">' + strMsg + '</div>';
+	
+	            $(elementSelector).blur(function () { _me.hideBalloonMsg(elementSelector); })
+	                              .focus()
+	                              .showBalloon({
+	                                  contents: contents
+	                              });
+	        },
+	        hideBalloonMsg: function (elementSelector) {
+	            $(elementSelector).hideBalloon();
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
+/***/ },
+
+<<<<<<< HEAD
 /***/ 386:
 /***/ (function(module, exports, __webpack_require__) {
+=======
+/***/ 246:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 module.exports = __webpack_require__(387);
 
 
-/***/ }),
+/***/ },
 
+<<<<<<< HEAD
 /***/ 387:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1080,9 +1499,125 @@ module.exports = __webpack_require__(387);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+=======
+/***/ 247:
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ }),
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(245)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingHelper) {
+	    var SPORTID_NUMBERGAME = 161;
+	
+	    var _me = {
+	        checkValidationNumberGame: function () {
+	            if (!_me.checkLimitMinMaxBet(SPORTID_NUMBERGAME)) {
+	                return false;
+	            }
+	
+	            var maxPerBallSelector = "#max-per-ball-161";
+	            var maxPerBall = BetSettingHelper.convertToFloat($(maxPerBallSelector).val());
+	            var maxPerBallLimit = BetSettingHelper.convertToFloat($(maxPerBallSelector).attr('data-max-value'));
+	
+	            if (isNaN(maxPerBall)) {
+	                BetSettingHelper.showBalloonMsg(maxPerBallSelector, Site.getSingleResource('IncorrectMaxPerBall'));
+	                return false;
+	            }
+	
+	            if (maxPerBallLimit > 0 && maxPerBall > maxPerBallLimit) {
+	                BetSettingHelper.showBalloonMsg(maxPerBallSelector, Site.getSingleResource('MaxPerBallLessThanOrEqual') + " " + maxPerBallLimit);
+	                return false;
+	            }
+	
+	            return true;
+	        },
+	
+	        checkLimitMinMaxBet: function (sportId) {
+	            var minBetId = "#min-bet-" + sportId;
+	            var maxBetId = "#max-bet-" + sportId;
+	            var maxPerMatchId = "#max-per-match-" + sportId;
+	
+	            var $minBetTextBox = $(minBetId);
+	            var $maxBetTextBox = $(maxBetId);
+	            var $maxPerMatchTextBox = $(maxPerMatchId);
+	            if ($minBetTextBox.length === 0 ||
+	                $maxBetTextBox.length === 0 ||
+	                $maxPerMatchTextBox.length === 0) {
+	                return true;
+	            }
+	
+	            // Get value in attribute
+	            var limitMinBet = BetSettingHelper.convertToFloat($minBetTextBox.attr('data-min-value'));
+	            var limitMaxBet = BetSettingHelper.convertToFloat($maxBetTextBox.attr('data-max-value'));
+	            var limitMaxPerMatch = BetSettingHelper.convertToFloat($maxPerMatchTextBox.attr('data-max-value'));
+	            var limitMaxPerMatchMin = BetSettingHelper.convertToFloat($maxPerMatchTextBox.attr('data-min-value'));
+	
+	            var minBet = BetSettingHelper.convertToFloat($minBetTextBox.val());
+	            var maxBet = BetSettingHelper.convertToFloat($maxBetTextBox.val());
+	            var maxPerMatcth = BetSettingHelper.convertToFloat($maxPerMatchTextBox.val());
+	
+	            // Check if minbet, maxbet, maxpermatch is valid number
+	            if (isNaN(minBet)) {
+	                BetSettingHelper.showBalloonMsg(minBetId, Site.getSingleResource('IncorrectMinBet'));
+	                return false;
+	            }
+	            if (isNaN(maxBet)) {
+	                BetSettingHelper.showBalloonMsg(maxBetId, Site.getSingleResource('IncorrectMaxBet'));
+	                return false;
+	            }
+	            if (isNaN(maxPerMatcth)) {
+	                BetSettingHelper.showBalloonMsg(maxPerMatchId, Site.getSingleResource('IncorrectMaxPerMatch'));
+	                return false;
+	            }
+	
+	            if (minBet === 0 && maxBet === 0 && maxPerMatcth === 0) { return true; }
+	
+	            // Check contrains
+	            // min bet <=maxbet <= max per match
+	            if (limitMinBet > 0 && minBet < BetSettingHelper.convertToFloat(limitMinBet.toString())) {
+	                BetSettingHelper.showBalloonMsg(minBetId, Site.getSingleResource('MinBetGreaterThanOrEqual') + " " + limitMinBet);
+	                return false;
+	            }
+	            if (limitMaxBet > 0 && maxBet > BetSettingHelper.convertToFloat(limitMaxBet.toString())) {
+	                BetSettingHelper.showBalloonMsg(maxBetId, Site.getSingleResource('MaxBetLessThanOrEqual') + " " + limitMaxBet);
+	                return false;
+	            }
+	            if (limitMaxPerMatchMin > 0 && maxPerMatcth < BetSettingHelper.convertToFloat(limitMaxPerMatchMin.toString())) {
+	                BetSettingHelper.showBalloonMsg(maxPerMatchId, Site.getSingleResource('MaxBetMatchMoreThanOrEqual') + " " + limitMaxPerMatchMin);
+	                return false;
+	            }
+	            if (limitMaxPerMatch > 0 && maxPerMatcth > BetSettingHelper.convertToFloat(limitMaxPerMatch.toString())) {
+	                BetSettingHelper.showBalloonMsg(maxPerMatchId, Site.getSingleResource('MaxBetMatchLessThanOrEqual') + " " + limitMaxPerMatch);
+	                return false;
+	            }
+	            if (minBet > maxBet) {
+	                BetSettingHelper.showBalloonMsg(minBetId, Site.getSingleResource('MinBetCanNotGreaterThanMaxBet'));
+	                return false;
+	            }
+	            if (maxBet > maxPerMatcth) {
+	                BetSettingHelper.showBalloonMsg(maxBetId, Site.getSingleResource('MaxBetCanNotGreaterThanMaxPerMatch'));
+	                return false;
+	            }
+	
+	            return true;
+	        },
+	
+	        checkLimitMinMaxBets: function (sportIds) {
+	            for (var i = 0; i < sportIds.length; i++) {
+	                if (!_me.checkLimitMinMaxBet(sportIds[i])) {
+	                    return false;
+	                }
+	            }
+	
+	            return true;
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
+/***/ },
+
+<<<<<<< HEAD
 /***/ 388:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1226,8 +1761,51 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         return _me;
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+=======
+/***/ 248:
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ })
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(245)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingHelper) {
+	    var _me = {
+	        update: function (url, postData) {
+	            $.ajax({
+	                type: 'POST',
+	                url: url,
+	                cache: false,
+	                data: postData,
+	                dataType: "json",
+	                success: function (result) {
+	                    var messageResource = result.IsSuccessful ? "MessageSuccess" : "Fail";
+	                    BetSettingHelper.showDialogMesage(Site.getSingleResource(messageResource), result.Message);
+	                },
+	                error: function (request, status, err) {
+	                    BetSettingHelper.showDialogMesage(Site.getSingleResource("Error"), err);
+	                }
+	            });
+	        },
+	
+	        getCommonPostData: function ($context) {
+	            var productId = parseInt($("#ProductId").val());
+	            var nickName = $context.data("nick-name");
+	            // update value  (0: enable, 1: disable) is opposed with current value (1: enable, 0: disable)
+	            var status = $context.data("status");
+	            var custId = $context.data("cust-id");
+	
+	            return {
+	                productId: productId,
+	                nickname: nickName,
+	                status: status,
+	                custid: custId
+	            };
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
+
+/***/ }
 
 },[386]);
 //# sourceMappingURL=betsettingbygroup.chunk.js.map

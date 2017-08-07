@@ -1,10 +1,17 @@
 webpackJsonp([49],{
 
+<<<<<<< HEAD
 /***/ 121:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(jQuery) {﻿/// <reference path="/@JSense.js" />
+=======
+/***/ 0:
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(405);
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 (function ($) {
     $.fn.checkboxgroup = function () {
@@ -250,10 +257,15 @@ jQuery.extend({
 });
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ }),
+/***/ },
 
+<<<<<<< HEAD
 /***/ 130:
 /***/ (function(module, exports, __webpack_require__) {
+=======
+/***/ 239:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(132)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
     "use strict";
@@ -380,8 +392,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
+<<<<<<< HEAD
 /***/ 132:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -503,11 +516,144 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 }));
 
+=======
+/***/ 301:
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ }),
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(302)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
+	    "use strict";
+	
+	    var curCountDown = 0;
+	    var countDownTimer = null;
+	    var cookieName = null;
+	    var countDownId = null;
+	    var defaultCountDown = 0;
+	
+	    var _me = {
+	        initialize: function () {
+	            $('.menu-item').on('click', function () {
+	                var selectedCountDown = parseInt($(this).attr('data-count-down'));
+	                _me.setCountDown(selectedCountDown, true);
+	            });
+	
+	            $('.button-refresh').on('click', function () {
+	                _me.refresh();
+	            });
+	
+	            var $hiddenCountdown = $('#count-down-of');
+	            countDownId = $hiddenCountdown.attr('name');
+	
+	            // Get default count down
+	            defaultCountDown = parseInt($hiddenCountdown.attr('data-default-value'));
+	        },
+	        initEvent: function () {
+	            cookieName = "RefeshCountDown" + countDownId;
+	            //read countdown from cookie
+	            var countDownFromCookie = $.cookie(cookieName);
+	            if (countDownFromCookie && Number(countDownFromCookie) !== 0) {
+	                _me.setCountDown(countDownFromCookie, false);
+	            } else {
+	                _me.setCountDown(defaultCountDown, true);
+	            }
+	        },
+	        setCountDown: function (countDown, isSetToCookie) {
+	            var countDownInt = parseInt(countDown);
+	            if (isSetToCookie) {
+	                $.cookie(cookieName, countDownInt);
+	            }
+	            curCountDown = countDownInt;
+	            _me.setMenuStatus();
+	            _me.tick();
+	        },
+	        setMenuStatus: function () {
+	            var index = curCountDown;
+	            $('#countdown-menu .menu-item').removeClass('menu-selected');
+	            $('#option-' + index).addClass('menu-selected');
+	        },
+	        tick: function () {
+	            document.getElementById('count').innerHTML = curCountDown;
+	            curCountDown--;
+	            if (countDownTimer !== null) {
+	                clearTimeout(countDownTimer);
+	            }
+	            countDownTimer = setTimeout(_me.tick, 1000);
+	            if (curCountDown < -1) {
+	                _me.refresh();
+	            }
+	        },
+	        refresh: function () {
+	            var oldScrollTop;
+	            if ($(".body-content").length) {
+	                oldScrollTop = $(".body-content").scrollTop();
+	            }
+	
+	            if (countDownTimer !== null) {
+	                clearTimeout(countDownTimer);
+	            }
+	            document.getElementById('count').innerHTML = "...";
+	
+	            // Get param before load data
+	            var url = _me.calculateUrl();
+	
+	            Site.blockUI();
+	            $('#reportContent').load(url, {
+	                noncache: new Date().getTime()
+	            }, function () {
+	                Site.unBlockUI();
+	                _me.initEvent();
+	                
+	                // Currency constraint
+	                Site.currencyConstraint();
+	
+	                $(window).resize();
+	
+	                // Scrollbar still kept current position
+	                if ($(".body-content").length) {
+	                    $(".body-content").scrollTop(oldScrollTop);
+	                }
+	            });
+	
+	            return true;
+	        },
+	        calculateUrl: function () {
+	            var leagueId = $('#LeagueId').val();
+	            var matchId = $('#MatchId').val();
+	            var betType = $("#BetType").val();
+	            var currentScore = $("#CurrentScore").val();
+	            var isShowFt = $("#IsShowFt").val();
+	            var isShowFh = $("#IsShowFh").val();
+	            var homeName = $("#HomeTeamId").val();
+	            var awayName = $("#AwayTeamId").val();
+	
+	            var url = Site.getCurrentUrl();
+	            url = Site.setLicenseeOptionOriginalParam(url);
+	            url = QueryString.setParam(url, "LeagueId", leagueId);
+	            url = QueryString.setParam(url, "MatchId", matchId);
+	            url = QueryString.setParam(url, "BetType", betType);
+	            url = QueryString.setParam(url, "CurrentScore", currentScore);
+	            url = QueryString.setParam(url, "IsShowFt", isShowFt);
+	            url = QueryString.setParam(url, "IsShowFh", isShowFh);
+	
+	            url = QueryString.setParam(url, "HomeTeamId", homeName);
+	            url = QueryString.setParam(url, "AwayTeamId", awayName);
+	            
+	            return encodeURI(url);
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
+/***/ },
+
+<<<<<<< HEAD
 /***/ 144:
 /***/ (function(module, exports, __webpack_require__) {
+=======
+/***/ 302:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(130), __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
         "use strict";
@@ -584,16 +730,96 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
+<<<<<<< HEAD
 /***/ 254:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(255);
 
+=======
+/***/ 402:
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ }),
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(301), __webpack_require__(239)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
+	        "use strict";
+	
+	        var _me = {
+	            resizeGrid: function () {
+	                var $grid = $(".body-content");
+	                if ($grid.length === 0) {
+	                    return;
+	                }
+	
+	                var gridTop = $grid.offset().top;
+	                var footerSite = 18;
+	
+	                var gridHeight = window.innerHeight - gridTop - $(".footer-content").height() - footerSite - 10;
+	                gridHeight = Math.max(150, gridHeight);
+	                $grid.css("max-height", gridHeight);
+	
+	                if (!$grid.hasVerticalScrollBar()) {
+	                    $grid.addClass("hasScroll");
+	                }
+	                else {
+	                    $grid.find("table").width($grid.width() - 17);
+	                }
+	            },
+	            initEvent: function () {
+	                RefreshCountDown.initialize();
+	
+	                $("#reportContent").on("click", '.forcast-number', function () {
+	                    var matchId = $(this).attr("data-match-id");
+	                    var betType = $(this).attr("data-bet-type");
+	                    _me.viewRunningBetListMatch(matchId, betType);
+	                });
+	
+	                $(document).ajaxComplete(function () {
+	                    _me.resizeGrid();
+	                });
+	
+	                $(window).on("resize", function () {
+	                    _me.resizeGrid();
+	                });
+	
+	                $(window).on("unload", function () {
+	                    $(window).off("resize");
+	                });
+	            },
+	            viewRunningBetListMatch: function (matchId, betType) {
+	                var url = Site.resolveClientUrl("RunningMatchBetList/Index");
+	                url = Site.setLicenseeOptionOriginalParam(url);
+	                url = QueryString.setParam(url, "matchid", matchId);
+	                url = QueryString.setParam(url, "bettype", betType);
+	                url = QueryString.setParam(url, "isShowSumStake", true);
+	
+	                Site.redirect(url);
+	            },
+	            viewRunningBetListMultiBettype: function (matchId, betType) {
+	                var url = Site.resolveClientUrl("RunningBettypesOfMatchBetList/Index");
+	                url = Site.setLicenseeOptionOriginalParam(url);
+	                url = QueryString.setParam(url, "matchid", matchId);
+	                url = QueryString.setParam(url, "multiplebettype", betType);
+	                url = QueryString.setParam(url, "isShowSumStake", true);
+	
+	                Site.redirect(url);
+	            },
+	
+	            initialize: function () {
+	                _me.initEvent();
+	                _me.resizeGrid();
+	                Site.unBlockUI();
+	            }
+	        };
+	
+	        return _me;
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
+/***/ },
+
+<<<<<<< HEAD
 /***/ 255:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -603,9 +829,20 @@ module.exports = __webpack_require__(255);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+=======
+/***/ 405:
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ }),
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(406)], __WEBPACK_AMD_DEFINE_RESULT__ = function (HandicapOU) {
+	    "use strict";
+	    $(HandicapOU.initialize);
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
+/***/ },
+
+<<<<<<< HEAD
 /***/ 256:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -665,8 +902,68 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     return _me;
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+=======
+/***/ 406:
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ })
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(402), __webpack_require__(9), __webpack_require__(301)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, Totalbets, Popup, RefreshCountDown) {
+	        "use strict";
+	
+	    var _me = {
+	        initialize: function () {
+	            Site.initialize();
+	            Totalbets.initialize();
+	            _me.initEvent();
+	            Site.addUserGuide({
+	                resourceName: "TotalBetsHdpOu",
+	                title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("HandicapOverUnderLive")
+	            });
+	
+	            RefreshCountDown.initEvent();
+	
+	            _me.registerGlobalFunctions();
+	        },
+	        initEvent: function () {
+	            $("#SubmitButton").on("click", function () {
+	                _me.submit();
+	            });
+	
+	            $("#reportContent").on("click", '.button-add', function () {
+	                var matchId = $(this).attr("data-match-id");
+	                var betType = $(this).attr("data-bet-type");
+	                _me.viewForecast(matchId, betType);
+	            });
+	        },
+	        viewNewForecast: function (leagueId, matchId, currencyId, baseCurrency) {
+	            var url = Site.resolveClientUrl("NewHandicapOverUnderForecast/Index");
+	            url = QueryString.setParam(url, "leagueId", leagueId);
+	            url = QueryString.setParam(url, "matchId", matchId);
+	            url = QueryString.setParam(url, "currencyId", currencyId);
+	            url = QueryString.setParam(url, "baseCurrency", baseCurrency);
+	
+	            Site.redirect(url);
+	        },
+	        viewForecast: function (matchId, betType) {
+	            var url = Site.resolveClientUrl("AhForecast/Index?matchid=" + matchId + '&bettype=' + betType);
+	            url = Site.setLicenseeOptionOriginalParam(url);
+	
+	            var popH = 250, popW = 700;
+	            Popup.openPopupWithIframe(url, { width: popW, height: popH, title: Site.getSingleResource("Forecast"), id: "forecast-dialog" });
+	        },
+	        submit: function () {
+	            Site.blockUI();
+	            $("#HandicapOUForm").submit();
+	        },
+	        registerGlobalFunctions: function () {
+	            window.viewNewForecast = _me.viewNewForecast;
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
+
+/***/ }
 
 },[254]);
 //# sourceMappingURL=handicapoverunder.chunk.js.map

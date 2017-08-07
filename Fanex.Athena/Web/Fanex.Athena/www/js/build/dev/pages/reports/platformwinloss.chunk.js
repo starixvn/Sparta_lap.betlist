@@ -1,5 +1,6 @@
 webpackJsonp([30],{
 
+<<<<<<< HEAD
 /***/ 119:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19,6 +20,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
                 if ($bdiv.length === 0) {
                     return;
                 }
+=======
+/***/ 0:
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(338);
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
                 var gridTop = $bdiv.offset().top;
                 var pagingHeight = $(".paging:visible").length ? $(".paging:visible").height() : 0;
@@ -5948,8 +5955,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
+<<<<<<< HEAD
 /***/ 154:
 /***/ (function(module, exports) {
 
@@ -7460,6 +7468,10 @@ Enumerable = (function ()
         Single: function (predicate)
         {
             if (predicate != null) return this.Where(predicate).Single();
+=======
+/***/ 103:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
             var value;
             var found = false;
@@ -7473,6 +7485,7 @@ Enumerable = (function ()
                 else throw new Error("Single:sequence contains more than one element.");
             });
 
+<<<<<<< HEAD
             if (!found) throw new Error("Single:No element satisfies the condition.");
             return value;
         },
@@ -7482,6 +7495,12 @@ Enumerable = (function ()
         SingleOrDefault: function (defaultValue, predicate)
         {
             if (predicate != null) return this.Where(predicate).SingleOrDefault(defaultValue);
+=======
+/***/ },
+
+/***/ 104:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
             var value;
             var found = false;
@@ -7498,6 +7517,7 @@ Enumerable = (function ()
             return (!found) ? defaultValue : value;
         },
 
+<<<<<<< HEAD
         Skip: function (count)
         {
             var source = this;
@@ -7506,6 +7526,12 @@ Enumerable = (function ()
             {
                 var enumerator;
                 var index = 0;
+=======
+/***/ },
+
+/***/ 213:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
                 return new IEnumerator(
                     function ()
@@ -7523,6 +7549,7 @@ Enumerable = (function ()
             });
         },
 
+<<<<<<< HEAD
         // Overload:function(predicate<element>)
         // Overload:function(predicate<element,index>)
         SkipWhile: function (predicate)
@@ -7535,6 +7562,12 @@ Enumerable = (function ()
                 var enumerator;
                 var index = 0;
                 var isSkipEnd = false;
+=======
+/***/ },
+
+/***/ 214:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
                 return new IEnumerator(
                     function () { enumerator = source.GetEnumerator(); },
@@ -7554,6 +7587,7 @@ Enumerable = (function ()
                             else return false;
                         }
 
+<<<<<<< HEAD
                         return (enumerator.MoveNext())
                             ? this.Yield(enumerator.Current())
                             : false;
@@ -7562,11 +7596,18 @@ Enumerable = (function ()
                     function () { Utils.Dispose(enumerator); });
             });
         },
+=======
+/***/ },
+
+/***/ 231:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
         Take: function (count)
         {
             var source = this;
 
+<<<<<<< HEAD
             return new Enumerable(function ()
             {
                 var enumerator;
@@ -7608,6 +7649,72 @@ Enumerable = (function ()
                     function () { Utils.Dispose(enumerator); });
             });
         },
+=======
+/***/ },
+
+/***/ 234:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(235)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+	    var _me = {
+	        initProductList: function () {
+	            var selector = "#grid-products-multiselect";
+	            var data = $.parseJSON($("#productsData").val());
+	            var length = data.length;
+	            var dataUI = [];
+	            var checkedCount = 0;
+	            for (var i = 0; i < length; i++) {
+	                var item = data[i];
+	                var isChecked = item["Status"];
+	                if (isChecked) {
+	                    checkedCount++;
+	                }
+	
+	                dataUI.push({
+	                    Id: item["Code"],
+	                    Value: item["Code"],
+	                    Text: Site.getSingleResource(item["Name"]),
+	                    Checked: isChecked,
+	                    Enable: true
+	                });
+	            }
+	
+	            var isCheckAll = checkedCount === length;
+	            $(selector).multiSelect({
+	                minWidth: 200,
+	                maxHeight: 400,
+	                shadow: true,
+	                showHeader: true,
+	                isCheckAll: isCheckAll,
+	                checkAllText: Site.getSingleResource('All'),
+	                showFooter: false,
+	                listData: dataUI,
+	                onCheck: function () {
+	                    var checkedItems = $(selector).multiSelect("getCheckedItems");
+	                    $("#product-container input[type=checkbox]:checked").prop("checked", false);
+	                    var hasItemsChecked = checkedItems.length > 0;
+	                    if (hasItemsChecked) {
+	                        for (var i = 0; i < checkedItems.length; i++) {
+	                            $('#product-container #' + checkedItems[i]).prop("checked", true);
+	                        }
+	                    }
+	                    
+	                    $("#ProductList").toggleClass("invalid", !hasItemsChecked);
+	                    $("#SubmitButton").prop("disabled", !hasItemsChecked);
+	                }
+	            });
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 235:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
         // Overload:function()
         // Overload:function(count)
@@ -7616,12 +7723,19 @@ Enumerable = (function ()
             if (count == null) count = 1;
             var source = this;
 
+<<<<<<< HEAD
             return new Enumerable(function ()
             {
                 if (count <= 0) return source.GetEnumerator(); // do nothing
 
                 var enumerator;
                 var q = [];
+=======
+/***/ },
+
+/***/ 239:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
                 return new IEnumerator(
                     function () { enumerator = source.GetEnumerator(); },
@@ -7642,6 +7756,7 @@ Enumerable = (function ()
             });
         },
 
+<<<<<<< HEAD
         TakeFromLast: function (count)
         {
             if (count <= 0 || count == null) return Enumerable.Empty();
@@ -7688,6 +7803,77 @@ Enumerable = (function ()
 
             return (found !== null) ? found : -1;
         },
+=======
+/***/ },
+
+/***/ 279:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(280)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	        "use strict";
+	        var PICKER_SELECTOR = "#month-picker";
+	        var FORMAT = "MM/dd/yyyy";
+	
+	        var _historyDate = new Date($("#HistoryDate").val());
+	
+	        function initMonthPicker(option) {
+	            var $picker = $(PICKER_SELECTOR);
+	            var $fromDate = $('#FromDate');
+	            var $todate = $('#ToDate');
+	
+	            var fromdate = new Date($fromDate.val());
+	            var todate = new Date($todate.val());
+	
+	            var defaultOption = {
+	                minDate: _historyDate,
+	                showDateRange: true,
+	                fromDayId: 'fDay',
+	                toDayId: 'tDay',
+	                format: FORMAT,
+	                month: fromdate,
+	                fromDay: fromdate.getDate(),
+	                toDay: todate.getDate(),
+	                afterChangeMonth: function () {
+	                    $fromDate.val($picker.monPickr("getFromDate", FORMAT));
+	                    $todate.val($picker.monPickr("getToDate", FORMAT));
+	                },
+	                afterChangeDay: function () {
+	                    $fromDate.val($picker.monPickr("getFromDate", FORMAT));
+	                    $todate.val($picker.monPickr("getToDate", FORMAT));
+	
+	                    if (option && typeof option.customAfterChangeDay === "function") {
+	                        option.customAfterChangeDay();
+	                    }
+	                }
+	            };
+	
+	            if (option) {
+	                $.extend(defaultOption, option);
+	            }
+	
+	            $picker.monPickr(defaultOption);
+	        }
+	
+	        function getFromDateString() {
+	            return $(PICKER_SELECTOR).monPickr("getFromDate", "dd MMM yyyy");
+	        }
+	
+	        function getToDateString() {
+	            return $(PICKER_SELECTOR).monPickr("getToDate", "dd MMM yyyy");
+	        }
+	
+	        return {
+	            initMonthPicker: initMonthPicker,
+	            getFromDateString: getFromDateString,
+	            getToDateString: getToDateString
+	        };
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 280:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
         LastIndexOf: function (item)
         {
@@ -7697,6 +7883,7 @@ Enumerable = (function ()
                 if (x === item) result = i;
             });
 
+<<<<<<< HEAD
             return result;
         },
 
@@ -8421,6 +8608,12 @@ Enumerable = (function ()
             },
             Functions.Blank);
     }
+=======
+/***/ },
+
+/***/ 330:
+/***/ function(module, exports) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
     // Collections
 
@@ -8687,16 +8880,28 @@ Enumerable = (function ()
     return Enumerable;
 })()
 
-/***/ }),
+/***/ },
 
+<<<<<<< HEAD
 /***/ 335:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(336);
 
+=======
+/***/ 338:
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ }),
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(339)], __WEBPACK_AMD_DEFINE_RESULT__ = function (PlatformWinLoss) {
+	    "use strict";
+	    $(PlatformWinLoss.initialize);
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
+/***/ },
+
+<<<<<<< HEAD
 /***/ 336:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8706,11 +8911,440 @@ module.exports = __webpack_require__(336);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+=======
+/***/ 339:
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ }),
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
+	    __webpack_require__(1),
+	    __webpack_require__(8),
+	    __webpack_require__(7),
+	    __webpack_require__(231),
+	    __webpack_require__(340),
+	    __webpack_require__(103),
+	    __webpack_require__(279),
+	    __webpack_require__(234),
+	    __webpack_require__(9),
+	    __webpack_require__(341),
+	    __webpack_require__(213),
+	    __webpack_require__(214),
+	    __webpack_require__(239),
+	    __webpack_require__(330)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, PlatformWinLossOption, jqGridAdditional, MonthPicker, MultiSelect, Popup, ExcelHelper) {
+	        "use strict";
+	
+	        var BETLIST_IGNORED_PRODUCTS = ["AB"];
+	        var _platformNameMap = {};
+	
+	        var _cacheData = {};
+	        var _filterData = {};
+	
+	        var gridControl = {
+	            level: 0,
+	            pageSize: 50,
+	            sortColumnName: null,
+	            sortOrder: "desc",
+	            removerSorting: true
+	        };
+	
+	        function initialize() {
+	            Site.initialize();
+	            Site.addUserGuide({
+	                resourceName: "PlatformWinLoss",
+	                title: Site.getSingleResource("PlatformWinLoss")
+	            });
+	
+	            _platformNameMap = {
+	                "0": Site.getSingleResource("All"),
+	                "1": Site.getSingleResource("Asia"),
+	                "2": Site.getSingleResource("China"),
+	                "3": Site.getSingleResource("Euro"),
+	                "4": Site.getSingleResource("Wap"),
+	                "5": Site.getSingleResource("SmartSite"),
+	                "6": Site.getSingleResource("Tablet")
+	            };
+	
+	            _me.initEvent();
+	            _me.initSetting();
+	
+	            MultiSelect.initProductList();
+	            MonthPicker.initMonthPicker({
+	                minDate: Site.getHistoryDate(),
+	                maxDate: $("#MaxDate").val()
+	            });
+	
+	            $(window).on("resize", function () {
+	                resizeGrid();
+	            });
+	
+	            $(window).on("unload", function () {
+	                $(window).off("resize");
+	            });
+	        }
+	
+	        function initEvent() {
+	            $('#SubmitButton').click(function () {
+	                gridControl.removeSorting = true;
+	                _me.submit();
+	            });
+	
+	            $("body").on("click", ".drilldown", function () {
+	                var dataDrillDown = $(this).data("drill-down");
+	                _me.drillDown(gridControl.level + 1, dataDrillDown);
+	            });
+	
+	            $("body").on("click", ".bet-list-link", function () {
+	                var dataDrillDown = $(this).data("drill-down");
+	                _me.openBetlistPopUp(gridControl.level, dataDrillDown);
+	            });
+	
+	            $("#level-link-container").on("click", ".level-link", function () {
+	                var level = Number($(this).attr("data-level"));
+	                gridControl.level = level;
+	                if (level < 1) {
+	                    Report.renderBreadCrumb(level);
+	                    gridControl.level = level;
+	                    _me.bindData(level, _cacheData[level], _filterData[level].ProductOptions);
+	                }
+	            });
+	
+	            $('#ExportToExcel').click(function () {
+	                _me.exportToExcel(gridControl.level);
+	            });
+	        }
+	
+	        function initSetting() {
+	            gridControl.pageSize = PlatformWinLossOption.pageSize;
+	            PlatformWinLossOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
+	
+	            PlatformWinLossOption.gridOption.onSortCol = function (index) {
+	                Site.blockUI();
+	                gridControl.pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
+	                window.setTimeout(function () {
+	                    gridControl.removeSorting = false;
+	                    if (gridControl.sortColumnName === index) {
+	                        gridControl.sortOrder = gridControl.sortOrder === "asc" ? "desc" : "asc";
+	                    } else {
+	                        gridControl.sortOrder = "asc";
+	                        gridControl.sortColumnName = index;
+	                    }
+	
+	                    _cacheData[gridControl.level].Data = sortData(_cacheData[gridControl.level].Data);
+	
+	                    _me.bindData(gridControl.level, _cacheData[gridControl.level], _filterData[gridControl.level].ProductOptions);
+	
+	                    Site.unBlockUI();
+	                }, 100);
+	                return "stop";
+	            };
+	        }
+	
+	        function submit() {
+	            var validProduct = Report.ValidProducts();
+	            if (!validProduct) {
+	                return false;
+	            }
+	
+	            gridControl.level = 0;
+	            var data = $("#platformwinloss").serializeObject();
+	            data.Level = gridControl.level;
+	            addDateParam(data);
+	
+	            getData(data, Site.resolveClientUrl(PlatformWinLossOption.urlData), function (response) {
+	                var submitData = {
+	                    FromDay: data.FromDay,
+	                    ToDay: data.ToDay,
+	                    Month: data.Month,
+	                    Year: data.Year,
+	                    ProductOptions: $.parseJSON(response.ProductOptions),
+	                    DrawFilter: data.DrawFilter,
+	                    PlatformType: data.PlatformType,
+	                    CurrencyId: data.CurrencyId,
+	                    FromDate: data.FromDate,
+	                    ToDate: data.ToDate,
+	                    CurrencyName: data.CurrencyName,
+	                    IsExcludedTestData: data.IsExcludedTestData,
+	                    BaseCurrency: data.BaseCurrency
+	                };
+	                _filterData[gridControl.level] = submitData;
+	                _cacheData[gridControl.level] = response;
+	                _me.setReportTitle(submitData);
+	                Report.renderBreadCrumb(gridControl.level);
+	                _me.bindData(gridControl.level, response, submitData.ProductOptions);
+	            });
+	
+	            return true;
+	        }
+	
+	        function exportToExcel(level) {
+	            var data = Site.clone(_filterData[level]);
+	            data.IsExportExcel = true;
+	            data.Level = level;
+	            ExcelHelper.exportExcel(data, Site.resolveClientUrl(PlatformWinLossOption.urlExcelData));
+	            return false;
+	        }
+	
+	        function bindData(level, response, productOptions) {
+	            jqGridAdditional.clearGrid("ReportGrid");
+	
+	            var numOfRow = response.Data.length;
+	            if (numOfRow === 0) {
+	                jqGridAdditional.setNoInfo();
+	                return;
+	            }
+	
+	            var reportGrid = $("#ReportGrid");
+	            var onPaging = false;
+	            var gridOption = PlatformWinLossOption.getGridOption(level, productOptions);
+	            gridOption.datastr = response.Data;
+	            gridOption.rowNum = level === 0 ? -1 : gridControl.pageSize;
+	            gridOption.treeGrid = level === 0;
+	            gridOption.onPaging = function (pgButton) {
+	                gridControl.pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
+	
+	                if (numOfRow > PlatformWinLossOption.pageSize) {
+	                    onPaging = true;
+	                    if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
+	                        Site.blockUI();
+	                    }
+	                }
+	                else {
+	                    return 'stop';
+	                }
+	            };
+	            gridOption.gridComplete = function () {
+	                jqGridAdditional.gridComplete();
+	
+	                var showPaging = level === 1 && numOfRow > PlatformWinLossOption.pageSize;
+	                $("#pg_ppdata").toggle(showPaging);
+	
+	                if (onPaging) {
+	                    $(".ui-jqgrid-ftable").html($("#footer").html());
+	                }
+	                else {
+	                    _me.bindTotal(level, response.Total, response.SummaryTotal);
+	                    $("#footer").html($(".ui-jqgrid-ftable").html());
+	                }
+	
+	                onPaging = false;
+	                resizeGrid();
+	
+	                if (level === 0) {
+	                    $("th[role='columnheader']").find("div").removeClass("ui-jqgrid-sortable");
+	                }
+	
+	                Site.unBlockUI();
+	            };
+	
+	            reportGrid.jqGrid(gridOption);
+	
+	            /*group header*/
+	            if (PlatformWinLossOption.hasCustomerComm) {
+	                jqGridAdditional.setGroupCustomerWLColumns(reportGrid);
+	            }
+	
+	            if (level === 1 && !gridControl.removeSorting) {
+	                jqGridAdditional.addSortableHeader(reportGrid, gridControl.sortColumnName, gridControl.sortOrder);
+	            }
+	        }
+	
+	        function bindTotal(level, totalData, summaryTotal) {
+	            var columnModel = PlatformWinLossOption.getColModel(level, _filterData[level].ProductOptions);
+	
+	            if (level === 0) {
+	                jqGridAdditional.assignTotal(totalData, columnModel);
+	                jqGridAdditional.setGroupFooters(1);
+	            }
+	            else {
+	                var colspan = PlatformWinLossOption.totalColspan[level];
+	
+	                var summaryColspan = colspan + 1;
+	                jqGridAdditional.assignTotal(totalData, columnModel);
+	
+	                var summaryRowCount = Report.bindSummaryTotal(columnModel, summaryTotal);
+	                jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount);
+	            }
+	        }
+	
+	        function setReportTitle(data) {
+	            var titlePattern = Site.getSingleResource('PlatformWinLoss')
+	                + ', {0} → {1} - {2} - {3} - '
+	                + Site.getSingleResource('Platform') + ': {4}{5}';
+	
+	            var selectedCurrency = $('#CurrencyId option[value="' + data.CurrencyId + '"]').text();
+	            var currencyText = data.CurrencyId === "0" ?
+	                Site.getSingleResource('AllCurrencies') :
+	                Site.getSingleResource('Currency') + " " + selectedCurrency;
+	
+	            var viewinKey = Site.getSingleResource("Viewin");
+	            var baseCurrency = {
+	                "gbp": viewinKey.replace("{0}", "GBP"),
+	                "usd": viewinKey.replace("{0}", "USD"),
+	                "eur": viewinKey.replace("{0}", "EUR")
+	            };
+	            var baseCurrencyKey = $('#BaseCurrency').val();
+	            var baseCurrencyText = baseCurrency[baseCurrencyKey] ?
+	                baseCurrency[baseCurrencyKey]
+	                : viewinKey.replace("{0}", selectedCurrency);
+	
+	            var platformName = _platformNameMap[data.PlatformType];
+	
+	            var productText = Site.getSingleResource('Product') + ': ';
+	            productText = data.ProductOptions && data.ProductOptions.length === 1 ?
+	                productText + data.ProductOptions[0].Code :
+	                getProductText(data.ProductOptions);
+	
+	            var title = $.format(titlePattern, data.FromDate, data.ToDate,
+	                        currencyText, baseCurrencyText, platformName, ', ' + productText);
+	
+	            $(".report-title").html(title);
+	            $(".panel-heading").removeClass("hide");
+	        }
+	
+	        function drillDown(level, data) {
+	            gridControl.level = level;
+	            gridControl.pageSize = PlatformWinLossOption.pageSize;
+	
+	            var submitData = _filterData[level - 1];
+	            var productOptions;
+	            if (data.ProductCode) {
+	                productOptions = [{ Code: data.ProductCode, Status: true }];
+	            }
+	            else {
+	                productOptions = submitData.ProductOptions;
+	            }
+	
+	            var drilldownData = Site.clone(submitData);
+	            drilldownData.Level = level;
+	            drilldownData.PlatformType = data.PlatformType;
+	            drilldownData.ProductOptions = productOptions;
+	
+	            getData(drilldownData, Site.resolveClientUrl(PlatformWinLossOption.urlData), function (response) {
+	                _cacheData[level] = response;
+	                _filterData[level] = drilldownData;
+	                _me.setReportTitle(drilldownData);
+	                Report.renderBreadCrumb(level);
+	                _me.bindData(level, response, productOptions);
+	            });
+	        }
+	
+	        function getData(data, url, callback) {
+	            $.ajax({
+	                type: "POST",
+	                data: data,
+	                dataType: "json",
+	                cache: false,
+	                url: url,
+	                success: function (response) {
+	                    callback(response);
+	                },
+	                beforeSend: Site.blockUI,
+	                complete: Site.unBlockUI
+	            });
+	        }
+	
+	        function openBetlistPopUp(onlevel, dataDrillDown) {
+	            var url = Site.resolveClientUrl("PlatformWinLossBetList/Index");
+	            var onLevelData = _filterData[onlevel];
+	
+	            var param = {
+	                FromDate: onLevelData.FromDate,
+	                ToDate: onLevelData.ToDate,
+	                PlatformType: onLevelData.PlatformType,
+	                ExcludeTest: onLevelData.IsExcludedTestData,
+	                CurrencyId: dataDrillDown.DrillDownCurrencyId,
+	                CurrencyName: dataDrillDown.DrillDownCurrencyName,
+	                DrawFilter: onLevelData.DrawFilter,
+	                CustId: dataDrillDown.CustomerId,
+	                SystemId: dataDrillDown.SystemId,
+	                ExternalId: dataDrillDown.ExternalId,
+	                BaseCurrency: onLevelData.BaseCurrency
+	            };
+	
+	            url = QueryString.setParams(url, param);
+	
+	            var productCodeList = [];
+	            for (var i = 0; i < onLevelData.ProductOptions.length; i++) {
+	                var product = onLevelData.ProductOptions[i];
+	                if (product.Status && $.inArray(product.Code, BETLIST_IGNORED_PRODUCTS)) {
+	                    productCodeList.push(product.Code);
+	                }
+	            }
+	            url = Site.setProductCodeListParam(url, productCodeList);
+	
+	            var popH = Math.min($(window).height() - 100, 650), popW = 920;
+	            var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: "Customer Bet List" };
+	            Popup.openPopupWithIframe(url, popupOption);
+	        }
+	
+	        function addDateParam(data) {
+	            var fromDate = new Date($("#FromDate").val());
+	            var toDate = new Date($("#ToDate").val());
+	            data.FromDay = fromDate.getDate();
+	            data.ToDay = toDate.getDate();
+	            data.Month = fromDate.getMonth() + 1;
+	            data.Year = fromDate.getFullYear();
+	        }
+	
+	        function sortData(arrayData) {
+	            var sortType = gridControl.sortOrder === "asc" ? "OrderBy" : "OrderByDescending";
+	            var sortFunction = function (row) {
+	                return row[gridControl.sortColumnName];
+	            };
+	
+	            var data = Enumerable.From(arrayData)[sortType](sortFunction).ToArray();
+	
+	            for (var i = 0; i < data.length; i++) {
+	                data[i].Index = i + 1;
+	            }
+	
+	            return data;
+	        }
+	
+	        function getProductText(productOptions) {
+	            var productSeleted = Enumerable.From(productOptions)
+	                .Where(function (x) { return x.Status; })
+	                .Select(function (x) { return x.Code; })
+	                .ToArray();
+	
+	            var productName = productSeleted.length === productOptions.length
+	                ? Site.getSingleResource('All')
+	                : productSeleted.join(", ");
+	
+	            return Site.getSingleResource("Product") + ": " + productName;
+	        }
+	
+	        function resizeGrid() {
+	            var reportGrid = $("#ReportGrid");
+	            jqGridAdditional.updateGridHeight();
+	            jqGridAdditional.updateGridWidth(reportGrid);
+	        }
+	
+	        var _me = {
+	            initialize: initialize,
+	            initSetting: initSetting,
+	            initEvent: initEvent,
+	            submit: submit,
+	            bindData: bindData,
+	            bindTotal: bindTotal,
+	            setReportTitle: setReportTitle,
+	            drillDown: drillDown,
+	            openBetlistPopUp: openBetlistPopUp,
+	            exportToExcel: exportToExcel
+	        };
+	
+	        return _me;
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
+/***/ },
+
+<<<<<<< HEAD
 /***/ 337:
 /***/ (function(module, exports, __webpack_require__) {
+=======
+/***/ 340:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
     __webpack_require__(1),
@@ -9133,10 +9767,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
+<<<<<<< HEAD
 /***/ 338:
 /***/ (function(module, exports, __webpack_require__) {
+=======
+/***/ 341:
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <reference path="/@JSense.js" />
 /*
@@ -9555,7 +10194,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ })
+/***/ }
 
 },[335]);
 //# sourceMappingURL=platformwinloss.chunk.js.map
