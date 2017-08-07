@@ -164,7 +164,7 @@ namespace Fanex.Athena.Excel.Report
                 result.Add(new ProductOption
                 {
                     Code = OfferedProducts.ElementAt(i),
-                    Status = product != null
+                    Status = product != null && product.Status
                 });
 
                 if (product == null)
