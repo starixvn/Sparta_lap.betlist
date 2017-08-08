@@ -11,7 +11,8 @@ namespace Fanex.Athena.DataAccess.Dashboard
             { China, nameof(China) },
             { Euro, nameof(Euro) },
             { Wap, nameof(Wap) },
-            { Mobile, nameof(Mobile) }
+            { Mobile, nameof(Mobile) },
+            { Tablet, nameof(Tablet) }
         };
 
         public const int All = 0;
@@ -25,6 +26,8 @@ namespace Fanex.Athena.DataAccess.Dashboard
         public const int Wap = 4;
 
         public const int Mobile = 5;
+
+        public const int Tablet = 6;
 
         public static string GetPlatformName(int type)
         {
