@@ -348,7 +348,7 @@ define(
             });
         };
         _me.initPlatForm = function () {
-            $("#bet-form").change(function () {
+            $("#bet-from").change(function () {
                 _me.changeFilterParam(DataType.NUMBER, "BetFrom", $(this).val());
             });
         };

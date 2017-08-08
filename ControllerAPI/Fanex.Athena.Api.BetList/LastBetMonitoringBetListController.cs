@@ -27,7 +27,7 @@
     [ApiFunctionAuthorization(PermissionKeys.ReportLastBetsMonitoring)]
     public class LastBetMonitoringBetListController : BaseApiController
     {
-        private static readonly IList<int> ConvertingDecimalOddsBetType = new List<int> { 1, 2, 3, 7, 8, 12, 20 };
+        private static readonly IEnumerable<int> ConvertingDecimalOddsBetType = new int[] { 1, 2, 3, 7, 8, 12, 20 };
 
         private readonly IMatchService _matchService;
 
@@ -42,11 +42,6 @@
             _ticketHelper = new TicketHelper();
         }
 
-        /// <summary>
-        /// Get running match list by sport.
-        /// </summary>
-        /// <param name="sportId">Sport Id value.</param>
-        /// <returns>Return match list and league list.</returns>
         [HttpGet]
         public dynamic GetRunningMatchList(int sportId)
         {
@@ -145,13 +140,17 @@
             switch (code.Trim().ToLower())
             {
                 case "a":
+                case "z":
                     return ViewResources.China;
 
                 case "d":
+                case "g":
+                case "x":
                     return ViewResources.Asia;
 
                 case "e":
                 case "u":
+                case "y":
                     return ViewResources.Euro;
 
                 case "m":
@@ -166,12 +165,7 @@
             }
         }
 
-        /// <summary>
-        /// Get status text of a ticket.
-        /// </summary>
-        /// <param name="ticket">LRF ticket object.</param>
-        /// <returns>Status text.</returns>
-        private static string GetLasBetMonitoringStatus(LrfTicket ticket)
+        private static string GetLasBetMonitoringStatus(ITicket ticket)
         {
             const string PatternStatusBetlist = "<label style='color:{0}'>{1}</label>";
             if (ticket.BetTypeId == (int)BetType.MixParlay)
@@ -223,12 +217,6 @@
             return builder.GetBetList();
         }
 
-        /// <summary>
-        /// GetClientDetailSystemParlayFunction for ticket helper.
-        /// </summary>
-        /// <param name="metaModel">Meta model.</param>
-        /// <param name="ticket">LRF ticket object.</param>
-        /// <returns>Return string.Empty if ticket is not combination mix parlay.</returns>
         private string GetClientDetailSystemParlayFunction(LastBetsMonitoringMetaModel metaModel, LrfTicket ticket)
         {
             if (ticket.BetTypeId == (int)BetType.CombinationMixParlay)
