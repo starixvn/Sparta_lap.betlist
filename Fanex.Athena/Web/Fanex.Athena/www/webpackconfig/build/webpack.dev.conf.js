@@ -9,7 +9,8 @@ var baseWebpackConfigGenerator = require('./webpack.base.conf');
 var environment = "dev";
 var baseConfigs = baseWebpackConfigGenerator(environment);
 var cssRootPath = `${pathConfig.cssPaths.build}/${environment}`;
-
+var jsRootPath = `${pathConfig.scriptPaths.build}/${environment}`;
+var excludeOption = ['reactpages'];
 module.exports = merge(baseConfigs,
     utils.setDefinePlugin('process.env.NODE_ENV', 'development'),
     {
@@ -17,22 +18,22 @@ module.exports = merge(baseConfigs,
         watch: true,
         keepalive: true,
         plugins: [
-            new CleanWebpackPlugin([`${pathConfig.scriptPaths.build}/${environment}`], {
+            new CleanWebpackPlugin([`${jsRootPath}`], {
                 root: process.cwd(),
-                exclude: ['reactpages']
+                exclude: excludeOption
             }),
-              new CleanWebpackPlugin([`${cssRootPath}/`], {
+           
+
+            new CleanWebpackPlugin([`${cssRootPath}/*.css`,`${cssRootPath}/*.map`,`${cssRootPath}/*.js`], {
                 root: process.cwd(),
-                exclude: ['reactpages']
+                exclude: excludeOption
             }),
-            new CleanWebpackPlugin([`${cssRootPath}/pages`], {
+
+            new CleanWebpackPlugin([`${cssRootPath}/pages/*/*.css`,`${cssRootPath}/pages/*/*.js`,`${cssRootPath}/pages/*/*.map`], {
                 root: process.cwd(),
-                exclude: ['betlist']
+                exclude: excludeOption
             }),
-            new CleanWebpackPlugin([`${cssRootPath}/pages/betlist`], {
-                root: process.cwd(),
-                exclude: ['images']
-            })
+
         ]
     },
     utils.extractCSS(false)

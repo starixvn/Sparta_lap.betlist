@@ -7,7 +7,8 @@ var baseConfigs = baseWebpackConfigGenerator("dev");
 module.exports = merge(baseConfigs,
     utils.setDefinePlugin('process.env.NODE_ENV', 'development'),
     {
-        devtool: 'source-map'
+        devtool: 'source-map',
+         
     },
 
     utils.extractCSS(false)
