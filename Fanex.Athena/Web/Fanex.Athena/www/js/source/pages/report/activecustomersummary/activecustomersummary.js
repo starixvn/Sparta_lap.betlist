@@ -173,7 +173,7 @@
             gridOption.gridComplete = function () {
                 if (!_onSorting && !_onPaging) {
                     jqGridAdditional.gridComplete();
-                    jqGridAdditional.removeCursorOnNonSortableHeader(reportGrid);
+                    jqGridAdditional.updateSortableHeader(reportGrid);
                     _me.bindTotal(response.GrantTotalCustomer, gridOption.colModel.length);
                     ActiveCustomerOption.setGroupHeaderColumns(reportGrid, productOptions);
                     resizeGrid();

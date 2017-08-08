@@ -1,0 +1,50 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.CustomerBalanceViewModel
+@{
+    var appSettings = new AppSettings();
+    var minDate = DateTime.Now.AddMonths(-18).AddDays(1 - DateTime.Now.Day);
+}
+<div class="page-form">
+    <form id="CustomerBalanceForm" name="CustomerBalanceForm" method="post" action="">
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="input-field input col l3 m4 s12 calendar date-range">
+                @DesktopRazorHelper.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, appSettings.MaxDate)
+            </div>
+            <div class="input-field col l2 m3 s12">
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, false, false)
+                <label>@ViewResources.Currency</label>
+            </div>
+            <div class="input-field col l2 m3 s12">
+                <select class="hide select" name="TopCount" id="TopCount" data-original="0">
+                    <option value="0" selected="selected">@ViewResources.All</option>
+                    <option value="100">100</option>
+                    <option value="500">500</option>
+                </select>
+                <label>@ViewResources.SelectTop</label>
+            </div>
+            <div class="col right icon-block">
+                <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+                <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
+            </div>
+        </div>
+        <div class="row">
+            @DesktopRazorHelper.RenderProductFilter(Model.Param.ProductOptions)
+            <div class="input-field input col l2 m3 s12">
+                <input type="radio" value="true" class="with-gap" @(Model.Param.IsExcludeTest == true ? "checked=checked" : "") name="IsExcludeTest" id="IsExcludeTest0" />
+                <label for="IsExcludeTest0">
+                    @ViewResources.Yes
+                </label>
+                <input type="radio" class="with-gap" value="false" @(Model.Param.IsExcludeTest == false ? "checked=checked" : "") name="IsExcludeTest" id="IsExcludeTest1" />
+                <label for="IsExcludeTest1">
+                    @ViewResources.No
+                </label>
+                <label class="active">@ViewResources.ExcludeTestData</label>
+            </div>
+            <div class="col l2 m2 s12 button-block">
+                <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
+            </div>
+        </div>
+        @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+        @Html.Hidden("OrderItem", Model.Param.OrderItem)
+    </form>
+</div>

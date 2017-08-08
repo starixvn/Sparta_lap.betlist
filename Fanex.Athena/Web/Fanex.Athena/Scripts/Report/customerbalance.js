@@ -43,7 +43,7 @@ var CustomerBalance = (function ($) {
     }
 
     function sort(index) {
-        if (pagingOption.totalrow > 0) {
+        if (pagingOption.totalrow > 1) {
             Site.blockUI();
             sortType = index === sortColumnIndex ? (sortType === "desc" ? "asc" : "desc") : "desc";
             window.setTimeout(function () {
@@ -177,7 +177,7 @@ var CustomerBalance = (function ($) {
             isFirstLoad = true;
 
             CustomerBalanceOption.hasCustomerComm = response.HasCustomerComm;
-            CustomerBalanceOption.isAllowBA = response.IsAllowBA;                       
+            CustomerBalanceOption.isAllowBA = response.IsAllowBA;
             var gridOption = CustomerBalanceOption.getGridOption(response.TotalRows);
             gridOption.data = response.Data;
             gridOption.onSortCol = function (index) {
@@ -192,7 +192,7 @@ var CustomerBalance = (function ($) {
 
             CustomerBalance.setReportTitle();
             createPaging(response.TotalRows);
-           
+
             var reportGrid = $("#" + GRID_ID);
             reportGrid.jqGrid(gridOption);
 

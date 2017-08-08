@@ -76,6 +76,7 @@ function generateConfig(environment) {
             [`${jsPath}/pages/customer/numbergamebetsetting`]: [pathConfig.scriptPaths.numbergamebetsetting],
             [`${jsPath}/pages/reports/activecustomersummary`]: [pathConfig.scriptPaths.activecustomersummary],
             [`${jsPath}/pages/reports/agcasinowinloss`]: [pathConfig.scriptPaths.agcasinowinloss],
+            [`${jsPath}/pages/reports/customerbalance`]: [pathConfig.scriptPaths.customerbalance],
 
             [`${cssPath}/pages/reports/reportjqgridlayout`]: pathConfig.cssPaths.reportjqgridlayout,
             [`${cssPath}/pages/reports/livereport`]: pathConfig.cssPaths.livereport,
@@ -121,7 +122,8 @@ function generateConfig(environment) {
             [`${cssPath}/pages/customer/betsetting`]: pathConfig.cssPaths.betsetting,
             [`${cssPath}/pages/utility/licenseelist`]: pathConfig.cssPaths.licenseelist,
             [`${cssPath}/pages/reports/activecustomersummary`]: pathConfig.cssPaths.activecustomersummary,
-            [`${cssPath}/pages/reports/agcasinowinloss`]: pathConfig.cssPaths.agcasinowinloss
+            [`${cssPath}/pages/reports/agcasinowinloss`]: pathConfig.cssPaths.agcasinowinloss,
+            [`${cssPath}/pages/reports/customerbalance`]: pathConfig.cssPaths.customerbalance
         },
         output: {
             path: pathConfig.projectRoot,
