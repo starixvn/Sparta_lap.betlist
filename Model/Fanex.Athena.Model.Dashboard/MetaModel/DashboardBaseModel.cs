@@ -22,7 +22,7 @@
         {
             get
             {
-                return DashboardConfig.SupportedBaseCurrencies.Contains(BaseCurrency?.ToUpperInvariant());
+                return string.IsNullOrEmpty(BaseCurrency) || DashboardConfig.SupportedBaseCurrencies.Contains(BaseCurrency.ToUpperInvariant());
             }
         }
     }
