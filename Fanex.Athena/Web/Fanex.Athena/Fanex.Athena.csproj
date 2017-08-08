@@ -1106,7 +1106,6 @@
     <Content Include="www\js\build\dev\pages\betlist\betlistsimple.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\customeroutstanding.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\lastbetmonitoring.chunk.js" />
-    <Content Include="www\js\build\dev\pages\customer\betradarvsbetsetting.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\betsettingbygroup.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\betsettingmain.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\commgroupadd.chunk.js" />
@@ -1163,7 +1162,6 @@
     <Content Include="www\js\build\pro\pages\betlist\betlistsimple.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\customeroutstanding.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\lastbetmonitoring.chunk.js" />
-    <Content Include="www\js\build\pro\pages\customer\betradarvsbetsetting.chunk.js" />
     <Content Include="www\js\build\pro\pages\customer\betsettingbygroup.chunk.js" />
     <Content Include="www\js\build\pro\pages\customer\betsettingmain.chunk.js" />
     <Content Include="www\js\build\pro\pages\customer\commgroupadd.chunk.js" />
@@ -2158,7 +2156,6 @@
     <Content Include="www\js\build\dev\pages\customer\rngcasinobetsetting.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\thirdpartybetsetting.chunk.js.map" />
     <Content Include="www\css\source\scss\fonts\roboto\_style.scss" />
-    <Content Include="www\js\build\dev\pages\customer\betradarvsbetsetting.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
