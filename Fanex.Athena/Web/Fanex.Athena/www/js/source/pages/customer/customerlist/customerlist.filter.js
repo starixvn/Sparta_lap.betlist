@@ -23,6 +23,13 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
                     CustomerListService.submit();
                 });
 
+                $("#Username").on('keyup', function (e) {
+                    if (e.keyCode == 13) {
+                        _state.pagingOption.pageindex = 1;
+                        CustomerListService.submit();
+                    }
+                });
+
                 _me.initGridColumnOption();
                 _me.initOddGroupOption();
             },

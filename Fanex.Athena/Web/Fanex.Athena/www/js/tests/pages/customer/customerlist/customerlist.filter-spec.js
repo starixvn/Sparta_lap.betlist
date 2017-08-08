@@ -32,10 +32,14 @@
             });
 
             describe("initEvent()", function () {
-                it("initializes Grid column option and Odd group option", function () {
+                beforeAll(function () {
                     spyOn(CustomerListFilter, "initGridColumnOption");
                     spyOn(CustomerListFilter, "initOddGroupOption");
+                    spyOn(CustomerListService, "submit");
+                    spyOn(CustomerListState, "getState").and.returnValue({ pagingOption: { pageindex: 1 } });
+                });
 
+                it("initializes Grid column option and Odd group option", function () {
                     CustomerListFilter.initEvent();
 
                     expect(CustomerListFilter.initGridColumnOption).toHaveBeenCalled();
@@ -44,14 +48,21 @@
 
                 it("CustomerListService.submit() should be called if SubmitButton is clicked", function () {
                     setFixtures('<button id="SubmitButton"></button>');
-                    spyOn(CustomerListFilter, "initGridColumnOption");
-                    spyOn(CustomerListFilter, "initOddGroupOption");
-                    spyOn(CustomerListService, "submit");
-                    spyOn(CustomerListState, "getState").and.returnValue({ pagingOption: { pageindex: 1 } });
-
+                    
                     CustomerListFilter.initialize();
                     CustomerListFilter.initEvent();
                     $("#SubmitButton").click();
+
+                    expect(CustomerListService.submit).toHaveBeenCalled();
+                });
+
+                it("CustomerListService.submit() should be called if #Username raises keyup event with Enter", function () {
+                    setFixtures('<input id="Username" type="text"></input>');
+
+                    CustomerListFilter.initialize();
+                    CustomerListFilter.initEvent();
+                    var event = jQuery.Event("keyup", { keyCode: 13 });
+                    $("#Username").trigger(event);
 
                     expect(CustomerListService.submit).toHaveBeenCalled();
                 });
