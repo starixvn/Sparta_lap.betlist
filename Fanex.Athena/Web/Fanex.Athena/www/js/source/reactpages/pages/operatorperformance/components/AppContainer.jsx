@@ -1,23 +1,26 @@
 ﻿import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import { ActionCreators } from './actions'
-
+import { ActionCreators }  from '../actions/index.js'
+import * as DataGrid from './datagrid.jsx'
+import * as FormFilter from './formFilter.jsx'
+import AppLayout from '../../../layouts/AppLayout.jsx'
 class AppContainer extends Component {
 
-  constructor(props: any, context: any) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     
   }
 
   render() {
    return (
-     <div>
-         Hello
-     </div>
+    <AppLayout>
+    <FormFilter/>
+    <DataGrid/>
+    </AppLayout>
     );
   }
-
+}
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(ActionCreators, dispatch);
 }

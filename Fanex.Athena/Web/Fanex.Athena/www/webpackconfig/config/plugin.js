@@ -25,6 +25,8 @@ function generatePlugins(environment) {
             filename: "www/js/build/" + environment + "/common.chunk.js",
             minChunks: Infinity
         }),
+
+       
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",

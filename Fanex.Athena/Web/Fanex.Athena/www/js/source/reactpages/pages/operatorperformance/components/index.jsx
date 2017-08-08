@@ -1,11 +1,11 @@
 ﻿import React from 'react'
-import { AppRegistry } from 'react-native'
-import AppContainer from './AppContainer'
+import ReactDOM from 'react-dom';
+import AppContainer from './AppContainer.jsx'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, combineReducers, compose} from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
-import reducer from './reducers'
+import reducer from '../reducers/index.js'
 
 // middleware that logs actions
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__  });
@@ -22,10 +22,16 @@ function configureStore(initialState) {
 
 const store = configureStore({});
 
-const App = () => (
-  <Provider store={store}>
-    <AppContainer />
-  </Provider>
-)
+class App extends Component
+{
+  render()
+  {
+    return (
+    <Provider store={store}>
+        <AppContainer />
+      </Provider>
+    );
+  }
+}
 
-AppRegistry.registerComponent('operatorPerformance', () => App);
+ReactDOM.render(<App />,  document.body);

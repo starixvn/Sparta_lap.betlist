@@ -1,5 +1,5 @@
-﻿import * as currencyActions from '../../../actions/currencyAction.js'
-
+﻿
+import * as dataHandlerAction from './dataHandlerAction.js'
 export const ActionCreators = Object.assign({},
- currencyActions
+ dataHandlerAction
 );

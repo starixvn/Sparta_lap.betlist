@@ -1,12 +1,13 @@
 ﻿var path = require('path');
-var pathConfig = require('../config/path');
-
+var pathConfig = require('../config/pathReact');
+var pluginGenerator = require('../config/pluginReact');
 function generateConfig(environment) {
-    var jsPath = `${pathConfig.scriptPaths.build}/${environment}/react`;
-
+    var jsPath = `${pathConfig.scriptPaths.build}/${environment}/reactpages`;
+    
     var commonConfigs = {
         entry: {
-            [`${jsPath}/reactsample`]: pathConfig.scriptPaths.reactsample
+            reactVendorJs: ["react", "react-redux","redux", "react-dom", "redux-thunk","redux-logger"],
+            [`${jsPath}/operatorperformance/operatorperformance`]: pathConfig.scriptPaths.operatorperformance
         },
         output: {
             path: pathConfig.projectRoot,
@@ -21,6 +22,7 @@ function generateConfig(environment) {
                 }
             ]
         },
+        plugins: pluginGenerator(environment),
         stats: {
             assets: false,
             colors: true,

@@ -1,6 +1,5 @@
 ﻿import { combineReducers } from 'redux';
-import * as currencyReducers from '../../../reducers/currencyReducer.js'
-
+import * as dataHandlerReducer from './dataHandlerReducer.js'
 export default combineReducers(Object.assign(
- currencyReducers
+    dataHandlerReducer
 ));

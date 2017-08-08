@@ -765,18 +765,18 @@
     <Content Include="Views\Desktop\Report\OperatorPerformance\Main.cshtml" />
     <Content Include="Views\Desktop\Shared\_ReactPageLayout.cshtml" />
     <None Include="www\css\source\reactpages\main.scss" />
-    <Content Include="www\js\build\dev\react\reactsample.chunk.js" />
-    <Content Include="www\js\build\pro\react\reactsample.chunk.js" />
-    <Content Include="www\js\source\reactpages\actions\currencyAction.js" />
+    <Content Include="www\js\build\dev\reactpages\operatorperformance\operatorperformance.chunk.js" />
+    <Content Include="www\js\build\dev\reactpages\vendors\vendor.chunk.js" />
+    <Content Include="www\js\build\pro\reactpages\operatorperformance\operatorperformance.chunk.js" />
+    <Content Include="www\js\build\pro\reactpages\vendors\vendor.chunk.js" />
     <Content Include="www\js\source\reactpages\actions\types.js" />
     <Content Include="www\js\source\reactpages\lib\createReducer.js" />
     <Content Include="www\js\source\reactpages\pages\operatorperformance\actions\index.js" />
     <Content Include="www\js\source\reactpages\pages\operatorperformance\actions\types.js" />
-    <Content Include="www\js\source\reactpages\pages\operatorperformance\AppContainer.jsx" />
+    <Content Include="www\js\source\reactpages\pages\operatorperformance\components\AppContainer.jsx" />
     <Content Include="www\js\source\reactpages\pages\operatorperformance\components\datagrid.jsx" />
     <Content Include="www\js\source\reactpages\pages\operatorperformance\components\formFilter.jsx" />
     <Content Include="www\js\source\reactpages\pages\operatorperformance\reducers\index.js" />
-    <Content Include="www\js\source\reactpages\reducers\currencyReducer.js" />
     <Content Include="www\webpackconfig\build\webpack.react.base.conf.js" />
     <Content Include="www\webpackconfig\build\webpack.react.dev.conf.js" />
     <Content Include="www\webpackconfig\build\webpack.react.hmr.conf.js" />
@@ -1562,14 +1562,6 @@
     <Content Include="www\js\source\pages\totalbet\totalbetsbase.js" />
     <Content Include="www\js\source\pages\totalbet\totalgoal\main.js" />
     <Content Include="www\js\source\pages\totalbet\totalgoal\totalgoal.js" />
-    <Content Include="www\js\source\reactsample\app.js" />
-    <Content Include="www\js\source\reactsample\components\FilterableProductTable.jsx" />
-    <Content Include="www\js\source\reactsample\components\ProductCategoryRow.jsx" />
-    <Content Include="www\js\source\reactsample\components\ProductRow.jsx" />
-    <Content Include="www\js\source\reactsample\components\ProductTable.jsx" />
-    <Content Include="www\js\source\reactsample\components\SearchBar.jsx" />
-    <Content Include="www\js\source\reactsample\index.html" />
-    <Content Include="www\js\source\reactsample\util\data.js" />
     <Content Include="www\js\source\vendors\materialize\materialize.js" />
     <Content Include="www\js\tests\common\popup-spec.js" />
     <Content Include="www\js\tests\common\querystring-spec.js" />
@@ -2356,6 +2348,8 @@
     <Content Include="www\js\build\dev\pages\reports\customerpendingfunds.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\reports\customerturnover.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\reports\customerwinloss.chunk.js.map" />
+    <Content Include="www\js\build\dev\reactpages\operatorperformance\operatorperformance.chunk.js.map" />
+    <Content Include="www\js\build\dev\reactpages\vendors\vendor.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
@@ -6034,11 +6028,13 @@
     <Folder Include="www\css\source\reactpages\lib\" />
     <Folder Include="www\css\source\reactpages\pages\" />
     <Folder Include="www\css\source\reactpages\vendors\" />
+    <Folder Include="www\js\build\dev\react\" />
     <Folder Include="www\js\source\reactpages\components\" />
+    <Folder Include="www\js\source\reactpages\reducers\" />
     <Folder Include="www\js\source\reactpages\vendors\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="www\js\source\reactpages\pages\operatorperformance\index.jsx" />
+    <Content Include="www\js\source\reactpages\pages\operatorperformance\components\index.jsx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
