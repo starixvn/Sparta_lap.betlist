@@ -1108,7 +1108,9 @@ ul.ui-multiselect-checkboxes {
     display: inline;
     text-align: right; }
     .betlist-container .favorite .excluding-choices {
-      white-space: normal; }
+      white-space: normal;
+      color: #484848;
+      font-weight: normal; }
   .betlist-container .handicap .odds {
     color: #003399;
     font-size: 8pt; }

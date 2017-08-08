@@ -1,9 +1,9 @@
-webpackJsonp([58],{
+webpackJsonp([57],{
 
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(274);
+	module.exports = __webpack_require__(272);
 
 
 /***/ }),
@@ -4721,12 +4721,12 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 274:
+/***/ 272:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(275), __webpack_require__(282),
-	    __webpack_require__(277), __webpack_require__(287), __webpack_require__(288)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, CustomerListFilter, CustomerListGrid, CustomerListService, CustomerComm, CustomerListViewOption) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(273), __webpack_require__(280),
+	    __webpack_require__(275), __webpack_require__(285), __webpack_require__(286)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, CustomerListFilter, CustomerListGrid, CustomerListService, CustomerComm, CustomerListViewOption) {
 	        $(document).ready(function () {
 	            Site.initialize();
 	            CustomerListService.initialize();
@@ -4748,11 +4748,11 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 275:
+/***/ 273:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(276), __webpack_require__(277), __webpack_require__(280), __webpack_require__(246)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService, AutoComplete) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(274), __webpack_require__(275), __webpack_require__(278), __webpack_require__(246)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService, AutoComplete) {
 	        var _state;
 	
 	        var _me = {
@@ -4896,7 +4896,7 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 276:
+/***/ 274:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -4936,11 +4936,11 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 277:
+/***/ 275:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(278), __webpack_require__(103), __webpack_require__(279), __webpack_require__(276),
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(276), __webpack_require__(103), __webpack_require__(277), __webpack_require__(274),
 	    __webpack_require__(224), __webpack_require__(225), __webpack_require__(250)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerListState) {
 	    var _POPUP_LIST = ["#ViewOptionList", "#update-cust-status-popup", "#LevelListContainer", "#OddsGroupListContainer"];
 	    var _isAllowedCustomerCommission;
@@ -5227,7 +5227,7 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 278:
+/***/ 276:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(103)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
@@ -5525,7 +5525,7 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 279:
+/***/ 277:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -5703,11 +5703,11 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 280:
+/***/ 278:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// require option properties: suggestionDropdown, url, target
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(281)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(279)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
 	    "use strict";
 	
 	    var mainOption = {
@@ -5796,7 +5796,7 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 281:
+/***/ 279:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
@@ -6265,7 +6265,7 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 282:
+/***/ 280:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -6273,13 +6273,13 @@ webpackJsonp([58],{
 	    __webpack_require__(1),
 	    __webpack_require__(7),
 	    __webpack_require__(8),
-	    __webpack_require__(276),
-	    __webpack_require__(277),
-	    __webpack_require__(284),
+	    __webpack_require__(274),
+	    __webpack_require__(275),
+	    __webpack_require__(282),
+	    __webpack_require__(281),
 	    __webpack_require__(283),
-	    __webpack_require__(285),
-	    __webpack_require__(286),
-	    __webpack_require__(279),
+	    __webpack_require__(284),
+	    __webpack_require__(277),
 	    __webpack_require__(9),
 	    __webpack_require__(103)], __WEBPACK_AMD_DEFINE_RESULT__ = function (
 	        $,
@@ -6455,11 +6455,11 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 283:
+/***/ 281:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(276), __webpack_require__(277)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(274), __webpack_require__(275)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService) {
 	    var _$specialLevelCell = null;
 	    var _state;
 	
@@ -6514,11 +6514,11 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 284:
+/***/ 282:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(276), __webpack_require__(277)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(274), __webpack_require__(275)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService) {
 	    var _state;
 	
 	    var _me = {
@@ -6588,11 +6588,11 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 285:
+/***/ 283:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(277)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListService) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(275)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListService) {
 	    var _$oddsGroupCell;
 	
 	    var _me = {
@@ -6650,7 +6650,7 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 286:
+/***/ 284:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* This column only view in licensee HAIFA */
@@ -6798,10 +6798,10 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 287:
+/***/ 285:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(103), __webpack_require__(9), __webpack_require__(276), __webpack_require__(282)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional, Popup, CustomerListState, CustomerListGrid) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(103), __webpack_require__(9), __webpack_require__(274), __webpack_require__(280)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional, Popup, CustomerListState, CustomerListGrid) {
 	        "use strict";
 	
 	        var _state;
@@ -7238,10 +7238,10 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 288:
+/***/ 286:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(9), __webpack_require__(277)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, Popup, CustomerListService) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(9), __webpack_require__(275)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, Popup, CustomerListService) {
 	        "use strict";
 	
 	        var OPTIONLIST_SELECTOR = "#ViewOptionList";

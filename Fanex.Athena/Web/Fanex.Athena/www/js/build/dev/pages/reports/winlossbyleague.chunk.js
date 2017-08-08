@@ -1,8 +1,8 @@
-webpackJsonp([87],[
+webpackJsonp([86],[
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(370);
+	module.exports = __webpack_require__(368);
 
 
 /***/ }),
@@ -20900,9 +20900,7 @@ webpackJsonp([87],[
 /* 274 */,
 /* 275 */,
 /* 276 */,
-/* 277 */,
-/* 278 */,
-/* 279 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -21079,6 +21077,8 @@ webpackJsonp([87],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
+/* 278 */,
+/* 279 */,
 /* 280 */,
 /* 281 */,
 /* 282 */,
@@ -21089,12 +21089,10 @@ webpackJsonp([87],[
 /* 287 */,
 /* 288 */,
 /* 289 */,
-/* 290 */,
-/* 291 */,
-/* 292 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(293)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(291)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 	        "use strict";
 	        var PICKER_SELECTOR = "#month-picker";
 	        var FORMAT = "MM/dd/yyyy";
@@ -21155,7 +21153,7 @@ webpackJsonp([87],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 293 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -21994,6 +21992,8 @@ webpackJsonp([87],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
+/* 292 */,
+/* 293 */,
 /* 294 */,
 /* 295 */,
 /* 296 */,
@@ -22052,9 +22052,7 @@ webpackJsonp([87],[
 /* 349 */,
 /* 350 */,
 /* 351 */,
-/* 352 */,
-/* 353 */,
-/* 354 */
+/* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -22095,6 +22093,8 @@ webpackJsonp([87],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
+/* 353 */,
+/* 354 */,
 /* 355 */,
 /* 356 */,
 /* 357 */,
@@ -22108,12 +22108,10 @@ webpackJsonp([87],[
 /* 365 */,
 /* 366 */,
 /* 367 */,
-/* 368 */,
-/* 369 */,
-/* 370 */
+/* 368 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(371)], __WEBPACK_AMD_DEFINE_RESULT__ = function (WinLossByLeague) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(369)], __WEBPACK_AMD_DEFINE_RESULT__ = function (WinLossByLeague) {
 	    "use strict";
 	
 	    $(WinLossByLeague.initialize);
@@ -22121,11 +22119,11 @@ webpackJsonp([87],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 371 */
+/* 369 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(103), __webpack_require__(372),
-	    __webpack_require__(373), __webpack_require__(242), __webpack_require__(106), __webpack_require__(279), __webpack_require__(354),
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(103), __webpack_require__(370),
+	    __webpack_require__(371), __webpack_require__(242), __webpack_require__(106), __webpack_require__(277), __webpack_require__(352),
 	    __webpack_require__(250), __webpack_require__(224), __webpack_require__(225)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, jqGridAdditional, WinLossByLeagueOption, WinLossByLeagueFilter, Report, moment, PagingHeper, ExcelHelper) {
 	        "use strict";
 	
@@ -22413,7 +22411,7 @@ webpackJsonp([87],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 372 */
+/* 370 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(103)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
@@ -22620,10 +22618,10 @@ webpackJsonp([87],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 373 */
+/* 371 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(292), __webpack_require__(245), __webpack_require__(250)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, MonthPicker, MultiSelect) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(290), __webpack_require__(245), __webpack_require__(250)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, MonthPicker, MultiSelect) {
 	        "use strict";
 	        var ajaxLeagues = null;
 	        var ajaxMatches = null;
