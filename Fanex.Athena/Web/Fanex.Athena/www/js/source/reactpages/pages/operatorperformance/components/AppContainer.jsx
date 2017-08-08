@@ -2,8 +2,8 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { ActionCreators }  from '../actions/index.js'
-import * as DataGrid from './datagrid.jsx'
-import * as FormFilter from './formFilter.jsx'
+import DataGrid from './datagrid.jsx'
+import FormFilter from './formFilter.jsx'
 import AppLayout from '../../../layouts/AppLayout.jsx'
 class AppContainer extends Component {
 
@@ -11,12 +11,15 @@ class AppContainer extends Component {
     super(props);
     
   }
-
+  componentDidMount() {
+    console.log(this.props);
+  }
+  
   render() {
    return (
     <AppLayout>
-    <FormFilter/>
-    <DataGrid/>
+      <FormFilter/>
+      <DataGrid/>
     </AppLayout>
     );
   }
@@ -26,9 +29,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  return {
-   
-  };
+  return  Object.assign({},state);
 }
 
 

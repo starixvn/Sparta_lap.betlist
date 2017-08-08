@@ -4,7 +4,7 @@ import AppContainer from './AppContainer.jsx'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, combineReducers, compose} from 'redux'
 import thunkMiddleware from 'redux-thunk'
-import createLogger from 'redux-logger'
+import {createLogger} from 'redux-logger'
 import reducer from '../reducers/index.js'
 
 // middleware that logs actions
@@ -22,8 +22,16 @@ function configureStore(initialState) {
 
 const store = configureStore({});
 
-class App extends Component
+export default class App extends React.Component
 {
+ constructor(props) {
+    super(props);
+    console.log("init");
+  }
+  componentDidMount() {
+    console.log("hello");
+  }
+  
   render()
   {
     return (
@@ -34,4 +42,4 @@ class App extends Component
   }
 }
 
-ReactDOM.render(<App />,  document.body);
+ReactDOM.render(<App />, document.getElementById("app-container"));

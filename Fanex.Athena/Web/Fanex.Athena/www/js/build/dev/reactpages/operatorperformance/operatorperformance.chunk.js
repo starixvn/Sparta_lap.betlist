@@ -1,9 +1,13 @@
-webpackJsonp([2],{
+webpackJsonp([3],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -15,7 +19,7 @@ webpackJsonp([2],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _AppContainer = __webpack_require__(239);
+	var _AppContainer = __webpack_require__(245);
 	
 	var _AppContainer2 = _interopRequireDefault(_AppContainer);
 	
@@ -29,9 +33,7 @@ webpackJsonp([2],{
 	
 	var _reduxLogger = __webpack_require__(235);
 	
-	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
-	
-	var _index = __webpack_require__(246);
+	var _index = __webpack_require__(252);
 	
 	var _index2 = _interopRequireDefault(_index);
 	
@@ -44,7 +46,7 @@ webpackJsonp([2],{
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	// middleware that logs actions
-	var loggerMiddleware = (0, _reduxLogger2.default)({ predicate: function predicate(getState, action) {
+	var loggerMiddleware = (0, _reduxLogger.createLogger)({ predicate: function predicate(getState, action) {
 	    return __DEV__;
 	  } });
 	
@@ -56,16 +58,24 @@ webpackJsonp([2],{
 	
 	var store = configureStore({});
 	
-	var App = function (_Component) {
-	  _inherits(App, _Component);
+	var App = function (_React$Component) {
+	  _inherits(App, _React$Component);
 	
-	  function App() {
+	  function App(props) {
 	    _classCallCheck(this, App);
 	
-	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+	
+	    console.log("init");
+	    return _this;
 	  }
 	
 	  _createClass(App, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      console.log("hello");
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -77,13 +87,16 @@ webpackJsonp([2],{
 	  }]);
 	
 	  return App;
-	}(Component);
+	}(_react2.default.Component);
 	
-	_reactDom2.default.render(_react2.default.createElement(App, null), document.body);
+	exports.default = App;
+	
+	
+	_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById("app-container"));
 
 /***/ },
 
-/***/ 239:
+/***/ 245:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -102,21 +115,19 @@ webpackJsonp([2],{
 	
 	var _redux = __webpack_require__(50);
 	
-	var _index = __webpack_require__(240);
+	var _index = __webpack_require__(246);
 	
-	var _datagrid = __webpack_require__(243);
+	var _datagrid = __webpack_require__(249);
 	
-	var DataGrid = _interopRequireWildcard(_datagrid);
+	var _datagrid2 = _interopRequireDefault(_datagrid);
 	
-	var _formFilter = __webpack_require__(244);
+	var _formFilter = __webpack_require__(250);
 	
-	var FormFilter = _interopRequireWildcard(_formFilter);
+	var _formFilter2 = _interopRequireDefault(_formFilter);
 	
-	var _AppLayout = __webpack_require__(245);
+	var _AppLayout = __webpack_require__(251);
 	
 	var _AppLayout2 = _interopRequireDefault(_AppLayout);
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -136,13 +147,18 @@ webpackJsonp([2],{
 	  }
 	
 	  _createClass(AppContainer, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      console.log(this.props);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        _AppLayout2.default,
 	        null,
-	        _react2.default.createElement(FormFilter, null),
-	        _react2.default.createElement(DataGrid, null)
+	        _react2.default.createElement(_formFilter2.default, null),
+	        _react2.default.createElement(_datagrid2.default, null)
 	      );
 	    }
 	  }]);
@@ -155,14 +171,14 @@ webpackJsonp([2],{
 	}
 	
 	function mapStateToProps(state) {
-	  return {};
+	  return Object.assign({}, state);
 	}
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(AppContainer);
 
 /***/ },
 
-/***/ 240:
+/***/ 246:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -172,7 +188,7 @@ webpackJsonp([2],{
 	});
 	exports.ActionCreators = undefined;
 	
-	var _dataHandlerAction = __webpack_require__(241);
+	var _dataHandlerAction = __webpack_require__(247);
 	
 	var dataHandlerAction = _interopRequireWildcard(_dataHandlerAction);
 	
@@ -182,7 +198,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 241:
+/***/ 247:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -192,7 +208,7 @@ webpackJsonp([2],{
 	});
 	exports.fetchData = fetchData;
 	
-	var _types = __webpack_require__(242);
+	var _types = __webpack_require__(248);
 	
 	var types = _interopRequireWildcard(_types);
 	
@@ -210,7 +226,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 242:
+/***/ 248:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -222,7 +238,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 243:
+/***/ 249:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -239,7 +255,9 @@ webpackJsonp([2],{
 	
 	var _reactRedux = __webpack_require__(38);
 	
-	var _index = __webpack_require__(240);
+	var _index = __webpack_require__(246);
+	
+	var _redux = __webpack_require__(50);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -273,7 +291,7 @@ webpackJsonp([2],{
 	}(_react.Component);
 	
 	function mapDispatchToProps(dispatch) {
-	    return bindActionCreators(_index.ActionCreators, dispatch);
+	    return (0, _redux.bindActionCreators)(_index.ActionCreators, dispatch);
 	}
 	function mapStateToProps(state) {
 	    return {};
@@ -283,7 +301,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 244:
+/***/ 250:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -300,7 +318,9 @@ webpackJsonp([2],{
 	
 	var _reactRedux = __webpack_require__(38);
 	
-	var _index = __webpack_require__(240);
+	var _index = __webpack_require__(246);
+	
+	var _redux = __webpack_require__(50);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -334,7 +354,7 @@ webpackJsonp([2],{
 	}(_react.Component);
 	
 	function mapDispatchToProps(dispatch) {
-	    return bindActionCreators(_index.ActionCreators, dispatch);
+	    return (0, _redux.bindActionCreators)(_index.ActionCreators, dispatch);
 	}
 	function mapStateToProps(state) {
 	    return {
@@ -346,10 +366,10 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 245:
+/***/ 251:
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -360,6 +380,10 @@ webpackJsonp([2],{
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(87);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -379,11 +403,12 @@ webpackJsonp([2],{
 	  }
 	
 	  _createClass(AppLayout, [{
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "div",
-	        { id: "container", className: "container" },
+	        'div',
+	        { id: 'container', className: 'container' },
+	        'HAHAH',
 	        this.props.children
 	      );
 	    }
@@ -396,7 +421,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 246:
+/***/ 252:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -407,7 +432,7 @@ webpackJsonp([2],{
 	
 	var _redux = __webpack_require__(50);
 	
-	var _dataHandlerReducer = __webpack_require__(247);
+	var _dataHandlerReducer = __webpack_require__(253);
 	
 	var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
 	
@@ -417,7 +442,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 247:
+/***/ 253:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -427,11 +452,11 @@ webpackJsonp([2],{
 	});
 	exports.gridData = undefined;
 	
-	var _createReducer2 = __webpack_require__(248);
+	var _createReducer2 = __webpack_require__(254);
 	
 	var _createReducer3 = _interopRequireDefault(_createReducer2);
 	
-	var _types = __webpack_require__(242);
+	var _types = __webpack_require__(248);
 	
 	var types = _interopRequireWildcard(_types);
 	
@@ -447,7 +472,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 248:
+/***/ 254:
 /***/ function(module, exports) {
 
 	"use strict";

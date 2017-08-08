@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ActionCreators } from '../actions/index.js'
-
+import { bindActionCreators } from 'redux'
 
 class FormFilter extends Component {
     constructor(props) {

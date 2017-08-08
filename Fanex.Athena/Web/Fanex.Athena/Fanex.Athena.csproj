@@ -769,6 +769,7 @@
     <Content Include="www\css\build\dev\reactpages\vendor.css" />
     <Content Include="www\css\build\pro\reactpages\vendor.chunk.js" />
     <Content Include="www\css\build\pro\reactpages\vendor.css" />
+    <Content Include="www\js\build\dev\reactpages\lib\langHelper.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\operatorperformance\operatorperformance.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\vendors\vendor.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\operatorperformance\operatorperformance.chunk.js" />
@@ -2354,6 +2355,7 @@
     <Content Include="www\js\build\dev\pages\reports\customerwinloss.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\operatorperformance\operatorperformance.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\vendors\vendor.chunk.js.map" />
+    <Content Include="www\js\build\dev\reactpages\lib\langHelper.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
@@ -6032,7 +6034,6 @@
     <Folder Include="www\css\source\reactpages\lib\" />
     <Folder Include="www\css\source\reactpages\pages\" />
     <Folder Include="www\css\source\reactpages\vendors\" />
-    <Folder Include="www\js\build\dev\react\" />
     <Folder Include="www\js\source\reactpages\components\" />
     <Folder Include="www\js\source\reactpages\reducers\" />
     <Folder Include="www\js\source\reactpages\vendors\" />

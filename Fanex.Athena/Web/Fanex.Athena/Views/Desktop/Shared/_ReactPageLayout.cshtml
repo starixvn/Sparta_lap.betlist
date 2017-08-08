@@ -20,7 +20,7 @@
     <meta name="description" content="The Risk & Forecast System" />
     <link href="@Url.ContentLinkByEnv("/www/css/build/reactpages/vendor.css")" rel="stylesheet" type="text/css" />
 
-    @RenderSection("css", required: false)
+    @RenderSection("pagecss", required: false)
 
 </head>
 <body>
@@ -29,11 +29,13 @@
       @RenderBody()
  
     <script type="text/javascript">
-        var PageLanguage ="@System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag;
+        var PageLanguage ="@System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag";
 
     </script>
     <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/vendors/vendor.chunk.js")"></script>
-    @RenderSection("js", required: false)
+    <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/lib/langHelper.chunk.js")"></script>
+
+    @RenderSection("pagejs", required: false)
     @if (isParasiticMode)
     {
         Html.RenderPartial("~/Views/Desktop/Shared/_SessionScript.cshtml");
