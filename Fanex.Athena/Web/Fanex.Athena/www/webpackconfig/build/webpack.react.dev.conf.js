@@ -17,7 +17,7 @@ module.exports = merge(baseConfigs,
         watch: true,
         keepalive: true,
         plugins: [
-            new CleanWebpackPlugin([`${jsRootPath}`], {
+            new CleanWebpackPlugin([`${jsRootPath}/`], {
                 root: process.cwd(),
                 
             }),

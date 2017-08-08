@@ -12,7 +12,8 @@ function generateConfig(environment) {
             [`${jsPath}/operatorperformance/operatorperformance`]: pathConfig.scriptPaths.operatorperformance,
             [`${jsPath}/lib/langHelper`]: pathConfig.scriptPaths.languageResource,
             /*css*/
-            [`${cssPath}/vendor`]: pathConfig.cssPaths.layout
+            [`${cssPath}/vendor`]: pathConfig.cssPaths.layout,
+            [`${cssPath}/operatorperformance/index`]: pathConfig.cssPaths.operatorperformance
         },
         output: {
             path: pathConfig.projectRoot,

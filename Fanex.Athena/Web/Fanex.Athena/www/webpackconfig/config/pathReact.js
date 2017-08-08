@@ -5,7 +5,7 @@ var projectRoot = path.resolve(__dirname, '../../../');
 var cssPaths = {
     build: "www/css/build",
     layout: "./www/css/source/reactpages/main.scss",
-
+    operatorperformance:"./www/css/source/reactpages/pages/operatorperformance/index.scss"
 };
 
 var scriptPaths = {
