@@ -115,19 +115,19 @@ namespace Fanex.Athena.Controllers.Report
             if (ModelState.IsValid)
             {
                 metalModel.IsExportExcel = true;
+                metalModel.SportId = metalModel.SportId == 0 ?
+                    GetSportId(metalModel.FromDate, SessionService.LicenseeSession.LicenseeId) :
+                    metalModel.SportId;
+
                 if (metalModel.SportId == 0)
                 {
-                    /*Get firstSport*/
-                    var sports = _resultService.GetSports(metalModel.FromDate, SessionService.LicenseeSession.LicenseeId);
-                    if (sports == null || sports.Count == 0)
-                    {
-                        return null;
-                    }
-
-                    metalModel.SportId = int.Parse(sports[0].SportId);
+                    ExportNoneData(metalModel);
+                }
+                else
+                {
+                    GetData(metalModel);
                 }
 
-                this.GetData(metalModel);
                 var response = ControllerContext.HttpContext.Response;
                 response.ContentType = "application/vnd.ms-excel";
                 response.AddHeader("Content-disposition", "attachment; filename=" + FileName);
@@ -321,6 +321,7 @@ namespace Fanex.Athena.Controllers.Report
         #region Utilities
 
         #region popup-page
+
         private static bool IsPalayBetType(int betType)
         {
             return betType == ParlayBetType || betType == SystemParlayBetType || betType == (int)Model.Core.DataDomain.BetType.BetradarVsMixParlay;
@@ -549,19 +550,24 @@ namespace Fanex.Athena.Controllers.Report
 
         #region main-page
 
+        private int GetSportId(DateTime fromDate, int licenseeId)
+        {
+            var sports = _resultService.GetSports(fromDate, licenseeId);
+            if (sports != null && sports.Count > 0)
+            {
+                return int.Parse(sports[0].SportId);
+            }
+
+            return 0;
+        }
+
         /// <summary>
         /// Get out right data.
         /// </summary>
         /// <param name="metalModel">The metal model.</param>
         private void GetOutRightData(ResultMetalModel metalModel)
         {
-            var setting = new ResultSetting
-            {
-                IsOutright = true,
-                ExcelTitle = ViewResources.Result,
-                ExcelTemplatePath = Server.MapPath(@"~/App_Data/Fanex.Result/"),
-                LanguageCode = SessionService.UserSession.Language
-            };
+            var setting = GetOutRightResultSetting();
             var cacheKey = GenerateOutRightCacheKey(metalModel);
             var outRightData = (IList<Outright>)HttpRuntime.Cache.Get(cacheKey) ?? _resultService.GetOutRight(metalModel);
             if (outRightData != null)
@@ -592,18 +598,8 @@ namespace Fanex.Athena.Controllers.Report
            Justification = "Reviewed. Suppression is OK here.")]
         private void GetNormalData(ResultMetalModel metalModel)
         {
-            var sportType = (SportType)metalModel.SportId;
-            var setting = new ResultSetting
-            {
-                SportType = sportType,
-                ExcelTitle = ViewResources.Result,
-                ExcelTemplatePath = Server.MapPath(@"~/App_Data/Fanex.Result/"),
-                LanguageCode = SessionService.UserSession.Language,
-                VisibleDetailedLink = true,
-                VisibleFreeHeader = true,
-                EnableCheckScoreCalculated = sportType == SportType.Soccer
-            };
-            switch (sportType)
+            var setting = GetNormalResultSetting(metalModel);
+            switch (setting.SportType)
             {
                 case SportType.HorseRacing:
                 case SportType.Greyhound:
@@ -678,6 +674,47 @@ namespace Fanex.Athena.Controllers.Report
 
                     break;
             }
+        }
+
+        private void ExportNoneData(ResultMetalModel metalModel)
+        {
+            if (metalModel.IsOutRight)
+            {
+                var setting = GetOutRightResultSetting();
+                _excelStream = ResultEngine.ExcelParser(new List<Outright>(), setting);
+            }
+            else
+            {
+                metalModel.SportId = (int)SportType.Soccer;
+                var setting = GetNormalResultSetting(metalModel);
+                _excelStream = ResultEngine.ExcelParser(new List<Sportsbook>(), setting);
+            }
+        }
+
+        private ResultSetting GetOutRightResultSetting()
+        {
+            return new ResultSetting
+            {
+                IsOutright = true,
+                ExcelTitle = ViewResources.Result,
+                ExcelTemplatePath = Server.MapPath(@"~/App_Data/Fanex.Result/"),
+                LanguageCode = SessionService.UserSession.Language
+            };
+        }
+
+        private ResultSetting GetNormalResultSetting(ResultMetalModel metalModel)
+        {
+            var sportType = (SportType)metalModel.SportId;
+            return new ResultSetting
+            {
+                SportType = sportType,
+                ExcelTitle = ViewResources.Result,
+                ExcelTemplatePath = Server.MapPath(@"~/App_Data/Fanex.Result/"),
+                LanguageCode = SessionService.UserSession.Language,
+                VisibleDetailedLink = true,
+                VisibleFreeHeader = true,
+                EnableCheckScoreCalculated = sportType == SportType.Soccer
+            };
         }
 
         /// <summary>
