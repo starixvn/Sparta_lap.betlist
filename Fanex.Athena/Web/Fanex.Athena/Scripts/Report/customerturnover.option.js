@@ -173,7 +173,7 @@ var CustTurnoverOption = (function () {
             forceFit: false,
             shrinkToFit: true,
             minWidth: 800,
-            loadtext: 'loading...',
+            loadtext: '',
             loadui: 'disable',
             loadonce: true,
             gridview: true,

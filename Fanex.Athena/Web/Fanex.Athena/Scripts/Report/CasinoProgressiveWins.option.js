@@ -104,7 +104,7 @@ var CasinoProgressiveWinsOption = (function () {
             autowidth: true,
             forceFit: false,
             shrinkToFit: true,
-            loadtext: 'loading...',
+            loadtext: '',
             loadui: 'disable',
             loadonce: true,
             footerrow: false,

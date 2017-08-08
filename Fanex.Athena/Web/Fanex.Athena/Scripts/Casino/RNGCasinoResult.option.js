@@ -206,7 +206,7 @@ var RNGCasinoOption = (function () {
             rowList: [100, 200, 300, 400, 500],
             rowNum: 500,
             minWidth: 800,
-            loadtext: 'loading...',
+            loadtext: '',
             loadui: 'disable',
             loadonce: true,
             gridview: true,

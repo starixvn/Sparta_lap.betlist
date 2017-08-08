@@ -273,7 +273,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
             autowidth: false,
             forceFit: false,
             shrinkToFit: true,
-            loadtext: 'loading...',
+            loadtext: '',
             loadui: 'disable',
             loadonce: true,
             footerrow: true,

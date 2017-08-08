@@ -284,7 +284,7 @@ var CashOutWinLossOption = (function () {
             autowidth: true,
             forceFit: false,
             shrinkToFit: true,
-            loadtext: 'loading...',
+            loadtext: '',
             loadui: 'disable',
             loadonce: true,
             footerrow: true,
