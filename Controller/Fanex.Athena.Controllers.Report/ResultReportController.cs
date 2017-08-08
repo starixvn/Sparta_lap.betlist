@@ -12,6 +12,7 @@ namespace Fanex.Athena.Controllers.Report
     using System.Globalization;
     using System.IO;
     using System.Linq;
+    using System.Net;
     using System.Web;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
@@ -119,11 +120,7 @@ namespace Fanex.Athena.Controllers.Report
                     GetSportId(metalModel.FromDate, SessionService.LicenseeSession.LicenseeId) :
                     metalModel.SportId;
 
-                if (metalModel.SportId == 0)
-                {
-                    ExportNoneData(metalModel);
-                }
-                else
+                if (metalModel.SportId > 0)
                 {
                     GetData(metalModel);
                 }
@@ -131,15 +128,17 @@ namespace Fanex.Athena.Controllers.Report
                 var response = ControllerContext.HttpContext.Response;
                 response.ContentType = "application/vnd.ms-excel";
                 response.AddHeader("Content-disposition", "attachment; filename=" + FileName);
-                if (_excelStream != null)
+
+                if (_excelStream == null)
                 {
-                    _excelStream.WriteTo(response.OutputStream);
+                    _excelStream = ExportNoneData(metalModel);                  
                 }
+                _excelStream.WriteTo(response.OutputStream);
 
                 response.Flush();
             }
 
-            return null;
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ViewResources.InvalidParams);
         }
 
         [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
@@ -574,6 +573,7 @@ namespace Fanex.Athena.Controllers.Report
             {
                 var data =
                     outRightData.Where(i => i.SportType == metalModel.SportId && (metalModel.LeagueId == 0 || metalModel.LeagueId == i.LeagueId)).ToList();
+
                 if (data.Count > 0)
                 {
                     if (metalModel.IsExportExcel)
@@ -676,18 +676,18 @@ namespace Fanex.Athena.Controllers.Report
             }
         }
 
-        private void ExportNoneData(ResultMetalModel metalModel)
+        private MemoryStream ExportNoneData(ResultMetalModel metalModel)
         {
             if (metalModel.IsOutRight)
             {
                 var setting = GetOutRightResultSetting();
-                _excelStream = ResultEngine.ExcelParser(new List<Outright>(), setting);
+                return ResultEngine.ExcelParser(new List<Outright>(), setting);
             }
             else
             {
                 metalModel.SportId = (int)SportType.Soccer;
                 var setting = GetNormalResultSetting(metalModel);
-                _excelStream = ResultEngine.ExcelParser(new List<Sportsbook>(), setting);
+                return ResultEngine.ExcelParser(new List<Sportsbook>(), setting);
             }
         }
 
