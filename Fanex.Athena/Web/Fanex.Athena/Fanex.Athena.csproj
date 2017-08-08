@@ -810,6 +810,8 @@
     <Content Include="www\css\build\dev\pages\forecast\newforecast.css" />
     <Content Include="www\css\build\dev\pages\login\login.chunk.js" />
     <Content Include="www\css\build\dev\pages\login\login.css" />
+    <Content Include="www\css\build\dev\pages\reports\activecustomersummary.css" />
+    <Content Include="www\css\build\dev\pages\reports\agcasinowinloss.css" />
     <Content Include="www\css\build\dev\pages\reports\balance.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\balance.css" />
     <Content Include="www\css\build\dev\pages\reports\cashoutwinloss.chunk.js" />
@@ -960,6 +962,7 @@
     <Content Include="www\css\build\dev\pages\customer\commgroupdetail.css.map" />
     <Content Include="Views\Customer\BetSetting\VirtualSports2.cshtml" />
     <Content Include="www\css\source\pages\report\activecustomersummary.scss" />
+    <Content Include="www\css\source\pages\report\agcasinowinloss.scss" />
     <None Include="www\css\source\pages\utility\um.scss" />
     <Content Include="www\css\build\images\bg-login.jpg" />
     <Content Include="www\css\build\images\excel-icon.svg" />

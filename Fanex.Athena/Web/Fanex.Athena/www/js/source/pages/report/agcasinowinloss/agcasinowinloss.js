@@ -278,6 +278,13 @@ define(["jquery", "common/querystring", "common/site", "./agcasinowinloss.option
             },
 
             bindData: function (level, response) {
+                jqGridAdditional.clearGrid("ReportGrid");
+                var numOfRow = response.Data.length;
+                if (numOfRow === 0) {
+                    jqGridAdditional.setNoInfo();
+                    return;
+                }
+
                 level = Number(level);
                 var $gridBody = $(".ui-jqgrid-bdiv");
 

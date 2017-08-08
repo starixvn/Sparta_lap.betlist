@@ -54,7 +54,8 @@ var cssPaths = {
     customeroutstanding: ["./www/css/source/pages/betlist/customeroutstanding.scss"],
     betsetting: ["./www/css/source/pages/customer/betsetting.scss"],
     licenseelist: ["./www/css/source/pages/utility/licenseelist.scss"],
-    activecustomersummary: ["./www/css/source/pages/report/activecustomersummary.scss"]
+    activecustomersummary: ["./www/css/source/pages/report/activecustomersummary.scss"],
+    agcasinowinloss: ["./www/css/source/pages/report/agcasinowinloss.scss"]
 };
 
 var scriptPaths = {

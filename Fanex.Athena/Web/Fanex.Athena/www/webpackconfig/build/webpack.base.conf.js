@@ -120,8 +120,8 @@ function generateConfig(environment) {
             [`${cssPath}/pages/betlist/customeroutstanding`]: pathConfig.cssPaths.customeroutstanding,
             [`${cssPath}/pages/customer/betsetting`]: pathConfig.cssPaths.betsetting,
             [`${cssPath}/pages/utility/licenseelist`]: pathConfig.cssPaths.licenseelist,
-            [`${cssPath}/pages/reports/activecustomersummary`]: pathConfig.cssPaths.activecustomersummary
-            
+            [`${cssPath}/pages/reports/activecustomersummary`]: pathConfig.cssPaths.activecustomersummary,
+            [`${cssPath}/pages/reports/agcasinowinloss`]: pathConfig.cssPaths.agcasinowinloss
         },
         output: {
             path: pathConfig.projectRoot,
