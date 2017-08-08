@@ -137,6 +137,10 @@
             return this.each(function () {
                 var self = this;
                 var $element = $(self);
+                if (!selectListOption.canSearch) {
+                    selectListOption.canSearch = $element.attr("data-can-search") == "1";
+                }
+
                 _methods.buildLabel.call(self);
 
                 var $container = $element.parent();
