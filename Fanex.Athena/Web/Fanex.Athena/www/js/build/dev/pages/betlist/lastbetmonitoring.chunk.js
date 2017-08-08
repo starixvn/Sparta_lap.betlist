@@ -21630,7 +21630,7 @@ webpackJsonp([51],[
 	            });
 	        };
 	        _me.initPlatForm = function () {
-	            $("#bet-form").change(function () {
+	            $("#bet-from").change(function () {
 	                _me.changeFilterParam(DataType.NUMBER, "BetFrom", $(this).val());
 	            });
 	        };
@@ -21702,7 +21702,6 @@ webpackJsonp([51],[
 	        };
 	        var _postedParam;
 	        var _intervalId;
-	        var _errorMessage;
 	        var _isLoading;
 	        var _intervalMiliseconds;
 	
@@ -21727,7 +21726,6 @@ webpackJsonp([51],[
 	             { Name: "Status", IsShow: 1 }];
 	        _me.initialize = function () {
 	            _intervalId = 0;
-	            _errorMessage = null;
 	            _isLoading = false;
 	            _intervalMiliseconds = 3000;
 	

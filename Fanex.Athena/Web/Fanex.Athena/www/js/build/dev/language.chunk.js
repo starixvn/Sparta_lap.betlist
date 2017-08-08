@@ -15,7 +15,7 @@ webpackJsonp([42],{
 /***/ 97:
 /***/ (function(module, exports) {
 
-	// Generated at: 8/1/2017 3:09:34 PM
+	// Generated at: 8/4/2017 4:45:53 PM
 	window._language_en_US = {
 	AA:"AA",
 	AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -147,6 +147,7 @@ webpackJsonp([42],{
 	Characters:"Characters",
 	CheckAll:"Check All",
 	Checkavailability:"Check availability",
+	China:"China",
 	Choice:"Choice",
 	ChooseGroupMsg:"Please choose a group.",
 	ChooseGroupNameMsg:"Please choose another group name.",
@@ -565,7 +566,6 @@ webpackJsonp([42],{
 	NetGaming:"Net Gaming",
 	NetTurnover:"Net Turnover",
 	NetworkTimeoutMsg:"Network time out. Please try again.",
-	NewAsia:"China",
 	NewGroup:"New Group",
 	Next:"Next",
 	NG:"NG",
@@ -802,6 +802,7 @@ webpackJsonp([42],{
 	SystemId:"System ID",
 	SystemParlay:"System Parlay",
 	SystemParlayDetailNote:"Win Loss is rounded for reference only. Therefore, Sub Total amount may be different from the sum of Win Loss when it sums all the actual Win Loss amounts.",
+	Tablet:"Tablet",
 	TableType:"Table Type",
 	Team:"Team",
 	TermDefinition:"Term Definition",
@@ -955,7 +956,7 @@ webpackJsonp([42],{
 /***/ 98:
 /***/ (function(module, exports) {
 
-	// Generated at: 8/1/2017 3:09:34 PM
+	// Generated at: 8/4/2017 4:45:53 PM
 	window._language_zh_CN = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -1761,7 +1762,7 @@ webpackJsonp([42],{
 /***/ 99:
 /***/ (function(module, exports) {
 
-	// Generated at: 8/1/2017 3:09:34 PM
+	// Generated at: 8/4/2017 4:45:53 PM
 	window._language_zh_TW = {
 	AA:"客客",
 	AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -2567,7 +2568,7 @@ webpackJsonp([42],{
 /***/ 100:
 /***/ (function(module, exports) {
 
-	// Generated at: 8/1/2017 3:09:34 PM
+	// Generated at: 8/4/2017 4:45:53 PM
 	window._language_zh_Hans = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -3359,7 +3360,7 @@ webpackJsonp([42],{
 /***/ 101:
 /***/ (function(module, exports) {
 
-	// Generated at: 8/1/2017 3:09:34 PM
+	// Generated at: 8/4/2017 4:45:53 PM
 	window._language_ko_KR = {
 	AA:"AA",
 	AccessDeniedMsg:"죄송합니다. 이 페이지에 접근할 권한이 없습니다.",
