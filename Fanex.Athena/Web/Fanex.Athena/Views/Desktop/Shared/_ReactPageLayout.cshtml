@@ -18,6 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>@ViewBag.Title</title>
     <meta name="description" content="The Risk & Forecast System" />
+    <link href="@Url.ContentLinkByEnv("/www/css/build/reactpages/vendor.css")" rel="stylesheet" type="text/css" />
 
     @RenderSection("css", required: false)
 
@@ -31,6 +32,7 @@
         var PageLanguage ="@System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag;
 
     </script>
+    <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/vendors/vendor.chunk.js")"></script>
     @RenderSection("js", required: false)
     @if (isParasiticMode)
     {

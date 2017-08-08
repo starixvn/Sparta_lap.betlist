@@ -8,5 +8,7 @@ module.exports = merge(baseConfigs,
     utils.setDefinePlugin('process.env.NODE_ENV', 'development'),
     {
         devtool: 'source-map'
-    }
+    },
+
+    utils.extractCSS(false)
 );

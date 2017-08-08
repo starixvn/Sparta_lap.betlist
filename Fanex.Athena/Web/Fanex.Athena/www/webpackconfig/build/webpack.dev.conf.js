@@ -19,7 +19,11 @@ module.exports = merge(baseConfigs,
         plugins: [
             new CleanWebpackPlugin([`${pathConfig.scriptPaths.build}/${environment}`], {
                 root: process.cwd(),
-                exclude: ['react']
+                exclude: ['reactpages']
+            }),
+              new CleanWebpackPlugin([`${cssRootPath}/`], {
+                root: process.cwd(),
+                exclude: ['reactpages']
             }),
             new CleanWebpackPlugin([`${cssRootPath}/pages`], {
                 root: process.cwd(),
