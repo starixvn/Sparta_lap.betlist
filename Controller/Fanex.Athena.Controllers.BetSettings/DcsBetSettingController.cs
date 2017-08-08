@@ -28,7 +28,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             { ProductTypes.Voidbridge, "Voidbridge" },
             { ProductTypes.FishingWorld, "FishingWorld" },
             { ProductTypes.VirtualSports, "VirtualSports" },
-            { ProductTypes.BetradarVirtualSports, "BetradarVirtualSports" }
+            { ProductTypes.VirtualSports2, "VirtualSports2" }
         };
 
         private static readonly IEnumerable<int> ProductsHasStatus = new int[]
@@ -38,12 +38,13 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         private static readonly IEnumerable<int> ProductsHasBetLimit = new int[]
         {
-             ProductTypes.VirtualSports, ProductTypes.BetradarVirtualSports
+             ProductTypes.VirtualSports, ProductTypes.VirtualSports2
         };
 
         private static readonly IDictionary<int, string[]> ProductSportList = new Dictionary<int, string[]>
         {
-            [ProductTypes.VirtualSports] = new string[] { "180", "181", "182", "183", "184", "185", "186" }
+            [ProductTypes.VirtualSports] = new string[] { "180", "181", "182", "183", "184", "185", "186" },
+            [ProductTypes.VirtualSports2] = new string[] { "190", "191", "199" }
         };
 
         private readonly IDcsBetSettingService _betSettingService;
@@ -133,7 +134,10 @@ namespace Fanex.Athena.Controllers.BetSettings
 
             if (result.Code == 0)
             {
-                result.Message = string.Format(ViewResources.UpdateVirtualSportsBetSettingSuccessMsg, nickName);
+                result.Message = string.Format(productId == ProductTypes.VirtualSports
+                    ? ViewResources.UpdateVirtualSportsBetSettingSuccessMsg
+                    : ViewResources.UpdateVirtualSports2BetSettingSuccessMsg,
+                    nickName);
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);

@@ -323,7 +323,7 @@ namespace Fanex.Athena.Controllers.Report
 
         private static bool IsPalayBetType(int betType)
         {
-            return betType == ParlayBetType || betType == SystemParlayBetType || betType == (int)Model.Core.DataDomain.BetType.BetradarVsMixParlay;
+            return betType == ParlayBetType || betType == SystemParlayBetType || betType == (int)Model.Core.DataDomain.BetType.VirtualSports2MixParlay;
         }
 
         /// <summary>

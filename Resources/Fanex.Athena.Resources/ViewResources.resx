@@ -3032,4 +3032,12 @@
     <value>Virtual Soccer Nation</value>
     <comment>#78241</comment>
   </data>
+  <data name="UpdateVirtualSports2BetSettings" xml:space="preserve">
+    <value>Are you sure you want to update all Virtual Sports 2 bet settings?</value>
+    <comment>78241</comment>
+  </data>
+  <data name="UpdateVirtualSports2BetSettingSuccessMsg" xml:space="preserve">
+    <value>The Virtual Sports 2 bet setting of {0} was updated successfully</value>
+    <comment>78241</comment>
+  </data>
 </root>

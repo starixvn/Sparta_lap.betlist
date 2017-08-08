@@ -8,6 +8,8 @@ define(["jquery", "common/site", "../common/constant","../common/betsettingbase"
             switch (productId) {
                 case Product.VirtualSports:
                     return "UpdateVirtualSportsBetSettings";
+                case Product.VirtualSports2:
+                    return "UpdateVirtualSports2BetSettings";
                 default:
                     return "";
             }

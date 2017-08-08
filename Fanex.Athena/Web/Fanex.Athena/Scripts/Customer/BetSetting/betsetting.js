@@ -21,6 +21,7 @@ var BetSetting = (function ($) {
     var TAB_VOIDBRIDGE = 22;
     var TAB_FISHINGWORLD = 24;
     var TAB_CASHOUT = 25;
+    var TAB_VIRTUALSPORTS2 = 27;
 
     var _sportIds = null;
     return {
@@ -99,7 +100,7 @@ var BetSetting = (function ($) {
                 case TAB_MACAU:
                     url = "ThirdPartyBetSetting/UpdateMacauStatus";
                     break;
-                case TAB_MICROGAMINGLIVECASINO:               
+                case TAB_MICROGAMINGLIVECASINO:
                     url = "ThirdPartyBetSetting/UpdateMicroGamingLiveCasinoStatus";
                     status = $("#enable-product").is(":checked") ? 1 : 0;
                     break;
@@ -243,6 +244,9 @@ var BetSetting = (function ($) {
                     break;
                 case TAB_VIRTUALSPORTS:
                     showComfirm('UpdateVirtualSportsBetSettings', BetSetting.updateDcsBetSetting);
+                    break;
+                case TAB_VIRTUALSPORTS2:
+                    showComfirm('UpdateVirtualSports2BetSettings', BetSetting.updateDcsBetSetting);
                     break;
                 case TAB_LIVECASINO:
                     showComfirm('UpdateLiveCasinoBetSettings', BetSetting.updateLiveCasinoBetSetting);

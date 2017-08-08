@@ -909,7 +909,7 @@
     <Content Include="Views\Desktop\LicenseeList\Index.cshtml" />
     <Content Include="www\css\build\dev\pages\utility\licenseelist.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\utility\licenseelist.css.map" />
-    <Content Include="Views\Desktop\Customer\BetSetting\BetradarVirtualSports.cshtml" />
+    <Content Include="Views\Desktop\Customer\BetSetting\VirtualSports2.cshtml" />
     <Content Include="Views\Customer\BetSetting\VirtualSports.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\VirtualSports.cshtml" />
     <Content Include="Views\BetList\LiveReport\VirtualSports.cshtml" />
@@ -938,7 +938,7 @@
     <Content Include="Views\Desktop\Customer\CustomerComm\CreateNewGroup.cshtml" />
     <Content Include="www\css\build\dev\pages\customer\commgroupdetail.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\customer\commgroupdetail.css.map" />
-    <Content Include="Views\Customer\BetSetting\BetradarVirtualSports.cshtml" />
+    <Content Include="Views\Customer\BetSetting\VirtualSports2.cshtml" />
     <None Include="www\css\source\pages\utility\um.scss" />
     <Content Include="www\css\build\images\bg-login.jpg" />
     <Content Include="www\css\build\images\excel-icon.svg" />
@@ -1301,13 +1301,11 @@
     <Content Include="www\js\source\pages\customer\betsetting\main-numbergame.js" />
     <Content Include="www\js\source\pages\customer\betsetting\main-rngcasino.js" />
     <Content Include="www\js\source\pages\customer\betsetting\main-thirdparty.js" />
-    <Content Include="www\js\source\pages\customer\betsetting\products\betradarvirtualsports.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\betsettingbygroup.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\dcsbetsetting.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\betsettingmain.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\keno.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\livecasino.js" />
-    <Content Include="www\js\source\pages\customer\betsetting\main-betradarvirtualsports.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\numbergame.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\rngcasino.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\thirdparty.js" />
@@ -1436,7 +1434,6 @@
     <Content Include="www\js\tests\pages\customer\betsetting\common\betsetting.validation-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\common\betsettingbase-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\products\betsettingbygroup-spec.js" />
-    <Content Include="www\js\tests\pages\customer\betsetting\products\betradarvirtualsports-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\products\rngcasino-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\products\betsettingmain-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\products\dcsbetsetting-spec.js" />

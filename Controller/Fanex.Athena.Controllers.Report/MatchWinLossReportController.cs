@@ -284,9 +284,9 @@
             {
                 row[NewProductIdColumnName] = ProductTypes.VirtualSports;
             }
-            else if (betType >= (int)BetType.BetradarVsFt1X2 && betType <= (int)BetType.BetradarVsMixParlay)
+            else if (betType >= (int)BetType.VirtualSports2Ft1X2 && betType <= (int)BetType.VirtualSports2MixParlay)
             {
-                row[NewProductIdColumnName] = ProductTypes.BetradarVirtualSports;
+                row[NewProductIdColumnName] = ProductTypes.VirtualSports2;
             }
             else
             {

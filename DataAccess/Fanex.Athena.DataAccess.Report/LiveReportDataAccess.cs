@@ -233,7 +233,7 @@ namespace Fanex.Athena.DataAccess.Report
                     return CacheRef.GetBettype((int)BetType.Outright);
 
                 case 104:
-                    return CacheRef.GetBettypeWithProductName((int)BetType.BetradarVsMixParlay, false);
+                    return CacheRef.GetBettypeWithProductName((int)BetType.VirtualSports2MixParlay, false);
 
                 default:
                     return CacheRef.GetSportName(sportType);

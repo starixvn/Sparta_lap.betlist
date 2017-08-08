@@ -50,7 +50,7 @@ namespace Fanex.Athena.Excel.Report
 
         private static readonly IEnumerable<int> SpecialBettypes = new int[]
         {
-            (int)BetType.MixParlay, (int)BetType.Outright, (int)BetType.CombinationMixParlay, (int)BetType.BetradarVsMixParlay
+            (int)BetType.MixParlay, (int)BetType.Outright, (int)BetType.CombinationMixParlay, (int)BetType.VirtualSports2MixParlay
         };
 
         private readonly MatchWinLossMetaModel _model;
@@ -414,7 +414,7 @@ namespace Fanex.Athena.Excel.Report
                 DataRow dataRow = exportData[i];
                 IRow betTypeRow = sheet.CopyRow(TemplateSheet, RowSpecialBetTypeTemplate, currentRowIndex);
                 int betType = Converter.ToInt(dataRow["bettype"]);
-                string betTypeName = betType == (int)BetType.BetradarVsMixParlay ? CacheRef.GetBettypeWithProductName(betType, false) : CacheRef.GetBettype(betType, false);
+                string betTypeName = betType == (int)BetType.VirtualSports2MixParlay ? CacheRef.GetBettypeWithProductName(betType, false) : CacheRef.GetBettype(betType, false);
 
                 betTypeRow.Cells[0].SetCellValue(betTypeName);
                 AssignRowContent(betTypeRow, dataRow, columnNameList, 2);
