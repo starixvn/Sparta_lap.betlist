@@ -24,7 +24,7 @@
         }
 
         [HttpGet]
-        public string GetMoveBetNotification()
+        public string Index()
         {
             var language = _languageService.GetCurrentLanguage();
 
