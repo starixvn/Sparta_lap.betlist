@@ -5,10 +5,8 @@
 // -----------------------------------------------------------------------
 namespace Fanex.Athena.Service.Core.Configuration.Interfaces
 {
-    using Fanex.Athena.Model.Core.DTO.Configuration;
-
     public interface IMoveBetService
-    {        
-        MoveBetNotification GetMoveBetNotification();
+    {
+        string GetMoveBetNotification(string language);
     }
 }
