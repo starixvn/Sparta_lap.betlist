@@ -29,7 +29,7 @@
     const string ControllerSuffix = "BetSetting";
 }
 
-<select id="product-dropdown" class="select hide" data-can-search="1">
+<select id="product-dropdown" class="select hide" data-can-search="1" data-can-enter="1">
     @foreach (var product in Model.BetSettingProducts)
     {
         var productName = product.ProductName;
