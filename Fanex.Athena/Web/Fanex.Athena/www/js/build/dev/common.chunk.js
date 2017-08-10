@@ -10383,7 +10383,7 @@
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(jQuery, $, __webpack_provided_window_dot_jQuery) {// Check for jQuery.
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(jQuery, $, __webpack_provided_window_dot_jQuery) {// Check for jQuery.
 	if (typeof(jQuery) === 'undefined') {
 	  var jQuery;
 	  // Check if require is a defined function.
@@ -15207,7 +15207,7 @@
 	
 	        $highlightItem.removeClass(HIGHLIGHT_CLASS);
 	        if ($highlightItem.length > 0 && index !== 0) {
-	            var $preItem = $highlightItem.prev(".option-item:visible");
+	            var $preItem = showOptionList.eq(index - 1);
 	            $preItem.addClass(HIGHLIGHT_CLASS);
 	            scrollToHighLightItem($selectList, $preItem, index - 1);
 	        }
@@ -15225,7 +15225,7 @@
 	
 	        $highlightItem.removeClass(HIGHLIGHT_CLASS);
 	        if ($highlightItem.length > 0 && index !== (showOptionList.length - 1)) {
-	            var $nextItem = $highlightItem.next(".option-item:visible");
+	            var $nextItem = showOptionList.eq(index + 1);
 	            $nextItem.addClass(HIGHLIGHT_CLASS);
 	            scrollToHighLightItem($selectList, $nextItem, index + 1);
 	        }
