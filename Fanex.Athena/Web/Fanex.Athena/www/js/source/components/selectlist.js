@@ -95,12 +95,15 @@
         }
     }
 
-    function keySearch($element) {
+    function keySearch($element, canEnter) {
         setTimeout(function () {
             var query = $element.val().toUpperCase();
-            var optionList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results")
-                .find(".option-item").removeClass(HIGHLIGHT_CLASS);
-            var isFirstItem = true;
+            var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
+            var optionList = $selectList.find(".option-item");
+            var isFirstItem = canEnter;
+            if (canEnter) {
+                optionList.removeClass(HIGHLIGHT_CLASS);
+            }
             optionList.each(function (index, item) {
                 var $item = $(item);
                 var currentText = $item.text().toUpperCase();
@@ -169,14 +172,14 @@
                     enter($this);
                 }
                 else {
-                    keySearch($this);
+                    keySearch($this, true);
                 }
             });
         }
         else {
             $searchBox.on("keyup", function (e) {
                 var $this = $(this);
-                keySearch($this);
+                keySearch($this, false);
             });
         }
 
