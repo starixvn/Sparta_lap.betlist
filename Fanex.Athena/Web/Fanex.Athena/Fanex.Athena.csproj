@@ -5796,6 +5796,10 @@
       <Project>{f266d127-f96b-4bcc-8138-88954fffd5a9}</Project>
       <Name>Fanex.Athena.Controllers.WareHouse</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Fanex.Athena.Api.ExternalService\Fanex.Athena.Api.ExternalService.csproj">
+      <Project>{33283837-a60b-44aa-815d-f61f70774de2}</Project>
+      <Name>Fanex.Athena.Api.ExternalService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
