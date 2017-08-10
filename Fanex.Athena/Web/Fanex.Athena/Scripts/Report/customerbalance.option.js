@@ -327,7 +327,7 @@ var CustomerBalanceOption = (function () {
             autowidth: true,
             forceFit: true,
             shrinkToFit: true,
-            loadtext: "loading...",
+            loadtext: '',
             loadui: "disable",
             loadonce: true,
             footerrow: true,

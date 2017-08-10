@@ -119,7 +119,7 @@ var BetListOption = (function () {
             rowNum: 50,
             rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
             pager: '#pager2',
-            loadtext: "Loading...",
+            loadtext: '',
             viewrecords: true,
             autowidth: true,
             shrinkToFit: true,
