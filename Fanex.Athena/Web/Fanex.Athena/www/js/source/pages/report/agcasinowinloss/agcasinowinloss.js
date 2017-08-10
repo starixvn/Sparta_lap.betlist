@@ -5,16 +5,12 @@ define(["jquery", "common/querystring", "common/site", "./agcasinowinloss.option
     function ($, QueryString, Site, AgCasinoWinLossOption, Report, jqGridAdditional, DatePicker, moment, DateHelper) {
         var cacheData = {};
         var ajaxRequest = null;
-        var totalRowCount = 0;
         var _level = 0;
         var VALID_MONTH_RANGE = 3;
         var _submitData;
         var _drilldownData;
 
         var _me = {
-            getTotalRowCount: function () {
-                return totalRowCount;
-            },
             initialize: function () {
                 Site.initialize();
                 DatePicker.initDateRangePicker();
@@ -81,22 +77,10 @@ define(["jquery", "common/querystring", "common/site", "./agcasinowinloss.option
 
             setReportTitle: function (currencyId, fromdate, todate) {
                 var titlePattern = Site.getSingleResource('AGCasinoWinLoss') + ', {0} → {1} - {2}';
-                var viewinKey = Site.getSingleResource("Viewin");
-                //get currencyName
-                var currencyTextList =
-                {
-                    "-3": viewinKey.replace("{0}", "GBP"),
-                    "-2": viewinKey.replace("{0}", "USD"),
-                    "-1": viewinKey.replace("{0}", "EUR"),
-                    "0": Site.getSingleResource('AllCurrencies')
-                };
-
-                var currencyStr = currencyTextList[currencyId] === undefined
-                    ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
-                    : currencyTextList[currencyId];
-
-                var title = $.format(titlePattern, fromdate.toString("M/dd/yyyy"), todate.toString("M/dd/yyyy"), currencyStr);
-                $("div.report-title").html(title);
+                var currencyName = Report.getCurrencyNameForReportTitle(currencyId);
+                var title = $.format(titlePattern, moment(fromdate).format("MM/DD/YYYY"), moment(todate).format("MM/DD/YYYY"), currencyName);
+                $(".report-title").html(title);
+                $(".panel-heading").removeClass("hide");
             },
             //#end
 
@@ -280,7 +264,6 @@ define(["jquery", "common/querystring", "common/site", "./agcasinowinloss.option
                 var reportGrid = $("#ReportGrid");
 
                 var numOfTotalRow = response.Total.length;
-                totalRowCount = numOfTotalRow;
 
                 var gridOption = AgCasinoWinLossOption.getGridOption(level);
                 gridOption.data = response.Data;
