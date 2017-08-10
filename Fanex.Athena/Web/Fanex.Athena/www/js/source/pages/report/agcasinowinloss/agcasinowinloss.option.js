@@ -1,8 +1,13 @@
 ﻿"use strict";
 define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], function ($, Site, jqGridAdditional) {
     var setDrillDownLink = function (level, currencyId, custId, datetime, cellvalue) {
-        return '<a class="drilldown" href="javascript:;" onclick="return AgCasinoWinLoss.drillDown(' + level + ',' +
-         currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
+        var data = {
+            level: level,
+            currencyId: currencyId,
+            custId: custId,
+            datetime: datetime
+        };
+        return "<a class='drilldown' href='javascript:;' data-drilldown='" + JSON.stringify(data) + "'>" + cellvalue + "</a>";
     };
 
     var currencyFormatter = function (cellvalue, options, rowObject) {
@@ -123,7 +128,6 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
     var licenseeWlColumn =
     {
         name: 'LicenseeWL',
-        classes: 'highlight',
         index: 'LicenseeWL',
         width: 100,
         align: 'right',
@@ -224,12 +228,15 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
 
     _me.getTotalColModel = function (level) {
         var colModel = _me.getColModel(level);
-        // Not show drill down link on total link
-        var curCol = JSLINQ(colModel).First(function (item) {
-            return item.name === "CurrencyName";
-        });
 
-        curCol.formatter = null;
+        for (var i = 0; i < colModel.length; i++) {
+            var item = colModel[i];
+            if (item.name === "CurrencyName") {
+                item.formatter = null;
+                break;
+            }
+        }
+        
         return colModel;
     };
 
