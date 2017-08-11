@@ -474,7 +474,6 @@ webpackJsonp([42],{
 	Licenseegrossrevenuefor:"Licensee gross revenue for {0}",
 	LicenseeIsNotExisted:"Not found licensee",
 	LicenseeNetWin:"Licensee Net Win",
-	LicenseeNotOfferedCurrency:"Licensee is not offered any currency",
 	LicenseeW_L:"Licensee W/L",
 	LicenseeWinLoss:"Licensee Win Loss",
 	LicenseeWinLossTip1:"Drill down to view data in",
@@ -904,6 +903,7 @@ webpackJsonp([42],{
 	UserNoLicensee:"This account is not assigned to any licensee.",
 	UserNotActive:"This account is deactived for LRF.",
 	UserNotExist:"Not found user",
+	UserNotHaveCurrency:"You do not have any currency permissions to view this report, please contact your administrator account.",
 	UserTooManyLicensees:"This account is assigned to more than 1 licensee.",
 	View:"View",
 	ViewBy:"View by",
@@ -945,8 +945,8 @@ webpackJsonp([42],{
 	Year:"Year",
 	Yes:"Yes",
 	Yesterday:"Yesterday",
-	YouAreNotAllowToAccessThisPage:"You are not allowed to access this page !!!",
-	YouNotChooseAnyCustomerMsg:"You still not choose any customer."
+	YouAreNotAllowToAccessThisPage:"You are not allowed to access this page, please contact your administrator account.",
+	YouNotChooseAnyCustomerMsg:"You did not choose any customers."
 	};
 
 
@@ -1718,6 +1718,7 @@ webpackJsonp([42],{
 	USD:"USD",
 	UserInformation:"用户信息",
 	Username:"用户名",
+	UserNotHaveCurrency:"您没有任何币别的权限可以观看这份报告, 请联络贵司的后台管理人员.",
 	View:"检视",
 	ViewBy:"查看由",
 	ViewDataInMonth:"检阅每月数据",
@@ -2523,6 +2524,7 @@ webpackJsonp([42],{
 	USD:"USD",
 	UserInformation:"用戶信息",
 	Username:"用戶名",
+	UserNotHaveCurrency:"您沒有任何幣別的權限可以觀看這份報告, 請聯絡貴司的後台管理人員.",
 	View:"檢視",
 	ViewBy:"查看由",
 	ViewDataInMonth:"检阅每月數據",
