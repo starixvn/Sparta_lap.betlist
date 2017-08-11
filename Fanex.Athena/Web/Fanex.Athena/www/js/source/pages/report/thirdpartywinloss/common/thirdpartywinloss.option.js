@@ -2,14 +2,21 @@
     function ($, Site, jqGridAdditional) {
         "use strict";
         var LICENSEE_12BET = 1;
+        var REPORT_BY_DAILY = 1;
 
         var setDrillDownLink = function (level, currencyId, custId, datetime, cellvalue) {
-            return '<a class="drilldown" href="javascript:;" onclick="return ThirdPartyWinLoss.drillDown(' + level + ',' +
-             currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
+            var param = {
+                Level: level,
+                CurrencyId: currencyId,
+                CustId: custId,
+                Datetime: datetime
+            }
+
+            return '<a class="drilldown" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
         };
 
         var currencyFormatter = function (cellvalue, options, rowObject) {
-            var level = ThirdPartyWinLossOption.licenseeId === LICENSEE_12BET ? 1 : 2;
+            var level = _me.licenseeId === LICENSEE_12BET ? 1 : 2;
             return setDrillDownLink(level, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
         };
 
@@ -121,7 +128,6 @@
         var licenseeWlColumn =
         {
             name: 'LicenseeWL',
-            classes: 'highlight',
             index: 'LicenseeWL',
             width: 100,
             align: 'right',
@@ -191,11 +197,11 @@
                 rownumbers: false
             },
 
-            getColName : function () {
+            getColName: function () {
                 return Site.getResources(colNameList);
             },
 
-            getColModel : function (level, canDrilldown) {
+            getColModel: function (level, reportBy, canDrilldown) {
                 level = Number(level);
 
                 if (canDrilldown) {
@@ -207,21 +213,22 @@
 
                 dateColumn.formatoptions =
                 {
-                    newformat: $('#reportbydaily').is(':checked') ? 'm/d/Y' : 'm/Y'
+                    newformat: reportBy === REPORT_BY_DAILY ? 'm/d/Y' : 'm/Y'
                 };
                 externalIdColumn.hidden = level < 2;
                 systemIdColumn.hidden = level === 0;
 
                 return Site.clone(colModelList);
             },
-            getGridOption : function (level, canDrilldown) {
-                _me.gridOption.colNames = _me.getColName();
-                _me.gridOption.colModel = _me.getColModel(level, canDrilldown);
-                return Site.clone(_me.gridOption);
+            getGridOption: function (level, reportByDaily, canDrilldown) {
+                var gridOption = Site.clone(_me.gridOption);
+                gridOption.colNames = _me.getColName();
+                gridOption.colModel = _me.getColModel(level, reportByDaily, canDrilldown);
+                return gridOption;
             },
 
-            getTotalColModel : function (level) {
-                var colModel = _me.getColModel(level);
+            getTotalColModel: function (level, reportByDaily) {
+                var colModel = _me.getColModel(level, reportByDaily);
                 // Not show drill down link on total link
                 colModel[_me.currencyColumnIndex].formatter = null;
 

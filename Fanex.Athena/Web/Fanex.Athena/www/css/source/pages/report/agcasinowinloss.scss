@@ -1,9 +1,1 @@
-﻿@import '../../scss/abstracts/_variables.scss';
-@import 'thirdpartywinloss';
-@import '../../components/jqgrid/multipletotalblock';
-
-$colorTextTotal: $black;
-
-.grandTotal, .total-eur {
-    color: $colorTextTotal;
-}
+﻿@import 'thirdpartywinloss';

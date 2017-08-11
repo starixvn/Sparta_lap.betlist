@@ -6,7 +6,8 @@
                 UserGuideResourceName: "GoldDeluxeWinLoss",
                 UserGuideTitle: "GoldDeluxeWinLoss",
                 ValidMonthRange: 3,
-                ReportTitle: "GoldDeluxeWinLoss"
+                ReportTitle: "GoldDeluxeWinLoss",
+                CanDrilldown: true
             });
         }
 
