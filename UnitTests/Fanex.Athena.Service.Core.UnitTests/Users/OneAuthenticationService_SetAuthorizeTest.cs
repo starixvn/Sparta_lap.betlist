@@ -8,6 +8,7 @@
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DTO;
     using Model.Core.DTO.Common;
+    using Model.Core.DTO.OneAuth;
     using Model.Core.DTO.Users;
     using Newtonsoft.Json;
     using NSubstitute;
@@ -48,16 +49,31 @@
         }
 
         [Test]
+        public void SignIn_SetAuthorize_IfNotAdminNotCallGetCurrencyFromDB()
+        {
+            // Arrange
+            var tokenInfo = new OneAuthToken { IsAdminstrator = false };
+
+            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService, null);
+
+            // Action
+            _oneAuthenticationService.SetAuthorize(tokenInfo);
+
+            // Assert
+            _currencyService.DidNotReceive().GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>());
+        }
+
+        [Test]
         public void SignIn_SetAuthorize_ReturnErrorLicenseDoesNotOfferedCurrency()
         {
             // Arrange
-            var tokenInfo = new OneAuthenticationToken { UserSEQ = 1, UserID = "pgmAlex", SiteName = "spondemo" };
+            var tokenInfo = new OneAuthToken { UserSEQ = 1, UserID = "pgmAlex", SiteName = "spondemo" };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
 
             _currencyService.GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(new List<CurrencyUser>());
 
-            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService);
+            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService, null);
 
             var expectedResult = new ResultInfo { Code = 600, Message = "Not found currency" };
 
@@ -78,9 +94,8 @@
             const int ExpectedLicId = 1;
             UserSession user = null;
             LicenseeSession lic = null;
-            OneAuthenticationToken tokenInfo;
+            OneAuthToken tokenInfo;
             Licensee expectedLicInfo;
-            var expectedCurrency = FakeCurrencyListMapByUser();
             CreateTokenInfoAndLicInfo(ExpectedLicId, out tokenInfo, out expectedLicInfo);
             var expectedCookie = $"{tokenInfo.VendorID}_{tokenInfo.SiteName}_{tokenInfo.UserID}";
             var expectedAgents = new List<LicenseeCustomer> { new LicenseeCustomer() };
@@ -101,7 +116,7 @@
             _formAuthenticationService.When(x => x.SetAuthCookie(expectedCookie, false)).Do(x => cookieCounter++);
 
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(
-                _sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService);
+                _sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService, null);
 
             _oneAuthenticationService.GetStringFromFile(Arg.Any<string>()).Returns(GetJsonSystemFunctionList());
 
@@ -115,25 +130,33 @@
             Assert.AreEqual(1, sessionCounter);
             Assert.AreEqual(1, cookieCounter);
             Assert.False(string.IsNullOrEmpty(result.ExtendedData));
-            Assert.True(VeryfiLicSession(lic, expectedLicInfo, tokenInfo));
+            Assert.True(VeryfiLicSession(lic, expectedLicInfo));
         }
 
-        private static bool VeryfiLicSession(LicenseeSession lic, Licensee expectedLicInfo, OneAuthenticationToken tokenInfo)
+        private static bool VeryfiLicSession(LicenseeSession lic, Licensee expectedLicInfo)
         {
             return lic.LicenseeId == expectedLicInfo.Id && lic.LicenseeName == expectedLicInfo.Name
                  && lic.IsEnableBA == expectedLicInfo.IsEnableBA && lic.IsAllowedCustomerComm == expectedLicInfo.IsAllowedCustomerComm;
         }
 
-        private static void CreateTokenInfoAndLicInfo(int expectedLicId, out OneAuthenticationToken tokenInfo, out Licensee expectedLicInfo)
+        private static void CreateTokenInfoAndLicInfo(int expectedLicId, out OneAuthToken tokenInfo, out Licensee expectedLicInfo)
         {
-            tokenInfo = new OneAuthenticationToken
+            tokenInfo = new OneAuthToken
             {
                 UserSEQ = 1,
                 UserID = "pgmAlex",
                 SiteName = "spondemo",
                 VendorID = "locl",
                 ActionLink = "test",
-                Language = "cs"
+                Language = "cs",
+                Currency = new OneAuthCurrency[]
+                {
+                    new OneAuthCurrency()
+                },
+                Permissions = new OneAuthPermission[]
+                {
+                    new OneAuthPermission()
+                }
             };
             expectedLicInfo = new Licensee
             {
@@ -164,8 +187,8 @@
         {
             var items = new List<PortalSystemFunction>
                 {
-                    new PortalSystemFunction { FunctionId = 1, FunctionKey = "LicenseeWinLoss" },
-                    new PortalSystemFunction { FunctionId = 1, FunctionKey = "BalanceReport" }
+                    new PortalSystemFunction { FunctionKey = "LicenseeWinLoss" },
+                    new PortalSystemFunction { FunctionKey = "BalanceReport" }
                 };
             return JsonConvert.SerializeObject(items);
         }

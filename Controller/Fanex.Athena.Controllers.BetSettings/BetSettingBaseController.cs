@@ -23,6 +23,8 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Service.BetSettings.Interfaces;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Users;
+    using Service.Core.Users.Interfaces;
     using Web.ActionFilter;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
@@ -30,6 +32,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
     public class BetSettingBaseController : BaseController
     {
+        private readonly IAuthorizationService _authorizationService;
         private readonly ICoreBetSettingService _coreBetSettingService;
         private readonly ICustomerService _customerService;
         private readonly IProductService _productService;
@@ -37,6 +40,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         public BetSettingBaseController()
         {
+            _authorizationService = new AuthorizationService();
             this._coreBetSettingService = new CoreBetSettingService();
             this._customerService = new CustomerService();
             this._productService = new ProductService();
@@ -88,9 +92,10 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         protected bool IsBetSettingEditable()
         {
-            return _coreBetSettingService.IsBetSettingEditable(
-                SessionService.LicenseeSession.LicenseeId,
-                SessionService.UserSession.UserId);
+            var userSession = SessionService.UserSession;
+            return userSession.ApplicationMode == AppMode.Parasitic ?
+                      _authorizationService.HasPermissions(userSession.PortalFunctionList, PermissionKeys.CustomerInfoEditBetSetting) :
+                      _authorizationService.HasPermissions(userSession.FunctionIdList, PermissionKeys.CustomerInfoEditBetSetting);
         }
 
         protected decimal GetDecimalRequest(string name, decimal defaultValue)

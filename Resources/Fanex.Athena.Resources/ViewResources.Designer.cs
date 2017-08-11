@@ -4174,15 +4174,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Licensee is not offered any currency.
-        /// </summary>
-        public static string LicenseeNotOfferedCurrency {
-            get {
-                return ResourceManager.GetString("LicenseeNotOfferedCurrency", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Licensee W/L.
         /// </summary>
         public static string LicenseeW_L {
@@ -8017,6 +8008,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You do not have any currency permissions to view this report, please contact your administrator account..
+        /// </summary>
+        public static string UserNotHaveCurrency {
+            get {
+                return ResourceManager.GetString("UserNotHaveCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This account is assigned to more than 1 licensee..
         /// </summary>
         public static string UserTooManyLicensees {
@@ -8368,7 +8368,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are not allowed to access this page !!!.
+        ///   Looks up a localized string similar to You are not allowed to access this page, please contact your administrator account..
         /// </summary>
         public static string YouAreNotAllowToAccessThisPage {
             get {
@@ -8377,7 +8377,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You still not choose any customer..
+        ///   Looks up a localized string similar to You did not choose any customers..
         /// </summary>
         public static string YouNotChooseAnyCustomerMsg {
             get {

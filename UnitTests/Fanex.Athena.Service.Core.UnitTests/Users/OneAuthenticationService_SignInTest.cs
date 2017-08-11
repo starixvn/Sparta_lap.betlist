@@ -7,6 +7,7 @@
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
+    using Model.Core.DTO.OneAuth;
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
@@ -36,7 +37,8 @@
                 _licenseeService,
                 _currencyService,
                 _formAuthenticationService,
-                _userService);
+                _userService,
+                null);
         }
 
         [TearDown]
@@ -50,6 +52,27 @@
         }
 
         [Test]
+        public void SignIn_IfAdminCallGetCurrencyFromDB()
+        {
+            // Arrange
+            var tokenInfo = new OneAuthToken { IsAdminstrator = true, UserSEQ = 1 };
+            var licensee = new Licensee
+            {
+                Id = 1
+            };
+            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService, null);
+            _licenseeService.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
+
+            var fakeHttpContext = Substitute.For<HttpContextBase>();
+
+            // Action
+            _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
+
+            // Assert
+            _currencyService.Received().GetCurrenciesByUser(licensee.Id, tokenInfo.UserSEQ);
+        }
+
+        [Test]
         public void SignIn_NotHaveSession_CallSetAuthorize()
         {
             // Arrange
@@ -58,21 +81,23 @@
             {
                 Id = 1
             };
-            var tokenInfo = new OneAuthenticationToken { UserID = "1" };
+            var currencies = new OneAuthCurrency[] { new OneAuthCurrency() };
+            var permissions = new OneAuthPermission[] { new OneAuthPermission() };
+            var tokenInfo = new OneAuthToken { UserID = "1", Currency = currencies, Permissions = permissions };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
             _sessionService.UserSession.Returns(x => null);
             _sessionService.LicenseeSession.Returns(x => null);
-            _oneAuthenticationService.When(x => x.SetAuthorize(licensee, Arg.Any<string>(), tokenInfo)).DoNotCallBase();
+            _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).DoNotCallBase();
 
-            _oneAuthenticationService.When(x => x.SetAuthorize(licensee, Arg.Any<string>(), tokenInfo)).Do(x => counter++);
+            _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).Do(x => counter++);
             _licenseeService.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
 
             // Action
-            var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
+            _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Result
-            _oneAuthenticationService.Received().SetAuthorize(licensee, Arg.Any<string>(), tokenInfo);
+            _oneAuthenticationService.Received().SetAuthorize(tokenInfo);
             Assert.AreEqual(1, counter);
         }
 
@@ -98,8 +123,8 @@
 
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(true);
             fakeHttpContext.User.Identity.Name.Returns(tokenInfo.UserID);
-            _oneAuthenticationService.When(x => x.SetAuthorize(licensee, Arg.Any<string>(), tokenInfo)).DoNotCallBase();
-            _oneAuthenticationService.When(x => x.SetAuthorize(licensee, Arg.Any<string>(), tokenInfo)).Do(x => counter++);
+            _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).DoNotCallBase();
+            _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).Do(x => counter++);
             _sessionService.When(x => x.UpdateLanguage(Arg.Any<string>())).Do(x => langCounter++);
             _sessionService.UpdateLanguage(Arg.Is<string>(newLanguageCode)).Returns(true);
             _licenseeService.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
@@ -108,7 +133,7 @@
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Result
-            _oneAuthenticationService.DidNotReceive().SetAuthorize(Arg.Any<Licensee>(), Arg.Any<string>(), Arg.Is<OneAuthenticationToken>(tokenInfo));
+            _oneAuthenticationService.DidNotReceive().SetAuthorize(Arg.Is<OneAuthToken>(tokenInfo));
             Assert.AreEqual(0, counter);
             _sessionService.Received(1).UpdateLanguage(Arg.Any<string>());
             Assert.AreEqual(1, langCounter);
@@ -130,15 +155,15 @@
 
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(true);
             fakeHttpContext.User.Identity.Name.Returns(tokenInfo.UserID);
-            _oneAuthenticationService.When(x => x.SetAuthorize(licensee, Arg.Any<string>(), tokenInfo)).DoNotCallBase();
-            _oneAuthenticationService.When(x => x.SetAuthorize(licensee, Arg.Any<string>(), tokenInfo)).Do(x => counter++);
+            _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).DoNotCallBase();
+            _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).Do(x => counter++);
             _licenseeService.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
 
             // Action
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Result
-            _oneAuthenticationService.DidNotReceive().SetAuthorize(Arg.Is<Licensee>(licensee), Arg.Any<string>(), Arg.Is<OneAuthenticationToken>(tokenInfo));
+            _oneAuthenticationService.DidNotReceive().SetAuthorize(Arg.Is<OneAuthToken>(tokenInfo));
             Assert.AreEqual(0, counter);
             Assert.True(result.ExtendedData.Equals(tokenInfo.ActionLink));
         }
@@ -146,7 +171,7 @@
         public void SignIn_LicenseeNameIsNotExisted_ReturnErrorCodeEqual200()
         {
             // Arrange
-            var tokenInfo = new OneAuthenticationToken { UserSEQ = 1, UserID = "alex", VendorID = "spondemo" };
+            var tokenInfo = new OneAuthToken { UserSEQ = 1, UserID = "alex", VendorID = "spondemo" };
 
             var fakeHttpContext = Substitute.For<HttpContextBase>();
 
@@ -181,7 +206,9 @@
 
             var counter = 0;
 
-            var tokenInfo = new OneAuthenticationToken { UserSEQ = 1, UserID = "alex", VendorID = "spondemo" };
+            var currencies = new OneAuthCurrency[] { new OneAuthCurrency() };
+            var permissions = new OneAuthPermission[] { new OneAuthPermission() };
+            var tokenInfo = new OneAuthToken { UserSEQ = 1, UserID = "alex", VendorID = "spondemo", Currency = currencies, Permissions = permissions };
             var userSession = new UserSession
             {
                 UserId = 1,
@@ -202,15 +229,15 @@
             fakeHttpContext.User.Identity.Name.Returns(tokenInfo.UserID);
             _sessionService.UserSession.Returns(x => userSession);
             _sessionService.LicenseeSession.Returns(x => licSession);
-            _oneAuthenticationService.When(x => x.SetAuthorize(licensee, Arg.Any<string>(), tokenInfo)).DoNotCallBase();
-            _oneAuthenticationService.When(x => x.SetAuthorize(licensee, Arg.Any<string>(), tokenInfo)).Do(x => counter++);
+            _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).DoNotCallBase();
+            _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).Do(x => counter++);
             _licenseeService.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
 
             // Action
-            var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
+            _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Result
-            _oneAuthenticationService.Received().SetAuthorize(Arg.Any<Licensee>(), Arg.Any<string>(), Arg.Is<OneAuthenticationToken>(tokenInfo));
+            _oneAuthenticationService.Received().SetAuthorize(Arg.Is<OneAuthToken>(tokenInfo));
             Assert.AreEqual(1, counter);
         }
 
@@ -218,7 +245,7 @@
         public void SignIn_GetLicenseeByNameReturnNull_ReturnCorrectResultInfo()
         {
             // Arrange
-            var tokenInfo = new OneAuthenticationToken { SiteName = "spondemo" };
+            var tokenInfo = new OneAuthToken { SiteName = "spondemo" };
             Licensee licensee = null;
             _licenseeService.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
             var expectedResult = new ResultInfo
@@ -238,9 +265,17 @@
             });
         }
 
-        private OneAuthenticationToken FakeSessionFixToken(int licenseeId)
+        private OneAuthToken FakeSessionFixToken(int licenseeId)
         {
-            var tokenInfo = new OneAuthenticationToken { UserSEQ = 1, UserID = "alex", VendorID = "spondemo", ActionLink = "LiceenseeWLReport" };
+            var tokenInfo = new OneAuthToken
+            {
+                UserSEQ = 1,
+                UserID = "alex",
+                VendorID = "spondemo",
+                ActionLink = "LiceenseeWLReport",
+                Currency = new OneAuthCurrency[] { new OneAuthCurrency() },
+                Permissions = new OneAuthPermission[] { new OneAuthPermission() }
+            };
             var userSession = new UserSession
             {
                 UserId = tokenInfo.UserSEQ,

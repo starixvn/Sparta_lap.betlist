@@ -215,8 +215,8 @@ namespace Fanex.Athena.Controllers
                 case OneAuthorizationErrorCode.LocationRestrictionMsg:
                     return string.Format(ViewResources.LocationRestrictionMsg, ViewResources.Administrator);
 
-                case OneAuthorizationErrorCode.LicenseeNotOfferedCurrency:
-                    return ViewResources.LicenseeNotOfferedCurrency;
+                case OneAuthorizationErrorCode.UserNotHaveCurrency:
+                    return ViewResources.UserNotHaveCurrency;
 
                 case OneAuthorizationErrorCode.YouAreNotAllowToAccessThisPage:
                     return ViewResources.YouAreNotAllowToAccessThisPage;

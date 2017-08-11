@@ -3,19 +3,19 @@
     using System;
     using System.Configuration;
     using Core.Exception;
-    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Service.Core.Users.Interfaces;
+    using Model.Core.DTO.OneAuth;
     using ONEbook.Security;
 
     public class OneBookSecurityWrapper : IOneBookSecurityWrapper
     {
-        public OneAuthenticationToken Authenticate(string token)
+        public OneAuthToken Authenticate(string token)
         {
-            OneAuthenticationToken result = null;
+            OneAuthToken result = null;
             try
             {
                 var connectionString = ConfigurationManager.ConnectionStrings["ConnectionString_ClearinghouseDB"].ConnectionString;
-                var oneBookSecurity = new Auth<OneAuthenticationToken>(connectionString);
+                var oneBookSecurity = new Auth<OneAuthToken>(connectionString);
                 oneBookSecurity.Authenticate(token, ref result);
             }
             catch (Exception exception)

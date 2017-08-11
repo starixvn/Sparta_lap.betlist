@@ -1,4 +1,4 @@
-﻿// Generated at: 6/14/2017 3:27:38 PM
+﻿// Generated at: 7/17/2017 5:41:25 PM
 var _language_zh_TW = {
 AA:"客客",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -675,6 +675,7 @@ Suspended:"暫停",
 Symbol:"符號",
 SystemId:"系統帳號",
 SystemParlay:"複式過關",
+SystemParlayDetailNote:"輸贏的進位值僅供參考。因此，所有輸贏相加的總計有可能和小計有差數。",
 Team:"隊伍",
 TermDefinition:"語定義",
 TF:"大熱門",
@@ -760,6 +761,7 @@ UpdateVirtualSportsBetSettingSuccessMsg:"{0}的虛擬運動投注設置已成功
 USD:"USD",
 UserInformation:"用戶信息",
 Username:"用戶名",
+UserNotHaveCurrency:"您沒有任何幣別的權限可以觀看這份報告, 請聯絡貴司的後台管理人員.",
 View:"檢視",
 ViewBy:"查看由",
 ViewDataInMonth:"检阅每月數據",

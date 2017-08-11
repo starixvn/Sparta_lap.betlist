@@ -15,7 +15,7 @@ webpackJsonp([42],{
 /***/ 97:
 /***/ (function(module, exports) {
 
-	// Generated at: 6/6/2017 1:23:39 PM
+	// Generated at: 7/17/2017 5:41:18 PM
 	window._language_en_US = {
 	AA:"AA",
 	AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -213,6 +213,7 @@ webpackJsonp([42],{
 	CustomerW_L:"Customer W/L",
 	CustomerWinLoss:"Customer Win Loss",
 	CustomerWinLossTitle:"Customer Win/Loss, {0} --&gt; {1} - {2}",
+	CustomerWinnings:"Customer&apos;s Winnings",
 	DA:"DA",
 	Daily:"Daily",
 	DailyBetList:"Daily Bet List",
@@ -472,7 +473,6 @@ webpackJsonp([42],{
 	Licenseegrossrevenuefor:"Licensee gross revenue for {0}",
 	LicenseeIsNotExisted:"Not found licensee",
 	LicenseeNetWin:"Licensee Net Win",
-	LicenseeNotOfferedCurrency:"Licensee is not offered any currency",
 	LicenseeW_L:"Licensee W/L",
 	LicenseeWinLoss:"Licensee Win Loss",
 	LicenseeWinLossTip1:"Drill down to view data in",
@@ -524,7 +524,6 @@ webpackJsonp([42],{
 	May:"May",
 	MeettingCurrency:"Meeting - Currency",
 	Member:"Member",
-	MemberWinnings:"Member&apos;s Winnings",
 	MessageCommCannotGreaterThan:"Commission cannot be greater than 15%",
 	MessageCommNoChange:"Commission is not change",
 	MessageGroupCreationFail:"Group creation failed",
@@ -590,9 +589,9 @@ webpackJsonp([42],{
 	Normal:"Normal",
 	NotAllowBA:"This licensee is not allowed BA",
 	NotAuthorizedMsg:"You are not authorized on this function",
+	Note:"Note",
 	NotIdenticalPasswordMsg:"Passwords are not identical",
 	Notification:"Notification",
-	NotificationMessage:"Data processing is in progress, and thus data after {0} will be affected. The expected time to finish is {1} GMT-4. We are sorry for any inconvenience caused.",
 	NotSupportYet:"This game type has not been supported yet!",
 	Nov:"Nov",
 	November:"November",
@@ -800,6 +799,7 @@ webpackJsonp([42],{
 	Symbol:"Symbol",
 	SystemId:"System ID",
 	SystemParlay:"System Parlay",
+	SystemParlayDetailNote:"Win Loss is rounded for reference only. Therefore, Sub Total amount may be different from the sum of Win Loss when it sums all the actual Win Loss amounts.",
 	TableType:"Table Type",
 	Team:"Team",
 	TermDefinition:"Term Definition",
@@ -899,6 +899,7 @@ webpackJsonp([42],{
 	UserNoLicensee:"This account is not assigned to any licensee.",
 	UserNotActive:"This account is deactived for LRF.",
 	UserNotExist:"Not found user",
+	UserNotHaveCurrency:"You do not have any currency permissions to view this report, please contact your administrator account.",
 	UserTooManyLicensees:"This account is assigned to more than 1 licensee.",
 	View:"View",
 	ViewBy:"View by",
@@ -938,8 +939,8 @@ webpackJsonp([42],{
 	Year:"Year",
 	Yes:"Yes",
 	Yesterday:"Yesterday",
-	YouAreNotAllowToAccessThisPage:"You are not allowed to access this page !!!",
-	YouNotChooseAnyCustomerMsg:"You still not choose any customer."
+	YouAreNotAllowToAccessThisPage:"You are not allowed to access this page, please contact your administrator account.",
+	YouNotChooseAnyCustomerMsg:"You did not choose any customers."
 	};
 
 
@@ -948,7 +949,7 @@ webpackJsonp([42],{
 /***/ 98:
 /***/ (function(module, exports) {
 
-	// Generated at: 6/6/2017 1:23:39 PM
+	// Generated at: 7/17/2017 5:41:18 PM
 	window._language_zh_CN = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -977,13 +978,17 @@ webpackJsonp([42],{
 	AllBetTypes:"所有投注类型",
 	AllCurrencies:"所有货币",
 	AllSites:"所有网站",
+	Amount:"金额",
 	AmountDue:"应付金额",
 	AmountDueTo:"应付金额",
+	AmountDueToCB:"应付金额至CB足彩",
 	AmtDueTo:"Amt Due To",
 	AmtDueToBA:"BA金额",
 	AmtDueToBABalanceNote:"BA金额: 在BA合作上，承租公司需支付或应获得的金额",
 	AmtDueToRacing:"赛事金额",
 	AmtDueToRacingBalanceNote:"赛事金额: 在赛事产品上，承租公司需支付或应获得的金额",
+	AmtGreaterThan30kGBP:"金额≥ 30,000英镑",
+	AmtLessThan30kGBP:"金额&lt; 30,000英镑",
 	Apr:"四月",
 	April:"四月",
 	AreYouSure:"您确定要继续吗?",
@@ -1036,7 +1041,9 @@ webpackJsonp([42],{
 	CancelledBets:"已删除/作废注单",
 	CancelledBetsTitle:"作废/已删除注单(3天纪录)",
 	CashOutAmount:"预先兑现金额",
+	CashOutAmt:"兑现金额",
 	CashOutDetails:"预先兑现详情",
+	CashOutShare:"兑现分红",
 	CashOutStake:"预先兑现赌注",
 	CashOutTicketsList:"预先兑现投注单",
 	CashOutWinLoss:"即时兑现输赢",
@@ -1058,12 +1065,14 @@ webpackJsonp([42],{
 	Closed:"关闭",
 	ClosingBalance:"期末余额",
 	CoinSize:"硬币尺寸",
+	ColossusBetsWinLoss:"CB足彩输赢",
 	Columns:"Columns",
 	Combination:"组合",
 	Comm:"佣金",
 	CommIsClear:"会员的佣金已清空",
 	Commission:"佣金",
 	CommissionGroupList:"佣金组别列表",
+	CommissionShare:"佣金",
 	CommIsUnChange:"会员的佣金是不变的",
 	Completed:"已完场",
 	Confirm:"确认",
@@ -1111,6 +1120,7 @@ webpackJsonp([42],{
 	CustomerW_L:"会员输赢",
 	CustomerWinLoss:"会员輸贏",
 	CustomerWinLossTitle:"会员输赢, {0} --&gt; {1} - {2}",
+	CustomerWinnings:"会员总赢",
 	DA:"和客",
 	Daily:"每日",
 	DailyBetList:"每日投注历史",
@@ -1438,7 +1448,6 @@ webpackJsonp([42],{
 	NotAuthorizedMsg:"您没有被授权于此功能",
 	NotIdenticalPasswordMsg:"密码不相同",
 	Notification:"通知",
-	NotificationMessage:"数据正在处理中，在{0}后的数据将受到影响. 预计完成时间为 {1} GMT-4. 很抱歉造成您的困扰.",
 	NotSupportYet:"目前还不支持此游戏",
 	Nov:"十一月",
 	November:"十一月",
@@ -1617,6 +1626,7 @@ webpackJsonp([42],{
 	Symbol:"符号",
 	SystemId:"系统账号",
 	SystemParlay:"复式过关",
+	SystemParlayDetailNote:"输赢的进位值仅供参考。因此，所有输赢相加的总计有可能和小计有差数。",
 	Team:"队伍",
 	TermDefinition:"术语定义",
 	TF:"大热门",
@@ -1702,6 +1712,7 @@ webpackJsonp([42],{
 	USD:"USD",
 	UserInformation:"用户信息",
 	Username:"用户名",
+	UserNotHaveCurrency:"您没有任何币别的权限可以观看这份报告, 请联络贵司的后台管理人员.",
 	View:"检视",
 	ViewBy:"查看由",
 	ViewDataInMonth:"检阅每月数据",
@@ -1735,9 +1746,7 @@ webpackJsonp([42],{
 	Year:"年份",
 	Yes:"是",
 	Yesterday:"昨日",
-	YouNotChooseAnyCustomerMsg: "您还没有选择任何会员",
-	AmtLessThan30kGBP: "金额< 30,000英镑",
-	AmtGreaterThan30kGBP: "金额≥ 30,000英镑"
+	YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 	};
 
 
@@ -1746,7 +1755,7 @@ webpackJsonp([42],{
 /***/ 99:
 /***/ (function(module, exports) {
 
-	// Generated at: 6/6/2017 1:23:39 PM
+	// Generated at: 7/17/2017 5:41:18 PM
 	window._language_zh_TW = {
 	AA:"客客",
 	AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -1775,13 +1784,17 @@ webpackJsonp([42],{
 	AllBetTypes:"所有投注類型",
 	AllCurrencies:"所有貨幣",
 	AllSites:"所有網站",
+	Amount:"金額",
 	AmountDue:"應付金額",
 	AmountDueTo:"應付金額",
+	AmountDueToCB:"應付金額至CB足彩",
 	AmtDueTo:"Amt Due To",
 	AmtDueToBA:"BA金額",
 	AmtDueToBABalanceNote:"BA金額: 在BA合作上，承租公司需支付或應獲得的金額",
 	AmtDueToRacing:"賽事金額",
 	AmtDueToRacingBalanceNote:"賽事金額: 在賽事產品上，承租公司需支付或應獲得的金額",
+	AmtGreaterThan30kGBP:"金額≥ 30,000英鎊",
+	AmtLessThan30kGBP:"金額&lt; 30,000英鎊",
 	Apr:"四月",
 	April:"四月",
 	AreYouSure:"您確定要繼續嗎？",
@@ -1834,7 +1847,9 @@ webpackJsonp([42],{
 	CancelledBets:"已刪除/作廢注單",
 	CancelledBetsTitle:"作廢/已刪除注單（3天紀錄）",
 	CashOutAmount:"即時兌現金額",
+	CashOutAmt:"兌現金額",
 	CashOutDetails:"即時兌現詳情",
+	CashOutShare:"兌現分紅",
 	CashOutStake:"即時兌現本金",
 	CashOutTicketsList:"即時兌現注單",
 	CashOutWinLoss:"即時兌現輸贏",
@@ -1856,12 +1871,14 @@ webpackJsonp([42],{
 	Closed:"關閉",
 	ClosingBalance:"期末餘額",
 	CoinSize:"硬幣尺寸",
+	ColossusBetsWinLoss:"CB足彩輸贏",
 	Columns:"Columns",
 	Combination:"組合",
 	Comm:"佣金",
 	CommIsClear:"會員的佣金已清空",
 	Commission:"佣金",
 	CommissionGroupList:"佣金組別列表",
+	CommissionShare:"佣金",
 	CommIsUnChange:"會員的佣金是不變的",
 	Completed:"已完場",
 	Confirm:"確認",
@@ -1909,6 +1926,7 @@ webpackJsonp([42],{
 	CustomerW_L:"會員輸贏",
 	CustomerWinLoss:"會員輸贏",
 	CustomerWinLossTitle:"會員輸贏，{0} --&gt; {1} - {2}",
+	CustomerWinnings:"會員總贏",
 	DA:"和客",
 	Daily:"每日",
 	DailyBetList:"每日投注歷史",
@@ -2236,7 +2254,6 @@ webpackJsonp([42],{
 	NotAuthorizedMsg:"您沒有被授權於此功能",
 	NotIdenticalPasswordMsg:"密碼不相同",
 	Notification:"通知",
-	NotificationMessage:"資料正在處理中，在{0}後的資料將受到影響. 預計完成時間為 {1} GMT-4. 很抱歉造成您的困擾.",
 	NotSupportYet:"目前還不支持此遊戲",
 	Nov:"十一月",
 	November:"十一月",
@@ -2415,6 +2432,7 @@ webpackJsonp([42],{
 	Symbol:"符號",
 	SystemId:"系統帳號",
 	SystemParlay:"複式過關",
+	SystemParlayDetailNote:"輸贏的進位值僅供參考。因此，所有輸贏相加的總計有可能和小計有差數。",
 	Team:"隊伍",
 	TermDefinition:"語定義",
 	TF:"大熱門",
@@ -2500,6 +2518,7 @@ webpackJsonp([42],{
 	USD:"USD",
 	UserInformation:"用戶信息",
 	Username:"用戶名",
+	UserNotHaveCurrency:"您沒有任何幣別的權限可以觀看這份報告, 請聯絡貴司的後台管理人員.",
 	View:"檢視",
 	ViewBy:"查看由",
 	ViewDataInMonth:"检阅每月數據",
@@ -2533,9 +2552,7 @@ webpackJsonp([42],{
 	Year:"年份",
 	Yes:"是",
 	Yesterday:"昨日",
-	YouNotChooseAnyCustomerMsg: "您還沒有選擇任何會員",
-	AmtLessThan30kGBP: "金額< 30,000英鎊",
-	AmtGreaterThan30kGBP: "金額≥ 30,000英鎊"
+	YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 	};
 
 
@@ -2544,7 +2561,7 @@ webpackJsonp([42],{
 /***/ 100:
 /***/ (function(module, exports) {
 
-	// Generated at: 6/6/2017 1:23:39 PM
+	// Generated at: 7/17/2017 5:41:18 PM
 	window._language_zh_Hans = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -2573,13 +2590,17 @@ webpackJsonp([42],{
 	AllBetTypes:"所有投注类型",
 	AllCurrencies:"所有货币",
 	AllSites:"所有网站",
+	Amount:"金额",
 	AmountDue:"应付金额",
 	AmountDueTo:"应付金额",
+	AmountDueToCB:"应付金额至CB足彩",
 	AmtDueTo:"Amt Due To",
 	AmtDueToBA:"BA金额",
 	AmtDueToBABalanceNote:"BA金额: 在BA合作上，承租公司需支付或应获得的金额",
 	AmtDueToRacing:"赛事金额",
 	AmtDueToRacingBalanceNote:"赛事金额: 在赛事产品上，承租公司需支付或应获得的金额",
+	AmtGreaterThan30kGBP:"金额≥ 30,000英镑",
+	AmtLessThan30kGBP:"金额&lt; 30,000英镑",
 	Apr:"四月",
 	April:"四月",
 	AreYouSure:"您确定要继续吗?",
@@ -2627,6 +2648,8 @@ webpackJsonp([42],{
 	Cancel:"取消",
 	CancelledBets:"已删除/作废注单",
 	CancelledBetsTitle:"作废/已删除注单(3天纪录)",
+	CashOutAmt:"兑现金额",
+	CashOutShare:"兑现分红",
 	CASINOHANDHISTORY:"赌场下注历史",
 	CasinoTransfer:"娱乐城的总转账额",
 	ChangePassword:"更改密码",
@@ -2644,12 +2667,14 @@ webpackJsonp([42],{
 	Closed:"关闭",
 	ClosingBalance:"期末余额",
 	CoinSize:"硬币尺寸",
+	ColossusBetsWinLoss:"CB足彩输赢",
 	Columns:"Columns",
 	Combination:"组合",
 	Comm:"佣金",
 	CommIsClear:"会员的佣金已清空",
 	Commission:"佣金",
 	CommissionGroupList:"佣金组别列表",
+	CommissionShare:"佣金",
 	CommIsUnChange:"会员的佣金是不变的",
 	Completed:"已完场",
 	Confirm:"确认",
@@ -2697,6 +2722,7 @@ webpackJsonp([42],{
 	CustomerW_L:"会员输赢",
 	CustomerWinLoss:"会员輸贏",
 	CustomerWinLossTitle:"会员输赢, {0} --&gt; {1} - {2}",
+	CustomerWinnings:"会员总赢",
 	DA:"和客",
 	Daily:"每日",
 	DailyBetList:"每日投注历史",
@@ -3022,7 +3048,6 @@ webpackJsonp([42],{
 	NotAuthorizedMsg:"您没有被授权于此功能",
 	NotIdenticalPasswordMsg:"密码不相同",
 	Notification:"通知",
-	NotificationMessage:"数据正在处理中，在{0}后的数据将受到影响. 预计完成时间为 {1} GMT-4. 很抱歉造成您的困扰.",
 	NotSupportYet:"目前还不支持此游戏",
 	Nov:"十一月",
 	November:"十一月",
@@ -3200,6 +3225,7 @@ webpackJsonp([42],{
 	Symbol:"符号",
 	SystemId:"系统账号",
 	SystemParlay:"复式过关",
+	SystemParlayDetailNote:"输赢的进位值仅供参考。因此，所有输赢相加的总计有可能和小计有差数。",
 	Team:"队伍",
 	TermDefinition:"术语定义",
 	TF:"大热门",
@@ -3318,9 +3344,7 @@ webpackJsonp([42],{
 	Year:"年份",
 	Yes:"是",
 	Yesterday:"昨日",
-	YouNotChooseAnyCustomerMsg: "您还没有选择任何会员",
-	AmtLessThan30kGBP: "金额< 30,000英镑",
-	AmtGreaterThan30kGBP: "金额≥ 30,000英镑"
+	YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 	};
 
 
@@ -3329,7 +3353,7 @@ webpackJsonp([42],{
 /***/ 101:
 /***/ (function(module, exports) {
 
-	// Generated at: 6/6/2017 1:23:39 PM
+	// Generated at: 7/17/2017 5:41:18 PM
 	window._language_ko_KR = {
 	AA:"AA",
 	AccessDeniedMsg:"죄송합니다. 이 페이지에 접근할 권한이 없습니다.",

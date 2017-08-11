@@ -70,7 +70,7 @@
                 return UnauthorizeAccessHandlerAsync(actionContext);
             }
 
-            if (!AuthorizeRequest(actionContext))
+            if (!AuthorizeRequest())
             {
                 return UnauthorizeAccessHandlerAsync(actionContext);
             }
@@ -102,12 +102,11 @@
             return FromResultAsync(actionContext.Response);
         }
 
-        private bool AuthorizeRequest(HttpActionContext actionContext)
+        private bool AuthorizeRequest()
         {
             var sessionService = new SessionService();
             var licenseeSession = sessionService.LicenseeSession;
             var userSession = sessionService.UserSession;
-            var rawUrl = actionContext.Request.RequestUri;
             var authorization = new AuthorizationService();
             var authorized = true;
             if (userSession != null && licenseeSession != null)

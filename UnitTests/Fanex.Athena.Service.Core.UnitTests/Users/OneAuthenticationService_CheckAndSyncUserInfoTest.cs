@@ -6,6 +6,7 @@
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DTO.Common;
+    using Model.Core.DTO.OneAuth;
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
@@ -47,11 +48,13 @@
         public void SignIn_NotFoundUser_ReturnErrorNotFoundUser()
         {
             // Arrange
-            var tokenInfo = new OneAuthenticationToken { UserSEQ = 1, UserID = "pgmAlex", SiteName = "spondemo" };
+            var currencies = new OneAuthCurrency[] { new OneAuthCurrency() };
+            var permissions = new OneAuthPermission[] { new OneAuthPermission() };
+            var tokenInfo = new OneAuthToken { UserSEQ = 1, UserID = "pgmAlex", SiteName = "spondemo", Currency = currencies, Permissions = permissions };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
             _userService.GetByUsername(tokenInfo.UserID, Arg.Any<int>()).Returns(x => null);
-            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService);
+            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService, null);
 
             var expectedResult = new ResultInfo { Code = 800, Message = "Not found user" };
 
@@ -69,22 +72,24 @@
             // Arrange
             var counter = 0;
             var exptectedUserId = 10;
-            var tokenInfo = new OneAuthenticationToken { UserSEQ = 1, UserID = "pgmAlex", SiteName = "spondemo" };
+            var currencies = new OneAuthCurrency[] { new OneAuthCurrency() };
+            var permissions = new OneAuthPermission[] { new OneAuthPermission() };
+            var tokenInfo = new OneAuthToken { UserSEQ = 1, UserID = "pgmAlex", SiteName = "spondemo", Currency = currencies, Permissions = permissions };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
             _userService.GetByUsername(tokenInfo.UserID, Arg.Any<int>()).Returns(x => new User { UserID = exptectedUserId });
 
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(
-                _sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService);
+                _sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService, null);
 
-            _oneAuthenticationService.When(x => x.SetAuthorize(Arg.Any<Licensee>(), Arg.Any<string>(), tokenInfo)).DoNotCallBase();
-            _oneAuthenticationService.When(x => x.SetAuthorize(Arg.Any<Licensee>(), Arg.Any<string>(), tokenInfo)).Do(x => counter++);
+            _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).DoNotCallBase();
+            _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).Do(x => counter++);
 
             // Action
-            var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
+            _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Assert
-            _oneAuthenticationService.Received().SetAuthorize(Arg.Any<Licensee>(), Arg.Any<string>(), Arg.Is<OneAuthenticationToken>(tokenInfo));
+            _oneAuthenticationService.Received().SetAuthorize(Arg.Is<OneAuthToken>(tokenInfo));
             Assert.AreEqual(exptectedUserId, tokenInfo.UserSEQ);
             Assert.AreEqual(1, counter);
         }

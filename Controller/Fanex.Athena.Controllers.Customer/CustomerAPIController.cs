@@ -101,11 +101,6 @@ namespace Fanex.Athena.Controllers.Customer
                         result = _customerService.UpdateCustSuspend(customerStatusMetaModel, userSession.Language);
                     }
 
-                    if (result.Code > 0)
-                    {
-                        result.Message = ViewResources.HttpError_Default;
-                    }
-
                     return Json(result);
                 }
                 else

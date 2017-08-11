@@ -41,7 +41,6 @@ namespace Fanex.Athena.Controllers.Report
     /// <summary>
     /// The result controller.
     /// </summary>
-    [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
     public class ResultReportController : ReportBaseController
     {
         private const string ResultPageGetNormalSportsName = "ResultPage_GetNormalSports";
@@ -70,10 +69,7 @@ namespace Fanex.Athena.Controllers.Report
             _kenoApi = kenoApi ?? new KenoApi();
         }
 
-        /// <summary>
-        /// The result page.
-        /// </summary>
-        /// <returns>The action result.</returns>
+        [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
         [HttpGet]
         public ActionResult Index()
         {
@@ -95,11 +91,7 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/Result/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// The result report.
-        /// </summary>
-        /// <param name="metalModel">The metal model.</param>
-        /// <returns>The actin result.</returns>
+        [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
@@ -115,11 +107,7 @@ namespace Fanex.Athena.Controllers.Report
             return this.Content(string.Empty, "text/html");
         }
 
-        /// <summary>
-        /// The result excel report.
-        /// </summary>
-        /// <param name="metalModel">The metal model.</param>
-        /// <returns>The action result.</returns>
+        [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
         [HttpGet]
         public ActionResult ResultExcel(ResultMetalModel metalModel)
         {
@@ -154,11 +142,7 @@ namespace Fanex.Athena.Controllers.Report
             return null;
         }
 
-        /// <summary>
-        /// Get sports.
-        /// </summary>
-        /// <param name="metalModel">The metal model.</param>
-        /// <returns>The JSON result.</returns>
+        [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
         [HttpPost]
         [CustomValidateAntiForgery]
         public ActionResult GetSports(ResultMetalModel metalModel)
@@ -293,10 +277,7 @@ namespace Fanex.Athena.Controllers.Report
 
         #region KenoPage
 
-        /// <summary>
-        /// Keno result action.
-        /// </summary>
-        /// <returns>Action result.</returns>
+        [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
         [HttpGet]
         [AjaxRequest]
         public ActionResult KenoResult()
@@ -311,11 +292,7 @@ namespace Fanex.Athena.Controllers.Report
             JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// Extend Keno result session.
-        /// </summary>
-        /// <param name="userId">The user ID.</param>
-        /// <returns>The result.</returns>
+        [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]

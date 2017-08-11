@@ -4,10 +4,10 @@
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Logging;
+    using Model.Core.DTO.OneAuth;
     using Newtonsoft.Json;
     using ONEbook.UM.Services;
     using ONEbook.UM.Services.Impl;
@@ -87,7 +87,7 @@
             return Redirect(Url.Content(returnUrl));
         }
 
-        private static bool VerifyToken(OneAuthenticationToken tokenInfo)
+        private static bool VerifyToken(OneAuthToken tokenInfo)
         {
             return !string.IsNullOrEmpty(tokenInfo.SiteName) && tokenInfo.UserSEQ > 0
                 && !string.IsNullOrEmpty(tokenInfo.VendorID) && !string.IsNullOrEmpty(tokenInfo.UserID)

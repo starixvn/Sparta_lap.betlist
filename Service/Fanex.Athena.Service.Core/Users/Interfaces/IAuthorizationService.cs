@@ -17,9 +17,9 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings",
             Justification = "Reviewed. Suppression is OK here.")]
-        bool HasPermissions(IEnumerable<int> userFunctionList, string[] permissionKeys);
+        bool HasPermissions(IEnumerable<int> userFunctionList, params string[] permissionKeys);
 
-        bool HasPermissions(IEnumerable<PortalSystemFunction> userFunctionList, string[] permissionKeys);
+        bool HasPermissions(IEnumerable<PortalSystemFunction> userFunctionList, params string[] permissionKeys);
 
         bool HasPermissionOnData(int licenseeId, int custId, long transId);
     }

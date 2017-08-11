@@ -1,9 +1,10 @@
-﻿using System;
-
-namespace Fanex.Athena.Model.Core.DTO.Common
+﻿namespace Fanex.Athena.Model.Core.DTO.OneAuth
 {
+    using System;
+    using System.Collections.Generic;
+
     [Serializable]
-    public class OneAuthenticationToken
+    public class OneAuthToken
     {
         public int UserSEQ { get; set; }
 
@@ -16,5 +17,11 @@ namespace Fanex.Athena.Model.Core.DTO.Common
         public string ActionLink { get; set; }
 
         public string SiteName { get; set; }
+
+        public bool IsAdminstrator { get; set; }
+
+        public OneAuthCurrency[] Currency { get; set; }
+
+        public OneAuthPermission[] Permissions { get; set; }
     }
 }

@@ -7,6 +7,7 @@
     using Fanex.Logging;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
+    using Model.Core.DTO.OneAuth;
     using Newtonsoft.Json;
     using NSubstitute;
     using NUnit.Framework;
@@ -125,7 +126,7 @@
         {
             // Arrange
             const string Token = "GasgSDgS";
-            var tokenInfo = new OneAuthenticationToken
+            var tokenInfo = new OneAuthToken
             {
                 UserID = "1",
                 SiteName = "spondemo",
@@ -152,7 +153,7 @@
         {
             // Arrange
             const string Token = "GasgSDgS";
-            _oneAuthenticationService.GetTokenInfo(Token).Returns(x => new OneAuthenticationToken
+            _oneAuthenticationService.GetTokenInfo(Token).Returns(x => new OneAuthToken
             {
                 SiteName = "spondemo",
                 UserSEQ = 1,
@@ -177,7 +178,7 @@
         {
             // Arrange
             const string Token = "GasgSDgS";
-            var tokenInfo = new OneAuthenticationToken
+            var tokenInfo = new OneAuthToken
             {
                 SiteName = siteName,
                 UserSEQ = 1,
@@ -206,7 +207,7 @@
             // Arrange
             const string Token = "GasgSDgS";
 
-            var tokenInfo = new OneAuthenticationToken
+            var tokenInfo = new OneAuthToken
             {
                 SiteName = "spondemo",
                 UserSEQ = 1,

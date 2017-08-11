@@ -1,11 +1,6 @@
 ﻿@import "../abstracts/variables";
 
-@font-face {
-  font-family: 'Roboto';  
-  src: url('../fonts/roboto/Roboto-Regular.woff2') format('woff2'), 
-       url('../fonts/roboto/Roboto-Regular.woff') format('woff'),
-       url('../fonts/roboto/Roboto-Regular.ttf')  format('truetype'),
-}
+@import '../fonts/roboto/_style.scss';
 
 html {
     font-size: 62.5%;

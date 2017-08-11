@@ -43,7 +43,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                     while (reader.Read())
                     {
                         var environment = reader.ToString("Environment");
-                        if (isProduction && environment.Equals("LIVE", System.StringComparison.OrdinalIgnoreCase) == false)
+                        if (isProduction && !environment.Equals("LIVE", System.StringComparison.OrdinalIgnoreCase))
                         {
                             continue;
                         }

@@ -1,4 +1,4 @@
-﻿// Generated at: 6/14/2017 3:27:38 PM
+﻿// Generated at: 7/17/2017 5:41:25 PM
 var _language_zh_Hans = {
 AA:"客客",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -662,6 +662,7 @@ Suspended:"暂停",
 Symbol:"符号",
 SystemId:"系统账号",
 SystemParlay:"复式过关",
+SystemParlayDetailNote:"输赢的进位值仅供参考。因此，所有输赢相加的总计有可能和小计有差数。",
 Team:"队伍",
 TermDefinition:"术语定义",
 TF:"大热门",
