@@ -60,10 +60,7 @@ namespace Fanex.Athena.Web.ActionFilter
                       authorization.HasPermissions(userSession.PortalFunctionList, PermissionKeys) :
 
                       authorization.HasPermissions(userSession.FunctionIdList, PermissionKeys);
-                if (userSession.IsInternal && PermissionKeys.Contains(Model.Core.DataDomain.PermissionKeys.AccountManageAccount))
-                {
-                    authorized = false;
-                }
+
             }
 
             if (!authorized)

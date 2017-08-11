@@ -39,20 +39,16 @@ namespace Fanex.Athena.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            const int AccountManagementFunctionID = 6;
             var userSession = SessionService.UserSession;
             var licenseeSession = SessionService.LicenseeSession;
             var systemFunctions = userSession.FunctionIdList;
             var excludeFunctions = AppSettings.ExcludeFunctionIdList;
 
             var canManageMember = userSession.FunctionIdList.Contains((int)FunctionType.CustomerList);
-            var userFunctionList = _functionService.Functions
-                .Where(i => systemFunctions.Contains(i.FunctionId)
-              && !excludeFunctions.Contains(i.FunctionId));
 
             var viewModel = new MenuViewModel
             {
-                UserFunctions = userSession.IsInternal ? userFunctionList.Where(i => i.ParentId != AccountManagementFunctionID).ToList() : userFunctionList.ToList(),
+                UserFunctions = _functionService.Functions.Where(i => systemFunctions.Contains(i.FunctionId) && !excludeFunctions.Contains(i.FunctionId)).ToList(),
                 IsAllowedCustonmerCommission = licenseeSession.IsAllowedCustomerComm,
                 IsInternalLogin = userSession.IsInternal,
                 IsAllowedManagementMember = canManageMember
