@@ -213,7 +213,7 @@
 
                 dateColumn.formatoptions =
                 {
-                    newformat: reportBy === REPORT_BY_DAILY ? 'm/d/Y' : 'm/Y'
+                    newformat: parseInt(reportBy) === REPORT_BY_DAILY ? 'm/d/Y' : 'm/Y'
                 };
                 externalIdColumn.hidden = level < 2;
                 systemIdColumn.hidden = level === 0;

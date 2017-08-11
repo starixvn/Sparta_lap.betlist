@@ -92,9 +92,11 @@
                 if (level < 2) {
                     Report.renderBreadCrumb(level, ThirdPartyWinLossOption.licenseeId);
                     _me.bindData(level, _cacheData[level]);
+                    _urlExcelData = _urlExcelData.replace("level=2", "level=1");
                 }
                 if (level === 0) {
                     _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
+                    setExcelUrl(0);
                 }
             });
 
@@ -226,7 +228,7 @@
                         ToDate: param.ToDate,
                         BaseCurrency: param.BaseCurrency,
                         ProductId: param.ProductId,
-                        ReportBy: param.reportBy
+                        ReportBy: param.ReportBy
                     };
                 }
 
