@@ -8,17 +8,14 @@
     var appSettings = new AppSettings();
 }
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
-    @using (Html.BeginForm("Index", "CustomerWinLossReport", FormMethod.Post, new { @id = "CustomerWinlossForm" }))
+    @using (Html.BeginForm("Index", "CustomerWinLossReport", FormMethod.Post, new { @id = "MainForm" }))
     {
         @Html.AntiForgeryToken()
         <div>
             @Html.Hidden("TodayVal", DateTime.Today.ToString(Fanex.Athena.Model.Core.DataDomain.FormatKey.ShortFormatDate))
             @Html.Hidden("YesterdayVal", DateTime.Today.AddDays(-1).ToString(Fanex.Athena.Model.Core.DataDomain.FormatKey.ShortFormatDate))
             @Html.Hidden("IsHistory", Model.IsHistory)
-            @Html.Hidden("SortDirection", Model.Param.SortDirection)
-            @Html.Hidden("SortColumn", Model.Param.SortColumn)
-            @Html.Hidden("RowCount", Model.DataList == null ? 0 : Model.DataList.Count)
-            @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+            @Html.Hidden("IsAllowedCustomerCommission", (Model.IsAllowedCustomerCommission ? "1" : "0"))
         </div>
         @DatePickerHelper.RenderDateRangePicker(modelParam.FromDate, modelParam.ToDate, minDate, appSettings.MaxDate, "", "", 2, 3, 2, 3)
         <div class="new-line">
@@ -28,14 +25,14 @@
             <label>@ViewResources.Currency</label>
         </div>
         <div class="grid_3 filter-input">
-            @RazorHelper.CurrencyList(Model.CurrencyList, "currencylist", modelParam.CurrencyId)
+            @RazorHelper.CurrencyList(Model.CurrencyList, "currencylist")
         </div>
         <div class="grid_3 filter-label">
             <label for="BaseCurrency">@ViewResources.Based
             </label>
         </div>
         <div class="grid_1 filter-input">
-            @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
+            @RazorHelper.BasedCurrency()
         </div>
         <div class="grid_4 note-group">
             <div>
@@ -69,7 +66,7 @@
 
         <div class="grid_2 filter-label new-line">
         </div>
-        <div class="grid_@(Model.ProductAccess.IsAllowBA || Model.ProductAccess.IsAllowRB ? 15 : 13) filter-input">
+        <div class="grid_15 filter-input">
             <div class="note-message">
                 @string.Format(ViewResources.HistoricalReportDateRangeNote, minDate), <a href="javascript:;"
                     id="history-report-link" style="text-decoration: none;">@ViewResources.ToViewHistoryRptMsg</a>

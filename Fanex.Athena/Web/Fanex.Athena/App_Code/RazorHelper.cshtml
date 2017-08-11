@@ -254,7 +254,7 @@ if (addMoreAllOption)
         }
     </select>
 }
-@helper BasedCurrency(string selectedBasedCurrency, string CurrencyName = null)
+@helper BasedCurrency(string selectedBasedCurrency = null, string CurrencyName = null)
 {
 selectedBasedCurrency = string.IsNullOrEmpty(selectedBasedCurrency) ? string.Empty : selectedBasedCurrency;
 selectedBasedCurrency = selectedBasedCurrency.ToLower();

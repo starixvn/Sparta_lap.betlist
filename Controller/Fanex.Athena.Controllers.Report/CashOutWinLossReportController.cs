@@ -36,7 +36,6 @@ namespace Fanex.Athena.Controllers.Report
             var model = new CashOutWinLossViewModel
             {
                 IsLicenseeOfferBA = licenseeSession.IsEnableBA,
-                ShowEmptyContent = true,
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList
             };

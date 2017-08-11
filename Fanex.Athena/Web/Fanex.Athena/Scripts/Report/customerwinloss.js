@@ -2,6 +2,80 @@
 /// <reference path="/@JSense.js" />
 var CustomerWinLoss = (function ($) {
     "use strict";
+
+    var DATA_URL = "api/CustomerWinLossReport/Index";
+    var FORM_SELECTOR = "#MainForm";
+    var GRID_ID = "ReportGrid";
+
+    var _ajaxRequest = null;
+
+    var _sortColumnIndex = "";
+    var _sortType = "desc";
+    var isFirstLoad = true;
+
+    var pagingOption =
+    {
+        pageindex: 1,
+        pagesize: 5,
+        pagelist: [5, 10],
+        totalrow: 1,
+        elementcontainer: ".paging",
+        method: "AJAX",
+        ajaxfunction: "CustomerWinLoss.ajaxPaging()",
+        alwayshow: true
+    };
+
+    function getPostData() {
+        var data = $(FORM_SELECTOR).serializeObject();
+        data.PageIndex = pagingOption.pageindex;
+        data.PageSize = pagingOption.pagesize;
+
+        return data;
+    }
+
+    function createPaging(totalRows) {
+        pagingOption.totalrow = totalRows;
+        if (pagingOption.totalrow > 0 && pagingOption.totalrow > pagingOption.pagelist[0]) {
+            $(pagingOption.elementcontainer).show();
+            PagingHeper.render(pagingOption);
+        }
+        else {
+            $(pagingOption.elementcontainer).hide();
+        }
+    }
+
+    function onGridComplete(grid, gridOption, response) {
+        if (pagingOption.totalrow <= 0) {
+            jqGridAdditional.setNoInfo(gridOption.colModel);
+        }
+        else if (true) {
+            if (pagingOption.totalrow > 1) {
+                var reportGrid = $("#" + GRID_ID);
+                var cm = reportGrid[0].p.colModel;
+                $.each(reportGrid[0].grid.headers, function (index, value) {
+                    var cmi = cm[index];
+                    if (cmi.sortable) {
+                        $(".ui-jqgrid-sortable", value.el).css({ cursor: "pointer" }).find(".s-ico").remove();
+                    }
+                    if (cmi.index === _sortColumnIndex && _sortType !== "") {
+                        var header = $(".ui-jqgrid-sortable", value.el);
+                        header.addClass("sorted-heading");
+                        if (_sortType === "desc") {
+                            header.append('<span class="sort-desc"></span>');
+                        }
+                        else {
+                            header.append('<span class="sort-asc"></span>');
+                        }
+                    }
+                });
+            }
+
+            jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
+            jqGridAdditional.setGroupFooters(CustomerWinLossOption.totalColspan);
+            CustomerWinLoss.resizeGrid();
+        }
+    }
+
     return {
         resizeGrid: function () {
             var $grid = $("#data-content");
@@ -25,12 +99,12 @@ var CustomerWinLoss = (function ($) {
             ProductListHelper.initProductList();
             CustomerWinLoss.initEvent();
             CustomerWinLoss.initMonthPicker();
-            Site.createSortingIcon(CustomerWinLoss.sortReport);
             Site.addFilterCollapseExpand();
             Site.addUserGuide({
                 resourceName: "CustomerWL",
                 title: Site.getSingleResource("CustomerWinLoss")
             });
+            CustomerWinLossOption.hasCustomerComm = $("#IsAllowedCustomerCommission").val() === "1";
         },
         initMonthPicker: function () {
             if ($("#IsHistoryReport").val() === "True") {
@@ -77,7 +151,7 @@ var CustomerWinLoss = (function ($) {
                 $('#IsExportExcel').val(false);
                 $("#SortColumn").val("ExternalId");
                 $("#SortDirection").val("ASC");
-                $("#CustomerWinlossForm").submit();
+                CustomerWinLoss.submit();
                 return false;
             });
 
@@ -140,11 +214,71 @@ var CustomerWinLoss = (function ($) {
             Site.blockUI();
             window.location.href = url;
         },
-        sortReport: function () {
-            Site.blockUI();
-            $('#IsExportExcel').val(false);
-            $("#CustomerWinlossForm").submit();
-            return false;
+        setReportTitle: function () {
+            var titlePattern = "{0}, {1} → {2}, {3}";
+            var title = $.format(titlePattern,
+                Site.getSingleResource("CustomerWinLoss"),
+                $("#FromDate").val().toString("M/dd/yyyy"),
+                $("#ToDate").val().toString("M/dd/yyyy"),
+                Site.getSingleResource("Viewin").replace("{0}",
+                $("#CurrencyName").val()));
+
+            $("div.report-title").html(title).show();
+        },
+        submit: function () {
+            var data = getPostData();
+
+            var option =
+            {
+                type: "POST",
+                data: data,
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                cache: false,
+                url: Site.resolveClientUrl(DATA_URL),
+                success: function (response) {
+                    CustomerWinLoss.bindData(response);
+                },
+                beforeSend: function () {
+                    Site.blockUI();
+                }
+            };
+
+            if (_ajaxRequest != null) {
+                _ajaxRequest.abort();
+            }
+
+            _ajaxRequest = $.ajax(option);
+            return true;
+        },
+        ajaxPaging: function () {
+            pagingOption = PagingHeper.getSetting();
+            CustomerWinLoss.submit();
+        },
+
+        bindData: function (response) {
+            jqGridAdditional.clearGrid(GRID_ID);
+            
+            CustomerWinLossOption.isAllowBA = response.IsAllowBA;
+            var gridOption = CustomerWinLossOption.getGridOption(response.TotalRows);
+            gridOption.data = response.Data;
+            gridOption.onSortCol = function (index) {
+                sort(index);
+                return "stop";
+            };
+            gridOption.gridComplete = function () {
+                onGridComplete(this, gridOption, response);
+                Site.unBlockUI();
+            };
+            gridOption.shrinkToFit = response.TotalRows <= 0;
+
+            CustomerWinLoss.setReportTitle();
+            createPaging(response.TotalRows);
+
+            var reportGrid = $("#" + GRID_ID);
+            reportGrid.jqGrid(gridOption);
+
+            CustomerWinLossOption.setGroupHeaderColumns(reportGrid);
         }
     };
 })(jQuery);

@@ -242,7 +242,7 @@
     <Compile Include="Interfaces\ICustomerBalanceService.cs" />
     <Compile Include="Interfaces\ICustPendingFundsService.cs" />
     <Compile Include="Interfaces\ICustTurnoverService.cs" />
-    <Compile Include="Interfaces\ICustWinlossService.cs" />
+    <Compile Include="Interfaces\ICustomerWinlossService.cs" />
     <Compile Include="Interfaces\IDailyRacingWinLossService.cs" />
     <Compile Include="Interfaces\ILicenseeWinLossService.cs" />
     <Compile Include="Interfaces\ILiveReportService.cs" />

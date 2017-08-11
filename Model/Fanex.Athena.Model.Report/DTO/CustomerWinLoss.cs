@@ -1,16 +1,9 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="CustomerWinLoss.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.Model.Report.DTO
+﻿namespace Fanex.Athena.Model.Report.DTO
 {
-    /// <summary>
-    /// CustomerWinLoss class.
-    /// </summary>
     public class CustomerWinLoss
     {
+        public int Index { get; set; }
+
         public int CustId { get; set; }
 
         public string ExternalId { get; set; }
@@ -21,11 +14,11 @@ namespace Fanex.Athena.Model.Report.DTO
 
         public int TotalTransaction { get; set; }
 
-        public decimal MemberWL { get; set; }
+        public decimal CustomerWL { get; set; }
 
         public decimal PlayerComm { get; set; }
 
-        public decimal MemberTotalWL { get; set; }
+        public decimal CustomerTotalWL { get; set; }
 
         public decimal BetEffective { get; set; }
 

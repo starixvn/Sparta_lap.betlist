@@ -303,9 +303,7 @@ var CustomerBalanceOption = (function () {
     };
 
     function insertColumns(columns, insertedColumns, insertedIndex) {
-        $.each(insertedColumns, function (index, item) {
-            columns.insertAfter(item, insertedIndex);
-        });
+        columns.splice.apply(columns, [insertedIndex, 0].concat(insertedColumns));
     }
 
     var me =

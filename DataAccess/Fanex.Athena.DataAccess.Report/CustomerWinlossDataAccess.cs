@@ -46,10 +46,10 @@ namespace Fanex.Athena.DataAccess.Report
                             SystemId = reader.ToString("username"),
                             Turnover = reader.ToDecimal("turnover" + metaModel.BaseCurrency),
                             TotalTransaction = reader.ToInt("betcount"),
-                            MemberWL = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency),
+                            CustomerWL = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency),
                             BetEffective = reader.ToDecimal("beteffective" + metaModel.BaseCurrency),
                             PlayerComm = reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
-                            MemberTotalWL = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency) + reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
+                            CustomerTotalWL = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency) + reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
                             LicenseeWL = reader.ToDecimal("licenseewl" + metaModel.BaseCurrency),
                             BAComm = reader.ToDecimal("commba" + metaModel.BaseCurrency),
                             RacingRevenue = reader.ToDecimal("winlossrb" + metaModel.BaseCurrency)
@@ -92,7 +92,7 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 Turnover = reader.ToDecimal("sumturnover" + baseCurrency),
                 TotalTransaction = reader.ToInt("sumbetcount"),
-                MemberWL = reader.ToDecimal("summemberwinlost" + baseCurrency),
+                CustomerWL = reader.ToDecimal("summemberwinlost" + baseCurrency),
                 PlayerComm = reader.ToDecimal("sumplayercomm" + baseCurrency),
                 LicenseeWL = reader.ToDecimal("sumlicenseewl" + baseCurrency),
                 BAComm = reader.ToDecimal("sumcommba" + baseCurrency),

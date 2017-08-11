@@ -1,53 +1,21 @@
 ﻿@{
     ViewBag.Title = string.Format("LRF - {0} - {1}", ViewResources.Report, ViewResources.CustomerWinLoss);
-    Layout = "~/Views/Shared/_ReportLayout.cshtml";
+    Layout = "~/Views/Shared/_Report.jqGridLayout.cshtml";
 }
-@using Fanex.Athena.Model.Report.ViewModel
-@using Fanex.Athena.Model.Core.DTO.Common
+
 @model Fanex.Athena.Model.Report.ViewModel.CustomerWinLossViewModel
 @section pagecss {
+    <link href="@Url.ContentLink("/Content/Global/Paging.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.ContentLink("/Content/Report/customerwinloss.css")" rel="stylesheet" type="text/css" />
 }
 @section pagejs {
+    <script src="@Url.ContentLink("/Scripts/Global/Paging.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Report/customerwinloss.option.js")" type="text/javascript"></script>
     <script src="@Url.ContentLink("/Scripts/Report/customerwinloss.js")" type="text/javascript"></script>
 }
 @section ContentTitle
 {
     @ViewResources.CustomerWinLoss
-    }
-@{  
-    var limitWidth = 1075;
-    var scrollBarWidth = 18;
-    ViewBag.NumberWidth = 40;
-    ViewBag.TextWidth = 130;
-    ViewBag.TurnoverWidth = 100;
-    ViewBag.TotalTransWidth = 100;
-    ViewBag.LicenseeWLWidth = 100;
-    ViewBag.CustomerWLLargeWidth = 100;
-    ViewBag.CustomerWLMergeWidth = 242;
-    ViewBag.CustomerWLWidth = 90;
-    ViewBag.CustomerBetEffecitveWidth = 100;
-    ViewBag.CustomerCommWidth = 60;
-    ViewBag.CustomerWLTotalWidth = 90;
-    ViewBag.RbBaWidth = 75;
-
-    ViewBag.ColumnWidth = 7;
-    ViewBag.ColumnWidth += Model.ProductAccess.IsAllowBA ? 2 : 0;
-    ViewBag.ColumnWidth += Model.ProductAccess.IsAllowRB ? 2 : 0;
-
-    ViewBag.ContainerWidth = ViewBag.NumberWidth + 2 * ViewBag.TextWidth + ViewBag.TurnoverWidth + ViewBag.TotalTransWidth;
-    ViewBag.ContainerWidth += Model.IsAllowedCustomerCommission ? ViewBag.CustomerWLMergeWidth : ViewBag.CustomerWLLargeWidth;
-    ViewBag.ContainerWidth += ViewBag.CustomerBetEffecitveWidth + 1;
-    ViewBag.ContainerWidth += ViewBag.LicenseeWLWidth;
-    ViewBag.ContainerWidth += Model.ProductAccess.IsAllowBA ? 2 * ViewBag.RbBaWidth : 0;
-    ViewBag.ContainerWidth += Model.ProductAccess.IsAllowRB ? 2 * ViewBag.RbBaWidth : 0;
-        
-    ViewBag.ContainerWidth += ViewBag.ColumnWidth;
-    ViewBag.FilterWidth = ViewBag.ContainerWidth > limitWidth ? limitWidth : ViewBag.ContainerWidth;
-    ViewBag.WrapperWidth = ViewBag.FilterWidth + (ViewBag.ContainerWidth <= limitWidth ? scrollBarWidth : 0);
-    ViewBag.FilterWidth += (ViewBag.ContainerWidth <= limitWidth ? scrollBarWidth : 0);
-    ViewBag.TitleWidth = ViewBag.FilterWidth - 24;
-    ViewBag.TotalWrapperWidth = ViewBag.FilterWidth - (ViewBag.ContainerWidth > limitWidth ? scrollBarWidth : 0);
 }
 @section ContentFilter
 {
@@ -62,9 +30,10 @@
         }
     }
 }
-@{
-    if (!Model.ShowEmptyContent)
-    {
-        Html.RenderPartial("~/Views/Report/CustomerWinLoss/Content.cshtml");
-    }
-}
+<div class="container_26" style="margin-left: -7px">
+    <div class="grid_26">
+        @{
+            Html.RenderPartial("~/Views/Report/CustomerWinLoss/Content.cshtml");
+        }
+    </div>
+</div>
