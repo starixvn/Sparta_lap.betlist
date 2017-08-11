@@ -54,3 +54,4 @@ UnitTestCoverage_*.xml
 UnitTestResult_*.xml
 
 stats.json
+/package-lock.json
