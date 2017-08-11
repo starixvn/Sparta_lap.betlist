@@ -821,6 +821,8 @@
     <Content Include="www\css\build\dev\pages\reports\customerbalance.css" />
     <Content Include="www\css\build\dev\pages\reports\dailyracingwinloss.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\dailyracingwinloss.css" />
+    <Content Include="www\css\build\dev\pages\reports\golddeluxewinloss.chunk.js" />
+    <Content Include="www\css\build\dev\pages\reports\golddeluxewinloss.css" />
     <Content Include="www\css\build\dev\pages\reports\licenseewinloss.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\licenseewinloss.css" />
     <Content Include="www\css\build\dev\pages\reports\livereport.chunk.js" />
@@ -878,6 +880,7 @@
     <Content Include="www\css\build\pro\pages\customer\customerlog.css" />
     <Content Include="www\css\build\pro\pages\reports\activecustomersummary.css" />
     <Content Include="www\css\build\pro\pages\reports\customerbalance.css" />
+    <Content Include="www\css\build\pro\pages\reports\golddeluxewinloss.css" />
     <Content Include="www\css\build\pro\pages\utility\licenseelist.css" />
     <Content Include="www\css\build\pro\um.css" />
     <Content Include="www\css\source\components\jquery.colorpicker\colorPicker.css" />
@@ -949,6 +952,11 @@
     <Content Include="www\css\build\dev\pages\reports\activecustomersummary.css.map" />
     <Content Include="www\css\build\dev\pages\reports\customerbalance.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\reports\customerbalance.css.map" />
+    <Content Include="Views\Desktop\Report\GoldDeluxeWinLoss\Content.cshtml" />
+    <Content Include="Views\Desktop\Report\GoldDeluxeWinLoss\Filter.cshtml" />
+    <Content Include="Views\Desktop\Report\GoldDeluxeWinLoss\Main.cshtml" />
+    <Content Include="www\css\build\dev\pages\reports\golddeluxewinloss.chunk.js.map" />
+    <Content Include="www\css\build\dev\pages\reports\golddeluxewinloss.css.map" />
     <None Include="www\css\source\pages\customer\customerlist.scss" />
     <Content Include="www\css\source\pages\customer\customerlog.scss" />
     <Content Include="www\css\source\components\tab\_tab.scss" />
@@ -976,6 +984,8 @@
     <Content Include="Views\Customer\BetSetting\VirtualSports2.cshtml" />
     <Content Include="www\css\source\pages\report\activecustomersummary.scss" />
     <Content Include="www\css\source\pages\report\agcasinowinloss.scss" />
+    <Content Include="www\css\source\pages\report\golddeluxewinloss.scss" />
+    <Content Include="www\css\source\pages\report\thirdpartywinloss.scss" />
     <None Include="www\css\source\pages\utility\um.scss" />
     <Content Include="www\css\build\images\bg-login.jpg" />
     <Content Include="www\css\build\images\excel-icon.svg" />
@@ -1222,10 +1232,12 @@
     <Content Include="www\js\build\pro\pages\forecast\newforecasthdpou.chunk.js" />
     <Content Include="www\js\build\pro\pages\home\home.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\activecustomersummary.chunk.js" />
+    <Content Include="www\js\build\pro\pages\reports\agcasinowinloss.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\balance.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\cashoutwinloss.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\customerbalance.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\dailyracingwinloss.chunk.js" />
+    <Content Include="www\js\build\pro\pages\reports\golddeluxewinloss.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\licenseewinloss.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\livereport.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\livereportmatchlist.chunk.js" />
@@ -1401,6 +1413,10 @@
     <Content Include="www\js\source\pages\report\customerbalance\main.js" />
     <Content Include="www\js\source\pages\report\dailyracingwinloss\dailyracingwinloss.js" />
     <Content Include="www\js\source\pages\report\dailyracingwinloss\main-dailyracingwinloss.js" />
+    <Content Include="www\js\source\pages\report\thirdpartywinloss\common\thirdpartywinloss.js" />
+    <Content Include="www\js\source\pages\report\thirdpartywinloss\common\thirdpartywinloss.option.js" />
+    <Content Include="www\js\source\pages\report\thirdpartywinloss\reports\golddeluxewinloss.js" />
+    <Content Include="www\js\source\pages\report\thirdpartywinloss\main-golddeluxewinloss.js" />
     <Content Include="www\js\source\pages\report\livereport\helper.js" />
     <Content Include="www\js\source\pages\report\livereport\livereport.js" />
     <Content Include="www\js\source\pages\report\livereport\livereportmatchlist.js" />

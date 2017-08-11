@@ -56,7 +56,8 @@ var cssPaths = {
     licenseelist: ["./www/css/source/pages/utility/licenseelist.scss"],
     activecustomersummary: ["./www/css/source/pages/report/activecustomersummary.scss"],
     agcasinowinloss: ["./www/css/source/pages/report/agcasinowinloss.scss"],
-    customerbalance: ["./www/css/source/pages/report/customerbalance.scss"]
+    customerbalance: ["./www/css/source/pages/report/customerbalance.scss"],
+    golddeluxewinloss: ["./www/css/source/pages/report/golddeluxewinloss.scss"]
 };
 
 var scriptPaths = {
@@ -125,6 +126,7 @@ var scriptPaths = {
     activecustomersummary: "./www/js/source/pages/report/activecustomersummary/main.js",
     agcasinowinloss: "./www/js/source/pages/report/agcasinowinloss/main.js",
     customerbalance: "./www/js/source/pages/report/customerbalance/main.js",
+    golddeluxewinloss: "./www/js/source/pages/report/thirdpartywinloss/main-golddeluxewinloss.js",
 };
 
 module.exports = {
