@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Web.ActionFilter
 {
     using System;
-    using System.Linq;
     using System.Net;
     using System.Web.Mvc;
     using System.Web.Routing;
@@ -56,11 +55,8 @@ namespace Fanex.Athena.Web.ActionFilter
             {
                 authorized =
                 userSession.ApplicationMode == AppMode.Parasitic ?
-
                       authorization.HasPermissions(userSession.PortalFunctionList, PermissionKeys) :
-
                       authorization.HasPermissions(userSession.FunctionIdList, PermissionKeys);
-
             }
 
             if (!authorized)

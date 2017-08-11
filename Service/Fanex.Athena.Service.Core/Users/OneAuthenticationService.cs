@@ -71,17 +71,13 @@
             }
 
             var userCheckingResult = CheckAndSyncUserInfo(licensee, tokenInfo.UserID);
-
             if (!userCheckingResult.IsSuccessful)
             {
                 return userCheckingResult;
             }
 
             tokenInfo.UserSEQ = int.Parse(userCheckingResult.ExtendedData);
-
-
             var currencyList = GetCurrencyList(tokenInfo, licensee.Id);
-
             if (currencyList == null || !currencyList.Any())
             {
                 return new ResultInfo
