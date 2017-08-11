@@ -11,7 +11,7 @@ namespace Fanex.Athena.DataAccess.Dashboard
             { China, nameof(China) },
             { Euro, nameof(Euro) },
             { Wap, nameof(Wap) },
-            { Mobile, nameof(Mobile) },
+            { SmartSite, nameof(SmartSite) },
             { Tablet, nameof(Tablet) }
         };
 
@@ -25,7 +25,7 @@ namespace Fanex.Athena.DataAccess.Dashboard
 
         public const int Wap = 4;
 
-        public const int Mobile = 5;
+        public const int SmartSite = 5;
 
         public const int Tablet = 6;
 
