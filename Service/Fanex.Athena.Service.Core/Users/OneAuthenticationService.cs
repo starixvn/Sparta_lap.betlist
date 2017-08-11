@@ -70,7 +70,18 @@
                 };
             }
 
+            var userCheckingResult = CheckAndSyncUserInfo(licensee, tokenInfo.UserID);
+
+            if (!userCheckingResult.IsSuccessful)
+            {
+                return userCheckingResult;
+            }
+
+            tokenInfo.UserSEQ = int.Parse(userCheckingResult.ExtendedData);
+
+
             var currencyList = GetCurrencyList(tokenInfo, licensee.Id);
+
             if (currencyList == null || !currencyList.Any())
             {
                 return new ResultInfo
@@ -97,14 +108,6 @@
                 }
             }
 
-            var userCheckingResult = CheckAndSyncUserInfo(licensee, tokenInfo.UserID);
-
-            if (!userCheckingResult.IsSuccessful)
-            {
-                return userCheckingResult;
-            }
-
-            tokenInfo.UserSEQ = int.Parse(userCheckingResult.ExtendedData);
             CreateSession(language, tokenInfo, licensee, currencyList);
             return SetAuthorize(tokenInfo);
         }
