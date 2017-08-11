@@ -1,20 +1,17 @@
-﻿define([
-    "jquery",
-    "common/site",
-    "lib/jqgrid/jquery.jqgrid.additional"],
+﻿define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
     function ($, Site, jqGridAdditional) {
         "use strict";
 
         var indexColumn =
-    {
-        name: "Index",
-        index: "Index",
-        resizable: false,
-        width: 40,
-        align: "center",
-        valign: "middle",
-        sortable: false
-    };
+        {
+            name: "Index",
+            index: "Index",
+            resizable: false,
+            width: 40,
+            align: "center",
+            valign: "middle",
+            sortable: false
+        };
 
         var externalIdColumn =
         {
@@ -291,16 +288,16 @@
             affiliateTransferColumn
         ];
 
-        var customerWinLoss = {
-            customerWinLossCommsColumns: [customerTotalColumn, customerCommColumn, customerWinLossColumn],
-            customerWinLossCommsColumnNames: ["Total", "Comm", "WinLoss"],
-            customerWinLossColumn: [customerWinLossMergeColumn],
-            customerWinLossColumnNames: ["CustomerW_L"]
+        var CUSTOMER_WL_COLUMNS_CONFIG = {
+            ColModels: [customerTotalColumn, customerCommColumn, customerWinLossColumn],
+            ColNames: ["Total", "Comm", "WinLoss"],
+            ColMergeModel: [customerWinLossMergeColumn],
+            ColMergeName: ["CustomerW_L"]
         };
 
-        var productBA = {
-            productBAColumns: [productBAAmountDueToColumn, productBACommColumn, productBATurnoverColumn],
-            productBAColumnNames: ["AmountDueTo", "Comm", "Turnover"]
+        var BA_COLUMNS_CONFIG = {
+            ColModels: [productBAAmountDueToColumn, productBACommColumn, productBATurnoverColumn],
+            ColNames: ["AmountDueTo", "Comm", "Turnover"]
         };
 
         function insertColumns(columns, insertedColumns, insertedIndex) {
@@ -373,16 +370,16 @@
                 var colNames = Site.clone(colNameList);
 
                 if (_me.hasCustomerComm) {
-                    insertColumns(colNames, customerWinLoss.customerWinLossCommsColumnNames, _me.customerCommIndex);
+                    insertColumns(colNames, CUSTOMER_WL_COLUMNS_CONFIG.ColNames, _me.customerCommIndex);
                 }
                 else {
-                    insertColumns(colNames, customerWinLoss.customerWinLossColumnNames, _me.customerCommIndex);
+                    insertColumns(colNames, CUSTOMER_WL_COLUMNS_CONFIG.ColMergeName, _me.customerCommIndex);
                 }
 
                 _me.productBAIndex = colNames.length - 1;
 
                 if (_me.isAllowBA) {
-                    insertColumns(colNames, productBA.productBAColumnNames, _me.productBAIndex);
+                    insertColumns(colNames, BA_COLUMNS_CONFIG.ColNames, _me.productBAIndex);
                 }
 
                 return Site.getResources(colNames);
@@ -392,16 +389,16 @@
                 var colModels = Site.clone(colModelList);
 
                 if (_me.hasCustomerComm) {
-                    insertColumns(colModels, customerWinLoss.customerWinLossCommsColumns, _me.customerCommIndex);
+                    insertColumns(colModels, CUSTOMER_WL_COLUMNS_CONFIG.ColModels, _me.customerCommIndex);
                 }
                 else {
-                    insertColumns(colModels, customerWinLoss.customerWinLossColumns, _me.customerCommIndex);
+                    insertColumns(colModels, CUSTOMER_WL_COLUMNS_CONFIG.ColMergeModel, _me.customerCommIndex);
                 }
 
                 _me.productBAIndex = colModels.length - 1;
 
                 if (_me.isAllowBA) {
-                    insertColumns(colModels, productBA.productBAColumns, _me.productBAIndex);
+                    insertColumns(colModels, BA_COLUMNS_CONFIG.ColModels, _me.productBAIndex);
                 }
 
                 if (totalRows <= 1) {

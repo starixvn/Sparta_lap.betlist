@@ -1,8 +1,6 @@
 ﻿@import '../../scss/abstracts/_variables.scss';
-@import '../../components/daterangepicker/daterangepicker-ex';
-@import '../../components/breadcrumb/breadcrumb';
+@import 'thirdpartywinloss';
 @import '../../components/jqgrid/multipletotalblock';
-@import "../../components/popupnotification/popupnotification";
 
 $colorTextTotal: $black;
 

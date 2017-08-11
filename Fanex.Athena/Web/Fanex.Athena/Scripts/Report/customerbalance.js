@@ -7,11 +7,11 @@ var CustomerBalance = (function ($) {
     var FORM_SELECTOR = "#CustomerBalanceForm";
     var GRID_ID = "ReportGrid";
     var EXCEL_NAME_SELECTOR = "#IsExportExcel";
-    var ajaxRequest = null;
-    var sortColumnIndex = "";
-    var sortType = "desc";
-    var isFirstLoad = true;
-    var pagingOption =
+    var _ajaxRequest = null;
+    var _sortColumnIndex = "";
+    var _sortType = "desc";
+    var _isFirstLoad = true;
+    var _pagingOption =
     {
         pageindex: 1,
         pagesize: 1000,
@@ -25,49 +25,47 @@ var CustomerBalance = (function ($) {
 
     function getPostData() {
         var data = $(FORM_SELECTOR).serializeObject();
-        data.PageIndex = pagingOption.pageindex;
-        data.PageSize = pagingOption.pagesize;
+        data.PageIndex = _pagingOption.pageindex;
+        data.PageSize = _pagingOption.pagesize;
 
         return data;
     }
 
     function createPaging(totalRows) {
-        pagingOption.totalrow = totalRows;
-        if (pagingOption.totalrow > 0 && pagingOption.totalrow > pagingOption.pagelist[0]) {
-            $(pagingOption.elementcontainer).show();
-            PagingHeper.render(pagingOption);
+        _pagingOption.totalrow = totalRows;
+        if (_pagingOption.totalrow > 0 && _pagingOption.totalrow > _pagingOption.pagelist[0]) {
+            $(_pagingOption.elementcontainer).show();
+            PagingHeper.render(_pagingOption);
         }
         else {
-            $(pagingOption.elementcontainer).hide();
+            $(_pagingOption.elementcontainer).hide();
         }
     }
 
     function sort(index) {
-        if (pagingOption.totalrow > 1) {
-            Site.blockUI();
-            sortType = index === sortColumnIndex ? (sortType === "desc" ? "asc" : "desc") : "desc";
+        if (_pagingOption.totalrow > 1) {
+            _sortType = index === _sortColumnIndex ? (_sortType === "desc" ? "asc" : "desc") : "desc";
             window.setTimeout(function () {
-                var orderColumnCode = CustomerBalanceOption.getOrderColumnCode(index, sortType);
+                var orderColumnCode = CustomerBalanceOption.getOrderColumnCode(index, _sortType);
                 if (orderColumnCode === 0) {
-                    sortColumnIndex = "";
-                    sortType = "";
+                    _sortColumnIndex = "";
+                    _sortType = "";
                 }
                 else {
-                    sortColumnIndex = index;
+                    _sortColumnIndex = index;
                 }
                 $("#OrderItem").val(orderColumnCode);
                 CustomerBalance.submit();
-                Site.unBlockUI();
             }, 100);
         }
     }
 
     function onGridComplete(grid, gridOption, response) {
-        if (pagingOption.totalrow <= 0) {
+        if (_pagingOption.totalrow <= 0) {
             jqGridAdditional.setNoInfo(gridOption.colModel);
         }
-        else if (isFirstLoad) {
-            if (pagingOption.totalrow > 1) {
+        else if (_isFirstLoad) {
+            if (_pagingOption.totalrow > 1) {
                 var reportGrid = $("#" + GRID_ID);
                 var cm = reportGrid[0].p.colModel;
                 $.each(reportGrid[0].grid.headers, function (index, value) {
@@ -75,10 +73,10 @@ var CustomerBalance = (function ($) {
                     if (cmi.sortable) {
                         $(".ui-jqgrid-sortable", value.el).css({ cursor: "pointer" }).find(".s-ico").remove();
                     }
-                    if (cmi.index === sortColumnIndex && sortType !== "") {
+                    if (cmi.index === _sortColumnIndex && _sortType !== "") {
                         var header = $(".ui-jqgrid-sortable", value.el);
                         header.addClass("sorted-heading");
-                        if (sortType === "desc") {
+                        if (_sortType === "desc") {
                             header.append('<span class="sort-desc"></span>');
                         }
                         else {
@@ -91,7 +89,7 @@ var CustomerBalance = (function ($) {
             jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
             jqGridAdditional.setGroupFooters(CustomerBalanceOption.totalColspan);
             CustomerBalance.resizeGrid();
-            isFirstLoad = false;
+            _isFirstLoad = false;
         }
     }
 
@@ -113,7 +111,7 @@ var CustomerBalance = (function ($) {
 
         initEvent: function () {
             $("#SubmitButton").click(function () {
-                pagingOption.pageindex = 1;
+                _pagingOption.pageindex = 1;
                 CustomerBalance.submit();
             });
 
@@ -156,25 +154,29 @@ var CustomerBalance = (function ($) {
                 },
                 beforeSend: function () {
                     Site.blockUI();
+                },
+                complete: function () {
+                    Site.unBlockUI();
                 }
             };
 
-            if (ajaxRequest != null) {
-                ajaxRequest.abort();
+            if (_ajaxRequest != null) {
+                _ajaxRequest.abort();
             }
 
-            ajaxRequest = $.ajax(option);
+            _ajaxRequest = $.ajax(option);
             return true;
         },
 
         ajaxPaging: function () {
-            pagingOption = PagingHeper.getSetting();
+            _pagingOption = PagingHeper.getSetting();
             CustomerBalance.submit();
         },
 
         bindData: function (response) {
+            Site.blockUI();
             jqGridAdditional.clearGrid(GRID_ID);
-            isFirstLoad = true;
+            _isFirstLoad = true;
 
             CustomerBalanceOption.hasCustomerComm = response.HasCustomerComm;
             CustomerBalanceOption.isAllowBA = response.IsAllowBA;

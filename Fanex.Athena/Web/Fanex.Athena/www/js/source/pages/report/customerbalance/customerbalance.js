@@ -98,6 +98,9 @@
                 },
                 beforeSend: function () {
                     Site.blockUI();
+                },
+                complete: function () {
+                    Site.unBlockUI();
                 }
             };
 
@@ -110,6 +113,7 @@
         }
 
         function bindData(response) {
+            Site.blockUI();
             jqGridAdditional.clearGrid(_selector.GridId);
             _isFirstLoad = true;
 
@@ -177,7 +181,6 @@
 
         function sort(index) {
             if (_pagingOption.totalrow > 1) {
-                Site.blockUI();
                 _sortType = index === _sortColumnIndex ? (_sortType === "desc" ? "asc" : "desc") : "desc";
                 window.setTimeout(function () {
                     var orderColumnCode = CustomerBalanceOption.getOrderColumnCode(index, _sortType);
@@ -190,7 +193,6 @@
                     }
                     $(_selector.OrderItemInput).val(orderColumnCode);
                     _me.submit();
-                    Site.unBlockUI();
                 }, 100);
             }
         }

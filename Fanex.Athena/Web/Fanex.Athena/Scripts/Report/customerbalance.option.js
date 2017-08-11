@@ -290,16 +290,16 @@ var CustomerBalanceOption = (function () {
         affiliateTransferColumn
     ];
 
-    var customerWinLoss = {
-        customerWinLossCommsColumns: [customerTotalColumn, customerCommColumn, customerWinLossColumn],
-        customerWinLossCommsColumnNames: ["Total", "Comm", "WinLoss"],
-        customerWinLossColumn: [customerWinLossMergeColumn],
-        customerWinLossColumnNames: ["CustomerW_L"]
+    var CUSTOMER_WL_COLUMNS_CONFIG = {
+        ColModels: [customerTotalColumn, customerCommColumn, customerWinLossColumn],
+        ColNames: ["Total", "Comm", "WinLoss"],
+        ColMergeModel: [customerWinLossMergeColumn],
+        ColMergeName: ["CustomerW_L"]
     };
 
-    var productBA = {
-        productBAColumns: [productBAAmountDueToColumn, productBACommColumn, productBATurnoverColumn],
-        productBAColumnNames: ["AmountDueTo", "Comm", "Turnover"]
+    var BA_COLUMNS_CONFIG = {
+        ColModels: [productBAAmountDueToColumn, productBACommColumn, productBATurnoverColumn],
+        ColNames: ["AmountDueTo", "Comm", "Turnover"]
     };
 
     function insertColumns(columns, insertedColumns, insertedIndex) {
@@ -372,16 +372,16 @@ var CustomerBalanceOption = (function () {
             var colNames = Site.clone(colNameList);
 
             if (me.hasCustomerComm) {
-                insertColumns(colNames, customerWinLoss.customerWinLossCommsColumnNames, me.customerCommIndex);
+                insertColumns(colNames, CUSTOMER_WL_COLUMNS_CONFIG.ColNames, me.customerCommIndex);
             }
             else {
-                insertColumns(colNames, customerWinLoss.customerWinLossColumnNames, me.customerCommIndex);
+                insertColumns(colNames, CUSTOMER_WL_COLUMNS_CONFIG.ColMergeName, me.customerCommIndex);
             }
 
             me.productBAIndex = colNames.length - 1;
 
             if (me.isAllowBA) {
-                insertColumns(colNames, productBA.productBAColumnNames, me.productBAIndex);
+                insertColumns(colNames, BA_COLUMNS_CONFIG.ColNames, me.productBAIndex);
             }
 
             return Site.getResources(colNames);
@@ -391,16 +391,16 @@ var CustomerBalanceOption = (function () {
             var colModels = Site.clone(colModelList);
 
             if (me.hasCustomerComm) {
-                insertColumns(colModels, customerWinLoss.customerWinLossCommsColumns, me.customerCommIndex);
+                insertColumns(colModels, CUSTOMER_WL_COLUMNS_CONFIG.ColModels, me.customerCommIndex);
             }
             else {
-                insertColumns(colModels, customerWinLoss.customerWinLossColumns, me.customerCommIndex);
+                insertColumns(colModels, CUSTOMER_WL_COLUMNS_CONFIG.ColMergeModel, me.customerCommIndex);
             }
 
             me.productBAIndex = colModels.length - 1;
 
             if (me.isAllowBA) {
-                insertColumns(colModels, productBA.productBAColumns, me.productBAIndex);
+                insertColumns(colModels, BA_COLUMNS_CONFIG.ColModels, me.productBAIndex);
             }
 
             if (totalRows <= 1) {
