@@ -81,8 +81,7 @@ namespace Fanex.Athena.Api.Report
             return new WinlossByProductExcel(templatePath, convertingOption, showingOption, metaModel, viewModel, systemId, errorMessage)
             {
                 Level = metaModel.Level,
-                EnableReportByMonth = metaModel.ReportBy,
-                ProductOptions = metaModel.ProductOptions
+                EnableReportByMonth = metaModel.ReportBy
             };
         }
 

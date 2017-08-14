@@ -6,6 +6,7 @@
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Model.Core.DataDomain;
+    using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NPOI.SS.UserModel;
@@ -36,6 +37,8 @@
         private readonly IList<PlatformWinLossSummary> _dataList;
         private readonly PlatformWinLossSummary _total;
 
+        private readonly IEnumerable<ProductOption> _productOptions;
+
         public PlatformWinLossSummaryExcel(
             string templatePath,
             PlatformWinLossMetaModel metaModel,
@@ -49,7 +52,7 @@
             _dataList = dataList;
             _total = total;
 
-            ProductOptions = metaModel.ProductOptions;
+            _productOptions = metaModel.ProductOptions;
             HeaderTextList = new List<string>
             {
                 ViewResources.Platform,
@@ -163,8 +166,8 @@
 
         private string GetProductTitle()
         {
-            var selectedProducts = ProductOptions.Where(x => x.Status);
-            if (selectedProducts.Count() == ProductOptions.Count)
+            var selectedProducts = _productOptions.Where(x => x.Status);
+            if (selectedProducts.Count() == _productOptions.Count())
             {
                 return string.Format("{0}: {1}", ViewResources.Product, ViewResources.All);
             }

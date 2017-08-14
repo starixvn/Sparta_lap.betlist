@@ -193,7 +193,7 @@ namespace Fanex.Athena.Excel.Report
             ReportTitle = string.Format(
                 ViewResources.MatchWinLossTitle,
                 _model.Date.ToString(FormatDate),
-                GetTitleCurrencyName()) + GetLicenseeWLProduct();
+                GetTitleCurrencyName()) + GetLicenseeWLProduct(_model.ProductOptions);
 
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 

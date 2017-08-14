@@ -100,8 +100,7 @@ namespace Fanex.Athena.Controllers.Report
                 showingOption,
                 convertingOption,
                 model.MainData,
-                model.Param.FromDate.ToString("MM - yyyy"))
-            { ProductOptions = model.Param.ProductOptions };
+                model.Param.FromDate.ToString("MM - yyyy"));
             balance.Export();
 
             return new ExcelResult(balance.Workbook, FileName);

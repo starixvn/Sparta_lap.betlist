@@ -12,6 +12,7 @@ namespace Fanex.Athena.Excel.Report
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Model.Core.DataDomain;
+    using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
     using Model.Report.ViewModel;
     using NPOI.SS.UserModel;
@@ -41,13 +42,17 @@ namespace Fanex.Athena.Excel.Report
         private readonly PlatformWinLossViewModel _model;
         private readonly PlatformWinLossMember _totalData;
 
+        private readonly IEnumerable<ProductOption> _productOptions;
+
         public PlatformWinLossMemberExcel(
                         string templatePath,
                                   PlatformWinLossViewModel model,
                                   ShowingOption showingOption,
-                                  ConvertingOption convertingOption)
+                                  ConvertingOption convertingOption,
+                                  IEnumerable<ProductOption> productOptions)
             : base(templatePath, showingOption, convertingOption)
         {
+            _productOptions = productOptions;
             _model = model;
             _dataList = model.MainResult;
             _totalData = model.TotalResult;
@@ -226,13 +231,13 @@ namespace Fanex.Athena.Excel.Report
 
         private string GetProductTitle()
         {
-            if (ProductOptions.Count == 1)
+            if (_productOptions.Count() == 1)
             {
-                return string.Format("{0}: {1}", ViewResources.Product, ProductOptions.First().Code);
+                return string.Format("{0}: {1}", ViewResources.Product, _productOptions.First().Code);
             }
 
-            var selectedProducts = ProductOptions.Where(x => x.Status);
-            if (selectedProducts.Count() == ProductOptions.Count)
+            var selectedProducts = _productOptions.Where(x => x.Status);
+            if (selectedProducts.Count() == _productOptions.Count())
             {
                 return string.Format("{0}: {1}", ViewResources.Product, ViewResources.All);
             }

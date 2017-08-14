@@ -193,10 +193,7 @@
                 showingOption,
                 mainTable,
                 reportData.Tables[1],
-                metaModel)
-            {
-                ProductOptions = metaModel.ProductOptions
-            };
+                metaModel);
 
             matchWinLossExcel.Export();
 

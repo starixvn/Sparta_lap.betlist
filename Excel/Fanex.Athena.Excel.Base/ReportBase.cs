@@ -15,7 +15,6 @@ namespace Fanex.Athena.Excel.Base
     using Excel.Base.Utility;
     using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Model.Core.DTO.Common;
     using Model.Core.MetaModel.Product;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
@@ -73,12 +72,6 @@ namespace Fanex.Athena.Excel.Base
         }
 
         protected IList<string> HeaderTextList
-        {
-            get;
-            set;
-        }
-
-        public IList<ProductOption> ProductOptions
         {
             get;
             set;
@@ -266,9 +259,9 @@ namespace Fanex.Athena.Excel.Base
 
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
             Justification = "Reviewed. Suppression is OK here.")]
-        protected internal virtual string GetLicenseeWLProduct(string caption = null)
+        protected internal virtual string GetLicenseeWLProduct(IEnumerable<ProductOption> productOptions, string caption = null)
         {
-            var productCodeList = ProductOptions.Where(p => p.Status)
+            var productCodeList = productOptions.Where(p => p.Status)
                             .Aggregate(string.Empty, (current, p) => current + (string.IsNullOrEmpty(current) ? p.Code : ", " + p.Code));
 
             return string.IsNullOrEmpty(productCodeList)

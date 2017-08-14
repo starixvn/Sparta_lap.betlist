@@ -71,10 +71,7 @@ namespace Fanex.Athena.Api.Report
             ShowingOption showingOption,
             ConvertingOption convertingOption)
         {
-            return new PlatformWinLossMemberExcel(templatePath, excelModel, showingOption, convertingOption)
-            {
-                ProductOptions = metaModel.ProductOptions
-            };
+            return new PlatformWinLossMemberExcel(templatePath, excelModel, showingOption, convertingOption, metaModel.ProductOptions);
         }
 
         private HttpResponseMessage ExportExcelSummary(
