@@ -8937,7 +8937,6 @@ webpackJsonp([80],{
 	                FromDate: onLevelData.FromDate,
 	                ToDate: onLevelData.ToDate,
 	                PlatformType: onLevelData.PlatformType,
-	                ExcludeTest: onLevelData.IsExcludedTestData,
 	                CurrencyId: dataDrillDown.DrillDownCurrencyId,
 	                CurrencyName: dataDrillDown.DrillDownCurrencyName,
 	                DrawFilter: onLevelData.DrawFilter,
