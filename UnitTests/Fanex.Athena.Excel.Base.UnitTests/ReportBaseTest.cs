@@ -131,10 +131,9 @@
         {
             // Arrange
             var report = Substitute.ForPartsOf<ReportBase>("ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
-            report.ProductOptions = GetProductOption();
 
             // Action
-            var result = report.GetLicenseeWLProduct(caption);
+            var result = report.GetLicenseeWLProduct(GetProductOption(), caption);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
@@ -146,10 +145,9 @@
         {
             // Arrange
             var report = Substitute.ForPartsOf<ReportBase>("ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
-            report.ProductOptions = new List<ProductOption>();
 
             // Action
-            var result = report.GetLicenseeWLProduct(caption);
+            var result = report.GetLicenseeWLProduct(new List<ProductOption>(), caption);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));

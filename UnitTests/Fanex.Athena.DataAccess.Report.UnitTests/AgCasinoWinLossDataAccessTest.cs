@@ -5,7 +5,6 @@
     using System.Data;
     using Data;
     using Model.Core.DataDomain;
-    using Model.Core.DTO.Configuration;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
@@ -23,8 +22,7 @@
         {
             _objectDb = Substitute.For<IObjectDb>();
 
-            var balanceUp = new BalanceUp();
-            _dataAccess = Substitute.ForPartsOf<AgCasinoWinLossDataAccess>(balanceUp);
+            _dataAccess = Substitute.ForPartsOf<AgCasinoWinLossDataAccess>();
 
             _reader = Substitute.For<IDataReader>();
             _objectDb.ExecuteReader().Returns(_reader);

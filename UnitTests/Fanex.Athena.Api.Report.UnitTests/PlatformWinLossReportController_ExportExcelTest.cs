@@ -88,7 +88,8 @@
                Arg.Any<string>(),
                excelModel,
                Arg.Do<ShowingOption>(x => expetedShowingOption = x),
-               Arg.Any<ConvertingOption>());
+               Arg.Any<ConvertingOption>(),
+               Arg.Any<IEnumerable<ProductOption>>());
             excel.When(x => x.Export()).DoNotCallBase();
 
             _controller.CreateExcelMember(
@@ -122,7 +123,8 @@
                Arg.Any<string>(),
                excelModel,
                Arg.Do<ShowingOption>(x => expetedShowingOption = x),
-               Arg.Any<ConvertingOption>());
+               Arg.Any<ConvertingOption>(),
+               Arg.Any<IEnumerable<ProductOption>>());
             excel.When(x => x.Export()).DoNotCallBase();
 
             _controller.CreateExcelMember(
