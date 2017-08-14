@@ -2569,4 +2569,7 @@
   <data name="UserNotHaveCurrency" xml:space="preserve">
     <value>您沒有任何幣別的權限可以觀看這份報告, 請聯絡貴司的後台管理人員.</value>
   </data>
+  <data name="Tablet" xml:space="preserve">
+    <value>平板</value>
+  </data>
 </root>

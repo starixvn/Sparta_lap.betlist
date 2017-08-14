@@ -2570,4 +2570,7 @@
   <data name="UserNotHaveCurrency" xml:space="preserve">
     <value>您没有任何币别的权限可以观看这份报告, 请联络贵司的后台管理人员.</value>
   </data>
+  <data name="Tablet" xml:space="preserve">
+    <value>平板</value>
+  </data>
 </root>
