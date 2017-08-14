@@ -3019,7 +3019,7 @@
   <data name="UserNotHaveCurrency" xml:space="preserve">
     <value>You do not have any currency permissions to view this report, please contact your administrator account.</value>
     <comment>#73925</comment>
-  </data>
+   </data>
   <data name="ProductVS2" xml:space="preserve">
     <value>Virtual Sports 2</value>
     <comment>#78241</comment>
