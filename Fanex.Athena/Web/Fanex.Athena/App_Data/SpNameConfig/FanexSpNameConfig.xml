@@ -7,4 +7,11 @@
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_ReCheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_CheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <!--Do not delete this-->
+
+  <SpNameConfig Environment="LOCAL,SIT,UAT" SpName="Lrf_GetCustomerBalance" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,SIT,UAT" SpName="Lrf_GetLicenseePendingFunds" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,SIT,UAT" SpName="Lrf_GetLicenseeTodayDeposit" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,SIT,UAT" SpName="Lrf_GetLicenseeTodayWithdrawal" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,SIT,UAT" SpName="Lrf_GetLicenseeTurnoverByPlatform" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,SIT,UAT" SpName="Lrf_GetLicenseeWLByPlatform" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
