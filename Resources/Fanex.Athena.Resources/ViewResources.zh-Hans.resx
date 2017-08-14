@@ -2526,4 +2526,13 @@
   <data name="Tablet" xml:space="preserve">
     <value>平板</value>
   </data>
+  <data name="Asia" xml:space="preserve">
+    <value>亚洲</value>
+  </data>
+  <data name="China" xml:space="preserve">
+    <value>大陆</value>
+  </data>
+  <data name="Euro" xml:space="preserve">
+    <value>欧洲</value>
+  </data>
 </root>
