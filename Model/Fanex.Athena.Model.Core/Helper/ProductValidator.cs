@@ -37,7 +37,7 @@
         private const int VS2MinBetType = 2700;
         private const int VS2MaxBetType = 2899;
         private const int LTMinBetType = 1021;
-        private const int LTMaxBetType = 1038;
+        private const int LTMaxBetType = 1049;
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
