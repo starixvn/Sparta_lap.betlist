@@ -36,6 +36,8 @@
         private const int FWMaxBetType = 1020;
         private const int VS2MinBetType = 2700;
         private const int VS2MaxBetType = 2899;
+        private const int LTMinBetType = 1021;
+        private const int LTMaxBetType = 1038;
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -93,6 +95,9 @@
 
                 case Product.VS2:
                     return bettype >= VS2MinBetType && bettype <= VS2MaxBetType;
+
+                case Product.LT:
+                    return bettype >= LTMinBetType && bettype <= LTMaxBetType;
             }
 
             return false;
