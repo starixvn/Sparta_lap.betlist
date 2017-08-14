@@ -13,7 +13,7 @@ var CustomerWinLoss = (function ($) {
     var _sortType = "desc";
     var isFirstLoad = true;
 
-    var pagingOption =
+    var _pagingOption =
     {
         pageindex: 1,
         pagesize: 5,
@@ -27,29 +27,29 @@ var CustomerWinLoss = (function ($) {
 
     function getPostData() {
         var data = $(FORM_SELECTOR).serializeObject();
-        data.PageIndex = pagingOption.pageindex;
-        data.PageSize = pagingOption.pagesize;
+        data.PageIndex = _pagingOption.pageindex;
+        data.PageSize = _pagingOption.pagesize;
 
         return data;
     }
 
     function createPaging(totalRows) {
-        pagingOption.totalrow = totalRows;
-        if (pagingOption.totalrow > 0 && pagingOption.totalrow > pagingOption.pagelist[0]) {
-            $(pagingOption.elementcontainer).show();
-            PagingHeper.render(pagingOption);
+        _pagingOption.totalrow = totalRows;
+        if (_pagingOption.totalrow > 0 && _pagingOption.totalrow > _pagingOption.pagelist[0]) {
+            $(_pagingOption.elementcontainer).show();
+            PagingHeper.render(_pagingOption);
         }
         else {
-            $(pagingOption.elementcontainer).hide();
+            $(_pagingOption.elementcontainer).hide();
         }
     }
 
     function onGridComplete(grid, gridOption, response) {
-        if (pagingOption.totalrow <= 0) {
+        if (_pagingOption.totalrow <= 0) {
             jqGridAdditional.setNoInfo(gridOption.colModel);
         }
         else if (true) {
-            if (pagingOption.totalrow > 1) {
+            if (_pagingOption.totalrow > 1) {
                 var reportGrid = $("#" + GRID_ID);
                 var cm = reportGrid[0].p.colModel;
                 $.each(reportGrid[0].grid.headers, function (index, value) {
@@ -72,29 +72,11 @@ var CustomerWinLoss = (function ($) {
 
             jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
             jqGridAdditional.setGroupFooters(CustomerWinLossOption.totalColspan);
-            CustomerWinLoss.resizeGrid();
+            jqGridAdditional.resizeGrid();
         }
     }
 
     return {
-        resizeGrid: function () {
-            var $grid = $("#data-content");
-            if ($grid.length === 0) {
-                return;
-            }
-
-            var gridTop = $grid.offset().top;
-            var pagerHeight = $(".pagingContainer").height() || 0;
-            if (pagerHeight > 0) {
-                pagerHeight += 10;
-            }
-            var gridHeight = window.innerHeight - gridTop - $("#total-content").height()
-                             - pagerHeight - 35;
-            gridHeight = Math.max(120, gridHeight);
-
-            $grid.css("height", "auto").css("max-height", gridHeight);
-            $(".report-content").css("max-height", "");
-        },
         initialize: function () {
             ProductListHelper.initProductList();
             CustomerWinLoss.initEvent();
@@ -148,6 +130,7 @@ var CustomerWinLoss = (function ($) {
 
             $("#SubmitButton").click(function () {
                 Site.blockUI();
+                _pagingOption.pageindex = 1;
                 $('#IsExportExcel').val(false);
                 $("#SortColumn").val("ExternalId");
                 $("#SortDirection").val("ASC");
@@ -156,16 +139,9 @@ var CustomerWinLoss = (function ($) {
             });
 
             $('#ExportToExcel').click(function () {
-                $('#IsExportExcel').val(true);
-
-                var pageSize = $('.pageSizeSelected').val();
-                if (pageSize !== undefined) {
-                    var pageSizeHtml = '<input type="hidden" class="page-size-param" value="' + pageSize + '" name="PageSize" />';
-                    $("#CustomerWinlossForm").append(pageSizeHtml);
-                }
-
-                $("#CustomerWinlossForm").submit();
-                $(".page-size-param").remove();
+                var data = getPostData();
+                data.pageSize = $('.pageSizeSelected').val();
+                Site.exportExcel(data, DATA_URL);
                 return false;
             });
 
@@ -252,7 +228,7 @@ var CustomerWinLoss = (function ($) {
             return true;
         },
         ajaxPaging: function () {
-            pagingOption = PagingHeper.getSetting();
+            _pagingOption = PagingHeper.getSetting();
             CustomerWinLoss.submit();
         },
 
@@ -286,11 +262,11 @@ var CustomerWinLoss = (function ($) {
 $(window).load(function () {
     "use strict";
     CustomerWinLoss.initialize();
-    CustomerWinLoss.resizeGrid();
+    jqGridAdditional.resizeGrid();
 });
 $(window).resize(function () {
     "use strict";
-    CustomerWinLoss.resizeGrid();
+    jqGridAdditional.resizeGrid();
 });
 
 $(window).unload(function () {

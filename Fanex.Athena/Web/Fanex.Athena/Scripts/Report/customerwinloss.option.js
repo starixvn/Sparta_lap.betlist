@@ -23,7 +23,7 @@ var CustomerWinLossOption = (function () {
         width: 120,
         align: "left",
         valign: "middle",
-        sortable: false,
+        sortable: true,
         cellattr: function () {
             return ' style="text-overflow: ellipsis"';
         }
@@ -37,7 +37,7 @@ var CustomerWinLossOption = (function () {
         width: 120,
         align: "left",
         valign: "middle",
-        sortable: false
+        sortable: true
     };
 
     var turnoverColumn =
@@ -113,9 +113,10 @@ var CustomerWinLossOption = (function () {
     {
         name: "BetEffective",
         index: "BetEffective",
+        classes: 'highlight',
         width: 100,
         align: "right",
-        sortable: false,
+        sortable: true,
         resizable: false,
         formatter: "currency",
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
@@ -125,9 +126,10 @@ var CustomerWinLossOption = (function () {
     {
         name: "BAComm",
         index: "BAComm",
+        classes: 'highlight',
         width: 100,
         align: "right",
-        sortable: false,
+        sortable: true,
         resizable: false,
         formatter: "currency",
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
@@ -137,6 +139,7 @@ var CustomerWinLossOption = (function () {
     {
         name: "RacingRevenue",
         index: "RacingRevenue",
+        classes: 'highlight',
         width: 100,
         align: "right",
         sortable: false,
@@ -149,7 +152,7 @@ var CustomerWinLossOption = (function () {
     {
         name: "AmtDueToBA",
         index: "AmtDueToBA",
-        width: 200,
+        width: 100,
         align: "right",
         sortable: true,
         resizable: false,
