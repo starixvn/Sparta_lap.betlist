@@ -160,6 +160,9 @@
                 case "l":
                     return ViewResources.SmartSite;
 
+                case "r":
+                    return ViewResources.Tablet;
+
                 default:
                     return ViewResources.Others;
             }
