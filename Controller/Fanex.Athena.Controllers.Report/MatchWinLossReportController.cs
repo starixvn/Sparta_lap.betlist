@@ -34,8 +34,10 @@
         private const int BetType33 = 33;
         private const int BetType1101 = 1101;
         private const int BetType1199 = 1199;
-        private const int BetType1021 = 1021;
+        private const int BetType1201 = 1201;
         private const int BetType1299 = 1299;
+        private const int BetType2700 = 2700;
+        private const int BetType2899 = 2899;
 
         private static readonly IList<int> VirtualHrBettypes = new List<int> { 1231, 1232, 1233, 1237, 1238 };
         private readonly IMatchWinLossService _matchWinLossService;
@@ -280,11 +282,11 @@
             {
                 row[NewProductIdColumnName] = ProductTypes.LiveCasino;
             }
-            else if (betType >= BetType1021 && betType <= BetType1299)
+            else if (betType >= BetType1201 && betType <= BetType1299)
             {
                 row[NewProductIdColumnName] = ProductTypes.VirtualSports;
             }
-            else if (betType >= (int)BetType.VirtualSports2Ft1X2 && betType <= (int)BetType.VirtualSports2MixParlay)
+            else if (betType >= BetType2700 && betType <= BetType2899)
             {
                 row[NewProductIdColumnName] = ProductTypes.VirtualSports2;
             }
