@@ -11,6 +11,8 @@
     "lib/jqgrid/jquery.jqGrid.min",
     "extensions/jquery.extension"],
     function ($, Site, jqGridAdditional, CustomerBalanceOption, DatePicker, MultiSelect, DateHelper, PagingHelper) {
+        "use strict";
+
         var VALID_MONTH_RANGE = 2;
 
         var _ajaxRequest = null;

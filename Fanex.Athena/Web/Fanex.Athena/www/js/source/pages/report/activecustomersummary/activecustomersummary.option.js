@@ -117,7 +117,7 @@
             _me.gridOption.colNames = Site.getResources(columnNames);
             _me.gridOption.colModel = columnModels;
 
-            return _me.gridOption;
+            return Site.clone(me.gridOption);
         },
 
         setGroupHeaderColumns: function (grid, productOptions) {

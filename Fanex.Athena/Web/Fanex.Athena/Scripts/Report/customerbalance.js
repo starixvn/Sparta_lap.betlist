@@ -88,16 +88,12 @@ var CustomerBalance = (function ($) {
 
             jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
             jqGridAdditional.setGroupFooters(CustomerBalanceOption.totalColspan);
-            CustomerBalance.resizeGrid();
+            jqGridAdditional.resizeGrid();
             _isFirstLoad = false;
         }
     }
 
     return {
-        resizeGrid: function () {
-            jqGridAdditional.resizeGrid();
-        },
-
         initialize: function () {
             ProductListHelper.initProductList();
             CustomerBalance.initEvent();
@@ -210,7 +206,7 @@ $(window).load(function () {
 
 $(window).resize(function () {
     "use strict";
-    CustomerBalance.resizeGrid();
+    jqGridAdditional.resizeGrid();
 });
 
 $(window).unload(function () {
