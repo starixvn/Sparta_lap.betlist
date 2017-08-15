@@ -36,7 +36,7 @@
             {
                 BaseCurrency = "EUR",
                 LicenseeId = 1,
-                CurrencyId = 2,
+                CurrencyIDList = "1,2,3",
                 FromDate = new System.DateTime(2017, 1, 1),
                 ToDate = new System.DateTime(2017, 2, 15)
             };
@@ -50,7 +50,7 @@
 
             // Assert
             Assert.That(type.GetProperty("LicenseeID").GetValue(passedParam, null), Is.EqualTo(metaModel.LicenseeId));
-            Assert.That(type.GetProperty("CurrencyID").GetValue(passedParam, null), Is.EqualTo(metaModel.CurrencyId));
+            Assert.That(type.GetProperty("CurrencyIDList").GetValue(passedParam, null), Is.EqualTo(metaModel.CurrencyIDList));
             Assert.That(type.GetProperty("FromDate").GetValue(passedParam, null), Is.EqualTo(metaModel.FromDate));
             Assert.That(type.GetProperty("ToDate").GetValue(passedParam, null), Is.EqualTo(metaModel.ToDate));
         }

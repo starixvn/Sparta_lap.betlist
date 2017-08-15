@@ -26,7 +26,13 @@
         public void GetData_WhenCall_PassCorrectParam()
         {
             // Arrange
-            var metaModel = new DashboardBaseModel { LicenseeId = 1, CurrencyId = 2, BaseCurrency = "EUR" };
+            var metaModel = new DashboardBaseModel
+            {
+                LicenseeId = 1,
+                CurrencyIDList = "1,2,3",
+                BaseCurrency = "EUR"
+            };
+
             object passedParam = null;
             var reader = _pendingFundDataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetLicenseePendingFunds"))
                 .ExecuteReader(Arg.Do<object>(x => passedParam = x));
@@ -39,7 +45,7 @@
 
             // Assert
             Assert.That(type.GetProperty("LicenseeID").GetValue(passedParam, null), Is.EqualTo(metaModel.LicenseeId));
-            Assert.That(type.GetProperty("CurrencyID").GetValue(passedParam, null), Is.EqualTo(metaModel.CurrencyId));
+            Assert.That(type.GetProperty("CurrencyIDList").GetValue(passedParam, null), Is.EqualTo(metaModel.CurrencyIDList));
         }
 
         [Test]
