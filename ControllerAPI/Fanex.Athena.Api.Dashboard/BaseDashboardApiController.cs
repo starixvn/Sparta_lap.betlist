@@ -13,8 +13,8 @@
         protected int LicenseeId => (int)ActionContext.ActionArguments["licenseeid"];
 
         protected int UserId => (int)ActionContext.ActionArguments["userid"];
-        protected string CurrencyIDList => (string)ActionContext.ActionArguments["currencyIDList"];
 
+        protected string CurrencyIDList => (string)ActionContext.ActionArguments["currencyIDList"];
 
         protected void AssignAuthProperties(DashboardBaseModel model)
         {
