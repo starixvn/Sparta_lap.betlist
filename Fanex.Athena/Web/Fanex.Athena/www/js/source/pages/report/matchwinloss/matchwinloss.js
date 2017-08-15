@@ -105,6 +105,7 @@ define(["jquery", "common/site", "common/querystring", "components/pluginhelper/
                         var rowspan = $(Selector.detailRow).length + 1;
                         $parentRow.find("td:first").attr("rowspan", rowspan);
                         $parentRow.addClass(ClassName.active);
+                        GridHelper.resizeGrid();
                     },
                     beforeSend: Site.blockUI,
                     complete: Site.unBlockUI

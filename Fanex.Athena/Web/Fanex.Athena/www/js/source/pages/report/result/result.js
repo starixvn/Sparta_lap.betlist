@@ -121,9 +121,7 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                 });
 
                 $(window).on("resize", function () {
-                    if ($(".fn-rs-content-scroll").length > 0) {
-                        GridHelper.resizeGrid($(".fn-rs-content-scroll"));
-                    }
+                    GridHelper.resizeGrid($(".fn-rs-content-scroll"));
                 });
 
                 $(window).on("unload", function () {
