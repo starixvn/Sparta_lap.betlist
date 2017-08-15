@@ -97,6 +97,7 @@ var CustomerBalance = (function ($) {
         initialize: function () {
             ProductListHelper.initProductList();
             CustomerBalance.initEvent();
+            CustomerBalance.initSetting();
             Site.setConstraintMonthRange(VALID_MONTH_RANGE, CustomerBalanceOption.urlExcelData);
             Site.addUserGuide({
                 resourceName: "CustomerBalance",
@@ -120,6 +121,11 @@ var CustomerBalance = (function ($) {
                 $(EXCEL_NAME_SELECTOR).val(false);
                 return false;
             });
+        },
+
+        initSetting: function(){
+            CustomerBalanceOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
+            CustomerBalanceOption.isAllowBA = Site.asBool($("#IsAllowedBACommission").val());
         },
 
         setReportTitle: function () {
@@ -174,8 +180,6 @@ var CustomerBalance = (function ($) {
             jqGridAdditional.clearGrid(GRID_ID);
             _isFirstLoad = true;
 
-            CustomerBalanceOption.hasCustomerComm = response.HasCustomerComm;
-            CustomerBalanceOption.isAllowBA = response.IsAllowBA;
             var gridOption = CustomerBalanceOption.getGridOption(response.TotalRows);
             gridOption.data = response.Data;
             gridOption.onSortCol = function (index) {

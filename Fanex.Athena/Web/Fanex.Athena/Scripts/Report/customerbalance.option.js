@@ -291,15 +291,15 @@ var CustomerBalanceOption = (function () {
     ];
 
     var CUSTOMER_WL_COLUMNS_CONFIG = {
-        ColModels: [customerTotalColumn, customerCommColumn, customerWinLossColumn],
-        ColNames: ["Total", "Comm", "WinLoss"],
+        ColModels: [customerWinLossColumn, customerCommColumn, customerTotalColumn],
+        ColNames: ["WinLoss", "Comm", "Total"],
         ColMergeModel: [customerWinLossMergeColumn],
         ColMergeName: ["CustomerW_L"]
     };
 
     var BA_COLUMNS_CONFIG = {
-        ColModels: [productBAAmountDueToColumn, productBACommColumn, productBATurnoverColumn],
-        ColNames: ["AmountDueTo", "Comm", "Turnover"]
+        ColModels: [productBATurnoverColumn, productBACommColumn, productBAAmountDueToColumn],
+        ColNames: ["Turnover", "Comm", "AmountDueTo"]
     };
 
     function insertColumns(columns, insertedColumns, insertedIndex) {
@@ -312,8 +312,8 @@ var CustomerBalanceOption = (function () {
         urlExcelData: "api/CustomerBalanceReport/Index",
         hasCustomerComm: true,
         isAllowBA: true,
-        customerCommIndex: 11,
-        productBAIndex: 13,
+        customerCommIndex: 12,
+        productBAIndex: 15,
         totalColspan: 3,
         gridOption:
         {
@@ -376,7 +376,7 @@ var CustomerBalanceOption = (function () {
                 insertColumns(colNames, CUSTOMER_WL_COLUMNS_CONFIG.ColMergeName, me.customerCommIndex);
             }
 
-            me.productBAIndex = colNames.length - 1;
+            me.productBAIndex = colNames.length;
 
             if (me.isAllowBA) {
                 insertColumns(colNames, BA_COLUMNS_CONFIG.ColNames, me.productBAIndex);
@@ -395,7 +395,7 @@ var CustomerBalanceOption = (function () {
                 insertColumns(colModels, CUSTOMER_WL_COLUMNS_CONFIG.ColMergeModel, me.customerCommIndex);
             }
 
-            me.productBAIndex = colModels.length - 1;
+            me.productBAIndex = colModels.length;
 
             if (me.isAllowBA) {
                 insertColumns(colModels, BA_COLUMNS_CONFIG.ColModels, me.productBAIndex);

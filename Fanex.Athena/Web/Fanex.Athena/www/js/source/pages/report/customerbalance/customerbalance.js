@@ -52,6 +52,7 @@
             DateHelper.setConstraintMonthRange(VALID_MONTH_RANGE, CustomerBalanceOption.urlExcelData);
 
             _me.initEvent();
+            _me.initSetting();
         }
 
         function initEvent() {
@@ -81,6 +82,11 @@
             window.CustomerBalance = {
                 ajaxPaging: _me.ajaxPaging
             };
+        }
+
+        function initSetting() {
+            CustomerBalanceOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
+            CustomerBalanceOption.isAllowBA = Site.asBool($("#IsAllowedBACommission").val());
         }
 
         function submit() {
@@ -127,8 +133,6 @@
                 return;
             }
 
-            CustomerBalanceOption.hasCustomerComm = response.HasCustomerComm;
-            CustomerBalanceOption.isAllowBA = response.IsAllowBA;
             var gridOption = CustomerBalanceOption.getGridOption(response.TotalRows);
             gridOption.data = response.Data;
             gridOption.onSortCol = function (index) {

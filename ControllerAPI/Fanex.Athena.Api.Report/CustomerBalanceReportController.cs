@@ -32,9 +32,6 @@
 
         private dynamic ProcessRequest(CustomerBalanceMetaModel metaModel)
         {
-            var licenseeSession = SessionService.LicenseeSession;
-            var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, FunctionNames.CustomerBalance);
-
             var totalData = new CustBalance();
             var totalRows = 0;
             var dataList = GetData(metaModel, ref totalData, ref totalRows);
@@ -43,8 +40,6 @@
             {
                 Data = dataList,
                 Total = totalData,
-                HasCustomerComm = licenseeSession.IsAllowedCustomerComm,
-                IsAllowBA = productAccess.IsAllowBA,
                 TotalRows = totalRows
             };
         }
@@ -62,7 +57,7 @@
             var showingOption = new ShowingOption
             {
                 BAVisible = productAccess.IsAllowBA,
-                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
+                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
 
             var convertingOption = new ConvertingOption

@@ -46,7 +46,9 @@ namespace Fanex.Athena.Controllers.Report
             var model = new CustomerBalanceViewModel
             {
                 CurrencyList = userSession.CurrencyList,
-                Param = metaModel
+                Param = metaModel,
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                ProductAccess = productAccess
             };
 
             return View("~/Views/Report/CustomerBalance/Main.cshtml", model);

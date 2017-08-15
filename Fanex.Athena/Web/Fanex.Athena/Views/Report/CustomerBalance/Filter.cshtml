@@ -52,4 +52,6 @@
             <input type="button" value="@ViewResources.Submit" id="SubmitButton" class="button" />
         </div>
     </form>
+    @Html.Hidden("IsAllowedBACommission", Model.ProductAccess.IsAllowBA)
+    @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
 </div>

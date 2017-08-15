@@ -289,20 +289,21 @@
         ];
 
         var CUSTOMER_WL_COLUMNS_CONFIG = {
-            ColModels: [customerTotalColumn, customerCommColumn, customerWinLossColumn],
-            ColNames: ["Total", "Comm", "WinLoss"],
+            ColModels: [customerWinLossColumn, customerCommColumn, customerTotalColumn],
+            ColNames: ["WinLoss", "Comm", "Total"],
             ColMergeModel: [customerWinLossMergeColumn],
             ColMergeName: ["CustomerW_L"]
         };
 
         var BA_COLUMNS_CONFIG = {
-            ColModels: [productBAAmountDueToColumn, productBACommColumn, productBATurnoverColumn],
-            ColNames: ["AmountDueTo", "Comm", "Turnover"]
+            ColModels: [productBATurnoverColumn, productBACommColumn, productBAAmountDueToColumn],
+            ColNames: ["Turnover", "Comm", "AmountDueTo"]
         };
 
         function insertColumns(columns, insertedColumns, insertedIndex) {
             $.each(insertedColumns, function (index, item) {
                 columns.insertAfter(item, insertedIndex);
+                insertedIndex++;
             });
         }
 
