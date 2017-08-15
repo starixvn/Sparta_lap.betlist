@@ -1,0 +1,22 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.ThirdPartyWinLossViewModel
+@{
+    ViewBag.Title = "LRF - " + ViewResources.Report +
+    " - " + ViewResources.ColossusBetsWinLoss;
+    Layout = "~/Views/Desktop/Shared/_Report.jqGridLayout.cshtml";
+}
+@section pagecss {
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/reports/colossusbetswinLoss.css")" rel="stylesheet" />
+}
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/reports/colossusbetswinLoss.chunk.js")"></script>
+}
+
+@section Filter
+{
+    @{Html.RenderPartial("~/Views/Desktop/Report/ColossusBetsWinLoss/Filter.cshtml");}
+}
+
+@section Content
+{
+    @{Html.RenderPartial("~/Views/Desktop/Report/ColossusBetsWinLoss/Content.cshtml");}
+}

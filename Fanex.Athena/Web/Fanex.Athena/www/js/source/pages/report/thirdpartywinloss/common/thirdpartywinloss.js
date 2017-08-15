@@ -3,24 +3,23 @@
     "common/querystring",
     "common/site",
     "../../report",
-    "./thirdpartywinloss.option",
     "lib/jqgrid/jquery.jqgrid.additional",
     "components/pluginhelper/daterangepicker",
     "components/pluginhelper/multiselect",
     "helpers/daterange",
     "moment",
+    "common/popup",
     "lib/jqgrid/jquery.jqGrid.en",
     "lib/jqgrid/jquery.jqGrid.min",
     "extensions/jquery.extension"],
-    function ($, QueryString, Site, Report, ThirdPartyWinLossOption, jqGridAdditional, DatePicker, MultiSelect, DateHelper, moment) {
+    function ($, QueryString, Site, Report, jqGridAdditional, DatePicker, MultiSelect, DateHelper, moment, Popup) {
         "use strict";
         var defaultOption = {
             UserGuideResourceName: "",
             UserGuideTitle: "",
-            UrlExcelData: "api/ThirdPartyWinLossReport/Index",
-            UrlData: "api/ThirdPartyWinLossReport/Index",
             ValidMonthRange: 0,
-            ReportTitle: ""
+            ReportTitle: "",
+            GridOption: {}
         };
 
         var _selector = {
@@ -35,41 +34,42 @@
             CanDrilldown: false,
             LevelLinkContainer: "#level-link-container",
             LevelLink: ".level-link",
-            DrillDownLicenseeId: "#drillDownLicenseeId",
-            DrillDownLink: ".drilldown"
+            DrillDownLink: ".drilldown",
+            BetListLink: ".bet-list-link"
         };
 
         var _ajaxRequest;
         var _cacheData = [];
         var _submitData;
         var _reportTitle;
-        var _canDrilldown = false;
         var _urlExcelData;
+        var _thirdPartyWinLossOption;
 
         function initialize(memberOption) {
             Site.initialize();
 
             var option = $.extend({}, defaultOption, memberOption || {});
 
-            Site.addUserGuide({
-                resourceName: option.UserGuideResourceName,
-                title: Site.getSingleResource(option.UserGuideTitle)
-            });
+            if (option.UserGuideResourceName !== "") {
+                Site.addUserGuide({
+                    resourceName: option.UserGuideResourceName,
+                    title: Site.getSingleResource(option.UserGuideTitle)
+                });
+            }
 
             _me.initSetting(option);
 
             DatePicker.initDateRangePicker();
-            DateHelper.setConstraintMonthRange(option.ValidMonthRange, option.urlExcelData);
+            if (option.ValidMonthRange > 0) {
+                DateHelper.setConstraintMonthRange(option.ValidMonthRange, option.urlExcelData);
+            }
 
             _me.initEvent();
         }
 
         function initSetting(option) {
-            ThirdPartyWinLossOption.urlData = option.UrlData;
-            ThirdPartyWinLossOption.urlExcelData = option.UrlExcelData;
-            ThirdPartyWinLossOption.licenseeId = parseInt($(_selector.DrillDownLicenseeId).val());
+            _thirdPartyWinLossOption = option.GridOption;
             _reportTitle = Site.getSingleResource(option.ReportTitle);
-            _canDrilldown = option.CanDrilldown;
         }
 
         function initEvent() {
@@ -90,7 +90,7 @@
             $(_selector.LevelLinkContainer).on("click", _selector.LevelLink, function () {
                 var level = $(this).data("level");
                 if (level < 2) {
-                    Report.renderBreadCrumb(level, ThirdPartyWinLossOption.licenseeId);
+                    Report.renderBreadCrumb(level, _thirdPartyWinLossOption.licenseeId);
                     _me.bindData(level, _cacheData[level]);
                     _urlExcelData = _urlExcelData.replace("level=2", "level=1");
                 }
@@ -105,6 +105,11 @@
                 _me.submit(data);
             });
 
+            $("body").on("click", _selector.BetListLink, function () {
+                var dataDrillDown = $(this).data("drill-down");
+                openBetlistPopUp(dataDrillDown);
+            });
+
             $(window).on("resize", function () {
                 resizeGrid();
             });
@@ -116,7 +121,6 @@
 
         function submit(drillDownData) {
             var postdata;
-            var url;
             var currencyId = 0;
             var fromDate = "";
             var toDate = "";
@@ -140,7 +144,7 @@
                 toDate = postdata.ToDate;
             }
 
-            var url = setUpUrl(ThirdPartyWinLossOption.urlData, level, currencyId, custId, fromDate, toDate);
+            var url = setUpUrl(_thirdPartyWinLossOption.urlData, level, currencyId, custId, fromDate, toDate);
             var option = {
                 type: "POST",
                 data: postdata,
@@ -182,7 +186,7 @@
 
             var reportGrid = $("#" + _selector.GridId);
 
-            var gridOption = ThirdPartyWinLossOption.getGridOption(level, _submitData.ReportBy, _canDrilldown);
+            var gridOption = _thirdPartyWinLossOption.getGridOption(level, _submitData.ReportBy);
             gridOption.data = response.Data;
             gridOption.rowNum = numOfRow;
             gridOption.gridComplete = function () {
@@ -193,11 +197,12 @@
             };
 
             reportGrid.jqGrid(gridOption);
+            _thirdPartyWinLossOption.setGroupHeader(reportGrid);
         }
 
         function bindTotal(level, totalData, summaryTotal) {
-            var columnModel = ThirdPartyWinLossOption.getTotalColModel(level, _submitData.ReportBy);
-            var colspan = ThirdPartyWinLossOption.totalColspan[level];
+            var columnModel = _thirdPartyWinLossOption.getTotalColModel(level, _submitData.ReportBy);
+            var colspan = _thirdPartyWinLossOption.totalColspan[level];
             var summaryColspan = colspan + 1;
 
             jqGridAdditional.assignTotal(totalData, columnModel);
@@ -207,7 +212,6 @@
 
         function setReportTitle(currencyId, fromdate, todate) {
             var titlePattern = _reportTitle + ', {0} → {1} - {2}';
-            var viewinKey = Site.getSingleResource("Viewin");
             //get currencyName
             var currencyStr = Report.getCurrencyNameForReportTitle(currencyId);
 
@@ -232,13 +236,13 @@
                     };
                 }
 
-                Report.renderBreadCrumb(level, ThirdPartyWinLossOption.licenseeId);
+                Report.renderBreadCrumb(level, _thirdPartyWinLossOption.licenseeId);
                 _me.bindData(level, response);
             }
         }
 
         function setExcelUrl(level, currencyId, custId, fdate, tdate) {
-            _urlExcelData = setUpUrl(ThirdPartyWinLossOption.urlExcelData, level, currencyId, custId, fdate, tdate);
+            _urlExcelData = setUpUrl(_thirdPartyWinLossOption.urlExcelData, level, currencyId, custId, fdate, tdate);
         }
 
         function setUpUrl(url, level, currencyId, custId, fdate, tdate) {
@@ -257,6 +261,28 @@
             var reportGrid = $("#" + _selector.GridId);
             jqGridAdditional.updateGridHeight();
             jqGridAdditional.updateGridWidth(reportGrid);
+        }
+
+        function openBetlistPopUp(dataDrillDown) {
+            var dateRange = Report.GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, dataDrillDown.DrillDownDate);
+
+            var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
+            url = QueryString.setParam(url, "fromdate", dateRange.FromDate.toString("MM/dd/yyyy"));
+            url = QueryString.setParam(url, "todate", dateRange.ToDate.toString("MM/dd/yyyy"));
+            url = QueryString.setParam(url, "excludetest", _submitData.IsExcludedTestData);
+            url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
+            url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
+            url = QueryString.setParam(url, "drawfilter", _submitData.DrawFilter);
+            url = QueryString.setParam(url, "custid", dataDrillDown.CustomerId);
+            url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
+            url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
+            url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
+            url = QueryString.setParam(url, "excelfilename", "ColossusBetsWinLossBetList");
+            url = Site.setProductCodeListParam(url, "CB");
+
+            var popH = Math.min($(window).height() - 100, 650), popW = 920;
+            var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: "Customer Bet List" };
+            Popup.openPopupWithIframe(url, popupOption);
         }
 
         var _me = {

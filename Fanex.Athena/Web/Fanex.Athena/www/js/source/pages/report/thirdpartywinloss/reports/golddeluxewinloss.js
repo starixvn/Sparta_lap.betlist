@@ -1,13 +1,13 @@
-﻿define(["jquery", "../common/thirdpartywinloss"],
-    function ($, ThirdPartyWinLoss) {
+﻿define(["jquery", "../common/thirdpartywinloss", "./golddeluxewinloss.option"],
+    function ($, ThirdPartyWinLoss, GoldDeluxeWinLossOption) {
         "use strict";
         function initialize() {
+            GoldDeluxeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
+
             ThirdPartyWinLoss.initialize({
-                UserGuideResourceName: "GoldDeluxeWinLoss",
-                UserGuideTitle: "GoldDeluxeWinLoss",
                 ValidMonthRange: 3,
                 ReportTitle: "GoldDeluxeWinLoss",
-                CanDrilldown: true
+                GridOption: GoldDeluxeWinLossOption
             });
         }
 
