@@ -19,7 +19,7 @@
         protected void AssignAuthProperties(DashboardBaseModel model)
         {
             model.LicenseeId = this.LicenseeId;
-            model.CurrencyIDList = model.CurrencyId == 0 ? CurrencyIDList : string.Join(",", new[] { model.CurrencyId });
+            model.CurrencyIDList = model.CurrencyId == 0 ? CurrencyIDList : model.CurrencyId.ToString();
         }
     }
 }
