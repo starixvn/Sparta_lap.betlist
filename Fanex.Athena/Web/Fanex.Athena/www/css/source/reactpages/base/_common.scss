@@ -1,0 +1,33 @@
+﻿@import "../abstracts/variables";
+html {
+    font-size: 62.5%;
+    height: 100%;
+}
+
+body {
+    background: $bgBody;
+    font-size: $font-size;
+    color: $black;
+    height: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: $colorHyperlink;
+    text-decoration: none;
+}
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.text-center {
+    text-align: center;
+}

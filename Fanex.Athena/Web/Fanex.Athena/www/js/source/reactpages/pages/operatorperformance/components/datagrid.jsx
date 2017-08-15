@@ -5,23 +5,22 @@ import { bindActionCreators } from 'redux'
 
 class DataGrid extends Component {
     constructor(props) {
-        super(props)
-       
+        super(props);
     }
-  
+
     render() {
         return (
             <div>Hello GRid</div>
         );
-        }
+    }
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(ActionCreators, dispatch);
+    return bindActionCreators(ActionCreators, dispatch);
 }
-    function mapStateToProps(state) {
-        return {
-            
-        };
-    };
+function mapStateToProps(state) {
+    return {
 
-export default connect(mapStateToProps,mapDispatchToProps)(DataGrid);
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

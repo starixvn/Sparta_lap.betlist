@@ -4,16 +4,14 @@ export default class AppLayout extends Component {
 
   constructor(props) {
     super(props);
-    
+
   }
 
   render() {
-   return (
-        <div id="container" className="container">
-           HAHAH
-            {this.props.children}
-        </div>
+    return (
+      <div id="container" className="container">
+        {this.props.children}
+      </div>
     );
   }
 }
-
