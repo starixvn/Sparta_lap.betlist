@@ -23,10 +23,8 @@
             _todayDepositService = null;
         }
 
-        [TestCase(null)]
-        [TestCase("")]
         [TestCase("CLMV")]
-        public void GetData_InvalidBaseCurrency_ReturnZero(string baseCurrency)
+        public void GetData_InvalidBaseCurrency_ReturnZeroAndDoNotCallService(string baseCurrency)
         {
             // Arrange
             var metaModel = new DashboardBaseModel
@@ -91,7 +89,7 @@
             var mockActionContext = new HttpActionContext
             {
                 ControllerContext = new HttpControllerContext(),
-                ActionArguments = { { "licenseeid", 1 }, { "userid", 2 } }
+                ActionArguments = { { "licenseeid", 1 }, { "userid", 2 }, { "currencyIDList", "1" } }
             };
 
             controller.ActionContext = mockActionContext;

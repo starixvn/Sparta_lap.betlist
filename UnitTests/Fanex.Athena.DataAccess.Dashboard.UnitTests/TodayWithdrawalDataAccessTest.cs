@@ -26,7 +26,13 @@
         public void GetData_WhenCall_PassCorrectParam()
         {
             // Arrange
-            var metaModel = new DashboardBaseModel { LicenseeId = 1, CurrencyId = 2, BaseCurrency = "EUR", FromDate = new System.DateTime(2017, 1, 1) };
+            var metaModel = new DashboardBaseModel
+            {
+                LicenseeId = 1,
+                CurrencyIDList = "1,2,3",
+                BaseCurrency = "EUR",
+                FromDate = new System.DateTime(2017, 1, 1)
+            };
             object passedParam = null;
             var reader = _todayWithDrawalDataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetLicenseeTodayWithdrawal"))
                 .ExecuteReader(Arg.Do<object>(x => passedParam = x));
@@ -34,12 +40,12 @@
             reader["WithdrawalEUR"].Returns(0M);
 
             // Action
-            var result = _todayWithDrawalDataAccess.GetData(metaModel);
+            _todayWithDrawalDataAccess.GetData(metaModel);
             var type = passedParam.GetType();
 
             // Assert
             Assert.That(type.GetProperty("LicenseeID").GetValue(passedParam, null), Is.EqualTo(metaModel.LicenseeId));
-            Assert.That(type.GetProperty("CurrencyID").GetValue(passedParam, null), Is.EqualTo(metaModel.CurrencyId));
+            Assert.That(type.GetProperty("CurrencyIDList").GetValue(passedParam, null), Is.EqualTo(metaModel.CurrencyIDList));
             Assert.That(type.GetProperty("ReportDate").GetValue(passedParam, null), Is.EqualTo(metaModel.FromDate));
         }
 

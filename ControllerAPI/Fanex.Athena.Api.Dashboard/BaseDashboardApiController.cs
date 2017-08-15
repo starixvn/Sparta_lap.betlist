@@ -14,9 +14,12 @@
 
         protected int UserId => (int)ActionContext.ActionArguments["userid"];
 
+        protected string CurrencyIDList => (string)ActionContext.ActionArguments["currencyIDList"];
+
         protected void AssignAuthProperties(DashboardBaseModel model)
         {
             model.LicenseeId = this.LicenseeId;
+            model.CurrencyIDList = model.CurrencyId == 0 ? CurrencyIDList : model.CurrencyId.ToString();
         }
     }
 }

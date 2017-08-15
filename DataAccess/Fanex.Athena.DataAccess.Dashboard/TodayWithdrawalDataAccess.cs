@@ -20,7 +20,7 @@
                     var param = new
                     {
                         LicenseeID = metaModel.LicenseeId,
-                        CurrencyID = metaModel.CurrencyId,
+                        metaModel.CurrencyIDList,
                         ReportDate = metaModel.FromDate
                     };
 

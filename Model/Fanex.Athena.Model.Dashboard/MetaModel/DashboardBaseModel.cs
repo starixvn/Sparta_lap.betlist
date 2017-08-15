@@ -18,11 +18,13 @@
 
         public string SelectedWidgetString { get; set; }
 
+        public string CurrencyIDList { get; set; }
+
         public virtual bool IsValid
         {
             get
             {
-                return DashboardConfig.SupportedBaseCurrencies.Contains(BaseCurrency?.ToUpperInvariant());
+                return string.IsNullOrEmpty(BaseCurrency) || DashboardConfig.SupportedBaseCurrencies.Contains(BaseCurrency.ToUpperInvariant());
             }
         }
     }
