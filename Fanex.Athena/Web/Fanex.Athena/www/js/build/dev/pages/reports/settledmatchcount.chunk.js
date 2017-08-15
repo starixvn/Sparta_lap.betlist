@@ -3,15 +3,15 @@ webpackJsonp([83],{
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(349);
+	module.exports = __webpack_require__(360);
 
 
 /***/ }),
 
-/***/ 349:
+/***/ 360:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(350)], __WEBPACK_AMD_DEFINE_RESULT__ = function (SettledMatchCount) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(361)], __WEBPACK_AMD_DEFINE_RESULT__ = function (SettledMatchCount) {
 	    "use strict";
 	
 	    $(SettledMatchCount.initialize);
@@ -20,7 +20,7 @@ webpackJsonp([83],{
 
 /***/ }),
 
-/***/ 350:
+/***/ 361:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
