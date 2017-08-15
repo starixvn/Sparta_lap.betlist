@@ -61,11 +61,11 @@ var CustomerBalance = (function ($) {
     }
 
     function onGridComplete(grid, gridOption, response) {
-        if (_pagingOption.totalrow <= 0) {
+        if (response.TotalRows <= 0) {
             jqGridAdditional.setNoInfo(gridOption.colModel);
         }
         else if (_isFirstLoad) {
-            if (_pagingOption.totalrow > 1) {
+            if (response.TotalRows > 1) {
                 var reportGrid = $("#" + GRID_ID);
                 var cm = reportGrid[0].p.colModel;
                 $.each(reportGrid[0].grid.headers, function (index, value) {

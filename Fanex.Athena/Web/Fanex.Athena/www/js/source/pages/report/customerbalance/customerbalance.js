@@ -229,7 +229,8 @@
             initEvent: initEvent,
             submit: submit,
             bindData: bindData,
-            ajaxPaging: ajaxPaging
+            ajaxPaging: ajaxPaging,
+            initSetting: initSetting
         };
 
         return _me;

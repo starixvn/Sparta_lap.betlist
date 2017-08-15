@@ -8,11 +8,11 @@ namespace Fanex.Athena.Excel.Report
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Model.Report.DTO;
-    using Model.Report.ViewModel;
     using NPOI.SS.UserModel;
     using Resources;
 
@@ -30,17 +30,18 @@ namespace Fanex.Athena.Excel.Report
         private const int RowNoInfoTemplate = 4;
         private const int RowTotalTemplate = 3;
 
-        private readonly IList<CustPendingFunds> _customerPendingFundsList;
+        private readonly IEnumerable<CustPendingFunds> _customerPendingFundsList;
         private readonly CustPendingFunds _total;
 
         public CustomerPendingFundsExcel(
                                          string templatePath,
                                          ConvertingOption convertingOption,
-                                         CustomerPendingFundsViewModel viewModel)
+                                         IEnumerable<CustPendingFunds> dataList,
+                                         CustPendingFunds totalData)
             : base(templatePath, new ShowingOption(), convertingOption)
         {
-            _customerPendingFundsList = viewModel.DataList;
-            _total = viewModel.TotalData;
+            _customerPendingFundsList = dataList;
+            _total = totalData;
             HeaderTextList = new List<string>
             {
                 "#",
@@ -56,7 +57,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         protected override void AssignData()
         {
-            int numOfDataRow = _customerPendingFundsList.Count;
+            var numOfDataRow = _customerPendingFundsList.Count();
 
             ISheet sheet;
 
@@ -88,7 +89,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignHeader(ISheet sheet)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             for (int i = 0; i < HeaderTextList.Count; i++)
             {
                 row.Cells[i].SetCellValue(HeaderTextList[i]);
@@ -113,14 +114,14 @@ namespace Fanex.Athena.Excel.Report
         /// <returns>Row index.</returns>
         protected override int AssignSheetData(ISheet sheet, int pageIndex)
         {
-            int rowCount = Math.Min(_customerPendingFundsList.Count, checked((pageIndex + 1) * PageSize));
-            int rowIndex = 0;
+            var rowCount = Math.Min(_customerPendingFundsList.Count(), checked((pageIndex + 1) * PageSize));
+            var rowIndex = 0;
 
             for (int index = pageIndex * PageSize; index < rowCount; index++)
             {
-                IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + 2);
+                var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + 2);
 
-                CustPendingFunds customerPedingFunds = _customerPendingFundsList[index];
+                var customerPedingFunds = _customerPendingFundsList.ElementAt(index);
 
                 row.Cells[ColumnIndex].SetCellValue(index + 1);
                 row.Cells[ColumnExternalId].SetCellValue(customerPedingFunds.ExternalId);
@@ -163,7 +164,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="totalRow">The total value.</param>
         protected void AssignSumData(ISheet sheet, int totalRow)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, totalRow);
+            var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, totalRow);
 
             row.Cells[ColumnBetCount].SetCellValue(_total.BetCounts);
             row.Cells[ColumnPendingFunds].SetCellValue(_total.PendingFunds);

@@ -758,6 +758,7 @@
     <Content Include="Scripts\Customer\CustomerList\customerlist.custoption.js" />
     <Content Include="Scripts\Report\cashoutwinloss.js" />
     <Content Include="Scripts\Report\cashoutwinloss.option.js" />
+    <Content Include="Scripts\Report\customerpendingfunds.option.js" />
     <Content Include="Scripts\Report\customerwinloss.option.js" />
     <Content Include="Scripts\Report\customerbalance.option.js" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
