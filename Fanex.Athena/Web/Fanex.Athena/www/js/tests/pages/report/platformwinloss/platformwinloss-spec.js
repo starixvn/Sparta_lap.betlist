@@ -900,6 +900,7 @@
                         FromDate: "5/1/2017",
                         ToDate: "5/7/2017",
                         PlatformType: 0,
+                        ExcludeTest: false,
                         CurrencyId: dataDrillDown.DrillDownCurrencyId,
                         CurrencyName: dataDrillDown.DrillDownCurrencyName,
                         DrawFilter: 0,
