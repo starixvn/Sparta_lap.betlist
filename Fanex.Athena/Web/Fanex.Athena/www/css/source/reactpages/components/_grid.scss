@@ -1,15 +1,7 @@
 .row {
     margin-left: -15px;
     margin-right: -15px;
-    &:before {
-        display: table;
-        content: " ";
-    }
-    &:after {
-        clear: both;
-        content: "";
-        display: block;
-    }
+    @include clearfix();
 }
 
 .col-xs-1,

@@ -1,8 +1,13 @@
-.form-input {
+.form-group {
     margin-bottom: 15px;
+
     .label-text {
         display: block;
-        margin-bottom: 10px;
         color: $colorLabelText;
+    }
+
+    .checkbox-group {
+        display: inline-block;
+        padding-top: 12px;
     }
 }

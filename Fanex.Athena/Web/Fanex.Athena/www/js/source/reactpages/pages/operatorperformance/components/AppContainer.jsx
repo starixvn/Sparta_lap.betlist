@@ -18,13 +18,8 @@ class AppContainer extends Component {
   render() {
     return (
       <AppLayout>
-        <div className="page-filter">
-          <FormFilter />
-        </div>
-
-        <div className="page-content">
-          <DataGrid />
-        </div>
+        <FormFilter />
+        <DataGrid />
       </AppLayout>
     );
   }

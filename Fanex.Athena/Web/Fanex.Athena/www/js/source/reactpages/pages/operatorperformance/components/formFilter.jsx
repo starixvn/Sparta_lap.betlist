@@ -56,8 +56,8 @@ class FormFilter extends Component {
     }
     render() {
         var options = [
-            { value: 'one', label: 'One' },
-            { value: 'two', label: 'Two' }
+            { value: '1', label: 'New York', className: "input-select-option" },
+            { value: '2', label: 'India', className: "input-select-option" }
         ];
 
         function logChange(val) {
@@ -68,31 +68,66 @@ class FormFilter extends Component {
             console.log(date); // Momentjs object
         }
         return (
-            <div className="row">
-                <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                    <div className="form-input">
-                        <label className="label-text">Operator</label>
-                        <Select id="ddlOperator" key="1"
-                            name="form-field-name"
-                            value="one"
-                            options={options}
-                            onChange={logChange} />
+            <div className="page-filter">
+                <div className="row">
+                    <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                        <div className="form-group">
+                            <label className="label-text">Operator</label>
+                            <Select id="ddlOperator" className="input-select"
+                                name="form-field-name"
+                                value="2"
+                                options={options}
+                                onChange={logChange} />
+                        </div>
+                    </div>
+
+                    <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div className="form-group">
+                            <label className="label-text">Date</label>
+                            <input name="DateRange" id="DateRange" className="input-text datepicker" type="text" readOnly="readonly" autoComplete="off" />
+                            <DateRange
+                                linkedCalendars={true}
+                                ranges={defaultRanges}
+                                onInit={handleSelect}
+                                onChange={handleSelect}
+                                theme={{
+                                    DateRange: { position: "absolute", width: 715, zIndex: 1, top: 60 },
+                                    PredefinedRanges: { marginLeft: 10, marginTop: 10 }
+                                }} />
+                        </div>
+                    </div>
+
+                    <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                        <div className="form-group">
+                            <label className="label-text">Product</label>
+                            <Select id="ddlProduct"
+                                name="form-field-name"
+                                value="0"
+                                options={[{ value: '0', label: 'Sportsbook' }, { value: '1', label: 'BA' }]}
+                                onChange={logChange} />
+                        </div>
+                    </div>
+
+                    <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                        <div className="form-group">
+                            <label className="label-text">Based</label>
+                            <Select id="ddlBased"
+                                name="form-field-name"
+                                value="6"
+                                options={[{ value: '0', label: 'All' }, { value: '6', label: 'EUR' }]}
+                                onChange={logChange} />
+                        </div>
                     </div>
                 </div>
 
-                <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                    <div className="form-input">
-                        <label className="label-text">Date</label>
-                        <DateRange
-                            linkedCalendars={true}
-                            ranges={defaultRanges}
-                            onInit={handleSelect}
-                            onChange={handleSelect}
-                            theme={{
-                                DateRange: { position: "absolute" },
-                                PredefinedRanges: { marginLeft: 10, marginTop: 10 }
-                            }}
-                        />
+                <div className="row">
+                    <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                        <div className="form-group">
+                            <div className="checkbox-group">
+                                <input type="checkbox" id="IsConvertAll" />
+                                <label htmlFor="IsConvertAll">Convert All</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

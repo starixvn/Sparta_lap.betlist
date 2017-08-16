@@ -771,7 +771,12 @@
     <Content Include="www\css\source\reactpages\base\_reset.scss" />
     <Content Include="www\css\source\reactpages\layout\_content.scss" />
     <Content Include="www\css\source\reactpages\components\_grid.scss" />
-    <Content Include="www\css\source\reactpages\components\_form-input.scss" />
+    <Content Include="www\css\source\reactpages\components\_form-group.scss" />
+    <Content Include="www\css\source\reactpages\abstracts\_mixins.scss" />
+    <Content Include="www\css\source\reactpages\components\forms\_input-text.scss" />
+    <Content Include="www\css\source\reactpages\components\forms\_select.scss" />
+    <Content Include="www\css\source\reactpages\components\custom3rd\_select.scss" />
+    <Content Include="www\css\source\reactpages\components\forms\_checkbox.scss" />
     <None Include="www\css\source\reactpages\main.scss" />
     <Content Include="www\css\build\dev\reactpages\vendor.css" />
     <Content Include="www\css\build\pro\reactpages\vendor.chunk.js" />
