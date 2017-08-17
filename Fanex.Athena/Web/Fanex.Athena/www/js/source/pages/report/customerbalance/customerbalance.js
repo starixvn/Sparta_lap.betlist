@@ -143,6 +143,7 @@
                 onGridComplete(this, gridOption, response);
                 Site.unBlockUI();
             };
+            gridOption.scroll = response.TotalRows > gridOption.rowNum ? 1 : false;
 
             var reportGrid = $("#" + _selector.GridId);
             reportGrid.jqGrid(gridOption);
@@ -176,7 +177,7 @@
 
         function createPaging(totalRows) {
             _pagingOption.totalrow = totalRows;
-            if (_pagingOption.totalrow > 0 && _pagingOption.totalrow > _pagingOption.pagelist[0]) {
+            if (_pagingOption.totalrow > _pagingOption.pagelist[0]) {
                 $(_pagingOption.elementcontainer).show();
                 PagingHelper.render(_pagingOption);
             }
@@ -206,9 +207,13 @@
         function onGridComplete(grid, gridOption, response) {
             if (_isFirstLoad) {
                 jqGridAdditional.gridComplete();
+
+                var reportGrid = $("#" + _selector.GridId);
                 if (_pagingOption.totalrow > 1) {
-                    var reportGrid = $("#" + _selector.GridId);
                     jqGridAdditional.addSortableHeaders(reportGrid, _sortColumnIndex, _sortType);
+                }
+                else {
+                    jqGridAdditional.removeCursorOnNonSortableHeader(reportGrid);
                 }
 
                 jqGridAdditional.assignTotal(response.Total, gridOption.colModel);

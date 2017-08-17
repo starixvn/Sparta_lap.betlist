@@ -105,7 +105,7 @@
                 _me.submit(data);
             });
 
-            $("body").on("click", _selector.BetListLink, function () {
+            $(".main-content").on("click", _selector.BetListLink, function () {
                 var dataDrillDown = $(this).data("drill-down");
                 openBetlistPopUp(dataDrillDown);
             });

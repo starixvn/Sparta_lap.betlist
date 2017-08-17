@@ -71,7 +71,6 @@
             loadui: "disable",
             loadonce: true,
             footerrow: true,
-            viewrecords: true,
             gridview: true,
             rownumbers: false,
             rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
@@ -117,7 +116,7 @@
             _me.gridOption.colNames = Site.getResources(columnNames);
             _me.gridOption.colModel = columnModels;
 
-            return Site.clone(me.gridOption);
+            return Site.clone(_me.gridOption);
         },
 
         setGroupHeaderColumns: function (grid, productOptions) {

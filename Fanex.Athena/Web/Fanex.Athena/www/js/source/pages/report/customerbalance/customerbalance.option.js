@@ -331,7 +331,6 @@
                 loadonce: true,
                 footerrow: true,
                 userDataOnFooter: false,
-                viewrecords: true,
                 gridview: true,
                 rownumbers: false,
                 sortable: false,
