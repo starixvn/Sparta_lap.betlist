@@ -79,6 +79,7 @@ function generateConfig(environment) {
             [`${jsPath}/pages/reports/customerbalance`]: [pathConfig.scriptPaths.customerbalance],
             [`${jsPath}/pages/reports/golddeluxewinloss`]: [pathConfig.scriptPaths.golddeluxewinloss],
             [`${jsPath}/pages/reports/colossusbetswinloss`]: [pathConfig.scriptPaths.colossusbetswinloss],
+            [`${jsPath}/pages/reports/customerpendingfunds`]: [pathConfig.scriptPaths.customerpendingfunds],
 
             [`${cssPath}/pages/reports/reportjqgridlayout`]: pathConfig.cssPaths.reportjqgridlayout,
             [`${cssPath}/pages/reports/livereport`]: pathConfig.cssPaths.livereport,
@@ -127,7 +128,8 @@ function generateConfig(environment) {
             [`${cssPath}/pages/reports/agcasinowinloss`]: pathConfig.cssPaths.agcasinowinloss,
             [`${cssPath}/pages/reports/customerbalance`]: pathConfig.cssPaths.customerbalance,
             [`${cssPath}/pages/reports/golddeluxewinloss`]: pathConfig.cssPaths.golddeluxewinloss,
-            [`${cssPath}/pages/reports/colossusbetswinloss`]: pathConfig.cssPaths.colossusbetswinloss
+            [`${cssPath}/pages/reports/colossusbetswinloss`]: pathConfig.cssPaths.colossusbetswinloss,
+            [`${cssPath}/pages/reports/customerpendingfunds`]: pathConfig.cssPaths.customerpendingfunds,
         },
         output: {
             path: pathConfig.projectRoot,

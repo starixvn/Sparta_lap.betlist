@@ -1,4 +1,4 @@
-﻿/*global Site, QueryString, ProductListHelper*/
+﻿/*global Site, QueryString, ProductListHelper, PagingHeper, jqGridAdditional, CustPendingFundsOption*/
 /// <reference path="/@JSense.js" />
 
 var CustPendingFunds = (function ($) {
@@ -45,7 +45,7 @@ var CustPendingFunds = (function ($) {
 
     function createPaging(totalRows) {
         _pagingOption.totalrow = totalRows;
-        if (_pagingOption.totalrow > 0 && _pagingOption.totalrow > _pagingOption.pagelist[0]) {
+        if (_pagingOption.totalrow > _pagingOption.pagelist[0]) {
             $(_pagingOption.elementcontainer).show();
             PagingHeper.render(_pagingOption);
         }

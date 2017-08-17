@@ -121,7 +121,6 @@ var CustPendingFundsOption = (function () {
             loadonce: true,
             footerrow: true,
             userDataOnFooter: false,
-            viewrecords: false,
             gridview: true,
             rownumbers: false,
             sortable: false,

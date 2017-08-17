@@ -968,6 +968,9 @@
     <Content Include="Views\Desktop\Report\ColossusBetsWinLoss\Main.cshtml" />
     <Content Include="www\css\build\dev\pages\reports\colossusbetswinloss.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\reports\colossusbetswinloss.css.map" />
+    <Content Include="Views\Desktop\Report\CustomerPendingFunds\Content.cshtml" />
+    <Content Include="Views\Desktop\Report\CustomerPendingFunds\Filter.cshtml" />
+    <Content Include="Views\Desktop\Report\CustomerPendingFunds\Main.cshtml" />
     <None Include="www\css\source\pages\customer\customerlist.scss" />
     <Content Include="www\css\source\pages\customer\customerlog.scss" />
     <Content Include="www\css\source\components\tab\_tab.scss" />
@@ -997,6 +1000,8 @@
     <Content Include="www\css\source\pages\report\agcasinowinloss.scss" />
     <Content Include="www\css\source\pages\report\golddeluxewinloss.scss" />
     <Content Include="www\css\source\pages\report\thirdpartywinloss.scss" />
+    <Content Include="www\css\source\pages\report\colossusbetswinLoss.scss" />
+    <Content Include="www\css\source\pages\report\customerpendingfunds.scss" />
     <None Include="www\css\source\pages\utility\um.scss" />
     <Content Include="www\css\build\images\bg-login.jpg" />
     <Content Include="www\css\build\images\excel-icon.svg" />
@@ -1426,6 +1431,9 @@
     <Content Include="www\js\source\pages\report\customerbalance\customerbalance.js" />
     <Content Include="www\js\source\pages\report\customerbalance\customerbalance.option.js" />
     <Content Include="www\js\source\pages\report\customerbalance\main.js" />
+    <Content Include="www\js\source\pages\report\customerpendingfunds\customerpendingfunds.js" />
+    <Content Include="www\js\source\pages\report\customerpendingfunds\customerpendingfunds.option.js" />
+    <Content Include="www\js\source\pages\report\customerpendingfunds\main.js" />
     <Content Include="www\js\source\pages\report\dailyracingwinloss\dailyracingwinloss.js" />
     <Content Include="www\js\source\pages\report\dailyracingwinloss\main-dailyracingwinloss.js" />
     <Content Include="www\js\source\pages\report\thirdpartywinloss\common\thirdpartywinloss.js" />
