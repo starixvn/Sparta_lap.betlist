@@ -14,7 +14,7 @@ module.exports = merge(baseConfigs,
             noInfo: true,
             stats: 'errors-only',
             historyApiFallback: true,
-            contentBase: "./www/js/source/reactsample/"
+            //contentBase: "./www/js/source/reactsample/"
         }
     }
 );

@@ -48,15 +48,16 @@ class FormFilter extends Component {
                     <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                         <div className="form-group">
                             <label className="label-text">Date</label>
+                            
                             <DateRange
-                                linkedCalendars={true}
                                 ranges={defaultRanges}
                                 onInit={handleSelect}
                                 onChange={handleSelect}
                                 theme={{
-                                    DateRange: { position: "absolute", width: 715, zIndex: 1, top: 60 },
+                                    DateRange: { position: "absolute", width: 715, zIndex: 1, top: 60, display: 'none' },
                                     PredefinedRanges: { marginLeft: 10, marginTop: 10 }
                                 }} />
+                            
                         </div>
                     </div>
 
@@ -89,6 +90,10 @@ class FormFilter extends Component {
                             <div className="checkbox-group">
                                 <input type="checkbox" id="IsConvertAll" />
                                 <label htmlFor="IsConvertAll">Convert All</label>
+                            </div>
+
+                            <div className="button-group">
+                                <button type="button" className="btn btn-submit">Submit</button>
                             </div>
                         </div>
                     </div>
