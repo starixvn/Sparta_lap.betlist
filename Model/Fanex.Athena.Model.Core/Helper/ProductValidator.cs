@@ -1,20 +1,10 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="Validator.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.Model.Core.Helper
+﻿namespace Fanex.Athena.Model.Core.Helper
 {
+    using System.Diagnostics.CodeAnalysis;
     using Fanex.Athena.Model.Core.DTO.Common;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
-    public static class Validator
+    public static class ProductValidator
     {
-        #region BetType Range
-
         private const int SBMinBetType = 30;
         private const int SBMaxBetType = 999;
         private const int SBMinOfMaxBettype = 120;
@@ -44,15 +34,11 @@ namespace Fanex.Athena.Model.Core.Helper
         private const int AllBetMaxBetType = 2499;
         private const int FWMinBetType = 1011;
         private const int FWMaxBetType = 1020;
+        private const int VS2MinBetType = 2700;
+        private const int VS2MaxBetType = 2899;
 
-        #endregion BetType Range
-
-        /// <summary>
-        /// Validate bet type by product.
-        /// </summary>
-        /// <param name="productCode">The product code.</param>
-        /// <param name="bettype">The bet type.</param>
-        /// <returns>True or false.</returns>
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         public static bool IsValidBettype(string productCode, int bettype)
         {
             if (string.IsNullOrEmpty(productCode))
@@ -66,32 +52,47 @@ namespace Fanex.Athena.Model.Core.Helper
                 case Product.SB:
                     return bettype <= SBMinBetType || (bettype >= SBMinOfMaxBettype && bettype <= SBMaxBetType) ||
                         (bettype >= SBMinSportingSolutionBetType && bettype <= SBMaxSportingSolutionBetType);
+
                 case Product.BA:
                     return bettype <= SBMinBetType || (bettype >= SBMinOfMaxBettype && bettype <= SBMaxBetType);
+
                 case Product.RB:
                     return bettype >= RBMinBetType && bettype <= RBMaxBetType;
+
                 case Product.NG:
                     return bettype >= NGMinBetType && bettype <= NGMaxBetType;
+
                 case Product.VS:
                     return bettype >= VSMinBetType && bettype <= VSMaxBetType;
+
                 case Product.LC:
                     return bettype >= LCMinBetType && bettype <= LCMaxBetType;
+
                 case Product.BG:
                     return bettype >= BGMinBetType && bettype <= BGMaxBetType;
+
                 case Product.CS:
                     return (bettype >= CSMinBetType && bettype <= CSMaxBetType) ||
                         (bettype >= CSNewMinBetType && bettype <= CSNewMaxBetType);
+
                 case Product.KN:
                     return bettype >= KenoMinBetType && bettype <= KenoMaxBetType;
+
                 case Product.MGCLC:
                 case Product.MGCRNG:
                     return bettype >= MicrogamingMinBetType && bettype <= MicrogamingMaxBetType;
+
                 case Product.VB:
                     return bettype >= VoidbridgeMinBetType && bettype <= VoidbridgeMaxBetType;
+
                 case Product.AB:
                     return bettype >= AllBetMinBetType && bettype <= AllBetMaxBetType;
+
                 case Product.FW:
                     return bettype >= FWMinBetType && bettype <= FWMaxBetType;
+
+                case Product.VS2:
+                    return bettype >= VS2MinBetType && bettype <= VS2MaxBetType;
             }
 
             return false;

@@ -158,11 +158,21 @@
                 var result = LiveReport.getMatchListProductOption(100, "ALL");
                 expect(result).toEqual(expected);
             });
+
+            it("Result should return with ['VS2'] when product code equals VS2", function () {
+                var expected = ["VS2"];
+
+                var result = LiveReport.getMatchListProductOption(190, "VS2");
+                expect(result).toEqual(expected);
+
+                result = LiveReport.getMatchListProductOption(191, "VS2");
+                expect(result).toEqual(expected);
+            });
         });
 
         describe("sportId less than or equal 0", function () {
-            it("Result should return with ['SB', 'BA', 'NG', 'RB', 'LC', 'VS', 'CS', 'BG'] when productCode equal ALL", function () {
-                var expected = ['SB', 'BA', 'NG', 'RB', 'LC', 'VS', 'CS', 'BG'];
+            it("Result should return with ['SB', 'BA', 'NG', 'RB', 'LC', 'VS', 'CS', 'BG', 'VS2'] when productCode equal ALL", function () {
+                var expected = ['SB', 'BA', 'NG', 'RB', 'LC', 'VS', 'CS', 'BG', 'VS2'];
 
                 var result = LiveReport.getMatchListProductOption(0, "ALL");
                 expect(result).toEqual(expected);

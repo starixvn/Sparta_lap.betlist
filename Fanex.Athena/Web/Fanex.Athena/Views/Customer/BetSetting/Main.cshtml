@@ -20,9 +20,6 @@
         case ProductTypes.Racing:
             ViewBag.BetSettingType = ViewResources.ProductRB;
             break;
-        case ProductTypes.VirtualSports:
-            ViewBag.BetSettingType = ViewResources.Sport;
-            break;
     }
 }
 <div class="content-title" style="width: 855px">
@@ -42,7 +39,7 @@
 @Html.Hidden("dataCount", (Model.MainData.Count))
 <!--Header-->
 <div class="header-content" style="width: 884px;">
-    <div class="row" style="width: 190px;">@ViewBag.betSettingType</div>
+    <div class="row" style="width: 190px;">@ViewBag.BetSettingType</div>
     <div class="row" style="width: 230px;">
         @ViewResources.MinBet
     </div>
@@ -74,6 +71,7 @@
                 esportText = "& " + Fanex.Athena.Model.Core.Helper.CacheRef.GetSportName(43);
             }
         <div class="content-row">
+            <input id="bet-type-@(item.SportId)" type="hidden" value="@item.BetType" />
             <div class="row text-data first-column" style="width: 190px">
                 <div>@item.BetSettingType @esportText</div>
             </div>
@@ -109,8 +107,7 @@
     <div style="width: 855px">
         <input type="button" class="button" data-cust-id="@Model.Param.CustId" data-user-name="@Model.Param.UserName.ToString()" data-nick-name="@Model.Param.NickName" value="@ViewResources.Submit"
         id="btnSubmitBetSetting" />
-        <input type="button" class="button" value="@ViewResources.Reset"
-        id="btnReset" />
+        <input type="button" class="button" value="@ViewResources.Reset" id="btnReset" />
         @if (ConfigurationManager.AppSettings["EnableEsportSettingStatus"] == "true" && Model.EsportSetting != EsportSettingType.NoneOffering)
         {
             var buttonText = (Model.EsportSetting == EsportSettingType.NoneMemberOffering ? ViewResources.Enable : ViewResources.Disable) + " " + Fanex.Athena.Model.Core.Helper.CacheRef.GetSportName(43);

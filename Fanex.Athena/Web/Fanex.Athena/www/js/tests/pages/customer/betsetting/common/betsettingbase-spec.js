@@ -7,7 +7,8 @@ define(modulePath, function ($, Site, Popup, BetSettingHelper, BetSettingValidat
             sportId: 1,
             minbet: "", limitMinBet: "",
             maxbet: "", limitMaxBet: "",
-            maxPerMatch: "", limitMinOfMaxPerMatch: "", limitMaxOfMaxPerMatch: ""
+            maxPerMatch: "", limitMinOfMaxPerMatch: "", limitMaxOfMaxPerMatch: "",
+            bettype: ""
         };
         $.extend(setting, dataSetting);
 
@@ -15,8 +16,9 @@ define(modulePath, function ($, Site, Popup, BetSettingHelper, BetSettingValidat
         var maxbetInput = '<input type="text" id="max-bet-' + setting.sportId + '" value="' + setting.maxbet + '" data-max-value="' + setting.limitMaxBet + '" data-original="100"/>';
         var maxPerMatchInput = '<input type="text" id="max-per-match-' + setting.sportId + '" value="' + setting.maxPerMatch +
             '" data-min-value="' + setting.limitMinOfMaxPerMatch + '" data-max-value="' + setting.limitMaxOfMaxPerMatch + '" data-original="1000"/>';
+        var bettypeInput = '<input type="text" id="bet-type-' + setting.sportId + '" value="' + setting.bettype + '"/>';
 
-        setFixtures(minbetInput + maxbetInput + maxPerMatchInput);
+        setFixtures(minbetInput + maxbetInput + maxPerMatchInput + bettypeInput);
     }
 
     describe("BetSettingBase", function () {
@@ -371,13 +373,14 @@ define(modulePath, function ($, Site, Popup, BetSettingHelper, BetSettingValidat
 
             it("function return correct value when have no update occur", function () {
                 var sportId = 1;
-                var setting = { minbet: 10, maxbet: 100, maxPerMatch: 1000 };
+                var setting = { minbet: 10, maxbet: 100, maxPerMatch: 1000, bettype: 1 };
                 createInputElements(setting);
 
                 var expectedResult = {
                     minbet1: setting.minbet,
                     maxbet1: setting.maxbet,
                     maxpermatch1: setting.maxPerMatch,
+                    bettype1: setting.bettype.toString(),
                     update1: false
                 }
 
@@ -388,13 +391,14 @@ define(modulePath, function ($, Site, Popup, BetSettingHelper, BetSettingValidat
 
             it("function return correct value when update occur", function () {
                 var sportId = 1;
-                var setting = { minbet: 100, maxbet: 1000, maxPerMatch: 10000 };
+                var setting = { minbet: 100, maxbet: 1000, maxPerMatch: 10000, bettype: 1 };
                 createInputElements(setting);
 
                 var expectedResult = {
                     minbet1: setting.minbet,
                     maxbet1: setting.maxbet,
                     maxpermatch1: setting.maxPerMatch,
+                    bettype1: setting.bettype.toString(),
                     update1: true
                 }
 

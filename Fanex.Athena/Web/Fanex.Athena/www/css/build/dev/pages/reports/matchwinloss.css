@@ -1455,8 +1455,10 @@ ul.ui-multiselect-checkboxes {
   width: 100%; }
   .match-container .cell {
     display: table-cell; }
-  .match-container .bet-list-link:hover {
-    text-decoration: underline; }
+  .match-container .bet-list-link {
+    cursor: pointer; }
+    .match-container .bet-list-link:hover {
+      text-decoration: underline; }
   .match-container .icon-wrapper {
     text-align: center;
     font-weight: 900;

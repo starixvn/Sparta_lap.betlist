@@ -114,7 +114,7 @@ webpackJsonp([48],[
 	        __webpack_require__(224), __webpack_require__(225)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, jqGridAdditional, BetListOption, moment, Popup) {
 	        "use strict";
 	        var BETTYPE_CASHOUT = 911;
-	        var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29;
+	        var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29, BETTYPE_MIXPARLAY_BETRADAR = 2799;
 	        var MIN_BETTYPE_FASTMARKET = 221;
 	        var MAX_BETTYPE_FASTMARKET = 225;
 	        var SPORT_MICROGAMMING_LC = 203;
@@ -129,6 +129,7 @@ webpackJsonp([48],[
 	        var _sortColumnName, _sortOrder;
 	        var _params, _url;
 	        var _isShowSumStake;
+	        var _onClientPaging = false;
 	
 	        function showDetailPopUp(url, option) {
 	            option.id = "betlist-popup-detail";
@@ -187,9 +188,10 @@ webpackJsonp([48],[
 	                var sortCol = _sortColumnName === "Winlost" ? "WinLoss" : _sortColumnName;
 	                sortCol = _sortColumnName === "nickname" ? "ExternalId" : sortCol;
 	                sortCol = _sortColumnName === "UserName" ? "SystemId" : sortCol;
-	                if (sortCol) {
+	                if (sortCol && !_onClientPaging) {
 	                    jqGridAdditional.addSortableHeader($grid, sortCol, _sortOrder);
 	                }
+	                _onClientPaging = false;
 	                // Resize
 	                jqGridAdditional.gridComplete();
 	                // Remove unnecessary item
@@ -270,6 +272,10 @@ webpackJsonp([48],[
 	                    });
 	                }
 	                gridOption.colNames = Site.getResources(gridOption.colNames);
+	
+	                gridOption.onPaging = function () {
+	                    _onClientPaging = true;
+	                };
 	                return gridOption;
 	            },
 	
@@ -516,7 +522,7 @@ webpackJsonp([48],[
 	                }
 	                else {
 	                    bettype = Number(bettype);
-	                    var isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY;
+	                    var isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY || bettype === BETTYPE_MIXPARLAY_BETRADAR;
 	                    var url = isParlay
 	                        ? _me.getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
 	                        : _me.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, betid, betcheck, custid);
@@ -593,14 +599,18 @@ webpackJsonp([48],[
 	                                    choice += item;
 	                                });
 	
-	                                $.each(response.Data, function (index, item) {
-	                                    if (index === length - 1) {
-	                                        choice += item.Choice;
-	                                    }
-	                                    else {
-	                                        choice += item.Choice + "<div class='line'></div>";
-	                                    }
-	                                });
+	                                if (response.Data !== null && response.Data.length > 0) {
+	                                    choice += "<div class='line'></div>";
+	
+	                                    $.each(response.Data, function (index, item) {
+	                                        if (index === length - 1) {
+	                                            choice += item.Choice;
+	                                        }
+	                                        else {
+	                                            choice += item.Choice + "<div class='line'></div>";
+	                                        }
+	                                    });
+	                                }
 	                                $divEvent.html(choice).show();
 	                                $nameDiv.hide();
 	                            }

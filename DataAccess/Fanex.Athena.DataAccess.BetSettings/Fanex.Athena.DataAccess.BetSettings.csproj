@@ -88,8 +88,6 @@
     <Compile Include="Interfaces\IRacingBetSettingDataAccess.cs" />
     <Compile Include="CasinoBettingBaseDataAccess.cs" />
     <Compile Include="Interfaces\IRngCasinoBetSettingDataAccess.cs" />
-    <Compile Include="Interfaces\IVirtualSportsBetSettingDataAccess.cs" />
-    <Compile Include="VirtualSportsBetSettingDataAccess.cs" />
     <Compile Include="KenoBetSettingDataAccess.cs" />
     <Compile Include="RngCasinoBettingDataAccess.cs" />
     <Compile Include="LiveCasinoBettingDataAccess.cs" />

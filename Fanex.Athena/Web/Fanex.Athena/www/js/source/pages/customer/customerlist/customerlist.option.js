@@ -94,8 +94,8 @@
                 var dataAttribute = " data-custid='" + rowObject.CustId + "' data-externalid='" + rowObject.ExternalId + "'" +
                                     " data-issuspended='" + rowObject.IsSuspended + "' data-isclosed='" + rowObject.IsClosed + "'";
 
-                return "<a href='javascript:;' title='" + Site.getSingleResource("Status") + "' class='custStatusOption' id='edit-cust-status-" + rowObject.CustId + "'"
-                            + dataAttribute + ">" + cellValue + "</a>";
+                return "<a href='javascript:;' title='" + Site.getSingleResource("Status") +
+                    "' class='custStatusOption' id='edit-cust-status-" + rowObject.CustId + "'" + dataAttribute + ">" + cellValue + "</a>";
             }
         };
         var baStatusColumn =
@@ -159,7 +159,8 @@
             resizable: false,
             frozen: true,
             formatter: function (cellValue, options, rowObject) {
-                return "<a href='javascript:;' data-systemid='" + rowObject.SystemId + "' data-externalid='" + rowObject.ExternalId + "' data-custid='" + rowObject.CustId
+                return "<a href='javascript:;' data-systemid='" + rowObject.SystemId +
+                    "' data-externalid='" + rowObject.ExternalId + "' data-custid='" + rowObject.CustId
                     + "' title='" + Site.getSingleResource("CustomerOption") + "' class='custoptionlink' id='cust-option-link-" + rowObject.CustId + "'>"
                     + Site.getSingleResource("View")
                     + "<i class='grid-dropdown-icon icon-arrow'></i></a>";

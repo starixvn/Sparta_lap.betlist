@@ -86,7 +86,6 @@
             Assert.Multiple(() =>
             {
                 Assert.That(result.Count, Is.EqualTo(1));
-                Assert.That(result[0].ReportType, Is.EqualTo(1));
                 Assert.That(result[0].ProductName, Is.EqualTo("Sportsbook"));
                 Assert.That(result[0].ProductCode, Is.EqualTo("SB"));
                 Assert.That(result[0].TurnOver, Is.EqualTo(100));
@@ -209,7 +208,6 @@
             Assert.Multiple(() =>
             {
                 Assert.That(result.Item1.Count, Is.EqualTo(1));
-                Assert.That(result.Item1[0].ReportType, Is.EqualTo(0));
                 Assert.That(result.Item1[0].TurnOver, Is.EqualTo(100));
                 Assert.That(result.Item1[0].CustomerWinLoss, Is.EqualTo(200));
 

@@ -20,7 +20,6 @@ namespace Fanex.Athena.Excel.Report
     using Common;
     using Fanex.Athena.Excel.Base.Extension;
     using Model.Core.DataDomain;
-    using Model.Core.DTO.Common;
     using Model.Core.Helper;
     using Model.Report.MetaModel;
     using NPOI.SS.UserModel;
@@ -48,6 +47,11 @@ namespace Fanex.Athena.Excel.Report
         private const int RowSpecialBetTypeTemplate = 7;
         private const int RowGrandTotalTemplate = 8;
         private const int RowNoInfoTemplate = 9;
+
+        private static readonly IEnumerable<int> SpecialBettypes = new int[]
+        {
+            (int)BetType.MixParlay, (int)BetType.Outright, (int)BetType.CombinationMixParlay, (int)BetType.VirtualSports2MixParlay
+        };
 
         private readonly MatchWinLossMetaModel _model;
         private readonly DataTable _totalData;
@@ -133,7 +137,7 @@ namespace Fanex.Athena.Excel.Report
             {
                 var exportRow = ExportData.Rows[index];
                 var betType = Converter.ToInt(exportRow["bettype"]);
-                if (betType == (int)BetType.MixParlay || betType == (int)BetType.Outright || betType == (int)BetType.CombinationMixParlay)
+                if (SpecialBettypes.Contains(betType))
                 {
                     specialBetType.Add(exportRow);
                     continue;
@@ -168,7 +172,7 @@ namespace Fanex.Athena.Excel.Report
 
             currentRowIndex = AssignMatchData(sheet, matchInfoList, formatMatchName, currentRowIndex, currentIndex);
 
-            ExportData.DefaultView.RowFilter = "bettype <> '9' and bettype <> '10' and bettype <> '29'";
+            ExportData.DefaultView.RowFilter = "bettype <> '9' and bettype <> '10' and bettype <> '29' and bettype <> '2799'";
             var sumTable = ExportData.DefaultView.ToTable();
 
             if (ExportData.Rows.Count > sumTable.Rows.Count)
@@ -253,6 +257,33 @@ namespace Fanex.Athena.Excel.Report
             }
 
             return cellIndex;
+        }
+
+        private static string GetFormatMatchName(DataRow exportRow, string matchName)
+        {
+            string formatMatchName;
+
+            switch ((int)exportRow["newproductid"])
+            {
+                case ProductTypes.Racing:
+                    formatMatchName = matchName.Replace("Race", "Race ");
+                    break;
+
+                case ProductTypes.NumberGame:
+                case ProductTypes.LiveCasino:
+                case ProductTypes.VirtualSports:
+                    formatMatchName = matchName;
+                    break;
+
+                default:
+                    string homeName = CacheRef.GetTeamName(exportRow["homeid"]) +
+                                      (Converter.ToBool(exportRow["isneutral"]) ? " " + "(N)" : string.Empty);
+                    string awayName = CacheRef.GetTeamName(exportRow["awayid"]);
+                    formatMatchName = homeName + "\n" + awayName;
+                    break;
+            }
+
+            return formatMatchName;
         }
 
         /// <summary>
@@ -383,7 +414,7 @@ namespace Fanex.Athena.Excel.Report
                 DataRow dataRow = exportData[i];
                 IRow betTypeRow = sheet.CopyRow(TemplateSheet, RowSpecialBetTypeTemplate, currentRowIndex);
                 int betType = Converter.ToInt(dataRow["bettype"]);
-                string betTypeName = CacheRef.GetBettype(betType, false);
+                string betTypeName = betType == (int)BetType.VirtualSports2MixParlay ? CacheRef.GetBettypeWithProductName(betType, false) : CacheRef.GetBettype(betType, false);
 
                 betTypeRow.Cells[0].SetCellValue(betTypeName);
                 AssignRowContent(betTypeRow, dataRow, columnNameList, 2);
@@ -441,48 +472,12 @@ namespace Fanex.Athena.Excel.Report
         {
             IList<string> currencyColumnList = GetCommonColumnNameList();
 
-            currencyColumnList.Remove("productname");
-
             for (int i = 0; i < currencyColumnList.Count; i++)
             {
                 currencyColumnList[i] = "sum" + currencyColumnList[i];
             }
 
             return currencyColumnList.Select(item => item.Equals("sumbetcount", StringComparison.OrdinalIgnoreCase) ? item : GetCurrencyColumn(item)).ToList();
-        }
-
-        /// <summary>
-        /// Get format of match name, based on product.
-        /// </summary>
-        /// <param name="exportRow">Data table row.</param>
-        /// <param name="matchName">Match name.</param>
-        /// <returns>The real match name.</returns>
-        private string GetFormatMatchName(DataRow exportRow, string matchName)
-        {
-            string formatMatchName;
-
-            // Match name
-            switch (exportRow["productname"].ToString())
-            {
-                case Product.RB:
-                    formatMatchName = matchName.Replace("Race", "Race ");
-                    break;
-
-                case Product.NG:
-                case Product.LC:
-                case Product.VS:
-                    formatMatchName = matchName;
-                    break;
-
-                default:
-                    string homeName = CacheRef.GetTeamName(exportRow["homeid"]) +
-                                      (Converter.ToBool(exportRow["isneutral"]) ? " " + "(N)" : string.Empty);
-                    string awayName = CacheRef.GetTeamName(exportRow["awayid"]);
-                    formatMatchName = homeName + "\n" + awayName;
-                    break;
-            }
-
-            return formatMatchName;
         }
     }
 }

@@ -81,10 +81,18 @@ namespace Fanex.Athena.Api.Report
 
                 if (property == null)
                 {
-                    // The two last characters is product code.
-                    var indexProductCode = sortBy.Length - 2;
-                    var propertyName = sortBy.Substring(0, indexProductCode);
-                    var productCode = sortBy.Substring(indexProductCode);
+                    string propertyName, productCode;
+
+                    if (sortBy.Contains(nameof(LicenseeWinLoss.LicenseeWL)))
+                    {
+                        propertyName = nameof(LicenseeWinLoss.LicenseeWL);
+                        productCode = sortBy.Substring(propertyName.Length);
+                    }
+                    else
+                    {
+                        propertyName = nameof(LicenseeWinLoss.TurnOver);
+                        productCode = sortBy.Substring(propertyName.Length);
+                    }
 
                     dataList.SortByDictionary<string, decimal>(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
                 }
@@ -151,6 +159,7 @@ namespace Fanex.Athena.Api.Report
             licenseeWinLoss.LicenseeWLVB = licenseeWLProducts.GetValueOrDefault(Product.VB, 0);
             licenseeWinLoss.LicenseeWLAB = licenseeWLProducts.GetValueOrDefault(Product.AB, 0);
             licenseeWinLoss.LicenseeWLFW = licenseeWLProducts.GetValueOrDefault(Product.FW, 0);
+            licenseeWinLoss.LicenseeWLVS2 = licenseeWLProducts.GetValueOrDefault(Product.VS2, 0);
         }
 
         private static void SetTurnOverProductData(LicenseeWinLossGridViewModel licenseeWinLoss, IDictionary<string, decimal> turnOverProducts)
@@ -171,6 +180,7 @@ namespace Fanex.Athena.Api.Report
             licenseeWinLoss.TurnOverVB = turnOverProducts.GetValueOrDefault(Product.VB, 0);
             licenseeWinLoss.TurnOverAB = turnOverProducts.GetValueOrDefault(Product.AB, 0);
             licenseeWinLoss.TurnOverFW = turnOverProducts.GetValueOrDefault(Product.FW, 0);
+            licenseeWinLoss.TurnOverVS2 = turnOverProducts.GetValueOrDefault(Product.VS2, 0);
         }
 
         private HttpResponseMessage ExportExcel(LicenseeWinLossMetaModel metaModel, IList<LicenseeWinLoss> dataList, IDictionary<string, LicenseeWinLoss> summaryTotal)

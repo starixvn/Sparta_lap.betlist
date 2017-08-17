@@ -413,20 +413,19 @@ var Url = new UrlHelper(Context.Request.RequestContext);
         <label class="active">@ViewResources.ExcludeTestData</label>
 }
 
-@helper TitleLicenseeWLPrefix(IEnumerable<ProductOption> productOptions)
+@helper ReportTitleLicenseeWLProductCodeList(IEnumerable<ProductOption> productOptions)
 {
-var productOptionTitleList = productOptions.Where(p => p.Code != Product.BA && p.Code != Product.RB);
-var productText = string.Empty;
-foreach (var product in productOptionTitleList)
+var productCodeList = string.Empty;
+foreach (var product in productOptions)
 {
     if (product.Status)
     {
-        productText += string.IsNullOrEmpty(productText) ? product.Code : ", " + product.Code;
+        productCodeList += product.Code + ", ";
     }
 }
-productText = string.IsNullOrEmpty(productText) ? string.Empty : string.Format(", {0} ({1})", ViewResources.LicenseeW_L, productText);
+productCodeList = string.IsNullOrEmpty(productCodeList) ? string.Empty : string.Format(", {0} ({1})", ViewResources.LicenseeW_L, productCodeList.TrimEnd(' ', ','));
 
-    @productText
+    @productCodeList
 }
 
 

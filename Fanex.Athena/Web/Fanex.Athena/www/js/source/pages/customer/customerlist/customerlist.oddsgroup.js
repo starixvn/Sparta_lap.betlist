@@ -1,18 +1,16 @@
 ﻿"use strict";
-define(["jquery", "common/site", "./customerlist.state", "./customerlist.service"], function ($, Site, CustomerListState, CustomerListService) {
+define(["jquery", "common/site", "./customerlist.service"], function ($, Site, CustomerListService) {
     var _$oddsGroupCell;
-    var _state;
 
     var _me = {
         initialize: function () {
-            _state = CustomerListState.getState();
 
             $("#report-content").on("click", ".oddsGroup", function () {
                 _$oddsGroupCell = $(this);
                 _me.showGridDropdown();
             });
 
-            $("#report-content").on("blur", ".oddsGroup", function (e) {
+            $("#report-content").on("blur", ".oddsGroup", function () {
                 setTimeout(function () {
                     $("#OddsGroupListContainer").hide();
                 }, 300);

@@ -35,6 +35,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Fanex.Athena.Model.BetSettings, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Fanex.Athena\Web\Fanex.Athena\Bin\Fanex.Athena.Model.BetSettings.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
@@ -67,7 +71,7 @@
     <Compile Include="DTO\RngCasino\RngCasinoBetSetting.cs" />
     <Compile Include="DTO\RngCasino\StakeLevel.cs" />
     <Compile Include="DTO\ThirdPartyBetSetting.cs" />
-    <Compile Include="DTO\VSBetSetting.cs" />
+    <Compile Include="DTO\DcsBetSetting.cs" />
     <Compile Include="MetaModel\BetSettingMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AgCasinoBetSettingViewModel.cs" />

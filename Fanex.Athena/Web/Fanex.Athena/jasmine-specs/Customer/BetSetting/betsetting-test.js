@@ -474,7 +474,7 @@
         });
     });
 
-    describe("updateVirtualSportsBetSetting(custId, userName, nickName)", function () {
+    describe("updateDcsBetSetting(custId, userName, nickName)", function () {
         var request;
         beforeEach(function (done) {
             spyOn(BetSetting, "getBetSettingParamsForSports").and.returnValue({});
@@ -482,14 +482,14 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest("VirtualSportsBetSetting/updateBetSetting?")
+                .stubRequest("DcsBetSetting/updateBetSetting?")
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
                     'responseText': '{ }'
                 });
 
-            BetSetting.updateVirtualSportsBetSetting(1, "user01", "walter");
+            BetSetting.updateDcsBetSetting(1, "user01", "walter");
 
             request = jasmine.Ajax.requests.mostRecent();
 
@@ -500,8 +500,8 @@
             jasmine.Ajax.uninstall();
         });
 
-        it("ajax request should be called with url is 'VirtualSportsBetSetting/updateBetSetting?'", function () {
-            expect(request.url).toBe("VirtualSportsBetSetting/updateBetSetting?");
+        it("ajax request should be called with url is 'DcsBetSetting/updateBetSetting?'", function () {
+            expect(request.url).toBe("DcsBetSetting/updateBetSetting?");
         });
 
         it("BetSetting.getBetSettingParamsForSports(sportIds) should be called", function () {
@@ -549,13 +549,14 @@
             affix("input#min-bet-1[value=10]");
             affix("input#max-bet-1[value=10]");
             affix("input#max-per-match-1[value=10]");
+            affix("input#bet-type-1[value=10]");
             $("#min-bet-1").attr("data-original", 20);
             $("#max-bet-1").attr("data-original", 20);
             $("#max-per-match-1").attr("data-original", 20);
         });
 
         it("Value returned should be equal with expected object when value not equal data-original", function () {
-            var expectedObj = { minbet1: 10, maxbet1: 10, maxpermatch1: 10, update1: true };
+            var expectedObj = { minbet1: 10, maxbet1: 10, maxpermatch1: 10, update1: true, bettype1: '10' };
 
             var result = BetSetting.getBetSettingParams(1);
 
@@ -566,7 +567,7 @@
             $("#min-bet-1").val(20);
             $("#max-bet-1").val(20);
             $("#max-per-match-1").val(20);
-            var expectedObj = { minbet1: 20, maxbet1: 20, maxpermatch1: 20, update1: false };
+            var expectedObj = { minbet1: 20, maxbet1: 20, maxpermatch1: 20, update1: false, bettype1: '10' };
 
             var result = BetSetting.getBetSettingParams(1);
 

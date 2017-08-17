@@ -667,7 +667,9 @@ define(["common/site"], function (Site) {
                         if (!data.expandDayOnhover) {
                             // Collapse all day picker dropdowns when users click outside the picker
                             $('html').on('click', function (e) {
-                                var targetId = $(e.target).attr("id");
+                                var $target = $(e.target);
+                                var targetId = $target.attr("id");
+                                targetId = targetId === undefined ? $target.parent().attr("id") : targetId;
 
                                 if (targetId !== data.fromDayId && targetId !== data.toDayId) {
                                     _hideDropDown(data, data.ddlFromDate);

@@ -667,7 +667,7 @@ webpackJsonp([55],{
 	                 if ($groupName.val() === _originalGroupName) {
 	                     $groupName.removeClass("invalid");
 	                     $groupName.addClass("valid");
-	                     $("label[for=GroupName]").attr("data-success", "")
+	                     $("label[for=GroupName]").attr("data-success", "");
 	                     $("#Submit").prop("disabled", false);
 	                     return;
 	                 }

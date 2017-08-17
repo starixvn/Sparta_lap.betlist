@@ -1,12 +1,10 @@
 ﻿define(["jquery",
     "common/site",
-    "pages/customer/customerlist/customerlist.state",
     "pages/customer/customerlist/customerlist.service",
     "pages/customer/customerlist/customerlist.oddsgroup"],
-    function ($, Site, CustomerListState, CustomerListService, CustomerListOddsGroup) {
+    function ($, Site, CustomerListService, CustomerListOddsGroup) {
         describe("CustomerListOddsGroup", function () {
             beforeAll(function () {
-                spyOn(CustomerListState, "getState");
                 spyOn(Site, "getSingleResource").and.callFake(function (str) {
                     return str + " {0}";
                 });
@@ -16,12 +14,6 @@
             });
 
             describe("initialize()", function () {
-                it("get customer list stage", function () {
-                    CustomerListOddsGroup.initialize();
-
-                    expect(CustomerListState.getState).toHaveBeenCalled();
-                });
-
                 it("showGridDropdown() should be called if .oddsGroup is click", function () {
                     setFixtures('<div id="report-content"><a class="oddsGroup"></a></div>');
                     spyOn(CustomerListOddsGroup, "showGridDropdown");

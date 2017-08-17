@@ -18092,10 +18092,10 @@ webpackJsonp([81],[
 	
 	        updateWidth: function ($grid) {
 	            if (!$grid.hasVerticalScrollBar()) {
-	                $grid.addClass("noScroll");
+	                $grid.addClass("noScroll").find("table").css("width", "");
 	            }
 	            else {
-	                $grid.find("table").width($grid.width() - 17);
+	                $grid.removeClass("noScroll").find("table").css("width", $grid.width() - 17);
 	            }
 	        }
 	    };
@@ -18257,9 +18257,7 @@ webpackJsonp([81],[
 	                });
 	
 	                $(window).on("resize", function () {
-	                    if ($(".fn-rs-content-scroll").length > 0) {
-	                        GridHelper.resizeGrid($(".fn-rs-content-scroll"));
-	                    }
+	                    GridHelper.resizeGrid($(".fn-rs-content-scroll"));
 	                });
 	
 	                $(window).on("unload", function () {

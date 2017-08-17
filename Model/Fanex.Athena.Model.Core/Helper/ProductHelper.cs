@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Model.Core.Helper
 {
     using System.Diagnostics.CodeAnalysis;
+    using DTO.Common;
     using Resources;
 
     public static class ProductHelper
@@ -10,28 +11,28 @@
         {
             switch (productCode.ToUpper())
             {
-                case "BA":
+                case Product.BA:
                     return ViewResources.ProductBA;
 
-                case "LC":
+                case Product.LC:
                     return ViewResources.ProductLC;
 
-                case "NG":
+                case Product.NG:
                     return ViewResources.ProductNG;
 
-                case "RB":
+                case Product.RB:
                     return ViewResources.ProductRB;
 
-                case "SB":
+                case Product.SB:
                     return ViewResources.Sportsbook;
 
-                case "MGCLC":
+                case Product.MGCLC:
                     return ViewResources.ProductMGCLC;
 
-                case "MGCRNG":
+                case Product.MGCRNG:
                     return ViewResources.ProductMGCRNG;
 
-                case "VS":
+                case Product.VS:
                     return ViewResources.ProductVS;
 
                 case "VS180":
@@ -49,13 +50,13 @@
                 case "VS186":
                     return ViewResources.VirtualTennis;
 
-                case "CS":
+                case Product.CS:
                     return ViewResources.ProductCS;
 
-                case "BG":
+                case Product.BG:
                     return ViewResources.ProductBG;
 
-                case "KN":
+                case Product.KN:
                     return ViewResources.ProductKN;
 
                 case "VS183":
@@ -64,8 +65,17 @@
                 case "VS185":
                     return ViewResources.VirtualCycling;
 
-                case "VB":
+                case Product.VB:
                     return ViewResources.ProductVB;
+
+                case Product.VS2:
+                    return ViewResources.ProductVS2;
+
+                case "VS2190":
+                    return ViewResources.VirtualSoccerLeague;
+
+                case "VS2191":
+                    return ViewResources.VirtualSoccerNation;
 
                 default:
                     return defaultValue ?? productCode;

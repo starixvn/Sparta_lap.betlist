@@ -13,7 +13,7 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
                 return false;
             });
 
-            $("#report-content").on("blur", ".specialLevel", function (e) {
+            $("#report-content").on("blur", ".specialLevel", function () {
                 setTimeout(function () {
                     $("#LevelListContainer").hide();
                 }, 300);

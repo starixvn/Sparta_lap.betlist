@@ -5681,7 +5681,9 @@ webpackJsonp([79],{
 	                        if (!data.expandDayOnhover) {
 	                            // Collapse all day picker dropdowns when users click outside the picker
 	                            $('html').on('click', function (e) {
-	                                var targetId = $(e.target).attr("id");
+	                                var $target = $(e.target);
+	                                var targetId = $target.attr("id");
+	                                targetId = targetId === undefined ? $target.parent().attr("id") : targetId;
 	
 	                                if (targetId !== data.fromDayId && targetId !== data.toDayId) {
 	                                    _hideDropDown(data, data.ddlFromDate);
@@ -8934,6 +8936,7 @@ webpackJsonp([79],{
 	                FromDate: onLevelData.FromDate,
 	                ToDate: onLevelData.ToDate,
 	                PlatformType: onLevelData.PlatformType,
+	                ExcludeTest: onLevelData.IsExcludedTestData,
 	                CurrencyId: dataDrillDown.DrillDownCurrencyId,
 	                CurrencyName: dataDrillDown.DrillDownCurrencyName,
 	                DrawFilter: onLevelData.DrawFilter,
@@ -9466,7 +9469,9 @@ webpackJsonp([79],{
 	                }
 	            }
 	            if (!data["__RequestVerificationToken"]) {
-	                $('<input type="hidden">').attr({ name: '__RequestVerificationToken', value: $("input[name=__RequestVerificationToken]").val() }).appendTo($form);
+	                $('<input type="hidden">')
+	                    .attr({ name: '__RequestVerificationToken', value: $("input[name=__RequestVerificationToken]").val() })
+	                    .appendTo($form);
 	            }
 	
 	            $form.submit();
@@ -9475,7 +9480,7 @@ webpackJsonp([79],{
 	    };
 	
 	    return _me;
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
 

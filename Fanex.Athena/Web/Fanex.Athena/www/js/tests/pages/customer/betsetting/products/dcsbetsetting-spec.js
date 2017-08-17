@@ -27,7 +27,7 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingStatus, DcsBetSe
 
         describe("initEvent()", function () {
             it("#btnUpdateStatus fire click event - DcsBetSetting.updateStatus() should be called with correct parameter", function () {
-                setFixtures('<button id="btnUpdateStatus">UPdate Status</button>');
+                setFixtures('<button id="btnUpdateStatus"></button>');
                 spyOn(DcsBetSetting, "updateStatus");
                 DcsBetSetting.initEvent();
 
@@ -37,6 +37,19 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingStatus, DcsBetSe
 
                 expect(DcsBetSetting.updateStatus).toHaveBeenCalledWith($button);
             });
+
+
+            it("#btnSubmitBetSetting fire click event with product Virtual Sports - BetSettingBase.showComfirm() should be called with correct parameter", function () {
+                setFixtures('<input id="ProductId" value="5" /><button id="btnSubmitBetSetting"></button>');
+                spyOn(BetSettingBase, "showComfirm");
+                DcsBetSetting.initEvent();
+                var $submit = $("#btnSubmitBetSetting");
+
+                $submit.click();
+
+                expect(BetSettingBase.showComfirm).toHaveBeenCalledWith($submit, "UpdateVirtualSportsBetSettings", DcsBetSetting.updateBetSetting);
+            });
+
         });
 
         describe("updateStatus($context)", function () {
@@ -62,6 +75,34 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingStatus, DcsBetSe
                 DcsBetSetting.updateStatus($context);
 
                 expect(BetSettingStatus.getCommonPostData).toHaveBeenCalledWith($context);
+            });
+        });
+
+
+        describe("updateBetSetting(custId, userName, nickName)", function () {
+            var custId = 1, userName = "username", nickName = "nickname";
+            var expectedParam = {
+                custid: custId,
+                userName: userName,
+                nickName: nickName
+            };
+
+            beforeAll(function () {
+                spyOn(Site, "resolveClientUrl").and.callFake(function (url) { return url; });
+            });
+
+            beforeEach(function () {
+                spyOn(BetSettingBase, "updateBetSetting");
+            });
+
+            it("When Product is Virtual Sports - BetSettingBase.updateBetSetting should be called with correct parameter", function () {
+                appendSetFixtures('<input id="ProductId" value="5" />');
+                var expectedUrl = "DcsBetSetting/UpdateBetSetting";
+                expectedParam.productId = 5;
+
+                DcsBetSetting.updateBetSetting(custId, userName, nickName);
+
+                expect(BetSettingBase.updateBetSetting).toHaveBeenCalledWith(expectedUrl, expectedParam);
             });
         });
     });

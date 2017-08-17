@@ -554,6 +554,9 @@ input.date-range
 .sort-heading
 {
     cursor: pointer;
+}
+
+.sorted-heading {
     position: relative;
 }
 

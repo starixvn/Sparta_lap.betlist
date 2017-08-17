@@ -35,6 +35,9 @@ webpackJsonp([77],{
 	            else if (sportId === 162) {
 	                productOptions.push("LC");
 	            }
+	            else if (sportId === 190 || sportId === 191 || sportId === 104) {
+	                productOptions.push("VS2");
+	            }
 	            else {
 	                if (productCode === "SB" || productCode === "ALL") {
 	                    productOptions.push("SB");
@@ -46,7 +49,7 @@ webpackJsonp([77],{
 	        }
 	        else {
 	            if (productCode === "ALL") {
-	                productOptions = ["SB", "BA", "NG", "RB", "LC", "VS", "CS", "BG"];
+	                productOptions = ["SB", "BA", "NG", "RB", "LC", "VS", "CS", "BG", "VS2"];
 	            }
 	            else {
 	                productOptions.push(productCode);

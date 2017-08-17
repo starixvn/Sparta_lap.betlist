@@ -2,7 +2,8 @@
     "components/pluginhelper/daterangepicker", "../report", "components/pluginhelper/multiselect", "components/pluginhelper/autocomplete",
     "helpers/daterange", "helpers/excel",
     "extensions/jquery.extension", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min"],
-    function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report, MultiSelect, AutoComplete, DateHelper, ExcelHelper) {
+    function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report,
+        MultiSelect, AutoComplete, DateHelper, ExcelHelper) {
         "use strict";
 
         var VALID_MONTH_RANGE = 3;
@@ -23,14 +24,13 @@
         function getLicenseeWLNote(productOptionJson, caption) {
             var productOptions = $.parseJSON(productOptionJson || "[]");
             var resultProducts = [];
-            var availableProducts = ["SB", "LC", "NG", "VS", "CS", "BG", "KN", "BT", "MGCLC", "MGCRNG", "VB"];
             $.each(productOptions, function (index, item) {
-                if (Site.asBool(item.Status) && $.inArray(item.Code, availableProducts) > -1) {
+                if (Site.asBool(item.Status)) {
                     resultProducts.push(item.Code);
                 }
             });
             if (resultProducts.length > 0) {
-                return (caption || Site.getSingleResource("LicenseeW_L")) + "(" + resultProducts.join() + ")";
+                return (caption || Site.getSingleResource("LicenseeW_L")) + "(" + resultProducts.join(', ') + ")";
             }
             else {
                 return caption || "";

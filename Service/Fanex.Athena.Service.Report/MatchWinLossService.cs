@@ -161,6 +161,8 @@ namespace Fanex.Athena.Service.Report
                 dataList.Where(p => p.ProductName == Product.LC).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
             result.AddRange(
                 dataList.Where(p => p.ProductName == Product.VS).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
+            result.AddRange(
+                dataList.Where(p => p.ProductName == Product.VS2).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
 
             return result;
         }
@@ -198,7 +200,7 @@ namespace Fanex.Athena.Service.Report
 
                     if (RacingSportTypes.Contains(matchWinLoss.SportType))
                     {
-                        return string.Format(EnglishCulture, KickOfTimeFormat, matchWinLoss.KickofTime);
+                        return string.Format(EnglishCulture, KickOfTimeFormat, matchWinLoss.KickOffTime);
                     }
 
                     var homeName = CacheRef.GetTeamName(matchWinLoss.HomeId) +

@@ -31,7 +31,8 @@ webpackJsonp([53],{
 	        AllBet: 21,
 	        VoidBridge: 22,
 	        FishingWorld: 24,
-	        Cashout: 25
+	        Cashout: 25,
+	        VirtualSports2: 27,
 	    };
 	
 	    var _me = {
@@ -52,7 +53,7 @@ webpackJsonp([53],{
 	
 	        var _me = {
 	            initialize: function () {
-	                $("#product-dropdown").on('change', function (event) {
+	                $("#product-dropdown").on('change', function () {
 	                    var url = $(this).find("option:selected").data("href");
 	                    Site.blockUI();
 	                    Site.redirect(url);
@@ -181,12 +182,14 @@ webpackJsonp([53],{
 	                var minBet = BetSettingHelper.convertToFloat($minbet.val());
 	                var maxBet = BetSettingHelper.convertToFloat($maxbet.val());
 	                var maxPerMatcth = BetSettingHelper.convertToFloat($maxPerMatch.val());
+	                var betType = $("#bet-type-" + sportId).val();
 	
 	                var result = {};
 	                result["minbet" + sportId] = minBet;
 	                result["maxbet" + sportId] = maxBet;
 	                result["maxpermatch" + sportId] = maxPerMatcth;
 	                result["update" + sportId] = isUpdate;
+	                result["bettype" + sportId] = betType;
 	
 	                return result;
 	            },
@@ -1033,12 +1036,8 @@ webpackJsonp([53],{
 	        switch (productId) {
 	            case Product.Sportsbook:
 	                return "UpdateSportsbookBetSettings";
-	                break;
 	            case Product.Racing:
 	                return "UpdateRacingBetSettings";
-	                break;
-	            case Product.VirtualSports:
-	                return "UpdateVirtualSportsBetSettings";
 	            default:
 	                return "";
 	        }
@@ -1048,12 +1047,8 @@ webpackJsonp([53],{
 	        switch (productId) {
 	            case Product.Sportsbook:
 	                return "SportsbookBetSetting/UpdateBetSetting";
-	                break;
 	            case Product.Racing:
 	                return "RacingBetSetting/UpdateBetSetting";
-	                break;
-	            case Product.VirtualSports:
-	                return "VirtualSportsBetSetting/UpdateBetSetting";
 	            default:
 	                return null;
 	        }
@@ -1115,9 +1110,8 @@ webpackJsonp([53],{
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(253), __webpack_require__(258)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Constant, BetSettingValidation) {
-	    var Product = Constant.Product;
-	
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(258)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, BetSettingValidation) {
+	    
 	    var _me = {
 	        checkCopyAllValues: function ($checkbox) {
 	            var enabled = $checkbox.prop("checked");

@@ -18503,7 +18503,9 @@ webpackJsonp([76],[
 	                        if (!data.expandDayOnhover) {
 	                            // Collapse all day picker dropdowns when users click outside the picker
 	                            $('html').on('click', function (e) {
-	                                var targetId = $(e.target).attr("id");
+	                                var $target = $(e.target);
+	                                var targetId = $target.attr("id");
+	                                targetId = targetId === undefined ? $target.parent().attr("id") : targetId;
 	
 	                                if (targetId !== data.fromDayId && targetId !== data.toDayId) {
 	                                    _hideDropDown(data, data.ddlFromDate);
@@ -18837,11 +18839,12 @@ webpackJsonp([76],[
 	                Key151: "LiveReportBetList/Racing?SportType=151",
 	                Key152: "LiveReportBetList/Racing?SportType=152",
 	                Key153: "LiveReportBetList/Racing?SportType=153",
-	                Key181: "LiveReportBetList/Racing?SportType=181",
-	                Key182: "LiveReportBetList/Racing?SportType=182",
-	                Key183: "LiveReportBetList/Racing?SportType=183",
-	                Key184: "LiveReportBetList/Racing?SportType=184",
-	                Key185: "LiveReportBetList/Racing?SportType=185"
+	                Key181: "LiveReportBetList/VirtualSports?SportType=181",
+	                Key182: "LiveReportBetList/VirtualSports?SportType=182",
+	                Key183: "LiveReportBetList/VirtualSports?SportType=183",
+	                Key184: "LiveReportBetList/VirtualSports?SportType=184",
+	                Key185: "LiveReportBetList/VirtualSports?SportType=185",
+	                Key104: "LiveReportBetList/MixParlay?bettype=2799"
 	            };
 	
 	            var url = urlMap["Key" + jsonData.SportId];
@@ -18897,6 +18900,9 @@ webpackJsonp([76],[
 	            else if (sportId === 162) {
 	                productOptions.push("LC");
 	            }
+	            else if (sportId === 190 || sportId === 191 || sportId === 104) {
+	                productOptions.push("VS2");
+	            }
 	            else {
 	                if (productCode === "SB" || productCode === "ALL") {
 	                    productOptions.push("SB");
@@ -18908,7 +18914,7 @@ webpackJsonp([76],[
 	        }
 	        else {
 	            if (productCode === "ALL") {
-	                productOptions = ["SB", "BA", "NG", "RB", "LC", "VS", "CS", "BG"];
+	                productOptions = ["SB", "BA", "NG", "RB", "LC", "VS", "CS", "BG", "VS2"];
 	            }
 	            else {
 	                productOptions.push(productCode);

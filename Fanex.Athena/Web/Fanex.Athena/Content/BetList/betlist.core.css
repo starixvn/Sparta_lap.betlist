@@ -33,6 +33,8 @@
 }
 .favorite .excluding-choices {
     white-space: normal;
+    color: #484848;
+    font-weight: normal;
 }
 .handicap .odds
 {

@@ -6073,6 +6073,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Virtual Sports 2.
+        /// </summary>
+        public static string ProductVS2 {
+            get {
+                return ResourceManager.GetString("ProductVS2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Progressive Contribution.
         /// </summary>
         public static string ProgressiveContribution {
@@ -7927,6 +7936,24 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to update all Virtual Sports 2 bet settings?.
+        /// </summary>
+        public static string UpdateVirtualSports2BetSettings {
+            get {
+                return ResourceManager.GetString("UpdateVirtualSports2BetSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Virtual Sports 2 bet setting of {0} was updated successfully.
+        /// </summary>
+        public static string UpdateVirtualSports2BetSettingSuccessMsg {
+            get {
+                return ResourceManager.GetString("UpdateVirtualSports2BetSettingSuccessMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to update all Virtual Sports bet settings?.
         /// </summary>
         public static string UpdateVirtualSportsBetSettings {
@@ -8112,6 +8139,24 @@ namespace Fanex.Athena.Resources {
         public static string VirtualSoccer {
             get {
                 return ResourceManager.GetString("VirtualSoccer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Virtual Soccer League.
+        /// </summary>
+        public static string VirtualSoccerLeague {
+            get {
+                return ResourceManager.GetString("VirtualSoccerLeague", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Virtual Soccer Nation.
+        /// </summary>
+        public static string VirtualSoccerNation {
+            get {
+                return ResourceManager.GetString("VirtualSoccerNation", resourceCulture);
             }
         }
         

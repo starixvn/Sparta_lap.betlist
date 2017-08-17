@@ -247,6 +247,10 @@ namespace Fanex.Athena.Model.Core.DataDomain
         /// </summary>
         BetTradeBought = 902,
 
-        CashOutBought = 912
+        CashOutBought = 912,
+
+        VirtualSports2Ft1X2 = 2701,
+
+        VirtualSports2MixParlay = 2799
     }
 }

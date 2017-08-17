@@ -18937,10 +18937,10 @@ webpackJsonp([78],[
 	
 	        updateWidth: function ($grid) {
 	            if (!$grid.hasVerticalScrollBar()) {
-	                $grid.addClass("noScroll");
+	                $grid.addClass("noScroll").find("table").css("width", "");
 	            }
 	            else {
-	                $grid.find("table").width($grid.width() - 17);
+	                $grid.removeClass("noScroll").find("table").css("width", $grid.width() - 17);
 	            }
 	        }
 	    };
@@ -19078,6 +19078,7 @@ webpackJsonp([78],[
 	                        var rowspan = $(Selector.detailRow).length + 1;
 	                        $parentRow.find("td:first").attr("rowspan", rowspan);
 	                        $parentRow.addClass(ClassName.active);
+	                        GridHelper.resizeGrid();
 	                    },
 	                    beforeSend: Site.blockUI,
 	                    complete: Site.unBlockUI
@@ -19146,6 +19147,9 @@ webpackJsonp([78],[
 	                if (isProductOriginalChecked('BA')) {
 	                    productCodeList.push("BA");
 	                }
+	                if (isProductOriginalChecked('VS2')) {
+	                    productCodeList.push("VS2");
+	                }
 	                url = Site.setProductCodeListParam(url, productCodeList);
 	
 	                Site.blockUI();
@@ -19153,7 +19157,7 @@ webpackJsonp([78],[
 	            },
 	
 	            getProductCodeList: function (productCode) {
-	                var codeList = ["RB", "NG", "LC", "VS"];
+	                var codeList = ["RB", "NG", "LC", "VS", "VS2"];
 	                var productCodeList = [];
 	                if ((productCode === 'SB' || productCode === 'BA') && isProductOriginalChecked('SB')) {
 	                    productCodeList.push('SB');

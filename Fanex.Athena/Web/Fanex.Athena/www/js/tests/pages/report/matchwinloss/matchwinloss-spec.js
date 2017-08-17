@@ -403,6 +403,7 @@
                         + '<div class="childCheckbox" data-product-code="RB" data-original="true">RB</div>'
                         + '<div class="childCheckbox" data-product-code="BA" data-original="true">BA</div>'
                         + '<div class="childCheckbox" data-product-code="VS" data-original="false">VS</div>'
+                        + '<div class="childCheckbox" data-product-code="VS2" data-original="true">BRVS</div>'
                         + '</div>';
 
                     setFixtures('<div id="Date" data-original="05/01/2017"></div>' + productListHtml);
@@ -420,7 +421,7 @@
                 });
 
                 it("bettype value is not 10 - Site.redirect(url) should be called with correct parameter", function () {
-                    var param = "MatchWinlossBetList/MixParlay?fromdate=05/01/2017&todate=05/01/2017&bettype=1&productcodelist=SB,BA";
+                    var param = "MatchWinlossBetList/MixParlay?fromdate=05/01/2017&todate=05/01/2017&bettype=1&productcodelist=SB,BA,VS2";
                     var expectedParam = transformQueryParamNameToLowerCase(param);
                     var bettype = 1;
 
@@ -430,7 +431,7 @@
                 });
 
                 it("bettype value is 10 - Site.redirect(url) should be called with correct parameter", function () {
-                    var param = "MatchWinlossBetList/Outright?fromdate=05/01/2017&todate=05/01/2017&bettype=10&productcodelist=SB,BA";
+                    var param = "MatchWinlossBetList/Outright?fromdate=05/01/2017&todate=05/01/2017&bettype=10&productcodelist=SB,BA,VS2";
                     var expectedParam = transformQueryParamNameToLowerCase(param);
                     var bettype = 10;
 

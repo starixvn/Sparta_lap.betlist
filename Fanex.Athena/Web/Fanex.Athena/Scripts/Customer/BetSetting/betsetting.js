@@ -21,6 +21,7 @@ var BetSetting = (function ($) {
     var TAB_VOIDBRIDGE = 22;
     var TAB_FISHINGWORLD = 24;
     var TAB_CASHOUT = 25;
+    var TAB_VIRTUALSPORTS2 = 27;
 
     var _sportIds = null;
     return {
@@ -99,7 +100,7 @@ var BetSetting = (function ($) {
                 case TAB_MACAU:
                     url = "ThirdPartyBetSetting/UpdateMacauStatus";
                     break;
-                case TAB_MICROGAMINGLIVECASINO:               
+                case TAB_MICROGAMINGLIVECASINO:
                     url = "ThirdPartyBetSetting/UpdateMicroGamingLiveCasinoStatus";
                     status = $("#enable-product").is(":checked") ? 1 : 0;
                     break;
@@ -242,7 +243,10 @@ var BetSetting = (function ($) {
                     showComfirm('UpdateNumberGameBetSettings', BetSetting.updateNumberGameBetSetting);
                     break;
                 case TAB_VIRTUALSPORTS:
-                    showComfirm('UpdateVirtualSportsBetSettings', BetSetting.updateVirtualSportsBetSetting);
+                    showComfirm('UpdateVirtualSportsBetSettings', BetSetting.updateDcsBetSetting);
+                    break;
+                case TAB_VIRTUALSPORTS2:
+                    showComfirm('UpdateVirtualSports2BetSettings', BetSetting.updateDcsBetSetting);
                     break;
                 case TAB_LIVECASINO:
                     showComfirm('UpdateLiveCasinoBetSettings', BetSetting.updateLiveCasinoBetSetting);
@@ -418,15 +422,16 @@ var BetSetting = (function ($) {
             });
         },
         // Update Virtual Sports
-        updateVirtualSportsBetSetting: function (custId, userName, nickName) {
+        updateDcsBetSetting: function (custId, userName, nickName) {
             var params = BetSetting.getBetSettingParamsForSports(_sportIds);
             params.custid = custId;
             params.userName = userName;
             params.nickName = nickName;
+            params.productId = parseInt($("#ProductId").val());
 
             $.ajax({
                 type: 'POST',
-                url: Site.resolveClientUrl('VirtualSportsBetSetting/updateBetSetting?'),
+                url: Site.resolveClientUrl('DcsBetSetting/updateBetSetting?'),
                 cache: false,
                 data: params,
                 dataType: "json",
@@ -507,12 +512,14 @@ var BetSetting = (function ($) {
             var minBet = BetSetting.convertToFloat(minBetId.val());
             var maxBet = BetSetting.convertToFloat(maxBetId.val());
             var maxPerMatcth = BetSetting.convertToFloat(maxPerMatchId.val());
+            var betType = $("#bet-type-" + sportId).val();
 
             var result = {};
             result["minbet" + sportId] = minBet;
             result["maxbet" + sportId] = maxBet;
             result["maxpermatch" + sportId] = maxPerMatcth;
             result["update" + sportId] = isUpdate;
+            result["bettype" + sportId] = betType;
 
             return result;
         },
@@ -756,10 +763,10 @@ var BetSetting = (function ($) {
             return true;
         },
         isDigit: function (c) {
-            return ((c >= "0") && (c <= "9"));
+            return (c >= "0" && c <= "9");
         },
         isEmpty: function (s) {
-            var empty = ((s == null) || (s.length === 0));
+            var empty = ((s === null) || (s.length === 0));
             if (!empty) {
                 var news = s.replace(" ", "");
                 if (news.length > 0) {

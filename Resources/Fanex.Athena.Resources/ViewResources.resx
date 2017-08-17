@@ -3020,4 +3020,24 @@
     <value>You do not have any currency permissions to view this report, please contact your administrator account.</value>
     <comment>#73925</comment>
   </data>
+  <data name="ProductVS2" xml:space="preserve">
+    <value>Virtual Sports 2</value>
+    <comment>#78241</comment>
+  </data>
+  <data name="VirtualSoccerLeague" xml:space="preserve">
+    <value>Virtual Soccer League</value>
+    <comment>#78241</comment>
+  </data>
+  <data name="VirtualSoccerNation" xml:space="preserve">
+    <value>Virtual Soccer Nation</value>
+    <comment>#78241</comment>
+  </data>
+  <data name="UpdateVirtualSports2BetSettings" xml:space="preserve">
+    <value>Are you sure you want to update all Virtual Sports 2 bet settings?</value>
+    <comment>78241</comment>
+  </data>
+  <data name="UpdateVirtualSports2BetSettingSuccessMsg" xml:space="preserve">
+    <value>The Virtual Sports 2 bet setting of {0} was updated successfully</value>
+    <comment>78241</comment>
+  </data>
 </root>

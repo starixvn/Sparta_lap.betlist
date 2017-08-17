@@ -1,6 +1,5 @@
 ﻿@using System.Web.Mvc;
 @using Fanex.Athena.Extension.Helper;
-@using Fanex.Athena.Model.Core.DTO.Common
 @using Fanex.Athena.Model.Core.MetaModel.Product;
 @using Fanex.Athena.Web.HtmlExtension;
 @using Fanex.Athena.Model.Core.DataDomain;
@@ -11,20 +10,19 @@
         <div id="notification-marquee" style="color: #C02603"></div>
     </div>
 }
-@helper TitleLicenseeWLPrefix(IEnumerable<ProductOption> productOptions)
+@helper ReportTitleLicenseeWLProductCodeList(IEnumerable<ProductOption> productOptions)
 {
-var prdOptionTitleList = productOptions.Where(p => p.Code != Product.BA && p.Code != Product.RB);
-var prdText = string.Empty;
-foreach (var prd in prdOptionTitleList)
+var productCodeList = string.Empty;
+foreach (var product in productOptions)
 {
-    if (prd.Status)
+    if (product.Status)
     {
-        prdText += string.IsNullOrEmpty(prdText) ? prd.Code : ", " + prd.Code;
+        productCodeList += product.Code + ", ";
     }
 }
-prdText = string.IsNullOrEmpty(prdText) ? string.Empty : string.Format(", {0} ({1})", ViewResources.LicenseeW_L, prdText);
+productCodeList = string.IsNullOrEmpty(productCodeList) ? string.Empty : string.Format(", {0} ({1})", ViewResources.LicenseeW_L, productCodeList.TrimEnd(' ', ','));
 
-    @prdText
+    @productCodeList
 }
 @helper GroupComSettingDropDownList(string name, Dictionary<int, int> items, decimal selectedValue = 0, string className = "")
 {

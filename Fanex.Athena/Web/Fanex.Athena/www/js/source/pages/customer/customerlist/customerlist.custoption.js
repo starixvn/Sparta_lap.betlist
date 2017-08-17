@@ -19,7 +19,7 @@
                     CustomerListService.showGridDropdownById("ViewOptionList", $(this));
                 });
 
-                $("#report-content").on("blur", ".custoptionlink", function (e) {
+                $("#report-content").on("blur", ".custoptionlink", function () {
                     setTimeout(function () {
                         $("#ViewOptionList").hide();
                     }, 300);

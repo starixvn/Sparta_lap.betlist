@@ -18,7 +18,8 @@ define([], function () {
         AllBet: 21,
         VoidBridge: 22,
         FishingWorld: 24,
-        Cashout: 25
+        Cashout: 25,
+        VirtualSports2: 27,
     };
 
     var _me = {

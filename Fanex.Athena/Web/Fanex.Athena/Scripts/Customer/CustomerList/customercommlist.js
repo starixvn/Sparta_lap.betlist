@@ -202,11 +202,7 @@ var CustomerComm = (function ($) {
                     }
                 ],
                 open: function () {
-                    $(".commission-selection").each(function (index, id) {
-                        var $this = $(this);
-                        $this.val(0);
-                        $this.removeAttr('disabled');
-                    });
+                    $(".commission-selection").val(0).removeAttr('disabled');
                 }
             });
         },

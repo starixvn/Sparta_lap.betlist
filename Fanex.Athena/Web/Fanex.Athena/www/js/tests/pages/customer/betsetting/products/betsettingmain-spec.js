@@ -2,9 +2,6 @@
 var modulePath = ["jquery", "common/site", basePath + "common/betsettingbase", basePath + "common/betsetting.copy", basePath + "products/betsettingmain"];
 
 define(modulePath, function ($, Site, BetSettingBase, BetSettingCopy, BetSettingMain) {
-    var PRODUCTID_SPORTSBOOK = 0;
-    var PRODUCTID_RACING = 1;
-
     describe("BetSettingMain", function () {
         describe("initialize()", function () {
             beforeAll(function () {
@@ -79,7 +76,7 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingCopy, BetSetting
                 expect(BetSettingBase.showComfirm).toHaveBeenCalledWith($submit, "UpdateRacingBetSettings", BetSettingMain.updateBetSetting);
             });
 
-            it("#btnSubmitBetSetting fire click event with product neither Sporsbook nor Racing - BetSettingBase.showComfirm() should be called with correct parameter", function () {
+            it("#btnSubmitBetSetting fire click event with product which is not supported  - BetSettingBase.showComfirm() should be called with correct parameter", function () {
                 appendSetFixtures('<input id="ProductId" value="10" />');
                 spyOn(BetSettingBase, "showComfirm");
                 var $submit = $("#btnSubmitBetSetting");
@@ -128,7 +125,7 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingCopy, BetSetting
                 expect(BetSettingBase.updateBetSetting).toHaveBeenCalledWith(expectedUrl, expectedParam);
             });
 
-            it("When Product is neither Sportsbook nor Racing - BetSettingBase.updateBetSetting should not be called", function () {
+            it("When Product which is not supported should not be called", function () {
                 appendSetFixtures('<input id="ProductId" value="10" />');
 
                 BetSettingMain.updateBetSetting(custId, userName, nickName);

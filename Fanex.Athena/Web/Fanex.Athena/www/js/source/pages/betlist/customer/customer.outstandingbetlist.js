@@ -7,9 +7,21 @@ define(["jquery", "common/site", "common/querystring", "pages/report/report", ".
 
         function getViewOption() {
             return {
-                "betlistrunning": { title: Site.getSingleResource("BetListRunning"), hiddenColumn: "externalid,systemid,winloss,licenseewl", submit: _me.submitRunningBetList },
-                "betlist": { title: Site.getSingleResource("BetList"), hiddenColumn: "externalid,systemid", submit: _me.submitCompletedBetList },
-                "dailystatement": { title: Site.getSingleResource("DailyStatement"), hiddenColumn: "externalid,systemid", submit: _me.submitDailyStatementBetList }
+                "betlistrunning": {
+                        title: Site.getSingleResource("BetListRunning"),
+                        hiddenColumn: "externalid,systemid,winloss,licenseewl",
+                        submit: _me.submitRunningBetList
+                    },
+                "betlist": {
+                        title: Site.getSingleResource("BetList"),
+                        hiddenColumn: "externalid,systemid",
+                        submit: _me.submitCompletedBetList
+                    },
+                "dailystatement": {
+                        title: Site.getSingleResource("DailyStatement"),
+                        hiddenColumn: "externalid,systemid",
+                        submit: _me.submitDailyStatementBetList
+                    }
             };
         }
 

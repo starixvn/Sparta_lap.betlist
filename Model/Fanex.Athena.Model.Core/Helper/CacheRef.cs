@@ -9,6 +9,7 @@ namespace Fanex.Athena.Model.Core.Helper
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Threading;
+    using DTO.Common;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using RemotingRef;
@@ -47,33 +48,6 @@ namespace Fanex.Athena.Model.Core.Helper
             return RefData.GetLeagueName(leagueId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
         }
 
-        public static string GetFncIndexName(object indexId)
-        {
-            return RefData.GetFncIndexName(indexId.ToString(), GetCurrentIBCLanguageCode());
-        }
-
-        public static string GetHorseTeamName(object codeId)
-        {
-            return RefData.GetHorseTeamName(codeId.ToString(), GetCurrentIBCLanguageCode());
-        }
-
-        public static string GetOddsTypeName(object oddsTypeId)
-        {
-            return RefData.GetOddsTypeName(oddsTypeId.ToString(), GetCurrentIBCLanguageCode());
-        }
-
-        public static string GetCasinoBetItem(object betTeam)
-        {
-            var betTeamString = betTeam == null ? string.Empty : betTeam.ToString();
-            return RefData.GetCasinoBetItem(betTeamString, GetCurrentIBCLanguageCode());
-        }
-
-        public static string GetRouletteBetItem(object betTeam)
-        {
-            var betTeamString = betTeam == null ? string.Empty : betTeam.ToString();
-            return RefData.GetRouletteBetItem(betTeamString, GetCurrentIBCLanguageCode());
-        }
-
         /// <summary>
         /// Get bet type text by bet type and live indicator.
         /// </summary>
@@ -105,6 +79,20 @@ namespace Fanex.Athena.Model.Core.Helper
                 {
                     betTypeName = ViewResources.FT + " " + betTypeName;
                 }
+
+                return betTypeName;
+            }
+
+            return betTypeName;
+        }
+
+        public static string GetBettypeWithProductName(int betType, bool liveIndicator = false)
+        {
+            var betTypeName = GetBettype(betType, liveIndicator);
+
+            if (ProductValidator.IsValidBettype(Product.VS2, betType))
+            {
+                return betTypeName + " (" + ViewResources.ProductVS2 + ")";
             }
 
             return betTypeName;

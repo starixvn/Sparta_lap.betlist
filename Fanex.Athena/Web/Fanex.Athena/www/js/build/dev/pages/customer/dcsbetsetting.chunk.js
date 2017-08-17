@@ -31,7 +31,8 @@ webpackJsonp([59],{
 	        AllBet: 21,
 	        VoidBridge: 22,
 	        FishingWorld: 24,
-	        Cashout: 25
+	        Cashout: 25,
+	        VirtualSports2: 27,
 	    };
 	
 	    var _me = {
@@ -52,7 +53,7 @@ webpackJsonp([59],{
 	
 	        var _me = {
 	            initialize: function () {
-	                $("#product-dropdown").on('change', function (event) {
+	                $("#product-dropdown").on('change', function () {
 	                    var url = $(this).find("option:selected").data("href");
 	                    Site.blockUI();
 	                    Site.redirect(url);
@@ -181,12 +182,14 @@ webpackJsonp([59],{
 	                var minBet = BetSettingHelper.convertToFloat($minbet.val());
 	                var maxBet = BetSettingHelper.convertToFloat($maxbet.val());
 	                var maxPerMatcth = BetSettingHelper.convertToFloat($maxPerMatch.val());
+	                var betType = $("#bet-type-" + sportId).val();
 	
 	                var result = {};
 	                result["minbet" + sportId] = minBet;
 	                result["maxbet" + sportId] = maxBet;
 	                result["maxpermatch" + sportId] = maxPerMatcth;
 	                result["update" + sportId] = isUpdate;
+	                result["bettype" + sportId] = betType;
 	
 	                return result;
 	            },
@@ -1071,7 +1074,20 @@ webpackJsonp([59],{
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* AllBet, VoidBridge, FishingWorld */
 	"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(254), __webpack_require__(259)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingBase, BetSettingStatus) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(253),__webpack_require__(254), __webpack_require__(259)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Constant, BetSettingBase, BetSettingStatus) {
+	        var Product = Constant.Product;
+	
+	        function getConfirmMessage(productId) {
+	            switch (productId) {
+	                case Product.VirtualSports:
+	                    return "UpdateVirtualSportsBetSettings";
+	                case Product.VirtualSports2:
+	                    return "UpdateVirtualSports2BetSettings";
+	                default:
+	                    return "";
+	            }
+	        }
+	
 	        var _me = {
 	            initialize: function () {
 	                Site.initialize();
@@ -1083,12 +1099,38 @@ webpackJsonp([59],{
 	                $("#btnUpdateStatus").click(function () {
 	                    _me.updateStatus($(this));
 	                });
+	
+	                $("#btnReset").on("click", function () {
+	                    BetSettingBase.resetInput();
+	                });
+	
+	                $("#btnSubmitBetSetting").on("click", function () {
+	                    var productId = parseInt($("#ProductId").val());
+	                    var messageResource = getConfirmMessage(productId);
+	
+	                    BetSettingBase.showComfirm($(this), messageResource, _me.updateBetSetting);
+	                });
+	
+	                // Formating number in text box.
+	                BetSettingBase.formatInputText();
 	            },
 	
 	            updateStatus: function ($context) {
 	                var url = Site.resolveClientUrl("DcsBetSetting/UpdateStatus");
 	                var params = BetSettingStatus.getCommonPostData($context);
 	                BetSettingStatus.update(url, params);
+	            },
+	
+	            updateBetSetting: function (custId, userName, nickName) {
+	                var productId = parseInt($("#ProductId").val());
+	                
+	                var params = BetSettingBase.getBetSettingParamsForSports();
+	                params.custid = custId;
+	                params.userName = userName;
+	                params.nickName = nickName;
+	                params.productId = productId;
+	
+	                BetSettingBase.updateBetSetting(Site.resolveClientUrl("DcsBetSetting/UpdateBetSetting"), params);
 	            }
 	        };
 	

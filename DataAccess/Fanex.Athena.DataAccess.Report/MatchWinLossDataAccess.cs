@@ -128,14 +128,16 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 using (var db = this.GetObjectDb(uspName))
                 {
-                    var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status == true);
-                    var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status == true);
+                    var showSb = metaModel.ProductOptions.Any(i => i.Status && i.Code == Product.SB);
+                    var showBa = metaModel.ProductOptions.Any(i => i.Status && i.Code == Product.BA);
+                    var showVS2 = metaModel.ProductOptions.Any(i => i.Status && i.Code == Product.VS2);
 
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
                     db.AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
                     db.AddInParameter("showsb", DbType.Boolean, showSb);
                     db.AddInParameter("showba", DbType.Boolean, showBa);
+                    db.AddInParameter("showVS2", DbType.Boolean, showVS2);
 
                     using (var reader = db.ExecuteReader())
                     {
@@ -166,7 +168,7 @@ namespace Fanex.Athena.DataAccess.Report
             var hasProductName = reader.HasColumn("productname");
             var hasLiveIndicator = reader.HasColumn("liveindicator");
             var hasIsNeutral = reader.HasColumn("isneutral");
-            var hasKickofTime = reader.HasColumn("KickoffTime");
+            var hasKickOffTime = reader.HasColumn("KickoffTime");
             var hasShowTime = reader.HasColumn("showtime");
             var hasSportType = reader.HasColumn("sporttype");
 
@@ -195,7 +197,7 @@ namespace Fanex.Athena.DataAccess.Report
                 matchWinLoss.IsNeutral = hasIsNeutral && Converter.ToBool(reader["isNeutral"]);
                 matchWinLoss.ShowTime = hasShowTime ? reader.ToString("showtime") : string.Empty;
                 matchWinLoss.SportType = hasSportType ? reader.ToShort("sporttype") : (short)0;
-                matchWinLoss.KickofTime = hasKickofTime ? reader.ToDateTime("KickoffTime") : DateTime.MinValue;
+                matchWinLoss.KickOffTime = hasKickOffTime ? reader.ToDateTime("KickoffTime") : DateTime.MinValue;
                 dataList.Add(matchWinLoss);
             }
 

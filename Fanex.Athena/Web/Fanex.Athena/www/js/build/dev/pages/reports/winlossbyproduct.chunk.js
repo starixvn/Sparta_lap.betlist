@@ -23384,7 +23384,9 @@ webpackJsonp([87],[
 	                }
 	            }
 	            if (!data["__RequestVerificationToken"]) {
-	                $('<input type="hidden">').attr({ name: '__RequestVerificationToken', value: $("input[name=__RequestVerificationToken]").val() }).appendTo($form);
+	                $('<input type="hidden">')
+	                    .attr({ name: '__RequestVerificationToken', value: $("input[name=__RequestVerificationToken]").val() })
+	                    .appendTo($form);
 	            }
 	
 	            $form.submit();
@@ -23393,7 +23395,7 @@ webpackJsonp([87],[
 	    };
 	
 	    return _me;
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 /* 353 */,
@@ -23432,7 +23434,8 @@ webpackJsonp([87],[
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(103), __webpack_require__(374), __webpack_require__(106), __webpack_require__(9),
 	    __webpack_require__(232), __webpack_require__(242), __webpack_require__(245), __webpack_require__(278),
 	    __webpack_require__(334), __webpack_require__(352),
-	    __webpack_require__(250), __webpack_require__(224), __webpack_require__(225)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report, MultiSelect, AutoComplete, DateHelper, ExcelHelper) {
+	    __webpack_require__(250), __webpack_require__(224), __webpack_require__(225)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report,
+	        MultiSelect, AutoComplete, DateHelper, ExcelHelper) {
 	        "use strict";
 	
 	        var VALID_MONTH_RANGE = 3;
@@ -23453,14 +23456,13 @@ webpackJsonp([87],[
 	        function getLicenseeWLNote(productOptionJson, caption) {
 	            var productOptions = $.parseJSON(productOptionJson || "[]");
 	            var resultProducts = [];
-	            var availableProducts = ["SB", "LC", "NG", "VS", "CS", "BG", "KN", "BT", "MGCLC", "MGCRNG", "VB"];
 	            $.each(productOptions, function (index, item) {
-	                if (Site.asBool(item.Status) && $.inArray(item.Code, availableProducts) > -1) {
+	                if (Site.asBool(item.Status)) {
 	                    resultProducts.push(item.Code);
 	                }
 	            });
 	            if (resultProducts.length > 0) {
-	                return (caption || Site.getSingleResource("LicenseeW_L")) + "(" + resultProducts.join() + ")";
+	                return (caption || Site.getSingleResource("LicenseeW_L")) + "(" + resultProducts.join(', ') + ")";
 	            }
 	            else {
 	                return caption || "";

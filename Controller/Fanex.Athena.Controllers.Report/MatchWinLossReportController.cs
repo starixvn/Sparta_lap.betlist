@@ -25,6 +25,8 @@
     [FunctionAuthorization(PermissionKeys.ReportMatchWinLoss)]
     public class MatchWinLossReportController : ReportBaseController
     {
+        private const string NewProductIdColumnName = "newproductid";
+
         private const int LCSport = 162;
         private const int BetType81 = 81;
         private const int BetType120 = 120;
@@ -32,13 +34,11 @@
         private const int BetType33 = 33;
         private const int BetType1101 = 1101;
         private const int BetType1199 = 1199;
-        private const int BetType1021 = 1021;
+        private const int BetType1201 = 1201;
         private const int BetType1299 = 1299;
-        private const int LCProductId = 4;
-        private const int RBProductId = 2;
-        private const int VSProductId = 5;
-        private const int SBProductId = 1;
-        private const int NGProductId = 3;
+        private const int BetType2700 = 2700;
+        private const int BetType2899 = 2899;
+
         private static readonly IList<int> VirtualHrBettypes = new List<int> { 1231, 1232, 1233, 1237, 1238 };
         private readonly IMatchWinLossService _matchWinLossService;
 
@@ -110,7 +110,7 @@
             var reportData = _matchWinLossService.GetDataList(metaModel);
             var reportDataOutrightParlay = new List<MatchWinLoss>();
 
-            if (metaModel.ProductOptions.Any(i => (i.Code == Product.BA || i.Code == Product.SB) && i.Status))
+            if (metaModel.ProductOptions.Any(i => i.Status && (i.Code == Product.BA || i.Code == Product.SB || i.Code == Product.VS2)))
             {
                 reportDataOutrightParlay = _matchWinLossService.GetOutrightParlayList(metaModel).ToList();
             }
@@ -185,7 +185,7 @@
             var reportData = _matchWinLossService.GetDetailDataSet(metaModel);
             var mainTable = reportData.Tables[0];
             mainTable = AddColumnsForSorting(mainTable);
-            mainTable.DefaultView.Sort = "newproductid asc, leaguename asc, matchname ASC";
+            mainTable.DefaultView.Sort = $"{NewProductIdColumnName} asc, leaguename asc, matchname ASC";
             mainTable = mainTable.DefaultView.ToTable();
             var matchWinLossExcel = new MatchWinLossExcel(
                 templatePath,
@@ -251,8 +251,7 @@
 
         private static DataTable AddColumnsForSorting(DataTable mainTable)
         {
-            mainTable.Columns.Add("productname", typeof(string));
-            mainTable.Columns.Add("newproductid", typeof(int));
+            mainTable.Columns.Add(NewProductIdColumnName, typeof(int));
             mainTable.Columns.Add("matchname", typeof(string));
             mainTable.Columns.Add("leaguename", typeof(string));
 
@@ -273,44 +272,43 @@
         {
             if (betType >= BetType81 && betType < BetType120)
             {
-                row["productname"] = Product.NG;
-                row["newproductid"] = NGProductId;
+                row[NewProductIdColumnName] = ProductTypes.NumberGame;
             }
             else if (betType >= BetType31 && betType <= BetType33)
             {
-                row["productname"] = Product.RB;
-                row["newproductid"] = RBProductId;
+                row[NewProductIdColumnName] = ProductTypes.Racing;
             }
             else if (betType >= BetType1101 && betType <= BetType1199)
             {
-                row["productname"] = Product.LC;
-                row["newproductid"] = LCProductId;
+                row[NewProductIdColumnName] = ProductTypes.LiveCasino;
             }
-            else if (betType >= BetType1021 && betType <= BetType1299)
+            else if (betType >= BetType1201 && betType <= BetType1299)
             {
-                row["productname"] = Product.VS;
-                row["newproductid"] = VSProductId;
+                row[NewProductIdColumnName] = ProductTypes.VirtualSports;
+            }
+            else if (betType >= BetType2700 && betType <= BetType2899)
+            {
+                row[NewProductIdColumnName] = ProductTypes.VirtualSports2;
             }
             else
             {
-                row["productname"] = Product.SB;
-                row["newproductid"] = SBProductId;
+                row[NewProductIdColumnName] = ProductTypes.Sportsbook;
             }
         }
 
         private static void AssignMatchName(DataRow row, int betType)
         {
-            switch (row["productname"].ToString())
+            switch ((int)row[NewProductIdColumnName])
             {
-                case Product.RB:
+                case ProductTypes.Racing:
                     row["matchname"] = ViewResources.Race + Converter.ToString2(row["race"]);
                     break;
 
-                case Product.NG:
+                case ProductTypes.NumberGame:
                     row["matchname"] = string.Format("{0} {1}", ViewResources.NumberGameNo, row["matchcode"]);
                     break;
 
-                case Product.LC:
+                case ProductTypes.LiveCasino:
                     row["matchname"] = string.Format("{0} {1} {2}", CacheRef.GetSportName(LCSport), CacheRef.GetBettype(row["bettype"]), row["showtime"]);
                     break;
 
@@ -338,13 +336,13 @@
 
         private static void AssignLeagueName(DataRow row)
         {
-            switch (row["productname"].ToString())
+            switch ((int)row[NewProductIdColumnName])
             {
-                case Product.RB:
+                case ProductTypes.Racing:
                     row["leaguename"] = ViewResources.ProductRB + "-" + CacheRef.GetLeagueName(row["leagueid"]);
                     break;
 
-                case Product.NG:
+                case ProductTypes.NumberGame:
                     row["leaguename"] = ViewResources.ProductNG;
                     break;
 

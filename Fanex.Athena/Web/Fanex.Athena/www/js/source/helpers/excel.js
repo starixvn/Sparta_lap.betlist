@@ -22,7 +22,9 @@ define(["jquery", "common/site"], function ($, Site) {
                 }
             }
             if (!data["__RequestVerificationToken"]) {
-                $('<input type="hidden">').attr({ name: '__RequestVerificationToken', value: $("input[name=__RequestVerificationToken]").val() }).appendTo($form);
+                $('<input type="hidden">')
+                    .attr({ name: '__RequestVerificationToken', value: $("input[name=__RequestVerificationToken]").val() })
+                    .appendTo($form);
             }
 
             $form.submit();
@@ -31,4 +33,4 @@ define(["jquery", "common/site"], function ($, Site) {
     };
 
     return _me;
-})
+});

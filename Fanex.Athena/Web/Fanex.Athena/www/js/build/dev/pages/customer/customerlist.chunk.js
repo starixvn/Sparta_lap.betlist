@@ -4725,7 +4725,8 @@ webpackJsonp([57],{
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(273), __webpack_require__(280), __webpack_require__(275), __webpack_require__(285), __webpack_require__(286)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, CustomerListFilter, CustomerListGrid, CustomerListService, CustomerComm, CustomerListViewOption) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(273), __webpack_require__(280),
+	    __webpack_require__(275), __webpack_require__(285), __webpack_require__(286)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, CustomerListFilter, CustomerListGrid, CustomerListService, CustomerComm, CustomerListViewOption) {
 	        $(document).ready(function () {
 	            Site.initialize();
 	            CustomerListService.initialize();
@@ -5324,8 +5325,8 @@ webpackJsonp([57],{
 	                var dataAttribute = " data-custid='" + rowObject.CustId + "' data-externalid='" + rowObject.ExternalId + "'" +
 	                                    " data-issuspended='" + rowObject.IsSuspended + "' data-isclosed='" + rowObject.IsClosed + "'";
 	
-	                return "<a href='javascript:;' title='" + Site.getSingleResource("Status") + "' class='custStatusOption' id='edit-cust-status-" + rowObject.CustId + "'"
-	                            + dataAttribute + ">" + cellValue + "</a>";
+	                return "<a href='javascript:;' title='" + Site.getSingleResource("Status") +
+	                    "' class='custStatusOption' id='edit-cust-status-" + rowObject.CustId + "'" + dataAttribute + ">" + cellValue + "</a>";
 	            }
 	        };
 	        var baStatusColumn =
@@ -5389,7 +5390,8 @@ webpackJsonp([57],{
 	            resizable: false,
 	            frozen: true,
 	            formatter: function (cellValue, options, rowObject) {
-	                return "<a href='javascript:;' data-systemid='" + rowObject.SystemId + "' data-externalid='" + rowObject.ExternalId + "' data-custid='" + rowObject.CustId
+	                return "<a href='javascript:;' data-systemid='" + rowObject.SystemId +
+	                    "' data-externalid='" + rowObject.ExternalId + "' data-custid='" + rowObject.CustId
 	                    + "' title='" + Site.getSingleResource("CustomerOption") + "' class='custoptionlink' id='cust-option-link-" + rowObject.CustId + "'>"
 	                    + Site.getSingleResource("View")
 	                    + "<i class='grid-dropdown-icon icon-arrow'></i></a>";
@@ -6471,7 +6473,7 @@ webpackJsonp([57],{
 	                return false;
 	            });
 	
-	            $("#report-content").on("blur", ".specialLevel", function (e) {
+	            $("#report-content").on("blur", ".specialLevel", function () {
 	                setTimeout(function () {
 	                    $("#LevelListContainer").hide();
 	                }, 300);
@@ -6590,20 +6592,18 @@ webpackJsonp([57],{
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(274), __webpack_require__(275)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(275)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListService) {
 	    var _$oddsGroupCell;
-	    var _state;
 	
 	    var _me = {
 	        initialize: function () {
-	            _state = CustomerListState.getState();
 	
 	            $("#report-content").on("click", ".oddsGroup", function () {
 	                _$oddsGroupCell = $(this);
 	                _me.showGridDropdown();
 	            });
 	
-	            $("#report-content").on("blur", ".oddsGroup", function (e) {
+	            $("#report-content").on("blur", ".oddsGroup", function () {
 	                setTimeout(function () {
 	                    $("#OddsGroupListContainer").hide();
 	                }, 300);
@@ -7261,7 +7261,7 @@ webpackJsonp([57],{
 	                    CustomerListService.showGridDropdownById("ViewOptionList", $(this));
 	                });
 	
-	                $("#report-content").on("blur", ".custoptionlink", function (e) {
+	                $("#report-content").on("blur", ".custoptionlink", function () {
 	                    setTimeout(function () {
 	                        $("#ViewOptionList").hide();
 	                    }, 300);

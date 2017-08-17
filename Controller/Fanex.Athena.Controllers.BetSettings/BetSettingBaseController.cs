@@ -78,6 +78,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         protected CommonBetSetting GetBetSettingCommonParam()
         {
             var userSession = SessionService.UserSession;
+            
             var commonItem = new CommonBetSetting
             {
                 LicenseeId = SessionService.LicenseeSession.LicenseeId,
@@ -107,6 +108,19 @@ namespace Fanex.Athena.Controllers.BetSettings
 
             decimal value;
             return !decimal.TryParse(HttpContext.Request[name], out value)
+                       ? defaultValue
+                       : value;
+        }
+
+        protected int GetIntRequest(string name, int defaultValue)
+        {
+            if (string.IsNullOrEmpty(HttpContext.Request[name]))
+            {
+                return defaultValue;
+            }
+
+            int value;
+            return !int.TryParse(HttpContext.Request[name], out value)
                        ? defaultValue
                        : value;
         }

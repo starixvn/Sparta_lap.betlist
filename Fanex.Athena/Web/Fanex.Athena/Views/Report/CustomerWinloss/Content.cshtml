@@ -12,7 +12,7 @@
         <div class="report-title" style="width:@ViewBag.TitleWidth@("px");">
             @string.Format(ViewResources.CustomerWinLossTitle, param.FromDate.ToString("MM/dd/yyyy"), param.ToDate.ToString("MM/dd/yyyy"), string.Empty)
             @RazorHelper.ViewCurrencyBasedOnConverter(param.IsConvert, param.BaseCurrency, param.CurrencyName)
-            @RazorHelper.TitleLicenseeWLPrefix(param.ProductOptions)
+            @RazorHelper.ReportTitleLicenseeWLProductCodeList(param.ProductOptions)
         </div>
         <div class="report-content " style="width:@(ViewBag.FilterWidth)px; max-height: 580px!important">
             @{

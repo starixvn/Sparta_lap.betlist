@@ -1,17 +1,14 @@
 ﻿"use strict";
-define(["jquery", "common/site", "../common/constant", "../common/betsettingbase", "../common/betsetting.copy"], function ($, Site, Constant, BetSettingBase, BetSettingCopy) {
+define(["jquery", "common/site", "../common/constant", "../common/betsettingbase", "../common/betsetting.copy"],
+    function ($, Site, Constant, BetSettingBase, BetSettingCopy) {
     var Product = Constant.Product;
 
     function getConfirmMessage(productId) {
         switch (productId) {
             case Product.Sportsbook:
                 return "UpdateSportsbookBetSettings";
-                break;
             case Product.Racing:
                 return "UpdateRacingBetSettings";
-                break;
-            case Product.VirtualSports:
-                return "UpdateVirtualSportsBetSettings";
             default:
                 return "";
         }
@@ -21,12 +18,8 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
         switch (productId) {
             case Product.Sportsbook:
                 return "SportsbookBetSetting/UpdateBetSetting";
-                break;
             case Product.Racing:
                 return "RacingBetSetting/UpdateBetSetting";
-                break;
-            case Product.VirtualSports:
-                return "VirtualSportsBetSetting/UpdateBetSetting";
             default:
                 return null;
         }

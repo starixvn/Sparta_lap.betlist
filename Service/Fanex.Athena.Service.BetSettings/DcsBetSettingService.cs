@@ -6,10 +6,13 @@
 
 namespace Fanex.Athena.Service.BetSettings
 {
-    using BetSettings.Interfaces;
+    using System.Collections.Generic;
+    using System.Text;
     using Core.Users.Interfaces;
     using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
+    using Interfaces;
+    using Model.BetSettings.DTO;
     using Model.Core.DTO.Common;
     using Resources;
 
@@ -50,6 +53,38 @@ namespace Fanex.Athena.Service.BetSettings
             }
 
             return _betSettingDataAccess.UpdateStatus(userId, custId, ip, status, productId);
+        }
+
+        public IList<BetSetting> GetBetSettings(int licenseeId, int custId, int productId)
+        {
+            return HasPermissionOnData(licenseeId, custId)
+                        ? _betSettingDataAccess.GetBetSetting(custId, productId)
+                        : new List<BetSetting>();
+        }
+
+        public IResultInfo UpdateBetSetting(int licenseeId, int custId, int userId, string ip, IEnumerable<DcsBetSetting> betSettings)
+        {
+            const string XMLPattern = "<ROOT>{0}</ROOT>";
+            const string XMLElement = "<BetLimit SportType=\"{0}\" BetType=\"{1}\" MinBet=\"{2}\" MaxBet=\"{3}\" MaxPerMatch=\"{4}\" ></BetLimit>";
+            if (!HasPermissionOnData(licenseeId, custId))
+            {
+                return ErrorResult(ViewResources.AccessDeniedMsg);
+            }
+
+            var xmlElementBuilder = new StringBuilder();
+
+            foreach (var setting in betSettings)
+            {
+                xmlElementBuilder.Append(string.Format(XMLElement, setting.SportId, setting.BetType, setting.MinBet, setting.MaxBet, setting.MaxPerMatch));
+            }
+
+            var xmlparam = string.Format(XMLPattern, xmlElementBuilder.ToString());
+
+            return _betSettingDataAccess.UpdateBetSetting(
+                custId,
+                userId,
+                ip,
+                xmlparam);
         }
     }
 }

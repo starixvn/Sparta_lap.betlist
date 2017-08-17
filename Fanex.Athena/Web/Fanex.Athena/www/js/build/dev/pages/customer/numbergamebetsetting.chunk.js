@@ -31,7 +31,8 @@ webpackJsonp([64],{
 	        AllBet: 21,
 	        VoidBridge: 22,
 	        FishingWorld: 24,
-	        Cashout: 25
+	        Cashout: 25,
+	        VirtualSports2: 27,
 	    };
 	
 	    var _me = {
@@ -52,7 +53,7 @@ webpackJsonp([64],{
 	
 	        var _me = {
 	            initialize: function () {
-	                $("#product-dropdown").on('change', function (event) {
+	                $("#product-dropdown").on('change', function () {
 	                    var url = $(this).find("option:selected").data("href");
 	                    Site.blockUI();
 	                    Site.redirect(url);
@@ -181,12 +182,14 @@ webpackJsonp([64],{
 	                var minBet = BetSettingHelper.convertToFloat($minbet.val());
 	                var maxBet = BetSettingHelper.convertToFloat($maxbet.val());
 	                var maxPerMatcth = BetSettingHelper.convertToFloat($maxPerMatch.val());
+	                var betType = $("#bet-type-" + sportId).val();
 	
 	                var result = {};
 	                result["minbet" + sportId] = minBet;
 	                result["maxbet" + sportId] = maxBet;
 	                result["maxpermatch" + sportId] = maxPerMatcth;
 	                result["update" + sportId] = isUpdate;
+	                result["bettype" + sportId] = betType;
 	
 	                return result;
 	            },

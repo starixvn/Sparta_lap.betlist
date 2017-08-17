@@ -24557,7 +24557,9 @@ webpackJsonp([84],[
 	                }
 	            }
 	            if (!data["__RequestVerificationToken"]) {
-	                $('<input type="hidden">').attr({ name: '__RequestVerificationToken', value: $("input[name=__RequestVerificationToken]").val() }).appendTo($form);
+	                $('<input type="hidden">')
+	                    .attr({ name: '__RequestVerificationToken', value: $("input[name=__RequestVerificationToken]").val() })
+	                    .appendTo($form);
 	            }
 	
 	            $form.submit();
@@ -24566,7 +24568,7 @@ webpackJsonp([84],[
 	    };
 	
 	    return _me;
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 /* 353 */,

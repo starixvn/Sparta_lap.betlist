@@ -14228,7 +14228,6 @@
 	        var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
 	        var REQUEST_VERIFICATION_TOKEN;
 	        var _historyDate = null;
-	        var _licenseeId = null;
 	        var _rootUrl = null;
 	        var _pageLanguage = null;
 	
@@ -14995,8 +14994,8 @@
 	            }
 	
 	            $self.css({
-	                'top': top + "px",
-	                'left': left + "px"
+	                'top': (top < 0 ? 0 : top) + "px",
+	                'left': (left < 0 ? 0 : left) + "px"
 	            });
 	
 	            if (modal === true || modal === undefined) {
@@ -15144,6 +15143,7 @@
 	
 	    var CONTAINER_SELECTOR = ".select-list-container";
 	    var DISABLED_CLASS = "disabled";
+	    var HIGHLIGHT_CLASS = "highlighted";
 	
 	    function getLabelHtml(option) {
 	        var targetDropdownId = option.selectionId + "-result-container";
@@ -15161,7 +15161,7 @@
 	    }
 	
 	    function getOptionItemHtml(dataItem) {
-	        return '<li class="option-item ' +  dataItem.className + '" data-key="' + dataItem.key + '">' + dataItem.value + '</li>';
+	        return '<li class="option-item ' + dataItem.className + '" data-key="' + dataItem.key + '">' + dataItem.value + '</li>';
 	    }
 	
 	    function getOptionListHtml(dataList) {
@@ -15177,7 +15177,97 @@
 	        return htmlArray.join("");
 	    }
 	
-	    function getDropdownList(resultContainerId, canSearch) {
+	    function scrollToHighLightItem($container, $item, index) {
+	        var itemTop = $item.offset().top;
+	        var itemHeight = $item.outerHeight();
+	        var containerTop = $container.offset().top;
+	        var scrollUp = null;
+	        if (itemTop <= containerTop) {
+	            scrollUp = true;
+	        }
+	        else if (itemTop >= containerTop + $container.height()) {
+	            scrollUp = false;
+	        }
+	        if (scrollUp === null) {
+	            return;
+	        }
+	        if (scrollUp) {
+	            $container.scrollTop(itemHeight * (index - 1) - $container.height());
+	        }
+	        else {
+	            $container.scrollTop(itemHeight * index);
+	        }
+	    }
+	
+	    function keyUp($element) {
+	        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
+	        var showOptionList = $selectList.find(".option-item:visible");
+	        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
+	        var index = showOptionList.index($highlightItem);
+	
+	        $highlightItem.removeClass(HIGHLIGHT_CLASS);
+	        if ($highlightItem.length > 0 && index !== 0) {
+	            var $preItem = showOptionList.eq(index - 1);
+	            $preItem.addClass(HIGHLIGHT_CLASS);
+	            scrollToHighLightItem($selectList, $preItem, index - 1);
+	        }
+	        else {
+	            showOptionList.last().addClass(HIGHLIGHT_CLASS);
+	            $selectList.scrollTop(showOptionList.length * $highlightItem.outerHeight());
+	        }
+	    }
+	
+	    function keyDown($element) {
+	        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
+	        var showOptionList = $selectList.find(".option-item:visible");
+	        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
+	        var index = showOptionList.index($highlightItem);
+	
+	        $highlightItem.removeClass(HIGHLIGHT_CLASS);
+	        if ($highlightItem.length > 0 && index !== (showOptionList.length - 1)) {
+	            var $nextItem = showOptionList.eq(index + 1);
+	            $nextItem.addClass(HIGHLIGHT_CLASS);
+	            scrollToHighLightItem($selectList, $nextItem, index + 1);
+	        }
+	        else {
+	            showOptionList.first().addClass(HIGHLIGHT_CLASS);
+	            $selectList.scrollTop(0);
+	        }
+	    }
+	
+	    function keySearch($element, canEnter) {
+	        setTimeout(function () {
+	            var query = $element.val().toUpperCase();
+	            var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
+	            var optionList = $selectList.find(".option-item");
+	            var isFirstItem = canEnter;
+	            if (canEnter) {
+	                optionList.removeClass(HIGHLIGHT_CLASS);
+	            }
+	            optionList.each(function (index, item) {
+	                var $item = $(item);
+	                var currentText = $item.text().toUpperCase();
+	                if (currentText.indexOf(query) === -1) {
+	                    $item.hide();
+	                }
+	                else {
+	                    if (isFirstItem) {
+	                        $item.addClass(HIGHLIGHT_CLASS);
+	                        isFirstItem = false;
+	                        $selectList.scrollTop(0);
+	                    }
+	                    $item.show();
+	                }
+	            });
+	        }, 100);
+	    }
+	
+	    function enter($element) {
+	        var $highlightItem = $element.closest(".select-list-dropdown").find(".option-item." + HIGHLIGHT_CLASS + ":visible");
+	        $highlightItem.click();
+	    }
+	
+	    function getDropdownList(resultContainerId, canSearch, canEnter) {
 	        /*jshint validthis: true*/
 	        var $originalSelectElement = $(this);
 	        var dataList = $originalSelectElement.find("option").map(function (index, item) {
@@ -15192,11 +15282,11 @@
 	                                getSearchBoxHtml(canSearch) + getOptionListHtml(dataList) +
 	                            '</div></div>';
 	        var $dropdown = $(dropdownListHtml);
-	        $dropdown.find('.option-item[data-key="' + selectedValue + '"]').addClass("highlighted");
+	        $dropdown.find('.option-item[data-key="' + selectedValue + '"]').addClass(HIGHLIGHT_CLASS);
 	
 	        $dropdown.on("click", ".option-item", function () {
-	            $(".option-item").removeClass("highlighted");
-	            $(this).addClass("highlighted");
+	            $(".option-item").removeClass(HIGHLIGHT_CLASS);
+	            $(this).addClass(HIGHLIGHT_CLASS);
 	            var selectedKey = $(this).data("key");
 	            $originalSelectElement.val(selectedKey);
 	
@@ -15209,25 +15299,29 @@
 	            e.stopPropagation();
 	        });
 	
-	        $searchBox.on("keyup", function () {
-	            var $this = $(this);
-	
-	            setTimeout(function () {
-	                var query = $this.val().toUpperCase();
-	                var optionList = $this.closest(".select-list-dropdown").find(".option-item");
-	
-	                optionList.each(function (index, element) {
-	                    var $element = $(element);
-	                    var currentText = $element.text().toUpperCase();
-	                    if (currentText.indexOf(query) === -1) {
-	                        $element.hide();
-	                    }
-	                    else {
-	                        $element.show();
-	                    }
-	                });
-	            }, 100);
-	        });
+	        if (canEnter) {
+	            $searchBox.on("keyup", function (e) {
+	                var $this = $(this);
+	                if (e.keyCode === 40) {
+	                    keyDown($this);
+	                }
+	                else if (e.keyCode === 38) {
+	                    keyUp($this);
+	                }
+	                else if (e.keyCode === 13) {
+	                    enter($this);
+	                }
+	                else {
+	                    keySearch($this, true);
+	                }
+	            });
+	        }
+	        else {
+	            $searchBox.on("keyup", function (e) {
+	                var $this = $(this);
+	                keySearch($this, false);
+	            });
+	        }
 	
 	        return $dropdown;
 	    }
@@ -15266,6 +15360,7 @@
 	
 	    var defaultOption = {
 	        canSearch: false,
+	        canEnter: false,
 	        isDisabled: false,
 	        beforeOpen: function () { },
 	        afterOpen: function () { }
@@ -15278,6 +15373,13 @@
 	            return this.each(function () {
 	                var self = this;
 	                var $element = $(self);
+	                if (!selectListOption.canSearch) {
+	                    selectListOption.canSearch = $element.attr("data-can-search") == "1";
+	                }
+	                if (!selectListOption.canEnter) {
+	                    selectListOption.canEnter = $element.attr("data-can-enter") == "1";
+	                }
+	
 	                _methods.buildLabel.call(self);
 	
 	                var $container = $element.parent();
@@ -15318,11 +15420,11 @@
 	            $self.hide().parent().append($selectionLabel);
 	        },
 	
-	        open: function (resultContainerId, canSearch) {
+	        open: function (resultContainerId, canSearch, canEnter) {
 	            closeAll();
 	
 	            var $self = $(this);
-	            var $dropdown = getDropdownList.call(this, resultContainerId, canSearch);
+	            var $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
 	
 	            var $selection = $self.siblings(CONTAINER_SELECTOR).find(".selection");
 	            var offset = $selection.offset();
@@ -15356,7 +15458,7 @@
 	                        option.beforeOpen.call(this);
 	                    }
 	
-	                    _methods.open.call(this, resultContainerId, option.canSearch);
+	                    _methods.open.call(this, resultContainerId, option.canSearch, option.canEnter);
 	
 	                    if (typeof option.afterOpen === "function") {
 	                        option.afterOpen.call(this);

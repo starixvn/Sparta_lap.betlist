@@ -15,7 +15,7 @@ webpackJsonp([42],{
 /***/ 97:
 /***/ (function(module, exports) {
 
-	// Generated at: 7/17/2017 5:41:18 PM
+	// Generated at: 8/1/2017 3:09:34 PM
 	window._language_en_US = {
 	AA:"AA",
 	AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -357,6 +357,7 @@ webpackJsonp([42],{
 	GroupCommissionlog:"Group Commission log",
 	GroupCommNote:"If default group is selected, all newly registered customers will be automatically assigned to this commission group. There will be no change to existing customers.",
 	GroupId:"Group Id",
+	GroupManagement:"Group Management",
 	GroupName:"Group Name",
 	GroupNameCannotEmpty:"Group Name cannot empty.",
 	GroupNameExistedMsg:"This group name already existed, please try another one!",
@@ -684,6 +685,7 @@ webpackJsonp([42],{
 	ProductVB:"Macau Games",
 	ProductVG:"Macau",
 	ProductVS:"Virtual Sports",
+	ProductVS2:"Virtual Sports 2",
 	ProgressiveContribution:"Progressive Contribution",
 	ProgressiveFee:"Progressive Fee",
 	ProgressivePayout:"Progressive Payout",
@@ -891,7 +893,9 @@ webpackJsonp([42],{
 	UpdateSuccess:"Update successfully!",
 	UpdateUnSuccess:"Update unsucessfully!",
 	UpdateVirtualSportsBetSettings:"Are you sure you want to update all Virtual Sports bet settings?",
-	UpdateVirtualSportsBetSettingSuccessMsg:"The Virtual Sports bet setting of {0} was updated successfully",
+	UpdateVirtualSportsBetSettingSuccessMsg: "The Virtual Sports bet setting of {0} was updated successfully",
+	UpdateVirtualSports2BetSettings: "Are you sure you want to update all Virtual Sports 2 bet settings?",
+	UpdateVirtualSports2BetSettingSuccessMsg: "The Virtual Sports 2 bet setting of {0} was updated successfully",
 	USD:"USD",
 	UserGuide:"User Guide",
 	UserInformation:"User Information",
@@ -911,6 +915,8 @@ webpackJsonp([42],{
 	VirtualHorseRacing:"Virtual Horse Racing",
 	VirtualMotoRacing:"Virtual Moto Racing",
 	VirtualSoccer:"Virtual Soccer",
+	VirtualSoccerLeague:"Virtual Soccer League",
+	VirtualSoccerNation:"Virtual Soccer Nation",
 	VirtualSpeedway:"Virtual Speedway",
 	VirtualSports:"Virtual Sports",
 	VirtualTennis:"Virtual Tennis",
@@ -949,7 +955,7 @@ webpackJsonp([42],{
 /***/ 98:
 /***/ (function(module, exports) {
 
-	// Generated at: 7/17/2017 5:41:18 PM
+	// Generated at: 8/1/2017 3:09:34 PM
 	window._language_zh_CN = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -1755,7 +1761,7 @@ webpackJsonp([42],{
 /***/ 99:
 /***/ (function(module, exports) {
 
-	// Generated at: 7/17/2017 5:41:18 PM
+	// Generated at: 8/1/2017 3:09:34 PM
 	window._language_zh_TW = {
 	AA:"客客",
 	AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -2561,7 +2567,7 @@ webpackJsonp([42],{
 /***/ 100:
 /***/ (function(module, exports) {
 
-	// Generated at: 7/17/2017 5:41:18 PM
+	// Generated at: 8/1/2017 3:09:34 PM
 	window._language_zh_Hans = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -3353,7 +3359,7 @@ webpackJsonp([42],{
 /***/ 101:
 /***/ (function(module, exports) {
 
-	// Generated at: 7/17/2017 5:41:18 PM
+	// Generated at: 8/1/2017 3:09:34 PM
 	window._language_ko_KR = {
 	AA:"AA",
 	AccessDeniedMsg:"죄송합니다. 이 페이지에 접근할 권한이 없습니다.",

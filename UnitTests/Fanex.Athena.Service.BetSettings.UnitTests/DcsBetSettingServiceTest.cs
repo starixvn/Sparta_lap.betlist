@@ -2,19 +2,22 @@
 {
     using Core.Users.Interfaces;
     using DataAccess.BetSettings.Interfaces;
+    using Interfaces;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
 
     [TestFixture]
-    public class DcsBetSettingServiceTest
+    public partial class DcsBetSettingServiceTest
     {
         private const int LicenseeId = 1;
         private const int CustId = 2;
         private const int ProductId = 3;
+        private const int UserId = 4;
+
         private IDcsBetSettingDataAccess _betSettingDataAccess;
-        private DcsBetSettingService _dcsBettingService;
+        private IDcsBetSettingService _dcsBettingService;
         private IAuthorizationService _authorizationService;
 
         [OneTimeSetUp]

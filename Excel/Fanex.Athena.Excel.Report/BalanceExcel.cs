@@ -115,7 +115,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignTitle(ISheet sheet)
         {
-            ReportTitle = string.Format(ViewResources.BalanceTitle, GetTitleCurrencyName()) + GetLicenseeWLProduct();
+            ReportTitle = string.Format(ViewResources.BalanceTitle, GetTitleCurrencyName());
 
             // Set for Balance, report title
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
@@ -130,7 +130,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[columIndex++].SetCellValue(ViewResources.AmtDueToBetTrade);
             row.Cells[columIndex++].SetCellValue(ViewResources.AmtDueToBA);
             row.Cells[columIndex++].SetCellValue(ViewResources.AmtDueToRacing);
-            row.Cells[columIndex++].SetCellValue(ViewResources.CustomerCommission);
+            row.Cells[columIndex].SetCellValue(ViewResources.CustomerCommission);
 
             // Set for customer information
             SetTextRowValue(sheet, RowTitleCustomer, RowTitleCustomer, ColumnTemplateCount, ViewResources.CustomerInfo);

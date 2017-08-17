@@ -19,8 +19,9 @@ var jqGridAdditional = (function () {
                 var $bdiv = $(".ui-jqgrid-bdiv");
 
                 var gridTop = $bdiv.offset().top;
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
-                            - $(".ui-jqgrid-pager:visible").height() - $(".paging:visible").height() - 30;
+                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height() -
+                            $(".ui-jqgrid-pager:visible").height() - $(".paging:visible").height() -
+                            $(".pagingContainer:visible").height() - 30;
                 gridHeight = Math.max(120, gridHeight);
 
                 var gridContainer = $("#gview_ReportGrid");

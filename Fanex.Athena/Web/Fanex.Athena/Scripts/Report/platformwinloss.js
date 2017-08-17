@@ -306,6 +306,7 @@ var PlatformWinLoss = (function ($) {
             var data = $("#MainForm").serializeObject();
             data.FromDate = fromdate;
             data.ToDate = todate;
+            data.IsExcludedTestData = $('#IsExcludedTestData').is(':checked');
             data.Level = _level;
             $.ajax({
                 type: "POST",

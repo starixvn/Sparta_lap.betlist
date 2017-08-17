@@ -30,32 +30,32 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnCurrency = 4;
 
         private const int ColumnTurnoverSportBook = 5;
-        private const int ColumnTurnoverTotal = 20;
+        private const int ColumnTurnoverTotal = 21;
 
-        private const int ColumnActualStake = 21;
+        private const int ColumnActualStake = 22;
 
-        private const int ColumnBuyBackAmountSportsbook = 22;
-        private const int ColumnBuyBackAmountBA = 23;
-        private const int ColumnBuyBackAmountTotal = 24;
+        private const int ColumnBuyBackAmountSportsbook = 23;
+        private const int ColumnBuyBackAmountBA = 24;
+        private const int ColumnBuyBackAmountTotal = 25;
 
-        private const int ColumnTotalTransaction = 25;
+        private const int ColumnTotalTransaction = 26;
 
-        private const int ColumnCustomerWl = 26;
-        private const int ColumnCustomerComm = 27;
-        private const int ColumnCustomerTotal = 28;
+        private const int ColumnCustomerWl = 27;
+        private const int ColumnCustomerComm = 28;
+        private const int ColumnCustomerTotal = 29;
 
-        private const int ColumnLicenseeWlSportsBook = 29;
-        private const int ColumnLicenseeWlTotal = 44;
+        private const int ColumnLicenseeWlSportsBook = 30;
+        private const int ColumnLicenseeWlTotal = 46;
 
-        private const int ColumnBetTradeCommission = 45;
-        private const int ColumnCashOutCommission = 46;
-        private const int ColumnBaCommission = 47;
-        private const int ColumnRacingRevenue = 48;
-        private const int ColumnAmtDueToBetTrade = 49;
-        private const int ColumnAmtDueToBa = 50;
-        private const int ColumnAmtDueToRacing = 51;
+        private const int ColumnBetTradeCommission = 47;
+        private const int ColumnCashOutCommission = 48;
+        private const int ColumnBaCommission = 49;
+        private const int ColumnRacingRevenue = 50;
+        private const int ColumnAmtDueToBetTrade = 51;
+        private const int ColumnAmtDueToBa = 52;
+        private const int ColumnAmtDueToRacing = 53;
 
-        private const int ColumnTemplateCount = 52;
+        private const int ColumnTemplateCount = 54;
 
         private const int RowContentTemplate = 3;
         private const int RowGrantTotal = 6;
@@ -63,8 +63,8 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTotalNoSolidBorder = 5;
         private const int RowTotalSolidBorder = 4;
 
-        private const int TotalLicenseeWlProductColumn = 16;
-        private const int TotalTurnoverProductColumn = 16;
+        private const int TotalLicenseeWlProductColumn = 17;
+        private const int TotalTurnoverProductColumn = 17;
 
         private static readonly string[] IgnoredLicenseeWLProducts = new string[] { Product.RB, Product.BA };
         private static readonly string[] IgnoredTurnoverProducts = new string[] { Product.BT };
@@ -78,6 +78,7 @@ namespace Fanex.Athena.Excel.Report
                 { Product.MGCLC, false }, { Product.MGCRNG, false },
                 { Product.NG, false }, { Product.RB, false },
                 { Product.CS, false }, { Product.VS, false },
+                { Product.VS2, false }
             };
 
         private readonly bool _isAllowBA;
@@ -466,7 +467,7 @@ namespace Fanex.Athena.Excel.Report
                 nextColumns++;
             }
 
-            int countStatus = _offeredProducts.Count(x => x.Value && IgnoredLicenseeWLProducts.Contains(x.Key) == false);
+            int countStatus = _offeredProducts.Count(x => x.Value && !IgnoredLicenseeWLProducts.Contains(x.Key));
             if (countStatus <= 1)
             {
                 if (countStatus == 1)
@@ -505,7 +506,7 @@ namespace Fanex.Athena.Excel.Report
                 nextColumns++;
             }
 
-            int countStatus = _offeredProducts.Count(x => x.Value && IgnoredTurnoverProducts.Contains(x.Key) == false);
+            int countStatus = _offeredProducts.Count(x => x.Value && !IgnoredTurnoverProducts.Contains(x.Key));
             if (countStatus <= 1)
             {
                 if (countStatus == 1)
