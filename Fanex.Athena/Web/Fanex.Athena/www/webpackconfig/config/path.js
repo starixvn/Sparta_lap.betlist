@@ -124,7 +124,6 @@ var scriptPaths = {
     kenobetsetting: "./www/js/source/pages/customer/betsetting/main-keno.js",
     livecasinobetsetting: "./www/js/source/pages/customer/betsetting/main-livecasino.js",
     numbergamebetsetting: "./www/js/source/pages/customer/betsetting/main-numbergame.js",
-    betradarvsbetsetting: "./www/js/source/pages/customer/betsetting/main-betradarvirtualsports.js",
     activecustomersummary: "./www/js/source/pages/report/activecustomersummary/main.js",
     agcasinowinloss: "./www/js/source/pages/report/agcasinowinloss/main.js",
     customerbalance: "./www/js/source/pages/report/customerbalance/main.js",

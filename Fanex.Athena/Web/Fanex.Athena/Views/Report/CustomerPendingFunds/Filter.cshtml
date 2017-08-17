@@ -3,7 +3,7 @@
 }
 @model Fanex.Athena.Model.Report.ViewModel.CustomerPendingFundsViewModel
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
-    <form id="CustomerPendingFundsReport" method="post">
+    <form id="CustomerPendingFundsForm" method="post">
         @Html.AntiForgeryToken()
         @Html.Hidden("SortDirection", Model.Param.SortDirection)
         @Html.Hidden("SortColumn", Model.Param.SortColumn)

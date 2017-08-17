@@ -31,7 +31,7 @@
             SubmitButton: "#SubmitButton",
             ExportExcelInput: "#IsExportExcel",
             ExportToExcel: "#ExportToExcel",
-            Form: "#CustomerPendingFundsReport",
+            Form: "#CustomerPendingFundsForm",
             GridId: "ReportGrid",
             SortColumnInput: "#SortColumn",
             SortDirectionInput: "#SortDirection",

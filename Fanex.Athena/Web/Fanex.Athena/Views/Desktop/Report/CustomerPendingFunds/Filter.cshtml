@@ -1,6 +1,6 @@
 ﻿@model Fanex.Athena.Model.Report.ViewModel.CustomerPendingFundsViewModel
 <div class="page-form">
-    <form id="CustomerPendingFundsReport" name="CustomerPendingFundsReport" method="post" action="">
+    <form id="CustomerPendingFundsForm" name="CustomerPendingFundsForm" method="post" action="">
         @Html.AntiForgeryToken()
         @Html.Hidden("SortDirection", Model.Param.SortDirection)
         @Html.Hidden("SortColumn", Model.Param.SortColumn)

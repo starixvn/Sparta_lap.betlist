@@ -4,7 +4,7 @@
 var CustPendingFunds = (function ($) {
     "use strict";
 
-    var FORM_SELECTOR = "#CustomerPendingFundsReport";
+    var FORM_SELECTOR = "#CustomerPendingFundsForm";
     var EXCEL_NAME_SELECTOR = "#IsExportExcel";
     var GRID_ID = "ReportGrid";
     var _ajaxRequest;

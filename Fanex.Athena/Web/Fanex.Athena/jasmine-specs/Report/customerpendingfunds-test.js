@@ -17,8 +17,7 @@
 
             expect(Site.addUserGuide).toHaveBeenCalledWith({
                 resourceName: "CustomerPendingFunds",
-                title: Site.getSingleResource("CustomerPedingFunds"),
-                height: jasmine.any(Number)
+                title: Site.getSingleResource("CustomerPedingFunds")
             });
         });
     });
@@ -29,18 +28,22 @@
         });
 
         it("viewPendingFundsBetList() should be called with correct params if .bet-list-link is clicked.", function () {
-            var $content = affix('#data-content');
+            var $content = affix('.content-main');
             var $link = $content.affix('.bet-list-link');
-            $link.attr('data-cust-id', 1);
-            $link.attr('data-system-id', 2);
-            $link.attr('data-external-id', 3);
+            var param =
+            {
+                CustId: 1,
+                SystemId: 2,
+                ExternalId: 3
+            };
+            $link.attr('data-drill-down', JSON.stringify(param));
 
             spyOn(CustPendingFunds, 'viewPendingFundsBetList');
 
             CustPendingFunds.initEvent();
             $link.click();
 
-            expect(CustPendingFunds.viewPendingFundsBetList).toHaveBeenCalledWith('1', '2', '3');
+            expect(CustPendingFunds.viewPendingFundsBetList).toHaveBeenCalledWith(1, 2, 3);
         });
 
         it("$.fb.submit() should be called on #CustomerPendingFundsForm if #ExportToExcel is clicked.", function () {
