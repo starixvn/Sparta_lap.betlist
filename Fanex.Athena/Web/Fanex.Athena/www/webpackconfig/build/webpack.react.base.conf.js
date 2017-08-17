@@ -2,10 +2,15 @@
 var pathConfig = require('../config/pathReact');
 var pluginGenerator = require('../config/pluginReact');
 var utils = require('./utils');
+var alias = require('../config/aliasReact');
+
 function generateConfig(environment) {
     var jsPath = `${pathConfig.scriptPaths.build}/${environment}/reactpages`;
     var cssPath = `${pathConfig.cssPaths.build}/${environment}/reactpages`;
     var commonConfigs = {
+        resolve: {
+            alias: alias
+        },
         entry: {
             /*js*/
             reactVendorJs: ["react", "react-redux", "redux", "react-dom", "redux-thunk", "redux-logger"],

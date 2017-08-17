@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -770,10 +770,18 @@
     <Content Include="www\js\source\reactpages\components\date-range\PredefinedRanges.js" />
     <Content Include="www\js\source\reactpages\components\date-range\styles.js" />
     <Content Include="www\js\source\reactpages\components\date-range\utils\parseInput.js" />
+    <Content Include="www\js\source\reactpages\components\fixedtableheader\components\Cell.js" />
+    <Content Include="www\js\source\reactpages\components\fixedtableheader\components\Header.js" />
+    <Content Include="www\js\source\reactpages\components\fixedtableheader\components\Row.js" />
+    <Content Include="www\js\source\reactpages\components\fixedtableheader\components\RowLayout.js" />
+    <Content Include="www\js\source\reactpages\components\fixedtableheader\components\TableContent.js" />
+    <Content Include="www\js\source\reactpages\components\fixedtableheader\components\TableHeader.js" />
+    <Content Include="www\js\source\reactpages\components\fixedtableheader\FixedTableHeader.js" />
     <Content Include="www\js\source\reactpages\layouts\AppLayout.jsx" />
     <Content Include="www\js\source\reactpages\lib\langHelper.js" />
     <Content Include="www\js\source\reactpages\pages\operatorperformance\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\operatorperformance\reducers\dataHandlerReducer.js" />
+    <Content Include="www\webpackconfig\config\aliasReact.js" />
     <Content Include="www\webpackconfig\config\pathReact.js" />
     <Content Include="www\webpackconfig\config\pluginReact.js" />
     <None Include="bundleconfig.json" />
