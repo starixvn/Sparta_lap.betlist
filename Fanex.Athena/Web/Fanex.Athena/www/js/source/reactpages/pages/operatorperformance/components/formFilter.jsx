@@ -3,45 +3,9 @@ import { connect } from 'react-redux';
 import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
 import Select from 'react-select';
-import { Calendar, DateRange } from 'react-date-range';
+import { Calendar, DateRange, defaultRanges } from '../../../components/date-range/index';
 
-const defaultRanges = {
-    'Today': {
-        startDate: (now) => {
-            return now;
-        },
-        endDate: (now) => {
-            return now;
-        }
-    },
 
-    'Yesterday': {
-        startDate: (now) => {
-            return now.add(-1, 'days');
-        },
-        endDate: (now) => {
-            return now.add(-1, 'days');
-        }
-    },
-
-    'Last 7 Days': {
-        startDate: (now) => {
-            return now.add(-7, 'days');
-        },
-        endDate: (now) => {
-            return now;
-        }
-    },
-
-    'Last 30 Days': {
-        startDate: (now) => {
-            return now.add(-30, 'days');
-        },
-        endDate: (now) => {
-            return now;
-        }
-    }
-}
 class FormFilter extends Component {
     constructor(props) {
         super(props)

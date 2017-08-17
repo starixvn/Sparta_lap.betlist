@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -761,6 +761,21 @@
     <Content Include="Scripts\Report\customerwinloss.option.js" />
     <Content Include="Scripts\Report\customerbalance.option.js" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
+    <Content Include="www\js\source\reactpages\components\date-range\Calendar.js" />
+    <Content Include="www\js\source\reactpages\components\date-range\DateRange.js" />
+    <Content Include="www\js\source\reactpages\components\date-range\DayCell.js" />
+    <Content Include="www\js\source\reactpages\components\date-range\defaultRanges.js" />
+    <Content Include="www\js\source\reactpages\components\date-range\index.js" />
+    <Content Include="www\js\source\reactpages\components\date-range\LangDic.js" />
+    <Content Include="www\js\source\reactpages\components\date-range\PredefinedRanges.js" />
+    <Content Include="www\js\source\reactpages\components\date-range\styles.js" />
+    <Content Include="www\js\source\reactpages\components\date-range\utils\parseInput.js" />
+    <Content Include="www\js\source\reactpages\layouts\AppLayout.jsx" />
+    <Content Include="www\js\source\reactpages\lib\langHelper.js" />
+    <Content Include="www\js\source\reactpages\pages\operatorperformance\actions\dataHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\operatorperformance\reducers\dataHandlerReducer.js" />
+    <Content Include="www\webpackconfig\config\pathReact.js" />
+    <Content Include="www\webpackconfig\config\pluginReact.js" />
     <None Include="bundleconfig.json" />
     <Content Include="Views\Desktop\Report\OperatorPerformance\Main.cshtml" />
     <Content Include="Views\Desktop\Shared\_ReactPageLayout.cshtml" />
@@ -2368,6 +2383,7 @@
     <Content Include="www\js\build\dev\reactpages\operatorperformance\operatorperformance.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\vendors\vendor.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\lib\langHelper.chunk.js.map" />
+    <Content Include="www\css\source\reactpages\components\date-range\styles.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
@@ -6044,7 +6060,6 @@
     <Folder Include="Logs\" />
     <Folder Include="www\css\source\reactpages\lib\" />
     <Folder Include="www\css\source\reactpages\vendors\" />
-    <Folder Include="www\js\source\reactpages\components\" />
     <Folder Include="www\js\source\reactpages\pages\betticketquery\" />
     <Folder Include="www\js\source\reactpages\reducers\" />
     <Folder Include="www\js\source\reactpages\vendors\" />
