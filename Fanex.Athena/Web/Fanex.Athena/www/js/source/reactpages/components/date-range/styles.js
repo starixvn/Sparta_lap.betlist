@@ -24,12 +24,11 @@ export const defaultClasses = {
 
 const defaultTheme = {
   DateRange : {
-    display       : 'block',
+    display       : 'none',
     boxSizing     : 'border-box',
     background    : '#ffffff',
     borderRadius  : '2px',
   },
-
   Calendar        : {
     width         : 280,
     padding       : 10,

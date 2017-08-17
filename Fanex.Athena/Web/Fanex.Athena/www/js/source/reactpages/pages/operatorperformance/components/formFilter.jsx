@@ -48,7 +48,6 @@ class FormFilter extends Component {
                     <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                         <div className="form-group">
                             <label className="label-text">Date</label>
-                            <input name="DateRange" id="DateRange" className="input-text datepicker" type="text" readOnly="readonly" autoComplete="off" />
                             <DateRange
                                 linkedCalendars={true}
                                 ranges={defaultRanges}

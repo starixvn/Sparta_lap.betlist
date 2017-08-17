@@ -641,7 +641,6 @@ webpackJsonp([4],[
 	                                { className: 'label-text' },
 	                                'Date'
 	                            ),
-	                            _react2.default.createElement('input', { name: 'DateRange', id: 'DateRange', className: 'input-text datepicker', type: 'text', readOnly: 'readonly', autoComplete: 'off' }),
 	                            _react2.default.createElement(_index2.DateRange, {
 	                                linkedCalendars: true,
 	                                ranges: _index2.defaultRanges,
@@ -3434,18 +3433,25 @@ webpackJsonp([4],[
 	
 	    var startDate = (0, _parseInput2.default)(props.startDate, format, 'startOf');
 	    var endDate = (0, _parseInput2.default)(props.endDate, format, 'endOf');
+	    _this.styles = (0, _styles2.default)(theme);
+	    _this.step = 0;
 	
 	    _this.state = {
 	      range: { startDate: startDate, endDate: endDate },
-	      link: linkedCalendars && endDate
+	      link: linkedCalendars && endDate,
+	      styles: _this.styles['DateRange']
 	    };
 	
-	    _this.step = 0;
-	    _this.styles = (0, _styles2.default)(theme);
 	    return _this;
 	  }
 	
 	  _createClass(DateRange, [{
+	    key: 'show',
+	    value: function show() {
+	      var newStyles = Object.assign({}, this.state.styles, { display: "block" });
+	      this.setState({ styles: newStyles });
+	    }
+	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      var onInit = this.props.onInit;
@@ -3579,49 +3585,58 @@ webpackJsonp([4],[
 	
 	      return _react2.default.createElement(
 	        'div',
-	        { style: onlyClasses ? undefined : _extends({}, styles['DateRange'], style), className: classes.dateRange },
-	        ranges && _react2.default.createElement(_PredefinedRanges2.default, {
-	          format: format,
-	          ranges: ranges,
-	          range: range,
-	          theme: styles,
-	          onSelect: function onSelect(date) {
-	            return _this2.handleSelect(date);
-	          },
-	          onlyClasses: onlyClasses,
-	          classNames: classes }),
-	        function () {
-	          var _calendars = [];
-	          var _method = offsetPositive ? 'unshift' : 'push';
-	          for (var i = calendarsCount; i >= 0; i--) {
-	            var offset = offsetPositive ? i : -i;
-	            var realDiff = offsetPositive ? diff : -diff;
-	            var realOffset = rangedCalendars && i == calendarsCount && diff != 0 ? realDiff : offset;
+	        null,
+	        _react2.default.createElement('input', { onClick: function onClick() {
+	            return _this2.show();
+	          }, onFocus: function onFocus() {
+	            return _this2.show();
+	          }, name: 'DateRange', id: 'DateRange', className: 'input-text datepicker', type: 'text', autoComplete: 'off' }),
+	        _react2.default.createElement(
+	          'div',
+	          { style: onlyClasses ? undefined : _extends({}, this.state.styles, style), className: classes.dateRange },
+	          ranges && _react2.default.createElement(_PredefinedRanges2.default, {
+	            format: format,
+	            ranges: ranges,
+	            range: range,
+	            theme: styles,
+	            onSelect: function onSelect(date) {
+	              return _this2.handleSelect(date);
+	            },
+	            onlyClasses: onlyClasses,
+	            classNames: classes }),
+	          function () {
+	            var _calendars = [];
+	            var _method = offsetPositive ? 'unshift' : 'push';
+	            for (var i = calendarsCount; i >= 0; i--) {
+	              var offset = offsetPositive ? i : -i;
+	              var realDiff = offsetPositive ? diff : -diff;
+	              var realOffset = rangedCalendars && i == calendarsCount && diff != 0 ? realDiff : offset;
 	
-	            _calendars[_method](_react2.default.createElement(_Calendar2.default, {
-	              showMonthArrow: showMonthArrow,
-	              shownDate: shownDate,
-	              disableDaysBeforeToday: disableDaysBeforeToday,
-	              lang: lang,
-	              key: i,
-	              offset: realOffset,
-	              link: linkedCalendars && link,
-	              linkCB: _this2.handleLinkChange.bind(_this2),
-	              range: range,
-	              format: format,
-	              firstDayOfWeek: firstDayOfWeek,
-	              theme: styles,
-	              minDate: minDate,
-	              maxDate: maxDate,
-	              onlyClasses: onlyClasses,
-	              specialDays: specialDays,
-	              classNames: classes,
-	              onChange: function onChange(date) {
-	                return _this2.handleSelect(date);
-	              } }));
-	          }
-	          return _calendars;
-	        }()
+	              _calendars[_method](_react2.default.createElement(_Calendar2.default, {
+	                showMonthArrow: showMonthArrow,
+	                shownDate: shownDate,
+	                disableDaysBeforeToday: disableDaysBeforeToday,
+	                lang: lang,
+	                key: i,
+	                offset: realOffset,
+	                link: linkedCalendars && link,
+	                linkCB: _this2.handleLinkChange.bind(_this2),
+	                range: range,
+	                format: format,
+	                firstDayOfWeek: firstDayOfWeek,
+	                theme: _this2.styles,
+	                minDate: minDate,
+	                maxDate: maxDate,
+	                onlyClasses: onlyClasses,
+	                specialDays: specialDays,
+	                classNames: classes,
+	                onChange: function onChange(date) {
+	                  return _this2.handleSelect(date);
+	                } }));
+	            }
+	            return _calendars;
+	          }()
+	        )
 	      );
 	    }
 	  }]);
@@ -20166,12 +20181,11 @@ webpackJsonp([4],[
 	
 	var defaultTheme = {
 	  DateRange: {
-	    display: 'block',
+	    display: 'none',
 	    boxSizing: 'border-box',
 	    background: '#ffffff',
 	    borderRadius: '2px'
 	  },
-	
 	  Calendar: {
 	    width: 280,
 	    padding: 10,
