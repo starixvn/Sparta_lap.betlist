@@ -22731,7 +22731,57 @@ webpackJsonp([75],[
 /* 331 */,
 /* 332 */,
 /* 333 */,
-/* 334 */,
+/* 334 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+	    var _me = {
+	        setConstraintMonthRange: function (monthRange, url) {
+	            var errorMessage = Site.getSingleResource("DateRangeExceedMsg").replace("{0}", monthRange);
+	
+	            if (url && typeof url === "string") {
+	                $(document).ajaxSend(function (event, jqxhr, settings) {
+	                    if (settings.url.search(new RegExp(url, "i")) > -1 && _me.isValidRange(monthRange) === false) {
+	                        _me.showMessageBox(errorMessage);
+	                        jqxhr.abort();
+	                    }
+	                });
+	            }
+	
+	            $("form").on("submit", function () {
+	                if (_me.isValidRange(monthRange) === false) {
+	                    _me.showMessageBox(errorMessage);
+	                    return false;
+	                }
+	
+	                return true;
+	            });
+	        },
+	
+	        isValidRange: function (monthRange) {
+	            var fromDate = new Date($("#FromDate").val());
+	            var toDate = new Date($("#ToDate").val());
+	
+	            return _me.getDifferenceMonth(fromDate, toDate) <= monthRange;
+	        },
+	
+	        getDifferenceMonth: function (fromDate, toDate) {
+	            return toDate.getMonth() - fromDate.getMonth() + (12 * (toDate.getFullYear() - fromDate.getFullYear())) + 1;
+	        },
+	
+	        showMessageBox: function (message) {
+	            var title = Site.getSingleResource("LrfNotification");
+	            var dialogForm = '<div title="' + title + '"><p class="notification">' + message + '!</p></div>';
+	
+	            Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification" });
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
 /* 335 */,
 /* 336 */,
 /* 337 */,
@@ -22749,10 +22799,11 @@ webpackJsonp([75],[
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(242), __webpack_require__(340), __webpack_require__(103),
-	        __webpack_require__(232), __webpack_require__(106), __webpack_require__(9), __webpack_require__(245),
-	        __webpack_require__(224), __webpack_require__(225), __webpack_require__(250), __webpack_require__(341)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup, MultiSelect) {
+	        __webpack_require__(232), __webpack_require__(106), __webpack_require__(9), __webpack_require__(245), __webpack_require__(334),
+	        __webpack_require__(224), __webpack_require__(225), __webpack_require__(250), __webpack_require__(341)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup, MultiSelect, DateHelper) {
 	        "use strict";
 	        var REPORT_BY_MONTHLY = 2;
+	        var VALID_MONTH_RANGE = 3;
 	
 	        var cacheData = {};
 	        var ajaxRequest = null;
@@ -22796,6 +22847,7 @@ webpackJsonp([75],[
 	                });
 	                MultiSelect.initProductList();
 	                DatePicker.initDateRangePicker();
+	                DateHelper.setConstraintMonthRange(VALID_MONTH_RANGE, LicenseeWinLossOption.urlExcelData);
 	            },
 	
 	            registerGlobalFunction: function () {
