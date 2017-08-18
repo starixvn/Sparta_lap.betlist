@@ -1,4 +1,4 @@
-﻿// Generated at: 8/14/2017 2:21:49 PM
+﻿// Generated at: 8/18/2017 12:54:23 PM
 window._language_en_US = {
 AA:"AA",
 AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -653,7 +653,6 @@ ProductAB:"AllBet",
 ProductAGC:"AG Casino",
 ProductBA:"BA",
 ProductBG:"Bingo",
-ProductBRVS:"Betradar Virtual Sports",
 ProductBT:"Bet Trade",
 ProductCB:"Colossus Bets",
 ProductCO:"Cash Out",
@@ -883,9 +882,7 @@ UpdateSportsbookBetSettingSuccessMsg:"The Sportsbook bet setting of {0} was upda
 UpdateSuccess:"Update successfully!",
 UpdateUnSuccess:"Update unsucessfully!",
 UpdateVirtualSportsBetSettings:"Are you sure you want to update all Virtual Sports bet settings?",
-UpdateVirtualSportsBetSettingSuccessMsg: "The Virtual Sports bet setting of {0} was updated successfully",
-UpdateVirtualSports2BetSettings: "Are you sure you want to update all Virtual Sports 2 bet settings?",
-UpdateVirtualSports2BetSettingSuccessMsg: "The Virtual Sports 2 bet setting of {0} was updated successfully",
+UpdateVirtualSportsBetSettingSuccessMsg:"The Virtual Sports bet setting of {0} was updated successfully",
 USD:"USD",
 UserGuide:"User Guide",
 UserInformation:"User Information",

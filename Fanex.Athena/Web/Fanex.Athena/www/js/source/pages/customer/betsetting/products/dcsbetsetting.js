@@ -5,6 +5,7 @@ define(["jquery", "common/site", "../common/constant","../common/betsettingbase"
         var Product = Constant.Product;
         var ProductCodeMap = {};
         ProductCodeMap[Product.VirtualSports] = "VS";
+        ProductCodeMap[Product.VirtualSports2] = "VS2";
         ProductCodeMap[Product.Lottery] = "LT";
 
         function getConfirmMessage(productId) {
@@ -32,7 +33,6 @@ define(["jquery", "common/site", "../common/constant","../common/betsettingbase"
 
                 $("#btnSubmitBetSetting").on("click", function () {
                     var productId = parseInt($("#ProductId").val());
-                    Site.getSingleResource("UpdateProductBetSettings");
                     var messageResource = getConfirmMessage(productId);
 
                     BetSettingBase.showComfirm($(this), messageResource, _me.updateBetSetting);

@@ -12,6 +12,7 @@
         {
             { ProductTypes.Sportsbook, Product.SB },
             { ProductTypes.VirtualSports, Product.VS },
+            { ProductTypes.VirtualSports2, Product.VS2 },
             { ProductTypes.Lottery, Product.LT },
         };
 

@@ -251,7 +251,9 @@ var BetSetting = (function ($) {
                     showComfirm('UpdateVirtualSportsBetSettings', BetSetting.updateDcsBetSetting);
                     break;
                 case TAB_VIRTUALSPORTS2:
-                    showComfirm('UpdateVirtualSports2BetSettings', BetSetting.updateDcsBetSetting);
+                    var message = Site.getSingleResource('UpdateProductBetSettings');
+                    message = message.replace('{0}', Site.getSingleResource('ProductVS2'));
+                    showComfirm(message, BetSetting.updateDcsBetSetting);
                     break;
                 case TAB_LIVECASINO:
                     showComfirm('UpdateLiveCasinoBetSettings', BetSetting.updateLiveCasinoBetSetting);
