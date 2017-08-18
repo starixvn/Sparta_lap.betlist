@@ -1,8 +1,8 @@
-webpackJsonp([76],[
+webpackJsonp([75],[
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(340);
+	module.exports = __webpack_require__(338);
 
 
 /***/ }),
@@ -22731,9 +22731,7 @@ webpackJsonp([76],[
 /* 331 */,
 /* 332 */,
 /* 333 */,
-/* 334 */,
-/* 335 */,
-/* 336 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -22784,25 +22782,25 @@ webpackJsonp([76],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
+/* 335 */,
+/* 336 */,
 /* 337 */,
-/* 338 */,
-/* 339 */,
-/* 340 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(341)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LicenseeWinLoss) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(339)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LicenseeWinLoss) {
 	    "use strict";
 	    $(LicenseeWinLoss.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 341 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(242), __webpack_require__(342), __webpack_require__(103),
-	        __webpack_require__(232), __webpack_require__(106), __webpack_require__(9), __webpack_require__(245), __webpack_require__(336),
-	        __webpack_require__(224), __webpack_require__(225), __webpack_require__(250), __webpack_require__(343)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup, MultiSelect, DateHelper) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(242), __webpack_require__(340), __webpack_require__(103),
+	        __webpack_require__(232), __webpack_require__(106), __webpack_require__(9), __webpack_require__(245), __webpack_require__(334),
+	        __webpack_require__(224), __webpack_require__(225), __webpack_require__(250), __webpack_require__(341)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup, MultiSelect, DateHelper) {
 	        "use strict";
 	        var REPORT_BY_MONTHLY = 2;
 	        var VALID_MONTH_RANGE = 3;
@@ -23246,7 +23244,7 @@ webpackJsonp([76],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 342 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
@@ -23255,7 +23253,7 @@ webpackJsonp([76],[
 	*  "0" for master,"1" for agent and "2" for member
 	*/
 	
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(103), __webpack_require__(343)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(103), __webpack_require__(341)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional) {
 	        "use strict";
 	        var IGNORED_LICENSEEWL_PRODUCTS = ["RB", "BA", "CO"];
 	        var IGNORED_TURNOVER_PRODUCTS = ["BT", "CO"];
@@ -24064,7 +24062,7 @@ webpackJsonp([76],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 343 */
+/* 341 */
 /***/ (function(module, exports) {
 
 	/*--------------------------------------------------------------------------

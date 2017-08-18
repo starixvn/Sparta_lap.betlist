@@ -1,8 +1,8 @@
-webpackJsonp([82],[
+webpackJsonp([81],[
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(358);
+	module.exports = __webpack_require__(356);
 
 
 /***/ }),
@@ -18063,9 +18063,7 @@ webpackJsonp([82],[
 /* 334 */,
 /* 335 */,
 /* 336 */,
-/* 337 */,
-/* 338 */,
-/* 339 */
+/* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -18094,10 +18092,10 @@ webpackJsonp([82],[
 	
 	        updateWidth: function ($grid) {
 	            if (!$grid.hasVerticalScrollBar()) {
-	                $grid.addClass("noScroll");
+	                $grid.addClass("noScroll").find("table").css("width", "");
 	            }
 	            else {
-	                $grid.find("table").width($grid.width() - 17);
+	                $grid.removeClass("noScroll").find("table").css("width", $grid.width() - 17);
 	            }
 	        }
 	    };
@@ -18106,6 +18104,8 @@ webpackJsonp([82],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
+/* 338 */,
+/* 339 */,
 /* 340 */,
 /* 341 */,
 /* 342 */,
@@ -18122,23 +18122,21 @@ webpackJsonp([82],[
 /* 353 */,
 /* 354 */,
 /* 355 */,
-/* 356 */,
-/* 357 */,
-/* 358 */
+/* 356 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(359)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Result) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(357)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Result) {
 	    $(Result.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 359 */
+/* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(232), __webpack_require__(9), __webpack_require__(339), __webpack_require__(250)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, DatePicker, Popup, GridHelper) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(232), __webpack_require__(9), __webpack_require__(337), __webpack_require__(250)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, DatePicker, Popup, GridHelper) {
 	        var DATA_API = "ResultReport/Index";
 	        var EXCEL_API = "ResultReport/ResultExcel?";
 	        var SPORT_API = "ResultReport/GetSports";
@@ -18263,9 +18261,7 @@ webpackJsonp([82],[
 	                });
 	
 	                $(window).on("resize", function () {
-	                    if ($(".fn-rs-content-scroll").length > 0) {
-	                        GridHelper.resizeGrid($(".fn-rs-content-scroll"));
-	                    }
+	                    GridHelper.resizeGrid($(".fn-rs-content-scroll"));
 	                });
 	
 	                $(window).on("unload", function () {

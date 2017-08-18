@@ -129,6 +129,7 @@ webpackJsonp([43],[
 	        var _sortColumnName, _sortOrder;
 	        var _params, _url;
 	        var _isShowSumStake;
+	        var _onClientPaging = false;
 	
 	        function showDetailPopUp(url, option) {
 	            option.id = "betlist-popup-detail";
@@ -187,9 +188,10 @@ webpackJsonp([43],[
 	                var sortCol = _sortColumnName === "Winlost" ? "WinLoss" : _sortColumnName;
 	                sortCol = _sortColumnName === "nickname" ? "ExternalId" : sortCol;
 	                sortCol = _sortColumnName === "UserName" ? "SystemId" : sortCol;
-	                if (sortCol) {
+	                if (sortCol && !_onClientPaging) {
 	                    jqGridAdditional.addSortableHeader($grid, sortCol, _sortOrder);
 	                }
+	                _onClientPaging = false;
 	                // Resize
 	                jqGridAdditional.gridComplete();
 	                // Remove unnecessary item
@@ -270,6 +272,10 @@ webpackJsonp([43],[
 	                    });
 	                }
 	                gridOption.colNames = Site.getResources(gridOption.colNames);
+	
+	                gridOption.onPaging = function () {
+	                    _onClientPaging = true;
+	                };
 	                return gridOption;
 	            },
 	
