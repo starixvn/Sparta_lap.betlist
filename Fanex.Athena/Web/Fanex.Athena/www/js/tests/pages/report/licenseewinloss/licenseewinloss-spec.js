@@ -1,6 +1,6 @@
 ﻿define(['jquery', 'common/site', 'components/pluginhelper/daterangepicker', 'pages/report/licenseewinloss/licenseewinloss.option', 'pages/report/licenseewinloss/licenseewinloss',
-    'pages/report/report', 'lib/jqgrid/jquery.jqgrid.additional', 'common/popup', 'components/pluginhelper/multiselect'],
-    function ($, Site, DatePicker, LicenseeWinLossOption, LicenseeWinLoss, Report, jqGridAdditional, Popup, MultiSelect) {
+    'pages/report/report', 'lib/jqgrid/jquery.jqgrid.additional', 'common/popup', 'components/pluginhelper/multiselect', "helpers/daterange"],
+    function ($, Site, DatePicker, LicenseeWinLossOption, LicenseeWinLoss, Report, jqGridAdditional, Popup, MultiSelect, DateHelper) {
         describe("LicenseeWinLoss", function () {
             beforeAll(function () {
                 spyOn(Site, "getSingleResource").and.callFake(function (text) {
@@ -16,6 +16,7 @@
                 spyOn(Site, "initialize");
                 spyOn(MultiSelect, "initProductList");
                 spyOn(DatePicker, "initDateRangePicker");
+                spyOn(DateHelper, "setConstraintMonthRange");
             });
 
             describe("initialize()", function () {
