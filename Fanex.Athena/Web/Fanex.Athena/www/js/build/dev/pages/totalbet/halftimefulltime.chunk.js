@@ -1,9 +1,9 @@
-webpackJsonp([91],{
+webpackJsonp([90],{
 
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(416);
+	module.exports = __webpack_require__(414);
 
 
 /***/ }),
@@ -259,10 +259,10 @@ webpackJsonp([91],{
 
 /***/ }),
 
-/***/ 314:
+/***/ 312:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(315)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(313)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
 	    "use strict";
 	
 	    var curCountDown = 0;
@@ -388,7 +388,7 @@ webpackJsonp([91],{
 
 /***/ }),
 
-/***/ 315:
+/***/ 313:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -509,10 +509,10 @@ webpackJsonp([91],{
 
 /***/ }),
 
-/***/ 415:
+/***/ 413:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(314), __webpack_require__(250)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(312), __webpack_require__(250)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
 	        "use strict";
 	
 	        var _me = {
@@ -588,10 +588,10 @@ webpackJsonp([91],{
 
 /***/ }),
 
-/***/ 416:
+/***/ 414:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(417)], __WEBPACK_AMD_DEFINE_RESULT__ = function (HalfTimeFullTime) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(415)], __WEBPACK_AMD_DEFINE_RESULT__ = function (HalfTimeFullTime) {
 	    "use strict";
 	
 	    $(HalfTimeFullTime.initialize);
@@ -600,10 +600,10 @@ webpackJsonp([91],{
 
 /***/ }),
 
-/***/ 417:
+/***/ 415:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(415), __webpack_require__(314)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, RefreshCountDown) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(413), __webpack_require__(312)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, RefreshCountDown) {
 	    "use strict";
 	
 	    var _me = {
