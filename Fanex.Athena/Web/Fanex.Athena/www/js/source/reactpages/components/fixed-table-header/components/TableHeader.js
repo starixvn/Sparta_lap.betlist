@@ -4,7 +4,7 @@ import Header from './Header';
 import RowLayout from './RowLayout'
 
 class TableHeader extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 

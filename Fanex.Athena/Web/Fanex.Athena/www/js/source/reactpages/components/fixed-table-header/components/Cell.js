@@ -1,12 +1,12 @@
 ﻿import React, { Component } from 'react';
 
 class Cell extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
     }
 
     render() {
-        return(
+        return (
             <td>{this.props.children}</td>
         );
     }

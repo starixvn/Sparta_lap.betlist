@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 import { ActionCreators } from '../actions/index.js';
 import { bindActionCreators } from 'redux';
-import FixedTableHeader from 'components/fixedtableheader/FixedTableHeader'
+import FixedTableHeader from 'components/fixed-table-header/FixedTableHeader'
 
 const headers = ["Col 1", "Col 2", "Col 3"];
 const data = [{Id: 0, Name: "A", Age: 20}, {Id: 1, Name: "B", Age: 210}, {Id: 2, Name: "C", Age: 201}];

@@ -3,7 +3,7 @@ import TableHeader from './components/TableHeader';
 import TableContent from './components/TableContent';
 
 class FixedTableHeader extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 

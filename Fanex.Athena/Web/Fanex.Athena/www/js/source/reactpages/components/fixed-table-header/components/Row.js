@@ -1,12 +1,12 @@
 ﻿import React, { Component } from 'react';
 
 class Row extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
     }
 
     render() {
-        return(
+        return (
             <tr>{this.props.children}</tr>
         );
     }
