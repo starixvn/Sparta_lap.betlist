@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
 import Select from 'react-select';
-import { Calendar, DateRange, defaultRanges } from '../../../components/date-range/index';
+import { Calendar, DateRange, defaultOptions } from '../../../components/date-range/index';
 
 
 class FormFilter extends Component {
@@ -49,14 +49,9 @@ class FormFilter extends Component {
                         <div className="form-group">
                             <label className="label-text">Date</label>
                             
-                            <DateRange
-                                ranges={defaultRanges}
-                                onInit={handleSelect}
-                                onChange={handleSelect}
-                                theme={{
-                                    DateRange: { position: "absolute", width: 715, zIndex: 1, top: 60, display: 'none' },
-                                    PredefinedRanges: { marginLeft: 10, marginTop: 10 }
-                                }} />
+                            <DateRange minDate='01-02-2017'
+                                ranges={defaultOptions.ranges}
+                                onClickApplyButton={handleSelect} />
                             
                         </div>
                     </div>

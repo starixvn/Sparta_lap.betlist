@@ -10,7 +10,7 @@ class TableContent extends Component {
     _renderRows() {
         return this.props.data.map((item, index) => {
             return (
-                <Row key={`row${index}`} > {this._renderCells(item)} </Row>
+                <Row key={`row${index}`}>{this._renderCells(item)}</Row>
             );
 
         });

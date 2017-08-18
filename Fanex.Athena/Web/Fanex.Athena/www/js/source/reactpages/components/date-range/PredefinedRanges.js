@@ -4,6 +4,7 @@ import moment from 'moment';
 import classnames from 'classnames';
 import parseInput from './utils/parseInput.js';
 import { defaultClasses } from './styles.js';
+import defaultOptions from './defaultOptions.js';
 
 class PredefinedRanges extends Component {
 
@@ -22,6 +23,12 @@ class PredefinedRanges extends Component {
       startDate: parseInput(range['startDate'], null, 'startOf'),
       endDate: parseInput(range['endDate'], null, 'endOf'),
     });
+  }
+
+  handleApply(event) {
+    event.preventDefault();
+
+    this.props.onApply();
   }
 
   renderRangeList(classes) {
@@ -58,6 +65,28 @@ class PredefinedRanges extends Component {
     });
   }
 
+  renderRangeButtons(classes) {
+    const { style, onlyClasses, locale } = this.props;
+    const locales = { ...defaultOptions.locale, ...locale };
+    const { styles } = this;
+    return (
+      <div className={defaultClasses.rangeButtonGroup}>
+        <button className={classes.applyButton}
+          style={onlyClasses ? undefined : { ...styles['RangeApplyButton'], ...style }}
+          type="button"
+          onClick={(e) => this.handleApply(e)}>
+          {locales.applyLabel}
+        </button>
+
+        <button className={classes.cancelButton}
+          style={onlyClasses ? undefined : { ...styles['RangeCancelButton'], ...style }}
+          type="button">
+          {locales.cancelLabel}
+        </button>
+      </div>
+    )
+  }
+
   render() {
     const { style, onlyClasses, classNames } = this.props;
     const { styles } = this;
@@ -70,6 +99,7 @@ class PredefinedRanges extends Component {
         className={classes.predefinedRanges}
       >
         {this.renderRangeList(classes)}
+        {this.renderRangeButtons(classes)}
       </div>
     );
   }

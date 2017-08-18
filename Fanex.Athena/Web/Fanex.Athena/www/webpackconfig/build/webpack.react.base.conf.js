@@ -9,7 +9,8 @@ function generateConfig(environment) {
     var cssPath = `${pathConfig.cssPaths.build}/${environment}/reactpages`;
     var commonConfigs = {
         resolve: {
-            alias: alias
+            alias: alias,
+            extensions: ['', '.js', '.jsx']
         },
         entry: {
             /*js*/

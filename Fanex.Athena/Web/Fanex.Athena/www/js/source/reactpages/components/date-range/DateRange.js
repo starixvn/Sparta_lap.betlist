@@ -23,19 +23,34 @@ class DateRange extends Component {
       link: linkedCalendars && endDate,
       styles: this.styles['DateRange']
     }
-
-
   }
+
+  get dateRangeText() {
+    const date = this.state.range;
+    if (date.startDate && date.endDate) {
+      return `${date.startDate.format("MM/DD/YYYY")} - ${date.endDate.format("MM/DD/YYYY")}`;
+    }
+
+    return "";
+  }
+
   show() {
     let newStyles = Object.assign({}, this.state.styles, { display: "block" });
     this.setState({ styles: newStyles });
   }
+
+  hide() {
+    let newStyles = Object.assign({}, this.state.styles, { display: "none" });
+    this.setState({ styles: newStyles });
+  }
+
   componentDidMount() {
     const { onInit } = this.props;
     onInit && onInit(this.state.range);
   }
 
   orderRange(range) {
+    
     const { startDate, endDate } = range;
     const swap = startDate.isAfter(endDate);
 
@@ -47,17 +62,17 @@ class DateRange extends Component {
     }
   }
 
-  setRange(range, triggerChange) {
+  setRange(range, source, triggerChange) {
     const { onChange } = this.props
     range = this.orderRange(range);
 
-    this.setState({ range }, () => triggerChange && onChange && onChange(range));
+    this.setState({ range }, () => triggerChange && onChange && onChange(range, source));
   }
 
-  handleSelect(date) {
+  handleSelect(date, source) {
     if (date.startDate && date.endDate) {
       this.step = 0;
-      return this.setRange(date, true);
+      return this.setRange(date, source, true);
     }
 
     const { startDate, endDate } = this.state.range;
@@ -82,8 +97,9 @@ class DateRange extends Component {
 
     const triggerChange = !this.props.twoStepChange || this.step === 0 && this.props.twoStepChange;
 
-    this.setRange(range, triggerChange);
+    this.setRange(range, source, triggerChange);
   }
+
 
   handleLinkChange(direction) {
     const { link } = this.state;
@@ -91,6 +107,17 @@ class DateRange extends Component {
     this.setState({
       link: link.clone().add(direction, 'months')
     });
+  }
+
+  handleApply() {
+    const { onClickApplyButton } = this.props;
+    onClickApplyButton && onClickApplyButton(this.state.range);
+
+    console.log("Apply");
+    console.log(this.state.range);
+    console.log(this.state.range.startDate.format("MM/DD/YYYY"));
+    console.log(this.state.range.endDate.format("MM/DD/YYYY"));
+    this.hide();
   }
 
   componentWillReceiveProps(newProps) {
@@ -112,7 +139,7 @@ class DateRange extends Component {
   }
 
   render() {
-    const { ranges, format, linkedCalendars, style, calendars, firstDayOfWeek, minDate, maxDate, classNames, onlyClasses, specialDays, lang, disableDaysBeforeToday, offsetPositive, shownDate, showMonthArrow, rangedCalendars } = this.props;
+    const { ranges, format, linkedCalendars, style, calendars, firstDayOfWeek, minDate, maxDate, classNames, onlyClasses, specialDays, lang, disableDaysBeforeToday, offsetPositive, shownDate, showMonthArrow, rangedCalendars, locale } = this.props;
     const { range, link } = this.state;
     const { styles } = this;
 
@@ -125,7 +152,8 @@ class DateRange extends Component {
 
     return (
       <div>
-        <input onClick={() => this.show()} onFocus={() => this.show()} name="DateRange" id="DateRange" className="input-text datepicker" type="text" autoComplete="off" />
+        <input onClick={() => this.show()} onFocus={() => this.show()} readOnly
+          name="DateRange" id="DateRange" className="input-text datepicker" type="text" autoComplete="off" value={this.dateRangeText} />
         <div style={onlyClasses ? undefined : { ...this.state.styles, ...style }} className={classes.dateRange}>
           {ranges && (
             <PredefinedRanges
@@ -133,9 +161,11 @@ class DateRange extends Component {
               ranges={ranges}
               range={range}
               theme={styles}
-              onSelect={(date) => this.handleSelect(date)}
+              onSelect={this.handleSelect.bind(this)}
               onlyClasses={onlyClasses}
-              classNames={classes} />
+              classNames={classes}
+              locale={locale}
+              onApply={() => this.handleApply()} />
           )}
 
           {(() => {
@@ -145,7 +175,6 @@ class DateRange extends Component {
               const offset = offsetPositive ? i : -i;
               const realDiff = offsetPositive ? diff : -diff;
               const realOffset = (rangedCalendars && i == calendarsCount && diff != 0) ? realDiff : offset;
-
               _calendars[_method](
                 <Calendar
                   showMonthArrow={showMonthArrow}
@@ -159,13 +188,13 @@ class DateRange extends Component {
                   range={range}
                   format={format}
                   firstDayOfWeek={firstDayOfWeek}
-                  theme={this.styles}
+                  theme={styles}
                   minDate={minDate}
                   maxDate={maxDate}
                   onlyClasses={onlyClasses}
                   specialDays={specialDays}
                   classNames={classes}
-                  onChange={(date) => this.handleSelect(date)} />
+                  onChange={this.handleSelect.bind(this)} />
               );
             }
             return _calendars;

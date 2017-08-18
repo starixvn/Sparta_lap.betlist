@@ -10,7 +10,6 @@ $calendar-padding: 10px !default;
 $cell-margin: 0 !default;
 $cell-size: (($calendar-width - $calendar-padding * 2) / 7) - ($cell-margin * 2) - 1 !default;
 $calendar-shadow: rgba($calendar-color, 0.25) 0 0 1em !default;
-
 .rdr-DateRange {
     display: block;
     box-sizing: border-box;
@@ -18,7 +17,6 @@ $calendar-shadow: rgba($calendar-color, 0.25) 0 0 1em !default;
     border-radius: 2px;
     background: $calendar-background;
     box-shadow: $calendar-shadow;
-
     .rdr-Calendar {
         box-shadow: none;
     }
@@ -58,7 +56,6 @@ $calendar-shadow: rgba($calendar-color, 0.25) 0 0 1em !default;
     outline: none;
     background: $calendar-month-button-background;
     box-shadow: none;
-
     i {
         display: block;
         width: 0;
@@ -67,20 +64,16 @@ $calendar-shadow: rgba($calendar-color, 0.25) 0 0 1em !default;
         text-align: center;
         border-style: solid;
     }
-
     &.prev {
         float: left;
-
         i {
             margin: 0 0 0 1px;
             border-width: 4px 6px 4px 4px;
             border-color: transparent $calendar-month-button-icon-color transparent transparent;
         }
     }
-
     &.next {
         float: right;
-
         i {
             margin: 0 0 0 7px;
             border-width: 4px 4px 4px 6px;
@@ -113,22 +106,18 @@ $calendar-shadow: rgba($calendar-color, 0.25) 0 0 1em !default;
     transition: transform 0.1s ease;
     text-align: center;
     letter-spacing: initial;
-
     &.is-passive {
         cursor: normal;
         opacity: 0.4;
     }
-
     &.is-selected {
         color: $calendar-background;
         background: $calendar-day-selected-background;
     }
-
     &.is-inRange {
         color: $calendar-background;
         background: $calendar-day-in-range-background;
     }
-
     &:hover:not(.is-selected) {
         background: $calendar-day-hover-background;
     }

@@ -764,19 +764,21 @@
     <Content Include="www\js\source\reactpages\components\date-range\Calendar.js" />
     <Content Include="www\js\source\reactpages\components\date-range\DateRange.js" />
     <Content Include="www\js\source\reactpages\components\date-range\DayCell.js" />
+    <Content Include="www\js\source\reactpages\components\date-range\defaultOptions.js" />
     <Content Include="www\js\source\reactpages\components\date-range\defaultRanges.js" />
     <Content Include="www\js\source\reactpages\components\date-range\index.js" />
     <Content Include="www\js\source\reactpages\components\date-range\LangDic.js" />
     <Content Include="www\js\source\reactpages\components\date-range\PredefinedRanges.js" />
     <Content Include="www\js\source\reactpages\components\date-range\styles.js" />
     <Content Include="www\js\source\reactpages\components\date-range\utils\parseInput.js" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.js" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Header.js" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Row.js" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.js" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\TableContent.js" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\TableHeader.js" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\FixedTableHeader.js" />
+    <Content Include="www\css\source\reactpages\components\custom3rd\_date-range.scss" />
+    <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
+    <None Include="www\js\source\reactpages\components\fixed-table-header\components\Header.jsx" />
+    <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
+    <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
+    <None Include="www\js\source\reactpages\components\fixed-table-header\components\TableContent.jsx" />
+    <None Include="www\js\source\reactpages\components\fixed-table-header\components\TableHeader.jsx" />
+    <None Include="www\js\source\reactpages\components\fixed-table-header\FixedTableHeader.jsx" />
     <Content Include="www\js\source\reactpages\layouts\AppLayout.jsx" />
     <Content Include="www\js\source\reactpages\lib\langHelper.js" />
     <Content Include="www\js\source\reactpages\pages\operatorperformance\actions\dataHandlerAction.js" />
@@ -2395,6 +2397,7 @@
     <Content Include="www\js\build\dev\reactpages\vendors\vendor.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\lib\langHelper.chunk.js.map" />
     <Content Include="www\css\source\reactpages\components\date-range\styles.scss" />
+    <Content Include="www\css\source\reactpages\pages\operatorperformance\index.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

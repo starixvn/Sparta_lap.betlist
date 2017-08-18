@@ -9,8 +9,8 @@ class TableHeader extends Component {
     }
 
     _renderHeader() {
-        const headers = this.props.headers.map(item => {
-            return <Header>{item}</Header>
+        const headers = this.props.headers.map((item, index) => {
+            return <Header key={`header${index}`}>{item}</Header>
         });
 
         return (

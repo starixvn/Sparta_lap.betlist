@@ -1,6 +1,6 @@
 ﻿$button-height: 32px;
 $btnSubmit-background: #f05b1f;
-
+$btnCancelBackground: #757985;
 .btn {
     border: none;
     border-radius: 2px;
@@ -17,13 +17,17 @@ $btnSubmit-background: #f05b1f;
     padding: 0 2rem;
     vertical-align: middle;
     -webkit-tap-highlight-color: transparent;
+    &:hover {
+        opacity: 0.9;
+    }
 }
 
 .btn-submit {
     color: $white;
     background-color: rgb(240, 91, 31);
+}
 
-    &:hover{
-        opacity: 0.9;
-    }
+.btn-cancel {
+    color: $white;
+    background-color: $btnCancelBackground;
 }
