@@ -1,0 +1,77 @@
+﻿@{
+    Layout = null;
+}
+@using Fanex.Athena.Model.Core.DataDomain
+@model Fanex.Athena.Model.Report.ViewModel.CustomerTurnoverViewModel
+@{
+    var appSettings = new AppSettings();
+    var minDate = DateTime.Today.AddMonths(-3).AddDays(1 - DateTime.Today.Day);
+    var maxOddDigits = 4;
+}
+<div class="page-form">
+    <form id="CustomerTurnoverReport" name="CustomerTurnoverReport" method="post" action="">
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="input-field input col l3 m4 s12 calendar date-range">
+                @DesktopRazorHelper.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, appSettings.MaxDate)
+            </div>
+            <div class="input-field col l2 m3 s12">
+                @Html.TextBox("Username", Model.Param.Username, new { placeholder = ViewResources.All, autocomplete = "off" })
+                <label>@ViewResources.Username</label>
+                <ul id="suggestionDropdown" class="dropdown-content ac-dropdown"></ul>
+            </div>
+            <div class="input-field col l2 m3 s12">
+                <input id="Odds" name="Odds" type="text" value="0" maxlength="@maxOddDigits" />
+                <label>@ViewResources.MinimumOdds <span class="decimal-odds">(@ViewResources.DecimalOdds)</span></label>
+            </div>
+
+            <div class="col right icon-block">
+                <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+                <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col l3 m4 s12">
+                <div class="multiselect-container" id="ProductList">
+                    <select id="grid-products-multiselect" name="grid-products-multiselect"></select>
+                    <label>@ViewResources.Product *</label>
+                </div>
+            </div>
+            <div class="input-field col l2 m3 s12">
+                <div class="multiselect-container" id="BetTypeList">
+                    <select id="grid-bettypes-multiselect" name="grid-bettypes-multiselect"></select>
+                    <label>@ViewResources.BetType *</label>
+                </div>
+            </div>
+            <div class="input-field col l2 m3 s12">
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, false, false)
+                <label>@ViewResources.Currency</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col l3 m4 s12">
+                @DesktopRazorHelper.TicketFilter()
+            </div>
+            <div class="input-field input col l2 m3 s12">
+                <input type="radio" class="with-gap" value="1" @(Model.Param.ReportBy == ReportByType.Daily ? "checked=checked" : "") name="ReportBy" id="reportbydaily" />
+                <label for="reportbydaily">
+                    @ViewResources.Daily
+                </label>
+                <input type="radio" class="with-gap" value="2" @(Model.Param.ReportBy == ReportByType.Monthly ? "checked=checked" : "") name="ReportBy" id="reportbymonthly" />
+                <label for="reportbymonthly">
+                    @ViewResources.Monthly
+                </label>
+
+                <label class="active">@ViewResources.ReportBy</label>
+            </div>
+            <div class="col l2 m2 s12 button-block">
+                <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
+            </div>
+        </div>
+
+        @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+    </form>
+
+    @Html.Hidden("LicenseeId", Model.Param.LicenseeId)
+    @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
+</div>

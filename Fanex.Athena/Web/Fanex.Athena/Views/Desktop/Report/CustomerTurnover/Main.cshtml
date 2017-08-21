@@ -1,0 +1,21 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.CustomerTurnoverViewModel
+@{
+    ViewBag.Title = "LRF - " + ViewResources.Report + " - " + ViewResources.Customer + " " + ViewResources.Turnover;
+    Layout = "~/Views/Desktop/Shared/_Report.jqGridLayout.cshtml";
+}
+@section pagecss {
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/reports/customerturnover.css")" rel="stylesheet" />
+}
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/reports/customerturnover.chunk.js")"></script>
+}
+
+@section Filter
+{
+    @{Html.RenderPartial("~/Views/Desktop/Report/CustomerTurnover/Filter.cshtml");}
+}
+
+@section Content
+{
+    @{Html.RenderPartial("~/Views/Desktop/Report/CustomerTurnover/Content.cshtml");}
+}

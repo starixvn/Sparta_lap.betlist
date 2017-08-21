@@ -59,7 +59,8 @@ var cssPaths = {
     customerbalance: ["./www/css/source/pages/report/customerbalance.scss"],
     golddeluxewinloss: ["./www/css/source/pages/report/golddeluxewinloss.scss"],
     colossusbetswinloss: ["./www/css/source/pages/report/colossusbetswinloss.scss"],
-    customerpendingfunds: ["./www/css/source/pages/report/customerpendingfunds.scss"]
+    customerpendingfunds: ["./www/css/source/pages/report/customerpendingfunds.scss"],
+    customerturnover: ["./www/css/source/pages/report/customerturnover.scss"]
 };
 
 var scriptPaths = {
@@ -129,7 +130,8 @@ var scriptPaths = {
     customerbalance: "./www/js/source/pages/report/customerbalance/main.js",
     golddeluxewinloss: "./www/js/source/pages/report/thirdpartywinloss/main-golddeluxewinloss.js",
     colossusbetswinloss: "./www/js/source/pages/report/thirdpartywinloss/main-colossusbetswinloss.js",
-    customerpendingfunds: "./www/js/source/pages/report/customerpendingfunds/main.js"
+    customerpendingfunds: "./www/js/source/pages/report/customerpendingfunds/main.js",
+    customerturnover: "./www/js/source/pages/report/customerturnover/main.js"
 };
 
 module.exports = {

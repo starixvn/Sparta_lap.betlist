@@ -80,6 +80,7 @@ function generateConfig(environment) {
             [`${jsPath}/pages/reports/golddeluxewinloss`]: [pathConfig.scriptPaths.golddeluxewinloss],
             [`${jsPath}/pages/reports/colossusbetswinloss`]: [pathConfig.scriptPaths.colossusbetswinloss],
             [`${jsPath}/pages/reports/customerpendingfunds`]: [pathConfig.scriptPaths.customerpendingfunds],
+            [`${jsPath}/pages/reports/customerturnover`]: [pathConfig.scriptPaths.customerturnover],
 
             [`${cssPath}/pages/reports/reportjqgridlayout`]: pathConfig.cssPaths.reportjqgridlayout,
             [`${cssPath}/pages/reports/livereport`]: pathConfig.cssPaths.livereport,
@@ -130,6 +131,7 @@ function generateConfig(environment) {
             [`${cssPath}/pages/reports/golddeluxewinloss`]: pathConfig.cssPaths.golddeluxewinloss,
             [`${cssPath}/pages/reports/colossusbetswinloss`]: pathConfig.cssPaths.colossusbetswinloss,
             [`${cssPath}/pages/reports/customerpendingfunds`]: pathConfig.cssPaths.customerpendingfunds,
+            [`${cssPath}/pages/reports/customerturnover`]: pathConfig.cssPaths.customerturnover,
         },
         output: {
             path: pathConfig.projectRoot,
