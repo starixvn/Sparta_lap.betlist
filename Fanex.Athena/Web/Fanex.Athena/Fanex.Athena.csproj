@@ -762,6 +762,7 @@
     <Content Include="Scripts\Report\customerbalance.option.js" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
     <Content Include="www\js\source\reactpages\components\date-range\Calendar.js" />
+    <Content Include="www\js\source\reactpages\components\date-range\constants.js" />
     <Content Include="www\js\source\reactpages\components\date-range\DateRange.js" />
     <Content Include="www\js\source\reactpages\components\date-range\DayCell.js" />
     <Content Include="www\js\source\reactpages\components\date-range\defaultOptions.js" />

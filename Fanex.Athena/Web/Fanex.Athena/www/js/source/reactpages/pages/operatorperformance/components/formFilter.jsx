@@ -29,7 +29,8 @@ class FormFilter extends Component {
         }
 
         function handleSelect(date) {
-            console.log(date); // Momentjs object
+            console.log(`Start: ${date.startDate.format("MM/DD/YYYY")}`);
+            console.log(`End: ${date.endDate.format("MM/DD/YYYY")}`); // Momentjs object
         }
         return (
             <div className="page-filter">

@@ -5,6 +5,7 @@ import parseInput from './utils/parseInput.js';
 import Calendar from './Calendar.js';
 import PredefinedRanges from './PredefinedRanges.js';
 import getTheme, { defaultClasses } from './styles.js';
+import { MomentFormat } from './constants';
 
 class DateRange extends Component {
 
@@ -28,7 +29,7 @@ class DateRange extends Component {
   get dateRangeText() {
     const date = this.state.range;
     if (date.startDate && date.endDate) {
-      return `${date.startDate.format("MM/DD/YYYY")} - ${date.endDate.format("MM/DD/YYYY")}`;
+      return `${date.startDate.format(MomentFormat.default)} - ${date.endDate.format(MomentFormat.default)}`;
     }
 
     return "";
@@ -50,7 +51,6 @@ class DateRange extends Component {
   }
 
   orderRange(range) {
-    
     const { startDate, endDate } = range;
     const swap = startDate.isAfter(endDate);
 
@@ -101,11 +101,9 @@ class DateRange extends Component {
   }
 
 
-  handleLinkChange(direction) {
-    const { link } = this.state;
-
+  handleLinkChange(newDate) {
     this.setState({
-      link: link.clone().add(direction, 'months')
+      link: newDate
     });
   }
 
@@ -114,9 +112,8 @@ class DateRange extends Component {
     onClickApplyButton && onClickApplyButton(this.state.range);
 
     console.log("Apply");
-    console.log(this.state.range);
-    console.log(this.state.range.startDate.format("MM/DD/YYYY"));
-    console.log(this.state.range.endDate.format("MM/DD/YYYY"));
+    console.log(`From: ${this.state.range.startDate.format("MM/DD/YYYY")}`);
+    console.log(`To: ${this.state.range.endDate.format("MM/DD/YYYY")}`);
     this.hide();
   }
 
@@ -208,7 +205,7 @@ class DateRange extends Component {
 DateRange.defaultProps = {
   linkedCalendars: false,
   theme: {},
-  format: 'DD/MM/YYYY',
+  format: MomentFormat.default,
   calendars: 2,
   onlyClasses: false,
   offsetPositive: false,

@@ -5,8 +5,7 @@ var baseWebpackConfigGenerator = require('./webpack.react.base.conf');
 var baseConfigs = baseWebpackConfigGenerator("dev");
 
 module.exports = merge(baseConfigs,
-    utils.setDefinePlugin('process.env.NODE_ENV', 'development'),
-    {
+    utils.setDefinePlugin('process.env.NODE_ENV', 'development'), {
         devtool: 'source-map',
         keepalive: true,
         devServer: {
@@ -14,7 +13,8 @@ module.exports = merge(baseConfigs,
             noInfo: true,
             stats: 'errors-only',
             historyApiFallback: true,
-            //contentBase: "./www/js/source/reactsample/"
+            contentBase: "./www/"
         }
-    }
+    },
+    utils.extractCSS(false)
 );
