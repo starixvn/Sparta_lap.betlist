@@ -8,11 +8,11 @@ var CustomerWinLoss = (function ($) {
     var GRID_ID = "ReportGrid";
 
     var _ajaxRequest = null;
+    var _submitData = null;
 
-    var _sortColumnIndex = "";
-    var _sortType = "desc";
-    var isFirstLoad = true;
-
+    var _sortColumnName = "";
+    var _sortOrder = "desc";
+    
     var _pagingOption =
     {
         pageindex: 1,
@@ -25,10 +25,13 @@ var CustomerWinLoss = (function ($) {
         alwayshow: true
     };
 
+
     function getPostData() {
         var data = $(FORM_SELECTOR).serializeObject();
         data.PageIndex = _pagingOption.pageindex;
         data.PageSize = _pagingOption.pagesize;
+        data.sortColumn = _sortColumnName;
+        data.SortDirection = _sortOrder;
 
         return data;
     }
@@ -44,27 +47,44 @@ var CustomerWinLoss = (function ($) {
         }
     }
 
+    function sort(index) {
+        if (_pagingOption.totalrow > 1) {
+            setTimeout(function () {
+                if (_sortColumnName === index) {
+                    _sortOrder = _sortOrder === "asc" ? "desc" : "asc";
+                } else {
+                    _sortOrder = "asc";
+                    _sortColumnName = index;
+                }
+                CustomerWinLoss.submit(_submitData);
+            }, 100);
+        }
+    }
+
     function onGridComplete(grid, gridOption, response) {
         if (_pagingOption.totalrow <= 0) {
             jqGridAdditional.setNoInfo(gridOption.colModel);
         }
-        else if (true) {
+        else {
             if (_pagingOption.totalrow > 1) {
                 var reportGrid = $("#" + GRID_ID);
                 var cm = reportGrid[0].p.colModel;
                 $.each(reportGrid[0].grid.headers, function (index, value) {
+                    
                     var cmi = cm[index];
+                    
                     if (cmi.sortable) {
                         $(".ui-jqgrid-sortable", value.el).css({ cursor: "pointer" }).find(".s-ico").remove();
                     }
-                    if (cmi.index === _sortColumnIndex && _sortType !== "") {
+                    if (cmi.index === _sortColumnName && _sortOrder !== "") {
+                        
                         var header = $(".ui-jqgrid-sortable", value.el);
                         header.addClass("sorted-heading");
-                        if (_sortType === "desc") {
-                            header.append('<span class="sort-desc"></span>');
+                        if (_sortOrder === "desc") {
+                            header.append('<span class="sort-desc" style="display: inline; margin: 2px 0px 0px 0px"></span>');
                         }
                         else {
-                            header.append('<span class="sort-asc"></span>');
+                            header.append('<span class="sort-asc" style="display: inline; margin: 2px 0px 0px 0px"></span>');
                         }
                     }
                 });
@@ -152,17 +172,12 @@ var CustomerWinLoss = (function ($) {
                 CustomerWinLoss.viewCurrentReport();
             });
 
-            $("#data-content").on("click", ".bet-list-link", function () {
+            $(".report-content").on("click", ".bet-list-link", function () {
                 var target = $(this);
                 var custId = target.attr("data-cust-id");
                 var systemId = target.attr("data-system-id");
                 var externalId = target.attr("data-external-id");
                 CustomerWinLoss.viewWinlossBetList(custId, systemId, externalId);
-            });
-
-            $("#data-content").scroll(function () {
-                $('#total-content').scrollLeft($('#data-content').scrollLeft());
-                $('#header-content').scrollLeft($('#data-content').scrollLeft());
             });
         },
 
@@ -179,16 +194,25 @@ var CustomerWinLoss = (function ($) {
         viewWinlossBetList: function (custId, systemId, externalId) {
             var url = Site.resolveClientUrl("CustomerWinlossBetList/Index");
             url = Site.setProductOptionOriginalParamList(url);
-            url = Site.setLicenseeOptionOriginalParam(url);
+            url = QueryString.setParam(url, "currencyid", _submitData.CurrencyId);
+            url = QueryString.setParam(url, "CurrencyName", _submitData.CurrencyName);
+            url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
             url = QueryString.setParam(url, "custid", custId);
             url = QueryString.setParam(url, "systemid", systemId);
             url = QueryString.setParam(url, "externalid", externalId);
-            url = QueryString.setParam(url, "fromdate", $("#FromDate").attr("data-original"));
-            url = QueryString.setParam(url, "todate", $("#ToDate").attr("data-original"));
+            url = QueryString.setParam(url, "fromdate", _submitData.FromDate);
+            url = QueryString.setParam(url, "todate", _submitData.ToDate);
             url = QueryString.setParam(url, "ishistoryreport", $('input#IsHistoryReport').val());
 
-            Site.blockUI();
-            window.location.href = url;
+            var popH = Math.min($(window).height() - 100, 650), popW = 920;
+            var dialogForm = '<div title="Customer Bet List"><iframe scrolling="no" frameborder="0" width="' +
+                             popW + '" height="100%" src="' + url + '" ></iframe></div>';
+
+            $(dialogForm).dialog({
+                modal: true,
+                width: popW + 50,
+                height: popH + 50
+            });
         },
         setReportTitle: function () {
             var titlePattern = "{0}, {1} → {2}, {3}";
@@ -201,9 +225,12 @@ var CustomerWinLoss = (function ($) {
 
             $("div.report-title").html(title).show();
         },
-        submit: function () {
-            var data = getPostData();
-
+        submit: function (data) {
+            if (!data) {
+                data = getPostData();
+                _submitData = data;
+            }
+            
             var option =
             {
                 type: "POST",

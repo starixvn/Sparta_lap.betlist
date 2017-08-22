@@ -26,6 +26,11 @@ var CustomerWinLossOption = (function () {
         sortable: true,
         cellattr: function () {
             return ' style="text-overflow: ellipsis"';
+        },
+        formatter: function (cellvalue, options, rowObject) {
+            return '<a class="bet-list-link" href="javascript:;" data-cust-id=' + rowObject.CustId +
+                ' data-system-id=' + rowObject.SystemId +
+                ' data-external-id=' + rowObject.ExternalId + '>' + cellvalue + '</a>';
         }
     };
 
@@ -111,8 +116,8 @@ var CustomerWinLossOption = (function () {
 
     var licenseeWLColumn =
     {
-        name: "BetEffective",
-        index: "BetEffective",
+        name: "LicenseeWL",
+        index: "LicenseeWL",
         classes: 'highlight',
         width: 100,
         align: "right",
@@ -164,7 +169,7 @@ var CustomerWinLossOption = (function () {
     {
         name: "AmtDueToRacing",
         index: "AmtDueToRacing",
-        width: 100,
+        width: 90,
         align: "right",
         sortable: true,
         resizable: false,
@@ -277,33 +282,6 @@ var CustomerWinLossOption = (function () {
             }
 
             return colModels;
-        },
-
-        getOrderColumnCode: function (indexColumn, sortType) {
-            //if (sortType === "asc" && indexColumn !== amtDueToRacingColumn.index && indexColumn !== amtDueToBAColumn.index) {
-            //    return 0;
-            //}
-
-            //switch (indexColumn) {
-            //    case amtDueToRacingColumn.index:
-            //    case amtDueToBAColumn.index:
-            //        if (sortType === "desc") {
-            //            return 4;
-            //        }
-            //        return 5;
-            //    case totalTransactionColumn.index:
-            //        return 1;
-            //    case memberWLColumn.index:
-            //        return 2;
-            //    case turnoverColumn.index:
-            //        return 3;
-            //    case turnoverColumn.index:
-            //        return 6;
-            //    case closingBalanceColumn.index:
-            //        return 7;
-            //    default:
-            //        return 0;
-            //}
         }
     };
 

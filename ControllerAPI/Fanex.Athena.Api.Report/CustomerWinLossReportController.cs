@@ -38,8 +38,11 @@
             int totalRows;
             var custWinlossService = new CustomerWinlossService();
             var dataList = custWinlossService.GetDataList(metaModel, out totalData, out totalRows);
+            if (!string.IsNullOrEmpty(metaModel.SortColumn))
+            {
+                dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
+            }
 
-            dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
             var index = 1;
             foreach (var item in dataList)
             {
@@ -67,7 +70,14 @@
             var showingOption = new ShowingOption
             {
                 BAVisible = productAccess.IsAllowBA,
-                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
+                RBVisible = productAccess.IsAllowRB,
+                NGVisible = productAccess.IsAllowNG,
+                LCVisible = productAccess.IsAllowLC,
+                SBVisible = productAccess.IsAllowSB,
+                VSVisible = productAccess.IsAllowVS,
+                CSVisible = productAccess.IsAllowCS,
+                BGVisible = productAccess.IsAllowBG,
+                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
 
             var convertingOption = new ConvertingOption
@@ -77,7 +87,7 @@
                 CurrencyName = metaModel.CurrencyName
             };
 
-            var totalData = new CustomerWinLoss();
+            CustomerWinLoss totalData;
             var totalRows = 0;
             metaModel.PageIndex = 1;
             metaModel.PageSize = PageSizeExcel;
