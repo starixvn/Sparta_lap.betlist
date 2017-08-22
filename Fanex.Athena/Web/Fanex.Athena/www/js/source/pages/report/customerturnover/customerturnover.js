@@ -7,12 +7,13 @@
     "components/pluginhelper/autocomplete",
     "components/pluginhelper/daterangepicker",
     "helpers/daterange",
+    "components/paging",
     "lib/jquery.multiselect",
     "lib/jqgrid/jquery.jqGrid.en",
     "lib/jqgrid/jquery.jqGrid.min",
     "extensions/jquery.extension",
     "lib/linq"],
-    function ($, QueryString, Site, jqGridAdditional, CustomerTurnoverOption, AutoComplete, DatePicker, DateHelper) {
+    function ($, QueryString, Site, jqGridAdditional, CustomerTurnoverOption, AutoComplete, DatePicker, DateHelper, PagingHelper) {
         "use strict";
 
         var VALID_MONTH_RANGE = 1;
@@ -39,9 +40,23 @@
             ProductMultiSelect: "#grid-products-multiselect",
             BetTypeMultiSelect: "#grid-bettypes-multiselect",
             BetTypeList: "#BetTypeList",
-            ProductList: "#ProductList"
+            ProductList: "#ProductList",
+            IsAllowedCustomerCommission: "#IsAllowedCustomerCommission",
+            ExcelParam: "#excelparam",
+            ExcelForm: "#CustomerTurnoverForm"
         };
-        var _ajaxRequestGetBettype;
+        var _ajaxRequestGetBettype, _ajaxRequestData;
+        var _pagingOption =
+            {
+                pageindex: 1,
+                pagesize: 25,
+                pagelist: [25, 50, 100, 500],
+                totalrow: 1,
+                elementcontainer: ".paging",
+                method: "AJAX",
+                ajaxfunction: "CustTurnover.ajaxPaging()",
+                alwayshow: true
+            };
 
         function initialize() {
             Site.initialize();
@@ -50,8 +65,9 @@
                 title: Site.getSingleResource("CustomerTurnover")
             });
             DatePicker.initDateRangePicker();
-            DateHelper.setConstraintMonthRange(VALID_MONTH_RANGE, CustomerTurnoverOption.urlData);
+            DateHelper.setConstraintMonthRange(VALID_MONTH_RANGE, "/CustomerTurnover");
 
+            _me.initSetting();
             _me.initAutoComplete();
             _me.initTicketFilter();
             _me.initEvent();
@@ -64,17 +80,15 @@
             });
 
             $(_selector.SubmitButton).click(function () {
+                _pagingOption.pageindex = 1;
                 _me.submit();
             });
 
             $(_selector.ExportToExcel).click(function () {
                 $(_selector.ExportExcelInput).val(true);
-                var mainForm = $(_selector.Form);
-                var url = Site.resolveClientUrl(CustomerTurnoverOption.urlExcelData);
-                mainForm.attr("action", url);
-                mainForm.submit();
+                _me.exportToExcel();
                 $(_selector.ExportExcelInput).val(false);
-                return false;
+                //return false;
             });
 
             $(window).on("resize", function () {
@@ -84,12 +98,20 @@
             $(window).on("unload", function () {
                 $(window).off("resize");
             });
+
+            window.CustTurnover = {
+                ajaxPaging: _me.ajaxPaging
+            };
+        }
+
+        function initSetting() {
+            CustomerTurnoverOption.hasCustomerComm = Site.asBool($(_selector.IsAllowedCustomerCommission).val());
         }
 
         function initTicketFilter() {
             $(_selector.TickerFilter + " input[type=checkbox]").checkboxgroup();
-            $(_selector.TickerFilte).on("change", "input[type=checkbox]", function () {
-                checkValidFilter($(this));
+            $(_selector.TickerFilter).on("change", "input[type=checkbox]", function () {
+                checkValidFilter();
             });
         }
 
@@ -113,9 +135,133 @@
         }
 
         function submit() {
+            if (!checkValidFilter()) {
+                return;
+            }
+
+            var param = getPostData();
+
+            var option = {
+                type: "POST",
+                data: JSON.stringify(param),
+                dataType: "json",
+                contentType: "application/json",
+                cache: false,
+                url: Site.resolveClientUrl(CustomerTurnoverOption.urlData),
+                success: function (response) {
+                    setReportTitle(param.currencyname, param.username, param.fromdate, param.todate, param.odds);
+                    CustomerTurnoverOption.reportBy = param.reportby;
+                    _me.bindData(response);
+                },
+                beforeSend: function () {
+                    Site.blockUI();
+                },
+                complete: function () {
+                    Site.unBlockUI();
+                }
+            };
+            if (_ajaxRequestData != null) {
+                _ajaxRequestData.abort();
+            }
+            _ajaxRequestData = $.ajax(option);
         }
 
-        function bindData() {
+        function bindData(response) {
+            Site.blockUI();
+            jqGridAdditional.clearGrid(_selector.GridId);
+
+            if (response.TotalRow === 0) {
+                jqGridAdditional.setNoInfo();
+                Site.unBlockUI();
+                return;
+            }
+
+            var gridOption = CustomerTurnoverOption.getGridOption();
+            gridOption.data = response.Data;
+            gridOption.rowNum = response.Data.length;
+
+            gridOption.gridComplete = function () {
+                onGridComplete(this, gridOption, response);
+                Site.unBlockUI();
+            };
+
+            var reportGrid = $("#" + _selector.GridId);
+            reportGrid.jqGrid(gridOption);
+            createPaging(response.TotalRow);
+        }
+
+        function exportToExcel() {
+            if (!checkValidFilter()) {
+                return;
+            }
+            var param = getPostData();
+            $(_selector.ExcelParam).val(JSON.stringify(param));
+            $(_selector.ExcelForm).submit();
+        }
+
+        function ajaxPaging() {
+            _pagingOption = PagingHelper.getSetting();
+            _me.submit();
+        }
+
+        function setReportTitle(currencyName, userName, fromDate, toDate, odds) {
+            var titlePattern = Site.getSingleResource('Customer') + ' '
+                + Site.getSingleResource('Turnover') + ', {0} → {1} - '
+                + Site.getSingleResource("Currency") + ': {2} - '
+                + Site.getSingleResource('MinimumOdds') + ': {3} {4}';
+
+            var tempUserName = userName.length > 0
+                ? " - " + Site.getSingleResource("Username") + ": " + userName
+                : "";
+
+            var title = $.format(titlePattern, fromDate, toDate, currencyName, odds, tempUserName);
+
+            $(_selector.Title).html(title);
+            $(_selector.Header).removeClass("hide");
+        }
+
+        function getPostData() {
+            var param = {};
+            var data = $(_selector.Form).serializeObject();
+            param.PageIndex = _pagingOption.pageindex;
+            param.PageSize = _pagingOption.pagesize;
+            param.fromdate = data.FromDate;
+            param.todate = data.ToDate;
+            param.reportby = data.ReportBy;
+            param.showwin = Site.asBool(data.ShowWin);
+            param.showloss = Site.asBool(data.ShowLoss);
+            param.showdraw = Site.asBool(data.ShowDraw);
+            param.odds = data.Odds;
+            param.SportProducts = _checkedSports;
+            param.bettypes = _checkedBettypes;
+            param.username = data.Username;
+            param.currencyid = data.CurrencyId;
+            param.isexportexcel = data.IsExportExcel;
+            param.currencyname = data.CurrencyName;
+            return param;
+        }
+
+        function onGridComplete(grid, gridOption, response) {
+            var reportGrid = $("#" + _selector.GridId);
+            if (CustomerTurnoverOption.hasCustomerComm) {
+                jqGridAdditional.setGroupCustomerWLColumns(reportGrid);
+            }
+            jqGridAdditional.gridComplete();
+            jqGridAdditional.removeCursorOnNonSortableHeader(reportGrid);
+            jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
+            jqGridAdditional.setGroupFooters(CustomerTurnoverOption.totalColspan);
+            resizeGrid();
+        }
+
+        function createPaging(totalRows) {
+            _pagingOption.totalrow = totalRows;
+            if (_pagingOption.totalrow > _pagingOption.pagelist[0]) {
+                $(_pagingOption.elementcontainer).show();
+                PagingHelper.render(_pagingOption);
+            }
+            else {
+                $(_pagingOption.elementcontainer).hide();
+            }
         }
 
         function renderProductTree() {
@@ -153,8 +299,6 @@
                     }
                     /*Load bet types*/
                     loadBettypes();
-                    $(_selector.ProductList).toggleClass("invalid", numberOfCheckedItems === 0);
-                    $(_selector.SubmitButton).prop("disabled", numberOfCheckedItems === 0);
                 }
             });
         }
@@ -228,7 +372,10 @@
 
         function loadBettypes() {
             if (_checkedSports.length === 0) {
+                _bettypes = [];
+                _checkedBettypes = [];
                 renderBetTypeTree([]);
+                checkValidFilter();
                 return;
             }
             var option = {
@@ -241,7 +388,7 @@
                 success: function (response) {
                     _bettypes = response;
                     _checkedBettypes = response;
-                    renderBetTypeTree(response);
+                    renderBetTypeTree();
                 },
                 beforeSend: function () {
                     Site.blockUI();
@@ -256,9 +403,9 @@
             _ajaxRequestGetBettype = $.ajax(option);
         }
 
-        function renderBetTypeTree(data) {
+        function renderBetTypeTree() {
             var dataList = [];
-            $.each(data, function (index, value) {
+            $.each(_bettypes, function (index, value) {
                 var item = {
                     Id: index.ID,
                     Value: value.ID,
@@ -270,12 +417,9 @@
                 };
                 dataList.push(item);
             });
-            var hasCheckedItems = dataList.length > 0;
-            $(_selector.BetTypeList).toggleClass("invalid", !hasCheckedItems);
-            $(_selector.SubmitButton).prop("disabled", !hasCheckedItems);
+            checkValidFilter();
 
             $(_selector.BetTypeMultiSelect).multiSelect({
-                //showCheckAll: true,
                 minWidth: 200,
                 maxHeight: 400,
                 listData: dataList,
@@ -288,8 +432,7 @@
                     for (var i = 0; i < numberOfCheckedItems; i++) {
                         addCheckedBettype(checkedItems[i]);
                     }
-                    $(_selector.BetTypeList).toggleClass("invalid", numberOfCheckedItems === 0);
-                    $(_selector.SubmitButton).prop("disabled", numberOfCheckedItems === 0);
+                    checkValidFilter();
                 },
                 isUsedCustomCheckAllText: true,
                 customCheckAllText: Site.getSingleResource('All'),
@@ -321,16 +464,18 @@
             }
         }
 
-        function checkValidFilter($element) {
+        function checkValidFilter() {
             var validBetType = _checkedBettypes.length > 0;
-            var validTicketFilter = $(_selector.TickerFilter + " input:checked").length > 0;
+
+            var ticketFilter = $(_selector.TickerFilter);
+            var validTicketFilter = ticketFilter.find("input:checked").length > 0;
             var isValid = validBetType && validTicketFilter;
 
-            if ($element.attr("id") === "AllTicket") {
-                isValid = $element.prop("checked") && validBetType;
-            }
+            $(_selector.BetTypeList).toggleClass("invalid", !validBetType);
 
             $(_selector.SubmitButton).prop("disabled", !isValid);
+
+            return isValid;
         }
 
         function handleOddInput(event) {
@@ -371,12 +516,15 @@
 
         var _me = {
             initialize: initialize,
+            initSetting: initSetting,
             initAutoComplete: initAutoComplete,
             initTicketFilter: initTicketFilter,
             initEvent: initEvent,
             initProductTree: initProductTree,
             submit: submit,
-            bindData: bindData
+            bindData: bindData,
+            ajaxPaging: ajaxPaging,
+            exportToExcel: exportToExcel
         };
 
         return _me;

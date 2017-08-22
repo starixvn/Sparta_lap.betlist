@@ -152,7 +152,6 @@
         var customerWlTotalIndex = 12;
 
         var _me = {
-            urlExcelData: "report/CustomerTurnoverExcel",
             urlData: "reportapi/CustomerTurnover",
             hasCustomerComm: false,
             totalColspan: 6,
@@ -162,27 +161,18 @@
                 colNames: [],
                 colModel: [],
                 data: [],
-                height: 'auto',
+                height: '100%',
                 viewrecords: true,
                 autowidth: false,
                 forceFit: false,
                 shrinkToFit: true,
-                minWidth: 800,
                 loadtext: '',
                 loadui: 'disable',
                 loadonce: true,
                 gridview: true,
                 footerrow: true,
-                userDataOnFooter: true,
-                cmTemplate: { title: true }, //enable tooltip
-                userData: [],
-
-                beforeSelectRow: function () {
-                    return false;
-                },
-                onRightClickRow: function () {
-                    return false;
-                }
+                userDataOnFooter: false,
+                userData: []
             }
         };
 
@@ -211,10 +201,11 @@
         };
 
         _me.getGridOption = function () {
-            _me.gridOption.colNames = getColName();
-            _me.gridOption.colModel = getColModel();
+            var option = Site.clone(_me.gridOption);
+            option.colNames = getColName();
+            option.colModel = getColModel();
 
-            return _me.gridOption;
+            return option;
         };
 
         return _me;

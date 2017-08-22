@@ -71,7 +71,10 @@
 
         @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
     </form>
-
-    @Html.Hidden("LicenseeId", Model.Param.LicenseeId)
+    @using (Html.BeginForm("Excel", "CustomerTurnoverReport", FormMethod.Post, new { @id = "CustomerTurnoverForm", accept_charset = "utf-8" }))
+    {
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="excelparam" id="excelparam" />
+    }
     @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
 </div>
