@@ -5,6 +5,7 @@ import parseInput from './utils/parseInput.js';
 import Calendar from './Calendar.js';
 import PredefinedRanges from './PredefinedRanges.js';
 import getTheme, { defaultClasses } from './styles.js';
+import joiningClassNames from 'classnames';
 import { MomentFormat } from './constants';
 
 class DateRange extends Component {
@@ -22,7 +23,7 @@ class DateRange extends Component {
     this.state = {
       range: { startDate, endDate },
       link: linkedCalendars && endDate,
-      styles: this.styles['DateRange']
+      show: false
     }
   }
 
@@ -36,13 +37,11 @@ class DateRange extends Component {
   }
 
   show() {
-    let newStyles = Object.assign({}, this.state.styles, { display: "block" });
-    this.setState({ styles: newStyles });
+    this.setState({ show: true });
   }
 
   hide() {
-    let newStyles = Object.assign({}, this.state.styles, { display: "none" });
-    this.setState({ styles: newStyles });
+    this.setState({ show: false });
   }
 
   componentDidMount() {
@@ -146,12 +145,26 @@ class DateRange extends Component {
     const diff = yearsDiff * 12 + monthsDiff;
     const calendarsCount = Number(calendars) - 1;
 
+    const dateRangeClass = joiningClassNames({
+      [classes.dateRange]: true,
+      [classes.show]: this.state.show,
+      [classes.hide]: !this.state.show
+    });
+
+    const dateRangeStyle = {
+      display: this.state.show ? "block" : "none",
+    }
+
+    const buttonHandlers = {
+      apply: this.handleApply.bind(this),
+      cancel: this.hide.bind(this)
+    }
 
     return (
       <div>
         <input onClick={() => this.show()} onFocus={() => this.show()} readOnly
           name="DateRange" id="DateRange" className="input-text datepicker" type="text" autoComplete="off" value={this.dateRangeText} />
-        <div style={onlyClasses ? undefined : { ...this.state.styles, ...style }} className={classes.dateRange}>
+        <div style={onlyClasses ? undefined : { ...styles['DateRange'], ...style, ...dateRangeStyle }} className={dateRangeClass}>
           {ranges && (
             <PredefinedRanges
               format={format}
@@ -162,7 +175,7 @@ class DateRange extends Component {
               onlyClasses={onlyClasses}
               classNames={classes}
               locale={locale}
-              onApply={() => this.handleApply()} />
+              buttonHandlers={buttonHandlers} />
           )}
 
           {(() => {
@@ -235,6 +248,7 @@ DateRange.propTypes = {
   offsetPositive: PropTypes.bool,
   classNames: PropTypes.object,
   rangedCalendars: PropTypes.bool,
+  onClickApplyButton: PropTypes.func
 }
 
 export default DateRange;

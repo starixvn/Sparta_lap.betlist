@@ -61,7 +61,7 @@ class Calendar extends Component {
     const { onInit } = this.props;
     onInit && onInit(this.state.date);
   }
-  
+
   getShownDate() {
     const { link } = this.props;
 
@@ -109,22 +109,27 @@ class Calendar extends Component {
     });
   }
 
-  renderMonthList(range) {
+  renderMonthList(classes) {
     const m = moment();
+    const { styles } = this;
+    const { onlyClasses } = this.props;
     let monthOptions = [];
     for (let i = 0; i < 12; i++) {
       monthOptions.push(<option key={`month${i}`} value={i}>{m.month(i).format(MomentFormat.monthSelect)}</option>);
     }
 
     return (
-      <select onChange={(e) => this.changeMonth(e.target.value, e)} value={this.state.selectedMonth}>
+      <select style={onlyClasses ? undefined : styles["MonthAndYearSelect"]} className={classes.monthAndYearSelect}
+        onChange={(e) => this.changeMonth(e.target.value, e)} value={this.state.selectedMonth}>
         {monthOptions}
       </select>
     );
   }
 
-  renderYearList() {
+  renderYearList(classes) {
     const m = moment();
+    const { styles } = this;
+    const { onlyClasses } = this.props;
     const currentYear = m.year();
     let yearOptions = [];
     for (let i = 0; i < 10; i++) {
@@ -133,7 +138,8 @@ class Calendar extends Component {
     }
 
     return (
-      <select onChange={this.changeYear.bind(this)} value={this.state.selectedYear}>
+      <select style={onlyClasses ? undefined : styles["MonthAndYearSelect"]} className={classes.monthAndYearSelect}
+        onChange={this.changeYear.bind(this)} value={this.state.selectedYear}>
         {yearOptions}
       </select>
     );
@@ -166,9 +172,9 @@ class Calendar extends Component {
             </button> : null
         }
         <span>
-          <span className={classes.month}>{this.renderMonthList()}</span>
+          <span className={classes.month}>{this.renderMonthList(classes)}</span>
           <span className={classes.monthAndYearDivider}>&nbsp;</span>
-          <span className={classes.year}>{this.renderYearList()}</span>
+          <span className={classes.year}>{this.renderYearList(classes)}</span>
         </span>
         {
           showMonthArrow ?

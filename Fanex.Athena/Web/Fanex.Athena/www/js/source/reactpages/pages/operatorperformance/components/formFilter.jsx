@@ -14,6 +14,11 @@ class FormFilter extends Component {
         }
     }
 
+    handleSelect(date) {
+        console.log(`Start: ${date.startDate.format("MM/DD/YYYY")}`);
+        console.log(`End: ${date.endDate.format("MM/DD/YYYY")}`); // Momentjs object
+    }
+
     _submit() {
         var inputValue = { SelectedCurrency: this.props.SelectedCurrency }
         this.props.fetchData();
@@ -28,10 +33,6 @@ class FormFilter extends Component {
             console.log("Selected: " + JSON.stringify(val));
         }
 
-        function handleSelect(date) {
-            console.log(`Start: ${date.startDate.format("MM/DD/YYYY")}`);
-            console.log(`End: ${date.endDate.format("MM/DD/YYYY")}`); // Momentjs object
-        }
         return (
             <div className="page-filter">
                 <div className="row">
@@ -49,11 +50,11 @@ class FormFilter extends Component {
                     <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                         <div className="form-group">
                             <label className="label-text">Date</label>
-                            
-                            <DateRange minDate='01-02-2017'
+
+                            <DateRange minDate='01-02-2017' onlyClasses={true}
                                 ranges={defaultOptions.ranges}
-                                onClickApplyButton={handleSelect} />
-                            
+                                onClickApplyButton={(date) => this.handleSelect(date)} />
+
                         </div>
                     </div>
 

@@ -1,10 +1,13 @@
 export const defaultClasses = {
+    show: 'rdr-Show',
+    hide: 'rdr-Hide',
     calendar: 'rdr-Calendar',
     dateRange: 'rdr-DateRange',
     predefinedRanges: 'rdr-PredefinedRanges',
     predefinedRangesItem: 'rdr-PredefinedRangesItem',
     predefinedRangesItemActive: 'rdr-PredefinedRangesItemActive',
     monthAndYear: 'rdr-MonthAndYear',
+    monthAndYearSelect: 'rdr-MonthAndYearSelect',
     weekDays: 'rdr-WeekDays',
     weekDay: 'rdr-WeekDay',
     days: 'rdr-Days',
@@ -21,8 +24,8 @@ export const defaultClasses = {
     daySunday: 'rdr-Sunday',
     daySpecialDay: 'rdr-SpecialDay',
     rangeButtonGroup: 'range-button-group',
-    applyButton: 'rdr-applyBtn',
-    cancelButton: 'rdr-cancelBtn'
+    applyButton: 'rdr-Button rdr-ApplyButton',
+    cancelButton: 'rdr-Button rdr-CancelButton'
 };
 
 const defaultTheme = {
@@ -63,7 +66,7 @@ const defaultTheme = {
     },
 
     DayHover: {
-        background: '#bdc3c7',
+        background: 'rgba(78, 184, 94, 0.4)',
     },
 
     DayToday: {},
@@ -79,7 +82,7 @@ const defaultTheme = {
     },
 
     DaySelected: {
-        background: '#e74c3c',
+        background: '#4eb85e',
         color: '#ffffff',
     },
 
@@ -88,7 +91,7 @@ const defaultTheme = {
     DayEndEdge: {},
 
     DayInRange: {
-        background: '#34495e',
+        background: 'rgba(78, 184, 94, 0.2)',
         color: '#95a5a6',
     },
 
@@ -106,23 +109,23 @@ const defaultTheme = {
         textAlign: 'center',
         boxSizing: 'border-box',
         fontSize: 12,
-        padding: '10px 0',
-        height: 38,
+        padding: '5px 0',
+        height: 40,
         lineHeight: '18px'
     },
 
     MonthButton: {
         display: 'block',
         boxSizing: 'border-box',
-        height: 18,
-        width: 18,
+        height: 25,
+        width: 25,
         padding: 0,
         margin: '0 10px',
         border: 'none',
-        background: '#bdc3c7',
         boxShadow: 'none',
         outline: 'none',
-        borderRadius: '50%',
+        background: '#fff',
+        cursor: 'pointer'
     },
 
     MonthArrow: {
@@ -131,20 +134,25 @@ const defaultTheme = {
         height: 0,
         padding: 0,
         margin: 0,
-        border: '4px solid transparent',
+        border: '5px solid transparent',
         textAlign: 'center'
     },
 
     MonthArrowPrev: {
-        borderRightWidth: '6px',
+        borderRightWidth: '7px',
         borderRightColor: '#34495e',
-        marginLeft: 1,
+        marginLeft: 3,
     },
 
     MonthArrowNext: {
-        borderLeftWidth: '6px',
+        borderLeftWidth: '7px',
         borderLeftColor: '#34495e',
-        marginLeft: 7,
+        marginLeft: 10,
+    },
+
+    MonthAndYearSelect: {
+        height: 25,
+        width: 65
     },
 
     PredefinedRanges: {
@@ -170,8 +178,7 @@ const defaultTheme = {
         color: '#fff',
     },
 
-    RangeApplyButton: {
-        marginRight: 'calc(4%)',
+    RangeButton: {
         border: 'none',
         borderRadius: '2px',
         boxShadow: '0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12)',
@@ -184,28 +191,19 @@ const defaultTheme = {
         verticalAlign: 'middle',
         width: '48%',
         color: '#fff',
+    },
+
+    RangeApplyButton: {
+        marginRight: 'calc(4%)',
         backgroundColor: '#f05b1f'
     },
 
     RangeCancelButton: {
-        border: 'none',
-        borderRadius: '2px',
-        boxShadow: '0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12)',
-        height: 25,
-        lineHeight: '25px',
-        textAlign: 'center',
-        letterSpacing: '0.5px',
-        display: 'inline-block',
-        outline: 0,
-        verticalAlign: 'middle',
-        width: '48%',
-        color: '#fff',
         backgroundColor: '#757985'
     }
 };
 
 export default (customTheme = {}) => {
-
     let calendarWidth = defaultTheme.Calendar.width;
     let calendarPadding = defaultTheme.Calendar.padding;
     let cellMargin = defaultTheme.Day.margin || 0;
@@ -265,6 +263,8 @@ export default (customTheme = {}) => {
 
         MonthAndYear: {...defaultTheme.MonthAndYear, ...customTheme.MonthAndYear },
 
+        MonthAndYearSelect: {...defaultTheme.MonthAndYearSelect, ...customTheme.MonthAndYearSelect },
+
         MonthButton: {...defaultTheme.MonthButton, ...customTheme.MonthButton },
 
         MonthArrow: {...defaultTheme.MonthArrow, ...customTheme.MonthArrow },
@@ -279,8 +279,8 @@ export default (customTheme = {}) => {
 
         PredefinedRangesItemActive: {...defaultTheme.PredefinedRangesItemActive, ...customTheme.PredefinedRangesItemActive },
 
-        RangeApplyButton: {...defaultTheme.RangeApplyButton, ...customTheme.RangeApplyButton },
+        RangeApplyButton: {...defaultTheme.RangeButton, ...defaultTheme.RangeApplyButton, ...customTheme.RangeApplyButton },
 
-        RangeCancelButton: {...defaultTheme.RangeCancelButton, ...customTheme.RangeCancelButton }
+        RangeCancelButton: {...defaultTheme.RangeButton, ...defaultTheme.RangeCancelButton, ...customTheme.RangeCancelButton }
     }
 }

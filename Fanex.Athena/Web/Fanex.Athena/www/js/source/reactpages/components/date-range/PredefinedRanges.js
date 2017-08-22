@@ -25,10 +25,9 @@ class PredefinedRanges extends Component {
     });
   }
 
-  handleApply(event) {
+  clickButton(event, action) {
     event.preventDefault();
-
-    this.props.onApply();
+    this.props.buttonHandlers[action]();
   }
 
   renderRangeList(classes) {
@@ -69,17 +68,23 @@ class PredefinedRanges extends Component {
     const { style, onlyClasses, locale } = this.props;
     const locales = { ...defaultOptions.locale, ...locale };
     const { styles } = this;
+    const action = {
+      apply: "apply",
+      cancel: "cancel"
+    }
+
     return (
       <div className={defaultClasses.rangeButtonGroup}>
         <button className={classes.applyButton}
           style={onlyClasses ? undefined : { ...styles['RangeApplyButton'], ...style }}
           type="button"
-          onClick={(e) => this.handleApply(e)}>
+          onClick={(e) => this.clickButton(e, action.apply)}>
           {locales.applyLabel}
         </button>
 
         <button className={classes.cancelButton}
           style={onlyClasses ? undefined : { ...styles['RangeCancelButton'], ...style }}
+          onClick={(e) => this.clickButton(e, action.cancel)}
           type="button">
           {locales.cancelLabel}
         </button>
