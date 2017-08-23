@@ -12,12 +12,13 @@ var CustomerWinLoss = (function ($) {
 
     var _sortColumnName = "";
     var _sortOrder = "desc";
+    var _isFirstLoad = false;
     
     var _pagingOption =
     {
         pageindex: 1,
-        pagesize: 5,
-        pagelist: [5, 10],
+        pagesize: 1000,
+        pagelist: [1000, 2000],
         totalrow: 1,
         elementcontainer: ".paging",
         method: "AJAX",
@@ -26,14 +27,14 @@ var CustomerWinLoss = (function ($) {
     };
 
 
-    function getPostData() {
-        var data = $(FORM_SELECTOR).serializeObject();
-        data.PageIndex = _pagingOption.pageindex;
-        data.PageSize = _pagingOption.pagesize;
-        data.sortColumn = _sortColumnName;
-        data.SortDirection = _sortOrder;
-
-        return data;
+    function buildPostData() {
+        if (!_submitData) {
+            _submitData = $(FORM_SELECTOR).serializeObject();
+        }
+        _submitData.PageIndex = _pagingOption.pageindex;
+        _submitData.PageSize = _pagingOption.pagesize;
+        _submitData.sortColumn = _sortColumnName;
+        _submitData.SortDirection = _sortOrder;
     }
 
     function createPaging(totalRows) {
@@ -56,7 +57,7 @@ var CustomerWinLoss = (function ($) {
                     _sortOrder = "asc";
                     _sortColumnName = index;
                 }
-                CustomerWinLoss.submit(_submitData);
+                CustomerWinLoss.submit();
             }, 100);
         }
     }
@@ -65,9 +66,9 @@ var CustomerWinLoss = (function ($) {
         if (_pagingOption.totalrow <= 0) {
             jqGridAdditional.setNoInfo(gridOption.colModel);
         }
-        else {
-            if (_pagingOption.totalrow > 1) {
-                var reportGrid = $("#" + GRID_ID);
+        else if (_isFirstLoad) {
+            var reportGrid = $("#" + GRID_ID);
+            if (_pagingOption.totalrow > 1) {               
                 var cm = reportGrid[0].p.colModel;
                 $.each(reportGrid[0].grid.headers, function (index, value) {
                     
@@ -76,15 +77,14 @@ var CustomerWinLoss = (function ($) {
                     if (cmi.sortable) {
                         $(".ui-jqgrid-sortable", value.el).css({ cursor: "pointer" }).find(".s-ico").remove();
                     }
-                    if (cmi.index === _sortColumnName && _sortOrder !== "") {
-                        
+                    if (cmi.index === _sortColumnName && _sortOrder !== "") {                     
                         var header = $(".ui-jqgrid-sortable", value.el);
                         header.addClass("sorted-heading");
                         if (_sortOrder === "desc") {
-                            header.append('<span class="sort-desc" style="display: inline; margin: 2px 0px 0px 0px"></span>');
+                            header.append('<span class="sort-desc"></span>');
                         }
                         else {
-                            header.append('<span class="sort-asc" style="display: inline; margin: 2px 0px 0px 0px"></span>');
+                            header.append('<span class="sort-asc"></span>');
                         }
                     }
                 });
@@ -93,7 +93,36 @@ var CustomerWinLoss = (function ($) {
             jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
             jqGridAdditional.setGroupFooters(CustomerWinLossOption.totalColspan);
             jqGridAdditional.resizeGrid();
+            jqGridAdditional.resetLayout(reportGrid);
+            _isFirstLoad = false;
         }
+    }
+
+    function getLicenseeWLNote(productOptionJson) {
+        var resultProducts = getProductList();
+        if (resultProducts.length > 0) {
+            return Site.getSingleResource("LicenseeW_L") + "(" + resultProducts.join(', ') + ")";
+        }
+        return "";
+    }
+
+    function getProductList() {
+        var productCodeList = [];
+        $(".childCheckbox", "#ProductList").each(function (index, element) {
+            var productCode = $(element).attr('data-product-code');
+            if (productCode && $(element).attr("data-original") === 'true') {
+                productCodeList.push(productCode.toUpperCase());
+            }
+        });
+
+        return productCodeList;
+    }
+
+    function resetParam() {
+        _sortColumnName = "ExternalId";
+        _sortOrder = "asc";
+        _pagingOption.pageindex = 1;
+        _submitData = null;
     }
 
     return {
@@ -106,7 +135,6 @@ var CustomerWinLoss = (function ($) {
                 resourceName: "CustomerWL",
                 title: Site.getSingleResource("CustomerWinLoss")
             });
-            CustomerWinLossOption.hasCustomerComm = $("#IsAllowedCustomerCommission").val() === "1";
         },
         initMonthPicker: function () {
             if ($("#IsHistoryReport").val() === "True") {
@@ -142,26 +170,19 @@ var CustomerWinLoss = (function ($) {
                 var month = $('#Month').val();
                 $('#FromDate').val(month - 1 + "/" + fromday + "/" + year);
                 $('#ToDate').val(month - 1 + "/" + today + "/" + year);
-                $("#SortColumn").val("ExternalId");
-                $("#SortDirection").val("ASC");
+                resetParam();
                 $("#CustomerWinlossForm").submit();
                 return false;
             });
 
             $("#SubmitButton").click(function () {
-                Site.blockUI();
-                _pagingOption.pageindex = 1;
-                $('#IsExportExcel').val(false);
-                $("#SortColumn").val("ExternalId");
-                $("#SortDirection").val("ASC");
+                resetParam();
                 CustomerWinLoss.submit();
-                return false;
             });
 
             $('#ExportToExcel').click(function () {
-                var data = getPostData();
-                data.pageSize = $('.pageSizeSelected').val();
-                Site.exportExcel(data, DATA_URL);
+                buildPostData();
+                Site.exportExcel(_submitData, DATA_URL);
                 return false;
             });
 
@@ -181,6 +202,12 @@ var CustomerWinLoss = (function ($) {
             });
         },
 
+        initSetting: function(){
+            CustomerWinLossOption.isAllowBA = Site.asBool($("#IsAllowBA").val());
+            CustomerWinLossOption.isAllowRB = Site.asBool($("#IsAllowRB").val());
+            CustomerWinLossOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
+        },
+
         viewHistoryReport: function () {
             Site.blockUI();
             window.location.href = Site.resolveClientUrl("CustomerWinlossReport/History");
@@ -193,7 +220,7 @@ var CustomerWinLoss = (function ($) {
 
         viewWinlossBetList: function (custId, systemId, externalId) {
             var url = Site.resolveClientUrl("CustomerWinlossBetList/Index");
-            url = Site.setProductOptionOriginalParamList(url);
+            url = QueryString.setParam(url, "ProductCodeList", getProductList());
             url = QueryString.setParam(url, "currencyid", _submitData.CurrencyId);
             url = QueryString.setParam(url, "CurrencyName", _submitData.CurrencyName);
             url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
@@ -214,27 +241,35 @@ var CustomerWinLoss = (function ($) {
                 height: popH + 50
             });
         },
+
         setReportTitle: function () {
-            var titlePattern = "{0}, {1} → {2}, {3}";
+            var titlePattern = "{0}, {1} → {2}, {3}{4}";
+            var licenseeWLNote = getLicenseeWLNote(_submitData.ProductOptions);
             var title = $.format(titlePattern,
                 Site.getSingleResource("CustomerWinLoss"),
-                $("#FromDate").val().toString("M/dd/yyyy"),
-                $("#ToDate").val().toString("M/dd/yyyy"),
+                _submitData.FromDate,
+                _submitData.ToDate,
                 Site.getSingleResource("Viewin").replace("{0}",
-                $("#CurrencyName").val()));
+                _submitData.BaseCurrency === "" ? _submitData.CurrencyName : _submitData.BaseCurrency.toUpperCase()),
+                licenseeWLNote === "" ? "" : ", " + licenseeWLNote);
 
             $("div.report-title").html(title).show();
         },
-        submit: function (data) {
-            if (!data) {
-                data = getPostData();
-                _submitData = data;
+
+        submit: function () {
+            Report.setOriginalProduct();
+
+            var validProduct = Report.ValidProducts();
+            if (!validProduct) {
+                return false;
             }
+
+            buildPostData();
             
             var option =
             {
                 type: "POST",
-                data: data,
+                data: _submitData,
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false,
@@ -244,6 +279,9 @@ var CustomerWinLoss = (function ($) {
                 },
                 beforeSend: function () {
                     Site.blockUI();
+                },
+                complete: function () {
+                    Site.unBlockUI();
                 }
             };
 
@@ -254,15 +292,17 @@ var CustomerWinLoss = (function ($) {
             _ajaxRequest = $.ajax(option);
             return true;
         },
+
         ajaxPaging: function () {
             _pagingOption = PagingHeper.getSetting();
             CustomerWinLoss.submit();
         },
 
         bindData: function (response) {
+            Site.blockUI();
             jqGridAdditional.clearGrid(GRID_ID);
-            
-            CustomerWinLossOption.isAllowBA = response.IsAllowBA;
+            _isFirstLoad = true;
+
             var gridOption = CustomerWinLossOption.getGridOption(response.TotalRows);
             gridOption.data = response.Data;
             gridOption.onSortCol = function (index) {
@@ -294,6 +334,7 @@ $(window).load(function () {
 $(window).resize(function () {
     "use strict";
     jqGridAdditional.resizeGrid();
+    jqGridAdditional.resetLayout($("#ReportGrid"));
 });
 
 $(window).unload(function () {

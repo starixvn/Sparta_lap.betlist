@@ -217,6 +217,7 @@ var CustomerWinLossOption = (function () {
         urlExcelData: "api/CustomerBalanceReport/Index",
         hasCustomerComm: true,
         isAllowBA: true,
+        isAllowRB: true,
         customerCommIndex: 11,
         productBAIndex: 13,
         totalColspan: 3,
@@ -273,6 +274,11 @@ var CustomerWinLossOption = (function () {
         getColModel: function (totalRows) {
             customerWlColumn.hidden = !me.hasCustomerComm;
             playerCommColumn.hidden = !me.hasCustomerComm;
+            bacommColumn.hidden = !me.isAllowBA;
+            amtDueToBAColumn.hidden = !me.isAllowBA;
+            racingRevenueColumn.hidden = !me.isAllowRB;
+            amtDueToRacingColumn.hidden = !me.isAllowRB;
+
             var colModels = Site.clone(colModelList);
 
             if (totalRows <= 1) {

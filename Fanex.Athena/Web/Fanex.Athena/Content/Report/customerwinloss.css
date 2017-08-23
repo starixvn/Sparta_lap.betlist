@@ -3,3 +3,13 @@
     font-weight: normal !important;
     color: #1E1EEB !important;
 }
+
+.grandTotal td {
+    background-color: #b2dfef;
+}
+
+.sort-desc, .sort-asc {
+    display: inline;
+    top: 2px;
+    margin-left: 3px;
+}
