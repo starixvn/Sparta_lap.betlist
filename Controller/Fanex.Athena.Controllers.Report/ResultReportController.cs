@@ -131,8 +131,9 @@ namespace Fanex.Athena.Controllers.Report
 
                 if (_excelStream == null)
                 {
-                    _excelStream = ExportNoneData(metalModel);                  
+                    _excelStream = ExportNoneData(metalModel);
                 }
+
                 _excelStream.WriteTo(response.OutputStream);
 
                 response.Flush();
