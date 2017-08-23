@@ -25,10 +25,8 @@ const store = configureStore({});
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    console.log("init");
   }
   componentDidMount() {
-    console.log("hello");
   }
 
   render() {

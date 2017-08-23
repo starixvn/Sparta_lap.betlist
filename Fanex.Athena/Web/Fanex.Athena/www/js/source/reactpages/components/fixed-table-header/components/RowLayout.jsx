@@ -1,18 +1,20 @@
-﻿import React, { Component } from 'react';
+import React, { Component } from 'react';
 
 class RowLayout extends Component {
     constructor(props) {
         super(props)
     }
 
-    render() {
-        const cells = this.props.layoutConfig.map((cellWidth, index) => {
+    _getRowLayout() {
+        return this.props.columnLayout.map((cellWidth, index) => {
             return (<td key={`cellLayout${index}`} style={{ width: cellWidth + 'px' }}></td>);
         });
+    }
 
+    render() {
         return (
             <tr className="first-row">
-                {cells}
+                {this._getRowLayout()}
             </tr>
         );
     }

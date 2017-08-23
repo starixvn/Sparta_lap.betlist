@@ -1,4 +1,4 @@
-﻿import React, { Component } from 'react';
+import React, { Component } from 'react';
 
 class Cell extends Component {
     constructor(props) {
@@ -7,7 +7,7 @@ class Cell extends Component {
 
     render() {
         return (
-            <td>{this.props.children}</td>
+            <td {...this.props}>{this.props.children}</td>
         );
     }
 }

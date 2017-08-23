@@ -2,22 +2,109 @@
 import { connect } from 'react-redux';
 import { ActionCreators } from '../actions/index.js';
 import { bindActionCreators } from 'redux';
-import FixedTableHeader from 'components/fixed-table-header/FixedTableHeader'
+import FixedTable from 'components/fixed-table-header/FixedTable';
+import FakeData from '../fakeData';
 
-const headers = ["Col 1", "Col 2", "Col 3"];
-const data = [{Id: 0, Name: "A", Age: 20}, {Id: 1, Name: "B", Age: 210}, {Id: 2, Name: "C", Age: 201}];
-const layoutConfig = [100, 200, 300];
-
-const config = {headers, data, layoutConfig};
+const columnLayout = [300, 100, 150, 150, 200, 200, 200];
+const { Table, Header, Body, Footer, Row, Cell } = FixedTable;
+const { headers, data, totalData, grantTotal } = FakeData;
 
 class DataGrid extends Component {
     constructor(props) {
         super(props);
     }
 
+    get header() {
+        return (
+            <Row>
+                <th>Operator</th>
+                <th>Currency</th>
+                <th>Products</th>
+                <th>Bet Count</th>
+                <th>Turnover</th>
+                <th>Customer Win Loss</th>
+                <th>Operator WL/Comm</th>
+            </Row>
+        )
+    }
+
+    get body() {
+        let rows = [];
+        for (let i = 0; i < data.length; i++) {
+            const item = data[i];
+            const rowSpan = item.Details.length;
+
+            let isFirstRow = true;
+            for (let j = 0; j < item.Details.length; j++) {
+                const detail = item.Details[j];
+                rows.push(
+                    <Row key={`tr${i}${j}`}>
+                        {isFirstRow ? <Cell rowSpan={rowSpan}>{item.Operator}</Cell> : undefined}
+                        {isFirstRow ? <Cell rowSpan={rowSpan}>{item.Currency}</Cell> : undefined}
+                        <Cell>{detail.Products}</Cell>
+                        <Cell>{detail.BetCount}</Cell>
+                        <Cell>{detail.Turnover}</Cell>
+                        <Cell>{detail.CustomerWinLoss}</Cell>
+                        <Cell className="right-align">{detail.OperatorWinLoss}</Cell>
+                    </Row>
+                );
+
+                isFirstRow = false;
+            }
+        }
+
+        return rows;
+    }
+
+    get footer() {
+        return totalData.map((item, index) => {
+            return (
+                <Row className="fixed-table-total" key={`total${index}`}>
+                    <Cell>{`Total ${item.Operator}`}</Cell>
+                    <Cell>{`Based ${item.Based}`}</Cell>
+                    <Cell></Cell>
+                    <Cell>{item.BetCount}</Cell>
+                    <Cell>{item.Turnover}</Cell>
+                    <Cell>{item.CustomerWinLoss}</Cell>
+                    <Cell className="right-align">{item.OperatorWinLoss}</Cell>
+                </Row>
+            )
+        })
+    }
+
+    get grantTotal() {
+        return (
+            <Row className="fixed-table-grant-total" key="grantTotal">
+                <Cell>Total</Cell>
+                <Cell>{`Based ${grantTotal.Based}`}</Cell>
+                <Cell></Cell>
+                <Cell>{grantTotal.BetCount}</Cell>
+                <Cell>{grantTotal.Turnover}</Cell>
+                <Cell>{grantTotal.CustomerWinLoss}</Cell>
+                <Cell className="right-align">{grantTotal.OperatorWinLoss}</Cell>
+            </Row>
+        )
+    }
+
     render() {
         return (
-            <FixedTableHeader dataConfig={config} />
+            <Table
+                columnLayout={columnLayout}
+                {...this.props}>
+
+                <Header>
+                    {this.header}
+                </Header>
+
+                <Body>
+                    {this.body}
+                </Body>
+
+                <Footer>
+                    {this.footer}
+                    {this.grantTotal}
+                </Footer>
+            </Table>
         );
     }
 }

@@ -1,13 +1,18 @@
-﻿import React, { Component } from 'react';
+import React, { Component } from 'react';
+import TableSection from './TableSection';
 
 class Header extends Component {
     constructor(props) {
-        super(props)
+        super(props);
     }
 
     render() {
         return (
-            <th>{this.props.children}</th>
+            <TableSection className="header-content" {...this.props}>
+                <thead>
+                    {this.props.children}
+                </thead>
+            </TableSection>
         );
     }
 }

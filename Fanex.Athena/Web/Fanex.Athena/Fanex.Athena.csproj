@@ -773,16 +773,18 @@
     <Content Include="www\js\source\reactpages\components\date-range\styles.js" />
     <Content Include="www\js\source\reactpages\components\date-range\utils\parseInput.js" />
     <Content Include="www\css\source\reactpages\components\custom3rd\_date-range.scss" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Body.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Footer.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Header.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
-    <None Include="www\js\source\reactpages\components\fixed-table-header\components\TableContent.jsx" />
-    <None Include="www\js\source\reactpages\components\fixed-table-header\components\TableHeader.jsx" />
-    <None Include="www\js\source\reactpages\components\fixed-table-header\FixedTableHeader.jsx" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Table.jsx" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\FixedTable.jsx" />
     <Content Include="www\js\source\reactpages\layouts\AppLayout.jsx" />
     <Content Include="www\js\source\reactpages\lib\langHelper.js" />
     <Content Include="www\js\source\reactpages\pages\operatorperformance\actions\dataHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\operatorperformance\fakeData.js" />
     <Content Include="www\js\source\reactpages\pages\operatorperformance\reducers\dataHandlerReducer.js" />
     <Content Include="www\webpackconfig\config\aliasReact.js" />
     <Content Include="www\webpackconfig\config\pathReact.js" />
@@ -2399,6 +2401,7 @@
     <Content Include="www\js\build\dev\reactpages\lib\langHelper.chunk.js.map" />
     <Content Include="www\css\source\reactpages\components\date-range\styles.scss" />
     <Content Include="www\css\source\reactpages\pages\operatorperformance\index.scss" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\TableSection.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
