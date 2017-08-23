@@ -139,7 +139,7 @@ namespace Fanex.Athena.Controllers.Report
                 response.Flush();
             }
 
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ViewResources.InvalidParams);
+            return null;
         }
 
         [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
