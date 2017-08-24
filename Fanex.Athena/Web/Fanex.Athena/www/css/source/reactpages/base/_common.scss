@@ -1,14 +1,15 @@
 ﻿@import "../abstracts/variables";
+
 html {
+    font-family: "Roboto", sans-serif;
     font-size: 62.5%;
-    height: 100%;
+    height: auto;
 }
 
 body {
     background: $bgBody;
     font-size: $font-size;
     color: $black;
-    height: 100%;
 }
 
 * {
@@ -21,6 +22,10 @@ a {
     text-decoration: none;
 }
 
+.wrapper {
+    position: relative;
+}
+
 .container {
     padding-right: 15px;
     padding-left: 15px;
@@ -28,6 +33,14 @@ a {
     margin-left: auto;
 }
 
-.text-center {
+.center-align {
     text-align: center;
+}
+
+.left-align {
+    text-align: left;
+}
+
+.right-align {
+    text-align: right;
 }

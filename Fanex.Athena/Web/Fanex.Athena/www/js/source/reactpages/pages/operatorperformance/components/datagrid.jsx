@@ -40,11 +40,11 @@ class DataGrid extends Component {
                 rows.push(
                     <Row key={`tr${i}${j}`}>
                         {isFirstRow ? <Cell rowSpan={rowSpan}>{item.Operator}</Cell> : undefined}
-                        {isFirstRow ? <Cell rowSpan={rowSpan}>{item.Currency}</Cell> : undefined}
-                        <Cell>{detail.Products}</Cell>
-                        <Cell>{detail.BetCount}</Cell>
-                        <Cell>{detail.Turnover}</Cell>
-                        <Cell>{detail.CustomerWinLoss}</Cell>
+                        {isFirstRow ? <Cell rowSpan={rowSpan} className="center-align">{item.Currency}</Cell> : undefined}
+                        <Cell className="center-align">{detail.Products}</Cell>
+                        <Cell className="right-align">{detail.BetCount}</Cell>
+                        <Cell className="right-align">{detail.Turnover}</Cell>
+                        <Cell className="right-align">{detail.CustomerWinLoss}</Cell>
                         <Cell className="right-align">{detail.OperatorWinLoss}</Cell>
                     </Row>
                 );
@@ -63,9 +63,9 @@ class DataGrid extends Component {
                     <Cell>{`Total ${item.Operator}`}</Cell>
                     <Cell>{`Based ${item.Based}`}</Cell>
                     <Cell></Cell>
-                    <Cell>{item.BetCount}</Cell>
-                    <Cell>{item.Turnover}</Cell>
-                    <Cell>{item.CustomerWinLoss}</Cell>
+                    <Cell className="right-align">{item.BetCount}</Cell>
+                    <Cell className="right-align">{item.Turnover}</Cell>
+                    <Cell className="right-align">{item.CustomerWinLoss}</Cell>
                     <Cell className="right-align">{item.OperatorWinLoss}</Cell>
                 </Row>
             )
@@ -78,9 +78,9 @@ class DataGrid extends Component {
                 <Cell>Total</Cell>
                 <Cell>{`Based ${grantTotal.Based}`}</Cell>
                 <Cell></Cell>
-                <Cell>{grantTotal.BetCount}</Cell>
-                <Cell>{grantTotal.Turnover}</Cell>
-                <Cell>{grantTotal.CustomerWinLoss}</Cell>
+                <Cell className="right-align">{grantTotal.BetCount}</Cell>
+                <Cell className="right-align">{grantTotal.Turnover}</Cell>
+                <Cell className="right-align">{grantTotal.CustomerWinLoss}</Cell>
                 <Cell className="right-align">{grantTotal.OperatorWinLoss}</Cell>
             </Row>
         )
@@ -96,7 +96,7 @@ class DataGrid extends Component {
                     {this.header}
                 </Header>
 
-                <Body>
+                <Body id="content1" style={{ maxHeight: 500 }}>
                     {this.body}
                 </Body>
 

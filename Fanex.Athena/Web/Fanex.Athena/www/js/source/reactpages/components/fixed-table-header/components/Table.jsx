@@ -1,5 +1,9 @@
 import React, { Component, Children } from 'react';
+import ReactDOM from 'react-dom';
 import RowLayout from './RowLayout';
+import PropTypes from 'prop-types';
+import Body from './Body';
+import Footer from './Footer';
 
 class Table extends Component {
     constructor(props) {
@@ -13,6 +17,7 @@ class Table extends Component {
 
             const newChild = {
                 props: {
+                    ...child.props,
                     children: [layoutRow, ...rows]
                 }
             };
@@ -28,6 +33,10 @@ class Table extends Component {
             </div>
         )
     }
+}
+
+Table.propTypes = {
+    columnLayout: PropTypes.arrayOf(PropTypes.number, PropTypes.string).isRequired
 }
 
 export default Table;

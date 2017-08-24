@@ -774,6 +774,7 @@
     <Content Include="www\js\source\reactpages\components\date-range\utils\parseInput.js" />
     <Content Include="www\css\source\reactpages\components\custom3rd\_date-range.scss" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Body.jsx" />
+    <Content Include="www\css\source\reactpages\fonts\roboto\_style.scss" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Footer.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Header.jsx" />

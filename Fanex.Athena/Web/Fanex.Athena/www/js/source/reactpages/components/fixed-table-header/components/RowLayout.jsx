@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class RowLayout extends Component {
     constructor(props) {
@@ -7,7 +8,9 @@ class RowLayout extends Component {
 
     _getRowLayout() {
         return this.props.columnLayout.map((cellWidth, index) => {
-            return (<td key={`cellLayout${index}`} style={{ width: cellWidth + 'px' }}></td>);
+            const width = Number(cellWidth) === NaN ? cellWidth : `${cellWidth}px`;
+
+            return (<td key={`cellLayout${index}`} style={{ width: width }}></td>);
         });
     }
 
@@ -18,6 +21,10 @@ class RowLayout extends Component {
             </tr>
         );
     }
+}
+
+RowLayout.propTypes = {
+    columnLayout: PropTypes.arrayOf(PropTypes.number, PropTypes.string).isRequired
 }
 
 export default RowLayout;

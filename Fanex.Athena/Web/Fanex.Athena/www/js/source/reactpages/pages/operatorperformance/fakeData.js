@@ -54,6 +54,22 @@ const data = [{
     }
 ];
 
+for (let i = 0; i < 100; i++) {
+    data.push({
+        Id: 2,
+        Operator: "New York",
+        Currency: "USD",
+
+        Details: [{
+            Products: "All",
+            BetCount: 50,
+            Turnover: "100,000.00",
+            CustomerWinLoss: "10,000",
+            OperatorWinLoss: "-10,000"
+        }]
+    })
+}
+
 const totalData = [{
         Operator: "New York",
         Based: "EUR",

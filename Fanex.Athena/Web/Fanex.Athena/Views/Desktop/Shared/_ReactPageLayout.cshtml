@@ -26,7 +26,9 @@
 <body>
     @Html.AntiForgeryToken()
    
-      @RenderBody()
+    <div class="wrapper">
+        @RenderBody()
+    </div>
  
     <script type="text/javascript">
         var PageLanguage ="@System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag";

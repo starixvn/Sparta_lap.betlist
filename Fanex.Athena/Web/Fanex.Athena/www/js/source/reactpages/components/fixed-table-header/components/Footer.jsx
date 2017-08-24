@@ -6,6 +6,7 @@ class Body extends Component {
         super(props);
     }
 
+
     render() {
         return (
             <TableSection className="footer-content" {...this.props}>
