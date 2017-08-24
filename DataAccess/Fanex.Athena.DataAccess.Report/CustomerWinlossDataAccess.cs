@@ -100,7 +100,8 @@ namespace Fanex.Athena.DataAccess.Report
                 + reader.ToDecimal("sumcommrb" + baseCurrency),
                 AmtDueToBA = reader.ToDecimal("sumamtduetoba" + baseCurrency),
                 AmtDueToRacing = reader.ToDecimal("sumamtduetorb" + baseCurrency),
-                BetEffective = reader.ToDecimal("sumbeteffective" + baseCurrency)
+                BetEffective = reader.ToDecimal("sumbeteffective" + baseCurrency),
+                CustomerTotalWL = reader.ToDecimal("summemberwinlost" + baseCurrency) + reader.ToDecimal("sumplayercomm" + baseCurrency)
             };
         }
     }

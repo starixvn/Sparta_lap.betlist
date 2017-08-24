@@ -65,8 +65,11 @@ var CustomerWinLossOption = (function () {
         align: "right",
         sortable: true,
         resizable: false,
-        formatter: "currency",
-        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+        formatter: "integer",
+        formatoptions:
+        {
+            thousandsSeparator: ","
+        }
     };
 
     var customerWlColumn =
@@ -123,8 +126,7 @@ var CustomerWinLossOption = (function () {
         align: "right",
         sortable: true,
         resizable: false,
-        formatter: "currency",
-        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+        formatter: jqGridAdditional.formatLicenseeWl
     };
 
     var bacommColumn =
@@ -200,7 +202,7 @@ var CustomerWinLossOption = (function () {
         systemIdColumn,
         turnoverColumn,
         totalTransactionColumn,
-        customerWlColumn, 
+        customerWlColumn,
         playerCommColumn,
         customerWlTotalColumn,
         betEffectiveColumn,
@@ -245,6 +247,9 @@ var CustomerWinLossOption = (function () {
         },
 
         getGridOption: function (totalRows) {
+            me.gridOption.shrinkToFit = totalRows <= 0
+                || (!me.hasCustomerComm && !(me.isAllowBA && me.isAllowRB))
+                || (me.hasCustomerComm && !me.isAllowBA && !me.isAllowRB);
             me.gridOption.colNames = me.getColName();
             me.gridOption.colModel = me.getColModel(totalRows);
             return Site.clone(me.gridOption);

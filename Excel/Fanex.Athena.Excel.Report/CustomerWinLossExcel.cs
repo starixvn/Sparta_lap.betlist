@@ -51,7 +51,7 @@ namespace Fanex.Athena.Excel.Report
             CustomerWinLossMetaModel metaModel,
             IEnumerable<CustomerWinLoss> dataList,
             CustomerWinLoss totalData)
-            : base(templatePath, showingOption, convertingOption)
+            : base(templatePath, showingOption, convertingOption, metaModel.PageSize)
         {
             _metaModel = metaModel;
             _customerWinlossList = dataList;

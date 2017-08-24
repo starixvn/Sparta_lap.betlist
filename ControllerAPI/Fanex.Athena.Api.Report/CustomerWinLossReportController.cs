@@ -17,7 +17,6 @@
     [ApiFunctionAuthorization(PermissionKeys.ReportCustomerWinLoss)]
     public class CustomerWinLossReportController : ApiReportBaseController
     {
-        private const int PageSizeExcel = int.MaxValue - 1000;
         private readonly ICustomerWinlossService _customerWinLossService;
 
         public CustomerWinLossReportController()
@@ -33,15 +32,9 @@
 
         private dynamic ProcessRequest(CustomerWinLossMetaModel metaModel)
         {
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludedTestData);
             CustomerWinLoss totalData;
             int totalRows;
-            var custWinlossService = new CustomerWinlossService();
-            var dataList = custWinlossService.GetDataList(metaModel, out totalData, out totalRows);
-            if (!string.IsNullOrEmpty(metaModel.SortColumn))
-            {
-                dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
-            }
+            var dataList = this.GetData(metaModel, out totalData, out totalRows);
 
             var index = 1;
             foreach (var item in dataList)
@@ -89,8 +82,6 @@
 
             CustomerWinLoss totalData;
             var totalRows = 0;
-            metaModel.PageIndex = 1;
-            metaModel.PageSize = PageSizeExcel;
             var dataList = GetData(metaModel, out totalData, out totalRows);
 
             var excel = new CustomerWinLossExcel(templatePath, showingOption, convertingOption, metaModel, dataList, totalData);
@@ -102,7 +93,13 @@
         private SortableList<CustomerWinLoss> GetData(CustomerWinLossMetaModel metaModel, out CustomerWinLoss totalData, out int totalRow)
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludedTestData);
-            return _customerWinLossService.GetDataList(metaModel, out totalData, out totalRow);
+            var dataList = _customerWinLossService.GetDataList(metaModel, out totalData, out totalRow);
+            if (!string.IsNullOrEmpty(metaModel.SortColumn))
+            {
+                dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
+            }
+
+            return dataList;
         }
     }
 }

@@ -1,10 +1,10 @@
-﻿/*global Site, QueryString, ProductListHelper*/
+﻿/*global Site, QueryString, ProductListHelper, PagingHeper, jqGridAdditional, CustomerWinLossOption, Report*/
 /// <reference path="/@JSense.js" />
 var CustomerWinLoss = (function ($) {
     "use strict";
 
     var DATA_URL = "api/CustomerWinLossReport/Index";
-    var FORM_SELECTOR = "#MainForm";
+    var FORM_SELECTOR = "#CustomerWinlossForm";
     var GRID_ID = "ReportGrid";
 
     var _ajaxRequest = null;
@@ -13,7 +13,7 @@ var CustomerWinLoss = (function ($) {
     var _sortColumnName = "";
     var _sortOrder = "desc";
     var _isFirstLoad = false;
-    
+
     var _pagingOption =
     {
         pageindex: 1,
@@ -25,7 +25,6 @@ var CustomerWinLoss = (function ($) {
         ajaxfunction: "CustomerWinLoss.ajaxPaging()",
         alwayshow: true
     };
-
 
     function buildPostData() {
         if (!_submitData) {
@@ -68,16 +67,15 @@ var CustomerWinLoss = (function ($) {
         }
         else if (_isFirstLoad) {
             var reportGrid = $("#" + GRID_ID);
-            if (_pagingOption.totalrow > 1) {               
+            if (_pagingOption.totalrow > 1) {
                 var cm = reportGrid[0].p.colModel;
                 $.each(reportGrid[0].grid.headers, function (index, value) {
-                    
                     var cmi = cm[index];
-                    
+
                     if (cmi.sortable) {
                         $(".ui-jqgrid-sortable", value.el).css({ cursor: "pointer" }).find(".s-ico").remove();
                     }
-                    if (cmi.index === _sortColumnName && _sortOrder !== "") {                     
+                    if (cmi.index === _sortColumnName && _sortOrder !== "") {
                         var header = $(".ui-jqgrid-sortable", value.el);
                         header.addClass("sorted-heading");
                         if (_sortOrder === "desc") {
@@ -92,13 +90,15 @@ var CustomerWinLoss = (function ($) {
 
             jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
             jqGridAdditional.setGroupFooters(CustomerWinLossOption.totalColspan);
+            if (gridOption.shrinkToFit) {
+                jqGridAdditional.resetLayout(reportGrid);
+            }
             jqGridAdditional.resizeGrid();
-            jqGridAdditional.resetLayout(reportGrid);
             _isFirstLoad = false;
         }
     }
 
-    function getLicenseeWLNote(productOptionJson) {
+    function getLicenseeWLNote() {
         var resultProducts = getProductList();
         if (resultProducts.length > 0) {
             return Site.getSingleResource("LicenseeW_L") + "(" + resultProducts.join(', ') + ")";
@@ -129,6 +129,7 @@ var CustomerWinLoss = (function ($) {
         initialize: function () {
             ProductListHelper.initProductList();
             CustomerWinLoss.initEvent();
+            CustomerWinLoss.initSetting();
             CustomerWinLoss.initMonthPicker();
             Site.addFilterCollapseExpand();
             Site.addUserGuide({
@@ -137,7 +138,7 @@ var CustomerWinLoss = (function ($) {
             });
         },
         initMonthPicker: function () {
-            if ($("#IsHistoryReport").val() === "True") {
+            if ($("#IsHistory").val() === "True") {
                 $('#DateControl').monPickr({
                     minDate: Site.getHistoryDate(),
                     showDateRange: true,
@@ -162,16 +163,14 @@ var CustomerWinLoss = (function ($) {
         },
         initEvent: function () {
             $("#SubmitHistoryButton").click(function () {
-                Site.blockUI();
-                $('#IsExportExcel').val(false);
                 var fromday = $('#FromDay').val();
                 var today = $('#ToDay').val();
                 var year = $('#Year').val();
                 var month = $('#Month').val();
-                $('#FromDate').val(month - 1 + "/" + fromday + "/" + year);
-                $('#ToDate').val(month - 1 + "/" + today + "/" + year);
+                $('#FromDate').val(month + "/" + fromday + "/" + year);
+                $('#ToDate').val(month + "/" + today + "/" + year);
                 resetParam();
-                $("#CustomerWinlossForm").submit();
+                CustomerWinLoss.submit();
                 return false;
             });
 
@@ -182,7 +181,7 @@ var CustomerWinLoss = (function ($) {
 
             $('#ExportToExcel').click(function () {
                 buildPostData();
-                Site.exportExcel(_submitData, DATA_URL);
+                Site.exportExcel(_submitData, Site.resolveClientUrl(DATA_URL));
                 return false;
             });
 
@@ -202,9 +201,9 @@ var CustomerWinLoss = (function ($) {
             });
         },
 
-        initSetting: function(){
-            CustomerWinLossOption.isAllowBA = Site.asBool($("#IsAllowBA").val());
-            CustomerWinLossOption.isAllowRB = Site.asBool($("#IsAllowRB").val());
+        initSetting: function () {
+            CustomerWinLossOption.isAllowBA = Site.asBool($("#IsAllowedBA").val());
+            CustomerWinLossOption.isAllowRB = Site.asBool($("#IsAllowedRB").val());
             CustomerWinLossOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
         },
 
@@ -265,7 +264,7 @@ var CustomerWinLoss = (function ($) {
             }
 
             buildPostData();
-            
+
             var option =
             {
                 type: "POST",
@@ -313,7 +312,6 @@ var CustomerWinLoss = (function ($) {
                 onGridComplete(this, gridOption, response);
                 Site.unBlockUI();
             };
-            gridOption.shrinkToFit = response.TotalRows <= 0;
 
             CustomerWinLoss.setReportTitle();
             createPaging(response.TotalRows);
@@ -329,12 +327,10 @@ var CustomerWinLoss = (function ($) {
 $(window).load(function () {
     "use strict";
     CustomerWinLoss.initialize();
-    jqGridAdditional.resizeGrid();
 });
 $(window).resize(function () {
     "use strict";
     jqGridAdditional.resizeGrid();
-    jqGridAdditional.resetLayout($("#ReportGrid"));
 });
 
 $(window).unload(function () {

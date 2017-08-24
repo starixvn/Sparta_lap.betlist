@@ -5,6 +5,7 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
+    using System;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -20,12 +21,24 @@ namespace Fanex.Athena.Controllers.Report
         [HttpGet]
         public ActionResult Index()
         {
+            return GetView(false);
+        }
+
+        [HttpGet]
+        public ActionResult History()
+        {
+            return GetView(true);
+        }
+
+        private ActionResult GetView(bool isHistory)
+        {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var metaModel = new CustomerWinLossMetaModel
             {
                 DrawFilter = DrawFilterType.Normal,
-                IsExcludedTestData = true
+                IsExcludedTestData = true,
+                FromDate = isHistory ? new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1) : DateTime.Today
             };
 
             SetConvetedUSDCurrencyName(metaModel);
@@ -47,7 +60,7 @@ namespace Fanex.Athena.Controllers.Report
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 CurrencyList = userSession.CurrencyList,
                 Param = metaModel,
-                IsHistory = false,
+                IsHistory = isHistory,
                 ProductAccess = productAccess
             };
 

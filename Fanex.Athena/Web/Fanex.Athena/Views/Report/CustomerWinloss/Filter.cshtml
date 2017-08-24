@@ -8,15 +8,8 @@
     var appSettings = new AppSettings();
 }
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
-    @using (Html.BeginForm("Index", "CustomerWinLossReport", FormMethod.Post, new { @id = "MainForm" }))
-    {
+    <form id="CustomerWinlossForm" action="post">
         @Html.AntiForgeryToken()
-        <div>
-            @Html.Hidden("IsHistory", Model.IsHistory)
-            @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
-            @Html.Hidden("IsAllowedBA", Model.ProductAccess.IsAllowBA)
-            @Html.Hidden("IsAllowedRB", Model.ProductAccess.IsAllowRB)
-        </div>
         @DatePickerHelper.RenderDateRangePicker(modelParam.FromDate, modelParam.ToDate, minDate, appSettings.MaxDate, "", "", 2, 3, 2, 3)
         <div class="new-line">
         </div>
@@ -30,8 +23,8 @@
         <div class="grid_3 filter-label">
             <label for="BaseCurrency">
                 @ViewResources.Based
-        </label>
-    </div>
+            </label>
+        </div>
         <div class="grid_1 filter-input">
             @RazorHelper.BasedCurrency()
         </div>
@@ -69,18 +62,20 @@
         </div>
         <div class="grid_15 filter-input">
             <div class="note-message">
-                @string.Format(ViewResources.HistoricalReportDateRangeNote, minDate), <a href="javascript:;"
-                                                                                         id="history-report-link" style="text-decoration: none;">@ViewResources.ToViewHistoryRptMsg</a>
-                                                                                    </div>
-                                                                                </div>
+                @string.Format(ViewResources.HistoricalReportDateRangeNote, minDate),
+                <a href="javascript:;" id="history-report-link" style="text-decoration: none;">@ViewResources.ToViewHistoryRptMsg</a>
+            </div>
+        </div>
 
-                                                                                <div class="grid_2 filter-label new-line">
-                                                                                    &nbsp;
-                                                                                </div>
-                                                                                <div class="grid_2 filter-input">
-                                                                                    <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
-                                                                                </div>
-                                                                                @*End Row 4*@
-
-    }
+        <div class="grid_2 filter-label new-line">
+            &nbsp;
+        </div>
+        <div class="grid_2 filter-input">
+            <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+        </div>
+        @*End Row 4*@
+    </form>
+    @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
+    @Html.Hidden("IsAllowedBA", Model.ProductAccess.IsAllowBA)
+    @Html.Hidden("IsAllowedRB", Model.ProductAccess.IsAllowRB)
 </div>
