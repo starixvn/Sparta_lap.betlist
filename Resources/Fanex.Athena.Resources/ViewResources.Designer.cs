@@ -1231,6 +1231,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to China.
+        /// </summary>
+        public static string China {
+            get {
+                return ResourceManager.GetString("China", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choice.
         /// </summary>
         public static string Choice {
@@ -4993,15 +5002,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to China.
-        /// </summary>
-        public static string NewAsia {
-            get {
-                return ResourceManager.GetString("NewAsia", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to New Group.
         /// </summary>
         public static string NewGroup {
@@ -7122,6 +7122,15 @@ namespace Fanex.Athena.Resources {
         public static string SystemParlayDetailNote {
             get {
                 return ResourceManager.GetString("SystemParlayDetailNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tablet.
+        /// </summary>
+        public static string Tablet {
+            get {
+                return ResourceManager.GetString("Tablet", resourceCulture);
             }
         }
         

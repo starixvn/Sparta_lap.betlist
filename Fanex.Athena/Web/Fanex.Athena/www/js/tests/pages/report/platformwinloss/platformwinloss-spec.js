@@ -67,14 +67,14 @@
 
                     expect(Site.getSingleResource).toHaveBeenCalledWith("All");
                     expect(Site.getSingleResource).toHaveBeenCalledWith("Asia");
-                    expect(Site.getSingleResource).toHaveBeenCalledWith("NewAsia");
+                    expect(Site.getSingleResource).toHaveBeenCalledWith("China");
                     expect(Site.getSingleResource).toHaveBeenCalledWith("Euro");
                     expect(Site.getSingleResource).toHaveBeenCalledWith("Wap");
                     expect(Site.getSingleResource).toHaveBeenCalledWith("SmartSite");
                 });
 
                 it("PlatformWinLossOption.hasCustomerComm should be assigned data from #IsAllowedCustomerCommission.", function () {
-                    var $input = setFixtures('<input id="IsAllowedCustomerCommission" value="true">');
+                    setFixtures('<input id="IsAllowedCustomerCommission" value="true">');
 
                     PlatformWinLoss.initialize();
 

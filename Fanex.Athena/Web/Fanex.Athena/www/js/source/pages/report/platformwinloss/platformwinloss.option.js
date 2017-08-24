@@ -382,7 +382,9 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
             },
 
             getColModel: function (level, productOptions) {
-                var customerWL = _me.hasCustomerComm ? columnConfigCustomerComm.colsCustomerComm.colModels : columnConfigCustomerComm.colsWithoutComm.colModels;
+                var customerWL =  Site.clone(_me.hasCustomerComm ? 
+                    columnConfigCustomerComm.colsCustomerComm.colModels : 
+                    columnConfigCustomerComm.colsWithoutComm.colModels);
 
                 if (level === 0) {
                     var colModels = getColConfigLevel0(Site.clone(columnConfigLevel0.colModels), customerWL);

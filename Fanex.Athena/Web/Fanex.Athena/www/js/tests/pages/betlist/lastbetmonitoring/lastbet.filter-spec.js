@@ -746,11 +746,11 @@
 
             describe("initPlatForm()", function () {
                 beforeEach(function () {
-                    setFixtures('<input id="bet-form" value="1" />');
+                    setFixtures('<input id="bet-from" value="1" />');
                     spyOn(LastBetFilter, "changeFilterParam");
 
                     LastBetFilter.initPlatForm();
-                    $('#bet-form').change();
+                    $('#bet-from').change();
                 });
 
                 it("LastBetFilter.changeFilterParam() should be called with correct parameter", function () {

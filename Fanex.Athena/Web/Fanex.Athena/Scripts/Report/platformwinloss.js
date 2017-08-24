@@ -114,8 +114,6 @@ var PlatformWinLoss = (function ($) {
                 PlatformWinLoss.drillDown(dataDrillDown);
             });
 
-            $("#SiteList input[type=checkbox]").checkboxgroup();
-
             $('#SubmitButton').click(function () {
                 _removeSorting = true;
                 PlatformWinLoss.submit();

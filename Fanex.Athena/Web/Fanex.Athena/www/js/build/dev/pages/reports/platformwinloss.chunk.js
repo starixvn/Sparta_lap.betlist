@@ -8620,7 +8620,7 @@ webpackJsonp([79],{
 	        "use strict";
 	
 	        var BETLIST_IGNORED_PRODUCTS = ["AB"];
-	        var platforms = {};
+	        var _platformNameMap = {};
 	
 	        var _cacheData = {};
 	        var _filterData = {};
@@ -8640,13 +8640,14 @@ webpackJsonp([79],{
 	                title: Site.getSingleResource("PlatformWinLoss")
 	            });
 	
-	            platforms = {
+	            _platformNameMap = {
 	                "0": Site.getSingleResource("All"),
 	                "1": Site.getSingleResource("Asia"),
-	                "2": Site.getSingleResource("NewAsia"),
+	                "2": Site.getSingleResource("China"),
 	                "3": Site.getSingleResource("Euro"),
 	                "4": Site.getSingleResource("Wap"),
-	                "5": Site.getSingleResource("SmartSite")
+	                "5": Site.getSingleResource("SmartSite"),
+	                "6": Site.getSingleResource("Tablet")
 	            };
 	
 	            _me.initEvent();
@@ -8872,7 +8873,7 @@ webpackJsonp([79],{
 	                baseCurrency[baseCurrencyKey]
 	                : viewinKey.replace("{0}", selectedCurrency);
 	
-	            var platformName = platforms[data.PlatformType];
+	            var platformName = _platformNameMap[data.PlatformType];
 	
 	            var productText = Site.getSingleResource('Product') + ': ';
 	            productText = data.ProductOptions && data.ProductOptions.length === 1 ?
@@ -9409,7 +9410,9 @@ webpackJsonp([79],{
 	            },
 	
 	            getColModel: function (level, productOptions) {
-	                var customerWL = _me.hasCustomerComm ? columnConfigCustomerComm.colsCustomerComm.colModels : columnConfigCustomerComm.colsWithoutComm.colModels;
+	                var customerWL =  Site.clone(_me.hasCustomerComm ? 
+	                    columnConfigCustomerComm.colsCustomerComm.colModels : 
+	                    columnConfigCustomerComm.colsWithoutComm.colModels);
 	
 	                if (level === 0) {
 	                    var colModels = getColConfigLevel0(Site.clone(columnConfigLevel0.colModels), customerWL);

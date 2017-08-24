@@ -2570,4 +2570,16 @@
   <data name="UserNotHaveCurrency" xml:space="preserve">
     <value>您没有任何币别的权限可以观看这份报告, 请联络贵司的后台管理人员.</value>
   </data>
+  <data name="Tablet" xml:space="preserve">
+    <value>平板</value>
+  </data>
+  <data name="Asia" xml:space="preserve">
+    <value>亚洲</value>
+  </data>
+  <data name="China" xml:space="preserve">
+    <value>大陆</value>
+  </data>
+  <data name="Euro" xml:space="preserve">
+    <value>欧洲</value>
+  </data>
 </root>

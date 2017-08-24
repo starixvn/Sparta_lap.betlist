@@ -55,7 +55,7 @@ namespace Fanex.Athena.Model.Report.MetaModel
         {
             get
             {
-                return base.IsValid && PlatformType <= DataDomain.PlatformType.SmartSite && PlatformType >= DataDomain.PlatformType.All;
+                return base.IsValid && PlatformType <= DataDomain.PlatformType.Tablet && PlatformType >= DataDomain.PlatformType.All;
             }
         }
     }

@@ -185,7 +185,7 @@
             });
         }
 
-        private static void VerifyShowingOption(IList<ProductOption> productOptions, ShowingOption expetedShowingOption)
+        private static void VerifyShowingOption(IEnumerable<ProductOption> productOptions, ShowingOption expetedShowingOption)
         {
             Assert.Multiple(() =>
             {

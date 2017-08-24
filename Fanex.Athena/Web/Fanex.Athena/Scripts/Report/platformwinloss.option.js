@@ -241,10 +241,11 @@ var PlatformWinLossOption = (function () {
         {
             "0": Site.getSingleResource("All"),
             "1": Site.getSingleResource("Asia"),
-            "2": Site.getSingleResource("NewAsia"),
+            "2": Site.getSingleResource("China"),
             "3": Site.getSingleResource("Euro"),
             "4": Site.getSingleResource("Wap"),
-            "5": Site.getSingleResource("SmartSite")
+            "5": Site.getSingleResource("SmartSite"),
+            "6": Site.getSingleResource("Tablet")
         },
         totalColspan: [0, 4],
         urlData: 'api/PlatformWinLossReport/Index',

@@ -107,26 +107,7 @@
 
     <div class="row">
         <div class="col l2 m2 s12 input-field">
-            <select id="bet-form" class="select">
-                <option value="0">
-                    @ViewResources.All
-                </option>
-                <option value="1">
-                    @ViewResources.Asia
-                </option>
-                <option value="2">
-                    @ViewResources.NewAsia
-                </option>
-                <option value="3">
-                    @ViewResources.Euro
-                </option>
-                <option value="4">
-                    @ViewResources.Wap
-                </option>
-                <option value="5">
-                    @ViewResources.SmartSite
-                </option>
-            </select>
+            @DesktopRazorHelper.PlatformList("bet-from")
             <label>@ViewResources.Platform</label>
         </div>
 

@@ -58,7 +58,7 @@ namespace Fanex.Athena.DataAccess.Report
                     UpdateUspParams(db, metaModel);
                     using (var reader = db.ExecuteReader())
                     {
-                        return ReadMemberData(reader, metaModel, out totalData);
+                        return ReadMemberData(reader, metaModel.BaseCurrency, out totalData);
                     }
                 }
             }
@@ -151,21 +151,21 @@ namespace Fanex.Athena.DataAccess.Report
             Justification = "Reviewed. Suppression is OK here.")]
         private static IList<PlatformWinLossMember> ReadMemberData(
             IDataReader reader,
-            PlatformWinLossMetaModel metaModel,
+            string baseCurrency,
             out PlatformWinLossMember totalData)
         {
             var dataList = new List<PlatformWinLossMember>();
             totalData = new PlatformWinLossMember();
 
-            var turnoverColumn = "Turnover" + metaModel.BaseCurrency;
-            var winlostComumn = "Winlost" + metaModel.BaseCurrency;
-            var playerCommColumn = "PlayerComm" + metaModel.BaseCurrency;
-            var licenseeWlColumn = "LicenseeWL" + metaModel.BaseCurrency;
-            var commBaColumn = "CommBA" + metaModel.BaseCurrency;
-            var commRbColumn = "CommRB" + metaModel.BaseCurrency;
-            var amtDueToBaComumn = "AmtDueToBA" + metaModel.BaseCurrency;
-            var amtDueToRbColumn = "AmtDueToRB" + metaModel.BaseCurrency;
-            var winLossRbColumn = "WinlossRB" + metaModel.BaseCurrency;
+            var turnoverColumn = "Turnover" + baseCurrency;
+            var winlostComumn = "Winlost" + baseCurrency;
+            var playerCommColumn = "PlayerComm" + baseCurrency;
+            var licenseeWlColumn = "LicenseeWL" + baseCurrency;
+            var commBaColumn = "CommBA" + baseCurrency;
+            var commRbColumn = "CommRB" + baseCurrency;
+            var amtDueToBaComumn = "AmtDueToBA" + baseCurrency;
+            var amtDueToRbColumn = "AmtDueToRB" + baseCurrency;
+            var winLossRbColumn = "WinlossRB" + baseCurrency;
 
             var index = 1;
             while (reader.Read())

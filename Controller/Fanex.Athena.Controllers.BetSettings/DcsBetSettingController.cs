@@ -134,7 +134,8 @@ namespace Fanex.Athena.Controllers.BetSettings
 
             if (result.Code == 0)
             {
-                result.Message = string.Format(productId == ProductTypes.VirtualSports
+                result.Message = string.Format(
+                    productId == ProductTypes.VirtualSports
                     ? ViewResources.UpdateVirtualSportsBetSettingSuccessMsg
                     : ViewResources.UpdateVirtualSports2BetSettingSuccessMsg,
                     nickName);
