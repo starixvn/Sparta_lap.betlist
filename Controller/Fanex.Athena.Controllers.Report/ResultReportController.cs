@@ -110,9 +110,11 @@ namespace Fanex.Athena.Controllers.Report
 
         [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
         [HttpGet]
-        public ActionResult ResultExcel(ResultMetalModel metalModel)
+        public void ResultExcel(ResultMetalModel metalModel)
         {
             const string FileName = "LRF-Result.xls";
+            var response = ControllerContext.HttpContext.Response;
+
             if (ModelState.IsValid)
             {
                 metalModel.IsExportExcel = true;
@@ -125,7 +127,6 @@ namespace Fanex.Athena.Controllers.Report
                     GetData(metalModel);
                 }
 
-                var response = ControllerContext.HttpContext.Response;
                 response.ContentType = "application/vnd.ms-excel";
                 response.AddHeader("Content-disposition", "attachment; filename=" + FileName);
 
@@ -135,11 +136,13 @@ namespace Fanex.Athena.Controllers.Report
                 }
 
                 _excelStream.WriteTo(response.OutputStream);
-
-                response.Flush();
             }
-
-            return null;
+            else
+            {
+                response.StatusCode = (int)HttpStatusCode.BadRequest;
+                response.StatusDescription = ViewResources.InvalidParams;
+            }
+            response.Flush();
         }
 
         [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
