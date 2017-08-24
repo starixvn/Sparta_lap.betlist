@@ -18,6 +18,8 @@ class Table extends Component {
             const newChild = {
                 props: {
                     ...child.props,
+                    autoWidth: this.props.autoWidth,
+                    width: this.props.width,
                     children: [layoutRow, ...rows]
                 }
             };
@@ -36,7 +38,14 @@ class Table extends Component {
 }
 
 Table.propTypes = {
+    width: PropTypes.number,
+    autoWidth: PropTypes.bool,
     columnLayout: PropTypes.arrayOf(PropTypes.number, PropTypes.string).isRequired
+}
+
+Table.defaultProps = {
+    width: window.innerWidth - 15,
+    autoWidth: true
 }
 
 export default Table;

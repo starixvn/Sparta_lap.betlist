@@ -5,12 +5,10 @@ $paddingRightContainer: 17px;
 .header-content,
 .body-content,
 .footer-content {
-    padding-right: $paddingRightContainer;
     border: solid 1px $colorBorderTable;
 
     .table {
         border-right: 1px solid $colorBorderTable;
-        width: 100%;
 
         td {
             &:first-child {
@@ -18,6 +16,11 @@ $paddingRightContainer: 17px;
             }
         }
     }
+}
+
+.header-content,
+.footer-content {
+    padding-right: $paddingRightContainer;
 }
 
 .first-row {

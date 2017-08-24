@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import FixedTable from 'components/fixed-table-header/FixedTable';
 import FakeData from '../fakeData';
 
-const columnLayout = [300, 100, 150, 150, 200, 200, 200];
+const columnLayout = [300, 70, 150, 150, 200, 200, 200];
 const { Table, Header, Body, Footer, Row, Cell } = FixedTable;
 const { headers, data, totalData, grantTotal } = FakeData;
 
@@ -89,6 +89,8 @@ class DataGrid extends Component {
     render() {
         return (
             <Table
+                width={1270}
+                autoWidth={true}
                 columnLayout={columnLayout}
                 {...this.props}>
 
@@ -96,7 +98,7 @@ class DataGrid extends Component {
                     {this.header}
                 </Header>
 
-                <Body id="content1" style={{ maxHeight: 500 }}>
+                <Body maxHeight={300}>
                     {this.body}
                 </Body>
 

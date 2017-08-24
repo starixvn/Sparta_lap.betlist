@@ -1,35 +1,46 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import TableSection from './TableSection';
+import PropTypes from 'prop-types';
 
 class Body extends Component {
     constructor(props) {
         super(props);
-        this.id = props.id;
-    }
+        this.containerStyle = {
+            width: props.autoWidth ? "100%" : props.width + 19,
+            maxHeight: props.maxHeight
+        }
 
-    componentDidMount() {
-        if (!this.id) return;
-
-        const container = document.getElementById(this.id);
-        if (this._hasVerticalScrollbar(container)) {
-            container.style.paddingRight = 0;
+        this.tableStyle = {
+            width: props.autoWidth ? "100%" : props.width,
+            position: "fixed"
         }
     }
 
-    _hasVerticalScrollbar(element) {
-        return element && element.scrollHeight && element.scrollHeight > element.offsetHeight;
+    componentDidMount() {
     }
 
     render() {
+        const { tableClass, width, maxHeight, autoWidth, ...rest } = this.props;
         return (
-            <TableSection className="body-content" {...this.props}>
-                <tbody>
-                    {this.props.children}
-                </tbody>
-            </TableSection>
+            <div className="body-content" style={this.containerStyle} {...rest}>
+                <div className="table-wrapper">
+                    <table style={this.tableStyle} className={tableClass}>
+                        <tbody>
+                            {this.props.children}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         );
     }
+}
+
+Body.propTypes = {
+    tableClass: PropTypes.string
+}
+
+Body.defaultProps = {
+    tableClass: "table"
 }
 
 export default Body;

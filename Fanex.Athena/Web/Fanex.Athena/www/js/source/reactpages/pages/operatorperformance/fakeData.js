@@ -54,7 +54,7 @@ const data = [{
     }
 ];
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 10; i++) {
     data.push({
         Id: 2,
         Operator: "New York",
