@@ -179,14 +179,22 @@ var CustPendingFunds = (function ($) {
         },
 
         viewPendingFundsBetList: function (custid, systemId, externalId) {
-            Site.blockUI();
             var url = Site.resolveClientUrl("PendingFundsBetList/Index");
             url = Site.setLicenseeOptionOriginalParam(url);
             url = Site.setProductOptionOriginalParamList(url);
             url = QueryString.setParam(url, "custid", custid);
             url = QueryString.setParam(url, "systemid", systemId);
             url = QueryString.setParam(url, "externalid", externalId);
-            window.location.href = url;
+            
+            var popH = Math.min($(window).height() - 100, 650), popW = 920;
+            var dialogForm = '<div title="Customer Pending Funds Bet List"><iframe scrolling="no" frameborder="0" width="' +
+                             popW + '" height="100%" src="' + url + '" ></iframe></div>';
+
+            $(dialogForm).dialog({
+                modal: true,
+                width: popW + 50,
+                height: popH + 50
+            });
         },
         ajaxPaging: function () {
             _pagingOption = PagingHeper.getSetting();

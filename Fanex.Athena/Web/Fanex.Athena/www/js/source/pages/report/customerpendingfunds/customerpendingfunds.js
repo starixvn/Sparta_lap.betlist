@@ -6,10 +6,11 @@
     "./customerpendingfunds.option",
     "components/pluginhelper/multiselect",
     "components/paging",
+    "common/popup",
     "lib/jqgrid/jquery.jqGrid.en",
     "lib/jqgrid/jquery.jqGrid.min",
     "extensions/jquery.extension"],
-    function ($, QueryString, Site, jqGridAdditional, CustomerPedingFundsOption, MultiSelect, PagingHelper) {
+    function ($, QueryString, Site, jqGridAdditional, CustomerPedingFundsOption, MultiSelect, PagingHelper, Popup) {
         "use strict";
 
         var _ajaxRequest = null;
@@ -154,14 +155,15 @@
         }
 
         function viewPendingFundsBetList(custid, systemId, externalId) {
-            Site.blockUI();
             var url = Site.resolveClientUrl("PendingFundsBetList/Index");
             url = Site.setLicenseeOptionOriginalParam(url);
             url = Site.setProductOptionOriginalParamList(url);
             url = QueryString.setParam(url, "custid", custid);
             url = QueryString.setParam(url, "systemid", systemId);
             url = QueryString.setParam(url, "externalid", externalId);
-            window.location.href = url;
+            var popH = Math.min($(window).height() - 100, 650), popW = 920;
+            var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: "Customer Pending Funds Bet List" };
+            Popup.openPopupWithIframe(url, popupOption);
         }
 
         function getPostData() {
