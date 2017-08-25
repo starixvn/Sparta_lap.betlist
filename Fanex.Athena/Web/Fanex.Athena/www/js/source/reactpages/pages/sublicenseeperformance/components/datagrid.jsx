@@ -90,7 +90,7 @@ class DataGrid extends Component {
         return (
             <Table
                 width={1270}
-                autoWidth={true}
+                autoWidth={false}
                 columnLayout={columnLayout}
                 {...this.props}>
 

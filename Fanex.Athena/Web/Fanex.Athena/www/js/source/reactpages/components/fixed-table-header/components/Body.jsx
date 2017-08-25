@@ -11,8 +11,7 @@ class Body extends Component {
         }
 
         this.tableStyle = {
-            width: props.autoWidth ? "100%" : props.width,
-            position: "fixed"
+            width: props.autoWidth ? "100%" : props.width
         }
     }
 

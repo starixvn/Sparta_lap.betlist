@@ -94,6 +94,7 @@
     <Compile Include="PlatformWinLossReportController_ExportExcelTest.cs" />
     <Compile Include="PlatformWinLossReportControllerTest.cs" />
     <Compile Include="ThirdPartyWinLossReportControllerTest.cs" />
+    <Compile Include="SubLicenseePerformanceReportControllerTest.cs" />
     <Compile Include="WinLossByLeagueReportControllerTest.cs" />
     <Compile Include="WinLossByProductReportControllerTest.cs" />
     <Compile Include="CashOutWinLossReportControllerTest.cs" />

@@ -5533,15 +5533,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Operator Performance.
-        /// </summary>
-        public static string OperatorPerformance {
-            get {
-                return ResourceManager.GetString("OperatorPerformance", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Original Bet Ticket.
         /// </summary>
         public static string OriginalBetTicket {
@@ -7068,6 +7059,15 @@ namespace Fanex.Athena.Resources {
         public static string Su {
             get {
                 return ResourceManager.GetString("Su", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sub Licensee Performance.
+        /// </summary>
+        public static string SubLicenseePerformance {
+            get {
+                return ResourceManager.GetString("SubLicenseePerformance", resourceCulture);
             }
         }
         

@@ -5,7 +5,7 @@ var projectRoot = path.resolve(__dirname, '../../../');
 var cssPaths = {
     build: "www/css/build",
     layout: "./www/css/source/reactpages/main.scss",
-    operatorperformance:"./www/css/source/reactpages/pages/operatorperformance/index.scss"
+    sublicenseeperformance: "./www/css/source/reactpages/pages/sublicenseeperformance/index.scss"
 };
 
 var scriptPaths = {
@@ -19,7 +19,7 @@ var scriptPaths = {
         "./www/js/source/common/languages/ViewResources.zh-TW.js"
     ],
     /*React page*/
-    operatorperformance: "./www/js/source/reactpages/pages/operatorperformance/components/index.jsx"
+    sublicenseeperformance: "./www/js/source/reactpages/pages/sublicenseeperformance/components/index.jsx"
 };
 
 module.exports = {
