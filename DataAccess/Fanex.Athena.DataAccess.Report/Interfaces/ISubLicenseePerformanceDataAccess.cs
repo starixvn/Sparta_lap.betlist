@@ -6,6 +6,6 @@
 
     public interface ISubLicenseePerformanceDataAccess
     {
-        IEnumerable<SubLicenseePerformance> GetData(SubLicenseePerformanceMetaModel subLicenseePerformanceMetaModel);
+        IEnumerable<SubLicenseePerformance> GetData(SubLicenseePerformanceMetaModel metaModel);
     }
 }
