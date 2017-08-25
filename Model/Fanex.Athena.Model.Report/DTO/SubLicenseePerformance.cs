@@ -1,19 +1,13 @@
-﻿namespace Fanex.Athena.Model.Report.DTO
+﻿using System.Collections.Generic;
+
+namespace Fanex.Athena.Model.Report.DTO
 {
     public class SubLicenseePerformance
     {
-        public string UserName { get; set; }
+        public string SubLicensee { get; set; }
 
-        public int CustId { get; set; }
+        public string Currency { get; set; }
 
-        public string CurrencyName { get; set; }
-
-        public decimal Turnover { get; set; }
-
-        public decimal WinLost { get; set; }
-
-        public decimal PlayerComm { get; set; }
-
-        public int BetCount { get; set; }
+        public IEnumerable<SubLicenseePerformanceDetail> Details { get; set; }
     }
 }

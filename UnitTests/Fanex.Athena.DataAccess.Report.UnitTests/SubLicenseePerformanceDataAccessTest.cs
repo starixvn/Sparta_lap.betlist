@@ -15,8 +15,8 @@
         {
             _balance = new BalanceUp
             {
-                MoveBetsDay = new DateTime(2016, 8, 10),
-                BalanceUpDay = new DateTime(2016, 8, 31)
+                MoveBetsDay = new DateTime(2017, 8, 25),
+                BalanceUpDay = new DateTime(2017, 8, 31)
             };
             _dataAccess = new SubLicenseePerformanceDataAccess(_balance);
         }
