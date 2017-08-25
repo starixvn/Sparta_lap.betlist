@@ -128,17 +128,21 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/roboto/Roboto-Regular.woff2") format("woff2"), url("../../fonts/roboto/Roboto-Regular.woff") format("woff"), url("../../fonts/roboto/Roboto-Regular.ttf") format("truetype"); }
+
 /* Table */
 /* Label Text */
 html {
+  font-family: "Roboto", sans-serif;
   font-size: 62.5%;
-  height: 100%; }
+  height: auto; }
 
 body {
   background: #f5f7fa;
   font-size: 1.2rem;
-  color: #2c2c2c;
-  height: 100%; }
+  color: #2c2c2c; }
 
 * {
   margin: 0;
@@ -148,14 +152,28 @@ a {
   color: #147ccc;
   text-decoration: none; }
 
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.wrapper {
+  position: relative; }
+
 .container {
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto; }
 
-.text-center {
+.center-align {
   text-align: center; }
+
+.left-align {
+  text-align: left; }
+
+.right-align {
+  text-align: right; }
 
 .row {
   margin-left: -15px;
@@ -394,9 +412,8 @@ a {
   .form-group .label-text {
     display: block;
     color: #808080; }
-  .form-group .checkbox-group {
-    display: inline-block;
-    padding-top: 12px; }
+  .form-group .checkbox-group, .form-group .button-group {
+    display: inline-block; }
 
 .input-text {
   background-color: transparent;
@@ -816,6 +833,33 @@ a {
     .Select-menu-outer .Select-option.is-focused, .Select-menu-outer .Select-option.is-selected {
       background-color: #4c6375;
       color: #fff; }
+
+.btn {
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  height: 32px;
+  line-height: 32px;
+  transition: none;
+  text-decoration: none;
+  text-align: center;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  display: inline-block;
+  outline: 0;
+  padding: 0 2rem;
+  vertical-align: middle;
+  -webkit-tap-highlight-color: transparent; }
+  .btn:hover {
+    opacity: 0.9; }
+
+.btn-submit {
+  color: #fff;
+  background-color: #f05b1f; }
+
+.btn-cancel {
+  color: #fff;
+  background-color: #757985; }
 
 .page-filter {
   position: relative;

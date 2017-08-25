@@ -3,17 +3,17 @@ webpackJsonp([3],{
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(240);
-	__webpack_require__(241);
-	__webpack_require__(242);
-	__webpack_require__(243);
-	__webpack_require__(244);
-	module.exports = __webpack_require__(245);
+	__webpack_require__(229);
+	__webpack_require__(230);
+	__webpack_require__(231);
+	__webpack_require__(232);
+	__webpack_require__(233);
+	module.exports = __webpack_require__(234);
 
 
 /***/ }),
 
-/***/ 240:
+/***/ 229:
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -53,12 +53,12 @@ webpackJsonp([3],{
 
 /***/ }),
 
-/***/ 241:
+/***/ 230:
 /***/ (function(module, exports) {
 
 	"use strict";
 	
-	// Generated at: 7/17/2017 5:41:18 PM
+	// Generated at: 8/14/2017 2:21:49 PM
 	window._language_en_US = {
 	  AA: "AA",
 	  AccessDeniedMsg: "Sorry, You don&apos;t have permission to access this page.",
@@ -190,6 +190,7 @@ webpackJsonp([3],{
 	  Characters: "Characters",
 	  CheckAll: "Check All",
 	  Checkavailability: "Check availability",
+	  China: "China",
 	  Choice: "Choice",
 	  ChooseGroupMsg: "Please choose a group.",
 	  ChooseGroupNameMsg: "Please choose another group name.",
@@ -400,6 +401,7 @@ webpackJsonp([3],{
 	  GroupCommissionlog: "Group Commission log",
 	  GroupCommNote: "If default group is selected, all newly registered customers will be automatically assigned to this commission group. There will be no change to existing customers.",
 	  GroupId: "Group Id",
+	  GroupManagement: "Group Management",
 	  GroupName: "Group Name",
 	  GroupNameCannotEmpty: "Group Name cannot empty.",
 	  GroupNameExistedMsg: "This group name already existed, please try another one!",
@@ -607,7 +609,6 @@ webpackJsonp([3],{
 	  NetGaming: "Net Gaming",
 	  NetTurnover: "Net Turnover",
 	  NetworkTimeoutMsg: "Network time out. Please try again.",
-	  NewAsia: "China",
 	  NewGroup: "New Group",
 	  Next: "Next",
 	  NG: "NG",
@@ -727,6 +728,7 @@ webpackJsonp([3],{
 	  ProductVB: "Macau Games",
 	  ProductVG: "Macau",
 	  ProductVS: "Virtual Sports",
+	  ProductVS2: "Virtual Sports 2",
 	  ProgressiveContribution: "Progressive Contribution",
 	  ProgressiveFee: "Progressive Fee",
 	  ProgressivePayout: "Progressive Payout",
@@ -843,6 +845,7 @@ webpackJsonp([3],{
 	  SystemId: "System ID",
 	  SystemParlay: "System Parlay",
 	  SystemParlayDetailNote: "Win Loss is rounded for reference only. Therefore, Sub Total amount may be different from the sum of Win Loss when it sums all the actual Win Loss amounts.",
+	  Tablet: "Tablet",
 	  TableType: "Table Type",
 	  Team: "Team",
 	  TermDefinition: "Term Definition",
@@ -935,6 +938,8 @@ webpackJsonp([3],{
 	  UpdateUnSuccess: "Update unsucessfully!",
 	  UpdateVirtualSportsBetSettings: "Are you sure you want to update all Virtual Sports bet settings?",
 	  UpdateVirtualSportsBetSettingSuccessMsg: "The Virtual Sports bet setting of {0} was updated successfully",
+	  UpdateVirtualSports2BetSettings: "Are you sure you want to update all Virtual Sports 2 bet settings?",
+	  UpdateVirtualSports2BetSettingSuccessMsg: "The Virtual Sports 2 bet setting of {0} was updated successfully",
 	  USD: "USD",
 	  UserGuide: "User Guide",
 	  UserInformation: "User Information",
@@ -954,6 +959,8 @@ webpackJsonp([3],{
 	  VirtualHorseRacing: "Virtual Horse Racing",
 	  VirtualMotoRacing: "Virtual Moto Racing",
 	  VirtualSoccer: "Virtual Soccer",
+	  VirtualSoccerLeague: "Virtual Soccer League",
+	  VirtualSoccerNation: "Virtual Soccer Nation",
 	  VirtualSpeedway: "Virtual Speedway",
 	  VirtualSports: "Virtual Sports",
 	  VirtualTennis: "Virtual Tennis",
@@ -988,12 +995,12 @@ webpackJsonp([3],{
 
 /***/ }),
 
-/***/ 242:
+/***/ 231:
 /***/ (function(module, exports) {
 
 	"use strict";
 	
-	// Generated at: 7/17/2017 5:41:18 PM
+	// Generated at: 8/14/2017 2:21:49 PM
 	window._language_ko_KR = {
 	  AA: "AA",
 	  AccessDeniedMsg: "죄송합니다. 이 페이지에 접근할 권한이 없습니다.",
@@ -1761,12 +1768,12 @@ webpackJsonp([3],{
 
 /***/ }),
 
-/***/ 243:
+/***/ 232:
 /***/ (function(module, exports) {
 
 	"use strict";
 	
-	// Generated at: 7/17/2017 5:41:18 PM
+	// Generated at: 8/14/2017 2:21:49 PM
 	window._language_zh_CN = {
 	  AA: "客客",
 	  AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
@@ -1809,6 +1816,7 @@ webpackJsonp([3],{
 	  Apr: "四月",
 	  April: "四月",
 	  AreYouSure: "您确定要继续吗?",
+	  Asia: "亚洲",
 	  AssignPermissionSuccessful: "分配权限成功",
 	  Aug: "八月",
 	  August: "八月",
@@ -1873,6 +1881,7 @@ webpackJsonp([3],{
 	  Characters: "文字",
 	  CheckAll: "Check All",
 	  Checkavailability: "检查可用性",
+	  China: "大陆",
 	  Choice: "选择",
 	  ChooseGroupMsg: "请选择一个组",
 	  ChooseGroupNameMsg: "请选择其他组名",
@@ -1996,6 +2005,7 @@ webpackJsonp([3],{
 	  Error: "误差",
 	  ErrorProcessingMsg: "对不起, 处理您的请求时有错误发生。",
 	  EUR: "EUR",
+	  Euro: "欧洲",
 	  Even: "双",
 	  Event: "项目",
 	  Events: "项目",
@@ -2444,6 +2454,7 @@ webpackJsonp([3],{
 	  SystemId: "系统账号",
 	  SystemParlay: "复式过关",
 	  SystemParlayDetailNote: "输赢的进位值仅供参考。因此，所有输赢相加的总计有可能和小计有差数。",
+	  Tablet: "平板",
 	  Team: "队伍",
 	  TermDefinition: "术语定义",
 	  TF: "大热门",
@@ -2568,12 +2579,12 @@ webpackJsonp([3],{
 
 /***/ }),
 
-/***/ 244:
+/***/ 233:
 /***/ (function(module, exports) {
 
 	"use strict";
 	
-	// Generated at: 7/17/2017 5:41:18 PM
+	// Generated at: 8/14/2017 2:21:49 PM
 	window._language_zh_Hans = {
 	  AA: "客客",
 	  AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
@@ -2616,6 +2627,7 @@ webpackJsonp([3],{
 	  Apr: "四月",
 	  April: "四月",
 	  AreYouSure: "您确定要继续吗?",
+	  Asia: "亚洲",
 	  AssignPermissionSuccessful: "分配权限成功",
 	  Aug: "八月",
 	  August: "八月",
@@ -2670,6 +2682,7 @@ webpackJsonp([3],{
 	  Characters: "文字",
 	  CheckAll: "Check All",
 	  Checkavailability: "检查可用性",
+	  China: "大陆",
 	  Choice: "选择",
 	  ChooseGroupMsg: "请选择一个组",
 	  ChooseGroupNameMsg: "请选择其他组名",
@@ -2793,6 +2806,7 @@ webpackJsonp([3],{
 	  Error: "误差",
 	  ErrorProcessingMsg: "对不起, 处理您的请求时有错误发生。",
 	  EUR: "EUR",
+	  Euro: "欧洲",
 	  Even: "双",
 	  Event: "项目",
 	  Events: "项目",
@@ -3238,6 +3252,7 @@ webpackJsonp([3],{
 	  SystemId: "系统账号",
 	  SystemParlay: "复式过关",
 	  SystemParlayDetailNote: "输赢的进位值仅供参考。因此，所有输赢相加的总计有可能和小计有差数。",
+	  Tablet: "平板",
 	  Team: "队伍",
 	  TermDefinition: "术语定义",
 	  TF: "大热门",
@@ -3361,12 +3376,12 @@ webpackJsonp([3],{
 
 /***/ }),
 
-/***/ 245:
+/***/ 234:
 /***/ (function(module, exports) {
 
 	"use strict";
 	
-	// Generated at: 7/17/2017 5:41:18 PM
+	// Generated at: 8/14/2017 2:21:49 PM
 	window._language_zh_TW = {
 	  AA: "客客",
 	  AccessDeniedMsg: "對不起，您沒有權限訪問此頁面。",
@@ -3409,6 +3424,7 @@ webpackJsonp([3],{
 	  Apr: "四月",
 	  April: "四月",
 	  AreYouSure: "您確定要繼續嗎？",
+	  Asia: "亞洲",
 	  AssignPermissionSuccessful: "分配權限成功",
 	  Aug: "八月",
 	  August: "八月",
@@ -3473,6 +3489,7 @@ webpackJsonp([3],{
 	  Characters: "文字",
 	  CheckAll: "Check All",
 	  Checkavailability: "檢查可用性",
+	  China: "大陸",
 	  Choice: "選擇",
 	  ChooseGroupMsg: "請選擇一個組",
 	  ChooseGroupNameMsg: "請選擇其他組名",
@@ -3596,6 +3613,7 @@ webpackJsonp([3],{
 	  Error: "誤差",
 	  ErrorProcessingMsg: "對不起，處理您的請求時有錯誤發生。",
 	  EUR: "EUR",
+	  Euro: "歐洲",
 	  Even: "雙",
 	  Event: "項目",
 	  Events: "項目",
@@ -4044,6 +4062,7 @@ webpackJsonp([3],{
 	  SystemId: "系統帳號",
 	  SystemParlay: "複式過關",
 	  SystemParlayDetailNote: "輸贏的進位值僅供參考。因此，所有輸贏相加的總計有可能和小計有差數。",
+	  Tablet: "平板",
 	  Team: "隊伍",
 	  TermDefinition: "語定義",
 	  TF: "大熱門",
