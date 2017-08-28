@@ -61,7 +61,7 @@
 
             DatePicker.initDateRangePicker();
             if (option.ValidMonthRange > 0) {
-                DateHelper.setConstraintMonthRange(option.ValidMonthRange, option.urlExcelData);
+                DateHelper.setConstraintMonthRange(option.ValidMonthRange, _thirdPartyWinLossOption.urlExcelData);
             }
 
             _me.initEvent();

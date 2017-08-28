@@ -54,6 +54,11 @@
             });
 
             $(selector.ExportToExcel).click(function () {
+                var validProduct = Report.ValidProducts();
+                if (!validProduct) {
+                    return false;
+                }
+
                 $(selector.ExportExcelInput).val(true);
                 var mainForm = $(selector.Form);
                 var url = Site.resolveClientUrl(ActiveCustomerOption.urlExcelData);

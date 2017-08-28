@@ -140,9 +140,7 @@
         }
 
         function submit() {
-            if (_submitData == null) {
-                _submitData = getPostData();
-            }
+            buildPostData();
 
             var option = {
                 type: "POST",
@@ -199,6 +197,7 @@
                 return false;
             }
             var param = getPostData();
+            param.PageIndex = 1;
             $(_selector.ExcelParam).val(JSON.stringify(param));
             $(_selector.ExcelForm).submit();
             return false;
@@ -225,11 +224,20 @@
             $(_selector.Header).removeClass("hide");
         }
 
+        function buildPostData() {
+            if (_submitData === null) {
+                _submitData = getPostData();
+            }
+            else {
+                _submitData.PageIndex = _pagingOption.pageindex;
+                _submitData.PageSize = _pagingOption.pagesize;
+            }
+        }
+
         function getPostData() {
-            var param = {};
             var data = $(_selector.Form).serializeObject();
-            param.PageIndex = _pagingOption.pageindex;
-            param.PageSize = _pagingOption.pagesize;
+
+            var param = {};
             param.fromdate = data.FromDate;
             param.todate = data.ToDate;
             param.reportby = data.ReportBy;
@@ -243,6 +251,9 @@
             param.currencyid = data.CurrencyId;
             param.isexportexcel = data.IsExportExcel;
             param.currencyname = data.CurrencyName;
+            param.PageIndex = _pagingOption.pageindex;
+            param.PageSize = _pagingOption.pagesize;
+
             return param;
         }
 
