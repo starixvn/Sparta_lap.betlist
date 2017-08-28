@@ -31,8 +31,9 @@
     </div>
  
     <script type="text/javascript">
-        var PageLanguage ="@System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag";
+        var PageLanguage = "@System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag";
 
+        @RenderSection("globaljscode", required: false)
     </script>
     <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/vendors/vendor.chunk.js")"></script>
     <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/lib/langHelper.chunk.js")"></script>

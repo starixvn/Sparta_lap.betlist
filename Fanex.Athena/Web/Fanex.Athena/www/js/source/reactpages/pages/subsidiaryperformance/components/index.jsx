@@ -8,7 +8,7 @@ import { createLogger } from 'redux-logger'
 import reducer from '../reducers/index.js'
 
 // middleware that logs actions
-const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ });
+const loggerMiddleware = createLogger();
 
 const defaultState = Object.assign({}, window.Lrf);
 

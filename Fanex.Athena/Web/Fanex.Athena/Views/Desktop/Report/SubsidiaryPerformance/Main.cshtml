@@ -3,6 +3,12 @@
     " - " + ViewResources.SubsidiaryPerformance;
     Layout = "~/Views/Desktop/Shared/_ReactPageLayout.cshtml";
 }
+@model Fanex.Athena.Model.Report.ViewModel.SubsidiaryPerformanceViewModel
+@{
+    var productOptions = Model.ProductOptionList.Select(p => new { value = p.Code, label = p.Name });
+    var baseCurrencyList = Model.BaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
+}
+
 @section pagecss {
 
 <link href="@Url.ContentLinkByEnv("/www/css/build/reactpages/subsidiaryperformance/index.css")" rel="stylesheet" type="text/css" />
@@ -11,6 +17,16 @@
 @section pagejs {
     <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/subsidiaryperformance/subsidiaryperformance.chunk.js")"></script>
 
+}
+
+@section globaljscode{
+    window.Lrf = {
+        productOptions: @Html.Raw(productOptions.ToJson()),
+        selectedProduct: '@(productOptions.Any() ? productOptions.First().value: string.Empty)',
+        baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
+        selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)'
+
+    }
 }
 <div id="app-container">
 

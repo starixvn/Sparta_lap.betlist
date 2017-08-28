@@ -761,6 +761,8 @@
     <Content Include="Scripts\Report\customerwinloss.option.js" />
     <Content Include="Scripts\Report\customerbalance.option.js" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
+    <Content Include="www\js\source\reactpages\actions\baseCurrencyAction.js" />
+    <Content Include="www\js\source\reactpages\actions\productAction.js" />
     <Content Include="www\js\source\reactpages\components\date-range\Calendar.js" />
     <Content Include="www\js\source\reactpages\components\date-range\constants.js" />
     <Content Include="www\js\source\reactpages\components\date-range\DateRange.js" />
@@ -787,6 +789,8 @@
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\fakeData.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\dataHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\reducers\baseCurrency.js" />
+    <Content Include="www\js\source\reactpages\reducers\product.js" />
     <Content Include="www\webpackconfig\config\aliasReact.js" />
     <Content Include="www\webpackconfig\config\pathReact.js" />
     <Content Include="www\webpackconfig\config\pluginReact.js" />
@@ -6080,7 +6084,6 @@
     <Folder Include="www\css\source\reactpages\lib\" />
     <Folder Include="www\css\source\reactpages\vendors\" />
     <Folder Include="www\js\source\reactpages\pages\betticketquery\" />
-    <Folder Include="www\js\source\reactpages\reducers\" />
     <Folder Include="www\js\source\reactpages\vendors\" />
   </ItemGroup>
   <ItemGroup>

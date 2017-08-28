@@ -5,18 +5,18 @@ import { bindActionCreators } from 'redux'
 import Select from 'react-select';
 import { Calendar, DateRange, defaultOptions } from '../../../components/date-range/index';
 
-
 class FormFilter extends Component {
     constructor(props) {
-        super(props)
-        this.state = {
-            value: []
-        }
+        super(props);
     }
 
     handleSelect(date) {
         console.log(`Start: ${date.startDate.format("MM/DD/YYYY")}`);
         console.log(`End: ${date.endDate.format("MM/DD/YYYY")}`); // Momentjs object
+    }
+
+    logChange(val) {
+        console.log("Selected: " + JSON.stringify(val));
     }
 
     _submit() {
@@ -29,9 +29,7 @@ class FormFilter extends Component {
             { value: '2', label: 'India', className: "input-select-option" }
         ];
 
-        function logChange(val) {
-            console.log("Selected: " + JSON.stringify(val));
-        }
+        const { productOptions, selectedProduct, baseCurrencyList, selectedBaseCurrency } = this.props;
 
         return (
             <div className="page-filter">
@@ -43,7 +41,7 @@ class FormFilter extends Component {
                                 name="form-field-name"
                                 value="2"
                                 options={options}
-                                onChange={logChange} />
+                                onChange={this.logChange} />
                         </div>
                     </div>
 
@@ -63,9 +61,9 @@ class FormFilter extends Component {
                             <label className="label-text">Product</label>
                             <Select id="ddlProduct"
                                 name="form-field-name"
-                                value="0"
-                                options={[{ value: '0', label: 'Sportsbook' }, { value: '1', label: 'BA' }]}
-                                onChange={logChange} />
+                                value={selectedProduct}
+                                options={productOptions}
+                                onChange={this.logChange} />
                         </div>
                     </div>
 
@@ -74,9 +72,9 @@ class FormFilter extends Component {
                             <label className="label-text">Based</label>
                             <Select id="ddlBased"
                                 name="form-field-name"
-                                value="6"
-                                options={[{ value: '0', label: 'All' }, { value: '6', label: 'EUR' }]}
-                                onChange={logChange} />
+                                value={selectedBaseCurrency}
+                                options={baseCurrencyList}
+                                onChange={this.logChange} />
                         </div>
                     </div>
                 </div>
@@ -103,11 +101,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    return {
-        selectedProduct: state.selectedProduct,
-        productList :state.productList,
-       
-    };
+    return Object.assign({}, state);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);
