@@ -38,7 +38,7 @@ define(["jquery", "common/site", "common/popup"], function ($, Site, Popup) {
             var title = Site.getSingleResource("LrfNotification");
             var dialogForm = '<div title="' + title + '"><p class="notification">' + message + '!</p></div>';
 
-            Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification" });
+            Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification", id: "time-range-invalid" });
         }
     };
 

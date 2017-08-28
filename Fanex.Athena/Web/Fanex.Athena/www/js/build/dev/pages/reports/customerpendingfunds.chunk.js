@@ -3789,6 +3789,7 @@ webpackJsonp([85],{
 	                    width: 380,
 	                    height: 150,
 	                    title: title,
+	                    id: "product-invalid",
 	                    className: "popup-notification",
 	                    onOpen: function () {
 	                        $('#SubmitButton').prop('disabled', true);

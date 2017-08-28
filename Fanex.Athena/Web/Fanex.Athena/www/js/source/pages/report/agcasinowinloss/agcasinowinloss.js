@@ -88,17 +88,16 @@ define(["jquery", "common/querystring", "common/site", "./agcasinowinloss.option
             ajaxComplete: function (level, response) {
                 level = Number(level);
                 if (response != null) {
-                    var reportBy = $("input[name='reportby']:checked").val();
                     cacheData[level] = response;
                     if (level === 0) {
                         _drilldownData = {
-                            IsExcludedTestData: $("#IsExcludedTestData").is(":checked"),
-                            CurrencyId: $("#CurrencyId").val(),
+                            IsExcludedTestData: _submitData.IsExcludedTestData,
+                            CurrencyId: _submitData.CurrencyId,
                             FromDate: _submitData.FromDate,
                             ToDate: _submitData.ToDate,
-                            CurrencyName: $("#CurrencyId option:selected").text(),
-                            ReportBy: reportBy,
-                            BaseCurrency: $("#BaseCurrency").val()
+                            CurrencyName: _submitData.CurrencyName,
+                            ReportBy: _submitData.ReportBy,
+                            BaseCurrency: _submitData.BaseCurrency
                         };
 
                         _me.setReportTitle($("#CurrencyId").val(), _submitData.FromDate, _submitData.ToDate);

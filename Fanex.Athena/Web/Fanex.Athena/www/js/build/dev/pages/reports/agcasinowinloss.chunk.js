@@ -21506,6 +21506,7 @@ webpackJsonp([80],[
 	                    width: 380,
 	                    height: 150,
 	                    title: title,
+	                    id: "product-invalid",
 	                    className: "popup-notification",
 	                    onOpen: function () {
 	                        $('#SubmitButton').prop('disabled', true);
@@ -21996,7 +21997,7 @@ webpackJsonp([80],[
 	            var title = Site.getSingleResource("LrfNotification");
 	            var dialogForm = '<div title="' + title + '"><p class="notification">' + message + '!</p></div>';
 	
-	            Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification" });
+	            Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification", id: "time-range-invalid" });
 	        }
 	    };
 	
@@ -22109,17 +22110,16 @@ webpackJsonp([80],[
 	            ajaxComplete: function (level, response) {
 	                level = Number(level);
 	                if (response != null) {
-	                    var reportBy = $("input[name='reportby']:checked").val();
 	                    cacheData[level] = response;
 	                    if (level === 0) {
 	                        _drilldownData = {
-	                            IsExcludedTestData: $("#IsExcludedTestData").is(":checked"),
-	                            CurrencyId: $("#CurrencyId").val(),
+	                            IsExcludedTestData: _submitData.IsExcludedTestData,
+	                            CurrencyId: _submitData.CurrencyId,
 	                            FromDate: _submitData.FromDate,
 	                            ToDate: _submitData.ToDate,
-	                            CurrencyName: $("#CurrencyId option:selected").text(),
-	                            ReportBy: reportBy,
-	                            BaseCurrency: $("#BaseCurrency").val()
+	                            CurrencyName: _submitData.CurrencyName,
+	                            ReportBy: _submitData.ReportBy,
+	                            BaseCurrency: _submitData.BaseCurrency
 	                        };
 	
 	                        _me.setReportTitle($("#CurrencyId").val(), _submitData.FromDate, _submitData.ToDate);

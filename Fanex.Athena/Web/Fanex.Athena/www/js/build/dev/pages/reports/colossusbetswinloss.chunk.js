@@ -21506,6 +21506,7 @@ webpackJsonp([83],[
 	                    width: 380,
 	                    height: 150,
 	                    title: title,
+	                    id: "product-invalid",
 	                    className: "popup-notification",
 	                    onOpen: function () {
 	                        $('#SubmitButton').prop('disabled', true);
@@ -22841,7 +22842,7 @@ webpackJsonp([83],[
 	            var title = Site.getSingleResource("LrfNotification");
 	            var dialogForm = '<div title="' + title + '"><p class="notification">' + message + '!</p></div>';
 	
-	            Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification" });
+	            Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification", id: "time-range-invalid" });
 	        }
 	    };
 	
