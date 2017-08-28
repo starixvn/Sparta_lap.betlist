@@ -1,4 +1,4 @@
-﻿/*global Site, QueryString, ProductListHelper, PagingHeper, jqGridAdditional, CustPendingFundsOption*/
+﻿/*global Site, QueryString, ProductListHelper, PagingHeper, jqGridAdditional, CustPendingFundsOption, Report*/
 /// <reference path="/@JSense.js" />
 
 var CustPendingFunds = (function ($) {
@@ -11,6 +11,7 @@ var CustPendingFunds = (function ($) {
     var _isFirstLoad = false;
     var _sortDirection = "";
     var _sortColumn = "";
+    var _submitData = null;
     var _pagingOption =
     {
         pageindex: 1,
@@ -23,12 +24,14 @@ var CustPendingFunds = (function ($) {
         alwayshow: true
     };
 
-    function getPostData() {
-        var data = $(FORM_SELECTOR).serializeObject();
-        data.PageIndex = _pagingOption.pageindex;
-        data.PageSize = _pagingOption.pagesize;
-
-        return data;
+    function buildPostData() {
+        if (!_submitData) {
+            _submitData = $(FORM_SELECTOR).serializeObject();
+        }
+        _submitData.PageIndex = _pagingOption.pageindex;
+        _submitData.PageSize = _pagingOption.pagesize;
+        _submitData.SortColumn = _sortColumn;
+        _submitData.SortDirection = _sortDirection;
     }
 
     function sort(index) {
@@ -116,8 +119,14 @@ var CustPendingFunds = (function ($) {
             });
 
             $("#SubmitButton").click(function () {
+                var validProduct = Report.ValidProducts();
+                if (!validProduct) {
+                    return;
+                }
+
+                _pagingOption.pageindex = 1;
+                _submitData = null;
                 CustPendingFunds.submit();
-                return false;
             });
         },
 
@@ -127,12 +136,15 @@ var CustPendingFunds = (function ($) {
         },
 
         submit: function () {
-            var data = getPostData();
+            Report.setOriginalProduct();
+            Site.updateOriginalLicenseeOption();
+
+            buildPostData();
 
             var option =
             {
                 type: "POST",
-                data: data,
+                data: _submitData,
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false,
@@ -186,8 +198,9 @@ var CustPendingFunds = (function ($) {
             url = QueryString.setParam(url, "systemid", systemId);
             url = QueryString.setParam(url, "externalid", externalId);
             
+            var title = Site.getSingleResource("BetListRunning");
             var popH = Math.min($(window).height() - 100, 650), popW = 920;
-            var dialogForm = '<div title="Customer Pending Funds Bet List"><iframe scrolling="no" frameborder="0" width="' +
+            var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
                              popW + '" height="100%" src="' + url + '" ></iframe></div>';
 
             $(dialogForm).dialog({

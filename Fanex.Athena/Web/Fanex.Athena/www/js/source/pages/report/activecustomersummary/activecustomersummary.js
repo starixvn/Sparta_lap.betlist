@@ -38,14 +38,18 @@
 
             MultiSelect.initProductList();
             DatePicker.initDateRangePicker();
-            DateHelper.setConstraintMonthRange(VALID_MONTH_RANGE, "");
+            DateHelper.setConstraintMonthRange(VALID_MONTH_RANGE, ActiveCustomerOption.urlExcelData);
 
             _me.initEvent();
         }
 
         function initEvent() {
             $(selector.SubmitButton).click(function () {
-                $(selector.ExportExcelInput).val(false);
+                var validProduct = Report.ValidProducts();
+                if (!validProduct) {
+                    return;
+                }
+
                 _me.submit();
             });
 
@@ -157,7 +161,7 @@
             var mainForm = $(selector.Form);
             var data = mainForm.serializeObject();
             if (_sortColumnName) {
-                data.sortBy = _sortColumnName;
+                data.sortBy = _sortColumnName.replace(".", "");
                 data.sortOrder = _sortOrder;
             }
 
@@ -173,13 +177,13 @@
             gridOption.gridComplete = function () {
                 if (!_onSorting && !_onPaging) {
                     jqGridAdditional.gridComplete();
-                    jqGridAdditional.updateSortableHeader(reportGrid);
+                    jqGridAdditional.addSortableHeaders(reportGrid, _sortColumnName, _sortOrder);
                     _me.bindTotal(response.GrantTotalCustomer, gridOption.colModel.length);
                     ActiveCustomerOption.setGroupHeaderColumns(reportGrid, productOptions);
                     resizeGrid();
                 }
                 if (_onSorting) {
-                    jqGridAdditional.removeAndAddSortableHeader(reportGrid, _sortColumnName, _sortOrder);
+                    jqGridAdditional.updateSortableHeader(reportGrid, _sortColumnName, _sortOrder);
                     _onSorting = false;
                 }
                 Site.unBlockUI();

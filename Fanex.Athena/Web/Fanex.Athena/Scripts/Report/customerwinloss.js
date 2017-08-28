@@ -163,6 +163,11 @@ var CustomerWinLoss = (function ($) {
         },
         initEvent: function () {
             $("#SubmitHistoryButton").click(function () {
+                var validProduct = Report.ValidProducts();
+                if (!validProduct) {
+                    return;
+                }
+
                 var fromday = $('#FromDay').val();
                 var today = $('#ToDay').val();
                 var year = $('#Year').val();
@@ -171,17 +176,25 @@ var CustomerWinLoss = (function ($) {
                 $('#ToDate').val(month + "/" + today + "/" + year);
                 resetParam();
                 CustomerWinLoss.submit();
-                return false;
             });
 
             $("#SubmitButton").click(function () {
+                var validProduct = Report.ValidProducts();
+                if (!validProduct) {
+                    return;
+                }
+
                 resetParam();
                 CustomerWinLoss.submit();
             });
 
             $('#ExportToExcel').click(function () {
+                var tempSubmitData = Site.clone(_submitData);
+                _submitData = null;
                 buildPostData();
+                _submitData.PageIndex = 1;
                 Site.exportExcel(_submitData, Site.resolveClientUrl(DATA_URL));
+                _submitData = tempSubmitData;
                 return false;
             });
 
@@ -228,7 +241,7 @@ var CustomerWinLoss = (function ($) {
             url = QueryString.setParam(url, "externalid", externalId);
             url = QueryString.setParam(url, "fromdate", _submitData.FromDate);
             url = QueryString.setParam(url, "todate", _submitData.ToDate);
-            url = QueryString.setParam(url, "ishistoryreport", $('input#IsHistoryReport').val());
+            url = QueryString.setParam(url, "ishistoryreport", $('input#IsHistory').val());
 
             var popH = Math.min($(window).height() - 100, 650), popW = 920;
             var dialogForm = '<div title="Customer Bet List"><iframe scrolling="no" frameborder="0" width="' +
@@ -257,11 +270,6 @@ var CustomerWinLoss = (function ($) {
 
         submit: function () {
             Report.setOriginalProduct();
-
-            var validProduct = Report.ValidProducts();
-            if (!validProduct) {
-                return false;
-            }
 
             buildPostData();
 

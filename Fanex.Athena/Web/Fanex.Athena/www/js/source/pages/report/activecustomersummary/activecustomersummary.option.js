@@ -90,17 +90,14 @@
 
                 // columModels
                 var column = Site.clone(productColumn);
-                column.name = value.Code;
-                column.index = column.name;
+                column.index = "CustomerCount." + value.Code;
+                column.name = column.index;
 
-                if (value.Status) {
-                    column.formatter = function (cellvalue, options, rowObject) {
-                        return rowObject.CustomerCount[value.Code];
-                    };
-                } else {
+                if (!value.Status) {
                     column.formatter = function () {
                         return "-";
                     };
+                    column.sortable = false;
                 }
 
                 columnModels.insertAfter(column, startIndex);

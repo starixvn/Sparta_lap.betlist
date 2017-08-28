@@ -7,16 +7,18 @@
     "components/pluginhelper/multiselect",
     "components/paging",
     "common/popup",
+    "../report",
     "lib/jqgrid/jquery.jqGrid.en",
     "lib/jqgrid/jquery.jqGrid.min",
     "extensions/jquery.extension"],
-    function ($, QueryString, Site, jqGridAdditional, CustomerPedingFundsOption, MultiSelect, PagingHelper, Popup) {
+    function ($, QueryString, Site, jqGridAdditional, CustomerPedingFundsOption, MultiSelect, PagingHelper, Popup, Report) {
         "use strict";
 
         var _ajaxRequest = null;
         var _sortDirection = "";
         var _sortColumn = "";
         var _isFirstLoad = true;
+        var _submitData = null;
         var _pagingOption =
         {
             pageindex: 1,
@@ -53,7 +55,13 @@
 
         function initEvent() {
             $(_selector.SubmitButton).click(function () {
+                var validProduct = Report.ValidProducts();
+                if (!validProduct) {
+                    return;
+                }
+
                 _pagingOption.pageindex = 1;
+                _submitData = null;
                 _me.submit();
             });
 
@@ -91,12 +99,15 @@
         }
 
         function submit() {
-            var data = getPostData();
+            Report.setOriginalProduct();
+            Site.updateOriginalLicenseeOption();
+
+            buildPostData();
 
             var option =
             {
                 type: "POST",
-                data: data,
+                data: _submitData,
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false,
@@ -161,16 +172,21 @@
             url = QueryString.setParam(url, "custid", custid);
             url = QueryString.setParam(url, "systemid", systemId);
             url = QueryString.setParam(url, "externalid", externalId);
+
+            var title = Site.getSingleResource("BetListRunning");
             var popH = Math.min($(window).height() - 100, 650), popW = 920;
-            var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: "Customer Pending Funds Bet List" };
+            var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: title };
             Popup.openPopupWithIframe(url, popupOption);
         }
 
-        function getPostData() {
-            var data = $(_selector.Form).serializeObject();
-            data.PageIndex = _pagingOption.pageindex;
-            data.PageSize = _pagingOption.pagesize;
-            return data;
+        function buildPostData() {
+            if (!_submitData) {
+                _submitData = $(_selector.Form).serializeObject();
+            }
+            _submitData.PageIndex = _pagingOption.pageindex;
+            _submitData.PageSize = _pagingOption.pagesize;
+            _submitData.SortColumn = _sortColumn;
+            _submitData.SortDirection = _sortDirection;
         }
 
         function createPaging(totalRows) {

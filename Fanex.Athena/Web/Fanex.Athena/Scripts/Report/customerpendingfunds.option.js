@@ -82,7 +82,8 @@ var CustPendingFundsOption = (function () {
         align: "right",
         sortable: true,
         resizable: false,
-        formatter: jqGridAdditional.formatDecimal
+        formatter: "currency",
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
     var colNameList = [

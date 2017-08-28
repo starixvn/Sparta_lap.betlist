@@ -1,4 +1,4 @@
-﻿/*global Site, ProductListHelper, CustomerBalanceOption, PagingHeper, jqGridAdditional */
+﻿/*global Site, ProductListHelper, CustomerBalanceOption, PagingHeper, jqGridAdditional, Report*/
 /// <reference path="/@JSense.js" />
 var CustomerBalance = (function ($) {
     "use strict";
@@ -10,7 +10,9 @@ var CustomerBalance = (function ($) {
     var _ajaxRequest = null;
     var _sortColumnIndex = "";
     var _sortType = "desc";
+    var _orderColumnCode = 0;
     var _isFirstLoad = true;
+    var _submitData = null;
     var _pagingOption =
     {
         pageindex: 1,
@@ -23,12 +25,13 @@ var CustomerBalance = (function ($) {
         alwayshow: true
     };
 
-    function getPostData() {
-        var data = $(FORM_SELECTOR).serializeObject();
-        data.PageIndex = _pagingOption.pageindex;
-        data.PageSize = _pagingOption.pagesize;
-
-        return data;
+    function buildPostData() {
+        if (!_submitData) {
+            _submitData = $(FORM_SELECTOR).serializeObject();
+        }
+        _submitData.PageIndex = _pagingOption.pageindex;
+        _submitData.PageSize = _pagingOption.pagesize;
+        _submitData.OrderItem = _orderColumnCode;
     }
 
     function createPaging(totalRows) {
@@ -46,15 +49,15 @@ var CustomerBalance = (function ($) {
         if (_pagingOption.totalrow > 1) {
             _sortType = index === _sortColumnIndex ? (_sortType === "desc" ? "asc" : "desc") : "desc";
             window.setTimeout(function () {
-                var orderColumnCode = CustomerBalanceOption.getOrderColumnCode(index, _sortType);
-                if (orderColumnCode === 0) {
+                _orderColumnCode = CustomerBalanceOption.getOrderColumnCode(index, _sortType);
+                if (_orderColumnCode === 0) {
                     _sortColumnIndex = "";
                     _sortType = "";
                 }
                 else {
                     _sortColumnIndex = index;
                 }
-                $("#OrderItem").val(orderColumnCode);
+                $("#OrderItem").val(_orderColumnCode);
                 CustomerBalance.submit();
             }, 100);
         }
@@ -108,7 +111,13 @@ var CustomerBalance = (function ($) {
 
         initEvent: function () {
             $("#SubmitButton").click(function () {
+                var validProduct = Report.ValidProducts();
+                if (!validProduct) {
+                    return;
+                }
+
                 _pagingOption.pageindex = 1;
+                _submitData = null;
                 CustomerBalance.submit();
             });
 
@@ -128,30 +137,30 @@ var CustomerBalance = (function ($) {
             CustomerBalanceOption.isAllowBA = Site.asBool($("#IsAllowedBACommission").val());
         },
 
-        setReportTitle: function () {
+        setReportTitle: function (fromDate, toDate, currencyName) {
             var titlePattern = "{0}, {1} → {2}, {3}";
             var title = $.format(titlePattern,
                 Site.getSingleResource("CustomerBalance"),
-                $("#FromDate").val().toString("M/dd/yyyy"),
-                $("#ToDate").val().toString("M/dd/yyyy"),
-                Site.getSingleResource("Viewin").replace("{0}",
-                $("#CurrencyName").val()));
+                fromDate,
+                toDate,
+                Site.getSingleResource("Viewin").replace("{0}", currencyName));
 
             $("div.report-title").html(title).show();
         },
 
         submit: function () {
-            var data = getPostData();
+            buildPostData();
 
             var option =
             {
                 type: "POST",
-                data: data,
+                data: _submitData,
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false,
                 url: Site.resolveClientUrl(CustomerBalanceOption.urlData),
                 success: function (response) {
+                    CustomerBalance.setReportTitle(_submitData.FromDate, _submitData.ToDate, _submitData.CurrencyName);
                     CustomerBalance.bindData(response);
                 },
                 beforeSend: function () {
@@ -192,7 +201,6 @@ var CustomerBalance = (function ($) {
             };
             gridOption.shrinkToFit = response.TotalRows <= 0;
 
-            CustomerBalance.setReportTitle();
             createPaging(response.TotalRows);
 
             var reportGrid = $("#" + GRID_ID);

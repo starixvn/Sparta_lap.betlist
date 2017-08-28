@@ -21,6 +21,7 @@
         var _bettypes = [];
         var _checkedSports = [];
         var _checkedBettypes = [];
+        var _submitData;
         var _url = {
             GetSports: "CustomerTurnoverReport/GetSportsAndProducts",
             GetBetTypes: "ReportAPI/GetBettypesBySport",
@@ -80,7 +81,11 @@
             });
 
             $(_selector.SubmitButton).click(function () {
+                if (!checkValidFilter()) {
+                    return;
+                }
                 _pagingOption.pageindex = 1;
+                _submitData = null;
                 _me.submit();
             });
 
@@ -135,22 +140,20 @@
         }
 
         function submit() {
-            if (!checkValidFilter()) {
-                return;
+            if (_submitData == null) {
+                _submitData = getPostData();
             }
-
-            var param = getPostData();
 
             var option = {
                 type: "POST",
-                data: JSON.stringify(param),
+                data: JSON.stringify(_submitData),
                 dataType: "json",
                 contentType: "application/json",
                 cache: false,
                 url: Site.resolveClientUrl(CustomerTurnoverOption.urlData),
                 success: function (response) {
-                    setReportTitle(param.currencyname, param.username, param.fromdate, param.todate, param.odds);
-                    CustomerTurnoverOption.reportBy = param.reportby;
+                    setReportTitle(_submitData.currencyname, _submitData.username, _submitData.fromdate, _submitData.todate, _submitData.odds);
+                    CustomerTurnoverOption.reportBy = _submitData.reportby;
                     _me.bindData(response);
                 },
                 beforeSend: function () {
@@ -170,6 +173,8 @@
             Site.blockUI();
             jqGridAdditional.clearGrid(_selector.GridId);
 
+            createPaging(response.TotalRow);
+
             if (response.TotalRow === 0) {
                 jqGridAdditional.setNoInfo();
                 Site.unBlockUI();
@@ -187,16 +192,16 @@
 
             var reportGrid = $("#" + _selector.GridId);
             reportGrid.jqGrid(gridOption);
-            createPaging(response.TotalRow);
         }
 
         function exportToExcel() {
             if (!checkValidFilter()) {
-                return;
+                return false;
             }
             var param = getPostData();
             $(_selector.ExcelParam).val(JSON.stringify(param));
             $(_selector.ExcelForm).submit();
+            return false;
         }
 
         function ajaxPaging() {

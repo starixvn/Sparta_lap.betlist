@@ -62,9 +62,8 @@ namespace Fanex.Athena.Api.Report
                 if (property == null)
                 {
                     // The two last characters is product code.
-                    var indexProductCode = sortBy.Length - 2;
-                    var propertyName = sortBy.Substring(0, indexProductCode);
-                    var productCode = sortBy.Substring(indexProductCode);
+                    var propertyName = nameof(ActiveCustomer.CustomerCount);
+                    var productCode = sortBy.Substring(propertyName.Length);
 
                     dataList.SortByDictionary<string, int>(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
                 }
