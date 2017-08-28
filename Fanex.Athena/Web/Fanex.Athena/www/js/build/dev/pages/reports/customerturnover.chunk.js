@@ -22525,7 +22525,183 @@ webpackJsonp([86],[
 /* 288 */,
 /* 289 */,
 /* 290 */,
-/* 291 */,
+/* 291 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
+	    var $pagingContainer, $pageIndex, $pageSize;
+	
+	    var me = {};
+	
+	    var setting = {
+	        pageindex: 1,
+	        pagesize: 50,
+	        pagelist: [50, 100, 1000],
+	        totalrow: 1,
+	        formId: "formreport",
+	        elementcontainer: "#page",
+	        method: "AJAX",
+	        ajaxfunction: "",
+	        alwayshow: false
+	    };
+	
+	    function goToPage(method, index) {
+	        if (method === "POST") {
+	            $("#IsExportExcel").val(false);
+	            var formName = $("input[name='FormName']", $pagingContainer).val();
+	            var form = $("#" + formName);
+	            var pageIndex = '<input type="hidden" value="' + index + '" name="PageIndex" />';
+	            var pageSize = '<input type="hidden" value="' + $pageSize.val() + '" name="PageSize" />';
+	            form.append(pageIndex);
+	            form.append(pageSize);
+	            Site.blockUI();
+	            form.submit();
+	        }
+	        else if (method === "AJAX") {
+	            $pageIndex.val(index);
+	            var fc = $("input[name='AjaxPagingFunction']", $pagingContainer).val();
+	            eval(fc); // jshint ignore:line
+	        } else {
+	            var url = Site.getCurrentUrl();
+	            url = QueryString.setParam(url, "PageSize", $pageSize.val());
+	            url = QueryString.setParam(url, "PageIndex", index);
+	
+	            Site.redirect(url);
+	        }
+	    }
+	
+	    function isVisible(element) {
+	        return !$(element).hasClass("pagingDisable");
+	    }
+	
+	    me.render = function (option) {
+	        /// <summary>
+	        ///
+	        /// </summary>
+	        /// <param name="pageindex"></param>
+	        /// <param name="pagesize"></param>
+	        /// <param name="totalrow"></param>
+	        /// <param name="elementcontainer">ex: "#page"</param>
+	        /// <param name="method">POST or GET or AJAX</param>
+	        var pageHtml = "";
+	        $.extend(setting, option);
+	        var noOfPage = 1;
+	        var pagingVisible = setting.totalrow > setting.pagesize;
+	
+	        if (pagingVisible) {
+	            noOfPage = parseInt(setting.totalrow / setting.pagesize
+	         + (setting.totalrow % setting.pagesize === 0 ? 0 : 1));
+	        }
+	
+	        if (pagingVisible || setting.alwayshow) {
+	            var prevPageDisabledHtml = (setting.pageindex === 1 ? ' pagingDisable"' : '"') + '></a>';
+	            var pageControl = ['<div class="pagingContainer center-align">',
+	                          '<a href="javascript:;" class="icon pagingFirst' + prevPageDisabledHtml,
+	                          '<a href="javascript:;" class="icon pagingPrev' + prevPageDisabledHtml,
+	                          '<span class="pagingSeperator"></span>'];
+	
+	            var pagingInfo = '<div class="paging-info">' + Site.getSingleResource("Page") +
+	                '<input  type="text" name="PageIndex" class="pagingCurrent paging-form" maxlength="4" size="2" value="' + setting.pageindex + '" />'
+	            + "&nbsp;" + Site.getSingleResource("of") + "&nbsp;" + noOfPage + '</div>';
+	
+	            pageControl.push(pagingInfo);
+	
+	            pageControl.push('<span class="pagingSeperator"></span>');
+	
+	            var nextPageDisabled = (setting.pageindex === noOfPage ? ' pagingDisable"' : '"') + '></a>';
+	            var pageNext = '<a href="javascript:;" class="icon pagingNext' + nextPageDisabled;
+	            pageControl.push(pageNext);
+	            var pageLast = '<a href="javascript:;" class="icon pagingLast' + nextPageDisabled;
+	            pageControl.push(pageLast);
+	
+	            var pageListLength = setting.pagelist.length;
+	            var pageSizeSelectHtml = '<select class="pageSizeSelected">';
+	            var pageSize = parseInt(setting.pagesize);
+	            for (var i = 0; i < pageListLength; i++) {
+	                pageSizeSelectHtml += '<option value="' + setting.pagelist[i]
+	                + '"' + (pageSize === setting.pagelist[i] ? ' selected="selected"' : '')
+	                + '>' + setting.pagelist[i] + '</option>';
+	            }
+	            pageSizeSelectHtml += '</select>';
+	            pageControl.push(pageSizeSelectHtml);
+	
+	            pageControl.push('<input type="hidden" name="PageSize" value="' + setting.pagesize + '" />');
+	            pageControl.push('<input type="hidden" name="Method" value="' + setting.method + '" />');
+	            pageControl.push('<input type="hidden" name="FormName" value="' + setting.formId + '" />');
+	            pageControl.push('<input type="hidden" name="NoOfPage" value="' + noOfPage + '" />');
+	            pageControl.push('<input type="hidden" name="AjaxPagingFunction" value="' + setting.ajaxfunction + '" />');
+	
+	            pageControl.push('</div>');
+	            pageHtml = pageControl.join("");
+	        }
+	
+	        $(setting.elementcontainer).html(pageHtml);
+	        me.initialize();
+	    };
+	    me.getSetting = function () {
+	        setting.pageindex = parseInt($pageIndex.val(), 10);
+	        setting.pagesize = $pageSize.val();
+	        return setting;
+	    };
+	    me.bindEvent = function () {
+	        var method = $('input[name="Method"]', $pagingContainer).val();
+	        var noOfPage = parseInt($('input[name="NoOfPage"]', $pagingContainer).val(), 10);
+	
+	        $(".pagingFirst", $pagingContainer).on("click", function () {
+	            if (isVisible(this)) {
+	                goToPage(method, 1);
+	            }
+	        });
+	        $(".pagingPrev", $pagingContainer).on("click", function () {
+	            var currentPage = parseInt($pageIndex.val(), 10);
+	            if (isVisible(this) && currentPage > 1) {
+	                goToPage(method, currentPage - 1);
+	            }
+	        });
+	        $(".pagingLast", $pagingContainer).on("click", function () {
+	            if (isVisible(this)) {
+	                goToPage(method, noOfPage);
+	            }
+	        });
+	        $(".pagingNext", $pagingContainer).on("click", function () {
+	            if (isVisible(this)) {
+	                var currentPage = parseInt($pageIndex.val(), 10);
+	                goToPage(method, currentPage + 1);
+	            }
+	        });
+	
+	        $("select.pageSizeSelected", $pagingContainer).on("change", function () {
+	            var pageSize = $(this).val();
+	            $pageSize.val(pageSize);
+	            setting.pagesize = pageSize;
+	            goToPage(method, 1);
+	        });
+	
+	        $pageIndex.on("keyup", function (e) {
+	            var code = e.keyCode ? e.keyCode : e.which;
+	            if (code === 13) {
+	                var value = parseInt($(this).val());
+	                if (value > 0 && value <= noOfPage) {
+	                    $(this).val(value);
+	                    goToPage(method, value);
+	                }
+	            }
+	        });
+	    };
+	
+	    me.initialize = function () {
+	        $pagingContainer = $(".pagingContainer");
+	        $pageIndex = $("input[name='PageIndex']", $pagingContainer);
+	        $pageSize = $("input[name='PageSize']", $pagingContainer);
+	
+	        me.bindEvent();
+	    };
+	
+	    return me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
 /* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23225,15 +23401,17 @@ webpackJsonp([86],[
 	    __webpack_require__(1),
 	    __webpack_require__(8),
 	    __webpack_require__(7),
+	    __webpack_require__(117),
 	    __webpack_require__(368),
 	    __webpack_require__(292),
 	    __webpack_require__(246),
 	    __webpack_require__(345),
+	    __webpack_require__(291),
 	    __webpack_require__(260),
 	    __webpack_require__(238),
 	    __webpack_require__(239),
 	    __webpack_require__(264),
-	    __webpack_require__(369)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, CustomerTurnoverOption, AutoComplete, DatePicker, DateHelper) {
+	    __webpack_require__(369)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional, CustomerTurnoverOption, AutoComplete, DatePicker, DateHelper, PagingHelper) {
 	        "use strict";
 	
 	        var VALID_MONTH_RANGE = 1;
@@ -23241,11 +23419,12 @@ webpackJsonp([86],[
 	        var _bettypes = [];
 	        var _checkedSports = [];
 	        var _checkedBettypes = [];
+	        var _submitData;
 	        var _url = {
 	            GetSports: "CustomerTurnoverReport/GetSportsAndProducts",
 	            GetBetTypes: "ReportAPI/GetBettypesBySport",
 	            SearchCustomer: "CustomerAPI/SearchCustomer"
-	        }
+	        };
 	        var _selector = {
 	            SubmitButton: "#SubmitButton",
 	            ExportExcelInput: "#IsExportExcel",
@@ -23260,10 +23439,23 @@ webpackJsonp([86],[
 	            ProductMultiSelect: "#grid-products-multiselect",
 	            BetTypeMultiSelect: "#grid-bettypes-multiselect",
 	            BetTypeList: "#BetTypeList",
-	            ProductList: "#ProductList"
-	
+	            ProductList: "#ProductList",
+	            IsAllowedCustomerCommission: "#IsAllowedCustomerCommission",
+	            ExcelParam: "#excelparam",
+	            ExcelForm: "#CustomerTurnoverForm"
 	        };
-	        var _ajaxRequestGetBettype;
+	        var _ajaxRequestGetBettype, _ajaxRequestData;
+	        var _pagingOption =
+	            {
+	                pageindex: 1,
+	                pagesize: 25,
+	                pagelist: [25, 50, 100, 500],
+	                totalrow: 1,
+	                elementcontainer: ".paging",
+	                method: "AJAX",
+	                ajaxfunction: "CustTurnover.ajaxPaging()",
+	                alwayshow: true
+	            };
 	
 	        function initialize() {
 	            Site.initialize();
@@ -23272,8 +23464,9 @@ webpackJsonp([86],[
 	                title: Site.getSingleResource("CustomerTurnover")
 	            });
 	            DatePicker.initDateRangePicker();
-	            DateHelper.setConstraintMonthRange(VALID_MONTH_RANGE, CustomerTurnoverOption.urlData);
+	            DateHelper.setConstraintMonthRange(VALID_MONTH_RANGE, "/CustomerTurnover");
 	
+	            _me.initSetting();
 	            _me.initAutoComplete();
 	            _me.initTicketFilter();
 	            _me.initEvent();
@@ -23286,18 +23479,19 @@ webpackJsonp([86],[
 	            });
 	
 	            $(_selector.SubmitButton).click(function () {
+	                if (!checkValidFilter()) {
+	                    return;
+	                }
 	                _pagingOption.pageindex = 1;
+	                _submitData = null;
 	                _me.submit();
 	            });
 	
 	            $(_selector.ExportToExcel).click(function () {
 	                $(_selector.ExportExcelInput).val(true);
-	                var mainForm = $(_selector.Form);
-	                var url = Site.resolveClientUrl(CustomerTurnoverOption.urlExcelData);
-	                mainForm.attr("action", url);
-	                mainForm.submit();
+	                _me.exportToExcel();
 	                $(_selector.ExportExcelInput).val(false);
-	                return false;
+	                //return false;
 	            });
 	
 	            $(window).on("resize", function () {
@@ -23307,11 +23501,19 @@ webpackJsonp([86],[
 	            $(window).on("unload", function () {
 	                $(window).off("resize");
 	            });
+	
+	            window.CustTurnover = {
+	                ajaxPaging: _me.ajaxPaging
+	            };
+	        }
+	
+	        function initSetting() {
+	            CustomerTurnoverOption.hasCustomerComm = Site.asBool($(_selector.IsAllowedCustomerCommission).val());
 	        }
 	
 	        function initTicketFilter() {
 	            $(_selector.TickerFilter + " input[type=checkbox]").checkboxgroup();
-	            $(_selector.TickerFilte).on("change", "input[type=checkbox]", function () {
+	            $(_selector.TickerFilter).on("change", "input[type=checkbox]", function () {
 	                checkValidFilter();
 	            });
 	        }
@@ -23329,22 +23531,155 @@ webpackJsonp([86],[
 	            $.getJSON(Site.resolveClientUrl(_url.GetSports), function (data) {
 	                _sports = data;
 	                _checkedSports = data;
-	                renderProductTree(data);
+	                renderProductTree();
 	                /*loadd all bettype*/
 	                loadBettypes();
 	            });
 	        }
 	
 	        function submit() {
+	            buildPostData();
 	
+	            var option = {
+	                type: "POST",
+	                data: JSON.stringify(_submitData),
+	                dataType: "json",
+	                contentType: "application/json",
+	                cache: false,
+	                url: Site.resolveClientUrl(CustomerTurnoverOption.urlData),
+	                success: function (response) {
+	                    setReportTitle(_submitData.currencyname, _submitData.username, _submitData.fromdate, _submitData.todate, _submitData.odds);
+	                    CustomerTurnoverOption.reportBy = _submitData.reportby;
+	                    _me.bindData(response);
+	                },
+	                beforeSend: function () {
+	                    Site.blockUI();
+	                },
+	                complete: function () {
+	                    Site.unBlockUI();
+	                }
+	            };
+	            if (_ajaxRequestData != null) {
+	                _ajaxRequestData.abort();
+	            }
+	            _ajaxRequestData = $.ajax(option);
 	        }
 	
-	        function bindData() {
+	        function bindData(response) {
+	            Site.blockUI();
+	            jqGridAdditional.clearGrid(_selector.GridId);
 	
+	            createPaging(response.TotalRow);
+	
+	            if (response.TotalRow === 0) {
+	                jqGridAdditional.setNoInfo();
+	                Site.unBlockUI();
+	                return;
+	            }
+	
+	            var gridOption = CustomerTurnoverOption.getGridOption();
+	            gridOption.data = response.Data;
+	            gridOption.rowNum = response.Data.length;
+	
+	            gridOption.gridComplete = function () {
+	                onGridComplete(this, gridOption, response);
+	                Site.unBlockUI();
+	            };
+	
+	            var reportGrid = $("#" + _selector.GridId);
+	            reportGrid.jqGrid(gridOption);
 	        }
 	
-	        function renderProductTree(data) {
-	            var groupData = groupProductList(data);
+	        function exportToExcel() {
+	            if (!checkValidFilter()) {
+	                return false;
+	            }
+	            var param = getPostData();
+	            param.PageIndex = 1;
+	            $(_selector.ExcelParam).val(JSON.stringify(param));
+	            $(_selector.ExcelForm).submit();
+	            return false;
+	        }
+	
+	        function ajaxPaging() {
+	            _pagingOption = PagingHelper.getSetting();
+	            _me.submit();
+	        }
+	
+	        function setReportTitle(currencyName, userName, fromDate, toDate, odds) {
+	            var titlePattern = Site.getSingleResource('Customer') + ' '
+	                + Site.getSingleResource('Turnover') + ', {0} → {1} - '
+	                + Site.getSingleResource("Currency") + ': {2} - '
+	                + Site.getSingleResource('MinimumOdds') + ': {3} {4}';
+	
+	            var tempUserName = userName.length > 0
+	                ? " - " + Site.getSingleResource("Username") + ": " + userName
+	                : "";
+	
+	            var title = $.format(titlePattern, fromDate, toDate, currencyName, odds, tempUserName);
+	
+	            $(_selector.Title).html(title);
+	            $(_selector.Header).removeClass("hide");
+	        }
+	
+	        function buildPostData() {
+	            if (_submitData === null) {
+	                _submitData = getPostData();
+	            }
+	            else {
+	                _submitData.PageIndex = _pagingOption.pageindex;
+	                _submitData.PageSize = _pagingOption.pagesize;
+	            }
+	        }
+	
+	        function getPostData() {
+	            var data = $(_selector.Form).serializeObject();
+	
+	            var param = {};
+	            param.fromdate = data.FromDate;
+	            param.todate = data.ToDate;
+	            param.reportby = data.ReportBy;
+	            param.showwin = Site.asBool(data.ShowWin);
+	            param.showloss = Site.asBool(data.ShowLoss);
+	            param.showdraw = Site.asBool(data.ShowDraw);
+	            param.odds = data.Odds;
+	            param.SportProducts = _checkedSports;
+	            param.bettypes = _checkedBettypes;
+	            param.username = data.Username;
+	            param.currencyid = data.CurrencyId;
+	            param.isexportexcel = data.IsExportExcel;
+	            param.currencyname = data.CurrencyName;
+	            param.PageIndex = _pagingOption.pageindex;
+	            param.PageSize = _pagingOption.pagesize;
+	
+	            return param;
+	        }
+	
+	        function onGridComplete(grid, gridOption, response) {
+	            var reportGrid = $("#" + _selector.GridId);
+	            if (CustomerTurnoverOption.hasCustomerComm) {
+	                jqGridAdditional.setGroupCustomerWLColumns(reportGrid);
+	            }
+	            jqGridAdditional.gridComplete();
+	            jqGridAdditional.removeCursorOnNonSortableHeader(reportGrid);
+	            jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
+	            jqGridAdditional.setGroupFooters(CustomerTurnoverOption.totalColspan);
+	            resizeGrid();
+	        }
+	
+	        function createPaging(totalRows) {
+	            _pagingOption.totalrow = totalRows;
+	            if (_pagingOption.totalrow > _pagingOption.pagelist[0]) {
+	                $(_pagingOption.elementcontainer).show();
+	                PagingHelper.render(_pagingOption);
+	            }
+	            else {
+	                $(_pagingOption.elementcontainer).hide();
+	            }
+	        }
+	
+	        function renderProductTree() {
+	            var groupData = groupProductList();
 	
 	            $(_selector.ProductMultiSelect).multiSelect({
 	                minWidth: 200,
@@ -23378,15 +23713,13 @@ webpackJsonp([86],[
 	                    }
 	                    /*Load bet types*/
 	                    loadBettypes();
-	                    $(_selector.ProductList).toggleClass("invalid", numberOfCheckedItems === 0);
-	                    $(_selector.SubmitButton).prop("disabled", numberOfCheckedItems === 0);
 	                }
 	            });
 	        }
 	
-	        function groupProductList(data) {
+	        function groupProductList() {
 	            var groupData = [];
-	            var parents = Enumerable.From(_sports).Where(function (s) { return s.ParentId === -1 }).ToArray();
+	            var parents = Enumerable.From(_sports).Where(function (s) { return s.ParentId === -1; }).ToArray();
 	            $.each(parents, function (index, value) {
 	                var parent = {
 	                    Id: index.toString(),
@@ -23397,7 +23730,7 @@ webpackJsonp([86],[
 	                    Enable: true,
 	                    Css: "",
 	                    CssClass: ""
-	                }
+	                };
 	                var cindex = 0;
 	                parent.Items = Enumerable.From(_sports).Where(function (child) {
 	                    return child.ParentId === value.ID && child.ID > 0 && child.ParentId > -1;
@@ -23412,14 +23745,14 @@ webpackJsonp([86],[
 	                        Css: "",
 	                        CssClass: "",
 	                        GroupName: parent.Text
-	                    }
+	                    };
 	                }).ToArray();
 	
 	                groupData.push(parent);
 	            });
 	
 	            return groupData;
-	        }     
+	        }
 	
 	        function addCheckedSport(checkedValue) {
 	            var modelItem = Enumerable.From(_sports).FirstOrDefault(null, function (item) {
@@ -23453,7 +23786,10 @@ webpackJsonp([86],[
 	
 	        function loadBettypes() {
 	            if (_checkedSports.length === 0) {
+	                _bettypes = [];
+	                _checkedBettypes = [];
 	                renderBetTypeTree([]);
+	                checkValidFilter();
 	                return;
 	            }
 	            var option = {
@@ -23466,7 +23802,7 @@ webpackJsonp([86],[
 	                success: function (response) {
 	                    _bettypes = response;
 	                    _checkedBettypes = response;
-	                    renderBetTypeTree(response);
+	                    renderBetTypeTree();
 	                },
 	                beforeSend: function () {
 	                    Site.blockUI();
@@ -23481,9 +23817,9 @@ webpackJsonp([86],[
 	            _ajaxRequestGetBettype = $.ajax(option);
 	        }
 	
-	        function renderBetTypeTree(data) {
+	        function renderBetTypeTree() {
 	            var dataList = [];
-	            $.each(data, function (index, value) {
+	            $.each(_bettypes, function (index, value) {
 	                var item = {
 	                    Id: index.ID,
 	                    Value: value.ID,
@@ -23495,13 +23831,9 @@ webpackJsonp([86],[
 	                };
 	                dataList.push(item);
 	            });
-	            var hasCheckedItems = dataList.length > 0;
-	            $(_selector.BetTypeList).toggleClass("invalid", !hasCheckedItems);
-	            $(_selector.SubmitButton).prop("disabled", !hasCheckedItems);
-	
+	            checkValidFilter();
 	
 	            $(_selector.BetTypeMultiSelect).multiSelect({
-	                //showCheckAll: true,
 	                minWidth: 200,
 	                maxHeight: 400,
 	                listData: dataList,
@@ -23514,8 +23846,7 @@ webpackJsonp([86],[
 	                    for (var i = 0; i < numberOfCheckedItems; i++) {
 	                        addCheckedBettype(checkedItems[i]);
 	                    }
-	                    $(_selector.BetTypeList).toggleClass("invalid", numberOfCheckedItems === 0);
-	                    $(_selector.SubmitButton).prop("disabled", numberOfCheckedItems === 0);                   
+	                    checkValidFilter();
 	                },
 	                isUsedCustomCheckAllText: true,
 	                customCheckAllText: Site.getSingleResource('All'),
@@ -23546,17 +23877,19 @@ webpackJsonp([86],[
 	                _checkedBettypes.push(modelItem);
 	            }
 	        }
-	        
+	
 	        function checkValidFilter() {
 	            var validBetType = _checkedBettypes.length > 0;
-	            var validTicketFilter = $(_selector.TickerFilter + " input:checked").length > 0;
+	
+	            var ticketFilter = $(_selector.TickerFilter);
+	            var validTicketFilter = ticketFilter.find("input:checked").length > 0;
 	            var isValid = validBetType && validTicketFilter;
 	
-	            if ($(this).attr("id") === "AllTicket") {
-	                isValid = $(this).prop("checked") && validBetType;
-	            }
+	            $(_selector.BetTypeList).toggleClass("invalid", !validBetType);
 	
 	            $(_selector.SubmitButton).prop("disabled", !isValid);
+	
+	            return isValid;
 	        }
 	
 	        function handleOddInput(event) {
@@ -23597,12 +23930,15 @@ webpackJsonp([86],[
 	
 	        var _me = {
 	            initialize: initialize,
+	            initSetting: initSetting,
 	            initAutoComplete: initAutoComplete,
 	            initTicketFilter: initTicketFilter,
 	            initEvent: initEvent,
 	            initProductTree: initProductTree,
 	            submit: submit,
-	            bindData: bindData
+	            bindData: bindData,
+	            ajaxPaging: ajaxPaging,
+	            exportToExcel: exportToExcel
 	        };
 	
 	        return _me;
@@ -23765,7 +24101,6 @@ webpackJsonp([86],[
 	        var customerWlTotalIndex = 12;
 	
 	        var _me = {
-	            urlExcelData: "report/CustomerTurnoverExcel",
 	            urlData: "reportapi/CustomerTurnover",
 	            hasCustomerComm: false,
 	            totalColspan: 6,
@@ -23775,27 +24110,18 @@ webpackJsonp([86],[
 	                colNames: [],
 	                colModel: [],
 	                data: [],
-	                height: 'auto',
+	                height: '100%',
 	                viewrecords: true,
 	                autowidth: false,
 	                forceFit: false,
 	                shrinkToFit: true,
-	                minWidth: 800,
 	                loadtext: '',
 	                loadui: 'disable',
 	                loadonce: true,
 	                gridview: true,
 	                footerrow: true,
-	                userDataOnFooter: true,
-	                cmTemplate: { title: true }, //enable tooltip
-	                userData: [],
-	
-	                beforeSelectRow: function () {
-	                    return false;
-	                },
-	                onRightClickRow: function () {
-	                    return false;
-	                }
+	                userDataOnFooter: false,
+	                userData: []
 	            }
 	        };
 	
@@ -23824,10 +24150,11 @@ webpackJsonp([86],[
 	        };
 	
 	        _me.getGridOption = function () {
-	            _me.gridOption.colNames = getColName();
-	            _me.gridOption.colModel = getColModel();
+	            var option = Site.clone(_me.gridOption);
+	            option.colNames = getColName();
+	            option.colModel = getColModel();
 	
-	            return _me.gridOption;
+	            return option;
 	        };
 	
 	        return _me;

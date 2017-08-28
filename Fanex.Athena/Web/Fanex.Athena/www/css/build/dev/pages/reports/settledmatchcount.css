@@ -18,6 +18,29 @@
   padding: 5px;
   background: #fff; }
 
+.filter-handle {
+  position: absolute;
+  background-color: #4C6375;
+  cursor: pointer;
+  width: 25px;
+  bottom: 0;
+  height: 12px;
+  text-align: center;
+  color: #fff;
+  left: 50%;
+  margin-left: -12.5px;
+  font-size: 9px; }
+  .filter-handle .icon-arrow {
+    transform: rotate(180deg);
+    display: inline-block; }
+
+.filter-collapse *:not(.filter-handle) {
+  display: none; }
+
+.filter-collapse .filter-handle .icon-arrow {
+  transform: rotate(0);
+  display: inline-block; }
+
 .popup-block-body {
   background: transparent;
   border: none;

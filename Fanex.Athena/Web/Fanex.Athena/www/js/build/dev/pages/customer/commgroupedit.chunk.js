@@ -1,17 +1,17 @@
-webpackJsonp([55],{
+webpackJsonp([62],{
 
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(268);
+	module.exports = __webpack_require__(282);
 
 
 /***/ }),
 
-/***/ 265:
+/***/ 279:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(266), __webpack_require__(267)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, CustomerCommGroup) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(280), __webpack_require__(281)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, CustomerCommGroup) {
 	         "use strict";
 	
 	         function initialize(titleResource) {
@@ -227,7 +227,7 @@ webpackJsonp([55],{
 
 /***/ }),
 
-/***/ 266:
+/***/ 280:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
@@ -270,7 +270,7 @@ webpackJsonp([55],{
 
 /***/ }),
 
-/***/ 267:
+/***/ 281:
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/**
@@ -631,10 +631,10 @@ webpackJsonp([55],{
 
 /***/ }),
 
-/***/ 268:
+/***/ 282:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(269)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupEdit) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(283)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupEdit) {
 	    "use strict";
 	
 	    $(CustomerCommGroupEdit.initialize);
@@ -643,10 +643,10 @@ webpackJsonp([55],{
 
 /***/ }),
 
-/***/ 269:
+/***/ 283:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(265)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, CommGroupDetail) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(279)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, CommGroupDetail) {
 	         "use strict";
 	
 	         var FORM_SELECTOR = "#customer-comm-group-edit";

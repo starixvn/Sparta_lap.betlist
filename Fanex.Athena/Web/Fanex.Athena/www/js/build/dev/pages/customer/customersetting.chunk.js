@@ -1,19 +1,19 @@
-webpackJsonp([58],{
+webpackJsonp([65],{
 
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(287);
+	module.exports = __webpack_require__(301);
 
 
 /***/ }),
 
-/***/ 103:
+/***/ 117:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
 	///
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(104)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(118)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
 	    "use strict";
 	    var jqGridAdditional = (function () {
 	        return {
@@ -399,6 +399,62 @@ webpackJsonp([58],{
 	                                $this.addClass("sortable sort-heading sorted-heading");
 	                            }
 	                        });
+	            },
+	
+	            updateSortableHeader: function ($grid, sortColumn, sortOrder, isLightText) {
+	                var sortClass = "sort-icon-" + sortOrder + (isLightText ? " light" : "");
+	                sortColumn = "_" + sortColumn;
+	
+	                $grid.closest(".ui-jqgrid-view")
+	                        .find(".ui-jqgrid-sortable")
+	                        .each(function (index, element) {
+	                            var $this = $(element);
+	                            $this.find(".s-ico").remove();
+	
+	                            if (element.id.endsWith(sortColumn)) {
+	                                var sortSpan = $this.find(".sort-icon");
+	                                if (sortSpan.length) {
+	                                    sortSpan.removeClass().addClass("sort-icon " + sortClass);
+	                                }
+	                                else {
+	                                    sortSpan = $("<span class='sort-icon'></span>");
+	                                    sortSpan.addClass(sortClass);
+	                                    $this.append(sortSpan);
+	                                    $this.addClass("sortable sort-heading sorted-heading");
+	                                }
+	                            }
+	                            else {
+	                                $this.removeClass("sortable sort-heading sorted-heading");
+	                                $this.find(".sort-icon").remove();
+	                            }
+	                        });
+	            },
+	
+	            removeCursorOnNonSortableHeader: function ($grid) {
+	                var cm = $grid[0].p.colModel;
+	                $.each($grid[0].grid.headers, function (index, value) {
+	                    var cmi = cm[index];
+	                    if (!cmi.sortable) {
+	                        $('.ui-jqgrid-sortable', value.el).css({ cursor: "default" });
+	                    }
+	                });
+	            },
+	
+	            addSortableHeaders: function ($grid, sortColumn, sortOrder) {
+	                var cm = $grid[0].p.colModel;
+	                $.each($grid[0].grid.headers, function (index, value) {
+	                    var cmi = cm[index];
+	                    if (!cmi.sortable) {
+	                        $(".ui-jqgrid-sortable", value.el).css({ cursor: "default" });
+	                    }
+	                    if (cmi.index === sortColumn && sortOrder !== "") {
+	                        var header = $(".ui-jqgrid-sortable", value.el);
+	                        header.find(".s-ico").remove();
+	                        header.addClass("sortable sort-heading sorted-heading");
+	                        var sortClass = "sort-icon sort-icon-" + sortOrder;
+	                        header.append('<span class="' + sortClass + '"></span>');
+	                    }
+	                });
 	            }
 	        };
 	    })();
@@ -408,7 +464,7 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 104:
+/***/ 118:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/MikeMcl/bignumber.js/LICENCE */
@@ -3152,7 +3208,7 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 224:
+/***/ 238:
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {;(function($){
@@ -3330,7 +3386,7 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 225:
+/***/ 239:
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* 
@@ -3681,11 +3737,11 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 278:
+/***/ 292:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// require option properties: suggestionDropdown, url, target
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(279)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(293)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
 	    "use strict";
 	
 	    var mainOption = {
@@ -3774,7 +3830,7 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 279:
+/***/ 293:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
@@ -4243,23 +4299,23 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 287:
+/***/ 301:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(288)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerSetting) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(302)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerSetting) {
 	    $(CustomerSetting.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 
-/***/ 288:
+/***/ 302:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(278), __webpack_require__(289),
-	    __webpack_require__(290), __webpack_require__(292)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, AutoComplete, CommonOption, MonthPicker, CustomerLogService) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(292), __webpack_require__(303),
+	    __webpack_require__(304), __webpack_require__(306)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, AutoComplete, CommonOption, MonthPicker, CustomerLogService) {
 	        var _me = {
 	            initialize: function () {
 	                CustomerLogService.initialize();
@@ -4320,7 +4376,7 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 289:
+/***/ 303:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -4410,10 +4466,10 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 290:
+/***/ 304:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(291)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(305)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 	        "use strict";
 	        var PICKER_SELECTOR = "#month-picker";
 	        var FORMAT = "MM/dd/yyyy";
@@ -4475,7 +4531,7 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 291:
+/***/ 305:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -5315,12 +5371,12 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 292:
+/***/ 306:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7),
-	    __webpack_require__(103), __webpack_require__(224), __webpack_require__(225)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
+	    __webpack_require__(117), __webpack_require__(238), __webpack_require__(239)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
 	        var GRID_ID = "ReportGrid";
 	        var _ajaxRequest = null;
 	

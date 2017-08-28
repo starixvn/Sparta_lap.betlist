@@ -76,4 +76,9 @@
     .sort-icon-desc.light {
       border-top-color: #fff; }
 
+.popup-notification .notification {
+  font-size: 14px;
+  text-align: center;
+  padding: 20px; }
+
 /*# sourceMappingURL=customerpendingfunds.css.map*/

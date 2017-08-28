@@ -8,12 +8,12 @@ webpackJsonp([85],{
 
 /***/ }),
 
-/***/ 115:
+/***/ 117:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
 	///
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(116)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(118)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
 	    "use strict";
 	    var jqGridAdditional = (function () {
 	        return {
@@ -464,7 +464,7 @@ webpackJsonp([85],{
 
 /***/ }),
 
-/***/ 116:
+/***/ 118:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/MikeMcl/bignumber.js/LICENCE */
@@ -3208,7 +3208,7 @@ webpackJsonp([85],{
 
 /***/ }),
 
-/***/ 236:
+/***/ 238:
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {;(function($){
@@ -3386,7 +3386,7 @@ webpackJsonp([85],{
 
 /***/ }),
 
-/***/ 237:
+/***/ 239:
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* 
@@ -3737,11 +3737,174 @@ webpackJsonp([85],{
 
 /***/ }),
 
-/***/ 257:
+/***/ 256:
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+	    "use strict";
+	    var REPORT_BY_MONTHLY = 2;
+	    var LICENSEE_12BET = 1;
+	    function lastDateOfMonth(year, month) {
+	        return new Date(year, month + 1, 0);
+	    }
+	
+	    var _me = {
+	        GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
+	            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
+	            var tdate = fdate;
+	            if (Number(reportBy) === REPORT_BY_MONTHLY) {
+	                var fday = 1;
+	                var month = fdate.getMonth();
+	                var year = fdate.getFullYear();
+	                var orignalFDate = new Date(fromDate);
+	                if (month === orignalFDate.getMonth()) {
+	                    fday = orignalFDate.getDate();
+	                }
+	                fdate = new Date(year, month, fday, 0, 0, 0, 0);
+	                var originalTDate = new Date(toDate);
+	
+	                if (month === originalTDate.getMonth()) {
+	                    var tday = originalTDate.getDate();
+	                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
+	                }
+	                else {
+	                    tdate = lastDateOfMonth(year, month);
+	                }
+	            }
+	
+	            return {
+	                FromDate: fdate,
+	                ToDate: tdate
+	            };
+	        },
+	        ValidProducts: function () {
+	            var temp = true;
+	            if ($(".childCheckbox:checked").length === 0) {
+	                temp = false;
+	                var title = Site.getSingleResource("LrfNotification");
+	                var message = Site.getSingleResource("AlertChooseProductMsg");
+	                var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
+	
+	                Popup.openPopup($dialog, {
+	                    width: 380,
+	                    height: 150,
+	                    title: title,
+	                    className: "popup-notification",
+	                    onOpen: function () {
+	                        $('#SubmitButton').prop('disabled', true);
+	                    },
+	                    onClose: function () {
+	                        $('#SubmitButton').removeAttr('disabled');
+	                    }
+	                });
+	            }
+	
+	            return temp;
+	        },
+	
+	        setOriginalProduct: function () {
+	            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
+	                var isCheck = $(this).is(":checked");
+	                $(element).attr({ 'data-original': isCheck });
+	            });
+	        },
+	
+	        bindSummaryTotal: function (columnModel, summaryTotal) {
+	            if (!summaryTotal || summaryTotal.length === 0) {
+	                return;
+	            }
+	
+	            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
+	            var rowCount = 0;
+	            var currencyList = [];
+	
+	            function processColumnModel(dataItem) {
+	                var row = mainFooter.clone();
+	                var cellList = $("td", row);
+	
+	                $(columnModel).each(function (cellIndex, modelElement) {
+	                    var isCustomFormater = typeof modelElement.formatter === "function";
+	                    var rawValue = dataItem[modelElement.name];
+	                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
+	                                $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
+	
+	                    var $cell = $(cellList.get(cellIndex));
+	                    if (cellIndex === 0) {
+	                        var content = "Total in " + currency;
+	                        $cell.html(content)
+	                            .addClass("group-" + currency)
+	                            .attr("title", content);
+	                    }
+	                    else {
+	                        var title = $.isNumeric(rawValue) && rawValue < 0 ? undefined : value;
+	                        $cell.html(value).attr("title", title);
+	                    }
+	                });
+	
+	                row.insertAfter(mainFooter);
+	                rowCount++;
+	            }
+	
+	            for (var currency in summaryTotal) {
+	                currencyList.push(currency);
+	                var summaryData = summaryTotal[currency];
+	                if (Array.isArray(summaryData)) {
+	                    summaryData.forEach(processColumnModel);
+	                }
+	                else {
+	                    processColumnModel(summaryData);
+	                }
+	            }
+	
+	            $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
+	            mainFooter.remove();
+	
+	            return rowCount;
+	        },
+	
+	        getCurrencyNameForReportTitle: function (currencyId) {
+	            var viewinKey = Site.getSingleResource("Viewin");
+	            var currencyTextList = {
+	                "-3": viewinKey.replace("{0}", "GBP"),
+	                "-2": viewinKey.replace("{0}", "USD"),
+	                "-1": viewinKey.replace("{0}", "EUR"),
+	                "0": Site.getSingleResource('AllCurrencies')
+	            };
+	
+	            return currencyTextList[currencyId] === undefined
+	                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
+	                : currencyTextList[currencyId];
+	        },
+	
+	        renderBreadCrumb: function (level, licenseeId) {
+	            level = Number(level);
+	            if (level === 0) {
+	                $(".breadCrumbHolder").hide();
+	            }
+	            else {
+	                $(".breadCrumbHolder").show();
+	                $("#level-link-container .level0").show();
+	
+	                var isLevel2 = level === 2;
+	                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
+	
+	                var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
+	                $("#level-link-container .level1").toggle(allowShowLevel1);
+	                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
+	            }
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 259:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(258)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(260)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
 	    var _me = {
 	        initProductList: function () {
 	            var selector = "#grid-products-multiselect";
@@ -3797,7 +3960,7 @@ webpackJsonp([85],{
 
 /***/ }),
 
-/***/ 258:
+/***/ 260:
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -4586,7 +4749,7 @@ webpackJsonp([85],{
 
 /***/ }),
 
-/***/ 262:
+/***/ 264:
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -5033,19 +5196,22 @@ webpackJsonp([85],{
 	    __webpack_require__(1),
 	    __webpack_require__(8),
 	    __webpack_require__(7),
-	    __webpack_require__(115),
+	    __webpack_require__(117),
 	    __webpack_require__(365),
-	    __webpack_require__(257),
+	    __webpack_require__(259),
 	    __webpack_require__(291),
-	    __webpack_require__(236),
-	    __webpack_require__(237),
-	    __webpack_require__(262)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional, CustomerPedingFundsOption, MultiSelect, PagingHelper) {
+	    __webpack_require__(9),
+	    __webpack_require__(256),
+	    __webpack_require__(238),
+	    __webpack_require__(239),
+	    __webpack_require__(264)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional, CustomerPedingFundsOption, MultiSelect, PagingHelper, Popup, Report) {
 	        "use strict";
 	
 	        var _ajaxRequest = null;
 	        var _sortDirection = "";
 	        var _sortColumn = "";
 	        var _isFirstLoad = true;
+	        var _submitData = null;
 	        var _pagingOption =
 	        {
 	            pageindex: 1,
@@ -5061,7 +5227,7 @@ webpackJsonp([85],{
 	            SubmitButton: "#SubmitButton",
 	            ExportExcelInput: "#IsExportExcel",
 	            ExportToExcel: "#ExportToExcel",
-	            Form: "#CustomerPendingFundsReport",
+	            Form: "#CustomerPendingFundsForm",
 	            GridId: "ReportGrid",
 	            SortColumnInput: "#SortColumn",
 	            SortDirectionInput: "#SortDirection",
@@ -5082,7 +5248,13 @@ webpackJsonp([85],{
 	
 	        function initEvent() {
 	            $(_selector.SubmitButton).click(function () {
+	                var validProduct = Report.ValidProducts();
+	                if (!validProduct) {
+	                    return;
+	                }
+	
 	                _pagingOption.pageindex = 1;
+	                _submitData = null;
 	                _me.submit();
 	            });
 	
@@ -5120,12 +5292,15 @@ webpackJsonp([85],{
 	        }
 	
 	        function submit() {
-	            var data = getPostData();
+	            Report.setOriginalProduct();
+	            Site.updateOriginalLicenseeOption();
+	
+	            buildPostData();
 	
 	            var option =
 	            {
 	                type: "POST",
-	                data: data,
+	                data: _submitData,
 	                dataType: "json",
 	                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 	                cache: false,
@@ -5184,21 +5359,27 @@ webpackJsonp([85],{
 	        }
 	
 	        function viewPendingFundsBetList(custid, systemId, externalId) {
-	            Site.blockUI();
 	            var url = Site.resolveClientUrl("PendingFundsBetList/Index");
 	            url = Site.setLicenseeOptionOriginalParam(url);
 	            url = Site.setProductOptionOriginalParamList(url);
 	            url = QueryString.setParam(url, "custid", custid);
 	            url = QueryString.setParam(url, "systemid", systemId);
 	            url = QueryString.setParam(url, "externalid", externalId);
-	            window.location.href = url;
+	
+	            var title = Site.getSingleResource("BetListRunning");
+	            var popH = Math.min($(window).height() - 100, 650), popW = 920;
+	            var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: title };
+	            Popup.openPopupWithIframe(url, popupOption);
 	        }
 	
-	        function getPostData() {
-	            var data = $(_selector.Form).serializeObject();
-	            data.PageIndex = _pagingOption.pageindex;
-	            data.PageSize = _pagingOption.pagesize;
-	            return data;
+	        function buildPostData() {
+	            if (!_submitData) {
+	                _submitData = $(_selector.Form).serializeObject();
+	            }
+	            _submitData.PageIndex = _pagingOption.pageindex;
+	            _submitData.PageSize = _pagingOption.pagesize;
+	            _submitData.SortColumn = _sortColumn;
+	            _submitData.SortDirection = _sortDirection;
 	        }
 	
 	        function createPaging(totalRows) {
@@ -5267,7 +5448,7 @@ webpackJsonp([85],{
 /***/ 365:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(115)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(117)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
 	        "use strict";
 	        var _index = 0;
 	
@@ -5347,7 +5528,8 @@ webpackJsonp([85],{
 	            align: "right",
 	            sortable: true,
 	            resizable: false,
-	            formatter: jqGridAdditional.formatDecimal
+	            formatter: "currency",
+	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
 	        };
 	
 	        var colNameList = [

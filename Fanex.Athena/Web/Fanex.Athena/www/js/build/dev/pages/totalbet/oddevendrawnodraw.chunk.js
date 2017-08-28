@@ -1,14 +1,14 @@
-webpackJsonp([94],{
+webpackJsonp([108],{
 
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(422);
+	module.exports = __webpack_require__(459);
 
 
 /***/ }),
 
-/***/ 250:
+/***/ 264:
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -259,10 +259,10 @@ webpackJsonp([94],{
 
 /***/ }),
 
-/***/ 312:
+/***/ 326:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(313)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(327)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
 	    "use strict";
 	
 	    var curCountDown = 0;
@@ -388,7 +388,7 @@ webpackJsonp([94],{
 
 /***/ }),
 
-/***/ 313:
+/***/ 327:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -509,10 +509,10 @@ webpackJsonp([94],{
 
 /***/ }),
 
-/***/ 413:
+/***/ 450:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(312), __webpack_require__(250)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(326), __webpack_require__(264)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
 	        "use strict";
 	
 	        var _me = {
@@ -588,10 +588,10 @@ webpackJsonp([94],{
 
 /***/ }),
 
-/***/ 422:
+/***/ 459:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(423)], __WEBPACK_AMD_DEFINE_RESULT__ = function (OddEvenDND) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(460)], __WEBPACK_AMD_DEFINE_RESULT__ = function (OddEvenDND) {
 	    "use strict";
 	
 	    $(OddEvenDND.initialize);
@@ -600,10 +600,10 @@ webpackJsonp([94],{
 
 /***/ }),
 
-/***/ 423:
+/***/ 460:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(413), __webpack_require__(9), __webpack_require__(312)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, Popup, RefreshCountDown) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(450), __webpack_require__(9), __webpack_require__(326)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, Popup, RefreshCountDown) {
 	    "use strict";
 	
 	    var _me = {

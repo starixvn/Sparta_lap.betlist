@@ -436,6 +436,15 @@
   text-align: center;
   padding: 20px; }
 
+.theme_jqGrid .ui-jqgrid .ui-jqgrid-sdiv .ui-jqgrid-ftable .grandTotal > td {
+  background: #fff; }
+
+.theme_jqGrid .ui-jqgrid .grandTotal, .theme_jqGrid .ui-jqgrid .total-eur {
+  color: #2c2c2c; }
+
+.theme_jqGrid .ui-jqgrid .ui-jqgrid-sortable {
+  cursor: default; }
+
 .note-message {
   margin-top: 20px; }
 
