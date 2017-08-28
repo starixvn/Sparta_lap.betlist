@@ -10,6 +10,8 @@ import reducer from '../reducers/index.js'
 // middleware that logs actions
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ });
 
+const defaultState = Object.assign({}, window.Lrf);
+
 function configureStore(initialState) {
   const enhancer = compose(
     applyMiddleware(
@@ -20,7 +22,7 @@ function configureStore(initialState) {
   return createStore(reducer, initialState, enhancer);
 }
 
-const store = configureStore({});
+const store = configureStore(defaultState);
 
 export default class App extends React.Component {
   constructor(props) {

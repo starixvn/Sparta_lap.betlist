@@ -104,7 +104,9 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     return {
-        currencyList: state.currencyList
+        selectedProduct: state.selectedProduct,
+        productList :state.productList,
+       
     };
 };
 
