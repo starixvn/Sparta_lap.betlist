@@ -19,7 +19,7 @@
         private IObjectDb _objectDb;
         private IDataReader _dataReader;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUp()
         {
             _balance = new BalanceUp
@@ -36,7 +36,7 @@
             _objectDb.ExecuteReader().Returns(_dataReader);
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDown()
         {
             _balance = null;
@@ -50,18 +50,7 @@
             // Arrange
             _dataReader.Read().Returns(false);
 
-            var metaModel = new SubLicenseePerformanceMetaModel
-            {
-                BaseCurrency = "EUR",
-                ConvertAll = true,
-                FromDate = new DateTime(2017, 8, 25),
-                ToDate = new DateTime(2017, 8, 31),
-                IsExportExcel = false,
-                LicenseeId = 1,
-                ProductCodeList = "SB,BA",
-                SubLicenseeList = "1,2",
-                AgentListXml = "<Param></Param>"
-            };
+            var metaModel = GetDefaultMetaModel();
 
             // Action
             _dataAccess.GetData(metaModel);
@@ -71,38 +60,41 @@
         }
 
         [Test]
-        public void GetData_WhenCall_ReturnCorrectData()
+        public void GetData_DoNotConvertToBasedCurrency_ReturnCorrectDataWithOriginalCurrency()
         {
             // Arrange
-            _dataReader.Read().Returns(true, false);
-            var metaModel = new SubLicenseePerformanceMetaModel
-            {
-                BaseCurrency = "EUR",
-                ConvertAll = true,
-                FromDate = new DateTime(2017, 8, 25),
-                ToDate = new DateTime(2017, 8, 31),
-                IsExportExcel = false,
-                LicenseeId = 1,
-                ProductCodeList = "SB,BA",
-                SubLicenseeList = "1,2",
-                AgentListXml = "<Param></Param>"
-            };
+            var metaModel = GetDefaultMetaModel();
+            metaModel.ConvertAll = false;
 
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "SubLicensee", "New York" },
-                { "Currency", "USD" },
-                { "Product", "Sporsbook" },
-                { "BetCount", 10 },
-                { "Turnover", 10000m },
-                { "CustomerWinLoss", 5000m },
-                { "SubLicenseeWinLoss", 2000m },
-                { "SubLicenseeComm", 50m }
-            };
+            _dataReader.Read().Returns(true, false);
+
+            var readerDataMapping = GetReaderDataMapping();
             MapReaderData(_dataReader, readerDataMapping);
 
             var serializer = new JavaScriptSerializer();
             var expectedResult = serializer.Serialize(GetExpectedResult(readerDataMapping));
+
+            // Action
+            var result = serializer.Serialize(_dataAccess.GetData(metaModel));
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void GetData_ConvertToBasedCurrency_ReturnCorrectDataWithBasedCurrency()
+        {
+            // Arrange
+            var metaModel = GetDefaultMetaModel();
+            metaModel.ConvertAll = true;
+
+            _dataReader.Read().Returns(true, false);
+
+            var readerDataMapping = GetReaderDataMapping(metaModel.BaseCurrency);
+            MapReaderData(_dataReader, readerDataMapping);
+
+            var serializer = new JavaScriptSerializer();
+            var expectedResult = serializer.Serialize(GetExpectedResult(readerDataMapping, metaModel.BaseCurrency));
 
             // Action
             var result = serializer.Serialize(_dataAccess.GetData(metaModel));
@@ -125,7 +117,7 @@
             });
         }
 
-        private static List<SubLicenseePerformance> GetExpectedResult(IDictionary<string, object> readerDataMapping)
+        private static List<SubLicenseePerformance> GetExpectedResult(IDictionary<string, object> readerDataMapping, string baseCurrency = "")
         {
             return new List<SubLicenseePerformance>
             {
@@ -135,18 +127,49 @@
                     Currency = readerDataMapping["Currency"].ToString(),
                     Product = readerDataMapping["Product"].ToString(),
                     BetCount = Convert.ToInt32(readerDataMapping["BetCount"]),
-                    Turnover = Convert.ToDecimal(readerDataMapping["Turnover"]),
-                    CustomerWinLoss = Convert.ToDecimal(readerDataMapping["CustomerWinLoss"]),
-                    SubLicenseeWinLoss = Convert.ToDecimal(readerDataMapping["SubLicenseeWinLoss"]),
-                    SubLicenseeComm = Convert.ToDecimal(readerDataMapping["SubLicenseeComm"]),
+                    Turnover = Convert.ToDecimal(readerDataMapping["Turnover" + baseCurrency]),
+                    CustomerWinLoss = Convert.ToDecimal(readerDataMapping["CustomerWinLoss" + baseCurrency]),
+                    SubLicenseeWinLoss = Convert.ToDecimal(readerDataMapping["SubLicenseeWinLoss" + baseCurrency]),
+                    SubLicenseeComm = Convert.ToDecimal(readerDataMapping["SubLicenseeComm" + baseCurrency])
                 }
+            };
+        }
+
+        private static IDictionary<string, object> GetReaderDataMapping(string baseCurrency = "")
+        {
+            return new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                { "SubLicensee", "New York" },
+                { "Currency", "USD" },
+                { "Product", "Sporsbook" },
+                { "BetCount", 10 },
+                { "Turnover" + baseCurrency, 10000m },
+                { "CustomerWinLoss" + baseCurrency, 5000m },
+                { "SubLicenseeWinLoss" + baseCurrency, 2000m },
+                { "SubLicenseeComm" + baseCurrency, 50m }
+            };
+        }
+
+        private static SubLicenseePerformanceMetaModel GetDefaultMetaModel()
+        {
+            return new SubLicenseePerformanceMetaModel
+            {
+                BaseCurrency = "EUR",
+                ConvertAll = true,
+                FromDate = new DateTime(2017, 8, 25),
+                ToDate = new DateTime(2017, 8, 31),
+                IsExportExcel = false,
+                LicenseeId = 1,
+                ProductCodeList = "SB,BA",
+                SubLicenseeList = "1,2",
+                AgentListXml = "<Param></Param>"
             };
         }
 
         private void AssertParamsPassCorrectly(SubLicenseePerformanceMetaModel metaModel)
         {
-            _objectDb.Received().AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
-            _objectDb.Received().AddInParameter("ConvertAll", DbType.Boolean, metaModel.ConvertAll);
+            _objectDb.DidNotReceive().AddInParameter("BaseCurrency", Arg.Any<DbType>(), Arg.Any<object>());
+            _objectDb.DidNotReceive().AddInParameter("ConvertAll", Arg.Any<DbType>(), Arg.Any<object>());
             _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
             _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
             _objectDb.Received().AddInParameter("IsExportExcel", DbType.Boolean, metaModel.IsExportExcel);
