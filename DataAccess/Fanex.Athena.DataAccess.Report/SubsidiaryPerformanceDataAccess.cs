@@ -10,16 +10,16 @@
     using Model.Report.DTO;
     using Model.Report.MetaModel;
 
-    public class SubLicenseePerformanceDataAccess : BaseDataAccess, ISubLicenseePerformanceDataAccess
+    public class SubsidiaryPerformanceDataAccess : BaseDataAccess, ISubsidiaryPerformanceDataAccess
     {
-        public SubLicenseePerformanceDataAccess(BalanceUp balanceUp) : base(balanceUp)
+        public SubsidiaryPerformanceDataAccess(BalanceUp balanceUp) : base(balanceUp)
         {
         }
 
-        public IEnumerable<SubLicenseePerformance> GetData(SubLicenseePerformanceMetaModel metaModel)
+        public IEnumerable<SubsidiaryPerformance> GetData(SubsidiaryPerformanceMetaModel metaModel)
         {
-            const string SpName = "Lrf_Rpt_SubLicenseePerformance";
-            var dataList = new List<SubLicenseePerformance>();
+            const string SpName = "Lrf_Rpt_SubsidiaryPerformance";
+            var dataList = new List<SubsidiaryPerformance>();
             var baseCurrency = metaModel.ConvertAll ? metaModel.BaseCurrency : string.Empty;
             using (var objectDb = this.GetObjectDb(SpName))
             {
@@ -37,29 +37,29 @@
             return dataList;
         }
 
-        private static void AssignParameter(IObjectDb objectDb, SubLicenseePerformanceMetaModel metaModel)
+        private static void AssignParameter(IObjectDb objectDb, SubsidiaryPerformanceMetaModel metaModel)
         {
             objectDb.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
             objectDb.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
             objectDb.AddInParameter("IsExportExcel", DbType.Boolean, metaModel.IsExportExcel);
             objectDb.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
             objectDb.AddInParameter("ProductCodeList", DbType.String, metaModel.ProductCodeList);
-            objectDb.AddInParameter("SubLicenseeList", DbType.String, metaModel.SubLicenseeList);
+            objectDb.AddInParameter("SubsidiaryList", DbType.String, metaModel.SubsidiaryList);
             objectDb.AddInParameter("AgentListXml", DbType.String, metaModel.AgentListXml);
         }
 
-        private static SubLicenseePerformance GetEntityData(IDataReader reader, string baseCurrency)
+        private static SubsidiaryPerformance GetEntityData(IDataReader reader, string baseCurrency)
         {
-            return new SubLicenseePerformance
+            return new SubsidiaryPerformance
             {
-                SubLicensee = reader["SubLicensee"].ToString(),
+                Subsidiary = reader["Subsidiary"].ToString(),
                 Currency = reader["Currency"].ToString(),
                 Product = reader["Product"].ToString(),
                 BetCount = Convert.ToInt32(reader["BetCount"]),
                 Turnover = Convert.ToDecimal(reader["Turnover" + baseCurrency]),
                 CustomerWinLoss = Convert.ToDecimal(reader["CustomerWinLoss" + baseCurrency]),
-                SubLicenseeWinLoss = Convert.ToDecimal(reader["SubLicenseeWinLoss" + baseCurrency]),
-                SubLicenseeComm = Convert.ToDecimal(reader["SubLicenseeComm" + baseCurrency])
+                SubsidiaryWinLoss = Convert.ToDecimal(reader["SubsidiaryWinLoss" + baseCurrency]),
+                SubsidiaryComm = Convert.ToDecimal(reader["SubsidiaryComm" + baseCurrency])
             };
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace Fanex.Athena.Model.Report.DTO
 {
-    public class SubLicenseePerformanceDetail
+    public class SubsidiaryPerformanceDetail
     {
         public string Product { get; set; }
 

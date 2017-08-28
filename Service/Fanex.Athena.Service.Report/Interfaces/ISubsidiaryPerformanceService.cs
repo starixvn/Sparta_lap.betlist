@@ -4,8 +4,8 @@
     using Fanex.Athena.Model.Report.MetaModel;
     using Model.Report.DTO;
 
-    public interface ISubLicenseePerformanceService
+    public interface ISubsidiaryPerformanceService
     {
-        IEnumerable<SubLicenseePerformance> GetData(SubLicenseePerformanceMetaModel subLicenseePerformanceMetaModel);
+        IEnumerable<SubsidiaryPerformance> GetData(SubsidiaryPerformanceMetaModel subLicenseePerformanceMetaModel);
     }
 }

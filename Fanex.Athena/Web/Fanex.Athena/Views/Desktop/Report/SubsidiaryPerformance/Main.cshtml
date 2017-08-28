@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Report +
+    " - " + ViewResources.SubsidiaryPerformance;
+    Layout = "~/Views/Desktop/Shared/_ReactPageLayout.cshtml";
+}
+@section pagecss {
+
+<link href="@Url.ContentLinkByEnv("/www/css/build/reactpages/subsidiaryperformance/index.css")" rel="stylesheet" type="text/css" />
+
+}
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/subsidiaryperformance/subsidiaryperformance.chunk.js")"></script>
+
+}
+<div id="app-container">
+
+</div>

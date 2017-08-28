@@ -12,9 +12,9 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class SubLicenseePerformanceDataAccessTest
+    public class SubsidiaryPerformanceDataAccessTest
     {
-        private SubLicenseePerformanceDataAccess _dataAccess;
+        private SubsidiaryPerformanceDataAccess _dataAccess;
         private BalanceUp _balance;
         private IObjectDb _objectDb;
         private IDataReader _dataReader;
@@ -27,11 +27,11 @@
                 MoveBetsDay = new DateTime(2017, 8, 25),
                 BalanceUpDay = new DateTime(2017, 8, 31)
             };
-            _dataAccess = Substitute.ForPartsOf<SubLicenseePerformanceDataAccess>(_balance);
+            _dataAccess = Substitute.ForPartsOf<SubsidiaryPerformanceDataAccess>(_balance);
             _objectDb = Substitute.For<IObjectDb>();
             _dataReader = Substitute.For<IDataReader>();
 
-            const string SpName = "Lrf_Rpt_SubLicenseePerformance";
+            const string SpName = "Lrf_Rpt_SubsidiaryPerformance";
             _dataAccess.GetObjectDb(Arg.Is<string>(SpName)).Returns(_objectDb);
             _objectDb.ExecuteReader().Returns(_dataReader);
         }
@@ -117,20 +117,20 @@
             });
         }
 
-        private static List<SubLicenseePerformance> GetExpectedResult(IDictionary<string, object> readerDataMapping, string baseCurrency = "")
+        private static List<SubsidiaryPerformance> GetExpectedResult(IDictionary<string, object> readerDataMapping, string baseCurrency = "")
         {
-            return new List<SubLicenseePerformance>
+            return new List<SubsidiaryPerformance>
             {
-                new SubLicenseePerformance
+                new SubsidiaryPerformance
                 {
-                    SubLicensee = readerDataMapping["SubLicensee"].ToString(),
+                    Subsidiary = readerDataMapping["Subsidiary"].ToString(),
                     Currency = readerDataMapping["Currency"].ToString(),
                     Product = readerDataMapping["Product"].ToString(),
                     BetCount = Convert.ToInt32(readerDataMapping["BetCount"]),
                     Turnover = Convert.ToDecimal(readerDataMapping["Turnover" + baseCurrency]),
                     CustomerWinLoss = Convert.ToDecimal(readerDataMapping["CustomerWinLoss" + baseCurrency]),
-                    SubLicenseeWinLoss = Convert.ToDecimal(readerDataMapping["SubLicenseeWinLoss" + baseCurrency]),
-                    SubLicenseeComm = Convert.ToDecimal(readerDataMapping["SubLicenseeComm" + baseCurrency])
+                    SubsidiaryWinLoss = Convert.ToDecimal(readerDataMapping["SubsidiaryWinLoss" + baseCurrency]),
+                    SubsidiaryComm = Convert.ToDecimal(readerDataMapping["SubsidiaryComm" + baseCurrency])
                 }
             };
         }
@@ -139,20 +139,20 @@
         {
             return new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
             {
-                { "SubLicensee", "New York" },
+                { "Subsidiary", "New York" },
                 { "Currency", "USD" },
                 { "Product", "Sporsbook" },
                 { "BetCount", 10 },
                 { "Turnover" + baseCurrency, 10000m },
                 { "CustomerWinLoss" + baseCurrency, 5000m },
-                { "SubLicenseeWinLoss" + baseCurrency, 2000m },
-                { "SubLicenseeComm" + baseCurrency, 50m }
+                { "SubsidiaryWinLoss" + baseCurrency, 2000m },
+                { "SubsidiaryComm" + baseCurrency, 50m }
             };
         }
 
-        private static SubLicenseePerformanceMetaModel GetDefaultMetaModel()
+        private static SubsidiaryPerformanceMetaModel GetDefaultMetaModel()
         {
-            return new SubLicenseePerformanceMetaModel
+            return new SubsidiaryPerformanceMetaModel
             {
                 BaseCurrency = "EUR",
                 ConvertAll = true,
@@ -161,12 +161,12 @@
                 IsExportExcel = false,
                 LicenseeId = 1,
                 ProductCodeList = "SB,BA",
-                SubLicenseeList = "1,2",
+                SubsidiaryList = "1,2",
                 AgentListXml = "<Param></Param>"
             };
         }
 
-        private void AssertParamsPassCorrectly(SubLicenseePerformanceMetaModel metaModel)
+        private void AssertParamsPassCorrectly(SubsidiaryPerformanceMetaModel metaModel)
         {
             _objectDb.DidNotReceive().AddInParameter("BaseCurrency", Arg.Any<DbType>(), Arg.Any<object>());
             _objectDb.DidNotReceive().AddInParameter("ConvertAll", Arg.Any<DbType>(), Arg.Any<object>());
@@ -175,7 +175,7 @@
             _objectDb.Received().AddInParameter("IsExportExcel", DbType.Boolean, metaModel.IsExportExcel);
             _objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
             _objectDb.Received().AddInParameter("ProductCodeList", DbType.String, metaModel.ProductCodeList);
-            _objectDb.Received().AddInParameter("SubLicenseeList", DbType.String, metaModel.SubLicenseeList);
+            _objectDb.Received().AddInParameter("SubsidiaryList", DbType.String, metaModel.SubsidiaryList);
             _objectDb.Received().AddInParameter("AgentListXml", DbType.String, metaModel.AgentListXml);
         }
     }

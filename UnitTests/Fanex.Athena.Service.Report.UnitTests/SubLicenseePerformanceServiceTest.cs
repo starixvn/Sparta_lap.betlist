@@ -11,16 +11,16 @@
     {
         private IBalanceUpService _balanceService;
 
-        private ISubLicenseePerformanceDataAccess _dataAccess;
+        private ISubsidiaryPerformanceDataAccess _dataAccess;
 
-        private SubLicenseePerformanceService _service;
+        private SubsidiaryPerformanceService _service;
 
         [SetUp]
         public void SetUp()
         {
             _balanceService = new BalanceUpService();
-            _dataAccess = Substitute.For<ISubLicenseePerformanceDataAccess>();
-            _service = new SubLicenseePerformanceService(_balanceService, _dataAccess);
+            _dataAccess = Substitute.For<ISubsidiaryPerformanceDataAccess>();
+            _service = new SubsidiaryPerformanceService(_balanceService, _dataAccess);
         }
 
         [TearDown]

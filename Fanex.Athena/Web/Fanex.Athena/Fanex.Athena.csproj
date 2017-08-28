@@ -784,14 +784,14 @@
     <Content Include="www\js\source\reactpages\components\fixed-table-header\FixedTable.jsx" />
     <Content Include="www\js\source\reactpages\layouts\AppLayout.jsx" />
     <Content Include="www\js\source\reactpages\lib\langHelper.js" />
-    <Content Include="www\js\source\reactpages\pages\sublicenseeperformance\actions\dataHandlerAction.js" />
-    <Content Include="www\js\source\reactpages\pages\sublicenseeperformance\fakeData.js" />
-    <Content Include="www\js\source\reactpages\pages\sublicenseeperformance\reducers\dataHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\fakeData.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\dataHandlerReducer.js" />
     <Content Include="www\webpackconfig\config\aliasReact.js" />
     <Content Include="www\webpackconfig\config\pathReact.js" />
     <Content Include="www\webpackconfig\config\pluginReact.js" />
     <None Include="bundleconfig.json" />
-    <Content Include="Views\Desktop\Report\SubLicenseePerformance\Main.cshtml" />
+    <Content Include="Views\Desktop\Report\SubsidiaryPerformance\Main.cshtml" />
     <Content Include="Views\Desktop\Shared\_ReactPageLayout.cshtml" />
     <Content Include="www\css\build\dev\reactpages\vendor.css.map" />
     <Content Include="www\css\source\reactpages\layout\_filter.scss" />
@@ -820,12 +820,12 @@
     <Content Include="www\js\build\pro\reactpages\vendors\vendor.chunk.js" />
     <Content Include="www\js\source\reactpages\actions\types.js" />
     <Content Include="www\js\source\reactpages\lib\createReducer.js" />
-    <Content Include="www\js\source\reactpages\pages\sublicenseeperformance\actions\index.js" />
-    <Content Include="www\js\source\reactpages\pages\sublicenseeperformance\actions\types.js" />
-    <Content Include="www\js\source\reactpages\pages\sublicenseeperformance\components\AppContainer.jsx" />
-    <Content Include="www\js\source\reactpages\pages\sublicenseeperformance\components\datagrid.jsx" />
-    <Content Include="www\js\source\reactpages\pages\sublicenseeperformance\components\formFilter.jsx" />
-    <Content Include="www\js\source\reactpages\pages\sublicenseeperformance\reducers\index.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\index.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\types.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\AppContainer.jsx" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\datagrid.jsx" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\formFilter.jsx" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\index.js" />
     <Content Include="www\webpackconfig\build\webpack.react.base.conf.js" />
     <Content Include="www\webpackconfig\build\webpack.react.dev.conf.js" />
     <Content Include="www\webpackconfig\build\webpack.react.hmr.conf.js" />
@@ -2401,7 +2401,7 @@
     <Content Include="www\js\build\dev\reactpages\vendors\vendor.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\lib\langHelper.chunk.js.map" />
     <Content Include="www\css\source\reactpages\components\date-range\styles.scss" />
-    <Content Include="www\css\source\reactpages\pages\sublicenseeperformance\index.scss" />
+    <Content Include="www\css\source\reactpages\pages\subsidiaryperformance\index.scss" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\TableSection.jsx" />
   </ItemGroup>
   <ItemGroup>
@@ -6084,7 +6084,7 @@
     <Folder Include="www\js\source\reactpages\vendors\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="www\js\source\reactpages\pages\sublicenseeperformance\components\index.jsx" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\index.jsx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

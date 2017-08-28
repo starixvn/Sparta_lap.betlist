@@ -1,21 +1,27 @@
-﻿namespace Fanex.Athena.Model.Report.ViewModel
+﻿namespace Fanex.Athena.Model.Report.MetaModel
 {
     using System;
-    using System.Collections.Generic;
-    using Core.MetaModel.Product;
+    using System.ComponentModel;
 
-    public class SubLicenseePerformanceViewModel
+    public class SubsidiaryPerformanceMetaModel
     {
         private string _baseCurrency;
 
-        public IDictionary<int, string> SubLicenseeList { get; set; }
+        public string AgentListXml { get; set; }
+
+        public int LicenseeId { get; set; }
+
+        public bool IsExportExcel { get; set; }
 
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }
 
-        public IEnumerable<ProductOption> ProductOptionList { get; set; }
+        public string SubsidiaryList { get; set; } = string.Empty;
 
+        public string ProductCodeList { get; set; } = string.Empty;
+
+        [DefaultValue("")]
         public string BaseCurrency
         {
             get

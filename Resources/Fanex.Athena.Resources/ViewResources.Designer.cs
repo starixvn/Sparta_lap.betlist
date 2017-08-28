@@ -7063,20 +7063,20 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sub Licensee Performance.
-        /// </summary>
-        public static string SubLicenseePerformance {
-            get {
-                return ResourceManager.GetString("SubLicenseePerformance", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Submit.
         /// </summary>
         public static string Submit {
             get {
                 return ResourceManager.GetString("Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subsidiary Performance.
+        /// </summary>
+        public static string SubsidiaryPerformance {
+            get {
+                return ResourceManager.GetString("SubsidiaryPerformance", resourceCulture);
             }
         }
         

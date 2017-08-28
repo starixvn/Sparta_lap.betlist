@@ -15,11 +15,11 @@ function generateConfig(environment) {
         entry: {
             /*js*/
             reactVendorJs: ["react", "react-redux", "redux", "react-dom", "redux-thunk", "redux-logger"],
-            [`${jsPath}/sublicenseeperformance/sublicenseeperformance`]: pathConfig.scriptPaths.sublicenseeperformance,
+            [`${jsPath}/subsidiaryperformance/subsidiaryperformance`]: pathConfig.scriptPaths.subsidiaryperformance,
             [`${jsPath}/lib/langHelper`]: pathConfig.scriptPaths.languageResource,
             /*css*/
             [`${cssPath}/vendor`]: pathConfig.cssPaths.layout,
-            [`${cssPath}/sublicenseeperformance/index`]: pathConfig.cssPaths.sublicenseeperformance
+            [`${cssPath}/subsidiaryperformance/index`]: pathConfig.cssPaths.subsidiaryperformance
         },
         output: {
             path: pathConfig.projectRoot,

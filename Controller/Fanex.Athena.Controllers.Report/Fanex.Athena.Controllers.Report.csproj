@@ -189,7 +189,7 @@
     <Compile Include="LicenseeWinLossReportController.cs" />
     <Compile Include="LiveReportController.cs" />
     <Compile Include="NoteController.cs" />
-    <Compile Include="SubLicenseePerformanceReportController.cs" />
+    <Compile Include="SubsidiaryPerformanceReportController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportAPI\ReportAPIController.cs" />
     <Compile Include="ReportAPI\ReportAPIController.CustomerTurnover.cs" />

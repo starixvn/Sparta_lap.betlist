@@ -78,7 +78,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"1":"www/css/build/dev/reactpages/sublicenseeperformance/index","2":"www/css/build/dev/reactpages/vendor","3":"www/js/build//dev/reactpages/lib/langHelper","4":"www/js/build//dev/reactpages/sublicenseeperformance/sublicenseeperformance"}[chunkId]||chunkId) + ".chunk.js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"1":"www/css/build/dev/reactpages/subsidiaryperformance/index","2":"www/css/build/dev/reactpages/vendor","3":"www/js/build//dev/reactpages/lib/langHelper","4":"www/js/build//dev/reactpages/subsidiaryperformance/subsidiaryperformance"}[chunkId]||chunkId) + ".chunk.js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};

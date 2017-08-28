@@ -10,25 +10,25 @@
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report.Interfaces;
 
-    public class SubLicenseePerformanceService : ISubLicenseePerformanceService
+    public class SubsidiaryPerformanceService : ISubsidiaryPerformanceService
     {
         private readonly IBalanceUpService _balanceUpService;
 
-        private readonly ISubLicenseePerformanceDataAccess _subLicenseePerformanceDataAccess;
+        private readonly ISubsidiaryPerformanceDataAccess _subLicenseePerformanceDataAccess;
 
-        public SubLicenseePerformanceService()
+        public SubsidiaryPerformanceService()
         {
             _balanceUpService = new BalanceUpService();
-            _subLicenseePerformanceDataAccess = new SubLicenseePerformanceDataAccess(_balanceUpService.BalanceUpInfo);
+            _subLicenseePerformanceDataAccess = new SubsidiaryPerformanceDataAccess(_balanceUpService.BalanceUpInfo);
         }
 
-        public SubLicenseePerformanceService(IBalanceUpService balanceUpService, ISubLicenseePerformanceDataAccess subLicenseePerformanceDataAccess)
+        public SubsidiaryPerformanceService(IBalanceUpService balanceUpService, ISubsidiaryPerformanceDataAccess subLicenseePerformanceDataAccess)
         {
             _balanceUpService = balanceUpService;
             _subLicenseePerformanceDataAccess = subLicenseePerformanceDataAccess;
         }
 
-        public IEnumerable<SubLicenseePerformance> GetData(SubLicenseePerformanceMetaModel subLicenseePerformanceMetaModel)
+        public IEnumerable<SubsidiaryPerformance> GetData(SubsidiaryPerformanceMetaModel subLicenseePerformanceMetaModel)
         {
             throw new NotImplementedException();
         }

@@ -15,17 +15,17 @@
 
         private IProductService _productService;
 
-        private ISubLicenseePerformanceService _service;
+        private ISubsidiaryPerformanceService _service;
 
-        private SubLicenseePerformanceReportController _controller;
+        private SubsidiaryPerformanceReportController _controller;
 
         [OneTimeSetUp]
         public void SetUp()
         {
             _sessionService = Substitute.For<ISessionService>();
             _productService = Substitute.For<IProductService>();
-            _service = Substitute.For<ISubLicenseePerformanceService>();
-            _controller = Substitute.ForPartsOf<SubLicenseePerformanceReportController>(_sessionService, _productService, _service);
+            _service = Substitute.For<ISubsidiaryPerformanceService>();
+            _controller = Substitute.ForPartsOf<SubsidiaryPerformanceReportController>(_sessionService, _productService, _service);
             CreateSession();
         }
 

@@ -1,8 +1,8 @@
 ﻿namespace Fanex.Athena.Model.Report.DTO
 {
-    public class SubLicenseePerformance
+    public class SubsidiaryPerformance
     {
-        public string SubLicensee { get; set; }
+        public string Subsidiary { get; set; }
 
         public string Currency { get; set; }
 
@@ -14,8 +14,8 @@
 
         public decimal CustomerWinLoss { get; set; }
 
-        public decimal SubLicenseeWinLoss { get; set; }
+        public decimal SubsidiaryWinLoss { get; set; }
 
-        public decimal SubLicenseeComm { get; set; }
+        public decimal SubsidiaryComm { get; set; }
     }
 }

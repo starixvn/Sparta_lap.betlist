@@ -64,7 +64,7 @@
         public const string ReportPlatformWinLoss = "MobileWinLoss53";
         public const string ReportColossusBetsWinLoss = "ColossusBetsWinLoss71";
         public const string ReportCashOutWinLoss = "CashOutWinLoss72";
-        public const string ReportSubLicenseePerformance = "SubLicenseePerformanceReport";
+        public const string ReportSubsidiaryPerformance = "SubsidiaryPerformance73";
 
         /* Warehouse. */
 
