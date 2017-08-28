@@ -16,8 +16,8 @@ exports.setDefinePlugin = function (key, value) {
 exports.minify = function () {
     return {
         plugins: [
-            new webpack.optimize.DedupePlugin(),
             new webpack.optimize.UglifyJsPlugin({
+                parallel: true,
                 beautify: false,
                 comments: false,
                 compress: {
@@ -33,14 +33,34 @@ exports.extractCSS = function (isProduction) {
     var queryString = isProduction ? "" : "&sourceMap";
     return {
         module: {
-            loaders: [
+            rules: [
                 {
                     test: /\.css$/,
-                    loader: ExtractTextPlugin.extract("style", "css?-url" + queryString)
+                    use: ExtractTextPlugin.extract({
+                        fallback: 'style-loader',
+                        use: 'css-loader'
+                    })
                 },
                 {
                     test: /\.scss$/,
-                    loader: ExtractTextPlugin.extract("style", "css?-url" + queryString + "!sass")
+                    use: ExtractTextPlugin.extract({
+                        fallback: 'style-loader',
+                        use: [
+                            {
+                                loader: 'css-loader',
+                                options: {
+                                    minimize: true,
+                                    url: false,
+                                }
+                            },
+                          {
+                              loader: 'sass-loader',
+                              options: {
+                                  minimize: true,
+                                  url: false,
+                              }
+                          }]
+                    })
                 }
             ]
         },

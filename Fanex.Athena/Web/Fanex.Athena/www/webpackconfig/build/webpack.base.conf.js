@@ -3,7 +3,7 @@ var merge = require('webpack-merge');
 
 var pathConfig = require('../config/path');
 var alias = require('../config/alias');
-var loader = require('../config/loader');
+var rules = require('../config/rule');
 var pluginGenerator = require('../config/plugin');
 var exposeLoader = require('expose-loader');
 var utils = require('./utils');
@@ -14,7 +14,11 @@ function generateConfig(environment) {
 
     var commonConfigs = {
         resolve: {
-            alias: alias
+            alias: alias,
+            modules: [
+                path.join(__dirname, "www"),
+                "node_modules"
+           ]
         },
         entry: {
             common: ["jquery", "vendor-materialize", "common/site", "common/querystring"],
@@ -138,7 +142,7 @@ function generateConfig(environment) {
             filename: "[name].chunk.js"
         },
         module: {
-            loaders: loader.commonLoaders
+            rules: rules.commonRules
         },
         plugins: pluginGenerator(environment),
         stats: {

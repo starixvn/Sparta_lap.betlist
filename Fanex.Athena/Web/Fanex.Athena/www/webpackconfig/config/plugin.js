@@ -23,7 +23,6 @@ function generatePlugins(environment) {
             root: process.cwd(),
             exclude: ['images']
         }),
-       
         new webpack.optimize.CommonsChunkPlugin({
             name: "common",
             filename: "www/js/build/" + environment + "/common.chunk.js",
