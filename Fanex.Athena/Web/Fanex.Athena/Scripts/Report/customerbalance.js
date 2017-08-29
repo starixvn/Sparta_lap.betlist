@@ -122,6 +122,11 @@ var CustomerBalance = (function ($) {
             });
 
             $("#ExportToExcel").click(function () {
+                var validProduct = Report.ValidProducts();
+                if (!validProduct) {
+                    return false;
+                }
+
                 $(EXCEL_NAME_SELECTOR).val(true);
                 var mainForm = $(FORM_SELECTOR);
                 var url = Site.resolveClientUrl(CustomerBalanceOption.urlExcelData);

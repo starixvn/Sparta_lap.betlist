@@ -185,6 +185,11 @@ var CustomerWinLoss = (function ($) {
             });
 
             $('#ExportToExcel').click(function () {
+                var validProduct = Report.ValidProducts();
+                if (!validProduct) {
+                    return false;
+                }
+
                 var data = getPostData();
                 data.PageIndex = 1;
                 Site.exportExcel(data, Site.resolveClientUrl(DATA_URL));
