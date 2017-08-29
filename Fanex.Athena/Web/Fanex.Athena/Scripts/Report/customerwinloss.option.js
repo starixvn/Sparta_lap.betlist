@@ -215,8 +215,6 @@ var CustomerWinLossOption = (function () {
 
     var me =
     {
-        urlData: "api/CustomerBalanceReport/Index",
-        urlExcelData: "api/CustomerBalanceReport/Index",
         hasCustomerComm: true,
         isAllowBA: true,
         isAllowRB: true,

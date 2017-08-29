@@ -28,12 +28,24 @@ var CustomerWinLoss = (function ($) {
 
     function buildPostData() {
         if (!_submitData) {
-            _submitData = $(FORM_SELECTOR).serializeObject();
+            _submitData = getPostData();
         }
-        _submitData.PageIndex = _pagingOption.pageindex;
-        _submitData.PageSize = _pagingOption.pagesize;
-        _submitData.sortColumn = _sortColumnName;
-        _submitData.SortDirection = _sortOrder;
+        else {
+            _submitData.PageIndex = _pagingOption.pageindex;
+            _submitData.PageSize = _pagingOption.pagesize;
+            _submitData.sortColumn = _sortColumnName;
+            _submitData.SortDirection = _sortOrder;
+        }
+    }
+
+    function getPostData() {
+        var param = $(FORM_SELECTOR).serializeObject();
+        param.PageIndex = _pagingOption.pageindex;
+        param.PageSize = _pagingOption.pagesize;
+        param.sortColumn = _sortColumnName;
+        param.SortDirection = _sortOrder;
+
+        return param;
     }
 
     function createPaging(totalRows) {
@@ -189,12 +201,9 @@ var CustomerWinLoss = (function ($) {
             });
 
             $('#ExportToExcel').click(function () {
-                var tempSubmitData = Site.clone(_submitData);
-                _submitData = null;
-                buildPostData();
-                _submitData.PageIndex = 1;
-                Site.exportExcel(_submitData, Site.resolveClientUrl(DATA_URL));
-                _submitData = tempSubmitData;
+                var data = getPostData();
+                data.PageIndex = 1;
+                Site.exportExcel(data, Site.resolveClientUrl(DATA_URL));
                 return false;
             });
 

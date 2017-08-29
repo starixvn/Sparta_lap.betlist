@@ -812,6 +812,7 @@
     <Content Include="www\css\build\dev\pages\forecast\newforecast.css" />
     <Content Include="www\css\build\dev\pages\login\login.chunk.js" />
     <Content Include="www\css\build\dev\pages\login\login.css" />
+    <Content Include="www\css\build\dev\pages\reports\agcasinowinloss.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\agcasinowinloss.css" />
     <Content Include="www\css\build\dev\pages\reports\activecustomersummary.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\activecustomersummary.css" />
@@ -827,6 +828,8 @@
     <Content Include="www\css\build\dev\pages\reports\customerpendingfunds.css" />
     <Content Include="www\css\build\dev\pages\reports\customerturnover.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\customerturnover.css" />
+    <Content Include="www\css\build\dev\pages\reports\customerwinloss.chunk.js" />
+    <Content Include="www\css\build\dev\pages\reports\customerwinloss.css" />
     <Content Include="www\css\build\dev\pages\reports\dailyracingwinloss.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\dailyracingwinloss.css" />
     <Content Include="www\css\build\dev\pages\reports\golddeluxewinloss.chunk.js" />
@@ -892,6 +895,7 @@
     <Content Include="www\css\build\pro\pages\reports\customerbalance.css" />
     <Content Include="www\css\build\pro\pages\reports\customerpendingfunds.css" />
     <Content Include="www\css\build\pro\pages\reports\customerturnover.css" />
+    <Content Include="www\css\build\pro\pages\reports\customerwinloss.css" />
     <Content Include="www\css\build\pro\pages\reports\golddeluxewinloss.css" />
     <Content Include="www\css\build\pro\pages\utility\licenseelist.css" />
     <Content Include="www\css\build\pro\um.css" />
@@ -985,6 +989,14 @@
     <Content Include="www\css\build\dev\pages\reports\customerturnover.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\reports\customerturnover.css.map" />
     <Content Include="Views\Desktop\BetList\PendingFunds\Main.cshtml" />
+    <Content Include="Views\Desktop\Report\CustomerWinloss\Content.cshtml" />
+    <Content Include="Views\Desktop\Report\CustomerWinloss\Filter.cshtml" />
+    <Content Include="Views\Desktop\Report\CustomerWinloss\HistoryFilter.cshtml" />
+    <Content Include="Views\Desktop\Report\CustomerWinloss\Main.cshtml" />
+    <Content Include="www\css\build\dev\pages\reports\customerwinloss.chunk.js.map" />
+    <Content Include="www\css\build\dev\pages\reports\customerwinloss.css.map" />
+    <Content Include="www\css\build\dev\pages\reports\agcasinowinloss.chunk.js.map" />
+    <Content Include="www\css\build\dev\pages\reports\agcasinowinloss.css.map" />
     <None Include="www\css\source\pages\customer\customerlist.scss" />
     <Content Include="www\css\source\pages\customer\customerlog.scss" />
     <Content Include="www\css\source\components\tab\_tab.scss" />
@@ -1017,6 +1029,7 @@
     <Content Include="www\css\source\pages\report\colossusbetswinLoss.scss" />
     <Content Include="www\css\source\pages\report\customerpendingfunds.scss" />
     <Content Include="www\css\source\pages\report\customerturnover.scss" />
+    <Content Include="www\css\source\pages\report\customerwinloss.scss" />
     <None Include="www\css\source\pages\utility\um.scss" />
     <Content Include="www\css\build\images\bg-login.jpg" />
     <Content Include="www\css\build\images\excel-icon.svg" />
@@ -1214,6 +1227,7 @@
     <Content Include="www\js\build\dev\pages\reports\customerbalance.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\customerpendingfunds.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\customerturnover.chunk.js" />
+    <Content Include="www\js\build\dev\pages\reports\customerwinloss.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\dailyracingwinloss.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\golddeluxewinloss.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\licenseewinloss.chunk.js" />
@@ -1277,6 +1291,7 @@
     <Content Include="www\js\build\pro\pages\reports\customerbalance.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\customerpendingfunds.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\customerturnover.chunk.js" />
+    <Content Include="www\js\build\pro\pages\reports\customerwinloss.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\dailyracingwinloss.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\golddeluxewinloss.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\licenseewinloss.chunk.js" />
@@ -1458,6 +1473,9 @@
     <Content Include="www\js\source\pages\report\customerturnover\customerturnover.js" />
     <Content Include="www\js\source\pages\report\customerturnover\customerturnover.option.js" />
     <Content Include="www\js\source\pages\report\customerturnover\main.js" />
+    <Content Include="www\js\source\pages\report\customerwinloss\customerwinloss.js" />
+    <Content Include="www\js\source\pages\report\customerwinloss\customerwinloss.option.js" />
+    <Content Include="www\js\source\pages\report\customerwinloss\main.js" />
     <Content Include="www\js\source\pages\report\dailyracingwinloss\dailyracingwinloss.js" />
     <Content Include="www\js\source\pages\report\dailyracingwinloss\main-dailyracingwinloss.js" />
     <Content Include="www\js\source\pages\report\thirdpartywinloss\common\thirdpartywinloss.js" />
@@ -2290,6 +2308,7 @@
     <Content Include="www\js\build\dev\pages\reports\golddeluxewinloss.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\reports\customerpendingfunds.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\reports\customerturnover.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\reports\customerwinloss.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
