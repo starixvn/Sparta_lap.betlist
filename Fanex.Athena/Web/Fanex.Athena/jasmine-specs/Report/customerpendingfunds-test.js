@@ -50,28 +50,13 @@
             var $excel = affix('input#ExportToExcel');
             affix('#CustomerPendingFundsForm');
 
+            spyOn(Report, "ValidProducts").and.returnValues(true);
             spyOn($.fn, 'submit');
 
             CustPendingFunds.initEvent();
             $excel.click();
 
             expect($.fn.submit.calls.mostRecent().object.selector).toBe('#CustomerPendingFundsForm');
-        });
-
-        it("Inputs should be assigned correct values if #Submit is clicked.", function () {
-            var $sortColumn = affix('input#SortColumn');
-            var $sortDirection = affix('input#SortDirection');
-            var $excel = affix('input#IsExportExcel');
-            var $submit = affix('#SubmitButton');
-
-            spyOn($.fn, 'submit');
-
-            CustPendingFunds.initEvent();
-            $submit.click();
-
-            expect($sortColumn.val()).toBe('ExternalId');
-            expect($sortDirection.val()).toBe('ASC');
-            expect($excel.val()).toBe('false');
         });
     });
 });

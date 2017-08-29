@@ -346,7 +346,7 @@
             viewWinlossBetList: viewWinlossBetList,
             ajaxPaging: ajaxPaging,
             bindData: bindData
-        }
+        };
 
         return _me;
     });

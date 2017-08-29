@@ -4,8 +4,8 @@
         it("Expected functions should be call when initialize() is called", function () {
             spyOn(ProductListHelper, 'initProductList');
             spyOn(CustomerWinLoss, 'initEvent');
+            spyOn(CustomerWinLoss, 'initSetting');
             spyOn(CustomerWinLoss, 'initMonthPicker');
-            spyOn(Site, 'createSortingIcon');
             spyOn(Site, 'addFilterCollapseExpand');
             spyOn(Site, 'addUserGuide');
 
@@ -13,7 +13,6 @@
 
             expect(CustomerWinLoss.initEvent).toHaveBeenCalled();
             expect(CustomerWinLoss.initMonthPicker).toHaveBeenCalled();
-            expect(Site.createSortingIcon).toHaveBeenCalled();
             expect(Site.addFilterCollapseExpand).toHaveBeenCalled();
             expect(Site.addUserGuide).toHaveBeenCalled();
         });
@@ -22,7 +21,7 @@
     describe("initMonthPicker()", function () {
         it("$.fn.monPickr() should be called on a correct selector.", function () {
             $.fn.monPickr = function () { };
-            affix('input#IsHistoryReport[value="True"]');
+            affix('input#IsHistory[value="True"]');
             affix('#DateControl');
             spyOn($.fn, 'monPickr');
 
@@ -33,40 +32,29 @@
     });
 
     describe("initEvent()", function () {
-        it("#CustomerWinlossForm.submit() should be called if #SubmitHistoryButton is clicked.", function () {
-            var $button = affix('#SubmitHistoryButton');
-            var $mainform = affix('#CustomerWinlossForm');
-
-            var spyEvent = spyOnEvent($mainform, 'submit');
-
-            CustomerWinLoss.initEvent();
-            $button.click();
-
-            expect(spyEvent).toHaveBeenTriggered();
-        });
-
-        it("#CustomerWinlossForm.submit() should be called if #SubmitButton is clicked.", function () {
+        it("CustomerWinLoss.submit() should be called if #SubmitButton is clicked.", function () {
             var $button = affix('#SubmitButton');
             var $mainform = affix('#CustomerWinlossForm');
 
-            var spyEvent = spyOnEvent($mainform, 'submit');
+            spyOn(Report, "ValidProducts").and.returnValues(true);
+            spyOn(CustomerWinLoss, 'submit');
 
             CustomerWinLoss.initEvent();
             $button.click();
 
-            expect(spyEvent).toHaveBeenTriggered();
+            expect(CustomerWinLoss.submit).toHaveBeenCalled();
         });
 
-        it("#CustomerWinlossForm.submit() should be called if #ExportToExcel is clicked.", function () {
+        it("Site.exportExcel should be called if #ExportToExcel is clicked.", function () {
             var $button = affix('#ExportToExcel');
-            var $mainform = affix('#CustomerWinlossForm');
 
-            var spyEvent = spyOnEvent($mainform, 'submit');
+            spyOn(Report, "ValidProducts").and.returnValues(true);
+            spyOn(Site, 'exportExcel');
 
             CustomerWinLoss.initEvent();
             $button.click();
 
-            expect(spyEvent).toHaveBeenTriggered();
+            expect(Site.exportExcel).toHaveBeenCalled();
         });
 
         it("viewHistoryReport() should be called if #history-report-link is clicked.", function () {
@@ -90,7 +78,7 @@
         });
 
         it("viewWinlossBetList() should be called with correct param when .bet-list-link is clicked.", function () {
-            var $container = affix('#data-content');
+            var $container = affix('.report-content');
             var $link = $container.affix('.bet-list-link');
             $link.attr('data-cust-id', 1);
             $link.attr('data-system-id', 2);
