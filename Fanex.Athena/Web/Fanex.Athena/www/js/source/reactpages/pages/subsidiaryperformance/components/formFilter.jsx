@@ -11,6 +11,10 @@ class FormFilter extends Component {
     }
 
     _submit() {
+        if(!window.xsrfToken){
+            return;
+        }
+        
         const params = {
             BaseCurrency: this.props.selectedBaseCurrency,
             SubsidiaryList: this.props.selectedSubsidiary,
@@ -20,10 +24,10 @@ class FormFilter extends Component {
             ToDate: this.props.dateRange.toDate
         }
 
-        this.props.fetchData(params);
+        this.props.fetchData(params, window.xsrfToken);
     }
 
-    _subsidiarySelectList() {
+    _renderSubsidiarySelectList() {
         const { subsidiaryList, selectedSubsidiary } = this.props;
 
         return subsidiaryList && subsidiaryList.length > 0 ? (
@@ -35,7 +39,7 @@ class FormFilter extends Component {
         ) : null;
     }
 
-    _productSelectList() {
+    _renderProductSelectList() {
         const { productOptions, selectedProduct } = this.props;
 
         return productOptions && productOptions.length > 0 ? (
@@ -47,7 +51,7 @@ class FormFilter extends Component {
         ) : null;
     }
 
-    _baseCurrencySelectList() {
+    _renderBaseCurrencySelectList() {
         const { baseCurrencyList, selectedBaseCurrency } = this.props;
 
         return baseCurrencyList && baseCurrencyList.length > 0 ? (
@@ -66,7 +70,7 @@ class FormFilter extends Component {
                     <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <div className="form-group">
                             <label className="label-text">Operator</label>
-                            {this.subsidiarySelectList}
+                            {this._renderSubsidiarySelectList()}
                         </div>
                     </div>
 
@@ -83,14 +87,14 @@ class FormFilter extends Component {
                     <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <div className="form-group">
                             <label className="label-text">Product</label>
-                            {this.productSelectList}
+                            {this._renderProductSelectList()}
                         </div>
                     </div>
 
                     <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <div className="form-group">
                             <label className="label-text">Based</label>
-                            {this.baseCurrencySelectList}
+                            {this._renderBaseCurrencySelectList()}
                         </div>
                     </div>
                 </div>

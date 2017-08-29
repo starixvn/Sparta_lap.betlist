@@ -1,13 +1,12 @@
 import * as types from './types.js'
 import axios from 'axios'
 
-export function fetchData(params) {
+export function fetchData(params, xsrfToken) {
     return (dispatch, getState) => {
-        const token = document.querySelector("input[name=__RequestVerificationToken]");
         axios.post('/api/SubsidiaryPerformanceReport/Index', params, {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
-                    '__RequestVerificationToken': token ? token.value : null
+                    '__RequestVerificationToken': xsrfToken
                 }
             })
             .then(response => {
