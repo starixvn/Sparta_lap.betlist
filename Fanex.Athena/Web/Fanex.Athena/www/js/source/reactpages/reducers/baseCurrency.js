@@ -1,10 +1,16 @@
-import { SET_SELECTED_BASECURRENCY } from '../actions/types'
+import * as types from '../actions/types'
 import createReducer from '../lib/createReducer.js'
 
 export const selectedBaseCurrency = createReducer({}, {
-    [SET_SELECTED_BASECURRENCY](state, action) {
-        return action.selectedBaseCurrency
+    [types.SET_SELECTED_BASECURRENCY](state, action) {
+        return action.data
     }
 });
 
-export const baseCurrencyList = createReducer({}, {});
+export const baseCurrencyList = createReducer({}, {
+
+    [types.GET_BASECURRENCY](state, action) {
+        return action.data
+    }
+
+});

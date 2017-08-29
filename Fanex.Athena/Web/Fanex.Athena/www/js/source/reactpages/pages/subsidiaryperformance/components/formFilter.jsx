@@ -63,7 +63,7 @@ class FormFilter extends Component {
                                 name="form-field-name"
                                 value={selectedProduct}
                                 options={productOptions}
-                                onChange={this.logChange} />
+                                onChange={(item)=>this.props.setSelectedProduct(item.value)} />
                         </div>
                     </div>
 
