@@ -29,9 +29,13 @@
                 return ' style="text-overflow: ellipsis"';
             },
             formatter: function (cellvalue, options, rowObject) {
-                return '<a class="bet-list-link" href="javascript:;" data-cust-id=' + rowObject.CustId +
-                    ' data-system-id=' + rowObject.SystemId +
-                    ' data-external-id=' + rowObject.ExternalId + '>' + cellvalue + '</a>';
+                var param =
+                {
+                    CustId: rowObject.CustId,
+                    ExternalId: rowObject.ExternalId,
+                    SystemId: rowObject.SystemId
+                };
+                return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
             }
         };
 
@@ -122,7 +126,6 @@
         {
             name: "LicenseeWL",
             index: "LicenseeWL",
-            classes: 'highlight',
             width: 100,
             align: "right",
             sortable: true,
@@ -134,7 +137,6 @@
         {
             name: "BAComm",
             index: "BAComm",
-            classes: 'highlight',
             width: 100,
             align: "right",
             sortable: true,
@@ -147,10 +149,9 @@
         {
             name: "RacingRevenue",
             index: "RacingRevenue",
-            classes: 'highlight',
             width: 100,
             align: "right",
-            sortable: false,
+            sortable: true,
             resizable: false,
             formatter: "currency",
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
@@ -230,16 +231,15 @@
                 colNames: [],
                 colModel: [],
                 data: [],
-                height: "auto",
-                autowidth: true,
-                forceFit: true,
+                height: "100%",
+                autowidth: false,
+                forceFit: false,
                 shrinkToFit: true,
                 loadtext: '',
                 loadui: "disable",
                 loadonce: true,
                 footerrow: true,
                 userDataOnFooter: false,
-                viewrecords: false,
                 gridview: true,
                 rownumbers: false,
                 sortable: false,
@@ -248,9 +248,6 @@
             },
 
             getGridOption: function (totalRows) {
-                _me.gridOption.shrinkToFit = totalRows <= 0
-                    || (!_me.hasCustomerComm && !(_me.isAllowBA && _me.isAllowRB))
-                    || (_me.hasCustomerComm && !_me.isAllowBA && !_me.isAllowRB);
                 _me.gridOption.colNames = _me.getColName();
                 _me.gridOption.colModel = _me.getColModel(totalRows);
                 return Site.clone(_me.gridOption);
