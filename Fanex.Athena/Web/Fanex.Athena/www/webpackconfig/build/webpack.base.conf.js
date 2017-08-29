@@ -153,7 +153,7 @@ function generateConfig(environment) {
             timings: true,
             chunks: false,
             chunkModules: false,
-            children: true
+            children: false
         }
     };
 

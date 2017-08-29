@@ -30,7 +30,6 @@ exports.minify = function () {
 };
 
 exports.extractCSS = function (isProduction) {
-    var queryString = isProduction ? "" : "&sourceMap";
     return {
         module: {
             rules: [
@@ -49,14 +48,14 @@ exports.extractCSS = function (isProduction) {
                             {
                                 loader: 'css-loader',
                                 options: {
-                                    minimize: true,
+                                    minimize: isProduction,
                                     url: false,
                                 }
                             },
                           {
                               loader: 'sass-loader',
                               options: {
-                                  minimize: true,
+                                  minimize: isProduction,
                                   url: false,
                               }
                           }]
