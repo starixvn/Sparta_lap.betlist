@@ -149,7 +149,7 @@ var CustomerWinLossOption = (function () {
         classes: 'highlight',
         width: 100,
         align: "right",
-        sortable: false,
+        sortable: true,
         resizable: false,
         formatter: "currency",
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS

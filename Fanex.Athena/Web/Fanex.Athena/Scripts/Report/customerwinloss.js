@@ -151,45 +151,29 @@ var CustomerWinLoss = (function ($) {
         },
         initMonthPicker: function () {
             if ($("#IsHistory").val() === "True") {
+                var fromdate = new Date($('#FromDate').val());
+                var todate = new Date($('#ToDate').val());
+
                 $('#DateControl').monPickr({
                     minDate: Site.getHistoryDate(),
                     showDateRange: true,
                     fromDayId: 'MonthPickerFromDay',
                     toDayId: 'MonthPickerToDay',
-                    month: new Date($('#FromDate').val()),
-                    fromDay: new Date($('#FromDate').val()).getDate(),
-                    toDay: new Date($('#ToDate').val()).getDate(),
+                    month: fromdate,
+                    fromDay: fromdate.getDate(),
+                    toDay: todate.getDate(),
                     afterChangeMonth: function () {
-                        $('#Year').val(new Date($("#DateControl").monPickr("getFromDate", "MM/dd/yyyy")).getFullYear());
-                        $('#Month').val(new Date($("#DateControl").monPickr("getFromDate", "MM/dd/yyyy")).getMonth() + 1);
+                        $('#FromDate').val($("#DateControl").monPickr("getFromDate", "MM/dd/yyyy"));
+                        $('#ToDate').val($("#DateControl").monPickr("getToDate", "MM/dd/yyyy"));
                     },
                     afterChangeDay: function () {
-                        $('#FromDay').val(new Date($("#DateControl").monPickr("getFromDate", "MM/dd/yyyy")).getDate());
-                        $('#ToDay').val(new Date($("#DateControl").monPickr("getToDate", "MM/dd/yyyy")).getDate());
-                    },
-                    log: function (/*msg*/) {
-                        //console.warn(msg);
+                        $('#FromDate').val($("#DateControl").monPickr("getFromDate", "MM/dd/yyyy"));
+                        $('#ToDate').val($("#DateControl").monPickr("getToDate", "MM/dd/yyyy"));
                     }
                 });
             }
         },
         initEvent: function () {
-            $("#SubmitHistoryButton").click(function () {
-                var validProduct = Report.ValidProducts();
-                if (!validProduct) {
-                    return;
-                }
-
-                var fromday = $('#FromDay').val();
-                var today = $('#ToDay').val();
-                var year = $('#Year').val();
-                var month = $('#Month').val();
-                $('#FromDate').val(month + "/" + fromday + "/" + year);
-                $('#ToDate').val(month + "/" + today + "/" + year);
-                resetParam();
-                CustomerWinLoss.submit();
-            });
-
             $("#SubmitButton").click(function () {
                 var validProduct = Report.ValidProducts();
                 if (!validProduct) {
@@ -231,12 +215,12 @@ var CustomerWinLoss = (function ($) {
 
         viewHistoryReport: function () {
             Site.blockUI();
-            window.location.href = Site.resolveClientUrl("CustomerWinlossReport/History");
+            Site.redirect(Site.resolveClientUrl("CustomerWinlossReport/History"));
         },
 
         viewCurrentReport: function () {
             Site.blockUI();
-            window.location.href = Site.resolveClientUrl("CustomerWinLossReport/Index");
+            Site.redirect(Site.resolveClientUrl("CustomerWinLossReport/Index"));
         },
 
         viewWinlossBetList: function (custId, systemId, externalId) {

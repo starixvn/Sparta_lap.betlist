@@ -5587,9 +5587,6 @@
     <Content Include="Views\Customer\BetSetting\LiveCasino.cshtml" />
     <Content Include="Views\Desktop\Customer\CustomerDialog\LogInfo.cshtml" />
     <Content Include="Views\Customer\BetSetting\NumberGame.cshtml" />
-    <Content Include="Views\Report\CustomerWinloss\Content.Data.cshtml" />
-    <Content Include="Views\Report\CustomerWinloss\Content.Total.cshtml" />
-    <Content Include="Views\Report\CustomerWinloss\Content.Header.cshtml" />
     <Content Include="Views\Report\DailyRacingWinLoss\12Bet\Content.TotalCommon.cshtml" />
     <Content Include="Views\Report\DailyRacingWinLoss\12Bet\Content.TotalCurrency.cshtml" />
     <Content Include="Views\Report\DailyRacingWinLoss\12Bet\Content.Data.cshtml" />

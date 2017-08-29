@@ -80,15 +80,11 @@
             &nbsp;
         </div>
         <div class="grid_2 filter-input">
-            <input type="button" id="SubmitHistoryButton" value="@ViewResources.Submit" class="button" />
+            <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
         </div>
 
         @*End Row 4*@
     </form>
-    @Html.Hidden("FromDay", 1)
-    @Html.Hidden("ToDay", Model.Param.ToDate.Day)
-    @Html.Hidden("Month", Model.Param.FromDate.Month)
-    @Html.Hidden("Year", Model.Param.FromDate.Year)
     @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
     @Html.Hidden("IsAllowedBA", Model.ProductAccess.IsAllowBA)
     @Html.Hidden("IsAllowedRB", Model.ProductAccess.IsAllowRB)

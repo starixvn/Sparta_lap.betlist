@@ -70,6 +70,7 @@
         function initSetting(option) {
             _thirdPartyWinLossOption = option.GridOption;
             _reportTitle = Site.getSingleResource(option.ReportTitle);
+            _urlExcelData = _thirdPartyWinLossOption.urlExcelData;
         }
 
         function initEvent() {
