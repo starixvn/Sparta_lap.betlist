@@ -1,3 +1,8 @@
-﻿
-export const FETCH_DATA = 'FETCH_DATA'
-export const SET_GRID_DATA ="SET_GRID_DATA"
+﻿export const FETCH_DATA = 'FETCH_DATA'
+export const SET_GRID_DATA = "SET_GRID_DATA"
+
+export const GET_SUBSIDIARY = "GET_SUBSIDIARY"
+export const SET_SUBSIDIARY = "SET_SUBSIDIARY"
+
+export const SET_DATE_RANGE = "SET_DATE_RANGE"
+export const CHANGE_CONVERT_ALL = "CHANGE_CONVERT_ALL"

@@ -7,6 +7,7 @@
 @{
     var productOptions = Model.ProductOptionList.Select(p => new { value = p.Code, label = p.Name });
     var baseCurrencyList = Model.BaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
+    var subsidiaryList = Model.SubsidiaryList.Select(s => new { value = s.Key.ToString(), label = s.Value }).ToList();
 }
 
 @section pagecss {
@@ -24,8 +25,11 @@
         productOptions: @Html.Raw(productOptions.ToJson()),
         selectedProduct: '@(productOptions.Any() ? productOptions.First().value: string.Empty)',
         baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
-        selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)'
-
+        selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
+        subsidiaryList: @Html.Raw(subsidiaryList.ToJson()),
+        selectedSubsidiary: '@(subsidiaryList.Any() ? subsidiaryList.First().value.ToString() : string.Empty)',
+        convertAll: false,
+        dateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'}
     }
 }
 <div id="app-container">

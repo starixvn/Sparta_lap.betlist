@@ -1,7 +1,6 @@
-const headers = ["Col 1", "Col 2", "Col 3"];
-const data = [{
+const summaryData = [{
         Id: 0,
-        Operator: "New York",
+        Subsidiary: "New York",
         Currency: "USD",
 
         Details: [{
@@ -29,7 +28,7 @@ const data = [{
     },
     {
         Id: 1,
-        Operator: "India",
+        Subsidiary: "India",
         Currency: "THB",
         Details: [{
             Products: "All",
@@ -41,7 +40,7 @@ const data = [{
     },
     {
         Id: 2,
-        Operator: "New York",
+        Subsidiary: "New York",
         Currency: "USD",
 
         Details: [{
@@ -54,10 +53,10 @@ const data = [{
     }
 ];
 
-for (let i = 0; i < 100; i++) {
-    data.push({
+for (let i = 0; i < 1; i++) {
+    summaryData.push({
         Id: 2,
-        Operator: "New York",
+        Subsidiary: "New York",
         Currency: "USD",
 
         Details: [{
@@ -71,7 +70,7 @@ for (let i = 0; i < 100; i++) {
 }
 
 const totalData = [{
-        Operator: "New York",
+        Subsidiary: "New York",
         Based: "EUR",
         BetCount: 150,
         Turnover: "300,000.00",
@@ -79,7 +78,7 @@ const totalData = [{
         OperatorWinLoss: "-15,000"
     },
     {
-        Operator: "Total India",
+        Subsidiary: "Total India",
         Based: "EUR",
         BetCount: 100,
         Turnover: "200,000.00",
@@ -97,8 +96,7 @@ const grantTotal = {
 }
 
 export default {
-    headers,
-    data,
+    summaryData,
     totalData,
     grantTotal
 }

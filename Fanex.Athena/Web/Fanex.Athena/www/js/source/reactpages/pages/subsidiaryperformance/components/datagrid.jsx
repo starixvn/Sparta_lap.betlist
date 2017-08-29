@@ -7,7 +7,7 @@ import FakeData from '../fakeData';
 
 const columnLayout = [300, 70, 150, 150, 200, 200, 200];
 const { Table, Header, Body, Footer, Row, Cell } = FixedTable;
-const { headers, data, totalData, grantTotal } = FakeData;
+const { summaryData, totalData, grantTotal } = FakeData;
 
 class DataGrid extends Component {
     constructor(props) {
@@ -17,18 +17,23 @@ class DataGrid extends Component {
     get header() {
         return (
             <Row>
-                <th>Operator</th>
+                <th>Subsidiary</th>
                 <th>Currency</th>
                 <th>Products</th>
                 <th>Bet Count</th>
                 <th>Turnover</th>
                 <th>Customer Win Loss</th>
-                <th>Operator WL/Comm</th>
+                <th>Subsidiary WL/Comm</th>
             </Row>
         )
     }
 
     get body() {
+        const data = this.props.gridData;
+        if (!data && !data.length) {
+            return null;
+        }
+
         let rows = [];
         for (let i = 0; i < data.length; i++) {
             const item = data[i];
@@ -39,13 +44,13 @@ class DataGrid extends Component {
                 const detail = item.Details[j];
                 rows.push(
                     <Row key={`tr${i}${j}`}>
-                        {isFirstRow ? <Cell rowSpan={rowSpan}>{item.Operator}</Cell> : undefined}
+                        {isFirstRow ? <Cell rowSpan={rowSpan}>{item.Subsidiary}</Cell> : undefined}
                         {isFirstRow ? <Cell rowSpan={rowSpan} className="center-align">{item.Currency}</Cell> : undefined}
-                        <Cell className="center-align">{detail.Products}</Cell>
+                        <Cell className="center-align">{detail.Product}</Cell>
                         <Cell className="right-align">{detail.BetCount}</Cell>
                         <Cell className="right-align">{detail.Turnover}</Cell>
                         <Cell className="right-align">{detail.CustomerWinLoss}</Cell>
-                        <Cell className="right-align">{detail.OperatorWinLoss}</Cell>
+                        <Cell className="right-align">{detail.SubsidiaryWinLoss}</Cell>
                     </Row>
                 );
 
@@ -60,7 +65,7 @@ class DataGrid extends Component {
         return totalData.map((item, index) => {
             return (
                 <Row className="fixed-table-total" key={`total${index}`}>
-                    <Cell>{`Total ${item.Operator}`}</Cell>
+                    <Cell>{`Total ${item.Subsidiary}`}</Cell>
                     <Cell>{`Based ${item.Based}`}</Cell>
                     <Cell></Cell>
                     <Cell className="right-align">{item.BetCount}</Cell>
@@ -115,7 +120,7 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     return {
-
+        gridData: state.gridData
     };
 };
 

@@ -14,7 +14,9 @@ function generateConfig(environment) {
         },
         entry: {
             /*js*/
-            reactVendorJs: ["react", "react-redux", "redux", "react-dom", "redux-thunk", "redux-logger"],
+            reactVendorJs: ["react", "react-redux", "redux", "react-dom", "redux-thunk", "redux-logger", "axios",
+                "core-js/fn/object/assign", "core-js/fn/promise"
+            ],
             [`${jsPath}/subsidiaryperformance/subsidiaryperformance`]: pathConfig.scriptPaths.subsidiaryperformance,
             [`${jsPath}/lib/langHelper`]: pathConfig.scriptPaths.languageResource,
             /*css*/
@@ -26,13 +28,11 @@ function generateConfig(environment) {
             filename: "[name].chunk.js"
         },
         module: {
-            loaders: [
-                {
-                    test: /\.(js|jsx)$/,
-                    loader: "babel-loader",
-                    exclude: /node_modules/
-                }
-            ]
+            loaders: [{
+                test: /\.(js|jsx)$/,
+                loader: "babel-loader",
+                exclude: /node_modules/
+            }]
         },
         plugins: pluginGenerator(environment),
         stats: {

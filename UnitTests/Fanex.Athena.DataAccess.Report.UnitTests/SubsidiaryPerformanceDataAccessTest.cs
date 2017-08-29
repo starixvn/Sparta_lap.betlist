@@ -6,7 +6,7 @@
     using System.Web.Script.Serialization;
     using Data;
     using Model.Core.DTO.Configuration;
-    using Model.Report.DTO;
+    using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -117,11 +117,11 @@
             });
         }
 
-        private static List<SubsidiaryPerformance> GetExpectedResult(IDictionary<string, object> readerDataMapping, string baseCurrency = "")
+        private static List<SubsidiaryPerformanceEntity> GetExpectedResult(IDictionary<string, object> readerDataMapping, string baseCurrency = "")
         {
-            return new List<SubsidiaryPerformance>
+            return new List<SubsidiaryPerformanceEntity>
             {
-                new SubsidiaryPerformance
+                new SubsidiaryPerformanceEntity
                 {
                     Subsidiary = readerDataMapping["Subsidiary"].ToString(),
                     Currency = readerDataMapping["Currency"].ToString(),

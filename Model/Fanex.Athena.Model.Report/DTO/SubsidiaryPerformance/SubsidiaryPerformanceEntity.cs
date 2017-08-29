@@ -1,6 +1,6 @@
-﻿namespace Fanex.Athena.Model.Report.DTO
+﻿namespace Fanex.Athena.Model.Report.DTO.SubsidiaryPerformance
 {
-    public class SubsidiaryPerformance
+    public class SubsidiaryPerformanceEntity
     {
         public string Subsidiary { get; set; }
 

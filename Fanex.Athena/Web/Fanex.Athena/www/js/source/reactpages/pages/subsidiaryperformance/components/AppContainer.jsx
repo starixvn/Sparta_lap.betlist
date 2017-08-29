@@ -5,11 +5,10 @@ import { ActionCreators } from '../actions/index.js'
 import DataGrid from './datagrid.jsx'
 import FormFilter from './formFilter.jsx'
 import AppLayout from '../../../layouts/AppLayout.jsx'
+
 class AppContainer extends Component {
   constructor(props) {
     super(props);
-  }
-  componentDidMount() {
   }
 
   render() {

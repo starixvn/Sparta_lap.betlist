@@ -7,6 +7,12 @@
 
     public class SubsidiaryPerformanceViewModel
     {
+        public SubsidiaryPerformanceViewModel()
+        {
+            FromDate = DateTime.Today;
+            ToDate = DateTime.Today;
+        }
+
         public IDictionary<int, string> SubsidiaryList { get; set; }
 
         public DateTime FromDate { get; set; }

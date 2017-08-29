@@ -2,10 +2,10 @@
 {
     using System.Collections.Generic;
     using Fanex.Athena.Model.Report.MetaModel;
-    using Model.Report.DTO;
+    using Model.Report.DTO.SubsidiaryPerformance;
 
     public interface ISubsidiaryPerformanceService
     {
-        IEnumerable<SubsidiaryPerformance> GetData(SubsidiaryPerformanceMetaModel subLicenseePerformanceMetaModel);
+        IEnumerable<SubsidiaryPerformanceEntity> GetData(SubsidiaryPerformanceMetaModel subLicenseePerformanceMetaModel);
     }
 }

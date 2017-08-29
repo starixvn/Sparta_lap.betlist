@@ -11,5 +11,4 @@ export const productOptions = createReducer({}, {
     [types.GET_PRODUCT_OPTIONS](state, action) {
         return action.data;
     }
-}
-);
+});

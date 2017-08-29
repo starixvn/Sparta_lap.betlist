@@ -10,38 +10,63 @@ class FormFilter extends Component {
         super(props);
     }
 
-    handleSelect(date) {
-        console.log(`Start: ${date.startDate.format("MM/DD/YYYY")}`);
-        console.log(`End: ${date.endDate.format("MM/DD/YYYY")}`); // Momentjs object
-    }
-
-    logChange(val) {
-        console.log("Selected: " + JSON.stringify(val));
-    }
-
     _submit() {
-        var inputValue = { SelectedCurrency: this.props.SelectedCurrency }
-        this.props.fetchData();
+        const params = {
+            BaseCurrency: this.props.selectedBaseCurrency,
+            SubsidiaryList: this.props.selectedSubsidiary,
+            ProductCodeList: this.props.selectedProduct,
+            ConvertAll: this.props.convertAll,
+            FromDate: this.props.dateRange.fromDate,
+            ToDate: this.props.dateRange.toDate
+        }
+
+        this.props.fetchData(params);
     }
+
+    _subsidiarySelectList() {
+        const { subsidiaryList, selectedSubsidiary } = this.props;
+
+        return subsidiaryList && subsidiaryList.length > 0 ? (
+            <Select id="ddlOperator" className="input-select"
+                name="form-field-name"
+                value={selectedSubsidiary}
+                options={subsidiaryList}
+                onChange={(item) => this.props.setSubsidiary(item.value)} />
+        ) : null;
+    }
+
+    _productSelectList() {
+        const { productOptions, selectedProduct } = this.props;
+
+        return productOptions && productOptions.length > 0 ? (
+            <Select id="ddlProduct"
+                name="form-field-name"
+                value={selectedProduct}
+                options={productOptions}
+                onChange={(item) => this.props.setSelectedProduct(item.value)} />
+        ) : null;
+    }
+
+    _baseCurrencySelectList() {
+        const { baseCurrencyList, selectedBaseCurrency } = this.props;
+
+        return baseCurrencyList && baseCurrencyList.length > 0 ? (
+            <Select id="ddlBased"
+                name="form-field-name"
+                value={selectedBaseCurrency}
+                options={baseCurrencyList}
+                onChange={(item) => this.props.setSelectedBaseCurrency(item.value)} />
+        ) : null;
+    }
+
     render() {
-        var options = [
-            { value: '1', label: 'New York', className: "input-select-option" },
-            { value: '2', label: 'India', className: "input-select-option" }
-        ];
-
-        const { productOptions, selectedProduct, baseCurrencyList, selectedBaseCurrency } = this.props;
-
         return (
             <div className="page-filter">
                 <div className="row">
                     <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <div className="form-group">
                             <label className="label-text">Operator</label>
-                            <Select id="ddlOperator" className="input-select"
-                                name="form-field-name"
-                                value="2"
-                                options={options}
-                                onChange={this.logChange} />
+                            {this.subsidiarySelectList}
                         </div>
                     </div>
 
@@ -51,30 +76,21 @@ class FormFilter extends Component {
 
                             <DateRange minDate='01-02-2017' onlyClasses={true}
                                 ranges={defaultOptions.ranges}
-                                onClickApplyButton={(date) => this.handleSelect(date)} />
-
+                                onClickApplyButton={(date) => this.props.setDateRange(date)} />
                         </div>
                     </div>
 
                     <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <div className="form-group">
                             <label className="label-text">Product</label>
-                            <Select id="ddlProduct"
-                                name="form-field-name"
-                                value={selectedProduct}
-                                options={productOptions}
-                                onChange={(item)=>this.props.setSelectedProduct(item.value)} />
+                            {this.productSelectList}
                         </div>
                     </div>
 
                     <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <div className="form-group">
                             <label className="label-text">Based</label>
-                            <Select id="ddlBased"
-                                name="form-field-name"
-                                value={selectedBaseCurrency}
-                                options={baseCurrencyList}
-                                onChange={this.logChange} />
+                            {this.baseCurrencySelectList}
                         </div>
                     </div>
                 </div>
@@ -83,12 +99,13 @@ class FormFilter extends Component {
                     <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <div className="form-group">
                             <div className="checkbox-group">
-                                <input type="checkbox" id="IsConvertAll" />
+                                <input type="checkbox" checked={this.props.convertAll} id="IsConvertAll"
+                                 onClick={() => this.props.changeConvertAll(!this.props.convertAll)} />
                                 <label htmlFor="IsConvertAll">Convert All</label>
                             </div>
 
                             <div className="button-group">
-                                <button type="button" className="btn btn-submit">Submit</button>
+                                <button type="button" className="btn btn-submit" onClick={() => this._submit()}>Submit</button>
                             </div>
                         </div>
                     </div>
@@ -101,7 +118,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    return Object.assign({}, state);
+    const { gridData, ...rest } = state;
+    return Object.assign({}, rest);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);

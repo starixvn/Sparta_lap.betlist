@@ -122,8 +122,9 @@
     <Compile Include="DTO\AgCasinoBalance.cs" />
     <Compile Include="DTO\PlatformWinLossSummary.cs" />
     <Compile Include="DTO\ColossusBetWinLoss.cs" />
-    <Compile Include="DTO\SubsidiaryPerformance.cs" />
-    <Compile Include="DTO\SubsidiaryPerformanceDetail.cs" />
+    <Compile Include="DTO\SubsidiaryPerformance\SubsidiaryPerformanceDataModel.cs" />
+    <Compile Include="DTO\SubsidiaryPerformance\SubsidiaryPerformanceDetail.cs" />
+    <Compile Include="DTO\SubsidiaryPerformance\SubsidiaryPerformanceEntity.cs" />
     <Compile Include="DTO\ThirdPartyWinLoss.cs" />
     <Compile Include="DTO\WeeklyLiveMatch.cs" />
     <Compile Include="DTO\WinLossByLeague.cs" />

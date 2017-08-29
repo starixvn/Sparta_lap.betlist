@@ -6,7 +6,7 @@
     using Core.Configuration.Interfaces;
     using DataAccess.Report;
     using DataAccess.Report.Interfaces;
-    using Fanex.Athena.Model.Report.DTO;
+    using Fanex.Athena.Model.Report.DTO.SubsidiaryPerformance;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report.Interfaces;
 
@@ -28,7 +28,7 @@
             _subLicenseePerformanceDataAccess = subLicenseePerformanceDataAccess;
         }
 
-        public IEnumerable<SubsidiaryPerformance> GetData(SubsidiaryPerformanceMetaModel subLicenseePerformanceMetaModel)
+        public IEnumerable<SubsidiaryPerformanceEntity> GetData(SubsidiaryPerformanceMetaModel subLicenseePerformanceMetaModel)
         {
             throw new NotImplementedException();
         }

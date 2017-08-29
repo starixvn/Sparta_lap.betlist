@@ -7,7 +7,7 @@
     using Data;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Model.Core.DTO.Configuration;
-    using Model.Report.DTO;
+    using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
 
     public class SubsidiaryPerformanceDataAccess : BaseDataAccess, ISubsidiaryPerformanceDataAccess
@@ -16,10 +16,10 @@
         {
         }
 
-        public IEnumerable<SubsidiaryPerformance> GetData(SubsidiaryPerformanceMetaModel metaModel)
+        public IEnumerable<SubsidiaryPerformanceEntity> GetData(SubsidiaryPerformanceMetaModel metaModel)
         {
             const string SpName = "Lrf_Rpt_SubsidiaryPerformance";
-            var dataList = new List<SubsidiaryPerformance>();
+            var dataList = new List<SubsidiaryPerformanceEntity>();
             var baseCurrency = metaModel.ConvertAll ? metaModel.BaseCurrency : string.Empty;
             using (var objectDb = this.GetObjectDb(SpName))
             {
@@ -48,9 +48,9 @@
             objectDb.AddInParameter("AgentListXml", DbType.String, metaModel.AgentListXml);
         }
 
-        private static SubsidiaryPerformance GetEntityData(IDataReader reader, string baseCurrency)
+        private static SubsidiaryPerformanceEntity GetEntityData(IDataReader reader, string baseCurrency)
         {
-            return new SubsidiaryPerformance
+            return new SubsidiaryPerformanceEntity
             {
                 Subsidiary = reader["Subsidiary"].ToString(),
                 Currency = reader["Currency"].ToString(),

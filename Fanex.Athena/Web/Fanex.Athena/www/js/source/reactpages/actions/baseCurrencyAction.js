@@ -1,8 +1,8 @@
-import { SET_SELECTED_BASECURRENCY } from './types'
+import * as types from './types'
 
 export const setSelectedBaseCurrency = (baseCurrency) => {
     return {
-        type: SET_SELECTED_BASECURRENCY,
+        type: types.SET_SELECTED_BASECURRENCY,
         data: baseCurrency
     }
 }
