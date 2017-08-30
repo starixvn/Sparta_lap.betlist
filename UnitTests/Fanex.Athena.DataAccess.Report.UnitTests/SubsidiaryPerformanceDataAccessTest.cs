@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using System.Web.Script.Serialization;
     using Data;
     using Model.Core.DTO.Configuration;
@@ -51,20 +52,22 @@
             _dataReader.Read().Returns(false);
 
             var metaModel = GetDefaultMetaModel();
+            IEnumerable<SubsidiaryPerformanceEntity> totalList = null;
 
             // Action
-            _dataAccess.GetData(metaModel);
+            _dataAccess.GetData(metaModel, out totalList);
 
             // Assert
             AssertParamsPassCorrectly(metaModel);
         }
 
         [Test]
-        public void GetData_DoNotConvertToBasedCurrency_ReturnCorrectDataWithOriginalCurrency()
+        public void GetData_DoNotConvertToBasedCurrency_ReturnDataWithOriginalCurrency()
         {
             // Arrange
             var metaModel = GetDefaultMetaModel();
             metaModel.ConvertAll = false;
+            IEnumerable<SubsidiaryPerformanceEntity> totalList = null;
 
             _dataReader.Read().Returns(true, false);
 
@@ -75,18 +78,19 @@
             var expectedResult = serializer.Serialize(GetExpectedResult(readerDataMapping));
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetData(metaModel));
+            var result = serializer.Serialize(_dataAccess.GetData(metaModel, out totalList));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void GetData_ConvertToBasedCurrency_ReturnCorrectDataWithBasedCurrency()
+        public void GetData_ConvertToBasedCurrency_ReturnDataWithBasedCurrency()
         {
             // Arrange
             var metaModel = GetDefaultMetaModel();
             metaModel.ConvertAll = true;
+            IEnumerable<SubsidiaryPerformanceEntity> totalList = null;
 
             _dataReader.Read().Returns(true, false);
 
@@ -97,7 +101,38 @@
             var expectedResult = serializer.Serialize(GetExpectedResult(readerDataMapping, metaModel.BaseCurrency));
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetData(metaModel));
+            var result = serializer.Serialize(_dataAccess.GetData(metaModel, out totalList));
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void GetData_WhenCall_ReturnTotalDataListWithBasedCurrency()
+        {
+            // Arrange
+            const string Prefix = "Total";
+            IEnumerable<SubsidiaryPerformanceEntity> totalList = null;
+            var metaModel = GetDefaultMetaModel();
+            metaModel.ConvertAll = false;
+
+            _dataReader.Read().Returns(true, false, true, false);
+            _dataReader.NextResult().Returns(true, false);
+
+            var readerSummaryDataMapping = GetReaderDataMapping();
+            var readerTotalDataMapping = GetReaderTotalDataMapping(metaModel.BaseCurrency, Prefix);
+
+            var readerDataMapping = readerSummaryDataMapping.Concat(readerTotalDataMapping).GroupBy(d => d.Key).ToDictionary(k => k.Key, v => v.First().Value);
+            MapReaderData(_dataReader, readerDataMapping);
+
+            var serializer = new JavaScriptSerializer();
+            var total = GetExpectedTotalData(readerTotalDataMapping, metaModel.BaseCurrency, Prefix);
+            total[0].Currency = metaModel.BaseCurrency;
+            var expectedResult = serializer.Serialize(total);
+
+            // Action
+            _dataAccess.GetData(metaModel, out totalList);
+            var result = serializer.Serialize(totalList);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -108,7 +143,7 @@
             reader[Arg.Any<string>()].Returns(x =>
             {
                 var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
+                if (paramName != null && readerDataMapping.ContainsKey(paramName))
                 {
                     return readerDataMapping[paramName];
                 }
@@ -147,6 +182,35 @@
                 { "CustomerWinLoss" + baseCurrency, 5000m },
                 { "SubsidiaryWinLoss" + baseCurrency, 2000m },
                 { "SubsidiaryComm" + baseCurrency, 50m }
+            };
+        }
+
+        private static List<SubsidiaryPerformanceEntity> GetExpectedTotalData(IDictionary<string, object> readerDataMapping, string baseCurrency, string prefix)
+        {
+            return new List<SubsidiaryPerformanceEntity>
+            {
+                new SubsidiaryPerformanceEntity
+                {
+                    Subsidiary = readerDataMapping[prefix + "Subsidiary"].ToString(),
+                    BetCount = Convert.ToInt32(readerDataMapping[prefix + "BetCount"]),
+                    Turnover = Convert.ToDecimal(readerDataMapping[prefix + "Turnover" + baseCurrency]),
+                    CustomerWinLoss = Convert.ToDecimal(readerDataMapping[prefix + "CustomerWinLoss" + baseCurrency]),
+                    SubsidiaryWinLoss = Convert.ToDecimal(readerDataMapping[prefix + "SubsidiaryWinLoss" + baseCurrency]),
+                    SubsidiaryComm = Convert.ToDecimal(readerDataMapping[prefix + "SubsidiaryComm" + baseCurrency])
+                }
+            };
+        }
+
+        private static IDictionary<string, object> GetReaderTotalDataMapping(string baseCurrency, string prefix)
+        {
+            return new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                { prefix + "Subsidiary", "New York" },
+                { prefix + "BetCount", 10 },
+                { prefix + "Turnover" + baseCurrency, 10000m },
+                { prefix + "CustomerWinLoss" + baseCurrency, 5000m },
+                { prefix + "SubsidiaryWinLoss" + baseCurrency, 2000m },
+                { prefix + "SubsidiaryComm" + baseCurrency, 50m }
             };
         }
 

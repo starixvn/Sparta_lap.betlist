@@ -16,10 +16,11 @@
         {
         }
 
-        public IEnumerable<SubsidiaryPerformanceEntity> GetData(SubsidiaryPerformanceMetaModel metaModel)
+        public IEnumerable<SubsidiaryPerformanceEntity> GetData(SubsidiaryPerformanceMetaModel metaModel, out IEnumerable<SubsidiaryPerformanceEntity> totalList)
         {
             const string SpName = "Lrf_Rpt_SubsidiaryPerformance";
             var dataList = new List<SubsidiaryPerformanceEntity>();
+            var totalDataList = new List<SubsidiaryPerformanceEntity>();
             var baseCurrency = metaModel.ConvertAll ? metaModel.BaseCurrency : string.Empty;
             using (var objectDb = this.GetObjectDb(SpName))
             {
@@ -31,8 +32,28 @@
                     {
                         dataList.Add(GetEntityData(reader, baseCurrency));
                     }
+
+                    if (reader.NextResult())
+                    {
+                        const string Prefix = "Total";
+                        while (reader.Read())
+                        {
+                            totalDataList.Add(new SubsidiaryPerformanceEntity
+                            {
+                                Subsidiary = reader[Prefix + "Subsidiary"].ToString(),
+                                Currency = metaModel.BaseCurrency,
+                                BetCount = Convert.ToInt32(reader[Prefix + "BetCount"]),
+                                Turnover = Convert.ToDecimal(reader[Prefix + "Turnover" + metaModel.BaseCurrency]),
+                                CustomerWinLoss = Convert.ToDecimal(reader[Prefix + "CustomerWinLoss" + metaModel.BaseCurrency]),
+                                SubsidiaryWinLoss = Convert.ToDecimal(reader[Prefix + "SubsidiaryWinLoss" + metaModel.BaseCurrency]),
+                                SubsidiaryComm = Convert.ToDecimal(reader[Prefix + "SubsidiaryComm" + metaModel.BaseCurrency])
+                            });
+                        }
+                    }
                 }
             }
+
+            totalList = totalDataList;
 
             return dataList;
         }
