@@ -21,6 +21,11 @@ namespace Fanex.Athena.Extension.Utility
 
         #region Configurations
 
+        public bool IsEnabledMoveBetNotification
+        {
+            get { return int.Parse(GetValue("IsEnabledMoveBetNotification")) != 0; }
+        }
+
         public string Environment
         {
             get { return GetValue("Environment"); }

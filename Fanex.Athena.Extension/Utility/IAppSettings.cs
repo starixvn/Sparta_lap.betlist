@@ -5,6 +5,8 @@
 
     public interface IAppSettings
     {
+        bool IsEnabledMoveBetNotification { get; }
+
         string[] BasedCurrency { get; }
 
         bool EnableAssignCurrency { get; }
