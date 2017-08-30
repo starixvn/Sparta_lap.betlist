@@ -1,19 +1,19 @@
-webpackJsonp([43],{
+webpackJsonp([70],{
 
-/***/ 0:
+/***/ 488:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(99);
+module.exports = __webpack_require__(489);
 
 
 /***/ }),
 
-/***/ 99:
+/***/ 489:
 /***/ (function(module, exports) {
 
-	// removed by extract-text-webpack-plugin
+// removed by extract-text-webpack-plugin
 
 /***/ })
 
-});
+},[488]);
 //# sourceMappingURL=winlossbyproduct.chunk.js.map

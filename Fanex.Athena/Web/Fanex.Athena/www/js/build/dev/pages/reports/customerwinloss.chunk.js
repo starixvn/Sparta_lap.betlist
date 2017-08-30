@@ -1,4 +1,4 @@
-webpackJsonp([7],[
+webpackJsonp([0],[
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22617,11 +22617,190 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /* 144 */,
 /* 145 */,
 /* 146 */,
-/* 147 */,
-/* 148 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(149)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+"use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
+    var $pagingContainer, $pageIndex, $pageSize;
+
+    var me = {};
+
+    var setting = {
+        pageindex: 1,
+        pagesize: 50,
+        pagelist: [50, 100, 1000],
+        totalrow: 1,
+        formId: "formreport",
+        elementcontainer: "#page",
+        method: "AJAX",
+        ajaxfunction: "",
+        alwayshow: false
+    };
+
+    function goToPage(method, index) {
+        if (method === "POST") {
+            $("#IsExportExcel").val(false);
+            var formName = $("input[name='FormName']", $pagingContainer).val();
+            var form = $("#" + formName);
+            var pageIndex = '<input type="hidden" value="' + index + '" name="PageIndex" />';
+            var pageSize = '<input type="hidden" value="' + $pageSize.val() + '" name="PageSize" />';
+            form.append(pageIndex);
+            form.append(pageSize);
+            Site.blockUI();
+            form.submit();
+        }
+        else if (method === "AJAX") {
+            $pageIndex.val(index);
+            var fc = $("input[name='AjaxPagingFunction']", $pagingContainer).val();
+            eval(fc); // jshint ignore:line
+        } else {
+            var url = Site.getCurrentUrl();
+            url = QueryString.setParam(url, "PageSize", $pageSize.val());
+            url = QueryString.setParam(url, "PageIndex", index);
+
+            Site.redirect(url);
+        }
+    }
+
+    function isVisible(element) {
+        return !$(element).hasClass("pagingDisable");
+    }
+
+    me.render = function (option) {
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="pageindex"></param>
+        /// <param name="pagesize"></param>
+        /// <param name="totalrow"></param>
+        /// <param name="elementcontainer">ex: "#page"</param>
+        /// <param name="method">POST or GET or AJAX</param>
+        var pageHtml = "";
+        $.extend(setting, option);
+        var noOfPage = 1;
+        var pagingVisible = setting.totalrow > setting.pagesize;
+
+        if (pagingVisible) {
+            noOfPage = parseInt(setting.totalrow / setting.pagesize
+         + (setting.totalrow % setting.pagesize === 0 ? 0 : 1));
+        }
+
+        if (pagingVisible || setting.alwayshow) {
+            var prevPageDisabledHtml = (setting.pageindex === 1 ? ' pagingDisable"' : '"') + '></a>';
+            var pageControl = ['<div class="pagingContainer center-align">',
+                          '<a href="javascript:;" class="icon pagingFirst' + prevPageDisabledHtml,
+                          '<a href="javascript:;" class="icon pagingPrev' + prevPageDisabledHtml,
+                          '<span class="pagingSeperator"></span>'];
+
+            var pagingInfo = '<div class="paging-info">' + Site.getSingleResource("Page") +
+                '<input  type="text" name="PageIndex" class="pagingCurrent paging-form" maxlength="4" size="2" value="' + setting.pageindex + '" />'
+            + "&nbsp;" + Site.getSingleResource("of") + "&nbsp;" + noOfPage + '</div>';
+
+            pageControl.push(pagingInfo);
+
+            pageControl.push('<span class="pagingSeperator"></span>');
+
+            var nextPageDisabled = (setting.pageindex === noOfPage ? ' pagingDisable"' : '"') + '></a>';
+            var pageNext = '<a href="javascript:;" class="icon pagingNext' + nextPageDisabled;
+            pageControl.push(pageNext);
+            var pageLast = '<a href="javascript:;" class="icon pagingLast' + nextPageDisabled;
+            pageControl.push(pageLast);
+
+            var pageListLength = setting.pagelist.length;
+            var pageSizeSelectHtml = '<select class="pageSizeSelected">';
+            var pageSize = parseInt(setting.pagesize);
+            for (var i = 0; i < pageListLength; i++) {
+                pageSizeSelectHtml += '<option value="' + setting.pagelist[i]
+                + '"' + (pageSize === setting.pagelist[i] ? ' selected="selected"' : '')
+                + '>' + setting.pagelist[i] + '</option>';
+            }
+            pageSizeSelectHtml += '</select>';
+            pageControl.push(pageSizeSelectHtml);
+
+            pageControl.push('<input type="hidden" name="PageSize" value="' + setting.pagesize + '" />');
+            pageControl.push('<input type="hidden" name="Method" value="' + setting.method + '" />');
+            pageControl.push('<input type="hidden" name="FormName" value="' + setting.formId + '" />');
+            pageControl.push('<input type="hidden" name="NoOfPage" value="' + noOfPage + '" />');
+            pageControl.push('<input type="hidden" name="AjaxPagingFunction" value="' + setting.ajaxfunction + '" />');
+
+            pageControl.push('</div>');
+            pageHtml = pageControl.join("");
+        }
+
+        $(setting.elementcontainer).html(pageHtml);
+        me.initialize();
+    };
+    me.getSetting = function () {
+        setting.pageindex = parseInt($pageIndex.val(), 10);
+        setting.pagesize = $pageSize.val();
+        return setting;
+    };
+    me.bindEvent = function () {
+        var method = $('input[name="Method"]', $pagingContainer).val();
+        var noOfPage = parseInt($('input[name="NoOfPage"]', $pagingContainer).val(), 10);
+
+        $(".pagingFirst", $pagingContainer).on("click", function () {
+            if (isVisible(this)) {
+                goToPage(method, 1);
+            }
+        });
+        $(".pagingPrev", $pagingContainer).on("click", function () {
+            var currentPage = parseInt($pageIndex.val(), 10);
+            if (isVisible(this) && currentPage > 1) {
+                goToPage(method, currentPage - 1);
+            }
+        });
+        $(".pagingLast", $pagingContainer).on("click", function () {
+            if (isVisible(this)) {
+                goToPage(method, noOfPage);
+            }
+        });
+        $(".pagingNext", $pagingContainer).on("click", function () {
+            if (isVisible(this)) {
+                var currentPage = parseInt($pageIndex.val(), 10);
+                goToPage(method, currentPage + 1);
+            }
+        });
+
+        $("select.pageSizeSelected", $pagingContainer).on("change", function () {
+            var pageSize = $(this).val();
+            $pageSize.val(pageSize);
+            setting.pagesize = pageSize;
+            goToPage(method, 1);
+        });
+
+        $pageIndex.on("keyup", function (e) {
+            var code = e.keyCode ? e.keyCode : e.which;
+            if (code === 13) {
+                var value = parseInt($(this).val());
+                if (value > 0 && value <= noOfPage) {
+                    $(this).val(value);
+                    goToPage(method, value);
+                }
+            }
+        });
+    };
+
+    me.initialize = function () {
+        $pagingContainer = $(".pagingContainer");
+        $pageIndex = $("input[name='PageIndex']", $pagingContainer);
+        $pageSize = $("input[name='PageSize']", $pagingContainer);
+
+        me.bindEvent();
+    };
+
+    return me;
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+/* 148 */,
+/* 149 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(150)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
         "use strict";
         var PICKER_SELECTOR = "#month-picker";
         var FORMAT = "MM/dd/yyyy";
@@ -22683,7 +22862,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 149 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
@@ -23523,8 +23702,49 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 150 */,
-/* 151 */,
+/* 151 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+    var _me = {
+        exportExcel: function (postData, url, method) {
+            var data = Site.clone(postData);
+            data.IsExportExcel = true;
+            var $form = $('<form id="ExportExcelForm">').attr({ action: url, method: method || 'post' })
+                .appendTo('body');
+            for (var property in data) {
+                if (data.hasOwnProperty(property)) {
+                    var value = data[property];
+                    if (property === "ProductOptions") {
+                        var products = typeof (value) === "object" ? value : JSON.parse(value);
+                        for (var i = 0; i < products.length; i++) {
+                            var product = products[i];
+                            $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Code', value: product.Code }).appendTo($form);
+                            $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Status', value: product.Status }).appendTo($form);
+                        }
+                    } else {
+                        $('<input type="hidden">').attr({ name: property, value: value }).appendTo($form);
+                    }
+                }
+            }
+            if (!data["__RequestVerificationToken"]) {
+                $('<input type="hidden">')
+                    .attr({ name: '__RequestVerificationToken', value: $("input[name=__RequestVerificationToken]").val() })
+                    .appendTo($form);
+            }
+
+            $form.submit();
+            $form.remove();
+        }
+    };
+
+    return _me;
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
 /* 152 */,
 /* 153 */,
 /* 154 */,
@@ -23835,11 +24055,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     __webpack_require__(435),
     __webpack_require__(119),
     __webpack_require__(127),
-    __webpack_require__(148),
+    __webpack_require__(149),
     __webpack_require__(135),
+    __webpack_require__(120),
+    __webpack_require__(147),
+    __webpack_require__(151),
     __webpack_require__(122),
     __webpack_require__(123),
-    __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect) {
+    __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect, Popup, PagingHelper, ExcelHelper) {
         "use strict";
 
         var _ajaxRequest = null;
@@ -23873,7 +24096,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             IsAllowedRBInput: "#IsAllowedRB",
             IsAllowedCustomerCommissionInput: "#IsAllowedCustomerCommission",
             HistoryLink: "#history-report-link",
-            CurrentLink: "#current-report-link"
+            CurrentLink: "#current-report-link",
+            BetListLink: ".bet-list-link"
         };
 
         function initialize() {
@@ -23905,9 +24129,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
 
             $(_selector.ExportToExcel).click(function () {
+                var validProduct = Report.ValidProducts();
+                if (!validProduct) {
+                    return;
+                }
+
                 var data = getPostData();
                 data.PageIndex = 1;
-                Site.exportExcel(data, Site.resolveClientUrl(DATA_URL));
+                ExcelHelper.exportExcel(data, Site.resolveClientUrl(CustomerWinLossOption.urlExcelData));
                 return false;
             });
 
@@ -23918,6 +24147,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             $(_selector.CurrentLink).click(function () {
                 _me.viewCurrentReport();
             });
+
+            window.CustomerWinLoss = {
+                ajaxPaging: _me.ajaxPaging
+            };
+
+            $(".main-content").on("click", _selector.BetListLink, function () {
+                var data = $(this).data("drill-down");
+                _me.viewWinlossBetList(data.CustId, data.SystemId, data.ExternalId);
+            });
+
+            $(window).on("resize", function () {
+                resizeGrid();
+            });
+
+            $(window).on("unload", function () {
+                $(window).off("resize");
+            });
         }
 
         function initSetting() {
@@ -23927,17 +24173,180 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function submit() {
+            Report.setOriginalProduct();
 
+            buildPostData();
+
+            var option =
+            {
+                type: "POST",
+                data: _submitData,
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                cache: false,
+                url: Site.resolveClientUrl(CustomerWinLossOption.urlData),
+                success: function (response) {
+                    setReportTitle();
+                    _me.bindData(response);
+                },
+                beforeSend: function () {
+                    Site.blockUI();
+                },
+                complete: function () {
+                    Site.unBlockUI();
+                }
+            };
+
+            if (_ajaxRequest != null) {
+                _ajaxRequest.abort();
+            }
+
+            _ajaxRequest = $.ajax(option);
+            return true;
+        }
+
+        function bindData(response) {
+            Site.blockUI();
+            jqGridAdditional.clearGrid(_selector.GridId);
+            _isFirstLoad = true;
+
+            createPaging(response.TotalRows);
+
+            if (response.TotalRows === 0) {
+                jqGridAdditional.setNoInfo();
+                Site.unBlockUI();
+                return;
+            }
+
+            var gridOption = CustomerWinLossOption.getGridOption(response.TotalRows);
+            gridOption.data = response.Data;
+            gridOption.onSortCol = function (index) {
+                sort(index);
+                return "stop";
+            };
+            gridOption.gridComplete = function () {
+                onGridComplete(this, gridOption, response);
+                Site.unBlockUI();
+            };
+            gridOption.scroll = response.Data.length > gridOption.rowNum ? 1 : false;
+
+            var reportGrid = $("#" + _selector.GridId);
+            reportGrid.jqGrid(gridOption);
+
+            CustomerWinLossOption.setGroupHeaderColumns(reportGrid);
+
+        }
+
+        function ajaxPaging() {
+            _pagingOption = PagingHelper.getSetting();
+            _me.submit();
         }
 
         function viewHistoryReport() {
             Site.blockUI();
-            window.location.href = Site.resolveClientUrl("CustomerWinlossReport/History");
+            Site.redirect(Site.resolveClientUrl("CustomerWinlossReport/History"));
         }
 
         function viewCurrentReport() {
             Site.blockUI();
-            window.location.href = Site.resolveClientUrl("CustomerWinLossReport/Index");
+            Site.redirect(Site.resolveClientUrl("CustomerWinLossReport/Index"));
+        }
+
+        function viewWinlossBetList(custId, systemId, externalId) {
+            var url = Site.resolveClientUrl("CustomerWinlossBetList/Index");
+            url = QueryString.setParam(url, "ProductCodeList", getProductList());
+            url = QueryString.setParam(url, "currencyid", _submitData.CurrencyId);
+            url = QueryString.setParam(url, "CurrencyName", _submitData.CurrencyName);
+            url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
+            url = QueryString.setParam(url, "custid", custId);
+            url = QueryString.setParam(url, "systemid", systemId);
+            url = QueryString.setParam(url, "externalid", externalId);
+            url = QueryString.setParam(url, "fromdate", _submitData.FromDate);
+            url = QueryString.setParam(url, "todate", _submitData.ToDate);
+            url = QueryString.setParam(url, "ishistoryreport", $('input#IsHistory').val());
+
+            var popH = Math.min($(window).height() - 100, 650), popW = 920;
+            var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: "Customer Bet List" };
+            Popup.openPopupWithIframe(url, popupOption);
+        }
+
+        function setReportTitle() {
+            var titlePattern = "{0}, {1} → {2}, {3}{4}";
+            var licenseeWLNote = getLicenseeWLNote(_submitData.ProductOptions);
+            var title = $.format(titlePattern,
+                Site.getSingleResource("CustomerWinLoss"),
+                _submitData.FromDate,
+                _submitData.ToDate,
+                Site.getSingleResource("Viewin").replace("{0}",
+                _submitData.BaseCurrency === "" ? _submitData.CurrencyName : _submitData.BaseCurrency.toUpperCase()),
+                licenseeWLNote === "" ? "" : ", " + licenseeWLNote);
+
+            $(_selector.Title).html(title);
+            $(_selector.Header).removeClass("hide");
+        }
+
+        function createPaging(totalRows) {
+            _pagingOption.totalrow = totalRows;
+            if (_pagingOption.totalrow > 0 && _pagingOption.totalrow > _pagingOption.pagelist[0]) {
+                $(_pagingOption.elementcontainer).show();
+                PagingHelper.render(_pagingOption);
+            }
+            else {
+                $(_pagingOption.elementcontainer).hide();
+            }
+        }
+
+        function sort(index) {
+            if (_pagingOption.totalrow > 1) {
+                setTimeout(function () {
+                    if (_sortColumnName === index) {
+                        _sortOrder = _sortOrder === "asc" ? "desc" : "asc";
+                    } else {
+                        _sortOrder = "asc";
+                        _sortColumnName = index;
+                    }
+                    _me.submit();
+                }, 100);
+            }
+        }
+
+        function onGridComplete(grid, gridOption, response) {
+            if (_isFirstLoad) {
+                jqGridAdditional.gridComplete();
+
+                var reportGrid = $("#" + _selector.GridId);
+                if (_pagingOption.totalrow > 1) {
+                    jqGridAdditional.addSortableHeaders(reportGrid, _sortColumnName, _sortOrder);
+                }
+                else {
+                    jqGridAdditional.removeCursorOnNonSortableHeader(reportGrid);
+                }
+
+                jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
+                jqGridAdditional.setGroupFooters(CustomerWinLossOption.totalColspan);
+                resizeGrid();
+                _isFirstLoad = false;
+            }
+        }
+
+        function getLicenseeWLNote() {
+            var resultProducts = getProductList();
+            if (resultProducts.length > 0) {
+                return Site.getSingleResource("LicenseeW_L") + "(" + resultProducts.join(', ') + ")";
+            }
+            return "";
+        }
+
+        function getProductList() {
+            var productCodeList = [];
+            $(".childCheckbox", "#ProductList").each(function (index, element) {
+                var productCode = $(element).attr('data-product-code');
+                if (productCode && $(element).attr("data-original") === 'true') {
+                    productCodeList.push(productCode.toUpperCase());
+                }
+            });
+
+            return productCodeList;
         }
 
         function buildPostData() {
@@ -23960,7 +24369,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function getPostData() {
-            var param = $(FORM_SELECTOR).serializeObject();
+            var param = $(_selector.Form).serializeObject();
             param.PageIndex = _pagingOption.pageindex;
             param.PageSize = _pagingOption.pagesize;
             param.sortColumn = _sortColumnName;
@@ -23969,14 +24378,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return param;
         }
 
+        function resizeGrid() {
+            var reportGrid = $("#" + _selector.GridId);
+            jqGridAdditional.updateGridHeight();
+            jqGridAdditional.updateGridWidth(reportGrid);
+        }
+
         var _me = {
             initialize: initialize,
             initEvent: initEvent,
             initSetting: initSetting,
             submit: submit,
             viewHistoryReport: viewHistoryReport,
-            viewCurrentReport: viewCurrentReport
-        }
+            viewCurrentReport: viewCurrentReport,
+            viewWinlossBetList: viewWinlossBetList,
+            ajaxPaging: ajaxPaging,
+            bindData: bindData
+        };
 
         return _me;
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -24016,9 +24434,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return ' style="text-overflow: ellipsis"';
             },
             formatter: function (cellvalue, options, rowObject) {
-                return '<a class="bet-list-link" href="javascript:;" data-cust-id=' + rowObject.CustId +
-                    ' data-system-id=' + rowObject.SystemId +
-                    ' data-external-id=' + rowObject.ExternalId + '>' + cellvalue + '</a>';
+                var param =
+                {
+                    CustId: rowObject.CustId,
+                    ExternalId: rowObject.ExternalId,
+                    SystemId: rowObject.SystemId
+                };
+                return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
             }
         };
 
@@ -24109,7 +24531,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         {
             name: "LicenseeWL",
             index: "LicenseeWL",
-            classes: 'highlight',
             width: 100,
             align: "right",
             sortable: true,
@@ -24121,7 +24542,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         {
             name: "BAComm",
             index: "BAComm",
-            classes: 'highlight',
             width: 100,
             align: "right",
             sortable: true,
@@ -24134,10 +24554,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         {
             name: "RacingRevenue",
             index: "RacingRevenue",
-            classes: 'highlight',
             width: 100,
             align: "right",
-            sortable: false,
+            sortable: true,
             resizable: false,
             formatter: "currency",
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
@@ -24217,16 +24636,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 colNames: [],
                 colModel: [],
                 data: [],
-                height: "auto",
-                autowidth: true,
-                forceFit: true,
+                height: "100%",
+                autowidth: false,
+                forceFit: false,
                 shrinkToFit: true,
                 loadtext: '',
                 loadui: "disable",
                 loadonce: true,
                 footerrow: true,
                 userDataOnFooter: false,
-                viewrecords: false,
                 gridview: true,
                 rownumbers: false,
                 sortable: false,
@@ -24235,9 +24653,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             getGridOption: function (totalRows) {
-                _me.gridOption.shrinkToFit = totalRows <= 0
-                    || (!_me.hasCustomerComm && !(_me.isAllowBA && _me.isAllowRB))
-                    || (_me.hasCustomerComm && !_me.isAllowBA && !_me.isAllowRB);
                 _me.gridOption.colNames = _me.getColName();
                 _me.gridOption.colModel = _me.getColModel(totalRows);
                 return Site.clone(_me.gridOption);
