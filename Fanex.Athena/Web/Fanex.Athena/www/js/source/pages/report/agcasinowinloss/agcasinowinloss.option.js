@@ -182,7 +182,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
             userDataOnFooter: true,
             userData: [],
             height: '100%',
-            autowidth: true,
+            autowidth: false,
             forceFit: false,
             shrinkToFit: true,
             loadtext: '',

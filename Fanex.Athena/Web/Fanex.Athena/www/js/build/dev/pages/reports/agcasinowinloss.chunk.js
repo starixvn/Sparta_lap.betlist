@@ -22599,7 +22599,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             userDataOnFooter: true,
             userData: [],
             height: '100%',
-            autowidth: true,
+            autowidth: false,
             forceFit: false,
             shrinkToFit: true,
             loadtext: '',
