@@ -152,7 +152,7 @@
                 onGridComplete(this, gridOption, response);
                 Site.unBlockUI();
             };
-            gridOption.scroll = response.TotalRows > gridOption.rowNum ? 1 : false;
+            gridOption.scroll = response.Data.length > gridOption.rowNum ? 1 : false;
 
             var reportGrid = $("#" + _selector.GridId);
             reportGrid.jqGrid(gridOption);

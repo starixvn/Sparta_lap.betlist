@@ -499,7 +499,7 @@
                 Backspace, tab, enter, end, home, left, right
                 Don't support the del key in Opera because del == . == 46.
                 --------------------------------------------------------------*/
-            var controlKeys = [8, 9, 13, 35, 36, 37, 39, 46];
+            var controlKeys = [8, 9, 13, 39, 46];
 
             /*--------------------------------------------------------------
             IE doesn't support indexOf
