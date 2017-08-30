@@ -6,6 +6,8 @@
 
     public interface ISubsidiaryPerformanceService
     {
-        IEnumerable<SubsidiaryPerformanceEntity> GetData(SubsidiaryPerformanceMetaModel subLicenseePerformanceMetaModel);
+        IEnumerable<SubsidiaryPerformanceDataModel> GetData(
+            SubsidiaryPerformanceMetaModel metaModel,
+            out IEnumerable<SubsidiaryPerformanceEntity> totalList);
     }
 }

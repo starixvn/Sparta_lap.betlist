@@ -38,5 +38,7 @@
         }
 
         public bool ConvertAll { get; set; }
+
+        public bool IsValid => FromDate <= ToDate;
     }
 }

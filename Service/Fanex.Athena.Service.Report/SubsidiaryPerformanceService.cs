@@ -1,9 +1,8 @@
 ﻿namespace Fanex.Athena.Service.Report
 {
-    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Core.Configuration;
-    using Core.Configuration.Interfaces;
     using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO.SubsidiaryPerformance;
@@ -12,25 +11,58 @@
 
     public class SubsidiaryPerformanceService : ISubsidiaryPerformanceService
     {
-        private readonly IBalanceUpService _balanceUpService;
-
         private readonly ISubsidiaryPerformanceDataAccess _subLicenseePerformanceDataAccess;
 
         public SubsidiaryPerformanceService()
         {
-            _balanceUpService = new BalanceUpService();
-            _subLicenseePerformanceDataAccess = new SubsidiaryPerformanceDataAccess(_balanceUpService.BalanceUpInfo);
+            var balanceUpService = new BalanceUpService();
+            _subLicenseePerformanceDataAccess = new SubsidiaryPerformanceDataAccess(balanceUpService.BalanceUpInfo);
         }
 
-        public SubsidiaryPerformanceService(IBalanceUpService balanceUpService, ISubsidiaryPerformanceDataAccess subLicenseePerformanceDataAccess)
+        public SubsidiaryPerformanceService(ISubsidiaryPerformanceDataAccess subLicenseePerformanceDataAccess)
         {
-            _balanceUpService = balanceUpService;
             _subLicenseePerformanceDataAccess = subLicenseePerformanceDataAccess;
         }
 
-        public IEnumerable<SubsidiaryPerformanceEntity> GetData(SubsidiaryPerformanceMetaModel subLicenseePerformanceMetaModel)
+        public IEnumerable<SubsidiaryPerformanceDataModel> GetData(
+            SubsidiaryPerformanceMetaModel metaModel,
+            out IEnumerable<SubsidiaryPerformanceEntity> totalList)
         {
-            throw new NotImplementedException();
+            IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
+            var entityDataList = metaModel.IsValid ?
+                _subLicenseePerformanceDataAccess.GetData(metaModel, out totalDataList) : null;
+            totalList = totalDataList;
+
+            return entityDataList == null ? new List<SubsidiaryPerformanceDataModel>() : GetDataModel(entityDataList);
+        }
+
+        private static IEnumerable<SubsidiaryPerformanceDataModel> GetDataModel(IEnumerable<SubsidiaryPerformanceEntity> entityDataList)
+        {
+            var dataModelList = new List<SubsidiaryPerformanceDataModel>();
+            var dataGrouped = entityDataList.GroupBy(p => new { p.Subsidiary, p.Currency });
+
+            foreach (var summary in dataGrouped)
+            {
+                var dataModel = new SubsidiaryPerformanceDataModel { Subsidiary = summary.Key.Subsidiary, Currency = summary.Key.Currency };
+
+                var detailList = new List<SubsidiaryPerformanceDetail>();
+                foreach (var detail in summary)
+                {
+                    detailList.Add(new SubsidiaryPerformanceDetail
+                    {
+                        Product = detail.Product,
+                        BetCount = detail.BetCount,
+                        Turnover = detail.Turnover,
+                        CustomerWinLoss = detail.CustomerWinLoss,
+                        SubsidiaryWinLoss = detail.SubsidiaryWinLoss
+                    });
+                }
+
+                dataModel.Details = detailList;
+                dataModelList.Add(dataModel);
+            }
+
+            return dataModelList;
         }
     }
 }
