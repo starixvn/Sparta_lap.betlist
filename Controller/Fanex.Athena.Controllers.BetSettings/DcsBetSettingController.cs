@@ -47,7 +47,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         private static readonly IDictionary<int, string[]> ProductSportList = new Dictionary<int, string[]>
         {
             [ProductTypes.VirtualSports] = new string[] { "180", "181", "182", "183", "184", "185", "186" },
-			[ProductTypes.VirtualSports2] = new string[] { "190", "191", "199" },
+            [ProductTypes.VirtualSports2] = new string[] { "190", "191", "199" },
             [ProductTypes.Lottery] = new string[] { "220" }
         };
 

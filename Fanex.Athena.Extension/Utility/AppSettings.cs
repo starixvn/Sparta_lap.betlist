@@ -44,9 +44,9 @@ namespace Fanex.Athena.Extension.Utility
             get { return int.Parse(GetValue("LocalTest")) != 0; }
         }
 
-        public bool IsTesting
+        public bool IsShowAllDataForSettleMatchCountReport
         {
-            get { return int.Parse(GetValue("IsTesting")) != 0; }
+            get { return int.Parse(GetValue("IsShowAllDataForSettleMatchCountReport")) != 0; }
         }
 
         public bool IsShowMixedSport

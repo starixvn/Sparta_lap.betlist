@@ -19,7 +19,7 @@
 
         bool IsShowMixedSport { get; }
 
-        bool IsTesting { get; }
+        bool IsShowAllDataForSettleMatchCountReport { get; }
 
         IEnumerable<int> LiveReportNoDetailLinkSports { get; }
 
