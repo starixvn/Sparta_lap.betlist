@@ -176,9 +176,9 @@
     <Setting Key="TP_User_CustGameType_UpdStakeLevel" SpName="TP_User_CustGameType_UpdStakeLevel" DbName="live_casino" />
     <Setting Key="WriteLog_UserLog_RunSP" SpName="WriteLog_UserLog_RunSP" DbName="DBLOG.bodb_CustomerLog.bodbLicenseeNet" />
     <Setting Key="Acc_Dep_CustSetting_StatusSettingSelect" SpName="Acc_Dep_CustSetting_StatusSettingSelect_UAT2" DbName="DBCUST.CustDB.bodbLicenseeNet" />
-    <Setting Key="Acc_Dep_CustSetting_DisableStatUpd" SpName="Acc_Dep_CustSetting_DisableStatUpd_UAT2" DbName="DBCUST.CustDB.bodbLicenseeNet" />
+    <Setting Key="Acc_Dep_CustSetting_DisableStatUpd" SpName="Acc_Dep_CustSetting_DisableStatUpd" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Acc_Dep_CustSetting_BetLimitSettingSelect" SpName="Acc_Dep_CustSetting_BetLimitSettingSelect_UAT2" DbName="DBCUST.CustDB.bodbLicenseeNet" />
-    <Setting Key="Acc_Dep_CustSetting_BetLimitUpd" SpName="Acc_Dep_CustSetting_BetLimitUpd_UAT2" DbName="DBCUST.CustDB.bodbLicenseeNet" />
+    <Setting Key="Acc_Dep_CustSetting_BetLimitUpd" SpName="Acc_Dep_CustSetting_BetLimitUpd" DbName="DBCUST.CustDB.bodbLicenseeNet" />
   </Function>
 
   <Function Name="CustomerSettingsThridParty">

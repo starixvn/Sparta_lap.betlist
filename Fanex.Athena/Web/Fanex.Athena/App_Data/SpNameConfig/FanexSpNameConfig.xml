@@ -8,11 +8,8 @@
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_CheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <!--Do not delete this-->
 
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Acc_Dep_CustSetting_DisableStatCheck" EnvironmentText="_UAT2"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Acc_Dep_CustSetting_StatusSettingSelect" EnvironmentText="_UAT2"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Acc_Dep_CustSetting_DisableStatUpd" EnvironmentText="_UAT2"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Acc_Dep_CustSetting_BetLimitSettingSelect" EnvironmentText="_UAT2"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Acc_Dep_CustSetting_BetLimitUpd" EnvironmentText="_UAT2"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_LicenseeProductSel" EnvironmentText="_UAT2"></SpNameConfig>
   
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelDeleted" EnvironmentText="_UAT2"></SpNameConfig>
