@@ -20,7 +20,7 @@
         {
             const string SpName = "Lrf_Rpt_SubsidiaryPerformance";
             var dataList = new List<SubsidiaryPerformanceEntity>();
-            var totalDataList = new List<SubsidiaryPerformanceEntity>();
+            List<SubsidiaryPerformanceEntity> totalDataList = null;
             var baseCurrency = metaModel.ConvertAll ? metaModel.BaseCurrency : string.Empty;
             using (var objectDb = this.GetObjectDb(SpName))
             {
@@ -35,6 +35,7 @@
 
                     if (reader.NextResult())
                     {
+                        totalDataList = new List<SubsidiaryPerformanceEntity>();
                         const string Prefix = "Total";
                         while (reader.Read())
                         {

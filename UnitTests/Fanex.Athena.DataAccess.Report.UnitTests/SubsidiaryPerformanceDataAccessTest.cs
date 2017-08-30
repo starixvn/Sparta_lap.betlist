@@ -108,7 +108,7 @@
         }
 
         [Test]
-        public void GetData_WhenCall_ReturnTotalDataListWithBasedCurrency()
+        public void GetData_WhenCall_ReturnCorrectTotalDataList()
         {
             // Arrange
             const string Prefix = "Total";
@@ -136,6 +136,27 @@
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void GetData_DoNotTotalResult_TotalListIsNull()
+        {
+            // Arrange
+            IEnumerable<SubsidiaryPerformanceEntity> totalList = null;
+            var metaModel = GetDefaultMetaModel();
+            metaModel.ConvertAll = false;
+
+            _dataReader.Read().Returns(true, false, true, false);
+            _dataReader.NextResult().Returns(false);
+
+            var readerSummaryDataMapping = GetReaderDataMapping();
+            MapReaderData(_dataReader, readerSummaryDataMapping);
+
+            // Action
+            _dataAccess.GetData(metaModel, out totalList);
+
+            // Assert
+            Assert.That(totalList, Is.Null);
         }
 
         private static void MapReaderData(IDataReader reader, IDictionary<string, object> readerDataMapping)

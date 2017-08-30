@@ -31,6 +31,7 @@
             IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
             var entityDataList = metaModel.IsValid ?
                 _subLicenseePerformanceDataAccess.GetData(metaModel, out totalDataList) : null;
+
             totalList = totalDataList;
 
             return entityDataList == null ? new List<SubsidiaryPerformanceDataModel>() : GetDataModel(entityDataList);
