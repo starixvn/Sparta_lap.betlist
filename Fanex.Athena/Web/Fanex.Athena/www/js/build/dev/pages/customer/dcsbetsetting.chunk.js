@@ -99,6 +99,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         FishingWorld: 24,
         Cashout: 25,
         VirtualSports2: 27,
+        Lottery: 28
     };
 
     var _me = {
@@ -1090,16 +1091,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* AllBet, Vo
 
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(138),__webpack_require__(145), __webpack_require__(153)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Constant, BetSettingBase, BetSettingStatus) {
         var Product = Constant.Product;
+        var ProductCodeMap = {};
+        ProductCodeMap[Product.VirtualSports] = "VS";
+        ProductCodeMap[Product.VirtualSports2] = "VS2";
+        ProductCodeMap[Product.Lottery] = "LT";
 
         function getConfirmMessage(productId) {
-            switch (productId) {
-                case Product.VirtualSports:
-                    return "UpdateVirtualSportsBetSettings";
-                case Product.VirtualSports2:
-                    return "UpdateVirtualSports2BetSettings";
-                default:
-                    return "";
-            }
+            var productNameResource = "Product" + ProductCodeMap[productId];
+            var message = Site.getSingleResource("UpdateProductBetSettings");
+            return message.replace("{0}", Site.getSingleResource(productNameResource));
         }
 
         var _me = {
@@ -1107,6 +1107,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* AllBet, Vo
                 Site.initialize();
                 BetSettingBase.initialize();
                 _me.initEvent();
+                _me.checkToDisableInput();
             },
 
             initEvent: function () {
@@ -1128,7 +1129,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* AllBet, Vo
                 // Formating number in text box.
                 BetSettingBase.formatInputText();
             },
+            checkToDisableInput: function () {
+                var enabled = $("#IsEnabled").val() !== "0";
 
+                if (!enabled) {
+                    $(".table-content input[type=text]").prop('disabled', true).addClass("disabled");
+                    $("#btnSubmitBetSetting, #btnReset").prop('disabled', true).addClass("disabled");
+                }
+            },
             updateStatus: function ($context) {
                 var url = Site.resolveClientUrl("DcsBetSetting/UpdateStatus");
                 var params = BetSettingStatus.getCommonPostData($context);

@@ -99,6 +99,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         FishingWorld: 24,
         Cashout: 25,
         VirtualSports2: 27,
+        Lottery: 28
     };
 
     var _me = {

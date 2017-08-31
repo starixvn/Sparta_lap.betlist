@@ -18117,15 +18117,19 @@ module.exports = __webpack_require__(314);
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(127), __webpack_require__(120), __webpack_require__(152), __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, DatePicker, Popup, GridHelper) {
-        var api = "ResultReport/Index";
-        var apiExcel = "ResultReport/ResultExcel?";
-        var apiSport = "ResultReport/GetSports";
-        var kenoResultApi = "ResultReport/KenoResult";
+        var DATA_API = "ResultReport/Index";
+        var EXCEL_API = "ResultReport/ResultExcel?";
+        var SPORT_API = "ResultReport/GetSports";
+        var KENO_RESULT_API = "ResultKenoReport/Index";
+        var KENO_RESULT_SESSION_API = "ResultKenoReport/KeepSession";
         var ajaxRequest = null;
         var ajaxFilterRequest = null;
         var kenoAjaxRequest = null;
         var kenoIntervalId = 0;
         var kenoUserId = 0;
+        var lotteryAjaxRequest = null;
+        var lotteryIntervalId = 0;
+        var lotteryUserId = 0;
         var param = {
             FromDate: "",
             ToDate: "",
@@ -18246,12 +18250,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
                 if ($("#submitKeno").length) {
                     $("#submitKeno").click(function () {
-                        _me.showKeno();
+                        _me.showKeno($(this).data("vendorproductid"));
+                    });
+                }
+
+                if ($("#submitLottery").length) {
+                    $("#submitLottery").click(function () {
+                        _me.showLottery($(this).data("vendorproductid"));
                     });
                 }
             },
 
-            submit: function(){
+            submit: function () {
                 _me.clearExcelExport();
                 _me.clearResult();
                 var isShowOutright = $("#submitOutright").attr("data-isoutright") === "1";
@@ -18264,17 +18274,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 _me.getData();
             },
 
-            showKeno: function () {
-                var kenoWindow = window.open("", '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
+            showKeno: function (vendorProductId) {
                 var option = {
                     type: "GET",
                     cache: false,
-                    url: Site.resolveClientUrl(kenoResultApi),
+                    data: { vendorProductId: vendorProductId },
+                    url: Site.resolveClientUrl(KENO_RESULT_API),
                     success: function (response) {
                         kenoUserId = response.UserId;
-                        kenoWindow.location = response.Url;
+                        window.open(response.Url, '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
                         clearInterval(kenoIntervalId);
-                        _me.extendKenoSession();
+                        _me.extendKenoSession(vendorProductId);
                     },
                     beforeSend: function () {
                         Site.blockUI();
@@ -18287,16 +18297,67 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 kenoAjaxRequest = $.ajax(option);
             },
 
-            extendKenoSession: function () {
+            showLottery: function (vendorProductId) {
+                var option = {
+                    type: "GET",
+                    cache: false,
+                    data: { vendorProductId: vendorProductId },
+                    url: Site.resolveClientUrl(KENO_RESULT_API),
+                    success: function (response) {
+                        lotteryUserId = response.UserId;
+                        window.open(response.Url, '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
+                        clearInterval(lotteryIntervalId);
+                        _me.extendLotterySession(vendorProductId);
+                    },
+                    beforeSend: function () {
+                        Site.blockUI();
+                    },
+                    complete: function () {
+                        Site.unBlockUI();
+                    }
+                };
+                _me.stopAjaxRequest(lotteryAjaxRequest);
+                lotteryAjaxRequest = $.ajax(option);
+            },
+
+            extendKenoSession: function (vendorProductId) {
+                if (!kenoUserId)
+                {
+                    return;
+                }
+
                 kenoIntervalId = setInterval(function () {
                     var option = {
                         type: "POST",
                         cache: false,
-                        data: "userid=" + kenoUserId,
-                        url: Site.resolveClientUrl(kenoResultApi)
+                        data: {
+                            userId: kenoUserId,
+                            vendorProductId: vendorProductId
+                        },
+                        url: Site.resolveClientUrl(KENO_RESULT_SESSION_API)
                     };
                     _me.stopAjaxRequest(kenoAjaxRequest);
                     kenoAjaxRequest = $.ajax(option);
+                }, 6000);
+            },
+
+            extendLotterySession: function (vendorProductId) {
+                if (!lotteryUserId) {
+                    return;
+                }
+
+                lotteryIntervalId = setInterval(function () {
+                    var option = {
+                        type: "POST",
+                        cache: false,
+                        data: {
+                            userId: lotteryUserId,
+                            vendorProductId: vendorProductId
+                        },
+                        url: Site.resolveClientUrl(KENO_RESULT_SESSION_API)
+                    };
+                    _me.stopAjaxRequest(lotteryAjaxRequest);
+                    lotteryAjaxRequest = $.ajax(option);
                 }, 6000);
             },
 
@@ -18309,7 +18370,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             exportExcel: function () {
-                var url = Site.resolveClientUrl(apiExcel);
+                var url = Site.resolveClientUrl(EXCEL_API);
                 url += "FromDate=" + param.FromDate;
                 url += "&ToDate=" + param.ToDate;
                 url += "&IsOutRight=" + param.IsOutRight;
@@ -18321,7 +18382,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             getFilter: function () {
-                var url = Site.resolveClientUrl(apiSport);
+                var url = Site.resolveClientUrl(SPORT_API);
                 var option = {
                     type: "POST",
                     dataType: "json",
@@ -18347,7 +18408,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             getReportData: function () {
-                var url = Site.resolveClientUrl(api);
+                var url = Site.resolveClientUrl(DATA_API);
                 var option = {
                     type: "POST",
                     cache: false,
@@ -18406,7 +18467,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 if (leagueList !== null && leagueList.length > 0) {
                     var $league = $("#ddlLeague");
                     $.each(leagueList, function (index, value) {
-                        $league.append('<option value="' +value.LeagueId + '">' + value.LeagueName + '</option>');
+                        $league.append('<option value="' + value.LeagueId + '">' + value.LeagueName + '</option>');
                     });
                     $league.val(param.LeagueId);
                 }
