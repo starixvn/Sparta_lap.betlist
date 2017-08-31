@@ -205,6 +205,11 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
             },
 
             extendKenoSession: function (vendorProductId) {
+                if (!kenoUserId)
+                {
+                    return;
+                }
+
                 kenoIntervalId = setInterval(function () {
                     var option = {
                         type: "POST",
@@ -221,6 +226,10 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
             },
 
             extendLotterySession: function (vendorProductId) {
+                if (!lotteryUserId) {
+                    return;
+                }
+
                 lotteryIntervalId = setInterval(function () {
                     var option = {
                         type: "POST",

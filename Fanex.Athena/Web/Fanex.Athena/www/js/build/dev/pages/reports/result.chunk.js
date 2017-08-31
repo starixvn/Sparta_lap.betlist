@@ -18341,6 +18341,11 @@ webpackJsonp([81],[
 	            },
 	
 	            extendKenoSession: function (vendorProductId) {
+	                if (!kenoUserId)
+	                {
+	                    return;
+	                }
+	
 	                kenoIntervalId = setInterval(function () {
 	                    var option = {
 	                        type: "POST",
@@ -18357,6 +18362,10 @@ webpackJsonp([81],[
 	            },
 	
 	            extendLotterySession: function (vendorProductId) {
+	                if (!lotteryUserId) {
+	                    return;
+	                }
+	
 	                lotteryIntervalId = setInterval(function () {
 	                    var option = {
 	                        type: "POST",
