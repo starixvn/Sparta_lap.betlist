@@ -3,11 +3,9 @@ import { connect } from 'react-redux';
 import { ActionCreators } from '../actions/index.js';
 import { bindActionCreators } from 'redux';
 import FixedTable from 'components/fixed-table-header/FixedTable';
-import FakeData from '../fakeData';
 
-const columnLayout = [300, 70, 150, 150, 200, 200, 200];
+const columnLayout = [300, 150, 150, 150, 200, 200, 200];
 const { Table, Header, Body, Footer, Row, Cell } = FixedTable;
-const { summaryData, totalData, grantTotal } = FakeData;
 
 class DataGrid extends Component {
     constructor(props) {
@@ -16,7 +14,7 @@ class DataGrid extends Component {
 
     get header() {
         return (
-            <Row>
+            <Row style={{height: 40}}>
                 <th>Subsidiary</th>
                 <th>Currency</th>
                 <th>Products</th>
@@ -29,11 +27,7 @@ class DataGrid extends Component {
     }
 
     get body() {
-        const data = this.props.gridData;
-        if (!data && !data.length) {
-            return null;
-        }
-
+        const data = this.props.gridData.Data;
         let rows = [];
         for (let i = 0; i < data.length; i++) {
             const item = data[i];
@@ -62,40 +56,47 @@ class DataGrid extends Component {
     }
 
     get footer() {
+        const totalData = this.props.gridData.Total;
         return totalData.map((item, index) => {
             return (
                 <Row className="fixed-table-total" key={`total${index}`}>
                     <Cell>{`Total ${item.Subsidiary}`}</Cell>
-                    <Cell>{`Based ${item.Based}`}</Cell>
+                    <Cell>{`Based ${item.Currency}`}</Cell>
                     <Cell></Cell>
                     <Cell className="right-align">{item.BetCount}</Cell>
                     <Cell className="right-align">{item.Turnover}</Cell>
                     <Cell className="right-align">{item.CustomerWinLoss}</Cell>
-                    <Cell className="right-align">{item.OperatorWinLoss}</Cell>
+                    <Cell className="right-align">{item.SubsidiaryWinLoss}</Cell>
                 </Row>
             )
         })
     }
 
     get grantTotal() {
+        const grandTotal = this.props.gridData.GrandTotal;
         return (
-            <Row className="fixed-table-grant-total" key="grantTotal">
+            <Row className="fixed-table-grant-total">
                 <Cell>Total</Cell>
-                <Cell>{`Based ${grantTotal.Based}`}</Cell>
+                <Cell>{`Based ${grandTotal.Currency}`}</Cell>
                 <Cell></Cell>
-                <Cell className="right-align">{grantTotal.BetCount}</Cell>
-                <Cell className="right-align">{grantTotal.Turnover}</Cell>
-                <Cell className="right-align">{grantTotal.CustomerWinLoss}</Cell>
-                <Cell className="right-align">{grantTotal.OperatorWinLoss}</Cell>
+                <Cell className="right-align">{grandTotal.BetCount}</Cell>
+                <Cell className="right-align">{grandTotal.Turnover}</Cell>
+                <Cell className="right-align">{grandTotal.CustomerWinLoss}</Cell>
+                <Cell className="right-align">{grandTotal.SubsidiaryWinLoss}</Cell>
             </Row>
         )
     }
 
     render() {
+        if (!this.props.gridData.Data || !this.props.gridData.Data.length) {
+            return null;
+        }
+
         return (
             <Table
-                width={1270}
-                autoWidth={false}
+                width={1300}
+                maxWidth={this.props.containerWidth}
+                autoWidth={true}
                 columnLayout={columnLayout}
                 {...this.props}>
 
@@ -119,9 +120,11 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    return {
-        gridData: state.gridData
-    };
+    const { gridData, containerWidth } = state;
+    return Object.assign({}, {
+        gridData,
+        containerWidth
+    });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

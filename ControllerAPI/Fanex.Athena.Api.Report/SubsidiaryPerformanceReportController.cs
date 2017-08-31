@@ -34,18 +34,20 @@
         [HttpPost]
         public dynamic Index(SubsidiaryPerformanceMetaModel metaModel)
         {
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml();
-            IEnumerable<SubsidiaryPerformanceEntity> totalList = null;
+            //metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+            //metaModel.AgentListXml = SessionService.GenerateAgentListXml();
+            //IEnumerable<SubsidiaryPerformanceEntity> totalList = null;
 
-            var summaryData = _subsidiaryPerformanceService.GetData(metaModel, out totalList);
-            var grandTotal = totalList == null ? null : GetGrandTotal(metaModel.BaseCurrency.ToUpperInvariant(), totalList);
+            //var summaryData = _subsidiaryPerformanceService.GetData(metaModel, out totalList);
+            //var grandTotal = totalList == null ? null : GetGrandTotal(metaModel.BaseCurrency.ToUpperInvariant(), totalList);
+
+            var totalDataList = GetFakeTotalDataList();
 
             return new
             {
-                Data = summaryData,
-                Total = totalList,
-                GrandTotal = grandTotal
+                Data = GetFakeSummaryData(),
+                Total = totalDataList,
+                GrandTotal = GetGrandTotal(metaModel.BaseCurrency.ToUpperInvariant(), totalDataList)
             };
         }
 
@@ -77,6 +79,21 @@
                 new SubsidiaryPerformanceDataModel { Subsidiary = "India", Currency = "THB", Details = detailData},
                 new SubsidiaryPerformanceDataModel { Subsidiary = "India", Currency = "THB", Details = detailData},
                 new SubsidiaryPerformanceDataModel { Subsidiary = "India", Currency = "THB", Details = detailData}
+            };
+        }
+
+        private static IEnumerable<SubsidiaryPerformanceEntity> GetFakeTotalDataList()
+        {
+            return new List<SubsidiaryPerformanceEntity>
+            {
+                new SubsidiaryPerformanceEntity
+                { Subsidiary = "New York", Currency = "USD", Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
+                new SubsidiaryPerformanceEntity
+                { Subsidiary = "India", Currency = "USD", Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
+                new SubsidiaryPerformanceEntity
+                { Subsidiary = "New York", Currency = "USD", Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
+                new SubsidiaryPerformanceEntity
+                { Subsidiary = "India", Currency = "USD", Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m}
             };
         }
     }

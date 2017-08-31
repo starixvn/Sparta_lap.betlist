@@ -10,16 +10,42 @@ class Table extends Component {
         super(props);
     }
 
+    static propTypes = {
+        width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        maxWidth: PropTypes.number,
+        autoWidth: PropTypes.bool,
+        columnLayout: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])).isRequired
+    }
+
+    static defaultProps = {
+        width: window.innerWidth - 30,
+        maxWidth: window.innerWidth - 30,
+        autoWidth: true
+    }
+
+    get columnWidthSum() {
+        const columnLayout = this.props.columnLayout;
+        return columnLayout.every(x => typeof x !== "string") ?
+            columnLayout.reduce((prev, next) => prev + next, 0) : null;
+    }
+
     _buildContent() {
+        const { width, columnLayout, autoWidth, maxWidth } = this.props;
+        const updatedWidth = this.columnWidthSum && this.columnWidthSum > width ? this.columnWidthSum : width;
+
         return React.Children.map(this.props.children, (child, index) => {
-            let rows = React.Children.toArray(child.props.children);
-            const layoutRow = <RowLayout key={`rowLayout${index}`} columnLayout={this.props.columnLayout} />;
+            const rows = React.Children.toArray(child.props.children);
+            const layoutRow = <RowLayout key={`rowLayout${index}`}
+                width={updatedWidth}
+                columnWidthSum={this.columnWidthSum}
+                columnLayout={columnLayout} />;
 
             const newChild = {
                 props: {
                     ...child.props,
-                    autoWidth: this.props.autoWidth,
-                    width: this.props.width,
+                    autoWidth,
+                    width: updatedWidth,
+                    maxWidth,
                     children: [layoutRow, ...rows]
                 }
             };
@@ -35,17 +61,6 @@ class Table extends Component {
             </div>
         )
     }
-}
-
-Table.propTypes = {
-    width: PropTypes.number,
-    autoWidth: PropTypes.bool,
-    columnLayout: PropTypes.arrayOf(PropTypes.number, PropTypes.string).isRequired
-}
-
-Table.defaultProps = {
-    width: window.innerWidth - 15,
-    autoWidth: true
 }
 
 export default Table;

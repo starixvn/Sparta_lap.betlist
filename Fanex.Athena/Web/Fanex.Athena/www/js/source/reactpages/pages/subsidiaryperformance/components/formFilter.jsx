@@ -10,21 +10,28 @@ class FormFilter extends Component {
         super(props);
     }
 
-    _submit() {
-        if(!window.xsrfToken){
+    _submit(e) {
+        e.preventDefault();
+        if (!this.props.xsrfToken) {
             return;
         }
-        
+
+        const fromDate = this.props.dateRange.fromDate;
+        const toDate = this.props.dateRange.toDate;
+
         const params = {
-            BaseCurrency: this.props.selectedBaseCurrency,
-            SubsidiaryList: this.props.selectedSubsidiary,
-            ProductCodeList: this.props.selectedProduct,
-            ConvertAll: this.props.convertAll,
-            FromDate: this.props.dateRange.fromDate,
-            ToDate: this.props.dateRange.toDate
+            xsrfToken: this.props.xsrfToken,
+            data: {
+                BaseCurrency: this.props.selectedBaseCurrency,
+                SubsidiaryList: this.props.selectedSubsidiary,
+                ProductCodeList: this.props.selectedProduct,
+                ConvertAll: this.props.convertAll,
+                FromDate: typeof fromDate === "string" ? fromDate : fromDate.format("MM/DD/YYYY"),
+                ToDate: typeof toDate === "string" ? toDate : toDate.format("MM/DD/YYYY")
+            }
         }
 
-        this.props.fetchData(params, window.xsrfToken);
+        this.props.fetchData(params);
     }
 
     _renderSubsidiarySelectList() {
@@ -104,12 +111,12 @@ class FormFilter extends Component {
                         <div className="form-group">
                             <div className="checkbox-group">
                                 <input type="checkbox" checked={this.props.convertAll} id="IsConvertAll"
-                                 onClick={() => this.props.changeConvertAll(!this.props.convertAll)} />
+                                    onClick={() => this.props.changeConvertAll(!this.props.convertAll)} />
                                 <label htmlFor="IsConvertAll">Convert All</label>
                             </div>
 
                             <div className="button-group">
-                                <button type="button" className="btn btn-submit" onClick={() => this._submit()}>Submit</button>
+                                <button type="button" className="btn btn-submit" onClick={(e) => this._submit(e)}>Submit</button>
                             </div>
                         </div>
                     </div>
@@ -122,7 +129,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { gridData, ...rest } = state;
+    const { gridData, containerWidth, ...rest } = state;
     return Object.assign({}, rest);
 };
 

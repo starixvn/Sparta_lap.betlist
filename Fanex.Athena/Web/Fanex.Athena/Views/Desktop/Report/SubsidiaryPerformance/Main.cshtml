@@ -29,7 +29,9 @@
         subsidiaryList: @Html.Raw(subsidiaryList.ToJson()),
         selectedSubsidiary: '@(subsidiaryList.Any() ? subsidiaryList.First().value.ToString() : string.Empty)',
         convertAll: false,
-        dateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'}
+        dateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
+        xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
+        containerWidth: document.getElementById("app-container").clientWidth - 30
     }
 }
 <div id="app-container">
