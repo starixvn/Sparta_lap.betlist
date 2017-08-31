@@ -783,6 +783,8 @@
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Table.jsx" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Cell.test.js" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Row.test.js" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\FixedTable.jsx" />
     <Content Include="www\js\source\reactpages\layouts\AppLayout.jsx" />
     <Content Include="www\js\source\reactpages\lib\langHelper.js" />
@@ -2409,6 +2411,8 @@
     <Content Include="www\css\source\reactpages\components\date-range\styles.scss" />
     <Content Include="www\css\source\reactpages\pages\subsidiaryperformance\index.scss" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\TableSection.jsx" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\Cell.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\Row.test.js.snap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
@@ -6085,6 +6089,7 @@
     <Folder Include="Logs\" />
     <Folder Include="www\css\source\reactpages\lib\" />
     <Folder Include="www\css\source\reactpages\vendors\" />
+    <Folder Include="www\js\source\reactpages\components\fixed-table-header\__tests__\" />
     <Folder Include="www\js\source\reactpages\pages\betticketquery\" />
     <Folder Include="www\js\source\reactpages\vendors\" />
   </ItemGroup>
