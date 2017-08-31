@@ -761,6 +761,8 @@
     <Content Include="Scripts\Report\customerwinloss.option.js" />
     <Content Include="Scripts\Report\customerbalance.option.js" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
+    <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.css" />
+    <Content Include="www\js\build\dev\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js" />
     <Content Include="www\js\source\reactpages\actions\baseCurrencyAction.js" />
     <Content Include="www\js\source\reactpages\actions\productAction.js" />
     <Content Include="www\js\source\reactpages\components\date-range\Calendar.js" />
@@ -777,6 +779,8 @@
     <Content Include="www\css\source\reactpages\components\custom3rd\_date-range.scss" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Body.jsx" />
     <Content Include="www\css\source\reactpages\fonts\roboto\_style.scss" />
+    <Content Include="www\js\build\dev\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js.map" />
+    <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.css.map" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Footer.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Header.jsx" />
@@ -822,7 +826,6 @@
     <Content Include="www\css\build\pro\reactpages\vendor.chunk.js" />
     <Content Include="www\css\build\pro\reactpages\vendor.css" />
     <Content Include="www\js\build\dev\reactpages\lib\langHelper.chunk.js" />
-    <Content Include="www\js\build\dev\reactpages\operatorperformance\operatorperformance.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\vendors\vendor.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\operatorperformance\operatorperformance.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\vendors\vendor.chunk.js" />
