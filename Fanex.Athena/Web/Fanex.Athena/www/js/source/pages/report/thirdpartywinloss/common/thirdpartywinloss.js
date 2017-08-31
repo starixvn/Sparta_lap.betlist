@@ -5,14 +5,13 @@
     "../../report",
     "lib/jqgrid/jquery.jqgrid.additional",
     "components/pluginhelper/daterangepicker",
-    "components/pluginhelper/multiselect",
     "helpers/daterange",
     "moment",
     "common/popup",
     "lib/jqgrid/jquery.jqGrid.en",
     "lib/jqgrid/jquery.jqGrid.min",
     "extensions/jquery.extension"],
-    function ($, QueryString, Site, Report, jqGridAdditional, DatePicker, MultiSelect, DateHelper, moment, Popup) {
+    function ($, QueryString, Site, Report, jqGridAdditional, DatePicker, DateHelper, moment, Popup) {
         "use strict";
         var defaultOption = {
             UserGuideResourceName: "",
