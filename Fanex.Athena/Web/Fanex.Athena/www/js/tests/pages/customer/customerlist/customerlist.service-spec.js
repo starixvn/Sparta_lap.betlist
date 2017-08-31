@@ -313,7 +313,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
                     option.beforeSend();
 
                     return ajaxObj;
-                })
+                });
             });
 
             it("getPostData() should be called", function () {

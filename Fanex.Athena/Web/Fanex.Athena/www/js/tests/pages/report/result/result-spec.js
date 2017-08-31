@@ -307,7 +307,7 @@
                         .andReturn({
                             'status': 200,
                             'contentType': 'application/json',
-                            'responseText': '{ "UserId": 0, "Url": "localhost/keno" }'
+                            'responseText': '{ "UserId": 1, "Url": "localhost/keno" }'
                         });
 
                     Result.showKeno();
