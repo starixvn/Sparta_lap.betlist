@@ -22131,8 +22131,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
             initEvent: function () {
                 $('#SubmitButton').click(function () {
-                    // Site.blockUI();
-                    $('#IsExportExcel').val(false);
                     _level = 0;
                     _me.submit();
                 });
@@ -22362,11 +22360,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 }
 
                 level = Number(level);
-                var $gridBody = $(".ui-jqgrid-bdiv");
-
-                var scrollLeft = $gridBody.length > 0 ? $gridBody[0].scrollLeft : 0;
-
-                jqGridAdditional.clearGrid("ReportGrid");
 
                 var reportGrid = $("#ReportGrid");
 
@@ -22378,29 +22371,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
                 gridOption.gridComplete = function () {
                     level = Number(level);
+
                     jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
                     $("#pg_ppdata").hide();
-                    if (response == null || numOfRow === 0) {
-                        jqGridAdditional.setNoInfo(gridOption.colModel);
-                    }
-                    else {
-                        _me.bindTotal(level, response.Total, response.SummaryTotal);
-                        $("#footer").html($(".ui-jqgrid-ftable").html());
 
-                        _me.resizeGrid();
-                    }
+                    _me.bindTotal(level, response.Total, response.SummaryTotal);
+
+                    _me.resizeGrid();
 
                     Site.unBlockUI();
                 };
 
                 // Show the grid
                 reportGrid.jqGrid(gridOption);
-
-                reportGrid.jqGrid('showCol', 'rn');
-                $gridBody = $(".ui-jqgrid-bdiv");
-                if ($gridBody.length > 0) {
-                    $gridBody[0].scrollLeft = scrollLeft;
-                }
             }
             //#end
         };
@@ -22486,9 +22469,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         width: 120,
         align: 'left',
         sortable: false,
-        formatter: function (cellvalue, options, rowObject) {
-            return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
-        }
+        formatter: systemIdFormatter
     };
 
     var currencyColumn =
@@ -22653,7 +22634,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 break;
             }
         }
-        
+
         return colModel;
     };
 
