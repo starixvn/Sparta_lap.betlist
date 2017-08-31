@@ -3,12 +3,14 @@ import * as dataHandlerReducer from './dataHandlerReducer.js'
 import * as filterHandlerReducer from './filterHandlerReducer.js'
 import * as productReducer from '../../../reducers/product'
 import * as baseCurrencyReducer from '../../../reducers/baseCurrency'
-import * as fixedTableHeader from '../../../reducers/fixedTableHeader'
+import * as fixedTableHeaderReducer from '../../../reducers/fixedTableHeaderReducer'
+import * as loaderReducer from '../../../reducers/loaderReducer'
 
 export default combineReducers(Object.assign(
     dataHandlerReducer,
     filterHandlerReducer,
     productReducer,
     baseCurrencyReducer,
-    fixedTableHeader
+    fixedTableHeaderReducer,
+    loaderReducer
 ));

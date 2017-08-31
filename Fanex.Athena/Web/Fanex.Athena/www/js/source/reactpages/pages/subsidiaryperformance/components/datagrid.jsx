@@ -86,6 +86,10 @@ class DataGrid extends Component {
             </Row>
         )
     }
+    
+    componentDidUpdate(prevProps, prevState) {
+        this.props.toggleLoader(false);
+    }
 
     render() {
         if (!this.props.gridData.Data || !this.props.gridData.Data.length) {

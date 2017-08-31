@@ -1,10 +1,11 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import { ActionCreators } from '../actions/index.js'
-import DataGrid from './datagrid.jsx'
-import FormFilter from './formFilter.jsx'
-import AppLayout from '../../../layouts/AppLayout.jsx'
+import { ActionCreators } from '../actions/index'
+import DataGrid from './datagrid'
+import FormFilter from './formFilter'
+import Loader from '../../../components/Loader'
+import AppLayout from '../../../layouts/AppLayout'
 
 class AppContainer extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class AppContainer extends Component {
   render() {
     return (
       <AppLayout>
+        <Loader isLoading={this.props.isLoading} />
         <FormFilter />
         <DataGrid />
       </AppLayout>
@@ -25,7 +27,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  return Object.assign({}, state);
+  return Object.assign({}, { isLoading: state.isLoading });
 }
 
 

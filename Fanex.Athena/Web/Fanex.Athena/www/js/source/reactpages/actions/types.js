@@ -8,3 +8,6 @@ export const GET_BASECURRENCY = "GET_BASECURRENCY";
 
 /* Fixed Table Header */
 export const GET_CONTAINER_WIDTH = "GET_CONTAINER_WIDTH";
+
+/* Loader */
+export const TOGGLE_LOADER = "TOGGLE_LOADER"

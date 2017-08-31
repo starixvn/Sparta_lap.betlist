@@ -16,6 +16,8 @@ class FormFilter extends Component {
             return;
         }
 
+        this.props.toggleLoader(true);
+
         const fromDate = this.props.dateRange.fromDate;
         const toDate = this.props.dateRange.toDate;
 
@@ -107,7 +109,7 @@ class FormFilter extends Component {
                 </div>
 
                 <div className="row">
-                    <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                    <div className="col-lg-3 col-md-5 col-sm-5 col-xs-12">
                         <div className="form-group">
                             <div className="checkbox-group">
                                 <input type="checkbox" checked={this.props.convertAll} id="IsConvertAll"

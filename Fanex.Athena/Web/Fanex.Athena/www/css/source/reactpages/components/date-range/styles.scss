@@ -176,6 +176,11 @@ $calendar-shadow: rgba($calendar-color, 0.25) 0 0 1em !default;
     vertical-align: middle;
     width: 48%;
     color: #fff;
+    cursor: pointer;
+
+    &:hover{
+        opacity: 0.8;
+    }
 }
 
 .rdr-ApplyButton {
