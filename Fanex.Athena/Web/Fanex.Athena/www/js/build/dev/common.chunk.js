@@ -15317,7 +15317,7 @@
 	            });
 	        }
 	        else {
-	            $searchBox.on("keyup", function (e) {
+	            $searchBox.on("keyup", function () {
 	                var $this = $(this);
 	                keySearch($this, false);
 	            });
@@ -15374,10 +15374,10 @@
 	                var self = this;
 	                var $element = $(self);
 	                if (!selectListOption.canSearch) {
-	                    selectListOption.canSearch = $element.attr("data-can-search") == "1";
+	                    selectListOption.canSearch = $element.attr("data-can-search") === "1";
 	                }
 	                if (!selectListOption.canEnter) {
-	                    selectListOption.canEnter = $element.attr("data-can-enter") == "1";
+	                    selectListOption.canEnter = $element.attr("data-can-enter") === "1";
 	                }
 	
 	                _methods.buildLabel.call(self);
