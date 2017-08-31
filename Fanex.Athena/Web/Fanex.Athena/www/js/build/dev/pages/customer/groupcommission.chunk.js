@@ -1,6 +1,7 @@
 webpackJsonp([32],{
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /***/ 119:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20,6 +21,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
                 if ($bdiv.length === 0) {
                     return;
                 }
+=======
+/***/ 0:
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(295);
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
                 var gridTop = $bdiv.offset().top;
                 var pagingHeight = $(".paging:visible").length ? $(".paging:visible").height() : 0;
@@ -28,6 +35,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
                 var jqgridPagerHeight = $(".ui-jqgrid-pager:visible").length ? $(".ui-jqgrid-pager:visible").outerHeight(true) : 0;
                 var footerSite = 18;
 
+<<<<<<< HEAD
                 var gridHeight = window.innerHeight - gridTop - footerHeight - jqgridPagerHeight - pagingHeight - footerSite - 15;
                 gridHeight = Math.max(120, gridHeight);
 
@@ -37,11 +45,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
                 if ($("div.ui-jqgrid-hbox").length === 0) {
                     return;
                 }
+=======
+/***/ }),
+
+/***/ 103:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
                 grid.setGridParam({
                     shrinkToFit: false
                 });
 
+<<<<<<< HEAD
                 var parentWidth = grid.closest(".theme_jqGrid").width();
                 grid.jqGrid('setGridWidth', parentWidth);
 
@@ -49,6 +64,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
                 grid.css("width", tableWidth + "px");
                 $(".theme_jqGrid .ui-jqgrid-hdiv table.ui-jqgrid-htable").css("width", tableWidth + "px");
                 $(".theme_jqGrid .ui-jqgrid-sdiv table.ui-jqgrid-ftable").css("width", tableWidth + "px");
+=======
+/***/ }),
+
+/***/ 104:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
                 jqGridAdditional.updateFooterWidth();
             },
@@ -4169,6 +4190,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             var valueStr = self.value.map(function (selectedItem) {
                 return selectedItem.id;
             }).join(',');
@@ -4183,6 +4205,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ 213:
 /***/ function(module, exports, __webpack_require__) {
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
+=======
+/***/ }),
+
+/***/ 224:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
             self.$dropdown.html('').hide();
 
@@ -4191,6 +4219,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                 self.options.multiple.onRemove.call(self, item);
             }
 
+<<<<<<< HEAD
         },
         select: function (item) {
             var self = this;
@@ -4232,10 +4261,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ 214:
 /***/ function(module, exports, __webpack_require__) {
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
+=======
+/***/ }),
+
+/***/ 225:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
 
-/***/ },
+/***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 148:
 /***/ (function(module, exports, __webpack_require__) {
@@ -4331,9 +4367,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
 =======
 /***/ 267:
 /***/ function(module, exports, __webpack_require__) {
+=======
+/***/ 278:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// require option properties: suggestionDropdown, url, target
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(268)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(279)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
 	    "use strict";
 	
 	    var mainOption = {
@@ -4421,8 +4461,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
-/***/ },
+/***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 149:
 /***/ (function(module, exports, __webpack_require__) {
@@ -4482,6 +4523,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 =======
 /***/ 268:
 /***/ function(module, exports, __webpack_require__) {
+=======
+/***/ 279:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
 	
@@ -4494,6 +4539,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 	    }
 	
 	}(this, function ($) {
+	
+	    var noop = function () {};
 	
 	    var template = function (text) {
 	        var matcher = new RegExp('<%=([\\s\\S]+?)%>|<%([\\s\\S]+?)%>|$', 'g');
@@ -4599,7 +4646,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 	            el: '',
 	            tagName: 'ul',
 	            className: 'ac-appender',
-	            tagTemplate: '<div class="chip" data-id="<%= item.id %>" data-text="<% item.text %>"><%= item.text %>(<%= item.id %>)<i class="material-icons close">close</i></div>'
+	            tagTemplate: '<div class="chip" data-id="<%= item.id %>" data-text="<%= item.text %>"><%= item.text %>(<%= item.id %>)<i class="material-icons close">close</i></div>'
 	        },
 	        dropdown: {
 	            el: '',
@@ -4608,13 +4655,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 	            itemTemplate: '<li class="ac-item" data-id="<%= item.id %>" data-text="<%= item.text %>"><a href="javascript:void(0)"><%= item.text %></a></li>',
 	            noItem: ''
 	        },
-	        handlers: {
-	            'setValue': '.ac-dropdown .ac-item',
-	            '.ac-appender .ac-tag .close': 'remove'
-	        },
 	        getData: function (value, callback) {
 	            callback(value, []);
 	        },
+	        onSelect: noop,
 	        ignoreCase: true,
 	        throttling: true
 	    };
@@ -4822,7 +4866,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 	                }
 	
 	                if (self.options.hidden.inputName) {
-	                    self.$el.attr('name', self.options.hidden.inputName);
+	                    self.$hidden.attr('name', self.options.hidden.inputName);
 	                }
 	
 	                if (self.options.hidden.required) {
@@ -4862,7 +4906,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 	            if (self.value.length >= self.options.multiple.maxSize) {
 	
 	                if ('function' === typeof self.options.multiple.onExceed) {
-	                    self.options.multiple.onExceed.call(this, self.options.multiple.maxSize);
+	                    self.options.multiple.onExceed.call(this, self.options.multiple.maxSize, item);
 	                }
 	
 	                return false;
@@ -4922,6 +4966,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 	
 	            if (self.options.hidden.enable) {
 	                self.$hidden.val(item.id);
+	            }
+	
+	            if ('function' === typeof self.options.onSelect) {
+	                self.options.onSelect.call(self, item);
 	            }
 	        }
 	    };
@@ -5878,6 +5926,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     _me.resizeGrid();
                 };
 
+<<<<<<< HEAD
                 gridOption.onSortCol = function (index, columIndex) {
                     $(".ui-jqgrid-sortable", "th").css({ "text-decoration": "none" });
                     $(".ui-jqgrid-sortable", grid[0].grid.headers[columIndex].el).css({ "text-decoration": "underline" });
@@ -5885,6 +5934,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
                 grid.jqGrid(gridOption);
             },
+=======
+/***/ }),
+
+/***/ 289:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
             resizeGrid: function () {
                 var $grid = $("#" + GRID_ID);
@@ -5892,6 +5947,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 jqGridAdditional.updateGridWidth($grid);
             },
 
+<<<<<<< HEAD
             checkShowAll: function () {
                 var checked = $('#showall').is(':checked');
                 $('.old-value').toggleClass("hide", !checked);
@@ -5910,8 +5966,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 =======
 /***/ 279:
 /***/ function(module, exports, __webpack_require__) {
+=======
+/***/ }),
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(280)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+/***/ 290:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(291)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 	        "use strict";
 	        var PICKER_SELECTOR = "#month-picker";
 	        var FORMAT = "MM/dd/yyyy";
@@ -5972,8 +6034,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
-/***/ },
+/***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 169:
 /***/ (function(module, exports, __webpack_require__) {
@@ -5981,6 +6044,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ 280:
 /***/ function(module, exports, __webpack_require__) {
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
+=======
+/***/ 291:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
@@ -6069,8 +6136,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 371:
 /***/ (function(module, exports, __webpack_require__) {
@@ -6080,10 +6148,14 @@ module.exports = __webpack_require__(372);
 =======
 /***/ 281:
 /***/ function(module, exports, __webpack_require__) {
+=======
+/***/ 292:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7),
-	    __webpack_require__(103), __webpack_require__(213), __webpack_require__(214)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
+	    __webpack_require__(103), __webpack_require__(224), __webpack_require__(225)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
 	        var GRID_ID = "ReportGrid";
 	        var _ajaxRequest = null;
 	
@@ -6184,8 +6256,9 @@ module.exports = __webpack_require__(372);
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
-/***/ },
+/***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 372:
 /***/ (function(module, exports, __webpack_require__) {
@@ -6200,16 +6273,21 @@ module.exports = __webpack_require__(372);
 =======
 /***/ 284:
 /***/ function(module, exports, __webpack_require__) {
+=======
+/***/ 295:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(285)], __WEBPACK_AMD_DEFINE_RESULT__ = function (GroupCommission) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(296)], __WEBPACK_AMD_DEFINE_RESULT__ = function (GroupCommission) {
 	    $(GroupCommission.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
-/***/ },
+/***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 373:
 /***/ (function(module, exports, __webpack_require__) {
@@ -6265,10 +6343,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 =======
 /***/ 285:
 /***/ function(module, exports, __webpack_require__) {
+=======
+/***/ 296:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(267), __webpack_require__(278),
-	    __webpack_require__(279), __webpack_require__(281)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, AutoComplete, CommonOption, MonthPicker, CustomerLogService) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(278), __webpack_require__(289),
+	    __webpack_require__(290), __webpack_require__(292)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, AutoComplete, CommonOption, MonthPicker, CustomerLogService) {
 	        var _me = {
 	            initialize: function () {
 	                CustomerLogService.initialize();
@@ -6314,7 +6396,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
-/***/ }
+/***/ })
 
 },[371]);
 //# sourceMappingURL=groupcommission.chunk.js.map

@@ -7,14 +7,19 @@ webpackJsonp([61],{
 module.exports = __webpack_require__(297);
 =======
 /***/ 0:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	module.exports = __webpack_require__(347);
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
+=======
+	module.exports = __webpack_require__(358);
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
 
-/***/ },
+/***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 297:
 /***/ (function(module, exports, __webpack_require__) {
@@ -29,8 +34,12 @@ module.exports = __webpack_require__(297);
 =======
 /***/ 347:
 /***/ function(module, exports, __webpack_require__) {
+=======
+/***/ 358:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(348)], __WEBPACK_AMD_DEFINE_RESULT__ = function (SettledMatchCount) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(359)], __WEBPACK_AMD_DEFINE_RESULT__ = function (SettledMatchCount) {
 	    "use strict";
 	
 	    $(SettledMatchCount.initialize);
@@ -38,8 +47,9 @@ module.exports = __webpack_require__(297);
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
-/***/ },
+/***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 298:
 /***/ (function(module, exports, __webpack_require__) {
@@ -47,6 +57,10 @@ module.exports = __webpack_require__(297);
 /***/ 348:
 /***/ function(module, exports, __webpack_require__) {
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
+=======
+/***/ 359:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
@@ -66,7 +80,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }
+/***/ })
 
 },[296]);
 //# sourceMappingURL=settledmatchcount.chunk.js.map

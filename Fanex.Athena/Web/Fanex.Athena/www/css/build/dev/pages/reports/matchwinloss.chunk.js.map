@@ -1,5 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 {"version":3,"sources":["webpack:///./www/css/source/pages/report/matchwinloss.scss"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,yC","file":"www/css/build/dev/pages/reports/matchwinloss.chunk.js","sourcesContent":["// removed by extract-text-webpack-plugin\n\n\n//////////////////\n// WEBPACK FOOTER\n// ./www/css/source/pages/report/matchwinloss.scss\n// module id = 496\n// module chunks = 79"],"sourceRoot":""}
 =======
 {"version":3,"sources":["webpack:///./www/css/source/pages/report/matchwinloss.scss"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,0C","file":"www/css/build/dev/pages/reports/matchwinloss.chunk.js","sourcesContent":["// removed by extract-text-webpack-plugin\n\n\n/*****************\n ** WEBPACK FOOTER\n ** ./www/css/source/pages/report/matchwinloss.scss\n ** module id = 65\n ** module chunks = 26\n **/"],"sourceRoot":""}
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
+=======
+{"version":3,"sources":["webpack:///./www/css/source/pages/report/matchwinloss.scss"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,0C","file":"www/css/build/dev/pages/reports/matchwinloss.chunk.js","sourcesContent":["// removed by extract-text-webpack-plugin\n\n\n//////////////////\n// WEBPACK FOOTER\n// ./www/css/source/pages/report/matchwinloss.scss\n// module id = 65\n// module chunks = 26"],"sourceRoot":""}
+>>>>>>> 62e0118d7... 76246 - Build front-end code

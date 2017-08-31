@@ -8,8 +8,9 @@ webpackJsonp([51],{
 /* WEBPACK VAR INJECTION */(function(jQuery) {﻿/// <reference path="/@JSense.js" />
 =======
 /***/ 0:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	module.exports = __webpack_require__(400);
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
@@ -229,6 +230,9 @@ webpackJsonp([51],{
                 textBox.value = thousandFormater(value);
             });
         });
+=======
+	module.exports = __webpack_require__(411);
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
         return this;
     };
@@ -257,8 +261,9 @@ jQuery.extend({
 });
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ },
+/***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 130:
 /***/ (function(module, exports, __webpack_require__) {
@@ -266,6 +271,10 @@ jQuery.extend({
 /***/ 239:
 /***/ function(module, exports, __webpack_require__) {
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
+=======
+/***/ 250:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(132)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
     "use strict";
@@ -392,8 +401,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 132:
 /***/ (function(module, exports, __webpack_require__) {
@@ -519,8 +529,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 =======
 /***/ 301:
 /***/ function(module, exports, __webpack_require__) {
+=======
+/***/ 312:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(302)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(313)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
 	    "use strict";
 	
 	    var curCountDown = 0;
@@ -645,8 +659,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
-/***/ },
+/***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 144:
 /***/ (function(module, exports, __webpack_require__) {
@@ -654,6 +669,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ 302:
 /***/ function(module, exports, __webpack_require__) {
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
+=======
+/***/ 313:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(130), __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
         "use strict";
@@ -730,8 +749,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 275:
 /***/ (function(module, exports, __webpack_require__) {
@@ -741,8 +761,12 @@ module.exports = __webpack_require__(276);
 =======
 /***/ 400:
 /***/ function(module, exports, __webpack_require__) {
+=======
+/***/ 411:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(401)], __WEBPACK_AMD_DEFINE_RESULT__ = function (FirstGoalLastGoal) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(412)], __WEBPACK_AMD_DEFINE_RESULT__ = function (FirstGoalLastGoal) {
 	    "use strict";
 	
 	    $(FirstGoalLastGoal.initialize);
@@ -750,8 +774,9 @@ module.exports = __webpack_require__(276);
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
-/***/ },
+/***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 276:
 /***/ (function(module, exports, __webpack_require__) {
@@ -766,8 +791,12 @@ module.exports = __webpack_require__(276);
 =======
 /***/ 401:
 /***/ function(module, exports, __webpack_require__) {
+=======
+/***/ 412:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(402), __webpack_require__(301)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, RefreshCountDown) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(413), __webpack_require__(312)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, RefreshCountDown) {
 	    "use strict";
 	
 	    var _me = {
@@ -805,8 +834,9 @@ module.exports = __webpack_require__(276);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
-/***/ },
+/***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 277:
 /***/ (function(module, exports, __webpack_require__) {
@@ -851,8 +881,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 =======
 /***/ 402:
 /***/ function(module, exports, __webpack_require__) {
+=======
+/***/ 413:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(301), __webpack_require__(239)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(312), __webpack_require__(250)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
 	        "use strict";
 	
 	        var _me = {
@@ -927,7 +961,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
-/***/ }
+/***/ })
 
 },[275]);
 //# sourceMappingURL=firstgoallastgoal.chunk.js.map

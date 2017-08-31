@@ -16,8 +16,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         url = QueryString.setParam(url, "sumamtdueto3rd", totalValue.AmountDue);
 =======
 /***/ 0:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	module.exports = __webpack_require__(334);
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
@@ -57,6 +58,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
         return productOptions;
     }
+=======
+	module.exports = __webpack_require__(345);
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
     return {
         setSumParams: setSumParams,
@@ -65,8 +69,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 234:
 /***/ (function(module, exports, __webpack_require__) {
@@ -76,10 +81,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 module.exports = __webpack_require__(235);
+=======
+/***/ 344:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
 
-/***/ },
+/***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 235:
 /***/ (function(module, exports, __webpack_require__) {
@@ -93,16 +103,21 @@ module.exports = __webpack_require__(235);
 =======
 /***/ 334:
 /***/ function(module, exports, __webpack_require__) {
+=======
+/***/ 345:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(335)], __WEBPACK_AMD_DEFINE_RESULT__ = function (MatchList) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(346)], __WEBPACK_AMD_DEFINE_RESULT__ = function (MatchList) {
 	    "use strict";
 	    $(MatchList.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
-/***/ },
+/***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 236:
 /***/ (function(module, exports, __webpack_require__) {
@@ -154,8 +169,12 @@ module.exports = __webpack_require__(235);
 =======
 /***/ 335:
 /***/ function(module, exports, __webpack_require__) {
+=======
+/***/ 346:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(8), __webpack_require__(7), __webpack_require__(333)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString, Site, Helper) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(8), __webpack_require__(7), __webpack_require__(344)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString, Site, Helper) {
 	    "use strict";
 	
 	    function initialize() {
@@ -200,7 +219,7 @@ module.exports = __webpack_require__(235);
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
-/***/ }
+/***/ })
 
 },[234]);
 //# sourceMappingURL=livereportmatchlist.chunk.js.map

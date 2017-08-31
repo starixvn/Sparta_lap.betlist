@@ -8,8 +8,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     "use strict";
 =======
 /***/ 0:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	module.exports = __webpack_require__(259);
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
@@ -28,6 +29,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             $("#page-title", window.parent.document).text(title);
         }
     }
+=======
+	module.exports = __webpack_require__(270);
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
     function isParentSameOrigin() {
         var sameOrigin;
@@ -49,8 +53,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 345:
 /***/ (function(module, exports, __webpack_require__) {
@@ -60,10 +65,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 module.exports = __webpack_require__(346);
+=======
+/***/ 266:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
 
-/***/ },
+/***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 346:
 /***/ (function(module, exports, __webpack_require__) {
@@ -78,8 +88,12 @@ module.exports = __webpack_require__(346);
 =======
 /***/ 259:
 /***/ function(module, exports, __webpack_require__) {
+=======
+/***/ 270:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(260)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupList) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(271)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupList) {
 	    "use strict";
 	
 	    $(CustomerCommGroupList.initialize);
@@ -87,8 +101,9 @@ module.exports = __webpack_require__(346);
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
-/***/ },
+/***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 347:
 /***/ (function(module, exports, __webpack_require__) {
@@ -299,8 +314,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 =======
 /***/ 260:
 /***/ function(module, exports, __webpack_require__) {
+=======
+/***/ 271:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(255)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, CustomerCommGroup) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(266)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, CustomerCommGroup) {
 	        "use strict";
 	
 	        var deleteGroupData = {
@@ -504,7 +523,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
-/***/ }
+/***/ })
 
 },[345]);
 //# sourceMappingURL=commgrouplist.chunk.js.map

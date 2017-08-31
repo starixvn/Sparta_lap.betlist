@@ -3,17 +3,17 @@ webpackJsonp([3],{
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(329);
-	__webpack_require__(330);
-	__webpack_require__(331);
-	__webpack_require__(332);
-	__webpack_require__(333);
-	module.exports = __webpack_require__(334);
+	__webpack_require__(313);
+	__webpack_require__(314);
+	__webpack_require__(315);
+	__webpack_require__(316);
+	__webpack_require__(317);
+	module.exports = __webpack_require__(318);
 
 
 /***/ }),
 
-/***/ 329:
+/***/ 313:
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -53,12 +53,12 @@ webpackJsonp([3],{
 
 /***/ }),
 
-/***/ 330:
+/***/ 314:
 /***/ (function(module, exports) {
 
 	"use strict";
 	
-	// Generated at: 8/14/2017 2:21:49 PM
+	// Generated at: 8/18/2017 12:54:23 PM
 	window._language_en_US = {
 	  AA: "AA",
 	  AccessDeniedMsg: "Sorry, You don&apos;t have permission to access this page.",
@@ -302,6 +302,7 @@ webpackJsonp([3],{
 	  DisableMacau: "Disable Macau",
 	  DisableMacauGames: "Disable Macau Games",
 	  DisableMicrogaming: "Disable Microgaming",
+	  DisableProduct: "Disable {0}",
 	  DisableRNGCasino: "Disable RNG Casino",
 	  DisableSSOMsg: "Single Sign On to LRF is disabled.",
 	  DividendWon: "Dividend Won",
@@ -332,6 +333,7 @@ webpackJsonp([3],{
 	  EnableMacauGames: "Enable Macau Games",
 	  EnableMicrogamingLiveCasino: "Enable Microgaming Live Casino",
 	  EnableMicrogamingRNGCasino: "Enable Microgaming RNG Casino",
+	  EnableProduct: "Enable {0}",
 	  EnableRNGCasino: "Enable RNG Casino",
 	  EndBalance: "End Balance",
 	  EndDate: "End Date",
@@ -719,6 +721,7 @@ webpackJsonp([3],{
 	  ProductGD: "Gold Deluxe",
 	  ProductKN: "Keno",
 	  ProductLC: "Live Casino",
+	  ProductLT: "Lottery",
 	  ProductMGCLC: "Microgaming-Live Casino",
 	  ProductMGCRNG: "Microgaming-RNG Casino",
 	  ProductNG: "Number Game",
@@ -926,6 +929,8 @@ webpackJsonp([3],{
 	  UpdateMemberEsportsSuccessMsg: "The E-Sports is {0} successfully.",
 	  UpdateNumberGameBetSettings: "Are you sure you want to update all Number Game bet settings?",
 	  UpdateNumberGameBetSettingSuccessMsg: "The Number Game bet setting of {0} was updated successfully",
+	  UpdateProductBetSettings: "Are you sure you want to update all {0} bet settings?",
+	  UpdateProductBetSettingSuccessMsg: "The {0} bet setting of {1} was updated successfully",
 	  UpdateRacingBetSettings: "Are you sure you want to update all Racing bet settings?",
 	  UpdateRacingBetSettingSuccessMsg: "The Racing bet setting of {0} was updated successfully",
 	  UpdateRNGCasinoBetSettingFailMsg: "The RNG Casino bet setting of {0} updated is failed",
@@ -938,8 +943,6 @@ webpackJsonp([3],{
 	  UpdateUnSuccess: "Update unsucessfully!",
 	  UpdateVirtualSportsBetSettings: "Are you sure you want to update all Virtual Sports bet settings?",
 	  UpdateVirtualSportsBetSettingSuccessMsg: "The Virtual Sports bet setting of {0} was updated successfully",
-	  UpdateVirtualSports2BetSettings: "Are you sure you want to update all Virtual Sports 2 bet settings?",
-	  UpdateVirtualSports2BetSettingSuccessMsg: "The Virtual Sports 2 bet setting of {0} was updated successfully",
 	  USD: "USD",
 	  UserGuide: "User Guide",
 	  UserInformation: "User Information",
@@ -995,7 +998,7 @@ webpackJsonp([3],{
 
 /***/ }),
 
-/***/ 331:
+/***/ 315:
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -1768,7 +1771,7 @@ webpackJsonp([3],{
 
 /***/ }),
 
-/***/ 332:
+/***/ 316:
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -2579,7 +2582,7 @@ webpackJsonp([3],{
 
 /***/ }),
 
-/***/ 333:
+/***/ 317:
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -3376,7 +3379,7 @@ webpackJsonp([3],{
 
 /***/ }),
 
-/***/ 334:
+/***/ 318:
 /***/ (function(module, exports) {
 
 	"use strict";

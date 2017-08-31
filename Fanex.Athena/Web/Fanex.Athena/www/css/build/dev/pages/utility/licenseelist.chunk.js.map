@@ -1,5 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 {"version":3,"sources":["webpack:///./www/css/source/pages/utility/licenseelist.scss"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,yC","file":"www/css/build/dev/pages/utility/licenseelist.chunk.js","sourcesContent":["// removed by extract-text-webpack-plugin\n\n\n//////////////////\n// WEBPACK FOOTER\n// ./www/css/source/pages/utility/licenseelist.scss\n// module id = 516\n// module chunks = 66"],"sourceRoot":""}
 =======
 {"version":3,"sources":["webpack:///./www/css/source/pages/utility/licenseelist.scss"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,0C","file":"www/css/build/dev/pages/utility/licenseelist.chunk.js","sourcesContent":["// removed by extract-text-webpack-plugin\n\n\n/*****************\n ** WEBPACK FOOTER\n ** ./www/css/source/pages/utility/licenseelist.scss\n ** module id = 93\n ** module chunks = 40\n **/"],"sourceRoot":""}
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
+=======
+{"version":3,"sources":["webpack:///./www/css/source/pages/utility/licenseelist.scss"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,0C","file":"www/css/build/dev/pages/utility/licenseelist.chunk.js","sourcesContent":["// removed by extract-text-webpack-plugin\n\n\n//////////////////\n// WEBPACK FOOTER\n// ./www/css/source/pages/utility/licenseelist.scss\n// module id = 93\n// module chunks = 40"],"sourceRoot":""}
+>>>>>>> 62e0118d7... 76246 - Build front-end code

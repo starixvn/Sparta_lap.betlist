@@ -190,7 +190,10 @@ input[type="checkbox"] {
   outline: 0;
   vertical-align: middle;
   width: 48%;
-  color: #fff; }
+  color: #fff;
+  cursor: pointer; }
+  .rdr-Button:hover {
+    opacity: 0.8; }
 
 .rdr-ApplyButton {
   margin-right: calc(4%);
@@ -290,7 +293,6 @@ input[type="checkbox"] {
 .footer-content {
   border-top: none; }
   .footer-content .table {
-    border-top: 2px solid #a7a1a1;
     font-weight: bold; }
     .footer-content .table .fixed-table-total td {
       border-bottom: none; }

@@ -5,25 +5,33 @@ webpackJsonp([106],{
 /***/ (function(module, exports, __webpack_require__) {
 =======
 /***/ 0:
+<<<<<<< HEAD
 /***/ function(module, exports, __webpack_require__) {
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
+=======
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
 module.exports = __webpack_require__(502);
 
 
-/***/ },
+/***/ }),
 
 <<<<<<< HEAD
 /***/ 502:
 /***/ (function(module, exports) {
 =======
 /***/ 33:
+<<<<<<< HEAD
 /***/ function(module, exports) {
 >>>>>>> babeb522f... 76246 - Rebuild front-end pkg
+=======
+/***/ (function(module, exports) {
+>>>>>>> 62e0118d7... 76246 - Build front-end code
 
 // removed by extract-text-webpack-plugin
 
-/***/ }
+/***/ })
 
 },[501]);
 //# sourceMappingURL=lastbetmonitoring.chunk.js.map
