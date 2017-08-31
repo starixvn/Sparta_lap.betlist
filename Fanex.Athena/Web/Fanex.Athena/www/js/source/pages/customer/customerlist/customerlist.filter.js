@@ -24,7 +24,7 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
                 });
 
                 $("#Username").on('keyup', function (e) {
-                    if (e.keyCode == 13) {
+                    if (e.keyCode === 13) {
                         _state.pagingOption.pageindex = 1;
                         CustomerListService.submit();
                     }

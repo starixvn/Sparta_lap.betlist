@@ -25,6 +25,12 @@ var BetSetting = (function ($) {
     var TAB_LOTTERY = 28;
 
     var _sportIds = null;
+
+    function getUpdateProductMessage(productCode) {
+        var message = Site.getSingleResource('UpdateProductBetSettings');
+        return message.replace('{0}', Site.getSingleResource('Product' + productCode));
+    }
+
     return {
         initialize: function () {
             var $idList = $("#IDList");
@@ -251,9 +257,7 @@ var BetSetting = (function ($) {
                     showComfirm('UpdateVirtualSportsBetSettings', BetSetting.updateDcsBetSetting);
                     break;
                 case TAB_VIRTUALSPORTS2:
-                    var message = Site.getSingleResource('UpdateProductBetSettings');
-                    message = message.replace('{0}', Site.getSingleResource('ProductVS2'));
-                    showComfirm(message, BetSetting.updateDcsBetSetting);
+                    showComfirm(getUpdateProductMessage('VS2'), BetSetting.updateDcsBetSetting);
                     break;
                 case TAB_LIVECASINO:
                     showComfirm('UpdateLiveCasinoBetSettings', BetSetting.updateLiveCasinoBetSetting);
@@ -288,9 +292,7 @@ var BetSetting = (function ($) {
                     showComfirm('UpdateGoldDeluxeBetSettings', BetSetting.updateGoldDeluxeBetSetting);
                     break;
                 case TAB_LOTTERY:
-                    var message = Site.getSingleResource('UpdateProductBetSettings');
-                    message = message.replace('{0}', Site.getSingleResource('ProductLT'));
-                    showComfirm(message, BetSetting.updateDcsBetSetting);
+                    showComfirm(getUpdateProductMessage('LT'), BetSetting.updateDcsBetSetting);
                     break;
             }
         },
