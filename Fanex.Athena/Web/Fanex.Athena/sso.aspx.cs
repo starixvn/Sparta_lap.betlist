@@ -20,6 +20,11 @@ public partial class sso : System.Web.UI.Page
         }
         else
         {
+            var refererUrl = Request.UrlReferrer;
+            if (refererUrl != null)
+            {
+                Response.Cookies.Add(new System.Web.HttpCookie("LRF_REFERURL", refererUrl.ToString()));
+            }
             ISSOService service = new SSOService();
             service.SSO();
         }

@@ -23,14 +23,16 @@
         {
             { ProductTypes.AllBet, (int)SportType.AllBet },
             { ProductTypes.Voidbridge, (int)SportType.Voidbridge },
-            { ProductTypes.FishingWorld, (int)SportType.FishingWorld }
+            { ProductTypes.FishingWorld, (int)SportType.FishingWorld },
+            { ProductTypes.Lottery, (int)SportType.Lottery }
         };
 
         private static readonly IDictionary<int, int> ProductBettypeMap = new Dictionary<int, int>()
         {
             { ProductTypes.AllBet, 2401 },
             { ProductTypes.Voidbridge, 4001 },
-            { ProductTypes.FishingWorld, 1011 }
+            { ProductTypes.FishingWorld, 1011 },
+            { ProductTypes.Lottery, 1021 }
         };
 
         public bool? GetStatus(int custId, int productId)

@@ -22,8 +22,15 @@ var BetSetting = (function ($) {
     var TAB_FISHINGWORLD = 24;
     var TAB_CASHOUT = 25;
     var TAB_VIRTUALSPORTS2 = 27;
+    var TAB_LOTTERY = 28;
 
     var _sportIds = null;
+
+    function getUpdateProductMessage(productCode) {
+        var message = Site.getSingleResource('UpdateProductBetSettings');
+        return message.replace('{0}', Site.getSingleResource('Product' + productCode));
+    }
+
     return {
         initialize: function () {
             var $idList = $("#IDList");
@@ -118,6 +125,7 @@ var BetSetting = (function ($) {
                 case TAB_ALLBET:
                 case TAB_VOIDBRIDGE:
                 case TAB_FISHINGWORLD:
+                case TAB_LOTTERY:
                     url = "DcsBetSetting/UpdateStatus";
                     break;
                 case TAB_CASHOUT:
@@ -193,6 +201,9 @@ var BetSetting = (function ($) {
                 if (!enable) {
                     $('#copy-settting').hide();
                 }
+            } else if (tabId === TAB_LOTTERY) {
+                $(".data-content input[type=text]").prop('disabled', !enable);
+                $("#btnSubmitBetSetting, #btnReset").prop('disabled', !enable);
             }
         },
         checkEnable: function (sportIds, enable) {
@@ -246,7 +257,7 @@ var BetSetting = (function ($) {
                     showComfirm('UpdateVirtualSportsBetSettings', BetSetting.updateDcsBetSetting);
                     break;
                 case TAB_VIRTUALSPORTS2:
-                    showComfirm('UpdateVirtualSports2BetSettings', BetSetting.updateDcsBetSetting);
+                    showComfirm(getUpdateProductMessage('VS2'), BetSetting.updateDcsBetSetting);
                     break;
                 case TAB_LIVECASINO:
                     showComfirm('UpdateLiveCasinoBetSettings', BetSetting.updateLiveCasinoBetSetting);
@@ -279,6 +290,9 @@ var BetSetting = (function ($) {
                     }
 
                     showComfirm('UpdateGoldDeluxeBetSettings', BetSetting.updateGoldDeluxeBetSetting);
+                    break;
+                case TAB_LOTTERY:
+                    showComfirm(getUpdateProductMessage('LT'), BetSetting.updateDcsBetSetting);
                     break;
             }
         },
@@ -440,7 +454,7 @@ var BetSetting = (function ($) {
                 }
             });
         },
-        // Update Live Casino
+        
         updateLiveCasinoBetSetting: function (custId, userName, nickName) {
             var gameTypeCount = $("#gameTypeCount").val();
             var params = {};
@@ -477,6 +491,7 @@ var BetSetting = (function ($) {
                 }
             });
         },
+        
         getBetSettingParamsForSports: function (sportsIds) {
             var params = {};
             for (var i in sportsIds) {

@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Configuration
 {
-    using System;
     using System.Collections.Generic;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
@@ -48,10 +47,10 @@
             _moveBetDataAccess.GetMoveBetNotification().Returns(expectedResult);
 
             // Action
-            var result = _moveBetService.GetMoveBetNotification();
+            var result = _moveBetService.GetMoveBetNotification("en-US");
 
             // Assert
-            Assert.That(result.ContentByLanguage["en-US"], Is.EqualTo(ExpectedMessage));
+            Assert.That(result, Is.EqualTo(ExpectedMessage));
         }
     }
 }

@@ -47,7 +47,7 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingStatus, DcsBetSe
 
                 $submit.click();
 
-                expect(BetSettingBase.showComfirm).toHaveBeenCalledWith($submit, "UpdateVirtualSportsBetSettings", DcsBetSetting.updateBetSetting);
+                expect(BetSettingBase.showComfirm).toHaveBeenCalledWith($submit, "UpdateProductBetSettings", DcsBetSetting.updateBetSetting);
             });
 
         });

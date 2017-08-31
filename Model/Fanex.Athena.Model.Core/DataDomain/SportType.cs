@@ -307,6 +307,8 @@ namespace Fanex.Athena.Model.Core.DataDomain
 
         Voidbridge = 212,
 
-        FishingWorld = 219
+        FishingWorld = 219,
+
+        Lottery = 220
     }
 }

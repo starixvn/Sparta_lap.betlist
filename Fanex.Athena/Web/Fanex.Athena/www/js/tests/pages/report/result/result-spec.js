@@ -302,11 +302,11 @@
                     jasmine.Ajax.install();
 
                     jasmine.Ajax
-                        .stubRequest(/ResultReport\/KenoResult.*/)
+                        .stubRequest(/ResultKenoReport\/Index.*/)
                         .andReturn({
                             'status': 200,
                             'contentType': 'application/json',
-                            'responseText': '{ "UserId": 0, "Url": "localhost" }'
+                            'responseText': '{ "UserId": 0, "Url": "localhost/keno" }'
                         });
 
                     Result.showKeno();
@@ -320,11 +320,11 @@
                 });
 
                 it("window.open should be called with correct parameter", function () {
-                    expect(window.open).toHaveBeenCalledWith("", '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
+                    expect(window.open).toHaveBeenCalledWith("localhost/keno", '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
                 });
 
                 it("url should be correct when ajax request is called", function () {
-                    expect(request.url.indexOf("ResultReport/KenoResult") > -1).toBe(true);
+                    expect(request.url.indexOf("ResultKenoReport/Index") > -1).toBe(true);
                 });
                 it("Site.blockUI should be called", function () {
                     expect(Site.blockUI).toHaveBeenCalled();
@@ -351,11 +351,14 @@
                     var expectedOption = {
                         type: "POST",
                         cache: false,
-                        data: "userid=0",
-                        url: "ResultReport/KenoResult"
+                        data: {
+                            userId: 0,
+                            vendorProductId: 1
+                        },
+                        url: "ResultKenoReport/KeepSession"
                     };
 
-                    Result.extendKenoSession();
+                    Result.extendKenoSession(1);
                     jasmine.clock().tick(6001);
 
                     expect(option).toEqual(expectedOption);
@@ -422,7 +425,7 @@
 
             describe("getFilter()", function () {
                 beforeEach(function () {
-                    jasmine.Ajax.install();                    
+                    jasmine.Ajax.install();
                 });
                 afterEach(function () {
                     jasmine.Ajax.uninstall();
@@ -457,7 +460,7 @@
                     });
 
                     it("Result.renderFilter() should be called with correct parameter", function () {
-                        expect(Result.renderFilter).toHaveBeenCalledWith({Sports: ["SB", "RC"]});
+                        expect(Result.renderFilter).toHaveBeenCalledWith({ Sports: ["SB", "RC"] });
                     });
                     it("Result.getReportData() should be called", function () {
                         expect(Result.getReportData).toHaveBeenCalled();
@@ -592,7 +595,7 @@
                         spyOn(Result, "renderLeagueFilter");
                         spyOn(Site, "initSelectElements");
 
-                        Result.renderFilter({ Sports: ["SB", "RC"], Leagues: ["V-League", "Premier League"]});
+                        Result.renderFilter({ Sports: ["SB", "RC"], Leagues: ["V-League", "Premier League"] });
                     });
 
                     it("Result.renderSportFilter(sportData) should be called", function () {

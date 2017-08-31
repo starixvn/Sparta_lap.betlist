@@ -70,16 +70,16 @@
     <Reference Include="Fanex.Logging">
       <HintPath>..\..\packages\Fanex.Logging.1.0.0.0\lib\net40\Fanex.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core, Version=2.0.8.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.0.8.5\lib\net40\Fanex.Result.Core.dll</HintPath>
+    <Reference Include="Fanex.Result.Core, Version=2.0.8.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.0.8.7\lib\net40\Fanex.Result.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Result.Core.AllBetCasino, Version=1.0.0.10, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Result.Core.AllBetCasino.1.0.0.10\lib\net40\Fanex.Result.Core.AllBetCasino.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Result.Core.Base, Version=2.0.8.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.0.8.5\lib\net40\Fanex.Result.Core.Base.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.Base, Version=2.0.8.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.0.8.7\lib\net40\Fanex.Result.Core.Base.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Result.Core.LiveCasino, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
@@ -94,8 +94,8 @@
       <HintPath>..\..\packages\Fanex.Result.Core-Racing.1.0.0.9\lib\net40\Fanex.Result.Core.Racing.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Result.Core.Sportsbook, Version=1.0.8.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core-Sportsbook.1.0.8.8\lib\net40\Fanex.Result.Core.Sportsbook.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.Sportsbook, Version=1.0.8.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Result.Core-Sportsbook.1.0.8.9\lib\net40\Fanex.Result.Core.Sportsbook.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FluentValidation">
@@ -207,7 +207,7 @@
     <Compile Include="Interfaces\ICashOutWinLossService.cs" />
     <Compile Include="Interfaces\IColossusBetsWinLossService.cs" />
     <Compile Include="Interfaces\IWeeklyLiveMatchService.cs" />
-    <Compile Include="Keno\KenoApi.cs" />
+    <Compile Include="Result\KenoApi.cs" />
     <Compile Include="AgCasinoWinLossService.cs" />
     <Compile Include="ActiveCustomerService.cs" />
     <Compile Include="CasinoProgressiveWinsService.cs" />
@@ -217,7 +217,7 @@
     <Compile Include="ThirdPartyWinLossService.cs" />
     <Compile Include="WeeklyLiveMatchService.cs" />
     <Compile Include="WinLossByLeagueService.cs" />
-    <Compile Include="ResultService.cs" />
+    <Compile Include="Result\ResultService.cs" />
     <Compile Include="CreditBalanceService.cs" />
     <Compile Include="WinLossByProductService.cs" />
     <Compile Include="CustomerBalanceService.cs" />
@@ -233,7 +233,7 @@
     <Compile Include="SettledMatchCountService.cs" />
     <Compile Include="TurnoverService.cs" />
     <Compile Include="WinLossByBetTypeService.cs" />
-    <Compile Include="Keno\Interfaces\IKenoApi.cs" />
+    <Compile Include="Result\Interfaces\IKenoApi.cs" />
     <Compile Include="Interfaces\ICasinoProgressiveWinsService.cs" />
     <Compile Include="Interfaces\IMicroGamingWinLossService.cs" />
     <Compile Include="Interfaces\IActiveCustomerService.cs" />
@@ -241,7 +241,7 @@
     <Compile Include="Interfaces\IAgCasinoWinLossService.cs" />
     <Compile Include="Interfaces\IThirdPartyWinLossService.cs" />
     <Compile Include="Interfaces\IWinLossByLeagueService.cs" />
-    <Compile Include="Interfaces\IResultService.cs" />
+    <Compile Include="Result\Interfaces\IResultService.cs" />
     <Compile Include="Interfaces\ICreditBalanceService.cs" />
     <Compile Include="Interfaces\ICustomerBalanceService.cs" />
     <Compile Include="Interfaces\ICustPendingFundsService.cs" />

@@ -1,4 +1,5 @@
-﻿@model Fanex.Athena.Model.Report.ViewModel.ResultReportViewModel
+﻿@using Fanex.Athena.Model.Core.DataDomain
+@model Fanex.Athena.Model.Report.ViewModel.ResultReportViewModel
 
 <div class="page-form">
     @using (Html.BeginForm("Result", "Report", FormMethod.Post, new { @id = "ResultPage" }))
@@ -32,7 +33,15 @@
                 <a href="javascript:;" class="center-align label label-primary" id="submitOutright" data-isOutright="0">@ViewResources.Outright</a>
                 @if (ViewBag.IsAllowedKeno)
                 {
-                    <a href="javascript:;" class="center-align label label-primary" id="submitKeno">@ViewResources.ProductKN</a>
+                    <a href="javascript:;" class="center-align label label-primary" id="submitKeno" data-vendorProductId="@ResultVendorProductTypes.Keno">
+                        @ViewResources.ProductKN
+                    </a>
+                }
+                @if (ViewBag.IsAllowedLottery)
+                {
+                    <a href="javascript:;" class="center-align label label-primary" id="submitLottery" data-vendorProductId="@ResultVendorProductTypes.Lottery">
+                        @ViewResources.ProductLT
+                    </a>
                 }
             </div>
         </div>

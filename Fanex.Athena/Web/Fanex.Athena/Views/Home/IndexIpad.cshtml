@@ -41,7 +41,10 @@
             scrolling="no" frameborder="0" id="frFooter" name="frFooter"></iframe>
     </div>
     <div id="center" class="ui-layout-center">
+    @if (ViewBag.IsEnabledMoveBetNotification)
+    {
         @RazorHelper.MoveBetNotification()
+     }
         <iframe src="@(Util.RootPath + ViewBag.DefaultReportUrl)" id="main" name="main" scrolling="auto"
             width="100%" height="100%" frameborder="0"></iframe>
         <div id="notification_popup">

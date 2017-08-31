@@ -33,6 +33,7 @@ webpackJsonp([53],{
 	        FishingWorld: 24,
 	        Cashout: 25,
 	        VirtualSports2: 27,
+	        Lottery: 28
 	    };
 	
 	    var _me = {

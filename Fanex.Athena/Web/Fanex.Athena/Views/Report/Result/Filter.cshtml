@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
 }
+@using Fanex.Athena.Model.Core.DataDomain
 @model Fanex.Athena.Model.Report.ViewModel.ResultReportViewModel
 <div class="grid_26 content-filter new-line" style="width: 100%;">
     @using (Html.BeginForm("Result", "Report", FormMethod.Post, new { @id = "ResultPage" }))
@@ -21,32 +22,36 @@
          DateTime.Today,
         "ToDate", "", 3)
         </div>
-       
+
         <div class="grid_2 filter-input">
             <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
         </div>
         <div class="grid_2 filter-input">
-            <input type="button" id="submit-todate" data-date="@DateTime.Today.ToString("MM/dd/yyyy")" 
-            value="@DateTime.Today.ToString("MM/dd/yyyy")" class="button" />
+            <input type="button" id="submit-todate" data-date="@DateTime.Today.ToString("MM/dd/yyyy")"
+                   value="@DateTime.Today.ToString("MM/dd/yyyy")" class="button" />
         </div>
         <div class="grid_2 filter-input">
             <input type="button" id="submit-yesterdate" data-date="@DateTime.Now.AddDays(-1).ToString("MM/dd/yyyy")" value="@DateTime.Now.AddDays(-1).ToString("MM/dd/yyyy")" class="button" />
         </div>
-       
+
         <div id="div-container-outright-button" class="prefix_4 grid_2 filter-input">
-            <input type="button"  id="submit-normal" value="@ViewResources.Normal" class="button" />
+            <input type="button" id="submit-normal" value="@ViewResources.Normal" class="button" />
         </div>
         <div class="grid_2 filter-input">
             <input type="button" id="submit-outright" data-isOutright="1" value="@ViewResources.Outright" class="button" />
         </div>
         if (ViewBag.IsAllowedKeno)
         {
-        <div class="grid_2 filter-input">
-            <input type="button" id="submit-keno" value="@ViewResources.ProductKN"
-        class="button" />
-        </div>
+            <div class="grid_2 filter-input">
+                <input type="button" id="submit-keno" value="@ViewResources.ProductKN" class="button" data-vendorproductid="@ResultVendorProductTypes.Keno" />
+            </div>
         }
-        
+        if (ViewBag.IsAllowedLottery)
+        {
+            <div class="grid_2 filter-input">
+                <input type="button" id="submit-lottery" value="@ViewResources.ProductLT" class="button" data-vendorproductid="@ResultVendorProductTypes.Lottery" />
+            </div>
+        }
         <div class="note-group">
             <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
                    type="image" id="ExportToExcel" name="exporttoexcel"

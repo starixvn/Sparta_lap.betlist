@@ -26,7 +26,7 @@ namespace Fanex.Athena.DataAccess.Report
     {
         private static readonly IEnumerable<string> IgnoredProductInBettypeSection = new string[]
         {
-            Product.MGCLC, Product.MGCRNG, Product.BA
+            Product.MGCLC, Product.MGCRNG
         };
 
         public IList<LiveReport> GetLiveReportSummary(LiveReportMetaModel metaModel, DateTime moveBetsDate)
@@ -272,7 +272,7 @@ namespace Fanex.Athena.DataAccess.Report
                 dataList.Add(new LiveReport
                 {
                     ProductName = CacheRef.GetBettype(Convert.ToInt32(bettype), false),
-                    ProductCode = bettype,
+                    ProductCode = reader.ToString("ProductCode"),
                     TurnOver = reader.ToDecimal("Turnover" + currency),
                     CustomerWinLoss = reader.ToDecimal("Winlost" + currency),
                     CustomerComm = reader.ToDecimal("PlayerComm" + currency),
@@ -286,18 +286,19 @@ namespace Fanex.Athena.DataAccess.Report
             var result = new List<LiveReportByBetType>();
             if (dataList.Any())
             {
-                foreach (var product in products.Where(p => !IgnoredProductInBettypeSection.Contains(p.ProductCode)))
-                {
-                    var bettypeList = dataList.Where(i => ProductValidator.IsValidBettype(product.ProductCode, Convert.ToInt32(i.ProductCode))).ToList();
-                    if (bettypeList.Any())
+                var supportedProducts = products.Where(p => !IgnoredProductInBettypeSection.Contains(p.ProductCode));
+                result = supportedProducts.Join(
+                    dataList,
+                    p => p.ProductCode,
+                    d => d.ProductCode,
+                    (p, d) => new { p.ProductName, LiveReports = d })
+                    .GroupBy(
+                    x => x.ProductName,
+                    (key, g) => new LiveReportByBetType
                     {
-                        result.Add(new LiveReportByBetType
-                        {
-                            ProductName = product.ProductName,
-                            LiveReports = bettypeList
-                        });
-                    }
-                }
+                        ProductName = key,
+                        LiveReports = g.Select(x => x.LiveReports).ToList()
+                    }).ToList();
             }
 
             return result;

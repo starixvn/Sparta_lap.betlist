@@ -22,7 +22,7 @@ namespace Fanex.Athena.Model.Core.ViewModel
 
         public bool IsInternalLogin { get; set; }
 
-        public bool IsDisabledRecheckIn { get; set; }
+        public bool HasRecheckIn { get; set; }
 
         public IDictionary<string, string> SupportedLanguageList { get; set; }
 

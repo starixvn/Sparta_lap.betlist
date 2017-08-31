@@ -22614,7 +22614,7 @@ webpackJsonp([83],[
 	    var closingBalanceColumn = {
 	        name: 'ClosingBalance',
 	        index: 'ClosingBalance',
-	        width: 90,
+	        width: 110,
 	        align: 'right',
 	        sortable: false,
 	        resizable: false,

@@ -19,11 +19,10 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult Index()
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var isShowAll = AppSettings.IsTesting;
             var producAccess = ProductService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
             var settledMatchCountService = new SettledMatchCountService();
 
-            var model = settledMatchCountService.GetDataList(isShowAll, licenseeId, producAccess);
+            var model = settledMatchCountService.GetDataList(AppSettings.IsShowAllDataForSettleMatchCountReport, licenseeId, producAccess);
 
             return View("~/Views/Report/SettledMatchCount/Main.cshtml", model);
         }

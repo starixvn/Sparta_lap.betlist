@@ -77,6 +77,7 @@ namespace Fanex.Athena.Controllers
             ViewBag.OnUserId = userSession.OnUserId;
             ViewBag.IsInternal = userSession.IsInternal ? "1" : "0";
             ViewBag.HasRecheckIn = AppSettings.LocalTest ? "0" : "1";
+            ViewBag.IsEnabledMoveBetNotification = AppSettings.IsEnabledMoveBetNotification;
         }
     }
 }

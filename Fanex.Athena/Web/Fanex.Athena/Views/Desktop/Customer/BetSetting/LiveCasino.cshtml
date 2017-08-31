@@ -16,7 +16,7 @@
 }
 
 @section Menu{
-    @{Html.RenderPartial("~/Views/Desktop/Customer/BetSetting/Menu.cshtml", Model);}
+    @{Html.RenderPartial("~/Views/Desktop/Customer/BetSetting/_Menu.cshtml", Model);}
 }
 
 @section ContentTitle{
@@ -124,7 +124,7 @@ else
         </div>
         if (!Model.IsEnabled.HasValue)
         {
-            <p>@string.Format(ViewResources.CustomerHasNeverPlayed, "Live Casino")</p>
+            <p>@string.Format(ViewResources.CustomerHasNeverPlayed,  ViewResources.ProductLC)</p>
         }
     }
     <!--/SubmitButton-->

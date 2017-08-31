@@ -1,10 +1,4 @@
-// -----------------------------------------------------------------------
-// <copyright file="ReportController.ResultPage.cs" company="">
-// ReportController copyright.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.Controllers.Report
+namespace Fanex.Athena.Controllers.Report.Result
 {
     using System;
     using System.Collections.Generic;
@@ -18,30 +12,23 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.MetaModel;
-    using Fanex.Athena.Model.Report.MetaModel.Keno;
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Service.Casino;
     using Fanex.Athena.Service.Casino.Interfaces;
-    using Fanex.Athena.Service.Report;
-    using Fanex.Athena.Service.Report.Interfaces;
-    using Fanex.Athena.Service.Report.Keno;
-    using Fanex.Athena.Service.Report.Keno.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Result.Core;
+    using Fanex.Result.Core.AllBetCasino;
     using Fanex.Result.Core.Base;
+    using Fanex.Result.Core.GlobalGaming;
+    using Fanex.Result.Core.GlobalGaming.DTO;
     using Fanex.Result.Core.MicroGaming;
     using Fanex.Result.Core.MicroGaming.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
-    using Logging;
+    using Fanex.Result.Core.Voidbridge;
     using Resources;
-    using Result.Core.AllBetCasino;
-    using Result.Core.GlobalGaming;
-    using Result.Core.GlobalGaming.DTO;
-    using Result.Core.Voidbridge;
+    using Service.Report.Result;
+    using Service.Result.Interfaces;
 
-    /// <summary>
-    /// The result controller.
-    /// </summary>
     public class ResultReportController : ReportBaseController
     {
         private const string ResultPageGetNormalSportsName = "ResultPage_GetNormalSports";
@@ -49,25 +36,22 @@ namespace Fanex.Athena.Controllers.Report
         private const int SystemParlayBetType = 29;
         private readonly IResultService _resultService;
         private readonly IRNGCasinoSingleWalletService _rngCasinoSingleWalletService;
-        private readonly IKenoApi _kenoApi;
 
         private string _htmlResult;
         private MemoryStream _excelStream;
 
         #region Result-Page
 
-        public ResultReportController() : this(null, null, null)
+        public ResultReportController() : this(null, null)
         {
         }
 
         public ResultReportController(
             IResultService resultService,
-            IRNGCasinoSingleWalletService rngCasinoSingleWalletService,
-            IKenoApi kenoApi)
+            IRNGCasinoSingleWalletService rngCasinoSingleWalletService)
         {
             _resultService = resultService ?? new ResultService();
             _rngCasinoSingleWalletService = rngCasinoSingleWalletService ?? new RngCasinoSingleWalletService();
-            _kenoApi = kenoApi ?? new KenoApi();
         }
 
         [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
@@ -89,6 +73,7 @@ namespace Fanex.Athena.Controllers.Report
             var productAccess = ProductService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
             ViewBag.IsAllowedRNG = productAccess.IsAllowBG || productAccess.IsAllowCS;
             ViewBag.IsAllowedKeno = productAccess.IsAllowKN;
+            ViewBag.IsAllowedLottery = productAccess.IsAllow(Model.Core.DataDomain.ProductTypes.Lottery);
             return View("~/Views/Report/Result/Main.cshtml", model);
         }
 
@@ -177,11 +162,6 @@ namespace Fanex.Athena.Controllers.Report
 
         #region PopUpPage
 
-        /// <summary>
-        /// The pop up result page.
-        /// </summary>
-        /// <param name="metalModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
         public ActionResult ResultPopup(ResultPopupMetalModel metalModel)
         {
@@ -267,7 +247,7 @@ namespace Fanex.Athena.Controllers.Report
                 detailedData,
                 new ResultSetting
                 {
-                    SportType = (Result.Core.Base.SportType)sportType,
+                    SportType = (Fanex.Result.Core.Base.SportType)sportType,
                     LanguageCode = SessionService.UserSession.Language
                 });
 
@@ -278,49 +258,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         #endregion PopUpPage
-
-        #region KenoPage
-
-        [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
-        [HttpGet]
-        [AjaxRequest]
-        public ActionResult KenoResult()
-        {
-            var userId = SessionService.UserSession.UserId;
-            return Json(
-                new
-                {
-                    Url = _kenoApi.CreateKenoResultUrl(GetKenoSetting(), userId.ToString(), DateTime.Now),
-                    UserId = userId
-                },
-            JsonRequestBehavior.AllowGet);
-        }
-
-        [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
-        [HttpPost]
-        [AjaxRequest]
-        [CustomValidateAntiForgery]
-        public string KenoResult(string userId)
-        {
-            if (string.IsNullOrEmpty(userId) || !SessionService.UserSession.UserId.ToString().Equals(userId))
-            {
-                Fanex.Logging.LogService.Error("Keno Result page just submited invalid userId");
-
-                return Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme);
-            }
-
-            var result = _kenoApi.ExtendToken(GetKenoSetting(), userId);
-
-            if (result.ErrorCode > 0)
-            {
-                LogService.Error(result.ErrorMsg);
-                return Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme);
-            }
-
-            return string.Empty;
-        }
-
-        #endregion KenoPage
 
         #region Utilities
 
@@ -744,26 +681,6 @@ namespace Fanex.Athena.Controllers.Report
         {
             const string PatternKey = "{0}{1}Result.OutRight.Data_{2}";
             return string.Format(PatternKey, metalModel.FromDate, metalModel.ToDate, SessionService.UserSession.UserId);
-        }
-
-        /// <summary>
-        /// Get Keno API setting.
-        /// </summary>
-        /// <returns>The API setting.</returns>
-        private KenoResultMetalModel GetKenoSetting()
-        {
-            return new KenoResultMetalModel
-            {
-                Language = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName,
-                SiteID = AppSettings.GetValue("KenoSiteID"),
-                AuthorizedUrl = AppSettings.GetValue("KenoAuthorizedUrl"),
-                ExpireTokenUrl = AppSettings.GetValue("KenoExpireTokenUrl"),
-                ExtendTokenUrl = AppSettings.GetValue("KenoExtendTokenUrl"),
-                VenderKey = AppSettings.GetValue("KenoVenderKey"),
-                Vendor = AppSettings.GetValue("KenoVendor"),
-                ResultUrl = AppSettings.GetValue("KenoResultUrl"),
-                KickOutUrl = Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme)
-            };
         }
 
         #endregion Utilities

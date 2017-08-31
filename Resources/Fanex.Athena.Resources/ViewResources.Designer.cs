@@ -2239,6 +2239,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable {0}.
+        /// </summary>
+        public static string DisableProduct {
+            get {
+                return ResourceManager.GetString("DisableProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disable RNG Casino.
         /// </summary>
         public static string DisableRNGCasino {
@@ -2505,6 +2514,15 @@ namespace Fanex.Athena.Resources {
         public static string EnableMicrogamingRNGCasino {
             get {
                 return ResourceManager.GetString("EnableMicrogamingRNGCasino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable {0}.
+        /// </summary>
+        public static string EnableProduct {
+            get {
+                return ResourceManager.GetString("EnableProduct", resourceCulture);
             }
         }
         
@@ -5992,6 +6010,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lottery.
+        /// </summary>
+        public static string ProductLT {
+            get {
+                return ResourceManager.GetString("ProductLT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Microgaming-Live Casino.
         /// </summary>
         public static string ProductMGCLC {
@@ -7851,6 +7878,24 @@ namespace Fanex.Athena.Resources {
         public static string UpdateNumberGameBetSettingSuccessMsg {
             get {
                 return ResourceManager.GetString("UpdateNumberGameBetSettingSuccessMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to update all {0} bet settings?.
+        /// </summary>
+        public static string UpdateProductBetSettings {
+            get {
+                return ResourceManager.GetString("UpdateProductBetSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} bet setting of {1} was updated successfully.
+        /// </summary>
+        public static string UpdateProductBetSettingSuccessMsg {
+            get {
+                return ResourceManager.GetString("UpdateProductBetSettingSuccessMsg", resourceCulture);
             }
         }
         

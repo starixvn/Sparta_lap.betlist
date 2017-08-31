@@ -21,6 +21,11 @@ namespace Fanex.Athena.Extension.Utility
 
         #region Configurations
 
+        public bool IsEnabledMoveBetNotification
+        {
+            get { return int.Parse(GetValue("IsEnabledMoveBetNotification")) != 0; }
+        }
+
         public string Environment
         {
             get { return GetValue("Environment"); }
@@ -44,9 +49,9 @@ namespace Fanex.Athena.Extension.Utility
             get { return int.Parse(GetValue("LocalTest")) != 0; }
         }
 
-        public bool IsTesting
+        public bool IsShowAllDataForSettleMatchCountReport
         {
-            get { return int.Parse(GetValue("IsTesting")) != 0; }
+            get { return int.Parse(GetValue("IsShowAllDataForSettleMatchCountReport")) != 0; }
         }
 
         public bool IsShowMixedSport
@@ -80,66 +85,6 @@ namespace Fanex.Athena.Extension.Utility
 
         #endregion Configurations
 
-        #region Racing Propertise
-
-        public bool EnableRacing
-        {
-            get
-            {
-                return GetValue("EnableRacing").Equals("1");
-            }
-        }
-
-        public bool EnableRacingHRUk
-        {
-            get
-            {
-                return GetValue("EnableRacingHRUK").Equals("1");
-            }
-        }
-
-        public bool EnableRacingHRSa
-        {
-            get
-            {
-                return GetValue("EnableRacingHRSA").Equals("1");
-            }
-        }
-
-        public bool EnableRacingHRAust
-        {
-            get
-            {
-                return GetValue("EnableRacingHRAust").Equals("1");
-            }
-        }
-
-        public bool EnableRacingGreyhoundUk
-        {
-            get
-            {
-                return GetValue("EnableRacingGreyhoundUK").Equals("1");
-            }
-        }
-
-        public bool EnableRacingGreyhoundAust
-        {
-            get
-            {
-                return GetValue("EnableRacingGreyhoundAust").Equals("1");
-            }
-        }
-
-        public bool EnableRacingHarnessAust
-        {
-            get
-            {
-                return GetValue("EnableRacingHarnessAust").Equals("1");
-            }
-        }
-
-        #endregion Racing Propertise
-
         #region Casino
 
         public bool IsDisableRngCasino
@@ -148,42 +93,6 @@ namespace Fanex.Athena.Extension.Utility
         }
 
         #endregion Casino
-
-        #region NumberGame
-
-        public bool EnableNumberGame
-        {
-            get { return GetValue("EnableNumberGame").Equals("1"); }
-        }
-
-        #endregion NumberGame
-
-        #region ExcludeFunctionIdList
-
-        public IList<int> ExcludeFunctionIdList
-        {
-            get
-            {
-                return GetValue("ExcludeFunctionIdList")
-                        .Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
-                        .Select(s => int.Parse(s))
-                        .ToList();
-            }
-        }
-
-        #endregion ExcludeFunctionIdList
-
-        #region HTML Fix Header Table
-
-        public int ColumnWidth
-        {
-            get
-            {
-                return int.Parse(GetValue("ColumnWidth"));
-            }
-        }
-
-        #endregion HTML Fix Header Table
 
         #region Assign Currency
 

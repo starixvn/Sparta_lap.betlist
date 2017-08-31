@@ -4,9 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using Data;
-    using Extension.Utility;
     using Model.Core.DTO.Common;
-    using Model.Core.MetaModel.Product;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NSubstitute.Core;
@@ -196,7 +194,7 @@
 
             var readerDataMappingForBettype = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
             {
-                { "bettype", "1" }, { "TurnoverUUS", 100 }, { "WinlostUUS", 200 }
+                { "bettype", "1" }, { "TurnoverUUS", 100 }, { "WinlostUUS", 200 }, { "ProductCode", "SB" }
             };
 
             MapReaderData(reader, readerDataMappingForCurrency, readerDataMappingForBettype);

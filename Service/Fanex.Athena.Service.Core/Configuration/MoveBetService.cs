@@ -17,6 +17,8 @@ namespace Fanex.Athena.Service.Core.Configuration
 
     public class MoveBetService : IMoveBetService
     {
+        private const string DefaultLanguage = "en-US";
+
         private const int CacheTimeoutSeconds = 60; // 1 minutes.
 
         private readonly IMoveBetDataAccess _moveBetDataAccess;
@@ -37,27 +39,33 @@ namespace Fanex.Athena.Service.Core.Configuration
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Reviewed. Suppression is OK here.")]
-        public MoveBetNotification GetMoveBetNotification()
+        public string GetMoveBetNotification(string language)
         {
+            var result = string.Empty;
             try
             {
                 var moveBet = CacheService.Get<MoveBetNotification>(CacheKey.MemorycacheCommonMoveBet);
-
-                if (moveBet != null)
+                if (moveBet == null)
                 {
-                    return moveBet;
+                    moveBet = this._moveBetDataAccess.GetMoveBetNotification();
+                    CacheService.Set(CacheKey.MemorycacheCommonMoveBet, moveBet, CacheTimeoutSeconds);
                 }
 
-                moveBet = this._moveBetDataAccess.GetMoveBetNotification();
-                CacheService.Set(CacheKey.MemorycacheCommonMoveBet, moveBet, CacheTimeoutSeconds);
-                return moveBet;
+                if (moveBet.ContentByLanguage.ContainsKey(language))
+                {
+                    result = moveBet.ContentByLanguage[language];
+                }
+                else if (moveBet.ContentByLanguage.ContainsKey(DefaultLanguage))
+                {
+                    result = moveBet.ContentByLanguage[DefaultLanguage];
+                }
             }
             catch (Exception exception)
             {
                 LogHelper.WriteError(exception);
             }
 
-            return new MoveBetNotification();
+            return result;
         }
     }
 }

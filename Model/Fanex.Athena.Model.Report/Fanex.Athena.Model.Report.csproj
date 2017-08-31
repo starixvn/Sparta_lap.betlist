@@ -152,7 +152,7 @@
     <Compile Include="DTO\TurnoverDTO.cs" />
     <Compile Include="DTO\WinLossByProduct.cs" />
     <Compile Include="MetaModel\CashOutWinLossMetaModel.cs" />
-    <Compile Include="MetaModel\Keno\KenoResultMetalModel.cs" />
+    <Compile Include="MetaModel\Keno\KenoResultMetaModel.cs" />
     <Compile Include="MetaModel\BalanceMetaModel.cs" />
     <Compile Include="MetaModel\BaseReportMetaModel.cs" />
     <Compile Include="MetaModel\AgCasinoWinLossMetaModel.cs" />

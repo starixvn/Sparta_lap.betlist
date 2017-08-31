@@ -3,16 +3,15 @@
 define(["jquery", "common/site", "../common/constant","../common/betsettingbase", "../common/betsetting.status"],
     function ($, Site, Constant, BetSettingBase, BetSettingStatus) {
         var Product = Constant.Product;
+        var ProductCodeMap = {};
+        ProductCodeMap[Product.VirtualSports] = "VS";
+        ProductCodeMap[Product.VirtualSports2] = "VS2";
+        ProductCodeMap[Product.Lottery] = "LT";
 
         function getConfirmMessage(productId) {
-            switch (productId) {
-                case Product.VirtualSports:
-                    return "UpdateVirtualSportsBetSettings";
-                case Product.VirtualSports2:
-                    return "UpdateVirtualSports2BetSettings";
-                default:
-                    return "";
-            }
+            var productNameResource = "Product" + ProductCodeMap[productId];
+            var message = Site.getSingleResource("UpdateProductBetSettings");
+            return message.replace("{0}", Site.getSingleResource(productNameResource));
         }
 
         var _me = {
@@ -20,6 +19,7 @@ define(["jquery", "common/site", "../common/constant","../common/betsettingbase"
                 Site.initialize();
                 BetSettingBase.initialize();
                 _me.initEvent();
+                _me.checkToDisableInput();
             },
 
             initEvent: function () {
@@ -41,7 +41,14 @@ define(["jquery", "common/site", "../common/constant","../common/betsettingbase"
                 // Formating number in text box.
                 BetSettingBase.formatInputText();
             },
+            checkToDisableInput: function () {
+                var enabled = $("#IsEnabled").val() !== "0";
 
+                if (!enabled) {
+                    $(".table-content input[type=text]").prop('disabled', true).addClass("disabled");
+                    $("#btnSubmitBetSetting, #btnReset").prop('disabled', true).addClass("disabled");
+                }
+            },
             updateStatus: function ($context) {
                 var url = Site.resolveClientUrl("DcsBetSetting/UpdateStatus");
                 var params = BetSettingStatus.getCommonPostData($context);

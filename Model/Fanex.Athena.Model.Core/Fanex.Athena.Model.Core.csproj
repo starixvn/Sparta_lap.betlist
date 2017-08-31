@@ -77,6 +77,7 @@
     <Compile Include="DataDomain\OddsType.cs" />
     <Compile Include="DataDomain\PlatformType.cs" />
     <Compile Include="DataDomain\ProductTypes.cs" />
+    <Compile Include="DataDomain\ResultVendorProductTypes.cs" />
     <Compile Include="DataDomain\ReportByType.cs" />
     <Compile Include="DataDomain\RNGCasinoSetting.cs" />
     <Compile Include="DataDomain\SportType.cs" />

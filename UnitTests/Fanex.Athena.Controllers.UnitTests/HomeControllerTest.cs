@@ -3,7 +3,6 @@
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Core.DataDomain;
-    using Model.Core.DTO.Configuration;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Configuration.Interfaces;
@@ -48,7 +47,7 @@
         public void Index_ValidSessionUser_ReturnCorrectView()
         {
             // Arrange
-            _moveBetService.GetMoveBetNotification().Returns(new MoveBetNotification());
+            _moveBetService.GetMoveBetNotification(Arg.Any<string>()).Returns(string.Empty);
             using (var controller = CreateController())
             {
                 controller.ControllerContext.HttpContext.Response.IsRequestBeingRedirected.Returns(false);
@@ -65,7 +64,7 @@
         public void IndexIpad_ValidSessionUser_ReturnCorrectView()
         {
             // Arrange
-            _moveBetService.GetMoveBetNotification().Returns(new MoveBetNotification());
+            _moveBetService.GetMoveBetNotification(Arg.Any<string>()).Returns(string.Empty);
             using (var controller = CreateController())
             {
                 controller.ControllerContext.HttpContext.Response.IsRequestBeingRedirected.Returns(false);
