@@ -628,7 +628,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Operator Performance.
+        ///   Looks up a localized string similar to Subsidiary Performance.
         /// </summary>
         public static string Menu_73 {
             get {

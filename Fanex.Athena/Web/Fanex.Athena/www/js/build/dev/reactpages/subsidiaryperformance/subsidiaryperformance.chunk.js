@@ -552,7 +552,8 @@ webpackJsonp([4],[
 	
 	function fetchData(params) {
 	    return function (dispatch, getState) {
-	        _axios2.default.post('/api/SubsidiaryPerformanceReport/Index', params.data, {
+	        var url = window.rootUrl + '/api/SubsidiaryPerformanceReport/Index';
+	        _axios2.default.post(url, params.data, {
 	            headers: {
 	                'X-Requested-With': 'XMLHttpRequest',
 	                '__RequestVerificationToken': params.xsrfToken

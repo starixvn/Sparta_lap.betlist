@@ -32,6 +32,7 @@
  
     <script type="text/javascript">
         var PageLanguage = "@System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag";
+        window.rootUrl = '@Url.Content("~/")';
 
         @RenderSection("globaljscode", required: false)
     </script>

@@ -3,7 +3,8 @@ import axios from 'axios'
 
 export function fetchData(params) {
     return (dispatch, getState) => {
-        axios.post('/api/SubsidiaryPerformanceReport/Index', params.data, {
+        const url = window.rootUrl + '/api/SubsidiaryPerformanceReport/Index';
+        axios.post(url, params.data, {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
                     '__RequestVerificationToken': params.xsrfToken
