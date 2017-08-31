@@ -23,8 +23,6 @@ define(["jquery", "common/querystring", "common/site", "./agcasinowinloss.option
             },
             initEvent: function () {
                 $('#SubmitButton').click(function () {
-                    // Site.blockUI();
-                    $('#IsExportExcel').val(false);
                     _level = 0;
                     _me.submit();
                 });
@@ -254,11 +252,6 @@ define(["jquery", "common/querystring", "common/site", "./agcasinowinloss.option
                 }
 
                 level = Number(level);
-                var $gridBody = $(".ui-jqgrid-bdiv");
-
-                var scrollLeft = $gridBody.length > 0 ? $gridBody[0].scrollLeft : 0;
-
-                jqGridAdditional.clearGrid("ReportGrid");
 
                 var reportGrid = $("#ReportGrid");
 
@@ -270,29 +263,19 @@ define(["jquery", "common/querystring", "common/site", "./agcasinowinloss.option
 
                 gridOption.gridComplete = function () {
                     level = Number(level);
+
                     jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
                     $("#pg_ppdata").hide();
-                    if (response == null || numOfRow === 0) {
-                        jqGridAdditional.setNoInfo(gridOption.colModel);
-                    }
-                    else {
-                        _me.bindTotal(level, response.Total, response.SummaryTotal);
-                        $("#footer").html($(".ui-jqgrid-ftable").html());
 
-                        _me.resizeGrid();
-                    }
+                    _me.bindTotal(level, response.Total, response.SummaryTotal);
+
+                    _me.resizeGrid();
 
                     Site.unBlockUI();
                 };
 
                 // Show the grid
                 reportGrid.jqGrid(gridOption);
-
-                reportGrid.jqGrid('showCol', 'rn');
-                $gridBody = $(".ui-jqgrid-bdiv");
-                if ($gridBody.length > 0) {
-                    $gridBody[0].scrollLeft = scrollLeft;
-                }
             }
             //#end
         };

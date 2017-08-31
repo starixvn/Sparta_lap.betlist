@@ -69,9 +69,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         width: 120,
         align: 'left',
         sortable: false,
-        formatter: function (cellvalue, options, rowObject) {
-            return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
-        }
+        formatter: systemIdFormatter
     };
 
     var currencyColumn =
@@ -236,7 +234,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
                 break;
             }
         }
-        
+
         return colModel;
     };
 
