@@ -15,6 +15,7 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelByDayAll_Mem" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelByDayAll_Mem_Old" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelDeleted" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelRunningByBettype" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelRunningByBettypeList" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelRunningByBettypeMatch" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelRunningByDate_Mem" EnvironmentText="_UAT1"></SpNameConfig>

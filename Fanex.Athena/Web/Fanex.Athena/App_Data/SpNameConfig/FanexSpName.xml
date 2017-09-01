@@ -236,7 +236,7 @@
     <Setting Key="Lrf_BetList_SelMatchResult" SpName="Lrf_BetList_SelMatchResult" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelMatchResultParlay" SpName="Lrf_BetList_SelMatchResultParlay" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelMatchResultNumberGame" SpName="Lrf_BetList_SelMatchResultNumberGame" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_SelRunningByBettype" SpName="Lrf_BetList_SelRunningByBettype" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_SelRunningByBettype" SpName="Lrf_BetList_SelRunningByBettype_UAT1" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelRunningByBettypeList" SpName="Lrf_BetList_SelRunningByBettypeList_UAT1" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelDeleted" SpName="Lrf_BetList_SelDeleted_UAT1" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_CorrectScore" SpName="Lrf_TotalBets_Sel430_UAT1" DbName="DBEXT.bodb02.bodbLicenseeNet" />
