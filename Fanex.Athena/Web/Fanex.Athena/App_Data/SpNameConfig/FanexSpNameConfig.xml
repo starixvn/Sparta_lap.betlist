@@ -8,14 +8,21 @@
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_CheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <!--Do not delete this-->
 
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Acc_ResetWinning_SelByDate14" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Acc_Rpt_AllProductWLAutomail" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Task_ResetWinning_Non3rdParty" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Age_Rpt_CommByBettype_Master" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Age_Rpt_CommByBettype_Member" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Age_Rpt_CommByBettype_Agent" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="f_Bettype_CommGroup" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="TASK_RealtimeSummaryDepData" EnvironmentText="_UAT2"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Task_DailyRptLicWinloss2_Bettrans" EnvironmentText="_UAT2"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Task_DailyRptLicWinloss2" EnvironmentText="_UAT2"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="TASK_RealtimeSummaryDepData_Bettrans14" EnvironmentText="_UAT2"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_LicWinlossDetail_Ag" EnvironmentText="_UAT2"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_LiveReportBySport" EnvironmentText="_UAT2"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_LiveReportSummary" EnvironmentText="_UAT2"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_LiveReportSummaryDetail" EnvironmentText="_UAT2"></SpNameConfig>x
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_LiveReportBySport" EnvironmentText="_UAT2"></SpNameConfig>x
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_LicWinloss" EnvironmentText="_UAT2"></SpNameConfig>x
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_LicWinlossDetail_Ag" EnvironmentText="_UAT2"></SpNameConfig>x
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_LicWinlossDetail" EnvironmentText="_UAT2"></SpNameConfig>x
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_WinlossByProduct" EnvironmentText="_UAT2"></SpNameConfig>x
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_WinlossByProductDetail_Ag" EnvironmentText="_UAT2"></SpNameConfig>x
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_WinlossByProductDetail" EnvironmentText="_UAT2"></SpNameConfig>x
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_Outstanding" EnvironmentText="_UAT2"></SpNameConfig>x
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_LiveReportSummaryDetail" EnvironmentText="_UAT2"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_Outstanding" EnvironmentText="_UAT2"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Acc_Rpt_BetCount_ByProduct_Super" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
