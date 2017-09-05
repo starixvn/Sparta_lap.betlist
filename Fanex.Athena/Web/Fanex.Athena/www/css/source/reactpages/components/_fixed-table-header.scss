@@ -3,6 +3,10 @@
 @import "table";
 $paddingRightContainer: 17px;
 
+.table-container{
+    overflow-x: auto;
+}
+
 .header-content,
 .body-content,
 .footer-content {
@@ -16,6 +20,22 @@ $paddingRightContainer: 17px;
                 border-left: none;
             }
         }
+    }
+}
+
+.table {
+    th {
+        white-space: pre-wrap;
+    }
+
+    td {
+        white-space: nowrap;
+    }
+
+    th, td {
+        overflow: hidden;
+        text-overflow: clip;
+        max-width: 1px;
     }
 }
 

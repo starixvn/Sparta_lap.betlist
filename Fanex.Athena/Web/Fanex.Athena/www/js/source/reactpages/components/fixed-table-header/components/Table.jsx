@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import Body from './Body';
 import Footer from './Footer';
 
+const MAX_WIDTH = window.innerWidth - 30;
+
 class Table extends Component {
     constructor(props) {
         super(props);
@@ -18,33 +20,44 @@ class Table extends Component {
     }
 
     static defaultProps = {
-        width: window.innerWidth - 30,
-        maxWidth: window.innerWidth - 30,
+        width: MAX_WIDTH,
+        maxWidth: MAX_WIDTH,
         autoWidth: true
     }
 
     get columnWidthSum() {
         const columnLayout = this.props.columnLayout;
-        return columnLayout.every(x => typeof x !== "string") ?
-            columnLayout.reduce((prev, next) => prev + next, 0) : null;
+        return columnLayout.find(x => typeof x !== "number") ?
+            null : columnLayout.reduce((prev, next) => prev + next, 0);
+    }
+
+    _getUpdatedColumnLayout() {
+        const { width, columnLayout, maxWidth, autoWidth } = this.props;
+        const sumOfColumnWidth = autoWidth ? maxWidth : width;
+
+        const newColumnLayout = this.columnWidthSum && columnLayout.map(cellWidth => {
+            return sumOfColumnWidth / this.columnWidthSum * cellWidth
+        });
+
+        return newColumnLayout;
     }
 
     _buildContent() {
         const { width, columnLayout, autoWidth, maxWidth } = this.props;
-        const updatedWidth = this.columnWidthSum && this.columnWidthSum > width ? this.columnWidthSum : width;
+
+        const newColumnLayout = this.columnWidthSum && this.columnWidthSum !== width ?
+            this._getUpdatedColumnLayout() :
+            columnLayout;
 
         return React.Children.map(this.props.children, (child, index) => {
             const rows = React.Children.toArray(child.props.children);
-            const layoutRow = <RowLayout key={`rowLayout${index}`}
-                width={updatedWidth}
-                columnWidthSum={this.columnWidthSum}
-                columnLayout={columnLayout} />;
+            const layoutRow = <RowLayout key={`rowLayout${index}`} columnLayout={newColumnLayout} />;
 
             const newChild = {
                 props: {
                     ...child.props,
                     autoWidth,
-                    width: updatedWidth,
+                    width,
                     maxWidth,
                     children: [layoutRow, ...rows]
                 }
@@ -56,7 +69,7 @@ class Table extends Component {
 
     render() {
         return (
-            <div className="table-container">
+            <div className="table-container" style={{ maxWidth: this.props.maxWidth }}>
                 {this._buildContent()}
             </div>
         )

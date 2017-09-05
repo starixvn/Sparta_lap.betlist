@@ -2,10 +2,9 @@
 import { connect } from 'react-redux';
 import { ActionCreators } from '../actions/index.js';
 import { bindActionCreators } from 'redux';
-import FixedTable from 'components/fixed-table-header/FixedTable';
+import { Table, Header, Body, Footer, Row, Cell } from 'components/fixed-table-header/FixedTable';
 
 const columnLayout = [300, 150, 150, 150, 200, 200, 200];
-const { Table, Header, Body, Footer, Row, Cell } = FixedTable;
 
 class DataGrid extends Component {
     constructor(props) {
@@ -98,7 +97,7 @@ class DataGrid extends Component {
 
         return (
             <Table
-                width={1300}
+                width={900}
                 maxWidth={this.props.containerWidth}
                 autoWidth={true}
                 columnLayout={columnLayout}

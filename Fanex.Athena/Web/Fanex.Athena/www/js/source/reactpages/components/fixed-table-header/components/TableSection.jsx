@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const scrollbarWidth = 19;
+const SCROLLBAR_WIDTH = 19;
+const MAX_WIDTH = window.innerWidth - 30;
+
 class TableSection extends Component {
     constructor(props) {
         super(props);
-        
-        const containerWidth = props.autoWidth ? props.maxWidth : props.width + scrollbarWidth;
-        this.containerStyle = props.style ? { ...props.style, width: containerWidth } :
-                                            { width: containerWidth };
+
+        const containerWidth = props.autoWidth ? props.maxWidth : props.width + SCROLLBAR_WIDTH;
+        this.containerStyle = props.style ? { ...props.style, width: containerWidth } : { width: containerWidth };
 
         this.tableStyle = {
-            width: props.autoWidth ? props.maxWidth - scrollbarWidth : props.width
+            width: props.autoWidth ? props.maxWidth - SCROLLBAR_WIDTH : props.width
         }
     }
 
@@ -24,8 +25,8 @@ class TableSection extends Component {
 
     static defaultProps = {
         tableClass: "table",
-        width: window.innerWidth - 30,
-        maxWidth: window.innerWidth - 30,
+        width: MAX_WIDTH,
+        maxWidth: MAX_WIDTH,
         autoWidth: true
     };
 

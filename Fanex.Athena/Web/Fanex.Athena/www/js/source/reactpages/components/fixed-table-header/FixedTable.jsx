@@ -5,11 +5,4 @@ import Footer from './components/Footer';
 import Row from './components/Row';
 import Cell from './components/Cell';
 
-export default {
-    Table,
-    Header,
-    Body,
-    Footer,
-    Row,
-    Cell
-};
+export { Table, Header, Body, Footer, Row, Cell }
