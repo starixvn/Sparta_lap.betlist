@@ -772,8 +772,6 @@ webpackJsonp([4],[
 	
 	var _FixedTable = __webpack_require__(330);
 	
-	var _FixedTable2 = _interopRequireDefault(_FixedTable);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -783,12 +781,6 @@ webpackJsonp([4],[
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var columnLayout = [300, 150, 150, 150, 200, 200, 200];
-	var Table = _FixedTable2.default.Table,
-	    Header = _FixedTable2.default.Header,
-	    Body = _FixedTable2.default.Body,
-	    Footer = _FixedTable2.default.Footer,
-	    Row = _FixedTable2.default.Row,
-	    Cell = _FixedTable2.default.Cell;
 	
 	var DataGrid = function (_Component) {
 	    _inherits(DataGrid, _Component);
@@ -812,25 +804,25 @@ webpackJsonp([4],[
 	            }
 	
 	            return _react2.default.createElement(
-	                Table,
+	                _FixedTable.Table,
 	                _extends({
-	                    width: 1300,
+	                    width: 900,
 	                    maxWidth: this.props.containerWidth,
 	                    autoWidth: true,
 	                    columnLayout: columnLayout
 	                }, this.props),
 	                _react2.default.createElement(
-	                    Header,
+	                    _FixedTable.Header,
 	                    null,
 	                    this.header
 	                ),
 	                _react2.default.createElement(
-	                    Body,
+	                    _FixedTable.Body,
 	                    { maxHeight: 300 },
 	                    this.body
 	                ),
 	                _react2.default.createElement(
-	                    Footer,
+	                    _FixedTable.Footer,
 	                    null,
 	                    this.footer,
 	                    this.grantTotal
@@ -841,7 +833,7 @@ webpackJsonp([4],[
 	        key: 'header',
 	        get: function get() {
 	            return _react2.default.createElement(
-	                Row,
+	                _FixedTable.Row,
 	                { style: { height: 40 } },
 	                _react2.default.createElement(
 	                    'th',
@@ -893,40 +885,40 @@ webpackJsonp([4],[
 	                for (var j = 0; j < item.Details.length; j++) {
 	                    var detail = item.Details[j];
 	                    rows.push(_react2.default.createElement(
-	                        Row,
+	                        _FixedTable.Row,
 	                        { key: 'tr' + i + j },
 	                        isFirstRow ? _react2.default.createElement(
-	                            Cell,
+	                            _FixedTable.Cell,
 	                            { rowSpan: rowSpan },
 	                            item.Subsidiary
 	                        ) : undefined,
 	                        isFirstRow ? _react2.default.createElement(
-	                            Cell,
+	                            _FixedTable.Cell,
 	                            { rowSpan: rowSpan, className: 'center-align' },
 	                            item.Currency
 	                        ) : undefined,
 	                        _react2.default.createElement(
-	                            Cell,
+	                            _FixedTable.Cell,
 	                            { className: 'center-align' },
 	                            detail.Product
 	                        ),
 	                        _react2.default.createElement(
-	                            Cell,
+	                            _FixedTable.Cell,
 	                            { className: 'right-align' },
 	                            detail.BetCount
 	                        ),
 	                        _react2.default.createElement(
-	                            Cell,
+	                            _FixedTable.Cell,
 	                            { className: 'right-align' },
 	                            detail.Turnover
 	                        ),
 	                        _react2.default.createElement(
-	                            Cell,
+	                            _FixedTable.Cell,
 	                            { className: 'right-align' },
 	                            detail.CustomerWinLoss
 	                        ),
 	                        _react2.default.createElement(
-	                            Cell,
+	                            _FixedTable.Cell,
 	                            { className: 'right-align' },
 	                            detail.SubsidiaryWinLoss
 	                        )
@@ -944,36 +936,36 @@ webpackJsonp([4],[
 	            var totalData = this.props.gridData.Total;
 	            return totalData.map(function (item, index) {
 	                return _react2.default.createElement(
-	                    Row,
+	                    _FixedTable.Row,
 	                    { className: 'fixed-table-total', key: 'total' + index },
 	                    _react2.default.createElement(
-	                        Cell,
+	                        _FixedTable.Cell,
 	                        null,
 	                        'Total ' + item.Subsidiary
 	                    ),
 	                    _react2.default.createElement(
-	                        Cell,
+	                        _FixedTable.Cell,
 	                        null,
 	                        'Based ' + item.Currency
 	                    ),
-	                    _react2.default.createElement(Cell, null),
+	                    _react2.default.createElement(_FixedTable.Cell, null),
 	                    _react2.default.createElement(
-	                        Cell,
+	                        _FixedTable.Cell,
 	                        { className: 'right-align' },
 	                        item.BetCount
 	                    ),
 	                    _react2.default.createElement(
-	                        Cell,
+	                        _FixedTable.Cell,
 	                        { className: 'right-align' },
 	                        item.Turnover
 	                    ),
 	                    _react2.default.createElement(
-	                        Cell,
+	                        _FixedTable.Cell,
 	                        { className: 'right-align' },
 	                        item.CustomerWinLoss
 	                    ),
 	                    _react2.default.createElement(
-	                        Cell,
+	                        _FixedTable.Cell,
 	                        { className: 'right-align' },
 	                        item.SubsidiaryWinLoss
 	                    )
@@ -985,36 +977,36 @@ webpackJsonp([4],[
 	        get: function get() {
 	            var grandTotal = this.props.gridData.GrandTotal;
 	            return _react2.default.createElement(
-	                Row,
+	                _FixedTable.Row,
 	                { className: 'fixed-table-grant-total' },
 	                _react2.default.createElement(
-	                    Cell,
+	                    _FixedTable.Cell,
 	                    null,
 	                    'Total'
 	                ),
 	                _react2.default.createElement(
-	                    Cell,
+	                    _FixedTable.Cell,
 	                    null,
 	                    'Based ' + grandTotal.Currency
 	                ),
-	                _react2.default.createElement(Cell, null),
+	                _react2.default.createElement(_FixedTable.Cell, null),
 	                _react2.default.createElement(
-	                    Cell,
+	                    _FixedTable.Cell,
 	                    { className: 'right-align' },
 	                    grandTotal.BetCount
 	                ),
 	                _react2.default.createElement(
-	                    Cell,
+	                    _FixedTable.Cell,
 	                    { className: 'right-align' },
 	                    grandTotal.Turnover
 	                ),
 	                _react2.default.createElement(
-	                    Cell,
+	                    _FixedTable.Cell,
 	                    { className: 'right-align' },
 	                    grandTotal.CustomerWinLoss
 	                ),
 	                _react2.default.createElement(
-	                    Cell,
+	                    _FixedTable.Cell,
 	                    { className: 'right-align' },
 	                    grandTotal.SubsidiaryWinLoss
 	                )
@@ -1047,8 +1039,9 @@ webpackJsonp([4],[
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
+	exports.Cell = exports.Row = exports.Footer = exports.Body = exports.Header = exports.Table = undefined;
 	
 	var _Table = __webpack_require__(331);
 	
@@ -1076,14 +1069,12 @@ webpackJsonp([4],[
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	exports.default = {
-	    Table: _Table2.default,
-	    Header: _Header2.default,
-	    Body: _Body2.default,
-	    Footer: _Footer2.default,
-	    Row: _Row2.default,
-	    Cell: _Cell2.default
-	};
+	exports.Table = _Table2.default;
+	exports.Header = _Header2.default;
+	exports.Body = _Body2.default;
+	exports.Footer = _Footer2.default;
+	exports.Row = _Row2.default;
+	exports.Cell = _Cell2.default;
 
 /***/ }),
 /* 331 */
@@ -1133,6 +1124,8 @@ webpackJsonp([4],[
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	var MAX_WIDTH = window.innerWidth - 30;
+	
 	var Table = function (_Component) {
 	    _inherits(Table, _Component);
 	
@@ -1143,29 +1136,44 @@ webpackJsonp([4],[
 	    }
 	
 	    _createClass(Table, [{
-	        key: '_buildContent',
-	        value: function _buildContent() {
+	        key: '_getUpdatedColumnLayout',
+	        value: function _getUpdatedColumnLayout() {
 	            var _this2 = this;
 	
 	            var _props = this.props,
 	                width = _props.width,
 	                columnLayout = _props.columnLayout,
-	                autoWidth = _props.autoWidth,
-	                maxWidth = _props.maxWidth;
+	                maxWidth = _props.maxWidth,
+	                autoWidth = _props.autoWidth;
 	
-	            var updatedWidth = this.columnWidthSum && this.columnWidthSum > width ? this.columnWidthSum : width;
+	            var sumOfColumnWidth = autoWidth ? maxWidth : width;
+	
+	            var newColumnLayout = this.columnWidthSum && columnLayout.map(function (cellWidth) {
+	                return sumOfColumnWidth / _this2.columnWidthSum * cellWidth;
+	            });
+	
+	            return newColumnLayout;
+	        }
+	    }, {
+	        key: '_buildContent',
+	        value: function _buildContent() {
+	            var _props2 = this.props,
+	                width = _props2.width,
+	                columnLayout = _props2.columnLayout,
+	                autoWidth = _props2.autoWidth,
+	                maxWidth = _props2.maxWidth;
+	
+	
+	            var newColumnLayout = this.columnWidthSum && this.columnWidthSum !== width ? this._getUpdatedColumnLayout() : columnLayout;
 	
 	            return _react2.default.Children.map(this.props.children, function (child, index) {
 	                var rows = _react2.default.Children.toArray(child.props.children);
-	                var layoutRow = _react2.default.createElement(_RowLayout2.default, { key: 'rowLayout' + index,
-	                    width: updatedWidth,
-	                    columnWidthSum: _this2.columnWidthSum,
-	                    columnLayout: columnLayout });
+	                var layoutRow = _react2.default.createElement(_RowLayout2.default, { key: 'rowLayout' + index, columnLayout: newColumnLayout });
 	
 	                var newChild = {
 	                    props: _extends({}, child.props, {
 	                        autoWidth: autoWidth,
-	                        width: updatedWidth,
+	                        width: width,
 	                        maxWidth: maxWidth,
 	                        children: [layoutRow].concat(_toConsumableArray(rows))
 	                    })
@@ -1179,7 +1187,7 @@ webpackJsonp([4],[
 	        value: function render() {
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'table-container' },
+	                { className: 'table-container', style: { maxWidth: this.props.maxWidth } },
 	                this._buildContent()
 	            );
 	        }
@@ -1187,11 +1195,11 @@ webpackJsonp([4],[
 	        key: 'columnWidthSum',
 	        get: function get() {
 	            var columnLayout = this.props.columnLayout;
-	            return columnLayout.every(function (x) {
-	                return typeof x !== "string";
-	            }) ? columnLayout.reduce(function (prev, next) {
+	            return columnLayout.find(function (x) {
+	                return typeof x !== "number";
+	            }) ? null : columnLayout.reduce(function (prev, next) {
 	                return prev + next;
-	            }, 0) : null;
+	            }, 0);
 	        }
 	    }]);
 	
@@ -1205,8 +1213,8 @@ webpackJsonp([4],[
 	    columnLayout: _propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string])).isRequired
 	};
 	Table.defaultProps = {
-	    width: window.innerWidth - 30,
-	    maxWidth: window.innerWidth - 30,
+	    width: MAX_WIDTH,
+	    maxWidth: MAX_WIDTH,
 	    autoWidth: true
 	};
 	exports.default = Table;
@@ -1251,23 +1259,13 @@ webpackJsonp([4],[
 	    _createClass(RowLayout, [{
 	        key: '_getRowLayout',
 	        value: function _getRowLayout() {
-	            var _props = this.props,
-	                width = _props.width,
-	                columnLayout = _props.columnLayout,
-	                columnWidthSum = _props.columnWidthSum;
+	            var columnLayout = this.props.columnLayout;
 	
-	            var lastIndex = columnLayout.length - 1;
 	
 	            return columnLayout.map(function (cellWidth, index) {
-	                var changeWidthOfLastCell = columnWidthSum && index === lastIndex && width > columnWidthSum;
-	                if (changeWidthOfLastCell) {
-	                    var lastCellWidth = cellWidth + (width - columnWidthSum);
-	                    return _react2.default.createElement('td', { key: 'cellLayout' + index, style: { width: lastCellWidth } });
-	                }
+	                var width = isNaN(cellWidth) ? cellWidth : cellWidth + 'px';
 	
-	                var otherCellWidth = isNaN(cellWidth) ? cellWidth : cellWidth + 'px';
-	
-	                return _react2.default.createElement('td', { key: 'cellLayout' + index, style: { width: otherCellWidth } });
+	                return _react2.default.createElement('td', { key: 'cellLayout' + index, style: { width: width } });
 	            });
 	        }
 	    }, {
@@ -1285,8 +1283,6 @@ webpackJsonp([4],[
 	}(_react.Component);
 	
 	RowLayout.propTypes = {
-	    width: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]).isRequired,
-	    columnWidthSum: _propTypes2.default.number.isRequired,
 	    columnLayout: _propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string])).isRequired
 	};
 	exports.default = RowLayout;
@@ -1407,7 +1403,8 @@ webpackJsonp([4],[
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var scrollbarWidth = 19;
+	var SCROLLBAR_WIDTH = 19;
+	var MAX_WIDTH = window.innerWidth - 30;
 	
 	var TableSection = function (_Component) {
 	    _inherits(TableSection, _Component);
@@ -1417,11 +1414,11 @@ webpackJsonp([4],[
 	
 	        var _this = _possibleConstructorReturn(this, (TableSection.__proto__ || Object.getPrototypeOf(TableSection)).call(this, props));
 	
-	        var containerWidth = props.autoWidth ? props.maxWidth : props.width + scrollbarWidth;
+	        var containerWidth = props.autoWidth ? props.maxWidth : props.width + SCROLLBAR_WIDTH;
 	        _this.containerStyle = props.style ? _extends({}, props.style, { width: containerWidth }) : { width: containerWidth };
 	
 	        _this.tableStyle = {
-	            width: props.autoWidth ? props.maxWidth - scrollbarWidth : props.width
+	            width: props.autoWidth ? props.maxWidth - SCROLLBAR_WIDTH : props.width
 	        };
 	        return _this;
 	    }
@@ -1463,8 +1460,8 @@ webpackJsonp([4],[
 	};
 	TableSection.defaultProps = {
 	    tableClass: "table",
-	    width: window.innerWidth - 30,
-	    maxWidth: window.innerWidth - 30,
+	    width: MAX_WIDTH,
+	    maxWidth: MAX_WIDTH,
 	    autoWidth: true
 	};
 	exports.default = TableSection;

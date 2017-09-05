@@ -244,6 +244,9 @@ input[type="checkbox"] {
   background: #f7dbb6;
   font-weight: bold; }
 
+.table-container {
+  overflow-x: auto; }
+
 .header-content,
 .body-content,
 .footer-content {
@@ -256,6 +259,17 @@ input[type="checkbox"] {
     .body-content .table td:first-child,
     .footer-content .table td:first-child {
       border-left: none; }
+
+.table th {
+  white-space: pre-wrap; }
+
+.table td {
+  white-space: nowrap; }
+
+.table th, .table td {
+  overflow: hidden;
+  text-overflow: clip;
+  max-width: 1px; }
 
 .header-content,
 .body-content,
