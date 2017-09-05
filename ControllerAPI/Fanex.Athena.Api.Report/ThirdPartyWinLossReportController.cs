@@ -74,7 +74,7 @@ namespace Fanex.Athena.Api.Report
 
         private static string GetExcelFileName(ThirdPartyWinLossMetaModel metaModel, ref KeyValuePair<int, string> currency, string productCodeExport)
         {
-            var fromDate = $"{(metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate)}:ddMMMyyyy";
+            var fromDate = $"{(metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate):ddMMMyyyy}";
             var currencyName = currency.Key == 0 ? "All" : currency.Value;
 
             var exportedFileName = $"{productCodeExport}WinLoss_{fromDate}_{currencyName}.xls";
