@@ -105,6 +105,7 @@ define([
             var url = Site.resolveClientUrl("Customer/CustomerList?userName=" + userName);
             top.main.location.href = url;
             $('.collapsible2').collapsibleMenu('activeMenuItem', $('#MenuItem43'));
+            $('#page-title').text(Site.getSingleResource('CustomerList'));
         }
 
         function changeLanguage($target) {
