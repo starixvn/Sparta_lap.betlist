@@ -77,7 +77,7 @@
             });
 
             describe("setDrillDownLink(level, currencyId, custId, datetime, cellvalue)", function () {
-                it("Return correct formatter", function () {
+                it("returns correct formatter", function () {
                     var level = 1;
                     var colModel = AgCasinoWinLossOption.getColModel(level);
                     var systemIdColumn = colModel[systemIdIndex];
@@ -97,7 +97,7 @@
             });
 
             describe("currencyFormatter(cellvalue, options, rowObject)", function () {
-                it("Return correct formatter", function () {
+                it("returns correct formatter", function () {
                     var level = 0;
                     var colModel = AgCasinoWinLossOption.getColModel(level);
                     var currencyColumn = colModel[currencyIndex];

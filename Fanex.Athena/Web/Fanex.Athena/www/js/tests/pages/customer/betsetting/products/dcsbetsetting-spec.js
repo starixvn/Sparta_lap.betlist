@@ -42,6 +42,9 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingStatus, DcsBetSe
             it("#btnSubmitBetSetting fire click event with product Virtual Sports - BetSettingBase.showComfirm() should be called with correct parameter", function () {
                 setFixtures('<input id="ProductId" value="5" /><button id="btnSubmitBetSetting"></button>');
                 spyOn(BetSettingBase, "showComfirm");
+                spyOn(Site, "getSingleResource").and.callFake(function (str) {
+                    return str;
+                });
                 DcsBetSetting.initEvent();
                 var $submit = $("#btnSubmitBetSetting");
 
