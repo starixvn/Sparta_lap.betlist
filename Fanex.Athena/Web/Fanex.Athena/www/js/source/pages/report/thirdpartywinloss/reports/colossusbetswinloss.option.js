@@ -225,14 +225,14 @@
             return ThirdPartyWinLossOption.prototype.getColModel.call(this);
         };
 
-        _me.setGroupHeader = function (grid) {
+        _me.setGroupHeader = function ($grid) {
             var group = {
                 startColumnName: 'MemberWinning',
                 numberOfColumns: 2,
                 titleText: Site.getSingleResource('AmtLessThan30kGBP')
             };
 
-            grid.jqGrid('setGroupHeaders',
+            $grid.jqGrid('setGroupHeaders',
             {
                 useColSpanStyle: true,
                 groupHeaders: [group]

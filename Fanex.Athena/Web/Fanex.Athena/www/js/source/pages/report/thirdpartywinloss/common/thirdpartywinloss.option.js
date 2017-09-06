@@ -1,5 +1,5 @@
-﻿define(["jquery", "common/site"],
-    function ($, Site) {
+﻿define(["common/site"],
+    function (Site) {
         "use strict";
 
         function setDrillDownLink(level, currencyId, custId, datetime, cellvalue) {

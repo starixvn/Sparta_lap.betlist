@@ -1,5 +1,5 @@
-﻿define(["jquery", "lib/jqgrid/jquery.jqgrid.additional", "../common/thirdpartywinloss.option"],
-    function ($, jqGridAdditional, ThirdPartyWinLossOption) {
+﻿define(["lib/jqgrid/jquery.jqgrid.additional", "../common/thirdpartywinloss.option"],
+    function (jqGridAdditional, ThirdPartyWinLossOption) {
         "use strict";
 
         var LICENSEE_12BET = 1;

@@ -1,5 +1,5 @@
-﻿define(["jquery", "../common/thirdpartywinloss", "./colossusbetswinloss.option"],
-    function ($, ThirdPartyWinLoss, ColossusBetsWinLossOption) {
+﻿define(["../common/thirdpartywinloss", "./colossusbetswinloss.option"],
+    function (ThirdPartyWinLoss, ColossusBetsWinLossOption) {
         "use strict";
         function initialize() {
             ThirdPartyWinLoss.initialize({
