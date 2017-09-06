@@ -292,6 +292,7 @@
             });
 
             describe("showKeno()", function () {
+                var request;
                 beforeEach(function (done) {
                     spyOn(window, "open").and.returnValue({});
                     spyOn(window, "clearInterval");
@@ -352,13 +353,41 @@
                         type: "POST",
                         cache: false,
                         data: {
-                            userId: 0,
+                            userId: 2,
                             vendorProductId: 1
                         },
                         url: "ResultKenoReport/KeepSession"
                     };
 
-                    Result.extendKenoSession(1);
+                    Result.extendKenoSession(1, 2);
+                    jasmine.clock().tick(6001);
+
+                    expect(option).toEqual(expectedOption);
+                });
+            });
+
+            describe("extendLotterySession()", function () {
+                beforeEach(function () {
+                    jasmine.clock().install();
+                });
+                afterEach(function () {
+                    jasmine.clock().uninstall();
+                });
+
+                it("ajax option should has correct value", function () {
+                    var option;
+                    spyOn($, "ajax").and.callFake(function (opt) { option = opt; });
+                    var expectedOption = {
+                        type: "POST",
+                        cache: false,
+                        data: {
+                            userId: 2,
+                            vendorProductId: 1
+                        },
+                        url: "ResultKenoReport/KeepSession"
+                    };
+
+                    Result.extendLotterySession(1, 2);
                     jasmine.clock().tick(6001);
 
                     expect(option).toEqual(expectedOption);
