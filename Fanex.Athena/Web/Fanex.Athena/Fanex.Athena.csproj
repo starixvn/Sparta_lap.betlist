@@ -1605,6 +1605,7 @@
     <Content Include="www\js\tests\pages\report\balance\balance-spec.js" />
     <Content Include="www\js\tests\pages\report\cashoutwinloss\cashoutwinloss-spec.js" />
     <Content Include="www\js\tests\pages\report\cashoutwinloss\cashoutwinloss.option-spec.js" />
+    <Content Include="www\js\tests\pages\report\customerbalance\customerbalance-spec.js" />
     <Content Include="www\js\tests\pages\report\dailyracingwinloss\dailyracingwinloss-spec.js" />
     <Content Include="www\js\tests\pages\report\licenseewinloss\licenseewinloss.goback-spec.js" />
     <Content Include="www\js\tests\pages\report\licenseewinloss\licenseewinloss-spec.js" />
@@ -1619,6 +1620,11 @@
     <Content Include="www\js\tests\pages\report\result\result-spec.js" />
     <Content Include="www\js\tests\pages\report\settledmatchcount\settledmatchcount-spec.js" />
     <Content Include="www\js\tests\pages\report\thirdpartywinloss\common\thirdpartywinloss-spec.js" />
+    <Content Include="www\js\tests\pages\report\thirdpartywinloss\common\thirdpartywinloss.option-spec.js" />
+    <Content Include="www\js\tests\pages\report\thirdpartywinloss\reports\colossusbetswinloss-spec.js" />
+    <Content Include="www\js\tests\pages\report\thirdpartywinloss\reports\colossusbetswinloss.option-spec.js" />
+    <Content Include="www\js\tests\pages\report\thirdpartywinloss\reports\golddeluxewinloss-spec.js" />
+    <Content Include="www\js\tests\pages\report\thirdpartywinloss\reports\golddeluxewinloss.option.-spec.js" />
     <Content Include="www\js\tests\pages\report\turnover\turnover-spec.js" />
     <Content Include="www\js\tests\pages\report\weeklylivematch\weeklylivematch-spec.js" />
     <Content Include="www\js\tests\pages\report\weeklylivematch\weeklylivematch.option-spec.js" />
@@ -5992,7 +5998,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Logs\" />
-    <Folder Include="www\js\tests\pages\report\thirdpartywinloss\reports\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
