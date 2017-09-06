@@ -759,6 +759,8 @@
     <Content Include="Scripts\Report\cashoutwinloss.option.js" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
     <Content Include="www\assets\images\15.jpg" />
+    <Content Include="www\assets\images\lap-restriction-page.png" />
+    <Content Include="www\assets\images\location-restriction-page.png" />
     <Content Include="www\assets\images\logo-text.svg" />
     <Content Include="www\assets\images\licenseelist-logo.png" />
     <Content Include="www\assets\images\robot.jpg" />

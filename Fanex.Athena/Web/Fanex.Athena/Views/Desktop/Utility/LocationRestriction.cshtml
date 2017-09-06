@@ -20,6 +20,20 @@
             width: 50%;
             padding: 10px;
         }
+
+        ol {
+            counter-reset: item;
+        }
+
+        ol li {
+            display: block;
+        }
+
+        ol li:before {
+            content: counter(item) ". ";
+            counter-increment: item;
+            font-weight: bold;
+        }
     </style>
 
     <script>
@@ -39,12 +53,12 @@
 </head>
 <body>
     <div class="error-content">
-        <img src="@Url.ContentLink("/www/assets/images/location-restriction-guide.png")" />
+        <img src="@Url.ContentLink("/www/assets/images/location-restriction-page.png")" />
         <div class="center">
             <div>
                 <strong>You're here because of one of those reasons:</strong>
             </div>
-            <ul style="list-style-type: decimal;">
+            <ol style="list-style-type: decimal;">
                 <li>You might have entered this link or similar links that contains "<a href="http://www.amazzu.com"><strong>www.amazzu.com</strong></a>" .</li>
                 <li>
                     Your internet connection might be temporally broken.
@@ -55,16 +69,16 @@
                 <li>
                     Your login credentials are used on other browsers/ devices at the same time.
                 </li>
-            </ul>
+            </ol>
             <div>
                 Please try to login again at Internal Admin:
             </div>
-            <ul style="list-style-type: decimal;">
+            <ol style="list-style-type: decimal;">
                 <li>From internal admin, click "<strong>Risk& Forecast</strong>"</li>
                 <li>
                     Access the reports/ functions you want.
                 </li>
-            </ul>
+            </ol>
         </div>
     </div>
 </body>
