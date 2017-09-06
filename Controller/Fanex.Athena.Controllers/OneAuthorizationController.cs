@@ -96,8 +96,8 @@
 
         private bool IsInternalDomain(string actionLink)
         {
-            var internalDomainSuffix = _appSetting.GetValue("internaldomain");
-            return !string.IsNullOrEmpty(internalDomainSuffix) && actionLink.Contains(internalDomainSuffix);
+            var internalSubDomain = _appSetting.GetValue("InternalSubDomain");
+            return !string.IsNullOrEmpty(internalSubDomain) && actionLink.Contains(internalSubDomain);
         }
     }
 }

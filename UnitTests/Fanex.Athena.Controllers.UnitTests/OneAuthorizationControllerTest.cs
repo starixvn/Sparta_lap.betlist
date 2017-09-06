@@ -163,7 +163,7 @@
                 VendorID = "localhost"
             });
             var expectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.LocationRestrictionMsg;
-            _appSetting.GetValue(Arg.Is<string>("internaldomain")).Returns(x => "localhost");
+            _appSetting.GetValue(Arg.Is<string>("InternalSubDomain")).Returns(x => "localhost");
             _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
 
             // Action
@@ -189,7 +189,7 @@
             };
             var resultInfo = new ResultInfo { Code = 0, Message = string.Empty, ExtendedData = actionLink };
 
-            _appSetting.GetValue(Arg.Is<string>("internaldomain")).Returns(x => "alex.");
+            _appSetting.GetValue(Arg.Is<string>("InternalSubDomain")).Returns(x => "alex.");
             _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
             _oneAuthenticationService.GetTokenInfo(Token).Returns(x => tokenInfo);
             _oneAuthenticationService.SignIn(_controller.HttpContext, tokenInfo).Returns(resultInfo);
@@ -217,7 +217,7 @@
                 VendorID = "localhost"
             };
             var resultInfo = new ResultInfo { Code = expectedErrorCode, Message = "error" };
-            _appSetting.GetValue(Arg.Is<string>("internaldomain")).Returns(x => "alex.");
+            _appSetting.GetValue(Arg.Is<string>("InternalSubDomain")).Returns(x => "alex.");
             _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
             _oneAuthenticationService.GetTokenInfo(Token).Returns(x => tokenInfo);
 

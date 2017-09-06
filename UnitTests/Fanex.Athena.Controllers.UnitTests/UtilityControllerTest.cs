@@ -171,7 +171,7 @@
         {
             // Arrange
             FakeBaseControllerDependency();
-            AppSettings.GetValue("internaldomain").Returns("internal");
+            AppSettings.GetValue("InternalSubDomain").Returns("internal");
             using (var controller = new UtilityController(AppSettings, LangService, _maintenanceService))
             {
                 controller.ControllerContext = this.ControllerContext;
@@ -191,7 +191,7 @@
         {
             // Arrange
             FakeBaseControllerDependency();
-            AppSettings.GetValue("internaldomain").Returns("abc");
+            AppSettings.GetValue("InternalSubDomain").Returns("abc");
             using (var controller = new UtilityController(AppSettings, LangService, _maintenanceService))
             {
                 controller.ControllerContext = this.ControllerContext;
