@@ -1750,6 +1750,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             var url = Site.resolveClientUrl("Customer/CustomerList?userName=" + userName);
             top.main.location.href = url;
             $('.collapsible2').collapsibleMenu('activeMenuItem', $('#MenuItem43'));
+            $('#page-title').text(Site.getSingleResource('CustomerList'));
         }
 
         function changeLanguage($target) {

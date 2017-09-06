@@ -22160,7 +22160,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Site) {
         "use strict";
 
         function setDrillDownLink(level, currencyId, custId, datetime, cellvalue) {
@@ -22537,7 +22537,7 @@ module.exports = __webpack_require__(421);
 /* 422 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(170), __webpack_require__(423)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, ThirdPartyWinLoss, ColossusBetsWinLossOption) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(170), __webpack_require__(423)], __WEBPACK_AMD_DEFINE_RESULT__ = function (ThirdPartyWinLoss, ColossusBetsWinLossOption) {
         "use strict";
         function initialize() {
             ThirdPartyWinLoss.initialize({
@@ -22787,14 +22787,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return ThirdPartyWinLossOption.prototype.getColModel.call(this);
         };
 
-        _me.setGroupHeader = function (grid) {
+        _me.setGroupHeader = function ($grid) {
             var group = {
                 startColumnName: 'MemberWinning',
                 numberOfColumns: 2,
                 titleText: Site.getSingleResource('AmtLessThan30kGBP')
             };
 
-            grid.jqGrid('setGroupHeaders',
+            $grid.jqGrid('setGroupHeaders',
             {
                 useColSpanStyle: true,
                 groupHeaders: [group]
