@@ -267,8 +267,8 @@
             var dateRange = Report.GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, dataDrillDown.DrillDownDate);
 
             var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
-            url = QueryString.setParam(url, "fromdate", dateRange.FromDate.toString("MM/dd/yyyy"));
-            url = QueryString.setParam(url, "todate", dateRange.ToDate.toString("MM/dd/yyyy"));
+            url = QueryString.setParam(url, "fromdate", moment(dateRange.FromDate).format("MM/DD/YYYY"));
+            url = QueryString.setParam(url, "todate", moment(dateRange.ToDate).format("MM/DD/YYYY"));
             url = QueryString.setParam(url, "excludetest", _submitData.IsExcludedTestData);
             url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
             url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
