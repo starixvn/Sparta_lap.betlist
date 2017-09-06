@@ -187,15 +187,16 @@
         }
 
         [Test]
-        public void LocationRestriction_NotInternalUrl_ReturnViewLocationRestriction()
+        public void LocationRestriction_NotInternalAndLapDomain_ReturnViewLocationRestriction()
         {
             // Arrange
             FakeBaseControllerDependency();
-            AppSettings.GetValue("InternalSubDomain").Returns("abc");
+            AppSettings.GetValue("InternalSubDomain").Returns("internal.");
+            AppSettings.GetValue("LapSubDomain").Returns("lap.");
             using (var controller = new UtilityController(AppSettings, LangService, _maintenanceService))
             {
                 controller.ControllerContext = this.ControllerContext;
-                controller.ControllerContext.HttpContext.Request.Url.Returns(new Uri("http://internal.com"));
+                controller.ControllerContext.HttpContext.Request.Url.Returns(new Uri("http://abc.com"));
 
                 // Action
                 var result = controller.LocationRestriction() as ViewResult;
