@@ -1,7 +1,7 @@
 ﻿@import "../../abstracts/variables";
 $colorDefault: $black;
 
-input[type="checkbox"] {
+input[type="checkbox"].checkbox {
     position: absolute;
     left: -9999px;
     opacity: 0;

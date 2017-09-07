@@ -5,7 +5,8 @@
 }
 @model Fanex.Athena.Model.Report.ViewModel.SubsidiaryPerformanceViewModel
 @{
-    var productOptions = Model.ProductOptionList.Select(p => new { value = p.Code, label = p.Name });
+    var productOptions = Model.ProductOptionList;
+    var selectedProductCode = string.Join(",", productOptions.Where(x => x.Status).Select(x => x.Code).ToArray());
     var baseCurrencyList = Model.BaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
     var subsidiaryList = Model.SubsidiaryList.Select(s => new { value = s.Key.ToString(), label = s.Value }).ToList();
 }
@@ -22,7 +23,7 @@
 @section globaljscode{
     window.Lrf = {
         productOptions: @Html.Raw(productOptions.ToJson()),
-        selectedProduct: '@(productOptions.Any() ? productOptions.First().value: string.Empty)',
+        selectedProduct: '@(selectedProductCode)',
         baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
         selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
         subsidiaryList: @Html.Raw(subsidiaryList.ToJson()),

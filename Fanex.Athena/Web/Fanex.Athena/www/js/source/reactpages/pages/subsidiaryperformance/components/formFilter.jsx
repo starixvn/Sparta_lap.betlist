@@ -1,16 +1,17 @@
-﻿import React, { Component } from 'react';
-import { connect } from 'react-redux';
+﻿import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
-import Select from 'react-select';
-import { Calendar, DateRange, defaultOptions } from '../../../components/date-range/index';
+import Select from 'react-select'
+import MultipleSelect from '../../../components/multiple-select/index'
+import { Calendar, DateRange, defaultOptions } from '../../../components/date-range/index'
 
 class FormFilter extends Component {
     constructor(props) {
         super(props);
     }
 
-    _submit(e) {
+    submit = (e) => {
         e.preventDefault();
         if (!this.props.xsrfToken) {
             return;
@@ -36,6 +37,14 @@ class FormFilter extends Component {
         this.props.fetchData(params);
     }
 
+    changeConvertAllHandler(){
+        this.props.changeConvertAll(!this.props.convertAll);
+    }
+
+    productChangeHandler = (currentItem, selectedItemsKey) => {
+        this.props.setSelectedProduct(selectedItemsKey)
+    }
+
     _renderSubsidiarySelectList() {
         const { subsidiaryList, selectedSubsidiary } = this.props;
 
@@ -49,14 +58,15 @@ class FormFilter extends Component {
     }
 
     _renderProductSelectList() {
-        const { productOptions, selectedProduct } = this.props;
+        const { productOptions } = this.props;
 
-        return productOptions && productOptions.length > 0 ? (
-            <Select id="ddlProduct"
-                name="form-field-name"
-                value={selectedProduct}
-                options={productOptions}
-                onChange={(item) => this.props.setSelectedProduct(item.value)} />
+        return productOptions && productOptions.length ? (
+            <MultipleSelect
+                dataSource={this.props.productOptions}
+                keyField={"Code"}
+                valueField={"Name"}
+                statusField={"Status"}
+                onChange={this.productChangeHandler} />
         ) : null;
     }
 
@@ -112,13 +122,13 @@ class FormFilter extends Component {
                     <div className="col-lg-3 col-md-5 col-sm-5 col-xs-12">
                         <div className="form-group">
                             <div className="checkbox-group">
-                                <input type="checkbox" checked={this.props.convertAll} id="IsConvertAll"
-                                    onClick={() => this.props.changeConvertAll(!this.props.convertAll)} />
+                                <input type="checkbox" className="checkbox" checked={this.props.convertAll} id="IsConvertAll"
+                                    onClick={this.changeConvertAllHandler} />
                                 <label htmlFor="IsConvertAll">Convert All</label>
                             </div>
 
                             <div className="button-group">
-                                <button type="button" className="btn btn-submit" onClick={(e) => this._submit(e)}>Submit</button>
+                                <button type="button" className="btn btn-submit" onClick={this.submit}>Submit</button>
                             </div>
                         </div>
                     </div>
