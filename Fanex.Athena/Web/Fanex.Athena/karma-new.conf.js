@@ -38,7 +38,7 @@ module.exports = function (config) {
         logLevel: config.LOG_INFO,
         autoWatch: false,
         browsers: ['PhantomJS'],
-        reporters: ['kjhtml', 'dots', 'junit', 'coverage', 'progress'],
+        reporters: ['kjhtml', 'dots', 'junit', 'coverage'],
         singleRun: true,
         junitReporter: {
             outputFile: 'junit/test-results-new.xml'
