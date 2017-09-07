@@ -2428,6 +2428,7 @@
     <Content Include="www\js\source\reactpages\components\multiple-select\components\MultipleSelectLabel.jsx" />
     <Content Include="www\js\source\reactpages\components\multiple-select\components\MultipleSelectOptionList.jsx" />
     <Content Include="www\js\source\reactpages\components\multiple-select\components\Option.jsx" />
+    <Content Include="www\js\source\reactpages\components\multiple-select\components\OptionAll.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

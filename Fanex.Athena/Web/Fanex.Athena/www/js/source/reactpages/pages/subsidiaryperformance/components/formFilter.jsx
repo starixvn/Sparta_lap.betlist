@@ -37,10 +37,6 @@ class FormFilter extends Component {
         this.props.fetchData(params);
     }
 
-    changeConvertAllHandler(){
-        this.props.changeConvertAll(!this.props.convertAll);
-    }
-
     productChangeHandler = (currentItem, selectedItemsKey) => {
         this.props.setSelectedProduct(selectedItemsKey)
     }
@@ -123,7 +119,7 @@ class FormFilter extends Component {
                         <div className="form-group">
                             <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={this.props.convertAll} id="IsConvertAll"
-                                    onClick={this.changeConvertAllHandler} />
+                                    onClick={() => this.props.changeConvertAll(!this.props.convertAll)} />
                                 <label htmlFor="IsConvertAll">Convert All</label>
                             </div>
 

@@ -18,11 +18,13 @@ export default class Option extends Component {
 
     onChange = () => {
         const { itemData, onChange } = this.props;
-        const newState = !this.state.isChecked;
-        itemData.checked = newState;
-        onChange && onChange(itemData);
-
-        this.setState(() => { return { isChecked: newState } });
+        
+        const newItemData = {
+            key: itemData.key,
+            value: itemData.value,
+            checked: !itemData.checked
+        }
+        onChange && onChange(newItemData);
     }
 
     render() {
@@ -34,7 +36,7 @@ export default class Option extends Component {
                     id={id}
                     type="checkbox"
                     className="option-checkbox"
-                    checked={this.state.isChecked}
+                    checked={this.props.itemData.checked}
                     onChange={this.onChange}
                 />
                 <label className="option-label" htmlFor={id}>

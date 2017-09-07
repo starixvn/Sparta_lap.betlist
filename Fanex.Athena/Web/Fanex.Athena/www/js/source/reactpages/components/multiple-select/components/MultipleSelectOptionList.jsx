@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
-
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
 import Option from './Option'
 
 export default class MultipleSelectOptionList extends Component {
@@ -31,7 +30,7 @@ export default class MultipleSelectOptionList extends Component {
 
     render() {
         return (
-            <ul className="multiple-select-default multiple-select-options" style={{ display: this.props.show ? "block" : "none" }}>
+            <ul className="multiple-select-options">
                 {this._renderOptionList()}
             </ul>
         )

@@ -1,7 +1,6 @@
 ﻿$border-option-list: 1px solid #d3d4d4;
 $border-label: 1px solid #9e9e9e;
 $box-sizing: border-box;
-$border-radius: 3px;
 
 .multiple-select {
     &-container {
@@ -10,7 +9,6 @@ $border-radius: 3px;
 
     &-default {
         box-sizing: $box-sizing;
-        border-radius: $border-radius;
         width: 100%;
     }
 
@@ -18,7 +16,7 @@ $border-radius: 3px;
         color: #333;
         display: flex;
         height: 26px;
-        padding: 6px 27px 6px 6px;
+        padding: 6px 27px 6px 0;
         font-size: 12px;
         text-align: left;
         outline: 0;
@@ -43,24 +41,31 @@ $border-radius: 3px;
         }
     }
 
+    &-options-container {
+        border: $border-option-list;
+        background: #fff;
+        position: absolute;
+        top: 25px;
+        left: 0px;
+        z-index: 1;
+    }
+
     &-options {
         margin: 0;
         padding: 5px;
-        top: 25px;
-        left: 0px;
-        position: absolute;
-        background: #fff;
-        border: $border-option-list;
-        z-index: 1;
         overflow: auto;
         max-height: 230px;
+    }
+
+    &-option-all{
+        border-bottom: $border-option-list;
     }
 
     &-item {
         display: flex;
         align-items: center;
-        padding: 4px 8px;
-        font-size: 14px;
+        padding: 5px 8px;
+        font-size: 12px;
         text-indent: 4px;
         user-select: none;
 
