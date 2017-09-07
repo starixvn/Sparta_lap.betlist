@@ -205,7 +205,6 @@
     <Compile Include="Interfaces\IWeeklyLiveMatchService.cs" />
     <Compile Include="Result\KenoApi.cs" />
     <Compile Include="AgCasinoWinLossService.cs" />
-    <Compile Include="ActiveCustomerService.cs" />
     <Compile Include="CasinoProgressiveWinsService.cs" />
     <Compile Include="MicroGamingWinLossService.cs" />
     <Compile Include="AgCasinoBalanceService.cs" />
@@ -232,7 +231,6 @@
     <Compile Include="Result\Interfaces\IKenoApi.cs" />
     <Compile Include="Interfaces\ICasinoProgressiveWinsService.cs" />
     <Compile Include="Interfaces\IMicroGamingWinLossService.cs" />
-    <Compile Include="Interfaces\IActiveCustomerService.cs" />
     <Compile Include="Interfaces\IAgCasinoBalanceService.cs" />
     <Compile Include="Interfaces\IAgCasinoWinLossService.cs" />
     <Compile Include="Interfaces\IThirdPartyWinLossService.cs" />
