@@ -26,6 +26,13 @@ $box-sizing: border-box;
         border: none;
         border-bottom: $border-label;
 
+        .text-display {
+            text-overflow: ellipsis;
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
         .caret {
             display: inline-block;
             width: 0;
@@ -57,7 +64,7 @@ $box-sizing: border-box;
         max-height: 230px;
     }
 
-    &-option-all{
+    &-option-all {
         border-bottom: $border-option-list;
     }
 

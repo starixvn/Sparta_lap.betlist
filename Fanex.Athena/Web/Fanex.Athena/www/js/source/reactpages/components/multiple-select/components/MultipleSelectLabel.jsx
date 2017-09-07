@@ -32,10 +32,10 @@ export default class MultipleSelectLabel extends Component {
         let displayText = noneSelectedLabel;
         const selectedItemCount = selectedValues.length;
 
-        if(selectedItemCount >= maxDisplayItemCount){
+        if (selectedItemCount >= maxDisplayItemCount) {
             displayText = `${selectedItemCount} selected`;
         }
-        else if(selectedItemCount >= 1){
+        else if (selectedItemCount >= 1) {
             displayText = selectedValues.join(",");
         }
 
@@ -46,7 +46,7 @@ export default class MultipleSelectLabel extends Component {
         return (
             <button type="button" className="multiple-select-default multiple-select-label"
                 onClick={this.props.onToggle}>
-                <span>{this.selectedItemsString}</span>
+                <span className="text-display" title={this.selectedItemsString}>{this.selectedItemsString}</span>
                 <b className="caret"></b>
             </button>
         )
