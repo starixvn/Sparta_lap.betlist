@@ -1607,6 +1607,8 @@
     <Content Include="www\js\tests\pages\report\cashoutwinloss\cashoutwinloss.option-spec.js" />
     <Content Include="www\js\tests\pages\report\customerbalance\customerbalance-spec.js" />
     <Content Include="www\js\tests\pages\report\customerbalance\customerbalance.option-spec.js" />
+    <Content Include="www\js\tests\pages\report\customerpendingfunds\customerpendingfunds-spec.js" />
+    <Content Include="www\js\tests\pages\report\customerpendingfunds\customerpendingfunds.option-spec.js" />
     <Content Include="www\js\tests\pages\report\dailyracingwinloss\dailyracingwinloss-spec.js" />
     <Content Include="www\js\tests\pages\report\licenseewinloss\licenseewinloss.goback-spec.js" />
     <Content Include="www\js\tests\pages\report\licenseewinloss\licenseewinloss-spec.js" />
