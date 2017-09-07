@@ -1864,7 +1864,9 @@
     <Content Include="SiteConfig\Web.AppSettings.BACKUPMNL.config" />
     <Content Include="SiteConfig\Web.AppSettings.DEV.config" />
     <Content Include="SiteConfig\Web.AppSettings.LOCAL.config" />
-    <Content Include="SiteConfig\Web.AppSettings.PRO.config" />
+    <Content Include="SiteConfig\Web.AppSettings.PRO.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="SiteConfig\Web.AppSettings.SANDBOX.config">
       <SubType>Designer</SubType>
     </Content>
