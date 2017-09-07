@@ -5,24 +5,25 @@
     using System.Net.Http;
     using System.Web;
     using System.Web.Http;
+    using DataAccess.Report;
+    using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
     using Excel.Report;
+    using Extension.Utility;
     using Fanex.Athena.Api.Base.Attributes;
     using Fanex.Athena.Model.Core.DataDomain;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
-    using Service.Report;
-    using Service.Report.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportCustomerPendingFunds)]
     public class CustomerPendingFundsReportController : ApiReportBaseController
     {
         private const int PageSizeExcel = int.MaxValue - 1000;
-        private readonly ICustPendingFundsService _custPendingFundsService;
+        private readonly ICustPendingFundsDataAccess _custPendingFundsDataAccess;
 
         public CustomerPendingFundsReportController()
         {
-            _custPendingFundsService = new CustomerPendingFundsService();
+            _custPendingFundsDataAccess = new CustomerPendingFundsDataAccess();
         }
 
         [HttpPost]
@@ -73,9 +74,13 @@
 
         private IEnumerable<CustPendingFunds> GetData(CustomerPendingFundsMetaModel metaModel, ref CustPendingFunds totalData, ref int totalRow)
         {
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            if (!metaModel.IsValid)
+            {
+                return new SortableList<CustPendingFunds>();
+            }
 
-            var dataList = _custPendingFundsService.GetDataList(metaModel, ref totalData, ref totalRow);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            var dataList = _custPendingFundsDataAccess.GetDataList(metaModel, ref totalData, ref totalRow);
             dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("asc", StringComparison.OrdinalIgnoreCase));
 
             return dataList;

@@ -4,6 +4,8 @@
     using System.Net.Http;
     using System.Web;
     using System.Web.Http;
+    using DataAccess.Report;
+    using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
     using Excel.Report;
     using Extension.Utility;
@@ -11,17 +13,17 @@
     using Fanex.Athena.Model.Core.DataDomain;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
-    using Service.Report;
-    using Service.Report.Interfaces;
+    using Service.Core.Configuration;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportCustomerWinLoss)]
     public class CustomerWinLossReportController : ApiReportBaseController
     {
-        private readonly ICustomerWinlossService _customerWinLossService;
+        private readonly ICustWinlossDataAccess _custWinlossDataAccess;
 
         public CustomerWinLossReportController()
         {
-            _customerWinLossService = new CustomerWinlossService();
+            var balanceUpService = new BalanceUpService();
+            _custWinlossDataAccess = new CustomerWinlossDataAccess(balanceUpService.BalanceUpInfo);
         }
 
         [HttpPost]
@@ -92,8 +94,16 @@
 
         private SortableList<CustomerWinLoss> GetData(CustomerWinLossMetaModel metaModel, out CustomerWinLoss totalData, out int totalRow)
         {
+            totalRow = 0;
+            totalData = new CustomerWinLoss();
+
+            if (!metaModel.IsValid)
+            {
+                return new SortableList<CustomerWinLoss>();
+            }
+
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludedTestData);
-            var dataList = _customerWinLossService.GetDataList(metaModel, out totalData, out totalRow);
+            var dataList = _custWinlossDataAccess.GetDataList(metaModel, out totalData, out totalRow);
             if (!string.IsNullOrEmpty(metaModel.SortColumn))
             {
                 dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));

@@ -4,24 +4,24 @@
     using System.Net.Http;
     using System.Web;
     using System.Web.Http;
+    using DataAccess.Report;
+    using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
     using Excel.Report;
     using Fanex.Athena.Api.Base.Attributes;
     using Fanex.Athena.Model.Core.DataDomain;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
-    using Service.Report;
-    using Service.Report.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportCustomerBalance)]
     public class CustomerBalanceReportController : ApiReportBaseController
     {
         private const int PageSizeExcel = int.MaxValue - 1000;
-        private readonly ICustomerBalanceService _custBalanceService;
+        private readonly ICustBalanceDataAccess _custBalanceDataAccess;
 
         public CustomerBalanceReportController()
         {
-            _custBalanceService = new CustomerBalanceService();
+            _custBalanceDataAccess = new CustomerBalanceDataAccess();
         }
 
         [HttpPost]
@@ -81,8 +81,13 @@
 
         private IEnumerable<CustBalance> GetData(CustomerBalanceMetaModel metaModel, ref CustBalance totalData, ref int totalRow)
         {
+            if (!metaModel.IsValid)
+            {
+                return new List<CustBalance>();
+            }
+
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
-            return _custBalanceService.GetDataList(metaModel, ref totalData, ref totalRow);
+            return _custBalanceDataAccess.GetDataList(metaModel, ref totalData, ref totalRow);
         }
     }
 }
