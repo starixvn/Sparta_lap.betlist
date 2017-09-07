@@ -23305,6 +23305,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             reportGrid.jqGrid(gridOption);
 
             CustomerBalanceOption.setGroupHeaderColumns(reportGrid);
+            resizeGrid();
         }
 
         function ajaxPaging() {
@@ -23376,7 +23377,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
                 jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
                 jqGridAdditional.setGroupFooters(CustomerBalanceOption.totalColspan);
-                resizeGrid();
                 _isFirstLoad = false;
             }
         }

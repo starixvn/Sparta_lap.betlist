@@ -198,7 +198,8 @@
                 beforeAll(function () {
                     spyOn(jqGridAdditional, "clearGrid");
                     spyOn(jqGridAdditional, "setNoInfo");
-
+                    spyOn(jqGridAdditional, "updateGridHeight");
+                    spyOn(jqGridAdditional, "updateGridWidth");
                     spyOn(CustomerBalanceOption, "getGridOption").and.callFake(function () {
                         return gridOption;
                     });
@@ -349,8 +350,6 @@
                         spyOn(jqGridAdditional, "setGroupFooters");
                         spyOn(jqGridAdditional, "addSortableHeaders");
                         spyOn(jqGridAdditional, "removeCursorOnNonSortableHeader");
-                        spyOn(jqGridAdditional, "updateGridHeight");
-                        spyOn(jqGridAdditional, "updateGridWidth");
                     });
 
                     it("jqGridAdditional.gridComplete should be called", function () {

@@ -163,6 +163,7 @@
             reportGrid.jqGrid(gridOption);
 
             CustomerBalanceOption.setGroupHeaderColumns(reportGrid);
+            resizeGrid();
         }
 
         function ajaxPaging() {
@@ -234,7 +235,6 @@
 
                 jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
                 jqGridAdditional.setGroupFooters(CustomerBalanceOption.totalColspan);
-                resizeGrid();
                 _isFirstLoad = false;
             }
         }

@@ -136,7 +136,7 @@
                     });
                 });
 
-                it("returns correct attribute for externalId cell ", function () {
+                it("returns correct attribute for externalId cell", function () {
                     CustomerBalanceOption.hasCustomerComm = false;
                     CustomerBalanceOption.isAllowBA = false;
 
