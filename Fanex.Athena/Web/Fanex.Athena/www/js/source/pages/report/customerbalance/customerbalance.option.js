@@ -344,7 +344,7 @@
                 return Site.clone(_me.gridOption);
             },
 
-            setGroupHeaderColumns: function (grid) {
+            setGroupHeaderColumns: function ($grid) {
                 var groupCustomerWinloss = _me.hasCustomerComm ?
                 {
                     startColumnName: "WinLoss",
@@ -359,7 +359,7 @@
                     titleText: Site.getSingleResource("ProductBA")
                 } : {};
 
-                grid.jqGrid("setGroupHeaders",
+                $grid.jqGrid("setGroupHeaders",
                 {
                     useColSpanStyle: true,
                     groupHeaders: [groupCustomerWinloss, groupProductBA]

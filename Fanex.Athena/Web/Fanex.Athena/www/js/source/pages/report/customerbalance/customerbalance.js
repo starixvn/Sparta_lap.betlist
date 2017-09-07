@@ -154,7 +154,7 @@
                 return "stop";
             };
             gridOption.gridComplete = function () {
-                onGridComplete(this, gridOption, response);
+                onGridComplete(gridOption, response);
                 Site.unBlockUI();
             };
             gridOption.scroll = response.Data.length > gridOption.rowNum ? 1 : false;
@@ -220,7 +220,7 @@
             }
         }
 
-        function onGridComplete(grid, gridOption, response) {
+        function onGridComplete(gridOption, response) {
             if (_isFirstLoad) {
                 jqGridAdditional.gridComplete();
 

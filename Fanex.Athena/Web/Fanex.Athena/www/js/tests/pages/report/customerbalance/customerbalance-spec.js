@@ -37,7 +37,7 @@
 
                     CustomerBalance.initialize();
 
-                    expect(Site.initialize).toHaveBeenCalled();                   
+                    expect(Site.initialize).toHaveBeenCalled();
                     expect(Site.addUserGuide).toHaveBeenCalled();
                     expect(MultiSelect.initProductList).toHaveBeenCalled();
                     expect(DatePicker.initDateRangePicker).toHaveBeenCalled();
@@ -175,7 +175,7 @@
                         + '<div class="report-title"></div>'
                         + '</div>');
                     var expectedTitle = "CustomerBalance, 01/01/2011 → 01/11/2011, Viewin usd";
-                   
+
                     CustomerBalance.submit();
 
                     expect($(".report-title").html()).toEqual(expectedTitle);
@@ -186,6 +186,210 @@
                     CustomerBalance.submit();
 
                     expect(ajaxObj.abort).toHaveBeenCalled();
+                });
+            });
+
+            describe("bindData(response)", function () {
+                var gridOption = {
+                    totalColspan: 0,
+                    colModel: {}
+                };
+
+                beforeAll(function () {
+                    spyOn(jqGridAdditional, "clearGrid");
+                    spyOn(jqGridAdditional, "setNoInfo");
+
+                    spyOn(CustomerBalanceOption, "getGridOption").and.callFake(function () {
+                        return gridOption;
+                    });
+                });
+
+                beforeEach(function () {
+                    spyOn($.fn, "jqGrid");
+                    spyOn(CustomerBalanceOption, "setGroupHeaderColumns");
+                    spyOn(PagingHelper, "render");
+                });
+
+                it("jqGridAdditional.clearGrid should be called", function () {
+                    CustomerBalance.bindData({ TotalRows: 0 });
+
+                    expect(jqGridAdditional.clearGrid).toHaveBeenCalled();
+                });
+
+                it("jqGridAdditional.setNoInfo should be called if response data is empty", function () {
+                    CustomerBalance.bindData({ TotalRows: 0 });
+
+                    expect(jqGridAdditional.setNoInfo).toHaveBeenCalled();
+                    expect(CustomerBalanceOption.setGroupHeaderColumns).not.toHaveBeenCalled();
+                });
+
+                it("grid should be rendered if response data is not empty", function () {
+                    CustomerBalance.bindData({ TotalRows: 2000, Data: [1] });
+
+                    expect($.fn.jqGrid).toHaveBeenCalled();
+                    expect(CustomerBalanceOption.setGroupHeaderColumns).toHaveBeenCalled();
+                });
+
+                it("pager should not be rendered if total data is not greater than number rows of a page", function () {
+                    CustomerBalance.bindData({ TotalRows: 1, Data: [1] });
+
+                    expect(PagingHelper.render).not.toHaveBeenCalled();
+                });
+
+                it("pager should be rendered if total data is greater than number rows of a page", function () {
+                    CustomerBalance.bindData({ TotalRows: 2000, Data: [1] });
+
+                    expect(PagingHelper.render).toHaveBeenCalled();
+                });
+
+                it("gridOption.scroll should be 1 if number rows of a page is greater than gridOption.rowNum", function () {
+                    gridOption.rowNum = 1;
+
+                    CustomerBalance.bindData({ TotalRows: 100, Data: [1, 2] });
+
+                    expect(gridOption.scroll).toBe(1);
+                });
+
+                describe("gridOption.onSortCol(index)", function () {
+                    beforeEach(function () {
+                        spyOn(CustomerBalance, "submit");
+
+                        jasmine.clock().install();
+                    });
+
+                    afterEach(function () {
+                        jasmine.clock().uninstall();
+                    });
+
+                    it("should not be sorted if grid has only 1 row", function () {
+                        spyOn(CustomerBalanceOption, "getOrderColumnCode");
+                        CustomerBalance.bindData({ TotalRows: 1, Data: [1] });
+
+                        gridOption.onSortCol(0);
+                        jasmine.clock().tick(101);
+
+                        expect(CustomerBalanceOption.getOrderColumnCode).not.toHaveBeenCalled();
+                        expect(CustomerBalance.submit).not.toHaveBeenCalled();
+                    });
+
+                    it("CustomerBalance.submit should be called when sorting", function () {
+                        CustomerBalance.bindData({ TotalRows: 2, Data: [1, 2] });
+                        spyOn(CustomerBalanceOption, "getOrderColumnCode").and.callFake(function (index, sortType) {
+                            return 0;
+                        });
+
+                        gridOption.onSortCol(0);
+                        jasmine.clock().tick(101);
+
+                        expect(CustomerBalance.submit).toHaveBeenCalled();
+                    });
+
+                    it("grid should be sorted descending on the first time", function () {
+                        var sortType = "";
+                        CustomerBalance.bindData({ TotalRows: 2, Data: [1, 2] });
+                        spyOn(CustomerBalanceOption, "getOrderColumnCode").and.callFake(function (index, type) {
+                            sortType = type;
+                            return 0;
+                        });
+
+                        gridOption.onSortCol(1);
+                        jasmine.clock().tick(101);
+
+                        expect(sortType).toBe("desc");
+                    });
+
+                    it("grid should be sorted ascending on the second time", function () {
+                        var sortType = "";
+                        CustomerBalance.bindData({ TotalRows: 2, Data: [1, 2] });
+                        spyOn(CustomerBalanceOption, "getOrderColumnCode").and.callFake(function (index, type) {
+                            sortType = type;
+                            return 1;
+                        });
+
+                        gridOption.onSortCol(2);
+                        jasmine.clock().tick(101);
+
+                        expect(sortType).toBe("desc");
+
+                        gridOption.onSortCol(2);
+                        jasmine.clock().tick(101);
+
+                        expect(sortType).toBe("asc");
+                    });
+
+                    it("grid should be sorted descending on the third time", function () {
+                        var sortType = "";
+                        CustomerBalance.bindData({ TotalRows: 2, Data: [1, 2] });
+                        spyOn(CustomerBalanceOption, "getOrderColumnCode").and.callFake(function (index, type) {
+                            sortType = type;
+                            return 1;
+                        });
+
+                        gridOption.onSortCol(2);
+                        jasmine.clock().tick(101);
+
+                        expect(sortType).toBe("desc");
+
+                        gridOption.onSortCol(2);
+                        jasmine.clock().tick(101);
+
+                        expect(sortType).toBe("asc");
+
+                        gridOption.onSortCol(2);
+                        jasmine.clock().tick(101);
+
+                        expect(sortType).toBe("desc");
+                    });
+                });
+
+                describe("gridComplete(gridOption, response)", function () {
+                    beforeEach(function () {
+                        spyOn(jqGridAdditional, "gridComplete");
+                        spyOn(jqGridAdditional, "assignTotal");
+                        spyOn(jqGridAdditional, "setGroupFooters");
+                        spyOn(jqGridAdditional, "addSortableHeaders");
+                        spyOn(jqGridAdditional, "removeCursorOnNonSortableHeader");
+                        spyOn(jqGridAdditional, "updateGridHeight");
+                        spyOn(jqGridAdditional, "updateGridWidth");
+                    });
+
+                    it("jqGridAdditional.gridComplete should be called", function () {
+                        CustomerBalance.bindData({ TotalRows: 1, Data: [1] });
+
+                        gridOption.gridComplete(gridOption, {
+                            Total: {}
+                        });
+
+                        expect(jqGridAdditional.gridComplete).toHaveBeenCalled();
+                    });
+
+                    it("does nothing if grid is not rendered the first time after submitting", function () {
+                        gridOption.gridComplete(gridOption, {
+                            Total: {}
+                        });
+
+                        expect(jqGridAdditional.gridComplete).not.toHaveBeenCalled();
+                    });
+
+                    it("jqGridAdditional.addSortableHeaders should be called if total rows is greater than 1", function () {
+                        CustomerBalance.bindData({ TotalRows: 2, Data: [1] });
+
+                        gridOption.gridComplete(gridOption, {
+                            Total: {}
+                        });
+
+                        expect(jqGridAdditional.addSortableHeaders).toHaveBeenCalled();
+                    });
+
+                    it("jqGridAdditional.removeCursorOnNonSortableHeader should be called if total rows is 1", function () {
+                        CustomerBalance.bindData({ TotalRows: 1, Data: [1] });
+
+                        gridOption.gridComplete(gridOption, {
+                            Total: {}
+                        });
+
+                        expect(jqGridAdditional.removeCursorOnNonSortableHeader).toHaveBeenCalled();
+                    });
                 });
             });
 
