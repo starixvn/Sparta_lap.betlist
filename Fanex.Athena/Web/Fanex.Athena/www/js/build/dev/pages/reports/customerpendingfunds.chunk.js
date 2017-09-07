@@ -5269,6 +5269,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
 
             $(_selector.ExportToExcel).click(function () {
+                var validProduct = Report.ValidProducts();
+                if (!validProduct) {
+                    return false;
+                }
+
                 $(_selector.ExportExcelInput).val(true);
                 var mainForm = $(_selector.Form);
                 var url = Site.resolveClientUrl(CustomerPedingFundsOption.urlExcelData);

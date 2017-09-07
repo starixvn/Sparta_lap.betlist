@@ -23213,6 +23213,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
 
             $(_selector.ExportToExcel).click(function () {
+                var validProduct = Report.ValidProducts();
+                if (!validProduct) {
+                    return false;
+                }
+
                 $(_selector.ExportExcelInput).val(true);
                 var mainForm = $(_selector.Form);
                 var url = Site.resolveClientUrl(CustomerBalanceOption.urlExcelData);
@@ -23291,7 +23296,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return "stop";
             };
             gridOption.gridComplete = function () {
-                onGridComplete(this, gridOption, response);
+                onGridComplete(gridOption, response);
                 Site.unBlockUI();
             };
             gridOption.scroll = response.Data.length > gridOption.rowNum ? 1 : false;
@@ -23357,7 +23362,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
         }
 
-        function onGridComplete(grid, gridOption, response) {
+        function onGridComplete(gridOption, response) {
             if (_isFirstLoad) {
                 jqGridAdditional.gridComplete();
 
@@ -23744,7 +23749,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return Site.clone(_me.gridOption);
             },
 
-            setGroupHeaderColumns: function (grid) {
+            setGroupHeaderColumns: function ($grid) {
                 var groupCustomerWinloss = _me.hasCustomerComm ?
                 {
                     startColumnName: "WinLoss",
@@ -23759,7 +23764,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     titleText: Site.getSingleResource("ProductBA")
                 } : {};
 
-                grid.jqGrid("setGroupHeaders",
+                $grid.jqGrid("setGroupHeaders",
                 {
                     useColSpanStyle: true,
                     groupHeaders: [groupCustomerWinloss, groupProductBA]
