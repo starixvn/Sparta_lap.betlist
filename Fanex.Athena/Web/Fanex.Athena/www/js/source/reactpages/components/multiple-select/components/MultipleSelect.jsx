@@ -10,9 +10,12 @@ const KEY_NAME = "key";
 const VALUE_NAME = "value";
 const STATUS_NAME = "checked";
 
+let id = 1;
+
 export default class MultipleSelect extends Component {
     constructor(props) {
         super(props);
+        this.id = `multiple-select-${props.id || id++}`;
 
         this.state = {
             showOptionList: false,
@@ -40,11 +43,11 @@ export default class MultipleSelect extends Component {
     }
 
     componentDidMount() {
-        document.addEventListener('click', this._handleDocumentClick, true)
+        document.addEventListener('click', this._handleDocumentClick)
     }
 
     componentWillUnmount() {
-        document.removeEventListener('click', this._handleDocumentClick, true)
+        document.removeEventListener('click', this._handleDocumentClick)
     }
 
     get selectedItems() {
@@ -117,28 +120,33 @@ export default class MultipleSelect extends Component {
     }
 
     _close = () => {
-        this.setState((prevState) => { return { showOptionList: false } })
+        this.setState({ showOptionList: false });
     }
 
-    _handleDocumentClick = (e) => {
-        const node = ReactDOM.findDOMNode(this);
+    _handleDocumentClick = (event) => {
+        const clickOutside = this.wrapper && !this.wrapper.contains(event.target);
 
-        const clickOutside = node && node !== e.target && !node.contains(e.target);
-
-        if (clickOutside) {
+        if (clickOutside && this.state.showOptionList) {
             this._close();
         }
     }
 
     _renderOptionAll() {
-        return this.props.hasAllOption ? (<OptionAll label={this.props.optionAllLabel} onChange={this.checkAllHandler} />) : null;
+        if (this.props.hasAllOption) {
+            const checkedItemCount = this.state.dataSource.filter(x => x.checked).length;
+            const checkedAll = checkedItemCount === this.state.dataSource.length;
+
+            return (<OptionAll id={this.id} checked={checkedAll} label={this.props.optionAllLabel} onChange={this.checkAllHandler} />);
+        }
+
+        return null;
     }
 
     render() {
         const { noneSelectedLabel, maxDisplayItemCount, hasAllOption } = this.props;
 
         return (
-            <div className="multiple-select-container">
+            <div className="multiple-select-container" ref={element => this.wrapper = element}>
                 <MultipleSelectLabel
                     selectedItems={this.selectedItems}
                     onToggle={this.onToggle}
@@ -149,7 +157,7 @@ export default class MultipleSelect extends Component {
                     style={{ display: this.state.showOptionList ? "block" : "none" }}>
                     {this._renderOptionAll()}
 
-                    <MultipleSelectOptionList
+                    <MultipleSelectOptionList id={this.id}
                         dataSource={this.state.dataSource}
                         onChange={this.onChangeHandler} />
                 </div>

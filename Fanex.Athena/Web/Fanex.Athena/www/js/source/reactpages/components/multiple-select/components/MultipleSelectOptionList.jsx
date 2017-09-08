@@ -10,16 +10,17 @@ export default class MultipleSelectOptionList extends Component {
 
     static propTypes = {
         dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
+        id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
         onChange: PropTypes.func
     }
 
     _renderOptionList() {
-        const { dataSource, onChange } = this.props;
+        const { dataSource, onChange, id } = this.props;
         const optionList = dataSource.map((item, index) => {
             return (
                 <Option
-                    id={`optionItem${index}`}
-                    key={`optionItem${index}`}
+                    id={`${id}-optionItem-${index}`}
+                    key={`${id}optionItem${index}`}
                     itemData={item}
                     onChange={onChange} />
             )

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Fanex.Athena.Model.Core.DataDomain;
 using Fanex.Athena.Model.Core.DTO.Common;
@@ -25,23 +24,10 @@ namespace Fanex.Athena.Controllers.Report
                     Code = i.ProductCode,
                     Name = i.ProductName,
                     Status = i.ProductCode == Product.SB
-                }).ToList(),
-
-                SubsidiaryList = GetSubsidiaryList()
+                }).ToList()
             };
 
             return View("~/Views/Report/SubsidiaryPerformance/Main.cshtml", model);
-        }
-
-        private static IDictionary<int, string> GetSubsidiaryList()
-        {
-            return new Dictionary<int, string>
-            {
-                { 1, "New York"},
-                { 2, "India"},
-                { 3, "London"},
-                { 4, "Dubai"}
-            };
         }
     }
 }

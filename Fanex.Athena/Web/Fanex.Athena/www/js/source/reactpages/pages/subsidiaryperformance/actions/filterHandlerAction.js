@@ -1,9 +1,9 @@
 import * as types from './types.js'
 
-export const setSubsidiary = (subsidiary) => {
+export const setSelectedSubsidiary = (subsidiaryKeys) => {
     return {
         type: types.SET_SUBSIDIARY,
-        data: subsidiary
+        data: subsidiaryKeys
     }
 }
 

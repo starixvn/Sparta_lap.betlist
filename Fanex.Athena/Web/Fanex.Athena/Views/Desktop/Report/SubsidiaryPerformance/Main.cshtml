@@ -8,7 +8,8 @@
     var productOptions = Model.ProductOptionList;
     var selectedProductCode = string.Join(",", productOptions.Where(x => x.Status).Select(x => x.Code).ToArray());
     var baseCurrencyList = Model.BaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
-    var subsidiaryList = Model.SubsidiaryList.Select(s => new { value = s.Key.ToString(), label = s.Value }).ToList();
+    var subsidiaryList = Model.SubsidiaryList;
+    var selectedSubsidiary = string.Join(",", subsidiaryList.Where(x => x.Checked).Select(x => x.ID).ToArray());
 }
 
 @section pagecss {
@@ -27,7 +28,7 @@
         baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
         selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
         subsidiaryList: @Html.Raw(subsidiaryList.ToJson()),
-        selectedSubsidiary: '@(subsidiaryList.Any() ? subsidiaryList.First().value.ToString() : string.Empty)',
+        selectedSubsidiary: '@(selectedSubsidiary)',
         convertAll: false,
         dateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
         xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,

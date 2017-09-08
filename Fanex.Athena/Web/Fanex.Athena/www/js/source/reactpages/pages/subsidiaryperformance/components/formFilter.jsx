@@ -41,15 +41,20 @@ class FormFilter extends Component {
         this.props.setSelectedProduct(selectedItemsKey)
     }
 
+    subsidiaryChangeHandler = (currentItem, selectedItemsKey) => {
+        this.props.setSelectedSubsidiary(selectedItemsKey)
+    }
+
     _renderSubsidiarySelectList() {
-        const { subsidiaryList, selectedSubsidiary } = this.props;
+        const { subsidiaryList } = this.props;
 
         return subsidiaryList && subsidiaryList.length > 0 ? (
-            <Select id="ddlOperator" className="input-select"
-                name="form-field-name"
-                value={selectedSubsidiary}
-                options={subsidiaryList}
-                onChange={(item) => this.props.setSubsidiary(item.value)} />
+            <MultipleSelect
+                dataSource={this.props.subsidiaryList}
+                keyField={"ID"}
+                valueField={"Name"}
+                statusField={"Checked"}
+                onChange={this.subsidiaryChangeHandler} />
         ) : null;
     }
 

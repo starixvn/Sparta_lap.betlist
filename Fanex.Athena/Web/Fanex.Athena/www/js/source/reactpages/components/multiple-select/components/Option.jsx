@@ -5,18 +5,17 @@ import PropTypes from 'prop-types';
 export default class Option extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            isChecked: props.itemData.checked
-        }
     }
 
     static propTypes = {
         itemData: PropTypes.object.isRequired,
+        id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
         onChange: PropTypes.func
     }
 
-    onChange = () => {
+    onChange = (event) => {
+        event.stopPropagation();
+        
         const { itemData, onChange } = this.props;
         
         const newItemData = {
@@ -36,7 +35,7 @@ export default class Option extends Component {
                     id={id}
                     type="checkbox"
                     className="option-checkbox"
-                    checked={this.props.itemData.checked}
+                    checked={itemData.checked}
                     onChange={this.onChange}
                 />
                 <label className="option-label" htmlFor={id}>
