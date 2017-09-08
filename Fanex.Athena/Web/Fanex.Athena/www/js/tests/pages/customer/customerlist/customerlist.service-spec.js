@@ -335,6 +335,14 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
 
                 expect(CustomerListService.bindData).toHaveBeenCalled();
             });
+
+            it("Site.unBlockUI() should be called if calling ajax unsuccessfully", function () {
+                CustomerListService.submit();
+
+                ajaxOption.error();
+
+                expect(Site.unBlockUI).toHaveBeenCalled();
+            });
         });
 
         describe("getPostData()", function () {

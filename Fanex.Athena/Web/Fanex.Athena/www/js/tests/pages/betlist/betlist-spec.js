@@ -159,6 +159,22 @@
                     expect($(".ui-jqgrid-ftable td[aria-describedby=BetListGrid_Stake]").html(), "GrandTotal");
                 });
 
+                it("does not call jqGridAdditional.addSortableHeader if paging is on client", function () {
+                    spyOn(Site, "blockUI");
+                    spyOn(jqGridAdditional, "setColumnVisible");
+                    spyOn(BetList, "loadDataPaging");
+                    spyOn(BetList, "loadData");
+
+                    appendSetFixtures('<input id="HiddenColumnList" />');
+
+                    gridOption = BetList.getGridOption();
+                    gridOption.onPaging();
+
+                    BetList.gridComplete("#grid");
+
+                    expect(jqGridAdditional.addSortableHeader).not.toHaveBeenCalled();
+                })
+
                 describe("call jqGridAdditional.addSortableHeader($grid, sortCol, _sortOrder) by sortColumnName", function () {
                     beforeEach(function () {
                         $("#SortBy").remove();
@@ -222,7 +238,7 @@
                 beforeEach(function () {
                     spyOn(Site, "blockUI");
                     spyOn(jqGridAdditional, "setColumnVisible");
-                    
+
                     appendSetFixtures('<input type="hidden" id="HiddenColumnList" value="externalid,systemid">');
                     appendSetFixtures('<input type="hidden" id="ShowSummary" value="0">');
                 });
@@ -1101,7 +1117,7 @@
                 it("shows showResultPopUp with correct params", function () {
                     spyOn(Popup, "openPopupWithIframe");
                     spyOn($, "parseJSON").and.returnValue({
-                        BaseCurrency : "usd"
+                        BaseCurrency: "usd"
                     });
                     spyOn($.fn, "height").and.returnValue(700);
                     var refNo = "refNo", winlostDate = "winlostDate", transId = "transId", custId = "custId", betCheck = "betCheck";
