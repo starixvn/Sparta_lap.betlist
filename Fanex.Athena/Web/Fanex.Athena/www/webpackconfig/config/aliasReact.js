@@ -1,7 +1,8 @@
 ﻿const projectRoot = require('../config/pathReact').projectRoot + "/www/js/source/reactpages";
 
 const alias = {
-    components: projectRoot + "/components"
+    lrfcomponents: projectRoot + "/components",
+    lrflib: projectRoot + "/lib"
 };
 
 module.exports = alias;

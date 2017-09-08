@@ -1,6 +1,8 @@
+import LangHelper from "lrflib/langHelper";
+
 export default {
     ranges: {
-        'Today': {
+        [LangHelper.getSingleResource("Today")]: {
             startDate: (now) => {
                 return now;
             },
@@ -9,7 +11,7 @@ export default {
             }
         },
 
-        'Yesterday': {
+        [LangHelper.getSingleResource("Yesterday")]: {
             startDate: (now) => {
                 return now.add(-1, 'days');
             },
@@ -18,18 +20,45 @@ export default {
             }
         },
 
-        'Last 7 Days': {
+        [LangHelper.getSingleResource("Currentweek")]: {
             startDate: (now) => {
-                return now.add(-7, 'days');
+                return now.startOf('week');
             },
             endDate: (now) => {
                 return now;
             }
         },
 
-        'Last 30 Days': {
+        [LangHelper.getSingleResource("Lastweek")]: {
             startDate: (now) => {
-                return now.add(-30, 'days');
+                return now.subtract(1, 'week').startOf('week');
+            },
+            endDate: (now) => {
+                return now.subtract(1, 'week').startOf('week').add(6, 'days');
+            }
+        },
+
+        [LangHelper.getSingleResource("Currentmonth")]: {
+            startDate: (now) => {
+                return now.startOf('month');
+            },
+            endDate: (now) => {
+                return now;
+            }
+        },
+
+        [LangHelper.getSingleResource("Lastmonth")]: {
+            startDate: (now) => {
+                return now.subtract(1, 'month').startOf('month');
+            },
+            endDate: (now) => {
+                return now.subtract(1, 'month').endOf('month');
+            }
+        },
+
+        [LangHelper.getSingleResource("Sincelastmonth")]: {
+            startDate: (now) => {
+                return now.subtract(1, 'month').startOf('month');
             },
             endDate: (now) => {
                 return now;
@@ -38,7 +67,7 @@ export default {
     },
 
     locale: {
-        applyLabel: 'OK',
-        cancelLabel: 'Cancel'
+        applyLabel: LangHelper.getSingleResource("OK"),
+        cancelLabel: LangHelper.getSingleResource("Cancel")
     }
 }

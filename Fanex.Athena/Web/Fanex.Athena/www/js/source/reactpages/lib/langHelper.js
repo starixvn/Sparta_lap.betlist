@@ -1,13 +1,15 @@
+const DEFAULT_RESOURCE_NAME = "_language_en_US";
+const langCode = window.PageLanguage || "en-US";
+const resourceName = `_language_${langCode.replace("-", "_")}`;
 
 export default class LangHelper {
     static get currentLanguage() {
-        var langCode = window.PageLanguage || "en-US";
-        return "_language_" + langCode.replace("-", "_");
-
+        return langCode;
     }
-    static single(key) {
-        var langHandler = window[currentLanguage.currentLanguage];
 
-        return langHandler[key] || key;
+    static getSingleResource(key) {
+        var langHandler = window[resourceName];
+
+        return langHandler[key] || window[DEFAULT_RESOURCE_NAME][key] || key;
     }
 }

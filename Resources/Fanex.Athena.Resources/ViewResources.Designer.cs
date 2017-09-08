@@ -1456,6 +1456,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Convert All.
+        /// </summary>
+        public static string ConvertAll {
+            get {
+                return ResourceManager.GetString("ConvertAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Convert to.
         /// </summary>
         public static string ConvertTo {
@@ -5533,6 +5542,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Operator.
+        /// </summary>
+        public static string Operator {
+            get {
+                return ResourceManager.GetString("Operator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Original Bet Ticket.
         /// </summary>
         public static string OriginalBetTicket {
@@ -7995,24 +8013,6 @@ namespace Fanex.Athena.Resources {
         public static string UpdateUnSuccess {
             get {
                 return ResourceManager.GetString("UpdateUnSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to update all Virtual Sports 2 bet settings?.
-        /// </summary>
-        public static string UpdateVirtualSports2BetSettings {
-            get {
-                return ResourceManager.GetString("UpdateVirtualSports2BetSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The Virtual Sports 2 bet setting of {0} was updated successfully.
-        /// </summary>
-        public static string UpdateVirtualSports2BetSettingSuccessMsg {
-            get {
-                return ResourceManager.GetString("UpdateVirtualSports2BetSettingSuccessMsg", resourceCulture);
             }
         }
         

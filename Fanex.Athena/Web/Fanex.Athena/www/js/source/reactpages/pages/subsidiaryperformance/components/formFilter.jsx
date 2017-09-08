@@ -4,11 +4,14 @@ import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
 import Select from 'react-select'
 import MultipleSelect from '../../../components/multiple-select/index'
-import { Calendar, DateRange, defaultOptions } from '../../../components/date-range/index'
+import { Calendar, DateRange, defaultOptions, updateLocaleByLanguage } from 'lrfcomponents/date-range/index'
+import LangHelper from 'lrflib/langHelper'
 
 class FormFilter extends Component {
     constructor(props) {
         super(props);
+
+        updateLocaleByLanguage(LangHelper.currentLanguage);
     }
 
     submit = (e) => {
@@ -89,14 +92,14 @@ class FormFilter extends Component {
                 <div className="row">
                     <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <div className="form-group">
-                            <label className="label-text">Operator</label>
+                            <label className="label-text">{LangHelper.getSingleResource("Operator")}</label>
                             {this._renderSubsidiarySelectList()}
                         </div>
                     </div>
 
                     <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                         <div className="form-group">
-                            <label className="label-text">Date</label>
+                            <label className="label-text">{LangHelper.getSingleResource("Date")}</label>
 
                             <DateRange minDate='01-02-2017' onlyClasses={true}
                                 ranges={defaultOptions.ranges}
@@ -106,14 +109,14 @@ class FormFilter extends Component {
 
                     <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <div className="form-group">
-                            <label className="label-text">Product</label>
+                            <label className="label-text">{LangHelper.getSingleResource("Product")}</label>
                             {this._renderProductSelectList()}
                         </div>
                     </div>
 
                     <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <div className="form-group">
-                            <label className="label-text">Based</label>
+                            <label className="label-text">{LangHelper.getSingleResource("Based")}</label>
                             {this._renderBaseCurrencySelectList()}
                         </div>
                     </div>
@@ -125,11 +128,11 @@ class FormFilter extends Component {
                             <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={this.props.convertAll} id="IsConvertAll"
                                     onClick={() => this.props.changeConvertAll(!this.props.convertAll)} />
-                                <label htmlFor="IsConvertAll">Convert All</label>
+                                <label htmlFor="IsConvertAll">{LangHelper.getSingleResource("ConvertAll")}</label>
                             </div>
 
                             <div className="button-group">
-                                <button type="button" className="btn btn-submit" onClick={this.submit}>Submit</button>
+                                <button type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
                             </div>
                         </div>
                     </div>

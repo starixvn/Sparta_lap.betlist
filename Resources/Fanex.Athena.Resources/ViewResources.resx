@@ -3059,4 +3059,11 @@
   <data name="SubsidiaryPerformance" xml:space="preserve">
     <value>Subsidiary Performance</value>
   </data>
+  <data name="ConvertAll" xml:space="preserve">
+    <value>Convert All</value>
+  </data>
+  <data name="Operator" xml:space="preserve">
+    <value>Operator</value>
+    <comment>76246</comment>
+  </data>
 </root>

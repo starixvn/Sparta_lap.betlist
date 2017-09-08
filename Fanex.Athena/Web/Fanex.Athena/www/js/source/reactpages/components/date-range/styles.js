@@ -170,7 +170,7 @@ const defaultTheme = {
         padding: '10px 14px',
         borderRadius: '4px',
         textDecoration: 'none',
-        marginBottom: 6,
+        marginBottom: 3,
     },
 
     PredefinedRangesItemActive: {
