@@ -190,7 +190,7 @@ namespace Fanex.Athena.Controllers
 
             ViewBag.UmTimeFrom = underMaintenanceTimeFrom;
             ViewBag.UmTimeTo = underMaintenanceTimeTo;
-            return View("~/Views/Utility/UnderMaintenance.cshtml");
+            return View("~/Views/Desktop/Utility/UnderMaintenance.cshtml");
         }
 
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)

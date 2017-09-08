@@ -745,7 +745,6 @@
     <Content Include="Content\Report\cashoutwinloss.css" />
     <Content Include="Content\Report\customertbalance.css" />
     <Content Include="Content\Utility\images\UM.png" />
-    <Content Include="Content\Utility\UM.css" />
     <Content Include="jasmine-specs\BetList\lastbet.filter-test.js" />
     <Content Include="jasmine-specs\Customer\CustomerList\customerlist.custoption-test.js" />
     <Content Include="Jasmine\NewUI\SpecRunner.html" />
@@ -2443,7 +2442,6 @@
     <Content Include="Content\Utility\ChangePass.css" />
     <Content Include="Content\Utility\images\banner.jpg" />
     <Content Include="Content\Utility\images\bg.jpg" />
-    <Content Include="Content\Utility\LocationRestriction.css" />
     <Content Include="Content\Utility\SelectLicensee.css" />
     <Content Include="Form\GenHistoryImg.aspx">
       <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
@@ -5740,7 +5738,6 @@
     <Content Include="Views\Shared\_BetListLayout.cshtml" />
     <Content Include="Views\BetList\DailyBetList\Main.cshtml" />
     <Content Include="Views\BetList\SystemParlayDetail\Main.cshtml" />
-    <Content Include="Views\Utility\AccessDenied.cshtml" />
     <Content Include="Views\Note\SettledMatchCount.cshtml" />
     <Content Include="Views\Note\CancelledBetList.cshtml" />
     <Content Include="Views\Note\LastBetsMonitoring.cshtml" />
@@ -5860,13 +5857,9 @@
     <Content Include="Views\Customer\Customers.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\IndexIpad.cshtml" />
-    <Content Include="Views\Utility\SSODenyAccess.cshtml" />
-    <Content Include="Views\Utility\Error.cshtml" />
-    <Content Include="Views\Utility\UnderMaintenance.cshtml" />
     <Content Include="Views\Authorization\SignIn.cshtml" />
-    <Content Include="Views\Utility\LocationRestriction.cshtml" />
     <Content Include="Views\LicenseeList\Index.cshtml" />
-    <Content Include="Views\Utility\ChangePass.cshtml" />
+    <Content Include="Views\Authorization\ChangePass.cshtml" />
     <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Views\BetList\RunningBetListMultipleBettypes\Filter.cshtml" />
     <Content Include="Views\BetList\RunningBetListMultipleBettypes\Main.cshtml" />
