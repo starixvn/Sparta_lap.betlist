@@ -78,7 +78,7 @@
                     expect(CustomerBalance.submit).not.toHaveBeenCalled();
                 });
 
-                it("Main form should be submitted if ExportToExcel button is clicked.", function () {
+                it("Main form should be submitted if ExportToExcel button is clicked", function () {
                     setFixtures('<form id="CustomerBalanceForm">'
                         + '<input type="hidden" id="IsExportExcel" />'
                         + '<button id="ExportToExcel"></button>'

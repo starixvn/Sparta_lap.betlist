@@ -1,5 +1,5 @@
-﻿define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
-    function ($, Site, jqGridAdditional) {
+﻿define(["common/site", "lib/jqgrid/jquery.jqgrid.additional"],
+    function (Site, jqGridAdditional) {
         "use strict";
         var indexColumn = {
             name: 'Index',
@@ -176,34 +176,30 @@
             }
         };
 
-        var getColName = function () {
+        _me.getColName = function () {
             // Column Customer Wl
             colNameList[customerWlTotalIndex] = _me.hasCustomerComm ? 'Total' : 'CustomerW_L';
             return Site.getResources(colNameList);
         };
 
-        var getColModel = function () {
+        _me.getColModel = function () {
             // Column hidden by customer comm
             customerWlColumn.hidden = !_me.hasCustomerComm;
             playerCommColumn.hidden = !_me.hasCustomerComm;
 
-            if (Number(_me.reportBy) === 2) {
-                dateColumn.formatoptions = {
-                    newformat: 'm/Y'
-                };
-            } else {
-                dateColumn.formatoptions = {
-                    newformat: 'm/d/Y'
-                };
-            }
+            dateColumn.formatoptions = Number(_me.reportBy) === 2 ? {
+                newformat: 'm/Y'
+            } : {
+                newformat: 'm/d/Y'
+            };
 
             return colModelList;
         };
 
         _me.getGridOption = function () {
             var option = Site.clone(_me.gridOption);
-            option.colNames = getColName();
-            option.colModel = getColModel();
+            option.colNames = _me.getColName();
+            option.colModel = _me.getColModel();
 
             return option;
         };

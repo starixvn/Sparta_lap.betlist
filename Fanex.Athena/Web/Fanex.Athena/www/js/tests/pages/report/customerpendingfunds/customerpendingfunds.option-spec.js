@@ -40,7 +40,7 @@
                     var result = CustomerPedingFundsOption.getColModel();
 
                     expect(result.length).toBeGreaterThan(0);
-                });               
+                });
 
                 it("disables sorting if total rows is 1", function () {
                     var result = CustomerPedingFundsOption.getColModel(1);

@@ -81,7 +81,7 @@
             });
 
             $(_selector.SubmitButton).click(function () {
-                if (!checkValidFilter()) {
+                if (!_me.checkValidFilter()) {
                     return;
                 }
                 _pagingOption.pageindex = 1;
@@ -116,7 +116,7 @@
         function initTicketFilter() {
             $(_selector.TickerFilter + " input[type=checkbox]").checkboxgroup();
             $(_selector.TickerFilter).on("change", "input[type=checkbox]", function () {
-                checkValidFilter();
+                _me.checkValidFilter();
             });
         }
 
@@ -193,7 +193,7 @@
         }
 
         function exportToExcel() {
-            if (!checkValidFilter()) {
+            if (!_me.checkValidFilter()) {
                 return false;
             }
             var param = getPostData();
@@ -208,11 +208,25 @@
             _me.submit();
         }
 
+        function checkValidFilter() {
+            var validBetType = _checkedBettypes.length > 0;
+
+            var ticketFilter = $(_selector.TickerFilter);
+            var validTicketFilter = ticketFilter.find("input:checked").length > 0;
+            var isValid = validBetType && validTicketFilter;
+
+            $(_selector.BetTypeList).toggleClass("invalid", !validBetType);
+
+            $(_selector.SubmitButton).prop("disabled", !isValid);
+
+            return isValid;
+        }
+
         function setReportTitle(currencyName, userName, fromDate, toDate, odds) {
             var titlePattern = Site.getSingleResource('Customer') + ' '
                 + Site.getSingleResource('Turnover') + ', {0} → {1} - '
                 + Site.getSingleResource("Currency") + ': {2} - '
-                + Site.getSingleResource('MinimumOdds') + ': {3} {4}';
+                + Site.getSingleResource('MinimumOdds') + ': {3}{4}';
 
             var tempUserName = userName.length > 0
                 ? " - " + Site.getSingleResource("Username") + ": " + userName
@@ -391,7 +405,7 @@
                 _bettypes = [];
                 _checkedBettypes = [];
                 renderBetTypeTree([]);
-                checkValidFilter();
+                _me.checkValidFilter();
                 return;
             }
             var option = {
@@ -423,7 +437,7 @@
             var dataList = [];
             $.each(_bettypes, function (index, value) {
                 var item = {
-                    Id: index.ID,
+                    Id: index,
                     Value: value.ID,
                     Text: value.Name,
                     Checked: value.Checked,
@@ -433,7 +447,7 @@
                 };
                 dataList.push(item);
             });
-            checkValidFilter();
+            _me.checkValidFilter();
 
             $(_selector.BetTypeMultiSelect).multiSelect({
                 minWidth: 200,
@@ -448,7 +462,7 @@
                     for (var i = 0; i < numberOfCheckedItems; i++) {
                         addCheckedBettype(checkedItems[i]);
                     }
-                    checkValidFilter();
+                    _me.checkValidFilter();
                 },
                 isUsedCustomCheckAllText: true,
                 customCheckAllText: Site.getSingleResource('All'),
@@ -478,20 +492,6 @@
                 modelItem.Checked = true;
                 _checkedBettypes.push(modelItem);
             }
-        }
-
-        function checkValidFilter() {
-            var validBetType = _checkedBettypes.length > 0;
-
-            var ticketFilter = $(_selector.TickerFilter);
-            var validTicketFilter = ticketFilter.find("input:checked").length > 0;
-            var isValid = validBetType && validTicketFilter;
-
-            $(_selector.BetTypeList).toggleClass("invalid", !validBetType);
-
-            $(_selector.SubmitButton).prop("disabled", !isValid);
-
-            return isValid;
         }
 
         function handleOddInput(event) {
@@ -540,7 +540,9 @@
             submit: submit,
             bindData: bindData,
             ajaxPaging: ajaxPaging,
-            exportToExcel: exportToExcel
+            exportToExcel: exportToExcel,
+            checkValidFilter: checkValidFilter,
+            getPostData: getPostData
         };
 
         return _me;
