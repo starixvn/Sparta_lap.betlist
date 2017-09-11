@@ -1,6 +1,8 @@
 ﻿@import "../abstracts/variables";
 
 .table {
+    line-height: 1.15;
+
     a {
         color: $colorHyperlink;
         text-decoration: none;

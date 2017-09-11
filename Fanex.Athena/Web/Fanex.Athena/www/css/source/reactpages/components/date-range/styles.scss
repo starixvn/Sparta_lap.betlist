@@ -11,7 +11,7 @@ $cell-margin: 0 !default;
 $cell-size: (($calendar-width - $calendar-padding * 2) / 7) - ($cell-margin * 2) - 1 !default;
 $calendar-shadow: rgba($calendar-color, 0.25) 0 0 1em !default;
 
-.datepicker{
+.datepicker {
     cursor: pointer;
 }
 
@@ -33,6 +33,7 @@ $calendar-shadow: rgba($calendar-color, 0.25) 0 0 1em !default;
     width: 735px;
     z-index: 1;
     top: 38px;
+
     .rdr-Calendar {
         box-shadow: none;
     }
@@ -73,9 +74,11 @@ $calendar-shadow: rgba($calendar-color, 0.25) 0 0 1em !default;
     box-shadow: none;
     background: #ffffff;
     cursor: pointer;
+
     &:hover {
         background: #eeeeee;
     }
+
     i {
         display: block;
         width: 0;
@@ -84,16 +87,20 @@ $calendar-shadow: rgba($calendar-color, 0.25) 0 0 1em !default;
         text-align: center;
         border-style: solid;
     }
+
     &.prev {
         float: left;
+
         i {
             margin: 0 0 0 3px;
             border-width: 5px 7px 5px 5px;
             border-color: transparent $calendar-month-button-icon-color transparent transparent;
         }
     }
+
     &.next {
         float: right;
+
         i {
             margin: 0 0 0 10px;
             border-width: 5px 5px 5px 7px;
@@ -131,17 +138,21 @@ $calendar-shadow: rgba($calendar-color, 0.25) 0 0 1em !default;
     transition: transform 0.1s ease;
     text-align: center;
     letter-spacing: initial;
+
     &.is-passive {
         cursor: normal;
         opacity: 0.4;
     }
+
     &.is-inRange {
         background: $calendar-day-in-range-background;
     }
+
     &.is-selected {
         color: $calendar-background;
         background: $calendar-day-selected-background;
     }
+
     &:hover:not(.is-selected) {
         background: $calendar-day-hover-background;
     }
@@ -153,15 +164,17 @@ $calendar-shadow: rgba($calendar-color, 0.25) 0 0 1em !default;
     vertical-align: top;
     margin-left: 10px;
     margin-top: 10px;
+
     &Item {
         display: block;
         font-size: 12px;
         color: #2c3e50;
-        padding: 10px 14px;
+        padding: 6px 14px;
         border-radius: 2px;
         text-decoration: none;
         margin-bottom: 3px;
-        &Active {
+
+        &Active, &:hover {
             background: #4c6375;
             color: #fff;
         }
@@ -183,7 +196,7 @@ $calendar-shadow: rgba($calendar-color, 0.25) 0 0 1em !default;
     color: #fff;
     cursor: pointer;
 
-    &:hover{
+    &:hover {
         opacity: 0.8;
     }
 }
@@ -195,4 +208,8 @@ $calendar-shadow: rgba($calendar-color, 0.25) 0 0 1em !default;
 
 .rdr-CancelButton {
     background-color: #757985;
+}
+
+.range-button-group {
+    margin-top: 5px;
 }

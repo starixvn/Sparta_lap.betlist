@@ -90,14 +90,14 @@ class FormFilter extends Component {
         return (
             <div className="page-filter">
                 <div className="row">
-                    <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                    <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Operator")}</label>
                             {this._renderSubsidiarySelectList()}
                         </div>
                     </div>
 
-                    <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <div className="col-12 col-md-3 col-sm-3 col-lg-3 col-xl-3">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Date")}</label>
 
@@ -107,14 +107,14 @@ class FormFilter extends Component {
                         </div>
                     </div>
 
-                    <div className="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                    <div className="col-12 col-md-3 col-sm-3 col-lg-3 col-xl-3">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Product")}</label>
                             {this._renderProductSelectList()}
                         </div>
                     </div>
 
-                    <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Based")}</label>
                             {this._renderBaseCurrencySelectList()}
@@ -123,7 +123,7 @@ class FormFilter extends Component {
                 </div>
 
                 <div className="row">
-                    <div className="col-lg-3 col-md-5 col-sm-5 col-xs-12">
+                    <div className="col-12 col-md-5 col-sm-5 col-lg-5 col-xl-3">
                         <div className="form-group">
                             <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={this.props.convertAll} id="IsConvertAll"

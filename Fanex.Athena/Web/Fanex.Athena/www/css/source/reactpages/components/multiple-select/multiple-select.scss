@@ -66,6 +66,8 @@ $box-sizing: border-box;
 
     &-option-all {
         border-bottom: $border-option-list;
+        padding-top: 0;
+        padding-bottom: 0;
     }
 
     &-item {
@@ -78,6 +80,10 @@ $box-sizing: border-box;
 
         input[type=checkbox] + label {
             cursor: pointer;
+        }
+
+        label {
+            margin-bottom: 0;
         }
     }
 }
