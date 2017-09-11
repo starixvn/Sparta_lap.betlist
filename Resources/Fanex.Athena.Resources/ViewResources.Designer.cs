@@ -7090,11 +7090,29 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Subsidiary.
+        /// </summary>
+        public static string Subsidiary {
+            get {
+                return ResourceManager.GetString("Subsidiary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Subsidiary Performance.
         /// </summary>
         public static string SubsidiaryPerformance {
             get {
                 return ResourceManager.GetString("SubsidiaryPerformance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subsidiary WL.
+        /// </summary>
+        public static string SubsidiaryWL {
+            get {
+                return ResourceManager.GetString("SubsidiaryWL", resourceCulture);
             }
         }
         

@@ -107,7 +107,7 @@ class FormFilter extends Component {
                         </div>
                     </div>
 
-                    <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                    <div className="col-lg-2 col-md-3 col-sm-3 col-xs-12">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Product")}</label>
                             {this._renderProductSelectList()}

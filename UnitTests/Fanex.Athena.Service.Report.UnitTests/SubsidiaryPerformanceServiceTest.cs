@@ -39,7 +39,9 @@
             var metaModel = new SubsidiaryPerformanceMetaModel
             {
                 FromDate = new DateTime(2017, 8, 30),
-                ToDate = new DateTime(2017, 8, 30)
+                ToDate = new DateTime(2017, 8, 30),
+                ProductCodeList = "SB,BA",
+                BaseCurrency = "EUR"
             };
             IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
 
@@ -47,65 +49,59 @@
             _service.GetData(metaModel, out totalDataList);
 
             // Assert
-            _dataAccess.Received().GetData(metaModel, out totalDataList);
+            _dataAccess.ReceivedWithAnyArgs().GetData(metaModel, out totalDataList);
         }
 
         [Test]
-        public void GetData_MetaModelIsValid_ReturnCorrectDataModel()
+        public void GetData_FromDateIsGreaterThanToDate_DoNotCallDataAccess()
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel
             {
                 FromDate = new DateTime(2017, 8, 30),
-                ToDate = new DateTime(2017, 8, 30)
+                ToDate = new DateTime(2017, 8, 1),
+                ProductCodeList = "SB,BA",
+                BaseCurrency = "EUR"
             };
-            var fakeEntityDataList = GetFakeEntityDataList();
             IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
-            _dataAccess.GetData(metaModel, out totalDataList).Returns(fakeEntityDataList);
-
-            var expectedResult = _serializer.Serialize(GetExpectedSummaryData());
-
-            // Action
-            var result = _serializer.Serialize(_service.GetData(metaModel, out totalDataList));
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
-        }
-
-        [Test]
-        public void GetData_MetaModelIsValid_GetCorrectTotalDataList()
-        {
-            // Arrange
-            var metaModel = new SubsidiaryPerformanceMetaModel
-            {
-                FromDate = new DateTime(2017, 8, 30),
-                ToDate = new DateTime(2017, 8, 30)
-            };
-            var fakeEntityDataList = GetFakeEntityDataList();
-            IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
-            IEnumerable<SubsidiaryPerformanceEntity> expectedTotalDataList = new List<SubsidiaryPerformanceEntity> { new SubsidiaryPerformanceEntity() };
-
-            _dataAccess.GetData(metaModel, out totalDataList).Returns(x =>
-            {
-                x[1] = expectedTotalDataList;
-                return fakeEntityDataList;
-            });
 
             // Action
             _service.GetData(metaModel, out totalDataList);
 
             // Assert
-            Assert.That(totalDataList, Is.EqualTo(expectedTotalDataList));
+            _dataAccess.DidNotReceiveWithAnyArgs().GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), out totalDataList);
         }
 
         [Test]
-        public void GetData_MetaModelIsNotValid_DoNotCallDataAccess()
+        public void GetData_ProductCodeListIsEmpty_DoNotCallDataAccess()
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel
             {
                 FromDate = new DateTime(2017, 8, 30),
-                ToDate = new DateTime(2017, 8, 1)
+                ToDate = new DateTime(2017, 8, 30),
+                ProductCodeList = "",
+                BaseCurrency = "EUR"
+            };
+            IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
+
+            // Action
+            _service.GetData(metaModel, out totalDataList);
+
+            // Assert
+            _dataAccess.DidNotReceiveWithAnyArgs().GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), out totalDataList);
+        }
+
+        [Test]
+        public void GetData_BaseCurrencyIsEmpty_DoNotCallDataAccess()
+        {
+            // Arrange
+            var metaModel = new SubsidiaryPerformanceMetaModel
+            {
+                FromDate = new DateTime(2017, 8, 30),
+                ToDate = new DateTime(2017, 8, 30),
+                ProductCodeList = "SB,BA",
+                BaseCurrency = ""
             };
             IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
 
@@ -135,7 +131,7 @@
         }
 
         [Test]
-        public void GetData_MetaModelIsNotValid_TotalDataListIsEmpty()
+        public void GetData_MetaModelIsNotValid_TotalDataListIsNull()
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel
@@ -149,7 +145,36 @@
             _service.GetData(metaModel, out totalDataList);
 
             // Assert
-            Assert.That(totalDataList, Is.Null);
+            Assert.That(totalDataList.Count(), Is.Zero);
+        }
+
+        [Test]
+        public void GetData_MetaModelIsValid_GetCorrectTotalDataList()
+        {
+            // Arrange
+            var metaModel = new SubsidiaryPerformanceMetaModel
+            {
+                FromDate = new DateTime(2017, 8, 30),
+                ToDate = new DateTime(2017, 8, 30),
+                ProductCodeList = "SB,BA",
+                BaseCurrency = "EUR"
+            };
+            var fakeEntityDataList = GetFakeEntityDataList();
+            IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
+            var expectedResult = _serializer.Serialize(GetExpectedTotalDataList());
+
+            _dataAccess.GetData(metaModel, out totalDataList).Returns(x =>
+            {
+                x[1] = GetFakeEntityDataList();
+                return fakeEntityDataList;
+            });
+
+            // Action
+            _service.GetData(metaModel, out totalDataList);
+            var result = _serializer.Serialize(totalDataList);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         private static IEnumerable<SubsidiaryPerformanceEntity> GetFakeEntityDataList()
@@ -157,37 +182,26 @@
             return new List<SubsidiaryPerformanceEntity>
             {
                 new SubsidiaryPerformanceEntity
-                { Subsidiary = "New York", Currency = "USD", Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
+                { SubsidiaryId = 1234, Subsidiary = "New York", CurrencyId = 1, CurrencyName = "USD", Product = "SB", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
                 new SubsidiaryPerformanceEntity
-                { Subsidiary = "New York", Currency = "USD", Product = "BA", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
+                { SubsidiaryId = 1234, Subsidiary = "New York", CurrencyId = 1, CurrencyName = "USD", Product = "BA", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
                 new SubsidiaryPerformanceEntity
-                { Subsidiary = "New York", Currency = "USD", Product = "Racing", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
+                { SubsidiaryId = 1234, Subsidiary = "New York", CurrencyId = 1, CurrencyName = "USD", Product = "RC", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
                 new SubsidiaryPerformanceEntity
-                { Subsidiary = "India", Currency = "EUR", Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
+                { SubsidiaryId = 1235, Subsidiary = "India", CurrencyId = 6, CurrencyName = "EUR", Product = "SB", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
                 new SubsidiaryPerformanceEntity
-                { Subsidiary = "India", Currency = "USD", Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m}
+                { SubsidiaryId = 1235, Subsidiary = "India", CurrencyId = 1, CurrencyName = "USD", Product = "SB", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m}
             };
         }
 
-        private static IEnumerable<SubsidiaryPerformanceDataModel> GetExpectedSummaryData()
+        private static IEnumerable<SubsidiaryPerformanceEntity> GetExpectedTotalDataList()
         {
-            var detailData1 = new List<SubsidiaryPerformanceDetail>
+            return new List<SubsidiaryPerformanceEntity>
             {
-                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
-                new SubsidiaryPerformanceDetail { Product = "BA", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
-                new SubsidiaryPerformanceDetail { Product = "Racing", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m}
-            };
-
-            var detailData2 = new List<SubsidiaryPerformanceDetail>
-            {
-                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m}
-            };
-
-            return new List<SubsidiaryPerformanceDataModel>
-            {
-                new SubsidiaryPerformanceDataModel { Subsidiary = "New York", Currency = "USD", Details = detailData1},
-                new SubsidiaryPerformanceDataModel { Subsidiary = "India", Currency = "EUR", Details = detailData2},
-                new SubsidiaryPerformanceDataModel { Subsidiary = "India", Currency = "USD", Details = detailData2}
+                new SubsidiaryPerformanceEntity
+                { SubsidiaryId = 1234, Subsidiary = "1234", CurrencyName = "EUR", BetCount = 150, Turnover = 300000m, CustomerWinLoss = 30000m, SubsidiaryWinLoss = -30000m},
+                new SubsidiaryPerformanceEntity
+                { SubsidiaryId = 1235, Subsidiary = "1235", CurrencyName = "EUR", BetCount = 100, Turnover = 200000m, CustomerWinLoss = 20000m, SubsidiaryWinLoss = -20000m}
             };
         }
     }

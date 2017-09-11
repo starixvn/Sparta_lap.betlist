@@ -795,6 +795,7 @@
     <Content Include="www\js\source\reactpages\components\fixed-table-header\FixedTable.jsx" />
     <Content Include="www\js\source\reactpages\layouts\AppLayout.jsx" />
     <Content Include="www\js\source\reactpages\lib\langHelper.js" />
+    <Content Include="www\js\source\reactpages\lib\numberFormat.js" />
     <Content Include="www\js\source\reactpages\lib\site.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />

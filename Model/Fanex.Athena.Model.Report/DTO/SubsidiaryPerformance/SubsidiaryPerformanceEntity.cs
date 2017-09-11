@@ -2,9 +2,13 @@
 {
     public class SubsidiaryPerformanceEntity
     {
+        public int SubsidiaryId { get; set; }
+
         public string Subsidiary { get; set; }
 
-        public string Currency { get; set; }
+        public int CurrencyId { get; set; }
+
+        public string CurrencyName { get; set; }
 
         public string Product { get; set; }
 
@@ -15,7 +19,5 @@
         public decimal CustomerWinLoss { get; set; }
 
         public decimal SubsidiaryWinLoss { get; set; }
-
-        public decimal SubsidiaryComm { get; set; }
     }
 }

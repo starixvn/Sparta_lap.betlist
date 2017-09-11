@@ -8,6 +8,6 @@
     {
         IEnumerable<SubsidiaryPerformanceDataModel> GetData(
             SubsidiaryPerformanceMetaModel metaModel,
-            out IEnumerable<SubsidiaryPerformanceEntity> totalList);
+            out IEnumerable<SubsidiaryPerformanceEntity> totalDataList);
     }
 }

@@ -3066,4 +3066,10 @@
     <value>Operator</value>
     <comment>76246</comment>
   </data>
+  <data name="Subsidiary" xml:space="preserve">
+    <value>Subsidiary</value>
+  </data>
+  <data name="SubsidiaryWL" xml:space="preserve">
+    <value>Subsidiary WL</value>
+  </data>
 </root>

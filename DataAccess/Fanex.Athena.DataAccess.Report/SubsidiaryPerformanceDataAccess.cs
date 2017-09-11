@@ -16,11 +16,11 @@
         {
         }
 
-        public IEnumerable<SubsidiaryPerformanceEntity> GetData(SubsidiaryPerformanceMetaModel metaModel, out IEnumerable<SubsidiaryPerformanceEntity> totalList)
+        public IEnumerable<SubsidiaryPerformanceEntity> GetData(SubsidiaryPerformanceMetaModel metaModel, out IEnumerable<SubsidiaryPerformanceEntity> totalDataList)
         {
-            const string SpName = "Lrf_Rpt_SubsidiaryPerformance";
+            const string SpName = "Lrf_Rpt_SubsidiaryWinloss";
             var dataList = new List<SubsidiaryPerformanceEntity>();
-            List<SubsidiaryPerformanceEntity> totalDataList = null;
+            var totalDataListTemp = new List<SubsidiaryPerformanceEntity>();
             var baseCurrency = metaModel.ConvertAll ? metaModel.BaseCurrency : string.Empty;
             using (var objectDb = this.GetObjectDb(SpName))
             {
@@ -31,57 +31,37 @@
                     while (reader.Read())
                     {
                         dataList.Add(GetEntityData(reader, baseCurrency));
-                    }
-
-                    if (reader.NextResult())
-                    {
-                        totalDataList = new List<SubsidiaryPerformanceEntity>();
-                        const string Prefix = "Total";
-                        while (reader.Read())
-                        {
-                            totalDataList.Add(new SubsidiaryPerformanceEntity
-                            {
-                                Subsidiary = reader[Prefix + "Subsidiary"].ToString(),
-                                Currency = metaModel.BaseCurrency,
-                                BetCount = Convert.ToInt32(reader[Prefix + "BetCount"]),
-                                Turnover = Convert.ToDecimal(reader[Prefix + "Turnover" + metaModel.BaseCurrency]),
-                                CustomerWinLoss = Convert.ToDecimal(reader[Prefix + "CustomerWinLoss" + metaModel.BaseCurrency]),
-                                SubsidiaryWinLoss = Convert.ToDecimal(reader[Prefix + "SubsidiaryWinLoss" + metaModel.BaseCurrency]),
-                                SubsidiaryComm = Convert.ToDecimal(reader[Prefix + "SubsidiaryComm" + metaModel.BaseCurrency])
-                            });
-                        }
+                        totalDataListTemp.Add(GetEntityData(reader, metaModel.BaseCurrency));
                     }
                 }
             }
 
-            totalList = totalDataList;
+            totalDataList = totalDataListTemp;
 
             return dataList;
         }
 
-        private static void AssignParameter(IObjectDb objectDb, SubsidiaryPerformanceMetaModel metaModel)
+        private void AssignParameter(IObjectDb objectDb, SubsidiaryPerformanceMetaModel metaModel)
         {
             objectDb.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
             objectDb.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-            objectDb.AddInParameter("IsExportExcel", DbType.Boolean, metaModel.IsExportExcel);
-            objectDb.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
-            objectDb.AddInParameter("ProductCodeList", DbType.String, metaModel.ProductCodeList);
-            objectDb.AddInParameter("SubsidiaryList", DbType.String, metaModel.SubsidiaryList);
-            objectDb.AddInParameter("AgentListXml", DbType.String, metaModel.AgentListXml);
+            objectDb.AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
+            objectDb.AddInParameter("ProductList", DbType.String, metaModel.ProductCodeList);
+            objectDb.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
         }
 
         private static SubsidiaryPerformanceEntity GetEntityData(IDataReader reader, string baseCurrency)
         {
             return new SubsidiaryPerformanceEntity
             {
-                Subsidiary = reader["Subsidiary"].ToString(),
-                Currency = reader["Currency"].ToString(),
-                Product = reader["Product"].ToString(),
+                SubsidiaryId = Convert.ToInt32(reader["recommend"]),
+                CurrencyId = Convert.ToInt32(reader["Currency"]),
+                CurrencyName = reader["CurrencyName"].ToString(),
+                Product = reader["ProductCode"].ToString(),
                 BetCount = Convert.ToInt32(reader["BetCount"]),
                 Turnover = Convert.ToDecimal(reader["Turnover" + baseCurrency]),
-                CustomerWinLoss = Convert.ToDecimal(reader["CustomerWinLoss" + baseCurrency]),
-                SubsidiaryWinLoss = Convert.ToDecimal(reader["SubsidiaryWinLoss" + baseCurrency]),
-                SubsidiaryComm = Convert.ToDecimal(reader["SubsidiaryComm" + baseCurrency])
+                CustomerWinLoss = Convert.ToDecimal(reader["Winlost" + baseCurrency]),
+                SubsidiaryWinLoss = Convert.ToDecimal(reader["LicenseeWL" + baseCurrency])
             };
         }
     }

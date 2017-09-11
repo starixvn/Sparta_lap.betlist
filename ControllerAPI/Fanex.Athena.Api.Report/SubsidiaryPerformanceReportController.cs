@@ -34,66 +34,29 @@
         [HttpPost]
         public dynamic Index(SubsidiaryPerformanceMetaModel metaModel)
         {
-            //metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            //metaModel.AgentListXml = SessionService.GenerateAgentListXml();
-            //IEnumerable<SubsidiaryPerformanceEntity> totalList = null;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml();
+            IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
 
-            //var summaryData = _subsidiaryPerformanceService.GetData(metaModel, out totalList);
-            //var grandTotal = totalList == null ? null : GetGrandTotal(metaModel.BaseCurrency.ToUpperInvariant(), totalList);
-
-            var totalDataList = GetFakeTotalDataList();
+            var mainData = _subsidiaryPerformanceService.GetData(metaModel, out totalDataList);
+            var grandTotal = totalDataList.Any() ? GetGrandTotal(metaModel.BaseCurrency.ToUpperInvariant(), totalDataList) : null;
 
             return new
             {
-                Data = GetFakeSummaryData(),
+                Data = mainData,
                 Total = totalDataList,
-                GrandTotal = GetGrandTotal(metaModel.BaseCurrency.ToUpperInvariant(), totalDataList)
+                GrandTotal = grandTotal
             };
         }
 
-        private static SubsidiaryPerformanceEntity GetGrandTotal(string baseCurrency, IEnumerable<SubsidiaryPerformanceEntity> totalList)
+        private static SubsidiaryPerformanceEntity GetGrandTotal(string baseCurrency, IEnumerable<SubsidiaryPerformanceEntity> totalDataList)
         {
             return new SubsidiaryPerformanceEntity
             {
-                Currency = baseCurrency,
-                BetCount = totalList.Sum(p => p.BetCount),
-                Turnover = totalList.Sum(p => p.Turnover),
-                CustomerWinLoss = totalList.Sum(p => p.CustomerWinLoss),
-                SubsidiaryWinLoss = totalList.Sum(p => p.SubsidiaryWinLoss)
-            };
-        }
-
-        private static IEnumerable<SubsidiaryPerformanceDataModel> GetFakeSummaryData()
-        {
-            var detailData = new List<SubsidiaryPerformanceDetail>
-            {
-                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
-                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
-                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
-                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m}
-            };
-
-            return new List<SubsidiaryPerformanceDataModel>
-            {
-                new SubsidiaryPerformanceDataModel { Subsidiary = "New York", Currency = "USD", Details = detailData},
-                new SubsidiaryPerformanceDataModel { Subsidiary = "India", Currency = "THB", Details = detailData},
-                new SubsidiaryPerformanceDataModel { Subsidiary = "India", Currency = "THB", Details = detailData},
-                new SubsidiaryPerformanceDataModel { Subsidiary = "India", Currency = "THB", Details = detailData}
-            };
-        }
-
-        private static IEnumerable<SubsidiaryPerformanceEntity> GetFakeTotalDataList()
-        {
-            return new List<SubsidiaryPerformanceEntity>
-            {
-                new SubsidiaryPerformanceEntity
-                { Subsidiary = "New York", Currency = "USD", Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
-                new SubsidiaryPerformanceEntity
-                { Subsidiary = "India", Currency = "USD", Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
-                new SubsidiaryPerformanceEntity
-                { Subsidiary = "New York", Currency = "USD", Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
-                new SubsidiaryPerformanceEntity
-                { Subsidiary = "India", Currency = "USD", Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m}
+                CurrencyName = baseCurrency,
+                BetCount = totalDataList.Sum(p => p.BetCount),
+                Turnover = totalDataList.Sum(p => p.Turnover),
+                CustomerWinLoss = totalDataList.Sum(p => p.CustomerWinLoss),
+                SubsidiaryWinLoss = totalDataList.Sum(p => p.SubsidiaryWinLoss)
             };
         }
     }

@@ -16,8 +16,6 @@
     {
         private ISessionService _sessionService;
 
-        private IProductService _productService;
-
         private ISubsidiaryPerformanceService _service;
 
         private SubsidiaryPerformanceReportController _controller;
@@ -27,10 +25,10 @@
         [OneTimeSetUp]
         public void SetUp()
         {
+            var productService = Substitute.For<IProductService>();
             _sessionService = Substitute.For<ISessionService>();
-            _productService = Substitute.For<IProductService>();
             _service = Substitute.For<ISubsidiaryPerformanceService>();
-            _controller = Substitute.ForPartsOf<SubsidiaryPerformanceReportController>(_sessionService, _productService, _service);
+            _controller = Substitute.ForPartsOf<SubsidiaryPerformanceReportController>(_sessionService, productService, _service);
             _serializer = new JavaScriptSerializer();
             CreateSession();
         }
@@ -44,33 +42,36 @@
         }
 
         [Test]
-        public void Index_WhenCall_CallServiceWithCorrectMetaModel()
+        public void Index_WhenCall_ServiceIsCalledWithCorrectMetaModel()
         {
             // Arrange
             const string AgentListXml = "<Root><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/></Root>";
             _sessionService.GenerateAgentListXml().Returns(AgentListXml);
             var metaModel = new SubsidiaryPerformanceMetaModel
             {
-                LicenseeId = 1,
-                ProductCodeList = "1",
-                SubsidiaryList = "1,2,3",
+                ProductCodeList = "SB,BA",
+                BaseCurrency = "EUR",
                 AgentListXml = AgentListXml
             };
             SubsidiaryPerformanceMetaModel passedMetaModel = null;
             IEnumerable<SubsidiaryPerformanceEntity> totalList = null;
 
-            _service.GetData(Arg.Do<SubsidiaryPerformanceMetaModel>(x => passedMetaModel = x), out totalList);
+            _service.GetData(Arg.Do<SubsidiaryPerformanceMetaModel>(x => passedMetaModel = x), out totalList)
+                .Returns(x =>
+                {
+                    x[1] = new List<SubsidiaryPerformanceEntity>();
+                    return null;
+                });
 
             // Action
             _controller.Index(metaModel);
 
             // Assert
-            _service.ReceivedWithAnyArgs().GetData(passedMetaModel, out totalList);
             Assert.That(metaModel, Is.EqualTo(passedMetaModel));
         }
 
         [Test]
-        public void Index_TotalDataListIsNotNull_ReturnCorrectData()
+        public void Index_TotalDataListIsNotEmpty_ReturnCorrectGrandTotalData()
         {
             // Arrange
             const string AgentListXml = "<Root><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/></Root>";
@@ -97,7 +98,7 @@
         }
 
         [Test]
-        public void Index_TotalDataListNotNull_TotalAndGrandTotalIsNull()
+        public void Index_TotalDataListIsEmpty_GrandTotalIsNull()
         {
             // Arrange
             const string AgentListXml = "<Root><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/></Root>";
@@ -105,11 +106,11 @@
             var metaModel = new SubsidiaryPerformanceMetaModel();
             IEnumerable<SubsidiaryPerformanceEntity> totalList;
             var expectedSummaryData = GetFakeSummaryData();
-            IEnumerable<SubsidiaryPerformanceEntity> expectedTotalDataList = null;
+            IEnumerable<SubsidiaryPerformanceEntity> expectedTotalDataList = new List<SubsidiaryPerformanceEntity>();
 
             _service.GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), out totalList).Returns(x =>
             {
-                x[1] = null;
+                x[1] = new List<SubsidiaryPerformanceEntity>();
                 return expectedSummaryData;
             });
 
@@ -179,9 +180,9 @@
             return new List<SubsidiaryPerformanceEntity>
             {
                 new SubsidiaryPerformanceEntity
-                { Subsidiary = "New York", Currency = "USD", Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
+                { SubsidiaryId = 1234, Subsidiary = "1234", CurrencyName = "EUR", BetCount = 150, Turnover = 300000m, CustomerWinLoss = 30000m, SubsidiaryWinLoss = -30000m},
                 new SubsidiaryPerformanceEntity
-                { Subsidiary = "India", Currency = "USD", Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m}
+                { SubsidiaryId = 1235, Subsidiary = "1235", CurrencyName = "EUR", BetCount = 100, Turnover = 200000m, CustomerWinLoss = 20000m, SubsidiaryWinLoss = -20000m}
             };
         }
 
@@ -189,11 +190,11 @@
         {
             return new SubsidiaryPerformanceEntity
             {
-                Currency = "USD",
-                BetCount = 100,
-                Turnover = 200000m,
-                CustomerWinLoss = 20000m,
-                SubsidiaryWinLoss = -20000m
+                CurrencyName = "USD",
+                BetCount = 250,
+                Turnover = 500000m,
+                CustomerWinLoss = 50000m,
+                SubsidiaryWinLoss = -50000m
             };
         }
     }

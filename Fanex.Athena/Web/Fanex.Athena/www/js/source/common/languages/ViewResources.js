@@ -1,4 +1,4 @@
-﻿// Generated at: 9/8/2017 4:33:20 PM
+﻿// Generated at: 9/11/2017 4:48:07 PM
 window._language_en_US = {
 AA:"AA",
 AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -781,7 +781,9 @@ Statement:"Statement",
 Status:"Status",
 Su:"Su",
 Submit:"Submit",
+Subsidiary:"Subsidiary",
 SubsidiaryPerformance:"Subsidiary Performance",
+SubsidiaryWL:"Subsidiary WL",
 Summary:"Summary",
 Sunday:"Sunday",
 SupportForOnlyNote:"The report only supports",
