@@ -220,7 +220,8 @@
             setReportTitle: setReportTitle,
             submit: submit,
             bindData: bindData,
-            bindTotal: bindTotal
+            bindTotal: bindTotal,
+            getSubmitData: getData
         };
 
         return _me;

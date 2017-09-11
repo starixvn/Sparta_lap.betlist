@@ -1599,6 +1599,8 @@
     <Content Include="www\js\tests\pages\forecast\forecast.newforecasthdpou-spec.js" />
     <Content Include="www\js\tests\pages\forecast\forecast.onextwo-spec.js" />
     <Content Include="www\js\tests\pages\forecast\forecast.ah-spec.js" />
+    <Content Include="www\js\tests\pages\report\activecustomersummary\activecustomersummary-spec.js" />
+    <Content Include="www\js\tests\pages\report\activecustomersummary\activecustomersummary.option-spec.js" />
     <Content Include="www\js\tests\pages\report\agcasinowinloss\agcasinowinloss-spec.js" />
     <Content Include="www\js\tests\pages\report\agcasinowinloss\agcasinowinloss.option-spec.js" />
     <Content Include="www\js\tests\pages\report\balance\balance-spec.js" />
