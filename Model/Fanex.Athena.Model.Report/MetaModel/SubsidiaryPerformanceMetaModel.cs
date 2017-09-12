@@ -12,12 +12,15 @@
 
         public string ProductCodeList { get; set; }
 
+        public string SubsidiaryList { get; set; } = string.Empty;
+
         public string BaseCurrency { get; set; }
 
         public bool ConvertAll { get; set; }
 
         public bool IsValid => FromDate <= ToDate &&
                                 !string.IsNullOrEmpty(ProductCodeList) &&
-                                !string.IsNullOrEmpty(BaseCurrency);
+                                !string.IsNullOrEmpty(BaseCurrency) &&
+                                !string.IsNullOrEmpty(SubsidiaryList);
     }
 }

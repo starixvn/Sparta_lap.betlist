@@ -43,5 +43,7 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
         bool IsAllowedEditCommission(UserSession user);
 
         bool IsAllowedSpecialBA(UserSession user);
+
+        string GenerateAgentListXmlByAgentIdList(IEnumerable<int> agentIdList);
     }
 }

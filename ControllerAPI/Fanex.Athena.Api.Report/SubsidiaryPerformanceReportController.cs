@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Api.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
@@ -34,17 +35,28 @@
         [HttpPost]
         public dynamic Index(SubsidiaryPerformanceMetaModel metaModel)
         {
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml();
-            IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
+            if (metaModel.IsValid)
+            {
+                var agentIdList = metaModel.SubsidiaryList.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                                    .Select(x => Convert.ToInt32(x));
+                metaModel.AgentListXml = SessionService.GenerateAgentListXmlByAgentIdList(agentIdList);
 
-            var mainData = _subsidiaryPerformanceService.GetData(metaModel, out totalDataList);
-            var grandTotal = totalDataList.Any() ? GetGrandTotal(metaModel.BaseCurrency.ToUpperInvariant(), totalDataList) : null;
+                IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
+
+                var mainData = _subsidiaryPerformanceService.GetData(metaModel, out totalDataList);
+                var grandTotal = totalDataList.Any() ? GetGrandTotal(metaModel.BaseCurrency.ToUpperInvariant(), totalDataList) : null;
+
+                return new
+                {
+                    Data = mainData,
+                    Total = totalDataList,
+                    GrandTotal = grandTotal
+                };
+            }
 
             return new
             {
-                Data = mainData,
-                Total = totalDataList,
-                GrandTotal = grandTotal
+                Data = new List<SubsidiaryPerformanceDataModel>()
             };
         }
 

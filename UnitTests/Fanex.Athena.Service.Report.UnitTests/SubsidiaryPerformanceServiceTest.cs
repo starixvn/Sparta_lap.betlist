@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Web.Script.Serialization;
     using DataAccess.Report.Interfaces;
     using Model.Report.DTO.SubsidiaryPerformance;
@@ -33,7 +32,7 @@
         }
 
         [Test]
-        public void GetData_MetaModelIsValid_CallDataAccess()
+        public void GetData_WhenCall_CallDataAccess()
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel
@@ -41,111 +40,21 @@
                 FromDate = new DateTime(2017, 8, 30),
                 ToDate = new DateTime(2017, 8, 30),
                 ProductCodeList = "SB,BA",
+                SubsidiaryList = "123,143",
                 BaseCurrency = "EUR"
             };
             IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
+            _dataAccess.GetData(metaModel, out totalDataList).Returns(x =>
+            {
+                x[1] = new List<SubsidiaryPerformanceEntity>();
+                return new List<SubsidiaryPerformanceEntity>();
+            });
 
             // Action
             _service.GetData(metaModel, out totalDataList);
 
             // Assert
             _dataAccess.ReceivedWithAnyArgs().GetData(metaModel, out totalDataList);
-        }
-
-        [Test]
-        public void GetData_FromDateIsGreaterThanToDate_DoNotCallDataAccess()
-        {
-            // Arrange
-            var metaModel = new SubsidiaryPerformanceMetaModel
-            {
-                FromDate = new DateTime(2017, 8, 30),
-                ToDate = new DateTime(2017, 8, 1),
-                ProductCodeList = "SB,BA",
-                BaseCurrency = "EUR"
-            };
-            IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
-
-            // Action
-            _service.GetData(metaModel, out totalDataList);
-
-            // Assert
-            _dataAccess.DidNotReceiveWithAnyArgs().GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), out totalDataList);
-        }
-
-        [Test]
-        public void GetData_ProductCodeListIsEmpty_DoNotCallDataAccess()
-        {
-            // Arrange
-            var metaModel = new SubsidiaryPerformanceMetaModel
-            {
-                FromDate = new DateTime(2017, 8, 30),
-                ToDate = new DateTime(2017, 8, 30),
-                ProductCodeList = "",
-                BaseCurrency = "EUR"
-            };
-            IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
-
-            // Action
-            _service.GetData(metaModel, out totalDataList);
-
-            // Assert
-            _dataAccess.DidNotReceiveWithAnyArgs().GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), out totalDataList);
-        }
-
-        [Test]
-        public void GetData_BaseCurrencyIsEmpty_DoNotCallDataAccess()
-        {
-            // Arrange
-            var metaModel = new SubsidiaryPerformanceMetaModel
-            {
-                FromDate = new DateTime(2017, 8, 30),
-                ToDate = new DateTime(2017, 8, 30),
-                ProductCodeList = "SB,BA",
-                BaseCurrency = ""
-            };
-            IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
-
-            // Action
-            _service.GetData(metaModel, out totalDataList);
-
-            // Assert
-            _dataAccess.DidNotReceiveWithAnyArgs().GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), out totalDataList);
-        }
-
-        [Test]
-        public void GetData_MetaModelIsNotValid_ReturnEmptyList()
-        {
-            // Arrange
-            var metaModel = new SubsidiaryPerformanceMetaModel
-            {
-                FromDate = new DateTime(2017, 8, 30),
-                ToDate = new DateTime(2017, 8, 1)
-            };
-            IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
-
-            // Action
-            var result = _service.GetData(metaModel, out totalDataList);
-
-            // Assert
-            Assert.That(result.Count(), Is.EqualTo(0));
-        }
-
-        [Test]
-        public void GetData_MetaModelIsNotValid_TotalDataListIsNull()
-        {
-            // Arrange
-            var metaModel = new SubsidiaryPerformanceMetaModel
-            {
-                FromDate = new DateTime(2017, 8, 30),
-                ToDate = new DateTime(2017, 8, 1)
-            };
-            IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
-
-            // Action
-            _service.GetData(metaModel, out totalDataList);
-
-            // Assert
-            Assert.That(totalDataList.Count(), Is.Zero);
         }
 
         [Test]
@@ -157,6 +66,7 @@
                 FromDate = new DateTime(2017, 8, 30),
                 ToDate = new DateTime(2017, 8, 30),
                 ProductCodeList = "SB,BA",
+                SubsidiaryList = "123,143",
                 BaseCurrency = "EUR"
             };
             var fakeEntityDataList = GetFakeEntityDataList();

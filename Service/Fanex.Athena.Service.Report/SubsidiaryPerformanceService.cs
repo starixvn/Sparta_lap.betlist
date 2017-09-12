@@ -30,14 +30,12 @@
             out IEnumerable<SubsidiaryPerformanceEntity> totalDataList)
         {
             IEnumerable<SubsidiaryPerformanceEntity> entityTotalList = null;
+            var entityDataList = _subLicenseePerformanceDataAccess.GetData(metaModel, out entityTotalList);
 
-            var entityDataList = metaModel.IsValid ?
-                _subLicenseePerformanceDataAccess.GetData(metaModel, out entityTotalList) : null;
-
-            totalDataList = entityTotalList?.Any() == true ?
+            totalDataList = entityTotalList.Any() ?
                 GetTotalDataList(entityTotalList, metaModel.BaseCurrency.ToUpperInvariant()) : new List<SubsidiaryPerformanceEntity>();
 
-            return entityDataList == null ? new List<SubsidiaryPerformanceDataModel>() : GetDataModel(entityDataList);
+            return entityDataList.Any() ? GetDataModel(entityDataList) : new List<SubsidiaryPerformanceDataModel>();
         }
 
         private static IEnumerable<SubsidiaryPerformanceDataModel> GetDataModel(IEnumerable<SubsidiaryPerformanceEntity> entityDataList)

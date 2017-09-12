@@ -31,7 +31,7 @@ class DataGrid extends Component {
                 <th title={betcount}>{betcount}</th>
                 <th title={turnover}>{turnover}</th>
                 <th title={customerWL}>{customerWL}</th>
-                <th title={subsidiaryWL / comm}>{subsidiaryWL / comm}</th>
+                <th title={`${subsidiaryWL}/ ${comm}`}>{`${subsidiaryWL}/ ${comm}`}</th>
             </Row>
         )
     }
