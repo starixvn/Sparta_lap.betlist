@@ -1,6 +1,5 @@
 ﻿define([
     "jquery",
-    "common/querystring",
     "common/site",
     "lib/jqgrid/jquery.jqgrid.additional",
     "pages/report/customerturnover/customerturnover",
@@ -10,7 +9,7 @@
     "helpers/daterange",
     "components/paging",
     "lib/jquery.multiselect"],
-    function ($, QueryString, Site, jqGridAdditional, CustomerTurnover, CustomerTurnoverOption, AutoComplete, DatePicker, DateHelper, PagingHelper) {
+    function ($, Site, jqGridAdditional, CustomerTurnover, CustomerTurnoverOption, AutoComplete, DatePicker, DateHelper, PagingHelper) {
         describe("CustomerTurnover", function () {
             beforeAll(function () {
                 spyOn(Site, "resolveClientUrl").and.callFake(function (url) {

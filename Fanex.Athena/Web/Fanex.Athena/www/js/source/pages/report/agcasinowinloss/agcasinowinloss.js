@@ -1,8 +1,8 @@
 ﻿"use strict";
-define(["jquery", "common/querystring", "common/site", "./agcasinowinloss.option", "../report", "lib/jqgrid/jquery.jqgrid.additional",
+define(["jquery", "common/site", "./agcasinowinloss.option", "../report", "lib/jqgrid/jquery.jqgrid.additional",
         "components/pluginhelper/daterangepicker", "moment", "helpers/daterange",
         "extensions/jquery.extension", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min"],
-    function ($, QueryString, Site, AgCasinoWinLossOption, Report, jqGridAdditional, DatePicker, moment, DateHelper) {
+    function ($, Site, AgCasinoWinLossOption, Report, jqGridAdditional, DatePicker, moment, DateHelper) {
         var cacheData = {};
         var ajaxRequest = null;
         var _level = 0;

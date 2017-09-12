@@ -1,6 +1,5 @@
 ﻿define([
     "jquery",
-    "common/querystring",
     "common/site",
     "pages/report/agcasinowinloss/agcasinowinloss",
     "pages/report/agcasinowinloss/agcasinowinloss.option",
@@ -9,7 +8,7 @@
     "components/pluginhelper/daterangepicker",
     "helpers/daterange",
     "moment"],
-    function ($, QueryString, Site, AgCasinoWinLoss, AgCasinoWinLossOption, Report, jqGridAdditional, DatePicker, DateHelper) {
+    function ($, Site, AgCasinoWinLoss, AgCasinoWinLossOption, Report, jqGridAdditional, DatePicker, DateHelper) {
         describe("AgCasinoWinLoss", function () {
             beforeAll(function () {
                 spyOn(Site, "resolveClientUrl").and.callFake(function (url) {

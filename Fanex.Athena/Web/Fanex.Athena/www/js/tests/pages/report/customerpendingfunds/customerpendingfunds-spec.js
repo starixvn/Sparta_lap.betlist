@@ -153,14 +153,22 @@
                     spyOn(Site, "updateOriginalLicenseeOption");
                 });
 
-                it("Report.setOriginalProduct should be called", function () {
-                    CustomerPedingFunds.submit();
+                it("Report.setOriginalProduct should be called when submit method is called by clicking submit button", function () {
+                    setFixtures('<div id="SubmitButton"></div>');
+                    spyOn(Report, "ValidProducts").and.returnValues(true);
+
+                    CustomerPedingFunds.initEvent();
+                    $('#SubmitButton').click();
 
                     expect(Report.setOriginalProduct).toHaveBeenCalled();
                 });
 
-                it("Site.updateOriginalLicenseeOption should be called", function () {
-                    CustomerPedingFunds.submit();
+                it("Site.updateOriginalLicenseeOption should be called when submit method is called by clicking submit button", function () {
+                    setFixtures('<div id="SubmitButton"></div>');
+                    spyOn(Report, "ValidProducts").and.returnValues(true);
+
+                    CustomerPedingFunds.initEvent();
+                    $('#SubmitButton').click();
 
                     expect(Site.updateOriginalLicenseeOption).toHaveBeenCalled();
                 });

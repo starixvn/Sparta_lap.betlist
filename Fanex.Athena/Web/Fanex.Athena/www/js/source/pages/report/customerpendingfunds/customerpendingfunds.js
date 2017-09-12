@@ -104,9 +104,6 @@
         }
 
         function submit() {
-            Report.setOriginalProduct();
-            Site.updateOriginalLicenseeOption();
-
             buildPostData();
 
             var option =
@@ -186,6 +183,8 @@
 
         function buildPostData() {
             if (!_submitData) {
+                Report.setOriginalProduct();
+                Site.updateOriginalLicenseeOption();
                 _submitData = $(_selector.Form).serializeObject();
             }
             _submitData.PageIndex = _pagingOption.pageindex;

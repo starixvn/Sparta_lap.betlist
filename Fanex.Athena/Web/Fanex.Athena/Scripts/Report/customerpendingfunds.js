@@ -26,6 +26,8 @@ var CustPendingFunds = (function ($) {
 
     function buildPostData() {
         if (!_submitData) {
+            Report.setOriginalProduct();
+            Site.updateOriginalLicenseeOption();
             _submitData = $(FORM_SELECTOR).serializeObject();
         }
         _submitData.PageIndex = _pagingOption.pageindex;
@@ -64,7 +66,7 @@ var CustPendingFunds = (function ($) {
         else if (_isFirstLoad) {
             var reportGrid = $("#" + GRID_ID);
 
-            if (response.TotalRows > 1) {                
+            if (response.TotalRows > 1) {
                 var cm = reportGrid[0].p.colModel;
                 $.each(reportGrid[0].grid.headers, function (index, value) {
                     var cmi = cm[index];
@@ -141,9 +143,6 @@ var CustPendingFunds = (function ($) {
         },
 
         submit: function () {
-            Report.setOriginalProduct();
-            Site.updateOriginalLicenseeOption();
-
             buildPostData();
 
             var option =
@@ -202,7 +201,7 @@ var CustPendingFunds = (function ($) {
             url = QueryString.setParam(url, "custid", custid);
             url = QueryString.setParam(url, "systemid", systemId);
             url = QueryString.setParam(url, "externalid", externalId);
-            
+
             var title = Site.getSingleResource("BetListRunning");
             var popH = Math.min($(window).height() - 100, 650), popW = 920;
             var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +

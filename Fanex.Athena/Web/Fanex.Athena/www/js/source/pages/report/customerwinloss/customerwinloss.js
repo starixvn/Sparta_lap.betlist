@@ -19,6 +19,7 @@
 
         var _ajaxRequest = null;
         var _submitData = null;
+        var _productCodes = [];
 
         var _sortColumnName = "";
         var _sortOrder = "desc";
@@ -125,8 +126,6 @@
         }
 
         function submit() {
-            Report.setOriginalProduct();
-
             buildPostData();
 
             var option =
@@ -186,7 +185,6 @@
             reportGrid.jqGrid(gridOption);
 
             CustomerWinLossOption.setGroupHeaderColumns(reportGrid);
-
         }
 
         function ajaxPaging() {
@@ -206,7 +204,7 @@
 
         function viewWinlossBetList(custId, systemId, externalId) {
             var url = Site.resolveClientUrl("CustomerWinlossBetList/Index");
-            url = QueryString.setParam(url, "ProductCodeList", getProductList());
+            url = QueryString.setParam(url, "ProductCodeList", _productCodes);
             url = QueryString.setParam(url, "currencyid", _submitData.CurrencyId);
             url = QueryString.setParam(url, "CurrencyName", _submitData.CurrencyName);
             url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
@@ -224,7 +222,7 @@
 
         function setReportTitle() {
             var titlePattern = "{0}, {1} → {2}, {3}{4}";
-            var licenseeWLNote = getLicenseeWLNote(_submitData.ProductOptions);
+            var licenseeWLNote = getLicenseeWLNote();
             var title = $.format(titlePattern,
                 Site.getSingleResource("CustomerWinLoss"),
                 _submitData.FromDate,
@@ -282,9 +280,8 @@
         }
 
         function getLicenseeWLNote() {
-            var resultProducts = getProductList();
-            if (resultProducts.length > 0) {
-                return Site.getSingleResource("LicenseeW_L") + "(" + resultProducts.join(', ') + ")";
+            if (_productCodes.length > 0) {
+                return Site.getSingleResource("LicenseeW_L") + "(" + _productCodes.join(', ') + ")";
             }
             return "";
         }
@@ -303,7 +300,9 @@
 
         function buildPostData() {
             if (!_submitData) {
+                Report.setOriginalProduct();
                 _submitData = getPostData();
+                _productCodes = getProductList();
             }
             else {
                 _submitData.PageIndex = _pagingOption.pageindex;

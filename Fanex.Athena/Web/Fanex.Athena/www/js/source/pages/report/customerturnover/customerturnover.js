@@ -1,6 +1,5 @@
 ﻿define([
     "jquery",
-    "common/querystring",
     "common/site",
     "lib/jqgrid/jquery.jqgrid.additional",
     "./customerturnover.option",
@@ -13,7 +12,7 @@
     "lib/jqgrid/jquery.jqGrid.min",
     "extensions/jquery.extension",
     "lib/linq"],
-    function ($, QueryString, Site, jqGridAdditional, CustomerTurnoverOption, AutoComplete, DatePicker, DateHelper, PagingHelper) {
+    function ($, Site, jqGridAdditional, CustomerTurnoverOption, AutoComplete, DatePicker, DateHelper, PagingHelper) {
         "use strict";
 
         var VALID_MONTH_RANGE = 1;
