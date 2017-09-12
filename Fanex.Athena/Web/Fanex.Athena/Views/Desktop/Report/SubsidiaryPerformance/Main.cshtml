@@ -10,6 +10,10 @@
     var baseCurrencyList = Model.BaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
     var subsidiaryList = Model.SubsidiaryList;
     var selectedSubsidiary = string.Join(",", subsidiaryList.Where(x => x.Checked).Select(x => x.ID).ToArray());
+
+    var appSettings = new AppSettings();
+    var minDate = appSettings.HistoryDate;
+    var maxDate = appSettings.MaxDate;
 }
 
 @section pagecss {
@@ -33,7 +37,9 @@
         dateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
         xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
         containerWidth: document.getElementById("app-container").clientWidth - 30,
-        isLoading: false
+        isLoading: false,
+        dateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'},
+        isValidDateRange: true
     }
 }
 <div id="app-container">

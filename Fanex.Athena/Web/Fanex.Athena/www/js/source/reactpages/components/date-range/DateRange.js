@@ -109,10 +109,6 @@ class DateRange extends Component {
   handleApply() {
     const { onClickApplyButton } = this.props;
     onClickApplyButton && onClickApplyButton(this.state.range);
-
-    console.log("Apply");
-    console.log(`From: ${this.state.range.startDate.format("MM/DD/YYYY")}`);
-    console.log(`To: ${this.state.range.endDate.format("MM/DD/YYYY")}`);
     this.hide();
   }
 
@@ -161,9 +157,12 @@ class DateRange extends Component {
     }
 
     return (
-      <div>
-        <input onClick={() => this.show()} onFocus={() => this.show()} readOnly
-          name="DateRange" id="DateRange" className="input-text datepicker" type="text" autoComplete="off" value={this.dateRangeText} />
+      <div className="daterange-container">
+        <div className="daterange-label" onClick={() => this.show()}>
+          <input readOnly name="DateRange" id="DateRange" className="input-text datepicker" type="text" autoComplete="off" value={this.dateRangeText} />
+          <i className="icon icon-calendar"></i>
+        </div>
+
         <div style={onlyClasses ? undefined : { ...styles['DateRange'], ...style, ...dateRangeStyle }} className={dateRangeClass}>
           {ranges && (
             <PredefinedRanges
@@ -220,7 +219,7 @@ DateRange.defaultProps = {
   theme: {},
   format: MomentFormat.default,
   calendars: 2,
-  onlyClasses: false,
+  onlyClasses: true,
   offsetPositive: false,
   classNames: {},
   specialDays: [],

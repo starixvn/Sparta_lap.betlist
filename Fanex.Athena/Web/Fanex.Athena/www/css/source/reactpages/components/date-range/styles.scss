@@ -11,6 +11,17 @@ $cell-margin: 0 !default;
 $cell-size: (($calendar-width - $calendar-padding * 2) / 7) - ($cell-margin * 2) - 1 !default;
 $calendar-shadow: rgba($calendar-color, 0.25) 0 0 1em !default;
 
+.daterange-container {
+    position: relative;
+
+    .icon-calendar {
+        position: absolute;
+        right: 10px;
+        font-size: 15px;
+        cursor: pointer;
+    }
+}
+
 .datepicker {
     cursor: pointer;
 }
@@ -30,9 +41,9 @@ $calendar-shadow: rgba($calendar-color, 0.25) 0 0 1em !default;
     background: $calendar-background;
     box-shadow: $calendar-shadow;
     position: absolute;
-    width: 735px;
+    min-width: 735px;
     z-index: 1;
-    top: 38px;
+    top: 28px;
 
     .rdr-Calendar {
         box-shadow: none;
@@ -140,7 +151,7 @@ $calendar-shadow: rgba($calendar-color, 0.25) 0 0 1em !default;
     letter-spacing: initial;
 
     &.is-passive {
-        cursor: normal;
+        cursor: default;
         opacity: 0.4;
     }
 

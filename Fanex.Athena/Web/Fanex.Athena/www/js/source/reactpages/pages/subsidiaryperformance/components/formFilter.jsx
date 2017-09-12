@@ -7,6 +7,8 @@ import MultipleSelect from '../../../components/multiple-select/index'
 import { Calendar, DateRange, defaultOptions, updateLocaleByLanguage } from 'lrfcomponents/date-range/index'
 import LangHelper from 'lrflib/langHelper'
 
+const RANGE_MONTH_CONSTRAINT = 3;
+
 class FormFilter extends Component {
     constructor(props) {
         super(props);
@@ -16,7 +18,7 @@ class FormFilter extends Component {
 
     submit = (e) => {
         e.preventDefault();
-        if (!this.props.xsrfToken) {
+        if (!this.props.xsrfToken || !this.isValidModel) {
             return;
         }
 
@@ -48,10 +50,30 @@ class FormFilter extends Component {
         this.props.setSelectedSubsidiary(selectedItemsKey)
     }
 
+    applyDateRangeHandler = (date) => {
+        const { setValidDateRange, setDateRange } = this.props;
+        const range = date.endDate.clone().subtract(date.startDate.month(), "month");
+
+        if (range.month() > RANGE_MONTH_CONSTRAINT - 1) {
+            const message = LangHelper.getSingleResource("DateRangeExceedMsg").replace("{0}", RANGE_MONTH_CONSTRAINT);
+            alert(message);
+            setValidDateRange(false);
+            return;
+        }
+
+        setValidDateRange(true);
+        setDateRange(date);
+    }
+
+    get isValidModel() {
+        const { selectedSubsidiary, selectedProduct, isValidDateRange } = this.props;
+        return selectedSubsidiary !== "" && selectedProduct !== "" && isValidDateRange;
+    }
+
     _renderSubsidiarySelectList() {
         const { subsidiaryList } = this.props;
 
-        return subsidiaryList && subsidiaryList.length > 0 ? (
+        return subsidiaryList && subsidiaryList.length ? (
             <MultipleSelect
                 dataSource={this.props.subsidiaryList}
                 keyField={"ID"}
@@ -77,13 +99,24 @@ class FormFilter extends Component {
     _renderBaseCurrencySelectList() {
         const { baseCurrencyList, selectedBaseCurrency } = this.props;
 
-        return baseCurrencyList && baseCurrencyList.length > 0 ? (
+        return baseCurrencyList && baseCurrencyList.length ? (
             <Select id="ddlBased"
                 name="form-field-name"
                 value={selectedBaseCurrency}
                 options={baseCurrencyList}
                 onChange={(item) => this.props.setSelectedBaseCurrency(item.value)} />
         ) : null;
+    }
+
+    _renderDateRange() {
+        const { dateRange, dateConstraint } = this.props;
+
+        return (
+            <DateRange startDate={dateRange.fromDate} endDate={dateRange.toDate}
+                minDate={dateConstraint.minDate} maxDate={dateConstraint.maxDate}
+                onlyClasses={true} ranges={defaultOptions.ranges}
+                onClickApplyButton={this.applyDateRangeHandler} />
+        )
     }
 
     render() {
@@ -97,13 +130,10 @@ class FormFilter extends Component {
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-3 col-sm-3 col-lg-3 col-xl-3">
+                    <div className="col-12 col-md-4 col-sm-4 col-lg-3 col-xl-3">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Date")}</label>
-
-                            <DateRange minDate='01-02-2017' onlyClasses={true}
-                                ranges={defaultOptions.ranges}
-                                onClickApplyButton={(date) => this.props.setDateRange(date)} />
+                            {this._renderDateRange()}
                         </div>
                     </div>
 
@@ -132,10 +162,14 @@ class FormFilter extends Component {
                             </div>
 
                             <div className="button-group">
-                                <button type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
+                                <button disabled={!this.isValidModel} type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div className="caret-block">
+                    <i className="icon-excel right" title={LangHelper.getSingleResource("ExportToExcel")}></i>
                 </div>
             </div>
         );

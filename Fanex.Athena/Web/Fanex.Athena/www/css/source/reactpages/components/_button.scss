@@ -2,6 +2,14 @@
 $btnSubmit-background: #f05b1f;
 $btnCancelBackground: #757985;
 
+%buttonDisabled {
+    background-color: #DFDFDF !important;
+    box-shadow: none;
+    color: #9F9F9F !important;
+    cursor: default;
+    pointer-events: none;
+}
+
 .btn {
     border: none;
     border-radius: 2px;
@@ -22,6 +30,10 @@ $btnCancelBackground: #757985;
     &:hover {
         opacity: 0.9;
     }
+
+    &:disabled{
+        @extend %buttonDisabled;
+    }
 }
 
 .btn-submit {
@@ -37,5 +49,9 @@ $btnCancelBackground: #757985;
 button {
     &:focus {
         outline: none;
+    }
+
+    &:disabled{
+        @extend %buttonDisabled;
     }
 }
