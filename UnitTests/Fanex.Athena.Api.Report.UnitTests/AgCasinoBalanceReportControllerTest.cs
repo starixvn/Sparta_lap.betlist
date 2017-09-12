@@ -24,8 +24,9 @@
             _service = Substitute.For<IAgCasinoBalanceService>();
             _sessionService = Substitute.For<ISessionService>();
             var productService = Substitute.For<IProductService>();
+
             _controller = Substitute.ForPartsOf<AgCasinoBalanceReportController>(_service, _sessionService, productService);
-            CreateSession();
+            MockSessionData(_sessionService);
         }
 
         [OneTimeTearDown]
@@ -52,7 +53,7 @@
             var expectedResult = GetSerializationData(TotalRow, data, total, summaryTotal);
 
             // Action
-            var result = SerializeToJson(_controller.Index(metaModel));
+            var result = ToJson(_controller.Index(metaModel));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -72,8 +73,6 @@
                 IsExcludedTestData = IsExcludedTestData
             };
 
-            _sessionService.GenerateAgentListXml(CurrencyId, IsExcludedTestData).Returns("XmlData");
-
             IDictionary<string, AgCasinoBalance> summaryData;
             var expectedSummaryData = new Dictionary<string, AgCasinoBalance>();
             var dataListResult = new SortableList<AgCasinoBalance> { new AgCasinoBalance() };
@@ -90,7 +89,7 @@
             var expectedResult = GetSerializationData(TotalRow, dataListResult, totalData, expectedSummaryData);
 
             // Action
-            var result = SerializeToJson(_controller.Index(metaModel));
+            var result = ToJson(_controller.Index(metaModel));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -109,7 +108,6 @@
                 DrillDownCurrencyId = 1,
                 IsExcludedTestData = IsExcludedTestData
             };
-            _sessionService.GenerateAgentListXml(metaModel.DrillDownCurrencyId, IsExcludedTestData).Returns("XmlData");
 
             IDictionary<string, AgCasinoBalance> summaryData;
             var expectedSummaryData = new Dictionary<string, AgCasinoBalance>();
@@ -127,7 +125,7 @@
             var expectedResult = GetSerializationData(TotalRow, dataListResult, totalData, expectedSummaryData);
 
             // Action
-            var result = SerializeToJson(_controller.Index(metaModel));
+            var result = ToJson(_controller.Index(metaModel));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -146,7 +144,6 @@
                 DrillDownCurrencyId = 1,
                 IsExcludedTestData = IsExcludedTestData
             };
-            _sessionService.GenerateAgentListXml(metaModel.DrillDownCurrencyId, IsExcludedTestData).Returns("XmlData");
 
             IDictionary<string, AgCasinoBalance> summaryData;
             var expectedSummaryData = new Dictionary<string, AgCasinoBalance>();
@@ -166,18 +163,18 @@
             var expectedResult = GetSerializationData(ExpectedTotalRow, dataListResult, totalData, expectedSummaryData);
 
             // Action
-            var result = SerializeToJson(_controller.Index(metaModel));
+            var result = ToJson(_controller.Index(metaModel));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
-        private static string SerializeToJson(object value)
+        private static string ToJson(object value)
         {
             return new JavaScriptSerializer().Serialize(value);
         }
 
-        private void CreateSession()
+        private static void MockSessionData(ISessionService sessionService)
         {
             var userSession = new UserSession
             {
@@ -192,17 +189,17 @@
                 LicenseeId = 1
             };
 
-            _sessionService.UserSession.Returns(userSession);
-            _sessionService.LicenseeSession.Returns(licenseeSession);
+            sessionService.UserSession.Returns(userSession);
+            sessionService.LicenseeSession.Returns(licenseeSession);
         }
 
-        private string GetSerializationData(
+        private static string GetSerializationData(
             int totalRow,
             IEnumerable<AgCasinoBalance> data,
             IEnumerable<AgCasinoBalance> total,
             Dictionary<string, AgCasinoBalance> summaryTotal)
         {
-            return SerializeToJson(
+            return ToJson(
                 new
                 {
                     TotalRows = totalRow,
