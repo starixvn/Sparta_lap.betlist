@@ -344,7 +344,8 @@
             viewCurrentReport: viewCurrentReport,
             viewWinlossBetList: viewWinlossBetList,
             ajaxPaging: ajaxPaging,
-            bindData: bindData
+            bindData: bindData,
+            getSubmitData: getPostData
         };
 
         return _me;
