@@ -39,7 +39,7 @@ namespace Fanex.Athena.Service.BetList.Extensions
         /// <returns>Ticket status text.</returns>
         [System.CLSCompliant(false)]
         public static string BuildLrfStatus(
-            this BetListHTMLBuilder builder,
+            this IBetListHTMLBuilder builder,
             LrfTicket ticket,
             ITicketHelper ticketHelper,
             List<ITicketData> ticketData,
@@ -81,23 +81,23 @@ namespace Fanex.Athena.Service.BetList.Extensions
             Justification = "Reviewed. Suppression is OK here.")]
         public static string BuildLicenseeWL(this BetListHTMLBuilder builder, LrfTicket ticket)
         {
-            var running = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
+            var isRunning = IsRunning(ticket.Status);
             
             if (BetTypeHelper.IsRacing(ticket.BetTypeId) ||
                 BetListHelper.IsBoughtTicket(ticket.BetTypeId) ||
                 BetListHelper.IsColossusBet(ticket.BetTypeId))
             {
-                var licenseeWl = running
+                var licenseeWl = isRunning
                     ? "-"
                     : FormatLicenseeWl(ticket.LicenseeWL);
-                var comm = running
+                var comm = isRunning
                     ? "-"
                     : string.Format("{0:#,##0.00}", ticket.Comm);
 
                 return string.Format("<div class ='lic-win-loss'>{0}<br/>{1}</div>", licenseeWl, comm);
             }
 
-            return running
+            return isRunning
                     ? "-"
                     : string.Format(
                         "<div class='lic-win-loss'>{0}</div>",
@@ -116,8 +116,8 @@ namespace Fanex.Athena.Service.BetList.Extensions
             Justification = "Reviewed. Suppression is OK here.")]
         public static string BuildCustomerWL(this BetListHTMLBuilder builder, Ticket ticket, bool showPlayerComm)
         {
-            var running = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
-            var winloss = running
+            bool isRunning = IsRunning(ticket.Status);
+            var winloss = isRunning
                             ? "-"
                             : string.Format("<div class='underdog'>{0:#,##0.00}</div>", ticket.Winlost);
 
@@ -126,7 +126,7 @@ namespace Fanex.Athena.Service.BetList.Extensions
                 return winloss;
             }
 
-            winloss += running
+            winloss += isRunning
                 ? string.Empty
                 : string.Format("<div class='underdog'>{0:#,##0.00}</div>", ticket.PlayerComm);
 
@@ -142,6 +142,17 @@ namespace Fanex.Athena.Service.BetList.Extensions
         }
 
         #region Private Utility
+
+        private static bool IsRunning(string status)
+        {
+            if (string.IsNullOrWhiteSpace(status))
+            {
+                return false;
+            }
+
+            return status.Equals("running", StringComparison.OrdinalIgnoreCase) ||
+                    status.Equals("waiting", StringComparison.OrdinalIgnoreCase);
+        }
 
         /// <summary>
         /// Get Casino Hand History Parameter.
