@@ -26235,7 +26235,6 @@ module.exports = __webpack_require__(429);
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
     __webpack_require__(1),
-    __webpack_require__(118),
     __webpack_require__(2),
     __webpack_require__(119),
     __webpack_require__(431),
@@ -26247,7 +26246,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     __webpack_require__(122),
     __webpack_require__(123),
     __webpack_require__(121),
-    __webpack_require__(154)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional, CustomerTurnoverOption, AutoComplete, DatePicker, DateHelper, PagingHelper) {
+    __webpack_require__(154)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional, CustomerTurnoverOption, AutoComplete, DatePicker, DateHelper, PagingHelper) {
         "use strict";
 
         var VALID_MONTH_RANGE = 1;
@@ -26315,7 +26314,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
 
             $(_selector.SubmitButton).click(function () {
-                if (!checkValidFilter()) {
+                if (!_me.checkValidFilter()) {
                     return;
                 }
                 _pagingOption.pageindex = 1;
@@ -26350,7 +26349,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         function initTicketFilter() {
             $(_selector.TickerFilter + " input[type=checkbox]").checkboxgroup();
             $(_selector.TickerFilter).on("change", "input[type=checkbox]", function () {
-                checkValidFilter();
+                _me.checkValidFilter();
             });
         }
 
@@ -26427,7 +26426,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function exportToExcel() {
-            if (!checkValidFilter()) {
+            if (!_me.checkValidFilter()) {
                 return false;
             }
             var param = getPostData();
@@ -26442,11 +26441,25 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             _me.submit();
         }
 
+        function checkValidFilter() {
+            var validBetType = _checkedBettypes.length > 0;
+
+            var ticketFilter = $(_selector.TickerFilter);
+            var validTicketFilter = ticketFilter.find("input:checked").length > 0;
+            var isValid = validBetType && validTicketFilter;
+
+            $(_selector.BetTypeList).toggleClass("invalid", !validBetType);
+
+            $(_selector.SubmitButton).prop("disabled", !isValid);
+
+            return isValid;
+        }
+
         function setReportTitle(currencyName, userName, fromDate, toDate, odds) {
             var titlePattern = Site.getSingleResource('Customer') + ' '
                 + Site.getSingleResource('Turnover') + ', {0} → {1} - '
                 + Site.getSingleResource("Currency") + ': {2} - '
-                + Site.getSingleResource('MinimumOdds') + ': {3} {4}';
+                + Site.getSingleResource('MinimumOdds') + ': {3}{4}';
 
             var tempUserName = userName.length > 0
                 ? " - " + Site.getSingleResource("Username") + ": " + userName
@@ -26625,7 +26638,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 _bettypes = [];
                 _checkedBettypes = [];
                 renderBetTypeTree([]);
-                checkValidFilter();
+                _me.checkValidFilter();
                 return;
             }
             var option = {
@@ -26657,7 +26670,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             var dataList = [];
             $.each(_bettypes, function (index, value) {
                 var item = {
-                    Id: index.ID,
+                    Id: index,
                     Value: value.ID,
                     Text: value.Name,
                     Checked: value.Checked,
@@ -26667,7 +26680,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 };
                 dataList.push(item);
             });
-            checkValidFilter();
+            _me.checkValidFilter();
 
             $(_selector.BetTypeMultiSelect).multiSelect({
                 minWidth: 200,
@@ -26682,7 +26695,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     for (var i = 0; i < numberOfCheckedItems; i++) {
                         addCheckedBettype(checkedItems[i]);
                     }
-                    checkValidFilter();
+                    _me.checkValidFilter();
                 },
                 isUsedCustomCheckAllText: true,
                 customCheckAllText: Site.getSingleResource('All'),
@@ -26712,20 +26725,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 modelItem.Checked = true;
                 _checkedBettypes.push(modelItem);
             }
-        }
-
-        function checkValidFilter() {
-            var validBetType = _checkedBettypes.length > 0;
-
-            var ticketFilter = $(_selector.TickerFilter);
-            var validTicketFilter = ticketFilter.find("input:checked").length > 0;
-            var isValid = validBetType && validTicketFilter;
-
-            $(_selector.BetTypeList).toggleClass("invalid", !validBetType);
-
-            $(_selector.SubmitButton).prop("disabled", !isValid);
-
-            return isValid;
         }
 
         function handleOddInput(event) {
@@ -26774,7 +26773,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             submit: submit,
             bindData: bindData,
             ajaxPaging: ajaxPaging,
-            exportToExcel: exportToExcel
+            exportToExcel: exportToExcel,
+            checkValidFilter: checkValidFilter,
+            getPostData: getPostData
         };
 
         return _me;
@@ -26785,7 +26786,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /* 431 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(119)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2), __webpack_require__(119)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Site, jqGridAdditional) {
         "use strict";
         var indexColumn = {
             name: 'Index',
@@ -26962,34 +26963,30 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
         };
 
-        var getColName = function () {
+        _me.getColName = function () {
             // Column Customer Wl
             colNameList[customerWlTotalIndex] = _me.hasCustomerComm ? 'Total' : 'CustomerW_L';
             return Site.getResources(colNameList);
         };
 
-        var getColModel = function () {
+        _me.getColModel = function () {
             // Column hidden by customer comm
             customerWlColumn.hidden = !_me.hasCustomerComm;
             playerCommColumn.hidden = !_me.hasCustomerComm;
 
-            if (Number(_me.reportBy) === 2) {
-                dateColumn.formatoptions = {
-                    newformat: 'm/Y'
-                };
-            } else {
-                dateColumn.formatoptions = {
-                    newformat: 'm/d/Y'
-                };
-            }
+            dateColumn.formatoptions = Number(_me.reportBy) === 2 ? {
+                newformat: 'm/Y'
+            } : {
+                newformat: 'm/d/Y'
+            };
 
             return colModelList;
         };
 
         _me.getGridOption = function () {
             var option = Site.clone(_me.gridOption);
-            option.colNames = getColName();
-            option.colModel = getColModel();
+            option.colNames = _me.getColName();
+            option.colModel = _me.getColModel();
 
             return option;
         };

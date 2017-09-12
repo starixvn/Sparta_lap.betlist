@@ -5307,9 +5307,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function submit() {
-            Report.setOriginalProduct();
-            Site.updateOriginalLicenseeOption();
-
             buildPostData();
 
             var option =
@@ -5389,6 +5386,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
         function buildPostData() {
             if (!_submitData) {
+                Report.setOriginalProduct();
+                Site.updateOriginalLicenseeOption();
                 _submitData = $(_selector.Form).serializeObject();
             }
             _submitData.PageIndex = _pagingOption.pageindex;

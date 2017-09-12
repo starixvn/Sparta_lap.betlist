@@ -23177,7 +23177,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             setReportTitle: setReportTitle,
             submit: submit,
             bindData: bindData,
-            bindTotal: bindTotal
+            bindTotal: bindTotal,
+            getSubmitData: getData
         };
 
         return _me;
