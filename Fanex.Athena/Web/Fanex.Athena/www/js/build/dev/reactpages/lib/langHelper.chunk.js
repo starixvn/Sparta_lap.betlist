@@ -26,23 +26,26 @@ webpackJsonp([3],{
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
+	var DEFAULT_RESOURCE_NAME = "_language_en_US";
+	var langCode = window.PageLanguage || "en-US";
+	var resourceName = "_language_" + langCode.replace("-", "_");
+	
 	var LangHelper = function () {
 	    function LangHelper() {
 	        _classCallCheck(this, LangHelper);
 	    }
 	
 	    _createClass(LangHelper, null, [{
-	        key: "single",
-	        value: function single(key) {
-	            var langHandler = window[currentLanguage.currentLanguage];
+	        key: "getSingleResource",
+	        value: function getSingleResource(key) {
+	            var langHandler = window[resourceName];
 	
-	            return langHandler[key] || key;
+	            return langHandler[key] || window[DEFAULT_RESOURCE_NAME][key] || key;
 	        }
 	    }, {
 	        key: "currentLanguage",
 	        get: function get() {
-	            var langCode = window.PageLanguage || "en-US";
-	            return "_language_" + langCode.replace("-", "_");
+	            return langCode;
 	        }
 	    }]);
 	
@@ -58,7 +61,7 @@ webpackJsonp([3],{
 
 	"use strict";
 	
-	// Generated at: 8/18/2017 12:54:23 PM
+	// Generated at: 9/11/2017 4:48:07 PM
 	window._language_en_US = {
 	  AA: "AA",
 	  AccessDeniedMsg: "Sorry, You don&apos;t have permission to access this page.",
@@ -215,6 +218,7 @@ webpackJsonp([3],{
 	  Confirmation: "Confirmation",
 	  ConfirmCommission: "Confirm Customer&apos;s Commission:",
 	  ConfirmPassword: "Confirm Password",
+	  ConvertAll: "Convert All",
 	  ConvertTo: "Convert to",
 	  CopyBetSettingFrom: "Copy All Bet Setting from {0}",
 	  CopyBetSettingFromRacing: "Copy All Bet Setting from Racing",
@@ -668,6 +672,7 @@ webpackJsonp([3],{
 	  OneXTwo: "1 X 2",
 	  Open: "Open",
 	  OpeningBalance: "Opening Balance",
+	  Operator: "Operator",
 	  OriginalBetTicket: "Original Bet Ticket",
 	  OT: "OT",
 	  Others: "Others",
@@ -839,6 +844,9 @@ webpackJsonp([3],{
 	  Status: "Status",
 	  Su: "Su",
 	  Submit: "Submit",
+	  Subsidiary: "Subsidiary",
+	  SubsidiaryPerformance: "Subsidiary Performance",
+	  SubsidiaryWL: "Subsidiary WL",
 	  Summary: "Summary",
 	  Sunday: "Sunday",
 	  SupportForOnlyNote: "The report only supports",
@@ -1003,7 +1011,7 @@ webpackJsonp([3],{
 
 	"use strict";
 	
-	// Generated at: 8/14/2017 2:21:49 PM
+	// Generated at: 9/11/2017 4:48:07 PM
 	window._language_ko_KR = {
 	  AA: "AA",
 	  AccessDeniedMsg: "죄송합니다. 이 페이지에 접근할 권한이 없습니다.",
@@ -1776,7 +1784,7 @@ webpackJsonp([3],{
 
 	"use strict";
 	
-	// Generated at: 8/14/2017 2:21:49 PM
+	// Generated at: 9/11/2017 4:48:07 PM
 	window._language_zh_CN = {
 	  AA: "客客",
 	  AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
@@ -2587,7 +2595,7 @@ webpackJsonp([3],{
 
 	"use strict";
 	
-	// Generated at: 8/14/2017 2:21:49 PM
+	// Generated at: 9/11/2017 4:48:07 PM
 	window._language_zh_Hans = {
 	  AA: "客客",
 	  AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
@@ -3384,7 +3392,7 @@ webpackJsonp([3],{
 
 	"use strict";
 	
-	// Generated at: 8/14/2017 2:21:49 PM
+	// Generated at: 9/11/2017 4:48:07 PM
 	window._language_zh_TW = {
 	  AA: "客客",
 	  AccessDeniedMsg: "對不起，您沒有權限訪問此頁面。",
