@@ -115,9 +115,18 @@ namespace Fanex.Athena.Controllers
         public ActionResult LocationRestriction()
         {
             var requestHost = Request.Url.AbsoluteUri;
-            var isInternalDomain = requestHost.Contains(_appSettings.GetValue("internaldomain"));
 
-            return isInternalDomain ? (ActionResult)RedirectToAction("SignIn", "Authorization") : View("~/Views/Desktop/Utility/LocationRestriction.cshtml");
+            if (requestHost.Contains(_appSettings.GetValue("InternalSubDomain")))
+            {
+                return RedirectToAction("SignIn", "Authorization");
+            }
+
+            if (requestHost.Contains(_appSettings.GetValue("LapSubDomain")))
+            {
+                return RedirectToAction("OneTokenRestriction", "Utility", new { code = 100 });
+            }
+
+            return View("~/Views/Desktop/Utility/LocationRestriction.cshtml");
         }
 
         /// <summary>

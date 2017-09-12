@@ -31,13 +31,6 @@ namespace Fanex.Athena.Service.Casino
         private readonly ILanguageService _langService = new LanguageService();
         private readonly IExChangeRateService _exchangeRateService = new ExChangeRateService();
 
-        public static DataTable GetRNGCasinoResultDataTable(RNGCasinoResultMetaModel metaModel)
-        {
-            DataTable dataTable;
-            GetResultFromAPIRealTime(metaModel, out dataTable);
-            return dataTable;
-        }
-
         /// <summary>
         /// Get RNG Casino Result.
         /// </summary>
@@ -205,17 +198,6 @@ namespace Fanex.Athena.Service.Casino
             }
 
             return dataTable;
-        }
-
-        private static void GetResultFromAPIRealTime(RNGCasinoResultMetaModel metalModel, out DataTable dataTable)
-        {
-            var casinoLib = new CasinoLibrary.SBAgent.Report();
-            dataTable = casinoLib.RealTimeWinLossHandHistory(
-            metalModel.FromDate,
-            metalModel.ToDate,
-            metalModel.CustId,
-            RNGCasinoSetting.CasinoGroup1,
-            metalModel.IsShowPic);
         }
 
         /// <summary>

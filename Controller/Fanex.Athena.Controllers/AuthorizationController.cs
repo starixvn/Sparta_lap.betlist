@@ -78,7 +78,7 @@ namespace Fanex.Athena.Controllers
         {
             var requestHost = Request.Url.AbsoluteUri;
 
-            var isInternalDomain = requestHost.Contains(AppSettings.GetValue("internaldomain"));
+            var isInternalDomain = requestHost.Contains(AppSettings.GetValue("InternalSubDomain"));
 
             if (!isInternalDomain)
             {

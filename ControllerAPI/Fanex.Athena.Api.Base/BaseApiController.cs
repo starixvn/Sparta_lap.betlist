@@ -19,7 +19,6 @@ namespace Fanex.Athena.Api.Base
     using NPOI.SS.UserModel;
     using ONEbook.UM.Filters;
 
-    [CustomApiAuthorize]
     [CheckUMFilter]
     [XFrameOptionApi]
     public class BaseApiController : ApiController

@@ -16,7 +16,7 @@
         public void SignIn_NotInternalDomain_RedirectToLocationRestriction()
         {
             // Arrange
-            AppSettings.GetValue("internaldomain").Returns("fakeurl");
+            AppSettings.GetValue("InternalSubDomain").Returns("fakeurl");
 
             using (var controller = CreateController())
             {
@@ -33,7 +33,7 @@
         public void SignIn_IsInternalDomain_ReturnCorrectView()
         {
             // Arrange
-            AppSettings.GetValue("internaldomain").Returns(TestingRequestDomain);
+            AppSettings.GetValue("InternalSubDomain").Returns(TestingRequestDomain);
 
             using (var controller = CreateController())
             {

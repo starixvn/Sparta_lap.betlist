@@ -1,16 +1,42 @@
 ﻿@{
-    Layout = "~/Views/Desktop/Shared/_ErrorLayout.cshtml";
+    Layout = null;
     Page.Title = "LRF - " + Fanex.Athena.Resources.ViewResources.LocationRestriction;
 }
-
-@section head{
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@Page.Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Error!!!!!</title>
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/utility/error.css")" rel="stylesheet" />
     <style>
-        .error-content .second-line {
-            font-size: 30px;
+        body {
+            font-family: Verdana,'sans-serif';
+        }
+
+        .center {
+            margin: auto;
+            width: 50%;
+            padding: 10px;
+        }
+
+        ol {
+            counter-reset: item;
+        }
+
+        ol li {
+            display: block;
+        }
+
+        ol li:before {
+            content: counter(item) ". ";
+            counter-increment: item;
+            font-weight: bold;
         }
     </style>
 
-    <script type="text/ecmascript">
+    <script>
         var index = window;
         while (index != index.parent) // Jump out
         {
@@ -24,14 +50,36 @@
             index.location.href = location.href;
         }
     </script>
-}
-
-@section message{
-    @Fanex.Athena.Resources.ViewResources.LocationRestriction
-}
-
-<p>
-    @Html.Raw(
-            string.Format(Fanex.Athena.Resources.ViewResources.LocationRestrictionMsg,
-           "<b style=\"color: Red\">CS ONEONONE </b>(<a href=\"mailto:cs@oneonone-solutions.com\"><b>cs@oneonone-solutions.com</b></a>)"))
-</p>
+</head>
+<body>
+    <div class="error-content">
+        <img src="@Url.ContentLink("/www/assets/images/location-restriction-page.png")" />
+        <div class="center">
+            <div>
+                <strong>You're here because of one of those reasons:</strong>
+            </div>
+            <ol style="list-style-type: decimal;">
+                <li>You might have entered this link or similar links that contains "<a href="http://www.amazzu.com"><strong>www.amazzu.com</strong></a>" .</li>
+                <li>
+                    Your internet connection might be temporally broken.
+                </li>
+                <li>
+                    Your authorization may be no longer valid since web browser's caches are cleared.
+                </li>
+                <li>
+                    Your login credentials are used on other browsers/ devices at the same time.
+                </li>
+            </ol>
+            <div>
+                Please try to login again at Internal Admin:
+            </div>
+            <ol style="list-style-type: decimal;">
+                <li>From internal admin, click "<strong>Risk& Forecast</strong>"</li>
+                <li>
+                    Access the reports/ functions you want.
+                </li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>
