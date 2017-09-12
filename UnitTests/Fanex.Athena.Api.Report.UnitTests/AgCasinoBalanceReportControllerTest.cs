@@ -16,9 +16,7 @@
     {
         private IAgCasinoBalanceService _service;
         private AgCasinoBalanceReportController _controller;
-        private AgCasinoBalanceMetaModel _metaModel = new AgCasinoBalanceMetaModel { IsExportExcel = false };
         private ISessionService _sessionService;
-        private JavaScriptSerializer _serializer;
 
         [OneTimeSetUp]
         public void SetUp()
@@ -27,7 +25,6 @@
             _sessionService = Substitute.For<ISessionService>();
             var productService = Substitute.For<IProductService>();
             _controller = Substitute.ForPartsOf<AgCasinoBalanceReportController>(_service, _sessionService, productService);
-            _serializer = new JavaScriptSerializer();
             CreateSession();
         }
 
@@ -42,8 +39,11 @@
         public void Index_WhenCallWithInvalidModel_ReturnEmptyResult()
         {
             // Arrange
-            _metaModel.CurrencyId = 1;
-            _metaModel.DrillDownCurrencyId = 1;
+            var metaModel = new AgCasinoBalanceMetaModel
+            {
+                CurrencyId = 1,
+                DrillDownCurrencyId = 1
+            };
 
             const int TotalRow = 0;
             var data = new List<AgCasinoBalance>();
@@ -52,7 +52,7 @@
             var expectedResult = GetSerializationData(TotalRow, data, total, summaryTotal);
 
             // Action
-            var result = _serializer.Serialize(_controller.Index(_metaModel));
+            var result = SerializeToJson(_controller.Index(metaModel));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -64,18 +64,20 @@
             // Arrange
             const int CurrencyId = -2;
             const bool IsExcludedTestData = true;
-
-            _metaModel.CurrencyId = CurrencyId;
-            _metaModel.DrillDownLevel = 0;
-            _metaModel.DrillDownCurrencyId = 0;
-            _metaModel.IsExcludedTestData = IsExcludedTestData;
+            var metaModel = new AgCasinoBalanceMetaModel
+            {
+                CurrencyId = CurrencyId,
+                DrillDownLevel = 0,
+                DrillDownCurrencyId = 0,
+                IsExcludedTestData = IsExcludedTestData
+            };
 
             _sessionService.GenerateAgentListXml(CurrencyId, IsExcludedTestData).Returns("XmlData");
 
             IDictionary<string, AgCasinoBalance> summaryData;
             var expectedSummaryData = new Dictionary<string, AgCasinoBalance>();
             var dataListResult = new SortableList<AgCasinoBalance> { new AgCasinoBalance() };
-            _service.GetSummaryBalance(_metaModel, out summaryData).Returns(x =>
+            _service.GetSummaryBalance(metaModel, out summaryData).Returns(x =>
             {
                 x[1] = expectedSummaryData;
                 return dataListResult;
@@ -88,7 +90,7 @@
             var expectedResult = GetSerializationData(TotalRow, dataListResult, totalData, expectedSummaryData);
 
             // Action
-            var result = _serializer.Serialize(_controller.Index(_metaModel));
+            var result = SerializeToJson(_controller.Index(metaModel));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -100,18 +102,19 @@
             // Arrange
             const int CurrencyId = -2;
             const bool IsExcludedTestData = true;
-
-            _metaModel.CurrencyId = CurrencyId;
-            _metaModel.DrillDownLevel = 1;
-            _metaModel.DrillDownCurrencyId = 1;
-            _metaModel.IsExcludedTestData = IsExcludedTestData;
-
-            _sessionService.GenerateAgentListXml(_metaModel.DrillDownCurrencyId, IsExcludedTestData).Returns("XmlData");
+            var metaModel = new AgCasinoBalanceMetaModel
+            {
+                CurrencyId = CurrencyId,
+                DrillDownLevel = 1,
+                DrillDownCurrencyId = 1,
+                IsExcludedTestData = IsExcludedTestData
+            };
+            _sessionService.GenerateAgentListXml(metaModel.DrillDownCurrencyId, IsExcludedTestData).Returns("XmlData");
 
             IDictionary<string, AgCasinoBalance> summaryData;
             var expectedSummaryData = new Dictionary<string, AgCasinoBalance>();
             var dataListResult = new SortableList<AgCasinoBalance> { new AgCasinoBalance() };
-            _service.GetAgentBalanceDetail(_metaModel, out summaryData).Returns(x =>
+            _service.GetAgentBalanceDetail(metaModel, out summaryData).Returns(x =>
             {
                 x[1] = expectedSummaryData;
                 return dataListResult;
@@ -124,7 +127,7 @@
             var expectedResult = GetSerializationData(TotalRow, dataListResult, totalData, expectedSummaryData);
 
             // Action
-            var result = _serializer.Serialize(_controller.Index(_metaModel));
+            var result = SerializeToJson(_controller.Index(metaModel));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -136,20 +139,21 @@
             // Arrange
             const int CurrencyId = -2;
             const bool IsExcludedTestData = true;
-
-            _metaModel.CurrencyId = CurrencyId;
-            _metaModel.DrillDownLevel = 2;
-            _metaModel.DrillDownCurrencyId = 1;
-            _metaModel.IsExcludedTestData = IsExcludedTestData;
-
-            _sessionService.GenerateAgentListXml(_metaModel.DrillDownCurrencyId, IsExcludedTestData).Returns("XmlData");
+            var metaModel = new AgCasinoBalanceMetaModel
+            {
+                CurrencyId = CurrencyId,
+                DrillDownLevel = 2,
+                DrillDownCurrencyId = 1,
+                IsExcludedTestData = IsExcludedTestData
+            };
+            _sessionService.GenerateAgentListXml(metaModel.DrillDownCurrencyId, IsExcludedTestData).Returns("XmlData");
 
             IDictionary<string, AgCasinoBalance> summaryData;
             var expectedSummaryData = new Dictionary<string, AgCasinoBalance>();
             var dataListResult = new SortableList<AgCasinoBalance> { new AgCasinoBalance() };
             var totalRow = 0;
             const int ExpectedTotalRow = 1;
-            _service.GetCustomerBalanceDetail(_metaModel, out summaryData, out totalRow).Returns(x =>
+            _service.GetCustomerBalanceDetail(metaModel, out summaryData, out totalRow).Returns(x =>
             {
                 x[1] = expectedSummaryData;
                 x[2] = ExpectedTotalRow;
@@ -162,10 +166,15 @@
             var expectedResult = GetSerializationData(ExpectedTotalRow, dataListResult, totalData, expectedSummaryData);
 
             // Action
-            var result = _serializer.Serialize(_controller.Index(_metaModel));
+            var result = SerializeToJson(_controller.Index(metaModel));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        private static string SerializeToJson(object value)
+        {
+            return new JavaScriptSerializer().Serialize(value);
         }
 
         private void CreateSession()
@@ -193,7 +202,7 @@
             IEnumerable<AgCasinoBalance> total,
             Dictionary<string, AgCasinoBalance> summaryTotal)
         {
-            return _serializer.Serialize(
+            return SerializeToJson(
                 new
                 {
                     TotalRows = totalRow,

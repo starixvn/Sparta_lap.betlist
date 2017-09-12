@@ -120,7 +120,7 @@
                 var result = controller.ChangePassword() as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/Utility/ChangePass.cshtml"));
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Authorization/ChangePass.cshtml"));
                 Assert.That(result.ViewBag.PageData as Dictionary<string, string>, Is.Not.Null);
             }
         }
