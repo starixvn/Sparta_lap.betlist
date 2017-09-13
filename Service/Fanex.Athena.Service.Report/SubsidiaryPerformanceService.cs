@@ -48,6 +48,16 @@
                 var dataModel = new SubsidiaryPerformanceDataModel { Subsidiary = summary.Key.SubsidiaryId.ToString(), Currency = summary.First().CurrencyName };
 
                 var detailList = new List<SubsidiaryPerformanceDetail>();
+
+                detailList.Add(new SubsidiaryPerformanceDetail
+                {
+                    Product = ViewResources.All,
+                    BetCount = summary.Sum(p => p.BetCount),
+                    Turnover = summary.Sum(p => p.Turnover),
+                    CustomerWinLoss = summary.Sum(p => p.CustomerWinLoss),
+                    SubsidiaryWinLoss = summary.Sum(p => p.SubsidiaryWinLoss)
+                });
+
                 foreach (var detail in summary)
                 {
                     detailList.Add(new SubsidiaryPerformanceDetail

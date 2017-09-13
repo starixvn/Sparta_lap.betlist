@@ -15,7 +15,7 @@ class DataGrid extends Component {
 
     get header() {
         const subsidiary = LangHelper.getSingleResource("Subsidiary"),
-            currency = LangHelper.getSingleResource("BetCount"),
+            currency = LangHelper.getSingleResource("Currency"),
             product = LangHelper.getSingleResource("Product"),
             betcount = LangHelper.getSingleResource("BetCount"),
             turnover = LangHelper.getSingleResource("Turnover"),
