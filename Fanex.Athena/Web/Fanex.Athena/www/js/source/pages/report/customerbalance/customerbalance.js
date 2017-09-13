@@ -17,9 +17,9 @@
         var VALID_MONTH_RANGE = 2;
 
         var _ajaxRequest = null;
-        var _sortColumnIndex = "";
+        var _sortColumnIndex = "Deposit";
         var _sortType = "desc";
-        var _orderColumnCode = 0;
+        var _orderColumnCode = 1;
         var _isFirstLoad = true;
         var _submitData = null;
         var _pagingOption =

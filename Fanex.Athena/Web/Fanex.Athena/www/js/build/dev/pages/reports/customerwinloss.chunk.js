@@ -24400,7 +24400,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             viewCurrentReport: viewCurrentReport,
             viewWinlossBetList: viewWinlossBetList,
             ajaxPaging: ajaxPaging,
-            bindData: bindData
+            bindData: bindData,
+            getSubmitData: getPostData
         };
 
         return _me;

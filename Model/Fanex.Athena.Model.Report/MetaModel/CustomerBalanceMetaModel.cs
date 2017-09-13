@@ -16,6 +16,7 @@ namespace Fanex.Athena.Model.Report.MetaModel
             IsExcludeTest = true;
             PageIndex = 1;
             PageSize = 1000;
+            OrderItem = 1;
         }
 
         public bool IsExcludeTest { get; set; }
