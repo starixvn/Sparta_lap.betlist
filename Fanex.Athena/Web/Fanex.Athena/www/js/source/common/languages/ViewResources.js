@@ -1,4 +1,4 @@
-﻿// Generated at: 9/11/2017 4:48:07 PM
+﻿// Generated at: 9/13/2017 11:15:57 AM
 window._language_en_US = {
 AA:"AA",
 AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -609,7 +609,6 @@ OneTokenRestrictionDefaultMsg:"Who let you here ?",
 OneXTwo:"1 X 2",
 Open:"Open",
 OpeningBalance:"Opening Balance",
-Operator:"Operator",
 OriginalBetTicket:"Original Bet Ticket",
 OT:"OT",
 Others:"Others",

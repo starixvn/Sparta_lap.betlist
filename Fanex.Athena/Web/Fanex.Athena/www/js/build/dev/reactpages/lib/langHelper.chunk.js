@@ -61,7 +61,7 @@ webpackJsonp([3],{
 
 	"use strict";
 	
-	// Generated at: 9/11/2017 4:48:07 PM
+	// Generated at: 9/13/2017 11:15:57 AM
 	window._language_en_US = {
 	  AA: "AA",
 	  AccessDeniedMsg: "Sorry, You don&apos;t have permission to access this page.",
@@ -672,7 +672,6 @@ webpackJsonp([3],{
 	  OneXTwo: "1 X 2",
 	  Open: "Open",
 	  OpeningBalance: "Opening Balance",
-	  Operator: "Operator",
 	  OriginalBetTicket: "Original Bet Ticket",
 	  OT: "OT",
 	  Others: "Others",
@@ -1011,7 +1010,7 @@ webpackJsonp([3],{
 
 	"use strict";
 	
-	// Generated at: 9/11/2017 4:48:07 PM
+	// Generated at: 9/13/2017 11:15:57 AM
 	window._language_ko_KR = {
 	  AA: "AA",
 	  AccessDeniedMsg: "죄송합니다. 이 페이지에 접근할 권한이 없습니다.",
@@ -1784,7 +1783,7 @@ webpackJsonp([3],{
 
 	"use strict";
 	
-	// Generated at: 9/11/2017 4:48:07 PM
+	// Generated at: 9/13/2017 11:15:57 AM
 	window._language_zh_CN = {
 	  AA: "客客",
 	  AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
@@ -2595,7 +2594,7 @@ webpackJsonp([3],{
 
 	"use strict";
 	
-	// Generated at: 9/11/2017 4:48:07 PM
+	// Generated at: 9/13/2017 11:15:57 AM
 	window._language_zh_Hans = {
 	  AA: "客客",
 	  AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
@@ -3392,7 +3391,7 @@ webpackJsonp([3],{
 
 	"use strict";
 	
-	// Generated at: 9/11/2017 4:48:07 PM
+	// Generated at: 9/13/2017 11:15:57 AM
 	window._language_zh_TW = {
 	  AA: "客客",
 	  AccessDeniedMsg: "對不起，您沒有權限訪問此頁面。",

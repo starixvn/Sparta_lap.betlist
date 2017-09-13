@@ -5542,15 +5542,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Operator.
-        /// </summary>
-        public static string Operator {
-            get {
-                return ResourceManager.GetString("Operator", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Original Bet Ticket.
         /// </summary>
         public static string OriginalBetTicket {

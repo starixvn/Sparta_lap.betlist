@@ -3062,10 +3062,6 @@
   <data name="ConvertAll" xml:space="preserve">
     <value>Convert All</value>
   </data>
-  <data name="Operator" xml:space="preserve">
-    <value>Operator</value>
-    <comment>76246</comment>
-  </data>
   <data name="Subsidiary" xml:space="preserve">
     <value>Subsidiary</value>
   </data>

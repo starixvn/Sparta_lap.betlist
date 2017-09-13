@@ -1996,7 +1996,7 @@ webpackJsonp([4],[
 	                            _react2.default.createElement(
 	                                'label',
 	                                { className: 'label-text' },
-	                                _langHelper2.default.getSingleResource("Operator")
+	                                _langHelper2.default.getSingleResource("Subsidiary")
 	                            ),
 	                            this._renderSubsidiarySelectList()
 	                        )
