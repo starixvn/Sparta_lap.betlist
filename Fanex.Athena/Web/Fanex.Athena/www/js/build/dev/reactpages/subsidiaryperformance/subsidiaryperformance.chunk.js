@@ -890,7 +890,7 @@ webpackJsonp([4],[
 	        key: 'header',
 	        get: function get() {
 	            var subsidiary = _langHelper2.default.getSingleResource("Subsidiary"),
-	                currency = _langHelper2.default.getSingleResource("BetCount"),
+	                currency = _langHelper2.default.getSingleResource("Currency"),
 	                product = _langHelper2.default.getSingleResource("Product"),
 	                betcount = _langHelper2.default.getSingleResource("BetCount"),
 	                turnover = _langHelper2.default.getSingleResource("Turnover"),
@@ -933,8 +933,8 @@ webpackJsonp([4],[
 	                ),
 	                _react2.default.createElement(
 	                    'th',
-	                    { title: subsidiaryWL / comm },
-	                    subsidiaryWL / comm
+	                    { title: subsidiaryWL + '/ ' + comm },
+	                    subsidiaryWL + '/ ' + comm
 	                )
 	            );
 	        }
