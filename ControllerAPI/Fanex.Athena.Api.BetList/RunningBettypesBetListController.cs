@@ -34,14 +34,6 @@ namespace Fanex.Athena.Api.BetList
         [ApiFunctionAuthorization(PermissionKeys.TotalBetMixParlay)]
         public dynamic MixParlay(BetListMetaModel metaModel)
         {
-            metaModel.MultipleBettype = ((int)BetType.MixParlay).ToString();
-            return ProcessRequest(metaModel);
-        }
-
-        [HttpPost]
-        [ApiFunctionAuthorization(PermissionKeys.TotalBetMixParlay)]
-        public dynamic SystemParlay(BetListMetaModel metaModel)
-        {
             metaModel.MultipleBettype = ((int)BetType.CombinationMixParlay).ToString();
             return ProcessRequest(metaModel);
         }

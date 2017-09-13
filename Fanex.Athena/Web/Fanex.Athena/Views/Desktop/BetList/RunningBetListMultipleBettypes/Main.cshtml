@@ -14,21 +14,6 @@
 @section pagejs {
     <script src="@Url.ContentLinkByEnv("/www/js/build/pages/betlist/betlistrunningmultiplebettypes.chunk.js")" type="text/javascript"></script>
 }
-@section ContentTitle
-    {
-    @{
-        if (ViewBag.IsMixParlay == true || ViewBag.IsSystemParlay == true)
-        {
-            <a href="javascript:;" id="mixparlay_link" class="center-align parlay-tab @(ViewBag.IsMixParlay == true ? "active" : string.Empty)">
-                @ViewResources.MixParlay
-            </a>
-
-            <a href="javascript:;" id="systemparlay_link" class="center-align parlay-tab @(ViewBag.IsSystemParlay == true ? "active" : string.Empty)">
-                @ViewResources.SystemParlay
-            </a>
-        }
-    }
-}
 @section ContentFilter
 {
     @{

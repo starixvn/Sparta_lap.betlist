@@ -15,18 +15,7 @@
 }
 @section ContentTitle
 {
-    @{
-        if (ViewBag.IsMixParlay == true || ViewBag.IsSystemParlay == true)
-        {
-            <span id="mixparlay_link" class="@(ViewBag.IsMixParlay == true ? "inactive-switch-link" : "active-switch-link")">@ViewResources.MixParlay</span>
-            <span>|</span>
-            <span id="systemparlay_link" class="@(ViewBag.IsSystemParlay == true ? "inactive-switch-link" : "active-switch-link")">@ViewResources.SystemParlay</span>
-        }
-        else
-        {
-            @ViewBag.ReportTitle
-        }
-    }
+    @ViewBag.ReportTitle
 }
 @section ContentFilter
 {

@@ -51,26 +51,6 @@
                     expect(BetListRunningBettypes.submit).toHaveBeenCalled();
                 });
 
-                it("Site.redirect() should be called with correct url when #mixparlay_link is clicked", function () {
-                    setFixtures('<input id="mixparlay_link" type="button" />');
-                    spyOn(Site, "redirect");
-
-                    BetListRunningBettypes.initEvent();
-                    $("#mixparlay_link").click();
-
-                    expect(Site.redirect).toHaveBeenCalledWith("RunningBettypesBetList/MixParlay");
-                });
-
-                it("Site.redirect() should be called with correct url when #systemparlay_link is clicked", function () {
-                    setFixtures('<input id="systemparlay_link" type="button" />');
-                    spyOn(Site, "redirect");
-
-                    BetListRunningBettypes.initEvent();
-                    $("#systemparlay_link").click();
-
-                    expect(Site.redirect).toHaveBeenCalledWith("RunningBettypesBetList/SystemParlay");
-                });
-
                 it("#ExportToExcel is clicked - Site.redirect() should be called with correct url", function () {
                     setFixtures('<input id="ExportToExcel" type="button" />');
                     spyOn(Site, "redirect");

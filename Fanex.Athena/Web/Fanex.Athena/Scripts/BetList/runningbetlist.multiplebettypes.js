@@ -15,12 +15,6 @@ var RunningBetListMultipleBettype = (function ($) {
 
         initEvent: function () {
             $('#SubmitButton').click(RunningBetListMultipleBettype.submit);
-            $('#mixparlay_link').click(function () {
-                Site.redirect(Site.resolveClientUrl('RunningBettypesBetList/MixParlay'));
-            });
-            $('#systemparlay_link').click(function () {
-                Site.redirect(Site.resolveClientUrl('RunningBettypesBetList/SystemParlay'));
-            });
         },
 
         submit: function () {

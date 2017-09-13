@@ -88,7 +88,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mix Parlay.
+        ///   Looks up a localized string similar to Parlay.
         /// </summary>
         public static string Menu_12 {
             get {
