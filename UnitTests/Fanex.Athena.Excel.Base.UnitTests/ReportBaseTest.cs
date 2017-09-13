@@ -12,52 +12,6 @@
     public class ReportBaseTest
     {
         [Test]
-        public void AssignData_ReportDoesNotHaveData_AssignNoInfoRowMethodIsCalled()
-        {
-            // Arrange
-            var workbook = Substitute.For<IWorkbook>();
-            var sheet = Substitute.For<ISheet>();
-
-            string sourceSheetName = "Template";
-            var sourceSheetIndex = 0;
-            workbook.GetSheetIndex(sourceSheetName).Returns(sourceSheetIndex);
-            workbook.CloneSheet(sourceSheetIndex).Returns(sheet);
-
-            var report = Substitute.ForPartsOf<ReportBase>("ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
-            report.Workbook = workbook;
-
-            // Action
-            report.AssignData();
-
-            // Assert
-            report.Received().AssignNoInfoRow(sheet);
-        }
-
-        [Test]
-        public void AssignData_ReportHasData_AssignSheetDataMethodIsCalled()
-        {
-            // Arrange
-            var workbook = Substitute.For<IWorkbook>();
-            var sheet = Substitute.For<ISheet>();
-
-            string sourceSheetName = "Template";
-            var sourceSheetIndex = 0;
-            workbook.GetSheetIndex(sourceSheetName).Returns(sourceSheetIndex);
-            workbook.CloneSheet(sourceSheetIndex).Returns(sheet);
-
-            var report = Substitute.ForPartsOf<ReportBase>("ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
-            report.Workbook = workbook;
-
-            report.ExportData = GetDataTable(new string[] { "Col1", "Col2" });
-
-            // Action
-            report.AssignData();
-
-            // Assert
-            report.Received().AssignSheetData(sheet);
-        }
-
-        [Test]
         public void Export_WhenCall_AssignDataMethodIsCalled()
         {
             // Arrange
@@ -73,24 +27,6 @@
             report.Received().LoadTemplate();
             report.Received().AssignData();
             report.Received().RemoveTemplate();
-        }
-
-        [Test]
-        public void AssignRowContent_WhenCall_SetCellValueMethodIsCalled()
-        {
-            // Arrange
-            var columns = new string[] { "Row0", "Row1" };
-            var dataRow = GetDataTable(columns).Rows[0];
-            var excelRow = Substitute.For<IRow>();
-            var cell = Substitute.For<ICell>();
-            excelRow.Cells.Returns(new List<ICell>() { cell, cell });
-            var report = Substitute.ForPartsOf<ReportBase>("ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
-
-            // Action
-            report.AssignRowContent(excelRow, dataRow, columns, 0);
-
-            // Assert
-            cell.Received().SetCellValue("Data1");
         }
 
         [TestCase(0, "All Currencies")]

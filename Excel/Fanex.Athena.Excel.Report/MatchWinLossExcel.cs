@@ -17,6 +17,7 @@ namespace Fanex.Athena.Excel.Report
     using System.Linq;
     using Base;
     using Base.Entities;
+    using Base.Helpers;
     using Common;
     using Extension.Helper;
     using Fanex.Athena.Excel.Base.Extension;
@@ -57,6 +58,8 @@ namespace Fanex.Athena.Excel.Report
         private readonly MatchWinLossMetaModel _model;
         private readonly DataTable _totalData;
 
+        private readonly DataTable _exportData;
+
         public MatchWinLossExcel(
                                 string templatePath,
                                 ConvertingOption convertingOption,
@@ -67,7 +70,7 @@ namespace Fanex.Athena.Excel.Report
             : base(templatePath, showingOption, convertingOption)
         {
             _model = model;
-            ExportData = exportData;
+            _exportData = exportData;
             _totalData = totalData;
             AddExtraColumns();
 
@@ -86,6 +89,27 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.AmtDueToBA,
                 ViewResources.AmtDueToRacing
             };
+        }
+
+        protected override void AssignData()
+        {
+            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+
+            AssignHeader(sheet);
+
+            AssignTitle(sheet);
+
+            if (_exportData == null || _exportData.Rows.Count == 0)
+            {
+                AssignNoInfoRow(sheet);
+            }
+            else
+            {
+                AssignSheetData(sheet);
+            }
+
+            // Hide unnecessary column
+            ProcessUI(sheet);
         }
 
         /// <summary>
@@ -129,14 +153,14 @@ namespace Fanex.Athena.Excel.Report
             var matchName = "Default";
             var formatMatchName = string.Empty;
             var columnNameList = GetColumnNameList();
-            var rowCount = ExportData.Rows.Count;
+            var rowCount = _exportData.Rows.Count;
             var matchInfoList = new List<DataRow>();
             var currentIndex = 1;
             var specialBetType = new List<DataRow>();
 
             for (int index = 0; index < rowCount; index++)
             {
-                var exportRow = ExportData.Rows[index];
+                var exportRow = _exportData.Rows[index];
                 var betType = Converter.ToInt(exportRow["bettype"]);
                 if (SpecialBettypes.Contains(betType))
                 {
@@ -173,10 +197,10 @@ namespace Fanex.Athena.Excel.Report
 
             currentRowIndex = AssignMatchData(sheet, matchInfoList, formatMatchName, currentRowIndex, currentIndex);
 
-            ExportData.DefaultView.RowFilter = "bettype <> '9' and bettype <> '10' and bettype <> '29' and bettype <> '2799'";
-            var sumTable = ExportData.DefaultView.ToTable();
+            _exportData.DefaultView.RowFilter = "bettype <> '9' and bettype <> '10' and bettype <> '29' and bettype <> '2799'";
+            var sumTable = _exportData.DefaultView.ToTable();
 
-            if (ExportData.Rows.Count > sumTable.Rows.Count)
+            if (_exportData.Rows.Count > sumTable.Rows.Count)
             {
                 currentRowIndex = AssignTotalSummary(sheet, columnNameList, currentRowIndex, sumTable);
             }
@@ -297,8 +321,8 @@ namespace Fanex.Athena.Excel.Report
             string totalExpression = string.Format("{0} + {1}", GetCurrencyColumn("memberwinlost"), GetCurrencyColumn("playercomm"));
             string sumtotal = string.Format("{0} + {1}", GetCurrencyColumn("summemberwinlost"), GetCurrencyColumn("sumplayercomm"));
 
-            ExportData.Columns.Add("rbrevenue", typeof(decimal), racebookRevenueExpression);
-            ExportData.Columns.Add(GetCurrencyColumn("totalwl"), typeof(decimal), totalExpression);
+            _exportData.Columns.Add("rbrevenue", typeof(decimal), racebookRevenueExpression);
+            _exportData.Columns.Add(GetCurrencyColumn("totalwl"), typeof(decimal), totalExpression);
             _totalData.Columns.Add(GetCurrencyColumn("sumtotalwl"), typeof(decimal), sumtotal);
             _totalData.Columns.Add(GetCurrencyColumn("sumrbrevenue"), typeof(decimal), revenueExpression);
         }
@@ -386,7 +410,7 @@ namespace Fanex.Athena.Excel.Report
                 string betTypeName = "         " + CacheRef.GetBettype(betType, liveIndicator);
 
                 betTypeRow.Cells[1].SetCellValue(betTypeName);
-                AssignRowContent(betTypeRow, matchWinloss, columnNameList, 2);
+                ExcelHelper.AssignRowContent(betTypeRow, matchWinloss, columnNameList, 2);
                 currentRow++;
             }
 
@@ -418,7 +442,7 @@ namespace Fanex.Athena.Excel.Report
                 string betTypeName = betType == (int)BetType.VirtualSports2MixParlay ? CacheRef.GetBettypeWithProductName(betType, false) : CacheRef.GetBettype(betType, false);
 
                 betTypeRow.Cells[0].SetCellValue(betTypeName);
-                AssignRowContent(betTypeRow, dataRow, columnNameList, 2);
+                ExcelHelper.AssignRowContent(betTypeRow, dataRow, columnNameList, 2);
                 sheet.MergeCells(currentRowIndex, 0, currentRowIndex, 1);
                 currentRowIndex++;
             }

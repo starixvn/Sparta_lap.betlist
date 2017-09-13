@@ -27,7 +27,6 @@ namespace Fanex.Athena.Excel.Warehouse
         private const int ColumnTemplateCount = 15;
         private const int ColumnTurnover = 6;
         private const int ColumnTotalTrans = 7;
-        private const int ColumnCustomerWL = 8;
         private const int RowContentTemplate = 3;
         private const int RowNoInfoTemplate = 5;
         private const int RowTableHeaderTemplate = 1;
@@ -58,8 +57,6 @@ namespace Fanex.Athena.Excel.Warehouse
 
             _totalValues = totalValues;
 
-            NumOfDataRow = dataList.Count;
-
             HeaderTextList = new List<string>
             {
                 "#",
@@ -79,6 +76,27 @@ namespace Fanex.Athena.Excel.Warehouse
         }
 
         public int GroupingId { get; set; }
+
+        protected override void AssignData()
+        {
+            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+
+            AssignHeader(sheet);
+
+            AssignTitle(sheet);
+
+            if (_dataList.Count == 0)
+            {
+                AssignNoInfoRow(sheet);
+            }
+            else
+            {
+                AssignSheetData(sheet);
+            }
+
+            // Hide unnecessary column
+            ProcessUI(sheet);
+        }
 
         /// <summary>
         /// Assign data to header section.

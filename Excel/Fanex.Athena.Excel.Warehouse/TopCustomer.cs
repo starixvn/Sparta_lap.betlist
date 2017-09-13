@@ -10,6 +10,7 @@ namespace Fanex.Athena.Excel.Warehouse
     using System.Data;
     using Base;
     using Base.Entities;
+    using Base.Helpers;
     using Common;
     using Fanex.Athena.Excel.Base.Extension;
     using NPOI.SS.UserModel;
@@ -17,17 +18,17 @@ namespace Fanex.Athena.Excel.Warehouse
 
     public class TopCustomer : ReportBase
     {
-        private const int ColumnBaCommission = 9;
         private const int ColumnCustomerComm = 6;
         private const int ColumnCustomerTotal = 7;
         private const int ColumnCustomerWl = 5;
-        private const int ColumnLicenseeTotal = 10;
         private const int ColumnLicenseeWl = 8;
         private const int ColumnTemplateCount = 12;
         private const int RowContentTemplate = 3;
         private const int RowNoInfoTemplate = 5;
         private const int RowTableHeaderTemplate = 1;
         private const int RowTotalTemplate = 4;
+
+        private readonly DataTable _exportData;
 
         public TopCustomer(
                 string templatePath,
@@ -36,7 +37,7 @@ namespace Fanex.Athena.Excel.Warehouse
                 DataTable exportData)
             : base(templatePath, showingOption, convertingOption)
         {
-            ExportData = exportData;
+            _exportData = exportData;
 
             HeaderTextList = new List<string>
             {
@@ -99,15 +100,15 @@ namespace Fanex.Athena.Excel.Warehouse
 
         protected override void AssignSheetData(ISheet sheet)
         {
-            int rowCount = ExportData.Rows.Count;
+            int rowCount = _exportData.Rows.Count;
 
             var columnNameList = GetColumnNameList();
             for (int index = 0; index < rowCount; index++)
             {
-                var dataRow = ExportData.Rows[index];
+                var dataRow = _exportData.Rows[index];
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
                 row.Cells[0].SetCellValue(index + 1);
-                AssignRowContent(row, dataRow, columnNameList, 1);
+                ExcelHelper.AssignRowContent(row, dataRow, columnNameList, 1);
             }
 
             AssignTotalData(sheet, RowContentTemplate + rowCount);
@@ -172,7 +173,7 @@ namespace Fanex.Athena.Excel.Warehouse
             var columnNameList = GetTotalColumnNameList();
             foreach (string columnName in columnNameList)
             {
-                object sumValue = ExportData.Compute("Sum(" + columnName + ")", string.Empty);
+                object sumValue = _exportData.Compute("Sum(" + columnName + ")", string.Empty);
                 row.Cells[cellIndex].SetCellValue(Converter.ToDecimal(sumValue));
                 cellIndex++;
             }
@@ -184,13 +185,13 @@ namespace Fanex.Athena.Excel.Warehouse
 
         private string GetErrorMessage()
         {
-            if (ExportData.Rows.Count == 0)
+            if (_exportData.Rows.Count == 0)
             {
                 return ViewResources.NoInfo;
             }
 
-            return ExportData.Columns.Contains("message")
-                   ? Converter.ToString2(ExportData.Rows[0]["message"])
+            return _exportData.Columns.Contains("message")
+                   ? Converter.ToString2(_exportData.Rows[0]["message"])
                    : string.Empty;
         }
     }

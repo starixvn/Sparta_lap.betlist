@@ -25,6 +25,8 @@ namespace Fanex.Athena.Excel.Base
         public const int RowTitleTemplate = 0;
         public const int MaxRowCount = 30000;
 
+        private readonly string _templatePath;
+
         private int _pageSize;
 
         protected ReportBase(
@@ -33,7 +35,7 @@ namespace Fanex.Athena.Excel.Base
             ConvertingOption convertingOption,
             int pageSize = 0)
         {
-            TemplatePath = templatePath;
+            _templatePath = templatePath;
             ShowingOption = showingOption;
             ConvertingOption = convertingOption;
             PageSize = pageSize;
@@ -58,18 +60,6 @@ namespace Fanex.Athena.Excel.Base
             set;
         }
 
-        protected ICellStyle DefaultStyle
-        {
-            get;
-            set;
-        }
-
-        public DataTable ExportData
-        {
-            get;
-            set;
-        }
-
         protected IList<string> HeaderTextList
         {
             get;
@@ -82,12 +72,6 @@ namespace Fanex.Athena.Excel.Base
             set;
         }
 
-        protected string TemplatePath
-        {
-            get;
-            set;
-        }
-
         protected internal ISheet TemplateSheet
         {
             get;
@@ -95,12 +79,6 @@ namespace Fanex.Athena.Excel.Base
         }
 
         public virtual IWorkbook Workbook
-        {
-            get;
-            set;
-        }
-
-        protected int NumOfDataRow
         {
             get;
             set;
@@ -131,28 +109,6 @@ namespace Fanex.Athena.Excel.Base
 
         protected internal virtual void AssignData()
         {
-            if (ExportData != null && ExportData.Rows.Count > 0)
-            {
-                NumOfDataRow = ExportData.Rows.Count;
-            }
-
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
-
-            AssignHeader(sheet);
-
-            AssignTitle(sheet);
-
-            if (NumOfDataRow == 0)
-            {
-                AssignNoInfoRow(sheet);
-            }
-            else
-            {
-                AssignSheetData(sheet);
-            }
-
-            // Hide unnecessary column
-            ProcessUI(sheet);
         }
 
         protected virtual void AssignHeader(ISheet sheet)
@@ -185,12 +141,12 @@ namespace Fanex.Athena.Excel.Base
             FileStream stream = null;
             try
             {
-                stream = new FileStream(TemplatePath, FileMode.Open, FileAccess.Read);
+                stream = new FileStream(_templatePath, FileMode.Open, FileAccess.Read);
                 Workbook = new HSSFWorkbook(stream);
                 TemplateSheet = Workbook.GetSheet("Template");
-                DefaultStyle = Workbook.CreateCellStyle();
-                DefaultStyle.ShrinkToFit = true;
-                DefaultStyle.WrapText = true;
+                var defaultStyle = Workbook.CreateCellStyle();
+                defaultStyle.ShrinkToFit = true;
+                defaultStyle.WrapText = true;
             }
             finally
             {
@@ -204,21 +160,6 @@ namespace Fanex.Athena.Excel.Base
         protected internal virtual void RemoveTemplate()
         {
             Workbook.RemoveSheet("Template");
-        }
-
-        protected internal virtual int AssignRowContent(IRow row, DataRow data, IEnumerable<string> columnNameList, int columnStart = 0)
-        {
-            foreach (string columnName in columnNameList)
-            {
-                if (data.Table.Columns.Contains(columnName))
-                {
-                    row.Cells[columnStart].SetCellValue(data[columnName]);
-                }
-
-                columnStart++;
-            }
-
-            return columnStart;
         }
 
         protected internal virtual string GetExactTitleCurrencyName(int currencyId)

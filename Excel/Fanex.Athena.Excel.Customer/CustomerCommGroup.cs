@@ -34,6 +34,7 @@ namespace Fanex.Athena.Excel.Customer
         private const int RowNoInfoTemplate = 5;
 
         private readonly string _excelTitle = ViewResources.CommissionGroupList;
+
         private readonly DataTable _exportData;
 
         public CustomerCommGroup(
@@ -43,7 +44,6 @@ namespace Fanex.Athena.Excel.Customer
             : base(templatePath, showingOption, new ConvertingOption())
         {
             _exportData = exportData;
-            ExportData = exportData;
             HeaderTextList = new List<string>
             {
                 "#",
@@ -56,6 +56,27 @@ namespace Fanex.Athena.Excel.Customer
                 ViewResources.LCComm + " (%)",
                 ViewResources.CSComm + " (%)",
             };
+        }
+
+        protected override void AssignData()
+        {
+            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+
+            AssignHeader(sheet);
+
+            AssignTitle(sheet);
+
+            if (_exportData == null || _exportData.Rows.Count == 0)
+            {
+                AssignNoInfoRow(sheet);
+            }
+            else
+            {
+                AssignSheetData(sheet);
+            }
+
+            // Hide unnecessary column
+            ProcessUI(sheet);
         }
 
         /// <summary>
