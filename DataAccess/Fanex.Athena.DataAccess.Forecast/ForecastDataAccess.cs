@@ -11,6 +11,7 @@ namespace Fanex.Athena.DataAccess.Forecast
     using System.Linq;
     using Core;
     using Core.Extensions;
+    using Extension.Helper;
     using Fanex.Athena.Model.Forecast.DTO.ForecastHdou;
     using Fanex.Athena.Model.Forecast.ViewModel;
     using Fanex.Common;
@@ -83,8 +84,6 @@ namespace Fanex.Athena.DataAccess.Forecast
         public IEnumerable<League> GetForecastRunningLeague(ForecastBaseMetaModel metaModel)
         {
             const string UspName = "Lrf_LeagueSelRunning";
-            var leagues = new List<League>();
-
             using (var db = this.GetObjectDb(UspName))
             {
                 db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);

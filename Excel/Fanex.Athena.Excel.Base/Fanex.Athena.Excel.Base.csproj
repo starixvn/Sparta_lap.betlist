@@ -116,7 +116,6 @@
     <Compile Include="ExcelException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportBase.cs" />
-    <Compile Include="Utility\DataHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">

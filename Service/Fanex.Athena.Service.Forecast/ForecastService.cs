@@ -8,9 +8,9 @@ namespace Fanex.Athena.Service.Forecast
 {
     using System.Collections.Generic;
     using System.Data;
-    using DataAccess.Core.Extensions;
     using DataAccess.Forecast;
     using DataAccess.Forecast.Interfaces;
+    using Extension.Helper;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Forecast.DTO.ForecastHdou;
     using Fanex.Common;

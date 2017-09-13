@@ -4,9 +4,9 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.DataAccess.Core.Extensions
+namespace Fanex.Athena.Extension.Helper
 {
-    using Resources;
+    using Fanex.Athena.Resources;
 
     public static class DataHelper
     {

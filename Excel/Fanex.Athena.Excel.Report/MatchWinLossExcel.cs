@@ -18,6 +18,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Base.Entities;
     using Common;
+    using Extension.Helper;
     using Fanex.Athena.Excel.Base.Extension;
     using Model.Core.DataDomain;
     using Model.Core.Helper;
@@ -478,6 +479,11 @@ namespace Fanex.Athena.Excel.Report
             }
 
             return currencyColumnList.Select(item => item.Equals("sumbetcount", StringComparison.OrdinalIgnoreCase) ? item : GetCurrencyColumn(item)).ToList();
+        }
+
+        private string GetCurrencyColumn(string columnName)
+        {
+            return DataHelper.GetCurrencyColumnName(columnName, ConvertingOption.IsConvert, ConvertingOption.BaseCurrency);
         }
     }
 }

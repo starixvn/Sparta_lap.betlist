@@ -12,7 +12,6 @@ namespace Fanex.Athena.Excel.Base
     using System.IO;
     using System.Linq;
     using Excel.Base.Entities;
-    using Excel.Base.Utility;
     using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Model.Core.DataDomain;
     using Model.Core.MetaModel.Product;
@@ -220,11 +219,6 @@ namespace Fanex.Athena.Excel.Base
             }
 
             return columnStart;
-        }
-
-        protected string GetCurrencyColumn(string columnName)
-        {
-            return DataHelper.GetCurrencyColumnName(columnName, this.ConvertingOption);
         }
 
         protected internal virtual string GetExactTitleCurrencyName(int currencyId)

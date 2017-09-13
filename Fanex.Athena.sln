@@ -8,6 +8,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{D72107B8-4765-4E3D-A86D-36BD7E0D9109}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extension", "Extension", "{993B45CC-7A78-4580-A389-3E451AA0D1F8}"
+	ProjectSection(SolutionItems) = preProject
+		DataAccess\Fanex.Athena.DataAccess.Core\Extensions\DataHelper.cs = DataAccess\Fanex.Athena.DataAccess.Core\Extensions\DataHelper.cs
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{8A8161D6-261F-4B28-9CB8-71D83D5977E5}"
 EndProject
