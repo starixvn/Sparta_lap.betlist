@@ -193,18 +193,6 @@ namespace Fanex.Athena.Excel.Base
         }
 
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
-            Justification = "Reviewed. Suppression is OK here.")]
-        protected internal virtual string GetLicenseeWLProduct(IEnumerable<ProductOption> productOptions, string caption = null)
-        {
-            var productCodeList = productOptions.Where(p => p.Status)
-                            .Aggregate(string.Empty, (current, p) => current + (string.IsNullOrEmpty(current) ? p.Code : ", " + p.Code));
-
-            return string.IsNullOrEmpty(productCodeList)
-                ? string.IsNullOrWhiteSpace(caption) ? string.Empty : ", " + caption
-                      : string.Format(", {0} ({1})", string.IsNullOrWhiteSpace(caption) ? ViewResources.LicenseeW_L : caption, productCodeList);
-        }
-
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
            Justification = "Reviewed. Suppression is OK here.")]
         protected virtual string GetTitleCurrencyName()
         {

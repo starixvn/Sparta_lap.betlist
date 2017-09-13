@@ -1,9 +1,7 @@
 ﻿namespace Fanex.Athena.Excel.Base.UnitTests
 {
     using System.Collections.Generic;
-    using System.Data;
     using Entities;
-    using Model.Core.MetaModel.Product;
     using NPOI.SS.UserModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -61,34 +59,6 @@
             Assert.That(result, Is.EqualTo(expected));
         }
 
-        [TestCase("Caption", ", Caption (SB, CS, BA)")]
-        [TestCase(null, ", Licensee W/L (SB, CS, BA)")]
-        public void GetLicenseeWLProduct_ProductOptionListHasData_ReturnCorrectValue(string caption, string expected)
-        {
-            // Arrange
-            var report = Substitute.ForPartsOf<ReportBase>("ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
-
-            // Action
-            var result = report.GetLicenseeWLProduct(GetProductOption(), caption);
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        [TestCase("Caption Test", ", Caption Test")]
-        [TestCase(null, "")]
-        public void GetLicenseeWLProduct_ProductOptionListDoesNotHaveData_ReturnCorrectValue(string caption, string expected)
-        {
-            // Arrange
-            var report = Substitute.ForPartsOf<ReportBase>("ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
-
-            // Action
-            var result = report.GetLicenseeWLProduct(new List<ProductOption>(), caption);
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
         [TestCase(0, 2)]
         [TestCase(2, 0)]
         public void SetTextRowValue_WhenCall_SetCellValueMethodIsCalled(int sourceRowIndex, int destRowIndex)
@@ -109,31 +79,6 @@
 
             // Assert
             cell.Received().SetCellValue("Test");
-        }
-
-        private DataTable GetDataTable(string[] columnName)
-        {
-            var dataTable = new DataTable();
-            dataTable.Columns.Add(columnName[0]);
-            dataTable.Columns.Add(columnName[1]);
-
-            DataRow dr = dataTable.NewRow();
-            dr[columnName[0]] = "Data1";
-            dr[columnName[1]] = "Data2";
-            dataTable.Rows.Add(dr);
-
-            return dataTable;
-        }
-
-        private IList<ProductOption> GetProductOption()
-        {
-            return new List<ProductOption>()
-            {
-                new ProductOption() { Code = "SB", Name = "Sportbook", Status = true },
-                new ProductOption() { Code = "CS", Name = "RNGCasino", Status = true },
-                new ProductOption() { Code = "NG", Name = "Number Game", Status = false },
-                new ProductOption() { Code = "BA", Name = "BA", Status = true }
-            };
         }
     }
 }

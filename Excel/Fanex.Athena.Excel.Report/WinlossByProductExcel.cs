@@ -11,6 +11,7 @@ namespace Fanex.Athena.Excel.Report
     using System.Linq;
     using Base;
     using Base.Entities;
+    using Base.Helpers;
     using Fanex.Athena.Excel.Base.Extension;
     using Model.Core.Helper;
     using Model.Report.DTO;
@@ -234,7 +235,8 @@ namespace Fanex.Athena.Excel.Report
                                     ViewResources.WinLossByProductTitle,
                                     fromdate,
                                     todate,
-                                    GetExactTitleCurrencyName(_metaModel.DrillDownCurrencyId)) + GetLicenseeWLProduct(_metaModel.ProductOptions, _systemId);
+                                    GetExactTitleCurrencyName(_metaModel.DrillDownCurrencyId)) +
+                                    ExcelHelper.GetLicenseeWLProduct(_metaModel.ProductOptions, _systemId);
             }
             else
             {
@@ -242,7 +244,8 @@ namespace Fanex.Athena.Excel.Report
                                         ViewResources.WinLossByProductTitle,
                                         fromdate,
                                         todate,
-                                        GetExactTitleCurrencyName(_metaModel.CurrencyId)) + GetLicenseeWLProduct(_metaModel.ProductOptions, _systemId);
+                                        GetExactTitleCurrencyName(_metaModel.CurrencyId)) +
+                                        ExcelHelper.GetLicenseeWLProduct(_metaModel.ProductOptions, _systemId);
             }
 
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);

@@ -11,6 +11,7 @@ namespace Fanex.Athena.Excel.Report
     using System.Linq;
     using Base;
     using Base.Entities;
+    using Base.Helpers;
     using Fanex.Athena.Excel.Base.Extension;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -166,7 +167,7 @@ namespace Fanex.Athena.Excel.Report
                                         ViewResources.CustomerWinLossTitle,
                                         _metaModel.FromDate.ToString(FormatDate),
                                         _metaModel.ToDate.ToString(FormatDate),
-                                        GetTitleCurrencyName()) + GetLicenseeWLProduct(_metaModel.ProductOptions);
+                                        GetTitleCurrencyName()) + ExcelHelper.GetLicenseeWLProduct(_metaModel.ProductOptions);
 
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 

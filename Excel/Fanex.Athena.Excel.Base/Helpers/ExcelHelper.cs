@@ -2,8 +2,11 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Fanex.Athena.Excel.Base.Extension;
+    using Model.Core.MetaModel.Product;
     using NPOI.SS.UserModel;
+    using Resources;
 
     public static class ExcelHelper
     {
@@ -20,6 +23,16 @@
             }
 
             return columnStart;
+        }
+
+        public static string GetLicenseeWLProduct(IEnumerable<ProductOption> productOptions, string caption = null)
+        {
+            var productCodeList = productOptions.Where(p => p.Status)
+                            .Aggregate(string.Empty, (current, p) => current + (string.IsNullOrEmpty(current) ? p.Code : ", " + p.Code));
+
+            return string.IsNullOrEmpty(productCodeList)
+                ? string.IsNullOrWhiteSpace(caption) ? string.Empty : ", " + caption
+                      : string.Format(", {0} ({1})", string.IsNullOrWhiteSpace(caption) ? ViewResources.LicenseeW_L : caption, productCodeList);
         }
     }
 }
