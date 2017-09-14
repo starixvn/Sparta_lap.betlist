@@ -7,14 +7,11 @@
 namespace Fanex.Athena.Excel.Base
 {
     using System.Collections.Generic;
-    using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
-    using System.Linq;
     using Excel.Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Model.Core.MetaModel.Product;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using Resources;

@@ -6,35 +6,20 @@
 
 namespace Fanex.Athena.Excel.Base
 {
-    using System.IO;
     using Entities;
     using Extension;
-    using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
 
     public abstract class ExcelBase
     {
         protected const int ColumnIndex = 0;
+
         protected const string FormatDate = "MM/dd/yyyy";
 
         protected ShowingOption ShowingOption
         {
             get;
             set;
-        }
-
-        public static byte[] ExportEmptyFile()
-        {
-            // Create a new workbook
-            var templateWorkbook = new HSSFWorkbook();
-            templateWorkbook.CreateSheet();
-
-            var ms = new MemoryStream();
-
-            // Writing the workbook content to the MemoryStream...
-            templateWorkbook.Write(ms);
-
-            return ms.ToArray();
         }
 
         protected internal virtual void HideRow(ISheet sheet, params int[] rowIndex)

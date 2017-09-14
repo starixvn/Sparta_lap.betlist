@@ -75,7 +75,7 @@ namespace Fanex.Athena.Controllers.BetList
                 return new ExcelResult(workbook, "CorrectScoreBetList");
             }
 
-            return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+            return EmptyExcel();
         }
     }
 }

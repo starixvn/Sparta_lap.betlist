@@ -51,7 +51,6 @@ namespace Fanex.Athena.Controllers.BetList
 
         private string GetIframeUrl(long betCheck, int memberId)
         {
-            var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var token = GetToken(memberId);
             var siteId = _colossusBetBetListService.GetSiteId(memberId);
             var url = AppSettings.GetValue("CBIframeUrlSiteId" + siteId.ToString());

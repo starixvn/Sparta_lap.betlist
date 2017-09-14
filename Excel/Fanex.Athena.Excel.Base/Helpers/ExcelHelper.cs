@@ -2,9 +2,11 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.IO;
     using System.Linq;
     using Fanex.Athena.Excel.Base.Extension;
     using Model.Core.MetaModel.Product;
+    using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using Resources;
 
@@ -33,6 +35,16 @@
             return string.IsNullOrEmpty(productCodeList)
                 ? string.IsNullOrWhiteSpace(caption) ? string.Empty : ", " + caption
                       : string.Format(", {0} ({1})", string.IsNullOrWhiteSpace(caption) ? ViewResources.LicenseeW_L : caption, productCodeList);
+        }
+
+        public static byte[] ExportEmptyFile()
+        {
+            var templateWorkbook = new HSSFWorkbook();
+            templateWorkbook.CreateSheet();
+            var ms = new MemoryStream();
+            templateWorkbook.Write(ms);
+
+            return ms.ToArray();
         }
     }
 }

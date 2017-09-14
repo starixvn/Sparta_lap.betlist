@@ -10,6 +10,7 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
@@ -38,7 +39,7 @@ namespace Fanex.Athena.Controllers.BetList
                     return Excel(metaModel);
                 }
 
-                return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+                return EmptyExcel();
             }
 
             return View("~/Views/BetList/DailyRacingWl/Main.cshtml", metaModel);

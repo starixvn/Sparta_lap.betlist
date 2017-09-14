@@ -6,6 +6,7 @@
     using System.Collections.ObjectModel;
     using System.Web.Mvc;
     using System.Web.SessionState;
+    using Excel.Base.Helpers;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Service.BetList;
@@ -153,6 +154,11 @@
             return currencyId == BaseCurrencyType.All ||
                 KeanOceanBusinessHelper.VerifyKeanOceanCurrencyRequest(
                     SessionService.UserSession.CurrencyList, SessionService.LicenseeSession.LicenseeId, currencyId);
+        }
+
+        protected FileContentResult EmptyExcel()
+        {
+            return this.File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
     }
 }

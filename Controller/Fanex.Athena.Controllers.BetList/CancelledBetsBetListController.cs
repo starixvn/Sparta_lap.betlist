@@ -135,7 +135,7 @@ namespace Fanex.Athena.Controllers.BetList
                 return new ExcelResult(workbook, "CancelledBetList");
             }
 
-            return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+            return EmptyExcel();
         }
     }
 }
