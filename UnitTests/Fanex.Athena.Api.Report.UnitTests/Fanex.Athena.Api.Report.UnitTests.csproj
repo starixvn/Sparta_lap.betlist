@@ -87,6 +87,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AgCasinoBalanceReportControllerTest.cs" />
+    <Compile Include="ApiReportBaseControllerTest.cs" />
+    <Compile Include="CustomerBalanceReportControllerTest.cs" />
     <Compile Include="PlatformWinLossReportController_ExportExcelTest.cs" />
     <Compile Include="PlatformWinLossReportControllerTest.cs" />
     <Compile Include="WinLossByLeagueReportControllerTest.cs" />
@@ -106,6 +108,10 @@
     <ProjectReference Include="..\..\ControllerAPI\Fanex.Athena.Api.Report\Fanex.Athena.Api.Report.csproj">
       <Project>{8EFB14A8-0A10-4095-A857-C6496E830458}</Project>
       <Name>Fanex.Athena.Api.Report</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Report\Fanex.Athena.DataAccess.Report.csproj">
+      <Project>{5653bc29-0843-4d75-9140-5b370df2f88c}</Project>
+      <Name>Fanex.Athena.DataAccess.Report</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Excel\Fanex.Athena.Excel.Base\Fanex.Athena.Excel.Base.csproj">
       <Project>{413861AD-068B-4C02-B913-10B1DE708FB7}</Project>

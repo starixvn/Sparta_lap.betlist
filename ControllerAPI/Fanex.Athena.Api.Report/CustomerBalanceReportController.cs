@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Api.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Net.Http;
     using System.Web.Hosting;
@@ -39,6 +40,18 @@
         public dynamic Index(CustomerBalanceMetaModel metaModel)
         {
             return metaModel.IsExportExcel ? ExportExcel(metaModel) : ProcessRequest(metaModel);
+        }
+
+        [CLSCompliant(false)]
+        protected internal virtual CustomerBalanceExcel CreateExcel(
+            string templatePath,
+            CustomerBalanceMetaModel metaModel,
+            IEnumerable<CustBalance> dataList,
+            CustBalance totalData,
+            ShowingOption showingOption,
+            ConvertingOption convertingOption)
+        {
+            return new CustomerBalanceExcel(templatePath, metaModel, dataList, totalData, showingOption, convertingOption);
         }
 
         private dynamic ProcessRequest(CustomerBalanceMetaModel metaModel)
@@ -84,7 +97,7 @@
             metaModel.PageSize = PageSizeExcel;
             var dataList = GetData(metaModel, out totalData, out totalRows);
 
-            var custBalanceExcel = new CustomerBalanceExcel(templatePath, metaModel, dataList, totalData, showingOption, convertingOption);
+            var custBalanceExcel = CreateExcel(templatePath, metaModel, dataList, totalData, showingOption, convertingOption);
             custBalanceExcel.Export();
 
             return ExcelStream(custBalanceExcel.Workbook, FileName);
