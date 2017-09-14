@@ -43,7 +43,7 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult MixParlay(BetListMetaModel metaModel)
         {
             metaModel.MultipleBettype = ((int)BetType.CombinationMixParlay).ToString();
-            ViewBag.ReportTitle = ViewResources.Parlay;
+            ViewBag.ReportTitle = Menu.Menu_12;
             ViewBag.UserGuideName = "TotalBetsMixParlay";
             return ProcessRequest(metaModel);
         }
