@@ -205,17 +205,16 @@
 
         function sort(index) {
             if (_pagingOption.totalrow > 1) {
-                _sortType = index === _sortColumnIndex ? (_sortType === "desc" ? "asc" : "desc") : "desc";
+                var sortType = index === _sortColumnIndex ? (_sortType === "desc" ? "asc" : "desc") : "desc";
+                var orderColumnCode = CustomerBalanceOption.getOrderColumnCode(index, sortType);
+                if (orderColumnCode === 0) {
+                    return "stop";
+                }
+
                 window.setTimeout(function () {
-                    _orderColumnCode = CustomerBalanceOption.getOrderColumnCode(index, _sortType);
-                    if (_orderColumnCode === 0) {
-                        _sortColumnIndex = "";
-                        _sortType = "";
-                    }
-                    else {
-                        _sortColumnIndex = index;
-                    }
-                    $(_selector.OrderItemInput).val(_orderColumnCode);
+                    _sortColumnIndex = index;
+                    _sortType = sortType;
+                    _orderColumnCode = orderColumnCode;
                     _me.submit();
                 }, 100);
             }

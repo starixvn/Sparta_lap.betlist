@@ -276,13 +276,26 @@
                     it("CustomerBalance.submit should be called when sorting", function () {
                         CustomerBalance.bindData({ TotalRows: 2, Data: [1, 2] });
                         spyOn(CustomerBalanceOption, "getOrderColumnCode").and.callFake(function (index, sortType) {
-                            return 0;
+                            return 1;
                         });
 
-                        gridOption.onSortCol(0);
+                        gridOption.onSortCol(1);
                         jasmine.clock().tick(101);
 
                         expect(CustomerBalance.submit).toHaveBeenCalled();
+                    });
+
+                    it("CustomerBalance.submit should not be called if column code is 0", function () {
+                        CustomerBalance.bindData({ TotalRows: 2, Data: [1, 2] });
+                        spyOn(CustomerBalanceOption, "getOrderColumnCode").and.callFake(function (index, sortType) {
+                            return 0;
+                        });
+
+                        var result = gridOption.onSortCol(1);
+                        jasmine.clock().tick(101);
+
+                        expect(CustomerBalance.submit).not.toHaveBeenCalled();
+                        expect(result).toBe("stop");
                     });
 
                     it("grid should be sorted descending on the first time", function () {
@@ -290,10 +303,10 @@
                         CustomerBalance.bindData({ TotalRows: 2, Data: [1, 2] });
                         spyOn(CustomerBalanceOption, "getOrderColumnCode").and.callFake(function (index, type) {
                             sortType = type;
-                            return 0;
+                            return 2;
                         });
 
-                        gridOption.onSortCol(1);
+                        gridOption.onSortCol(2);
                         jasmine.clock().tick(101);
 
                         expect(sortType).toBe("desc");
@@ -304,15 +317,15 @@
                         CustomerBalance.bindData({ TotalRows: 2, Data: [1, 2] });
                         spyOn(CustomerBalanceOption, "getOrderColumnCode").and.callFake(function (index, type) {
                             sortType = type;
-                            return 1;
+                            return 3;
                         });
 
-                        gridOption.onSortCol(2);
+                        gridOption.onSortCol(3);
                         jasmine.clock().tick(101);
 
                         expect(sortType).toBe("desc");
 
-                        gridOption.onSortCol(2);
+                        gridOption.onSortCol(3);
                         jasmine.clock().tick(101);
 
                         expect(sortType).toBe("asc");
@@ -323,20 +336,20 @@
                         CustomerBalance.bindData({ TotalRows: 2, Data: [1, 2] });
                         spyOn(CustomerBalanceOption, "getOrderColumnCode").and.callFake(function (index, type) {
                             sortType = type;
-                            return 1;
+                            return 4;
                         });
 
-                        gridOption.onSortCol(2);
+                        gridOption.onSortCol(4);
                         jasmine.clock().tick(101);
 
                         expect(sortType).toBe("desc");
 
-                        gridOption.onSortCol(2);
+                        gridOption.onSortCol(4);
                         jasmine.clock().tick(101);
 
                         expect(sortType).toBe("asc");
 
-                        gridOption.onSortCol(2);
+                        gridOption.onSortCol(4);
                         jasmine.clock().tick(101);
 
                         expect(sortType).toBe("desc");
