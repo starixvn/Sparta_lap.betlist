@@ -160,7 +160,6 @@
             };
             var excel = Substitute.ForPartsOf<WinlossByLeagueExcel>(
                 string.Empty,
-                new ConvertingOption(),
                 metaModel,
                 new WinLossByLeagueViewModel
                 {
@@ -169,11 +168,9 @@
                 new WinLossByLeague());
             excel.When(x => x.Export()).DoNotCallBase();
 
-            ConvertingOption convertingOption = null;
             WinLossByLeagueViewModel viewModel = null;
             _controller.CreateExcel(
                 Arg.Any<string>(),
-                Arg.Do<ConvertingOption>(x => convertingOption = x),
                 Arg.Any<WinLossByLeague>(),
                 Arg.Any<WinLossByLeagueMetaModel>(),
                 Arg.Do<WinLossByLeagueViewModel>(x => viewModel = x))
@@ -192,8 +189,6 @@
             {
                 excel.Received().Export();
                 _controller.Received().ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>());
-                Assert.That(convertingOption.BaseCurrency, Is.EqualTo(metaModel.BaseCurrency));
-                Assert.That(convertingOption.CurrencyName, Is.EqualTo("EUR"));
                 Assert.That(viewModel.MainResult.Count(), Is.EqualTo(1));
                 Assert.That(metaModel.PageIndex, Is.EqualTo(1));
                 Assert.That(metaModel.PageSize, Is.EqualTo(int.MaxValue - 1));

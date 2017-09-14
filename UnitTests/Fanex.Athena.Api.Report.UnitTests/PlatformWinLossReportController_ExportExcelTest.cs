@@ -88,7 +88,6 @@
                Arg.Any<string>(),
                excelModel,
                Arg.Do<ShowingOption>(x => expetedShowingOption = x),
-               Arg.Any<ConvertingOption>(),
                Arg.Any<IEnumerable<ProductOption>>());
             excel.When(x => x.Export()).DoNotCallBase();
 
@@ -96,8 +95,7 @@
                 Arg.Any<string>(),
                 _metalModel,
                 excelModel,
-                Arg.Any<ShowingOption>(),
-                Arg.Any<ConvertingOption>())
+                Arg.Any<ShowingOption>())
                 .ReturnsForAnyArgs(excel);
 
             // Action
@@ -123,7 +121,6 @@
                Arg.Any<string>(),
                excelModel,
                Arg.Do<ShowingOption>(x => expetedShowingOption = x),
-               Arg.Any<ConvertingOption>(),
                Arg.Any<IEnumerable<ProductOption>>());
             excel.When(x => x.Export()).DoNotCallBase();
 
@@ -131,8 +128,7 @@
                 Arg.Any<string>(),
                 _metalModel,
                 excelModel,
-                Arg.Any<ShowingOption>(),
-                Arg.Any<ConvertingOption>())
+                Arg.Any<ShowingOption>())
                 .ReturnsForAnyArgs(excel);
 
             // Action
@@ -146,20 +142,13 @@
         public void Index_ExportExcelSummaryWithLevel0_PassCorrectParamsToCreateExcel()
         {
             // Arrange
-            const string ExpectedBaseCurrency = "ABC";
-            const string ExpectedCurrencyName = "123";
-            _metalModel.Level = 0;
-            _metalModel.BaseCurrency = ExpectedBaseCurrency;
-            _metalModel.CurrencyName = ExpectedCurrencyName;
-
             FakeGetSummaryData();
 
             var excel = Substitute.ForPartsOf<PlatformWinLossSummaryExcel>(
-                string.Empty,
+                null,
                 _metalModel,
                 Arg.Any<IList<PlatformWinLossSummary>>(),
-                Arg.Any<PlatformWinLossSummary>(),
-                Arg.Any<ConvertingOption>());
+                Arg.Any<PlatformWinLossSummary>());
 
             excel.When(x => x.Export()).DoNotCallBase();
 
@@ -167,8 +156,7 @@
                 null,
                 _metalModel,
                 Arg.Any<IList<PlatformWinLossSummary>>(),
-                Arg.Any<PlatformWinLossSummary>(),
-                Arg.Any<ConvertingOption>())
+                Arg.Any<PlatformWinLossSummary>())
                 .Returns(excel);
 
             // Action
@@ -181,8 +169,7 @@
                     Arg.Any<string>(),
                     _metalModel,
                     Arg.Is<IList<PlatformWinLossSummary>>(x => x.Count == 2),
-                    Arg.Is<PlatformWinLossSummary>(x => x.CustomerComm == ExpectedCustomerComm),
-                    Arg.Is<ConvertingOption>(x => x.BaseCurrency == ExpectedBaseCurrency.ToLower() && x.CurrencyName == ExpectedCurrencyName));
+                    Arg.Is<PlatformWinLossSummary>(x => x.CustomerComm == ExpectedCustomerComm));
                 Assert.That(_metalModel.AgentListXml, Is.EqualTo("XmlData"));
             });
         }

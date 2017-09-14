@@ -51,7 +51,7 @@ namespace Fanex.Athena.Excel.Report
                                      IEnumerable<CustTurnover> customerTurnoverList,
                                      CustTurnover total,
                                      string formatDateTime)
-            : base(templatePath, showingOption, new ConvertingOption())
+            : base(templatePath, showingOption, null)
         {
             _customerTurnoverList = customerTurnoverList;
             _total = total;

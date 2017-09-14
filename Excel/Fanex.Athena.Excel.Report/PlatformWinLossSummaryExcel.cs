@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using Base;
-    using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Model.Core.DataDomain;
     using Model.Core.MetaModel.Product;
@@ -25,14 +24,12 @@
 
         private const int ColumnNoContent = 8;
 
-        private const int RowTableHeaderTemplate = 1;
         private const int RowParentContentTemplate = 3;
         private const int RowChildContentTemplate = 4;
         private const int RowTotal = 5;
 
         private const int RowNoInfoTemplate = 6;
 
-        private readonly string _templatePath;
         private readonly PlatformWinLossMetaModel _model;
         private readonly IList<PlatformWinLossSummary> _dataList;
         private readonly PlatformWinLossSummary _total;
@@ -43,11 +40,9 @@
             string templatePath,
             PlatformWinLossMetaModel metaModel,
             IList<PlatformWinLossSummary> dataList,
-            PlatformWinLossSummary total,
-            ConvertingOption convertingOption)
-            : base(templatePath, new ShowingOption(), convertingOption)
+            PlatformWinLossSummary total)
+            : base(templatePath, null, null)
         {
-            _templatePath = templatePath;
             _model = metaModel;
             _dataList = dataList;
             _total = total;

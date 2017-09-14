@@ -48,9 +48,8 @@ namespace Fanex.Athena.Excel.Report
                         string templatePath,
                                   PlatformWinLossViewModel model,
                                   ShowingOption showingOption,
-                                  ConvertingOption convertingOption,
                                   IEnumerable<ProductOption> productOptions)
-            : base(templatePath, showingOption, convertingOption)
+            : base(templatePath, showingOption, null)
         {
             _productOptions = productOptions;
             _model = model;

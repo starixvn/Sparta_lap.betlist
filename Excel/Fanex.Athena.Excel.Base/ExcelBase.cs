@@ -7,8 +7,6 @@
 namespace Fanex.Athena.Excel.Base
 {
     using Entities;
-    using Extension;
-    using NPOI.SS.UserModel;
 
     public abstract class ExcelBase
     {

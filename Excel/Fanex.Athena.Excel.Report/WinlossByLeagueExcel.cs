@@ -31,7 +31,6 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnMatch = 1;
         private const int ColumnExternalId = 2;
         private const int ColumnSystemId = 3;
-        private const int ColumnTemplateCount = 13;
         private const int ColumnTurnover = 5;
         private const int RowContentTemplate = 4;
         private const int RowContentTitleTemplate = 3;
@@ -45,12 +44,11 @@ namespace Fanex.Athena.Excel.Report
         private readonly WinLossByLeague _totalData;
 
         public WinlossByLeagueExcel(
-                                     string templatePath,
-                                     ConvertingOption convertingOption,
-                                     WinLossByLeagueMetaModel metaModel,
-                                     WinLossByLeagueViewModel viewModel,
-                                     WinLossByLeague totalData)
-            : base(templatePath, new ShowingOption(), convertingOption)
+                                    string templatePath,
+                                    WinLossByLeagueMetaModel metaModel,
+                                    WinLossByLeagueViewModel viewModel,
+                                    WinLossByLeague totalData)
+            : base(templatePath, null, null)
         {
             _metaModel = metaModel;
             _winlossByLeagueList = viewModel.MainResult.ToList();
@@ -71,12 +69,6 @@ namespace Fanex.Athena.Excel.Report
         }
 
         public int Level
-        {
-            get;
-            set;
-        }
-
-        public string TitleReport
         {
             get;
             set;
