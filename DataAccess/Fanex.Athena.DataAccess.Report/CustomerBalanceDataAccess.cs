@@ -16,7 +16,7 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class CustomerBalanceDataAccess : BaseDataAccess, ICustBalanceDataAccess
     {
-        public IList<CustBalance> GetDataList(CustomerBalanceMetaModel metaModel, ref CustBalance totalData, ref int totalRow)
+        public IList<CustBalance> GetDataList(CustomerBalanceMetaModel metaModel, out CustBalance totalData, out int totalRow)
         {
             using (var db = this.GetObjectDb("Lrf_Rpt_CustomerBalance"))
             {
@@ -47,6 +47,11 @@ namespace Fanex.Athena.DataAccess.Report
                     {
                         totalData = ReadTotalData(reader);
                         totalRow = reader.ToInt("TotalRows");
+                    }
+                    else
+                    {
+                        totalData = new CustBalance();
+                        totalRow = 0;
                     }
                 }
 

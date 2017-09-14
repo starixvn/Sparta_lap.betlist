@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Net.Http;
-    using System.Web;
+    using System.Web.Hosting;
     using System.Web.Http;
     using DataAccess.Report;
     using DataAccess.Report.Interfaces;
@@ -12,6 +12,8 @@
     using Fanex.Athena.Model.Core.DataDomain;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportCustomerBalance)]
     public class CustomerBalanceReportController : ApiReportBaseController
@@ -24,6 +26,15 @@
             _custBalanceDataAccess = new CustomerBalanceDataAccess();
         }
 
+        public CustomerBalanceReportController(
+            ICustBalanceDataAccess custBalanceDataAccess,
+            ISessionService sessionService,
+            IProductService productService)
+            : base(sessionService, productService)
+        {
+            _custBalanceDataAccess = custBalanceDataAccess;
+        }
+
         [HttpPost]
         public dynamic Index(CustomerBalanceMetaModel metaModel)
         {
@@ -32,9 +43,9 @@
 
         private dynamic ProcessRequest(CustomerBalanceMetaModel metaModel)
         {
-            var totalData = new CustBalance();
-            var totalRows = 0;
-            var dataList = GetData(metaModel, ref totalData, ref totalRows);
+            CustBalance totalData;
+            int totalRows;
+            var dataList = GetData(metaModel, out totalData, out totalRows);
 
             return new
             {
@@ -49,7 +60,7 @@
             const string FileName = "CustomerBalance.xls";
             const string TemplatePath = @"~/App_Data/Template/CustomerReports/CustomerBalance.xls";
 
-            var templatePath = HttpContext.Current.Server.MapPath(TemplatePath);
+            var templatePath = HostingEnvironment.MapPath(TemplatePath);
 
             var licenseeSession = SessionService.LicenseeSession;
             var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, FunctionNames.CustomerBalance);
@@ -67,11 +78,11 @@
                 CurrencyName = metaModel.CurrencyName
             };
 
-            var totalData = new CustBalance();
-            var totalRows = 0;
+            CustBalance totalData;
+            int totalRows;
             metaModel.PageIndex = 1;
             metaModel.PageSize = PageSizeExcel;
-            var dataList = GetData(metaModel, ref totalData, ref totalRows);
+            var dataList = GetData(metaModel, out totalData, out totalRows);
 
             var custBalanceExcel = new CustomerBalanceExcel(templatePath, metaModel, dataList, totalData, showingOption, convertingOption);
             custBalanceExcel.Export();
@@ -79,15 +90,17 @@
             return ExcelStream(custBalanceExcel.Workbook, FileName);
         }
 
-        private IEnumerable<CustBalance> GetData(CustomerBalanceMetaModel metaModel, ref CustBalance totalData, ref int totalRow)
+        private IEnumerable<CustBalance> GetData(CustomerBalanceMetaModel metaModel, out CustBalance totalData, out int totalRow)
         {
             if (!metaModel.IsValid)
             {
+                totalData = new CustBalance();
+                totalRow = 0;
                 return new List<CustBalance>();
             }
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
-            return _custBalanceDataAccess.GetDataList(metaModel, ref totalData, ref totalRow);
+            return _custBalanceDataAccess.GetDataList(metaModel, out totalData, out totalRow);
         }
     }
 }
