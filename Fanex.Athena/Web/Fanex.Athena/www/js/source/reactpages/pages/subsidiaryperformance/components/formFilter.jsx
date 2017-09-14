@@ -6,6 +6,7 @@ import Select from 'react-select'
 import MultipleSelect from '../../../components/multiple-select/index'
 import { Calendar, DateRange, defaultOptions, updateLocaleByLanguage } from 'lrfcomponents/date-range/index'
 import LangHelper from 'lrflib/langHelper'
+import ReportExcel from './reportExcel'
 
 const RANGE_MONTH_CONSTRAINT = 3;
 
@@ -68,6 +69,13 @@ class FormFilter extends Component {
     get isValidModel() {
         const { selectedSubsidiary, selectedProduct, isValidDateRange } = this.props;
         return selectedSubsidiary !== "" && selectedProduct !== "" && isValidDateRange;
+    }
+
+    exportExcel = (event) => {
+        event.preventDefault();
+
+        const excel = new ReportExcel(this.props.gridData);
+        excel.export();
     }
 
     _renderSubsidiarySelectList() {
@@ -169,7 +177,7 @@ class FormFilter extends Component {
                 </div>
 
                 <div className="caret-block">
-                    <i className="icon-excel right" title={LangHelper.getSingleResource("ExportToExcel")}></i>
+                    <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
                 </div>
             </div>
         );
@@ -179,7 +187,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { gridData, containerWidth, ...rest } = state;
+    const { containerWidth, ...rest } = state;
     return Object.assign({}, rest);
 };
 

@@ -44,7 +44,15 @@ function generateConfig(environment) {
             chunks: false,
             chunkModules: false,
             children: true
-        }
+        },
+        node: {
+            fs: 'empty'
+        },
+        externals: [
+            { './jszip': 'jszip' },
+            { './ods': 'ods' },
+            { './cptable': 'var cptable' }
+        ]
     };
 
     return commonConfigs;

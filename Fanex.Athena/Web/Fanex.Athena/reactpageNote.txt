@@ -1,2 +1,3 @@
 select component = http://jedwatson.github.io/react-select/
 date range picker = https://github.com/Adphorus/react-date-range
+xlsx = https://www.npmjs.com/package/xlsx-style
