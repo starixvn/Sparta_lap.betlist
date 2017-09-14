@@ -141,7 +141,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowContentStart, ColumnCount, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentStart, ColumnCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
@@ -208,9 +208,9 @@ namespace Fanex.Athena.Excel.Report
             ReportTitle = string.Format(
                                         ViewResources.DailyRacing12BetTitle,
                                         ViewModel.Param.Date.ToString(FormatDate),
-                                        GetTitleCurrencyName());
+                                        GetTitleCurrencyName(ConvertingOption));
 
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnCount, ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);

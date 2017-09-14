@@ -17,6 +17,19 @@ namespace Fanex.Athena.Excel.Base.Extension
     /// </summary>
     public static class HSSFSheetExtension
     {
+        public static void SetTextRowValue(
+           this ISheet sheet,
+           ISheet sourceSheet,
+           int sourceRowIndex,
+           int destRowIndex,
+           int columnCount,
+           string value)
+        {
+            IRow row = sheet.CopyRow(sourceSheet, sourceRowIndex, destRowIndex);
+            sheet.MergeCells(destRowIndex, 0, destRowIndex, columnCount - 1);
+            row.Cells[0].SetCellValue(value);
+        }
+
         public static IRow CopyRow(this ISheet sheet, ISheet sourceSheet, int sourceRowIndex, int destRowIndex)
         {
             if (sheet.LastRowNum < destRowIndex)
@@ -58,7 +71,6 @@ namespace Fanex.Athena.Excel.Base.Extension
         {
             if (sourceCell == null)
             {
-                destCell = null;
                 return null;
             }
 

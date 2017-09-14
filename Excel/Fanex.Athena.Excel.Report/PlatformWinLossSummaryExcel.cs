@@ -97,7 +97,7 @@
 
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowParentContentTemplate, ColumnNoContent, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowParentContentTemplate, ColumnNoContent, ViewResources.NoInfo);
         }
 
         protected override void AssignSheetData(ISheet sheet)
@@ -139,7 +139,7 @@
                                         GetBaseCurrencyTitle(),
                                         platformText) + ", " + GetProductTitle();
 
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnNoContent, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnNoContent, ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);

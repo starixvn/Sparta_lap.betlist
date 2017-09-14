@@ -11,8 +11,8 @@ namespace Fanex.Athena.Excel.Report
     using System.Linq;
     using Base;
     using Base.Entities;
-    using Base.Helpers;
     using Fanex.Athena.Excel.Base.Extension;
+    using Helpers;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NPOI.SS.UserModel;
@@ -122,7 +122,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
@@ -167,9 +167,9 @@ namespace Fanex.Athena.Excel.Report
                                         ViewResources.CustomerWinLossTitle,
                                         _metaModel.FromDate.ToString(FormatDate),
                                         _metaModel.ToDate.ToString(FormatDate),
-                                        GetTitleCurrencyName()) + ExcelHelper.GetLicenseeWLProduct(_metaModel.ProductOptions);
+                                        GetTitleCurrencyName(ConvertingOption)) + ReportExcelHelper.GetLicenseeWLProduct(_metaModel.ProductOptions);
 
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);

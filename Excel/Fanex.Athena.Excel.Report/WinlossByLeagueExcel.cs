@@ -125,7 +125,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTitleTemplate, Level == 0 ? NumOfRowLevel0 : NumOfRowLevel1, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, Level == 0 ? NumOfRowLevel0 : NumOfRowLevel1, ViewResources.NoInfo);
         }
 
         /// <summary>
@@ -183,7 +183,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignTitle(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, Level == 0 ? NumOfRowLevel0 : NumOfRowLevel1, _metaModel.ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, Level == 0 ? NumOfRowLevel0 : NumOfRowLevel1, _metaModel.ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 4);

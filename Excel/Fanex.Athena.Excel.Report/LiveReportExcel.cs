@@ -94,7 +94,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
@@ -154,9 +154,9 @@ namespace Fanex.Athena.Excel.Report
                                         GetLiveIndicatorString(_liveReportDetailList.Param.LiveIndicator),
                                         _liveReportDetailList.Param.FromDate.ToString("d MMMM yy"),
                                         _liveReportDetailList.Param.ToDate.ToString("d MMMM yy"),
-                                        GetTitleCurrencyName());
+                                        GetTitleCurrencyName(ConvertingOption));
 
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 4);

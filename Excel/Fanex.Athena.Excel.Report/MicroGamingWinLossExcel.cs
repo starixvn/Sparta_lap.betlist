@@ -100,7 +100,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTitleTemplate, ColumnTemplateCount, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
@@ -119,7 +119,7 @@ namespace Fanex.Athena.Excel.Report
 
                 if (typeId != winloss.TypeID)
                 {
-                    SetTextRowValue(sheet, RowContentTitleTemplate, currentRow, ColumnTemplateCount, winloss.TypeName);
+                    sheet.SetTextRowValue(TemplateSheet, RowContentTitleTemplate, currentRow, ColumnTemplateCount, winloss.TypeName);
                     typeId = winloss.TypeID;
                     currentRow++;
                 }
@@ -159,7 +159,7 @@ namespace Fanex.Athena.Excel.Report
             var title = GetExactTitleCurrencyName(_metaModel.CurrencyId);
 
             ReportTitle = GenerateProductReportTitle(fromdate, todate, title);
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 2);

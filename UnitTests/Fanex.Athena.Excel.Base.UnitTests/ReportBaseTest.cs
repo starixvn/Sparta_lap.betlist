@@ -58,27 +58,5 @@
             // Assert
             Assert.That(result, Is.EqualTo(expected));
         }
-
-        [TestCase(0, 2)]
-        [TestCase(2, 0)]
-        public void SetTextRowValue_WhenCall_SetCellValueMethodIsCalled(int sourceRowIndex, int destRowIndex)
-        {
-            // Arrange
-            var report = Substitute.ForPartsOf<ReportBase>("ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
-            report.TemplateSheet = Substitute.For<ISheet>();
-            var sheet = Substitute.For<ISheet>();
-            var row = Substitute.For<IRow>();
-
-            sheet.GetRow(destRowIndex).Returns(row);
-
-            var cell = Substitute.For<ICell>();
-            row.Cells.Returns(new List<ICell>() { cell });
-
-            // Action
-            report.SetTextRowValue(sheet, sourceRowIndex, destRowIndex, 1, "Test");
-
-            // Assert
-            cell.Received().SetCellValue("Test");
-        }
     }
 }

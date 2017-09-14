@@ -67,7 +67,7 @@ namespace Fanex.Athena.Excel.Warehouse
 
             if (!string.IsNullOrEmpty(errorMessage))
             {
-                SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, errorMessage);
+                sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, errorMessage);
             }
             else
             {
@@ -116,7 +116,7 @@ namespace Fanex.Athena.Excel.Warehouse
 
         protected override void AssignTitle(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Only show LicenseeWL if licensee doesn't have NG
             if (!ShowingOption.NGVisible)

@@ -11,8 +11,8 @@ namespace Fanex.Athena.Excel.Report
     using System.Linq;
     using Base;
     using Base.Entities;
-    using Base.Helpers;
     using Fanex.Athena.Excel.Base.Extension;
+    using Helpers;
     using Model.Core.Helper;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -160,7 +160,7 @@ namespace Fanex.Athena.Excel.Report
         protected override void AssignNoInfoRow(ISheet sheet)
         {
             var message = string.IsNullOrWhiteSpace(_errorMessage) ? ViewResources.NoInfo : _errorMessage;
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTitleTemplate, ColumnTemplateCount, message);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, ColumnTemplateCount, message);
         }
 
         /// <summary>
@@ -236,7 +236,7 @@ namespace Fanex.Athena.Excel.Report
                                     fromdate,
                                     todate,
                                     GetExactTitleCurrencyName(_metaModel.DrillDownCurrencyId)) +
-                                    ExcelHelper.GetLicenseeWLProduct(_metaModel.ProductOptions, _systemId);
+                                    ReportExcelHelper.GetLicenseeWLProduct(_metaModel.ProductOptions, _systemId);
             }
             else
             {
@@ -245,10 +245,10 @@ namespace Fanex.Athena.Excel.Report
                                         fromdate,
                                         todate,
                                         GetExactTitleCurrencyName(_metaModel.CurrencyId)) +
-                                        ExcelHelper.GetLicenseeWLProduct(_metaModel.ProductOptions, _systemId);
+                                        ReportExcelHelper.GetLicenseeWLProduct(_metaModel.ProductOptions, _systemId);
             }
 
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);
@@ -500,7 +500,7 @@ namespace Fanex.Athena.Excel.Report
                     string reportDateString = EnableReportByMonth == 1
                                               ? dateGetDb.ToShortDateString()
                                               : dateGetDb.ToString("MM/yyyy");
-                    SetTextRowValue(sheet, RowContentTitleTemplate, currentRow, ColumnTemplateCount, reportDateString);
+                    sheet.SetTextRowValue(TemplateSheet, RowContentTitleTemplate, currentRow, ColumnTemplateCount, reportDateString);
                     date = dateGetDb.ToShortDateString();
                     currentRow++;
                 }

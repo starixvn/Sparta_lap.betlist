@@ -21,6 +21,7 @@ namespace Fanex.Athena.Excel.Report
     using Common;
     using Extension.Helper;
     using Fanex.Athena.Excel.Base.Extension;
+    using Helpers;
     using Model.Core.DataDomain;
     using Model.Core.Helper;
     using Model.Report.MetaModel;
@@ -134,7 +135,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowMatchTemplate, ColumnTemplateCount, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowMatchTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
 
         /// <summary>
@@ -175,7 +176,7 @@ namespace Fanex.Athena.Excel.Report
                     currentIndex += matchInfoList.Count > 0 ? 1 : 0;
                     matchInfoList = new List<DataRow>();
                     leagueName = currentLeagueName;
-                    SetTextRowValue(sheet, RowMatchTemplate, currentRowIndex, ColumnTemplateCount, leagueName);
+                    sheet.SetTextRowValue(TemplateSheet, RowMatchTemplate, currentRowIndex, ColumnTemplateCount, leagueName);
                     currentRowIndex++;
                 }
 
@@ -218,9 +219,9 @@ namespace Fanex.Athena.Excel.Report
             ReportTitle = string.Format(
                 ViewResources.MatchWinLossTitle,
                 _model.Date.ToString(FormatDate),
-                GetTitleCurrencyName()) + ExcelHelper.GetLicenseeWLProduct(_model.ProductOptions);
+                GetTitleCurrencyName(ConvertingOption)) + ReportExcelHelper.GetLicenseeWLProduct(_model.ProductOptions);
 
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);

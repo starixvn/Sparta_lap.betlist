@@ -115,10 +115,10 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignTitle(ISheet sheet)
         {
-            ReportTitle = string.Format(ViewResources.BalanceTitle, GetTitleCurrencyName());
+            ReportTitle = string.Format(ViewResources.BalanceTitle, GetTitleCurrencyName(ConvertingOption));
 
             // Set for Balance, report title
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Get row copy from template
             var columIndex = ColumnLicenseeWl;
@@ -133,7 +133,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[columIndex].SetCellValue(ViewResources.CustomerCommission);
 
             // Set for customer information
-            SetTextRowValue(sheet, RowTitleCustomer, RowTitleCustomer, ColumnTemplateCount, ViewResources.CustomerInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleCustomer, RowTitleCustomer, ColumnTemplateCount, ViewResources.CustomerInfo);
 
             row = sheet.CopyRow(TemplateSheet, RowCustomerPendingFund, RowCustomerPendingFund);
             row.Cells[0].SetCellValue(ViewResources.CustomerPedingFunds);

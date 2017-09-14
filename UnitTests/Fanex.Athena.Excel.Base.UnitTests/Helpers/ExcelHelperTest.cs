@@ -7,6 +7,7 @@
     using NPOI.SS.UserModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Report.Helpers;
 
     [TestFixture]
     public class ExcelHelperTest
@@ -33,7 +34,7 @@
         public void GetLicenseeWLProduct_ProductOptionListHasData_ReturnCorrectValue(string caption, string expected)
         {
             // Action
-            var result = ExcelHelper.GetLicenseeWLProduct(GetProductOption(), caption);
+            var result = ReportExcelHelper.GetLicenseeWLProduct(GetProductOption(), caption);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
@@ -44,7 +45,7 @@
         public void GetLicenseeWLProduct_ProductOptionListDoesNotHaveData_ReturnCorrectValue(string caption, string expected)
         {
             // Action
-            var result = ExcelHelper.GetLicenseeWLProduct(new List<ProductOption>(), caption);
+            var result = ReportExcelHelper.GetLicenseeWLProduct(new List<ProductOption>(), caption);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));

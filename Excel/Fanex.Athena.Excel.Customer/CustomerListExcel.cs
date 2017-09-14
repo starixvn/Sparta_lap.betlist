@@ -162,7 +162,7 @@ namespace Fanex.Athena.Excel.Customer
         /// <param name="sheet">The current sheet.</param>
         private void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemp, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
+            sheet.SetTextRowValue(_templateSheet, RowNoInfoTemp, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUi(sheet);
         }
 
@@ -249,7 +249,7 @@ namespace Fanex.Athena.Excel.Customer
 
         private void AssignTitle(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _reporTitle);
+            sheet.SetTextRowValue(_templateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _reporTitle);
 
             /*Freeze 2 rows title and header*/
             sheet.CreateFreezePane(0, 3);
@@ -356,13 +356,6 @@ namespace Fanex.Athena.Excel.Customer
         private void RemoveTemplate()
         {
             this.Workbook.RemoveSheet("Template");
-        }
-
-        private void SetTextRowValue(ISheet sheet, int sourceRowIndex, int destRowIndex, int columnCount, string value)
-        {
-            var row = sheet.CopyRow(_templateSheet, sourceRowIndex, destRowIndex);
-            sheet.MergeCells(destRowIndex, 0, destRowIndex, columnCount - 1);
-            row.Cells[0].SetCellValue(value);
         }
     }
 }

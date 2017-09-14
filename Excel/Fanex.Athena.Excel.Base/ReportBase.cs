@@ -54,7 +54,7 @@ namespace Fanex.Athena.Excel.Base
         protected ConvertingOption ConvertingOption
         {
             get;
-            set;
+            private set;
         }
 
         protected IList<string> HeaderTextList
@@ -72,13 +72,13 @@ namespace Fanex.Athena.Excel.Base
         protected internal ISheet TemplateSheet
         {
             get;
-            set;
+            private set;
         }
 
         public virtual IWorkbook Workbook
         {
             get;
-            set;
+            private set;
         }
 
         public virtual void Export()
@@ -182,7 +182,7 @@ namespace Fanex.Athena.Excel.Base
                     break;
 
                 default:
-                    title = GetTitleCurrencyName();
+                    title = GetTitleCurrencyName(ConvertingOption);
                     break;
             }
 
@@ -191,18 +191,11 @@ namespace Fanex.Athena.Excel.Base
 
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
            Justification = "Reviewed. Suppression is OK here.")]
-        protected virtual string GetTitleCurrencyName()
+        protected virtual string GetTitleCurrencyName(ConvertingOption convertingOption)
         {
-            return ConvertingOption.IsConvert
-                   ? string.Format(ViewResources.Viewin, ConvertingOption.BaseCurrency.ToUpper())
-                   : string.Format(ViewResources.Viewin, ConvertingOption.CurrencyName);
-        }
-
-        protected internal void SetTextRowValue(ISheet sheet, int sourceRowIndex, int destRowIndex, int columnCount, string value)
-        {
-            IRow row = sheet.CopyRow(TemplateSheet, sourceRowIndex, destRowIndex);
-            sheet.MergeCells(destRowIndex, 0, destRowIndex, columnCount - 1);
-            row.Cells[0].SetCellValue(value);
+            return convertingOption.IsConvert
+                   ? string.Format(ViewResources.Viewin, convertingOption.BaseCurrency.ToUpper())
+                   : string.Format(ViewResources.Viewin, convertingOption.CurrencyName);
         }
     }
 }

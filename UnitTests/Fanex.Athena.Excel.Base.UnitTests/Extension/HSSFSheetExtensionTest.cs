@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Excel.Base.UnitTests.Extension
 {
+    using System.Collections.Generic;
     using Excel.Base.Extension;
     using NPOI.SS.UserModel;
     using NSubstitute;
@@ -8,6 +9,27 @@
     [TestFixture]
     public class HSSFSheetExtensionTest
     {
+        [TestCase(0, 2)]
+        [TestCase(2, 0)]
+        public void SetTextRowValue_WhenCall_SetCellValueMethodIsCalled(int sourceRowIndex, int destRowIndex)
+        {
+            // Arrange
+            var sheet = Substitute.For<ISheet>();
+            var sourceSheet = Substitute.For<ISheet>();
+            var row = Substitute.For<IRow>();
+
+            sheet.GetRow(destRowIndex).Returns(row);
+
+            var cell = Substitute.For<ICell>();
+            row.Cells.Returns(new List<ICell>() { cell });
+
+            // Action
+            sheet.SetTextRowValue(sourceSheet, sourceRowIndex, destRowIndex, 1, "Test");
+
+            // Assert
+            cell.Received().SetCellValue("Test");
+        }
+
         [TestCase(0, 2)]
         [TestCase(2, 0)]
         public void CopyRow(int sourceRowIndex, int destRowIndex)
