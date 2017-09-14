@@ -150,22 +150,22 @@ namespace Fanex.Athena.Excel.Report
         {
             if (!ShowingOption.BAVisible)
             {
-                HideColumn(sheet, ColumnBaCommission, ColumnAmtDueToBa);
+                sheet.HideColumn(ColumnBaCommission, ColumnAmtDueToBa);
             }
 
             if (!ShowingOption.RBVisible)
             {
-                HideColumn(sheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
+                sheet.HideColumn(ColumnRacingRevenue, ColumnAmtDueToRacing);
             }
 
             if (!ShowingOption.BTVisible)
             {
-                HideColumn(sheet, ColumnBetTradeCommission, ColumnAmtDueToBetTrade);
+                sheet.HideColumn(ColumnBetTradeCommission, ColumnAmtDueToBetTrade);
             }
 
             if (!ShowingOption.CustomerCommVisible)
             {
-                HideColumn(sheet, ColumnCustomerCommission);
+                sheet.HideColumn(ColumnCustomerCommission);
             }
         }
 

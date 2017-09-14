@@ -174,15 +174,15 @@ namespace Fanex.Athena.Excel.Warehouse
         /// <param name="sheet">Excel sheet.</param>
         protected override void ProcessUI(ISheet sheet)
         {
-            HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
-            HideRow(sheet, RowTableHeaderTemplate + 1);
+            sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
+            sheet.HideRow(RowTableHeaderTemplate + 1);
 
             int groupNameIndex = GetGroupNameIndex();
             for (int i = 1; i <= 5; i++)
             {
                 if (i != groupNameIndex)
                 {
-                    HideColumn(sheet, i);
+                    sheet.HideColumn(i);
                 }
             }
         }

@@ -207,17 +207,17 @@ namespace Fanex.Athena.Excel.Report
         {
             if (!_isAllowBA)
             {
-                HideColumn(sheet, ColumnBuyBackAmountBA, ColumnBuyBackAmountTotal);
+                sheet.HideColumn(ColumnBuyBackAmountBA, ColumnBuyBackAmountTotal);
                 sheet.MergeCells(RowHeaderTemplate, ColumnBuyBackAmountSportsbook, RowHeaderTemplate + 1, ColumnBuyBackAmountSportsbook);
             }
 
             if (Level == 0)
             {
-                HideColumn(sheet, ColumnExternalId, ColumnSystemId);
+                sheet.HideColumn(ColumnExternalId, ColumnSystemId);
             }
             else
             {
-                HideColumn(sheet, ColumnDate);
+                sheet.HideColumn(ColumnDate);
             }
         }
 

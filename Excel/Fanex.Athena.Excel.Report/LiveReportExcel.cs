@@ -173,13 +173,13 @@ namespace Fanex.Athena.Excel.Report
         {
             if (!ShowingOption.CustomerCommVisible)
             {
-                HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
-                HideRow(sheet, SummarySectionRowIndex + 2);
+                sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
+                sheet.HideRow(SummarySectionRowIndex + 2);
             }
 
             if (!ShowingOption.LicenseeCommVisible)
             {
-                HideColumn(sheet, ColumnLicenseeComm);
+                sheet.HideColumn(ColumnLicenseeComm);
             }
         }
 

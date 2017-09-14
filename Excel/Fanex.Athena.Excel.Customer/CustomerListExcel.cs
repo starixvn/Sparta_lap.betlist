@@ -296,8 +296,8 @@ namespace Fanex.Athena.Excel.Customer
             /*commission and group columns*/
             if (!_exportData.IsAllowedCustomerCommission || !_showedGridColumns.Contains(CUSTOMERCOMM))
             {
-                HideColumn(sheet, SBCommColumn, NGCommColumn, RCCommColumn, LCCommColumn, CSCommColumn);
-                HideRow(sheet, RowHeaderTemplate + 1);
+                sheet.HideColumn(SBCommColumn, NGCommColumn, RCCommColumn, LCCommColumn, CSCommColumn);
+                sheet.HideRow(RowHeaderTemplate + 1);
             }
             else
             {
@@ -347,7 +347,7 @@ namespace Fanex.Athena.Excel.Customer
                 }
             }
 
-            HideColumn(sheet, hidedColumns.ToArray());
+            sheet.HideColumn(hidedColumns.ToArray());
         }
 
         /// <summary>

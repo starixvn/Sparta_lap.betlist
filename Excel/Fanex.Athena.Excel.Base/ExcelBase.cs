@@ -21,57 +21,5 @@ namespace Fanex.Athena.Excel.Base
             get;
             set;
         }
-
-        protected internal virtual void HideRow(ISheet sheet, params int[] rowIndex)
-        {
-            // Clear content
-            foreach (int i in rowIndex)
-            {
-                for (int j = 0; j < 255; j++)
-                {
-                    var cell = sheet.GetCell(i, j);
-                    if (cell != null)
-                    {
-                        cell.SetCellValue(string.Empty);
-                    }
-                }
-            }
-
-            // Hide row
-            foreach (int i in rowIndex)
-            {
-                var row = sheet.GetRow(i);
-                if (row != null)
-                {
-                    row.ZeroHeight = true;
-                }
-            }
-        }
-
-        protected internal virtual void HideColumn(ISheet sheet, params int[] columnIndex)
-        {
-            // Clear content
-            var firstRowNum = sheet.FirstRowNum;
-            var lastRowNum = sheet.LastRowNum;
-
-            for (int i = firstRowNum; i <= lastRowNum; i++)
-            {
-                foreach (int j in columnIndex)
-                {
-                    var cell = sheet.GetCell(i, j);
-                    if (cell != null)
-                    {
-                        cell.SetCellValue(string.Empty);
-                    }
-                }
-            }
-
-            // Hide column
-            foreach (int i in columnIndex)
-            {
-                sheet.SetColumnWidth(i, 0);
-                sheet.SetColumnHidden(i, true);
-            }
-        }
     }
 }

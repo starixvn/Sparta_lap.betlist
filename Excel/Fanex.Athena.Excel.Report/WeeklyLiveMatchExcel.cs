@@ -67,7 +67,7 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
             AssignTotalRow(sheet, numOfDataRow + 2);
             var hiddenColumns = Enumerable.Range(_metaModel.NumberOfWeeks + NumberOfStaticColumns, MaxWeekColumns - _metaModel.NumberOfWeeks);
-            HideColumn(sheet, hiddenColumns.ToArray());
+            sheet.HideColumn(hiddenColumns.ToArray());
         }
 
         protected override void AssignTitle(ISheet sheet)

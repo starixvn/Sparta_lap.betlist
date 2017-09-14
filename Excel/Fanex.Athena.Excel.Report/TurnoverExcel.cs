@@ -218,7 +218,7 @@ namespace Fanex.Athena.Excel.Report
         {
             if (!ShowingOption.CustomerCommVisible)
             {
-                HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
+                sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
 
                 // If row isn't hide (in case BA visible), then merge cell and set value for header
                 sheet.MergeCells(RowTableHeaderTemplate, ColumnCustomerWinLoss, RowTableHeaderTemplate + 1, ColumnCustomerWinLoss);
@@ -227,17 +227,17 @@ namespace Fanex.Athena.Excel.Report
 
             if (!ShowingOption.BAVisible)
             {
-                HideColumn(sheet, ColumnTurnoverBa, ColumnCommBa, ColumnAmountDueToBa);
+                sheet.HideColumn(ColumnTurnoverBa, ColumnCommBa, ColumnAmountDueToBa);
             }
 
             if (!ShowingOption.CustomerCommVisible && !ShowingOption.BAVisible)
             {
-                HideRow(sheet, RowTableHeaderTemplate + 1);
+                sheet.HideRow(RowTableHeaderTemplate + 1);
             }
 
             if (LicenseeId != 1)
             {
-                HideColumn(sheet, ColumnCasinoTransfer);
+                sheet.HideColumn(ColumnCasinoTransfer);
             }
         }
 

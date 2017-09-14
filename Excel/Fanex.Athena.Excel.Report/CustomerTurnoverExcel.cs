@@ -222,8 +222,8 @@ namespace Fanex.Athena.Excel.Report
         {
             if (!ShowingOption.CustomerCommVisible)
             {
-                HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
-                HideRow(sheet, RowTableHeaderTemplate + 1);
+                sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
+                sheet.HideRow(RowTableHeaderTemplate + 1);
             }
         }
 

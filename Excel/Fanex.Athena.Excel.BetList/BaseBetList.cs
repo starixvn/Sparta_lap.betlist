@@ -10,6 +10,7 @@ namespace Fanex.Athena.Excel.BetList
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Base;
+    using Base.Extension;
     using Excel.Base.Entities;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
@@ -199,7 +200,7 @@ namespace Fanex.Athena.Excel.BetList
                 {
                     ISheet sheet = workbook.GetSheetAt(i);
 
-                    HideColumn(sheet, _hiddenColumnIndexes.ToArray());
+                    sheet.HideColumn(_hiddenColumnIndexes.ToArray());
                 }
             }
         }

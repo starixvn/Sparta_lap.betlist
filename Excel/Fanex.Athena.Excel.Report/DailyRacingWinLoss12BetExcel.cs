@@ -227,7 +227,7 @@ namespace Fanex.Athena.Excel.Report
         {
             if (!ShowingOption.CustomerCommVisible)
             {
-                HideColumn(sheet, ColumnCustomerComm);
+                sheet.HideColumn(ColumnCustomerComm);
             }
         }
 

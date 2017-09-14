@@ -167,19 +167,13 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void ProcessUI(ISheet sheet)
         {
-            switch (Level)
+            if (Level == 0)
             {
-                case 0:
-                    HideColumn(sheet, ColumnExternalId, ColumnSystemId);
-                    break;
-
-                case 1:
-                    HideColumn(sheet, ColumnDate);
-                    break;
-
-                default:
-                    HideColumn(sheet, ColumnDate);
-                    break;
+                sheet.HideColumn(ColumnExternalId, ColumnSystemId);
+            }
+            else
+            {
+                sheet.HideColumn(ColumnDate);
             }
         }
 

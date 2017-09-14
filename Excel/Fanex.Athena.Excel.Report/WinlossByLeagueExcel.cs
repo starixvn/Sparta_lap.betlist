@@ -146,7 +146,7 @@ namespace Fanex.Athena.Excel.Report
         {
             if (Level == 1)
             {
-                HideRow(sheet, 3);
+                sheet.HideRow(3);
             }
 
             int rowCount = Math.Min(_winlossByLeagueList.Count, checked((pageIndex + 1) * PageSize));
@@ -209,11 +209,11 @@ namespace Fanex.Athena.Excel.Report
             switch (Level)
             {
                 case 0:
-                    HideColumn(sheet, ColumnExternalId, ColumnSystemId);
+                    sheet.HideColumn(ColumnExternalId, ColumnSystemId);
                     break;
 
                 case 1:
-                    HideColumn(sheet, ColumnMatch, ColumnAmtDueTo);
+                    sheet.HideColumn(ColumnMatch, ColumnAmtDueTo);
                     break;
             }
         }

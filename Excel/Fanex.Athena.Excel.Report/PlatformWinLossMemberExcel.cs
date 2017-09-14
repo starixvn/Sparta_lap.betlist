@@ -183,18 +183,18 @@ namespace Fanex.Athena.Excel.Report
         {
             if (!ShowingOption.CustomerCommVisible)
             {
-                HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerCommission);
-                HideRow(sheet, RowHeaderTemplate + 1);
+                sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerCommission);
+                sheet.HideRow(RowHeaderTemplate + 1);
             }
 
             if (!ShowingOption.BAVisible)
             {
-                HideColumn(sheet, ColumnBaCommission, ColumnAmtDueToBa);
+                sheet.HideColumn(ColumnBaCommission, ColumnAmtDueToBa);
             }
 
             if (!ShowingOption.RBVisible)
             {
-                HideColumn(sheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
+                sheet.HideColumn(ColumnRacingRevenue, ColumnAmtDueToRacing);
             }
         }
 

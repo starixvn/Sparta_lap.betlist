@@ -205,15 +205,15 @@ namespace Fanex.Athena.Excel.Report
             switch (Level)
             {
                 case 0:
-                    HideColumn(sheet, ColumnExternalId, ColumnSystemId);
+                    sheet.HideColumn(ColumnExternalId, ColumnSystemId);
                     break;
 
                 case 1:
-                    HideColumn(sheet, ColumnExternalId, ColumnDate);
+                    sheet.HideColumn(ColumnExternalId, ColumnDate);
                     break;
 
                 default:
-                    HideColumn(sheet, ColumnDate);
+                    sheet.HideColumn(ColumnDate);
                     break;
             }
         }

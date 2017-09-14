@@ -169,7 +169,7 @@ namespace Fanex.Athena.Excel.Report
         {
             if (!ShowingOption.CustomerCommVisible)
             {
-                HideColumn(sheet, ColumnCustomerCommission);
+                sheet.HideColumn(ColumnCustomerCommission);
             }
         }
 

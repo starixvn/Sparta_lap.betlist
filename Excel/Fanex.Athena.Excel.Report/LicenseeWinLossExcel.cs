@@ -275,45 +275,45 @@ namespace Fanex.Athena.Excel.Report
         {
             if (!ShowingOption.CustomerCommVisible)
             {
-                HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
+                sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
                 sheet.MergeCells(RowHeaderTemplate, ColumnCustomerWl, RowHeaderTemplate + 1, ColumnCustomerWl);
             }
 
             if (!ShowingOption.COVisible)
             {
-                HideColumn(sheet, ColumnCashOutCommission);
+                sheet.HideColumn(ColumnCashOutCommission);
             }
 
             if (ShowingOption.BTVisible)
             {
                 if (!_isAllowBA)
                 {
-                    HideColumn(sheet, ColumnBuyBackAmountTotal, ColumnBuyBackAmountBA);
+                    sheet.HideColumn(ColumnBuyBackAmountTotal, ColumnBuyBackAmountBA);
                     sheet.MergeCells(RowHeaderTemplate, ColumnBuyBackAmountSportsbook, RowHeaderTemplate + 1, ColumnBuyBackAmountSportsbook);
                 }
             }
             else
             {
-                HideColumn(sheet, ColumnBetTradeCommission);
-                HideColumn(sheet, ColumnBuyBackAmountSportsbook, ColumnBuyBackAmountBA, ColumnBuyBackAmountTotal);
-                HideColumn(sheet, ColumnActualStake);
+                sheet.HideColumn(ColumnBetTradeCommission);
+                sheet.HideColumn(ColumnBuyBackAmountSportsbook, ColumnBuyBackAmountBA, ColumnBuyBackAmountTotal);
+                sheet.HideColumn(ColumnActualStake);
             }
 
             if (!ShowingOption.BTVisible ||
                 (_metaModel.ProductOptions.Any(x => x.Code == Product.SB) && !ShowingOption.SBVisible) ||
                 (_isAllowBA && !ShowingOption.BAVisible))
             {
-                HideColumn(sheet, ColumnAmtDueToBetTrade);
+               sheet.HideColumn(ColumnAmtDueToBetTrade);
             }
 
             if (!ShowingOption.BAVisible)
             {
-                HideColumn(sheet, ColumnBaCommission, ColumnAmtDueToBa);
+                sheet.HideColumn(ColumnBaCommission, ColumnAmtDueToBa);
             }
 
             if (!ShowingOption.RBVisible)
             {
-                HideColumn(sheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
+                sheet.HideColumn(ColumnRacingRevenue, ColumnAmtDueToRacing);
             }
 
             ProcessUITurnover(sheet);
@@ -323,15 +323,15 @@ namespace Fanex.Athena.Excel.Report
             switch (Level)
             {
                 case 0:
-                    HideColumn(sheet, ColumnExternalId, ColumnSystemId);
+                    sheet.HideColumn(ColumnExternalId, ColumnSystemId);
                     break;
 
                 case 1:
-                    HideColumn(sheet, ColumnExternalId, ColumnDate);
+                    sheet.HideColumn(ColumnExternalId, ColumnDate);
                     break;
 
                 default:
-                    HideColumn(sheet, ColumnDate);
+                    sheet.HideColumn(ColumnDate);
                     break;
             }
         }
@@ -455,7 +455,7 @@ namespace Fanex.Athena.Excel.Report
             {
                 if (!product.Value || IgnoredLicenseeWLProducts.Contains(product.Key))
                 {
-                    HideColumn(sheet, ColumnLicenseeWlSportsBook + nextColumns, ColumnLicenseeWlSportsBook + nextColumns);
+                    sheet.HideColumn(ColumnLicenseeWlSportsBook + nextColumns);
                 }
                 else
                 {
@@ -472,7 +472,7 @@ namespace Fanex.Athena.Excel.Report
             {
                 if (countStatus == 1)
                 {
-                    HideColumn(sheet, ColumnLicenseeWlTotal, ColumnLicenseeWlTotal);
+                    sheet.HideColumn(ColumnLicenseeWlTotal);
                 }
 
                 for (int i = 0; i < TotalLicenseeWlProductColumn; i++)
@@ -494,7 +494,7 @@ namespace Fanex.Athena.Excel.Report
             {
                 if (!product.Value || IgnoredTurnoverProducts.Contains(product.Key))
                 {
-                    HideColumn(sheet, ColumnTurnoverSportBook + nextColumns, ColumnTurnoverSportBook + nextColumns);
+                    sheet.HideColumn(ColumnTurnoverSportBook + nextColumns);
                 }
                 else
                 {
@@ -511,7 +511,7 @@ namespace Fanex.Athena.Excel.Report
             {
                 if (countStatus == 1)
                 {
-                    HideColumn(sheet, ColumnTurnoverTotal, ColumnTurnoverTotal);
+                    sheet.HideColumn(ColumnTurnoverTotal);
                 }
 
                 for (int i = 0; i < TotalTurnoverProductColumn; i++)

@@ -133,8 +133,8 @@ namespace Fanex.Athena.Excel.Warehouse
 
         protected override void ProcessUI(ISheet sheet)
         {
-            HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
-            HideRow(sheet, RowTableHeaderTemplate + 1);
+            sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
+            sheet.HideRow(RowTableHeaderTemplate + 1);
         }
 
         private static IEnumerable<string> GetColumnNameList()

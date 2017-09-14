@@ -265,23 +265,23 @@ namespace Fanex.Athena.Excel.Report
         {
             if (!ShowingOption.CustomerCommVisible)
             {
-                HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
-                HideRow(sheet, RowTableHeaderTemplate + 1);
+                sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
+                sheet.HideRow(RowTableHeaderTemplate + 1);
             }
 
             if (ShowingOption.BAVisible == false && ShowingOption.RBVisible == false)
             {
-                HideColumn(sheet, ColumnComm);
+                sheet.HideColumn(ColumnComm);
             }
 
             switch (Level)
             {
                 case 0:
-                    HideColumn(sheet, ColumnExternalId, ColumnSystemId);
+                    sheet.HideColumn(ColumnExternalId, ColumnSystemId);
                     break;
 
                 case 1:
-                    HideColumn(sheet, ColumnExternalId);
+                    sheet.HideColumn(ColumnExternalId);
                     break;
             }
         }

@@ -156,17 +156,17 @@ namespace Fanex.Athena.Excel.Customer
         {
             if (!ShowingOption.RBVisible)
             {
-                HideColumn(sheet, ColumnRbCommission);
+                sheet.HideColumn(ColumnRbCommission);
             }
 
             if (!ShowingOption.NGVisible)
             {
-                HideColumn(sheet, ColumnNgCommission);
+                sheet.HideColumn(ColumnNgCommission);
             }
 
             if (!ShowingOption.CSVisible)
             {
-                HideColumn(sheet, ColumnCsCommission);
+                sheet.HideColumn(ColumnCsCommission);
             }
         }
     }

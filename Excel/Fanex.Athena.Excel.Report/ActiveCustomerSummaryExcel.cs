@@ -79,7 +79,7 @@ namespace Fanex.Athena.Excel.Report
 
             ProcessUI(sheet);
             sheet.MergeCells(RowTableHeader, ColumnFirstProduct, RowTableHeader, ColumnLastProduct);
-            HideColumn(sheet, _hiddenColumnIndexes.ToArray());
+            sheet.HideColumn(_hiddenColumnIndexes.ToArray());
         }
 
         protected override void AssignHeader(ISheet sheet)
