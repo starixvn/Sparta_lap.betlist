@@ -16,7 +16,7 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class CustomerPendingFundsDataAccess : BaseDataAccess, ICustPendingFundsDataAccess
     {
-        public SortableList<CustPendingFunds> GetDataList(CustomerPendingFundsMetaModel metaModel, ref CustPendingFunds totalData, ref int totalRows)
+        public SortableList<CustPendingFunds> GetDataList(CustomerPendingFundsMetaModel metaModel, out CustPendingFunds totalData, out int totalRows)
         {
             using (var db = this.GetObjectDb("Lrf_Rpt_Outstanding"))
             {
@@ -51,6 +51,11 @@ namespace Fanex.Athena.DataAccess.Report
                             PendingFunds = reader.ToDecimal("SumOutstanding" + metaModel.BaseCurrency)
                         };
                         totalRows = reader.ToInt("TotalRows");
+                    }
+                    else
+                    {
+                        totalData = new CustPendingFunds();
+                        totalRows = 0;
                     }
                 }
 

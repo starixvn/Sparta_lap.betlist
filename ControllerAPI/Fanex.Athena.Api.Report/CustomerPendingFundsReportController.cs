@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Net.Http;
-    using System.Web;
+    using System.Web.Hosting;
     using System.Web.Http;
     using DataAccess.Report;
     using DataAccess.Report.Interfaces;
@@ -14,6 +14,8 @@
     using Fanex.Athena.Model.Core.DataDomain;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportCustomerPendingFunds)]
     public class CustomerPendingFundsReportController : ApiReportBaseController
@@ -26,17 +28,36 @@
             _custPendingFundsDataAccess = new CustomerPendingFundsDataAccess();
         }
 
+        public CustomerPendingFundsReportController(
+            ICustPendingFundsDataAccess custPendingFundsDataAccess,
+            ISessionService sessionService,
+            IProductService productService)
+            : base(sessionService, productService)
+        {
+            _custPendingFundsDataAccess = custPendingFundsDataAccess;
+        }
+
         [HttpPost]
         public dynamic Index(CustomerPendingFundsMetaModel metaModel)
         {
             return metaModel.IsExportExcel ? ExportExcel(metaModel) : ProcessRequest(metaModel);
         }
 
+        [CLSCompliant(false)]
+        protected internal virtual CustomerPendingFundsExcel CreateExcel(
+            string templatePath,
+            ConvertingOption convertingOption,
+            IEnumerable<CustPendingFunds> dataList,
+            CustPendingFunds totalData)
+        {
+            return new CustomerPendingFundsExcel(templatePath, convertingOption, dataList, totalData);
+        }
+
         private dynamic ProcessRequest(CustomerPendingFundsMetaModel metaModel)
         {
-            var totalData = new CustPendingFunds();
-            var totalRows = 0;
-            var dataList = GetData(metaModel, ref totalData, ref totalRows);
+            CustPendingFunds totalData;
+            int totalRows;
+            var dataList = GetData(metaModel, out totalData, out totalRows);
 
             return new
             {
@@ -51,7 +72,7 @@
             const string FileName = "CustomerPendingFunds.xls";
             const string TemplatePath = @"~/App_Data/Template/CustomerReports/CustomerPendingFunds.xls";
 
-            var templatePath = HttpContext.Current.Server.MapPath(TemplatePath);
+            var templatePath = HostingEnvironment.MapPath(TemplatePath);
 
             var convertingOption = new ConvertingOption
             {
@@ -60,27 +81,29 @@
                 CurrencyName = metaModel.CurrencyName
             };
 
-            var totalData = new CustPendingFunds();
-            var totalRows = 0;
+            CustPendingFunds totalData;
+            int totalRows;
             metaModel.PageIndex = 1;
             metaModel.PageSize = PageSizeExcel;
-            var dataList = GetData(metaModel, ref totalData, ref totalRows);
+            var dataList = GetData(metaModel, out totalData, out totalRows);
 
-            var custPendingFundsExcel = new CustomerPendingFundsExcel(templatePath, convertingOption, dataList, totalData);
+            var custPendingFundsExcel = CreateExcel(templatePath, convertingOption, dataList, totalData);
             custPendingFundsExcel.Export();
 
             return ExcelStream(custPendingFundsExcel.Workbook, FileName);
         }
 
-        private IEnumerable<CustPendingFunds> GetData(CustomerPendingFundsMetaModel metaModel, ref CustPendingFunds totalData, ref int totalRow)
+        private IEnumerable<CustPendingFunds> GetData(CustomerPendingFundsMetaModel metaModel, out CustPendingFunds totalData, out int totalRows)
         {
             if (!metaModel.IsValid)
             {
+                totalData = new CustPendingFunds();
+                totalRows = 0;
                 return new SortableList<CustPendingFunds>();
             }
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var dataList = _custPendingFundsDataAccess.GetDataList(metaModel, ref totalData, ref totalRow);
+            var dataList = _custPendingFundsDataAccess.GetDataList(metaModel, out totalData, out totalRows);
             dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("asc", StringComparison.OrdinalIgnoreCase));
 
             return dataList;

@@ -89,6 +89,7 @@
     <Compile Include="AgCasinoBalanceReportControllerTest.cs" />
     <Compile Include="ApiReportBaseControllerTest.cs" />
     <Compile Include="CustomerBalanceReportControllerTest.cs" />
+    <Compile Include="CustomerPendingFundsReportControllerTest.cs" />
     <Compile Include="PlatformWinLossReportController_ExportExcelTest.cs" />
     <Compile Include="PlatformWinLossReportControllerTest.cs" />
     <Compile Include="WinLossByLeagueReportControllerTest.cs" />

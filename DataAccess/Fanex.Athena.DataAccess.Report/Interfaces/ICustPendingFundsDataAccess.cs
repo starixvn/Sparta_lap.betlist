@@ -14,6 +14,6 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference",
             Justification = "Reviewed. Suppression is OK here.")]
-        SortableList<CustPendingFunds> GetDataList(CustomerPendingFundsMetaModel metaModel, ref CustPendingFunds totalData, ref int totalRows);
+        SortableList<CustPendingFunds> GetDataList(CustomerPendingFundsMetaModel metaModel, out CustPendingFunds totalData, out int totalRows);
     }
 }
