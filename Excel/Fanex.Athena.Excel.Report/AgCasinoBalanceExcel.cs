@@ -12,6 +12,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
+    using Helpers;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Model.Report.ViewModel;
@@ -47,13 +48,16 @@ namespace Fanex.Athena.Excel.Report
         private readonly AgCasinoBalanceMetaModel _metaModel;
         private readonly IDictionary<string, AgCasinoBalance> _summaryTotal;
 
+        private readonly ConvertingOption _convertingOption;
+
         public AgCasinoBalanceExcel(
                 string templatePath,
                 ConvertingOption convertingOption,
                 AgCasinoBalanceMetaModel metaModel,
                 AgCasinoBalanceViewModel viewModel)
-            : base(templatePath, null, convertingOption)
+            : base(templatePath, null)
         {
+            _convertingOption = convertingOption;
             _metaModel = metaModel;
             _casinoList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
@@ -183,8 +187,8 @@ namespace Fanex.Athena.Excel.Report
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
             var todate = _metaModel.ToDate.ToString(FormatDate);
             var title = _metaModel.DrillDownLevel > 0 && _metaModel.CurrencyId == 0
-                ? GetExactTitleCurrencyName(_metaModel.DrillDownCurrencyId)
-                : GetExactTitleCurrencyName(_metaModel.CurrencyId);
+                ? ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.DrillDownCurrencyId)
+                : ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId);
 
             ReportTitle = string.Format(ViewResources.AGCasinoBalance + ", {0} --> {1} - {2}", fromdate, todate, title);
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);

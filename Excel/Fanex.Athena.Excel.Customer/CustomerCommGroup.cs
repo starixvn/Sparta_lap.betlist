@@ -41,7 +41,7 @@ namespace Fanex.Athena.Excel.Customer
                                  string templatePath,
                                  DataTable exportData,
                                  ShowingOption showingOption)
-            : base(templatePath, showingOption, new ConvertingOption())
+            : base(templatePath, showingOption)
         {
             _exportData = exportData;
             HeaderTextList = new List<string>

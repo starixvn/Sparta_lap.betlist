@@ -12,6 +12,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
+    using Helpers;
     using Model.Report.DTO;
     using NPOI.SS.UserModel;
     using Resources;
@@ -33,13 +34,16 @@ namespace Fanex.Athena.Excel.Report
         private readonly IEnumerable<CustPendingFunds> _customerPendingFundsList;
         private readonly CustPendingFunds _total;
 
+        private readonly ConvertingOption _convertingOption;
+
         public CustomerPendingFundsExcel(
                                          string templatePath,
                                          ConvertingOption convertingOption,
                                          IEnumerable<CustPendingFunds> dataList,
                                          CustPendingFunds totalData)
-            : base(templatePath, new ShowingOption(), convertingOption)
+            : base(templatePath, new ShowingOption())
         {
+            _convertingOption = convertingOption;
             _customerPendingFundsList = dataList;
             _total = totalData;
             HeaderTextList = new List<string>
@@ -143,7 +147,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignTitle(ISheet sheet)
         {
-            ReportTitle = string.Format(ViewResources.CustomerPedingFundsTitle, GetTitleCurrencyName(ConvertingOption));
+            ReportTitle = string.Format(ViewResources.CustomerPedingFundsTitle, ReportExcelHelper.GetTitleCurrencyName(_convertingOption));
 
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 

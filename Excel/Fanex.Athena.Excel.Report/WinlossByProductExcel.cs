@@ -52,6 +52,8 @@ namespace Fanex.Athena.Excel.Report
         private readonly string _systemId;
         private readonly string _errorMessage;
 
+        private readonly ConvertingOption _convertingOption;
+
         public WinlossByProductExcel(
                                      string templatePath,
                                      ConvertingOption convertingOption,
@@ -60,8 +62,9 @@ namespace Fanex.Athena.Excel.Report
                                      WinLossByProductViewModel viewModel,
                                      string systemId,
                                      string errorMessage)
-            : base(templatePath, showingOption, convertingOption)
+            : base(templatePath, showingOption)
         {
+            _convertingOption = convertingOption;
             _metaModel = metaModel;
             _winlossByProductList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
@@ -235,7 +238,7 @@ namespace Fanex.Athena.Excel.Report
                                     ViewResources.WinLossByProductTitle,
                                     fromdate,
                                     todate,
-                                    GetExactTitleCurrencyName(_metaModel.DrillDownCurrencyId)) +
+                                    ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.DrillDownCurrencyId)) +
                                     ReportExcelHelper.GetLicenseeWLProduct(_metaModel.ProductOptions, _systemId);
             }
             else
@@ -244,7 +247,7 @@ namespace Fanex.Athena.Excel.Report
                                         ViewResources.WinLossByProductTitle,
                                         fromdate,
                                         todate,
-                                        GetExactTitleCurrencyName(_metaModel.CurrencyId)) +
+                                        ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId)) +
                                         ReportExcelHelper.GetLicenseeWLProduct(_metaModel.ProductOptions, _systemId);
             }
 
@@ -372,7 +375,7 @@ namespace Fanex.Athena.Excel.Report
             foreach (var currency in currencyList)
             {
                 var data = totalCurrencyList.Where(a => a.CurrencyName == currency.Key).ToList();
-                sheet.MergeCells(currentRow, ColumnCurrency, currentRow + data.Count() - 1, ColumnCurrency);
+                sheet.MergeCells(currentRow, ColumnCurrency, currentRow + data.Count - 1, ColumnCurrency);
                 foreach (var item in data)
                 {
                     int cellIndex = ColumnCurrency;

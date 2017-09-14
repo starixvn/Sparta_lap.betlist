@@ -41,7 +41,7 @@
             PlatformWinLossMetaModel metaModel,
             IList<PlatformWinLossSummary> dataList,
             PlatformWinLossSummary total)
-            : base(templatePath, null, null)
+            : base(templatePath, null)
         {
             _model = metaModel;
             _dataList = dataList;

@@ -45,6 +45,8 @@ namespace Fanex.Athena.Excel.Report
         private readonly CustomerWinLoss _total;
         private readonly CustomerWinLossMetaModel _metaModel;
 
+        private readonly ConvertingOption _convertingOption;
+
         public CustomerWinLossExcel(
             string templatePath,
             ShowingOption showingOption,
@@ -52,8 +54,9 @@ namespace Fanex.Athena.Excel.Report
             CustomerWinLossMetaModel metaModel,
             IEnumerable<CustomerWinLoss> dataList,
             CustomerWinLoss totalData)
-            : base(templatePath, showingOption, convertingOption, metaModel.PageSize)
+            : base(templatePath, showingOption, metaModel.PageSize)
         {
+            _convertingOption = convertingOption;
             _metaModel = metaModel;
             _customerWinlossList = dataList;
             _total = totalData;
@@ -167,7 +170,7 @@ namespace Fanex.Athena.Excel.Report
                                         ViewResources.CustomerWinLossTitle,
                                         _metaModel.FromDate.ToString(FormatDate),
                                         _metaModel.ToDate.ToString(FormatDate),
-                                        GetTitleCurrencyName(ConvertingOption)) + ReportExcelHelper.GetLicenseeWLProduct(_metaModel.ProductOptions);
+                                        ReportExcelHelper.GetTitleCurrencyName(_convertingOption)) + ReportExcelHelper.GetLicenseeWLProduct(_metaModel.ProductOptions);
 
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 

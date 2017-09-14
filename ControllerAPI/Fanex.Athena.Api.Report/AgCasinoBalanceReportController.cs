@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Api.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
@@ -49,6 +50,19 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel);
         }
 
+        [CLSCompliant(false)]
+        protected internal virtual AgCasinoBalanceExcel CreateExcel(
+            string templatePath,
+            ConvertingOption convertingOption,
+            AgCasinoBalanceMetaModel metaModel,
+            AgCasinoBalanceViewModel viewModel)
+        {
+            return new AgCasinoBalanceExcel(templatePath, convertingOption, metaModel, viewModel)
+            {
+                Level = metaModel.DrillDownLevel,
+            };
+        }
+
         private static dynamic GetAgCasinoBalanceEmptyResult()
         {
             return new
@@ -88,16 +102,13 @@ namespace Fanex.Athena.Api.Report
                 metaModel.ToDate = metaModel.DrillDownToDate;
             }
 
-            var excelModel = new AgCasinoBalanceViewModel
+            var viewModel = new AgCasinoBalanceViewModel
             {
                 MainResult = dataList,
                 SummaryTotal = summaryTotal,
             };
 
-            var excel = new AgCasinoBalanceExcel(templatePath, convertingOption, metaModel, excelModel)
-            {
-                Level = metaModel.DrillDownLevel,
-            };
+            var excel = CreateExcel(templatePath, convertingOption, metaModel, viewModel);
 
             excel.Export();
 

@@ -89,13 +89,7 @@ namespace Fanex.Athena.Controllers.WareHouse
             IDictionary<string, decimal> totalValues = new Dictionary<string, decimal>();
             var exportData = _winLossService.GetDataList(metaModel, ref totalValues);
 
-            var currencyConvert = new ConvertingOption
-            {
-                IsConvert = metaModel.IsConvert,
-                BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = metaModel.CurrencyName
-            };
-            var winLossExcel = new TopWinLoss(templatePath, currencyConvert, showingOption, exportData, totalValues)
+            var winLossExcel = new TopWinLoss(templatePath, showingOption, exportData, totalValues)
             {
                 GroupingId = metaModel.ReportBy,
                 ReportTitle = titleText

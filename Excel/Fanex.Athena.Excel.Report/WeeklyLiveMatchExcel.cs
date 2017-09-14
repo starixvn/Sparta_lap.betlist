@@ -38,7 +38,7 @@ namespace Fanex.Athena.Excel.Report
                 IEnumerable<WeeklyLiveMatch> dataList,
                 int[] totalData,
                 IEnumerable<string> weekHeaders)
-            : base(templatePath, null, null)
+            : base(templatePath, null)
         {
             _totalData = totalData;
             _metaModel = metaModel;

@@ -12,6 +12,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
+    using Helpers;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Model.Report.ViewModel;
@@ -45,13 +46,16 @@ namespace Fanex.Athena.Excel.Report
         private readonly MicroGamingWinLossMetaModel _metaModel;
         private readonly IDictionary<string, MicroGamingWinLoss> _summaryTotal;
 
+        private readonly ConvertingOption _convertingOption;
+
         public MicroGamingWinLossExcel(
                 string templatePath,
                 ConvertingOption convertingOption,
                 MicroGamingWinLossMetaModel metaModel,
                 MicroGamingWinLossViewModel viewModel)
-            : base(templatePath, null, convertingOption)
+            : base(templatePath, null)
         {
+            _convertingOption = convertingOption;
             _metaModel = metaModel;
             _winLossList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
@@ -156,7 +160,7 @@ namespace Fanex.Athena.Excel.Report
         {
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
             var todate = _metaModel.ToDate.ToString(FormatDate);
-            var title = GetExactTitleCurrencyName(_metaModel.CurrencyId);
+            var title = ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId);
 
             ReportTitle = GenerateProductReportTitle(fromdate, todate, title);
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
@@ -216,7 +220,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="rowIndex">The starting row index.</param>
         /// <returns>The last row index after assign data.</returns>
-        private int AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
+        private void AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
         {
             var currencyList = _summaryTotal.Keys.ToList();
             currencyList.Reverse();
@@ -235,8 +239,6 @@ namespace Fanex.Athena.Excel.Report
                     rowIndex++;
                 }
             }
-
-            return rowIndex;
         }
 
         /// <summary>

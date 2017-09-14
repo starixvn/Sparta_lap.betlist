@@ -47,11 +47,10 @@ namespace Fanex.Athena.Excel.Warehouse
 
         public TopWinLoss(
                 string templatePath,
-                ConvertingOption convertingOption,
                 ShowingOption showingOption,
                 IList<Fanex.Athena.Model.Warehouse.DTO.WinLoss> dataList,
                 IDictionary<string, decimal> totalValues)
-            : base(templatePath, showingOption, convertingOption)
+            : base(templatePath, showingOption)
         {
             _dataList = dataList;
 

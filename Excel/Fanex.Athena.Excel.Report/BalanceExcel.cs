@@ -10,6 +10,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
+    using Helpers;
     using Model.Report.DTO;
     using NPOI.SS.UserModel;
     using Resources;
@@ -40,14 +41,17 @@ namespace Fanex.Athena.Excel.Report
         private readonly Balance _balance;
         private readonly string _date;
 
+        private readonly ConvertingOption _convertingOption;
+
         public BalanceExcel(
                             string templatePath,
                             ShowingOption showingOption,
                             ConvertingOption convertingOption,
                             Balance balance,
                             string date)
-            : base(templatePath, showingOption, convertingOption)
+            : base(templatePath, showingOption)
         {
+            _convertingOption = convertingOption;
             _balance = balance;
             _date = date;
         }
@@ -82,14 +86,6 @@ namespace Fanex.Athena.Excel.Report
         }
 
         /// <summary>
-        /// Assign no info row.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignNoInfoRow(ISheet sheet)
-        {
-        }
-
-        /// <summary>
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
@@ -115,7 +111,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignTitle(ISheet sheet)
         {
-            ReportTitle = string.Format(ViewResources.BalanceTitle, GetTitleCurrencyName(ConvertingOption));
+            ReportTitle = string.Format(ViewResources.BalanceTitle, ReportExcelHelper.GetTitleCurrencyName(_convertingOption));
 
             // Set for Balance, report title
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);

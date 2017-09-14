@@ -10,6 +10,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
+    using Helpers;
     using Model.Report.DTO;
     using Model.Report.ViewModel;
     using NPOI.SS.UserModel;
@@ -40,13 +41,16 @@ namespace Fanex.Athena.Excel.Report
         private readonly WinLossByBetTypeViewModel _viewModel;
         private readonly IList<WinLossByBetType> _winlossByBetTypeList;
 
+        private readonly ConvertingOption _convertingOption;
+
         public WinLossByBetTypeExcel(
                                      string templatePath,
                                      ConvertingOption convertingOption,
                                      ShowingOption showingOption,
                                      WinLossByBetTypeViewModel viewModel)
-            : base(templatePath, showingOption, convertingOption)
+            : base(templatePath, showingOption)
         {
+            _convertingOption = convertingOption;
             _viewModel = viewModel;
             _winlossByBetTypeList = viewModel.MainResult;
             _total = viewModel.Total;
@@ -148,7 +152,7 @@ namespace Fanex.Athena.Excel.Report
                                         ViewResources.WinLossByBetTypeTitle,
                                         _viewModel.Param.FromDate.ToString(FormatDate),
                                         _viewModel.Param.ToDate.ToString(FormatDate),
-                                        GetTitleCurrencyName(ConvertingOption));
+                                        ReportExcelHelper.GetTitleCurrencyName(_convertingOption));
 
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 

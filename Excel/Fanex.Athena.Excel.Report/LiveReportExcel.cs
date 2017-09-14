@@ -11,6 +11,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
+    using Helpers;
     using Model.Report.DTO.LiveReports;
     using Model.Report.ViewModel.LiveReports;
     using NPOI.SS.UserModel;
@@ -46,14 +47,17 @@ namespace Fanex.Athena.Excel.Report
         private readonly LiveReportDetailViewModel _liveReportDetailList;
         private readonly IList<LiveReport> _liveReportList;
 
+        private readonly ConvertingOption _convertingOption;
+
         public LiveReportExcel(
                                string templatePath,
                                ConvertingOption convertingOption,
                                ShowingOption showingOption,
                                IList<LiveReport> liveReportList,
                                LiveReportDetailViewModel liveReportDetailList)
-            : base(templatePath, showingOption, convertingOption)
+            : base(templatePath, showingOption)
         {
+            _convertingOption = convertingOption;
             _liveReportList = liveReportList;
             _liveReportDetailList = liveReportDetailList;
         }
@@ -154,7 +158,7 @@ namespace Fanex.Athena.Excel.Report
                                         GetLiveIndicatorString(_liveReportDetailList.Param.LiveIndicator),
                                         _liveReportDetailList.Param.FromDate.ToString("d MMMM yy"),
                                         _liveReportDetailList.Param.ToDate.ToString("d MMMM yy"),
-                                        GetTitleCurrencyName(ConvertingOption));
+                                        ReportExcelHelper.GetTitleCurrencyName(_convertingOption));
 
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 

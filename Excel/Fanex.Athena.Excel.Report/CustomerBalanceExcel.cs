@@ -11,6 +11,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
+    using Helpers;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NPOI.SS.UserModel;
@@ -50,6 +51,8 @@ namespace Fanex.Athena.Excel.Report
         private readonly CustomerBalanceMetaModel _model;
         private readonly CustBalance _totalList;
 
+        private readonly ConvertingOption _convertingOption;
+
         public CustomerBalanceExcel(
                                     string templatePath,
                                     CustomerBalanceMetaModel model,
@@ -57,8 +60,9 @@ namespace Fanex.Athena.Excel.Report
                                     CustBalance totalList,
                                     ShowingOption showingOption,
                                     ConvertingOption convertingOption)
-            : base(templatePath, showingOption, convertingOption)
+            : base(templatePath, showingOption)
         {
+            _convertingOption = convertingOption;
             _model = model;
             _exportData = exportData;
             _totalList = totalList;
@@ -190,7 +194,7 @@ namespace Fanex.Athena.Excel.Report
                                         pattern,
                                         _model.FromDate.ToString("MM/dd/yyyy"),
                                         _model.ToDate.ToString("MM/dd/yyyy"),
-                                        GetTitleCurrencyName(ConvertingOption));
+                                        ReportExcelHelper.GetTitleCurrencyName(_convertingOption));
 
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 

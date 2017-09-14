@@ -49,7 +49,7 @@ namespace Fanex.Athena.Excel.Report
                                   PlatformWinLossViewModel model,
                                   ShowingOption showingOption,
                                   IEnumerable<ProductOption> productOptions)
-            : base(templatePath, showingOption, null)
+            : base(templatePath, showingOption)
         {
             _productOptions = productOptions;
             _model = model;

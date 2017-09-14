@@ -13,6 +13,7 @@ namespace Fanex.Athena.Excel.Report
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Model.Core.DataDomain;
+    using Helpers;
     using Model.Core.DTO.Common;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -90,6 +91,8 @@ namespace Fanex.Athena.Excel.Report
         private readonly LicenseeWinLossMetaModel _metaModel;
         private readonly IDictionary<string, LicenseeWinLoss> _summaryTotal;
 
+        private readonly ConvertingOption _convertingOption;
+
         public LicenseeWinLossExcel(
                 ILicenseeWinLossService licenseeWinLossService,
                 string templatePath,
@@ -97,8 +100,9 @@ namespace Fanex.Athena.Excel.Report
                 ShowingOption showingOption,
                 LicenseeWinLossMetaModel metaModel,
                 LicenseeWinLossViewModel viewModel)
-            : base(templatePath, showingOption, convertingOption)
+            : base(templatePath, showingOption)
         {
+            _convertingOption = convertingOption;
             _licenseeWinLossService = licenseeWinLossService ?? new LicenseeWinLossService();
             _metaModel = metaModel;
             _dataList = viewModel.MainResult;
@@ -253,8 +257,8 @@ namespace Fanex.Athena.Excel.Report
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
             var todate = _metaModel.ToDate.ToString(FormatDate);
             var title = _metaModel.DrillDownLevel > 0 && _metaModel.CurrencyId == 0
-                ? GetExactTitleCurrencyName(_metaModel.DrillDownCurrencyId)
-                : GetExactTitleCurrencyName(_metaModel.CurrencyId);
+                ? ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.DrillDownCurrencyId)
+                : ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId);
 
             ReportTitle = string.Format(ViewResources.LicenseeWinLoss + ", {0} --> {1} - {2}", fromdate, todate, title);
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);

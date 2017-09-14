@@ -11,6 +11,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
+    using Helpers;
     using Model.Core.DTO.Common;
     using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
@@ -45,14 +46,17 @@ namespace Fanex.Athena.Excel.Report
         private readonly int _totalCustomer;
         private readonly IList<int> _hiddenColumnIndexes = new List<int>();
 
+        private readonly ConvertingOption _convertingOption;
+
         public ActiveCustomerSummaryExcel(
                 string templatePath,
                 ConvertingOption convertingOption,
                 ShowingOption showingOption,
                 ActiveCustomerMetaModel metaModel,
                 ActiveCustomerViewModel viewModel)
-            : base(templatePath, showingOption, convertingOption)
+            : base(templatePath, showingOption)
         {
+            _convertingOption = convertingOption;
             _metaModel = metaModel;
             _activeCustomerList = viewModel.MainResult;
             _totalCustomer = viewModel.TotalCustomer;
@@ -143,7 +147,7 @@ namespace Fanex.Athena.Excel.Report
         {
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
             var todate = _metaModel.ToDate.ToString(FormatDate);
-            var title = GetExactTitleCurrencyName(_metaModel.CurrencyId);
+            var title = ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId);
 
             ReportTitle = string.Format(ViewResources.ActiveCustomerSummary + ", {0} --> {1} - {2}", fromdate, todate, title);
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);

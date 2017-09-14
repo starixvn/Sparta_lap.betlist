@@ -7,14 +7,11 @@
 namespace Fanex.Athena.Excel.Base
 {
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using Excel.Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
-    using Fanex.Athena.Model.Core.DataDomain;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
-    using Resources;
 
     public abstract class ReportBase : ExcelBase
     {
@@ -29,12 +26,10 @@ namespace Fanex.Athena.Excel.Base
         protected ReportBase(
             string templatePath,
             ShowingOption showingOption,
-            ConvertingOption convertingOption,
             int pageSize = 0)
         {
             _templatePath = templatePath;
             ShowingOption = showingOption;
-            ConvertingOption = convertingOption;
             PageSize = pageSize;
         }
 
@@ -49,12 +44,6 @@ namespace Fanex.Athena.Excel.Base
             {
                 _pageSize = (value == 0 || value > MaxRowCount) ? MaxRowCount : value;
             }
-        }
-
-        protected ConvertingOption ConvertingOption
-        {
-            get;
-            private set;
         }
 
         protected IList<string> HeaderTextList
@@ -157,45 +146,6 @@ namespace Fanex.Athena.Excel.Base
         protected internal virtual void RemoveTemplate()
         {
             Workbook.RemoveSheet("Template");
-        }
-
-        protected internal virtual string GetExactTitleCurrencyName(int currencyId)
-        {
-            string title;
-
-            switch (currencyId)
-            {
-                case BaseCurrencyType.All:
-                    title = ViewResources.AllCurrencies;
-                    break;
-
-                case BaseCurrencyType.Eur:
-                    title = string.Format(ViewResources.Viewin, FormatKey.Eur);
-                    break;
-
-                case BaseCurrencyType.Usd:
-                    title = string.Format(ViewResources.Viewin, FormatKey.Usd);
-                    break;
-
-                case BaseCurrencyType.Gbp:
-                    title = string.Format(ViewResources.Viewin, FormatKey.Gbp);
-                    break;
-
-                default:
-                    title = GetTitleCurrencyName(ConvertingOption);
-                    break;
-            }
-
-            return title;
-        }
-
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
-           Justification = "Reviewed. Suppression is OK here.")]
-        protected virtual string GetTitleCurrencyName(ConvertingOption convertingOption)
-        {
-            return convertingOption.IsConvert
-                   ? string.Format(ViewResources.Viewin, convertingOption.BaseCurrency.ToUpper())
-                   : string.Format(ViewResources.Viewin, convertingOption.CurrencyName);
         }
     }
 }

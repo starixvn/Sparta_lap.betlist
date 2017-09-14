@@ -61,6 +61,8 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly DataTable _exportData;
 
+        private readonly ConvertingOption _convertingOption;
+
         public MatchWinLossExcel(
                                 string templatePath,
                                 ConvertingOption convertingOption,
@@ -68,8 +70,9 @@ namespace Fanex.Athena.Excel.Report
                                 DataTable exportData,
                                 DataTable totalData,
                                 MatchWinLossMetaModel model)
-            : base(templatePath, showingOption, convertingOption)
+            : base(templatePath, showingOption)
         {
+            _convertingOption = convertingOption;
             _model = model;
             _exportData = exportData;
             _totalData = totalData;
@@ -219,7 +222,7 @@ namespace Fanex.Athena.Excel.Report
             ReportTitle = string.Format(
                 ViewResources.MatchWinLossTitle,
                 _model.Date.ToString(FormatDate),
-                GetTitleCurrencyName(ConvertingOption)) + ReportExcelHelper.GetLicenseeWLProduct(_model.ProductOptions);
+                ReportExcelHelper.GetTitleCurrencyName(_convertingOption)) + ReportExcelHelper.GetLicenseeWLProduct(_model.ProductOptions);
 
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
@@ -508,7 +511,7 @@ namespace Fanex.Athena.Excel.Report
 
         private string GetCurrencyColumn(string columnName)
         {
-            return DataHelper.GetCurrencyColumnName(columnName, ConvertingOption.IsConvert, ConvertingOption.BaseCurrency);
+            return DataHelper.GetCurrencyColumnName(columnName, _convertingOption.IsConvert, _convertingOption.BaseCurrency);
         }
     }
 }

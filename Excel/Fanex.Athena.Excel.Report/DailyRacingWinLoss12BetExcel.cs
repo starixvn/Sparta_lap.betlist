@@ -11,6 +11,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
+    using Helpers;
     using Model.Core.Helper;
     using Model.Report.DTO;
     using Model.Report.ViewModel;
@@ -45,13 +46,16 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTotalCurrencyTemplate = 7;
         private const int RowTotalRaceTemplate = 5;
 
+        private readonly ConvertingOption _convertingOption;
+
         public DailyRacingWinLoss12BetExcel(
                                             string templatePath,
                                             ConvertingOption convertingOption,
                                             ShowingOption showingOption,
                                             DailyRacingWinLossViewModel viewModel)
-            : base(templatePath, showingOption, convertingOption)
+            : base(templatePath, showingOption)
         {
+            _convertingOption = convertingOption;
             ViewModel = viewModel;
             DailyRacingWinLossData = viewModel.DailyRacingWinLossData;
             HeaderTextList = new List<string>
@@ -208,7 +212,7 @@ namespace Fanex.Athena.Excel.Report
             ReportTitle = string.Format(
                                         ViewResources.DailyRacing12BetTitle,
                                         ViewModel.Param.Date.ToString(FormatDate),
-                                        GetTitleCurrencyName(ConvertingOption));
+                                        ReportExcelHelper.GetTitleCurrencyName(_convertingOption));
 
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnCount, ReportTitle);
 
