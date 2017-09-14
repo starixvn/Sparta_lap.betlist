@@ -1352,6 +1352,7 @@
     <Content Include="www\js\source\components\selectlist.js" />
     <Content Include="www\js\source\helpers\daterange.js" />
     <Content Include="www\js\source\helpers\sortableheader.js" />
+    <Content Include="www\js\source\lib\jquery.multiselect.nlevel.js" />
     <Content Include="www\js\source\lib\numberformat.js" />
     <Content Include="www\js\source\lib\jquery.balloon.js" />
     <Content Include="www\js\source\lib\jquery.colorpicker.js" />

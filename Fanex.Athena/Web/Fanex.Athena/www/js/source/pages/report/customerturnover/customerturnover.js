@@ -7,7 +7,7 @@
     "components/pluginhelper/daterangepicker",
     "helpers/daterange",
     "components/paging",
-    "lib/jquery.multiselect",
+    "lib/jquery.multiselect.nlevel",
     "lib/jqgrid/jquery.jqGrid.en",
     "lib/jqgrid/jquery.jqGrid.min",
     "extensions/jquery.extension",
@@ -326,6 +326,8 @@
                     for (var i = 0; i < numberOfCheckedItems; i++) {
                         addCheckedSport(checkedItems[i]);
                     }
+
+                    $(_selector.ProductList).toggleClass("invalid", _checkedSports.length <= 0);
                     /*Load bet types*/
                     loadBettypes();
                 }
@@ -436,7 +438,7 @@
             var dataList = [];
             $.each(_bettypes, function (index, value) {
                 var item = {
-                    Id: index,
+                    Id: "BetType-" + value.ID,
                     Value: value.ID,
                     Text: value.Name,
                     Checked: value.Checked,

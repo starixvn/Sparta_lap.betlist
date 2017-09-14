@@ -8,7 +8,7 @@
     "components/pluginhelper/daterangepicker",
     "helpers/daterange",
     "components/paging",
-    "lib/jquery.multiselect"],
+    "lib/jquery.multiselect.nlevel"],
     function ($, Site, jqGridAdditional, CustomerTurnover, CustomerTurnoverOption, AutoComplete, DatePicker, DateHelper, PagingHelper) {
         describe("CustomerTurnover", function () {
             beforeAll(function () {
@@ -404,7 +404,7 @@
                             Checked: true
                         }];
                         var expectedData = [{
-                            Id: 0,
+                            Id: "BetType-1",
                             Value: 1,
                             Text: "Type1",
                             Checked: true,
@@ -412,7 +412,7 @@
                             Css: "",
                             CssClass: ""
                         }, {
-                            Id: 1,
+                            Id: "BetType-2",
                             Value: 2,
                             Text: "Type2",
                             Checked: true,
