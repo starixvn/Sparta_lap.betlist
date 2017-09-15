@@ -10,7 +10,7 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
-    using System.Web;
+    using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
     using Fanex.Athena.Excel.Base.Entities;
@@ -20,7 +20,7 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
-    using Service.Core.Users;
+    using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Report;
     using Service.Report.Interfaces;
@@ -28,14 +28,20 @@ namespace Fanex.Athena.Api.Report
     [ApiFunctionAuthorization(PermissionKeys.ReportColossusBetsWinLoss)]
     public class ColossusBetsWinLossReportController : ApiReportBaseController
     {
-        private readonly IAuthorizationService _authorizationService;
-
         private readonly IColossusBetsWinLossService _colossusBetsWinLossService;
 
         public ColossusBetsWinLossReportController()
         {
             _colossusBetsWinLossService = new ColossusBetsWinLossService();
-            _authorizationService = new AuthorizationService();
+        }
+
+        public ColossusBetsWinLossReportController(
+            IColossusBetsWinLossService colossusBetsWinLossService,
+            ISessionService sessionService,
+            IProductService productService)
+            : base(sessionService, productService)
+        {
+            _colossusBetsWinLossService = colossusBetsWinLossService;
         }
 
         [HttpPost]
@@ -56,6 +62,19 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel, null, null);
         }
 
+        [CLSCompliant(false)]
+        protected internal virtual ColossusBetsWinLossExcel CreateExcel(
+            string templatePath,
+            ConvertingOption convertingOption,
+            ThirdPartyWinLossMetaModel metaModel,
+            ColossusBetWinLossViewModel excelModel)
+        {
+            return new ColossusBetsWinLossExcel(templatePath, convertingOption, metaModel, excelModel)
+            {
+                Level = metaModel.DrillDownLevel
+            };
+        }
+
         private static dynamic GetEmptyThirdPartyWinLossResult()
         {
             return new
@@ -72,7 +91,7 @@ namespace Fanex.Athena.Api.Report
             IDictionary<string, ColossusBetWinLoss> summaryTotal)
         {
             var userSession = SessionService.UserSession;
-            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/ColossusBetsWinLoss.xls");
+            var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/ColossusBetsWinLoss.xls");
             var currency = userSession.CurrencyList.SingleOrDefault(i => i.Key == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
 
             var exportedFileName = string.Format(
@@ -103,11 +122,7 @@ namespace Fanex.Athena.Api.Report
                 SummaryTotal = summaryTotal,
             };
 
-            var excel = new ColossusBetsWinLossExcel(templatePath, convertingOption, metaModel, excelModel)
-            {
-                Level = metaModel.DrillDownLevel,
-            };
-
+            var excel = CreateExcel(templatePath, convertingOption, metaModel, excelModel);
             excel.Export();
 
             return ExcelStream(excel.Workbook, exportedFileName);
