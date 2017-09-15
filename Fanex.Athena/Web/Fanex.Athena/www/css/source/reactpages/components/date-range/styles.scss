@@ -11,6 +11,8 @@ $cell-margin: 0 !default;
 $cell-size: (($calendar-width - $calendar-padding * 2) / 7) - ($cell-margin * 2) - 1 !default;
 $calendar-shadow: rgba($calendar-color, 0.25) 0 0 1em !default;
 
+$disable-background-button: #d2d8dc;
+
 .daterange-container {
     position: relative;
 
@@ -116,6 +118,22 @@ $calendar-shadow: rgba($calendar-color, 0.25) 0 0 1em !default;
             margin: 0 0 0 10px;
             border-width: 5px 5px 5px 7px;
             border-color: transparent transparent transparent $calendar-month-button-icon-color;
+        }
+    }
+
+    &:disabled {
+        background: transparent !important;
+
+        &.next {
+            i {
+                border-left-color: $disable-background-button;
+            }
+        }
+
+        &.prev {
+            i {
+                border-right-color: $disable-background-button;
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
 import Select from 'react-select'
 import MultipleSelect from '../../../components/multiple-select/index'
-import { Calendar, DateRange, defaultOptions, updateLocaleByLanguage } from 'lrfcomponents/date-range/index'
+import { Calendar, DateRange } from 'lrfcomponents/date-range/index'
 import LangHelper from 'lrflib/langHelper'
 import ReportExcel from './reportExcel'
 
@@ -13,8 +13,6 @@ const RANGE_MONTH_CONSTRAINT = 3;
 class FormFilter extends Component {
     constructor(props) {
         super(props);
-
-        updateLocaleByLanguage(LangHelper.currentLanguage);
     }
 
     submit = (e) => {
@@ -122,7 +120,6 @@ class FormFilter extends Component {
         return (
             <DateRange startDate={dateRange.fromDate} endDate={dateRange.toDate}
                 minDate={dateConstraint.minDate} maxDate={dateConstraint.maxDate}
-                onlyClasses={true} ranges={defaultOptions.ranges}
                 onClickApplyButton={this.applyDateRangeHandler} />
         )
     }

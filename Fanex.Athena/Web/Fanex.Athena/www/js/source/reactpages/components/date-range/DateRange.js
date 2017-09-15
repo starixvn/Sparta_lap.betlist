@@ -7,18 +7,21 @@ import PredefinedRanges from './PredefinedRanges.js';
 import getTheme, { defaultClasses } from './styles.js';
 import joiningClassNames from 'classnames';
 import { MomentFormat } from './constants';
+import defaultOptions from './defaultOptions.js';
 
 class DateRange extends Component {
 
   constructor(props, context) {
     super(props, context);
 
-    const { format, linkedCalendars, theme } = props;
+    const { format, linkedCalendars, theme, locale } = props;
 
     const startDate = parseInput(props.startDate, format, 'startOf');
     const endDate = parseInput(props.endDate, format, 'endOf');
     this.styles = getTheme(theme);
     this.step = 0;
+    this.locale = { ...defaultOptions.locale, ...props.locale };
+    this.ranges = { ...defaultOptions.ranges, ...props.ranges };
 
     this.state = {
       range: { startDate, endDate },
@@ -131,7 +134,7 @@ class DateRange extends Component {
   }
 
   render() {
-    const { ranges, format, linkedCalendars, style, calendars, firstDayOfWeek, minDate, maxDate, classNames, onlyClasses, specialDays, lang, disableDaysBeforeToday, offsetPositive, shownDate, showMonthArrow, rangedCalendars, locale } = this.props;
+    const { showRange, format, linkedCalendars, style, calendars, firstDayOfWeek, minDate, maxDate, classNames, onlyClasses, specialDays, lang, disableDaysBeforeToday, offsetPositive, shownDate, showMonthArrow, rangedCalendars } = this.props;
     const { range, link } = this.state;
     const { styles } = this;
 
@@ -164,16 +167,16 @@ class DateRange extends Component {
         </div>
 
         <div style={onlyClasses ? undefined : { ...styles['DateRange'], ...style, ...dateRangeStyle }} className={dateRangeClass}>
-          {ranges && (
+          {showRange && (
             <PredefinedRanges
               format={format}
-              ranges={ranges}
+              ranges={this.ranges}
               range={range}
               theme={styles}
               onSelect={this.handleSelect.bind(this)}
               onlyClasses={onlyClasses}
               classNames={classes}
-              locale={locale}
+              locale={this.locale}
               buttonHandlers={buttonHandlers} />
           )}
 
@@ -203,7 +206,8 @@ class DateRange extends Component {
                   onlyClasses={onlyClasses}
                   specialDays={specialDays}
                   classNames={classes}
-                  onChange={this.handleSelect.bind(this)} />
+                  onChange={this.handleSelect.bind(this)}
+                  locale={this.locale} />
               );
             }
             return _calendars;
@@ -225,6 +229,7 @@ DateRange.defaultProps = {
   specialDays: [],
   rangedCalendars: false,
   twoStepChange: false,
+  showRange: true
 }
 
 DateRange.propTypes = {
@@ -247,7 +252,8 @@ DateRange.propTypes = {
   offsetPositive: PropTypes.bool,
   classNames: PropTypes.object,
   rangedCalendars: PropTypes.bool,
-  onClickApplyButton: PropTypes.func
+  onClickApplyButton: PropTypes.func,
+  showRange: PropTypes.bool
 }
 
 export default DateRange;

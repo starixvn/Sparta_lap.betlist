@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import parseInput from './utils/parseInput.js';
 import DayCell from './DayCell.js';
-import LangDic from './LangDic.js';
 import getTheme, { defaultClasses } from './styles.js';
 import { MomentFormat } from './constants';
+
+const START_OF_MONTH = 0;
+const END_OF_MONTH = 11;
 
 function checkRange(dayMoment, range) {
   return (
@@ -37,20 +39,14 @@ class Calendar extends Component {
   constructor(props, context) {
     super(props, context);
 
-    const { format, range, theme, offset, firstDayOfWeek, locale, shownDate } = props;
-
-    if (locale) {
-      moment.locale(locale);
-    }
+    const { format, range, theme, offset, firstDayOfWeek, shownDate } = props;
 
     const date = parseInput(props.date, format, 'startOf');
     let showDate = (shownDate || range && range['endDate'] || date).clone().add(offset, 'months');
     const state = {
       date,
       shownDate: showDate,
-      firstDayOfWeek: (firstDayOfWeek || moment.localeData().firstDayOfWeek()),
-      selectedMonth: showDate.month(),
-      selectedYear: showDate.year()
+      firstDayOfWeek: (firstDayOfWeek || moment.localeData().firstDayOfWeek())
     }
 
     this.state = state;
@@ -60,6 +56,30 @@ class Calendar extends Component {
   componentDidMount() {
     const { onInit } = this.props;
     onInit && onInit(this.state.date);
+  }
+
+  get disablePrevButton() {
+    const range = this._getLimitDate();
+    const currentDate = this.state.shownDate;
+    let prevMonth = this.state.shownDate.month() - 1;
+
+    if (prevMonth < START_OF_MONTH && currentDate.year() == range.startDate.year()) {
+      return true;
+    }
+
+    return false;
+  }
+
+  get disableNextButton() {
+    const range = this._getLimitDate();
+    const currentDate = this.state.shownDate;
+    let nextMonth = this.state.shownDate.month() + 1;
+
+    if (nextMonth > END_OF_MONTH && currentDate.year() == range.endDate.year()) {
+      return true;
+    }
+
+    return false;
   }
 
   getShownDate() {
@@ -80,20 +100,46 @@ class Calendar extends Component {
     }
   }
 
+  nextButtonClickHandler(event) {
+    event.preventDefault();
+
+    if (!this.disableNextButton) {
+      this.changeMonth(this.state.shownDate.month() + 1, event);
+    }
+  }
+
+  prevButtonClickHandler(event) {
+    event.preventDefault();
+    if (!this.disablePrevButton) {
+      this.changeMonth(this.state.shownDate.month() - 1, event);
+    }
+  }
+
   changeMonth(direction, event) {
     event.preventDefault();
+    let selectedMonth = Number(direction);
+    let year = this.state.shownDate.year();
+
+    if (selectedMonth < START_OF_MONTH) {
+      selectedMonth = END_OF_MONTH;
+      year -= 1;
+    }
+
+    if (selectedMonth > END_OF_MONTH) {
+      selectedMonth = START_OF_MONTH;
+      year += 1;
+    }
+
     const { link, linkCB } = this.props;
 
-    const selectedMonth = Number(direction);
-    const newDate = moment([this.state.selectedYear, selectedMonth, this.state.shownDate.date()]);
+    const newDate = moment([year, selectedMonth, this.state.shownDate.date()]);
 
     if (link && linkCB) {
       return linkCB(newDate);
     }
 
     this.setState({
-      shownDate: newDate,
-      selectedMonth: selectedMonth
+      shownDate: newDate
     });
   }
 
@@ -101,45 +147,69 @@ class Calendar extends Component {
     event.preventDefault();
 
     const selectedYear = Number(event.target.value);
-    const newDate = moment([selectedYear, this.state.selectedMonth, this.state.shownDate.date()]);
+    const newDate = moment([selectedYear, this.state.shownDate.month(), this.state.shownDate.date()]);
 
     this.setState({
-      shownDate: newDate,
-      selectedYear: selectedYear
+      shownDate: newDate
     });
   }
 
   renderMonthList(classes) {
-    const m = moment();
     const { styles } = this;
-    const { onlyClasses } = this.props;
+    const { onlyClasses, locale } = this.props;
+    const monthLabels = locale.months;
     let monthOptions = [];
     for (let i = 0; i < 12; i++) {
-      monthOptions.push(<option key={`month${i}`} value={i}>{m.month(i).format(MomentFormat.monthSelect)}</option>);
+      monthOptions.push(<option key={`month${i}`} value={i}>{monthLabels[i]}</option>);
     }
 
     return (
       <select style={onlyClasses ? undefined : styles["MonthAndYearSelect"]} className={classes.monthAndYearSelect}
-        onChange={(e) => this.changeMonth(e.target.value, e)} value={this.state.selectedMonth}>
+        onChange={(e) => this.changeMonth(e.target.value, e)} value={this.state.shownDate.month()}>
         {monthOptions}
       </select>
     );
   }
 
-  renderYearList(classes) {
+  _getLimitDate() {
+    const DEFAULT_YEAR_RANGE = 10;
+    const { minDate, maxDate } = this.props;
     const m = moment();
+    let startDate, endDate;
+
+    if (minDate) {
+      startDate = moment.isMoment(minDate) ? minDate : moment(minDate, MomentFormat.default);
+    }
+    else {
+      const startMonth = 0;
+      startDate = moment([m.year() - DEFAULT_YEAR_RANGE, startMonth]);
+    }
+
+    if (maxDate) {
+      endDate = moment.isMoment(maxDate) ? maxDate : moment(maxDate, MomentFormat.default);
+    }
+    else {
+      const endMonth = 11;
+      endDate = moment([m.year(), endMonth]).endOf("month");
+    }
+
+
+    return { startDate, endDate }
+  }
+
+  renderYearList(classes) {
     const { styles } = this;
     const { onlyClasses } = this.props;
-    const currentYear = m.year();
-    let yearOptions = [];
-    for (let i = 0; i < 10; i++) {
-      let year = currentYear - i;
-      yearOptions.push(<option key={`year${year}`} value={year}>{year}</option>);
+    const range = this._getLimitDate();
+
+    const yearOptions = [];
+    for (let i = range.startDate.year(); i <= range.endDate.year(); i++) {
+      yearOptions.push(<option key={`year${i}`} value={i}>{i}</option>);
     }
 
     return (
       <select style={onlyClasses ? undefined : styles["MonthAndYearSelect"]} className={classes.monthAndYearSelect}
-        onChange={this.changeYear.bind(this)} value={this.state.selectedYear}>
+        onChange={this.changeYear.bind(this)} value={this.state.shownDate.year()}>
         {yearOptions}
       </select>
     );
@@ -147,27 +217,19 @@ class Calendar extends Component {
 
   renderMonthAndYear(classes) {
     const shownDate = this.getShownDate();
-    let month = moment.months(shownDate.month());
     const year = shownDate.year();
     const { styles } = this;
-    const { minDate, maxDate, onlyClasses, lang, showMonthArrow } = this.props;
-    const range = {
-      minDate: moment.isMoment(minDate) ? minDate : moment(minDate, MomentFormat.default),
-      maxDate: moment.isMoment(maxDate) ? maxDate : moment(maxDate, MomentFormat.default)
-    }
-
-    let monthLower = month.toLowerCase()
-    month = (lang && LangDic[lang] && LangDic[lang][monthLower]) ? LangDic[lang][monthLower] : month;
+    const { minDate, maxDate, onlyClasses, showMonthArrow } = this.props;
 
     return (
       <div style={onlyClasses ? undefined : styles['MonthAndYear']} className={classes.monthAndYearWrapper}>
         {
           showMonthArrow ?
             <button
-              type="button"
+              type="button" disabled={this.disablePrevButton}
               style={onlyClasses ? undefined : { ...styles['MonthButton'], float: 'left' }}
               className={classes.prevButton}
-              onClick={this.changeMonth.bind(this, this.state.selectedMonth - 1)}>
+              onClick={this.prevButtonClickHandler.bind(this)}>
               <i style={onlyClasses ? undefined : { ...styles['MonthArrow'], ...styles['MonthArrowPrev'] }}></i>
             </button> : null
         }
@@ -179,10 +241,10 @@ class Calendar extends Component {
         {
           showMonthArrow ?
             <button
-              type="button"
+              type="button" disabled={this.disableNextButton}
               style={onlyClasses ? undefined : { ...styles['MonthButton'], float: 'right' }}
               className={classes.nextButton}
-              onClick={this.changeMonth.bind(this, this.state.selectedMonth + 1)}>
+              onClick={this.nextButtonClickHandler.bind(this)}>
               <i style={onlyClasses ? undefined : { ...styles['MonthArrow'], ...styles['MonthArrowNext'] }}></i>
             </button> : null
         }
@@ -194,12 +256,13 @@ class Calendar extends Component {
     const dow = this.state.firstDayOfWeek;
     const weekdays = [];
     const { styles } = this;
-    const { onlyClasses, lang } = this.props;
+    const { onlyClasses, locale } = this.props;
+    const weekDays = locale.weekdays;
 
-    for (let i = dow; i < 7 + dow; i++) {
-      let day = moment.weekdaysMin(i);
-      let dayLower = day.toLowerCase();
-      day = (lang && LangDic[lang] && LangDic[lang][dayLower]) ? LangDic[lang][dayLower] : day;
+    const dayLength = 7 + dow;
+    for (let i = dow; i < dayLength; i++) {
+      const weekDayIndex = i % 7;
+      const day = weekDays[weekDayIndex];
       weekdays.push(
         <span style={onlyClasses ? undefined : styles['Weekday']} className={classes.weekDay} key={i + day}>{day}</span>
       );
@@ -344,7 +407,7 @@ Calendar.propTypes = {
   onlyClasses: PropTypes.bool,
   specialDays: PropTypes.array,
   classNames: PropTypes.object,
-  locale: PropTypes.string
+  locale: PropTypes.object
 }
 
 export default Calendar;

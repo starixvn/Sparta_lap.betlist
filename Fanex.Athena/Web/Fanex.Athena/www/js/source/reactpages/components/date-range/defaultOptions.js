@@ -1,4 +1,5 @@
 import LangHelper from "lrflib/langHelper";
+import locale from "./utils/locale";
 
 export default {
     ranges: {
@@ -68,6 +69,7 @@ export default {
 
     locale: {
         applyLabel: LangHelper.getSingleResource("OK"),
-        cancelLabel: LangHelper.getSingleResource("Cancel")
+        cancelLabel: LangHelper.getSingleResource("Cancel"),
+        ...locale
     }
 }
