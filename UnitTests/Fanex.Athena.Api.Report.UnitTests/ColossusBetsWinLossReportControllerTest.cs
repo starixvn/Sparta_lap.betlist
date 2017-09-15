@@ -32,19 +32,34 @@
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
         }
 
+        [OneTimeTearDown]
+        public override void TearDown()
+        {
+            base.TearDown();
+
+            _controller = null;
+            _service = null;
+        }
+
         [Test]
         public void Index_InvalidModel_ReturnEmptyData()
         {
+            // Arrange
             var model = new ThirdPartyWinLossMetaModel
             {
                 IsExportExcel = false,
                 CurrencyId = 1,
             };
-            CreateFakekUserSessionCurrencyList(new Dictionary<int, string>());
+            MockUserSessionData(new UserSession
+            {
+                CurrencyList = new Dictionary<int, string>()
+            });
             MockLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
 
+            // Action
             var result = _controller.Index(model);
 
+            // Assert
             Assert.Multiple(() =>
             {
                 Assert.IsEmpty(result.Data);
@@ -56,42 +71,50 @@
         [Test]
         public void Index_ValidModelLevel0_CallServiceWithCorrectParameter()
         {
+            // Arrange
             var model = CreateValidMetaModel();
 
             IDictionary<string, ColossusBetWinLoss> summaryTotal;
             SetUpForGettingData(out summaryTotal);
 
+            // Action
             _controller.Index(model);
 
+            // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(0, Is.EqualTo(model.DrillDownLevel));
                 Assert.That(0, Is.EqualTo(model.DrillDownCustomerId));
+                _service.ReceivedWithAnyArgs().GetSummaryWinloss(model, out summaryTotal);
             });
         }
 
         [Test]
         public void Index_ValidModelLevel0_ReturnCorrectData()
         {
+            // Arrange
             var model = CreateValidMetaModel();
 
             IDictionary<string, ColossusBetWinLoss> summaryTotal;
             var expectedData = SetUpForGettingData(out summaryTotal);
             var expectedTotal = expectedData.AsEnumerable();
 
+            // Action
             var result = _controller.Index(model);
 
+            // Assert
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(expectedData, result.Data);
-                Assert.AreEqual(expectedTotal, result.Total);
-                Assert.AreEqual(summaryTotal, result.SummaryTotal);
+                Assert.That(result.Data, Is.EqualTo(expectedData));
+                Assert.That(result.Total, Is.EqualTo(expectedTotal));
+                Assert.That(result.SummaryTotal, Is.EqualTo(summaryTotal));
             });
         }
 
         [Test]
         public void Index_ValidModelLevel1_CallServiceWithCorrectParameter()
         {
+            // Arrange
             var model = CreateValidMetaModel();
             var level = 1;
             var fdate = DateTime.Now;
@@ -102,8 +125,10 @@
             IDictionary<string, ColossusBetWinLoss> summaryTotal;
             SetUpForGettingData(out summaryTotal, level);
 
+            // Action
             _controller.Index(model, fdate, tdate, level, currencyId, custId);
 
+            // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(level, Is.EqualTo(model.DrillDownLevel));
@@ -111,18 +136,20 @@
                 Assert.That(fdate, Is.EqualTo(model.DrillDownFromDate));
                 Assert.That(tdate, Is.EqualTo(model.DrillDownToDate));
                 SessionService.Received().GenerateAgentListXml(currencyId, Arg.Any<bool>());
+                _service.ReceivedWithAnyArgs().GetWinlossDetail(model, out summaryTotal);
             });
         }
 
         [Test]
         public void Index_ExportExcelLevel0_ExportWithCorrectData()
         {
+            // Arrange
             var currencyId = 0;
             var drilldownCurrencyId = 1;
             var model = CreateValidMetaModel(currencyId, drilldownCurrencyId);
             model.IsExportExcel = true;
 
-            var expectedFileName = "ColossusBetsWinLoss_" + model.FromDate.ToString("ddMMMyyy") + "_All.xls";
+            var expectedFileName = $"ColossusBetsWinLoss_{model.FromDate:ddMMMyyy}_All.xls";
 
             IDictionary<string, ColossusBetWinLoss> summaryTotal;
             SetUpForGettingData(out summaryTotal);
@@ -140,8 +167,10 @@
                    Arg.Any<ThirdPartyWinLossMetaModel>(),
                    new ColossusBetWinLossViewModel()).ReturnsForAnyArgs(excel);
 
+            // Action
             _controller.Index(model);
 
+            // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(model.CurrencyId, Is.Not.EqualTo(model.DrillDownCurrencyId));
@@ -154,6 +183,7 @@
         [Test]
         public void Index_ExportExcelLevel1_ExportWithCorrectData()
         {
+            // Arrange
             var modelCurrencyId = 1;
             var drilldownCurrencyId = 2;
             var model = CreateValidMetaModel(modelCurrencyId, drilldownCurrencyId);
@@ -164,7 +194,7 @@
             var currencyId = 3;
             var custId = 4;
 
-            var expectedFileName = "ColossusBetsWinLoss_" + fdate.ToString("ddMMMyyy") + "_" + nameof(ThirdPartyWinLossMetaModel.DrillDownCurrencyId) + ".xls";
+            var expectedFileName = $"ColossusBetsWinLoss_{fdate:ddMMMyyy}_{nameof(ThirdPartyWinLossMetaModel.DrillDownCurrencyId)}.xls";
 
             IDictionary<string, ColossusBetWinLoss> summaryTotal;
             SetUpForGettingData(out summaryTotal, level);
@@ -182,8 +212,10 @@
                    Arg.Any<ThirdPartyWinLossMetaModel>(),
                    new ColossusBetWinLossViewModel()).ReturnsForAnyArgs(excel);
 
+            // Action
             _controller.Index(model, fdate, tdate, level, currencyId, custId);
 
+            // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(model.DrillDownCurrencyId, Is.EqualTo(model.CurrencyId));
@@ -199,11 +231,18 @@
             {
                 CurrencyId = currencyId,
                 AgentListXml = string.Empty,
-                FromDate = DateTime.Now,
-                ToDate = DateTime.Now.AddDays(1),
+                FromDate = DateTime.Now.AddDays(-2),
+                ToDate = DateTime.Now.AddDays(-1),
                 DrillDownCurrencyId = drillDownCurrencyId
             };
-            CreateFakekUserSessionCurrencyList(new Dictionary<int, string> { { model.CurrencyId, nameof(model.CurrencyId) }, { drillDownCurrencyId, nameof(model.DrillDownCurrencyId) } });
+            MockUserSessionData(new UserSession
+            {
+                CurrencyList = new Dictionary<int, string>
+                {
+                    { currencyId, nameof(model.CurrencyId) },
+                    { drillDownCurrencyId, nameof(model.DrillDownCurrencyId) }
+                }
+            });
             MockLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
             SessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns(string.Empty);
 
@@ -236,14 +275,6 @@
 
             summaryTotal = expectedSummaryData;
             return expectedData;
-        }
-
-        private void CreateFakekUserSessionCurrencyList(IDictionary<int, string> currencyList)
-        {
-            MockUserSessionData(new UserSession
-            {
-                CurrencyList = currencyList
-            });
         }
     }
 }
