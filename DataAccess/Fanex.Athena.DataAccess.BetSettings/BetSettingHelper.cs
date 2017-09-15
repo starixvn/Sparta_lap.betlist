@@ -9,7 +9,7 @@
 
     public static class BetSettingHelper
     {
-        public static void RenderSport(IDataReader reader, string sportId, List<BetSetting> resultList, bool isNumberGame = false)
+        public static void RenderSport(IDataReader reader, string sportId, ICollection<BetSetting> resultList, bool isNumberGame = false)
         {
             var sportSuffix = sportId != "1" ? "v" + sportId : string.Empty;
             var sportName = CacheRef.GetSportName(sportId);

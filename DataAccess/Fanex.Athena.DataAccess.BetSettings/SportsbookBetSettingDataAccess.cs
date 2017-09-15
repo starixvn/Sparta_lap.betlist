@@ -44,7 +44,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
                             (EsportSettingType)System.Convert.ToInt32(reader["DisableEsports"])
                             : EsportSettingType.NoneOffering;
 
-                        return RenderSportBookBetSetting(reader);
+                        return RenderSportBookBetSetting(reader, _appSettings.IsShowMixedSport);
                     }
                 }
             }
@@ -104,13 +104,8 @@ namespace Fanex.Athena.DataAccess.BetSettings
             }
         }
 
-        private IList<BetSetting> RenderSportBookBetSetting(IDataReader reader)
+        private static IList<BetSetting> RenderSportBookBetSetting(IDataReader reader, bool isShowMixedSport)
         {
-            if (reader.FieldCount == 0)
-            {
-                return null;
-            }
-
             var sportList = new List<BetSetting>();
 
             BetSettingHelper.RenderSport(reader, "1", sportList); // Soccer
@@ -125,7 +120,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
             // BetSettingHelper.RenderSport(reader, "44", sportList); // Muay Thai
             BetSettingHelper.RenderSport(reader, "99", sportList); // Other sports
 
-            if (_appSettings.IsShowMixedSport)
+            if (isShowMixedSport)
             {
                 BetSettingHelper.RenderSport(reader, "99MP", sportList);
             }
