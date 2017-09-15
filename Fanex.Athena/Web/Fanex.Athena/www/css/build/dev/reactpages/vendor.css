@@ -348,7 +348,11 @@ a {
   background: url(../../images/excel-icon.svg) no-repeat;
   width: 18px;
   height: 18px;
-  cursor: pointer; }
+  cursor: pointer;
+  display: inline-block; }
+
+.negative {
+  color: #ff0000 !important; }
 
 .loading-process {
   height: 100%;
