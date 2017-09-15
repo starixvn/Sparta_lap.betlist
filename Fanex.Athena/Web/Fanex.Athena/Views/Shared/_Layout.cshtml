@@ -4,12 +4,13 @@
 @{
     var sessionService = new Fanex.Athena.Service.Core.Users.SessionService();
     var userSession = sessionService.UserSession;
+    var licSession = sessionService.LicenseeSession;
     var userCurrencies = userSession == null || userSession.CurrencyList == null ?
         new Dictionary<string, string>() :
         userSession.CurrencyList.ToDictionary(x => x.Key.ToString(), x => x.Value);
     var appSettings = new AppSettings();
     var isParasiticMode = userSession != null && userSession.ApplicationMode == Fanex.Athena.Model.Core.DataDomain.AppMode.Parasitic;
-
+    var hasSystemId = !appSettings.LicenseesNotHaveSystemId.Contains(licSession.LicenseeId);
 }
 <!DOCTYPE html>
 <html>
@@ -41,6 +42,7 @@
     <input type="hidden" id="UserCurrencies" value="" />
     <input type="hidden" id="HasCustComm" value="@( hasCustComm ? 1 : 0)" />
     <input type="hidden" id="HistoryDate" value="@( appSettings.HistoryDate)" />
+    <input type="hidden" id="HasSystemId" value="@( hasSystemId ? 1 : 0)" />
     @Html.AntiForgeryToken()
     <div id="BodyContent">
         @RenderBody()

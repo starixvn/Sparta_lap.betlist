@@ -21,6 +21,11 @@ namespace Fanex.Athena.Extension.Utility
 
         #region Configurations
 
+        public IEnumerable<int> LicenseesNotHaveSystemId
+        {
+            get { return GetValue("LicenseesNotHaveSystemId").Split(',').Select(n => Convert.ToInt32(n)); }
+        }
+
         public bool IsEnabledMoveBetNotification
         {
             get { return int.Parse(GetValue("IsEnabledMoveBetNotification")) != 0; }

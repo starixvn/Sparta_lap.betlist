@@ -9,6 +9,7 @@
     var hasCustComm = licSession != null && licSession.IsAllowedCustomerComm;
     var isParasiticMode = userSession != null && userSession.ApplicationMode == Fanex.Athena.Model.Core.DataDomain.AppMode.Parasitic;
     var appSettings = new AppSettings();
+    var hasSystemId = !appSettings.LicenseesNotHaveSystemId.Contains(licSession.LicenseeId);
 }
 <!DOCTYPE html>
 
@@ -28,6 +29,7 @@
     <input type="hidden" id="PageLanguage" value="@System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag" />
     <input type="hidden" id="HasCustComm" value="@( hasCustComm ? 1 : 0)" />
     <input type="hidden" id="HistoryDate" value="@( appSettings.HistoryDate)" />
+    <input type="hidden" id="HasSystemId" value="@( hasSystemId ? 1 : 0)" />
     @Html.AntiForgeryToken()
 
     <div class="loading" style="display: none">

@@ -5,6 +5,8 @@
 
     public interface IAppSettings
     {
+        IEnumerable<int> LicenseesNotHaveSystemId { get; }
+
         bool IsEnabledMoveBetNotification { get; }
 
         string[] BasedCurrency { get; }
