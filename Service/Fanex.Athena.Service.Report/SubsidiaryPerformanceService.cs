@@ -45,7 +45,7 @@
 
             foreach (var summary in groupedData)
             {
-                var dataModel = new SubsidiaryPerformanceDataModel { Subsidiary = summary.Key.SubsidiaryId.ToString(), Currency = summary.First().CurrencyName };
+                var dataModel = new SubsidiaryPerformanceDataModel { Subsidiary = summary.Key.SubsidiaryId.ToString(), CurrencyName = summary.First().CurrencyName };
 
                 var detailList = new List<SubsidiaryPerformanceDetail>();
 
@@ -87,8 +87,8 @@
                 totalDataList.Add(new SubsidiaryPerformanceEntity
                 {
                     SubsidiaryId = item.Key,
-                    Subsidiary = item.Key.ToString(),
-                    CurrencyName = baseCurrency,
+                    Subsidiary = $"{ViewResources.Total} {item.Key.ToString()}",
+                    CurrencyName = $"{ViewResources.Based} {baseCurrency}",
                     BetCount = item.Sum(x => x.BetCount),
                     Turnover = item.Sum(x => x.Turnover),
                     CustomerWinLoss = item.Sum(x => x.CustomerWinLoss),

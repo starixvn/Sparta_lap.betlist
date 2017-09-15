@@ -54,12 +54,14 @@ class DataGrid extends Component {
                 rows.push(
                     <Row key={`tr${i}${j}`}>
                         {isFirstRow ? <Cell title={item.Subsidiary} rowSpan={rowSpan}>{item.Subsidiary}</Cell> : undefined}
-                        {isFirstRow ? <Cell title={item.Currency} rowSpan={rowSpan} className="center-align">{item.Currency}</Cell> : undefined}
+                        {isFirstRow ? <Cell title={item.CurrencyName} rowSpan={rowSpan} className="center-align">{item.CurrencyName}</Cell> : undefined}
                         <Cell title={detail.Product}>{detail.Product}</Cell>
                         <Cell title={betcount} className="right-align">{betcount}</Cell>
                         <Cell title={turnover} className="right-align">{turnover}</Cell>
                         <Cell title={customerWinLoss} className="right-align">{customerWinLoss}</Cell>
-                        <Cell title={subsidiaryWinLoss} className="right-align">{subsidiaryWinLoss}</Cell>
+                        <Cell title={subsidiaryWinLoss} className={`right-align ${detail.SubsidiaryWinLoss < 0 ? "negative" : ""}`}>
+                            {subsidiaryWinLoss}
+                        </Cell>
                     </Row>
                 );
 
@@ -73,22 +75,22 @@ class DataGrid extends Component {
     get footer() {
         const totalData = this.props.gridData.Total;
         return totalData.map((item, index) => {
-            const totalLabel = `${LangHelper.getSingleResource("Total")} ${item.Subsidiary}`,
-                basedLabel = `${LangHelper.getSingleResource("Based")} ${item.CurrencyName}`,
-                betcount = NumberFormat.format(item.BetCount),
+            const betcount = NumberFormat.format(item.BetCount),
                 turnover = NumberFormat.formatDecimal(item.Turnover),
                 customerWinLoss = NumberFormat.formatDecimal(item.CustomerWinLoss),
                 subsidiaryWinLoss = NumberFormat.formatDecimal(item.SubsidiaryWinLoss);
 
             return (
                 <Row className="fixed-table-total" key={`total${index}`}>
-                    <Cell title={totalLabel}>{totalLabel}</Cell>
-                    <Cell title={basedLabel}>{basedLabel}</Cell>
+                    <Cell title={item.Subsidiary}>{item.Subsidiary}</Cell>
+                    <Cell title={item.CurrencyName}>{item.CurrencyName}</Cell>
                     <Cell></Cell>
                     <Cell title={betcount} className="right-align">{betcount}</Cell>
                     <Cell title={turnover} className="right-align">{turnover}</Cell>
                     <Cell title={customerWinLoss} className="right-align">{customerWinLoss}</Cell>
-                    <Cell title={subsidiaryWinLoss} className="right-align">{subsidiaryWinLoss}</Cell>
+                    <Cell title={subsidiaryWinLoss} className={`right-align ${item.SubsidiaryWinLoss < 0 ? "negative" : ""}`}>
+                        {subsidiaryWinLoss}
+                    </Cell>
                 </Row>
             )
         })
@@ -98,17 +100,15 @@ class DataGrid extends Component {
         const grandTotal = this.props.gridData.GrandTotal;
         if (!grandTotal) return null;
 
-        const totalLabel = LangHelper.getSingleResource("Total"),
-            basedLabel = `${LangHelper.getSingleResource("Based")} ${grandTotal.CurrencyName}`,
-            betcount = NumberFormat.format(grandTotal.BetCount),
+        const betcount = NumberFormat.format(grandTotal.BetCount),
             turnover = NumberFormat.formatDecimal(grandTotal.Turnover),
             customerWinLoss = NumberFormat.formatDecimal(grandTotal.CustomerWinLoss),
             subsidiaryWinLoss = NumberFormat.formatDecimal(grandTotal.SubsidiaryWinLoss);
 
         return (
             <Row className="fixed-table-grant-total">
-                <Cell title={totalLabel}>{totalLabel}</Cell>
-                <Cell title={basedLabel}>{basedLabel}</Cell>
+                <Cell title={grandTotal.Subsidiary}>{grandTotal.Subsidiary}</Cell>
+                <Cell title={grandTotal.CurrencyName}>{grandTotal.CurrencyName}</Cell>
                 <Cell></Cell>
                 <Cell title={betcount} className="right-align">{betcount}</Cell>
                 <Cell title={turnover} className="right-align">{turnover}</Cell>

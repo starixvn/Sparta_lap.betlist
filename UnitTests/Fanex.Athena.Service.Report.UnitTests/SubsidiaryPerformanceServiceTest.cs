@@ -170,11 +170,11 @@
             return new List<SubsidiaryPerformanceDataModel>
             {
                 new SubsidiaryPerformanceDataModel
-                { Subsidiary = "1234", Currency = "USD", Details = dataDetail1 },
+                { Subsidiary = "1234", CurrencyName = "USD", Details = dataDetail1 },
                 new SubsidiaryPerformanceDataModel
-                { Subsidiary = "1235", Currency = "USD", Details = dataDetail2 },
+                { Subsidiary = "1235", CurrencyName = "USD", Details = dataDetail2 },
                 new SubsidiaryPerformanceDataModel
-                { Subsidiary = "1235", Currency = "EUR", Details = dataDetail3 }
+                { Subsidiary = "1235", CurrencyName = "EUR", Details = dataDetail3 }
             };
         }
 
@@ -183,9 +183,9 @@
             return new List<SubsidiaryPerformanceEntity>
             {
                 new SubsidiaryPerformanceEntity
-                { SubsidiaryId = 1234, Subsidiary = "1234", CurrencyName = "EUR", BetCount = 150, Turnover = 300000m, CustomerWinLoss = 30000m, SubsidiaryWinLoss = -30000m},
+                { SubsidiaryId = 1234, Subsidiary = "Total 1234", CurrencyName = "Based EUR", BetCount = 150, Turnover = 300000m, CustomerWinLoss = 30000m, SubsidiaryWinLoss = -30000m},
                 new SubsidiaryPerformanceEntity
-                { SubsidiaryId = 1235, Subsidiary = "1235", CurrencyName = "EUR", BetCount = 150, Turnover = 300000m, CustomerWinLoss = 30000m, SubsidiaryWinLoss = -30000m}
+                { SubsidiaryId = 1235, Subsidiary = "Total 1235", CurrencyName = "Based EUR", BetCount = 150, Turnover = 300000m, CustomerWinLoss = 30000m, SubsidiaryWinLoss = -30000m}
             };
         }
     }

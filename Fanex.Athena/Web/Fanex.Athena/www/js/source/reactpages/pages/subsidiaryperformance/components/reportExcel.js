@@ -5,6 +5,62 @@ import * as excelStyle from 'lrflib/excelStyle'
 const COLUMN_COUNT = 7;
 const START_OF_DATA_ROW = 1;
 
+const SUBSIDIARY_COLUMN_INDEX = 0;
+const CURRENCY_COLUMN_INDEX = 1;
+const PRODUCT_COLUMN_INDEX = 2;
+const BETCOUNT_COLUMN_INDEX = 3;
+const TURNOVER_COLUMN_INDEX = 4;
+const CUSTOMERWL_COLUMN_INDEX = 5;
+const SUBSIDIARYWL_COLUMN_INDEX = 6;
+
+const MAIN_SECTION_NAME = "mainSection";
+const TOTAL_SECTION_NAME = "totalSection";
+const GRAND_TOTAL_SECTION_NAME = "grandTotalSection";
+
+const columnConfigs = [{
+        field: "Subsidiary",
+        [MAIN_SECTION_NAME]: "ROW_SPAN_CELL_STYLE",
+        [TOTAL_SECTION_NAME]: "TOTAL_CELL_STYLE",
+        [GRAND_TOTAL_SECTION_NAME]: "GRAND_TOTAL_CELL_STYLE"
+    },
+    {
+        field: "CurrencyName",
+        [MAIN_SECTION_NAME]: "ROW_SPAN_CENTER_CELL_STYLE",
+        [TOTAL_SECTION_NAME]: "TOTAL_CELL_STYLE",
+        [GRAND_TOTAL_SECTION_NAME]: "GRAND_TOTAL_CELL_STYLE"
+    },
+    {
+        field: "Product",
+        [MAIN_SECTION_NAME]: "",
+        [TOTAL_SECTION_NAME]: "",
+        [GRAND_TOTAL_SECTION_NAME]: "GRAND_TOTAL_CELL_STYLE"
+    },
+    {
+        field: "BetCount",
+        [MAIN_SECTION_NAME]: "NUMBER_CELL_STYLE",
+        [TOTAL_SECTION_NAME]: "TOTAL_NUMBER_CELL_STYLE",
+        [GRAND_TOTAL_SECTION_NAME]: "GRAND_TOTAL_CELL_STYLE"
+    },
+    {
+        field: "Turnover",
+        [MAIN_SECTION_NAME]: "DECIMAL_CELL_STYLE",
+        [TOTAL_SECTION_NAME]: "TOTAL_DECIMAL_CELL_STYLE",
+        [GRAND_TOTAL_SECTION_NAME]: "GRAND_TOTAL_NUMBER_CELL_STYLE"
+    },
+    {
+        field: "CustomerWinLoss",
+        [MAIN_SECTION_NAME]: "DECIMAL_CELL_STYLE",
+        [TOTAL_SECTION_NAME]: "TOTAL_DECIMAL_CELL_STYLE",
+        [GRAND_TOTAL_SECTION_NAME]: "GRAND_TOTAL_NUMBER_CELL_STYLE"
+    },
+    {
+        field: "SubsidiaryWinLoss",
+        [MAIN_SECTION_NAME]: "DECIMAL_CELL_STYLE",
+        [TOTAL_SECTION_NAME]: "TOTAL_DECIMAL_CELL_STYLE",
+        [GRAND_TOTAL_SECTION_NAME]: "GRAND_TOTAL_NUMBER_CELL_STYLE"
+    }
+]
+
 const HEADERS = [
     LangHelper.getSingleResource("Subsidiary"), LangHelper.getSingleResource("Currency"),
     LangHelper.getSingleResource("Product"), LangHelper.getSingleResource("BetCount"),
@@ -25,6 +81,8 @@ export default class ReportExcel {
         this._createHeader();
         this._createSheetData();
 
+        this._createExcelConfig();
+
         Excel.export(this.worksheet, this.fileName);
     }
 
@@ -39,39 +97,23 @@ export default class ReportExcel {
         this._createMainData();
         this._createFooterData();
         this._createGrandTotalData();
-        this._createExcelConfig();
     }
 
     _createMainData() {
         const mainData = this.gridData.Data;
 
-        for (let item of mainData) {
+        for (let i = 0; i < mainData.length; i++) {
+            const item = mainData[i];
             const details = item.Details;
 
-            const subsidiaryCell = Excel.getCellAddress({ c: 0, r: this.currentRowIndex });
-            const currencyCell = Excel.getCellAddress({ c: 1, r: this.currentRowIndex });
-
-            this.worksheet[subsidiaryCell] = { t: "s", v: item.Subsidiary, s: excelStyle.ROW_SPAN_CELL_STYLE };
-            this.worksheet[currencyCell] = { t: "s", v: item.Currency, s: excelStyle.ROW_SPAN_CENTER_CELL_STYLE };
+            this._createRowByColumnIndex(item, MAIN_SECTION_NAME, SUBSIDIARY_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
 
             this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex + details.length - 1, c: 0 } });
             this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex + details.length - 1, c: 1 } });
 
             for (let detailIndex = 0; detailIndex < details.length; detailIndex++) {
                 const detail = details[detailIndex];
-
-                const productCell = Excel.getCellAddress({ c: 2, r: this.currentRowIndex });
-                const betCountCell = Excel.getCellAddress({ c: 3, r: this.currentRowIndex });
-                const turnoverCell = Excel.getCellAddress({ c: 4, r: this.currentRowIndex });
-                const customerWinLossCell = Excel.getCellAddress({ c: 5, r: this.currentRowIndex });
-                const subsidiaryWinLossCell = Excel.getCellAddress({ c: 6, r: this.currentRowIndex });
-
-                this.worksheet[productCell] = { t: "s", v: detail.Product };
-                this.worksheet[betCountCell] = { t: "n", v: detail.BetCount, s: excelStyle.NUMBER_CELL_STYLE };
-                this.worksheet[turnoverCell] = { t: "n", v: detail.Turnover, s: excelStyle.DECIMAL_CELL_STYLE };
-                this.worksheet[customerWinLossCell] = { t: "n", v: detail.CustomerWinLoss, s: excelStyle.DECIMAL_CELL_STYLE };
-                this.worksheet[subsidiaryWinLossCell] = { t: "n", v: detail.SubsidiaryWinLoss, s: excelStyle.DECIMAL_CELL_STYLE };
-
+                this._createRowByColumnIndex(detail, MAIN_SECTION_NAME, PRODUCT_COLUMN_INDEX, SUBSIDIARYWL_COLUMN_INDEX);
                 this.currentRowIndex++;
             }
         }
@@ -80,41 +122,35 @@ export default class ReportExcel {
     _createFooterData() {
         const totalDataList = this.gridData.Total;
 
-        for (let item of totalDataList) {
-            const subsidiaryCell = Excel.getCellAddress({ c: 0, r: this.currentRowIndex });
-            const currencyCell = Excel.getCellAddress({ c: 1, r: this.currentRowIndex });
-            const betCountCell = Excel.getCellAddress({ c: 3, r: this.currentRowIndex });
-            const turnoverCell = Excel.getCellAddress({ c: 4, r: this.currentRowIndex });
-            const customerWinLossCell = Excel.getCellAddress({ c: 5, r: this.currentRowIndex });
-            const subsidiaryWinLossCell = Excel.getCellAddress({ c: 6, r: this.currentRowIndex });
-
-            this.worksheet[subsidiaryCell] = { t: "s", v: `${LangHelper.getSingleResource("Total")} ${item.Subsidiary}`, s: excelStyle.TOTAL_CELL_STYLE };
-            this.worksheet[currencyCell] = { t: "s", v: `${LangHelper.getSingleResource("Based")} ${item.CurrencyName}`, s: excelStyle.TOTAL_CELL_STYLE };
-            this.worksheet[betCountCell] = { t: "n", v: item.BetCount, s: excelStyle.TOTAL_NUMBER_CELL_STYLE };
-            this.worksheet[turnoverCell] = { t: "n", v: item.Turnover, s: excelStyle.TOTAL_DECIMAL_CELL_STYLE };
-            this.worksheet[customerWinLossCell] = { t: "n", v: item.CustomerWinLoss, s: excelStyle.TOTAL_DECIMAL_CELL_STYLE };
-            this.worksheet[subsidiaryWinLossCell] = { t: "n", v: item.SubsidiaryWinLoss, s: excelStyle.TOTAL_DECIMAL_CELL_STYLE };
-
+        for (let i = 0; i < totalDataList.length; i++) {
+            const item = totalDataList[i];
+            this._createRowByColumnIndex(item, TOTAL_SECTION_NAME, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARYWL_COLUMN_INDEX);
             this.currentRowIndex++;
         }
     }
 
     _createGrandTotalData() {
         const grandTotal = this.gridData.GrandTotal;
+        this._createRowByColumnIndex(grandTotal, GRAND_TOTAL_SECTION_NAME, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARYWL_COLUMN_INDEX);
+    }
 
-        const subsidiaryCell = Excel.getCellAddress({ c: 0, r: this.currentRowIndex });
-        const currencyCell = Excel.getCellAddress({ c: 1, r: this.currentRowIndex });
-        const betCountCell = Excel.getCellAddress({ c: 3, r: this.currentRowIndex });
-        const turnoverCell = Excel.getCellAddress({ c: 4, r: this.currentRowIndex });
-        const customerWinLossCell = Excel.getCellAddress({ c: 5, r: this.currentRowIndex });
-        const subsidiaryWinLossCell = Excel.getCellAddress({ c: 6, r: this.currentRowIndex });
+    _createRowByColumnIndex(item, sectionName, startIndex, endIndex) {
+        for (let i = startIndex; i <= endIndex; i++) {
+            const { cellAddress, type, value, style } = this._getCellObject(item, sectionName, i);
+            this.worksheet[cellAddress] = { t: type, v: value, s: style };
+        }
+    }
 
-        this.worksheet[subsidiaryCell] = { t: "s", v: `${LangHelper.getSingleResource("Total")}`, s: excelStyle.TOTAL_CELL_STYLE };
-        this.worksheet[currencyCell] = { t: "s", v: `${LangHelper.getSingleResource("Based")} ${grandTotal.CurrencyName}`, s: excelStyle.TOTAL_CELL_STYLE };
-        this.worksheet[betCountCell] = { t: "n", v: grandTotal.BetCount, s: excelStyle.TOTAL_NUMBER_CELL_STYLE };
-        this.worksheet[turnoverCell] = { t: "n", v: grandTotal.Turnover, s: excelStyle.TOTAL_DECIMAL_CELL_STYLE };
-        this.worksheet[customerWinLossCell] = { t: "n", v: grandTotal.CustomerWinLoss, s: excelStyle.TOTAL_DECIMAL_CELL_STYLE };
-        this.worksheet[subsidiaryWinLossCell] = { t: "n", v: grandTotal.SubsidiaryWinLoss, s: excelStyle.TOTAL_DECIMAL_CELL_STYLE };
+    _getCellObject(item, sectionName, columnIndex) {
+        const columnConfig = columnConfigs[columnIndex];
+        const field = columnConfig.field;
+        const style = excelStyle[columnConfig[sectionName]];
+
+        const cellAddress = Excel.getCellAddress({ c: columnIndex, r: this.currentRowIndex });
+        const type = typeof item[columnConfig.field] === "number" ? "n" : "s";
+        const value = item[field] !== null ? item[field] : "";
+
+        return { cellAddress, type, value, style };
     }
 
     _createExcelConfig() {

@@ -16,3 +16,27 @@ export const DECIMAL_CELL_STYLE = { numFmt: "#,##0.00" };
 export const TOTAL_CELL_STYLE = { font: { bold: true } };
 export const TOTAL_NUMBER_CELL_STYLE = { font: { bold: true }, numFmt: "#,##0" };
 export const TOTAL_DECIMAL_CELL_STYLE = { font: { bold: true }, numFmt: "#,##0.00" };
+
+export const GRAND_TOTAL_CELL_STYLE = {
+    font: { bold: true },
+    fill: {
+        patternType: "solid",
+        fgColor: { rgb: "B8C3C9" }
+    }
+};
+export const GRAND_TOTAL_NUMBER_CELL_STYLE = {
+    font: { bold: true },
+    numFmt: "#,##0",
+    fill: {
+        patternType: "solid",
+        fgColor: { rgb: "B8C3C9" }
+    }
+};
+export const GRAND_TOTAL_DECIMAL_CELL_STYLE = {
+    font: { bold: true },
+    numFmt: "#,##0.00",
+    fill: {
+        patternType: "solid",
+        fgColor: { rgb: "B8C3C9" }
+    }
+};

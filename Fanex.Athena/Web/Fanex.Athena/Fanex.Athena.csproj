@@ -785,6 +785,7 @@
     <Content Include="www\css\source\reactpages\components\_loader.scss" />
     <Content Include="www\css\source\reactpages\components\multiple-select\multiple-select.scss" />
     <Content Include="www\css\source\reactpages\fonts\icon\_style.scss" />
+    <Content Include="www\css\source\reactpages\base\_report.scss" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Footer.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Header.jsx" />

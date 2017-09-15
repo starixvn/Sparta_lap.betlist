@@ -36,12 +36,20 @@ export default class Excel {
             type: "application/octet-stream"
         });
 
-        const element = window.document.createElement('a');
-        element.href = window.URL.createObjectURL(blob);
-        element.download = `${fileName}.${EXCEL_TYPE}`;
-        document.body.appendChild(element);
-        element.click();
-        document.body.removeChild(element);
+        const fileNameDownload = `${fileName}.${EXCEL_TYPE}`;
+
+        // IE 10+
+        if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob) {
+            navigator.msSaveOrOpenBlob(blob, fileNameDownload);
+        }
+        else {
+            const element = window.document.createElement('a');
+            element.href = window.URL.createObjectURL(blob);
+            element.download = fileNameDownload;
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
     }
 
     static sheetToArrayBuffer(s) {

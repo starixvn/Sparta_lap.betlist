@@ -263,10 +263,10 @@
 
             return new List<SubsidiaryPerformanceDataModel>
             {
-                new SubsidiaryPerformanceDataModel { Subsidiary = "New York", Currency = "USD", Details = detailData},
-                new SubsidiaryPerformanceDataModel { Subsidiary = "India", Currency = "THB", Details = detailData},
-                new SubsidiaryPerformanceDataModel { Subsidiary = "India", Currency = "THB", Details = detailData},
-                new SubsidiaryPerformanceDataModel { Subsidiary = "India", Currency = "THB", Details = detailData}
+                new SubsidiaryPerformanceDataModel { Subsidiary = "New York", CurrencyName = "USD", Details = detailData},
+                new SubsidiaryPerformanceDataModel { Subsidiary = "India", CurrencyName = "THB", Details = detailData},
+                new SubsidiaryPerformanceDataModel { Subsidiary = "India", CurrencyName = "THB", Details = detailData},
+                new SubsidiaryPerformanceDataModel { Subsidiary = "India", CurrencyName = "THB", Details = detailData}
             };
         }
 
@@ -285,7 +285,8 @@
         {
             return new SubsidiaryPerformanceEntity
             {
-                CurrencyName = "USD",
+                Subsidiary = "Total",
+                CurrencyName = "Based USD",
                 BetCount = 250,
                 Turnover = 500000m,
                 CustomerWinLoss = 50000m,

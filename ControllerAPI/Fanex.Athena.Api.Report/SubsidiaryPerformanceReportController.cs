@@ -8,6 +8,7 @@
     using Model.Core.DataDomain;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
+    using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Report;
@@ -64,7 +65,8 @@
         {
             return new SubsidiaryPerformanceEntity
             {
-                CurrencyName = baseCurrency,
+                Subsidiary = ViewResources.Total,
+                CurrencyName = $"{ViewResources.Based} {baseCurrency}",
                 BetCount = totalDataList.Sum(p => p.BetCount),
                 Turnover = totalDataList.Sum(p => p.Turnover),
                 CustomerWinLoss = totalDataList.Sum(p => p.CustomerWinLoss),

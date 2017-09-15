@@ -6,7 +6,7 @@
     {
         public string Subsidiary { get; set; }
 
-        public string Currency { get; set; }
+        public string CurrencyName { get; set; }
 
         public IEnumerable<SubsidiaryPerformanceDetail> Details { get; set; }
     }
