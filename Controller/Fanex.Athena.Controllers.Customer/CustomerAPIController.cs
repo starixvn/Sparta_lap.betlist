@@ -379,67 +379,7 @@ namespace Fanex.Athena.Controllers.Customer
             }
 
             return Json(result);
-        }
-
-        /// <summary>
-        /// Update group commission.
-        /// </summary>
-        /// <param name="groupCommId">The group commission id.</param>
-        /// <param name="sbcomm">The sport-book commission.</param>
-        /// <param name="rcomm">The racing commission.</param>
-        /// <param name="ngcomm">The number game  commission.</param>
-        /// <param name="lccomm">The live casino commission.</param>
-        /// <param name="rngcomm">The RNG casino commission.</param>
-        /// <returns>The action result.</returns>
-        [HttpPost]
-        [AjaxRequest]
-        [CustomValidateAntiForgery]
-        public ActionResult UpdateGroupCom(int groupCommId, decimal sbcomm, decimal rcomm, decimal ngcomm, decimal lccomm, decimal rngcomm)
-        {
-            var licenseeSession = SessionService.LicenseeSession;
-            var userSession = SessionService.UserSession;
-
-            var result = new ResultViewModel
-            {
-                Success = false,
-                ErrorMessage = ViewResources.Error
-            };
-            var request = new Request
-            {
-                Language = userSession.Language,
-                Ip = Request.UserHostAddress
-            };
-
-            /*Check valid data submited.*/
-            var commList = GroupCommSetting.Commissions;
-            var isvalid = commList.Any(i => i.Value == sbcomm) && commList.Any(i => i.Value == rcomm) &&
-                          commList.Any(i => i.Value == ngcomm) && commList.Any(i => i.Value == lccomm) &&
-                          commList.Any(i => i.Value == rngcomm);
-            if (isvalid)
-            {
-                var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
-                var currentGroup = _groupComService.GetById(groupCommId);
-                if (currentGroup != null)
-                {
-                    currentGroup.LicenseeId = licenseeSession.LicenseeId;
-                    currentGroup.SBComm = sbcomm;
-                    currentGroup.RCComm = rcomm;
-                    currentGroup.NGComm = ngcomm;
-                    currentGroup.LCComm = lccomm;
-                    currentGroup.CSComm = rngcomm;
-                    currentGroup.IsUpdateNG = productAccess.IsAllowNG;
-                    currentGroup.IsUpdateRacing = productAccess.IsAllowRB;
-                    currentGroup.IsUpdateLC = productAccess.IsAllowLC;
-                    currentGroup.IsUpdateCS = productAccess.IsAllowCS;
-
-                    _groupComService.UpdateGroup(currentGroup, request, userSession, out result);
-
-                    result.Message = result.Success ? ViewResources.MessageSuccess : ViewResources.Error;
-                }
-            }
-
-            return Json(result);
-        }
+        }       
 
         /// <summary>
         /// Remove customer from group commission.
