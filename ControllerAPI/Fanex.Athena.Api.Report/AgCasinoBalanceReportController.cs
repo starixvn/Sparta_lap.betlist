@@ -10,7 +10,7 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
-    using System.Web;
+    using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
     using Fanex.Athena.Excel.Base.Entities;
@@ -78,7 +78,7 @@ namespace Fanex.Athena.Api.Report
         {
             var userSession = SessionService.UserSession;
             const string FileName = "AgCasinoBalance.xls";
-            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/AgCasinoBalance.xls");
+            var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/AgCasinoBalance.xls");
 
             var currencyList = userSession.CurrencyList;
 

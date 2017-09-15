@@ -22,7 +22,6 @@
     public class CashOutWinLossReportControllerTest
     {
         private ISessionService _sessionService;
-        private IProductService _productService;
         private ICashOutWinLossService _service;
         private CashOutWinLossReportController _controller;
         private JavaScriptSerializer _serializer;
@@ -31,9 +30,9 @@
         public void FixtureSetUp()
         {
             _sessionService = Substitute.For<ISessionService>();
-            _productService = Substitute.For<IProductService>();
+            var productService = Substitute.For<IProductService>();
             _service = Substitute.For<ICashOutWinLossService>();
-            _controller = Substitute.ForPartsOf<CashOutWinLossReportController>(_service, _sessionService, _productService);
+            _controller = Substitute.ForPartsOf<CashOutWinLossReportController>(_service, _sessionService, productService);
             _serializer = new JavaScriptSerializer();
             CreateSession();
         }
