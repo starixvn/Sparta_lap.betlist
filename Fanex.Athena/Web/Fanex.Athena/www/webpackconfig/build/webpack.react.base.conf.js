@@ -14,7 +14,7 @@ function generateConfig(environment) {
         },
         entry: {
             /*js*/
-            reactVendorJs: ["react", "react-redux", "redux", "react-dom", "redux-thunk", "redux-logger", "axios",
+            reactVendorJs: ["react", "react-redux", "redux", "react-dom", "redux-thunk", "redux-logger", "axios", "xlsx-style",
                 "core-js/fn/object/assign", "core-js/fn/promise", "core-js/fn/array/find"
             ],
             [`${jsPath}/subsidiaryperformance/subsidiaryperformance`]: pathConfig.scriptPaths.subsidiaryperformance,

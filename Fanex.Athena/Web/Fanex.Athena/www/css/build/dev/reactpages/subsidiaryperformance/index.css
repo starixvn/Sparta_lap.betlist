@@ -132,6 +132,12 @@ input[type="checkbox"].checkbox {
       margin: 0 0 0 10px;
       border-width: 5px 5px 5px 7px;
       border-color: transparent transparent transparent #34495e; }
+  .rdr-MonthAndYear-button:disabled {
+    background: transparent !important; }
+    .rdr-MonthAndYear-button:disabled.next i {
+      border-left-color: #d2d8dc; }
+    .rdr-MonthAndYear-button:disabled.prev i {
+      border-right-color: #d2d8dc; }
 
 .rdr-MonthAndYearSelect {
   height: 25px;
