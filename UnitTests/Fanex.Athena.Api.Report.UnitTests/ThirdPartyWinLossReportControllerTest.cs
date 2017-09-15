@@ -102,6 +102,30 @@
         }
 
         [Test]
+        public void Index_NoDataReturnedFromDataAccess_ReturnEmptyData()
+        {
+            // Arrange
+            var metaModel = CreateValidMetaModel();
+
+            IDictionary<string, ThirdPartyWinLoss> summaryTotal;
+            _thirdPartyWinLossService.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>(), out summaryTotal).Returns(x =>
+            {
+                return null;
+            });
+
+            // Action
+            var result = _controller.Index(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.IsEmpty(result.Data);
+                Assert.IsEmpty(result.Total);
+                Assert.IsEmpty(result.SummaryTotal);
+            });
+        }
+
+        [Test]
         public void Index_ValidModelLevel0_CallServiceWithCorrectParameter()
         {
             // Arrange

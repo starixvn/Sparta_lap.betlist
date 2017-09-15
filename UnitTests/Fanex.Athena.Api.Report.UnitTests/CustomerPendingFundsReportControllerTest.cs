@@ -42,6 +42,21 @@
         }
 
         [Test]
+        public void Index_InvalidModel_ReturnEmptyData()
+        {
+            var model = Substitute.ForPartsOf<CustomerPendingFundsMetaModel>();
+            model.IsValid.Returns(false);
+
+            var result = _controller.Index(model);
+
+            Assert.Multiple(() =>
+            {
+                Assert.IsEmpty(result.Data);
+                Assert.That(0, Is.EqualTo(result.TotalRows));
+            });
+        }
+
+        [Test]
         public void Index_ValidModel_GetDataFromDataAccess()
         {
             // Arrange
