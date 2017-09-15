@@ -13,51 +13,49 @@ const TURNOVER_COLUMN_INDEX = 4;
 const CUSTOMERWL_COLUMN_INDEX = 5;
 const SUBSIDIARYWL_COLUMN_INDEX = 6;
 
-const MAIN_SECTION_NAME = "mainSection";
-const TOTAL_SECTION_NAME = "totalSection";
-const GRAND_TOTAL_SECTION_NAME = "grandTotalSection";
+const MAIN_SECTION_STYLE = "mainSectionStyle";
+const TOTAL_SECTION_STYLE = "totalSectionStyle";
+const GRAND_TOTAL_SECTION_STYLE = "grandTotalSectionStyle";
 
 const columnConfigs = [{
         field: "Subsidiary",
-        [MAIN_SECTION_NAME]: "ROW_SPAN_CELL_STYLE",
-        [TOTAL_SECTION_NAME]: "TOTAL_CELL_STYLE",
-        [GRAND_TOTAL_SECTION_NAME]: "GRAND_TOTAL_CELL_STYLE"
+        [MAIN_SECTION_STYLE]: "ROW_SPAN_CELL_STYLE",
+        [TOTAL_SECTION_STYLE]: "TOTAL_CELL_STYLE",
+        [GRAND_TOTAL_SECTION_STYLE]: "GRAND_TOTAL_CELL_STYLE"
     },
     {
         field: "CurrencyName",
-        [MAIN_SECTION_NAME]: "ROW_SPAN_CENTER_CELL_STYLE",
-        [TOTAL_SECTION_NAME]: "TOTAL_CELL_STYLE",
-        [GRAND_TOTAL_SECTION_NAME]: "GRAND_TOTAL_CELL_STYLE"
+        [MAIN_SECTION_STYLE]: "ROW_SPAN_CENTER_CELL_STYLE",
+        [TOTAL_SECTION_STYLE]: "TOTAL_CELL_STYLE",
+        [GRAND_TOTAL_SECTION_STYLE]: "GRAND_TOTAL_CELL_STYLE"
     },
     {
         field: "Product",
-        [MAIN_SECTION_NAME]: "",
-        [TOTAL_SECTION_NAME]: "",
-        [GRAND_TOTAL_SECTION_NAME]: "GRAND_TOTAL_CELL_STYLE"
+        [GRAND_TOTAL_SECTION_STYLE]: "GRAND_TOTAL_CELL_STYLE"
     },
     {
         field: "BetCount",
-        [MAIN_SECTION_NAME]: "NUMBER_CELL_STYLE",
-        [TOTAL_SECTION_NAME]: "TOTAL_NUMBER_CELL_STYLE",
-        [GRAND_TOTAL_SECTION_NAME]: "GRAND_TOTAL_CELL_STYLE"
+        [MAIN_SECTION_STYLE]: "NUMBER_CELL_STYLE",
+        [TOTAL_SECTION_STYLE]: "TOTAL_NUMBER_CELL_STYLE",
+        [GRAND_TOTAL_SECTION_STYLE]: "GRAND_TOTAL_NUMBER_CELL_STYLE"
     },
     {
         field: "Turnover",
-        [MAIN_SECTION_NAME]: "DECIMAL_CELL_STYLE",
-        [TOTAL_SECTION_NAME]: "TOTAL_DECIMAL_CELL_STYLE",
-        [GRAND_TOTAL_SECTION_NAME]: "GRAND_TOTAL_NUMBER_CELL_STYLE"
+        [MAIN_SECTION_STYLE]: "DECIMAL_CELL_STYLE",
+        [TOTAL_SECTION_STYLE]: "TOTAL_DECIMAL_CELL_STYLE",
+        [GRAND_TOTAL_SECTION_STYLE]: "GRAND_TOTAL_DECIMAL_CELL_STYLE"
     },
     {
         field: "CustomerWinLoss",
-        [MAIN_SECTION_NAME]: "DECIMAL_CELL_STYLE",
-        [TOTAL_SECTION_NAME]: "TOTAL_DECIMAL_CELL_STYLE",
-        [GRAND_TOTAL_SECTION_NAME]: "GRAND_TOTAL_NUMBER_CELL_STYLE"
+        [MAIN_SECTION_STYLE]: "DECIMAL_CELL_STYLE",
+        [TOTAL_SECTION_STYLE]: "TOTAL_DECIMAL_CELL_STYLE",
+        [GRAND_TOTAL_SECTION_STYLE]: "GRAND_TOTAL_DECIMAL_CELL_STYLE"
     },
     {
         field: "SubsidiaryWinLoss",
-        [MAIN_SECTION_NAME]: "DECIMAL_CELL_STYLE",
-        [TOTAL_SECTION_NAME]: "TOTAL_DECIMAL_CELL_STYLE",
-        [GRAND_TOTAL_SECTION_NAME]: "GRAND_TOTAL_NUMBER_CELL_STYLE"
+        [MAIN_SECTION_STYLE]: "DECIMAL_CELL_STYLE",
+        [TOTAL_SECTION_STYLE]: "TOTAL_DECIMAL_CELL_STYLE",
+        [GRAND_TOTAL_SECTION_STYLE]: "GRAND_TOTAL_DECIMAL_CELL_STYLE"
     }
 ]
 
@@ -80,7 +78,6 @@ export default class ReportExcel {
     export () {
         this._createHeader();
         this._createSheetData();
-
         this._createExcelConfig();
 
         Excel.export(this.worksheet, this.fileName);
@@ -106,14 +103,14 @@ export default class ReportExcel {
             const item = mainData[i];
             const details = item.Details;
 
-            this._createRowByColumnIndex(item, MAIN_SECTION_NAME, SUBSIDIARY_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
+            this._createRowByColumnIndex(item, MAIN_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
 
             this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex + details.length - 1, c: 0 } });
             this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex + details.length - 1, c: 1 } });
 
             for (let detailIndex = 0; detailIndex < details.length; detailIndex++) {
                 const detail = details[detailIndex];
-                this._createRowByColumnIndex(detail, MAIN_SECTION_NAME, PRODUCT_COLUMN_INDEX, SUBSIDIARYWL_COLUMN_INDEX);
+                this._createRowByColumnIndex(detail, MAIN_SECTION_STYLE, PRODUCT_COLUMN_INDEX, SUBSIDIARYWL_COLUMN_INDEX);
                 this.currentRowIndex++;
             }
         }
@@ -124,33 +121,14 @@ export default class ReportExcel {
 
         for (let i = 0; i < totalDataList.length; i++) {
             const item = totalDataList[i];
-            this._createRowByColumnIndex(item, TOTAL_SECTION_NAME, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARYWL_COLUMN_INDEX);
+            this._createRowByColumnIndex(item, TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARYWL_COLUMN_INDEX);
             this.currentRowIndex++;
         }
     }
 
     _createGrandTotalData() {
         const grandTotal = this.gridData.GrandTotal;
-        this._createRowByColumnIndex(grandTotal, GRAND_TOTAL_SECTION_NAME, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARYWL_COLUMN_INDEX);
-    }
-
-    _createRowByColumnIndex(item, sectionName, startIndex, endIndex) {
-        for (let i = startIndex; i <= endIndex; i++) {
-            const { cellAddress, type, value, style } = this._getCellObject(item, sectionName, i);
-            this.worksheet[cellAddress] = { t: type, v: value, s: style };
-        }
-    }
-
-    _getCellObject(item, sectionName, columnIndex) {
-        const columnConfig = columnConfigs[columnIndex];
-        const field = columnConfig.field;
-        const style = excelStyle[columnConfig[sectionName]];
-
-        const cellAddress = Excel.getCellAddress({ c: columnIndex, r: this.currentRowIndex });
-        const type = typeof item[columnConfig.field] === "number" ? "n" : "s";
-        const value = item[field] !== null ? item[field] : "";
-
-        return { cellAddress, type, value, style };
+        this._createRowByColumnIndex(grandTotal, GRAND_TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARYWL_COLUMN_INDEX);
     }
 
     _createExcelConfig() {
@@ -162,5 +140,26 @@ export default class ReportExcel {
         const wscols = [{ wpx: 150 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }];
 
         this.worksheet['!cols'] = wscols;
+    }
+
+    _createRowByColumnIndex(item, sectionStyle, startIndex, endIndex) {
+        for (let i = startIndex; i <= endIndex; i++) {
+            const { cellAddress, type, value, style } = this._getCellObject(item, sectionStyle, i);
+            this.worksheet[cellAddress] = { t: type, v: value, s: style };
+        }
+    }
+
+    _getCellObject(item, sectionStyle, columnIndex) {
+        const columnConfig = columnConfigs[columnIndex];
+        const field = columnConfig.field;
+
+        const styleName = columnConfig[sectionStyle];
+        const style = styleName ? excelStyle[styleName] : undefined;
+
+        const cellAddress = Excel.getCellAddress({ c: columnIndex, r: this.currentRowIndex });
+        const type = typeof item[columnConfig.field] === "number" ? "n" : "s";
+        const value = item[field] !== null ? item[field] : "";
+
+        return { cellAddress, type, value, style };
     }
 }

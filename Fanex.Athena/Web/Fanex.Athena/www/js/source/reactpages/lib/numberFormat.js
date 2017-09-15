@@ -4,7 +4,14 @@ export default class NumberFormat {
     }
 
     static format(value, digits = 0) {
-        const roundedValue = Number(Math.round(value + 'e' + digits) + 'e-' + digits).toFixed(digits);
-        return roundedValue.replace(/(\d)(?=(\d{3})+(\.|$))/g, "$1,")
+        if (typeof value !== "number" || isNaN(value)) {
+            return "";
+        }
+
+        const sign = value < 0 ? -1 : 1;
+        const shift = Math.pow(10, digits);
+        const rounded = Math.round(Math.abs(value) * shift) / shift;
+
+        return (sign * rounded).toFixed(digits).replace(/(\d)(?=(\d{3})+(\.|$))/g, "$1,");
     }
 }
