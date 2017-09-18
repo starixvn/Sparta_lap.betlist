@@ -6,6 +6,7 @@ import Select from 'react-select'
 import MultipleSelect from '../../../components/multiple-select'
 import { Calendar, DateRange } from 'lrfcomponents/date-range/index'
 import LangHelper from 'lrflib/langHelper'
+import ReportExcel from '../lib/reportExcel';
 
 const RANGE_MONTH_CONSTRAINT = 3;
 
@@ -21,30 +22,32 @@ class FormFilter extends Component {
 
     submit = (event) => {
         event.preventDefault();
-
-        const isExportExcel = false;
-        this._submitData(isExportExcel);
+        this._submitData();
     }
 
     exportExcel = (event) => {
         event.preventDefault();
+        const params = this._getParams();
 
-        const isExportExcel = true;
-        this._submitData(isExportExcel);
+        this.props.fetchData(params).then(response=>{
+            var excel = new ReportExcel(response.data);
+            excel.export();
+            
+        });
         this.props.toggleLoader(false);
     }
 
-    _submitData(isExportExcel) {
-        const params = this._getParams(isExportExcel);
+    _submitData() {
+        const params = this._getParams();
         if (!params) {
             return;
         }
 
         this.props.toggleLoader(true);
-        this.props.fetchData(params);
+        this.props.getGridData(params);
     }
 
-    _getParams(isExportExcel) {
+    _getParams() {
         if (!this.props.xsrfToken || !this.isValidModel) {
             return null;
         }
@@ -54,7 +57,6 @@ class FormFilter extends Component {
 
         return {
             xsrfToken: this.props.xsrfToken,
-            isExportExcel: isExportExcel,
             data: {
                 BaseCurrency: this.props.selectedBaseCurrency,
                 SubsidiaryList: this.props.selectedSubsidiary,
