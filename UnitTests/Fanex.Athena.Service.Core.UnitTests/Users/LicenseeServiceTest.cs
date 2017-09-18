@@ -86,43 +86,6 @@
         }
 
         [Test]
-        public void GetCustByLicensee_WhenCall_ReturnDataFromDataAccess()
-        {
-            // Arrange
-            var expectedResult = new List<LicenseeCustomer>
-            {
-                new LicenseeCustomer { Id = 1 }
-            };
-            var licenseeId = 1;
-            _licenseeDataAccess.GetCustByLicensee(licenseeId).Returns(expectedResult);
-
-            // Action
-            var result = _licenseeService.GetCustByLicensee(licenseeId);
-
-            // Assert
-            Assert.That(result[0].Id, Is.EqualTo(expectedResult[0].Id));
-        }
-
-        [Test]
-        public void GetCustByLicensee_GetDataFromCache_ReturnCachedData()
-        {
-            // Arrange
-            var expectedResult = new List<LicenseeCustomer>
-            {
-                new LicenseeCustomer { Id = 1 }
-            };
-            var licenseeId = 1;
-            _licenseeDataAccess.GetCustByLicensee(licenseeId).Returns(expectedResult);
-            _licenseeService.GetCustByLicensee(licenseeId);
-
-            // Action
-            var result = _licenseeService.GetCustByLicensee(licenseeId);
-
-            // Assert
-            Assert.That(result[0].Id, Is.EqualTo(expectedResult[0].Id));
-        }
-
-        [Test]
         public void GetLicenseeByName_WhenCall_ReturnCorrectValue()
         {
             // Arrange

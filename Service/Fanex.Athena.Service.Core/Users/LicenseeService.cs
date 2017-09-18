@@ -49,25 +49,6 @@
             return this._licenseeDataAccess.GetByUser(userId);
         }
 
-        public IList<LicenseeCustomer> GetCustByLicensee(int licenseeId)
-        {
-            var cacheKey = CacheKey.MemorycacheCommonLicenseeCust + licenseeId;
-            var licenseeCustList = _cache.Get<IList<LicenseeCustomer>>(cacheKey);
-
-            if (licenseeCustList != null)
-            {
-                return licenseeCustList;
-            }
-
-            licenseeCustList = this._licenseeDataAccess.GetCustByLicensee(licenseeId)
-                                   .OrderBy(s => s.Currency)
-                                   .ToList();
-
-            _cache.Set(cacheKey, licenseeCustList, CacheTimeoutSeconds);
-
-            return licenseeCustList;
-        }
-
         #endregion Public Methods and Operators
 
         public Licensee GetLicenseeByName(string licenseeName)

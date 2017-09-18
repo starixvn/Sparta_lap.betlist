@@ -17,20 +17,10 @@ namespace Fanex.Athena.DataAccess.Core.Users
     using Fanex.Data;
     using Fanex.Logging;
 
-    /// <summary>
-    ///     The licensee data access.
-    /// </summary>
     public class LicenseeDataAccess : BaseDataAccess, ILicenseeDataAccess
     {
         #region Public Methods and Operators
 
-        /// <summary>
-        ///     The can update member ba status.
-        /// </summary>
-        /// <param name="request"> The request. </param>
-        /// <param name="licenseeId"> The licensee id. </param>
-        /// <param name="isAllow"> The is allow. </param>
-        /// <returns> Result information. </returns>
         public IResultInfo IsAllowUpdateMemberBAStatus(Request request, int licenseeId, out bool isAllow)
         {
             const string UspName = "Lrf_BATimeCheck";
@@ -57,48 +47,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
         }
 
-        /// <summary>
-        ///     The get belonging status.
-        /// </summary>
-        /// <param name="licenseeId">
-        ///     The licensee id.
-        /// </param>
-        /// <param name="custId">
-        ///     The customer id.
-        /// </param>
-        /// <returns>
-        ///     Integer result.
-        /// </returns>
-        public int GetBelongingStatus(int licenseeId, int custId)
-        {
-            const string UspName = "Lrf_CustomerSelCheckBelonging";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
-                    db.AddInParameter("custid", DbType.Int32, custId);
-                    db.AddOutParameter("status", DbType.Byte, 4);
-                    db.ExecuteNonQuery();
-                    return Convert.ToInt32(db.GetParameterValue("status"));
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, UspName);
-            }
-        }
-
-        /// <summary>
-        ///     The get by user.
-        /// </summary>
-        /// <param name="userId">
-        ///     The user id.
-        /// </param>
-        /// <returns>
-        /// List licensee.
-        /// </returns>
         public IList<Licensee> GetByUser(int userId)
         {
             /*
@@ -129,43 +77,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
                 }
 
                 return entityList;
-            }
-            catch (ObjectDbException sqlException)
-            {
-                LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, UspName, uspParams);
-            }
-        }
-
-        public IList<LicenseeCustomer> GetCustByLicensee(int licenseeId)
-        {
-            const string UspName = "Lrf_LicenseeCustSel";
-            var uspParams = new { LicenseeId = licenseeId };
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    using (var reader = db.ExecuteReader(uspParams))
-                    {
-                        var entityList = new List<LicenseeCustomer>();
-                        while (reader.Read())
-                        {
-                            var entity = new LicenseeCustomer
-                            {
-                                Id = licenseeId,
-                                Username = reader.GetString(reader.GetOrdinal("username")),
-                                CustId = reader.GetInt32(reader.GetOrdinal("CustId")),
-                                Currency = reader.GetInt32(reader.GetOrdinal("Currency")),
-                                RoleId = reader.GetByte(reader.GetOrdinal("RoleID")),
-                                Description = reader["Description"].ToString(),
-                                CurrencyName = reader.GetString(reader.GetOrdinal("CurrencyName"))
-                            };
-                            entityList.Add(entity);
-                        }
-
-                        return entityList;
-                    }
-                }
             }
             catch (ObjectDbException sqlException)
             {

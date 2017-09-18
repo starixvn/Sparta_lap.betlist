@@ -105,7 +105,6 @@
     <Compile Include="DTO\Configuration\MoveBetNotification.cs" />
     <Compile Include="DTO\PortalSystemFunction.cs" />
     <Compile Include="DTO\Users\CurrencyUser.cs" />
-    <Compile Include="DTO\Users\LicenseeCustomer.cs" />
     <Compile Include="DTO\Users\LicenseeSession.cs" />
     <Compile Include="DTO\Users\User.cs" />
     <Compile Include="DTO\Users\UserRole.cs" />
