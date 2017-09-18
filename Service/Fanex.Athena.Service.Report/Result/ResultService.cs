@@ -14,17 +14,14 @@
     using Fanex.Result.Core.Sportsbook.DTO;
     using Service.Result.Interfaces;
 
-    [System.CLSCompliant(false)]
+    [CLSCompliant(false)]
     public class ResultService : IResultService
     {
-        private readonly IBalanceUpService _balanceUpService;
-
         private readonly IResultDataAccess _dataAccess;
 
         public ResultService()
         {
-            _balanceUpService = new BalanceUpService();
-            this._dataAccess = new ResultDataAccess(_balanceUpService.BalanceUpInfo);
+            this._dataAccess = new ResultDataAccess();
         }
 
         public IList<Outright> GetOutRight(ResultMetalModel metal)

@@ -12,6 +12,8 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Globalization;
     using System.Linq;
     using Core;
+    using Core.Configuration;
+    using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -24,16 +26,20 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Result.Core.NumberGame.DTO;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
-    using Model.Core.DTO.Configuration;
 
-    [System.CLSCompliant(false)]
+    [CLSCompliant(false)]
     public class ResultDataAccess : BaseDataAccess, IResultDataAccess
     {
-        private readonly BalanceUp _balanceUp;
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public ResultDataAccess(BalanceUp balanceUp)
+        public ResultDataAccess()
         {
-            _balanceUp = balanceUp;
+            _balanceUpDataAccess = new BalanceUpDataAccess();
+        }
+
+        public ResultDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        {
+            _balanceUpDataAccess = balanceUpDataAccess;
         }
 
         public IList<Outright> GetOutRight(ResultMetalModel metal)
@@ -93,7 +99,7 @@ namespace Fanex.Athena.DataAccess.Report
                 {
                     db.AddInParameter("eventdate", DbType.DateTime, dateValue);
                     db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
-                    db.AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
+                    db.AddInParameter("movebetsday", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
                     using (var reader = db.ExecuteReader())
                     {
                         var data = new List<Sport>();
@@ -127,7 +133,7 @@ namespace Fanex.Athena.DataAccess.Report
                 eventdate = dateValue,
                 sporttype = sportId,
                 isshowall = true,
-                movebetsday = _balanceUp.MoveBetsDay
+                movebetsday = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay
             };
 
             try
@@ -397,7 +403,7 @@ namespace Fanex.Athena.DataAccess.Report
                 fromdate = metalModel.FromDate,
                 sporttype = metalModel.SportId,
                 leagueid = metalModel.LeagueId,
-                movebetsday = _balanceUp.MoveBetsDay
+                movebetsday = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay
             };
 
             try
