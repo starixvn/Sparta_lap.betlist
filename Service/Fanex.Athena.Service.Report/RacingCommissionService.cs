@@ -12,14 +12,11 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Core.Configuration;
-    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Report.Interfaces;
 
     public class RacingCommissionService : IRacingCommissionService
     {
         #region Fields
-
-        private readonly IBalanceUpService _balanceUpService;
 
         private readonly IRacingCommissionDataAccess _racingCommissionDataAccess;
 
@@ -29,8 +26,7 @@ namespace Fanex.Athena.Service.Report
 
         public RacingCommissionService()
         {
-            this._balanceUpService = new BalanceUpService();
-            _racingCommissionDataAccess = new RacingCommissionDataAccess(this._balanceUpService.BalanceUpInfo);
+            _racingCommissionDataAccess = new RacingCommissionDataAccess();
         }
 
         #endregion Constructor

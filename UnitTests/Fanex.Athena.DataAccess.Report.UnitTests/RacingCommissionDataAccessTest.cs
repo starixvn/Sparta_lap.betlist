@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Web.Script.Serialization;
+    using Core.Configuration.Interfaces;
     using Data;
     using Model.Core.DTO.Configuration;
     using Model.Report.DTO;
@@ -21,13 +22,15 @@
         [OneTimeSetUp]
         public void Setup()
         {
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balance = new BalanceUp
             {
                 MoveBetsDay = new DateTime(2016, 8, 10),
                 BalanceUpDay = new DateTime(2016, 8, 31)
             };
+            balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            _dataAccess = Substitute.ForPartsOf<RacingCommissionDataAccess>(_balance);
+            _dataAccess = Substitute.ForPartsOf<RacingCommissionDataAccess>(balanceUpDataAccess);
 
             _metaModel = new RacingCommissionMetaModel
             {
