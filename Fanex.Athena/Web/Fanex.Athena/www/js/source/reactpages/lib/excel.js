@@ -3,7 +3,7 @@ import * as XLSX from 'xlsx-style';
 const EXCEL_TYPE = "xlsx";
 
 export default class Excel {
-    static export(worksheet, fileName) {
+    static export (worksheet, fileName) {
         const option = { bookType: EXCEL_TYPE, bookSST: false, type: 'binary' };
         const workbook = { SheetNames: [fileName], Sheets: {}, Props: {} };
         workbook.Sheets[fileName] = worksheet;
@@ -12,23 +12,8 @@ export default class Excel {
         this.download(workbookOutput, fileName);
     }
 
-    static indexToColumnName(index) {
-        var columnName = '',
-            a = 1,
-            b = 26;
-
-        index += 1; //we assume index is start from 0
-
-        while ((index -= a) >= 0) {
-            columnName = String.fromCharCode(parseInt((index % b) / a) + 65) + columnName;
-            a = b;
-            b *= 26;
-        }
-        return columnName;
-    }
-
     static getCellAddress(cellObject) {
-        return this.indexToColumnName(cellObject.c) + (cellObject.r + 1).toString();
+        return XLSX.utils.encode_cell(cellObject);
     }
 
     static download(workbookOut, fileName) {
@@ -41,8 +26,7 @@ export default class Excel {
         // IE 10+
         if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob) {
             navigator.msSaveOrOpenBlob(blob, fileNameDownload);
-        }
-        else {
+        } else {
             const element = window.document.createElement('a');
             element.href = window.URL.createObjectURL(blob);
             element.download = fileNameDownload;

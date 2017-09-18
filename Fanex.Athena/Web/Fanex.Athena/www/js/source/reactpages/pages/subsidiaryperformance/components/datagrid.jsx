@@ -98,7 +98,9 @@ class DataGrid extends Component {
 
     get grantTotal() {
         const grandTotal = this.props.gridData.GrandTotal;
-        if (!grandTotal) return null;
+        if (!grandTotal) {
+            return null;
+        }
 
         const betcount = NumberFormat.format(grandTotal.BetCount),
             turnover = NumberFormat.formatDecimal(grandTotal.Turnover),

@@ -2,7 +2,8 @@
 
 const alias = {
     lrfcomponents: projectRoot + "/components",
-    lrflib: projectRoot + "/lib"
+    lrflib: projectRoot + "/lib",
+    lrfconstants: projectRoot + "/constants"
 };
 
 module.exports = alias;

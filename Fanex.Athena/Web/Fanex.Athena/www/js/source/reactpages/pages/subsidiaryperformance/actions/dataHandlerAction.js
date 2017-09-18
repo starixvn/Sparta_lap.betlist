@@ -1,11 +1,12 @@
 import * as types from './types.js'
 import axios from 'axios'
+import ReportExcel from './reportExcel'
 
-import * as site from '../../../lib/site'
+import Site from 'lrflib/site'
 
 export function fetchData(params) {
     return (dispatch, getState) => {
-        const url = site.resolveClientUrl('api/SubsidiaryPerformanceReport/Index');
+        const url = Site.resolveClientUrl('api/SubsidiaryPerformanceReport/Index');
         axios.post(url, params.data, {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
@@ -13,7 +14,12 @@ export function fetchData(params) {
                 }
             })
             .then(response => {
-                dispatch(setGridData(response.data));
+                if (params.isExportExcel) {
+                    const excel = new ReportExcel(response.data);
+                    excel.export();
+                } else {
+                    dispatch(setGridData(response.data));
+                }
             })
             .catch(function(error) {
                 console.log("error:", error);

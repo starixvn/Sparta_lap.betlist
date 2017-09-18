@@ -1,6 +1,6 @@
 import Excel from 'lrflib/excel'
 import LangHelper from 'lrflib/langHelper'
-import * as excelStyle from 'lrflib/excelStyle'
+import { headerCellStyle, bodyCellStyle, totalCellStyle, grandTotalCellStyle } from 'lrfconstants/excelStyle'
 
 const COLUMN_COUNT = 7;
 const START_OF_DATA_ROW = 1;
@@ -19,43 +19,43 @@ const GRAND_TOTAL_SECTION_STYLE = "grandTotalSectionStyle";
 
 const columnConfigs = [{
         field: "Subsidiary",
-        [MAIN_SECTION_STYLE]: "ROW_SPAN_CELL_STYLE",
-        [TOTAL_SECTION_STYLE]: "TOTAL_CELL_STYLE",
-        [GRAND_TOTAL_SECTION_STYLE]: "GRAND_TOTAL_CELL_STYLE"
+        [MAIN_SECTION_STYLE]: bodyCellStyle.rowspan,
+        [TOTAL_SECTION_STYLE]: totalCellStyle.default,
+        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.default
     },
     {
         field: "CurrencyName",
-        [MAIN_SECTION_STYLE]: "ROW_SPAN_CENTER_CELL_STYLE",
-        [TOTAL_SECTION_STYLE]: "TOTAL_CELL_STYLE",
-        [GRAND_TOTAL_SECTION_STYLE]: "GRAND_TOTAL_CELL_STYLE"
+        [MAIN_SECTION_STYLE]: bodyCellStyle.center,
+        [TOTAL_SECTION_STYLE]: totalCellStyle.default,
+        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.default
     },
     {
         field: "Product",
-        [GRAND_TOTAL_SECTION_STYLE]: "GRAND_TOTAL_CELL_STYLE"
+        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.default
     },
     {
         field: "BetCount",
-        [MAIN_SECTION_STYLE]: "NUMBER_CELL_STYLE",
-        [TOTAL_SECTION_STYLE]: "TOTAL_NUMBER_CELL_STYLE",
-        [GRAND_TOTAL_SECTION_STYLE]: "GRAND_TOTAL_NUMBER_CELL_STYLE"
+        [MAIN_SECTION_STYLE]: bodyCellStyle.number,
+        [TOTAL_SECTION_STYLE]: totalCellStyle.number,
+        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.number
     },
     {
         field: "Turnover",
-        [MAIN_SECTION_STYLE]: "DECIMAL_CELL_STYLE",
-        [TOTAL_SECTION_STYLE]: "TOTAL_DECIMAL_CELL_STYLE",
-        [GRAND_TOTAL_SECTION_STYLE]: "GRAND_TOTAL_DECIMAL_CELL_STYLE"
+        [MAIN_SECTION_STYLE]: bodyCellStyle.decimal,
+        [TOTAL_SECTION_STYLE]: totalCellStyle.decimal,
+        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.decimal
     },
     {
         field: "CustomerWinLoss",
-        [MAIN_SECTION_STYLE]: "DECIMAL_CELL_STYLE",
-        [TOTAL_SECTION_STYLE]: "TOTAL_DECIMAL_CELL_STYLE",
-        [GRAND_TOTAL_SECTION_STYLE]: "GRAND_TOTAL_DECIMAL_CELL_STYLE"
+        [MAIN_SECTION_STYLE]: bodyCellStyle.decimal,
+        [TOTAL_SECTION_STYLE]: totalCellStyle.decimal,
+        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.decimal
     },
     {
         field: "SubsidiaryWinLoss",
-        [MAIN_SECTION_STYLE]: "DECIMAL_CELL_STYLE",
-        [TOTAL_SECTION_STYLE]: "TOTAL_DECIMAL_CELL_STYLE",
-        [GRAND_TOTAL_SECTION_STYLE]: "GRAND_TOTAL_DECIMAL_CELL_STYLE"
+        [MAIN_SECTION_STYLE]: bodyCellStyle.decimal,
+        [TOTAL_SECTION_STYLE]: totalCellStyle.decimal,
+        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.decimal
     }
 ]
 
@@ -67,7 +67,7 @@ const HEADERS = [
 ];
 
 export default class ReportExcel {
-    constructor(gridData = [], fileName = "SubsidiaryPerformance") {
+    constructor(gridData = {}, fileName = "SubsidiaryPerformance") {
         this.worksheet = {};
         this.fileName = fileName;
         this.gridData = gridData;
@@ -75,7 +75,11 @@ export default class ReportExcel {
         this.mergeConfig = [];
     }
 
-    export () {
+    export() {
+        if (!this.gridData.Data || !this.gridData.Data.length) {
+            return;
+        }
+
         this._createHeader();
         this._createSheetData();
         this._createExcelConfig();
@@ -86,7 +90,7 @@ export default class ReportExcel {
     _createHeader() {
         for (let i = 0; i < COLUMN_COUNT; i++) {
             const address = Excel.getCellAddress({ c: i, r: 0 });
-            this.worksheet[address] = { t: "s", v: HEADERS[i], s: excelStyle.HEADER_STYLE }
+            this.worksheet[address] = { t: "s", v: HEADERS[i], s: headerCellStyle }
         }
     }
 
@@ -152,9 +156,7 @@ export default class ReportExcel {
     _getCellObject(item, sectionStyle, columnIndex) {
         const columnConfig = columnConfigs[columnIndex];
         const field = columnConfig.field;
-
-        const styleName = columnConfig[sectionStyle];
-        const style = styleName ? excelStyle[styleName] : undefined;
+        const style = columnConfig[sectionStyle];
 
         const cellAddress = Excel.getCellAddress({ c: columnIndex, r: this.currentRowIndex });
         const type = typeof item[columnConfig.field] === "number" ? "n" : "s";

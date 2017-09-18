@@ -3,10 +3,9 @@ import { connect } from 'react-redux'
 import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
 import Select from 'react-select'
-import MultipleSelect from '../../../components/multiple-select/index'
+import MultipleSelect from '../../../components/multiple-select'
 import { Calendar, DateRange } from 'lrfcomponents/date-range/index'
 import LangHelper from 'lrflib/langHelper'
-import ReportExcel from './reportExcel'
 
 const RANGE_MONTH_CONSTRAINT = 3;
 
@@ -15,19 +14,47 @@ class FormFilter extends Component {
         super(props);
     }
 
-    submit = (e) => {
-        e.preventDefault();
-        if (!this.props.xsrfToken || !this.isValidModel) {
+    get isValidModel() {
+        const { selectedSubsidiary, selectedProduct, isValidDateRange } = this.props;
+        return selectedSubsidiary !== "" && selectedProduct !== "" && isValidDateRange;
+    }
+
+    submit = (event) => {
+        event.preventDefault();
+
+        const isExportExcel = false;
+        this._submitData(isExportExcel);
+    }
+
+    exportExcel = (event) => {
+        event.preventDefault();
+
+        const isExportExcel = true;
+        this._submitData(isExportExcel);
+        this.props.toggleLoader(false);
+    }
+
+    _submitData(isExportExcel) {
+        const params = this._getParams(isExportExcel);
+        if (!params) {
             return;
         }
 
         this.props.toggleLoader(true);
+        this.props.fetchData(params);
+    }
+
+    _getParams(isExportExcel) {
+        if (!this.props.xsrfToken || !this.isValidModel) {
+            return null;
+        }
 
         const fromDate = this.props.dateRange.fromDate;
         const toDate = this.props.dateRange.toDate;
 
-        const params = {
+        return {
             xsrfToken: this.props.xsrfToken,
+            isExportExcel: isExportExcel,
             data: {
                 BaseCurrency: this.props.selectedBaseCurrency,
                 SubsidiaryList: this.props.selectedSubsidiary,
@@ -37,8 +64,6 @@ class FormFilter extends Component {
                 ToDate: typeof toDate === "string" ? toDate : toDate.format("MM/DD/YYYY")
             }
         }
-
-        this.props.fetchData(params);
     }
 
     productChangeHandler = (currentItem, selectedItemsKey) => {
@@ -62,18 +87,6 @@ class FormFilter extends Component {
 
         setValidDateRange(true);
         setDateRange(date);
-    }
-
-    get isValidModel() {
-        const { selectedSubsidiary, selectedProduct, isValidDateRange } = this.props;
-        return selectedSubsidiary !== "" && selectedProduct !== "" && isValidDateRange;
-    }
-
-    exportExcel = (event) => {
-        event.preventDefault();
-
-        const excel = new ReportExcel(this.props.gridData);
-        excel.export();
     }
 
     _renderSubsidiarySelectList() {

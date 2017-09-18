@@ -10,4 +10,4 @@ export const GET_BASECURRENCY = "GET_BASECURRENCY";
 export const GET_CONTAINER_WIDTH = "GET_CONTAINER_WIDTH";
 
 /* Loader */
-export const TOGGLE_LOADER = "TOGGLE_LOADER"
+export const TOGGLE_LOADER = "TOGGLE_LOADER";
