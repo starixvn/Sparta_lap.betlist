@@ -10,6 +10,8 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using Core.Configuration;
+    using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
@@ -17,7 +19,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
@@ -27,11 +28,16 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class WinLossByProductDataAccess : BaseDataAccess, IWinLossByProductDataAccess
     {
-        private readonly BalanceUp _balanceUp;
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public WinLossByProductDataAccess(BalanceUp balanceUp)
+        public WinLossByProductDataAccess()
         {
-            _balanceUp = balanceUp;
+            _balanceUpDataAccess = new BalanceUpDataAccess();
+        }
+
+        public WinLossByProductDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        {
+            _balanceUpDataAccess = balanceUpDataAccess;
         }
 
         public IList<WinLossByProduct> GetWinlossByProducts(
@@ -214,7 +220,7 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate.Date : metaModel.ToDate.Date);
             db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);
             db.AddInParameter("drawfilter", DbType.Int32, metaModel.DrawFilter);
-            db.AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
+            db.AddInParameter("movebetsday", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
 
             foreach (var product in metaModel.ProductOptions)
             {

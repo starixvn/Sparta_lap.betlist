@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using Core.Configuration.Interfaces;
     using Data;
     using Extension.Utility;
     using Model.Core.DTO.Common;
@@ -22,7 +23,7 @@
 
         private WinLossByProductMetaModel _metaModel;
 
-        private BalanceUp _balanceUp = new BalanceUp
+        private readonly BalanceUp _balanceUp = new BalanceUp
         {
             BalanceUpDay = new DateTime(2018, 1, 1),
             MoveBetsDay = new DateTime(2018, 2, 2),
@@ -31,9 +32,12 @@
         [OneTimeSetUp]
         public void Setup()
         {
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
+            balanceUpDataAccess.GetBalanceUp().Returns(_balanceUp);
+
             _appSetting = Substitute.For<IAppSettings>();
             _appSetting.HistoryDate.Returns(new DateTime(2016, 8, 31));
-            _dataAccess = Substitute.ForPartsOf<WinLossByProductDataAccess>(_balanceUp);
+            _dataAccess = Substitute.ForPartsOf<WinLossByProductDataAccess>(balanceUpDataAccess);
             _metaModel = new WinLossByProductMetaModel(_appSetting)
             {
                 ReportBy = 1,

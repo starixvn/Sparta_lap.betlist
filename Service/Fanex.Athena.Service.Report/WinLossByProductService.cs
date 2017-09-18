@@ -16,20 +16,15 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
-    using Fanex.Athena.Service.Core.Configuration;
-    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Report.Interfaces;
 
     public class WinLossByProductService : IWinLossByProductService
     {
-        private readonly IBalanceUpService _balanceService;
-
         private readonly IWinLossByProductDataAccess _winLossByProductDataAccess;
 
         public WinLossByProductService()
         {
-            this._balanceService = new BalanceUpService();
-            this._winLossByProductDataAccess = new WinLossByProductDataAccess(this._balanceService.BalanceUpInfo);
+            this._winLossByProductDataAccess = new WinLossByProductDataAccess();
         }
 
         #region IWinLossByProductService Members
