@@ -91,6 +91,7 @@
     <Compile Include="ColossusBetsWinLossReportControllerTest.cs" />
     <Compile Include="CustomerBalanceReportControllerTest.cs" />
     <Compile Include="CustomerPendingFundsReportControllerTest.cs" />
+    <Compile Include="CustomerWinLossReportControllerTest.cs" />
     <Compile Include="PlatformWinLossReportController_ExportExcelTest.cs" />
     <Compile Include="PlatformWinLossReportControllerTest.cs" />
     <Compile Include="SubsidiaryPerformanceReportControllerTest.cs" />
@@ -112,6 +113,10 @@
     <ProjectReference Include="..\..\ControllerAPI\Fanex.Athena.Api.Report\Fanex.Athena.Api.Report.csproj">
       <Project>{8EFB14A8-0A10-4095-A857-C6496E830458}</Project>
       <Name>Fanex.Athena.Api.Report</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
+      <Project>{a6be21e8-6895-4863-ba3a-e6b21d3ce78d}</Project>
+      <Name>Fanex.Athena.DataAccess.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Report\Fanex.Athena.DataAccess.Report.csproj">
       <Project>{5653bc29-0843-4d75-9140-5b370df2f88c}</Project>

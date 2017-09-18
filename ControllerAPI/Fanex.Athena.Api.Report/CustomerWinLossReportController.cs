@@ -1,8 +1,9 @@
 ﻿namespace Fanex.Athena.Api.Report
 {
     using System;
+    using System.Collections.Generic;
     using System.Net.Http;
-    using System.Web;
+    using System.Web.Hosting;
     using System.Web.Http;
     using DataAccess.Report;
     using DataAccess.Report.Interfaces;
@@ -13,7 +14,8 @@
     using Fanex.Athena.Model.Core.DataDomain;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
-    using Service.Core.Configuration;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportCustomerWinLoss)]
     public class CustomerWinLossReportController : ApiReportBaseController
@@ -22,14 +24,34 @@
 
         public CustomerWinLossReportController()
         {
-            var balanceUpService = new BalanceUpService();
-            _custWinlossDataAccess = new CustomerWinlossDataAccess(balanceUpService.BalanceUpInfo);
+            _custWinlossDataAccess = new CustomerWinlossDataAccess();
+        }
+
+        public CustomerWinLossReportController(
+            ICustWinlossDataAccess custWinlossDataAccess,
+            ISessionService sessionService,
+            IProductService productService)
+            : base(sessionService, productService)
+        {
+            _custWinlossDataAccess = custWinlossDataAccess;
         }
 
         [HttpPost]
         public dynamic Index(CustomerWinLossMetaModel metaModel)
         {
             return metaModel.IsExportExcel ? ExportExcel(metaModel) : ProcessRequest(metaModel);
+        }
+
+        [CLSCompliant(false)]
+        protected internal virtual CustomerWinLossExcel CreateExcel(
+            string templatePath,
+            ShowingOption showingOption,
+            ConvertingOption convertingOption,
+            CustomerWinLossMetaModel metaModel,
+            IEnumerable<CustomerWinLoss> dataList,
+            CustomerWinLoss totalData)
+        {
+            return new CustomerWinLossExcel(templatePath, showingOption, convertingOption, metaModel, dataList, totalData);
         }
 
         private dynamic ProcessRequest(CustomerWinLossMetaModel metaModel)
@@ -57,7 +79,7 @@
             const string FileName = "CustomerWinLoss.xls";
             const string TemplatePath = @"~/App_Data/Template/CustomerReports/CustomerWinLoss.xls";
 
-            var templatePath = HttpContext.Current.Server.MapPath(TemplatePath);
+            var templatePath = HostingEnvironment.MapPath(TemplatePath);
 
             var licenseeSession = SessionService.LicenseeSession;
             var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, FunctionNames.CustomerBalance);
@@ -83,10 +105,10 @@
             };
 
             CustomerWinLoss totalData;
-            var totalRows = 0;
+            int totalRows;
             var dataList = GetData(metaModel, out totalData, out totalRows);
 
-            var excel = new CustomerWinLossExcel(templatePath, showingOption, convertingOption, metaModel, dataList, totalData);
+            var excel = CreateExcel(templatePath, showingOption, convertingOption, metaModel, dataList, totalData);
             excel.Export();
 
             return ExcelStream(excel.Workbook, FileName);
@@ -94,11 +116,10 @@
 
         private SortableList<CustomerWinLoss> GetData(CustomerWinLossMetaModel metaModel, out CustomerWinLoss totalData, out int totalRow)
         {
-            totalRow = 0;
-            totalData = new CustomerWinLoss();
-
             if (!metaModel.IsValid)
             {
+                totalRow = 0;
+                totalData = new CustomerWinLoss();
                 return new SortableList<CustomerWinLoss>();
             }
 
