@@ -13,8 +13,6 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
-    using Fanex.Athena.Service.Core.Configuration;
-    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Report.Interfaces;
 
     public class CustomerTurnoverService : ICustTurnoverService

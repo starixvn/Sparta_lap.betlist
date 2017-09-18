@@ -9,6 +9,8 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using Core.Configuration;
+    using Core.Configuration.Interfaces;
     using Extension.Helper;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
@@ -16,7 +18,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
@@ -25,11 +26,16 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class CashOutWinLossDataAccess : BaseDataAccess, ICashOutWinLossDataAccess
     {
-        private readonly BalanceUp _balanceUp;
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public CashOutWinLossDataAccess(BalanceUp balanceUp)
+        public CashOutWinLossDataAccess()
         {
-            _balanceUp = balanceUp;
+            _balanceUpDataAccess = new BalanceUpDataAccess();
+        }
+
+        public CashOutWinLossDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        {
+            _balanceUpDataAccess = balanceUpDataAccess;
         }
 
         public SortableList<CashOutWinLoss> GetSummary(CashOutWinLossMetaModel metaModel, out IDictionary<string, CashOutWinLoss> summaryTotal)
@@ -160,7 +166,7 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUp.MoveBetsDay);
+            db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUpDataAccess.GetBalanceUpDay().MoveBetsDay);
         }
     }
 }

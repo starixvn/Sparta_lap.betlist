@@ -2,10 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Web.Script.Serialization;
-    using Core.Configuration;
     using Extension.Utility;
-    using Fanex.Athena.DataAccess.Report.Interfaces;
-    using Fanex.Athena.Service.Core.Configuration.Interfaces;
+    using DataAccess.Report.Interfaces;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
@@ -14,22 +12,19 @@
 
     public class CashOutWinLossServiceTest
     {
-        private IBalanceUpService _balanceService;
         private ICashOutWinLossDataAccess _dataAccess;
         private CashOutWinLossService _service;
 
         [SetUp]
         public void SetUp()
         {
-            _balanceService = new BalanceUpService();
             _dataAccess = Substitute.For<ICashOutWinLossDataAccess>();
-            _service = new CashOutWinLossService(_balanceService, _dataAccess);
+            _service = new CashOutWinLossService(_dataAccess);
         }
 
         [TearDown]
         public void TearDown()
         {
-            _balanceService = null;
             _dataAccess = null;
             _service = null;
         }
