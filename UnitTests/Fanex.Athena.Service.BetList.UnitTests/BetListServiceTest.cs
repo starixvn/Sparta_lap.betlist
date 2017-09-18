@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Web.Script.Serialization;
-    using Core.Configuration.Interfaces;
     using Core.Users.Interfaces;
     using DataAccess.BetList.Interfaces;
+    using DataAccess.Core.Configuration.Interfaces;
     using Fanex.BetList.Core.Entities;
     using Interfaces;
     using Model.BetList.DTO;
@@ -16,7 +16,6 @@
     [TestFixture]
     public class BetListServiceTest
     {
-        private IBalanceUpService _balanceUpService;
         private IBetListDataAccess _betlistDataAccess;
         private IAuthorizationService _authorizationService;
         private IBetListService _betListService;
@@ -24,18 +23,17 @@
         [OneTimeSetUp]
         public void SetUp()
         {
-            _balanceUpService = Substitute.For<IBalanceUpService>();
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _betlistDataAccess = Substitute.For<IBetListDataAccess>();
             _authorizationService = Substitute.For<IAuthorizationService>();
-            _betListService = new BetListService(_balanceUpService, _betlistDataAccess, _authorizationService);
+            _betListService = new BetListService(balanceUpDataAccess, _betlistDataAccess, _authorizationService);
 
-            _balanceUpService.BalanceUpInfo.Returns(new BalanceUp());
+            balanceUpDataAccess.GetBalanceUp().Returns(new BalanceUp());
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            _balanceUpService = null;
             _betlistDataAccess = null;
             _authorizationService = null;
             _betListService = null;

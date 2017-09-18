@@ -59,7 +59,7 @@
             var userSession = SessionService.UserSession;
             var metaModel = new MatchWinLossMetaModel
             {
-                BalanceUpDay = BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString(),
+                BalanceUpDay = GetBalanceUp().BalanceUpDay.ToShortDateString(),
                 LicenseeId = licenseeSession.LicenseeId
             };
 

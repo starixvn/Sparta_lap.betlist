@@ -26,7 +26,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             var metaModel = new RacingCommissionMetaModel
             {
-                BalanceUpDay = BalanceUpService.BalanceUpInfo.BalanceUpDay
+                BalanceUpDay = GetBalanceUp().BalanceUpDay
             };
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;

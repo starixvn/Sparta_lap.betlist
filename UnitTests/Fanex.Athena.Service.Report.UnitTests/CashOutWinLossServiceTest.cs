@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Web.Script.Serialization;
-    using Extension.Utility;
     using DataAccess.Report.Interfaces;
+    using Extension.Utility;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
@@ -48,7 +48,7 @@
         {
             // Arrange
             var metaModel = new CashOutWinLossMetaModel();
-            IDictionary<string, CashOutWinLoss> summaryTotal = new Dictionary<string, CashOutWinLoss>();
+            IDictionary<string, CashOutWinLoss> summaryTotal;
             var fakeData = CreateFakeSummaryData();
             _dataAccess.GetSummary(metaModel, out summaryTotal).ReturnsForAnyArgs(fakeData);
             var expectedData = new SortableList<CashOutWinLoss>

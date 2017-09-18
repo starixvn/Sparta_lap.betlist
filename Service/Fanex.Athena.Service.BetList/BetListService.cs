@@ -7,12 +7,13 @@
 namespace Fanex.Athena.Service.BetList
 {
     using System.Collections.Generic;
+    using DataAccess.Core.Configuration;
+    using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.BetList;
     using Fanex.Athena.DataAccess.BetList.Interfaces;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Service.BetList.Interfaces;
-    using Fanex.Athena.Service.Core.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
@@ -20,44 +21,30 @@ namespace Fanex.Athena.Service.BetList
 
     public class BetListService : IBetListService
     {
-        #region Fields
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        private readonly IBalanceUpService _balanceUpService;
         private readonly IBetListDataAccess _betlistDataAccess;
+
         private readonly IAuthorizationService _authorizationService;
-
-        #endregion Fields
-
-        #region Constructor
 
         public BetListService()
         {
-            _balanceUpService = new BalanceUpService();
+            _balanceUpDataAccess = new BalanceUpDataAccess();
             _betlistDataAccess = new BetListDataAccess();
             _authorizationService = new AuthorizationService();
         }
 
         [System.CLSCompliant(false)]
         public BetListService(
-            IBalanceUpService balanceUpService,
+            IBalanceUpDataAccess balanceUpDataAccess,
             IBetListDataAccess betlistDataAccess,
             IAuthorizationService authorizationService)
         {
-            _balanceUpService = balanceUpService;
+            _balanceUpDataAccess = balanceUpDataAccess;
             _betlistDataAccess = betlistDataAccess;
             _authorizationService = authorizationService;
         }
 
-        #endregion Constructor
-
-        #region IBetListService Members
-
-        /// <summary>
-        /// Get Mix Parlay Detail data.
-        /// </summary>
-        /// <param name="transId">The transaction identity.</param>
-        /// <param name="licenseeId">todo: describe licenseeId parameter on GetMixParlayDetailTicket</param>
-        /// <returns>The ticket result.</returns>
         public TicketResult GetMixParlayDetailTicket(int licenseeId, long transId)
         {
             return _authorizationService.HasPermissionOnData(licenseeId, 0, transId)
@@ -93,17 +80,11 @@ namespace Fanex.Athena.Service.BetList
                          : new List<DailyStatement>();
         }
 
-        #endregion IBetListService Members
-
-        #region Update Match
-
         private void UpdateCommonInfo(BetListMetaModel metaModel)
         {
-            var balanceUpInfo = _balanceUpService.BalanceUpInfo;
-            metaModel.MoveBetsDay = balanceUpInfo.MoveBetsDay;
-            metaModel.BalanceUpDay = balanceUpInfo.BalanceUpDay;
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+            metaModel.MoveBetsDay = balanceUp.MoveBetsDay;
+            metaModel.BalanceUpDay = balanceUp.BalanceUpDay;
         }
-
-        #endregion Update Match
     }
 }

@@ -67,7 +67,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                     IsOutRight = false,
                     IsExportExcel = false,
                     ToDate = DateTime.Now,
-                    BalanceUpDay = this.BalanceUpService.BalanceUpInfo.BalanceUpDay
+                    BalanceUpDay = this.GetBalanceUp().BalanceUpDay
                 }
             };
             var productAccess = ProductService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
