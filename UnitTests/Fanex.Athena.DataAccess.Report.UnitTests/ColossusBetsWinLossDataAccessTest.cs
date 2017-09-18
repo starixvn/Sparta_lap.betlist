@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using Core.Configuration.Interfaces;
     using Data;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Configuration;
@@ -24,11 +25,14 @@
         {
             _objectDb = Substitute.For<IObjectDb>();
 
+            var balanceUpService = Substitute.For<IBalanceUpDataAccess>();
             var balanceUp = new BalanceUp
             {
                 MoveBetsDay = _moveBetsDay
             };
-            _dataAccess = Substitute.ForPartsOf<ColossusBetsWinLossDataAccess>(balanceUp);
+            balanceUpService.GetBalanceUp().Returns(balanceUp);
+
+            _dataAccess = Substitute.ForPartsOf<ColossusBetsWinLossDataAccess>(balanceUpService);
 
             _reader = Substitute.For<IDataReader>();
             _objectDb.ExecuteReader().Returns(_reader);
