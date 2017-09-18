@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Service.Core.Users
 {
-    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -12,7 +11,6 @@
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Service.Core.Users.Interfaces;
-    using Fanex.Caching;
     using Model.Core.DataDomain;
     using Model.Core.DTO;
     using Model.Core.DTO.OneAuth;
@@ -131,9 +129,6 @@
 
             return identityValidation && sessionValidation;
         }
-
-        [CLSCompliant(false)]
-        protected internal virtual ICache GetMemCacheService() => Caching.CacheService.CreateInstance(CacheType.MemoryCache);
 
         protected internal virtual IResultInfo SetAuthorize(OneAuthToken tokenInfo)
         {

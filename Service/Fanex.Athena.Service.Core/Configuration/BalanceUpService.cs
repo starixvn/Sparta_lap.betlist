@@ -11,21 +11,25 @@ namespace Fanex.Athena.Service.Core.Configuration
 {
     using System;
     using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.DataAccess.Core.Configuration;
     using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Core.Helpers;
-    using Fanex.Caching;
 
     public class BalanceUpService : IBalanceUpService
     {
-        private const int CacheTimeoutMinute = 1;
+        private const int CacheTimeoutSeconds = 60;
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
+
+        private readonly IMemoryCacheService _cache;
 
         public BalanceUpService()
         {
             this._balanceUpDataAccess = new BalanceUpDataAccess();
+            _cache = new MemoryCacheService();
         }
 
         public BalanceUpService(IBalanceUpDataAccess balanceUpDataAccess)
@@ -42,9 +46,7 @@ namespace Fanex.Athena.Service.Core.Configuration
                 BalanceUp balanceup = null;
                 try
                 {
-                    var cache = CacheService.CreateInstance(CacheType.MemoryCache);
-
-                    balanceup = cache.Get<BalanceUp>(CacheKey.MemorycacheCommonBalanceup);
+                    balanceup = _cache.Get<BalanceUp>(CacheKey.MemorycacheCommonBalanceup);
 
                     if (balanceup != null)
                     {
@@ -52,8 +54,7 @@ namespace Fanex.Athena.Service.Core.Configuration
                     }
 
                     balanceup = this._balanceUpDataAccess.GetBalanceUpDay();
-                    cache.Set(
-                        CacheKey.MemorycacheCommonBalanceup, balanceup, DateTime.Now.AddMinutes(CacheTimeoutMinute));
+                    _cache.Set(CacheKey.MemorycacheCommonBalanceup, balanceup, CacheTimeoutSeconds);
                 }
                 catch (Exception exception)
                 {

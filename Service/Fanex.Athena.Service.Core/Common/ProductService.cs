@@ -23,13 +23,12 @@ namespace Fanex.Athena.Service.Core.Common
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Caching;
 
     #endregion
 
     public class ProductService : IProductService
     {
-        private const int CacheTimeoutMinute = 15;
+        private const int CacheTimeoutSeconds = 15 * 60;
 
         private readonly IProductDataAccess _productDataAccess;
 
@@ -58,9 +57,8 @@ namespace Fanex.Athena.Service.Core.Common
 
         public IList<Product> GetProductList(int licenseeId, string languageCode)
         {
-            var cache = Fanex.Caching.CacheService.CreateInstance(CacheType.MemoryCache);
             var cacheKey = CacheKey.MemorycacheCommonProduct + licenseeId + languageCode;
-            var allowedProducts = cache.Get<IList<Product>>(cacheKey);
+            var allowedProducts = _cache.Get<IList<Product>>(cacheKey);
 
             if (allowedProducts != null)
             {
@@ -70,10 +68,7 @@ namespace Fanex.Athena.Service.Core.Common
             allowedProducts = this._productDataAccess.GetProductAccessList(licenseeId);
             if (allowedProducts != null && allowedProducts.Count > 0)
             {
-                cache.Set(
-                    cacheKey,
-                    allowedProducts,
-                    DateTime.Now.AddMinutes(CacheTimeoutMinute));
+                _cache.Set(cacheKey, allowedProducts, CacheTimeoutSeconds);
             }
 
             return allowedProducts;
@@ -105,9 +100,8 @@ namespace Fanex.Athena.Service.Core.Common
         {
             const string FilterFunctionName = "ActiveCustomerSummary";
 
-            var cache = Fanex.Caching.CacheService.CreateInstance(CacheType.MemoryCache);
             var cacheKey = CacheKey.MemorycacheActiveCustomerSummaryProduct + licenseeId + languageCode;
-            var products = cache.Get<IList<Product>>(cacheKey);
+            var products = _cache.Get<IList<Product>>(cacheKey);
 
             if (products == null)
             {
@@ -118,10 +112,7 @@ namespace Fanex.Athena.Service.Core.Common
                     products = products.Where(i => i.IsOfferedSingleWallet && allowedProducts.Contains(i.ProductCode)).ToList();
                 }
 
-                cache.Set(
-                    cacheKey,
-                    products,
-                    DateTime.Now.AddMinutes(CacheTimeoutMinute));
+                _cache.Set(cacheKey, products, CacheTimeoutSeconds);
             }
 
             return new ProductAccess(products);

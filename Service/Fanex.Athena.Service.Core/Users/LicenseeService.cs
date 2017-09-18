@@ -1,66 +1,35 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LicenseeService.cs" company="">
-// The licensee service.
-// </copyright>
-// <summary>
-//   The licensee service.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace Fanex.Athena.Service.Core.Users
+﻿namespace Fanex.Athena.Service.Core.Users
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.DataAccess.Core.Users;
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
-    using Fanex.Caching;
 
-    /// <summary>
-    ///     The licensee service.
-    /// </summary>
     public class LicenseeService : ILicenseeService
     {
-        #region Constants and Fields
+        private const int CacheTimeoutSeconds = 60;
 
-        /// <summary>
-        ///     The cache timeout minute.
-        /// </summary>
-        private const int CacheTimeoutMinute = 1;
-
-        /// <summary>
-        ///     The _licensee data access.
-        /// </summary>
         private readonly ILicenseeDataAccess _licenseeDataAccess;
 
-        #endregion Constants and Fields
+        private readonly IMemoryCacheService _cache;
 
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="LicenseeService" /> class.
-        /// </summary>
         public LicenseeService()
         {
             this._licenseeDataAccess = new LicenseeDataAccess();
+            _cache = new MemoryCacheService();
         }
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="LicenseeService" /> class.
-        /// </summary>
-        /// <param name="licenseeDataAccess">
-        ///     The licensee data access.
-        /// </param>
         public LicenseeService(ILicenseeDataAccess licenseeDataAccess)
         {
             this._licenseeDataAccess = licenseeDataAccess;
         }
-
-        #endregion Constructors and Destructors
 
         #region Public Methods and Operators
 
@@ -82,9 +51,8 @@ namespace Fanex.Athena.Service.Core.Users
 
         public IList<LicenseeCustomer> GetCustByLicensee(int licenseeId)
         {
-            var cache = CacheService.CreateInstance(CacheType.MemoryCache);
             var cacheKey = CacheKey.MemorycacheCommonLicenseeCust + licenseeId;
-            var licenseeCustList = cache.Get<IList<LicenseeCustomer>>(cacheKey);
+            var licenseeCustList = _cache.Get<IList<LicenseeCustomer>>(cacheKey);
 
             if (licenseeCustList != null)
             {
@@ -95,7 +63,7 @@ namespace Fanex.Athena.Service.Core.Users
                                    .OrderBy(s => s.Currency)
                                    .ToList();
 
-            cache.Set(cacheKey, licenseeCustList, DateTime.Now.AddMinutes(CacheTimeoutMinute));
+            _cache.Set(cacheKey, licenseeCustList, CacheTimeoutSeconds);
 
             return licenseeCustList;
         }
