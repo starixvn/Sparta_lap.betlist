@@ -261,7 +261,7 @@ namespace Fanex.Athena.Api.BetList
         private dynamic GetPagingData(LiveReportBetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var balanceUpInfo = BalanceUpService.BalanceUpInfo;
+            var balanceUpInfo = GetBalanceUp();
 
             metaModel.PageIndex = pageIndex < 1 ? 1 : pageIndex;
             metaModel.PageSize = pageSize < 1 ? 100 : pageSize;

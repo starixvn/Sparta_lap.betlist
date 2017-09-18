@@ -36,7 +36,7 @@
             {
                 BalanceUpDay = new DateTime(2016, 1, 1)
             };
-            _balanceUpDataAccess.GetBalanceUpDay().Returns(expectedResult);
+            _balanceUpDataAccess.GetBalanceUp().Returns(expectedResult);
 
             // Action
             var result = _balanceUpService.BalanceUpInfo;
@@ -53,7 +53,7 @@
             {
                 BalanceUpDay = new DateTime(2016, 1, 1)
             };
-            _balanceUpDataAccess.GetBalanceUpDay().Returns(expectedResult);
+            _balanceUpDataAccess.GetBalanceUp().Returns(expectedResult);
             var firstGetting = _balanceUpService.BalanceUpInfo;
 
             // Action

@@ -53,7 +53,7 @@ namespace Fanex.Athena.Service.Core.Configuration
                         return balanceup;
                     }
 
-                    balanceup = this._balanceUpDataAccess.GetBalanceUpDay();
+                    balanceup = this._balanceUpDataAccess.GetBalanceUp();
                     _cache.Set(CacheKey.MemorycacheCommonBalanceup, balanceup, CacheTimeoutSeconds);
                 }
                 catch (Exception exception)

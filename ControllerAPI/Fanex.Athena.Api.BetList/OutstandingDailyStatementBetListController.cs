@@ -22,10 +22,11 @@ namespace Fanex.Athena.Api.BetList
         public dynamic Index(BetListMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
+            var balanceUp = GetBalanceUp();
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.BalanceUpDay = BalanceUpService.BalanceUpInfo.BalanceUpDay;
-            metaModel.MoveBetsDay = BalanceUpService.BalanceUpInfo.MoveBetsDay;
+            metaModel.BalanceUpDay = balanceUp.BalanceUpDay;
+            metaModel.MoveBetsDay = balanceUp.MoveBetsDay;
             metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);
 
             return new

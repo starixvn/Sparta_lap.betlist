@@ -7,7 +7,8 @@
 namespace Fanex.Athena.DataAccess.Core.Configuration
 {
     using System;
-    using Caching;
+    using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
@@ -18,16 +19,21 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
 
     public class BalanceUpDataAccess : BaseDataAccess, IBalanceUpDataAccess
     {
-        private const int CacheTimeoutMinute = 1;
+        private const int CacheTimeoutSeconds = 60;
 
-        public BalanceUp GetBalanceUpDay()
+        private readonly IMemoryCacheService _cache;
+
+        public BalanceUpDataAccess()
+        {
+            _cache = new MemoryCacheService();
+        }
+
+        public BalanceUp GetBalanceUp()
         {
             BalanceUp balanceup = null;
             try
             {
-                var cache = CacheService.CreateInstance(CacheType.MemoryCache);
-
-                balanceup = cache.Get<BalanceUp>(CacheKey.MemorycacheCommonBalanceup);
+                balanceup = _cache.Get<BalanceUp>(CacheKey.MemorycacheCommonBalanceup);
 
                 if (balanceup != null)
                 {
@@ -35,8 +41,7 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
                 }
 
                 balanceup = GetBalanceUpDayFromDb();
-                cache.Set(
-                    CacheKey.MemorycacheCommonBalanceup, balanceup, DateTime.Now.AddMinutes(CacheTimeoutMinute));
+                _cache.Set(CacheKey.MemorycacheCommonBalanceup, balanceup, CacheTimeoutSeconds);
             }
             catch (Exception exception)
             {

@@ -85,7 +85,7 @@ namespace Fanex.Athena.DataAccess.Report
 
         private void AddParameters(CustomerTurnoverMetaModel metaModel, string languageCode, IObjectDb db)
         {
-            var balanceUp = _balanceUpDataAccess.GetBalanceUpDay();
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
             db.AddInParameter("userid", DbType.Int32, metaModel.UserId);

@@ -12,6 +12,8 @@ namespace Fanex.Athena.Api.BetList
     using System.Collections.Generic;
     using System.Linq;
     using Base;
+    using DataAccess.Core.Configuration;
+    using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -19,11 +21,10 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.Athena.Service.BetList;
     using Fanex.Athena.Service.BetList.Extensions;
     using Fanex.Athena.Service.BetList.Interfaces;
-    using Fanex.Athena.Service.Core.Configuration;
-    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
+    using Model.Core.DTO.Configuration;
     using Service.BetList.Helpers;
 
     #endregion Using
@@ -34,14 +35,14 @@ namespace Fanex.Athena.Api.BetList
 
         private readonly IBetListService _betListService;
 
-        private readonly IBalanceUpService _balanceUpService;
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         private readonly ITicketHelper _ticketHelper;
 
         public ApiBetListBaseController()
         {
             _betListService = new BetListService();
-            _balanceUpService = new BalanceUpService();
+            _balanceUpDataAccess = new BalanceUpDataAccess();
             _ticketHelper = new TicketHelper();
         }
 
@@ -51,14 +52,14 @@ namespace Fanex.Athena.Api.BetList
             get { return _betListService; }
         }
 
-        protected IBalanceUpService BalanceUpService
-        {
-            get { return _balanceUpService; }
-        }
-
         protected static bool IsRacing(int betType)
         {
             return RacingBetType.Contains(betType);
+        }
+
+        protected BalanceUp GetBalanceUp()
+        {
+            return _balanceUpDataAccess.GetBalanceUp();
         }
 
         protected List<TicketText> Ticket(TicketResult ticketResult, BetListMetaModel metaModel = null, int startIndex = 1, bool showOdds = false)
@@ -111,13 +112,13 @@ namespace Fanex.Athena.Api.BetList
         protected dynamic GetBetListResult(BetListMetaModel metaModel, string uspKey)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var balanceUpInfo = _balanceUpService.BalanceUpInfo;
+            var balanceUp = GetBalanceUp();
 
             metaModel.PageIndex = 1;
             metaModel.PageSize = int.MaxValue - 1;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUpInfo.BalanceUpDay.Date, DateTimeKind.Utc);
-            metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUpInfo.MoveBetsDay.Date, DateTimeKind.Utc);
+            metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
+            metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
 
             var ticketResult = _betListService.GetBetListData(metaModel, uspKey);
 
@@ -145,13 +146,13 @@ namespace Fanex.Athena.Api.BetList
         protected dynamic GetPagingBetListResult(BetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var balanceUpInfo = _balanceUpService.BalanceUpInfo;
+            var balanceUp = GetBalanceUp();
 
             metaModel.PageIndex = pageIndex < 1 ? 1 : pageIndex;
             metaModel.PageSize = pageSize < 1 ? 100 : pageSize;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUpInfo.BalanceUpDay.Date, DateTimeKind.Utc);
-            metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUpInfo.MoveBetsDay.Date, DateTimeKind.Utc);
+            metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
+            metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
 
             var ticketResult = _betListService.GetBetListData(metaModel, uspKey);
 
