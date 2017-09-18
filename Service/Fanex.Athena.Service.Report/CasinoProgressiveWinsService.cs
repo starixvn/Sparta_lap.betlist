@@ -11,15 +11,11 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
-    using Fanex.Athena.Service.Core.Configuration;
-    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Report.Interfaces;
 
     public class CasinoProgressiveWinsService : ICasinoProgressiveWinsService
     {
         #region Constants and Fields
-
-        private readonly IBalanceUpService _balanceService;
 
         private readonly ICasinoProgressiveWinsDataAccess _casinoProgressiveWinsDataAccess;
 
@@ -29,8 +25,7 @@ namespace Fanex.Athena.Service.Report
 
         public CasinoProgressiveWinsService()
         {
-            this._balanceService = new BalanceUpService();
-            this._casinoProgressiveWinsDataAccess = new CasinoProgressiveWinsDataAccess(this._balanceService.BalanceUpInfo);
+            this._casinoProgressiveWinsDataAccess = new CasinoProgressiveWinsDataAccess();
         }
 
         #endregion Constructors and Destructors

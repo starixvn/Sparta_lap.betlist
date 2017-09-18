@@ -8,10 +8,11 @@ namespace Fanex.Athena.DataAccess.Report
 {
     using System.Collections.Generic;
     using System.Data;
+    using Core.Configuration;
+    using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Report.Interfaces;
-    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
@@ -20,11 +21,16 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class CasinoProgressiveWinsDataAccess : BaseDataAccess, ICasinoProgressiveWinsDataAccess
     {
-        private readonly BalanceUp _balanceUp;
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public CasinoProgressiveWinsDataAccess(BalanceUp balanceUp)
+        public CasinoProgressiveWinsDataAccess()
         {
-            _balanceUp = balanceUp;
+            _balanceUpDataAccess = new BalanceUpDataAccess();
+        }
+
+        public CasinoProgressiveWinsDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        {
+            _balanceUpDataAccess = balanceUpDataAccess;
         }
 
         #region ICasinoProgressiveWinsDataAccess Members
@@ -89,11 +95,12 @@ namespace Fanex.Athena.DataAccess.Report
 
         private void AddParams(IObjectDb db, CasinoProgressiveWinsMetaModel metaModel)
         {
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
-            db.AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
-            db.AddInParameter("BalanceUpDay", DbType.DateTime, _balanceUp.BalanceUpDay);
+            db.AddInParameter("movebetsday", DbType.DateTime, balanceUp.MoveBetsDay);
+            db.AddInParameter("BalanceUpDay", DbType.DateTime, balanceUp.BalanceUpDay);
 
             foreach (var product in metaModel.ProductOptions)
             {

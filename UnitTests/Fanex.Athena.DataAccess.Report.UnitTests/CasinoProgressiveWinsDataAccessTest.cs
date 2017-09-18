@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using Core.Configuration.Interfaces;
     using Data;
     using Model.Core.DTO.Configuration;
     using Model.Core.MetaModel.Product;
@@ -25,12 +26,15 @@
         {
             _objectDb = Substitute.For<IObjectDb>();
 
+            var balanceUpService = Substitute.For<IBalanceUpDataAccess>();
             var balanceUp = new BalanceUp()
             {
                 MoveBetsDay = new DateTime(2016, 8, 10),
                 BalanceUpDay = new DateTime(2016, 8, 30)
             };
-            _dataAccess = Substitute.ForPartsOf<CasinoProgressiveWinsDataAccess>(balanceUp);
+            balanceUpService.GetBalanceUp().Returns(balanceUp);
+
+            _dataAccess = Substitute.ForPartsOf<CasinoProgressiveWinsDataAccess>(balanceUpService);
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_CasinoProgressiveWins")).Returns(_objectDb);
 
             _reader = Substitute.For<IDataReader>();
