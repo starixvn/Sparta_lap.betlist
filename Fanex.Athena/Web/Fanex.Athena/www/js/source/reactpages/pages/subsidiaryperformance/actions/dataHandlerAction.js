@@ -3,7 +3,6 @@ import axios from 'axios'
 
 import Site from 'lrflib/site'
 
-
 export const fetchData = (params) => {
     const url = Site.resolveClientUrl('api/SubsidiaryPerformanceReport/Index');
     return axios.post(url, params.data, {
@@ -16,19 +15,21 @@ export const fetchData = (params) => {
 
 export function getGridData(params) {
     return (dispatch, getState) => {
-
         fetchData(params).then(response => {
             dispatch(setGridData(response.data));
         });
+    };
+}
 
+export function exportExcel(params) {
+    return (dispatch, getState) => {
+        return fetchData(params);
     };
 }
 
 export function setGridData(data) {
-    var result = {
+    return {
         type: types.SET_GRID_DATA,
         data: data
     };
-
-    return result;
 }

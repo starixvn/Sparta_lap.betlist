@@ -22,22 +22,6 @@ class FormFilter extends Component {
 
     submit = (event) => {
         event.preventDefault();
-        this._submitData();
-    }
-
-    exportExcel = (event) => {
-        event.preventDefault();
-        const params = this._getParams();
-
-        this.props.fetchData(params).then(response=>{
-            var excel = new ReportExcel(response.data);
-            excel.export();
-            
-        });
-        this.props.toggleLoader(false);
-    }
-
-    _submitData() {
         const params = this._getParams();
         if (!params) {
             return;
@@ -45,6 +29,16 @@ class FormFilter extends Component {
 
         this.props.toggleLoader(true);
         this.props.getGridData(params);
+    }
+
+    exportExcel = (event) => {
+        event.preventDefault();
+        const params = this._getParams();
+        
+        this.props.exportExcel(params).then(response => {
+            const excel = new ReportExcel(response.data);
+            excel.export();
+        });
     }
 
     _getParams() {
