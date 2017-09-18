@@ -32,9 +32,10 @@ namespace Fanex.Athena.Service.Core.Common
             _cache = new MemoryCacheService();
         }
 
-        public MatchService(IMatchDataAccess matchDataAccess)
+        public MatchService(IMatchDataAccess matchDataAccess, IMemoryCacheService cache)
         {
             _matchDataAccess = matchDataAccess;
+            _cache = cache;
         }
 
         public IList<Match> GetAllRunningMatch(int sportId)

@@ -5,6 +5,7 @@
     using Core.Common;
     using Core.Common.Interfaces;
     using DataAccess.Core.Common.Interfaces;
+    using Extension.Utility.Interfaces;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
@@ -18,8 +19,9 @@
         [OneTimeSetUp]
         public void SetUp()
         {
+            var cache = Substitute.For<IMemoryCacheService>();
             _matchDataAccess = Substitute.For<IMatchDataAccess>();
-            _matchService = new MatchService(_matchDataAccess);
+            _matchService = new MatchService(_matchDataAccess, cache);
         }
 
         [OneTimeTearDown]

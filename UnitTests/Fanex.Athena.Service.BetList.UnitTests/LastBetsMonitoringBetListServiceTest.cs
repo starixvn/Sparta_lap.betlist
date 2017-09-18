@@ -21,6 +21,7 @@
         public void SetUp()
         {
             var cache = Substitute.For<IMemoryCacheService>();
+            cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns((IList<BetListMatch>)null);
             _lastBetsMonitoringBetListDataAccess = Substitute.For<ILastBetsMonitoringBetListDataAccess>();
             _betListService = new LastBetsMonitoringBetListService(_lastBetsMonitoringBetListDataAccess, cache);
         }
