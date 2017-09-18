@@ -25,14 +25,14 @@
         {
             _objectDb = Substitute.For<IObjectDb>();
 
-            var balanceUpService = Substitute.For<IBalanceUpDataAccess>();
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             var balanceUp = new BalanceUp
             {
                 MoveBetsDay = _moveBetsDay
             };
-            balanceUpService.GetBalanceUp().Returns(balanceUp);
+            balanceUpDataAccess.GetBalanceUp().Returns(balanceUp);
 
-            _dataAccess = Substitute.ForPartsOf<ColossusBetsWinLossDataAccess>(balanceUpService);
+            _dataAccess = Substitute.ForPartsOf<ColossusBetsWinLossDataAccess>(balanceUpDataAccess);
 
             _reader = Substitute.For<IDataReader>();
             _objectDb.ExecuteReader().Returns(_reader);

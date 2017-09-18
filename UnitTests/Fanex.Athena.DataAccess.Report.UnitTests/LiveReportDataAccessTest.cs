@@ -22,14 +22,14 @@
         [OneTimeSetUp]
         public void Setup()
         {
-            var balanceUpService = Substitute.For<IBalanceUpDataAccess>();
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balance = new BalanceUp
             {
                 MoveBetsDay = new DateTime(2017, 2, 2)
             };
-            balanceUpService.GetBalanceUp().Returns(_balance);
+            balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            _dataAccess = Substitute.ForPartsOf<LiveReportDataAccess>(balanceUpService);
+            _dataAccess = Substitute.ForPartsOf<LiveReportDataAccess>(balanceUpDataAccess);
 
             _metaModel = new LiveReportMetaModel
             {

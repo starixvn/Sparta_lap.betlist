@@ -23,15 +23,15 @@
         [OneTimeSetUp]
         public void Setup()
         {
-            var balanceUpService = Substitute.For<IBalanceUpDataAccess>();
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balance = new BalanceUp
             {
                 MoveBetsDay = new DateTime(2016, 8, 10),
                 BalanceUpDay = new DateTime(2016, 8, 31)
             };
-            balanceUpService.GetBalanceUp().Returns(_balance);
+            balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            _dataAccess = Substitute.ForPartsOf<LicenseeWinLossDataAccess>(balanceUpService);
+            _dataAccess = Substitute.ForPartsOf<LicenseeWinLossDataAccess>(balanceUpDataAccess);
 
             var appSetting = Substitute.For<IAppSettings>();
             appSetting.HistoryDate.Returns(new DateTime(2016, 8, 31));

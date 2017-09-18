@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Web.Script.Serialization;
+    using Core.Configuration.Interfaces;
     using Data;
     using Fanex.Athena.Model.Core.DTO.Configuration;
     using Model.Report.DTO;
@@ -21,11 +22,14 @@
         [SetUp]
         public void SetUp()
         {
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balance = new BalanceUp
             {
                 MoveBetsDay = new DateTime(2017, 1, 1)
             };
-            _dataAccess = Substitute.ForPartsOf<CashOutWinLossDataAccess>(_balance);
+            balanceUpDataAccess.GetBalanceUp().Returns(_balance);
+
+            _dataAccess = Substitute.ForPartsOf<CashOutWinLossDataAccess>(balanceUpDataAccess);
             _objectDb = Substitute.For<IObjectDb>();
             _metaModel = new CashOutWinLossMetaModel
             {

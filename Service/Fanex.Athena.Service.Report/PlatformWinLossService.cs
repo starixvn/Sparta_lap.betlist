@@ -10,8 +10,6 @@
 namespace Fanex.Athena.Service.Report
 {
     using System.Collections.Generic;
-    using Core.Configuration;
-    using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Report;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -19,14 +17,11 @@ namespace Fanex.Athena.Service.Report
 
     public class PlatformWinLossService : IPlatformWinLossService
     {
-        private readonly IBalanceUpService _balanceUpService;
-
         private readonly PlatformWinLossDataAccess _mobileWinLossDataAccess;
 
         public PlatformWinLossService()
         {
-            this._balanceUpService = new BalanceUpService();
-            this._mobileWinLossDataAccess = new PlatformWinLossDataAccess(this._balanceUpService.BalanceUpInfo);
+            this._mobileWinLossDataAccess = new PlatformWinLossDataAccess();
         }
 
         public IList<PlatformWinLossSummary> GetSummaryData(PlatformWinLossMetaModel metaModel, out PlatformWinLossSummary totalData)

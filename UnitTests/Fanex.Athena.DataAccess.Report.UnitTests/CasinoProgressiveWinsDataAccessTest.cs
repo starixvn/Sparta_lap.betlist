@@ -26,15 +26,15 @@
         {
             _objectDb = Substitute.For<IObjectDb>();
 
-            var balanceUpService = Substitute.For<IBalanceUpDataAccess>();
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             var balanceUp = new BalanceUp()
             {
                 MoveBetsDay = new DateTime(2016, 8, 10),
                 BalanceUpDay = new DateTime(2016, 8, 30)
             };
-            balanceUpService.GetBalanceUp().Returns(balanceUp);
+            balanceUpDataAccess.GetBalanceUp().Returns(balanceUp);
 
-            _dataAccess = Substitute.ForPartsOf<CasinoProgressiveWinsDataAccess>(balanceUpService);
+            _dataAccess = Substitute.ForPartsOf<CasinoProgressiveWinsDataAccess>(balanceUpDataAccess);
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_CasinoProgressiveWins")).Returns(_objectDb);
 
             _reader = Substitute.For<IDataReader>();
