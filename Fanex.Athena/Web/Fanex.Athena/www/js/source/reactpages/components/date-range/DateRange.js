@@ -23,6 +23,8 @@ class DateRange extends Component {
     this.locale = { ...defaultOptions.locale, ...props.locale };
     this.ranges = { ...defaultOptions.ranges, ...props.ranges };
 
+    this.currentRange = { startDate, endDate };
+
     this.state = {
       range: { startDate, endDate },
       link: linkedCalendars && endDate,
@@ -31,7 +33,7 @@ class DateRange extends Component {
   }
 
   get dateRangeText() {
-    const date = this.state.range;
+    const date = this.currentRange;
     if (date.startDate && date.endDate) {
       return `${date.startDate.format(MomentFormat.default)} - ${date.endDate.format(MomentFormat.default)}`;
     }
@@ -72,9 +74,15 @@ class DateRange extends Component {
   }
 
   handleSelect(date, source) {
-    if (date.startDate && date.endDate) {
+    if (date.startDate && date.endDate) { //Select in range
+      const { onChange } = this.props
+
       this.step = 0;
-      return this.setRange(date, source, true);
+      const range = this.orderRange(date);
+      const show = false;
+
+      this.currentRange = Object.assign({}, range);
+      return this.setState({ range, show }, () => onChange && onChange(range, source));
     }
 
     const { startDate, endDate } = this.state.range;
@@ -111,6 +119,7 @@ class DateRange extends Component {
 
   handleApply() {
     const { onClickApplyButton } = this.props;
+    this.currentRange = Object.assign({}, this.state.range);
     onClickApplyButton && onClickApplyButton(this.state.range);
     this.hide();
   }

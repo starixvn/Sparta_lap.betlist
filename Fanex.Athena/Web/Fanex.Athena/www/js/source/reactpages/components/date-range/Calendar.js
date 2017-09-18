@@ -8,6 +8,7 @@ import { MomentFormat } from './constants';
 
 const START_OF_MONTH = 0;
 const END_OF_MONTH = 11;
+const DEFAULT_YEAR_RANGE = 5;
 
 function checkRange(dayMoment, range) {
   return (
@@ -58,12 +59,38 @@ class Calendar extends Component {
     onInit && onInit(this.state.date);
   }
 
+  get limitedDate() {
+    const { minDate, maxDate } = this.props;
+    const m = moment();
+    let startDate, endDate;
+
+    if (minDate) {
+      startDate = moment.isMoment(minDate) ? minDate : moment(minDate, MomentFormat.default);
+    }
+    else {
+      const startMonth = 0;
+      startDate = moment([m.year() - DEFAULT_YEAR_RANGE, startMonth]);
+    }
+
+    if (maxDate) {
+      endDate = moment.isMoment(maxDate) ? maxDate : moment(maxDate, MomentFormat.default);
+    }
+    else {
+      const endMonth = 11;
+      endDate = moment([m.year(), endMonth]).endOf("month");
+    }
+
+
+    return { startDate, endDate }
+  }
+
   get disablePrevButton() {
-    const range = this._getLimitDate();
+    const range = this.limitedDate;
+    const startDate = range.startDate;
     const currentDate = this.state.shownDate;
     let prevMonth = this.state.shownDate.month() - 1;
 
-    if (prevMonth < START_OF_MONTH && currentDate.year() == range.startDate.year()) {
+    if (prevMonth < startDate.month() && currentDate.year() <= startDate.year()) {
       return true;
     }
 
@@ -71,11 +98,12 @@ class Calendar extends Component {
   }
 
   get disableNextButton() {
-    const range = this._getLimitDate();
+    const range = this.limitedDate;
+    const endDate = range.endDate;
     const currentDate = this.state.shownDate;
     let nextMonth = this.state.shownDate.month() + 1;
 
-    if (nextMonth > END_OF_MONTH && currentDate.year() == range.endDate.year()) {
+    if (nextMonth > endDate.month() && currentDate.year() >= endDate.year()) {
       return true;
     }
 
@@ -158,9 +186,11 @@ class Calendar extends Component {
     const { styles } = this;
     const { onlyClasses, locale } = this.props;
     const monthLabels = locale.months;
+
     let monthOptions = [];
     for (let i = 0; i < 12; i++) {
-      monthOptions.push(<option key={`month${i}`} value={i}>{monthLabels[i]}</option>);
+      const isDisabled = this._isDisabledMonth(i);
+      monthOptions.push(<option disabled={isDisabled} key={`month${i}`} value={i}>{monthLabels[i]}</option>);
     }
 
     return (
@@ -171,36 +201,18 @@ class Calendar extends Component {
     );
   }
 
-  _getLimitDate() {
-    const DEFAULT_YEAR_RANGE = 10;
-    const { minDate, maxDate } = this.props;
-    const m = moment();
-    let startDate, endDate;
+  _isDisabledMonth(currentMonth){
+    const range = this.limitedDate;
+    const currentYear = this.state.shownDate.year();
 
-    if (minDate) {
-      startDate = moment.isMoment(minDate) ? minDate : moment(minDate, MomentFormat.default);
-    }
-    else {
-      const startMonth = 0;
-      startDate = moment([m.year() - DEFAULT_YEAR_RANGE, startMonth]);
-    }
-
-    if (maxDate) {
-      endDate = moment.isMoment(maxDate) ? maxDate : moment(maxDate, MomentFormat.default);
-    }
-    else {
-      const endMonth = 11;
-      endDate = moment([m.year(), endMonth]).endOf("month");
-    }
-
-
-    return { startDate, endDate }
+    return currentMonth < range.startDate.month()  && currentYear <= range.startDate.year()
+      || currentMonth > range.endDate.month()  && currentYear >= range.endDate.year();
   }
 
   renderYearList(classes) {
     const { styles } = this;
     const { onlyClasses } = this.props;
-    const range = this._getLimitDate();
+    const range = this.limitedDate;
 
     const yearOptions = [];
     for (let i = range.startDate.year(); i <= range.endDate.year(); i++) {
