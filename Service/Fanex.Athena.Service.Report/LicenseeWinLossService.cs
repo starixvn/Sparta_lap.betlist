@@ -16,20 +16,15 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
-    using Fanex.Athena.Service.Core.Configuration;
-    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Report.Interfaces;
 
     public class LicenseeWinLossService : ILicenseeWinLossService
     {
-        private readonly IBalanceUpService _balanceService;
-
         private readonly ILicenseeWinLossDataAccess _licenseeWinLossDataAccess;
 
         public LicenseeWinLossService()
         {
-            this._balanceService = new BalanceUpService();
-            this._licenseeWinLossDataAccess = new LicenseeWinLossDataAccess(this._balanceService.BalanceUpInfo);
+            this._licenseeWinLossDataAccess = new LicenseeWinLossDataAccess();
         }
 
         public SortableList<LicenseeWinLoss> GetAgentWinlossDetail(

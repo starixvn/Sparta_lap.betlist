@@ -10,6 +10,8 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using Core.Configuration;
+    using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
@@ -18,7 +20,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Model.Core.MetaModel.Product;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -31,11 +32,16 @@ namespace Fanex.Athena.DataAccess.Report
         private static readonly string[] IgnoredLicenseeWLProducts = new string[] { Product.BA, Product.RB };
         private static readonly string[] IgnoredTurnoverProducts = new string[] { Product.BT };
 
-        private readonly BalanceUp _balanceUp;
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public LicenseeWinLossDataAccess(BalanceUp balanceUp)
+        public LicenseeWinLossDataAccess()
         {
-            _balanceUp = balanceUp;
+            _balanceUpDataAccess = new BalanceUpDataAccess();
+        }
+
+        public LicenseeWinLossDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        {
+            _balanceUpDataAccess = balanceUpDataAccess;
         }
 
         public SortableList<LicenseeWinLoss> GetSummaryWinloss(LicenseeWinLossMetaModel metaModel, out IDictionary<string, LicenseeWinLoss> summaryTotal)
@@ -270,7 +276,7 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
             db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);
             db.AddInParameter("drawfilter", DbType.Int32, metaModel.DrawFilter);
-            db.AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
+            db.AddInParameter("movebetsday", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
 
             foreach (var product in metaModel.ProductOptions)
             {

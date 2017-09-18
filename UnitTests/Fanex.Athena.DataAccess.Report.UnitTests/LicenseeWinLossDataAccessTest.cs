@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using Core.Configuration.Interfaces;
     using Data;
     using Extension.Utility;
     using Model.Core.DTO.Configuration;
@@ -22,13 +23,15 @@
         [OneTimeSetUp]
         public void Setup()
         {
+            var balanceUpService = Substitute.For<IBalanceUpDataAccess>();
             _balance = new BalanceUp
             {
                 MoveBetsDay = new DateTime(2016, 8, 10),
                 BalanceUpDay = new DateTime(2016, 8, 31)
             };
+            balanceUpService.GetBalanceUp().Returns(_balance);
 
-            _dataAccess = Substitute.ForPartsOf<LicenseeWinLossDataAccess>(_balance);
+            _dataAccess = Substitute.ForPartsOf<LicenseeWinLossDataAccess>(balanceUpService);
 
             var appSetting = Substitute.For<IAppSettings>();
             appSetting.HistoryDate.Returns(new DateTime(2016, 8, 31));
