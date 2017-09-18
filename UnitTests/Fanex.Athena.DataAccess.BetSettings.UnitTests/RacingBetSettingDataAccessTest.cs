@@ -96,6 +96,20 @@
             _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
         }
 
+        private static void MapReaderData(IDataReader reader, IDictionary<string, object> readerDataMapping)
+        {
+            reader[Arg.Any<string>()].Returns(x =>
+            {
+                var paramName = x.ArgAt<string>(0);
+                if (readerDataMapping.ContainsKey(paramName))
+                {
+                    return readerDataMapping[paramName];
+                }
+
+                return string.Empty;
+            });
+        }
+
         private RacingBetSetting GetRacingBetSetting()
         {
             var custId = 1;
@@ -113,20 +127,6 @@
                 MaxPerMatch = 30.5m,
                 IsDataChange = true
             };
-        }
-
-        private static void MapReaderData(IDataReader reader, Dictionary<string, object> readerDataMapping)
-        {
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
-            });
         }
     }
 }
