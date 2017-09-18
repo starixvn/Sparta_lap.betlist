@@ -8,11 +8,12 @@ namespace Fanex.Athena.DataAccess.Report
 {
     using System.Collections.Generic;
     using System.Data;
+    using Core.Configuration;
+    using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
@@ -21,11 +22,16 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class CustomerTurnoverDataAccess : BaseDataAccess, ICustTurnoverDataAccess
     {
-        private readonly BalanceUp _balanceUp;
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public CustomerTurnoverDataAccess(BalanceUp balanceUp)
+        public CustomerTurnoverDataAccess()
         {
-            _balanceUp = balanceUp;
+            _balanceUpDataAccess = new BalanceUpDataAccess();
+        }
+
+        public CustomerTurnoverDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        {
+            _balanceUpDataAccess = balanceUpDataAccess;
         }
 
         public IList<CustTurnover> GetDataList(CustomerTurnoverMetaModel metaModel, string languageCode, out CustTurnover total, out int totalRow)
@@ -79,6 +85,7 @@ namespace Fanex.Athena.DataAccess.Report
 
         private void AddParameters(CustomerTurnoverMetaModel metaModel, string languageCode, IObjectDb db)
         {
+            var balanceUp = _balanceUpDataAccess.GetBalanceUpDay();
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
             db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
@@ -87,8 +94,8 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("odds", DbType.Decimal, metaModel.Odds);
             db.AddInParameter("reportby", DbType.Int32, metaModel.ReportBy);
             db.AddInParameter("username", DbType.String, string.IsNullOrWhiteSpace(metaModel.Username) ? null : metaModel.Username);
-            db.AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
-            db.AddInParameter("balanceupday", DbType.DateTime, _balanceUp.BalanceUpDay);
+            db.AddInParameter("movebetsday", DbType.DateTime, balanceUp.MoveBetsDay);
+            db.AddInParameter("balanceupday", DbType.DateTime, balanceUp.BalanceUpDay);
             db.AddInParameter("Langkey", DbType.String, languageCode);
             db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);

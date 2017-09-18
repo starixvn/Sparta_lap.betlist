@@ -6,6 +6,8 @@
 
 namespace Fanex.Athena.DataAccess.Core.Configuration
 {
+    using System;
+    using Caching;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
@@ -14,16 +16,37 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
     using Fanex.Data;
     using Fanex.Logging;
 
-    /// <summary>
-    /// Balance data access.
-    /// </summary>
     public class BalanceUpDataAccess : BaseDataAccess, IBalanceUpDataAccess
     {
-        /// <summary>
-        /// Get balance up date.
-        /// </summary>
-        /// <returns>The result value.</returns>
+        private const int CacheTimeoutMinute = 1;
+
         public BalanceUp GetBalanceUpDay()
+        {
+            BalanceUp balanceup = null;
+            try
+            {
+                var cache = CacheService.CreateInstance(CacheType.MemoryCache);
+
+                balanceup = cache.Get<BalanceUp>(CacheKey.MemorycacheCommonBalanceup);
+
+                if (balanceup != null)
+                {
+                    return balanceup;
+                }
+
+                balanceup = GetBalanceUpDayFromDb();
+                cache.Set(
+                    CacheKey.MemorycacheCommonBalanceup, balanceup, DateTime.Now.AddMinutes(CacheTimeoutMinute));
+            }
+            catch (Exception exception)
+            {
+                LogService.Error(exception.Message, exception);
+            }
+
+            return balanceup;
+        }
+
+        private BalanceUp GetBalanceUpDayFromDb()
         {
             const string UspName = "Lrf_SelBalanceUpDay";
             try

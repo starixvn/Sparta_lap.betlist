@@ -19,13 +19,11 @@ namespace Fanex.Athena.Service.Report
 
     public class CustomerTurnoverService : ICustTurnoverService
     {
-        private readonly IBalanceUpService _balanceUpService;
         private readonly ICustTurnoverDataAccess _custTurnoverDataAccess;
 
         public CustomerTurnoverService()
         {
-            _balanceUpService = new BalanceUpService();
-            _custTurnoverDataAccess = new CustomerTurnoverDataAccess(_balanceUpService.BalanceUpInfo);
+            _custTurnoverDataAccess = new CustomerTurnoverDataAccess();
         }
 
         public IEnumerable<CustTurnover> GetDataList(CustomerTurnoverMetaModel metaModel, string languageCode, out CustTurnover total, out int totalRows)
