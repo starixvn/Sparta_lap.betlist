@@ -5794,22 +5794,8 @@
     <Content Include="Views\Report\CustomerBalance\Content.cshtml" />
     <Content Include="Views\Report\CustomerBalance\Filter.cshtml" />
     <Content Include="Views\Report\CustomerBalance\Main.cshtml" />
-    <Content Include="Views\Note\LiveReport.cshtml" />
-    <Content Include="Views\Note\LicenseeWinLoss.cshtml" />
     <Content Include="Views\Shared\_NoteLayout.cshtml" />
-    <Content Include="Views\Note\MatchWinLoss.cshtml" />
     <Content Include="Views\Note\WinLossByProduct.cshtml" />
-    <Content Include="Views\Note\WinLossByBetType.cshtml" />
-    <Content Include="Views\Note\RacingCommission.cshtml" />
-    <Content Include="Views\Note\DailyRacingWinLoss.cshtml" />
-    <Content Include="Views\Note\Turnover.cshtml" />
-    <Content Include="Views\Note\MobileWinLoss.cshtml" />
-    <Content Include="Views\Note\Balance.cshtml" />
-    <Content Include="Views\Note\CustomerWinLoss.cshtml" />
-    <Content Include="Views\Note\CustomerPendingFunds.cshtml" />
-    <Content Include="Views\Note\CustomerBalance.cshtml" />
-    <Content Include="Views\Note\CustomerTurnover.cshtml" />
-    <Content Include="Views\Note\CustomerList.cshtml" />
     <Content Include="Views\Shared\_ReportTableLayout.cshtml" />
     <Content Include="Views\Report\LiveReport\HistoryFilter.cshtml" />
     <Content Include="Views\Report\Balance\Content.Header.cshtml" />
@@ -5895,9 +5881,6 @@
     <Content Include="Views\Shared\_BetListLayout.cshtml" />
     <Content Include="Views\BetList\DailyBetList\Main.cshtml" />
     <Content Include="Views\BetList\SystemParlayDetail\Main.cshtml" />
-    <Content Include="Views\Note\SettledMatchCount.cshtml" />
-    <Content Include="Views\Note\CancelledBetList.cshtml" />
-    <Content Include="Views\Note\LastBetsMonitoring.cshtml" />
     <Content Include="Views\Shared\_ReportLayout.SettledMatchCount.cshtml" />
     <Content Include="Views\Report\DailyRacingWinLoss\Content.cshtml" />
     <Content Include="Views\Report\DailyRacingWinLoss\Content.Data.cshtml" />
@@ -5948,7 +5931,6 @@
     <Content Include="Views\BetList\MatchWl\MatchBetType.cshtml" />
     <Content Include="Views\BetList\MatchWl\MixParlay.cshtml" />
     <Content Include="Views\Shared\_BetListLayoutNoStandard.cshtml" />
-    <Content Include="Views\Note\DailyBetList.cshtml" />
     <None Include="Scripts\Languages\ViewResources.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ViewResources.txt</LastGenOutput>

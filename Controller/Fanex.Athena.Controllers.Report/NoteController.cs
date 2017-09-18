@@ -19,12 +19,9 @@ namespace Fanex.Athena.Controllers.Report
     [CheckUMFilter]
     public class NoteController : BaseController
     {
-        #region Fields
-
         private readonly IBalanceUpService _balanceUpService;
-        private readonly IProductService _productService;
 
-        #endregion Fields
+        private readonly IProductService _productService;
 
         public NoteController()
         {
@@ -32,14 +29,6 @@ namespace Fanex.Athena.Controllers.Report
             this._balanceUpService = new BalanceUpService();
         }
 
-        #region Action
-
-        /// <summary>
-        /// Note Page.
-        /// </summary>
-        /// <param name="viewName">The view name.</param>
-        /// <param name="isHistory">Equals True if The report has history note.</param>
-        /// <returns>The action result.</returns>
         [ChildActionOnly]
         public ActionResult Index(string viewName, bool isHistory = false)
         {
@@ -48,16 +37,12 @@ namespace Fanex.Athena.Controllers.Report
             var productList = this._productService.GetProductList(licenseeId, SessionService.UserSession.Language);
             var model = new NoteViewModel
             {
-                BalanceUpDate = balanceUpInfo.BalanceUpDay,
                 MoveBetsDate = balanceUpInfo.MoveBetsDay,
-                ProductList = productList,
-                IsHistory = isHistory,
+                ProductList = productList
             };
 
             var viewPath = $"~/Views/Note/{viewName}.cshtml";
             return View(viewPath, model);
         }
-
-        #endregion Action
     }
 }
