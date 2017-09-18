@@ -216,6 +216,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
+      <Project>{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}</Project>
+      <Name>Fanex.Athena.DataAccess.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Excel\Fanex.Athena.Excel.Base\Fanex.Athena.Excel.Base.csproj">
       <Project>{413861ad-068b-4c02-b913-10b1de708fb7}</Project>
       <Name>Fanex.Athena.Excel.Base</Name>

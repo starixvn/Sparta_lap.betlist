@@ -261,13 +261,13 @@ namespace Fanex.Athena.Api.BetList
         private dynamic GetPagingData(LiveReportBetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var balanceUpInfo = GetBalanceUp();
+            var balanceUp = GetBalanceUp();
 
             metaModel.PageIndex = pageIndex < 1 ? 1 : pageIndex;
             metaModel.PageSize = pageSize < 1 ? 100 : pageSize;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUpInfo.BalanceUpDay.Date, DateTimeKind.Utc);
-            metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUpInfo.MoveBetsDay.Date, DateTimeKind.Utc);
+            metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
+            metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
 
             var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 

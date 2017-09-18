@@ -6,6 +6,8 @@
     using System.Collections.ObjectModel;
     using System.Web.Mvc;
     using System.Web.SessionState;
+    using DataAccess.Core.Configuration;
+    using DataAccess.Core.Configuration.Interfaces;
     using Excel.Base.Helpers;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -13,8 +15,7 @@
     using Fanex.Athena.Service.BetList.Interfaces;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Athena.Service.Core.Configuration;
-    using Fanex.Athena.Service.Core.Configuration.Interfaces;
+    using Model.Core.DTO.Configuration;
     using ONEbook.UM.Filters;
     using Resources;
     using Service.Core.Utility;
@@ -45,7 +46,7 @@
         protected static readonly ReadOnlyCollection<int> RacingBetType =
             new ReadOnlyCollection<int>(new int[] { 31, 32, 33, 41, 42, 43 });
 
-        private readonly IBalanceUpService _balanceUpService;
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         private readonly IProductService _productService;
 
@@ -55,12 +56,7 @@
         {
             this._productService = new ProductService();
             this._betListService = new BetListService();
-            this._balanceUpService = new BalanceUpService();
-        }
-
-        protected IBalanceUpService BalanceUpService
-        {
-            get { return _balanceUpService; }
+            this._balanceUpDataAccess = new BalanceUpDataAccess();
         }
 
         protected IProductService ProductService
@@ -107,6 +103,11 @@
             return viewinCurrency;
         }
 
+        protected BalanceUp GetBalanceUp()
+        {
+            return _balanceUpDataAccess.GetBalanceUp();
+        }
+
         /// <summary>
         /// Set the Licensee Id, Balance Up Date.
         /// Remove the UTC part of DateTime value.
@@ -119,9 +120,9 @@
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
 
-            var balanceUpInfo = this.BalanceUpService.BalanceUpInfo;
-            metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUpInfo.BalanceUpDay.Date, DateTimeKind.Utc);
-            metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUpInfo.MoveBetsDay.Date, DateTimeKind.Utc);
+            var balanceUp = GetBalanceUp();
+            metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
+            metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
             metaModel.FromDate = DateTime.SpecifyKind(metaModel.FromDate.Date, DateTimeKind.Utc);
             metaModel.ToDate = DateTime.SpecifyKind(metaModel.ToDate.Date, DateTimeKind.Utc);
             metaModel.Date = DateTime.SpecifyKind(metaModel.Date.Date, DateTimeKind.Utc);

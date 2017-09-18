@@ -35,7 +35,8 @@ namespace Fanex.Athena.Controllers.BetList
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            metaModel.BalanceUpDay = this.BalanceUpService.BalanceUpInfo.BalanceUpDay;
+            var balanceUp = GetBalanceUp();
+            metaModel.BalanceUpDay = balanceUp.BalanceUpDay;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
             var currencies = userSession.CurrencyList;
