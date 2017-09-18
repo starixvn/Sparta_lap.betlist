@@ -10,12 +10,13 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using Core.Configuration;
+    using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common;
@@ -25,16 +26,21 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class MatchWinLossDataAccess : BaseDataAccess, IMatchWinLossDataAccess
     {
-        private readonly BalanceUp _balanceUp;
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public MatchWinLossDataAccess(BalanceUp balanceUp)
+        public MatchWinLossDataAccess()
         {
-            _balanceUp = balanceUp;
+            _balanceUpDataAccess = new BalanceUpDataAccess();
+        }
+
+        public MatchWinLossDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        {
+            _balanceUpDataAccess = balanceUpDataAccess;
         }
 
         public IList<MatchWinLoss> GetDataList(MatchWinLossMetaModel metaModel)
         {
-            string uspName = "Lrf_Rpt_MatchWinLoss";
+            const string uspName = "Lrf_Rpt_MatchWinLoss";
 
             try
             {
@@ -42,7 +48,7 @@ namespace Fanex.Athena.DataAccess.Report
                 {
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
-                    db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUp.MoveBetsDay);
+                    db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
                     foreach (var item in metaModel.ProductOptions)
                     {
                         db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
@@ -63,7 +69,7 @@ namespace Fanex.Athena.DataAccess.Report
 
         public DataSet GetDetailDataSet(MatchWinLossMetaModel metaModel)
         {
-            var uspName = "Lrf_Rpt_MatchWinLossDetail";
+            const string uspName = "Lrf_Rpt_MatchWinLossDetail";
 
             try
             {
@@ -72,7 +78,7 @@ namespace Fanex.Athena.DataAccess.Report
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("FromDate", DbType.DateTime, metaModel.Date);
                     db.AddInParameter("ToDate", DbType.DateTime, metaModel.Date);
-                    db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUp.MoveBetsDay);
+                    db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
                     db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
 
                     foreach (var item in metaModel.ProductOptions)
@@ -92,7 +98,7 @@ namespace Fanex.Athena.DataAccess.Report
 
         public IList<MatchWinLoss> GetDetailDataList(MatchWinLossMetaModel metaModel)
         {
-            var uspName = "Lrf_Rpt_MatchWinLossByBettype";
+            const string uspName = "Lrf_Rpt_MatchWinLossByBettype";
 
             try
             {
@@ -102,7 +108,7 @@ namespace Fanex.Athena.DataAccess.Report
                     db.AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
                     db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
                     db.AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
-                    db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUp.MoveBetsDay);
+                    db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
 
                     foreach (var item in metaModel.ProductCodeList.Split(','))
                     {
@@ -124,7 +130,7 @@ namespace Fanex.Athena.DataAccess.Report
 
         public IList<MatchWinLoss> GetOutrightParlayList(MatchWinLossMetaModel metaModel)
         {
-            var uspName = "Lrf_Rpt_MatchWinLossByOutrightParlay";
+            const string uspName = "Lrf_Rpt_MatchWinLossByOutrightParlay";
 
             try
             {
@@ -136,7 +142,7 @@ namespace Fanex.Athena.DataAccess.Report
 
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
-                    db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUp.MoveBetsDay);
+                    db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
                     db.AddInParameter("showsb", DbType.Boolean, showSb);
                     db.AddInParameter("showba", DbType.Boolean, showBa);
                     db.AddInParameter("showVS2", DbType.Boolean, showVS2);
@@ -177,29 +183,31 @@ namespace Fanex.Athena.DataAccess.Report
             var dataList = new List<MatchWinLoss>();
             while (reader.Read())
             {
-                var matchWinLoss = new MatchWinLoss();
-                matchWinLoss.LeagueId = reader.ToInt("leagueid");
-                matchWinLoss.MatchId = reader.ToInt("matchid");
-                matchWinLoss.MatchCode = reader.ToString("matchcode");
-                matchWinLoss.HomeId = reader.ToInt("homeid");
-                matchWinLoss.AwayId = reader.ToInt("awayid");
-                matchWinLoss.Turnover = reader.ToDecimal(turnoverColumn);
-                matchWinLoss.TotalTransaction = reader.ToInt("betcount");
-                matchWinLoss.CustomerWL = reader.ToDecimal(winlossColumn);
-                matchWinLoss.CustomerComm = hasCustComm ? reader.ToDecimal(custCommColumn) : 0;
-                matchWinLoss.LicenseeWL = reader.ToDecimal(licenseeWlColumn);
-                matchWinLoss.BACommission = reader.ToDecimal(commBaColumn);
-                matchWinLoss.RacingRevenue = reader.ToDecimal(winLossRbColumn) + reader.ToDecimal(commRbColumn);
-                matchWinLoss.AmtDueToBA = reader.ToDecimal(amtDueToBaComumn);
-                matchWinLoss.AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn);
-                matchWinLoss.RaceNo = reader.ToString("race");
-                matchWinLoss.BetType = hasBetType ? reader.ToInt("bettype") : 0;
-                matchWinLoss.ProductName = hasProductName ? reader.ToString("productname") : string.Empty;
-                matchWinLoss.IsLive = hasLiveIndicator && Converter.ToBool(reader["liveindicator"]);
-                matchWinLoss.IsNeutral = hasIsNeutral && Converter.ToBool(reader["isNeutral"]);
-                matchWinLoss.ShowTime = hasShowTime ? reader.ToString("showtime") : string.Empty;
-                matchWinLoss.SportType = hasSportType ? reader.ToShort("sporttype") : (short)0;
-                matchWinLoss.KickOffTime = hasKickOffTime ? reader.ToDateTime("KickoffTime") : DateTime.MinValue;
+                var matchWinLoss = new MatchWinLoss
+                {
+                    LeagueId = reader.ToInt("leagueid"),
+                    MatchId = reader.ToInt("matchid"),
+                    MatchCode = reader.ToString("matchcode"),
+                    HomeId = reader.ToInt("homeid"),
+                    AwayId = reader.ToInt("awayid"),
+                    Turnover = reader.ToDecimal(turnoverColumn),
+                    TotalTransaction = reader.ToInt("betcount"),
+                    CustomerWL = reader.ToDecimal(winlossColumn),
+                    CustomerComm = hasCustComm ? reader.ToDecimal(custCommColumn) : 0,
+                    LicenseeWL = reader.ToDecimal(licenseeWlColumn),
+                    BACommission = reader.ToDecimal(commBaColumn),
+                    RacingRevenue = reader.ToDecimal(winLossRbColumn) + reader.ToDecimal(commRbColumn),
+                    AmtDueToBA = reader.ToDecimal(amtDueToBaComumn),
+                    AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn),
+                    RaceNo = reader.ToString("race"),
+                    BetType = hasBetType ? reader.ToInt("bettype") : 0,
+                    ProductName = hasProductName ? reader.ToString("productname") : string.Empty,
+                    IsLive = hasLiveIndicator && Converter.ToBool(reader["liveindicator"]),
+                    IsNeutral = hasIsNeutral && Converter.ToBool(reader["isNeutral"]),
+                    ShowTime = hasShowTime ? reader.ToString("showtime") : string.Empty,
+                    SportType = hasSportType ? reader.ToShort("sporttype") : (short)0,
+                    KickOffTime = hasKickOffTime ? reader.ToDateTime("KickoffTime") : DateTime.MinValue
+                };
                 dataList.Add(matchWinLoss);
             }
 
