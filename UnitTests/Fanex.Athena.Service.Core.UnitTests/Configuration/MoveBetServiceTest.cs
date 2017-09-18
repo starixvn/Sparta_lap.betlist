@@ -12,22 +12,19 @@
     [TestFixture]
     public class MoveBetServiceTest
     {
-        private IAppSettings _appSettings;
         private IMoveBetDataAccess _moveBetDataAccess;
         private IMoveBetService _moveBetService;
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            _appSettings = Substitute.For<IAppSettings>();
             _moveBetDataAccess = Substitute.For<IMoveBetDataAccess>();
-            _moveBetService = new MoveBetService(_appSettings, _moveBetDataAccess);
+            _moveBetService = new MoveBetService(_moveBetDataAccess);
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            _appSettings = null;
             _moveBetDataAccess = null;
             _moveBetService = null;
         }

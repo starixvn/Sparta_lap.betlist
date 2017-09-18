@@ -38,7 +38,6 @@
             _productDataAccess = null;
             _xmlWrapper = null;
             _productService = null;
-            CacheService.Clear();
         }
 
         [Test]

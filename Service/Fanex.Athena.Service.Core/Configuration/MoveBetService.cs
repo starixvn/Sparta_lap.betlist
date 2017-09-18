@@ -8,10 +8,10 @@ namespace Fanex.Athena.Service.Core.Configuration
 {
     using System;
     using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.DataAccess.Core.Configuration;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Configuration;
-    using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Core.Helpers;
 
@@ -23,18 +23,17 @@ namespace Fanex.Athena.Service.Core.Configuration
 
         private readonly IMoveBetDataAccess _moveBetDataAccess;
 
-        private readonly IAppSettings _appSettings;
+        private readonly IMemoryCacheService _cache;
 
         public MoveBetService()
         {
-            this._moveBetDataAccess = new MoveBetDataAccess();
-            this._appSettings = new AppSettings();
+            _moveBetDataAccess = new MoveBetDataAccess();
+            _cache = new MemoryCacheService();
         }
 
-        public MoveBetService(IAppSettings appSettings, IMoveBetDataAccess moveBetDataAccess)
+        public MoveBetService(IMoveBetDataAccess moveBetDataAccess)
         {
             this._moveBetDataAccess = moveBetDataAccess;
-            this._appSettings = appSettings;
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
@@ -44,11 +43,11 @@ namespace Fanex.Athena.Service.Core.Configuration
             var result = string.Empty;
             try
             {
-                var moveBet = CacheService.Get<MoveBetNotification>(CacheKey.MemorycacheCommonMoveBet);
+                var moveBet = _cache.Get<MoveBetNotification>(CacheKey.MemorycacheCommonMoveBet);
                 if (moveBet == null)
                 {
                     moveBet = this._moveBetDataAccess.GetMoveBetNotification();
-                    CacheService.Set(CacheKey.MemorycacheCommonMoveBet, moveBet, CacheTimeoutSeconds);
+                    _cache.Set(CacheKey.MemorycacheCommonMoveBet, moveBet, CacheTimeoutSeconds);
                 }
 
                 if (moveBet.ContentByLanguage.ContainsKey(language))

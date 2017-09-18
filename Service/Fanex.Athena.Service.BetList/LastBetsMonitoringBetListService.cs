@@ -6,15 +6,16 @@
 
 namespace Fanex.Athena.Service.BetList
 {
-    using Core.Common;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.DataAccess.BetList;
     using Fanex.Athena.DataAccess.BetList.Interfaces;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Interfaces;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public class LastBetsMonitoringBetListService : ILastBetsMonitoringBetListService
     {
@@ -28,14 +29,20 @@ namespace Fanex.Athena.Service.BetList
 
         private readonly ILastBetsMonitoringBetListDataAccess _lastBetsMonitoringBetListDataAccess;
 
+        private readonly IMemoryCacheService _cache;
+
         public LastBetsMonitoringBetListService()
         {
+            _cache = new MemoryCacheService();
             _lastBetsMonitoringBetListDataAccess = new LastBetsMonitoringBetListDataAccess();
         }
 
-        public LastBetsMonitoringBetListService(ILastBetsMonitoringBetListDataAccess lastBetsMonitoringBetListDataAccess)
+        public LastBetsMonitoringBetListService(
+            ILastBetsMonitoringBetListDataAccess lastBetsMonitoringBetListDataAccess,
+            IMemoryCacheService cache)
         {
             _lastBetsMonitoringBetListDataAccess = lastBetsMonitoringBetListDataAccess;
+            _cache = cache;
         }
 
         public TicketResult GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel)
@@ -143,11 +150,11 @@ namespace Fanex.Athena.Service.BetList
         /// </summary>
         private IList<BetListMatch> GetMatchList()
         {
-            var data = CacheService.Get<IList<BetListMatch>>(MatchListCacheKey);
+            var data = _cache.Get<IList<BetListMatch>>(MatchListCacheKey);
             if (data == null)
             {
                 data = this._lastBetsMonitoringBetListDataAccess.GetMatchList(MatchListSpKey);
-                CacheService.Set(MatchListCacheKey, data, CacheTimeout);
+                _cache.Set(MatchListCacheKey, data, CacheTimeout);
             }
 
             return data;
@@ -158,11 +165,11 @@ namespace Fanex.Athena.Service.BetList
         /// </summary>
         private IList<BetListMatch> GetOutrightMatchList()
         {
-            var data = CacheService.Get<IList<BetListMatch>>(OutrightMatchListCacheKey);
+            var data = _cache.Get<IList<BetListMatch>>(OutrightMatchListCacheKey);
             if (data == null)
             {
                 data = this._lastBetsMonitoringBetListDataAccess.GetMatchList(OutrightMatchListSpKey);
-                CacheService.Set(OutrightMatchListCacheKey, data, CacheTimeout);
+                _cache.Set(OutrightMatchListCacheKey, data, CacheTimeout);
             }
 
             return data;

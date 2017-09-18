@@ -112,7 +112,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\BetTypeService.cs" />
-    <Compile Include="Common\CacheService.cs" />
     <Compile Include="Common\CurrencyService.cs" />
     <Compile Include="Common\ExChangeRateService.cs" />
     <Compile Include="Common\FunctionService.cs" />

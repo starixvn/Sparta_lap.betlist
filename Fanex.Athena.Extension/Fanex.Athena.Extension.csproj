@@ -46,6 +46,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Fanex.Caching">
+      <HintPath>..\UnitTests\Fanex.Athena.Service.Core.UnitTests\bin\Debug\Fanex.Caching.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -118,6 +121,8 @@
     <Compile Include="Helper\JSONHelper.cs" />
     <Compile Include="Helper\NumberHelper.cs" />
     <Compile Include="Utility\AppSettings.cs" />
+    <Compile Include="Utility\Interfaces\IMemoryCacheService.cs" />
+    <Compile Include="Utility\MemoryCacheService.cs" />
     <Compile Include="Utility\CookiesHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\DictionaryPropertyComparer.cs" />

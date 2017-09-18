@@ -37,11 +37,14 @@ namespace Fanex.Athena.Service.Core.Common
 
         private readonly IXDocumentWrapper _xmlWrapper;
 
+        private readonly IMemoryCacheService _cache;
+
         public ProductService()
         {
             _appSettings = new AppSettings();
             _productDataAccess = new ProductDataAccess();
             _xmlWrapper = new XDocumentWrapper();
+            _cache = new MemoryCacheService();
         }
 
         public ProductService(IAppSettings appSettings, IProductDataAccess productDataAccess, IXDocumentWrapper xmlWrapper)
@@ -135,14 +138,14 @@ namespace Fanex.Athena.Service.Core.Common
                 functionName = "_Default";
             }
 
-            var functions = CacheService.Get<IEnumerable<XElement>>(FunctionAllowedProductsKey);
+            var functions = _cache.Get<IEnumerable<XElement>>(FunctionAllowedProductsKey);
             if (functions == null)
             {
                 var filePath = HostingEnvironment.MapPath(_appSettings.GetValue("FunctionAllowedProductFile"));
                 functions = _xmlWrapper.Load(filePath).Descendants(nameof(Function));
                 if (functions != null && functions.Any())
                 {
-                    CacheService.Set(FunctionAllowedProductsKey, functions);
+                    _cache.Set(FunctionAllowedProductsKey, functions);
                 }
             }
 
