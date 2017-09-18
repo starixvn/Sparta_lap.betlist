@@ -5630,6 +5630,8 @@ webpackJsonp([4],[
 	    _this.locale = _extends({}, _defaultOptions2.default.locale, props.locale);
 	    _this.ranges = _extends({}, _defaultOptions2.default.ranges, props.ranges);
 	
+	    _this.currentRange = { startDate: startDate, endDate: endDate };
+	
 	    _this.state = {
 	      range: { startDate: startDate, endDate: endDate },
 	      link: linkedCalendars && endDate,
@@ -5685,8 +5687,18 @@ webpackJsonp([4],[
 	    key: 'handleSelect',
 	    value: function handleSelect(date, source) {
 	      if (date.startDate && date.endDate) {
+	        //Select in range
+	        var onChange = this.props.onChange;
+	
+	
 	        this.step = 0;
-	        return this.setRange(date, source, true);
+	        var _range = this.orderRange(date);
+	        var show = false;
+	
+	        this.currentRange = Object.assign({}, _range);
+	        return this.setState({ range: _range, show: show }, function () {
+	          return onChange && onChange(_range, source);
+	        });
 	      }
 	
 	      var _state$range = this.state.range,
@@ -5728,6 +5740,7 @@ webpackJsonp([4],[
 	    value: function handleApply() {
 	      var onClickApplyButton = this.props.onClickApplyButton;
 	
+	      this.currentRange = Object.assign({}, this.state.range);
 	      onClickApplyButton && onClickApplyButton(this.state.range);
 	      this.hide();
 	    }
@@ -5857,7 +5870,7 @@ webpackJsonp([4],[
 	  }, {
 	    key: 'dateRangeText',
 	    get: function get() {
-	      var date = this.state.range;
+	      var date = this.currentRange;
 	      if (date.startDate && date.endDate) {
 	        return date.startDate.format(_constants.MomentFormat.default) + ' - ' + date.endDate.format(_constants.MomentFormat.default);
 	      }
@@ -21792,6 +21805,7 @@ webpackJsonp([4],[
 	
 	var START_OF_MONTH = 0;
 	var END_OF_MONTH = 11;
+	var DEFAULT_YEAR_RANGE = 5;
 	
 	function checkRange(dayMoment, range) {
 	  return dayMoment.isBetween(range['startDate'], range['endDate']) || dayMoment.isBetween(range['endDate'], range['startDate']);
@@ -21947,11 +21961,13 @@ webpackJsonp([4],[
 	          locale = _props3.locale;
 	
 	      var monthLabels = locale.months;
+	
 	      var monthOptions = [];
 	      for (var i = 0; i < 12; i++) {
+	        var isDisabled = this._isDisabledMonth(i);
 	        monthOptions.push(_react2.default.createElement(
 	          'option',
-	          { key: 'month' + i, value: i },
+	          { disabled: isDisabled, key: 'month' + i, value: i },
 	          monthLabels[i]
 	        ));
 	      }
@@ -21966,32 +21982,12 @@ webpackJsonp([4],[
 	      );
 	    }
 	  }, {
-	    key: '_getLimitDate',
-	    value: function _getLimitDate() {
-	      var DEFAULT_YEAR_RANGE = 10;
-	      var _props4 = this.props,
-	          minDate = _props4.minDate,
-	          maxDate = _props4.maxDate;
+	    key: '_isDisabledMonth',
+	    value: function _isDisabledMonth(currentMonth) {
+	      var range = this.limitedDate;
+	      var currentYear = this.state.shownDate.year();
 	
-	      var m = (0, _moment2.default)();
-	      var startDate = void 0,
-	          endDate = void 0;
-	
-	      if (minDate) {
-	        startDate = _moment2.default.isMoment(minDate) ? minDate : (0, _moment2.default)(minDate, _constants.MomentFormat.default);
-	      } else {
-	        var startMonth = 0;
-	        startDate = (0, _moment2.default)([m.year() - DEFAULT_YEAR_RANGE, startMonth]);
-	      }
-	
-	      if (maxDate) {
-	        endDate = _moment2.default.isMoment(maxDate) ? maxDate : (0, _moment2.default)(maxDate, _constants.MomentFormat.default);
-	      } else {
-	        var endMonth = 11;
-	        endDate = (0, _moment2.default)([m.year(), endMonth]).endOf("month");
-	      }
-	
-	      return { startDate: startDate, endDate: endDate };
+	      return currentMonth < range.startDate.month() && currentYear <= range.startDate.year() || currentMonth > range.endDate.month() && currentYear >= range.endDate.year();
 	    }
 	  }, {
 	    key: 'renderYearList',
@@ -21999,7 +21995,7 @@ webpackJsonp([4],[
 	      var styles = this.styles;
 	      var onlyClasses = this.props.onlyClasses;
 	
-	      var range = this._getLimitDate();
+	      var range = this.limitedDate;
 	
 	      var yearOptions = [];
 	      for (var i = range.startDate.year(); i <= range.endDate.year(); i++) {
@@ -22023,11 +22019,11 @@ webpackJsonp([4],[
 	      var shownDate = this.getShownDate();
 	      var year = shownDate.year();
 	      var styles = this.styles;
-	      var _props5 = this.props,
-	          minDate = _props5.minDate,
-	          maxDate = _props5.maxDate,
-	          onlyClasses = _props5.onlyClasses,
-	          showMonthArrow = _props5.showMonthArrow;
+	      var _props4 = this.props,
+	          minDate = _props4.minDate,
+	          maxDate = _props4.maxDate,
+	          onlyClasses = _props4.onlyClasses,
+	          showMonthArrow = _props4.showMonthArrow;
 	
 	
 	      return _react2.default.createElement(
@@ -22078,9 +22074,9 @@ webpackJsonp([4],[
 	      var dow = this.state.firstDayOfWeek;
 	      var weekdays = [];
 	      var styles = this.styles;
-	      var _props6 = this.props,
-	          onlyClasses = _props6.onlyClasses,
-	          locale = _props6.locale;
+	      var _props5 = this.props,
+	          onlyClasses = _props5.onlyClasses,
+	          locale = _props5.locale;
 	
 	      var weekDays = locale.weekdays;
 	
@@ -22104,14 +22100,14 @@ webpackJsonp([4],[
 	
 	      // TODO: Split this logic into smaller chunks
 	      var styles = this.styles;
-	      var _props7 = this.props,
-	          range = _props7.range,
-	          minDate = _props7.minDate,
-	          maxDate = _props7.maxDate,
-	          format = _props7.format,
-	          onlyClasses = _props7.onlyClasses,
-	          disableDaysBeforeToday = _props7.disableDaysBeforeToday,
-	          specialDays = _props7.specialDays;
+	      var _props6 = this.props,
+	          range = _props6.range,
+	          minDate = _props6.minDate,
+	          maxDate = _props6.maxDate,
+	          format = _props6.format,
+	          onlyClasses = _props6.onlyClasses,
+	          disableDaysBeforeToday = _props6.disableDaysBeforeToday,
+	          specialDays = _props6.specialDays;
 	
 	
 	      var shownDate = this.getShownDate();
@@ -22199,9 +22195,9 @@ webpackJsonp([4],[
 	    key: 'render',
 	    value: function render() {
 	      var styles = this.styles;
-	      var _props8 = this.props,
-	          onlyClasses = _props8.onlyClasses,
-	          classNames = _props8.classNames;
+	      var _props7 = this.props,
+	          onlyClasses = _props7.onlyClasses,
+	          classNames = _props7.classNames;
 	
 	
 	      var classes = _extends({}, _styles.defaultClasses, classNames);
@@ -22227,13 +22223,41 @@ webpackJsonp([4],[
 	      );
 	    }
 	  }, {
+	    key: 'limitedDate',
+	    get: function get() {
+	      var _props8 = this.props,
+	          minDate = _props8.minDate,
+	          maxDate = _props8.maxDate;
+	
+	      var m = (0, _moment2.default)();
+	      var startDate = void 0,
+	          endDate = void 0;
+	
+	      if (minDate) {
+	        startDate = _moment2.default.isMoment(minDate) ? minDate : (0, _moment2.default)(minDate, _constants.MomentFormat.default);
+	      } else {
+	        var startMonth = 0;
+	        startDate = (0, _moment2.default)([m.year() - DEFAULT_YEAR_RANGE, startMonth]);
+	      }
+	
+	      if (maxDate) {
+	        endDate = _moment2.default.isMoment(maxDate) ? maxDate : (0, _moment2.default)(maxDate, _constants.MomentFormat.default);
+	      } else {
+	        var endMonth = 11;
+	        endDate = (0, _moment2.default)([m.year(), endMonth]).endOf("month");
+	      }
+	
+	      return { startDate: startDate, endDate: endDate };
+	    }
+	  }, {
 	    key: 'disablePrevButton',
 	    get: function get() {
-	      var range = this._getLimitDate();
+	      var range = this.limitedDate;
+	      var startDate = range.startDate;
 	      var currentDate = this.state.shownDate;
 	      var prevMonth = this.state.shownDate.month() - 1;
 	
-	      if (prevMonth < START_OF_MONTH && currentDate.year() == range.startDate.year()) {
+	      if (prevMonth < startDate.month() && currentDate.year() <= startDate.year()) {
 	        return true;
 	      }
 	
@@ -22242,11 +22266,12 @@ webpackJsonp([4],[
 	  }, {
 	    key: 'disableNextButton',
 	    get: function get() {
-	      var range = this._getLimitDate();
+	      var range = this.limitedDate;
+	      var endDate = range.endDate;
 	      var currentDate = this.state.shownDate;
 	      var nextMonth = this.state.shownDate.month() + 1;
 	
-	      if (nextMonth > END_OF_MONTH && currentDate.year() == range.endDate.year()) {
+	      if (nextMonth > endDate.month() && currentDate.year() >= endDate.year()) {
 	        return true;
 	      }
 	
