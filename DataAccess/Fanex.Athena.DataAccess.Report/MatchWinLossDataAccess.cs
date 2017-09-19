@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
@@ -160,6 +161,8 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         private static IList<MatchWinLoss> SetToList(IDataReader reader, string baseCurrency)
         {
             var turnoverColumn = "Turnover" + baseCurrency;

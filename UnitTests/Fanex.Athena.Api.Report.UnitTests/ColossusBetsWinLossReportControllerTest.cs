@@ -69,7 +69,7 @@
         }
 
         [Test]
-        public void Index_NoDataReturnedFromDataAccess_ReturnEmptyData()
+        public void Index_NoDataReturnedFromService_ReturnEmptyData()
         {
             // Arrange
             var metaModel = CreateValidMetaModel();
