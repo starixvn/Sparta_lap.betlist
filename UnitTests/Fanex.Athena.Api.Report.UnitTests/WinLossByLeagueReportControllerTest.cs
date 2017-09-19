@@ -7,7 +7,7 @@
     using System.Web.Http;
     using System.Web.Http.Hosting;
     using System.Web.Http.Results;
-    using Excel.Base.Entities;
+    using DataAccess.Core.Configuration.Interfaces;
     using Excel.Report;
     using Fanex.Athena.Service.Report.Interfaces;
     using Model.Core.DTO.Configuration;
@@ -21,14 +21,11 @@
     using Report;
     using Resources;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Configuration.Interfaces;
     using Service.Core.Users.Interfaces;
 
     public class WinLossByLeagueReportControllerTest
     {
         private ISessionService _sessionService;
-        private IProductService _productService;
-        private IBalanceUpService _balanceUpService;
         private IWinLossByLeagueService _service;
         private WinLossByLeagueReportController _controller;
 
@@ -36,13 +33,13 @@
         public void FixtureSetUp()
         {
             _sessionService = Substitute.For<ISessionService>();
-            _productService = Substitute.For<IProductService>();
-            _balanceUpService = Substitute.For<IBalanceUpService>();
+            var productService = Substitute.For<IProductService>();
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _service = Substitute.For<IWinLossByLeagueService>();
-            _controller = Substitute.ForPartsOf<WinLossByLeagueReportController>(_sessionService, _productService, _balanceUpService, _service);
+            _controller = Substitute.ForPartsOf<WinLossByLeagueReportController>(_sessionService, productService, balanceUpDataAccess, _service);
             _controller.Request = new HttpRequestMessage();
             _controller.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
-            _balanceUpService.BalanceUpInfo.Returns(new BalanceUp());
+            balanceUpDataAccess.GetBalanceUp().Returns(new BalanceUp());
             CreateSession();
         }
 

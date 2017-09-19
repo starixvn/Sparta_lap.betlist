@@ -41,7 +41,7 @@ namespace Fanex.Athena.Controllers.WareHouse
             var userSession = SessionService.UserSession;
             var licenseeId = licenseeSession.LicenseeId;
             var metaModel = new TopCustomerMetaModel { LicenseeId = licenseeId };
-            metaModel.FromDate = metaModel.ToDate = BalanceUpService.BalanceUpInfo.MoveBetsDay;
+            metaModel.FromDate = metaModel.ToDate = GetBalanceUp().MoveBetsDay;
             var currencyList = userSession.CurrencyList;
             var sportList = _sportTypeService.GetAllWHSports();
             var productAccess = ProductService.GetProductAccess(licenseeId, userSession.Language);
@@ -56,7 +56,7 @@ namespace Fanex.Athena.Controllers.WareHouse
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
-            ViewBag.MaxDate = BalanceUpService.BalanceUpInfo.MoveBetsDay;
+            ViewBag.MaxDate = GetBalanceUp().MoveBetsDay;
             return View("~/Views/WareHouse/TopCustomer/Main.cshtml", model);
         }
 
@@ -82,11 +82,11 @@ namespace Fanex.Athena.Controllers.WareHouse
 
             var totalValues = new Dictionary<string, decimal>();
 
-            ViewBag.BalanceUpDay = BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString();
+            ViewBag.BalanceUpDay = GetBalanceUp().BalanceUpDay.ToShortDateString();
             model.MainResult = _topCustomerService.GetTopCustomerList(metaModel, ref totalValues);
             model.TotalValues = totalValues;
 
-            ViewBag.MaxDate = BalanceUpService.BalanceUpInfo.MoveBetsDay;
+            ViewBag.MaxDate = GetBalanceUp().MoveBetsDay;
             return View("~/Views/WareHouse/TopCustomer/Main.cshtml", model);
         }
 

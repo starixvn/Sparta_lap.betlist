@@ -17,17 +17,17 @@
     [TestFixture]
     public class WinLossByProductDataAccessTest
     {
-        private IAppSettings _appSetting;
-
-        private WinLossByProductDataAccess _dataAccess;
-
-        private WinLossByProductMetaModel _metaModel;
-
         private readonly BalanceUp _balanceUp = new BalanceUp
         {
             BalanceUpDay = new DateTime(2018, 1, 1),
             MoveBetsDay = new DateTime(2018, 2, 2),
         };
+
+        private IAppSettings _appSetting;
+
+        private WinLossByProductDataAccess _dataAccess;
+
+        private WinLossByProductMetaModel _metaModel;
 
         [OneTimeSetUp]
         public void Setup()

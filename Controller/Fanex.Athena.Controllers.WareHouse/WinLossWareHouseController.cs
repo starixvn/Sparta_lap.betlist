@@ -38,7 +38,7 @@ namespace Fanex.Athena.Controllers.WareHouse
             var licenseeId = licenseeSession.LicenseeId;
             var currencyList = userSession.CurrencyList;
             var metaModel = new WinLossMetaModel { LicenseeId = licenseeId };
-            metaModel.FromDate = metaModel.ToDate = BalanceUpService.BalanceUpInfo.MoveBetsDay;
+            metaModel.FromDate = metaModel.ToDate = GetBalanceUp().MoveBetsDay;
 
             var productAccess = ProductService.GetProductAccess(licenseeId, userSession.Language);
 
@@ -51,7 +51,7 @@ namespace Fanex.Athena.Controllers.WareHouse
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
-            ViewBag.MaxDate = BalanceUpService.BalanceUpInfo.MoveBetsDay;
+            ViewBag.MaxDate = GetBalanceUp().MoveBetsDay;
             return View("~/Views/WareHouse/WinLoss/Main.cshtml", model);
         }
 
@@ -125,7 +125,7 @@ namespace Fanex.Athena.Controllers.WareHouse
             model.MainResult = _winLossService.GetDataList(metaModel, ref totalValues);
             model.TotalValues = totalValues;
 
-            ViewBag.MaxDate = BalanceUpService.BalanceUpInfo.MoveBetsDay;
+            ViewBag.MaxDate = GetBalanceUp().MoveBetsDay;
             return View("~/Views/WareHouse/WinLoss/Main.cshtml", model);
         }
     }

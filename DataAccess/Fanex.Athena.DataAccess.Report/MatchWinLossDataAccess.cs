@@ -40,11 +40,11 @@ namespace Fanex.Athena.DataAccess.Report
 
         public IList<MatchWinLoss> GetDataList(MatchWinLossMetaModel metaModel)
         {
-            const string uspName = "Lrf_Rpt_MatchWinLoss";
+            const string UspName = "Lrf_Rpt_MatchWinLoss";
 
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
@@ -63,17 +63,17 @@ namespace Fanex.Athena.DataAccess.Report
             catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, uspName);
+                throw new DataAccessException(sqlException.Message, UspName);
             }
         }
 
         public DataSet GetDetailDataSet(MatchWinLossMetaModel metaModel)
         {
-            const string uspName = "Lrf_Rpt_MatchWinLossDetail";
+            const string UspName = "Lrf_Rpt_MatchWinLossDetail";
 
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("FromDate", DbType.DateTime, metaModel.Date);
@@ -92,17 +92,17 @@ namespace Fanex.Athena.DataAccess.Report
             catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, uspName);
+                throw new DataAccessException(sqlException.Message, UspName);
             }
         }
 
         public IList<MatchWinLoss> GetDetailDataList(MatchWinLossMetaModel metaModel)
         {
-            const string uspName = "Lrf_Rpt_MatchWinLossByBettype";
+            const string UspName = "Lrf_Rpt_MatchWinLossByBettype";
 
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
@@ -124,17 +124,17 @@ namespace Fanex.Athena.DataAccess.Report
             catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, uspName);
+                throw new DataAccessException(sqlException.Message, UspName);
             }
         }
 
         public IList<MatchWinLoss> GetOutrightParlayList(MatchWinLossMetaModel metaModel)
         {
-            const string uspName = "Lrf_Rpt_MatchWinLossByOutrightParlay";
+            const string UspName = "Lrf_Rpt_MatchWinLossByOutrightParlay";
 
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     var showSb = metaModel.ProductOptions.Any(i => i.Status && i.Code == Product.SB);
                     var showBa = metaModel.ProductOptions.Any(i => i.Status && i.Code == Product.BA);
@@ -156,7 +156,7 @@ namespace Fanex.Athena.DataAccess.Report
             catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, uspName);
+                throw new DataAccessException(sqlException.Message, UspName);
             }
         }
 
@@ -179,11 +179,10 @@ namespace Fanex.Athena.DataAccess.Report
             var hasKickOffTime = reader.HasColumn("KickoffTime");
             var hasShowTime = reader.HasColumn("showtime");
             var hasSportType = reader.HasColumn("sporttype");
-
             var dataList = new List<MatchWinLoss>();
             while (reader.Read())
             {
-                var matchWinLoss = new MatchWinLoss
+                dataList.Add(new MatchWinLoss
                 {
                     LeagueId = reader.ToInt("leagueid"),
                     MatchId = reader.ToInt("matchid"),
@@ -207,8 +206,7 @@ namespace Fanex.Athena.DataAccess.Report
                     ShowTime = hasShowTime ? reader.ToString("showtime") : string.Empty,
                     SportType = hasSportType ? reader.ToShort("sporttype") : (short)0,
                     KickOffTime = hasKickOffTime ? reader.ToDateTime("KickoffTime") : DateTime.MinValue
-                };
-                dataList.Add(matchWinLoss);
+                });
             }
 
             return dataList;

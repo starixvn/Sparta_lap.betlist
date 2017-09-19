@@ -13,6 +13,8 @@ namespace Fanex.Athena.Api.Report
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
+    using DataAccess.Core.Configuration;
+    using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -20,8 +22,6 @@ namespace Fanex.Athena.Api.Report
     using Model.Core.DataDomain;
     using Resources;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Configuration;
-    using Service.Core.Configuration.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Report;
     using Service.Report.Interfaces;
@@ -31,22 +31,22 @@ namespace Fanex.Athena.Api.Report
     {
         private readonly IWinLossByLeagueService _winlossByLeagueService;
 
-        private readonly IBalanceUpService _balanceUpService;
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         public WinLossByLeagueReportController()
         {
             _winlossByLeagueService = new WinLossByLeagueService();
-            _balanceUpService = new BalanceUpService();
+            _balanceUpDataAccess = new BalanceUpDataAccess();
         }
 
         public WinLossByLeagueReportController(
             ISessionService sessionService,
             IProductService productService,
-            IBalanceUpService balanceUpService,
+            IBalanceUpDataAccess balanceUpDataAccess,
             IWinLossByLeagueService winlossByLeagueService)
             : base(sessionService, productService)
         {
-            _balanceUpService = balanceUpService;
+            _balanceUpDataAccess = balanceUpDataAccess;
             _winlossByLeagueService = winlossByLeagueService;
         }
 
@@ -127,9 +127,10 @@ namespace Fanex.Athena.Api.Report
 
         private IEnumerable<WinLossByLeague> GetData(WinLossByLeagueMetaModel metaModel, out WinLossByLeague grandTotal, ref int totalrows)
         {
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            metaModel.MoveBetsDay = _balanceUpService.BalanceUpInfo.MoveBetsDay;
-            metaModel.BalanceUpDay = _balanceUpService.BalanceUpInfo.BalanceUpDay;
+            metaModel.MoveBetsDay = balanceUp.MoveBetsDay;
+            metaModel.BalanceUpDay = balanceUp.BalanceUpDay;
 
             IEnumerable<WinLossByLeague> dataList = null;
             if (metaModel.Level == 0)
