@@ -15,7 +15,10 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
+            var productAccess = this.ProductService.GetSingleWalletProductAccess(
+                licenseeSession.LicenseeId,
+                userSession.Language,
+                FunctionNames.SubsidiaryPerformance);
 
             var model = new SubsidiaryPerformanceViewModel
             {

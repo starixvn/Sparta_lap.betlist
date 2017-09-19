@@ -70,11 +70,7 @@ class FormFilter extends Component {
         this.props.setSelectedSubsidiary(selectedItemsKey)
     }
 
-    applyDateRangeHandler = (date, isValidMonthRange) => {
-        this._updateDateRange(date, isValidMonthRange);
-    }
-
-    _updateDateRange(date, isValidMonthRange = true) {
+    applyDateRangeHandler = (date, isValidMonthRange = true) => {
         const { setValidDateRange, setDateRange } = this.props;
 
         if (!isValidMonthRange) {

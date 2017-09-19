@@ -22,7 +22,6 @@ input[type="checkbox"].checkbox {
             content: '';
             left: 0;
             position: absolute;
-            z-index: 1;
         }
 
         &:before {
@@ -39,7 +38,6 @@ input[type="checkbox"].checkbox {
             width: 15px;
             height: 15px;
             background-color: transparent;
-            z-index: 0;
             border: 1px solid $colorDefault;
         }
     }

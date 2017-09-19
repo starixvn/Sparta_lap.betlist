@@ -13,6 +13,8 @@ $calendar-shadow: rgba($calendar-color, 0.25) 0 0 1em !default;
 
 $disable-background-button: #d2d8dc;
 
+$indexNormal: 1;
+
 .daterange-container {
     position: relative;
 
@@ -44,7 +46,7 @@ $disable-background-button: #d2d8dc;
     box-shadow: $calendar-shadow;
     position: absolute;
     min-width: 735px;
-    z-index: 1;
+    z-index: $indexNormal;
     top: 28px;
 
     .rdr-Calendar {
