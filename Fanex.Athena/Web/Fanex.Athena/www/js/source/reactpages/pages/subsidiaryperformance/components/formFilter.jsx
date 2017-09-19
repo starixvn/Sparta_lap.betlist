@@ -34,7 +34,7 @@ class FormFilter extends Component {
     exportExcel = (event) => {
         event.preventDefault();
         const params = this._getParams();
-        
+
         this.props.exportExcel(params).then(response => {
             const excel = new ReportExcel(response.data);
             excel.export();
@@ -70,11 +70,14 @@ class FormFilter extends Component {
         this.props.setSelectedSubsidiary(selectedItemsKey)
     }
 
-    applyDateRangeHandler = (date) => {
-        const { setValidDateRange, setDateRange } = this.props;
-        const range = date.endDate.clone().subtract(date.startDate.month(), "month");
+    applyDateRangeHandler = (date, isValidMonthRange) => {
+        this._updateDateRange(date, isValidMonthRange);
+    }
 
-        if (range.month() > RANGE_MONTH_CONSTRAINT - 1) {
+    _updateDateRange(date, isValidMonthRange = true) {
+        const { setValidDateRange, setDateRange } = this.props;
+
+        if (!isValidMonthRange) {
             const message = LangHelper.getSingleResource("DateRangeExceedMsg").replace("{0}", RANGE_MONTH_CONSTRAINT);
             alert(message);
             setValidDateRange(false);
@@ -129,7 +132,8 @@ class FormFilter extends Component {
         return (
             <DateRange startDate={dateRange.fromDate} endDate={dateRange.toDate}
                 minDate={dateConstraint.minDate} maxDate={dateConstraint.maxDate}
-                onClickApplyButton={this.applyDateRangeHandler} />
+                limitedMonthRange={RANGE_MONTH_CONSTRAINT}
+                onChange={this.applyDateRangeHandler} />
         )
     }
 

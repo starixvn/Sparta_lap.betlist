@@ -121,7 +121,7 @@ class Calendar extends Component {
   handleSelect(newDate) {
     const { link, onChange } = this.props;
 
-    onChange && onChange(newDate, Calendar);
+    onChange && onChange(newDate);
 
     if (!link) {
       this.setState({ date: newDate });
