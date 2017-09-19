@@ -16,8 +16,8 @@ class FormFilter extends Component {
     }
 
     get isValidModel() {
-        const { selectedSubsidiary, selectedProduct, isValidDateRange } = this.props;
-        return selectedSubsidiary !== "" && selectedProduct !== "" && isValidDateRange;
+        const { selectedSubsidiary, selectedProduct } = this.props;
+        return selectedSubsidiary !== "" && selectedProduct !== "";
     }
 
     submit = (event) => {
@@ -71,17 +71,15 @@ class FormFilter extends Component {
     }
 
     applyDateRangeHandler = (date, isValidMonthRange = true) => {
-        const { setValidDateRange, setDateRange } = this.props;
+        const { setDateRange } = this.props;
 
-        if (!isValidMonthRange) {
+        if (isValidMonthRange) {
+            setDateRange(date);
+        }
+        else {
             const message = LangHelper.getSingleResource("DateRangeExceedMsg").replace("{0}", RANGE_MONTH_CONSTRAINT);
             alert(message);
-            setValidDateRange(false);
-            return;
         }
-
-        setValidDateRange(true);
-        setDateRange(date);
     }
 
     _renderSubsidiarySelectList() {
@@ -106,6 +104,8 @@ class FormFilter extends Component {
                 keyField={"Code"}
                 valueField={"Name"}
                 statusField={"Status"}
+                optionAllLabel={LangHelper.getSingleResource("All")}
+                noneSelectedLabel={LangHelper.getSingleResource("SelectOptions")}
                 onChange={this.productChangeHandler} />
         ) : null;
     }

@@ -19,13 +19,6 @@ export const setDateRange = (dateRange) => {
     }
 }
 
-export const setValidDateRange = (isValid) => {
-    return {
-        type: types.SET_VALID_DATE_RANGE,
-        data: isValid
-    }
-}
-
 export const changeConvertAll = (checked) => {
     return {
         type: types.CHANGE_CONVERT_ALL,

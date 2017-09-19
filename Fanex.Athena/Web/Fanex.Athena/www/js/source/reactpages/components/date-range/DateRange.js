@@ -24,6 +24,7 @@ class DateRange extends Component {
     this.ranges = { ...defaultOptions.ranges, ...props.ranges };
 
     this.currentRange = { startDate, endDate };
+    this.isValid = true;
 
     this.state = {
       range: { startDate, endDate },
@@ -111,13 +112,13 @@ class DateRange extends Component {
         break;
     }
 
-    const isValidMonthRange = this.isValidMonthRange(range);
-    if (isValidMonthRange) {
+    this.isValid = this.isValidMonthRange(range);
+    if (this.isValid) {
       const triggerChange = !this.props.twoStepChange || this.step === 0 && this.props.twoStepChange;
       this.setRange(range, triggerChange);
     }
     else {
-      this.props.onChange && this.props.onChange(range, isValidMonthRange);
+      this.props.onChange && this.props.onChange(range, this.isValid);
     }
   }
 
@@ -143,13 +144,10 @@ class DateRange extends Component {
   handleApply() {
     const { onClickApplyButton } = this.props;
     const range = this.state.range;
-    const isValidMonthRange = this.isValidMonthRange(range);
-    onClickApplyButton && onClickApplyButton(range, isValidMonthRange);
-
-    if (isValidMonthRange) {
-      this.currentRange = Object.assign({}, range);
-      this.hide();
-    }
+    onClickApplyButton && onClickApplyButton(range, this.isValid);
+    
+    this.currentRange = Object.assign({}, range);
+    this.hide();
   }
 
   componentWillReceiveProps(newProps) {

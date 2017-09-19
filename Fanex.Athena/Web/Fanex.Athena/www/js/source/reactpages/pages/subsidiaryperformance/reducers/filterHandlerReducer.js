@@ -36,9 +36,3 @@ export const dateConstraint = createReducer({}, {
         return action.data;
     }
 })
-
-export const isValidDateRange = createReducer({}, {
-    [types.SET_VALID_DATE_RANGE](state, action) {
-        return action.data
-    }
-})
