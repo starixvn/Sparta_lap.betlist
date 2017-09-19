@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Core.Configuration.Interfaces;
     using Data;
     using Extension.Utility;
@@ -70,11 +71,12 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlossByProduct")).Returns(objectDb);
-            IDictionary<string, IList<WinLossByProduct>> summaryTotal;
+            IEnumerable<WinLossByProduct> totalData;
+            IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal;
             IResultInfo resultInfo;
 
             // Action
-            _dataAccess.GetWinlossByProducts(_metaModel, out summaryTotal, out resultInfo);
+            _dataAccess.GetWinlossByProducts(_metaModel, out totalData, out summaryTotal, out resultInfo);
 
             // Assert
             Assert.Multiple(() =>
@@ -110,7 +112,8 @@
             };
 
             MapReaderData(reader, readerDataMapping);
-            IDictionary<string, IList<WinLossByProduct>> summaryTotal;
+            IEnumerable<WinLossByProduct> totalData;
+            IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal;
             IResultInfo resultInfo;
 
             // Action
@@ -119,15 +122,16 @@
                 {
                     BaseCurrency = "USD"
                 },
+                out totalData,
                 out summaryTotal,
                 out resultInfo);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count, Is.EqualTo(1));
-                Assert.That(result[0].TurnOver, Is.EqualTo(999));
-                Assert.That(result[0].Date, Is.EqualTo(new DateTime(2019, 1, 1)));
+                Assert.That(result.Count(), Is.EqualTo(1));
+                Assert.That(result.ElementAt(0).TurnOver, Is.EqualTo(999));
+                Assert.That(result.ElementAt(0).Date, Is.EqualTo(new DateTime(2019, 1, 1)));
 
                 Assert.That(resultInfo.ExtendedData, Is.EqualTo("1000;ABC"));
             });
@@ -139,10 +143,11 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlossByProductDetail_Ag")).Returns(objectDb);
-            IDictionary<string, IList<WinLossByProduct>> summaryTotal;
+            IEnumerable<WinLossByProduct> totalData;
+            IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal;
 
             // Action
-            _dataAccess.GetWinlossByProductAgents(_metaModel, out summaryTotal);
+            _dataAccess.GetWinlossByProductAgents(_metaModel, out totalData, out summaryTotal);
 
             // Assert
             Assert.Multiple(() =>
@@ -164,10 +169,11 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlossByProductDetail")).Returns(objectDb);
-            IDictionary<string, IList<WinLossByProduct>> summaryTotal;
+            IEnumerable<WinLossByProduct> totalData;
+            IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal;
 
             // Action
-            _dataAccess.GetWinlossByProductCustomers(_metaModel, out summaryTotal);
+            _dataAccess.GetWinlossByProductCustomers(_metaModel, out totalData, out summaryTotal);
 
             // Assert
             Assert.Multiple(() =>

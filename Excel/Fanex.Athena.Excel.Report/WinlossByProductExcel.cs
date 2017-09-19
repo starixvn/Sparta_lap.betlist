@@ -13,16 +13,11 @@ namespace Fanex.Athena.Excel.Report
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Helpers;
-    using Model.Core.Helper;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
-    using Model.Report.ViewModel;
     using NPOI.SS.UserModel;
     using Resources;
 
-    /// <summary>
-    /// Win loss by product - Export excel.
-    /// </summary>
     public class WinlossByProductExcel : ReportBase
     {
         private const int ColumnAmtDueTo = 12;
@@ -47,8 +42,9 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTotalSolidBorder = 8;
 
         private readonly WinLossByProductMetaModel _metaModel;
-        private readonly IDictionary<string, IList<WinLossByProduct>> _summaryTotal;
-        private readonly IList<WinLossByProduct> _winlossByProductList;
+        private readonly IDictionary<string, IEnumerable<WinLossByProduct>> _summaryTotal;
+        private readonly IEnumerable<WinLossByProduct> _dataList;
+        private readonly IEnumerable<WinLossByProduct> _totalData;
         private readonly string _systemId;
         private readonly string _errorMessage;
 
@@ -59,15 +55,18 @@ namespace Fanex.Athena.Excel.Report
                                      ConvertingOption convertingOption,
                                      ShowingOption showingOption,
                                      WinLossByProductMetaModel metaModel,
-                                     WinLossByProductViewModel viewModel,
                                      string systemId,
-                                     string errorMessage)
+                                     string errorMessage,
+                                     IEnumerable<WinLossByProduct> dataList,
+                                     IEnumerable<WinLossByProduct> totalData,
+                                     IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal)
             : base(templatePath, showingOption)
         {
             _convertingOption = convertingOption;
             _metaModel = metaModel;
-            _winlossByProductList = viewModel.MainResult;
-            _summaryTotal = viewModel.SummaryTotal;
+            _dataList = dataList;
+            _totalData = totalData;
+            _summaryTotal = summaryTotal;
             _systemId = systemId;
             _errorMessage = errorMessage;
 
@@ -89,39 +88,9 @@ namespace Fanex.Athena.Excel.Report
             };
         }
 
-        public byte EnableReportByMonth
-        {
-            get;
-            set;
-        }
-
-        public int FilterCurrencyId
-        {
-            get;
-            set;
-        }
-
-        public int Level
-        {
-            get;
-            set;
-        }
-
-        public bool ReportByMonthly
-        {
-            get;
-            set;
-        }
-
-        public string TitleReport
-        {
-            get;
-            set;
-        }
-
         protected override void AssignData()
         {
-            int numOfDataRow = _winlossByProductList.Count;
+            int numOfDataRow = _dataList.Count();
 
             ISheet sheet = Workbook.CloneSheet("Template", "Data");
 
@@ -140,10 +109,6 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignHeader(ISheet sheet)
         {
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
@@ -166,17 +131,13 @@ namespace Fanex.Athena.Excel.Report
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, ColumnTemplateCount, message);
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignSheetData(ISheet sheet)
         {
             int indexReport = 1;
 
             int currentRow = 3;
 
-            int rowCount = _winlossByProductList.Count;
+            int rowCount = _dataList.Count();
 
             string date = DateTime.MinValue.ToShortDateString();
 
@@ -184,7 +145,7 @@ namespace Fanex.Athena.Excel.Report
 
             for (int index = 0; index < rowCount; index++)
             {
-                WinLossByProduct winlossByProduct = _winlossByProductList[index];
+                WinLossByProduct winlossByProduct = _dataList.ElementAt(index);
 
                 indexReport = SetDateWinLoss(sheet, winlossByProduct, indexReport, ref date, ref currentRow);
 
@@ -277,7 +238,7 @@ namespace Fanex.Athena.Excel.Report
                 sheet.HideColumn(ColumnComm);
             }
 
-            switch (Level)
+            switch (_metaModel.Level)
             {
                 case 0:
                     sheet.HideColumn(ColumnExternalId, ColumnSystemId);
@@ -335,7 +296,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="currentRow">Excel row index.</param>
         protected void AssignSummaryTotal(ISheet sheet, int currentRow)
         {
-            List<string> currencyList = _summaryTotal.Keys.ToList();
+            var currencyList = _summaryTotal.Keys.ToList();
             currencyList.Reverse();
 
             int temp = 0;
@@ -343,7 +304,7 @@ namespace Fanex.Athena.Excel.Report
             foreach (string currency in currencyList)
             {
                 int rowBegin = currentRow;
-                IList<WinLossByProduct> productSummaryList = _summaryTotal[currency];
+                var productSummaryList = _summaryTotal[currency];
 
                 foreach (WinLossByProduct productSummary in productSummaryList)
                 {
@@ -368,13 +329,12 @@ namespace Fanex.Athena.Excel.Report
         protected int AssignTotalData(ISheet sheet, int currentRow)
         {
             int rowBegin = currentRow;
-            var totalCurrencyList = GetTotalCurrencyList();
-            var currencyList = totalCurrencyList.OrderBy(i => i.CurrencyName).GroupBy(a => a.CurrencyName).ToList();
+            var currencyList = _totalData.GroupBy(a => a.CurrencyName).ToList();
             var isFirstRowTotal = true;
 
             foreach (var currency in currencyList)
             {
-                var data = totalCurrencyList.Where(a => a.CurrencyName == currency.Key).ToList();
+                var data = _totalData.Where(a => a.CurrencyName == currency.Key).ToList();
                 sheet.MergeCells(currentRow, ColumnCurrency, currentRow + data.Count - 1, ColumnCurrency);
                 foreach (var item in data)
                 {
@@ -414,7 +374,7 @@ namespace Fanex.Athena.Excel.Report
             int[] rowList = GetRowNumberFromTemplate(nameOfRow);
 
             int rowNumber;
-            if (Level == 0 && (productName == "Sportsbook" || productName == "Number Game"))
+            if (_metaModel.Level == 0 && (productName == "Sportsbook" || productName == "Number Game"))
             {
                 rowNumber = rowList[0];
             }
@@ -438,24 +398,24 @@ namespace Fanex.Athena.Excel.Report
         /// <returns>Row span count. </returns>
         protected int CalculateReportRowSpan(WinLossByProduct winlossByProduct)
         {
-            var rowSameValueList = _winlossByProductList
+            var rowSameValueList = _dataList
                                 .Where(a => a.CurrencyId == winlossByProduct.CurrencyId);
 
-            if (Level == 0)
+            if (_metaModel.Level == 0)
             {
                 rowSameValueList =
-                    _winlossByProductList.Where(
+                    _dataList.Where(
                         a => a.Date == winlossByProduct.Date && a.CurrencyId == winlossByProduct.CurrencyId);
             }
-            else if (Level == 1)
+            else if (_metaModel.Level == 1)
             {
                 rowSameValueList =
-                    _winlossByProductList.Where(
+                    _dataList.Where(
                         a => a.SystemId == winlossByProduct.SystemId);
             }
-            else if (Level == 2)
+            else if (_metaModel.Level == 2)
             {
-                rowSameValueList = _winlossByProductList.Where(a => a.ExternalId == winlossByProduct.ExternalId &&
+                rowSameValueList = _dataList.Where(a => a.ExternalId == winlossByProduct.ExternalId &&
                                    a.SystemId == winlossByProduct.SystemId &&
                                    a.CurrencyId == winlossByProduct.CurrencyId);
             }
@@ -469,7 +429,7 @@ namespace Fanex.Athena.Excel.Report
 
             sheet.MergeCells(rowBegin, ColumnIndex, currentRow - 1, ColumnCurrency - 1);
 
-            if (Level != 0)
+            if (_metaModel.Level != 0)
             {
                 sheet.MergeCells(rowBegin, CellIndex, currentRow - 1, CellIndex);
             }
@@ -493,14 +453,14 @@ namespace Fanex.Athena.Excel.Report
             ref string date,
             ref int currentRow)
         {
-            if (Level == 0)
+            if (_metaModel.Level == 0)
             {
                 DateTime dateGetDb = winlossByProduct.Date;
 
                 if (date != dateGetDb.ToShortDateString())
                 {
                     // Report Date
-                    string reportDateString = EnableReportByMonth == 1
+                    string reportDateString = _metaModel.ReportBy == 1
                                               ? dateGetDb.ToShortDateString()
                                               : dateGetDb.ToString("MM/yyyy");
                     sheet.SetTextRowValue(TemplateSheet, RowContentTitleTemplate, currentRow, ColumnTemplateCount, reportDateString);
@@ -510,32 +470,6 @@ namespace Fanex.Athena.Excel.Report
             }
 
             return indexReport;
-        }
-
-        /// <summary>
-        /// Get data for summary data by currency.
-        /// </summary>
-        /// <returns>Summary data list.</returns>
-        private List<WinLossByProduct> GetTotalCurrencyList()
-        {
-            List<WinLossByProduct> listTotalCurrency =
-                _winlossByProductList.GroupBy(x => new { x.CurrencyId, x.CurrencyName, x.ProductCode })
-                .Select(group => new WinLossByProduct
-                {
-                    CurrencyId = group.Key.CurrencyId,
-                    CurrencyName = group.Key.CurrencyName,
-                    ProductCode = group.Key.ProductCode,
-                    ProductName = ProductHelper.GetProductName(group.Key.ProductCode),
-                    TurnOver = group.Sum(a => a.TurnOver),
-                    TotalTransaction = group.Sum(a => a.TotalTransaction),
-                    CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
-                    CustomerComm = group.Sum(a => a.CustomerComm),
-                    LicenseeWL = group.Sum(a => a.LicenseeWL),
-                    LicenseeWLComm = group.Sum(a => a.LicenseeWLComm),
-                    AmountDue = group.Sum(a => a.AmountDue)
-                }).ToList();
-
-            return listTotalCurrency;
         }
     }
 }

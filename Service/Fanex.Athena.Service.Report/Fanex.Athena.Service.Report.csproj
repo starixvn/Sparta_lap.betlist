@@ -204,7 +204,6 @@
     <Compile Include="WinLossByLeagueService.cs" />
     <Compile Include="Result\ResultService.cs" />
     <Compile Include="CreditBalanceService.cs" />
-    <Compile Include="WinLossByProductService.cs" />
     <Compile Include="CustomerTurnoverService.cs" />
     <Compile Include="DailyRacingWinLossService.cs" />
     <Compile Include="LiveReportService.cs" />
@@ -232,7 +231,6 @@
     <Compile Include="Interfaces\ISettledMatchCountService.cs" />
     <Compile Include="Interfaces\ITurnoverService.cs" />
     <Compile Include="Interfaces\IWinLossByBetTypeServive.cs" />
-    <Compile Include="Interfaces\IWinLossByProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

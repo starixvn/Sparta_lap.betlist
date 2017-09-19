@@ -3,14 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Web.Http.Results;
+    using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
     using Excel.Report;
-    using Fanex.Athena.Service.Report.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
+    using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
-    using Model.Report.ViewModel;
     using NPOI.SS.UserModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -23,7 +23,7 @@
     {
         private ISessionService _sessionService;
         private IProductService _productService;
-        private IWinLossByProductService _service;
+        private IWinLossByProductDataAccess _dataAccess;
         private WinLossByProductReportController _controller;
 
         [SetUp]
@@ -31,15 +31,15 @@
         {
             _sessionService = Substitute.For<ISessionService>();
             _productService = Substitute.For<IProductService>();
-            _service = Substitute.For<IWinLossByProductService>();
-            _controller = Substitute.ForPartsOf<WinLossByProductReportController>(_sessionService, _productService, _service);
+            _dataAccess = Substitute.For<IWinLossByProductDataAccess>();
+            _controller = Substitute.ForPartsOf<WinLossByProductReportController>(_sessionService, _productService, _dataAccess);
             CreateSession();
         }
 
         [TearDown]
         public void TearDown()
         {
-            _service = null;
+            _dataAccess = null;
             _controller = null;
             _sessionService = null;
         }
@@ -63,18 +63,19 @@
         {
             // Arrange
             const int CurrencyId = -2, Level = 0, CustId = 1;
-            IDictionary<string, IList<WinLossByProduct>> summaryData;
+            IEnumerable<WinLossByProduct> totalData;
+            IDictionary<string, IEnumerable<WinLossByProduct>> summaryData;
             IResultInfo resultInfo;
             var dataListResult = new List<WinLossByProduct>
             {
                 new WinLossByProduct()
             };
 
-            var summaryTotalResult = new Dictionary<string, IList<WinLossByProduct>> { { "EUR", new List<WinLossByProduct>() } };
-            _service.GetWinlossByProducts(Arg.Any<WinLossByProductMetaModel>(), out summaryData, out resultInfo).Returns(x =>
+            var summaryTotalResult = new Dictionary<string, IEnumerable<WinLossByProduct>> { { "EUR", new List<WinLossByProduct>() } };
+            _dataAccess.GetWinlossByProducts(Arg.Any<WinLossByProductMetaModel>(), out totalData, out summaryData, out resultInfo).Returns(x =>
             {
-                x[1] = summaryTotalResult;
-                x[2] = new ResultInfo
+                x[2] = summaryTotalResult;
+                x[3] = new ResultInfo
                 {
                     Code = errorCode
                 };
@@ -82,12 +83,12 @@
             });
 
             // Action
-            var result = _controller.Index(new WinLossByProductMetaModel(), null, null, Level, CurrencyId, CustId);
+            var result = _controller.Index(CreateValidMetaModel(), null, null, Level, CurrencyId, CustId);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _service.Received().GetWinlossByProducts(Arg.Any<WinLossByProductMetaModel>(), out summaryData, out resultInfo);
+                _dataAccess.Received().GetWinlossByProducts(Arg.Any<WinLossByProductMetaModel>(), out totalData, out summaryData, out resultInfo);
                 Assert.That(result.Data.Count, Is.EqualTo(1));
                 Assert.That(result.SummaryTotal.Count, Is.EqualTo(1));
                 Assert.That(result.ErrorMessage, Is.EqualTo(ViewResources.ResourceManager.GetString(errorMessageKey)));
@@ -99,12 +100,13 @@
         {
             // Arrange
             const int CurrencyId = -2, Level = 0, CustId = 1;
-            IDictionary<string, IList<WinLossByProduct>> summaryData;
+            IEnumerable<WinLossByProduct> totalData;
+            IDictionary<string, IEnumerable<WinLossByProduct>> summaryData;
             IResultInfo resultInfo;
-            var metaModel = new WinLossByProductMetaModel();
-            _service.GetWinlossByProducts(Arg.Any<WinLossByProductMetaModel>(), out summaryData, out resultInfo).Returns(x =>
+            var metaModel = CreateValidMetaModel();
+            _dataAccess.GetWinlossByProducts(Arg.Any<WinLossByProductMetaModel>(), out totalData, out summaryData, out resultInfo).Returns(x =>
             {
-                x[2] = new ResultInfo
+                x[3] = new ResultInfo
                 {
                     ExtendedData = "123;456"
                 };
@@ -123,26 +125,27 @@
         {
             // Arrange
             const int CurrencyId = -2, Level = 1, CustId = 1;
-            IDictionary<string, IList<WinLossByProduct>> summaryData;
+            IEnumerable<WinLossByProduct> totalData;
+            IDictionary<string, IEnumerable<WinLossByProduct>> summaryData;
             var dataListResult = new List<WinLossByProduct>
             {
                 new WinLossByProduct()
             };
 
-            var summaryTotalResult = new Dictionary<string, IList<WinLossByProduct>> { { "EUR", new List<WinLossByProduct>() } };
-            _service.GetWinlossByProductAgents(Arg.Any<WinLossByProductMetaModel>(), out summaryData).Returns(x =>
+            var summaryTotalResult = new Dictionary<string, IEnumerable<WinLossByProduct>> { { "EUR", new List<WinLossByProduct>() } };
+            _dataAccess.GetWinlossByProductAgents(Arg.Any<WinLossByProductMetaModel>(), out totalData, out summaryData).Returns(x =>
             {
-                x[1] = summaryTotalResult;
+                x[2] = summaryTotalResult;
                 return dataListResult;
             });
 
             // Action
-            var result = _controller.Index(new WinLossByProductMetaModel(), null, null, Level, CurrencyId, CustId);
+            var result = _controller.Index(CreateValidMetaModel(), null, null, Level, CurrencyId, CustId);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _service.Received().GetWinlossByProductAgents(Arg.Any<WinLossByProductMetaModel>(), out summaryData);
+                _dataAccess.Received().GetWinlossByProductAgents(Arg.Any<WinLossByProductMetaModel>(), out totalData, out summaryData);
                 Assert.That(result.Data.Count, Is.EqualTo(1));
                 Assert.That(result.SummaryTotal.Count, Is.EqualTo(1));
             });
@@ -153,26 +156,27 @@
         {
             // Arrange
             const int CurrencyId = -2, Level = 2, CustId = 1;
-            IDictionary<string, IList<WinLossByProduct>> summaryData;
+            IEnumerable<WinLossByProduct> totalData;
+            IDictionary<string, IEnumerable<WinLossByProduct>> summaryData;
             var dataListResult = new List<WinLossByProduct>
             {
                 new WinLossByProduct()
             };
 
-            var summaryTotalResult = new Dictionary<string, IList<WinLossByProduct>> { { "EUR", new List<WinLossByProduct>() } };
-            _service.GetWinlossByProductCustomers(Arg.Any<WinLossByProductMetaModel>(), out summaryData).Returns(x =>
+            var summaryTotalResult = new Dictionary<string, IEnumerable<WinLossByProduct>> { { "EUR", new List<WinLossByProduct>() } };
+            _dataAccess.GetWinlossByProductCustomers(Arg.Any<WinLossByProductMetaModel>(), out totalData, out summaryData).Returns(x =>
             {
-                x[1] = summaryTotalResult;
+                x[2] = summaryTotalResult;
                 return dataListResult;
             });
 
             // Action
-            var result = _controller.Index(new WinLossByProductMetaModel(), null, null, Level, CurrencyId, CustId);
+            var result = _controller.Index(CreateValidMetaModel(), null, null, Level, CurrencyId, CustId);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _service.Received().GetWinlossByProductCustomers(Arg.Any<WinLossByProductMetaModel>(), out summaryData);
+                _dataAccess.Received().GetWinlossByProductCustomers(Arg.Any<WinLossByProductMetaModel>(), out totalData, out summaryData);
                 Assert.That(result.Data.Count, Is.EqualTo(1));
                 Assert.That(result.SummaryTotal.Count, Is.EqualTo(1));
             });
@@ -194,9 +198,11 @@
                 new ConvertingOption(),
                 new ShowingOption(),
                 metaModel,
-                new WinLossByProductViewModel(),
                 string.Empty,
-                string.Empty);
+                string.Empty,
+                null,
+                null,
+                null);
             excel.When(x => x.Export()).DoNotCallBase();
             _controller.CreateExcel(
                 Arg.Any<WinLossByProductMetaModel>(),
@@ -205,7 +211,9 @@
                 Arg.Any<string>(),
                 Arg.Any<ShowingOption>(),
                 Arg.Any<ConvertingOption>(),
-                Arg.Any<WinLossByProductViewModel>())
+                Arg.Any<IEnumerable<WinLossByProduct>>(),
+                Arg.Any<IEnumerable<WinLossByProduct>>(),
+                Arg.Any<IDictionary<string, IEnumerable<WinLossByProduct>>>())
                 .Returns(excel);
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
 
@@ -241,6 +249,20 @@
                 Assert.That(metaModel.DrillDownFromDate, Is.EqualTo(fromDate));
                 Assert.That(metaModel.DrillDownToDate, Is.EqualTo(toDate));
             });
+        }
+
+        private static WinLossByProductMetaModel CreateValidMetaModel()
+        {
+            return new WinLossByProductMetaModel
+            {
+                ProductOptions = new List<ProductOption>
+                {
+                    new ProductOption
+                    {
+                        Status = true
+                    }
+                }
+            };
         }
 
         private void CreateSession()
