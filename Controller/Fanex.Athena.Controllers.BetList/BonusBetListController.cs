@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Excel.Base;
     using Excel.Base.Entities;
+    using Excel.Base.Helpers;
     using Excel.BetList;
     using Model.BetList.MetaModel;
     using Resources;
@@ -24,7 +24,7 @@
                 return ExcelDetail(metaModel);
             }
 
-            return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+            return File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
 
         private ActionResult ExcelDetail(BetListMetaModel metaModel)
