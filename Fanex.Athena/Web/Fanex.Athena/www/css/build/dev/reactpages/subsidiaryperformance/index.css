@@ -1,3 +1,4 @@
+/* z-index */
 /* Table */
 /* Label Text */
 input[type="checkbox"].checkbox {
@@ -18,8 +19,7 @@ input[type="checkbox"].checkbox {
     input[type="checkbox"].checkbox + label:before, input[type="checkbox"].checkbox + label:after {
       content: '';
       left: 0;
-      position: absolute;
-      z-index: 1; }
+      position: absolute; }
     input[type="checkbox"].checkbox + label:before {
       width: 4px;
       height: 11px;
@@ -32,7 +32,6 @@ input[type="checkbox"].checkbox {
       width: 15px;
       height: 15px;
       background-color: transparent;
-      z-index: 0;
       border: 1px solid #2c2c2c; }
   input[type="checkbox"].checkbox:checked + label:before {
     top: 0;
@@ -222,9 +221,11 @@ input[type="checkbox"].checkbox {
 .range-button-group {
   margin-top: 5px; }
 
+/* z-index */
 /* Table */
 /* Label Text */
 /* Grid System Mixin */
+/* z-index */
 /* Table */
 /* Label Text */
 .table {

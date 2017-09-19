@@ -748,7 +748,6 @@ webpackJsonp([4],[
 	
 	var SET_DATE_RANGE = exports.SET_DATE_RANGE = "SET_DATE_RANGE";
 	var GET_DATE_CONSTRAINT = exports.GET_DATE_CONSTRAINT = "GET_DATE_CONSTRAINT";
-	var SET_VALID_DATE_RANGE = exports.SET_VALID_DATE_RANGE = "SET_VALID_DATE_RANGE";
 	var CHANGE_CONVERT_ALL = exports.CHANGE_CONVERT_ALL = "CHANGE_CONVERT_ALL";
 	
 	var GET_XSRF_TOKEN = exports.GET_XSRF_TOKEN = "GET_XSRF_TOKEN";
@@ -795,7 +794,7 @@ webpackJsonp([4],[
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.changeConvertAll = exports.setValidDateRange = exports.setDateRange = exports.setSelectedSubsidiary = undefined;
+	exports.changeConvertAll = exports.setDateRange = exports.setSelectedSubsidiary = undefined;
 	
 	var _types = __webpack_require__(432);
 	
@@ -819,13 +818,6 @@ webpackJsonp([4],[
 	    return {
 	        type: types.SET_DATE_RANGE,
 	        data: range
-	    };
-	};
-	
-	var setValidDateRange = exports.setValidDateRange = function setValidDateRange(isValid) {
-	    return {
-	        type: types.SET_VALID_DATE_RANGE,
-	        data: isValid
 	    };
 	};
 	
@@ -2038,21 +2030,16 @@ webpackJsonp([4],[
 	        };
 	
 	        _this.applyDateRangeHandler = function (date) {
-	            var _this$props = _this.props,
-	                setValidDateRange = _this$props.setValidDateRange,
-	                setDateRange = _this$props.setDateRange;
+	            var isValidMonthRange = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+	            var setDateRange = _this.props.setDateRange;
 	
-	            var range = date.endDate.clone().subtract(date.startDate.month(), "month");
 	
-	            if (range.month() > RANGE_MONTH_CONSTRAINT - 1) {
+	            if (isValidMonthRange) {
+	                setDateRange(date);
+	            } else {
 	                var message = _langHelper2.default.getSingleResource("DateRangeExceedMsg").replace("{0}", RANGE_MONTH_CONSTRAINT);
 	                alert(message);
-	                setValidDateRange(false);
-	                return;
 	            }
-	
-	            setValidDateRange(true);
-	            setDateRange(date);
 	        };
 	
 	        return _this;
@@ -2104,6 +2091,8 @@ webpackJsonp([4],[
 	                keyField: "Code",
 	                valueField: "Name",
 	                statusField: "Status",
+	                optionAllLabel: _langHelper2.default.getSingleResource("All"),
+	                noneSelectedLabel: _langHelper2.default.getSingleResource("SelectOptions"),
 	                onChange: this.productChangeHandler }) : null;
 	        }
 	    }, {
@@ -2134,7 +2123,8 @@ webpackJsonp([4],[
 	
 	            return _react2.default.createElement(_index2.DateRange, { startDate: dateRange.fromDate, endDate: dateRange.toDate,
 	                minDate: dateConstraint.minDate, maxDate: dateConstraint.maxDate,
-	                onClickApplyButton: this.applyDateRangeHandler });
+	                limitedMonthRange: RANGE_MONTH_CONSTRAINT,
+	                onChange: this.applyDateRangeHandler });
 	        }
 	    }, {
 	        key: 'render',
@@ -2250,10 +2240,9 @@ webpackJsonp([4],[
 	        get: function get() {
 	            var _props3 = this.props,
 	                selectedSubsidiary = _props3.selectedSubsidiary,
-	                selectedProduct = _props3.selectedProduct,
-	                isValidDateRange = _props3.isValidDateRange;
+	                selectedProduct = _props3.selectedProduct;
 	
-	            return selectedSubsidiary !== "" && selectedProduct !== "" && isValidDateRange;
+	            return selectedSubsidiary !== "" && selectedProduct !== "";
 	        }
 	    }]);
 	
@@ -5631,6 +5620,7 @@ webpackJsonp([4],[
 	    _this.ranges = _extends({}, _defaultOptions2.default.ranges, props.ranges);
 	
 	    _this.currentRange = { startDate: startDate, endDate: endDate };
+	    _this.isValid = true;
 	
 	    _this.state = {
 	      range: { startDate: startDate, endDate: endDate },
@@ -5643,6 +5633,7 @@ webpackJsonp([4],[
 	  _createClass(DateRange, [{
 	    key: 'show',
 	    value: function show() {
+	      this.step = 0;
 	      this.setState({ show: true });
 	    }
 	  }, {
@@ -5674,31 +5665,31 @@ webpackJsonp([4],[
 	    }
 	  }, {
 	    key: 'setRange',
-	    value: function setRange(range, source, triggerChange) {
+	    value: function setRange(range, triggerChange, show) {
 	      var onChange = this.props.onChange;
 	
 	      range = this.orderRange(range);
 	
-	      this.setState({ range: range }, function () {
-	        return triggerChange && onChange && onChange(range, source);
-	      });
+	      var callback = function callback() {
+	        triggerChange && onChange && onChange(range);
+	      };
+	
+	      if (show === undefined) {
+	        this.setState({ range: range }, callback);
+	      } else {
+	        this.setState({ range: range, show: show }, callback);
+	      }
 	    }
 	  }, {
 	    key: 'handleSelect',
-	    value: function handleSelect(date, source) {
+	    value: function handleSelect(date) {
 	      if (date.startDate && date.endDate) {
 	        //Select in range
-	        var onChange = this.props.onChange;
-	
-	
 	        this.step = 0;
-	        var _range = this.orderRange(date);
-	        var show = false;
-	
-	        this.currentRange = Object.assign({}, _range);
-	        return this.setState({ range: _range, show: show }, function () {
-	          return onChange && onChange(_range, source);
-	        });
+	        var showDaterange = false,
+	            triggerChange = true;
+	        this.currentRange = Object.assign({}, date);
+	        return this.setRange(date, triggerChange, showDaterange);
 	      }
 	
 	      var _state$range = this.state.range,
@@ -5724,9 +5715,28 @@ webpackJsonp([4],[
 	          break;
 	      }
 	
-	      var triggerChange = !this.props.twoStepChange || this.step === 0 && this.props.twoStepChange;
+	      this.isValid = this.isValidMonthRange(range);
+	      if (this.isValid) {
+	        var _triggerChange = !this.props.twoStepChange || this.step === 0 && this.props.twoStepChange;
+	        this.setRange(range, _triggerChange);
+	      } else {
+	        this.props.onChange && this.props.onChange(range, this.isValid);
+	      }
+	    }
+	  }, {
+	    key: 'isValidMonthRange',
+	    value: function isValidMonthRange(date) {
+	      var limitedMonthRange = this.props.limitedMonthRange;
 	
-	      this.setRange(range, source, triggerChange);
+	
+	      if (limitedMonthRange) {
+	        var range = date.endDate.clone().subtract(date.startDate.month(), "month");
+	        if (range.month() > limitedMonthRange - 1) {
+	          return false;
+	        }
+	      }
+	
+	      return true;
 	    }
 	  }, {
 	    key: 'handleLinkChange',
@@ -5740,8 +5750,10 @@ webpackJsonp([4],[
 	    value: function handleApply() {
 	      var onClickApplyButton = this.props.onClickApplyButton;
 	
-	      this.currentRange = Object.assign({}, this.state.range);
-	      onClickApplyButton && onClickApplyButton(this.state.range);
+	      var range = this.state.range;
+	      onClickApplyButton && onClickApplyButton(range, this.isValid);
+	
+	      this.currentRange = Object.assign({}, range);
 	      this.hide();
 	    }
 	  }, {
@@ -5756,10 +5768,12 @@ webpackJsonp([4],[
 	        var oldEndDate = this.props.endDate && (0, _parseInput2.default)(this.props.endDate, format, 'endOf');
 	
 	        if (!startDate.isSame(oldStartDate) || !endDate.isSame(oldEndDate)) {
-	          this.setRange({
+	          var range = {
 	            startDate: startDate || oldStartDate,
 	            endDate: endDate || oldEndDate
-	          });
+	          };
+	
+	          this.setRange(range);
 	        }
 	      }
 	    }
@@ -5917,7 +5931,8 @@ webpackJsonp([4],[
 	  classNames: _propTypes2.default.object,
 	  rangedCalendars: _propTypes2.default.bool,
 	  onClickApplyButton: _propTypes2.default.func,
-	  showRange: _propTypes2.default.bool
+	  showRange: _propTypes2.default.bool,
+	  limitedMonthRange: _propTypes2.default.number
 	};
 	
 	exports.default = DateRange;
@@ -21883,7 +21898,7 @@ webpackJsonp([4],[
 	          onChange = _props.onChange;
 	
 	
-	      onChange && onChange(newDate, Calendar);
+	      onChange && onChange(newDate);
 	
 	      if (!link) {
 	        this.setState({ date: newDate });
@@ -23687,11 +23702,11 @@ webpackJsonp([4],[
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.isValidDateRange = exports.dateConstraint = exports.xsrfToken = exports.convertAll = exports.dateRange = exports.selectedSubsidiary = exports.subsidiaryList = undefined;
+	exports.dateConstraint = exports.xsrfToken = exports.convertAll = exports.dateRange = exports.selectedSubsidiary = exports.subsidiaryList = undefined;
 	
-	var _createReducer8 = __webpack_require__(605);
+	var _createReducer7 = __webpack_require__(605);
 	
-	var _createReducer9 = _interopRequireDefault(_createReducer8);
+	var _createReducer8 = _interopRequireDefault(_createReducer7);
 	
 	var _types = __webpack_require__(432);
 	
@@ -23703,31 +23718,27 @@ webpackJsonp([4],[
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
-	var subsidiaryList = exports.subsidiaryList = (0, _createReducer9.default)({}, _defineProperty({}, types.GET_SUBSIDIARY, function (state, action) {
+	var subsidiaryList = exports.subsidiaryList = (0, _createReducer8.default)({}, _defineProperty({}, types.GET_SUBSIDIARY, function (state, action) {
 	    return action.data;
 	}));
 	
-	var selectedSubsidiary = exports.selectedSubsidiary = (0, _createReducer9.default)({}, _defineProperty({}, types.SET_SUBSIDIARY, function (state, action) {
+	var selectedSubsidiary = exports.selectedSubsidiary = (0, _createReducer8.default)({}, _defineProperty({}, types.SET_SUBSIDIARY, function (state, action) {
 	    return action.data;
 	}));
 	
-	var dateRange = exports.dateRange = (0, _createReducer9.default)({}, _defineProperty({}, types.SET_DATE_RANGE, function (state, action) {
+	var dateRange = exports.dateRange = (0, _createReducer8.default)({}, _defineProperty({}, types.SET_DATE_RANGE, function (state, action) {
 	    return action.data;
 	}));
 	
-	var convertAll = exports.convertAll = (0, _createReducer9.default)({}, _defineProperty({}, types.CHANGE_CONVERT_ALL, function (state, action) {
+	var convertAll = exports.convertAll = (0, _createReducer8.default)({}, _defineProperty({}, types.CHANGE_CONVERT_ALL, function (state, action) {
 	    return action.data;
 	}));
 	
-	var xsrfToken = exports.xsrfToken = (0, _createReducer9.default)({}, _defineProperty({}, types.GET_XSRF_TOKEN, function (state, action) {
+	var xsrfToken = exports.xsrfToken = (0, _createReducer8.default)({}, _defineProperty({}, types.GET_XSRF_TOKEN, function (state, action) {
 	    return action.data;
 	}));
 	
-	var dateConstraint = exports.dateConstraint = (0, _createReducer9.default)({}, _defineProperty({}, types.GET_DATE_CONSTRAINT, function (state, action) {
-	    return action.data;
-	}));
-	
-	var isValidDateRange = exports.isValidDateRange = (0, _createReducer9.default)({}, _defineProperty({}, types.SET_VALID_DATE_RANGE, function (state, action) {
+	var dateConstraint = exports.dateConstraint = (0, _createReducer8.default)({}, _defineProperty({}, types.GET_DATE_CONSTRAINT, function (state, action) {
 	    return action.data;
 	}));
 
