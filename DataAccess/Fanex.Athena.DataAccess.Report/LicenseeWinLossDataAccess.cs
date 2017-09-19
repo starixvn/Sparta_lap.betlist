@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="LicenseeWinLossDataAccess.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.DataAccess.Report
+﻿namespace Fanex.Athena.DataAccess.Report
 {
     using System.Collections.Generic;
     using System.Data;
@@ -44,7 +38,10 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public SortableList<LicenseeWinLoss> GetSummaryWinloss(LicenseeWinLossMetaModel metaModel, out IDictionary<string, LicenseeWinLoss> summaryTotal)
+        public SortableList<LicenseeWinLoss> GetSummaryWinloss(
+            LicenseeWinLossMetaModel metaModel,
+            out IEnumerable<LicenseeWinLoss> totalData,
+            out IDictionary<string, LicenseeWinLoss> summaryTotal)
         {
             const string UspName = "Lrf_Rpt_LicWinloss";
             try
@@ -56,7 +53,7 @@ namespace Fanex.Athena.DataAccess.Report
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel, false, out summaryTotal);
+                        return GetData(reader, metaModel, false, out totalData, out summaryTotal);
                     }
                 }
             }
@@ -69,6 +66,7 @@ namespace Fanex.Athena.DataAccess.Report
 
         public SortableList<LicenseeWinLoss> GetCustomerWinlossDetail(
             LicenseeWinLossMetaModel metaModel,
+            out IEnumerable<LicenseeWinLoss> totalData,
             out IDictionary<string, LicenseeWinLoss> summaryTotal)
         {
             const string UspName = "Lrf_Rpt_LicWinlossDetail";
@@ -80,7 +78,7 @@ namespace Fanex.Athena.DataAccess.Report
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel, true, out summaryTotal);
+                        return GetData(reader, metaModel, true, out totalData, out summaryTotal);
                     }
                 }
             }
@@ -93,6 +91,7 @@ namespace Fanex.Athena.DataAccess.Report
 
         public SortableList<LicenseeWinLoss> GetAgentWinlossDetail(
             LicenseeWinLossMetaModel metaModel,
+            out IEnumerable<LicenseeWinLoss> totalData,
             out IDictionary<string, LicenseeWinLoss> summaryTotal)
         {
             const string UspName = "Lrf_Rpt_LicWinlossDetail_Ag";
@@ -103,7 +102,7 @@ namespace Fanex.Athena.DataAccess.Report
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel, true, out summaryTotal);
+                        return GetData(reader, metaModel, true, out totalData, out summaryTotal);
                     }
                 }
             }
@@ -130,20 +129,11 @@ namespace Fanex.Athena.DataAccess.Report
             IDataReader reader,
             LicenseeWinLossMetaModel metaModel,
             bool drilldown,
+            out IEnumerable<LicenseeWinLoss> totalData,
             out IDictionary<string, LicenseeWinLoss> summaryTotal)
         {
             var result = new SortableList<LicenseeWinLoss>();
-            summaryTotal = new Dictionary<string, LicenseeWinLoss>();
-            foreach (var currency in SystemConstants.BaseCurrencyList)
-            {
-                summaryTotal.Add(
-                    currency,
-                    new LicenseeWinLoss
-                    {
-                        LicenseeWL = new Dictionary<string, decimal>(),
-                        TurnOver = new Dictionary<string, decimal>()
-                    });
-            }
+            summaryTotal = InitSummaryTotal();
 
             var hasSystemId = reader.HasColumn("username");
             var hasExternalId = reader.HasColumn("nickname");
@@ -219,7 +209,25 @@ namespace Fanex.Athena.DataAccess.Report
                 index++;
             }
 
+            totalData = CalculateTotal(result);
             return result;
+        }
+
+        private static IDictionary<string, LicenseeWinLoss> InitSummaryTotal()
+        {
+            var summaryTotal = new Dictionary<string, LicenseeWinLoss>();
+            foreach (var currency in SystemConstants.BaseCurrencyList)
+            {
+                summaryTotal.Add(
+                    currency,
+                    new LicenseeWinLoss
+                    {
+                        LicenseeWL = new Dictionary<string, decimal>(),
+                        TurnOver = new Dictionary<string, decimal>()
+                    });
+            }
+
+            return summaryTotal;
         }
 
         private static void ReadSummaryTotal(IDataReader reader, IList<ProductOption> productOptions, IDictionary<string, LicenseeWinLoss> summaryTotal)
@@ -266,6 +274,34 @@ namespace Fanex.Athena.DataAccess.Report
                 summaryItem.LicenseeWL = licenseeWlSummary;
                 summaryItem.TurnOver = turnOverSummary;
             }
+        }
+
+        private static IEnumerable<LicenseeWinLoss> CalculateTotal(IEnumerable<LicenseeWinLoss> dataList)
+        {
+            if (dataList == null || !dataList.Any())
+            {
+                return new List<LicenseeWinLoss>();
+            }
+
+            return dataList.GroupBy(d => d.CurrencyName).Select(g => new LicenseeWinLoss
+            {
+                CurrencyName = g.Key,
+                TurnOver = g.SelectMany(k => k.TurnOver).GroupBy(j => j.Key).ToDictionary(p => p.Key, p => p.Sum(j => j.Value)),
+                ActualStake = g.Sum(p => p.ActualStake),
+                BuyBackAmountSB = g.Sum(p => p.BuyBackAmountSB),
+                BuyBackAmountBA = g.Sum(p => p.BuyBackAmountBA),
+                TotalTransaction = g.Sum(p => p.TotalTransaction),
+                CustomerWinLoss = g.Sum(p => p.CustomerWinLoss),
+                CustomerComm = g.Sum(p => p.CustomerComm),
+                LicenseeWL = g.SelectMany(k => k.LicenseeWL).GroupBy(j => j.Key).ToDictionary(p => p.Key, p => p.Sum(j => j.Value)),
+                BetTradeCommission = g.Sum(p => p.BetTradeCommission),
+                CashOutCommission = g.Sum(p => p.CashOutCommission),
+                BACommission = g.Sum(p => p.BACommission),
+                RacingRevenue = g.Sum(p => p.RacingRevenue),
+                AmtDueToBetTrade = g.Sum(p => p.AmtDueToBetTrade),
+                AmtDueToBA = g.Sum(p => p.AmtDueToBA),
+                AmtDueToRacing = g.Sum(p => p.AmtDueToRacing),
+            }).ToList();
         }
 
         private void UpdateUspParams(IObjectDb db, LicenseeWinLossMetaModel metaModel, bool drilldown)

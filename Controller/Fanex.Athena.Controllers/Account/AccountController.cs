@@ -360,7 +360,7 @@ namespace Fanex.Athena.Controllers.Account
             if (userId > 0)
             {
                 var currencies = _currencyService.GetCurrenciesByUser(SessionService.LicenseeSession.LicenseeId, userId);
-                if (SessionService.LicenseeSession.LicenseeId == LicenseeIdentityDefinition.KeenOcean)
+                if (SessionService.LicenseeSession.LicenseeId == LicenseeIdentity.KeenOcean)
                 {
                     KeanOceanBusinessHelper.KeepHKDCurrencyName(currencies);
                 }

@@ -90,9 +90,9 @@
         [TestCase(1, CurrencyType.Cny, false)]
         [TestCase(1, CurrencyType.Hkd, true)]
         [TestCase(1, 0, false)]
-        [TestCase(LicenseeIdentityDefinition.KeenOcean, CurrencyType.Cny, true)]
-        [TestCase(LicenseeIdentityDefinition.KeenOcean, CurrencyType.Hkd, true)]
-        [TestCase(LicenseeIdentityDefinition.KeenOcean, 1000, false)]
+        [TestCase(LicenseeIdentity.KeenOcean, CurrencyType.Cny, true)]
+        [TestCase(LicenseeIdentity.KeenOcean, CurrencyType.Hkd, true)]
+        [TestCase(LicenseeIdentity.KeenOcean, 1000, false)]
         public void VerifyKeanOceanCurrencyRequest_CurrencyByLicensee_ReturnExpectedValue(int licenseeId, int currencyId, bool expectedResult)
         {
             // Arrange
@@ -115,7 +115,7 @@
             currencyList.Add(1, "USD");
 
             // Action
-            KeanOceanBusinessHelper.AddHKDCurrencyForTurnOverReport(currencyList, LicenseeIdentityDefinition.KeenOcean);
+            KeanOceanBusinessHelper.AddHKDCurrencyForTurnOverReport(currencyList, LicenseeIdentity.KeenOcean);
 
             // Assert
             Assert.True(currencyList.Any(i => i.Key == CurrencyType.Hkd));

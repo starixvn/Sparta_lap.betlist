@@ -262,7 +262,7 @@ namespace Fanex.Athena.Service.Core.Users
         {
             var currencyUserList = _currencyService.GetCurrenciesByUser(licenseeId, userSession.UserId);
 
-            if (licenseeId == LicenseeIdentityDefinition.KeenOcean)
+            if (licenseeId == LicenseeIdentity.KeenOcean)
             {
                 currencyUserList = KeanOceanBusinessHelper.ModifyCurrenciesForKeenOcean(currencyUserList);
             }

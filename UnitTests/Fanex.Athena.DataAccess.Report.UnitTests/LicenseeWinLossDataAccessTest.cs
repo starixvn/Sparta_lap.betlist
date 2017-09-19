@@ -65,10 +65,11 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LicWinloss")).Returns(objectDb);
+            IEnumerable<LicenseeWinLoss> totalData;
             IDictionary<string, LicenseeWinLoss> summaryTotal;
 
             // Action
-            _dataAccess.GetSummaryWinloss(_metaModel, out summaryTotal);
+            _dataAccess.GetSummaryWinloss(_metaModel, out totalData, out summaryTotal);
 
             // Assert
             objectDb.Received().AddInParameter("reporttype", DbType.Byte, _metaModel.ReportBy);
@@ -90,6 +91,7 @@
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LicWinloss")).Returns(objectDb);
             objectDb.ExecuteReader().Returns(reader);
+            IEnumerable<LicenseeWinLoss> totalData;
             IDictionary<string, LicenseeWinLoss> summaryTotal;
             reader.Read().Returns(true, false);
             reader.FieldCount.Returns(3);
@@ -117,7 +119,7 @@
             });
 
             // Action
-            var result = _dataAccess.GetSummaryWinloss(_metaModel, out summaryTotal);
+            var result = _dataAccess.GetSummaryWinloss(_metaModel, out totalData, out summaryTotal);
 
             // Assert
             Assert.Multiple(() =>
@@ -137,6 +139,7 @@
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LicWinloss")).Returns(objectDb);
             objectDb.ExecuteReader().Returns(reader);
+            IEnumerable<LicenseeWinLoss> totalData;
             IDictionary<string, LicenseeWinLoss> summaryTotal;
             reader.Read().Returns(true, false);
             reader.FieldCount.Returns(2);
@@ -162,7 +165,7 @@
             });
 
             // Action
-            _dataAccess.GetSummaryWinloss(_metaModel, out summaryTotal);
+            _dataAccess.GetSummaryWinloss(_metaModel, out totalData, out summaryTotal);
 
             // Assert
             Assert.Multiple(() =>
@@ -178,10 +181,11 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LicWinlossDetail")).Returns(objectDb);
+            IEnumerable<LicenseeWinLoss> totalData;
             IDictionary<string, LicenseeWinLoss> summaryTotal;
 
             // Action
-            _dataAccess.GetCustomerWinlossDetail(_metaModel, out summaryTotal);
+            _dataAccess.GetCustomerWinlossDetail(_metaModel, out totalData, out summaryTotal);
 
             // Assert
             objectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.DrillDownCustomerId);
@@ -200,10 +204,11 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LicWinlossDetail_Ag")).Returns(objectDb);
+            IEnumerable<LicenseeWinLoss> totalData;
             IDictionary<string, LicenseeWinLoss> summaryTotal;
 
             // Action
-            _dataAccess.GetAgentWinlossDetail(_metaModel, out summaryTotal);
+            _dataAccess.GetAgentWinlossDetail(_metaModel, out totalData, out summaryTotal);
 
             // Assert
             objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);

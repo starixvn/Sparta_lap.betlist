@@ -149,7 +149,7 @@
         /// <param name="licenseeId">The licensee ID.</param>
         private static void AssignCurrenciesToUserSession(UserSession userSession, IEnumerable<CurrencyUser> currencyUserList, int licenseeId)
         {
-            if (licenseeId == LicenseeIdentityDefinition.KeenOcean)
+            if (licenseeId == LicenseeIdentity.KeenOcean)
             {
                 currencyUserList = KeanOceanBusinessHelper.ModifyCurrenciesForKeenOcean(currencyUserList);
             }

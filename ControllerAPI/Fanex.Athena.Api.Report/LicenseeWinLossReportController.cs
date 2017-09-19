@@ -13,6 +13,8 @@ namespace Fanex.Athena.Api.Report
     using System.Web;
     using System.Web.Http;
     using Base.Attributes;
+    using DataAccess.Report;
+    using DataAccess.Report.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Extension.Helper;
@@ -22,17 +24,16 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
-    using Service.Report;
-    using Service.Report.Interfaces;
+    using Model.Core.MetaModel.Product;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss)]
     public class LicenseeWinLossReportController : ApiReportBaseController
     {
-        private readonly ILicenseeWinLossService _licenseeWinLossService;
+        private readonly ILicenseeWinLossDataAccess _licenseeWinLossDataAccess;
 
         public LicenseeWinLossReportController()
         {
-            _licenseeWinLossService = new LicenseeWinLossService();
+            _licenseeWinLossDataAccess = new LicenseeWinLossDataAccess();
         }
 
         [HttpPost]
@@ -54,14 +55,14 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel, null, null);
         }
 
-        private static dynamic GetEmptyResult(LicenseeWinLossMetaModel metaModel)
+        private static dynamic GetEmptyResult(IEnumerable<ProductOption> productOptions)
         {
             return new
             {
                 Data = new List<LicenseeWinLossGridViewModel>(),
                 Total = new List<LicenseeWinLossGridViewModel>(),
                 SummaryTotal = new Dictionary<string, LicenseeWinLossGridViewModel>(),
-                ProductOptions = metaModel.ProductOptions.ToJson()
+                ProductOptions = productOptions.ToJson()
             };
         }
 
@@ -185,7 +186,11 @@ namespace Fanex.Athena.Api.Report
             licenseeWinLoss.TurnOverLT = turnOverProducts.GetValueOrDefault(Product.LT, 0);
         }
 
-        private HttpResponseMessage ExportExcel(LicenseeWinLossMetaModel metaModel, IList<LicenseeWinLoss> dataList, IDictionary<string, LicenseeWinLoss> summaryTotal)
+        private HttpResponseMessage ExportExcel(
+            LicenseeWinLossMetaModel metaModel,
+            IEnumerable<LicenseeWinLoss> dataList,
+            IEnumerable<LicenseeWinLoss> totalData,
+            IDictionary<string, LicenseeWinLoss> summaryTotal)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -202,7 +207,6 @@ namespace Fanex.Athena.Api.Report
                 RBVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.RB) && productAccess.IsAllow(ProductTypes.Racing),
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
-
             var convertingOption = new ConvertingOption
             {
                 IsConvert = metaModel.IsConvert,
@@ -221,16 +225,14 @@ namespace Fanex.Athena.Api.Report
                 metaModel.ToDate = metaModel.DrillDownToDate;
             }
 
-            var excelModel = new LicenseeWinLossViewModel
-            {
-                MainResult = dataList,
-                SummaryTotal = summaryTotal,
-            };
-
-            var licenseeWinLoss = new LicenseeWinLossExcel(_licenseeWinLossService, templatePath, convertingOption, showingOption, metaModel, excelModel)
-            {
-                Level = metaModel.DrillDownLevel,
-            };
+            var licenseeWinLoss = new LicenseeWinLossExcel(
+                templatePath,
+                convertingOption,
+                showingOption,
+                metaModel,
+                dataList,
+                totalData,
+                summaryTotal);
 
             licenseeWinLoss.Export();
 
@@ -240,12 +242,22 @@ namespace Fanex.Athena.Api.Report
         private void GetData(
                 LicenseeWinLossMetaModel metaModel,
                 out SortableList<LicenseeWinLoss> dataList,
+                out IEnumerable<LicenseeWinLoss> totalData,
                 out IDictionary<string, LicenseeWinLoss> summaryTotal)
         {
-            dataList = metaModel.DrillDownLevel == 0 ? _licenseeWinLossService.GetSummaryWinloss(metaModel, out summaryTotal) :
-                                metaModel.LicenseeId > 0x1 || metaModel.DrillDownLevel == 2
-                               ? _licenseeWinLossService.GetCustomerWinlossDetail(metaModel, out summaryTotal)
-                               : _licenseeWinLossService.GetAgentWinlossDetail(metaModel, out summaryTotal);
+            if (metaModel.IsValid)
+            {
+                dataList = metaModel.DrillDownLevel == 0 ? _licenseeWinLossDataAccess.GetSummaryWinloss(metaModel, out totalData, out summaryTotal) :
+                                metaModel.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.DrillDownLevel == 2
+                               ? _licenseeWinLossDataAccess.GetCustomerWinlossDetail(metaModel, out totalData, out summaryTotal)
+                               : _licenseeWinLossDataAccess.GetAgentWinlossDetail(metaModel, out totalData, out summaryTotal);
+            }
+            else
+            {
+                totalData = new List<LicenseeWinLoss>();
+                summaryTotal = new Dictionary<string, LicenseeWinLoss>();
+                dataList = new SortableList<LicenseeWinLoss>();
+            }
         }
 
         private dynamic ProcessRequest(
@@ -269,14 +281,15 @@ namespace Fanex.Athena.Api.Report
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(level == 0 ? metaModel.CurrencyId : currencyId, metaModel.IsExcludedTestData);
                 IDictionary<string, LicenseeWinLoss> summaryTotal;
                 SortableList<LicenseeWinLoss> dataList;
-                GetData(metaModel, out dataList, out summaryTotal);
+                IEnumerable<LicenseeWinLoss> totalData;
+                GetData(metaModel, out dataList, out totalData, out summaryTotal);
 
                 if (metaModel.IsExportExcel)
                 {
-                    return ExportExcel(metaModel, dataList, summaryTotal);
+                    return ExportExcel(metaModel, dataList, totalData, summaryTotal);
                 }
 
-                if (dataList != null && dataList.Count > 0)
+                if (dataList != null && dataList.Any())
                 {
                     dataList = SortData(dataList, metaModel.SortBy, metaModel.SortOrder);
 
@@ -284,14 +297,14 @@ namespace Fanex.Athena.Api.Report
                     return new
                     {
                         Data = dataList.Select(MapToGridView).ToList(),
-                        Total = _licenseeWinLossService.CalculateTotal(dataList).Select(MapToGridView).ToList(),
+                        Total = totalData.Select(MapToGridView).ToList(),
                         SummaryTotal = summaryTotalView,
                         ProductOptions = metaModel.ProductOptions.ToJson()
                     };
                 }
             }
 
-            return GetEmptyResult(metaModel);
+            return GetEmptyResult(metaModel.ProductOptions);
         }
 
         #endregion Private Utility

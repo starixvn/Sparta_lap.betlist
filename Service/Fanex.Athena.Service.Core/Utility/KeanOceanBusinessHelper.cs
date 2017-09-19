@@ -37,12 +37,12 @@
         public static bool VerifyKeanOceanCurrencyRequest(IDictionary<int, string> currenyList, int licenseeId, int selectedCurrencyId)
         {
             return currenyList.ContainsKey(selectedCurrencyId) || (
-                licenseeId == LicenseeIdentityDefinition.KeenOcean && selectedCurrencyId == CurrencyType.Cny);
+                licenseeId == LicenseeIdentity.KeenOcean && selectedCurrencyId == CurrencyType.Cny);
         }
 
         public static void AddHKDCurrencyForTurnOverReport(IDictionary<int, string> currenyList, int licenseeId)
         {
-            if (licenseeId == LicenseeIdentityDefinition.KeenOcean && !currenyList.Values.Contains("CNY"))
+            if (licenseeId == LicenseeIdentity.KeenOcean && !currenyList.Values.Contains("CNY"))
             {
                 currenyList.Add(CurrencyType.Hkd, "CNY");
             }
