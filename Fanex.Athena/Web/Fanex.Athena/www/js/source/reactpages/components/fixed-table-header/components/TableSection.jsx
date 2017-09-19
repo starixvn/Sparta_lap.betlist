@@ -8,11 +8,14 @@ class TableSection extends Component {
     constructor(props) {
         super(props);
 
-        const containerWidth = props.autoWidth ? props.maxWidth : props.width + SCROLLBAR_WIDTH;
-        this.containerStyle = props.style ? { ...props.style, width: containerWidth } : { width: containerWidth };
+        const width = props.autoWidth ? props.maxWidth : props.width + SCROLLBAR_WIDTH;
+        const minWidth = props.minWidth;
+        this.containerStyle = { ...props.style, width, minWidth };
 
+        let tableWidth = props.autoWidth ? props.maxWidth : props.width;
+        tableWidth = Math.max(tableWidth, minWidth) - SCROLLBAR_WIDTH;
         this.tableStyle = {
-            width: props.autoWidth ? props.maxWidth - SCROLLBAR_WIDTH : props.width
+            width: tableWidth
         }
     }
 
@@ -20,6 +23,7 @@ class TableSection extends Component {
         tableClass: PropTypes.string,
         width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         maxWidth: PropTypes.number,
+        minWidth: PropTypes.number,
         autoWidth: PropTypes.bool,
     };
 
@@ -31,7 +35,7 @@ class TableSection extends Component {
     };
 
     render() {
-        const { tableClass, width, autoWidth, maxWidth, ...rest } = this.props;
+        const { tableClass, width, autoWidth, maxWidth, minWidth, ...rest } = this.props;
 
         return (
             <div {...rest} style={this.containerStyle}>

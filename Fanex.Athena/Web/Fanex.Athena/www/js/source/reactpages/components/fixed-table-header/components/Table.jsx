@@ -15,6 +15,7 @@ class Table extends Component {
     static propTypes = {
         width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         maxWidth: PropTypes.number,
+        minWidth: PropTypes.number,
         autoWidth: PropTypes.bool,
         columnLayout: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])).isRequired
     }
@@ -43,7 +44,7 @@ class Table extends Component {
     }
 
     _buildContent() {
-        const { width, columnLayout, autoWidth, maxWidth } = this.props;
+        const { width, columnLayout, autoWidth, maxWidth, minWidth } = this.props;
 
         const newColumnLayout = this.columnWidthSum && this.columnWidthSum !== width ?
             this._getUpdatedColumnLayout() :
@@ -59,6 +60,7 @@ class Table extends Component {
                     autoWidth,
                     width,
                     maxWidth,
+                    minWidth,
                     children: [layoutRow, ...rows]
                 }
             };
@@ -68,8 +70,9 @@ class Table extends Component {
     }
 
     render() {
+        const { maxWidth } = this.props;
         return (
-            <div className="table-container" style={{ maxWidth: this.props.maxWidth }}>
+            <div className="table-container" style={{ maxWidth }}>
                 {this._buildContent()}
             </div>
         )

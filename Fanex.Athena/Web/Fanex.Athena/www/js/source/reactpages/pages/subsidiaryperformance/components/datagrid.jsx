@@ -6,7 +6,7 @@ import { Table, Header, Body, Footer, Row, Cell } from 'lrfcomponents/fixed-tabl
 import LangHelper from 'lrflib/langHelper'
 import NumberFormat from 'lrflib/numberFormat'
 
-const columnLayout = [150, 100, 200, 150, 200, 200, 200];
+const columnLayout = [150, 120, 200, 120, 180, 180, 180];
 
 class DataGrid extends Component {
     constructor(props) {
@@ -132,6 +132,7 @@ class DataGrid extends Component {
         return (
             <Table
                 maxWidth={this.props.containerWidth}
+                minWidth={600}
                 autoWidth={true}
                 columnLayout={columnLayout}
                 {...this.props}>
