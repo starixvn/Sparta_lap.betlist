@@ -38,7 +38,7 @@ namespace Fanex.Athena.Controllers.BetList
                 return ExcelDetail(metaModel);
             }
 
-            return this.File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+            return EmptyExcel();
         }
 
         private static string GetTitle(DateTime date)

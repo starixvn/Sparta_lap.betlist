@@ -8,17 +8,16 @@ namespace Fanex.Athena.Excel.Report
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
+    using Helpers;
     using Model.Report.DTO;
-    using Model.Report.ViewModel;
+    using Model.Report.MetaModel;
     using NPOI.SS.UserModel;
     using Resources;
 
-    /// <summary>
-    /// Customer win-loss class.
-    /// </summary>
     public class CustomerWinLossExcel : ReportBase
     {
         private const int ColumnExternalId = 1;
@@ -42,20 +41,25 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTableHeaderTemplate = 1;
         private const int RowTotalTemplate = 4;
 
-        private readonly IList<CustomerWinLoss> _customerWinlossList;
+        private readonly IEnumerable<CustomerWinLoss> _customerWinlossList;
         private readonly CustomerWinLoss _total;
-        private readonly CustomerWinLossViewModel _viewModel;
+        private readonly CustomerWinLossMetaModel _metaModel;
+
+        private readonly ConvertingOption _convertingOption;
 
         public CustomerWinLossExcel(
-                                    string templatePath,
-                                    ShowingOption showingOption,
-                                    ConvertingOption convertingOption,
-                                    CustomerWinLossViewModel viewModel)
-            : base(templatePath, showingOption, convertingOption)
+            string templatePath,
+            ShowingOption showingOption,
+            ConvertingOption convertingOption,
+            CustomerWinLossMetaModel metaModel,
+            IEnumerable<CustomerWinLoss> dataList,
+            CustomerWinLoss totalData)
+            : base(templatePath, showingOption, metaModel.PageSize)
         {
-            _viewModel = viewModel;
-            _customerWinlossList = viewModel.DataList;
-            _total = viewModel.TotalData;
+            _convertingOption = convertingOption;
+            _metaModel = metaModel;
+            _customerWinlossList = dataList;
+            _total = totalData;
             HeaderTextList = new List<string>
             {
                 "#",
@@ -75,12 +79,9 @@ namespace Fanex.Athena.Excel.Report
             };
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
         protected override void AssignData()
         {
-            int numOfDataRow = _customerWinlossList.Count;
+            int numOfDataRow = _customerWinlossList.Count();
 
             ISheet sheet;
 
@@ -94,8 +95,7 @@ namespace Fanex.Athena.Excel.Report
             }
             else
             {
-                PageSize = _viewModel.IsHistory ? _viewModel.HistoryParam.PageSize : _viewModel.Param.PageSize;
-                var numOfSheet = GetNumberOfSheets(_customerWinlossList.Count, PageSize);
+                var numOfSheet = GetNumberOfSheets(numOfDataRow, _metaModel.PageSize);
                 for (int i = 0; i < numOfSheet; i++)
                 {
                     sheet = Workbook.CloneSheet("Template", "Data" + (i + 1).ToString());
@@ -107,10 +107,6 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignHeader(ISheet sheet)
         {
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
@@ -127,41 +123,31 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[7].SetCellValue(ViewResources.Total);
         }
 
-        /// <summary>
-        /// Assign "no information" to sheet.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="pageIndex">Start index.</param>
-        /// <returns>Row index.</returns>
         protected override int AssignSheetData(ISheet sheet, int pageIndex)
         {
-            int rowCount = Math.Min(_customerWinlossList.Count, checked((pageIndex + 1) * PageSize));
+            int rowCount = Math.Min(_customerWinlossList.Count(), checked((pageIndex + 1) * PageSize));
             int rowIndex = 0;
 
             for (int index = pageIndex * PageSize; index < rowCount; index++)
             {
                 IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
 
-                CustomerWinLoss customerWinloss = _customerWinlossList[index];
+                var customerWinloss = _customerWinlossList.ElementAt(index);
 
                 row.Cells[ColumnIndex].SetCellValue(index + 1);
                 row.Cells[ColumnExternalId].SetCellValue(customerWinloss.ExternalId);
                 row.Cells[ColumnSystemId].SetCellValue(customerWinloss.SystemId);
                 row.Cells[ColumnTurnover].SetCellValue(customerWinloss.Turnover);
                 row.Cells[ColumnTotalTransaction].SetCellValue(customerWinloss.TotalTransaction);
-                row.Cells[ColumnCustomerWl].SetCellValue(customerWinloss.MemberWL);
+                row.Cells[ColumnCustomerWl].SetCellValue(customerWinloss.CustomerWL);
                 row.Cells[ColumnCustomerComm].SetCellValue(customerWinloss.PlayerComm);
-                row.Cells[ColumnCustomerTotal].SetCellValue(customerWinloss.MemberWL + customerWinloss.PlayerComm);
+                row.Cells[ColumnCustomerTotal].SetCellValue(customerWinloss.CustomerWL + customerWinloss.PlayerComm);
                 row.Cells[ColumnBetEffective].SetCellValue(customerWinloss.BetEffective);
                 row.Cells[ColumnLicenseeWl].SetCellValue(customerWinloss.LicenseeWL);
                 row.Cells[ColumnBaCommission].SetCellValue(customerWinloss.BAComm);
@@ -178,19 +164,15 @@ namespace Fanex.Athena.Excel.Report
             return rowIndex;
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignTitle(ISheet sheet)
         {
             ReportTitle = string.Format(
                                         ViewResources.CustomerWinLossTitle,
-                                        _viewModel.Param.FromDate.ToString(FormatDate),
-                                        _viewModel.Param.ToDate.ToString(FormatDate),
-                                        GetTitleCurrencyName()) + GetLicenseeWLProduct();
+                                        _metaModel.FromDate.ToString(FormatDate),
+                                        _metaModel.ToDate.ToString(FormatDate),
+                                        ReportExcelHelper.GetTitleCurrencyName(_convertingOption)) + ReportExcelHelper.GetLicenseeWLProduct(_metaModel.ProductOptions);
 
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);
@@ -199,34 +181,25 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        /// <summary>
-        /// Process UI, hide redundant row and column.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {
-                HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
-                HideRow(sheet, RowTableHeaderTemplate + 1);
+                sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
+                sheet.HideRow(RowTableHeaderTemplate + 1);
             }
 
             if (!ShowingOption.BAVisible)
             {
-                HideColumn(sheet, ColumnBaCommission, ColumnAmtDueToBa);
+                sheet.HideColumn(ColumnBaCommission, ColumnAmtDueToBa);
             }
 
             if (!ShowingOption.RBVisible)
             {
-                HideColumn(sheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
+                sheet.HideColumn(ColumnRacingRevenue, ColumnAmtDueToRacing);
             }
         }
 
-        /// <summary>
-        /// Assign total data to summary row.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="startIndex">Start index.</param>
         protected void AssignSumData(ISheet sheet, int startIndex)
         {
             int rowTotalNumber = checked(startIndex + RowContentTemplate);
@@ -235,9 +208,9 @@ namespace Fanex.Athena.Excel.Report
 
             row.Cells[ColumnTurnover].SetCellValue(_total.Turnover);
             row.Cells[ColumnTotalTransaction].SetCellValue(_total.TotalTransaction);
-            row.Cells[ColumnCustomerWl].SetCellValue(_total.MemberWL);
+            row.Cells[ColumnCustomerWl].SetCellValue(_total.CustomerWL);
             row.Cells[ColumnCustomerComm].SetCellValue(_total.PlayerComm);
-            row.Cells[ColumnCustomerTotal].SetCellValue(_total.MemberWL + _total.PlayerComm);
+            row.Cells[ColumnCustomerTotal].SetCellValue(_total.CustomerWL + _total.PlayerComm);
             row.Cells[ColumnBetEffective].SetCellValue(_total.BetEffective);
             row.Cells[ColumnLicenseeWl].SetCellValue(_total.LicenseeWL);
             row.Cells[ColumnBaCommission].SetCellValue(_total.BAComm);
@@ -248,7 +221,7 @@ namespace Fanex.Athena.Excel.Report
             MergeTotalCell(sheet, row, rowTotalNumber);
         }
 
-        private void MergeTotalCell(ISheet sheet, IRow row, int rowTotalNumber)
+        private static void MergeTotalCell(ISheet sheet, IRow row, int rowTotalNumber)
         {
             sheet.MergeCells(rowTotalNumber, ColumnIndex, rowTotalNumber, 2);
             row.Cells[0].SetCellValue(ViewResources.Total);

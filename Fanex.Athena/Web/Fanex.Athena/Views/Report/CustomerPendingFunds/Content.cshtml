@@ -1,98 +1,20 @@
-﻿@using Fanex.Athena.Model.Report.ViewModel
-@using Fanex.Athena.Extension.Helper
-@model Fanex.Athena.Model.Report.ViewModel.CustomerPendingFundsViewModel
-@{
-    var param = Model.Param;
+﻿@{
+    Layout = null;
 }
-<div class="container_26">
-    <div class="grid_26">
-        <div style="width: @(ViewBag.WrapperWidth)px;">
-            @RazorHelper.Paging("CustomerPendingFundsForm", Model.TotalRows, param.PageIndex, param.PageSize)
-        </div>
-        <div class="report-content " style="width: @(ViewBag.WrapperWidth)px">
-            <div id="header-content" class="header-content" style="width: 679px">
-                <div class="row" style="width: @(ViewBag.NumberWidth)px">
-                    #
-                </div>
-                <div class="row sort-heading" style="width: @(ViewBag.ExternalIdWidth)px" data-column-name="ExternalId">
-                    @ViewResources.ExternalId
-                </div>
-                <div class="row sort-heading" style="width: @(ViewBag.SystemIdWidth)px" data-column-name="SystemId">
-                    @ViewResources.SystemId
-                </div>
-                <div class="row sort-heading" style="width: @(ViewBag.BetCountWidth)px" data-column-name="BetCounts">
-                    @ViewResources.BetCount
-                </div>
-                <div class="row sort-heading" style="width: @(ViewBag.PendingFundsWidth)px" data-column-name="PendingFunds">
-                    @ViewResources.PendingFunds
+<div class="theme_jqGrid">
+    <div class="container_26">
+        <div class="grid_26">
+            <div class="report-content">
+                <div style="width: 100%">
+                    <table id="ReportGrid" data-hidden-column="">
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <div class="paging">
+                    </div>
                 </div>
             </div>
-            <div id="data-content" class="data-content" style="width: @(ViewBag.WrapperWidth)px; max-height: 500px">
-                @if (Model.DataList == null || Model.DataList.Count == 0)
-                {
-                    <!--No result-->
-                    <div class="content-row" style="width: @(ViewBag.ContainerWidth)px;">
-                        <div class="row grid-noinfo " style="width: @(ViewBag.ContainerWidth)px;">
-                            <div>
-                                @ViewResources.NoInfo
-                            </div>
-                        </div>
-                    </div>
-                }
-                else
-                {
-                    var rowNumber = 1;
-                    foreach (var item in Model.DataList)
-                    {
-                    <div class="content-row" style="width: @(ViewBag.ContainerWidth)px;">
-                        <div class="row title-text" style="width: @(ViewBag.NumberWidth)px">
-                            <div>
-                                @rowNumber
-                            </div>
-                        </div>
-                        <div class="row" style="width: @(ViewBag.ExternalIdWidth)px">
-                            <div class="text-data">
-                                <a class="bet-list-link" data-cust-id="@item.CustId" data-system-id="@item.SystemId" data-external-id="@item.ExternalId" href="javascript:;">
-                                    @RazorHelper.TruncateWithTip(item.ExternalId, 32, true)
-                                </a>
-                            </div>
-                        </div>
-                        <div class="row" style="width: @(ViewBag.SystemIdWidth)px">
-                            <div class="text-data">@item.SystemId</div>
-                        </div>
-                        <div class="row" style="width: @(ViewBag.BetCountWidth)px">
-                            <div>@item.BetCounts.ToStringExt()</div>
-                        </div>
-                        <div class="row" style="width: @(ViewBag.PendingFundsWidth)px">
-                            <div>@item.PendingFunds.ToStringExt()</div>
-                        </div>
-                    </div>
-                        rowNumber++;
-                    }
-                }
-            </div>
-            @if (Model.DataList != null && Model.DataList.Count > 0)
-            {
-                var totalWidth = ViewBag.NumberWidth + ViewBag.ExternalIdWidth + ViewBag.SystemIdWidth + 2;
-                var total = Model.TotalData;
-                //total 
-                <div id="report-total" class="total-content" style="width: @(ViewBag.ContainerWidth)px;">
-                    <div class="row " style="width: @(totalWidth)px">
-                        <div class="title-text">
-                            @ViewResources.Total
-                        </div>
-                    </div>
-                    <div class="row" style="width: @(ViewBag.BetCountWidth)px">
-                        <div>@total.BetCounts.ToStringExt()</div>
-                    </div>
-                    <div class="row" style="width: @(ViewBag.PendingFundsWidth)px">
-                        <div>@total.PendingFunds.ToStringExt()</div>
-                    </div>
-                </div>
-            }
-        </div>
-        <div style="width:@(ViewBag.WrapperWidth)px;">
-            @RazorHelper.Paging("CustomerPendingFundsForm", Model.TotalRows, param.PageIndex, param.PageSize)
         </div>
     </div>
 </div>

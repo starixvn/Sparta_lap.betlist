@@ -2,14 +2,12 @@
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Base;
+    using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Web.ResultExtension;
-    using Model.Core.DataDomain;
     using Resources;
-    using Web.ActionFilter;
 
     public class VoidbridgeBetListController : BetListBaseController
     {
@@ -32,7 +30,7 @@
                 return ExcelDetail(metaModel);
             }
 
-            return this.File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+            return this.EmptyExcel();
         }
 
         private ActionResult ExcelDetail(BetListMetaModel metaModel)

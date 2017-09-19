@@ -16,9 +16,8 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class CustomerBalanceDataAccess : BaseDataAccess, ICustBalanceDataAccess
     {
-        public IList<CustBalance> GetDataList(CustomerBalanceMetaModel metaModel, ref CustBalance totalData, ref int totalRow)
+        public IList<CustBalance> GetDataList(CustomerBalanceMetaModel metaModel, out CustBalance totalData, out int totalRow)
         {
-            IList<CustBalance> result = new List<CustBalance>();
             using (var db = this.GetObjectDb("Lrf_Rpt_CustomerBalance"))
             {
                 db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
@@ -34,11 +33,14 @@ namespace Fanex.Athena.DataAccess.Report
                     db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
                 }
 
+                var result = new List<CustBalance>();
                 using (var reader = db.ExecuteReader())
                 {
+                    var index = 1;
                     while (reader.Read())
                     {
-                        result.Add(ReadDataItem(reader));
+                        result.Add(ReadDataItem(reader, index));
+                        index++;
                     }
 
                     if (result.Count > 0 && reader.NextResult() && reader.Read())
@@ -46,16 +48,22 @@ namespace Fanex.Athena.DataAccess.Report
                         totalData = ReadTotalData(reader);
                         totalRow = reader.ToInt("TotalRows");
                     }
+                    else
+                    {
+                        totalData = new CustBalance();
+                        totalRow = 0;
+                    }
                 }
-            }
 
-            return result;
+                return result;
+            }
         }
 
-        private static CustBalance ReadDataItem(IDataReader reader)
+        private static CustBalance ReadDataItem(IDataReader reader, int index)
         {
             return new CustBalance
             {
+                Index = index,
                 ExternalId = reader.ToString("nickname"),
                 SystemId = reader.ToString("username"),
                 OpeningBalance = reader.ToDecimal("openingbalance"),

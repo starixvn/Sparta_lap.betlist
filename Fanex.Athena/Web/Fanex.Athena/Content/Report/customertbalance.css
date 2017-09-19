@@ -1,1 +1,10 @@
-﻿
+﻿/* custom */
+.grandTotal td {
+    background-color: #b2dfef;
+}
+
+.sort-desc, .sort-asc {
+    display: inline;
+    top: 2px;
+    margin-left: 3px;
+}

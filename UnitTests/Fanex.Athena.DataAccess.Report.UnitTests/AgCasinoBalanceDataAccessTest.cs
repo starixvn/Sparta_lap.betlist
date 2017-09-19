@@ -23,8 +23,7 @@
         {
             _objectDb = Substitute.For<IObjectDb>();
 
-            var balanceUp = new BalanceUp();
-            _dataAccess = Substitute.ForPartsOf<AgCasinoBalanceDataAccess>(balanceUp);
+            _dataAccess = Substitute.ForPartsOf<AgCasinoBalanceDataAccess>();
 
             _reader = Substitute.For<IDataReader>();
             _objectDb.ExecuteReader().Returns(_reader);

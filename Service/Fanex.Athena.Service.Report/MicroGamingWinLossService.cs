@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MicroGamingWinLossService.cs" company="">
-// The ag casino win loss service.
-// </copyright>
-// <summary>
-//   The third party win loss service.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace Fanex.Athena.Service.Report
+﻿namespace Fanex.Athena.Service.Report
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -16,29 +7,16 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
-    using Fanex.Athena.Service.Core.Configuration;
-    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Report.Interfaces;
 
     public class MicroGamingWinLossService : IMicroGamingWinLossService
     {
-        #region Constants and Fields
-
-        private readonly IBalanceUpService _balanceService;
-
         private readonly IMicroGamingWinLossDataAccess _microGamingWinLossDataAccess;
-
-        #endregion Constants and Fields
-
-        #region Constructors and Destructors
 
         public MicroGamingWinLossService()
         {
-            this._balanceService = new BalanceUpService();
-            this._microGamingWinLossDataAccess = new MicroGamingWinLossDataAccess(this._balanceService.BalanceUpInfo);
+            this._microGamingWinLossDataAccess = new MicroGamingWinLossDataAccess();
         }
-
-        #endregion Constructors and Destructors
 
         public SortableList<MicroGamingWinLoss> GetSummaryWinloss(MicroGamingWinLossMetaModel metaModel, out IDictionary<string, MicroGamingWinLoss> summaryTotal)
         {

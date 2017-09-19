@@ -6,8 +6,6 @@
 
 namespace Fanex.Athena.Model.Report.ViewModel
 {
-    using System.Collections.Generic;
-    using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Model.Core.ViewModel;
 
@@ -16,12 +14,6 @@ namespace Fanex.Athena.Model.Report.ViewModel
     /// </summary>
     public class CustomerBalanceViewModel : BaseViewModel
     {
-        public bool IsValidTimeRequest { get; set; }
-
-        public IList<CustBalance> DataList { get; set; }
-
-        public CustBalance TotalData { get; set; }
-
         public CustomerBalanceMetaModel Param { get; set; }
     }
 }

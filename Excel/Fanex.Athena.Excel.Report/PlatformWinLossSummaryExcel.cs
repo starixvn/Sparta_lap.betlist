@@ -3,9 +3,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using Base;
-    using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Model.Core.DataDomain;
+    using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NPOI.SS.UserModel;
@@ -24,32 +24,30 @@
 
         private const int ColumnNoContent = 8;
 
-        private const int RowTableHeaderTemplate = 1;
         private const int RowParentContentTemplate = 3;
         private const int RowChildContentTemplate = 4;
         private const int RowTotal = 5;
 
         private const int RowNoInfoTemplate = 6;
 
-        private readonly string _templatePath;
         private readonly PlatformWinLossMetaModel _model;
         private readonly IList<PlatformWinLossSummary> _dataList;
         private readonly PlatformWinLossSummary _total;
+
+        private readonly IEnumerable<ProductOption> _productOptions;
 
         public PlatformWinLossSummaryExcel(
             string templatePath,
             PlatformWinLossMetaModel metaModel,
             IList<PlatformWinLossSummary> dataList,
-            PlatformWinLossSummary total,
-            ConvertingOption convertingOption)
-            : base(templatePath, new ShowingOption(), convertingOption)
+            PlatformWinLossSummary total)
+            : base(templatePath, null)
         {
-            _templatePath = templatePath;
             _model = metaModel;
             _dataList = dataList;
             _total = total;
 
-            ProductOptions = metaModel.ProductOptions;
+            _productOptions = metaModel.ProductOptions;
             HeaderTextList = new List<string>
             {
                 ViewResources.Platform,
@@ -99,7 +97,7 @@
 
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowParentContentTemplate, ColumnNoContent, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowParentContentTemplate, ColumnNoContent, ViewResources.NoInfo);
         }
 
         protected override void AssignSheetData(ISheet sheet)
@@ -141,7 +139,7 @@
                                         GetBaseCurrencyTitle(),
                                         platformText) + ", " + GetProductTitle();
 
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnNoContent, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnNoContent, ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);
@@ -163,8 +161,8 @@
 
         private string GetProductTitle()
         {
-            var selectedProducts = ProductOptions.Where(x => x.Status);
-            if (selectedProducts.Count() == ProductOptions.Count)
+            var selectedProducts = _productOptions.Where(x => x.Status);
+            if (selectedProducts.Count() == _productOptions.Count())
             {
                 return string.Format("{0}: {1}", ViewResources.Product, ViewResources.All);
             }

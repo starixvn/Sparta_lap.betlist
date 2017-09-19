@@ -263,6 +263,29 @@ input[type="checkbox"] {
   padding: 5px;
   background: #fff; }
 
+.filter-handle {
+  position: absolute;
+  background-color: #4C6375;
+  cursor: pointer;
+  width: 25px;
+  bottom: 0;
+  height: 12px;
+  text-align: center;
+  color: #fff;
+  left: 50%;
+  margin-left: -12.5px;
+  font-size: 9px; }
+  .filter-handle .icon-arrow {
+    transform: rotate(180deg);
+    display: inline-block; }
+
+.filter-collapse *:not(.filter-handle) {
+  display: none; }
+
+.filter-collapse .filter-handle .icon-arrow {
+  transform: rotate(0);
+  display: inline-block; }
+
 .button-block {
   margin-top: 0.5rem; }
   @media (max-width: 600px) {
@@ -1624,7 +1647,7 @@ important
 .ui-multiselect-icon-dropdown {
   width: 18px;
   height: 14px;
-  background-image: url(images/sprites.png); }
+  background-image: url(/www/css/build/images/sprites.png); }
 
 .ui-multiselect-icon-triangle-1-s {
   background-position: -64px -15px; }
@@ -1870,7 +1893,7 @@ Rad tree view css
   font: 12px/18px "Lucida Sans" ,Arial,sans-serif; }
 
 .RadTreeView_Office2010Silver .rtPlus, .RadTreeView_Office2010Silver .rtMinus {
-  background-image: url("images/PlusMinus.png"); }
+  background-image: url("/www/css/build/images/PlusMinus.png"); }
 
 .RadTreeView_Office2010Silver .rtSelected .rtLoadingBefore, .RadTreeView_Office2010Silver .rtSelected .rtLoadingAfter, .RadTreeView_Office2010Silver .rtSelected .rtLoadingBelow {
   color: #333333; }
@@ -1883,43 +1906,43 @@ Rad tree view css
   color: #CCCCCC; }
 
 .RadTreeView_Office2010Silver .rtLines .rtLI, .RadTreeView_Office2010Silver .rtLines .rtFirst .rtUL {
-  background-image: url("images/NodeSpan.png"); }
+  background-image: url("/www/css/build/images/NodeSpan.png"); }
 
 .RadTreeView_Office2010Silver_rtl .rtLines .rtLI, .RadTreeView_Office2010Silver_rtl .rtLines .rtFirst .rtUL {
-  background-image: url("images/NodeSpan_rtl.png"); }
+  background-image: url("/www/css/build/images/NodeSpan_rtl.png"); }
 
 .RadTreeView_Office2010Silver .rtLines .rtFirst, .RadTreeView_Office2010Silver .rtLines .rtFirst .rtUL {
-  background-image: url("images/FirstNodeSpan.png"); }
+  background-image: url("/www/css/build/images/FirstNodeSpan.png"); }
 
 .RadTreeView_Office2010Silver_rtl .rtLines .rtFirst, .RadTreeView_Office2010Silver_rtl .rtLines .rtFirst .rtUL {
-  background-image: url("images/FirstNodeSpan_rtl.png"); }
+  background-image: url("/www/css/build/images/FirstNodeSpan_rtl.png"); }
 
 .RadTreeView_Office2010Silver .rtLines .rtLast, .RadTreeView_Office2010Silver .rtLines .rtLast .rtUL {
   background-image: none; }
 
 .RadTreeView_Office2010Silver .rtLines .rtTop {
-  background-image: url("images/TopLine.png"); }
+  background-image: url("/www/css/build/images/TopLine.png"); }
 
 .RadTreeView_Office2010Silver_rtl .rtLines .rtTop {
-  background-image: url("images/TopLine_rtl.png"); }
+  background-image: url("/www/css/build/images/TopLine_rtl.png"); }
 
 .RadTreeView_Office2010Silver .rtLines .rtMid {
-  background-image: url("images/MiddleLine.png"); }
+  background-image: url("/www/css/build/images/MiddleLine.png"); }
 
 .RadTreeView_Office2010Silver_rtl .rtLines .rtMid {
-  background-image: url("images/MiddleLine_rtl.png"); }
+  background-image: url("/www/css/build/images/MiddleLine_rtl.png"); }
 
 .RadTreeView_Office2010Silver .rtLines .rtBot {
-  background-image: url("images/BottomLine.png"); }
+  background-image: url("/www/css/build/images/BottomLine.png"); }
 
 .RadTreeView_Office2010Silver_rtl .rtLines .rtBot {
-  background-image: url("images/BottomLine_rtl.png"); }
+  background-image: url("/www/css/build/images/BottomLine_rtl.png"); }
 
 .RadTreeView_Office2010Silver .rtLines .rtLast .rtTop {
-  background-image: url("images/SingleLine.png"); }
+  background-image: url("/www/css/build/images/SingleLine.png"); }
 
 .RadTreeView_Office2010Silver_rtl .rtLines .rtLast .rtTop {
-  background-image: url("images/SingleLine_rtl.png"); }
+  background-image: url("/www/css/build/images/SingleLine_rtl.png"); }
 
 .custom-ui-widget-header {
   font-weight: bold;
@@ -2013,6 +2036,9 @@ ul.ui-multiselect-checkboxes {
 .ui-multiselect-options input {
   margin: 0;
   margin-right: 10px; }
+
+.ui-multiselect-ul-group {
+  padding-left: 40px; }
 
 tr.total td {
   background: #fff; }

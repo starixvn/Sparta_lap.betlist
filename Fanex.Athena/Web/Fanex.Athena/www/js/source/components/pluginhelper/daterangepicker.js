@@ -83,6 +83,14 @@
                 setRangeDate(picker.startDate, picker.endDate);
             });
 
+            $dateRange.on('show.daterangepicker', function (ev, picker) {
+                var toDate = picker.endDate || new Date();
+                var toMoment = moment(toDate);
+
+                picker.rightCalendar.month = toMoment;
+                picker.renderCalendar("right");
+            });
+
             $('.date-range').on("click", ".icon-calendar", function () {
                 $dateRange.data('daterangepicker').toggle();
             });

@@ -31,7 +31,6 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnMatch = 1;
         private const int ColumnExternalId = 2;
         private const int ColumnSystemId = 3;
-        private const int ColumnTemplateCount = 13;
         private const int ColumnTurnover = 5;
         private const int RowContentTemplate = 4;
         private const int RowContentTitleTemplate = 3;
@@ -45,12 +44,11 @@ namespace Fanex.Athena.Excel.Report
         private readonly WinLossByLeague _totalData;
 
         public WinlossByLeagueExcel(
-                                     string templatePath,
-                                     ConvertingOption convertingOption,
-                                     WinLossByLeagueMetaModel metaModel,
-                                     WinLossByLeagueViewModel viewModel,
-                                     WinLossByLeague totalData)
-            : base(templatePath, new ShowingOption(), convertingOption)
+                                    string templatePath,
+                                    WinLossByLeagueMetaModel metaModel,
+                                    WinLossByLeagueViewModel viewModel,
+                                    WinLossByLeague totalData)
+            : base(templatePath, null)
         {
             _metaModel = metaModel;
             _winlossByLeagueList = viewModel.MainResult.ToList();
@@ -71,12 +69,6 @@ namespace Fanex.Athena.Excel.Report
         }
 
         public int Level
-        {
-            get;
-            set;
-        }
-
-        public string TitleReport
         {
             get;
             set;
@@ -133,7 +125,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTitleTemplate, Level == 0 ? NumOfRowLevel0 : NumOfRowLevel1, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, Level == 0 ? NumOfRowLevel0 : NumOfRowLevel1, ViewResources.NoInfo);
         }
 
         /// <summary>
@@ -146,7 +138,7 @@ namespace Fanex.Athena.Excel.Report
         {
             if (Level == 1)
             {
-                HideRow(sheet, 3);
+                sheet.HideRow(3);
             }
 
             int rowCount = Math.Min(_winlossByLeagueList.Count, checked((pageIndex + 1) * PageSize));
@@ -191,7 +183,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignTitle(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, Level == 0 ? NumOfRowLevel0 : NumOfRowLevel1, _metaModel.ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, Level == 0 ? NumOfRowLevel0 : NumOfRowLevel1, _metaModel.ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 4);
@@ -209,11 +201,11 @@ namespace Fanex.Athena.Excel.Report
             switch (Level)
             {
                 case 0:
-                    HideColumn(sheet, ColumnExternalId, ColumnSystemId);
+                    sheet.HideColumn(ColumnExternalId, ColumnSystemId);
                     break;
 
                 case 1:
-                    HideColumn(sheet, ColumnMatch, ColumnAmtDueTo);
+                    sheet.HideColumn(ColumnMatch, ColumnAmtDueTo);
                     break;
             }
         }

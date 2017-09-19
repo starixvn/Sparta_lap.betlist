@@ -38,7 +38,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -160,6 +160,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CashOutWinLossReportController.cs" />
+    <Compile Include="CustomerPendingFundsReportController.cs" />
+    <Compile Include="CustomerWinLossReportController.cs" />
+    <Compile Include="CustomerBalanceReportController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ApiReportBaseController.cs" />
     <Compile Include="CasinoProgressiveWinsReportController.cs" />
@@ -176,6 +179,14 @@
     <Compile Include="WinLossByProductReportController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
+      <Project>{a6be21e8-6895-4863-ba3a-e6b21d3ce78d}</Project>
+      <Name>Fanex.Athena.DataAccess.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Report\Fanex.Athena.DataAccess.Report.csproj">
+      <Project>{5653bc29-0843-4d75-9140-5b370df2f88c}</Project>
+      <Name>Fanex.Athena.DataAccess.Report</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Excel\Fanex.Athena.Excel.Base\Fanex.Athena.Excel.Base.csproj">
       <Project>{413861ad-068b-4c02-b913-10b1de708fb7}</Project>
       <Name>Fanex.Athena.Excel.Base</Name>

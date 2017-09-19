@@ -140,11 +140,11 @@ if (pagingVisible)
         </div>
 }
 }
-@helper RenderProductFilter(IEnumerable<ProductOption> productOptions, int LabelSpan)
+@helper RenderProductFilter(IEnumerable<ProductOption> productOptions, int LabelSpan, bool isNewLine = true)
 {
 var Url = new UrlHelper(Context.Request.RequestContext);
 var i = 0;
-    <div class="grid_@(LabelSpan) filter-label new-line">
+    <div class="grid_@(LabelSpan) filter-label @(isNewLine ? "new-line" : null)">
         <label>
             @ViewResources.Product
         </label>
@@ -254,7 +254,7 @@ if (addMoreAllOption)
         }
     </select>
 }
-@helper BasedCurrency(string selectedBasedCurrency, string CurrencyName = null)
+@helper BasedCurrency(string selectedBasedCurrency = null, string CurrencyName = null)
 {
 selectedBasedCurrency = string.IsNullOrEmpty(selectedBasedCurrency) ? string.Empty : selectedBasedCurrency;
 selectedBasedCurrency = selectedBasedCurrency.ToLower();

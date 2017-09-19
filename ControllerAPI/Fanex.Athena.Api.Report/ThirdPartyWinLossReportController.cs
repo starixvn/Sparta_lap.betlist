@@ -10,7 +10,7 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
-    using System.Web;
+    using System.Web.Hosting;
     using System.Web.Http;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
@@ -21,6 +21,7 @@ namespace Fanex.Athena.Api.Report
     using Model.Core.DataDomain;
     using Model.Core.DTO.Users;
     using Resources;
+    using Service.Core.Common.Interfaces;
     using Service.Core.Users;
     using Service.Core.Users.Interfaces;
     using Service.Report;
@@ -44,6 +45,17 @@ namespace Fanex.Athena.Api.Report
             _authorizationService = new AuthorizationService();
         }
 
+        public ThirdPartyWinLossReportController(
+            IThirdPartyWinLossService thirdPartyWinLossService,
+            IAuthorizationService authorizationService,
+            ISessionService sessionService,
+            IProductService productService)
+            : base(sessionService, productService)
+        {
+            _thirdPartyWinLossService = thirdPartyWinLossService;
+            _authorizationService = authorizationService;
+        }
+
         [HttpPost]
         public dynamic Index(
             ThirdPartyWinLossMetaModel metaModel,
@@ -62,6 +74,19 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel, null, null);
         }
 
+        [CLSCompliant(false)]
+        protected internal virtual ThirdPartyWinLossExcel CreateExcel(
+            string templatePath,
+            ConvertingOption convertingOption,
+            ThirdPartyWinLossMetaModel metaModel,
+            ThirdPartyWinLossViewModel excelModel)
+        {
+            return new ThirdPartyWinLossExcel(templatePath, convertingOption, metaModel, excelModel)
+            {
+                Level = metaModel.DrillDownLevel,
+            };
+        }
+
         private static dynamic GetEmptyThirdPartyWinLossResult()
         {
             return new
@@ -74,7 +99,7 @@ namespace Fanex.Athena.Api.Report
 
         private static string GetExcelFileName(ThirdPartyWinLossMetaModel metaModel, ref KeyValuePair<int, string> currency, string productCodeExport)
         {
-            var fromDate = $"{(metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate)}:ddMMMyyyy";
+            var fromDate = $"{(metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate):ddMMMyyyy}";
             var currencyName = currency.Key == 0 ? "All" : currency.Value;
 
             var exportedFileName = $"{productCodeExport}WinLoss_{fromDate}_{currencyName}.xls";
@@ -87,7 +112,7 @@ namespace Fanex.Athena.Api.Report
             IDictionary<string, ThirdPartyWinLoss> summaryTotal)
         {
             var userSession = SessionService.UserSession;
-            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/ThirdPartyWinLoss.xls");
+            var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/ThirdPartyWinLoss.xls");
             var currency = userSession.CurrencyList.SingleOrDefault(i => i.Key == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
 
             var exportedFileName = GetExcelFileName(metaModel, ref currency, metaModel.ProductCode);
@@ -99,15 +124,11 @@ namespace Fanex.Athena.Api.Report
                 CurrencyName = currency.Value
             };
 
-            if (metaModel.DrillDownLevel > 0 && metaModel.CurrencyId > 0)
-            {
-                metaModel.CurrencyId = metaModel.DrillDownCurrencyId;
-            }
-
             if (metaModel.DrillDownLevel > 0)
             {
                 metaModel.FromDate = metaModel.DrillDownFromDate;
                 metaModel.ToDate = metaModel.DrillDownToDate;
+                metaModel.CurrencyId = metaModel.CurrencyId > 0 ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;
             }
 
             var excelModel = new ThirdPartyWinLossViewModel
@@ -116,10 +137,7 @@ namespace Fanex.Athena.Api.Report
                 SummaryTotal = summaryTotal,
             };
 
-            var excel = new ThirdPartyWinLossExcel(templatePath, convertingOption, metaModel, excelModel)
-            {
-                Level = metaModel.DrillDownLevel,
-            };
+            var excel = CreateExcel(templatePath, convertingOption, metaModel, excelModel);
 
             excel.Export();
 
@@ -162,6 +180,7 @@ namespace Fanex.Athena.Api.Report
                 metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;
                 metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(level == 0 ? metaModel.CurrencyId : currencyId, metaModel.IsExcludedTestData);
+
                 IDictionary<string, ThirdPartyWinLoss> summaryTotal;
                 SortableList<ThirdPartyWinLoss> dataList;
                 GetData(metaModel, out dataList, out summaryTotal);
@@ -189,8 +208,7 @@ namespace Fanex.Athena.Api.Report
         {
             var permissionKey = new string[] { _productPermissionMap[productId] };
 
-            return
-                user.ApplicationMode == AppMode.Parasitic ?
+            return user.ApplicationMode == AppMode.Parasitic ?
                 _authorizationService.HasPermissions(user.PortalFunctionList, permissionKey) :
                 _authorizationService.HasPermissions(user.FunctionIdList, permissionKey);
         }

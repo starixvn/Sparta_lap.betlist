@@ -10,7 +10,7 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Base;
+    using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -42,21 +42,9 @@ namespace Fanex.Athena.Controllers.BetList
         [FunctionAuthorization(PermissionKeys.TotalBetMixParlay)]
         public ActionResult MixParlay(BetListMetaModel metaModel)
         {
-            metaModel.MultipleBettype = ((int)BetType.MixParlay).ToString();
-            ViewBag.ReportTitle = ViewResources.MixParlay;
-            ViewBag.UserGuideName = "TotalBetsMixParlay";
-            ViewBag.IsMixParlay = true;
-            return ProcessRequest(metaModel);
-        }
-
-        [HttpGet]
-        [FunctionAuthorization(PermissionKeys.TotalBetMixParlay)]
-        public ActionResult SystemParlay(BetListMetaModel metaModel)
-        {
             metaModel.MultipleBettype = ((int)BetType.CombinationMixParlay).ToString();
-            ViewBag.ReportTitle = ViewResources.SystemParlay;
+            ViewBag.ReportTitle = Menu.Menu_12;
             ViewBag.UserGuideName = "TotalBetsMixParlay";
-            ViewBag.IsSystemParlay = true;
             return ProcessRequest(metaModel);
         }
 
@@ -95,7 +83,7 @@ namespace Fanex.Athena.Controllers.BetList
                     return Excel(metaModel);
                 }
 
-                return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+                return EmptyExcel();
             }
 
             SetConvetedUSDCurrencyName(metaModel);

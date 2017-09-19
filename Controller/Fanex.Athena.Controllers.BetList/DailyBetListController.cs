@@ -47,7 +47,7 @@ namespace Fanex.Athena.Controllers.BetList
                     return Excel(metaModel);
                 }
 
-                return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+                return EmptyExcel();
             }
 
             SetConvetedUSDCurrencyName(metaModel);

@@ -57,7 +57,7 @@ var WeeklyLiveMatchOption = (function () {
             forceFit: true,
             shrinkToFit: true,
             minWidth: 450,
-            loadtext: 'loading...',
+            loadtext: '',
             loadui: 'disable',
             loadonce: true,
             footerrow: true,

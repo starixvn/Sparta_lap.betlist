@@ -25,9 +25,11 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class MatchWinLossDataAccess : BaseDataAccess, IMatchWinLossDataAccess
     {
+        private readonly BalanceUp _balanceUp;
+
         public MatchWinLossDataAccess(BalanceUp balanceUp)
-            : base(balanceUp)
         {
+            _balanceUp = balanceUp;
         }
 
         public IList<MatchWinLoss> GetDataList(MatchWinLossMetaModel metaModel)
@@ -40,7 +42,7 @@ namespace Fanex.Athena.DataAccess.Report
                 {
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
-                    db.AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
+                    db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUp.MoveBetsDay);
                     foreach (var item in metaModel.ProductOptions)
                     {
                         db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
@@ -70,7 +72,7 @@ namespace Fanex.Athena.DataAccess.Report
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("FromDate", DbType.DateTime, metaModel.Date);
                     db.AddInParameter("ToDate", DbType.DateTime, metaModel.Date);
-                    db.AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
+                    db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUp.MoveBetsDay);
                     db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
 
                     foreach (var item in metaModel.ProductOptions)
@@ -100,7 +102,7 @@ namespace Fanex.Athena.DataAccess.Report
                     db.AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
                     db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
                     db.AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
-                    db.AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
+                    db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUp.MoveBetsDay);
 
                     foreach (var item in metaModel.ProductCodeList.Split(','))
                     {
@@ -134,7 +136,7 @@ namespace Fanex.Athena.DataAccess.Report
 
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
-                    db.AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
+                    db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUp.MoveBetsDay);
                     db.AddInParameter("showsb", DbType.Boolean, showSb);
                     db.AddInParameter("showba", DbType.Boolean, showBa);
                     db.AddInParameter("showVS2", DbType.Boolean, showVS2);

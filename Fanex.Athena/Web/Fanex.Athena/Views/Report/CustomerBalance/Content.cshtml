@@ -1,22 +1,22 @@
-﻿@using Fanex.Athena.Model.Report.ViewModel
-@using Fanex.Athena.Extension.Helper
-@model Fanex.Athena.Model.Report.ViewModel.CustomerBalanceViewModel
-<div class="container_26  new-line" style="width:@(ViewBag.FilterWidth + 12)@("px");">
-    <div class="grid_26">
-        <div style="width:@(ViewBag.FilterWidth + 1)px;">
-            @RazorHelper.Paging("CustomerBalanceForm", ViewBag.TotalRows, Model.Param.PageIndex, Model.Param.PageSize)
-        </div>
-        <div class="report-title" style="width:@(ViewBag.TitleWidth)px;">
-            @ViewResources.Customer @ViewResources.Balance,
-            @RazorHelper.TitleDateTime(Model.Param.FromDate,Model.Param.ToDate), @ViewResources.SortBy @ViewBag.SortByText
-        </div>
-        <div class="report-content " style="width:@(ViewBag.WrapperWidth + 1)px;">
-            @{Html.RenderPartial("~/Views/Report/CustomerBalance/Content.Header.cshtml");}
-            @{Html.RenderPartial("~/Views/Report/CustomerBalance/Content.Data.cshtml");}
-            @{Html.RenderPartial("~/Views/Report/CustomerBalance/Content.Total.cshtml");}
-        </div>
-        <div style="width:@(ViewBag.FilterWidth + 1)px;">
-            @RazorHelper.Paging("CustomerBalanceForm", ViewBag.TotalRows, Model.Param.PageIndex, Model.Param.PageSize)
+﻿@{
+    Layout = null;
+}
+<div class="theme_jqGrid">
+    <div class="container_26">
+        <div class="grid_26">
+            <div class="report-title hide">
+            </div>
+            <div class="report-content">
+                <div style="width: 100%">
+                    <table id="ReportGrid" data-hidden-column="">
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <div class="paging">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

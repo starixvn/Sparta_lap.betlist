@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
@@ -42,7 +43,7 @@
                     return Excel(metaModel, UspKey, title);
                 }
 
-                return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+                return EmptyExcel();
             }
 
             return View("~/Views/BetList/LiveReport/Match.cshtml", metaModel);
@@ -74,7 +75,7 @@
                     return Excel(metaModel, UspKey, title);
                 }
 
-                return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+                return EmptyExcel();
             }
 
             return View("~/Views/BetList/LiveReport/MixParlay.cshtml", metaModel);
@@ -104,7 +105,7 @@
                     return Excel(metaModel, UspKey, title);
                 }
 
-                return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+                return EmptyExcel();
             }
 
             return View("~/Views/BetList/LiveReport/Outright.cshtml", metaModel);
@@ -133,7 +134,7 @@
                     return Excel(metaModel, UspKey, title);
                 }
 
-                return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+                return EmptyExcel();
             }
 
             return View("~/Views/BetList/LiveReport/NumberGame.cshtml", metaModel);
@@ -164,7 +165,7 @@
                 return Excel(metaModel, UspName, title);
             }
 
-            return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+            return EmptyExcel();
         }
 
         [HttpGet]
@@ -192,7 +193,7 @@
                 return Excel(metaModel, UspName, title);
             }
 
-            return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+            return EmptyExcel();
         }
 
         private ActionResult Excel(BetListMetaModel metaModel, string uspKey, string title)

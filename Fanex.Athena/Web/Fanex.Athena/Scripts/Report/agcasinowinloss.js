@@ -215,9 +215,9 @@ var AgCasinoWinLoss = (function ($) {
                         } else {
                             AgCasinoWinLoss.setReportTitle(param.CurrencyId, fdate, tdate);
                         }
-                        //update excel ULR
-                        AgCasinoWinLoss.setExcelUrl(level, currencyId, customerId, fdate, tdate);
                     }
+
+                    AgCasinoWinLoss.setExcelUrl(level, currencyId, customerId, fdate, tdate);
                 },
                 beforeSend: function () {
                     Site.blockUI();

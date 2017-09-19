@@ -12,6 +12,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
+    using Helpers;
     using Model.Core.Helper;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -51,6 +52,8 @@ namespace Fanex.Athena.Excel.Report
         private readonly string _systemId;
         private readonly string _errorMessage;
 
+        private readonly ConvertingOption _convertingOption;
+
         public WinlossByProductExcel(
                                      string templatePath,
                                      ConvertingOption convertingOption,
@@ -59,8 +62,9 @@ namespace Fanex.Athena.Excel.Report
                                      WinLossByProductViewModel viewModel,
                                      string systemId,
                                      string errorMessage)
-            : base(templatePath, showingOption, convertingOption)
+            : base(templatePath, showingOption)
         {
+            _convertingOption = convertingOption;
             _metaModel = metaModel;
             _winlossByProductList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
@@ -159,7 +163,7 @@ namespace Fanex.Athena.Excel.Report
         protected override void AssignNoInfoRow(ISheet sheet)
         {
             var message = string.IsNullOrWhiteSpace(_errorMessage) ? ViewResources.NoInfo : _errorMessage;
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTitleTemplate, ColumnTemplateCount, message);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, ColumnTemplateCount, message);
         }
 
         /// <summary>
@@ -234,7 +238,8 @@ namespace Fanex.Athena.Excel.Report
                                     ViewResources.WinLossByProductTitle,
                                     fromdate,
                                     todate,
-                                    GetExactTitleCurrencyName(_metaModel.DrillDownCurrencyId)) + GetLicenseeWLProduct(_systemId);
+                                    ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.DrillDownCurrencyId)) +
+                                    ReportExcelHelper.GetLicenseeWLProduct(_metaModel.ProductOptions, _systemId);
             }
             else
             {
@@ -242,10 +247,11 @@ namespace Fanex.Athena.Excel.Report
                                         ViewResources.WinLossByProductTitle,
                                         fromdate,
                                         todate,
-                                        GetExactTitleCurrencyName(_metaModel.CurrencyId)) + GetLicenseeWLProduct(_systemId);
+                                        ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId)) +
+                                        ReportExcelHelper.GetLicenseeWLProduct(_metaModel.ProductOptions, _systemId);
             }
 
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);
@@ -262,23 +268,23 @@ namespace Fanex.Athena.Excel.Report
         {
             if (!ShowingOption.CustomerCommVisible)
             {
-                HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
-                HideRow(sheet, RowTableHeaderTemplate + 1);
+                sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
+                sheet.HideRow(RowTableHeaderTemplate + 1);
             }
 
             if (ShowingOption.BAVisible == false && ShowingOption.RBVisible == false)
             {
-                HideColumn(sheet, ColumnComm);
+                sheet.HideColumn(ColumnComm);
             }
 
             switch (Level)
             {
                 case 0:
-                    HideColumn(sheet, ColumnExternalId, ColumnSystemId);
+                    sheet.HideColumn(ColumnExternalId, ColumnSystemId);
                     break;
 
                 case 1:
-                    HideColumn(sheet, ColumnExternalId);
+                    sheet.HideColumn(ColumnExternalId);
                     break;
             }
         }
@@ -369,7 +375,7 @@ namespace Fanex.Athena.Excel.Report
             foreach (var currency in currencyList)
             {
                 var data = totalCurrencyList.Where(a => a.CurrencyName == currency.Key).ToList();
-                sheet.MergeCells(currentRow, ColumnCurrency, currentRow + data.Count() - 1, ColumnCurrency);
+                sheet.MergeCells(currentRow, ColumnCurrency, currentRow + data.Count - 1, ColumnCurrency);
                 foreach (var item in data)
                 {
                     int cellIndex = ColumnCurrency;
@@ -497,7 +503,7 @@ namespace Fanex.Athena.Excel.Report
                     string reportDateString = EnableReportByMonth == 1
                                               ? dateGetDb.ToShortDateString()
                                               : dateGetDb.ToString("MM/yyyy");
-                    SetTextRowValue(sheet, RowContentTitleTemplate, currentRow, ColumnTemplateCount, reportDateString);
+                    sheet.SetTextRowValue(TemplateSheet, RowContentTitleTemplate, currentRow, ColumnTemplateCount, reportDateString);
                     date = dateGetDb.ToShortDateString();
                     currentRow++;
                 }

@@ -14,19 +14,13 @@
     public class MicroGamingWinLossDataAccessTest
     {
         private MicroGamingWinLossDataAccess _dataAccess;
-        private BalanceUp _balance;
+
         private MicroGamingWinLossMetaModel _metaModel;
 
         [OneTimeSetUp]
         public void Setup()
         {
-            _balance = new BalanceUp
-            {
-                MoveBetsDay = new DateTime(2016, 8, 10),
-                BalanceUpDay = new DateTime(2016, 8, 31)
-            };
-
-            _dataAccess = Substitute.ForPartsOf<MicroGamingWinLossDataAccess>(_balance);
+            _dataAccess = Substitute.ForPartsOf<MicroGamingWinLossDataAccess>();
 
             _metaModel = new MicroGamingWinLossMetaModel
             {
@@ -44,7 +38,6 @@
         {
             _dataAccess = null;
             _metaModel = null;
-            _balance = null;
         }
 
         [Test]

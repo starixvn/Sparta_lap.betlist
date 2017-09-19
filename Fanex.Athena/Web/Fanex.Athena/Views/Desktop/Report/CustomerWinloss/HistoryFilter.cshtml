@@ -1,0 +1,53 @@
+﻿@{
+    Layout = null;
+}
+@model Fanex.Athena.Model.Report.ViewModel.CustomerWinLossViewModel
+<div class="page-form">
+    <form id="CustomerWinlossForm" action="post">
+        @Html.AntiForgeryToken()
+        <div class="row">
+            @DesktopRazorHelper.MonthPicker(Model.Param.FromDate, Model.Param.ToDate)
+            <div class="input-field col l2 m3 s12">
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
+                <label>@ViewResources.Currency</label>
+            </div>
+            <div class="input-field col l2 m3 s12">
+                @DesktopRazorHelper.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
+                <label>@ViewResources.Based</label>
+            </div>
+        </div>
+        <div class="row">
+            @DesktopRazorHelper.RenderProductFilter(Model.Param.ProductOptions, 3, 5)
+            <div class="input-field input col l2 m3 s12">
+                <input type="radio" value="true" class="with-gap" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData0" />
+                <label for="IsExcludedTestData0">
+                    @ViewResources.Yes
+                </label>
+                <input type="radio" class="with-gap" value="false" @(Model.Param.IsExcludedTestData == false ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData1" />
+                <label for="IsExcludedTestData1">
+                    @ViewResources.No
+                </label>
+                <label class="active">@ViewResources.ExcludeTestData</label>
+            </div>
+            <div class="col l2 m3 s12 button-block">
+                <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <span class="circle"></span>
+                <span>
+                    <a href="javascript:;" id="current-report-link">@ViewResources.BackToCurrentReport</a>
+                </span>
+            </div>
+            <div class="col right icon-block">
+                <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+                <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
+            </div>
+        </div>
+        @Html.Hidden("IsHistory", Model.IsHistory)
+    </form>
+    @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
+    @Html.Hidden("IsAllowedBA", Model.ProductAccess.IsAllowBA)
+    @Html.Hidden("IsAllowedRB", Model.ProductAccess.IsAllowRB)
+</div>

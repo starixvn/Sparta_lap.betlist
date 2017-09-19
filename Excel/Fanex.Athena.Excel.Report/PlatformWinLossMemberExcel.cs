@@ -12,6 +12,7 @@ namespace Fanex.Athena.Excel.Report
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Model.Core.DataDomain;
+    using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
     using Model.Report.ViewModel;
     using NPOI.SS.UserModel;
@@ -41,13 +42,16 @@ namespace Fanex.Athena.Excel.Report
         private readonly PlatformWinLossViewModel _model;
         private readonly PlatformWinLossMember _totalData;
 
+        private readonly IEnumerable<ProductOption> _productOptions;
+
         public PlatformWinLossMemberExcel(
                         string templatePath,
                                   PlatformWinLossViewModel model,
                                   ShowingOption showingOption,
-                                  ConvertingOption convertingOption)
-            : base(templatePath, showingOption, convertingOption)
+                                  IEnumerable<ProductOption> productOptions)
+            : base(templatePath, showingOption)
         {
+            _productOptions = productOptions;
             _model = model;
             _dataList = model.MainResult;
             _totalData = model.TotalResult;
@@ -119,7 +123,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
 
         /// <summary>
@@ -163,7 +167,7 @@ namespace Fanex.Athena.Excel.Report
                                         GetBaseCurrencyTitle(),
                                         platformText) + ", " + GetProductTitle();
 
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             sheet.CreateFreezePane(0, 3);
 
@@ -178,18 +182,18 @@ namespace Fanex.Athena.Excel.Report
         {
             if (!ShowingOption.CustomerCommVisible)
             {
-                HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerCommission);
-                HideRow(sheet, RowHeaderTemplate + 1);
+                sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerCommission);
+                sheet.HideRow(RowHeaderTemplate + 1);
             }
 
             if (!ShowingOption.BAVisible)
             {
-                HideColumn(sheet, ColumnBaCommission, ColumnAmtDueToBa);
+                sheet.HideColumn(ColumnBaCommission, ColumnAmtDueToBa);
             }
 
             if (!ShowingOption.RBVisible)
             {
-                HideColumn(sheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
+                sheet.HideColumn(ColumnRacingRevenue, ColumnAmtDueToRacing);
             }
         }
 
@@ -226,13 +230,13 @@ namespace Fanex.Athena.Excel.Report
 
         private string GetProductTitle()
         {
-            if (ProductOptions.Count == 1)
+            if (_productOptions.Count() == 1)
             {
-                return string.Format("{0}: {1}", ViewResources.Product, ProductOptions.First().Code);
+                return string.Format("{0}: {1}", ViewResources.Product, _productOptions.First().Code);
             }
 
-            var selectedProducts = ProductOptions.Where(x => x.Status);
-            if (selectedProducts.Count() == ProductOptions.Count)
+            var selectedProducts = _productOptions.Where(x => x.Status);
+            if (selectedProducts.Count() == _productOptions.Count())
             {
                 return string.Format("{0}: {1}", ViewResources.Product, ViewResources.All);
             }

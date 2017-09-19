@@ -78,11 +78,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
         private static IList<BetSetting> RenderRacingBetSetting(IDataReader reader, bool isAllowSaToteCurrency)
         {
-            if (reader.FieldCount == 0)
-            {
-                return null;
-            }
-
             var racingList = new List<BetSetting>();
 
             BetSettingHelper.RenderSport(reader, "151_41", racingList); // Horse racing UK

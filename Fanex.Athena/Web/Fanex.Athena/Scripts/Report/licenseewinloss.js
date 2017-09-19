@@ -182,12 +182,11 @@ var LicenseeWinLoss = (function ($) {
 
             var mainForm = $("#licenseewinloss");
             var data = mainForm.serializeObject();
-            if(_sortColumnName)
-            {
+            if (_sortColumnName) {
                 data.sortby = _sortColumnName;
                 data.sortOrder = _sortOrder;
             }
-            
+
             var option = {
                 type: "POST",
                 data: data,
@@ -446,8 +445,6 @@ var LicenseeWinLoss = (function ($) {
             if ($gridBody.length > 0) {
                 $gridBody[0].scrollLeft = scrollLeft;
             }
-
-
         },
 
         //#end

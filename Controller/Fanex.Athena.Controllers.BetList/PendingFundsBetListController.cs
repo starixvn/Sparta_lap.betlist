@@ -11,7 +11,7 @@ namespace Fanex.Athena.Controllers.BetList
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Base;
+    using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -41,7 +41,7 @@ namespace Fanex.Athena.Controllers.BetList
 
                 if (metaModel.CurrencyId != BaseCurrencyType.All && !currencyList.ContainsKey(metaModel.CurrencyId))
                 {
-                    return this.File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+                    return this.EmptyExcel();
                 }
 
                 const string UspKey = "Lrf_BetList_SelRunningByDate_Mem";

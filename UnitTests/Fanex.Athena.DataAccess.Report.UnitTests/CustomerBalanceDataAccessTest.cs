@@ -44,11 +44,11 @@
         public void GetDataList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var totalData = new CustBalance();
-            int totalRow = 0;
+            CustBalance totalData;
+            int totalRow;
 
             // Action
-            _dataAccess.GetDataList(_metaModel, ref totalData, ref totalRow);
+            _dataAccess.GetDataList(_metaModel, out totalData, out totalRow);
 
             // Assert
             _objectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
@@ -87,15 +87,15 @@
                 TotalWL = 20m
             };
 
-            var totalData = new CustBalance();
-            int totalRow = 0;
+            CustBalance totalData;
+            int totalRow;
             _reader.Read().Returns(true, false, true, false);
             _reader.NextResult().Returns(true);
             ConfigureReaderForGetDataListMethod(expectedResult);
             ConfigureReaderForTotalData(expectedTotalData);
 
             // Action
-            var result = _dataAccess.GetDataList(_metaModel, ref totalData, ref totalRow)[0];
+            var result = _dataAccess.GetDataList(_metaModel, out totalData, out totalRow)[0];
 
             // Assert
             Assert.That(result.ExternalId, Is.EqualTo(expectedResult.ExternalId));

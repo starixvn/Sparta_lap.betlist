@@ -15,7 +15,7 @@ namespace Fanex.Athena.Model.Report.MetaModel
         {
             PageIndex = 1;
             PageSize = 1000;
-            SortDirection = "ASC";
+            SortDirection = "asc";
             SortColumn = "ExternalId";
         }
 

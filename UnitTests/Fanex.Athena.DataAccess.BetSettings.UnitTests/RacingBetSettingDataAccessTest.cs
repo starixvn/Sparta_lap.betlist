@@ -41,6 +41,33 @@
             _objectDb.Received().AddInParameter("CustID", DbType.Int32, custId);
         }
 
+        [Test]
+        public void GetBetSetting_WhenCall_DataReturnCorrectly()
+        {
+            // Arrange
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelEditRB")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CheckHRAllowedCurrency")).Returns(Substitute.For<IObjectDb>());
+            var reader = Substitute.For<IDataReader>();
+            _objectDb.ExecuteReader().Returns(reader);
+            reader.Read().Returns(true, false);
+            reader.FieldCount.Returns(1);
+
+            MapReaderData(reader, new Dictionary<string, object>());
+            var custId = 1;
+
+            // Action
+            var result = _dataAccess.GetBetSetting(custId);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(3));
+                Assert.That(result[0].SportId, Is.EqualTo("151_41"));
+                Assert.That(result[1].SportId, Is.EqualTo("152_51"));
+                Assert.That(result[2].SportId, Is.EqualTo("153_51"));
+            });
+        }
+
         [TestCase("151_31", "Lrf_CustomerUpdMember_MinMaxBet151_31")]
         [TestCase("151_41", "Lrf_CustomerUpdMember_MinMaxBet151_41")]
         [TestCase("151_51", "Lrf_CustomerUpdMember_MinMaxBet151_51")]
@@ -67,6 +94,20 @@
             _objectDb.Received().AddInParameter("ip", DbType.String, racingBetSetting.Ip);
             _objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
             _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+        }
+
+        private static void MapReaderData(IDataReader reader, IDictionary<string, object> readerDataMapping)
+        {
+            reader[Arg.Any<string>()].Returns(x =>
+            {
+                var paramName = x.ArgAt<string>(0);
+                if (readerDataMapping.ContainsKey(paramName))
+                {
+                    return readerDataMapping[paramName];
+                }
+
+                return string.Empty;
+            });
         }
 
         private RacingBetSetting GetRacingBetSetting()

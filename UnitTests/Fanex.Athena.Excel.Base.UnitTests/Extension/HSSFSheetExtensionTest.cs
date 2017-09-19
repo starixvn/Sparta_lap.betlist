@@ -1,6 +1,6 @@
 ﻿namespace Fanex.Athena.Excel.Base.UnitTests.Extension
 {
-    using System;
+    using System.Collections.Generic;
     using Excel.Base.Extension;
     using NPOI.SS.UserModel;
     using NSubstitute;
@@ -9,6 +9,27 @@
     [TestFixture]
     public class HSSFSheetExtensionTest
     {
+        [TestCase(0, 2)]
+        [TestCase(2, 0)]
+        public void SetTextRowValue_WhenCall_SetCellValueMethodIsCalled(int sourceRowIndex, int destRowIndex)
+        {
+            // Arrange
+            var sheet = Substitute.For<ISheet>();
+            var sourceSheet = Substitute.For<ISheet>();
+            var row = Substitute.For<IRow>();
+
+            sheet.GetRow(destRowIndex).Returns(row);
+
+            var cell = Substitute.For<ICell>();
+            row.Cells.Returns(new List<ICell>() { cell });
+
+            // Action
+            sheet.SetTextRowValue(sourceSheet, sourceRowIndex, destRowIndex, 1, "Test");
+
+            // Assert
+            cell.Received().SetCellValue("Test");
+        }
+
         [TestCase(0, 2)]
         [TestCase(2, 0)]
         public void CopyRow(int sourceRowIndex, int destRowIndex)
@@ -135,7 +156,7 @@
             var sheet = Substitute.For<ISheet>();
 
             // Action
-            var result = sheet.MergeCells(firstRow, firstCol, lastRow, lastCol);
+            sheet.MergeCells(firstRow, firstCol, lastRow, lastCol);
 
             // Assert
             sheet.ReceivedWithAnyArgs().AddMergedRegion(null);
@@ -156,6 +177,86 @@
 
             // Assert
             sheet.Received().RemoveRow(row);
+        }
+
+        [Test]
+        public void HideRow_WhenCall_SetCellValueMethodCalled()
+        {
+            // Arrange
+            var rowIndexs = new int[] { 0, 1, 5 };
+            var times = rowIndexs.Length;
+            var sheet = Substitute.For<ISheet>();
+            var cell = Substitute.For<ICell>();
+            foreach (var item in rowIndexs)
+            {
+                sheet.GetCell(item, 0).Returns(cell);
+            }
+
+            // Action
+            sheet.HideRow(rowIndexs);
+
+            // Assert
+            cell.Received(times).SetCellValue(string.Empty);
+        }
+
+        [Test]
+        public void HideRow_WhenCall_ZeroHeightIsTrue()
+        {
+            // Arrange
+            var rowIndexs = new int[] { 0, 1, 5, 8 };
+            var times = rowIndexs.Length;
+            var sheet = Substitute.For<ISheet>();
+            var row = Substitute.For<IRow>();
+            foreach (var item in rowIndexs)
+            {
+                sheet.GetRow(item).Returns(row);
+            }
+
+            // Action
+            sheet.HideRow(rowIndexs);
+
+            // Assert
+            row.Received(times).ZeroHeight = true;
+        }
+
+        [Test]
+        public void HideColumn_WhenCall_SetCellValueMethodCalled()
+        {
+            // Arrange
+            var columnIndexs = new int[] { 0, 1, 5 };
+            var times = columnIndexs.Length;
+            var sheet = Substitute.For<ISheet>();
+            sheet.FirstRowNum.Returns(1);
+            sheet.LastRowNum.Returns(3);
+
+            var cell = Substitute.For<ICell>();
+            foreach (var item in columnIndexs)
+            {
+                sheet.GetCell(2, item).Returns(cell);
+            }
+
+            // Action
+            sheet.HideColumn(columnIndexs);
+
+            // Assert
+            cell.Received(times).SetCellValue(string.Empty);
+        }
+
+        [Test]
+        public void HideColumn_WhenCall_SetColumnHiddenMethodCalledWithCorrectParam()
+        {
+            // Arrange
+            var columnIndexs = new int[] { 0, 1, 5 };
+            var times = columnIndexs.Length;
+            var sheet = Substitute.For<ISheet>();
+            sheet.FirstRowNum.Returns(1);
+            sheet.LastRowNum.Returns(3);
+
+            // Action
+            sheet.HideColumn(columnIndexs);
+
+            // Assert
+            sheet.Received(times).SetColumnHidden(Arg.Any<int>(), true);
         }
     }
 }

@@ -97,7 +97,7 @@ namespace Fanex.Athena.Controllers.Report
             var currencyName = userSession.CurrencyList
                 .Where(i => i.Key == metaModel.CurrencyId).Select(i => i.Value).SingleOrDefault();
 
-            var totalData = new CustTurnover();
+            CustTurnover totalData;
             var totalRow = 0;
             var data = GetData(metaModel, out totalData, out totalRow);
             var usernameExcelTitle = string.IsNullOrEmpty(metaModel.Username) ?
@@ -120,7 +120,7 @@ namespace Fanex.Athena.Controllers.Report
             return new ExcelResult(excel.Workbook, FileName);
         }
 
-        private IList<CustTurnover> GetData(CustomerTurnoverMetaModel metalModel, out CustTurnover totalData, out int totalRow)
+        private IEnumerable<CustTurnover> GetData(CustomerTurnoverMetaModel metalModel, out CustTurnover totalData, out int totalRow)
         {
             totalData = new CustTurnover();
             totalRow = 0;

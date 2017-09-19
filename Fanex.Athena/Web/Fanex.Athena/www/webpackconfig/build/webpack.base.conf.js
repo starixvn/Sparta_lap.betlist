@@ -3,7 +3,7 @@ var merge = require('webpack-merge');
 
 var pathConfig = require('../config/path');
 var alias = require('../config/alias');
-var loader = require('../config/loader');
+var rules = require('../config/rule');
 var pluginGenerator = require('../config/plugin');
 var exposeLoader = require('expose-loader');
 var utils = require('./utils');
@@ -14,7 +14,11 @@ function generateConfig(environment) {
 
     var commonConfigs = {
         resolve: {
-            alias: alias
+            alias: alias,
+            modules: [
+                path.join(__dirname, "www"),
+                "node_modules"
+           ]
         },
         entry: {
             common: ["jquery", "vendor-materialize", "common/site", "common/querystring"],
@@ -74,6 +78,14 @@ function generateConfig(environment) {
             [`${jsPath}/pages/customer/kenobetsetting`]: [pathConfig.scriptPaths.kenobetsetting],
             [`${jsPath}/pages/customer/livecasinobetsetting`]: [pathConfig.scriptPaths.livecasinobetsetting],
             [`${jsPath}/pages/customer/numbergamebetsetting`]: [pathConfig.scriptPaths.numbergamebetsetting],
+            [`${jsPath}/pages/reports/activecustomersummary`]: [pathConfig.scriptPaths.activecustomersummary],
+            [`${jsPath}/pages/reports/agcasinowinloss`]: [pathConfig.scriptPaths.agcasinowinloss],
+            [`${jsPath}/pages/reports/customerbalance`]: [pathConfig.scriptPaths.customerbalance],
+            [`${jsPath}/pages/reports/golddeluxewinloss`]: [pathConfig.scriptPaths.golddeluxewinloss],
+            [`${jsPath}/pages/reports/colossusbetswinloss`]: [pathConfig.scriptPaths.colossusbetswinloss],
+            [`${jsPath}/pages/reports/customerpendingfunds`]: [pathConfig.scriptPaths.customerpendingfunds],
+            [`${jsPath}/pages/reports/customerturnover`]: [pathConfig.scriptPaths.customerturnover],
+            [`${jsPath}/pages/reports/customerwinloss`]: [pathConfig.scriptPaths.customerwinloss],
 
             [`${cssPath}/pages/reports/reportjqgridlayout`]: pathConfig.cssPaths.reportjqgridlayout,
             [`${cssPath}/pages/reports/livereport`]: pathConfig.cssPaths.livereport,
@@ -117,15 +129,22 @@ function generateConfig(environment) {
             [`${cssPath}/pages/customer/customerlist`]: pathConfig.cssPaths.customerlist,
             [`${cssPath}/pages/betlist/customeroutstanding`]: pathConfig.cssPaths.customeroutstanding,
             [`${cssPath}/pages/customer/betsetting`]: pathConfig.cssPaths.betsetting,
-            [`${cssPath}/pages/utility/licenseelist`]: pathConfig.cssPaths.licenseelist
-            
+            [`${cssPath}/pages/utility/licenseelist`]: pathConfig.cssPaths.licenseelist,
+            [`${cssPath}/pages/reports/activecustomersummary`]: pathConfig.cssPaths.activecustomersummary,
+            [`${cssPath}/pages/reports/agcasinowinloss`]: pathConfig.cssPaths.agcasinowinloss,
+            [`${cssPath}/pages/reports/customerbalance`]: pathConfig.cssPaths.customerbalance,
+            [`${cssPath}/pages/reports/golddeluxewinloss`]: pathConfig.cssPaths.golddeluxewinloss,
+            [`${cssPath}/pages/reports/colossusbetswinloss`]: pathConfig.cssPaths.colossusbetswinloss,
+            [`${cssPath}/pages/reports/customerpendingfunds`]: pathConfig.cssPaths.customerpendingfunds,
+            [`${cssPath}/pages/reports/customerturnover`]: pathConfig.cssPaths.customerturnover,
+            [`${cssPath}/pages/reports/customerwinloss`]: pathConfig.cssPaths.customerwinloss,
         },
         output: {
             path: pathConfig.projectRoot,
             filename: "[name].chunk.js"
         },
         module: {
-            loaders: loader.commonLoaders
+            rules: rules.commonRules
         },
         plugins: pluginGenerator(environment),
         stats: {
@@ -136,7 +155,7 @@ function generateConfig(environment) {
             timings: true,
             chunks: false,
             chunkModules: false,
-            children: true
+            children: false
         }
     };
 

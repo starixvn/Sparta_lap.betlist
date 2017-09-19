@@ -50,7 +50,7 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
                     RNGCasinoResultMetaModel metaModel,
                     RNGCasinoResultViewModel viewModel,
                     RNGCasinoResult totalData)
-            : base(templatePath, null, null)
+            : base(templatePath, null)
         {
             _metaModel = metaModel;
             _data = viewModel.Data;
@@ -115,7 +115,7 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
 
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTitleTemplate, ColumnTemplateCount, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
         {
             ReportTitle = ViewResources.CASINOHANDHISTORY;
 
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);
@@ -192,7 +192,7 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
                 _metaModel.RefNo,
                 string.Format(ViewResources.Viewin, currency.ToUpper()));
 
-            SetTextRowValue(sheet, RowHeaderTemplate, RowHeaderTemplate, ColumnTemplateCount, title);
+            sheet.SetTextRowValue(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate, ColumnTemplateCount, title);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
@@ -253,7 +253,7 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
 
         private void AssignGroupHeader(ISheet sheet, string sessionLogId, int currentRow)
         {
-            SetTextRowValue(sheet, RowContentTitleTemplate, currentRow, ColumnTemplateCount, ViewResources.SessionID + ": " + sessionLogId);
+            sheet.SetTextRowValue(TemplateSheet, RowContentTitleTemplate, currentRow, ColumnTemplateCount, ViewResources.SessionID + ": " + sessionLogId);
         }
     }
 }

@@ -48,11 +48,11 @@
         public void GetDataList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var totalData = new CustPendingFunds();
-            int totalRow = 0;
+            CustPendingFunds totalData;
+            int totalRow;
 
             // Action
-            _dataAccess.GetDataList(_metaModel, ref totalData, ref totalRow);
+            _dataAccess.GetDataList(_metaModel, out totalData, out totalRow);
 
             // Assert
             _objectDb.Received().AddInParameter("pagesize", DbType.Int32, _metaModel.PageSize);
@@ -83,13 +83,13 @@
                 BetCounts = 10,
                 PendingFunds = 15m
             };
-            var totalData = new CustPendingFunds();
-            int totalRow = 0;
+            CustPendingFunds totalData;
+            int totalRow;
             ConfigureReaderForTotalData(expectedTotalData);
             ConfigureReaderForResult(expectedResult);
 
             // Action
-            var result = _dataAccess.GetDataList(_metaModel, ref totalData, ref totalRow)[0];
+            var result = _dataAccess.GetDataList(_metaModel, out totalData, out totalRow)[0];
 
             // Assert
             Assert.That(result.CustId, Is.EqualTo(expectedResult.CustId));

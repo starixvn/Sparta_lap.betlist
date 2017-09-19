@@ -10,6 +10,7 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
@@ -45,7 +46,7 @@ namespace Fanex.Athena.Controllers.BetList
                     return Excel(metaModel, uspKey);
                 }
 
-                return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+                return EmptyExcel();
             }
 
             return View("~/Views/BetList/MatchWl/MatchBetType.cshtml", metaModel);
@@ -68,7 +69,7 @@ namespace Fanex.Athena.Controllers.BetList
                     return Excel(metaModel, UspKey);
                 }
 
-                return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+                return EmptyExcel();
             }
 
             return View("~/Views/BetList/MatchWl/MixParlay.cshtml", metaModel);
@@ -91,7 +92,7 @@ namespace Fanex.Athena.Controllers.BetList
                     return Excel(metaModel, UspKey);
                 }
 
-                return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+                return EmptyExcel();
             }
 
             return View("~/Views/BetList/MatchWl/Outright.cshtml", metaModel);

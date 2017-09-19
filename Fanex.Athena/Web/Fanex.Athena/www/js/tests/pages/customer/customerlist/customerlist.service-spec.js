@@ -313,7 +313,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
                     option.beforeSend();
 
                     return ajaxObj;
-                })
+                });
             });
 
             it("getPostData() should be called", function () {
@@ -334,6 +334,14 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
                 ajaxOption.success({ Data: [{ "CustId": 0, "GroupCommId": 0 }, { "CustId": 1, "GroupCommId": 1 }, { "CustId": 2, "GroupCommId": 2 }] });
 
                 expect(CustomerListService.bindData).toHaveBeenCalled();
+            });
+
+            it("Site.unBlockUI() should be called if calling ajax unsuccessfully", function () {
+                CustomerListService.submit();
+
+                ajaxOption.error();
+
+                expect(Site.unBlockUI).toHaveBeenCalled();
             });
         });
 

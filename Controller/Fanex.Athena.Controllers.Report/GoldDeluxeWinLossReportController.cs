@@ -49,7 +49,6 @@ namespace Fanex.Athena.Controllers.Report
 
             var model = new ThirdPartyWinLossViewModel
             {
-                ShowEmptyContent = true,
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList
             };

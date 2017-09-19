@@ -57,10 +57,9 @@ namespace Fanex.Athena.Api.Report
             string templatePath,
             PlatformWinLossMetaModel metaModel,
             IList<PlatformWinLossSummary> dataList,
-            PlatformWinLossSummary total,
-            ConvertingOption convertingOption)
+            PlatformWinLossSummary total)
         {
-            return new PlatformWinLossSummaryExcel(templatePath, metaModel, dataList, total, convertingOption);
+            return new PlatformWinLossSummaryExcel(templatePath, metaModel, dataList, total);
         }
 
         [CLSCompliant(false)]
@@ -68,13 +67,9 @@ namespace Fanex.Athena.Api.Report
             string templatePath,
             PlatformWinLossMetaModel metaModel,
             PlatformWinLossViewModel excelModel,
-            ShowingOption showingOption,
-            ConvertingOption convertingOption)
+            ShowingOption showingOption)
         {
-            return new PlatformWinLossMemberExcel(templatePath, excelModel, showingOption, convertingOption)
-            {
-                ProductOptions = metaModel.ProductOptions
-            };
+            return new PlatformWinLossMemberExcel(templatePath, excelModel, showingOption, metaModel.ProductOptions);
         }
 
         private HttpResponseMessage ExportExcelSummary(
@@ -85,14 +80,7 @@ namespace Fanex.Athena.Api.Report
             const string FileName = "PlatformWinLossSummary.xls";
             var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/PlatformWinLossSummary.xls");
 
-            var convertingOption = new ConvertingOption
-            {
-                IsConvert = metaModel.IsConvert,
-                BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = metaModel.CurrencyName
-            };
-
-            var excel = CreateExcelSummary(templatePath, metaModel, dataList, total, convertingOption);
+            var excel = CreateExcelSummary(templatePath, metaModel, dataList, total);
             excel.Export();
 
             return ExcelStream(excel.Workbook, FileName);
@@ -121,13 +109,6 @@ namespace Fanex.Athena.Api.Report
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
 
-            var convertingOption = new ConvertingOption
-            {
-                IsConvert = metaModel.IsConvert,
-                BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = metaModel.CurrencyName
-            };
-
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.PlatformWinloss);
 
             var excelModel = new PlatformWinLossViewModel
@@ -141,7 +122,7 @@ namespace Fanex.Athena.Api.Report
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
-            var platformWinLossExcel = CreateExcelMember(templatePath, metaModel, excelModel, showingOption, convertingOption);
+            var platformWinLossExcel = CreateExcelMember(templatePath, metaModel, excelModel, showingOption);
             platformWinLossExcel.Export();
 
             return ExcelStream(platformWinLossExcel.Workbook, FileName);

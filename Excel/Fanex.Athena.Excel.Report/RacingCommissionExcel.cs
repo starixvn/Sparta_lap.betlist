@@ -11,6 +11,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
+    using Helpers;
     using Model.Report.DTO;
     using Model.Report.ViewModel;
     using NPOI.SS.UserModel;
@@ -37,13 +38,16 @@ namespace Fanex.Athena.Excel.Report
         private readonly RacingCommission _total;
         private readonly RacingCommissionViewModel _viewModel;
 
+        private readonly ConvertingOption _convertingOption;
+
         public RacingCommissionExcel(
                                      string templatePath,
                                      ConvertingOption convertingOption,
                                      ShowingOption showingOption,
                                      RacingCommissionViewModel viewModel)
-            : base(templatePath, showingOption, convertingOption)
+            : base(templatePath, showingOption)
         {
+            _convertingOption = convertingOption;
             _viewModel = viewModel;
             _racingCommissionList = viewModel.RacingCommissionList;
             _total = viewModel.Total;
@@ -102,7 +106,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
@@ -150,9 +154,9 @@ namespace Fanex.Athena.Excel.Report
                                         ViewResources.RacingCommissionTitle,
                                         _viewModel.Param.FromDate.ToString(FormatDate),
                                         _viewModel.Param.ToDate.ToString(FormatDate),
-                                        GetTitleCurrencyName());
+                                        ReportExcelHelper.GetTitleCurrencyName(_convertingOption));
 
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
@@ -169,7 +173,7 @@ namespace Fanex.Athena.Excel.Report
         {
             if (!ShowingOption.CustomerCommVisible)
             {
-                HideColumn(sheet, ColumnCustomerCommission);
+                sheet.HideColumn(ColumnCustomerCommission);
             }
         }
 
@@ -183,7 +187,7 @@ namespace Fanex.Athena.Excel.Report
             int totalRow = rowIndex + RowContentTemplate;
 
             IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, totalRow);
-            row.Cells[0].SetCellValue(ViewResources.Totalin + " " + ConvertingOption.BaseCurrency.ToUpperInvariant());
+            row.Cells[0].SetCellValue(ViewResources.Totalin + " " + _convertingOption.BaseCurrency.ToUpperInvariant());
             sheet.MergeCells(totalRow, ColumnIndex, totalRow, 1);
 
             row.Cells[ColumnToteWin].SetCellValue(_total.ToteWin);

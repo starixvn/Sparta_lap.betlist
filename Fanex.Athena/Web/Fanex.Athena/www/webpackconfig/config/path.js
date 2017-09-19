@@ -53,7 +53,15 @@ var cssPaths = {
     customerlist: ["./www/css/source/pages/customer/customerlist.scss"],
     customeroutstanding: ["./www/css/source/pages/betlist/customeroutstanding.scss"],
     betsetting: ["./www/css/source/pages/customer/betsetting.scss"],
-    licenseelist: ["./www/css/source/pages/utility/licenseelist.scss"]
+    licenseelist: ["./www/css/source/pages/utility/licenseelist.scss"],
+    activecustomersummary: ["./www/css/source/pages/report/activecustomersummary.scss"],
+    agcasinowinloss: ["./www/css/source/pages/report/agcasinowinloss.scss"],
+    customerbalance: ["./www/css/source/pages/report/customerbalance.scss"],
+    golddeluxewinloss: ["./www/css/source/pages/report/golddeluxewinloss.scss"],
+    colossusbetswinloss: ["./www/css/source/pages/report/colossusbetswinloss.scss"],
+    customerpendingfunds: ["./www/css/source/pages/report/customerpendingfunds.scss"],
+    customerturnover: ["./www/css/source/pages/report/customerturnover.scss"],
+    customerwinloss: ["./www/css/source/pages/report/customerwinloss.scss"]
 };
 
 var scriptPaths = {
@@ -117,7 +125,15 @@ var scriptPaths = {
     thirdpartybetsetting: "./www/js/source/pages/customer/betsetting/main-thirdparty.js",
     kenobetsetting: "./www/js/source/pages/customer/betsetting/main-keno.js",
     livecasinobetsetting: "./www/js/source/pages/customer/betsetting/main-livecasino.js",
-    numbergamebetsetting: "./www/js/source/pages/customer/betsetting/main-numbergame.js"
+    numbergamebetsetting: "./www/js/source/pages/customer/betsetting/main-numbergame.js",
+    activecustomersummary: "./www/js/source/pages/report/activecustomersummary/main.js",
+    agcasinowinloss: "./www/js/source/pages/report/agcasinowinloss/main.js",
+    customerbalance: "./www/js/source/pages/report/customerbalance/main.js",
+    golddeluxewinloss: "./www/js/source/pages/report/thirdpartywinloss/main-golddeluxewinloss.js",
+    colossusbetswinloss: "./www/js/source/pages/report/thirdpartywinloss/main-colossusbetswinloss.js",
+    customerpendingfunds: "./www/js/source/pages/report/customerpendingfunds/main.js",
+    customerturnover: "./www/js/source/pages/report/customerturnover/main.js",
+    customerwinloss: "./www/js/source/pages/report/customerwinloss/main.js"
 };
 
 module.exports = {

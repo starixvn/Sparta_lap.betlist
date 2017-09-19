@@ -10,7 +10,7 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Base;
+    using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -18,7 +18,6 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
-    using Web.ActionFilter;
 
     #endregion Using
 
@@ -39,7 +38,7 @@ namespace Fanex.Athena.Controllers.BetList
                     return Excel(metaModel);
                 }
 
-                return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+                return EmptyExcel();
             }
 
             return View("~/Views/BetList/RunningBetListOfMatch/Main.cshtml", metaModel);

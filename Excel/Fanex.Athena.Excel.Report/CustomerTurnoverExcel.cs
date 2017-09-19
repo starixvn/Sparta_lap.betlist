@@ -41,17 +41,17 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTableHeaderTemplate = 1;
         private const int RowTotalTemplate = 4;
 
-        private readonly IList<CustTurnover> _customerTurnoverList;
+        private readonly IEnumerable<CustTurnover> _customerTurnoverList;
         private readonly string _formatDateTime;
         private readonly CustTurnover _total;
 
         public CustomerTurnoverExcel(
                                      string templatePath,
                                      ShowingOption showingOption,
-                                     IList<CustTurnover> customerTurnoverList,
+                                     IEnumerable<CustTurnover> customerTurnoverList,
                                      CustTurnover total,
                                      string formatDateTime)
-            : base(templatePath, showingOption, new ConvertingOption())
+            : base(templatePath, showingOption)
         {
             _customerTurnoverList = customerTurnoverList;
             _total = total;
@@ -77,7 +77,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         protected override void AssignData()
         {
-            int numOfDataRow = _customerTurnoverList.Count;
+            int numOfDataRow = _customerTurnoverList.Count();
             ISheet sheet;
 
             if (numOfDataRow == 0)
@@ -129,7 +129,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
@@ -150,7 +150,7 @@ namespace Fanex.Athena.Excel.Report
             int maxGroup = Math.Min(_customerTurnoverList.Last().Index, checked(pageIndex * PageSize));
             var dataInRange = _customerTurnoverList.Where(x => x.Index > minGroup && x.Index <= maxGroup).ToList();
 
-            for (int index = 0; index < dataInRange.Count(); index++)
+            for (int index = 0; index < dataInRange.Count; index++)
             {
                 CustTurnover customerTurnover = dataInRange[index];
                 var realIndex = rowIndex + RowContentTemplate;
@@ -205,7 +205,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignTitle(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);
@@ -222,8 +222,8 @@ namespace Fanex.Athena.Excel.Report
         {
             if (!ShowingOption.CustomerCommVisible)
             {
-                HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
-                HideRow(sheet, RowTableHeaderTemplate + 1);
+                sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
+                sheet.HideRow(RowTableHeaderTemplate + 1);
             }
         }
 

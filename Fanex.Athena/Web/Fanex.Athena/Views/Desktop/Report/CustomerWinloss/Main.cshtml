@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Report + " - " + ViewResources.CustomerWinLoss;
+    Layout = "~/Views/Desktop/Shared/_Report.jqGridLayout.cshtml";
+}
+@model Fanex.Athena.Model.Report.ViewModel.CustomerWinLossViewModel
+@section pagecss {
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/reports/customerwinloss.css")" rel="stylesheet" />
+}
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/reports/customerwinloss.chunk.js")"></script>
+}
+
+@section Filter
+{
+    @if (Model.IsHistory)
+    {
+        Html.RenderPartial("~/Views/Desktop/Report/CustomerWinloss/HistoryFilter.cshtml");
+    }
+    else
+    {
+        Html.RenderPartial("~/Views/Desktop/Report/CustomerWinloss/Filter.cshtml");
+    }
+}
+
+@section Content
+{
+    @{Html.RenderPartial("~/Views/Desktop/Report/CustomerWinloss/Content.cshtml");}
+}

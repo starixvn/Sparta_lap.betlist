@@ -44,7 +44,8 @@
                         '<button id="ExportToExcel"></button>' +
                         '<select id="ddlSport"><option value="1" selected>1</option><option value="2">2</option></select>' +
                         '<select id="ddlLeague"><option value="3" selected>3</option><option value="3">3</option></select>' +
-                        '<button id="submitKeno"></button>'
+                        '<button id="submitKeno"></button>' +
+                        '<button id="submitLottery"></button>'
                         );
 
                     Result.initEvent();
@@ -264,6 +265,12 @@
                     $("#submitKeno").click();
                     expect(Result.showKeno).toHaveBeenCalled();
                 });
+
+                it("Result.showLottery() should be called when '#submitLottery' exist and fire event", function () {
+                    spyOn(Result, "showLottery");
+                    $("#submitLottery").click();
+                    expect(Result.showLottery).toHaveBeenCalled();
+                });
             });
 
             describe("submit()", function () {
@@ -307,7 +314,7 @@
                         .andReturn({
                             'status': 200,
                             'contentType': 'application/json',
-                            'responseText': '{ "UserId": 0, "Url": "localhost/keno" }'
+                            'responseText': '{ "UserId": 1, "Url": "localhost/keno" }'
                         });
 
                     Result.showKeno();
@@ -338,12 +345,69 @@
                 });
             });
 
+            describe("showLottery()", function () {
+                var request;
+                beforeEach(function (done) {
+                    spyOn(window, "open").and.returnValue({});
+                    spyOn(window, "clearInterval");
+                    spyOn(Result, "extendLotterySession");
+                    spyOn(Site, "blockUI");
+                    spyOn(Site, "unBlockUI");
+
+                    jasmine.Ajax.install();
+
+                    jasmine.Ajax
+                        .stubRequest(/ResultKenoReport\/Index.*/)
+                        .andReturn({
+                            'status': 200,
+                            'contentType': 'application/json',
+                            'responseText': '{ "UserId": 1, "Url": "localhost/keno" }'
+                        });
+
+                    Result.showLottery();
+                    request = jasmine.Ajax.requests.mostRecent();
+
+                    setTimeout(done, 10);
+                });
+
+                afterEach(function () {
+                    jasmine.Ajax.uninstall();
+                });
+
+                it("window.open should be called with correct parameter", function () {
+                    expect(window.open).toHaveBeenCalledWith("localhost/keno", '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
+                });
+
+                it("url should be correct when ajax request is called", function () {
+                    expect(request.url.indexOf("ResultKenoReport/Index") > -1).toBe(true);
+                });
+                it("Site.blockUI should be called", function () {
+                    expect(Site.blockUI).toHaveBeenCalled();
+                });
+                it("Site.unBlockUI should be called", function () {
+                    expect(Site.unBlockUI).toHaveBeenCalled();
+                });
+                it("Result.extendLotterySession should be called when ajax request successfully response", function () {
+                    expect(Result.extendLotterySession).toHaveBeenCalled();
+                });
+            });
+
             describe("extendKenoSession()", function () {
                 beforeEach(function () {
                     jasmine.clock().install();
                 });
                 afterEach(function () {
                     jasmine.clock().uninstall();
+                });
+
+                it("ajax option should not be called if user is undefined", function () {
+                    var option;
+                    spyOn($, "ajax").and.callFake(function (opt) { option = opt; });
+
+                    Result.extendKenoSession(1);
+                    jasmine.clock().tick(6001);
+
+                    expect(option).toEqual(undefined);
                 });
 
                 it("ajax option should has correct value", function () {
@@ -372,6 +436,16 @@
                 });
                 afterEach(function () {
                     jasmine.clock().uninstall();
+                });
+
+                it("ajax option should not be called if user is undefined", function () {
+                    var option;
+                    spyOn($, "ajax").and.callFake(function (opt) { option = opt; });
+
+                    Result.extendLotterySession(1);
+                    jasmine.clock().tick(6001);
+
+                    expect(option).toEqual(undefined);
                 });
 
                 it("ajax option should has correct value", function () {

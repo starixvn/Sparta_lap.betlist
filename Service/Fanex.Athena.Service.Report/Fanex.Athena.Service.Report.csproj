@@ -205,7 +205,6 @@
     <Compile Include="Interfaces\IWeeklyLiveMatchService.cs" />
     <Compile Include="Result\KenoApi.cs" />
     <Compile Include="AgCasinoWinLossService.cs" />
-    <Compile Include="ActiveCustomerService.cs" />
     <Compile Include="CasinoProgressiveWinsService.cs" />
     <Compile Include="MicroGamingWinLossService.cs" />
     <Compile Include="AgCasinoBalanceService.cs" />
@@ -216,10 +215,7 @@
     <Compile Include="Result\ResultService.cs" />
     <Compile Include="CreditBalanceService.cs" />
     <Compile Include="WinLossByProductService.cs" />
-    <Compile Include="CustomerBalanceService.cs" />
-    <Compile Include="CustomerPendingFundsService.cs" />
     <Compile Include="CustomerTurnoverService.cs" />
-    <Compile Include="CustomerWinlossService.cs" />
     <Compile Include="DailyRacingWinLossService.cs" />
     <Compile Include="LicenseeWinLossService.cs" />
     <Compile Include="LiveReportService.cs" />
@@ -232,17 +228,13 @@
     <Compile Include="Result\Interfaces\IKenoApi.cs" />
     <Compile Include="Interfaces\ICasinoProgressiveWinsService.cs" />
     <Compile Include="Interfaces\IMicroGamingWinLossService.cs" />
-    <Compile Include="Interfaces\IActiveCustomerService.cs" />
     <Compile Include="Interfaces\IAgCasinoBalanceService.cs" />
     <Compile Include="Interfaces\IAgCasinoWinLossService.cs" />
     <Compile Include="Interfaces\IThirdPartyWinLossService.cs" />
     <Compile Include="Interfaces\IWinLossByLeagueService.cs" />
     <Compile Include="Result\Interfaces\IResultService.cs" />
     <Compile Include="Interfaces\ICreditBalanceService.cs" />
-    <Compile Include="Interfaces\ICustomerBalanceService.cs" />
-    <Compile Include="Interfaces\ICustPendingFundsService.cs" />
     <Compile Include="Interfaces\ICustTurnoverService.cs" />
-    <Compile Include="Interfaces\ICustWinlossService.cs" />
     <Compile Include="Interfaces\IDailyRacingWinLossService.cs" />
     <Compile Include="Interfaces\ILicenseeWinLossService.cs" />
     <Compile Include="Interfaces\ILiveReportService.cs" />

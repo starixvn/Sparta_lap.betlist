@@ -16,7 +16,7 @@
                 spyOn(Popup, "openPopup");
                 var message = "Test";
                 var expectedParam1 = '<div title="LrfNotification"><p class="notification">' + message + '!</p></div>';
-                var expectedParam2 = { width: 350, height: 120, title: "LrfNotification", className: "popup-notification" };
+                var expectedParam2 = { width: 350, height: 120, title: "LrfNotification", className: "popup-notification", id: "time-range-invalid"};
 
                 DateRangeHelper.showMessageBox(message);
 
@@ -41,7 +41,7 @@
                 $("form").submit();
 
                 var expectedParam1 = '<div title="LrfNotification"><p class="notification">DateRangeExceedMsg 2!</p></div>';
-                var expectedParam2 = { width: 350, height: 120, title: "LrfNotification", className: "popup-notification" };
+                var expectedParam2 = { width: 350, height: 120, title: "LrfNotification", className: "popup-notification", id: "time-range-invalid"};
 
                 expect(Popup.openPopup).toHaveBeenCalledWith(expectedParam1, expectedParam2);
             });

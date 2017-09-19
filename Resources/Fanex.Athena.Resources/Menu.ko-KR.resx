@@ -130,8 +130,8 @@
     <comment>Total Goal</comment>
   </data>
   <data name="Menu_12" xml:space="preserve">
-    <value>믹스 팔레이</value>
-    <comment>Mix Parlay</comment>
+    <value>팔레이</value>
+    <comment>Parlay</comment>
   </data>
   <data name="Menu_13" xml:space="preserve">
     <value>아우트라이트</value>

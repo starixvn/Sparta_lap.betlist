@@ -8,13 +8,12 @@ namespace Fanex.Athena.Controllers.BetList
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Base;
+    using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
-    using Web.ActionFilter;
 
     public class RNGCasinoBetListController : BetListBaseController
     {
@@ -34,7 +33,7 @@ namespace Fanex.Athena.Controllers.BetList
                 return ExcelDetail(metaModel);
             }
 
-            return this.File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+            return this.EmptyExcel();
         }
 
         private static string GetTitle(long transType)

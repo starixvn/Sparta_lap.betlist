@@ -20,9 +20,11 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class CasinoProgressiveWinsDataAccess : BaseDataAccess, ICasinoProgressiveWinsDataAccess
     {
+        private readonly BalanceUp _balanceUp;
+
         public CasinoProgressiveWinsDataAccess(BalanceUp balanceUp)
-            : base(balanceUp)
         {
+            _balanceUp = balanceUp;
         }
 
         #region ICasinoProgressiveWinsDataAccess Members
@@ -90,8 +92,8 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
-            db.AddInParameter("movebetsday", DbType.DateTime, this.BalanceUp.MoveBetsDay);
-            db.AddInParameter("BalanceUpDay", DbType.DateTime, this.BalanceUp.BalanceUpDay);
+            db.AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
+            db.AddInParameter("BalanceUpDay", DbType.DateTime, _balanceUp.BalanceUpDay);
 
             foreach (var product in metaModel.ProductOptions)
             {

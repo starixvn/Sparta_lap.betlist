@@ -18,14 +18,6 @@ define(
             initEvent: function () {
                 $('#SubmitButton').click(_me.submit);
 
-                $('#mixparlay_link').click(function () {
-                    Site.redirect(Site.resolveClientUrl('RunningBettypesBetList/MixParlay'));
-                });
-
-                $('#systemparlay_link').click(function () {
-                    Site.redirect(Site.resolveClientUrl('RunningBettypesBetList/SystemParlay'));
-                });
-
                 $("#ExportToExcel").click(function () {
                     var url = Site.getCurrentUrl();
                     url = Site.setLicenseeOptionParam(url);

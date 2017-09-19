@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AgCasinoBalanceService.cs" company="">
-// The ag casino win loss service.
-// </copyright>
-// <summary>
-//   The ag casino win loss service.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace Fanex.Athena.Service.Report
+﻿namespace Fanex.Athena.Service.Report
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -16,20 +7,15 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
-    using Fanex.Athena.Service.Core.Configuration;
-    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Report.Interfaces;
 
     public class AgCasinoBalanceService : IAgCasinoBalanceService
     {
-        private readonly IBalanceUpService _balanceService;
-
         private readonly IAgCasinoBalanceDataAccess _licenseeBalanceDataAccess;
 
         public AgCasinoBalanceService()
         {
-            this._balanceService = new BalanceUpService();
-            this._licenseeBalanceDataAccess = new AgCasinoBalanceDataAccess(this._balanceService.BalanceUpInfo);
+            this._licenseeBalanceDataAccess = new AgCasinoBalanceDataAccess();
         }
 
         public SortableList<AgCasinoBalance> GetAgentBalanceDetail(AgCasinoBalanceMetaModel metaModel, out IDictionary<string, AgCasinoBalance> summaryTotal)

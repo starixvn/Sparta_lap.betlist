@@ -95,9 +95,9 @@
             {
                 ExternalId = "ExternalIdTest",
                 SystemId = "SystemIdTest",
-                MemberWL = 10m,
+                CustomerWL = 10m,
                 PlayerComm = 5m,
-                MemberTotalWL = 15m,
+                CustomerTotalWL = 15m,
                 RacingRevenue = 15m
             };
             var totalData = new CustomerWinLoss();
@@ -114,17 +114,17 @@
             Assert.That(result.SystemId, Is.EqualTo(expectedResult.SystemId));
             Assert.That(result.Turnover, Is.EqualTo(expectedResult.Turnover));
             Assert.That(result.TotalTransaction, Is.EqualTo(expectedResult.TotalTransaction));
-            Assert.That(result.MemberWL, Is.EqualTo(expectedResult.MemberWL));
+            Assert.That(result.CustomerWL, Is.EqualTo(expectedResult.CustomerWL));
             Assert.That(result.BetEffective, Is.EqualTo(expectedResult.BetEffective));
             Assert.That(result.PlayerComm, Is.EqualTo(expectedResult.PlayerComm));
-            Assert.That(result.MemberTotalWL, Is.EqualTo(expectedResult.MemberTotalWL));
+            Assert.That(result.CustomerTotalWL, Is.EqualTo(expectedResult.CustomerTotalWL));
             Assert.That(result.RacingRevenue, Is.EqualTo(expectedResult.RacingRevenue));
 
             Assert.That(totalData.Turnover, Is.EqualTo(expectedTotalData.Turnover));
             Assert.That(totalData.LicenseeWL, Is.EqualTo(expectedTotalData.LicenseeWL));
             Assert.That(totalData.RacingRevenue, Is.EqualTo(expectedTotalData.RacingRevenue));
             Assert.That(totalData.TotalTransaction, Is.EqualTo(expectedTotalData.TotalTransaction));
-            Assert.That(totalData.MemberWL, Is.EqualTo(expectedTotalData.MemberWL));
+            Assert.That(totalData.CustomerWL, Is.EqualTo(expectedTotalData.CustomerWL));
             Assert.That(totalData.PlayerComm, Is.EqualTo(expectedTotalData.PlayerComm));
 
             Assert.That(totalRow, Is.EqualTo(100));
@@ -157,7 +157,7 @@
             _reader["username"].Returns(expected.SystemId);
             _reader[turnoverColumn].Returns(expected.Turnover);
             _reader["betcount"].Returns(expected.TotalTransaction);
-            _reader[memberWinLostColumn].Returns(expected.MemberWL);
+            _reader[memberWinLostColumn].Returns(expected.CustomerWL);
             _reader[betEffectiveColumn].Returns(expected.BetEffective);
             _reader[playerCommColumn].Returns(expected.PlayerComm);
             _reader[licenseeWinLostColumn].Returns(expected.LicenseeWL);
@@ -183,7 +183,7 @@
 
             _reader[turnoverColumn].Returns(expected.Turnover);
             _reader["sumbetcount"].Returns(expected.TotalTransaction);
-            _reader[memberWinLostColumn].Returns(expected.MemberWL);
+            _reader[memberWinLostColumn].Returns(expected.CustomerWL);
             _reader[betEffectiveColumn].Returns(expected.BetEffective);
             _reader[playerCommColumn].Returns(expected.PlayerComm);
             _reader[licenseeWinLostColumn].Returns(expected.LicenseeWL);

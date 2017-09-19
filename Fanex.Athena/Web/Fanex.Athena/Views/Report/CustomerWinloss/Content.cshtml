@@ -1,28 +1,22 @@
-﻿@using Fanex.Athena.Model.Report.ViewModel
-@using Fanex.Athena.Extension.Helper
-@model Fanex.Athena.Model.Report.ViewModel.CustomerWinLossViewModel
-@{
-    var param = Model.IsHistory ? Model.HistoryParam : Model.Param;
+﻿@{
+    Layout = null;
 }
-<div class="container_26 new-line" style="width:@(ViewBag.FilterWidth + 12)@("px");max-height: 705px!important">
-    <div class="grid_26">
-        <div style="width:@(ViewBag.FilterWidth + 2)px;">
-            @RazorHelper.Paging("CustomerWinlossForm", Model.TotalRows, param.PageIndex, param.PageSize)
-        </div>
-        <div class="report-title" style="width:@ViewBag.TitleWidth@("px");">
-            @string.Format(ViewResources.CustomerWinLossTitle, param.FromDate.ToString("MM/dd/yyyy"), param.ToDate.ToString("MM/dd/yyyy"), string.Empty)
-            @RazorHelper.ViewCurrencyBasedOnConverter(param.IsConvert, param.BaseCurrency, param.CurrencyName)
-            @RazorHelper.ReportTitleLicenseeWLProductCodeList(param.ProductOptions)
-        </div>
-        <div class="report-content " style="width:@(ViewBag.FilterWidth)px; max-height: 580px!important">
-            @{
-                Html.RenderPartial("~/Views/Report/CustomerWinLoss/Content.Header.cshtml");
-                Html.RenderPartial("~/Views/Report/CustomerWinLoss/Content.Data.cshtml");
-                Html.RenderPartial("~/Views/Report/CustomerWinLoss/Content.Total.cshtml");
-            }
-        </div>
-        <div style="width:@(ViewBag.WrapperWidth + 2)px;">
-            @RazorHelper.Paging("CustomerWinlossForm", Model.TotalRows, param.PageIndex, param.PageSize)
+<div class="theme_jqGrid">
+    <div class="container_26">
+        <div class="grid_26">
+            <div class="report-title hide">
+            </div>
+            <div class="report-content">
+                <div style="width: 100%">
+                    <table id="ReportGrid" data-hidden-column="">
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <div class="paging">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

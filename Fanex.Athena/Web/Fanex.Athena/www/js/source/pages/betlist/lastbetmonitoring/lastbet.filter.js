@@ -364,6 +364,7 @@ define(
                 resourceName: "LastBetsMonitoring",
                 title: Site.getSingleResource("LastBetsMonitoring")
             });
+            Site.addFilterCollapseExpand();
 
             _me.initSports();
             _me.initLeague();

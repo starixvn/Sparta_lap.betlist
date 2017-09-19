@@ -32,7 +32,7 @@ var jqGridAdditional = (function () {
                 var contentWidth = $bdiv.width();
                 var newHeight = tableWidth > contentWidth ? contentHeight + 18 : contentHeight;
                 $bdiv.height(Math.min(newHeight, gridHeight))
-                                    .css("height", "auto").css("max-height", gridHeight);
+                                 .css("max-height", gridHeight);
             }, 200);
         },
         resetLayout: function (grid, maxWidth) {

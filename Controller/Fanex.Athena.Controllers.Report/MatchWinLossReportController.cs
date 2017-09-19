@@ -5,7 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Base;
+    using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -104,7 +104,7 @@
                     return Excel(metaModel);
                 }
 
-                return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+                return File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
             }
 
             var reportData = _matchWinLossService.GetDataList(metaModel);
@@ -193,10 +193,7 @@
                 showingOption,
                 mainTable,
                 reportData.Tables[1],
-                metaModel)
-            {
-                ProductOptions = metaModel.ProductOptions
-            };
+                metaModel);
 
             matchWinLossExcel.Export();
 

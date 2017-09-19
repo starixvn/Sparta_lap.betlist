@@ -8,34 +8,25 @@
     var appSettings = new AppSettings();
 }
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
-    @using (Html.BeginForm("Index", "CustomerWinLossReport", FormMethod.Post, new { @id = "CustomerWinlossForm" }))
-    {
+    <form id="CustomerWinlossForm" action="post">
         @Html.AntiForgeryToken()
-        <div>
-            @Html.Hidden("TodayVal", DateTime.Today.ToString(Fanex.Athena.Model.Core.DataDomain.FormatKey.ShortFormatDate))
-            @Html.Hidden("YesterdayVal", DateTime.Today.AddDays(-1).ToString(Fanex.Athena.Model.Core.DataDomain.FormatKey.ShortFormatDate))
-            @Html.Hidden("IsHistory", Model.IsHistory)
-            @Html.Hidden("SortDirection", Model.Param.SortDirection)
-            @Html.Hidden("SortColumn", Model.Param.SortColumn)
-            @Html.Hidden("RowCount", Model.DataList == null ? 0 : Model.DataList.Count)
-            @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
-        </div>
         @DatePickerHelper.RenderDateRangePicker(modelParam.FromDate, modelParam.ToDate, minDate, appSettings.MaxDate, "", "", 2, 3, 2, 3)
         <div class="new-line">
         </div>
-@*Row 1*@
+        @*Row 1*@
         <div class="grid_2 filter-label">
             <label>@ViewResources.Currency</label>
         </div>
         <div class="grid_3 filter-input">
-            @RazorHelper.CurrencyList(Model.CurrencyList, "currencylist", modelParam.CurrencyId)
+            @RazorHelper.CurrencyList(Model.CurrencyList, "currencylist")
         </div>
         <div class="grid_3 filter-label">
-            <label for="BaseCurrency">@ViewResources.Based
+            <label for="BaseCurrency">
+                @ViewResources.Based
             </label>
         </div>
         <div class="grid_1 filter-input">
-            @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
+            @RazorHelper.BasedCurrency()
         </div>
         <div class="grid_4 note-group">
             <div>
@@ -44,15 +35,15 @@
             </div>
             <div>
                 <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
-               type="image" id="ExportToExcel" name="exporttoexcel"
-               title="@ViewResources.ExportToExcel" class="hand" />
+                       type="image" id="ExportToExcel" name="exporttoexcel"
+                       title="@ViewResources.ExportToExcel" class="hand" />
             </div>
         </div>
-@*End Row 1*@
-@*Row 2*@
+        @*End Row 1*@
+        @*Row 2*@
 
-@*End Row 2*@
-@*Row 3*@
+        @*End Row 2*@
+        @*Row 3*@
         <div class="new-line">
         </div>
         @RazorHelper.RenderProductFilter(modelParam.ProductOptions, 2)
@@ -64,24 +55,27 @@
         <div class="grid_5 filter-input option-list">
             <input type="checkbox" value="true" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData" />
         </div>
-@*End Row 3*@
-@*Row 4 - Note*@
+        @*End Row 3*@
+        @*Row 4 - Note*@
 
         <div class="grid_2 filter-label new-line">
         </div>
-        <div class="grid_@(Model.ProductAccess.IsAllowBA || Model.ProductAccess.IsAllowRB ? 15 : 13) filter-input">
+        <div class="grid_15 filter-input">
             <div class="note-message">
-                @string.Format(ViewResources.HistoricalReportDateRangeNote, minDate), <a href="javascript:;"
-                    id="history-report-link" style="text-decoration: none;">@ViewResources.ToViewHistoryRptMsg</a>
+                @string.Format(ViewResources.HistoricalReportDateRangeNote, minDate),
+                <a href="javascript:;" id="history-report-link" style="text-decoration: none;">@ViewResources.ToViewHistoryRptMsg</a>
             </div>
         </div>
 
         <div class="grid_2 filter-label new-line">
-            &nbsp;</div>
+            &nbsp;
+        </div>
         <div class="grid_2 filter-input">
             <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
         </div>
-@*End Row 4*@
-
-    }
+        @*End Row 4*@
+    </form>
+    @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
+    @Html.Hidden("IsAllowedBA", Model.ProductAccess.IsAllowBA)
+    @Html.Hidden("IsAllowedRB", Model.ProductAccess.IsAllowRB)
 </div>

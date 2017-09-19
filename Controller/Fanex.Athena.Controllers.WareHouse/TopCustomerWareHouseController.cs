@@ -108,12 +108,7 @@ namespace Fanex.Athena.Controllers.WareHouse
                 NGVisible = productAccess.IsAllowNG,
                 SBVisible = productAccess.IsAllowSB
             };
-            var currencyConvert = new ConvertingOption
-            {
-                IsConvert = metaModel.IsConvert,
-                BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = metaModel.CurrencyName
-            };
+
             var viewByCurrency =
                 string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
             var titleText = string.Format(
@@ -128,7 +123,7 @@ namespace Fanex.Athena.Controllers.WareHouse
 
             var exportData = _topCustomerService.GetDataForExcel(metaModel);
 
-            var topCustExcel = new TopCustomer(templatePath, currencyConvert, showingOption, exportData)
+            var topCustExcel = new TopCustomer(templatePath, showingOption, exportData)
             {
                 ReportTitle = titleText
             };

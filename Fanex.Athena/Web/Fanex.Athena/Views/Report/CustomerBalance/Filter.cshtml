@@ -1,12 +1,11 @@
 ﻿@model Fanex.Athena.Model.Report.ViewModel.CustomerBalanceViewModel
-@{ 
+@{
     var appSettings = new AppSettings();
+    var minDate = DateTime.Now.AddMonths(-18).AddDays(1 - DateTime.Now.Day);
 }
-<div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
-    @using (Html.BeginForm("Index", "CustomerBalanceReport", FormMethod.Post, new { @id = "CustomerBalanceForm" }))
-    {
+<div class="grid_26 content-filter new-line">
+    <form id="CustomerBalanceForm" method="post">
         @Html.AntiForgeryToken()
-        var minDate = DateTime.Now.AddMonths(-18).AddDays(1 - DateTime.Now.Day);
         @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, appSettings.MaxDate, "", "", 3, 3, 2, 3)
         <div class="grid_3 filter-label">
             <label for="IsExcludeTest">@ViewResources.ExcludeTestData</label>
@@ -22,7 +21,6 @@
         <div class="grid_3 filter-input">
             @RazorHelper.CurrencyList(Model.CurrencyList, "", Model.Param.CurrencyId, false)
         </div>
-        
         <div class="grid_2 note-group">
             <div>
                 <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">
@@ -30,32 +28,43 @@
             </div>
             <div>
                 <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
-               type="image" id="ExportToExcel" name="exporttoexcel"
-               title="@ViewResources.ExportToExcel" class="hand" />
+                       type="image" id="ExportToExcel" name="exporttoexcel"
+                       title="@ViewResources.ExportToExcel" class="hand" />
             </div>
         </div>
         <div class="grid_2 filter-label">
             <label>@ViewResources.SelectTop</label>
         </div>
         <div class="grid_3 filter-input">
-            @Html.DropDownList("TopCount", ViewBag.TopCountList as List<SelectListItem>, new { })
+            @Html.DropDownList("TopCount",
+                                new List<SelectListItem> {
+                                    new SelectListItem
+                                        {
+                                            Value = "0",
+                                            Text = ViewResources.All,
+                                            Selected = true
+                                        },
+                                    new SelectListItem
+                                        {
+                                            Value = "100",
+                                            Text = "100"
+                                        },
+                                    new SelectListItem
+                                        {
+                                            Value = "500",
+                                            Text = "500"
+                                        }
+                                })
         </div>
-        <div class="grid_2 filter-label">
-            <label>@ViewResources.SortBy</label>
-        </div>
-        <div class="grid_4 filter-input">
-            @Html.DropDownList("OrderItem", ViewBag.OrderItemList as List<SelectListItem>, new { @style = "width: 110px;" })
-        </div>
-        @RazorHelper.RenderProductFilter(Model.Param.ProductOptions, 3)
+        @RazorHelper.RenderProductFilter(Model.Param.ProductOptions, 3, false)
         <div class="grid_3 filter-label new-line">
-            &nbsp;</div>
+            &nbsp;
+        </div>
+        @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
         <div class="grid_2 filter-input">
-            <input type="submit" value="@ViewResources.Submit" id="SubmitButton" class="button blockui" />
+            <input type="button" value="@ViewResources.Submit" id="SubmitButton" class="button" />
         </div>
-@*End Row 4*@
-@*End Row 5*@    
-        <div>
-            <input type="hidden" id="IsExportExcel" name="IsExportExcel" value="@Model.Param.IsExportExcel" />
-        </div>
-    }
+    </form>
+    @Html.Hidden("IsAllowedBACommission", Model.ProductAccess.IsAllowBA)
+    @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
 </div>

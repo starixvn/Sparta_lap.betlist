@@ -10,6 +10,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
+    using Helpers;
     using Model.Report.DTO;
     using NPOI.SS.UserModel;
     using Resources;
@@ -40,14 +41,17 @@ namespace Fanex.Athena.Excel.Report
         private readonly Balance _balance;
         private readonly string _date;
 
+        private readonly ConvertingOption _convertingOption;
+
         public BalanceExcel(
                             string templatePath,
                             ShowingOption showingOption,
                             ConvertingOption convertingOption,
                             Balance balance,
                             string date)
-            : base(templatePath, showingOption, convertingOption)
+            : base(templatePath, showingOption)
         {
+            _convertingOption = convertingOption;
             _balance = balance;
             _date = date;
         }
@@ -82,14 +86,6 @@ namespace Fanex.Athena.Excel.Report
         }
 
         /// <summary>
-        /// Assign no info row.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignNoInfoRow(ISheet sheet)
-        {
-        }
-
-        /// <summary>
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
@@ -115,10 +111,10 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignTitle(ISheet sheet)
         {
-            ReportTitle = string.Format(ViewResources.BalanceTitle, GetTitleCurrencyName());
+            ReportTitle = string.Format(ViewResources.BalanceTitle, ReportExcelHelper.GetTitleCurrencyName(_convertingOption));
 
             // Set for Balance, report title
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Get row copy from template
             var columIndex = ColumnLicenseeWl;
@@ -133,7 +129,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[columIndex].SetCellValue(ViewResources.CustomerCommission);
 
             // Set for customer information
-            SetTextRowValue(sheet, RowTitleCustomer, RowTitleCustomer, ColumnTemplateCount, ViewResources.CustomerInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleCustomer, RowTitleCustomer, ColumnTemplateCount, ViewResources.CustomerInfo);
 
             row = sheet.CopyRow(TemplateSheet, RowCustomerPendingFund, RowCustomerPendingFund);
             row.Cells[0].SetCellValue(ViewResources.CustomerPedingFunds);
@@ -150,22 +146,22 @@ namespace Fanex.Athena.Excel.Report
         {
             if (!ShowingOption.BAVisible)
             {
-                HideColumn(sheet, ColumnBaCommission, ColumnAmtDueToBa);
+                sheet.HideColumn(ColumnBaCommission, ColumnAmtDueToBa);
             }
 
             if (!ShowingOption.RBVisible)
             {
-                HideColumn(sheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
+                sheet.HideColumn(ColumnRacingRevenue, ColumnAmtDueToRacing);
             }
 
             if (!ShowingOption.BTVisible)
             {
-                HideColumn(sheet, ColumnBetTradeCommission, ColumnAmtDueToBetTrade);
+                sheet.HideColumn(ColumnBetTradeCommission, ColumnAmtDueToBetTrade);
             }
 
             if (!ShowingOption.CustomerCommVisible)
             {
-                HideColumn(sheet, ColumnCustomerCommission);
+                sheet.HideColumn(ColumnCustomerCommission);
             }
         }
 

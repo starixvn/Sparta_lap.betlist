@@ -11,6 +11,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
+    using Helpers;
     using Model.Core.Helper;
     using Model.Report.DTO;
     using Model.Report.ViewModel;
@@ -45,13 +46,16 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTotalCurrencyTemplate = 7;
         private const int RowTotalRaceTemplate = 5;
 
+        private readonly ConvertingOption _convertingOption;
+
         public DailyRacingWinLoss12BetExcel(
                                             string templatePath,
                                             ConvertingOption convertingOption,
                                             ShowingOption showingOption,
                                             DailyRacingWinLossViewModel viewModel)
-            : base(templatePath, showingOption, convertingOption)
+            : base(templatePath, showingOption)
         {
+            _convertingOption = convertingOption;
             ViewModel = viewModel;
             DailyRacingWinLossData = viewModel.DailyRacingWinLossData;
             HeaderTextList = new List<string>
@@ -141,7 +145,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowContentStart, ColumnCount, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentStart, ColumnCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
@@ -208,9 +212,9 @@ namespace Fanex.Athena.Excel.Report
             ReportTitle = string.Format(
                                         ViewResources.DailyRacing12BetTitle,
                                         ViewModel.Param.Date.ToString(FormatDate),
-                                        GetTitleCurrencyName());
+                                        ReportExcelHelper.GetTitleCurrencyName(_convertingOption));
 
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnCount, ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);
@@ -227,7 +231,7 @@ namespace Fanex.Athena.Excel.Report
         {
             if (!ShowingOption.CustomerCommVisible)
             {
-                HideColumn(sheet, ColumnCustomerComm);
+                sheet.HideColumn(ColumnCustomerComm);
             }
         }
 

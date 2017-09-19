@@ -25,9 +25,11 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class CashOutWinLossDataAccess : BaseDataAccess, ICashOutWinLossDataAccess
     {
+        private readonly BalanceUp _balanceUp;
+
         public CashOutWinLossDataAccess(BalanceUp balanceUp)
-            : base(balanceUp)
         {
+            _balanceUp = balanceUp;
         }
 
         public SortableList<CashOutWinLoss> GetSummary(CashOutWinLossMetaModel metaModel, out IDictionary<string, CashOutWinLoss> summaryTotal)
@@ -158,7 +160,7 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
+            db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUp.MoveBetsDay);
         }
     }
 }

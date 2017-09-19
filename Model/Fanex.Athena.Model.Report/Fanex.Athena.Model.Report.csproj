@@ -159,7 +159,6 @@
     <Compile Include="MetaModel\ThirdPartyWinLossMetaModel.cs" />
     <Compile Include="MetaModel\WeeklyLiveMatchMetaModel.cs" />
     <Compile Include="MetaModel\WinLossByLeagueMetaModel.cs" />
-    <Compile Include="MetaModel\CustomerWinlossHistoryMetaModel.cs" />
     <Compile Include="MetaModel\LiveReportMatchListMetalModel.cs" />
     <Compile Include="MetaModel\ResultMetalModel.cs" />
     <Compile Include="MetaModel\ResultPopupMetalModel.cs" />
@@ -178,6 +177,7 @@
     <Compile Include="MetaModel\WinLossByBetTypeMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\CashOutWinLossViewModel.cs" />
+    <Compile Include="ViewModel\CustomerWinlossViewModel.cs" />
     <Compile Include="ViewModel\Note\NoteViewModel.cs" />
     <Compile Include="ViewModel\BalanceViewModel.cs" />
     <Compile Include="ViewModel\AgCasinoWinLossViewModel.cs" />
@@ -195,7 +195,6 @@
     <Compile Include="ViewModel\CustomerBalanceViewModel.cs" />
     <Compile Include="ViewModel\CustomerPendingFundsViewModel.cs" />
     <Compile Include="ViewModel\CustomerTurnoverViewModel.cs" />
-    <Compile Include="ViewModel\CustomerWinlossViewModel.cs" />
     <Compile Include="ViewModel\LicenseeWinLossViewModel.cs" />
     <Compile Include="ViewModel\DailyRacingWinLossViewModel.cs" />
     <Compile Include="ViewModel\LiveReports\LiveReportDetailViewModel.cs" />

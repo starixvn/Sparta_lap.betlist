@@ -1,7 +1,7 @@
 ﻿define(
     ["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
     function ($, QueryString, Site, jqGridAdditional) {
-    "use strict";
+        "use strict";
 
     var indexColumn = {
         name: 'Index',
@@ -159,112 +159,112 @@
         formatter: 'currency'
     };
 
-    var transfer3rdColumn = {
-        name: 'Transfer3rd',
-        index: 'Transfer3rd',
-        width: 90,
-        align: 'right',
-        sortable: false,
-        resizable: false,
-        formatter: 'currency'
-    };
-    var turnoverBAColumn = {
-        name: 'TurnoverBA',
-        index: 'TurnoverBA',
-        width: 80,
-        align: 'right',
-        sortable: false,
-        resizable: false,
-        formatter: 'currency'
-    };
-    var commBAColumn = {
-        name: 'CommBA',
-        index: 'CommBA',
-        width: 60,
-        align: 'right',
-        sortable: false,
-        resizable: false,
-        formatter: 'currency'
-    };
-    var amountDueToBAColumn = {
-        name: 'AmountDueToBA',
-        index: 'AmountDueToBA',
-        width: 70,
-        align: 'right',
-        sortable: false,
-        resizable: false,
-        formatter: 'currency'
-    };
+        var transfer3rdColumn = {
+            name: 'Transfer3rd',
+            index: 'Transfer3rd',
+            width: 90,
+            align: 'right',
+            sortable: false,
+            resizable: false,
+            formatter: 'currency'
+        };
+        var turnoverBAColumn = {
+            name: 'TurnoverBA',
+            index: 'TurnoverBA',
+            width: 80,
+            align: 'right',
+            sortable: false,
+            resizable: false,
+            formatter: 'currency'
+        };
+        var commBAColumn = {
+            name: 'CommBA',
+            index: 'CommBA',
+            width: 60,
+            align: 'right',
+            sortable: false,
+            resizable: false,
+            formatter: 'currency'
+        };
+        var amountDueToBAColumn = {
+            name: 'AmountDueToBA',
+            index: 'AmountDueToBA',
+            width: 70,
+            align: 'right',
+            sortable: false,
+            resizable: false,
+            formatter: 'currency'
+        };
 
-    var colNameList = ['#', 'Day', "OpeningBalance", "Deposit", 'Withdrawal', 'Bonus', 'Adjustment',
-                'Turnover', 'DrawGame', 'NetTurnover', 'PendingFunds',
-                'WinLoss', 'Comm', 'Total', 'ClosingBalance',
-                 'AffiliateTransfer', 'CasinoTransfer', 'Turnover', 'Comm', 'AmountDueTo'];
-    var colModelList = [indexColumn, dateColumn, openingBalanceColumn, depositColumn, withdrawalColumn, bonusColumn, adjustmentColumn,
-                 turnoverColumn, drawGameColumn, netTurnoverColumn, pendingFundsColumn,
-                 winLossColumn, playerCommColumn, winlossCommColumn, closingBalanceColumn,
-                affiliateTransferColumn, transfer3rdColumn, turnoverBAColumn, commBAColumn, amountDueToBAColumn];
-    var customerWlTotalIndex = 11;
+        var colNameList = ['#', 'Day', "OpeningBalance", "Deposit", 'Withdrawal', 'Bonus', 'Adjustment',
+                    'Turnover', 'DrawGame', 'NetTurnover', 'PendingFunds',
+                    'WinLoss', 'Comm', 'Total', 'ClosingBalance',
+                     'AffiliateTransfer', 'CasinoTransfer', 'Turnover', 'Comm', 'AmountDueTo'];
+        var colModelList = [indexColumn, dateColumn, openingBalanceColumn, depositColumn, withdrawalColumn, bonusColumn, adjustmentColumn,
+                     turnoverColumn, drawGameColumn, netTurnoverColumn, pendingFundsColumn,
+                     winLossColumn, playerCommColumn, winlossCommColumn, closingBalanceColumn,
+                    affiliateTransferColumn, transfer3rdColumn, turnoverBAColumn, commBAColumn, amountDueToBAColumn];
+        var customerWlTotalIndex = 11;
 
-    var _me = {
-        licenseeId: 0,
-        hasCustomerComm: true,
-        totalColspan: [3],
-        urlData: 'reportapi/Turnover',
-        urlExcelData: 'TurnoverReport/Excel',
-        gridOption: {
-            rowNum: 1000,
-            datatype: 'local',
-            colNames: [],
-            colModel: [],
-            data: [],
-            height: 'auto',
-            viewrecords: true,
-            autowidth: false,
-            forceFit: false,
-            shrinkToFit: true,
-            minWidth: 800,
-            loadtext: 'loading...',
-            loadui: 'disable',
-            loadonce: true,
-            gridview: true,
-            footerrow: true,
-            userDataOnFooter: true,
-            cmTemplate: { title: true }, //enable tooltip
-            userData: []
-        }
-    };
+        var _me = {
+            licenseeId: 0,
+            hasCustomerComm: true,
+            totalColspan: [3],
+            urlData: 'reportapi/Turnover',
+            urlExcelData: 'TurnoverReport/Excel',
+            gridOption: {
+                rowNum: 1000,
+                datatype: 'local',
+                colNames: [],
+                colModel: [],
+                data: [],
+                height: 'auto',
+                viewrecords: true,
+                autowidth: false,
+                forceFit: false,
+                shrinkToFit: true,
+                minWidth: 800,
+                loadtext: '',
+                loadui: 'disable',
+                loadonce: true,
+                gridview: true,
+                footerrow: true,
+                userDataOnFooter: true,
+                cmTemplate: { title: true }, //enable tooltip
+                userData: []
+            }
+        };
 
-    _me.getColName = function () {
-        // Column Customer Wl
-        colNameList[customerWlTotalIndex] = _me.hasCustomerComm ? 'WinLoss' : 'CustomerW_L';
-        return Site.getResources(colNameList);
-    };
+        _me.getColName = function () {
+            // Column Customer Wl
+            colNameList[customerWlTotalIndex] = _me.hasCustomerComm ? 'WinLoss' : 'CustomerW_L';
+            return Site.getResources(colNameList);
+        };
 
-    _me.getColModel = function () {
-        // Column hidden by customer comm
-        playerCommColumn.hidden = !_me.hasCustomerComm;
-        winlossCommColumn.hidden = !_me.hasCustomerComm;
+        _me.getColModel = function () {
+            // Column hidden by customer comm
+            playerCommColumn.hidden = !_me.hasCustomerComm;
+            winlossCommColumn.hidden = !_me.hasCustomerComm;
 
-        // Column hidden by product
-        transfer3rdColumn.hidden = !_me.hasCasinoTransfer;
-        turnoverBAColumn.hidden = !_me.isAllowBa;
-        commBAColumn.hidden = !_me.isAllowBa;
-        amountDueToBAColumn.hidden = !_me.isAllowBa;
+            // Column hidden by product
+            transfer3rdColumn.hidden = !_me.hasCasinoTransfer;
+            turnoverBAColumn.hidden = !_me.isAllowBa;
+            commBAColumn.hidden = !_me.isAllowBa;
+            amountDueToBAColumn.hidden = !_me.isAllowBa;
 
-        return colModelList;
-    };
+            return colModelList;
+        };
 
-    _me.getGridOption = function () {
-        _me.gridOption.colNames = _me.getColName();
-        _me.gridOption.colModel = _me.getColModel();
-        return _me.gridOption;
-    };
+        _me.getGridOption = function () {
+            _me.gridOption.colNames = _me.getColName();
+            _me.gridOption.colModel = _me.getColModel();
+            return _me.gridOption;
+        };
 
-    _me.getTotalColModel = function () {
-        var colModel = _me.getColModel();
-        return colModel;
-    };
+        _me.getTotalColModel = function () {
+            var colModel = _me.getColModel();
+            return colModel;
+        };
 
-    return _me;
-});
+        return _me;
+    });

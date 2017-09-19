@@ -20,9 +20,11 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class WinLossByBetTypeDataAccess : BaseDataAccess, IWinLossByBetTypeDataAccess
     {
+        private readonly BalanceUp _balanceUp;
+
         public WinLossByBetTypeDataAccess(BalanceUp balanceUp)
-            : base(balanceUp)
         {
+            _balanceUp = balanceUp;
         }
 
         public SortableList<WinLossByBetType> GetDataList(WinLossByBetTypeMetaModel metaModel)
@@ -33,8 +35,8 @@ namespace Fanex.Athena.DataAccess.Report
                 AgentList = metaModel.AgentListXml,
                 metaModel.FromDate,
                 metaModel.ToDate,
-                BalanceUp.MoveBetsDay,
-                BalanceUp.BalanceUpDay
+                _balanceUp.MoveBetsDay,
+                _balanceUp.BalanceUpDay
             };
 
             try

@@ -8,13 +8,11 @@ namespace Fanex.Athena.Api.Report
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
-    using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -87,22 +85,12 @@ namespace Fanex.Athena.Api.Report
             const string FileName = "WinLossByLeague.xls";
             var templatePath = HostingEnvironment.MapPath("~/App_Data/Template/Reports/WinLossByLeagues.xls");
 
-            var currencyList = SessionService.UserSession.CurrencyList;
-            var currency = currencyList.SingleOrDefault(i => i.Key == metaModel.CurrencyId);
-
-            var convertingOption = new ConvertingOption
-            {
-                IsConvert = false,
-                BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = currency.Value
-            };
-
             var viewModel = new WinLossByLeagueViewModel
             {
                 MainResult = dataList
             };
 
-            var winlossByLeague = CreateExcel(templatePath, convertingOption, grandTotal, metaModel, viewModel);
+            var winlossByLeague = CreateExcel(templatePath, grandTotal, metaModel, viewModel);
             winlossByLeague.Export();
 
             return ExcelStream(winlossByLeague.Workbook, FileName);
@@ -111,12 +99,11 @@ namespace Fanex.Athena.Api.Report
         [CLSCompliant(false)]
         protected internal virtual WinlossByLeagueExcel CreateExcel(
             string templatePath,
-            ConvertingOption convertingOption,
             WinLossByLeague grandTotal,
             WinLossByLeagueMetaModel metaModel,
             WinLossByLeagueViewModel viewModel)
         {
-            return new WinlossByLeagueExcel(templatePath, convertingOption, metaModel, viewModel, grandTotal)
+            return new WinlossByLeagueExcel(templatePath, metaModel, viewModel, grandTotal)
             {
                 Level = metaModel.Level
             };

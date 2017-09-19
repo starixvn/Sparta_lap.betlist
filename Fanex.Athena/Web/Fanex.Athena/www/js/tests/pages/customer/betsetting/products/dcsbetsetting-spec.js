@@ -8,6 +8,7 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingStatus, DcsBetSe
                 spyOn(Site, "initialize");
                 spyOn(BetSettingBase, "initialize");
                 spyOn(DcsBetSetting, "initEvent");
+                spyOn(DcsBetSetting, "checkToDisableInput");
             });
 
             beforeEach(function () {
@@ -22,6 +23,9 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingStatus, DcsBetSe
             });
             it("DcsBetSetting.initEvent() should be called", function () {
                 expect(DcsBetSetting.initEvent).toHaveBeenCalled();
+            });
+            it("DcsBetSetting.checkToDisableInput() should be called", function () {
+                expect(DcsBetSetting.checkToDisableInput).toHaveBeenCalled();
             });
         });
 
@@ -38,10 +42,12 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingStatus, DcsBetSe
                 expect(DcsBetSetting.updateStatus).toHaveBeenCalledWith($button);
             });
 
-
             it("#btnSubmitBetSetting fire click event with product Virtual Sports - BetSettingBase.showComfirm() should be called with correct parameter", function () {
                 setFixtures('<input id="ProductId" value="5" /><button id="btnSubmitBetSetting"></button>');
                 spyOn(BetSettingBase, "showComfirm");
+                spyOn(Site, "getSingleResource").and.callFake(function (str) {
+                    return str;
+                });
                 DcsBetSetting.initEvent();
                 var $submit = $("#btnSubmitBetSetting");
 
@@ -50,6 +56,17 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingStatus, DcsBetSe
                 expect(BetSettingBase.showComfirm).toHaveBeenCalledWith($submit, "UpdateProductBetSettings", DcsBetSetting.updateBetSetting);
             });
 
+            it("#btnReset fire click event - BetSettingBase.resetInput() should be called with correct parameter", function () {
+                setFixtures('<button id="btnReset"></button>');
+                spyOn(BetSettingBase, "resetInput");
+                DcsBetSetting.initEvent();
+
+                var $button = $("#btnReset");
+
+                $button.click();
+
+                expect(BetSettingBase.resetInput).toHaveBeenCalledWith();
+            });
         });
 
         describe("updateStatus($context)", function () {
@@ -78,7 +95,6 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingStatus, DcsBetSe
             });
         });
 
-
         describe("updateBetSetting(custId, userName, nickName)", function () {
             var custId = 1, userName = "username", nickName = "nickname";
             var expectedParam = {
@@ -103,6 +119,33 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingStatus, DcsBetSe
                 DcsBetSetting.updateBetSetting(custId, userName, nickName);
 
                 expect(BetSettingBase.updateBetSetting).toHaveBeenCalledWith(expectedUrl, expectedParam);
+            });
+        });
+
+        describe("checkToDisableInput()", function () {
+            beforeEach(function () {
+                setFixtures('<div class="table-content">'
+                    + '<input type="text"/></div>'
+                    + '<button id="btnSubmitBetSetting"></button>'
+                    + '<button id="btnReset"></button>');
+            });
+
+            it("does not disable inputs and buttons if #IsEnabled is not '0'", function () {
+                appendSetFixtures('<input id="IsEnabled" value="1" />');
+
+                DcsBetSetting.checkToDisableInput();
+
+                expect($(".table-content input[type=text]").hasClass("disabled")).toBe(false);
+                expect($("#btnSubmitBetSetting, #btnReset").hasClass("disabled")).toBe(false);
+            });
+
+            it("disables inputs and buttons if #IsEnabled is not '0'", function () {
+                appendSetFixtures('<input id="IsEnabled" value="0" />');
+
+                DcsBetSetting.checkToDisableInput();
+
+                expect($(".table-content input[type=text]").hasClass("disabled")).toBe(true);
+                expect($("#btnSubmitBetSetting, #btnReset").hasClass("disabled")).toBe(true);
             });
         });
     });

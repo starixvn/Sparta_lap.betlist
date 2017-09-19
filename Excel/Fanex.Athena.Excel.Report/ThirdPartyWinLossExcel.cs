@@ -12,6 +12,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
+    using Helpers;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Model.Report.ViewModel;
@@ -46,13 +47,16 @@ namespace Fanex.Athena.Excel.Report
         private readonly ThirdPartyWinLossMetaModel _metaModel;
         private readonly IDictionary<string, ThirdPartyWinLoss> _summaryTotal;
 
+        private readonly ConvertingOption _convertingOption;
+
         public ThirdPartyWinLossExcel(
                 string templatePath,
                 ConvertingOption convertingOption,
                 ThirdPartyWinLossMetaModel metaModel,
                 ThirdPartyWinLossViewModel viewModel)
-            : base(templatePath, null, convertingOption)
+            : base(templatePath, null)
         {
+            _convertingOption = convertingOption;
             _metaModel = metaModel;
             _winLossList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
@@ -108,7 +112,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
@@ -163,11 +167,11 @@ namespace Fanex.Athena.Excel.Report
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
             var todate = _metaModel.ToDate.ToString(FormatDate);
             var title = _metaModel.DrillDownLevel > 0 && _metaModel.CurrencyId == 0
-                ? GetExactTitleCurrencyName(_metaModel.DrillDownCurrencyId)
-                : GetExactTitleCurrencyName(_metaModel.CurrencyId);
+                ? ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.DrillDownCurrencyId)
+                : ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId);
 
             ReportTitle = GenerateProductReportTitle(fromdate, todate, title);
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 2);
@@ -185,15 +189,15 @@ namespace Fanex.Athena.Excel.Report
             switch (Level)
             {
                 case 0:
-                    HideColumn(sheet, ColumnExternalId, ColumnSystemId);
+                    sheet.HideColumn(ColumnExternalId, ColumnSystemId);
                     break;
 
                 case 1:
-                    HideColumn(sheet, ColumnExternalId, ColumnDate);
+                    sheet.HideColumn(ColumnExternalId, ColumnDate);
                     break;
 
                 default:
-                    HideColumn(sheet, ColumnDate);
+                    sheet.HideColumn(ColumnDate);
                     break;
             }
         }

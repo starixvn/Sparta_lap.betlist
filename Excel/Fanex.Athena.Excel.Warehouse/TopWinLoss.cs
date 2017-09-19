@@ -27,7 +27,6 @@ namespace Fanex.Athena.Excel.Warehouse
         private const int ColumnTemplateCount = 15;
         private const int ColumnTurnover = 6;
         private const int ColumnTotalTrans = 7;
-        private const int ColumnCustomerWL = 8;
         private const int RowContentTemplate = 3;
         private const int RowNoInfoTemplate = 5;
         private const int RowTableHeaderTemplate = 1;
@@ -48,17 +47,14 @@ namespace Fanex.Athena.Excel.Warehouse
 
         public TopWinLoss(
                 string templatePath,
-                ConvertingOption convertingOption,
                 ShowingOption showingOption,
                 IList<Fanex.Athena.Model.Warehouse.DTO.WinLoss> dataList,
                 IDictionary<string, decimal> totalValues)
-            : base(templatePath, showingOption, convertingOption)
+            : base(templatePath, showingOption)
         {
             _dataList = dataList;
 
             _totalValues = totalValues;
-
-            NumOfDataRow = dataList.Count;
 
             HeaderTextList = new List<string>
             {
@@ -79,6 +75,27 @@ namespace Fanex.Athena.Excel.Warehouse
         }
 
         public int GroupingId { get; set; }
+
+        protected override void AssignData()
+        {
+            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+
+            AssignHeader(sheet);
+
+            AssignTitle(sheet);
+
+            if (_dataList.Count == 0)
+            {
+                AssignNoInfoRow(sheet);
+            }
+            else
+            {
+                AssignSheetData(sheet);
+            }
+
+            // Hide unnecessary column
+            ProcessUI(sheet);
+        }
 
         /// <summary>
         /// Assign data to header section.
@@ -102,7 +119,7 @@ namespace Fanex.Athena.Excel.Warehouse
 
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
 
         /// <summary>
@@ -135,7 +152,7 @@ namespace Fanex.Athena.Excel.Warehouse
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignTitle(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Only show LicenseeWL if licensee doesn't have NG
             if (!ShowingOption.NGVisible)
@@ -156,15 +173,15 @@ namespace Fanex.Athena.Excel.Warehouse
         /// <param name="sheet">Excel sheet.</param>
         protected override void ProcessUI(ISheet sheet)
         {
-            HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
-            HideRow(sheet, RowTableHeaderTemplate + 1);
+            sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
+            sheet.HideRow(RowTableHeaderTemplate + 1);
 
             int groupNameIndex = GetGroupNameIndex();
             for (int i = 1; i <= 5; i++)
             {
                 if (i != groupNameIndex)
                 {
-                    HideColumn(sheet, i);
+                    sheet.HideColumn(i);
                 }
             }
         }

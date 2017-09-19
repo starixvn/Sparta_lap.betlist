@@ -1,6 +1,6 @@
-﻿define(['jquery', 'common/site', 'components/pluginhelper/daterangepicker', 'pages/report/licenseewinloss/licenseewinloss.option', 'pages/report/licenseewinloss/licenseewinloss',
+﻿define(['jquery', "common/querystring", 'common/site', 'components/pluginhelper/daterangepicker', 'pages/report/licenseewinloss/licenseewinloss.option', 'pages/report/licenseewinloss/licenseewinloss',
     'pages/report/report', 'lib/jqgrid/jquery.jqgrid.additional', 'common/popup', 'components/pluginhelper/multiselect', "helpers/daterange"],
-    function ($, Site, DatePicker, LicenseeWinLossOption, LicenseeWinLoss, Report, jqGridAdditional, Popup, MultiSelect, DateHelper) {
+    function ($, QueryString, Site, DatePicker, LicenseeWinLossOption, LicenseeWinLoss, Report, jqGridAdditional, Popup, MultiSelect, DateHelper) {
         describe("LicenseeWinLoss", function () {
             beforeAll(function () {
                 spyOn(Site, "getSingleResource").and.callFake(function (text) {
@@ -102,7 +102,7 @@
                     spyOn(LicenseeWinLoss, "setReportTitle");
                     spyOn(Site, "unBlockUI");
 
-                    LicenseeWinLoss.ajaxComplete(0, { Data: arrayData }); //set value for cache data                    
+                    LicenseeWinLoss.ajaxComplete(0, { Data: arrayData }); //set value for cache data
                     LicenseeWinLossOption.gridOption.onSortCol("Column2");
                     jasmine.clock().tick(101);
                 });
@@ -379,7 +379,6 @@
                         expect($.fn.serializeObject).not.toHaveBeenCalled();
                     });
                 });
-                
             });
 
             describe("lastDateOfMonth(year, month)", function () {
@@ -918,15 +917,6 @@
                         expect($("#pg_ppdata")).toBeVisible();
                     });
 
-                    it("#pg_ppdata should be hidden when level is not 2", function () {
-                        appendSetFixtures('<button id="pg_ppdata"></button>');
-                        LicenseeWinLoss.bindData(1, 2, { Data: [1, 2, 3], Total: [1] });
-
-                        gridOption.gridComplete();
-
-                        expect($("#pg_ppdata")).not.toBeVisible();
-                    });
-
                     it(".ui-jqgrid-ftable should has correct html content when onPaging is true and level is 2", function () {
                         LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [] });
                         appendSetFixtures('<button id="pgButton"></button>' +
@@ -939,6 +929,15 @@
                         var result = $(".ui-jqgrid-ftable").html();
 
                         expect(result).toBe("Footer Content");
+                    });
+
+                    it("#pg_ppdata should be hidden when level is not 2", function () {
+                        appendSetFixtures('<button id="pg_ppdata"></button>');
+                        LicenseeWinLoss.bindData(1, 2, { Data: [1, 2, 3], Total: [1] });
+
+                        gridOption.gridComplete();
+
+                        expect($("#pg_ppdata")).not.toBeVisible();
                     });
                 });
             });
@@ -957,6 +956,134 @@
                 });
                 it("jqGridAdditional.updateGridWidth($grid) should be called", function () {
                     expect(jqGridAdditional.updateGridWidth).toHaveBeenCalledWith($("#ReportGrid"));
+                });
+            });
+
+            describe("openBetlistPopUp(dataDrillDown)", function () {
+                beforeAll(function () {
+                    spyOn($, "ajax").and.callFake(function (option) {
+                        option.success({ ProductOptions: [] });
+
+                        return {
+                            abort: function () { }
+                        };
+                    });
+
+                    spyOn(Math, "min").and.returnValue(650);
+
+                    spyOn(QueryString, "setParam").and.callFake(function (url, param, value) {
+                        return url + "&" + param + "=" + value;
+                    });
+
+                    spyOn(Site, "setProductOptionOriginalParamList").and.callFake(function (url) {
+                        return url;
+                    });
+                });
+
+                beforeEach(function () {
+                    spyOn(Popup, "openPopupWithIframe");
+                });
+
+                function setupSubmitData(reportBy, fromdate, todate) {
+                    setFixtures('<form id="licenseewinloss">'
+                        + '<input name="DrawFilter" value="0">'
+                        + '<input name="IsExcludedTestData" value="false">'
+                        + '<input name="CurrencyId" value="0">'
+                        + '<input name="CurrencyName" value="usd">'
+                        + '<input name="ReportBy" value="' + reportBy + '">'
+                        + '<input name="FromDate" value="' + fromdate + '">'
+                        + '<input name="ToDate" value="' + todate + '">'
+                        + '<input id="BaseCurrency" data-original="eur">'
+                        + '</form>');
+
+                    spyOn(Report, "setOriginalProduct");
+                    spyOn(Site, "updateOriginalLicenseeOption");
+                    spyOn(Report, "ValidProducts").and.returnValue(true);
+
+                    spyOn(LicenseeWinLoss, "setExcelUrl");
+                    spyOn(LicenseeWinLoss, "ajaxComplete");
+
+                    LicenseeWinLoss.submit();
+                }
+
+                it("Popup.openPopupWithIframe should be called with correct params", function () {
+                    setupSubmitData(1, "01/01/2011", "01/11/2011");
+                    var drillDown = {
+                        DrillDownFromDate: new Date(2011, 0, 1),
+                        DrillDownToDate: new Date(2011, 0, 11),
+                        DrillDownCurrencyId: 1,
+                        DrillDownCurrencyName: "eur",
+                        CustomerId: 2,
+                        SystemId: 3,
+                        ExternalId: 4
+                    };
+                    LicenseeWinLoss.openBetlistPopUp(JSON.stringify(drillDown));
+
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(
+                        "LicenseeWinLossBetList/Index&fromdate=01/01/2011&todate=01/11/2011&excludetest=false&CurrencyId=1&CurrencyName=eur&drawfilter=0&custid=2&systemId=3&externalId=4&BaseCurrency=eur",
+                        {
+                            id: "betlist-popup", width: 970, height: 700, title: "Customer Bet List"
+                        });
+                });
+
+                it("Popup.openPopupWithIframe should be called with fromdate is 1 if drill down month if fall into summitted date", function () {
+                    setupSubmitData(2, "01/01/2011", "02/11/2011");
+                    var drillDown = {
+                        DrillDownFromDate: new Date(2011, 1, 5),
+                        DrillDownToDate: new Date(2011, 1, 11),
+                        DrillDownCurrencyId: 1,
+                        DrillDownCurrencyName: "eur",
+                        CustomerId: 2,
+                        SystemId: 3,
+                        ExternalId: 4
+                    };
+                    LicenseeWinLoss.openBetlistPopUp(JSON.stringify(drillDown));
+
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(
+                        "LicenseeWinLossBetList/Index&fromdate=02/01/2011&todate=02/11/2011&excludetest=false&CurrencyId=1&CurrencyName=eur&drawfilter=0&custid=2&systemId=3&externalId=4&BaseCurrency=eur",
+                        {
+                            id: "betlist-popup", width: 970, height: 700, title: "Customer Bet List"
+                        });
+                });
+
+                it("Popup.openPopupWithIframe should be called with fromdate is summitted fromdate if drill down month is equal summitted fromdate month", function () {
+                    setupSubmitData(2, "02/05/2011", "02/11/2011");
+                    var drillDown = {
+                        DrillDownFromDate: new Date(2011, 1, 5),
+                        DrillDownToDate: new Date(2011, 1, 11),
+                        DrillDownCurrencyId: 1,
+                        DrillDownCurrencyName: "eur",
+                        CustomerId: 2,
+                        SystemId: 3,
+                        ExternalId: 4
+                    };
+                    LicenseeWinLoss.openBetlistPopUp(JSON.stringify(drillDown));
+
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(
+                        "LicenseeWinLossBetList/Index&fromdate=02/05/2011&todate=02/11/2011&excludetest=false&CurrencyId=1&CurrencyName=eur&drawfilter=0&custid=2&systemId=3&externalId=4&BaseCurrency=eur",
+                        {
+                            id: "betlist-popup", width: 970, height: 700, title: "Customer Bet List"
+                        });
+                });
+
+                it("Popup.openPopupWithIframe should be called with todate is end day of month if drill down month is less than summitted todate month", function () {
+                    setupSubmitData(2, "02/05/2011", "03/11/2011");
+                    var drillDown = {
+                        DrillDownFromDate: new Date(2011, 1, 5),
+                        DrillDownToDate: new Date(2011, 1, 11),
+                        DrillDownCurrencyId: 1,
+                        DrillDownCurrencyName: "eur",
+                        CustomerId: 2,
+                        SystemId: 3,
+                        ExternalId: 4
+                    };
+                    LicenseeWinLoss.openBetlistPopUp(JSON.stringify(drillDown));
+
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(
+                        "LicenseeWinLossBetList/Index&fromdate=02/05/2011&todate=02/28/2011&excludetest=false&CurrencyId=1&CurrencyName=eur&drawfilter=0&custid=2&systemId=3&externalId=4&BaseCurrency=eur",
+                        {
+                            id: "betlist-popup", width: 970, height: 700, title: "Customer Bet List"
+                        });
                 });
             });
         });

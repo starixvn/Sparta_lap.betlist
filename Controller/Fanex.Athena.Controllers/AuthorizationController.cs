@@ -284,7 +284,7 @@ namespace Fanex.Athena.Controllers
             { "alertPasswordRequire", ViewResources.PasswordNoteMsg },
             { "alertPasswordSucc", ViewResources.PasswordChangedMsg }
             };
-            return View("~/Views/Utility/ChangePass.cshtml");
+            return View("~/Views/Authorization/ChangePass.cshtml");
         }
 
         [HttpPost]

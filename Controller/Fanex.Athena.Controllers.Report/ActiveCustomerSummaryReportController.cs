@@ -44,7 +44,6 @@ namespace Fanex.Athena.Controllers.Report
 
             var model = new ActiveCustomerViewModel
             {
-                ShowEmptyContent = true,
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,

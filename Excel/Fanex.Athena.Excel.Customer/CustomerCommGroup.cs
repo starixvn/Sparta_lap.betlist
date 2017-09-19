@@ -34,16 +34,16 @@ namespace Fanex.Athena.Excel.Customer
         private const int RowNoInfoTemplate = 5;
 
         private readonly string _excelTitle = ViewResources.CommissionGroupList;
+
         private readonly DataTable _exportData;
 
         public CustomerCommGroup(
                                  string templatePath,
                                  DataTable exportData,
                                  ShowingOption showingOption)
-            : base(templatePath, showingOption, new ConvertingOption())
+            : base(templatePath, showingOption)
         {
             _exportData = exportData;
-            ExportData = exportData;
             HeaderTextList = new List<string>
             {
                 "#",
@@ -56,6 +56,27 @@ namespace Fanex.Athena.Excel.Customer
                 ViewResources.LCComm + " (%)",
                 ViewResources.CSComm + " (%)",
             };
+        }
+
+        protected override void AssignData()
+        {
+            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+
+            AssignHeader(sheet);
+
+            AssignTitle(sheet);
+
+            if (_exportData == null || _exportData.Rows.Count == 0)
+            {
+                AssignNoInfoRow(sheet);
+            }
+            else
+            {
+                AssignSheetData(sheet);
+            }
+
+            // Hide unnecessary column
+            ProcessUI(sheet);
         }
 
         /// <summary>
@@ -73,7 +94,7 @@ namespace Fanex.Athena.Excel.Customer
 
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
 
         /// <summary>
@@ -116,7 +137,7 @@ namespace Fanex.Athena.Excel.Customer
         protected override void AssignTitle(ISheet sheet)
         {
             ReportTitle = _excelTitle;
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 2);
@@ -135,17 +156,17 @@ namespace Fanex.Athena.Excel.Customer
         {
             if (!ShowingOption.RBVisible)
             {
-                HideColumn(sheet, ColumnRbCommission);
+                sheet.HideColumn(ColumnRbCommission);
             }
 
             if (!ShowingOption.NGVisible)
             {
-                HideColumn(sheet, ColumnNgCommission);
+                sheet.HideColumn(ColumnNgCommission);
             }
 
             if (!ShowingOption.CSVisible)
             {
-                HideColumn(sheet, ColumnCsCommission);
+                sheet.HideColumn(ColumnCsCommission);
             }
         }
     }

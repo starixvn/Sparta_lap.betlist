@@ -29,9 +29,11 @@ namespace Fanex.Athena.DataAccess.Report
     [System.CLSCompliant(false)]
     public class ResultDataAccess : BaseDataAccess, IResultDataAccess
     {
+        private readonly BalanceUp _balanceUp;
+
         public ResultDataAccess(BalanceUp balanceUp)
-            : base(balanceUp)
         {
+            _balanceUp = balanceUp;
         }
 
         public IList<Outright> GetOutRight(ResultMetalModel metal)
@@ -91,7 +93,7 @@ namespace Fanex.Athena.DataAccess.Report
                 {
                     db.AddInParameter("eventdate", DbType.DateTime, dateValue);
                     db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
-                    db.AddInParameter("movebetsday", DbType.DateTime, this.BalanceUp.MoveBetsDay);
+                    db.AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
                     using (var reader = db.ExecuteReader())
                     {
                         var data = new List<Sport>();
@@ -125,7 +127,7 @@ namespace Fanex.Athena.DataAccess.Report
                 eventdate = dateValue,
                 sporttype = sportId,
                 isshowall = true,
-                movebetsday = this.BalanceUp.MoveBetsDay
+                movebetsday = _balanceUp.MoveBetsDay
             };
 
             try
@@ -395,8 +397,7 @@ namespace Fanex.Athena.DataAccess.Report
                 fromdate = metalModel.FromDate,
                 sporttype = metalModel.SportId,
                 leagueid = metalModel.LeagueId,
-                isshowall = true,
-                movebetsday = BalanceUp.MoveBetsDay
+                movebetsday = _balanceUp.MoveBetsDay
             };
 
             try

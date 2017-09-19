@@ -12,7 +12,7 @@ namespace Fanex.Athena.Controllers.Customer
     using System.IO;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Base;
+    using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Customer;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
@@ -150,7 +150,7 @@ namespace Fanex.Athena.Controllers.Customer
                 }
             }
 
-            return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+            return File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
 
         [CustomValidateAntiForgery]

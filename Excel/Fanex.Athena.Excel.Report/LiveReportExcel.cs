@@ -11,6 +11,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
+    using Helpers;
     using Model.Report.DTO.LiveReports;
     using Model.Report.ViewModel.LiveReports;
     using NPOI.SS.UserModel;
@@ -46,14 +47,17 @@ namespace Fanex.Athena.Excel.Report
         private readonly LiveReportDetailViewModel _liveReportDetailList;
         private readonly IList<LiveReport> _liveReportList;
 
+        private readonly ConvertingOption _convertingOption;
+
         public LiveReportExcel(
                                string templatePath,
                                ConvertingOption convertingOption,
                                ShowingOption showingOption,
                                IList<LiveReport> liveReportList,
                                LiveReportDetailViewModel liveReportDetailList)
-            : base(templatePath, showingOption, convertingOption)
+            : base(templatePath, showingOption)
         {
+            _convertingOption = convertingOption;
             _liveReportList = liveReportList;
             _liveReportDetailList = liveReportDetailList;
         }
@@ -94,7 +98,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
@@ -154,9 +158,9 @@ namespace Fanex.Athena.Excel.Report
                                         GetLiveIndicatorString(_liveReportDetailList.Param.LiveIndicator),
                                         _liveReportDetailList.Param.FromDate.ToString("d MMMM yy"),
                                         _liveReportDetailList.Param.ToDate.ToString("d MMMM yy"),
-                                        GetTitleCurrencyName());
+                                        ReportExcelHelper.GetTitleCurrencyName(_convertingOption));
 
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 4);
@@ -173,13 +177,13 @@ namespace Fanex.Athena.Excel.Report
         {
             if (!ShowingOption.CustomerCommVisible)
             {
-                HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
-                HideRow(sheet, SummarySectionRowIndex + 2);
+                sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
+                sheet.HideRow(SummarySectionRowIndex + 2);
             }
 
             if (!ShowingOption.LicenseeCommVisible)
             {
-                HideColumn(sheet, ColumnLicenseeComm);
+                sheet.HideColumn(ColumnLicenseeComm);
             }
         }
 

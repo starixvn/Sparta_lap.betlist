@@ -12,6 +12,7 @@ namespace Fanex.Athena.Excel.Report
     using Base.Entities;
     using Common.Extensions;
     using Fanex.Athena.Excel.Base.Extension;
+    using Helpers;
     using Model.Report.DTO;
     using Model.Report.ViewModel;
     using NPOI.SS.UserModel;
@@ -52,13 +53,16 @@ namespace Fanex.Athena.Excel.Report
         private readonly IList<TurnoverDTO> _turnoverList;
         private readonly TurnoverViewModel _viewModel;
 
+        private readonly ConvertingOption _convertingOption;
+
         public TurnoverExcel(
                              string templatePath,
                              ConvertingOption convertingOption,
                              ShowingOption showingOption,
                              TurnoverViewModel viewModel)
-            : base(templatePath, showingOption, convertingOption)
+            : base(templatePath, showingOption)
         {
+            _convertingOption = convertingOption;
             _viewModel = viewModel;
             _turnoverList = viewModel.DataList;
             _total = viewModel.TotalData;
@@ -147,7 +151,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemp, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemp, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
@@ -189,10 +193,10 @@ namespace Fanex.Athena.Excel.Report
         protected override void AssignTitle(ISheet sheet)
         {
             string titleNoUserName = string.Format(
-                                                    ViewResources.TurnoverTitleNoUser,
-                                                   _viewModel.Param.FromDate.ToString(FormatDate),
-                                                   _viewModel.Param.ToDate.ToString(FormatDate),
-                                                   GetExactTitleCurrencyName(_viewModel.Param.CurrencyId));
+                        ViewResources.TurnoverTitleNoUser,
+                        _viewModel.Param.FromDate.ToString(FormatDate),
+                        _viewModel.Param.ToDate.ToString(FormatDate),
+                        ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _viewModel.Param.CurrencyId));
             string title = string.Format(
                                         ViewResources.TurnoverTitle,
                                          _viewModel.Param.FromDate.ToString(FormatDate),
@@ -201,7 +205,7 @@ namespace Fanex.Athena.Excel.Report
                                          _viewModel.Param.Username,
                                          _viewModel.Param.CurrencyName);
             ReportTitle = _viewModel.Param.Username.IsNullOrTrimEmpty() ? titleNoUserName : title;
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);
@@ -218,7 +222,7 @@ namespace Fanex.Athena.Excel.Report
         {
             if (!ShowingOption.CustomerCommVisible)
             {
-                HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
+                sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
 
                 // If row isn't hide (in case BA visible), then merge cell and set value for header
                 sheet.MergeCells(RowTableHeaderTemplate, ColumnCustomerWinLoss, RowTableHeaderTemplate + 1, ColumnCustomerWinLoss);
@@ -227,17 +231,17 @@ namespace Fanex.Athena.Excel.Report
 
             if (!ShowingOption.BAVisible)
             {
-                HideColumn(sheet, ColumnTurnoverBa, ColumnCommBa, ColumnAmountDueToBa);
+                sheet.HideColumn(ColumnTurnoverBa, ColumnCommBa, ColumnAmountDueToBa);
             }
 
             if (!ShowingOption.CustomerCommVisible && !ShowingOption.BAVisible)
             {
-                HideRow(sheet, RowTableHeaderTemplate + 1);
+                sheet.HideRow(RowTableHeaderTemplate + 1);
             }
 
             if (LicenseeId != 1)
             {
-                HideColumn(sheet, ColumnCasinoTransfer);
+                sheet.HideColumn(ColumnCasinoTransfer);
             }
         }
 

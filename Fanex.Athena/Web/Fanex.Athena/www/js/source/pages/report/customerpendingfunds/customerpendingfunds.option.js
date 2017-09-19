@@ -1,0 +1,153 @@
+﻿define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
+    function ($, Site, jqGridAdditional) {
+        "use strict";
+        var _index = 0;
+
+        var betlistLink = function (cellvalue, options, rowObject) {
+            var param =
+            {
+                CustId: rowObject.CustId,
+                ExternalId: rowObject.ExternalId,
+                SystemId: rowObject.SystemId
+            };
+
+            return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
+        };
+
+        var setIndex = function () {
+            return ++_index;
+        };
+
+        var indexColumn =
+        {
+            name: "Index",
+            index: "Index",
+            resizable: false,
+            width: 40,
+            align: "center",
+            valign: "middle",
+            sortable: false,
+            formatter: setIndex
+        };
+
+        var externalIdColumn =
+        {
+            name: "ExternalId",
+            index: "ExternalId",
+            resizable: false,
+            width: 200,
+            align: "left",
+            valign: "middle",
+            sortable: true,
+            formatter: betlistLink,
+            cellattr: function () {
+                return ' style="text-overflow: ellipsis"';
+            }
+        };
+
+        var systemIdColumn =
+        {
+            name: "SystemId",
+            index: "SystemId",
+            resizable: false,
+            width: 200,
+            align: "left",
+            valign: "middle",
+            sortable: true
+        };
+
+        var betCountsColumn =
+        {
+            name: "BetCounts",
+            index: "BetCounts",
+            width: 120,
+            align: "right",
+            sortable: true,
+            resizable: false,
+            formatter: "integer",
+            formatoptions:
+            {
+                thousandsSeparator: ","
+            }
+        };
+
+        var pendingFundsColumn =
+        {
+            name: "PendingFunds",
+            index: "PendingFunds",
+            width: 115,
+            align: "right",
+            sortable: true,
+            resizable: false,
+            formatter: "currency",
+            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+        };
+
+        var colNameList = [
+            "#",
+            "ExternalId",
+            "SystemId",
+            "BetCounts",
+            "PendingFunds"
+        ];
+
+        var colModelList = [
+            indexColumn,
+            externalIdColumn,
+            systemIdColumn,
+            betCountsColumn,
+            pendingFundsColumn
+        ];
+
+        var _me =
+        {
+            urlData: "api/CustomerPendingFundsReport/Index",
+            urlExcelData: "api/CustomerPendingFundsReport/Index",
+            totalColspan: 3,
+            gridOption:
+            {
+                datatype: "local",
+                colNames: [],
+                colModel: [],
+                data: [],
+                height: "100%",
+                autowidth: false,
+                forceFit: false,
+                shrinkToFit: true,
+                loadtext: '',
+                loadui: "disable",
+                loadonce: true,
+                footerrow: true,
+                userDataOnFooter: false,
+                gridview: true,
+                sortable: false,
+                scroll: 1,
+                rowNum: 100
+            },
+
+            getGridOption: function (totalRows) {
+                _index = 0;
+                _me.gridOption.colNames = _me.getColName();
+                _me.gridOption.colModel = _me.getColModel(totalRows);
+                return Site.clone(_me.gridOption);
+            },
+
+            getColName: function () {
+                return Site.getResources(colNameList);
+            },
+
+            getColModel: function (totalRows) {
+                var colModels = Site.clone(colModelList);
+
+                if (totalRows <= 1) {
+                    $.each(colModels, function (index, item) {
+                        item.sortable = false;
+                    });
+                }
+
+                return colModels;
+            },
+        };
+
+        return _me;
+    });

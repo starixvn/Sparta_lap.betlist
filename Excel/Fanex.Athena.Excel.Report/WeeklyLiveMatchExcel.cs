@@ -38,7 +38,7 @@ namespace Fanex.Athena.Excel.Report
                 IEnumerable<WeeklyLiveMatch> dataList,
                 int[] totalData,
                 IEnumerable<string> weekHeaders)
-            : base(templatePath, null, null)
+            : base(templatePath, null)
         {
             _totalData = totalData;
             _metaModel = metaModel;
@@ -67,7 +67,7 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
             AssignTotalRow(sheet, numOfDataRow + 2);
             var hiddenColumns = Enumerable.Range(_metaModel.NumberOfWeeks + NumberOfStaticColumns, MaxWeekColumns - _metaModel.NumberOfWeeks);
-            HideColumn(sheet, hiddenColumns.ToArray());
+            sheet.HideColumn(hiddenColumns.ToArray());
         }
 
         protected override void AssignTitle(ISheet sheet)
@@ -76,7 +76,7 @@ namespace Fanex.Athena.Excel.Report
             var todate = _metaModel.ToDate.ToString(FormatDate);
 
             ReportTitle = string.Format(ViewResources.WeeklyLiveMatches + ", {0} --> {1}", fromdate, todate);
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 2);
@@ -99,7 +99,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 

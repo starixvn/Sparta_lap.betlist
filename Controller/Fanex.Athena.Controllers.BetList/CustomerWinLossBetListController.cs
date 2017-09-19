@@ -39,7 +39,7 @@ namespace Fanex.Athena.Controllers.BetList
                     return Excel(metaModel);
                 }
 
-                return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+                return EmptyExcel();
             }
 
             return View("~/Views/BetList/CustomerWl/Main.cshtml", metaModel);

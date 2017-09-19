@@ -22,7 +22,6 @@ namespace Fanex.Athena.Excel.Customer
     /// </summary>
     public class CustomerListExcel : ExcelBase
     {
-        private const int MaxExcelRowCount = 65000;
         private const int RowHeaderTemplate = 1;
         private const int RowTitleTemplate = 0;
         private const int RowNoInfoTemp = 4;
@@ -45,6 +44,8 @@ namespace Fanex.Athena.Excel.Customer
         private const string BASTATUS = "BAStatus";
         private const string CUSTOMERCOMM = "Commission";
 
+        private const int ColumnTemplateCount = 13;
+
         private readonly Dictionary<int, string> _gridCommonColumNames = new Dictionary<int, string>
         {
             { ExternalIDColumn, "ExternalId" },
@@ -65,7 +66,6 @@ namespace Fanex.Athena.Excel.Customer
 
         private ISheet _templateSheet;
         private ICellStyle _defaultStyle;
-        private int _columnTemplateCount = 13;
 
         public CustomerListExcel(string templatePath, string reportTitle, CustomerListViewModel model)
         {
@@ -162,7 +162,7 @@ namespace Fanex.Athena.Excel.Customer
         /// <param name="sheet">The current sheet.</param>
         private void AssignNoInfoRow(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowNoInfoTemp, RowContentTemplate, _columnTemplateCount, ViewResources.NoInfo);
+            sheet.SetTextRowValue(_templateSheet, RowNoInfoTemp, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUi(sheet);
         }
 
@@ -249,7 +249,7 @@ namespace Fanex.Athena.Excel.Customer
 
         private void AssignTitle(ISheet sheet)
         {
-            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, _columnTemplateCount, _reporTitle);
+            sheet.SetTextRowValue(_templateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _reporTitle);
 
             /*Freeze 2 rows title and header*/
             sheet.CreateFreezePane(0, 3);
@@ -296,8 +296,8 @@ namespace Fanex.Athena.Excel.Customer
             /*commission and group columns*/
             if (!_exportData.IsAllowedCustomerCommission || !_showedGridColumns.Contains(CUSTOMERCOMM))
             {
-                HideColumn(sheet, SBCommColumn, NGCommColumn, RCCommColumn, LCCommColumn, CSCommColumn);
-                HideRow(sheet, RowHeaderTemplate + 1);
+                sheet.HideColumn(SBCommColumn, NGCommColumn, RCCommColumn, LCCommColumn, CSCommColumn);
+                sheet.HideRow(RowHeaderTemplate + 1);
             }
             else
             {
@@ -347,7 +347,7 @@ namespace Fanex.Athena.Excel.Customer
                 }
             }
 
-            HideColumn(sheet, hidedColumns.ToArray());
+            sheet.HideColumn(hidedColumns.ToArray());
         }
 
         /// <summary>
@@ -356,13 +356,6 @@ namespace Fanex.Athena.Excel.Customer
         private void RemoveTemplate()
         {
             this.Workbook.RemoveSheet("Template");
-        }
-
-        private void SetTextRowValue(ISheet sheet, int sourceRowIndex, int destRowIndex, int columnCount, string value)
-        {
-            var row = sheet.CopyRow(_templateSheet, sourceRowIndex, destRowIndex);
-            sheet.MergeCells(destRowIndex, 0, destRowIndex, columnCount - 1);
-            row.Cells[0].SetCellValue(value);
         }
     }
 }

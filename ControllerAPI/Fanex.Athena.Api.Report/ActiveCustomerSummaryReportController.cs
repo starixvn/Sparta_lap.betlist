@@ -13,6 +13,8 @@ namespace Fanex.Athena.Api.Report
     using System.Web;
     using System.Web.Http;
     using Base.Attributes;
+    using DataAccess.Report;
+    using DataAccess.Report.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Extension.Helper;
@@ -22,17 +24,15 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
-    using Service.Report;
-    using Service.Report.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportActiveCustomerSummary)]
     public class ActiveCustomerSummaryReportController : ApiReportBaseController
     {
-        private readonly IActiveCustomerService _activeCustomerService;
+        private readonly IActiveCustomerSummaryDataAccess _activeCustomerSummaryDataAccess;
 
         public ActiveCustomerSummaryReportController()
         {
-            _activeCustomerService = new ActiveCustomerService();
+            _activeCustomerSummaryDataAccess = new ActiveCustomerSummaryDataAccess();
         }
 
         [HttpPost]
@@ -62,9 +62,8 @@ namespace Fanex.Athena.Api.Report
                 if (property == null)
                 {
                     // The two last characters is product code.
-                    var indexProductCode = sortBy.Length - 2;
-                    var propertyName = sortBy.Substring(0, indexProductCode);
-                    var productCode = sortBy.Substring(indexProductCode);
+                    var propertyName = nameof(ActiveCustomer.CustomerCount);
+                    var productCode = sortBy.Substring(propertyName.Length);
 
                     dataList.SortByDictionary<string, int>(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
                 }
@@ -124,8 +123,10 @@ namespace Fanex.Athena.Api.Report
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
 
-                int totalCustomer;
-                var dataList = _activeCustomerService.GetActiveCustomers(metaModel, out totalCustomer);
+                int totalCustomer = 0;
+                var dataList = metaModel.IsValid ?
+                    _activeCustomerSummaryDataAccess.GetActiveCustomers(metaModel, out totalCustomer) :
+                    new SortableList<ActiveCustomer>();
 
                 if (metaModel.IsExportExcel)
                 {

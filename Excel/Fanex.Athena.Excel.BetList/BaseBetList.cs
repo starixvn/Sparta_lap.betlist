@@ -10,6 +10,7 @@ namespace Fanex.Athena.Excel.BetList
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Base;
+    using Base.Extension;
     using Excel.Base.Entities;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
@@ -51,7 +52,17 @@ namespace Fanex.Athena.Excel.BetList
             ShowingOption = showingOption;
         }
 
-        public static void AddNoInfoRow(BetListExcelBuilder builder)
+        public IWorkbook Export(TicketResult ticketResult, string title, int startIndex = 1)
+        {
+            BetListExcelBuilder builder = Build(ticketResult, title, startIndex);
+            IWorkbook workbook = builder.GetBetList();
+
+            ProcessUi(workbook);
+
+            return workbook;
+        }
+
+        private static void AddNoInfoRow(IBetListExcelBuilder builder)
         {
             ICellStyle titleStyle = builder.CreateCellStyle();
             titleStyle.Alignment = HorizontalAlignment.Center;
@@ -65,7 +76,7 @@ namespace Fanex.Athena.Excel.BetList
         /// </summary>
         /// <param name="builder">The builder.</param>
         /// <param name="title">The title.</param>
-        public static void AddTitle(BetListExcelBuilder builder, string title)
+        private static void AddTitle(IBetListExcelBuilder builder, string title)
         {
             IFont font = builder.CreateFont();
             font.Boldweight = (short)FontBoldWeight.Bold;
@@ -79,16 +90,6 @@ namespace Fanex.Athena.Excel.BetList
             builder.MergeCell(new CellRangeAddress(0, 0, 0, 10));
         }
 
-        public IWorkbook Export(TicketResult ticketResult, string title, int startIndex = 1)
-        {
-            BetListExcelBuilder builder = Build(ticketResult, title, startIndex);
-            IWorkbook workbook = builder.GetBetList();
-
-            ProcessUi(workbook);
-
-            return workbook;
-        }
-
         /// <summary>
         /// Build bet list.
         /// </summary>
@@ -100,7 +101,7 @@ namespace Fanex.Athena.Excel.BetList
             "StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        protected BetListExcelBuilder Build(TicketResult ticketResult, string title, int startIndex = 1)
+        private BetListExcelBuilder Build(TicketResult ticketResult, string title, int startIndex = 1)
         {
             var builder = new BetListExcelBuilder();
 
@@ -161,7 +162,7 @@ namespace Fanex.Athena.Excel.BetList
         /// Initialize cell styles.
         /// </summary>
         /// <param name="builder">The builder.</param>
-        private void InitializeCellStyles(BetListExcelBuilder builder)
+        private void InitializeCellStyles(IBetListExcelBuilder builder)
         {
             _oddCellStyleLeftAligned = builder.CreateCellStyle();
             _oddCellStyleLeftAligned.CloneStyleFrom(builder.OddCellStyle);
@@ -176,7 +177,7 @@ namespace Fanex.Athena.Excel.BetList
             _evenCellStyleLeftAligned.WrapText = true;
         }
 
-        private void InitializeFonts(BetListExcelBuilder builder)
+        private void InitializeFonts(IBetListExcelBuilder builder)
         {
             _negativeWinLossFont = builder.CreateFont();
             _negativeWinLossFont.Boldweight = (short)FontBoldWeight.Bold;
@@ -199,7 +200,7 @@ namespace Fanex.Athena.Excel.BetList
                 {
                     ISheet sheet = workbook.GetSheetAt(i);
 
-                    HideColumn(sheet, _hiddenColumnIndexes.ToArray());
+                    sheet.HideColumn(_hiddenColumnIndexes.ToArray());
                 }
             }
         }

@@ -417,6 +417,22 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
             };
         }
 
+        function addFilterCollapseExpand(containerSelector) {
+            if (!containerSelector) {
+                containerSelector = ".page-form:has(form)";
+            }
+
+            var $handler = $("<div class='filter-handle'><i class='icon-arrow'></i></div>");
+            var $container = $(containerSelector);
+
+            $container.append($handler);
+
+            $handler.click(function () {
+                $container.toggleClass("filter-collapse");
+                $(window).resize();
+            });
+        }
+
         return {
             initialize: initialize,
             setProductCodeListParam: setProductCodeListParam,
@@ -447,6 +463,7 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
             getCurrentUrl: getCurrentUrl,
             getLocation: getLocation,
             initSelectElements: initSelectElements,
-            debounce: debounce
+            debounce: debounce,
+            addFilterCollapseExpand: addFilterCollapseExpand
         };
     });

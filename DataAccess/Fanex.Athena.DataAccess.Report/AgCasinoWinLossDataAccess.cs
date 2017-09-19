@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.DataAccess.Report
 {
-    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
@@ -16,7 +15,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
@@ -25,11 +23,6 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class AgCasinoWinLossDataAccess : BaseDataAccess, IAgCasinoWinLossDataAccess
     {
-        public AgCasinoWinLossDataAccess(BalanceUp balanceUp)
-            : base(balanceUp)
-        {
-        }
-
         public SortableList<AgCasinoWinLoss> GetSummaryWinloss(AgCasinoWinLossMetaModel metaModel, out IDictionary<string, AgCasinoWinLoss> summaryTotal)
         {
             var uspName = "Lrf_Rpt_AGCasinoWinloss";
@@ -124,6 +117,7 @@ namespace Fanex.Athena.DataAccess.Report
             var hasExternalId = reader.HasColumn("nickname");
             var hasCustomerId = reader.HasColumn("custid");
             var hasWinlostDate = reader.HasColumn("winlostdate");
+
             var index = 1;
             while (reader.Read())
             {
@@ -139,7 +133,7 @@ namespace Fanex.Athena.DataAccess.Report
                     LicenseeWL = reader.ToDecimal(licenseewlColumn),
                     TurnOver = reader.ToDecimal(turnoverColumn),
                     TotalTransaction = reader.ToInt("totaltrans"),
-                    Date = hasWinlostDate ? (DateTime?)reader.ToDateTime("winlostdate") : metaModel.DrillDownFromDate
+                    Date = hasWinlostDate ? reader.ToDateTime("winlostdate") : metaModel.DrillDownFromDate
                 };
 
                 result.Add(item);

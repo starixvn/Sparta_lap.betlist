@@ -482,25 +482,24 @@
                         cache: false,
                         url: url,
                         success: function (response) {
-                            var length = response.Data.length;
+                            var length = response.Data === null ? 0 : response.Data.length;
                             if (length > 0) {
                                 var choice = "";
                                 $.each(response.Texts, function (index, item) {
                                     choice += item;
                                 });
 
-                                if (response.Data !== null && response.Data.length > 0) {
-                                    choice += "<div class='line'></div>";
+                                choice += "<div class='line'></div>";
 
-                                    $.each(response.Data, function (index, item) {
-                                        if (index === length - 1) {
-                                            choice += item.Choice;
-                                        }
-                                        else {
-                                            choice += item.Choice + "<div class='line'></div>";
-                                        }
-                                    });
-                                }
+                                $.each(response.Data, function (index, item) {
+                                    if (index === length - 1) {
+                                        choice += item.Choice;
+                                    }
+                                    else {
+                                        choice += item.Choice + "<div class='line'></div>";
+                                    }
+                                });
+
                                 $divEvent.html(choice).show();
                                 $nameDiv.hide();
                             }
