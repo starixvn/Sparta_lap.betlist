@@ -1568,9 +1568,6 @@
   <data name="UpdateSpecialLevelMsg" xml:space="preserve">
     <value>Invalid parameter. Invalid custId.</value>
   </data>
-  <data name="BaTurnoverReferenceNote" xml:space="preserve">
-    <value>BA Turnover's figures are for reference purpose only and still be included in the overall Turnover</value>
-  </data>
   <data name="RngCasinoAndBingoExcludedNote" xml:space="preserve">
     <value>RNG Casino and Bingo are not included in the report</value>
   </data>
@@ -2009,9 +2006,6 @@
   <data name="Parlay" xml:space="preserve">
     <value>Parlay</value>
   </data>
-  <data name="SupportSbOnlyNote" xml:space="preserve">
-    <value>The report only supports for SportsBook products</value>
-  </data>
   <data name="Currencies" xml:space="preserve">
     <value>Currencies</value>
   </data>
@@ -2421,10 +2415,6 @@
   <data name="HarnessAustTote" xml:space="preserve">
     <value>Harness Aust Tote</value>
   </data>
-  <data name="DailyBetListNoteParlayOutright" xml:space="preserve">
-    <value>Daily Bet List report does not include Parlay and Outright tickets.</value>
-    <comment>#19622</comment>
-  </data>
   <data name="ProductAGC" xml:space="preserve">
     <value>AG Casino</value>
     <comment>#19458, #49196</comment>
@@ -2463,10 +2453,6 @@
   </data>
   <data name="UpdateMemberEsportsSuccessMsg" xml:space="preserve">
     <value>The E-Sports is {0} successfully.</value>
-  </data>
-  <data name="BingoExcludedNote" xml:space="preserve">
-    <value>Bingo is not included in the report</value>
-    <comment>bug #20330</comment>
   </data>
   <data name="AGCasinoWinLoss" xml:space="preserve">
     <value>AG Casino Win Loss</value>
