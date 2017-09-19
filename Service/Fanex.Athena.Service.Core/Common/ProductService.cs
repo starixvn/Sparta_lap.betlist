@@ -46,11 +46,12 @@ namespace Fanex.Athena.Service.Core.Common
             _cache = new MemoryCacheService();
         }
 
-        public ProductService(IAppSettings appSettings, IProductDataAccess productDataAccess, IXDocumentWrapper xmlWrapper)
+        public ProductService(IAppSettings appSettings, IProductDataAccess productDataAccess, IXDocumentWrapper xmlWrapper, IMemoryCacheService cache)
         {
             _appSettings = appSettings;
             _productDataAccess = productDataAccess;
             _xmlWrapper = xmlWrapper;
+            _cache = cache;
         }
 
         #region Public Methods and Operators

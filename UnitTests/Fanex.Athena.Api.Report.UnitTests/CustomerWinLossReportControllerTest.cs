@@ -116,7 +116,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(actualDataList, Is.EqualTo(expectedDataList.AsEnumerable()));
-                Assert.That(actualShowingOption.BAVisible, Is.EqualTo(true));
+                Assert.That(actualShowingOption.BAVisible, Is.True);
             });
         }
 

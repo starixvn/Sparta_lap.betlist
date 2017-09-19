@@ -2,6 +2,7 @@
 {
     using System;
     using System.Data;
+    using Core.Configuration.Interfaces;
     using Data;
     using Model.Core.DTO.Configuration;
     using Model.Report.DTO;
@@ -23,13 +24,16 @@
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
+
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balance = new BalanceUp
             {
                 MoveBetsDay = new DateTime(2016, 8, 10),
                 BalanceUpDay = new DateTime(2016, 8, 31)
             };
+            balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            _dataAccess = Substitute.ForPartsOf<CustomerTurnoverDataAccess>(_balance);
+            _dataAccess = Substitute.ForPartsOf<CustomerTurnoverDataAccess>(balanceUpDataAccess);
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_CustomerTurnOver")).Returns(_objectDb);
 
             _reader = Substitute.For<IDataReader>();

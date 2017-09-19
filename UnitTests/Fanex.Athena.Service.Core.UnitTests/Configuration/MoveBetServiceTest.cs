@@ -4,7 +4,7 @@
     using Core.Configuration;
     using Core.Configuration.Interfaces;
     using DataAccess.Core.Configuration.Interfaces;
-    using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Model.Core.DTO.Configuration;
     using NSubstitute;
     using NUnit.Framework;
@@ -14,12 +14,14 @@
     {
         private IMoveBetDataAccess _moveBetDataAccess;
         private IMoveBetService _moveBetService;
+        private IMemoryCacheService _cache;
 
         [OneTimeSetUp]
         public void SetUp()
         {
             _moveBetDataAccess = Substitute.For<IMoveBetDataAccess>();
-            _moveBetService = new MoveBetService(_moveBetDataAccess);
+            _cache = Substitute.For<IMemoryCacheService>();
+            _moveBetService = new MoveBetService(_moveBetDataAccess, _cache);
         }
 
         [OneTimeTearDown]
@@ -42,6 +44,9 @@
                 }
             };
             _moveBetDataAccess.GetMoveBetNotification().Returns(expectedResult);
+
+            _cache.Get<MoveBetNotification>(Arg.Any<string>()).Returns(x => null);
+            _cache.When(x => x.Set(Arg.Any<string>(), Arg.Any<MoveBetNotification>(), Arg.Any<int>())).DoNotCallBase();
 
             // Action
             var result = _moveBetService.GetMoveBetNotification("en-US");

@@ -31,9 +31,10 @@ namespace Fanex.Athena.Service.Core.Configuration
             _cache = new MemoryCacheService();
         }
 
-        public MoveBetService(IMoveBetDataAccess moveBetDataAccess)
+        public MoveBetService(IMoveBetDataAccess moveBetDataAccess, IMemoryCacheService cache)
         {
-            this._moveBetDataAccess = moveBetDataAccess;
+            _moveBetDataAccess = moveBetDataAccess;
+            _cache = cache;
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",

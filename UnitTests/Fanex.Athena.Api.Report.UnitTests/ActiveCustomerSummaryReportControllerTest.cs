@@ -104,7 +104,7 @@
             int totalCustomer;
             _dataAccess.GetActiveCustomers(Arg.Any<ActiveCustomerMetaModel>(), out totalCustomer).Returns(x =>
             {
-                return null;
+                return new SortableList<ActiveCustomer>();
             });
 
             // Action
@@ -212,7 +212,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(actualViewModel.MainResult, Is.EqualTo(expectedDataList.ToList()));
-                Assert.That(actualShowingOption.BAVisible, Is.EqualTo(true));
+                Assert.That(actualShowingOption.BAVisible, Is.True);
             });
         }
 
