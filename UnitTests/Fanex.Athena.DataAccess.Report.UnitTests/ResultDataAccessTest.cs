@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Web.Script.Serialization;
     using Core.Configuration.Interfaces;
     using Data;
     using Fanex.Athena.UnitTest.Common.Extensions;
@@ -60,14 +59,18 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Result_Outright")).Returns(objectDb);
             dynamic param = null;
             objectDb.ExecuteReader(Arg.Do<dynamic>(arg => param = arg));
+            var expectedParam = new
+            {
+                fromdate = _metaModel.FromDate,
+                todate = _metaModel.ToDate,
+                isshowall = true
+            };
 
             // Action
             _dataAccess.GetOutRight(_metaModel);
 
             // Assert
-            Assert.That(
-                new JavaScriptSerializer().Serialize(param),
-                Is.EqualTo(@"{""fromdate"":""\/Date(1483203600000)\/"",""todate"":""\/Date(1485968400000)\/"",""isshowall"":true}"));
+            Assert.That(param, Tobe.SameProperties(expectedParam));
         }
 
         [Test]
@@ -91,7 +94,6 @@
             };
             MapReaderData(reader, readerDataMapping);
 
-            var serializer = new JavaScriptSerializer();
             var outrights = new List<Outright>
             {
                 new Outright
@@ -103,13 +105,16 @@
                     Status = "win"
                 }
             };
-            var expectedResult = serializer.Serialize(outrights);
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetOutRight(_metaModel));
+            var result = _dataAccess.GetOutRight(_metaModel);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(outrights.Count));
+                Assert.That(result[0], Tobe.SameProperties(outrights[0]));
+            });
         }
 
         [Test]
@@ -177,14 +182,20 @@
 
             var date = new DateTime(2017, 3, 16);
             var sportId = 1;
-            var expectedResult = @"{""eventdate"":""\/Date(1489597200000)\/"",""sporttype"":1,""isshowall"":true,""movebetsday"":""\/Date(1470762000000)\/""}";
+            var expectedResult = new
+            {
+                eventdate = date,
+                sporttype = sportId,
+                isshowall = true,
+                movebetsday = _balance.MoveBetsDay
+            };
 
             // Action
             _dataAccess.GetLeagues(date, sportId);
-            var result = new JavaScriptSerializer().Serialize(param);
+            var result = param;
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.That(result, Tobe.SameProperties(expectedResult));
         }
 
         [Test]
@@ -226,15 +237,20 @@
             _dataAccess.GetObjectDb(Arg.Is("Lrf_Result_MatchSelNumberGameByLeague")).Returns(objectDb);
             _metaModel.LeagueId = 1;
 
-            dynamic param = null;
-            objectDb.ExecuteReader(Arg.Do<dynamic>(x => param = x));
+            dynamic result = null;
+            objectDb.ExecuteReader(Arg.Do<dynamic>(x => result = x));
+            var expectedResult = new
+            {
+                fromdate = _metaModel.FromDate,
+                leagueid = _metaModel.LeagueId,
+                isshowall = true
+            };
 
             // Action
             _dataAccess.GetNumberGameMatches(_metaModel);
-            var result = new JavaScriptSerializer().Serialize(param);
 
             // Assert
-            Assert.That(result, Is.EqualTo("{\"fromdate\":\"\\/Date(1483203600000)\\/\",\"leagueid\":1,\"isshowall\":true}"));
+            Assert.That(result, Tobe.SameProperties(expectedResult));
         }
 
         [Test]
@@ -256,8 +272,7 @@
             };
             MapReaderData(reader, readerDataMapping);
 
-            var serializer = new JavaScriptSerializer();
-            var numberGames = new List<NumberGame>
+            var expectedResult = new List<NumberGame>
             {
                 new NumberGame
                 {
@@ -272,13 +287,16 @@
                     Ball = new List<int> { 4, 4 }
                 }
             };
-            var expectedResult = serializer.Serialize(numberGames);
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetNumberGameMatches(_metaModel));
+            var result = _dataAccess.GetNumberGameMatches(_metaModel);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
+                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
+            });
         }
 
         [Test]
@@ -291,13 +309,20 @@
             objectDb.ExecuteReader(Arg.Do<dynamic>(x => param = x));
             _metaModel.SportId = 1;
             _metaModel.LeagueId = 2;
+            var expectedResult = new
+            {
+                fromdate = _metaModel.FromDate,
+                leagueid = _metaModel.LeagueId,
+                sporttype = _metaModel.SportId,
+                isshowall = true
+            };
 
             // Action
             _dataAccess.GetRacingMatches(_metaModel);
-            var result = new JavaScriptSerializer().Serialize(param);
+            var result = param;
 
             // Assert
-            Assert.That(result, Is.EqualTo("{\"fromdate\":\"\\/Date(1483203600000)\\/\",\"leagueid\":2,\"sporttype\":1,\"isshowall\":true}"));
+            Assert.That(result, Tobe.SameProperties(expectedResult));
         }
 
         [Test]
@@ -317,15 +342,18 @@
                 { "rowcount", 4 }, { "SCR", "SCR" }, { "TF", "TF" }
             };
             MapReaderData(reader, readerDataMapping);
-            var serializer = new JavaScriptSerializer();
 
-            var expectedResult = serializer.Serialize(GetExpectedRacingData());
+            var expectedResult = GetExpectedRacingData();
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetRacingMatches(_metaModel));
+            var result = _dataAccess.GetRacingMatches(_metaModel);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
+                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
+            });
         }
 
         [Test]
@@ -334,17 +362,26 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResult")).Returns(objectDb);
-            dynamic param = null;
-            objectDb.ExecuteReader(Arg.Do<dynamic>(x => param = x));
-            int matchId = 1, raceNo = 2, bettypeId = 5;
+            dynamic result = null;
+            objectDb.ExecuteReader(Arg.Do<dynamic>(x => result = x));
+            var matchId = 1;
+            var raceNo = 2;
+            var bettypeId = 5;
             long? betId = 6;
+
+            var expectedResult = new
+            {
+                matchid = matchId,
+                raceno = raceNo,
+                bettype = bettypeId,
+                betid = betId
+            };
 
             // Action
             _dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, bettypeId, betId);
-            var result = new JavaScriptSerializer().Serialize(param);
 
             // Assert
-            Assert.That(result, Is.EqualTo("{\"matchid\":1,\"raceno\":\"2\",\"bettype\":5,\"betid\":6}"));
+            Assert.That(result, Tobe.SameProperties(expectedResult));
         }
 
         [Test]
@@ -367,17 +404,22 @@
             var dataMappingForGameDetail = GetReaderDataMappingForGameDetail();
             MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
             MapReaderData(reader, dataMapping);
-            int matchId = 1, raceNo = 2, bettypeId = 5;
+            var matchId = 1;
+            var raceNo = 2;
+            var bettypeId = 5;
             long? betId = 6;
 
-            var serializer = new JavaScriptSerializer();
-            var expectedResult = serializer.Serialize(new List<Sportsbook> { GetExpectedSportsbookData() });
+            var expectedResult = new List<Sportsbook> { GetExpectedSportsbookData() };
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, bettypeId, betId));
+            var result = _dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, bettypeId, betId);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
+                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
+            });
         }
 
         [Test]
@@ -405,7 +447,6 @@
             int matchId = 1, raceNo = 2, bettypeId = 5;
             long? betId = 6;
 
-            var serializer = new JavaScriptSerializer();
             var sportsbookData = GetExpectedSportsbookData();
             sportsbookData.BetStatus = string.Empty;
             sportsbookData.Color = string.Empty;
@@ -413,13 +454,17 @@
             sportsbookData.LiveHomeScore = null;
             sportsbookData.GameDetails[0].ResultStatusID = 0;
             sportsbookData.GameDetails[0].SettlementStatusID = 0;
-            var expectedResult = serializer.Serialize(new List<Sportsbook> { sportsbookData });
+            var expectedResult = new List<Sportsbook> { sportsbookData };
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, bettypeId, betId));
+            var result = _dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, bettypeId, betId);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
+                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
+            });
         }
 
         [Test]
@@ -446,7 +491,6 @@
             int matchId = 1, raceNo = 2, bettypeId = 5;
             long? betId = 6;
 
-            var serializer = new JavaScriptSerializer();
             var sportsbookData = GetExpectedSportsbookData();
             sportsbookData.BetStatus = string.Empty;
             sportsbookData.Color = string.Empty;
@@ -454,13 +498,17 @@
             sportsbookData.LiveHomeScore = null;
             sportsbookData.GameDetails[0].ResultStatusID = 0;
             sportsbookData.GameDetails[0].SettlementStatusID = 0;
-            var expectedResult = serializer.Serialize(new List<Sportsbook> { sportsbookData });
+            var expectedResult = new List<Sportsbook> { sportsbookData };
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, bettypeId, betId));
+            var result = _dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, bettypeId, betId);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
+                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
+            });
         }
 
         [Test]
@@ -484,8 +532,7 @@
             int matchId = 1, raceNo = 2, bettypeId = 5;
             long? betId = 6;
 
-            var serializer = new JavaScriptSerializer();
-            var liveCasinoMatches = new List<LiveCasino>
+            var expectedResult = new List<LiveCasino>
             {
                 new LiveCasino
                 {
@@ -503,13 +550,16 @@
                     Bettype = 4
                 }
             };
-            var expectedResult = serializer.Serialize(liveCasinoMatches);
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<LiveCasino>(matchId, raceNo, bettypeId, betId));
+            var result = _dataAccess.GetPopUpMatches<LiveCasino>(matchId, raceNo, bettypeId, betId);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
+                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
+            });
         }
 
         [Test]
@@ -533,8 +583,7 @@
             int matchId = 1, raceNo = 2, bettypeId = 5;
             long? betId = 6;
 
-            var serializer = new JavaScriptSerializer();
-            var liveCasinoMatches = new List<LiveCasino>
+            var expectedResult = new List<LiveCasino>
             {
                 new LiveCasino
                 {
@@ -552,13 +601,16 @@
                     Bettype = 4
                 }
             };
-            var expectedResult = serializer.Serialize(liveCasinoMatches);
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<LiveCasino>(matchId, raceNo, bettypeId, betId));
+            var result = _dataAccess.GetPopUpMatches<LiveCasino>(matchId, raceNo, bettypeId, betId);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
+                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
+            });
         }
 
         [Test]
@@ -582,8 +634,7 @@
             int matchId = 1, raceNo = 2, bettypeId = 5;
             long? betId = 6;
 
-            var serializer = new JavaScriptSerializer();
-            var racingMatches = new List<Racing>
+            var expectedResult = new List<Racing>
             {
                 new Racing
                 {
@@ -603,13 +654,16 @@
                     TFOfMatch = "TF"
                 }
             };
-            var expectedResult = serializer.Serialize(racingMatches);
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<Racing>(matchId, raceNo, bettypeId, betId));
+            var result = _dataAccess.GetPopUpMatches<Racing>(matchId, raceNo, bettypeId, betId);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
+                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
+            });
         }
 
         [Test]
@@ -633,8 +687,7 @@
             int matchId = 1, raceNo = 2, bettypeId = 5;
             long? betId = 6;
 
-            var serializer = new JavaScriptSerializer();
-            var racingMatches = new List<Racing>
+            var expectedResult = new List<Racing>
             {
                 new Racing
                 {
@@ -654,13 +707,16 @@
                     TFOfMatch = "TF"
                 }
             };
-            var expectedResult = serializer.Serialize(racingMatches);
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<Racing>(matchId, raceNo, bettypeId, betId));
+            var result = _dataAccess.GetPopUpMatches<Racing>(matchId, raceNo, bettypeId, betId);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
+                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
+            });
         }
 
         [Test]
@@ -688,16 +744,19 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResultParlay")).Returns(objectDb);
-            dynamic param = null;
-            objectDb.ExecuteReader(Arg.Do<dynamic>(x => param = x));
+            dynamic result = null;
+            objectDb.ExecuteReader(Arg.Do<dynamic>(x => result = x));
             var refNo = 1;
+            var expected = new
+            {
+                refno = refNo
+            };
 
             // Action
             _dataAccess.GetPopUpParalayMatch(refNo);
-            var result = new JavaScriptSerializer().Serialize(param);
 
             // Assert
-            Assert.That(result, Is.EqualTo("{\"refno\":1}"));
+            Assert.That(result, Tobe.SameProperties(expected));
         }
 
         [Test]
@@ -731,7 +790,7 @@
             sportsbookData.LiveHomeScore = null;
             sportsbookData.LiveAwayScore = null;
 
-            var parlay = new List<Parlay>
+            var expectedResult = new List<Parlay>
             {
                 new Parlay
                 {
@@ -741,14 +800,15 @@
                 }
             };
 
-            var serializer = new JavaScriptSerializer();
-            var expectedResult = serializer.Serialize(parlay);
-
             // Action
-            var result = serializer.Serialize(_dataAccess.GetPopUpParalayMatch(refNo));
+            var result = _dataAccess.GetPopUpParalayMatch(refNo);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
+                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
+            });
         }
 
         [Test]
@@ -779,7 +839,7 @@
             sportsbookData.LiveHomeScore = null;
             sportsbookData.LiveAwayScore = null;
 
-            var parlay = new List<Parlay>
+            var expectedResult = new List<Parlay>
             {
                 new Parlay
                 {
@@ -789,14 +849,15 @@
                 }
             };
 
-            var serializer = new JavaScriptSerializer();
-            var expectedResult = serializer.Serialize(parlay);
-
             // Action
-            var result = serializer.Serialize(_dataAccess.GetPopUpParalayMatch(refNo));
+            var result = _dataAccess.GetPopUpParalayMatch(refNo);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
+                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
+            });
         }
 
         [Test]
@@ -838,15 +899,17 @@
             sportsbookData.GameDetails[0].SettlementStatusID = 0;
 
             var parlay = new Parlay { LeagueId = sportsbookData.LeagueId, SportId = 12, Sportbook = new List<Sportsbook> { sportsbookData } };
-            var parlays = new List<Parlay> { parlay };
-            var serializer = new JavaScriptSerializer();
-            var expectedResult = serializer.Serialize(parlays);
+            var expectedResult = new List<Parlay> { parlay };
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetPopUpParalayMatch(refNo));
+            var result = _dataAccess.GetPopUpParalayMatch(refNo);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
+                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
+            });
         }
 
         [Test]
@@ -881,16 +944,19 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResultNumberGame")).Returns(objectDb);
-            dynamic param = null;
-            objectDb.ExecuteReader(Arg.Do<dynamic>(x => param = x));
+            dynamic result = null;
+            objectDb.ExecuteReader(Arg.Do<dynamic>(x => result = x));
             var matchId = 1;
+            var expected = new
+            {
+                matchid = matchId
+            };
 
             // Action
             _dataAccess.GetPopUpNumberGameMatch(matchId);
-            var result = new JavaScriptSerializer().Serialize(param);
 
             // Assert
-            Assert.That(result, Is.EqualTo("{\"matchid\":1}"));
+            Assert.That(result, Tobe.SameProperties(expected));
         }
 
         [Test]
@@ -912,8 +978,7 @@
             };
             MapReaderData(reader, readerDataMapping);
 
-            var serializer = new JavaScriptSerializer();
-            var numberGames = new List<NumberGame>
+            var expectedResult = new List<NumberGame>
             {
                 new NumberGame
                 {
@@ -928,13 +993,16 @@
                     Ball = new List<int> { 4, 4 }
                 }
             };
-            var expectedResult = serializer.Serialize(numberGames);
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetPopUpNumberGameMatch(matchId));
+            var result = _dataAccess.GetPopUpNumberGameMatch(matchId);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
+                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
+            });
         }
 
         [Test]
@@ -954,8 +1022,7 @@
             };
             MapReaderData(reader, readerDataMapping);
 
-            var serializer = new JavaScriptSerializer();
-            var numberGames = new List<NumberGame>
+            var expectedResult = new List<NumberGame>
             {
                 new NumberGame
                 {
@@ -970,13 +1037,16 @@
                     Ball = new List<int> { 4, 4 }
                 }
             };
-            var expectedResult = serializer.Serialize(numberGames);
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetPopUpNumberGameMatch(matchId));
+            var result = _dataAccess.GetPopUpNumberGameMatch(matchId);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
+                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
+            });
         }
 
         [Test]
@@ -1026,17 +1096,20 @@
             MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
             MapReaderData(reader, dataMapping);
 
-            var serializer = new JavaScriptSerializer();
             var sportsbookData = GetExpectedSportsbookData();
             sportsbookData.BetID = "0";
             sportsbookData.Bettype = 0;
-            var expectedResult = serializer.Serialize(new List<Sportsbook> { sportsbookData });
+            var expectedResult = new List<Sportsbook> { sportsbookData };
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetMatches<Sportsbook>(_metaModel));
+            var result = _dataAccess.GetMatches<Sportsbook>(_metaModel);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
+                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
+            });
         }
 
         [Test]
@@ -1057,8 +1130,7 @@
             };
             MapReaderData(reader, readerDataMapping);
 
-            var serializer = new JavaScriptSerializer();
-            var liveCasinoMatches = new List<LiveCasino>
+            var expectedResult = new List<LiveCasino>
             {
                 new LiveCasino
                 {
@@ -1076,13 +1148,16 @@
                     Bettype = 4
                 }
             };
-            var expectedResult = serializer.Serialize(liveCasinoMatches);
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetMatches<LiveCasino>(_metaModel));
+            var result = _dataAccess.GetMatches<LiveCasino>(_metaModel);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
+                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
+            });
         }
 
         [Test]
@@ -1140,17 +1215,15 @@
             MapReaderData(reader, dataMapping);
             int matchId = 11;
 
-            var serializer = new JavaScriptSerializer();
-            var sportsbookData = GetExpectedSportsbookData();
-            sportsbookData.Bettype = 0;
-            sportsbookData.BetID = null;
-            var expectedResult = serializer.Serialize(sportsbookData);
+            var expectedResult = GetExpectedSportsbookData();
+            expectedResult.Bettype = 0;
+            expectedResult.BetID = null;
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetSportsbookGameDetail(matchId));
+            var result = _dataAccess.GetSportsbookGameDetail(matchId);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.That(result, Tobe.SameProperties(expectedResult));
         }
 
         private static Sportsbook GetExpectedSportsbookData()

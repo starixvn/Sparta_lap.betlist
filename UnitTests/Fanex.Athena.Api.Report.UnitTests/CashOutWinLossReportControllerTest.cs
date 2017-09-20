@@ -50,13 +50,17 @@
         {
             // Arrange
             var metaModel = new CashOutWinLossMetaModel { CurrencyId = 1 };
-            var expectedResult = CreateResultData(new List<CashOutWinLoss>(), new List<CashOutWinLoss>(), new Dictionary<string, CashOutWinLoss>());
 
             // Action
-            var result = _serializer.Serialize(_controller.Index(metaModel));
+            var result = _controller.Index(metaModel);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Data, Is.Empty);
+                Assert.That(result.Total, Is.Empty);
+                Assert.That(result.SummaryTotal, Is.Empty);
+            });
         }
 
         [Test]

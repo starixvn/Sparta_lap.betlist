@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Web.Script.Serialization;
     using Core.Configuration.Interfaces;
     using Data;
+    using Fanex.Athena.UnitTest.Common.Extensions;
     using Model.Core.DTO.Configuration;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -58,17 +58,24 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_CommByBettype_HR")).Returns(objectDb);
-            RacingCommission totalData = new RacingCommission();
+            var totalData = new RacingCommission();
             dynamic uspParam = null;
             objectDb.ExecuteReader(Arg.Do<dynamic>(arg => uspParam = arg));
-            var expectedResult = "{\"AgentList\":\"xml\",\"FromDate\":\"\\/Date(1483203600000)\\/\",\"ToDate\":\"\\/Date(1485968400000)\\/\"," +
-                "\"MoveBetsDay\":\"\\/Date(1470762000000)\\/\",\"PageSize\":100,\"PageIndex\":2}";
+            var expectedResult = new
+            {
+                AgentList = "xml",
+                FromDate = _metaModel.FromDate,
+                ToDate = _metaModel.ToDate,
+                MoveBetsDay = _balance.MoveBetsDay,
+                PageSize = _metaModel.PageSize,
+                PageIndex = _metaModel.PageIndex
+            };
 
             // Action
             _dataAccess.GetDataList(_metaModel, ref totalData);
 
             // Assert
-            Assert.That(new JavaScriptSerializer().Serialize(uspParam), Is.EqualTo(expectedResult));
+            Assert.That(uspParam, Tobe.SameProperties(expectedResult));
         }
 
         [Test]

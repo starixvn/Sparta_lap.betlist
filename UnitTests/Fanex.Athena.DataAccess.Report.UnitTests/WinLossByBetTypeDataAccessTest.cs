@@ -3,29 +3,30 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Web.Script.Serialization;
     using Core.Configuration.Interfaces;
     using Data;
     using Model.Core.DTO.Configuration;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Extensions;
 
     [TestFixture]
     public class WinLossByBetTypeDataAccessTest
     {
         private WinLossByBetTypeDataAccess _dataAccess;
+        private BalanceUp _balanceUp;
 
         [OneTimeSetUp]
         public void Setup()
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
-            var balanceUp = new BalanceUp
+            _balanceUp = new BalanceUp
             {
                 BalanceUpDay = new DateTime(2018, 1, 1),
                 MoveBetsDay = new DateTime(2018, 2, 2),
             };
-            balanceUpDataAccess.GetBalanceUp().Returns(balanceUp);
+            balanceUpDataAccess.GetBalanceUp().Returns(_balanceUp);
 
             _dataAccess = Substitute.ForPartsOf<WinLossByBetTypeDataAccess>(balanceUpDataAccess);
         }
@@ -40,13 +41,19 @@
         public void GetDataList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var expectedResult = @"{""AgentList"":""xml"",""FromDate"":""\/Date(1483203600000)\/"",""ToDate"":""\/Date(1485968400000)\/""," +
-                            @"""MoveBetsDay"":""\/Date(1517504400000)\/"",""BalanceUpDay"":""\/Date(1514739600000)\/""}";
             var metaModel = new WinLossByBetTypeMetaModel
             {
                 AgentListXml = "xml",
                 FromDate = new DateTime(2017, 1, 1),
                 ToDate = new DateTime(2017, 2, 2)
+            };
+            var expectedResult = new
+            {
+                AgentList = metaModel.AgentListXml,
+                FromDate = metaModel.FromDate,
+                ToDate = metaModel.ToDate,
+                MoveBetsDay = _balanceUp.MoveBetsDay,
+                BalanceUpDay = _balanceUp.BalanceUpDay
             };
             dynamic uspParam = null;
             var objectDb = Substitute.For<IObjectDb>();
@@ -57,7 +64,7 @@
             _dataAccess.GetDataList(metaModel);
 
             // Assert
-            Assert.That(new JavaScriptSerializer().Serialize(uspParam), Is.EqualTo(expectedResult));
+            Assert.That(uspParam, Tobe.SameProperties(expectedResult));
         }
 
         [Test]

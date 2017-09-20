@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.Service.Report.UnitTests
 {
     using System.Collections.Generic;
-    using System.Web.Script.Serialization;
     using DataAccess.Report.Interfaces;
     using Extension.Utility;
     using Model.Report.DTO;
@@ -9,6 +8,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Report;
+    using UnitTest.Common.Extensions;
 
     public class CashOutWinLossServiceTest
     {
@@ -105,8 +105,7 @@
             // Arrange
             var dataList = CreateFakeTotalData();
 
-            var serializer = new JavaScriptSerializer();
-            var expectedResult = serializer.Serialize(new List<CashOutWinLoss>
+            var expectedResult = new List<CashOutWinLoss>
             {
                 new CashOutWinLoss
                 {
@@ -122,13 +121,17 @@
                     SettleAmountBuyBackComm = 32m,
                     SettleAmountTotal = 34m,
                 }
-            });
+            };
 
             // Action
-            var result = serializer.Serialize(_service.TotalCalc(dataList));
+            var result = _service.TotalCalc(dataList);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
+                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
+            });
         }
 
         private static SortableList<CashOutWinLoss> CreateFakeSummaryData()

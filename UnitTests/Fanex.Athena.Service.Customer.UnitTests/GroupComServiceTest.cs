@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Web.Script.Serialization;
     using DataAccess.Customer.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
@@ -117,16 +116,17 @@
                     return expectedValue;
                 });
 
-            var serializer = new JavaScriptSerializer();
-            var expectedResultViewModel = serializer.Serialize(new ResultViewModel { ExtendedData = expectedValue, Success = true });
-
             // Action
             var result = _groupComService.InsertGroup(Arg.Any<GroupCommMetaModel>(), Arg.Any<IRequest>(), Arg.Any<int>(), out resultViewModel);
-            var outPutViewModel = serializer.Serialize(resultViewModel);
+            var outPutViewModel = resultViewModel;
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedValue));
-            Assert.That(outPutViewModel, Is.EqualTo(expectedResultViewModel));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(expectedValue));
+                Assert.That(outPutViewModel.ExtendedData, Is.EqualTo(expectedValue));
+                Assert.That(outPutViewModel.Success, Is.True);
+            });
         }
 
         [Test]
@@ -146,16 +146,17 @@
                     return expectedValue;
                 });
 
-            var serializer = new JavaScriptSerializer();
-            var expectedResultViewModel = serializer.Serialize(new ResultViewModel { ExtendedData = expectedValue, Success = true });
-
             // Action
             var result = _groupComService.UpdateGroup(groupCommMetaModel, Arg.Any<IRequest>(), userSession, out resultViewModel);
-            var outPutViewModel = serializer.Serialize(resultViewModel);
+            var outPutViewModel = resultViewModel;
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedValue));
-            Assert.That(outPutViewModel, Is.EqualTo(expectedResultViewModel));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(expectedValue));
+                Assert.That(outPutViewModel.ExtendedData, Is.EqualTo(expectedValue));
+                Assert.That(outPutViewModel.Success, Is.True);
+            });
         }
 
         [Test]
@@ -175,16 +176,17 @@
                     return expectedValue;
                 });
 
-            var serializer = new JavaScriptSerializer();
-            var expectedResultViewModel = serializer.Serialize(new ResultViewModel { ExtendedData = expectedValue, Success = true });
-
             // Action
             var result = _groupComService.UpdateGroup(groupCommMetaModel, Arg.Any<IRequest>(), userSession, out resultViewModel);
-            var outPutViewModel = serializer.Serialize(resultViewModel);
+            var outPutViewModel = resultViewModel;
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedValue));
-            Assert.That(outPutViewModel, Is.EqualTo(expectedResultViewModel));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(expectedValue));
+                Assert.That(outPutViewModel.ExtendedData, Is.EqualTo(expectedValue));
+                Assert.That(outPutViewModel.Success, Is.True);
+            });
         }
 
         [Test]
@@ -222,16 +224,17 @@
                     return expectedValue;
                 });
 
-            var serializer = new JavaScriptSerializer();
-            var expectedResultViewModel = serializer.Serialize(new ResultViewModel { ExtendedData = expectedValue, Success = true });
-
             // Action
             var result = _groupComService.DeleteGroup(metaModel, out resultViewModel);
-            var outPutViewModel = serializer.Serialize(resultViewModel);
+            var outPutViewModel = resultViewModel;
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedValue));
-            Assert.That(outPutViewModel, Is.EqualTo(expectedResultViewModel));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(expectedValue));
+                Assert.That(outPutViewModel.ExtendedData, Is.EqualTo(expectedValue));
+                Assert.That(outPutViewModel.Success, Is.True);
+            });
         }
 
         [Test]
@@ -269,16 +272,17 @@
                     return expectedValue;
                 });
 
-            var serializer = new JavaScriptSerializer();
-            var expectedResultViewModel = serializer.Serialize(new ResultViewModel { ExtendedData = expectedValue, Success = true });
-
             // Action
             var result = _groupComService.DeleteGroup(metaModel, out resultViewModel);
-            var outPutViewModel = serializer.Serialize(resultViewModel);
+            var outPutViewModel = resultViewModel;
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedValue));
-            Assert.That(outPutViewModel, Is.EqualTo(expectedResultViewModel));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(expectedValue));
+                Assert.That(outPutViewModel.ExtendedData, Is.EqualTo(expectedValue));
+                Assert.That(outPutViewModel.Success, Is.True);
+            });
         }
 
         [Test]
