@@ -26,6 +26,22 @@
             Assert.That(viewResult.Model, Is.Null);
         }
 
+        [TestCase("0")]
+        [TestCase("Invalid")]
+        public void EditAccount_InvalidUserId_ReturnNullModel(string userId)
+        {
+            // Arrange
+            var requestParams = new NameValueCollection { { "UserId", userId } };
+            _controller.ControllerContext.HttpContext.Request.Params.Returns(requestParams);
+
+            // Action
+            var viewResult = _controller.EditAccount() as ViewResult;
+
+            // Assert
+            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Account/EditAccount.cshtml"));
+            Assert.That(viewResult.Model, Is.Null);
+        }
+
         [Test]
         public void EditAccount_WhenCall_ReturnCorrectViewAndModel()
         {
@@ -48,7 +64,60 @@
         }
 
         [Test]
-        public void EditAccountPost_InValidUserInfo_NotCallServiceAndReturnFailResult()
+        public void EditAccount_UserInfoIsNull_ReturnNullModel()
+        {
+            // Arrange
+            var requestParams = new NameValueCollection { { "UserId", "111" } };
+            _controller.ControllerContext.HttpContext.Request.Params.Returns(requestParams);
+
+            _userService.GetUserInfo(Arg.Any<int>(), Arg.Any<int>()).Returns(x => null);
+
+            // Action
+            var viewResult = _controller.EditAccount() as ViewResult;
+
+            // Assert
+            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Account/EditAccount.cshtml"));
+            Assert.That(viewResult.Model, Is.Null);
+        }
+
+        [Test]
+        public void EditAccount_UserInfoIsDifferentFromSession_ReturnNullModel()
+        {
+            // Arrange
+            var requestParams = new NameValueCollection { { "UserId", "111" } };
+            _controller.ControllerContext.HttpContext.Request.Params.Returns(requestParams);
+
+            _userService.GetUserInfo(Arg.Any<int>(), Arg.Any<int>()).Returns(new User
+            {
+                Username = "Superman",
+                IsInternal = true
+            });
+
+            // Action
+            var viewResult = _controller.EditAccount() as ViewResult;
+
+            // Assert
+            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Account/EditAccount.cshtml"));
+            Assert.That(viewResult.Model, Is.Null);
+        }
+
+        [Test]
+        public void EditAccountPost_InValidModel_ReturnFailResult()
+        {
+            // Arrange
+            _controller.ModelState.AddModelError("err", "errmsg");
+
+            // Action
+            var result = _controller.EditAccount(new EditAccountMetaModel()) as JsonResult;
+            var resultInfo = result.Data as ResultInfo;
+
+            // Assert
+            Assert.That(resultInfo.Code, Is.EqualTo(-1));
+            Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.InvalidRequestMsg));
+        }
+
+        [Test]
+        public void EditAccountPost_InValidUserInfo_ReturnFailResult()
         {
             // Arrange
             _userService.GetUserInfo(Arg.Any<int>(), Arg.Any<int>()).Returns(x => null);
@@ -58,13 +127,12 @@
             var resultInfo = result.Data as ResultInfo;
 
             // Assert
-            _userService.DidNotReceive().UpdateInfo(Arg.Any<User>(), Arg.Any<int>());
             Assert.That(resultInfo.Code, Is.EqualTo(-1));
             Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.InvalidRequestMsg));
         }
 
         [Test]
-        public void EditAccountPost_ValidUserInfo_CallServiceAndReturnSuccesResult()
+        public void EditAccountPost_ValidUserInfo_ReturnSuccesResult()
         {
             // Arrange
             _userService.GetUserInfo(Arg.Any<int>(), Arg.Any<int>()).Returns(new User());
@@ -81,6 +149,25 @@
             _userService.Received().UpdateInfo(Arg.Any<User>(), SessionUserId);
             Assert.That(resultInfo.Code, Is.EqualTo(0));
             Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.UpdateAccountSuccessMsg));
+        }
+
+        [Test]
+        public void EditAccountPost_EditFailed_ReturnFailedResult()
+        {
+            // Arrange
+            _userService.GetUserInfo(Arg.Any<int>(), Arg.Any<int>()).Returns(new User());
+            _userService.UpdateInfo(Arg.Any<User>(), Arg.Any<int>()).Returns(new ResultInfo
+            {
+                Code = 1
+            });
+
+            // Action
+            var result = _controller.EditAccount(new EditAccountMetaModel()) as JsonResult;
+            var resultInfo = result.Data as ResultInfo;
+
+            // Assert
+            _userService.Received().UpdateInfo(Arg.Any<User>(), SessionUserId);
+            Assert.That(resultInfo.IsSuccessful, Is.False);
         }
     }
 }
