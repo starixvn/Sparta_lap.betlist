@@ -1,8 +1,6 @@
 ﻿@using System.Linq
-@using Fanex.Athena.Model.Report.ViewModel
 @using Fanex.Athena.Model.Customer.ViewModel;
 @using Fanex.Athena.Model.Customer.MetaModel;
-@using Fanex.Athena.Model.Core.DTO.Common
 @model CustomerListViewModel
 @{
     var showOddsGroupFilter = Model.Param.OddsGroups != null;
@@ -135,11 +133,12 @@
             </select>
             <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" id="grid-columns-multiselect-null" class="hide" />
             <div class="hide" id="grid-columns-option-container">
-                @for (var i = 0; i < Model.Param.GridColumns.Count; i++)
+                @for (var i = 0; i < Model.Param.GridColumns.Count(); i++)
                 {
-                    <input type="hidden" name="GridColumns[@i.ToString()].ID" value="@Model.Param.GridColumns[i].ID" />
-                    <input type="hidden" name="GridColumns[@i.ToString()].Name" value="@Model.Param.GridColumns[i].Name" />
-                    <input type="checkbox" id="@Model.Param.GridColumns[i].Name" @(Model.Param.GridColumns[i].Checked ? "checked=checked" : "")  name="GridColumns[@i.ToString()].Checked" value="True" />
+                    var column = Model.Param.GridColumns.ElementAt(i);
+                    <input type="hidden" name="GridColumns[@i.ToString()].ID" value="@column.ID" />
+                    <input type="hidden" name="GridColumns[@i.ToString()].Name" value="@column.Name" />
+                    <input type="checkbox" id="@column.Name" @(column.Checked ? "checked=checked" : "")  name="GridColumns[@i.ToString()].Checked" value="True" />
                 }
             </div>
         </div>

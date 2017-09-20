@@ -1,5 +1,4 @@
-﻿@using Fanex.Athena.Model.Report.ViewModel
-@model Fanex.Athena.Model.Customer.ViewModel.CustomerListViewModel
+﻿@model Fanex.Athena.Model.Customer.ViewModel.CustomerListViewModel
 <div id="ajaxLoaDingUpdateBA" class="hide">
     <img alt="update BA.." style="border: none; float: left" src="@Url.ContentLink("/Content/Customer/images/ajax-loader_arrow.gif")" />
 </div>
@@ -31,8 +30,11 @@
     <a id="bet-list-link" class="link" title="@ViewResources.View @ViewResources.BetList">@ViewResources.BetList</a><br />
     <br />
     <a id="statement-link" class="link" title="@ViewResources.View @ViewResources.Statement">@ViewResources.Statement</a><br />
+    @if (!Model.IsFakeLicensee)
+    {
     <br />
     <a id="login-info-link" class="link" title="@ViewResources.View @ViewResources.LogInfo">@ViewResources.LogInfo</a><br />
+    }
     <a id="close-cust-option-link" class="link" title="Close Option">
         <img alt="" src="@Url.ContentLink("/Content/Customer/images/arrow-up-left.gif")" class="popup-close-button" />
     </a>

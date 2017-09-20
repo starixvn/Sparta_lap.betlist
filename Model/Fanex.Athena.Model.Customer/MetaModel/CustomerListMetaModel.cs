@@ -47,7 +47,7 @@ namespace Fanex.Athena.Model.Customer.MetaModel
 
         public bool IsShowStatusDropdown { get; set; }
 
-        public IList<CheckedItem> GridColumns { get; set; }
+        public IEnumerable<CheckedItem> GridColumns { get; set; }
 
         public IEnumerable<CheckedItem> OddsGroups { get; set; }
     }

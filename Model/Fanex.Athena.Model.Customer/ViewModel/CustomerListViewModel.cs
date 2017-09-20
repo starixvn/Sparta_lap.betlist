@@ -7,13 +7,11 @@
 namespace Fanex.Athena.Model.Customer.ViewModel
 {
     using System.Collections.Generic;
+    using Core.DTO.Common;
     using Fanex.Athena.Model.Customer.DTO;
     using Fanex.Athena.Model.Customer.MetaModel;
     using Model.Core.ViewModel;
 
-    /// <summary>
-    /// CustomerListViewModel class.
-    /// </summary>
     public class CustomerListViewModel : BaseViewModel
     {
         public CustomerListMetaModel Param { get; set; }
@@ -35,5 +33,7 @@ namespace Fanex.Athena.Model.Customer.ViewModel
         public bool IsAllowedUserEditComm { get; set; }
 
         public bool IsAllowedUserChangeBA { get; set; }
+
+        public bool IsFakeLicensee { get; set; }
     }
 }

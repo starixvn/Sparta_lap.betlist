@@ -21,9 +21,9 @@ namespace Fanex.Athena.Extension.Utility
 
         #region Configurations
 
-        public IEnumerable<int> LicenseesNotHaveSystemId
+        public IEnumerable<int> FakeLicenseeList
         {
-            get { return GetValue("LicenseesNotHaveSystemId").Split(',').Select(n => Convert.ToInt32(n)); }
+            get { return GetValue("FakeLicenseeList").Split(',').Select(n => Convert.ToInt32(n)); }
         }
 
         public bool IsEnabledMoveBetNotification

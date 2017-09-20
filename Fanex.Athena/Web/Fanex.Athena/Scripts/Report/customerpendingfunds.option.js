@@ -132,6 +132,7 @@ var CustPendingFundsOption = (function () {
         },
 
         getColModel: function (totalRows) {
+            systemIdColumn.hidden = Site.isFakeLicensee();
             var colModels = Site.clone(colModelList);
 
             if (totalRows <= 1) {

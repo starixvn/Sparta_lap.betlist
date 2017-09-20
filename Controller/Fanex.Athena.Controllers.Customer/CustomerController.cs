@@ -76,7 +76,7 @@ namespace Fanex.Athena.Controllers.Customer
                 GroupCommId = groupId,
                 LicenseeId = licenseeId,
                 IsShowStatusDropdown = allowLicensees.Contains(licenseeId.ToString()),
-                GridColumns = this.InitGridColumns(productAccess.IsAllowBA, allowLicensees),
+                GridColumns = InitGridColumns(productAccess.IsAllowBA, allowLicensees),
                 OddsGroups = GetOddsGroups()
             };
 
@@ -195,7 +195,8 @@ namespace Fanex.Athena.Controllers.Customer
                 ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
                 IsAllowedUserEditComm = SessionService.IsAllowedEditCommission(userSession),
                 IsAllowedUserChangeBA = SessionService.IsAllowedSpecialBA(userSession),
-                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                IsFakeLicensee = AppSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId)
             };
             if (licenseeSession.IsAllowedCustomerComm)
             {
@@ -250,11 +251,18 @@ namespace Fanex.Athena.Controllers.Customer
             model.CanUpdateBAMessage = canUpdateBaMessage;
         }
 
-        private IList<CheckedItem> InitGridColumns(bool isAllowBA, IList<string> allowLicensees)
+        private IEnumerable<CheckedItem> InitGridColumns(bool isAllowBA, IEnumerable<string> allowLicensees)
         {
+            var licenseeSession = SessionService.LicenseeSession;
+            var isFakeLicensee = AppSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId);
             var items = new List<CheckedItem>();
             foreach (var name in GridColumns)
             {
+                if (name.Equals("SystemId", StringComparison.OrdinalIgnoreCase) && isFakeLicensee)
+                {
+                    continue;
+                }
+
                 items.Add(new CheckedItem { Name = name, Checked = true });
             }
 
@@ -263,7 +271,6 @@ namespace Fanex.Athena.Controllers.Customer
                 items.Add(new CheckedItem { Name = BASTATUS, Checked = true });
             }
 
-            var licenseeSession = SessionService.LicenseeSession;
             if (licenseeSession.IsAllowedCustomerComm)
             {
                 items.Insert(0, new CheckedItem { Name = GROUP, Checked = true });

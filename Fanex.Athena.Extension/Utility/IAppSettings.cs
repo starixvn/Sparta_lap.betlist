@@ -5,7 +5,7 @@
 
     public interface IAppSettings
     {
-        IEnumerable<int> LicenseesNotHaveSystemId { get; }
+        IEnumerable<int> FakeLicenseeList { get; }
 
         bool IsEnabledMoveBetNotification { get; }
 

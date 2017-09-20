@@ -273,6 +273,7 @@ var CustomerWinLossOption = (function () {
         },
 
         getColModel: function (totalRows) {
+            systemIdColumn.hidden = Site.isFakeLicensee();
             customerWlColumn.hidden = !me.hasCustomerComm;
             playerCommColumn.hidden = !me.hasCustomerComm;
             bacommColumn.hidden = !me.isAllowBA;
