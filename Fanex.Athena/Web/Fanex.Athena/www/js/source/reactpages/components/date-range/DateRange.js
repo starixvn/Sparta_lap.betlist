@@ -71,16 +71,18 @@ class DateRange extends Component {
   setRange(range, triggerChange, show) {
     const { onChange } = this.props
     range = this.orderRange(range);
+    this.isValid = this.isValidMonthRange(range);
 
     const callback = () => {
-      triggerChange && onChange && onChange(range);
+      triggerChange && onChange && onChange(range, this.isValid);
     }
 
-    if (show === undefined) {
-      this.setState({ range }, callback);
+    if (this.isValid) {
+      const newState = show === undefined ? { range } : { range, show };
+      this.setState(newState, callback);
     }
-    else {
-      this.setState({ range, show }, callback);
+    else{
+      onChange && onChange(range, this.isValid);
     }
   }
 
@@ -112,18 +114,14 @@ class DateRange extends Component {
         break;
     }
 
-    this.isValid = this.isValidMonthRange(range);
-    if (this.isValid) {
-      const triggerChange = !this.props.twoStepChange || this.step === 0 && this.props.twoStepChange;
-      this.setRange(range, triggerChange);
-    }
-    else {
-      this.props.onChange && this.props.onChange(range, this.isValid);
-    }
+    const triggerChange = !this.props.twoStepChange || this.step === 0 && this.props.twoStepChange;
+    this.setRange(range, triggerChange);
   }
 
   isValidMonthRange(date) {
     const { limitedMonthRange } = this.props;
+    console.log(date.startDate.format(MomentFormat.default))
+    console.log(date.endDate.format(MomentFormat.default))
 
     if (limitedMonthRange) {
       const range = date.endDate.clone().subtract(date.startDate.month(), "month");
@@ -145,7 +143,7 @@ class DateRange extends Component {
     const { onClickApplyButton } = this.props;
     const range = this.state.range;
     onClickApplyButton && onClickApplyButton(range, this.isValid);
-    
+
     this.currentRange = Object.assign({}, range);
     this.hide();
   }
