@@ -104,10 +104,10 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
                 return result;
             },
 
-            setColumnVisible: function (models, colName, visible) {
-                for (var i = 0, l = models.length; i < l; i++) {
+            hideColumn: function (models, colName) {
+                for (var i = 0; i < models.length; i++) {
                     if (models[i].name.toLowerCase() === colName.toLowerCase()) {
-                        models[i].hidden = visible;
+                        models[i].hidden = true;
                         break;
                     }
                 }

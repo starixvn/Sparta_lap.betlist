@@ -10,6 +10,7 @@ var Site = (function ($) {
     var REQUEST_VERIFICATION_TOKEN;
     var _historyDate = null;
     var _licenseeId = null;
+    var _hasSystemId = null;
 
     function setLicenseeOption(urlOrParams, currencyId, currencyName, baseCurrency) {
         currencyName = $.trim(currencyName);
@@ -137,6 +138,13 @@ var Site = (function ($) {
         },
         showMessaegBox: function (message) {
             $('<div title="' + Site.getSingleResource("LrfNotification") + '">' + message + '!</div>').dialog();
+        },
+        hasSystemId: function() {
+            if (_hasSystemId == null) {
+                _hasSystemId = $("#HasSystemId").val() === "1";
+            }
+
+            return _hasSystemId;
         },
         getLicenseeId: function () {
             if (!_licenseeId) {

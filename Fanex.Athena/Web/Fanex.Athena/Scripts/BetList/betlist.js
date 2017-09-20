@@ -186,10 +186,10 @@ var BetList = (function ($) {
             var showSummary = $("#ShowSummary").val() === "0" ? false : hiddenColumnList.indexOf("licenseewl") < 0;
 
             $.each(hiddenColumnTokens, function (index, value) {
-                jqGridAdditional.setColumnVisible(BetListOption.columnModel, value, true);
+                jqGridAdditional.hideColumn(BetListOption.columnModel, value);
             });
             if ($("#HasBetEffectiveColumn").val() !== "1") {
-                jqGridAdditional.setColumnVisible(BetListOption.columnModel, "BetEffective", true);
+                jqGridAdditional.hideColumn(BetListOption.columnModel, "BetEffective");
             }
             gridOption.colNames = BetListOption.columnNames;
             gridOption.colModel = BetListOption.columnModel;
@@ -277,43 +277,41 @@ var BetList = (function ($) {
         },
 
         bindData: function (response) {
-            if (response !== null) {
-                var rawData = response.Main;
-                var summary = response.Total;
-                var sumWinLoss = jqGridAdditional.formatDecimal(summary.SumWinLoss);
-                var sumLicenseeWl = jqGridAdditional.formatLicenseeWl(summary.SumLicenseeWl);
-                var sumBetEffective = jqGridAdditional.formatDecimal(summary.SumBetEffective);
-                var gridOption = BetList.getGridOption();
+            var rawData = response.Main;
+            var summary = response.Total;
+            var sumWinLoss = jqGridAdditional.formatDecimal(summary.SumWinLoss);
+            var sumLicenseeWl = jqGridAdditional.formatLicenseeWl(summary.SumLicenseeWl);
+            var sumBetEffective = jqGridAdditional.formatDecimal(summary.SumBetEffective);
+            var gridOption = BetList.getGridOption();
 
-                var rowNum = Number($("#BetListGrid").getGridParam("rowNum")) || gridOption.rowNum;
-                if (rowNum < gridOption.rowList[0]) {
-                    rowNum = gridOption.rowList[0];
-                }
-                // Show the grid
-                gridOption.rowNum = rowNum;
-                gridOption.data = rawData;
-                gridOption.userData = { WinLoss: sumWinLoss, LicenseeWL: sumLicenseeWl, BetEffective: sumBetEffective };
-
-                if (_isShowSumStake) {
-                    gridOption.userData.Stake = jqGridAdditional.formatDecimal(summary.SumStake);
-                    gridOption.userDataOnFooter = true;
-                    gridOption.footerrow = true;
-                }
-                else if (response.IsShowTotal === undefined || response.IsShowTotal) {
-                    gridOption.userDataOnFooter = true;
-                }
-                else {
-                    gridOption.userDataOnFooter = false;
-                    gridOption.footerrow = false;
-                }
-                gridOption.gridComplete = function () {
-                    var totalRowCount = gridOption.footerrow ? 2 : 1;
-                    BetList.gridComplete(this, gridOption, $("#BetListGrid"), totalRowCount);
-                };
-
-                $("#BetListGrid").jqGrid('GridUnload');
-                $("#BetListGrid").jqGrid(gridOption);
+            var rowNum = Number($("#BetListGrid").getGridParam("rowNum")) || gridOption.rowNum;
+            if (rowNum < gridOption.rowList[0]) {
+                rowNum = gridOption.rowList[0];
             }
+            // Show the grid
+            gridOption.rowNum = rowNum;
+            gridOption.data = rawData;
+            gridOption.userData = { WinLoss: sumWinLoss, LicenseeWL: sumLicenseeWl, BetEffective: sumBetEffective };
+
+            if (_isShowSumStake) {
+                gridOption.userData.Stake = jqGridAdditional.formatDecimal(summary.SumStake);
+                gridOption.userDataOnFooter = true;
+                gridOption.footerrow = true;
+            }
+            else if (response.IsShowTotal === undefined || response.IsShowTotal) {
+                gridOption.userDataOnFooter = true;
+            }
+            else {
+                gridOption.userDataOnFooter = false;
+                gridOption.footerrow = false;
+            }
+            gridOption.gridComplete = function () {
+                var totalRowCount = gridOption.footerrow ? 2 : 1;
+                BetList.gridComplete(this, gridOption, $("#BetListGrid"), totalRowCount);
+            };
+
+            $("#BetListGrid").jqGrid('GridUnload');
+            $("#BetListGrid").jqGrid(gridOption);
         },
 
         getMixParlayResultUrl: function (refno, winlostdate, bettype) {

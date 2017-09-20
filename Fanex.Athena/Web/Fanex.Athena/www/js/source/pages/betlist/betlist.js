@@ -144,10 +144,10 @@
                 var showSummary = $("#ShowSummary").val() === "0" ? false : hiddenColumnList.indexOf("licenseewl") < 0;
 
                 $.each(hiddenColumnTokens, function (index, value) {
-                    jqGridAdditional.setColumnVisible(BetListOption.columnModel, value, true);
+                    jqGridAdditional.hideColumn(BetListOption.columnModel, value);
                 });
                 if ($("#HasBetEffectiveColumn").val() !== "1") {
-                    jqGridAdditional.setColumnVisible(BetListOption.columnModel, "BetEffective", true);
+                    jqGridAdditional.hideColumn(BetListOption.columnModel, "BetEffective");
                 }
                 gridOption.colNames = BetListOption.columnNames;
                 gridOption.colModel = BetListOption.columnModel;

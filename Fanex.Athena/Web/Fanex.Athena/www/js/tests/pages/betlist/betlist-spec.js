@@ -67,7 +67,7 @@
 
                 function setSortColumnName(colName) {
                     spyOn(Site, "blockUI");
-                    spyOn(jqGridAdditional, "setColumnVisible");
+                    spyOn(jqGridAdditional, "hideColumn");
                     spyOn(BetList, "loadDataPaging");
                     spyOn(BetList, "loadData");
 
