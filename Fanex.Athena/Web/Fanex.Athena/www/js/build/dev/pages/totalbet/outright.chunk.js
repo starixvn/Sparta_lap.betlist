@@ -1,18 +1,10 @@
 webpackJsonp([45],{
 
-<<<<<<< HEAD
 /***/ 121:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(jQuery) {﻿/// <reference path="/@JSense.js" />
-=======
-/***/ 0:
-/***/ (function(module, exports, __webpack_require__) {
-
-<<<<<<< HEAD
-	module.exports = __webpack_require__(413);
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 (function ($) {
     $.fn.checkboxgroup = function () {
@@ -77,9 +69,6 @@ webpackJsonp([45],{
         {
             return;
         }
-=======
-	module.exports = __webpack_require__(424);
->>>>>>> 62e0118d7... 76246 - Build front-end code
 
         var style;
         var returns = {};
@@ -263,18 +252,8 @@ jQuery.extend({
 
 /***/ }),
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 /***/ 130:
 /***/ (function(module, exports, __webpack_require__) {
-=======
-/***/ 239:
-/***/ function(module, exports, __webpack_require__) {
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
-=======
-/***/ 250:
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(132)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
     "use strict";
@@ -403,8 +382,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 /***/ 132:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -526,153 +503,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 }));
 
-=======
-/***/ 301:
-/***/ function(module, exports, __webpack_require__) {
-=======
-/***/ 312:
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(313)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
-	    "use strict";
-	
-	    var curCountDown = 0;
-	    var countDownTimer = null;
-	    var cookieName = null;
-	    var countDownId = null;
-	    var defaultCountDown = 0;
-	
-	    var _me = {
-	        initialize: function () {
-	            $('.menu-item').on('click', function () {
-	                var selectedCountDown = parseInt($(this).attr('data-count-down'));
-	                _me.setCountDown(selectedCountDown, true);
-	            });
-	
-	            $('.button-refresh').on('click', function () {
-	                _me.refresh();
-	            });
-	
-	            var $hiddenCountdown = $('#count-down-of');
-	            countDownId = $hiddenCountdown.attr('name');
-	
-	            // Get default count down
-	            defaultCountDown = parseInt($hiddenCountdown.attr('data-default-value'));
-	        },
-	        initEvent: function () {
-	            cookieName = "RefeshCountDown" + countDownId;
-	            //read countdown from cookie
-	            var countDownFromCookie = $.cookie(cookieName);
-	            if (countDownFromCookie && Number(countDownFromCookie) !== 0) {
-	                _me.setCountDown(countDownFromCookie, false);
-	            } else {
-	                _me.setCountDown(defaultCountDown, true);
-	            }
-	        },
-	        setCountDown: function (countDown, isSetToCookie) {
-	            var countDownInt = parseInt(countDown);
-	            if (isSetToCookie) {
-	                $.cookie(cookieName, countDownInt);
-	            }
-	            curCountDown = countDownInt;
-	            _me.setMenuStatus();
-	            _me.tick();
-	        },
-	        setMenuStatus: function () {
-	            var index = curCountDown;
-	            $('#countdown-menu .menu-item').removeClass('menu-selected');
-	            $('#option-' + index).addClass('menu-selected');
-	        },
-	        tick: function () {
-	            document.getElementById('count').innerHTML = curCountDown;
-	            curCountDown--;
-	            if (countDownTimer !== null) {
-	                clearTimeout(countDownTimer);
-	            }
-	            countDownTimer = setTimeout(_me.tick, 1000);
-	            if (curCountDown < -1) {
-	                _me.refresh();
-	            }
-	        },
-	        refresh: function () {
-	            var oldScrollTop;
-	            if ($(".body-content").length) {
-	                oldScrollTop = $(".body-content").scrollTop();
-	            }
-	
-	            if (countDownTimer !== null) {
-	                clearTimeout(countDownTimer);
-	            }
-	            document.getElementById('count').innerHTML = "...";
-	
-	            // Get param before load data
-	            var url = _me.calculateUrl();
-	
-	            Site.blockUI();
-	            $('#reportContent').load(url, {
-	                noncache: new Date().getTime()
-	            }, function () {
-	                Site.unBlockUI();
-	                _me.initEvent();
-	                
-	                // Currency constraint
-	                Site.currencyConstraint();
-	
-	                $(window).resize();
-	
-	                // Scrollbar still kept current position
-	                if ($(".body-content").length) {
-	                    $(".body-content").scrollTop(oldScrollTop);
-	                }
-	            });
-	
-	            return true;
-	        },
-	        calculateUrl: function () {
-	            var leagueId = $('#LeagueId').val();
-	            var matchId = $('#MatchId').val();
-	            var betType = $("#BetType").val();
-	            var currentScore = $("#CurrentScore").val();
-	            var isShowFt = $("#IsShowFt").val();
-	            var isShowFh = $("#IsShowFh").val();
-	            var homeName = $("#HomeTeamId").val();
-	            var awayName = $("#AwayTeamId").val();
-	
-	            var url = Site.getCurrentUrl();
-	            url = Site.setLicenseeOptionOriginalParam(url);
-	            url = QueryString.setParam(url, "LeagueId", leagueId);
-	            url = QueryString.setParam(url, "MatchId", matchId);
-	            url = QueryString.setParam(url, "BetType", betType);
-	            url = QueryString.setParam(url, "CurrentScore", currentScore);
-	            url = QueryString.setParam(url, "IsShowFt", isShowFt);
-	            url = QueryString.setParam(url, "IsShowFh", isShowFh);
-	
-	            url = QueryString.setParam(url, "HomeTeamId", homeName);
-	            url = QueryString.setParam(url, "AwayTeamId", awayName);
-	            
-	            return encodeURI(url);
-	        }
-	    };
-	
-	    return _me;
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 /***/ }),
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 /***/ 144:
 /***/ (function(module, exports, __webpack_require__) {
-=======
-/***/ 302:
-/***/ function(module, exports, __webpack_require__) {
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
-=======
-/***/ 313:
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(130), __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
         "use strict";
@@ -751,100 +586,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 /***/ 269:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(270);
 
-=======
-/***/ 402:
-/***/ function(module, exports, __webpack_require__) {
-=======
-/***/ 413:
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(312), __webpack_require__(250)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
-	        "use strict";
-	
-	        var _me = {
-	            resizeGrid: function () {
-	                var $grid = $(".body-content");
-	                if ($grid.length === 0) {
-	                    return;
-	                }
-	
-	                var gridTop = $grid.offset().top;
-	                var footerSite = 18;
-	
-	                var gridHeight = window.innerHeight - gridTop - $(".footer-content").height() - footerSite - 10;
-	                gridHeight = Math.max(150, gridHeight);
-	                $grid.css("max-height", gridHeight);
-	
-	                if (!$grid.hasVerticalScrollBar()) {
-	                    $grid.addClass("hasScroll");
-	                }
-	                else {
-	                    $grid.find("table").width($grid.width() - 17);
-	                }
-	            },
-	            initEvent: function () {
-	                RefreshCountDown.initialize();
-	
-	                $("#reportContent").on("click", '.forcast-number', function () {
-	                    var matchId = $(this).attr("data-match-id");
-	                    var betType = $(this).attr("data-bet-type");
-	                    _me.viewRunningBetListMatch(matchId, betType);
-	                });
-	
-	                $(document).ajaxComplete(function () {
-	                    _me.resizeGrid();
-	                });
-	
-	                $(window).on("resize", function () {
-	                    _me.resizeGrid();
-	                });
-	
-	                $(window).on("unload", function () {
-	                    $(window).off("resize");
-	                });
-	            },
-	            viewRunningBetListMatch: function (matchId, betType) {
-	                var url = Site.resolveClientUrl("RunningMatchBetList/Index");
-	                url = Site.setLicenseeOptionOriginalParam(url);
-	                url = QueryString.setParam(url, "matchid", matchId);
-	                url = QueryString.setParam(url, "bettype", betType);
-	                url = QueryString.setParam(url, "isShowSumStake", true);
-	
-	                Site.redirect(url);
-	            },
-	            viewRunningBetListMultiBettype: function (matchId, betType) {
-	                var url = Site.resolveClientUrl("RunningBettypesOfMatchBetList/Index");
-	                url = Site.setLicenseeOptionOriginalParam(url);
-	                url = QueryString.setParam(url, "matchid", matchId);
-	                url = QueryString.setParam(url, "multiplebettype", betType);
-	                url = QueryString.setParam(url, "isShowSumStake", true);
-	
-	                Site.redirect(url);
-	            },
-	
-	            initialize: function () {
-	                _me.initEvent();
-	                _me.resizeGrid();
-	                Site.unBlockUI();
-	            }
-	        };
-	
-	        return _me;
-	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 /***/ }),
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 /***/ 270:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -855,26 +604,9 @@ module.exports = __webpack_require__(270);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-=======
-/***/ 413:
-/***/ function(module, exports, __webpack_require__) {
-=======
-/***/ 424:
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(425)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Outright) {
-	    "use strict";
-	
-	    $(Outright.initialize);
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 /***/ }),
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 /***/ 271:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -912,48 +644,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     return _me;
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-=======
-/***/ 414:
-/***/ function(module, exports, __webpack_require__) {
-=======
-/***/ 425:
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(413), __webpack_require__(312)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, RefreshCountDown) {
-	    "use strict";
-	
-	    var _me = {
-	        initialize: function () {
-	            Site.initialize();
-	            Totalbets.initialize();
-	            _me.initEvent();
-	            Site.addUserGuide({
-	                resourceName: "TotalBetsOutright",
-	                title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("Outright")
-	            });
-	
-	            RefreshCountDown.initEvent();
-	        },
-	        initEvent: function () {
-	            $("#SubmitButton").on("click", function () {
-	                _me.submit();
-	            });
-	
-	            $('#reportContent').on('click', '.team', function () {
-	                var matchId = $(this).attr("data-match-id");
-	                Totalbets.viewRunningBetListMatch(matchId, 10);
-	            });
-	        },
-	        submit: function () {
-	            Site.blockUI();
-	            $("#OutrightForm").submit();
-	        }
-	    };
-	
-	    return _me;
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 /***/ })
 

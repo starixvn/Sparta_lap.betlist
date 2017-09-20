@@ -1,9 +1,1 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 {"version":3,"sources":["webpack:///./www/css/source/pages/report/winlossbyleague.scss"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,yC","file":"www/css/build/dev/pages/reports/winlossbyleague.chunk.js","sourcesContent":["// removed by extract-text-webpack-plugin\n\n\n//////////////////\n// WEBPACK FOOTER\n// ./www/css/source/pages/report/winlossbyleague.scss\n// module id = 494\n// module chunks = 71"],"sourceRoot":""}
-=======
-{"version":3,"sources":["webpack:///./www/css/source/pages/report/winlossbyleague.scss"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,0C","file":"www/css/build/dev/pages/reports/winlossbyleague.chunk.js","sourcesContent":["// removed by extract-text-webpack-plugin\n\n\n/*****************\n ** WEBPACK FOOTER\n ** ./www/css/source/pages/report/winlossbyleague.scss\n ** module id = 83\n ** module chunks = 35\n **/"],"sourceRoot":""}
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
-=======
-{"version":3,"sources":["webpack:///./www/css/source/pages/report/winlossbyleague.scss"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,0C","file":"www/css/build/dev/pages/reports/winlossbyleague.chunk.js","sourcesContent":["// removed by extract-text-webpack-plugin\n\n\n//////////////////\n// WEBPACK FOOTER\n// ./www/css/source/pages/report/winlossbyleague.scss\n// module id = 83\n// module chunks = 35"],"sourceRoot":""}
->>>>>>> 62e0118d7... 76246 - Build front-end code

@@ -1,9 +1,1 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 {"version":3,"sources":["webpack:///./www/css/source/pages/totalbet/totalbet.scss"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,yC","file":"www/css/build/dev/pages/totalbet/totalbetlayout.chunk.js","sourcesContent":["// removed by extract-text-webpack-plugin\n\n\n//////////////////\n// WEBPACK FOOTER\n// ./www/css/source/pages/totalbet/totalbet.scss\n// module id = 462\n// module chunks = 68"],"sourceRoot":""}
-=======
-{"version":3,"sources":["webpack:///./www/css/source/pages/totalbet/totalbet.scss"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,0C","file":"www/css/build/dev/pages/totalbet/totalbetlayout.chunk.js","sourcesContent":["// removed by extract-text-webpack-plugin\n\n\n/*****************\n ** WEBPACK FOOTER\n ** ./www/css/source/pages/totalbet/totalbet.scss\n ** module id = 89\n ** module chunks = 38\n **/"],"sourceRoot":""}
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
-=======
-{"version":3,"sources":["webpack:///./www/css/source/pages/totalbet/totalbet.scss"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,0C","file":"www/css/build/dev/pages/totalbet/totalbetlayout.chunk.js","sourcesContent":["// removed by extract-text-webpack-plugin\n\n\n//////////////////\n// WEBPACK FOOTER\n// ./www/css/source/pages/totalbet/totalbet.scss\n// module id = 89\n// module chunks = 38"],"sourceRoot":""}
->>>>>>> 62e0118d7... 76246 - Build front-end code

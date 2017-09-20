@@ -150,7 +150,6 @@
 /******/ 	return __webpack_require__(__webpack_require__.s = 181);
 /******/ })
 /************************************************************************/
-<<<<<<< HEAD
 /******/ ({
 
 /***/ 1:
@@ -439,12 +438,6 @@ module.exports = __webpack_amd_options__;
 
 /***/ 176:
 /***/ (function(module, exports, __webpack_require__) {
-=======
-/******/ ([
-/* 0 */
-<<<<<<< HEAD
-/***/ function(module, exports, __webpack_require__) {
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
     "use strict";
@@ -778,9 +771,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         update: function (option) {
             _methods.buildLabel.call(this, option);
         },
-=======
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
 
         disabled: function (isDisabled) {
             var $selection = $(this).siblings(CONTAINER_SELECTOR).find(".selection");
@@ -800,60 +790,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 /***/ }),
 
 /***/ 181:
 /***/ (function(module, exports, __webpack_require__) {
-=======
-/***/ },
-/* 1 */
-/***/ function(module, exports, __webpack_require__) {
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 __webpack_require__(1);
 __webpack_require__(184);
 __webpack_require__(2);
 module.exports = __webpack_require__(118);
-=======
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 /***/ }),
 
 /***/ 182:
 /***/ (function(module, exports, __webpack_require__) {
-=======
-/***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 /* WEBPACK VAR INJECTION */(function(global) {module.exports = global["$"] = __webpack_require__(183);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)))
-=======
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
 
-<<<<<<< HEAD
 /***/ }),
 
-<<<<<<< HEAD
 /***/ 183:
 /***/ (function(module, exports, __webpack_require__) {
-=======
-/***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
  * jQuery JavaScript Library v3.2.1
@@ -869,11 +828,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
  * Date: 2017-03-20T18:59Z
  */
 ( function( global, factory ) {
-=======
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
 
 	"use strict";
 
@@ -14637,7 +14591,6 @@ Manager.prototype = {
         this.session.stopped = force ? FORCED_STOP : STOP;
     },
 
-<<<<<<< HEAD
     /**
      * run the recognizers!
      * called by the inputHandler function on every movement of the pointers (touches)
@@ -14730,26 +14683,13 @@ Manager.prototype = {
             this.remove(existing);
         }
 
-<<<<<<< HEAD
         this.recognizers.push(recognizer);
         recognizer.manager = this;
-=======
-/***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
-=======
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
 
         this.touchAction.update();
         return recognizer;
     },
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     /**
      * remove a recognizer by name or instance
      * @param {Recognizer|String} recognizer
@@ -14759,35 +14699,13 @@ Manager.prototype = {
         if (invokeArrayArg(recognizer, 'remove', this)) {
             return this;
         }
-=======
-/***/ },
-/* 5 */
-/***/ function(module, exports) {
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
-=======
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
 
         recognizer = this.get(recognizer);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
         // let's make sure this recognizer exists
         if (recognizer) {
             var recognizers = this.recognizers;
             var index = inArray(recognizers, recognizer);
-=======
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
-=======
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
 
             if (index !== -1) {
                 recognizers.splice(index, 1);
@@ -14798,8 +14716,6 @@ Manager.prototype = {
         return this;
     },
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     /**
      * bind event
      * @param {String} events
@@ -14813,11 +14729,6 @@ Manager.prototype = {
         if (handler === undefined) {
             return;
         }
-=======
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
         var handlers = this.handlers;
         each(splitStr(events), function(event) {
@@ -14827,7 +14738,6 @@ Manager.prototype = {
         return this;
     },
 
-<<<<<<< HEAD
     /**
      * unbind event, leave emit blank to remove all handlers
      * @param {String} events
@@ -14962,11 +14872,6 @@ assign(Hammer, {
     PointerEventInput: PointerEventInput,
     TouchMouseInput: TouchMouseInput,
     SingleTouchInput: SingleTouchInput,
-=======
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
 
     Recognizer: Recognizer,
     AttrRecognizer: AttrRecognizer,
@@ -14977,7 +14882,6 @@ assign(Hammer, {
     Rotate: RotateRecognizer,
     Press: PressRecognizer,
 
-<<<<<<< HEAD
     on: addEventListeners,
     off: removeEventListeners,
     each: each,
@@ -15006,29 +14910,12 @@ if (true) {
 }
 
 })(window, document, 'Hammer');
-=======
-/***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
-=======
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
 
-<<<<<<< HEAD
 /***/ }),
 
-<<<<<<< HEAD
 /***/ 186:
 /***/ (function(module, exports, __webpack_require__) {
-=======
-/***/ },
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
@@ -15111,18 +14998,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             if (top > 300) {
                 top -= 100;
             }
-=======
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
 
             $self.css({
                 'top': (top < 0 ? 0 : top) + "px",
                 'left': (left < 0 ? 0 : left) + "px"
             });
 
-<<<<<<< HEAD
             if (modal === true || modal === undefined) {
                 $blockBody.show();
             }
@@ -15150,21 +15031,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-<<<<<<< HEAD
 /***/ }),
 
 /***/ 187:
 /***/ (function(module, exports, __webpack_require__) {
-=======
-/***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
-=======
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
 
 "use strict";
 ﻿/// <reference path="/@JSense.js" />
@@ -15177,19 +15047,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 *
 */
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 //#region String Prototype
-=======
-/***/ },
-/* 11 */
-/***/ function(module, exports) {
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
-=======
-/***/ }),
-/* 11 */
-/***/ (function(module, exports) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
 
 /* jshint ignore:start */
 String.prototype.format = function () {
@@ -15219,7 +15077,6 @@ String.prototype.replaceAll = function (token, newToken, ignoreCase) {
     var str = this + "";
     var i = -1;
 
-<<<<<<< HEAD
     if (typeof token === "string") {
         if (ignoreCase) {
             _token = token.toLowerCase();
@@ -15286,16 +15143,10 @@ Array.prototype.insertBefore = function (value, before) {
 
 /* jshint ignore:end */
 
-<<<<<<< HEAD
 /***/ }),
 
 /***/ 2:
 /***/ (function(module, exports, __webpack_require__) {
-=======
-/***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _language_en_US*/
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(118), __webpack_require__(120), __webpack_require__(187), __webpack_require__(176)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Popup) {// jshint ignore:line
@@ -15766,22 +15617,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
         };
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-=======
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
 
-<<<<<<< HEAD
 /***/ })
 
-<<<<<<< HEAD
 /******/ });
-=======
-/***/ }
-=======
-/***/ })
->>>>>>> 62e0118d7... 76246 - Build front-end code
-/******/ ]);
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 //# sourceMappingURL=common.chunk.js.map

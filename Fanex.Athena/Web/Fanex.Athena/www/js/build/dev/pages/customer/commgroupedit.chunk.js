@@ -1,18 +1,10 @@
 webpackJsonp([52],{
 
-<<<<<<< HEAD
 /***/ 160:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
     "use strict";
-=======
-/***/ 0:
-/***/ (function(module, exports, __webpack_require__) {
-
-<<<<<<< HEAD
-	module.exports = __webpack_require__(257);
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
     function goToCustomerList(groupCommId) {
         if (isParentSameOrigin()) {
@@ -40,9 +32,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
         return sameOrigin;
     }
-=======
-	module.exports = __webpack_require__(268);
->>>>>>> 62e0118d7... 76246 - Build front-end code
 
     var _me = {
         goToCustomerList: goToCustomerList,
@@ -55,8 +44,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 /***/ 167:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -274,243 +261,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
          return _me;
      }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-=======
-/***/ 254:
-/***/ function(module, exports, __webpack_require__) {
-=======
-/***/ 265:
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(266), __webpack_require__(267)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, CustomerCommGroup) {
-	         "use strict";
-	
-	         function initialize(titleResource) {
-	             Site.initialize();
-	          
-	             initColorPicker();
-	             _me.setPageTitle(Site.getSingleResource(titleResource));
-	             _me.initEvent();
-	         }
-	
-	         function initEvent() {
-	             $("#GroupName").keyup(function () {
-	                 $("#GroupName").removeClass("invalid valid");
-	                 $("#Submit").prop("disabled", false);
-	             });
-	
-	             $("#Cancel").click(function () {
-	                 _me.setPageTitle("CommissionGroupList");
-	                 Site.redirect(Site.resolveClientUrl("CustomerComGroup/Index"));
-	             });
-	
-	             // Commission dropdownlist change
-	             $("#SBComm1").on("change", function () {
-	                 commissionOnChange($(this).val(), "SBComm");
-	             });
-	
-	             $("#ParlayComm1").on("change", function () {
-	                 commissionOnChange($(this).val(), "ParlayComm");
-	             });
-	
-	             $("#RCComm1").on("change", function () {
-	                 commissionOnChange($(this).val(), "RCComm");
-	             });
-	
-	             $("#NGComm1").on("change", function () {
-	                 commissionOnChange($(this).val(), "NGComm");
-	             });
-	
-	             $("#LCComm1").on("change", function () {
-	                 commissionOnChange($(this).val(), "LCComm");
-	             });
-	
-	             $("#CSComm1").on("change", function () {
-	                 commissionOnChange($(this).val(), "CSComm");
-	             });
-	         }
-	
-	         function setPageTitle(title) {
-	             CustomerCommGroup.setPageTitle(title);
-	         }
-	
-	         function checkAvailableGroup(groupName) {
-	             if (groupName.length < 1) {
-	                 displayGroupNameError(Site.getSingleResource("GroupNameNotEmptyMsg"));
-	                 return;
-	             }
-	
-	             if (groupName.length >= 100) {
-	                 displayGroupNameError(Site.getSingleResource("GroupNameNotExceed100CharactersMsg"));
-	                 return;
-	             }
-	
-	             if ($.trim(groupName).toLowerCase() === "none") {
-	                 displayGroupNameError(Site.getSingleResource("ChooseGroupNameMsg"));
-	                 return;
-	             }
-	
-	             if (!groupName.match("^[a-zA-Z0-9 ]+$")) {
-	                 displayGroupNameError(Site.getSingleResource("GroupNameOnlyContainCharactersAndNumberMsg"));
-	                 return;
-	             }
-	
-	             validateGroupName($.trim(groupName));
-	         }
-	
-	         function validateGroupName(groupName) {
-	             var url = "CustomerComGroup/Validate?groupName=" + groupName;
-	
-	             $.ajax({
-	                 url: Site.resolveClientUrl(url),
-	                 type: "GET",
-	                 dataType: "html",
-	                 cache: false,
-	                 beforeSend: function () {
-	                     Site.blockUI();
-	                 },
-	                 success: function (result) {
-	                     if (result === "OK") {
-	                         $("#GroupName").removeClass("invalid").addClass("valid");
-	                         $("label[for=GroupName]").attr("data-success", "");
-	                         $("#Submit").prop("disabled", false);
-	                     }
-	                     else {
-	                         displayGroupNameError(Site.getSingleResource("GroupNameExistedMsg"));
-	                     }
-	
-	                     Site.unBlockUI();
-	                 }
-	             });
-	         }
-	
-	         function displayGroupNameError(errorMsg) {
-	             $('label[for="GroupName"]').attr("data-error", errorMsg);
-	             $("#GroupName").addClass("invalid").focus();
-	             $("#Submit").prop("disabled", true);
-	         }
-	
-	         function commissionOnChange(value, idName) {
-	             var comm2 = "#" + idName + "2", comm3 = "#" + idName + "3";
-	
-	             if (Number(value) === 15) {
-	                 $(comm2).val(0);
-	                 $(comm2).selectList("update", {
-	                     isDisabled: true,
-	                     selectionId: "select-list-" + idName + "2",
-	                     labelText: "0"
-	                 });
-	                 $(comm3).val(0);
-	                 $(comm3).selectList("update", {
-	                     isDisabled: true,
-	                     selectionId: "select-list-" + idName + "3",
-	                     labelText: "0"
-	                 });
-	             } else {
-	                 $(comm2).selectList("disabled", false);
-	                 $(comm3).selectList("disabled", false);
-	             }
-	         }      
-	
-	         function submit(formId) {
-	             initCommParam("#SBComm");
-	             initCommParam("#ParlayComm");
-	             initCommParam("#RCComm");
-	             initCommParam("#NGComm");
-	             initCommParam("#LCComm");
-	             initCommParam("#CSComm");
-	
-	             initDefaultParam(formId);
-	         }
-	
-	         function initCommParam(id) {
-	             var comm1 = parseInt($(id + "1").val());
-	             var comm2 = parseInt($(id + "2").val());
-	             var comm3 = parseInt($(id + "3").val());
-	
-	             var comm = parseFloat((comm1 + comm2 / 10 + comm3 / 100) / 100).toFixed(4);
-	             comm = isNaN(comm) ? 0 : comm;
-	
-	             $(id).val(comm);
-	         }         
-	
-	         function initDefaultParam(formId) {
-	             var isDefault = $("#IsDefaultGroup").is(":checked");
-	             var defaultGroupId = parseInt($('#DefaultGroupId').val());
-	             var currentGroupId = parseFloat($('#GroupCommId').val());
-	             $("#IsDefaultGroup").val(isDefault);
-	             $("#IsResetDefault").val(false);
-	             if (isDefault && defaultGroupId !== currentGroupId && defaultGroupId !== 0) {
-	                 showConfirmAction(Site.getSingleResource('GroupSetAsDefaultMsg'), function () {
-	                     $("#IsResetDefault").val(true);
-	                     $(formId).submit();
-	                 });
-	             } else {
-	                 $(formId).submit();
-	             }
-	         }
-	
-	         function goToCustomerList(groupCommId) {
-	             CustomerCommGroup.goToCustomerList(groupCommId);
-	         }
-	
-	         function showConfirmAction(message, callback) {
-	             var options = {
-	                 modal: true,
-	                 title: Site.getSingleResource("Confirm"),
-	                 height: "auto",
-	                 id: "confirm-action",
-	                 width: 450
-	             };
-	
-	             var buttons = [
-	                 {
-	                     text: Site.getSingleResource("OK"),
-	                     isClosedOnClick: true,
-	                     click: callback,
-	                     classes: "btn btn-submit"
-	                 }, {
-	                     text: Site.getSingleResource("Cancel"),
-	                     isClosedOnClick: true,
-	                     classes: "btn btn-cancel"
-	                 }];
-	
-	             Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
-	         }
-	
-	         function initColorPicker() {
-	             $("#GroupColor").colorPicker({
-	                 transparency: true
-	             });
-	         }
-	
-	         var _me = {
-	             initialize: initialize,
-	             initEvent: initEvent,
-	             submit: submit,
-	             checkAvailableGroup: checkAvailableGroup,
-	             setPageTitle: setPageTitle,
-	             goToCustomerList: goToCustomerList
-	         };
-	
-	         return _me;
-	     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 /***/ }),
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 /***/ 168:
 /***/ (function(module, exports, __webpack_require__) {
-=======
-/***/ 255:
-/***/ function(module, exports, __webpack_require__) {
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
-=======
-/***/ 266:
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {﻿/**
  * Really Simple Color Picker in jQuery
@@ -870,26 +625,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 /***/ 351:
 /***/ (function(module, exports, __webpack_require__) {
-=======
-/***/ 256:
-/***/ function(module, exports, __webpack_require__) {
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 module.exports = __webpack_require__(352);
-=======
-/***/ 267:
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
 
 
 /***/ }),
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 /***/ 352:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -900,26 +643,9 @@ module.exports = __webpack_require__(352);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-=======
-/***/ 257:
-/***/ function(module, exports, __webpack_require__) {
-=======
-/***/ 268:
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(269)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupEdit) {
-	    "use strict";
-	
-	    $(CustomerCommGroupEdit.initialize);
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 /***/ }),
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 /***/ 353:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -969,60 +695,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
          return _me;
      }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-=======
-/***/ 258:
-/***/ function(module, exports, __webpack_require__) {
-=======
-/***/ 269:
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 62e0118d7... 76246 - Build front-end code
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(265)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, CommGroupDetail) {
-	         "use strict";
-	
-	         var FORM_SELECTOR = "#customer-comm-group-edit";
-	         var TITLE = "EditGroup";
-	         var _originalGroupName = "";
-	
-	         function initialize() {
-	             CommGroupDetail.initialize(TITLE);
-	
-	             _originalGroupName = $("#OriginalGroupName").val();
-	             _me.initEvent();
-	         }
-	
-	         function initEvent() {
-	             $("#Validate").click(function () {
-	                 var $groupName = $("#GroupName");
-	
-	                 if ($groupName.val() === _originalGroupName) {
-	                     $groupName.removeClass("invalid");
-	                     $groupName.addClass("valid");
-	                     $("label[for=GroupName]").attr("data-success", "");
-	                     $("#Submit").prop("disabled", false);
-	                     return;
-	                 }
-	
-	                 CommGroupDetail.checkAvailableGroup($groupName.val());
-	             });
-	
-	             $("#CustList").click(function () {
-	                 CommGroupDetail.goToCustomerList($('#GroupCommId').val());
-	             });
-	
-	             $("#Submit").click(function () {
-	                 CommGroupDetail.submit(FORM_SELECTOR);
-	             });
-	         }         
-	
-	         var _me = {
-	             initialize: initialize,
-	             initEvent: initEvent
-	         };
-	
-	         return _me;
-	     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
->>>>>>> babeb522f... 76246 - Rebuild front-end pkg
 
 /***/ })
 
