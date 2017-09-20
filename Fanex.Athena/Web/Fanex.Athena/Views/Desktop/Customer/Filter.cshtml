@@ -20,9 +20,10 @@
             <div class="col l2 m2 s12 input-field">
                 <div class="multiselect-container">
                     <select id="grid-columns-multiselect">
-                        @for (var i = 0; i < Model.Param.GridColumns.Count; i++)
+                        @for (var i = 0; i < Model.Param.GridColumns.Count(); i++)
                         {
-                            <option value="@Model.Param.GridColumns[i].ID">@Model.Param.GridColumns[i].Name</option>
+                            var column = @Model.Param.GridColumns.ElementAt(i);
+                            <option value="@column.ID">@column.Name</option>
                         }
                     </select>
                 </div>

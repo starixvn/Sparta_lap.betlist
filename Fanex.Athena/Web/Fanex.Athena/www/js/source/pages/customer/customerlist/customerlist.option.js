@@ -246,7 +246,10 @@
         };
 
         var getColModel = function (productAccess, isAllowedCustomerCommission) {
+            systemIdColumn.hidden = Site.isFakeLicensee();
+
             var temp = Site.clone(colModelList);
+          
             if (isAllowedCustomerCommission) {
                 var getCellAttrFunction = function (colName) {
                     return function (rowId, val, rowObj) {

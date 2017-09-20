@@ -149,6 +149,9 @@
                 if ($("#HasBetEffectiveColumn").val() !== "1") {
                     jqGridAdditional.hideColumn(BetListOption.columnModel, "BetEffective");
                 }
+                if (Site.isFakeLicensee()) {
+                    jqGridAdditional.hideColumn(BetListOption.columnModel, "SystemId");
+                }
                 gridOption.colNames = BetListOption.columnNames;
                 gridOption.colModel = BetListOption.columnModel;
                 gridOption.footerrow = showSummary;

@@ -279,6 +279,7 @@
                 amtDueToBAColumn.hidden = !_me.isAllowBA;
                 racingRevenueColumn.hidden = !_me.isAllowRB;
                 amtDueToRacingColumn.hidden = !_me.isAllowRB;
+                systemIdColumn.hidden = Site.isFakeLicensee();
 
                 var colModels = Site.clone(colModelList);
 

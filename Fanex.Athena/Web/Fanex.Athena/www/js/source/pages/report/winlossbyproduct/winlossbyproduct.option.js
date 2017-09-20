@@ -241,7 +241,7 @@
 
         dateColumn.hidden = level > 0;
         externalIdColumn.hidden = level < 2;
-        systemIdColumn.hidden = level === 0;
+        systemIdColumn.hidden = level === 0 || Site.isFakeLicensee();
 
         if (level === 2) {
             externalIdColumn.formatter = betlistLink;

@@ -536,7 +536,7 @@ define(
 
             dateColumn.hidden = level > 0;
             externalIdColumn.hidden = level < 2;
-            systemIdColumn.hidden = level === 0;
+            systemIdColumn.hidden = level === 0 || Site.isFakeLicensee();
 
             // Column hidden by product
             var allowedSb = isProductChecked(productOptions, "SB");
