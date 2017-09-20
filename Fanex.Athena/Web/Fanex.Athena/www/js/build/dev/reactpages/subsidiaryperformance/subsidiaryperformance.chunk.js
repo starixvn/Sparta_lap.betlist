@@ -1,4 +1,4 @@
-webpackJsonp([0],[
+webpackJsonp([1],[
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1831,7 +1831,7 @@ function loadLocale(name) {
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
-            __webpack_require__(683)("./" + name);
+            __webpack_require__(684)("./" + name);
             // because defineLocale currently also sets the global locale, we
             // want to undo that for lazy loaded locales
             getSetGlobalLocale(oldLocale);
@@ -4742,7 +4742,7 @@ var _reactDom = __webpack_require__(17);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactInputAutosize = __webpack_require__(671);
+var _reactInputAutosize = __webpack_require__(672);
 
 var _reactInputAutosize2 = _interopRequireDefault(_reactInputAutosize);
 
@@ -4750,7 +4750,7 @@ var _classnames = __webpack_require__(40);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _defaultArrowRenderer = __webpack_require__(672);
+var _defaultArrowRenderer = __webpack_require__(673);
 
 var _defaultArrowRenderer2 = _interopRequireDefault(_defaultArrowRenderer);
 
@@ -4762,11 +4762,11 @@ var _defaultMenuRenderer = __webpack_require__(240);
 
 var _defaultMenuRenderer2 = _interopRequireDefault(_defaultMenuRenderer);
 
-var _defaultClearRenderer = __webpack_require__(673);
+var _defaultClearRenderer = __webpack_require__(674);
 
 var _defaultClearRenderer2 = _interopRequireDefault(_defaultClearRenderer);
 
-var _Option = __webpack_require__(674);
+var _Option = __webpack_require__(675);
 
 var _Option2 = _interopRequireDefault(_Option);
 
@@ -6390,23 +6390,23 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ActionCreators = undefined;
 
-var _dataHandlerAction = __webpack_require__(655);
+var _dataHandlerAction = __webpack_require__(656);
 
 var dataHandlerAction = _interopRequireWildcard(_dataHandlerAction);
 
-var _filterHandlerAction = __webpack_require__(657);
+var _filterHandlerAction = __webpack_require__(658);
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
 
-var _productAction = __webpack_require__(658);
+var _productAction = __webpack_require__(659);
 
 var productAction = _interopRequireWildcard(_productAction);
 
-var _baseCurrencyAction = __webpack_require__(659);
+var _baseCurrencyAction = __webpack_require__(660);
 
 var baseCurrencyAction = _interopRequireWildcard(_baseCurrencyAction);
 
-var _loaderAction = __webpack_require__(660);
+var _loaderAction = __webpack_require__(661);
 
 var loaderAction = _interopRequireWildcard(_loaderAction);
 
@@ -18943,7 +18943,7 @@ var _parseInput = __webpack_require__(131);
 
 var _parseInput2 = _interopRequireDefault(_parseInput);
 
-var _DayCell = __webpack_require__(684);
+var _DayCell = __webpack_require__(685);
 
 var _DayCell2 = _interopRequireDefault(_DayCell);
 
@@ -19514,7 +19514,7 @@ var _langHelper = __webpack_require__(39);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _locale = __webpack_require__(686);
+var _locale = __webpack_require__(687);
 
 var _locale2 = _interopRequireDefault(_locale);
 
@@ -19871,7 +19871,8 @@ exports.default = {
 /* 650 */,
 /* 651 */,
 /* 652 */,
-/* 653 */
+/* 653 */,
+/* 654 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19891,11 +19892,13 @@ var _reactDom = __webpack_require__(17);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _AppContainer = __webpack_require__(654);
+var _AppContainer = __webpack_require__(655);
 
 var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
 var _reactRedux = __webpack_require__(49);
+
+var _reduxLogger = __webpack_require__(174);
 
 var _redux = __webpack_require__(34);
 
@@ -19903,11 +19906,11 @@ var _reduxThunk = __webpack_require__(173);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _reduxLogger = __webpack_require__(174);
-
-var _index = __webpack_require__(692);
+var _index = __webpack_require__(693);
 
 var _index2 = _interopRequireDefault(_index);
+
+var _config = __webpack_require__(700);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19917,14 +19920,20 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var isDev = "development" === "development";
 // middleware that logs actions
-var loggerMiddleware = (0, _reduxLogger.createLogger)();
+var loggerMiddleware = (0, _reduxLogger.createLogger)({
+  predicate: function predicate(getState, action) {
+    return isDev || window.__lrfConfig__ && window.__lrfConfig__.env === _config.debuggingConfig.env && (!window.__lrfConfig__.actionFilter || window.__lrfConfig__.actionFilter === action.type);
+  }
+});
 
 var defaultState = Object.assign({}, window.Lrf);
 
 function configureStore(initialState) {
   var enhancer = (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default, // lets us dispatch() functions
   loggerMiddleware));
+
   return (0, _redux.createStore)(_index2.default, initialState, enhancer);
 }
 
@@ -19959,7 +19968,7 @@ exports.default = App;
 _reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById("app-container"));
 
 /***/ }),
-/* 654 */
+/* 655 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19981,19 +19990,19 @@ var _redux = __webpack_require__(34);
 
 var _index = __webpack_require__(129);
 
-var _datagrid = __webpack_require__(661);
+var _datagrid = __webpack_require__(662);
 
 var _datagrid2 = _interopRequireDefault(_datagrid);
 
-var _formFilter = __webpack_require__(669);
+var _formFilter = __webpack_require__(670);
 
 var _formFilter2 = _interopRequireDefault(_formFilter);
 
-var _Loader = __webpack_require__(690);
+var _Loader = __webpack_require__(691);
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
-var _AppLayout = __webpack_require__(691);
+var _AppLayout = __webpack_require__(692);
 
 var _AppLayout2 = _interopRequireDefault(_AppLayout);
 
@@ -20041,7 +20050,7 @@ function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(AppContainer);
 
 /***/ }),
-/* 655 */
+/* 656 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20063,7 +20072,7 @@ var _axios = __webpack_require__(175);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _site = __webpack_require__(656);
+var _site = __webpack_require__(657);
 
 var _site2 = _interopRequireDefault(_site);
 
@@ -20103,7 +20112,7 @@ function setGridData(data) {
 }
 
 /***/ }),
-/* 656 */
+/* 657 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20137,7 +20146,7 @@ var Site = function () {
 exports.default = Site;
 
 /***/ }),
-/* 657 */
+/* 658 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20181,7 +20190,7 @@ var changeConvertAll = exports.changeConvertAll = function changeConvertAll(chec
 };
 
 /***/ }),
-/* 658 */
+/* 659 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20206,7 +20215,7 @@ var setSelectedProduct = exports.setSelectedProduct = function setSelectedProduc
 };
 
 /***/ }),
-/* 659 */
+/* 660 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20231,7 +20240,7 @@ var setSelectedBaseCurrency = exports.setSelectedBaseCurrency = function setSele
 };
 
 /***/ }),
-/* 660 */
+/* 661 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20256,7 +20265,7 @@ var toggleLoader = exports.toggleLoader = function toggleLoader(show) {
 };
 
 /***/ }),
-/* 661 */
+/* 662 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20280,13 +20289,13 @@ var _index = __webpack_require__(129);
 
 var _redux = __webpack_require__(34);
 
-var _FixedTable = __webpack_require__(662);
+var _FixedTable = __webpack_require__(663);
 
 var _langHelper = __webpack_require__(39);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _numberFormat = __webpack_require__(668);
+var _numberFormat = __webpack_require__(669);
 
 var _numberFormat2 = _interopRequireDefault(_numberFormat);
 
@@ -20579,7 +20588,7 @@ function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DataGrid);
 
 /***/ }),
-/* 662 */
+/* 663 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20590,11 +20599,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Cell = exports.Row = exports.Footer = exports.Body = exports.Header = exports.Table = undefined;
 
-var _Table = __webpack_require__(663);
+var _Table = __webpack_require__(664);
 
 var _Table2 = _interopRequireDefault(_Table);
 
-var _Header = __webpack_require__(665);
+var _Header = __webpack_require__(666);
 
 var _Header2 = _interopRequireDefault(_Header);
 
@@ -20606,11 +20615,11 @@ var _Footer = __webpack_require__(237);
 
 var _Footer2 = _interopRequireDefault(_Footer);
 
-var _Row = __webpack_require__(666);
+var _Row = __webpack_require__(667);
 
 var _Row2 = _interopRequireDefault(_Row);
 
-var _Cell = __webpack_require__(667);
+var _Cell = __webpack_require__(668);
 
 var _Cell2 = _interopRequireDefault(_Cell);
 
@@ -20624,7 +20633,7 @@ exports.Row = _Row2.default;
 exports.Cell = _Cell2.default;
 
 /***/ }),
-/* 663 */
+/* 664 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20646,7 +20655,7 @@ var _reactDom = __webpack_require__(17);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _RowLayout = __webpack_require__(664);
+var _RowLayout = __webpack_require__(665);
 
 var _RowLayout2 = _interopRequireDefault(_RowLayout);
 
@@ -20773,7 +20782,7 @@ Table.defaultProps = {
 exports.default = Table;
 
 /***/ }),
-/* 664 */
+/* 665 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20842,7 +20851,7 @@ RowLayout.propTypes = {
 exports.default = RowLayout;
 
 /***/ }),
-/* 665 */
+/* 666 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20902,7 +20911,7 @@ var Header = function (_Component) {
 exports.default = Header;
 
 /***/ }),
-/* 666 */
+/* 667 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20952,7 +20961,7 @@ var Row = function (_Component) {
 exports.default = Row;
 
 /***/ }),
-/* 667 */
+/* 668 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21002,7 +21011,7 @@ var Cell = function (_Component) {
 exports.default = Cell;
 
 /***/ }),
-/* 668 */
+/* 669 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21049,7 +21058,7 @@ var NumberFormat = function () {
 exports.default = NumberFormat;
 
 /***/ }),
-/* 669 */
+/* 670 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21071,21 +21080,21 @@ var _index = __webpack_require__(129);
 
 var _redux = __webpack_require__(34);
 
-var _reactSelect = __webpack_require__(670);
+var _reactSelect = __webpack_require__(671);
 
 var _reactSelect2 = _interopRequireDefault(_reactSelect);
 
-var _multipleSelect = __webpack_require__(676);
+var _multipleSelect = __webpack_require__(677);
 
 var _multipleSelect2 = _interopRequireDefault(_multipleSelect);
 
-var _index2 = __webpack_require__(681);
+var _index2 = __webpack_require__(682);
 
 var _langHelper = __webpack_require__(39);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _reportExcel = __webpack_require__(687);
+var _reportExcel = __webpack_require__(688);
 
 var _reportExcel2 = _interopRequireDefault(_reportExcel);
 
@@ -21371,7 +21380,7 @@ function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(FormFilter);
 
 /***/ }),
-/* 670 */
+/* 671 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21390,7 +21399,7 @@ var _Async = __webpack_require__(242);
 
 var _Async2 = _interopRequireDefault(_Async);
 
-var _AsyncCreatable = __webpack_require__(675);
+var _AsyncCreatable = __webpack_require__(676);
 
 var _AsyncCreatable2 = _interopRequireDefault(_AsyncCreatable);
 
@@ -21416,7 +21425,7 @@ exports.Creatable = _Creatable2.default;
 exports.Value = _Value2.default;
 
 /***/ }),
-/* 671 */
+/* 672 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21653,7 +21662,7 @@ AutosizeInput.defaultProps = {
 exports.default = AutosizeInput;
 
 /***/ }),
-/* 672 */
+/* 673 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21688,7 +21697,7 @@ arrowRenderer.propTypes = {
 };
 
 /***/ }),
-/* 673 */
+/* 674 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21713,7 +21722,7 @@ function clearRenderer() {
 };
 
 /***/ }),
-/* 674 */
+/* 675 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21878,7 +21887,7 @@ Option.propTypes = {
 exports.default = Option;
 
 /***/ }),
-/* 675 */
+/* 676 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21979,7 +21988,7 @@ var AsyncCreatableSelect = function (_React$Component) {
 exports.default = AsyncCreatableSelect;
 
 /***/ }),
-/* 676 */
+/* 677 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21989,7 +21998,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _MultipleSelect = __webpack_require__(677);
+var _MultipleSelect = __webpack_require__(678);
 
 var _MultipleSelect2 = _interopRequireDefault(_MultipleSelect);
 
@@ -21998,7 +22007,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _MultipleSelect2.default;
 
 /***/ }),
-/* 677 */
+/* 678 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22022,15 +22031,15 @@ var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _MultipleSelectLabel = __webpack_require__(678);
+var _MultipleSelectLabel = __webpack_require__(679);
 
 var _MultipleSelectLabel2 = _interopRequireDefault(_MultipleSelectLabel);
 
-var _MultipleSelectOptionList = __webpack_require__(679);
+var _MultipleSelectOptionList = __webpack_require__(680);
 
 var _MultipleSelectOptionList2 = _interopRequireDefault(_MultipleSelectOptionList);
 
-var _OptionAll = __webpack_require__(680);
+var _OptionAll = __webpack_require__(681);
 
 var _OptionAll2 = _interopRequireDefault(_OptionAll);
 
@@ -22244,7 +22253,7 @@ MultipleSelect.defaultProps = {
 exports.default = MultipleSelect;
 
 /***/ }),
-/* 678 */
+/* 679 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22348,7 +22357,7 @@ MultipleSelectLabel.defaultProps = {
 exports.default = MultipleSelectLabel;
 
 /***/ }),
-/* 679 */
+/* 680 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22433,7 +22442,7 @@ MultipleSelectOptionList.propTypes = {
 exports.default = MultipleSelectOptionList;
 
 /***/ }),
-/* 680 */
+/* 681 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22529,7 +22538,7 @@ OptionAll.defaultProps = {
 exports.default = OptionAll;
 
 /***/ }),
-/* 681 */
+/* 682 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22540,7 +22549,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Calendar = exports.DateRange = undefined;
 
-var _DateRange = __webpack_require__(682);
+var _DateRange = __webpack_require__(683);
 
 var _DateRange2 = _interopRequireDefault(_DateRange);
 
@@ -22554,7 +22563,7 @@ exports.DateRange = _DateRange2.default;
 exports.Calendar = _Calendar2.default;
 
 /***/ }),
-/* 682 */
+/* 683 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22588,7 +22597,7 @@ var _Calendar = __webpack_require__(360);
 
 var _Calendar2 = _interopRequireDefault(_Calendar);
 
-var _PredefinedRanges = __webpack_require__(685);
+var _PredefinedRanges = __webpack_require__(686);
 
 var _PredefinedRanges2 = _interopRequireDefault(_PredefinedRanges);
 
@@ -22684,18 +22693,22 @@ var DateRange = function (_Component) {
   }, {
     key: 'setRange',
     value: function setRange(range, triggerChange, show) {
+      var _this2 = this;
+
       var onChange = this.props.onChange;
 
       range = this.orderRange(range);
+      this.isValid = this.isValidMonthRange(range);
 
       var callback = function callback() {
-        triggerChange && onChange && onChange(range);
+        triggerChange && onChange && onChange(range, _this2.isValid);
       };
 
-      if (show === undefined) {
-        this.setState({ range: range }, callback);
+      if (this.isValid) {
+        var newState = show === undefined ? { range: range } : { range: range, show: show };
+        this.setState(newState, callback);
       } else {
-        this.setState({ range: range, show: show }, callback);
+        onChange && onChange(range, this.isValid);
       }
     }
   }, {
@@ -22705,9 +22718,9 @@ var DateRange = function (_Component) {
         //Select in range
         this.step = 0;
         var showDaterange = false,
-            triggerChange = true;
+            _triggerChange = true;
         this.currentRange = Object.assign({}, date);
-        return this.setRange(date, triggerChange, showDaterange);
+        return this.setRange(date, _triggerChange, showDaterange);
       }
 
       var _state$range = this.state.range,
@@ -22733,19 +22746,16 @@ var DateRange = function (_Component) {
           break;
       }
 
-      this.isValid = this.isValidMonthRange(range);
-      if (this.isValid) {
-        var _triggerChange = !this.props.twoStepChange || this.step === 0 && this.props.twoStepChange;
-        this.setRange(range, _triggerChange);
-      } else {
-        this.props.onChange && this.props.onChange(range, this.isValid);
-      }
+      var triggerChange = !this.props.twoStepChange || this.step === 0 && this.props.twoStepChange;
+      this.setRange(range, triggerChange);
     }
   }, {
     key: 'isValidMonthRange',
     value: function isValidMonthRange(date) {
       var limitedMonthRange = this.props.limitedMonthRange;
 
+      console.log(date.startDate.format(_constants.MomentFormat.default));
+      console.log(date.endDate.format(_constants.MomentFormat.default));
 
       if (limitedMonthRange) {
         var range = date.endDate.clone().subtract(date.startDate.month(), "month");
@@ -22799,7 +22809,7 @@ var DateRange = function (_Component) {
     key: 'render',
     value: function render() {
       var _joiningClassNames,
-          _this2 = this;
+          _this3 = this;
 
       var _props = this.props,
           showRange = _props.showRange,
@@ -22848,7 +22858,7 @@ var DateRange = function (_Component) {
         _react2.default.createElement(
           'div',
           { className: 'daterange-label', onClick: function onClick() {
-              return _this2.show();
+              return _this3.show();
             } },
           _react2.default.createElement('input', { readOnly: true, name: 'DateRange', id: 'DateRange', className: 'input-text datepicker', type: 'text', autoComplete: 'off', value: this.dateRangeText }),
           _react2.default.createElement('i', { className: 'icon icon-calendar' })
@@ -22881,7 +22891,7 @@ var DateRange = function (_Component) {
                 key: i,
                 offset: realOffset,
                 link: linkedCalendars && link,
-                linkCB: _this2.handleLinkChange.bind(_this2),
+                linkCB: _this3.handleLinkChange.bind(_this3),
                 range: range,
                 format: format,
                 firstDayOfWeek: firstDayOfWeek,
@@ -22891,8 +22901,8 @@ var DateRange = function (_Component) {
                 onlyClasses: onlyClasses,
                 specialDays: specialDays,
                 classNames: classes,
-                onChange: _this2.handleSelect.bind(_this2),
-                locale: _this2.locale }));
+                onChange: _this3.handleSelect.bind(_this3),
+                locale: _this3.locale }));
             }
             return _calendars;
           }()
@@ -22956,7 +22966,7 @@ DateRange.propTypes = {
 exports.default = DateRange;
 
 /***/ }),
-/* 683 */
+/* 684 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -23205,10 +23215,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 683;
+webpackContext.id = 684;
 
 /***/ }),
-/* 684 */
+/* 685 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23411,7 +23421,7 @@ DayCell.propTypes = {
 exports.default = DayCell;
 
 /***/ }),
-/* 685 */
+/* 686 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23611,7 +23621,7 @@ PredefinedRanges.propTypes = {
 exports.default = PredefinedRanges;
 
 /***/ }),
-/* 686 */
+/* 687 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23638,7 +23648,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 687 */
+/* 688 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23652,7 +23662,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _ref, _ref2, _ref4, _ref5, _ref6, _ref7;
 
-var _excel = __webpack_require__(688);
+var _excel = __webpack_require__(689);
 
 var _excel2 = _interopRequireDefault(_excel);
 
@@ -23660,7 +23670,7 @@ var _langHelper = __webpack_require__(39);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _excelStyle = __webpack_require__(689);
+var _excelStyle = __webpack_require__(690);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23827,7 +23837,7 @@ var ReportExcel = function () {
 exports.default = ReportExcel;
 
 /***/ }),
-/* 688 */
+/* 689 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23839,7 +23849,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _xlsxStyle = __webpack_require__(181);
+var _xlsxStyle = __webpack_require__(191);
 
 var XLSX = _interopRequireWildcard(_xlsxStyle);
 
@@ -23907,7 +23917,7 @@ var Excel = function () {
 exports.default = Excel;
 
 /***/ }),
-/* 689 */
+/* 690 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23966,7 +23976,7 @@ var grandTotalCellStyle = exports.grandTotalCellStyle = {
 };
 
 /***/ }),
-/* 690 */
+/* 691 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24031,7 +24041,7 @@ exports.default = Loader;
 ;
 
 /***/ }),
-/* 691 */
+/* 692 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24085,7 +24095,7 @@ var AppLayout = function (_Component) {
 exports.default = AppLayout;
 
 /***/ }),
-/* 692 */
+/* 693 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24097,27 +24107,27 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(34);
 
-var _dataHandlerReducer = __webpack_require__(693);
+var _dataHandlerReducer = __webpack_require__(694);
 
 var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
 
-var _filterHandlerReducer = __webpack_require__(694);
+var _filterHandlerReducer = __webpack_require__(695);
 
 var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
 
-var _productReducer = __webpack_require__(695);
+var _productReducer = __webpack_require__(696);
 
 var productReducer = _interopRequireWildcard(_productReducer);
 
-var _baseCurrency = __webpack_require__(696);
+var _baseCurrency = __webpack_require__(697);
 
 var baseCurrencyReducer = _interopRequireWildcard(_baseCurrency);
 
-var _fixedTableHeaderReducer = __webpack_require__(697);
+var _fixedTableHeaderReducer = __webpack_require__(698);
 
 var fixedTableHeaderReducer = _interopRequireWildcard(_fixedTableHeaderReducer);
 
-var _loaderReducer = __webpack_require__(698);
+var _loaderReducer = __webpack_require__(699);
 
 var loaderReducer = _interopRequireWildcard(_loaderReducer);
 
@@ -24126,7 +24136,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, filterHandlerReducer, productReducer, baseCurrencyReducer, fixedTableHeaderReducer, loaderReducer));
 
 /***/ }),
-/* 693 */
+/* 694 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24156,7 +24166,7 @@ var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProper
 }));
 
 /***/ }),
-/* 694 */
+/* 695 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24206,7 +24216,7 @@ var dateConstraint = exports.dateConstraint = (0, _createReducer8.default)({}, _
 }));
 
 /***/ }),
-/* 695 */
+/* 696 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24240,7 +24250,7 @@ var productOptions = exports.productOptions = (0, _createReducer4.default)({}, _
 }));
 
 /***/ }),
-/* 696 */
+/* 697 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24274,7 +24284,7 @@ var baseCurrencyList = exports.baseCurrencyList = (0, _createReducer4.default)({
 }));
 
 /***/ }),
-/* 697 */
+/* 698 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24304,7 +24314,7 @@ var containerWidth = exports.containerWidth = (0, _createReducer3.default)({}, _
 }));
 
 /***/ }),
-/* 698 */
+/* 699 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24333,6 +24343,20 @@ var isLoading = exports.isLoading = (0, _createReducer3.default)({}, _defineProp
     return action.data;
 }));
 
+/***/ }),
+/* 700 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var debuggingConfig = exports.debuggingConfig = {
+    env: "local"
+};
+
 /***/ })
-],[653]);
+],[654]);
 //# sourceMappingURL=subsidiaryperformance.chunk.js.map
