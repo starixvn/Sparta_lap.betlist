@@ -1,8 +1,9 @@
 ﻿namespace Fanex.Athena.Controllers
 {
     using System.Web.Mvc;
+    using DataAccess.Core.Users;
+    using DataAccess.Core.Users.Interfaces;
     using Extension.Utility;
-    using Fanex.Athena.Service.Core.Users;
     using Model.Core.DataDomain;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
@@ -11,21 +12,21 @@
     [AuthorizeRestriction(AppMode.Self)]
     public class LicenseeListController : BaseController
     {
-        private readonly ILicenseeService _licenseeService;
+        private readonly ILicenseeDataAccess _licenseeDataAccess;
 
         public LicenseeListController()
         {
-            _licenseeService = new LicenseeService();
+            _licenseeDataAccess = new LicenseeDataAccess();
         }
 
         public LicenseeListController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            ILicenseeService licenseeService)
+            ILicenseeDataAccess licenseeDataAccess)
             : base(languageService, sessionService, appSetting)
         {
-            _licenseeService = licenseeService;
+            _licenseeDataAccess = licenseeDataAccess;
         }
 
         [HttpGet]
@@ -44,7 +45,7 @@
             }
             else
             {
-                var licenseeList = _licenseeService.GetByUser(userSession.UserId);
+                var licenseeList = _licenseeDataAccess.GetByUser(userSession.UserId);
 
                 if (licenseeList.Count <= 0)
                 {

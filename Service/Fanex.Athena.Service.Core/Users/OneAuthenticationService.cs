@@ -7,6 +7,8 @@
     using System.Web.Hosting;
     using Common;
     using Common.Interfaces;
+    using DataAccess.Core.Users;
+    using DataAccess.Core.Users.Interfaces;
     using Extension.Utility;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -22,7 +24,7 @@
     public class OneAuthenticationService : IOneAuthenticationService
     {
         private readonly ISessionService _sessionService;
-        private readonly ILicenseeService _licenseeService;
+        private readonly ILicenseeDataAccess _licenseeDataAccess;
         private readonly ICurrencyService _currencyService;
         private readonly IUserService _userService;
         private readonly IFormsAuthenticationService _formsAuthenticationService;
@@ -34,14 +36,14 @@
 
         public OneAuthenticationService(
             ISessionService sessionService,
-            ILicenseeService licenseeService,
+            ILicenseeDataAccess licenseeDataAccess,
             ICurrencyService currencyService,
             IFormsAuthenticationService formsAuthenticationService,
             IUserService userService,
             IOneBookSecurityWrapper oneBookSecurityWrapper)
         {
             _sessionService = sessionService ?? new SessionService();
-            _licenseeService = licenseeService ?? new LicenseeService();
+            _licenseeDataAccess = licenseeDataAccess ?? new LicenseeDataAccess();
             _currencyService = currencyService ?? new CurrencyService();
             _formsAuthenticationService = formsAuthenticationService ?? new FormsAuthenticationService();
             _userService = userService ?? new UserService();
@@ -58,7 +60,7 @@
 
         public IResultInfo SignIn(HttpContextBase currentContext, OneAuthToken tokenInfo)
         {
-            var licensee = _licenseeService.GetLicenseeByName(tokenInfo.SiteName);
+            var licensee = _licenseeDataAccess.GetLicenseeByName(tokenInfo.SiteName);
             if (licensee == null)
             {
                 return new ResultInfo

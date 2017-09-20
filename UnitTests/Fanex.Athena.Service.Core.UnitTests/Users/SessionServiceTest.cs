@@ -7,6 +7,7 @@
     using Core.Common.Interfaces;
     using Core.Users;
     using Core.Users.Interfaces;
+    using DataAccess.Core.Users.Interfaces;
     using Model.Core.DTO;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
@@ -19,7 +20,7 @@
         private const int DefaultUserId = 1;
 
         private IFunctionService _functionService;
-        private ILicenseeService _licenseeService;
+        private ILicenseeDataAccess _licenseeDataAccess;
         private ICurrencyService _currencyService;
         private ISessionService _sessionService;
 
@@ -27,7 +28,7 @@
         public void SetUp()
         {
             _functionService = Substitute.For<IFunctionService>();
-            _licenseeService = Substitute.For<ILicenseeService>();
+            _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
             var licenseeList = new List<Licensee>
             {
                 new Licensee
@@ -36,16 +37,16 @@
                     Name = "12bet"
                 }
             };
-            _licenseeService.GetByUser(DefaultUserId).Returns<IList<Licensee>>(i => licenseeList);
+            _licenseeDataAccess.GetByUser(DefaultUserId).Returns<IList<Licensee>>(i => licenseeList);
             _currencyService = Substitute.For<ICurrencyService>();
-            _sessionService = new SessionService(_functionService, _licenseeService, _currencyService);
+            _sessionService = new SessionService(_functionService, _licenseeDataAccess, _currencyService);
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
             _functionService = null;
-            _licenseeService = null;
+            _licenseeDataAccess = null;
             _currencyService = null;
             _sessionService = null;
         }
@@ -69,7 +70,7 @@
             {
                 new Licensee { Id = 1, Name = "spondemo" }
             };
-            _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
+            _licenseeDataAccess.GetByUser(DefaultUserId).Returns(licensees);
 
             // Action
             CreateDefaultNewSession(LicenseeId);
@@ -113,7 +114,7 @@
                 new Licensee { Id = 1, Name = "spondemo" },
                 new Licensee { Id = 2, Name = "12bet" },
             };
-            _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
+            _licenseeDataAccess.GetByUser(DefaultUserId).Returns(licensees);
             const int OldLicenseeId = 1;
             const int NewLicenseeId = 2;
             CreateDefaultNewSession(OldLicenseeId);
@@ -135,7 +136,7 @@
                 new Licensee { Id = 1, Name = "spondemo" },
                 new Licensee { Id = 2, Name = "12bet" },
             };
-            _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
+            _licenseeDataAccess.GetByUser(DefaultUserId).Returns(licensees);
             const int OldLicenseeId = 1;
             const int NewLicenseeId = 0;
             CreateDefaultNewSession(OldLicenseeId);
@@ -158,7 +159,7 @@
                 new Licensee { Id = 2, Name = "12bet" },
             };
             var functions = new List<Function> { new Function { FunctionId = 42 } };
-            _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
+            _licenseeDataAccess.GetByUser(DefaultUserId).Returns(licensees);
             const int OldLicenseeId = 1;
             const int NewLicenseeId = 2;
             _functionService.GetUserFunctionList(NewLicenseeId, DefaultUserId).Returns(functions);
@@ -181,7 +182,7 @@
                 new Licensee { Id = 2, Name = "12bet" },
             };
             var functions = new List<Function> { new Function { FunctionId = 1, ParentId = 1, IsActive = true, Url = "TestUrl" } };
-            _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
+            _licenseeDataAccess.GetByUser(DefaultUserId).Returns(licensees);
             const int OldLicenseeId = 1;
             const int NewLicenseeId = 2;
             _functionService.GetUserFunctionList(NewLicenseeId, DefaultUserId).Returns(functions);
@@ -204,7 +205,7 @@
                 new Licensee { Id = 2, Name = "12bet" },
             };
             var functions = new List<Function> { new Function { FunctionId = 1, ParentId = 1, IsActive = false, Url = "TestUrl" } };
-            _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
+            _licenseeDataAccess.GetByUser(DefaultUserId).Returns(licensees);
             const int OldLicenseeId = 1;
             const int NewLicenseeId = 2;
             _functionService.GetUserFunctionList(NewLicenseeId, DefaultUserId).Returns(functions);
@@ -227,7 +228,7 @@
                 new Licensee { Id = 2, Name = "12bet" },
             };
             var functions = new List<Function> { new Function { FunctionId = 1, ParentId = 0, IsActive = true, Url = "TestUrl" } };
-            _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
+            _licenseeDataAccess.GetByUser(DefaultUserId).Returns(licensees);
             const int OldLicenseeId = 1;
             const int NewLicenseeId = 2;
             _functionService.GetUserFunctionList(NewLicenseeId, DefaultUserId).Returns(functions);

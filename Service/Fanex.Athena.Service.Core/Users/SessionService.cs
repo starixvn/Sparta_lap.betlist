@@ -14,6 +14,8 @@ namespace Fanex.Athena.Service.Core.Users
     using System.Linq;
     using System.Text;
     using System.Web;
+    using DataAccess.Core.Users;
+    using DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
@@ -33,23 +35,23 @@ namespace Fanex.Athena.Service.Core.Users
         private const string UserSessionKey = "UserSessionKey";
         private const string CaptchaCodeKey = "CaptchaCodeKey";
         private readonly IFunctionService _functionService;
-        private readonly ILicenseeService _licenseeService;
+        private readonly ILicenseeDataAccess _licenseeDataAccess;
         private readonly ICurrencyService _currencyService;
 
         public SessionService()
         {
             _functionService = new FunctionService();
-            _licenseeService = new LicenseeService();
+            _licenseeDataAccess = new LicenseeDataAccess();
             _currencyService = new CurrencyService();
         }
 
         public SessionService(
             IFunctionService functionService,
-            ILicenseeService licenseeService,
+            ILicenseeDataAccess licenseeDataAccess,
             ICurrencyService currencyService)
         {
             _functionService = functionService;
-            _licenseeService = licenseeService;
+            _licenseeDataAccess = licenseeDataAccess;
             _currencyService = currencyService;
         }
 
@@ -94,7 +96,7 @@ namespace Fanex.Athena.Service.Core.Users
             string language = "en-US",
             ClientViewType viewType = ClientViewType.None)
         {
-            var licenseeList = _licenseeService.GetByUser(userId);
+            var licenseeList = _licenseeDataAccess.GetByUser(userId);
             var functionList = _functionService.GetUserFunctionList(licenseeId, userId);
             var functionIdList = functionList.Select(f => f.FunctionId).ToList();
             var userSession = new UserSession
@@ -120,7 +122,7 @@ namespace Fanex.Athena.Service.Core.Users
         public void UpdateLiceseeSession(int licenseeId)
         {
             var userSession = this.UserSession;
-            var licenseeList = _licenseeService.GetByUser(userSession.UserId);
+            var licenseeList = _licenseeDataAccess.GetByUser(userSession.UserId);
 
             if (licenseeId > 0)
             {

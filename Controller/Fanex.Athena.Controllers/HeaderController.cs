@@ -7,21 +7,21 @@
 namespace Fanex.Athena.Controllers
 {
     using System.Web.Mvc;
+    using DataAccess.Core.Users;
+    using DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.ViewModel;
-    using Fanex.Athena.Service.Core.Users;
-    using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.DataDomain;
     using Web.ActionFilter;
 
     [AuthorizeRestriction(AppMode.Self)]
     public class HeaderController : BaseController
     {
-        private readonly ILicenseeService _licenseeService;
+        private readonly ILicenseeDataAccess _licenseeDataAccess;
 
         public HeaderController()
         {
-            _licenseeService = new LicenseeService();
+            _licenseeDataAccess = new LicenseeDataAccess();
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Fanex.Athena.Controllers
             {
                 Language = userSession.Language,
                 OnUserId = userSession.OnUserId,
-                LicenseeList = _licenseeService.GetByUser(userSession.UserId),
+                LicenseeList = _licenseeDataAccess.GetByUser(userSession.UserId),
                 IsInternalLogin = userSession.IsInternal,
                 HasRecheckIn = !AppSettings.LocalTest,
                 SupportedLanguageList = Util.SupportedLanguages,
@@ -53,7 +53,7 @@ namespace Fanex.Athena.Controllers
             var originalLicenseeId = SessionService.LicenseeSession.LicenseeId;
             var originalUserId = SessionService.UserSession.UserId;
 
-            if (newLicenseeId <= 0 || !_licenseeService.IsLicenseeBelongToUser(originalLicenseeId, originalUserId))
+            if (newLicenseeId <= 0 || !_licenseeDataAccess.IsLicenseeBelongToUser(originalLicenseeId, originalUserId))
             {
                 newLicenseeId = originalLicenseeId;
             }

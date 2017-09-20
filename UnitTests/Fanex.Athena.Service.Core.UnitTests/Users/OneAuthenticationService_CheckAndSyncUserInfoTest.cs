@@ -3,6 +3,7 @@
     using System.Web;
     using Core.Common.Interfaces;
     using Core.Users.Interfaces;
+    using DataAccess.Core.Users.Interfaces;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DTO.Common;
@@ -16,7 +17,7 @@
     {
         private OneAuthenticationService _oneAuthenticationService;
         private ISessionService _sessionService;
-        private ILicenseeService _licenseeService;
+        private ILicenseeDataAccess _licenseeDataAccess;
         private ICurrencyService _currencyService;
         private IFormsAuthenticationService _formAuthenticationService;
         private IUserService _userService;
@@ -25,12 +26,12 @@
         public void SetUp()
         {
             _sessionService = Substitute.For<ISessionService>();
-            _licenseeService = Substitute.For<ILicenseeService>();
+            _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
             _currencyService = Substitute.For<ICurrencyService>();
             _userService = Substitute.For<IUserService>();
             _sessionService.UserSession.Returns(x => null);
             _sessionService.LicenseeSession.Returns(x => null);
-            _licenseeService.GetLicenseeByName(Arg.Any<string>()).Returns(new Licensee { Id = 1, Name = "test", IsAllowedCustomerComm = true });
+            _licenseeDataAccess.GetLicenseeByName(Arg.Any<string>()).Returns(new Licensee { Id = 1, Name = "test", IsAllowedCustomerComm = true });
             _formAuthenticationService = Substitute.For<IFormsAuthenticationService>();
         }
 
@@ -39,7 +40,7 @@
         {
             _oneAuthenticationService = null;
             _sessionService = null;
-            _licenseeService = null;
+            _licenseeDataAccess = null;
             _currencyService = null;
             _formAuthenticationService = null;
         }
@@ -54,7 +55,13 @@
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
             _userService.GetByUsername(tokenInfo.UserID, Arg.Any<int>()).Returns(x => null);
-            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService, null);
+            _oneAuthenticationService = new OneAuthenticationService(
+                _sessionService,
+                _licenseeDataAccess, 
+                _currencyService, 
+                _formAuthenticationService, 
+                _userService, 
+                null);
 
             var expectedResult = new ResultInfo { Code = 800, Message = "Not found user" };
 
@@ -80,7 +87,7 @@
             _userService.GetByUsername(tokenInfo.UserID, Arg.Any<int>()).Returns(x => new User { UserID = exptectedUserId });
 
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(
-                _sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService, null);
+                _sessionService, _licenseeDataAccess, _currencyService, _formAuthenticationService, _userService, null);
 
             _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).DoNotCallBase();
             _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).Do(x => counter++);

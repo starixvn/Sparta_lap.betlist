@@ -4,6 +4,7 @@
     using System.Web;
     using Core.Common.Interfaces;
     using Core.Users.Interfaces;
+    using DataAccess.Core.Users.Interfaces;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DTO;
@@ -19,7 +20,7 @@
     {
         private OneAuthenticationService _oneAuthenticationService;
         private ISessionService _sessionService;
-        private ILicenseeService _licenseeService;
+        private ILicenseeDataAccess _licenseeDataAccess;
         private ICurrencyService _currencyService;
         private IFormsAuthenticationService _formAuthenticationService;
         private IUserService _userService;
@@ -28,10 +29,10 @@
         public void SetUp()
         {
             _sessionService = Substitute.For<ISessionService>();
-            _licenseeService = Substitute.For<ILicenseeService>();
+            _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
             _currencyService = Substitute.For<ICurrencyService>();
             _userService = Substitute.For<IUserService>();
-            _licenseeService.GetLicenseeByName(Arg.Any<string>()).Returns(new Licensee { Id = 1, Name = "spondemo", IsAllowedCustomerComm = true });
+            _licenseeDataAccess.GetLicenseeByName(Arg.Any<string>()).Returns(new Licensee { Id = 1, Name = "spondemo", IsAllowedCustomerComm = true });
             _sessionService.UserSession.Returns(x => null);
             _sessionService.LicenseeSession.Returns(x => null);
             _userService.GetByUsername(Arg.Any<string>(), Arg.Any<int>()).Returns(new User { UserID = 1 });
@@ -43,7 +44,7 @@
         {
             _oneAuthenticationService = null;
             _sessionService = null;
-            _licenseeService = null;
+            _licenseeDataAccess = null;
             _currencyService = null;
             _formAuthenticationService = null;
         }
@@ -54,7 +55,13 @@
             // Arrange
             var tokenInfo = new OneAuthToken { IsAdminstrator = false };
 
-            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService, null);
+            _oneAuthenticationService = new OneAuthenticationService(
+                _sessionService,
+                _licenseeDataAccess,
+                _currencyService,
+                _formAuthenticationService,
+                _userService,
+                null);
 
             // Action
             _oneAuthenticationService.SetAuthorize(tokenInfo);
@@ -73,7 +80,13 @@
 
             _currencyService.GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(new List<CurrencyUser>());
 
-            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService, null);
+            _oneAuthenticationService = new OneAuthenticationService(
+                _sessionService, 
+                _licenseeDataAccess, 
+                _currencyService, 
+                _formAuthenticationService, 
+                _userService, 
+                null);
 
             var expectedResult = new ResultInfo { Code = 600, Message = "Not found currency" };
 
@@ -114,7 +127,7 @@
             _formAuthenticationService.When(x => x.SetAuthCookie(expectedCookie, false)).Do(x => cookieCounter++);
 
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(
-                _sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService, null);
+                _sessionService, _licenseeDataAccess, _currencyService, _formAuthenticationService, _userService, null);
 
             _oneAuthenticationService.GetStringFromFile(Arg.Any<string>()).Returns(GetJsonSystemFunctionList());
 

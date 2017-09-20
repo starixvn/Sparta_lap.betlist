@@ -3,27 +3,27 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using DataAccess.Core.Users.Interfaces;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Core.Users.Interfaces;
 
     [TestFixture]
     public partial class LicenseeListControllerTest : BaseControllerTest
     {
-        private ILicenseeService _licenseeService;
+        private ILicenseeDataAccess _licenseeDataAccess;
 
         [SetUp]
         public new void FixtureSetUp()
         {
             FakeBaseControllerDependency();
-            _licenseeService = Substitute.For<ILicenseeService>();
+            _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
         }
 
         [TearDown]
         public new void FixtureTearDown()
         {
-            _licenseeService = null;
+            _licenseeDataAccess = null;
         }
 
         [Test]
@@ -63,7 +63,7 @@
         public void Index_UserHasNoLicensee_RedirectToSignIn()
         {
             // Arrange
-            _licenseeService.GetByUser(SessionUserId).Returns(new List<Licensee>());
+            _licenseeDataAccess.GetByUser(SessionUserId).Returns(new List<Licensee>());
             using (var controller = CreateController())
             {
                 // Action
@@ -79,7 +79,7 @@
         public void Index_UserHasOneLicensee_RedirectToHome()
         {
             // Arrange
-            _licenseeService.GetByUser(SessionUserId).Returns(new List<Licensee>
+            _licenseeDataAccess.GetByUser(SessionUserId).Returns(new List<Licensee>
             {
                 new Licensee()
             });
@@ -98,7 +98,7 @@
         public void Index_UserHasManyLicensees_ReturnCorrectView()
         {
             // Arrange
-            _licenseeService.GetByUser(SessionUserId).Returns(new List<Licensee>
+            _licenseeDataAccess.GetByUser(SessionUserId).Returns(new List<Licensee>
             {
                 new Licensee(),
                 new Licensee()
@@ -119,7 +119,7 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                _licenseeService);
+                _licenseeDataAccess);
 
             controller.ControllerContext = this.ControllerContext;
 

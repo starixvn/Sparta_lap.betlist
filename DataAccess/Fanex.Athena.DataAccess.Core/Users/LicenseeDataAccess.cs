@@ -9,18 +9,17 @@ namespace Fanex.Athena.DataAccess.Core.Users
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Data;
     using Fanex.Logging;
+    using Model.Core.DTO.Users;
 
     public class LicenseeDataAccess : BaseDataAccess, ILicenseeDataAccess
     {
-        #region Public Methods and Operators
-
         public IResultInfo IsAllowUpdateMemberBAStatus(Request request, int licenseeId, out bool isAllow)
         {
             const string UspName = "Lrf_BATimeCheck";
@@ -45,6 +44,12 @@ namespace Fanex.Athena.DataAccess.Core.Users
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
+        }
+
+        public bool IsLicenseeBelongToUser(int licenseeId, int userId)
+        {
+            var licenseeList = GetByUser(userId);
+            return licenseeList.Any(l => l.Id == licenseeId);
         }
 
         public IList<Licensee> GetByUser(int userId)
@@ -85,8 +90,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
         }
 
-        #endregion Public Methods and Operators
-
         public Licensee GetLicenseeByName(string licenseeName)
         {
             const string UspName = "Lrf_LicenseeSelBySiteName";
@@ -96,6 +99,24 @@ namespace Fanex.Athena.DataAccess.Core.Users
                 using (var db = this.GetObjectDb(UspName))
                 {
                     return db.QueryEntity<Licensee>(uspParams);
+                }
+            }
+            catch (ObjectDbException sqlException)
+            {
+                LogService.Error(sqlException.Message, sqlException);
+                throw new DataAccessException(sqlException.Message, UspName, uspParams);
+            }
+        }
+
+        public IEnumerable<LicenseeSourcedSetting> GetLicenseeSourcedSettings(int licenseeId)
+        {
+            const string UspName = "LRF_LicenseeSourcedSel";
+            var uspParams = new { LicenseeId = licenseeId };
+            try
+            {
+                using (var db = this.GetObjectDb(UspName))
+                {
+                    return db.Query<LicenseeSourcedSetting>(uspParams);
                 }
             }
             catch (ObjectDbException sqlException)

@@ -12,6 +12,8 @@ namespace Fanex.Athena.Controllers.Customer
     using System.IO;
     using System.Linq;
     using System.Web.Mvc;
+    using DataAccess.Core.Users;
+    using DataAccess.Core.Users.Interfaces;
     using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Customer;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -19,8 +21,6 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Model.Customer.ViewModel;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Athena.Service.Core.Users;
-    using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Service.Customer;
     using Fanex.Athena.Service.Customer.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
@@ -50,12 +50,12 @@ namespace Fanex.Athena.Controllers.Customer
 
         private readonly ICustomerService _customerService;
         private readonly IGroupComService _groupComService;
-        private readonly ILicenseeService _licenseeService;
+        private readonly ILicenseeDataAccess _licenseeDataAccess;
         private readonly IProductService _productService;
 
         public CustomerController()
         {
-            _licenseeService = new LicenseeService();
+            _licenseeDataAccess = new LicenseeDataAccess();
             _customerService = new CustomerService();
             _groupComService = new GroupComService();
             _productService = new ProductService();
@@ -240,7 +240,7 @@ namespace Fanex.Athena.Controllers.Customer
             var canUpdateBaMessage = string.Empty;
             if (!specialBaPermission)
             {
-                var canUpdateBaResult = _licenseeService.IsAllowUpdateMemberBAStatus(request, licenseeSession.LicenseeId, out canUpdateBa);
+                var canUpdateBaResult = _licenseeDataAccess.IsAllowUpdateMemberBAStatus(request, licenseeSession.LicenseeId, out canUpdateBa);
                 canUpdateBaMessage = canUpdateBaResult.Message;
             }
 

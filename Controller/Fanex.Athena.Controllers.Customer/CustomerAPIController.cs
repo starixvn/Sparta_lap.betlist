@@ -13,6 +13,8 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Linq;
     using System.Web.Mvc;
     using System.Web.SessionState;
+    using DataAccess.Core.Users;
+    using DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -20,8 +22,6 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Helpers;
-    using Fanex.Athena.Service.Core.Users;
-    using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Service.Customer;
     using Fanex.Athena.Service.Customer.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
@@ -43,7 +43,7 @@ namespace Fanex.Athena.Controllers.Customer
 
         private readonly ICustomerService _customerService;
         private readonly IGroupComService _groupComService;
-        private readonly ILicenseeService _licenseeService;
+        private readonly ILicenseeDataAccess _licenseeDataAccess;
         private readonly IProductService _productService;
 
         #endregion Fields
@@ -52,7 +52,7 @@ namespace Fanex.Athena.Controllers.Customer
 
         public CustomerApiController()
         {
-            _licenseeService = new LicenseeService();
+            _licenseeDataAccess = new LicenseeDataAccess();
             _customerService = new CustomerService();
             _groupComService = new GroupComService();
             _productService = new ProductService();
@@ -258,7 +258,7 @@ namespace Fanex.Athena.Controllers.Customer
             if (!specialBaPermission)
             {
                 bool isAllowUpdateBa;
-                var isAllowUpdateBaResult = _licenseeService.IsAllowUpdateMemberBAStatus(request, licenseeSession.LicenseeId, out isAllowUpdateBa);
+                var isAllowUpdateBaResult = _licenseeDataAccess.IsAllowUpdateMemberBAStatus(request, licenseeSession.LicenseeId, out isAllowUpdateBa);
                 if (!isAllowUpdateBa)
                 {
                     return Json(new
@@ -379,7 +379,7 @@ namespace Fanex.Athena.Controllers.Customer
             }
 
             return Json(result);
-        }       
+        }
 
         /// <summary>
         /// Remove customer from group commission.

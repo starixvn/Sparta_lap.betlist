@@ -149,6 +149,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
+      <Project>{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}</Project>
+      <Name>Fanex.Athena.DataAccess.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena.Controllers.Base\Fanex.Athena.Controllers.Base.csproj">
       <Project>{255e120a-83bf-4f72-9e31-6050d5704069}</Project>
       <Name>Fanex.Athena.Controllers.Base</Name>

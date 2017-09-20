@@ -11,6 +11,7 @@ namespace Fanex.Athena.DataAccess.Core.Users.Interfaces
 {
     using System.Collections.Generic;
     using Fanex.Athena.Model.Core.DTO.Common;
+    using Model.Core.DTO.Users;
 
     public interface ILicenseeDataAccess
     {
@@ -18,8 +19,12 @@ namespace Fanex.Athena.DataAccess.Core.Users.Interfaces
             Justification = "Reviewed. Suppression is OK here.")]
         IResultInfo IsAllowUpdateMemberBAStatus(Request request, int licenseeId, out bool isAllow);
 
+        bool IsLicenseeBelongToUser(int licenseeId, int userId);
+
         IList<Licensee> GetByUser(int userId);
 
         Licensee GetLicenseeByName(string licenseeName);
+
+        IEnumerable<LicenseeSourcedSetting> GetLicenseeSourcedSettings(int licenseeId);
     }
 }
