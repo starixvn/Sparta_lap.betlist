@@ -38,8 +38,8 @@
     "malihu-custom-scrollbar-plugin": "^3.1.5",
     "materialize-autocomplete": "^1.0.4",
     "moment": "^2.15.1",
-    "node-sass": "^4.5.3",
     "node-gyp": "^3.6.2",
+    "node-sass": "^4.5.3",
     "phantomjs-prebuilt": "^2.1.7",
     "react-test-renderer": "^15.6.1",
     "requirejs": "^2.3.2",
@@ -47,7 +47,6 @@
     "squirejs": "^0.2.1",
     "style-loader": "^0.18.2",
     "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.8.2",
     "webpack-merge": "^4.1.0"
   },
   "scripts": {
@@ -56,8 +55,6 @@
     "test-new": "karma start karma-new.conf.js --reporters kjhtml,junit,dots,coverage,progress",
     "build-dev": "webpack --config www/webpackconfig/build/webpack.dev.conf.js",
     "build-pro": "webpack --config www/webpackconfig/build/webpack.pro.conf.js",
-    "build-react": "webpack-dev-server --hot --inline --config www/webpackconfig/build/webpack.react.dev.conf.js",
-    "build-react-hmr": "webpack-dev-server --hot --inline --config www/webpackconfig/build/webpack.react.hmr.conf.js",
     "build-react-dev": "webpack --config www/webpackconfig/build/webpack.react.dev.conf.js",
     "build-react-pro": "webpack --config www/webpackconfig/build/webpack.react.pro.conf.js",
     "build-react-both": "webpack --config www/webpackconfig/build/webpack.react.pro.conf.js && webpack --config www/webpackconfig/build/webpack.react.dev.conf.js"

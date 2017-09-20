@@ -14,9 +14,13 @@ function generateConfig(environment) {
         },
         entry: {
             /*js*/
-            reactVendorJs: ["react", "react-redux", "redux", "react-dom", "redux-thunk", "redux-logger", "axios", "xlsx-style",
+
+            /*  */
+            reactpages: ["react", "react-redux", "redux", "react-dom", "redux-thunk", "redux-logger", "axios",
                 "core-js/fn/object/assign", "core-js/fn/promise", "core-js/fn/array/find"
             ],
+            excel: ["xlsx-style"],
+          
             [`${jsPath}/subsidiaryperformance/subsidiaryperformance`]: pathConfig.scriptPaths.subsidiaryperformance,
             [`${jsPath}/lib/langHelper`]: pathConfig.scriptPaths.languageResource,
             /*css*/

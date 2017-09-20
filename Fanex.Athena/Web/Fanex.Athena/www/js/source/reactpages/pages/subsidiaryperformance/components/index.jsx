@@ -4,21 +4,21 @@ import AppContainer from './AppContainer.jsx'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
-import { createLogger } from 'redux-logger'
 import reducer from '../reducers/index.js'
 
+
 // middleware that logs actions
-const loggerMiddleware = createLogger();
+const middlewares = [thunkMiddleware];
+
+if (process.env.NODE_ENV === `development`) {
+  const { logger } = require(`redux-logger`);
+  middlewares.push(logger);
+}
 
 const defaultState = Object.assign({}, window.Lrf);
 
 function configureStore(initialState) {
-  const enhancer = compose(
-    applyMiddleware(
-      thunkMiddleware, // lets us dispatch() functions
-      loggerMiddleware,
-    ),
-  );
+  const enhancer = compose(applyMiddleware(...middlewares));
   return createStore(reducer, initialState, enhancer);
 }
 

@@ -12,7 +12,6 @@ module.exports = merge(baseConfigs,
     utils.setDefinePlugin('process.env.NODE_ENV', 'production'),
     {
         watch: false,
-        keepalive: false,
         plugins: [
             new CleanWebpackPlugin([`${jsRootPath}/`], {
                 root: process.cwd()               

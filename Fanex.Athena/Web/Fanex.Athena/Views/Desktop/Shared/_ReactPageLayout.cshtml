@@ -36,8 +36,9 @@
 
         @RenderSection("globaljscode", required: false)
     </script>
-    <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/vendors/vendor.chunk.js")"></script>
+    <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/vendors/reactpages.chunk.js")"></script>
     <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/lib/langHelper.chunk.js")"></script>
+    <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/vendors/excel.chunk.js")"></script>
 
     @RenderSection("pagejs", required: false)
     @if (isParasiticMode)

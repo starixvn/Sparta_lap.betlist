@@ -11,12 +11,10 @@ function generatePlugins(environment) {
         }),
 
          new webpack.optimize.CommonsChunkPlugin({
-            name: "reactVendorJs",
-            filename: "www/js/build/" + environment + "/reactpages/vendors/vendor.chunk.js",
+             name: ["excel", "reactpages"],
+            filename: "www/js/build/" + environment + "/reactpages/vendors/[name].chunk.js",
             minChunks: Infinity
-        })
-
-    
+         })
     ];
 
     return commonPlugins;
