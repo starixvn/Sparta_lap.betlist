@@ -1,6 +1,6 @@
-import Excel from 'lrflib/excel'
-import LangHelper from 'lrflib/langHelper'
-import { headerCellStyle, bodyCellStyle, totalCellStyle, grandTotalCellStyle } from 'lrfconstants/excelStyle'
+import Excel from '../../../lib/excel'
+import LangHelper from '../../../lib/langHelper'
+import { headerCellStyle, bodyCellStyle, totalCellStyle, grandTotalCellStyle } from '../../../constants/excelStyle'
 
 const COLUMN_COUNT = 7;
 const START_OF_DATA_ROW = 1;
@@ -75,7 +75,7 @@ export default class ReportExcel {
         this.mergeConfig = [];
     }
 
-    export() {
+    export () {
         if (!this.gridData.Data || !this.gridData.Data.length) {
             return;
         }

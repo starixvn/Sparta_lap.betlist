@@ -1,5 +1,5 @@
 import moment from 'moment';
-import LangHelper from 'lrflib/langHelper';
+import LangHelper from "../../../lib/langHelper";
 
 export default {
     months: [

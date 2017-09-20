@@ -1,4 +1,4 @@
-import LangHelper from "lrflib/langHelper";
+import LangHelper from "../../lib/langHelper";
 import locale from "./utils/locale";
 
 export default {

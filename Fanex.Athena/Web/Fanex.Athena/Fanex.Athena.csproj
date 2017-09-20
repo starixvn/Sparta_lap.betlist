@@ -808,6 +808,7 @@
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Cell.test.js" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Row.test.js" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\FixedTable.jsx" />
+    <Content Include="www\js\source\reactpages\constants\config.js" />
     <Content Include="www\js\source\reactpages\layouts\AppLayout.jsx" />
     <Content Include="www\js\source\reactpages\lib\excel.js" />
     <Content Include="www\js\source\reactpages\constants\excelStyle.js" />
@@ -823,7 +824,6 @@
     <Content Include="www\js\source\reactpages\reducers\fixedTableHeaderReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\loaderReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\productReducer.js" />
-    <Content Include="www\webpackconfig\config\aliasReact.js" />
     <Content Include="www\webpackconfig\config\pathReact.js" />
     <Content Include="www\webpackconfig\config\pluginReact.js" />
     <None Include="bundleconfig.json" />

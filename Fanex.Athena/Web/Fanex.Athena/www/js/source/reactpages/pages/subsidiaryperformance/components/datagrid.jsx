@@ -2,9 +2,9 @@
 import { connect } from 'react-redux'
 import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
-import { Table, Header, Body, Footer, Row, Cell } from 'lrfcomponents/fixed-table-header/FixedTable'
-import LangHelper from 'lrflib/langHelper'
-import NumberFormat from 'lrflib/numberFormat'
+import { Table, Header, Body, Footer, Row, Cell } from '../../../components/fixed-table-header/FixedTable'
+import LangHelper from '../../../lib/langHelper'
+import NumberFormat from '../../../lib/numberFormat'
 
 const columnLayout = [150, 120, 200, 120, 180, 180, 180];
 

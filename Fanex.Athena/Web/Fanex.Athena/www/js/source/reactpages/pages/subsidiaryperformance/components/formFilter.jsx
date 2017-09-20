@@ -4,8 +4,8 @@ import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
 import Select from 'react-select'
 import MultipleSelect from '../../../components/multiple-select'
-import { Calendar, DateRange } from 'lrfcomponents/date-range/index'
-import LangHelper from 'lrflib/langHelper'
+import { Calendar, DateRange } from '../../../components/date-range/index'
+import LangHelper from '../../../lib/langHelper'
 import ReportExcel from '../lib/reportExcel';
 
 const RANGE_MONTH_CONSTRAINT = 3;
