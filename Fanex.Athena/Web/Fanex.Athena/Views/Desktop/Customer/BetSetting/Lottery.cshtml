@@ -29,7 +29,7 @@
     const string FormatDecimal = "#,###,##0.##";
 }
 
-@Html.Hidden("IsEnabled", Model.IsEnabled.Value ? 1 : 0)
+@Html.Hidden("IsEnabled", Model.IsEnabled.HasValue && Model.IsEnabled.Value ? 1 : 0)
 @Html.Hidden("IDList", String.Join(",", Model.MainData.Select(x => x.SportId)))
 
 @if (Model.MainData.Count == 0)

@@ -28,7 +28,7 @@
 }
 
 @Html.Hidden("gameTypeCount", gameTypeCount)
-@Html.Hidden("editable", Model.IsEnabled.Value)
+@Html.Hidden("editable", Model.IsEnabled.HasValue && Model.IsEnabled.Value)
 
 @if (gameTypeCount == 0)
 {

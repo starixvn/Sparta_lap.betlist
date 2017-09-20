@@ -96,7 +96,7 @@
     }
     @Html.Hidden("gameTypeCount", gameTypeCount)
     @Html.Hidden("dataCount", Model.LiveCasinoData.Count)
-    @Html.Hidden("editable", Model.IsEnabled.Value)
+    @Html.Hidden("editable", Model.IsEnabled.HasValue && Model.IsEnabled.Value)
 </div>
 <!--SubmitButton-->
 @if (Model.Editable && Model.LiveCasinoData.Count > 0)

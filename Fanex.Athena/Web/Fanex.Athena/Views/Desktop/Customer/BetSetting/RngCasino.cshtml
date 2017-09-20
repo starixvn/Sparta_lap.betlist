@@ -25,7 +25,7 @@
 }
 
 @Html.Hidden("IDList", String.Join(",", Model.MainData.Select(x => x.SportId)))
-@Html.Hidden("isenabled", Model.IsEnabled.Value)
+@Html.Hidden("isenabled", Model.IsEnabled.HasValue && Model.IsEnabled.Value)
 
 @if (Model.GameKinds.Count == 0)
 {

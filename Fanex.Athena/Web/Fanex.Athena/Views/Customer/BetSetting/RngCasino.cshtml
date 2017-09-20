@@ -75,7 +75,7 @@
         </tbody>
     </table>
 
-    @Html.Hidden("isenabled", Model.IsEnabled.Value)
+    @Html.Hidden("isenabled", Model.IsEnabled.HasValue && Model.IsEnabled.Value)
 </div>
 @if (Model.Editable && Model.GameKinds.Count > 0)
 {
