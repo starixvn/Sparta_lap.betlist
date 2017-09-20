@@ -7,16 +7,6 @@ const MAX_WIDTH = window.innerWidth - 30;
 class TableSection extends Component {
     constructor(props) {
         super(props);
-
-        const width = props.autoWidth ? props.maxWidth : props.width + SCROLLBAR_WIDTH;
-        const minWidth = props.minWidth;
-        this.containerStyle = { ...props.style, width, minWidth };
-
-        let tableWidth = props.autoWidth ? props.maxWidth : props.width;
-        tableWidth = Math.max(tableWidth, minWidth) - SCROLLBAR_WIDTH;
-        this.tableStyle = {
-            width: tableWidth
-        }
     }
 
     static propTypes = {
@@ -33,6 +23,26 @@ class TableSection extends Component {
         maxWidth: MAX_WIDTH,
         autoWidth: true
     };
+
+    get containerStyle(){
+        const { autoWidth, maxWidth, width, minWidth } = this.props;
+        const containerWidth = autoWidth ? maxWidth : width;
+
+        return { 
+            ...this.props.style, 
+            width: containerWidth, 
+            minWidth };
+    }
+
+    get tableStyle(){
+        const { autoWidth, maxWidth, width, minWidth } = this.props;       
+        let tableWidth = autoWidth ? maxWidth : width;
+        tableWidth = Math.max(tableWidth, minWidth) - SCROLLBAR_WIDTH;
+
+        return {
+            width: tableWidth
+        }
+    }
 
     render() {
         const { tableClass, width, autoWidth, maxWidth, minWidth, ...rest } = this.props;

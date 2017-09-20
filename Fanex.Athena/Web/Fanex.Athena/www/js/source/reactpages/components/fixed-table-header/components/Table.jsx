@@ -10,6 +10,12 @@ const MAX_WIDTH = window.innerWidth - 30;
 class Table extends Component {
     constructor(props) {
         super(props);
+
+        this.diffWidth = window.innerWidth - props.maxWidth;
+
+        this.state = {
+            maxWidth: props.maxWidth
+        }
     }
 
     static propTypes = {
@@ -32,9 +38,23 @@ class Table extends Component {
             null : columnLayout.reduce((prev, next) => prev + next, 0);
     }
 
+    componentDidMount() {
+        window.addEventListener('resize', this._handleResize)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this._handleResize)
+    }
+
+    _handleResize = (event) => {
+        event.preventDefault();
+        const maxWidth = window.innerWidth - this.diffWidth;
+        this.setState({ maxWidth });
+    }
+
     _getUpdatedColumnLayout() {
-        const { width, columnLayout, maxWidth, autoWidth } = this.props;
-        const sumOfColumnWidth = autoWidth ? maxWidth : width;
+        const { width, columnLayout, autoWidth } = this.props;
+        const sumOfColumnWidth = autoWidth ? this.state.maxWidth : width;
 
         const newColumnLayout = this.columnWidthSum && columnLayout.map(cellWidth => {
             return sumOfColumnWidth / this.columnWidthSum * cellWidth
@@ -44,7 +64,8 @@ class Table extends Component {
     }
 
     _buildContent() {
-        const { width, columnLayout, autoWidth, maxWidth, minWidth } = this.props;
+        const { width, columnLayout, autoWidth, minWidth } = this.props;
+        const { maxWidth } = this.state;
 
         const newColumnLayout = this.columnWidthSum && this.columnWidthSum !== width ?
             this._getUpdatedColumnLayout() :
@@ -70,7 +91,7 @@ class Table extends Component {
     }
 
     render() {
-        const { maxWidth } = this.props;
+        const { maxWidth } = this.state;
         return (
             <div className="table-container" style={{ maxWidth }}>
                 {this._buildContent()}

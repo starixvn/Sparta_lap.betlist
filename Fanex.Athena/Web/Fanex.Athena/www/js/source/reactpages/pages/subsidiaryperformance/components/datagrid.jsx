@@ -131,7 +131,6 @@ class DataGrid extends Component {
 
         return (
             <Table
-                maxWidth={this.props.containerWidth}
                 minWidth={600}
                 autoWidth={true}
                 columnLayout={columnLayout}
