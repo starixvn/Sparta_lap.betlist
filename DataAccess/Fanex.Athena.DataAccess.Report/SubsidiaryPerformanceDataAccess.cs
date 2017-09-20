@@ -12,8 +12,11 @@
 
     public class SubsidiaryPerformanceDataAccess : BaseDataAccess, ISubsidiaryPerformanceDataAccess
     {
-        public SubsidiaryPerformanceDataAccess(BalanceUp balanceUp) : base(balanceUp)
+        private readonly BalanceUp _balanceUp;
+
+        public SubsidiaryPerformanceDataAccess(BalanceUp balanceUp)
         {
+            _balanceUp = balanceUp;
         }
 
         public IEnumerable<SubsidiaryPerformanceEntity> GetData(SubsidiaryPerformanceMetaModel metaModel, out IEnumerable<SubsidiaryPerformanceEntity> totalDataList)
@@ -45,7 +48,7 @@
         {
             objectDb.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
             objectDb.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-            objectDb.AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
+            objectDb.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUp.MoveBetsDay);
             objectDb.AddInParameter("ProductList", DbType.String, metaModel.ProductCodeList);
             objectDb.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
         }

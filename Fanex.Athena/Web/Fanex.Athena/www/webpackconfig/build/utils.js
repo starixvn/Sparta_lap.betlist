@@ -49,14 +49,14 @@ exports.extractCSS = function(isProduction) {
                                 loader: 'css-loader',
                                 options: {
                                     minimize: isProduction,
-                                    url: false,
+                                    url: false
                                 }
                             },
                           {
                               loader: 'sass-loader',
                               options: {
                                   minimize: isProduction,
-                                  url: false,
+                                  url: false
                               }
                           }]
                     })

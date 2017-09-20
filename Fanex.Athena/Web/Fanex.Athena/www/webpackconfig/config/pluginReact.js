@@ -14,7 +14,7 @@ function generatePlugins(environment) {
             name: "reactVendorJs",
             filename: "www/js/build/" + environment + "/reactpages/vendors/vendor.chunk.js",
             minChunks: Infinity
-        }),
+        })
 
     
     ];

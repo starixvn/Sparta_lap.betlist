@@ -10,7 +10,7 @@ function generateConfig(environment) {
     var commonConfigs = {
         resolve: {
             alias: alias,
-            extensions: ['', '.js', '.jsx']
+            extensions: ['.js', '.jsx']
         },
         entry: {
             /*js*/
@@ -28,7 +28,7 @@ function generateConfig(environment) {
             filename: "[name].chunk.js"
         },
         module: {
-            loaders: [{
+            rules: [{
                 test: /\.(js|jsx)$/,
                 loader: "babel-loader",
                 exclude: /node_modules/
