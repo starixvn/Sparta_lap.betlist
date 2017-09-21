@@ -14,11 +14,13 @@ const columnLayout = [1.5, 1.5, 2, 1.5, 2, 2, 2];
 class DataGrid extends Component {
     constructor(props) {
         super(props);
+
+        this.reportTitle = "";
     }
 
     get header() {
         const headers = Common.getHeaderText().map((item, index) => {
-            return <th title={item}>{item}</th>
+            return <th key={`header${index}`} title={item}>{item}</th>
         });
 
         return (
@@ -112,13 +114,11 @@ class DataGrid extends Component {
         )
     }
 
-    get reportTitle() {
-        const { dateRange, selectedBaseCurrency } = this.props;
-        return Common.getReportTitle(dateRange, selectedBaseCurrency);
-    }
-
     componentDidUpdate(prevProps, prevState) {
         this.props.toggleLoader(false);
+
+        const { dateRange, selectedBaseCurrency } = this.props;
+        this.reportTitle = Common.getReportTitle(dateRange, selectedBaseCurrency);
     }
 
     _renderNodata() {

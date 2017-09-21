@@ -24,7 +24,7 @@
     "hammerjs": "^2.0.8",
     "jasmine-core": "^2.4.1",
     "jasmine-reporters": "^2.0.0",
-    "jest": "^20.0.4",
+    "jest": "^21.1.0",
     "jquery": "^3.1.1",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^1.0.1",
@@ -57,7 +57,8 @@
     "build-pro": "webpack --config www/webpackconfig/build/webpack.pro.conf.js",
     "build-react-dev": "webpack --config www/webpackconfig/build/webpack.react.dev.conf.js",
     "build-react-pro": "webpack --config www/webpackconfig/build/webpack.react.pro.conf.js",
-    "build-react-both": "webpack --config www/webpackconfig/build/webpack.react.pro.conf.js && webpack --config www/webpackconfig/build/webpack.react.dev.conf.js"
+    "build-react-both": "webpack --config www/webpackconfig/build/webpack.react.pro.conf.js && webpack --config www/webpackconfig/build/webpack.react.dev.conf.js",
+    "test-react": "jest --coverage"
   },
   "author": "Sparta",
   "license": "vn",
