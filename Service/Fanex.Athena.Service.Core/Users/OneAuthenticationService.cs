@@ -19,7 +19,6 @@
     using Model.Core.DTO.Users;
     using Newtonsoft.Json;
     using Resources;
-    using Utility;
 
     public class OneAuthenticationService : IOneAuthenticationService
     {
@@ -143,33 +142,6 @@
             };
         }
 
-        /// <summary>
-        /// This function will be removed when integrating permission part with LAP.
-        /// </summary>
-        /// <param name="userSession">The currency user session.</param>
-        /// <param name="currencyUserList">The currency of user .</param>
-        /// <param name="licenseeId">The licensee ID.</param>
-        private static void AssignCurrenciesToUserSession(UserSession userSession, IEnumerable<CurrencyUser> currencyUserList, int licenseeId)
-        {
-            if (licenseeId == LicenseeIdentity.KeenOcean)
-            {
-                currencyUserList = KeanOceanBusinessHelper.ModifyCurrenciesForKeenOcean(currencyUserList);
-            }
-
-            var currencyList = currencyUserList
-                .Where(x => x.IsActive)
-                .Select(x => new { x.CurrencyId, x.CurrencyName })
-                .ToDictionary(x => x.CurrencyId, x => x.CurrencyName);
-
-            var currencyAgentList = currencyUserList
-                .Where(x => x.IsActive)
-                .Select(x => new { x.CurrencyId, x.AgentIdList })
-                .ToDictionary(x => x.CurrencyId, x => x.AgentIdList);
-
-            userSession.CurrencyList = currencyList;
-            userSession.CurrencyAgentList = currencyAgentList;
-        }
-
         private void UpdateUserSession(UserSession userSession, OneAuthToken tokenInfo, int licenseeId, IEnumerable<CurrencyUser> currencyList, string language)
         {
             if (!language.Equals(userSession.Language))
@@ -177,7 +149,7 @@
                 _sessionService.UpdateLanguage(language);
             }
 
-            AssignCurrenciesToUserSession(userSession, currencyList, licenseeId);
+            _sessionService.AssignCurrenciesToUserSession(userSession, licenseeId, currencyList);
             userSession.PortalFunctionList = GetPermissionList(tokenInfo);
         }
 
@@ -242,7 +214,7 @@
                 LicenseeName = licenseeInfo.Name
             };
 
-            var userSerssion = new UserSession
+            var userSession = new UserSession
             {
                 UserId = tokenInfo.UserSEQ,
                 OnUserId = tokenInfo.UserSEQ,
@@ -258,9 +230,9 @@
                 ViewType = ClientViewType.Desktop,
             };
 
-            AssignCurrenciesToUserSession(userSerssion, currencyByUser, licenseeInfo.Id);
+            _sessionService.AssignCurrenciesToUserSession(userSession, licenseeInfo.Id, currencyByUser);
 
-            _sessionService.CreateNewSession(userSerssion, licSession);
+            _sessionService.CreateNewSession(userSession, licSession);
         }
 
         private IList<PortalSystemFunction> GetPermissionList(OneAuthToken tokenInfo)

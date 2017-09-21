@@ -2,10 +2,8 @@
 {
     public class LicenseeSourcedSetting
     {
-        public int LicenseeId { get; set; }
+        public int SourcedAgentId { get; set; }
 
-        public int AgentId { get; set; }
-
-        public int CurrencyId { get; set; }
+        public int SourcedCurrencyId { get; set; }
     }
 }

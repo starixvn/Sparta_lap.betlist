@@ -45,5 +45,7 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
         bool IsAllowedSpecialBA(UserSession user);
 
         string GenerateAgentListXmlByAgentIdList(IEnumerable<int> agentIdList);
+
+        void AssignCurrenciesToUserSession(UserSession userSession, int licenseeId, IEnumerable<CurrencyUser> currencyUserList = null);
     }
 }

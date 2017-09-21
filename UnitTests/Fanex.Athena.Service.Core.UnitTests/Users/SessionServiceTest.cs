@@ -8,6 +8,7 @@
     using Core.Users;
     using Core.Users.Interfaces;
     using DataAccess.Core.Users.Interfaces;
+    using Extension.Utility;
     using Model.Core.DTO;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
@@ -19,6 +20,7 @@
     {
         private const int DefaultUserId = 1;
 
+        private IAppSettings _appSettings;
         private IFunctionService _functionService;
         private ILicenseeDataAccess _licenseeDataAccess;
         private ICurrencyService _currencyService;
@@ -27,6 +29,7 @@
         [OneTimeSetUp]
         public void SetUp()
         {
+            _appSettings = Substitute.For<IAppSettings>();
             _functionService = Substitute.For<IFunctionService>();
             _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
             var licenseeList = new List<Licensee>
@@ -39,7 +42,7 @@
             };
             _licenseeDataAccess.GetByUser(DefaultUserId).Returns<IList<Licensee>>(i => licenseeList);
             _currencyService = Substitute.For<ICurrencyService>();
-            _sessionService = new SessionService(_functionService, _licenseeDataAccess, _currencyService);
+            _sessionService = new SessionService(_appSettings, _functionService, _licenseeDataAccess, _currencyService);
         }
 
         [OneTimeTearDown]

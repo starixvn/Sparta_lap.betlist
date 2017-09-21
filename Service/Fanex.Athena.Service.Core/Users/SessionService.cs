@@ -16,6 +16,7 @@ namespace Fanex.Athena.Service.Core.Users
     using System.Web;
     using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
@@ -34,22 +35,27 @@ namespace Fanex.Athena.Service.Core.Users
 
         private const string UserSessionKey = "UserSessionKey";
         private const string CaptchaCodeKey = "CaptchaCodeKey";
+
+        private readonly IAppSettings _appSettings;
         private readonly IFunctionService _functionService;
         private readonly ILicenseeDataAccess _licenseeDataAccess;
         private readonly ICurrencyService _currencyService;
 
         public SessionService()
         {
+            _appSettings = new AppSettings();
             _functionService = new FunctionService();
             _licenseeDataAccess = new LicenseeDataAccess();
             _currencyService = new CurrencyService();
         }
 
         public SessionService(
+            IAppSettings appSettings,
             IFunctionService functionService,
             ILicenseeDataAccess licenseeDataAccess,
             ICurrencyService currencyService)
         {
+            _appSettings = appSettings;
             _functionService = functionService;
             _licenseeDataAccess = licenseeDataAccess;
             _currencyService = currencyService;
@@ -260,9 +266,12 @@ namespace Fanex.Athena.Service.Core.Users
             };
         }
 
-        private void AssignCurrenciesToUserSession(UserSession userSession, int licenseeId)
+        public void AssignCurrenciesToUserSession(UserSession userSession, int licenseeId, IEnumerable<CurrencyUser> currencyUserList = null)
         {
-            var currencyUserList = _currencyService.GetCurrenciesByUser(licenseeId, userSession.UserId);
+            if (currencyUserList == null)
+            {
+                currencyUserList = _currencyService.GetCurrenciesByUser(licenseeId, userSession.UserId);
+            }
 
             if (licenseeId == LicenseeIdentity.KeenOcean)
             {
@@ -278,9 +287,29 @@ namespace Fanex.Athena.Service.Core.Users
                 .Where(x => x.IsActive)
                 .Select(x => new { x.CurrencyId, x.AgentIdList })
                 .ToDictionary(x => x.CurrencyId, x => x.AgentIdList);
+            MergeAgentListForFakeLicensees(licenseeId, currencyAgentList);
 
             userSession.CurrencyList = currencyList;
             userSession.CurrencyAgentList = currencyAgentList;
+        }
+
+        private void MergeAgentListForFakeLicensees(int licenseeId, IDictionary<int, IEnumerable<int>> currencyAgentList)
+        {
+            if (!_appSettings.FakeLicenseeList.Contains(licenseeId))
+            {
+                return;
+            }
+
+            var licenseeSourcedSettings = _licenseeDataAccess.GetLicenseeSourcedSettings(licenseeId);
+            var currencyList = currencyAgentList.Keys.ToList();
+            foreach (var key in currencyList)
+            {
+                var mergingAgentList = licenseeSourcedSettings.Where(x => x.SourcedCurrencyId == key).Select(x => x.SourcedAgentId).ToArray();
+                if (mergingAgentList.Any())
+                {
+                    currencyAgentList[key] = currencyAgentList[key].Concat(mergingAgentList).Distinct().ToList();
+                }
+            }
         }
     }
 
