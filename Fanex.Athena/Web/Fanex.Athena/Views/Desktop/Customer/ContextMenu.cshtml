@@ -1,5 +1,4 @@
-﻿@using Fanex.Athena.Model.Report.ViewModel
-@model Fanex.Athena.Model.Customer.ViewModel.CustomerListViewModel
+﻿@model Fanex.Athena.Model.Customer.ViewModel.CustomerListViewModel
 
 <input id="CanUpdateBAMessage" type="hidden" value="@Model.CanUpdateBAMessage" />
 <input id="CanUpdateBA" type="hidden" value="@(Model.CanUpdateBA ? 1 : 0)" />
@@ -28,7 +27,10 @@
     <a href="javascript:;" id="bet-setting-link" class="viewOptionLink" title="@ViewResources.View @ViewResources.BetSetting">@ViewResources.BetSetting</a>
     <a href="javascript:;" id="bet-list-link" class="viewOptionLink" title="@ViewResources.View @ViewResources.BetList">@ViewResources.BetList</a>
     <a href="javascript:;" id="statement-link" class="viewOptionLink" title="@ViewResources.View @ViewResources.Statement">@ViewResources.Statement</a>
-    <a href="javascript:;" id="login-info-link" class="viewOptionLink" title="@ViewResources.View @ViewResources.LogInfo">@ViewResources.LogInfo</a>
+    @if (!Model.IsFakeLicensee)
+    {
+        <a href="javascript:;" id="login-info-link" class="viewOptionLink" title="@ViewResources.View @ViewResources.LogInfo">@ViewResources.LogInfo</a>
+    }
 </div>
 
  <!-- /Dropdown Special Level -->
