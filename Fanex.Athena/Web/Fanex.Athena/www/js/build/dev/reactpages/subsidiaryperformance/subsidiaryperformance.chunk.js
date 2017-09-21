@@ -4513,30 +4513,6 @@ return hooks;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-/* Product */
-var SET_SELECTED_PRODUCT = exports.SET_SELECTED_PRODUCT = "SET_SELECTED_PRODUCT";
-var GET_PRODUCT_OPTIONS = exports.GET_PRODUCT_OPTIONS = "GET_PRODUCT_OPTIONS";
-
-/* Base Currency */
-var SET_SELECTED_BASECURRENCY = exports.SET_SELECTED_BASECURRENCY = "SET_SELECTED_BASECURRENCY";
-var GET_BASECURRENCY = exports.GET_BASECURRENCY = "GET_BASECURRENCY";
-
-/* Fixed Table Header */
-var GET_CONTAINER_WIDTH = exports.GET_CONTAINER_WIDTH = "GET_CONTAINER_WIDTH";
-
-/* Loader */
-var TOGGLE_LOADER = exports.TOGGLE_LOADER = "TOGGLE_LOADER";
-
-/***/ }),
-/* 39 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
@@ -4573,7 +4549,7 @@ var LangHelper = function () {
 exports.default = LangHelper;
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -4628,14 +4604,52 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 
 /***/ }),
+/* 40 */,
 /* 41 */,
 /* 42 */,
 /* 43 */,
 /* 44 */,
 /* 45 */,
 /* 46 */,
-/* 47 */,
-/* 48 */
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/* Product */
+var SET_SELECTED_PRODUCT = exports.SET_SELECTED_PRODUCT = "SET_SELECTED_PRODUCT";
+var GET_PRODUCT_OPTIONS = exports.GET_PRODUCT_OPTIONS = "GET_PRODUCT_OPTIONS";
+
+/* Base Currency */
+var SET_SELECTED_BASECURRENCY = exports.SET_SELECTED_BASECURRENCY = "SET_SELECTED_BASECURRENCY";
+var GET_BASECURRENCY = exports.GET_BASECURRENCY = "GET_BASECURRENCY";
+
+/* Loader */
+var TOGGLE_LOADER = exports.TOGGLE_LOADER = "TOGGLE_LOADER";
+
+/***/ }),
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4659,23 +4673,6 @@ function createReducer(initialState, handlers) {
 }
 
 /***/ }),
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */,
-/* 64 */,
-/* 65 */,
 /* 66 */,
 /* 67 */,
 /* 68 */,
@@ -4746,7 +4743,7 @@ var _reactInputAutosize = __webpack_require__(672);
 
 var _reactInputAutosize2 = _interopRequireDefault(_reactInputAutosize);
 
-var _classnames = __webpack_require__(40);
+var _classnames = __webpack_require__(39);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -6448,7 +6445,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var SCROLLBAR_WIDTH = 19;
-var MAX_WIDTH = window.innerWidth - 30;
+var GUTTER = 15;
+var MAX_WIDTH = window.innerWidth - GUTTER * 2;
 
 var TableSection = function (_Component) {
     _inherits(TableSection, _Component);
@@ -6456,18 +6454,7 @@ var TableSection = function (_Component) {
     function TableSection(props) {
         _classCallCheck(this, TableSection);
 
-        var _this = _possibleConstructorReturn(this, (TableSection.__proto__ || Object.getPrototypeOf(TableSection)).call(this, props));
-
-        var width = props.autoWidth ? props.maxWidth : props.width + SCROLLBAR_WIDTH;
-        var minWidth = props.minWidth;
-        _this.containerStyle = _extends({}, props.style, { width: width, minWidth: minWidth });
-
-        var tableWidth = props.autoWidth ? props.maxWidth : props.width;
-        tableWidth = Math.max(tableWidth, minWidth) - SCROLLBAR_WIDTH;
-        _this.tableStyle = {
-            width: tableWidth
-        };
-        return _this;
+        return _possibleConstructorReturn(this, (TableSection.__proto__ || Object.getPrototypeOf(TableSection)).call(this, props));
     }
 
     _createClass(TableSection, [{
@@ -6494,6 +6481,38 @@ var TableSection = function (_Component) {
                     )
                 )
             );
+        }
+    }, {
+        key: 'containerWidth',
+        get: function get() {
+            var _props2 = this.props,
+                autoWidth = _props2.autoWidth,
+                maxWidth = _props2.maxWidth,
+                width = _props2.width;
+
+            return autoWidth ? maxWidth : width;
+        }
+    }, {
+        key: 'containerStyle',
+        get: function get() {
+            var minWidth = this.props.minWidth;
+
+
+            return _extends({}, this.props.style, {
+                width: this.containerWidth,
+                minWidth: minWidth
+            });
+        }
+    }, {
+        key: 'tableStyle',
+        get: function get() {
+            var minWidth = this.props.minWidth;
+
+            var tableWidth = Math.max(this.containerWidth, minWidth) - SCROLLBAR_WIDTH;
+
+            return {
+                width: tableWidth
+            };
         }
     }]);
 
@@ -6881,7 +6900,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _classnames = __webpack_require__(40);
+var _classnames = __webpack_require__(39);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -6962,7 +6981,7 @@ var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _classnames = __webpack_require__(40);
+var _classnames = __webpack_require__(39);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -19510,7 +19529,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _ranges;
 
-var _langHelper = __webpack_require__(39);
+var _langHelper = __webpack_require__(38);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
@@ -19896,7 +19915,7 @@ var _AppContainer = __webpack_require__(655);
 
 var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
-var _reactRedux = __webpack_require__(49);
+var _reactRedux = __webpack_require__(48);
 
 var _reduxLogger = __webpack_require__(174);
 
@@ -19910,7 +19929,7 @@ var _index = __webpack_require__(693);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _config = __webpack_require__(700);
+var _config = __webpack_require__(699);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19921,10 +19940,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var isDev = "development" === "development";
+var configName = _config.debuggingConfig.name;
 // middleware that logs actions
 var loggerMiddleware = (0, _reduxLogger.createLogger)({
   predicate: function predicate(getState, action) {
-    return isDev || window.__lrfConfig__ && window.__lrfConfig__.env === _config.debuggingConfig.env && (!window.__lrfConfig__.actionFilter || window.__lrfConfig__.actionFilter === action.type);
+    return isDev || window[configName] && window[configName].env === _config.debuggingConfig.env && (!window[configName].actionFilter || window[configName].actionFilter === action.type);
   }
 });
 
@@ -19984,7 +20004,7 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(49);
+var _reactRedux = __webpack_require__(48);
 
 var _redux = __webpack_require__(34);
 
@@ -20201,7 +20221,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.setSelectedProduct = undefined;
 
-var _types = __webpack_require__(38);
+var _types = __webpack_require__(47);
 
 var types = _interopRequireWildcard(_types);
 
@@ -20226,7 +20246,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.setSelectedBaseCurrency = undefined;
 
-var _types = __webpack_require__(38);
+var _types = __webpack_require__(47);
 
 var types = _interopRequireWildcard(_types);
 
@@ -20251,7 +20271,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.toggleLoader = undefined;
 
-var _types = __webpack_require__(38);
+var _types = __webpack_require__(47);
 
 var types = _interopRequireWildcard(_types);
 
@@ -20283,15 +20303,15 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(49);
+var _reactRedux = __webpack_require__(48);
 
 var _index = __webpack_require__(129);
 
 var _redux = __webpack_require__(34);
 
-var _FixedTable = __webpack_require__(663);
+var _fixedTableHeader = __webpack_require__(663);
 
-var _langHelper = __webpack_require__(39);
+var _langHelper = __webpack_require__(38);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
@@ -20307,7 +20327,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var columnLayout = [150, 120, 200, 120, 180, 180, 180];
+var columnLayout = [1.5, 1.5, 2, 1.5, 2, 2, 2];
 
 var DataGrid = function (_Component) {
     _inherits(DataGrid, _Component);
@@ -20331,25 +20351,24 @@ var DataGrid = function (_Component) {
             }
 
             return _react2.default.createElement(
-                _FixedTable.Table,
+                _fixedTableHeader.Table,
                 _extends({
-                    maxWidth: this.props.containerWidth,
                     minWidth: 600,
                     autoWidth: true,
                     columnLayout: columnLayout
                 }, this.props),
                 _react2.default.createElement(
-                    _FixedTable.Header,
+                    _fixedTableHeader.Header,
                     null,
                     this.header
                 ),
                 _react2.default.createElement(
-                    _FixedTable.Body,
+                    _fixedTableHeader.Body,
                     { maxHeight: 300 },
                     this.body
                 ),
                 _react2.default.createElement(
-                    _FixedTable.Footer,
+                    _fixedTableHeader.Footer,
                     null,
                     this.footer,
                     this.grantTotal
@@ -20364,12 +20383,12 @@ var DataGrid = function (_Component) {
                 product = _langHelper2.default.getSingleResource("Product"),
                 betcount = _langHelper2.default.getSingleResource("BetCount"),
                 turnover = _langHelper2.default.getSingleResource("Turnover"),
-                customerWL = _langHelper2.default.getSingleResource("CustomerWinLoss"),
+                customerWL = _langHelper2.default.getSingleResource("CustomerW_L"),
                 subsidiaryWL = _langHelper2.default.getSingleResource("SubsidiaryWL"),
                 comm = _langHelper2.default.getSingleResource("Comm");
 
             return _react2.default.createElement(
-                _FixedTable.Row,
+                _fixedTableHeader.Row,
                 { style: { height: 40 } },
                 _react2.default.createElement(
                     'th',
@@ -20426,40 +20445,40 @@ var DataGrid = function (_Component) {
                         subsidiaryWinLoss = _numberFormat2.default.formatDecimal(detail.SubsidiaryWinLoss);
 
                     rows.push(_react2.default.createElement(
-                        _FixedTable.Row,
+                        _fixedTableHeader.Row,
                         { key: 'tr' + i + j },
                         isFirstRow ? _react2.default.createElement(
-                            _FixedTable.Cell,
+                            _fixedTableHeader.Cell,
                             { title: item.Subsidiary, rowSpan: rowSpan },
                             item.Subsidiary
                         ) : undefined,
                         isFirstRow ? _react2.default.createElement(
-                            _FixedTable.Cell,
+                            _fixedTableHeader.Cell,
                             { title: item.CurrencyName, rowSpan: rowSpan, className: 'center-align' },
                             item.CurrencyName
                         ) : undefined,
                         _react2.default.createElement(
-                            _FixedTable.Cell,
+                            _fixedTableHeader.Cell,
                             { title: detail.Product },
                             detail.Product
                         ),
                         _react2.default.createElement(
-                            _FixedTable.Cell,
+                            _fixedTableHeader.Cell,
                             { title: betcount, className: 'right-align' },
                             betcount
                         ),
                         _react2.default.createElement(
-                            _FixedTable.Cell,
+                            _fixedTableHeader.Cell,
                             { title: turnover, className: 'right-align' },
                             turnover
                         ),
                         _react2.default.createElement(
-                            _FixedTable.Cell,
+                            _fixedTableHeader.Cell,
                             { title: customerWinLoss, className: 'right-align' },
                             customerWinLoss
                         ),
                         _react2.default.createElement(
-                            _FixedTable.Cell,
+                            _fixedTableHeader.Cell,
                             { title: subsidiaryWinLoss, className: 'right-align ' + (detail.SubsidiaryWinLoss < 0 ? "negative" : "") },
                             subsidiaryWinLoss
                         )
@@ -20482,36 +20501,36 @@ var DataGrid = function (_Component) {
                     subsidiaryWinLoss = _numberFormat2.default.formatDecimal(item.SubsidiaryWinLoss);
 
                 return _react2.default.createElement(
-                    _FixedTable.Row,
+                    _fixedTableHeader.Row,
                     { className: 'fixed-table-total', key: 'total' + index },
                     _react2.default.createElement(
-                        _FixedTable.Cell,
+                        _fixedTableHeader.Cell,
                         { title: item.Subsidiary },
                         item.Subsidiary
                     ),
                     _react2.default.createElement(
-                        _FixedTable.Cell,
+                        _fixedTableHeader.Cell,
                         { title: item.CurrencyName },
                         item.CurrencyName
                     ),
-                    _react2.default.createElement(_FixedTable.Cell, null),
+                    _react2.default.createElement(_fixedTableHeader.Cell, null),
                     _react2.default.createElement(
-                        _FixedTable.Cell,
+                        _fixedTableHeader.Cell,
                         { title: betcount, className: 'right-align' },
                         betcount
                     ),
                     _react2.default.createElement(
-                        _FixedTable.Cell,
+                        _fixedTableHeader.Cell,
                         { title: turnover, className: 'right-align' },
                         turnover
                     ),
                     _react2.default.createElement(
-                        _FixedTable.Cell,
+                        _fixedTableHeader.Cell,
                         { title: customerWinLoss, className: 'right-align' },
                         customerWinLoss
                     ),
                     _react2.default.createElement(
-                        _FixedTable.Cell,
+                        _fixedTableHeader.Cell,
                         { title: subsidiaryWinLoss, className: 'right-align ' + (item.SubsidiaryWinLoss < 0 ? "negative" : "") },
                         subsidiaryWinLoss
                     )
@@ -20532,36 +20551,36 @@ var DataGrid = function (_Component) {
                 subsidiaryWinLoss = _numberFormat2.default.formatDecimal(grandTotal.SubsidiaryWinLoss);
 
             return _react2.default.createElement(
-                _FixedTable.Row,
+                _fixedTableHeader.Row,
                 { className: 'fixed-table-grant-total' },
                 _react2.default.createElement(
-                    _FixedTable.Cell,
+                    _fixedTableHeader.Cell,
                     { title: grandTotal.Subsidiary },
                     grandTotal.Subsidiary
                 ),
                 _react2.default.createElement(
-                    _FixedTable.Cell,
+                    _fixedTableHeader.Cell,
                     { title: grandTotal.CurrencyName },
                     grandTotal.CurrencyName
                 ),
-                _react2.default.createElement(_FixedTable.Cell, null),
+                _react2.default.createElement(_fixedTableHeader.Cell, null),
                 _react2.default.createElement(
-                    _FixedTable.Cell,
+                    _fixedTableHeader.Cell,
                     { title: betcount, className: 'right-align' },
                     betcount
                 ),
                 _react2.default.createElement(
-                    _FixedTable.Cell,
+                    _fixedTableHeader.Cell,
                     { title: turnover, className: 'right-align' },
                     turnover
                 ),
                 _react2.default.createElement(
-                    _FixedTable.Cell,
+                    _fixedTableHeader.Cell,
                     { title: customerWinLoss, className: 'right-align' },
                     customerWinLoss
                 ),
                 _react2.default.createElement(
-                    _FixedTable.Cell,
+                    _fixedTableHeader.Cell,
                     { title: subsidiaryWinLoss, className: 'right-align' },
                     subsidiaryWinLoss
                 )
@@ -20576,12 +20595,10 @@ function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)(_index.ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    var gridData = state.gridData,
-        containerWidth = state.containerWidth;
+    var gridData = state.gridData;
 
     return Object.assign({}, {
-        gridData: gridData,
-        containerWidth: containerWidth
+        gridData: gridData
     });
 };
 
@@ -20682,6 +20699,22 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var MAX_WIDTH = window.innerWidth - 30;
+var DEFAULT_MILLISECOND_FOR_WAITING = 500;
+
+function debounce(func, wait) {
+    var timeout = void 0;
+    return function () {
+        var context = this,
+            args = arguments;
+
+        var later = function later() {
+            func.apply(context, args);
+        };
+
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait || DEFAULT_MILLISECOND_FOR_WAITING);
+    };
+}
 
 var Table = function (_Component) {
     _inherits(Table, _Component);
@@ -20689,10 +20722,33 @@ var Table = function (_Component) {
     function Table(props) {
         _classCallCheck(this, Table);
 
-        return _possibleConstructorReturn(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this, props));
+
+        _this._handleResize = function (event) {
+            event.preventDefault();
+            var maxWidth = window.innerWidth - _this.diffWidth;
+            _this.setState({ maxWidth: maxWidth });
+        };
+
+        _this.diffWidth = window.innerWidth - props.maxWidth;
+
+        _this.state = {
+            maxWidth: props.maxWidth
+        };
+        return _this;
     }
 
     _createClass(Table, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            window.addEventListener('resize', debounce(this._handleResize));
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            window.removeEventListener('resize', debounce(this._handleResize));
+        }
+    }, {
         key: '_getUpdatedColumnLayout',
         value: function _getUpdatedColumnLayout() {
             var _this2 = this;
@@ -20700,10 +20756,9 @@ var Table = function (_Component) {
             var _props = this.props,
                 width = _props.width,
                 columnLayout = _props.columnLayout,
-                maxWidth = _props.maxWidth,
                 autoWidth = _props.autoWidth;
 
-            var sumOfColumnWidth = autoWidth ? maxWidth : width;
+            var sumOfColumnWidth = autoWidth ? this.state.maxWidth : width;
 
             var newColumnLayout = this.columnWidthSum && columnLayout.map(function (cellWidth) {
                 return sumOfColumnWidth / _this2.columnWidthSum * cellWidth;
@@ -20718,8 +20773,8 @@ var Table = function (_Component) {
                 width = _props2.width,
                 columnLayout = _props2.columnLayout,
                 autoWidth = _props2.autoWidth,
-                maxWidth = _props2.maxWidth,
                 minWidth = _props2.minWidth;
+            var maxWidth = this.state.maxWidth;
 
 
             var newColumnLayout = this.columnWidthSum && this.columnWidthSum !== width ? this._getUpdatedColumnLayout() : columnLayout;
@@ -20744,7 +20799,7 @@ var Table = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var maxWidth = this.props.maxWidth;
+            var maxWidth = this.state.maxWidth;
 
             return _react2.default.createElement(
                 'div',
@@ -21074,7 +21129,7 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(49);
+var _reactRedux = __webpack_require__(48);
 
 var _index = __webpack_require__(129);
 
@@ -21090,7 +21145,7 @@ var _multipleSelect2 = _interopRequireDefault(_multipleSelect);
 
 var _index2 = __webpack_require__(682);
 
-var _langHelper = __webpack_require__(39);
+var _langHelper = __webpack_require__(38);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
@@ -21196,6 +21251,8 @@ var FormFilter = function (_Component) {
                 keyField: "ID",
                 valueField: "Name",
                 statusField: "Checked",
+                optionAllLabel: _langHelper2.default.getSingleResource("All"),
+                noneSelectedLabel: _langHelper2.default.getSingleResource("SelectOptions"),
                 onChange: this.subsidiaryChangeHandler }) : null;
         }
     }, {
@@ -21371,8 +21428,8 @@ function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)(_index.ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    var containerWidth = state.containerWidth,
-        rest = _objectWithoutProperties(state, ['containerWidth']);
+    var gridData = state.gridData,
+        rest = _objectWithoutProperties(state, ['gridData']);
 
     return Object.assign({}, rest);
 };
@@ -21742,7 +21799,7 @@ var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _classnames = __webpack_require__(40);
+var _classnames = __webpack_require__(39);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -22605,7 +22662,7 @@ var _styles = __webpack_require__(84);
 
 var _styles2 = _interopRequireDefault(_styles);
 
-var _classnames = __webpack_require__(40);
+var _classnames = __webpack_require__(39);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -22754,8 +22811,6 @@ var DateRange = function (_Component) {
     value: function isValidMonthRange(date) {
       var limitedMonthRange = this.props.limitedMonthRange;
 
-      console.log(date.startDate.format(_constants.MomentFormat.default));
-      console.log(date.endDate.format(_constants.MomentFormat.default));
 
       if (limitedMonthRange) {
         var range = date.endDate.clone().subtract(date.startDate.month(), "month");
@@ -23240,7 +23295,7 @@ var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _classnames2 = __webpack_require__(40);
+var _classnames2 = __webpack_require__(39);
 
 var _classnames3 = _interopRequireDefault(_classnames2);
 
@@ -23447,7 +23502,7 @@ var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _classnames2 = __webpack_require__(40);
+var _classnames2 = __webpack_require__(39);
 
 var _classnames3 = _interopRequireDefault(_classnames2);
 
@@ -23635,7 +23690,7 @@ var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _langHelper = __webpack_require__(39);
+var _langHelper = __webpack_require__(38);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
@@ -23666,7 +23721,7 @@ var _excel = __webpack_require__(689);
 
 var _excel2 = _interopRequireDefault(_excel);
 
-var _langHelper = __webpack_require__(39);
+var _langHelper = __webpack_require__(38);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
@@ -24123,17 +24178,13 @@ var _baseCurrency = __webpack_require__(697);
 
 var baseCurrencyReducer = _interopRequireWildcard(_baseCurrency);
 
-var _fixedTableHeaderReducer = __webpack_require__(698);
-
-var fixedTableHeaderReducer = _interopRequireWildcard(_fixedTableHeaderReducer);
-
-var _loaderReducer = __webpack_require__(699);
+var _loaderReducer = __webpack_require__(698);
 
 var loaderReducer = _interopRequireWildcard(_loaderReducer);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, filterHandlerReducer, productReducer, baseCurrencyReducer, fixedTableHeaderReducer, loaderReducer));
+exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, filterHandlerReducer, productReducer, baseCurrencyReducer, loaderReducer));
 
 /***/ }),
 /* 694 */
@@ -24147,7 +24198,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.gridData = undefined;
 
-var _createReducer2 = __webpack_require__(48);
+var _createReducer2 = __webpack_require__(65);
 
 var _createReducer3 = _interopRequireDefault(_createReducer2);
 
@@ -24177,7 +24228,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.dateConstraint = exports.xsrfToken = exports.convertAll = exports.dateRange = exports.selectedSubsidiary = exports.subsidiaryList = undefined;
 
-var _createReducer7 = __webpack_require__(48);
+var _createReducer7 = __webpack_require__(65);
 
 var _createReducer8 = _interopRequireDefault(_createReducer7);
 
@@ -24227,11 +24278,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.productOptions = exports.selectedProduct = undefined;
 
-var _types = __webpack_require__(38);
+var _types = __webpack_require__(47);
 
 var types = _interopRequireWildcard(_types);
 
-var _createReducer3 = __webpack_require__(48);
+var _createReducer3 = __webpack_require__(65);
 
 var _createReducer4 = _interopRequireDefault(_createReducer3);
 
@@ -24261,11 +24312,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.baseCurrencyList = exports.selectedBaseCurrency = undefined;
 
-var _types = __webpack_require__(38);
+var _types = __webpack_require__(47);
 
 var types = _interopRequireWildcard(_types);
 
-var _createReducer3 = __webpack_require__(48);
+var _createReducer3 = __webpack_require__(65);
 
 var _createReducer4 = _interopRequireDefault(_createReducer3);
 
@@ -24293,43 +24344,13 @@ var baseCurrencyList = exports.baseCurrencyList = (0, _createReducer4.default)({
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.containerWidth = undefined;
-
-var _types = __webpack_require__(38);
-
-var types = _interopRequireWildcard(_types);
-
-var _createReducer2 = __webpack_require__(48);
-
-var _createReducer3 = _interopRequireDefault(_createReducer2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var containerWidth = exports.containerWidth = (0, _createReducer3.default)({}, _defineProperty({}, types.GET_CONTAINER_WIDTH, function (state, action) {
-    return action.data;
-}));
-
-/***/ }),
-/* 699 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 exports.isLoading = undefined;
 
-var _types = __webpack_require__(38);
+var _types = __webpack_require__(47);
 
 var types = _interopRequireWildcard(_types);
 
-var _createReducer2 = __webpack_require__(48);
+var _createReducer2 = __webpack_require__(65);
 
 var _createReducer3 = _interopRequireDefault(_createReducer2);
 
@@ -24344,7 +24365,7 @@ var isLoading = exports.isLoading = (0, _createReducer3.default)({}, _defineProp
 }));
 
 /***/ }),
-/* 700 */
+/* 699 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24354,6 +24375,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var debuggingConfig = exports.debuggingConfig = {
+    name: "__lrfConfig__",
     env: "local"
 };
 

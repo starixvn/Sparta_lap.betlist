@@ -807,7 +807,6 @@
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Table.jsx" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Cell.test.js" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Row.test.js" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\FixedTable.jsx" />
     <Content Include="www\js\source\reactpages\constants\config.js" />
     <Content Include="www\js\source\reactpages\layouts\AppLayout.jsx" />
     <Content Include="www\js\source\reactpages\lib\excel.js" />
@@ -2439,6 +2438,7 @@
     <Content Include="www\js\source\reactpages\components\multiple-select\components\MultipleSelectOptionList.jsx" />
     <Content Include="www\js\source\reactpages\components\multiple-select\components\Option.jsx" />
     <Content Include="www\js\source\reactpages\components\multiple-select\components\OptionAll.jsx" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\index.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
