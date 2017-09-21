@@ -15,6 +15,7 @@ namespace Fanex.Athena.Api.Report
     using Base.Attributes;
     using DataAccess.Report;
     using DataAccess.Report.Interfaces;
+    using Excel.Report.Models;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Extension.Helper;
@@ -198,15 +199,6 @@ namespace Fanex.Athena.Api.Report
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/LicenseeWinLoss.xls");
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
 
-            var showingOption = new ShowingOption
-            {
-                SBVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.SB) && productAccess.IsAllow(ProductTypes.Sportsbook),
-                BTVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.BT) && productAccess.IsAllow(ProductTypes.BetTrade),
-                COVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.CO) && productAccess.IsAllow(ProductTypes.CashOut),
-                BAVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.BA) && productAccess.IsAllow(ProductTypes.BA),
-                RBVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.RB) && productAccess.IsAllow(ProductTypes.Racing),
-                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
-            };
             var convertingOption = new ConvertingOption
             {
                 IsConvert = metaModel.IsConvert,
@@ -225,14 +217,22 @@ namespace Fanex.Athena.Api.Report
                 metaModel.ToDate = metaModel.DrillDownToDate;
             }
 
-            var licenseeWinLoss = new LicenseeWinLossExcel(
-                templatePath,
-                convertingOption,
-                showingOption,
-                metaModel,
-                dataList,
-                totalData,
-                summaryTotal);
+            var excelModel = new LicenseeWinLossExcelModel
+            {
+                ConvertingOption = convertingOption,
+                DataList = dataList,
+                MetaModel = metaModel,
+                SummaryTotal = summaryTotal,
+                TotalData = totalData,
+                SBVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.SB) && productAccess.IsAllow(ProductTypes.Sportsbook),
+                BTVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.BT) && productAccess.IsAllow(ProductTypes.BetTrade),
+                COVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.CO) && productAccess.IsAllow(ProductTypes.CashOut),
+                BAVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.BA) && productAccess.IsAllow(ProductTypes.BA),
+                RBVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.RB) && productAccess.IsAllow(ProductTypes.Racing),
+                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
+            };
+
+            var licenseeWinLoss = new LicenseeWinLossExcel(templatePath, excelModel);
 
             licenseeWinLoss.Export();
 

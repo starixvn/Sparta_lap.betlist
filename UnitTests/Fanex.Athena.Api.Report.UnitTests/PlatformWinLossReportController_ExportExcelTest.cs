@@ -182,7 +182,6 @@
                 Assert.IsTrue(expetedShowingOption.BAVisible == productOptions.Any(i => i.Code == Product.BA && i.Status));
                 Assert.IsTrue(expetedShowingOption.BGVisible == productOptions.Any(i => i.Code == Product.BG && i.Status));
                 Assert.IsTrue(expetedShowingOption.BTVisible == productOptions.Any(i => i.Code == Product.BT && i.Status));
-                Assert.IsTrue(expetedShowingOption.COVisible == productOptions.Any(i => i.Code == Product.CO && i.Status));
                 Assert.IsTrue(expetedShowingOption.CSVisible == productOptions.Any(i => i.Code == Product.CS && i.Status));
                 Assert.IsTrue(expetedShowingOption.KNVisible == productOptions.Any(i => i.Code == Product.KN && i.Status));
                 Assert.IsTrue(expetedShowingOption.LCVisible == productOptions.Any(i => i.Code == Product.LC && i.Status));
