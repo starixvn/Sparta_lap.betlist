@@ -15,7 +15,7 @@
 </div>
 
 @Html.Hidden("IDList", String.Join(",", Model.MainData.Select(x => x.SportId)))
-@Html.Hidden("editable", Model.IsEnabled.Value)
+@Html.Hidden("editable", Model.IsEnabled.HasValue && Model.IsEnabled.Value)
 @Html.Hidden("dataCount", (Model.MainData.Count))
 <!--Header-->
 <div class="header-content" style="width: 884px;">
