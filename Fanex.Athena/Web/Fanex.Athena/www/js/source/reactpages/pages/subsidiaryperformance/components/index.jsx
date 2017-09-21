@@ -9,12 +9,13 @@ import reducer from '../reducers/index.js'
 import { debuggingConfig } from '../../../constants/config'
 
 const isDev = process.env.NODE_ENV === "development";
+const configName = debuggingConfig.name;
 // middleware that logs actions
 const loggerMiddleware = createLogger({
   predicate: (getState, action) => isDev ||
-    (window.__lrfConfig__ &&
-    window.__lrfConfig__.env === debuggingConfig.env &&
-    (!window.__lrfConfig__.actionFilter || window.__lrfConfig__.actionFilter === action.type))
+    (window[configName] &&
+      window[configName].env === debuggingConfig.env &&
+      (!window[configName].actionFilter || window[configName].actionFilter === action.type))
 });
 
 const defaultState = Object.assign({}, window.Lrf);
