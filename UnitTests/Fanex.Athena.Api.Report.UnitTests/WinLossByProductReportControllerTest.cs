@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.Web.Http.Results;
     using DataAccess.Report.Interfaces;
-    using Excel.Base.Entities;
     using Excel.Report;
+    using Excel.Report.Models;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using Model.Core.MetaModel.Product;
@@ -193,28 +193,9 @@
             {
                 IsExportExcel = true
             };
-            var excel = Substitute.ForPartsOf<WinlossByProductExcel>(
-                string.Empty,
-                new ConvertingOption(),
-                new ShowingOption(),
-                metaModel,
-                string.Empty,
-                string.Empty,
-                null,
-                null,
-                null);
+            var excel = Substitute.ForPartsOf<WinlossByProductExcel>(string.Empty, new WinLossByProductExcelModel());
             excel.When(x => x.Export()).DoNotCallBase();
-            _controller.CreateExcel(
-                Arg.Any<WinLossByProductMetaModel>(),
-                Arg.Any<string>(),
-                Arg.Any<string>(),
-                Arg.Any<string>(),
-                Arg.Any<ShowingOption>(),
-                Arg.Any<ConvertingOption>(),
-                Arg.Any<IEnumerable<WinLossByProduct>>(),
-                Arg.Any<IEnumerable<WinLossByProduct>>(),
-                Arg.Any<IDictionary<string, IEnumerable<WinLossByProduct>>>())
-                .Returns(excel);
+            _controller.CreateExcel(Arg.Any<string>(), Arg.Any<WinLossByProductExcelModel>()).Returns(excel);
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
 
             // Action

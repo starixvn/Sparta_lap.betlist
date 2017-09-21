@@ -14,7 +14,7 @@ namespace Fanex.Athena.Excel.Report
     using Fanex.Athena.Excel.Base.Extension;
     using Helpers;
     using Model.Report.DTO;
-    using Model.Report.MetaModel;
+    using Models;
     using NPOI.SS.UserModel;
     using Resources;
 
@@ -41,34 +41,12 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTotalNoSolidBorder = 9;
         private const int RowTotalSolidBorder = 8;
 
-        private readonly WinLossByProductMetaModel _metaModel;
-        private readonly IDictionary<string, IEnumerable<WinLossByProduct>> _summaryTotal;
-        private readonly IEnumerable<WinLossByProduct> _dataList;
-        private readonly IEnumerable<WinLossByProduct> _totalData;
-        private readonly string _systemId;
-        private readonly string _errorMessage;
+        private readonly WinLossByProductExcelModel _excelModel;
 
-        private readonly ConvertingOption _convertingOption;
-
-        public WinlossByProductExcel(
-                                     string templatePath,
-                                     ConvertingOption convertingOption,
-                                     ShowingOption showingOption,
-                                     WinLossByProductMetaModel metaModel,
-                                     string systemId,
-                                     string errorMessage,
-                                     IEnumerable<WinLossByProduct> dataList,
-                                     IEnumerable<WinLossByProduct> totalData,
-                                     IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal)
-            : base(templatePath, showingOption)
+        public WinlossByProductExcel(string templatePath, WinLossByProductExcelModel excelModel)
+            : base(templatePath)
         {
-            _convertingOption = convertingOption;
-            _metaModel = metaModel;
-            _dataList = dataList;
-            _totalData = totalData;
-            _summaryTotal = summaryTotal;
-            _systemId = systemId;
-            _errorMessage = errorMessage;
+            _excelModel = excelModel;
 
             HeaderTextList = new List<string>
             {
@@ -90,7 +68,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignData()
         {
-            int numOfDataRow = _dataList.Count();
+            int numOfDataRow = _excelModel.DataList.Count();
 
             ISheet sheet = Workbook.CloneSheet("Template", "Data");
 
@@ -127,7 +105,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            var message = string.IsNullOrWhiteSpace(_errorMessage) ? ViewResources.NoInfo : _errorMessage;
+            var message = string.IsNullOrWhiteSpace(_excelModel.ErrorMessage) ? ViewResources.NoInfo : _excelModel.ErrorMessage;
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, ColumnTemplateCount, message);
         }
 
@@ -137,7 +115,7 @@ namespace Fanex.Athena.Excel.Report
 
             int currentRow = 3;
 
-            int rowCount = _dataList.Count();
+            int rowCount = _excelModel.DataList.Count();
 
             string date = DateTime.MinValue.ToShortDateString();
 
@@ -145,7 +123,7 @@ namespace Fanex.Athena.Excel.Report
 
             for (int index = 0; index < rowCount; index++)
             {
-                WinLossByProduct winlossByProduct = _dataList.ElementAt(index);
+                WinLossByProduct winlossByProduct = _excelModel.DataList.ElementAt(index);
 
                 indexReport = SetDateWinLoss(sheet, winlossByProduct, indexReport, ref date, ref currentRow);
 
@@ -186,21 +164,21 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignTitle(ISheet sheet)
         {
-            string fromdate = _metaModel.Level == 0
-                              ? _metaModel.FromDate.ToString(FormatDate)
-                              : _metaModel.DrillDownFromDate.ToString(FormatDate);
+            string fromdate = _excelModel.MetaModel.Level == 0
+                              ? _excelModel.MetaModel.FromDate.ToString(FormatDate)
+                              : _excelModel.MetaModel.DrillDownFromDate.ToString(FormatDate);
 
-            string todate = _metaModel.Level == 0
-                            ? _metaModel.ToDate.ToString(FormatDate)
-                            : _metaModel.DrillDownToDate.ToString(FormatDate);
-            if (_metaModel.Level > 0 && _metaModel.CurrencyId == 0)
+            string todate = _excelModel.MetaModel.Level == 0
+                            ? _excelModel.MetaModel.ToDate.ToString(FormatDate)
+                            : _excelModel.MetaModel.DrillDownToDate.ToString(FormatDate);
+            if (_excelModel.MetaModel.Level > 0 && _excelModel.MetaModel.CurrencyId == 0)
             {
                 ReportTitle = string.Format(
                                     ViewResources.WinLossByProductTitle,
                                     fromdate,
                                     todate,
-                                    ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.DrillDownCurrencyId)) +
-                                    ReportExcelHelper.GetLicenseeWLProduct(_metaModel.ProductOptions, _systemId);
+                                    ReportExcelHelper.GetExactTitleCurrencyName(_excelModel.ConvertingOption, _excelModel.MetaModel.DrillDownCurrencyId)) +
+                                    ReportExcelHelper.GetLicenseeWLProduct(_excelModel.MetaModel.ProductOptions, _excelModel.SystemId);
             }
             else
             {
@@ -208,8 +186,8 @@ namespace Fanex.Athena.Excel.Report
                                         ViewResources.WinLossByProductTitle,
                                         fromdate,
                                         todate,
-                                        ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId)) +
-                                        ReportExcelHelper.GetLicenseeWLProduct(_metaModel.ProductOptions, _systemId);
+                                        ReportExcelHelper.GetExactTitleCurrencyName(_excelModel.ConvertingOption, _excelModel.MetaModel.CurrencyId)) +
+                                        ReportExcelHelper.GetLicenseeWLProduct(_excelModel.MetaModel.ProductOptions, _excelModel.SystemId);
             }
 
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
@@ -227,18 +205,23 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void ProcessUI(ISheet sheet)
         {
-            if (!ShowingOption.CustomerCommVisible)
+            if (!_excelModel.SystemIdVisible)
+            {
+                sheet.HideColumn(ColumnSystemId);
+            }
+
+            if (!_excelModel.CustomerCommVisible)
             {
                 sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
                 sheet.HideRow(RowTableHeaderTemplate + 1);
             }
 
-            if (ShowingOption.BAVisible == false && ShowingOption.RBVisible == false)
+            if (_excelModel.BAVisible == false && _excelModel.RBVisible == false)
             {
                 sheet.HideColumn(ColumnComm);
             }
 
-            switch (_metaModel.Level)
+            switch (_excelModel.MetaModel.Level)
             {
                 case 0:
                     sheet.HideColumn(ColumnExternalId, ColumnSystemId);
@@ -296,7 +279,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="currentRow">Excel row index.</param>
         protected void AssignSummaryTotal(ISheet sheet, int currentRow)
         {
-            var currencyList = _summaryTotal.Keys.ToList();
+            var currencyList = _excelModel.SummaryTotal.Keys.ToList();
             currencyList.Reverse();
 
             int temp = 0;
@@ -304,7 +287,7 @@ namespace Fanex.Athena.Excel.Report
             foreach (string currency in currencyList)
             {
                 int rowBegin = currentRow;
-                var productSummaryList = _summaryTotal[currency];
+                var productSummaryList = _excelModel.SummaryTotal[currency];
 
                 foreach (WinLossByProduct productSummary in productSummaryList)
                 {
@@ -329,12 +312,12 @@ namespace Fanex.Athena.Excel.Report
         protected int AssignTotalData(ISheet sheet, int currentRow)
         {
             int rowBegin = currentRow;
-            var currencyList = _totalData.GroupBy(a => a.CurrencyName).ToList();
+            var currencyList = _excelModel.TotalData.GroupBy(a => a.CurrencyName).ToList();
             var isFirstRowTotal = true;
 
             foreach (var currency in currencyList)
             {
-                var data = _totalData.Where(a => a.CurrencyName == currency.Key).ToList();
+                var data = _excelModel.TotalData.Where(a => a.CurrencyName == currency.Key).ToList();
                 sheet.MergeCells(currentRow, ColumnCurrency, currentRow + data.Count - 1, ColumnCurrency);
                 foreach (var item in data)
                 {
@@ -374,7 +357,7 @@ namespace Fanex.Athena.Excel.Report
             int[] rowList = GetRowNumberFromTemplate(nameOfRow);
 
             int rowNumber;
-            if (_metaModel.Level == 0 && (productName == "Sportsbook" || productName == "Number Game"))
+            if (_excelModel.MetaModel.Level == 0 && (productName == "Sportsbook" || productName == "Number Game"))
             {
                 rowNumber = rowList[0];
             }
@@ -398,24 +381,24 @@ namespace Fanex.Athena.Excel.Report
         /// <returns>Row span count. </returns>
         protected int CalculateReportRowSpan(WinLossByProduct winlossByProduct)
         {
-            var rowSameValueList = _dataList
+            var rowSameValueList = _excelModel.DataList
                                 .Where(a => a.CurrencyId == winlossByProduct.CurrencyId);
 
-            if (_metaModel.Level == 0)
+            if (_excelModel.MetaModel.Level == 0)
             {
                 rowSameValueList =
-                    _dataList.Where(
+                    _excelModel.DataList.Where(
                         a => a.Date == winlossByProduct.Date && a.CurrencyId == winlossByProduct.CurrencyId);
             }
-            else if (_metaModel.Level == 1)
+            else if (_excelModel.MetaModel.Level == 1)
             {
                 rowSameValueList =
-                    _dataList.Where(
+                    _excelModel.DataList.Where(
                         a => a.SystemId == winlossByProduct.SystemId);
             }
-            else if (_metaModel.Level == 2)
+            else if (_excelModel.MetaModel.Level == 2)
             {
-                rowSameValueList = _dataList.Where(a => a.ExternalId == winlossByProduct.ExternalId &&
+                rowSameValueList = _excelModel.DataList.Where(a => a.ExternalId == winlossByProduct.ExternalId &&
                                    a.SystemId == winlossByProduct.SystemId &&
                                    a.CurrencyId == winlossByProduct.CurrencyId);
             }
@@ -429,7 +412,7 @@ namespace Fanex.Athena.Excel.Report
 
             sheet.MergeCells(rowBegin, ColumnIndex, currentRow - 1, ColumnCurrency - 1);
 
-            if (_metaModel.Level != 0)
+            if (_excelModel.MetaModel.Level != 0)
             {
                 sheet.MergeCells(rowBegin, CellIndex, currentRow - 1, CellIndex);
             }
@@ -453,14 +436,14 @@ namespace Fanex.Athena.Excel.Report
             ref string date,
             ref int currentRow)
         {
-            if (_metaModel.Level == 0)
+            if (_excelModel.MetaModel.Level == 0)
             {
                 DateTime dateGetDb = winlossByProduct.Date;
 
                 if (date != dateGetDb.ToShortDateString())
                 {
                     // Report Date
-                    string reportDateString = _metaModel.ReportBy == 1
+                    string reportDateString = _excelModel.MetaModel.ReportBy == 1
                                               ? dateGetDb.ToShortDateString()
                                               : dateGetDb.ToString("MM/yyyy");
                     sheet.SetTextRowValue(TemplateSheet, RowContentTitleTemplate, currentRow, ColumnTemplateCount, reportDateString);

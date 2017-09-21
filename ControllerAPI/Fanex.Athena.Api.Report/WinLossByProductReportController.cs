@@ -16,6 +16,8 @@ namespace Fanex.Athena.Api.Report
     using Base.Attributes;
     using DataAccess.Report;
     using DataAccess.Report.Interfaces;
+    using Excel.Report.Models;
+    using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Extension.Helper;
@@ -23,6 +25,7 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
+    using Model.Core.MetaModel.Product;
     using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
@@ -30,19 +33,24 @@ namespace Fanex.Athena.Api.Report
     [ApiFunctionAuthorization(PermissionKeys.ReportWinLossByProduct)]
     public class WinLossByProductReportController : ApiReportBaseController
     {
+        private readonly IAppSettings _appSettings;
+
         private readonly IWinLossByProductDataAccess _winlossByProductDataAccess;
 
         public WinLossByProductReportController()
         {
+            _appSettings = new AppSettings();
             _winlossByProductDataAccess = new WinLossByProductDataAccess();
         }
 
         public WinLossByProductReportController(
             ISessionService sessionService,
             IProductService productService,
+            IAppSettings appSettings,
             IWinLossByProductDataAccess winlossByProductDataAccess)
             : base(sessionService, productService)
         {
+            _appSettings = appSettings;
             _winlossByProductDataAccess = winlossByProductDataAccess;
         }
 
@@ -68,27 +76,9 @@ namespace Fanex.Athena.Api.Report
         }
 
         [CLSCompliant(false)]
-        protected internal virtual WinlossByProductExcel CreateExcel(
-            WinLossByProductMetaModel metaModel,
-            string systemId,
-            string errorMessage,
-            string templatePath,
-            ShowingOption showingOption,
-            ConvertingOption convertingOption,
-            IEnumerable<WinLossByProduct> dataList,
-            IEnumerable<WinLossByProduct> totalData,
-            IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal)
+        protected internal virtual WinlossByProductExcel CreateExcel(string templatePath, WinLossByProductExcelModel excelModel)
         {
-            return new WinlossByProductExcel(
-                templatePath,
-                convertingOption,
-                showingOption,
-                metaModel,
-                systemId,
-                errorMessage,
-                dataList,
-                totalData,
-                summaryTotal);
+            return new WinlossByProductExcel(templatePath, excelModel);
         }
 
         #region Private Utility
@@ -109,13 +99,13 @@ namespace Fanex.Athena.Api.Report
 
         #endregion Private Utility
 
-        private static dynamic GetEmptyResult(WinLossByProductMetaModel metaModel, int memberId, string systemId, string errorMessage)
+        private static dynamic GetEmptyResult(IEnumerable<ProductOption> productOptions, int memberId, string systemId, string errorMessage)
         {
             return new
             {
                 Data = new List<WinLossByProduct>(),
                 Total = new List<WinLossByProduct>(),
-                ProductOptions = metaModel.ProductOptions.ToJson(),
+                ProductOptions = productOptions.ToJson(),
                 MemberId = memberId,
                 SystemId = systemId,
                 ErrorMessage = errorMessage
@@ -194,18 +184,6 @@ namespace Fanex.Athena.Api.Report
             metaModel.FromDate = metaModel.Level == 0 ? metaModel.FromDate : metaModel.DrillDownFromDate;
             metaModel.ToDate = metaModel.Level == 0 ? metaModel.ToDate : metaModel.DrillDownToDate;
 
-            var showingOption = new ShowingOption
-            {
-                BAVisible = productAccess.IsAllowBA,
-                RBVisible = productAccess.IsAllowRB,
-                NGVisible = productAccess.IsAllowNG,
-                LCVisible = productAccess.IsAllowLC,
-                SBVisible = productAccess.IsAllowSB,
-                VSVisible = productAccess.IsAllowVS,
-                KNVisible = productAccess.IsAllowKN,
-                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
-            };
-
             var convertingOption = new ConvertingOption
             {
                 IsConvert = false,
@@ -213,16 +191,22 @@ namespace Fanex.Athena.Api.Report
                 CurrencyName = metaModel.Level == 0 ? metaModel.CurrencyName : metaModel.DrillDownCurrencyName
             };
 
-            WinlossByProductExcel winlossByProduct = CreateExcel(
-                metaModel,
-                systemId,
-                errorMessage,
-                templatePath,
-                showingOption,
-                convertingOption,
-                dataList,
-                totalData,
-                summaryTotal);
+            var excelModel = new WinLossByProductExcelModel
+            {
+                ConvertingOption = convertingOption,
+                DataList = dataList,
+                ErrorMessage = errorMessage,
+                MetaModel = metaModel,
+                SummaryTotal = summaryTotal,
+                SystemId = systemId,
+                TotalData = totalData,
+                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
+                BAVisible = productAccess.IsAllowBA,
+                RBVisible = productAccess.IsAllowRB,
+                SystemIdVisible = !_appSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId)
+            };
+
+            var winlossByProduct = CreateExcel(templatePath, excelModel);
             winlossByProduct.Export();
 
             return ExcelStream(winlossByProduct.Workbook, FileName);
@@ -334,7 +318,7 @@ namespace Fanex.Athena.Api.Report
                     SystemId = systemId,
                     ErrorMessage = resultInfo.Message
                 }
-                : GetEmptyResult(metaModel, memberId, systemId, resultInfo.Message);
+                : GetEmptyResult(metaModel.ProductOptions, memberId, systemId, resultInfo.Message);
         }
 
         #endregion ProcessRequest
