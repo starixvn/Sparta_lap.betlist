@@ -5,6 +5,7 @@
     using System.Linq;
     using Excel.Base.Entities;
     using Excel.Report;
+    using Excel.Report.Models;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Model.Core.DTO.Common;
@@ -92,22 +93,11 @@
 
             var actualDataList = Enumerable.Empty<CustomerWinLoss>();
             var actualShowingOption = new ShowingOption();
-            var excel = Substitute.ForPartsOf<CustomerWinLossExcel>(
-                   Arg.Any<string>(),
-                   Arg.Do<ShowingOption>(x => actualShowingOption = x),
-                   Arg.Any<ConvertingOption>(),
-                   new CustomerWinLossMetaModel(),
-                   Arg.Do<IEnumerable<CustomerWinLoss>>(x => actualDataList = x),
-                   Arg.Any<CustomerWinLoss>());
+            var excel = Substitute.ForPartsOf<CustomerWinLossExcel>(Arg.Any<string>(), new CustomerWinLossExcelModel());
             excel.When(x => x.Export()).DoNotCallBase();
 
-            _controller.CreateExcel(
-                   Arg.Any<string>(),
-                   Arg.Any<ShowingOption>(),
-                   Arg.Any<ConvertingOption>(),
-                   new CustomerWinLossMetaModel(),
-                   Arg.Any<IEnumerable<CustomerWinLoss>>(),
-                   Arg.Any<CustomerWinLoss>()).ReturnsForAnyArgs(excel);
+            _controller.CreateExcel(Arg.Any<string>(), new CustomerWinLossExcelModel())
+                .ReturnsForAnyArgs(excel);
 
             // Action
             _controller.Index(metaModel);

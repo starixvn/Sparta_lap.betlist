@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.Api.Report
 {
     using System;
-    using System.Collections.Generic;
+    using System.Linq;
     using System.Net.Http;
     using System.Web.Hosting;
     using System.Web.Http;
@@ -9,6 +9,7 @@
     using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
     using Excel.Report;
+    using Excel.Report.Models;
     using Extension.Utility;
     using Fanex.Athena.Api.Base.Attributes;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -20,19 +21,24 @@
     [ApiFunctionAuthorization(PermissionKeys.ReportCustomerWinLoss)]
     public class CustomerWinLossReportController : ApiReportBaseController
     {
+        private readonly IAppSettings _appSettings;
+
         private readonly ICustWinlossDataAccess _custWinlossDataAccess;
 
         public CustomerWinLossReportController()
         {
+            _appSettings = new AppSettings();
             _custWinlossDataAccess = new CustomerWinlossDataAccess();
         }
 
         public CustomerWinLossReportController(
+            IAppSettings appSettings,
             ICustWinlossDataAccess custWinlossDataAccess,
             ISessionService sessionService,
             IProductService productService)
             : base(sessionService, productService)
         {
+            _appSettings = appSettings;
             _custWinlossDataAccess = custWinlossDataAccess;
         }
 
@@ -43,15 +49,9 @@
         }
 
         [CLSCompliant(false)]
-        protected internal virtual CustomerWinLossExcel CreateExcel(
-            string templatePath,
-            ShowingOption showingOption,
-            ConvertingOption convertingOption,
-            CustomerWinLossMetaModel metaModel,
-            IEnumerable<CustomerWinLoss> dataList,
-            CustomerWinLoss totalData)
+        protected internal virtual CustomerWinLossExcel CreateExcel(string templatePath, CustomerWinLossExcelModel excelModel)
         {
-            return new CustomerWinLossExcel(templatePath, showingOption, convertingOption, metaModel, dataList, totalData);
+            return new CustomerWinLossExcel(templatePath, excelModel);
         }
 
         private dynamic ProcessRequest(CustomerWinLossMetaModel metaModel)
@@ -84,19 +84,6 @@
             var licenseeSession = SessionService.LicenseeSession;
             var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, FunctionNames.CustomerBalance);
 
-            var showingOption = new ShowingOption
-            {
-                BAVisible = productAccess.IsAllowBA,
-                RBVisible = productAccess.IsAllowRB,
-                NGVisible = productAccess.IsAllowNG,
-                LCVisible = productAccess.IsAllowLC,
-                SBVisible = productAccess.IsAllowSB,
-                VSVisible = productAccess.IsAllowVS,
-                CSVisible = productAccess.IsAllowCS,
-                BGVisible = productAccess.IsAllowBG,
-                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
-            };
-
             var convertingOption = new ConvertingOption
             {
                 IsConvert = metaModel.IsConvert,
@@ -107,8 +94,19 @@
             CustomerWinLoss totalData;
             int totalRows;
             var dataList = GetData(metaModel, out totalData, out totalRows);
+            var excelModel = new CustomerWinLossExcelModel
+            {
+                ConvertingOption = convertingOption,
+                DataList = dataList,
+                MetaModel = metaModel,
+                TotalData = totalData,
+                BAVisible = productAccess.IsAllowBA,
+                RBVisible = productAccess.IsAllowRB,
+                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
+                SystemIdVisible = !_appSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId)
+            };
 
-            var excel = CreateExcel(templatePath, showingOption, convertingOption, metaModel, dataList, totalData);
+            var excel = CreateExcel(templatePath, excelModel);
             excel.Export();
 
             return ExcelStream(excel.Workbook, FileName);

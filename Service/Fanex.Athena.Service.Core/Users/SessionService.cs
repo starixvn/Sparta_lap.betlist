@@ -241,7 +241,7 @@ namespace Fanex.Athena.Service.Core.Users
             return result;
         }
 
-        private static string GetDefaultReportUrl(IList<int> functionIdList, IList<Function> functionList)
+        private static string GetDefaultReportUrl(IEnumerable<int> functionIdList, IEnumerable<Function> functionList)
         {
             if (!functionIdList.Contains(ReportBalanceId))
             {

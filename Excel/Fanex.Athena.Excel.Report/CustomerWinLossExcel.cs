@@ -10,11 +10,9 @@ namespace Fanex.Athena.Excel.Report
     using System.Collections.Generic;
     using System.Linq;
     using Base;
-    using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Helpers;
-    using Model.Report.DTO;
-    using Model.Report.MetaModel;
+    using Models;
     using NPOI.SS.UserModel;
     using Resources;
 
@@ -41,25 +39,12 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTableHeaderTemplate = 1;
         private const int RowTotalTemplate = 4;
 
-        private readonly IEnumerable<CustomerWinLoss> _customerWinlossList;
-        private readonly CustomerWinLoss _total;
-        private readonly CustomerWinLossMetaModel _metaModel;
+        private readonly CustomerWinLossExcelModel _excelModel;
 
-        private readonly ConvertingOption _convertingOption;
-
-        public CustomerWinLossExcel(
-            string templatePath,
-            ShowingOption showingOption,
-            ConvertingOption convertingOption,
-            CustomerWinLossMetaModel metaModel,
-            IEnumerable<CustomerWinLoss> dataList,
-            CustomerWinLoss totalData)
-            : base(templatePath, showingOption, metaModel.PageSize)
+        public CustomerWinLossExcel(string templatePath, CustomerWinLossExcelModel excelModel)
+            : base(templatePath, excelModel.MetaModel.PageSize)
         {
-            _convertingOption = convertingOption;
-            _metaModel = metaModel;
-            _customerWinlossList = dataList;
-            _total = totalData;
+            _excelModel = excelModel;
             HeaderTextList = new List<string>
             {
                 "#",
@@ -81,7 +66,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignData()
         {
-            int numOfDataRow = _customerWinlossList.Count();
+            int numOfDataRow = _excelModel.DataList.Count();
 
             ISheet sheet;
 
@@ -95,7 +80,7 @@ namespace Fanex.Athena.Excel.Report
             }
             else
             {
-                var numOfSheet = GetNumberOfSheets(numOfDataRow, _metaModel.PageSize);
+                var numOfSheet = GetNumberOfSheets(numOfDataRow, _excelModel.MetaModel.PageSize);
                 for (int i = 0; i < numOfSheet; i++)
                 {
                     sheet = Workbook.CloneSheet("Template", "Data" + (i + 1).ToString());
@@ -131,14 +116,14 @@ namespace Fanex.Athena.Excel.Report
 
         protected override int AssignSheetData(ISheet sheet, int pageIndex)
         {
-            int rowCount = Math.Min(_customerWinlossList.Count(), checked((pageIndex + 1) * PageSize));
+            int rowCount = Math.Min(_excelModel.DataList.Count(), checked((pageIndex + 1) * PageSize));
             int rowIndex = 0;
 
             for (int index = pageIndex * PageSize; index < rowCount; index++)
             {
                 IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
 
-                var customerWinloss = _customerWinlossList.ElementAt(index);
+                var customerWinloss = _excelModel.DataList.ElementAt(index);
 
                 row.Cells[ColumnIndex].SetCellValue(index + 1);
                 row.Cells[ColumnExternalId].SetCellValue(customerWinloss.ExternalId);
@@ -168,9 +153,9 @@ namespace Fanex.Athena.Excel.Report
         {
             ReportTitle = string.Format(
                                         ViewResources.CustomerWinLossTitle,
-                                        _metaModel.FromDate.ToString(FormatDate),
-                                        _metaModel.ToDate.ToString(FormatDate),
-                                        ReportExcelHelper.GetTitleCurrencyName(_convertingOption)) + ReportExcelHelper.GetLicenseeWLProduct(_metaModel.ProductOptions);
+                                        _excelModel.MetaModel.FromDate.ToString(FormatDate),
+                                        _excelModel.MetaModel.ToDate.ToString(FormatDate),
+                                        ReportExcelHelper.GetTitleCurrencyName(_excelModel.ConvertingOption)) + ReportExcelHelper.GetLicenseeWLProduct(_excelModel.MetaModel.ProductOptions);
 
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
@@ -183,18 +168,23 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void ProcessUI(ISheet sheet)
         {
-            if (!ShowingOption.CustomerCommVisible)
+            if (!_excelModel.SystemIdVisible)
+            {
+                sheet.HideColumn(ColumnSystemId);
+            }
+
+            if (!_excelModel.CustomerCommVisible)
             {
                 sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
                 sheet.HideRow(RowTableHeaderTemplate + 1);
             }
 
-            if (!ShowingOption.BAVisible)
+            if (!_excelModel.BAVisible)
             {
                 sheet.HideColumn(ColumnBaCommission, ColumnAmtDueToBa);
             }
 
-            if (!ShowingOption.RBVisible)
+            if (!_excelModel.RBVisible)
             {
                 sheet.HideColumn(ColumnRacingRevenue, ColumnAmtDueToRacing);
             }
@@ -206,17 +196,17 @@ namespace Fanex.Athena.Excel.Report
 
             IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, rowTotalNumber);
 
-            row.Cells[ColumnTurnover].SetCellValue(_total.Turnover);
-            row.Cells[ColumnTotalTransaction].SetCellValue(_total.TotalTransaction);
-            row.Cells[ColumnCustomerWl].SetCellValue(_total.CustomerWL);
-            row.Cells[ColumnCustomerComm].SetCellValue(_total.PlayerComm);
-            row.Cells[ColumnCustomerTotal].SetCellValue(_total.CustomerWL + _total.PlayerComm);
-            row.Cells[ColumnBetEffective].SetCellValue(_total.BetEffective);
-            row.Cells[ColumnLicenseeWl].SetCellValue(_total.LicenseeWL);
-            row.Cells[ColumnBaCommission].SetCellValue(_total.BAComm);
-            row.Cells[ColumnRacingRevenue].SetCellValue(_total.RacingRevenue);
-            row.Cells[ColumnAmtDueToBa].SetCellValue(_total.AmtDueToBA);
-            row.Cells[ColumnAmtDueToRacing].SetCellValue(_total.AmtDueToRacing);
+            row.Cells[ColumnTurnover].SetCellValue(_excelModel.TotalData.Turnover);
+            row.Cells[ColumnTotalTransaction].SetCellValue(_excelModel.TotalData.TotalTransaction);
+            row.Cells[ColumnCustomerWl].SetCellValue(_excelModel.TotalData.CustomerWL);
+            row.Cells[ColumnCustomerComm].SetCellValue(_excelModel.TotalData.PlayerComm);
+            row.Cells[ColumnCustomerTotal].SetCellValue(_excelModel.TotalData.CustomerWL + _excelModel.TotalData.PlayerComm);
+            row.Cells[ColumnBetEffective].SetCellValue(_excelModel.TotalData.BetEffective);
+            row.Cells[ColumnLicenseeWl].SetCellValue(_excelModel.TotalData.LicenseeWL);
+            row.Cells[ColumnBaCommission].SetCellValue(_excelModel.TotalData.BAComm);
+            row.Cells[ColumnRacingRevenue].SetCellValue(_excelModel.TotalData.RacingRevenue);
+            row.Cells[ColumnAmtDueToBa].SetCellValue(_excelModel.TotalData.AmtDueToBA);
+            row.Cells[ColumnAmtDueToRacing].SetCellValue(_excelModel.TotalData.AmtDueToRacing);
 
             MergeTotalCell(sheet, row, rowTotalNumber);
         }
