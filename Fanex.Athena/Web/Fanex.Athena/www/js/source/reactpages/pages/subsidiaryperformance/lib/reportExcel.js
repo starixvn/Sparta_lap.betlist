@@ -17,52 +17,62 @@ const MAIN_SECTION_STYLE = "mainSectionStyle";
 const TOTAL_SECTION_STYLE = "totalSectionStyle";
 const GRAND_TOTAL_SECTION_STYLE = "grandTotalSectionStyle";
 
+const fields = {
+    subsidiary: "Subsidiary",
+    currencyName: "CurrencyName",
+    product: "Product",
+    betCount: "BetCount",
+    turnover: "Turnover",
+    customerWinLoss: "CustomerWinLoss",
+    subsidiaryWinLoss: "SubsidiaryWinLoss",
+}
+
 const columnConfigs = [{
-        field: "Subsidiary",
+        field: fields.subsidiary,
         [MAIN_SECTION_STYLE]: bodyCellStyle.rowspan,
         [TOTAL_SECTION_STYLE]: totalCellStyle.default,
         [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.default
     },
     {
-        field: "CurrencyName",
+        field: fields.currencyName,
         [MAIN_SECTION_STYLE]: bodyCellStyle.center,
         [TOTAL_SECTION_STYLE]: totalCellStyle.default,
         [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.default
     },
     {
-        field: "Product",
+        field: fields.product,
         [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.default
     },
     {
-        field: "BetCount",
+        field: fields.betCount,
         [MAIN_SECTION_STYLE]: bodyCellStyle.number,
         [TOTAL_SECTION_STYLE]: totalCellStyle.number,
         [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.number
     },
     {
-        field: "Turnover",
+        field: fields.turnover,
         [MAIN_SECTION_STYLE]: bodyCellStyle.decimal,
         [TOTAL_SECTION_STYLE]: totalCellStyle.decimal,
         [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.decimal
     },
     {
-        field: "CustomerWinLoss",
+        field: fields.customerWinLoss,
         [MAIN_SECTION_STYLE]: bodyCellStyle.decimal,
         [TOTAL_SECTION_STYLE]: totalCellStyle.decimal,
         [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.decimal
     },
     {
-        field: "SubsidiaryWinLoss",
-        [MAIN_SECTION_STYLE]: bodyCellStyle.decimal,
-        [TOTAL_SECTION_STYLE]: totalCellStyle.decimal,
-        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.decimal
+        field: fields.subsidiaryWinLoss,
+        [MAIN_SECTION_STYLE]: { positive: bodyCellStyle.decimal, negative: bodyCellStyle.negativeDecimal },
+        [TOTAL_SECTION_STYLE]: { positive: totalCellStyle.decimal, negative: totalCellStyle.negativeDecimal },
+        [GRAND_TOTAL_SECTION_STYLE]: { positive: grandTotalCellStyle.decimal, negative: grandTotalCellStyle.negativeDecimal }
     }
 ]
 
 const HEADERS = [
     LangHelper.getSingleResource("Subsidiary"), LangHelper.getSingleResource("Currency"),
     LangHelper.getSingleResource("Product"), LangHelper.getSingleResource("BetCount"),
-    LangHelper.getSingleResource("Turnover"), LangHelper.getSingleResource("CustomerWinLoss"),
+    LangHelper.getSingleResource("Turnover"), LangHelper.getSingleResource("CustomerW_L"),
     `${LangHelper.getSingleResource("SubsidiaryWL")}/ ${LangHelper.getSingleResource("Comm")}`
 ];
 
@@ -156,11 +166,15 @@ export default class ReportExcel {
     _getCellObject(item, sectionStyle, columnIndex) {
         const columnConfig = columnConfigs[columnIndex];
         const field = columnConfig.field;
-        const style = columnConfig[sectionStyle];
 
         const cellAddress = Excel.getCellAddress({ c: columnIndex, r: this.currentRowIndex });
         const type = typeof item[columnConfig.field] === "number" ? "n" : "s";
         const value = item[field] !== null ? item[field] : "";
+
+        let style = columnConfig[sectionStyle];
+        if (field === fields.subsidiaryWinLoss) {
+            style = value < 0 ? style.negative : style.positive;
+        }
 
         return { cellAddress, type, value, style };
     }
