@@ -20403,13 +20403,22 @@ var DataGrid = function (_Component) {
     function DataGrid(props) {
         _classCallCheck(this, DataGrid);
 
-        return _possibleConstructorReturn(this, (DataGrid.__proto__ || Object.getPrototypeOf(DataGrid)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (DataGrid.__proto__ || Object.getPrototypeOf(DataGrid)).call(this, props));
+
+        _this.reportTitle = "";
+        return _this;
     }
 
     _createClass(DataGrid, [{
         key: 'componentDidUpdate',
         value: function componentDidUpdate(prevProps, prevState) {
             this.props.toggleLoader(false);
+
+            var _props = this.props,
+                dateRange = _props.dateRange,
+                selectedBaseCurrency = _props.selectedBaseCurrency;
+
+            this.reportTitle = _Common2.default.getReportTitle(dateRange, selectedBaseCurrency);
         }
     }, {
         key: '_renderNodata',
@@ -20470,7 +20479,7 @@ var DataGrid = function (_Component) {
             var headers = _Common2.default.getHeaderText().map(function (item, index) {
                 return _react2.default.createElement(
                     'th',
-                    { title: item },
+                    { key: 'header' + index, title: item },
                     item
                 );
             });
@@ -20639,15 +20648,6 @@ var DataGrid = function (_Component) {
                     subsidiaryWinLoss
                 )
             );
-        }
-    }, {
-        key: 'reportTitle',
-        get: function get() {
-            var _props = this.props,
-                dateRange = _props.dateRange,
-                selectedBaseCurrency = _props.selectedBaseCurrency;
-
-            return _Common2.default.getReportTitle(dateRange, selectedBaseCurrency);
         }
     }]);
 
