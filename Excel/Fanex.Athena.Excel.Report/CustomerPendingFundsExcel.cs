@@ -1,25 +1,15 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CustomerPendingFundsExcel.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-
-namespace Fanex.Athena.Excel.Report
+﻿namespace Fanex.Athena.Excel.Report
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using Base;
-    using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Helpers;
-    using Model.Report.DTO;
+    using Models;
     using NPOI.SS.UserModel;
     using Resources;
 
-    /// <summary>
-    ///     Export excel for Customer Pending Funds.
-    /// </summary>
     public class CustomerPendingFundsExcel : ReportBase
     {
         private const int ColumnBetCount = 3;
@@ -31,21 +21,12 @@ namespace Fanex.Athena.Excel.Report
         private const int RowNoInfoTemplate = 4;
         private const int RowTotalTemplate = 3;
 
-        private readonly IEnumerable<CustPendingFunds> _customerPendingFundsList;
-        private readonly CustPendingFunds _total;
+        private readonly CustomerPendingFundsExcelModel _excelModel;
 
-        private readonly ConvertingOption _convertingOption;
-
-        public CustomerPendingFundsExcel(
-                                         string templatePath,
-                                         ConvertingOption convertingOption,
-                                         IEnumerable<CustPendingFunds> dataList,
-                                         CustPendingFunds totalData)
-            : base(templatePath, new ShowingOption())
+        public CustomerPendingFundsExcel(string templatePath, CustomerPendingFundsExcelModel excelModel)
+            : base(templatePath)
         {
-            _convertingOption = convertingOption;
-            _customerPendingFundsList = dataList;
-            _total = totalData;
+            _excelModel = excelModel;
             HeaderTextList = new List<string>
             {
                 "#",
@@ -56,12 +37,9 @@ namespace Fanex.Athena.Excel.Report
             };
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
         protected override void AssignData()
         {
-            var numOfDataRow = _customerPendingFundsList.Count();
+            var numOfDataRow = _excelModel.DataList.Count();
 
             ISheet sheet;
 
@@ -87,10 +65,6 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
@@ -100,32 +74,22 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign no info row.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="pageIndex">Start index.</param>
-        /// <returns>Row index.</returns>
         protected override int AssignSheetData(ISheet sheet, int pageIndex)
         {
-            var rowCount = Math.Min(_customerPendingFundsList.Count(), checked((pageIndex + 1) * PageSize));
+            var rowCount = Math.Min(_excelModel.DataList.Count(), checked((pageIndex + 1) * PageSize));
             var rowIndex = 0;
 
             for (int index = pageIndex * PageSize; index < rowCount; index++)
             {
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + 2);
 
-                var customerPedingFunds = _customerPendingFundsList.ElementAt(index);
+                var customerPedingFunds = _excelModel.DataList.ElementAt(index);
 
                 row.Cells[ColumnIndex].SetCellValue(index + 1);
                 row.Cells[ColumnExternalId].SetCellValue(customerPedingFunds.ExternalId);
@@ -141,13 +105,9 @@ namespace Fanex.Athena.Excel.Report
             return rowIndex;
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignTitle(ISheet sheet)
         {
-            ReportTitle = string.Format(ViewResources.CustomerPedingFundsTitle, ReportExcelHelper.GetTitleCurrencyName(_convertingOption));
+            ReportTitle = string.Format(ViewResources.CustomerPedingFundsTitle, ReportExcelHelper.GetTitleCurrencyName(_excelModel.ConvertingOption));
 
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
@@ -161,19 +121,22 @@ namespace Fanex.Athena.Excel.Report
             sheet.CreateFreezePane(0, 2);
         }
 
-        /// <summary>
-        /// Assign total row.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="totalRow">The total value.</param>
         protected void AssignSumData(ISheet sheet, int totalRow)
         {
             var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, totalRow);
 
-            row.Cells[ColumnBetCount].SetCellValue(_total.BetCounts);
-            row.Cells[ColumnPendingFunds].SetCellValue(_total.PendingFunds);
+            row.Cells[ColumnBetCount].SetCellValue(_excelModel.TotalData.BetCounts);
+            row.Cells[ColumnPendingFunds].SetCellValue(_excelModel.TotalData.PendingFunds);
             row.Cells[0].SetCellValue(ViewResources.Total);
             sheet.MergeCells(totalRow, 0, totalRow, 2);
+        }
+
+        protected override void ProcessUI(ISheet sheet)
+        {
+            if (!_excelModel.SystemIdVisible)
+            {
+                sheet.HideColumn(ColumnSystemId);
+            }
         }
     }
 }

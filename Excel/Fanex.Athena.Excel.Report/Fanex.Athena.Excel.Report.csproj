@@ -114,6 +114,7 @@
     <Compile Include="Helpers\ReportExcelHelper.cs" />
     <Compile Include="MicroGamingWinLossExcel.cs" />
     <Compile Include="AgCasinoBalanceExcel.cs" />
+    <Compile Include="Models\CustomerPendingFundsExcelModel.cs" />
     <Compile Include="Models\CustomerWinLossExcelModel.cs" />
     <Compile Include="Models\LicenseeWinLossExcelModel.cs" />
     <Compile Include="Models\WinLossByProductExcelModel.cs" />

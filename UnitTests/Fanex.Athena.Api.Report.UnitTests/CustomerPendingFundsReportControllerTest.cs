@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Excel.Base.Entities;
     using Excel.Report;
+    using Excel.Report.Models;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Model.Report.DTO;
@@ -84,18 +84,10 @@
             const int PageSizeExcel = int.MaxValue - 1000;
 
             var actualDataList = Enumerable.Empty<CustPendingFunds>();
-            var excel = Substitute.ForPartsOf<CustomerPendingFundsExcel>(
-                   Arg.Any<string>(),
-                   Arg.Any<ConvertingOption>(),
-                   Arg.Do<IEnumerable<CustPendingFunds>>(x => actualDataList = x),
-                   Arg.Any<CustPendingFunds>());
+            var excel = Substitute.ForPartsOf<CustomerPendingFundsExcel>(Arg.Any<string>(), Arg.Any<CustomerPendingFundsExcelModel>());
             excel.When(x => x.Export()).DoNotCallBase();
 
-            _controller.CreateExcel(
-                   Arg.Any<string>(),
-                   Arg.Any<ConvertingOption>(),
-                   Arg.Any<IEnumerable<CustPendingFunds>>(),
-                   Arg.Any<CustPendingFunds>()).Returns(excel);
+            _controller.CreateExcel(Arg.Any<string>(), Arg.Any<CustomerPendingFundsExcelModel>()).Returns(excel);
 
             // Action
             _controller.Index(metaModel);
