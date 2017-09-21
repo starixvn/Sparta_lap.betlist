@@ -83,7 +83,7 @@ namespace Fanex.Athena.Excel.Report
         private readonly bool _isAllowBA;
 
         public LicenseeWinLossExcel(string templatePath, LicenseeWinLossExcelModel excelModel)
-            : base(templatePath, null)
+            : base(templatePath)
         {
             _excelModel = excelModel;
 
@@ -251,6 +251,11 @@ namespace Fanex.Athena.Excel.Report
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         protected override void ProcessUI(ISheet sheet)
         {
+            if (!_excelModel.SystemIdVisible)
+            {
+                sheet.HideColumn(ColumnSystemId);
+            }
+
             if (!_excelModel.CustomerCommVisible)
             {
                 sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);

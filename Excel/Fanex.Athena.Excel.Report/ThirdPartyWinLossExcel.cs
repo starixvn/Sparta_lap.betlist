@@ -54,7 +54,7 @@ namespace Fanex.Athena.Excel.Report
                 ConvertingOption convertingOption,
                 ThirdPartyWinLossMetaModel metaModel,
                 ThirdPartyWinLossViewModel viewModel)
-            : base(templatePath, null)
+            : base(templatePath)
         {
             _convertingOption = convertingOption;
             _metaModel = metaModel;

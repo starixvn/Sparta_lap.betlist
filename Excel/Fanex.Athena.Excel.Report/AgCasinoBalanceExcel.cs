@@ -55,7 +55,7 @@ namespace Fanex.Athena.Excel.Report
                 ConvertingOption convertingOption,
                 AgCasinoBalanceMetaModel metaModel,
                 AgCasinoBalanceViewModel viewModel)
-            : base(templatePath, null)
+            : base(templatePath)
         {
             _convertingOption = convertingOption;
             _metaModel = metaModel;

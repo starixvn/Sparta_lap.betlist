@@ -30,10 +30,13 @@ namespace Fanex.Athena.Api.Report
     [ApiFunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss)]
     public class LicenseeWinLossReportController : ApiReportBaseController
     {
+        private readonly IAppSettings _appSettings;
+
         private readonly ILicenseeWinLossDataAccess _licenseeWinLossDataAccess;
 
         public LicenseeWinLossReportController()
         {
+            _appSettings = new AppSettings();
             _licenseeWinLossDataAccess = new LicenseeWinLossDataAccess();
         }
 
@@ -66,8 +69,6 @@ namespace Fanex.Athena.Api.Report
                 ProductOptions = productOptions.ToJson()
             };
         }
-
-        #region ProcessRequest
 
         private static SortableList<LicenseeWinLoss> SortData(SortableList<LicenseeWinLoss> dataList, string sortBy = null, string sortOrder = "asc")
         {
@@ -106,10 +107,6 @@ namespace Fanex.Athena.Api.Report
 
             return dataList;
         }
-
-        #endregion ProcessRequest
-
-        #region Private Utility
 
         private static LicenseeWinLossGridViewModel MapToGridView(LicenseeWinLoss item, int index = 0)
         {
@@ -229,7 +226,8 @@ namespace Fanex.Athena.Api.Report
                 COVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.CO) && productAccess.IsAllow(ProductTypes.CashOut),
                 BAVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.BA) && productAccess.IsAllow(ProductTypes.BA),
                 RBVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.RB) && productAccess.IsAllow(ProductTypes.Racing),
-                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
+                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
+                SystemIdVisible = !_appSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId)
             };
 
             var licenseeWinLoss = new LicenseeWinLossExcel(templatePath, excelModel);
@@ -306,7 +304,5 @@ namespace Fanex.Athena.Api.Report
 
             return GetEmptyResult(metaModel.ProductOptions);
         }
-
-        #endregion Private Utility
     }
 }
