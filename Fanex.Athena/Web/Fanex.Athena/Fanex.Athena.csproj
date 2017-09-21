@@ -816,6 +816,7 @@
     <Content Include="www\js\source\reactpages\lib\site.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\common.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\reportExcel.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\dataHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\filterHandlerReducer.js" />
@@ -2439,6 +2440,8 @@
     <Content Include="www\js\source\reactpages\components\multiple-select\components\Option.jsx" />
     <Content Include="www\js\source\reactpages\components\multiple-select\components\OptionAll.jsx" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\index.jsx" />
+    <Content Include="www\js\source\reactpages\components\NoDataTitle.jsx" />
+    <Content Include="www\js\source\reactpages\components\ReportTitle.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

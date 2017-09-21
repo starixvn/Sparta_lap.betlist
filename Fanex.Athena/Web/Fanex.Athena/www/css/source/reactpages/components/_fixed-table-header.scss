@@ -3,7 +3,7 @@
 @import "table";
 $paddingRightContainer: 17px;
 
-.table-container{
+.table-container {
     overflow-x: auto;
 }
 
@@ -26,9 +26,6 @@ $paddingRightContainer: 17px;
 .table {
     th, td {
         white-space: normal;
-    }
-
-    th, td {
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: 1px;
@@ -61,6 +58,7 @@ $paddingRightContainer: 17px;
 .body-content {
     overflow-y: auto;
     overflow-x: auto;
+    border-top: none;
 
     &.hasScroll {
         padding-right: 0;
@@ -76,8 +74,9 @@ $paddingRightContainer: 17px;
 .header-content {
     border-bottom: none;
 
-    th {
-        border-top: none;
+    .table > thead > tr > th {
+        border: none;
+        border-left: 1px solid #fff;
 
         &:first-child {
             border-left: none;

@@ -6,7 +6,9 @@ import Select from 'react-select'
 import MultipleSelect from '../../../components/multiple-select'
 import { Calendar, DateRange } from '../../../components/date-range/index'
 import LangHelper from '../../../lib/langHelper'
-import ReportExcel from '../lib/reportExcel';
+import ReportExcel from '../lib/reportExcel'
+import Site from '../../../lib/site'
+import Common from '../lib/Common'
 
 const RANGE_MONTH_CONSTRAINT = 3;
 
@@ -33,10 +35,12 @@ class FormFilter extends Component {
 
     exportExcel = (event) => {
         event.preventDefault();
+        const { dateRange, selectedBaseCurrency } = this.props;
         const params = this._getParams();
 
         this.props.exportExcel(params).then(response => {
-            const excel = new ReportExcel(response.data);
+            const title = Common.getReportTitle(dateRange, selectedBaseCurrency);
+            const excel = new ReportExcel(response.data, title);
             excel.export();
         });
     }
@@ -55,8 +59,8 @@ class FormFilter extends Component {
                 SubsidiaryList: this.props.selectedSubsidiary,
                 ProductCodeList: this.props.selectedProduct,
                 ConvertAll: this.props.convertAll,
-                FromDate: typeof fromDate === "string" ? fromDate : fromDate.format("MM/DD/YYYY"),
-                ToDate: typeof toDate === "string" ? toDate : toDate.format("MM/DD/YYYY")
+                FromDate: Site.convertDateToString(fromDate),
+                ToDate: Site.convertDateToString(toDate)
             }
         }
     }

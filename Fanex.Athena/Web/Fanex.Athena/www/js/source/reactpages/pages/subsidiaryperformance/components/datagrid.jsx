@@ -6,6 +6,8 @@ import { Table, Header, Body, Footer, Row, Cell } from '../../../components/fixe
 import LangHelper from '../../../lib/langHelper'
 import NumberFormat from '../../../lib/numberFormat'
 import ReportTitle from '../../../components/ReportTitle'
+import NoDataTitle from '../../../components/NoDataTitle'
+import Common from '../lib/Common'
 
 const columnLayout = [1.5, 1.5, 2, 1.5, 2, 2, 2];
 
@@ -15,24 +17,13 @@ class DataGrid extends Component {
     }
 
     get header() {
-        const subsidiary = LangHelper.getSingleResource("Subsidiary"),
-            currency = LangHelper.getSingleResource("Currency"),
-            product = LangHelper.getSingleResource("Product"),
-            betcount = LangHelper.getSingleResource("BetCount"),
-            turnover = LangHelper.getSingleResource("Turnover"),
-            customerWL = LangHelper.getSingleResource("CustomerW_L"),
-            subsidiaryWL = LangHelper.getSingleResource("SubsidiaryWL"),
-            comm = LangHelper.getSingleResource("Comm");
+        const headers = Common.getHeaderText().map((item, index) => {
+            return <th title={item}>{item}</th>
+        });
 
         return (
             <Row style={{ height: 32 }}>
-                <th title={subsidiary}>{subsidiary}</th>
-                <th title={currency}>{currency}</th>
-                <th title={product}>{product}</th>
-                <th title={betcount}>{betcount}</th>
-                <th title={turnover}>{turnover}</th>
-                <th title={customerWL}>{customerWL}</th>
-                <th title={`${subsidiaryWL}/ ${comm}`}>{`${subsidiaryWL}/ ${comm}`}</th>
+                {headers}
             </Row>
         )
     }
@@ -123,18 +114,30 @@ class DataGrid extends Component {
 
     get reportTitle() {
         const { dateRange, selectedBaseCurrency } = this.props;
-        return `${LangHelper.getSingleResource("SubsidiaryPerformance")}, 
-                ${dateRange.fromDate.format("MM/DD/YYYY")} - ${dateRange.toDate.format("MM/DD/YYYY")} - 
-                ${LangHelper.getSingleResource("Viewin").replace("{0}", selectedBaseCurrency)}`
+        return Common.getReportTitle(dateRange, selectedBaseCurrency);
     }
 
     componentDidUpdate(prevProps, prevState) {
         this.props.toggleLoader(false);
     }
 
+    _renderNodata() {
+        return (
+            <div className="result-content">
+                <ReportTitle content={this.reportTitle} />
+                <NoDataTitle />
+            </div>
+        )
+    }
+
     render() {
-        if (!this.props.gridData.Data || !this.props.gridData.Data.length) {
+        const { Data } = this.props.gridData;
+        if (!Data) {
             return null;
+        }
+
+        if (!Data.length) {
+            return this._renderNodata();
         }
 
         return (

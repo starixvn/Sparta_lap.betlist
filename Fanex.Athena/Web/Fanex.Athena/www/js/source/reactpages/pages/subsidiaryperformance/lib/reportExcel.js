@@ -1,9 +1,12 @@
 import Excel from '../../../lib/excel'
 import LangHelper from '../../../lib/langHelper'
-import { headerCellStyle, bodyCellStyle, totalCellStyle, grandTotalCellStyle } from '../../../constants/excelStyle'
+import { titleCellStyle, headerCellStyle, bodyCellStyle, totalCellStyle, grandTotalCellStyle } from '../../../constants/excelStyle'
+import Common from '../lib/Common'
 
 const COLUMN_COUNT = 7;
-const START_OF_DATA_ROW = 1;
+const TITLE_ROW_INDEX = 0;
+const HEADER_ROW_INDEX = 1;
+const DATA_ROW_INDEX = 2;
 
 const SUBSIDIARY_COLUMN_INDEX = 0;
 const CURRENCY_COLUMN_INDEX = 1;
@@ -69,19 +72,13 @@ const columnConfigs = [{
     }
 ]
 
-const HEADERS = [
-    LangHelper.getSingleResource("Subsidiary"), LangHelper.getSingleResource("Currency"),
-    LangHelper.getSingleResource("Product"), LangHelper.getSingleResource("BetCount"),
-    LangHelper.getSingleResource("Turnover"), LangHelper.getSingleResource("CustomerW_L"),
-    `${LangHelper.getSingleResource("SubsidiaryWL")}/ ${LangHelper.getSingleResource("Comm")}`
-];
-
 export default class ReportExcel {
-    constructor(gridData = {}, fileName = "SubsidiaryPerformance") {
+    constructor(gridData = {}, title, fileName = "SubsidiaryPerformance") {
         this.worksheet = {};
+        this.title = title;
         this.fileName = fileName;
         this.gridData = gridData;
-        this.currentRowIndex = START_OF_DATA_ROW;
+        this.currentRowIndex = DATA_ROW_INDEX;
         this.mergeConfig = [];
     }
 
@@ -90,6 +87,7 @@ export default class ReportExcel {
             return;
         }
 
+        this._createTitle();
         this._createHeader();
         this._createSheetData();
         this._createExcelConfig();
@@ -97,10 +95,17 @@ export default class ReportExcel {
         Excel.export(this.worksheet, this.fileName);
     }
 
+    _createTitle() {
+        this.mergeConfig.push({ s: { r: TITLE_ROW_INDEX, c: 0 }, e: { r: TITLE_ROW_INDEX, c: COLUMN_COUNT - 1 } });
+        const address = Excel.getCellAddress({ c: 0, r: TITLE_ROW_INDEX });
+        this.worksheet[address] = { t: "s", v: this.title, s: titleCellStyle }
+    }
+
     _createHeader() {
+        const headers = Common.getHeaderText();
         for (let i = 0; i < COLUMN_COUNT; i++) {
-            const address = Excel.getCellAddress({ c: i, r: 0 });
-            this.worksheet[address] = { t: "s", v: HEADERS[i], s: headerCellStyle }
+            const address = Excel.getCellAddress({ c: i, r: HEADER_ROW_INDEX });
+            this.worksheet[address] = { t: "s", v: headers[i], s: headerCellStyle }
         }
     }
 
