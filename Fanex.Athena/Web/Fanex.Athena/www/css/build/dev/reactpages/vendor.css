@@ -1101,4 +1101,17 @@ button:focus {
   background: #fff;
   border: 1px solid #d6d6d6; }
 
+.report-title-container {
+  background: #4C6375;
+  padding: 4px 15px;
+  color: #fff;
+  font-size: 12px; }
+  .report-title-container .report-title {
+    margin: 0; }
+
+.no-info-row {
+  border: 1px solid #ccc;
+  padding: 5px;
+  background: #fff; }
+
 /*# sourceMappingURL=vendor.css.map*/
