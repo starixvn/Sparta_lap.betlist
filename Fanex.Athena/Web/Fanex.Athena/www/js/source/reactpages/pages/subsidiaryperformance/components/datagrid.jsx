@@ -19,7 +19,7 @@ class DataGrid extends Component {
             product = LangHelper.getSingleResource("Product"),
             betcount = LangHelper.getSingleResource("BetCount"),
             turnover = LangHelper.getSingleResource("Turnover"),
-            customerWL = LangHelper.getSingleResource("CustomerWinLoss"),
+            customerWL = LangHelper.getSingleResource("CustomerW_L"),
             subsidiaryWL = LangHelper.getSingleResource("SubsidiaryWL"),
             comm = LangHelper.getSingleResource("Comm");
 

@@ -821,7 +821,6 @@
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\dataHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\filterHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\baseCurrency.js" />
-    <Content Include="www\js\source\reactpages\reducers\fixedTableHeaderReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\loaderReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\productReducer.js" />
     <Content Include="www\webpackconfig\config\pathReact.js" />
@@ -6117,7 +6116,6 @@
     <Folder Include="www\css\source\reactpages\lib\" />
     <Folder Include="www\css\source\reactpages\vendors\" />
     <Folder Include="www\js\source\reactpages\components\fixed-table-header\__tests__\" />
-    <Folder Include="www\js\source\reactpages\pages\betticketquery\" />
     <Folder Include="www\js\source\reactpages\vendors\" />
   </ItemGroup>
   <ItemGroup>

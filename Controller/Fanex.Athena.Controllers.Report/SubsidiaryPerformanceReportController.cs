@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using Fanex.Athena.Model.Core.DataDomain;
-using Fanex.Athena.Model.Core.DTO.Common;
 using Fanex.Athena.Model.Core.MetaModel.Product;
 using Fanex.Athena.Model.Report.ViewModel;
 using Fanex.Athena.Web.ActionFilter;
@@ -26,7 +25,7 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     Code = i.ProductCode,
                     Name = i.ProductName,
-                    Status = i.ProductCode == Product.SB
+                    Status = true
                 }).ToList()
             };
 

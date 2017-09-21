@@ -81,7 +81,7 @@ class DateRange extends Component {
       const newState = show === undefined ? { range } : { range, show };
       this.setState(newState, callback);
     }
-    else{
+    else {
       onChange && onChange(range, this.isValid);
     }
   }
@@ -120,8 +120,6 @@ class DateRange extends Component {
 
   isValidMonthRange(date) {
     const { limitedMonthRange } = this.props;
-    console.log(date.startDate.format(MomentFormat.default))
-    console.log(date.endDate.format(MomentFormat.default))
 
     if (limitedMonthRange) {
       const range = date.endDate.clone().subtract(date.startDate.month(), "month");
