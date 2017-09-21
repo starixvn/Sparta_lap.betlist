@@ -6,7 +6,7 @@ import { Table, Header, Body, Footer, Row, Cell } from '../../../components/fixe
 import LangHelper from '../../../lib/langHelper'
 import NumberFormat from '../../../lib/numberFormat'
 
-const columnLayout = [150, 120, 200, 120, 180, 180, 180];
+const columnLayout = [1.5, 1.5, 2, 1.5, 2, 2, 2];
 
 class DataGrid extends Component {
     constructor(props) {
@@ -156,10 +156,9 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { gridData, containerWidth } = state;
+    const { gridData } = state;
     return Object.assign({}, {
-        gridData,
-        containerWidth
+        gridData
     });
 };
 

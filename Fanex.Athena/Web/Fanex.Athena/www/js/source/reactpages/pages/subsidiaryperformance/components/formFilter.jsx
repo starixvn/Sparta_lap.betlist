@@ -91,6 +91,8 @@ class FormFilter extends Component {
                 keyField={"ID"}
                 valueField={"Name"}
                 statusField={"Checked"}
+                optionAllLabel={LangHelper.getSingleResource("All")}
+                noneSelectedLabel={LangHelper.getSingleResource("SelectOptions")}
                 onChange={this.subsidiaryChangeHandler} />
         ) : null;
     }
@@ -193,7 +195,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { containerWidth, ...rest } = state;
+    const { gridData, ...rest } = state;
     return Object.assign({}, rest);
 };
 

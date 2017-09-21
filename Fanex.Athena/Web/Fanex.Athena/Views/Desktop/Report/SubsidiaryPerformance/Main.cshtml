@@ -36,7 +36,6 @@
         convertAll: false,
         dateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
         xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
-        containerWidth: document.getElementById("app-container").clientWidth - 30,
         isLoading: false,
         dateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'}
     }
