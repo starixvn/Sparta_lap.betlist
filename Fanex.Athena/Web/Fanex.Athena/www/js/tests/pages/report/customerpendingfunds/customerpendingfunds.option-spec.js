@@ -37,12 +37,16 @@
 
             describe("getColModel(totalRows)", function () {
                 it("returns list of column model", function () {
+                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
+
                     var result = CustomerPedingFundsOption.getColModel();
 
                     expect(result.length).toBeGreaterThan(0);
                 });
 
                 it("disables sorting if total rows is 1", function () {
+                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
+
                     var result = CustomerPedingFundsOption.getColModel(1);
 
                     $.each(result, function (index, item) {
@@ -51,6 +55,8 @@
                 });
 
                 it("returns correct attribute for externalId cell", function () {
+                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
+
                     var models = CustomerPedingFundsOption.getColModel(2);
                     var externalIdColumn = models[1];
                     var result = externalIdColumn.cellattr();
@@ -60,12 +66,23 @@
 
                 it("returns correct formatter for externalId cell", function () {
                     var expectedFormat = '<a class="bet-list-link" href="javascript:;" data-drill-down={"CustId":1,"ExternalId":2,"SystemId":3}>0</a>';
+                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
 
                     var models = CustomerPedingFundsOption.getColModel(2);
                     var externalIdColumn = models[1];
                     var result = externalIdColumn.formatter(0, {}, { CustId: 1, ExternalId: 2, SystemId: 3 });
 
                     expect(result).toEqual(expectedFormat);
+                });
+
+                it("hides systemId if Licensee is fake", function () {
+                    spyOn(Site, "isFakeLicensee").and.returnValue(true);
+                    var productAccess = {};
+
+                    var models = CustomerPedingFundsOption.getColModel(2);
+                    var systemIdColumn = models[2];
+
+                    expect(systemIdColumn.hidden).toBe(true);
                 });
             });
         });

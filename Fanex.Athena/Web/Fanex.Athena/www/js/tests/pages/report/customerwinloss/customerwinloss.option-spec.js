@@ -47,8 +47,10 @@
                 var racingRevenueIndex = 11;
                 var amtDueToRacingIndex = 13;
                 var externalIdIndex = 1;
+                var systemIdIndex = 2;
 
                 it("customer comm columns should be hidden if report does not have Customer Comm column", function () {
+                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
                     CustomerWinLossOption.hasCustomerComm = false;
 
                     var colModels = CustomerWinLossOption.getColModel(10);
@@ -58,6 +60,7 @@
                 });
 
                 it("customer comm columns should be hidden if report does not allow BA", function () {
+                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
                     CustomerWinLossOption.isAllowBA = false;
 
                     var colModels = CustomerWinLossOption.getColModel(10);
@@ -67,6 +70,7 @@
                 });
 
                 it("customer comm columns should be hidden if report does not allow RB", function () {
+                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
                     CustomerWinLossOption.isAllowRB = false;
 
                     var colModels = CustomerWinLossOption.getColModel(10);
@@ -75,7 +79,17 @@
                     expect(colModels[amtDueToRacingIndex].hidden).toBe(true);
                 });
 
+                it("systemId column should be hidden if licensee is fake", function () {
+                    spyOn(Site, "isFakeLicensee").and.returnValue(true);
+
+                    var colModels = CustomerWinLossOption.getColModel(10);
+
+                    expect(colModels[systemIdIndex].hidden).toBe(true);
+                });
+
                 it("should disable sorting if total row is 1", function () {
+                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
+
                     var result = CustomerWinLossOption.getGridOption(1);
 
                     $.each(result.colModel, function (index, value) {
@@ -84,6 +98,8 @@
                 });
 
                 it("returns correct CustomerWinLossOption for externalId cell", function () {
+                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
+
                     var models = CustomerWinLossOption.getColModel(2);
                     var externalIdColumn = models[externalIdIndex];
                     var result = externalIdColumn.cellattr();
@@ -92,6 +108,7 @@
                 });
 
                 it("returns correct formatter for externalId cell", function () {
+                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
                     var expectedFormat = '<a class="bet-list-link" href="javascript:;" data-drill-down={"CustId":1,"ExternalId":2,"SystemId":3}>0</a>';
 
                     var models = CustomerWinLossOption.getColModel(2);

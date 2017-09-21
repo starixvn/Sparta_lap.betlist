@@ -239,12 +239,13 @@
                     spyOn(Site, "blockUI");
                     spyOn(jqGridAdditional, "hideColumn");
 
-                    appendSetFixtures('<input type="hidden" id="HiddenColumnList" value="externalid,systemid">');
+                    appendSetFixtures('<input type="hidden" id="HiddenColumnList" value="externalid">');
                     appendSetFixtures('<input type="hidden" id="ShowSummary" value="0">');
                 });
 
                 it("BetEffective should not be hidden if report has BetEffective column", function () {
                     appendSetFixtures('<input type="hidden" id="HasBetEffectiveColumn" value="1">');
+                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
 
                     BetListOption.gridOption = BetList.getGridOption();
 
@@ -253,16 +254,36 @@
 
                 it("BetEffective should be hidden if report does not have BetEffective column", function () {
                     appendSetFixtures('<input type="hidden" id="HasBetEffectiveColumn" value="1">');
+                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
 
                     BetListOption.gridOption = BetList.getGridOption();
 
                     expect(jqGridAdditional.hideColumn).not.toHaveBeenCalled;
                 });
 
+                it("SystemId should not be hidden if Licensee is not fake", function () {
+                    appendSetFixtures('<input type="hidden" id="HasBetEffectiveColumn" value="1">');
+                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
+
+                    BetListOption.gridOption = BetList.getGridOption();
+
+                    expect(jqGridAdditional.hideColumn.calls.mostRecent().args[1]).not.toBe("SystemId");
+                });
+
+                it("SystemId should be hidden if Licensee is fake", function () {
+                    appendSetFixtures('<input type="hidden" id="HasBetEffectiveColumn" value="1">');
+                    spyOn(Site, "isFakeLicensee").and.returnValue(true);
+
+                    BetListOption.gridOption = BetList.getGridOption();
+
+                    expect(jqGridAdditional.hideColumn.calls.mostRecent().args[1]).toBe("SystemId");
+                });
+
                 it("return Customer WL column name if allowwing Customer Commission", function () {
                     appendSetFixtures('<input type="hidden" id="HasCustComm" value="1">');
                     var winLossColumnIndex = BetListOption.gridOption.colNames.indexOf("WinLoss");
                     var expectedName = "@[WinLoss]/@[Comm]";
+                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
 
                     BetListOption.gridOption = BetList.getGridOption();
 
@@ -272,6 +293,7 @@
 
                 it("hiddenColumnList has 'licenseewl' column - footerrow if gridOption should be false", function () {
                     setFixtures('<input id="ShowSummary" value="1" /><input id="HiddenColumnList" value="licenseewl" />');
+                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
 
                     var gridOption = BetList.getGridOption();
                     var result = gridOption.footerrow;
@@ -281,6 +303,7 @@
 
                 it("hiddenColumnList has no 'licenseewl' column - footerrow if gridOption should be true", function () {
                     setFixtures('<input id="ShowSummary" value="1" /><input id="HiddenColumnList" value="" />');
+                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
 
                     var gridOption = BetList.getGridOption();
                     var result = gridOption.footerrow;

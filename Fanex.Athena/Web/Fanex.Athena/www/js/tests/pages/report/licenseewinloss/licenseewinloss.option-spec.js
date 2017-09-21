@@ -85,6 +85,8 @@
 
             describe("getColModel(level, reportBy, productOptions)", function () {
                 it("columnModels.length should equal with columnNames.length.", function () {
+                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
+
                     var columnNames = LicenseeWinLossOption.getColName([]);
                     var columnModels = LicenseeWinLossOption.getColModel(1, 2, []);
 
@@ -94,6 +96,7 @@
                 describe("When LicenseeWinLossOption.hasCustomerComm = false", function () {
                     afterEach(function () {
                         LicenseeWinLossOption.hasCustomerComm = true;
+                        spyOn(Site, "isFakeLicensee").and.returnValue(false);
                     });
 
                     it("licenseeWlColumn should has column width is 90", function () {
@@ -107,6 +110,7 @@
                 describe("Bet List link for externalIdColumn", function () {
                     var columnModels;
                     beforeEach(function () {
+                        spyOn(Site, "isFakeLicensee").and.returnValue(false);
                         columnModels = LicenseeWinLossOption.getColModel(2, 1, []);
                     });
                     it("externalIdColumn should have correct format", function () {
@@ -131,8 +135,16 @@
                 describe("DrillDown link for systemIdColumn", function () {
                     var columnModels;
                     beforeEach(function () {
+                        spyOn(Site, "isFakeLicensee").and.returnValue(true);
                         columnModels = LicenseeWinLossOption.getColModel(1, 1, []);
                     });
+
+                    it("systemIdColumn should be hide if licensee is fake", function () {
+                        var systemIdColumn = columnModels[3];
+
+                        expect(systemIdColumn.hidden).toBe(true);
+                    });
+
                     it("systemIdColumn should have correct format", function () {
                         var systemIdColumn = columnModels[3];
                         var rowObject = {
@@ -154,6 +166,7 @@
                 describe("DrillDown link for currencyColumn", function () {
                     var columnModels, currencyColumn, licenseeId;
                     beforeEach(function () {
+                        spyOn(Site, "isFakeLicensee").and.returnValue(false);
                         columnModels = LicenseeWinLossOption.getColModel(0, 1, []);
                         currencyColumn = columnModels[4];
                         licenseeId = LicenseeWinLossOption.licenseeId;
@@ -198,6 +211,7 @@
                 describe("Add more product columns to grid", function () {
                     var productOptions;
                     beforeEach(function () {
+                        spyOn(Site, "isFakeLicensee").and.returnValue(false);
                         productOptions = [{ Code: "SB", Status: true }, { Code: "KN", Status: true }, { Code: "RB", Status: false }];
                     });
 

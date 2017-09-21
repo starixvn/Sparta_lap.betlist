@@ -64,6 +64,10 @@
             });
 
             describe("getColModel(level, reportBy)", function () {
+                beforeAll(function () {
+                    spyOn(Site, "isFakeLicensee").and.returnValue(true);
+                });
+
                 it("colModelList length should equal 14", function () {
                     expect(WinLossByProductOption.getColModel(0, 2).length).toBe(14);
                 });
@@ -78,6 +82,12 @@
                     var colModel = WinLossByProductOption.getColModel(0, 2);
                     var dateColumn = colModel[1];
                     expect(dateColumn.hidden).toBe(false);
+                });
+
+                it("systemIdColumn of colModel should be hidden when licensee is fake", function () {
+                    var colModel = WinLossByProductOption.getColModel(0, 2);
+                    var systemIdColumn = colModel[3];
+                    expect(systemIdColumn.hidden).toBe(true);
                 });
 
                 it("format option of dateColumn should be 'm/Y' when reportBy equal 2", function () {
