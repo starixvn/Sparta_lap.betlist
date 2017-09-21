@@ -24,17 +24,13 @@ $paddingRightContainer: 17px;
 }
 
 .table {
-    th {
-        white-space: pre-wrap;
-    }
-
-    td {
-        white-space: nowrap;
+    th, td {
+        white-space: normal;
     }
 
     th, td {
         overflow: hidden;
-        text-overflow: clip;
+        text-overflow: ellipsis;
         max-width: 1px;
     }
 }

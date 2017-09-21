@@ -6,6 +6,22 @@ import Body from './Body';
 import Footer from './Footer';
 
 const MAX_WIDTH = window.innerWidth - 30;
+const DEFAULT_MILLISECOND_FOR_WAITING = 500;
+
+function debounce(func, wait) {
+    let timeout;
+    return function () {
+        const context = this,
+            args = arguments;
+
+        const later = function () {
+            func.apply(context, args);
+        };
+
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait || DEFAULT_MILLISECOND_FOR_WAITING);
+    };
+}
 
 class Table extends Component {
     constructor(props) {
@@ -39,11 +55,11 @@ class Table extends Component {
     }
 
     componentDidMount() {
-        window.addEventListener('resize', this._handleResize)
+        window.addEventListener('resize', debounce(this._handleResize))
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this._handleResize)
+        window.removeEventListener('resize', debounce(this._handleResize))
     }
 
     _handleResize = (event) => {

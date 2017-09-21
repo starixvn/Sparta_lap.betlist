@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 const SCROLLBAR_WIDTH = 19;
-const MAX_WIDTH = window.innerWidth - 30;
+const GUTTER = 15;
+const MAX_WIDTH = window.innerWidth - (GUTTER * 2);
 
 class TableSection extends Component {
     constructor(props) {
@@ -24,20 +25,24 @@ class TableSection extends Component {
         autoWidth: true
     };
 
-    get containerStyle(){
-        const { autoWidth, maxWidth, width, minWidth } = this.props;
-        const containerWidth = autoWidth ? maxWidth : width;
-
-        return { 
-            ...this.props.style, 
-            width: containerWidth, 
-            minWidth };
+    get containerWidth() {
+        const { autoWidth, maxWidth, width } = this.props;
+        return autoWidth ? maxWidth : width;
     }
 
-    get tableStyle(){
-        const { autoWidth, maxWidth, width, minWidth } = this.props;       
-        let tableWidth = autoWidth ? maxWidth : width;
-        tableWidth = Math.max(tableWidth, minWidth) - SCROLLBAR_WIDTH;
+    get containerStyle() {
+        const { minWidth } = this.props;
+
+        return {
+            ...this.props.style,
+            width: this.containerWidth,
+            minWidth
+        };
+    }
+
+    get tableStyle() {
+        const { minWidth } = this.props;
+        const tableWidth = Math.max(this.containerWidth, minWidth) - SCROLLBAR_WIDTH;
 
         return {
             width: tableWidth

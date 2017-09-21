@@ -2,7 +2,7 @@
 import { connect } from 'react-redux'
 import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
-import { Table, Header, Body, Footer, Row, Cell } from '../../../components/fixed-table-header/FixedTable'
+import { Table, Header, Body, Footer, Row, Cell } from '../../../components/fixed-table-header'
 import LangHelper from '../../../lib/langHelper'
 import NumberFormat from '../../../lib/numberFormat'
 
