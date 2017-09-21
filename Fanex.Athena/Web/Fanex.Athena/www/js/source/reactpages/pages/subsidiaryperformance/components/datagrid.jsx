@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { Table, Header, Body, Footer, Row, Cell } from '../../../components/fixed-table-header'
 import LangHelper from '../../../lib/langHelper'
 import NumberFormat from '../../../lib/numberFormat'
+import ReportTitle from '../../../components/ReportTitle'
 
 const columnLayout = [1.5, 1.5, 2, 1.5, 2, 2, 2];
 
@@ -24,7 +25,7 @@ class DataGrid extends Component {
             comm = LangHelper.getSingleResource("Comm");
 
         return (
-            <Row style={{ height: 40 }}>
+            <Row style={{ height: 32 }}>
                 <th title={subsidiary}>{subsidiary}</th>
                 <th title={currency}>{currency}</th>
                 <th title={product}>{product}</th>
@@ -120,6 +121,13 @@ class DataGrid extends Component {
         )
     }
 
+    get reportTitle() {
+        const { dateRange, selectedBaseCurrency } = this.props;
+        return `${LangHelper.getSingleResource("SubsidiaryPerformance")}, 
+                ${dateRange.fromDate.format("MM/DD/YYYY")} - ${dateRange.toDate.format("MM/DD/YYYY")} - 
+                ${LangHelper.getSingleResource("Viewin").replace("{0}", selectedBaseCurrency)}`
+    }
+
     componentDidUpdate(prevProps, prevState) {
         this.props.toggleLoader(false);
     }
@@ -130,25 +138,29 @@ class DataGrid extends Component {
         }
 
         return (
-            <Table
-                minWidth={600}
-                autoWidth={true}
-                columnLayout={columnLayout}
-                {...this.props}>
+            <div className="result-content">
+                <ReportTitle content={this.reportTitle} />
 
-                <Header>
-                    {this.header}
-                </Header>
+                <Table
+                    minWidth={600}
+                    autoWidth={true}
+                    columnLayout={columnLayout}
+                    {...this.props}>
 
-                <Body maxHeight={300}>
-                    {this.body}
-                </Body>
+                    <Header>
+                        {this.header}
+                    </Header>
 
-                <Footer>
-                    {this.footer}
-                    {this.grantTotal}
-                </Footer>
-            </Table>
+                    <Body maxHeight={300}>
+                        {this.body}
+                    </Body>
+
+                    <Footer>
+                        {this.footer}
+                        {this.grantTotal}
+                    </Footer>
+                </Table>
+            </div>
         );
     }
 }
@@ -156,10 +168,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { gridData } = state;
-    return Object.assign({}, {
-        gridData
-    });
+    const { gridData, dateRange, selectedBaseCurrency } = state;
+    return Object.assign({}, { gridData, dateRange, selectedBaseCurrency });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

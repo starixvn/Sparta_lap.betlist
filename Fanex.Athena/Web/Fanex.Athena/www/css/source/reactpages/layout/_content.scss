@@ -1,1 +1,10 @@
-﻿.page-content {}
+﻿.report-title-container {
+    background: $bgHeaderTableLevel1;
+    padding: 4px 15px;
+    color: $white;
+    font-size: 12px;
+
+    .report-title {
+        margin: 0;
+    }
+}

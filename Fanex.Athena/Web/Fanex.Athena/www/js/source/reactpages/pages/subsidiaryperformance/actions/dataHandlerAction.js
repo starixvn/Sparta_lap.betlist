@@ -22,9 +22,7 @@ export function getGridData(params) {
 }
 
 export function exportExcel(params) {
-    return (dispatch, getState) => {
-        return fetchData(params);
-    };
+    return () => fetchData(params);
 }
 
 export function setGridData(data) {

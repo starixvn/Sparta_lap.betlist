@@ -46,8 +46,7 @@ class FormFilter extends Component {
             return null;
         }
 
-        const fromDate = this.props.dateRange.fromDate;
-        const toDate = this.props.dateRange.toDate;
+        const { fromDate, toDate } = this.props.dateRange;
 
         return {
             xsrfToken: this.props.xsrfToken,
