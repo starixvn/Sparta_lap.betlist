@@ -161,7 +161,7 @@
 
                 it("does not call jqGridAdditional.addSortableHeader if paging is on client", function () {
                     spyOn(Site, "blockUI");
-                    spyOn(jqGridAdditional, "setColumnVisible");
+                    spyOn(jqGridAdditional, "hideColumn");
                     spyOn(BetList, "loadDataPaging");
                     spyOn(BetList, "loadData");
 
@@ -237,7 +237,7 @@
             describe("getGridOption()", function () {
                 beforeEach(function () {
                     spyOn(Site, "blockUI");
-                    spyOn(jqGridAdditional, "setColumnVisible");
+                    spyOn(jqGridAdditional, "hideColumn");
 
                     appendSetFixtures('<input type="hidden" id="HiddenColumnList" value="externalid,systemid">');
                     appendSetFixtures('<input type="hidden" id="ShowSummary" value="0">');
@@ -248,7 +248,7 @@
 
                     BetListOption.gridOption = BetList.getGridOption();
 
-                    expect(jqGridAdditional.setColumnVisible).not.toHaveBeenCalled;
+                    expect(jqGridAdditional.hideColumn).not.toHaveBeenCalled;
                 });
 
                 it("BetEffective should be hidden if report does not have BetEffective column", function () {
@@ -256,7 +256,7 @@
 
                     BetListOption.gridOption = BetList.getGridOption();
 
-                    expect(jqGridAdditional.setColumnVisible).not.toHaveBeenCalled;
+                    expect(jqGridAdditional.hideColumn).not.toHaveBeenCalled;
                 });
 
                 it("return Customer WL column name if allowwing Customer Commission", function () {
