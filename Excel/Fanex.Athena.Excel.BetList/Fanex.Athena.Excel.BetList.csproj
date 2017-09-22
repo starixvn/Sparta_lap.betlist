@@ -139,7 +139,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseBetList.cs" />
     <Compile Include="BetListExcel.cs" />
     <Compile Include="LrfBetListExcelBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
