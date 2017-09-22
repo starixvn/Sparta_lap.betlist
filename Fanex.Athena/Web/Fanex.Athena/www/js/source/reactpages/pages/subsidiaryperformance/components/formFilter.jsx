@@ -8,7 +8,7 @@ import { Calendar, DateRange } from '../../../components/date-range/index'
 import LangHelper from '../../../lib/langHelper'
 import ReportExcel from '../lib/reportExcel'
 import Site from '../../../lib/site'
-import Common from '../lib/Common'
+import service from '../lib/service'
 
 const RANGE_MONTH_CONSTRAINT = 3;
 
@@ -39,7 +39,7 @@ class FormFilter extends Component {
         const params = this._getParams();
 
         this.props.exportExcel(params).then(response => {
-            const title = Common.getReportTitle(dateRange, selectedBaseCurrency);
+            const title = service.getReportTitle(dateRange, selectedBaseCurrency);
             const excel = new ReportExcel(response.data, title);
             excel.export();
         });

@@ -7,7 +7,7 @@ import LangHelper from '../../../lib/langHelper'
 import NumberFormat from '../../../lib/numberFormat'
 import ReportTitle from '../../../components/ReportTitle'
 import NoDataTitle from '../../../components/NoDataTitle'
-import Common from '../lib/Common'
+import service from '../lib/service'
 
 const columnLayout = [1.5, 1.5, 2, 1.5, 2, 2, 2];
 
@@ -19,7 +19,7 @@ class DataGrid extends Component {
     }
 
     get header() {
-        const headers = Common.getHeaderText().map((item, index) => {
+        const headers = service.getHeaderText().map((item, index) => {
             return <th key={`header${index}`} title={item}>{item}</th>
         });
 
@@ -117,7 +117,7 @@ class DataGrid extends Component {
     componentWillReceiveProps(nextProps) {
         if (this.props.gridData !== nextProps.gridData) {
             const { dateRange, selectedBaseCurrency } = nextProps;
-            this.reportTitle = Common.getReportTitle(dateRange, selectedBaseCurrency);
+            this.reportTitle = service.getReportTitle(dateRange, selectedBaseCurrency);
         }
     }
 

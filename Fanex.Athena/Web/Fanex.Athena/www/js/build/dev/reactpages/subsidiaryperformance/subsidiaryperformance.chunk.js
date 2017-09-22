@@ -20383,9 +20383,9 @@ var _NoDataTitle = __webpack_require__(672);
 
 var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
 
-var _Common = __webpack_require__(132);
+var _service = __webpack_require__(132);
 
-var _Common2 = _interopRequireDefault(_Common);
+var _service2 = _interopRequireDefault(_service);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20416,7 +20416,7 @@ var DataGrid = function (_Component) {
                 var dateRange = nextProps.dateRange,
                     selectedBaseCurrency = nextProps.selectedBaseCurrency;
 
-                this.reportTitle = _Common2.default.getReportTitle(dateRange, selectedBaseCurrency);
+                this.reportTitle = _service2.default.getReportTitle(dateRange, selectedBaseCurrency);
             }
         }
     }, {
@@ -20480,7 +20480,7 @@ var DataGrid = function (_Component) {
     }, {
         key: 'header',
         get: function get() {
-            var headers = _Common2.default.getHeaderText().map(function (item, index) {
+            var headers = _service2.default.getHeaderText().map(function (item, index) {
                 return _react2.default.createElement(
                     'th',
                     { key: 'header' + index, title: item },
@@ -21340,9 +21340,9 @@ var _site = __webpack_require__(130);
 
 var _site2 = _interopRequireDefault(_site);
 
-var _Common = __webpack_require__(132);
+var _service = __webpack_require__(132);
 
-var _Common2 = _interopRequireDefault(_Common);
+var _service2 = _interopRequireDefault(_service);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21384,7 +21384,7 @@ var FormFilter = function (_Component) {
             var params = _this._getParams();
 
             _this.props.exportExcel(params).then(function (response) {
-                var title = _Common2.default.getReportTitle(dateRange, selectedBaseCurrency);
+                var title = _service2.default.getReportTitle(dateRange, selectedBaseCurrency);
                 var excel = new _reportExcel2.default(response.data, title);
                 excel.export();
             });
@@ -23925,9 +23925,9 @@ var _langHelper2 = _interopRequireDefault(_langHelper);
 
 var _excelStyle = __webpack_require__(693);
 
-var _Common = __webpack_require__(132);
+var _service = __webpack_require__(132);
 
-var _Common2 = _interopRequireDefault(_Common);
+var _service2 = _interopRequireDefault(_service);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24018,7 +24018,7 @@ var ReportExcel = function () {
     }, {
         key: '_createHeader',
         value: function _createHeader() {
-            var headers = _Common2.default.getHeaderText();
+            var headers = _service2.default.getHeaderText();
             for (var i = 0; i < COLUMN_COUNT; i++) {
                 var address = _excel2.default.getCellAddress({ c: i, r: HEADER_ROW_INDEX });
                 this.worksheet[address] = { t: "s", v: headers[i], s: _excelStyle.headerCellStyle };

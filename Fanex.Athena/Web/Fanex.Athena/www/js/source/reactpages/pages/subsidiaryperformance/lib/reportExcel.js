@@ -1,7 +1,7 @@
 import Excel from '../../../lib/excel'
 import LangHelper from '../../../lib/langHelper'
 import { titleCellStyle, headerCellStyle, bodyCellStyle, totalCellStyle, grandTotalCellStyle } from '../../../constants/excelStyle'
-import Common from '../lib/Common'
+import service from '../lib/service'
 
 const COLUMN_COUNT = 7;
 const TITLE_ROW_INDEX = 0;
@@ -102,7 +102,7 @@ export default class ReportExcel {
     }
 
     _createHeader() {
-        const headers = Common.getHeaderText();
+        const headers = service.getHeaderText();
         for (let i = 0; i < COLUMN_COUNT; i++) {
             const address = Excel.getCellAddress({ c: i, r: HEADER_ROW_INDEX });
             this.worksheet[address] = { t: "s", v: headers[i], s: headerCellStyle }
