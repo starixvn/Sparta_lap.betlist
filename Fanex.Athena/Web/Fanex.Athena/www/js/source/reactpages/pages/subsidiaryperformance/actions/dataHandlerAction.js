@@ -14,7 +14,7 @@ export const fetchData = (params) => {
 }
 
 export function getGridData(params) {
-    return (dispatch, getState) => {
+    return (dispatch) => {
         fetchData(params).then(response => {
             dispatch(setGridData(response.data));
         });
