@@ -68,7 +68,7 @@ namespace Fanex.Athena.Controllers.BetList
                     metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
 
                 var excel = new Excel.BetList.BetListExcel(
-                    showingOption, metaModel.LicenseeId == 1, HiddenColumnIndexes, true);
+                    showingOption, metaModel.LicenseeId, HiddenColumnIndexes, true);
 
                 var workbook = excel.Export(ticketResult, title);
 

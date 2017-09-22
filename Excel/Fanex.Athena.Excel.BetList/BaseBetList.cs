@@ -12,10 +12,12 @@ namespace Fanex.Athena.Excel.BetList
     using Base;
     using Base.Extension;
     using Excel.Base.Entities;
+    using Extension.Utility;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
     using Model.BetList.DTO;
+    using Model.Core.DataDomain;
     using NPOI.HSSF.UserModel;
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
@@ -27,11 +29,16 @@ namespace Fanex.Athena.Excel.BetList
     /// </summary>
     public abstract class BaseBetList : ExcelBase
     {
+        private const int ColumnSystemIdIndex = 2;
+
         private const int ColumnWinlossIndex = 7;
 
         private readonly IList<int> _hiddenColumnIndexes;
-        private readonly bool _is12Bet;
+        private readonly int _licenseeId;
+
         private readonly ITicketHelper _ticketHelper;
+
+        private readonly IAppSettings _appSettings;
 
         private readonly bool _isShowSumStake;
 
@@ -43,9 +50,10 @@ namespace Fanex.Athena.Excel.BetList
         private ICellStyle _oddCellStyleLeftAligned;
         private IFont _winLossFont;
 
-        protected BaseBetList(ShowingOption showingOption, bool is12Bet, IList<int> hiddenColumnIndexes = null, bool isShowSumStake = false)
+        protected BaseBetList(ShowingOption showingOption, int licenseeId, IList<int> hiddenColumnIndexes = null, bool isShowSumStake = false)
         {
-            _is12Bet = is12Bet;
+            _appSettings = new AppSettings();
+            _licenseeId = licenseeId;
             _hiddenColumnIndexes = hiddenColumnIndexes;
             _ticketHelper = new TicketHelper();
             _isShowSumStake = isShowSumStake;
@@ -90,13 +98,6 @@ namespace Fanex.Athena.Excel.BetList
             builder.MergeCell(new CellRangeAddress(0, 0, 0, 10));
         }
 
-        /// <summary>
-        /// Build bet list.
-        /// </summary>
-        /// <param name="ticketResult">The ticket result.</param>
-        /// <param name="title">The title.</param>
-        /// <param name="startIndex">The start index.</param>
-        /// <returns>The bet list builder.</returns>
         [SuppressMessage(
             "StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
@@ -132,7 +133,7 @@ namespace Fanex.Athena.Excel.BetList
                     .AddStake(ticket)
                     .AddCustomerWL(ticket, ShowingOption.CustomerCommVisible, _winLossFont)
                     .AddBetEffective(ticket, _winLossFont)
-                    .AddLicenseeWL(ticket, _is12Bet, _negativeWinLossFont, _winLossFont)
+                    .AddLicenseeWL(ticket, _licenseeId == LicenseeIdentity.OneTwoBet, _negativeWinLossFont, _winLossFont)
                     .AddStatus(ticket, _ticketHelper, ticketResult.TicketDataList, false);
 
                     _ticketHelper.Index++;
@@ -158,10 +159,6 @@ namespace Fanex.Athena.Excel.BetList
             return builder;
         }
 
-        /// <summary>
-        /// Initialize cell styles.
-        /// </summary>
-        /// <param name="builder">The builder.</param>
         private void InitializeCellStyles(IBetListExcelBuilder builder)
         {
             _oddCellStyleLeftAligned = builder.CreateCellStyle();
@@ -188,14 +185,15 @@ namespace Fanex.Athena.Excel.BetList
             _winLossFont.Color = (short)FontColor.None;
         }
 
-        /// <summary>
-        /// Processing UI.
-        /// </summary>
-        /// <param name="workbook">The work-book.</param>
         private void ProcessUi(IWorkbook workbook)
         {
             if (_hiddenColumnIndexes != null)
             {
+                if (!_hiddenColumnIndexes.Contains(ColumnSystemIdIndex) && _appSettings.FakeLicenseeList.Contains(_licenseeId))
+                {
+                    _hiddenColumnIndexes.Add(ColumnSystemIdIndex);
+                }
+
                 for (int i = 0; i < workbook.NumberOfSheets; i++)
                 {
                     ISheet sheet = workbook.GetSheetAt(i);

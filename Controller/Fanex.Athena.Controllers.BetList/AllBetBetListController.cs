@@ -56,7 +56,7 @@ namespace Fanex.Athena.Controllers.BetList
             };
 
             var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
-            var excel = new BetListExcel(showingOption, SessionService.LicenseeSession.LicenseeId == LicenseeId12Bet, hiddenColumns);
+            var excel = new BetListExcel(showingOption, SessionService.LicenseeSession.LicenseeId, hiddenColumns);
             var title = GetTitle(metaModel.Date);
             var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
             var workbook = excel.Export(ticketResult, title);

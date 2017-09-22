@@ -128,7 +128,7 @@ namespace Fanex.Athena.Controllers.BetList
                     + string.Format(" - {0}", currencyTitle);
 
                 var excel = new BetListExcel(
-                    showingOption, metaModel.LicenseeId == 1, HiddenColumnIndexes);
+                    showingOption, metaModel.LicenseeId, HiddenColumnIndexes);
 
                 var workbook = excel.Export(ticketResult, title);
 

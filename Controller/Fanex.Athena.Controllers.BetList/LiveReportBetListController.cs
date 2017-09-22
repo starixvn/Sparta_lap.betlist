@@ -212,7 +212,7 @@
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
             var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
-            var dailyBetListExcel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, new List<int> { BetEffectiveColumn }); // 1: externalid, 2: systemid
+            var dailyBetListExcel = new BetListExcel(showingOption, metaModel.LicenseeId, new List<int> { BetEffectiveColumn }); // 1: externalid, 2: systemid
             var workbook = dailyBetListExcel.Export(ticketResult, title, startIndex);
 
             return new ExcelResult(workbook, "LiveReportBetList");

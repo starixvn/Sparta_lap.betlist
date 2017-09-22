@@ -32,8 +32,6 @@
 
         protected const int PageSizeExcel = 63000;
 
-        protected const int LicenseeId12Bet = 1;
-
         protected const int ExternalIdColumn = 1;
         protected const int SystemIdColumn = 2;
         protected const int WinLostColumn = 7;

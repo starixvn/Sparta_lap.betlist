@@ -68,7 +68,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             var colList = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
 
-            var excel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, colList);
+            var excel = new BetListExcel(showingOption, metaModel.LicenseeId, colList);
 
             var workbook = excel.Export(ticketResult, title);
 

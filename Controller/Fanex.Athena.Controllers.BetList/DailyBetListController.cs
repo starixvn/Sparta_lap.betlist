@@ -90,7 +90,7 @@ namespace Fanex.Athena.Controllers.BetList
             var title = ViewResources.DailyBetList + " " + ViewResources.On
                 + string.Format(" {0} - {1}", metaModel.Date.ToString("MM/dd/yyyy"), currencyTitle);
 
-            var dailyBetListExcel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, new List<int> { BetEffectiveColumn });
+            var dailyBetListExcel = new BetListExcel(showingOption, metaModel.LicenseeId, new List<int> { BetEffectiveColumn });
             var workbook = dailyBetListExcel.Export(ticketResult, title);
 
             return new ExcelResult(workbook, "DailyBetList");

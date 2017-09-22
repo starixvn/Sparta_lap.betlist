@@ -63,7 +63,7 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.Date.ToString("MMM dd, yyyy"),
                 currencyTitle);
 
-            var excel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, new List<int> { BetEffectiveColumn });
+            var excel = new BetListExcel(showingOption, metaModel.LicenseeId, new List<int> { BetEffectiveColumn });
 
             var workbook = excel.Export(ticketResult, title);
 

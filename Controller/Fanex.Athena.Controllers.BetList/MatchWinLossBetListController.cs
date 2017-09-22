@@ -121,7 +121,7 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.FromDate.ToShortDateString(),
                 currencyTitle);
 
-            var excel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, new List<int> { BetEffectiveColumn });
+            var excel = new BetListExcel(showingOption, metaModel.LicenseeId, new List<int> { BetEffectiveColumn });
 
             var workbook = excel.Export(ticketResult, title);
 

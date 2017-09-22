@@ -62,7 +62,7 @@
                 metaModel.ToDate.ToString(FormatKey.ShortFormatDate),
                 viewinCurrency);
 
-            var excel = new BetListExcel(new ShowingOption(), metaModel.LicenseeId == 1, new List<int> { BetEffectiveColumn });
+            var excel = new BetListExcel(new ShowingOption(), metaModel.LicenseeId, new List<int> { BetEffectiveColumn });
 
             var workbook = excel.Export(ticketResult, title);
 
