@@ -140,7 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BetListExcel.cs" />
-    <Compile Include="LrfBetListExcelBuilder.cs" />
+    <Compile Include="BetListExcelBuilderExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

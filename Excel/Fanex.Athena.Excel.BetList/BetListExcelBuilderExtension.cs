@@ -18,10 +18,7 @@ namespace Fanex.Athena.Excel.BetList
     using NPOI.SS.Util;
     using Resources;
 
-    /// <summary>
-    /// Excel bet-list builder.
-    /// </summary>
-    public static class LrfBetListExcelBuilder
+    public static class BetListExcelBuilderExtension
     {
         private const int MinColossusBetBetType = 18000;
 
@@ -29,15 +26,7 @@ namespace Fanex.Athena.Excel.BetList
 
         private const string NumberFormat = "{0:#,##0.00}";
 
-        /// <summary>
-        /// Add more customer win-loss cell.
-        /// </summary>
-        /// <param name="builder">The current builder.</param>
-        /// <param name="ticket">The ticket.</param>
-        /// <param name="showPlayerComm">If it equals "True" , Showing player commission.</param>
-        /// <param name="font">The font style.</param>
-        /// <returns>Return the current builder.</returns>
-        public static BetListExcelBuilder AddCustomerWL(this BetListExcelBuilder builder, Ticket ticket, bool showPlayerComm, IFont font)
+        public static BetListExcelBuilder AddCustomerWL(this BetListExcelBuilder builder, ITicket ticket, bool showPlayerComm, IFont font)
         {
             var isRunning = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
             string winloss = isRunning
@@ -252,7 +241,7 @@ namespace Fanex.Athena.Excel.BetList
             bool isRunning = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
             bool isRacing = ticket.BetTypeId == (int)BetType.Win || ticket.BetTypeId == (int)BetType.Place ||
                             ticket.BetTypeId == (int)BetType.WinPlace;
-            if ((isRacing && is12Bet) || 
+            if ((isRacing && is12Bet) ||
                 ticket.BetTypeId == (int)BetType.BetTradeBought ||
                 ticket.BetTypeId == (int)BetType.CashOutBought ||
                 (ticket.BetTypeId >= MinColossusBetBetType && ticket.BetTypeId <= MaxColossusBetBetType))
