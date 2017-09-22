@@ -261,9 +261,12 @@ namespace Fanex.Athena.Api.Report
                 return BadRequest(ViewResources.InvalidParams);
             }
 
+            var placeholderUsername = _appSettings.FakeLicenseeList.Contains(SessionService.LicenseeSession.LicenseeId) ? 
+                ViewResources.ExternalId : 
+                ViewResources.ExternalIdOrSystemId;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(level == 0 ? metaModel.CurrencyId : currencyId, metaModel.IsExcludedTestData);
             metaModel.Username = !string.IsNullOrWhiteSpace(metaModel.Username)
-                                && metaModel.Username.Equals(ViewResources.ExternalIdOrSystemId, StringComparison.OrdinalIgnoreCase)
+                                && metaModel.Username.Equals(placeholderUsername, StringComparison.OrdinalIgnoreCase)
                                 ? string.Empty : metaModel.Username;
 
             metaModel.DrillDownCurrencyId = currencyId;

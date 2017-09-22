@@ -11,5 +11,7 @@ namespace Fanex.Athena.Model.Core.DataDomain
         public const int OneTwoBet = 1;
 
         public const int KeenOcean = 96;
+
+        public const int IvoryBet = 185;
     }
 }

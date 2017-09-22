@@ -95,10 +95,13 @@ namespace Fanex.Athena.Controllers.Customer
         [CustomValidateAntiForgery]
         public dynamic CustomerList(CustomerListMetaModel metaModel)
         {
+            var placeholderUsername = AppSettings.FakeLicenseeList.Contains(SessionService.LicenseeSession.LicenseeId) ?
+                ViewResources.ExternalId : 
+                ViewResources.ExternalIdOrSystemId;
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
             metaModel.IsShowStatusDropdown = GetAllowLicenseesForStatusFunction().Contains(metaModel.LicenseeId.ToString());
-            metaModel.Username = metaModel.Username == ViewResources.ExternalIdOrSystemId ? string.Empty : metaModel.Username;
+            metaModel.Username = metaModel.Username == placeholderUsername ? string.Empty : metaModel.Username;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var totalRows = 0;
             var dataList = _customerService.Search(metaModel, ref totalRows);

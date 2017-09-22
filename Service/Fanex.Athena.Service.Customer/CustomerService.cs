@@ -6,6 +6,8 @@
 
 namespace Fanex.Athena.Service.Customer
 {
+    using System;
+
     #region Using
 
     using System.Collections.Generic;
@@ -23,6 +25,7 @@ namespace Fanex.Athena.Service.Customer
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Service.Customer.Interfaces;
+    using Model.Core.DataDomain;
     using Resources;
 
     #endregion Using
@@ -77,11 +80,21 @@ namespace Fanex.Athena.Service.Customer
 
         public IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml)
         {
+            if (!IsValidUsername(userName))
+            {
+                return new string[] { };
+            }
+
             return _customerDataAccess.SearchCustomers(userId, userName, agentListXml);
         }
 
         public IList<CustomerDTO> Search(CustomerListMetaModel metaModel, ref int totalRows)
         {
+            if (!IsValidUsername(metaModel.Username))
+            {
+                return new List<CustomerDTO>();
+            }
+
             return _customerDataAccess.Search(metaModel, ref totalRows);
         }
 
@@ -325,6 +338,20 @@ namespace Fanex.Athena.Service.Customer
                 Code = 1,
                 Message = ViewResources.UpdateSpecialLevelMsg
             };
+        }
+
+        private bool IsValidUsername(string userName)
+        {
+            if (userName != null && _sessionService.LicenseeSession.LicenseeId == LicenseeIdentity.IvoryBet)
+            {
+                const string IgnoredLicenseePrefix = "webet88";
+                if (userName.StartsWith(IgnoredLicenseePrefix, StringComparison.OrdinalIgnoreCase))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         #endregion Update

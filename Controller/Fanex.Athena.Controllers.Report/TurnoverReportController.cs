@@ -82,8 +82,9 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
 
+            var placeholderUsername = AppSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId) ? ViewResources.ExternalId : ViewResources.ExternalIdOrSystemId;
             metaModel.Username = string.IsNullOrWhiteSpace(metaModel.Username) ||
-                metaModel.Username.Trim() == ViewResources.ExternalIdOrSystemId ? null : metaModel.Username;
+                metaModel.Username.Trim() == placeholderUsername ? null : metaModel.Username;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
 
             var dataList = _turnoverService.GetDataList(metaModel);
