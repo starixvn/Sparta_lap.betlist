@@ -70,9 +70,10 @@ namespace Fanex.Athena.Controllers.Customer
             var userSession = SessionService.UserSession;
             var productAccess = this._productService.GetProductAccess(licenseeId, userSession.Language);
             var allowLicensees = GetAllowLicenseesForStatusFunction();
+            var placeholderUsername = AppSettings.FakeLicenseeList.Contains(licenseeId) ? ViewResources.ExternalId : ViewResources.ExternalIdOrSystemId;
             var metaModel = new CustomerListMetaModel
             {
-                Username = userName == ViewResources.ExternalIdOrSystemId ? string.Empty : userName,
+                Username = userName == placeholderUsername ? string.Empty : userName,
                 GroupCommId = groupId,
                 LicenseeId = licenseeId,
                 IsShowStatusDropdown = allowLicensees.Contains(licenseeId.ToString()),
