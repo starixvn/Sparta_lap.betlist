@@ -28,7 +28,7 @@
 
             _dataAccess = Substitute.For<ICustWinlossDataAccess>();
 
-            _controller = Substitute.ForPartsOf<CustomerWinLossReportController>(_dataAccess, SessionService, ProductService);
+            _controller = Substitute.ForPartsOf<CustomerWinLossReportController>(AppSetting, _dataAccess, SessionService, ProductService);
 
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
 
@@ -91,12 +91,14 @@
 
             MockProductAccess(new string[] { Product.BA });
 
-            var actualDataList = Enumerable.Empty<CustomerWinLoss>();
-            var actualShowingOption = new ShowingOption();
-            var excel = Substitute.ForPartsOf<CustomerWinLossExcel>(Arg.Any<string>(), new CustomerWinLossExcelModel());
+            var actualExcelModel = new CustomerWinLossExcelModel();
+            var excel = Substitute.ForPartsOf<CustomerWinLossExcel>(
+                Arg.Any<string>(), 
+                new CustomerWinLossExcelModel { MetaModel = new CustomerWinLossMetaModel() });
             excel.When(x => x.Export()).DoNotCallBase();
+            MockGetValueAppSettings("FakeLicenseeList", "1,2");
 
-            _controller.CreateExcel(Arg.Any<string>(), new CustomerWinLossExcelModel())
+            _controller.CreateExcel(Arg.Any<string>(), Arg.Do<CustomerWinLossExcelModel>(x => actualExcelModel = x))
                 .ReturnsForAnyArgs(excel);
 
             // Action
@@ -105,8 +107,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(actualDataList, Is.EqualTo(expectedDataList.AsEnumerable()));
-                Assert.That(actualShowingOption.BAVisible, Is.True);
+                Assert.That(actualExcelModel.DataList, Is.EqualTo(expectedDataList.AsEnumerable()));
+                Assert.That(actualExcelModel.BAVisible, Is.True);
             });
         }
 

@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Api.Report.UnitTests
 {
     using System.Collections.Generic;
+    using Extension.Utility;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.DTO.Common;
@@ -14,11 +15,14 @@
 
         protected IProductService ProductService { get; private set; }
 
+        protected IAppSettings AppSetting { get; private set; }
+
         [OneTimeSetUp]
         public virtual void SetUp()
         {
             SessionService = Substitute.For<ISessionService>();
             ProductService = Substitute.For<IProductService>();
+            AppSetting = Substitute.For<IAppSettings>();
         }
 
         [OneTimeTearDown]
@@ -26,6 +30,7 @@
         {
             SessionService = null;
             ProductService = null;
+            AppSetting = null;
         }
 
         public void MockSessionData()
@@ -66,6 +71,11 @@
         public void MockLicenseeSessionData(LicenseeSession licenseeSession)
         {
             SessionService.LicenseeSession.Returns(licenseeSession);
+        }
+
+        public void MockGetValueAppSettings(string valueName, string value)
+        {
+            AppSetting.GetValue(valueName).Returns(value);
         }
     }
 }

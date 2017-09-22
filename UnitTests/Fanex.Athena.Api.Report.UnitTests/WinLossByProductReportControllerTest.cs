@@ -3,10 +3,13 @@
     using System;
     using System.Collections.Generic;
     using System.Web.Http.Results;
+    using DataAccess.Core.Configuration.Interfaces;
     using DataAccess.Report.Interfaces;
     using Excel.Report;
     using Excel.Report.Models;
+    using Extension.Utility;
     using Model.Core.DTO.Common;
+    using Model.Core.DTO.Configuration;
     using Model.Core.DTO.Users;
     using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
@@ -30,9 +33,10 @@
         public void SetUp()
         {
             _sessionService = Substitute.For<ISessionService>();
-            _productService = Substitute.For<IProductService>();
+            _productService = Substitute.For<IProductService>();          
             _dataAccess = Substitute.For<IWinLossByProductDataAccess>();
-            _controller = Substitute.ForPartsOf<WinLossByProductReportController>(_sessionService, _productService, _dataAccess);
+            var appSetting = Substitute.For<IAppSettings>();
+            _controller = Substitute.ForPartsOf<WinLossByProductReportController>(_sessionService, _productService, appSetting, _dataAccess);
             CreateSession();
         }
 
@@ -193,7 +197,7 @@
             {
                 IsExportExcel = true
             };
-            var excel = Substitute.ForPartsOf<WinlossByProductExcel>(string.Empty, new WinLossByProductExcelModel());
+            var excel = Substitute.ForPartsOf<WinlossByProductExcel>(Arg.Any<string>(), Arg.Any<WinLossByProductExcelModel>());
             excel.When(x => x.Export()).DoNotCallBase();
             _controller.CreateExcel(Arg.Any<string>(), Arg.Any<WinLossByProductExcelModel>()).Returns(excel);
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();

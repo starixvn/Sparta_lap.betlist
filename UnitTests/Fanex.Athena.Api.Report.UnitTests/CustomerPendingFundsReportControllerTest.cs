@@ -25,7 +25,7 @@
 
             _dataAccess = Substitute.For<ICustPendingFundsDataAccess>();
 
-            _controller = Substitute.ForPartsOf<CustomerPendingFundsReportController>(_dataAccess, SessionService, ProductService);
+            _controller = Substitute.ForPartsOf<CustomerPendingFundsReportController>(AppSetting, _dataAccess, SessionService, ProductService);
 
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
 
@@ -83,11 +83,12 @@
             var expectedDataList = SetUpForGettingData(metaModel, out totalData, out totalRows);
             const int PageSizeExcel = int.MaxValue - 1000;
 
-            var actualDataList = Enumerable.Empty<CustPendingFunds>();
+            var actualExcelModel = new CustomerPendingFundsExcelModel();
             var excel = Substitute.ForPartsOf<CustomerPendingFundsExcel>(Arg.Any<string>(), Arg.Any<CustomerPendingFundsExcelModel>());
             excel.When(x => x.Export()).DoNotCallBase();
+            MockGetValueAppSettings("FakeLicenseeList", "1,2");
 
-            _controller.CreateExcel(Arg.Any<string>(), Arg.Any<CustomerPendingFundsExcelModel>()).Returns(excel);
+            _controller.CreateExcel(Arg.Any<string>(), Arg.Do<CustomerPendingFundsExcelModel>(x => actualExcelModel = x)).Returns(excel);
 
             // Action
             _controller.Index(metaModel);
@@ -97,7 +98,7 @@
             {
                 Assert.That(1, Is.EqualTo(metaModel.PageIndex));
                 Assert.That(PageSizeExcel, Is.EqualTo(metaModel.PageSize));
-                Assert.That(actualDataList, Is.EqualTo(expectedDataList.AsEnumerable()));
+                Assert.That(actualExcelModel.DataList, Is.EqualTo(expectedDataList.AsEnumerable()));
             });
         }
 
