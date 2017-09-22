@@ -75,6 +75,7 @@
             var username = "tester";
             var agentListXml = "<root></root>";
             var expectedResult = new string[1] { "result1" };
+            _sessionService.LicenseeSession.Returns(new LicenseeSession());
             _customerDataAccess.SearchCustomers(userId, username, agentListXml).Returns(expectedResult);
 
             // Action
@@ -90,6 +91,7 @@
             // Arrange
             var expectedResult = new List<CustomerDTO>();
             var totalRows = 0;
+            _sessionService.LicenseeSession.Returns(new LicenseeSession());
             _customerDataAccess.Search(Arg.Any<CustomerListMetaModel>(), ref totalRows).Returns(x =>
             {
                 x[1] = 10;
