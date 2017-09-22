@@ -20410,15 +20410,19 @@ var DataGrid = function (_Component) {
     }
 
     _createClass(DataGrid, [{
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            if (this.props.gridData !== nextProps.gridData) {
+                var dateRange = nextProps.dateRange,
+                    selectedBaseCurrency = nextProps.selectedBaseCurrency;
+
+                this.reportTitle = _Common2.default.getReportTitle(dateRange, selectedBaseCurrency);
+            }
+        }
+    }, {
         key: 'componentDidUpdate',
         value: function componentDidUpdate(prevProps, prevState) {
             this.props.toggleLoader(false);
-
-            var _props = this.props,
-                dateRange = _props.dateRange,
-                selectedBaseCurrency = _props.selectedBaseCurrency;
-
-            this.reportTitle = _Common2.default.getReportTitle(dateRange, selectedBaseCurrency);
         }
     }, {
         key: '_renderNodata',
