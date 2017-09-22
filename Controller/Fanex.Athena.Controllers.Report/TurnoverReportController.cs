@@ -68,7 +68,8 @@ namespace Fanex.Athena.Controllers.Report
                 ProductAccess = productAccess,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 CurrencyList = GetCurrenciesForTurnoverReport(licenseeSession.LicenseeId),
-                IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
+                IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1,
+                IsFakeLicensee = AppSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId)
             };
 
             return View("~/Views/Report/Turnover/Main.cshtml", model);

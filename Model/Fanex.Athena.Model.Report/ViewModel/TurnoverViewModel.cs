@@ -23,5 +23,7 @@ namespace Fanex.Athena.Model.Report.ViewModel
         public TurnoverDTO TotalData { get; set; }
 
         public bool IsAllowedCasinoTransfer { get; set; }
+
+        public bool IsFakeLicensee { get; set; }
     }
 }

@@ -74,6 +74,9 @@ var Site = (function ($) {
                 }
             });
         },
+        getUsernamePlaceholderText: function () {
+            return Site.isFakeLicensee() ? Site.getSingleResource('ExternalId') : Site.getSingleResource('ExternalIdOrSystemId');
+        },
         setProductCodeListParam: function(url, productCodeList){
             return QueryString.setParam(url, "ProductCodeList", productCodeList);
         },

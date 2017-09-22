@@ -27,5 +27,7 @@ namespace Fanex.Athena.Model.Core.ViewModel
         public bool IsInternalLogin { get; set; }
 
         public bool IsAllowedManagementMember { get; set; }
+
+        public bool IsFakeLicensee { get; set; }
     }
 }

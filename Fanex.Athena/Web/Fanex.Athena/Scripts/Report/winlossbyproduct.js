@@ -14,8 +14,9 @@ var WinLossByProduct = (function ($) {
     function setDefaultUsername() {
         var $username = $('#Username');
         var username = $username.val();
-        if (username === '' || username === Site.getSingleResource('ExternalIdOrSystemId')) {
-            $username.val(Site.getSingleResource('ExternalIdOrSystemId'))
+        var placeholderText = Site.getUsernamePlaceholderText();
+        if (username === '' || username === placeholderText) {
+            $username.val(placeholderText)
                           .attr('class', 'default-username');
         }
         else {
@@ -26,7 +27,7 @@ var WinLossByProduct = (function ($) {
     function setUsernameOnFocus() {
         var $username = $('#Username');
         var username = $username.val();
-        if (username === Site.getSingleResource('ExternalIdOrSystemId')) {
+        if (username === Site.getUsernamePlaceholderText()) {
             $username.val('').removeAttr('class');
         }
     }
@@ -42,7 +43,7 @@ var WinLossByProduct = (function ($) {
 
     function getPostData(){
         var data = $("#SearchForm").serializeObject();
-        if (data.Username === Site.getSingleResource('ExternalIdOrSystemId')) {
+        if (data.Username === Site.getUsernamePlaceholderText()) {
             data.Username = null;
         }
 
@@ -74,7 +75,7 @@ var WinLossByProduct = (function ($) {
         WinLossByProduct.initSetting();
         initAutoComplete();
         Site.setConstraintMonthRange(VALID_MONTH_RANGE, WinLossByProductOption.urlExcelData);
-        $('#Username').val(Site.getSingleResource('ExternalIdOrSystemId'));
+        $('#Username').val(Site.getUsernamePlaceholderText());
         Site.addFilterCollapseExpand();
         Site.addUserGuide({
             resourceName: "WinLossByProduct",
@@ -571,7 +572,7 @@ var WinLossByProduct = (function ($) {
 };
 })(jQuery);
 
-$(window).load(function () {
+$(function () {
     "use strict";
     WinLossByProduct.initialize();
 });

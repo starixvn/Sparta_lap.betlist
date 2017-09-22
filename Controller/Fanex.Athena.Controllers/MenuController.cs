@@ -50,7 +50,8 @@ namespace Fanex.Athena.Controllers
                 UserFunctions = _functionService.Functions.Where(i => systemFunctions.Contains(i.FunctionId)).ToList(),
                 IsAllowedCustonmerCommission = licenseeSession.IsAllowedCustomerComm,
                 IsInternalLogin = userSession.IsInternal,
-                IsAllowedManagementMember = canManageMember
+                IsAllowedManagementMember = canManageMember,
+                IsFakeLicensee = AppSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId)
             };
 
             viewModel.MasterFunctions = _functionService.GetMasterFunctions(viewModel.UserFunctions);

@@ -20,7 +20,7 @@
             @DesktopRazorHelper.RenderProductFilter(Model.Param.ProductOptions, 3, 3)
 
             <div class="input-field col l2 m3 s12">
-                @Html.TextBox("Username", Model.Param.Username, new { placeholder = ViewResources.ExternalIdOrSystemId, autocomplete = "off" })
+                @Html.TextBox("Username", Model.Param.Username, new { placeholder = (Model.IsFakeLicensee ? ViewResources.ExternalId : ViewResources.ExternalIdOrSystemId), autocomplete = "off" })
                 <label>@ViewResources.Username</label>
                 <ul id="suggestionDropdown" class="dropdown-content ac-dropdown"></ul>
             </div>

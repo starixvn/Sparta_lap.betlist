@@ -5,9 +5,10 @@ var Turnover = (function ($) {
     var ajaxRequest = null;
     var _fromDate, _toDate, _currencyName, _currencyId;
     return {
-        defaultUserName: Site.getSingleResource('ExternalIdOrSystemId'),
+        defaultUserName: "",
         
         initialize: function () {
+            Turnover.defaultUserName = Site.getUsernamePlaceholderText();
             ProductListHelper.initProductList();
             Turnover.initMonthPicker();
             Turnover.initEvent();

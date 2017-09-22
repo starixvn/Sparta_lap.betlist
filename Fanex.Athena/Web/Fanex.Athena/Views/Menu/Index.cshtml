@@ -19,12 +19,13 @@
     <div id="menu-wraper">
         <div id="menu-container">
             @if (Model.IsAllowedManagementMember)
-            {
-                <div id="quick-search-box">
-                    <input type="text" name="txtUserName" value="@ViewResources.ExternalIdOrSystemId"
-                    onblur="onblurUser('@ViewResources.ExternalIdOrSystemId')" onclick="onclickUser('@ViewResources.ExternalIdOrSystemId')"
-                    onkeydown="onclickUser('@ViewResources.ExternalIdOrSystemId'); KeyPress(event);"
-                    id="txtUserName" class="search-text" maxlength="50" autocomplete="off" />
+                    {
+                        var placeHolderText = Model.IsFakeLicensee ? ViewResources.ExternalId : ViewResources.ExternalIdOrSystemId;
+                        <div id="quick-search-box">
+                            <input type="text" name="txtUserName" value="@placeHolderText"
+                                    onblur="onblurUser('@placeHolderText')" onclick="onclickUser('@placeHolderText')"
+                                    onkeydown="onclickUser('@placeHolderText'); KeyPress(event);"
+                                    id="txtUserName" class="search-text" maxlength="50" autocomplete="off" />
                     <input id="search-button" type="button"
                     title="@ViewResources.Search" class="search_submit" value="" />
                 </div>

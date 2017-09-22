@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers
 {
+    using System.Linq;
     using System.Web.Mvc;
     using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
@@ -42,7 +43,8 @@ namespace Fanex.Athena.Controllers
                 SupportedLanguageList = Util.SupportedLanguages,
                 UserName = userSession.UserName,
                 CurrentLicenseeId = SessionService.LicenseeSession.LicenseeId,
-                IsAllowedManagementMember = userSession.FunctionIdList.Contains((int)FunctionType.CustomerList)
+                IsAllowedManagementMember = userSession.FunctionIdList.Contains((int)FunctionType.CustomerList),
+                IsFakeLicensee = AppSettings.FakeLicenseeList.Contains(SessionService.LicenseeSession.LicenseeId)
             };
             return View("~/Views/Header/Index.cshtml", viewModel);
         }

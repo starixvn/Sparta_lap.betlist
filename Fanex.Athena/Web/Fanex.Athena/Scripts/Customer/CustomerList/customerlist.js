@@ -655,7 +655,7 @@ var CustomerList = (function ($) {
             data.CurrencyId = $("#CurrencyId").val();
             data.SpecialLevel = $("#special-level-list-search").val();
             data.Username = Site.asNull($("#txtUsername").val());
-            if (data.Username === Site.getSingleResource('ExternalIdOrSystemId')) {
+            if (data.Username === Site.getUsernamePlaceholderText()) {
                 data.Username = null;
             }
             data.CurrencyName = $("#CurrencyName").val();
@@ -710,7 +710,7 @@ var CustomerList = (function ($) {
         loadPostbackParam: function () {
             var username = $('#Username').val();
             if (username === '' || username === undefined) {
-                $('#txtUsername').val(Site.getSingleResource('ExternalIdOrSystemId'));
+                $('#txtUsername').val(Site.getUsernamePlaceholderText());
             }
             else {
                 $('#txtUsername').val(username);
@@ -722,8 +722,9 @@ var CustomerList = (function ($) {
         setDefaultUsername: function () {
             var $username = $('#txtUsername');
             var username = $username.val();
-            if (username === '' || username === Site.getSingleResource('ExternalIdOrSystemId')) {
-                $username.val(Site.getSingleResource('ExternalIdOrSystemId'))
+            var placeholderText = Site.getUsernamePlaceholderText();
+            if (username === '' || username === placeholderText) {
+                $username.val(placeholderText)
                          .attr('class', 'default-username');
             }
             else {
@@ -734,7 +735,7 @@ var CustomerList = (function ($) {
         setUsernameOnFocus: function () {
             var $username = $('#txtUsername');
             var username = $username.val();
-            if (username === Site.getSingleResource('ExternalIdOrSystemId')) {
+            if (username === Site.getUsernamePlaceholderText()) {
                 $username.val('').removeAttr('class');
             }
         },
