@@ -114,11 +114,16 @@ class DataGrid extends Component {
         )
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props.gridData !== nextProps.gridData) {
+            const { dateRange, selectedBaseCurrency } = nextProps;
+            this.reportTitle = Common.getReportTitle(dateRange, selectedBaseCurrency);
+        }
+    }
+
+
     componentDidUpdate(prevProps, prevState) {
         this.props.toggleLoader(false);
-
-        const { dateRange, selectedBaseCurrency } = this.props;
-        this.reportTitle = Common.getReportTitle(dateRange, selectedBaseCurrency);
     }
 
     _renderNodata() {
