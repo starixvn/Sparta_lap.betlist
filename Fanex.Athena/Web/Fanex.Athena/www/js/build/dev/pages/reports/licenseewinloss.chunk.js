@@ -15661,10 +15661,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
                 return result;
             },
 
-            setColumnVisible: function (models, colName, visible) {
-                for (var i = 0, l = models.length; i < l; i++) {
+            hideColumn: function (models, colName) {
+                for (var i = 0; i < models.length; i++) {
                     if (models[i].name.toLowerCase() === colName.toLowerCase()) {
-                        models[i].hidden = visible;
+                        models[i].hidden = true;
                         break;
                     }
                 }
@@ -26511,7 +26511,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
 
             dateColumn.hidden = level > 0;
             externalIdColumn.hidden = level < 2;
-            systemIdColumn.hidden = level === 0;
+            systemIdColumn.hidden = level === 0 || Site.isFakeLicensee();
 
             // Column hidden by product
             var allowedSb = isProductChecked(productOptions, "SB");

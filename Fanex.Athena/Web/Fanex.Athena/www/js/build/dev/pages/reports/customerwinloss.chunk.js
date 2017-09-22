@@ -15661,10 +15661,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
                 return result;
             },
 
-            setColumnVisible: function (models, colName, visible) {
-                for (var i = 0, l = models.length; i < l; i++) {
+            hideColumn: function (models, colName) {
+                for (var i = 0; i < models.length; i++) {
                     if (models[i].name.toLowerCase() === colName.toLowerCase()) {
-                        models[i].hidden = visible;
+                        models[i].hidden = true;
                         break;
                     }
                 }
@@ -24693,6 +24693,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 amtDueToBAColumn.hidden = !_me.isAllowBA;
                 racingRevenueColumn.hidden = !_me.isAllowRB;
                 amtDueToRacingColumn.hidden = !_me.isAllowRB;
+                systemIdColumn.hidden = Site.isFakeLicensee();
 
                 var colModels = Site.clone(colModelList);
 
