@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
-const SCROLLBAR_WIDTH = 19;
-const GUTTER = 15;
-const MAX_WIDTH = window.innerWidth - (GUTTER * 2);
+import { SCROLLBAR_WIDTH, MAX_WIDTH } from '../constants'
 
 const createTableSection = (extendedContainerProps, extendedTableProps) => {
     return class TableSection extends Component {
@@ -24,7 +21,7 @@ const createTableSection = (extendedContainerProps, extendedTableProps) => {
             width: MAX_WIDTH,
             maxWidth: MAX_WIDTH,
             autoWidth: true
-        };        
+        };
 
         get containerWidth() {
             const { autoWidth, maxWidth, width } = this.props;
@@ -60,9 +57,9 @@ const createTableSection = (extendedContainerProps, extendedTableProps) => {
                     <div className="table-wrapper">
                         <table style={this.tableStyle} className={tableClass} {...extendedTableProps}>
                             {
-                                isHeader ? 
-                                <thead>{this.props.children}</thead> : 
-                                <tbody>{this.props.children}</tbody>
+                                isHeader ?
+                                    <thead>{this.props.children}</thead> :
+                                    <tbody>{this.props.children}</tbody>
                             }
                         </table>
                     </div>

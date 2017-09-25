@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import RowLayout from './RowLayout';
 import PropTypes from 'prop-types';
 import createTableSection from './tableSection';
+import { MAX_WIDTH, DEFAULT_MILLISECOND_FOR_WAITING, DEFAULT_COLUMN_WIDTH, BODY_WIDTH } from '../constants';
 
 const headerContainerProps = { className: "header-content", isHeader: true };
 const Header = createTableSection(headerContainerProps);
@@ -12,10 +13,6 @@ const Body = createTableSection(bodyContainerProps);
 
 const footerContainerProps = { className: "footer-content" };
 const Footer = createTableSection(footerContainerProps);
-
-const MAX_WIDTH = window.innerWidth - 30;
-const DEFAULT_MILLISECOND_FOR_WAITING = 500;
-const DEFAULT_COLUMN_WIDTH = 100;
 
 function debounce(func, wait) {
     let timeout;
@@ -36,7 +33,7 @@ class Table extends Component {
     constructor(props) {
         super(props);
 
-        this.diffWidth = window.innerWidth - props.maxWidth;
+        this.diffWidth = BODY_WIDTH - props.maxWidth;
         this.columnsWidth = this._getColumnsWidth();
 
         this.state = {
@@ -123,6 +120,7 @@ class Table extends Component {
     }
 
     componentDidMount() {
+        this._handleResize();
         window.addEventListener('resize', debounce(this._handleResize))
     }
 
@@ -131,8 +129,8 @@ class Table extends Component {
     }
 
     _handleResize = (event) => {
-        event.preventDefault();
-        const maxWidth = window.innerWidth - this.diffWidth;
+        event && event.preventDefault();
+        const maxWidth = document.body.clientWidth - this.diffWidth;
 
         if (this.state.maxWidth !== maxWidth) {
             this.setState({ maxWidth });

@@ -48,7 +48,7 @@ class DataGrid extends Component {
                     subsidiaryWinLoss = NumberFormat.formatDecimal(detail.SubsidiaryWinLoss);
 
                 rows.push(
-                    <Row key={`tr${i}${j}`}>
+                    <Row key={`tr${i}-detail${j}`}>
                         {isFirstRow ? <Cell title={item.Subsidiary} rowSpan={rowSpan}>{item.Subsidiary}</Cell> : undefined}
                         {isFirstRow ? <Cell title={item.CurrencyName} rowSpan={rowSpan} className="center-align">{item.CurrencyName}</Cell> : undefined}
                         <Cell title={detail.Product}>{detail.Product}</Cell>
