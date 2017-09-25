@@ -11,6 +11,8 @@ namespace Fanex.Athena.Model.Report.DTO
     /// </summary>
     public class CustPendingFunds
     {
+        public int Index { get; set; }
+
         public int CustId { get; set; }
 
         public string ExternalId { get; set; }

@@ -59,6 +59,12 @@
             int totalRows;
             var dataList = GetData(metaModel, out totalData, out totalRows);
 
+            var index = 1;
+            foreach (var item in dataList)
+            {
+                item.Index = index++;
+            }
+
             return new
             {
                 Data = dataList,
