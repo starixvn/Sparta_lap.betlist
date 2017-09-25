@@ -23300,7 +23300,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 onGridComplete(gridOption, response);
                 Site.unBlockUI();
             };
-            gridOption.scroll = response.Data.length > gridOption.rowNum ? 1 : false;
 
             var reportGrid = $("#" + _selector.GridId);
             reportGrid.jqGrid(gridOption);

@@ -5360,7 +5360,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 onGridComplete(this, gridOption, response);
                 Site.unBlockUI();
             };
-            gridOption.scroll = response.Data.length > gridOption.rowNum ? 1 : false;
 
             var reportGrid = $("#" + _selector.GridId);
             reportGrid.jqGrid(gridOption);
@@ -5466,8 +5465,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(119)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
         "use strict";
-        var _index = 0;
-
         var betlistLink = function (cellvalue, options, rowObject) {
             var param =
             {
@@ -5479,10 +5476,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
         };
 
-        var setIndex = function () {
-            return ++_index;
-        };
-
         var indexColumn =
         {
             name: "Index",
@@ -5491,8 +5484,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             width: 40,
             align: "center",
             valign: "middle",
-            sortable: false,
-            formatter: setIndex
+            sortable: false
         };
 
         var externalIdColumn =
@@ -5589,7 +5581,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             getGridOption: function (totalRows) {
-                _index = 0;
                 _me.gridOption.colNames = _me.getColName();
                 _me.gridOption.colModel = _me.getColModel(totalRows);
                 return Site.clone(_me.gridOption);
