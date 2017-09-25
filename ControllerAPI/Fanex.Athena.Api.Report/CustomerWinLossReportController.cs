@@ -38,7 +38,7 @@
             int totalRows;
             var dataList = this.GetData(metaModel, out totalData, out totalRows);
 
-            var index = (metaModel.PageIndex - 1) * metaModel.PageSize + 1;
+            var index = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
             foreach (var item in dataList)
             {
                 item.Index = index++;
