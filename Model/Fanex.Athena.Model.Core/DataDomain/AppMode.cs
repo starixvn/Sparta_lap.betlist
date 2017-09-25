@@ -3,7 +3,7 @@
     using System;
 
     [Flags]
-    public enum AppMode : int
+    public enum AppMode
     {
         Self = 0,
         Parasitic = 1

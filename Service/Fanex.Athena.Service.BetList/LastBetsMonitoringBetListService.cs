@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Service.BetList
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Extension.Utility;
@@ -95,13 +96,16 @@ namespace Fanex.Athena.Service.BetList
                         {
                             ticket.Odds = 2;
                         }
-                        else if (odds > 0)
+                        else
                         {
                             ticket.Odds++;
                         }
                     }
 
                     break;
+
+                default:
+                    throw new ArgumentException("Invalid odds type: " + ticket.OddsType);
             }
         }
 

@@ -86,8 +86,6 @@ namespace Fanex.Athena.Excel.Base.Extension
                 destCell.Hyperlink = sourceCell.Hyperlink;
             }
 
-            destCell.SetCellType(sourceCell.CellType);
-
             switch (sourceCell.CellType)
             {
                 case CellType.Blank:
@@ -113,9 +111,13 @@ namespace Fanex.Athena.Excel.Base.Extension
                 case CellType.Unknown:
                     destCell.SetCellValue(sourceCell.StringCellValue);
                     break;
+
+                default:
+                    destCell.SetCellType(sourceCell.CellType);
+                    break;
             }
 
-            return (ICell)destCell;
+            return destCell;
         }
 
         public static ICell GetCell(this ISheet sheet, int rowIndex, int colIndex)

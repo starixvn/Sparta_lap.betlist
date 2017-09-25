@@ -65,7 +65,6 @@ namespace Fanex.Athena.Excel.Customer
         private readonly IList<string> _showedGridColumns;
 
         private ISheet _templateSheet;
-        private ICellStyle _defaultStyle;
 
         public CustomerListExcel(string templatePath, string reportTitle, CustomerListViewModel model)
         {
@@ -269,9 +268,9 @@ namespace Fanex.Athena.Excel.Customer
                 stream = new FileStream(this._templatePath, FileMode.Open, FileAccess.Read);
                 this.Workbook = new HSSFWorkbook(stream);
                 this._templateSheet = Workbook.GetSheet("Template");
-                _defaultStyle = Workbook.CreateCellStyle();
-                _defaultStyle.ShrinkToFit = true;
-                _defaultStyle.WrapText = true;
+                var defaultStyle = Workbook.CreateCellStyle();
+                defaultStyle.ShrinkToFit = true;
+                defaultStyle.WrapText = true;
             }
             finally
             {

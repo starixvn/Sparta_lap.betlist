@@ -31,7 +31,7 @@ namespace Fanex.Athena.DataAccess.BetList
             var originalStakeCol = "originalstake" + baseCurrency;
 
             var tickets = new SortableList<LrfTicket>();
-            var columns = new string[]
+            var columns = new[]
             {
                 "username", "refno", "matchcode", "status", "betteam", "betstatus", "showtime", "oddstype",
                 "nickname", "race", "betfrom", "betcheck", "liveindicator", "isneutral", "sporttype", "bettype",

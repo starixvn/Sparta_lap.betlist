@@ -33,7 +33,6 @@ namespace Fanex.Athena.Api.BetList
                                     + "<span class='system-parlay-combo-type'>{0}</span> x "
                                     + "<span class='system-parlay-unit-stake'>{1} {2}</span>"
                                     + "</p>";
-            var ticketTextRender = string.Empty;
             if (tickets.Count > 0)
             {
                 if (handicap1 == 0)

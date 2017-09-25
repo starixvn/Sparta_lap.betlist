@@ -46,9 +46,9 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var customer = CustomerService.GetCustomerInfo(licenseeId, custId);
-            if (ProductAccess.IsAllowLC == false || customer.SyncLiveCasino == false || !IsBetSettingEditable())
+            if (!ProductAccess.IsAllowLC || !customer.SyncLiveCasino || !IsBetSettingEditable())
             {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
 
             var userSession = SessionService.UserSession;
@@ -77,9 +77,9 @@ namespace Fanex.Athena.Controllers.BetSettings
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var customer = ProductAccess.IsAllowLC ? CustomerService.GetCustomerInfo(licenseeId, custId) : null;
 
-            if (customer == null || customer.SyncLiveCasino == false || !IsBetSettingEditable())
+            if (customer == null || !customer.SyncLiveCasino || !IsBetSettingEditable())
             {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
 
             var userSession = SessionService.UserSession;
@@ -125,17 +125,17 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         private static bool? IsLiveCasinoEnabled(CustomerInfo customer)
         {
-            bool? resultValue = false;
-            if (customer.DisableLiveCasino == false && customer.SyncLiveCasino)
+            if (!customer.DisableLiveCasino && customer.SyncLiveCasino)
             {
-                resultValue = true;
-            }
-            else if (customer.SyncLiveCasino == false)
-            {
-                resultValue = null;
+                return true;
             }
 
-            return resultValue;
+            if (!customer.SyncLiveCasino)
+            {
+                return null;
+            }
+
+            return false;
         }
     }
 }

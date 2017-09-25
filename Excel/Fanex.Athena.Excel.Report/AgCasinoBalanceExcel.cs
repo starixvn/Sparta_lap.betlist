@@ -61,7 +61,7 @@ namespace Fanex.Athena.Excel.Report
             _metaModel = metaModel;
             _casinoList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
-            PageSize = metaModel.DrillDownLevel == 2 ? metaModel.PageSize : metaModel.PageSizeExcel;
+            PageSize = metaModel.DrillDownLevel == 2 ? metaModel.PageSize : AgCasinoBalanceMetaModel.PageSizeExcel;
         }
 
         public int Level

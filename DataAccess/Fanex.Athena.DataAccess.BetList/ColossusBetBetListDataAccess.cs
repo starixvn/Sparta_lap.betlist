@@ -89,7 +89,7 @@ namespace Fanex.Athena.DataAccess.BetList
                 totalWinLoss += winloss;
                 totalComm += comm;
                 totalSoldWinLoss += bettypeId == SoldBetType ? winloss : 0;
-                dataList.Add(new ColossusBetDetail()
+                dataList.Add(new ColossusBetDetail
                 {
                     TransDate = reader.ToDateTime("TransDate"),
                     TransactionType = BuilderExtension.BuildColossusBetsTransactionType(bettypeId, sold, ticketHelper),
@@ -98,7 +98,7 @@ namespace Fanex.Athena.DataAccess.BetList
                 });
             }
 
-            return new ColossusBetDetailViewModel()
+            return new ColossusBetDetailViewModel
             {
                 DataList = dataList,
                 TotalSoldPercent = totalSoldPercent * 100,

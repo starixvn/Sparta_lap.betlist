@@ -32,7 +32,6 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
         private const int ColumnRollingComm = 12;
         private const int ColumnResults = 13;
 
-        private const int RowTableHeaderTemplate = 1;
         private const int RowContentTitleTemplate = 3;
         private const int RowContentTemplate = 4;
         private const int RowGroupTotal = 8;

@@ -19,7 +19,7 @@
 
         private const string UpdateStatusXmlFormat = "<ROOT><ProductStatus SportType=\"{0}\" BetType=\"{1}\" IsDisabled=\"{2}\" IsDisabledDownline=\"0\" /></ROOT>";
 
-        private static readonly IDictionary<int, int> ProductSporttypeMap = new Dictionary<int, int>()
+        private static readonly IDictionary<int, int> ProductSporttypeMap = new Dictionary<int, int>
         {
             { ProductTypes.AllBet, (int)SportType.AllBet },
             { ProductTypes.Voidbridge, (int)SportType.Voidbridge },
@@ -27,7 +27,7 @@
             { ProductTypes.Lottery, (int)SportType.Lottery }
         };
 
-        private static readonly IDictionary<int, int> ProductBettypeMap = new Dictionary<int, int>()
+        private static readonly IDictionary<int, int> ProductBettypeMap = new Dictionary<int, int>
         {
             { ProductTypes.AllBet, 2401 },
             { ProductTypes.Voidbridge, 4001 },

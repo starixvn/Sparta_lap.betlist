@@ -65,9 +65,9 @@ namespace Fanex.Athena.Service.BetSettings
 
             viewModel.BetSetting = betSetting;
             viewModel.Games = GetGroupBettings(custId, licenseeName, betSetting.CurrencyId);
-            if (betSetting.CheckedGroups.Contains(betSetting.AgGroup) == false)
+            if (!betSetting.CheckedGroups.Contains(betSetting.AgGroup))
             {
-                betSetting.CheckedGroups = betSetting.CheckedGroups.Concat(new string[] { betSetting.AgGroup })
+                betSetting.CheckedGroups = betSetting.CheckedGroups.Concat(new[] { betSetting.AgGroup })
                     .OrderBy(x => x).ToArray();
             }
 
@@ -117,7 +117,7 @@ namespace Fanex.Athena.Service.BetSettings
 
                 foreach (var xmlGame in xml.Descendants("Game"))
                 {
-                    var game = new AgCasinoGame()
+                    var game = new AgCasinoGame
                     {
                         GameType = xmlGame.Attribute("GameType").Value,
                         Name = xmlGame.Attribute("Name").Value,
@@ -126,7 +126,7 @@ namespace Fanex.Athena.Service.BetSettings
 
                     foreach (var xmlGroup in xmlGame.Descendants("Group"))
                     {
-                        game.Groups.Add(new AgCasinoGroup()
+                        game.Groups.Add(new AgCasinoGroup
                         {
                             GroupType = xmlGroup.Attribute("GroupType").Value,
                             Min = Converter.ToInt(xmlGroup.Element("Min").Value),

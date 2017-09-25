@@ -95,11 +95,11 @@ namespace Fanex.Athena.DataAccess.Report
             while (reader.Read())
             {
                 var platformType = reader.ToInt("PlatformType");
-                var productCode = reader.ToString("productprefix").ToUpper();
+                var productCode = reader.ToString("productprefix").ToUpperInvariant();
                 PlatformWinLossSummary parent;
                 if (!parentRows.ContainsKey(platformType))
                 {
-                    parent = new PlatformWinLossSummary()
+                    parent = new PlatformWinLossSummary
                     {
                         PlatformType = platformType,
                         Name = Model.Core.DataDomain.PlatformType.GetPlatformName(platformType),

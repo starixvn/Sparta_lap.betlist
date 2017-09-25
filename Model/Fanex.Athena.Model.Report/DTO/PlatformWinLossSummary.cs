@@ -8,10 +8,6 @@ namespace Fanex.Athena.Model.Report.DTO
 {
     public class PlatformWinLossSummary : ICustomerWinLoss
     {
-        public PlatformWinLossSummary()
-        {
-        }
-
         public byte Level { get; set; }
 
         public string Parent { get; set; }

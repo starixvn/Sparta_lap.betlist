@@ -20,7 +20,6 @@ namespace Fanex.Athena.Service.Core.Helpers
     {
         public static void WriteError(Exception exception, string additionalMessage = null)
         {
-            var request = HttpContext.Current.Request;
             var content = BuildMessage(exception.Message);
             if (!string.IsNullOrWhiteSpace(additionalMessage))
             {

@@ -62,7 +62,7 @@ namespace Fanex.Athena.Controllers.BetList
             }
 
             var bettype = metaModel.BetType;
-            if (metaModel.BetType == 0 && string.IsNullOrWhiteSpace(metaModel.MultipleBettype) == false)
+            if (metaModel.BetType == 0 && !string.IsNullOrWhiteSpace(metaModel.MultipleBettype))
             {
                 bettype = Converter.ToInt(metaModel.MultipleBettype.Split(',')[0]);
             }

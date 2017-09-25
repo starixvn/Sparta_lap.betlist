@@ -64,7 +64,7 @@ namespace Fanex.Athena.Service.BetSettings
             }
 
             var thirdPartySetting = _betSettingDataAccess.GetBetSetting(custId, ProductTypes.GoldDeluxe);
-            var setting = new GoldDeluxeBetSetting()
+            var setting = new GoldDeluxeBetSetting
             {
                 CurrencyId = thirdPartySetting.CurrencyId,
                 IsEnabled = thirdPartySetting.IsEnabled,
@@ -82,15 +82,15 @@ namespace Fanex.Athena.Service.BetSettings
                 {
                     setting.Group = DefaultGroup;
                 }
-                else if (setting.CheckedGroups.Contains(setting.Group) == false)
+                else if (!setting.CheckedGroups.Contains(setting.Group))
                 {
                     setting.CheckedGroups =
-                        setting.CheckedGroups.Concat(new string[] { setting.Group })
+                        setting.CheckedGroups.Concat(new[] { setting.Group })
                         .OrderBy(x => x).ToArray();
                 }
             }
 
-            return new GoldDeluxeBetSettingViewModel()
+            return new GoldDeluxeBetSettingViewModel
             {
                 BetSetting = setting,
                 Games = games,
@@ -161,7 +161,7 @@ namespace Fanex.Athena.Service.BetSettings
 
                 foreach (var xmlGame in xml.Descendants("Game"))
                 {
-                    var game = new GoldDeluxeGame()
+                    var game = new GoldDeluxeGame
                     {
                         GameType = xmlGame.Attribute("GameType").Value,
                         Name = xmlGame.Attribute("Name").Value,
@@ -170,7 +170,7 @@ namespace Fanex.Athena.Service.BetSettings
 
                     foreach (var xmlGroup in xmlGame.Descendants("Group"))
                     {
-                        game.Groups.Add(new GoldDeluxeGroup()
+                        game.Groups.Add(new GoldDeluxeGroup
                         {
                             GroupType = xmlGroup.Attribute("GroupType").Value,
                             Min = Converter.ToInt(xmlGroup.Element("Min").Value),

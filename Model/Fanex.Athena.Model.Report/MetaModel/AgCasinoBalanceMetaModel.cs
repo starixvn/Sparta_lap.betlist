@@ -13,6 +13,14 @@ namespace Fanex.Athena.Model.Report.MetaModel
     /// </summary>
     public class AgCasinoBalanceMetaModel : BaseReportMetaModel
     {
+        public static int PageSizeExcel
+        {
+            get
+            {
+                return int.MaxValue - 1000;
+            }
+        }
+
         private DateTime? _fromDate;
 
         private DateTime? _toDate;
@@ -60,14 +68,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
             get
             {
                 return true;
-            }
-        }
-
-        public int PageSizeExcel
-        {
-            get
-            {
-                return int.MaxValue - 1000;
             }
         }
     }

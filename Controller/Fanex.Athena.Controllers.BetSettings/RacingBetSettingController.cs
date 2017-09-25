@@ -39,13 +39,13 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public JsonResult UpdateBetSetting(string nickName)
         {
-            if (ProductAccess.IsAllowRB == false || !IsBetSettingEditable())
+            if (!ProductAccess.IsAllowRB || !IsBetSettingEditable())
             {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
 
             var racing = GetBetSettingCommonParam();
-            var raceTypes = new string[] { "151_31", "151_41", "151_51", "152_41", "152_51", "153_51" };
+            var raceTypes = new [] { "151_31", "151_41", "151_51", "152_41", "152_51", "153_51" };
             var betSettings = new Dictionary<string, RacingBetSetting>();
             foreach (var item in raceTypes)
             {

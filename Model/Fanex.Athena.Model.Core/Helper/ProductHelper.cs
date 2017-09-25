@@ -29,7 +29,7 @@
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         public static string GetProductName(string productCode, string defaultValue = null)
         {
-            switch (productCode.ToUpper())
+            switch (productCode.ToUpperInvariant())
             {
                 case Product.BA:
                     return ViewResources.ProductBA;

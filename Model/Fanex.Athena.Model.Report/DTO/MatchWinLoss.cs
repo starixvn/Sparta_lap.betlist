@@ -9,14 +9,8 @@ namespace Fanex.Athena.Model.Report.DTO
     using System;
     using Fanex.Athena.Model.Core.Helper;
 
-    /// <summary>
-    /// MatchWinLoss class.
-    /// </summary>
     public class MatchWinLoss
     {
-        private int _betType;
-        private bool _isLive;
-
         public DateTime KickOffTime { get; set; }
 
         public int LeagueId { get; set; }
@@ -41,27 +35,19 @@ namespace Fanex.Athena.Model.Report.DTO
 
         public string RaceNo { get; set; }
 
-        public bool IsLive
-        {
-            get { return _isLive; }
-            set { _isLive = value; }
-        }
+        public bool IsLive { get; set; }
 
         public int HomeId { get; set; }
 
         public int AwayId { get; set; }
 
-        public int BetType
-        {
-            get { return _betType; }
-            set { _betType = value; }
-        }
+        public int BetType { get; set; }
 
         public string BettypeName
         {
             get
             {
-                return CacheRef.GetBettype(_betType, _isLive);
+                return CacheRef.GetBettype(BetType, IsLive);
             }
         }
 

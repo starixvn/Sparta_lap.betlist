@@ -66,7 +66,7 @@ namespace Fanex.Athena.Controllers.BetList
         {
             const string UspKey = "Lrf_BetList_RNG_Detail";
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var showingOption = new ShowingOption()
+            var showingOption = new ShowingOption
             {
                 GrandTotalVisible = false
             };

@@ -238,7 +238,7 @@ namespace Fanex.Athena.DataAccess.Forecast
                     IsNeutral = reader.ToBool("isNeutral")
                 };
 
-                if (hasExtraColumn == false || reader.ToInt(extraColumnName) == 0)
+                if (!hasExtraColumn || reader.ToInt(extraColumnName) == 0)
                 {
                     item.IsExtra = false;
                     item.HomeWinLoss = reader.ToDecimal(homeWinLossColumn);

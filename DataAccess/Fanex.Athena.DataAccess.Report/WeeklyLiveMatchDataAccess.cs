@@ -91,7 +91,7 @@ namespace Fanex.Athena.DataAccess.Report
                 data.Add(item);
             }
 
-            if (string.IsNullOrEmpty(sortColumn) == false && string.IsNullOrEmpty(sortDirection) == false)
+            if (!string.IsNullOrEmpty(sortColumn) && !string.IsNullOrEmpty(sortDirection))
             {
                 data = SortData(data, sortColumn, sortDirection).ToList();
             }

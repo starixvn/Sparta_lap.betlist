@@ -23,12 +23,6 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class WinLossByLeagueDataAccess : BaseDataAccess, IWinLossByLeagueDataAccess
     {
-        public WinLossByLeagueDataAccess()
-        {
-        }
-
-        #region IWinLossByLeagueDataAccess Members
-
         public IEnumerable<WinLossByLeague> GetWinlossByLeagues(WinLossByLeagueMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinlostByLeague";
@@ -113,8 +107,6 @@ namespace Fanex.Athena.DataAccess.Report
                 throw new DataAccessException(sqlException.Message, UspName, metaModel);
             }
         }
-
-        #endregion IWinLossByLeagueDataAccess Members
 
         #region Private
 

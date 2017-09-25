@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Fanex.Athena.Model.Core.DataDomain
 {
     [Flags]
-    public enum ClientViewType : int
+    public enum ClientViewType
     {
         None = 0,
         Default = 1,

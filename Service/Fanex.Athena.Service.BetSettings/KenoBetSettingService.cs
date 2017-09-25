@@ -40,7 +40,7 @@ namespace Fanex.Athena.Service.BetSettings
                         ? _betSettingDataAccess.GetBetSettings(custId)
                         : new List<BetSetting>();
 
-            return new BetSettingViewModel()
+            return new BetSettingViewModel
             {
                 MainData = betSettings
             };

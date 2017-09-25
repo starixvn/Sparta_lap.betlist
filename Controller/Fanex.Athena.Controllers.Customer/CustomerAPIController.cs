@@ -498,13 +498,13 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpGet]
         public JsonResult SearchCustomer(string query)
         {
-            query = query.Trim();
+            var userName = query.Trim();
             var customerNames = _customerService.SearchCustomers(SessionService.UserSession.UserId, query, SessionService.GenerateAgentListXml());
 
             var searchResult = new
             {
                 data = new[] { string.Empty },
-                query = query,
+                query = userName,
                 suggestions = customerNames
             };
 

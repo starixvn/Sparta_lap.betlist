@@ -23,10 +23,6 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class ActiveCustomerSummaryDataAccess : BaseDataAccess, IActiveCustomerSummaryDataAccess
     {
-        public ActiveCustomerSummaryDataAccess()
-        {
-        }
-
         public SortableList<ActiveCustomer> GetActiveCustomers(ActiveCustomerMetaModel metaModel, out int totalCustomer)
         {
             const string UspName = "Lrf_Rpt_ActiveMember";

@@ -48,7 +48,7 @@ namespace Fanex.Athena.Service.BetList.Extensions
             BetListMetaModel metaModel)
         {
             const string StatusTemp = "<div class='status'>{0}</div>";
-            var statusText = GetStatusText(ticket);
+            var statusText = GetStatusText(ticket.Status);
             var statusNormalText = string.Format(StatusTemp, statusText);
 
             // If Sport type is keno, doesn't show "Result" link.
@@ -187,46 +187,37 @@ namespace Fanex.Athena.Service.BetList.Extensions
         /// </summary>
         /// <param name="ticket">LRF ticket object.</param>
         /// <returns>Status text.</returns>
-        private static string GetStatusText(LrfTicket ticket)
+        private static string GetStatusText(string ticketStatus)
         {
-            var statusText = string.Empty;
-
-            switch (ticket.Status.ToLower())
+            switch (ticketStatus.ToLowerInvariant())
             {
                 case BetStatus.Running:
-                    statusText = CoreBetList.running;
-                    break;
+                    return CoreBetList.running;
 
                 case BetStatus.Reject:
-                    statusText = CoreBetList.reject;
-                    break;
+                    return CoreBetList.reject;
 
                 case BetStatus.Won:
-                    statusText = CoreBetList.won;
-                    break;
+                    return CoreBetList.won;
 
                 case BetStatus.Lose:
-                    statusText = CoreBetList.lose;
-                    break;
+                    return CoreBetList.lose;
 
                 case BetStatus.Draw:
-                    statusText = CoreBetList.draw;
-                    break;
+                    return CoreBetList.draw;
 
                 case BetStatus.Waiting:
-                    statusText = CoreBetList.waiting;
-                    break;
+                    return CoreBetList.waiting;
 
                 case BetStatus.Void:
-                    statusText = CoreBetList.voided;
-                    break;
+                    return CoreBetList.voided;
 
                 case BetStatus.Refund:
-                    statusText = CoreBetList.refund;
-                    break;
-            }
+                    return CoreBetList.refund;
 
-            return statusText;
+                default:
+                    return string.Empty;
+            }
         }
 
         #endregion Private Utility

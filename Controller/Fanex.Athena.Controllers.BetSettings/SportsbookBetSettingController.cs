@@ -40,9 +40,9 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public JsonResult UpdateBetSetting(string nickName)
         {
-            if (ProductAccess.IsAllowSB == false || !IsBetSettingEditable())
+            if (!ProductAccess.IsAllowSB || !IsBetSettingEditable())
             {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
 
             var sportsBook = GetBetSettingCommonParam();
@@ -63,13 +63,13 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             if (AppSettings.GetValue("EnableEsportSettingStatus") == "false")
             {
-                var resultInfo = new ResultInfo() { Code = -1, Message = "Function is under maintenance." };
+                var resultInfo = new ResultInfo { Code = -1, Message = "Function is under maintenance." };
                 return Json(resultInfo, JsonRequestBehavior.AllowGet);
             }
 
             if (!IsBetSettingEditable())
             {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
 
             var sportsBook = GetBetSettingCommonParam();

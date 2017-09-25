@@ -28,8 +28,6 @@ namespace Fanex.Athena.Service.Core.Common
 
     public class ProductService : IProductService
     {
-        private const int CacheTimeoutSeconds = 15 * 60;
-
         private readonly IProductDataAccess _productDataAccess;
 
         private readonly IAppSettings _appSettings;
@@ -69,7 +67,7 @@ namespace Fanex.Athena.Service.Core.Common
             allowedProducts = this._productDataAccess.GetProductAccessList(licenseeId);
             if (allowedProducts != null && allowedProducts.Count > 0)
             {
-                _cache.Set(cacheKey, allowedProducts, CacheTimeoutSeconds);
+                _cache.Set(cacheKey, allowedProducts);
             }
 
             return allowedProducts;
@@ -113,7 +111,7 @@ namespace Fanex.Athena.Service.Core.Common
                     products = products.Where(i => i.IsOfferedSingleWallet && allowedProducts.Contains(i.ProductCode)).ToList();
                 }
 
-                _cache.Set(cacheKey, products, CacheTimeoutSeconds);
+                _cache.Set(cacheKey, products);
             }
 
             return new ProductAccess(products);

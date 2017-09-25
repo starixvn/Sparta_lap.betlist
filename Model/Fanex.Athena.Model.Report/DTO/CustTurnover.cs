@@ -7,15 +7,9 @@
 namespace Fanex.Athena.Model.Report.DTO
 {
     using System;
-    using Fanex.Athena.Model.Core.Helper;
 
-    /// <summary>
-    /// Customer Turnover class.
-    /// </summary>
     public class CustTurnover : ICustomerWinLoss
     {
-        private int _sportId;
-
         public int Index { get; set; }
 
         public DateTime ReportBy { get; set; }
@@ -28,16 +22,9 @@ namespace Fanex.Athena.Model.Report.DTO
 
         public string Currency { get; set; }
 
-        public int SportId
-        {
-            get { return this._sportId; }
-            set { this._sportId = value; }
-        }
+        public int SportId { get; set; }
 
-        public string SportType
-        {
-            get; set;
-        }
+        public string SportType { get; set; }
 
         public int TotalTransactions { get; set; }
 

@@ -9,7 +9,7 @@ namespace Fanex.Athena.Model.Core.DataDomain
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public enum EsportSettingType : int
+    public enum EsportSettingType
     {
         /// <summary>
         /// Licensee's not offered.

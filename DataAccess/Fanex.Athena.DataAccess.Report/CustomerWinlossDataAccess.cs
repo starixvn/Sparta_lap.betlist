@@ -20,6 +20,8 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class CustomerWinlossDataAccess : BaseDataAccess, ICustWinlossDataAccess
     {
+        private const int PageSizeExcel = int.MaxValue - 1000;
+
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         public CustomerWinlossDataAccess()
@@ -84,7 +86,7 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("drawfilter", DbType.Int32, metaModel.DrawFilter);
             db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
             db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-            db.AddInParameter("pagesize", DbType.Int32, metaModel.IsExportExcel ? metaModel.PageSizeExcel : metaModel.PageSize);
+            db.AddInParameter("pagesize", DbType.Int32, metaModel.IsExportExcel ? PageSizeExcel : metaModel.PageSize);
             db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
             db.AddInParameter("movebetsday", DbType.DateTime, moveBetsDay);
             db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);

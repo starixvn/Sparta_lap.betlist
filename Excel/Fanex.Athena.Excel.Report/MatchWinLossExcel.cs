@@ -443,7 +443,7 @@ namespace Fanex.Athena.Excel.Report
                 DataRow dataRow = exportData[i];
                 IRow betTypeRow = sheet.CopyRow(TemplateSheet, RowSpecialBetTypeTemplate, currentRowIndex);
                 int betType = Converter.ToInt(dataRow["bettype"]);
-                string betTypeName = betType == (int)BetType.VirtualSports2MixParlay ? CacheRef.GetBettypeWithProductName(betType, false) : CacheRef.GetBettype(betType, false);
+                string betTypeName = betType == (int)BetType.VirtualSports2MixParlay ? CacheRef.GetBettypeWithProductName(betType) : CacheRef.GetBettype(betType, false);
 
                 betTypeRow.Cells[0].SetCellValue(betTypeName);
                 ExcelHelper.AssignRowContent(betTypeRow, dataRow, columnNameList, 2);
