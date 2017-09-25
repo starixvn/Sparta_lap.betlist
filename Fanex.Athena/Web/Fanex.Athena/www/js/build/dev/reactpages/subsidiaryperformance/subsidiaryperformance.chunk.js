@@ -1831,7 +1831,7 @@ function loadLocale(name) {
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
-            __webpack_require__(687)("./" + name);
+            __webpack_require__(684)("./" + name);
             // because defineLocale currently also sets the global locale, we
             // want to undo that for lazy loaded locales
             getSetGlobalLocale(oldLocale);
@@ -4735,11 +4735,11 @@ var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactDom = __webpack_require__(13);
+var _reactDom = __webpack_require__(16);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactInputAutosize = __webpack_require__(675);
+var _reactInputAutosize = __webpack_require__(672);
 
 var _reactInputAutosize2 = _interopRequireDefault(_reactInputAutosize);
 
@@ -4747,27 +4747,27 @@ var _classnames = __webpack_require__(39);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _defaultArrowRenderer = __webpack_require__(676);
+var _defaultArrowRenderer = __webpack_require__(673);
 
 var _defaultArrowRenderer2 = _interopRequireDefault(_defaultArrowRenderer);
 
-var _defaultFilterOptions = __webpack_require__(240);
+var _defaultFilterOptions = __webpack_require__(237);
 
 var _defaultFilterOptions2 = _interopRequireDefault(_defaultFilterOptions);
 
-var _defaultMenuRenderer = __webpack_require__(242);
+var _defaultMenuRenderer = __webpack_require__(239);
 
 var _defaultMenuRenderer2 = _interopRequireDefault(_defaultMenuRenderer);
 
-var _defaultClearRenderer = __webpack_require__(677);
+var _defaultClearRenderer = __webpack_require__(674);
 
 var _defaultClearRenderer2 = _interopRequireDefault(_defaultClearRenderer);
 
-var _Option = __webpack_require__(678);
+var _Option = __webpack_require__(675);
 
 var _Option2 = _interopRequireDefault(_Option);
 
-var _Value = __webpack_require__(243);
+var _Value = __webpack_require__(240);
 
 var _Value2 = _interopRequireDefault(_Value);
 
@@ -6387,23 +6387,23 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ActionCreators = undefined;
 
-var _dataHandlerAction = __webpack_require__(658);
+var _dataHandlerAction = __webpack_require__(655);
 
 var dataHandlerAction = _interopRequireWildcard(_dataHandlerAction);
 
-var _filterHandlerAction = __webpack_require__(659);
+var _filterHandlerAction = __webpack_require__(656);
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
 
-var _productAction = __webpack_require__(660);
+var _productAction = __webpack_require__(657);
 
 var productAction = _interopRequireWildcard(_productAction);
 
-var _baseCurrencyAction = __webpack_require__(661);
+var _baseCurrencyAction = __webpack_require__(658);
 
 var baseCurrencyAction = _interopRequireWildcard(_baseCurrencyAction);
 
-var _loaderAction = __webpack_require__(662);
+var _loaderAction = __webpack_require__(659);
 
 var loaderAction = _interopRequireWildcard(_loaderAction);
 
@@ -6461,129 +6461,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(5);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(8);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var SCROLLBAR_WIDTH = 19;
-var GUTTER = 15;
-var MAX_WIDTH = window.innerWidth - GUTTER * 2;
-
-var TableSection = function (_Component) {
-    _inherits(TableSection, _Component);
-
-    function TableSection(props) {
-        _classCallCheck(this, TableSection);
-
-        return _possibleConstructorReturn(this, (TableSection.__proto__ || Object.getPrototypeOf(TableSection)).call(this, props));
-    }
-
-    _createClass(TableSection, [{
-        key: 'render',
-        value: function render() {
-            var _props = this.props,
-                tableClass = _props.tableClass,
-                width = _props.width,
-                autoWidth = _props.autoWidth,
-                maxWidth = _props.maxWidth,
-                minWidth = _props.minWidth,
-                rest = _objectWithoutProperties(_props, ['tableClass', 'width', 'autoWidth', 'maxWidth', 'minWidth']);
-
-            return _react2.default.createElement(
-                'div',
-                _extends({}, rest, { style: this.containerStyle }),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'table-wrapper' },
-                    _react2.default.createElement(
-                        'table',
-                        { style: this.tableStyle, className: tableClass },
-                        this.props.children
-                    )
-                )
-            );
-        }
-    }, {
-        key: 'containerWidth',
-        get: function get() {
-            var _props2 = this.props,
-                autoWidth = _props2.autoWidth,
-                maxWidth = _props2.maxWidth,
-                width = _props2.width;
-
-            return autoWidth ? maxWidth : width;
-        }
-    }, {
-        key: 'containerStyle',
-        get: function get() {
-            var minWidth = this.props.minWidth;
-
-
-            return _extends({}, this.props.style, {
-                width: this.containerWidth,
-                minWidth: minWidth
-            });
-        }
-    }, {
-        key: 'tableStyle',
-        get: function get() {
-            var minWidth = this.props.minWidth;
-
-            var tableWidth = Math.max(this.containerWidth, minWidth) - SCROLLBAR_WIDTH;
-
-            return {
-                width: tableWidth
-            };
-        }
-    }]);
-
-    return TableSection;
-}(_react.Component);
-
-TableSection.propTypes = {
-    tableClass: _propTypes2.default.string,
-    width: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
-    maxWidth: _propTypes2.default.number,
-    minWidth: _propTypes2.default.number,
-    autoWidth: _propTypes2.default.bool
-};
-TableSection.defaultProps = {
-    tableClass: "table",
-    width: MAX_WIDTH,
-    maxWidth: MAX_WIDTH,
-    autoWidth: true
-};
-exports.default = TableSection;
-
-/***/ }),
-/* 132 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _langHelper = __webpack_require__(29);
@@ -6597,6 +6474,16 @@ var _site2 = _interopRequireDefault(_site);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var headerText = {
+    subsidiary: _langHelper2.default.getSingleResource("Subsidiary"),
+    currency: _langHelper2.default.getSingleResource("Currency"),
+    product: _langHelper2.default.getSingleResource("Product"),
+    betCount: _langHelper2.default.getSingleResource("BetCount"),
+    turnover: _langHelper2.default.getSingleResource("Turnover"),
+    customerWL: _langHelper2.default.getSingleResource("CustomerW_L"),
+    subsidiaryWL_comm: _langHelper2.default.getSingleResource("SubsidiaryWL") + '/ ' + _langHelper2.default.getSingleResource("Comm")
+};
 
 var Common = function () {
     function Common() {
@@ -6615,7 +6502,7 @@ var Common = function () {
     }, {
         key: 'getHeaderText',
         value: function getHeaderText() {
-            return [_langHelper2.default.getSingleResource("Subsidiary"), _langHelper2.default.getSingleResource("Currency"), _langHelper2.default.getSingleResource("Product"), _langHelper2.default.getSingleResource("BetCount"), _langHelper2.default.getSingleResource("Turnover"), _langHelper2.default.getSingleResource("CustomerW_L"), _langHelper2.default.getSingleResource("SubsidiaryWL") + '/ ' + _langHelper2.default.getSingleResource("Comm")];
+            return headerText;
         }
     }]);
 
@@ -6625,7 +6512,7 @@ var Common = function () {
 exports.default = Common;
 
 /***/ }),
-/* 133 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6659,6 +6546,7 @@ function parseInput(input, format, timeOfDay) {
 }
 
 /***/ }),
+/* 133 */,
 /* 134 */,
 /* 135 */,
 /* 136 */,
@@ -6762,153 +6650,7 @@ function parseInput(input, format, timeOfDay) {
 /* 234 */,
 /* 235 */,
 /* 236 */,
-/* 237 */,
-/* 238 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(5);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(13);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _propTypes = __webpack_require__(8);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _TableSection = __webpack_require__(131);
-
-var _TableSection2 = _interopRequireDefault(_TableSection);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Body = function (_Component) {
-    _inherits(Body, _Component);
-
-    function Body(props) {
-        _classCallCheck(this, Body);
-
-        var _this = _possibleConstructorReturn(this, (Body.__proto__ || Object.getPrototypeOf(Body)).call(this, props));
-
-        _this.containerStyle = {
-            maxHeight: props.maxHeight
-        };
-        return _this;
-    }
-
-    _createClass(Body, [{
-        key: 'render',
-        value: function render() {
-            var _props = this.props,
-                maxHeight = _props.maxHeight,
-                rest = _objectWithoutProperties(_props, ['maxHeight']);
-
-            return _react2.default.createElement(
-                _TableSection2.default,
-                _extends({ className: 'body-content', style: this.containerStyle }, rest),
-                _react2.default.createElement(
-                    'tbody',
-                    null,
-                    this.props.children
-                )
-            );
-        }
-    }]);
-
-    return Body;
-}(_react.Component);
-
-Body.propTypes = {
-    maxHeight: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string])
-};
-Body.defaultProps = {
-    maxHeight: "100%"
-};
-exports.default = Body;
-
-/***/ }),
-/* 239 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(5);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _TableSection = __webpack_require__(131);
-
-var _TableSection2 = _interopRequireDefault(_TableSection);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Body = function (_Component) {
-    _inherits(Body, _Component);
-
-    function Body(props) {
-        _classCallCheck(this, Body);
-
-        return _possibleConstructorReturn(this, (Body.__proto__ || Object.getPrototypeOf(Body)).call(this, props));
-    }
-
-    _createClass(Body, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                _TableSection2.default,
-                _extends({ className: 'footer-content' }, this.props),
-                _react2.default.createElement(
-                    'tbody',
-                    null,
-                    this.props.children
-                )
-            );
-        }
-    }]);
-
-    return Body;
-}(_react.Component);
-
-exports.default = Body;
-
-/***/ }),
-/* 240 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6918,7 +6660,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _stripDiacritics = __webpack_require__(241);
+var _stripDiacritics = __webpack_require__(238);
 
 var _stripDiacritics2 = _interopRequireDefault(_stripDiacritics);
 
@@ -6960,7 +6702,7 @@ function filterOptions(options, filterValue, excludeOptions, props) {
 exports.default = filterOptions;
 
 /***/ }),
-/* 241 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6980,7 +6722,7 @@ function stripDiacritics(str) {
 };
 
 /***/ }),
-/* 242 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7051,7 +6793,7 @@ function menuRenderer(_ref) {
 exports.default = menuRenderer;
 
 /***/ }),
-/* 243 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7204,7 +6946,7 @@ Value.propTypes = {
 exports.default = Value;
 
 /***/ }),
-/* 244 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7230,7 +6972,7 @@ var _Select = __webpack_require__(83);
 
 var _Select2 = _interopRequireDefault(_Select);
 
-var _stripDiacritics = __webpack_require__(241);
+var _stripDiacritics = __webpack_require__(238);
 
 var _stripDiacritics2 = _interopRequireDefault(_stripDiacritics);
 
@@ -7473,7 +7215,7 @@ function defaultChildren(props) {
 }
 
 /***/ }),
-/* 245 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7499,11 +7241,11 @@ var _Select = __webpack_require__(83);
 
 var _Select2 = _interopRequireDefault(_Select);
 
-var _defaultFilterOptions = __webpack_require__(240);
+var _defaultFilterOptions = __webpack_require__(237);
 
 var _defaultFilterOptions2 = _interopRequireDefault(_defaultFilterOptions);
 
-var _defaultMenuRenderer = __webpack_require__(242);
+var _defaultMenuRenderer = __webpack_require__(239);
 
 var _defaultMenuRenderer2 = _interopRequireDefault(_defaultMenuRenderer);
 
@@ -7845,7 +7587,7 @@ CreatableSelect.propTypes = {
 exports.default = CreatableSelect;
 
 /***/ }),
-/* 246 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7861,7 +7603,7 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(13);
+var _reactDom = __webpack_require__(16);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -7942,7 +7684,7 @@ Option.propTypes = {
 exports.default = Option;
 
 /***/ }),
-/* 247 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8020,7 +7762,7 @@ return af;
 
 
 /***/ }),
-/* 248 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8167,7 +7909,7 @@ return ar;
 
 
 /***/ }),
-/* 249 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8231,7 +7973,7 @@ return arDz;
 
 
 /***/ }),
-/* 250 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8295,7 +8037,7 @@ return arKw;
 
 
 /***/ }),
-/* 251 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8426,7 +8168,7 @@ return arLy;
 
 
 /***/ }),
-/* 252 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8491,7 +8233,7 @@ return arMa;
 
 
 /***/ }),
-/* 253 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8601,7 +8343,7 @@ return arSa;
 
 
 /***/ }),
-/* 254 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8665,7 +8407,7 @@ return arTn;
 
 
 /***/ }),
-/* 255 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8775,7 +8517,7 @@ return az;
 
 
 /***/ }),
-/* 256 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8914,7 +8656,7 @@ return be;
 
 
 /***/ }),
-/* 257 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9009,7 +8751,7 @@ return bg;
 
 
 /***/ }),
-/* 258 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9133,7 +8875,7 @@ return bn;
 
 
 /***/ }),
-/* 259 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9257,7 +8999,7 @@ return bo;
 
 
 /***/ }),
-/* 260 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9370,7 +9112,7 @@ return br;
 
 
 /***/ }),
-/* 261 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9518,7 +9260,7 @@ return bs;
 
 
 /***/ }),
-/* 262 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9611,7 +9353,7 @@ return ca;
 
 
 /***/ }),
-/* 263 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9788,7 +9530,7 @@ return cs;
 
 
 /***/ }),
-/* 264 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9856,7 +9598,7 @@ return cv;
 
 
 /***/ }),
-/* 265 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9942,7 +9684,7 @@ return cy;
 
 
 /***/ }),
-/* 266 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10007,7 +9749,7 @@ return da;
 
 
 /***/ }),
-/* 267 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10090,7 +9832,7 @@ return de;
 
 
 /***/ }),
-/* 268 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10174,7 +9916,7 @@ return deAt;
 
 
 /***/ }),
-/* 269 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10257,7 +9999,7 @@ return deCh;
 
 
 /***/ }),
-/* 270 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10362,7 +10104,7 @@ return dv;
 
 
 /***/ }),
-/* 271 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10467,7 +10209,7 @@ return el;
 
 
 /***/ }),
-/* 272 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10539,7 +10281,7 @@ return enAu;
 
 
 /***/ }),
-/* 273 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10607,7 +10349,7 @@ return enCa;
 
 
 /***/ }),
-/* 274 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10679,7 +10421,7 @@ return enGb;
 
 
 /***/ }),
-/* 275 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10751,7 +10493,7 @@ return enIe;
 
 
 /***/ }),
-/* 276 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10823,7 +10565,7 @@ return enNz;
 
 
 /***/ }),
-/* 277 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10901,7 +10643,7 @@ return eo;
 
 
 /***/ }),
-/* 278 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10989,7 +10731,7 @@ return es;
 
 
 /***/ }),
-/* 279 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11076,7 +10818,7 @@ return esDo;
 
 
 /***/ }),
-/* 280 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11161,7 +10903,7 @@ return et;
 
 
 /***/ }),
-/* 281 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11232,7 +10974,7 @@ return eu;
 
 
 /***/ }),
-/* 282 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11344,7 +11086,7 @@ return fa;
 
 
 /***/ }),
-/* 283 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11456,7 +11198,7 @@ return fi;
 
 
 /***/ }),
-/* 284 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11521,7 +11263,7 @@ return fo;
 
 
 /***/ }),
-/* 285 */
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11609,7 +11351,7 @@ return fr;
 
 
 /***/ }),
-/* 286 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11688,7 +11430,7 @@ return frCa;
 
 
 /***/ }),
-/* 287 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11771,7 +11513,7 @@ return frCh;
 
 
 /***/ }),
-/* 288 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11851,7 +11593,7 @@ return fy;
 
 
 /***/ }),
-/* 289 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11932,7 +11674,7 @@ return gd;
 
 
 /***/ }),
-/* 290 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12014,7 +11756,7 @@ return gl;
 
 
 /***/ }),
-/* 291 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12141,7 +11883,7 @@ return gomLatn;
 
 
 /***/ }),
-/* 292 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12245,7 +11987,7 @@ return he;
 
 
 /***/ }),
-/* 293 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12374,7 +12116,7 @@ return hi;
 
 
 /***/ }),
-/* 294 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12524,7 +12266,7 @@ return hr;
 
 
 /***/ }),
-/* 295 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12638,7 +12380,7 @@ return hu;
 
 
 /***/ }),
-/* 296 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12738,7 +12480,7 @@ return hyAm;
 
 
 /***/ }),
-/* 297 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12826,7 +12568,7 @@ return id;
 
 
 /***/ }),
-/* 298 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12958,7 +12700,7 @@ return is;
 
 
 /***/ }),
-/* 299 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13033,7 +12775,7 @@ return it;
 
 
 /***/ }),
-/* 300 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13118,7 +12860,7 @@ return ja;
 
 
 /***/ }),
-/* 301 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13206,7 +12948,7 @@ return jv;
 
 
 /***/ }),
-/* 302 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13300,7 +13042,7 @@ return ka;
 
 
 /***/ }),
-/* 303 */
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13392,7 +13134,7 @@ return kk;
 
 
 /***/ }),
-/* 304 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13455,7 +13197,7 @@ return km;
 
 
 /***/ }),
-/* 305 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13586,7 +13328,7 @@ return kn;
 
 
 /***/ }),
-/* 306 */
+/* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13660,7 +13402,7 @@ return ko;
 
 
 /***/ }),
-/* 307 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13753,7 +13495,7 @@ return ky;
 
 
 /***/ }),
-/* 308 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13895,7 +13637,7 @@ return lb;
 
 
 /***/ }),
-/* 309 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13970,7 +13712,7 @@ return lo;
 
 
 /***/ }),
-/* 310 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14092,7 +13834,7 @@ return lt;
 
 
 /***/ }),
-/* 311 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14194,7 +13936,7 @@ return lv;
 
 
 /***/ }),
-/* 312 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14310,7 +14052,7 @@ return me;
 
 
 /***/ }),
-/* 313 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14379,7 +14121,7 @@ return mi;
 
 
 /***/ }),
-/* 314 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14474,7 +14216,7 @@ return mk;
 
 
 /***/ }),
-/* 315 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14560,7 +14302,7 @@ return ml;
 
 
 /***/ }),
-/* 316 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14724,7 +14466,7 @@ return mr;
 
 
 /***/ }),
-/* 317 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14811,7 +14553,7 @@ return ms;
 
 
 /***/ }),
-/* 318 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14899,7 +14641,7 @@ return msMy;
 
 
 /***/ }),
-/* 319 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15000,7 +14742,7 @@ return my;
 
 
 /***/ }),
-/* 320 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15068,7 +14810,7 @@ return nb;
 
 
 /***/ }),
-/* 321 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15196,7 +14938,7 @@ return ne;
 
 
 /***/ }),
-/* 322 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15289,7 +15031,7 @@ return nl;
 
 
 /***/ }),
-/* 323 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15382,7 +15124,7 @@ return nlBe;
 
 
 /***/ }),
-/* 324 */
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15447,7 +15189,7 @@ return nn;
 
 
 /***/ }),
-/* 325 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15576,7 +15318,7 @@ return paIn;
 
 
 /***/ }),
-/* 326 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15688,7 +15430,7 @@ return pl;
 
 
 /***/ }),
-/* 327 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15758,7 +15500,7 @@ return pt;
 
 
 /***/ }),
-/* 328 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15824,7 +15566,7 @@ return ptBr;
 
 
 /***/ }),
-/* 329 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15904,7 +15646,7 @@ return ro;
 
 
 /***/ }),
-/* 330 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16092,7 +15834,7 @@ return ru;
 
 
 /***/ }),
-/* 331 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16195,7 +15937,7 @@ return sd;
 
 
 /***/ }),
-/* 332 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16261,7 +16003,7 @@ return se;
 
 
 /***/ }),
-/* 333 */
+/* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16337,7 +16079,7 @@ return si;
 
 
 /***/ }),
-/* 334 */
+/* 331 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16492,7 +16234,7 @@ return sk;
 
 
 /***/ }),
-/* 335 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16659,7 +16401,7 @@ return sl;
 
 
 /***/ }),
-/* 336 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16734,7 +16476,7 @@ return sq;
 
 
 /***/ }),
-/* 337 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16849,7 +16591,7 @@ return sr;
 
 
 /***/ }),
-/* 338 */
+/* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16964,7 +16706,7 @@ return srCyrl;
 
 
 /***/ }),
-/* 339 */
+/* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17058,7 +16800,7 @@ return ss;
 
 
 /***/ }),
-/* 340 */
+/* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17132,7 +16874,7 @@ return sv;
 
 
 /***/ }),
-/* 341 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17196,7 +16938,7 @@ return sw;
 
 
 /***/ }),
-/* 342 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17331,7 +17073,7 @@ return ta;
 
 
 /***/ }),
-/* 343 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17425,7 +17167,7 @@ return te;
 
 
 /***/ }),
-/* 344 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17498,7 +17240,7 @@ return tet;
 
 
 /***/ }),
-/* 345 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17570,7 +17312,7 @@ return th;
 
 
 /***/ }),
-/* 346 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17637,7 +17379,7 @@ return tlPh;
 
 
 /***/ }),
-/* 347 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17762,7 +17504,7 @@ return tlh;
 
 
 /***/ }),
-/* 348 */
+/* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17857,7 +17599,7 @@ return tr;
 
 
 /***/ }),
-/* 349 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17953,7 +17695,7 @@ return tzl;
 
 
 /***/ }),
-/* 350 */
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -18016,7 +17758,7 @@ return tzm;
 
 
 /***/ }),
-/* 351 */
+/* 348 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -18079,7 +17821,7 @@ return tzmLatn;
 
 
 /***/ }),
-/* 352 */
+/* 349 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -18235,7 +17977,7 @@ return uk;
 
 
 /***/ }),
-/* 353 */
+/* 350 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -18339,7 +18081,7 @@ return ur;
 
 
 /***/ }),
-/* 354 */
+/* 351 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -18402,7 +18144,7 @@ return uz;
 
 
 /***/ }),
-/* 355 */
+/* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -18465,7 +18207,7 @@ return uzLatn;
 
 
 /***/ }),
-/* 356 */
+/* 353 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -18549,7 +18291,7 @@ return vi;
 
 
 /***/ }),
-/* 357 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -18622,7 +18364,7 @@ return xPseudo;
 
 
 /***/ }),
-/* 358 */
+/* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -18687,7 +18429,7 @@ return yo;
 
 
 /***/ }),
-/* 359 */
+/* 356 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -18803,7 +18545,7 @@ return zhCn;
 
 
 /***/ }),
-/* 360 */
+/* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -18913,7 +18655,7 @@ return zhHk;
 
 
 /***/ }),
-/* 361 */
+/* 358 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -19022,7 +18764,7 @@ return zhTw;
 
 
 /***/ }),
-/* 362 */
+/* 359 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19048,11 +18790,11 @@ var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _parseInput = __webpack_require__(133);
+var _parseInput = __webpack_require__(132);
 
 var _parseInput2 = _interopRequireDefault(_parseInput);
 
-var _DayCell = __webpack_require__(688);
+var _DayCell = __webpack_require__(685);
 
 var _DayCell2 = _interopRequireDefault(_DayCell);
 
@@ -19060,7 +18802,7 @@ var _styles = __webpack_require__(84);
 
 var _styles2 = _interopRequireDefault(_styles);
 
-var _constants = __webpack_require__(363);
+var _constants = __webpack_require__(360);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19590,7 +19332,7 @@ Calendar.propTypes = {
 exports.default = Calendar;
 
 /***/ }),
-/* 363 */
+/* 360 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19605,7 +19347,7 @@ var MomentFormat = exports.MomentFormat = {
 };
 
 /***/ }),
-/* 364 */
+/* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19623,7 +19365,7 @@ var _langHelper = __webpack_require__(29);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _locale = __webpack_require__(690);
+var _locale = __webpack_require__(687);
 
 var _locale2 = _interopRequireDefault(_locale);
 
@@ -19690,6 +19432,9 @@ exports.default = {
 };
 
 /***/ }),
+/* 362 */,
+/* 363 */,
+/* 364 */,
 /* 365 */,
 /* 366 */,
 /* 367 */,
@@ -19978,10 +19723,7 @@ exports.default = {
 /* 650 */,
 /* 651 */,
 /* 652 */,
-/* 653 */,
-/* 654 */,
-/* 655 */,
-/* 656 */
+/* 653 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19997,29 +19739,29 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(13);
+var _reactDom = __webpack_require__(16);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _AppContainer = __webpack_require__(657);
+var _AppContainer = __webpack_require__(654);
 
 var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
 var _reactRedux = __webpack_require__(48);
 
-var _reduxLogger = __webpack_require__(176);
+var _reduxLogger = __webpack_require__(175);
 
 var _redux = __webpack_require__(35);
 
-var _reduxThunk = __webpack_require__(175);
+var _reduxThunk = __webpack_require__(174);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _index = __webpack_require__(696);
+var _index = __webpack_require__(693);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _config = __webpack_require__(702);
+var _config = __webpack_require__(699);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20078,7 +19820,7 @@ exports.default = App;
 _reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById("app-container"));
 
 /***/ }),
-/* 657 */
+/* 654 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20100,19 +19842,19 @@ var _redux = __webpack_require__(35);
 
 var _index = __webpack_require__(129);
 
-var _datagrid = __webpack_require__(663);
+var _datagrid = __webpack_require__(660);
 
 var _datagrid2 = _interopRequireDefault(_datagrid);
 
-var _formFilter = __webpack_require__(673);
+var _formFilter = __webpack_require__(670);
 
 var _formFilter2 = _interopRequireDefault(_formFilter);
 
-var _Loader = __webpack_require__(694);
+var _Loader = __webpack_require__(691);
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
-var _AppLayout = __webpack_require__(695);
+var _AppLayout = __webpack_require__(692);
 
 var _AppLayout2 = _interopRequireDefault(_AppLayout);
 
@@ -20160,7 +19902,7 @@ function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(AppContainer);
 
 /***/ }),
-/* 658 */
+/* 655 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20178,7 +19920,7 @@ var _types = __webpack_require__(82);
 
 var types = _interopRequireWildcard(_types);
 
-var _axios = __webpack_require__(177);
+var _axios = __webpack_require__(176);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -20201,7 +19943,7 @@ var fetchData = exports.fetchData = function fetchData(params) {
 };
 
 function getGridData(params) {
-    return function (dispatch, getState) {
+    return function (dispatch) {
         fetchData(params).then(function (response) {
             dispatch(setGridData(response.data));
         });
@@ -20222,7 +19964,7 @@ function setGridData(data) {
 }
 
 /***/ }),
-/* 659 */
+/* 656 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20266,7 +20008,7 @@ var changeConvertAll = exports.changeConvertAll = function changeConvertAll(chec
 };
 
 /***/ }),
-/* 660 */
+/* 657 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20291,7 +20033,7 @@ var setSelectedProduct = exports.setSelectedProduct = function setSelectedProduc
 };
 
 /***/ }),
-/* 661 */
+/* 658 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20316,7 +20058,7 @@ var setSelectedBaseCurrency = exports.setSelectedBaseCurrency = function setSele
 };
 
 /***/ }),
-/* 662 */
+/* 659 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20341,7 +20083,7 @@ var toggleLoader = exports.toggleLoader = function toggleLoader(show) {
 };
 
 /***/ }),
-/* 663 */
+/* 660 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20350,8 +20092,6 @@ var toggleLoader = exports.toggleLoader = function toggleLoader(show) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -20365,25 +20105,25 @@ var _index = __webpack_require__(129);
 
 var _redux = __webpack_require__(35);
 
-var _fixedTableHeader = __webpack_require__(664);
+var _fixedTableHeader = __webpack_require__(661);
 
 var _langHelper = __webpack_require__(29);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _numberFormat = __webpack_require__(670);
+var _numberFormat = __webpack_require__(667);
 
 var _numberFormat2 = _interopRequireDefault(_numberFormat);
 
-var _ReportTitle = __webpack_require__(671);
+var _ReportTitle = __webpack_require__(668);
 
 var _ReportTitle2 = _interopRequireDefault(_ReportTitle);
 
-var _NoDataTitle = __webpack_require__(672);
+var _NoDataTitle = __webpack_require__(669);
 
 var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
 
-var _service = __webpack_require__(132);
+var _service = __webpack_require__(131);
 
 var _service2 = _interopRequireDefault(_service);
 
@@ -20394,8 +20134,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var columnLayout = [1.5, 1.5, 2, 1.5, 2, 2, 2];
 
 var DataGrid = function (_Component) {
     _inherits(DataGrid, _Component);
@@ -20451,47 +20189,59 @@ var DataGrid = function (_Component) {
                 'div',
                 { className: 'result-content' },
                 _react2.default.createElement(_ReportTitle2.default, { content: this.reportTitle }),
-                _react2.default.createElement(
-                    _fixedTableHeader.Table,
-                    _extends({
-                        minWidth: 600,
-                        autoWidth: true,
-                        columnLayout: columnLayout
-                    }, this.props),
-                    _react2.default.createElement(
-                        _fixedTableHeader.Header,
-                        null,
-                        this.header
-                    ),
-                    _react2.default.createElement(
-                        _fixedTableHeader.Body,
-                        { maxHeight: 300 },
-                        this.body
-                    ),
-                    _react2.default.createElement(
-                        _fixedTableHeader.Footer,
-                        null,
-                        this.footer,
-                        this.grantTotal
-                    )
-                )
+                _react2.default.createElement(_fixedTableHeader.Table, {
+                    minWidth: 600,
+                    autoWidth: true,
+                    bodyHeight: 300,
+                    header: this.header,
+                    body: this.body,
+                    footer: this.footer
+                })
             );
         }
     }, {
         key: 'header',
         get: function get() {
-            var headers = _service2.default.getHeaderText().map(function (item, index) {
-                return _react2.default.createElement(
-                    'th',
-                    { key: 'header' + index, title: item },
-                    item
-                );
-            });
+            var headerText = _service2.default.getHeaderText();
 
             return _react2.default.createElement(
                 _fixedTableHeader.Row,
                 { style: { height: 32 } },
-                headers
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 150, header: true, title: headerText.subsidiary },
+                    headerText.subsidiary
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 150, header: true, title: headerText.currency },
+                    headerText.currency
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 200, header: true, title: headerText.product },
+                    headerText.product
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 150, header: true, title: headerText.betCount },
+                    headerText.betCount
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 200, header: true, title: headerText.turnover },
+                    headerText.turnover
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 200, header: true, title: headerText.customerWL },
+                    headerText.customerWL
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 200, header: true, title: headerText.subsidiaryWL_comm },
+                    headerText.subsidiaryWL_comm
+                )
             );
         }
     }, {
@@ -20561,7 +20311,7 @@ var DataGrid = function (_Component) {
         key: 'footer',
         get: function get() {
             var totalData = this.props.gridData.Total;
-            return totalData.map(function (item, index) {
+            var footer = totalData.map(function (item, index) {
                 var betcount = _numberFormat2.default.format(item.BetCount),
                     turnover = _numberFormat2.default.formatDecimal(item.Turnover),
                     customerWinLoss = _numberFormat2.default.formatDecimal(item.CustomerWinLoss),
@@ -20603,9 +20353,13 @@ var DataGrid = function (_Component) {
                     )
                 );
             });
+
+            footer.push(this.grandTotal);
+
+            return footer;
         }
     }, {
-        key: 'grantTotal',
+        key: 'grandTotal',
         get: function get() {
             var grandTotal = this.props.gridData.GrandTotal;
             if (!grandTotal) {
@@ -20619,7 +20373,7 @@ var DataGrid = function (_Component) {
 
             return _react2.default.createElement(
                 _fixedTableHeader.Row,
-                { className: 'fixed-table-grant-total' },
+                { key: 'grandTotal', className: 'fixed-table-grant-total' },
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { title: grandTotal.Subsidiary },
@@ -20672,7 +20426,7 @@ function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DataGrid);
 
 /***/ }),
-/* 664 */
+/* 661 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20681,43 +20435,28 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Cell = exports.Row = exports.Footer = exports.Body = exports.Header = exports.Table = undefined;
+exports.Cell = exports.Row = exports.Table = undefined;
 
-var _Table = __webpack_require__(665);
+var _Table = __webpack_require__(662);
 
 var _Table2 = _interopRequireDefault(_Table);
 
-var _Header = __webpack_require__(667);
-
-var _Header2 = _interopRequireDefault(_Header);
-
-var _Body = __webpack_require__(238);
-
-var _Body2 = _interopRequireDefault(_Body);
-
-var _Footer = __webpack_require__(239);
-
-var _Footer2 = _interopRequireDefault(_Footer);
-
-var _Row = __webpack_require__(668);
+var _Row = __webpack_require__(665);
 
 var _Row2 = _interopRequireDefault(_Row);
 
-var _Cell = __webpack_require__(669);
+var _Cell = __webpack_require__(666);
 
 var _Cell2 = _interopRequireDefault(_Cell);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.Table = _Table2.default;
-exports.Header = _Header2.default;
-exports.Body = _Body2.default;
-exports.Footer = _Footer2.default;
 exports.Row = _Row2.default;
 exports.Cell = _Cell2.default;
 
 /***/ }),
-/* 665 */
+/* 662 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20735,11 +20474,11 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(13);
+var _reactDom = __webpack_require__(16);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _RowLayout = __webpack_require__(666);
+var _RowLayout = __webpack_require__(663);
 
 var _RowLayout2 = _interopRequireDefault(_RowLayout);
 
@@ -20747,17 +20486,11 @@ var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Body = __webpack_require__(238);
+var _tableSection = __webpack_require__(664);
 
-var _Body2 = _interopRequireDefault(_Body);
-
-var _Footer = __webpack_require__(239);
-
-var _Footer2 = _interopRequireDefault(_Footer);
+var _tableSection2 = _interopRequireDefault(_tableSection);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -20765,8 +20498,18 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var headerContainerProps = { className: "header-content", isHeader: true };
+var Header = (0, _tableSection2.default)(headerContainerProps);
+
+var bodyContainerProps = { className: "body-content" };
+var Body = (0, _tableSection2.default)(bodyContainerProps);
+
+var footerContainerProps = { className: "footer-content" };
+var Footer = (0, _tableSection2.default)(footerContainerProps);
+
 var MAX_WIDTH = window.innerWidth - 30;
 var DEFAULT_MILLISECOND_FOR_WAITING = 500;
+var DEFAULT_COLUMN_WIDTH = 100;
 
 function debounce(func, wait) {
     var timeout = void 0;
@@ -20794,10 +20537,14 @@ var Table = function (_Component) {
         _this._handleResize = function (event) {
             event.preventDefault();
             var maxWidth = window.innerWidth - _this.diffWidth;
-            _this.setState({ maxWidth: maxWidth });
+
+            if (_this.state.maxWidth !== maxWidth) {
+                _this.setState({ maxWidth: maxWidth });
+            }
         };
 
         _this.diffWidth = window.innerWidth - props.maxWidth;
+        _this.columnsWidth = _this._getColumnsWidth();
 
         _this.state = {
             maxWidth: props.maxWidth
@@ -20806,6 +20553,65 @@ var Table = function (_Component) {
     }
 
     _createClass(Table, [{
+        key: '_getColumnsWidth',
+        value: function _getColumnsWidth() {
+            var _this2 = this;
+
+            var headerRows = this.props.header;
+            var headerIsArray = Array.isArray(headerRows);
+            if (headerIsArray && headerRows.length === 0) {
+                return null;
+            }
+
+            var columnsWidth = [];
+            var currentNextCellIndexByRow = {};
+
+            var getWidthByCells = function getWidthByCells(cells, currentRowIndex) {
+                for (var i = 0; i < cells.length; i++) {
+                    var cell = cells[i];
+                    var cellProps = cell.props;
+                    var colspan = Number(cellProps.colSpan);
+
+                    if (colspan && colspan > 1) {
+                        var nextRowIndex = currentRowIndex + 1;
+                        if (currentNextCellIndexByRow[nextRowIndex] === undefined) {
+                            currentNextCellIndexByRow[nextRowIndex] = 0;
+                        }
+                        var fromNextCellIndex = currentNextCellIndexByRow[nextRowIndex];
+                        var toNextCellIndex = fromNextCellIndex + colspan - 1;
+                        var nextCells = headerRows[nextRowIndex].props.children;
+
+                        var nextColspanCells = _this2._getNextColspanCells(nextCells, fromNextCellIndex, toNextCellIndex);
+                        currentNextCellIndexByRow[nextRowIndex] += nextColspanCells.length;
+                        getWidthByCells(nextColspanCells, nextRowIndex);
+                    } else {
+                        var cellWidth = cellProps.colWidth ? cellProps.colWidth : DEFAULT_COLUMN_WIDTH;
+                        columnsWidth.push(cellWidth);
+                    }
+                }
+            };
+
+            var currentRowIndex = 0;
+            var cellList = headerIsArray ? headerRows[currentRowIndex].props.children : headerRows.props.children;
+            getWidthByCells(cellList, currentRowIndex);
+
+            return columnsWidth;
+        }
+    }, {
+        key: '_getNextColspanCells',
+        value: function _getNextColspanCells(cells, fromCellIndex, toCellIndex) {
+            var colspanCells = [];
+            for (var i = fromCellIndex; i <= toCellIndex; i++) {
+                var cell = cells[i];
+                if (cell.props.colSpan) {
+                    toCellIndex -= 1;
+                }
+                colspanCells.push(cell);
+            }
+
+            return colspanCells;
+        }
+    }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             window.addEventListener('resize', debounce(this._handleResize));
@@ -20818,70 +20624,73 @@ var Table = function (_Component) {
     }, {
         key: '_getUpdatedColumnLayout',
         value: function _getUpdatedColumnLayout() {
-            var _this2 = this;
+            var _this3 = this;
 
             var _props = this.props,
                 width = _props.width,
-                columnLayout = _props.columnLayout,
                 autoWidth = _props.autoWidth;
 
             var sumOfColumnWidth = autoWidth ? this.state.maxWidth : width;
 
-            var newColumnLayout = this.columnWidthSum && columnLayout.map(function (cellWidth) {
-                return sumOfColumnWidth / _this2.columnWidthSum * cellWidth;
+            var newColumnsWidth = this.columnWidthSum && this.columnsWidth.map(function (cellWidth) {
+                return sumOfColumnWidth / _this3.columnWidthSum * cellWidth;
             });
 
-            return newColumnLayout;
-        }
-    }, {
-        key: '_buildContent',
-        value: function _buildContent() {
-            var _props2 = this.props,
-                width = _props2.width,
-                columnLayout = _props2.columnLayout,
-                autoWidth = _props2.autoWidth,
-                minWidth = _props2.minWidth;
-            var maxWidth = this.state.maxWidth;
-
-
-            var newColumnLayout = this.columnWidthSum && this.columnWidthSum !== width ? this._getUpdatedColumnLayout() : columnLayout;
-
-            return _react2.default.Children.map(this.props.children, function (child, index) {
-                var rows = _react2.default.Children.toArray(child.props.children);
-                var layoutRow = _react2.default.createElement(_RowLayout2.default, { key: 'rowLayout' + index, columnLayout: newColumnLayout });
-
-                var newChild = {
-                    props: _extends({}, child.props, {
-                        autoWidth: autoWidth,
-                        width: width,
-                        maxWidth: maxWidth,
-                        minWidth: minWidth,
-                        children: [layoutRow].concat(_toConsumableArray(rows))
-                    })
-                };
-
-                return Object.assign({}, child, newChild);
-            });
+            return newColumnsWidth;
         }
     }, {
         key: 'render',
         value: function render() {
+            var _props2 = this.props,
+                width = _props2.width,
+                autoWidth = _props2.autoWidth,
+                minWidth = _props2.minWidth,
+                bodyHeight = _props2.bodyHeight,
+                header = _props2.header,
+                body = _props2.body,
+                footer = _props2.footer;
+
             var maxWidth = this.state.maxWidth;
+
+            var newColumnLayout = this.columnWidthSum && this.columnWidthSum !== width ? this._getUpdatedColumnLayout() : this.columnsWidth;
+
+            if (!newColumnLayout) {
+                return null;
+            }
+
+            var sectionProps = { width: width, autoWidth: autoWidth, minWidth: minWidth, maxWidth: maxWidth };
+            var rowLayout = _react2.default.createElement(_RowLayout2.default, { columnLayout: newColumnLayout });
 
             return _react2.default.createElement(
                 'div',
                 { className: 'table-container', style: { maxWidth: maxWidth } },
-                this._buildContent()
+                _react2.default.createElement(
+                    Header,
+                    sectionProps,
+                    rowLayout,
+                    header
+                ),
+                body && _react2.default.createElement(
+                    Body,
+                    _extends({}, sectionProps, { maxHeight: bodyHeight }),
+                    rowLayout,
+                    body
+                ),
+                footer && _react2.default.createElement(
+                    Footer,
+                    sectionProps,
+                    rowLayout,
+                    footer
+                )
             );
         }
     }, {
         key: 'columnWidthSum',
         get: function get() {
-            var columnLayout = this.props.columnLayout;
-            return columnLayout.find(function (x) {
+            return !this.columnsWidth || !this.columnsWidth.length || this.columnsWidth.find(function (x) {
                 return typeof x !== "number";
-            }) ? null : columnLayout.reduce(function (prev, next) {
-                return prev + next;
+            }) ? null : this.columnsWidth.reduce(function (prev, current) {
+                return prev + current;
             }, 0);
         }
     }]);
@@ -20894,7 +20703,10 @@ Table.propTypes = {
     maxWidth: _propTypes2.default.number,
     minWidth: _propTypes2.default.number,
     autoWidth: _propTypes2.default.bool,
-    columnLayout: _propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string])).isRequired
+    bodyHeight: _propTypes2.default.number,
+    header: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.arrayOf(_propTypes2.default.object)]).isRequired,
+    body: _propTypes2.default.arrayOf(_propTypes2.default.object),
+    footer: _propTypes2.default.arrayOf(_propTypes2.default.object)
 };
 Table.defaultProps = {
     width: MAX_WIDTH,
@@ -20904,7 +20716,7 @@ Table.defaultProps = {
 exports.default = Table;
 
 /***/ }),
-/* 666 */
+/* 663 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20973,7 +20785,7 @@ RowLayout.propTypes = {
 exports.default = RowLayout;
 
 /***/ }),
-/* 667 */
+/* 664 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20991,11 +20803,13 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _TableSection = __webpack_require__(131);
+var _propTypes = __webpack_require__(8);
 
-var _TableSection2 = _interopRequireDefault(_TableSection);
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -21003,37 +20817,115 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Header = function (_Component) {
-    _inherits(Header, _Component);
+var SCROLLBAR_WIDTH = 19;
+var GUTTER = 15;
+var MAX_WIDTH = window.innerWidth - GUTTER * 2;
 
-    function Header(props) {
-        _classCallCheck(this, Header);
+var createTableSection = function createTableSection(extendedContainerProps, extendedTableProps) {
+    var _class, _temp;
 
-        return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props));
-    }
+    return _temp = _class = function (_Component) {
+        _inherits(TableSection, _Component);
 
-    _createClass(Header, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                _TableSection2.default,
-                _extends({ className: 'header-content' }, this.props),
-                _react2.default.createElement(
-                    'thead',
-                    null,
-                    this.props.children
-                )
-            );
+        function TableSection(props) {
+            _classCallCheck(this, TableSection);
+
+            return _possibleConstructorReturn(this, (TableSection.__proto__ || Object.getPrototypeOf(TableSection)).call(this, props));
         }
-    }]);
 
-    return Header;
-}(_react.Component);
+        _createClass(TableSection, [{
+            key: 'render',
+            value: function render() {
+                var _props = this.props,
+                    tableClass = _props.tableClass,
+                    width = _props.width,
+                    autoWidth = _props.autoWidth,
+                    maxWidth = _props.maxWidth,
+                    minWidth = _props.minWidth,
+                    maxHeight = _props.maxHeight,
+                    rest = _objectWithoutProperties(_props, ['tableClass', 'width', 'autoWidth', 'maxWidth', 'minWidth', 'maxHeight']);
 
-exports.default = Header;
+                var isHeader = extendedContainerProps.isHeader,
+                    restContainerProps = _objectWithoutProperties(extendedContainerProps, ['isHeader']);
+
+                return _react2.default.createElement(
+                    'div',
+                    _extends({}, rest, { style: this.containerStyle }, restContainerProps),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'table-wrapper' },
+                        _react2.default.createElement(
+                            'table',
+                            _extends({ style: this.tableStyle, className: tableClass }, extendedTableProps),
+                            isHeader ? _react2.default.createElement(
+                                'thead',
+                                null,
+                                this.props.children
+                            ) : _react2.default.createElement(
+                                'tbody',
+                                null,
+                                this.props.children
+                            )
+                        )
+                    )
+                );
+            }
+        }, {
+            key: 'containerWidth',
+            get: function get() {
+                var _props2 = this.props,
+                    autoWidth = _props2.autoWidth,
+                    maxWidth = _props2.maxWidth,
+                    width = _props2.width;
+
+                return autoWidth ? maxWidth : width;
+            }
+        }, {
+            key: 'containerStyle',
+            get: function get() {
+                var _props3 = this.props,
+                    minWidth = _props3.minWidth,
+                    maxHeight = _props3.maxHeight;
+
+
+                return _extends({}, this.props.style, {
+                    width: this.containerWidth,
+                    minWidth: minWidth,
+                    maxHeight: maxHeight
+                });
+            }
+        }, {
+            key: 'tableStyle',
+            get: function get() {
+                var minWidth = this.props.minWidth;
+
+                var tableWidth = Math.max(this.containerWidth, minWidth) - SCROLLBAR_WIDTH;
+
+                return {
+                    width: tableWidth
+                };
+            }
+        }]);
+
+        return TableSection;
+    }(_react.Component), _class.propTypes = {
+        tableClass: _propTypes2.default.string,
+        width: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+        maxWidth: _propTypes2.default.number,
+        minWidth: _propTypes2.default.number,
+        autoWidth: _propTypes2.default.bool
+    }, _class.defaultProps = {
+        tableClass: "table",
+        width: MAX_WIDTH,
+        maxWidth: MAX_WIDTH,
+        autoWidth: true
+    }, _temp;
+};
+
+exports.default = createTableSection;
 
 /***/ }),
-/* 668 */
+/* 665 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21083,7 +20975,7 @@ var Row = function (_Component) {
 exports.default = Row;
 
 /***/ }),
-/* 669 */
+/* 666 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21099,7 +20991,13 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = __webpack_require__(8);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -21119,9 +21017,18 @@ var Cell = function (_Component) {
     _createClass(Cell, [{
         key: 'render',
         value: function render() {
-            return _react2.default.createElement(
+            var _props = this.props,
+                header = _props.header,
+                colWidth = _props.colWidth,
+                rest = _objectWithoutProperties(_props, ['header', 'colWidth']);
+
+            return header ? _react2.default.createElement(
+                'th',
+                rest,
+                this.props.children
+            ) : _react2.default.createElement(
                 'td',
-                this.props,
+                rest,
                 this.props.children
             );
         }
@@ -21130,10 +21037,16 @@ var Cell = function (_Component) {
     return Cell;
 }(_react.Component);
 
+Cell.propTypes = {
+    header: _propTypes2.default.bool
+};
+Cell.defaultProps = {
+    header: false
+};
 exports.default = Cell;
 
 /***/ }),
-/* 670 */
+/* 667 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21180,7 +21093,7 @@ var NumberFormat = function () {
 exports.default = NumberFormat;
 
 /***/ }),
-/* 671 */
+/* 668 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21196,7 +21109,7 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(13);
+var _reactDom = __webpack_require__(16);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -21238,7 +21151,7 @@ var ReportTitle = function (_Component) {
 exports.default = ReportTitle;
 
 /***/ }),
-/* 672 */
+/* 669 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21254,7 +21167,7 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(13);
+var _reactDom = __webpack_require__(16);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -21296,7 +21209,7 @@ var NoDataTitle = function (_Component) {
 exports.default = NoDataTitle;
 
 /***/ }),
-/* 673 */
+/* 670 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21318,21 +21231,21 @@ var _index = __webpack_require__(129);
 
 var _redux = __webpack_require__(35);
 
-var _reactSelect = __webpack_require__(674);
+var _reactSelect = __webpack_require__(671);
 
 var _reactSelect2 = _interopRequireDefault(_reactSelect);
 
-var _multipleSelect = __webpack_require__(680);
+var _multipleSelect = __webpack_require__(677);
 
 var _multipleSelect2 = _interopRequireDefault(_multipleSelect);
 
-var _index2 = __webpack_require__(685);
+var _index2 = __webpack_require__(682);
 
 var _langHelper = __webpack_require__(29);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _reportExcel = __webpack_require__(691);
+var _reportExcel = __webpack_require__(688);
 
 var _reportExcel2 = _interopRequireDefault(_reportExcel);
 
@@ -21340,7 +21253,7 @@ var _site = __webpack_require__(130);
 
 var _site2 = _interopRequireDefault(_site);
 
-var _service = __webpack_require__(132);
+var _service = __webpack_require__(131);
 
 var _service2 = _interopRequireDefault(_service);
 
@@ -21635,7 +21548,7 @@ function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(FormFilter);
 
 /***/ }),
-/* 674 */
+/* 671 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21650,19 +21563,19 @@ var _Select = __webpack_require__(83);
 
 var _Select2 = _interopRequireDefault(_Select);
 
-var _Async = __webpack_require__(244);
+var _Async = __webpack_require__(241);
 
 var _Async2 = _interopRequireDefault(_Async);
 
-var _AsyncCreatable = __webpack_require__(679);
+var _AsyncCreatable = __webpack_require__(676);
 
 var _AsyncCreatable2 = _interopRequireDefault(_AsyncCreatable);
 
-var _Creatable = __webpack_require__(245);
+var _Creatable = __webpack_require__(242);
 
 var _Creatable2 = _interopRequireDefault(_Creatable);
 
-var _Value = __webpack_require__(243);
+var _Value = __webpack_require__(240);
 
 var _Value2 = _interopRequireDefault(_Value);
 
@@ -21680,7 +21593,7 @@ exports.Creatable = _Creatable2.default;
 exports.Value = _Value2.default;
 
 /***/ }),
-/* 675 */
+/* 672 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21917,7 +21830,7 @@ AutosizeInput.defaultProps = {
 exports.default = AutosizeInput;
 
 /***/ }),
-/* 676 */
+/* 673 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21952,7 +21865,7 @@ arrowRenderer.propTypes = {
 };
 
 /***/ }),
-/* 677 */
+/* 674 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21977,7 +21890,7 @@ function clearRenderer() {
 };
 
 /***/ }),
-/* 678 */
+/* 675 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22142,7 +22055,7 @@ Option.propTypes = {
 exports.default = Option;
 
 /***/ }),
-/* 679 */
+/* 676 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22164,11 +22077,11 @@ var _Select = __webpack_require__(83);
 
 var _Select2 = _interopRequireDefault(_Select);
 
-var _Async = __webpack_require__(244);
+var _Async = __webpack_require__(241);
 
 var _Async2 = _interopRequireDefault(_Async);
 
-var _Creatable = __webpack_require__(245);
+var _Creatable = __webpack_require__(242);
 
 var _Creatable2 = _interopRequireDefault(_Creatable);
 
@@ -22243,7 +22156,7 @@ var AsyncCreatableSelect = function (_React$Component) {
 exports.default = AsyncCreatableSelect;
 
 /***/ }),
-/* 680 */
+/* 677 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22253,7 +22166,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _MultipleSelect = __webpack_require__(681);
+var _MultipleSelect = __webpack_require__(678);
 
 var _MultipleSelect2 = _interopRequireDefault(_MultipleSelect);
 
@@ -22262,7 +22175,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _MultipleSelect2.default;
 
 /***/ }),
-/* 681 */
+/* 678 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22278,7 +22191,7 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(13);
+var _reactDom = __webpack_require__(16);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -22286,15 +22199,15 @@ var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _MultipleSelectLabel = __webpack_require__(682);
+var _MultipleSelectLabel = __webpack_require__(679);
 
 var _MultipleSelectLabel2 = _interopRequireDefault(_MultipleSelectLabel);
 
-var _MultipleSelectOptionList = __webpack_require__(683);
+var _MultipleSelectOptionList = __webpack_require__(680);
 
 var _MultipleSelectOptionList2 = _interopRequireDefault(_MultipleSelectOptionList);
 
-var _OptionAll = __webpack_require__(684);
+var _OptionAll = __webpack_require__(681);
 
 var _OptionAll2 = _interopRequireDefault(_OptionAll);
 
@@ -22508,7 +22421,7 @@ MultipleSelect.defaultProps = {
 exports.default = MultipleSelect;
 
 /***/ }),
-/* 682 */
+/* 679 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22524,7 +22437,7 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(13);
+var _reactDom = __webpack_require__(16);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -22612,7 +22525,7 @@ MultipleSelectLabel.defaultProps = {
 exports.default = MultipleSelectLabel;
 
 /***/ }),
-/* 683 */
+/* 680 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22628,7 +22541,7 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(13);
+var _reactDom = __webpack_require__(16);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -22636,7 +22549,7 @@ var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Option = __webpack_require__(246);
+var _Option = __webpack_require__(243);
 
 var _Option2 = _interopRequireDefault(_Option);
 
@@ -22697,7 +22610,7 @@ MultipleSelectOptionList.propTypes = {
 exports.default = MultipleSelectOptionList;
 
 /***/ }),
-/* 684 */
+/* 681 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22713,7 +22626,7 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(13);
+var _reactDom = __webpack_require__(16);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -22721,7 +22634,7 @@ var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Option = __webpack_require__(246);
+var _Option = __webpack_require__(243);
 
 var _Option2 = _interopRequireDefault(_Option);
 
@@ -22793,7 +22706,7 @@ OptionAll.defaultProps = {
 exports.default = OptionAll;
 
 /***/ }),
-/* 685 */
+/* 682 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22804,11 +22717,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Calendar = exports.DateRange = undefined;
 
-var _DateRange = __webpack_require__(686);
+var _DateRange = __webpack_require__(683);
 
 var _DateRange2 = _interopRequireDefault(_DateRange);
 
-var _Calendar = __webpack_require__(362);
+var _Calendar = __webpack_require__(359);
 
 var _Calendar2 = _interopRequireDefault(_Calendar);
 
@@ -22818,7 +22731,7 @@ exports.DateRange = _DateRange2.default;
 exports.Calendar = _Calendar2.default;
 
 /***/ }),
-/* 686 */
+/* 683 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22844,15 +22757,15 @@ var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _parseInput = __webpack_require__(133);
+var _parseInput = __webpack_require__(132);
 
 var _parseInput2 = _interopRequireDefault(_parseInput);
 
-var _Calendar = __webpack_require__(362);
+var _Calendar = __webpack_require__(359);
 
 var _Calendar2 = _interopRequireDefault(_Calendar);
 
-var _PredefinedRanges = __webpack_require__(689);
+var _PredefinedRanges = __webpack_require__(686);
 
 var _PredefinedRanges2 = _interopRequireDefault(_PredefinedRanges);
 
@@ -22864,9 +22777,9 @@ var _classnames = __webpack_require__(39);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _constants = __webpack_require__(363);
+var _constants = __webpack_require__(360);
 
-var _defaultOptions = __webpack_require__(364);
+var _defaultOptions = __webpack_require__(361);
 
 var _defaultOptions2 = _interopRequireDefault(_defaultOptions);
 
@@ -23219,240 +23132,240 @@ DateRange.propTypes = {
 exports.default = DateRange;
 
 /***/ }),
-/* 687 */
+/* 684 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./af": 247,
-	"./af.js": 247,
-	"./ar": 248,
-	"./ar-dz": 249,
-	"./ar-dz.js": 249,
-	"./ar-kw": 250,
-	"./ar-kw.js": 250,
-	"./ar-ly": 251,
-	"./ar-ly.js": 251,
-	"./ar-ma": 252,
-	"./ar-ma.js": 252,
-	"./ar-sa": 253,
-	"./ar-sa.js": 253,
-	"./ar-tn": 254,
-	"./ar-tn.js": 254,
-	"./ar.js": 248,
-	"./az": 255,
-	"./az.js": 255,
-	"./be": 256,
-	"./be.js": 256,
-	"./bg": 257,
-	"./bg.js": 257,
-	"./bn": 258,
-	"./bn.js": 258,
-	"./bo": 259,
-	"./bo.js": 259,
-	"./br": 260,
-	"./br.js": 260,
-	"./bs": 261,
-	"./bs.js": 261,
-	"./ca": 262,
-	"./ca.js": 262,
-	"./cs": 263,
-	"./cs.js": 263,
-	"./cv": 264,
-	"./cv.js": 264,
-	"./cy": 265,
-	"./cy.js": 265,
-	"./da": 266,
-	"./da.js": 266,
-	"./de": 267,
-	"./de-at": 268,
-	"./de-at.js": 268,
-	"./de-ch": 269,
-	"./de-ch.js": 269,
-	"./de.js": 267,
-	"./dv": 270,
-	"./dv.js": 270,
-	"./el": 271,
-	"./el.js": 271,
-	"./en-au": 272,
-	"./en-au.js": 272,
-	"./en-ca": 273,
-	"./en-ca.js": 273,
-	"./en-gb": 274,
-	"./en-gb.js": 274,
-	"./en-ie": 275,
-	"./en-ie.js": 275,
-	"./en-nz": 276,
-	"./en-nz.js": 276,
-	"./eo": 277,
-	"./eo.js": 277,
-	"./es": 278,
-	"./es-do": 279,
-	"./es-do.js": 279,
-	"./es.js": 278,
-	"./et": 280,
-	"./et.js": 280,
-	"./eu": 281,
-	"./eu.js": 281,
-	"./fa": 282,
-	"./fa.js": 282,
-	"./fi": 283,
-	"./fi.js": 283,
-	"./fo": 284,
-	"./fo.js": 284,
-	"./fr": 285,
-	"./fr-ca": 286,
-	"./fr-ca.js": 286,
-	"./fr-ch": 287,
-	"./fr-ch.js": 287,
-	"./fr.js": 285,
-	"./fy": 288,
-	"./fy.js": 288,
-	"./gd": 289,
-	"./gd.js": 289,
-	"./gl": 290,
-	"./gl.js": 290,
-	"./gom-latn": 291,
-	"./gom-latn.js": 291,
-	"./he": 292,
-	"./he.js": 292,
-	"./hi": 293,
-	"./hi.js": 293,
-	"./hr": 294,
-	"./hr.js": 294,
-	"./hu": 295,
-	"./hu.js": 295,
-	"./hy-am": 296,
-	"./hy-am.js": 296,
-	"./id": 297,
-	"./id.js": 297,
-	"./is": 298,
-	"./is.js": 298,
-	"./it": 299,
-	"./it.js": 299,
-	"./ja": 300,
-	"./ja.js": 300,
-	"./jv": 301,
-	"./jv.js": 301,
-	"./ka": 302,
-	"./ka.js": 302,
-	"./kk": 303,
-	"./kk.js": 303,
-	"./km": 304,
-	"./km.js": 304,
-	"./kn": 305,
-	"./kn.js": 305,
-	"./ko": 306,
-	"./ko.js": 306,
-	"./ky": 307,
-	"./ky.js": 307,
-	"./lb": 308,
-	"./lb.js": 308,
-	"./lo": 309,
-	"./lo.js": 309,
-	"./lt": 310,
-	"./lt.js": 310,
-	"./lv": 311,
-	"./lv.js": 311,
-	"./me": 312,
-	"./me.js": 312,
-	"./mi": 313,
-	"./mi.js": 313,
-	"./mk": 314,
-	"./mk.js": 314,
-	"./ml": 315,
-	"./ml.js": 315,
-	"./mr": 316,
-	"./mr.js": 316,
-	"./ms": 317,
-	"./ms-my": 318,
-	"./ms-my.js": 318,
-	"./ms.js": 317,
-	"./my": 319,
-	"./my.js": 319,
-	"./nb": 320,
-	"./nb.js": 320,
-	"./ne": 321,
-	"./ne.js": 321,
-	"./nl": 322,
-	"./nl-be": 323,
-	"./nl-be.js": 323,
-	"./nl.js": 322,
-	"./nn": 324,
-	"./nn.js": 324,
-	"./pa-in": 325,
-	"./pa-in.js": 325,
-	"./pl": 326,
-	"./pl.js": 326,
-	"./pt": 327,
-	"./pt-br": 328,
-	"./pt-br.js": 328,
-	"./pt.js": 327,
-	"./ro": 329,
-	"./ro.js": 329,
-	"./ru": 330,
-	"./ru.js": 330,
-	"./sd": 331,
-	"./sd.js": 331,
-	"./se": 332,
-	"./se.js": 332,
-	"./si": 333,
-	"./si.js": 333,
-	"./sk": 334,
-	"./sk.js": 334,
-	"./sl": 335,
-	"./sl.js": 335,
-	"./sq": 336,
-	"./sq.js": 336,
-	"./sr": 337,
-	"./sr-cyrl": 338,
-	"./sr-cyrl.js": 338,
-	"./sr.js": 337,
-	"./ss": 339,
-	"./ss.js": 339,
-	"./sv": 340,
-	"./sv.js": 340,
-	"./sw": 341,
-	"./sw.js": 341,
-	"./ta": 342,
-	"./ta.js": 342,
-	"./te": 343,
-	"./te.js": 343,
-	"./tet": 344,
-	"./tet.js": 344,
-	"./th": 345,
-	"./th.js": 345,
-	"./tl-ph": 346,
-	"./tl-ph.js": 346,
-	"./tlh": 347,
-	"./tlh.js": 347,
-	"./tr": 348,
-	"./tr.js": 348,
-	"./tzl": 349,
-	"./tzl.js": 349,
-	"./tzm": 350,
-	"./tzm-latn": 351,
-	"./tzm-latn.js": 351,
-	"./tzm.js": 350,
-	"./uk": 352,
-	"./uk.js": 352,
-	"./ur": 353,
-	"./ur.js": 353,
-	"./uz": 354,
-	"./uz-latn": 355,
-	"./uz-latn.js": 355,
-	"./uz.js": 354,
-	"./vi": 356,
-	"./vi.js": 356,
-	"./x-pseudo": 357,
-	"./x-pseudo.js": 357,
-	"./yo": 358,
-	"./yo.js": 358,
-	"./zh-cn": 359,
-	"./zh-cn.js": 359,
-	"./zh-hk": 360,
-	"./zh-hk.js": 360,
-	"./zh-tw": 361,
-	"./zh-tw.js": 361
+	"./af": 244,
+	"./af.js": 244,
+	"./ar": 245,
+	"./ar-dz": 246,
+	"./ar-dz.js": 246,
+	"./ar-kw": 247,
+	"./ar-kw.js": 247,
+	"./ar-ly": 248,
+	"./ar-ly.js": 248,
+	"./ar-ma": 249,
+	"./ar-ma.js": 249,
+	"./ar-sa": 250,
+	"./ar-sa.js": 250,
+	"./ar-tn": 251,
+	"./ar-tn.js": 251,
+	"./ar.js": 245,
+	"./az": 252,
+	"./az.js": 252,
+	"./be": 253,
+	"./be.js": 253,
+	"./bg": 254,
+	"./bg.js": 254,
+	"./bn": 255,
+	"./bn.js": 255,
+	"./bo": 256,
+	"./bo.js": 256,
+	"./br": 257,
+	"./br.js": 257,
+	"./bs": 258,
+	"./bs.js": 258,
+	"./ca": 259,
+	"./ca.js": 259,
+	"./cs": 260,
+	"./cs.js": 260,
+	"./cv": 261,
+	"./cv.js": 261,
+	"./cy": 262,
+	"./cy.js": 262,
+	"./da": 263,
+	"./da.js": 263,
+	"./de": 264,
+	"./de-at": 265,
+	"./de-at.js": 265,
+	"./de-ch": 266,
+	"./de-ch.js": 266,
+	"./de.js": 264,
+	"./dv": 267,
+	"./dv.js": 267,
+	"./el": 268,
+	"./el.js": 268,
+	"./en-au": 269,
+	"./en-au.js": 269,
+	"./en-ca": 270,
+	"./en-ca.js": 270,
+	"./en-gb": 271,
+	"./en-gb.js": 271,
+	"./en-ie": 272,
+	"./en-ie.js": 272,
+	"./en-nz": 273,
+	"./en-nz.js": 273,
+	"./eo": 274,
+	"./eo.js": 274,
+	"./es": 275,
+	"./es-do": 276,
+	"./es-do.js": 276,
+	"./es.js": 275,
+	"./et": 277,
+	"./et.js": 277,
+	"./eu": 278,
+	"./eu.js": 278,
+	"./fa": 279,
+	"./fa.js": 279,
+	"./fi": 280,
+	"./fi.js": 280,
+	"./fo": 281,
+	"./fo.js": 281,
+	"./fr": 282,
+	"./fr-ca": 283,
+	"./fr-ca.js": 283,
+	"./fr-ch": 284,
+	"./fr-ch.js": 284,
+	"./fr.js": 282,
+	"./fy": 285,
+	"./fy.js": 285,
+	"./gd": 286,
+	"./gd.js": 286,
+	"./gl": 287,
+	"./gl.js": 287,
+	"./gom-latn": 288,
+	"./gom-latn.js": 288,
+	"./he": 289,
+	"./he.js": 289,
+	"./hi": 290,
+	"./hi.js": 290,
+	"./hr": 291,
+	"./hr.js": 291,
+	"./hu": 292,
+	"./hu.js": 292,
+	"./hy-am": 293,
+	"./hy-am.js": 293,
+	"./id": 294,
+	"./id.js": 294,
+	"./is": 295,
+	"./is.js": 295,
+	"./it": 296,
+	"./it.js": 296,
+	"./ja": 297,
+	"./ja.js": 297,
+	"./jv": 298,
+	"./jv.js": 298,
+	"./ka": 299,
+	"./ka.js": 299,
+	"./kk": 300,
+	"./kk.js": 300,
+	"./km": 301,
+	"./km.js": 301,
+	"./kn": 302,
+	"./kn.js": 302,
+	"./ko": 303,
+	"./ko.js": 303,
+	"./ky": 304,
+	"./ky.js": 304,
+	"./lb": 305,
+	"./lb.js": 305,
+	"./lo": 306,
+	"./lo.js": 306,
+	"./lt": 307,
+	"./lt.js": 307,
+	"./lv": 308,
+	"./lv.js": 308,
+	"./me": 309,
+	"./me.js": 309,
+	"./mi": 310,
+	"./mi.js": 310,
+	"./mk": 311,
+	"./mk.js": 311,
+	"./ml": 312,
+	"./ml.js": 312,
+	"./mr": 313,
+	"./mr.js": 313,
+	"./ms": 314,
+	"./ms-my": 315,
+	"./ms-my.js": 315,
+	"./ms.js": 314,
+	"./my": 316,
+	"./my.js": 316,
+	"./nb": 317,
+	"./nb.js": 317,
+	"./ne": 318,
+	"./ne.js": 318,
+	"./nl": 319,
+	"./nl-be": 320,
+	"./nl-be.js": 320,
+	"./nl.js": 319,
+	"./nn": 321,
+	"./nn.js": 321,
+	"./pa-in": 322,
+	"./pa-in.js": 322,
+	"./pl": 323,
+	"./pl.js": 323,
+	"./pt": 324,
+	"./pt-br": 325,
+	"./pt-br.js": 325,
+	"./pt.js": 324,
+	"./ro": 326,
+	"./ro.js": 326,
+	"./ru": 327,
+	"./ru.js": 327,
+	"./sd": 328,
+	"./sd.js": 328,
+	"./se": 329,
+	"./se.js": 329,
+	"./si": 330,
+	"./si.js": 330,
+	"./sk": 331,
+	"./sk.js": 331,
+	"./sl": 332,
+	"./sl.js": 332,
+	"./sq": 333,
+	"./sq.js": 333,
+	"./sr": 334,
+	"./sr-cyrl": 335,
+	"./sr-cyrl.js": 335,
+	"./sr.js": 334,
+	"./ss": 336,
+	"./ss.js": 336,
+	"./sv": 337,
+	"./sv.js": 337,
+	"./sw": 338,
+	"./sw.js": 338,
+	"./ta": 339,
+	"./ta.js": 339,
+	"./te": 340,
+	"./te.js": 340,
+	"./tet": 341,
+	"./tet.js": 341,
+	"./th": 342,
+	"./th.js": 342,
+	"./tl-ph": 343,
+	"./tl-ph.js": 343,
+	"./tlh": 344,
+	"./tlh.js": 344,
+	"./tr": 345,
+	"./tr.js": 345,
+	"./tzl": 346,
+	"./tzl.js": 346,
+	"./tzm": 347,
+	"./tzm-latn": 348,
+	"./tzm-latn.js": 348,
+	"./tzm.js": 347,
+	"./uk": 349,
+	"./uk.js": 349,
+	"./ur": 350,
+	"./ur.js": 350,
+	"./uz": 351,
+	"./uz-latn": 352,
+	"./uz-latn.js": 352,
+	"./uz.js": 351,
+	"./vi": 353,
+	"./vi.js": 353,
+	"./x-pseudo": 354,
+	"./x-pseudo.js": 354,
+	"./yo": 355,
+	"./yo.js": 355,
+	"./zh-cn": 356,
+	"./zh-cn.js": 356,
+	"./zh-hk": 357,
+	"./zh-hk.js": 357,
+	"./zh-tw": 358,
+	"./zh-tw.js": 358
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -23468,10 +23381,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 687;
+webpackContext.id = 684;
 
 /***/ }),
-/* 688 */
+/* 685 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23674,7 +23587,7 @@ DayCell.propTypes = {
 exports.default = DayCell;
 
 /***/ }),
-/* 689 */
+/* 686 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23704,13 +23617,13 @@ var _classnames2 = __webpack_require__(39);
 
 var _classnames3 = _interopRequireDefault(_classnames2);
 
-var _parseInput = __webpack_require__(133);
+var _parseInput = __webpack_require__(132);
 
 var _parseInput2 = _interopRequireDefault(_parseInput);
 
 var _styles = __webpack_require__(84);
 
-var _defaultOptions = __webpack_require__(364);
+var _defaultOptions = __webpack_require__(361);
 
 var _defaultOptions2 = _interopRequireDefault(_defaultOptions);
 
@@ -23874,7 +23787,7 @@ PredefinedRanges.propTypes = {
 exports.default = PredefinedRanges;
 
 /***/ }),
-/* 690 */
+/* 687 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23901,7 +23814,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 691 */
+/* 688 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23915,7 +23828,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _ref, _ref2, _ref4, _ref5, _ref6, _ref7;
 
-var _excel = __webpack_require__(692);
+var _excel = __webpack_require__(689);
 
 var _excel2 = _interopRequireDefault(_excel);
 
@@ -23923,9 +23836,9 @@ var _langHelper = __webpack_require__(29);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _excelStyle = __webpack_require__(693);
+var _excelStyle = __webpack_require__(690);
 
-var _service = __webpack_require__(132);
+var _service = __webpack_require__(131);
 
 var _service2 = _interopRequireDefault(_service);
 
@@ -24018,10 +23931,12 @@ var ReportExcel = function () {
     }, {
         key: '_createHeader',
         value: function _createHeader() {
-            var headers = _service2.default.getHeaderText();
-            for (var i = 0; i < COLUMN_COUNT; i++) {
+            var headerText = _service2.default.getHeaderText();
+            var keys = Object.keys(headerText);
+            for (var i = 0; i < keys.length; i++) {
                 var address = _excel2.default.getCellAddress({ c: i, r: HEADER_ROW_INDEX });
-                this.worksheet[address] = { t: "s", v: headers[i], s: _excelStyle.headerCellStyle };
+                var header = headerText[keys[i]];
+                this.worksheet[address] = { t: "s", v: header, s: _excelStyle.headerCellStyle };
             }
         }
     }, {
@@ -24119,7 +24034,7 @@ var ReportExcel = function () {
 exports.default = ReportExcel;
 
 /***/ }),
-/* 692 */
+/* 689 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24131,7 +24046,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _xlsxStyle = __webpack_require__(193);
+var _xlsxStyle = __webpack_require__(192);
 
 var XLSX = _interopRequireWildcard(_xlsxStyle);
 
@@ -24199,7 +24114,7 @@ var Excel = function () {
 exports.default = Excel;
 
 /***/ }),
-/* 693 */
+/* 690 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24261,7 +24176,7 @@ var grandTotalCellStyle = exports.grandTotalCellStyle = {
 };
 
 /***/ }),
-/* 694 */
+/* 691 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24277,7 +24192,7 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(13);
+var _reactDom = __webpack_require__(16);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -24326,7 +24241,7 @@ exports.default = Loader;
 ;
 
 /***/ }),
-/* 695 */
+/* 692 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24342,7 +24257,7 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(13);
+var _reactDom = __webpack_require__(16);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -24380,7 +24295,7 @@ var AppLayout = function (_Component) {
 exports.default = AppLayout;
 
 /***/ }),
-/* 696 */
+/* 693 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24392,23 +24307,23 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(35);
 
-var _dataHandlerReducer = __webpack_require__(697);
+var _dataHandlerReducer = __webpack_require__(694);
 
 var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
 
-var _filterHandlerReducer = __webpack_require__(698);
+var _filterHandlerReducer = __webpack_require__(695);
 
 var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
 
-var _productReducer = __webpack_require__(699);
+var _productReducer = __webpack_require__(696);
 
 var productReducer = _interopRequireWildcard(_productReducer);
 
-var _baseCurrency = __webpack_require__(700);
+var _baseCurrency = __webpack_require__(697);
 
 var baseCurrencyReducer = _interopRequireWildcard(_baseCurrency);
 
-var _loaderReducer = __webpack_require__(701);
+var _loaderReducer = __webpack_require__(698);
 
 var loaderReducer = _interopRequireWildcard(_loaderReducer);
 
@@ -24417,7 +24332,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, filterHandlerReducer, productReducer, baseCurrencyReducer, loaderReducer));
 
 /***/ }),
-/* 697 */
+/* 694 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24447,7 +24362,7 @@ var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProper
 }));
 
 /***/ }),
-/* 698 */
+/* 695 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24497,7 +24412,7 @@ var dateConstraint = exports.dateConstraint = (0, _createReducer8.default)({}, _
 }));
 
 /***/ }),
-/* 699 */
+/* 696 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24531,7 +24446,7 @@ var productOptions = exports.productOptions = (0, _createReducer4.default)({}, _
 }));
 
 /***/ }),
-/* 700 */
+/* 697 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24565,7 +24480,7 @@ var baseCurrencyList = exports.baseCurrencyList = (0, _createReducer4.default)({
 }));
 
 /***/ }),
-/* 701 */
+/* 698 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24595,7 +24510,7 @@ var isLoading = exports.isLoading = (0, _createReducer3.default)({}, _defineProp
 }));
 
 /***/ }),
-/* 702 */
+/* 699 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24610,5 +24525,5 @@ var debuggingConfig = exports.debuggingConfig = {
 };
 
 /***/ })
-],[656]);
+],[653]);
 //# sourceMappingURL=subsidiaryperformance.chunk.js.map

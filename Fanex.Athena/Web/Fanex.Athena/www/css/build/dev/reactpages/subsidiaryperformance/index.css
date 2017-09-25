@@ -319,6 +319,8 @@ input[type="checkbox"].checkbox {
     border-left: 1px solid #fff; }
     .header-content .table > thead > tr > th:first-child {
       border-left: none; }
+  .header-content .table > thead > tr:nth-child(n + 3) {
+    border-top: 1px solid #fff; }
 
 .footer-content {
   border-top: none; }
