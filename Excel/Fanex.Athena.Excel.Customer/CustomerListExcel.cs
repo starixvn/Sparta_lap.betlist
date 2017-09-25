@@ -42,11 +42,14 @@ namespace Fanex.Athena.Excel.Customer
         private const int NGCommColumn = 12;
         private const int LCCommColumn = 13;
         private const int CSCommColumn = 14;
+
+        private const int ABCommColumn = 15;
         private const string GROUP = "Group";
+
         private const string BASTATUS = "BAStatus";
         private const string CUSTOMERCOMM = "Commission";
 
-        private const int ColumnTemplateCount = 13;
+        private const int ColumnTemplateCount = 14;
 
         private readonly Dictionary<int, string> _gridCommonColumNames = new Dictionary<int, string>
         {
@@ -155,6 +158,7 @@ namespace Fanex.Athena.Excel.Customer
             row.Cells[NGCommColumn].SetCellValue(ViewResources.NG);
             row.Cells[LCCommColumn].SetCellValue(ViewResources.LC);
             row.Cells[CSCommColumn].SetCellValue(ViewResources.CS);
+            row.Cells[ABCommColumn].SetCellValue(ViewResources.AB);
         }
 
         /// <summary>
@@ -226,6 +230,11 @@ namespace Fanex.Athena.Excel.Customer
                 if (_viewModel.ProductAccess.IsAllowSB)
                 {
                     row.Cells[SBCommColumn].SetCellValue(item.SBComm.ToStringExt(2));
+
+                    if (_exportData.ProductAccess.IsAllowAB)
+                    {
+                        row.Cells[ABCommColumn].SetCellValue(item.ABComm.ToStringExt(2));
+                    }
                 }
 
                 if (_viewModel.ProductAccess.IsAllowNG)
@@ -299,12 +308,17 @@ namespace Fanex.Athena.Excel.Customer
             /*commission and group columns*/
             if (!_viewModel.IsAllowedCustomerCommission || !_showedGridColumns.Contains(CUSTOMERCOMM))
             {
-                sheet.HideColumn(SBCommColumn, NGCommColumn, RCCommColumn, LCCommColumn, CSCommColumn);
+                sheet.HideColumn(SBCommColumn, NGCommColumn, RCCommColumn, LCCommColumn, CSCommColumn, ABCommColumn);
                 sheet.HideRow(RowHeaderTemplate + 1);
             }
             else
             {
                 AddHiddenCommissionColumns(hiddenColumns);
+
+                if (!_exportData.ProductAccess.IsAllowAB)
+                {
+                    hidedColumns.Add(ABCommColumn);
+                }
             }
 
             if (!_viewModel.IsAllowedCustomerCommission || !_showedGridColumns.Contains(GROUP))

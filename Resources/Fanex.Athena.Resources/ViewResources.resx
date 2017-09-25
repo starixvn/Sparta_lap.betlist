@@ -3062,4 +3062,12 @@
     <value>This function is only supported in the new admin portal. Please switch to use our new system for better experience and stability.</value>
     <comment>85203</comment>
   </data>
+  <data name="ABComm" xml:space="preserve">
+    <value>AB Comm</value>
+    <comment>82036</comment>
+  </data>
+  <data name="AB" xml:space="preserve">
+    <value>AB</value>
+    <comment>82036</comment>
+  </data>
 </root>

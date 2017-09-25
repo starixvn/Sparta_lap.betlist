@@ -3,7 +3,7 @@
     <div class="col l8 m8 s8 input-field">
         <select id="GroupListSelect" class="select">
             @foreach (var group in Model.GroupCommDataList)
-        {
+            {
                 <option value="@group.GroupCommId">@group.GroupName</option>
             }
         </select>
@@ -15,21 +15,22 @@
             @Html.Hidden("NGComm" + @group.GroupCommId, NumberHelper.DecFormat((group.NGComm * 100)))
             @Html.Hidden("LCComm" + @group.GroupCommId, NumberHelper.DecFormat((group.LCComm * 100)))
             @Html.Hidden("CSComm" + @group.GroupCommId, NumberHelper.DecFormat((group.CSComm * 100)))
+            @Html.Hidden("ABComm" + @group.GroupCommId, NumberHelper.DecFormat((group.ABComm * 100)))
         }
         <label>@ViewResources.SelectGroup</label>
     </div>
 </div>
 <div class="row">
     <div class="col l6 m6 s6 input-field">
-        <span class="input-label" id="NewSbComm" >@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].SBComm * 100), 2) : string.Empty)</span>
+        <span class="input-label" id="NewSbComm">@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].SBComm * 100), 2) : string.Empty)</span>
         %
         <label>@ViewResources.SBComm</label>
     </div>
 </div>
 <div class="row">
     <div class="col l6 m6 s6 input-field">
-            <span class="input-label" id="NewParlayComm">@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].ParlayComm * 100), 2) : string.Empty)</span>
-            %
+        <span class="input-label" id="NewParlayComm">@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].ParlayComm * 100), 2) : string.Empty)</span>
+        %
         <label>@ViewResources.ParlayComm</label>
     </div>
 </div>
@@ -59,6 +60,13 @@
         <span class="input-label" id="NewCsComm">@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].CSComm * 100), 2) : string.Empty)</span>
         %
         <label>@ViewResources.CSComm</label>
+    </div>
+</div>
+<div class="row @(!Model.ProductAccess.IsAllowAB ? "hide" : "")">
+    <div class="col l6 m6 s6 input-field">
+        <span class="input-label" id="NewAbComm">@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].ABComm * 100), 2) : string.Empty)</span>
+        %
+        <label>@ViewResources.ABComm</label>
     </div>
 </div>
 <div class="row">

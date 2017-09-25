@@ -20,6 +20,7 @@
                 @Html.Hidden("NGComm" + @group.GroupCommId, NumberHelper.DecFormat((group.NGComm * 100)))
                 @Html.Hidden("LCComm" + @group.GroupCommId, NumberHelper.DecFormat((group.LCComm * 100)))
                 @Html.Hidden("CSComm" + @group.GroupCommId, NumberHelper.DecFormat((group.CSComm * 100)))
+                @Html.Hidden("ABComm" + @group.GroupCommId, NumberHelper.DecFormat((group.ABComm * 100)))
             }
         </td>
     </tr>
@@ -28,7 +29,7 @@
             @ViewResources.SBComm (%)
         </td>
         <td>
-            <input id="NewSbComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].SBComm * 100), 2) : string.Empty)"/>
+            <input id="NewSbComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].SBComm * 100), 2) : string.Empty)" />
         </td>
     </tr>
     <tr>
@@ -44,7 +45,7 @@
             @ViewResources.RBComm (%)
         </td>
         <td>
-            <input id="NewRbComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].RCComm * 100), 2) : string.Empty)"/>
+            <input id="NewRbComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].RCComm * 100), 2) : string.Empty)" />
         </td>
     </tr>
     <tr class="@(!Model.ProductAccess.IsAllowNG ? "hide" : "")">
@@ -52,7 +53,7 @@
             @ViewResources.NGComm (%)
         </td>
         <td>
-            <input id="NewNgComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].NGComm * 100), 2) : string.Empty)"/>
+            <input id="NewNgComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].NGComm * 100), 2) : string.Empty)" />
         </td>
     </tr>
     <tr class="@(!Model.ProductAccess.IsAllowLC ? "hide" : "")">
@@ -60,7 +61,7 @@
             @ViewResources.LCComm (%)
         </td>
         <td>
-            <input id="NewLcComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].LCComm * 100), 2) : string.Empty)"/>
+            <input id="NewLcComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].LCComm * 100), 2) : string.Empty)" />
         </td>
     </tr>
     <tr class="@(!Model.ProductAccess.IsAllowCS ? "hide" : "")">
@@ -68,7 +69,15 @@
             @ViewResources.CSComm (%)
         </td>
         <td>
-            <input id="NewCsComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].CSComm * 100), 2) : string.Empty)"/>
+            <input id="NewCsComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].CSComm * 100), 2) : string.Empty)" />
+        </td>
+    </tr>
+    <tr class="@(!Model.ProductAccess.IsAllowAB ? "hide" : "")">
+        <td>
+            @ViewResources.ABComm (%)
+        </td>
+        <td>
+            <input id="NewAbComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].ABComm * 100), 2) : string.Empty)" />
         </td>
     </tr>
 </table>

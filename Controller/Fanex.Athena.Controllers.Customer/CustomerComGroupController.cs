@@ -346,6 +346,7 @@ namespace Fanex.Athena.Controllers.Customer
             var decNgComm = model.NGComm;
             var decLcComm = model.LCComm;
             var decCsComm = model.CSComm;
+            var decAbComm = model.ABComm;
 
             model.SBComm1 = SetComm(decSbComm, 1);
             model.SBComm2 = SetComm(decSbComm, 2);
@@ -370,6 +371,10 @@ namespace Fanex.Athena.Controllers.Customer
             model.CSComm1 = SetComm(decCsComm, 1);
             model.CSComm2 = SetComm(decCsComm, 2);
             model.CSComm3 = SetComm(decCsComm, 3);
+
+            model.ABComm1 = SetComm(decAbComm, 1);
+            model.ABComm2 = SetComm(decAbComm, 2);
+            model.ABComm3 = SetComm(decAbComm, 3);
         }
 
         private static bool ValidateCommissions(GroupCommMetaModel metaModel)
@@ -380,7 +385,8 @@ namespace Fanex.Athena.Controllers.Customer
                         validComms.Any(i => i.Value == metaModel.RCComm) &&
                         validComms.Any(i => i.Value == metaModel.NGComm) &&
                         validComms.Any(i => i.Value == metaModel.LCComm) &&
-                        validComms.Any(i => i.Value == metaModel.CSComm);
+                        validComms.Any(i => i.Value == metaModel.CSComm) &&
+                        validComms.Any(i => i.Value == metaModel.ABComm);
 
             return valid;
         }
@@ -404,6 +410,7 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsUpdateRacing = productAccess.IsAllowRB;
             metaModel.IsUpdateLC = productAccess.IsAllowLC;
             metaModel.IsUpdateCS = productAccess.IsAllowCS;
+            metaModel.IsUpdateAB = productAccess.IsAllowAB;
             metaModel.DefaultGroupId = defaultGroupId;
             metaModel.OriginalGroupName = metaModel.GroupName;
         }

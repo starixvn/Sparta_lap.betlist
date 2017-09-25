@@ -347,7 +347,8 @@ namespace Fanex.Athena.Controllers.Customer
                               commList.Any(i => i.Value == metaModel.RCComm) &&
                               commList.Any(i => i.Value == metaModel.NGComm) &&
                               commList.Any(i => i.Value == metaModel.LCComm) &&
-                              commList.Any(i => i.Value == metaModel.CSComm);
+                              commList.Any(i => i.Value == metaModel.CSComm) &&
+                              commList.Any(i => i.Value == metaModel.ABComm);
                 var licenseeSession = SessionService.LicenseeSession;
                 var userSession = SessionService.UserSession;
 
@@ -362,6 +363,7 @@ namespace Fanex.Athena.Controllers.Customer
                     metaModel.IsAllowedRC = productAccess.IsAllowRB;
                     metaModel.IsAllowedLC = productAccess.IsAllowLC;
                     metaModel.IsAllowedCS = productAccess.IsAllowCS;
+                    metaModel.IsAllowedAB = productAccess.IsAllowAB;
                     metaModel.Language = userSession.Language;
                     /* Get oldGroup Commission to compare with new group commission.
                      * Check data for Update group commission
@@ -371,7 +373,7 @@ namespace Fanex.Athena.Controllers.Customer
                         var oldGoup = this._groupComService.GetById(metaModel.GroupId);
                         var invalidComm = oldGoup.NGComm == metaModel.NGComm && oldGoup.SBComm == metaModel.SBComm &&
                                            oldGoup.RCComm == metaModel.RCComm && oldGoup.LCComm == metaModel.LCComm &&
-                                           oldGoup.CSComm == metaModel.CSComm;
+                                           oldGoup.CSComm == metaModel.CSComm && oldGoup.ABComm == metaModel.ABComm;
                         if (invalidComm)
                         {
                             result.Success = false;
@@ -455,25 +457,23 @@ namespace Fanex.Athena.Controllers.Customer
         [CustomValidateAntiForgery]
         public ActionResult MoveToGroupCom(string customerIds, int groupComId)
         {
-            var metaModel = new MoveToGroupComMetaModel
-            {
-                CustomerIds = customerIds,
-                GroupComId = groupComId
-            };
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var productAccess = _productService.GetProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 CustomerAPIRemoveFromGroupComName);
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = userSession.UserId;
-            metaModel.IsAllowedNG = productAccess.IsAllowNG;
-            metaModel.IsAllowedRC = productAccess.IsAllowRB;
-            metaModel.IsAllowedLC = productAccess.IsAllowLC;
-            metaModel.IsAllowedRNG = productAccess.IsAllowCS;
-            metaModel.Ip = Request.UserHostAddress;
-            metaModel.Language = userSession.Language;
+
+            var metaModel = new MoveToGroupComMetaModel(productAccess)
+            {
+                CustomerIds = customerIds,
+                GroupComId = groupComId,
+                LicenseeId = licenseeSession.LicenseeId,
+                UserId = userSession.UserId,
+                Ip = Request.UserHostAddress,
+                Language = userSession.Language
+            };
+
             var temp = _customerCommService.MoveCustomersToGroup(metaModel);
             var result = new ResultViewModel
             {
@@ -496,6 +496,7 @@ namespace Fanex.Athena.Controllers.Customer
                         NGComm = NumberHelper.DecFormat(newGroup.NGComm * 100, 2),
                         LCComm = NumberHelper.DecFormat(newGroup.LCComm * 100, 2),
                         RNGComm = NumberHelper.DecFormat(newGroup.CSComm * 100, 2),
+                        ABComm = NumberHelper.DecFormat(newGroup.ABComm * 100, 2),
                         newGroup.GroupName,
                         newGroup.GroupColor,
                     };
@@ -546,6 +547,7 @@ namespace Fanex.Athena.Controllers.Customer
                 NGComm = NumberHelper.DecFormat(metaModel.NGComm * 100, 2),
                 LCComm = NumberHelper.DecFormat(metaModel.LCComm * 100, 2),
                 RNGComm = NumberHelper.DecFormat(metaModel.CSComm * 100, 2),
+                ABComm = NumberHelper.DecFormat(metaModel.ABComm * 100, 2),
                 GroupName = ViewResources.None,
                 GroupColor = "#ffffff",
             };

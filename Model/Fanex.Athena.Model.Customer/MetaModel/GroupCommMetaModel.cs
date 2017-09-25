@@ -91,6 +91,15 @@ namespace Fanex.Athena.Model.Customer.MetaModel
         public int CSComm3 { get; set; }
 
         [Required]
+        public decimal ABComm { get; set; }
+
+        public int ABComm1 { get; set; }
+
+        public int ABComm2 { get; set; }
+
+        public int ABComm3 { get; set; }
+
+        [Required]
         public string GroupColor { get; set; }
 
         public bool IsUpdateRacing { get; set; }
@@ -107,6 +116,13 @@ namespace Fanex.Athena.Model.Customer.MetaModel
 
         public bool IsUpdateCS { get; set; }
 
+        public bool IsUpdateAB { get; set; }
+
+        /// <summary>
+        /// Equals method.
+        /// </summary>
+        /// <param name="obj">Comparing object.</param>
+        /// <returns>Two object equal or not.</returns>
         public override bool Equals(object obj)
         {
             var temp = obj as GroupCommMetaModel;

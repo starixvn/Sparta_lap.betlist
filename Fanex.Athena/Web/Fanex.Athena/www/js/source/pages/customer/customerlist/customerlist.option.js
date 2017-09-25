@@ -218,7 +218,7 @@
             }
         };
 
-        var products = ["SB", "RB", "NG", "LC", "CS"];
+        var products = ["SB", "RB", "NG", "LC", "CS", "AB"];
         var numOfProductColumns = 0;
         var firstProductCode;
 

@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Fanex.Athena.Model.Core.DTO.Common;
+
 namespace Fanex.Athena.Model.Customer.MetaModel
 {
     /// <summary>
@@ -11,6 +13,19 @@ namespace Fanex.Athena.Model.Customer.MetaModel
     /// </summary>
     public class MoveToGroupComMetaModel : BaseCustomerComMetaModel
     {
+        public MoveToGroupComMetaModel()
+        {
+        }
+
+        public MoveToGroupComMetaModel(ProductAccess productAccess)
+        {
+            IsAllowedNG = productAccess.IsAllowNG;
+            IsAllowedRC = productAccess.IsAllowRB;
+            IsAllowedLC = productAccess.IsAllowLC;
+            IsAllowedRNG = productAccess.IsAllowCS;
+            IsAllowedAB = productAccess.IsAllowAB;
+        }
+
         public int GroupComId { get; set; }
 
         public bool IsAllowedNG { get; set; }
@@ -20,5 +35,7 @@ namespace Fanex.Athena.Model.Customer.MetaModel
         public bool IsAllowedLC { get; set; }
 
         public bool IsAllowedRNG { get; set; }
+
+        public bool IsAllowedAB { get; set; }
     }
 }
