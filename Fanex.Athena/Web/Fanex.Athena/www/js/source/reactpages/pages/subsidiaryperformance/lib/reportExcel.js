@@ -102,10 +102,12 @@ export default class ReportExcel {
     }
 
     _createHeader() {
-        const headers = service.getHeaderText();
-        for (let i = 0; i < COLUMN_COUNT; i++) {
+        const headerText = service.getHeaderText();
+        const keys = Object.keys(headerText);
+        for (let i = 0; i < keys.length; i++) {
             const address = Excel.getCellAddress({ c: i, r: HEADER_ROW_INDEX });
-            this.worksheet[address] = { t: "s", v: headers[i], s: headerCellStyle }
+            const header = headerText[keys[i]];
+            this.worksheet[address] = { t: "s", v: header, s: headerCellStyle }
         }
     }
 

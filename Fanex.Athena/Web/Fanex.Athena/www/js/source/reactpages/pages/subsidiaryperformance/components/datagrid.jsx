@@ -2,14 +2,12 @@
 import { connect } from 'react-redux'
 import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
-import { Table, Header, Body, Footer, Row, Cell } from '../../../components/fixed-table-header'
+import { Table, Row, Cell } from '../../../components/fixed-table-header'
 import LangHelper from '../../../lib/langHelper'
 import NumberFormat from '../../../lib/numberFormat'
 import ReportTitle from '../../../components/ReportTitle'
 import NoDataTitle from '../../../components/NoDataTitle'
 import service from '../lib/service'
-
-const columnLayout = [1.5, 1.5, 2, 1.5, 2, 2, 2];
 
 class DataGrid extends Component {
     constructor(props) {
@@ -19,13 +17,17 @@ class DataGrid extends Component {
     }
 
     get header() {
-        const headers = service.getHeaderText().map((item, index) => {
-            return <th key={`header${index}`} title={item}>{item}</th>
-        });
+        const headerText = service.getHeaderText();
 
         return (
             <Row style={{ height: 32 }}>
-                {headers}
+                <Cell colWidth={150} header={true} title={headerText.subsidiary}>{headerText.subsidiary}</Cell>
+                <Cell colWidth={150} header={true} title={headerText.currency}>{headerText.currency}</Cell>
+                <Cell colWidth={200} header={true} title={headerText.product}>{headerText.product}</Cell>
+                <Cell colWidth={150} header={true} title={headerText.betCount}>{headerText.betCount}</Cell>
+                <Cell colWidth={200} header={true} title={headerText.turnover}>{headerText.turnover}</Cell>
+                <Cell colWidth={200} header={true} title={headerText.customerWL}>{headerText.customerWL}</Cell>
+                <Cell colWidth={200} header={true} title={headerText.subsidiaryWL_comm}>{headerText.subsidiaryWL_comm}</Cell>
             </Row>
         )
     }
@@ -68,7 +70,7 @@ class DataGrid extends Component {
 
     get footer() {
         const totalData = this.props.gridData.Total;
-        return totalData.map((item, index) => {
+        const footer = totalData.map((item, index) => {
             const betcount = NumberFormat.format(item.BetCount),
                 turnover = NumberFormat.formatDecimal(item.Turnover),
                 customerWinLoss = NumberFormat.formatDecimal(item.CustomerWinLoss),
@@ -88,9 +90,13 @@ class DataGrid extends Component {
                 </Row>
             )
         })
+
+        footer.push(this.grandTotal);
+
+        return footer;
     }
 
-    get grantTotal() {
+    get grandTotal() {
         const grandTotal = this.props.gridData.GrandTotal;
         if (!grandTotal) {
             return null;
@@ -102,7 +108,7 @@ class DataGrid extends Component {
             subsidiaryWinLoss = NumberFormat.formatDecimal(grandTotal.SubsidiaryWinLoss);
 
         return (
-            <Row className="fixed-table-grant-total">
+            <Row key="grandTotal" className="fixed-table-grant-total">
                 <Cell title={grandTotal.Subsidiary}>{grandTotal.Subsidiary}</Cell>
                 <Cell title={grandTotal.CurrencyName}>{grandTotal.CurrencyName}</Cell>
                 <Cell></Cell>
@@ -144,7 +150,7 @@ class DataGrid extends Component {
         if (!Data.length) {
             return this._renderNodata();
         }
-
+        
         return (
             <div className="result-content">
                 <ReportTitle content={this.reportTitle} />
@@ -152,22 +158,11 @@ class DataGrid extends Component {
                 <Table
                     minWidth={600}
                     autoWidth={true}
-                    columnLayout={columnLayout}
-                    {...this.props}>
-
-                    <Header>
-                        {this.header}
-                    </Header>
-
-                    <Body maxHeight={300}>
-                        {this.body}
-                    </Body>
-
-                    <Footer>
-                        {this.footer}
-                        {this.grantTotal}
-                    </Footer>
-                </Table>
+                    bodyHeight={300}
+                    header={this.header}
+                    body={this.body}
+                    footer={this.footer}
+                />
             </div>
         );
     }

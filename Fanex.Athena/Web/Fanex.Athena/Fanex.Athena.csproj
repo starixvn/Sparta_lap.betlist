@@ -787,7 +787,6 @@
     <Content Include="www\js\source\reactpages\components\date-range\utils\locale.js" />
     <Content Include="www\js\source\reactpages\components\date-range\utils\parseInput.js" />
     <Content Include="www\css\source\reactpages\components\custom3rd\_date-range.scss" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Body.jsx" />
     <Content Include="www\css\source\reactpages\fonts\roboto\_style.scss" />
     <Content Include="www\js\build\dev\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js.map" />
     <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.css.map" />
@@ -800,8 +799,6 @@
     <Content Include="www\js\build\dev\reactpages\vendors\excel.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\vendors\reactpages.chunk.js.map" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Footer.jsx" />
-    <None Include="www\js\source\reactpages\components\fixed-table-header\components\Header.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Table.jsx" />
@@ -2429,7 +2426,7 @@
     <Content Include="www\js\build\dev\reactpages\lib\langHelper.chunk.js.map" />
     <Content Include="www\css\source\reactpages\components\date-range\styles.scss" />
     <Content Include="www\css\source\reactpages\pages\subsidiaryperformance\index.scss" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\TableSection.jsx" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\tableSection.js" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\Cell.test.js.snap" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\Row.test.js.snap" />
     <Content Include="www\js\source\reactpages\components\Loader.jsx" />

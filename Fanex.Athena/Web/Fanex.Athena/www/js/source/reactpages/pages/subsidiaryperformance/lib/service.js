@@ -1,6 +1,16 @@
 import LangHelper from '../../../lib/langHelper'
 import Site from '../../../lib/site'
 
+const headerText = {
+    subsidiary: LangHelper.getSingleResource("Subsidiary"),
+    currency: LangHelper.getSingleResource("Currency"),
+    product: LangHelper.getSingleResource("Product"),
+    betCount: LangHelper.getSingleResource("BetCount"),
+    turnover: LangHelper.getSingleResource("Turnover"),
+    customerWL: LangHelper.getSingleResource("CustomerW_L"),
+    subsidiaryWL_comm: `${LangHelper.getSingleResource("SubsidiaryWL")}/ ${LangHelper.getSingleResource("Comm")}`
+}
+
 export default class Common {
     static getReportTitle(dateRange, selectedBaseCurrency) {
         const fromDate = Site.convertDateToString(dateRange.fromDate);
@@ -11,11 +21,6 @@ export default class Common {
     }
 
     static getHeaderText() {
-        return [
-            LangHelper.getSingleResource("Subsidiary"), LangHelper.getSingleResource("Currency"),
-            LangHelper.getSingleResource("Product"), LangHelper.getSingleResource("BetCount"),
-            LangHelper.getSingleResource("Turnover"), LangHelper.getSingleResource("CustomerW_L"),
-            `${LangHelper.getSingleResource("SubsidiaryWL")}/ ${LangHelper.getSingleResource("Comm")}`
-        ]
+        return headerText;
     }
 }
