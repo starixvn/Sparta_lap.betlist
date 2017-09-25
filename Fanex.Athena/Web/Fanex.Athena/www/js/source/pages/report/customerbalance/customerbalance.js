@@ -158,7 +158,6 @@
                 onGridComplete(gridOption, response);
                 Site.unBlockUI();
             };
-            gridOption.scroll = response.Data.length > gridOption.rowNum ? 1 : false;
 
             var reportGrid = $("#" + _selector.GridId);
             reportGrid.jqGrid(gridOption);
