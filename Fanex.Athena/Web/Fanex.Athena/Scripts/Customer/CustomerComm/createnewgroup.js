@@ -96,6 +96,10 @@ var CreateGroup = (function ($) {
             $('#DdlCSComm1').on('change', function () {
                 GroupComm.commissionOnChange($(this).val(), '#DdlCSComm');
             });
+
+            $('#DdlABComm1').on('change', function () {
+                GroupComm.commissionOnChange($(this).val(), '#DdlABComm');
+            });
         },
         displayError: function (msg) {
             $('.response-area').removeClass("field-validation-success");

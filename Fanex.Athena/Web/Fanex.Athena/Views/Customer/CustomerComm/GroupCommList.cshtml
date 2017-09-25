@@ -65,10 +65,11 @@
                             @ViewResources.SBComm (%)
                         </td>
                         @{
-    var isAllowNg = ViewBag.IsAllowNG;
-    var isAllowRc = ViewBag.IsAllowRC;
-    var isAllowLc = ViewBag.IsAllowLC;
-    var isAllowCs = ViewBag.IsAllowCS;
+                            var isAllowNg = ViewBag.IsAllowNG;
+                            var isAllowRc = ViewBag.IsAllowRC;
+                            var isAllowLc = ViewBag.IsAllowLC;
+                            var isAllowCs = ViewBag.IsAllowCS;
+                            var isAllowAb = ViewBag.IsAllowAB;
                         }
                         @if (isAllowRc)
                         {
@@ -92,6 +93,12 @@
                         {
                             <td style="width: 8%">
                                 @ViewResources.CSComm (%)
+                            </td>
+                        }
+                        @if (isAllowAb)
+                        {
+                            <td style="width: 8%">
+                                @ViewResources.ABComm (%)
                             </td>
                         }
                         <td style="width: 10%">
@@ -163,6 +170,13 @@
                             {
                                 <td style="width: 8%; text-align: center">
                                     @((groupComm.CSComm * 100).ToString("0.##"))
+                                    %
+                                </td>
+                            }
+                            @if (isAllowAb)
+                            {
+                                <td style="width: 8%; text-align: center">
+                                    @((groupComm.ABComm * 100).ToString("0.##"))
                                     %
                                 </td>
                             }

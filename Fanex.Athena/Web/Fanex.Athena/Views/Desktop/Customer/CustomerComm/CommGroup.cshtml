@@ -125,3 +125,25 @@ else
 {
     @Html.HiddenFor(model => model.CSComm)
 }
+@if (Model.IsUpdateAB)
+{
+    <div class="row">
+        <div class="col l2 m3 s12 input-field">
+            @ViewResources.ProductAB
+        </div>
+        <div class="col l1 m3 s4 first-value">
+            @Html.HiddenFor(model => model.ABComm)
+            @DesktopRazorHelper.GroupComSettingDropDownList("ABComm1", GroupCommSetting.GetCommValue(15, 1), Model.ABComm1, "select")
+        </div>
+        <div class="col l1 m3 s4">
+            @DesktopRazorHelper.GroupComSettingDropDownList("ABComm2", GroupCommSetting.GetCommValue(9, 1), Model.ABComm2, "select")
+        </div>
+        <div class="col l1 m3 s4 third-value">
+            @DesktopRazorHelper.GroupComSettingDropDownList("ABComm3", GroupCommSetting.GetCommValue(1, 5), Model.ABComm3, "select")
+        </div>
+    </div>
+}
+else
+{
+    @Html.HiddenFor(model => model.ABComm)
+}

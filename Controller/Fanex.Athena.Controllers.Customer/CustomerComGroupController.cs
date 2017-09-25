@@ -60,6 +60,7 @@ namespace Fanex.Athena.Controllers.Customer
             ViewBag.IsAllowRC = productAccess.IsAllowRB;
             ViewBag.IsAllowLC = productAccess.IsAllowLC;
             ViewBag.IsAllowCS = productAccess.IsAllowCS;
+            ViewBag.IsAllowAB = productAccess.IsAllowAB;
 
             return View("~/Views/Customer/CustomerComm/GroupCommList.cshtml", model);
         }

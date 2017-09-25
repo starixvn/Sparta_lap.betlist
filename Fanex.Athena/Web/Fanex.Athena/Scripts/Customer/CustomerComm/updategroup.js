@@ -37,6 +37,7 @@ var UpdateGroup = (function ($) {
             GroupComm.commissionOnChange($('#DdlNGComm1').val(), '#DdlNGComm');
             GroupComm.commissionOnChange($('#DdlLCComm1').val(), '#DdlLCComm');
             GroupComm.commissionOnChange($('#DdlCSComm1').val(), '#DdlCSComm');
+            GroupComm.commissionOnChange($('#DdlABComm1').val(), '#DdlABComm');
         },
         initEvent: function () {
             $("#GroupName").focus();
@@ -133,6 +134,10 @@ var UpdateGroup = (function ($) {
 
             $('#DdlCSComm1').on('change', function () {
                 GroupComm.commissionOnChange($(this).val(), '#DdlCSComm');
+            });
+
+            $('#DdlABComm1').on('change', function () {
+                GroupComm.commissionOnChange($(this).val(), '#DdlABComm');
             });
         },
         showConfirmAction: function (message, callback) {

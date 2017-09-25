@@ -265,12 +265,16 @@ var GroupComm = (function ($) {
             var csComm1 = parseInt($('#DdlCSComm1').val());
             var csComm2 = parseInt($('#DdlCSComm2').val());
             var csComm3 = parseInt($('#DdlCSComm3').val());
+            var abComm1 = parseInt($('#DdlABComm1').val());
+            var abComm2 = parseInt($('#DdlABComm2').val());
+            var abComm3 = parseInt($('#DdlABComm3').val());
             var sbComm = parseFloat((sbComm1 + sbComm2 / 10 + sbComm3 / 100) / 100).toFixed(4);
             var parlayComm = parseFloat((parlayComm1 + parlayComm2 / 10 + parlayComm3 / 100) / 100).toFixed(4);
             var rcComm = parseFloat((rcComm1 + rcComm2 / 10 + rcComm3 / 100) / 100).toFixed(4);
             var ngComm = parseFloat((ngComm1 + ngComm2 / 10 + ngComm3 / 100) / 100).toFixed(4);
             var lcComm = parseFloat((lcComm1 + lcComm2 / 10 + lcComm3 / 100) / 100).toFixed(4);
             var csComm = parseFloat((csComm1 + csComm2 / 10 + csComm3 / 100) / 100).toFixed(4);
+            var abComm = parseFloat((abComm1 + abComm2 / 10 + abComm3 / 100) / 100).toFixed(4);
 
             sbComm = isNaN(sbComm) ? 0 : sbComm;
             parlayComm = isNaN(parlayComm) ? 0 : parlayComm;
@@ -278,6 +282,7 @@ var GroupComm = (function ($) {
             ngComm = isNaN(ngComm) ? 0 : ngComm;
             lcComm = isNaN(lcComm) ? 0 : lcComm;
             csComm = isNaN(csComm) ? 0 : csComm;
+            abComm = isNaN(abComm) ? 0 : abComm;
 
             $('#SBComm').val(sbComm);
             $('#ParlayComm').val(parlayComm);
@@ -285,6 +290,7 @@ var GroupComm = (function ($) {
             $('#NGComm').val(ngComm);
             $('#LCComm').val(lcComm);
             $('#CSComm').val(csComm);
+            $('#ABComm').val(abComm);
 
             // Set any commission in drop down list
             $('#SBComm1').val(sbComm1);
@@ -310,6 +316,10 @@ var GroupComm = (function ($) {
             $('#CSComm1').val(csComm1);
             $('#CSComm2').val(csComm2);
             $('#CSComm3').val(csComm3);
+
+            $('#ABComm1').val(abComm1);
+            $('#ABComm2').val(abComm2);
+            $('#ABComm3').val(abComm3);
         }
         /* jshint ignore:end */
     };

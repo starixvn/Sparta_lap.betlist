@@ -45,6 +45,10 @@
              $("#CSComm1").on("change", function () {
                  commissionOnChange($(this).val(), "CSComm");
              });
+
+             $("#ABComm1").on("change", function () {
+                 commissionOnChange($(this).val(), "ABComm");
+             });
          }
 
          function setPageTitle(title) {
@@ -136,6 +140,7 @@
              initCommParam("#NGComm");
              initCommParam("#LCComm");
              initCommParam("#CSComm");
+             initCommParam("#ABComm");
 
              initDefaultParam(formId);
          }
