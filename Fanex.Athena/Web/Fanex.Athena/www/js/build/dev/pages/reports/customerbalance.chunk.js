@@ -23167,8 +23167,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         var _pagingOption =
         {
             pageindex: 1,
-            pagesize: 1000,
-            pagelist: [1000, 2000],
+            pagesize: 500,
+            pagelist: [500, 1000, 2000],
             totalrow: 1,
             elementcontainer: ".paging",
             method: "AJAX",
@@ -23290,6 +23290,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
 
             var gridOption = CustomerBalanceOption.getGridOption(response.TotalRows);
+            gridOption.rowNum = response.Data.length;
             gridOption.data = response.Data;
             gridOption.onSortCol = function (index) {
                 sort(index);
@@ -23737,9 +23738,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 userDataOnFooter: false,
                 gridview: true,
                 rownumbers: false,
-                sortable: false,
-                scroll: 1,
-                rowNum: 100
+                sortable: false
             },
 
             getGridOption: function (totalRows) {
