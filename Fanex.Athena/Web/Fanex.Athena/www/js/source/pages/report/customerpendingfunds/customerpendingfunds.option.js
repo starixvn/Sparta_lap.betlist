@@ -1,8 +1,6 @@
 ﻿define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
     function ($, Site, jqGridAdditional) {
         "use strict";
-        var _index = 0;
-
         var betlistLink = function (cellvalue, options, rowObject) {
             var param =
             {
@@ -14,10 +12,6 @@
             return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
         };
 
-        var setIndex = function () {
-            return ++_index;
-        };
-
         var indexColumn =
         {
             name: "Index",
@@ -26,8 +20,7 @@
             width: 40,
             align: "center",
             valign: "middle",
-            sortable: false,
-            formatter: setIndex
+            sortable: false
         };
 
         var externalIdColumn =
@@ -120,13 +113,10 @@
                 footerrow: true,
                 userDataOnFooter: false,
                 gridview: true,
-                sortable: false,
-                scroll: 1,
-                rowNum: 100
+                sortable: false
             },
 
             getGridOption: function (totalRows) {
-                _index = 0;
                 _me.gridOption.colNames = _me.getColName();
                 _me.gridOption.colModel = _me.getColModel(totalRows);
                 return Site.clone(_me.gridOption);

@@ -22,8 +22,8 @@
         var _pagingOption =
         {
             pageindex: 1,
-            pagesize: 1000,
-            pagelist: [1000, 2000],
+            pagesize: 500,
+            pagelist: [500, 1000, 2000],
             totalrow: 1,
             elementcontainer: ".paging",
             method: "AJAX",
@@ -147,6 +147,7 @@
             }
 
             var gridOption = CustomerPedingFundsOption.getGridOption(response.TotalRows);
+            gridOption.rowNum = response.Data.length;
             gridOption.data = response.Data;
             gridOption.onSortCol = function (index) {
                 sort(index);
@@ -156,7 +157,6 @@
                 onGridComplete(this, gridOption, response);
                 Site.unBlockUI();
             };
-            gridOption.scroll = response.Data.length > gridOption.rowNum ? 1 : false;
 
             var reportGrid = $("#" + _selector.GridId);
             reportGrid.jqGrid(gridOption);

@@ -67,14 +67,6 @@
 
                     expect(result).toEqual(expectedFormat);
                 });
-
-                it("sets index number for Index column", function () {
-                    var models = CustomerPedingFundsOption.getColModel(2);
-                    var indexColumn = models[0];
-                    var result = indexColumn.formatter();
-
-                    expect(result).toBe(1);
-                });
             });
         });
     });

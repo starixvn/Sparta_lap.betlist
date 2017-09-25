@@ -4,7 +4,6 @@
 
 var CustPendingFundsOption = (function () {
     "use strict";
-    var _index = 0;
 
     var betlistLink = function (cellvalue, options, rowObject) {
         var param =
@@ -17,10 +16,6 @@ var CustPendingFundsOption = (function () {
         return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
     };
 
-    var setIndex = function () {
-        return ++_index;
-    };
-
     var indexColumn =
     {
         name: "Index",
@@ -29,8 +24,7 @@ var CustPendingFundsOption = (function () {
         width: 40,
         align: "center",
         valign: "middle",
-        sortable: false,
-        formatter: setIndex
+        sortable: false
     };
 
     var externalIdColumn =
@@ -124,13 +118,10 @@ var CustPendingFundsOption = (function () {
             userDataOnFooter: false,
             gridview: true,
             rownumbers: false,
-            sortable: false,
-            scroll: 1,
-            rowNum: 100
+            sortable: false
         },
 
         getGridOption: function (totalRows) {
-            _index = 0;
             me.gridOption.colNames = me.getColName();
             me.gridOption.colModel = me.getColModel(totalRows);
             return Site.clone(me.gridOption);

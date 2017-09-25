@@ -304,14 +304,6 @@
                     expect(PagingHelper.render).toHaveBeenCalled();
                 });
 
-                it("gridOption.scroll should be 1 if number rows of a page is greater than gridOption.rowNum", function () {
-                    gridOption.rowNum = 1;
-
-                    CustomerWinLoss.bindData({ TotalRows: 100, Data: [1, 2] });
-
-                    expect(gridOption.scroll).toBe(1);
-                });
-
                 describe("gridOption.onSortCol(index)", function () {
                     beforeEach(function () {
                         spyOn(CustomerWinLoss, "submit");
