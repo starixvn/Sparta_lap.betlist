@@ -10,6 +10,7 @@ namespace Fanex.Athena.Service.Casino
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using Extension.Helper;
     using Fanex.Athena.Model.Casino.DTO;
     using Fanex.Athena.Model.Casino.DTO.RNGResultDetail;
     using Fanex.Athena.Model.Casino.MetaModel;
@@ -324,33 +325,10 @@ namespace Fanex.Athena.Service.Casino
             }
         }
 
-        /// <summary>
-        /// Get columns by language.
-        /// </summary>
-        /// <param name="columnName">The original column name.</param>
-        /// <returns>The language column.</returns>
         private string GetColumnNameByCurrentLanguage(string columnName)
         {
-            var langKey = "_En";
             var currentLang = this._langService.GetCurrentLanguage();
-
-            switch (currentLang)
-            {
-                case "zh-CN":
-                case "zh-Hans":
-                    langKey = "_Cs";
-                    break;
-
-                case "zh-TW":
-                    langKey = "_Ct";
-                    break;
-
-                case "ko-KR":
-                    langKey = "_Ko";
-                    break;
-            }
-
-            return columnName + langKey;
+            return CasinoHelper.GetColumnNameByLanguage(columnName, currentLang);
         }
 
         #region Map Data

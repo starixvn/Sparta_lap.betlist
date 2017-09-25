@@ -13,6 +13,7 @@ namespace Fanex.Athena.Service.Casino
     using System.Data;
     using System.Linq;
     using CasinoLibrary.SBAgent;
+    using Extension.Helper;
     using Fanex.Athena.Model.BetSettings.DTO.RngCasino;
     using Fanex.Athena.Model.Casino.MetaModel;
     using Fanex.Athena.Service.Casino.Interfaces;
@@ -149,10 +150,10 @@ namespace Fanex.Athena.Service.Casino
         /// </summary>
         /// <param name="language">Language of name kind.</param>
         /// <returns>The game kind list.</returns>
-        private static List<GameKind> GetGameKind(string language)
+        private static IList<GameKind> GetGameKind(string language)
         {
             var bacsicInfo = new BasicInfo();
-            var gameKindNameByLanguage = GetGameKindColumn(language);
+            var gameKindNameByLanguage = CasinoHelper.GetColumnNameByLanguage("CodeName", language);
             var gameKindTable = bacsicInfo.GetGameKind("01");
 
             var gameKindList = new List<GameKind>();
@@ -184,7 +185,7 @@ namespace Fanex.Athena.Service.Casino
         private static IList<GameType> GetGameType(int gameKindId, string language)
         {
             var bacsicInfo = new BasicInfo();
-            var gameTypeNameByLanguage = GetGameTypeColumn(language);
+            var gameTypeName = CasinoHelper.GetColumnNameByLanguage("GameTypeName", language);
             var gameTypeTable = bacsicInfo.GetGameType(gameKindId);
 
             var gameTypeList = new List<GameType>();
@@ -194,7 +195,7 @@ namespace Fanex.Athena.Service.Casino
                 var gameType = new GameType
                 {
                     GameTypeId = Converter.ToInt(row["GameTypeId"].ToString()),
-                    GameTypeName = row[gameTypeNameByLanguage].ToString()
+                    GameTypeName = row[gameTypeName].ToString()
                 };
 
                 gameTypeList.Add(gameType);
@@ -205,62 +206,6 @@ namespace Fanex.Athena.Service.Casino
 
         #endregion Get Game Type
 
-        /// <summary>
-        /// Get game kind name.
-        /// </summary>
-        /// <param name="language">Language of licensee.</param>
-        /// <returns>Game type name.</returns>
-        private static string GetGameKindColumn(string language)
-        {
-            var gameTypeKind = "CodeName_En";
-
-            switch (language)
-            {
-                case "zh-TW":
-                    gameTypeKind = "CodeName_Ct";
-                    break;
-
-                case "zh-CN":
-                case "zh-Hans":
-                    gameTypeKind = "CodeName_Cs";
-                    break;
-
-                case "ko-KR":
-                    gameTypeKind = "CodeName_Ko";
-                    break;
-            }
-
-            return gameTypeKind;
-        }
-
-        /// <summary>
-        /// Get game type name.
-        /// </summary>
-        /// <param name="language">Language of licensee.</param>
-        /// <returns>Game type name.</returns>
-        private static string GetGameTypeColumn(string language)
-        {
-            var gameTypeName = "GameTypeName_En";
-
-            switch (language)
-            {
-                case "zh-TW":
-                    gameTypeName = "GameTypeName_Ct";
-                    break;
-
-                case "zh-CN":
-                case "zh-Hans":
-                    gameTypeName = "GameTypeName_Cs";
-                    break;
-
-                case "ko-KR":
-                    gameTypeName = "GameTypeName_Ko";
-                    break;
-            }
-
-            return gameTypeName;
-        }
-
         #region Get Cust Stake Level
 
         /// <summary>
@@ -269,7 +214,7 @@ namespace Fanex.Athena.Service.Casino
         /// <param name="custId">The customer id.</param>
         /// <param name="gameTypeId">The game type id.</param>
         /// <returns>The stack level list.</returns>
-        private static List<StakeLevel> GetCustStakeLevel(int custId, int gameTypeId)
+        private static IList<StakeLevel> GetCustStakeLevel(int custId, int gameTypeId)
         {
             var customer = new CustomerCasinoSetting();
             var stakeLevelTable = customer.GetCustStakeLevel(custId, gameTypeId);
