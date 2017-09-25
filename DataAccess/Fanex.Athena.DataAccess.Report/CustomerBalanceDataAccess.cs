@@ -36,7 +36,7 @@ namespace Fanex.Athena.DataAccess.Report
                 var result = new List<CustBalance>();
                 using (var reader = db.ExecuteReader())
                 {
-                    var index = 1;
+                    var index = (metaModel.PageIndex - 1) * metaModel.PageSize;
                     while (reader.Read())
                     {
                         result.Add(ReadDataItem(reader, index));
