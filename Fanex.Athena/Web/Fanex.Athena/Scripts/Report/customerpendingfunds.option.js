@@ -124,9 +124,7 @@ var CustPendingFundsOption = (function () {
             userDataOnFooter: false,
             gridview: true,
             rownumbers: false,
-            sortable: false,
-            scroll: 1,
-            rowNum: 100
+            sortable: false
         },
 
         getGridOption: function (totalRows) {
