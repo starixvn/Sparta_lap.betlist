@@ -10,7 +10,6 @@ namespace Fanex.Athena.Excel.Report
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Athena.Excel.Base;
-    using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -198,15 +197,13 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void ProcessUI(ISheet sheet)
         {
-            switch (Level)
+            if (Level == 0)
             {
-                case 0:
-                    sheet.HideColumn(ColumnExternalId, ColumnSystemId);
-                    break;
-
-                case 1:
-                    sheet.HideColumn(ColumnMatch, ColumnAmtDueTo);
-                    break;
+                sheet.HideColumn(ColumnExternalId, ColumnSystemId);
+            }
+            else
+            {
+                sheet.HideColumn(ColumnMatch, ColumnAmtDueTo);
             }
         }
 

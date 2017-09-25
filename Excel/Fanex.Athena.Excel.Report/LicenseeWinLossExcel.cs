@@ -383,10 +383,7 @@ namespace Fanex.Athena.Excel.Report
 
                 // Merge first two column
                 sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
-                checked
-                {
-                    rowIndex++;
-                }
+                rowIndex++;
             }
 
             return rowIndex;

@@ -10,7 +10,6 @@ namespace Fanex.Athena.Excel.Report
     using System.Collections.Generic;
     using System.Linq;
     using Base;
-    using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Helpers;
     using Model.Report.DTO;
@@ -216,7 +215,7 @@ namespace Fanex.Athena.Excel.Report
                 sheet.HideRow(RowTableHeaderTemplate + 1);
             }
 
-            if (_excelModel.BAVisible == false && _excelModel.RBVisible == false)
+            if (!_excelModel.BAVisible && !_excelModel.RBVisible)
             {
                 sheet.HideColumn(ColumnComm);
             }
@@ -231,33 +230,6 @@ namespace Fanex.Athena.Excel.Report
                     sheet.HideColumn(ColumnExternalId);
                     break;
             }
-        }
-
-        /// <summary>
-        ///     Get array template rows.
-        /// </summary>
-        /// <param name="nameOfRow">Name of row.</param>
-        /// <returns>Row number list.</returns>
-        protected int[] GetRowNumberFromTemplate(string nameOfRow)
-        {
-            var numberRowList = new[] { 4, 5, 6, 7 };
-            switch (nameOfRow)
-            {
-                case "RowTotalHeader":
-                    return new[] { 8, 9, 10, 11 };
-
-                case "RowTotal":
-                    return new[] { 12, 13, 14, 15 };
-
-                case "RowTotalInEURHeader":
-                    return new[] { 16, 17, 18, 19 };
-
-                case "RowTotalInEUR":
-
-                    return new[] { 20, 21, 22, 23 };
-            }
-
-            return numberRowList;
         }
 
         protected void AssignCommonData(IRow row, WinLossByProduct winlossByProduct)
@@ -346,64 +318,26 @@ namespace Fanex.Athena.Excel.Report
             return currentRow;
         }
 
-        /// <summary>
-        ///     Get row template.
-        /// </summary>
-        /// <param name="productName">Product name.</param>
-        /// <param name="nameOfRow">Name of row.</param>
-        /// <returns>Row number.</returns>
-        protected int GetNumberRow(string productName, string nameOfRow)
+        protected int CalculateReportRowSpan(WinLossByProduct item)
         {
-            int[] rowList = GetRowNumberFromTemplate(nameOfRow);
-
-            int rowNumber;
-            if (_excelModel.MetaModel.Level == 0 && (productName == "Sportsbook" || productName == "Number Game"))
-            {
-                rowNumber = rowList[0];
-            }
-            else
-            {
-                rowNumber = rowList[3];
-
-                if (productName == "Sportsbook" || productName == "Number Game")
-                {
-                    rowNumber = rowList[2];
-                }
-            }
-
-            return rowNumber;
-        }
-
-        /// <summary>
-        /// Calculate row span for a group of currency and product.
-        /// </summary>
-        /// <param name="winlossByProduct">The full data list.</param>
-        /// <returns>Row span count. </returns>
-        protected int CalculateReportRowSpan(WinLossByProduct winlossByProduct)
-        {
-            var rowSameValueList = _excelModel.DataList
-                                .Where(a => a.CurrencyId == winlossByProduct.CurrencyId);
+            int rowSpan;
 
             if (_excelModel.MetaModel.Level == 0)
             {
-                rowSameValueList =
-                    _excelModel.DataList.Where(
-                        a => a.Date == winlossByProduct.Date && a.CurrencyId == winlossByProduct.CurrencyId);
+                rowSpan = _excelModel.DataList.Count(a => a.Date == item.Date && a.CurrencyId == item.CurrencyId);
             }
             else if (_excelModel.MetaModel.Level == 1)
             {
-                rowSameValueList =
-                    _excelModel.DataList.Where(
-                        a => a.SystemId == winlossByProduct.SystemId);
+                rowSpan = _excelModel.DataList.Count(a => a.SystemId == item.SystemId);
             }
-            else if (_excelModel.MetaModel.Level == 2)
+            else
             {
-                rowSameValueList = _excelModel.DataList.Where(a => a.ExternalId == winlossByProduct.ExternalId &&
-                                   a.SystemId == winlossByProduct.SystemId &&
-                                   a.CurrencyId == winlossByProduct.CurrencyId);
+                rowSpan = _excelModel.DataList.Count(a => a.ExternalId == item.ExternalId &&
+                                   a.SystemId == item.SystemId &&
+                                   a.CurrencyId == item.CurrencyId);
             }
 
-            return rowSameValueList.Count();
+            return rowSpan;
         }
 
         protected void MergeCellTotal(ISheet sheet, int rowBegin, int currentRow)

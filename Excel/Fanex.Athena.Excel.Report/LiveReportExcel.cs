@@ -231,10 +231,7 @@ namespace Fanex.Athena.Excel.Report
 
                     var row = sheet.CopyRow(TemplateSheet, RowByBetTypeProductTitle, currentRow);
                     sheet.MergeCells(currentRow, ColumnProduct, currentRow, ColumnAmountDue);
-                    checked
-                    {
-                        currentRow++;
-                    }
+                    currentRow++;
 
                     string productName = liveReportBetType.ProductName.Equals(ViewResources.SB)
                         ? ViewResources.Sportsbook

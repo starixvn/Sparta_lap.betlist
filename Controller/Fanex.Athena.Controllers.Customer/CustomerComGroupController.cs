@@ -317,24 +317,21 @@ namespace Fanex.Athena.Controllers.Customer
 
         private static int SetComm(decimal comm, int position)
         {
-            var intComm = 0;
             var actualComm = comm * 10000;
             switch (position)
             {
                 case 1:
-                    intComm = (int)(actualComm / 100);
-                    break;
+                    return (int)(actualComm / 100);
 
                 case 2:
-                    intComm = (int)(actualComm % 100) / 10;
-                    break;
+                    return (int)(actualComm % 100) / 10;
 
                 case 3:
-                    intComm = (int)actualComm % 10;
-                    break;
-            }
+                    return (int)actualComm % 10;
 
-            return intComm;
+                default:
+                    return 0;
+            }
         }
 
         /// <summary>
