@@ -22816,7 +22816,6 @@ var DateRange = function (_Component) {
     var _this = _possibleConstructorReturn(this, (DateRange.__proto__ || Object.getPrototypeOf(DateRange)).call(this, props, context));
 
     _this._handleDocumentClick = function (event) {
-      event.preventDefault();
       if (_this.dateRangeInput.contains(event.target)) {
         return;
       }
@@ -22826,7 +22825,6 @@ var DateRange = function (_Component) {
       if (clickOutside && _this.state.show) {
         _this.currentRange = Object.assign({}, _this.state.range);
         _this.hide();
-        console.log(_this.currentRange);
       }
     };
 
