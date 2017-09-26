@@ -15,7 +15,7 @@
             CustomerComm.initialize();
         });
 
-        it("CustomerComm.showMoveCustomerToGroup() should be called when '#MoveToGroup' fired click event", function () {            
+        it("CustomerComm.showMoveCustomerToGroup() should be called when '#MoveToGroup' fired click event", function () {
             spyOn(CustomerComm, "showMoveCustomerToGroup");
             $('#MoveToGroup').click();
 
@@ -213,8 +213,8 @@
             expect(CustomerList.getCheckedCustomers).toHaveBeenCalled();
         });
 
-        it("CustomerComm.initCommissionParam(id) should be called six times", function () {
-            expect(CustomerComm.initCommissionParam.calls.count()).toBe(6);
+        it("CustomerComm.initCommissionParam(id) should be called seven times", function () {
+            expect(CustomerComm.initCommissionParam.calls.count()).toBe(7);
         });
 
         it("ajax request should be called with url is 'CustomerAPI/UpdateCustomerCom'", function () {

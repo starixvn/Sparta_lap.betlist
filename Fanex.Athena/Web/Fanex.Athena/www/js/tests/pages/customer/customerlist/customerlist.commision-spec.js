@@ -448,7 +448,8 @@
                         NGComm: "NGComm",
                         RCComm: "RCComm",
                         LCComm: "LCComm",
-                        RNGComm: "RNGComm"
+                        RNGComm: "RNGComm",
+                        ABComm: "ABComm"
                     };
                     mockAjax("CustomerAPI/MoveToGroupCom", {
                         Success: true,
@@ -466,7 +467,8 @@
                         extendedData.NGComm,
                         extendedData.RCComm,
                         extendedData.LCComm,
-                        extendedData.RNGComm);
+                        extendedData.RNGComm,
+                        extendedData.ABComm);
                     jasmine.Ajax.uninstall();
                 });
             });
@@ -645,7 +647,8 @@
                         NGComm: "NGComm",
                         RCComm: "RCComm",
                         LCComm: "LCComm",
-                        RNGComm: "RNGComm"
+                        RNGComm: "RNGComm",
+                        ABComm: "ABComm"
                     };
                     mockAjax("CustomerAPI/UpdateCustomerCom", {
                         Success: true,
@@ -663,7 +666,8 @@
                         extendedData.NGComm,
                         extendedData.RCComm,
                         extendedData.LCComm,
-                        extendedData.RNGComm);
+                        extendedData.RNGComm,
+                        extendedData.ABComm);
                     jasmine.Ajax.uninstall();
                 });
             });

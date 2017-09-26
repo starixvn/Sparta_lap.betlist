@@ -22,12 +22,12 @@
     });
 
     describe("checkCommFirstLoad()", function () {
-        it("GroupComm.commissionOnChange(value, id) should be called with 5 times", function () {
+        it("GroupComm.commissionOnChange(value, id) should be called with 7 times", function () {
             spyOn(GroupComm, "commissionOnChange");
 
             UpdateGroup.checkCommFirstLoad();
 
-            expect(GroupComm.commissionOnChange.calls.count()).toBe(6);
+            expect(GroupComm.commissionOnChange.calls.count()).toBe(7);
         });
     });
 
