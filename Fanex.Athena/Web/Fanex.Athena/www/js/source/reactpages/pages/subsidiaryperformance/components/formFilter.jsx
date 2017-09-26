@@ -38,10 +38,12 @@ class FormFilter extends Component {
         const { dateRange, selectedBaseCurrency } = this.props;
         const params = this._getParams();
 
+        this.props.toggleLoader(true);
         this.props.exportExcel(params).then(response => {
             const title = service.getReportTitle(dateRange, selectedBaseCurrency);
             const excel = new ReportExcel(response.data, title);
             excel.export();
+            this.props.toggleLoader(false);
         });
     }
 

@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import Site from '../../../lib/site'
 
-export const fetchData = (params) => {
+const fetchData = (params) => {
     const url = Site.resolveClientUrl('api/SubsidiaryPerformanceReport/Index');
     return axios.post(url, params.data, {
         headers: {
