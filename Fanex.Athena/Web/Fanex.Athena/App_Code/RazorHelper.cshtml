@@ -50,7 +50,7 @@ productCodeList = string.IsNullOrEmpty(productCodeList) ? string.Empty : string.
 
     @productCodeList
 }
-@helper GroupComSettingDropDownList(string name, Dictionary<int, int> items, decimal selectedValue = 0, string className = "")
+@helper GroupComSettingDropDownList(string name, IDictionary<int, int> items, decimal selectedValue = 0, string className = "")
 {
     <select id="@name" name="@name" class="@className commission-selection">
         @foreach (var item in items)

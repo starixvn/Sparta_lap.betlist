@@ -143,7 +143,7 @@ selectedBasedCurrency = selectedBasedCurrency.ToLower();
         <option value="" @(selectedBasedCurrency == "" ? new HtmlString("selected=selected") : new HtmlString(""))>@CurrencyName</option>
     </select>
 }
-@helper GroupComSettingDropDownList(string name, Dictionary<int, int> items, decimal selectedValue = 0, string className = "")
+@helper GroupComSettingDropDownList(string name, IDictionary<int, int> items, decimal selectedValue = 0, string className = "")
 {
     <select id="@name" name="@name" class="@className hide select commission-selection" data-original="@selectedValue">
         @foreach (var item in items)
