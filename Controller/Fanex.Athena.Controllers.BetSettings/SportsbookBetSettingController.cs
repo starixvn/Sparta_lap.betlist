@@ -124,7 +124,7 @@ namespace Fanex.Athena.Controllers.BetSettings
                 return defaultValue;
             }
 
-            var value = HttpContext.Request[name].ToLower();
+            var value = HttpContext.Request[name].ToLowerInvariant();
 
             return value == "1" || value == "on" || value == "true";
         }

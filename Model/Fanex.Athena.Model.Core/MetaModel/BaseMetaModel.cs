@@ -44,7 +44,7 @@ namespace Fanex.Athena.Model.Core.MetaModel
             {
                 _baseCurrency = value == null
                     ? string.Empty
-                    : value.ToLower();
+                    : value.ToLowerInvariant();
             }
         }
 

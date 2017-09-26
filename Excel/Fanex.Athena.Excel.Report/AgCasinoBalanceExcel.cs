@@ -222,13 +222,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign common data to excel row.
-        /// </summary>
-        /// <param name="row">Excel row.</param>
-        /// <param name="data">Licensee win loss data.</param>
-        /// <param name="isTotalData">Total data or not.</param>
-        protected void AssignCommonData(IRow row, AgCasinoBalance data, bool isTotalData = false)
+        private static void AssignCommonData(IRow row, AgCasinoBalance data, bool isTotalData = false)
         {
             row.Cells[ColumnTransferIn].SetCellValue(data.TransferIn);
             row.Cells[ColumnTransferOut].SetCellValue(data.TransferOut);
@@ -265,7 +259,7 @@ namespace Fanex.Athena.Excel.Report
                 // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowGrantTotal, rowIndex);
                 AssignCommonData(row, _summaryTotal[currency], true);
-                row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpper());
+                row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpperInvariant());
 
                 // Merge first two column
                 sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);

@@ -86,7 +86,7 @@ namespace Fanex.Athena.Controllers.BetList
             };
             var currencyTitle = string.Format(
                 ViewResources.Viewin,
-                metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
+                metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
             var title = ViewResources.DailyBetList + " " + ViewResources.On
                 + string.Format(" {0} - {1}", metaModel.Date.ToString("MM/dd/yyyy"), currencyTitle);
 

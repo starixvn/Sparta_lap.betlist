@@ -65,7 +65,7 @@ namespace Fanex.Athena.Controllers.BetList
 
                 var title = ViewResources.CorrectScore + " - " + string.Format(
                     ViewResources.Viewin,
-                    metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
+                    metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
 
                 var excel = new Excel.BetList.BetListExcel(
                     showingOption, metaModel.LicenseeId, HiddenColumnIndexes, true);

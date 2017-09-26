@@ -123,7 +123,7 @@ namespace Fanex.Athena.Controllers.BetList
                 };
                 var currencyTitle = string.Format(
                     ViewResources.Viewin,
-                    metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
+                    metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
                 var title = ViewResources.CancelledBets
                     + string.Format(" - {0}", currencyTitle);
 

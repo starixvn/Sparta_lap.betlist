@@ -82,7 +82,7 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
         [HttpGet]
         public ViewResult RNGCasinoDetail(RNGCasinoResultDetailMetaModel metaModel)
         {
-            metaModel.CurrencyName = metaModel.CurrencyName.ToUpper();
+            metaModel.CurrencyName = metaModel.CurrencyName.ToUpperInvariant();
             const string ViewPathTemplate = "~/Views/RNGCasino/RNGCasinoDetail/Group{0}.cshtml";
             var group = GetGroupByGameTypeId(metaModel.GameTypeId);
             var model = metaModel.IsValid && (metaModel.CurrencyId == 0 || this.SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))

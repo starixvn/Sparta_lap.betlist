@@ -52,7 +52,7 @@
         public static string GetTitleCurrencyName(ConvertingOption convertingOption)
         {
             return convertingOption.IsConvert
-                   ? string.Format(ViewResources.Viewin, convertingOption.BaseCurrency.ToUpper())
+                   ? string.Format(ViewResources.Viewin, convertingOption.BaseCurrency.ToUpperInvariant())
                    : string.Format(ViewResources.Viewin, convertingOption.CurrencyName);
         }
     }

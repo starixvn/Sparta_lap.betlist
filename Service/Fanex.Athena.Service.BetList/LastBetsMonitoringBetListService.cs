@@ -213,12 +213,12 @@ namespace Fanex.Athena.Service.BetList
                     ticket.TransDate = ticket.TransDate.ToUniversalTime().AddHours(timeZoneDelta).ToLocalTime();
                 }
 
-                if (metaModel.OddsType.ToLower() == "dec" && IsConvertToOdd(ticket.BetTypeId))
+                if (metaModel.OddsType.ToLowerInvariant() == "dec" && IsConvertToOdd(ticket.BetTypeId))
                 {
                     ConvertToDecimalOdds(ticket);
                 }
 
-                if (metaModel.OddsType.ToLower() == "my" && IsConvertToOdd(ticket.BetTypeId))
+                if (metaModel.OddsType.ToLowerInvariant() == "my" && IsConvertToOdd(ticket.BetTypeId))
                 {
                     ConvertToMyOdds(ticket);
                 }

@@ -39,7 +39,7 @@
                         matchName + CacheRef.GetBettype(metaModel.BetType),
                         metaModel.FromDate.ToShortDateString(),
                         metaModel.ToDate.ToShortDateString(),
-                        string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
+                        string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName));
                     return Excel(metaModel, UspKey, title);
                 }
 
@@ -71,7 +71,7 @@
                         matchName + CacheRef.GetBettype(metaModel.BetType),
                         metaModel.FromDate.ToShortDateString(),
                         metaModel.ToDate.ToShortDateString(),
-                        string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
+                        string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName));
                     return Excel(metaModel, UspKey, title);
                 }
 
@@ -101,7 +101,7 @@
                         ViewResources.Outright,
                         metaModel.FromDate.ToShortDateString(),
                         metaModel.ToDate.ToShortDateString(),
-                        string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
+                        string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName));
                     return Excel(metaModel, UspKey, title);
                 }
 
@@ -130,7 +130,7 @@
                         ViewResources.ProductNG,
                         metaModel.FromDate.ToShortDateString(),
                         metaModel.ToDate.ToShortDateString(),
-                        string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
+                        string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName));
                     return Excel(metaModel, UspKey, title);
                 }
 
@@ -158,7 +158,7 @@
             if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                var currencyName = string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
+                var currencyName = string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
                 var title = ViewResources.BetList
                     + $" - {sportName} - {metaModel.FromDate.ToShortDateString()} --> {metaModel.ToDate.ToShortDateString()} - {currencyName}";
 
@@ -186,7 +186,7 @@
             if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                var currencyName = string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
+                var currencyName = string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
                 var title = ViewResources.BetList
                     + $" - {sportName} - {metaModel.FromDate.ToShortDateString()} --> {metaModel.ToDate.ToShortDateString()} - {currencyName}";
 

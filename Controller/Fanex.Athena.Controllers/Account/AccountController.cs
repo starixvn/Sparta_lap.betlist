@@ -449,7 +449,7 @@ namespace Fanex.Athena.Controllers.Account
                 return false;
             }
 
-            password = password.ToLower();
+            password = password.ToLowerInvariant();
 
             var bvalid = false;
             var j3 = -1;

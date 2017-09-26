@@ -184,13 +184,13 @@ namespace Fanex.Athena.DataAccess.Report
                     {
                         ProductCode = code,
                         ProductName = ProductHelper.GetProductName(code),
-                        TurnOver = reader.ToDecimal("turnover" + currency.ToLower()),
-                        CustomerWinLoss = reader.ToDecimal("winlost" + currency.ToLower()),
-                        CustomerComm = reader.ToDecimal("playercomm" + currency.ToLower()),
-                        LicenseeWL = reader.ToDecimal("licenseewl" + currency.ToLower()),
+                        TurnOver = reader.ToDecimal("turnover" + currency.ToLowerInvariant()),
+                        CustomerWinLoss = reader.ToDecimal("winlost" + currency.ToLowerInvariant()),
+                        CustomerComm = reader.ToDecimal("playercomm" + currency.ToLowerInvariant()),
+                        LicenseeWL = reader.ToDecimal("licenseewl" + currency.ToLowerInvariant()),
                         TotalTransaction = reader.ToInt("betcount"),
-                        AmountDue = reader.ToDecimal("amtdueto3rd" + currency.ToLower()),
-                        LicenseeWLComm = reader.ToDecimal("comm" + currency.ToLower()),
+                        AmountDue = reader.ToDecimal("amtdueto3rd" + currency.ToLowerInvariant()),
+                        LicenseeWLComm = reader.ToDecimal("comm" + currency.ToLowerInvariant()),
                     };
                     summaryTotalTemp[currency].Add(summaryItem);
                 }

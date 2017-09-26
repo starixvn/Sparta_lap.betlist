@@ -76,7 +76,7 @@ namespace Fanex.Athena.Controllers.WareHouse
                 SBVisible = productAccess.IsAllowSB
             };
             var viewByCurrency =
-                string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
+                string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
             var groupingList = GroupingMetaModel.GetCollection();
             var titleText = string.Format(
                 FormatTitle,

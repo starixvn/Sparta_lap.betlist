@@ -70,7 +70,7 @@ namespace Fanex.Athena.Controllers.BetList
             var title = leagueName + " - " + string.Format(
                 "{0} - {1}",
                 CacheRef.GetBettype(bettype),
-                string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
+                string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName));
 
             var excel = new BetListExcel(showingOption, metaModel.LicenseeId, HiddenColumnIndexes, true);
 

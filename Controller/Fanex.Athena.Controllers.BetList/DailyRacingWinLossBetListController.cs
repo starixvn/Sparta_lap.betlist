@@ -56,7 +56,7 @@ namespace Fanex.Athena.Controllers.BetList
             };
             var currencyTitle = string.Format(
                 ViewResources.Viewin,
-                metaModel.CurrencyId == BaseCurrencyType.All || metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
+                metaModel.CurrencyId == BaseCurrencyType.All || metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
             var title = ViewResources.DailyRacingWinLoss + " " + ViewResources.BetList
                 + string.Format(
                 " - {0} - {1}",

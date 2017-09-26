@@ -137,7 +137,7 @@
 
         private static string MapPlatForm(string code)
         {
-            switch (code.Trim().ToLower())
+            switch (code.Trim().ToLowerInvariant())
             {
                 case "a":
                 case "z":
@@ -154,7 +154,7 @@
                     return ViewResources.Euro;
 
                 case "m":
-                    return ViewResources.Wap.ToUpper();
+                    return ViewResources.Wap.ToUpperInvariant();
 
                 case "s":
                 case "l":

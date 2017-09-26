@@ -116,10 +116,6 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignSheetData(ISheet sheet)
         {
             var rowIndex = 1;
@@ -130,10 +126,8 @@ namespace Fanex.Athena.Excel.Report
             {
                 var licenseeWinLoss = _winLossList[index];
 
-                // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
 
-                // Report Date
                 var dateStringFormat = _metaModel.ReportBy == 1 ? "MM/dd/yyyy" : "MM/yyyy";
                 var reportDateString = licenseeWinLoss.Date.Value.ToString(dateStringFormat);
 
@@ -150,7 +144,6 @@ namespace Fanex.Athena.Excel.Report
                     var currentRow = index + RowContentTemplate;
                     sheet.MergeCells(currentRow, ColumnIndex, currentRow + licenseeWinLoss.RowSpan - 1, ColumnIndex);
                     sheet.MergeCells(currentRow, ColumnDate, currentRow + licenseeWinLoss.RowSpan - 1, ColumnDate);
-                    continue;
                 }
             }
 
@@ -202,12 +195,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign common data to excel row.
-        /// </summary>
-        /// <param name="row">Excel row.</param>
-        /// <param name="data">Licensee win loss data.</param>
-        protected void AssignCommonData(IRow row, ThirdPartyWinLoss data)
+        private static void AssignCommonData(IRow row, ThirdPartyWinLoss data)
         {
             row.Cells[ColumnTurnover].SetCellValue(data.TurnOver);
             row.Cells[ColumnTotalTransaction].SetCellValue(data.TotalTransaction);
@@ -231,7 +219,7 @@ namespace Fanex.Athena.Excel.Report
                 // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowGrantTotal, rowIndex);
                 AssignCommonData(row, _summaryTotal[currency]);
-                row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpper());
+                row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpperInvariant());
 
                 // Merge first two column
                 sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
