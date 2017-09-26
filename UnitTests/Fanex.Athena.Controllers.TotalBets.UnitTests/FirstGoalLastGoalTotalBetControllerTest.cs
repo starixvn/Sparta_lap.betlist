@@ -3,93 +3,109 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
-    using Fanex.Athena.Controllers.TotalBets;
-    using Fanex.Athena.Service.TotalBet.Interfaces;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Service.TotalBet.Interfaces;
+    using TotalBets;
 
     [TestFixture]
-    public class FirstGoalLastGoalTotalBetControllerTest : BaseControllerTest
+    public class FirstGoalLastGoalTotalBetControllerTest : BaseControllerHelperTest
     {
         private IFirstGoalLastGoalService _firstGoalLastGoalService;
 
+        private FirstGoalLastGoalTotalBetController _controller;
+
         [OneTimeSetUp]
-        public new void FixtureSetUp()
+        public override void FixtureSetUp()
         {
-            FakeBaseControllerDependency();
-            _firstGoalLastGoalService = Substitute.For<IFirstGoalLastGoalService>();
-            FirstGoalLastGoal total;
-            _firstGoalLastGoalService.GetFirstGoalLastGoalDataList(Arg.Any<FirstGoalLastGoalMetaModel>(), out total)
-                .Returns(new List<FirstGoalLastGoal> { new FirstGoalLastGoal() });
+            base.FixtureSetUp();
+
+            MockDefaultData();
+
+            SepUpForService();
+
+            MockGetValueAppSettings("BaseUsdLicensees", "usd");
         }
 
         [OneTimeTearDown]
-        public new void FixtureTearDown()
+        public override void FixtureTearDown()
         {
+            base.FixtureTearDown();
+
             _firstGoalLastGoalService = null;
         }
 
-        [Test]
-        public void Index_WhenCall_ReturnCorrectViewName()
+        [SetUp]
+        public void SetUp()
         {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                // Action
-                var viewResult = controller.Index() as ViewResult;
-
-                // Assert
-                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/FirstGoalLastGoal/Main.cshtml"));
-            }
-        }
-
-        [Test]
-        public void Index_WhenCall_CallAndGetDataFromService()
-        {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                FirstGoalLastGoal total;
-
-                // Action
-                var viewResult = controller.Index() as ViewResult;
-                var viewModel = viewResult.Model as FirstGoalLastGoalViewModel;
-
-                // Assert
-                _firstGoalLastGoalService.Received().GetFirstGoalLastGoalDataList(Arg.Any<FirstGoalLastGoalMetaModel>(), out total);
-                Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
-            }
-        }
-
-        [Test]
-        public void Index_InvalidCurrency_ViewNameIsAccessDenied()
-        {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                var metaModel = new FirstGoalLastGoalMetaModel
-                {
-                    CurrencyId = -999
-                };
-
-                // Action
-                var viewResult = controller.Index(metaModel) as RedirectResult;
-
-                // Assert
-                Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
-            }
-        }
-
-        private FirstGoalLastGoalTotalBetController CreateController()
-        {
-            return new FirstGoalLastGoalTotalBetController(
+            _controller = new FirstGoalLastGoalTotalBetController(
                             LangService,
                             SessionService,
                             AppSettings,
                             _firstGoalLastGoalService);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _controller = null;
+        }
+
+        [Test]
+        public void Index_WhenGet_ReturnMainView()
+        {
+            // Action
+            var viewResult = _controller.Index() as ViewResult;
+
+            // Assert
+            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/FirstGoalLastGoal/Main.cshtml"));
+        }
+
+        [Test]
+        public void Index_WhenGet_GetDataFromService()
+        {
+            // Arrange
+            FirstGoalLastGoal total;
+
+            // Action
+            var viewResult = _controller.Index() as ViewResult;
+            var viewModel = viewResult.Model as FirstGoalLastGoalViewModel;
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _firstGoalLastGoalService.Received().GetFirstGoalLastGoalDataList(Arg.Any<FirstGoalLastGoalMetaModel>(), out total);
+                Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
+            });
+        }
+
+        [Test]
+        public void Index_WhenPostWithInvalidCurrency_AccessDenied()
+        {
+            // Arrange
+            var metaModel = new FirstGoalLastGoalMetaModel
+            {
+                CurrencyId = -999
+            };
+
+            // Action
+            var viewResult = _controller.Index(metaModel) as RedirectResult;
+
+            // Assert
+            Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+        }
+
+        private void SepUpForService()
+        {
+            _firstGoalLastGoalService = Substitute.For<IFirstGoalLastGoalService>();
+
+            FirstGoalLastGoal total;
+            _firstGoalLastGoalService
+                .GetFirstGoalLastGoalDataList(Arg.Any<FirstGoalLastGoalMetaModel>(), out total)
+                .Returns(new List<FirstGoalLastGoal> { new FirstGoalLastGoal() });
         }
     }
 }

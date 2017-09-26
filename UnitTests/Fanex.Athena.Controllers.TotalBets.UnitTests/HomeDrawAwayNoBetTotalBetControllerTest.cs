@@ -12,81 +12,95 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class HomeDrawAwayNoBetTotalBetControllerTest : BaseControllerTest
+    public class HomeDrawAwayNoBetTotalBetControllerTest : BaseControllerHelperTest
     {
         private IHomeDrawAwayNoBetService _homeDrawAwayNoBetService;
 
+        private HomeDrawAwayNoBetTotalBetController _controller;
+
         [OneTimeSetUp]
-        public new void FixtureSetUp()
+        public override void FixtureSetUp()
         {
-            FakeBaseControllerDependency();
-            _homeDrawAwayNoBetService = Substitute.For<IHomeDrawAwayNoBetService>();
-            _homeDrawAwayNoBetService.GetHomeDrawAwayNoBetDataList(Arg.Any<HomeDrawAwayNoBetMetaModel>())
-                .Returns(new List<HomeDrawAwayNoBet> { new HomeDrawAwayNoBet() });
+            base.FixtureSetUp();
+
+            MockDefaultData();
+
+            SepUpForService();
+
+            MockGetValueAppSettings("BaseUsdLicensees", "usd");
         }
 
         [OneTimeTearDown]
-        public new void FixtureTearDown()
+        public override void FixtureTearDown()
         {
+            base.FixtureTearDown();
+
             _homeDrawAwayNoBetService = null;
         }
 
-        [Test]
-        public void Index_WhenCall_ReturnCorrectViewName()
+        [SetUp]
+        public void SetUp()
         {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                // Action
-                var viewResult = controller.Index() as ViewResult;
-
-                // Assert
-                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/HomeDrawAwayNoBet/Main.cshtml"));
-            }
-        }
-
-        [Test]
-        public void Index_WhenCall_CallAndGetDataFromService()
-        {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                // Action
-                var viewResult = controller.Index() as ViewResult;
-                var viewModel = viewResult.Model as HomeDrawAwayNoBetViewModel;
-
-                // Assert
-                _homeDrawAwayNoBetService.ReceivedWithAnyArgs().GetHomeDrawAwayNoBetDataList(Arg.Any<HomeDrawAwayNoBetMetaModel>());
-                Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
-            }
-        }
-
-        [Test]
-        public void Index_InvalidCurrency_ViewNameIsAccessDenied()
-        {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                var metaModel = new HomeDrawAwayNoBetMetaModel
-                {
-                    CurrencyId = -999
-                };
-
-                // Action
-                var viewResult = controller.Index(metaModel) as RedirectResult;
-
-                // Assert
-                Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
-            }
-        }
-
-        private HomeDrawAwayNoBetTotalBetController CreateController()
-        {
-            return new HomeDrawAwayNoBetTotalBetController(
+            _controller = new HomeDrawAwayNoBetTotalBetController(
                             LangService,
                             SessionService,
                             AppSettings,
                             _homeDrawAwayNoBetService);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _controller = null;
+        }
+
+        [Test]
+        public void Index_WhenGet_ReturnMainView()
+        {
+            // Arrange
+
+            // Action
+            var viewResult = _controller.Index() as ViewResult;
+
+            // Assert
+            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/HomeDrawAwayNoBet/Main.cshtml"));
+        }
+
+        [Test]
+        public void Index_WhenGet_GetDataFromService()
+        {
+            // Action
+            var viewResult = _controller.Index() as ViewResult;
+            var viewModel = viewResult.Model as HomeDrawAwayNoBetViewModel;
+
+            // Assert
+            _homeDrawAwayNoBetService.ReceivedWithAnyArgs().GetHomeDrawAwayNoBetDataList(Arg.Any<HomeDrawAwayNoBetMetaModel>());
+            Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Index_WhenPostWithInvalidCurrency_AccessDenied()
+        {
+            // Arrange
+            var metaModel = new HomeDrawAwayNoBetMetaModel
+            {
+                CurrencyId = -999
+            };
+
+            // Action
+            var viewResult = _controller.Index(metaModel) as RedirectResult;
+
+            // Assert
+            Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+        }
+
+        private void SepUpForService()
+        {
+            _homeDrawAwayNoBetService = Substitute.For<IHomeDrawAwayNoBetService>();
+
+            _homeDrawAwayNoBetService
+                .GetHomeDrawAwayNoBetDataList(Arg.Any<HomeDrawAwayNoBetMetaModel>())
+                .Returns(new List<HomeDrawAwayNoBet> { new HomeDrawAwayNoBet() });
         }
     }
 }

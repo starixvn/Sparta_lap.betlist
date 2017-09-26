@@ -12,81 +12,93 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class OutrightTotalBetControllerTest : BaseControllerTest
+    public class OutrightTotalBetControllerTest : BaseControllerHelperTest
     {
         private IOutrightService _outrightService;
 
+        private OutrightTotalBetController _controller;
+
         [OneTimeSetUp]
-        public new void FixtureSetUp()
+        public override void FixtureSetUp()
         {
-            FakeBaseControllerDependency();
-            _outrightService = Substitute.For<IOutrightService>();
-            _outrightService.GetOutrightDataList(Arg.Any<OutrightMetaModel>())
-                .Returns(new List<Outright> { new Outright() });
+            base.FixtureSetUp();
+
+            MockDefaultData();
+
+            SepUpForService();
+
+            MockGetValueAppSettings("BaseUsdLicensees", "usd");
         }
 
         [OneTimeTearDown]
-        public new void FixtureTearDown()
+        public override void FixtureTearDown()
         {
+            base.FixtureTearDown();
+
             _outrightService = null;
         }
 
-        [Test]
-        public void Index_WhenCall_ReturnCorrectViewName()
+        [SetUp]
+        public void SetUp()
         {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                // Action
-                var viewResult = controller.Index() as ViewResult;
-
-                // Assert
-                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/Outright/Main.cshtml"));
-            }
-        }
-
-        [Test]
-        public void Index_WhenCall_CallAndGetDataFromService()
-        {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                // Action
-                var viewResult = controller.Index() as ViewResult;
-                var viewModel = viewResult.Model as OutrightViewModel;
-
-                // Assert
-                _outrightService.ReceivedWithAnyArgs().GetOutrightDataList(Arg.Any<OutrightMetaModel>());
-                Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
-            }
-        }
-
-        [Test]
-        public void Index_InvalidCurrency_ViewNameIsAccessDenied()
-        {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                var metaModel = new OutrightMetaModel
-                {
-                    CurrencyId = -999
-                };
-
-                // Action
-                var viewResult = controller.Index(metaModel) as RedirectResult;
-
-                // Assert
-                Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
-            }
-        }
-
-        private OutrightTotalBetController CreateController()
-        {
-            return new OutrightTotalBetController(
+            _controller = new OutrightTotalBetController(
                             LangService,
                             SessionService,
                             AppSettings,
                             _outrightService);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _controller = null;
+        }
+
+        [Test]
+        public void Index_WhenGet_ReturnMainView()
+        {
+            // Action
+            var viewResult = _controller.Index() as ViewResult;
+
+            // Assert
+            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/Outright/Main.cshtml"));
+        }
+
+        [Test]
+        public void Index_WhenGet_GetDataFromService()
+        {
+            // Action
+            var viewResult = _controller.Index() as ViewResult;
+            var viewModel = viewResult.Model as OutrightViewModel;
+
+            // Assert
+            _outrightService.ReceivedWithAnyArgs().GetOutrightDataList(Arg.Any<OutrightMetaModel>());
+            Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Index_WhenPostWithInvalidCurrency_AccessDenied()
+        {
+            // Arrange
+            var metaModel = new OutrightMetaModel
+            {
+                CurrencyId = -999
+            };
+
+            // Action
+            var viewResult = _controller.Index(metaModel) as RedirectResult;
+
+            // Assert
+            Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+        }
+
+        private void SepUpForService()
+        {
+            _outrightService = Substitute.For<IOutrightService>();
+
+            _outrightService
+                .GetOutrightDataList(Arg.Any<OutrightMetaModel>())
+                .Returns(new List<Outright> { new Outright() });
         }
     }
 }

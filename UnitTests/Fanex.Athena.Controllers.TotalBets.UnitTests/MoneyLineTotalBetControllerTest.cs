@@ -12,15 +12,93 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class MoneyLineTotalBetControllerTest : BaseControllerTest
+    public class MoneyLineTotalBetControllerTest : BaseControllerHelperTest
     {
         private IMoneyLineService _moneyLineService;
 
+        private MoneyLineTotalBetController _controller;
+
         [OneTimeSetUp]
-        public new void FixtureSetUp()
+        public override void FixtureSetUp()
         {
-            FakeBaseControllerDependency();
+            base.FixtureSetUp();
+
+            MockDefaultData();
+
+            SepUpForService();
+
+            MockGetValueAppSettings("BaseUsdLicensees", "usd");
+        }
+
+        [OneTimeTearDown]
+        public override void FixtureTearDown()
+        {
+            base.FixtureTearDown();
+
+            _moneyLineService = null;
+        }
+
+        [SetUp]
+        public void SetUp()
+        {
+            _controller = new MoneyLineTotalBetController(
+                            LangService,
+                            SessionService,
+                            AppSettings,
+                            _moneyLineService);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _controller = null;
+        }
+
+        [Test]
+        public void Index_WhenCall_ReturnCorrectViewName()
+        {
+            // Action
+            var viewResult = _controller.Index() as ViewResult;
+
+            // Assert
+            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/MoneyLine/Main.cshtml"));
+        }
+
+        [Test]
+        public void Index_WhenCall_CallAndGetDataFromService()
+        {
+            // Arrange
+            MoneyLine total;
+
+            // Action
+            var viewResult = _controller.Index() as ViewResult;
+            var viewModel = viewResult.Model as MoneyLineViewModel;
+
+            // Assert
+            _moneyLineService.ReceivedWithAnyArgs().GetMoneyLineDataList(Arg.Any<MoneyLineMetaModel>(), out total);
+            Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Index_InvalidCurrency_ViewNameIsAccessDenied()
+        {
+            // Arrange
+            var metaModel = new MoneyLineMetaModel
+            {
+                CurrencyId = -999
+            };
+
+            // Action
+            var viewResult = _controller.Index(metaModel) as RedirectResult;
+
+            // Assert
+            Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+        }
+
+        private void SepUpForService()
+        {
             _moneyLineService = Substitute.For<IMoneyLineService>();
+
             MoneyLine total;
             _moneyLineService.GetMoneyLineDataList(Arg.Any<MoneyLineMetaModel>(), out total)
                 .Returns(x =>
@@ -28,72 +106,6 @@
                     x[1] = new MoneyLine();
                     return new List<MoneyLine> { new MoneyLine() };
                 });
-        }
-
-        [OneTimeTearDown]
-        public new void FixtureTearDown()
-        {
-            _moneyLineService = null;
-        }
-
-        [Test]
-        public void Index_WhenCall_ReturnCorrectViewName()
-        {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                // Action
-                var viewResult = controller.Index() as ViewResult;
-
-                // Assert
-                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/MoneyLine/Main.cshtml"));
-            }
-        }
-
-        [Test]
-        public void Index_WhenCall_CallAndGetDataFromService()
-        {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                MoneyLine total;
-
-                // Action
-                var viewResult = controller.Index() as ViewResult;
-                var viewModel = viewResult.Model as MoneyLineViewModel;
-
-                // Assert
-                _moneyLineService.ReceivedWithAnyArgs().GetMoneyLineDataList(Arg.Any<MoneyLineMetaModel>(), out total);
-                Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
-            }
-        }
-
-        [Test]
-        public void Index_InvalidCurrency_ViewNameIsAccessDenied()
-        {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                var metaModel = new MoneyLineMetaModel
-                {
-                    CurrencyId = -999
-                };
-
-                // Action
-                var viewResult = controller.Index(metaModel) as RedirectResult;
-
-                // Assert
-                Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
-            }
-        }
-
-        private MoneyLineTotalBetController CreateController()
-        {
-            return new MoneyLineTotalBetController(
-                            LangService,
-                            SessionService,
-                            AppSettings,
-                            _moneyLineService);
         }
     }
 }

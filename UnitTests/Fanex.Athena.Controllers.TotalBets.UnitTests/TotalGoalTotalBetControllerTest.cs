@@ -12,88 +12,101 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class TotalGoalTotalBetControllerTest : BaseControllerTest
+    public class TotalGoalTotalBetControllerTest : BaseControllerHelperTest
     {
         private ITotalGoalService _totalGoalService;
 
+        private TotalGoalTotalBetController _controller;
+
         [OneTimeSetUp]
-        public new void FixtureSetUp()
+        public override void FixtureSetUp()
         {
-            FakeBaseControllerDependency();
-            _totalGoalService = Substitute.For<ITotalGoalService>();
+            base.FixtureSetUp();
+
+            MockDefaultData();
+
+            SepUpForService();
+
+            MockGetValueAppSettings("BaseUsdLicensees", "usd");
+        }
+
+        [OneTimeTearDown]
+        public override void FixtureTearDown()
+        {
+            base.FixtureTearDown();
+
+            _totalGoalService = null;
+        }
+
+        [SetUp]
+        public void SetUp()
+        {
+            _controller = new TotalGoalTotalBetController(
+                            LangService,
+                            SessionService,
+                            AppSettings,
+                            _totalGoalService);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _controller = null;
+        }
+
+        [Test]
+        public void Index_WhenGet_ReturnMainView()
+        {
+            // Action
+            var viewResult = _controller.Index() as ViewResult;
+
+            // Assert
+            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/TotalGoal/Main.cshtml"));
+        }
+
+        [Test]
+        public void Index_WhenGet_GetDataFromService()
+        {
+            // Arrange
             TotalGoal total;
-            _totalGoalService.GetTotalGoalDataList(Arg.Any<TotalGoalMetaModel>(), out total)
+
+            // Action
+            var viewResult = _controller.Index() as ViewResult;
+            var viewModel = viewResult.Model as TotalGoalViewModel;
+
+            // Assert
+            _totalGoalService.ReceivedWithAnyArgs().GetTotalGoalDataList(Arg.Any<TotalGoalMetaModel>(), out total);
+            Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Index_WhenPostWithInvalidCurrency_AccessDenied()
+        {
+            // Arrange
+            var metaModel = new TotalGoalMetaModel
+            {
+                CurrencyId = -999
+            };
+
+            // Action
+            var viewResult = _controller.Index(metaModel) as RedirectResult;
+
+            // Assert
+            Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+        }
+
+        private void SepUpForService()
+        {
+            _totalGoalService = Substitute.For<ITotalGoalService>();
+
+            TotalGoal total;
+            _totalGoalService
+                .GetTotalGoalDataList(Arg.Any<TotalGoalMetaModel>(), out total)
                 .Returns(x =>
                 {
                     x[1] = new TotalGoal();
                     return new List<TotalGoal> { new TotalGoal() };
                 });
-        }
-
-        [OneTimeTearDown]
-        public new void FixtureTearDown()
-        {
-            _totalGoalService = null;
-        }
-
-        [Test]
-        public void Index_WhenCall_ReturnCorrectViewName()
-        {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                // Action
-                var viewResult = controller.Index() as ViewResult;
-
-                // Assert
-                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/TotalGoal/Main.cshtml"));
-            }
-        }
-
-        [Test]
-        public void Index_WhenCall_CallAndGetDataFromService()
-        {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                TotalGoal total;
-
-                // Action
-                var viewResult = controller.Index() as ViewResult;
-                var viewModel = viewResult.Model as TotalGoalViewModel;
-
-                // Assert
-                _totalGoalService.ReceivedWithAnyArgs().GetTotalGoalDataList(Arg.Any<TotalGoalMetaModel>(), out total);
-                Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
-            }
-        }
-
-        [Test]
-        public void Index_InvalidCurrency_ViewNameIsAccessDenied()
-        {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                var metaModel = new TotalGoalMetaModel
-                {
-                    CurrencyId = -999
-                };
-
-                // Action
-                var viewResult = controller.Index(metaModel) as RedirectResult;
-
-                // Assert
-                Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
-            }
-        }
-
-        private TotalGoalTotalBetController CreateController()
-        {
-            return new TotalGoalTotalBetController(
-                            LangService,
-                            SessionService,
-                            AppSettings,
-                            _totalGoalService);
         }
     }
 }

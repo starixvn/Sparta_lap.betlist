@@ -12,147 +12,174 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class HandicapOverUnderTotalBetControllerTest : BaseControllerTest
+    public class HandicapOverUnderTotalBetControllerTest : BaseControllerHelperTest
     {
         private IHandicapOverUnderService _handicapOverUnderService;
 
+        private HandicapOverUnderTotalBetController _controller;
+
         [OneTimeSetUp]
-        public new void FixtureSetUp()
+        public override void FixtureSetUp()
         {
-            FakeBaseControllerDependency();
-            _handicapOverUnderService = Substitute.For<IHandicapOverUnderService>();
+            base.FixtureSetUp();
+
+            MockDefaultData();
+
+            SepUpForService();
+
+            MockGetValueAppSettings("BaseUsdLicensees", "usd");
+        }
+
+        [OneTimeTearDown]
+        public override void FixtureTearDown()
+        {
+            base.FixtureTearDown();
+
+            _handicapOverUnderService = null;
+        }
+
+        [SetUp]
+        public void SetUp()
+        {
+            _controller = new HandicapOverUnderTotalBetController(
+                            LangService,
+                            SessionService,
+                            AppSettings,
+                            _handicapOverUnderService);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _controller = null;
+        }
+
+        [Test]
+        public void Index_WhenGet_ReturnMainView()
+        {
+            // Action
+            var viewResult = _controller.Index() as ViewResult;
+
+            // Assert
+            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/HandicapOverUnder/Main.cshtml"));
+        }
+
+        [Test]
+        public void Index_WhenGet_GetDataFromService()
+        {
+            // Arrange
             HandicapOverUnder total;
-            _handicapOverUnderService.GetHandicapOverUnderDataList(Arg.Any<HandicapOverUnderMetaModel>(), out total)
+
+            // Action
+            var viewResult = _controller.Index() as ViewResult;
+            var viewModel = viewResult.Model as HandicapOverUnderViewModel;
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _handicapOverUnderService.ReceivedWithAnyArgs().GetHandicapOverUnderDataList(Arg.Any<HandicapOverUnderMetaModel>(), out total);
+                Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
+            });
+        }
+
+        [Test]
+        public void Index_WhenPostWithValidCurrency_ReturnMainView()
+        {
+            // Arrange
+            var metaModel = new HandicapOverUnderMetaModel
+            {
+                CurrencyId = 0
+            };
+
+            // Action
+            var viewResult = _controller.Index(metaModel) as ViewResult;
+
+            // Assert
+            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/HandicapOverUnder/Main.cshtml"));
+        }
+
+        [Test]
+        public void Index_WhenPostWithInvalidCurrency_AccessDenied()
+        {
+            // Arrange
+            var metaModel = new HandicapOverUnderMetaModel
+            {
+                CurrencyId = -999
+            };
+
+            // Action
+            var viewResult = _controller.Index(metaModel) as RedirectResult;
+
+            // Assert
+            Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+        }
+
+        [Test]
+        public void Index_LicenseeIsNotOfferedNewForecast_ReturnNormalLicenseeView()
+        {
+            // Arrange
+            MockGetValueAppSettings("LicenseeOfferNewForecast", "1001");
+
+            var metaModel = new HandicapOverUnderMetaModel
+            {
+                CurrencyId = 0
+            };
+
+            // Action
+            var viewResult = _controller.Index(metaModel) as ViewResult;
+
+            // Assert
+            Assert.That(viewResult.ViewBag.LicenseeView, Is.EqualTo("ContentData.cshtml"));
+        }
+
+        [Test]
+        public void Index_LicenseeIsOfferedNewForecastSetting_ReturnBodogLicenseeView()
+        {
+            // Arrange
+            MockGetValueAppSettings("LicenseeOfferNewForecast", SessionLicenseeId.ToString());
+
+            var metaModel = new HandicapOverUnderMetaModel
+            {
+                CurrencyId = 0
+            };
+
+            // Action
+            var viewResult = _controller.Index(metaModel) as ViewResult;
+
+            // Assert
+            Assert.That(viewResult.ViewBag.LicenseeView, Is.EqualTo("ContentDataBodog.cshtml"));
+        }
+
+        [Test]
+        public void Index_LicenseeOfferedNewForecastIsNotSet_ReturnNormalLicenseeView()
+        {
+            // Arrange
+            MockGetValueAppSettings("LicenseeOfferNewForecast", string.Empty);
+
+            var metaModel = new HandicapOverUnderMetaModel
+            {
+                CurrencyId = 0
+            };
+
+            // Action
+            var viewResult = _controller.Index(metaModel) as ViewResult;
+
+            // Assert
+            Assert.That(viewResult.ViewBag.LicenseeView, Is.EqualTo("ContentData.cshtml"));
+        }
+
+        private void SepUpForService()
+        {
+            _handicapOverUnderService = Substitute.For<IHandicapOverUnderService>();
+
+            HandicapOverUnder total;
+            _handicapOverUnderService
+                .GetHandicapOverUnderDataList(Arg.Any<HandicapOverUnderMetaModel>(), out total)
                 .Returns(x =>
                 {
                     x[1] = new HandicapOverUnder();
                     return new List<HandicapOverUnder> { new HandicapOverUnder() };
                 });
-        }
-
-        [OneTimeTearDown]
-        public new void FixtureTearDown()
-        {
-            _handicapOverUnderService = null;
-        }
-
-        [Test]
-        public void Index_WhenCall_ReturnCorrectViewName()
-        {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                // Action
-                var viewResult = controller.Index() as ViewResult;
-
-                // Assert
-                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/HandicapOverUnder/Main.cshtml"));
-            }
-        }
-
-        [Test]
-        public void Index_WhenCall_CallAndGetDataFromService()
-        {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                HandicapOverUnder total = null;
-
-                // Action
-                var viewResult = controller.Index() as ViewResult;
-                var viewModel = viewResult.Model as HandicapOverUnderViewModel;
-
-                // Assert
-                _handicapOverUnderService.ReceivedWithAnyArgs().GetHandicapOverUnderDataList(Arg.Any<HandicapOverUnderMetaModel>(), out total);
-                Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
-            }
-        }
-
-        [Test]
-        public void Index_InvalidCurrency_ReturnCorrectViewName()
-        {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                var metaModel = new HandicapOverUnderMetaModel
-                {
-                    CurrencyId = 0
-                };
-
-                // Action
-                var viewResult = controller.Index(metaModel) as ViewResult;
-
-                // Assert
-                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/HandicapOverUnder/Main.cshtml"));
-            }
-        }
-
-        [Test]
-        public void Index_InvalidCurrency_ViewNameIsAccessDenied()
-        {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                var metaModel = new HandicapOverUnderMetaModel
-                {
-                    CurrencyId = -999
-                };
-
-                // Action
-                var viewResult = controller.Index(metaModel) as RedirectResult;
-
-                // Assert
-                Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
-            }
-        }
-
-        [Test]
-        public void Index_LicenseeIdNOTInLicenseeOfferNewForecastSetting_ReturNormalLicenseeView()
-        {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                AppSettings.GetValue("LicenseeOfferNewForecast").Returns("1001");
-                var metaModel = new HandicapOverUnderMetaModel
-                {
-                    CurrencyId = 0
-                };
-
-                // Action
-                var viewResult = controller.Index(metaModel) as ViewResult;
-
-                // Assert
-                Assert.That(viewResult.ViewBag.LicenseeView, Is.EqualTo("ContentData.cshtml"));
-            }
-        }
-
-        [Test]
-        public void Index_LicenseeIdInLicenseeOfferNewForecastSetting_ReturnBodogLicenseeView()
-        {
-            // Arrange
-            using (var controller = CreateController())
-            {
-                AppSettings.GetValue("LicenseeOfferNewForecast").Returns("100");
-                var metaModel = new HandicapOverUnderMetaModel
-                {
-                    CurrencyId = 0
-                };
-
-                // Action
-                var viewResult = controller.Index(metaModel) as ViewResult;
-
-                // Assert
-                Assert.That(viewResult.ViewBag.LicenseeView, Is.EqualTo("ContentDataBodog.cshtml"));
-            }
-        }
-
-        private HandicapOverUnderTotalBetController CreateController()
-        {
-            return new HandicapOverUnderTotalBetController(
-                            LangService,
-                            SessionService,
-                            AppSettings,
-                            _handicapOverUnderService);
         }
     }
 }
