@@ -54,6 +54,28 @@ class DateRange extends Component {
   componentDidMount() {
     const { onInit } = this.props;
     onInit && onInit(this.state.range);
+
+    document.addEventListener('click', this._handleDocumentClick)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this._handleDocumentClick)
+  }
+
+  _handleDocumentClick = (event) => {
+    event.preventDefault();
+    if (this.dateRangeInput.contains(event.target)) {
+      return;
+    }
+
+    const clickOutside = this.dateRangeContainer &&
+      !this.dateRangeContainer.contains(event.target);
+
+    if (clickOutside && this.state.show) {
+      this.currentRange = Object.assign({}, this.state.range);
+      this.hide();
+      console.log(this.currentRange);
+    }
   }
 
   orderRange(range) {
@@ -194,12 +216,14 @@ class DateRange extends Component {
 
     return (
       <div className="daterange-container">
-        <div className="daterange-label" onClick={() => this.show()}>
+        <div className="daterange-label" onClick={() => this.show()} ref={element => this.dateRangeInput = element}>
           <input readOnly name="DateRange" id="DateRange" className="input-text datepicker" type="text" autoComplete="off" value={this.dateRangeText} />
           <i className="icon icon-calendar"></i>
         </div>
 
-        <div style={onlyClasses ? undefined : { ...styles['DateRange'], ...style, ...dateRangeStyle }} className={dateRangeClass}>
+        <div style={onlyClasses ? undefined : { ...styles['DateRange'], ...style, ...dateRangeStyle }}
+          className={dateRangeClass}
+          ref={element => this.dateRangeContainer = element}>
           {showRange && (
             <PredefinedRanges
               format={format}
