@@ -77,11 +77,7 @@
 
             if (_appSetting.GetValue("EnableLogForOneAuthorization") == "1" && !string.IsNullOrEmpty(errMsg))
             {
-                var message = new StringBuilder();
-                message.AppendLine("OneAuthorization Token is invalid - Token = " + errMsg);
-                message.AppendLine("Url: " + Request.Url);
-                message.AppendLine("UrlReferrer: " + Request.UrlReferrer);
-                _logger.Error(message.ToString());
+                WriteLog(errMsg);
             }
 
             return Redirect(Url.Content(returnUrl));
@@ -98,6 +94,21 @@
         {
             var internalSubDomain = _appSetting.GetValue("InternalSubDomain");
             return !string.IsNullOrEmpty(internalSubDomain) && actionLink.Contains(internalSubDomain);
+        }
+
+        private void WriteLog(string errMsg)
+        {
+            var message = new StringBuilder();
+            message.AppendLine("OneAuthorization Token is invalid - Token = " + errMsg);
+            message.AppendLine("Url: " + Request.Url);
+            message.AppendLine("UrlReferrer: " + Request.UrlReferrer);
+            message.AppendLine("UserAgent: " + Request.UserAgent);
+            message.AppendLine("UserHostAddress: " + Request.UserHostAddress);
+            message.AppendLine("Browser: ");
+            message.AppendLine(" - Platform: " + Request.Browser.Platform);
+            message.AppendLine(" - Version: " + Request.Browser.Version);
+            message.AppendLine(" - Crawl: " + Request.Browser.Crawler);
+            _logger.Error(message.ToString());
         }
     }
 }
