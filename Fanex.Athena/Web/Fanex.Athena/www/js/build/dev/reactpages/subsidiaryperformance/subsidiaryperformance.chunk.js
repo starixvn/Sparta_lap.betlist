@@ -22815,6 +22815,21 @@ var DateRange = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (DateRange.__proto__ || Object.getPrototypeOf(DateRange)).call(this, props, context));
 
+    _this._handleDocumentClick = function (event) {
+      event.preventDefault();
+      if (_this.dateRangeInput.contains(event.target)) {
+        return;
+      }
+
+      var clickOutside = _this.dateRangeContainer && !_this.dateRangeContainer.contains(event.target);
+
+      if (clickOutside && _this.state.show) {
+        _this.currentRange = Object.assign({}, _this.state.range);
+        _this.hide();
+        console.log(_this.currentRange);
+      }
+    };
+
     var format = props.format,
         linkedCalendars = props.linkedCalendars,
         theme = props.theme,
@@ -22856,6 +22871,13 @@ var DateRange = function (_Component) {
       var onInit = this.props.onInit;
 
       onInit && onInit(this.state.range);
+
+      document.addEventListener('click', this._handleDocumentClick);
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      document.removeEventListener('click', this._handleDocumentClick);
     }
   }, {
     key: 'orderRange',
@@ -23039,13 +23061,19 @@ var DateRange = function (_Component) {
           'div',
           { className: 'daterange-label', onClick: function onClick() {
               return _this3.show();
+            }, ref: function ref(element) {
+              return _this3.dateRangeInput = element;
             } },
           _react2.default.createElement('input', { readOnly: true, name: 'DateRange', id: 'DateRange', className: 'input-text datepicker', type: 'text', autoComplete: 'off', value: this.dateRangeText }),
           _react2.default.createElement('i', { className: 'icon icon-calendar' })
         ),
         _react2.default.createElement(
           'div',
-          { style: onlyClasses ? undefined : _extends({}, styles['DateRange'], style, dateRangeStyle), className: dateRangeClass },
+          { style: onlyClasses ? undefined : _extends({}, styles['DateRange'], style, dateRangeStyle),
+            className: dateRangeClass,
+            ref: function ref(element) {
+              return _this3.dateRangeContainer = element;
+            } },
           showRange && _react2.default.createElement(_PredefinedRanges2.default, {
             format: format,
             ranges: this.ranges,
