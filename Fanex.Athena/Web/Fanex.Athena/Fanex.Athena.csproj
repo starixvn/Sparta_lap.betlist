@@ -814,10 +814,14 @@
     <Content Include="www\js\source\reactpages\lib\site.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\dataHandlerAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\filterHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\service.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\reportExcel.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\dataHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\filterHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\__tests__\dataHandlerReducer.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\__tests__\filterHandlerReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\baseCurrency.js" />
     <Content Include="www\js\source\reactpages\reducers\loaderReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\productReducer.js" />
