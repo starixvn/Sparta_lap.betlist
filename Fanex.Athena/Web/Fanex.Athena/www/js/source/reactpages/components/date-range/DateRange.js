@@ -63,7 +63,6 @@ class DateRange extends Component {
   }
 
   _handleDocumentClick = (event) => {
-    event.preventDefault();
     if (this.dateRangeInput.contains(event.target)) {
       return;
     }
@@ -74,7 +73,6 @@ class DateRange extends Component {
     if (clickOutside && this.state.show) {
       this.currentRange = Object.assign({}, this.state.range);
       this.hide();
-      console.log(this.currentRange);
     }
   }
 
