@@ -103,9 +103,6 @@ namespace Fanex.Athena.Service.BetList
                     }
 
                     break;
-
-                default:
-                    throw new ArgumentException("Invalid odds type: " + ticket.OddsType);
             }
         }
 
