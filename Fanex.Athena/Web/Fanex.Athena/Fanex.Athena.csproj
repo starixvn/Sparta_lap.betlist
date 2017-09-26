@@ -816,6 +816,7 @@
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\dataHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\filterHandlerAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\datagrid.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\service.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\reportExcel.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\dataHandlerReducer.js" />
@@ -2444,6 +2445,7 @@
     <Content Include="www\js\source\reactpages\components\fixed-table-header\index.jsx" />
     <Content Include="www\js\source\reactpages\components\NoDataTitle.jsx" />
     <Content Include="www\js\source\reactpages\components\ReportTitle.jsx" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\__snapshots__\datagrid.test.js.snap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

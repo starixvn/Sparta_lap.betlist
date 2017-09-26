@@ -23,7 +23,7 @@ const reducerList = [
     { name: "dateConstraint", actionType: types.GET_DATE_CONSTRAINT, expected: { fromDate: "01/01/2017", toDate: "09/30/2017" } },
 ]
 
-describe('[filterHandlerReducer] ', () => {
+describe('filterHandlerReducer ', () => {
     reducerList.forEach(({ name, actionType, expected }) => {
         it(name, () => {
             const action = {

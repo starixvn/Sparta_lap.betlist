@@ -3,7 +3,7 @@ import * as types from '../../actions/types'
 
 const emptyState = {};
 
-describe('[dataHandlerReducer] ', () => {
+describe('dataHandlerReducer ', () => {
     it("gridData", () => {
         const expectedResult = { Data: [], Total: [], GrandTotal: {} };
         const action = {

@@ -9,14 +9,26 @@ import ReportTitle from '../../../components/ReportTitle'
 import NoDataTitle from '../../../components/NoDataTitle'
 import service from '../lib/service'
 
-class DataGrid extends Component {
+export class DataGrid extends Component {
     constructor(props) {
         super(props);
 
         this.reportTitle = "";
     }
 
-    get header() {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.isLoading === true) {
+            const { dateRange, selectedBaseCurrency } = nextProps;
+            this.reportTitle = service.getReportTitle(dateRange, selectedBaseCurrency);
+        }
+    }
+
+
+    componentDidUpdate(prevProps, prevState) {
+        this.props.toggleLoader(false);
+    }
+
+    _buildHeader() {
         const headerText = service.getHeaderText();
 
         return (
@@ -32,7 +44,7 @@ class DataGrid extends Component {
         )
     }
 
-    get body() {
+    _buildBody() {
         const data = this.props.gridData.Data;
         let rows = [];
         for (let i = 0; i < data.length; i++) {
@@ -68,7 +80,7 @@ class DataGrid extends Component {
         return rows;
     }
 
-    get footer() {
+    _buildFooter() {
         const totalData = this.props.gridData.Total;
         const footer = totalData.map((item, index) => {
             const betcount = NumberFormat.format(item.BetCount),
@@ -91,12 +103,12 @@ class DataGrid extends Component {
             )
         })
 
-        footer.push(this.grandTotal);
+        footer.push(this._buildGrandTotal());
 
         return footer;
     }
 
-    get grandTotal() {
+    _buildGrandTotal() {
         const grandTotal = this.props.gridData.GrandTotal;
         if (!grandTotal) {
             return null;
@@ -118,18 +130,6 @@ class DataGrid extends Component {
                 <Cell title={subsidiaryWinLoss} className="right-align">{subsidiaryWinLoss}</Cell>
             </Row>
         )
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.props.gridData !== nextProps.gridData) {
-            const { dateRange, selectedBaseCurrency } = nextProps;
-            this.reportTitle = service.getReportTitle(dateRange, selectedBaseCurrency);
-        }
-    }
-
-
-    componentDidUpdate(prevProps, prevState) {
-        this.props.toggleLoader(false);
     }
 
     _renderNodata() {
@@ -159,9 +159,9 @@ class DataGrid extends Component {
                     minWidth={600}
                     autoWidth={true}
                     bodyHeight={300}
-                    header={this.header}
-                    body={this.body}
-                    footer={this.footer}
+                    header={this._buildHeader()}
+                    body={this._buildBody()}
+                    footer={this._buildFooter()}
                 />
             </div>
         );
@@ -171,8 +171,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { gridData, dateRange, selectedBaseCurrency } = state;
-    return Object.assign({}, { gridData, dateRange, selectedBaseCurrency });
+    const { gridData, dateRange, selectedBaseCurrency, isLoading } = state;
+    return Object.assign({}, { gridData, dateRange, selectedBaseCurrency, isLoading });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

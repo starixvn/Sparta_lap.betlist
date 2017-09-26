@@ -12,7 +12,7 @@ import service from '../lib/service'
 
 const RANGE_MONTH_CONSTRAINT = 3;
 
-class FormFilter extends Component {
+export class FormFilter extends Component {
     constructor(props) {
         super(props);
     }

@@ -7,7 +7,7 @@ import FormFilter from './formFilter'
 import Loader from '../../../components/Loader'
 import AppLayout from '../../../layouts/AppLayout'
 
-class AppContainer extends Component {
+export class AppContainer extends Component {
   constructor(props) {
     super(props);
   }
@@ -29,6 +29,5 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return Object.assign({}, { isLoading: state.isLoading });
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

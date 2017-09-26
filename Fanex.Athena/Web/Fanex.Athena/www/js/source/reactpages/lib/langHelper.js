@@ -10,6 +10,6 @@ export default class LangHelper {
     static getSingleResource(key) {
         var langHandler = window[resourceName];
 
-        return langHandler[key] || window[DEFAULT_RESOURCE_NAME][key] || key;
+        return (langHandler && langHandler[key]) || (window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key]) || key;
     }
 }

@@ -33,15 +33,11 @@ const expectedHeader = {
     '__RequestVerificationToken': params.xsrfToken
 }
 
-const fakeModules = () => {
-    const promise = Promise.resolve(fakeResponse);
-    axios.post = jest.fn(() => promise);
-    Site.resolveClientUrl = jest.fn((url) => url);
-}
-
 describe('dataHandlerAction', () => {
     beforeAll(() => {
-        fakeModules();
+        const promise = Promise.resolve(fakeResponse);
+        axios.post = jest.fn(() => promise);
+        Site.resolveClientUrl = jest.fn((url) => url);
     })
 
     afterAll(() => {
