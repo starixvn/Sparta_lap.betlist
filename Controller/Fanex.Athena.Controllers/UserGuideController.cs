@@ -53,7 +53,7 @@ namespace Fanex.Athena.Controllers
             var content = GetFileContent(resourceName);
 
             content = resourceName.Equals(CustomerListResourceName, System.StringComparison.OrdinalIgnoreCase) ?
-                content.Replace("{rooturl}", Url.Content("~")) : AddCasinoProductList(content);
+                content.Replace("{rooturl}", Url.Content("~")) : AddSpecificProductList(content);
 
             return View("~/Views/UserGuide/Index.cshtml", null, content);
         }
@@ -91,11 +91,11 @@ namespace Fanex.Athena.Controllers
             }
         }
 
-        private string AddCasinoProductList(string content)
+        private string AddSpecificProductList(string content)
         {
+            var products = _productService.GetProductList(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
             if (content.Contains("{casino-productlist}"))
             {
-                var products = _productService.GetProductList(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
                 var casinoProducts = products.Where(x => CasinoProducts.Contains(x.ProductID)).Select(x => x.ProductName);
                 if (casinoProducts.Any())
                 {
@@ -106,6 +106,30 @@ namespace Fanex.Athena.Controllers
                 else
                 {
                     content = new Regex(@"\{casino-productlist-section\}.*\{/casino-productlist-section\}").Replace(content, string.Empty);
+                }
+            }
+            if (content.Contains("{virtual-productlist-section}"))
+            {
+                if (products.Any(x => x.ProductID == ProductTypes.VirtualSports))
+                {
+                    content = content.Replace("{virtual-productlist-section}", string.Empty);
+                    content = content.Replace("{/virtual-productlist-section}", string.Empty);
+                }
+                else
+                {
+                    content = new Regex(@"\{virtual-productlist-section\}.*\{/virtual-productlist-section\}").Replace(content, string.Empty);
+                }
+            }
+            if (content.Contains("{virtual2-productlist-section}"))
+            {
+                if (products.Any(x => x.ProductID == ProductTypes.VirtualSports2))
+                {
+                    content = content.Replace("{virtual2-productlist-section}", string.Empty);
+                    content = content.Replace("{/virtual2-productlist-section}", string.Empty);
+                }
+                else
+                {
+                    content = new Regex(@"\{virtual2-productlist-section\}.*\{/virtual2-productlist-section\}").Replace(content, string.Empty);
                 }
             }
 
