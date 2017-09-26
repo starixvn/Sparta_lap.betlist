@@ -192,7 +192,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="row">Excel row.</param>
         /// <param name="liveReport">Live report data.</param>
-        protected void AssignCommonData(IRow row, LiveReport liveReport)
+        private static void AssignCommonData(IRow row, LiveReport liveReport)
         {
             row.Cells[ColumnCustomerWl].SetCellValue(liveReport.CustomerWinLoss);
             row.Cells[ColumnCustomerComm].SetCellValue(liveReport.CustomerComm);
@@ -287,12 +287,6 @@ namespace Fanex.Athena.Excel.Report
             return currentRow + liveReportSportList.Count;
         }
 
-        /// <summary>
-        /// Assign data to sport type section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="currentRow">Excel row index.</param>
-        /// <returns>The row index after assign data.</returns>
         protected int AssignBySportsTypeData(ISheet sheet, int currentRow)
         {
             IList<LiveReport> liveReportSportList = _liveReportDetailList.BySports;
@@ -324,11 +318,6 @@ namespace Fanex.Athena.Excel.Report
             return currentRow + liveReportSportList.Count;
         }
 
-        /// <summary>
-        /// Assign data to summary section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <returns>The row index after assign data.</returns>
         protected int AssignTotalSummary(ISheet sheet)
         {
             int currentRow = RowContentTemplate + _liveReportList.Count;
@@ -348,14 +337,31 @@ namespace Fanex.Athena.Excel.Report
             return currentRow + 1;
         }
 
-        /// <summary>
-        /// Assign title for header.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="groupName">Group name.</param>
-        /// <param name="firstHeader">Title of the first header.</param>
-        /// <param name="rowTplIdx">Row template index.</param>
-        /// <param name="rowIndex">Excel row index.</param>
+        private static string GetLiveIndicatorString(int liveIndicator)
+        {
+            string title;
+            switch (liveIndicator)
+            {
+                case 0:
+                    title = ViewResources.NoneLive;
+                    break;
+
+                case 1:
+                    title = ViewResources.Live;
+                    break;
+
+                case 2:
+                    title = ViewResources.LiveAndNonLive;
+                    break;
+
+                default:
+                    title = string.Empty;
+                    break;
+            }
+
+            return title + ViewResources.Data;
+        }
+
         private void AssignCommonHeader(ISheet sheet, string groupName, string firstHeader, int rowTplIdx, int rowIndex)
         {
             var row1Header = new List<string>
@@ -390,32 +396,6 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerWl].SetCellValue(ViewResources.WinLoss);
             row.Cells[ColumnCustomerComm].SetCellValue(ViewResources.Comm);
             row.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
-        }
-
-        /// <summary>
-        /// Get live indicator string.
-        /// </summary>
-        /// <param name="liveIndicator">Live indicator.</param>
-        /// <returns>Live indicator string.</returns>
-        private string GetLiveIndicatorString(int liveIndicator)
-        {
-            string title = string.Empty;
-            switch (liveIndicator)
-            {
-                case 0:
-                    title = ViewResources.NoneLive;
-                    break;
-
-                case 1:
-                    title = ViewResources.Live;
-                    break;
-
-                case 2:
-                    title = ViewResources.LiveAndNonLive;
-                    break;
-            }
-
-            return title + ViewResources.Data;
         }
     }
 }

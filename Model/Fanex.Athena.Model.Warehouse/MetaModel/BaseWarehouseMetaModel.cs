@@ -12,7 +12,7 @@ namespace Fanex.Athena.Model.Warehouse.MetaModel
     /// <summary>
     /// BaseWarehouseMetaModel class.
     /// </summary>
-    public abstract class BaseWarehouseMetaModel : BaseMetaModel
+    public class BaseWarehouseMetaModel : BaseMetaModel
     {
         protected BaseWarehouseMetaModel()
         {

@@ -12,12 +12,8 @@ namespace Fanex.Athena.DataAccess.Core
     using Fanex.Common;
     using Fanex.Data;
 
-    public abstract class BaseDataAccess
+    public class BaseDataAccess
     {
-        protected BaseDataAccess()
-        {
-        }
-
         [CLSCompliant(false)]
         protected static void AddResultParam(IObjectDb db)
         {

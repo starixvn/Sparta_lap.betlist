@@ -275,11 +275,10 @@ namespace Fanex.Athena.DataAccess.BetList
 
                             result.Add(new DailyStatement
                             {
-                                // Add data to CustBalance Item List
                                 TransType = transTypeId.ToString(),
                                 CustId = metaModel.CustId,
-                                ExternalId = metaModel.ExternalId == null ? "0" : metaModel.ExternalId,
-                                SystemId = metaModel.SystemId == null ? "0" : metaModel.SystemId,
+                                ExternalId = metaModel.ExternalId ?? "0",
+                                SystemId = metaModel.SystemId ?? "0",
                                 FullStatementDate = $"{winlostDate:dddd} <br/> {winlostDate}",
                                 TransTypeHasBetList = TransTypeHasBetList.Contains(transType),
                                 Index = index++,

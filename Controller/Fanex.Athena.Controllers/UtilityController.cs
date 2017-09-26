@@ -67,7 +67,7 @@ namespace Fanex.Athena.Controllers
             int code;
             var message = string.Empty;
 
-            if (!int.TryParse(Request.QueryString["Code"] != null ? Request.QueryString["Code"] : "0", out code))
+            if (!int.TryParse(Request.QueryString["Code"] ?? "0", out code))
             {
                 code = -1;
             }
@@ -179,8 +179,8 @@ namespace Fanex.Athena.Controllers
 
                 if (string.IsNullOrEmpty(underMaintenanceTimeFrom) || string.IsNullOrEmpty(underMaintenanceTimeTo))
                 {
-                    underMaintenanceTimeFrom = Request.QueryString["from"] != null ? Request.QueryString["from"] : string.Empty;
-                    underMaintenanceTimeTo = Request.QueryString["to"] != null ? Request.QueryString["to"] : string.Empty;
+                    underMaintenanceTimeFrom = Request.QueryString["from"] ?? string.Empty;
+                    underMaintenanceTimeTo = Request.QueryString["to"] ?? string.Empty;
                 }
             }
             else if (!notReload)

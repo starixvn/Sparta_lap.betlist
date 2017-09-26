@@ -235,14 +235,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign data to EUR row.
-        /// </summary>
-        /// <param name="row">The current row.</param>
-        /// <param name="dailyRacingWinLoss">The daily racing win-loss.</param>
-        /// <param name="cell1">The value for first cell.</param>
-        /// <param name="cell2">The value for second cell.</param>
-        protected void AssignDataEur(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string cell1, string cell2)
+        private static void AssignDataEur(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string cell1, string cell2)
         {
             row.Cells[0].SetCellValue(cell1);
             row.Cells[1].SetCellValue(cell2);
@@ -264,14 +257,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmountDueTo].SetCellValue(dailyRacingWinLoss.AmountDueToRacingEUR);
         }
 
-        /// <summary>
-        /// Assign data to MYR row.
-        /// </summary>
-        /// <param name="row">The current row.</param>
-        /// <param name="dailyRacingWinLoss">The daily racing win-loss.</param>
-        /// <param name="cell1">The string value for first cell.</param>
-        /// <param name="cell2">The string value for second cell.</param>
-        protected void AssignDataMyr(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string cell1, string cell2)
+        private static void AssignDataMyr(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string cell1, string cell2)
         {
             row.Cells[0].SetCellValue(cell1);
             row.Cells[1].SetCellValue(cell2);
@@ -293,14 +279,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmountDueTo].SetCellValue(dailyRacingWinLoss.AmountDueToRacingMYR);
         }
 
-        /// <summary>
-        /// Assign data to row.
-        /// </summary>
-        /// <param name="row">The current row.</param>
-        /// <param name="dailyRacingWinLoss">The daily racing win-loss.</param>
-        /// <param name="cell1">The value for first cell.</param>
-        /// <param name="cell2">The value for second row.</param>
-        protected void AssignDataRow(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string cell1, string cell2)
+        private static void AssignDataRow(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string cell1, string cell2)
         {
             row.Cells[0].SetCellValue(cell1);
             row.Cells[1].SetCellValue(cell2);
@@ -322,14 +301,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmountDueTo].SetCellValue(dailyRacingWinLoss.AmountDueToRacing);
         }
 
-        /// <summary>
-        /// Assign data to USD row.
-        /// </summary>
-        /// <param name="row">The current row.</param>
-        /// <param name="dailyRacingWinLoss">The daily racing win-loss.</param>
-        /// <param name="cell1">The value  for first cell.</param>
-        /// <param name="cell2">The value for second cell.</param>
-        protected void AssignDataUsd(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string cell1, string cell2)
+        private static void AssignDataUsd(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string cell1, string cell2)
         {
             row.Cells[0].SetCellValue(cell1);
             row.Cells[1].SetCellValue(cell2);
@@ -351,14 +323,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmountDueTo].SetCellValue(dailyRacingWinLoss.AmountDueToRacingUSD);
         }
 
-        /// <summary>
-        /// Assign data to GBP row.
-        /// </summary>
-        /// <param name="row">The current row.</param>
-        /// <param name="dailyRacingWinLoss">The daily racing win-loss.</param>
-        /// <param name="cell1">The value  for first cell.</param>
-        /// <param name="cell2">The value for second cell.</param>
-        protected void AssignDataGbp(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string cell1, string cell2)
+        private static void AssignDataGbp(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string cell1, string cell2)
         {
             row.Cells[0].SetCellValue(cell1);
             row.Cells[1].SetCellValue(cell2);

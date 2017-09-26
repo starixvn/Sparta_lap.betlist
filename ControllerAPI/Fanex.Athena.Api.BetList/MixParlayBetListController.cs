@@ -45,7 +45,7 @@ namespace Fanex.Athena.Api.BetList
                 {
                     // Combo parlay.
                     tickets = tickets.OrderBy(x => x.MatchId).ToList();
-                    var length = Math.Min(texts.Count(), tickets.Count());
+                    var length = Math.Min(texts.Count(), tickets.Count);
                     for (int i = 0; i < length; i++)
                     {
                         var text = texts[i];

@@ -27,7 +27,7 @@ namespace Fanex.Athena.Controllers
     {
         private const string CustomerListResourceName = "CustomerList";
 
-        private static readonly int[] CasinoProducts = new int[]
+        private static readonly int[] CasinoProducts = new[]
         {
             ProductTypes.MicroGamingLiveCasino, ProductTypes.MicrogamingRNGCasino, ProductTypes.AllBet, ProductTypes.RngCasino, ProductTypes.Voidbridge
         };
@@ -74,7 +74,7 @@ namespace Fanex.Athena.Controllers
         {
             if (!language.Equals(DefaultLanguage, System.StringComparison.OrdinalIgnoreCase) && !System.IO.File.Exists(filePath))
             {
-                filePath = filePath.Replace(language, DefaultLanguage);
+                return filePath.Replace(language, DefaultLanguage);
             }
 
             return filePath;
@@ -95,22 +95,23 @@ namespace Fanex.Athena.Controllers
 
         private static string AddCasinoProducts(string content, IEnumerable<Product> products)
         {
+            var result = content;
             if (content.Contains("{casino-productlist}"))
             {
                 var casinoProducts = products.Where(x => CasinoProducts.Contains(x.ProductID)).Select(x => x.ProductName);
                 if (casinoProducts.Any())
                 {
-                    content = content.Replace("{casino-productlist}", string.Join<string>(", ", casinoProducts));
-                    content = content.Replace("{casino-productlist-section}", string.Empty);
-                    content = content.Replace("{/casino-productlist-section}", string.Empty);
+                    result = result.Replace("{casino-productlist}", string.Join<string>(", ", casinoProducts));
+                    result = result.Replace("{casino-productlist-section}", string.Empty);
+                    result = result.Replace("{/casino-productlist-section}", string.Empty);
                 }
                 else
                 {
-                    content = new Regex(@"\{casino-productlist-section\}.*\{/casino-productlist-section\}").Replace(content, string.Empty);
+                    result = new Regex(@"\{casino-productlist-section\}.*\{/casino-productlist-section\}").Replace(result, string.Empty);
                 }
             }
 
-            return content;
+            return result;
         }
 
         private static string RemoveProductSection(string content, IEnumerable<Product> products, int productId, string productCode)

@@ -37,7 +37,7 @@ namespace Fanex.Athena.Service.Report
         {
             var result = _settledMatchCountDataAccess.GetDataList(isShowAll, licenseeId);
 
-            return this.GetDataListAfterCheckProductAccess(result, producAccess);
+            return GetDataListAfterCheckProductAccess(result, producAccess);
         }
 
         #region Utility
@@ -141,7 +141,7 @@ namespace Fanex.Athena.Service.Report
 
         #endregion Convert DTO data to View data for display
 
-        private List<SettledMatchCountViewModel> GetDataListAfterCheckProductAccess(
+        private static IList<SettledMatchCountViewModel> GetDataListAfterCheckProductAccess(
          IEnumerable<SettledMatchCount> settledMatchCountList, ProductAccess productAccess)
         {
             var listAfterCheckProduct = settledMatchCountList.Where(item => CheckProductAccess(item.SportType, productAccess)).ToList();

@@ -84,7 +84,8 @@ namespace Fanex.Athena.Api.Report
 
                 if (property == null)
                 {
-                    string propertyName, productCode;
+                    string propertyName;
+                    string productCode;
 
                     if (sortBy.Contains(nameof(LicenseeWinLoss.LicenseeWL)))
                     {

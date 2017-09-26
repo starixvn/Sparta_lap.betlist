@@ -10,10 +10,7 @@ namespace Fanex.Athena.Model.Customer.MetaModel
     using System.Linq;
     using Core.MetaModel;
 
-    /// <summary>
-    /// BaseCustomerComMetaModel class.
-    /// </summary>
-    public abstract class BaseCustomerComMetaModel : BaseMetaModel
+    public class BaseCustomerComMetaModel : BaseMetaModel
     {
         public string Ip { get; set; }
 

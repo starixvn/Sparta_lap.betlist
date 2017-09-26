@@ -24,11 +24,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
     /// </summary>
     public class SportTypeDataAccess : BaseDataAccess, ISportTypeDataAccess
     {
-        public SportTypeDataAccess()
-            : base()
-        {
-        }
-
         public IEnumerable<SportProductItem> GetSportsAndProducts(int licenseeId, string languageCode, int? productId = null)
         {
             const string UspName = "Lrf_SelSportDetail";

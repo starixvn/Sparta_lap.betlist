@@ -22,10 +22,6 @@ namespace Fanex.Athena.DataAccess.Warehouse
     {
         private const string UspName = "Lrf_rpt_DWTopCustomerSel";
 
-        public TopCustomerDataAccess()
-        {
-        }
-
         public IList<TopCustomer> GetDataList(TopCustomerMetaModel metaModel)
         {
             var dataList = new List<TopCustomer>();

@@ -22,13 +22,5 @@ namespace Fanex.Athena.Model.Casino.MetaModel
         public int ModifyBy { get; set; }
 
         public string ModifyUserName { get; set; }
-
-        public byte FromSystem
-        {
-            get
-            {
-                return 4;
-            }
-        }
     }
 }

@@ -14,7 +14,7 @@ namespace Fanex.Athena.DataAccess.BetList
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.BetList.DTO;
 
-    public abstract class BaseBetListDataAccess : BaseDataAccess
+    public class BaseBetListDataAccess : BaseDataAccess
     {
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -139,12 +139,12 @@ namespace Fanex.Athena.DataAccess.BetList
                 return false;
             }
 
-            if (value.GetType() == typeof(bool))
+            if (value is bool)
             {
                 return Convert.ToBoolean(value);
             }
 
-            if (value.GetType() == typeof(int))
+            if (value is int)
             {
                 return Convert.ToInt32(value) > 0;
             }

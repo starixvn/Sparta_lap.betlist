@@ -13,7 +13,6 @@ namespace Fanex.Athena.Model.TotalBet.DTO
     /// </summary>
     public class TotalBetsBase
     {
-        private int _leagueId;
         private string _leagueName;
         private string _awayTeamName;
 
@@ -21,22 +20,11 @@ namespace Fanex.Athena.Model.TotalBet.DTO
 
         public string ShowTime { get; set; }
 
-        public int LeagueId
-        {
-            get
-            {
-                return _leagueId;
-            }
-
-            set
-            {
-                _leagueId = value;
-            }
-        }
+        public int LeagueId { get; set; }
 
         public string LeagueName
         {
-            get { return _leagueName ?? (_leagueName = CacheRef.GetLeagueName(_leagueId)); }
+            get { return _leagueName ?? (_leagueName = CacheRef.GetLeagueName(LeagueId)); }
         }
 
         public int MatchId { get; set; }

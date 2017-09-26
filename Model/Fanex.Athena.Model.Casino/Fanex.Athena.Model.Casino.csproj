@@ -52,7 +52,6 @@
     <Compile Include="DTO\RNGResultDetail\CasinoGameType.cs" />
     <Compile Include="DTO\RNGResultDetail\CasinoWinLossDetail.cs" />
     <Compile Include="DTO\RNGResultDetail\CasinoWinLossDetailHeader.cs" />
-    <Compile Include="MetaModel\CasinoStatusMetaModel.cs" />
     <Compile Include="MetaModel\RngCasinoBetSettingMetaModel.cs" />
     <Compile Include="MetaModel\RNGCasinoResultDetailMetaModel.cs" />
     <Compile Include="MetaModel\RNGCasinoResultMetaModel.cs" />

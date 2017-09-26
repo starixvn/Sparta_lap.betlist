@@ -181,7 +181,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected void AssignCommonData(IRow row, ColossusBetWinLoss data)
+        private static void AssignCommonData(IRow row, ColossusBetWinLoss data)
         {
             row.Cells[ColumnTurnover].SetCellValue(data.TurnOver);
             row.Cells[ColumnTotalTransaction].SetCellValue(data.TotalTransaction);
@@ -193,7 +193,52 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnGrandPrize].SetCellValue(data.GrandPrize);
         }
 
-        protected int AssignTotalData(ISheet sheet, int rowIndex)
+        private static IList<ColossusBetWinLoss> GetTotalCurrency(IEnumerable<ColossusBetWinLoss> dataList)
+        {
+            var listTotalCurrency = dataList.GroupBy(x => new { x.CurrencyName })
+                    .Select(group => new ColossusBetWinLoss
+                    {
+                        CurrencyName = group.Key.CurrencyName,
+                        TurnOver = group.Sum(a => a.TurnOver),
+                        TotalTransaction = group.Sum(a => a.TotalTransaction),
+                        MemberWinning = group.Sum(p => p.MemberWinning),
+                        CashOut = group.Sum(p => p.CashOut),
+                        CashOutShare = group.Sum(p => p.CashOutShare),
+                        CommissionShare = group.Sum(p => p.CommissionShare),
+                        GrandPrize = group.Sum(p => p.GrandPrize)
+                    }).ToList();
+
+            return listTotalCurrency;
+        }
+
+        private static string GenerateProductReportTitle(string fromDate, string toDate, string title)
+        {
+            StringBuilder reportTitle = new StringBuilder(string.Empty);
+            reportTitle.Append(ViewResources.ProductCB).Append(" ");
+            reportTitle.Append(ViewResources.WinLoss);
+            reportTitle.Append(string.Format(", {0} --> {1} - {2}", fromDate, toDate, title));
+            return reportTitle.ToString();
+        }
+
+        private int AssignGrandTotal(ISheet sheet, int rowIndex)
+        {
+            var currencyList = _summaryTotal.Keys.ToList();
+            currencyList.Reverse();
+
+            foreach (string currency in currencyList)
+            {
+                var row = sheet.CopyRow(TemplateSheet, RowGrantTotal, rowIndex);
+                AssignCommonData(row, _summaryTotal[currency]);
+                row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpperInvariant());
+
+                sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
+                rowIndex++;
+            }
+
+            return rowIndex;
+        }
+
+        private int AssignTotalData(ISheet sheet, int rowIndex)
         {
             int beginTotalRow = rowIndex;
             var totalCurrencyList = GetTotalCurrency(_winLossList);
@@ -215,51 +260,6 @@ namespace Fanex.Athena.Excel.Report
             sheet.MergeCells(rowIndex - totalCurrencyList.Count, 0, rowIndex - 1, 3);
 
             return rowIndex;
-        }
-
-        protected int AssignGrandTotal(ISheet sheet, int rowIndex)
-        {
-            var currencyList = _summaryTotal.Keys.ToList();
-            currencyList.Reverse();
-
-            foreach (string currency in currencyList)
-            {
-                var row = sheet.CopyRow(TemplateSheet, RowGrantTotal, rowIndex);
-                AssignCommonData(row, _summaryTotal[currency]);
-                row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpper());
-
-                sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
-                rowIndex++;
-            }
-
-            return rowIndex;
-        }
-
-        private static IList<ColossusBetWinLoss> GetTotalCurrency(IEnumerable<ColossusBetWinLoss> dataList)
-        {
-            var listTotalCurrency = dataList.GroupBy(x => new { x.CurrencyName })
-                    .Select(group => new ColossusBetWinLoss
-                    {
-                        CurrencyName = group.Key.CurrencyName,
-                        TurnOver = group.Sum(a => a.TurnOver),
-                        TotalTransaction = group.Sum(a => a.TotalTransaction),
-                        MemberWinning = group.Sum(p => p.MemberWinning),
-                        CashOut = group.Sum(p => p.CashOut),
-                        CashOutShare = group.Sum(p => p.CashOutShare),
-                        CommissionShare = group.Sum(p => p.CommissionShare),
-                        GrandPrize = group.Sum(p => p.GrandPrize)
-                    }).ToList();
-
-            return listTotalCurrency;
-        }
-
-        private string GenerateProductReportTitle(string fromDate, string toDate, string title)
-        {
-            StringBuilder reportTitle = new StringBuilder(string.Empty);
-            reportTitle.Append(ViewResources.ProductCB).Append(" ");
-            reportTitle.Append(ViewResources.WinLoss);
-            reportTitle.Append(string.Format(", {0} --> {1} - {2}", fromDate, toDate, title));
-            return reportTitle.ToString();
         }
     }
 }

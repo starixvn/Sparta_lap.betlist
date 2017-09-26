@@ -15,11 +15,11 @@ namespace Fanex.Athena.Service.Casino
     using CasinoLibrary.SBAgent;
     using Extension.Helper;
     using Fanex.Athena.Model.BetSettings.DTO.RngCasino;
-    using Fanex.Athena.Model.Casino.MetaModel;
     using Fanex.Athena.Service.Casino.Interfaces;
     using Fanex.Athena.Service.Core.Exception;
     using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Common;
+    using Model.Customer.MetaModel;
     using CustomerCasinoSetting = CasinoLibrary.SBAgent.Customer;
 
     #endregion Using
@@ -29,6 +29,8 @@ namespace Fanex.Athena.Service.Casino
     /// </summary>
     public class CasinoSetting : ICasinoSetting
     {
+        public const int SystemId = 4;
+
         #region ICasinoSetting Members
 
         /// <summary>
@@ -36,7 +38,7 @@ namespace Fanex.Athena.Service.Casino
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <returns>True if suspending is successful.</returns>
-        public bool UpdateCustSuspend(CasinoStatusMetaModel metaModel)
+        public bool UpdateCustSuspend(CustomerStatusMetaModel metaModel)
         {
             try
             {
@@ -48,7 +50,7 @@ namespace Fanex.Athena.Service.Casino
                                                         metaModel.Ip,
                                                         metaModel.ModifyById,
                                                         metaModel.ModifyByUsername,
-                                                        metaModel.SystemId);
+                                                        SystemId);
             }
             catch (System.Exception e)
             {
@@ -61,7 +63,7 @@ namespace Fanex.Athena.Service.Casino
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <returns>True if processing is successful.</returns>
-        public bool UpdateCustClosed(CasinoStatusMetaModel metaModel)
+        public bool UpdateCustClosed(CustomerStatusMetaModel metaModel)
         {
             try
             {
@@ -73,7 +75,7 @@ namespace Fanex.Athena.Service.Casino
                                                         metaModel.Ip,
                                                         metaModel.ModifyById,
                                                         metaModel.ModifyByUsername,
-                                                        metaModel.SystemId);
+                                                        SystemId);
             }
             catch (System.Exception e)
             {

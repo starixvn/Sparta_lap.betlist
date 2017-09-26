@@ -83,12 +83,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        /// <summary>
-        /// Get sports.
-        /// </summary>
-        /// <param name="dateValue">Date value.</param>
-        /// <param name="licenseeId">The licensee Id.</param>
-        /// <returns>The result value.</returns>
         public IList<Sport> GetSports(DateTime dateValue, int licenseeId)
         {
             const string UspName = "Lrf_Result_SportSelByDate";
@@ -119,12 +113,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        /// <summary>
-        /// Get leagues.
-        /// </summary>
-        /// <param name="dateValue">Date value.</param>
-        /// <param name="sportId">Sport ID value.</param>
-        /// <returns>The result value.</returns>
         public IList<League> GetLeagues(DateTime dateValue, int sportId)
         {
             const string UspName = "Lrf_Result_LeagueSelByDate";
@@ -159,11 +147,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        /// <summary>
-        /// Get Number Game match.
-        /// </summary>
-        /// <param name="metalModel">Meta model value.</param>
-        /// <returns>The result value.</returns>
         public IList<NumberGame> GetNumberGameMatches(ResultMetalModel metalModel)
         {
             const string UspName = "Lrf_Result_MatchSelNumberGameByLeague";
@@ -191,11 +174,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        /// <summary>
-        /// Get racing match.
-        /// </summary>
-        /// <param name="metalModel">Meta model value.</param>
-        /// <returns>The result value.</returns>
         public IList<Racing> GetRacingMatches(ResultMetalModel metalModel)
         {
             const string UspName = "Lrf_Result_RaceSelByMeeting";
@@ -308,46 +286,10 @@ namespace Fanex.Athena.DataAccess.Report
                                 results.Add(parlay);
                             }
 
-                            parlay.Sportbook.Add(new Sportsbook
-                            {
-                                Bettype = reader.HasColumn("bettype") ? reader.ToInt("bettype") : 0,
-                                BetID = reader.HasColumn("betcheck") ? reader.ToString("betcheck") : string.Empty,
-                                AwayId = reader.ToInt("awayID"),
-                                HomeId = reader.ToInt("homeID"),
-                                BetStatus = reader["betstatus"] != DBNull.Value ? reader.ToString("betstatus") : string.Empty,
-                                LeagueId = leagueId,
-                                MatchId = reader.ToInt("matchid"),
-                                EventStatus = reader.ToString("eventstatus"),
-                                FinalAwayScore = reader.ToNullableInt("finalawayscore"),
-                                HtAwayScore = reader.ToNullableInt("htawayscore"),
-                                Color = reader.HasColumn("lcolor") &&
-                                                              reader["lcolor"] != DBNull.Value ? reader.ToString("lcolor") : string.Empty,
-                                FinalHomeScore = reader.ToNullableInt("finalhomescore"),
-                                HtHomeScore = reader.ToNullableInt("hthomescore"),
-                                EventDate = DateTime.Parse(reader.ToString("eventdate")),
-                                IsNeutral = reader.ToBool("IsNeutral"),
-                                IsPending = reader.ToBool("IsPending"),
-                                KickOffTime = DateTime.Parse(reader.ToString("kickofftime")),
-                                MatchCode = reader.ToString("matchcode"),
-                                GoalRecord = reader.ToString("goalrecord"),
-                                IsHTCal = reader.ToBool("IsHTCal"),
-                                Calculate = reader.ToBool("Calculate"),
-                                RefNo = refNo.ToString(CultureInfo.InvariantCulture),
-                            });
+                            parlay.Sportbook.Add(ReadSportsbook(reader, refNo, leagueId));
                         }
 
-                        var gameDetails = GetGameDetails(reader);
-
-                        if (gameDetails.Count > 0)
-                        {
-                            foreach (var result in results)
-                            {
-                                foreach (var item in result.Sportbook)
-                                {
-                                    item.GameDetails.AddRange(gameDetails.Where(i => i.MatchId == item.MatchId));
-                                }
-                            }
-                        }
+                        AddGameDetails(reader, results);
 
                         return results;
                     }
@@ -358,6 +300,53 @@ namespace Fanex.Athena.DataAccess.Report
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);
             }
+        }
+
+        private static void AddGameDetails(IDataReader reader, IEnumerable<Parlay> results)
+        {
+            var gameDetails = GetGameDetails(reader);
+
+            if (!gameDetails.Any())
+            {
+                return;
+            }
+
+            foreach (var result in results)
+            {
+                foreach (var item in result.Sportbook)
+                {
+                    item.GameDetails.AddRange(gameDetails.Where(i => i.MatchId == item.MatchId));
+                }
+            }
+        }
+
+        private static Sportsbook ReadSportsbook(IDataReader reader, long refNo, int leagueId)
+        {
+            return new Sportsbook
+            {
+                Bettype = reader.HasColumn("bettype") ? reader.ToInt("bettype") : 0,
+                BetID = reader.HasColumn("betcheck") ? reader.ToString("betcheck") : string.Empty,
+                AwayId = reader.ToInt("awayID"),
+                HomeId = reader.ToInt("homeID"),
+                BetStatus = reader["betstatus"] != DBNull.Value ? reader.ToString("betstatus") : string.Empty,
+                LeagueId = leagueId,
+                MatchId = reader.ToInt("matchid"),
+                EventStatus = reader.ToString("eventstatus"),
+                FinalAwayScore = reader.ToNullableInt("finalawayscore"),
+                HtAwayScore = reader.ToNullableInt("htawayscore"),
+                Color = reader.HasColumn("lcolor") && reader["lcolor"] != DBNull.Value ? reader.ToString("lcolor") : string.Empty,
+                FinalHomeScore = reader.ToNullableInt("finalhomescore"),
+                HtHomeScore = reader.ToNullableInt("hthomescore"),
+                EventDate = DateTime.Parse(reader.ToString("eventdate")),
+                IsNeutral = reader.ToBool("IsNeutral"),
+                IsPending = reader.ToBool("IsPending"),
+                KickOffTime = DateTime.Parse(reader.ToString("kickofftime")),
+                MatchCode = reader.ToString("matchcode"),
+                GoalRecord = reader.ToString("goalrecord"),
+                IsHTCal = reader.ToBool("IsHTCal"),
+                Calculate = reader.ToBool("Calculate"),
+                RefNo = refNo.ToString(CultureInfo.InvariantCulture),
+            };
         }
 
         /// <summary>

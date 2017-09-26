@@ -240,10 +240,10 @@ namespace Fanex.Athena.Service.Customer
             {
                 if (!_appSettings.IsDisableRngCasino)
                 {
-                    var casinoMetaModel = new CasinoStatusMetaModel
+                    var casinoMetaModel = new CustomerStatusMetaModel
                     {
                         CustId = metaModel.CustId,
-                        LicenseeName = metaModel.LicenseeName.ToUpper(),
+                        LicenseeName = metaModel.LicenseeName.ToUpperInvariant(),
                         IsOn = metaModel.IsOn,
                         ModifyById = metaModel.ModifyById,
                         ModifyByUsername = metaModel.ModifyByUsername,
@@ -278,10 +278,10 @@ namespace Fanex.Athena.Service.Customer
             {
                 if (!_appSettings.IsDisableRngCasino)
                 {
-                    var casinoMetaModel = new CasinoStatusMetaModel
+                    var casinoMetaModel = new CustomerStatusMetaModel
                     {
                         CustId = metaModel.CustId,
-                        LicenseeName = metaModel.LicenseeName.ToUpper(),
+                        LicenseeName = metaModel.LicenseeName.ToUpperInvariant(),
                         IsOn = metaModel.IsOn,
                         ModifyById = metaModel.ModifyById,
                         ModifyByUsername = metaModel.ModifyByUsername,

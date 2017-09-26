@@ -255,7 +255,7 @@
             foreach (DataRow row in mainTable.Rows)
             {
                 var betType = Converter.ToInt(row["bettype"]);
-                AssignProduct(row, betType);
+                row[NewProductIdColumnName] = GetProductId(betType);
 
                 AssignMatchName(row, betType);
 
@@ -265,32 +265,34 @@
             return mainTable;
         }
 
-        private static void AssignProduct(DataRow row, int betType)
+        private static int GetProductId(int betType)
         {
             if (betType >= BetType81 && betType < BetType120)
             {
-                row[NewProductIdColumnName] = ProductTypes.NumberGame;
+                return ProductTypes.NumberGame;
             }
-            else if (betType >= BetType31 && betType <= BetType33)
+
+            if (betType >= BetType31 && betType <= BetType33)
             {
-                row[NewProductIdColumnName] = ProductTypes.Racing;
+                return ProductTypes.Racing;
             }
-            else if (betType >= BetType1101 && betType <= BetType1199)
+
+            if (betType >= BetType1101 && betType <= BetType1199)
             {
-                row[NewProductIdColumnName] = ProductTypes.LiveCasino;
+                return ProductTypes.LiveCasino;
             }
-            else if (betType >= BetType1201 && betType <= BetType1299)
+
+            if (betType >= BetType1201 && betType <= BetType1299)
             {
-                row[NewProductIdColumnName] = ProductTypes.VirtualSports;
+                return ProductTypes.VirtualSports;
             }
-            else if (betType >= BetType2700 && betType <= BetType2899)
+
+            if (betType >= BetType2700 && betType <= BetType2899)
             {
-                row[NewProductIdColumnName] = ProductTypes.VirtualSports2;
+                return ProductTypes.VirtualSports2;
             }
-            else
-            {
-                row[NewProductIdColumnName] = ProductTypes.Sportsbook;
-            }
+
+            return ProductTypes.Sportsbook;
         }
 
         private static void AssignMatchName(DataRow row, int betType)

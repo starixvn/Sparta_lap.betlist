@@ -33,28 +33,16 @@ namespace Fanex.Athena.Extension.Utility
 
         #region IComparer<T>
 
-        /// <summary>
-        /// Compare two values.
-        /// </summary>
-        /// <param name="x">First value.</param>
-        /// <param name="y">Second value.</param>
-        /// <returns>Compared result.</returns>
         public override int Compare(T x, T y)
         {
-            // Get property values
             var firstValue = (GetPropertyValue(x, PropertyName) as Dictionary<TKey, TValue>)[_key];
             var secondValue = (GetPropertyValue(y, PropertyName) as Dictionary<TKey, TValue>)[_key];
 
-            // Determine sort order
-            if (Direction == ListSortDirection.Ascending)
-            {
-                return CompareAscending(firstValue, secondValue);
-            }
-            else
-            {
-                return CompareDescending(firstValue, secondValue);
-            }
+            return Direction == ListSortDirection.Ascending ?
+                CompareAscending(firstValue, secondValue) :
+                CompareDescending(firstValue, secondValue);
         }
-        #endregion
+
+        #endregion IComparer<T>
     }
 }

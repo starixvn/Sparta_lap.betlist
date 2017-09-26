@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Model.Core.Helper
 {
     using System.Diagnostics.CodeAnalysis;
+    using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.Core.DTO.Common;
 
     public static class ProductValidator
@@ -48,59 +49,61 @@
                 return false;
             }
 
-            var code = productCode.ToUpper();
+            var code = productCode.ToUpperInvariant();
             switch (code)
             {
                 case Product.SB:
-                    return bettype <= SBMinBetType || (bettype >= SBMinOfMaxBettype && bettype <= SBMaxBetType) ||
-                        (bettype >= SBMinSportingSolutionBetType && bettype <= SBMaxSportingSolutionBetType);
+                    return bettype <= SBMinBetType ||
+                        IntegerHelper.IsInRange(bettype, SBMinOfMaxBettype, SBMaxBetType) ||
+                        IntegerHelper.IsInRange(bettype, SBMinSportingSolutionBetType, SBMaxSportingSolutionBetType);
 
                 case Product.BA:
-                    return bettype <= SBMinBetType || (bettype >= SBMinOfMaxBettype && bettype <= SBMaxBetType);
+                    return bettype <= SBMinBetType || IntegerHelper.IsInRange(bettype, SBMinOfMaxBettype, SBMaxBetType);
 
                 case Product.RB:
-                    return bettype >= RBMinBetType && bettype <= RBMaxBetType;
+                    return IntegerHelper.IsInRange(bettype, RBMinBetType, RBMaxBetType);
 
                 case Product.NG:
-                    return bettype >= NGMinBetType && bettype <= NGMaxBetType;
+                    return IntegerHelper.IsInRange(bettype, NGMinBetType, NGMaxBetType);
 
                 case Product.VS:
-                    return bettype >= VSMinBetType && bettype <= VSMaxBetType;
+                    return IntegerHelper.IsInRange(bettype, VSMinBetType, VSMaxBetType);
 
                 case Product.LC:
-                    return bettype >= LCMinBetType && bettype <= LCMaxBetType;
+                    return IntegerHelper.IsInRange(bettype, LCMinBetType, LCMaxBetType);
 
                 case Product.BG:
-                    return bettype >= BGMinBetType && bettype <= BGMaxBetType;
+                    return IntegerHelper.IsInRange(bettype, BGMinBetType, BGMaxBetType);
 
                 case Product.CS:
-                    return (bettype >= CSMinBetType && bettype <= CSMaxBetType) ||
-                        (bettype >= CSNewMinBetType && bettype <= CSNewMaxBetType);
+                    return IntegerHelper.IsInRange(bettype, CSMinBetType, CSMaxBetType) ||
+                        IntegerHelper.IsInRange(bettype, CSNewMinBetType, CSNewMaxBetType);
 
                 case Product.KN:
-                    return bettype >= KenoMinBetType && bettype <= KenoMaxBetType;
+                    return IntegerHelper.IsInRange(bettype, KenoMinBetType, KenoMaxBetType);
 
                 case Product.MGCLC:
                 case Product.MGCRNG:
-                    return bettype >= MicrogamingMinBetType && bettype <= MicrogamingMaxBetType;
+                    return IntegerHelper.IsInRange(bettype, MicrogamingMinBetType, MicrogamingMaxBetType);
 
                 case Product.VB:
-                    return bettype >= VoidbridgeMinBetType && bettype <= VoidbridgeMaxBetType;
+                    return IntegerHelper.IsInRange(bettype, VoidbridgeMinBetType, VoidbridgeMaxBetType);
 
                 case Product.AB:
-                    return bettype >= AllBetMinBetType && bettype <= AllBetMaxBetType;
+                    return IntegerHelper.IsInRange(bettype, AllBetMinBetType, AllBetMaxBetType);
 
                 case Product.FW:
-                    return bettype >= FWMinBetType && bettype <= FWMaxBetType;
+                    return IntegerHelper.IsInRange(bettype, FWMinBetType, FWMaxBetType);
 
                 case Product.VS2:
-                    return bettype >= VS2MinBetType && bettype <= VS2MaxBetType;
+                    return IntegerHelper.IsInRange(bettype, VS2MinBetType, VS2MaxBetType);
 
                 case Product.LT:
-                    return bettype >= LTMinBetType && bettype <= LTMaxBetType;
-            }
+                    return IntegerHelper.IsInRange(bettype, LTMinBetType, LTMaxBetType);
 
-            return false;
+                default:
+                    return false;
+            }
         }
     }
 }

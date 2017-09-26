@@ -45,7 +45,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
 
             var racing = GetBetSettingCommonParam();
-            var raceTypes = new [] { "151_31", "151_41", "151_51", "152_41", "152_51", "153_51" };
+            var raceTypes = new[] { "151_31", "151_41", "151_51", "152_41", "152_51", "153_51" };
             var betSettings = new Dictionary<string, RacingBetSetting>();
             foreach (var item in raceTypes)
             {

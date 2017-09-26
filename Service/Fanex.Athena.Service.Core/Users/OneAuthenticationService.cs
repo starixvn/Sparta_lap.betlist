@@ -258,7 +258,7 @@
                 result = JsonConvert.DeserializeObject<IList<PortalSystemFunction>>(temp);
             }
 
-            return result == null ? new List<PortalSystemFunction>() : result;
+            return result ?? new List<PortalSystemFunction>();
         }
     }
 }

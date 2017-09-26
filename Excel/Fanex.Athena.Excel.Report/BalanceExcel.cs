@@ -165,13 +165,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign data to common cell.
-        /// </summary>
-        /// <param name="row">The row of sheet.</param>
-        /// <param name="balanceDetails">The detail balance.</param>
-        /// <param name="timeText">The time text.</param>
-        protected void AssignCommonData(IRow row, BalanceDetails balanceDetails, string timeText)
+        private static void AssignCommonData(IRow row, BalanceDetails balanceDetails, string timeText)
         {
             row.Cells[ColumnDate].SetCellValue(timeText);
             row.Cells[ColumnLicenseeWl].SetCellValue(balanceDetails.LicWinLoss);
@@ -188,7 +182,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign customer information.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void AssignCustomerInformation(ISheet sheet)
+        private void AssignCustomerInformation(ISheet sheet)
         {
             const string FormatTotal = "{0} / {1} / {2}";
             int lastColumnIndex = GetLastIndex();
@@ -215,7 +209,7 @@ namespace Fanex.Athena.Excel.Report
         /// <returns>The integer value.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
             Justification = "Reviewed. Suppression is OK here.")]
-        protected int GetLastIndex()
+        private int GetLastIndex()
         {
             var listColumn = new List<int>
             {

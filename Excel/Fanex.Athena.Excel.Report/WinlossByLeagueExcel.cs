@@ -207,7 +207,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected void AssignCommonData(IRow row, WinLossByLeague winlossByLeague)
+        private static void AssignCommonData(IRow row, WinLossByLeague winlossByLeague)
         {
             row.Cells[ColumnTurnover].SetCellValue(winlossByLeague.TurnOver);
             row.Cells[ColumnBetCount].SetCellValue(winlossByLeague.BetCount);

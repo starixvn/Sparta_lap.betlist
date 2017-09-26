@@ -245,12 +245,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign common data to excel row .
-        /// </summary>
-        /// <param name="row">Excel row.</param>
-        /// <param name="turnover">Turnover data.</param>
-        protected void AssignCommonData(IRow row, TurnoverDTO turnover)
+        private static void AssignCommonData(IRow row, TurnoverDTO turnover)
         {
             row.Cells[ColumnDeposit].SetCellValue(turnover.Deposit);
             row.Cells[ColumnWithdrawal].SetCellValue(turnover.Withdrawal);

@@ -12,10 +12,8 @@ namespace Fanex.Athena.Extension.Helper
     {
         public static string GetCurrencyColumnName(string columnName, bool isConvert, string baseCurrency)
         {
-            var columnNameSuffix = isConvert ? baseCurrency : string.Empty;
-
-            columnName = columnName + columnNameSuffix;
-            return columnName;
+            var suffix = isConvert ? baseCurrency : string.Empty;
+            return columnName + suffix;
         }
 
         public static string GetProductName(string productCode)

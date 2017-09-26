@@ -29,6 +29,8 @@ namespace Fanex.Athena.Service.Casino
     /// </summary>
     public class RNGCasinoService : IRNGCasinoService
     {
+        private const int System = 4;
+
         private readonly ILanguageService _langService = new LanguageService();
         private readonly IExChangeRateService _exchangeRateService = new ExChangeRateService();
 
@@ -131,7 +133,7 @@ namespace Fanex.Athena.Service.Casino
                 string.Join(",", metaModel.CustomerId),
                 metaModel.ModifyBy,
                 metaModel.ModifyUserName,
-                metaModel.FromSystem,
+                System,
                 metaModel.SiteName);
             var success = false;
             try
@@ -142,7 +144,7 @@ namespace Fanex.Athena.Service.Casino
                      metaModel.FromIp,
                      metaModel.ModifyBy,
                      metaModel.ModifyUserName,
-                     metaModel.FromSystem);
+                     System);
                 if (!success)
                 {
                     LogService.Error(API_ERROR_MSG + string.Join(",", metaModel.CustomerId) + additionalErrorMsg);
@@ -186,8 +188,9 @@ namespace Fanex.Athena.Service.Casino
 
         private static DataTable GetResultFromAPI(RNGCasinoResultMetaModel metalModel)
         {
+            const string BetType = "Casino";
             var casinoLib = new CasinoLibrary.SBAgent.Report();
-            var dataTable = casinoLib.WinLossHandHistory(metalModel.RefNo, metalModel.BetType, RNGCasinoSetting.CasinoGroup1, metalModel.IsShowPic);
+            var dataTable = casinoLib.WinLossHandHistory(metalModel.RefNo, BetType, RNGCasinoSetting.CasinoGroup1, metalModel.IsShowPic);
             if (dataTable == null)
             {
                 dataTable = casinoLib.RealTimeWinLossHandHistory(

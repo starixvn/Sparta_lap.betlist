@@ -84,9 +84,7 @@ namespace Fanex.Athena.Service.BetSettings
                 }
                 else if (!setting.CheckedGroups.Contains(setting.Group))
                 {
-                    setting.CheckedGroups =
-                        setting.CheckedGroups.Concat(new[] { setting.Group })
-                        .OrderBy(x => x).ToArray();
+                    setting.CheckedGroups = setting.CheckedGroups.Concat(new[] { setting.Group }).OrderBy(x => x).ToArray();
                 }
             }
 

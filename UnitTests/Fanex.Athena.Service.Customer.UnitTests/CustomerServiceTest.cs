@@ -511,9 +511,9 @@
             _productService.GetProductAccess(LicenseeId, string.Empty).Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
             _appSettings.IsDisableRngCasino.Returns(false);
 
-            _casinoSetting.UpdateCustClosed(Arg.Is<CasinoStatusMetaModel>(param =>
+            _casinoSetting.UpdateCustClosed(Arg.Is<CustomerStatusMetaModel>(param =>
                                         param.CustId == metaModel.CustId &&
-                                        param.LicenseeName == metaModel.LicenseeName.ToUpper() &&
+                                        param.LicenseeName == metaModel.LicenseeName.ToUpperInvariant() &&
                                         param.IsOn == metaModel.IsOn &&
                                         param.ModifyById == metaModel.ModifyById &&
                                         param.ModifyByUsername == metaModel.ModifyByUsername &&
@@ -550,9 +550,9 @@
             _productService.GetProductAccess(LicenseeId, string.Empty).Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
             _appSettings.IsDisableRngCasino.Returns(false);
 
-            _casinoSetting.UpdateCustClosed(Arg.Is<CasinoStatusMetaModel>(param =>
+            _casinoSetting.UpdateCustClosed(Arg.Is<CustomerStatusMetaModel>(param =>
                                         param.CustId == metaModel.CustId &&
-                                        param.LicenseeName == metaModel.LicenseeName.ToUpper() &&
+                                        param.LicenseeName == metaModel.LicenseeName.ToUpperInvariant() &&
                                         param.IsOn == metaModel.IsOn &&
                                         param.ModifyById == metaModel.ModifyById &&
                                         param.ModifyByUsername == metaModel.ModifyByUsername &&
@@ -647,9 +647,9 @@
             _productService.GetProductAccess(LicenseeId, string.Empty).Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
             _appSettings.IsDisableRngCasino.Returns(false);
 
-            _casinoSetting.UpdateCustSuspend(Arg.Is<CasinoStatusMetaModel>(param =>
+            _casinoSetting.UpdateCustSuspend(Arg.Is<CustomerStatusMetaModel>(param =>
                                         param.CustId == metaModel.CustId &&
-                                        param.LicenseeName == metaModel.LicenseeName.ToUpper() &&
+                                        param.LicenseeName == metaModel.LicenseeName.ToUpperInvariant() &&
                                         param.IsOn == metaModel.IsOn &&
                                         param.ModifyById == metaModel.ModifyById &&
                                         param.ModifyByUsername == metaModel.ModifyByUsername &&
@@ -686,9 +686,9 @@
             _productService.GetProductAccess(LicenseeId, string.Empty).Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
             _appSettings.IsDisableRngCasino.Returns(false);
 
-            _casinoSetting.UpdateCustSuspend(Arg.Is<CasinoStatusMetaModel>(param =>
+            _casinoSetting.UpdateCustSuspend(Arg.Is<CustomerStatusMetaModel>(param =>
                                         param.CustId == metaModel.CustId &&
-                                        param.LicenseeName == metaModel.LicenseeName.ToUpper() &&
+                                        param.LicenseeName == metaModel.LicenseeName.ToUpperInvariant() &&
                                         param.IsOn == metaModel.IsOn &&
                                         param.ModifyById == metaModel.ModifyById &&
                                         param.ModifyByUsername == metaModel.ModifyByUsername &&

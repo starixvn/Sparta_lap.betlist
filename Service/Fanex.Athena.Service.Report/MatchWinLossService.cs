@@ -164,17 +164,12 @@ namespace Fanex.Athena.Service.Report
 
         private static string GetLeagueName(MatchWinLoss matchWinLoss)
         {
-            switch (matchWinLoss.ProductName)
-            {
-                case Product.RB:
-                    return ViewResources.ProductRB + " - " + CacheRef.GetLeagueName(matchWinLoss.LeagueId);
-
-                default:
-                    return CacheRef.GetLeagueName(matchWinLoss.LeagueId);
-            }
+            return matchWinLoss.ProductName == Product.RB ?
+                ViewResources.ProductRB + " - " + CacheRef.GetLeagueName(matchWinLoss.LeagueId) :
+                CacheRef.GetLeagueName(matchWinLoss.LeagueId);
         }
 
-        private string GetMatchName(MatchWinLoss matchWinLoss)
+        private static string GetMatchName(MatchWinLoss matchWinLoss)
         {
             switch (matchWinLoss.ProductName)
             {
