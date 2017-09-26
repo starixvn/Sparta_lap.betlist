@@ -15,7 +15,7 @@ module.exports = __webpack_require__(193);
 /***/ 189:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 8/18/2017 12:54:23 PM
+﻿// Generated at: 9/26/2017 12:41:12 PM
 window._language_en_US = {
 AA:"AA",
 AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -959,7 +959,7 @@ YouNotChooseAnyCustomerMsg:"You did not choose any customers."
 /***/ 190:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 8/14/2017 2:21:49 PM
+﻿// Generated at: 9/26/2017 12:41:12 PM
 window._language_zh_CN = {
 AA:"客客",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -1533,6 +1533,7 @@ ProductNG:"百练赛",
 ProductRB:"赛事",
 ProductSB:"体育博彩",
 ProductVS:"虚拟运动",
+ProductVS2:"虚拟运动2",
 PShare:"P.Share",
 PWin:"P.Win",
 Q1:"1Q",
@@ -1769,7 +1770,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 191:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 8/14/2017 2:21:49 PM
+﻿// Generated at: 9/26/2017 12:41:12 PM
 window._language_zh_TW = {
 AA:"客客",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -2343,6 +2344,7 @@ ProductNG:"百練賽",
 ProductRB:"賽事",
 ProductSB:"體育博彩",
 ProductVS:"虛擬運動",
+ProductVS2:"虛擬運動2",
 PShare:"P.Share",
 PWin:"P.Win",
 Q1:"1Q",
@@ -2579,7 +2581,7 @@ YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 /***/ 192:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 8/14/2017 2:21:49 PM
+﻿// Generated at: 9/26/2017 12:41:12 PM
 window._language_zh_Hans = {
 AA:"客客",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -3140,6 +3142,7 @@ ProductNG:"百练赛",
 ProductRB:"赛事",
 ProductSB:"体育博彩",
 ProductVS:"虚拟运动",
+ProductVS2:"虚拟运动2",
 PShare:"P.Share",
 PWin:"P.Win",
 Q1:"1Q",
@@ -3375,7 +3378,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 193:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 8/14/2017 2:21:49 PM
+﻿// Generated at: 9/26/2017 12:41:12 PM
 window._language_ko_KR = {
 AA:"AA",
 AccessDeniedMsg:"죄송합니다. 이 페이지에 접근할 권한이 없습니다.",

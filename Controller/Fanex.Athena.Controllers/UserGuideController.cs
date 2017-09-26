@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
@@ -14,6 +15,7 @@ namespace Fanex.Athena.Controllers
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
+    using Model.Core.DTO.Common;
     using ONEbook.UM.Filters;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
@@ -53,7 +55,7 @@ namespace Fanex.Athena.Controllers
             var content = GetFileContent(resourceName);
 
             content = resourceName.Equals(CustomerListResourceName, System.StringComparison.OrdinalIgnoreCase) ?
-                content.Replace("{rooturl}", Url.Content("~")) : AddCasinoProductList(content);
+                content.Replace("{rooturl}", Url.Content("~")) : AddSpecificProductList(content);
 
             return View("~/Views/UserGuide/Index.cshtml", null, content);
         }
@@ -91,11 +93,10 @@ namespace Fanex.Athena.Controllers
             }
         }
 
-        private string AddCasinoProductList(string content)
+        private static string AddCasinoProducts(string content, IEnumerable<Product> products)
         {
             if (content.Contains("{casino-productlist}"))
             {
-                var products = _productService.GetProductList(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
                 var casinoProducts = products.Where(x => CasinoProducts.Contains(x.ProductID)).Select(x => x.ProductName);
                 if (casinoProducts.Any())
                 {
@@ -109,6 +110,36 @@ namespace Fanex.Athena.Controllers
                 }
             }
 
+            return content;
+        }
+
+        private static string RemoveProductSection(string content, IEnumerable<Product> products, int productId, string productCode)
+        {
+            var openingTag = "{" + productCode + "-productlist-section}";
+            if (content.Contains(openingTag))
+            {
+                if (products.Any(x => x.ProductID == productId))
+                {
+                    var closingTag = "{/" + productCode + "-productlist-section}";
+                    content = content.Replace(openingTag, string.Empty);
+                    content = content.Replace(closingTag, string.Empty);
+                }
+                else
+                {
+                    var pattern = @"\{" + productCode + @"-productlist-section\}.*\{/" + productCode + @"-productlist-section\}";
+                    content = new Regex(pattern).Replace(content, string.Empty);
+                }
+            }
+
+            return content;
+        }
+
+        private string AddSpecificProductList(string content)
+        {
+            var products = _productService.GetProductList(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
+            content = AddCasinoProducts(content, products);
+            content = RemoveProductSection(content, products, ProductTypes.VirtualSports, "VS");
+            content = RemoveProductSection(content, products, ProductTypes.VirtualSports2, "VS2");
             return content;
         }
     }

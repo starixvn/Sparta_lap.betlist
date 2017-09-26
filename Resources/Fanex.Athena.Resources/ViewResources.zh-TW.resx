@@ -2581,4 +2581,8 @@
   <data name="Euro" xml:space="preserve">
     <value>歐洲</value>
   </data>
+  <data name="ProductVS2" xml:space="preserve">
+    <value>虛擬運動2</value>
+    <comment>83759</comment>
+  </data>
 </root>
