@@ -15,7 +15,7 @@
 <div class="data-content">
     <!--Title-->
     <div class="content-title">
-        @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
+        @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName @(Model.Param.IsFakeLicensee ? string.Empty : "(" + Model.Param.UserName + ")")
     </div>
     <!--/Title-->
     <!--Header-->

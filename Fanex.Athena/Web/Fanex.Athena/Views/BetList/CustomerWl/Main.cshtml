@@ -9,9 +9,10 @@
 }
 @section ContentTitle
 {
-    @(ViewResources.Customer + " " + ViewResources.BetList) @Model.FromDate.ToShortDateString()<span class="header-title-arrow">
-        → </span>@Model.ToDate.ToShortDateString() - @(Model.ExternalId)(@(Model.SystemId))
-    - <span class="base-currency">@RazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>    
+    @(ViewResources.Customer + " " + ViewResources.BetList) @Model.FromDate.ToShortDateString()
+    <span class="header-title-arrow"> → </span>
+    @Model.ToDate.ToShortDateString() - @Model.ExternalId@(Model.IsFakeLicensee ? string.Empty : "(" + Model.SystemId + ")") -
+    <span class="base-currency">@RazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
 }
 @{
     <input type="hidden" id="ApiUrl" value="api/CustomerWinLossBetList/Index" />

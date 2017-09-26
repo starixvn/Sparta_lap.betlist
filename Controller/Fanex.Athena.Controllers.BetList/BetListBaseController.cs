@@ -4,6 +4,7 @@
 
     using System;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using DataAccess.Core.Configuration;
@@ -125,6 +126,7 @@
             metaModel.ToDate = DateTime.SpecifyKind(metaModel.ToDate.Date, DateTimeKind.Utc);
             metaModel.Date = DateTime.SpecifyKind(metaModel.Date.Date, DateTimeKind.Utc);
 
+            metaModel.IsFakeLicensee = AppSettings.FakeLicenseeList.Contains(metaModel.LicenseeId);
             return metaModel;
         }
 

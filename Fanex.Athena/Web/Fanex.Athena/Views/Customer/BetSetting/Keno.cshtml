@@ -15,7 +15,7 @@
     var hasData = Model.MainData.Count > 0;
 }
 <div class="content-title" style="width: 855px">
-    @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
+    @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName @(Model.Param.IsFakeLicensee ? string.Empty : "(" + Model.Param.UserName + ")")
 </div>
 @Html.Hidden("editable", Model.Editable)
 @Html.Hidden("dataCount", (Model.MainData == null ? 0 : Model.MainData.Count))

@@ -5946,7 +5946,6 @@
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\EditPermission.cshtml" />
     <Content Include="Views\Account\AssignCurrency.cshtml" />
-    <Content Include="Views\BetList\PlatformWinLoss\Main.cshtml" />
     <Content Include="Views\Customer\CustomerLog\Action\2801.cshtml" />
     <Content Include="Views\Account\PermissionPage.cshtml" />
     <Content Include="Views\Shared\_AccountLayout.cshtml" />

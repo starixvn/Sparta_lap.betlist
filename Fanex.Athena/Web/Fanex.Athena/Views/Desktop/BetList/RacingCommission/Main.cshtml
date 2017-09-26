@@ -6,10 +6,9 @@
 @model Fanex.Athena.Model.BetList.MetaModel.BetListMetaModel
 @section ContentTitle
 {
-    @ViewResources.CustomerBetList @Model.FromDate.ToShortDateString()<span class="header-title-arrow">
-        →
-    </span>@Model.ToDate.ToShortDateString() - @(Model.ExternalId)(@(Model.SystemId))
-    - <span class="base-currency">@DesktopRazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
+    @ViewResources.CustomerBetList @Model.FromDate.ToShortDateString()
+    <span class="header-title-arrow"> → </span>@Model.ToDate.ToShortDateString() - @Model.ExternalId@(Model.IsFakeLicensee ? string.Empty : "(" + Model.SystemId + ")") -
+    <span class="base-currency">@DesktopRazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
 }
 @section BackButton
 {
