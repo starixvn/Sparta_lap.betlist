@@ -103,7 +103,6 @@
   <ItemGroup>
     <Compile Include="Common\BetTypeService.cs" />
     <Compile Include="Common\CurrencyService.cs" />
-    <Compile Include="Common\ExChangeRateService.cs" />
     <Compile Include="Common\FunctionService.cs" />
     <Compile Include="Common\FunctionStorage.cs" />
     <Compile Include="Common\IFunctionStorage.cs" />

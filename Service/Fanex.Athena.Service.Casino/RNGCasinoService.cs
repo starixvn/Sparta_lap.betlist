@@ -10,6 +10,8 @@ namespace Fanex.Athena.Service.Casino
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using DataAccess.Core.Common;
+    using DataAccess.Core.Common.Interfaces;
     using Extension.Helper;
     using Fanex.Athena.Model.Casino.DTO;
     using Fanex.Athena.Model.Casino.DTO.RNGResultDetail;
@@ -24,21 +26,19 @@ namespace Fanex.Athena.Service.Casino
     using Fanex.Common;
     using Fanex.Logging;
 
-    /// <summary>
-    /// RNG Casino service class.
-    /// </summary>
     public class RNGCasinoService : IRNGCasinoService
     {
         private const int System = 4;
 
-        private readonly ILanguageService _langService = new LanguageService();
-        private readonly IExChangeRateService _exchangeRateService = new ExChangeRateService();
+        private readonly ILanguageService _langService;
+        private readonly IExChangeRateDataAccess _exchangeRateService;
 
-        /// <summary>
-        /// Get RNG Casino Result.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The RNG Casino result list.</returns>
+        public RNGCasinoService()
+        {
+            _langService = new LanguageService();
+            _exchangeRateService = new ExChangeRateDataAccess();
+        }
+
         public List<RNGCasinoResult> GetRNGCasinoResult(RNGCasinoResultMetaModel metaModel)
         {
             var casinos = new List<RNGCasinoResult>();
