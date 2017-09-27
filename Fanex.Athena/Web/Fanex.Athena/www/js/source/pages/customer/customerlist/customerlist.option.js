@@ -246,8 +246,6 @@
         };
 
         var getColModel = function (productAccess, isAllowedCustomerCommission) {
-            systemIdColumn.hidden = Site.isFakeLicensee();
-
             var temp = Site.clone(colModelList);
           
             if (isAllowedCustomerCommission) {

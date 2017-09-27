@@ -6,6 +6,7 @@ var CustomerList = (function ($) {
     var ajaxRequest = null;
     var _$specialLevelCell, _$oddsGroupCell = null;
     var _isAllowedCustomerCommission = false;
+    var _isAllowedUserEditComm;
     var _productAccess = null;
     var _cacheData = null;
     var _checkedAllRows = false;
@@ -196,7 +197,7 @@ var CustomerList = (function ($) {
         var gridOption = CustomersOption.getGridOption(_productAccess, _isAllowedCustomerCommission);
 
         // Change formatter for Index col
-        if (hasData && _isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
+        if (hasData && _isAllowedCustomerCommission && showingColumns["Group"] !== undefined && _isAllowedUserEditComm) {
             gridOption.colModel[0].formatter = function (cellValue, options, rowObject) {
                 var checkedText = _checkedAllRows || _checkedCustomerObject[rowObject.CustId] === true ? "checked" : "";
                 return "<input type='checkbox' " + checkedText + " title='" + rowObject.CustId +
@@ -258,7 +259,7 @@ var CustomerList = (function ($) {
         reportGrid.jqGrid(gridOption);
         CustomersOption.setGroupHeaderColumns(reportGrid);
 
-        if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
+        if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined && _isAllowedUserEditComm) {
             $("#jqgh_ReportGrid_Index").attr("class", "").html("<input type='checkbox' class='' id='CheckAll' />");
         } else {
             $("#jqgh_ReportGrid_Index").html("#");
@@ -414,6 +415,7 @@ var CustomerList = (function ($) {
             CustomerList.initOddGroupOption();
             $("#SubmitButtonComm").prop("disabled", false);
             _isAllowedCustomerCommission = $("#IsAllowedCustomerCommission").val() === "True";
+            _isAllowedUserEditComm = $("#IsAllowedUserEditComm").val() === "True";
             _productAccess = JSON.parse($("#ProductAccess").val());
             addGridCheckBoxesEvent();
             Site.addUserGuide({

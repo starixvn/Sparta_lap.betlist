@@ -275,7 +275,7 @@ namespace Fanex.Athena.Controllers.Customer
                 items.Add(new CheckedItem { Name = BASTATUS, Checked = true });
             }
 
-            if (licenseeSession.IsAllowedCustomerComm)
+            if (licenseeSession.IsAllowedCustomerComm && !isFakeLicensee)
             {
                 items.Insert(0, new CheckedItem { Name = GROUP, Checked = true });
                 items.Add(new CheckedItem { Name = CUSTOMERCOMM, Checked = true });

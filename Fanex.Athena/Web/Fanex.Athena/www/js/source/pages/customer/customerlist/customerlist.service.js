@@ -3,7 +3,7 @@ define(["jquery", "common/site", "./customerlist.option", "lib/jqgrid/jquery.jqg
     "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension"],
 function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerListState) {
     var _POPUP_LIST = ["#ViewOptionList", "#update-cust-status-popup", "#LevelListContainer", "#OddsGroupListContainer"];
-    var _isAllowedCustomerCommission;
+    var _isAllowedCustomerCommission, _isAllowedUserEditComm;
     var _productAccess;
     var _ajaxRequest = null;
 
@@ -12,6 +12,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
     var _me = {
         initialize: function () {
             _isAllowedCustomerCommission = $("#IsAllowedCustomerCommission").val() === "True";
+            _isAllowedUserEditComm = $("#IsAllowedUserEditComm").val() === "True";
             _productAccess = JSON.parse($("#ProductAccess").val());
             _state = CustomerListState.getState();
         },
@@ -132,7 +133,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
             reportGrid.jqGrid(gridOption);
             CustomerListOption.setGroupHeaderColumns(reportGrid);
 
-            if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
+            if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined && _isAllowedUserEditComm) {
                 $("#jqgh_ReportGrid_Index").attr("class", "").html("<input type='checkbox' id='CheckAll' /><label for='CheckAll'></label>");
             } else {
                 $("#jqgh_ReportGrid_Index").html("#");
@@ -187,7 +188,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
                     "<label for='" + rowObject.CustId + "'></label>";
             };
 
-            if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
+            if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined && _isAllowedUserEditComm) {
                 indexColumn.formatter = indexFormatter;
             }
             else {
