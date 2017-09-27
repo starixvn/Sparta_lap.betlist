@@ -12,7 +12,6 @@
 
             describe("getGridOption(productAccess, isAllowedCustomerCommission)", function () {
                 it("adds 2 columns of product to colModel and colNames if 2 product and customer commission are allowed", function () {
-                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
                     var productAccess = {
                         "IsAllowSB": true,
                         "IsAllowRB": true,
@@ -31,7 +30,6 @@
                 });
 
                 it("does not add any columns of product to colModel and colNames if 2 product are allowed but not customer commission", function () {
-                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
                     var productAccess = {
                         "IsAllowSB": true,
                         "IsAllowRB": true,
@@ -46,16 +44,6 @@
 
                     var length = CustomerListOption.gridOption.colModel.length;
                     expect(CustomerListOption.gridOption.colModel[length - 1].name).not.toEqual("RBComm");
-                });
-
-                it("hides systemId if Licensee is fake", function () {
-                    spyOn(Site, "isFakeLicensee").and.returnValue(true);
-                    var productAccess = {};
-
-                    CustomerListOption.getGridOption(productAccess, false);
-
-                    var systemIdColumn = CustomerListOption.gridOption.colModel[2];
-                    expect(systemIdColumn.hidden).toBe(true);
                 });
             });
 
