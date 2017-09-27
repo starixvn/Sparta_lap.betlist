@@ -6,11 +6,14 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
+    using System.Collections.Generic;
+
     #region Using
 
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Base;
+    using DataAccess.BetList;
+    using DataAccess.BetList.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -18,20 +21,19 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using Model.BetList.DTO;
     using Resources;
-    using Service.BetList;
-    using Service.BetList.Interfaces;
 
     #endregion Using
 
     [FunctionAuthorization(PermissionKeys.ReportCancelledBets)]
     public class CancelledBetsBetListController : BetListBaseController
     {
-        private readonly ICancelledBetListService _cancelledBetListService;
+        private readonly ICancelledBetListDataAccess _cancelledBetListDataAccess;
 
         public CancelledBetsBetListController()
         {
-            _cancelledBetListService = new CancelledBetListService();
+            _cancelledBetListDataAccess = new CancelledBetListDataAccess();
         }
 
         [HttpGet]
@@ -44,7 +46,7 @@ namespace Fanex.Athena.Controllers.BetList
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = this.SessionService.UserSession;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var customers = _cancelledBetListService.GetCancelBetCustList(metaModel);
+            var customers = GetData(metaModel);
 
             if (customers.Any())
             {
@@ -82,7 +84,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             metaModel = CreateDefaultMetaModel(metaModel);
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var custList = _cancelledBetListService.GetCancelBetCustList(metaModel);
+            var custList = GetData(metaModel);
 
             if (custList.Any())
             {
@@ -136,6 +138,13 @@ namespace Fanex.Athena.Controllers.BetList
             }
 
             return EmptyExcel();
+        }
+
+        private IEnumerable<CustomerCancelBetItem> GetData(BetListMetaModel metaModel)
+        {
+            return HasPermissionOnData(metaModel) ?
+                _cancelledBetListDataAccess.GetCancelBetCustList(metaModel) :
+                new List<CustomerCancelBetItem>();
         }
     }
 }

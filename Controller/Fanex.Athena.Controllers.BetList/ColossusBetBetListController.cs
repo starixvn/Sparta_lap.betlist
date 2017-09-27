@@ -12,6 +12,8 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System.Web.Mvc;
     using System.Web.UI;
+    using DataAccess.BetList;
+    using DataAccess.BetList.Interfaces;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Model.Core.DataDomain;
     using Newtonsoft.Json.Linq;
@@ -27,13 +29,13 @@ namespace Fanex.Athena.Controllers.BetList
     [FunctionAuthorization(PermissionKeys.ReportColossusBetsWinLoss)]
     public class ColossusBetBetListController : BetListBaseController
     {
-        private readonly IColossusBetBetListService _colossusBetBetListService;
+        private readonly IColossusBetBetListDataAccess _colossusBetBetListDataAccess;
 
         private readonly IWebClientService _webClientService;
 
         public ColossusBetBetListController()
         {
-            _colossusBetBetListService = new ColossusBetBetListService();
+            _colossusBetBetListDataAccess = new ColossusBetBetListDataAccess();
             _webClientService = new WebClientService();
         }
 
@@ -42,7 +44,7 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult Detail(ColossusBetDetailMetaModel metaModel)
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml();
-            var viewModel = _colossusBetBetListService.GetData(metaModel);
+            var viewModel = _colossusBetBetListDataAccess.GetData(metaModel);
 
             var iframeUrl = GetIframeUrl(metaModel.BetCheck, metaModel.CustId);
             viewModel.IframeUrl = iframeUrl;
@@ -52,7 +54,7 @@ namespace Fanex.Athena.Controllers.BetList
         private string GetIframeUrl(long betCheck, int memberId)
         {
             var token = GetToken(memberId);
-            var siteId = _colossusBetBetListService.GetSiteId(memberId);
+            var siteId = _colossusBetBetListDataAccess.GetSiteId(memberId);
             var url = AppSettings.GetValue("CBIframeUrlSiteId" + siteId.ToString());
             var colossusBetSiteId = AppSettings.GetValue("ColossusBetSiteId");
             return string.Format(url, betCheck, colossusBetSiteId, token);

@@ -19,6 +19,8 @@
     using Model.Core.DTO.Configuration;
     using ONEbook.UM.Filters;
     using Resources;
+    using Service.Core.Users;
+    using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
 
     #endregion Using
@@ -40,10 +42,12 @@
         protected const int LicenseeWLColumn = 9;
 
         protected static readonly ReadOnlyCollection<int> HiddenColumnIndexes =
-            new ReadOnlyCollection<int>(new int[] { WinLostColumn, BetEffectiveColumn, LicenseeWLColumn });
+            new ReadOnlyCollection<int>(new[] { WinLostColumn, BetEffectiveColumn, LicenseeWLColumn });
 
         protected static readonly ReadOnlyCollection<int> RacingBetType =
-            new ReadOnlyCollection<int>(new int[] { 31, 32, 33, 41, 42, 43 });
+            new ReadOnlyCollection<int>(new[] { 31, 32, 33, 41, 42, 43 });
+
+        private readonly IAuthorizationService _authorizationService;
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
@@ -53,6 +57,7 @@
 
         public BetListBaseController()
         {
+            _authorizationService = new AuthorizationService();
             this._productService = new ProductService();
             this._betListService = new BetListService();
             this._balanceUpDataAccess = new BalanceUpDataAccess();
@@ -100,6 +105,11 @@
             }
 
             return viewinCurrency;
+        }
+
+        protected bool HasPermissionOnData(BetListMetaModel metaModel)
+        {
+            return _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId);
         }
 
         protected BalanceUp GetBalanceUp()

@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using DataAccess.BetList;
+    using DataAccess.BetList.Interfaces;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Service.BetList.Extensions;
     using Fanex.BetList.Core.Builder;
@@ -15,23 +17,23 @@
 
     public class CashOutBetListController : BetListBaseController
     {
-        private readonly ICashOutBetListService _cashOutBetListService;
+        private readonly ICashOutBetListDataAccess _cashOutBetListDataAccess;
 
         public CashOutBetListController()
         {
-            _cashOutBetListService = new CashOutBetListService();
+            _cashOutBetListDataAccess = new CashOutBetListDataAccess();
         }
 
-        public CashOutBetListController(ICashOutBetListService cashOutBetListService)
+        public CashOutBetListController(ICashOutBetListDataAccess cashOutBetListDataAccess)
         {
-            _cashOutBetListService = cashOutBetListService;
+            _cashOutBetListDataAccess = cashOutBetListDataAccess;
         }
 
         [HttpGet]
         public ActionResult Detail(CashOutBetListDetailMetaModel metaModel)
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml();
-            var viewModel = _cashOutBetListService.GetDetail(metaModel);
+            var viewModel = _cashOutBetListDataAccess.GetDetail(metaModel);
             viewModel.IsHighlightOriginalTicket = metaModel.TransId == viewModel.OriginalTicket.TransId ||
                 BetListHelper.IsCashOutBetTicket(metaModel.BetdaqId, metaModel.BetType);
             viewModel.OriginalTicketText = BuilOriginalTicketText(viewModel.OriginalTicket);
