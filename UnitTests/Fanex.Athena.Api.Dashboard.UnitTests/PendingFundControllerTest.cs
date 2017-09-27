@@ -1,26 +1,26 @@
 ﻿namespace Fanex.Athena.Api.Dashboard.UnitTests
 {
     using System.Web.Http.Controllers;
+    using DataAccess.Dashboard.Interfaces;
     using Model.Dashboard.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Dashboard.Interfaces;
 
     [TestFixture]
     public class PendingFundControllerTest
     {
-        private ISimpleWidgetService _pendingFundService;
+        private ISimpleWidgetDataAccess _dataAccess;
 
         [OneTimeSetUp]
         public void Setup()
         {
-            _pendingFundService = Substitute.For<ISimpleWidgetService>();
+            _dataAccess = Substitute.For<ISimpleWidgetDataAccess>();
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            _pendingFundService = null;
+            _dataAccess = null;
         }
 
         [TestCase("CLMV")]
@@ -39,7 +39,7 @@
 
                 // Assert
                 Assert.That(result, Is.Zero);
-                _pendingFundService.DidNotReceive().GetData(metaModel);
+                _dataAccess.DidNotReceive().GetData(metaModel);
             }
         }
 
@@ -49,7 +49,7 @@
             // Arrange
             const decimal Expected = 1570000M;
             var metaModel = new DashboardBaseModel { BaseCurrency = "EUR", CurrencyId = 1, SelectedWidgetString = "PendingFund" };
-            _pendingFundService.GetData(metaModel).Returns(Expected);
+            _dataAccess.GetData(metaModel).Returns(Expected);
 
             using (var controller = CreateController())
             {
@@ -58,7 +58,7 @@
 
                 // Assert
                 Assert.That(metaModel.LicenseeId, Is.EqualTo(1));
-                _pendingFundService.Received().GetData(metaModel);
+                _dataAccess.Received().GetData(metaModel);
             }
         }
 
@@ -71,7 +71,7 @@
             {
                 BaseCurrency = "EUR"
             };
-            _pendingFundService.GetData(metaModel).Returns(Expected);
+            _dataAccess.GetData(metaModel).Returns(Expected);
 
             using (var controller = CreateController())
             {
@@ -85,7 +85,7 @@
 
         private PendingFundController CreateController()
         {
-            var controller = new PendingFundController(_pendingFundService);
+            var controller = new PendingFundController(_dataAccess);
             var mockActionContext = new HttpActionContext
             {
                 ControllerContext = new HttpControllerContext(),

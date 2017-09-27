@@ -3,27 +3,27 @@
     using System.Collections.Generic;
     using System.Web.Http.Controllers;
     using Dashboard;
+    using DataAccess.Dashboard.Interfaces;
     using Model.Dashboard.MetaModel;
     using Model.Dashboard.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Dashboard.Interfaces;
 
     [TestFixture]
     public class LicenseeWinLossByPlatformControllerTest
     {
-        private IWidgetByPlatformService _licenseeWinLossByPlatformService;
+        private IWidgetByPlatformDataAccess _dataAccess;
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            _licenseeWinLossByPlatformService = Substitute.For<IWidgetByPlatformService>();
+            _dataAccess = Substitute.For<IWidgetByPlatformDataAccess>();
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            _licenseeWinLossByPlatformService = null;
+            _dataAccess = null;
         }
 
         [TestCase("CLMV")]
@@ -45,7 +45,7 @@
                 {
                     Assert.That(result.Data, Is.Null);
                     Assert.That(result.Total, Is.Zero);
-                    _licenseeWinLossByPlatformService.DidNotReceive().GetData(metaModel);
+                    _dataAccess.DidNotReceive().GetData(metaModel);
                 });
             }
         }
@@ -56,7 +56,7 @@
             // Arrange
             var expected = new WidgetByPlatformViewModel();
             var metaModel = new DashboardBaseModel { BaseCurrency = "EUR", CurrencyId = 1, SelectedWidgetString = "PendingFund" };
-            _licenseeWinLossByPlatformService.GetData(metaModel).Returns(expected);
+            _dataAccess.GetData(metaModel).Returns(expected);
 
             using (var controller = CreateController())
             {
@@ -65,7 +65,7 @@
 
                 // Assert
                 Assert.That(metaModel.LicenseeId, Is.EqualTo(1));
-                _licenseeWinLossByPlatformService.Received().GetData(metaModel);
+                _dataAccess.Received().GetData(metaModel);
             }
         }
 
@@ -88,7 +88,7 @@
             {
                 BaseCurrency = "EUR"
             };
-            _licenseeWinLossByPlatformService.GetData(metaModel).Returns(expected);
+            _dataAccess.GetData(metaModel).Returns(expected);
 
             using (var controller = CreateController())
             {
@@ -111,7 +111,7 @@
 
         private LicenseeWinLossByPlatformController CreateController()
         {
-            var controller = new LicenseeWinLossByPlatformController(_licenseeWinLossByPlatformService);
+            var controller = new LicenseeWinLossByPlatformController(_dataAccess);
             var mockActionContext = new HttpActionContext
             {
                 ControllerContext = new HttpControllerContext(),

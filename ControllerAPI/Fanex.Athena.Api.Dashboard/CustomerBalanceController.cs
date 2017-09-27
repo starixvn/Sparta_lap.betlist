@@ -2,21 +2,21 @@
 {
     using System;
     using System.Web.Http;
+    using DataAccess.Dashboard;
+    using DataAccess.Dashboard.Interfaces;
     using Model.Dashboard.MetaModel;
-    using Service.Dashboard;
-    using Service.Dashboard.Interfaces;
 
     public class CustomerBalanceController : BaseDashboardApiController
     {
-        private readonly ISimpleWidgetService _customerBalanceService;
+        private readonly ISimpleWidgetDataAccess _dataAccess;
 
         public CustomerBalanceController() : this(null)
         {
         }
 
-        public CustomerBalanceController(ISimpleWidgetService customerBalanceService)
+        public CustomerBalanceController(ISimpleWidgetDataAccess dataAccess)
         {
-            _customerBalanceService = customerBalanceService ?? new CustomerBalanceService();
+            _dataAccess = dataAccess ?? new CustomerBalanceDataAccess();
         }
 
         public decimal GetData([FromUri] DashboardBaseModel metaModel)
@@ -28,7 +28,7 @@
 
             AssignAuthProperties(metaModel);
             metaModel.FromDate = DateTime.Now.Date;
-            return _customerBalanceService.GetData(metaModel);
+            return _dataAccess.GetData(metaModel);
         }
     }
 }

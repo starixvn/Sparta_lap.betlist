@@ -2,22 +2,22 @@
 {
     using System;
     using System.Web.Http;
+    using DataAccess.Dashboard;
+    using DataAccess.Dashboard.Interfaces;
     using Fanex.Athena.Model.Dashboard.ViewModel;
-    using Fanex.Athena.Service.Dashboard;
-    using Fanex.Athena.Service.Dashboard.Interfaces;
     using Model.Dashboard.MetaModel;
 
     public class TurnoverByPlatformController : BaseDashboardApiController
     {
-        private readonly IWidgetByPlatformService _turnoverByPlatformService;
+        private readonly IWidgetByPlatformDataAccess _dataAccess;
 
         public TurnoverByPlatformController() : this(null)
         {
         }
 
-        public TurnoverByPlatformController(IWidgetByPlatformService turnoverByPlatformService)
+        public TurnoverByPlatformController(IWidgetByPlatformDataAccess turnoverByPlatformService)
         {
-            this._turnoverByPlatformService = turnoverByPlatformService ?? new TurnoverByPlatformService();
+            this._dataAccess = turnoverByPlatformService ?? new TurnoverByPlatformDataAccess();
         }
 
         [HttpGet]
@@ -32,7 +32,7 @@
             var now = DateTime.Now.Date;
             metaModel.FromDate = new DateTime(now.Year, now.Month, 1);
             metaModel.ToDate = now;
-            return _turnoverByPlatformService.GetData(metaModel);
+            return _dataAccess.GetData(metaModel);
         }
     }
 }

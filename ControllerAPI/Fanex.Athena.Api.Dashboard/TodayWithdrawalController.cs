@@ -2,21 +2,21 @@
 {
     using System;
     using System.Web.Http;
+    using DataAccess.Dashboard;
+    using DataAccess.Dashboard.Interfaces;
     using Model.Dashboard.MetaModel;
-    using Service.Dashboard;
-    using Service.Dashboard.Interfaces;
 
     public class TodayWithdrawalController : BaseDashboardApiController
     {
-        private readonly ISimpleWidgetService _todayWithdrawalService;
+        private readonly ISimpleWidgetDataAccess _dataAccess;
 
         public TodayWithdrawalController() : this(null)
         {
         }
 
-        public TodayWithdrawalController(ISimpleWidgetService todayWithdrawal)
+        public TodayWithdrawalController(ISimpleWidgetDataAccess todayWithdrawal)
         {
-            _todayWithdrawalService = todayWithdrawal ?? new TodayWithdrawalService();
+            _dataAccess = todayWithdrawal ?? new TodayWithdrawalDataAccess();
         }
 
         public decimal GetData([FromUri] DashboardBaseModel metaModel)
@@ -28,7 +28,7 @@
 
             AssignAuthProperties(metaModel);
             metaModel.FromDate = DateTime.Now.Date;
-            return _todayWithdrawalService.GetData(metaModel);
+            return _dataAccess.GetData(metaModel);
         }
     }
 }

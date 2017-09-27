@@ -2,27 +2,27 @@
 {
     using System.Collections.Generic;
     using System.Web.Http.Controllers;
+    using DataAccess.Dashboard.Interfaces;
     using Model.Dashboard.MetaModel;
     using Model.Dashboard.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Dashboard.Interfaces;
 
     [TestFixture]
     public class TurnoverByPlatformControllerTest
     {
-        private IWidgetByPlatformService _turnoverByPlatformService;
+        private IWidgetByPlatformDataAccess _dataAccess;
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            _turnoverByPlatformService = Substitute.For<IWidgetByPlatformService>();
+            _dataAccess = Substitute.For<IWidgetByPlatformDataAccess>();
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            _turnoverByPlatformService = null;
+            _dataAccess = null;
         }
 
         [TestCase("CLMV")]
@@ -41,7 +41,7 @@
 
                 // Assert
                 Assert.That(result.Data, Is.Null);
-                _turnoverByPlatformService.DidNotReceive().GetData(metaModel);
+                _dataAccess.DidNotReceive().GetData(metaModel);
             }
         }
 
@@ -51,7 +51,7 @@
             // Arrange
             var expected = new WidgetByPlatformViewModel();
             var metaModel = new DashboardBaseModel { BaseCurrency = "EUR" };
-            _turnoverByPlatformService.GetData(metaModel).Returns(expected);
+            _dataAccess.GetData(metaModel).Returns(expected);
 
             using (var controller = CreateController())
             {
@@ -60,7 +60,7 @@
 
                 // Assert
                 Assert.That(metaModel.LicenseeId, Is.EqualTo(1));
-                _turnoverByPlatformService.Received().GetData(metaModel);
+                _dataAccess.Received().GetData(metaModel);
             }
         }
 
@@ -83,7 +83,7 @@
             {
                 BaseCurrency = "EUR"
             };
-            _turnoverByPlatformService.GetData(metaModel).Returns(expected);
+            _dataAccess.GetData(metaModel).Returns(expected);
 
             // Action
             using (var controller = CreateController())
@@ -106,7 +106,7 @@
 
         private TurnoverByPlatformController CreateController()
         {
-            var controller = new TurnoverByPlatformController(_turnoverByPlatformService);
+            var controller = new TurnoverByPlatformController(_dataAccess);
             var mockActionContext = new HttpActionContext
             {
                 ControllerContext = new HttpControllerContext(),

@@ -1,20 +1,20 @@
 ﻿namespace Fanex.Athena.Api.Dashboard.UnitTests
 {
     using System.Web.Http.Controllers;
+    using DataAccess.Dashboard.Interfaces;
     using Model.Dashboard.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Dashboard.Interfaces;
 
     [TestFixture]
     public class TodayDepositControllerTest
     {
-        private ISimpleWidgetService _todayDepositService;
+        private ISimpleWidgetDataAccess _todayDepositService;
 
         [OneTimeSetUp]
         public void Setup()
         {
-            _todayDepositService = Substitute.For<ISimpleWidgetService>();
+            _todayDepositService = Substitute.For<ISimpleWidgetDataAccess>();
         }
 
         [OneTimeTearDown]

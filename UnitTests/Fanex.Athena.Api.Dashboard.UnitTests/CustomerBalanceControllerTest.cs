@@ -2,26 +2,26 @@
 {
     using System.Web.Http.Controllers;
     using Dashboard;
+    using DataAccess.Dashboard.Interfaces;
     using Model.Dashboard.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Dashboard.Interfaces;
 
     [TestFixture]
     public class CustomerBalanceControllerTest
     {
-        private ISimpleWidgetService _customerBalanceService;
+        private ISimpleWidgetDataAccess _dataAccess;
 
         [OneTimeSetUp]
         public void Setup()
         {
-            _customerBalanceService = Substitute.For<ISimpleWidgetService>();
+            _dataAccess = Substitute.For<ISimpleWidgetDataAccess>();
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            _customerBalanceService = null;
+            _dataAccess = null;
         }
 
         [TestCase("CLMV")]
@@ -40,7 +40,7 @@
 
                 // Assert
                 Assert.That(result, Is.Zero);
-                _customerBalanceService.DidNotReceive().GetData(metaModel);
+                _dataAccess.DidNotReceive().GetData(metaModel);
             }
         }
 
@@ -50,7 +50,7 @@
             // Arrange
             var expected = 1570000M;
             var metaModel = new DashboardBaseModel { BaseCurrency = "EUR", CurrencyId = 1, SelectedWidgetString = "CustomerBalance" };
-            _customerBalanceService.GetData(metaModel).Returns(expected);
+            _dataAccess.GetData(metaModel).Returns(expected);
 
             using (var controller = CreateController())
             {
@@ -59,7 +59,7 @@
 
                 // Assert
                 Assert.That(metaModel.LicenseeId, Is.EqualTo(1));
-                _customerBalanceService.Received().GetData(metaModel);
+                _dataAccess.Received().GetData(metaModel);
             }
         }
 
@@ -73,7 +73,7 @@
                 BaseCurrency = "EUR"
             };
 
-            _customerBalanceService.GetData(metaModel).Returns(expected);
+            _dataAccess.GetData(metaModel).Returns(expected);
 
             using (var controller = CreateController())
             {
@@ -87,7 +87,7 @@
 
         private CustomerBalanceController CreateController()
         {
-            var controller = new CustomerBalanceController(_customerBalanceService);
+            var controller = new CustomerBalanceController(_dataAccess);
             var mockActionContext = new HttpActionContext
             {
                 ControllerContext = new HttpControllerContext(),
