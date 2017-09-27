@@ -1,4 +1,4 @@
-﻿// Generated at: 9/13/2017 11:15:57 AM
+﻿// Generated at: 9/27/2017 1:40:47 PM
 window._language_zh_Hans = {
 AA:"客客",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -559,6 +559,7 @@ ProductNG:"百练赛",
 ProductRB:"赛事",
 ProductSB:"体育博彩",
 ProductVS:"虚拟运动",
+ProductVS2:"虚拟运动2",
 PShare:"P.Share",
 PWin:"P.Win",
 Q1:"1Q",

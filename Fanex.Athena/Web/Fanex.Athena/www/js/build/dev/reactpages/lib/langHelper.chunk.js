@@ -28,7 +28,7 @@ var LangHelper = function () {
         value: function getSingleResource(key) {
             var langHandler = window[resourceName];
 
-            return langHandler[key] || window[DEFAULT_RESOURCE_NAME][key] || key;
+            return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
         }
     }, {
         key: "currentLanguage",
@@ -63,7 +63,7 @@ module.exports = __webpack_require__(706);
 "use strict";
 
 
-// Generated at: 9/13/2017 11:15:57 AM
+// Generated at: 9/27/2017 1:40:47 PM
 window._language_en_US = {
   AA: "AA",
   AccessDeniedMsg: "Sorry, You don&apos;t have permission to access this page.",
@@ -1013,7 +1013,7 @@ window._language_en_US = {
 "use strict";
 
 
-// Generated at: 9/13/2017 11:15:57 AM
+// Generated at: 9/27/2017 1:40:47 PM
 window._language_ko_KR = {
   AA: "AA",
   AccessDeniedMsg: "죄송합니다. 이 페이지에 접근할 권한이 없습니다.",
@@ -1787,7 +1787,7 @@ window._language_ko_KR = {
 "use strict";
 
 
-// Generated at: 9/13/2017 11:15:57 AM
+// Generated at: 9/27/2017 1:40:47 PM
 window._language_zh_CN = {
   AA: "客客",
   AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
@@ -2361,6 +2361,7 @@ window._language_zh_CN = {
   ProductRB: "赛事",
   ProductSB: "体育博彩",
   ProductVS: "虚拟运动",
+  ProductVS2: "虚拟运动2",
   PShare: "P.Share",
   PWin: "P.Win",
   Q1: "1Q",
@@ -2599,7 +2600,7 @@ window._language_zh_CN = {
 "use strict";
 
 
-// Generated at: 9/13/2017 11:15:57 AM
+// Generated at: 9/27/2017 1:40:47 PM
 window._language_zh_Hans = {
   AA: "客客",
   AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
@@ -3160,6 +3161,7 @@ window._language_zh_Hans = {
   ProductRB: "赛事",
   ProductSB: "体育博彩",
   ProductVS: "虚拟运动",
+  ProductVS2: "虚拟运动2",
   PShare: "P.Share",
   PWin: "P.Win",
   Q1: "1Q",
@@ -3397,7 +3399,7 @@ window._language_zh_Hans = {
 "use strict";
 
 
-// Generated at: 9/13/2017 11:15:57 AM
+// Generated at: 9/27/2017 1:40:47 PM
 window._language_zh_TW = {
   AA: "客客",
   AccessDeniedMsg: "對不起，您沒有權限訪問此頁面。",
@@ -3971,6 +3973,7 @@ window._language_zh_TW = {
   ProductRB: "賽事",
   ProductSB: "體育博彩",
   ProductVS: "虛擬運動",
+  ProductVS2: "虛擬運動2",
   PShare: "P.Share",
   PWin: "P.Win",
   Q1: "1Q",

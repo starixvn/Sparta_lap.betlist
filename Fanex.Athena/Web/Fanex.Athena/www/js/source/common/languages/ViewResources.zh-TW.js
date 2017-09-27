@@ -1,4 +1,4 @@
-﻿// Generated at: 9/13/2017 11:15:57 AM
+﻿// Generated at: 9/27/2017 1:40:47 PM
 window._language_zh_TW = {
 AA:"客客",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -572,6 +572,7 @@ ProductNG:"百練賽",
 ProductRB:"賽事",
 ProductSB:"體育博彩",
 ProductVS:"虛擬運動",
+ProductVS2:"虛擬運動2",
 PShare:"P.Share",
 PWin:"P.Win",
 Q1:"1Q",

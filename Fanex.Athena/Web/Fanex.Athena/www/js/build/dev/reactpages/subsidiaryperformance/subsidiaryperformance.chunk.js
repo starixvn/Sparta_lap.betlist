@@ -4525,7 +4525,7 @@ var LangHelper = function () {
         value: function getSingleResource(key) {
             var langHandler = window[resourceName];
 
-            return langHandler[key] || window[DEFAULT_RESOURCE_NAME][key] || key;
+            return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
         }
     }, {
         key: "currentLanguage",
@@ -19846,6 +19846,7 @@ _reactDom2.default.render(_react2.default.createElement(App, null), document.get
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.AppContainer = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -19883,7 +19884,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var AppContainer = function (_Component) {
+var AppContainer = exports.AppContainer = function (_Component) {
   _inherits(AppContainer, _Component);
 
   function AppContainer(props) {
@@ -19928,7 +19929,6 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.fetchData = undefined;
 exports.getGridData = getGridData;
 exports.exportExcel = exportExcel;
 exports.setGridData = setGridData;
@@ -19949,7 +19949,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var fetchData = exports.fetchData = function fetchData(params) {
+var fetchData = function fetchData(params) {
     var url = _site2.default.resolveClientUrl('api/SubsidiaryPerformanceReport/Index');
     return _axios2.default.post(url, params.data, {
         headers: {
@@ -20109,6 +20109,7 @@ var toggleLoader = exports.toggleLoader = function toggleLoader(show) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.DataGrid = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -20152,7 +20153,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var DataGrid = function (_Component) {
+var DataGrid = exports.DataGrid = function (_Component) {
     _inherits(DataGrid, _Component);
 
     function DataGrid(props) {
@@ -20172,53 +20173,12 @@ var DataGrid = function (_Component) {
                     selectedBaseCurrency = nextProps.selectedBaseCurrency;
 
                 this.reportTitle = _service2.default.getReportTitle(dateRange, selectedBaseCurrency);
+                this.props.toggleLoader(false);
             }
         }
     }, {
-        key: 'componentDidUpdate',
-        value: function componentDidUpdate(prevProps, prevState) {
-            this.props.toggleLoader(false);
-        }
-    }, {
-        key: '_renderNodata',
-        value: function _renderNodata() {
-            return _react2.default.createElement(
-                'div',
-                { className: 'result-content' },
-                _react2.default.createElement(_ReportTitle2.default, { content: this.reportTitle }),
-                _react2.default.createElement(_NoDataTitle2.default, null)
-            );
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var Data = this.props.gridData.Data;
-
-            if (!Data) {
-                return null;
-            }
-
-            if (!Data.length) {
-                return this._renderNodata();
-            }
-
-            return _react2.default.createElement(
-                'div',
-                { className: 'result-content' },
-                _react2.default.createElement(_ReportTitle2.default, { content: this.reportTitle }),
-                _react2.default.createElement(_fixedTableHeader.Table, {
-                    minWidth: 600,
-                    autoWidth: true,
-                    bodyHeight: 300,
-                    header: this.header,
-                    body: this.body,
-                    footer: this.footer
-                })
-            );
-        }
-    }, {
-        key: 'header',
-        get: function get() {
+        key: '_buildHeader',
+        value: function _buildHeader() {
             var headerText = _service2.default.getHeaderText();
 
             return _react2.default.createElement(
@@ -20262,8 +20222,8 @@ var DataGrid = function (_Component) {
             );
         }
     }, {
-        key: 'body',
-        get: function get() {
+        key: '_buildBody',
+        value: function _buildBody() {
             var data = this.props.gridData.Data;
             var rows = [];
             for (var i = 0; i < data.length; i++) {
@@ -20325,8 +20285,8 @@ var DataGrid = function (_Component) {
             return rows;
         }
     }, {
-        key: 'footer',
-        get: function get() {
+        key: '_buildFooter',
+        value: function _buildFooter() {
             var totalData = this.props.gridData.Total;
             var footer = totalData.map(function (item, index) {
                 var betcount = _numberFormat2.default.format(item.BetCount),
@@ -20371,13 +20331,13 @@ var DataGrid = function (_Component) {
                 );
             });
 
-            footer.push(this.grandTotal);
+            footer.push(this._buildGrandTotal());
 
             return footer;
         }
     }, {
-        key: 'grandTotal',
-        get: function get() {
+        key: '_buildGrandTotal',
+        value: function _buildGrandTotal() {
             var grandTotal = this.props.gridData.GrandTotal;
             if (!grandTotal) {
                 return null;
@@ -20419,9 +20379,46 @@ var DataGrid = function (_Component) {
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { title: subsidiaryWinLoss, className: 'right-align' },
+                    { title: subsidiaryWinLoss, className: 'right-align ' + (subsidiaryWinLoss < 0 ? "negative" : "") },
                     subsidiaryWinLoss
                 )
+            );
+        }
+    }, {
+        key: '_renderNodata',
+        value: function _renderNodata() {
+            return _react2.default.createElement(
+                'div',
+                { className: 'result-content' },
+                _react2.default.createElement(_ReportTitle2.default, { content: this.reportTitle }),
+                _react2.default.createElement(_NoDataTitle2.default, null)
+            );
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var Data = this.props.gridData.Data;
+
+            if (!Data) {
+                return null;
+            }
+
+            if (!Data.length) {
+                return this._renderNodata();
+            }
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'result-content' },
+                _react2.default.createElement(_ReportTitle2.default, { content: this.reportTitle }),
+                _react2.default.createElement(_fixedTableHeader.Table, {
+                    minWidth: 600,
+                    autoWidth: true,
+                    bodyHeight: 300,
+                    header: this._buildHeader(),
+                    body: this._buildBody(),
+                    footer: this._buildFooter()
+                })
             );
         }
     }]);
@@ -20435,9 +20432,10 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
     var gridData = state.gridData,
         dateRange = state.dateRange,
-        selectedBaseCurrency = state.selectedBaseCurrency;
+        selectedBaseCurrency = state.selectedBaseCurrency,
+        isLoading = state.isLoading;
 
-    return Object.assign({}, { gridData: gridData, dateRange: dateRange, selectedBaseCurrency: selectedBaseCurrency });
+    return Object.assign({}, { gridData: gridData, dateRange: dateRange, selectedBaseCurrency: selectedBaseCurrency, isLoading: isLoading });
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DataGrid);
@@ -21232,6 +21230,7 @@ exports.default = NoDataTitle;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.FormFilter = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -21283,7 +21282,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var RANGE_MONTH_CONSTRAINT = 3;
 
-var FormFilter = function (_Component) {
+var FormFilter = exports.FormFilter = function (_Component) {
     _inherits(FormFilter, _Component);
 
     function FormFilter(props) {
@@ -21310,10 +21309,12 @@ var FormFilter = function (_Component) {
 
             var params = _this._getParams();
 
+            _this.props.toggleLoader(true);
             _this.props.exportExcel(params).then(function (response) {
                 var title = _service2.default.getReportTitle(dateRange, selectedBaseCurrency);
                 var excel = new _reportExcel2.default(response.data, title);
                 excel.export();
+                _this.props.toggleLoader(false);
             });
         };
 
