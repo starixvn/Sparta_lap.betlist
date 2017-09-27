@@ -5526,7 +5526,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(361), __webpack_require__(119), __webpack_require__(147), __webpack_require__(159),
     __webpack_require__(122), __webpack_require__(123), __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerListState) {
     var _POPUP_LIST = ["#ViewOptionList", "#update-cust-status-popup", "#LevelListContainer", "#OddsGroupListContainer"];
-    var _isAllowedCustomerCommission;
+    var _isAllowedCustomerCommission, _isAllowedUserEditComm;
     var _productAccess;
     var _ajaxRequest = null;
 
@@ -5535,6 +5535,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     var _me = {
         initialize: function () {
             _isAllowedCustomerCommission = $("#IsAllowedCustomerCommission").val() === "True";
+            _isAllowedUserEditComm = $("#IsAllowedUserEditComm").val() === "True";
             _productAccess = JSON.parse($("#ProductAccess").val());
             _state = CustomerListState.getState();
         },
@@ -5655,7 +5656,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             reportGrid.jqGrid(gridOption);
             CustomerListOption.setGroupHeaderColumns(reportGrid);
 
-            if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
+            if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined && _isAllowedUserEditComm) {
                 $("#jqgh_ReportGrid_Index").attr("class", "").html("<input type='checkbox' id='CheckAll' /><label for='CheckAll'></label>");
             } else {
                 $("#jqgh_ReportGrid_Index").html("#");
@@ -5710,7 +5711,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     "<label for='" + rowObject.CustId + "'></label>";
             };
 
-            if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
+            if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined && _isAllowedUserEditComm) {
                 indexColumn.formatter = indexFormatter;
             }
             else {
@@ -6482,8 +6483,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         };
 
         var getColModel = function (productAccess, isAllowedCustomerCommission) {
-            systemIdColumn.hidden = Site.isFakeLicensee();
-
             var temp = Site.clone(colModelList);
           
             if (isAllowedCustomerCommission) {
