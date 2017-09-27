@@ -105,6 +105,8 @@
     <Compile Include="Common\CurrencyService.cs" />
     <Compile Include="Common\ExChangeRateService.cs" />
     <Compile Include="Common\FunctionService.cs" />
+    <Compile Include="Common\FunctionStorage.cs" />
+    <Compile Include="Common\IFunctionStorage.cs" />
     <Compile Include="Helpers\ClientViewHelper.cs" />
     <Compile Include="Users\Interfaces\IOneBookSecurityWrapper.cs" />
     <Compile Include="Users\OneBookSecurityWrapper.cs" />

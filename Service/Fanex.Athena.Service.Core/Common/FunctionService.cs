@@ -20,76 +20,47 @@ namespace Fanex.Athena.Service.Core.Common
     /// </summary>
     public class FunctionService : IFunctionService
     {
-        private static IList<Function> _functionList;
-        private static IList<Function> _masterFunctions;
-        private static IDictionary<int, IList<Function>> _subFunctions;
         private readonly IFunctionDataAccess _functionDataAccess;
+
+        private readonly IFunctionStorage _functionStorage;
 
         public FunctionService()
         {
-            this._functionDataAccess = new FunctionDataAccess();
+            _functionDataAccess = new FunctionDataAccess();
+            _functionStorage = new FunctionStorage();
         }
 
         internal FunctionService(
             IFunctionDataAccess functionDataAccess,
-            IList<Function> functionList = null,
-            IList<Function> masterFunctions = null,
-            IDictionary<int, IList<Function>> subFunctions = null)
+            IFunctionStorage functionStorage)
         {
             this._functionDataAccess = functionDataAccess;
-            _functionList = functionList;
-            _masterFunctions = masterFunctions;
-            _subFunctions = subFunctions;
+            _functionStorage = functionStorage;
         }
 
         #region Property
 
-        public IList<Function> Functions
+        public IEnumerable<Function> Functions
         {
             get
             {
-                if (_functionList == null)
-                {
-                    _functionList = _functionDataAccess.GetFunctionList();
-                }
-
-                return _functionList;
+                return _functionStorage.FunctionList;
             }
         }
 
-        private IList<Function> MasterFunctions
+        private IEnumerable<Function> MasterFunctions
         {
             get
             {
-                if (_masterFunctions == null)
-                {
-                    _masterFunctions = Functions.Where(f => f.ParentId == 0)
-                                         .OrderBy(f => f.DisplayOrder)
-                                         .ToList();
-                }
-
-                return _masterFunctions;
+                return _functionStorage.MasterFunctions;
             }
         }
 
-        private IDictionary<int, IList<Function>> SubFunctions
+        private IDictionary<int, IEnumerable<Function>> SubFunctions
         {
             get
             {
-                if (_subFunctions == null)
-                {
-                    _subFunctions = new Dictionary<int, IList<Function>>();
-
-                    foreach (var function in MasterFunctions)
-                    {
-                        var subFunctions = Functions.Where(f => f.ParentId == function.FunctionId)
-                                                     .OrderBy(f => f.DisplayOrder)
-                                                     .ToList();
-                        _subFunctions.Add(function.FunctionId, subFunctions);
-                    }
-                }
-
-                return _subFunctions;
+                return _functionStorage.SubFunctions;
             }
         }
 
@@ -97,12 +68,7 @@ namespace Fanex.Athena.Service.Core.Common
 
         #region Licensee Function
 
-        /// <summary>
-        /// Get function list of licensee.
-        /// </summary>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <returns>The function list.</returns>
-        public IList<Function> GetLicenseeFunctionList(int licenseeId)
+        public IEnumerable<Function> GetLicenseeFunctionList(int licenseeId)
         {
             var functionIdList = _functionDataAccess.GetLicenseeFunctionList(licenseeId)
                                                     .Select(i => i.FunctionId);
@@ -116,7 +82,7 @@ namespace Fanex.Athena.Service.Core.Common
         /// <param name="licenseeId">The licensee id.</param>
         /// <param name="userId">The user id.</param>
         /// <returns>The function list.</returns>
-        public IList<Function> GetUserFunctionList(int licenseeId, int userId)
+        public IEnumerable<Function> GetUserFunctionList(int licenseeId, int userId)
         {
             var userFunctionIdData = _functionDataAccess.GetUserFunctionList(licenseeId, userId);
             var licenseeFunctionData = _functionDataAccess.GetLicenseeFunctionList(licenseeId);
@@ -134,7 +100,7 @@ namespace Fanex.Athena.Service.Core.Common
                     continue;
                 }
 
-                var subFunctionCount = SubFunctions[masterFunction.FunctionId].Count;
+                var subFunctionCount = SubFunctions[masterFunction.FunctionId].Count();
                 var userSubFunctionCount = functionList.Count(f => f.ParentId == masterFunction.FunctionId);
 
                 // User has permission on all sub functions, so he/she has permission on parent function
@@ -147,7 +113,7 @@ namespace Fanex.Athena.Service.Core.Common
             return functionList;
         }
 
-        public IResultInfo AssignUserFunctions(int licenseeId, int custId, IList<int> functionIdList, int userId, string ip, string langKey)
+        public IResultInfo AssignUserFunctions(int licenseeId, int custId, IEnumerable<int> functionIdList, int userId, string ip, string langKey)
         {
             var correctFunctionIdList = functionIdList.Where(f => Functions.Any(l => l.FunctionId == f)).ToList();
             var userFunctionList = GetUserFunctionList(licenseeId, custId).Select(f => f.FunctionId);
@@ -182,7 +148,7 @@ namespace Fanex.Athena.Service.Core.Common
         /// </summary>
         /// <param name="functionList">The function list.</param>
         /// <returns>The master function.</returns>
-        public IList<Function> GetMasterFunctions(IList<Function> functionList)
+        public IEnumerable<Function> GetMasterFunctions(IEnumerable<Function> functionList)
         {
             return MasterFunctions.Where(
                     f => functionList.Any(l => l.ParentId == f.FunctionId || l.FunctionId == f.FunctionId))
@@ -195,9 +161,9 @@ namespace Fanex.Athena.Service.Core.Common
         /// </summary>
         /// <param name="functionList">The functions.</param>
         /// <returns>The sub functions.</returns>
-        public IDictionary<int, IList<Function>> GetSubMenus(IList<Function> functionList)
+        public IDictionary<int, IEnumerable<Function>> GetSubMenus(IEnumerable<Function> functionList)
         {
-            var detailFunctions = new Dictionary<int, IList<Function>>();
+            var detailFunctions = new Dictionary<int, IEnumerable<Function>>();
 
             foreach (var function in MasterFunctions)
             {
@@ -213,9 +179,9 @@ namespace Fanex.Athena.Service.Core.Common
             return detailFunctions;
         }
 
-        public IDictionary<int, IList<Function>> GetSubFunctions(IList<Function> functionList)
+        public IDictionary<int, IEnumerable<Function>> GetSubFunctions(IEnumerable<Function> functionList)
         {
-            var detailFunctions = new Dictionary<int, IList<Function>>();
+            var detailFunctions = new Dictionary<int, IEnumerable<Function>>();
 
             foreach (var function in MasterFunctions)
             {

@@ -38,11 +38,11 @@ namespace Fanex.Athena.Controllers.Account
         private readonly IUserService _userService;
         private readonly ICurrencyService _currencyService;
 
-        private IList<Function> _allMasterFunctionList;
+        private IEnumerable<Function> _allMasterFunctionList;
 
-        private IDictionary<int, IList<Function>> _allFunctionMap;
+        private IDictionary<int, IEnumerable<Function>> _allFunctionMap;
 
-        private IList<Function> _allUserFunctionList;
+        private IEnumerable<Function> _allUserFunctionList;
 
         public AccountController()
         {
@@ -286,15 +286,14 @@ namespace Fanex.Athena.Controllers.Account
                 if (user != null)
                 {
                     InitializeFunctions(userId);
-                    ViewBag.AllMasterFunctions = _allMasterFunctionList;
-                    ViewBag.AllFunctionMap = _allFunctionMap;
-                    ViewBag.AllUserFunctions = _allUserFunctionList;
-                    ViewBag.UserName = user.Username;
-
+                    
                     var model = new EditPermissionMetaModel
                     {
                         UserId = userId,
-                        FunctionIdList = string.Empty
+                        FunctionIdList = string.Empty,
+                        AllMasterFunctions = _allMasterFunctionList,
+                        AllFunctionMap = _allFunctionMap,
+                        AllUserFunctions = _allUserFunctionList
                     };
 
                     return View("~/Views/Account/EditPermission.cshtml", model);
