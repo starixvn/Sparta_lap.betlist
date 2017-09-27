@@ -1,11 +1,7 @@
 import React from 'react'
-import { shallow, configure } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-15';
 import { DataGrid } from '../datagrid';
 import service from '../../lib/service';
 import renderer from 'react-test-renderer'
-
-configure({ adapter: new Adapter() });
 
 const Data = [], Total = [], GrandTotal = {};
 const defaultProps = {
@@ -54,7 +50,7 @@ const totalData = [{
     "BetCount": 99,
     "Turnover": 0.0,
     "CustomerWinLoss": 0.0,
-    "SubsidiaryWinLoss": 0.0
+    "SubsidiaryWinLoss": -141.7636
 }]
 
 const grandTotalData = {
@@ -70,49 +66,41 @@ const grandTotalData = {
 }
 
 describe('DataGrid ', () => {
+    afterEach(() => {
+        jest.resetAllMocks();
+    })
+
     describe('No data', () => {
         it('return null when gridData is undefined', () => {
             const props = { gridData: {} };
-            const dataGrid = shallow(<DataGrid {...props} />);
-            const expectedResult = null;
+            const dataGrid = renderer.create(<DataGrid {...props} />);
 
-            const result = dataGrid.html();
+            const result = dataGrid.toJSON();
 
-            expect(result).toBe(expectedResult);
+            expect(result).toBeNull();
         })
 
-        it('gridData length is 0 - render container with class name "result-content"', () => {
-            const dataGrid = shallow(<DataGrid {...defaultProps} />);
-            const expectedResult = 1;
+        it('gridData length is 0 - render correct content', () => {
+            const dataGrid = renderer.create(<DataGrid {...defaultProps} />);
 
-            const result = dataGrid.find('.result-content').length;
+            const result = dataGrid.toJSON();
 
-            expect(result).toBe(expectedResult);
+            expect(result).toMatchSnapshot();
         })
 
-        it('gridData length is 0 - render correct content of ReportTitle component', () => {
-            const dataGrid = shallow(<DataGrid {...defaultProps} />);
+        it('gridData length is 0 - render container with correct report title content', () => {
+            const dataGrid = renderer.create(<DataGrid {...defaultProps} />);
             const { gridData, dateRange, selectedBaseCurrency } = defaultProps;
-            const expectedResult = `SubsidiaryPerformance, ${dateRange.fromDate} - ${dateRange.toDate} - ${selectedBaseCurrency}`;
             service.getReportTitle = jest.fn((dateRange, selectedBaseCurrency) => {
-                return expectedResult;
+                return `SubsidiaryPerformance, ${dateRange.fromDate} - ${dateRange.toDate} - ${selectedBaseCurrency}`;
             })
 
-            dataGrid.setProps({ isLoading: true });
-            const reportTitleProps = dataGrid.find('ReportTitle').props();
+            const nextProps = Object.assign({}, defaultProps, { gridData: { Data: {} } });
+            dataGrid.update(<DataGrid {...nextPropsu} />);
 
-            const result = reportTitleProps.content;
+            const result = dataGrid.toJSON();
 
-            expect(result).toBe(expectedResult);
-        })
-
-        it('gridData length is 0 - render NoDataTitle component', () => {
-            const dataGrid = shallow(<DataGrid {...defaultProps} />);
-            const expectedResult = 1;
-
-            const result = dataGrid.find('NoDataTitle').length;
-
-            expect(result).toBe(expectedResult);
+            expect(result).toMatchSnapshot();
         })
     })
 
@@ -127,10 +115,7 @@ describe('DataGrid ', () => {
             subsidiaryWL_comm: "SubsidiaryWL/ Comm"
         }
 
-        afterEach(() => {
-            jest.resetAllMocks();
-        })
-        it('render correct header content', () => {
+        it('_buildHeader - render correct header content', () => {
             service.getHeaderText = jest.fn(() => headerText);
 
             const dataGrid = new DataGrid(defaultProps);
@@ -141,7 +126,7 @@ describe('DataGrid ', () => {
             expect(result).toMatchSnapshot();
         })
 
-        it('render correct body content', () => {
+        it('_buildBody - render correct body content', () => {
             const props = Object.assign({}, defaultProps, { gridData: { ...defaultProps.gridData, Data: bodyData } });
             const dataGrid = new DataGrid(props);
             const bodyWrapper = (<div>{dataGrid._buildBody()}</div>);
@@ -152,15 +137,37 @@ describe('DataGrid ', () => {
             expect(result).toMatchSnapshot();
         })
 
-        it('render correct grand total content', () => {
-            const props = Object.assign({}, defaultProps, { gridData: { ...defaultProps.gridData, GrandTotal: grandTotalData } });
-            const dataGrid = new DataGrid(props);
-            const grandTotalWrapper = (<div>{dataGrid._buildGrandTotal()}</div>);
-            const content = renderer.create(grandTotalWrapper);
+        describe('_buildGrandTotal ', () => {
+            it('grandTotal is undefined - return null', () => {
+                const props = Object.assign({}, defaultProps, { gridData: { GrandTotal: null } });
+                const dataGrid = new DataGrid(props);
+                const content = dataGrid._buildGrandTotal();
 
-            const result = content.toJSON();
+                expect(content).toBeNull();
+            })
 
-            expect(result).toMatchSnapshot();
+            it('SubsidiaryWL is positive - render correct grand total content', () => {
+                const props = Object.assign({}, defaultProps, { gridData: { ...defaultProps.gridData, GrandTotal: grandTotalData } });
+                const dataGrid = new DataGrid(props);
+                const grandTotalWrapper = (<div>{dataGrid._buildGrandTotal()}</div>);
+                const content = renderer.create(grandTotalWrapper);
+
+                const result = content.toJSON();
+
+                expect(result).toMatchSnapshot();
+            })
+
+            it('SubsidiaryWL is negative - render correct grand total content', () => {
+                const negativeGrandTotal = { ...grandTotalData, SubsidiaryWinLoss: -123.98 };
+                const props = Object.assign({}, defaultProps, { gridData: { ...defaultProps.gridData, GrandTotal: negativeGrandTotal } });
+                const dataGrid = new DataGrid(props);
+                const grandTotalWrapper = (<div>{dataGrid._buildGrandTotal()}</div>);
+                const content = renderer.create(grandTotalWrapper);
+
+                const result = content.toJSON();
+
+                expect(result).toMatchSnapshot();
+            })
         })
 
         it('render correct footer content', () => {
@@ -187,6 +194,26 @@ describe('DataGrid ', () => {
             const result = renderer.create(content).toJSON();
 
             expect(result).toMatchSnapshot();
+        })
+    })
+
+    describe('componentWillReceiveProps ', () => {
+        it('gridData update - toggleLoader function should be called with correct parameter', () => {
+            const dataGrid = new DataGrid(defaultProps);
+            const nextProps = Object.assign({}, defaultProps, { gridData: { Data: { ...bodyData } } });
+
+            dataGrid.componentWillReceiveProps(nextProps);
+
+            expect(dataGrid.props.toggleLoader).toHaveBeenCalledWith(false);
+        })
+
+        it('gridData do not update - toggleLoader function should not be called', () => {
+            const dataGrid = new DataGrid(defaultProps);
+            const nextProps = Object.assign({}, defaultProps, { selectedBaseCurrency: "USD" });
+
+            dataGrid.componentWillReceiveProps(nextProps);
+
+            expect(dataGrid.props.toggleLoader).not.toHaveBeenCalled();
         })
     })
 })
