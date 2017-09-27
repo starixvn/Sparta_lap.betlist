@@ -17,15 +17,11 @@ export class DataGrid extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.isLoading === true) {
+        if (this.props.gridData !== nextProps.gridData) {
             const { dateRange, selectedBaseCurrency } = nextProps;
             this.reportTitle = service.getReportTitle(dateRange, selectedBaseCurrency);
+            this.props.toggleLoader(false);
         }
-    }
-
-
-    componentDidUpdate(prevProps, prevState) {
-        this.props.toggleLoader(false);
     }
 
     _buildHeader() {
@@ -127,7 +123,7 @@ export class DataGrid extends Component {
                 <Cell title={betcount} className="right-align">{betcount}</Cell>
                 <Cell title={turnover} className="right-align">{turnover}</Cell>
                 <Cell title={customerWinLoss} className="right-align">{customerWinLoss}</Cell>
-                <Cell title={subsidiaryWinLoss} className="right-align">{subsidiaryWinLoss}</Cell>
+                <Cell title={subsidiaryWinLoss} className={`right-align ${subsidiaryWinLoss < 0 ? "negative" : ""}`}>{subsidiaryWinLoss}</Cell>
             </Row>
         )
     }
