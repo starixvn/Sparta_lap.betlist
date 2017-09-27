@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
+    using Base.Attributes;
+    using Model.Core.DataDomain;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
     using Resources;
@@ -12,7 +14,7 @@
     using Service.Report;
     using Service.Report.Interfaces;
 
-    //[ApiFunctionAuthorization(PermissionKeys.ReportSubsidiaryPerformance)]
+    [ApiFunctionAuthorization(PermissionKeys.ReportSubsidiaryPerformance)]
     public class SubsidiaryPerformanceReportController : ApiReportBaseController
     {
         private readonly ISubsidiaryPerformanceService _subsidiaryPerformanceService;
