@@ -107,11 +107,6 @@ namespace Fanex.Athena.Model.Customer.MetaModel
 
         public bool IsUpdateCS { get; set; }
 
-        /// <summary>
-        /// Equals method.
-        /// </summary>
-        /// <param name="obj">Comparing object.</param>
-        /// <returns>Two object equal or not.</returns>
         public override bool Equals(object obj)
         {
             var temp = obj as GroupCommMetaModel;
@@ -121,14 +116,8 @@ namespace Fanex.Athena.Model.Customer.MetaModel
                     && temp.GroupCommId == GroupCommId && temp.GroupName.Equals(GroupName)
                     && temp.SBComm == SBComm && temp.RCComm == RCComm && temp.CSComm == CSComm && temp.LicenseeId == LicenseeId;
             }
-            // ReSharper disable BaseObjectEqualsIsObjectEquals
-            return base.Equals(obj);
-            // ReSharper restore BaseObjectEqualsIsObjectEquals
-        }
 
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
+            return false;
         }
     }
 }

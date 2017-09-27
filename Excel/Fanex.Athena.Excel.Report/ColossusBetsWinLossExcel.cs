@@ -220,7 +220,7 @@ namespace Fanex.Athena.Excel.Report
             return reportTitle.ToString();
         }
 
-        private int AssignGrandTotal(ISheet sheet, int rowIndex)
+        private void AssignGrandTotal(ISheet sheet, int rowIndex)
         {
             var currencyList = _summaryTotal.Keys.ToList();
             currencyList.Reverse();
@@ -234,8 +234,6 @@ namespace Fanex.Athena.Excel.Report
                 sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
                 rowIndex++;
             }
-
-            return rowIndex;
         }
 
         private int AssignTotalData(ISheet sheet, int rowIndex)

@@ -126,9 +126,8 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
             int indexReport = 1;
             int currentRow = 3;
             int rowCount = _data.Count;
-
             var groupId = string.Empty;
-            RNGCasinoResult groupTotal = null;
+            var groupTotal = new RNGCasinoResult();
             for (int index = 0; index < rowCount; index++)
             {
                 var item = _data[index];
