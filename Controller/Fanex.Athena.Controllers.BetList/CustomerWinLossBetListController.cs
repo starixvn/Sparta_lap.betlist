@@ -61,11 +61,11 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper(CultureInfo.CurrentCulture) : metaModel.CurrencyName);
 
             var title = ViewResources.Customer + " " + ViewResources.BetList + string.Format(
-                " - {0} --> {1} - {2}({3}) - {4}",
+                " - {0} --> {1} - {2}{3} - {4}",
                 metaModel.FromDate.ToShortDateString(),
                 metaModel.ToDate.ToShortDateString(),
                 metaModel.ExternalId,
-                metaModel.SystemId,
+                metaModel.IsFakeLicensee ? string.Empty : $"({metaModel.SystemId})",
                 currencyTitle);
 
             var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn };

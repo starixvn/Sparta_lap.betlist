@@ -54,12 +54,12 @@ namespace Fanex.Athena.Controllers.BetList
             var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;
             var viewinCurrency = GetViewInCurrency(curencyId, metaModel.CurrencyName);
             var title = string.Format(
-                "{0} - {1} → {2} - {3}({4}) - {5}",
+                "{0} - {1} → {2} - {3}{4} - {5}",
                 ViewResources.CustomerBetList,
                 metaModel.FromDate.ToString(FormatKey.ShortFormatDate),
                 metaModel.ToDate.ToString(FormatKey.ShortFormatDate),
                 metaModel.ExternalId,
-                metaModel.SystemId,
+                metaModel.IsFakeLicensee ? string.Empty : $"({metaModel.SystemId})",
                 viewinCurrency);
 
             var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };

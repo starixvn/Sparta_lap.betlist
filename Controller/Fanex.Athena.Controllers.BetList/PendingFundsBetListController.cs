@@ -63,9 +63,9 @@ namespace Fanex.Athena.Controllers.BetList
 
             var title = "Running " + ViewResources.BetList
                 + string.Format(
-                " - {0}({1}) - {2}",
+                " - {0}{1} - {2}",
                 metaModel.ExternalId,
-                metaModel.SystemId,
+                metaModel.IsFakeLicensee ? string.Empty : $"({metaModel.SystemId})",
                 string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName));
 
             var excel = new BetListExcel(showingOption, metaModel.LicenseeId, HiddenColList);

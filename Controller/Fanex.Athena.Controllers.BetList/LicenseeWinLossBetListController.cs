@@ -64,11 +64,11 @@ namespace Fanex.Athena.Controllers.BetList
 
             var title = ViewResources.Customer + " " + ViewResources.BetList
                 + string.Format(
-                " - {0} --> {1} - {2}({3}) - {4}",
+                " - {0} --> {1} - {2}{3} - {4}",
                 metaModel.FromDate.ToString(FormatKey.ShortFormatDate),
                 metaModel.ToDate.ToString(FormatKey.ShortFormatDate),
                 metaModel.ExternalId,
-                metaModel.SystemId,
+                metaModel.IsFakeLicensee ? string.Empty : $"({metaModel.SystemId})",
                 viewinCurrency);
 
             var colList = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
