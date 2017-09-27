@@ -37,8 +37,6 @@ namespace Fanex.Athena.Excel.BetList
 
         private readonly IAppSettings _appSettings;
 
-        private readonly BetListExcelBuilder _builder;
-
         private readonly bool _isShowSumStake;
 
         private readonly ShowingOption _showingOption;
@@ -54,7 +52,6 @@ namespace Fanex.Athena.Excel.BetList
 
         public BetListExcel(ShowingOption showingOption, int licenseeId, IEnumerable<int> hiddenColumnIndexes, bool isShowSumStake = false)
         {
-            _builder = new BetListExcelBuilder();
             _appSettings = new AppSettings();
             _licenseeId = licenseeId;
             _ticketHelper = new TicketHelper();
@@ -65,12 +62,20 @@ namespace Fanex.Athena.Excel.BetList
 
         public IWorkbook Export(TicketResult ticketResult, string title, int startIndex = 1)
         {
-            Build(ticketResult, title, startIndex);
-            var workbook = _builder.GetBetList();
+            using (var builder = this.CreateExcelBuilder())
+            {
+                Build(builder, ticketResult, title, startIndex);
+                var workbook = builder.GetBetList();
 
-            ProcessUi(workbook);
+                ProcessUi(workbook);
 
-            return workbook;
+                return workbook;
+            }
+        }
+
+        protected internal virtual BetListExcelBuilder CreateExcelBuilder()
+        {
+            return new BetListExcelBuilder();
         }
 
         private static void AddNoInfoRow(IBetListExcelBuilder builder)
@@ -100,16 +105,16 @@ namespace Fanex.Athena.Excel.BetList
             "StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private void Build(TicketResult ticketResult, string title, int startIndex = 1)
+        private void Build(BetListExcelBuilder builder, TicketResult ticketResult, string title, int startIndex = 1)
         {
-            InitializeFonts();
-            InitializeCellStyles();
+            InitializeFonts(builder);
+            InitializeCellStyles(builder);
 
-            _builder.BuildWorksheet(ViewResources.BetList, 11);
-            AddTitle(_builder, title);
+            builder.BuildWorksheet(ViewResources.BetList, 11);
+            AddTitle(builder, title);
 
             var custWlheader = ViewResources.WinLoss + (_showingOption.CustomerCommVisible ? "/" + ViewResources.Comm : string.Empty);
-            _builder.AddHeader(custWlheader);
+            builder.AddHeader(custWlheader);
 
             // Content
             if (ticketResult.MainTicketList.Any())
@@ -117,31 +122,31 @@ namespace Fanex.Athena.Excel.BetList
                 _ticketHelper.Index = startIndex;
                 foreach (var ticket in ticketResult.MainTicketList)
                 {
-                    BuildTicket(ticketResult, ticket);
+                    BuildTicket(builder, ticketResult, ticket);
                     _ticketHelper.Index++;
                 }
 
                 if (_isShowSumStake)
                 {
-                    _builder.AddFooterForSumStake(ticketResult.MainTicketList.Sum(x => x.Stake));
+                    builder.AddFooterForSumStake(ticketResult.MainTicketList.Sum(x => x.Stake));
                 }
                 else if (_showingOption.GrandTotalVisible && !_hiddenColumnIndexes.Contains(ColumnWinlossIndex))
                 {
                     var sumWl = ticketResult.SumWinLoss + ticketResult.SumPlayerComm;
                     var sumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm;
                     var sumBetEffective = ticketResult.SumBetEffective;
-                    _builder.AddFooter(sumWl, sumBetEffective, sumLicenseeWl, _negativeWinLossFont, _winLossFont);
+                    builder.AddFooter(sumWl, sumBetEffective, sumLicenseeWl, _negativeWinLossFont, _winLossFont);
                 }
             }
             else
             {
-                AddNoInfoRow(_builder);
+                AddNoInfoRow(builder);
             }
         }
 
-        private void BuildTicket(TicketResult ticketResult, LrfTicket ticket)
+        private void BuildTicket(BetListExcelBuilder builder, TicketResult ticketResult, LrfTicket ticket)
         {
-            _builder
+            builder
             .AddIndex(_ticketHelper, _ticketHelper.Index)
             .AddExternalId(_ticketHelper, ticket.ExternalId, _oddCellStyleLeftAligned, _evenCellStyleLeftAligned)
             .AddSystemId(_ticketHelper, ticket.UserName, _oddCellStyleLeftAligned, _evenCellStyleLeftAligned)
@@ -155,28 +160,28 @@ namespace Fanex.Athena.Excel.BetList
             .AddStatus(ticket, _ticketHelper, ticketResult.TicketDataList, false);
         }
 
-        private void InitializeCellStyles()
+        private void InitializeCellStyles(BetListExcelBuilder builder)
         {
-            _oddCellStyleLeftAligned = _builder.CreateCellStyle();
-            _oddCellStyleLeftAligned.CloneStyleFrom(_builder.OddCellStyle);
+            _oddCellStyleLeftAligned = builder.CreateCellStyle();
+            _oddCellStyleLeftAligned.CloneStyleFrom(builder.OddCellStyle);
             _oddCellStyleLeftAligned.Alignment = HorizontalAlignment.Left;
-            _oddCellStyleLeftAligned.SetFont(_builder.RTFHelper.NormalFont);
+            _oddCellStyleLeftAligned.SetFont(builder.RTFHelper.NormalFont);
             _oddCellStyleLeftAligned.WrapText = true;
 
-            _evenCellStyleLeftAligned = _builder.CreateCellStyle();
-            _evenCellStyleLeftAligned.CloneStyleFrom(_builder.EvenCellStyle);
+            _evenCellStyleLeftAligned = builder.CreateCellStyle();
+            _evenCellStyleLeftAligned.CloneStyleFrom(builder.EvenCellStyle);
             _evenCellStyleLeftAligned.Alignment = HorizontalAlignment.Left;
-            _evenCellStyleLeftAligned.SetFont(_builder.RTFHelper.NormalFont);
+            _evenCellStyleLeftAligned.SetFont(builder.RTFHelper.NormalFont);
             _evenCellStyleLeftAligned.WrapText = true;
         }
 
-        private void InitializeFonts()
+        private void InitializeFonts(BetListExcelBuilder builder)
         {
-            _negativeWinLossFont = _builder.CreateFont();
+            _negativeWinLossFont = builder.CreateFont();
             _negativeWinLossFont.Boldweight = (short)FontBoldWeight.Bold;
             _negativeWinLossFont.Color = (short)FontColor.Red;
 
-            _winLossFont = _builder.CreateFont();
+            _winLossFont = builder.CreateFont();
             _winLossFont.Boldweight = (short)FontBoldWeight.Bold;
             _winLossFont.Color = (short)FontColor.None;
         }
@@ -188,7 +193,7 @@ namespace Fanex.Athena.Excel.BetList
                 var columns = _hiddenColumnIndexes;
                 if (_appSettings.FakeLicenseeList.Contains(_licenseeId) && !_hiddenColumnIndexes.Contains(ColumnSystemIdIndex))
                 {
-                    columns = columns.Concat(new int[] { ColumnSystemIdIndex });
+                    columns = columns.Concat(new[] { ColumnSystemIdIndex });
                 }
 
                 for (int i = 0; i < workbook.NumberOfSheets; i++)
