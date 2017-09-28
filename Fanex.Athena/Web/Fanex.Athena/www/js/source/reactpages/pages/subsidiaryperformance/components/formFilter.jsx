@@ -4,7 +4,7 @@ import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
 import Select from 'react-select'
 import MultipleSelect from '../../../components/multiple-select'
-import { Calendar, DateRange } from '../../../components/date-range/index'
+import { DateRange } from '../../../components/date-range/index'
 import LangHelper from '../../../lib/langHelper'
 import ReportExcel from '../lib/reportExcel'
 import Site from '../../../lib/site'
@@ -37,6 +37,9 @@ export class FormFilter extends Component {
         event.preventDefault();
         const { dateRange, selectedBaseCurrency } = this.props;
         const params = this._getParams();
+        if (!params) {
+            return;
+        }
 
         this.props.toggleLoader(true);
         this.props.exportExcel(params).then(response => {
@@ -76,10 +79,8 @@ export class FormFilter extends Component {
     }
 
     applyDateRangeHandler = (date, isValidMonthRange = true) => {
-        const { setDateRange } = this.props;
-
         if (isValidMonthRange) {
-            setDateRange(date);
+            this.props.setDateRange(date);
         }
         else {
             const message = LangHelper.getSingleResource("DateRangeExceedMsg").replace("{0}", RANGE_MONTH_CONSTRAINT);
