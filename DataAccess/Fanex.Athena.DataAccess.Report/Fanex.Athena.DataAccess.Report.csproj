@@ -169,7 +169,7 @@
     <Compile Include="Interfaces\IThirdPartyWinLossDataAccess.cs" />
     <Compile Include="Interfaces\IWinLossByLeagueDataAccess.cs" />
     <Compile Include="Interfaces\IResultDataAccess.cs" />
-    <Compile Include="CreditBalanceDataAccess.cs" />
+    <Compile Include="BalanceDataAccess.cs" />
     <Compile Include="CustomerBalanceDataAccess.cs" />
     <Compile Include="CustomerPendingFundsDataAccess.cs" />
     <Compile Include="CustomerTurnoverDataAccess.cs" />

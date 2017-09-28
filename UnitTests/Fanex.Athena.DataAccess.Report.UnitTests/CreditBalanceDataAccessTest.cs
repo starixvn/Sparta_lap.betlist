@@ -14,7 +14,7 @@
     public class CreditBalanceDataAccessTest
     {
         private IObjectDb _objectDb;
-        private CreditBalanceDataAccess _dataAccess;
+        private BalanceDataAccess _dataAccess;
         private IDataReader _reader;
 
         [OneTimeSetUp]
@@ -22,7 +22,7 @@
         {
             _objectDb = Substitute.For<IObjectDb>();
 
-            _dataAccess = Substitute.ForPartsOf<CreditBalanceDataAccess>();
+            _dataAccess = Substitute.ForPartsOf<BalanceDataAccess>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelBalance")).Returns(_objectDb);
 
             _reader = Substitute.For<IDataReader>();

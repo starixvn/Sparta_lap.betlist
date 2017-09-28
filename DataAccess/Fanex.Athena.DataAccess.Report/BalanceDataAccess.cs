@@ -17,7 +17,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Resources;
 
-    public class CreditBalanceDataAccess : BaseDataAccess, IBalanceDataAccess
+    public class BalanceDataAccess : BaseDataAccess, IBalanceDataAccess
     {
         public Balance GetReportData(BalanceMetaModel metaModel)
         {

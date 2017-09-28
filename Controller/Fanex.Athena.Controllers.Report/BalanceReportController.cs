@@ -7,24 +7,25 @@
 namespace Fanex.Athena.Controllers.Report
 {
     using System.Web.Mvc;
+    using DataAccess.Report;
+    using DataAccess.Report.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
-    using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
-    using Service.Report.Interfaces;
+    using Model.Report.DTO;
 
     [FunctionAuthorization(PermissionKeys.ReportBalance)]
     public class BalanceReportController : ReportBaseController
     {
-        private readonly ICreditBalanceService _creditBalanceService;
+        private readonly IBalanceDataAccess _balanceDataAccess;
 
         public BalanceReportController()
         {
-            _creditBalanceService = new CreditBalanceService();
+            _balanceDataAccess = new BalanceDataAccess();
         }
 
         [HttpGet]
@@ -47,7 +48,9 @@ namespace Fanex.Athena.Controllers.Report
 
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             metaModel.MoveBetsDay = GetBalanceUp().MoveBetsDay;
-            var reportData = _creditBalanceService.GetReportData(metaModel);
+            var reportData = metaModel.IsValid
+                       ? _balanceDataAccess.GetReportData(metaModel)
+                       : new Balance();
 
             var viewData = new BalanceViewModel
             {

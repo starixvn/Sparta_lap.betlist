@@ -232,6 +232,10 @@
       <Project>{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}</Project>
       <Name>Fanex.Athena.DataAccess.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Report\Fanex.Athena.DataAccess.Report.csproj">
+      <Project>{5653BC29-0843-4D75-9140-5B370DF2F88C}</Project>
+      <Name>Fanex.Athena.DataAccess.Report</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Excel\Fanex.Athena.Excel.Base\Fanex.Athena.Excel.Base.csproj">
       <Project>{413861ad-068b-4c02-b913-10b1de708fb7}</Project>
       <Name>Fanex.Athena.Excel.Base</Name>
