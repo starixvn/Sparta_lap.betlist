@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using DataAccess.TotalBet.Interfaces;
     using Fanex.Athena.Controllers.TotalBets;
-    using Fanex.Athena.Service.TotalBet.Interfaces;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
@@ -14,7 +14,7 @@
     [TestFixture]
     public class MoneyLineTotalBetControllerTest : BaseControllerHelperTest
     {
-        private IMoneyLineService _moneyLineService;
+        private IMoneyLineDataAccess _moneyLineDataAccess;
 
         private MoneyLineTotalBetController _controller;
 
@@ -35,7 +35,7 @@
         {
             base.FixtureTearDown();
 
-            _moneyLineService = null;
+            _moneyLineDataAccess = null;
         }
 
         [SetUp]
@@ -45,7 +45,7 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            _moneyLineService);
+                            _moneyLineDataAccess);
         }
 
         [TearDown]
@@ -75,7 +75,7 @@
             var viewModel = viewResult.Model as MoneyLineViewModel;
 
             // Assert
-            _moneyLineService.ReceivedWithAnyArgs().GetMoneyLineDataList(Arg.Any<MoneyLineMetaModel>(), out total);
+            _moneyLineDataAccess.ReceivedWithAnyArgs().GetMoneyLineDataList(Arg.Any<MoneyLineMetaModel>(), out total);
             Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
         }
 
@@ -97,10 +97,10 @@
 
         private void SepUpForService()
         {
-            _moneyLineService = Substitute.For<IMoneyLineService>();
+            _moneyLineDataAccess = Substitute.For<IMoneyLineDataAccess>();
 
             MoneyLine total;
-            _moneyLineService.GetMoneyLineDataList(Arg.Any<MoneyLineMetaModel>(), out total)
+            _moneyLineDataAccess.GetMoneyLineDataList(Arg.Any<MoneyLineMetaModel>(), out total)
                 .Returns(x =>
                 {
                     x[1] = new MoneyLine();

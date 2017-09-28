@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using DataAccess.TotalBet.Interfaces;
     using Fanex.Athena.Controllers.TotalBets;
-    using Fanex.Athena.Service.TotalBet.Interfaces;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
@@ -14,7 +14,7 @@
     [TestFixture]
     public class TotalGoalTotalBetControllerTest : BaseControllerHelperTest
     {
-        private ITotalGoalService _totalGoalService;
+        private ITotalGoalDataAccess _totalGoalDataAccess;
 
         private TotalGoalTotalBetController _controller;
 
@@ -35,7 +35,7 @@
         {
             base.FixtureTearDown();
 
-            _totalGoalService = null;
+            _totalGoalDataAccess = null;
         }
 
         [SetUp]
@@ -45,7 +45,7 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            _totalGoalService);
+                            _totalGoalDataAccess);
         }
 
         [TearDown]
@@ -75,7 +75,7 @@
             var viewModel = viewResult.Model as TotalGoalViewModel;
 
             // Assert
-            _totalGoalService.ReceivedWithAnyArgs().GetTotalGoalDataList(Arg.Any<TotalGoalMetaModel>(), out total);
+            _totalGoalDataAccess.ReceivedWithAnyArgs().GetTotalGoalDataList(Arg.Any<TotalGoalMetaModel>(), out total);
             Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
         }
 
@@ -97,10 +97,10 @@
 
         private void SepUpForService()
         {
-            _totalGoalService = Substitute.For<ITotalGoalService>();
+            _totalGoalDataAccess = Substitute.For<ITotalGoalDataAccess>();
 
             TotalGoal total;
-            _totalGoalService
+            _totalGoalDataAccess
                 .GetTotalGoalDataList(Arg.Any<TotalGoalMetaModel>(), out total)
                 .Returns(x =>
                 {

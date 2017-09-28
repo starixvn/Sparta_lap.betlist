@@ -7,6 +7,8 @@
 namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Web.Mvc;
+    using DataAccess.TotalBet;
+    using DataAccess.TotalBet.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Model.TotalBet.DTO;
     using Fanex.Athena.Web.ActionFilter;
@@ -15,27 +17,25 @@ namespace Fanex.Athena.Controllers.TotalBets
     using Model.TotalBet.ViewModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.TotalBet;
-    using Service.TotalBet.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.TotalBetTotalGoal)]
     public class TotalGoalTotalBetController : TotalBetBaseController
     {
-        private readonly ITotalGoalService _totalGoalService;
+        private readonly ITotalGoalDataAccess _totalGoalDataAccess;
 
         public TotalGoalTotalBetController()
         {
-            _totalGoalService = new TotalGoalService();
+            _totalGoalDataAccess = new TotalGoalDataAccess();
         }
 
         public TotalGoalTotalBetController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            ITotalGoalService totalGoalService)
+            ITotalGoalDataAccess totalGoalDataAccess)
             : base(languageService, sessionService, appSetting)
         {
-            _totalGoalService = totalGoalService;
+            _totalGoalDataAccess = totalGoalDataAccess;
         }
 
         [HttpGet]
@@ -69,7 +69,7 @@ namespace Fanex.Athena.Controllers.TotalBets
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 TotalGoal totalData;
-                var dataList = _totalGoalService.GetTotalGoalDataList(metaModel, out totalData);
+                var dataList = _totalGoalDataAccess.GetTotalGoalDataList(metaModel, out totalData);
                 var model = new TotalGoalViewModel
                 {
                     Param = metaModel,

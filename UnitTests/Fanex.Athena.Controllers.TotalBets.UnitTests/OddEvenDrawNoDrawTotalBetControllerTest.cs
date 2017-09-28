@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
-    using Fanex.Athena.Service.TotalBet.Interfaces;
+    using DataAccess.TotalBet.Interfaces;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
@@ -14,7 +14,7 @@
     [TestFixture]
     public class OddEvenDrawNoDrawTotalBetControllerTest : BaseControllerHelperTest
     {
-        private IOddEvenDrawNoDrawService _oddEvenDrawNoDrawService;
+        private IOddEvenDrawNoDrawDataAccess _oddEvenDrawNoDrawDataAccess;
 
         private OddEvenDrawNoDrawTotalBetController _controller;
 
@@ -35,7 +35,7 @@
         {
             base.FixtureTearDown();
 
-            _oddEvenDrawNoDrawService = null;
+            _oddEvenDrawNoDrawDataAccess = null;
         }
 
         [SetUp]
@@ -45,7 +45,7 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            _oddEvenDrawNoDrawService);
+                            _oddEvenDrawNoDrawDataAccess);
         }
 
         [TearDown]
@@ -75,7 +75,7 @@
             var viewModel = viewResult.Model as OddEvenDrawNoDrawViewModel;
 
             // Assert
-            _oddEvenDrawNoDrawService.ReceivedWithAnyArgs().GetOddEvenDrawNoDrawDataList(Arg.Any<OddEvenDrawNoDrawMetaModel>(), out total);
+            _oddEvenDrawNoDrawDataAccess.ReceivedWithAnyArgs().GetOddEvenDrawNoDrawDataList(Arg.Any<OddEvenDrawNoDrawMetaModel>(), out total);
             Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
         }
 
@@ -97,10 +97,10 @@
 
         private void SepUpForService()
         {
-            _oddEvenDrawNoDrawService = Substitute.For<IOddEvenDrawNoDrawService>();
+            _oddEvenDrawNoDrawDataAccess = Substitute.For<IOddEvenDrawNoDrawDataAccess>();
 
             OddEvenDrawNoDraw total;
-            _oddEvenDrawNoDrawService
+            _oddEvenDrawNoDrawDataAccess
                 .GetOddEvenDrawNoDrawDataList(Arg.Any<OddEvenDrawNoDrawMetaModel>(), out total)
                 .Returns(x =>
                 {

@@ -129,6 +129,14 @@
     <Compile Include="TotalGoalTotalBetController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
+      <Project>{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}</Project>
+      <Name>Fanex.Athena.DataAccess.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.TotalBet\Fanex.Athena.DataAccess.TotalBet.csproj">
+      <Project>{152EBE71-ED5C-4F5C-8817-C3AA406E16B8}</Project>
+      <Name>Fanex.Athena.DataAccess.TotalBet</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena.Controllers.Base\Fanex.Athena.Controllers.Base.csproj">
       <Project>{255e120a-83bf-4f72-9e31-6050d5704069}</Project>
       <Name>Fanex.Athena.Controllers.Base</Name>
@@ -148,10 +156,6 @@
     <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
       <Project>{fcfd7434-085b-4c93-848f-e1cbcedcc5a0}</Project>
       <Name>Fanex.Athena.Service.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Service\Fanex.Athena.Service.TotalBet\Fanex.Athena.Service.TotalBet.csproj">
-      <Project>{958801c9-b654-4f04-955a-08ccc659711d}</Project>
-      <Name>Fanex.Athena.Service.TotalBet</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Fanex.Athena.Web\Fanex.Athena.Web.csproj">
       <Project>{dd931adb-a994-49c0-95a3-72bcb6e22679}</Project>

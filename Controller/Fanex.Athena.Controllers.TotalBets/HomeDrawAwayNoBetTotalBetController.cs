@@ -7,6 +7,8 @@
 namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Web.Mvc;
+    using DataAccess.TotalBet;
+    using DataAccess.TotalBet.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
@@ -14,27 +16,25 @@ namespace Fanex.Athena.Controllers.TotalBets
     using Model.TotalBet.ViewModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.TotalBet;
-    using Service.TotalBet.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.TotalBetHomeDrawAwayNoBet)]
     public class HomeDrawAwayNoBetTotalBetController : TotalBetBaseController
     {
-        private readonly IHomeDrawAwayNoBetService _homeDrawAwayNoBetService;
+        private readonly IHomeDrawAwayNoBetDataAccess _homeDrawAwayNoBetDataAccess;
 
         public HomeDrawAwayNoBetTotalBetController()
         {
-            _homeDrawAwayNoBetService = new HomeDrawAwayNoBetService();
+            _homeDrawAwayNoBetDataAccess = new HomeDrawAwayNoBetDataAccess();
         }
 
         public HomeDrawAwayNoBetTotalBetController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IHomeDrawAwayNoBetService homeDrawAwayNoBetService)
+            IHomeDrawAwayNoBetDataAccess homeDrawAwayNoBetDataAccess)
             : base(languageService, sessionService, appSetting)
         {
-            _homeDrawAwayNoBetService = homeDrawAwayNoBetService;
+            _homeDrawAwayNoBetDataAccess = homeDrawAwayNoBetDataAccess;
         }
 
         [HttpGet]
@@ -64,7 +64,7 @@ namespace Fanex.Athena.Controllers.TotalBets
             if (metaModel.CurrencyId == 0 || currencies.ContainsKey(metaModel.CurrencyId))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                var dataList = _homeDrawAwayNoBetService.GetHomeDrawAwayNoBetDataList(metaModel);
+                var dataList = _homeDrawAwayNoBetDataAccess.GetHomeDrawAwayNoBetDataList(metaModel);
                 var model = new HomeDrawAwayNoBetViewModel
                 {
                     Param = metaModel,

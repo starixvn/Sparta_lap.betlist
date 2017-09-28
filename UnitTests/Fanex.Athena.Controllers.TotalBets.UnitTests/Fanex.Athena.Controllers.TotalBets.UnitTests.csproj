@@ -145,6 +145,10 @@
       <Project>{9d448f82-18c4-47f0-ab07-85da01fe2edc}</Project>
       <Name>Fanex.Athena.Controllers.TotalBets</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.TotalBet\Fanex.Athena.DataAccess.TotalBet.csproj">
+      <Project>{152EBE71-ED5C-4F5C-8817-C3AA406E16B8}</Project>
+      <Name>Fanex.Athena.DataAccess.TotalBet</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
@@ -168,10 +172,6 @@
     <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
       <Project>{FCFD7434-085B-4C93-848F-E1CBCEDCC5A0}</Project>
       <Name>Fanex.Athena.Service.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Service\Fanex.Athena.Service.TotalBet\Fanex.Athena.Service.TotalBet.csproj">
-      <Project>{958801c9-b654-4f04-955a-08ccc659711d}</Project>
-      <Name>Fanex.Athena.Service.TotalBet</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena.Controllers.Base.UnitTests\Fanex.Athena.Controllers.Base.UnitTests.csproj">
       <Project>{5A7466E4-F6B3-4042-8971-E6CE5EAB1F09}</Project>

@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using DataAccess.TotalBet.Interfaces;
     using Fanex.Athena.Controllers.TotalBets;
-    using Fanex.Athena.Service.TotalBet.Interfaces;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
@@ -14,7 +14,7 @@
     [TestFixture]
     public class HalfTimeFullTimeTotalBetControllerTest : BaseControllerHelperTest
     {
-        private IHalfTimeFullTimeService _halfTimeFullTimeService;
+        private IHalfTimeFullTimeDataAccess _halfTimeFullTimeDataAccess;
 
         private HalfTimeFullTimeTotalBetController _controller;
 
@@ -35,7 +35,7 @@
         {
             base.FixtureTearDown();
 
-            _halfTimeFullTimeService = null;
+            _halfTimeFullTimeDataAccess = null;
         }
 
         [SetUp]
@@ -45,7 +45,7 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            _halfTimeFullTimeService);
+                            _halfTimeFullTimeDataAccess);
         }
 
         [TearDown]
@@ -77,7 +77,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _halfTimeFullTimeService.ReceivedWithAnyArgs().GetHalfTimeFullTimeDataList(Arg.Any<HalfTimeFullTimeMetaModel>(), out total);
+                _halfTimeFullTimeDataAccess.ReceivedWithAnyArgs().GetHalfTimeFullTimeDataList(Arg.Any<HalfTimeFullTimeMetaModel>(), out total);
                 Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
             });
         }
@@ -100,10 +100,10 @@
 
         private void SepUpForService()
         {
-            _halfTimeFullTimeService = Substitute.For<IHalfTimeFullTimeService>();
+            _halfTimeFullTimeDataAccess = Substitute.For<IHalfTimeFullTimeDataAccess>();
 
             HalfTimeFullTime total;
-            _halfTimeFullTimeService
+            _halfTimeFullTimeDataAccess
                 .GetHalfTimeFullTimeDataList(Arg.Any<HalfTimeFullTimeMetaModel>(), out total)
                 .Returns(x =>
                 {

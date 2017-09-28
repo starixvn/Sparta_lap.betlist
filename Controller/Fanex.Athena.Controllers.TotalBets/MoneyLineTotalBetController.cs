@@ -7,6 +7,8 @@
 namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Web.Mvc;
+    using DataAccess.TotalBet;
+    using DataAccess.TotalBet.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Model.TotalBet.DTO;
     using Fanex.Athena.Web.ActionFilter;
@@ -15,27 +17,25 @@ namespace Fanex.Athena.Controllers.TotalBets
     using Model.TotalBet.ViewModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.TotalBet;
-    using Service.TotalBet.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.TotalBetMoneyLine)]
     public class MoneyLineTotalBetController : TotalBetBaseController
     {
-        private readonly IMoneyLineService _moneyLineService;
+        private readonly IMoneyLineDataAccess _moneyLineDataAccess;
 
         public MoneyLineTotalBetController()
         {
-            _moneyLineService = new MoneyLineService();
+            _moneyLineDataAccess = new MoneyLineDataAccess();
         }
 
         public MoneyLineTotalBetController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IMoneyLineService moneyLineService)
+            IMoneyLineDataAccess moneyLineDataAccess)
             : base(languageService, sessionService, appSetting)
         {
-            _moneyLineService = moneyLineService;
+            _moneyLineDataAccess = moneyLineDataAccess;
         }
 
         [HttpGet]
@@ -68,7 +68,7 @@ namespace Fanex.Athena.Controllers.TotalBets
             {
                 MoneyLine totalData;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                var dataList = _moneyLineService.GetMoneyLineDataList(metaModel, out totalData);
+                var dataList = _moneyLineDataAccess.GetMoneyLineDataList(metaModel, out totalData);
 
                 var model = new MoneyLineViewModel
                 {

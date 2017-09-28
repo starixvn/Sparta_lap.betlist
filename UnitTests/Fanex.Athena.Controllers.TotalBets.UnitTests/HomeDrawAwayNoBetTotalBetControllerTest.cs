@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using DataAccess.TotalBet.Interfaces;
     using Fanex.Athena.Controllers.TotalBets;
-    using Fanex.Athena.Service.TotalBet.Interfaces;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
@@ -14,7 +14,7 @@
     [TestFixture]
     public class HomeDrawAwayNoBetTotalBetControllerTest : BaseControllerHelperTest
     {
-        private IHomeDrawAwayNoBetService _homeDrawAwayNoBetService;
+        private IHomeDrawAwayNoBetDataAccess _homeDrawAwayNoBetDataAccess;
 
         private HomeDrawAwayNoBetTotalBetController _controller;
 
@@ -35,7 +35,7 @@
         {
             base.FixtureTearDown();
 
-            _homeDrawAwayNoBetService = null;
+            _homeDrawAwayNoBetDataAccess = null;
         }
 
         [SetUp]
@@ -45,7 +45,7 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            _homeDrawAwayNoBetService);
+                            _homeDrawAwayNoBetDataAccess);
         }
 
         [TearDown]
@@ -74,7 +74,7 @@
             var viewModel = viewResult.Model as HomeDrawAwayNoBetViewModel;
 
             // Assert
-            _homeDrawAwayNoBetService.ReceivedWithAnyArgs().GetHomeDrawAwayNoBetDataList(Arg.Any<HomeDrawAwayNoBetMetaModel>());
+            _homeDrawAwayNoBetDataAccess.ReceivedWithAnyArgs().GetHomeDrawAwayNoBetDataList(Arg.Any<HomeDrawAwayNoBetMetaModel>());
             Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
         }
 
@@ -96,9 +96,9 @@
 
         private void SepUpForService()
         {
-            _homeDrawAwayNoBetService = Substitute.For<IHomeDrawAwayNoBetService>();
+            _homeDrawAwayNoBetDataAccess = Substitute.For<IHomeDrawAwayNoBetDataAccess>();
 
-            _homeDrawAwayNoBetService
+            _homeDrawAwayNoBetDataAccess
                 .GetHomeDrawAwayNoBetDataList(Arg.Any<HomeDrawAwayNoBetMetaModel>())
                 .Returns(new List<HomeDrawAwayNoBet> { new HomeDrawAwayNoBet() });
         }

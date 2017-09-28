@@ -3,18 +3,18 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using DataAccess.TotalBet.Interfaces;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.TotalBet.Interfaces;
     using TotalBets;
 
     [TestFixture]
     public class FirstGoalLastGoalTotalBetControllerTest : BaseControllerHelperTest
     {
-        private IFirstGoalLastGoalService _firstGoalLastGoalService;
+        private IFirstGoalLastGoalDataAccess _firstGoalLastGoalDataAccess;
 
         private FirstGoalLastGoalTotalBetController _controller;
 
@@ -35,7 +35,7 @@
         {
             base.FixtureTearDown();
 
-            _firstGoalLastGoalService = null;
+            _firstGoalLastGoalDataAccess = null;
         }
 
         [SetUp]
@@ -45,7 +45,7 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            _firstGoalLastGoalService);
+                            _firstGoalLastGoalDataAccess);
         }
 
         [TearDown]
@@ -77,7 +77,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _firstGoalLastGoalService.Received().GetFirstGoalLastGoalDataList(Arg.Any<FirstGoalLastGoalMetaModel>(), out total);
+                _firstGoalLastGoalDataAccess.Received().GetFirstGoalLastGoalDataList(Arg.Any<FirstGoalLastGoalMetaModel>(), out total);
                 Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
             });
         }
@@ -100,10 +100,10 @@
 
         private void SepUpForService()
         {
-            _firstGoalLastGoalService = Substitute.For<IFirstGoalLastGoalService>();
+            _firstGoalLastGoalDataAccess = Substitute.For<IFirstGoalLastGoalDataAccess>();
 
             FirstGoalLastGoal total;
-            _firstGoalLastGoalService
+            _firstGoalLastGoalDataAccess
                 .GetFirstGoalLastGoalDataList(Arg.Any<FirstGoalLastGoalMetaModel>(), out total)
                 .Returns(new List<FirstGoalLastGoal> { new FirstGoalLastGoal() });
         }

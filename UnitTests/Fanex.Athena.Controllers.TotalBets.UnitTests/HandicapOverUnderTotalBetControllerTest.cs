@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using DataAccess.TotalBet.Interfaces;
     using Fanex.Athena.Controllers.TotalBets;
-    using Fanex.Athena.Service.TotalBet.Interfaces;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
@@ -14,7 +14,7 @@
     [TestFixture]
     public class HandicapOverUnderTotalBetControllerTest : BaseControllerHelperTest
     {
-        private IHandicapOverUnderService _handicapOverUnderService;
+        private IHandicapOverUnderDataAccess _handicapOverUnderDataAccess;
 
         private HandicapOverUnderTotalBetController _controller;
 
@@ -35,7 +35,7 @@
         {
             base.FixtureTearDown();
 
-            _handicapOverUnderService = null;
+            _handicapOverUnderDataAccess = null;
         }
 
         [SetUp]
@@ -45,7 +45,7 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            _handicapOverUnderService);
+                            _handicapOverUnderDataAccess);
         }
 
         [TearDown]
@@ -77,7 +77,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _handicapOverUnderService.ReceivedWithAnyArgs().GetHandicapOverUnderDataList(Arg.Any<HandicapOverUnderMetaModel>(), out total);
+                _handicapOverUnderDataAccess.ReceivedWithAnyArgs().GetHandicapOverUnderDataList(Arg.Any<HandicapOverUnderMetaModel>(), out total);
                 Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
             });
         }
@@ -170,10 +170,10 @@
 
         private void SepUpForService()
         {
-            _handicapOverUnderService = Substitute.For<IHandicapOverUnderService>();
+            _handicapOverUnderDataAccess = Substitute.For<IHandicapOverUnderDataAccess>();
 
             HandicapOverUnder total;
-            _handicapOverUnderService
+            _handicapOverUnderDataAccess
                 .GetHandicapOverUnderDataList(Arg.Any<HandicapOverUnderMetaModel>(), out total)
                 .Returns(x =>
                 {

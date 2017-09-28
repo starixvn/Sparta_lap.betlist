@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using DataAccess.TotalBet.Interfaces;
     using Fanex.Athena.Controllers.TotalBets;
-    using Fanex.Athena.Service.TotalBet.Interfaces;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
@@ -14,7 +14,7 @@
     [TestFixture]
     public class OutrightTotalBetControllerTest : BaseControllerHelperTest
     {
-        private IOutrightService _outrightService;
+        private IOutrightDataAccess _outrightDataAccess;
 
         private OutrightTotalBetController _controller;
 
@@ -35,7 +35,7 @@
         {
             base.FixtureTearDown();
 
-            _outrightService = null;
+            _outrightDataAccess = null;
         }
 
         [SetUp]
@@ -45,7 +45,7 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            _outrightService);
+                            _outrightDataAccess);
         }
 
         [TearDown]
@@ -72,7 +72,7 @@
             var viewModel = viewResult.Model as OutrightViewModel;
 
             // Assert
-            _outrightService.ReceivedWithAnyArgs().GetOutrightDataList(Arg.Any<OutrightMetaModel>());
+            _outrightDataAccess.ReceivedWithAnyArgs().GetOutrightDataList(Arg.Any<OutrightMetaModel>());
             Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
         }
 
@@ -94,9 +94,9 @@
 
         private void SepUpForService()
         {
-            _outrightService = Substitute.For<IOutrightService>();
+            _outrightDataAccess = Substitute.For<IOutrightDataAccess>();
 
-            _outrightService
+            _outrightDataAccess
                 .GetOutrightDataList(Arg.Any<OutrightMetaModel>())
                 .Returns(new List<Outright> { new Outright() });
         }
