@@ -8,8 +8,8 @@
     using System.Web.Http.Hosting;
     using System.Web.Http.Results;
     using DataAccess.Core.Configuration.Interfaces;
+    using DataAccess.Report.Interfaces;
     using Excel.Report;
-    using Fanex.Athena.Service.Report.Interfaces;
     using Model.Core.DTO.Configuration;
     using Model.Core.DTO.Users;
     using Model.Report.DTO;
@@ -26,7 +26,7 @@
     public class WinLossByLeagueReportControllerTest
     {
         private ISessionService _sessionService;
-        private IWinLossByLeagueService _service;
+        private IWinLossByLeagueDataAccess _dataAccess;
         private WinLossByLeagueReportController _controller;
 
         [OneTimeSetUp]
@@ -35,8 +35,8 @@
             _sessionService = Substitute.For<ISessionService>();
             var productService = Substitute.For<IProductService>();
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
-            _service = Substitute.For<IWinLossByLeagueService>();
-            _controller = Substitute.ForPartsOf<WinLossByLeagueReportController>(_sessionService, productService, balanceUpDataAccess, _service);
+            _dataAccess = Substitute.For<IWinLossByLeagueDataAccess>();
+            _controller = Substitute.ForPartsOf<WinLossByLeagueReportController>(_sessionService, productService, balanceUpDataAccess, _dataAccess);
             _controller.Request = new HttpRequestMessage();
             _controller.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
             balanceUpDataAccess.GetBalanceUp().Returns(new BalanceUp());
@@ -46,7 +46,7 @@
         [OneTimeTearDown]
         public void FixtureTearDown()
         {
-            _service = null;
+            _dataAccess = null;
             _controller = null;
             _sessionService = null;
         }
@@ -80,7 +80,7 @@
                 }
             };
 
-            _service.GetSummary(Arg.Any<WinLossByLeagueMetaModel>()).Returns(dataListResult);
+            _dataAccess.GetSummary(Arg.Any<WinLossByLeagueMetaModel>()).Returns(dataListResult);
 
             // Action
             var result = _controller.Index(new WinLossByLeagueMetaModel());
@@ -88,7 +88,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _service.Received().GetSummary(Arg.Any<WinLossByLeagueMetaModel>());
+                _dataAccess.Received().GetSummary(Arg.Any<WinLossByLeagueMetaModel>());
                 Assert.That(result.Data.Count, Is.EqualTo(2));
                 Assert.That(result.Total.BetCount, Is.EqualTo(300));
             });
@@ -106,8 +106,8 @@
             };
             WinLossByLeague grandTotal;
             int totalrows = 0;
-            _service.GetCustomers(Arg.Any<WinLossByLeagueMetaModel>(), out grandTotal, ref totalrows)
-                .Returns(x =>
+            _dataAccess.GetCustomers(Arg.Any<WinLossByLeagueMetaModel>(), out grandTotal, ref totalrows)
+                .ReturnsForAnyArgs(x =>
             {
                 x[1] = new WinLossByLeague
                 {
@@ -126,7 +126,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _service.Received().GetCustomers(Arg.Any<WinLossByLeagueMetaModel>(), out grandTotal, ref totalrows);
+                _dataAccess.ReceivedWithAnyArgs().GetCustomers(Arg.Any<WinLossByLeagueMetaModel>(), out grandTotal, ref totalrows);
                 Assert.That(result.Total.AmountDue, Is.EqualTo(ExpectedAmountDue));
                 Assert.That(result.TotalRows, Is.EqualTo(ExpectedTotalRows));
                 Assert.That(result.Data.Count, Is.EqualTo(1));
@@ -173,7 +173,7 @@
                 Arg.Do<WinLossByLeagueViewModel>(x => viewModel = x))
                 .Returns(excel);
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
-            _service.GetSummary(metaModel).Returns(new List<WinLossByLeague>
+            _dataAccess.GetSummary(metaModel).Returns(new List<WinLossByLeague>
             {
                 new WinLossByLeague()
             });

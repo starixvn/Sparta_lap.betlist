@@ -23,7 +23,7 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class WinLossByLeagueDataAccess : BaseDataAccess, IWinLossByLeagueDataAccess
     {
-        public IEnumerable<WinLossByLeague> GetWinlossByLeagues(WinLossByLeagueMetaModel metaModel)
+        public IEnumerable<WinLossByLeague> GetSummary(WinLossByLeagueMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinlostByLeague";
             try
@@ -60,7 +60,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public IEnumerable<WinLossByLeague> GetWinlossByLeagueCustomers(
+        public IEnumerable<WinLossByLeague> GetCustomers(
             WinLossByLeagueMetaModel metaModel, out WinLossByLeague grandTotal, ref int totalRows)
         {
             const string UspName = "Lrf_Rpt_WinlossByLeagueDetail";

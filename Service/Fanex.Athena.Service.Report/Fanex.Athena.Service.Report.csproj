@@ -202,7 +202,6 @@
     <Compile Include="SubsidiaryPerformanceService.cs" />
     <Compile Include="ThirdPartyWinLossService.cs" />
     <Compile Include="WeeklyLiveMatchService.cs" />
-    <Compile Include="WinLossByLeagueService.cs" />
     <Compile Include="Result\ResultService.cs" />
     <Compile Include="CustomerTurnoverService.cs" />
     <Compile Include="DailyRacingWinLossService.cs" />
@@ -210,13 +209,11 @@
     <Compile Include="MatchWinLossService.cs" />
     <Compile Include="SettledMatchCountService.cs" />
     <Compile Include="TurnoverService.cs" />
-    <Compile Include="WinLossByBetTypeService.cs" />
     <Compile Include="Result\Interfaces\IKenoApi.cs" />
     <Compile Include="Interfaces\IMicroGamingWinLossService.cs" />
     <Compile Include="Interfaces\IAgCasinoBalanceService.cs" />
     <Compile Include="Interfaces\IAgCasinoWinLossService.cs" />
     <Compile Include="Interfaces\IThirdPartyWinLossService.cs" />
-    <Compile Include="Interfaces\IWinLossByLeagueService.cs" />
     <Compile Include="Result\Interfaces\IResultService.cs" />
     <Compile Include="Interfaces\ICustTurnoverService.cs" />
     <Compile Include="Interfaces\IDailyRacingWinLossService.cs" />
@@ -224,7 +221,6 @@
     <Compile Include="Interfaces\IMatchWinLossService.cs" />
     <Compile Include="Interfaces\ISettledMatchCountService.cs" />
     <Compile Include="Interfaces\ITurnoverService.cs" />
-    <Compile Include="Interfaces\IWinLossByBetTypeServive.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

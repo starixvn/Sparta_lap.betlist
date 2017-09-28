@@ -15,6 +15,8 @@ namespace Fanex.Athena.Api.Report
     using Base.Attributes;
     using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
+    using DataAccess.Report;
+    using DataAccess.Report.Interfaces;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -23,19 +25,17 @@ namespace Fanex.Athena.Api.Report
     using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.Report;
-    using Service.Report.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportWinLossByLeague)]
     public class WinLossByLeagueReportController : ApiReportBaseController
     {
-        private readonly IWinLossByLeagueService _winlossByLeagueService;
+        private readonly IWinLossByLeagueDataAccess _winlossByLeagueDataAccess;
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         public WinLossByLeagueReportController()
         {
-            _winlossByLeagueService = new WinLossByLeagueService();
+            _winlossByLeagueDataAccess = new WinLossByLeagueDataAccess();
             _balanceUpDataAccess = new BalanceUpDataAccess();
         }
 
@@ -43,11 +43,11 @@ namespace Fanex.Athena.Api.Report
             ISessionService sessionService,
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
-            IWinLossByLeagueService winlossByLeagueService)
+            IWinLossByLeagueDataAccess winlossByLeagueService)
             : base(sessionService, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
-            _winlossByLeagueService = winlossByLeagueService;
+            _winlossByLeagueDataAccess = winlossByLeagueService;
         }
 
         [HttpPost]
@@ -135,12 +135,17 @@ namespace Fanex.Athena.Api.Report
             IEnumerable<WinLossByLeague> dataList = null;
             if (metaModel.Level == 0)
             {
-                dataList = _winlossByLeagueService.GetSummary(metaModel);
+                dataList = metaModel.IsValid
+                       ? this._winlossByLeagueDataAccess.GetSummary(metaModel)
+                       : new List<WinLossByLeague>();
                 grandTotal = CalculateTotal(dataList);
             }
             else
             {
-                dataList = _winlossByLeagueService.GetCustomers(metaModel, out grandTotal, ref totalrows);
+                grandTotal = new WinLossByLeague();
+                dataList = metaModel.IsValid ?
+                    _winlossByLeagueDataAccess.GetCustomers(metaModel, out grandTotal, ref totalrows) :
+                    new List<WinLossByLeague>();
             }
 
             return dataList;

@@ -54,7 +54,7 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlostByLeague")).Returns(objectDb);
 
             // Action
-            _dataAccess.GetWinlossByLeagues(metaModel);
+            _dataAccess.GetSummary(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -92,7 +92,7 @@
             MapReaderData(reader, readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetWinlossByLeagues(new WinLossByLeagueMetaModel
+            var result = _dataAccess.GetSummary(new WinLossByLeagueMetaModel
             {
                 BaseCurrency = "USD"
             });
@@ -134,7 +134,7 @@
             int totalRows = 0;
 
             // Action
-            _dataAccess.GetWinlossByLeagueCustomers(metaModel, out grandTotal, ref totalRows);
+            _dataAccess.GetCustomers(metaModel, out grandTotal, ref totalRows);
 
             // Assert
             Assert.Multiple(() =>
@@ -176,7 +176,7 @@
             int totalRows = 0;
 
             // Action
-            var result = _dataAccess.GetWinlossByLeagueCustomers(
+            var result = _dataAccess.GetCustomers(
                 new WinLossByLeagueMetaModel
                 {
                     BaseCurrency = "USD"
