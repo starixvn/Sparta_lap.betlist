@@ -16,7 +16,7 @@
             // Arrange            
             var firstObject = new Person { Id = 1, Name = "Walter", Children = CreateData("Ariana", "Selena", "Kross") };
             var secondObject = new Person { Id = 2, Name = "Ralph", Children = CreateData("Kyle", "Selena", "Alex") };
-            var comparer = new DictionaryPropertyComparer<Person, int, string>(keyValue, "Children", System.ComponentModel.ListSortDirection.Ascending);
+            var comparer = new DictionaryPropertyComparer<Person>(keyValue, "Children", System.ComponentModel.ListSortDirection.Ascending);
 
             // Action
             var result = comparer.Compare(firstObject, secondObject);
@@ -33,7 +33,7 @@
             // Arrange            
             var firstObject = new Person { Id = 1, Name = "Walter", Children = CreateData("Ariana", "Selena", "Kross") };
             var secondObject = new Person { Id = 2, Name = "Ralph", Children = CreateData("Kyle", "Selena", "Alex") };
-            var comparer = new DictionaryPropertyComparer<Person, int, string>(keyValue, "Children", System.ComponentModel.ListSortDirection.Descending);
+            var comparer = new DictionaryPropertyComparer<Person>(keyValue, "Children", System.ComponentModel.ListSortDirection.Descending);
 
             // Action
             var result = comparer.Compare(firstObject, secondObject);

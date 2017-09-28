@@ -161,7 +161,7 @@
             var sortOrder = "asc";
             var metaModel = CreateValidMetaModel(sortBy, sortOrder);
             var expectedData = SetUpForGettingData(metaModel, out totalCustomer);
-            expectedData.SortByDictionary<string, int>("A", nameof(ActiveCustomer.CustomerCount), sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+            expectedData.SortByDictionary("A", nameof(ActiveCustomer.CustomerCount), sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
 
             // Action
             var result = _controller.Index(metaModel);

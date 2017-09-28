@@ -17,7 +17,7 @@
             var dataList = new SortableList<Person> { firstObject, secondObject };
 
             // Action
-            dataList.SortByDictionary<int, string>(10, "Children", true);
+            dataList.SortByDictionary(10, "Children", true);
 
             // Assert
             Assert.That(firstObject, Is.EqualTo(dataList[0]));
@@ -33,7 +33,7 @@
             var dataList = new SortableList<Person> { firstObject, secondObject };
 
             // Action
-            dataList.SortByDictionary<int, string>(10, "Children", false);
+            dataList.SortByDictionary(10, "Children", false);
 
             // Assert
             Assert.That(firstObject, Is.EqualTo(dataList[1]));
