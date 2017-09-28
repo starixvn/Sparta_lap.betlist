@@ -208,7 +208,6 @@
     <Compile Include="DailyRacingWinLossService.cs" />
     <Compile Include="LiveReportService.cs" />
     <Compile Include="MatchWinLossService.cs" />
-    <Compile Include="RacingCommissionService.cs" />
     <Compile Include="SettledMatchCountService.cs" />
     <Compile Include="TurnoverService.cs" />
     <Compile Include="WinLossByBetTypeService.cs" />
@@ -223,7 +222,6 @@
     <Compile Include="Interfaces\IDailyRacingWinLossService.cs" />
     <Compile Include="Interfaces\ILiveReportService.cs" />
     <Compile Include="Interfaces\IMatchWinLossService.cs" />
-    <Compile Include="Interfaces\IRacingCommissionService.cs" />
     <Compile Include="Interfaces\ISettledMatchCountService.cs" />
     <Compile Include="Interfaces\ITurnoverService.cs" />
     <Compile Include="Interfaces\IWinLossByBetTypeServive.cs" />

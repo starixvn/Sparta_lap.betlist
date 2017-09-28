@@ -8,12 +8,14 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System;
     using System.Web.Mvc;
+    using DataAccess.Report;
+    using DataAccess.Report.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
-    using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
@@ -21,6 +23,13 @@ namespace Fanex.Athena.Controllers.Report
     [FunctionAuthorization(PermissionKeys.ReportRacingCommission)]
     public class RacingCommissionReportController : ReportBaseController
     {
+        private readonly IRacingCommissionDataAccess _racingCommissionDataAccess;
+
+        public RacingCommissionReportController()
+        {
+            _racingCommissionDataAccess = new RacingCommissionDataAccess();
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -56,8 +65,10 @@ namespace Fanex.Athena.Controllers.Report
             }
 
             var total = new RacingCommission();
-            var racingCommissionService = new RacingCommissionService();
-            var reportData = racingCommissionService.GetDataList(metaModel, ref total);
+
+            var reportData = metaModel.IsValid
+                       ? _racingCommissionDataAccess.GetDataList(metaModel, ref total)
+                       : new SortableList<RacingCommission>();
 
             reportData.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
 

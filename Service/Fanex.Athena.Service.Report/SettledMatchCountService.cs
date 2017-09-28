@@ -44,45 +44,27 @@ namespace Fanex.Athena.Service.Report
 
         #region Get data list after check product access
 
-        /// <summary>
-        /// Check acceptable product based on sport type.
-        /// </summary>
-        /// <param name="sportType">The sport type.</param>
-        /// <param name="productAccess">The products object.</param>
-        /// <returns>True or false.</returns>
-        private static bool CheckProductAccess(int sportType, ProductAccess productAccess)
+        private static bool IsValidSportType(int sportType, ProductAccess productAccess)
         {
-            if (sportType == (int)SportType.HorseRacing)
+            switch (sportType)
             {
-                return productAccess.IsAllowRB;
-            }
+                case (int)SportType.HorseRacing:
+                case (int)SportType.Greyhound:
+                case (int)SportType.Harness:
+                    return productAccess.IsAllowRB;
 
-            if (sportType == (int)SportType.NumberGame)
-            {
-                return productAccess.IsAllowNG;
-            }
+                case (int)SportType.NumberGame:
+                    return productAccess.IsAllowNG;
 
-            if (sportType == (int)SportType.Greyhound)
-            {
-                return productAccess.IsAllowRB;
-            }
+                case (int)SportType.LiveCasino:
+                    return productAccess.IsAllowLC;
 
-            if (sportType == (int)SportType.Harness)
-            {
-                return productAccess.IsAllowRB;
-            }
+                case (int)SportType.VirtualSport:
+                    return productAccess.IsAllowVS;
 
-            if (sportType == (int)SportType.LiveCasino)
-            {
-                return productAccess.IsAllowLC;
+                default:
+                    return true;
             }
-
-            if (sportType == (int)SportType.VirtualSport)
-            {
-                return productAccess.IsAllowVS;
-            }
-
-            return true;
         }
 
         #endregion Get data list after check product access
@@ -144,7 +126,7 @@ namespace Fanex.Athena.Service.Report
         private static IList<SettledMatchCountViewModel> GetDataListAfterCheckProductAccess(
          IEnumerable<SettledMatchCount> settledMatchCountList, ProductAccess productAccess)
         {
-            var listAfterCheckProduct = settledMatchCountList.Where(item => CheckProductAccess(item.SportType, productAccess)).ToList();
+            var listAfterCheckProduct = settledMatchCountList.Where(item => IsValidSportType(item.SportType, productAccess)).ToList();
 
             return ConvertDtoDataToViewData(listAfterCheckProduct);
         }
