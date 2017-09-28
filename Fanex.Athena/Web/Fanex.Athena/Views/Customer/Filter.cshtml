@@ -40,13 +40,15 @@
                 <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" id="odds-group-multiselect-null" class="hide" />
             </div>
         }
-        
+        if (!Model.IsFakeLicensee)
+        {
         <div class="grid_2 note-group">
             <div>
                 <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">
                 </div>
             </div>
         </div>
+        }
         if (Model.Param.IsShowStatusDropdown)
         {
         <div class="grid_2 filter-label new-line">
