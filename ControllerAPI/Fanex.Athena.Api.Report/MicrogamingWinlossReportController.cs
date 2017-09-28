@@ -12,6 +12,8 @@ namespace Fanex.Athena.Api.Report
     using System.Web;
     using System.Web.Http;
     using Base.Attributes;
+    using DataAccess.Report;
+    using DataAccess.Report.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Extension.Utility;
@@ -19,17 +21,15 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
-    using Service.Report;
-    using Service.Report.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportMicrogamingWinloss)]
     public class MicrogamingWinlossReportController : ApiReportBaseController
     {
-        private readonly IMicroGamingWinLossService _microGamingWinLossService;
+        private readonly IMicroGamingWinLossDataAccess _microGamingWinLossDataAccess;
 
         public MicrogamingWinlossReportController()
         {
-            _microGamingWinLossService = new MicroGamingWinLossService();
+            _microGamingWinLossDataAccess = new MicroGamingWinLossDataAccess();
         }
 
         [HttpPost]
@@ -38,22 +38,23 @@ namespace Fanex.Athena.Api.Report
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludedTestData);
-            IDictionary<string, MicroGamingWinLoss> summaryTotal;
-            SortableList<MicroGamingWinLoss> dataList;
+            IDictionary<string, MicroGamingWinLoss> summaryTotal = new Dictionary<string, MicroGamingWinLoss>();
 
-            dataList = _microGamingWinLossService.GetSummaryWinloss(metaModel, out summaryTotal);
+            var dataList = metaModel.IsValid ?
+                this._microGamingWinLossDataAccess.GetSummaryWinloss(metaModel, out summaryTotal) :
+                new SortableList<MicroGamingWinLoss>();
 
             if (metaModel.IsExportExcel)
             {
                 return ExportExcel(metaModel, dataList, summaryTotal);
             }
 
-            if (dataList != null && dataList.Count > 0)
+            if (dataList.Any())
             {
                 return new
                 {
                     Data = DoRestructureDataMicroGaming(dataList.GroupBy(i => new { i.TypeID, i.Date })),
-                    Total = _microGamingWinLossService.TotalCalc(dataList),
+                    Total = CalculateTotal(dataList),
                     SummaryTotal = summaryTotal
                 };
             }
@@ -107,6 +108,23 @@ namespace Fanex.Athena.Api.Report
                 Total = new List<ThirdPartyWinLoss>(),
                 SummaryTotal = new Dictionary<string, ThirdPartyWinLoss>()
             };
+        }
+
+        private static IEnumerable<MicroGamingWinLoss> CalculateTotal(IEnumerable<MicroGamingWinLoss> dataList)
+        {
+            return dataList.GroupBy(d => d.CurrencyName).Select(g => new MicroGamingWinLoss
+            {
+                CurrencyName = g.Key,
+                TurnOver = g.Sum(p => p.TurnOver),
+                TotalTransaction = g.Sum(p => p.TotalTransaction),
+                CustomerWinLoss = g.Sum(p => p.CustomerWinLoss),
+                ProgressiveContribution = g.Sum(p => p.ProgressiveContribution),
+                ProgressivePayout = g.Sum(p => p.ProgressivePayout),
+                LicenseeWL = g.Sum(p => p.LicenseeWL),
+                LicenseeNetWin = g.Sum(p => p.LicenseeNetWin),
+                AmountDueToMGC = g.Sum(p => p.AmountDueToMGC),
+                ProgressiveFee = g.Sum(p => p.ProgressiveFee)
+            }).ToList();
         }
 
         private HttpResponseMessage ExportExcel(
