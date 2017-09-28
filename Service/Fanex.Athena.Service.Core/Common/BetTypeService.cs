@@ -53,13 +53,13 @@ namespace Fanex.Athena.Service.Core.Common
                         .Select(i => i.ID).ToArray();
                     if (childSports.Length == 0)
                     {
-                        childSports = new int[] { product.ID };
+                        childSports = new[] { product.ID };
                     }
 
                     sportItemXML.Append(string.Format(SportXMLItemPattern, product.ID, string.Join(",", childSports)));
                 }
 
-                var sportsParameters = "<products>" + sportItemXML.ToString() + "</products>";
+                var sportsParameters = "<products>" + sportItemXML + "</products>";
                 return _betTypeDataAccess.GetBettypes(licenseeId, sportsParameters, languageCode);
             }
 

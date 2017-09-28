@@ -6,6 +6,7 @@
     using System.Web.Mvc;
     using Account;
     using Base.UnitTests;
+    using DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.DTO.Users;
     using NSubstitute;
@@ -18,7 +19,7 @@
     {
         private IFunctionService _functionService;
         private IUserService _userService;
-        private ICurrencyService _currencyService;
+        private ICurrencyDataAccess _currencyService;
 
         private AccountController _controller;
 
@@ -28,7 +29,7 @@
             FakeBaseControllerDependency();
             _functionService = Substitute.For<IFunctionService>();
             _userService = Substitute.For<IUserService>();
-            _currencyService = Substitute.For<ICurrencyService>();
+            _currencyService = Substitute.For<ICurrencyDataAccess>();
         }
 
         [OneTimeTearDown]

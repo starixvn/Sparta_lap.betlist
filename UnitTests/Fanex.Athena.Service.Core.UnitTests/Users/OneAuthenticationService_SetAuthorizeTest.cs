@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Web;
-    using Core.Common.Interfaces;
     using Core.Users.Interfaces;
+    using DataAccess.Core.Common.Interfaces;
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Users;
@@ -21,7 +21,7 @@
         private OneAuthenticationService _oneAuthenticationService;
         private ISessionService _sessionService;
         private ILicenseeDataAccess _licenseeDataAccess;
-        private ICurrencyService _currencyService;
+        private ICurrencyDataAccess _currencyDataAccess;
         private IFormsAuthenticationService _formAuthenticationService;
         private IUserService _userService;
 
@@ -30,7 +30,7 @@
         {
             _sessionService = Substitute.For<ISessionService>();
             _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
-            _currencyService = Substitute.For<ICurrencyService>();
+            _currencyDataAccess = Substitute.For<ICurrencyDataAccess>();
             _userService = Substitute.For<IUserService>();
             _licenseeDataAccess.GetLicenseeByName(Arg.Any<string>()).Returns(new Licensee { Id = 1, Name = "spondemo", IsAllowedCustomerComm = true });
             _sessionService.UserSession.Returns(x => null);
@@ -45,7 +45,7 @@
             _oneAuthenticationService = null;
             _sessionService = null;
             _licenseeDataAccess = null;
-            _currencyService = null;
+            _currencyDataAccess = null;
             _formAuthenticationService = null;
         }
 
@@ -58,7 +58,7 @@
             _oneAuthenticationService = new OneAuthenticationService(
                 _sessionService,
                 _licenseeDataAccess,
-                _currencyService,
+                _currencyDataAccess,
                 _formAuthenticationService,
                 _userService,
                 null);
@@ -67,7 +67,7 @@
             _oneAuthenticationService.SetAuthorize(tokenInfo);
 
             // Assert
-            _currencyService.DidNotReceive().GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>());
+            _currencyDataAccess.DidNotReceive().GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>());
         }
 
         [Test]
@@ -78,14 +78,14 @@
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
 
-            _currencyService.GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(new List<CurrencyUser>());
+            _currencyDataAccess.GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(new List<CurrencyUser>());
 
             _oneAuthenticationService = new OneAuthenticationService(
-                _sessionService, 
-                _licenseeDataAccess, 
-                _currencyService, 
-                _formAuthenticationService, 
-                _userService, 
+                _sessionService,
+                _licenseeDataAccess,
+                _currencyDataAccess,
+                _formAuthenticationService,
+                _userService,
                 null);
 
             var expectedResult = new ResultInfo { Code = 600, Message = "Not found currency" };
@@ -113,7 +113,7 @@
             var expectedCookie = $"{tokenInfo.VendorID}_{tokenInfo.SiteName}_{tokenInfo.UserID}";
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
-            _currencyService.GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(FakeCurrencyListMapByUser());
+            _currencyDataAccess.GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(FakeCurrencyListMapByUser());
 
             _sessionService.When(x => x.CreateNewSession(Arg.Any<UserSession>(), Arg.Any<LicenseeSession>()))
                 .Do(
@@ -127,7 +127,7 @@
             _formAuthenticationService.When(x => x.SetAuthCookie(expectedCookie, false)).Do(x => cookieCounter++);
 
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(
-                _sessionService, _licenseeDataAccess, _currencyService, _formAuthenticationService, _userService, null);
+                _sessionService, _licenseeDataAccess, _currencyDataAccess, _formAuthenticationService, _userService, null);
 
             _oneAuthenticationService.GetStringFromFile(Arg.Any<string>()).Returns(GetJsonSystemFunctionList());
 

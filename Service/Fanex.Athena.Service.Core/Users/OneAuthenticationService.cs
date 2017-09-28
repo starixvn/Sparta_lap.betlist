@@ -5,8 +5,8 @@
     using System.Linq;
     using System.Web;
     using System.Web.Hosting;
-    using Common;
-    using Common.Interfaces;
+    using DataAccess.Core.Common;
+    using DataAccess.Core.Common.Interfaces;
     using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility;
@@ -24,7 +24,7 @@
     {
         private readonly ISessionService _sessionService;
         private readonly ILicenseeDataAccess _licenseeDataAccess;
-        private readonly ICurrencyService _currencyService;
+        private readonly ICurrencyDataAccess _currencyDataAccess;
         private readonly IUserService _userService;
         private readonly IFormsAuthenticationService _formsAuthenticationService;
         private readonly IOneBookSecurityWrapper _oneBookSecurityWrapper;
@@ -36,14 +36,14 @@
         public OneAuthenticationService(
             ISessionService sessionService,
             ILicenseeDataAccess licenseeDataAccess,
-            ICurrencyService currencyService,
+            ICurrencyDataAccess currencyDataAccess,
             IFormsAuthenticationService formsAuthenticationService,
             IUserService userService,
             IOneBookSecurityWrapper oneBookSecurityWrapper)
         {
             _sessionService = sessionService ?? new SessionService();
             _licenseeDataAccess = licenseeDataAccess ?? new LicenseeDataAccess();
-            _currencyService = currencyService ?? new CurrencyService();
+            _currencyDataAccess = currencyDataAccess ?? new CurrencyDataAccess();
             _formsAuthenticationService = formsAuthenticationService ?? new FormsAuthenticationService();
             _userService = userService ?? new UserService();
             _oneBookSecurityWrapper = oneBookSecurityWrapper ?? new OneBookSecurityWrapper();
@@ -156,7 +156,7 @@
         private IEnumerable<CurrencyUser> GetCurrencyList(OneAuthToken tokenInfo, int licenseeId)
         {
             return tokenInfo.IsAdminstrator ?
-                            _currencyService.GetCurrenciesByUser(licenseeId, tokenInfo.UserSEQ) :
+                            _currencyDataAccess.GetCurrenciesByUser(licenseeId, tokenInfo.UserSEQ) :
                             tokenInfo.Currency?.Select(x => new CurrencyUser
                             {
                                 IsActive = true,

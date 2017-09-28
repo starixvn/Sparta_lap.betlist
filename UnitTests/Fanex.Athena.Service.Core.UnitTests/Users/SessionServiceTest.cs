@@ -7,6 +7,7 @@
     using Core.Common.Interfaces;
     using Core.Users;
     using Core.Users.Interfaces;
+    using DataAccess.Core.Common.Interfaces;
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility;
     using Model.Core.DTO;
@@ -23,7 +24,7 @@
         private IAppSettings _appSettings;
         private IFunctionService _functionService;
         private ILicenseeDataAccess _licenseeDataAccess;
-        private ICurrencyService _currencyService;
+        private ICurrencyDataAccess _currencyDataAccess;
         private ISessionService _sessionService;
 
         [OneTimeSetUp]
@@ -41,8 +42,8 @@
                 }
             };
             _licenseeDataAccess.GetByUser(DefaultUserId).Returns<IList<Licensee>>(i => licenseeList);
-            _currencyService = Substitute.For<ICurrencyService>();
-            _sessionService = new SessionService(_appSettings, _functionService, _licenseeDataAccess, _currencyService);
+            _currencyDataAccess = Substitute.For<ICurrencyDataAccess>();
+            _sessionService = new SessionService(_appSettings, _functionService, _licenseeDataAccess, _currencyDataAccess);
         }
 
         [OneTimeTearDown]
@@ -50,7 +51,7 @@
         {
             _functionService = null;
             _licenseeDataAccess = null;
-            _currencyService = null;
+            _currencyDataAccess = null;
             _sessionService = null;
         }
 
@@ -421,7 +422,7 @@
                     AgentIdList = new int[] { 3, 4, 5 }
                 }
             };
-            _currencyService.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
+            _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
             CreateDefaultNewSession();
             var expectedResult = "<ROOT><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/></ROOT>";
 
@@ -448,7 +449,7 @@
                     AgentIdList = new int[] { 1, 2 }
                 }
             };
-            _currencyService.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
+            _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
             CreateDefaultNewSession();
             var expectedResult = "<ROOT><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/></ROOT>";
 
@@ -483,7 +484,7 @@
                     AgentIdList = new int[] { 3 }
                 }
             };
-            _currencyService.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
+            _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
             CreateDefaultNewSession();
             var expectedResult = "<ROOT><Agent AgentId=\"3\" Currency=\"2\"/></ROOT>";
 
@@ -518,7 +519,7 @@
                     AgentIdList = new int[] { 3 }
                 }
             };
-            _currencyService.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
+            _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
             CreateDefaultNewSession();
             var expectedResult = "<ROOT><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/><Agent AgentId=\"3\" Currency=\"2\"/></ROOT>";
 
@@ -553,7 +554,7 @@
                     AgentIdList = new int[] { 3 }
                 }
             };
-            _currencyService.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
+            _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
             CreateDefaultNewSession(96);
             var expectedResult = "<ROOT><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/><Agent AgentId=\"3\" Currency=\"66\"/></ROOT>";
 

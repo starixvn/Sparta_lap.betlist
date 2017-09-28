@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Service.Core.Common
+﻿namespace Fanex.Athena.Service.Core.Common.Interfaces
 {
     using System.Collections.Generic;
     using Fanex.Athena.Model.Core.DTO.Common;

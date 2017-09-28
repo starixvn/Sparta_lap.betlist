@@ -3,6 +3,7 @@
     using System.Web;
     using Core.Common.Interfaces;
     using Core.Users.Interfaces;
+    using DataAccess.Core.Common.Interfaces;
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Users;
@@ -18,7 +19,7 @@
         private OneAuthenticationService _oneAuthenticationService;
         private ISessionService _sessionService;
         private ILicenseeDataAccess _licenseeDataAccess;
-        private ICurrencyService _currencyService;
+        private ICurrencyDataAccess _currencyDataAccess;
         private IFormsAuthenticationService _formAuthenticationService;
         private IUserService _userService;
 
@@ -27,7 +28,7 @@
         {
             _sessionService = Substitute.For<ISessionService>();
             _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
-            _currencyService = Substitute.For<ICurrencyService>();
+            _currencyDataAccess = Substitute.For<ICurrencyDataAccess>();
             _userService = Substitute.For<IUserService>();
             _sessionService.UserSession.Returns(x => null);
             _sessionService.LicenseeSession.Returns(x => null);
@@ -41,7 +42,7 @@
             _oneAuthenticationService = null;
             _sessionService = null;
             _licenseeDataAccess = null;
-            _currencyService = null;
+            _currencyDataAccess = null;
             _formAuthenticationService = null;
         }
 
@@ -58,7 +59,7 @@
             _oneAuthenticationService = new OneAuthenticationService(
                 _sessionService,
                 _licenseeDataAccess, 
-                _currencyService, 
+                _currencyDataAccess, 
                 _formAuthenticationService, 
                 _userService, 
                 null);
@@ -87,7 +88,7 @@
             _userService.GetByUsername(tokenInfo.UserID, Arg.Any<int>()).Returns(x => new User { UserID = exptectedUserId });
 
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(
-                _sessionService, _licenseeDataAccess, _currencyService, _formAuthenticationService, _userService, null);
+                _sessionService, _licenseeDataAccess, _currencyDataAccess, _formAuthenticationService, _userService, null);
 
             _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).DoNotCallBase();
             _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).Do(x => counter++);

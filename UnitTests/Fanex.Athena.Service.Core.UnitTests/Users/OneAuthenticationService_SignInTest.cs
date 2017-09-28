@@ -1,8 +1,8 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Users
 {
     using System.Web;
-    using Core.Common.Interfaces;
     using Core.Users.Interfaces;
+    using DataAccess.Core.Common.Interfaces;
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Users;
@@ -19,7 +19,7 @@
         private OneAuthenticationService _oneAuthenticationService;
         private ISessionService _sessionService;
         private ILicenseeDataAccess _licenseeDataAccess;
-        private ICurrencyService _currencyService;
+        private ICurrencyDataAccess _currencyDataAccess;
         private IFormsAuthenticationService _formAuthenticationService;
         private IUserService _userService;
 
@@ -28,7 +28,7 @@
         {
             _sessionService = Substitute.For<ISessionService>();
             _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
-            _currencyService = Substitute.For<ICurrencyService>();
+            _currencyDataAccess = Substitute.For<ICurrencyDataAccess>();
             _userService = Substitute.For<IUserService>();
             _userService.GetByUsername(Arg.Any<string>(), Arg.Any<int>()).Returns(new User { UserID = 1 });
 
@@ -36,7 +36,7 @@
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(
                 _sessionService,
                 _licenseeDataAccess,
-                _currencyService,
+                _currencyDataAccess,
                 _formAuthenticationService,
                 _userService,
                 null);
@@ -48,7 +48,7 @@
             _oneAuthenticationService = null;
             _sessionService = null;
             _licenseeDataAccess = null;
-            _currencyService = null;
+            _currencyDataAccess = null;
             _formAuthenticationService = null;
         }
 
@@ -63,10 +63,10 @@
             };
             _oneAuthenticationService = new OneAuthenticationService(
                 _sessionService,
-                _licenseeDataAccess, 
-                _currencyService, 
-                _formAuthenticationService, 
-                _userService, 
+                _licenseeDataAccess,
+                _currencyDataAccess,
+                _formAuthenticationService,
+                _userService,
                 null);
             _licenseeDataAccess.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
 
@@ -76,7 +76,7 @@
             _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Assert
-            _currencyService.Received().GetCurrenciesByUser(licensee.Id, tokenInfo.UserSEQ);
+            _currencyDataAccess.Received().GetCurrenciesByUser(licensee.Id, tokenInfo.UserSEQ);
         }
 
         [Test]

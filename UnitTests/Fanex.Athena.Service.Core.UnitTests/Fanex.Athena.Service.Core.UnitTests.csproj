@@ -121,12 +121,10 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Common\FunctionServiceTest.cs" />
+    <Compile Include="Common\LanguageServiceTest.cs" />
     <Compile Include="Common\SportTypeServiceTest.cs" />
     <Compile Include="Common\ProductServiceTest.cs" />
     <Compile Include="Common\MatchServiceTest.cs" />
-    <Compile Include="Common\LeagueServiceTest.cs" />
-    <Compile Include="Common\LanguageServiceTest.cs" />
-    <Compile Include="Common\CurrencyServiceTest.cs" />
     <Compile Include="Common\BetTypeServiceTest.cs" />
     <Compile Include="Configuration\MoveBetServiceTest.cs" />
     <Compile Include="Exception\ServiceExceptionTest.cs" />

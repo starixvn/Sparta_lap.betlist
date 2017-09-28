@@ -102,16 +102,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\BetTypeService.cs" />
-    <Compile Include="Common\CurrencyService.cs" />
     <Compile Include="Common\FunctionService.cs" />
     <Compile Include="Common\FunctionStorage.cs" />
-    <Compile Include="Common\IFunctionStorage.cs" />
+    <Compile Include="Common\Interfaces\IFunctionStorage.cs" />
     <Compile Include="Helpers\ClientViewHelper.cs" />
     <Compile Include="Users\Interfaces\IOneBookSecurityWrapper.cs" />
     <Compile Include="Users\OneBookSecurityWrapper.cs" />
     <Compile Include="Users\Interfaces\IOneAuthenticationService.cs" />
     <Compile Include="Common\LanguageService.cs" />
-    <Compile Include="Common\LeagueService.cs" />
     <Compile Include="Common\MatchService.cs" />
     <Compile Include="Common\ProductService.cs" />
     <Compile Include="Common\SportTypeService.cs" />
@@ -119,11 +117,9 @@
     <Compile Include="Exception\ServiceException.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Common\Interfaces\IBetTypeService.cs" />
-    <Compile Include="Common\Interfaces\ICurrencyService.cs" />
     <Compile Include="Common\Interfaces\IExChangeRateService.cs" />
     <Compile Include="Common\Interfaces\IFunctionService.cs" />
     <Compile Include="Common\Interfaces\ILanguageService.cs" />
-    <Compile Include="Common\Interfaces\ILeagueService.cs" />
     <Compile Include="Common\Interfaces\IMatchService.cs" />
     <Compile Include="Common\Interfaces\IProductService.cs" />
     <Compile Include="Common\Interfaces\ISportTypeService.cs" />

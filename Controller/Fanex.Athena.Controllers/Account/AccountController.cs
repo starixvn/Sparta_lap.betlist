@@ -13,6 +13,8 @@ namespace Fanex.Athena.Controllers.Account
     using System.Linq;
     using System.Text;
     using System.Web.Mvc;
+    using DataAccess.Core.Common;
+    using DataAccess.Core.Common.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -36,7 +38,7 @@ namespace Fanex.Athena.Controllers.Account
     {
         private readonly IFunctionService _functionService;
         private readonly IUserService _userService;
-        private readonly ICurrencyService _currencyService;
+        private readonly ICurrencyDataAccess _currencyDataAccess;
 
         private IEnumerable<Function> _allMasterFunctionList;
 
@@ -48,7 +50,7 @@ namespace Fanex.Athena.Controllers.Account
         {
             this._functionService = new FunctionService();
             this._userService = new UserService();
-            _currencyService = new CurrencyService();
+            _currencyDataAccess = new CurrencyDataAccess();
         }
 
         public AccountController(
@@ -57,12 +59,12 @@ namespace Fanex.Athena.Controllers.Account
             IAppSettings appSetting,
             IFunctionService functionService,
             IUserService userService,
-            ICurrencyService currencyService)
+            ICurrencyDataAccess currencyDataAccess)
             : base(languageService, sessionService, appSetting)
         {
             _functionService = functionService;
             _userService = userService;
-            _currencyService = currencyService;
+            _currencyDataAccess = currencyDataAccess;
         }
 
         #region Actions
@@ -358,7 +360,7 @@ namespace Fanex.Athena.Controllers.Account
 
             if (userId > 0)
             {
-                var currencies = _currencyService.GetCurrenciesByUser(SessionService.LicenseeSession.LicenseeId, userId);
+                var currencies = _currencyDataAccess.GetCurrenciesByUser(SessionService.LicenseeSession.LicenseeId, userId);
                 if (SessionService.LicenseeSession.LicenseeId == LicenseeIdentity.KeenOcean)
                 {
                     KeanOceanBusinessHelper.KeepHKDCurrencyName(currencies);
@@ -405,7 +407,7 @@ namespace Fanex.Athena.Controllers.Account
             model.ModifyBy = userSession.UserId;
 
             // convert currencies into xml
-            var currencyDict = _currencyService.GetCurrenciesByUser(licenseeId, userSession.UserId);
+            var currencyDict = _currencyDataAccess.GetCurrenciesByUser(licenseeId, userSession.UserId);
             const string XmlPattern = "<currencies>{0}</currencies>";
             const string XmlElementPattern = "<currency currencyid=\"{0}\" status=\"{1}\"></currency>";
             var xmlElementBuilder = new StringBuilder();
@@ -421,7 +423,7 @@ namespace Fanex.Athena.Controllers.Account
 
             model.CurrencyList = string.Format(XmlPattern, xmlElementBuilder);
 
-            var result = _currencyService.AssignCurrenciesByUser(model);
+            var result = _currencyDataAccess.AssignCurrenciesByUser(model);
 
             if (result.IsSuccessful)
             {

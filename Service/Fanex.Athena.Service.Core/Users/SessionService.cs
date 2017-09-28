@@ -14,6 +14,8 @@ namespace Fanex.Athena.Service.Core.Users
     using System.Linq;
     using System.Text;
     using System.Web;
+    using DataAccess.Core.Common;
+    using DataAccess.Core.Common.Interfaces;
     using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility;
@@ -39,26 +41,26 @@ namespace Fanex.Athena.Service.Core.Users
         private readonly IAppSettings _appSettings;
         private readonly IFunctionService _functionService;
         private readonly ILicenseeDataAccess _licenseeDataAccess;
-        private readonly ICurrencyService _currencyService;
+        private readonly ICurrencyDataAccess _currencyDataAccess;
 
         public SessionService()
         {
             _appSettings = new AppSettings();
             _functionService = new FunctionService();
             _licenseeDataAccess = new LicenseeDataAccess();
-            _currencyService = new CurrencyService();
+            _currencyDataAccess = new CurrencyDataAccess();
         }
 
         public SessionService(
             IAppSettings appSettings,
             IFunctionService functionService,
             ILicenseeDataAccess licenseeDataAccess,
-            ICurrencyService currencyService)
+            ICurrencyDataAccess currencyDataAccess)
         {
             _appSettings = appSettings;
             _functionService = functionService;
             _licenseeDataAccess = licenseeDataAccess;
-            _currencyService = currencyService;
+            _currencyDataAccess = currencyDataAccess;
         }
 
         #region Public Properties
@@ -270,7 +272,7 @@ namespace Fanex.Athena.Service.Core.Users
         {
             if (currencyUserList == null)
             {
-                currencyUserList = _currencyService.GetCurrenciesByUser(licenseeId, userSession.UserId);
+                currencyUserList = _currencyDataAccess.GetCurrenciesByUser(licenseeId, userSession.UserId);
             }
 
             if (licenseeId == LicenseeIdentity.KeenOcean)
