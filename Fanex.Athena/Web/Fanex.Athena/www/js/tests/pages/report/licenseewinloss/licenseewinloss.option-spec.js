@@ -146,7 +146,6 @@
                     });
 
                     it("systemIdColumn should have correct format", function () {
-                        var systemIdColumn = columnModels[3];
                         var rowObject = {
                             Date: "2017-03-06T00:00:00",
                             CurrencyId: 9,
@@ -157,6 +156,7 @@
                         };
                         var expected = '<a class="drilldown" href="javascript:;" onclick="return licenseewinlossDrilldown(2,9,6507355,\'2017-03-06T00:00:00\',\'AUD\');">SystemId</a>';
 
+                        var systemIdColumn = columnModels[3];
                         var result = systemIdColumn.formatter("SystemId", null, rowObject);
 
                         expect(result).toBe(expected);

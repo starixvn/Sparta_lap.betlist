@@ -134,10 +134,7 @@ define(
             resizable: false,
             width: 150,
             align: 'left',
-            sortable: true,
-            formatter: function (cellvalue, options, rowObject) {
-                return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
-            }
+            sortable: true
         };
 
         var currencyColumn =
