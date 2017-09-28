@@ -21308,6 +21308,9 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 selectedBaseCurrency = _this$props.selectedBaseCurrency;
 
             var params = _this._getParams();
+            if (!params) {
+                return;
+            }
 
             _this.props.toggleLoader(true);
             _this.props.exportExcel(params).then(function (response) {
@@ -21328,11 +21331,9 @@ var FormFilter = exports.FormFilter = function (_Component) {
 
         _this.applyDateRangeHandler = function (date) {
             var isValidMonthRange = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-            var setDateRange = _this.props.setDateRange;
-
 
             if (isValidMonthRange) {
-                setDateRange(date);
+                _this.props.setDateRange(date);
             } else {
                 var message = _langHelper2.default.getSingleResource("DateRangeExceedMsg").replace("{0}", RANGE_MONTH_CONSTRAINT);
                 alert(message);
