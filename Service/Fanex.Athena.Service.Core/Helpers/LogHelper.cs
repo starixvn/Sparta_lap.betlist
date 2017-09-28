@@ -56,9 +56,9 @@ namespace Fanex.Athena.Service.Core.Helpers
                    .AppendLine("Url: " + request.RawUrl)
                    .AppendLine("Referrer: " + request.UrlReferrer)
                    .AppendLine("QUERYSTRING: " + string.Join("~", request.QueryString))
-                   .AppendLine("Browser:" + request.Browser.Type.ToString())
-                   .AppendLine("BrowserVer:" + request.Browser.Version.ToString())
-                   .AppendLine("Agent:" + request.UserAgent.ToString());
+                   .AppendLine("Browser:" + request.Browser.Type)
+                   .AppendLine("BrowserVer:" + request.Browser.Version)
+                   .AppendLine("Agent:" + request.UserAgent);
 
             var sessionService = new SessionService();
             var licenseeSession = sessionService.LicenseeSession;
