@@ -20,7 +20,6 @@
 
         public SortableList<AgCasinoBalance> GetAgentBalanceDetail(AgCasinoBalanceMetaModel metaModel, out IDictionary<string, AgCasinoBalance> summaryTotal)
         {
-            summaryTotal = new Dictionary<string, AgCasinoBalance>();
             return this._licenseeBalanceDataAccess.GetAgentWinlossDetail(metaModel, out summaryTotal);
         }
 
@@ -29,13 +28,11 @@
             out IDictionary<string, AgCasinoBalance> summaryTotal,
             out int totalRows)
         {
-            summaryTotal = new Dictionary<string, AgCasinoBalance>();
             return this._licenseeBalanceDataAccess.GetCustomerWinlossDetail(metaModel, out summaryTotal, out totalRows);
         }
 
         public SortableList<AgCasinoBalance> GetSummaryBalance(AgCasinoBalanceMetaModel metaModel, out IDictionary<string, AgCasinoBalance> summaryTotal)
         {
-            summaryTotal = new Dictionary<string, AgCasinoBalance>();
             var result = this._licenseeBalanceDataAccess.GetSummaryWinloss(metaModel, out summaryTotal);
             var date = new System.DateTime();
             var index = 1;

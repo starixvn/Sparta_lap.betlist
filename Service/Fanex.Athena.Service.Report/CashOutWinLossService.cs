@@ -33,13 +33,11 @@ namespace Fanex.Athena.Service.Report
             CashOutWinLossMetaModel metaModel,
             out IDictionary<string, CashOutWinLoss> summaryTotal)
         {
-            summaryTotal = new Dictionary<string, CashOutWinLoss>();
             return _dataAccess.GetDetail(metaModel, out summaryTotal);
         }
 
         public SortableList<CashOutWinLoss> GetSummary(CashOutWinLossMetaModel metaModel, out IDictionary<string, CashOutWinLoss> summaryTotal)
         {
-            summaryTotal = new Dictionary<string, CashOutWinLoss>();
             var result = this._dataAccess.GetSummary(metaModel, out summaryTotal);
             var date = new System.DateTime();
             var index = 1;
