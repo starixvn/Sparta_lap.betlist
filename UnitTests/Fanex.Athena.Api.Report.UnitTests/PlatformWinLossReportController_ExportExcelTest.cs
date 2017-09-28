@@ -6,9 +6,10 @@
     using System.Net.Http;
     using System.Web.Http;
     using System.Web.Http.Hosting;
+    using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
     using Excel.Report;
-    using Fanex.Athena.Service.Report.Interfaces;
+    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using Model.Core.MetaModel.Product;
@@ -31,7 +32,7 @@
         private const string FunctionName = "PlatformWinloss";
         private PlatformWinLossReportController _controller;
         private IProductService _productService;
-        private IPlatformWinLossService _service;
+        private IPlatformWinLossDataAccess _platformWinLossDataAccess;
         private ISessionService _sessionService;
         private PlatformWinLossMetaModel _metalModel;
 
@@ -40,7 +41,20 @@
         {
             _metalModel = new PlatformWinLossMetaModel
             {
-                IsExportExcel = true
+                IsExportExcel = true,
+                PlatformType = PlatformType.Asia,
+                Year = 2017,
+                Month = 1,
+                FromDay = 1,
+                ToDay = 2,
+                ProductOptions = new List<ProductOption>
+                {
+                    new ProductOption
+                    {
+                        Code = "SB",
+                        Status = true
+                    }
+                }
             };
         }
 
@@ -49,8 +63,8 @@
         {
             FakeSession();
             _productService = Substitute.For<IProductService>();
-            _service = Substitute.For<IPlatformWinLossService>();
-            _controller = Substitute.ForPartsOf<PlatformWinLossReportController>(_sessionService, _productService, _service);
+            _platformWinLossDataAccess = Substitute.For<IPlatformWinLossDataAccess>();
+            _controller = Substitute.ForPartsOf<PlatformWinLossReportController>(_sessionService, _productService, _platformWinLossDataAccess);
             _controller.Request = new HttpRequestMessage();
             _controller.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
@@ -60,7 +74,7 @@
         [OneTimeTearDown]
         public void FixtureTearDown()
         {
-            _service = null;
+            _platformWinLossDataAccess = null;
             _controller = null;
             _sessionService = null;
         }
@@ -218,7 +232,7 @@
                 new PlatformWinLossSummary()
             };
             PlatformWinLossSummary totalSummaryData;
-            _service.GetSummaryData(Arg.Any<PlatformWinLossMetaModel>(), out totalSummaryData).Returns(x =>
+            _platformWinLossDataAccess.GetSummaryData(Arg.Any<PlatformWinLossMetaModel>(), out totalSummaryData).ReturnsForAnyArgs(x =>
             {
                 x[1] = new PlatformWinLossSummary
                 {
@@ -243,7 +257,7 @@
                 new PlatformWinLossMember()
             };
             PlatformWinLossMember totalMemberData;
-            _service.GetMemberData(Arg.Any<PlatformWinLossMetaModel>(), out totalMemberData).Returns(x =>
+            _platformWinLossDataAccess.GetMemberData(Arg.Any<PlatformWinLossMetaModel>(), out totalMemberData).ReturnsForAnyArgs(x =>
             {
                 x[1] = new PlatformWinLossMember
                 {

@@ -13,6 +13,8 @@ namespace Fanex.Athena.Api.Report
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
+    using DataAccess.Report;
+    using DataAccess.Report.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Extension.Helper;
@@ -24,26 +26,24 @@ namespace Fanex.Athena.Api.Report
     using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.Report;
-    using Service.Report.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportPlatformWinLoss)]
     public class PlatformWinLossReportController : ApiReportBaseController
     {
-        private readonly IPlatformWinLossService _platformWinLossService;
+        private readonly IPlatformWinLossDataAccess _platformWinLossDataAccess;
 
         public PlatformWinLossReportController()
         {
-            _platformWinLossService = new PlatformWinLossService();
+            _platformWinLossDataAccess = new PlatformWinLossDataAccess();
         }
 
         public PlatformWinLossReportController(
             ISessionService sessionService,
             IProductService productService,
-            IPlatformWinLossService platformWinLossService)
+            IPlatformWinLossDataAccess platformWinLossDataAccess)
             : base(sessionService, productService)
         {
-            _platformWinLossService = platformWinLossService;
+            _platformWinLossDataAccess = platformWinLossDataAccess;
         }
 
         [HttpPost]
@@ -139,8 +139,10 @@ namespace Fanex.Athena.Api.Report
 
             if (metaModel.Level == 0)
             {
-                PlatformWinLossSummary totalData;
-                var dataList = _platformWinLossService.GetSummaryData(metaModel, out totalData);
+                var totalData = new PlatformWinLossSummary();
+                var dataList = metaModel.IsValid ?
+                    _platformWinLossDataAccess.GetSummaryData(metaModel, out totalData) :
+                    new List<PlatformWinLossSummary>();
                 return metaModel.IsExportExcel ?
                     ExportExcelSummary(metaModel, dataList, totalData) :
                    (dynamic)new
@@ -152,8 +154,10 @@ namespace Fanex.Athena.Api.Report
             }
             else
             {
-                PlatformWinLossMember totalData;
-                var dataList = _platformWinLossService.GetMemberData(metaModel, out totalData);
+                var totalData = new PlatformWinLossMember();
+                var dataList = metaModel.IsValid ?
+                    _platformWinLossDataAccess.GetMemberData(metaModel, out totalData) :
+                    new List<PlatformWinLossMember>();
 
                 return metaModel.IsExportExcel
                     ? ExportExcelMember(metaModel, dataList, totalData)
