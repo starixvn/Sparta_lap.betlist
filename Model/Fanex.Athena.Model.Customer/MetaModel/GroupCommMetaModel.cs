@@ -114,10 +114,15 @@ namespace Fanex.Athena.Model.Customer.MetaModel
             {
                 return temp.GroupColor.Equals(GroupColor, StringComparison.OrdinalIgnoreCase)
                     && temp.GroupCommId == GroupCommId && temp.GroupName.Equals(GroupName)
-                    && temp.SBComm == SBComm && temp.RCComm == RCComm && temp.CSComm == CSComm && temp.LicenseeId == LicenseeId;
+                    && temp.SBComm == SBComm && temp.RCComm == RCComm && temp.CSComm == CSComm;
             }
 
             return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return GroupCommId.GetHashCode();
         }
     }
 }
