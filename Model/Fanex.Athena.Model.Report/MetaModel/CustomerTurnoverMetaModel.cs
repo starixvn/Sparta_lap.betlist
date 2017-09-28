@@ -48,8 +48,9 @@ namespace Fanex.Athena.Model.Report.MetaModel
             get
             {
                 /*Only suport filter by all customer for sungame licensee (licenseeId=8).*/
-                return FromDate <= ToDate && (ShowWin || ShowLoss || ShowDraw)
-                    && this.SportProducts.Count(i => i.Checked) > 0 && this.Bettypes.Count(i => i.Checked) > 0;
+                var isShow = ShowWin || ShowLoss || ShowDraw;
+                return isShow && FromDate <= ToDate &&
+                    SportProducts.Any(i => i.Checked) && Bettypes.Any(i => i.Checked);
             }
         }
 

@@ -112,9 +112,9 @@ namespace Fanex.Athena.Model.Customer.MetaModel
             var temp = obj as GroupCommMetaModel;
             if (temp != null)
             {
-                return temp.GroupColor.Equals(GroupColor, StringComparison.OrdinalIgnoreCase)
-                    && temp.GroupCommId == GroupCommId && temp.GroupName.Equals(GroupName)
-                    && temp.SBComm == SBComm && temp.RCComm == RCComm && temp.CSComm == CSComm;
+                var isSameComm = temp.SBComm == SBComm && temp.RCComm == RCComm && temp.CSComm == CSComm;
+                return isSameComm && temp.GroupColor.Equals(GroupColor, StringComparison.OrdinalIgnoreCase)
+                    && temp.GroupCommId == GroupCommId && temp.GroupName.Equals(GroupName);
             }
 
             return false;

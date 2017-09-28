@@ -13,6 +13,7 @@ namespace Fanex.Athena.Excel.Customer
     using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.Customer.ViewModel;
+    using Model.Customer.DTO;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using Resources;
@@ -165,14 +166,6 @@ namespace Fanex.Athena.Excel.Customer
             ProcessUi(sheet);
         }
 
-        /// <summary>
-        /// Assign report data to current sheet.
-        /// </summary>
-        /// <param name="sheet">The current sheet.</param>
-        [SuppressMessage(
-            "StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private void AssignSheetData(ISheet sheet)
         {
             var rowCount = _exportData.DataList.Count;
@@ -181,7 +174,6 @@ namespace Fanex.Athena.Excel.Customer
             for (int index = 0; index < rowCount; index++)
             {
                 var item = _exportData.DataList[index];
-                var itemType = item.GetType();
                 var rowIndex = index + RowContentTemplate;
                 var numofRow = index + startNumOfRow;
                 var row = sheet.CopyRow(_templateSheet, RowContentTemplate, rowIndex);
@@ -192,33 +184,7 @@ namespace Fanex.Athena.Excel.Customer
                 }
 
                 /* commission column*/
-                if (_exportData.IsAllowedCustomerCommission && _showedGridColumns.Contains(CUSTOMERCOMM))
-                {
-                    if (_exportData.ProductAccess.IsAllowSB)
-                    {
-                        row.Cells[SBCommColumn].SetCellValue(item.SBComm.ToStringExt(2));
-                    }
-
-                    if (_exportData.ProductAccess.IsAllowNG)
-                    {
-                        row.Cells[NGCommColumn].SetCellValue(item.NGComm.ToStringExt(2));
-                    }
-
-                    if (_exportData.ProductAccess.IsAllowRB)
-                    {
-                        row.Cells[RCCommColumn].SetCellValue(item.RBComm.ToStringExt(2));
-                    }
-
-                    if (_exportData.ProductAccess.IsAllowLC)
-                    {
-                        row.Cells[LCCommColumn].SetCellValue(item.LCComm.ToStringExt(2));
-                    }
-
-                    if (_exportData.ProductAccess.IsAllowCS)
-                    {
-                        row.Cells[CSCommColumn].SetCellValue(item.CSComm.ToStringExt(2));
-                    }
-                }
+                AssignCommissionColumns(item, row);
 
                 /*BA column*/
                 if (_exportData.ProductAccess.IsAllowBA && _showedGridColumns.Contains(BASTATUS))
@@ -227,21 +193,58 @@ namespace Fanex.Athena.Excel.Customer
                 }
 
                 /* common column */
-                row.Cells[0].SetCellValue(numofRow);
-                foreach (var columnName in _gridCommonColumNames)
+                AssignCommonColumns(item, numofRow, row);
+            }
+        }
+
+        private void AssignCommonColumns(CustomerDTO item, int numofRow, IRow row)
+        {
+            var itemType = item.GetType();
+            row.Cells[0].SetCellValue(numofRow);
+            foreach (var columnName in _gridCommonColumNames)
+            {
+                if (_showedGridColumns.Contains(columnName.Value))
                 {
-                    if (_showedGridColumns.Contains(columnName.Value))
+                    var cellValue = itemType.GetProperty(columnName.Value).GetValue(item, null);
+                    if (columnName.Value.Equals("SpecialLevel") && (int)cellValue == 0)
                     {
-                        var cellValue = itemType.GetProperty(columnName.Value).GetValue(item, null);
-                        if (columnName.Value.Equals("SpecialLevel") && (int)cellValue == 0)
-                        {
-                            row.Cells[columnName.Key].SetCellValue(ViewResources.None);
-                        }
-                        else
-                        {
-                            row.Cells[columnName.Key].SetCellValue(cellValue);
-                        }
+                        row.Cells[columnName.Key].SetCellValue(ViewResources.None);
                     }
+                    else
+                    {
+                        row.Cells[columnName.Key].SetCellValue(cellValue);
+                    }
+                }
+            }
+        }
+
+        private void AssignCommissionColumns(CustomerDTO item, IRow row)
+        {
+            if (_exportData.IsAllowedCustomerCommission && _showedGridColumns.Contains(CUSTOMERCOMM))
+            {
+                if (_exportData.ProductAccess.IsAllowSB)
+                {
+                    row.Cells[SBCommColumn].SetCellValue(item.SBComm.ToStringExt(2));
+                }
+
+                if (_exportData.ProductAccess.IsAllowNG)
+                {
+                    row.Cells[NGCommColumn].SetCellValue(item.NGComm.ToStringExt(2));
+                }
+
+                if (_exportData.ProductAccess.IsAllowRB)
+                {
+                    row.Cells[RCCommColumn].SetCellValue(item.RBComm.ToStringExt(2));
+                }
+
+                if (_exportData.ProductAccess.IsAllowLC)
+                {
+                    row.Cells[LCCommColumn].SetCellValue(item.LCComm.ToStringExt(2));
+                }
+
+                if (_exportData.ProductAccess.IsAllowCS)
+                {
+                    row.Cells[CSCommColumn].SetCellValue(item.CSComm.ToStringExt(2));
                 }
             }
         }

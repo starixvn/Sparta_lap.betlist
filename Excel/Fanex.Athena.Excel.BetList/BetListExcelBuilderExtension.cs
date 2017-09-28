@@ -241,10 +241,9 @@ namespace Fanex.Athena.Excel.BetList
             bool isRunning = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
             bool isRacing = ticket.BetTypeId == (int)BetType.Win || ticket.BetTypeId == (int)BetType.Place ||
                             ticket.BetTypeId == (int)BetType.WinPlace;
-            if ((isRacing && is12Bet) ||
-                ticket.BetTypeId == (int)BetType.BetTradeBought ||
-                ticket.BetTypeId == (int)BetType.CashOutBought ||
-                (ticket.BetTypeId >= MinColossusBetBetType && ticket.BetTypeId <= MaxColossusBetBetType))
+            var isBoughtTicket = ticket.BetTypeId == (int)BetType.BetTradeBought || ticket.BetTypeId == (int)BetType.CashOutBought;
+            var isColossusBetBettype = ticket.BetTypeId >= MinColossusBetBetType && ticket.BetTypeId <= MaxColossusBetBetType;
+            if (isBoughtTicket || (isRacing && is12Bet) || isColossusBetBettype)
             {
                 string licenseeWl = isRunning
                                     ? "-"
