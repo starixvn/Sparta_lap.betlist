@@ -7,9 +7,13 @@
 namespace Fanex.Athena.Controllers.WareHouse
 {
     using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
     using System.Web.Mvc;
     using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
+    using DataAccess.Warehouse;
+    using DataAccess.Warehouse.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Warehouse;
     using Fanex.Athena.Model.Warehouse.MetaModel;
@@ -17,21 +21,20 @@ namespace Fanex.Athena.Controllers.WareHouse
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
+    using Model.Warehouse.DTO;
     using Resources;
-    using Service.Warehouse;
-    using Service.Warehouse.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.WarehouseTopCustomer)]
     public class TopCustomerWareHouseController : WareHouseBaseController
     {
         private readonly ISportTypeDataAccess _sportTypeDataAccess;
 
-        private readonly ITopCustomerService _topCustomerService;
+        private readonly ITopCustomerDataAccess _topCustomerDataAccess;
 
         public TopCustomerWareHouseController()
         {
             _sportTypeDataAccess = new SportTypeDataAccess();
-            _topCustomerService = new TopCustomerService();
+            _topCustomerDataAccess = new TopCustomerDataAccess();
         }
 
         [HttpGet]
@@ -83,7 +86,7 @@ namespace Fanex.Athena.Controllers.WareHouse
             var totalValues = new Dictionary<string, decimal>();
 
             ViewBag.BalanceUpDay = GetBalanceUp().BalanceUpDay.ToShortDateString();
-            model.MainResult = _topCustomerService.GetTopCustomerList(metaModel, ref totalValues);
+            model.MainResult = GetTopCustomerList(metaModel, ref totalValues);
             model.TotalValues = totalValues;
 
             ViewBag.MaxDate = GetBalanceUp().MoveBetsDay;
@@ -121,15 +124,54 @@ namespace Fanex.Athena.Controllers.WareHouse
                 metaModel.ToDate.ToShortDateString(),
                 viewByCurrency);
 
-            var exportData = _topCustomerService.GetDataForExcel(metaModel);
+            var exportData = metaModel.IsValid
+                       ? _topCustomerDataAccess.GetDataForExcel(metaModel)
+                       : new DataTable();
 
-            var topCustExcel = new TopCustomer(templatePath, showingOption, exportData)
+            var topCustExcel = new TopCustomerExcel(templatePath, showingOption, exportData)
             {
                 ReportTitle = titleText
             };
 
             topCustExcel.Export();
             return new ExcelResult(topCustExcel.Workbook, FileName);
+        }
+
+        private static Dictionary<string, decimal> GetTopCustomerTotalInfo(IEnumerable<TopCustomer> dataList)
+        {
+            var totalValues = new Dictionary<string, decimal>
+                    {
+                        { "betcount", 0 },
+                        { "turnover", 0 },
+                        { "memberwinloss", 0 },
+                        { "memberwinlosscomm", 0 },
+                        { "licenseewinloss", 0 },
+                        { "bacomm", 0 },
+                        { "totalrows", 0 }
+                    };
+
+            if (dataList != null)
+            {
+                totalValues["betcount"] = dataList.Sum(x => x.BetCount);
+                totalValues["turnover"] = dataList.Sum(x => x.Turnover);
+                totalValues["memberwinloss"] = dataList.Sum(x => x.MemberWinLoss);
+                totalValues["memberwinlosscomm"] = dataList.Sum(x => x.MemberWinLossCom);
+                totalValues["licenseewinloss"] = dataList.Sum(x => x.LicenseeWinLoss);
+                totalValues["bacomm"] = dataList.Sum(x => x.BAComm);
+
+                totalValues["totalrows"] = dataList.Count();
+            }
+
+            return totalValues;
+        }
+
+        private IList<TopCustomer> GetTopCustomerList(TopCustomerMetaModel model, ref Dictionary<string, decimal> totalValues)
+        {
+            var dataList = model.IsValid
+                               ? _topCustomerDataAccess.GetDataList(model)
+                               : new List<TopCustomer>();
+            totalValues = GetTopCustomerTotalInfo(dataList);
+            return dataList;
         }
     }
 }

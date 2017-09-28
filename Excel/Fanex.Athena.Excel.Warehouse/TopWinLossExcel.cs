@@ -17,7 +17,7 @@ namespace Fanex.Athena.Excel.Warehouse
     /// <summary>
     /// Win Loss Report - Export excel.
     /// </summary>
-    public class TopWinLoss : ReportBase
+    public class TopWinLossExcel : ReportBase
     {
         private const int ColumnCustomerComm = 9;
         private const int ColumnCustomerTotal = 10;
@@ -45,7 +45,7 @@ namespace Fanex.Athena.Excel.Warehouse
 
         private readonly IDictionary<string, decimal> _totalValues;
 
-        public TopWinLoss(
+        public TopWinLossExcel(
                 string templatePath,
                 ShowingOption showingOption,
                 IList<Fanex.Athena.Model.Warehouse.DTO.WinLoss> dataList,

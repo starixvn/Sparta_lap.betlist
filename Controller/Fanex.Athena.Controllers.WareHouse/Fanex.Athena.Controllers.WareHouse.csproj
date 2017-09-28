@@ -127,6 +127,10 @@
       <Project>{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}</Project>
       <Name>Fanex.Athena.DataAccess.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Warehouse\Fanex.Athena.DataAccess.Warehouse.csproj">
+      <Project>{953513D5-68BD-46DB-9E2A-4966D61FE310}</Project>
+      <Name>Fanex.Athena.DataAccess.Warehouse</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Excel\Fanex.Athena.Excel.Base\Fanex.Athena.Excel.Base.csproj">
       <Project>{413861ad-068b-4c02-b913-10b1de708fb7}</Project>
       <Name>Fanex.Athena.Excel.Base</Name>
@@ -158,10 +162,6 @@
     <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
       <Project>{fcfd7434-085b-4c93-848f-e1cbcedcc5a0}</Project>
       <Name>Fanex.Athena.Service.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Warehouse\Fanex.Athena.Service.Warehouse.csproj">
-      <Project>{6c45f804-d256-4705-9fb3-cef7ac93c8af}</Project>
-      <Name>Fanex.Athena.Service.Warehouse</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Fanex.Athena.Web\Fanex.Athena.Web.csproj">
       <Project>{dd931adb-a994-49c0-95a3-72bcb6e22679}</Project>

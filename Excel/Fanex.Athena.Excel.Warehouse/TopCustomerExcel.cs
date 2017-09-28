@@ -16,7 +16,7 @@ namespace Fanex.Athena.Excel.Warehouse
     using NPOI.SS.UserModel;
     using Resources;
 
-    public class TopCustomer : ReportBase
+    public class TopCustomerExcel : ReportBase
     {
         private const int ColumnCustomerComm = 6;
         private const int ColumnCustomerTotal = 7;
@@ -30,7 +30,7 @@ namespace Fanex.Athena.Excel.Warehouse
 
         private readonly DataTable _exportData;
 
-        public TopCustomer(
+        public TopCustomerExcel(
                 string templatePath,
                 ShowingOption showingOption,
                 DataTable exportData)
@@ -138,7 +138,7 @@ namespace Fanex.Athena.Excel.Warehouse
 
         private static IEnumerable<string> GetColumnNameList()
         {
-            return new string[]
+            return new[]
             {
                 "UserName",
                 "currency",
@@ -154,7 +154,7 @@ namespace Fanex.Athena.Excel.Warehouse
 
         private static IEnumerable<string> GetTotalColumnNameList()
         {
-            return new string[]
+            return new[]
             {
                 "Turnover",
                 "betcount",
