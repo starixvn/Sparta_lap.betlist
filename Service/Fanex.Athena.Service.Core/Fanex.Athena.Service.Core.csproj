@@ -112,7 +112,6 @@
     <Compile Include="Common\LanguageService.cs" />
     <Compile Include="Common\MatchService.cs" />
     <Compile Include="Common\ProductService.cs" />
-    <Compile Include="Common\SportTypeService.cs" />
     <Compile Include="Configuration\MoveBetService.cs" />
     <Compile Include="Exception\ServiceException.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
@@ -122,7 +121,6 @@
     <Compile Include="Common\Interfaces\ILanguageService.cs" />
     <Compile Include="Common\Interfaces\IMatchService.cs" />
     <Compile Include="Common\Interfaces\IProductService.cs" />
-    <Compile Include="Common\Interfaces\ISportTypeService.cs" />
     <Compile Include="Configuration\Interfaces\IMoveBetService.cs" />
     <Compile Include="Users\Interfaces\ISSOService.cs" />
     <Compile Include="Users\OneAuthenticationService.cs" />

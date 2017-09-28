@@ -8,12 +8,12 @@ namespace Fanex.Athena.Controllers.WareHouse
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using DataAccess.Core.Common;
+    using DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Warehouse;
     using Fanex.Athena.Model.Warehouse.MetaModel;
     using Fanex.Athena.Model.Warehouse.ViewModel;
-    using Fanex.Athena.Service.Core.Common;
-    using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
@@ -24,13 +24,13 @@ namespace Fanex.Athena.Controllers.WareHouse
     [FunctionAuthorization(PermissionKeys.WarehouseTopCustomer)]
     public class TopCustomerWareHouseController : WareHouseBaseController
     {
-        private readonly ISportTypeService _sportTypeService;
+        private readonly ISportTypeDataAccess _sportTypeDataAccess;
 
         private readonly ITopCustomerService _topCustomerService;
 
         public TopCustomerWareHouseController()
         {
-            _sportTypeService = new SportTypeService();
+            _sportTypeDataAccess = new SportTypeDataAccess();
             _topCustomerService = new TopCustomerService();
         }
 
@@ -43,7 +43,7 @@ namespace Fanex.Athena.Controllers.WareHouse
             var metaModel = new TopCustomerMetaModel { LicenseeId = licenseeId };
             metaModel.FromDate = metaModel.ToDate = GetBalanceUp().MoveBetsDay;
             var currencyList = userSession.CurrencyList;
-            var sportList = _sportTypeService.GetAllWHSports();
+            var sportList = _sportTypeDataAccess.GetAllWHSports();
             var productAccess = ProductService.GetProductAccess(licenseeId, userSession.Language);
 
             var model = new TopCustomerViewModel
@@ -77,7 +77,7 @@ namespace Fanex.Athena.Controllers.WareHouse
                 CurrencyList = userSession.CurrencyList,
                 ProductAccess = ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                SportList = _sportTypeService.GetAllWHSports(),
+                SportList = _sportTypeDataAccess.GetAllWHSports(),
             };
 
             var totalValues = new Dictionary<string, decimal>();

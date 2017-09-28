@@ -26,13 +26,13 @@ namespace Fanex.Athena.Controllers.Report
     [FunctionAuthorization(PermissionKeys.ReportWinLossByLeague)]
     public class WinLossByLeagueReportController : ReportBaseController
     {
-        private readonly ISportTypeService _sportTypeService;
+        private readonly ISportTypeDataAccess _sportTypeDataAccess;
         private readonly ILeagueDataAccess _leagueDataAccess;
         private readonly IMatchService _matchService;
 
         public WinLossByLeagueReportController()
         {
-            _sportTypeService = new SportTypeService();
+            _sportTypeDataAccess = new SportTypeDataAccess();
             _leagueDataAccess = new LeagueDataAccess();
             _matchService = new MatchService();
         }
@@ -61,7 +61,7 @@ namespace Fanex.Athena.Controllers.Report
 
             SetConvetedUSDCurrencyName(metaModel);
             SetConvetedUSDCurrencyId(metaModel);
-            var sports = this._sportTypeService.GetSportsAndProducts(licenseeSession.LicenseeId, userSession.Language, ProductTypes.Sportsbook);
+            var sports = this._sportTypeDataAccess.GetSportsAndProducts(licenseeSession.LicenseeId, userSession.Language, ProductTypes.Sportsbook);
             var leagues = this._leagueDataAccess.GetLeaguesBySport(
                             new LeagueMetaModel
                             {

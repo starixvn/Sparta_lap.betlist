@@ -10,6 +10,8 @@ namespace Fanex.Athena.Controllers.Report
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
+    using DataAccess.Core.Common;
+    using DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.DTO;
@@ -21,17 +23,15 @@ namespace Fanex.Athena.Controllers.Report
     using Model.Core.DataDomain;
     using Newtonsoft.Json;
     using Resources;
-    using Service.Core.Common;
-    using Service.Core.Common.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportCustomerTurnover)]
     public class CustomerTurnoverReportController : ReportBaseController
     {
-        private readonly ISportTypeService _sportTypeService;
+        private readonly ISportTypeDataAccess _sportTypeDataAccess;
 
         public CustomerTurnoverReportController()
         {
-            _sportTypeService = new SportTypeService();
+            _sportTypeDataAccess = new SportTypeDataAccess();
         }
 
         [HttpGet]
@@ -54,7 +54,7 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult GetSportsAndProducts()
         {
             return Json(
-                _sportTypeService.GetSportsAndProducts(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language),
+                _sportTypeDataAccess.GetSportsAndProducts(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language),
                 JsonRequestBehavior.AllowGet);
         }
 
