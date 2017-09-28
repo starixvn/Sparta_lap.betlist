@@ -23,7 +23,7 @@ namespace Fanex.Athena.Api.CustomerLog
                 LicenseeId = SessionService.LicenseeSession.LicenseeId
             };
 
-            var dataList = _customerLogService.GetGroupCommList(metaModel);
+            var dataList = _customerLogDataAccess.GetGroupCommList(metaModel);
             var dataAfterRemoveHTMLTag = RemoveHtmlTag(dataList);
 
             var details = GetDetails(dataAfterRemoveHTMLTag);

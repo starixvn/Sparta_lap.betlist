@@ -22,7 +22,7 @@ namespace Fanex.Athena.Api.CustomerLog
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
 
             var agentListXml = SessionService.GenerateAgentListXml();
-            var dataList = _logInLogService.GetDataList(licenseeId, username.Trim(), agentListXml);
+            var dataList = _logInLogDataAccess.GetDataList(licenseeId, username.Trim(), agentListXml);
 
             return new
             {

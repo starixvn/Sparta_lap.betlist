@@ -48,14 +48,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomerLogService.cs" />
     <Compile Include="CustomerService.cs" />
     <Compile Include="GroupComService.cs" />
-    <Compile Include="Interfaces\ICustomerLogService.cs" />
     <Compile Include="Interfaces\ICustomerService.cs" />
     <Compile Include="Interfaces\IGroupComService.cs" />
-    <Compile Include="Interfaces\ILogInLogService.cs" />
-    <Compile Include="LogInLogService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
