@@ -128,37 +128,45 @@ namespace Fanex.Athena.Controllers.Customer
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateSpecialLevel(int custId, int level)
         {
-            var userSession = SessionService.UserSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            var isFakeLicensee = AppSettings.FakeLicenseeList.Contains(licenseeId);
 
-            try
+            if (!isFakeLicensee)
             {
-                var dataResult = _customerService.UpdateSpecialLevel(
-                    SessionService.LicenseeSession.LicenseeId,
-                    userSession.UserId,
-                    custId,
-                    level,
-                    Request.UserHostAddress,
-                    userSession.Language);
+                var userSession = SessionService.UserSession;
 
-                return Json(new ResultViewModel
+                try
                 {
-                    Success = dataResult.IsSuccessful,
-                    Message = dataResult.Message,
-                    ErrorCode = dataResult.Code,
-                    ErrorMessage = dataResult.Message
-                });
+                    var dataResult = _customerService.UpdateSpecialLevel(
+                        licenseeId,
+                        userSession.UserId,
+                        custId,
+                        level,
+                        Request.UserHostAddress,
+                        userSession.Language);
+
+                    return Json(new ResultViewModel
+                    {
+                        Success = dataResult.IsSuccessful,
+                        Message = dataResult.Message,
+                        ErrorCode = dataResult.Code,
+                        ErrorMessage = dataResult.Message
+                    });
+                }
+                catch (Exception exception)
+                {
+                    LogHelper.WriteError(exception);
+                }
             }
-            catch (Exception exception)
-            {
-                LogHelper.WriteError(exception);
-            }
+
+            var errorMessage = isFakeLicensee ? ViewResources.FunctionDeniedMsg : ViewResources.HttpError_Default;
 
             return Json(new ResultViewModel
             {
                 Success = false,
-                Message = ViewResources.HttpError_Default,
+                Message = errorMessage,
                 ErrorCode = 1,
-                ErrorMessage = ViewResources.HttpError_Default
+                ErrorMessage = errorMessage
             });
         }
 
@@ -174,42 +182,49 @@ namespace Fanex.Athena.Controllers.Customer
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateOddsGroup(int custId, string oddsGroup)
         {
-            var userSession = SessionService.UserSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            var isFakeLicensee = AppSettings.FakeLicenseeList.Contains(licenseeId);
 
-            try
+            if (!isFakeLicensee)
             {
-                var metaModel = new CustomerOddsGroupMetaModel
-                {
-                    LicenseeId = SessionService.LicenseeSession.LicenseeId,
-                    CustId = custId,
-                    Ip = Request.UserHostAddress,
-                    Language = userSession.Language,
-                    OddsGroup = oddsGroup,
-                    UserId = userSession.UserId
-                };
-                var dataResult = _customerService.UpdateOddsGroup(metaModel);
+                var userSession = SessionService.UserSession;
 
-                var message = !dataResult.IsSuccessful && string.IsNullOrWhiteSpace(dataResult.Message) ?
-                               ViewResources.HttpError_Default : dataResult.Message;
-                return Json(new ResultViewModel
+                try
                 {
-                    Success = dataResult.IsSuccessful,
-                    Message = message,
-                    ErrorCode = dataResult.Code,
-                    ErrorMessage = message
-                });
-            }
-            catch (Exception exception)
-            {
-                LogHelper.WriteError(exception);
+                    var metaModel = new CustomerOddsGroupMetaModel
+                    {
+                        LicenseeId = SessionService.LicenseeSession.LicenseeId,
+                        CustId = custId,
+                        Ip = Request.UserHostAddress,
+                        Language = userSession.Language,
+                        OddsGroup = oddsGroup,
+                        UserId = userSession.UserId
+                    };
+                    var dataResult = _customerService.UpdateOddsGroup(metaModel);
+
+                    var message = !dataResult.IsSuccessful && string.IsNullOrWhiteSpace(dataResult.Message) ?
+                                   ViewResources.HttpError_Default : dataResult.Message;
+                    return Json(new ResultViewModel
+                    {
+                        Success = dataResult.IsSuccessful,
+                        Message = message,
+                        ErrorCode = dataResult.Code,
+                        ErrorMessage = message
+                    });
+                }
+                catch (Exception exception)
+                {
+                    LogHelper.WriteError(exception);
+                }
             }
 
+            var errorMessage = isFakeLicensee ? ViewResources.FunctionDeniedMsg : ViewResources.HttpError_Default;
             return Json(new ResultViewModel
             {
                 Success = false,
-                Message = ViewResources.HttpError_Default,
+                Message = errorMessage,
                 ErrorCode = 1,
-                ErrorMessage = ViewResources.HttpError_Default
+                ErrorMessage = errorMessage
             });
         }
 
