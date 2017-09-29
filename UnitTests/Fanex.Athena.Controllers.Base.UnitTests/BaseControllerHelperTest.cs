@@ -19,23 +19,24 @@
     {
         protected const string TestingRequestDomain = "http://unit-test-mode";
 
-        protected const string SesssionUserName = "alex.vn";
-
-        protected const int SessionLicenseeId = 100;
-
-        protected const int SessionUserId = 1;
-
-        protected const int SessionOnUserId = 999;
-
         protected const string IdentityName = "user";
 
-        protected const string LicenseeName = "Spondemo";
+        protected readonly UserSession DefaultUserSession = new UserSession
+        {
+            CurrencyList = new Dictionary<int, string> { { 1, "UUS" } },
+            ViewType = Model.Core.DataDomain.ClientViewType.Default,
+            UserId = 1,
+            Language = "en-Us",
+            UserName = "alex.vn",
+            OnUserId = 999,
+            FunctionIdList = new List<int>()
+        };
 
-        protected const string Language = "en-Us";
-
-        protected const string ClientViewType = "1";
-
-        protected readonly Dictionary<int, string> CurrencyList = new Dictionary<int, string> { { 1, "UUS" } };
+        protected readonly LicenseeSession DefaultLicenseeSession = new LicenseeSession
+        {
+            LicenseeId = 100,
+            LicenseeName = "Spondemo"
+        };
 
         protected UrlHelper Url { get; set; }
 
@@ -67,33 +68,30 @@
             AppSettings = null;
         }
 
-        protected void MockDefaultData()
+        protected void SetUpDefaultFakeData()
         {
-            SessionService.UserSession.Returns(new UserSession
-            {
-                CurrencyList = CurrencyList,
-                ViewType = Model.Core.DataDomain.ClientViewType.Default,
-                UserId = SessionUserId,
-                Language = Language,
-                UserName = SesssionUserName,
-                OnUserId = SessionOnUserId,
-                FunctionIdList = new List<int>()
-            });
+            StubUserSessionData(DefaultUserSession);
 
-            SessionService.LicenseeSession.Returns(new LicenseeSession
-            {
-                LicenseeId = SessionLicenseeId,
-                LicenseeName = LicenseeName
-            });
+            StubLicenseeSessionData(DefaultLicenseeSession);
 
             SessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns(string.Empty);
 
-            AppSettings.ClientViewType.Returns(ClientViewType);
+            AppSettings.ClientViewType.Returns(DefaultUserSession.ViewType.ToString("d"));
         }
 
-        protected void MockGetValueAppSettings(string valueName, string value)
+        public void StubUserSessionData(UserSession fakeUserSession)
         {
-            AppSettings.GetValue(valueName).Returns(value);
+            SessionService.UserSession.Returns(fakeUserSession);
+        }
+
+        public void StubLicenseeSessionData(LicenseeSession fakeLicenseeSession)
+        {
+            SessionService.LicenseeSession.Returns(fakeLicenseeSession);
+        }
+
+        protected void StubGetValueAppSettings(string valueName, string fakeValue)
+        {
+            AppSettings.GetValue(valueName).Returns(fakeValue);
         }
 
         private void SetUpForContexts()

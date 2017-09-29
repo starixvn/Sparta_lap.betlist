@@ -23,11 +23,11 @@
         {
             base.FixtureSetUp();
 
-            MockDefaultData();
+            SetUpDefaultFakeData();
 
             SepUpForService();
 
-            MockGetValueAppSettings("BaseUsdLicensees", "usd");
+            StubGetValueAppSettings("BaseUsdLicensees", "usd");
         }
 
         [OneTimeTearDown]
@@ -51,7 +51,7 @@
         [TearDown]
         public void TearDown()
         {
-            _controller = null;
+            _controller.Dispose();
         }
 
         [Test]

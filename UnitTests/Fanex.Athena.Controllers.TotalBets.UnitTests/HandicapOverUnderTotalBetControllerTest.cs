@@ -23,11 +23,11 @@
         {
             base.FixtureSetUp();
 
-            MockDefaultData();
+            SetUpDefaultFakeData();
 
             SepUpForService();
 
-            MockGetValueAppSettings("BaseUsdLicensees", "usd");
+            StubGetValueAppSettings("BaseUsdLicensees", "usd");
         }
 
         [OneTimeTearDown]
@@ -51,7 +51,7 @@
         [TearDown]
         public void TearDown()
         {
-            _controller = null;
+            _controller.Dispose();
         }
 
         [Test]
@@ -118,7 +118,7 @@
         public void Index_LicenseeIsNotOfferedNewForecast_ReturnNormalLicenseeView()
         {
             // Arrange
-            MockGetValueAppSettings("LicenseeOfferNewForecast", "1001");
+            StubGetValueAppSettings("LicenseeOfferNewForecast", "1001");
 
             var metaModel = new HandicapOverUnderMetaModel
             {
@@ -136,7 +136,7 @@
         public void Index_LicenseeIsOfferedNewForecastSetting_ReturnBodogLicenseeView()
         {
             // Arrange
-            MockGetValueAppSettings("LicenseeOfferNewForecast", SessionLicenseeId.ToString());
+            StubGetValueAppSettings("LicenseeOfferNewForecast", DefaultLicenseeSession.LicenseeId.ToString());
 
             var metaModel = new HandicapOverUnderMetaModel
             {
@@ -154,7 +154,7 @@
         public void Index_LicenseeOfferedNewForecastIsNotSet_ReturnNormalLicenseeView()
         {
             // Arrange
-            MockGetValueAppSettings("LicenseeOfferNewForecast", string.Empty);
+            StubGetValueAppSettings("LicenseeOfferNewForecast", string.Empty);
 
             var metaModel = new HandicapOverUnderMetaModel
             {
