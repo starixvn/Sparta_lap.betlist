@@ -51,7 +51,7 @@ namespace Fanex.Athena.Excel.Report
         private const int RowGrandTotalTemplate = 8;
         private const int RowNoInfoTemplate = 9;
 
-        private static readonly IEnumerable<int> SpecialBettypes = new int[]
+        private static readonly IEnumerable<int> SpecialBettypes = new[]
         {
             (int)BetType.MixParlay, (int)BetType.Outright, (int)BetType.CombinationMixParlay, (int)BetType.VirtualSports2MixParlay
         };

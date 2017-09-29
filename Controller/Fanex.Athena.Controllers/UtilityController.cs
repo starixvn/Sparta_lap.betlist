@@ -30,7 +30,7 @@ namespace Fanex.Athena.Controllers
 
         private readonly IMaintenanceService _maintenanceService;
 
-        public UtilityController() : base()
+        public UtilityController()
         {
             _appSettings = new AppSettings();
             _languageService = new LanguageService();

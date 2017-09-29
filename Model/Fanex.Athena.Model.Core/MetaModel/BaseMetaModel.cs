@@ -15,12 +15,6 @@ namespace Fanex.Athena.Model.Core.MetaModel
     {
         private string _baseCurrency = string.Empty;
 
-        public BaseMetaModel()
-        {
-            CurrencyId = 0;
-            CurrencyName = string.Empty;
-        }
-
         public string AgentListXml { get; set; }
 
         public int LicenseeId { get; set; }

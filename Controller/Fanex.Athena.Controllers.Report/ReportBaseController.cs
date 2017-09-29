@@ -19,7 +19,6 @@
         private readonly IProductService _productService;
 
         public ReportBaseController()
-            : base()
         {
             _balanceUpDataAccess = new BalanceUpDataAccess();
             _productService = new ProductService();

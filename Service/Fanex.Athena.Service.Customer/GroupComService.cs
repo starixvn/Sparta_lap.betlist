@@ -98,7 +98,7 @@ namespace Fanex.Athena.Service.Customer
             };
             if (newItem.IsUpdateCS && !string.IsNullOrEmpty(dataResultInfo.ExtendedData))
             {
-                var custtomerList = dataResultInfo.ExtendedData.Split(new char[] { ',' });
+                var custtomerList = dataResultInfo.ExtendedData.Split(new[] { ',' });
                 if (custtomerList.Length > 0)
                 {
                     var rngCasinoService = new RNGCasinoService();
@@ -149,7 +149,7 @@ namespace Fanex.Athena.Service.Customer
 
             if (model.IsRemoveCommSetting && model.IsAllowedCSComm && !string.IsNullOrEmpty(dataResultInfo.ExtendedData))
             {
-                var custtomerList = dataResultInfo.ExtendedData.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                var custtomerList = dataResultInfo.ExtendedData.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 if (custtomerList.Length > 0)
                 {
                     var rngCasinoService = new RNGCasinoService();

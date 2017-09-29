@@ -37,7 +37,7 @@ namespace Fanex.Athena.Controllers.Customer
         private const string CUSTOMERCOMM = "Commission";
         private const string STATUS = "Status";
 
-        private static readonly IEnumerable<string> GridColumns = new string[]
+        private static readonly IEnumerable<string> GridColumns = new[]
         {
             "ExternalId",
             "SystemId",

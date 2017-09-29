@@ -55,7 +55,7 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
             _data = viewModel.Data;
             _totalData = totalData;
 
-            HeaderTextList = new string[]
+            HeaderTextList = new[]
             {
                 "#",
                 ViewResources.GameID,

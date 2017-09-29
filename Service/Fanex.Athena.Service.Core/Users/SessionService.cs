@@ -182,7 +182,7 @@ namespace Fanex.Athena.Service.Core.Users
                 currencyId = 0;
             }
 
-            return GenerateAgentListXml(new int[] { currencyId }, isExcludeTestData);
+            return GenerateAgentListXml(new[] { currencyId }, isExcludeTestData);
         }
 
         public string GenerateAgentListXml(IEnumerable<int> currencyIdList, bool isExcludeTestData = false)
