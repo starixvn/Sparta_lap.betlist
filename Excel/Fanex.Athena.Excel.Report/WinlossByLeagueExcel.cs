@@ -13,7 +13,7 @@ namespace Fanex.Athena.Excel.Report
     using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
-    using Fanex.Athena.Model.Report.ViewModel;
+    using Model.Core.ResultModel;
     using NPOI.SS.UserModel;
     using Resources;
 
@@ -39,19 +39,18 @@ namespace Fanex.Athena.Excel.Report
         private const int NumOfRowLevel1 = 8;
 
         private readonly WinLossByLeagueMetaModel _metaModel;
-        private readonly IList<WinLossByLeague> _winlossByLeagueList;
+        private readonly IEnumerable<WinLossByLeague> _dataList;
         private readonly WinLossByLeague _totalData;
 
         public WinlossByLeagueExcel(
                                     string templatePath,
-                                    WinLossByLeagueMetaModel metaModel,
-                                    WinLossByLeagueViewModel viewModel,
-                                    WinLossByLeague totalData)
+                                    ReportResultModel<WinLossByLeague> resultModel,
+                                    WinLossByLeagueMetaModel metaModel)
             : base(templatePath)
         {
             _metaModel = metaModel;
-            _winlossByLeagueList = viewModel.MainResult.ToList();
-            _totalData = totalData;
+            _dataList = resultModel.DataList;
+            _totalData = resultModel.TotalData;
             HeaderTextList = new List<string>
             {
                 "#",
@@ -78,7 +77,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         protected override void AssignData()
         {
-            int numOfDataRow = _winlossByLeagueList.Count;
+            int numOfDataRow = _dataList.Count();
 
             ISheet sheet;
 
@@ -140,7 +139,7 @@ namespace Fanex.Athena.Excel.Report
                 sheet.HideRow(3);
             }
 
-            int rowCount = Math.Min(_winlossByLeagueList.Count, checked((pageIndex + 1) * PageSize));
+            int rowCount = Math.Min(_dataList.Count(), checked((pageIndex + 1) * PageSize));
             int currentRow = 4;
 
             var row = sheet.CopyRow(TemplateSheet, RowContentTitleTemplate, 3);
@@ -148,7 +147,7 @@ namespace Fanex.Athena.Excel.Report
 
             for (int index = pageIndex * PageSize; index < rowCount; index++)
             {
-                var winlossByLeague = _winlossByLeagueList[index];
+                var winlossByLeague = _dataList.ElementAt(index);
 
                 var rowContent = sheet.CopyRow(TemplateSheet, RowContentTemplate, currentRow);
 

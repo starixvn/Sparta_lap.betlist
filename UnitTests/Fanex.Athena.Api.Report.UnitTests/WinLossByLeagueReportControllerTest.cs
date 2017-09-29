@@ -12,6 +12,7 @@
     using Excel.Report;
     using Model.Core.DTO.Configuration;
     using Model.Core.DTO.Users;
+    using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Model.Report.ViewModel;
@@ -104,18 +105,18 @@
             {
                 new WinLossByLeague()
             };
-            WinLossByLeague grandTotal;
-            int totalrows = 0;
-            _dataAccess.GetCustomers(Arg.Any<WinLossByLeagueMetaModel>(), out grandTotal, ref totalrows)
-                .ReturnsForAnyArgs(x =>
+            var expectedResult = new ReportResultModel<WinLossByLeague>
             {
-                x[1] = new WinLossByLeague
+                DataList = dataListResult,
+                TotalData = new WinLossByLeague
                 {
                     AmountDue = ExpectedAmountDue
-                };
-                x[2] = ExpectedTotalRows;
-                return dataListResult;
-            });
+                },
+                TotalRows = ExpectedTotalRows
+            };
+
+            _dataAccess.GetCustomers(Arg.Any<WinLossByLeagueMetaModel>())
+                .ReturnsForAnyArgs(expectedResult);
 
             // Action
             var result = _controller.Index(new WinLossByLeagueMetaModel
@@ -126,7 +127,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.ReceivedWithAnyArgs().GetCustomers(Arg.Any<WinLossByLeagueMetaModel>(), out grandTotal, ref totalrows);
+                _dataAccess.ReceivedWithAnyArgs().GetCustomers(Arg.Any<WinLossByLeagueMetaModel>());
                 Assert.That(result.Total.AmountDue, Is.EqualTo(ExpectedAmountDue));
                 Assert.That(result.TotalRows, Is.EqualTo(ExpectedTotalRows));
                 Assert.That(result.Data.Count, Is.EqualTo(1));
@@ -157,20 +158,19 @@
             };
             var excel = Substitute.ForPartsOf<WinlossByLeagueExcel>(
                 string.Empty,
-                metaModel,
-                new WinLossByLeagueViewModel
+                new ReportResultModel<WinLossByLeague>
                 {
-                    MainResult = new List<WinLossByLeague>()
+                    DataList = new List<WinLossByLeague>(),
+                    TotalData = new WinLossByLeague()
                 },
-                new WinLossByLeague());
+                metaModel);
             excel.When(x => x.Export()).DoNotCallBase();
 
-            WinLossByLeagueViewModel viewModel = null;
+            ReportResultModel<WinLossByLeague> resultModel = null;
             _controller.CreateExcel(
                 Arg.Any<string>(),
-                Arg.Any<WinLossByLeague>(),
-                Arg.Any<WinLossByLeagueMetaModel>(),
-                Arg.Do<WinLossByLeagueViewModel>(x => viewModel = x))
+                Arg.Do<ReportResultModel<WinLossByLeague>>(x => resultModel = x),
+                Arg.Any<WinLossByLeagueMetaModel>())
                 .Returns(excel);
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
             _dataAccess.GetSummary(metaModel).Returns(new List<WinLossByLeague>
@@ -186,7 +186,7 @@
             {
                 excel.Received().Export();
                 _controller.Received().ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>());
-                Assert.That(viewModel.MainResult.Count(), Is.EqualTo(1));
+                Assert.That(resultModel.DataList.Count(), Is.EqualTo(1));
                 Assert.That(metaModel.PageIndex, Is.EqualTo(1));
                 Assert.That(metaModel.PageSize, Is.EqualTo(int.MaxValue - 1));
             });
