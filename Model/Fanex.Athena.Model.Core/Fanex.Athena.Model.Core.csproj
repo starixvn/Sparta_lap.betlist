@@ -114,7 +114,7 @@
     <Compile Include="DTO\Users\UserSession.cs" />
     <Compile Include="Helper\CacheRef.cs" />
     <Compile Include="Helper\ProductHelper.cs" />
-    <Compile Include="Helper\ProductValidator.cs" />
+    <Compile Include="Helper\BettypeHelper.cs" />
     <Compile Include="MetaModel\Account\AssignCurrencyMetaModel.cs" />
     <Compile Include="MetaModel\Account\EditAccountMetaModel.cs" />
     <Compile Include="MetaModel\Account\EditPermissionMetaModel.cs" />

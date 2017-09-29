@@ -28,16 +28,6 @@
         private const string NewProductIdColumnName = "newproductid";
 
         private const int LCSport = 162;
-        private const int BetType81 = 81;
-        private const int BetType120 = 120;
-        private const int BetType31 = 31;
-        private const int BetType33 = 33;
-        private const int BetType1101 = 1101;
-        private const int BetType1199 = 1199;
-        private const int BetType1201 = 1201;
-        private const int BetType1299 = 1299;
-        private const int BetType2700 = 2700;
-        private const int BetType2899 = 2899;
 
         private static readonly IList<int> VirtualHrBettypes = new List<int> { 1231, 1232, 1233, 1237, 1238 };
         private readonly IMatchWinLossService _matchWinLossService;
@@ -265,29 +255,29 @@
             return mainTable;
         }
 
-        private static int GetProductId(int betType)
+        private static int GetProductId(int bettype)
         {
-            if (betType >= BetType81 && betType < BetType120)
+            if (BetTypeHelper.IsNumberGame(bettype))
             {
                 return ProductTypes.NumberGame;
             }
 
-            if (betType >= BetType31 && betType <= BetType33)
+            if (BetTypeHelper.IsRacing(bettype))
             {
                 return ProductTypes.Racing;
             }
 
-            if (betType >= BetType1101 && betType <= BetType1199)
+            if (BetTypeHelper.IsLiveCasino(bettype))
             {
                 return ProductTypes.LiveCasino;
             }
 
-            if (betType >= BetType1201 && betType <= BetType1299)
+            if (BetTypeHelper.IsVirtualSports(bettype))
             {
                 return ProductTypes.VirtualSports;
             }
 
-            if (betType >= BetType2700 && betType <= BetType2899)
+            if (BetTypeHelper.IsVirtualSports2(bettype))
             {
                 return ProductTypes.VirtualSports2;
             }

@@ -17,6 +17,8 @@ namespace Fanex.Athena.Service.BetList.Extensions
     using Fanex.BetList.Core.App_GlobalResources;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
+    using Helpers;
+    using Model.Core.Helper;
     using Resources;
 
     #endregion Using
@@ -26,10 +28,6 @@ namespace Fanex.Athena.Service.BetList.Extensions
     /// </summary>
     public static class LrfBetListHtmlBuilder
     {
-        private const int MinColossusBetBetType = 18000;
-
-        private const int MaxColossusBetBetType = 18007;
-
         /// <summary>
         /// Get ticket status.
         /// </summary>
@@ -84,12 +82,10 @@ namespace Fanex.Athena.Service.BetList.Extensions
         public static string BuildLicenseeWL(this BetListHTMLBuilder builder, LrfTicket ticket)
         {
             var running = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
-            var racing = ticket.BetTypeId == (int)BetType.Win || ticket.BetTypeId == (int)BetType.Place ||
-                           ticket.BetTypeId == (int)BetType.WinPlace;
-            if (racing ||
-                ticket.BetTypeId == (int)BetType.CashOutBought ||
-                ticket.BetTypeId == (int)BetType.BetTradeBought ||
-                (ticket.BetTypeId >= MinColossusBetBetType && ticket.BetTypeId <= MaxColossusBetBetType))
+            
+            if (BetTypeHelper.IsRacing(ticket.BetTypeId) ||
+                BetListHelper.IsBoughtTicket(ticket.BetTypeId) ||
+                BetListHelper.IsColossusBet(ticket.BetTypeId))
             {
                 var licenseeWl = running
                     ? "-"

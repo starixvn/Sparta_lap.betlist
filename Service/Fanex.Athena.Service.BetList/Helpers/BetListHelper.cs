@@ -5,9 +5,14 @@ namespace Fanex.Athena.Service.BetList.Helpers
     using System;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.BetList.Core.Entities;
+    using Model.Core.DataDomain;
 
     public static class BetListHelper
     {
+        private const int MinColossusBetBetType = 18000;
+
+        private const int MaxColossusBetBetType = 18007;
+
         [CLSCompliant(false)]
         public static string GenerateClientDetailSystemParlayFunction(
             ITicketHelper tickerHelper,
@@ -33,10 +38,14 @@ namespace Fanex.Athena.Service.BetList.Helpers
                 baseCurrency);
         }
 
-        public static bool IsCashOutBetTicket(long betdaqid, int bettype)
+        public static bool IsBoughtTicket(int bettype)
         {
-            var cashOutBetTypes = new[] { 900, 912 };
-            return betdaqid == 1 && !cashOutBetTypes.Contains(bettype);
+            return bettype == (int)BetType.BetTradeBought || bettype == (int)BetType.CashOutBought;
+        }
+
+        public static bool IsColossusBet(int bettype)
+        {
+            return bettype >= MinColossusBetBetType && bettype <= MaxColossusBetBetType;
         }
     }
 }

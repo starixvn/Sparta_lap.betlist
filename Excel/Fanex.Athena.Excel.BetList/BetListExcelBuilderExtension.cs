@@ -13,17 +13,15 @@ namespace Fanex.Athena.Excel.BetList
     using Fanex.BetList.Core.Entities;
     using Model.BetList.DTO;
     using Model.Core.DataDomain;
+    using Model.Core.Helper;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
     using Resources;
+    using Service.BetList.Helpers;
 
     public static class BetListExcelBuilderExtension
     {
-        private const int MinColossusBetBetType = 18000;
-
-        private const int MaxColossusBetBetType = 18007;
-
         private const string NumberFormat = "{0:#,##0.00}";
 
         public static BetListExcelBuilder AddCustomerWL(this BetListExcelBuilder builder, ITicket ticket, bool showPlayerComm, IFont font)
@@ -239,10 +237,9 @@ namespace Fanex.Athena.Excel.BetList
             IFont blackFont)
         {
             bool isRunning = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
-            bool isRacing = ticket.BetTypeId == (int)BetType.Win || ticket.BetTypeId == (int)BetType.Place ||
-                            ticket.BetTypeId == (int)BetType.WinPlace;
-            var isBoughtTicket = ticket.BetTypeId == (int)BetType.BetTradeBought || ticket.BetTypeId == (int)BetType.CashOutBought;
-            var isColossusBetBettype = ticket.BetTypeId >= MinColossusBetBetType && ticket.BetTypeId <= MaxColossusBetBetType;
+            bool isRacing = BetTypeHelper.IsRacing(ticket.BetTypeId);
+            var isBoughtTicket = BetListHelper.IsBoughtTicket(ticket.BetTypeId);
+            var isColossusBetBettype = BetListHelper.IsColossusBet(ticket.BetTypeId);
             if (isBoughtTicket || (isRacing && is12Bet) || isColossusBetBettype)
             {
                 string licenseeWl = isRunning
