@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Collections.Specialized;
+    using System.Linq;
     using System.Web.Mvc;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
@@ -13,57 +14,87 @@
     public partial class AccountControllerTest
     {
         [Test]
-        public void EditPermission_UserIdIsSameWithSessionUserId_RedirectToAccessDenied()
+        public void EditPermission_WhenGetWithUserIdIsSameWithSessionUserId_RedirectToAccessDenied()
         {
             // Arrange
-            var requestParams = new NameValueCollection { { "UserId", SessionUserId.ToString() } };
-            _controller.ControllerContext.HttpContext.Request.Params.Returns(requestParams);
+            SetUpUserRequestParameter(new NameValueCollection { { "UserId", DefaultUserSession.UserId.ToString() } });
 
             // Action
             var result = _controller.EditPermission() as RedirectResult;
 
             // Assert
-            Assert.That(result.Url, Is.EqualTo("~/Utility/AccessDenied"));
+            Assert.That(result.Url, Is.EqualTo(AccessDeniedUrl));
+        }
+
+        [TestCase("0")]
+        [TestCase("Invalid")]
+        public void EditPermission_WhenGetWithInvalidUserId_RedirectToAccessDenied(string userId)
+        {
+            // Arrange
+            SetUpUserRequestParameter(new NameValueCollection { { "UserId", userId } });
+
+            // Action
+            var result = _controller.EditPermission() as RedirectResult;
+
+            // Assert
+            Assert.That(result.Url, Is.EqualTo(AccessDeniedUrl));
         }
 
         [Test]
-        public void EditPermission_WhenCall_ReturnCorrectViewAndModel()
+        public void EditPermission_WhenGetWithDoesNotExist_RedirectToAccessDenied()
         {
             // Arrange
-            var requestParams = new NameValueCollection { { "UserId", "111" } };
-            _controller.ControllerContext.HttpContext.Request.Params.Returns(requestParams);
+            SetUpUserRequestParameter();
 
-            _userService.GetUserInfo(Arg.Any<int>(), Arg.Any<int>()).Returns(new User
-            {
-                Username = "Superman"
-            });
+            StubGetUserInfo(x => null);
+
+            // Action
+            var result = _controller.EditPermission() as RedirectResult;
+
+            // Assert
+            Assert.That(result.Url, Is.EqualTo(AccessDeniedUrl));
+        }
+
+        [Test]
+        public void EditPermission_WhenGetWithValid_ReturnEditPermissionView()
+        {
+            // Arrange
+            SetUpUserRequestParameter();
+
+            StubGetUserInfo(x => new User { Username = "Superman" });
 
             // Action
             var viewResult = _controller.EditPermission() as ViewResult;
             var viewModel = viewResult.Model as EditPermissionMetaModel;
 
             // Assert
-            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Account/EditPermission.cshtml"));
-            Assert.That(viewModel.UserId, Is.EqualTo(111));
+            Assert.Multiple(() =>
+            {
+                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Account/EditPermission.cshtml"));
+                Assert.That(viewModel.UserId, Is.EqualTo(111));
+            });
         }
 
         [Test]
-        public void EditPermissionPost_UserIdIsSameWithSessionUserId_ReturnErrorResult()
+        public void EditPermission_WhenPost_ValidatePermissionRestrictionFailed_ReturnErrorResult()
         {
             // Action
             var result = _controller.EditPermission(new EditPermissionMetaModel
             {
-                UserId = SessionUserId
+                UserId = DefaultUserSession.UserId
             }) as JsonResult;
             var resultInfo = result.Data as ResultInfo;
 
             // Assert
-            Assert.That(resultInfo.Code, Is.EqualTo(-1));
-            Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.FunctionDeniedMsg));
+            Assert.Multiple(() =>
+            {
+                Assert.That(resultInfo.Code, Is.EqualTo(-1));
+                Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.FunctionDeniedMsg));
+            });
         }
 
         [Test]
-        public void EditPermissionPost_InValidUserId_ReturnFailResult()
+        public void EditPermission_WhenPostWithInValidUserId_ReturnFailResult()
         {
             // Action
             var result = _controller.EditPermission(new EditPermissionMetaModel
@@ -73,31 +104,66 @@
             var resultInfo = result.Data as ResultInfo;
 
             // Assert
-            Assert.That(resultInfo.Code, Is.EqualTo(-2));
-            Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.InvalidRequestMsg));
+            Assert.Multiple(() =>
+            {
+                Assert.That(resultInfo.Code, Is.EqualTo(-2));
+                Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.InvalidRequestMsg));
+            });
         }
 
         [Test]
-        public void EditPermissionPost_ValidUserInfo_CallServiceAndReturnSuccesResult()
+        public void EditPermission_WhenPostWithEmptyFunctionIdList_ReturnFailResult()
         {
-            // Arrange
-            _functionService.AssignUserFunctions(SessionLicenseeId, 111, Arg.Any<IList<int>>(), SessionUserId, Arg.Any<string>(), Arg.Any<string>())
-                .Returns(new ResultInfo
-                {
-                    Code = 0
-                });
-
             // Action
             var result = _controller.EditPermission(new EditPermissionMetaModel
             {
                 UserId = 111,
-                FunctionIdList = "1,2,3,4,5"
+                FunctionIdList = string.Empty
             }) as JsonResult;
             var resultInfo = result.Data as ResultInfo;
 
             // Assert
-            _functionService.Received().AssignUserFunctions(SessionLicenseeId, 111, Arg.Any<IList<int>>(), SessionUserId, Arg.Any<string>(), Arg.Any<string>());
-            Assert.That(resultInfo.Code, Is.EqualTo(0));
+            Assert.Multiple(() =>
+            {
+                Assert.That(resultInfo.Code, Is.EqualTo(-2));
+                Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.InvalidRequestMsg));
+            });
+        }
+
+        [Test]
+        public void EditPermission_WhenPost_AssignUserFunctionsSuccessful_CallServiceWithCorrectFunctionIdList()
+        {
+            // Arrange
+            LangService.GetCurrentLanguage().Returns(DefaultUserSession.Language);
+
+            var model = new EditPermissionMetaModel
+            {
+                UserId = 111,
+                FunctionIdList = "1,2,3,4,5"
+            };
+
+            var expectedFunctionIds = new List<int> { 1, 2, 3, 4, 5 };
+            var actualFunctionIds = Enumerable.Empty<int>();
+
+            _functionService.AssignUserFunctions(
+                    DefaultLicenseeSession.LicenseeId,
+                    model.UserId,
+                    Arg.Do<IEnumerable<int>>(x => actualFunctionIds = x),
+                    DefaultUserSession.UserId, 
+                    Arg.Any<string>(),
+                    Arg.Any<string>())
+                .Returns(new ResultInfo());
+
+            // Action
+            var result = _controller.EditPermission(model) as JsonResult;
+            var resultInfo = result.Data as ResultInfo;
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(actualFunctionIds.Count(), Is.EqualTo(expectedFunctionIds.Count()));
+                Assert.That(actualFunctionIds.Except(expectedFunctionIds), Is.Empty);
+            });
         }
     }
 }
