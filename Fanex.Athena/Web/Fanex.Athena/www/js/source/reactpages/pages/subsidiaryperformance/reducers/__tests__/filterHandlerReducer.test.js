@@ -3,17 +3,6 @@ import * as types from '../../actions/types'
 
 const emptyState = {};
 
-const assertReducer = (stateName, actionType, expectedResult) => {
-    const action = {
-        type: actionType,
-        data: expectedResult
-    }
-
-    const result = filterHandlerReducer[stateName](emptyState, action);
-
-    expect(result).toEqual(expectedResult);
-}
-
 const reducerList = [
     { name: "subsidiaryList", actionType: types.GET_SUBSIDIARY, expected: "1,2,3" },
     { name: "selectedSubsidiary", actionType: types.SET_SUBSIDIARY, expected: "1,2,3,4,5" },

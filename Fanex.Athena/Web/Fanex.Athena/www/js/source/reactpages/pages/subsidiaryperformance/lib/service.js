@@ -11,7 +11,7 @@ const headerText = {
     subsidiaryWL_comm: `${LangHelper.getSingleResource("SubsidiaryWL")}/ ${LangHelper.getSingleResource("Comm")}`
 }
 
-export default class Common {
+export default class Service {
     static getReportTitle(dateRange, selectedBaseCurrency) {
         const fromDate = Site.convertDateToString(dateRange.fromDate);
         const toDate = Site.convertDateToString(dateRange.toDate);
