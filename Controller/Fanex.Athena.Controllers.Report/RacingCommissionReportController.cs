@@ -19,6 +19,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
+    using Model.Core.ResultModel;
 
     [FunctionAuthorization(PermissionKeys.ReportRacingCommission)]
     public class RacingCommissionReportController : ReportBaseController
@@ -64,21 +65,23 @@ namespace Fanex.Athena.Controllers.Report
                 metaModel.PageSize = PageSizeExcel;
             }
 
-            var total = new RacingCommission();
+            var resultModel = metaModel.IsValid
+                       ? _racingCommissionDataAccess.GetData(metaModel)
+                       : new SortableReportResultModel<RacingCommission>
+                       {
+                           DataList = new SortableList<RacingCommission>(),
+                           TotalData = new RacingCommission()
+                       };
 
-            var reportData = metaModel.IsValid
-                       ? _racingCommissionDataAccess.GetDataList(metaModel, ref total)
-                       : new SortableList<RacingCommission>();
-
-            reportData.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
+            resultModel.DataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
 
             var model = new RacingCommissionViewModel
             {
-                RacingCommissionList = reportData,
+                RacingCommissionList = resultModel.DataList,
                 Param = metaModel,
                 CurrencyList = SessionService.UserSession.CurrencyList,
                 IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                Total = total,
+                Total = resultModel.TotalData,
             };
 
             return metaModel.IsExportExcel
