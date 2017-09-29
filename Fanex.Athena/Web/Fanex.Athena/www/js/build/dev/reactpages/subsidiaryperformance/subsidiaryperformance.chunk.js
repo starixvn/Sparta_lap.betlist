@@ -6485,12 +6485,12 @@ var headerText = {
     subsidiaryWL_comm: _langHelper2.default.getSingleResource("SubsidiaryWL") + '/ ' + _langHelper2.default.getSingleResource("Comm")
 };
 
-var Common = function () {
-    function Common() {
-        _classCallCheck(this, Common);
+var Service = function () {
+    function Service() {
+        _classCallCheck(this, Service);
     }
 
-    _createClass(Common, null, [{
+    _createClass(Service, null, [{
         key: 'getReportTitle',
         value: function getReportTitle(dateRange, selectedBaseCurrency) {
             var fromDate = _site2.default.convertDateToString(dateRange.fromDate);
@@ -6506,10 +6506,10 @@ var Common = function () {
         }
     }]);
 
-    return Common;
+    return Service;
 }();
 
-exports.default = Common;
+exports.default = Service;
 
 /***/ }),
 /* 132 */
