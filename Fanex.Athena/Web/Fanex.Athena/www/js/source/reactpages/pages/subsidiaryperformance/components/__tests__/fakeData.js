@@ -16,6 +16,7 @@ const defaultProps = {
     setSelectedSubsidiary: jest.fn(),
     setDateRange: jest.fn(),
     toggleLoader: jest.fn(),
+    changeConvertAll: jest.fn()
 }
 
 const bodyData = [{

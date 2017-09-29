@@ -2,17 +2,17 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { FormFilter } from '../formFilter';
 
-import ReportExcel from '../../lib/reportExcel';
 import Site from '../../../../lib/site';
 import LangHelper from '../../../../lib/langHelper';
 import service from '../../lib/service';
+import ReportExcel from '../../lib/reportExcel'
 
 import { defaultProps } from './fakeData';
 
-jest.mock('../../lib/reportExcel');
-
 const { gridData, ...rest } = defaultProps;
-const formFilterPropsForEventHandler = { ...rest };
+const formFilterPropsForEventHandler = {...rest };
+
+jest.mock('../../lib/reportExcel');
 
 describe('FormFilter ', () => {
     beforeAll(() => {
@@ -80,7 +80,8 @@ describe('FormFilter ', () => {
             it('date range is invalid month range - window.alert should be called with correct parameter', () => {
                 const formFilter = new FormFilter(formFilterPropsForEventHandler);
                 formFilterPropsForEventHandler.setDateRange = jest.fn();
-                const date = "09/28/2017", isValidMonthRange = false;
+                const date = "09/28/2017",
+                    isValidMonthRange = false;
                 window.alert = jest.fn();
                 const expectedMessage = "Exceed 3 Months";
 
@@ -89,6 +90,30 @@ describe('FormFilter ', () => {
 
                 expect(window.alert).toHaveBeenCalledWith(expectedMessage);
             })
+        })
+
+        describe('ConvertAll checkbox fired click event - props.changeConvertAll should be called with correct parameter', () => {
+            let checkBox;
+            const findCheckBoxElement = (children) => {
+                for(let i = 0; i < children.length; i++){
+                    const child = children[i];
+
+                    if(child.props && child.props.id === "IsConvertAll"){
+                        checkBox = child;
+                        break;
+                    }
+
+                    if(child.children && child.children.length){
+                        findCheckBoxElement(child.children)
+                    }
+                }
+            }
+            const formFilter = renderer.create(<FormFilter {...formFilterPropsForEventHandler} />).toJSON();
+            findCheckBoxElement(formFilter.children);
+
+            checkBox.props.onClick();
+
+            expect(formFilterPropsForEventHandler.changeConvertAll).toHaveBeenCalledWith(true);
         })
 
         describe('isValidModel', () => {
@@ -101,7 +126,7 @@ describe('FormFilter ', () => {
             })
 
             it('selectedSubsidiary is empty - return false', () => {
-                const props = { ...formFilterPropsForEventHandler, selectedSubsidiary: "" };
+                const props = {...formFilterPropsForEventHandler, selectedSubsidiary: "" };
                 const formFilter = new FormFilter(props);
 
                 const result = formFilter.isValidModel;
@@ -110,7 +135,7 @@ describe('FormFilter ', () => {
             })
 
             it('selectedProduct is empty - return false', () => {
-                const props = { ...formFilterPropsForEventHandler, selectedProduct: "" };
+                const props = {...formFilterPropsForEventHandler, selectedProduct: "" };
                 const formFilter = new FormFilter(props);
 
                 const result = formFilter.isValidModel;
@@ -122,7 +147,7 @@ describe('FormFilter ', () => {
         describe('submit data', () => {
             describe('_getParams', () => {
                 it('props.xsrfToken has no value - return null', () => {
-                    const props = { ...formFilterPropsForEventHandler, xsrfToken: "" };
+                    const props = {...formFilterPropsForEventHandler, xsrfToken: "" };
                     const formFilter = new FormFilter(props);
 
                     const result = formFilter._getParams();
@@ -131,7 +156,7 @@ describe('FormFilter ', () => {
                 })
 
                 it('filter data is invalid - return null', () => {
-                    const props = { ...formFilterPropsForEventHandler, selectedProduct: "" };
+                    const props = {...formFilterPropsForEventHandler, selectedProduct: "" };
                     const formFilter = new FormFilter(props);
 
                     const result = formFilter._getParams();
@@ -167,7 +192,7 @@ describe('FormFilter ', () => {
             describe('submit', () => {
                 const event = { preventDefault: jest.fn() };
                 it('_getParams return null - do nothing', () => {
-                    const props = { ...formFilterPropsForEventHandler, selectedProduct: "" };
+                    const props = {...formFilterPropsForEventHandler, selectedProduct: "" };
                     const formFilter = new FormFilter(props);
 
                     formFilter._getParams = jest.fn(() => null);
@@ -178,7 +203,7 @@ describe('FormFilter ', () => {
                     expect(formFilter.props.toggleLoader).not.toHaveBeenCalled();
                 })
 
-                it('_getParams return data - props.toggleLoader should be called with correct parameter', () => {
+                it('props.toggleLoader should be called with correct parameter', () => {
                     const props = formFilterPropsForEventHandler;
                     const formFilter = new FormFilter(props);
 
@@ -191,7 +216,7 @@ describe('FormFilter ', () => {
                     expect(formFilter.props.toggleLoader).toHaveBeenCalledWith(true);
                 })
 
-                it('_getParams return data - props.getGridData should be called with correct parameter', () => {
+                it('props.getGridData should be called with correct parameter', () => {
                     const props = formFilterPropsForEventHandler;
                     const expectedParams = {};
                     const formFilter = new FormFilter(props);
@@ -208,9 +233,19 @@ describe('FormFilter ', () => {
 
             describe('exportExcel', () => {
                 const event = { preventDefault: jest.fn() };
+                const fakeReportTitle = "Report Title";
+
+                beforeEach(() => {
+                    service.getReportTitle = jest.fn(() => fakeReportTitle);
+                })
+
+                afterEach(() => {
+                    ReportExcel.mockReset();
+                    service.getReportTitle.mockReset();
+                })
 
                 it('_getParams return null - do nothing', () => {
-                    const props = { ...formFilterPropsForEventHandler, selectedProduct: "" };
+                    const props = {...formFilterPropsForEventHandler, selectedProduct: "" };
                     const formFilter = new FormFilter(props);
 
                     formFilter._getParams = jest.fn(() => null);
@@ -221,35 +256,65 @@ describe('FormFilter ', () => {
                     expect(formFilter.props.toggleLoader).not.toHaveBeenCalled();
                 })
 
-                it('_getParams return data - props.toggleLoader should be called with correct parameter', () => {
-                    const props = formFilterPropsForEventHandler;
-                    const formFilter = new FormFilter(props);
+                describe('_getParams return data ', () => {
+                    const fakeResponse = { data: [1, 2] };
+                    const promise = Promise.resolve(fakeResponse);
+                    let formFilter;
 
-                    formFilter._getParams = jest.fn(() => { return {} });
-                    formFilter.props.toggleLoader = jest.fn();
+                    beforeEach(() => {
+                        formFilter = new FormFilter(formFilterPropsForEventHandler);
+                        formFilter._getParams = jest.fn(() => { return {} });
+                        formFilter.props.toggleLoader = jest.fn();
+                        formFilter.props.exportExcel = jest.fn(() => promise);
+                    })
 
-                    const promise = Promise.resolve();
-                    formFilter.props.exportExcel = jest.fn(() => promise);
+                    it('props.toggleLoader should be called with correct parameter', () => {
+                        formFilter.exportExcel(event);
 
-                    formFilter.exportExcel(event);
+                        expect(formFilter.props.toggleLoader.mock.calls[0][0]).toBeTruthy();
+                    })
 
-                    expect(formFilter.props.toggleLoader).toHaveBeenCalledWith(true);
-                })
+                    it('action return promise - props.exportExcel should be called with correct parameter', () => {
+                        const expectedParams = {};
 
-                it('return promise - props.exportExcel should be called with correct parameter', () => {
-                    const props = formFilterPropsForEventHandler;
-                    const expectedParams = {};
-                    const formFilter = new FormFilter(props);
+                        formFilter.exportExcel(event);
 
-                    formFilter._getParams = jest.fn(() => expectedParams);
-                    formFilter.props.toggleLoader = jest.fn();
+                        expect(formFilter.props.exportExcel).toHaveBeenCalledWith(expectedParams);
+                    })
 
-                    const promise = Promise.resolve();
-                    formFilter.props.exportExcel = jest.fn(() => promise);
+                    it('action return promise - Excel class should be instantiated with correct parameter', () => {
+                        const reportExcelMock = jest.fn();
+                        ReportExcel.mockImplementation(reportExcelMock);
 
-                    formFilter.exportExcel(event);
+                        formFilter.exportExcel(event);
 
-                    expect(formFilter.props.exportExcel).toHaveBeenCalledWith(expectedParams);
+                        Promise.resolve().then(() => {
+                            expect(reportExcelMock).toHaveBeenCalledWith(fakeResponse.data, fakeReportTitle);
+                        })
+                    })
+
+                    it('action return promise - export method of Excel class should be called', () => {
+                        const exportFnMock = jest.fn();
+                        ReportExcel.mockImplementation(() => {
+                            return {
+                                export: exportFnMock
+                            }
+                        });
+
+                        formFilter.exportExcel(event);
+
+                        Promise.resolve().then(() => {
+                            expect(exportFnMock.mock.calls.length).toBe(1);
+                        })
+                    })
+
+                    it('action return promise - props.toggleLoader should be called with correct parameter', () => {
+                        formFilter.exportExcel(event);
+
+                        Promise.resolve().then(() => {
+                            expect(formFilter.props.toggleLoader.mock.calls[1][0]).toBeFalsy();
+                        })
+                    })
                 })
             })
         })
