@@ -61,7 +61,8 @@
         "build-react-both": "webpack --config www/webpackconfig/build/webpack.react.pro.conf.js && webpack --config www/webpackconfig/build/webpack.react.dev.conf.js",
         "test-react": "jest --updateSnapshot --coverage",
         "test-onefile-react": "jest datagrid.test.js --watch --u",
-        "test-react-watch": "jest --watch"
+        "test-react-watch": "jest --watch",
+        "jest-install": "npm install jest-cli -g "
     },
     "author": "Sparta",
     "license": "vn",
@@ -81,6 +82,9 @@
         "xlsx-style": "^0.8.13"
     },
     "jest": {
-        "testMatch": ["**/__tests__/**/*.test.js?(x)", "**/?(*.)(spec|test).js?(x)"]
+        "testMatch": [
+            "**/__tests__/**/*.test.js?(x)",
+            "**/?(*.)(spec|test).js?(x)"
+        ]
     }
 }
