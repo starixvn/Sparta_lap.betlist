@@ -63,8 +63,8 @@ namespace Fanex.Athena.Excel.Report
         private const int TotalLicenseeWlProductColumn = 18;
         private const int TotalTurnoverProductColumn = 18;
 
-        private static readonly string[] IgnoredLicenseeWLProducts = new string[] { Product.RB, Product.BA };
-        private static readonly string[] IgnoredTurnoverProducts = new string[] { Product.BT };
+        private static readonly string[] IgnoredLicenseeWLProducts = new[] { Product.RB, Product.BA };
+        private static readonly string[] IgnoredTurnoverProducts = new[] { Product.BT };
 
         private readonly IDictionary<string, bool> _offeredProducts = new Dictionary<string, bool>
             {

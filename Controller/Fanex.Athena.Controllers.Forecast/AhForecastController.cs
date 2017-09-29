@@ -90,23 +90,19 @@ namespace Fanex.Athena.Controllers.Forecast
         {
             var forecastHeaderParam = ForecastService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType);
             ForecastValue forecastValue = null;
-            var userSession = SessionService.UserSession;
+
             if (forecastHeaderParam != null)
             {
                 /* Set default currentScore*/
                 if (Request.QueryString["CurrentScore"] == null)
                 {
-                    if (metaModel.BetType == (int)BetType.OverUnder || metaModel.BetType == (int)BetType.FirstHalfOverUnder)
-                    {
-                        // Overunder
-                        metaModel.CurrentScore = forecastHeaderParam.LiveHomeScore + forecastHeaderParam.LiveAwayScore;
-                    }
-                    else
-                    {
-                        metaModel.CurrentScore = forecastHeaderParam.LiveHomeScore - forecastHeaderParam.LiveAwayScore;
-                    }
+                    var isOverUnder = metaModel.BetType == (int)BetType.OverUnder || metaModel.BetType == (int)BetType.FirstHalfOverUnder;
+                    metaModel.CurrentScore = isOverUnder ?
+                        forecastHeaderParam.LiveHomeScore + forecastHeaderParam.LiveAwayScore :
+                        forecastHeaderParam.LiveHomeScore - forecastHeaderParam.LiveAwayScore;
                 }
 
+                var userSession = SessionService.UserSession;
                 /*Handicap or 1st Handicap*/
                 if (metaModel.BetType == (int)BetType.Handicap || metaModel.BetType == (int)BetType.FirstHalfHandicap)
                 {

@@ -264,7 +264,7 @@ namespace Fanex.Athena.Excel.Report
             return listTotalCurrency;
         }
 
-        private int AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
+        private void AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
         {
             var currencies = _summaryTotal.Keys.Reverse();
 
@@ -279,8 +279,6 @@ namespace Fanex.Athena.Excel.Report
                 sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
                 rowIndex++;
             }
-
-            return rowIndex;
         }
 
         /// <summary>

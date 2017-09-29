@@ -26,7 +26,7 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class LiveReportDataAccess : BaseDataAccess, ILiveReportDataAccess
     {
-        private static readonly IEnumerable<string> IgnoredProductInBettypeSection = new string[]
+        private static readonly IEnumerable<string> IgnoredProductInBettypeSection = new[]
         {
             Product.MGCLC, Product.MGCRNG
         };

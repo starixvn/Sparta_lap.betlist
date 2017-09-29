@@ -133,14 +133,9 @@ namespace Fanex.Athena.Api.Report
                 out SortableList<ColossusBetWinLoss> dataList,
                 out IDictionary<string, ColossusBetWinLoss> summaryTotal)
         {
-            if (metaModel.DrillDownLevel == 0)
-            {
-                dataList = _colossusBetsWinLossService.GetSummaryWinloss(metaModel, out summaryTotal);
-            }
-            else
-            {
-                dataList = _colossusBetsWinLossService.GetWinlossDetail(metaModel, out summaryTotal);
-            }
+            dataList = metaModel.DrillDownLevel == 0 ?
+                _colossusBetsWinLossService.GetSummaryWinloss(metaModel, out summaryTotal) :
+                _colossusBetsWinLossService.GetWinlossDetail(metaModel, out summaryTotal);
         }
 
         private dynamic ProcessRequest(

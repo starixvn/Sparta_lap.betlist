@@ -154,14 +154,7 @@ namespace Fanex.Athena.Excel.Report
                 AssignCommonData(row, casinoBalance);
                 rowIndex++;
 
-                if (isDrillDownLevel)
-                {
-                    row.Cells[ColumnIndex].SetCellValue(index + 1);
-                }
-                else
-                {
-                    row.Cells[ColumnIndex].SetCellValue(currentIndex);
-                }
+                row.Cells[ColumnIndex].SetCellValue(isDrillDownLevel ? index + 1 : currentIndex);
 
                 if (casinoBalance.RowSpan > 1)
                 {

@@ -59,7 +59,7 @@ namespace Fanex.Athena.Service.BetSettings
 
             xmlElementBuilder.Append(string.Format(XMLElement, setting.GameTypeID, setting.MinBet, setting.MaxBet, setting.MaxPerMatch));
 
-            var xmlparam = string.Format(XMLPattern, xmlElementBuilder.ToString());
+            var xmlparam = string.Format(XMLPattern, xmlElementBuilder);
 
             return _betSettingDataAccess.UpdateBetSetting(
                 custId,

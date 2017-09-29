@@ -121,14 +121,20 @@
 
         private static bool IsAuthenticated(HttpContextBase currentContext, UserSession userSession, LicenseeSession licenseeSession)
         {
+            if (userSession == null || licenseeSession == null || !IsValidIdentity(currentContext))
+            {
+                return false;
+            }
+
+            var isValidUserId = userSession.UserId > 0 && !string.IsNullOrEmpty(userSession.VendorIdentityID) && !string.IsNullOrEmpty(userSession.VendorID);
+
+            return isValidUserId && userSession.IsInternal && licenseeSession.LicenseeId > 0 && userSession.ApplicationMode == AppMode.Parasitic;
+        }
+
+        private static bool IsValidIdentity(HttpContextBase currentContext)
+        {
             var identity = currentContext.User.Identity;
-            var identityValidation = identity != null && identity.IsAuthenticated && !string.IsNullOrEmpty(identity.Name);
-
-            var sessionValidation = userSession != null && licenseeSession != null && userSession.UserId > 0 &&
-                !string.IsNullOrEmpty(userSession.VendorID) && !string.IsNullOrEmpty(userSession.VendorIdentityID)
-                && userSession.IsInternal && licenseeSession.LicenseeId > 0 && userSession.ApplicationMode == AppMode.Parasitic;
-
-            return identityValidation && sessionValidation;
+            return identity != null && identity.IsAuthenticated && !string.IsNullOrEmpty(identity.Name);
         }
 
         protected internal virtual IResultInfo SetAuthorize(OneAuthToken tokenInfo)

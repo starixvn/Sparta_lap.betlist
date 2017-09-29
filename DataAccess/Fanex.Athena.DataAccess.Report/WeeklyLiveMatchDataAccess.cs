@@ -102,15 +102,10 @@ namespace Fanex.Athena.DataAccess.Report
 
         private static IEnumerable<WeeklyLiveMatch> SortData(IEnumerable<WeeklyLiveMatch> data, string sortColumn, string sortDirection)
         {
-            var isAscending = sortDirection.Equals("asc", System.StringComparison.OrdinalIgnoreCase);
-            if (sortColumn.Equals(CustomSortingWeekColumn))
-            {
-                return Sort(data, x => x.SortingWeekValue, isAscending).ThenBy(x => x.SportName);
-            }
-            else
-            {
-                return Sort(data, x => x.SportName, isAscending);
-            }
+            var isAscending = sortDirection.Equals("asc", StringComparison.OrdinalIgnoreCase);
+            return sortColumn.Equals(CustomSortingWeekColumn) ?
+                Sort(data, x => x.SortingWeekValue, isAscending).ThenBy(x => x.SportName) :
+                Sort(data, x => x.SportName, isAscending);
         }
 
         private static IOrderedEnumerable<T> Sort<T, TKey>(IEnumerable<T> data, Func<T, TKey> keySelector, bool isAscending = true)

@@ -37,10 +37,6 @@
     <CodeAnalysisRuleSet>Fanex.Athena.Model.BetSettings.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Fanex.Athena.Model.BetSettings, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Fanex.Athena\Web\Fanex.Athena\Bin\Fanex.Athena.Model.BetSettings.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />

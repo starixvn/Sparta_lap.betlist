@@ -19,7 +19,7 @@ namespace Fanex.Athena.Service.Core.Configuration
     {
         private const string DefaultLanguage = "en-US";
 
-        private const int CacheTimeoutSeconds = 60; // 1 minutes.
+        private const int CacheTimeoutSeconds = 60;
 
         private readonly IMoveBetDataAccess _moveBetDataAccess;
 
@@ -41,7 +41,6 @@ namespace Fanex.Athena.Service.Core.Configuration
             Justification = "Reviewed. Suppression is OK here.")]
         public string GetMoveBetNotification(string language)
         {
-            var result = string.Empty;
             try
             {
                 var moveBet = _cache.Get<MoveBetNotification>(CacheKey.MemorycacheCommonMoveBet);
@@ -51,21 +50,29 @@ namespace Fanex.Athena.Service.Core.Configuration
                     _cache.Set(CacheKey.MemorycacheCommonMoveBet, moveBet, CacheTimeoutSeconds);
                 }
 
-                if (moveBet.ContentByLanguage.ContainsKey(language))
-                {
-                    result = moveBet.ContentByLanguage[language];
-                }
-                else if (moveBet.ContentByLanguage.ContainsKey(DefaultLanguage))
-                {
-                    result = moveBet.ContentByLanguage[DefaultLanguage];
-                }
+                return GetMessage(moveBet, language);
             }
             catch (Exception exception)
             {
                 LogHelper.WriteError(exception);
             }
 
-            return result;
+            return string.Empty;
+        }
+
+        private static string GetMessage(MoveBetNotification moveBet, string language)
+        {
+            if (moveBet.ContentByLanguage.ContainsKey(language))
+            {
+                return moveBet.ContentByLanguage[language];
+            }
+
+            if (moveBet.ContentByLanguage.ContainsKey(DefaultLanguage))
+            {
+                return moveBet.ContentByLanguage[DefaultLanguage];
+            }
+
+            return string.Empty;
         }
     }
 }
