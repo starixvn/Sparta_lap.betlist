@@ -6,7 +6,6 @@
     using System.Linq;
     using Data;
     using Model.Core.MetaModel.Product;
-    using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -130,11 +129,9 @@
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlossByLeagueDetail")).Returns(objectDb);
             objectDb.GetParameterValue("totalrows").Returns(1000);
-            WinLossByLeague grandTotal;
-            int totalRows = 0;
 
             // Action
-            _dataAccess.GetCustomers(metaModel, out grandTotal, ref totalRows);
+            var result = _dataAccess.GetCustomers(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -152,7 +149,7 @@
                 objectDb.Received().AddInParameter("showba", DbType.Boolean, false);
                 objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
 
-                Assert.That(totalRows, Is.EqualTo(1000));
+                Assert.That(result.TotalRows, Is.EqualTo(1000));
             });
         }
 
@@ -172,24 +169,20 @@
             };
 
             MapReaderData(reader, readerDataMapping);
-            WinLossByLeague grandTotal;
-            int totalRows = 0;
 
             // Action
             var result = _dataAccess.GetCustomers(
                 new WinLossByLeagueMetaModel
                 {
                     BaseCurrency = "USD"
-                },
-                out grandTotal,
-                ref totalRows);
+                });
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count(), Is.EqualTo(1));
-                Assert.That(result.ElementAt(0).TurnOver, Is.EqualTo(999));
-                Assert.That(grandTotal.TurnOver, Is.EqualTo(999));
+                Assert.That(result.DataList.Count, Is.EqualTo(1));
+                Assert.That(result.DataList.ElementAt(0).TurnOver, Is.EqualTo(999));
+                Assert.That(result.TotalData.TurnOver, Is.EqualTo(999));
             });
         }
 

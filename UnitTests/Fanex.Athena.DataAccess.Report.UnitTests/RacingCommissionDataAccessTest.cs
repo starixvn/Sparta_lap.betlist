@@ -7,7 +7,6 @@
     using Data;
     using Fanex.Athena.UnitTest.Common.Extensions;
     using Model.Core.DTO.Configuration;
-    using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -58,7 +57,6 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_CommByBettype_HR")).Returns(objectDb);
-            var totalData = new RacingCommission();
             dynamic uspParam = null;
             objectDb.ExecuteReader(Arg.Do<dynamic>(arg => uspParam = arg));
             var expectedResult = new
@@ -72,7 +70,7 @@
             };
 
             // Action
-            _dataAccess.GetDataList(_metaModel, ref totalData);
+            _dataAccess.GetData(_metaModel);
 
             // Assert
             Assert.That(uspParam, Tobe.SameProperties(expectedResult));
@@ -88,7 +86,6 @@
             objectDb.ExecuteReader(Arg.Any<object>()).ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false, true, false);
             reader.NextResult().Returns(true);
-            RacingCommission totalData = new RacingCommission();
             var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
             {
                 { "custID", 999 },
@@ -99,16 +96,16 @@
             MapReaderData(reader, readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetDataList(_metaModel, ref totalData);
+            var result = _dataAccess.GetData(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count, Is.EqualTo(1));
-                Assert.That(result[0].CustID, Is.EqualTo(999));
-                Assert.That(result[0].ToteWin, Is.EqualTo(100));
+                Assert.That(result.DataList.Count, Is.EqualTo(1));
+                Assert.That(result.DataList[0].CustID, Is.EqualTo(999));
+                Assert.That(result.DataList[0].ToteWin, Is.EqualTo(100));
 
-                Assert.That(totalData.ToteWin, Is.EqualTo(1000));
+                Assert.That(result.TotalData.ToteWin, Is.EqualTo(1000));
             });
         }
 
