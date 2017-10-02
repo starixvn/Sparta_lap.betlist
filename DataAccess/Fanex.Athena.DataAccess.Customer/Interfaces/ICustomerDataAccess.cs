@@ -12,6 +12,7 @@ namespace Fanex.Athena.DataAccess.Customer.Interfaces
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.DTO;
     using Fanex.Athena.Model.Customer.MetaModel;
+    using Model.Core.ResultModel;
 
     #endregion Using
 
@@ -23,7 +24,7 @@ namespace Fanex.Athena.DataAccess.Customer.Interfaces
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference",
             Justification = "Reviewed. Suppression is OK here.")]
-        IList<CustomerDTO> Search(CustomerListMetaModel metaModel, ref int totalRows);
+        ReportResultModel<CustomerDTO> Search(CustomerListMetaModel metaModel);
 
         CustomerInfo GetCustomerInfo(int custId);
 

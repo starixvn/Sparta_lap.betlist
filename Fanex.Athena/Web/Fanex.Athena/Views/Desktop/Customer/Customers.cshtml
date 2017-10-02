@@ -76,7 +76,7 @@
     }
     @if (Model.DataList != null)
     {
-        @Html.Hidden("NumOfCheckBox", Model.DataList.Count)
+        @Html.Hidden("NumOfCheckBox", Model.DataList.Count())
     }
     @{ Html.RenderPartial("~/Views/Desktop/Customer/ContextMenu.cshtml", Model); }
     <!--/popup-->

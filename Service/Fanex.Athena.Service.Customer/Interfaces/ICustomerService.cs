@@ -12,6 +12,7 @@ namespace Fanex.Athena.Service.Customer.Interfaces
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.DTO;
     using Fanex.Athena.Model.Customer.MetaModel;
+    using Model.Core.ResultModel;
 
     #endregion Using
 
@@ -21,15 +22,7 @@ namespace Fanex.Athena.Service.Customer.Interfaces
 
         IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml);
 
-        /// <summary>
-        /// Advance search customer.
-        /// </summary>
-        /// <param name="metaModel">Meta model contains the filter such as: BA type, special level type.</param>
-        /// <param name="totalRows">The total rows.</param>
-        /// <returns>The data list.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference",
-            Justification = "Reviewed. Suppression is OK here.")]
-        IList<CustomerDTO> Search(CustomerListMetaModel metaModel, ref int totalRows);
+        ReportResultModel<CustomerDTO> Search(CustomerListMetaModel metaModel);
 
         /// <summary>
         /// Get customer Information such as: SyncCasino, DisableBingo, ...

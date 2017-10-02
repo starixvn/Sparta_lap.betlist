@@ -103,14 +103,13 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsShowStatusDropdown = GetAllowLicenseesForStatusFunction().Contains(metaModel.LicenseeId.ToString());
             metaModel.Username = metaModel.Username == placeholderUsername ? string.Empty : metaModel.Username;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var totalRows = 0;
-            var dataList = _customerService.Search(metaModel, ref totalRows);
+            var result = _customerService.Search(metaModel);
             return new JsonResult
             {
                 Data = new
                 {
-                    Data = dataList,
-                    TotalRows = totalRows
+                    Data = result.DataList,
+                    TotalRows = result.TotalRows
                 },
                 MaxJsonLength = int.MaxValue
             };
@@ -215,9 +214,9 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var model = CreateCustomerViewModel(metaModel);
 
-            var totalRows = 0;
-            model.DataList = _customerService.Search(model.Param, ref totalRows);
-            model.TotalRows = totalRows;
+            var result = _customerService.Search(model.Param);
+            model.DataList = result.DataList;
+            model.TotalRows = result.TotalRows;
 
             return model;
         }

@@ -9,6 +9,7 @@ namespace Fanex.Athena.Excel.Customer
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
+    using System.Linq;
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Extension.Helper;
@@ -122,7 +123,7 @@ namespace Fanex.Athena.Excel.Customer
 
             AssignHeader(sheet);
             AssignTitle(sheet);
-            if (this._exportData.DataList.Count == 0)
+            if (this._exportData.DataList.Count() == 0)
             {
                 AssignNoInfoRow(sheet);
             }
@@ -168,12 +169,12 @@ namespace Fanex.Athena.Excel.Customer
 
         private void AssignSheetData(ISheet sheet)
         {
-            var rowCount = _exportData.DataList.Count;
+            var rowCount = _exportData.DataList.Count();
             var startNumOfRow = (_exportData.Param.PageIndex - 1) * _exportData.Param.PageSize;
             startNumOfRow += 1;
             for (int index = 0; index < rowCount; index++)
             {
-                var item = _exportData.DataList[index];
+                var item = _exportData.DataList.ElementAt(index);
                 var rowIndex = index + RowContentTemplate;
                 var numofRow = index + startNumOfRow;
                 var row = sheet.CopyRow(_templateSheet, RowContentTemplate, rowIndex);

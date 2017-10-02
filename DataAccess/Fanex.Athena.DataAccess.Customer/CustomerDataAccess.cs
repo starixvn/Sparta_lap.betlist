@@ -23,6 +23,7 @@ namespace Fanex.Athena.DataAccess.Customer
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
+    using Model.Core.ResultModel;
     using Resources;
 
     public class CustomerDataAccess : BaseDataAccess, ICustomerDataAccess
@@ -51,7 +52,7 @@ namespace Fanex.Athena.DataAccess.Customer
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
                     Justification = "Reviewed. Suppression is OK here.")]
-        public IList<CustomerDTO> Search(CustomerListMetaModel metaModel, ref int totalRows)
+        public ReportResultModel<CustomerDTO> Search(CustomerListMetaModel metaModel)
         {
             const string UspName = "Lrf_CustomerSel";
 
@@ -112,8 +113,12 @@ namespace Fanex.Athena.DataAccess.Customer
                         }
                     }
 
-                    totalRows = Converter.ToInt(db.GetParameterValue("TotalRows"));
-                    return dataList;
+                    var totalRows = Converter.ToInt(db.GetParameterValue("TotalRows"));
+                    return new ReportResultModel<CustomerDTO>
+                    {
+                        DataList = dataList,
+                        TotalRows = totalRows
+                    };
                 }
             }
             catch (ObjectDbException sqlException)

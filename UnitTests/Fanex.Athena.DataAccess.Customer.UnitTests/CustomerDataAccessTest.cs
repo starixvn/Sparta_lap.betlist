@@ -51,10 +51,9 @@
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSel")).Returns(_objectDb);
             var metaModel = new CustomerListMetaModel();
-            var totalRows = 0;
 
             // Action
-            _dataAccess.Search(metaModel, ref totalRows);
+            _dataAccess.Search(metaModel);
 
             // Assert
             _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, metaModel.LicenseeId);

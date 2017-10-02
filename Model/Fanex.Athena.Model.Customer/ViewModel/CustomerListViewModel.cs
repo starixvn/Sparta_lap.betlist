@@ -16,7 +16,7 @@ namespace Fanex.Athena.Model.Customer.ViewModel
     {
         public CustomerListMetaModel Param { get; set; }
 
-        public IList<CustomerDTO> DataList { get; set; }
+        public IEnumerable<CustomerDTO> DataList { get; set; }
 
         public int TotalRows { get; set; }
 

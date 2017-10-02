@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Service.Customer.UnitTests
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Casino.Interfaces;
     using Core.Common.Interfaces;
     using Core.Users.Interfaces;
@@ -9,6 +10,7 @@
     using Model.Casino.MetaModel;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
+    using Model.Core.ResultModel;
     using Model.Customer.DTO;
     using Model.Customer.MetaModel;
     using NSubstitute;
@@ -89,21 +91,23 @@
         public void Search_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var expectedResult = new List<CustomerDTO>();
-            var totalRows = 0;
-            _sessionService.LicenseeSession.Returns(new LicenseeSession());
-            _customerDataAccess.Search(Arg.Any<CustomerListMetaModel>(), ref totalRows).Returns(x =>
+            var expectedResult = new ReportResultModel<CustomerDTO>
             {
-                x[1] = 10;
-                return expectedResult;
-            });
+                DataList = new List<CustomerDTO>()
+                {
+                    new CustomerDTO()
+                },
+                TotalRows = 10
+            };
+            _sessionService.LicenseeSession.Returns(new LicenseeSession());
+            _customerDataAccess.Search(Arg.Any<CustomerListMetaModel>()).Returns(expectedResult);
 
             // Action
-            var result = _customerService.Search(new CustomerListMetaModel(), ref totalRows);
+            var result = _customerService.Search(new CustomerListMetaModel());
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
-            Assert.That(totalRows, Is.EqualTo(10));
+            Assert.That(result.DataList.Count(), Is.EqualTo(expectedResult.DataList.Count()));
+            Assert.That(result.TotalRows, Is.EqualTo(expectedResult.TotalRows));
         }
 
         [Test]

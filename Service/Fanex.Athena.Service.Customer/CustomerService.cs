@@ -26,6 +26,7 @@ namespace Fanex.Athena.Service.Customer
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Service.Customer.Interfaces;
     using Model.Core.DataDomain;
+    using Model.Core.ResultModel;
     using Resources;
 
     #endregion Using
@@ -88,14 +89,17 @@ namespace Fanex.Athena.Service.Customer
             return _customerDataAccess.SearchCustomers(userId, userName, agentListXml);
         }
 
-        public IList<CustomerDTO> Search(CustomerListMetaModel metaModel, ref int totalRows)
+        public ReportResultModel<CustomerDTO> Search(CustomerListMetaModel metaModel)
         {
             if (!IsValidUsername(metaModel.Username))
             {
-                return new List<CustomerDTO>();
+                return new ReportResultModel<CustomerDTO>
+                {
+                    DataList = new List<CustomerDTO>()
+                };
             }
 
-            return _customerDataAccess.Search(metaModel, ref totalRows);
+            return _customerDataAccess.Search(metaModel);
         }
 
         public CustomerInfo GetCustomerInfo(int licenseeId, int custId)
