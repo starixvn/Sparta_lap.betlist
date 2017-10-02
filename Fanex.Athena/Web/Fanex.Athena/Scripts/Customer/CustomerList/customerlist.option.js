@@ -9,33 +9,6 @@
 var CustomersOption = (function () {
     "use strict";
 
-    function specialLevelFormatter(cellValue, rowObject, isReadOnly) {
-        if (isReadOnly) {
-            return "<div style='text-align:center;color:black' class='level-" + cellValue + "'>"
-                    + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</span>";
-        }
-        
-        return "<div data-custid='" + rowObject.CustId + "' data-level='" + cellValue + "' class='level-" + cellValue +
-                 "' style='text-align: center;color:black;width:80px;float:left'>" +
-                 (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) +
-                 "</div><span style='float:right' class='arrow1' title='" + Site.getSingleResource("SpecialLevel") + "'>&nbsp;&nbsp;&nbsp;</span>";
-    }
-
-    function oddsGroupFormatter(cellValue, rowObject, isReadOnly) {
-        if (isReadOnly) {
-            return "<div style='text-align:center;color:black' class='group-" + cellValue + "'>"
-                    + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</span>";
-        }
-
-        var arrowHtml = rowObject.BAStatus ? "" :
-                         "<span style='float:right' class='arrow1' title='" + Site.getSingleResource("OddsGroup") + "'>&nbsp;&nbsp;&nbsp;</span>";
-        return "<div data-custid='" + rowObject.CustId + "' data-group='" + cellValue + 
-                "' class='" + (rowObject.BAStatus ? "disabled" : "" ) + " group-" + cellValue +
-                 "' style='text-align: center;color:black;width:80px;float:left'>" +
-                 (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) +
-                 "</div>" + arrowHtml;
-    }
-
     var indexColumn = {
         key: true,
         name: 'Index',
@@ -152,7 +125,14 @@ var CustomersOption = (function () {
         width: 90,
         align: 'right',
         sortable: false,
-        frozen: true
+        frozen: true,
+        classes: "specialLevel",
+        formatter: function (cellValue, options, rowObject) {
+            return "<div data-custid='" + rowObject.CustId + "' data-level='" + cellValue + "' class='level-" + cellValue +
+                 "' style='text-align: center;color:black;width:80px;float:left'>" +
+                 (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) +
+                 "</div><span style='float:right' class='arrow1' title='" + Site.getSingleResource("SpecialLevel") + "'>&nbsp;&nbsp;&nbsp;</span>";
+        }
     };
     var oddsGroupColumn = {
         name: 'OddsGroup',
@@ -161,7 +141,17 @@ var CustomersOption = (function () {
         width: 90,
         align: 'right',
         sortable: false,
-        frozen: true
+        frozen: true,
+        classes: "oddsGroup",
+        formatter: function (cellValue, options, rowObject) {
+            var arrowHtml = rowObject.BAStatus ? "" :
+                         "<span style='float:right' class='arrow1' title='" + Site.getSingleResource("OddsGroup") + "'>&nbsp;&nbsp;&nbsp;</span>";
+            return "<div data-custid='" + rowObject.CustId + "' data-group='" + cellValue +
+                    "' class='" + (rowObject.BAStatus ? "disabled" : "") + " group-" + cellValue +
+                     "' style='text-align: center;color:black;width:80px;float:left'>" +
+                     (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) +
+                     "</div>" + arrowHtml;
+        }
     };
     var customerOptionColumn = {
         name: 'CustomerOption',
@@ -260,16 +250,8 @@ var CustomersOption = (function () {
 
     var getColModel = function (productAccess, isAllowedCustomerCommission) {
         var isFakeLicensee = Site.isFakeLicensee();
-        
-        specialLevelColumn.formatter = function (cellValue, options, rowObject) {
-            return specialLevelFormatter(cellValue, rowObject, isFakeLicensee);
-        };
-        specialLevelColumn.classes = isFakeLicensee ? "" : "specialLevel";
-
-        oddsGroupColumn.formatter = function (cellValue, options, rowObject) {
-            return oddsGroupFormatter(cellValue, rowObject, isFakeLicensee);
-        };
-        oddsGroupColumn.classes = isFakeLicensee ? "" : "oddsGroup";
+        specialLevelColumn.hidden = isFakeLicensee;
+        oddsGroupColumn.hidden = isFakeLicensee;
 
         var temp = Site.clone(colModelList);
         if (isAllowedCustomerCommission) {

@@ -2,33 +2,6 @@
     function ($, Site, jqGridAdditional) {
         "use strict";
 
-        function specialLevelFormatter(cellValue, rowObject, isReadOnly) {
-            if (isReadOnly) {
-                return "<span style='display: block' class='level-" + cellValue + "'>"
-                        + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</span>";
-            }
-
-            return "<a href='javascript:;' class='grid-dropdown specialLevel' data-custid='" + rowObject.CustId + "' data-level='" + cellValue + "'>"
-                    + "<span class='grid-dropdown-item grid-dropdown-label level-" + cellValue + "'>"
-                    + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</span>"
-                    + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("SpecialLevel") + "'></i>"
-                    + "</a>";
-        }
-
-        function oddsGroupFormatter(cellValue, rowObject, isReadOnly) {
-            if (isReadOnly) {
-                return "<span style='display: block' class='group-" + cellValue + "'>"
-                        + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</span>";
-            }
-
-            return "<a href='javascript:;' class='grid-dropdown oddsGroup" + (rowObject.BAStatus ? " disabled" : "")
-                + "' data-custid='" + rowObject.CustId + "' data-group='" + cellValue + "'>"
-                + "<span class='grid-dropdown-item grid-dropdown-label group-" + cellValue + "'>"
-                + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</span>"
-                + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("OddsGroup") + "'></i>"
-                + "</a>";
-        }
-
         var indexColumn = {
             key: true,
             name: 'Index',
@@ -151,7 +124,14 @@
             width: 90,
             align: 'center',
             sortable: false,
-            frozen: true
+            frozen: true,
+            formatter: function (cellValue, options, rowObject) {
+                return "<a href='javascript:;' class='grid-dropdown specialLevel' data-custid='" + rowObject.CustId + "' data-level='" + cellValue + "'>"
+                    + "<span class='grid-dropdown-item grid-dropdown-label level-" + cellValue + "'>"
+                    + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</span>"
+                    + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("SpecialLevel") + "'></i>"
+                    + "</a>";
+            }
         };
         var oddsGroupColumn = {
             name: 'OddsGroup',
@@ -160,7 +140,15 @@
             width: 90,
             align: 'center',
             sortable: false,
-            frozen: true
+            frozen: true,
+            formatter: function (cellValue, options, rowObject) {
+                return "<a href='javascript:;' class='grid-dropdown oddsGroup" + (rowObject.BAStatus ? " disabled" : "")
+                + "' data-custid='" + rowObject.CustId + "' data-group='" + cellValue + "'>"
+                + "<span class='grid-dropdown-item grid-dropdown-label group-" + cellValue + "'>"
+                + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</span>"
+                + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("OddsGroup") + "'></i>"
+                + "</a>";
+            }
         };
         var customerOptionColumn = {
             name: 'CustomerOption',
@@ -260,13 +248,8 @@
         var getColModel = function (productAccess, isAllowedCustomerCommission) {          
             var isFakeLicensee = Site.isFakeLicensee();
 
-            specialLevelColumn.formatter = function (cellValue, options, rowObject) {
-                return specialLevelFormatter(cellValue, rowObject, isFakeLicensee);
-            };
-
-            oddsGroupColumn.formatter = function (cellValue, options, rowObject) {
-                return oddsGroupFormatter(cellValue, rowObject, isFakeLicensee);
-            };
+            specialLevelColumn.hidden = isFakeLicensee;
+            oddsGroupColumn.hidden = isFakeLicensee;
 
             var temp = Site.clone(colModelList);
 
