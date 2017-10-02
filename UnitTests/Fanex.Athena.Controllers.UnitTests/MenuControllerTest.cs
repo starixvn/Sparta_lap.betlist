@@ -4,57 +4,70 @@
     using System.Web.Mvc;
     using Base.UnitTests;
     using Model.Core.DTO.Common;
+    using Model.Core.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
 
     [TestFixture]
-    public partial class MenuControllerTest : BaseControllerTest
+    public partial class MenuControllerTest : BaseControllerHelperTest
     {
         private IFunctionService _functionService;
 
+        private MenuController _controller;
+
         [SetUp]
-        public new void FixtureSetUp()
+        public void SetUp()
         {
-            FakeBaseControllerDependency();
             _functionService = Substitute.For<IFunctionService>();
+
+            SetUpDefaultFakeData();
+
+            _controller = new MenuController(LangService, SessionService, AppSettings, _functionService);
         }
 
         [TearDown]
-        public new void FixtureTearDown()
+        public void TearDown()
         {
             _functionService = null;
+
+            _controller.Dispose();
         }
 
         [Test]
         public void Index_WhenCall_ReturnCorrectView()
         {
             // Arrange
-            SessionService.UserSession.FunctionIdList = new List<int> { 1, 2, 3 };
             _functionService.Functions.Returns(new List<Function>());
-            using (var controller = CreateController())
-            {
-                controller.ControllerContext.HttpContext.Response.IsRequestBeingRedirected.Returns(false);
 
-                // Action
-                var result = controller.Index() as ViewResult;
+            // Action
+            var result = _controller.Index() as ViewResult;
 
-                // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/Menu/Index.cshtml"));
-            }
+            // Assert
+            Assert.That(result.ViewName, Is.EqualTo("~/Views/Menu/Index.cshtml"));
         }
 
-        private MenuController CreateController()
+        [Test]
+        public void Index_WhenCall_ReturnCorrectViewModel()
         {
-            var controller = new MenuController(
-                LangService,
-                SessionService,
-                AppSettings,
-                _functionService);
+            // Arrange
+            SessionService.UserSession.FunctionIdList = new List<int> { 1, 2, 3 };
+            _functionService.Functions.Returns(new List<Function>());
+            AppSettings.FakeLicenseeList.Returns(new int[] { DefaultLicenseeSession.LicenseeId });
 
-            controller.ControllerContext = this.ControllerContext;
+            // Action
+            var result = _controller.Index() as ViewResult;
+            var viewModel = result.Model as MenuViewModel;
 
-            return controller;
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(viewModel.IsAllowedCustonmerCommission, Is.EqualTo(DefaultLicenseeSession.IsAllowedCustomerComm));
+                Assert.That(viewModel.IsInternalLogin, Is.EqualTo(DefaultUserSession.IsInternal));
+                Assert.That(viewModel.IsAllowedManagementMember, Is.EqualTo(false));
+                Assert.That(viewModel.IsFakeLicensee, Is.EqualTo(true));
+                Assert.That(viewModel.UserFunctions, Is.Empty);
+            });
         }
     }
 }

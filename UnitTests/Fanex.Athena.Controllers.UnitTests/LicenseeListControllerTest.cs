@@ -9,121 +9,121 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public partial class LicenseeListControllerTest : BaseControllerTest
+    public class LicenseeListControllerTest : BaseControllerHelperTest
     {
         private ILicenseeDataAccess _licenseeDataAccess;
 
+        private LicenseeListController _controller;
+
         [SetUp]
-        public new void FixtureSetUp()
+        public void SetUp()
         {
-            FakeBaseControllerDependency();
             _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
+
+            SetUpDefaultFakeData();
+
+            _controller = new LicenseeListController(LangService, SessionService, AppSettings, _licenseeDataAccess);
         }
 
         [TearDown]
-        public new void FixtureTearDown()
+        public void TearDown()
         {
             _licenseeDataAccess = null;
+
+            _controller.Dispose();
         }
 
         [Test]
         public void Index_InvalidUserSession_RedirectToSignIn()
         {
             // Arrange
-            SessionService.UserSession.Returns(x => null);
-            using (var controller = CreateController())
-            {
-                // Action
-                var result = controller.Index(0) as RedirectToRouteResult;
+            StubUserSessionData(null);
 
-                // Assert
+            // Action
+            var result = _controller.Index(0) as RedirectToRouteResult;
+
+            // Assert
+            Assert.Multiple(() =>
+            {
                 Assert.That(result.RouteValues["action"], Is.EqualTo("SignIn"));
                 Assert.That(result.RouteValues["controller"], Is.EqualTo("Authorization"));
-            }
+            });
         }
 
         [Test]
-        public void Index_ValidLicenseeId_UpdateSessionAndRedirectToHome()
+        public void Index_ValidLicenseeId_RedirectToHome()
         {
             // Arrange
             const int LicenseeId = 1;
-            using (var controller = CreateController())
-            {
-                // Action
-                var result = controller.Index(LicenseeId) as RedirectToRouteResult;
 
-                // Assert
+            // Action
+            var result = _controller.Index(LicenseeId) as RedirectToRouteResult;
+
+            // Assert
+            Assert.Multiple(() =>
+            {
                 SessionService.Received().UpdateLiceseeSession(LicenseeId);
                 Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
                 Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
-            }
+            });
         }
 
         [Test]
         public void Index_UserHasNoLicensee_RedirectToSignIn()
         {
             // Arrange
-            _licenseeDataAccess.GetByUser(SessionUserId).Returns(new List<Licensee>());
-            using (var controller = CreateController())
-            {
-                // Action
-                var result = controller.Index(0) as RedirectToRouteResult;
+            StubLicenseeDataAccessGetByUser(DefaultUserSession.UserId, new List<Licensee>());
 
-                // Assert
+            // Action
+            var result = _controller.Index(0) as RedirectToRouteResult;
+
+            // Assert
+            Assert.Multiple(() =>
+            {
                 Assert.That(result.RouteValues["action"], Is.EqualTo("SignIn"));
                 Assert.That(result.RouteValues["controller"], Is.EqualTo("Authorization"));
-            }
+            });
         }
 
         [Test]
         public void Index_UserHasOneLicensee_RedirectToHome()
         {
             // Arrange
-            _licenseeDataAccess.GetByUser(SessionUserId).Returns(new List<Licensee>
-            {
-                new Licensee()
-            });
-            using (var controller = CreateController())
-            {
-                // Action
-                var result = controller.Index(0) as RedirectToRouteResult;
+            StubLicenseeDataAccessGetByUser(DefaultUserSession.UserId, new List<Licensee> { new Licensee() });
 
-                // Assert
+            // Action
+            var result = _controller.Index(null) as RedirectToRouteResult;
+
+            // Assert
+            Assert.Multiple(() =>
+            {
                 Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
                 Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
-            }
+            });
         }
 
         [Test]
-        public void Index_UserHasManyLicensees_ReturnCorrectView()
+        public void Index_UserHasManyLicensees_ReturnIndexView()
         {
             // Arrange
-            _licenseeDataAccess.GetByUser(SessionUserId).Returns(new List<Licensee>
-            {
-                new Licensee(),
-                new Licensee()
-            });
-            using (var controller = CreateController())
-            {
-                // Action
-                var result = controller.Index(0) as ViewResult;
+            StubLicenseeDataAccessGetByUser(
+                DefaultUserSession.UserId,
+                new List<Licensee>
+                {
+                    new Licensee(),
+                    new Licensee()
+                });
 
-                // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/LicenseeList/Index.cshtml"));
-            }
+            // Action
+            var result = _controller.Index(0) as ViewResult;
+
+            // Assert
+            Assert.That(result.ViewName, Is.EqualTo("~/Views/LicenseeList/Index.cshtml"));
         }
 
-        private LicenseeListController CreateController()
+        private void StubLicenseeDataAccessGetByUser(int userId, List<Licensee> fakeResult)
         {
-            var controller = new LicenseeListController(
-                LangService,
-                SessionService,
-                AppSettings,
-                _licenseeDataAccess);
-
-            controller.ControllerContext = this.ControllerContext;
-
-            return controller;
+            _licenseeDataAccess.GetByUser(userId).Returns(fakeResult);
         }
     }
 }

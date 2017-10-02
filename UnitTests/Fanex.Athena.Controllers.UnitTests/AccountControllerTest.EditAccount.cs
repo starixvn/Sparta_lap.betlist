@@ -105,7 +105,7 @@
         }
 
         [Test]
-        public void EditAccount_WhenPostWithInValidModel_ReturnFailResult()
+        public void EditAccount_WhenPostWithInValidModel_ReturnErrorResult()
         {
             // Arrange
             _controller.ModelState.AddModelError("err", "errmsg");
@@ -123,10 +123,28 @@
         }
 
         [Test]
-        public void EditAccount_WhenPostWithUserInfoIsDifferentFromSession_ReturnSuccesResult()
+        public void EditAccount_WhenPostWithUserInfoIsDifferentFromSession_ReturnErrorResult()
         {
             // Arrange
             StubGetUserInfo(x => new User { IsInternal = !SessionService.UserSession.IsInternal });
+
+            // Action
+            var result = _controller.EditAccount(new EditAccountMetaModel()) as JsonResult;
+            var resultInfo = result.Data as ResultInfo;
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(resultInfo.Code, Is.EqualTo(-1));
+                Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.InvalidRequestMsg));
+            });
+        }
+
+        [Test]
+        public void EditAccount_WhenPostWithUserDoesNotExist_ReturnErrorResult()
+        {
+            // Arrange
+            StubGetUserInfo(x => null);
 
             // Action
             var result = _controller.EditAccount(new EditAccountMetaModel()) as JsonResult;

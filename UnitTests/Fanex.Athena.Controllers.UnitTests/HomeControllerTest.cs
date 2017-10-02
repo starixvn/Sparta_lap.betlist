@@ -58,6 +58,67 @@
         }
 
         [Test]
+        public void Index_UserDoesNotExist_RedirectToLocationRestriction()
+        {
+            // Arrange
+            SessionService.UserSession.Returns(x => DefaultUserSession, x => null);
+
+            _controller.ControllerContext.HttpContext.Response.IsRequestBeingRedirected.Returns(false);
+
+            // Action
+            var result = _controller.Index() as RedirectToRouteResult;
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.RouteValues["action"], Is.EqualTo("LocationRestriction"));
+                Assert.That(result.RouteValues["controller"], Is.EqualTo("Utility"));
+            });
+        }
+
+        [Test]
+        public void Index_InvalidSessionUserName_RedirectToLocationRestriction()
+        {
+            // Arrange
+            StubUserSessionData(new Model.Core.DTO.Users.UserSession
+            {
+                UserId = 1,
+                UserName = string.Empty
+            });
+
+            _controller.ControllerContext.HttpContext.Response.IsRequestBeingRedirected.Returns(false);
+
+            // Action
+            var result = _controller.Index() as RedirectToRouteResult;
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.RouteValues["action"], Is.EqualTo("LocationRestriction"));
+                Assert.That(result.RouteValues["controller"], Is.EqualTo("Utility"));
+            });
+        }
+
+        [Test]
+        public void Index_InvalidLicenseeSession_RedirectToLocationRestriction()
+        {
+            // Arrange
+            StubLicenseeSessionData(null);
+
+            _controller.ControllerContext.HttpContext.Response.IsRequestBeingRedirected.Returns(false);
+
+            // Action
+            var result = _controller.Index() as RedirectToRouteResult;
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.RouteValues["action"], Is.EqualTo("LocationRestriction"));
+                Assert.That(result.RouteValues["controller"], Is.EqualTo("Utility"));
+            });
+        }
+
+        [Test]
         public void Index_IsNotRequestBeingRedirected_ReturnIndexView()
         {
             // Arrange
