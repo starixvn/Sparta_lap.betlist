@@ -11,10 +11,6 @@
             });
 
             describe("getGridOption(productAccess, isAllowedCustomerCommission)", function () {
-                beforeAll(function () {
-                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
-                });
-
                 it("adds 2 columns of product to colModel and colNames if 2 product and customer commission are allowed", function () {
                     var productAccess = {
                         "IsAllowSB": true,
@@ -61,8 +57,6 @@
                         "IsAllowCS": false
                     };
 
-                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
-
                     CustomerListOption.getGridOption(productAccess, true);
                     CustomerListOption.setGroupHeaderColumns(grid);
 
@@ -78,10 +72,6 @@
             });
 
             describe("groupColumn.formatter(cellValue, options, rowObject)", function () {
-                beforeAll(function () {
-                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
-                });
-
                 it("returns correct format form with 'None' text if comm group is 0", function () {
                     var rowObject = {
                         CustId: "custId",
@@ -117,10 +107,6 @@
             });
 
             describe("pedingFundColumn.formatter(cellValue, options, rowObject)", function () {
-                beforeAll(function () {
-                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
-                });
-
                 it("returns correct format form with number if cellValue is 0", function () {
                     var cellValue = 0;
                     var expectedFormat = "0.00";
@@ -152,10 +138,6 @@
             });
 
             describe("pedingFundColumn.formatter(cellValue, options, rowObject)", function () {
-                beforeAll(function () {
-                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
-                });
-
                 it("returns correct format form", function () {
                     var cellValue = "status";
                     var rowObject = {
@@ -177,10 +159,6 @@
             });
 
             describe("baStatusColumn.formatter(cellValue, options, rowObject)", function () {
-                beforeAll(function () {
-                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
-                });
-
                 it("returns correct format form if BA status is true", function () {
                     var cellValue = true;
                     var rowObject = {
@@ -235,8 +213,6 @@
                     + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='SpecialLevel'></i>"
                     + "</a>";
 
-                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
-
                     CustomerListOption.getGridOption({}, false);
 
                     var specialLevelColumnIndex = 7;
@@ -255,25 +231,12 @@
                     + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='SpecialLevel'></i>"
                     + "</a>";
 
-                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
-
                     CustomerListOption.getGridOption({}, false);
 
                     var specialLevelColumnIndex = 7;
                     var specialLevelColumn = CustomerListOption.gridOption.colModel[specialLevelColumnIndex];
 
                     expect(specialLevelColumn.formatter(cellValue, null, rowObject)).toEqual(expectedFormat);
-                });
-
-                it("should be hidden if licensee is fake", function () {
-                    spyOn(Site, "isFakeLicensee").and.returnValue(true);
-
-                    CustomerListOption.getGridOption({}, false);
-
-                    var specialLevelColumnIndex = 7;
-                    var specialLevelColumn = CustomerListOption.gridOption.colModel[specialLevelColumnIndex];
-
-                    expect(specialLevelColumn.hidden).toEqual(true);
                 });
             });
 
@@ -288,8 +251,6 @@
                     + "data-custid='custId' data-group='0'>"
                     + "<span class='grid-dropdown-item grid-dropdown-label group-0'>None</span>"
                     + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='OddsGroup'></i></a>";
-
-                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
 
                     CustomerListOption.getGridOption({}, false);
 
@@ -310,27 +271,12 @@
                     + "<span class='grid-dropdown-item grid-dropdown-label group-1'>1</span>"
                     + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='OddsGroup'></i></a>";
 
-                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
-
                     CustomerListOption.getGridOption({}, false);
 
                     var oddsGroupColumnIndex = 8;
                     var oddsGroupColumn = CustomerListOption.gridOption.colModel[oddsGroupColumnIndex];
 
                     expect(oddsGroupColumn.formatter(cellValue, null, rowObject)).toEqual(expectedFormat);
-                });
-
-                it("should be hidden if licensee is fake", function () {
-                    var expectedFormat = "<span style='display: block' class='group-0'>None</span>";
-
-                    spyOn(Site, "isFakeLicensee").and.returnValue(true);
-
-                    CustomerListOption.getGridOption({}, false);
-
-                    var oddsGroupColumnIndex = 8;
-                    var oddsGroupColumn = CustomerListOption.gridOption.colModel[oddsGroupColumnIndex];
-
-                    expect(oddsGroupColumn.hidden).toEqual(true);
                 });
             });
 
@@ -344,8 +290,6 @@
                     };
                     var expectedFormat = "<a href='javascript:;' data-systemid='systemId' data-externalid='externalId' data-custid='custId' "
                         + "title='CustomerOption' class='custoptionlink' id='cust-option-link-custId'>View<i class='grid-dropdown-icon icon-arrow'></i></a>";
-
-                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
 
                     CustomerListOption.getGridOption({}, false);
 
@@ -362,8 +306,6 @@
                         CustId: "custId"
                     };
                     var expectedFormat = " id='SBComm-custId' ";
-
-                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
 
                     CustomerListOption.getGridOption({ "IsAllowSB": true }, true);
 

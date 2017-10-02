@@ -48,6 +48,14 @@ namespace Fanex.Athena.Controllers.Customer
             "CustomerOption"
         };
 
+        private static readonly IEnumerable<string> GridColumnsForFakeLincesee = new[]
+        {
+            "ExternalId",
+            "AvailableFunds",
+            "PendingFunds",
+            "CustomerOption"
+        };
+
         private readonly ICustomerListService _customerListService;
         private readonly IGroupComService _groupComService;
         private readonly ILicenseeDataAccess _licenseeDataAccess;
@@ -258,14 +266,10 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var licenseeSession = SessionService.LicenseeSession;
             var isFakeLicensee = IsFakeLicensee();
+            var gridColumns = isFakeLicensee ? GridColumnsForFakeLincesee : GridColumns;
             var items = new List<CheckedItem>();
-            foreach (var name in GridColumns)
+            foreach (var name in gridColumns)
             {
-                if (name.Equals("SystemId", StringComparison.OrdinalIgnoreCase) && isFakeLicensee)
-                {
-                    continue;
-                }
-
                 items.Add(new CheckedItem { Name = name, Checked = true });
             }
 

@@ -6483,11 +6483,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         };
 
         var getColModel = function (productAccess, isAllowedCustomerCommission) {          
-            var isFakeLicensee = Site.isFakeLicensee();
-
-            specialLevelColumn.hidden = isFakeLicensee;
-            oddsGroupColumn.hidden = isFakeLicensee;
-
             var temp = Site.clone(colModelList);
 
             if (isAllowedCustomerCommission) {

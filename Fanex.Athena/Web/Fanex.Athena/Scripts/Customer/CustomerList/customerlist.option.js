@@ -249,10 +249,6 @@ var CustomersOption = (function () {
     };
 
     var getColModel = function (productAccess, isAllowedCustomerCommission) {
-        var isFakeLicensee = Site.isFakeLicensee();
-        specialLevelColumn.hidden = isFakeLicensee;
-        oddsGroupColumn.hidden = isFakeLicensee;
-
         var temp = Site.clone(colModelList);
         if (isAllowedCustomerCommission) {
             var getCellAttrFunction = function (colName) {
