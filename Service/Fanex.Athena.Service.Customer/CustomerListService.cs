@@ -33,7 +33,9 @@ namespace Fanex.Athena.Service.Customer
 
     public class CustomerListService : ICustomerListService
     {
-        private readonly ICustomerListDataAccess _customerDataAccess;
+        private readonly ICustomerDataAccess _customerDataAccess;
+
+        private readonly ICustomerListDataAccess _customerListDataAccess;
 
         private readonly ICasinoSetting _casinoSetting;
 
@@ -51,7 +53,8 @@ namespace Fanex.Athena.Service.Customer
 
         public CustomerListService()
         {
-            _customerDataAccess = new CustomerListDataAccess();
+            _customerDataAccess = new CustomerDataAccess();
+            _customerListDataAccess = new CustomerListDataAccess();
             _casinoSetting = new CasinoSetting();
             _authorizationService = new AuthorizationService();
             _productService = new ProductService();
@@ -62,7 +65,8 @@ namespace Fanex.Athena.Service.Customer
         }
 
         public CustomerListService(
-            ICustomerListDataAccess customerDataAccess,
+            ICustomerDataAccess customerDataAccess,
+            ICustomerListDataAccess customerListDataAccess,
             ICasinoSetting casinoSetting,
             IAuthorizationService authorizationService,
             IProductService productService,
@@ -71,6 +75,7 @@ namespace Fanex.Athena.Service.Customer
             IAppSettings appSettings)
         {
             _customerDataAccess = customerDataAccess;
+            _customerListDataAccess = customerListDataAccess;
             _casinoSetting = casinoSetting;
             _authorizationService = authorizationService;
             _productService = productService;
@@ -86,7 +91,7 @@ namespace Fanex.Athena.Service.Customer
                 return new string[] { };
             }
 
-            return _customerDataAccess.SearchCustomers(userId, userName, agentListXml);
+            return _customerListDataAccess.SearchCustomers(userId, userName, agentListXml);
         }
 
         public ReportResultModel<CustomerDTO> Search(CustomerListMetaModel metaModel)
@@ -99,20 +104,13 @@ namespace Fanex.Athena.Service.Customer
                 };
             }
 
-            return _customerDataAccess.Search(metaModel);
-        }
-
-        public CustomerInfo GetCustomerInfo(int licenseeId, int custId)
-        {
-            return _authorizationService.HasPermissionOnData(licenseeId, custId, 0)
-                ? _customerDataAccess.GetCustomerInfo(custId)
-                : new CustomerInfo();
+            return _customerListDataAccess.Search(metaModel);
         }
 
         public LogInfo GetCustomerLoginInfo(int custId, int licenseeId)
         {
             return _authorizationService.HasPermissionOnData(licenseeId, custId, 0)
-                ? _customerDataAccess.GetCustomerLoginInfo(custId, licenseeId)
+                ? _customerListDataAccess.GetCustomerLoginInfo(custId, licenseeId)
                 : new LogInfo();
         }
 
@@ -120,7 +118,7 @@ namespace Fanex.Athena.Service.Customer
 
         public IResultInfo UpdateCustomersCommission(UpdatedCustomerComMetaModel metaModel, bool isSyncCSComm = false)
         {
-            var result = _customerDataAccess.UpdateCustomersCommission(metaModel);
+            var result = _customerListDataAccess.UpdateCustomersCommission(metaModel);
             var callApiSuccess = true;
             if (result.IsSuccessful && isSyncCSComm && !string.IsNullOrWhiteSpace(result.ExtendedData))
             {
@@ -159,7 +157,7 @@ namespace Fanex.Athena.Service.Customer
             var callApiSuccess = true;
             if (groupInfo != null)
             {
-                result = _customerDataAccess.MoveCustomersToGroup(metaModel);
+                result = _customerListDataAccess.MoveCustomersToGroup(metaModel);
 
                 if (result.IsSuccessful && metaModel.IsAllowedRNG && !string.IsNullOrWhiteSpace(result.ExtendedData))
                 {
@@ -188,7 +186,7 @@ namespace Fanex.Athena.Service.Customer
 
         public IResultInfo RemoveCustomersFromGroup(RemoveFromGroupComMetaModel metaModel, bool isAllowedRNGCasino)
         {
-            var result = _customerDataAccess.RemoveCustomersFromGroup(metaModel);
+            var result = _customerListDataAccess.RemoveCustomersFromGroup(metaModel);
             var callApiSuccess = true;
             if (result.IsSuccessful && metaModel.IsRemovePlayercomm && isAllowedRNGCasino && !string.IsNullOrWhiteSpace(result.ExtendedData))
             {
@@ -225,7 +223,7 @@ namespace Fanex.Athena.Service.Customer
                 return CreateErrorResult();
             }
 
-            return _customerDataAccess.UpdateOddsGroup(metaModel);
+            return _customerListDataAccess.UpdateOddsGroup(metaModel);
         }
 
         public IResultInfo UpdateCustClosed(CustomerStatusMetaModel metaModel, string languageCode)
@@ -262,7 +260,7 @@ namespace Fanex.Athena.Service.Customer
             }
 
             return closeCasinoResult
-                ? _customerDataAccess.UpdateCustClosed(metaModel)
+                ? _customerListDataAccess.UpdateCustClosed(metaModel)
                 : new ResultInfo { Code = 1, Message = "Error when update closed status on casino db" };
         }
 
@@ -301,7 +299,7 @@ namespace Fanex.Athena.Service.Customer
             }
 
             return suspendCasinoResult
-                ? _customerDataAccess.UpdateCustSuspend(metaModel)
+                ? _customerListDataAccess.UpdateCustSuspend(metaModel)
                 : new ResultInfo { Code = 1, Message = "Error when update suspend status on casino db" };
         }
 
@@ -317,7 +315,7 @@ namespace Fanex.Athena.Service.Customer
                 return CreateErrorResult();
             }
 
-            return this._customerDataAccess.UpdateCustomerBAStatus(
+            return this._customerListDataAccess.UpdateCustomerBAStatus(
                 licenseeId,
                    custId,
                    modifiedBy,
@@ -332,7 +330,7 @@ namespace Fanex.Athena.Service.Customer
                 return CreateErrorResult();
             }
 
-            return _customerDataAccess.UpdateSpecialLevel(userId, custId, level, ip, language);
+            return _customerListDataAccess.UpdateSpecialLevel(userId, custId, level, ip, language);
         }
 
         private static IResultInfo CreateErrorResult()

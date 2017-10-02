@@ -224,6 +224,10 @@
       <Project>{a6be21e8-6895-4863-ba3a-e6b21d3ce78d}</Project>
       <Name>Fanex.Athena.DataAccess.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.DataAccess.Customer\Fanex.Athena.DataAccess.Customer.csproj">
+      <Project>{C25DC4BC-2721-401B-8896-D210D70B392B}</Project>
+      <Name>Fanex.Athena.DataAccess.Customer</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

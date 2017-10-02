@@ -41,7 +41,7 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Fields
 
-        private readonly ICustomerListService _customerService;
+        private readonly ICustomerListService _customerListService;
         private readonly IGroupComService _groupComService;
         private readonly ILicenseeDataAccess _licenseeDataAccess;
         private readonly IProductService _productService;
@@ -53,7 +53,7 @@ namespace Fanex.Athena.Controllers.Customer
         public CustomerApiController()
         {
             _licenseeDataAccess = new LicenseeDataAccess();
-            _customerService = new CustomerListService();
+            _customerListService = new CustomerListService();
             _groupComService = new GroupComService();
             _productService = new ProductService();
         }
@@ -94,11 +94,11 @@ namespace Fanex.Athena.Controllers.Customer
                         Ip = Request.UserHostAddress
                     };
 
-                    result = _customerService.UpdateCustClosed(customerStatusMetaModel, userSession.Language);
+                    result = _customerListService.UpdateCustClosed(customerStatusMetaModel, userSession.Language);
                     if (result.Code == 0)
                     {
                         customerStatusMetaModel.IsOn = isSuspended;
-                        result = _customerService.UpdateCustSuspend(customerStatusMetaModel, userSession.Language);
+                        result = _customerListService.UpdateCustSuspend(customerStatusMetaModel, userSession.Language);
                     }
 
                     return Json(result);
@@ -136,7 +136,7 @@ namespace Fanex.Athena.Controllers.Customer
 
                 try
                 {
-                    var dataResult = _customerService.UpdateSpecialLevel(
+                    var dataResult = _customerListService.UpdateSpecialLevel(
                         SessionService.LicenseeSession.LicenseeId,
                         userSession.UserId,
                         custId,
@@ -198,7 +198,7 @@ namespace Fanex.Athena.Controllers.Customer
                         OddsGroup = oddsGroup,
                         UserId = userSession.UserId
                     };
-                    var dataResult = _customerService.UpdateOddsGroup(metaModel);
+                    var dataResult = _customerListService.UpdateOddsGroup(metaModel);
 
                     var message = !dataResult.IsSuccessful && string.IsNullOrWhiteSpace(dataResult.Message) ?
                                    ViewResources.HttpError_Default : dataResult.Message;
@@ -287,7 +287,7 @@ namespace Fanex.Athena.Controllers.Customer
             }
 
             // update
-            var updateResult = _customerService.UpdateCustomerBAStatus(
+            var updateResult = _customerListService.UpdateCustomerBAStatus(
                 licenseeSession.LicenseeId,
                 custId,
                 userSession.UserId,
@@ -427,7 +427,7 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.UserId = userSession.UserId;
             metaModel.Ip = Request.UserHostAddress;
             metaModel.Language = userSession.Language;
-            var temp = _customerService.RemoveCustomersFromGroup(metaModel, productAccess.IsAllowCS);
+            var temp = _customerListService.RemoveCustomersFromGroup(metaModel, productAccess.IsAllowCS);
             result.Success = temp.IsSuccessful;
             result.Message = ViewResources.MessageSuccess;
             result.ErrorMessage = temp.Message;
@@ -476,7 +476,7 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsAllowedRNG = productAccess.IsAllowCS;
             metaModel.Ip = Request.UserHostAddress;
             metaModel.Language = userSession.Language;
-            var temp = _customerService.MoveCustomersToGroup(metaModel);
+            var temp = _customerListService.MoveCustomersToGroup(metaModel);
             var result = new ResultViewModel
             {
                 Success = temp.IsSuccessful,
@@ -512,7 +512,7 @@ namespace Fanex.Athena.Controllers.Customer
         public JsonResult SearchCustomer(string query)
         {
             var userName = query.Trim();
-            var customerNames = _customerService.SearchCustomers(SessionService.UserSession.UserId, query, SessionService.GenerateAgentListXml());
+            var customerNames = _customerListService.SearchCustomers(SessionService.UserSession.UserId, query, SessionService.GenerateAgentListXml());
 
             var searchResult = new
             {
@@ -534,7 +534,7 @@ namespace Fanex.Athena.Controllers.Customer
         private void ProcessUpdatingCustomerCom(UpdatedCustomerComMetaModel metaModel, ResultViewModel result)
         {
             metaModel.Language = SessionService.UserSession.Language;
-            var temp = _customerService.UpdateCustomersCommission(metaModel, metaModel.IsAllowedCS);
+            var temp = _customerListService.UpdateCustomersCommission(metaModel, metaModel.IsAllowedCS);
             result.Success = temp.IsSuccessful;
             result.Message = ViewResources.MessageSuccess;
             result.ErrorMessage = temp.Message;

@@ -16,11 +16,7 @@
 
         IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml);
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference",
-            Justification = "Reviewed. Suppression is OK here.")]
         ReportResultModel<CustomerDTO> Search(CustomerListMetaModel metaModel);
-
-        CustomerInfo GetCustomerInfo(int custId);
 
         #endregion Read
 

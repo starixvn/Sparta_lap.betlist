@@ -30,7 +30,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
-            var customer = CustomerService.GetCustomerInfo(SessionService.LicenseeSession.LicenseeId, metaModel.CustId);
+            var customer = GetCustomerInfo(SessionService.LicenseeSession.LicenseeId, metaModel.CustId);
             var viewModel = _betSettingService.GetViewModel(metaModel.CustId, customer, SessionService.UserSession.Language, SessionService.LicenseeSession.LicenseeName);
             AssignRequiredProperties(viewModel, metaModel);
 
@@ -42,7 +42,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         public JsonResult UpdateBetSetting(int custId, string gameTypeChangedList)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var customer = ProductAccess.IsAllowCS ? CustomerService.GetCustomerInfo(licenseeSession.LicenseeId, custId) : null;
+            var customer = ProductAccess.IsAllowCS ? GetCustomerInfo(licenseeSession.LicenseeId, custId) : null;
             if (customer == null || !customer.SyncCasino || !IsBetSettingEditable())
             {
                 return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
@@ -82,13 +82,13 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             if (!ProductAccess.IsAllowCS ||
-                !CustomerService.GetCustomerInfo(licenseeId, custId).SyncCasino ||
+                !GetCustomerInfo(licenseeId, custId).SyncCasino ||
                 !IsBetSettingEditable())
             {
                 return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
 
-            var customer = CustomerService.GetCustomerInfo(licenseeId, custId);
+            var customer = GetCustomerInfo(licenseeId, custId);
             var userSession = SessionService.UserSession;
             var result = _betSettingService.UpdateStatus(
                 licenseeId,

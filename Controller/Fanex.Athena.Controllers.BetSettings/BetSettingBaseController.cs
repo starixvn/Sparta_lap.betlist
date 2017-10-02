@@ -15,18 +15,17 @@ namespace Fanex.Athena.Controllers.BetSettings
     using DataAccess.BetSettings.Interfaces;
     using Fanex.Athena.Model.BetSettings.DTO;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Service.Customer;
-    using Fanex.Athena.Service.Customer.Interfaces;
     using Model.BetSettings.MetaModel;
     using Model.BetSettings.ViewModel;
     using Model.Core.DTO.Common;
+    using Model.Customer.DTO;
     using ONEbook.UM.Filters;
-    using Service.BetSettings;
-    using Service.BetSettings.Interfaces;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users;
     using Service.Core.Users.Interfaces;
+    using Service.Customer;
+    using Service.Customer.Interfaces;
     using Web.ActionFilter;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
@@ -36,7 +35,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     {
         private readonly IAuthorizationService _authorizationService;
         private readonly ICoreBetSettingDataAccess _coreBetSettingDataAccess;
-        private readonly ICustomerListService _customerService;
+        private readonly ICustomerService _customerService;
         private readonly IProductService _productService;
         private readonly Lazy<ProductAccess> _productAccess;
 
@@ -44,17 +43,12 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             _authorizationService = new AuthorizationService();
             this._coreBetSettingDataAccess = new CoreBetSettingDataAccess();
-            this._customerService = new CustomerListService();
+            this._customerService = new CustomerService();
             this._productService = new ProductService();
             _productAccess = new Lazy<ProductAccess>(() =>
                 _productService.GetProductAccess(
                     SessionService.LicenseeSession.LicenseeId,
                     SessionService.UserSession.Language));
-        }
-
-        protected ICustomerListService CustomerService
-        {
-            get { return _customerService; }
         }
 
         protected IProductService ProductService
@@ -70,6 +64,11 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
         }
 
+        protected CustomerInfo GetCustomerInfo(int licenseeId, int custId)
+        {
+            return _customerService.GetCustomerInfo(licenseeId, custId);
+        }
+
         protected void AssignRequiredProperties(BetSettingBaseViewModel viewModel, BetSettingMetaModel metaModel)
         {
             metaModel.IsFakeLicensee = IsFakeLicensee();
@@ -81,7 +80,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         protected CommonBetSetting GetBetSettingCommonParam()
         {
             var userSession = SessionService.UserSession;
-            
+
             var commonItem = new CommonBetSetting
             {
                 LicenseeId = SessionService.LicenseeSession.LicenseeId,

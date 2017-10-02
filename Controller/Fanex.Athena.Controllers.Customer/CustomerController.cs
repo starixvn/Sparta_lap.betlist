@@ -48,7 +48,7 @@ namespace Fanex.Athena.Controllers.Customer
             "CustomerOption"
         };
 
-        private readonly ICustomerListService _customerService;
+        private readonly ICustomerListService _customerListService;
         private readonly IGroupComService _groupComService;
         private readonly ILicenseeDataAccess _licenseeDataAccess;
         private readonly IProductService _productService;
@@ -56,7 +56,7 @@ namespace Fanex.Athena.Controllers.Customer
         public CustomerController()
         {
             _licenseeDataAccess = new LicenseeDataAccess();
-            _customerService = new CustomerListService();
+            _customerListService = new CustomerListService();
             _groupComService = new GroupComService();
             _productService = new ProductService();
         }
@@ -103,7 +103,7 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsShowStatusDropdown = GetAllowLicenseesForStatusFunction().Contains(metaModel.LicenseeId.ToString());
             metaModel.Username = metaModel.Username == placeholderUsername ? string.Empty : metaModel.Username;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var result = _customerService.Search(metaModel);
+            var result = _customerListService.Search(metaModel);
             return new JsonResult
             {
                 Data = new
@@ -161,7 +161,7 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var licenseeSession = SessionService.LicenseeSession;
 
-            var logInfo = _customerService.GetCustomerLoginInfo(custId, licenseeSession.LicenseeId);
+            var logInfo = _customerListService.GetCustomerLoginInfo(custId, licenseeSession.LicenseeId);
 
             var model = new LogInfoViewModel
             {
@@ -214,7 +214,7 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var model = CreateCustomerViewModel(metaModel);
 
-            var result = _customerService.Search(model.Param);
+            var result = _customerListService.Search(model.Param);
             model.DataList = result.DataList;
             model.TotalRows = result.TotalRows;
 

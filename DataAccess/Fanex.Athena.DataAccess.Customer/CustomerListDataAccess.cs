@@ -122,25 +122,6 @@
             }
         }
 
-        public CustomerInfo GetCustomerInfo(int custId)
-        {
-            const string UspName = "Lrf_CustomerSelStatus";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("custid", DbType.Int32, custId);
-
-                    return db.QueryEntity<CustomerInfo>();
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, UspName);
-            }
-        }
-
         #endregion Read
 
         #region LogInfo

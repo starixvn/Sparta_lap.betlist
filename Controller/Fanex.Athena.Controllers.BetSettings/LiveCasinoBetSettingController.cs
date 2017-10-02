@@ -31,7 +31,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var customer = CustomerService.GetCustomerInfo(licenseeId, metaModel.CustId);
+            var customer = GetCustomerInfo(licenseeId, metaModel.CustId);
             var viewModel = _betSettingService.GetViewModel(licenseeId, metaModel.CustId, SessionService.UserSession.Language);
             viewModel.IsEnabled = IsLiveCasinoEnabled(customer);
 
@@ -45,7 +45,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         public JsonResult UpdateStatus(int custId, string nickName, int status)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var customer = CustomerService.GetCustomerInfo(licenseeId, custId);
+            var customer = GetCustomerInfo(licenseeId, custId);
             if (!ProductAccess.IsAllowLC || !customer.SyncLiveCasino || !IsBetSettingEditable())
             {
                 return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
@@ -75,7 +75,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             var custId = int.Parse(HttpContext.Request["custid"]);
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var customer = ProductAccess.IsAllowLC ? CustomerService.GetCustomerInfo(licenseeId, custId) : null;
+            var customer = ProductAccess.IsAllowLC ? GetCustomerInfo(licenseeId, custId) : null;
 
             if (customer == null || !customer.SyncLiveCasino || !IsBetSettingEditable())
             {

@@ -49,7 +49,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomerListService.cs" />
+    <Compile Include="CustomerService.cs" />
     <Compile Include="GroupComService.cs" />
+    <Compile Include="Interfaces\ICustomerService.cs" />
     <Compile Include="Interfaces\ICustomerListService.cs" />
     <Compile Include="Interfaces\IGroupComService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -24,13 +24,6 @@ namespace Fanex.Athena.Service.Customer.Interfaces
 
         ReportResultModel<CustomerDTO> Search(CustomerListMetaModel metaModel);
 
-        /// <summary>
-        /// Get customer Information such as: SyncCasino, DisableBingo, ...
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <returns>The customer info.</returns>
-        CustomerInfo GetCustomerInfo(int licenseeId, int custId);
-
         #endregion Read
 
         #region LogInfo
