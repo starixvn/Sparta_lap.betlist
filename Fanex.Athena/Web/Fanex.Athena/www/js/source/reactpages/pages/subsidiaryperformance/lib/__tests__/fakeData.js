@@ -9,10 +9,10 @@ const bodyData = [{
         "SubsidiaryWinLoss": -141.7636
     }, {
         "Product": "Cash Out",
-        "BetCount": 4,
-        "Turnover": 0.0000,
-        "CustomerWinLoss": 0.0000,
-        "SubsidiaryWinLoss": 0.5574
+        "BetCount": 52,
+        "Turnover": 322.0000,
+        "CustomerWinLoss": 142.3210,
+        "SubsidiaryWinLoss": 141.7636
     }]
 }]
 
