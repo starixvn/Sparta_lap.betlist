@@ -86,10 +86,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomerDataAccess.cs" />
+    <Compile Include="CustomerCommDataAccess.cs" />
     <Compile Include="CustomerListDataAccess.cs" />
     <Compile Include="CustomerLogDataAccess.cs" />
     <Compile Include="GroupComDataAccess.cs" />
     <Compile Include="Interfaces\ICustomerDataAccess.cs" />
+    <Compile Include="Interfaces\ICustomerCommDataAccess.cs" />
     <Compile Include="Interfaces\ICustomerListDataAccess.cs" />
     <Compile Include="Interfaces\ICustomerLogDataAccess.cs" />
     <Compile Include="Interfaces\IGroupComDataAccess.cs" />

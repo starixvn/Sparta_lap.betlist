@@ -7,14 +7,10 @@
 namespace Fanex.Athena.Service.Customer
 {
     using System;
-
-    #region Using
-
     using System.Collections.Generic;
     using DataAccess.Customer.Interfaces;
     using Fanex.Athena.DataAccess.Customer;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Model.Casino.MetaModel;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.DTO;
     using Fanex.Athena.Model.Customer.MetaModel;
@@ -29,8 +25,6 @@ namespace Fanex.Athena.Service.Customer
     using Model.Core.ResultModel;
     using Resources;
 
-    #endregion Using
-
     public class CustomerListService : ICustomerListService
     {
         private readonly ICustomerDataAccess _customerDataAccess;
@@ -43,13 +37,7 @@ namespace Fanex.Athena.Service.Customer
 
         private readonly IProductService _productService;
 
-        private readonly ISessionService _sessionService;
-
-        private readonly IRNGCasinoService _rngCasinoService;
-
         private readonly IAppSettings _appSettings;
-
-        private readonly IGroupComService _groupComService;
 
         public CustomerListService()
         {
@@ -58,10 +46,7 @@ namespace Fanex.Athena.Service.Customer
             _casinoSetting = new CasinoSetting();
             _authorizationService = new AuthorizationService();
             _productService = new ProductService();
-            _sessionService = new SessionService();
-            _rngCasinoService = new RNGCasinoService();
             _appSettings = new AppSettings();
-            _groupComService = new GroupComService();
         }
 
         public CustomerListService(
@@ -70,8 +55,6 @@ namespace Fanex.Athena.Service.Customer
             ICasinoSetting casinoSetting,
             IAuthorizationService authorizationService,
             IProductService productService,
-            ISessionService sessionService,
-            IRNGCasinoService rngCasinoService,
             IAppSettings appSettings)
         {
             _customerDataAccess = customerDataAccess;
@@ -79,14 +62,12 @@ namespace Fanex.Athena.Service.Customer
             _casinoSetting = casinoSetting;
             _authorizationService = authorizationService;
             _productService = productService;
-            _sessionService = sessionService;
-            _rngCasinoService = rngCasinoService;
             _appSettings = appSettings;
         }
 
-        public IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml)
+        public IEnumerable<string> SearchCustomers(int licenseeId, int userId, string userName, string agentListXml)
         {
-            if (!IsValidUsername(userName))
+            if (!IsValidUsername(licenseeId, userName))
             {
                 return new string[] { };
             }
@@ -96,7 +77,7 @@ namespace Fanex.Athena.Service.Customer
 
         public ReportResultModel<CustomerDTO> Search(CustomerListMetaModel metaModel)
         {
-            if (!IsValidUsername(metaModel.Username))
+            if (!IsValidUsername(metaModel.LicenseeId, metaModel.Username))
             {
                 return new ReportResultModel<CustomerDTO>
                 {
@@ -113,106 +94,6 @@ namespace Fanex.Athena.Service.Customer
                 ? _customerListDataAccess.GetCustomerLoginInfo(custId, licenseeId)
                 : new LogInfo();
         }
-
-        #region Group Commission
-
-        public IResultInfo UpdateCustomersCommission(UpdatedCustomerComMetaModel metaModel, bool isSyncCSComm = false)
-        {
-            var result = _customerListDataAccess.UpdateCustomersCommission(metaModel);
-            var callApiSuccess = true;
-            if (result.IsSuccessful && isSyncCSComm && !string.IsNullOrWhiteSpace(result.ExtendedData))
-            {
-                var customerIds = result.ExtendedData.Split(',');
-                if (customerIds.Length > 0)
-                {
-                    callApiSuccess = _rngCasinoService.UpdateMemberCommission(new RNGCasinoUpdateMemberComMetaModel
-                    {
-                        Comm = metaModel.CSComm,
-                        CustomerId = customerIds,
-                        FromIp = metaModel.Ip,
-                        ModifyBy = metaModel.UserId,
-                        ModifyUserName = _sessionService.UserSession.UserName
-                    });
-                }
-            }
-
-            return callApiSuccess ? result : new ResultInfo
-            {
-                Code = 1,
-                Message = "Having errors when calling CasinoAPI to update customer commission."
-            };
-        }
-
-        /// <summary>
-        ///     Move customers to new group including 2 following steps:
-        ///     1: Remove all customers commission in group.
-        ///     2: Update new customers commission in this group.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The result information.</returns>
-        public IResultInfo MoveCustomersToGroup(MoveToGroupComMetaModel metaModel)
-        {
-            IResultInfo result = null;
-            var groupInfo = _groupComService.GetById(metaModel.GroupComId);
-            var callApiSuccess = true;
-            if (groupInfo != null)
-            {
-                result = _customerListDataAccess.MoveCustomersToGroup(metaModel);
-
-                if (result.IsSuccessful && metaModel.IsAllowedRNG && !string.IsNullOrWhiteSpace(result.ExtendedData))
-                {
-                    var customerIds = result.ExtendedData.Split(',');
-                    if (customerIds.Length > 0)
-                    {
-                        var user = _sessionService.UserSession;
-                        callApiSuccess = _rngCasinoService.UpdateMemberCommission(new RNGCasinoUpdateMemberComMetaModel
-                        {
-                            Comm = groupInfo.CSComm,
-                            CustomerId = customerIds,
-                            FromIp = metaModel.Ip,
-                            ModifyBy = user.UserId,
-                            ModifyUserName = user.UserName
-                        });
-                    }
-                }
-            }
-
-            return callApiSuccess ? result : new ResultInfo
-            {
-                Code = 1,
-                Message = "Having errors when calling CasinoAPI to update customer commission."
-            };
-        }
-
-        public IResultInfo RemoveCustomersFromGroup(RemoveFromGroupComMetaModel metaModel, bool isAllowedRNGCasino)
-        {
-            var result = _customerListDataAccess.RemoveCustomersFromGroup(metaModel);
-            var callApiSuccess = true;
-            if (result.IsSuccessful && metaModel.IsRemovePlayercomm && isAllowedRNGCasino && !string.IsNullOrWhiteSpace(result.ExtendedData))
-            {
-                var customerIds = result.ExtendedData.Split(',');
-                if (customerIds.Length > 0)
-                {
-                    var user = _sessionService.UserSession;
-                    callApiSuccess = _rngCasinoService.UpdateMemberCommission(new RNGCasinoUpdateMemberComMetaModel
-                    {
-                        Comm = 0,
-                        CustomerId = customerIds,
-                        FromIp = metaModel.Ip,
-                        ModifyBy = user.UserId,
-                        ModifyUserName = user.UserName
-                    });
-                }
-            }
-
-            return callApiSuccess ? result : new ResultInfo
-            {
-                Code = 1,
-                Message = "Having errors when calling CasinoAPI to update customer commission."
-            };
-        }
-
-        #endregion Group Commission
 
         #region Update
 
@@ -342,9 +223,9 @@ namespace Fanex.Athena.Service.Customer
             };
         }
 
-        private bool IsValidUsername(string userName)
+        private static bool IsValidUsername(int licenseeId, string userName)
         {
-            if (userName != null && _sessionService.LicenseeSession.LicenseeId == LicenseeIdentity.IvoryBet)
+            if (userName != null && licenseeId == LicenseeIdentity.IvoryBet)
             {
                 const string IgnoredLicenseePrefix = "webet88";
                 if (userName.StartsWith(IgnoredLicenseePrefix, StringComparison.OrdinalIgnoreCase))

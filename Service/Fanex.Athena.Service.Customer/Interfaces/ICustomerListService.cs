@@ -20,7 +20,7 @@ namespace Fanex.Athena.Service.Customer.Interfaces
     {
         #region Read
 
-        IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml);
+        IEnumerable<string> SearchCustomers(int licenseeId, int userId, string userName, string agentListXml);
 
         ReportResultModel<CustomerDTO> Search(CustomerListMetaModel metaModel);
 
@@ -38,27 +38,6 @@ namespace Fanex.Athena.Service.Customer.Interfaces
 
         #endregion LogInfo
 
-        #region Group Commission
-
-        /// <summary>
-        ///     Move customers to new group including 2 following steps:
-        ///     1: Remove all customers commission in group.
-        ///     2: Update new customers commission in this group.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The result.</returns>
-        IResultInfo MoveCustomersToGroup(MoveToGroupComMetaModel metaModel);
-
-        /// <summary>
-        /// Remove customer from commission group.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="isAllowedRNGCasino">Allow RNG casino or not.</param>
-        /// <returns>The result.</returns>
-        IResultInfo RemoveCustomersFromGroup(RemoveFromGroupComMetaModel metaModel, bool isAllowedRNGCasino);
-
-        #endregion Group Commission
-
         IResultInfo UpdateOddsGroup(CustomerOddsGroupMetaModel metaModel);
 
         IResultInfo UpdateCustClosed(CustomerStatusMetaModel metaModel, string languageCode);
@@ -66,8 +45,6 @@ namespace Fanex.Athena.Service.Customer.Interfaces
         IResultInfo UpdateCustSuspend(CustomerStatusMetaModel metaModel, string languageCode);
 
         IResultInfo UpdateCustomerBAStatus(int licenseeId, int custId, int modifiedBy, bool allowBA, Request request);
-
-        IResultInfo UpdateCustomersCommission(UpdatedCustomerComMetaModel metaModel, bool isSyncCSComm = false);
 
         IResultInfo UpdateSpecialLevel(int licenseeId, int userId, int custId, int level, string ip, string language);
     }
