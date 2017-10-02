@@ -23,5 +23,7 @@ namespace Fanex.Athena.Model.Report.ViewModel
         public CustomerPendingFundsMetaModel Param { get; set; }
 
         public int TotalRows { get; set; }
+
+        public bool IsFakeLicensee { get; set; }
     }
 }

@@ -70,7 +70,7 @@ namespace Fanex.Athena.Controllers.Customer
             var userSession = SessionService.UserSession;
             var productAccess = this._productService.GetProductAccess(licenseeId, userSession.Language);
             var allowLicensees = GetAllowLicenseesForStatusFunction();
-            var placeholderUsername = AppSettings.FakeLicenseeList.Contains(licenseeId) ? ViewResources.ExternalId : ViewResources.ExternalIdOrSystemId;
+            var placeholderUsername = IsFakeLicensee() ? ViewResources.ExternalId : ViewResources.ExternalIdOrSystemId;
             var metaModel = new CustomerListMetaModel
             {
                 Username = userName == placeholderUsername ? string.Empty : userName,
@@ -95,8 +95,8 @@ namespace Fanex.Athena.Controllers.Customer
         [CustomValidateAntiForgery]
         public dynamic CustomerList(CustomerListMetaModel metaModel)
         {
-            var placeholderUsername = AppSettings.FakeLicenseeList.Contains(SessionService.LicenseeSession.LicenseeId) ?
-                ViewResources.ExternalId : 
+            var placeholderUsername = IsFakeLicensee() ?
+                ViewResources.ExternalId :
                 ViewResources.ExternalIdOrSystemId;
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
@@ -200,7 +200,7 @@ namespace Fanex.Athena.Controllers.Customer
                 IsAllowedUserEditComm = SessionService.IsAllowedEditCommission(userSession),
                 IsAllowedUserChangeBA = SessionService.IsAllowedSpecialBA(userSession),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                IsFakeLicensee = AppSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId)
+                IsFakeLicensee = IsFakeLicensee()
             };
             if (licenseeSession.IsAllowedCustomerComm)
             {
@@ -258,7 +258,7 @@ namespace Fanex.Athena.Controllers.Customer
         private IEnumerable<CheckedItem> InitGridColumns(bool isAllowBA, IEnumerable<string> allowLicensees)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var isFakeLicensee = AppSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId);
+            var isFakeLicensee = IsFakeLicensee();
             var items = new List<CheckedItem>();
             foreach (var name in GridColumns)
             {

@@ -21,5 +21,7 @@ namespace Fanex.Athena.Model.Report.ViewModel
         public IDictionary<string, LicenseeWinLoss> SummaryTotal { get; set; }
 
         public LicenseeWinLossMetaModel Param { get; set; }
+
+        public bool IsFakeLicensee { get; set; }
     }
 }

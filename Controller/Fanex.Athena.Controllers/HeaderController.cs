@@ -44,7 +44,7 @@ namespace Fanex.Athena.Controllers
                 UserName = userSession.UserName,
                 CurrentLicenseeId = SessionService.LicenseeSession.LicenseeId,
                 IsAllowedManagementMember = userSession.FunctionIdList.Contains((int)FunctionType.CustomerList),
-                IsFakeLicensee = AppSettings.FakeLicenseeList.Contains(SessionService.LicenseeSession.LicenseeId)
+                IsFakeLicensee = IsFakeLicensee()
             };
             return View("~/Views/Header/Index.cshtml", viewModel);
         }

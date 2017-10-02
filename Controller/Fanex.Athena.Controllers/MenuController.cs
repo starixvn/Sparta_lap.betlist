@@ -51,7 +51,7 @@ namespace Fanex.Athena.Controllers
                 IsAllowedCustonmerCommission = licenseeSession.IsAllowedCustomerComm,
                 IsInternalLogin = userSession.IsInternal,
                 IsAllowedManagementMember = canManageMember,
-                IsFakeLicensee = AppSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId)
+                IsFakeLicensee = IsFakeLicensee()
             };
 
             viewModel.MasterFunctions = _functionService.GetMasterFunctions(viewModel.UserFunctions);

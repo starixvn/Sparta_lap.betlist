@@ -46,7 +46,8 @@ namespace Fanex.Athena.Controllers.Report
             var model = new CustomerPendingFundsViewModel
             {
                 CurrencyList = userSession.CurrencyList,
-                Param = metaModel
+                Param = metaModel,
+                IsFakeLicensee = IsFakeLicensee()
             };
 
             return View("~/Views/Report/CustomerPendingFunds/Main.cshtml", model);

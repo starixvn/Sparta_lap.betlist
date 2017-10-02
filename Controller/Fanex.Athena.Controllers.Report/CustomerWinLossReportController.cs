@@ -61,7 +61,8 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyList = userSession.CurrencyList,
                 Param = metaModel,
                 IsHistory = isHistory,
-                ProductAccess = productAccess
+                ProductAccess = productAccess,
+                IsFakeLicensee = IsFakeLicensee()
             };
 
             return View("~/Views/Report/CustomerWinLoss/Main.cshtml", model);

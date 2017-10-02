@@ -54,7 +54,7 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyList = userSession.CurrencyList,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 ProductAccess = productAccess,
-                IsFakeLicensee = AppSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId)
+                IsFakeLicensee = IsFakeLicensee()
             };
 
             return View("~/Views/Report/WinLossByProduct/Main.cshtml", model);

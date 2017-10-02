@@ -128,8 +128,7 @@ namespace Fanex.Athena.Controllers.Customer
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateSpecialLevel(int custId, int level)
         {
-            var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var isFakeLicensee = AppSettings.FakeLicenseeList.Contains(licenseeId);
+            var isFakeLicensee = IsFakeLicensee();
 
             if (!isFakeLicensee)
             {
@@ -138,7 +137,7 @@ namespace Fanex.Athena.Controllers.Customer
                 try
                 {
                     var dataResult = _customerService.UpdateSpecialLevel(
-                        licenseeId,
+                        SessionService.LicenseeSession.LicenseeId,
                         userSession.UserId,
                         custId,
                         level,
@@ -182,8 +181,7 @@ namespace Fanex.Athena.Controllers.Customer
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateOddsGroup(int custId, string oddsGroup)
         {
-            var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var isFakeLicensee = AppSettings.FakeLicenseeList.Contains(licenseeId);
+            var isFakeLicensee = IsFakeLicensee();
 
             if (!isFakeLicensee)
             {

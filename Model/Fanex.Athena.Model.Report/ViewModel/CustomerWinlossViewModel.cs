@@ -8,5 +8,7 @@
         public CustomerWinLossMetaModel Param { get; set; }
 
         public bool IsHistory { get; set; }
+
+        public bool IsFakeLicensee { get; set; }
     }
 }

@@ -136,7 +136,7 @@
             metaModel.ToDate = DateTime.SpecifyKind(metaModel.ToDate.Date, DateTimeKind.Utc);
             metaModel.Date = DateTime.SpecifyKind(metaModel.Date.Date, DateTimeKind.Utc);
 
-            metaModel.IsFakeLicensee = AppSettings.FakeLicenseeList.Contains(metaModel.LicenseeId);
+            metaModel.IsFakeLicensee = IsFakeLicensee();
             return metaModel;
         }
 

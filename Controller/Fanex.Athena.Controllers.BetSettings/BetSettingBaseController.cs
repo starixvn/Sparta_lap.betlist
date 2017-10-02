@@ -72,7 +72,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         protected void AssignRequiredProperties(BetSettingBaseViewModel viewModel, BetSettingMetaModel metaModel)
         {
-            metaModel.IsFakeLicensee = AppSettings.FakeLicenseeList.Contains(SessionService.LicenseeSession.LicenseeId);
+            metaModel.IsFakeLicensee = IsFakeLicensee();
             viewModel.Param = metaModel;
             viewModel.Editable = IsBetSettingEditable();
             viewModel.BetSettingProducts = GetBetSettingProducts(metaModel.CustId);

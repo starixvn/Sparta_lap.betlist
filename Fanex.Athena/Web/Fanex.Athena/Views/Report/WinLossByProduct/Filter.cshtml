@@ -23,9 +23,12 @@
             <input type="text" id="Username" name="Username" class="text_f1" style="width: 120px" />
         </div>
     <div class="grid_2 userguide-group">
+        @if (!Model.IsFakeLicensee)
+        {
         <div>
             <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide"></div>
         </div>
+        }
         <div>
             <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
                type="image" id="ExportToExcel" name="exporttoexcel"

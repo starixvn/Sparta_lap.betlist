@@ -52,7 +52,8 @@ namespace Fanex.Athena.Controllers.Report
                 IsAllowedNumberGame = productAccess.IsAllowNG,
                 BalanceUpDate = balanceUp != null ? balanceUp.BalanceUpDay : DateTime.Now,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                ProductAccess = productAccess
+                ProductAccess = productAccess,
+                IsFakeLicensee = IsFakeLicensee()
             };
 
             return View("~/Views/Report/LiveReport/Main.cshtml", model);
@@ -79,7 +80,8 @@ namespace Fanex.Athena.Controllers.Report
                 BalanceUpDate = balanceUp != null ? balanceUp.BalanceUpDay : DateTime.Now,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 ProductAccess = productAccess,
-                MainResult = liveReportService.GetLiveReportSummary(metaModel)
+                MainResult = liveReportService.GetLiveReportSummary(metaModel),
+                IsFakeLicensee = IsFakeLicensee()
             };
 
             return metaModel.IsExportExcel
@@ -103,7 +105,7 @@ namespace Fanex.Athena.Controllers.Report
                 Param = metaModel,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 ProductAccess = productAccess,
-                CurrencyName = metaModel.CurrencyName
+                CurrencyName = metaModel.CurrencyName,
             };
 
             return View("~/Views/Report/LiveReport/MatchList/Content.cshtml", model);
