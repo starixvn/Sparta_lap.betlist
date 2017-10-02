@@ -4,7 +4,6 @@
 
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -28,10 +27,10 @@
             var model = CreateDefaultMetaModel(metaModel);
             if (!model.IsExportExcel)
             {
-                return this.View("~/Views/BetList/WinlossByBetType/Main.cshtml", model);
+                return View("~/Views/BetList/WinlossByBetType/Main.cshtml", model);
             }
 
-            var currencyList = this.SessionService.UserSession.CurrencyList;
+            var currencyList = SessionService.UserSession.CurrencyList;
 
             if (model.CurrencyId != BaseCurrencyType.All &&
                 currencyList.ContainsKey(model.CurrencyId) &&
@@ -49,7 +48,7 @@
             metaModel.PageIndex = 1;
             metaModel.PageSize = int.MaxValue - 1;
             const string UspKey = "Lrf_BetList_SelWinLossByBetType";
-            var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
 
             // determine currency viewed in
             var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;

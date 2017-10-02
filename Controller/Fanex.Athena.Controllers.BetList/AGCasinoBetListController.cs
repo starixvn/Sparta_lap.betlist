@@ -10,7 +10,6 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -29,7 +28,7 @@ namespace Fanex.Athena.Controllers.BetList
             if (!model.IsExportExcel)
             {
                 ViewBag.BetListTitle = GetTitle(model.TransType);
-                return this.View("~/Views/BetList/AGCasinoDetail/Main.cshtml", model);
+                return View("~/Views/BetList/AGCasinoDetail/Main.cshtml", model);
             }
 
             if (IsValidCurrency(model.CurrencyId))
@@ -37,7 +36,7 @@ namespace Fanex.Athena.Controllers.BetList
                 return ExcelDetail(model);
             }
 
-            return this.EmptyExcel();
+            return EmptyExcel();
         }
 
         private static string GetTitle(long transType)

@@ -30,7 +30,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             viewParam.FromDate = isRunningBetlist ? new DateTime(DateTime.Now.Year - 1, 1, 1) : viewParam.MoveBetsDay.AddDays(1);
 
-            var productAccess = this.ProductService.GetProductAccess(
+            var productAccess = ProductService.GetProductAccess(
                 viewParam.LicenseeId,
                 SessionService.UserSession.Language,
                 isRunningBetlist ? BetListCustomerOutstandingRunningName : BetListCustomerOutstandingName);

@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -22,7 +21,7 @@
             if (!model.IsExportExcel)
             {
                 ViewBag.BetListTitle = _title;
-                return this.View("~/Views/BetList/GlobalGamingDetail/Main.cshtml", model);
+                return View("~/Views/BetList/GlobalGamingDetail/Main.cshtml", model);
             }
 
             if (IsValidCurrency(model.CurrencyId))
@@ -30,7 +29,7 @@
                 return ExcelDetail(model);
             }
 
-            return this.EmptyExcel();
+            return EmptyExcel();
         }
 
         private ActionResult ExcelDetail(BetListMetaModel metaModel)

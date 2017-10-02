@@ -49,7 +49,7 @@ namespace Fanex.Athena.Controllers.BetList
         {
             const string UspKey = "Lrf_BetList_SelWinLossByDate_Mem";
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
 
             var showingOption = new ShowingOption
             {

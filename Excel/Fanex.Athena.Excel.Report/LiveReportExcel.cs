@@ -108,7 +108,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignSheetData(ISheet sheet)
         {
-            int rowCount = _liveReportList.Count;
+            var rowCount = _liveReportList.Count;
 
             for (int index = 0; index < rowCount; index++)
             {
@@ -126,7 +126,7 @@ namespace Fanex.Athena.Excel.Report
                 row.Cells[ColumnAmountDue].SetCellValue(liveReport.AmountDue);
             }
 
-            int currentRow = AssignTotalSummary(sheet);
+            var currentRow = AssignTotalSummary(sheet);
 
             if (_liveReportDetailList.BySports != null)
             {

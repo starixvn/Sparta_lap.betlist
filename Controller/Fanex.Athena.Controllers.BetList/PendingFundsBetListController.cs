@@ -54,7 +54,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         private ActionResult Excel(BetListMetaModel metaModel, string uspKey)
         {
-            var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 
             var showingOption = new ShowingOption
             {

@@ -64,7 +64,7 @@ namespace Fanex.Athena.Service.Core.Common
                 return allowedProducts;
             }
 
-            allowedProducts = this._productDataAccess.GetProductAccessList(licenseeId);
+            allowedProducts = _productDataAccess.GetProductAccessList(licenseeId);
             if (allowedProducts != null && allowedProducts.Count > 0)
             {
                 _cache.Set(cacheKey, allowedProducts);
@@ -77,7 +77,7 @@ namespace Fanex.Athena.Service.Core.Common
         {
             var allowedProducts = GetAllowedProducts(functionConfigKey);
 
-            var originalProducts = this.GetProductList(licenseeId, languageCode);
+            var originalProducts = GetProductList(licenseeId, languageCode);
 
             var productList = allowedProducts.Any() ? originalProducts.Where(i => allowedProducts.Contains(i.ProductCode)).ToList()
                 : originalProducts;
@@ -88,7 +88,7 @@ namespace Fanex.Athena.Service.Core.Common
         {
             var allowedProducts = GetAllowedProducts(functionConfigKey);
 
-            var originalProducts = this.GetProductList(licenseeId, languageCode);
+            var originalProducts = GetProductList(licenseeId, languageCode);
 
             var productList = allowedProducts.Any() ? originalProducts.Where(i => i.IsOfferedSingleWallet && allowedProducts.Contains(i.ProductCode)).ToList()
                 : originalProducts;
@@ -134,8 +134,8 @@ namespace Fanex.Athena.Service.Core.Common
                 }
             }
 
-            var functionValue = string.IsNullOrWhiteSpace(functionName) ? "_Default" : functionName;
-            var config = functions.FirstOrDefault(x => x.Attribute("Name").Value.Equals(functionValue, StringComparison.OrdinalIgnoreCase));
+            var configFunctionName = string.IsNullOrWhiteSpace(functionName) ? "_Default" : functionName;
+            var config = functions.FirstOrDefault(x => x.Attribute("Name").Value.Equals(configFunctionName, StringComparison.OrdinalIgnoreCase));
             return config == null ? new string[] { } : config.Attribute(nameof(Product)).Value.Split(',')
                     .Select(x => x.Trim()).Where(x => !string.IsNullOrEmpty(x)).ToArray();
         }
