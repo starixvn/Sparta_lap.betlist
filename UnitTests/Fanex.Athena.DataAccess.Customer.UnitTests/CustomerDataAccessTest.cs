@@ -12,13 +12,13 @@
     public class CustomerDataAccessTest
     {
         private IObjectDb _objectDb;
-        private CustomerDataAccess _dataAccess;
+        private CustomerListDataAccess _dataAccess;
 
         [OneTimeSetUp]
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<CustomerDataAccess>();
+            _dataAccess = Substitute.ForPartsOf<CustomerListDataAccess>();
         }
 
         [OneTimeTearDown]

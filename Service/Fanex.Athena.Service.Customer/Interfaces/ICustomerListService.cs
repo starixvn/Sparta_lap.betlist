@@ -16,7 +16,7 @@ namespace Fanex.Athena.Service.Customer.Interfaces
 
     #endregion Using
 
-    public interface ICustomerService
+    public interface ICustomerListService
     {
         #region Read
 

@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="ICustomerDataAccess.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.DataAccess.Customer.Interfaces
+﻿namespace Fanex.Athena.DataAccess.Customer.Interfaces
 {
     #region Using
 
@@ -16,7 +10,7 @@ namespace Fanex.Athena.DataAccess.Customer.Interfaces
 
     #endregion Using
 
-    public interface ICustomerDataAccess
+    public interface ICustomerListDataAccess
     {
         #region Read
 

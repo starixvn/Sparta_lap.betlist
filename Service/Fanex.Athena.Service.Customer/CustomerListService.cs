@@ -31,9 +31,9 @@ namespace Fanex.Athena.Service.Customer
 
     #endregion Using
 
-    public class CustomerService : ICustomerService
+    public class CustomerListService : ICustomerListService
     {
-        private readonly ICustomerDataAccess _customerDataAccess;
+        private readonly ICustomerListDataAccess _customerDataAccess;
 
         private readonly ICasinoSetting _casinoSetting;
 
@@ -49,9 +49,9 @@ namespace Fanex.Athena.Service.Customer
 
         private readonly IGroupComService _groupComService;
 
-        public CustomerService()
+        public CustomerListService()
         {
-            _customerDataAccess = new CustomerDataAccess();
+            _customerDataAccess = new CustomerListDataAccess();
             _casinoSetting = new CasinoSetting();
             _authorizationService = new AuthorizationService();
             _productService = new ProductService();
@@ -61,8 +61,8 @@ namespace Fanex.Athena.Service.Customer
             _groupComService = new GroupComService();
         }
 
-        public CustomerService(
-            ICustomerDataAccess customerDataAccess,
+        public CustomerListService(
+            ICustomerListDataAccess customerDataAccess,
             ICasinoSetting casinoSetting,
             IAuthorizationService authorizationService,
             IProductService productService,

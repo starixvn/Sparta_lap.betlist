@@ -41,7 +41,7 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Fields
 
-        private readonly ICustomerService _customerService;
+        private readonly ICustomerListService _customerService;
         private readonly IGroupComService _groupComService;
         private readonly ILicenseeDataAccess _licenseeDataAccess;
         private readonly IProductService _productService;
@@ -53,7 +53,7 @@ namespace Fanex.Athena.Controllers.Customer
         public CustomerApiController()
         {
             _licenseeDataAccess = new LicenseeDataAccess();
-            _customerService = new CustomerService();
+            _customerService = new CustomerListService();
             _groupComService = new GroupComService();
             _productService = new ProductService();
         }

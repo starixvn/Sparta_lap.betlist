@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="CustomerDataAccess.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.DataAccess.Customer
+﻿namespace Fanex.Athena.DataAccess.Customer
 {
     using System;
     using System.Collections.Generic;
@@ -26,7 +20,7 @@ namespace Fanex.Athena.DataAccess.Customer
     using Model.Core.ResultModel;
     using Resources;
 
-    public class CustomerDataAccess : BaseDataAccess, ICustomerDataAccess
+    public class CustomerListDataAccess : BaseDataAccess, ICustomerListDataAccess
     {
         #region Read
 

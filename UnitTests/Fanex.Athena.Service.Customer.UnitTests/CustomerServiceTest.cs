@@ -19,7 +19,7 @@
     [TestFixture]
     public class CustomerServiceTest
     {
-        private ICustomerDataAccess _customerDataAccess;
+        private ICustomerListDataAccess _customerDataAccess;
 
         private ICasinoSetting _casinoSetting;
 
@@ -33,12 +33,12 @@
 
         private IAppSettings _appSettings;
 
-        private CustomerService _customerService;
+        private CustomerListService _customerService;
 
         [SetUp]
         public void SetUp()
         {
-            _customerDataAccess = Substitute.For<ICustomerDataAccess>();
+            _customerDataAccess = Substitute.For<ICustomerListDataAccess>();
             _casinoSetting = Substitute.For<ICasinoSetting>();
             _authorizationService = Substitute.For<IAuthorizationService>();
             _productService = Substitute.For<IProductService>();
@@ -46,7 +46,7 @@
             _rngCasinoService = Substitute.For<IRNGCasinoService>();
             _appSettings = Substitute.For<IAppSettings>();
 
-            _customerService = new CustomerService(
+            _customerService = new CustomerListService(
                 _customerDataAccess,
                 _casinoSetting,
                 _authorizationService,

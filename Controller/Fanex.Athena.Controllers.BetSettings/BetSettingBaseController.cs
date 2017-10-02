@@ -36,7 +36,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     {
         private readonly IAuthorizationService _authorizationService;
         private readonly ICoreBetSettingDataAccess _coreBetSettingDataAccess;
-        private readonly ICustomerService _customerService;
+        private readonly ICustomerListService _customerService;
         private readonly IProductService _productService;
         private readonly Lazy<ProductAccess> _productAccess;
 
@@ -44,7 +44,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             _authorizationService = new AuthorizationService();
             this._coreBetSettingDataAccess = new CoreBetSettingDataAccess();
-            this._customerService = new CustomerService();
+            this._customerService = new CustomerListService();
             this._productService = new ProductService();
             _productAccess = new Lazy<ProductAccess>(() =>
                 _productService.GetProductAccess(
@@ -52,7 +52,7 @@ namespace Fanex.Athena.Controllers.BetSettings
                     SessionService.UserSession.Language));
         }
 
-        protected ICustomerService CustomerService
+        protected ICustomerListService CustomerService
         {
             get { return _customerService; }
         }
