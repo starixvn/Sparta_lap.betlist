@@ -21,7 +21,7 @@ class DateRange extends Component {
     this.styles = getTheme(theme);
     this.step = 0;
     this.locale = { ...defaultOptions.locale, ...props.locale };
-    this.ranges = { ...defaultOptions.ranges, ...props.ranges };
+    this.ranges = { ...defaultOptions.ranges(props.today), ...props.ranges };
 
     this.currentRange = { startDate, endDate };
     this.isValid = true;
@@ -309,7 +309,8 @@ DateRange.propTypes = {
   rangedCalendars: PropTypes.bool,
   onClickApplyButton: PropTypes.func,
   showRange: PropTypes.bool,
-  limitedMonthRange: PropTypes.number
+  limitedMonthRange: PropTypes.number,
+  today: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.string])
 }
 
 export default DateRange;

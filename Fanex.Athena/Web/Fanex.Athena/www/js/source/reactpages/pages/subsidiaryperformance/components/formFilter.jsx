@@ -136,7 +136,7 @@ export class FormFilter extends Component {
         return (
             <DateRange startDate={dateRange.fromDate} endDate={dateRange.toDate}
                 minDate={dateConstraint.minDate} maxDate={dateConstraint.maxDate}
-                limitedMonthRange={RANGE_MONTH_CONSTRAINT}
+                today={dateRange.toDate} limitedMonthRange={RANGE_MONTH_CONSTRAINT}
                 onChange={this.applyDateRangeHandler} />
         )
     }

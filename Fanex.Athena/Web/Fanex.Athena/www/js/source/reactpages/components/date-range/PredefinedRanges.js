@@ -12,10 +12,13 @@ class PredefinedRanges extends Component {
     super(props, context);
 
     this.styles = this.props.theme;
+    this.selectedItem = null;
   }
 
   handleSelect(name, event) {
     event.preventDefault();
+
+    this.selectedItem = name;
 
     const range = this.props.ranges[name];
 
@@ -35,10 +38,7 @@ class PredefinedRanges extends Component {
     const { styles } = this;
 
     return Object.keys(ranges).map(name => {
-      const active = (
-        parseInput(ranges[name].startDate, null, 'startOf').isSame(range.startDate) &&
-        parseInput(ranges[name].endDate, null, 'endOf').isSame(range.endDate)
-      );
+      const active = this.selectedItem === name;
 
       const style = {
         ...styles['PredefinedRangesItem'],

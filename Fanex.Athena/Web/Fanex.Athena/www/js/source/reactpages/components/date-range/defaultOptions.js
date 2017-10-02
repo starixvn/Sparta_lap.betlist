@@ -1,68 +1,58 @@
+import moment from 'moment';
 import LangHelper from "../../lib/langHelper";
 import locale from "./utils/locale";
+import { MomentFormat } from './constants';
+
+function cloneMomentObject(date, defaultValue) {
+    if (date) {
+        return date.clone();
+    }
+}
 
 export default {
-    ranges: {
-        [LangHelper.getSingleResource("Today")]: {
-            startDate: (now) => {
-                return now;
-            },
-            endDate: (now) => {
-                return now;
-            }
-        },
+    ranges: (today) => {
+        if (today && !moment.isMoment(today)) {
+            today = moment(today, MomentFormat.default)
+        }
 
-        [LangHelper.getSingleResource("Yesterday")]: {
-            startDate: (now) => {
-                return now.add(-1, 'days');
-            },
-            endDate: (now) => {
-                return now.add(-1, 'days');
-            }
-        },
+        if (!today) {
+            today = moment();
+        }
 
-        [LangHelper.getSingleResource("Currentweek")]: {
-            startDate: (now) => {
-                return now.startOf('week');
+        return {
+            [LangHelper.getSingleResource("Today")]: {
+                startDate: today,
+                endDate: today
             },
-            endDate: (now) => {
-                return now;
-            }
-        },
 
-        [LangHelper.getSingleResource("Lastweek")]: {
-            startDate: (now) => {
-                return now.subtract(1, 'week').startOf('week');
+            [LangHelper.getSingleResource("Yesterday")]: {
+                startDate: today.clone().add(-1, 'days'),
+                endDate: today.clone().add(-1, 'days')
             },
-            endDate: (now) => {
-                return now.subtract(1, 'week').startOf('week').add(6, 'days');
-            }
-        },
 
-        [LangHelper.getSingleResource("Currentmonth")]: {
-            startDate: (now) => {
-                return now.startOf('month');
+            [LangHelper.getSingleResource("Currentweek")]: {
+                startDate: today.clone().startOf('week'),
+                endDate: today
             },
-            endDate: (now) => {
-                return now;
-            }
-        },
 
-        [LangHelper.getSingleResource("Lastmonth")]: {
-            startDate: (now) => {
-                return now.subtract(1, 'month').startOf('month');
+            [LangHelper.getSingleResource("Lastweek")]: {
+                startDate: today.clone().subtract(1, 'week').startOf('week'),
+                endDate: today.clone().subtract(1, 'week').startOf('week').add(6, 'days')
             },
-            endDate: (now) => {
-                return now.subtract(1, 'month').endOf('month');
-            }
-        },
 
-        [LangHelper.getSingleResource("Sincelastmonth")]: {
-            startDate: (now) => {
-                return now.subtract(1, 'month').startOf('month');
+            [LangHelper.getSingleResource("Currentmonth")]: {
+                startDate: today.clone().startOf('month'),
+                endDate: today
             },
-            endDate: (now) => {
-                return now;
+
+            [LangHelper.getSingleResource("Lastmonth")]: {
+                startDate: today.clone().subtract(1, 'month').startOf('month'),
+                endDate: today.clone().subtract(1, 'month').endOf('month')
+            },
+
+            [LangHelper.getSingleResource("Sincelastmonth")]: {
+                startDate: today.clone().subtract(1, 'month').startOf('month'),
+                endDate: today
             }
         }
     },
