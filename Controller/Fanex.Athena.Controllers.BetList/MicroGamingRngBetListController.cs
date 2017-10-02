@@ -10,7 +10,6 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -24,25 +23,25 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Detail(BetListMetaModel metaModel)
         {
-            metaModel = CreateDefaultMetaModel(metaModel);
+            var model = CreateDefaultMetaModel(metaModel);
 
-            if (!metaModel.IsExportExcel)
+            if (!model.IsExportExcel)
             {
-                ViewBag.BetListTitle = GetTitle(metaModel.TransType);
-                return this.View("~/Views/BetList/MicroGamingRngDetail/Main.cshtml", metaModel);
+                ViewBag.BetListTitle = GetTitle(model.TransType);
+                return View("~/Views/BetList/MicroGamingRngDetail/Main.cshtml", model);
             }
 
-            if (IsValidCurrency(metaModel.CurrencyId))
+            if (IsValidCurrency(model.CurrencyId))
             {
-                return ExcelDetail(metaModel);
+                return ExcelDetail(model);
             }
 
-            return this.EmptyExcel();
+            return EmptyExcel();
         }
 
         private static string GetTitle(long transType)
         {
-            string title = ViewResources.Microgaming + " - " + ViewResources.ProductCS + " " +
+            var title = ViewResources.Microgaming + " - " + ViewResources.ProductCS + " " +
                 ViewResources.BetList + " - " + ViewResources.DetailTickets + " - ";
             switch (transType)
             {

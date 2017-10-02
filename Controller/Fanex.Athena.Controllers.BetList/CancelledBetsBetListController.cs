@@ -82,25 +82,25 @@ namespace Fanex.Athena.Controllers.BetList
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = this.SessionService.UserSession;
 
-            metaModel = CreateDefaultMetaModel(metaModel);
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var custList = GetData(metaModel);
+            var viewParam = CreateDefaultMetaModel(metaModel);
+            viewParam.AgentListXml = SessionService.GenerateAgentListXml(viewParam.CurrencyId);
+            var custList = GetData(viewParam);
 
             if (custList.Any())
             {
                 var customerCancelBetItem = custList.FirstOrDefault();
                 if (customerCancelBetItem != null)
                 {
-                    metaModel.CustId = customerCancelBetItem.CustId;
+                    viewParam.CustId = customerCancelBetItem.CustId;
                 }
             }
 
             var model = new CancelledBetsBetListViewModel
             {
                 ShowEmptyContent = true,
-                Param = metaModel,
+                Param = viewParam,
                 CurrencyList = userSession.CurrencyList,
-                ProductAccess = this.ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
+                ProductAccess = ProductService.GetProductAccess(viewParam.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 CustomerList = custList,
             };
@@ -114,10 +114,10 @@ namespace Fanex.Athena.Controllers.BetList
                 SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_SelDeleted";
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                metaModel = CreateDefaultMetaModel(metaModel);
+                var excelModel = CreateDefaultMetaModel(metaModel);
+                excelModel.AgentListXml = SessionService.GenerateAgentListXml(excelModel.CurrencyId);
 
-                var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
+                var ticketResult = this.BetListService.GetBetListData(excelModel, UspKey);
 
                 var showingOption = new ShowingOption
                 {
@@ -125,12 +125,12 @@ namespace Fanex.Athena.Controllers.BetList
                 };
                 var currencyTitle = string.Format(
                     ViewResources.Viewin,
-                    metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
+                    excelModel.IsConvert ? excelModel.BaseCurrency.ToUpperInvariant() : excelModel.CurrencyName);
                 var title = ViewResources.CancelledBets
                     + string.Format(" - {0}", currencyTitle);
 
                 var excel = new BetListExcel(
-                    showingOption, metaModel.LicenseeId, HiddenColumnIndexes);
+                    showingOption, excelModel.LicenseeId, HiddenColumnIndexes);
 
                 var workbook = excel.Export(ticketResult, title);
 

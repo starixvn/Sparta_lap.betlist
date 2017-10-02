@@ -261,8 +261,8 @@ namespace Fanex.Athena.Api.Report
                 return BadRequest(ViewResources.InvalidParams);
             }
 
-            var placeholderUsername = _appSettings.FakeLicenseeList.Contains(SessionService.LicenseeSession.LicenseeId) ? 
-                ViewResources.ExternalId : 
+            var placeholderUsername = _appSettings.FakeLicenseeList.Contains(SessionService.LicenseeSession.LicenseeId) ?
+                ViewResources.ExternalId :
                 ViewResources.ExternalIdOrSystemId;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(level == 0 ? metaModel.CurrencyId : currencyId, metaModel.IsExcludedTestData);
             metaModel.Username = !string.IsNullOrWhiteSpace(metaModel.Username)
@@ -273,9 +273,10 @@ namespace Fanex.Athena.Api.Report
             metaModel.DrillDownCurrencyName = currencyName;
             metaModel.Level = level;
             metaModel.CustomerId = custId;
+            var drillDownMemberId = memberId;
             if (metaModel.MemberId == 0)
             {
-                metaModel.MemberId = memberId;
+                metaModel.MemberId = drillDownMemberId;
             }
 
             if (fdate.HasValue)
@@ -297,17 +298,18 @@ namespace Fanex.Athena.Api.Report
 
             resultInfo.Message = GetErrorMessage(resultInfo.Code);
 
-            if (memberId == 0 && !string.IsNullOrWhiteSpace(resultInfo.ExtendedData))
+            var drillDownSystemId = systemId;
+            if (drillDownMemberId == 0 && !string.IsNullOrWhiteSpace(resultInfo.ExtendedData))
             {
                 var extendedItems = resultInfo.ExtendedData.Split(';');
-                memberId = string.IsNullOrWhiteSpace(extendedItems[0]) ? 0 : Convert.ToInt32(extendedItems[0]);
-                systemId = extendedItems[1];
-                metaModel.MemberId = memberId;
+                drillDownMemberId = string.IsNullOrWhiteSpace(extendedItems[0]) ? 0 : Convert.ToInt32(extendedItems[0]);
+                drillDownSystemId = extendedItems[1];
+                metaModel.MemberId = drillDownMemberId;
             }
 
             if (metaModel.IsExportExcel)
             {
-                return ExportExcel(metaModel, dataList, totalData, summaryTotal, systemId, resultInfo.Message);
+                return ExportExcel(metaModel, dataList, totalData, summaryTotal, drillDownSystemId, resultInfo.Message);
             }
 
             return dataList.Any()
@@ -317,11 +319,11 @@ namespace Fanex.Athena.Api.Report
                     Total = totalData,
                     SummaryTotal = summaryTotal,
                     ProductOptions = metaModel.ProductOptions.ToJson(),
-                    MemberId = memberId,
-                    SystemId = systemId,
+                    MemberId = drillDownMemberId,
+                    SystemId = drillDownSystemId,
                     ErrorMessage = resultInfo.Message
                 }
-                : GetEmptyResult(metaModel.ProductOptions, memberId, systemId, resultInfo.Message);
+                : GetEmptyResult(metaModel.ProductOptions, memberId, drillDownSystemId, resultInfo.Message);
         }
 
         #endregion ProcessRequest

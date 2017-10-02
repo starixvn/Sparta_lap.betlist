@@ -26,19 +26,19 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult Index(BetListMetaModel metaModel)
         {
             var isRunningBetlist = metaModel.BetListName.Equals("betlistrunning", StringComparison.OrdinalIgnoreCase);
-            metaModel = CreateDefaultMetaModel(metaModel);
+            var viewParam = CreateDefaultMetaModel(metaModel);
 
-            metaModel.FromDate = isRunningBetlist ? new DateTime(DateTime.Now.Year - 1, 1, 1) : metaModel.MoveBetsDay.AddDays(1);
+            viewParam.FromDate = isRunningBetlist ? new DateTime(DateTime.Now.Year - 1, 1, 1) : viewParam.MoveBetsDay.AddDays(1);
 
             var productAccess = this.ProductService.GetProductAccess(
-                metaModel.LicenseeId,
+                viewParam.LicenseeId,
                 SessionService.UserSession.Language,
                 isRunningBetlist ? BetListCustomerOutstandingRunningName : BetListCustomerOutstandingName);
 
             var viewModel = new BetListBaseViewModel
             {
-                Param = metaModel,
-                ProductOptions = GetProductOptions(metaModel.ProductCodeList, productAccess.ProductList)
+                Param = viewParam,
+                ProductOptions = GetProductOptions(viewParam.ProductCodeList, productAccess.ProductList)
             };
             return View("~/Views/BetList/CustomerOutstanding/Main.cshtml", viewModel);
         }

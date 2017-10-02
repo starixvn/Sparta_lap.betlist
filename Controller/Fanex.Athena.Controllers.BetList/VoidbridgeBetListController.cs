@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -17,20 +16,20 @@
         [HttpGet]
         public ActionResult Detail(BetListMetaModel metaModel)
         {
-            metaModel = CreateDefaultMetaModel(metaModel);
+            var model = CreateDefaultMetaModel(metaModel);
 
-            if (!metaModel.IsExportExcel)
+            if (!model.IsExportExcel)
             {
                 ViewBag.BetListTitle = _title;
-                return this.View("~/Views/BetList/VoidbridgeDetail/Main.cshtml", metaModel);
+                return View("~/Views/BetList/VoidbridgeDetail/Main.cshtml", model);
             }
 
-            if (IsValidCurrency(metaModel.CurrencyId))
+            if (IsValidCurrency(model.CurrencyId))
             {
-                return ExcelDetail(metaModel);
+                return ExcelDetail(model);
             }
 
-            return this.EmptyExcel();
+            return EmptyExcel();
         }
 
         private ActionResult ExcelDetail(BetListMetaModel metaModel)

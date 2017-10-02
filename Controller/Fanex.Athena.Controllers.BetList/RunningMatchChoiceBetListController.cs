@@ -31,22 +31,22 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            metaModel = CreateDefaultMetaModel(metaModel);
+            var model = CreateDefaultMetaModel(metaModel);
 
-            if (metaModel.IsExportExcel)
+            if (model.IsExportExcel)
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
+                if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
                 {
-                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                    return Excel(metaModel);
+                    model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
+                    return Excel(model);
                 }
 
                 return EmptyExcel();
             }
 
-            return View("~/Views/BetList/NewForecastBetlist/Main.cshtml", metaModel);
+            return View("~/Views/BetList/NewForecastBetlist/Main.cshtml", model);
         }
 
         /// <summary>
@@ -56,8 +56,8 @@ namespace Fanex.Athena.Controllers.BetList
         /// <returns>The action result.</returns>
         private ActionResult Excel(BetListMetaModel metaModel)
         {
-            string uspKey = "Lrf_BetList_Forecast_SelByMatch";
-            var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);
+            const string uspKey = "Lrf_BetList_Forecast_SelByMatch";
+            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 
             var showingOption = new ShowingOption
             {

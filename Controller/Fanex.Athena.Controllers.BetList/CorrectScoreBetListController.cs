@@ -54,9 +54,9 @@ namespace Fanex.Athena.Controllers.BetList
             if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_CorrectScore";
-                metaModel = CreateDefaultMetaModel(metaModel);
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
+                var excelModel = CreateDefaultMetaModel(metaModel);
+                excelModel.AgentListXml = SessionService.GenerateAgentListXml(excelModel.CurrencyId);
+                var ticketResult = this.BetListService.GetBetListData(excelModel, UspKey);
 
                 var showingOption = new ShowingOption
                 {
@@ -65,10 +65,10 @@ namespace Fanex.Athena.Controllers.BetList
 
                 var title = ViewResources.CorrectScore + " - " + string.Format(
                     ViewResources.Viewin,
-                    metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
+                    excelModel.IsConvert ? excelModel.BaseCurrency.ToUpperInvariant() : excelModel.CurrencyName);
 
                 var excel = new Excel.BetList.BetListExcel(
-                    showingOption, metaModel.LicenseeId, HiddenColumnIndexes, true);
+                    showingOption, excelModel.LicenseeId, HiddenColumnIndexes, true);
 
                 var workbook = excel.Export(ticketResult, title);
 

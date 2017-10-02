@@ -74,35 +74,40 @@ namespace Fanex.Athena.Api.Report
         {
             if (sortBy != null)
             {
+                var propertyName = sortBy;
+
                 // Sort for grouping columns, get the real column name
                 if (sortBy.EndsWith("Single", StringComparison.OrdinalIgnoreCase))
                 {
-                    sortBy = sortBy.Remove(sortBy.LastIndexOf("Single", StringComparison.OrdinalIgnoreCase));
+                    propertyName = sortBy.Remove(sortBy.LastIndexOf("Single", StringComparison.OrdinalIgnoreCase));
                 }
 
-                var property = typeof(LicenseeWinLoss).GetProperty(sortBy);
+                var property = typeof(LicenseeWinLoss).GetProperty(propertyName);
 
                 if (property == null)
                 {
-                    string propertyName;
                     string productCode;
 
-                    if (sortBy.Contains(nameof(LicenseeWinLoss.LicenseeWL)))
+                    if (propertyName.Contains(nameof(LicenseeWinLoss.LicenseeWL)))
                     {
-                        propertyName = nameof(LicenseeWinLoss.LicenseeWL);
-                        productCode = sortBy.Substring(propertyName.Length);
+                        var licenseeWLColumn = nameof(LicenseeWinLoss.LicenseeWL);
+
+                        productCode = propertyName.Substring(licenseeWLColumn.Length);
+                        propertyName = licenseeWLColumn;
                     }
                     else
                     {
-                        propertyName = nameof(LicenseeWinLoss.TurnOver);
-                        productCode = sortBy.Substring(propertyName.Length);
+                        var turnOverColumn = nameof(LicenseeWinLoss.TurnOver);
+
+                        productCode = propertyName.Substring(turnOverColumn.Length);
+                        propertyName = turnOverColumn;
                     }
 
                     dataList.SortByDictionary(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
                 }
                 else
                 {
-                    dataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+                    dataList.Sort(propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
                 }
             }
 

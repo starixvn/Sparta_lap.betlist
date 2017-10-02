@@ -125,16 +125,16 @@
         /// <returns>The bet list metal model.</returns>
         protected BetListMetaModel CreateDefaultMetaModel(BetListMetaModel metaModel = null)
         {
-            metaModel = metaModel ?? new BetListMetaModel();
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
+            var defaultMetaModel = metaModel ?? new BetListMetaModel();
+            defaultMetaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+            defaultMetaModel.UserId = SessionService.UserSession.UserId;
 
             var balanceUp = GetBalanceUp();
-            metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
-            metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
-            metaModel.FromDate = DateTime.SpecifyKind(metaModel.FromDate.Date, DateTimeKind.Utc);
-            metaModel.ToDate = DateTime.SpecifyKind(metaModel.ToDate.Date, DateTimeKind.Utc);
-            metaModel.Date = DateTime.SpecifyKind(metaModel.Date.Date, DateTimeKind.Utc);
+            defaultMetaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
+            defaultMetaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
+            defaultMetaModel.FromDate = DateTime.SpecifyKind(defaultMetaModel.FromDate.Date, DateTimeKind.Utc);
+            defaultMetaModel.ToDate = DateTime.SpecifyKind(defaultMetaModel.ToDate.Date, DateTimeKind.Utc);
+            defaultMetaModel.Date = DateTime.SpecifyKind(defaultMetaModel.Date.Date, DateTimeKind.Utc);
 
             metaModel.IsFakeLicensee = IsFakeLicensee();
             return metaModel;

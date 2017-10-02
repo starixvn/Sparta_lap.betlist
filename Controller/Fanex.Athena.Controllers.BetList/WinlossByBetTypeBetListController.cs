@@ -25,20 +25,20 @@
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            metaModel = CreateDefaultMetaModel(metaModel);
-            if (!metaModel.IsExportExcel)
+            var model = CreateDefaultMetaModel(metaModel);
+            if (!model.IsExportExcel)
             {
-                return this.View("~/Views/BetList/WinlossByBetType/Main.cshtml", metaModel);
+                return this.View("~/Views/BetList/WinlossByBetType/Main.cshtml", model);
             }
 
             var currencyList = this.SessionService.UserSession.CurrencyList;
 
-            if (metaModel.CurrencyId != BaseCurrencyType.All &&
-                currencyList.ContainsKey(metaModel.CurrencyId) &&
-                metaModel.FromDate.Date == metaModel.ToDate.Date)
+            if (model.CurrencyId != BaseCurrencyType.All &&
+                currencyList.ContainsKey(model.CurrencyId) &&
+                model.FromDate.Date == model.ToDate.Date)
             {
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                return this.Excel(metaModel);
+                model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
+                return Excel(model);
             }
 
             return EmptyExcel();

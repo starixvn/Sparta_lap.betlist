@@ -123,11 +123,6 @@ namespace Fanex.Athena.Service.Core.Common
         {
             const string FunctionAllowedProductsKey = "FunctionAllowedProducts";
 
-            if (string.IsNullOrWhiteSpace(functionName))
-            {
-                functionName = "_Default";
-            }
-
             var functions = _cache.Get<IEnumerable<XElement>>(FunctionAllowedProductsKey);
             if (functions == null)
             {
@@ -139,7 +134,8 @@ namespace Fanex.Athena.Service.Core.Common
                 }
             }
 
-            var config = functions.FirstOrDefault(x => x.Attribute("Name").Value.Equals(functionName, StringComparison.OrdinalIgnoreCase));
+            var functionValue = string.IsNullOrWhiteSpace(functionName) ? "_Default" : functionName;
+            var config = functions.FirstOrDefault(x => x.Attribute("Name").Value.Equals(functionValue, StringComparison.OrdinalIgnoreCase));
             return config == null ? new string[] { } : config.Attribute(nameof(Product)).Value.Split(',')
                     .Select(x => x.Trim()).Where(x => !string.IsNullOrEmpty(x)).ToArray();
         }

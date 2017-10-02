@@ -67,9 +67,9 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         protected override void AssignData()
         {
-            int numOfDataRow = _liveReportList.Count;
+            var numOfDataRow = _liveReportList.Count;
 
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
             AssignTitle(sheet);
@@ -112,8 +112,8 @@ namespace Fanex.Athena.Excel.Report
 
             for (int index = 0; index < rowCount; index++)
             {
-                LiveReport liveReport = _liveReportList[index];
-                IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
+                var liveReport = _liveReportList[index];
+                var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
 
                 row.Cells[ColumnProduct].SetCellValue(liveReport.ProductName);
                 row.Cells[ColumnCustomerWl].SetCellValue(liveReport.CustomerWinLoss);
@@ -211,17 +211,18 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="currentRow">Excel row index.</param>
         protected void AssignByBetTypeData(ISheet sheet, int currentRow)
         {
-            IList<LiveReportByBetType> liveReportSportList = _liveReportDetailList.ByBetType;
+            var liveReportSportList = _liveReportDetailList.ByBetType;
 
             if (liveReportSportList.Count > 0)
             {
-                AssignCommonHeader(sheet, ViewResources.ByBetType, ViewResources.BetType, RowByBetTypeHeaderTemplate, currentRow);
-                currentRow += 3;
+                var rowIndex = currentRow;
+                AssignCommonHeader(sheet, ViewResources.ByBetType, ViewResources.BetType, RowByBetTypeHeaderTemplate, rowIndex);
+                rowIndex += 3;
 
                 if (!ShowingOption.CustomerCommVisible)
                 {
                     // If row isn't hide (in case BA visible), then merge cell and set value for header
-                    int rowHeaderMerge = currentRow - 2;
+                    var rowHeaderMerge = rowIndex - 2;
                     sheet.MergeCells(rowHeaderMerge, ColumnCustomerWl, rowHeaderMerge + 1, ColumnCustomerWl);
                 }
 
@@ -229,11 +230,11 @@ namespace Fanex.Athena.Excel.Report
                 {
                     var liveReportBetTypeList = liveReportBetType.LiveReports;
 
-                    var row = sheet.CopyRow(TemplateSheet, RowByBetTypeProductTitle, currentRow);
-                    sheet.MergeCells(currentRow, ColumnProduct, currentRow, ColumnAmountDue);
-                    currentRow++;
+                    var row = sheet.CopyRow(TemplateSheet, RowByBetTypeProductTitle, rowIndex);
+                    sheet.MergeCells(rowIndex, ColumnProduct, rowIndex, ColumnAmountDue);
+                    rowIndex++;
 
-                    string productName = liveReportBetType.ProductName.Equals(ViewResources.SB)
+                    var productName = liveReportBetType.ProductName.Equals(ViewResources.SB)
                         ? ViewResources.Sportsbook
                         : liveReportBetType.ProductName;
 
@@ -241,10 +242,10 @@ namespace Fanex.Athena.Excel.Report
 
                     foreach (LiveReport liveReportSport in liveReportBetTypeList)
                     {
-                        row = sheet.CopyRow(TemplateSheet, RowContentDetailTemplate, currentRow);
+                        row = sheet.CopyRow(TemplateSheet, RowContentDetailTemplate, rowIndex);
                         row.Cells[ColumnProduct].SetCellValue(liveReportSport.ProductName);
                         AssignCommonData(row, liveReportSport);
-                        currentRow++;
+                        rowIndex++;
                     }
                 }
             }
@@ -258,25 +259,26 @@ namespace Fanex.Athena.Excel.Report
         /// <returns>The row index after assign data.</returns>
         protected int AssignByCurrencyData(ISheet sheet, int currentRow)
         {
-            IList<LiveReport> liveReportSportList = _liveReportDetailList.ByCurrencies;
+            var liveReportSportList = _liveReportDetailList.ByCurrencies;
 
+            var rowIndex = currentRow;
             if (liveReportSportList.Count > 0)
             {
-                AssignCommonHeader(sheet, ViewResources.ByCurrency, ViewResources.Currency, RowByCurrencyHeaderTemplate, currentRow);
-                currentRow += 3;
+                AssignCommonHeader(sheet, ViewResources.ByCurrency, ViewResources.Currency, RowByCurrencyHeaderTemplate, rowIndex);
+                rowIndex += 3;
 
                 if (!ShowingOption.CustomerCommVisible)
                 {
                     // If row isn't hide (in case BA visible), then merge cell and set value for header
-                    int rowHeaderMerge = currentRow - 2;
+                    var rowHeaderMerge = rowIndex - 2;
                     sheet.MergeCells(rowHeaderMerge, ColumnCustomerWl, rowHeaderMerge + 1, ColumnCustomerWl);
                 }
 
                 for (int i = 0; i < liveReportSportList.Count; i++)
                 {
-                    LiveReport liveReportSport = liveReportSportList[i];
+                    var liveReportSport = liveReportSportList[i];
 
-                    IRow row = sheet.CopyRow(TemplateSheet, RowContentDetailTemplate, currentRow + i);
+                    var row = sheet.CopyRow(TemplateSheet, RowContentDetailTemplate, rowIndex + i);
 
                     row.Cells[ColumnProduct].SetCellValue(liveReportSport.ProductName);
 
@@ -284,30 +286,31 @@ namespace Fanex.Athena.Excel.Report
                 }
             }
 
-            return currentRow + liveReportSportList.Count;
+            return rowIndex + liveReportSportList.Count;
         }
 
         protected int AssignBySportsTypeData(ISheet sheet, int currentRow)
         {
-            IList<LiveReport> liveReportSportList = _liveReportDetailList.BySports;
+            var liveReportSportList = _liveReportDetailList.BySports;
 
+            var rowIndex = currentRow;
             if (liveReportSportList.Count > 0)
             {
-                AssignCommonHeader(sheet, ViewResources.BySportsType, ViewResources.Sport, RowBySportsTypeHeaderTemplate, currentRow);
-                currentRow += 3;
+                AssignCommonHeader(sheet, ViewResources.BySportsType, ViewResources.Sport, RowBySportsTypeHeaderTemplate, rowIndex);
+                rowIndex += 3;
 
                 if (!ShowingOption.CustomerCommVisible)
                 {
                     // If row isn't hide (in case BA visible), then merge cell and set value for header
-                    int rowHeaderMerge = currentRow - 2;
+                    var rowHeaderMerge = rowIndex - 2;
                     sheet.MergeCells(rowHeaderMerge, ColumnCustomerWl, rowHeaderMerge + 1, ColumnCustomerWl);
                 }
 
                 for (int i = 0; i < liveReportSportList.Count; i++)
                 {
-                    LiveReport liveReportSport = liveReportSportList[i];
+                    var liveReportSport = liveReportSportList[i];
 
-                    IRow row = sheet.CopyRow(TemplateSheet, RowBySportsTypeContentTemplate, currentRow + i);
+                    var row = sheet.CopyRow(TemplateSheet, RowBySportsTypeContentTemplate, rowIndex + i);
 
                     row.Cells[ColumnProduct].SetCellValue(liveReportSport.ProductName);
 
@@ -315,14 +318,14 @@ namespace Fanex.Athena.Excel.Report
                 }
             }
 
-            return currentRow + liveReportSportList.Count;
+            return rowIndex + liveReportSportList.Count;
         }
 
         protected int AssignTotalSummary(ISheet sheet)
         {
-            int currentRow = RowContentTemplate + _liveReportList.Count;
+            var currentRow = RowContentTemplate + _liveReportList.Count;
 
-            IRow row = sheet.CopyRow(TemplateSheet, RowTotalSummaryTemplate, currentRow);
+            var row = sheet.CopyRow(TemplateSheet, RowTotalSummaryTemplate, currentRow);
 
             row.Cells[ColumnIndex].SetCellValue(ViewResources.Total);
             row.Cells[ColumnCustomerWl].SetCellValue(_liveReportList.Sum(a => a.CustomerWinLoss));
@@ -374,7 +377,7 @@ namespace Fanex.Athena.Excel.Report
             };
 
             // group name
-            IRow row = sheet.CopyRow(TemplateSheet, rowTplIdx++, rowIndex++);
+            var row = sheet.CopyRow(TemplateSheet, rowTplIdx++, rowIndex++);
             row.Cells[ColumnProduct].SetCellValue(groupName);
 
             // header row 1
@@ -384,7 +387,7 @@ namespace Fanex.Athena.Excel.Report
             sheet.MergeCells(rowIndex - 1, ColumnProduct, rowIndex, ColumnProduct);
             sheet.MergeCells(rowIndex - 1, ColumnCustomerWl, rowIndex - 1, ColumnCustomerTotal);
 
-            int colIndex = ColumnTurnover;
+            var colIndex = ColumnTurnover;
             foreach (string item in row1Header)
             {
                 sheet.MergeCells(rowIndex - 1, colIndex, rowIndex, colIndex);

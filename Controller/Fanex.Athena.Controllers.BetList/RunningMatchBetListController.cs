@@ -10,7 +10,6 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System.Linq;
     using System.Web.Mvc;
-    using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -26,22 +25,22 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            metaModel = CreateDefaultMetaModel(metaModel);
+            var model = CreateDefaultMetaModel(metaModel);
 
-            if (metaModel.IsExportExcel)
+            if (model.IsExportExcel)
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
+                if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
                 {
-                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                    return Excel(metaModel);
+                    model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
+                    return Excel(model);
                 }
 
                 return EmptyExcel();
             }
 
-            return View("~/Views/BetList/RunningBetListOfMatch/Main.cshtml", metaModel);
+            return View("~/Views/BetList/RunningBetListOfMatch/Main.cshtml", model);
         }
 
         /// <summary>
@@ -51,7 +50,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// <returns>The action result.</returns>
         private ActionResult Excel(BetListMetaModel metaModel)
         {
-            string uspKey = IsRacing(metaModel.BetType)
+            var uspKey = IsRacing(metaModel.BetType)
                                               ? "Lrf_BetList_SelAllByDateHR"
                                               : "Lrf_BetList_SelRunningByBettypeMatch";
             var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);

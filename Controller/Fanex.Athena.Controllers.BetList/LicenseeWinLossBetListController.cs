@@ -27,20 +27,20 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            metaModel = CreateDefaultMetaModel(metaModel);
+            var model = CreateDefaultMetaModel(metaModel);
 
-            if (!metaModel.IsExportExcel)
+            if (!model.IsExportExcel)
             {
-                return this.View("~/Views/BetList/LicenseeWl/Main.cshtml", metaModel);
+                return View("~/Views/BetList/LicenseeWl/Main.cshtml", model);
             }
 
-            if (IsValidCurrency(metaModel.CurrencyId))
+            if (IsValidCurrency(model.CurrencyId))
             {
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                return this.Excel(metaModel);
+                model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
+                return Excel(model);
             }
 
-            return this.EmptyExcel();
+            return EmptyExcel();
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Fanex.Athena.Controllers.BetList
         private ActionResult Excel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_SelWinloss_Mem";
-            var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
 
             var showingOption = new ShowingOption
             {

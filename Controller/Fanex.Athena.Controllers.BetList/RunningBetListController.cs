@@ -9,7 +9,6 @@ namespace Fanex.Athena.Controllers.BetList
     #region Using
 
     using System.Web.Mvc;
-    using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -66,28 +65,28 @@ namespace Fanex.Athena.Controllers.BetList
         private ActionResult ProcessRequest(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
-            metaModel = CreateDefaultMetaModel(metaModel);
+            var viewParam = CreateDefaultMetaModel(metaModel);
             var currencies = userSession.CurrencyList;
 
-            if (metaModel.IsExportExcel)
+            if (viewParam.IsExportExcel)
             {
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(metaModel.CurrencyId))
+                if (viewParam.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(viewParam.CurrencyId))
                 {
-                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                    return Excel(metaModel);
+                    viewParam.AgentListXml = SessionService.GenerateAgentListXml(viewParam.CurrencyId);
+                    return Excel(viewParam);
                 }
 
                 return EmptyExcel();
             }
 
-            SetConvetedUSDCurrencyName(metaModel);
+            SetConvetedUSDCurrencyName(viewParam);
 
             var model = new BetListBaseViewModel
             {
                 ShowEmptyContent = true,
-                Param = metaModel,
+                Param = viewParam,
                 CurrencyList = currencies,
-                ProductAccess = this.ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
+                ProductAccess = ProductService.GetProductAccess(viewParam.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 
@@ -96,7 +95,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         private ActionResult Excel(BetListMetaModel metaModel)
         {
-            var ticketResult = this.BetListService.GetBetListData(metaModel, "Lrf_BetList_SelRunningByBettype");
+            var ticketResult = BetListService.GetBetListData(metaModel, "Lrf_BetList_SelRunningByBettype");
 
             var showingOption = new ShowingOption
             {

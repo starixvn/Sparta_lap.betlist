@@ -28,21 +28,21 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            metaModel = CreateDefaultMetaModel(metaModel);
+            var model = CreateDefaultMetaModel(metaModel);
 
-            if (metaModel.IsExportExcel)
+            if (model.IsExportExcel)
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
+                if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
                 {
-                    return Excel(metaModel);
+                    return Excel(model);
                 }
 
                 return EmptyExcel();
             }
 
-            return View("~/Views/BetList/CustomerWl/Main.cshtml", metaModel);
+            return View("~/Views/BetList/CustomerWl/Main.cshtml", model);
         }
 
         private ActionResult Excel(BetListMetaModel metaModel)

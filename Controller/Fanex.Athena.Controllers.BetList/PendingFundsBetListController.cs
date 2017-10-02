@@ -31,25 +31,25 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            metaModel = CreateDefaultMetaModel(metaModel);
-            metaModel.FromDate = DateTime.Today.AddYears(-10);
-            metaModel.ToDate = DateTime.Today.AddYears(10);
+            var model = CreateDefaultMetaModel(metaModel);
+            model.FromDate = DateTime.Today.AddYears(-10);
+            model.ToDate = DateTime.Today.AddYears(10);
 
-            if (metaModel.IsExportExcel)
+            if (model.IsExportExcel)
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
-                if (metaModel.CurrencyId != BaseCurrencyType.All && !currencyList.ContainsKey(metaModel.CurrencyId))
+                if (model.CurrencyId != BaseCurrencyType.All && !currencyList.ContainsKey(model.CurrencyId))
                 {
-                    return this.EmptyExcel();
+                    return EmptyExcel();
                 }
 
                 const string UspKey = "Lrf_BetList_SelRunningByDate_Mem";
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                return this.Excel(metaModel, UspKey);
+                model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
+                return Excel(model, UspKey);
             }
 
-            return View("~/Views/BetList/PendingFunds/Main.cshtml", metaModel);
+            return View("~/Views/BetList/PendingFunds/Main.cshtml", model);
         }
 
         private ActionResult Excel(BetListMetaModel metaModel, string uspKey)

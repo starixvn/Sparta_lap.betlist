@@ -61,10 +61,11 @@ namespace Fanex.Athena.DataAccess.Report
             var data = new List<WeeklyLiveMatch>();
             totalData = new int[numberOfWeeks];
             var sortingWeekIndex = -1;
-            if (!string.IsNullOrEmpty(sortColumn) && sortColumn.StartsWith("Week", System.StringComparison.OrdinalIgnoreCase))
+            var sortColumnName = sortColumn;
+            if (!string.IsNullOrEmpty(sortColumn) && sortColumn.StartsWith("Week", StringComparison.OrdinalIgnoreCase))
             {
                 sortingWeekIndex = int.Parse(sortColumn.Replace("Week", string.Empty));
-                sortColumn = CustomSortingWeekColumn;
+                sortColumnName = CustomSortingWeekColumn;
             }
 
             while (reader.Read())
@@ -91,9 +92,9 @@ namespace Fanex.Athena.DataAccess.Report
                 data.Add(item);
             }
 
-            if (!string.IsNullOrEmpty(sortColumn) && !string.IsNullOrEmpty(sortDirection))
+            if (!string.IsNullOrEmpty(sortColumnName) && !string.IsNullOrEmpty(sortDirection))
             {
-                data = SortData(data, sortColumn, sortDirection).ToList();
+                data = SortData(data, sortColumnName, sortDirection).ToList();
             }
 
             AssignPropertyIndex(data);

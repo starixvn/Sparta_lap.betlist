@@ -25,17 +25,17 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Detail(BetListMetaModel metaModel)
         {
-            metaModel = CreateDefaultMetaModel(metaModel);
+            var model = CreateDefaultMetaModel(metaModel);
 
-            if (!metaModel.IsExportExcel)
+            if (!model.IsExportExcel)
             {
-                ViewBag.BetListTitle = GetTitle(metaModel.Date);
-                return this.View("~/Views/BetList/AGCasinoDetail/Main.cshtml", metaModel);
+                ViewBag.BetListTitle = GetTitle(model.Date);
+                return this.View("~/Views/BetList/AGCasinoDetail/Main.cshtml", model);
             }
 
-            if (IsValidCurrency(metaModel.CurrencyId))
+            if (IsValidCurrency(model.CurrencyId))
             {
-                return ExcelDetail(metaModel);
+                return ExcelDetail(model);
             }
 
             return EmptyExcel();

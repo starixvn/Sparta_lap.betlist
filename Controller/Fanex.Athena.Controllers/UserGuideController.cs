@@ -117,31 +117,33 @@ namespace Fanex.Athena.Controllers
         private static string RemoveProductSection(string content, IEnumerable<Product> products, int productId, string productCode)
         {
             var openingTag = "{" + productCode + "-productlist-section}";
-            if (content.Contains(openingTag))
+
+            var customContent = content;
+            if (customContent.Contains(openingTag))
             {
                 if (products.Any(x => x.ProductID == productId))
                 {
                     var closingTag = "{/" + productCode + "-productlist-section}";
-                    content = content.Replace(openingTag, string.Empty);
-                    content = content.Replace(closingTag, string.Empty);
+                    customContent = customContent.Replace(openingTag, string.Empty);
+                    customContent = customContent.Replace(closingTag, string.Empty);
                 }
                 else
                 {
                     var pattern = @"\{" + productCode + @"-productlist-section\}.*\{/" + productCode + @"-productlist-section\}";
-                    content = new Regex(pattern).Replace(content, string.Empty);
+                    customContent = new Regex(pattern).Replace(customContent, string.Empty);
                 }
             }
 
-            return content;
+            return customContent;
         }
 
         private string AddSpecificProductList(string content)
         {
             var products = _productService.GetProductList(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
-            content = AddCasinoProducts(content, products);
-            content = RemoveProductSection(content, products, ProductTypes.VirtualSports, "VS");
-            content = RemoveProductSection(content, products, ProductTypes.VirtualSports2, "VS2");
-            return content;
+            var customcontent = AddCasinoProducts(content, products);
+            customcontent = RemoveProductSection(customcontent, products, ProductTypes.VirtualSports, "VS");
+            customcontent = RemoveProductSection(customcontent, products, ProductTypes.VirtualSports2, "VS2");
+            return customcontent;
         }
     }
 }

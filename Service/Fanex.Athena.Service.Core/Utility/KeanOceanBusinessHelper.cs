@@ -14,15 +14,15 @@
     {
         public static IEnumerable<CurrencyUser> ModifyCurrenciesForKeenOcean(IEnumerable<CurrencyUser> currencies)
         {
-            currencies = currencies.Where(x => x.CurrencyId != CurrencyType.Cny).ToList();
+            var currencyList = currencies.Where(x => x.CurrencyId != CurrencyType.Cny).ToList();
 
-            var currency = currencies.FirstOrDefault(x => x.CurrencyId == CurrencyType.Hkd && !x.CurrencyName.Equals("CNY"));
+            var currency = currencyList.FirstOrDefault(x => x.CurrencyId == CurrencyType.Hkd && !x.CurrencyName.Equals("CNY"));
             if (currency != null)
             {
                 currency.CurrencyName = "CNY";
             }
 
-            return currencies;
+            return currencyList;
         }
 
         public static void KeepHKDCurrencyName(IEnumerable<CurrencyUser> currencies)
