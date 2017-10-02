@@ -46,7 +46,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         private ActionResult Excel(BetListMetaModel metaModel)
         {
-            const string uspKey = "Lrf_BetList_SelRunningByMultipleBettypeMatch";
+            const string UspKey = "Lrf_BetList_SelRunningByMultipleBettypeMatch";
             var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 
             var showingOption = new ShowingOption

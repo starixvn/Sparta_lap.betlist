@@ -265,13 +265,7 @@
                     expect(specialLevelColumn.formatter(cellValue, null, rowObject)).toEqual(expectedFormat);
                 });
 
-                it("returns correct format form  with 'None' text if cellValue is 0 and licensee is fake", function () {
-                    var cellValue = 0;
-                    var rowObject = {
-                        CustId: "custId"
-                    };
-                    var expectedFormat = "<span style='display: block' class='level-0'>None</span>";
-
+                it("should be hidden if licensee is fake", function () {
                     spyOn(Site, "isFakeLicensee").and.returnValue(true);
 
                     CustomerListOption.getGridOption({}, false);
@@ -279,24 +273,7 @@
                     var specialLevelColumnIndex = 7;
                     var specialLevelColumn = CustomerListOption.gridOption.colModel[specialLevelColumnIndex];
 
-                    expect(specialLevelColumn.formatter(cellValue, null, rowObject)).toEqual(expectedFormat);
-                });
-
-                it("returns correct format form  with 'cellValue' text if cellValue is not 0 and licensee is fake", function () {
-                    var cellValue = 1;
-                    var rowObject = {
-                        CustId: "custId"
-                    };
-                    var expectedFormat = "<span style='display: block' class='level-1'>1</span>";;
-
-                    spyOn(Site, "isFakeLicensee").and.returnValue(true);
-
-                    CustomerListOption.getGridOption({}, false);
-
-                    var specialLevelColumnIndex = 7;
-                    var specialLevelColumn = CustomerListOption.gridOption.colModel[specialLevelColumnIndex];
-
-                    expect(specialLevelColumn.formatter(cellValue, null, rowObject)).toEqual(expectedFormat);
+                    expect(specialLevelColumn.hidden).toEqual(true);
                 });
             });
 
@@ -343,12 +320,7 @@
                     expect(oddsGroupColumn.formatter(cellValue, null, rowObject)).toEqual(expectedFormat);
                 });
 
-                it("returns correct format form  with 'None' text if cellValue is 0 and licensee is fake", function () {
-                    var cellValue = 0;
-                    var rowObject = {
-                        CustId: "custId",
-                        BAStatus: true
-                    };
+                it("should be hidden if licensee is fake", function () {
                     var expectedFormat = "<span style='display: block' class='group-0'>None</span>";
 
                     spyOn(Site, "isFakeLicensee").and.returnValue(true);
@@ -358,25 +330,7 @@
                     var oddsGroupColumnIndex = 8;
                     var oddsGroupColumn = CustomerListOption.gridOption.colModel[oddsGroupColumnIndex];
 
-                    expect(oddsGroupColumn.formatter(cellValue, null, rowObject)).toEqual(expectedFormat);
-                });
-
-                it("returns correct format form  with 'cellValue' text if cellValue is not 0 and licensee is fake", function () {
-                    var cellValue = 1;
-                    var rowObject = {
-                        CustId: "custId",
-                        BAStatus: false
-                    };
-                    var expectedFormat = "<span style='display: block' class='group-1'>1</span>";
-
-                    spyOn(Site, "isFakeLicensee").and.returnValue(true);
-
-                    CustomerListOption.getGridOption({}, false);
-
-                    var oddsGroupColumnIndex = 8;
-                    var oddsGroupColumn = CustomerListOption.gridOption.colModel[oddsGroupColumnIndex];
-
-                    expect(oddsGroupColumn.formatter(cellValue, null, rowObject)).toEqual(expectedFormat);
+                    expect(oddsGroupColumn.hidden).toEqual(true);
                 });
             });
 
