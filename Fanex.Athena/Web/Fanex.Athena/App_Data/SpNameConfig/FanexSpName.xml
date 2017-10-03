@@ -34,7 +34,7 @@
       <Mapping DataField="EnableBA" ObjectProperty="IsEnableBA"/>
     </Setting>
     <Setting Key="Lrf_SyncInternalUser" SpName="Lrf_SyncInternalUser" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="LRF_LicenseeSourcedSel" SpName="LRF_LicenseeSourcedSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="LRF_LicenseeSourcedSel" SpName="LRF_LicenseeSourcedSel_xtest" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
   </Function>
 
   <Function Name="Authorization">
