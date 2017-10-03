@@ -13,6 +13,7 @@ namespace Fanex.Athena.DataAccess.BetList
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.BetList.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
@@ -180,22 +181,7 @@ namespace Fanex.Athena.DataAccess.BetList
                             ticketResult.TicketDataList.AddRange(ReadLrfReferneceTicket(reader, baseCurrency).ToList());
                         }
 
-                        if (!metaModel.IsServerPaging && !string.IsNullOrWhiteSpace(metaModel.SortBy))
-                        {
-                            // Because Winloss and Commission are shared the same column (in grid)
-                            // so we need to sort by the total of two values which is stored in WinlossComm property.
-                            if (metaModel.SortBy.Equals("WinLoss", StringComparison.OrdinalIgnoreCase))
-                            {
-                                metaModel.SortBy = "WinLossComm";
-                            }
-
-                            if (metaModel.SortBy.Equals("nickname", StringComparison.OrdinalIgnoreCase))
-                            {
-                                metaModel.SortBy = "ExternalId";
-                            }
-
-                            ticketResult.MainTicketList.Sort(metaModel.SortBy, metaModel.SortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
-                        }
+                        SortData(metaModel, ticketResult.MainTicketList);
                     }
 
                     var outSqlParams = db.GetOuputParams();
@@ -320,6 +306,26 @@ namespace Fanex.Athena.DataAccess.BetList
                 };
 
                 yield return ticket;
+            }
+        }
+
+        private static void SortData(BetListMetaModel metaModel, SortableList<LrfTicket> ticketList)
+        {
+            if (!metaModel.IsServerPaging && !string.IsNullOrWhiteSpace(metaModel.SortBy))
+            {
+                // Because Winloss and Commission are shared the same column (in grid)
+                // so we need to sort by the total of two values which is stored in WinlossComm property.
+                if (metaModel.SortBy.Equals("WinLoss", StringComparison.OrdinalIgnoreCase))
+                {
+                    metaModel.SortBy = "WinLossComm";
+                }
+
+                if (metaModel.SortBy.Equals("nickname", StringComparison.OrdinalIgnoreCase))
+                {
+                    metaModel.SortBy = "ExternalId";
+                }
+
+                ticketList.Sort(metaModel.SortBy, metaModel.SortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
             }
         }
     }
