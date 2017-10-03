@@ -32,10 +32,8 @@
                     {
                         ID = x,
                         Name = x.ToString(),
-                        Checked = false
+                        Checked = true
                     }).ToList();
-
-                    subsidiaryList[0].Checked = true;
 
                     return subsidiaryList;
                 }
