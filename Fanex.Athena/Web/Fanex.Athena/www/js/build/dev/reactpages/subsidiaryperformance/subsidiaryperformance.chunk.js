@@ -20905,7 +20905,8 @@ var createTableSection = function createTableSection(extendedContainerProps, ext
             get: function get() {
                 var minWidth = this.props.minWidth;
 
-                var tableWidth = Math.max(this.containerWidth, minWidth) - _constants.SCROLLBAR_WIDTH;
+                var maxWidth = minWidth ? Math.max(this.containerWidth, minWidth) : this.containerWidth;
+                var tableWidth = maxWidth - _constants.SCROLLBAR_WIDTH;
 
                 return {
                     width: tableWidth
@@ -20919,7 +20920,8 @@ var createTableSection = function createTableSection(extendedContainerProps, ext
         width: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
         maxWidth: _propTypes2.default.number,
         minWidth: _propTypes2.default.number,
-        autoWidth: _propTypes2.default.bool
+        autoWidth: _propTypes2.default.bool,
+        maxHeight: _propTypes2.default.number
     }, _class.defaultProps = {
         tableClass: "table",
         width: _constants.MAX_WIDTH,
