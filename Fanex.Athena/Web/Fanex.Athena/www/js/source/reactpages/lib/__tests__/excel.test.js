@@ -6,6 +6,10 @@ jest.mock('xlsx-style');
 const originalDownloadFunction = Excel.download;
 
 describe('Excel ', () => {
+    afterAll(() => {
+        jest.resetAllMocks();
+    })
+
     describe('export', () => {
         const worksheetContent = "ws content";
         const worksheet = {};
@@ -19,6 +23,7 @@ describe('Excel ', () => {
         afterAll(() => {
             XLSX.write.mockReset();
             Excel.download.mockReset();
+            Excel.download = originalDownloadFunction;
         })
 
         it('XLSX.write should be called with correct parameter', () => {
@@ -56,5 +61,98 @@ describe('Excel ', () => {
         const result = Excel.sheetToArrayBuffer(sheetContent);
 
         expect(result).toEqual(buffer);
+    })
+
+    describe('download', () => {
+        const originalSheetToArrayBufferFunc = Excel.sheetToArrayBuffer;
+        const originalCreateObjectUrlFunc = window.URL.createObjectURL;
+        const originalDocumentBody = document.body;
+
+        const buffer = new ArrayBuffer(1);
+        const workbookOut = "Workbook Content",
+            fileName = "fileName";
+        const expectedFileNameDownload = `${fileName}.xlsx`;
+
+        const expectedBlob = new Blob([buffer], {
+            type: "application/octet-stream"
+        });
+
+        beforeAll(() => {
+            Excel.sheetToArrayBuffer = jest.fn().mockReturnValue(buffer);
+        })
+
+        afterAll(() => {
+            Excel.sheetToArrayBuffer = originalSheetToArrayBufferFunc;
+        })
+
+        afterEach(() => {
+            if (global.navigator.msSaveOrOpenBlob) {
+                global.navigator.msSaveOrOpenBlob = undefined;
+            }
+            window.URL.createObjectURL = originalCreateObjectUrlFunc;
+            document.body = originalDocumentBody;
+        })
+
+        it('Using IE browser - navigator.msSaveOrOpenBlob function should be called with correct parameter', () => {
+            const msSaveMock = jest.fn();
+            global.navigator.msSaveOrOpenBlob = msSaveMock;
+
+            Excel.download(workbookOut, fileName);
+
+            expect(msSaveMock).toHaveBeenCalledWith(expectedBlob, expectedFileNameDownload);
+        })
+
+        describe('Using browser that not IE', () => {
+            it('window.URL.createObjectURL should be called with correct parameter', () => {
+                window.URL.createObjectURL = jest.fn();
+
+                Excel.download(workbookOut, fileName);
+
+                expect(window.URL.createObjectURL).toHaveBeenCalledWith(expectedBlob);
+            })
+
+            it('created "a" tag should has correct attributes', () => {
+                let atag;
+                const expectedHrefContent = "hrefContent";
+                window.URL.createObjectURL = jest.fn(() => expectedHrefContent);
+                document.body.appendChild = jest.fn().mockImplementationOnce((element) => {
+                    atag = element;
+                });
+                document.body.removeChild = jest.fn();
+
+                Excel.download(workbookOut, fileName);
+
+                expect(atag.href).toBe(expectedHrefContent);
+                expect(atag.download).toBe(expectedFileNameDownload);
+            })
+
+            it('"a" tag should fire click event', () => {
+                let atag;
+                window.URL.createObjectURL = jest.fn();
+                document.body.appendChild = jest.fn().mockImplementationOnce((element) => {
+                    element.click = jest.fn();
+                    atag = element;
+                });
+                document.body.removeChild = jest.fn();
+
+                Excel.download(workbookOut, fileName);
+
+                expect(atag.click).toHaveBeenCalled();
+            })
+
+            it('appendChild and removeChild function of document.body should be called with correct parameter', () => {
+                let atag;
+                window.URL.createObjectURL = jest.fn();
+                document.body.appendChild = jest.fn().mockImplementationOnce((element) => {
+                    atag = element;
+                });
+                document.body.removeChild = jest.fn();
+
+                Excel.download(workbookOut, fileName);
+
+                expect(document.body.appendChild).toHaveBeenCalledWith(atag);
+                expect(document.body.removeChild).toHaveBeenCalledWith(atag);
+            })
+        })
     })
 })
