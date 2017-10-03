@@ -14,8 +14,9 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report.Interfaces;
+    using Model.Core.ResultModel;
 
-    public class CustomerTurnoverService : ICustTurnoverService
+    public class CustomerTurnoverService : ICustomerTurnoverService
     {
         private readonly ICustTurnoverDataAccess _custTurnoverDataAccess;
 
@@ -24,21 +25,26 @@ namespace Fanex.Athena.Service.Report
             _custTurnoverDataAccess = new CustomerTurnoverDataAccess();
         }
 
-        public IEnumerable<CustTurnover> GetDataList(CustomerTurnoverMetaModel metaModel, string languageCode, out CustTurnover total, out int totalRows)
+        public ReportResultModel<CustTurnover> GetDataList(CustomerTurnoverMetaModel metaModel, string languageCode)
         {
-            total = new CustTurnover();
-            totalRows = 0;
-            var datalist = metaModel.IsValid
-                       ? _custTurnoverDataAccess.GetDataList(metaModel, languageCode, out total, out totalRows)
-                       : new List<CustTurnover>();
-
-            if (datalist.Count > 0)
+            if (!metaModel.IsValid)
             {
-                var rowIndex = (metaModel.PageIndex - 1) * metaModel.PageSize;
-                return RestructureData(datalist, rowIndex);
+                return new ReportResultModel<CustTurnover>
+                {
+                    DataList = new List<CustTurnover>(),
+                    TotalData = new CustTurnover()
+                };
             }
 
-            return datalist;
+            var result = _custTurnoverDataAccess.GetDataList(metaModel, languageCode);
+
+            if (result.DataList.Any())
+            {
+                var rowIndex = (metaModel.PageIndex - 1) * metaModel.PageSize;
+                result.DataList = RestructureData(result.DataList, rowIndex);
+            }
+
+            return result;
         }
 
         [SuppressMessage(

@@ -213,7 +213,7 @@
     <Compile Include="Interfaces\IAgCasinoWinLossService.cs" />
     <Compile Include="Interfaces\IThirdPartyWinLossService.cs" />
     <Compile Include="Result\Interfaces\IResultService.cs" />
-    <Compile Include="Interfaces\ICustTurnoverService.cs" />
+    <Compile Include="Interfaces\ICustomerTurnoverService.cs" />
     <Compile Include="Interfaces\IDailyRacingWinLossService.cs" />
     <Compile Include="Interfaces\ILiveReportService.cs" />
     <Compile Include="Interfaces\IMatchWinLossService.cs" />

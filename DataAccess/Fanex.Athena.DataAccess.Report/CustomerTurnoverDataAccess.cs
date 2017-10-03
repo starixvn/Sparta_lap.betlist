@@ -19,6 +19,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.Helper;
+    using Model.Core.ResultModel;
 
     public class CustomerTurnoverDataAccess : BaseDataAccess, ICustTurnoverDataAccess
     {
@@ -34,15 +35,11 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public IList<CustTurnover> GetDataList(CustomerTurnoverMetaModel metaModel, string languageCode, out CustTurnover total, out int totalRow)
+        public ReportResultModel<CustTurnover> GetDataList(CustomerTurnoverMetaModel metaModel, string languageCode)
         {
-            total = new CustTurnover();
-            totalRow = 0;
-
             using (var db = this.GetObjectDb("Lrf_Rpt_CustomerTurnOver"))
             {
                 AddParameters(metaModel, languageCode, db);
-
                 using (var reader = db.ExecuteReader())
                 {
                     var result = new List<CustTurnover>();
@@ -67,18 +64,25 @@ namespace Fanex.Athena.DataAccess.Report
                         });
                     }
 
+                    var totalData = new CustTurnover();
+                    int totalRows = 0;
                     if (reader.NextResult() && reader.Read())
                     {
-                        total.TotalTransactions = reader.ToInt("SumBetCount");
-                        total.Turnover = reader.ToDecimal("SumTurnover");
-                        total.TotalTurnover = reader.ToDecimal("SumTurnover");
-                        total.CustomerWinLoss = reader.ToDecimal("SumWinlost");
-                        total.CustomerComm = reader.ToDecimal("SumComm");
-                        total.EffectiveBettingValue = reader.ToDecimal("SumBetEffective");
-                        totalRow = reader.ToInt("TotalRows");
+                        totalData.TotalTransactions = reader.ToInt("SumBetCount");
+                        totalData.Turnover = reader.ToDecimal("SumTurnover");
+                        totalData.TotalTurnover = reader.ToDecimal("SumTurnover");
+                        totalData.CustomerWinLoss = reader.ToDecimal("SumWinlost");
+                        totalData.CustomerComm = reader.ToDecimal("SumComm");
+                        totalData.EffectiveBettingValue = reader.ToDecimal("SumBetEffective");
+                        totalRows = reader.ToInt("TotalRows");
                     }
 
-                    return result;
+                    return new ReportResultModel<CustTurnover>
+                    {
+                        DataList = result,
+                        TotalData = totalData,
+                        TotalRows = totalRows
+                    };
                 }
             }
         }

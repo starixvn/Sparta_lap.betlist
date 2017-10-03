@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
-    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
@@ -21,17 +20,22 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
+    using Model.Core.ResultModel;
     using Newtonsoft.Json;
     using Resources;
+    using Service.Report.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportCustomerTurnover)]
     public class CustomerTurnoverReportController : ReportBaseController
     {
         private readonly ISportTypeDataAccess _sportTypeDataAccess;
 
+        private readonly ICustomerTurnoverService _customerTurnoverService;
+
         public CustomerTurnoverReportController()
         {
             _sportTypeDataAccess = new SportTypeDataAccess();
+            _customerTurnoverService = new CustomerTurnoverService();
         }
 
         [HttpGet]
@@ -97,13 +101,13 @@ namespace Fanex.Athena.Controllers.Report
             var currencyName = userSession.CurrencyList
                 .Where(i => i.Key == metaModel.CurrencyId).Select(i => i.Value).SingleOrDefault();
 
-            CustTurnover totalData;
-            var totalRow = 0;
-            var data = GetData(metaModel, out totalData, out totalRow);
+            
+            var result = _customerTurnoverService.GetDataList(metaModel, userSession.Language);
+            
             var usernameExcelTitle = string.IsNullOrEmpty(metaModel.Username) ?
                 string.Empty
                 : "- " + ViewResources.Username + ": " + metaModel.Username;
-            var excel = new CustomerTurnoverExcel(templatePath, showingOption, data, totalData, formatDateTime)
+            var excel = new CustomerTurnoverExcel(templatePath, showingOption, result.DataList, result.TotalData, formatDateTime)
             {
                 ReportTitle = string.Format(
                 "{0}, {1} --> {2} - {3}: {4} - {5}: {6} {7}",
@@ -118,15 +122,6 @@ namespace Fanex.Athena.Controllers.Report
             };
             excel.Export();
             return new ExcelResult(excel.Workbook, FileName);
-        }
-
-        private IEnumerable<CustTurnover> GetData(CustomerTurnoverMetaModel metalModel, out CustTurnover totalData, out int totalRow)
-        {
-            totalData = new CustTurnover();
-            totalRow = 0;
-            var custTurnoverService = new CustomerTurnoverService();
-
-            return custTurnoverService.GetDataList(metalModel, SessionService.UserSession.Language, out totalData, out totalRow);
         }
     }
 }
