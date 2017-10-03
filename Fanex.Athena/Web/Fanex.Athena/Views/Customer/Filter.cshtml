@@ -3,7 +3,13 @@
 @using Fanex.Athena.Model.Customer.MetaModel;
 @model CustomerListViewModel
 @{
-    var showOddsGroupFilter = Model.Param.OddsGroups != null && !Model.IsFakeLicensee;
+    var showOption = new
+    {
+        showOddsGroup = Model.Param.OddsGroups != null && !Model.IsFakeLicensee,
+        showSpecialLevel = !Model.IsFakeLicensee,
+        showGroup = Model.IsAllowedCustomerCommission && !Model.IsFakeLicensee,
+        showUserGuide = !Model.IsFakeLicensee
+    };
 }
 <div class="grid_26 content-filter">
     @using (Html.BeginForm("CustomerList", "Customer", FormMethod.Post, new { @id = "CustomerForm" }))
@@ -30,7 +36,7 @@
             <input type="text" id="txtUsername" class="text_f1" style="width: 160px" />
         </div>
 
-        if (showOddsGroupFilter)
+        if (showOption.showOddsGroup)
         {
             <div class="grid_2 filter-label ">
                 <label>@ViewResources.OddsGroup</label>
@@ -40,7 +46,7 @@
                 <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" id="odds-group-multiselect-null" class="hide" />
             </div>
         }
-        if (!Model.IsFakeLicensee)
+        if (showOption.showUserGuide)
         {
             <div class="grid_2 note-group">
                 <div>
@@ -70,7 +76,7 @@
             </div>
         }
 
-        if (!Model.IsFakeLicensee)
+        if (showOption.showSpecialLevel)
         {
             <div class="grid_2 filter-label @(Model.Param.IsShowStatusDropdown ? string.Empty : "new-line")">
                 <label>@ViewResources.SpecialLevel</label>
@@ -100,9 +106,9 @@
         }
 
         var oldGroup = new GroupCommMetaModel();
-        if (Model.IsAllowedCustomerCommission)
+        if (showOption.showGroup)
         {
-            <div class="grid_2 filter-label @(Model.IsFakeLicensee ? "new-line" : string.Empty)">
+            <div class="grid_2 filter-label">
                 <label>@ViewResources.Group</label>
             </div>
             <div class="grid_3 filter-input">
@@ -124,7 +130,7 @@
                     }
                 </select>
             </div>
-                        }
+        }
         <div class="grid_2 filter-label">
             <label>@ViewResources.Show/@ViewResources.hide</label>
         </div>
@@ -165,7 +171,7 @@
                         }
 </div>
 @Html.Hidden("AllowedGridColumns", Model.Param.GridColumns.ToJson())
-@if (showOddsGroupFilter)
+@if (showOption.showOddsGroup)
 {
     @Html.Hidden("OddsGroups", Model.Param.OddsGroups.ToJson())
 }
