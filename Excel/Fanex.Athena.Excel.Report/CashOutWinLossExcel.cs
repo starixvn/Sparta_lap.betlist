@@ -148,10 +148,8 @@ namespace Fanex.Athena.Excel.Report
             {
                 var item = _dataList[index];
 
-                // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
 
-                // Report Date
                 var reportDateString = _metaModel.ReportBy == ReportByType.Monthly
                                           ? item.Date.ToString("MM/yyyy")
                                           : item.Date.ToShortDateString();

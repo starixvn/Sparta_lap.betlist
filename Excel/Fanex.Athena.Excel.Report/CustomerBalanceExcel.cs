@@ -17,9 +17,6 @@ namespace Fanex.Athena.Excel.Report
     using NPOI.SS.UserModel;
     using Resources;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
     public class CustomerBalanceExcel : ReportBase
     {
         private const int ColumnAdjustment = 7;
@@ -49,7 +46,7 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly IEnumerable<CustBalance> _exportData;
         private readonly CustomerBalanceMetaModel _model;
-        private readonly CustBalance _totalList;
+        private readonly CustBalance _totalData;
 
         private readonly ConvertingOption _convertingOption;
 
@@ -57,7 +54,7 @@ namespace Fanex.Athena.Excel.Report
                                     string templatePath,
                                     CustomerBalanceMetaModel model,
                                     IEnumerable<CustBalance> exportData,
-                                    CustBalance totalList,
+                                    CustBalance totalData,
                                     ShowingOption showingOption,
                                     ConvertingOption convertingOption)
             : base(templatePath, showingOption)
@@ -65,7 +62,7 @@ namespace Fanex.Athena.Excel.Report
             _convertingOption = convertingOption;
             _model = model;
             _exportData = exportData;
-            _totalList = totalList;
+            _totalData = totalData;
             HeaderTextList = new List<string>
             {
                 "#",
@@ -229,23 +226,23 @@ namespace Fanex.Athena.Excel.Report
             IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, rowTotal);
 
             sheet.MergeCells(rowTotal, ColumnIndex, rowTotal, ColumnSystemId);
-            row.Cells[ColumnOpeningBalance].SetCellValue(_totalList.OpeningBalance);
-            row.Cells[ColumnDeposit].SetCellValue(_totalList.Deposit);
-            row.Cells[ColumnWithdrawal].SetCellValue(_totalList.Withdrawal);
-            row.Cells[ColumnBonus].SetCellValue(_totalList.Bonus);
-            row.Cells[ColumnAdjustment].SetCellValue(_totalList.Adjustment);
-            row.Cells[ColumnTurnOver].SetCellValue(_totalList.Turnover);
-            row.Cells[ColumnDrawGame].SetCellValue(_totalList.DrawGame);
-            row.Cells[ColumnNetTurnOver].SetCellValue(_totalList.NetTurnover);
-            row.Cells[ColumnPendingFunds].SetCellValue(_totalList.PendingFunds);
-            row.Cells[ColumnCustomerWinLoss].SetCellValue(_totalList.WinLoss);
-            row.Cells[ColumnCustomerComm].SetCellValue(_totalList.PlayerComm);
-            row.Cells[ColumnCustomerTotal].SetCellValue(_totalList.WinLoss + _totalList.PlayerComm);
-            row.Cells[ColumnClosingBalance].SetCellValue(_totalList.ClosingBalance);
-            row.Cells[ColumnAffiliateTransfer].SetCellValue(_totalList.AffiliateTransfer);
-            row.Cells[ColumnTurnoverBa].SetCellValue(_totalList.TurnoverBA);
-            row.Cells[ColumnCommBa].SetCellValue(_totalList.CommBA);
-            row.Cells[ColumnAmountDueToBa].SetCellValue(_totalList.AmountDueToBA);
+            row.Cells[ColumnOpeningBalance].SetCellValue(_totalData.OpeningBalance);
+            row.Cells[ColumnDeposit].SetCellValue(_totalData.Deposit);
+            row.Cells[ColumnWithdrawal].SetCellValue(_totalData.Withdrawal);
+            row.Cells[ColumnBonus].SetCellValue(_totalData.Bonus);
+            row.Cells[ColumnAdjustment].SetCellValue(_totalData.Adjustment);
+            row.Cells[ColumnTurnOver].SetCellValue(_totalData.Turnover);
+            row.Cells[ColumnDrawGame].SetCellValue(_totalData.DrawGame);
+            row.Cells[ColumnNetTurnOver].SetCellValue(_totalData.NetTurnover);
+            row.Cells[ColumnPendingFunds].SetCellValue(_totalData.PendingFunds);
+            row.Cells[ColumnCustomerWinLoss].SetCellValue(_totalData.WinLoss);
+            row.Cells[ColumnCustomerComm].SetCellValue(_totalData.PlayerComm);
+            row.Cells[ColumnCustomerTotal].SetCellValue(_totalData.WinLoss + _totalData.PlayerComm);
+            row.Cells[ColumnClosingBalance].SetCellValue(_totalData.ClosingBalance);
+            row.Cells[ColumnAffiliateTransfer].SetCellValue(_totalData.AffiliateTransfer);
+            row.Cells[ColumnTurnoverBa].SetCellValue(_totalData.TurnoverBA);
+            row.Cells[ColumnCommBa].SetCellValue(_totalData.CommBA);
+            row.Cells[ColumnAmountDueToBa].SetCellValue(_totalData.AmountDueToBA);
         }
     }
 }

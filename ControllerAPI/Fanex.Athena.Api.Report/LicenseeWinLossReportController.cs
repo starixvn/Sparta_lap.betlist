@@ -190,6 +190,11 @@ namespace Fanex.Athena.Api.Report
             licenseeWinLoss.TurnOverLT = turnOverProducts.GetValueOrDefault(Product.LT, 0);
         }
 
+        private static bool IsProductVisible(IEnumerable<ProductOption> productOptions, ProductAccess productAccess, string productCode)
+        {
+            return productOptions.Any(x => x.Status && x.Code == productCode) && productAccess.IsAllow(productCode);
+        }
+
         private HttpResponseMessage ExportExcel(
             LicenseeWinLossMetaModel metaModel,
             IEnumerable<LicenseeWinLoss> dataList,
@@ -223,11 +228,11 @@ namespace Fanex.Athena.Api.Report
                 MetaModel = metaModel,
                 SummaryTotal = summaryTotal,
                 TotalData = totalData,
-                SBVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.SB) && productAccess.IsAllow(ProductTypes.Sportsbook),
-                BTVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.BT) && productAccess.IsAllow(ProductTypes.BetTrade),
-                COVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.CO) && productAccess.IsAllow(ProductTypes.CashOut),
-                BAVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.BA) && productAccess.IsAllow(ProductTypes.BA),
-                RBVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.RB) && productAccess.IsAllow(ProductTypes.Racing),
+                SBVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.SB),
+                BTVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.BT),
+                COVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.CO),
+                BAVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.BA),
+                RBVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.RB),
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
                 SystemIdVisible = !_appSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId)
             };

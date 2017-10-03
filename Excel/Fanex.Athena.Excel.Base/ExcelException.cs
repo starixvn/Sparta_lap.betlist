@@ -24,7 +24,7 @@ namespace Fanex.Athena.Excel.Base
             _excelFile = excelFile;
         }
 
-        public ExcelException(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected ExcelException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             _excelFile = info.GetString(nameof(_excelFile));
         }
@@ -40,7 +40,7 @@ namespace Fanex.Athena.Excel.Base
             }
         }
 
-        public override void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue(nameof(_excelFile), _excelFile);
             base.GetObjectData(info, context);

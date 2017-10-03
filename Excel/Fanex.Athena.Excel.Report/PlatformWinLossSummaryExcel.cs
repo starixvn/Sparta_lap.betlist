@@ -105,15 +105,9 @@
             int rowIndex = RowParentContentTemplate;
             foreach (var item in _dataList)
             {
-                IRow row = null;
-                if (item.Level == 0)
-                {
-                    row = sheet.CopyRow(TemplateSheet, RowParentContentTemplate, rowIndex);
-                }
-                else
-                {
-                    row = sheet.CopyRow(TemplateSheet, RowChildContentTemplate, rowIndex);
-                }
+                var row = item.Level == 0 ?
+                    sheet.CopyRow(TemplateSheet, RowParentContentTemplate, rowIndex) :
+                    sheet.CopyRow(TemplateSheet, RowChildContentTemplate, rowIndex);
 
                 AssignCellData(row, item);
                 rowIndex++;
