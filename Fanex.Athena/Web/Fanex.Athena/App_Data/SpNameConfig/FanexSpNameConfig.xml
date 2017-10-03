@@ -8,7 +8,6 @@
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_CheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <!--Do not delete this-->
 
-  <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_CustomerSel" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_CustomerSelCheckBelonging" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="LRF_LicenseeSourcedSel" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
