@@ -55,7 +55,7 @@ namespace Fanex.Athena.Controllers
             var content = GetFileContent(resourceName);
 
             content = resourceName.Equals(CustomerListResourceName, System.StringComparison.OrdinalIgnoreCase) ?
-                content.Replace("{rooturl}", Url.Content("~")) : AddSpecificProductList(content);
+                content.Replace("{rooturl}", Url.Content("~")) : AddSpecialProducts(content);
 
             return View("~/Views/UserGuide/Index.cshtml", null, content);
         }
@@ -70,23 +70,13 @@ namespace Fanex.Athena.Controllers
             return File(filePath, System.Net.Mime.MediaTypeNames.Application.Pdf, Path.GetFileName(filePath));
         }
 
-        private static string GetDefaultFilePathIfNotExist(string language, string filePath)
+        protected internal virtual bool FileExists(string filePath)
         {
-            if (!language.Equals(DefaultLanguage, System.StringComparison.OrdinalIgnoreCase) && !System.IO.File.Exists(filePath))
-            {
-                return filePath.Replace(language, DefaultLanguage);
-            }
-
-            return filePath;
+            return System.IO.File.Exists(filePath);
         }
 
-        protected internal virtual string GetFileContent(string resourceName)
+        protected internal virtual string ReadFile(string filePath)
         {
-            var language = SessionService.UserSession.Language;
-
-            var filePath = Server.MapPath(string.Format(@"~/App_Data/UserGuide/{0}/{1}.htm", resourceName, language));
-            filePath = GetDefaultFilePathIfNotExist(language, filePath);
-
             using (var reader = new StreamReader(filePath))
             {
                 return reader.ReadToEnd();
@@ -137,13 +127,33 @@ namespace Fanex.Athena.Controllers
             return customContent;
         }
 
-        private string AddSpecificProductList(string content)
+        private string AddSpecialProducts(string content)
         {
             var products = _productService.GetProductList(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
             var customcontent = AddCasinoProducts(content, products);
             customcontent = RemoveProductSection(customcontent, products, ProductTypes.VirtualSports, "VS");
             customcontent = RemoveProductSection(customcontent, products, ProductTypes.VirtualSports2, "VS2");
             return customcontent;
+        }
+
+        private string GetDefaultFilePathIfNotExist(string language, string filePath)
+        {
+            if (!language.Equals(DefaultLanguage, System.StringComparison.OrdinalIgnoreCase) && !FileExists(filePath))
+            {
+                return filePath.Replace(language, DefaultLanguage);
+            }
+
+            return filePath;
+        }
+
+        private string GetFileContent(string resourceName)
+        {
+            var language = SessionService.UserSession.Language;
+
+            var filePath = Server.MapPath(string.Format(@"~/App_Data/UserGuide/{0}/{1}.htm", resourceName, language));
+            filePath = GetDefaultFilePathIfNotExist(language, filePath);
+
+            return ReadFile(filePath);
         }
     }
 }

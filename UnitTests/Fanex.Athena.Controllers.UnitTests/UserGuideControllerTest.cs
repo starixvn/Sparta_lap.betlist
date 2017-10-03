@@ -10,15 +10,40 @@
     using Service.Core.Common.Interfaces;
 
     [TestFixture]
-    public partial class UserGuideControllerTest : BaseControllerTest
+    public partial class UserGuideControllerTest : BaseControllerHelperTest
     {
+        private const string DefaultLanguage = "en-US";
+
         private IProductService _productService;
 
+        private UserGuideController _controller;
+
         [OneTimeSetUp]
-        public new void FixtureSetUp()
+        public override void FixtureSetUp()
         {
-            FakeBaseControllerDependency();
+            base.FixtureSetUp();
+
+            SetUpDefaultFakeData();
+        }
+
+        [SetUp]
+        public void SetUp()
+        {
             _productService = Substitute.For<IProductService>();
+
+            _controller = Substitute.ForPartsOf<UserGuideController>(LangService, SessionService, AppSettings, _productService);
+
+            _controller.ControllerContext = ControllerContext;
+
+            _controller.Server.MapPath(Arg.Any<string>()).Returns(x => x.ArgAt<string>(0));
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _productService = null;
+
+            _controller.Dispose();
         }
 
         [Test]
@@ -26,18 +51,97 @@
         {
             // Arrange
             const string ResourceName = "CustomerList";
-            using (var controller = CreateController())
+
+            _controller.Url = Url;
+            _controller.FileExists(Arg.Any<string>()).Returns(true);
+            _controller.ReadFile(Arg.Any<string>()).Returns("{rooturl}");
+
+            // Action
+            var result = _controller.Index(ResourceName) as ViewResult;
+
+            // Assert
+            Assert.Multiple(() =>
             {
-                controller.Url = this.Url;
-                controller.GetFileContent(Arg.Any<string>()).Returns("{rooturl}content-here");
-
-                // Action
-                var result = controller.Index(ResourceName) as ViewResult;
-
-                // Assert
                 Assert.That(result.ViewName, Is.EqualTo("~/Views/UserGuide/Index.cshtml"));
-                Assert.That(result.Model, Is.EqualTo("/content-here"));
-            }
+            });
+        }
+
+        [Test]
+        public void Index_FileDoesNotExist_ReturnDefaultFilePath()
+        {
+            // Arrange
+            const string ResourceName = "CustomerList";
+
+            var expectedFilePath = $"~/App_Data/UserGuide/{ResourceName}/en-US.htm";
+            var actualFilePath = string.Empty;
+
+            _controller.Url = Url;
+            _controller.FileExists(Arg.Any<string>()).Returns(false);
+            _controller.ReadFile(Arg.Do<string>(x => actualFilePath = x)).Returns("{rooturl}");
+
+            // Action
+            _controller.Index(ResourceName);
+
+            // Assert
+            Assert.That(actualFilePath, Is.EqualTo(expectedFilePath));
+        }
+
+        [Test]
+        public void Index_FileExist_ReturnFilePathBaseOnSessionInfo()
+        {
+            // Arrange
+            const string ResourceName = "CustomerList";
+
+            var expectedFilePath = $"~/App_Data/UserGuide/{ResourceName}/{DefaultUserSession.Language}.htm";
+            var actualFileName = string.Empty;
+
+            _controller.Url = Url;
+            _controller.FileExists(Arg.Any<string>()).Returns(true);
+            _controller.ReadFile(Arg.Do<string>(x => actualFileName = x)).Returns("{rooturl}");
+
+            // Action
+            _controller.Index(ResourceName);
+
+            // Assert
+            Assert.That(actualFileName, Is.EqualTo(expectedFilePath));
+        }
+
+        [Test]
+        public void Index_UserUsesDefaultLanguage_ReturnDefaultFilePath()
+        {
+            // Arrange
+            const string ResourceName = "CustomerList";
+
+            var expectedFilePath = $"~/App_Data/UserGuide/{ResourceName}/en-US.htm";
+            var actualFileName = string.Empty;
+
+            _controller.Url = Url;
+            _controller.FileExists(Arg.Any<string>()).Returns(false);
+            _controller.ReadFile(Arg.Do<string>(x => actualFileName = x)).Returns("{rooturl}");
+
+            // Action
+            _controller.Index(ResourceName);
+
+            // Assert
+            Assert.That(actualFileName, Is.EqualTo(expectedFilePath));
+        }
+
+        [Test]
+        public void Index_CustomerListReport_ReplaceRootUrl()
+        {
+            // Arrange
+            const string ResourceName = "CustomerList";
+            const string ExpectedContent = "/";
+
+            _controller.Url = Url;
+            _controller.FileExists(Arg.Any<string>()).Returns(false);
+            _controller.ReadFile(Arg.Any<string>()).Returns("{rooturl}");
+
+            // Action
+            var result = _controller.Index(ResourceName) as ViewResult;
+
+            // Assert
+            Assert.That(result.Model, Is.EqualTo(ExpectedContent));
         }
 
         [TestCase]
@@ -45,23 +149,23 @@
         {
             // Arrange
             const string ResourceName = "LicenseeWL";
+            const string Content = "{casino-productlist-section}{casino-productlist} content-here{/casino-productlist-section}";
+            const string ExpectedContent = "AllBet content-here";
+
             _productService.GetProductList(Arg.Any<int>(), Arg.Any<string>()).ReturnsForAnyArgs(new List<Product>
             {
                 new Product { ProductID = ProductTypes.AllBet, ProductName = "AllBet" }
             });
 
-            using (var controller = CreateController())
-            {
-                controller.Url = this.Url;
-                controller.GetFileContent(Arg.Any<string>()).Returns("{casino-productlist-section}{casino-productlist} content-here{/casino-productlist-section}");
+            _controller.Url = Url;
+            _controller.FileExists(Arg.Any<string>()).Returns(false);
+            _controller.ReadFile(Arg.Any<string>()).Returns(Content);
 
-                // Action
-                var result = controller.Index(ResourceName) as ViewResult;
+            // Action
+            var result = _controller.Index(ResourceName) as ViewResult;
 
-                // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/UserGuide/Index.cshtml"));
-                Assert.That(result.Model, Is.EqualTo("AllBet content-here"));
-            }
+            // Assert
+            Assert.That(result.Model, Is.EqualTo(ExpectedContent));
         }
 
         [TestCase]
@@ -69,50 +173,102 @@
         {
             // Arrange
             const string ResourceName = "LicenseeWL";
+            const string Content = "{casino-productlist-section}{casino-productlist} content-here{/casino-productlist-section}ABC";
+            const string ExpectedContent = "ABC";
+
             _productService.GetProductList(Arg.Any<int>(), Arg.Any<string>()).ReturnsForAnyArgs(new List<Product>
             {
                 new Product { ProductID = ProductTypes.Sportsbook, ProductName = "Sportsbook" }
             });
 
-            using (var controller = CreateController())
+            _controller.Url = Url;
+            _controller.FileExists(Arg.Any<string>()).Returns(false);
+            _controller.ReadFile(Arg.Any<string>()).Returns(Content);
+
+            // Action
+            var result = _controller.Index(ResourceName) as ViewResult;
+
+            // Assert
+            Assert.That(result.Model, Is.EqualTo(ExpectedContent));
+        }
+
+        [TestCase]
+        public void Index_ProductListHaveVirtualProduct_ReturnCorrectContent()
+        {
+            // Arrange
+            const string ResourceName = "LicenseeWL";
+            const string Content = "{VS-productlist-section}content VS{/VS-productlist-section}"
+                                   + "{VS2-productlist-section} content VS2{/VS2-productlist-section} other content";
+            const string ExpectedContent = "content VS content VS2 other content";
+
+            _productService.GetProductList(Arg.Any<int>(), Arg.Any<string>()).ReturnsForAnyArgs(new List<Product>
             {
-                controller.Url = this.Url;
-                controller.GetFileContent(Arg.Any<string>()).Returns("{casino-productlist-section}{casino-productlist} content-here{/casino-productlist-section}ABC");
+                new Product { ProductID = ProductTypes.VirtualSports },
+                new Product { ProductID = ProductTypes.VirtualSports2 }
+            });
 
-                // Action
-                var result = controller.Index(ResourceName) as ViewResult;
+            _controller.Url = Url;
+            _controller.FileExists(Arg.Any<string>()).Returns(false);
+            _controller.ReadFile(Arg.Any<string>()).Returns(Content);
 
-                // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/UserGuide/Index.cshtml"));
-                Assert.That(result.Model, Is.EqualTo("ABC"));
-            }
+            // Action
+            var result = _controller.Index(ResourceName) as ViewResult;
+
+            // Assert
+            Assert.That(result.Model, Is.EqualTo(ExpectedContent));
+        }
+
+        [TestCase]
+        public void Index_ProductListNotHaveVirtualProduct_ReturnCorrectContent()
+        {
+            // Arrange
+            const string ResourceName = "LicenseeWL";
+            const string Content = "{VS-productlist-section}content VS{/VS-productlist-section}"
+                                   + "{VS2-productlist-section} content VS2{/VS2-productlist-section} other content";
+            const string ExpectedContent = " other content";
+
+            _productService.GetProductList(Arg.Any<int>(), Arg.Any<string>()).ReturnsForAnyArgs(new List<Product>
+            {
+                new Product { ProductID = ProductTypes.Sportsbook }
+            });
+
+            _controller.Url = Url;
+            _controller.FileExists(Arg.Any<string>()).Returns(false);
+            _controller.ReadFile(Arg.Any<string>()).Returns(Content);
+
+            // Action
+            var result = _controller.Index(ResourceName) as ViewResult;
+
+            // Assert
+            Assert.That(result.Model, Is.EqualTo(ExpectedContent));
         }
 
         [Test]
-        public void DownloadCustomerListPdf_WhenCall_ReturnCorrectResult()
+        public void DownloadCustomerListPdf_IsEnableBA_ReturnCorrectFileName()
         {
             // Arrange
-            using (var controller = CreateController())
-            {
-                // Action
-                var result = controller.DownloadCustomerListPdf();
+            SessionService.LicenseeSession.IsEnableBA = true;
+            _controller.FileExists(Arg.Any<string>()).Returns(false);
 
-                // Assert
-                Assert.That(result.FileName, Is.EqualTo("~/App_Data/UserGuide/CustomerList/pdf/en-Us/Odds Group Feature_Licensee.pdf"));
-            }
+            // Action
+            var result = _controller.DownloadCustomerListPdf();
+
+            // Assert
+            Assert.That(result.FileName, Does.Contain("Odds Group Feature_Licensee_BA.pdf"));
         }
 
-        private UserGuideController CreateController()
+        [Test]
+        public void DownloadCustomerListPdf_IsNotEnableBA_ReturnCorrectFileName()
         {
-            var controller = Substitute.ForPartsOf<UserGuideController>(
-                LangService,
-                SessionService,
-                AppSettings,
-                _productService);
+            // Arrange
+            SessionService.LicenseeSession.IsEnableBA = false;
+            _controller.FileExists(Arg.Any<string>()).Returns(false);
 
-            controller.ControllerContext = this.ControllerContext;
+            // Action
+            var result = _controller.DownloadCustomerListPdf();
 
-            return controller;
+            // Assert
+            Assert.That(result.FileName, Does.Contain("Odds Group Feature_Licensee.pdf"));
         }
     }
 }

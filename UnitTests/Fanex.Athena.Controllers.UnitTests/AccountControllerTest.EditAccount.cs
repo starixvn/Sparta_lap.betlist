@@ -73,10 +73,11 @@
             Assert.That(viewResult.Model, Is.Null);
         }
 
+        [Test]
         public void EditAccount_WhenGetWithValidUser_ReturnCorrectModel()
         {
             // Arrange
-            SetUpUserRequestParameter(new NameValueCollection { { "UserId", DefaultUserSession.UserId.ToString() } });
+            SetUpUserRequestParameter();
 
             var user = new User { Username = "Superman" };
             StubGetUserInfo(x => user);

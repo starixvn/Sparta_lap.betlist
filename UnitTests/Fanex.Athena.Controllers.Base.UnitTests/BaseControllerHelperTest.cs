@@ -26,7 +26,7 @@
             CurrencyList = new Dictionary<int, string> { { 1, "UUS" } },
             ViewType = Model.Core.DataDomain.ClientViewType.Default,
             UserId = 1,
-            Language = "en-Us",
+            Language = "lan",
             UserName = "alex.vn",
             OnUserId = 999,
             FunctionIdList = new List<int>()
