@@ -9,5 +9,5 @@
   <!--Do not delete this-->
 
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_CustomerSelCheckBelonging" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="LRF_LicenseeSourcedSel" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="UAT,SIT" SpName="LRF_LicenseeSourcedSel" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
