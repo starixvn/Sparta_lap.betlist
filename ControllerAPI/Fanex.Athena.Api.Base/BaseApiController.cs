@@ -11,7 +11,6 @@ namespace Fanex.Athena.Api.Base
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Web.Http;
-    using Attributes;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users;
@@ -69,17 +68,15 @@ namespace Fanex.Athena.Api.Base
             using (var memoryStream = new MemoryStream())
             {
                 workbook.Write(memoryStream);
-                result.Content =  new ByteArrayContent(memoryStream.ToArray());
+                result.Content = new ByteArrayContent(memoryStream.ToArray());
                 result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
                 result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
                 {
                     FileName = fileName
                 };
-
             }
+
             return result;
-
-
         }
 
         protected override void Initialize(System.Web.Http.Controllers.HttpControllerContext controllerContext)
