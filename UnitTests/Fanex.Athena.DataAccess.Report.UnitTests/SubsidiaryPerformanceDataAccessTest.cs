@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Web.Script.Serialization;
+    using Core.Configuration.Interfaces;
     using Data;
     using Model.Core.DTO.Configuration;
     using Model.Report.DTO.SubsidiaryPerformance;
@@ -16,9 +17,10 @@
     public class SubsidiaryPerformanceDataAccessTest
     {
         private SubsidiaryPerformanceDataAccess _dataAccess;
-        private BalanceUp _balance;
+        private IBalanceUpDataAccess _balanceUpDataAccess;
         private IObjectDb _objectDb;
         private IDataReader _dataReader;
+        private BalanceUp _balance;
 
         [SetUp]
         public void SetUp()
@@ -28,7 +30,11 @@
                 MoveBetsDay = new DateTime(2017, 8, 25),
                 BalanceUpDay = new DateTime(2017, 8, 31)
             };
-            _dataAccess = Substitute.ForPartsOf<SubsidiaryPerformanceDataAccess>(_balance);
+
+            _balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
+            _balanceUpDataAccess.GetBalanceUp().Returns(_balance);
+            _dataAccess = Substitute.ForPartsOf<SubsidiaryPerformanceDataAccess>(_balanceUpDataAccess);
+
             _objectDb = Substitute.For<IObjectDb>();
             _dataReader = Substitute.For<IDataReader>();
 
@@ -40,6 +46,7 @@
         [TearDown]
         public void TearDown()
         {
+            _balanceUpDataAccess = null;
             _balance = null;
             _dataAccess = null;
             _objectDb = null;
