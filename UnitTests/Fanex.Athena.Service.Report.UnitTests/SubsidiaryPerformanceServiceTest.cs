@@ -158,46 +158,22 @@
             var dataDetail1 = new List<SubsidiaryPerformanceDetail>
             {
                 new SubsidiaryPerformanceDetail { Product = "All", BetCount = 150, Turnover = 300m, CustomerWinLoss = 30m, SubsidiaryWinLoss = -30m },
-                new SubsidiaryPerformanceDetail
-                {
-                    Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m
-                },
-                new SubsidiaryPerformanceDetail
-                {
-                    Product = "BA", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m
-                },
-                new SubsidiaryPerformanceDetail
-                {
-                    Product = "Racing", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m
-                }
+                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m },
+                new SubsidiaryPerformanceDetail { Product = "BA", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m },
+                new SubsidiaryPerformanceDetail { Product = "Racing", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m }
             };
 
             var dataDetail2 = new List<SubsidiaryPerformanceDetail>
             {
-                new SubsidiaryPerformanceDetail
-                {
-                    Product = "All", BetCount = 100, Turnover = 200000m, CustomerWinLoss = 20000m, SubsidiaryWinLoss = -20000m
-                },
-                new SubsidiaryPerformanceDetail
-                {
-                    Product = "Racing", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m
-                },
-                new SubsidiaryPerformanceDetail
-                {
-                    Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m
-                }
+                new SubsidiaryPerformanceDetail { Product = "All", BetCount = 100, Turnover = 200000m, CustomerWinLoss = 20000m, SubsidiaryWinLoss = -20000m },
+                new SubsidiaryPerformanceDetail { Product = "Racing", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m },
+                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m }
             };
 
             var dataDetail3 = new List<SubsidiaryPerformanceDetail>
             {
-                new SubsidiaryPerformanceDetail
-                {
-                    Product = "All", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m
-                },
-                new SubsidiaryPerformanceDetail
-                {
-                    Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m
-                }
+                new SubsidiaryPerformanceDetail { Product = "All", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m },
+                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m }
             };
 
             return new List<SubsidiaryPerformanceDataModel>
@@ -214,11 +190,23 @@
             {
                 new SubsidiaryPerformanceEntity
                 {
-                    SubsidiaryId = 1234, Subsidiary = "Total 1234", CurrencyName = "Based EUR", BetCount = 150, Turnover = 300000m, CustomerWinLoss = 30000m, SubsidiaryWinLoss = -30000m
+                    SubsidiaryId = 1234,
+                    Subsidiary = "Total 1234",
+                    CurrencyName = "Based EUR",
+                    BetCount = 150,
+                    Turnover = 300000m,
+                    CustomerWinLoss = 30000m,
+                    SubsidiaryWinLoss = -30000m
                 },
                 new SubsidiaryPerformanceEntity
                 {
-                    SubsidiaryId = 1235, Subsidiary = "Total 1235", CurrencyName = "Based EUR", BetCount = 150, Turnover = 300000m, CustomerWinLoss = 30000m, SubsidiaryWinLoss = -30000m
+                    SubsidiaryId = 1235,
+                    Subsidiary = "Total 1235",
+                    CurrencyName = "Based EUR",
+                    BetCount = 150,
+                    Turnover = 300000m,
+                    CustomerWinLoss = 30000m,
+                    SubsidiaryWinLoss = -30000m
                 }
             };
         }
