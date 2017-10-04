@@ -16,8 +16,7 @@
 
         public SubsidiaryPerformanceService()
         {
-            var balanceUpService = new BalanceUpService();
-            _subLicenseePerformanceDataAccess = new SubsidiaryPerformanceDataAccess(balanceUpService.BalanceUpInfo);
+            _subLicenseePerformanceDataAccess = new SubsidiaryPerformanceDataAccess();
         }
 
         public SubsidiaryPerformanceService(ISubsidiaryPerformanceDataAccess subLicenseePerformanceDataAccess)
