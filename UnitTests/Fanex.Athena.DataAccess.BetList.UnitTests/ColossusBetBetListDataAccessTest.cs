@@ -8,6 +8,7 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class ColossusBetBetListDataAccessTest
@@ -73,7 +74,7 @@
                 { "commUSD", 123 }
             };
 
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
             var result = _dataAccess.GetData(metaModel);
@@ -85,20 +86,6 @@
                 Assert.That(result.DataList.ElementAt(0).TransDate, Is.EqualTo(new DateTime(2017, 1, 1)));
                 Assert.That(result.DataList.ElementAt(0).Commission, Is.EqualTo(123));
                 Assert.That(result.TotalComm, Is.EqualTo(123));
-            });
-        }
-
-        private static void MapReaderData(IDataReader reader, Dictionary<string, object> readerDataMapping)
-        {
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
             });
         }
     }

@@ -10,6 +10,7 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class RacingCommissionDataAccessTest
@@ -93,7 +94,7 @@
                 { "SumTote_WinUSD", 1000 }
             };
 
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
             var result = _dataAccess.GetData(_metaModel);
@@ -106,20 +107,6 @@
                 Assert.That(result.DataList[0].ToteWin, Is.EqualTo(100));
 
                 Assert.That(result.TotalData.ToteWin, Is.EqualTo(1000));
-            });
-        }
-
-        private static void MapReaderData(IDataReader reader, Dictionary<string, object> readerDataMapping)
-        {
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
             });
         }
     }

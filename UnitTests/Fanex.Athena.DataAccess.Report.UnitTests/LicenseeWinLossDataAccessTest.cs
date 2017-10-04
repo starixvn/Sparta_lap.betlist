@@ -12,6 +12,7 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class LicenseeWinLossDataAccessTest
@@ -106,17 +107,7 @@
                 { "turnoverSBUSD", 200 },
                 { "reporttype", "20170101" }
             };
-
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
-            });
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
             var result = _dataAccess.GetSummaryWinloss(_metaModel, out totalData, out summaryTotal);
@@ -152,17 +143,7 @@
                 { "turnoverSBUSD", 200 },
                 { "reporttype", "20170101" }
             };
-
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
-            });
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
             _dataAccess.GetSummaryWinloss(_metaModel, out totalData, out summaryTotal);

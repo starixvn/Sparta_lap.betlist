@@ -10,6 +10,7 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class SubsidiaryPerformanceDataAccessTest
@@ -70,7 +71,7 @@
             _dataReader.Read().Returns(true, false);
 
             var readerDataMapping = GetReaderDataMapping(metaModel.BaseCurrency);
-            MapReaderData(_dataReader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(_dataReader, readerDataMapping);
 
             var serializer = new JavaScriptSerializer();
             var expectedResult = serializer.Serialize(GetExpectedResult(readerDataMapping));
@@ -93,7 +94,7 @@
             _dataReader.Read().Returns(true, false);
 
             var readerDataMapping = GetReaderDataMapping(metaModel.BaseCurrency);
-            MapReaderData(_dataReader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(_dataReader, readerDataMapping);
 
             var serializer = new JavaScriptSerializer();
             var expectedResult = serializer.Serialize(GetExpectedResult(readerDataMapping, metaModel.BaseCurrency));
@@ -117,7 +118,7 @@
             _dataReader.Read().Returns(true, false);
 
             var readerDataMapping = GetReaderDataMapping(metaModel.BaseCurrency);
-            MapReaderData(_dataReader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(_dataReader, readerDataMapping);
 
             var serializer = new JavaScriptSerializer();
             var total = GetExpectedResult(readerDataMapping, metaModel.BaseCurrency);
@@ -129,20 +130,6 @@
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
-        }
-
-        private static void MapReaderData(IDataReader reader, IDictionary<string, object> readerDataMapping)
-        {
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (paramName != null && readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
-            });
         }
 
         private static List<SubsidiaryPerformanceEntity> GetExpectedResult(IDictionary<string, object> readerDataMapping, string baseCurrency = "")

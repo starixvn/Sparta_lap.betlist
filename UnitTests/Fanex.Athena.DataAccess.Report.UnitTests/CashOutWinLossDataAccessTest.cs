@@ -11,6 +11,7 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     public class CashOutWinLossDataAccessTest
     {
@@ -85,7 +86,7 @@
             ConfigCheckingColumnForReader(reader);
 
             var fakeData = CreateFakeData();
-            MapReaderData(reader, fakeData);
+            DataAccessTestHelper.MapReaderData(reader, fakeData);
             var serializer = new JavaScriptSerializer();
             var expectedCashoutWinLossData = serializer.Serialize(CreateExpectedCashoutWinLossData());
             var expectedSummaryTotal = serializer.Serialize(CreateExpectedSummaryTotalData());
@@ -112,7 +113,7 @@
             reader.FieldCount.Returns(0);
 
             var fakeData = CreateFakeData();
-            MapReaderData(reader, fakeData);
+            DataAccessTestHelper.MapReaderData(reader, fakeData);
             var serializer = new JavaScriptSerializer();
 
             var cashoutWinLossData = CreateExpectedCashoutWinLossData();
@@ -162,7 +163,7 @@
             ConfigCheckingColumnForReader(reader);
 
             var fakeData = CreateFakeData();
-            MapReaderData(reader, fakeData);
+            DataAccessTestHelper.MapReaderData(reader, fakeData);
             var serializer = new JavaScriptSerializer();
             var expectedCashoutWinLossData = serializer.Serialize(CreateExpectedCashoutWinLossData());
             var expectedSummaryTotal = serializer.Serialize(CreateExpectedSummaryTotalData());
@@ -282,20 +283,6 @@
             reader.GetName(0).Returns("systemid");
             reader.GetName(1).Returns("externalid");
             reader.GetName(2).Returns("custid");
-        }
-
-        private static void MapReaderData(IDataReader reader, Dictionary<string, object> readerDataMapping)
-        {
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
-            });
         }
     }
 }

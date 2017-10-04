@@ -8,6 +8,7 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class WeeklyLiveMatchDataAccessTest
@@ -70,7 +71,7 @@
                 { "sporttype", 1 }
             };
 
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
             int[] totalData;
 
             // Action
@@ -88,20 +89,6 @@
             {
                 Assert.That(result.Count(), Is.EqualTo(1));
                 Assert.That(result.ElementAt(0).NumbersOfMatches, Is.EqualTo(new int[] { 100 }));
-            });
-        }
-
-        private static void MapReaderData(IDataReader reader, Dictionary<string, object> readerDataMapping)
-        {
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
             });
         }
     }

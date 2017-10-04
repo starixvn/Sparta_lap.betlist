@@ -15,6 +15,7 @@
     using Result.Core.NumberGame.DTO;
     using Result.Core.Racing.DTO;
     using Result.Core.Sportsbook.DTO;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class ResultDataAccessTest
@@ -92,7 +93,7 @@
                 { "teamid", 3 },
                 { "status", "win" }
             };
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             var outrights = new List<Outright>
             {
@@ -160,7 +161,7 @@
             {
                 { "sporttype", "sport1" }
             };
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
             var date = new DateTime(2017, 3, 16);
             var licenseeId = 1;
 
@@ -217,7 +218,7 @@
             {
                 { "leagueid", 1 }
             };
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             var date = new DateTime(2017, 3, 16);
             var sportId = 1;
@@ -270,7 +271,7 @@
                 { "leagueid", 1 }, { "matchid", 2 }, { "eventstatus", "win" }, { "eventdate", "03/16/2017" }, { "isrefund", "1" },
                 { "kickofftime", "1/1/2017" }, { "matchcode", "test" }, { "seq", 3 }, { "number", 4 }
             };
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             var expectedResult = new List<NumberGame>
             {
@@ -341,7 +342,7 @@
                 { "place", 2 }, { "placeodds", 10.5m }, { "odds", 0.5m }, { "racename", 4 }, { "kickofftime", "03/16/2017" },
                 { "rowcount", 4 }, { "SCR", "SCR" }, { "TF", "TF" }
             };
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             var expectedResult = GetExpectedRacingData();
 
@@ -403,7 +404,7 @@
             var dataMapping = GetReaderDataMappingForSportsbookType();
             var dataMappingForGameDetail = GetReaderDataMappingForGameDetail();
             MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
-            MapReaderData(reader, dataMapping);
+            DataAccessTestHelper.MapReaderData(reader, dataMapping);
             var matchId = 1;
             var raceNo = 2;
             var bettypeId = 5;
@@ -443,7 +444,7 @@
             dataMappingForGameDetail["ResultStatusID"] = DBNull.Value;
             dataMappingForGameDetail["SettlementStatusID"] = DBNull.Value;
             MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
-            MapReaderData(reader, dataMapping);
+            DataAccessTestHelper.MapReaderData(reader, dataMapping);
             int matchId = 1, raceNo = 2, bettypeId = 5;
             long? betId = 6;
 
@@ -487,7 +488,7 @@
             dataMappingForGameDetail["ResultStatusID"] = DBNull.Value;
             dataMappingForGameDetail["SettlementStatusID"] = DBNull.Value;
             MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
-            MapReaderData(reader, dataMapping);
+            DataAccessTestHelper.MapReaderData(reader, dataMapping);
             int matchId = 1, raceNo = 2, bettypeId = 5;
             long? betId = 6;
 
@@ -527,7 +528,7 @@
                 { "eventdate", "03/17/2017" }, { "IsPending", true }, { "kickofftime", "01/01/2017" }, { "IsHTCal", true }, { "Calculate", true },
                 { "betstatus", "betstatus" }, { "homeid2", 4 }
             };
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             int matchId = 1, raceNo = 2, bettypeId = 5;
             long? betId = 6;
@@ -578,7 +579,7 @@
                 { "eventdate", "03/17/2017" }, { "IsPending", true }, { "kickofftime", "01/01/2017" }, { "IsHTCal", true }, { "Calculate", true },
                 { "betstatus", DBNull.Value }, { "homeid2", 4 }
             };
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             int matchId = 1, raceNo = 2, bettypeId = 5;
             long? betId = 6;
@@ -629,7 +630,7 @@
                 { "place", 2 }, { "placeodds", 10m }, { "odds", 0.2m }, { "racename", 3 }, { "kickofftime", "03/17/2017" },
                 { "rowcount", 10 }, { "SCR", "SCR" }, { "TF", "TF" }
             };
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             int matchId = 1, raceNo = 2, bettypeId = 5;
             long? betId = 6;
@@ -682,7 +683,7 @@
                 { "place", 2 }, { "placeodds", 10m }, { "odds", 0.2m }, { "racename", 3 }, { "kickofftime", DBNull.Value },
                 { "rowcount", 10 }, { "SCR", "SCR" }, { "TF", "TF" }
             };
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             int matchId = 1, raceNo = 2, bettypeId = 5;
             long? betId = 6;
@@ -782,7 +783,7 @@
             dataMapping["betcheck"] = "6";
             var dataMappingForGameDetail = GetReaderDataMappingForGameDetail();
             MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
-            MapReaderData(reader, dataMapping);
+            DataAccessTestHelper.MapReaderData(reader, dataMapping);
 
             var sportsbookData = GetExpectedSportsbookData();
             sportsbookData.LeagueId = 11;
@@ -828,7 +829,7 @@
             dataMapping["sporttype"] = 12;
             var dataMappingForGameDetail = GetReaderDataMappingForGameDetail();
             MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
-            MapReaderData(reader, dataMapping);
+            DataAccessTestHelper.MapReaderData(reader, dataMapping);
 
             var sportsbookData = GetExpectedSportsbookData();
             sportsbookData.LeagueId = 11;
@@ -884,7 +885,7 @@
             dataMappingForGameDetail["ResultStatusID"] = DBNull.Value;
             dataMappingForGameDetail["SettlementStatusID"] = DBNull.Value;
             MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
-            MapReaderData(reader, dataMapping);
+            DataAccessTestHelper.MapReaderData(reader, dataMapping);
 
             var sportsbookData = GetExpectedSportsbookData();
             sportsbookData.LeagueId = 11;
@@ -929,7 +930,7 @@
             dataMapping["sporttype"] = 12;
             var dataMappingForGameDetail = GetReaderDataMappingForGameDetail();
             MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
-            MapReaderData(reader, dataMapping);
+            DataAccessTestHelper.MapReaderData(reader, dataMapping);
 
             // Action
             var result = _dataAccess.GetPopUpParalayMatch(refNo);
@@ -976,7 +977,7 @@
                 { "leagueid", 1 }, { "matchid", matchId }, { "eventstatus", "win" }, { "eventdate", "03/16/2017" }, { "isrefund", "1" },
                 { "kickofftime", "1/1/2017" }, { "matchcode", "test" }, { "seq", 3 }, { "number", 4 }
             };
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             var expectedResult = new List<NumberGame>
             {
@@ -1020,7 +1021,7 @@
                 { "leagueid", 1 }, { "matchid", matchId }, { "eventstatus", "win" }, { "eventdate", "03/16/2017" }, { "isrefund", "1" },
                 { "kickofftime", "1/1/2017" }, { "matchcode", "test" }, { "seq", 3 }, { "number", 4 }
             };
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             var expectedResult = new List<NumberGame>
             {
@@ -1094,7 +1095,7 @@
             var dataMapping = GetReaderDataMappingForSportsbookType();
             var dataMappingForGameDetail = GetReaderDataMappingForGameDetail();
             MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
-            MapReaderData(reader, dataMapping);
+            DataAccessTestHelper.MapReaderData(reader, dataMapping);
 
             var sportsbookData = GetExpectedSportsbookData();
             sportsbookData.BetID = "0";
@@ -1128,7 +1129,7 @@
                 { "eventdate", "03/17/2017" }, { "IsPending", true }, { "kickofftime", "01/01/2017" }, { "IsHTCal", true }, { "Calculate", true },
                 { "betstatus", "betstatus" }, { "homeid2", 4 }
             };
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             var expectedResult = new List<LiveCasino>
             {
@@ -1212,7 +1213,7 @@
             var dataMapping = GetReaderDataMappingForSportsbookType();
             var dataMappingForGameDetail = GetReaderDataMappingForGameDetail();
             MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
-            MapReaderData(reader, dataMapping);
+            DataAccessTestHelper.MapReaderData(reader, dataMapping);
             int matchId = 11;
 
             var expectedResult = GetExpectedSportsbookData();
@@ -1326,20 +1327,6 @@
                     TFOfMatch = "TF"
                 }
             };
-        }
-
-        private static void MapReaderData(IDataReader reader, Dictionary<string, object> readerDataMapping)
-        {
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
-            });
         }
     }
 }

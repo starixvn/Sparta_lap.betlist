@@ -1,0 +1,46 @@
+﻿namespace Fanex.Athena.UnitTest.Common.Helpers
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using NSubstitute;
+    using NSubstitute.Core;
+
+    public class DataAccessTestHelper
+    {
+        public static void MapReaderData(
+            IDataReader reader,
+            params IDictionary<string, object>[] readerDataMappingList)
+        {
+            var firstFunc = CreateMappingFunc(readerDataMappingList[0]);
+            if (readerDataMappingList.Length == 1)
+            {
+                reader[Arg.Any<string>()].Returns(firstFunc);
+                return;
+            }
+
+            var funcList = new List<Func<CallInfo, object>>();
+
+            for (int i = 1; i < readerDataMappingList.Length; i++)
+            {
+                funcList.Add(CreateMappingFunc(readerDataMappingList[i]));
+            }
+
+            reader[Arg.Any<string>()].Returns(firstFunc, funcList.ToArray());
+        }
+
+        private static Func<CallInfo, object> CreateMappingFunc(IDictionary<string, object> mappingData)
+        {
+            return new Func<CallInfo, object>(x =>
+            {
+                var paramname = x.ArgAt<string>(0);
+                if (mappingData.ContainsKey(paramname))
+                {
+                    return mappingData[paramname];
+                }
+
+                return string.Empty;
+            });
+        }
+    }
+}

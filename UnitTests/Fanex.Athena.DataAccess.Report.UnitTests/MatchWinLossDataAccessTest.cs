@@ -10,6 +10,7 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class MatchWinLossDataAccessTest
@@ -90,16 +91,7 @@
                 { "MemberWinLostUSD", 200 }
             };
 
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
-            });
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
             var result = _dataAccess.GetDataList(_metaModel);

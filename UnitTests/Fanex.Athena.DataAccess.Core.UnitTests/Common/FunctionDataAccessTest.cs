@@ -10,6 +10,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using TestHelpers;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class FunctionDataAccessTest
@@ -50,7 +51,7 @@
                 { "FunctionId", 1 }
             };
 
-            MapReaderData(_reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(_reader, readerDataMapping);
 
             // Action
             var result = _dataAccess.GetFunctionList();
@@ -222,20 +223,6 @@
             // Assert
             Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
             Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
-        }
-
-        private static void MapReaderData(IDataReader reader, Dictionary<string, object> readerDataMapping)
-        {
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
-            });
         }
     }
 }

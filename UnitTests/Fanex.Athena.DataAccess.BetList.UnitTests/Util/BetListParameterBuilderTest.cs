@@ -32,7 +32,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByWinlossByLeague_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByWinlossByLeague_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_WinlostByLeague_Mem";
@@ -59,7 +59,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByCancelBetList_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByCancelBetList_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelDeleted";
@@ -76,7 +76,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByCorectScoreBetlist_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByCorectScoreBetlist_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_CorrectScore";
@@ -92,7 +92,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByCustomerWlBetlist_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByCustomerWlBetlist_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelWinLossByDate_Mem";
@@ -131,7 +131,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByRacingCommissionBetlist_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByRacingCommissionBetlist_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelWinLossRacingByDate_Mem";
@@ -168,7 +168,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByDailyWLBetlist_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByDailyWLBetlist_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelWinlossDaily";
@@ -207,7 +207,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByDailyRacingWLBetlist_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByDailyRacingWLBetlist_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelWinlostRacing";
@@ -246,7 +246,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByLicenseeWLBetlist_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByLicenseeWLBetlist_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelWinloss_Mem";
@@ -286,7 +286,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByRunningBetListByBettype_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByRunningBetListByBettype_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelRunningByBettype";
@@ -303,7 +303,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByRunningBetListByMultipleBettype_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByRunningBetListByMultipleBettype_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelRunningByBettypeList";
@@ -320,7 +320,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByMatchWLRacingBetlist_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByMatchWLRacingBetlist_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_MatchWL_Racing";
@@ -359,7 +359,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByMatchWLBettypeBetlist_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByMatchWLBettypeBetlist_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_MatchWL_Bettype";
@@ -398,7 +398,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByMatchWLOutRightBetList_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByMatchWLOutRightBetList_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_MatchWL_Outright";
@@ -436,7 +436,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByMatchWLParlayBetList_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByMatchWLParlayBetList_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_MatchWL_Parlay";
@@ -475,7 +475,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByPlatformWinLossBetList_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByPlatformWinLossBetList_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_PlatformWinLoss_Mem";
@@ -516,7 +516,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByOutStandingCompletedBetList_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByOutStandingCompletedBetList_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelAllByDate_Mem";
@@ -553,7 +553,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByDailyStatementBetList_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByDailyStatementBetList_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelByDayAll_Mem";
@@ -590,7 +590,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByDailyStatementBetListOld_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByDailyStatementBetListOld_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelByDayAll_Mem_Old";
@@ -625,7 +625,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByRunningBetList_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByRunningBetList_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelRunningByDate_Mem";
@@ -646,7 +646,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByMatchRunningBetListOfHR_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByMatchRunningBetListOfHR_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelAllByDateHR";
@@ -680,7 +680,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByMatchRunningBetLitByBettype_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByMatchRunningBetLitByBettype_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelRunningByBettypeMatch";
@@ -700,7 +700,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByMatchRunningBetLitByMultipleBettypeOfMatch_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByMatchRunningBetLitByMultipleBettypeOfMatch_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelRunningByMultipleBettypeMatch";
@@ -720,7 +720,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByRunningBetListByForeCastMatch_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByRunningBetListByForeCastMatch_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_Forecast_SelByMatch";
@@ -742,7 +742,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByMicroGamingRngDetail_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByMicroGamingRngDetail_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_RNG_Detail";
@@ -758,7 +758,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByAGCasinoDetail_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByAGCasinoDetail_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_LC_Detail";
@@ -774,7 +774,7 @@
         }
 
         [Test]
-        public void GetBetListData_CalledByWinLossByBetType_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByWinLossByBetType_ParametersPassedCorrectly()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelWinLossByBetType";

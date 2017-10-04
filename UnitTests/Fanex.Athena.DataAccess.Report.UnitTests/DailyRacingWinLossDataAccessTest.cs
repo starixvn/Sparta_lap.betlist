@@ -8,6 +8,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Extensions;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class DailyRacingWinLossDataAccessTest
@@ -71,17 +72,7 @@
                 { "Currency", 111 },
                 { "LeagueId", 222 }
             };
-
-            _reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
-            });
+            DataAccessTestHelper.MapReaderData(_reader, readerDataMapping);
 
             // Action
             var dataList = _dataAccess.GetDataList(new DailyRacingWinLossMetaModel());

@@ -14,6 +14,7 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class WinLossByProductDataAccessTest
@@ -111,7 +112,7 @@
                 { "reporttype", "20190101" }
             };
 
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
             IEnumerable<WinLossByProduct> totalData;
             IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal;
             IResultInfo resultInfo;
@@ -187,20 +188,6 @@
                 objectDb.Received().AddInParameter("drawfilter", DbType.Int32, _metaModel.DrawFilter);
                 objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
                 objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-            });
-        }
-
-        private static void MapReaderData(IDataReader reader, Dictionary<string, object> readerDataMapping)
-        {
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
             });
         }
     }

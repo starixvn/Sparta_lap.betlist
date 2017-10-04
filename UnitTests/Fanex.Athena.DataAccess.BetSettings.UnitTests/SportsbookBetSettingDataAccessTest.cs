@@ -10,6 +10,7 @@
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class SportsbookBetSettingDataAccessTest
@@ -61,7 +62,7 @@
             reader.FieldCount.Returns(1);
             var custId = 1;
             var esportSetting = EsportSettingType.LicenseeOffering;
-            MapReaderData(reader, new Dictionary<string, object>());
+            DataAccessTestHelper.MapReaderData(reader, new Dictionary<string, object>());
 
             // Action
             var result = _dataAccess.GetBetSetting(custId, ref esportSetting);
@@ -186,20 +187,6 @@
             // Assert
             Assert.That(result.Code, Is.EqualTo(expected.Code));
             Assert.That(result.Message, Is.EqualTo(expected.Message));
-        }
-
-        private static void MapReaderData(IDataReader reader, Dictionary<string, object> readerDataMapping)
-        {
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
-            });
         }
     }
 }

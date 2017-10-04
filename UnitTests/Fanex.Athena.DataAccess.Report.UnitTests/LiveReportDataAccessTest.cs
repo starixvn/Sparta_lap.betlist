@@ -9,8 +9,8 @@
     using Model.Core.DTO.Configuration;
     using Model.Report.MetaModel;
     using NSubstitute;
-    using NSubstitute.Core;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class LiveReportDataAccessTest
@@ -84,7 +84,7 @@
                 { "PlayerCommUUS", 300 }, { "CommUUS", 400 }, { "LicenseeWLUUS", 500 }, { "AmtDueto3rdUUS", 600 }, { "Betcount", 700 },
             };
 
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
             var result = _dataAccess.GetLiveReportSummary(_metaModel);
@@ -140,7 +140,7 @@
                 { "SportType", "1" }, { "ProductCode", "SB" }, { "TurnoverUUS", 100 }, { "WinlostUUS", 200 }
             };
 
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
             var result = _dataAccess.GetDetailBySport(_metaModel, string.Empty);
@@ -204,7 +204,7 @@
                 { "bettype", "1" }, { "TurnoverUUS", 100 }, { "WinlostUUS", 200 }, { "ProductCode", "SB" }
             };
 
-            MapReaderData(reader, readerDataMappingForCurrency, readerDataMappingForBettype);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMappingForCurrency, readerDataMappingForBettype);
 
             // Action
             var result = _dataAccess.GetDetailByCurrencyAndBettype(_metaModel, string.Empty, productList);
@@ -266,7 +266,7 @@
                 { "matchid", 2 }, { "homeid", 3 }, { "awayid", 4 }
             };
 
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
             var result = _dataAccess.GetLiveReportWinlossByMatch(new LiveReportMatchListMetalModel());
@@ -279,43 +279,6 @@
                 Assert.That(result[0].HomeId, Is.EqualTo(3));
                 Assert.That(result[0].AwayId, Is.EqualTo(4));
             });
-        }
-
-        private static void MapReaderData(
-            IDataReader reader,
-            IDictionary<string, object> readerDataMapping1,
-            IDictionary<string, object> readerDataMapping2 = null)
-        {
-            var firstFunc = new Func<CallInfo, object>(x =>
-            {
-                var paramname = x.ArgAt<string>(0);
-                if (readerDataMapping1.ContainsKey(paramname))
-                {
-                    return readerDataMapping1[paramname];
-                }
-
-                return string.Empty;
-            });
-
-            if (readerDataMapping2 == null)
-            {
-                reader[Arg.Any<string>()].Returns(firstFunc);
-            }
-            else
-            {
-                reader[Arg.Any<string>()].Returns(
-                    firstFunc,
-                    x =>
-                    {
-                        var paramname = x.ArgAt<string>(0);
-                        if (readerDataMapping2.ContainsKey(paramname))
-                        {
-                            return readerDataMapping2[paramname];
-                        }
-
-                        return string.Empty;
-                    });
-            }
         }
     }
 }

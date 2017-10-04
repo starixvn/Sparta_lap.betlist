@@ -9,12 +9,13 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class WinLossByLeagueDataAccessTest
     {
         private WinLossByLeagueDataAccess _dataAccess;
-
+        
         [OneTimeSetUp]
         public void Setup()
         {
@@ -88,7 +89,7 @@
                 { "turnoverUSD", 999 }
             };
 
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
             var result = _dataAccess.GetSummary(new WinLossByLeagueMetaModel
@@ -168,7 +169,7 @@
                 { "turnoverUSD", 999 }
             };
 
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
             var result = _dataAccess.GetCustomers(
@@ -183,20 +184,6 @@
                 Assert.That(result.DataList.Count, Is.EqualTo(1));
                 Assert.That(result.DataList.ElementAt(0).TurnOver, Is.EqualTo(999));
                 Assert.That(result.TotalData.TurnOver, Is.EqualTo(999));
-            });
-        }
-
-        private static void MapReaderData(IDataReader reader, Dictionary<string, object> readerDataMapping)
-        {
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
             });
         }
     }
