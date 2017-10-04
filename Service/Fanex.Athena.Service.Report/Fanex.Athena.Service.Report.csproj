@@ -202,6 +202,7 @@
     <Compile Include="CashOutWinLossService.cs" />
     <Compile Include="Interfaces\ICashOutWinLossService.cs" />
     <Compile Include="Interfaces\IColossusBetsWinLossService.cs" />
+    <Compile Include="Interfaces\ISubsidiaryPerformanceService.cs" />
     <Compile Include="Interfaces\IWeeklyLiveMatchService.cs" />
     <Compile Include="Result\KenoApi.cs" />
     <Compile Include="AgCasinoWinLossService.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="MicroGamingWinLossService.cs" />
     <Compile Include="AgCasinoBalanceService.cs" />
     <Compile Include="ColossusBetsWinLossService.cs" />
+    <Compile Include="SubsidiaryPerformanceService.cs" />
     <Compile Include="ThirdPartyWinLossService.cs" />
     <Compile Include="WeeklyLiveMatchService.cs" />
     <Compile Include="WinLossByLeagueService.cs" />

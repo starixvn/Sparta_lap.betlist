@@ -163,6 +163,7 @@
     <Compile Include="CustomerPendingFundsReportController.cs" />
     <Compile Include="CustomerWinLossReportController.cs" />
     <Compile Include="CustomerBalanceReportController.cs" />
+    <Compile Include="SubsidiaryPerformanceReportController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ApiReportBaseController.cs" />
     <Compile Include="CasinoProgressiveWinsReportController.cs" />

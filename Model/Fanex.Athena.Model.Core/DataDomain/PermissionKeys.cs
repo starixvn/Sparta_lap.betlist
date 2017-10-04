@@ -33,7 +33,7 @@
         public const string ForecastHandicapOverUnderLive = "HandicapOverUnderLive24";
         public const string ForecastOneXTwo = "1X225";
 
-        /* Report */ 
+        /* Report */
 
         public const string ReportLastBetsMonitoring = "LastBetsMonitoring26";
         public const string ReportLicenseeWinLoss = "LicenseeWinLoss27";
@@ -64,6 +64,7 @@
         public const string ReportPlatformWinLoss = "MobileWinLoss53";
         public const string ReportColossusBetsWinLoss = "ColossusBetsWinLoss71";
         public const string ReportCashOutWinLoss = "CashOutWinLoss72";
+        public const string ReportSubsidiaryPerformance = "SubsidiaryPerformance73";
 
         /* Warehouse. */
 

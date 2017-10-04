@@ -15,7 +15,7 @@ module.exports = __webpack_require__(193);
 /***/ 189:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 9/26/2017 12:41:12 PM
+﻿// Generated at: 9/27/2017 1:40:47 PM
 window._language_en_US = {
 AA:"AA",
 AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -172,6 +172,7 @@ Confirm:"Confirm",
 Confirmation:"Confirmation",
 ConfirmCommission:"Confirm Customer&apos;s Commission:",
 ConfirmPassword:"Confirm Password",
+ConvertAll:"Convert All",
 ConvertTo:"Convert to",
 CopyBetSettingFrom:"Copy All Bet Setting from {0}",
 CopyBetSettingFromRacing:"Copy All Bet Setting from Racing",
@@ -796,6 +797,9 @@ Statement:"Statement",
 Status:"Status",
 Su:"Su",
 Submit:"Submit",
+Subsidiary:"Subsidiary",
+SubsidiaryPerformance:"Subsidiary Performance",
+SubsidiaryWL:"Subsidiary WL",
 Summary:"Summary",
 Sunday:"Sunday",
 SupportForOnlyNote:"The report only supports",
@@ -959,7 +963,7 @@ YouNotChooseAnyCustomerMsg:"You did not choose any customers."
 /***/ 190:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 9/26/2017 12:41:12 PM
+﻿// Generated at: 9/27/2017 1:40:47 PM
 window._language_zh_CN = {
 AA:"客客",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -1770,7 +1774,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 191:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 9/26/2017 12:41:12 PM
+﻿// Generated at: 9/27/2017 1:40:47 PM
 window._language_zh_TW = {
 AA:"客客",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -2581,7 +2585,7 @@ YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 /***/ 192:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 9/26/2017 12:41:12 PM
+﻿// Generated at: 9/27/2017 1:40:47 PM
 window._language_zh_Hans = {
 AA:"客客",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -3378,7 +3382,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 193:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 9/26/2017 12:41:12 PM
+﻿// Generated at: 9/27/2017 1:40:47 PM
 window._language_ko_KR = {
 AA:"AA",
 AccessDeniedMsg:"죄송합니다. 이 페이지에 접근할 권한이 없습니다.",

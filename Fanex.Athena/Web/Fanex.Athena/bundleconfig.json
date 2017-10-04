@@ -1,0 +1,14 @@
+[
+  {
+    "outputFileName": "www/js/source/reactpages/action/currencyService.min.js",
+    "inputFiles": [
+      "www/js/source/reactpages/action/currencyService.js"
+    ]
+  },
+  {
+    "outputFileName": "www/js/source/reactpages/reducers/currencyReducer.min.js",
+    "inputFiles": [
+      "www/js/source/reactpages/reducers/currencyReducer.js"
+    ]
+  }
+]

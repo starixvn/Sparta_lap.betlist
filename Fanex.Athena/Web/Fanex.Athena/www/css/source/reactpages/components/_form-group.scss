@@ -1,0 +1,12 @@
+.form-group {
+    margin-bottom: 15px;
+
+    .label-text {
+        display: block;
+        color: $colorLabelText;
+    }
+
+    .checkbox-group, .button-group {
+        display: inline-block;
+    }
+}

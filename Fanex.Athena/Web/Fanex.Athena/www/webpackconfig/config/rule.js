@@ -9,8 +9,8 @@
            options: "$"
        }]
    }
-]
+];
 
 module.exports = {
     commonRules: commonRules
-}
+};

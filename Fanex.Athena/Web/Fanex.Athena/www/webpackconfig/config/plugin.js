@@ -8,9 +8,6 @@ function generatePlugins(environment) {
     var cssBetlistPath = cssRootPath + "/" + environment + "/pages/betlist";
     var cssPagePath = cssRootPath + "/" + environment + "/pages";
     var commonPlugins = [
-        new CleanWebpackPlugin([pathConfig.scriptPaths.build + "/" + environment], {
-            root: process.cwd()
-        }),
         new CleanWebpackPlugin([cssRootPath], {
             root: process.cwd(),
             exclude: ['fonts', 'images', 'dev', 'pro']
@@ -28,6 +25,8 @@ function generatePlugins(environment) {
             filename: "www/js/build/" + environment + "/common.chunk.js",
             minChunks: Infinity
         }),
+
+       
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",

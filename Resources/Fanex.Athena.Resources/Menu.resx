@@ -319,4 +319,7 @@
     <value>Cash Out Win Loss</value>
     <comment>#71727</comment>
   </data>
+  <data name="Menu_73" xml:space="preserve">
+    <value>Subsidiary Performance</value>
+  </data>
 </root>

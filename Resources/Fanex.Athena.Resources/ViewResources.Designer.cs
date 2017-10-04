@@ -1456,6 +1456,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Convert All.
+        /// </summary>
+        public static string ConvertAll {
+            get {
+                return ResourceManager.GetString("ConvertAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Convert to.
         /// </summary>
         public static string ConvertTo {
@@ -7072,6 +7081,33 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Subsidiary.
+        /// </summary>
+        public static string Subsidiary {
+            get {
+                return ResourceManager.GetString("Subsidiary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subsidiary Performance.
+        /// </summary>
+        public static string SubsidiaryPerformance {
+            get {
+                return ResourceManager.GetString("SubsidiaryPerformance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subsidiary WL.
+        /// </summary>
+        public static string SubsidiaryWL {
+            get {
+                return ResourceManager.GetString("SubsidiaryWL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Summary.
         /// </summary>
         public static string Summary {
@@ -7986,24 +8022,6 @@ namespace Fanex.Athena.Resources {
         public static string UpdateUnSuccess {
             get {
                 return ResourceManager.GetString("UpdateUnSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to update all Virtual Sports 2 bet settings?.
-        /// </summary>
-        public static string UpdateVirtualSports2BetSettings {
-            get {
-                return ResourceManager.GetString("UpdateVirtualSports2BetSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The Virtual Sports 2 bet setting of {0} was updated successfully.
-        /// </summary>
-        public static string UpdateVirtualSports2BetSettingSuccessMsg {
-            get {
-                return ResourceManager.GetString("UpdateVirtualSports2BetSettingSuccessMsg", resourceCulture);
             }
         }
         

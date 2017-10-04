@@ -1,0 +1,48 @@
+﻿@import "../abstracts/variables";
+
+html {
+    font-size: 62.5%;
+    height: auto;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    background: $bgBody;
+    font-size: $font-size;
+    color: $black;
+}
+
+a {
+    color: $colorHyperlink;
+
+    &, &:hover {
+        text-decoration: none;
+    }
+
+    &:hover {
+        color: inherit;
+    }
+}
+
+.wrapper {
+    position: relative;
+}
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.center-align {
+    text-align: center;
+}
+
+.left-align {
+    text-align: left;
+}
+
+.right-align {
+    text-align: right;
+}

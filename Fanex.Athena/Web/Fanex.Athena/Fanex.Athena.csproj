@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -761,6 +761,130 @@
     <Content Include="Scripts\Report\customerwinloss.option.js" />
     <Content Include="Scripts\Report\customerbalance.option.js" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
+    <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.chunk.js" />
+    <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.css" />
+    <Content Include="www\css\build\dev\reactpages\vendor.chunk.js" />
+    <Content Include="www\css\build\pro\reactpages\subsidiaryperformance\index.css" />
+    <Content Include="www\js\build\dev\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js" />
+    <Content Include="www\js\build\dev\reactpages\vendors\excel.chunk.js" />
+    <Content Include="www\js\build\dev\reactpages\vendors\reactpages.chunk.js" />
+    <Content Include="www\js\build\pro\reactpages\lib\langHelper.chunk.js" />
+    <Content Include="www\js\build\pro\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js" />
+    <Content Include="www\js\build\pro\reactpages\vendors\excel.chunk.js" />
+    <Content Include="www\js\build\pro\reactpages\vendors\reactpages.chunk.js" />
+    <Content Include="www\js\source\reactpages\actions\baseCurrencyAction.js" />
+    <Content Include="www\js\source\reactpages\actions\loaderAction.js" />
+    <Content Include="www\js\source\reactpages\actions\productAction.js" />
+    <Content Include="www\js\source\reactpages\actions\__tests__\baseCurrencyAction.test.js" />
+    <Content Include="www\js\source\reactpages\actions\__tests__\loaderAction.test.js" />
+    <Content Include="www\js\source\reactpages\actions\__tests__\productAction.test.js" />
+    <Content Include="www\js\source\reactpages\components\date-range\Calendar.js" />
+    <Content Include="www\js\source\reactpages\components\date-range\constants.js" />
+    <Content Include="www\js\source\reactpages\components\date-range\DateRange.js" />
+    <Content Include="www\js\source\reactpages\components\date-range\DayCell.js" />
+    <Content Include="www\js\source\reactpages\components\date-range\defaultOptions.js" />
+    <Content Include="www\js\source\reactpages\components\date-range\index.js" />
+    <Content Include="www\js\source\reactpages\components\date-range\LangDic.js" />
+    <Content Include="www\js\source\reactpages\components\date-range\PredefinedRanges.js" />
+    <Content Include="www\js\source\reactpages\components\date-range\styles.js" />
+    <Content Include="www\js\source\reactpages\components\date-range\utils\locale.js" />
+    <Content Include="www\js\source\reactpages\components\date-range\utils\parseInput.js" />
+    <Content Include="www\css\source\reactpages\components\custom3rd\_date-range.scss" />
+    <Content Include="www\css\source\reactpages\fonts\roboto\_style.scss" />
+    <Content Include="www\js\build\dev\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js.map" />
+    <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.css.map" />
+    <Content Include="www\css\source\reactpages\components\_loader.scss" />
+    <Content Include="www\css\source\reactpages\components\multiple-select\multiple-select.scss" />
+    <Content Include="www\css\source\reactpages\fonts\icon\_style.scss" />
+    <Content Include="www\css\source\reactpages\base\_report.scss" />
+    <Content Include="www\css\build\dev\reactpages\vendor.chunk.js.map" />
+    <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.chunk.js.map" />
+    <Content Include="www\js\build\dev\reactpages\vendors\excel.chunk.js.map" />
+    <Content Include="www\js\build\dev\reactpages\vendors\reactpages.chunk.js.map" />
+    <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
+    <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
+    <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Table.jsx" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Cell.test.js" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Row.test.js" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\RowLayout.test.js" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Table.test.js" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\tableSection.test.js" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\constants.js" />
+    <Content Include="www\js\source\reactpages\components\multiple-select\components\__tests__\Option.test.js" />
+    <Content Include="www\js\source\reactpages\components\multiple-select\components\__tests__\OptionAll.test.js" />
+    <Content Include="www\js\source\reactpages\components\__tests__\Loader.test.js" />
+    <Content Include="www\js\source\reactpages\components\__tests__\NoDataTitle.test.js" />
+    <Content Include="www\js\source\reactpages\components\__tests__\ReportTitle.test.js" />
+    <Content Include="www\js\source\reactpages\constants\config.js" />
+    <Content Include="www\js\source\reactpages\layouts\AppLayout.jsx" />
+    <Content Include="www\js\source\reactpages\lib\excel.js" />
+    <Content Include="www\js\source\reactpages\constants\excelStyle.js" />
+    <Content Include="www\js\source\reactpages\lib\langHelper.js" />
+    <Content Include="www\js\source\reactpages\lib\numberFormat.js" />
+    <Content Include="www\js\source\reactpages\lib\site.js" />
+    <Content Include="www\js\source\reactpages\lib\__tests__\excel.test.js" />
+    <Content Include="www\js\source\reactpages\lib\__tests__\langHelper.test.js" />
+    <Content Include="www\js\source\reactpages\lib\__tests__\numberFormat.test.js" />
+    <Content Include="www\js\source\reactpages\lib\__tests__\site.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\dataHandlerAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\filterHandlerAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\datagrid.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\fakeData.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\formFilter.eventhandler.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\formFilter.render.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\service.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\reportExcel.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\__tests__\fakeData.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\__tests__\reportExcel.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\__tests__\service.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\dataHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\filterHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\__tests__\dataHandlerReducer.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\__tests__\filterHandlerReducer.test.js" />
+    <Content Include="www\js\source\reactpages\reducers\baseCurrency.js" />
+    <Content Include="www\js\source\reactpages\reducers\loaderReducer.js" />
+    <Content Include="www\js\source\reactpages\reducers\productReducer.js" />
+    <Content Include="www\js\source\reactpages\reducers\__tests__\baseCurrency.test.js" />
+    <Content Include="www\js\source\reactpages\reducers\__tests__\loaderReducer.test.js" />
+    <Content Include="www\js\source\reactpages\reducers\__tests__\productReducer.test.js" />
+    <Content Include="www\webpackconfig\config\pathReact.js" />
+    <Content Include="www\webpackconfig\config\pluginReact.js" />
+    <None Include="bundleconfig.json" />
+    <Content Include="Views\Desktop\Report\SubsidiaryPerformance\Main.cshtml" />
+    <Content Include="Views\Desktop\Shared\_ReactPageLayout.cshtml" />
+    <Content Include="www\css\build\dev\reactpages\vendor.css.map" />
+    <Content Include="www\css\source\reactpages\layout\_filter.scss" />
+    <Content Include="www\css\source\reactpages\abstracts\_variables.scss" />
+    <Content Include="www\css\source\reactpages\base\_common.scss" />
+    <Content Include="www\css\source\reactpages\base\_reset.scss" />
+    <Content Include="www\css\source\reactpages\layout\_content.scss" />
+    <Content Include="www\css\source\reactpages\components\_grid.scss" />
+    <Content Include="www\css\source\reactpages\components\_form-group.scss" />
+    <Content Include="www\css\source\reactpages\abstracts\_mixins.scss" />
+    <Content Include="www\css\source\reactpages\components\forms\_input-text.scss" />
+    <Content Include="www\css\source\reactpages\components\forms\_select.scss" />
+    <Content Include="www\css\source\reactpages\components\custom3rd\_select.scss" />
+    <Content Include="www\css\source\reactpages\components\forms\_checkbox.scss" />
+    <Content Include="www\css\source\reactpages\components\_button.scss" />
+    <Content Include="www\css\source\reactpages\components\_fixed-table-header.scss" />
+    <Content Include="www\css\source\reactpages\components\_table.scss" />
+    <None Include="www\css\source\reactpages\main.scss" />
+    <Content Include="www\css\build\dev\reactpages\vendor.css" />
+    <Content Include="www\css\build\pro\reactpages\vendor.css" />
+    <Content Include="www\js\build\dev\reactpages\lib\langHelper.chunk.js" />
+    <Content Include="www\js\source\reactpages\actions\types.js" />
+    <Content Include="www\js\source\reactpages\lib\createReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\index.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\types.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\AppContainer.jsx" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\datagrid.jsx" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\formFilter.jsx" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\index.js" />
+    <Content Include="www\webpackconfig\build\webpack.react.base.conf.js" />
+    <Content Include="www\webpackconfig\build\webpack.react.dev.conf.js" />
     <Content Include="www\assets\images\15.jpg" />
     <Content Include="www\assets\images\lap-restriction-page.png" />
     <Content Include="www\assets\images\location-restriction-page.png" />
@@ -996,6 +1120,7 @@
     <Content Include="www\css\build\dev\pages\reports\customerwinloss.css.map" />
     <Content Include="www\css\build\dev\pages\reports\agcasinowinloss.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\reports\agcasinowinloss.css.map" />
+    <Content Include=".babelrc" />
     <None Include="www\css\source\pages\customer\customerlist.scss" />
     <Content Include="www\css\source\pages\customer\customerlog.scss" />
     <Content Include="www\css\source\components\tab\_tab.scss" />
@@ -2318,6 +2443,7 @@
     <Content Include="www\js\build\dev\pages\customer\numbergamebetsetting.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\rngcasinobetsetting.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\thirdpartybetsetting.chunk.js.map" />
+    <Content Include="www\webpackconfig\build\webpack.react.pro.conf.js" />
     <Content Include="www\css\source\scss\fonts\roboto\_style.scss" />
     <Content Include="www\js\build\dev\pages\reports\activecustomersummary.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\reports\customerbalance.chunk.js.map" />
@@ -2327,6 +2453,30 @@
     <Content Include="www\js\build\dev\pages\reports\customerpendingfunds.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\reports\customerturnover.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\reports\customerwinloss.chunk.js.map" />
+    <Content Include="www\js\build\dev\reactpages\lib\langHelper.chunk.js.map" />
+    <Content Include="www\css\source\reactpages\components\date-range\styles.scss" />
+    <Content Include="www\css\source\reactpages\pages\subsidiaryperformance\index.scss" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\tableSection.js" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\Cell.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\Row.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\Loader.jsx" />
+    <Content Include="www\js\source\reactpages\components\multiple-select\index.jsx" />
+    <Content Include="www\js\source\reactpages\components\multiple-select\components\MultipleSelect.jsx" />
+    <Content Include="www\js\source\reactpages\components\multiple-select\components\MultipleSelectLabel.jsx" />
+    <Content Include="www\js\source\reactpages\components\multiple-select\components\MultipleSelectOptionList.jsx" />
+    <Content Include="www\js\source\reactpages\components\multiple-select\components\Option.jsx" />
+    <Content Include="www\js\source\reactpages\components\multiple-select\components\OptionAll.jsx" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\index.jsx" />
+    <Content Include="www\js\source\reactpages\components\NoDataTitle.jsx" />
+    <Content Include="www\js\source\reactpages\components\ReportTitle.jsx" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\__snapshots__\datagrid.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\Loader.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\NoDataTitle.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\ReportTitle.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\RowLayout.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\Table.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\tableSection.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\multiple-select\components\__tests__\__snapshots__\Option.test.js.snap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
@@ -6001,6 +6151,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Logs\" />
+    <Folder Include="www\css\source\reactpages\lib\" />
+    <Folder Include="www\css\source\reactpages\vendors\" />
+    <Folder Include="www\js\source\reactpages\vendors\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\index.jsx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -6010,8 +6166,8 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+	   Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">

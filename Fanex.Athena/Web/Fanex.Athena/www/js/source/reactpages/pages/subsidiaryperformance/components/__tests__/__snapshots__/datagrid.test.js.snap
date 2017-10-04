@@ -1,0 +1,838 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataGrid  Data is not empty _buildBody - render correct body content 1`] = `
+<div>
+  <tr>
+    <td
+      rowSpan={2}
+      title="916515"
+    >
+      916515
+    </td>
+    <td
+      className="center-align"
+      rowSpan={2}
+      title="UUS"
+    >
+      UUS
+    </td>
+    <td
+      title="All"
+    >
+      All
+    </td>
+    <td
+      className="right-align"
+      title="52"
+    >
+      52
+    </td>
+    <td
+      className="right-align"
+      title="322.00"
+    >
+      322.00
+    </td>
+    <td
+      className="right-align"
+      title="142.32"
+    >
+      142.32
+    </td>
+    <td
+      className="right-align negative"
+      title="-141.76"
+    >
+      -141.76
+    </td>
+  </tr>
+  <tr>
+    <td
+      title="Cash Out"
+    >
+      Cash Out
+    </td>
+    <td
+      className="right-align"
+      title="4"
+    >
+      4
+    </td>
+    <td
+      className="right-align"
+      title="0.00"
+    >
+      0.00
+    </td>
+    <td
+      className="right-align"
+      title="0.00"
+    >
+      0.00
+    </td>
+    <td
+      className="right-align "
+      title="0.56"
+    >
+      0.56
+    </td>
+  </tr>
+</div>
+`;
+
+exports[`DataGrid  Data is not empty _buildGrandTotal  SubsidiaryWL is negative - render correct grand total content 1`] = `
+<div>
+  <tr
+    className="fixed-table-grant-total"
+  >
+    <td
+      title="Total"
+    >
+      Total
+    </td>
+    <td
+      title="Based EUR"
+    >
+      Based EUR
+    </td>
+    <td />
+    <td
+      className="right-align"
+      title="13,286,376"
+    >
+      13,286,376
+    </td>
+    <td
+      className="right-align"
+      title="405,367,913.09"
+    >
+      405,367,913.09
+    </td>
+    <td
+      className="right-align"
+      title="-14,046,804.03"
+    >
+      -14,046,804.03
+    </td>
+    <td
+      className="right-align negative"
+      title="-123.98"
+    >
+      -123.98
+    </td>
+  </tr>
+</div>
+`;
+
+exports[`DataGrid  Data is not empty _buildGrandTotal  SubsidiaryWL is positive - render correct grand total content 1`] = `
+<div>
+  <tr
+    className="fixed-table-grant-total"
+  >
+    <td
+      title="Total"
+    >
+      Total
+    </td>
+    <td
+      title="Based EUR"
+    >
+      Based EUR
+    </td>
+    <td />
+    <td
+      className="right-align"
+      title="13,286,376"
+    >
+      13,286,376
+    </td>
+    <td
+      className="right-align"
+      title="405,367,913.09"
+    >
+      405,367,913.09
+    </td>
+    <td
+      className="right-align"
+      title="-14,046,804.03"
+    >
+      -14,046,804.03
+    </td>
+    <td
+      className="right-align "
+      title="14,046,469.75"
+    >
+      14,046,469.75
+    </td>
+  </tr>
+</div>
+`;
+
+exports[`DataGrid  Data is not empty _buildHeader - render correct header content 1`] = `
+<tr
+  style={
+    Object {
+      "height": 32,
+    }
+  }
+>
+  <th
+    title="Subsidiary"
+  >
+    Subsidiary
+  </th>
+  <th
+    title="Currency"
+  >
+    Currency
+  </th>
+  <th
+    title="Product"
+  >
+    Product
+  </th>
+  <th
+    title="BetCount"
+  >
+    BetCount
+  </th>
+  <th
+    title="Turnover"
+  >
+    Turnover
+  </th>
+  <th
+    title="CustomerW_L"
+  >
+    CustomerW_L
+  </th>
+  <th
+    title="SubsidiaryWL/ Comm"
+  >
+    SubsidiaryWL/ Comm
+  </th>
+</tr>
+`;
+
+exports[`DataGrid  Data is not empty grid data should be rendered correctly 1`] = `
+<div
+  className="result-content"
+>
+  <div
+    className="report-title-container"
+  >
+    <p
+      className="report-title"
+    >
+      
+    </p>
+  </div>
+  <div
+    className="table-container"
+    style={
+      Object {
+        "maxWidth": -30,
+      }
+    }
+  >
+    <div
+      className="header-content"
+      style={
+        Object {
+          "maxHeight": undefined,
+          "minWidth": 600,
+          "width": -30,
+        }
+      }
+    >
+      <div
+        className="table-wrapper"
+      >
+        <table
+          className="table"
+          style={
+            Object {
+              "width": 581,
+            }
+          }
+        >
+          <thead>
+            <tr
+              className="first-row"
+            >
+              <td
+                style={
+                  Object {
+                    "width": "-3.6px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-3.6px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.8px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-3.6px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.8px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.8px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.8px",
+                  }
+                }
+              />
+            </tr>
+            <tr
+              style={
+                Object {
+                  "height": 32,
+                }
+              }
+            >
+              <th
+                title="Subsidiary"
+              >
+                Subsidiary
+              </th>
+              <th
+                title="Currency"
+              >
+                Currency
+              </th>
+              <th
+                title="Product"
+              >
+                Product
+              </th>
+              <th
+                title="BetCount"
+              >
+                BetCount
+              </th>
+              <th
+                title="Turnover"
+              >
+                Turnover
+              </th>
+              <th
+                title="CustomerW_L"
+              >
+                CustomerW_L
+              </th>
+              <th
+                title="SubsidiaryWL/ Comm"
+              >
+                SubsidiaryWL/ Comm
+              </th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+    <div
+      className="body-content"
+      style={
+        Object {
+          "maxHeight": 300,
+          "minWidth": 600,
+          "width": -30,
+        }
+      }
+    >
+      <div
+        className="table-wrapper"
+      >
+        <table
+          className="table"
+          style={
+            Object {
+              "width": 581,
+            }
+          }
+        >
+          <tbody>
+            <tr
+              className="first-row"
+            >
+              <td
+                style={
+                  Object {
+                    "width": "-3.6px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-3.6px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.8px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-3.6px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.8px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.8px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.8px",
+                  }
+                }
+              />
+            </tr>
+            <tr>
+              <td
+                rowSpan={2}
+                title="916515"
+              >
+                916515
+              </td>
+              <td
+                className="center-align"
+                rowSpan={2}
+                title="UUS"
+              >
+                UUS
+              </td>
+              <td
+                title="All"
+              >
+                All
+              </td>
+              <td
+                className="right-align"
+                title="52"
+              >
+                52
+              </td>
+              <td
+                className="right-align"
+                title="322.00"
+              >
+                322.00
+              </td>
+              <td
+                className="right-align"
+                title="142.32"
+              >
+                142.32
+              </td>
+              <td
+                className="right-align negative"
+                title="-141.76"
+              >
+                -141.76
+              </td>
+            </tr>
+            <tr>
+              <td
+                title="Cash Out"
+              >
+                Cash Out
+              </td>
+              <td
+                className="right-align"
+                title="4"
+              >
+                4
+              </td>
+              <td
+                className="right-align"
+                title="0.00"
+              >
+                0.00
+              </td>
+              <td
+                className="right-align"
+                title="0.00"
+              >
+                0.00
+              </td>
+              <td
+                className="right-align "
+                title="0.56"
+              >
+                0.56
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div
+      className="footer-content"
+      style={
+        Object {
+          "maxHeight": undefined,
+          "minWidth": 600,
+          "width": -30,
+        }
+      }
+    >
+      <div
+        className="table-wrapper"
+      >
+        <table
+          className="table"
+          style={
+            Object {
+              "width": 581,
+            }
+          }
+        >
+          <tbody>
+            <tr
+              className="first-row"
+            >
+              <td
+                style={
+                  Object {
+                    "width": "-3.6px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-3.6px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.8px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-3.6px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.8px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.8px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.8px",
+                  }
+                }
+              />
+            </tr>
+            <tr
+              className="fixed-table-total"
+            >
+              <td
+                title="Total 858249"
+              >
+                Total 858249
+              </td>
+              <td
+                title="Based EUR"
+              >
+                Based EUR
+              </td>
+              <td />
+              <td
+                className="right-align"
+                title="894"
+              >
+                894
+              </td>
+              <td
+                className="right-align"
+                title="0.00"
+              >
+                0.00
+              </td>
+              <td
+                className="right-align"
+                title="0.00"
+              >
+                0.00
+              </td>
+              <td
+                className="right-align "
+                title="0.00"
+              >
+                0.00
+              </td>
+            </tr>
+            <tr
+              className="fixed-table-total"
+            >
+              <td
+                title="Total 916515"
+              >
+                Total 916515
+              </td>
+              <td
+                title="Based EUR"
+              >
+                Based EUR
+              </td>
+              <td />
+              <td
+                className="right-align"
+                title="99"
+              >
+                99
+              </td>
+              <td
+                className="right-align"
+                title="0.00"
+              >
+                0.00
+              </td>
+              <td
+                className="right-align"
+                title="0.00"
+              >
+                0.00
+              </td>
+              <td
+                className="right-align negative"
+                title="-141.76"
+              >
+                -141.76
+              </td>
+            </tr>
+            <tr
+              className="fixed-table-grant-total"
+            >
+              <td
+                title="Total"
+              >
+                Total
+              </td>
+              <td
+                title="Based EUR"
+              >
+                Based EUR
+              </td>
+              <td />
+              <td
+                className="right-align"
+                title="13,286,376"
+              >
+                13,286,376
+              </td>
+              <td
+                className="right-align"
+                title="405,367,913.09"
+              >
+                405,367,913.09
+              </td>
+              <td
+                className="right-align"
+                title="-14,046,804.03"
+              >
+                -14,046,804.03
+              </td>
+              <td
+                className="right-align "
+                title="14,046,469.75"
+              >
+                14,046,469.75
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DataGrid  Data is not empty render correct footer content 1`] = `
+<div>
+  <tr
+    className="fixed-table-total"
+  >
+    <td
+      title="Total 858249"
+    >
+      Total 858249
+    </td>
+    <td
+      title="Based EUR"
+    >
+      Based EUR
+    </td>
+    <td />
+    <td
+      className="right-align"
+      title="894"
+    >
+      894
+    </td>
+    <td
+      className="right-align"
+      title="0.00"
+    >
+      0.00
+    </td>
+    <td
+      className="right-align"
+      title="0.00"
+    >
+      0.00
+    </td>
+    <td
+      className="right-align "
+      title="0.00"
+    >
+      0.00
+    </td>
+  </tr>
+  <tr
+    className="fixed-table-total"
+  >
+    <td
+      title="Total 916515"
+    >
+      Total 916515
+    </td>
+    <td
+      title="Based EUR"
+    >
+      Based EUR
+    </td>
+    <td />
+    <td
+      className="right-align"
+      title="99"
+    >
+      99
+    </td>
+    <td
+      className="right-align"
+      title="0.00"
+    >
+      0.00
+    </td>
+    <td
+      className="right-align"
+      title="0.00"
+    >
+      0.00
+    </td>
+    <td
+      className="right-align negative"
+      title="-141.76"
+    >
+      -141.76
+    </td>
+  </tr>
+  Grand Total
+</div>
+`;
+
+exports[`DataGrid  No data gridData length is 0 - render container with correct report title content 1`] = `
+<div
+  className="result-content"
+>
+  <div
+    className="report-title-container"
+  >
+    <p
+      className="report-title"
+    >
+      SubsidiaryPerformance, 09/26/2017 - 09/28/2017 - EUR
+    </p>
+  </div>
+  <p
+    className="no-info-row center-align"
+  >
+    NoInfo
+  </p>
+</div>
+`;
+
+exports[`DataGrid  No data gridData length is 0 - render correct content 1`] = `
+<div
+  className="result-content"
+>
+  <div
+    className="report-title-container"
+  >
+    <p
+      className="report-title"
+    >
+      
+    </p>
+  </div>
+  <p
+    className="no-info-row center-align"
+  >
+    NoInfo
+  </p>
+</div>
+`;

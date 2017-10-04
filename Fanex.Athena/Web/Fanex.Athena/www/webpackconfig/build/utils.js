@@ -2,18 +2,18 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
-exports.setDefinePlugin = function (key, value) {
+exports.setDefinePlugin = function(key, value) {
     const env = {};
     env[key] = JSON.stringify(value);
 
     return {
         plugins: [
-          new webpack.DefinePlugin(env)
+            new webpack.DefinePlugin(env)
         ]
     };
 };
 
-exports.minify = function () {
+exports.minify = function() {
     return {
         plugins: [
             new webpack.optimize.UglifyJsPlugin({
@@ -29,7 +29,7 @@ exports.minify = function () {
     };
 };
 
-exports.extractCSS = function (isProduction) {
+exports.extractCSS = function(isProduction) {
     return {
         module: {
             rules: [
@@ -49,14 +49,14 @@ exports.extractCSS = function (isProduction) {
                                 loader: 'css-loader',
                                 options: {
                                     minimize: isProduction,
-                                    url: false,
+                                    url: false
                                 }
                             },
                           {
                               loader: 'sass-loader',
                               options: {
                                   minimize: isProduction,
-                                  url: false,
+                                  url: false
                               }
                           }]
                     })

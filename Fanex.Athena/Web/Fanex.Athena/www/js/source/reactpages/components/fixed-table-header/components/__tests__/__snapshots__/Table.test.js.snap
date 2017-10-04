@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table  render columnsWidth is not null - return content that match with snapshot 1`] = `
+<div
+  className="table-container"
+  style={
+    Object {
+      "maxWidth": -30,
+    }
+  }
+>
+  <div
+    className="header-content"
+    style={
+      Object {
+        "maxHeight": undefined,
+        "minWidth": undefined,
+        "width": -30,
+      }
+    }
+  >
+    <div
+      className="table-wrapper"
+    >
+      <table
+        className="table"
+        style={
+          Object {
+            "width": -49,
+          }
+        }
+      >
+        <thead>
+          <tr
+            className="first-row"
+          />
+          <tr>
+            <td>
+              Header 1
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <div
+    className="body-content"
+    style={
+      Object {
+        "maxHeight": undefined,
+        "minWidth": undefined,
+        "width": -30,
+      }
+    }
+  >
+    <div
+      className="table-wrapper"
+    >
+      <table
+        className="table"
+        style={
+          Object {
+            "width": -49,
+          }
+        }
+      >
+        <tbody>
+          <tr
+            className="first-row"
+          />
+          <tr>
+            <td>
+              Body 1
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div
+    className="footer-content"
+    style={
+      Object {
+        "maxHeight": undefined,
+        "minWidth": undefined,
+        "width": -30,
+      }
+    }
+  >
+    <div
+      className="table-wrapper"
+    >
+      <table
+        className="table"
+        style={
+          Object {
+            "width": -49,
+          }
+        }
+      >
+        <tbody>
+          <tr
+            className="first-row"
+          />
+          <tr>
+            <td>
+              Footer 1
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;

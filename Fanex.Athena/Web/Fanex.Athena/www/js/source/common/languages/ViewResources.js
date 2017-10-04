@@ -1,4 +1,4 @@
-﻿// Generated at: 8/18/2017 12:54:23 PM
+﻿// Generated at: 9/27/2017 1:40:47 PM
 window._language_en_US = {
 AA:"AA",
 AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -155,6 +155,7 @@ Confirm:"Confirm",
 Confirmation:"Confirmation",
 ConfirmCommission:"Confirm Customer&apos;s Commission:",
 ConfirmPassword:"Confirm Password",
+ConvertAll:"Convert All",
 ConvertTo:"Convert to",
 CopyBetSettingFrom:"Copy All Bet Setting from {0}",
 CopyBetSettingFromRacing:"Copy All Bet Setting from Racing",
@@ -779,6 +780,9 @@ Statement:"Statement",
 Status:"Status",
 Su:"Su",
 Submit:"Submit",
+Subsidiary:"Subsidiary",
+SubsidiaryPerformance:"Subsidiary Performance",
+SubsidiaryWL:"Subsidiary WL",
 Summary:"Summary",
 Sunday:"Sunday",
 SupportForOnlyNote:"The report only supports",

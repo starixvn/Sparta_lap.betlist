@@ -19,5 +19,7 @@
         public const string Turnover = "Turnover";
 
         public const string WinLossByProduct = "WinLossByProduct";
+
+        public const string SubsidiaryPerformance = "SubsidiaryPerformance";
     }
 }

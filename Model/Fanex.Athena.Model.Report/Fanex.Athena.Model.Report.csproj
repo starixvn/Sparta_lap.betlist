@@ -122,6 +122,9 @@
     <Compile Include="DTO\AgCasinoBalance.cs" />
     <Compile Include="DTO\PlatformWinLossSummary.cs" />
     <Compile Include="DTO\ColossusBetWinLoss.cs" />
+    <Compile Include="DTO\SubsidiaryPerformance\SubsidiaryPerformanceDataModel.cs" />
+    <Compile Include="DTO\SubsidiaryPerformance\SubsidiaryPerformanceDetail.cs" />
+    <Compile Include="DTO\SubsidiaryPerformance\SubsidiaryPerformanceEntity.cs" />
     <Compile Include="DTO\ThirdPartyWinLoss.cs" />
     <Compile Include="DTO\WeeklyLiveMatch.cs" />
     <Compile Include="DTO\WinLossByLeague.cs" />
@@ -156,6 +159,7 @@
     <Compile Include="MetaModel\CasinoProgressiveWinsMetaModel.cs" />
     <Compile Include="MetaModel\MicroGamingWinLossMetaModel.cs" />
     <Compile Include="MetaModel\AgCasinoBalanceMetaModel.cs" />
+    <Compile Include="MetaModel\SubsidiaryPerformanceMetaModel.cs" />
     <Compile Include="MetaModel\ThirdPartyWinLossMetaModel.cs" />
     <Compile Include="MetaModel\WeeklyLiveMatchMetaModel.cs" />
     <Compile Include="MetaModel\WinLossByLeagueMetaModel.cs" />
@@ -186,6 +190,7 @@
     <Compile Include="ViewModel\CasinoProgressiveWinsGridViewModel.cs" />
     <Compile Include="ViewModel\MicroGamingWinLossViewModel.cs" />
     <Compile Include="ViewModel\ColossusBetWinLossViewModel.cs" />
+    <Compile Include="ViewModel\SubsidiaryPerformanceViewModel.cs" />
     <Compile Include="ViewModel\ThirdPartyWinLossViewModel.cs" />
     <Compile Include="ViewModel\WinLossByLeagueViewModel.cs" />
     <Compile Include="ViewModel\AgCasinoBalanceViewModel.cs" />
@@ -215,6 +220,10 @@
     <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
+      <Project>{FCFD7434-085B-4C93-848F-E1CBCEDCC5A0}</Project>
+      <Name>Fanex.Athena.Service.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
