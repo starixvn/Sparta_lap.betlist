@@ -13,14 +13,12 @@ namespace Fanex.Athena.Controllers.Report
     using DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
-    using Model.Core.ResultModel;
     using Newtonsoft.Json;
     using Resources;
     using Service.Report.Interfaces;
@@ -101,9 +99,8 @@ namespace Fanex.Athena.Controllers.Report
             var currencyName = userSession.CurrencyList
                 .Where(i => i.Key == metaModel.CurrencyId).Select(i => i.Value).SingleOrDefault();
 
-            
             var result = _customerTurnoverService.GetDataList(metaModel, userSession.Language);
-            
+
             var usernameExcelTitle = string.IsNullOrEmpty(metaModel.Username) ?
                 string.Empty
                 : "- " + ViewResources.Username + ": " + metaModel.Username;
