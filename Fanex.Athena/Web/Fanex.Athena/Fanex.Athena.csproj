@@ -807,7 +807,15 @@
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Table.jsx" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Cell.test.js" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Row.test.js" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\RowLayout.test.js" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Table.test.js" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\tableSection.test.js" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\constants.js" />
+    <Content Include="www\js\source\reactpages\components\multiple-select\components\__tests__\Option.test.js" />
+    <Content Include="www\js\source\reactpages\components\multiple-select\components\__tests__\OptionAll.test.js" />
+    <Content Include="www\js\source\reactpages\components\__tests__\Loader.test.js" />
+    <Content Include="www\js\source\reactpages\components\__tests__\NoDataTitle.test.js" />
+    <Content Include="www\js\source\reactpages\components\__tests__\ReportTitle.test.js" />
     <Content Include="www\js\source\reactpages\constants\config.js" />
     <Content Include="www\js\source\reactpages\layouts\AppLayout.jsx" />
     <Content Include="www\js\source\reactpages\lib\excel.js" />
@@ -2462,6 +2470,13 @@
     <Content Include="www\js\source\reactpages\components\NoDataTitle.jsx" />
     <Content Include="www\js\source\reactpages\components\ReportTitle.jsx" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\__snapshots__\datagrid.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\Loader.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\NoDataTitle.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\ReportTitle.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\RowLayout.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\Table.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\tableSection.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\multiple-select\components\__tests__\__snapshots__\Option.test.js.snap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
@@ -6138,7 +6153,6 @@
     <Folder Include="Logs\" />
     <Folder Include="www\css\source\reactpages\lib\" />
     <Folder Include="www\css\source\reactpages\vendors\" />
-    <Folder Include="www\js\source\reactpages\components\fixed-table-header\__tests__\" />
     <Folder Include="www\js\source\reactpages\vendors\" />
   </ItemGroup>
   <ItemGroup>
