@@ -69,13 +69,17 @@
                 };
             }
 
-            var userCheckingResult = CheckAndSyncUserInfo(licensee, tokenInfo.UserID);
-            if (!userCheckingResult.IsSuccessful)
+            if (tokenInfo.IsAdminstrator)
             {
-                return userCheckingResult;
+                var userCheckingResult = CheckAndSyncUserInfo(licensee, tokenInfo.UserID);
+                if (!userCheckingResult.IsSuccessful)
+                {
+                    return userCheckingResult;
+                }
+
+                tokenInfo.UserSEQ = int.Parse(userCheckingResult.ExtendedData);
             }
 
-            tokenInfo.UserSEQ = int.Parse(userCheckingResult.ExtendedData);
             var currencyList = GetCurrencyList(tokenInfo, licensee.Id);
             if (currencyList == null || !currencyList.Any())
             {
@@ -90,17 +94,14 @@
             var licenseeSession = _sessionService.LicenseeSession;
             var language = Util.MapLanguages.Where(i => i.Value.Equals(tokenInfo.Language))
                        .Select(i => i.Key).DefaultIfEmpty<string>("en-Us").FirstOrDefault();
-            if (IsAuthenticated(currentContext, userSession, licenseeSession))
+            if (IsAuthenticated(currentContext, userSession, licenseeSession) &&
+                IsSameSession(userSession, licenseeSession, tokenInfo, licensee.Id))
             {
-                var isSameSession = VerifySessionWithToken(userSession, licenseeSession, tokenInfo, licensee.Id);
-                if (isSameSession)
+                UpdateUserSession(userSession, tokenInfo, licensee.Id, currencyList, language);
+                return new ResultInfo
                 {
-                    UpdateUserSession(userSession, tokenInfo, licensee.Id, currencyList, language);
-                    return new ResultInfo
-                    {
-                        ExtendedData = tokenInfo.ActionLink
-                    };
-                }
+                    ExtendedData = tokenInfo.ActionLink
+                };
             }
 
             CreateSession(language, tokenInfo, licensee, currencyList);
@@ -112,7 +113,7 @@
             return _oneBookSecurityWrapper.Authenticate(token);
         }
 
-        private static bool VerifySessionWithToken(UserSession userSession, LicenseeSession licenseeSession, OneAuthToken tokenInfo, int licenseeId)
+        private static bool IsSameSession(UserSession userSession, LicenseeSession licenseeSession, OneAuthToken tokenInfo, int licenseeId)
         {
             return userSession.UserName == tokenInfo.UserID
                 && userSession.VendorID == tokenInfo.VendorID && userSession.VendorIdentityID == tokenInfo.UserID
