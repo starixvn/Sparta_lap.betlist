@@ -6,7 +6,7 @@
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Common.Extensions;
 
-    public class SafeDataReader
+    public class SafeDataReader : ISafeDataReader
     {
         private readonly IDataReader _reader;
 

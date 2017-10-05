@@ -7,10 +7,12 @@
 namespace Fanex.Athena.DataAccess.Core
 {
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common;
     using Fanex.Data;
+    using Utilities;
 
     public class BaseDataAccess
     {
@@ -38,6 +40,11 @@ namespace Fanex.Athena.DataAccess.Core
         protected internal virtual IObjectDb GetObjectDb(string spname)
         {
             return new ObjectDb(spname);
+        }
+
+        protected internal virtual ISafeDataReader GetSafeDataReader(IDataReader reader, IEnumerable<string> columns)
+        {
+            return new SafeDataReader(reader, columns);
         }
     }
 }

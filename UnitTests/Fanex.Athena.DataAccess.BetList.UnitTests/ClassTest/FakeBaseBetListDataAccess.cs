@@ -8,7 +8,7 @@
     {
         public new SortableList<LrfTicket> ReadBetListTicket(IDataReader dataReader, string baseCurrency, long custId = 0)
         {
-            return BaseBetListDataAccess.ReadBetListTicket(dataReader, baseCurrency, custId);
+            return ReadBetListTicket(dataReader, baseCurrency, custId);
         }
 
         public new string NumberReport(object value)

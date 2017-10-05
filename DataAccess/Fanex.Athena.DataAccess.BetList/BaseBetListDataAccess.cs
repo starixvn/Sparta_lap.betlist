@@ -9,7 +9,6 @@ namespace Fanex.Athena.DataAccess.BetList
     using System;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using DataAccess.Core.Utilities;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.BetList.DTO;
@@ -19,7 +18,7 @@ namespace Fanex.Athena.DataAccess.BetList
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         [CLSCompliant(false)]
-        protected internal static SortableList<LrfTicket> ReadBetListTicket(IDataReader dataReader, string baseCurrency, long custId = 0)
+        protected internal SortableList<LrfTicket> ReadBetListTicket(IDataReader dataReader, string baseCurrency, long custId = 0)
         {
             var playerCommCol = "playercomm" + baseCurrency;
             var commCol = "comm" + baseCurrency;
@@ -41,7 +40,7 @@ namespace Fanex.Athena.DataAccess.BetList
                 "odds", "modds", "hdp1", "hdp2", "transdesc", "currency", "betdaqid", "extrainfo", originalStakeCol, "originalbettype"
             };
 
-            var reader = new SafeDataReader(dataReader, columns);
+            var reader = this.GetSafeDataReader(dataReader, columns);
 
             while (reader.Read())
             {
