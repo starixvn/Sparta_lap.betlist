@@ -13,6 +13,7 @@ namespace Fanex.Athena.Controllers
     using System.Web.Mvc;
     using System.Web.SessionState;
     using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
@@ -34,19 +35,24 @@ namespace Fanex.Athena.Controllers
 
         private readonly IProductService _productService;
 
+        private readonly IFileSystem _fileSystem;
+
         public UserGuideController()
         {
             _productService = new ProductService();
+            _fileSystem = new FileSystem();
         }
 
         public UserGuideController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IFileSystem fileSystem,
             IProductService productService)
             : base(languageService, sessionService, appSetting)
         {
             _productService = productService;
+            _fileSystem = fileSystem;
         }
 
         [AjaxRequest]
@@ -68,19 +74,6 @@ namespace Fanex.Athena.Controllers
             var filePath = Server.MapPath(string.Format(@"~/App_Data/UserGuide/{0}/pdf/{1}/{2}", CustomerListResourceName, language, fileName));
             filePath = GetDefaultFilePathIfNotExist(language, filePath);
             return File(filePath, System.Net.Mime.MediaTypeNames.Application.Pdf, Path.GetFileName(filePath));
-        }
-
-        protected internal virtual bool FileExists(string filePath)
-        {
-            return System.IO.File.Exists(filePath);
-        }
-
-        protected internal virtual string ReadFile(string filePath)
-        {
-            using (var reader = new StreamReader(filePath))
-            {
-                return reader.ReadToEnd();
-            }
         }
 
         private static string AddCasinoProducts(string content, IEnumerable<Product> products)
@@ -138,7 +131,7 @@ namespace Fanex.Athena.Controllers
 
         private string GetDefaultFilePathIfNotExist(string language, string filePath)
         {
-            if (!language.Equals(DefaultLanguage, System.StringComparison.OrdinalIgnoreCase) && !FileExists(filePath))
+            if (!language.Equals(DefaultLanguage, System.StringComparison.OrdinalIgnoreCase) && !_fileSystem.Exists(filePath))
             {
                 return filePath.Replace(language, DefaultLanguage);
             }
@@ -153,7 +146,7 @@ namespace Fanex.Athena.Controllers
             var filePath = Server.MapPath(string.Format(@"~/App_Data/UserGuide/{0}/{1}.htm", resourceName, language));
             filePath = GetDefaultFilePathIfNotExist(language, filePath);
 
-            return ReadFile(filePath);
+            return _fileSystem.ReadFile(filePath);
         }
     }
 }

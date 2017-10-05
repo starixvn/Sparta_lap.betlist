@@ -2,7 +2,6 @@
 {
     using System;
     using Base.UnitTests;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Logging;
     using Model.Core.DataDomain;
@@ -14,11 +13,10 @@
     using ONEbook.UM.Services;
 
     [TestFixture]
-    public class OneAuthorizationControllerTest : BaseControllerTest
+    public class OneAuthorizationControllerTest : BaseControllerHelperTest
     {
         private IMaintenanceService _maintenanceService;
         private IOneAuthenticationService _oneAuthenticationService;
-        private IAppSettings _appSetting;
         private ILogger _logger;
         private int _loggerCounnter;
         private OneAuthorizationController _controller;
@@ -30,18 +28,16 @@
 
             _maintenanceService = Substitute.For<IMaintenanceService>();
             _oneAuthenticationService = Substitute.For<IOneAuthenticationService>();
-            _appSetting = Substitute.For<IAppSettings>();
             _logger = Substitute.For<ILogger>();
 
-            _appSetting.GetValue(Arg.Is<string>("EnableLogForOneAuthorization")).Returns("0");
+            StubGetValueAppSettings("EnableLogForOneAuthorization", "0");
             _logger.When(x => x.Error(Arg.Any<string>())).Do(x => _loggerCounnter++);
             _oneAuthenticationService.GetTokenInfo(Arg.Any<string>()).Returns(x => null);
 
-            _controller = new OneAuthorizationController(_maintenanceService, _oneAuthenticationService, _appSetting, _logger)
+            _controller = new OneAuthorizationController(_maintenanceService, _oneAuthenticationService, AppSettings, _logger)
             {
                 ControllerContext = ControllerContext,
-
-                Url = this.Url
+                Url = Url
             };
         }
 
@@ -49,13 +45,8 @@
         public void TearDown()
         {
             _maintenanceService = null;
-            _appSetting = null;
             _logger = null;
-            if (_controller != null)
-            {
-                _controller.Dispose();
-            }
-
+            _controller.Dispose();
             _loggerCounnter = 0;
         }
 
@@ -63,13 +54,12 @@
         public void CreateSession_UnderMaintenanceState_RedirectToUMPage()
         {
             // Arrange
-            const string Token = "ghskhgk9863096804396oisoie";
             _maintenanceService.IsUnderMaintenance().Returns(true);
 
             const string ExpectedUrl = "/Utility/UnderMaintenance?notReload=true";
 
             // Action
-            var result = _controller.CreateSession(Token);
+            var result = _controller.CreateSession(string.Empty);
 
             // Assert
             StringAssert.Contains(ExpectedUrl, result.Url);
@@ -111,14 +101,17 @@
             const string ExpectedMsg = "token is null";
 
             _oneAuthenticationService.GetTokenInfo(Arg.Any<string>()).Returns(x => null);
-            _appSetting.GetValue(Arg.Is<string>("EnableLogForOneAuthorization")).Returns("1");
+            StubGetValueAppSettings("EnableLogForOneAuthorization", "1");
 
             // Action
             var result = _controller.CreateSession(Token);
 
             // Assert
-            _logger.Received(1).Error(Arg.Is<string>(x => x.Contains(ExpectedMsg)));
-            Assert.AreEqual(1, _loggerCounnter);
+            Assert.Multiple(() =>
+            {
+                _logger.Received(1).Error(Arg.Is<string>(x => x.Contains(ExpectedMsg)));
+                Assert.That(_loggerCounnter, Is.EqualTo(1));
+            });
         }
 
         [Test]
@@ -126,6 +119,7 @@
         {
             // Arrange
             const string Token = "GasgSDgS";
+
             var tokenInfo = new OneAuthToken
             {
                 UserID = "1",
@@ -133,19 +127,21 @@
                 UserSEQ = 1,
                 VendorID = "localhost"
             };
-
-            var expectedMsg = JsonConvert.SerializeObject(tokenInfo);
-
-            _appSetting.GetValue(Arg.Is<string>("EnableLogForOneAuthorization")).Returns("1");
-
             _oneAuthenticationService.GetTokenInfo(Token).Returns(x => tokenInfo);
 
+            StubGetValueAppSettings("EnableLogForOneAuthorization", "1");
+
+            var expectedMsg = JsonConvert.SerializeObject(tokenInfo);
+                    
             // Action
             var result = _controller.CreateSession(Token);
 
             // Assert
-            _logger.Received(1).Error(Arg.Is<string>(x => x.Contains(expectedMsg)));
-            Assert.AreEqual(1, _loggerCounnter);
+            Assert.Multiple(() =>
+            {
+                _logger.Received(1).Error(Arg.Is<string>(x => x.Contains(expectedMsg)));
+                Assert.That(_loggerCounnter, Is.EqualTo(1));
+            });
         }
 
         [Test]
@@ -162,9 +158,12 @@
                 UserID = "pgmAlex",
                 VendorID = "localhost"
             });
-            var expectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.LocationRestrictionMsg;
-            _appSetting.GetValue(Arg.Is<string>("InternalSubDomain")).Returns(x => "localhost");
+
+            StubGetValueAppSettings("InternalSubDomain", "localhost");
+
             _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
+
+            var expectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.LocationRestrictionMsg;
 
             // Action
             var result = _controller.CreateSession(Token);
@@ -187,13 +186,15 @@
                 UserID = "pgmAlex",
                 VendorID = "localhost"
             };
-            var resultInfo = new ResultInfo { Code = 0, Message = string.Empty, ExtendedData = actionLink };
-
-            _appSetting.GetValue(Arg.Is<string>("InternalSubDomain")).Returns(x => "alex.");
-            _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
             _oneAuthenticationService.GetTokenInfo(Token).Returns(x => tokenInfo);
+
+            var resultInfo = new ResultInfo { Code = 0, Message = string.Empty, ExtendedData = actionLink };
             _oneAuthenticationService.SignIn(_controller.HttpContext, tokenInfo).Returns(resultInfo);
 
+            StubGetValueAppSettings("InternalSubDomain", "alex.");
+
+            _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
+                       
             // Action
             var result = _controller.CreateSession(Token);
 
@@ -216,12 +217,15 @@
                 UserID = "pgmAlex",
                 VendorID = "localhost"
             };
-            var resultInfo = new ResultInfo { Code = expectedErrorCode, Message = "error" };
-            _appSetting.GetValue(Arg.Is<string>("InternalSubDomain")).Returns(x => "alex.");
-            _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
             _oneAuthenticationService.GetTokenInfo(Token).Returns(x => tokenInfo);
 
+            var resultInfo = new ResultInfo { Code = expectedErrorCode, Message = "error" };
             _oneAuthenticationService.SignIn(_controller.HttpContext, tokenInfo).Returns(resultInfo);
+
+            StubGetValueAppSettings("InternalSubDomain", "alex.");
+
+            _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));            
+            
             var expectedUrl = "Utility/OneTokenRestriction?code=" + expectedErrorCode.ToString();
 
             // Action

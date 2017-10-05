@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using Extension.Utility.Interfaces;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using NSubstitute;
@@ -15,6 +16,8 @@
         private const string DefaultLanguage = "en-US";
 
         private IProductService _productService;
+
+        private IFileSystem _fileSystem;
 
         private UserGuideController _controller;
 
@@ -31,9 +34,12 @@
         {
             _productService = Substitute.For<IProductService>();
 
-            _controller = Substitute.ForPartsOf<UserGuideController>(LangService, SessionService, AppSettings, _productService);
+            _fileSystem = Substitute.For<IFileSystem>();
 
-            _controller.ControllerContext = ControllerContext;
+            _controller = new UserGuideController(LangService, SessionService, AppSettings, _fileSystem, _productService)
+            {
+                ControllerContext = ControllerContext
+            };
 
             _controller.Server.MapPath(Arg.Any<string>()).Returns(x => x.ArgAt<string>(0));
         }
@@ -53,8 +59,9 @@
             const string ResourceName = "CustomerList";
 
             _controller.Url = Url;
-            _controller.FileExists(Arg.Any<string>()).Returns(true);
-            _controller.ReadFile(Arg.Any<string>()).Returns("{rooturl}");
+
+            _fileSystem.Exists(Arg.Any<string>()).Returns(true);
+            _fileSystem.ReadFile(Arg.Any<string>()).Returns("{rooturl}");
 
             // Action
             var result = _controller.Index(ResourceName) as ViewResult;
@@ -76,8 +83,9 @@
             var actualFilePath = string.Empty;
 
             _controller.Url = Url;
-            _controller.FileExists(Arg.Any<string>()).Returns(false);
-            _controller.ReadFile(Arg.Do<string>(x => actualFilePath = x)).Returns("{rooturl}");
+
+            _fileSystem.Exists(Arg.Any<string>()).Returns(false);
+            _fileSystem.ReadFile(Arg.Do<string>(x => actualFilePath = x)).Returns("{rooturl}");
 
             // Action
             _controller.Index(ResourceName);
@@ -96,8 +104,9 @@
             var actualFileName = string.Empty;
 
             _controller.Url = Url;
-            _controller.FileExists(Arg.Any<string>()).Returns(true);
-            _controller.ReadFile(Arg.Do<string>(x => actualFileName = x)).Returns("{rooturl}");
+
+            _fileSystem.Exists(Arg.Any<string>()).Returns(true);
+            _fileSystem.ReadFile(Arg.Do<string>(x => actualFileName = x)).Returns("{rooturl}");
 
             // Action
             _controller.Index(ResourceName);
@@ -116,8 +125,9 @@
             var actualFileName = string.Empty;
 
             _controller.Url = Url;
-            _controller.FileExists(Arg.Any<string>()).Returns(false);
-            _controller.ReadFile(Arg.Do<string>(x => actualFileName = x)).Returns("{rooturl}");
+
+            _fileSystem.Exists(Arg.Any<string>()).Returns(false);
+            _fileSystem.ReadFile(Arg.Do<string>(x => actualFileName = x)).Returns("{rooturl}");
 
             // Action
             _controller.Index(ResourceName);
@@ -134,8 +144,9 @@
             const string ExpectedContent = "/";
 
             _controller.Url = Url;
-            _controller.FileExists(Arg.Any<string>()).Returns(false);
-            _controller.ReadFile(Arg.Any<string>()).Returns("{rooturl}");
+
+            _fileSystem.Exists(Arg.Any<string>()).Returns(false);
+            _fileSystem.ReadFile(Arg.Any<string>()).Returns("{rooturl}");
 
             // Action
             var result = _controller.Index(ResourceName) as ViewResult;
@@ -158,8 +169,9 @@
             });
 
             _controller.Url = Url;
-            _controller.FileExists(Arg.Any<string>()).Returns(false);
-            _controller.ReadFile(Arg.Any<string>()).Returns(Content);
+
+            _fileSystem.Exists(Arg.Any<string>()).Returns(false);
+            _fileSystem.ReadFile(Arg.Any<string>()).Returns(Content);
 
             // Action
             var result = _controller.Index(ResourceName) as ViewResult;
@@ -182,8 +194,9 @@
             });
 
             _controller.Url = Url;
-            _controller.FileExists(Arg.Any<string>()).Returns(false);
-            _controller.ReadFile(Arg.Any<string>()).Returns(Content);
+
+            _fileSystem.Exists(Arg.Any<string>()).Returns(false);
+            _fileSystem.ReadFile(Arg.Any<string>()).Returns(Content);
 
             // Action
             var result = _controller.Index(ResourceName) as ViewResult;
@@ -208,8 +221,9 @@
             });
 
             _controller.Url = Url;
-            _controller.FileExists(Arg.Any<string>()).Returns(false);
-            _controller.ReadFile(Arg.Any<string>()).Returns(Content);
+
+            _fileSystem.Exists(Arg.Any<string>()).Returns(false);
+            _fileSystem.ReadFile(Arg.Any<string>()).Returns(Content);
 
             // Action
             var result = _controller.Index(ResourceName) as ViewResult;
@@ -233,8 +247,9 @@
             });
 
             _controller.Url = Url;
-            _controller.FileExists(Arg.Any<string>()).Returns(false);
-            _controller.ReadFile(Arg.Any<string>()).Returns(Content);
+
+            _fileSystem.Exists(Arg.Any<string>()).Returns(false);
+            _fileSystem.ReadFile(Arg.Any<string>()).Returns(Content);
 
             // Action
             var result = _controller.Index(ResourceName) as ViewResult;
@@ -248,7 +263,8 @@
         {
             // Arrange
             SessionService.LicenseeSession.IsEnableBA = true;
-            _controller.FileExists(Arg.Any<string>()).Returns(false);
+
+            _fileSystem.Exists(Arg.Any<string>()).Returns(false);
 
             // Action
             var result = _controller.DownloadCustomerListPdf();
@@ -262,7 +278,8 @@
         {
             // Arrange
             SessionService.LicenseeSession.IsEnableBA = false;
-            _controller.FileExists(Arg.Any<string>()).Returns(false);
+
+            _fileSystem.Exists(Arg.Any<string>()).Returns(false);
 
             // Action
             var result = _controller.DownloadCustomerListPdf();

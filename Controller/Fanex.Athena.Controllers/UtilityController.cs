@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Controllers
 {
-    using System.Configuration;
     using System.Web.Mvc;
     using System.Web.Security;
     using Extension.Utility;
@@ -172,6 +171,11 @@ namespace Fanex.Athena.Controllers
             var underMaintenanceTimeTo = string.Empty;
             var maintenanceInfo = _maintenanceService.GetUnderMaintenanceTime();
 
+            if(!maintenanceInfo.IsUnderMaintenanceTime && !notReload)
+            {
+                return Redirect(FormsAuthentication.LoginUrl);
+            }
+
             if (maintenanceInfo.IsUnderMaintenanceTime)
             {
                 underMaintenanceTimeFrom = maintenanceInfo.From;
@@ -182,10 +186,6 @@ namespace Fanex.Athena.Controllers
                     underMaintenanceTimeFrom = Request.QueryString["from"] ?? string.Empty;
                     underMaintenanceTimeTo = Request.QueryString["to"] ?? string.Empty;
                 }
-            }
-            else if (!notReload)
-            {
-                return Redirect(FormsAuthentication.LoginUrl);
             }
 
             ViewBag.UmTimeFrom = underMaintenanceTimeFrom;
@@ -202,7 +202,7 @@ namespace Fanex.Athena.Controllers
 
         protected override ViewResult View(string viewName, string masterName, object model)
         {
-            var option = (ClientViewType)int.Parse(ConfigurationManager.AppSettings["ClientViewType"] ?? "0");
+            var option = (ClientViewType)int.Parse(_appSettings.ClientViewType ?? "0");
 
             var viewByOption = ClientViewHelper.GetViewPath(viewName, option);
             return base.View(viewByOption, masterName, model);
