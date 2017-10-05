@@ -77,9 +77,9 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinLossByBettype")).Returns(objectDb);
             objectDb.ExecuteReader(Arg.Any<object>()).ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false);
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "TurnoverUSD", 999 }
+                TurnoverUSD = 999
             };
 
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);

@@ -67,10 +67,10 @@
         {
             // Arrange
             _reader.Read().Returns(true, false);
-            var readerDataMapping = new Dictionary<string, object>
+            var readerDataMapping = new 
             {
-                { "Currency", 111 },
-                { "LeagueId", 222 }
+                Currency = 111,
+                LeagueId = 222
             };
             DataAccessTestHelper.MapReaderData(_reader, readerDataMapping);
 

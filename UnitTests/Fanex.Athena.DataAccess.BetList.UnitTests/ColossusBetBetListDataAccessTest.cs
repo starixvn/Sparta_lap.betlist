@@ -68,10 +68,10 @@
             _objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false);
 
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "TransDate", "1/1/2017" },
-                { "commUSD", 123 }
+                TransDate = "1/1/2017",
+                CommUSD = 123
             };
 
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);

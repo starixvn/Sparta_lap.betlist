@@ -106,10 +106,10 @@
             objectDb.GetParameterValue("SystemName").Returns("ABC");
             reader.Read().Returns(true, false);
 
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "TurnoverUSD", 999 },
-                { "reporttype", "20190101" }
+                TurnoverUSD = 999,
+                reporttype = 20190101
             };
 
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);

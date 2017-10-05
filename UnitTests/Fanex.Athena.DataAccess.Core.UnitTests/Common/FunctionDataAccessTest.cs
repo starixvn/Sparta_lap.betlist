@@ -46,9 +46,9 @@
             var expected = new List<Function> { new Function { FunctionId = 1 }, new Function { FunctionId = 2 } };
             _reader.Read().Returns(true, false);
 
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "FunctionId", 1 }
+                FunctionId = 1
             };
 
             DataAccessTestHelper.MapReaderData(_reader, readerDataMapping);

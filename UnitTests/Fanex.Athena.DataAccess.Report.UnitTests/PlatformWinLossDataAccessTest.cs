@@ -142,10 +142,10 @@
             objectDb.ExecuteReader().Returns(reader);
             reader.Read().Returns(true, false);
             PlatformWinLossMember totalData;
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "TurnoverUSD", 100 },
-                { "WinlostUSD", 200 }
+                TurnoverUSD = 100,
+                WinlostUSD = 200
             };
 
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);

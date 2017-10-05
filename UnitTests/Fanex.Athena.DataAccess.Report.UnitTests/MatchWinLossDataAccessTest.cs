@@ -83,12 +83,12 @@
             objectDb.ExecuteReader().Returns(reader);
             reader.Read().Returns(true, false);
 
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "leagueid", 1 },
-                { "matchid", 2 },
-                { "TurnoverUSD", 100 },
-                { "MemberWinLostUSD", 200 }
+                leagueid = 1,
+                matchid = 2,
+                TurnoverUSD = 100,
+                MemberWinLostUSD = 200
             };
 
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);

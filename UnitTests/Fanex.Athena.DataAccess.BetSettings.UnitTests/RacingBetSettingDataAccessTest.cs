@@ -53,7 +53,7 @@
             reader.Read().Returns(true, false);
             reader.FieldCount.Returns(1);
 
-            DataAccessTestHelper.MapReaderData(reader, new Dictionary<string, object>());
+            reader[Arg.Any<string>()].Returns(string.Empty);
             var custId = 1;
 
             // Action

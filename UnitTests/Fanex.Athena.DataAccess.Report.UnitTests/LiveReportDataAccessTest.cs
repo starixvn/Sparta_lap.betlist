@@ -261,9 +261,9 @@
             objectDb.ExecuteReader().Returns(reader);
             reader.Read().Returns(true, false);
 
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "matchid", 2 }, { "homeid", 3 }, { "awayid", 4 }
+                matchid = 2, homeid = 3, awayid = 4
             };
 
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);

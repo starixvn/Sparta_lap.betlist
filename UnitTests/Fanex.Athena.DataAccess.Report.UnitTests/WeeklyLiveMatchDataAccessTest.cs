@@ -66,9 +66,9 @@
             reader.Read().Returns(true, false);
             reader.FieldCount.Returns(3);
             reader.GetInt32(Arg.Any<int>()).Returns(100);
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "sporttype", 1 }
+                sporttype = 1
             };
 
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);

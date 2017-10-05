@@ -52,6 +52,32 @@
             Assert.That(param, Tobe.SameProperties(expectedParam));
         }
 
+        [Test]
+        public void GetDetail_WhenCall_DataReturnCorrectly()
+        {
+            // Arrange
+            var metaModel = GetFakeBetListMetaModel();
+            var expectedParam = new
+            {
+                metaModel.TransId,
+                metaModel.RefNo,
+                metaModel.BetType,
+                OriginalTransId = metaModel.BetdaqId,
+                AgentList = metaModel.AgentListXml
+            };
+
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_BetList_CashOut_Detail")).Returns(_objectDb);
+            _objectDb.WhenForAnyArgs(x => x.ExecuteReader()).DoNotCallBase();
+            object param = null;
+            _objectDb.ExecuteReader(Arg.Do<object>(x => param = x));
+
+            // Action
+            _dataAccess.GetDetail(metaModel);
+
+            // Assert
+            Assert.That(param, Tobe.SameProperties(expectedParam));
+        }
+
         private CashOutBetListDetailMetaModel GetFakeBetListMetaModel()
         {
             return new CashOutBetListDetailMetaModel

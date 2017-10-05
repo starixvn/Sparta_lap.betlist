@@ -84,9 +84,9 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlostByLeague")).Returns(objectDb);
             objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false);
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "turnoverUSD", 999 }
+                turnoverUSD = 999
             };
 
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
@@ -164,9 +164,9 @@
             objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false, true, false);
             reader.NextResult().Returns(true);
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "turnoverUSD", 999 }
+                turnoverUSD = 999
             };
 
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);

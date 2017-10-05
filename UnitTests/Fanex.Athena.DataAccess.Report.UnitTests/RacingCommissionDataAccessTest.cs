@@ -87,11 +87,11 @@
             objectDb.ExecuteReader(Arg.Any<object>()).ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false, true, false);
             reader.NextResult().Returns(true);
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "custID", 999 },
-                { "Tote_WinUSD", 100 },
-                { "SumTote_WinUSD", 1000 }
+                custID = 999,
+                Tote_WinUSD = 100,
+                SumTote_WinUSD = 1000
             };
 
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);

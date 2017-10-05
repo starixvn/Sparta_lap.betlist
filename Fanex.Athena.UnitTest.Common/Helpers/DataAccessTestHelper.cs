@@ -1,18 +1,18 @@
 ﻿namespace Fanex.Athena.UnitTest.Common.Helpers
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using NSubstitute;
     using NSubstitute.Core;
 
     public class DataAccessTestHelper
     {
-        public static void MapReaderData(
-            IDataReader reader,
-            params IDictionary<string, object>[] readerDataMappingList)
+        public static void MapReaderData(IDataReader reader, params object[] readerDataMappingList)
         {
-            var firstFunc = CreateMappingFunc(readerDataMappingList[0]);
+            Func<CallInfo, object> firstFunc = CreateMappingFunc(readerDataMappingList[0]);
             if (readerDataMappingList.Length == 1)
             {
                 reader[Arg.Any<string>()].Returns(firstFunc);
@@ -29,18 +29,31 @@
             reader[Arg.Any<string>()].Returns(firstFunc, funcList.ToArray());
         }
 
-        private static Func<CallInfo, object> CreateMappingFunc(IDictionary<string, object> mappingData)
+        private static Func<CallInfo, object> CreateMappingFunc(object mappingData)
         {
+            var dictionary = ToDictionary(mappingData);
             return new Func<CallInfo, object>(x =>
             {
-                var paramname = x.ArgAt<string>(0);
-                if (mappingData.ContainsKey(paramname))
+                var paramName = x.ArgAt<string>(0);
+                if (dictionary.ContainsKey(paramName))
                 {
-                    return mappingData[paramname];
+                    return dictionary[paramName];
                 }
 
                 return string.Empty;
             });
+        }
+
+        private static IDictionary<string, object> ToDictionary(object data)
+        {
+            if (data is IDictionary)
+            {
+                return (IDictionary<string, object>)data;
+            }
+
+            var type = data.GetType();
+            var properties = type.GetProperties();
+            return properties.ToDictionary(x => x.Name, x => x.GetValue(data, null), StringComparer.OrdinalIgnoreCase);
         }
     }
 }

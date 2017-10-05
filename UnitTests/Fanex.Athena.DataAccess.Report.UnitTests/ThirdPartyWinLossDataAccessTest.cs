@@ -75,9 +75,9 @@
             objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false);
             IDictionary<string, ThirdPartyWinLoss> summaryTotal;
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "winlostUSD", 100 }
+                winlostUSD = 100
             };
 
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
@@ -127,9 +127,9 @@
             objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false);
             IDictionary<string, ThirdPartyWinLoss> summaryTotal;
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "winlostUSD", 100 }
+                winlostUSD = 100
             };
 
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
@@ -176,9 +176,9 @@
             objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false);
             IDictionary<string, ThirdPartyWinLoss> summaryTotal;
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "winlostUSD", 100 }
+                winlostUSD = 100
             };
 
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);

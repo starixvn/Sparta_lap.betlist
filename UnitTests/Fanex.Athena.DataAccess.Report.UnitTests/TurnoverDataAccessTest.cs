@@ -72,9 +72,9 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_TurnOver")).Returns(objectDb);
             objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false);
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "OpeningBalanceUSD", 999 }
+                OpeningBalanceUSD = 999
             };
 
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);

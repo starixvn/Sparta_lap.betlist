@@ -62,7 +62,7 @@
             reader.FieldCount.Returns(1);
             var custId = 1;
             var esportSetting = EsportSettingType.LicenseeOffering;
-            DataAccessTestHelper.MapReaderData(reader, new Dictionary<string, object>());
+            reader[Arg.Any<string>()].Returns(string.Empty);
 
             // Action
             var result = _dataAccess.GetBetSetting(custId, ref esportSetting);

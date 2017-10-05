@@ -100,12 +100,12 @@
             reader.GetName(1).Returns("turnoverSBUSD");
             reader.GetName(2).Returns("username");
 
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "username", "testacc" },
-                { "LicenseeWLSBUSD", 100 },
-                { "turnoverSBUSD", 200 },
-                { "reporttype", "20170101" }
+                username = "testacc",
+                LicenseeWLSBUSD = 100,
+                turnoverSBUSD = 200,
+                reporttype = "20170101"
             };
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
@@ -137,11 +137,11 @@
             reader.GetName(0).Returns("LicenseeWLSBUSD");
             reader.GetName(1).Returns("turnoverSBUSD");
 
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "LicenseeWLSBUSD", 100 },
-                { "turnoverSBUSD", 200 },
-                { "reporttype", "20170101" }
+                LicenseeWLSBUSD = 100,
+                turnoverSBUSD = 200,
+                reporttype = "20170101"
             };
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 

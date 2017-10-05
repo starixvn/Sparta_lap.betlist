@@ -85,13 +85,13 @@
             objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
             reader.Read().Returns(true, false);
 
-            var readerDataMapping = new Dictionary<string, object>
+            var readerDataMapping = new
             {
-                { "eventdate", "03/16/2017" },
-                { "sporttype", 1 },
-                { "leagueid", 2 },
-                { "teamid", 3 },
-                { "status", "win" }
+                eventdate = "03/16/2017",
+                sporttype = 1,
+                leagueid = 2,
+                teamid = 3,
+                status = "win"
             };
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
@@ -157,9 +157,9 @@
                 new Sport("sport1")
             };
 
-            var readerDataMapping = new Dictionary<string, object>
+            var readerDataMapping = new
             {
-                { "sporttype", "sport1" }
+                sporttype = "sport1"
             };
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
             var date = new DateTime(2017, 3, 16);
@@ -214,9 +214,9 @@
                 new League { LeagueId = 1 }
             };
 
-            var readerDataMapping = new Dictionary<string, object>
+            var readerDataMapping = new
             {
-                { "leagueid", 1 }
+                leagueid = 1
             };
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
