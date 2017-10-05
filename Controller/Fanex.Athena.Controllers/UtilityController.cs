@@ -171,7 +171,7 @@ namespace Fanex.Athena.Controllers
             var underMaintenanceTimeTo = string.Empty;
             var maintenanceInfo = _maintenanceService.GetUnderMaintenanceTime();
 
-            if(!maintenanceInfo.IsUnderMaintenanceTime && !notReload)
+            if (!maintenanceInfo.IsUnderMaintenanceTime && !notReload)
             {
                 return Redirect(FormsAuthentication.LoginUrl);
             }

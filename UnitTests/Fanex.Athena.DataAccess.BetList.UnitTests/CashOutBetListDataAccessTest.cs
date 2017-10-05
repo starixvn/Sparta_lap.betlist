@@ -55,73 +55,73 @@
             Assert.That(param, Tobe.SameProperties(expectedParam));
         }
 
-        //[Test]
-        //public void GetDetail_WhenCall_OriginalTicketReturnCorrectly()
-        //{
-        //    // Arrange
-        //    const string UserName = "user1";
-        //    const int PlayerCommUsd = 999;
+        [Test]
+        public void GetDetail_WhenCall_OriginalTicketReturnCorrectly()
+        {
+            // Arrange
+            const string UserName = "user1";
+            const int PlayerCommUsd = 999;
 
-        //    var safeReader = Substitute.For<ISafeDataReader>();
-        //    _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_BetList_CashOut_Detail")).Returns(_objectDb);
-        //    _dataAccess.GetSafeDataReader(Arg.Any<IDataReader>(), Arg.Any<string[]>()).ReturnsForAnyArgs(safeReader);
+            var safeReader = Substitute.For<ISafeDataReader>();
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_BetList_CashOut_Detail")).Returns(_objectDb);
+            _dataAccess.GetSafeDataReader(Arg.Any<IDataReader>(), Arg.Any<string[]>()).ReturnsForAnyArgs(safeReader);
 
-        //    safeReader.Read().Returns(true, false);
+            safeReader.Read().Returns(true, false);
 
-        //    safeReader.GetString("username").Returns(UserName);
-        //    safeReader.GetDecimal("playercommusd").Returns(PlayerCommUsd);
+            safeReader.GetString("username").Returns(UserName);
+            safeReader.GetDecimal("playercommusd").Returns(PlayerCommUsd);
 
-        //    // Action
-        //    var result = _dataAccess.GetDetail(new CashOutBetListDetailMetaModel
-        //    {
-        //        BaseCurrency = "usd"
-        //    });
+            // Action
+            var result = _dataAccess.GetDetail(new CashOutBetListDetailMetaModel
+            {
+                BaseCurrency = "usd"
+            });
 
-        //    // Assert
-        //    Assert.Multiple(() =>
-        //    {
-        //        Assert.That(result.OriginalTicket.UserName, Is.EqualTo(UserName));
-        //        Assert.That(result.OriginalTicket.PlayerComm, Is.EqualTo(PlayerCommUsd));
-        //    });
-        //}
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.OriginalTicket.UserName, Is.EqualTo(UserName));
+                Assert.That(result.OriginalTicket.PlayerComm, Is.EqualTo(PlayerCommUsd));
+            });
+        }
 
-        //[Test]
-        //public void GetDetail_WhenCall_CashOutTicketListReturnCorrectly()
-        //{
-        //    // Arrange
-        //    const int BetType = 1;
-        //    const decimal Stake = 2;
+        [Test]
+        public void GetDetail_WhenCall_CashOutTicketListReturnCorrectly()
+        {
+            // Arrange
+            const int BetType = 1;
+            const decimal Stake = 2;
 
-        //    var reader = Substitute.For<IDataReader>();
-        //    _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_BetList_CashOut_Detail")).Returns(_objectDb);
-        //    _objectDb.ExecuteReader(null).ReturnsForAnyArgs(reader);
+            var reader = Substitute.For<IDataReader>();
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_BetList_CashOut_Detail")).Returns(_objectDb);
+            _objectDb.ExecuteReader(null).ReturnsForAnyArgs(reader);
 
-        //    reader.Read().Returns(false, true, false);
-        //    reader.NextResult().Returns(true);
+            reader.Read().Returns(false, true, false);
+            reader.NextResult().Returns(true);
 
-        //    DataAccessTestHelper.MapReaderData(
-        //        reader,
-        //        new
-        //        {
-        //            BetType = BetType,
-        //            StakeUsd = Stake
-        //        });
+            DataAccessTestHelper.MapReaderData(
+                reader,
+                new
+                {
+                    BetType = BetType,
+                    StakeUsd = Stake
+                });
 
-        //    // Action
-        //    var result = _dataAccess.GetDetail(new CashOutBetListDetailMetaModel
-        //    {
-        //        BaseCurrency = "usd"
-        //    });
+            // Action
+            var result = _dataAccess.GetDetail(new CashOutBetListDetailMetaModel
+            {
+                BaseCurrency = "usd"
+            });
 
-        //    var firstCashoutTicket = result.CashOutTicketList.First();
+            var firstCashoutTicket = result.CashOutTicketList.First();
 
-        //    // Assert
-        //    Assert.Multiple(() =>
-        //    {
-        //        Assert.That(firstCashoutTicket.BetType, Is.EqualTo(BetType));
-        //        Assert.That(firstCashoutTicket.Stake, Is.EqualTo(Stake));
-        //    });
-        //}
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(firstCashoutTicket.BetType, Is.EqualTo(BetType));
+                Assert.That(firstCashoutTicket.Stake, Is.EqualTo(Stake));
+            });
+        }
 
         private CashOutBetListDetailMetaModel GetFakeBetListMetaModel()
         {

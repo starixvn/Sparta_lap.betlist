@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using BetList.UnitTests.ClassTest;
     using Model.BetList.DTO;
     using NSubstitute;
     using NUnit.Framework;
@@ -12,13 +11,13 @@
     [TestFixture]
     public class BaseBetListDataAccessTest
     {
-        private FakeBaseBetListDataAccess _dataAccess;
+        private BaseBetListDataAccess _dataAccess;
         private IDataReader _reader;
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            _dataAccess = Substitute.ForPartsOf<FakeBaseBetListDataAccess>();
+            _dataAccess = Substitute.ForPartsOf<BaseBetListDataAccess>();
             _reader = Substitute.For<IDataReader>();
         }
 
@@ -27,20 +26,6 @@
         {
             _dataAccess = null;
             _reader = null;
-        }
-
-        [TestCase(10.2, "<span class='bl-underdog'>10.20</span>")]
-        [TestCase(1000.2, "<span class='bl-underdog'>1,000.20</span>")]
-        [TestCase(0, "<span class='bl-underdog'>0.00</span>")]
-        [TestCase(-10.2, "<span class='bl-favorite'>-10.20</span>")]
-        [TestCase(-1000.2, "<span class='bl-favorite'>-1,000.20</span>")]
-        public void NumberReport_WhenCall_DataReturnedCorrectly(object value, string expected)
-        {
-            // Action
-            var result = _dataAccess.NumberReport(value);
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expected));
         }
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
