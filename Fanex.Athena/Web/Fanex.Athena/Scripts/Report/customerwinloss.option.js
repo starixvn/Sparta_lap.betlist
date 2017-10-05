@@ -220,6 +220,7 @@ var CustomerWinLossOption = (function () {
         isAllowRB: true,
         customerCommIndex: 11,
         productBAIndex: 13,
+        customerWlTotalIndex: 7,
         totalColspan: 3,
         gridOption:
         {
@@ -268,6 +269,8 @@ var CustomerWinLossOption = (function () {
 
         getColName: function () {
             var colNames = Site.clone(colNameList);
+
+            colNames[me.customerWlTotalIndex] = me.hasCustomerComm ? "Total" : "CustomerW_L";
 
             return Site.getResources(colNames);
         },

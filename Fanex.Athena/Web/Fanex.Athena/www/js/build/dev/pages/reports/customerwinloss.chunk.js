@@ -24638,6 +24638,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             isAllowRB: true,
             customerCommIndex: 11,
             productBAIndex: 13,
+            customerWlTotalIndex: 7,
             totalColspan: 3,
             gridOption:
             {
@@ -24682,6 +24683,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             getColName: function () {
                 var colNames = Site.clone(colNameList);
+
+                colNames[_me.customerWlTotalIndex] = _me.hasCustomerComm ? "Total" : "CustomerW_L";
 
                 return Site.getResources(colNames);
             },
