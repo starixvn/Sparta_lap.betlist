@@ -19,16 +19,16 @@
     using NUnit.Framework;
     using Service.Report.Interfaces;
 
-    public class ThirdPartyWinLossReportControllerTest : ApiReportBaseControllerTest
+    public class ThirdPartyWinLossReportControllerTest : BaseApiReportControllerHelperTest
     {
         private IAuthorizationService _authorizationService;
         private IThirdPartyWinLossService _thirdPartyWinLossService;
         private ThirdPartyWinLossReportController _controller;
 
         [OneTimeSetUp]
-        public override void SetUp()
+        public override void FixtureSetUp()
         {
-            base.SetUp();
+            base.FixtureSetUp();
 
             _authorizationService = Substitute.For<IAuthorizationService>();
             _thirdPartyWinLossService = Substitute.For<IThirdPartyWinLossService>();
@@ -39,9 +39,9 @@
         }
 
         [OneTimeTearDown]
-        public override void TearDown()
+        public override void FixtureTearDown()
         {
-            base.TearDown();
+            base.FixtureTearDown();
 
             _controller = null;
             _authorizationService = null;

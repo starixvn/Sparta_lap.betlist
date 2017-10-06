@@ -19,15 +19,15 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class ActiveCustomerSummaryReportControllerTest : ApiReportBaseControllerTest
+    public class ActiveCustomerSummaryReportControllerTest : BaseApiReportControllerHelperTest
     {
         private IActiveCustomerSummaryDataAccess _dataAccess;
         private ActiveCustomerSummaryReportController _controller;
 
         [OneTimeSetUp]
-        public override void SetUp()
+        public override void FixtureSetUp()
         {
-            base.SetUp();
+            base.FixtureSetUp();
 
             _dataAccess = Substitute.For<IActiveCustomerSummaryDataAccess>();
 
@@ -39,9 +39,9 @@
         }
 
         [OneTimeTearDown]
-        public override void TearDown()
+        public override void FixtureTearDown()
         {
-            base.TearDown();
+            base.FixtureTearDown();
 
             _controller = null;
             _dataAccess = null;
@@ -170,17 +170,32 @@
             Assert.That(result.Data, Is.EqualTo(expectedData));
         }
 
-        [Test]
-        public void Index_ExportToExcel_ExportWithCorrectData()
+        [TestCase(new string[] { Product.BA }, Product.BA, true, false)]
+        [TestCase(new string[] { Product.RB }, Product.BA, false, false)]
+        [TestCase(new string[] { Product.BA, Product.RB }, Product.SB, false, false)]
+        [TestCase(new string[] { Product.RB }, Product.RB, false, true)]
+        [TestCase(new string[] { Product.BA }, Product.RB, false, false)]
+        public void Index_ExportToExcel_ExportWithCorrectData(string[] productCodeOption,string productCode, bool bAVisible, bool rBVisible)
         {
             // Arrange
             int totalCustomer;
             var metaModel = CreateValidMetaModel();
             metaModel.IsExportExcel = true;
+            metaModel.ProductOptions = new List<ProductOption>();
+            foreach (var code in productCodeOption)
+            {
+                metaModel.ProductOptions.Add(new ProductOption
+                {
+                    Code = code,
+                    Name = code,
+                    Status = true
+                });
+            }
+
             var expectedDataList = SetUpForGettingData(metaModel, out totalCustomer);
 
             ProductService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>()).Returns(
-                new ProductAccess(new List<Product> { new Product { ProductCode = Product.BA } }));
+                new ProductAccess(new List<Product> { new Product { ProductCode = productCode } }));
 
             var actualViewModel = new ActiveCustomerViewModel();
             var actualShowingOption = new ShowingOption();
@@ -212,7 +227,8 @@
             Assert.Multiple(() =>
             {
                 Assert.That(actualViewModel.MainResult, Is.EqualTo(expectedDataList.ToList()));
-                Assert.That(actualShowingOption.BAVisible, Is.True);
+                Assert.That(actualShowingOption.BAVisible, Is.EqualTo(bAVisible));
+                Assert.That(actualShowingOption.RBVisible, Is.EqualTo(rBVisible));
             });
         }
 

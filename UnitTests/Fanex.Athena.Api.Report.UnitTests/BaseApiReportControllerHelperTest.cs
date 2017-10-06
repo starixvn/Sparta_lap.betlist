@@ -9,7 +9,7 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public abstract class ApiReportBaseControllerTest
+    public abstract class BaseApiReportControllerHelperTest
     {
         protected ISessionService SessionService { get; private set; }
 
@@ -18,7 +18,7 @@
         protected IAppSettings AppSetting { get; private set; }
 
         [OneTimeSetUp]
-        public virtual void SetUp()
+        public virtual void FixtureSetUp()
         {
             SessionService = Substitute.For<ISessionService>();
             ProductService = Substitute.For<IProductService>();
@@ -26,14 +26,14 @@
         }
 
         [OneTimeTearDown]
-        public virtual void TearDown()
+        public virtual void FixtureTearDown()
         {
             SessionService = null;
             ProductService = null;
             AppSetting = null;
         }
 
-        public void MockSessionData()
+        protected void MockSessionData()
         {
             var userSession = new UserSession
             {
@@ -51,7 +51,7 @@
             SessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns(string.Empty);
         }
 
-        public void MockProductAccess(string[] productCode)
+        protected void MockProductAccess(string[] productCode)
         {
             var productList = new List<Product>();
 
@@ -63,17 +63,17 @@
             ProductService.GetSingleWalletProductAccess(Arg.Any<int>(), Arg.Any<string>(), functionConfigKey: Arg.Any<string>()).Returns(new ProductAccess(productList));
         }
 
-        public void MockUserSessionData(UserSession userSession)
+        protected void MockUserSessionData(UserSession userSession)
         {
             SessionService.UserSession.Returns(userSession);
         }
 
-        public void MockLicenseeSessionData(LicenseeSession licenseeSession)
+        protected void MockLicenseeSessionData(LicenseeSession licenseeSession)
         {
             SessionService.LicenseeSession.Returns(licenseeSession);
         }
 
-        public void MockGetValueAppSettings(string valueName, string value)
+        protected void MockGetValueAppSettings(string valueName, string value)
         {
             AppSetting.GetValue(valueName).Returns(value);
         }

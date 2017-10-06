@@ -88,7 +88,7 @@
   <ItemGroup>
     <Compile Include="ActiveCustomerSummaryReportControllerTest.cs" />
     <Compile Include="AgCasinoBalanceReportControllerTest.cs" />
-    <Compile Include="ApiReportBaseControllerTest.cs" />
+    <Compile Include="BaseApiReportControllerHelperTest.cs" />
     <Compile Include="ColossusBetsWinLossReportControllerTest.cs" />
     <Compile Include="CustomerBalanceReportControllerTest.cs" />
     <Compile Include="CustomerPendingFundsReportControllerTest.cs" />

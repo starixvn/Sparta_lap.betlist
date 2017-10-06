@@ -15,15 +15,15 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class ColossusBetsWinLossReportControllerTest : ApiReportBaseControllerTest
+    public class ColossusBetsWinLossReportControllerTest : BaseApiReportControllerHelperTest
     {
         private IColossusBetsWinLossService _service;
         private ColossusBetsWinLossReportController _controller;
 
         [OneTimeSetUp]
-        public override void SetUp()
+        public override void FixtureSetUp()
         {
-            base.SetUp();
+            base.FixtureSetUp();
 
             _service = Substitute.For<IColossusBetsWinLossService>();
 
@@ -33,9 +33,9 @@
         }
 
         [OneTimeTearDown]
-        public override void TearDown()
+        public override void FixtureTearDown()
         {
-            base.TearDown();
+            base.FixtureTearDown();
 
             _controller = null;
             _service = null;

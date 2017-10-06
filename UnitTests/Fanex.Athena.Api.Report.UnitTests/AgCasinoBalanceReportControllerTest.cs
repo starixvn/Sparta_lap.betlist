@@ -7,35 +7,35 @@
     using Excel.Report;
     using Extension.Utility;
     using Fanex.Athena.Service.Report.Interfaces;
-    using Model.Core.DTO.Users;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Model.Report.ViewModel;
     using NPOI.SS.UserModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Core.Common.Interfaces;
-    using Service.Core.Users.Interfaces;
 
-    public class AgCasinoBalanceReportControllerTest
+    public class AgCasinoBalanceReportControllerTest : BaseApiReportControllerHelperTest
     {
         private IAgCasinoBalanceService _service;
         private AgCasinoBalanceReportController _controller;
 
         [OneTimeSetUp]
-        public void SetUp()
+        public override void FixtureSetUp()
         {
-            _service = Substitute.For<IAgCasinoBalanceService>();
-            var sessionService = Substitute.For<ISessionService>();
-            var productService = Substitute.For<IProductService>();
+            base.FixtureSetUp();
 
-            _controller = Substitute.ForPartsOf<AgCasinoBalanceReportController>(_service, sessionService, productService);
-            MockSessionData(sessionService);
+            MockSessionData();
+
+            _service = Substitute.For<IAgCasinoBalanceService>();
+
+            _controller = Substitute.ForPartsOf<AgCasinoBalanceReportController>(_service, SessionService, ProductService);
         }
 
         [OneTimeTearDown]
-        public void TearDown()
+        public override void FixtureTearDown()
         {
+            base.FixtureTearDown();
+
             _service = null;
             _controller = null;
         }
@@ -63,8 +63,10 @@
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
-        [Test]
-        public void Index_Level0_CallGetSummaryBalanceInService_ReturnCorrectData()
+        [TestCase(true)]
+        [TestCase(false)]
+        [TestCase(null)]
+        public void Index_Level0_CallGetSummaryBalanceInService_ReturnCorrectData(bool? emptyDataList)
         {
             // Arrange
             const int CurrencyId = -2;
@@ -79,7 +81,9 @@
 
             IDictionary<string, AgCasinoBalance> summaryData;
             var expectedSummaryData = new Dictionary<string, AgCasinoBalance>();
-            var dataListResult = new SortableList<AgCasinoBalance> { new AgCasinoBalance() };
+            var dataListResult = !emptyDataList.HasValue 
+                ? null 
+                : emptyDataList.Value ? new SortableList<AgCasinoBalance>() : new SortableList<AgCasinoBalance> { new AgCasinoBalance() };
             _service.GetSummaryBalance(metaModel, out summaryData).Returns(x =>
             {
                 x[1] = expectedSummaryData;
@@ -90,7 +94,7 @@
             _service.TotalCalc(dataListResult).Returns(totalData);
 
             const int TotalRow = 0;
-            var expectedResult = GetSerializationData(TotalRow, dataListResult, totalData, expectedSummaryData);
+            var expectedResult = GetSerializationData(TotalRow, dataListResult, totalData, expectedSummaryData, emptyDataList ?? true);
 
             // Action
             var result = ToJson(_controller.Index(metaModel));
@@ -173,23 +177,27 @@
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
-        [Test]
-        public void Index_IsExportExcelTrue_CallExcelStream()
+        [TestCase(0, 0)]
+        [TestCase(1, 0)]
+        [TestCase(2, 1)]
+        public void Index_IsExportExcelTrue_CallExcelStreamWithCorrectData(int drillDownLevel, int currencyId)
         {
             // Arrange
-            const int CurrencyId = -2, Level = 1, CustId = 1;
-            DateTime fromDate = new DateTime(2017, 4, 1), toDate = new DateTime(2017, 4, 18);
+            const int CurrencyId = -2, CustId = 1;
+            var fromDate = new DateTime(2017, 4, 1);
+            var toDate = new DateTime(2017, 4, 18);
             var metaModel = new AgCasinoBalanceMetaModel
             {
-                CurrencyId = -1,
+                CurrencyId = currencyId,
                 IsExcludedTestData = true,
-                DrillDownLevel = Level,
+                DrillDownLevel = drillDownLevel,
                 DrillDownCurrencyId = CurrencyId,
                 DrillDownCustomerId = CustId,
                 IsExportExcel = true,
-                DrillDownFromDate = fromDate,
-                DrillDownToDate = toDate,
-                FromDate = fromDate
+                DrillDownFromDate = fromDate.AddDays(1),
+                DrillDownToDate = toDate.AddDays(1),
+                FromDate = fromDate,
+                ToDate = toDate,
             };
 
             var excel = Substitute.ForPartsOf<AgCasinoBalanceExcel>(string.Empty, new ConvertingOption(), metaModel, new AgCasinoBalanceViewModel());
@@ -202,11 +210,21 @@
                 .Returns(excel);
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
 
+            var expectedFromDate = drillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate;
+            var expectedToDate = drillDownLevel > 0 ? metaModel.DrillDownToDate : metaModel.ToDate;
+            var expectedCurrencyId = drillDownLevel > 0 && currencyId > 0 ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;
+
             // Action
             _controller.Index(metaModel);
 
             // Assert
-            _controller.Received().ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>());
+            Assert.Multiple(() =>
+            {
+                _controller.Received().ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>());
+                Assert.That(metaModel.FromDate, Is.EqualTo(expectedFromDate));
+                Assert.That(metaModel.ToDate, Is.EqualTo(expectedToDate));
+                Assert.That(metaModel.CurrencyId, Is.EqualTo(expectedCurrencyId));
+            });
         }
 
         private static string ToJson(object value)
@@ -214,31 +232,25 @@
             return new JavaScriptSerializer().Serialize(value);
         }
 
-        private static void MockSessionData(ISessionService sessionService)
-        {
-            var userSession = new UserSession
-            {
-                CurrencyList = new Dictionary<int, string>
-            {
-                { -1, "EUR" }, { -2, "USD" }
-            }
-            };
-
-            var licenseeSession = new LicenseeSession
-            {
-                LicenseeId = 1
-            };
-
-            sessionService.UserSession.Returns(userSession);
-            sessionService.LicenseeSession.Returns(licenseeSession);
-        }
-
         private static string GetSerializationData(
             int totalRow,
             IEnumerable<AgCasinoBalance> data,
             IEnumerable<AgCasinoBalance> total,
-            Dictionary<string, AgCasinoBalance> summaryTotal)
+            Dictionary<string, AgCasinoBalance> summaryTotal,
+            bool isEmptyData = false)
         {
+            if (isEmptyData)
+            {
+                return ToJson(
+                new
+                {
+                    TotalRows = 0,
+                    Data = new List<AgCasinoBalance>(),
+                    Total = new List<AgCasinoBalance>(),
+                    SummaryTotal = new Dictionary<string, AgCasinoBalance>()
+                });
+            }
+
             return ToJson(
                 new
                 {

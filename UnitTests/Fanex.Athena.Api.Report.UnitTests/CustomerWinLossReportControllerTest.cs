@@ -16,15 +16,15 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class CustomerWinLossReportControllerTest : ApiReportBaseControllerTest
+    public class CustomerWinLossReportControllerTest : BaseApiReportControllerHelperTest
     {
         private ICustWinlossDataAccess _dataAccess;
         private CustomerWinLossReportController _controller;
 
         [OneTimeSetUp]
-        public override void SetUp()
+        public override void FixtureSetUp()
         {
-            base.SetUp();
+            base.FixtureSetUp();
 
             _dataAccess = Substitute.For<ICustWinlossDataAccess>();
 
@@ -36,9 +36,9 @@
         }
 
         [OneTimeTearDown]
-        public override void TearDown()
+        public override void FixtureTearDown()
         {
-            base.TearDown();
+            base.FixtureTearDown();
 
             _controller = null;
             _dataAccess = null;

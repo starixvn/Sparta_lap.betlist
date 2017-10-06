@@ -6,19 +6,20 @@
 
     public class BaseDashboardApiControllerTest
     {
+        private const int ActionLicenseeId = 1;
+        private const int ActionUserId = 2;
+        private const string ActionCurrencyIdList = "1";
+
         [Test]
         public void LicenseeId_WhenCall_ReturnCorrectValue()
         {
             using (var controller = CreateController())
             {
-                // Arrange
-                const int Expected = 1;
-
                 // Action
                 var actual = controller.LicenseeId;
 
                 // Assert
-                Assert.That(actual, Is.EqualTo(Expected));
+                Assert.That(actual, Is.EqualTo(ActionLicenseeId));
             }
         }
 
@@ -27,14 +28,11 @@
         {
             using (var controller = CreateController())
             {
-                // Arrange
-                const int Expected = 2;
-
                 // Action
                 var actual = controller.UserId;
 
                 // Assert
-                Assert.That(actual, Is.EqualTo(Expected));
+                Assert.That(actual, Is.EqualTo(ActionUserId));
             }
         }
 
@@ -43,81 +41,48 @@
         {
             using (var controller = CreateController())
             {
-                // Arrange
-                const string Expected = "1";
-
                 // Action
                 var actual = controller.CurrencyIDList;
 
                 // Assert
-                Assert.That(actual, Is.EqualTo(Expected));
+                Assert.That(actual, Is.EqualTo(ActionCurrencyIdList));
             }
         }
 
-        [Test]
-        public void AssignAuthProperties_CurrencyIsZero_AssignCurrencyIdListFromActionContext()
+        [TestCase(0, ActionCurrencyIdList)]
+        [TestCase(3, "3")]
+        public void AssignAuthProperties_WhenCall_AssignCurrencyIdListForModel(int currencyId, string expected)
         {
             using (var controller = CreateController())
             {
                 // Arrange
-                const string Expected = "1";
-
-                var model = new DashboardBaseModel { CurrencyId = 0 };
+                var model = new DashboardBaseModel { CurrencyId = currencyId };
 
                 // Action
                 controller.AssignAuthProperties(model);
 
                 // Assert
-                Assert.That(model.CurrencyIDList, Is.EqualTo(Expected));
-            }
-        }
-
-        [Test]
-        public void AssignAuthProperties_CurrencyIdIsNotZero_AssignCurrencyIdListFromCurrencyId()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                var model = new DashboardBaseModel { CurrencyId = 2 };
-
-                // Action
-                controller.AssignAuthProperties(model);
-
-                // Assert
-                Assert.That(model.CurrencyIDList, Is.EqualTo(model.CurrencyId.ToString()));
-            }
-        }
-
-        [Test]
-        public void AssignAuthProperties_WhenCall_AssignLicenseeIdFromActionContext()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                const string Expected = "1";
-
-                var model = new DashboardBaseModel { CurrencyId = 0 };
-
-                // Action
-                controller.AssignAuthProperties(model);
-
-                // Assert
-                Assert.That(model.LicenseeId, Is.EqualTo(Expected));
+                Assert.That(model.CurrencyIDList, Is.EqualTo(expected));
             }
         }
 
         private static FakeBaseDashboardApiController CreateController()
         {
-            var controller = new FakeBaseDashboardApiController();
             var mockActionContext = new HttpActionContext
             {
                 ControllerContext = new HttpControllerContext(),
-                ActionArguments = { { "licenseeid", 1 }, { "userid", 2 }, { "currencyIDList", "1" } }
+                ActionArguments =
+                {
+                    { "licenseeid", ActionLicenseeId },
+                    { "userid", ActionUserId },
+                    { "currencyIDList", ActionCurrencyIdList }
+                }
             };
 
-            controller.ActionContext = mockActionContext;
-
-            return controller;
+            return new FakeBaseDashboardApiController
+            {
+                ActionContext = mockActionContext
+            };
         }
     }
 }
