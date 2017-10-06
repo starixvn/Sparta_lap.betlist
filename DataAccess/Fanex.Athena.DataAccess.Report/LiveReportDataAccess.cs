@@ -86,7 +86,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException ex)
             {
-                Logging.LogService.Error(ex.Message);
                 throw new DataAccessException(ex.Message, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
             }
         }
@@ -134,7 +133,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException ex)
             {
-                Logging.LogService.Error(ex.Message);
                 throw new DataAccessException(ex.Message, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate, ProductCode = productCode });
             }
         }
@@ -170,7 +168,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException ex)
             {
-                Logging.LogService.Error(ex.Message);
                 throw new DataAccessException(ex.Message, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate, ProductCode = productCode });
             }
         }
@@ -228,7 +225,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException ex)
             {
-                Logging.LogService.Error(ex.Message);
                 throw new DataAccessException(ex.Message, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
             }
         }

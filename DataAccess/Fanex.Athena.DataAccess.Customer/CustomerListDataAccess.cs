@@ -38,7 +38,6 @@
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, "Lrf_CustomerSelUserSearch");
             }
         }
@@ -116,7 +115,6 @@
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -140,7 +138,6 @@
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -169,7 +166,6 @@
             }
             catch (SqlException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, "Lrf_CustomerUpdUgroup");
             }
         }
@@ -194,7 +190,6 @@
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, "Lrf_CustomerUpdClosed");
             }
         }
@@ -219,7 +214,6 @@
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, "Lrf_CustomerUpdSuspended");
             }
         }
@@ -249,7 +243,6 @@
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -274,7 +267,6 @@
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -299,7 +291,6 @@
             }
             catch (SqlException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }

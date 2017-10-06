@@ -59,7 +59,6 @@
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, metaModel);
             }
         }
@@ -84,7 +83,6 @@
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, metaModel);
             }
         }
@@ -108,7 +106,6 @@
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, metaModel);
             }
         }

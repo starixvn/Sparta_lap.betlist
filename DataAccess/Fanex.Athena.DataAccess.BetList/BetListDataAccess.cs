@@ -29,7 +29,6 @@ namespace Fanex.Athena.DataAccess.BetList
 
     public class BetListDataAccess : BaseBetListDataAccess, IBetListDataAccess
     {
-        private const string UspExceptionName = "\n UspName=";
         private static readonly string[] TransTypeHasBetList = { "get", "com", "post", "bet", "gp" };
 
         private static readonly Dictionary<string, int> TransTypeIdMap = new Dictionary<string, int>
@@ -56,7 +55,6 @@ namespace Fanex.Athena.DataAccess.BetList
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message + UspExceptionName + UspName, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -129,7 +127,6 @@ namespace Fanex.Athena.DataAccess.BetList
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message + UspExceptionName + UspName, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, metaModel);
             }
         }
@@ -215,7 +212,6 @@ namespace Fanex.Athena.DataAccess.BetList
             }
             catch (System.Exception sqlException)
             {
-                LogService.Error(sqlException.Message + UspExceptionName + uspKey, sqlException);
                 throw new DataAccessException(sqlException.Message, uspKey, metaModel);
             }
         }
@@ -283,7 +279,6 @@ namespace Fanex.Athena.DataAccess.BetList
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message + UspExceptionName + UspKey, sqlException);
                 throw new DataAccessException(sqlException.Message, UspKey);
             }
         }

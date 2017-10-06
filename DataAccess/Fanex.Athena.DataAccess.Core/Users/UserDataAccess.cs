@@ -56,7 +56,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -101,7 +100,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);
             }
         }
@@ -153,7 +151,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -177,7 +174,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);
             }
         }
@@ -206,7 +202,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -237,7 +232,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -255,7 +249,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);
             }
         }
@@ -280,7 +273,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -316,7 +308,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -341,7 +332,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
             finally
@@ -380,7 +370,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -440,7 +429,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -497,7 +485,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
