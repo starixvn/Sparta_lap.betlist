@@ -1,6 +1,8 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
+    using System;
     using System.Collections.Generic;
+    using System.Web;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Extension.Utility.Interfaces;
@@ -174,8 +176,11 @@
             var result = _controller.SignOut() as RedirectToRouteResult;
 
             // Assert
-            _userService.DidNotReceive().Logout(Arg.Any<int>());
-            _formAuthenticationService.Received().SignOut();
+            Assert.Multiple(() =>
+            {
+                _userService.DidNotReceive().Logout(Arg.Any<int>());
+                _formAuthenticationService.Received().SignOut();
+            });
         }
 
         [Test]
@@ -203,7 +208,36 @@
             var result = _controller.SignOut() as RedirectToRouteResult;
 
             // Assert
-            Assert.That(_controller.ControllerContext.HttpContext.Response.Cookies[0].Name, Is.EqualTo(CookieName));
+            Assert.Multiple(() =>
+            {
+                Assert.That(_controller.ControllerContext.HttpContext.Response.Cookies[0].Name, Is.EqualTo(CookieName));
+                Assert.That(_controller.ControllerContext.HttpContext.Response.Cookies[0].Expires, Is.LessThan(DateTime.Now));
+            });
+        }
+
+        [Test]
+        public void SignOut_WhenCall_ClearSession()
+        {
+            // Action
+            var result = _controller.SignOut() as RedirectToRouteResult;
+
+            // Assert
+            _controller.Session.Received().Clear();
+        }
+
+        [Test]
+        public void SignOut_WhenCall_ClearCache()
+        {
+            // Action
+            var result = _controller.SignOut() as RedirectToRouteResult;
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _controller.Response.Cache.Received().SetNoStore();
+                _controller.Response.Cache.Received().SetExpires(Arg.Any<DateTime>());
+                _controller.Response.Cache.Received().SetCacheability(HttpCacheability.NoCache);
+            });
         }
 
         [Test]
@@ -213,15 +247,16 @@
             var result = _controller.InternalSignOut() as RedirectToRouteResult;
 
             // Assert
-            _userService.Received().Logout(DefaultUserSession.OnUserId);
-            _formAuthenticationService.Received().SignOut();
+            Assert.Multiple(() =>
+            {
+                _userService.Received().Logout(DefaultUserSession.OnUserId);
+                _formAuthenticationService.Received().SignOut();
+            });
         }
 
         [Test]
         public void InternalSignOut_WhenCall_RedirectToOneTokenRestriction()
         {
-            // Arrange
-
             // Action
             var result = _controller.InternalSignOut() as RedirectToRouteResult;
 
