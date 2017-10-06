@@ -2,6 +2,7 @@
 {
     using System.Data;
     using Data;
+    using Interfaces;
     using Model.BetSettings.DTO;
     using NSubstitute;
     using NUnit.Framework;
@@ -10,13 +11,15 @@
     public class LiveCasinoBetSettingDataAccessTest
     {
         private IObjectDb _objectDb;
+        private ICoreCasinoBetSettingDataAccess _coreCasinoBetSettingDataAccess;
         private LiveCasinoBetSettingDataAccess _dataAccess;
 
         [OneTimeSetUp]
         public void SetUp()
         {
             _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<LiveCasinoBetSettingDataAccess>();
+            _coreCasinoBetSettingDataAccess = Substitute.For<ICoreCasinoBetSettingDataAccess>();
+            _dataAccess = Substitute.ForPartsOf<LiveCasinoBetSettingDataAccess>(_coreCasinoBetSettingDataAccess);
         }
 
         [OneTimeTearDown]
@@ -72,7 +75,7 @@
         }
 
         [Test]
-        public void UpdateBetSetting_WhenCall_DataReturnedCorrectly()
+        public void UpdateBetSetting_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Any<string>()).Returns(_objectDb);
@@ -93,6 +96,24 @@
             _objectDb.Received().AddInParameter("custid", DbType.Int32, custId);
             _objectDb.Received().AddInParameter("stakelevellist", DbType.Int32, betSetting.StakeLevelId);
             _objectDb.Received().AddInParameter("roleid", DbType.Int32, 1);
+        }
+
+        [Test]
+        public void UpdateStatus_WhenCall_CallCoreCasinoBetSettingDataAccess()
+        {
+            // Arrange
+            const int UserId = 1;
+            const int CustId = 2;
+            const int Status = 3;
+            const string Language = "Lao";
+            const string Ip = "123";
+            const int LiveCasinoSportId = 162;
+
+            // Action
+            _dataAccess.UpdateStatus(UserId, CustId, Status, Language, Ip);
+
+            // Assert
+            _coreCasinoBetSettingDataAccess.Received().UpdateCasinoStatus(UserId, CustId, LiveCasinoSportId, Status, Language, Ip);
         }
 
         private void ConfigureReaderForGetBetSettingMethod(IDataReader reader, LiveCasinoBetSetting expected)

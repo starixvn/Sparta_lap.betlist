@@ -1,20 +1,19 @@
 ﻿namespace Fanex.Athena.DataAccess.BetSettings.UnitTests
 {
     using System.Data;
-    using ClassTest;
     using Data;
     using NSubstitute;
     using NUnit.Framework;
 
     [TestFixture]
-    public class CasinoBettingBaseDataAccessTest
+    public class CoreCasinoBetSettingDataAccessTest
     {
         [Test]
         public void UpdateCasinoStatus_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
-            var dataAccess = Substitute.ForPartsOf<FakeCasinoBettingBaseDataAccess>();
+            var dataAccess = Substitute.ForPartsOf<CoreCasinoBetSettingDataAccess>();
             dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdCasinoStatus")).Returns(objectDb);
             var objectDbWriteLog = Substitute.For<IObjectDb>();
             dataAccess.GetObjectDb(Arg.Is<string>("WriteLog_UserLog_RunSP")).Returns(objectDbWriteLog);
@@ -44,7 +43,7 @@
         {
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
-            var dataAccess = Substitute.ForPartsOf<FakeCasinoBettingBaseDataAccess>();
+            var dataAccess = Substitute.ForPartsOf<CoreCasinoBetSettingDataAccess>();
             dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdCasinoStatus")).Returns(objectDb);
             var objectDbWriteLog = Substitute.For<IObjectDb>();
             dataAccess.GetObjectDb(Arg.Is<string>("WriteLog_UserLog_RunSP")).Returns(objectDbWriteLog);

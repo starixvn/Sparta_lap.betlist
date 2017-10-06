@@ -10,14 +10,14 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using Common;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Data;
+    using Interfaces;
     using Model.BetSettings.DTO;
 
-    public class CasinoBettingBaseDataAccess : BaseDataAccess
+    public class CoreCasinoBetSettingDataAccess : BaseDataAccess, ICoreCasinoBetSettingDataAccess
     {
         private const int LiveCasinoActionId = 2037;
-        
-        protected IResultInfo UpdateCasinoStatus(int userId, int custId, int sportid, int status, string language, string ip)
+
+        public IResultInfo UpdateCasinoStatus(int userId, int custId, int sportid, int status, string language, string ip)
         {
             var uspName = "Lrf_CustomerUpdCasinoStatus";
 
@@ -49,7 +49,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
             }
         }
 
-        protected void WriteLogUpdatingAction(int userId, int custId, string storeProcedureName, string trackingValue1, string trackingValue2)
+        public void WriteLogUpdatingAction(int userId, int custId, string storeProcedureName, string trackingValue1, string trackingValue2)
         {
             const string UspName = "WriteLog_UserLog_RunSP";
 
