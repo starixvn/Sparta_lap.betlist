@@ -16,8 +16,6 @@
     {
         private IHalfTimeFullTimeDataAccess _halfTimeFullTimeDataAccess;
 
-        private HalfTimeFullTimeTotalBetController _controller;
-
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
@@ -38,64 +36,57 @@
             _halfTimeFullTimeDataAccess = null;
         }
 
-        [SetUp]
-        public void SetUp()
-        {
-            _controller = new HalfTimeFullTimeTotalBetController(
-                            LangService,
-                            SessionService,
-                            AppSettings,
-                            _halfTimeFullTimeDataAccess);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _controller.Dispose();
-        }
-
         [Test]
         public void Index_WhenGet_ReturnMainView()
         {
-            // Action
-            var viewResult = _controller.Index() as ViewResult;
+            using (var controller = CreateController())
+            {
+                // Action
+                var viewResult = controller.Index() as ViewResult;
 
-            // Assert
-            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/HalfTimeFullTime/Main.cshtml"));
+                // Assert
+                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/HalfTimeFullTime/Main.cshtml"));
+            }
         }
 
         [Test]
         public void Index_WhenGet_GetDataFromService()
         {
-            // Arrange
-            HalfTimeFullTime total = null;
-
-            // Action
-            var viewResult = _controller.Index() as ViewResult;
-            var viewModel = viewResult.Model as HalfTimeFullTimeViewModel;
-
-            // Assert
-            Assert.Multiple(() =>
+            using (var controller = CreateController())
             {
-                _halfTimeFullTimeDataAccess.ReceivedWithAnyArgs().GetHalfTimeFullTimeDataList(Arg.Any<HalfTimeFullTimeMetaModel>(), out total);
-                Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
-            });
+                // Arrange
+                HalfTimeFullTime total = null;
+
+                // Action
+                var viewResult = controller.Index() as ViewResult;
+                var viewModel = viewResult.Model as HalfTimeFullTimeViewModel;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    _halfTimeFullTimeDataAccess.ReceivedWithAnyArgs().GetHalfTimeFullTimeDataList(Arg.Any<HalfTimeFullTimeMetaModel>(), out total);
+                    Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
+                });
+            }
         }
 
         [Test]
         public void Index_WhenPostWithInvalidCurrency_AccessDenied()
         {
-            // Arrange
-            var metaModel = new HalfTimeFullTimeMetaModel
+            using (var controller = CreateController())
             {
-                CurrencyId = -999
-            };
+                // Arrange
+                var metaModel = new HalfTimeFullTimeMetaModel
+                {
+                    CurrencyId = -999
+                };
 
-            // Action
-            var viewResult = _controller.Index(metaModel) as RedirectResult;
+                // Action
+                var viewResult = controller.Index(metaModel) as RedirectResult;
 
-            // Assert
-            Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+                // Assert
+                Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+            }
         }
 
         private void SepUpForService()
@@ -110,6 +101,15 @@
                     x[1] = new HalfTimeFullTime();
                     return new List<HalfTimeFullTime> { new HalfTimeFullTime() };
                 });
+        }
+
+        private HalfTimeFullTimeTotalBetController CreateController()
+        {
+            return new HalfTimeFullTimeTotalBetController(
+                            LangService,
+                            SessionService,
+                            AppSettings,
+                            _halfTimeFullTimeDataAccess);
         }
     }
 }

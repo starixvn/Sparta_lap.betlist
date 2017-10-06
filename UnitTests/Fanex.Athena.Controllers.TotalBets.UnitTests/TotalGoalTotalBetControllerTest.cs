@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
+    using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
@@ -15,8 +16,6 @@
     public class TotalGoalTotalBetControllerTest : BaseControllerHelperTest
     {
         private ITotalGoalDataAccess _totalGoalDataAccess;
-
-        private TotalGoalTotalBetController _controller;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
@@ -38,61 +37,63 @@
             _totalGoalDataAccess = null;
         }
 
-        [SetUp]
-        public void SetUp()
-        {
-            _controller = new TotalGoalTotalBetController(
-                            LangService,
-                            SessionService,
-                            AppSettings,
-                            _totalGoalDataAccess);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _controller.Dispose();
-        }
-
         [Test]
         public void Index_WhenGet_ReturnMainView()
         {
-            // Action
-            var viewResult = _controller.Index() as ViewResult;
+            using (var controller = CreateController())
+            {
+                // Action
+                var viewResult = controller.Index() as ViewResult;
 
-            // Assert
-            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/TotalGoal/Main.cshtml"));
+                // Assert
+                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/TotalGoal/Main.cshtml"));
+            }
         }
 
         [Test]
         public void Index_WhenGet_GetDataFromService()
         {
-            // Arrange
-            TotalGoal total;
+            using (var controller = CreateController())
+            {
+                // Arrange
+                TotalGoal total;
 
-            // Action
-            var viewResult = _controller.Index() as ViewResult;
-            var viewModel = viewResult.Model as TotalGoalViewModel;
+                // Action
+                var viewResult = controller.Index() as ViewResult;
+                var viewModel = viewResult.Model as TotalGoalViewModel;
 
-            // Assert
-            _totalGoalDataAccess.ReceivedWithAnyArgs().GetTotalGoalDataList(Arg.Any<TotalGoalMetaModel>(), out total);
-            Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
+                // Assert
+                _totalGoalDataAccess.ReceivedWithAnyArgs().GetTotalGoalDataList(Arg.Any<TotalGoalMetaModel>(), out total);
+                Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
+            }
         }
 
         [Test]
         public void Index_WhenPostWithInvalidCurrency_AccessDenied()
         {
-            // Arrange
-            var metaModel = new TotalGoalMetaModel
+            using (var controller = CreateController())
             {
-                CurrencyId = -999
-            };
+                // Arrange
+                var metaModel = new TotalGoalMetaModel
+                {
+                    CurrencyId = -999
+                };
 
-            // Action
-            var viewResult = _controller.Index(metaModel) as RedirectResult;
+                // Action
+                var viewResult = controller.Index(metaModel) as RedirectResult;
 
-            // Assert
-            Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+                // Assert
+                Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+            }
+        }
+
+        private TotalGoalTotalBetController CreateController()
+        {
+            return new TotalGoalTotalBetController(
+                            LangService,
+                            SessionService,
+                            AppSettings,
+                            _totalGoalDataAccess);
         }
 
         private void SepUpForService()

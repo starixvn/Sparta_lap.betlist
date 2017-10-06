@@ -16,8 +16,6 @@
     {
         private IMoneyLineDataAccess _moneyLineDataAccess;
 
-        private MoneyLineTotalBetController _controller;
-
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
@@ -38,61 +36,54 @@
             _moneyLineDataAccess = null;
         }
 
-        [SetUp]
-        public void SetUp()
-        {
-            _controller = new MoneyLineTotalBetController(
-                            LangService,
-                            SessionService,
-                            AppSettings,
-                            _moneyLineDataAccess);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _controller.Dispose();
-        }
-
         [Test]
         public void Index_WhenCall_ReturnCorrectViewName()
         {
-            // Action
-            var viewResult = _controller.Index() as ViewResult;
+            using (var controller = CreateController())
+            {
+                // Action
+                var viewResult = controller.Index() as ViewResult;
 
-            // Assert
-            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/MoneyLine/Main.cshtml"));
+                // Assert
+                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/MoneyLine/Main.cshtml"));
+            }
         }
 
         [Test]
         public void Index_WhenCall_CallAndGetDataFromService()
         {
-            // Arrange
-            MoneyLine total;
+            using (var controller = CreateController())
+            {
+                // Arrange
+                MoneyLine total;
 
-            // Action
-            var viewResult = _controller.Index() as ViewResult;
-            var viewModel = viewResult.Model as MoneyLineViewModel;
+                // Action
+                var viewResult = controller.Index() as ViewResult;
+                var viewModel = viewResult.Model as MoneyLineViewModel;
 
-            // Assert
-            _moneyLineDataAccess.ReceivedWithAnyArgs().GetMoneyLineDataList(Arg.Any<MoneyLineMetaModel>(), out total);
-            Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
+                // Assert
+                _moneyLineDataAccess.ReceivedWithAnyArgs().GetMoneyLineDataList(Arg.Any<MoneyLineMetaModel>(), out total);
+                Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
+            }
         }
 
         [Test]
         public void Index_InvalidCurrency_ViewNameIsAccessDenied()
         {
-            // Arrange
-            var metaModel = new MoneyLineMetaModel
+            using (var controller = CreateController())
             {
-                CurrencyId = -999
-            };
+                // Arrange
+                var metaModel = new MoneyLineMetaModel
+                {
+                    CurrencyId = -999
+                };
 
-            // Action
-            var viewResult = _controller.Index(metaModel) as RedirectResult;
+                // Action
+                var viewResult = controller.Index(metaModel) as RedirectResult;
 
-            // Assert
-            Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+                // Assert
+                Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+            }
         }
 
         private void SepUpForService()
@@ -106,6 +97,15 @@
                     x[1] = new MoneyLine();
                     return new List<MoneyLine> { new MoneyLine() };
                 });
+        }
+
+        private MoneyLineTotalBetController CreateController()
+        {
+            return new MoneyLineTotalBetController(
+                            LangService,
+                            SessionService,
+                            AppSettings,
+                            _moneyLineDataAccess);
         }
     }
 }

@@ -16,8 +16,6 @@
     {
         private IHomeDrawAwayNoBetDataAccess _homeDrawAwayNoBetDataAccess;
 
-        private HomeDrawAwayNoBetTotalBetController _controller;
-
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
@@ -38,60 +36,60 @@
             _homeDrawAwayNoBetDataAccess = null;
         }
 
-        [SetUp]
-        public void SetUp()
-        {
-            _controller = new HomeDrawAwayNoBetTotalBetController(
-                            LangService,
-                            SessionService,
-                            AppSettings,
-                            _homeDrawAwayNoBetDataAccess);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _controller.Dispose();
-        }
-
         [Test]
         public void Index_WhenGet_ReturnMainView()
         {
-            // Arrange
+            using (var controller = CreateController())
+            {
+                // Action
+                var viewResult = controller.Index() as ViewResult;
 
-            // Action
-            var viewResult = _controller.Index() as ViewResult;
-
-            // Assert
-            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/HomeDrawAwayNoBet/Main.cshtml"));
+                // Assert
+                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/HomeDrawAwayNoBet/Main.cshtml"));
+            }
         }
 
         [Test]
         public void Index_WhenGet_GetDataFromService()
         {
-            // Action
-            var viewResult = _controller.Index() as ViewResult;
-            var viewModel = viewResult.Model as HomeDrawAwayNoBetViewModel;
+            using (var controller = CreateController())
+            {
+                // Action
+                var viewResult = controller.Index() as ViewResult;
+                var viewModel = viewResult.Model as HomeDrawAwayNoBetViewModel;
 
-            // Assert
-            _homeDrawAwayNoBetDataAccess.ReceivedWithAnyArgs().GetHomeDrawAwayNoBetDataList(Arg.Any<HomeDrawAwayNoBetMetaModel>());
-            Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
+                // Assert
+                _homeDrawAwayNoBetDataAccess.ReceivedWithAnyArgs().GetHomeDrawAwayNoBetDataList(Arg.Any<HomeDrawAwayNoBetMetaModel>());
+                Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
+            }
         }
 
         [Test]
         public void Index_WhenPostWithInvalidCurrency_AccessDenied()
         {
-            // Arrange
-            var metaModel = new HomeDrawAwayNoBetMetaModel
+            using (var controller = CreateController())
             {
-                CurrencyId = -999
-            };
+                // Arrange
+                var metaModel = new HomeDrawAwayNoBetMetaModel
+                {
+                    CurrencyId = -999
+                };
 
-            // Action
-            var viewResult = _controller.Index(metaModel) as RedirectResult;
+                // Action
+                var viewResult = controller.Index(metaModel) as RedirectResult;
 
-            // Assert
-            Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+                // Assert
+                Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+            }
+        }
+
+        private HomeDrawAwayNoBetTotalBetController CreateController()
+        {
+            return new HomeDrawAwayNoBetTotalBetController(
+                            LangService,
+                            SessionService,
+                            AppSettings,
+                            _homeDrawAwayNoBetDataAccess);
         }
 
         private void SepUpForService()

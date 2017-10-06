@@ -14,9 +14,7 @@
     [TestFixture]
     public class OddEvenDrawNoDrawTotalBetControllerTest : BaseControllerHelperTest
     {
-        private IOddEvenDrawNoDrawDataAccess _oddEvenDrawNoDrawDataAccess;
-
-        private OddEvenDrawNoDrawTotalBetController _controller;
+        private IOddEvenDrawNoDrawDataAccess _oddEvenDrawNoDrawDataAccess;        
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
@@ -38,61 +36,63 @@
             _oddEvenDrawNoDrawDataAccess = null;
         }
 
-        [SetUp]
-        public void SetUp()
-        {
-            _controller = new OddEvenDrawNoDrawTotalBetController(
-                            LangService,
-                            SessionService,
-                            AppSettings,
-                            _oddEvenDrawNoDrawDataAccess);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _controller.Dispose();
-        }
-
         [Test]
         public void Index_WhenGet_ReturnMainView()
         {
-            // Action
-            var viewResult = _controller.Index() as ViewResult;
+            using (var controller = CreateController())
+            {
+                // Action
+                var viewResult = controller.Index() as ViewResult;
 
-            // Assert
-            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/OddEvenDrawNoDraw/Main.cshtml"));
+                // Assert
+                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/OddEvenDrawNoDraw/Main.cshtml"));
+            }
         }
 
         [Test]
         public void Index_WhenGet_GetDataFromService()
         {
-            // Arrange
-            OddEvenDrawNoDraw total;
+            using (var controller = CreateController())
+            {
+                // Arrange
+                OddEvenDrawNoDraw total;
 
-            // Action
-            var viewResult = _controller.Index() as ViewResult;
-            var viewModel = viewResult.Model as OddEvenDrawNoDrawViewModel;
+                // Action
+                var viewResult = controller.Index() as ViewResult;
+                var viewModel = viewResult.Model as OddEvenDrawNoDrawViewModel;
 
-            // Assert
-            _oddEvenDrawNoDrawDataAccess.ReceivedWithAnyArgs().GetOddEvenDrawNoDrawDataList(Arg.Any<OddEvenDrawNoDrawMetaModel>(), out total);
-            Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
+                // Assert
+                _oddEvenDrawNoDrawDataAccess.ReceivedWithAnyArgs().GetOddEvenDrawNoDrawDataList(Arg.Any<OddEvenDrawNoDrawMetaModel>(), out total);
+                Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
+            }
         }
 
         [Test]
         public void Index_WhenPostWithInvalidCurrency_AccessDenied()
         {
-            // Arrange
-            var metaModel = new OddEvenDrawNoDrawMetaModel
+            using (var controller = CreateController())
             {
-                CurrencyId = -999
-            };
+                // Arrange
+                var metaModel = new OddEvenDrawNoDrawMetaModel
+                {
+                    CurrencyId = -999
+                };
 
-            // Action
-            var viewResult = _controller.Index(metaModel) as RedirectResult;
+                // Action
+                var viewResult = controller.Index(metaModel) as RedirectResult;
 
-            // Assert
-            Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+                // Assert
+                Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+            }
+        }
+
+        private OddEvenDrawNoDrawTotalBetController CreateController()
+        {
+            return new OddEvenDrawNoDrawTotalBetController(
+                            LangService,
+                            SessionService,
+                            AppSettings,
+                            _oddEvenDrawNoDrawDataAccess);
         }
 
         private void SepUpForService()

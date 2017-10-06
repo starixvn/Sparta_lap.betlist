@@ -16,8 +16,6 @@
     {
         private IFirstGoalLastGoalDataAccess _firstGoalLastGoalDataAccess;
 
-        private FirstGoalLastGoalTotalBetController _controller;
-
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
@@ -38,64 +36,57 @@
             _firstGoalLastGoalDataAccess = null;
         }
 
-        [SetUp]
-        public void SetUp()
-        {
-            _controller = new FirstGoalLastGoalTotalBetController(
-                            LangService,
-                            SessionService,
-                            AppSettings,
-                            _firstGoalLastGoalDataAccess);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _controller.Dispose();
-        }
-
         [Test]
         public void Index_WhenGet_ReturnMainView()
         {
-            // Action
-            var viewResult = _controller.Index() as ViewResult;
+            using (var controller = CreateController())
+            {
+                // Action
+                var viewResult = controller.Index() as ViewResult;
 
-            // Assert
-            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/FirstGoalLastGoal/Main.cshtml"));
+                // Assert
+                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/FirstGoalLastGoal/Main.cshtml"));
+            }
         }
 
         [Test]
         public void Index_WhenGet_GetDataFromService()
         {
-            // Arrange
-            FirstGoalLastGoal total;
-
-            // Action
-            var viewResult = _controller.Index() as ViewResult;
-            var viewModel = viewResult.Model as FirstGoalLastGoalViewModel;
-
-            // Assert
-            Assert.Multiple(() =>
+            using (var controller = CreateController())
             {
-                _firstGoalLastGoalDataAccess.Received().GetFirstGoalLastGoalDataList(Arg.Any<FirstGoalLastGoalMetaModel>(), out total);
-                Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
-            });
+                // Arrange
+                FirstGoalLastGoal total;
+
+                // Action
+                var viewResult = controller.Index() as ViewResult;
+                var viewModel = viewResult.Model as FirstGoalLastGoalViewModel;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    _firstGoalLastGoalDataAccess.Received().GetFirstGoalLastGoalDataList(Arg.Any<FirstGoalLastGoalMetaModel>(), out total);
+                    Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
+                });
+            }
         }
 
         [Test]
         public void Index_WhenPostWithInvalidCurrency_AccessDenied()
         {
-            // Arrange
-            var metaModel = new FirstGoalLastGoalMetaModel
+            using (var controller = CreateController())
             {
-                CurrencyId = -999
-            };
+                // Arrange
+                var metaModel = new FirstGoalLastGoalMetaModel
+                {
+                    CurrencyId = -999
+                };
 
-            // Action
-            var viewResult = _controller.Index(metaModel) as RedirectResult;
+                // Action
+                var viewResult = controller.Index(metaModel) as RedirectResult;
 
-            // Assert
-            Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+                // Assert
+                Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+            }
         }
 
         private void SepUpForService()
@@ -106,6 +97,15 @@
             _firstGoalLastGoalDataAccess
                 .GetFirstGoalLastGoalDataList(Arg.Any<FirstGoalLastGoalMetaModel>(), out total)
                 .Returns(new List<FirstGoalLastGoal> { new FirstGoalLastGoal() });
+        }
+
+        private FirstGoalLastGoalTotalBetController CreateController()
+        {
+            return new FirstGoalLastGoalTotalBetController(
+                            LangService,
+                            SessionService,
+                            AppSettings,
+                            _firstGoalLastGoalDataAccess);
         }
     }
 }

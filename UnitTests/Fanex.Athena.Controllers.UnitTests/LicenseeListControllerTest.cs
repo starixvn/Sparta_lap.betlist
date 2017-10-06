@@ -13,100 +13,108 @@
     {
         private ILicenseeDataAccess _licenseeDataAccess;
 
-        private LicenseeListController _controller;
-
         [SetUp]
         public void SetUp()
         {
             _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
 
             SetUpDefaultFakeData();
-
-            _controller = new LicenseeListController(LangService, SessionService, AppSettings, _licenseeDataAccess);
         }
 
         [TearDown]
         public void TearDown()
         {
             _licenseeDataAccess = null;
-
-            _controller.Dispose();
         }
 
         [Test]
         public void Index_InvalidUserSession_RedirectToSignIn()
         {
-            // Arrange
-            StubUserSessionData(null);
-
-            // Action
-            var result = _controller.Index(0) as RedirectToRouteResult;
-
-            // Assert
-            Assert.Multiple(() =>
+            using (var controller = CreateController())
             {
-                Assert.That(result.RouteValues["action"], Is.EqualTo("SignIn"));
-                Assert.That(result.RouteValues["controller"], Is.EqualTo("Authorization"));
-            });
+                // Arrange
+                StubUserSessionData(null);
+
+                // Action
+                var result = controller.Index(0) as RedirectToRouteResult;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(result.RouteValues["action"], Is.EqualTo("SignIn"));
+                    Assert.That(result.RouteValues["controller"], Is.EqualTo("Authorization"));
+                });
+            }
         }
 
         [Test]
         public void Index_ValidLicenseeId_RedirectToHome()
         {
-            // Arrange
-            const int LicenseeId = 1;
-
-            // Action
-            var result = _controller.Index(LicenseeId) as RedirectToRouteResult;
-
-            // Assert
-            Assert.Multiple(() =>
+            using (var controller = CreateController())
             {
-                SessionService.Received().UpdateLiceseeSession(LicenseeId);
-                Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
-                Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
-            });
+                // Arrange
+                const int LicenseeId = 1;
+
+                // Action
+                var result = controller.Index(LicenseeId) as RedirectToRouteResult;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    SessionService.Received().UpdateLiceseeSession(LicenseeId);
+                    Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
+                    Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
+                });
+            }
         }
 
         [Test]
         public void Index_UserHasNoLicensee_RedirectToSignIn()
         {
-            // Arrange
-            StubLicenseeDataAccessGetByUser(DefaultUserSession.UserId, new List<Licensee>());
-
-            // Action
-            var result = _controller.Index(0) as RedirectToRouteResult;
-
-            // Assert
-            Assert.Multiple(() =>
+            using (var controller = CreateController())
             {
-                Assert.That(result.RouteValues["action"], Is.EqualTo("SignIn"));
-                Assert.That(result.RouteValues["controller"], Is.EqualTo("Authorization"));
-            });
+                // Arrange
+                StubLicenseeDataAccessGetByUser(DefaultUserSession.UserId, new List<Licensee>());
+
+                // Action
+                var result = controller.Index(0) as RedirectToRouteResult;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(result.RouteValues["action"], Is.EqualTo("SignIn"));
+                    Assert.That(result.RouteValues["controller"], Is.EqualTo("Authorization"));
+                });
+            }
         }
 
         [Test]
         public void Index_UserHasOneLicensee_RedirectToHome()
         {
-            // Arrange
-            StubLicenseeDataAccessGetByUser(DefaultUserSession.UserId, new List<Licensee> { new Licensee() });
-
-            // Action
-            var result = _controller.Index(null) as RedirectToRouteResult;
-
-            // Assert
-            Assert.Multiple(() =>
+            using (var controller = CreateController())
             {
-                Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
-                Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
-            });
+                // Arrange
+                StubLicenseeDataAccessGetByUser(DefaultUserSession.UserId, new List<Licensee> { new Licensee() });
+
+                // Action
+                var result = controller.Index(null) as RedirectToRouteResult;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
+                    Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
+                });
+            }
         }
 
         [Test]
         public void Index_UserHasManyLicensees_ReturnIndexView()
         {
-            // Arrange
-            StubLicenseeDataAccessGetByUser(
+            using (var controller = CreateController())
+            {
+                // Arrange
+                StubLicenseeDataAccessGetByUser(
                 DefaultUserSession.UserId,
                 new List<Licensee>
                 {
@@ -114,11 +122,17 @@
                     new Licensee()
                 });
 
-            // Action
-            var result = _controller.Index(0) as ViewResult;
+                // Action
+                var result = controller.Index(0) as ViewResult;
 
-            // Assert
-            Assert.That(result.ViewName, Is.EqualTo("~/Views/LicenseeList/Index.cshtml"));
+                // Assert
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/LicenseeList/Index.cshtml"));
+            }
+        }
+
+        private LicenseeListController CreateController()
+        {
+            return new LicenseeListController(LangService, SessionService, AppSettings, _licenseeDataAccess);
         }
 
         private void StubLicenseeDataAccessGetByUser(int userId, List<Licensee> fakeResult)

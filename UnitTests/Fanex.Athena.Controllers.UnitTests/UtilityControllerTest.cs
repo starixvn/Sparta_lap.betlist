@@ -16,8 +16,6 @@
     {
         private IMaintenanceService _maintenanceService;
 
-        private UtilityController _controller;
-
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
@@ -33,39 +31,38 @@
         public void SetUp()
         {
             _maintenanceService = Substitute.For<IMaintenanceService>();
-
-            _controller = new UtilityController(AppSettings, LangService, _maintenanceService)
-            {
-                ControllerContext = ControllerContext
-            };
         }
 
         [TearDown]
         public void TearDown()
         {
             _maintenanceService = null;
-
-            _controller.Dispose();
         }
 
         [Test]
         public void SessionIsAlive_WhenCall_ReturnCorrectData()
         {
-            // Action
-            var result = _controller.SessionIsAlive() as JsonResult;
+            using (var controller = CreateController())
+            {
+                // Action
+                var result = controller.SessionIsAlive() as JsonResult;
 
-            // Assert
-            Assert.That(result.Data, Is.EqualTo(_controller.HttpContext.User.Identity.IsAuthenticated));
+                // Assert
+                Assert.That(result.Data, Is.EqualTo(controller.HttpContext.User.Identity.IsAuthenticated));
+            }
         }
 
         [Test]
         public void AccessDenied_WhenCall_ReturnCorrectViewName()
         {
-            // Action
-            var viewResult = _controller.AccessDenied() as ViewResult;
+            using (var controller = CreateController())
+            {
+                // Action
+                var viewResult = controller.AccessDenied() as ViewResult;
 
-            // Assert
-            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Utility/AccessDenied.cshtml"));
+                // Assert
+                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Utility/AccessDenied.cshtml"));
+            }
         }
 
         [TestCase(-1)]
@@ -74,14 +71,17 @@
         [TestCase(500)]
         public void OneTokenRestriction_InvalidCode_ReturnDefaultMsg(int code)
         {
-            // Arrange
-            var expectedMsg = ViewResources.OneTokenRestrictionDefaultMsg;
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var expectedMsg = ViewResources.OneTokenRestrictionDefaultMsg;
 
-            // Action
-            var result = _controller.OneTokenRestriction(code) as ViewResult;
+                // Action
+                var result = controller.OneTokenRestriction(code) as ViewResult;
 
-            // Assert
-            Assert.That(result.ViewBag.Message, Is.EqualTo(expectedMsg));
+                // Assert
+                Assert.That(result.ViewBag.Message, Is.EqualTo(expectedMsg));
+            }
         }
 
         [TestCase(100, "Token was expired")]
@@ -93,101 +93,119 @@
         [TestCase(800, "Not found user")]
         public void OneTokenRestriction_ValidCode_ReturnMsgByCode(int code, string msg)
         {
-            // Action
-            var result = _controller.OneTokenRestriction(code) as ViewResult;
+            using (var controller = CreateController())
+            {
+                // Action
+                var result = controller.OneTokenRestriction(code) as ViewResult;
 
-            // Assert
-            Assert.That(result.ViewBag.Message, Is.EqualTo(msg));
+                // Assert
+                Assert.That(result.ViewBag.Message, Is.EqualTo(msg));
+            }
         }
 
         [Test]
         public void UnderMaintenance_UnderMaintenanceState_ReturnRightUMTimeInfo()
         {
-            // Arrange
-            var maintenanceInfo = new UnderMaintenanceTime(true, "11-14-2016 05:00:00", "11-14-2016 07:00:00");
-            _maintenanceService.GetUnderMaintenanceTime().Returns(x => maintenanceInfo);
-
-            // Action
-            var result = _controller.UnderMaintenance(true) as ViewResult;
-
-            // Assert
-            Assert.Multiple(() =>
+            using (var controller = CreateController())
             {
-                Assert.That(result.ViewBag.UmTimeFrom, Is.EqualTo(maintenanceInfo.From));
-                Assert.That(result.ViewBag.UmTimeTo, Is.EqualTo(maintenanceInfo.To));
-            });
+                // Arrange
+                var maintenanceInfo = new UnderMaintenanceTime(true, "11-14-2016 05:00:00", "11-14-2016 07:00:00");
+                _maintenanceService.GetUnderMaintenanceTime().Returns(x => maintenanceInfo);
+
+                // Action
+                var result = controller.UnderMaintenance(true) as ViewResult;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(result.ViewBag.UmTimeFrom, Is.EqualTo(maintenanceInfo.From));
+                    Assert.That(result.ViewBag.UmTimeTo, Is.EqualTo(maintenanceInfo.To));
+                });
+            }
         }
 
         [Test]
         public void UnderMaintenance_UnderMaintenanceStateAndMaintenanceTimeIsEmpty_ReturnUMTimeFromQueryString()
         {
-            // Arrange
-            _maintenanceService.GetUnderMaintenanceTime().Returns(new UnderMaintenanceTime(true, string.Empty, string.Empty));
-
-            const string QueryFrom = "01-01-2016 05:00:00";
-            const string QueryTo = "01-15-2016 05:00:00";
-            _controller.ControllerContext.HttpContext.Request.QueryString.Returns(HttpUtility.ParseQueryString($"from={QueryFrom}&to={QueryTo}"));
-
-            // Action
-            var result = _controller.UnderMaintenance(true) as ViewResult;
-
-            // Assert
-            Assert.Multiple(() =>
+            using (var controller = CreateController())
             {
-                Assert.That(result.ViewBag.UmTimeFrom, Is.EqualTo(QueryFrom));
-                Assert.That(result.ViewBag.UmTimeTo, Is.EqualTo(QueryTo));
-            });
+                // Arrange
+                _maintenanceService.GetUnderMaintenanceTime().Returns(new UnderMaintenanceTime(true, string.Empty, string.Empty));
+
+                const string QueryFrom = "01-01-2016 05:00:00";
+                const string QueryTo = "01-15-2016 05:00:00";
+                controller.ControllerContext.HttpContext.Request.QueryString.Returns(HttpUtility.ParseQueryString($"from={QueryFrom}&to={QueryTo}"));
+
+                // Action
+                var result = controller.UnderMaintenance(true) as ViewResult;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(result.ViewBag.UmTimeFrom, Is.EqualTo(QueryFrom));
+                    Assert.That(result.ViewBag.UmTimeTo, Is.EqualTo(QueryTo));
+                });
+            }
         }
 
         [Test]
         public void UnderMaintenance_UnderMaintenanceStateWithMaintenanceTimeAndQueryStringIsNull_ReturnEmptyUMInfo()
         {
-            // Arrange
-            _maintenanceService.GetUnderMaintenanceTime().Returns(new UnderMaintenanceTime(true, null, null));
-
-            _controller.ControllerContext.HttpContext.Request.QueryString.Returns(HttpUtility.ParseQueryString(string.Empty));
-
-            // Action
-            var result = _controller.UnderMaintenance(true) as ViewResult;
-
-            // Assert
-            Assert.Multiple(() =>
+            using (var controller = CreateController())
             {
-                Assert.That(result.ViewBag.UmTimeFrom, Is.EqualTo(string.Empty));
-                Assert.That(result.ViewBag.UmTimeTo, Is.EqualTo(string.Empty));
-            });
+                // Arrange
+                _maintenanceService.GetUnderMaintenanceTime().Returns(new UnderMaintenanceTime(true, null, null));
+
+                controller.ControllerContext.HttpContext.Request.QueryString.Returns(HttpUtility.ParseQueryString(string.Empty));
+
+                // Action
+                var result = controller.UnderMaintenance(true) as ViewResult;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(result.ViewBag.UmTimeFrom, Is.EqualTo(string.Empty));
+                    Assert.That(result.ViewBag.UmTimeTo, Is.EqualTo(string.Empty));
+                });
+            }
         }
 
         [Test]
         public void UnderMaintenance_NotUnderMaintenanceState_ShowEmptyUMInfo()
         {
-            // Arrange
-            var maintenanceInfo = new UnderMaintenanceTime(false, "11-14-2016 05:00:00", "11-14-2016 07:00:00");
-            _maintenanceService.GetUnderMaintenanceTime().Returns(x => maintenanceInfo);
-
-            // Action
-            var result = _controller.UnderMaintenance(true) as ViewResult;
-
-            // Assert
-            Assert.Multiple(() =>
+            using (var controller = CreateController())
             {
-                Assert.That(result.ViewBag.UmTimeFrom, Is.Empty);
-                Assert.That(result.ViewBag.UmTimeTo, Is.Empty);
-            });
+                // Arrange
+                var maintenanceInfo = new UnderMaintenanceTime(false, "11-14-2016 05:00:00", "11-14-2016 07:00:00");
+                _maintenanceService.GetUnderMaintenanceTime().Returns(x => maintenanceInfo);
+
+                // Action
+                var result = controller.UnderMaintenance(true) as ViewResult;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(result.ViewBag.UmTimeFrom, Is.Empty);
+                    Assert.That(result.ViewBag.UmTimeTo, Is.Empty);
+                });
+            }
         }
 
         [Test]
         public void UnderMaintenance_NotMaintenanceStateAndReload_RedirectToLogin()
         {
-            // Arrange
-            var maintenanceInfo = new UnderMaintenanceTime(false, "11-14-2016 05:00:00", "11-14-2016 07:00:00");
-            _maintenanceService.GetUnderMaintenanceTime().Returns(x => maintenanceInfo);
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var maintenanceInfo = new UnderMaintenanceTime(false, "11-14-2016 05:00:00", "11-14-2016 07:00:00");
+                _maintenanceService.GetUnderMaintenanceTime().Returns(x => maintenanceInfo);
 
-            // Action
-            var result = _controller.UnderMaintenance(false) as RedirectResult;
+                // Action
+                var result = controller.UnderMaintenance(false) as RedirectResult;
 
-            // Assert
-            Assert.That(result.Url, Is.EqualTo(FormsAuthentication.LoginUrl));
+                // Assert
+                Assert.That(result.Url, Is.EqualTo(FormsAuthentication.LoginUrl));
+            }
         }
 
         [TestCase(null, "InvalidRequestMsg")]
@@ -202,62 +220,74 @@
         [TestCase("999", "InvalidRequestMsg")]
         public void SSODenyAccess_WhenCall_ReturnCorrectMessageAccordingtoCode(string code, string returnedMessageResourceKey)
         {
-            // Arrange
-            _controller.ControllerContext.HttpContext.Request.QueryString.Returns(HttpUtility.ParseQueryString(code == null ? string.Empty : $"code={code}"));
+            using (var controller = CreateController())
+            {
+                // Arrange
+                controller.ControllerContext.HttpContext.Request.QueryString.Returns(HttpUtility.ParseQueryString(code == null ? string.Empty : $"code={code}"));
 
-            // Action
-            var result = _controller.SSODenyAccess() as ViewResult;
+                // Action
+                var result = controller.SSODenyAccess() as ViewResult;
 
-            // Assert
-            Assert.That(result.ViewBag.Message, Is.EqualTo(ViewResources.ResourceManager.GetString(returnedMessageResourceKey)));
+                // Assert
+                Assert.That(result.ViewBag.Message, Is.EqualTo(ViewResources.ResourceManager.GetString(returnedMessageResourceKey)));
+            }
         }
 
         [Test]
         public void LocationRestriction_IsInternalUrl_RedirectToSignInPage()
         {
-            // Arrange
-            _controller.ControllerContext.HttpContext.Request.Url.Returns(new Uri("http://internal.com"));
-
-            // Action
-            var result = _controller.LocationRestriction() as RedirectToRouteResult;
-
-            // Assert
-            Assert.Multiple(() =>
+            using (var controller = CreateController())
             {
-                Assert.That(result.RouteValues["action"], Is.EqualTo("SignIn"));
-                Assert.That(result.RouteValues["controller"], Is.EqualTo("Authorization"));
-            });
+                // Arrange
+                controller.ControllerContext.HttpContext.Request.Url.Returns(new Uri("http://internal.com"));
+
+                // Action
+                var result = controller.LocationRestriction() as RedirectToRouteResult;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(result.RouteValues["action"], Is.EqualTo("SignIn"));
+                    Assert.That(result.RouteValues["controller"], Is.EqualTo("Authorization"));
+                });
+            }
         }
 
         [Test]
         public void LocationRestriction_IsLapDomain_RedirectToRestrictionPage()
         {
-            // Arrange
-            _controller.ControllerContext.HttpContext.Request.Url.Returns(new Uri("http://lap.com"));
-
-            // Action
-            var result = _controller.LocationRestriction() as RedirectToRouteResult;
-
-            // Assert
-            Assert.Multiple(() =>
+            using (var controller = CreateController())
             {
-                Assert.That(result.RouteValues["action"], Is.EqualTo("OneTokenRestriction"));
-                Assert.That(result.RouteValues["controller"], Is.EqualTo("Utility"));
-                Assert.That(result.RouteValues["code"], Is.EqualTo(100));
-            });
+                // Arrange
+                controller.ControllerContext.HttpContext.Request.Url.Returns(new Uri("http://lap.com"));
+
+                // Action
+                var result = controller.LocationRestriction() as RedirectToRouteResult;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(result.RouteValues["action"], Is.EqualTo("OneTokenRestriction"));
+                    Assert.That(result.RouteValues["controller"], Is.EqualTo("Utility"));
+                    Assert.That(result.RouteValues["code"], Is.EqualTo(100));
+                });
+            }
         }
 
         [Test]
         public void LocationRestriction_NotInternalAndLapDomain_ReturnViewLocationRestriction()
         {
-            // Arrange
-            _controller.ControllerContext.HttpContext.Request.Url.Returns(new Uri("http://abc.com"));
+            using (var controller = CreateController())
+            {
+                // Arrange
+                controller.ControllerContext.HttpContext.Request.Url.Returns(new Uri("http://abc.com"));
 
-            // Action
-            var result = _controller.LocationRestriction() as ViewResult;
+                // Action
+                var result = controller.LocationRestriction() as ViewResult;
 
-            // Assert
-            Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Utility/LocationRestriction.cshtml"));
+                // Assert
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Utility/LocationRestriction.cshtml"));
+            }
         }
 
         [TestCase(null, "HttpError_Default")]
@@ -267,40 +297,57 @@
         [TestCase("999", "HttpError_Default")]
         public void Error_WhenCall_ReturnCorrectMessageAccordingtoCode(string code, string returnedMessageResourceKey)
         {
-            // Arrange
-            _controller.ControllerContext.HttpContext.Request.QueryString.Returns(HttpUtility.ParseQueryString($"err={code}"));
+            using (var controller = CreateController())
+            {
+                // Arrange
+                controller.ControllerContext.HttpContext.Request.QueryString.Returns(HttpUtility.ParseQueryString($"err={code}"));
 
-            // Action
-            var result = _controller.Error() as ViewResult;
+                // Action
+                var result = controller.Error() as ViewResult;
 
-            // Assert
-            Assert.That(result.ViewBag.Message, Is.EqualTo(ViewResources.ResourceManager.GetString(returnedMessageResourceKey)));
+                // Assert
+                Assert.That(result.ViewBag.Message, Is.EqualTo(ViewResources.ResourceManager.GetString(returnedMessageResourceKey)));
+            }
         }
 
         [Test]
         public void View_DefaultView_ReturnDefaultViewPath()
         {
-            // Arrange
-            AppSettings.ClientViewType.Returns(ClientViewType.Default.ToString("d"));
+            using (var controller = CreateController())
+            {
+                // Arrange
+                AppSettings.ClientViewType.Returns(ClientViewType.Default.ToString("d"));
 
-            // Action
-            var result = _controller.AccessDenied() as ViewResult;
+                // Action
+                var result = controller.AccessDenied() as ViewResult;
 
-            // Assert
-            Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Utility/AccessDenied.cshtml"));
+                // Assert
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Utility/AccessDenied.cshtml"));
+            }
         }
 
         [Test]
         public void View_NoneView_ReturnDefaultViewPath()
         {
-            // Arrange
-            AppSettings.ClientViewType.Returns(x => null);
+            using (var controller = CreateController())
+            {
+                // Arrange
+                AppSettings.ClientViewType.Returns(x => null);
 
-            // Action
-            var result = _controller.AccessDenied() as ViewResult;
+                // Action
+                var result = controller.AccessDenied() as ViewResult;
 
-            // Assert
-            Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Utility/AccessDenied.cshtml"));
+                // Assert
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Utility/AccessDenied.cshtml"));
+            }
+        }
+
+        private UtilityController CreateController()
+        {
+            return new UtilityController(AppSettings, LangService, _maintenanceService)
+            {
+                ControllerContext = ControllerContext
+            };
         }
     }
 }

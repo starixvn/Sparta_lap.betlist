@@ -79,12 +79,12 @@
             AppSettings.ClientViewType.Returns(DefaultUserSession.ViewType.ToString("d"));
         }
 
-        public void StubUserSessionData(UserSession fakeUserSession)
+        protected void StubUserSessionData(UserSession fakeUserSession)
         {
             SessionService.UserSession.Returns(fakeUserSession);
         }
 
-        public void StubLicenseeSessionData(LicenseeSession fakeLicenseeSession)
+        protected void StubLicenseeSessionData(LicenseeSession fakeLicenseeSession)
         {
             SessionService.LicenseeSession.Returns(fakeLicenseeSession);
         }
