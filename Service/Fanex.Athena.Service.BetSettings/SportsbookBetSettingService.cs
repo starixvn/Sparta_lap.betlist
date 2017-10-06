@@ -6,8 +6,6 @@
 
 namespace Fanex.Athena.Service.BetSettings
 {
-    #region
-
     using System.Collections.Generic;
     using Core.Users.Interfaces;
     using DataAccess.BetSettings.Interfaces;
@@ -18,8 +16,6 @@ namespace Fanex.Athena.Service.BetSettings
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Service.BetSettings.Interfaces;
     using Resources;
-
-    #endregion
 
     public class SportsbookBetSettingService : BetSettingBaseService, ISportsbookBetSettingService
     {
@@ -40,16 +36,13 @@ namespace Fanex.Athena.Service.BetSettings
 
         public BetSettingViewModel GetViewModel(int licenseeId, int custId)
         {
-            var esportSetting = EsportSettingType.NoneOffering;
-            var betSettings = HasPermissionOnData(licenseeId, custId)
-                        ? _betSettingDataAccess.GetBetSetting(custId, ref esportSetting)
-                        : new List<BetSetting>();
-
-            return new BetSettingViewModel
-            {
-                MainData = betSettings,
-                EsportSetting = esportSetting
-            };
+            return HasPermissionOnData(licenseeId, custId)
+                        ? _betSettingDataAccess.GetBetSetting(custId)
+                        : new BetSettingViewModel
+                        {
+                            MainData = new List<BetSetting>(),
+                            EsportSetting = EsportSettingType.NoneOffering
+                        };
         }
 
         public IResultInfo UpdateBetSetting(CommonBetSetting setting, IDictionary<string, object> hashParam)

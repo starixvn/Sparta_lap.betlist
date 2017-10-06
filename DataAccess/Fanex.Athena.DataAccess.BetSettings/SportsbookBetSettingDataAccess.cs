@@ -16,6 +16,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Helpers;
+    using Model.BetSettings.ViewModel;
 
     public class SportsbookBetSettingDataAccess : BaseDataAccess, ISportsbookBetSettingDataAccess
     {
@@ -31,7 +32,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
             _appSettings = appSettings;
         }
 
-        public IList<BetSetting> GetBetSetting(int custId, ref EsportSettingType esportSetting)
+        public BetSettingViewModel GetBetSetting(int custId)
         {
             var uspName = "Lrf_CustomerSelEditCustomer";
             using (var db = this.GetObjectDb(uspName))
@@ -41,16 +42,25 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 {
                     if (reader.Read())
                     {
-                        esportSetting = reader.HasColumn("DisableEsports") ?
+                        var esportSetting = reader.HasColumn("DisableEsports") ?
                             (EsportSettingType)System.Convert.ToInt32(reader["DisableEsports"])
                             : EsportSettingType.NoneOffering;
 
-                        return RenderSportBookBetSetting(reader, _appSettings.IsShowMixedSport);
+                        var dataList = RenderSportBookBetSetting(reader, _appSettings.IsShowMixedSport);
+                        return new BetSettingViewModel
+                        {
+                            MainData = dataList,
+                            EsportSetting = esportSetting
+                        };
                     }
                 }
             }
 
-            return new List<BetSetting>();
+            return new BetSettingViewModel
+            {
+                MainData = new List<BetSetting>(),
+                EsportSetting = EsportSettingType.NoneOffering
+            };
         }
 
         public IResultInfo UpdateBetSetting(CommonBetSetting data, IDictionary<string, object> setting)
@@ -66,14 +76,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 db.AddInParameter("custid", DbType.Int32, data.CustId);
                 foreach (var item in setting)
                 {
-                    if (item.Key.Contains("UpdateMinMaxBet"))
-                    {
-                        db.AddInParameter(item.Key, DbType.Boolean, item.Value);
-                    }
-                    else
-                    {
-                        db.AddInParameter(item.Key, DbType.Decimal, item.Value);
-                    }
+                    db.AddInParameter(item.Key, item.Key.Contains("UpdateMinMaxBet") ? DbType.Boolean : DbType.Decimal, item.Value);
                 }
 
                 db.AddOutParameter("ErrCode", DbType.String, 600);
