@@ -75,6 +75,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="BaseDashboardApiControllerTest.cs" />
+    <Compile Include="FakeBaseDashboardApiController.cs" />
     <Compile Include="LicenseeWinLossByPlatformControllerTest.cs" />
     <Compile Include="PendingFundControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

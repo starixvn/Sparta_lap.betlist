@@ -24,7 +24,7 @@
         }
 
         [TestCase("CLMV")]
-        public void GetData_InvalidBaseCurrency_ReturnZeroAndDoNotCallService(string baseCurrency)
+        public void GetData_InvalidBaseCurrency_ReturnZero(string baseCurrency)
         {
             // Arrange
             var metaModel = new DashboardBaseModel
@@ -40,24 +40,6 @@
                 // Assert
                 Assert.That(result, Is.Zero);
                 _todayWithdrawalService.DidNotReceive().GetData(metaModel);
-            }
-        }
-
-        [Test]
-        public void GetData_WhenCall_PassCorrectParam()
-        {
-            // Arrange
-            var expected = 500000M;
-            var metaModel = new DashboardBaseModel { BaseCurrency = "EUR", CurrencyId = 1, SelectedWidgetString = "PendingFund" };
-            _todayWithdrawalService.GetData(metaModel).Returns(expected);
-            using (var controller = CreateController())
-            {
-                // Action
-                controller.GetData(metaModel);
-
-                // Assert
-                Assert.That(metaModel.LicenseeId, Is.EqualTo(1));
-                _todayWithdrawalService.Received().GetData(metaModel);
             }
         }
 
@@ -84,16 +66,16 @@
 
         private TodayWithdrawalController CreateController()
         {
-            var controller = new TodayWithdrawalController(_todayWithdrawalService);
             var mockActionContext = new HttpActionContext
             {
                 ControllerContext = new HttpControllerContext(),
                 ActionArguments = { { "licenseeid", 1 }, { "userid", 2 }, { "currencyIDList", "1" } }
             };
 
-            controller.ActionContext = mockActionContext;
-
-            return controller;
+            return new TodayWithdrawalController(_todayWithdrawalService)
+            {
+                ActionContext = mockActionContext
+            };
         }
     }
 }
