@@ -34,7 +34,7 @@ call %command%
 if %errorlevel% neq 0 goto error
 
 REM REM ReportGenerator
-set command=packages\ReportGenerator.2.4.5.0\tools\ReportGenerator.exe -reports:"UnitTestCoverage_%project%.xml" -targetdir:"cireport\testcoveragereport\" -filefilters:"-*Fanex.Result*"
+set command=packages\ReportGenerator.2.4.5.0\tools\ReportGenerator.exe -reports:"UnitTestCoverage_%project%.xml" -targetdir:"cireport\testcoveragereport\"
 call %command%
 if %errorlevel% neq 0 goto error
 
