@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.DataAccess.BetSettings
+﻿namespace Fanex.Athena.DataAccess.BetSettings.Helpers
 {
     using System.Collections.Generic;
     using System.Data;
@@ -9,6 +9,17 @@
 
     public static class BetSettingHelper
     {
+        private static readonly IDictionary<string, string> SportNameMap = new Dictionary<string, string>
+        {
+            { "99MP", nameof(ViewResources.MixSportsParlay) },
+            { "151_31", nameof(ViewResources.HorseRacingSATote) },
+            { "151_41", nameof(ViewResources.HorseRacingUK_IrishTote) },
+            { "151_51", nameof(ViewResources.HorseRacingAustTote) },
+            { "152_41", nameof(ViewResources.GreyhoundUK_IrishTote) },
+            { "152_51", nameof(ViewResources.GreyhoundAustTote) },
+            { "153_51", nameof(ViewResources.HarnessAustTote) }
+        };
+
         public static void RenderSport(IDataReader reader, string sportId, ICollection<BetSetting> resultList, bool isNumberGame = false)
         {
             var sportSuffix = sportId != "1" ? "v" + sportId : string.Empty;
@@ -40,44 +51,13 @@
 
         private static string GetSportName(string sportId)
         {
-            var sportName = string.Empty;
-
-            switch (sportId)
+            if (!SportNameMap.ContainsKey(sportId))
             {
-                case "99MP":
-                    sportName = ViewResources.MixSportsParlay;
-                    break;
-
-                case "151_31":
-                    sportName = ViewResources.HorseRacingSATote;
-                    break;
-
-                case "151_41":
-                    sportName = ViewResources.HorseRacingUK_IrishTote;
-                    break;
-
-                case "151_51":
-                    sportName = ViewResources.HorseRacingAustTote;
-                    break;
-
-                case "152_41":
-                    sportName = ViewResources.GreyhoundUK_IrishTote;
-                    break;
-
-                case "152_51":
-                    sportName = ViewResources.GreyhoundAustTote;
-                    break;
-
-                case "153_51":
-                    sportName = ViewResources.HarnessAustTote;
-                    break;
-
-                default:
-                    sportName = ViewResources.OtherSport;
-                    break;
+                return ViewResources.OtherSport;
             }
 
-            return sportName;
+            var resourceKey = SportNameMap[sportId];
+            return ViewResources.ResourceManager.GetString(resourceKey);
         }
     }
 }

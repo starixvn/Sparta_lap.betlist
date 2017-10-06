@@ -15,6 +15,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Data;
+    using Helpers;
     using Interfaces;
     using Logging;
     using Model.BetSettings.DTO;
