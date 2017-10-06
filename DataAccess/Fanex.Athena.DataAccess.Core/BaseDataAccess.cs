@@ -41,10 +41,5 @@ namespace Fanex.Athena.DataAccess.Core
         {
             return new ObjectDb(spname);
         }
-
-        protected internal virtual ISafeDataReader GetSafeDataReader(IDataReader reader, IEnumerable<string> columns)
-        {
-            return new SafeDataReader(reader, columns);
-        }
     }
 }

@@ -7,8 +7,10 @@
 namespace Fanex.Athena.DataAccess.BetList
 {
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using Core.Utilities;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.BetList.DTO;
@@ -149,6 +151,11 @@ namespace Fanex.Athena.DataAccess.BetList
             }
 
             return false;
+        }
+
+        protected internal virtual ISafeDataReader GetSafeDataReader(IDataReader reader, IEnumerable<string> columns)
+        {
+            return new SafeDataReader(reader, columns);
         }
     }
 }
