@@ -10,11 +10,8 @@ namespace Fanex.Athena.DataAccess.Core.Exception
     using System.Runtime.Serialization;
     using System.Web.Script.Serialization;
 
-    /// <summary>
-    /// Data access exception.
-    /// </summary>
     [Serializable]
-    public class DataAccessException : System.Exception
+    public class DataAccessException : Exception
     {
         private readonly string _uspName;
         private readonly object _uspParams;
@@ -30,7 +27,6 @@ namespace Fanex.Athena.DataAccess.Core.Exception
             : base(message)
         {
             this._uspName = uspName;
-            this._uspParams = null;
         }
 
         public DataAccessException(SerializationInfo info, StreamingContext context) : base(info, context)
@@ -43,15 +39,15 @@ namespace Fanex.Athena.DataAccess.Core.Exception
         {
             get
             {
-                if (this._uspParams == null)
-                {
-                    return string.Format("Exception when call usp {0}. \nException: {1}", this._uspName, base.Message);
-                }
-                else
-                {
-                    var paramJson = new JavaScriptSerializer().Serialize(_uspParams);
-                    return string.Format("Exception when call usp {0}. \nParams: {1}. \nException: {2}", this._uspName, paramJson, base.Message);
-                }
+                return string.Format("Exception when call usp {0}. \nException: {1}", this._uspName, base.Message);
+            }
+        }
+
+        public string JsonParam
+        {
+            get
+            {
+                return _uspParams == null ? "null" : new JavaScriptSerializer().Serialize(_uspParams);
             }
         }
 

@@ -10,6 +10,7 @@ namespace Fanex.Athena.Service.Core.Helpers
     using System.Data.SqlClient;
     using System.Text;
     using System.Web;
+    using DataAccess.Core.Exception;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Logging;
 
@@ -27,8 +28,7 @@ namespace Fanex.Athena.Service.Core.Helpers
             }
 
             content.AppendLine("SOURCE: " + exception.Source)
-                   .AppendLine("TARGETSITE: " + exception.TargetSite)
-                   .AppendLine("STACKTRACE: " + exception.StackTrace);
+                   .AppendLine("TARGETSITE: " + exception.TargetSite);
 
             var sqlException = exception as SqlException;
             if (sqlException != null)
@@ -36,6 +36,14 @@ namespace Fanex.Athena.Service.Core.Helpers
                 content.AppendLine("Procedure: " + sqlException.Procedure)
                     .AppendLine("Line Number: " + sqlException.LineNumber)
                     .AppendLine("Server: " + sqlException.Server);
+            }
+            else
+            {
+                var dataAccessException = exception as DataAccessException;
+                if (dataAccessException != null)
+                {
+                    content.AppendLine("Param: " + dataAccessException.JsonParam);
+                }
             }
 
             LogService.Error(content.ToString(), exception);
