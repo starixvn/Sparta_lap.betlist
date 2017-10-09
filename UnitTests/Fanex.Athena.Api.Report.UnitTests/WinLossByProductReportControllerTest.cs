@@ -3,14 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Web.Http.Results;
-    using DataAccess.Core.Configuration.Interfaces;
     using DataAccess.Report.Interfaces;
     using Excel.Report;
     using Excel.Report.Models;
-    using Extension.Utility;
     using Model.Core.DTO.Common;
-    using Model.Core.DTO.Configuration;
-    using Model.Core.DTO.Users;
     using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -19,37 +15,34 @@
     using NUnit.Framework;
     using Report;
     using Resources;
-    using Service.Core.Common.Interfaces;
-    using Service.Core.Users.Interfaces;
 
-    public class WinLossByProductReportControllerTest
+    public class WinLossByProductReportControllerTest : BaseApiReportControllerHelperTest
     {
-        private ISessionService _sessionService;
-        private IProductService _productService;
         private IWinLossByProductDataAccess _dataAccess;
         private WinLossByProductReportController _controller;
 
-        [SetUp]
-        public void SetUp()
+        [OneTimeSetUp]
+        public override void FixtureSetUp()
         {
-            _sessionService = Substitute.For<ISessionService>();
-            _productService = Substitute.For<IProductService>();          
+            base.FixtureSetUp();
+
             _dataAccess = Substitute.For<IWinLossByProductDataAccess>();
-            var appSetting = Substitute.For<IAppSettings>();
-            _controller = Substitute.ForPartsOf<WinLossByProductReportController>(_sessionService, _productService, appSetting, _dataAccess);
-            CreateSession();
+            _controller = Substitute.ForPartsOf<WinLossByProductReportController>(SessionService, ProductService, AppSetting, _dataAccess);
+
+            MockSessionData();
         }
 
-        [TearDown]
-        public void TearDown()
+        [OneTimeTearDown]
+        public override void FixtureTearDown()
         {
+            base.FixtureTearDown();
+
             _dataAccess = null;
             _controller = null;
-            _sessionService = null;
         }
 
         [Test]
-        public void Index_WhenCallWithInvalidModel_ReturnBadRequestWithCorrectMessage()
+        public void Index_InvalidModel_ReturnBadRequestWithCorrectMessage()
         {
             // Arrange
             var metaModel = new WinLossByProductMetaModel { CurrencyId = 1 };
@@ -63,7 +56,7 @@
 
         [TestCase(100, "NoCustomerFoundMsg")]
         [TestCase(101, "MoreThanOneCustomerFoundMsg")]
-        public void Index_WhenCallWithLevel0_CallAndGetCorrectDataFromService(int errorCode, string errorMessageKey)
+        public void Index_Level0_GetCorrectDataFromService(int errorCode, string errorMessageKey)
         {
             // Arrange
             const int CurrencyId = -2, Level = 0, CustId = 1;
@@ -75,8 +68,9 @@
                 new WinLossByProduct()
             };
 
+            var metaModel = CreateValidMetaModel();
             var summaryTotalResult = new Dictionary<string, IEnumerable<WinLossByProduct>> { { "EUR", new List<WinLossByProduct>() } };
-            _dataAccess.GetWinlossByProducts(Arg.Any<WinLossByProductMetaModel>(), out totalData, out summaryData, out resultInfo).Returns(x =>
+            _dataAccess.GetWinlossByProducts(metaModel, out totalData, out summaryData, out resultInfo).Returns(x =>
             {
                 x[2] = summaryTotalResult;
                 x[3] = new ResultInfo
@@ -87,7 +81,7 @@
             });
 
             // Action
-            var result = _controller.Index(CreateValidMetaModel(), null, null, Level, CurrencyId, CustId);
+            var result = _controller.Index(metaModel, null, null, Level, CurrencyId, CustId);
 
             // Assert
             Assert.Multiple(() =>
@@ -125,7 +119,7 @@
         }
 
         [Test]
-        public void Index_WhenCallWithLevel1_CallAndGetCorrectDataFromService()
+        public void Index_Level1_GetCorrectDataFromService()
         {
             // Arrange
             const int CurrencyId = -2, Level = 1, CustId = 1;
@@ -156,7 +150,7 @@
         }
 
         [Test]
-        public void Index_WhenCallWithLevel2_CallAndGetCorrectDataFromService()
+        public void Index_Level2_GetCorrectDataFromService()
         {
             // Arrange
             const int CurrencyId = -2, Level = 2, CustId = 1;
@@ -187,39 +181,111 @@
         }
 
         [Test]
-        public void Index_IsExportExcelTrue_CallExcelStream()
+        public void Index_WhenReturnData_RestructureReturnedData()
         {
             // Arrange
             const int CurrencyId = -2, Level = 1, CustId = 1;
-            _productService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>()).Returns(
-                new ProductAccess(new List<Product>()));
-            var metaModel = new WinLossByProductMetaModel
+            IEnumerable<WinLossByProduct> totalData;
+            IDictionary<string, IEnumerable<WinLossByProduct>> summaryData;
+            var dataListResult = new List<WinLossByProduct>
             {
-                IsExportExcel = true
+                new WinLossByProduct
+                {
+                    Date = DateTime.Today,
+                    CurrencyName = "USD",
+                    Index = 1
+                },
+                new WinLossByProduct
+                {
+                    Date = DateTime.Today,
+                    CurrencyName = "USD",
+                    Index = 2
+                }
             };
-            var excel = Substitute.ForPartsOf<WinlossByProductExcel>(Arg.Any<string>(), Arg.Any<WinLossByProductExcelModel>());
-            excel.When(x => x.Export()).DoNotCallBase();
-            _controller.CreateExcel(Arg.Any<string>(), Arg.Any<WinLossByProductExcelModel>()).Returns(excel);
-            _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
+
+            var summaryTotalResult = new Dictionary<string, IEnumerable<WinLossByProduct>> { { "EUR", new List<WinLossByProduct>() } };
+            _dataAccess.GetWinlossByProductAgents(Arg.Any<WinLossByProductMetaModel>(), out totalData, out summaryData).Returns(x =>
+            {
+                x[2] = summaryTotalResult;
+                return dataListResult;
+            });
 
             // Action
-            _controller.Index(metaModel, null, null, Level, CurrencyId, CustId);
+            var result = _controller.Index(CreateValidMetaModel(), null, null, Level, CurrencyId, CustId);
 
             // Assert
-            _controller.Received().ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>());
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Data.Count, Is.EqualTo(dataListResult.Count));
+                Assert.That(result.Data[0].RowSpan, Is.EqualTo(2));
+                Assert.That(result.Data[1].RowSpan, Is.EqualTo(-1));
+            });
         }
 
-        [Test]
-        public void Index_WhenCall_MetaModelAreAssignedDataCorrectly()
+        [TestCase(0, true)]
+        [TestCase(1, false)]
+        public void Index_IsExportExcelTrue_CallExcelStreamWithCorrectData(int level, bool isFakeLicensee)
         {
             // Arrange
-            const int CustId = 1, CurrencyId = -2, Level = 1, MemberId = 2;
-            const string SystemId = "pig", CurrencyName = "UUS";
+            const int CurrencyId = -2, CustId = 1;
             var fromDate = new DateTime(2017, 4, 1);
             var toDate = new DateTime(2017, 4, 18);
-            var metaModel = new WinLossByProductMetaModel();
 
-            _sessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns("XmlData");
+            StubProductAccess(new string[0]);
+            AppSetting.FakeLicenseeList.Returns(x => isFakeLicensee ? new int[1] { SessionLicenseeId } : new int[0]);
+
+            var excel = Substitute.ForPartsOf<WinlossByProductExcel>(Arg.Any<string>(), Arg.Any<WinLossByProductExcelModel>());
+            excel.When(x => x.Export()).DoNotCallBase();
+
+            var actualExcelModel = new WinLossByProductExcelModel();
+            _controller.CreateExcel(Arg.Any<string>(), Arg.Do<WinLossByProductExcelModel>(x => actualExcelModel = x)).Returns(excel);
+            _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
+
+            var metaModel = new WinLossByProductMetaModel
+            {
+                IsExportExcel = true,
+                FromDate = fromDate.AddDays(1),
+                ToDate = toDate.AddDays(1),
+                Level = level
+            };
+
+            var expectedFromDate = level == 0 ? metaModel.FromDate : fromDate;
+            var expectedToDate = level == 0 ? metaModel.ToDate : toDate;
+
+            // Action
+            _controller.Index(metaModel, fromDate, toDate, level, CurrencyId, CustId);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _controller.Received().ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>());
+                Assert.That(metaModel.FromDate, Is.EqualTo(expectedFromDate));
+                Assert.That(metaModel.ToDate, Is.EqualTo(expectedToDate));
+                Assert.That(actualExcelModel.SystemIdVisible, Is.EqualTo(!isFakeLicensee));
+            });
+        }
+
+        [TestCase(true, 0, null, null)]
+        [TestCase(false, 2, "2017/4/1", "2017/5/1")]
+        public void Index_WhenCall_MetaModelAreAssignedDataCorrectly(bool isFakeLicensee, int memberId, DateTime? fromDate, DateTime? toDate)
+        {
+            // Arrange
+            const int CustId = 1, CurrencyId = -2, Level = 1, MemberId = 1;
+            const string SystemId = "pig", CurrencyName = "UUS";
+            var metaModel = new WinLossByProductMetaModel
+            {
+                MemberId = memberId,
+                DrillDownFromDate = new DateTime(2017, 1, 1),
+                DrillDownToDate = new DateTime(2017, 2, 1),
+                Username = ViewResources.ExternalId
+            };
+
+            AppSetting.FakeLicenseeList.Returns(x => isFakeLicensee ? new int[1] { SessionLicenseeId } : new int[0]);
+
+            var expectedFromDate = fromDate.HasValue ? fromDate : metaModel.DrillDownFromDate;
+            var expectedToDate = toDate.HasValue ? toDate : metaModel.DrillDownToDate;
+            var expectedmemberId = memberId == 0 ? MemberId : metaModel.MemberId;
+            var expectedUserName = isFakeLicensee ? string.Empty : metaModel.Username;
 
             // Action
             _controller.Index(metaModel, fromDate, toDate, Level, CurrencyId, CustId, MemberId, SystemId, CurrencyName);
@@ -227,12 +293,12 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(metaModel.AgentListXml, Is.EqualTo("XmlData"));
                 Assert.That(metaModel.DrillDownCurrencyId, Is.EqualTo(CurrencyId));
                 Assert.That(metaModel.DrillDownCurrencyName, Is.EqualTo(CurrencyName));
-                Assert.That(metaModel.MemberId, Is.EqualTo(MemberId));
-                Assert.That(metaModel.DrillDownFromDate, Is.EqualTo(fromDate));
-                Assert.That(metaModel.DrillDownToDate, Is.EqualTo(toDate));
+                Assert.That(metaModel.MemberId, Is.EqualTo(expectedmemberId));
+                Assert.That(metaModel.DrillDownFromDate, Is.EqualTo(expectedFromDate));
+                Assert.That(metaModel.DrillDownToDate, Is.EqualTo(expectedToDate));
+                Assert.That(metaModel.Username, Is.EqualTo(expectedUserName));
             });
         }
 
@@ -248,25 +314,6 @@
                     }
                 }
             };
-        }
-
-        private void CreateSession()
-        {
-            var userSession = new UserSession
-            {
-                CurrencyList = new Dictionary<int, string>
-            {
-                { -1, "EUR" }, { -2, "USD" }
-            }
-            };
-
-            var licenseeSession = new LicenseeSession
-            {
-                LicenseeId = 1
-            };
-
-            _sessionService.UserSession.Returns(userSession);
-            _sessionService.LicenseeSession.Returns(licenseeSession);
         }
     }
 }

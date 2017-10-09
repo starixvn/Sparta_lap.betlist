@@ -11,49 +11,48 @@
     using DataAccess.Report.Interfaces;
     using Excel.Report;
     using Model.Core.DTO.Configuration;
-    using Model.Core.DTO.Users;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
-    using Model.Report.ViewModel;
     using NPOI.SS.UserModel;
     using NSubstitute;
     using NUnit.Framework;
     using Report;
     using Resources;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Users.Interfaces;
 
-    public class WinLossByLeagueReportControllerTest
+    public class WinLossByLeagueReportControllerTest : BaseApiReportControllerHelperTest
     {
-        private ISessionService _sessionService;
         private IWinLossByLeagueDataAccess _dataAccess;
         private WinLossByLeagueReportController _controller;
 
         [OneTimeSetUp]
-        public void FixtureSetUp()
+        public override void FixtureSetUp()
         {
-            _sessionService = Substitute.For<ISessionService>();
+            base.FixtureSetUp();
+
             var productService = Substitute.For<IProductService>();
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _dataAccess = Substitute.For<IWinLossByLeagueDataAccess>();
-            _controller = Substitute.ForPartsOf<WinLossByLeagueReportController>(_sessionService, productService, balanceUpDataAccess, _dataAccess);
+
+            _controller = Substitute.ForPartsOf<WinLossByLeagueReportController>(SessionService, ProductService, balanceUpDataAccess, _dataAccess);
             _controller.Request = new HttpRequestMessage();
-            _controller.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
+
             balanceUpDataAccess.GetBalanceUp().Returns(new BalanceUp());
-            CreateSession();
+            MockSessionData();
         }
 
         [OneTimeTearDown]
-        public void FixtureTearDown()
+        public override void FixtureTearDown()
         {
+            base.FixtureTearDown();
+
             _dataAccess = null;
             _controller = null;
-            _sessionService = null;
         }
 
         [Test]
-        public void Index_WhenCallWithInvalidModel_ReturnBadRequestWithCorrectMessage()
+        public void Index_InvalidModel_ReturnBadRequestWithCorrectMessage()
         {
             // Arrange
             var metaModel = new WinLossByLeagueMetaModel { CurrencyId = 1 };
@@ -66,7 +65,7 @@
         }
 
         [Test]
-        public void Index_WhenCallWithLevel0_CallAndGetCorrectDataFromService()
+        public void Index_Level0_GetCorrectDataFromService()
         {
             // Arrange
             var dataListResult = new List<WinLossByLeague>
@@ -96,7 +95,7 @@
         }
 
         [Test]
-        public void Index_WhenCallWithLevel1_CallAndGetCorrectDataFromService()
+        public void Index_Level1_GetCorrectDataFromService()
         {
             // Arrange
             const decimal ExpectedAmountDue = 999;
@@ -135,7 +134,7 @@
         }
 
         [Test]
-        public void Excel_WhenCallWithInvalidModel_ReturnBadRequestWithCorrectMessage()
+        public void Excel_InvalidModel_ReturnBadRequestWithCorrectMessage()
         {
             // Arrange
             var metaModel = new WinLossByLeagueMetaModel { CurrencyId = 1 };
@@ -148,7 +147,7 @@
         }
 
         [Test]
-        public void Excel_ValidModel_CallCorrectMethodAndAssignCorrectData()
+        public void Excel_ValidModel_ExportWithCorrectData()
         {
             // Arrange
             var metaModel = new WinLossByLeagueMetaModel
@@ -190,25 +189,6 @@
                 Assert.That(metaModel.PageIndex, Is.EqualTo(1));
                 Assert.That(metaModel.PageSize, Is.EqualTo(int.MaxValue - 1));
             });
-        }
-
-        private void CreateSession()
-        {
-            var userSession = new UserSession
-            {
-                CurrencyList = new Dictionary<int, string>
-            {
-                { -1, "EUR" }, { -2, "USD" }
-            }
-            };
-
-            var licenseeSession = new LicenseeSession
-            {
-                LicenseeId = 1
-            };
-
-            _sessionService.UserSession.Returns(userSession);
-            _sessionService.LicenseeSession.Returns(licenseeSession);
         }
     }
 }

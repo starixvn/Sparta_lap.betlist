@@ -50,11 +50,11 @@
                 IsExportExcel = false,
                 CurrencyId = 1,
             };
-            MockUserSessionData(new UserSession
+            StubUserSessionData(new UserSession
             {
                 CurrencyList = new Dictionary<int, string>()
             });
-            MockLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
+            StubLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
 
             // Action
             var result = _controller.Index(model);
@@ -259,7 +259,7 @@
                 ToDate = DateTime.Now.AddDays(-1),
                 DrillDownCurrencyId = drillDownCurrencyId
             };
-            MockUserSessionData(new UserSession
+            StubUserSessionData(new UserSession
             {
                 CurrencyList = new Dictionary<int, string>
                 {
@@ -267,7 +267,7 @@
                     { drillDownCurrencyId, nameof(model.DrillDownCurrencyId) }
                 }
             });
-            MockLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
+            StubLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
             SessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns(string.Empty);
 
             return model;

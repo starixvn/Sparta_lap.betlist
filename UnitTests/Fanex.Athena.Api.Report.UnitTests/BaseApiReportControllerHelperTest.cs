@@ -11,6 +11,8 @@
 
     public abstract class BaseApiReportControllerHelperTest
     {
+        protected const int SessionLicenseeId = 1;
+
         protected ISessionService SessionService { get; private set; }
 
         protected IProductService ProductService { get; private set; }
@@ -43,15 +45,15 @@
 
             var licenseeSession = new LicenseeSession
             {
-                LicenseeId = 1
+                LicenseeId = SessionLicenseeId
             };
 
-            SessionService.UserSession.Returns(userSession);
-            SessionService.LicenseeSession.Returns(licenseeSession);
+            StubUserSessionData(userSession);
+            StubLicenseeSessionData(licenseeSession);
             SessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns(string.Empty);
         }
 
-        protected void MockProductAccess(string[] productCode)
+        protected void StubSingleWalletProductAccess(string[] productCode)
         {
             var productList = new List<Product>();
 
@@ -63,17 +65,29 @@
             ProductService.GetSingleWalletProductAccess(Arg.Any<int>(), Arg.Any<string>(), functionConfigKey: Arg.Any<string>()).Returns(new ProductAccess(productList));
         }
 
-        protected void MockUserSessionData(UserSession userSession)
+        protected void StubProductAccess(string[] productCode)
+        {
+            var productList = new List<Product>();
+
+            for (var i = 0; i < productCode.Length; i++)
+            {
+                productList.Add(new Product { ProductCode = productCode[i] });
+            }
+
+            ProductService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>(), functionConfigKey: Arg.Any<string>()).Returns(new ProductAccess(productList));
+        }
+
+        protected void StubUserSessionData(UserSession userSession)
         {
             SessionService.UserSession.Returns(userSession);
         }
 
-        protected void MockLicenseeSessionData(LicenseeSession licenseeSession)
+        protected void StubLicenseeSessionData(LicenseeSession licenseeSession)
         {
             SessionService.LicenseeSession.Returns(licenseeSession);
         }
 
-        protected void MockGetValueAppSettings(string valueName, string value)
+        protected void StubGetValueAppSettings(string valueName, string value)
         {
             AppSetting.GetValue(valueName).Returns(value);
         }

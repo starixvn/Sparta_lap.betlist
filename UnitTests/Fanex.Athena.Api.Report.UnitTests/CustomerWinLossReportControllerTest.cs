@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Excel.Base.Entities;
     using Excel.Report;
     using Excel.Report.Models;
     using Extension.Utility;
@@ -59,28 +58,30 @@
             Assert.Multiple(() =>
             {
                 Assert.IsEmpty(result.Data);
-                Assert.That(result.TotalRows, Is.EqualTo(0));
+                Assert.That(result.TotalRows, Is.Zero);
             });
         }
 
-        [Test]
-        public void Index_ValidModel_GetDataFromDataAccess()
+        [TestCase("", "")]
+        [TestCase(nameof(CustomerWinLoss.CustId), "asc")]
+        public void Index_ValidModel_GetDataFromDataAccess(string sortColumn, string sortDirection)
         {
             // Arrange
             CustomerWinLoss totalData;
             int totalRows;
-            var metaModel = CreateValidMetaModel(nameof(CustomerWinLoss.CustId), "asc");
+            var metaModel = CreateValidMetaModel(sortColumn, sortDirection);
             var expectedData = SetUpForGettingData(metaModel, out totalData, out totalRows);
 
             // Action
             var result = _controller.Index(metaModel);
 
             // Assert
-            Assert.That(expectedData, Is.EqualTo(result.Data));
+            Assert.That(result.Data, Is.EqualTo(expectedData));
         }
 
-        [Test]
-        public void Index_ExportToExcel_ExportWithCorrectData()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Index_ExportToExcel_ExportWithCorrectData(bool isFakeLicensee)
         {
             // Arrange
             CustomerWinLoss totalData;
@@ -89,15 +90,16 @@
             metaModel.IsExportExcel = true;
             var expectedDataList = SetUpForGettingData(metaModel, out totalData, out totalRows);
 
-            MockProductAccess(new string[] { Product.BA });
+            StubSingleWalletProductAccess(new string[] { Product.BA });
+            AppSetting.FakeLicenseeList.Returns(x => isFakeLicensee ? new int[1] { SessionLicenseeId } : new int[0]);
 
-            var actualExcelModel = new CustomerWinLossExcelModel();
             var excel = Substitute.ForPartsOf<CustomerWinLossExcel>(
-                Arg.Any<string>(), 
+                Arg.Any<string>(),
                 new CustomerWinLossExcelModel { MetaModel = new CustomerWinLossMetaModel() });
             excel.When(x => x.Export()).DoNotCallBase();
-            MockGetValueAppSettings("FakeLicenseeList", "1,2");
+            StubGetValueAppSettings("FakeLicenseeList", "1,2");
 
+            var actualExcelModel = new CustomerWinLossExcelModel();
             _controller.CreateExcel(Arg.Any<string>(), Arg.Do<CustomerWinLossExcelModel>(x => actualExcelModel = x))
                 .ReturnsForAnyArgs(excel);
 
@@ -109,6 +111,7 @@
             {
                 Assert.That(actualExcelModel.DataList, Is.EqualTo(expectedDataList.AsEnumerable()));
                 Assert.That(actualExcelModel.BAVisible, Is.True);
+                Assert.That(actualExcelModel.SystemIdVisible, Is.EqualTo(!isFakeLicensee));
             });
         }
 
@@ -152,7 +155,11 @@
                 return nonSortedData;
             });
 
-            expectedSortedData.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("asc", StringComparison.OrdinalIgnoreCase));
+            if (!string.IsNullOrEmpty(metaModel.SortColumn))
+            {
+                expectedSortedData.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("asc", StringComparison.OrdinalIgnoreCase));
+            }
+
             var index = 1;
             foreach (var item in expectedSortedData)
             {

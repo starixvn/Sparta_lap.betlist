@@ -57,7 +57,7 @@
                 ProductId = ProductTypes.GoldDeluxe
             };
 
-            MockUserSessionData(new UserSession
+            StubUserSessionData(new UserSession
             {
                 ApplicationMode = AppMode.Self,
                 FunctionIdList = new List<int>()
@@ -80,13 +80,13 @@
                 CurrencyId = 1,
                 ProductId = ProductTypes.GoldDeluxe
             };
-            MockUserSessionData(new UserSession
+            StubUserSessionData(new UserSession
             {
                 CurrencyList = new Dictionary<int, string>(),
                 ApplicationMode = AppMode.Self,
                 FunctionIdList = new List<int>()
             });
-            MockLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
+            StubLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
             _authorizationService.HasPermissions(Arg.Any<IEnumerable<int>>(), Arg.Any<string>()).Returns(true);
 
             // Action
@@ -140,8 +140,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(model.DrillDownLevel, Is.EqualTo(0));
-                Assert.That(model.DrillDownCustomerId, Is.EqualTo(0));
+                Assert.That(model.DrillDownLevel, Is.Zero);
+                Assert.That(model.DrillDownCustomerId, Is.Zero);
                 _thirdPartyWinLossService.ReceivedWithAnyArgs().GetSummaryWinloss(model, out summaryTotal);
             });
         }
@@ -297,7 +297,7 @@
                 ProductId = ProductTypes.GoldDeluxe,
                 ProductCode = nameof(ThirdPartyWinLossMetaModel.ProductCode)
             };
-            MockUserSessionData(new UserSession
+            StubUserSessionData(new UserSession
             {
                 CurrencyList = new Dictionary<int, string>
                 {
@@ -307,7 +307,7 @@
                 ApplicationMode = AppMode.Self,
                 FunctionIdList = new List<int>()
             });
-            MockLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
+            StubLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
             _authorizationService.HasPermissions(Arg.Any<IEnumerable<int>>(), Arg.Any<string>()).Returns(true);
             SessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns(string.Empty);
 

@@ -52,7 +52,7 @@
             Assert.Multiple(() =>
             {
                 Assert.IsEmpty(result.Data);
-                Assert.That(0, Is.EqualTo(result.TotalRows));
+                Assert.That(result.TotalRows, Is.Zero);
             });
         }
 
@@ -69,11 +69,12 @@
             var result = _controller.Index(metaModel);
 
             // Assert
-            Assert.That(expectedData, Is.EqualTo(result.Data));
+            Assert.That(result.Data, Is.EqualTo(expectedData));
         }
 
-        [Test]
-        public void Index_ExportToExcel_ExportWithCorrectData()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Index_ExportToExcel_ExportWithCorrectData(bool isFakeLicensee)
         {
             // Arrange
             CustPendingFunds totalData;
@@ -83,11 +84,13 @@
             var expectedDataList = SetUpForGettingData(metaModel, out totalData, out totalRows);
             const int PageSizeExcel = int.MaxValue - 1000;
 
-            var actualExcelModel = new CustomerPendingFundsExcelModel();
+            AppSetting.FakeLicenseeList.Returns(x => isFakeLicensee ? new int[1] { SessionLicenseeId } : new int[0]);
+
             var excel = Substitute.ForPartsOf<CustomerPendingFundsExcel>(Arg.Any<string>(), Arg.Any<CustomerPendingFundsExcelModel>());
             excel.When(x => x.Export()).DoNotCallBase();
-            MockGetValueAppSettings("FakeLicenseeList", "1,2");
+            StubGetValueAppSettings("FakeLicenseeList", "1,2");
 
+            var actualExcelModel = new CustomerPendingFundsExcelModel();
             _controller.CreateExcel(Arg.Any<string>(), Arg.Do<CustomerPendingFundsExcelModel>(x => actualExcelModel = x)).Returns(excel);
 
             // Action
@@ -96,9 +99,10 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(1, Is.EqualTo(metaModel.PageIndex));
-                Assert.That(PageSizeExcel, Is.EqualTo(metaModel.PageSize));
+                Assert.That(metaModel.PageIndex, Is.EqualTo(1));
+                Assert.That(metaModel.PageSize, Is.EqualTo(PageSizeExcel));
                 Assert.That(actualExcelModel.DataList, Is.EqualTo(expectedDataList.AsEnumerable()));
+                Assert.That(actualExcelModel.SystemIdVisible, Is.EqualTo(!isFakeLicensee));
             });
         }
 
