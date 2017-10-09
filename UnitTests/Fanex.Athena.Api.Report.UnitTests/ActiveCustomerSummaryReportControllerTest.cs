@@ -141,7 +141,7 @@
             int totalCustomer;
             var sortBy = nameof(ActiveCustomer.TotalCustomer);
             var sortOrder = "asc";
-            var metaModel = CreateValidMetaModel(sortBy, sortOrder);
+            var metaModel = CreateValidMetaModel(sortBy: sortBy, sortOrder: sortOrder);
             var expectedData = SetUpForGettingData(metaModel, out totalCustomer);
             expectedData.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
 
@@ -159,7 +159,7 @@
             int totalCustomer;
             var sortBy = nameof(ActiveCustomer.CustomerCount) + "A";
             var sortOrder = "asc";
-            var metaModel = CreateValidMetaModel(sortBy, sortOrder);
+            var metaModel = CreateValidMetaModel(sortBy: sortBy, sortOrder: sortOrder);
             var expectedData = SetUpForGettingData(metaModel, out totalCustomer);
             expectedData.SortByDictionary("A", nameof(ActiveCustomer.CustomerCount), sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
 
@@ -175,22 +175,12 @@
         [TestCase(new string[] { Product.BA, Product.RB }, Product.SB, false, false)]
         [TestCase(new string[] { Product.RB }, Product.RB, false, true)]
         [TestCase(new string[] { Product.BA }, Product.RB, false, false)]
-        public void Index_ExportToExcel_ExportWithCorrectData(string[] productCodeOption,string productCode, bool bAVisible, bool rBVisible)
+        public void Index_ExportToExcel_ExportWithCorrectData(string[] productCodeOption, string productCode, bool visibleBa, bool visibleRb)
         {
             // Arrange
             int totalCustomer;
-            var metaModel = CreateValidMetaModel();
+            var metaModel = CreateValidMetaModel(productCodeOption);
             metaModel.IsExportExcel = true;
-            metaModel.ProductOptions = new List<ProductOption>();
-            foreach (var code in productCodeOption)
-            {
-                metaModel.ProductOptions.Add(new ProductOption
-                {
-                    Code = code,
-                    Name = code,
-                    Status = true
-                });
-            }
 
             var expectedDataList = SetUpForGettingData(metaModel, out totalCustomer);
 
@@ -227,12 +217,12 @@
             Assert.Multiple(() =>
             {
                 Assert.That(actualViewModel.MainResult, Is.EqualTo(expectedDataList.ToList()));
-                Assert.That(actualShowingOption.BAVisible, Is.EqualTo(bAVisible));
-                Assert.That(actualShowingOption.RBVisible, Is.EqualTo(rBVisible));
+                Assert.That(actualShowingOption.BAVisible, Is.EqualTo(visibleBa));
+                Assert.That(actualShowingOption.RBVisible, Is.EqualTo(visibleRb));
             });
         }
 
-        private ActiveCustomerMetaModel CreateValidMetaModel(string sortBy = null, string sortOrder = "asc")
+        private ActiveCustomerMetaModel CreateValidMetaModel(string[] productCodes = null, string sortBy = null, string sortOrder = "asc")
         {
             var model = new ActiveCustomerMetaModel
             {
@@ -240,18 +230,33 @@
                 AgentListXml = string.Empty,
                 FromDate = DateTime.Now.AddDays(-2),
                 ToDate = DateTime.Now.AddDays(-1),
-                ProductOptions = new List<ProductOption>
-                {
-                    new ProductOption
-                    {
-                        Code = Product.BA,
-                        Name = Product.BA,
-                        Status = true
-                    }
-                },
+                ProductOptions = new List<ProductOption>(),
                 SortBy = sortBy,
                 SortOrder = sortOrder
             };
+
+            if (productCodes != null)
+            {
+                foreach (var code in productCodes)
+                {
+                    model.ProductOptions.Add(new ProductOption
+                    {
+                        Code = code,
+                        Name = code,
+                        Status = true
+                    });
+                }
+            }
+            else
+            {
+                model.ProductOptions.Add(new ProductOption
+                {
+                    Code = Product.BA,
+                    Name = Product.BA,
+                    Status = true
+                });
+            }
+
             MockUserSessionData(new UserSession
             {
                 CurrencyList = new Dictionary<int, string>
