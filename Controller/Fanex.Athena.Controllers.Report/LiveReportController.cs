@@ -71,7 +71,6 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             var productAccess = ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language);
-            metaModel.ProductCodeList = string.Join(",", productAccess.ProductList.Select(x => x.ProductCode));
             var liveReportService = new LiveReportService();
             var model = new LiveReportViewModel
             {
