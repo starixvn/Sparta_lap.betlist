@@ -57,16 +57,9 @@ namespace Fanex.Athena.Service.Core.Helpers
 
         private static StringBuilder BuildMessage(string message)
         {
-            var request = HttpContext.Current.Request;
             var builder = new StringBuilder(message).AppendLine();
-            builder.AppendLine("DOMAIN: " + request.Headers["Host"])
-                   .AppendLine("FORM: " + string.Join("~", request.Form))
-                   .AppendLine("Url: " + request.RawUrl)
-                   .AppendLine("Referrer: " + request.UrlReferrer)
-                   .AppendLine("QUERYSTRING: " + string.Join("~", request.QueryString))
-                   .AppendLine("Browser:" + request.Browser.Type)
-                   .AppendLine("BrowserVer:" + request.Browser.Version)
-                   .AppendLine("Agent:" + request.UserAgent);
+
+            AppendRequestInformation(builder);
 
             var sessionService = new SessionService();
             var licenseeSession = sessionService.LicenseeSession;
@@ -79,6 +72,20 @@ namespace Fanex.Athena.Service.Core.Helpers
             }
 
             return builder;
+        }
+
+        private static void AppendRequestInformation(StringBuilder builder)
+        {
+            var request = HttpContext.Current.Request;
+
+            builder.AppendLine("DOMAIN: " + request.Headers["Host"])
+                   .AppendLine("FORM: " + string.Join("~", request.Form))
+                   .AppendLine("Url: " + request.RawUrl)
+                   .AppendLine("Referrer: " + request.UrlReferrer)
+                   .AppendLine("QUERYSTRING: " + string.Join("~", request.QueryString))
+                   .AppendLine("Browser:" + request.Browser.Type)
+                   .AppendLine("BrowserVer:" + request.Browser.Version)
+                   .AppendLine("Agent:" + request.UserAgent);
         }
     }
 }

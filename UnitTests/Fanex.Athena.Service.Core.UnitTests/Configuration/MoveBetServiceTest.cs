@@ -7,16 +7,19 @@
     using Extension.Utility.Interfaces;
     using Model.Core.DTO.Configuration;
     using NSubstitute;
+    using NSubstitute.ExceptionExtensions;
     using NUnit.Framework;
 
     [TestFixture]
     public class MoveBetServiceTest
     {
+        private const string ExpectedMessage = "Sample Message";
+
         private IMoveBetDataAccess _moveBetDataAccess;
         private IMoveBetService _moveBetService;
         private IMemoryCacheService _cache;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUp()
         {
             _moveBetDataAccess = Substitute.For<IMoveBetDataAccess>();
@@ -24,7 +27,7 @@
             _moveBetService = new MoveBetService(_moveBetDataAccess, _cache);
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDown()
         {
             _moveBetDataAccess = null;
@@ -32,10 +35,49 @@
         }
 
         [Test]
+        public void GetMoveBet_CacheContainsData_ReturnResultFromCache()
+        {
+            // Arrange
+            var expectedResult = new MoveBetNotification
+            {
+                ContentByLanguage = new Dictionary<string, string>
+                {
+                    { "vi-VN", ExpectedMessage }
+                }
+            };
+            _cache.Get<MoveBetNotification>(Arg.Any<string>()).Returns(expectedResult);
+
+            // Action
+            var result = _moveBetService.GetMoveBetNotification("vi-VN");
+
+            // Assert
+            Assert.That(result, Is.EqualTo(ExpectedMessage));
+        }
+
+        [Test]
         public void GetMoveBet_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            const string ExpectedMessage = "Sample Message";
+            var expectedResult = new MoveBetNotification
+            {
+                ContentByLanguage = new Dictionary<string, string>
+                {
+                    { "vi-VN", ExpectedMessage }
+                }
+            };
+            _moveBetDataAccess.GetMoveBetNotification().Returns(expectedResult);
+
+            // Action
+            var result = _moveBetService.GetMoveBetNotification("vi-VN");
+
+            // Assert
+            Assert.That(result, Is.EqualTo(ExpectedMessage));
+        }
+        
+        [Test]
+        public void GetMoveBet_LanguageNotAvailable_ReturnContentWithDefaultLanguage()
+        {
+            // Arrange
             var expectedResult = new MoveBetNotification
             {
                 ContentByLanguage = new Dictionary<string, string>
@@ -43,16 +85,27 @@
                     { "en-US", ExpectedMessage }
                 }
             };
-            _moveBetDataAccess.GetMoveBetNotification().Returns(expectedResult);
-
-            _cache.Get<MoveBetNotification>(Arg.Any<string>()).Returns(x => null);
-            _cache.When(x => x.Set(Arg.Any<string>(), Arg.Any<MoveBetNotification>(), Arg.Any<int>())).DoNotCallBase();
+            _cache.Get<MoveBetNotification>(Arg.Any<string>()).Returns(expectedResult);
 
             // Action
-            var result = _moveBetService.GetMoveBetNotification("en-US");
+            var result = _moveBetService.GetMoveBetNotification("vi-VN");
 
             // Assert
             Assert.That(result, Is.EqualTo(ExpectedMessage));
+        }
+
+        [Test]
+        public void GetMoveBet_ResultIsEmpty_ReturnEmptyString()
+        {
+            // Arrange
+            var expectedResult = new MoveBetNotification();
+            _cache.Get<MoveBetNotification>(Arg.Any<string>()).Returns(expectedResult);
+
+            // Action
+            var result = _moveBetService.GetMoveBetNotification("vi-VN");
+
+            // Assert
+            Assert.That(result, Is.EqualTo(string.Empty));
         }
     }
 }
