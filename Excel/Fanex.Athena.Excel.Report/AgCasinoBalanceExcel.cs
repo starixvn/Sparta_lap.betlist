@@ -55,13 +55,13 @@ namespace Fanex.Athena.Excel.Report
                 ConvertingOption convertingOption,
                 AgCasinoBalanceMetaModel metaModel,
                 AgCasinoBalanceViewModel viewModel)
-            : base(templatePath, null)
+            : base(templatePath)
         {
             _convertingOption = convertingOption;
             _metaModel = metaModel;
             _casinoList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
-            PageSize = metaModel.DrillDownLevel == 2 ? metaModel.PageSize : metaModel.PageSizeExcel;
+            PageSize = metaModel.DrillDownLevel == 2 ? metaModel.PageSize : AgCasinoBalanceMetaModel.PageSizeExcel;
         }
 
         public int Level
@@ -154,14 +154,7 @@ namespace Fanex.Athena.Excel.Report
                 AssignCommonData(row, casinoBalance);
                 rowIndex++;
 
-                if (isDrillDownLevel)
-                {
-                    row.Cells[ColumnIndex].SetCellValue(index + 1);
-                }
-                else
-                {
-                    row.Cells[ColumnIndex].SetCellValue(currentIndex);
-                }
+                row.Cells[ColumnIndex].SetCellValue(isDrillDownLevel ? index + 1 : currentIndex);
 
                 if (casinoBalance.RowSpan > 1)
                 {
@@ -222,13 +215,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign common data to excel row.
-        /// </summary>
-        /// <param name="row">Excel row.</param>
-        /// <param name="data">Licensee win loss data.</param>
-        /// <param name="isTotalData">Total data or not.</param>
-        protected void AssignCommonData(IRow row, AgCasinoBalance data, bool isTotalData = false)
+        private static void AssignCommonData(IRow row, AgCasinoBalance data, bool isTotalData = false)
         {
             row.Cells[ColumnTransferIn].SetCellValue(data.TransferIn);
             row.Cells[ColumnTransferOut].SetCellValue(data.TransferOut);
@@ -265,14 +252,11 @@ namespace Fanex.Athena.Excel.Report
                 // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowGrantTotal, rowIndex);
                 AssignCommonData(row, _summaryTotal[currency], true);
-                row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpper());
+                row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpperInvariant());
 
                 // Merge first two column
                 sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
-                checked
-                {
-                    rowIndex++;
-                }
+                rowIndex++;
             }
 
             return rowIndex;

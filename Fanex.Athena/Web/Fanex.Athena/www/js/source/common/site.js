@@ -7,6 +7,7 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
         var _historyDate = null;
         var _rootUrl = null;
         var _pageLanguage = null;
+        var _isFakeLicensee = null;
 
         function setProductCodeListParam(url, productCodeList){
             return QueryString.setParam(url, "ProductCodeList", productCodeList);
@@ -433,6 +434,14 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
             });
         }
 
+        function isFakeLicensee() {
+            if (_isFakeLicensee == null) {
+                _isFakeLicensee = $("#IsFakeLicensee").val() === "1";
+            }
+
+            return _isFakeLicensee;
+        }
+
         return {
             initialize: initialize,
             setProductCodeListParam: setProductCodeListParam,
@@ -464,6 +473,7 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
             getLocation: getLocation,
             initSelectElements: initSelectElements,
             debounce: debounce,
-            addFilterCollapseExpand: addFilterCollapseExpand
+            addFilterCollapseExpand: addFilterCollapseExpand,
+            isFakeLicensee: isFakeLicensee
         };
     });

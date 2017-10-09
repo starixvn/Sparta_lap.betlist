@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using DataAccess.TotalBet.Interfaces;
     using Fanex.Athena.Controllers.TotalBets;
-    using Fanex.Athena.Service.TotalBet.Interfaces;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
@@ -12,29 +12,33 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class OutrightTotalBetControllerTest : BaseControllerTest
+    public class OutrightTotalBetControllerTest : BaseControllerHelperTest
     {
-        private IOutrightService _outrightService;
+        private IOutrightDataAccess _outrightDataAccess;
 
         [OneTimeSetUp]
-        public new void FixtureSetUp()
+        public override void FixtureSetUp()
         {
-            FakeBaseControllerDependency();
-            _outrightService = Substitute.For<IOutrightService>();
-            _outrightService.GetOutrightDataList(Arg.Any<OutrightMetaModel>())
-                .Returns(new List<Outright> { new Outright() });
+            base.FixtureSetUp();
+
+            SetUpDefaultFakeData();
+
+            SepUpForService();
+
+            StubGetValueAppSettings("BaseUsdLicensees", "usd");
         }
 
         [OneTimeTearDown]
-        public new void FixtureTearDown()
+        public override void FixtureTearDown()
         {
-            _outrightService = null;
+            base.FixtureTearDown();
+
+            _outrightDataAccess = null;
         }
 
         [Test]
-        public void Index_WhenCall_ReturnCorrectViewName()
+        public void Index_WhenGet_ReturnMainView()
         {
-            // Arrange
             using (var controller = CreateController())
             {
                 // Action
@@ -46,9 +50,8 @@
         }
 
         [Test]
-        public void Index_WhenCall_CallAndGetDataFromService()
+        public void Index_WhenGet_GetDataFromService()
         {
-            // Arrange
             using (var controller = CreateController())
             {
                 // Action
@@ -56,17 +59,17 @@
                 var viewModel = viewResult.Model as OutrightViewModel;
 
                 // Assert
-                _outrightService.ReceivedWithAnyArgs().GetOutrightDataList(Arg.Any<OutrightMetaModel>());
+                _outrightDataAccess.ReceivedWithAnyArgs().GetOutrightDataList(Arg.Any<OutrightMetaModel>());
                 Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
             }
         }
 
         [Test]
-        public void Index_InvalidCurrency_ViewNameIsAccessDenied()
+        public void Index_WhenPostWithInvalidCurrency_AccessDenied()
         {
-            // Arrange
             using (var controller = CreateController())
             {
+                // Arrange
                 var metaModel = new OutrightMetaModel
                 {
                     CurrencyId = -999
@@ -86,7 +89,16 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            _outrightService);
+                            _outrightDataAccess);
+        }
+
+        private void SepUpForService()
+        {
+            _outrightDataAccess = Substitute.For<IOutrightDataAccess>();
+
+            _outrightDataAccess
+                .GetOutrightDataList(Arg.Any<OutrightMetaModel>())
+                .Returns(new List<Outright> { new Outright() });
         }
     }
 }

@@ -7,6 +7,8 @@
 namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Web.Mvc;
+    using DataAccess.TotalBet;
+    using DataAccess.TotalBet.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
@@ -14,27 +16,25 @@ namespace Fanex.Athena.Controllers.TotalBets
     using Model.TotalBet.ViewModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.TotalBet;
-    using Service.TotalBet.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.TotalBetOutright)]
     public class OutrightTotalBetController : TotalBetBaseController
     {
-        private readonly IOutrightService _outrightService;
+        private readonly IOutrightDataAccess _outrightDataAccess;
 
         public OutrightTotalBetController()
         {
-            _outrightService = new OutrightService();
+            _outrightDataAccess = new OutrightDataAccess();
         }
 
         public OutrightTotalBetController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IOutrightService outrightService)
+            IOutrightDataAccess outrightDataAccess)
             : base(languageService, sessionService, appSetting)
         {
-            _outrightService = outrightService;
+            _outrightDataAccess = outrightDataAccess;
         }
 
         [HttpGet]
@@ -65,7 +65,7 @@ namespace Fanex.Athena.Controllers.TotalBets
             if (metaModel.CurrencyId == 0 || currencies.ContainsKey(metaModel.CurrencyId))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                var dataList = _outrightService.GetOutrightDataList(metaModel);
+                var dataList = _outrightDataAccess.GetOutrightDataList(metaModel);
                 var model = new OutrightViewModel
                 {
                     Param = metaModel,

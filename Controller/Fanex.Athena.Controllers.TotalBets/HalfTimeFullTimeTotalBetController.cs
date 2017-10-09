@@ -7,6 +7,8 @@
 namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Web.Mvc;
+    using DataAccess.TotalBet;
+    using DataAccess.TotalBet.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Model.TotalBet.DTO;
     using Fanex.Athena.Web.ActionFilter;
@@ -15,27 +17,25 @@ namespace Fanex.Athena.Controllers.TotalBets
     using Model.TotalBet.ViewModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.TotalBet;
-    using Service.TotalBet.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.TotalBetHalfTimeFullTime)]
     public class HalfTimeFullTimeTotalBetController : TotalBetBaseController
     {
-        private readonly IHalfTimeFullTimeService _halfTimeFullTimeService;
+        private readonly IHalfTimeFullTimeDataAccess _halfTimeFullTimeDataAccess;
 
         public HalfTimeFullTimeTotalBetController()
         {
-            _halfTimeFullTimeService = new HalfTimeFullTimeService();
+            _halfTimeFullTimeDataAccess = new HalfTimeFullTimeDataAccess();
         }
 
         public HalfTimeFullTimeTotalBetController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IHalfTimeFullTimeService halfTimeFullTimeService)
+            IHalfTimeFullTimeDataAccess halfTimeFullTimeDataAccess)
             : base(languageService, sessionService, appSetting)
         {
-            _halfTimeFullTimeService = halfTimeFullTimeService;
+            _halfTimeFullTimeDataAccess = halfTimeFullTimeDataAccess;
         }
 
         [HttpGet]
@@ -67,7 +67,7 @@ namespace Fanex.Athena.Controllers.TotalBets
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 HalfTimeFullTime totalData;
-                var dataList = _halfTimeFullTimeService.GetHalfTimeFullTimeDataList(metaModel, out totalData);
+                var dataList = _halfTimeFullTimeDataAccess.GetHalfTimeFullTimeDataList(metaModel, out totalData);
                 var model = new HalfTimeFullTimeViewModel
                 {
                     Param = metaModel,

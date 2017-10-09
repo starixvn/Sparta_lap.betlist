@@ -31,5 +31,7 @@ namespace Fanex.Athena.Model.BetSettings.MetaModel
         public string NickName { get; set; }
 
         public string BetSettingName { get; set; }
+
+        public bool IsFakeLicensee { get; set; }
     }
 }

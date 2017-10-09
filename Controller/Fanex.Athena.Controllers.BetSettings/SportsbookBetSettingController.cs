@@ -8,7 +8,6 @@ namespace Fanex.Athena.Controllers.BetSettings
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Extension.Utility;
     using Fanex.Athena.Model.BetSettings.MetaModel;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DTO.Common;
@@ -40,9 +39,9 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public JsonResult UpdateBetSetting(string nickName)
         {
-            if (ProductAccess.IsAllowSB == false || !IsBetSettingEditable())
+            if (!ProductAccess.IsAllowSB || !IsBetSettingEditable())
             {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
 
             var sportsBook = GetBetSettingCommonParam();
@@ -63,13 +62,13 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             if (AppSettings.GetValue("EnableEsportSettingStatus") == "false")
             {
-                var resultInfo = new ResultInfo() { Code = -1, Message = "Function is under maintenance." };
+                var resultInfo = new ResultInfo { Code = -1, Message = "Function is under maintenance." };
                 return Json(resultInfo, JsonRequestBehavior.AllowGet);
             }
 
             if (!IsBetSettingEditable())
             {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
 
             var sportsBook = GetBetSettingCommonParam();
@@ -124,7 +123,7 @@ namespace Fanex.Athena.Controllers.BetSettings
                 return defaultValue;
             }
 
-            var value = HttpContext.Request[name].ToLower();
+            var value = HttpContext.Request[name].ToLowerInvariant();
 
             return value == "1" || value == "on" || value == "true";
         }

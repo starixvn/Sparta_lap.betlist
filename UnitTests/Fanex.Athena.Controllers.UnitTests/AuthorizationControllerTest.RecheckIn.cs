@@ -1,28 +1,26 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
     using System.Web.Mvc;
-    using Base.UnitTests;
     using Model.Core.DataDomain;
     using NSubstitute;
     using NUnit.Framework;
     using ONEbook.UM.Models;
 
-    [TestFixture]
-    public partial class AuthorizationControllerTest : BaseControllerTest
+    public partial class AuthorizationControllerTest
     {
         [Test]
         public void RecheckIn_IsUMTime_ReturnUMResult()
         {
-            // Arrange
-            _maintenanceService.IsUnderMaintenance().Returns(true);
-            _maintenanceService.GetUnderMaintenanceTime().Returns(new UnderMaintenanceTime
-            {
-                From = "Today",
-                To = "NextWeek"
-            });
-
             using (var controller = CreateController())
             {
+                // Arrange
+                _maintenanceService.IsUnderMaintenance().Returns(true);
+                _maintenanceService.GetUnderMaintenanceTime().Returns(new UnderMaintenanceTime
+                {
+                    From = "Today",
+                    To = "NextWeek"
+                });
+
                 // Action
                 var result = controller.RecheckIn() as JsonResult;
                 var data = result.Data as dynamic;
@@ -35,11 +33,11 @@
         [Test]
         public void RecheckIn_NotAuthenticated_ReturnAccessDeniedResult()
         {
-            // Arrange
-            _maintenanceService.IsUnderMaintenance().Returns(false);
-
             using (var controller = CreateController())
             {
+                // Arrange
+                _maintenanceService.IsUnderMaintenance().Returns(false);
+
                 controller.ControllerContext.HttpContext.Request.IsAuthenticated.Returns(false);
 
                 // Action
@@ -54,11 +52,11 @@
         [Test]
         public void RecheckIn_OnIdNotSameSessionOnId_ReturnSessionOverrideResult()
         {
-            // Arrange
-            _maintenanceService.IsUnderMaintenance().Returns(false);
-
             using (var controller = CreateController())
             {
+                // Arrange
+                _maintenanceService.IsUnderMaintenance().Returns(false);
+
                 controller.ControllerContext.HttpContext.Request.IsAuthenticated.Returns(true);
                 controller.ControllerContext.HttpContext.Request["onid"].Returns("123");
 
@@ -72,15 +70,16 @@
         }
 
         [Test]
-        public void RecheckIn_Kickout_SignOutAndReturnKickedOut()
+        public void RecheckIn_Kickout_SignOut()
         {
-            // Arrange
-            _maintenanceService.IsUnderMaintenance().Returns(false);
-            _userService.RecheckIn(SessionOnUserId).Returns(true);
             using (var controller = CreateController())
             {
+                // Arrange
+                _maintenanceService.IsUnderMaintenance().Returns(false);
+                _userService.RecheckIn(DefaultUserSession.OnUserId).Returns(true);
+
                 controller.ControllerContext.HttpContext.Request.IsAuthenticated.Returns(true);
-                controller.ControllerContext.HttpContext.Request["onid"].Returns(SessionOnUserId.ToString());
+                controller.ControllerContext.HttpContext.Request["onid"].Returns(DefaultUserSession.OnUserId.ToString());
 
                 // Action
                 var result = controller.RecheckIn() as JsonResult;
@@ -88,20 +87,20 @@
 
                 // Assert
                 _formAuthenticationService.Received().SignOut();
-                Assert.That(data.ErrCode, Is.EqualTo((int)ErrorType.KickedOut));
             }
         }
 
         [Test]
         public void RecheckIn_ReCheckInSuccess_ReturnSuccessResult()
         {
-            // Arrange
-            _maintenanceService.IsUnderMaintenance().Returns(false);
-            _userService.RecheckIn(SessionOnUserId).Returns(false);
             using (var controller = CreateController())
             {
+                // Arrange
+                _maintenanceService.IsUnderMaintenance().Returns(false);
+                _userService.RecheckIn(DefaultUserSession.OnUserId).Returns(false);
+
                 controller.ControllerContext.HttpContext.Request.IsAuthenticated.Returns(true);
-                controller.ControllerContext.HttpContext.Request["onid"].Returns(SessionOnUserId.ToString());
+                controller.ControllerContext.HttpContext.Request["onid"].Returns(DefaultUserSession.OnUserId.ToString());
 
                 // Action
                 var result = controller.RecheckIn() as JsonResult;

@@ -2,31 +2,31 @@
 {
     using System.Collections.Generic;
     using System.Web.Http.Controllers;
+    using DataAccess.Dashboard.Interfaces;
     using Model.Dashboard.MetaModel;
     using Model.Dashboard.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Dashboard.Interfaces;
 
     [TestFixture]
     public class TurnoverByPlatformControllerTest
     {
-        private IWidgetByPlatformService _turnoverByPlatformService;
+        private IWidgetByPlatformDataAccess _dataAccess;
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            _turnoverByPlatformService = Substitute.For<IWidgetByPlatformService>();
+            _dataAccess = Substitute.For<IWidgetByPlatformDataAccess>();
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            _turnoverByPlatformService = null;
+            _dataAccess = null;
         }
 
         [TestCase("CLMV")]
-        public void GetData_InvalidBaseCurrency_ReturnNullDataAndDoNotCallService(string baseCurrency)
+        public void GetData_InvalidBaseCurrency_ReturnNullData(string baseCurrency)
         {
             // Arrange
             var metaModel = new DashboardBaseModel
@@ -41,26 +41,6 @@
 
                 // Assert
                 Assert.That(result.Data, Is.Null);
-                _turnoverByPlatformService.DidNotReceive().GetData(metaModel);
-            }
-        }
-
-        [Test]
-        public void GetData_WhenCall_PassCorrectParameter()
-        {
-            // Arrange
-            var expected = new WidgetByPlatformViewModel();
-            var metaModel = new DashboardBaseModel { BaseCurrency = "EUR" };
-            _turnoverByPlatformService.GetData(metaModel).Returns(expected);
-
-            using (var controller = CreateController())
-            {
-                // Action
-                controller.GetData(metaModel);
-
-                // Assert
-                Assert.That(metaModel.LicenseeId, Is.EqualTo(1));
-                _turnoverByPlatformService.Received().GetData(metaModel);
             }
         }
 
@@ -83,7 +63,7 @@
             {
                 BaseCurrency = "EUR"
             };
-            _turnoverByPlatformService.GetData(metaModel).Returns(expected);
+            _dataAccess.GetData(metaModel).Returns(expected);
 
             // Action
             using (var controller = CreateController())
@@ -94,28 +74,23 @@
                 Assert.Multiple(() =>
                 {
                     Assert.That(result.Data.Count, Is.EqualTo(5));
-                    Assert.That(result.Data[0].Key, Is.EqualTo(expected.Data[0].Key));
-                    Assert.That(result.Data[0].Value, Is.EqualTo(expected.Data[0].Value));
-                    Assert.That(result.Data[2].Key, Is.EqualTo(expected.Data[2].Key));
-                    Assert.That(result.Data[2].Value, Is.EqualTo(expected.Data[2].Value));
-                    Assert.That(result.Data[4].Key, Is.EqualTo(expected.Data[4].Key));
-                    Assert.That(result.Data[4].Value, Is.EqualTo(expected.Data[4].Value));
+                    Assert.That(result.Data, Is.EqualTo(expected.Data));
                 });
             }
         }
 
         private TurnoverByPlatformController CreateController()
         {
-            var controller = new TurnoverByPlatformController(_turnoverByPlatformService);
             var mockActionContext = new HttpActionContext
             {
                 ControllerContext = new HttpControllerContext(),
                 ActionArguments = { { "licenseeid", 1 }, { "userid", 2 }, { "currencyIDList", "1" } }
             };
 
-            controller.ActionContext = mockActionContext;
-
-            return controller;
+            return new TurnoverByPlatformController(_dataAccess)
+            {
+                ActionContext = mockActionContext
+            };
         }
     }
 }

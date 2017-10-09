@@ -9,10 +9,10 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
     using System.Collections.Generic;
     using System.Text.RegularExpressions;
     using Base;
-    using Fanex.Athena.Excel.Base.Extension;
-    using Fanex.Athena.Model.Casino.DTO;
-    using Fanex.Athena.Model.Casino.MetaModel;
-    using Fanex.Athena.Model.Casino.ViewModel;
+    using Base.Extension;
+    using Model.Casino.DTO;
+    using Model.Casino.MetaModel;
+    using Model.Casino.ViewModel;
     using NPOI.SS.UserModel;
     using Resources;
 
@@ -32,7 +32,6 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
         private const int ColumnRollingComm = 12;
         private const int ColumnResults = 13;
 
-        private const int RowTableHeaderTemplate = 1;
         private const int RowContentTitleTemplate = 3;
         private const int RowContentTemplate = 4;
         private const int RowGroupTotal = 8;
@@ -50,13 +49,13 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
                     RNGCasinoResultMetaModel metaModel,
                     RNGCasinoResultViewModel viewModel,
                     RNGCasinoResult totalData)
-            : base(templatePath, null)
+            : base(templatePath)
         {
             _metaModel = metaModel;
             _data = viewModel.Data;
             _totalData = totalData;
 
-            HeaderTextList = new string[]
+            HeaderTextList = new[]
             {
                 "#",
                 ViewResources.GameID,
@@ -80,9 +79,9 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
         /// </summary>
         protected override void AssignData()
         {
-            int numOfDataRow = _data.Count;
+            var numOfDataRow = _data.Count;
 
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
             AssignTitle(sheet);
@@ -124,12 +123,11 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignSheetData(ISheet sheet)
         {
-            int indexReport = 1;
-            int currentRow = 3;
-            int rowCount = _data.Count;
-
+            var indexReport = 1;
+            var currentRow = 3;
+            var rowCount = _data.Count;
             var groupId = string.Empty;
-            RNGCasinoResult groupTotal = null;
+            var groupTotal = new RNGCasinoResult();
             for (int index = 0; index < rowCount; index++)
             {
                 var item = _data[index];
@@ -190,7 +188,7 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
                 _metaModel.SystemId,
                 ViewResources.RefNo,
                 _metaModel.RefNo,
-                string.Format(ViewResources.Viewin, currency.ToUpper()));
+                string.Format(ViewResources.Viewin, currency.ToUpperInvariant()));
 
             sheet.SetTextRowValue(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate, ColumnTemplateCount, title);
 
@@ -231,8 +229,7 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
 
         private static string RemoveHtmlTags(string result)
         {
-            result = result.Replace("<BR>", "\n");
-            return Regex.Replace(result, @"<[^>]+>|&nbsp;", string.Empty).Trim();
+            return Regex.Replace(result.Replace("<BR>", "\n"), @"<[^>]+>|&nbsp;", string.Empty).Trim();
         }
 
         private void AssignGroupTotal(ISheet sheet, RNGCasinoResult groupTotal, int currentRow)

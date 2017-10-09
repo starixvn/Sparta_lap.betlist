@@ -8,25 +8,35 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System;
     using System.Web.Mvc;
+    using DataAccess.Report;
+    using DataAccess.Report.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
-    using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
+    using Model.Core.ResultModel;
 
     [FunctionAuthorization(PermissionKeys.ReportRacingCommission)]
     public class RacingCommissionReportController : ReportBaseController
     {
+        private readonly IRacingCommissionDataAccess _racingCommissionDataAccess;
+
+        public RacingCommissionReportController()
+        {
+            _racingCommissionDataAccess = new RacingCommissionDataAccess();
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
             var metaModel = new RacingCommissionMetaModel
             {
-                BalanceUpDay = BalanceUpService.BalanceUpInfo.BalanceUpDay
+                BalanceUpDay = GetBalanceUp().BalanceUpDay
             };
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -55,19 +65,23 @@ namespace Fanex.Athena.Controllers.Report
                 metaModel.PageSize = PageSizeExcel;
             }
 
-            var total = new RacingCommission();
-            var racingCommissionService = new RacingCommissionService();
-            var reportData = racingCommissionService.GetDataList(metaModel, ref total);
+            var resultModel = metaModel.IsValid
+                       ? _racingCommissionDataAccess.GetData(metaModel)
+                       : new SortableReportResultModel<RacingCommission>
+                       {
+                           DataList = new SortableList<RacingCommission>(),
+                           TotalData = new RacingCommission()
+                       };
 
-            reportData.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
+            resultModel.DataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
 
             var model = new RacingCommissionViewModel
             {
-                RacingCommissionList = reportData,
+                RacingCommissionList = resultModel.DataList,
                 Param = metaModel,
                 CurrencyList = SessionService.UserSession.CurrencyList,
                 IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                Total = total,
+                Total = resultModel.TotalData,
             };
 
             return metaModel.IsExportExcel

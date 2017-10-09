@@ -2,132 +2,228 @@
 {
     using System.Collections.Generic;
     using System.Collections.Specialized;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Account;
     using Base.UnitTests;
+    using DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
 
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Reviewed.")]
     [TestFixture]
-    public partial class AccountControllerTest : BaseControllerTest
+    public partial class AccountControllerTest : BaseControllerHelperTest
     {
+        private const string AccessDeniedUrl = "~/Utility/AccessDenied";
+
         private IFunctionService _functionService;
         private IUserService _userService;
-        private ICurrencyService _currencyService;
-
-        private AccountController _controller;
-
-        [OneTimeSetUp]
-        public new void FixtureSetUp()
-        {
-            FakeBaseControllerDependency();
-            _functionService = Substitute.For<IFunctionService>();
-            _userService = Substitute.For<IUserService>();
-            _currencyService = Substitute.For<ICurrencyService>();
-        }
-
-        [OneTimeTearDown]
-        public new void FixtureTearDown()
-        {
-            _functionService = null;
-            _userService = null;
-            _currencyService = null;
-        }
+        private ICurrencyDataAccess _currencyDataAccess;
 
         [SetUp]
         public void SetUp()
         {
-            _controller = new AccountController(
-                LangService,
-                SessionService,
-                AppSettings,
-                _functionService,
-                _userService,
-                _currencyService);
+            _functionService = Substitute.For<IFunctionService>();
+            _userService = Substitute.For<IUserService>();
+            _currencyDataAccess = Substitute.For<ICurrencyDataAccess>();
 
-            _controller.ControllerContext = this.ControllerContext;
+            SetUpDefaultFakeData();
         }
 
         [TearDown]
         public void TearDown()
         {
-            if (_controller != null)
-            {
-                _controller.Dispose();
-            }
+            _functionService = null;
+            _userService = null;
+            _currencyDataAccess = null;
         }
 
         [Test]
-        public void Manage_WhenCall_ReturnCorrectViewName()
+        public void Manage_WhenCall_ReturnManageView()
         {
-            // Arrange
-            const int LicenseeId = 1;
-            _userService.GetByLicensee(LicenseeId, Arg.Any<bool>()).Returns(new List<User>());
+            using (var controller = CreateController())
+            {
+                // Arrange
+                _userService.GetByLicensee(DefaultLicenseeSession.LicenseeId, Arg.Any<bool>()).Returns(new List<User>());
 
-            // Action
-            var result = _controller.Manage() as ViewResult;
+                // Action
+                var result = controller.Manage() as ViewResult;
 
-            // Assert
-            Assert.That(result.ViewName, Is.EqualTo("~/Views/Account/Manage.cshtml"));
+                // Assert
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Account/Manage.cshtml"));
+            }
         }
 
         [Test]
         public void Manage_WhenCall_ReturnCorrectViewModel()
         {
-            // Arrange
-            var userList = new List<User>
+            using (var controller = CreateController())
             {
-                new User { UserID = 1 },
+                // Arrange
+                var userList = new List<User>
+            {
+                new User { UserID = DefaultUserSession.UserId },
                 new User { UserID = 2 }
             };
-            _userService.GetByLicensee(SessionService.LicenseeSession.LicenseeId, Arg.Any<bool>()).Returns(userList);
+                _userService.GetByLicensee(DefaultLicenseeSession.LicenseeId, Arg.Any<bool>()).Returns(userList);
 
-            // Action
-            var result = (_controller.Manage() as ViewResult).Model as List<User>;
+                // Action
+                var result = (controller.Manage() as ViewResult).Model as List<User>;
 
-            // Assert
-            Assert.That(result.Count, Is.EqualTo(1));
+                // Assert
+                Assert.That(result.Count, Is.EqualTo(1));
+            }
         }
 
         [Test]
-        public void PermissionPage_UserIsExists_ReturnCorrectViewAndModel()
+        public void PermissionPage_InvalidUserRequestParam_AccessDenied()
         {
             // Arrange
-            var requestParams = new NameValueCollection { { "UserId", "111" } };
-            _controller.ControllerContext.HttpContext.Request.Params.Returns(requestParams);
-
-            _userService.GetUserInfo(Arg.Any<int>(), Arg.Any<int>()).Returns(new User
+            SetUpUserRequestParameter(new NameValueCollection { { "UserId", "invalid" } });
+            using (var controller = CreateController())
             {
-                Username = "Superman"
-            });
+                // Action
+                var result = controller.PermissionPage() as RedirectResult;
 
-            // Action
-            var viewResult = _controller.PermissionPage() as ViewResult;
-
-            // Assert
-            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Account/PermissionPage.cshtml"));
-            Assert.That((viewResult.Model as User).Username, Is.EqualTo("Superman"));
+                // Assert
+                Assert.That(result.Url, Is.EqualTo(AccessDeniedUrl));
+            }
         }
 
         [Test]
-        public void PermissionPage_UserIsNotExists_RedirectToAccessDeniedView()
+        public void PermissionPage_IsCurrentUser_AccessDenied()
         {
             // Arrange
-            var requestParams = new NameValueCollection { { "UserId", "111" } };
-            _controller.ControllerContext.HttpContext.Request.Params.Returns(requestParams);
+            SetUpUserRequestParameter(new NameValueCollection { { "UserId", DefaultUserSession.UserId.ToString() } });
+            using (var controller = CreateController())
+            {
+                // Action
+                var result = controller.PermissionPage() as RedirectResult;
 
-            _userService.GetUserInfo(Arg.Any<int>(), Arg.Any<int>()).Returns(x => null);
+                // Assert
+                Assert.That(result.Url, Is.EqualTo(AccessDeniedUrl));
+            }
+        }
 
-            // Action
-            var result = _controller.PermissionPage() as RedirectResult;
+        [Test]
+        public void PermissionPage_ValidatePermissionRestriction_UserDoesNotExist_AccessDenied()
+        {
+            // Arrange
+            SetUpUserRequestParameter();
+            using (var controller = CreateController())
+            {
+                StubUserSessionData(new UserSession
+                {
+                    UserId = DefaultUserSession.UserId,
+                    IsInternal = true
+                });
 
-            // Assert
-            Assert.That(result.Url, Is.EqualTo("~/Utility/AccessDenied"));
+                _userService.GetUserInfo(Arg.Any<int>(), Arg.Any<int>()).Returns(x => null);
+
+                // Action
+                var result = controller.PermissionPage() as RedirectResult;
+
+                // Assert
+                Assert.That(result.Url, Is.EqualTo(AccessDeniedUrl));
+            }
+        }
+
+        [Test]
+        public void PermissionPage_UserDoesNotExist_AccessDenied()
+        {
+            // Arrange
+            SetUpUserRequestParameter();
+            using (var controller = CreateController())
+            {
+                StubUserSessionData(new UserSession
+                {
+                    UserId = DefaultUserSession.UserId,
+                    IsInternal = true
+                });
+
+                _userService.GetUserInfo(Arg.Any<int>(), Arg.Any<int>()).Returns(x => new User { UserID = DefaultUserSession.UserId, IsInternal = true }, x => null);
+
+                // Action
+                var result = controller.PermissionPage() as RedirectResult;
+
+                // Assert
+                Assert.That(result.Url, Is.EqualTo(AccessDeniedUrl));
+            }
+        }
+
+        [Test]
+        public void PermissionPage_IsInternalUser_RedirectToAccessDeniedView()
+        {
+            // Arrange
+            SetUpUserRequestParameter();
+            using (var controller = CreateController())
+            {
+                _userService.GetUserInfo(Arg.Any<int>(), Arg.Any<int>()).Returns(x => new User { UserID = 111 });
+
+                AppSettings.EnableAssignCurrency.Returns(false);
+
+                StubUserSessionData(new UserSession
+                {
+                    UserId = DefaultUserSession.UserId,
+                    IsInternal = true
+                });
+
+                // Action
+                var result = controller.PermissionPage() as RedirectResult;
+
+                // Assert
+                Assert.That(result.Url, Is.EqualTo(AccessDeniedUrl));
+            }
+        }
+
+        [Test]
+        public void PermissionPage_ValidUser_ReturnPermissionPageView()
+        {
+            // Arrange
+            SetUpUserRequestParameter();
+            using (var controller = CreateController())
+            {
+                _userService.GetUserInfo(Arg.Any<int>(), Arg.Any<int>()).Returns(x => new User { UserID = 111, IsInternal = true });
+
+                AppSettings.EnableAssignCurrency.Returns(false);
+
+                StubUserSessionData(new UserSession
+                {
+                    UserId = DefaultUserSession.UserId,
+                    IsInternal = false
+                });
+
+                // Action
+                var viewResult = controller.PermissionPage() as ViewResult;
+
+                // Assert
+                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Account/PermissionPage.cshtml"));
+            }
+        }
+
+        private AccountController CreateController()
+        {
+            return new AccountController(
+            LangService,
+            SessionService,
+            AppSettings,
+            _functionService,
+            _userService,
+            _currencyDataAccess)
+            {
+                ControllerContext = ControllerContext
+            };
+        }
+
+        private void SetUpUserRequestParameter(NameValueCollection requestParam = null)
+        {
+            if (requestParam == null)
+            {
+                requestParam = new NameValueCollection { { "UserId", "111" } };
+            }
+
+            ControllerContext.HttpContext.Request.Params.Returns(requestParam);
         }
     }
 }

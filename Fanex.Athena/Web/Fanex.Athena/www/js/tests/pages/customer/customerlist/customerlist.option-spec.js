@@ -56,6 +56,7 @@
                         "IsAllowRB": true,
                         "IsAllowCS": false
                     };
+
                     CustomerListOption.getGridOption(productAccess, true);
                     CustomerListOption.setGroupHeaderColumns(grid);
 

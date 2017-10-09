@@ -13,10 +13,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
     /// </summary>
     public class WinLossByLeagueMetaModel : BaseReportMetaModel
     {
-        public WinLossByLeagueMetaModel()
-        {                           
-        }
-
         public int CustomerId { get; set; }
 
         public string ReportTitle { get; set; }

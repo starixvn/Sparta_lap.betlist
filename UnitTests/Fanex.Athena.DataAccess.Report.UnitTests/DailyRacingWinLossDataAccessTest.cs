@@ -3,11 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Web.Script.Serialization;
     using Data;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Extensions;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class DailyRacingWinLossDataAccessTest
@@ -42,15 +43,23 @@
             dynamic uspParam = null;
             _objectDb.ExecuteReader(Arg.Do<dynamic>(arg => uspParam = arg));
 
-            // Action
-            _dataAccess.GetDataList(new DailyRacingWinLossMetaModel
+            var model = new DailyRacingWinLossMetaModel
             {
                 AgentListXml = "1",
                 Date = new DateTime(2017, 1, 1)
-            });
+            };
+
+            var expectedParam = new
+            {
+                AgentList = model.AgentListXml,
+                WinlostDate = model.Date
+            };
+
+            // Action
+            _dataAccess.GetDataList(model);
 
             // Assert
-            Assert.That(new JavaScriptSerializer().Serialize(uspParam), Is.EqualTo(@"{""AgentList"":""1"",""WinlostDate"":""\/Date(1483203600000)\/""}"));
+            Assert.That(uspParam, Tobe.SameProperties(expectedParam));
         }
 
         [Test]
@@ -58,22 +67,12 @@
         {
             // Arrange
             _reader.Read().Returns(true, false);
-            var readerDataMapping = new Dictionary<string, object>
+            var readerDataMapping = new 
             {
-                { "Currency", 111 },
-                { "LeagueId", 222 }
+                Currency = 111,
+                LeagueId = 222
             };
-
-            _reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
-            });
+            DataAccessTestHelper.MapReaderData(_reader, readerDataMapping);
 
             // Action
             var dataList = _dataAccess.GetDataList(new DailyRacingWinLossMetaModel());

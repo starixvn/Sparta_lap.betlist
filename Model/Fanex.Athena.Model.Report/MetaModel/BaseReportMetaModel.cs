@@ -24,7 +24,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
         }
 
         protected BaseReportMetaModel(IAppSettings appSetting)
-            : base()
         {
             _appSettings = appSetting;
             ProductOptions = new List<ProductOption>();

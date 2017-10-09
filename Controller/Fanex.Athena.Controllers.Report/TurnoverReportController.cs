@@ -68,7 +68,8 @@ namespace Fanex.Athena.Controllers.Report
                 ProductAccess = productAccess,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 CurrencyList = GetCurrenciesForTurnoverReport(licenseeSession.LicenseeId),
-                IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
+                IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1,
+                IsFakeLicensee = IsFakeLicensee()
             };
 
             return View("~/Views/Report/Turnover/Main.cshtml", model);
@@ -81,8 +82,9 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
 
+            var placeholderUsername = IsFakeLicensee() ? ViewResources.ExternalId : ViewResources.ExternalIdOrSystemId;
             metaModel.Username = string.IsNullOrWhiteSpace(metaModel.Username) ||
-                metaModel.Username.Trim() == ViewResources.ExternalIdOrSystemId ? null : metaModel.Username;
+                metaModel.Username.Trim() == placeholderUsername ? null : metaModel.Username;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
 
             var dataList = _turnoverService.GetDataList(metaModel);

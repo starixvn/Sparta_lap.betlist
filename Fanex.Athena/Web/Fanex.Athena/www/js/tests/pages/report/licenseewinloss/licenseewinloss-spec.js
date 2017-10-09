@@ -52,76 +52,6 @@
                         title: Site.getSingleResource("LicenseeWinLoss")
                     });
                 });
-
-                describe("LicenseeWinLossOption.gridOption.onSortCol(colName)", function () {
-                    var _sortColumn = "Column1";
-                    beforeEach(function () {
-                        jasmine.clock().install();
-
-                        setFixtures('<input name="ReportBy" type="checkbox" checked value="1" />');
-                        spyOn(Report, "renderBreadCrumb");
-
-                        spyOn(Site, "blockUI");
-                        spyOn(LicenseeWinLoss, "sortData").and.callFake(function (data) { return data; });
-                        spyOn(LicenseeWinLoss, "bindData");
-                        spyOn(LicenseeWinLoss, "setReportTitle");
-                        spyOn(Site, "unBlockUI");
-
-                        LicenseeWinLoss.ajaxComplete(0, { Data: "Hello" }); //set value for cache data
-                        LicenseeWinLossOption.gridOption.onSortCol(_sortColumn);
-                        jasmine.clock().tick(101);
-                        jasmine.clock().uninstall();
-                    });
-
-                    it("Site.blockUI() should be called", function () {
-                        expect(Site.blockUI).toHaveBeenCalled();
-                    });
-                    it("LicenseeWinLoss.sortData() should be called with correct parameter", function () {
-                        expect(LicenseeWinLoss.sortData).toHaveBeenCalledWith("Hello");
-                    });
-                    it("LicenseeWinLoss.bindData() should be called with correct parameter", function () {
-                        expect(LicenseeWinLoss.bindData.calls.argsFor(1)).toEqual([0, "1", { Data: "Hello" }]);
-                    });
-                    it("Site.unBlockUI() should be called", function () {
-                        expect(Site.unBlockUI).toHaveBeenCalled();
-                    });
-                });
-            });
-
-            describe("sortData(arrayData)", function () {
-                var arrayData;
-                beforeEach(function () {
-                    arrayData = [{ Index: 1, Column2: "A" }, { Index: 2, Column2: "B" }];
-                    jasmine.clock().install();
-
-                    setFixtures('<input name="ReportBy" type="checkbox" checked value="1" />');
-                    spyOn(Report, "renderBreadCrumb");
-
-                    spyOn(Site, "blockUI");
-                    spyOn(LicenseeWinLoss, "bindData");
-                    spyOn(LicenseeWinLoss, "setReportTitle");
-                    spyOn(Site, "unBlockUI");
-
-                    LicenseeWinLoss.ajaxComplete(0, { Data: arrayData }); //set value for cache data
-                    LicenseeWinLossOption.gridOption.onSortCol("Column2");
-                    jasmine.clock().tick(101);
-                });
-                afterEach(function () {
-                    jasmine.clock().uninstall();
-                });
-
-                it("Array data should be returned with ascending order", function () {
-                    var result = LicenseeWinLoss.sortData(arrayData);
-
-                    expect(result).toEqual(arrayData);
-                });
-
-                it("Array data should be returned with descending order", function () {
-                    jasmine.clock().tick(101);
-                    var result = LicenseeWinLoss.sortData(arrayData);
-
-                    expect(result).toEqual([{ Index: 1, Column2: "B" }, { Index: 2, Column2: "A" }]);
-                });
             });
 
             describe("initEvent()", function () {
@@ -155,17 +85,6 @@
                     expect(spyEvent).toHaveBeenTriggered();
                 });
 
-                it("#LicenseeWinLoss.goBack() should be called with correct param when .level-link is clicked.", function () {
-                    setFixtures('<div id="level-link-container"><div class="level-link" data-level="1"></div></div>');
-
-                    spyOn(LicenseeWinLoss, 'goBack');
-
-                    LicenseeWinLoss.initEvent();
-                    $('.level-link').click();
-
-                    expect(LicenseeWinLoss.goBack).toHaveBeenCalledWith(1);
-                });
-
                 it("#LicenseeWinLoss.goBack() is not called when data-level in .level-link is greater than 1.", function () {
                     setFixtures('<div id="level-link-container"><div class="level-link" data-level="2"></div></div>');
 
@@ -175,6 +94,17 @@
                     $('.level-link').click();
 
                     expect(LicenseeWinLoss.goBack).not.toHaveBeenCalled();
+                });
+
+                it("#LicenseeWinLoss.goBack() should be called with correct param when .level-link is clicked.", function () {
+                    setFixtures('<div id="level-link-container"><div class="level-link" data-level="0"></div></div>');
+
+                    spyOn(LicenseeWinLoss, 'goBack');
+
+                    LicenseeWinLoss.initEvent();
+                    $('.level-link').click();
+
+                    expect(LicenseeWinLoss.goBack).toHaveBeenCalledWith(0);
                 });
 
                 it("LicenseeWinLoss.openBetlistPopUp(datadrilldown) should be called if .bet-list-link is clicked.", function () {
@@ -265,27 +195,27 @@
                 });
 
                 it("LicenseeWinLoss.setReportTitle(currencyId, fromDate, toDate) should be called with correct parameter if level param is 0", function () {
-                    LicenseeWinLoss.ajaxComplete(0, { Data: "Hello" });
+                    LicenseeWinLoss.ajaxComplete(0, { Data: "Hello", Total: [] });
 
                     expect(LicenseeWinLoss.setReportTitle).toHaveBeenCalledWith("1", "03/01/2017", "03/31/2017");
                 });
 
                 it("LicenseeWinLoss.setReportTitle(currencyId, fromDate, toDate) should not be called with correct parameter if level param greater than 0", function () {
-                    LicenseeWinLoss.ajaxComplete(1, { Data: "Hello" });
+                    LicenseeWinLoss.ajaxComplete(1, { Data: "Hello", Total: [] });
 
                     expect(LicenseeWinLoss.setReportTitle).not.toHaveBeenCalled();
                 });
 
                 it("Report.renderBreadCrumb(level, licenseeId) should be called with correct parameter", function () {
-                    LicenseeWinLoss.ajaxComplete(0, { Data: "Hello" });
+                    LicenseeWinLoss.ajaxComplete(0, { Data: "Hello", Total: [] });
 
                     expect(Report.renderBreadCrumb).toHaveBeenCalledWith(0, 0);
                 });
 
                 it("LicenseeWinLoss.bindData(level) should be called with correct parameter", function () {
-                    LicenseeWinLoss.ajaxComplete(0, { Data: "Hello" });
+                    LicenseeWinLoss.ajaxComplete(0, { Data: "Hello", Total: [] });
 
-                    expect(LicenseeWinLoss.bindData).toHaveBeenCalledWith(0, "1", { Data: "Hello" });
+                    expect(LicenseeWinLoss.bindData).toHaveBeenCalledWith(0, "1", { Data: "Hello", Total: [] });
                 });
             });
 
@@ -381,6 +311,47 @@
                 });
             });
 
+            describe("sortData(arrayData)", function () {
+                var arrayData;
+                beforeEach(function () {
+                    arrayData = [{ Index: 1, Column2: "A" }, { Index: 2, Column2: "B" }];
+                    jasmine.clock().install();
+
+                    setFixtures('<input name="ReportBy" type="checkbox" checked value="1" />');
+                    spyOn(Report, "renderBreadCrumb");
+
+                    spyOn(Site, "blockUI");
+                    spyOn(LicenseeWinLoss, "bindData");
+                    spyOn(LicenseeWinLoss, "setReportTitle");
+                    spyOn(Site, "unBlockUI");
+
+                    LicenseeWinLoss.ajaxComplete(0, { Data: arrayData }); //set value for cache data
+                    LicenseeWinLossOption.gridOption.onSortCol("Column2");
+                    jasmine.clock().tick(101);
+                });
+                afterEach(function () {
+                    jasmine.clock().uninstall();
+                });
+
+                it("Array data should be returned with ascending order at first time", function () {
+                    var result = LicenseeWinLoss.sortData(arrayData);
+
+                    expect(result).toEqual(arrayData);
+                });
+
+                it("Array data should be returned with descending order at second time", function () {
+                    var result = LicenseeWinLoss.sortData(arrayData);
+
+                    expect(result).toEqual([{ Index: 1, Column2: "B" }, { Index: 2, Column2: "A" }]);
+                });
+
+                it("Array data should be returned with ascending order at third time", function () {
+                    var result = LicenseeWinLoss.sortData(arrayData);
+
+                    expect(result).toEqual(arrayData);
+                });
+            });
+
             describe("lastDateOfMonth(year, month)", function () {
                 it("Value should return correctly", function () {
                     var expected = "Fri Mar 31 2017";
@@ -412,7 +383,7 @@
                     spyOn($.fn, "serializeObject").and.returnValue(submitData);
                     spyOn(LicenseeWinLoss, "setExcelUrl");
                     spyOn(LicenseeWinLoss, "ajaxComplete");
-                    spyOn($, "ajax").and.returnValue({ abort: function () { } });
+                    spyOn($, "ajax").and.returnValues(null, { abort: function () { } });
                     spyOn(Report, "GetDrilldownDateRange").and.returnValues({ FromDate: new Date(2017, 2, 1), ToDate: new Date(2017, 2, 31) });
                 });
                 afterEach(function () {
@@ -797,6 +768,18 @@
                     expect(gridOption.rowList).toEqual([50, 100, 200, 300, 400, 500, 1000, 2000]);
                     expect(gridOption.rowTotal).toBe(3);
                     expect(gridOption.pager).toBe("#ppdata");
+                });
+
+                it("jqGridAdditional.addSortableHeader should called if allowing sorting", function () {
+                    spyOn(jqGridAdditional, "addSortableHeader");
+                    spyOn(LicenseeWinLoss, "sortData").and.callFake(function (data) { return data });
+                    jasmine.clock().install();
+
+                    LicenseeWinLossOption.gridOption.onSortCol(1);
+                    jasmine.clock().tick(101);
+
+                    expect(jqGridAdditional.addSortableHeader).toHaveBeenCalled();
+                    jasmine.clock().uninstall();
                 });
 
                 describe("gridOption.onPaging(pgButton)", function () {

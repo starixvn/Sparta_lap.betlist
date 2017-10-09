@@ -25,5 +25,7 @@ namespace Fanex.Athena.Model.Report.ViewModel.LiveReports
         public bool IsAllowedNumberGame { get; set; }
 
         public DateTime BalanceUpDate { get; set; }
+
+        public bool IsFakeLicensee { get; set; }
     }
 }

@@ -14,15 +14,15 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class CustomerBalanceReportControllerTest : ApiReportBaseControllerTest
+    public class CustomerBalanceReportControllerTest : BaseApiReportControllerHelperTest
     {
         private ICustBalanceDataAccess _dataAccess;
         private CustomerBalanceReportController _controller;
 
         [OneTimeSetUp]
-        public override void SetUp()
+        public override void FixtureSetUp()
         {
-            base.SetUp();
+            base.FixtureSetUp();
 
             _dataAccess = Substitute.For<ICustBalanceDataAccess>();
 
@@ -34,9 +34,9 @@
         }
 
         [OneTimeTearDown]
-        public override void TearDown()
+        public override void FixtureTearDown()
         {
-            base.TearDown();
+            base.FixtureTearDown();
 
             _controller = null;
             _dataAccess = null;
@@ -57,7 +57,7 @@
             Assert.Multiple(() =>
             {
                 Assert.IsEmpty(result.Data);
-                Assert.That(0, Is.EqualTo(result.TotalRows));
+                Assert.That(result.TotalRows, Is.Zero);
             });
         }
 
@@ -88,7 +88,7 @@
             var expectedDataList = SetUpForGettingData(metaModel, out totalData, out totalRows);
             const int PageSizeExcel = int.MaxValue - 1000;
 
-            MockProductAccess(new string[] { Product.BA });
+            StubSingleWalletProductAccess(new string[] { Product.BA });
 
             var actualDataList = Enumerable.Empty<CustBalance>();
             var excel = Substitute.ForPartsOf<CustomerBalanceExcel>(
@@ -114,8 +114,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(1, Is.EqualTo(metaModel.PageIndex));
-                Assert.That(PageSizeExcel, Is.EqualTo(metaModel.PageSize));
+                Assert.That(metaModel.PageIndex, Is.EqualTo(1));
+                Assert.That(metaModel.PageSize, Is.EqualTo(PageSizeExcel));
                 Assert.That(actualDataList, Is.EqualTo(expectedDataList.AsEnumerable()));
             });
         }

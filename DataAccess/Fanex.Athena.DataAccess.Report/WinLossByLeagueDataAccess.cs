@@ -20,16 +20,11 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
+    using Model.Core.ResultModel;
 
     public class WinLossByLeagueDataAccess : BaseDataAccess, IWinLossByLeagueDataAccess
     {
-        public WinLossByLeagueDataAccess()
-        {
-        }
-
-        #region IWinLossByLeagueDataAccess Members
-
-        public IEnumerable<WinLossByLeague> GetWinlossByLeagues(WinLossByLeagueMetaModel metaModel)
+        public IEnumerable<WinLossByLeague> GetSummary(WinLossByLeagueMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinlostByLeague";
             try
@@ -61,13 +56,11 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, metaModel);
             }
         }
 
-        public IEnumerable<WinLossByLeague> GetWinlossByLeagueCustomers(
-            WinLossByLeagueMetaModel metaModel, out WinLossByLeague grandTotal, ref int totalRows)
+        public ReportResultModel<WinLossByLeague> GetCustomers(WinLossByLeagueMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinlossByLeagueDetail";
             try
@@ -94,27 +87,29 @@ namespace Fanex.Athena.DataAccess.Report
                     db.AddOutParameter("totalrows", DbType.Int32, int.MaxValue);
 
                     IEnumerable<WinLossByLeague> dataList = null;
+                    WinLossByLeague totalData;
 
                     using (var reader = db.ExecuteReader())
                     {
                         dataList = GetCustomers(reader, metaModel.BaseCurrency);
                         reader.NextResult();
-                        grandTotal = GetGrandTotal(reader, metaModel.BaseCurrency);
+                        totalData = GetTotalData(reader, metaModel.BaseCurrency);
                     }
 
-                    totalRows = Converter.ToInt(db.GetParameterValue("totalrows"));
-
-                    return dataList;
+                    var totalRows = Converter.ToInt(db.GetParameterValue("totalrows"));
+                    return new ReportResultModel<WinLossByLeague>
+                    {
+                        DataList = dataList,
+                        TotalData = totalData,
+                        TotalRows = totalRows
+                    };
                 }
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, metaModel);
             }
         }
-
-        #endregion IWinLossByLeagueDataAccess Members
 
         #region Private
 
@@ -147,12 +142,6 @@ namespace Fanex.Athena.DataAccess.Report
             return result;
         }
 
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="reader">Report data table.</param>
-        /// <param name="baseCurrency">todo: describe baseCurrency parameter on GetCustomers</param>
-        /// <returns>The result value.</returns>
         private static IEnumerable<WinLossByLeague> GetCustomers(IDataReader reader, string baseCurrency)
         {
             var result = new List<WinLossByLeague>();
@@ -187,24 +176,24 @@ namespace Fanex.Athena.DataAccess.Report
             return result;
         }
 
-        private static WinLossByLeague GetGrandTotal(IDataReader reader, string baseCurrency)
+        private static WinLossByLeague GetTotalData(IDataReader reader, string baseCurrency)
         {
             var turnoverCol = "turnover" + baseCurrency;
             var memberWlCol = "memberwinlost" + baseCurrency;
             var licenseeWlCol = "licenseewl" + baseCurrency;
             var bacommCol = "CommBA" + baseCurrency;
 
-            var grandTotal = new WinLossByLeague();
+            var totalData = new WinLossByLeague();
             if (reader.Read())
             {
-                grandTotal.TurnOver = reader.ToDecimal(turnoverCol);
-                grandTotal.CustomerWinLoss = reader.ToDecimal(memberWlCol);
-                grandTotal.LicenseeWL = reader.ToDecimal(licenseeWlCol);
-                grandTotal.BACommission = reader.ToDecimal(bacommCol);
-                grandTotal.BetCount = reader.ToInt("betcount");
+                totalData.TurnOver = reader.ToDecimal(turnoverCol);
+                totalData.CustomerWinLoss = reader.ToDecimal(memberWlCol);
+                totalData.LicenseeWL = reader.ToDecimal(licenseeWlCol);
+                totalData.BACommission = reader.ToDecimal(bacommCol);
+                totalData.BetCount = reader.ToInt("betcount");
             }
 
-            return grandTotal;
+            return totalData;
         }
 
         #endregion Private

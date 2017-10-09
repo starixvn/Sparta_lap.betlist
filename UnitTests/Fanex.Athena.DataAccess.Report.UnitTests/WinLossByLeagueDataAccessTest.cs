@@ -6,16 +6,16 @@
     using System.Linq;
     using Data;
     using Model.Core.MetaModel.Product;
-    using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class WinLossByLeagueDataAccessTest
     {
         private WinLossByLeagueDataAccess _dataAccess;
-
+        
         [OneTimeSetUp]
         public void Setup()
         {
@@ -54,7 +54,7 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlostByLeague")).Returns(objectDb);
 
             // Action
-            _dataAccess.GetWinlossByLeagues(metaModel);
+            _dataAccess.GetSummary(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -84,15 +84,15 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlostByLeague")).Returns(objectDb);
             objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false);
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "turnoverUSD", 999 }
+                turnoverUSD = 999
             };
 
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetWinlossByLeagues(new WinLossByLeagueMetaModel
+            var result = _dataAccess.GetSummary(new WinLossByLeagueMetaModel
             {
                 BaseCurrency = "USD"
             });
@@ -130,11 +130,9 @@
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlossByLeagueDetail")).Returns(objectDb);
             objectDb.GetParameterValue("totalrows").Returns(1000);
-            WinLossByLeague grandTotal;
-            int totalRows = 0;
 
             // Action
-            _dataAccess.GetWinlossByLeagueCustomers(metaModel, out grandTotal, ref totalRows);
+            var result = _dataAccess.GetCustomers(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -152,7 +150,7 @@
                 objectDb.Received().AddInParameter("showba", DbType.Boolean, false);
                 objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
 
-                Assert.That(totalRows, Is.EqualTo(1000));
+                Assert.That(result.TotalRows, Is.EqualTo(1000));
             });
         }
 
@@ -166,44 +164,26 @@
             objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false, true, false);
             reader.NextResult().Returns(true);
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "turnoverUSD", 999 }
+                turnoverUSD = 999
             };
 
-            MapReaderData(reader, readerDataMapping);
-            WinLossByLeague grandTotal;
-            int totalRows = 0;
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetWinlossByLeagueCustomers(
+            var result = _dataAccess.GetCustomers(
                 new WinLossByLeagueMetaModel
                 {
                     BaseCurrency = "USD"
-                },
-                out grandTotal,
-                ref totalRows);
+                });
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count(), Is.EqualTo(1));
-                Assert.That(result.ElementAt(0).TurnOver, Is.EqualTo(999));
-                Assert.That(grandTotal.TurnOver, Is.EqualTo(999));
-            });
-        }
-
-        private static void MapReaderData(IDataReader reader, Dictionary<string, object> readerDataMapping)
-        {
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
+                Assert.That(result.DataList.Count, Is.EqualTo(1));
+                Assert.That(result.DataList.ElementAt(0).TurnOver, Is.EqualTo(999));
+                Assert.That(result.TotalData.TurnOver, Is.EqualTo(999));
             });
         }
     }

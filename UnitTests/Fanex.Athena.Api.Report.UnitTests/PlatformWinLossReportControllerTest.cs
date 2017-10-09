@@ -5,8 +5,10 @@
     using System.Web.Http;
     using System.Web.Http.Hosting;
     using System.Web.Http.Results;
-    using Fanex.Athena.Service.Report.Interfaces;
+    using DataAccess.Report.Interfaces;
+    using Model.Core.DataDomain;
     using Model.Core.DTO.Users;
+    using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
@@ -21,7 +23,7 @@
         private const int ExpectedCustomerComm = 999;
         private PlatformWinLossReportController _controller;
         private IProductService _productService;
-        private IPlatformWinLossService _service;
+        private IPlatformWinLossDataAccess _dataAccess;
         private ISessionService _sessionService;
 
         [OneTimeSetUp]
@@ -29,8 +31,8 @@
         {
             _sessionService = Substitute.For<ISessionService>();
             _productService = Substitute.For<IProductService>();
-            _service = Substitute.For<IPlatformWinLossService>();
-            _controller = Substitute.ForPartsOf<PlatformWinLossReportController>(_sessionService, _productService, _service);
+            _dataAccess = Substitute.For<IPlatformWinLossDataAccess>();
+            _controller = Substitute.ForPartsOf<PlatformWinLossReportController>(_sessionService, _productService, _dataAccess);
             _controller.Request = new HttpRequestMessage();
             _controller.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
             _sessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns("XmlData");
@@ -43,7 +45,7 @@
                 new PlatformWinLossMember()
             };
             PlatformWinLossMember totalMemberData;
-            _service.GetMemberData(Arg.Any<PlatformWinLossMetaModel>(), out totalMemberData).Returns(x =>
+            _dataAccess.GetMemberData(Arg.Any<PlatformWinLossMetaModel>(), out totalMemberData).ReturnsForAnyArgs(x =>
             {
                 x[1] = new PlatformWinLossMember
                 {
@@ -58,7 +60,7 @@
         [OneTimeTearDown]
         public void FixtureTearDown()
         {
-            _service = null;
+            _dataAccess = null;
             _controller = null;
             _sessionService = null;
         }
@@ -73,15 +75,12 @@
             FakeSummaryData(numberOfRow);
 
             // Action
-            var result = _controller.Index(new PlatformWinLossMetaModel
-            {
-                Level = 0
-            });
+            var result = _controller.Index(CreateMetaModel(0));
 
             // Assert
             Assert.Multiple(() =>
             {
-                _service.Received().GetSummaryData(Arg.Any<PlatformWinLossMetaModel>(), out totalData);
+                _dataAccess.ReceivedWithAnyArgs().GetSummaryData(Arg.Any<PlatformWinLossMetaModel>(), out totalData);
                 Assert.That(result.Data.Count, Is.EqualTo(numberOfRow));
                 Assert.That(result.Total.CustomerComm, Is.EqualTo(ExpectedCustomerComm));
             });
@@ -100,46 +99,43 @@
             Assert.That(result.Message, Is.EqualTo(ViewResources.InvalidParams));
         }
 
-        private void FakeSummaryData(int numberOfRow)
-        {
-            var summaryData = new List<PlatformWinLossSummary>();
-
-            for (var i = 0; i < numberOfRow; i++)
-            {
-                summaryData.Add(new PlatformWinLossSummary());
-            }
-
-            PlatformWinLossSummary totalSummaryData;
-            _service.GetSummaryData(Arg.Any<PlatformWinLossMetaModel>(), out totalSummaryData).Returns(x =>
-            {
-                x[1] = new PlatformWinLossSummary
-                {
-                    CustomerComm = ExpectedCustomerComm
-                };
-                return summaryData;
-            });
-        }
-
         [Test]
         public void Index_WhenCallWithLevel1_CallAndGetCorrectDataFromService()
         {
             // Arrange
             PlatformWinLossMember totalData;
-            var metaModel = new PlatformWinLossMetaModel
-            {
-                Level = 1
-            };
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = _controller.Index(CreateMetaModel(1));
 
             // Assert
             Assert.Multiple(() =>
             {
-                _service.Received().GetMemberData(Arg.Any<PlatformWinLossMetaModel>(), out totalData);
+                _dataAccess.ReceivedWithAnyArgs().GetMemberData(Arg.Any<PlatformWinLossMetaModel>(), out totalData);
                 Assert.That(result.Data.Count, Is.EqualTo(3));
                 Assert.That(result.Total.CustomerComm, Is.EqualTo(ExpectedCustomerComm));
             });
+        }
+
+        private static PlatformWinLossMetaModel CreateMetaModel(int level)
+        {
+            return new PlatformWinLossMetaModel
+            {
+                Level = level,
+                PlatformType = PlatformType.Asia,
+                Year = 2017,
+                Month = 1,
+                FromDay = 1,
+                ToDay = 2,
+                ProductOptions = new List<ProductOption>
+                {
+                    new ProductOption
+                    {
+                        Code = "SB",
+                        Status = true
+                    }
+                }
+            };
         }
 
         private void CreateSession()
@@ -161,6 +157,26 @@
 
             _sessionService.UserSession.Returns(userSession);
             _sessionService.LicenseeSession.Returns(licenseeSession);
+        }
+
+        private void FakeSummaryData(int numberOfRow)
+        {
+            var summaryData = new List<PlatformWinLossSummary>();
+
+            for (var i = 0; i < numberOfRow; i++)
+            {
+                summaryData.Add(new PlatformWinLossSummary());
+            }
+
+            PlatformWinLossSummary totalSummaryData;
+            _dataAccess.GetSummaryData(Arg.Any<PlatformWinLossMetaModel>(), out totalSummaryData).ReturnsForAnyArgs(x =>
+            {
+                x[1] = new PlatformWinLossSummary
+                {
+                    CustomerComm = ExpectedCustomerComm
+                };
+                return summaryData;
+            });
         }
     }
 }

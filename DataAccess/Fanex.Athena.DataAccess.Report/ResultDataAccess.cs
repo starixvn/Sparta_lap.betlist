@@ -12,6 +12,8 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Globalization;
     using System.Linq;
     using Core;
+    using Core.Configuration;
+    using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -24,16 +26,20 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Result.Core.NumberGame.DTO;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
-    using Model.Core.DTO.Configuration;
 
-    [System.CLSCompliant(false)]
+    [CLSCompliant(false)]
     public class ResultDataAccess : BaseDataAccess, IResultDataAccess
     {
-        private readonly BalanceUp _balanceUp;
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public ResultDataAccess(BalanceUp balanceUp)
+        public ResultDataAccess()
         {
-            _balanceUp = balanceUp;
+            _balanceUpDataAccess = new BalanceUpDataAccess();
+        }
+
+        public ResultDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        {
+            _balanceUpDataAccess = balanceUpDataAccess;
         }
 
         public IList<Outright> GetOutRight(ResultMetalModel metal)
@@ -72,17 +78,10 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);
             }
         }
 
-        /// <summary>
-        /// Get sports.
-        /// </summary>
-        /// <param name="dateValue">Date value.</param>
-        /// <param name="licenseeId">The licensee Id.</param>
-        /// <returns>The result value.</returns>
         public IList<Sport> GetSports(DateTime dateValue, int licenseeId)
         {
             const string UspName = "Lrf_Result_SportSelByDate";
@@ -93,7 +92,7 @@ namespace Fanex.Athena.DataAccess.Report
                 {
                     db.AddInParameter("eventdate", DbType.DateTime, dateValue);
                     db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
-                    db.AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
+                    db.AddInParameter("movebetsday", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
                     using (var reader = db.ExecuteReader())
                     {
                         var data = new List<Sport>();
@@ -108,17 +107,10 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
 
-        /// <summary>
-        /// Get leagues.
-        /// </summary>
-        /// <param name="dateValue">Date value.</param>
-        /// <param name="sportId">Sport ID value.</param>
-        /// <returns>The result value.</returns>
         public IList<League> GetLeagues(DateTime dateValue, int sportId)
         {
             const string UspName = "Lrf_Result_LeagueSelByDate";
@@ -127,7 +119,7 @@ namespace Fanex.Athena.DataAccess.Report
                 eventdate = dateValue,
                 sporttype = sportId,
                 isshowall = true,
-                movebetsday = _balanceUp.MoveBetsDay
+                movebetsday = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay
             };
 
             try
@@ -148,16 +140,10 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);
             }
         }
 
-        /// <summary>
-        /// Get Number Game match.
-        /// </summary>
-        /// <param name="metalModel">Meta model value.</param>
-        /// <returns>The result value.</returns>
         public IList<NumberGame> GetNumberGameMatches(ResultMetalModel metalModel)
         {
             const string UspName = "Lrf_Result_MatchSelNumberGameByLeague";
@@ -180,16 +166,10 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);
             }
         }
 
-        /// <summary>
-        /// Get racing match.
-        /// </summary>
-        /// <param name="metalModel">Meta model value.</param>
-        /// <returns>The result value.</returns>
         public IList<Racing> GetRacingMatches(ResultMetalModel metalModel)
         {
             const string UspName = "Lrf_Result_RaceSelByMeeting";
@@ -213,7 +193,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);
             }
         }
@@ -258,7 +237,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);
             }
         }
@@ -302,46 +280,10 @@ namespace Fanex.Athena.DataAccess.Report
                                 results.Add(parlay);
                             }
 
-                            parlay.Sportbook.Add(new Sportsbook
-                            {
-                                Bettype = reader.HasColumn("bettype") ? reader.ToInt("bettype") : 0,
-                                BetID = reader.HasColumn("betcheck") ? reader.ToString("betcheck") : string.Empty,
-                                AwayId = reader.ToInt("awayID"),
-                                HomeId = reader.ToInt("homeID"),
-                                BetStatus = reader["betstatus"] != DBNull.Value ? reader.ToString("betstatus") : string.Empty,
-                                LeagueId = leagueId,
-                                MatchId = reader.ToInt("matchid"),
-                                EventStatus = reader.ToString("eventstatus"),
-                                FinalAwayScore = reader.ToNullableInt("finalawayscore"),
-                                HtAwayScore = reader.ToNullableInt("htawayscore"),
-                                Color = reader.HasColumn("lcolor") &&
-                                                              reader["lcolor"] != DBNull.Value ? reader.ToString("lcolor") : string.Empty,
-                                FinalHomeScore = reader.ToNullableInt("finalhomescore"),
-                                HtHomeScore = reader.ToNullableInt("hthomescore"),
-                                EventDate = DateTime.Parse(reader.ToString("eventdate")),
-                                IsNeutral = reader.ToBool("IsNeutral"),
-                                IsPending = reader.ToBool("IsPending"),
-                                KickOffTime = DateTime.Parse(reader.ToString("kickofftime")),
-                                MatchCode = reader.ToString("matchcode"),
-                                GoalRecord = reader.ToString("goalrecord"),
-                                IsHTCal = reader.ToBool("IsHTCal"),
-                                Calculate = reader.ToBool("Calculate"),
-                                RefNo = refNo.ToString(CultureInfo.InvariantCulture),
-                            });
+                            parlay.Sportbook.Add(ReadSportsbook(reader, refNo, leagueId));
                         }
 
-                        var gameDetails = GetGameDetails(reader);
-
-                        if (gameDetails.Count > 0)
-                        {
-                            foreach (var result in results)
-                            {
-                                foreach (var item in result.Sportbook)
-                                {
-                                    item.GameDetails.AddRange(gameDetails.Where(i => i.MatchId == item.MatchId));
-                                }
-                            }
-                        }
+                        AddGameDetails(reader, results);
 
                         return results;
                     }
@@ -349,9 +291,55 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);
             }
+        }
+
+        private static void AddGameDetails(IDataReader reader, IEnumerable<Parlay> results)
+        {
+            var gameDetails = GetGameDetails(reader);
+
+            if (!gameDetails.Any())
+            {
+                return;
+            }
+
+            foreach (var result in results)
+            {
+                foreach (var item in result.Sportbook)
+                {
+                    item.GameDetails.AddRange(gameDetails.Where(i => i.MatchId == item.MatchId));
+                }
+            }
+        }
+
+        private static Sportsbook ReadSportsbook(IDataReader reader, long refNo, int leagueId)
+        {
+            return new Sportsbook
+            {
+                Bettype = reader.HasColumn("bettype") ? reader.ToInt("bettype") : 0,
+                BetID = reader.HasColumn("betcheck") ? reader.ToString("betcheck") : string.Empty,
+                AwayId = reader.ToInt("awayID"),
+                HomeId = reader.ToInt("homeID"),
+                BetStatus = reader["betstatus"] != DBNull.Value ? reader.ToString("betstatus") : string.Empty,
+                LeagueId = leagueId,
+                MatchId = reader.ToInt("matchid"),
+                EventStatus = reader.ToString("eventstatus"),
+                FinalAwayScore = reader.ToNullableInt("finalawayscore"),
+                HtAwayScore = reader.ToNullableInt("htawayscore"),
+                Color = reader.HasColumn("lcolor") && reader["lcolor"] != DBNull.Value ? reader.ToString("lcolor") : string.Empty,
+                FinalHomeScore = reader.ToNullableInt("finalhomescore"),
+                HtHomeScore = reader.ToNullableInt("hthomescore"),
+                EventDate = DateTime.Parse(reader.ToString("eventdate")),
+                IsNeutral = reader.ToBool("IsNeutral"),
+                IsPending = reader.ToBool("IsPending"),
+                KickOffTime = DateTime.Parse(reader.ToString("kickofftime")),
+                MatchCode = reader.ToString("matchcode"),
+                GoalRecord = reader.ToString("goalrecord"),
+                IsHTCal = reader.ToBool("IsHTCal"),
+                Calculate = reader.ToBool("Calculate"),
+                RefNo = refNo.ToString(CultureInfo.InvariantCulture),
+            };
         }
 
         /// <summary>
@@ -378,7 +366,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);
             }
         }
@@ -397,7 +384,7 @@ namespace Fanex.Athena.DataAccess.Report
                 fromdate = metalModel.FromDate,
                 sporttype = metalModel.SportId,
                 leagueid = metalModel.LeagueId,
-                movebetsday = _balanceUp.MoveBetsDay
+                movebetsday = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay
             };
 
             try
@@ -425,7 +412,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);
             }
         }

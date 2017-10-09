@@ -24,7 +24,7 @@
             reader["movebetsday"].Returns("2/2/2017");
 
             // Action
-            var result = dataAccess.GetBalanceUpDay();
+            var result = dataAccess.GetBalanceUp();
 
             // Assert
             Assert.Multiple(() =>

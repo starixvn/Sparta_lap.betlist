@@ -1,35 +1,30 @@
 ﻿namespace Fanex.Athena.Service.Report.UnitTests
 {
     using System.Collections.Generic;
-    using System.Web.Script.Serialization;
-    using Core.Configuration;
+    using DataAccess.Report.Interfaces;
     using Extension.Utility;
-    using Fanex.Athena.DataAccess.Report.Interfaces;
-    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
     using Report;
+    using UnitTest.Common.Extensions;
 
     public class CashOutWinLossServiceTest
     {
-        private IBalanceUpService _balanceService;
         private ICashOutWinLossDataAccess _dataAccess;
         private CashOutWinLossService _service;
 
         [SetUp]
         public void SetUp()
         {
-            _balanceService = new BalanceUpService();
             _dataAccess = Substitute.For<ICashOutWinLossDataAccess>();
-            _service = new CashOutWinLossService(_balanceService, _dataAccess);
+            _service = new CashOutWinLossService(_dataAccess);
         }
 
         [TearDown]
         public void TearDown()
         {
-            _balanceService = null;
             _dataAccess = null;
             _service = null;
         }
@@ -53,7 +48,7 @@
         {
             // Arrange
             var metaModel = new CashOutWinLossMetaModel();
-            IDictionary<string, CashOutWinLoss> summaryTotal = new Dictionary<string, CashOutWinLoss>();
+            IDictionary<string, CashOutWinLoss> summaryTotal;
             var fakeData = CreateFakeSummaryData();
             _dataAccess.GetSummary(metaModel, out summaryTotal).ReturnsForAnyArgs(fakeData);
             var expectedData = new SortableList<CashOutWinLoss>
@@ -110,8 +105,7 @@
             // Arrange
             var dataList = CreateFakeTotalData();
 
-            var serializer = new JavaScriptSerializer();
-            var expectedResult = serializer.Serialize(new List<CashOutWinLoss>
+            var expectedResult = new List<CashOutWinLoss>
             {
                 new CashOutWinLoss
                 {
@@ -127,13 +121,17 @@
                     SettleAmountBuyBackComm = 32m,
                     SettleAmountTotal = 34m,
                 }
-            });
+            };
 
             // Action
-            var result = serializer.Serialize(_service.TotalCalc(dataList));
+            var result = _service.TotalCalc(dataList);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
+                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
+            });
         }
 
         private static SortableList<CashOutWinLoss> CreateFakeSummaryData()

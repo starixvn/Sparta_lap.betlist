@@ -9,7 +9,6 @@ namespace Fanex.Athena.Controllers.BetList
     #region Using
 
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.BetList.ViewModel;
@@ -30,7 +29,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             SetConvetedUSDCurrencyName(metaModel);
 
-            var licenseeSession = this.SessionService.LicenseeSession;
+            var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
 
             var model = new BetListBaseViewModel
@@ -38,7 +37,7 @@ namespace Fanex.Athena.Controllers.BetList
                 ShowEmptyContent = true,
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList,
-                ProductAccess = this.ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
+                ProductAccess = ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
@@ -49,14 +48,14 @@ namespace Fanex.Athena.Controllers.BetList
         [CustomValidateAntiForgery]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            var licenseeSession = this.SessionService.LicenseeSession;
+            var licenseeSession = SessionService.LicenseeSession;
             var currencies = SessionService.UserSession.CurrencyList;
             if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_CorrectScore";
-                metaModel = CreateDefaultMetaModel(metaModel);
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
+                var excelModel = CreateDefaultMetaModel(metaModel);
+                excelModel.AgentListXml = SessionService.GenerateAgentListXml(excelModel.CurrencyId);
+                var ticketResult = BetListService.GetBetListData(excelModel, UspKey);
 
                 var showingOption = new ShowingOption
                 {
@@ -65,10 +64,10 @@ namespace Fanex.Athena.Controllers.BetList
 
                 var title = ViewResources.CorrectScore + " - " + string.Format(
                     ViewResources.Viewin,
-                    metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
+                    excelModel.IsConvert ? excelModel.BaseCurrency.ToUpperInvariant() : excelModel.CurrencyName);
 
                 var excel = new Excel.BetList.BetListExcel(
-                    showingOption, metaModel.LicenseeId == 1, HiddenColumnIndexes, true);
+                    showingOption, excelModel.LicenseeId, HiddenColumnIndexes, true);
 
                 var workbook = excel.Export(ticketResult, title);
 

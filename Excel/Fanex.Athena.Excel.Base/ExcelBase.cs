@@ -8,7 +8,7 @@ namespace Fanex.Athena.Excel.Base
 {
     using Entities;
 
-    public abstract class ExcelBase
+    public class ExcelBase
     {
         protected const int ColumnIndex = 0;
 

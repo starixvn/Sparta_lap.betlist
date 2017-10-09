@@ -2,22 +2,22 @@
 {
     using System;
     using System.Web.Http;
+    using DataAccess.Dashboard;
+    using DataAccess.Dashboard.Interfaces;
     using Fanex.Athena.Model.Dashboard.MetaModel;
     using Fanex.Athena.Model.Dashboard.ViewModel;
-    using Fanex.Athena.Service.Dashboard;
-    using Fanex.Athena.Service.Dashboard.Interfaces;
 
     public class LicenseeWinLossByPlatformController : BaseDashboardApiController
     {
-        private readonly IWidgetByPlatformService _licenseeWinLossByPlatformService;
+        private readonly IWidgetByPlatformDataAccess _dataAccess;
 
         public LicenseeWinLossByPlatformController() : this(null)
         {
         }
 
-        public LicenseeWinLossByPlatformController(IWidgetByPlatformService licenseeWinLossByPlatformService)
+        public LicenseeWinLossByPlatformController(IWidgetByPlatformDataAccess dataAccess)
         {
-            this._licenseeWinLossByPlatformService = licenseeWinLossByPlatformService ?? new LicenseeWinLossByPlatformService();
+            this._dataAccess = dataAccess ?? new LicenseeWinLossByPlatformDataAccess();
         }
 
         [HttpGet]
@@ -32,7 +32,7 @@
             var now = DateTime.Now.Date;
             metaModel.FromDate = new DateTime(now.Year, now.Month, 1);
             metaModel.ToDate = now;
-            return _licenseeWinLossByPlatformService.GetData(metaModel);
+            return _dataAccess.GetData(metaModel);
         }
     }
 }

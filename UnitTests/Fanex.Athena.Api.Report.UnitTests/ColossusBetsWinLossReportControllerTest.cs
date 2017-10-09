@@ -15,15 +15,15 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class ColossusBetsWinLossReportControllerTest : ApiReportBaseControllerTest
+    public class ColossusBetsWinLossReportControllerTest : BaseApiReportControllerHelperTest
     {
         private IColossusBetsWinLossService _service;
         private ColossusBetsWinLossReportController _controller;
 
         [OneTimeSetUp]
-        public override void SetUp()
+        public override void FixtureSetUp()
         {
-            base.SetUp();
+            base.FixtureSetUp();
 
             _service = Substitute.For<IColossusBetsWinLossService>();
 
@@ -33,9 +33,9 @@
         }
 
         [OneTimeTearDown]
-        public override void TearDown()
+        public override void FixtureTearDown()
         {
-            base.TearDown();
+            base.FixtureTearDown();
 
             _controller = null;
             _service = null;
@@ -50,11 +50,11 @@
                 IsExportExcel = false,
                 CurrencyId = 1,
             };
-            MockUserSessionData(new UserSession
+            StubUserSessionData(new UserSession
             {
                 CurrencyList = new Dictionary<int, string>()
             });
-            MockLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
+            StubLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
 
             // Action
             var result = _controller.Index(model);
@@ -69,7 +69,7 @@
         }
 
         [Test]
-        public void Index_NoDataReturnedFromDataAccess_ReturnEmptyData()
+        public void Index_NoDataReturnedFromService_ReturnEmptyData()
         {
             // Arrange
             var metaModel = CreateValidMetaModel();
@@ -259,7 +259,7 @@
                 ToDate = DateTime.Now.AddDays(-1),
                 DrillDownCurrencyId = drillDownCurrencyId
             };
-            MockUserSessionData(new UserSession
+            StubUserSessionData(new UserSession
             {
                 CurrencyList = new Dictionary<int, string>
                 {
@@ -267,7 +267,7 @@
                     { drillDownCurrencyId, nameof(model.DrillDownCurrencyId) }
                 }
             });
-            MockLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
+            StubLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
             SessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns(string.Empty);
 
             return model;

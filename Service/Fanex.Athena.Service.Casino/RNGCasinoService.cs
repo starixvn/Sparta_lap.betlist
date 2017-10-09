@@ -10,6 +10,9 @@ namespace Fanex.Athena.Service.Casino
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using DataAccess.Core.Common;
+    using DataAccess.Core.Common.Interfaces;
+    using Extension.Helper;
     using Fanex.Athena.Model.Casino.DTO;
     using Fanex.Athena.Model.Casino.DTO.RNGResultDetail;
     using Fanex.Athena.Model.Casino.MetaModel;
@@ -23,19 +26,19 @@ namespace Fanex.Athena.Service.Casino
     using Fanex.Common;
     using Fanex.Logging;
 
-    /// <summary>
-    /// RNG Casino service class.
-    /// </summary>
     public class RNGCasinoService : IRNGCasinoService
     {
-        private readonly ILanguageService _langService = new LanguageService();
-        private readonly IExChangeRateService _exchangeRateService = new ExChangeRateService();
+        private const int System = 4;
 
-        /// <summary>
-        /// Get RNG Casino Result.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The RNG Casino result list.</returns>
+        private readonly ILanguageService _langService;
+        private readonly IExChangeRateDataAccess _exchangeRateService;
+
+        public RNGCasinoService()
+        {
+            _langService = new LanguageService();
+            _exchangeRateService = new ExChangeRateDataAccess();
+        }
+
         public List<RNGCasinoResult> GetRNGCasinoResult(RNGCasinoResultMetaModel metaModel)
         {
             var casinos = new List<RNGCasinoResult>();
@@ -130,7 +133,7 @@ namespace Fanex.Athena.Service.Casino
                 string.Join(",", metaModel.CustomerId),
                 metaModel.ModifyBy,
                 metaModel.ModifyUserName,
-                metaModel.FromSystem,
+                System,
                 metaModel.SiteName);
             var success = false;
             try
@@ -141,7 +144,7 @@ namespace Fanex.Athena.Service.Casino
                      metaModel.FromIp,
                      metaModel.ModifyBy,
                      metaModel.ModifyUserName,
-                     metaModel.FromSystem);
+                     System);
                 if (!success)
                 {
                     LogService.Error(API_ERROR_MSG + string.Join(",", metaModel.CustomerId) + additionalErrorMsg);
@@ -185,8 +188,9 @@ namespace Fanex.Athena.Service.Casino
 
         private static DataTable GetResultFromAPI(RNGCasinoResultMetaModel metalModel)
         {
+            const string BetType = "Casino";
             var casinoLib = new CasinoLibrary.SBAgent.Report();
-            var dataTable = casinoLib.WinLossHandHistory(metalModel.RefNo, metalModel.BetType, RNGCasinoSetting.CasinoGroup1, metalModel.IsShowPic);
+            var dataTable = casinoLib.WinLossHandHistory(metalModel.RefNo, BetType, RNGCasinoSetting.CasinoGroup1, metalModel.IsShowPic);
             if (dataTable == null)
             {
                 dataTable = casinoLib.RealTimeWinLossHandHistory(
@@ -324,33 +328,10 @@ namespace Fanex.Athena.Service.Casino
             }
         }
 
-        /// <summary>
-        /// Get columns by language.
-        /// </summary>
-        /// <param name="columnName">The original column name.</param>
-        /// <returns>The language column.</returns>
         private string GetColumnNameByCurrentLanguage(string columnName)
         {
-            var langKey = "_En";
             var currentLang = this._langService.GetCurrentLanguage();
-
-            switch (currentLang)
-            {
-                case "zh-CN":
-                case "zh-Hans":
-                    langKey = "_Cs";
-                    break;
-
-                case "zh-TW":
-                    langKey = "_Ct";
-                    break;
-
-                case "ko-KR":
-                    langKey = "_Ko";
-                    break;
-            }
-
-            return columnName + langKey;
+            return CasinoHelper.GetColumnNameByLanguage(columnName, currentLang);
         }
 
         #region Map Data

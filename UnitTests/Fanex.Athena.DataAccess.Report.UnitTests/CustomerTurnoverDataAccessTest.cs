@@ -2,6 +2,8 @@
 {
     using System;
     using System.Data;
+    using System.Linq;
+    using Core.Configuration.Interfaces;
     using Data;
     using Model.Core.DTO.Configuration;
     using Model.Report.DTO;
@@ -23,13 +25,16 @@
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
+
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balance = new BalanceUp
             {
                 MoveBetsDay = new DateTime(2016, 8, 10),
                 BalanceUpDay = new DateTime(2016, 8, 31)
             };
+            balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            _dataAccess = Substitute.ForPartsOf<CustomerTurnoverDataAccess>(_balance);
+            _dataAccess = Substitute.ForPartsOf<CustomerTurnoverDataAccess>(balanceUpDataAccess);
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_CustomerTurnOver")).Returns(_objectDb);
 
             _reader = Substitute.For<IDataReader>();
@@ -54,12 +59,8 @@
         [Test]
         public void GetDataList_WhenCall_ParametersPassedCorrectly()
         {
-            // Arrange
-            var totalData = new CustTurnover();
-            int totalRow = 0;
-
             // Action
-            _dataAccess.GetDataList(_metaModel, LanguageCode, out totalData, out totalRow);
+            _dataAccess.GetDataList(_metaModel, LanguageCode);
 
             // Assert
             _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
@@ -103,25 +104,26 @@
                 SportId = 1,
                 ReportBy = new DateTime(2016, 8, 31)
             };
-            var totalData = new CustTurnover();
-            int totalRow = 0;
+
             ConfigureReaderForTotalData(expectedTotalData);
             ConfigureReaderForResult(expectedResult);
 
             // Action
-            var result = _dataAccess.GetDataList(_metaModel, LanguageCode, out totalData, out totalRow)[0];
+            var result = _dataAccess.GetDataList(_metaModel, LanguageCode);
+            var firstItem = result.DataList.First();
+            var totalData = result.TotalData;
 
             // Assert
-            Assert.That(result.Turnover, Is.EqualTo(expectedResult.Turnover));
-            Assert.That(result.SportId, Is.EqualTo(expectedResult.SportId));
-            Assert.That(result.ReportBy, Is.EqualTo(expectedResult.ReportBy));
-            Assert.That(result.UserName, Is.EqualTo(expectedResult.UserName));
-            Assert.That(result.Currency, Is.EqualTo(expectedResult.Currency));
-            Assert.That(result.TotalTransactions, Is.EqualTo(expectedResult.TotalTransactions));
-            Assert.That(result.Bettype, Is.EqualTo(expectedResult.Bettype));
-            Assert.That(result.CustomerWinLoss, Is.EqualTo(expectedResult.CustomerWinLoss));
-            Assert.That(result.EffectiveBettingValue, Is.EqualTo(expectedResult.EffectiveBettingValue));
-            Assert.That(result.CustomerComm, Is.EqualTo(expectedResult.CustomerComm));
+            Assert.That(firstItem.Turnover, Is.EqualTo(expectedResult.Turnover));
+            Assert.That(firstItem.SportId, Is.EqualTo(expectedResult.SportId));
+            Assert.That(firstItem.ReportBy, Is.EqualTo(expectedResult.ReportBy));
+            Assert.That(firstItem.UserName, Is.EqualTo(expectedResult.UserName));
+            Assert.That(firstItem.Currency, Is.EqualTo(expectedResult.Currency));
+            Assert.That(firstItem.TotalTransactions, Is.EqualTo(expectedResult.TotalTransactions));
+            Assert.That(firstItem.Bettype, Is.EqualTo(expectedResult.Bettype));
+            Assert.That(firstItem.CustomerWinLoss, Is.EqualTo(expectedResult.CustomerWinLoss));
+            Assert.That(firstItem.EffectiveBettingValue, Is.EqualTo(expectedResult.EffectiveBettingValue));
+            Assert.That(firstItem.CustomerComm, Is.EqualTo(expectedResult.CustomerComm));
 
             Assert.That(totalData.TotalTransactions, Is.EqualTo(expectedTotalData.TotalTransactions));
             Assert.That(totalData.Turnover, Is.EqualTo(expectedTotalData.Turnover));
@@ -129,7 +131,7 @@
             Assert.That(totalData.CustomerComm, Is.EqualTo(expectedTotalData.CustomerComm));
             Assert.That(totalData.EffectiveBettingValue, Is.EqualTo(expectedTotalData.EffectiveBettingValue));
 
-            Assert.That(totalRow, Is.EqualTo(100));
+            Assert.That(result.TotalRows, Is.EqualTo(100));
         }
 
         private void ConfigureReaderForResult(CustTurnover expected)

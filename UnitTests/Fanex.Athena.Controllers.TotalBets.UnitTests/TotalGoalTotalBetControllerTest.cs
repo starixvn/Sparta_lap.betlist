@@ -1,10 +1,11 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
+    using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using DataAccess.TotalBet.Interfaces;
     using Fanex.Athena.Controllers.TotalBets;
-    using Fanex.Athena.Service.TotalBet.Interfaces;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
@@ -12,34 +13,33 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class TotalGoalTotalBetControllerTest : BaseControllerTest
+    public class TotalGoalTotalBetControllerTest : BaseControllerHelperTest
     {
-        private ITotalGoalService _totalGoalService;
+        private ITotalGoalDataAccess _totalGoalDataAccess;
 
         [OneTimeSetUp]
-        public new void FixtureSetUp()
+        public override void FixtureSetUp()
         {
-            FakeBaseControllerDependency();
-            _totalGoalService = Substitute.For<ITotalGoalService>();
-            TotalGoal total;
-            _totalGoalService.GetTotalGoalDataList(Arg.Any<TotalGoalMetaModel>(), out total)
-                .Returns(x =>
-                {
-                    x[1] = new TotalGoal();
-                    return new List<TotalGoal> { new TotalGoal() };
-                });
+            base.FixtureSetUp();
+
+            SetUpDefaultFakeData();
+
+            SepUpForService();
+
+            StubGetValueAppSettings("BaseUsdLicensees", "usd");
         }
 
         [OneTimeTearDown]
-        public new void FixtureTearDown()
+        public override void FixtureTearDown()
         {
-            _totalGoalService = null;
+            base.FixtureTearDown();
+
+            _totalGoalDataAccess = null;
         }
 
         [Test]
-        public void Index_WhenCall_ReturnCorrectViewName()
+        public void Index_WhenGet_ReturnMainView()
         {
-            // Arrange
             using (var controller = CreateController())
             {
                 // Action
@@ -51,11 +51,11 @@
         }
 
         [Test]
-        public void Index_WhenCall_CallAndGetDataFromService()
+        public void Index_WhenGet_GetDataFromService()
         {
-            // Arrange
             using (var controller = CreateController())
             {
+                // Arrange
                 TotalGoal total;
 
                 // Action
@@ -63,17 +63,17 @@
                 var viewModel = viewResult.Model as TotalGoalViewModel;
 
                 // Assert
-                _totalGoalService.ReceivedWithAnyArgs().GetTotalGoalDataList(Arg.Any<TotalGoalMetaModel>(), out total);
+                _totalGoalDataAccess.ReceivedWithAnyArgs().GetTotalGoalDataList(Arg.Any<TotalGoalMetaModel>(), out total);
                 Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
             }
         }
 
         [Test]
-        public void Index_InvalidCurrency_ViewNameIsAccessDenied()
+        public void Index_WhenPostWithInvalidCurrency_AccessDenied()
         {
-            // Arrange
             using (var controller = CreateController())
             {
+                // Arrange
                 var metaModel = new TotalGoalMetaModel
                 {
                     CurrencyId = -999
@@ -93,7 +93,21 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            _totalGoalService);
+                            _totalGoalDataAccess);
+        }
+
+        private void SepUpForService()
+        {
+            _totalGoalDataAccess = Substitute.For<ITotalGoalDataAccess>();
+
+            TotalGoal total;
+            _totalGoalDataAccess
+                .GetTotalGoalDataList(Arg.Any<TotalGoalMetaModel>(), out total)
+                .Returns(x =>
+                {
+                    x[1] = new TotalGoal();
+                    return new List<TotalGoal> { new TotalGoal() };
+                });
         }
     }
 }

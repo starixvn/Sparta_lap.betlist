@@ -13,24 +13,24 @@ namespace Fanex.Athena.Api.Report
     using System.Web;
     using System.Web.Http;
     using Base.Attributes;
+    using DataAccess.Report;
+    using DataAccess.Report.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
-    using Fanex.Athena.Service.Report;
-    using Fanex.Athena.Service.Report.Interfaces;
     using Model.Core.DataDomain;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportCasinoProgressiveWins)]
     public class CasinoProgressiveWinsReportController : ApiReportBaseController
     {
-        private readonly ICasinoProgressiveWinsService _casinoProgressiveWinsService;
+        private readonly ICasinoProgressiveWinsDataAccess _casinoProgressiveWinsDataAccess;
 
         public CasinoProgressiveWinsReportController()
         {
-            _casinoProgressiveWinsService = new CasinoProgressiveWinsService();
+            _casinoProgressiveWinsDataAccess = new CasinoProgressiveWinsDataAccess();
         }
 
         [HttpPost]
@@ -94,7 +94,9 @@ namespace Fanex.Athena.Api.Report
             if (IsValidRequest(metaModel))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                var dataList = _casinoProgressiveWinsService.GetDataList(metaModel);
+                var dataList = metaModel.IsValid
+                       ? this._casinoProgressiveWinsDataAccess.GetDataList(metaModel)
+                       : new List<CasinoProgressiveWins>();
 
                 if (metaModel.IsExportExcel)
                 {

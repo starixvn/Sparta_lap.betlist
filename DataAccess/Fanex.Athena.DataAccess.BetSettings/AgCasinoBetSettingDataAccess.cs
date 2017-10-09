@@ -32,7 +32,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
                 db.ExecuteNonQuery();
 
-                return new AgCasinoBetSetting()
+                return new AgCasinoBetSetting
                 {
                     CurrencyId = Converter.ToInt(db.GetParameterValue("Currency")),
                     AgGroup = Converter.ToString2(db.GetParameterValue("AGGroup")),

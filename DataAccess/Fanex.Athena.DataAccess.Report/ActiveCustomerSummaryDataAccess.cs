@@ -23,10 +23,6 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class ActiveCustomerSummaryDataAccess : BaseDataAccess, IActiveCustomerSummaryDataAccess
     {
-        public ActiveCustomerSummaryDataAccess()
-        {
-        }
-
         public SortableList<ActiveCustomer> GetActiveCustomers(ActiveCustomerMetaModel metaModel, out int totalCustomer)
         {
             const string UspName = "Lrf_Rpt_ActiveMember";
@@ -49,7 +45,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, metaModel);
             }
         }

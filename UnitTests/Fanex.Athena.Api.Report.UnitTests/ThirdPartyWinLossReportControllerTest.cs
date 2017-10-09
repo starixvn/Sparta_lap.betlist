@@ -19,16 +19,16 @@
     using NUnit.Framework;
     using Service.Report.Interfaces;
 
-    public class ThirdPartyWinLossReportControllerTest : ApiReportBaseControllerTest
+    public class ThirdPartyWinLossReportControllerTest : BaseApiReportControllerHelperTest
     {
         private IAuthorizationService _authorizationService;
         private IThirdPartyWinLossService _thirdPartyWinLossService;
         private ThirdPartyWinLossReportController _controller;
 
         [OneTimeSetUp]
-        public override void SetUp()
+        public override void FixtureSetUp()
         {
-            base.SetUp();
+            base.FixtureSetUp();
 
             _authorizationService = Substitute.For<IAuthorizationService>();
             _thirdPartyWinLossService = Substitute.For<IThirdPartyWinLossService>();
@@ -39,9 +39,9 @@
         }
 
         [OneTimeTearDown]
-        public override void TearDown()
+        public override void FixtureTearDown()
         {
-            base.TearDown();
+            base.FixtureTearDown();
 
             _controller = null;
             _authorizationService = null;
@@ -57,7 +57,7 @@
                 ProductId = ProductTypes.GoldDeluxe
             };
 
-            MockUserSessionData(new UserSession
+            StubUserSessionData(new UserSession
             {
                 ApplicationMode = AppMode.Self,
                 FunctionIdList = new List<int>()
@@ -80,13 +80,13 @@
                 CurrencyId = 1,
                 ProductId = ProductTypes.GoldDeluxe
             };
-            MockUserSessionData(new UserSession
+            StubUserSessionData(new UserSession
             {
                 CurrencyList = new Dictionary<int, string>(),
                 ApplicationMode = AppMode.Self,
                 FunctionIdList = new List<int>()
             });
-            MockLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
+            StubLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
             _authorizationService.HasPermissions(Arg.Any<IEnumerable<int>>(), Arg.Any<string>()).Returns(true);
 
             // Action
@@ -102,7 +102,7 @@
         }
 
         [Test]
-        public void Index_NoDataReturnedFromDataAccess_ReturnEmptyData()
+        public void Index_NoDataReturnedFromService_ReturnEmptyData()
         {
             // Arrange
             var metaModel = CreateValidMetaModel();
@@ -140,8 +140,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(model.DrillDownLevel, Is.EqualTo(0));
-                Assert.That(model.DrillDownCustomerId, Is.EqualTo(0));
+                Assert.That(model.DrillDownLevel, Is.Zero);
+                Assert.That(model.DrillDownCustomerId, Is.Zero);
                 _thirdPartyWinLossService.ReceivedWithAnyArgs().GetSummaryWinloss(model, out summaryTotal);
             });
         }
@@ -297,7 +297,7 @@
                 ProductId = ProductTypes.GoldDeluxe,
                 ProductCode = nameof(ThirdPartyWinLossMetaModel.ProductCode)
             };
-            MockUserSessionData(new UserSession
+            StubUserSessionData(new UserSession
             {
                 CurrencyList = new Dictionary<int, string>
                 {
@@ -307,7 +307,7 @@
                 ApplicationMode = AppMode.Self,
                 FunctionIdList = new List<int>()
             });
-            MockLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
+            StubLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
             _authorizationService.HasPermissions(Arg.Any<IEnumerable<int>>(), Arg.Any<string>()).Returns(true);
             SessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns(string.Empty);
 

@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Api.CustomerLog
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Http;
     using Fanex.Athena.Model.Customer.MetaModel.CustomerLog;
 
@@ -29,7 +30,8 @@ namespace Fanex.Athena.Api.CustomerLog
 
             if (metaModel.IsValid)
             {
-                var dataList = _customerLogService.GetCustomerSettingList(metaModel);
+                var dataList = _customerLogDataAccess.GetCustomerSettingList(metaModel)
+                    .OrderByDescending(x => x.LogId).ToList();
                 var dataAfterRemoveHTMLTag = RemoveHtmlTag(dataList);
                 var details = GetDetails(dataAfterRemoveHTMLTag);
                 return new { rows = details };

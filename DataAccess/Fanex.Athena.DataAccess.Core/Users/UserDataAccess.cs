@@ -56,7 +56,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -101,7 +100,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);
             }
         }
@@ -153,7 +151,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -177,7 +174,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);
             }
         }
@@ -206,7 +202,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -237,18 +232,12 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
 
-        /// <summary>
-        ///     The logout.
-        /// </summary>
-        /// <param name="userId"> The on user id. </param>
         public void Logout(int userId)
         {
-            // return;
             const string UspName = "Lrf_UserLogout";
             var uspParams = new { On_Userid = userId };
             try
@@ -260,16 +249,10 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);
             }
         }
 
-        /// <summary>
-        ///     The re check in.
-        /// </summary>
-        /// <param name="userId"> The on user id. </param>
-        /// <returns> Boolean result. </returns>
         public bool RecheckIn(int userId)
         {
             const string UspName = "Lrf_ReCheckIn";
@@ -290,7 +273,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -326,7 +308,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -351,7 +332,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
             finally
@@ -390,7 +370,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -450,7 +429,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -507,7 +485,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }

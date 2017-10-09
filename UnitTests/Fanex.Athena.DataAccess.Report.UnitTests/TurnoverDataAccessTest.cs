@@ -8,6 +8,7 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class TurnoverDataAccessTest
@@ -71,12 +72,12 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_TurnOver")).Returns(objectDb);
             objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false);
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "OpeningBalanceUSD", 999 }
+                OpeningBalanceUSD = 999
             };
 
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
             var result = _dataAccess.GetDataList(new TurnoverMetaModel
@@ -89,20 +90,6 @@
             {
                 Assert.That(result.Count, Is.EqualTo(1));
                 Assert.That(result[0].OpeningBalance, Is.EqualTo(999));
-            });
-        }
-
-        private static void MapReaderData(IDataReader reader, Dictionary<string, object> readerDataMapping)
-        {
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
             });
         }
     }

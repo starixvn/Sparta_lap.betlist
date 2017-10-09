@@ -263,9 +263,6 @@
   <data name="BAStatus" xml:space="preserve">
     <value>BA 状态</value>
   </data>
-  <data name="BaTurnoverReferenceNote" xml:space="preserve">
-    <value>投注总计的数额仅供参考用途及仍然包含整体的投注额</value>
-  </data>
   <data name="BAUpdatedBy" xml:space="preserve">
     <value>投注总计跟新由</value>
   </data>
@@ -1750,9 +1747,6 @@
   <data name="SupportForOnlyNote" xml:space="preserve">
     <value>报告仅支持</value>
   </data>
-  <data name="SupportSbOnlyNote" xml:space="preserve">
-    <value>此报告只支持体育博彩产品</value>
-  </data>
   <data name="Suspended" xml:space="preserve">
     <value>暂停</value>
   </data>
@@ -2430,9 +2424,6 @@
   </data>
   <data name="EffectiveBettingValueNote" xml:space="preserve">
     <value>有效投注额支援09/01/2014之后数据</value>
-  </data>
-  <data name="BingoExcludedNote" xml:space="preserve">
-    <value>Bingo is not included in the report</value>
   </data>
   <data name="MaxBetPerDraw" xml:space="preserve">
     <value>单场最大限额</value>

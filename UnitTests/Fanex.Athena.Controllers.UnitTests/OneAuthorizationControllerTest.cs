@@ -2,7 +2,6 @@
 {
     using System;
     using Base.UnitTests;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Logging;
     using Model.Core.DataDomain;
@@ -14,14 +13,12 @@
     using ONEbook.UM.Services;
 
     [TestFixture]
-    public class OneAuthorizationControllerTest : BaseControllerTest
+    public class OneAuthorizationControllerTest : BaseControllerHelperTest
     {
         private IMaintenanceService _maintenanceService;
         private IOneAuthenticationService _oneAuthenticationService;
-        private IAppSettings _appSetting;
         private ILogger _logger;
         private int _loggerCounnter;
-        private OneAuthorizationController _controller;
 
         [SetUp]
         public void Setup()
@@ -30,49 +27,37 @@
 
             _maintenanceService = Substitute.For<IMaintenanceService>();
             _oneAuthenticationService = Substitute.For<IOneAuthenticationService>();
-            _appSetting = Substitute.For<IAppSettings>();
             _logger = Substitute.For<ILogger>();
 
-            _appSetting.GetValue(Arg.Is<string>("EnableLogForOneAuthorization")).Returns("0");
+            StubGetValueAppSettings("EnableLogForOneAuthorization", "0");
             _logger.When(x => x.Error(Arg.Any<string>())).Do(x => _loggerCounnter++);
             _oneAuthenticationService.GetTokenInfo(Arg.Any<string>()).Returns(x => null);
-
-            _controller = new OneAuthorizationController(_maintenanceService, _oneAuthenticationService, _appSetting, _logger)
-            {
-                ControllerContext = ControllerContext,
-
-                Url = this.Url
-            };
         }
 
         [TearDown]
         public void TearDown()
         {
             _maintenanceService = null;
-            _appSetting = null;
             _logger = null;
-            if (_controller != null)
-            {
-                _controller.Dispose();
-            }
-
             _loggerCounnter = 0;
         }
 
         [Test]
         public void CreateSession_UnderMaintenanceState_RedirectToUMPage()
         {
-            // Arrange
-            const string Token = "ghskhgk9863096804396oisoie";
-            _maintenanceService.IsUnderMaintenance().Returns(true);
+            using (var controller = CreateController())
+            {
+                // Arrange
+                _maintenanceService.IsUnderMaintenance().Returns(true);
 
-            const string ExpectedUrl = "/Utility/UnderMaintenance?notReload=true";
+                const string ExpectedUrl = "/Utility/UnderMaintenance?notReload=true";
 
-            // Action
-            var result = _controller.CreateSession(Token);
+                // Action
+                var result = controller.CreateSession(string.Empty);
 
-            // Assert
-            StringAssert.Contains(ExpectedUrl, result.Url);
+                // Assert
+                StringAssert.Contains(ExpectedUrl, result.Url);
+            }
         }
 
         [TestCase("")]
@@ -80,155 +65,199 @@
         [TestCase("   ")]
         public void CreateSession_InvalidToken_ReturnTokenRestrictionPage(string token)
         {
-            // Arrange
-            const string ExpectedUrl = "Utility/OneTokenRestriction";
+            using (var controller = CreateController())
+            {
+                // Arrange
+                const string ExpectedUrl = "Utility/OneTokenRestriction";
 
-            // Action
-            var result = _controller.CreateSession(token);
+                // Action
+                var result = controller.CreateSession(token);
 
-            // Assert
-            StringAssert.Contains(ExpectedUrl, result.Url);
+                // Assert
+                StringAssert.Contains(ExpectedUrl, result.Url);
+            }
         }
 
         [TestCase("ghskhgk9863096804396oisoie", OneAuthorizationErrorCode.TokenIsInValid)]
         public void CreateSession_NotAuthenticateToken_ReturnTokenRestrictionPage(string token, int expectedCode)
         {
-            // Arrange
-            var expectedUrl = "Utility/OneTokenRestriction?code=" + expectedCode;
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var expectedUrl = "Utility/OneTokenRestriction?code=" + expectedCode;
 
-            // Action
-            var result = _controller.CreateSession(token);
+                // Action
+                var result = controller.CreateSession(token);
 
-            // Assert
-            StringAssert.Contains(expectedUrl, result.Url);
+                // Assert
+                StringAssert.Contains(expectedUrl, result.Url);
+            }
         }
 
         [Test]
         public void CreateSession_NotAuthenticatedByNullToken_WriteLog()
         {
-            // Arrange
-            const string Token = "GasgSDgS";
-            const string ExpectedMsg = "token is null";
+            using (var controller = CreateController())
+            {
+                // Arrange
+                const string Token = "GasgSDgS";
+                const string ExpectedMsg = "token is null";
 
-            _oneAuthenticationService.GetTokenInfo(Arg.Any<string>()).Returns(x => null);
-            _appSetting.GetValue(Arg.Is<string>("EnableLogForOneAuthorization")).Returns("1");
+                _oneAuthenticationService.GetTokenInfo(Arg.Any<string>()).Returns(x => null);
+                StubGetValueAppSettings("EnableLogForOneAuthorization", "1");
 
-            // Action
-            var result = _controller.CreateSession(Token);
+                // Action
+                var result = controller.CreateSession(Token);
 
-            // Assert
-            _logger.Received(1).Error(Arg.Is<string>(x => x.Contains(ExpectedMsg)));
-            Assert.AreEqual(1, _loggerCounnter);
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    _logger.Received(1).Error(Arg.Is<string>(x => x.Contains(ExpectedMsg)));
+                    Assert.That(_loggerCounnter, Is.EqualTo(1));
+                });
+            }
         }
 
         [Test]
         public void CreateSession_NotAuthenticatedByBadToken_WriteLog()
         {
-            // Arrange
-            const string Token = "GasgSDgS";
-            var tokenInfo = new OneAuthToken
+            using (var controller = CreateController())
             {
-                UserID = "1",
-                SiteName = "spondemo",
-                UserSEQ = 1,
-                VendorID = "localhost"
-            };
+                // Arrange
+                const string Token = "GasgSDgS";
 
-            var expectedMsg = JsonConvert.SerializeObject(tokenInfo);
+                var tokenInfo = new OneAuthToken
+                {
+                    UserID = "1",
+                    SiteName = "spondemo",
+                    UserSEQ = 1,
+                    VendorID = "localhost"
+                };
+                _oneAuthenticationService.GetTokenInfo(Token).Returns(x => tokenInfo);
 
-            _appSetting.GetValue(Arg.Is<string>("EnableLogForOneAuthorization")).Returns("1");
+                StubGetValueAppSettings("EnableLogForOneAuthorization", "1");
 
-            _oneAuthenticationService.GetTokenInfo(Token).Returns(x => tokenInfo);
+                var expectedMsg = JsonConvert.SerializeObject(tokenInfo);
 
-            // Action
-            var result = _controller.CreateSession(Token);
+                // Action
+                var result = controller.CreateSession(Token);
 
-            // Assert
-            _logger.Received(1).Error(Arg.Is<string>(x => x.Contains(expectedMsg)));
-            Assert.AreEqual(1, _loggerCounnter);
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    _logger.Received(1).Error(Arg.Is<string>(x => x.Contains(expectedMsg)));
+                    Assert.That(_loggerCounnter, Is.EqualTo(1));
+                });
+            }
         }
 
         [Test]
         public void CreateSession_AuthenticatedTokenButWrongDomain_RedirectToRestrictionPage()
         {
-            // Arrange
-            const string Token = "GasgSDgS";
-            _oneAuthenticationService.GetTokenInfo(Token).Returns(x => new OneAuthToken
+            using (var controller = CreateController())
             {
-                SiteName = "spondemo",
-                UserSEQ = 1,
-                ActionLink = "http://localhost:6985/LicenseeWinLossReport",
-                Language = "en-US",
-                UserID = "pgmAlex",
-                VendorID = "localhost"
-            });
-            var expectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.LocationRestrictionMsg;
-            _appSetting.GetValue(Arg.Is<string>("InternalSubDomain")).Returns(x => "localhost");
-            _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
+                // Arrange
+                const string Token = "GasgSDgS";
+                _oneAuthenticationService.GetTokenInfo(Token).Returns(x => new OneAuthToken
+                {
+                    SiteName = "spondemo",
+                    UserSEQ = 1,
+                    ActionLink = "http://localhost:6985/LicenseeWinLossReport",
+                    Language = "en-US",
+                    UserID = "pgmAlex",
+                    VendorID = "localhost"
+                });
 
-            // Action
-            var result = _controller.CreateSession(Token);
+                StubGetValueAppSettings("InternalSubDomain", "localhost");
 
-            // Assert
-            StringAssert.Contains(expectedUrl, result.Url);
+                controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
+
+                var expectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.LocationRestrictionMsg;
+
+                // Action
+                var result = controller.CreateSession(Token);
+
+                // Assert
+                StringAssert.Contains(expectedUrl, result.Url);
+            }
         }
 
         [TestCase("spondemo", "hLicenseeWinLossReport")]
         public void CreateSession_Authenticated_RedirectToActionLink(string siteName, string actionLink)
         {
-            // Arrange
-            const string Token = "GasgSDgS";
-            var tokenInfo = new OneAuthToken
+            using (var controller = CreateController())
             {
-                SiteName = siteName,
-                UserSEQ = 1,
-                ActionLink = actionLink,
-                Language = "en-US",
-                UserID = "pgmAlex",
-                VendorID = "localhost"
-            };
-            var resultInfo = new ResultInfo { Code = 0, Message = string.Empty, ExtendedData = actionLink };
+                // Arrange
+                const string Token = "GasgSDgS";
+                var tokenInfo = new OneAuthToken
+                {
+                    SiteName = siteName,
+                    UserSEQ = 1,
+                    ActionLink = actionLink,
+                    Language = "en-US",
+                    UserID = "pgmAlex",
+                    VendorID = "localhost"
+                };
+                _oneAuthenticationService.GetTokenInfo(Token).Returns(x => tokenInfo);
 
-            _appSetting.GetValue(Arg.Is<string>("InternalSubDomain")).Returns(x => "alex.");
-            _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
-            _oneAuthenticationService.GetTokenInfo(Token).Returns(x => tokenInfo);
-            _oneAuthenticationService.SignIn(_controller.HttpContext, tokenInfo).Returns(resultInfo);
+                var resultInfo = new ResultInfo { Code = 0, Message = string.Empty, ExtendedData = actionLink };
+                _oneAuthenticationService.SignIn(controller.HttpContext, tokenInfo).Returns(resultInfo);
 
-            // Action
-            var result = _controller.CreateSession(Token);
+                StubGetValueAppSettings("InternalSubDomain", "alex.");
 
-            // Assert
-            StringAssert.Contains(actionLink, result.Url);
+                controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
+
+                // Action
+                var result = controller.CreateSession(Token);
+
+                // Assert
+                StringAssert.Contains(actionLink, result.Url);
+            }
         }
 
         [TestCase(500)]
         public void CreateSession_NotAuthenticated_RedirectToRestrictionPageWithErrorCode(int expectedErrorCode)
         {
-            // Arrange
-            const string Token = "GasgSDgS";
-
-            var tokenInfo = new OneAuthToken
+            using (var controller = CreateController())
             {
-                SiteName = "spondemo",
-                UserSEQ = 1,
-                ActionLink = "http://localhost:6985/alexakak",
-                Language = "en-US",
-                UserID = "pgmAlex",
-                VendorID = "localhost"
+                // Arrange
+                const string Token = "GasgSDgS";
+
+                var tokenInfo = new OneAuthToken
+                {
+                    SiteName = "spondemo",
+                    UserSEQ = 1,
+                    ActionLink = "http://localhost:6985/alexakak",
+                    Language = "en-US",
+                    UserID = "pgmAlex",
+                    VendorID = "localhost"
+                };
+                _oneAuthenticationService.GetTokenInfo(Token).Returns(x => tokenInfo);
+
+                var resultInfo = new ResultInfo { Code = expectedErrorCode, Message = "error" };
+                _oneAuthenticationService.SignIn(controller.HttpContext, tokenInfo).Returns(resultInfo);
+
+                StubGetValueAppSettings("InternalSubDomain", "alex.");
+
+                controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
+
+                var expectedUrl = "Utility/OneTokenRestriction?code=" + expectedErrorCode.ToString();
+
+                // Action
+                var result = controller.CreateSession(Token);
+
+                // Assert
+                StringAssert.Contains(expectedUrl, result.Url);
+            }
+        }
+
+        private OneAuthorizationController CreateController()
+        {
+            return new OneAuthorizationController(_maintenanceService, _oneAuthenticationService, AppSettings, _logger)
+            {
+                ControllerContext = ControllerContext,
+                Url = Url
             };
-            var resultInfo = new ResultInfo { Code = expectedErrorCode, Message = "error" };
-            _appSetting.GetValue(Arg.Is<string>("InternalSubDomain")).Returns(x => "alex.");
-            _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
-            _oneAuthenticationService.GetTokenInfo(Token).Returns(x => tokenInfo);
-
-            _oneAuthenticationService.SignIn(_controller.HttpContext, tokenInfo).Returns(resultInfo);
-            var expectedUrl = "Utility/OneTokenRestriction?code=" + expectedErrorCode.ToString();
-
-            // Action
-            var result = _controller.CreateSession(Token);
-
-            // Assert
-            StringAssert.Contains(expectedUrl, result.Url);
         }
     }
 }

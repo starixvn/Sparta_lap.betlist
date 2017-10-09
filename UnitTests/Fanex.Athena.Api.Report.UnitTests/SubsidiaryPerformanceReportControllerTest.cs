@@ -173,7 +173,7 @@
             {
                 FromDate = new DateTime(2017, 8, 30),
                 ToDate = new DateTime(2017, 8, 30),
-                ProductCodeList = "",
+                ProductCodeList = string.Empty,
                 BaseCurrency = "EUR"
             };
             IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
@@ -193,7 +193,7 @@
             {
                 FromDate = new DateTime(2017, 8, 30),
                 ToDate = new DateTime(2017, 8, 30),
-                BaseCurrency = ""
+                BaseCurrency = string.Empty
             };
             IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
 
@@ -216,6 +216,65 @@
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        private static IEnumerable<SubsidiaryPerformanceDataModel> GetFakeSummaryData()
+        {
+            var detailData = new List<SubsidiaryPerformanceDetail>
+            {
+                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m },
+                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m },
+                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m },
+                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m }
+            };
+
+            return new List<SubsidiaryPerformanceDataModel>
+            {
+                new SubsidiaryPerformanceDataModel { Subsidiary = "New York", CurrencyName = "USD", Details = detailData },
+                new SubsidiaryPerformanceDataModel { Subsidiary = "India", CurrencyName = "THB", Details = detailData },
+                new SubsidiaryPerformanceDataModel { Subsidiary = "India", CurrencyName = "THB", Details = detailData },
+                new SubsidiaryPerformanceDataModel { Subsidiary = "India", CurrencyName = "THB", Details = detailData }
+            };
+        }
+
+        private static IEnumerable<SubsidiaryPerformanceEntity> GetFakeTotalDataList()
+        {
+            return new List<SubsidiaryPerformanceEntity>
+            {
+                new SubsidiaryPerformanceEntity
+                {
+                    SubsidiaryId = 1234, Subsidiary = "1234", CurrencyName = "EUR", BetCount = 150, Turnover = 300000m, CustomerWinLoss = 30000m, SubsidiaryWinLoss = -30000m
+                },
+                new SubsidiaryPerformanceEntity
+                {
+                    SubsidiaryId = 1235, Subsidiary = "1235", CurrencyName = "EUR", BetCount = 100, Turnover = 200000m, CustomerWinLoss = 20000m, SubsidiaryWinLoss = -20000m
+                }
+            };
+        }
+
+        private static SubsidiaryPerformanceEntity GetExpectedGrandTotal()
+        {
+            return new SubsidiaryPerformanceEntity
+            {
+                Subsidiary = "Total",
+                CurrencyName = "Based USD",
+                BetCount = 250,
+                Turnover = 500000m,
+                CustomerWinLoss = 50000m,
+                SubsidiaryWinLoss = -50000m
+            };
+        }
+
+        private SubsidiaryPerformanceMetaModel GetMetaModel()
+        {
+            return new SubsidiaryPerformanceMetaModel
+            {
+                FromDate = new DateTime(2017, 8, 30),
+                ToDate = new DateTime(2017, 8, 30),
+                ProductCodeList = "SB,BA",
+                SubsidiaryList = "123,143",
+                BaseCurrency = "USD"
+            };
         }
 
         private string GetSerializationData(
@@ -249,61 +308,6 @@
 
             _sessionService.UserSession.Returns(userSession);
             _sessionService.LicenseeSession.Returns(licenseeSession);
-        }
-
-        private static IEnumerable<SubsidiaryPerformanceDataModel> GetFakeSummaryData()
-        {
-            var detailData = new List<SubsidiaryPerformanceDetail>
-            {
-                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
-                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
-                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m},
-                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m}
-            };
-
-            return new List<SubsidiaryPerformanceDataModel>
-            {
-                new SubsidiaryPerformanceDataModel { Subsidiary = "New York", CurrencyName = "USD", Details = detailData},
-                new SubsidiaryPerformanceDataModel { Subsidiary = "India", CurrencyName = "THB", Details = detailData},
-                new SubsidiaryPerformanceDataModel { Subsidiary = "India", CurrencyName = "THB", Details = detailData},
-                new SubsidiaryPerformanceDataModel { Subsidiary = "India", CurrencyName = "THB", Details = detailData}
-            };
-        }
-
-        private static IEnumerable<SubsidiaryPerformanceEntity> GetFakeTotalDataList()
-        {
-            return new List<SubsidiaryPerformanceEntity>
-            {
-                new SubsidiaryPerformanceEntity
-                { SubsidiaryId = 1234, Subsidiary = "1234", CurrencyName = "EUR", BetCount = 150, Turnover = 300000m, CustomerWinLoss = 30000m, SubsidiaryWinLoss = -30000m},
-                new SubsidiaryPerformanceEntity
-                { SubsidiaryId = 1235, Subsidiary = "1235", CurrencyName = "EUR", BetCount = 100, Turnover = 200000m, CustomerWinLoss = 20000m, SubsidiaryWinLoss = -20000m}
-            };
-        }
-
-        private static SubsidiaryPerformanceEntity GetExpectedGrandTotal()
-        {
-            return new SubsidiaryPerformanceEntity
-            {
-                Subsidiary = "Total",
-                CurrencyName = "Based USD",
-                BetCount = 250,
-                Turnover = 500000m,
-                CustomerWinLoss = 50000m,
-                SubsidiaryWinLoss = -50000m
-            };
-        }
-
-        private SubsidiaryPerformanceMetaModel GetMetaModel()
-        {
-            return new SubsidiaryPerformanceMetaModel
-            {
-                FromDate = new DateTime(2017, 8, 30),
-                ToDate = new DateTime(2017, 8, 30),
-                ProductCodeList = "SB,BA",
-                SubsidiaryList = "123,143",
-                BaseCurrency = "USD"
-            };
         }
     }
 }

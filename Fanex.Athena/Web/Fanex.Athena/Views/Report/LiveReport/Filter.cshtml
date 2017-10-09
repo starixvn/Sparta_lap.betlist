@@ -36,9 +36,12 @@
         @RazorHelper.LiveStatus(Model.Param.LiveIndicator)
     </div>
     <div class="gird_2 note-group">
+        @if (!Model.IsFakeLicensee)
+        {
         <div>
             <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide"></div>
         </div>
+        }
         <div>
             <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
                type="image" id="exporttoexcel" name="exporttoexcel"

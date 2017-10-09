@@ -19,7 +19,7 @@
 
 <div class="data-content">
     <div class="content-title">
-        @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
+        @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName @(Model.Param.IsFakeLicensee ? string.Empty : "(" + Model.Param.UserName + ")")
     </div>
     <div class="header-content" style="width:@(contentWidth)@("px!important")">
         <div class="row" style="width: 200px;">

@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using Core.Common;
     using DataAccess.BetList.Interfaces;
+    using Extension.Utility.Interfaces;
     using Interfaces;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
@@ -20,8 +20,10 @@
         [SetUp]
         public void SetUp()
         {
+            var cache = Substitute.For<IMemoryCacheService>();
+            cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns((IList<BetListMatch>)null);
             _lastBetsMonitoringBetListDataAccess = Substitute.For<ILastBetsMonitoringBetListDataAccess>();
-            _betListService = new LastBetsMonitoringBetListService(_lastBetsMonitoringBetListDataAccess);
+            _betListService = new LastBetsMonitoringBetListService(_lastBetsMonitoringBetListDataAccess, cache);
         }
 
         [TearDown]
@@ -29,7 +31,6 @@
         {
             _betListService = null;
             _lastBetsMonitoringBetListDataAccess = null;
-            CacheService.Clear();
         }
 
         [Test]

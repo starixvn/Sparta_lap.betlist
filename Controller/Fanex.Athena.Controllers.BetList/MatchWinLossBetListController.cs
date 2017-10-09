@@ -10,8 +10,6 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Excel.Base.Helpers;
-    using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -30,79 +28,79 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult MatchBetType(BetListMetaModel metaModel)
         {
             // include LicenseeId, UserId in CreateDefaultMetaModel
-            metaModel = CreateDefaultMetaModel(metaModel);
-            metaModel.IsServerPaging = true;
+            var model  = CreateDefaultMetaModel(metaModel);
+            model.IsServerPaging = true;
 
-            if (metaModel.IsExportExcel)
+            if (model.IsExportExcel)
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
+                if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
                 {
-                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                    var uspKey = IsRacing(metaModel.BetType)
+                    model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
+                    var uspKey = IsRacing(model.BetType)
                         ? "Lrf_BetList_MatchWL_Racing"
                         : "Lrf_BetList_MatchWL_Bettype";
-                    return Excel(metaModel, uspKey);
+                    return Excel(model, uspKey);
                 }
 
                 return EmptyExcel();
             }
 
-            return View("~/Views/BetList/MatchWl/MatchBetType.cshtml", metaModel);
+            return View("~/Views/BetList/MatchWl/MatchBetType.cshtml", model);
         }
 
         [HttpGet]
         public ActionResult MixParlay(BetListMetaModel metaModel)
         {
-            metaModel = CreateDefaultMetaModel(metaModel);
-            metaModel.IsServerPaging = true;
+            var model = CreateDefaultMetaModel(metaModel);
+            model.IsServerPaging = true;
 
-            if (metaModel.IsExportExcel)
+            if (model.IsExportExcel)
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
+                if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
                 {
-                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+                    model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
                     const string UspKey = "Lrf_BetList_MatchWL_Parlay";
-                    metaModel.IsServerPaging = true;
-                    return Excel(metaModel, UspKey);
+                    model.IsServerPaging = true;
+                    return Excel(model, UspKey);
                 }
 
                 return EmptyExcel();
             }
 
-            return View("~/Views/BetList/MatchWl/MixParlay.cshtml", metaModel);
+            return View("~/Views/BetList/MatchWl/MixParlay.cshtml", model);
         }
 
         [HttpGet]
         public ActionResult Outright(BetListMetaModel metaModel)
         {
-            metaModel = CreateDefaultMetaModel(metaModel);
-            metaModel.IsServerPaging = true;
+            var model = CreateDefaultMetaModel(metaModel);
+            model.IsServerPaging = true;
 
-            if (metaModel.IsExportExcel)
+            if (model.IsExportExcel)
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
+                if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
                 {
-                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+                    model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
                     const string UspKey = "Lrf_BetList_MatchWL_Outright";
-                    return Excel(metaModel, UspKey);
+                    return Excel(model, UspKey);
                 }
 
                 return EmptyExcel();
             }
 
-            return View("~/Views/BetList/MatchWl/Outright.cshtml", metaModel);
+            return View("~/Views/BetList/MatchWl/Outright.cshtml", model);
         }
 
         private ActionResult Excel(BetListMetaModel metaModel, string uspKey)
         {
             metaModel.PageIndex = 1;
             metaModel.PageSize = PageSizeExcel;
-            var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 
             var showingOption = new ShowingOption
             {
@@ -112,7 +110,7 @@ namespace Fanex.Athena.Controllers.BetList
             var matchName = metaModel.HomeId > 0 && metaModel.AwayId > 0
                   ? CacheRef.GetTeamName(metaModel.HomeId) + " vs " + CacheRef.GetTeamName(metaModel.AwayId) + " - "
                   : string.Empty;
-            var currencyTitle = string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
+            var currencyTitle = string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
 
             var title = ViewResources.BetList
                 + string.Format(
@@ -121,7 +119,7 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.FromDate.ToShortDateString(),
                 currencyTitle);
 
-            var excel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, new List<int> { BetEffectiveColumn });
+            var excel = new BetListExcel(showingOption, metaModel.LicenseeId, new List<int> { BetEffectiveColumn });
 
             var workbook = excel.Export(ticketResult, title);
 

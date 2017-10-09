@@ -10,19 +10,13 @@ namespace Fanex.Athena.Excel.Report
     using System.Collections.Generic;
     using System.Linq;
     using Base;
-    using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Helpers;
-    using Model.Core.Helper;
     using Model.Report.DTO;
-    using Model.Report.MetaModel;
-    using Model.Report.ViewModel;
+    using Models;
     using NPOI.SS.UserModel;
     using Resources;
 
-    /// <summary>
-    /// Win loss by product - Export excel.
-    /// </summary>
     public class WinlossByProductExcel : ReportBase
     {
         private const int ColumnAmtDueTo = 12;
@@ -46,30 +40,12 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTotalNoSolidBorder = 9;
         private const int RowTotalSolidBorder = 8;
 
-        private readonly WinLossByProductMetaModel _metaModel;
-        private readonly IDictionary<string, IList<WinLossByProduct>> _summaryTotal;
-        private readonly IList<WinLossByProduct> _winlossByProductList;
-        private readonly string _systemId;
-        private readonly string _errorMessage;
+        private readonly WinLossByProductExcelModel _excelModel;
 
-        private readonly ConvertingOption _convertingOption;
-
-        public WinlossByProductExcel(
-                                     string templatePath,
-                                     ConvertingOption convertingOption,
-                                     ShowingOption showingOption,
-                                     WinLossByProductMetaModel metaModel,
-                                     WinLossByProductViewModel viewModel,
-                                     string systemId,
-                                     string errorMessage)
-            : base(templatePath, showingOption)
+        public WinlossByProductExcel(string templatePath, WinLossByProductExcelModel excelModel)
+            : base(templatePath)
         {
-            _convertingOption = convertingOption;
-            _metaModel = metaModel;
-            _winlossByProductList = viewModel.MainResult;
-            _summaryTotal = viewModel.SummaryTotal;
-            _systemId = systemId;
-            _errorMessage = errorMessage;
+            _excelModel = excelModel;
 
             HeaderTextList = new List<string>
             {
@@ -89,39 +65,9 @@ namespace Fanex.Athena.Excel.Report
             };
         }
 
-        public byte EnableReportByMonth
-        {
-            get;
-            set;
-        }
-
-        public int FilterCurrencyId
-        {
-            get;
-            set;
-        }
-
-        public int Level
-        {
-            get;
-            set;
-        }
-
-        public bool ReportByMonthly
-        {
-            get;
-            set;
-        }
-
-        public string TitleReport
-        {
-            get;
-            set;
-        }
-
         protected override void AssignData()
         {
-            int numOfDataRow = _winlossByProductList.Count;
+            int numOfDataRow = _excelModel.DataList.Count();
 
             ISheet sheet = Workbook.CloneSheet("Template", "Data");
 
@@ -140,10 +86,6 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignHeader(ISheet sheet)
         {
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
@@ -162,21 +104,17 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            var message = string.IsNullOrWhiteSpace(_errorMessage) ? ViewResources.NoInfo : _errorMessage;
+            var message = string.IsNullOrWhiteSpace(_excelModel.ErrorMessage) ? ViewResources.NoInfo : _excelModel.ErrorMessage;
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, ColumnTemplateCount, message);
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignSheetData(ISheet sheet)
         {
             int indexReport = 1;
 
             int currentRow = 3;
 
-            int rowCount = _winlossByProductList.Count;
+            int rowCount = _excelModel.DataList.Count();
 
             string date = DateTime.MinValue.ToShortDateString();
 
@@ -184,7 +122,7 @@ namespace Fanex.Athena.Excel.Report
 
             for (int index = 0; index < rowCount; index++)
             {
-                WinLossByProduct winlossByProduct = _winlossByProductList[index];
+                WinLossByProduct winlossByProduct = _excelModel.DataList.ElementAt(index);
 
                 indexReport = SetDateWinLoss(sheet, winlossByProduct, indexReport, ref date, ref currentRow);
 
@@ -219,37 +157,22 @@ namespace Fanex.Athena.Excel.Report
             AssignSummaryTotal(sheet, currentRow);
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignTitle(ISheet sheet)
         {
-            string fromdate = _metaModel.Level == 0
-                              ? _metaModel.FromDate.ToString(FormatDate)
-                              : _metaModel.DrillDownFromDate.ToString(FormatDate);
+            string fromdate = _excelModel.MetaModel.Level == 0
+                              ? _excelModel.MetaModel.FromDate.ToString(FormatDate)
+                              : _excelModel.MetaModel.DrillDownFromDate.ToString(FormatDate);
 
-            string todate = _metaModel.Level == 0
-                            ? _metaModel.ToDate.ToString(FormatDate)
-                            : _metaModel.DrillDownToDate.ToString(FormatDate);
-            if (_metaModel.Level > 0 && _metaModel.CurrencyId == 0)
-            {
-                ReportTitle = string.Format(
-                                    ViewResources.WinLossByProductTitle,
-                                    fromdate,
-                                    todate,
-                                    ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.DrillDownCurrencyId)) +
-                                    ReportExcelHelper.GetLicenseeWLProduct(_metaModel.ProductOptions, _systemId);
-            }
-            else
-            {
-                ReportTitle = string.Format(
-                                        ViewResources.WinLossByProductTitle,
-                                        fromdate,
-                                        todate,
-                                        ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId)) +
-                                        ReportExcelHelper.GetLicenseeWLProduct(_metaModel.ProductOptions, _systemId);
-            }
+            string todate = _excelModel.MetaModel.Level == 0
+                            ? _excelModel.MetaModel.ToDate.ToString(FormatDate)
+                            : _excelModel.MetaModel.DrillDownToDate.ToString(FormatDate);
+
+            var currencyId = _excelModel.MetaModel.Level > 0 && _excelModel.MetaModel.CurrencyId == 0 ?
+                _excelModel.MetaModel.DrillDownCurrencyId : _excelModel.MetaModel.CurrencyId;
+
+            var currencyName = ReportExcelHelper.GetExactTitleCurrencyName(_excelModel.ConvertingOption, currencyId);
+            var productsTitle = ReportExcelHelper.GetLicenseeWLProduct(_excelModel.MetaModel.ProductOptions, _excelModel.SystemId);
+            ReportTitle = string.Format(ViewResources.WinLossByProductTitle, fromdate, todate, currencyName + productsTitle);
 
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
@@ -260,24 +183,25 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        /// <summary>
-        /// Process UI, hide redundant row and column.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void ProcessUI(ISheet sheet)
         {
-            if (!ShowingOption.CustomerCommVisible)
+            if (!_excelModel.SystemIdVisible)
+            {
+                sheet.HideColumn(ColumnSystemId);
+            }
+
+            if (!_excelModel.CustomerCommVisible)
             {
                 sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
                 sheet.HideRow(RowTableHeaderTemplate + 1);
             }
 
-            if (ShowingOption.BAVisible == false && ShowingOption.RBVisible == false)
+            if (!_excelModel.BAVisible && !_excelModel.RBVisible)
             {
                 sheet.HideColumn(ColumnComm);
             }
 
-            switch (Level)
+            switch (_excelModel.MetaModel.Level)
             {
                 case 0:
                     sheet.HideColumn(ColumnExternalId, ColumnSystemId);
@@ -289,34 +213,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        ///     Get array template rows.
-        /// </summary>
-        /// <param name="nameOfRow">Name of row.</param>
-        /// <returns>Row number list.</returns>
-        protected int[] GetRowNumberFromTemplate(string nameOfRow)
-        {
-            var numberRowList = new[] { 4, 5, 6, 7 };
-            switch (nameOfRow)
-            {
-                case "RowTotalHeader":
-                    return new[] { 8, 9, 10, 11 };
-
-                case "RowTotal":
-                    return new[] { 12, 13, 14, 15 };
-
-                case "RowTotalInEURHeader":
-                    return new[] { 16, 17, 18, 19 };
-
-                case "RowTotalInEUR":
-
-                    return new[] { 20, 21, 22, 23 };
-            }
-
-            return numberRowList;
-        }
-
-        protected void AssignCommonData(IRow row, WinLossByProduct winlossByProduct)
+        private static void AssignCommonData(IRow row, WinLossByProduct winlossByProduct)
         {
             row.Cells[ColumnTurnover].SetCellValue(winlossByProduct.TurnOver);
             row.Cells[ColumnTotalTransaction].SetCellValue(winlossByProduct.TotalTransaction);
@@ -333,9 +230,9 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="currentRow">Excel row index.</param>
-        protected void AssignSummaryTotal(ISheet sheet, int currentRow)
+        private void AssignSummaryTotal(ISheet sheet, int currentRow)
         {
-            List<string> currencyList = _summaryTotal.Keys.ToList();
+            var currencyList = _excelModel.SummaryTotal.Keys.ToList();
             currencyList.Reverse();
 
             int temp = 0;
@@ -343,13 +240,13 @@ namespace Fanex.Athena.Excel.Report
             foreach (string currency in currencyList)
             {
                 int rowBegin = currentRow;
-                IList<WinLossByProduct> productSummaryList = _summaryTotal[currency];
+                var productSummaryList = _excelModel.SummaryTotal[currency];
 
                 foreach (WinLossByProduct productSummary in productSummaryList)
                 {
                     IRow row = sheet.CopyRow(TemplateSheet, RowGrandTotal + temp, currentRow);
                     row.Cells[ColumnProduct].SetCellValue(productSummary.ProductName);
-                    row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpper());
+                    row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpperInvariant());
                     AssignCommonData(row, productSummary);
                     currentRow++;
                 }
@@ -365,16 +262,15 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="currentRow">Excel row index.</param>
         /// <returns>The row index after assign data.</returns>
-        protected int AssignTotalData(ISheet sheet, int currentRow)
+        private int AssignTotalData(ISheet sheet, int currentRow)
         {
             int rowBegin = currentRow;
-            var totalCurrencyList = GetTotalCurrencyList();
-            var currencyList = totalCurrencyList.OrderBy(i => i.CurrencyName).GroupBy(a => a.CurrencyName).ToList();
+            var currencyList = _excelModel.TotalData.GroupBy(a => a.CurrencyName).ToList();
             var isFirstRowTotal = true;
 
             foreach (var currency in currencyList)
             {
-                var data = totalCurrencyList.Where(a => a.CurrencyName == currency.Key).ToList();
+                var data = _excelModel.TotalData.Where(a => a.CurrencyName == currency.Key).ToList();
                 sheet.MergeCells(currentRow, ColumnCurrency, currentRow + data.Count - 1, ColumnCurrency);
                 foreach (var item in data)
                 {
@@ -403,104 +299,56 @@ namespace Fanex.Athena.Excel.Report
             return currentRow;
         }
 
-        /// <summary>
-        ///     Get row template.
-        /// </summary>
-        /// <param name="productName">Product name.</param>
-        /// <param name="nameOfRow">Name of row.</param>
-        /// <returns>Row number.</returns>
-        protected int GetNumberRow(string productName, string nameOfRow)
+        private int CalculateReportRowSpan(WinLossByProduct item)
         {
-            int[] rowList = GetRowNumberFromTemplate(nameOfRow);
+            int rowSpan;
 
-            int rowNumber;
-            if (Level == 0 && (productName == "Sportsbook" || productName == "Number Game"))
+            if (_excelModel.MetaModel.Level == 0)
             {
-                rowNumber = rowList[0];
+                rowSpan = _excelModel.DataList.Count(a => a.Date == item.Date && a.CurrencyId == item.CurrencyId);
+            }
+            else if (_excelModel.MetaModel.Level == 1)
+            {
+                rowSpan = _excelModel.DataList.Count(a => a.SystemId == item.SystemId);
             }
             else
             {
-                rowNumber = rowList[3];
-
-                if (productName == "Sportsbook" || productName == "Number Game")
-                {
-                    rowNumber = rowList[2];
-                }
+                rowSpan = _excelModel.DataList.Count(a => a.ExternalId == item.ExternalId &&
+                                   a.SystemId == item.SystemId &&
+                                   a.CurrencyId == item.CurrencyId);
             }
 
-            return rowNumber;
+            return rowSpan;
         }
 
-        /// <summary>
-        /// Calculate row span for a group of currency and product.
-        /// </summary>
-        /// <param name="winlossByProduct">The full data list.</param>
-        /// <returns>Row span count. </returns>
-        protected int CalculateReportRowSpan(WinLossByProduct winlossByProduct)
-        {
-            var rowSameValueList = _winlossByProductList
-                                .Where(a => a.CurrencyId == winlossByProduct.CurrencyId);
-
-            if (Level == 0)
-            {
-                rowSameValueList =
-                    _winlossByProductList.Where(
-                        a => a.Date == winlossByProduct.Date && a.CurrencyId == winlossByProduct.CurrencyId);
-            }
-            else if (Level == 1)
-            {
-                rowSameValueList =
-                    _winlossByProductList.Where(
-                        a => a.SystemId == winlossByProduct.SystemId);
-            }
-            else if (Level == 2)
-            {
-                rowSameValueList = _winlossByProductList.Where(a => a.ExternalId == winlossByProduct.ExternalId &&
-                                   a.SystemId == winlossByProduct.SystemId &&
-                                   a.CurrencyId == winlossByProduct.CurrencyId);
-            }
-
-            return rowSameValueList.Count();
-        }
-
-        protected void MergeCellTotal(ISheet sheet, int rowBegin, int currentRow)
+        private void MergeCellTotal(ISheet sheet, int rowBegin, int currentRow)
         {
             const int CellIndex = ColumnCurrency;
 
             sheet.MergeCells(rowBegin, ColumnIndex, currentRow - 1, ColumnCurrency - 1);
 
-            if (Level != 0)
+            if (_excelModel.MetaModel.Level != 0)
             {
                 sheet.MergeCells(rowBegin, CellIndex, currentRow - 1, CellIndex);
             }
         }
 
-        /// <summary>
-        /// Set win loss date for report row.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="winlossByProduct">Win loss by product data.</param>
-        /// <param name="indexReport">Report index value.</param>
-        /// <param name="date">Win loss date.</param>
-        /// <param name="currentRow">Excel row index.</param>
-        /// <returns>The row index after assign data.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference",
             Justification = "Reviewed. Suppression is OK here.")]
-        protected int SetDateWinLoss(
+        private int SetDateWinLoss(
             ISheet sheet,
             WinLossByProduct winlossByProduct,
             int indexReport,
             ref string date,
             ref int currentRow)
         {
-            if (Level == 0)
+            if (_excelModel.MetaModel.Level == 0)
             {
                 DateTime dateGetDb = winlossByProduct.Date;
 
                 if (date != dateGetDb.ToShortDateString())
                 {
-                    // Report Date
-                    string reportDateString = EnableReportByMonth == 1
+                    string reportDateString = _excelModel.MetaModel.ReportBy == 1
                                               ? dateGetDb.ToShortDateString()
                                               : dateGetDb.ToString("MM/yyyy");
                     sheet.SetTextRowValue(TemplateSheet, RowContentTitleTemplate, currentRow, ColumnTemplateCount, reportDateString);
@@ -510,32 +358,6 @@ namespace Fanex.Athena.Excel.Report
             }
 
             return indexReport;
-        }
-
-        /// <summary>
-        /// Get data for summary data by currency.
-        /// </summary>
-        /// <returns>Summary data list.</returns>
-        private List<WinLossByProduct> GetTotalCurrencyList()
-        {
-            List<WinLossByProduct> listTotalCurrency =
-                _winlossByProductList.GroupBy(x => new { x.CurrencyId, x.CurrencyName, x.ProductCode })
-                .Select(group => new WinLossByProduct
-                {
-                    CurrencyId = group.Key.CurrencyId,
-                    CurrencyName = group.Key.CurrencyName,
-                    ProductCode = group.Key.ProductCode,
-                    ProductName = ProductHelper.GetProductName(group.Key.ProductCode),
-                    TurnOver = group.Sum(a => a.TurnOver),
-                    TotalTransaction = group.Sum(a => a.TotalTransaction),
-                    CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
-                    CustomerComm = group.Sum(a => a.CustomerComm),
-                    LicenseeWL = group.Sum(a => a.LicenseeWL),
-                    LicenseeWLComm = group.Sum(a => a.LicenseeWLComm),
-                    AmountDue = group.Sum(a => a.AmountDue)
-                }).ToList();
-
-            return listTotalCurrency;
         }
     }
 }

@@ -108,5 +108,10 @@ namespace Fanex.Athena.Model.Core.DTO.Common
         {
             return ProductList.Any(p => p.ProductID == productId);
         }
+
+        public bool IsAllow(string productCode)
+        {
+            return ProductList.Any(p => p.ProductCode == productCode);
+        }
     }
 }

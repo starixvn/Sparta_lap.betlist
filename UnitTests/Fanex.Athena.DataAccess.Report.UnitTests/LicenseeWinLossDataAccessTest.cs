@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using Core.Configuration.Interfaces;
     using Data;
     using Extension.Utility;
     using Model.Core.DTO.Configuration;
@@ -11,6 +12,7 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class LicenseeWinLossDataAccessTest
@@ -22,13 +24,15 @@
         [OneTimeSetUp]
         public void Setup()
         {
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balance = new BalanceUp
             {
                 MoveBetsDay = new DateTime(2016, 8, 10),
                 BalanceUpDay = new DateTime(2016, 8, 31)
             };
+            balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            _dataAccess = Substitute.ForPartsOf<LicenseeWinLossDataAccess>(_balance);
+            _dataAccess = Substitute.ForPartsOf<LicenseeWinLossDataAccess>(balanceUpDataAccess);
 
             var appSetting = Substitute.For<IAppSettings>();
             appSetting.HistoryDate.Returns(new DateTime(2016, 8, 31));
@@ -62,10 +66,11 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LicWinloss")).Returns(objectDb);
+            IEnumerable<LicenseeWinLoss> totalData;
             IDictionary<string, LicenseeWinLoss> summaryTotal;
 
             // Action
-            _dataAccess.GetSummaryWinloss(_metaModel, out summaryTotal);
+            _dataAccess.GetSummaryWinloss(_metaModel, out totalData, out summaryTotal);
 
             // Assert
             objectDb.Received().AddInParameter("reporttype", DbType.Byte, _metaModel.ReportBy);
@@ -87,6 +92,7 @@
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LicWinloss")).Returns(objectDb);
             objectDb.ExecuteReader().Returns(reader);
+            IEnumerable<LicenseeWinLoss> totalData;
             IDictionary<string, LicenseeWinLoss> summaryTotal;
             reader.Read().Returns(true, false);
             reader.FieldCount.Returns(3);
@@ -94,27 +100,17 @@
             reader.GetName(1).Returns("turnoverSBUSD");
             reader.GetName(2).Returns("username");
 
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "username", "testacc" },
-                { "LicenseeWLSBUSD", 100 },
-                { "turnoverSBUSD", 200 },
-                { "reporttype", "20170101" }
+                username = "testacc",
+                LicenseeWLSBUSD = 100,
+                turnoverSBUSD = 200,
+                reporttype = "20170101"
             };
-
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
-            });
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetSummaryWinloss(_metaModel, out summaryTotal);
+            var result = _dataAccess.GetSummaryWinloss(_metaModel, out totalData, out summaryTotal);
 
             // Assert
             Assert.Multiple(() =>
@@ -134,32 +130,23 @@
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LicWinloss")).Returns(objectDb);
             objectDb.ExecuteReader().Returns(reader);
+            IEnumerable<LicenseeWinLoss> totalData;
             IDictionary<string, LicenseeWinLoss> summaryTotal;
             reader.Read().Returns(true, false);
             reader.FieldCount.Returns(2);
             reader.GetName(0).Returns("LicenseeWLSBUSD");
             reader.GetName(1).Returns("turnoverSBUSD");
 
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "LicenseeWLSBUSD", 100 },
-                { "turnoverSBUSD", 200 },
-                { "reporttype", "20170101" }
+                LicenseeWLSBUSD = 100,
+                turnoverSBUSD = 200,
+                reporttype = "20170101"
             };
-
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
-            });
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
-            _dataAccess.GetSummaryWinloss(_metaModel, out summaryTotal);
+            _dataAccess.GetSummaryWinloss(_metaModel, out totalData, out summaryTotal);
 
             // Assert
             Assert.Multiple(() =>
@@ -175,10 +162,11 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LicWinlossDetail")).Returns(objectDb);
+            IEnumerable<LicenseeWinLoss> totalData;
             IDictionary<string, LicenseeWinLoss> summaryTotal;
 
             // Action
-            _dataAccess.GetCustomerWinlossDetail(_metaModel, out summaryTotal);
+            _dataAccess.GetCustomerWinlossDetail(_metaModel, out totalData, out summaryTotal);
 
             // Assert
             objectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.DrillDownCustomerId);
@@ -197,10 +185,11 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LicWinlossDetail_Ag")).Returns(objectDb);
+            IEnumerable<LicenseeWinLoss> totalData;
             IDictionary<string, LicenseeWinLoss> summaryTotal;
 
             // Action
-            _dataAccess.GetAgentWinlossDetail(_metaModel, out summaryTotal);
+            _dataAccess.GetAgentWinlossDetail(_metaModel, out totalData, out summaryTotal);
 
             // Assert
             objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);

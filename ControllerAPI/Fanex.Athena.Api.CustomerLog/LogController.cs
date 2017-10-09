@@ -15,6 +15,8 @@ namespace Fanex.Athena.Api.CustomerLog
     using System.Xml;
     using Base;
     using Base.Attributes;
+    using DataAccess.Customer;
+    using DataAccess.Customer.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Model.Customer.ViewModel.CustomerLog;
@@ -33,9 +35,9 @@ namespace Fanex.Athena.Api.CustomerLog
     {
         #region Field
 
-        private readonly ICustomerLogService _customerLogService;
+        private readonly ICustomerLogDataAccess _customerLogDataAccess;
 
-        private readonly ILogInLogService _logInLogService;
+        private readonly ILogInLogDataAccess _logInLogDataAccess;
 
         private readonly ISessionService _sessionService;
 
@@ -67,8 +69,8 @@ namespace Fanex.Athena.Api.CustomerLog
 
         public LogController()
         {
-            _customerLogService = new CustomerLogService();
-            _logInLogService = new LogInLogService();
+            _customerLogDataAccess = new CustomerLogDataAccess();
+            _logInLogDataAccess = new LogInLogDataAccess();
             _sessionService = new SessionService();
             _appSettings = new AppSettings();
         }
@@ -218,7 +220,7 @@ namespace Fanex.Athena.Api.CustomerLog
         }
 
         #endregion Parse dictonary to razor view
-        
+
         #endregion Utility
 
         #region Get detail data

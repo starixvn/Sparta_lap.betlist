@@ -29,7 +29,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
                 db.ExecuteNonQuery();
 
-                return new ThirdPartyBetSetting()
+                return new ThirdPartyBetSetting
                 {
                     IsEnabled = Converter.ToBool(db.GetParameterValue("IsEnabled")),
                     IsLineEnabled = Converter.ToBool(db.GetParameterValue("IsLineEnabled")),

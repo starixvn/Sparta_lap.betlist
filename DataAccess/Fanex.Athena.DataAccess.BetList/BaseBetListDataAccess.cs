@@ -7,19 +7,20 @@
 namespace Fanex.Athena.DataAccess.BetList
 {
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using DataAccess.Core.Utilities;
+    using Core.Utilities;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.BetList.DTO;
 
-    public abstract class BaseBetListDataAccess : BaseDataAccess
+    public class BaseBetListDataAccess : BaseDataAccess
     {
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         [CLSCompliant(false)]
-        protected internal static SortableList<LrfTicket> ReadBetListTicket(IDataReader dataReader, string baseCurrency, long custId = 0)
+        protected internal SortableList<LrfTicket> ReadBetListTicket(IDataReader dataReader, string baseCurrency, long custId = 0)
         {
             var playerCommCol = "playercomm" + baseCurrency;
             var commCol = "comm" + baseCurrency;
@@ -31,7 +32,7 @@ namespace Fanex.Athena.DataAccess.BetList
             var originalStakeCol = "originalstake" + baseCurrency;
 
             var tickets = new SortableList<LrfTicket>();
-            var columns = new string[]
+            var columns = new[]
             {
                 "username", "refno", "matchcode", "status", "betteam", "betstatus", "showtime", "oddstype",
                 "nickname", "race", "betfrom", "betcheck", "liveindicator", "isneutral", "sporttype", "bettype",
@@ -41,7 +42,7 @@ namespace Fanex.Athena.DataAccess.BetList
                 "odds", "modds", "hdp1", "hdp2", "transdesc", "currency", "betdaqid", "extrainfo", originalStakeCol, "originalbettype"
             };
 
-            var reader = new SafeDataReader(dataReader, columns);
+            var reader = this.GetSafeDataReader(dataReader, columns);
 
             while (reader.Read())
             {
@@ -139,17 +140,22 @@ namespace Fanex.Athena.DataAccess.BetList
                 return false;
             }
 
-            if (value.GetType() == typeof(bool))
+            if (value is bool)
             {
                 return Convert.ToBoolean(value);
             }
 
-            if (value.GetType() == typeof(int))
+            if (value is int)
             {
                 return Convert.ToInt32(value) > 0;
             }
 
             return false;
+        }
+
+        protected internal virtual ISafeDataReader GetSafeDataReader(IDataReader reader, IEnumerable<string> columns)
+        {
+            return new SafeDataReader(reader, columns);
         }
     }
 }

@@ -34,7 +34,7 @@ var CustomerDailyStatement = (function ($) {
             var showSummary = hiddenColumnList.indexOf("licenseewl") < 0;
 
             $.each(hiddenColumnTokens, function (index, value) {
-                jqGridAdditional.setColumnVisible(CustomerOption.columnModel, value, true);
+                jqGridAdditional.hideColumn(CustomerOption.columnModel, value);
             });
             gridOption.colNames = CustomerOption.columnNames;
             gridOption.colModel = CustomerOption.columnModel;

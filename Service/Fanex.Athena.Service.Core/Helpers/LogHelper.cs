@@ -10,6 +10,7 @@ namespace Fanex.Athena.Service.Core.Helpers
     using System.Data.SqlClient;
     using System.Text;
     using System.Web;
+    using DataAccess.Core.Exception;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Logging;
 
@@ -20,7 +21,6 @@ namespace Fanex.Athena.Service.Core.Helpers
     {
         public static void WriteError(Exception exception, string additionalMessage = null)
         {
-            var request = HttpContext.Current.Request;
             var content = BuildMessage(exception.Message);
             if (!string.IsNullOrWhiteSpace(additionalMessage))
             {
@@ -28,8 +28,7 @@ namespace Fanex.Athena.Service.Core.Helpers
             }
 
             content.AppendLine("SOURCE: " + exception.Source)
-                   .AppendLine("TARGETSITE: " + exception.TargetSite)
-                   .AppendLine("STACKTRACE: " + exception.StackTrace);
+                   .AppendLine("TARGETSITE: " + exception.TargetSite);
 
             var sqlException = exception as SqlException;
             if (sqlException != null)
@@ -37,6 +36,14 @@ namespace Fanex.Athena.Service.Core.Helpers
                 content.AppendLine("Procedure: " + sqlException.Procedure)
                     .AppendLine("Line Number: " + sqlException.LineNumber)
                     .AppendLine("Server: " + sqlException.Server);
+            }
+            else
+            {
+                var dataAccessException = exception as DataAccessException;
+                if (dataAccessException != null)
+                {
+                    content.AppendLine("Param: " + dataAccessException.JsonParam);
+                }
             }
 
             LogService.Error(content.ToString(), exception);
@@ -50,16 +57,9 @@ namespace Fanex.Athena.Service.Core.Helpers
 
         private static StringBuilder BuildMessage(string message)
         {
-            var request = HttpContext.Current.Request;
             var builder = new StringBuilder(message).AppendLine();
-            builder.AppendLine("DOMAIN: " + request.Headers["Host"])
-                   .AppendLine("FORM: " + string.Join("~", request.Form))
-                   .AppendLine("Url: " + request.RawUrl)
-                   .AppendLine("Referrer: " + request.UrlReferrer)
-                   .AppendLine("QUERYSTRING: " + string.Join("~", request.QueryString))
-                   .AppendLine("Browser:" + request.Browser.Type.ToString())
-                   .AppendLine("BrowserVer:" + request.Browser.Version.ToString())
-                   .AppendLine("Agent:" + request.UserAgent.ToString());
+
+            AppendRequestInformation(builder);
 
             var sessionService = new SessionService();
             var licenseeSession = sessionService.LicenseeSession;
@@ -72,6 +72,20 @@ namespace Fanex.Athena.Service.Core.Helpers
             }
 
             return builder;
+        }
+
+        private static void AppendRequestInformation(StringBuilder builder)
+        {
+            var request = HttpContext.Current.Request;
+
+            builder.AppendLine("DOMAIN: " + request.Headers["Host"])
+                   .AppendLine("FORM: " + string.Join("~", request.Form))
+                   .AppendLine("Url: " + request.RawUrl)
+                   .AppendLine("Referrer: " + request.UrlReferrer)
+                   .AppendLine("QUERYSTRING: " + string.Join("~", request.QueryString))
+                   .AppendLine("Browser:" + request.Browser.Type)
+                   .AppendLine("BrowserVer:" + request.Browser.Version)
+                   .AppendLine("Agent:" + request.UserAgent);
         }
     }
 }

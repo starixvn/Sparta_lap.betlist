@@ -10,18 +10,14 @@ namespace Fanex.Athena.Excel.Report
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Base;
-    using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Model.Core.DataDomain;
     using Helpers;
     using Model.Core.DTO.Common;
     using Model.Report.DTO;
-    using Model.Report.MetaModel;
-    using Model.Report.ViewModel;
+    using Models;
     using NPOI.SS.UserModel;
     using Resources;
-    using Service.Report;
-    using Service.Report.Interfaces;
 
     public class LicenseeWinLossExcel : ReportBase
     {
@@ -67,8 +63,8 @@ namespace Fanex.Athena.Excel.Report
         private const int TotalLicenseeWlProductColumn = 18;
         private const int TotalTurnoverProductColumn = 18;
 
-        private static readonly string[] IgnoredLicenseeWLProducts = new string[] { Product.RB, Product.BA };
-        private static readonly string[] IgnoredTurnoverProducts = new string[] { Product.BT };
+        private static readonly string[] IgnoredLicenseeWLProducts = new[] { Product.RB, Product.BA };
+        private static readonly string[] IgnoredTurnoverProducts = new[] { Product.BT };
 
         private readonly IDictionary<string, bool> _offeredProducts = new Dictionary<string, bool>
             {
@@ -82,49 +78,27 @@ namespace Fanex.Athena.Excel.Report
                 { Product.VS2, false }, { Product.LT, false }
             };
 
+        private readonly LicenseeWinLossExcelModel _excelModel;
+
         private readonly bool _isAllowBA;
 
-        private readonly ILicenseeWinLossService _licenseeWinLossService;
-
-        private readonly IList<LicenseeWinLoss> _dataList;
-
-        private readonly LicenseeWinLossMetaModel _metaModel;
-        private readonly IDictionary<string, LicenseeWinLoss> _summaryTotal;
-
-        private readonly ConvertingOption _convertingOption;
-
-        public LicenseeWinLossExcel(
-                ILicenseeWinLossService licenseeWinLossService,
-                string templatePath,
-                ConvertingOption convertingOption,
-                ShowingOption showingOption,
-                LicenseeWinLossMetaModel metaModel,
-                LicenseeWinLossViewModel viewModel)
-            : base(templatePath, showingOption)
+        public LicenseeWinLossExcel(string templatePath, LicenseeWinLossExcelModel excelModel)
+            : base(templatePath)
         {
-            _convertingOption = convertingOption;
-            _licenseeWinLossService = licenseeWinLossService ?? new LicenseeWinLossService();
-            _metaModel = metaModel;
-            _dataList = viewModel.MainResult;
-            _summaryTotal = viewModel.SummaryTotal;
-            _isAllowBA = metaModel.ProductOptions.Any(x => x.Code == Product.BA);
+            _excelModel = excelModel;
+
+            _isAllowBA = _excelModel.MetaModel.ProductOptions.Any(x => x.Code == Product.BA);
 
             var productCodeList = _offeredProducts.Keys.ToList();
             foreach (var productCode in productCodeList)
             {
-                _offeredProducts[productCode] = metaModel.ProductOptions.Any(x => x.Status && x.Code == productCode);
+                _offeredProducts[productCode] = _excelModel.MetaModel.ProductOptions.Any(x => x.Status && x.Code == productCode);
             }
-        }
-
-        public int Level
-        {
-            get;
-            set;
         }
 
         protected override void AssignData()
         {
-            int numOfDataRow = _dataList.Count;
+            int numOfDataRow = _excelModel.DataList.Count();
 
             ISheet sheet = Workbook.CloneSheet("Template", "Data");
 
@@ -206,28 +180,26 @@ namespace Fanex.Athena.Excel.Report
             var rowIndex = 1;
             var indexDetail = 1;
             int index;
-            var rowCount = _dataList.Count;
+            var rowCount = _excelModel.DataList.Count();
 
             for (index = 0; index < rowCount; index++)
             {
-                var licenseeWinLoss = _dataList[index];
+                var item = _excelModel.DataList.ElementAt(index);
 
-                // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
 
-                // Report Date
-                var reportDateString = _metaModel.ReportBy == ReportByType.Monthly
-                                          ? licenseeWinLoss.Date.ToString("MM/yyyy")
-                                          : licenseeWinLoss.Date.ToShortDateString();
+                var reportDateString = _excelModel.MetaModel.ReportBy == ReportByType.Monthly
+                                          ? item.Date.ToString("MM/yyyy")
+                                          : item.Date.ToShortDateString();
 
                 // Merge first two columns
                 var needMerge = index >= rowCount - 1 ||
-                                 licenseeWinLoss.Date.Date != _dataList[index + 1].Date.Date;
+                                 item.Date.Date != _excelModel.DataList.ElementAt(index + 1).Date.Date;
 
                 // Merge cell
                 if (needMerge && rowSpan > 1)
                 {
-                    if (Level == 0)
+                    if (_excelModel.MetaModel.DrillDownLevel == 0)
                     {
                         sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnIndex, index + RowContentTemplate, ColumnIndex);
                     }
@@ -237,15 +209,15 @@ namespace Fanex.Athena.Excel.Report
 
                 rowSpan = needMerge ? 1 : rowSpan + 1;
 
-                var indexid = Level == 0 ? rowIndex : indexDetail++;
+                var indexid = _excelModel.MetaModel.DrillDownLevel == 0 ? rowIndex : indexDetail++;
                 row.Cells[ColumnIndex].SetCellValue(indexid);
                 rowIndex = needMerge ? rowIndex + 1 : rowIndex;
 
-                row.Cells[ColumnExternalId].SetCellValue(licenseeWinLoss.ExternalId);
-                row.Cells[ColumnSystemId].SetCellValue(licenseeWinLoss.SystemId);
+                row.Cells[ColumnExternalId].SetCellValue(item.ExternalId);
+                row.Cells[ColumnSystemId].SetCellValue(item.SystemId);
                 row.Cells[ColumnDate].SetCellValue(reportDateString);
-                row.Cells[ColumnCurrency].SetCellValue(licenseeWinLoss.CurrencyName);
-                AssignCommonData(row, licenseeWinLoss);
+                row.Cells[ColumnCurrency].SetCellValue(item.CurrencyName);
+                AssignCommonData(row, item);
             }
 
             rowIndex = AssignTotalData(sheet, index + 3);
@@ -254,11 +226,11 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignTitle(ISheet sheet)
         {
-            var fromdate = _metaModel.FromDate.ToString(FormatDate);
-            var todate = _metaModel.ToDate.ToString(FormatDate);
-            var title = _metaModel.DrillDownLevel > 0 && _metaModel.CurrencyId == 0
-                ? ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.DrillDownCurrencyId)
-                : ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId);
+            var fromdate = _excelModel.MetaModel.FromDate.ToString(FormatDate);
+            var todate = _excelModel.MetaModel.ToDate.ToString(FormatDate);
+            var title = _excelModel.MetaModel.DrillDownLevel > 0 && _excelModel.MetaModel.CurrencyId == 0
+                ? ReportExcelHelper.GetExactTitleCurrencyName(_excelModel.ConvertingOption, _excelModel.MetaModel.DrillDownCurrencyId)
+                : ReportExcelHelper.GetExactTitleCurrencyName(_excelModel.ConvertingOption, _excelModel.MetaModel.CurrencyId);
 
             ReportTitle = string.Format(ViewResources.LicenseeWinLoss + ", {0} --> {1} - {2}", fromdate, todate, title);
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
@@ -277,18 +249,23 @@ namespace Fanex.Athena.Excel.Report
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         protected override void ProcessUI(ISheet sheet)
         {
-            if (!ShowingOption.CustomerCommVisible)
+            if (!_excelModel.SystemIdVisible)
+            {
+                sheet.HideColumn(ColumnSystemId);
+            }
+
+            if (!_excelModel.CustomerCommVisible)
             {
                 sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
                 sheet.MergeCells(RowHeaderTemplate, ColumnCustomerWl, RowHeaderTemplate + 1, ColumnCustomerWl);
             }
 
-            if (!ShowingOption.COVisible)
+            if (!_excelModel.COVisible)
             {
                 sheet.HideColumn(ColumnCashOutCommission);
             }
 
-            if (ShowingOption.BTVisible)
+            if (_excelModel.BTVisible)
             {
                 if (!_isAllowBA)
                 {
@@ -303,19 +280,19 @@ namespace Fanex.Athena.Excel.Report
                 sheet.HideColumn(ColumnActualStake);
             }
 
-            if (!ShowingOption.BTVisible ||
-                (_metaModel.ProductOptions.Any(x => x.Code == Product.SB) && !ShowingOption.SBVisible) ||
-                (_isAllowBA && !ShowingOption.BAVisible))
+            if (!_excelModel.BTVisible ||
+                (_excelModel.MetaModel.ProductOptions.Any(x => x.Code == Product.SB) && !_excelModel.SBVisible) ||
+                (_isAllowBA && !_excelModel.BAVisible))
             {
-               sheet.HideColumn(ColumnAmtDueToBetTrade);
+                sheet.HideColumn(ColumnAmtDueToBetTrade);
             }
 
-            if (!ShowingOption.BAVisible)
+            if (!_excelModel.BAVisible)
             {
                 sheet.HideColumn(ColumnBaCommission, ColumnAmtDueToBa);
             }
 
-            if (!ShowingOption.RBVisible)
+            if (!_excelModel.RBVisible)
             {
                 sheet.HideColumn(ColumnRacingRevenue, ColumnAmtDueToRacing);
             }
@@ -324,20 +301,7 @@ namespace Fanex.Athena.Excel.Report
 
             ProcessUILicenseeWinLoss(sheet);
 
-            switch (Level)
-            {
-                case 0:
-                    sheet.HideColumn(ColumnExternalId, ColumnSystemId);
-                    break;
-
-                case 1:
-                    sheet.HideColumn(ColumnExternalId, ColumnDate);
-                    break;
-
-                default:
-                    sheet.HideColumn(ColumnDate);
-                    break;
-            }
+            HideColumnsByLevel(sheet);
         }
 
         protected void AssignCommonData(IRow row, LicenseeWinLoss data)
@@ -393,21 +357,18 @@ namespace Fanex.Athena.Excel.Report
         /// <returns>The last row index after assign data.</returns>
         protected int AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
         {
-            var currencies = _summaryTotal.Keys.Reverse();
+            var currencies = _excelModel.SummaryTotal.Keys.Reverse();
 
             foreach (string currency in currencies)
             {
                 // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowGrantTotal, rowIndex);
-                AssignCommonData(row, _summaryTotal[currency]);
-                row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpper());
+                AssignCommonData(row, _excelModel.SummaryTotal[currency]);
+                row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpperInvariant());
 
                 // Merge first two column
                 sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
-                checked
-                {
-                    rowIndex++;
-                }
+                rowIndex++;
             }
 
             return rowIndex;
@@ -422,9 +383,8 @@ namespace Fanex.Athena.Excel.Report
         protected int AssignTotalData(ISheet sheet, int rowIndex)
         {
             int beginTotalRow = rowIndex;
-            var currencies = _licenseeWinLossService.CalculateTotal(_dataList);
 
-            foreach (LicenseeWinLoss totalCurrency in currencies)
+            foreach (LicenseeWinLoss totalCurrency in _excelModel.TotalData)
             {
                 IRow row;
 
@@ -446,7 +406,7 @@ namespace Fanex.Athena.Excel.Report
             }
 
             // Merge first two column
-            sheet.MergeCells(rowIndex - currencies.Count(), 0, rowIndex - 1, 3);
+            sheet.MergeCells(rowIndex - _excelModel.TotalData.Count(), 0, rowIndex - 1, 3);
 
             return rowIndex;
         }
@@ -522,6 +482,24 @@ namespace Fanex.Athena.Excel.Report
                 {
                     sheet.MergeCells(RowHeaderTemplate, ColumnTurnoverSportBook + i, RowHeaderTemplate + 1, ColumnTurnoverSportBook + i);
                 }
+            }
+        }
+
+        private void HideColumnsByLevel(ISheet sheet)
+        {
+            switch (_excelModel.MetaModel.DrillDownLevel)
+            {
+                case 0:
+                    sheet.HideColumn(ColumnExternalId, ColumnSystemId);
+                    break;
+
+                case 1:
+                    sheet.HideColumn(ColumnExternalId, ColumnDate);
+                    break;
+
+                default:
+                    sheet.HideColumn(ColumnDate);
+                    break;
             }
         }
     }

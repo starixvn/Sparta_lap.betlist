@@ -21,17 +21,17 @@ namespace Fanex.Athena.Web.ActionFilter
     {
         public FunctionAuthorizationAttribute(string permissionKey)
         {
-            PermissionKeys = new string[] { permissionKey };
+            PermissionKeys = new[] { permissionKey };
         }
 
         public FunctionAuthorizationAttribute(string permissionKey1, string permissionKey2)
         {
-            PermissionKeys = new string[] { permissionKey1, permissionKey2 };
+            PermissionKeys = new[] { permissionKey1, permissionKey2 };
         }
 
         public FunctionAuthorizationAttribute(string permissionKey1, string permissionKey2, string permissionKey3)
         {
-            PermissionKeys = new string[] { permissionKey1, permissionKey2, permissionKey3 };
+            PermissionKeys = new[] { permissionKey1, permissionKey2, permissionKey3 };
         }
 
         public string[] PermissionKeys { get; set; }

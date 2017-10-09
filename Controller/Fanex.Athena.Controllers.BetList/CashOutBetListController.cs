@@ -2,43 +2,49 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
+    using DataAccess.BetList;
+    using DataAccess.BetList.Interfaces;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Service.BetList.Extensions;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.TicketHelper;
     using Model.BetList.DTO;
     using Resources;
-    using Service.BetList;
-    using Service.BetList.Helpers;
-    using Service.BetList.Interfaces;
 
     public class CashOutBetListController : BetListBaseController
     {
-        private readonly ICashOutBetListService _cashOutBetListService;
+        private readonly ICashOutBetListDataAccess _cashOutBetListDataAccess;
 
         public CashOutBetListController()
         {
-            _cashOutBetListService = new CashOutBetListService();
+            _cashOutBetListDataAccess = new CashOutBetListDataAccess();
         }
 
-        public CashOutBetListController(ICashOutBetListService cashOutBetListService)
+        public CashOutBetListController(ICashOutBetListDataAccess cashOutBetListDataAccess)
         {
-            _cashOutBetListService = cashOutBetListService;
+            _cashOutBetListDataAccess = cashOutBetListDataAccess;
         }
 
         [HttpGet]
         public ActionResult Detail(CashOutBetListDetailMetaModel metaModel)
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml();
-            var viewModel = _cashOutBetListService.GetDetail(metaModel);
+            var viewModel = _cashOutBetListDataAccess.GetDetail(metaModel);
             viewModel.IsHighlightOriginalTicket = metaModel.TransId == viewModel.OriginalTicket.TransId ||
-                BetListHelper.IsCashOutBetTicket(metaModel.BetdaqId, metaModel.BetType);
+                IsCashOutBetTicket(metaModel.BetdaqId, metaModel.BetType);
             viewModel.OriginalTicketText = BuilOriginalTicketText(viewModel.OriginalTicket);
             viewModel.CashOutTicketTextList = BuildCashOutTicketTextList(viewModel.CashOutTicketList, metaModel.TransId);
 
             viewModel.IsCashOut = metaModel.IsCashOut;
             return this.View("~/Views/BetList/CashOutDetail/Main.cshtml", viewModel);
+        }
+
+        private static bool IsCashOutBetTicket(long betdaqid, int bettype)
+        {
+            var cashOutBetTypes = new[] { 900, 912 };
+            return betdaqid == 1 && !cashOutBetTypes.Contains(bettype);
         }
 
         private IList<CashOutTicketText> BuildCashOutTicketTextList(IEnumerable<CashOutTicket> dataList, long transId)

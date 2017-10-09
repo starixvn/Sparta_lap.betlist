@@ -8,26 +8,28 @@ namespace Fanex.Athena.Controllers.WareHouse
 {
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Linq;
     using System.Web.Mvc;
+    using DataAccess.Warehouse;
+    using DataAccess.Warehouse.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Warehouse;
     using Fanex.Athena.Model.Warehouse.MetaModel;
     using Fanex.Athena.Model.Warehouse.ViewModel;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
+    using Model.Warehouse.DTO;
     using Resources;
-    using Service.Warehouse;
-    using Service.Warehouse.Interfaces;
     using Web.ActionFilter;
 
     [FunctionAuthorization(PermissionKeys.WarehouseWinLoss)]
     public class WinLossWareHouseController : WareHouseBaseController
     {
-        private readonly IWinLossService _winLossService;
+        private readonly IWinLossDataAccess _winLossDataAccess;
 
         public WinLossWareHouseController()
         {
-            _winLossService = new WinLossService();
+            _winLossDataAccess = new WinLossDataAccess();
         }
 
         [HttpGet]
@@ -38,7 +40,7 @@ namespace Fanex.Athena.Controllers.WareHouse
             var licenseeId = licenseeSession.LicenseeId;
             var currencyList = userSession.CurrencyList;
             var metaModel = new WinLossMetaModel { LicenseeId = licenseeId };
-            metaModel.FromDate = metaModel.ToDate = BalanceUpService.BalanceUpInfo.MoveBetsDay;
+            metaModel.FromDate = metaModel.ToDate = GetBalanceUp().MoveBetsDay;
 
             var productAccess = ProductService.GetProductAccess(licenseeId, userSession.Language);
 
@@ -51,7 +53,7 @@ namespace Fanex.Athena.Controllers.WareHouse
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
-            ViewBag.MaxDate = BalanceUpService.BalanceUpInfo.MoveBetsDay;
+            ViewBag.MaxDate = GetBalanceUp().MoveBetsDay;
             return View("~/Views/WareHouse/WinLoss/Main.cshtml", model);
         }
 
@@ -76,7 +78,7 @@ namespace Fanex.Athena.Controllers.WareHouse
                 SBVisible = productAccess.IsAllowSB
             };
             var viewByCurrency =
-                string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
+                string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
             var groupingList = GroupingMetaModel.GetCollection();
             var titleText = string.Format(
                 FormatTitle,
@@ -87,9 +89,9 @@ namespace Fanex.Athena.Controllers.WareHouse
                  metaModel.ToDate.ToString("MM/dd/yyyy"),
                  viewByCurrency);
             IDictionary<string, decimal> totalValues = new Dictionary<string, decimal>();
-            var exportData = _winLossService.GetDataList(metaModel, ref totalValues);
+            var exportData = GetDataList(metaModel, ref totalValues);
 
-            var winLossExcel = new TopWinLoss(templatePath, showingOption, exportData, totalValues)
+            var winLossExcel = new TopWinLossExcel(templatePath, showingOption, exportData, totalValues)
             {
                 GroupingId = metaModel.ReportBy,
                 ReportTitle = titleText
@@ -122,11 +124,52 @@ namespace Fanex.Athena.Controllers.WareHouse
 
             IDictionary<string, decimal> totalValues = new Dictionary<string, decimal>();
 
-            model.MainResult = _winLossService.GetDataList(metaModel, ref totalValues);
+            model.MainResult = GetDataList(metaModel, ref totalValues);
             model.TotalValues = totalValues;
 
-            ViewBag.MaxDate = BalanceUpService.BalanceUpInfo.MoveBetsDay;
+            ViewBag.MaxDate = GetBalanceUp().MoveBetsDay;
             return View("~/Views/WareHouse/WinLoss/Main.cshtml", model);
+        }
+
+        private static IDictionary<string, decimal> GetWinlossTotalInfo(IEnumerable<WinLoss> dataList)
+        {
+            var totalValues = new Dictionary<string, decimal>
+                    {
+                        { "betcount", 0 },
+                        { "turnover", 0 },
+                        { "memberwinloss", 0 },
+                        { "memberwinlosscomm", 0 },
+                        { "licenseewinloss", 0 },
+                        { "bacomm", 0 },
+                        { "totalrows", 0 }
+                    };
+
+            if (dataList != null)
+            {
+                foreach (var entity in dataList)
+                {
+                    totalValues["betcount"] += entity.BetCount;
+                    totalValues["turnover"] += entity.Turnover;
+                    totalValues["memberwinloss"] += entity.MemberWinLoss;
+                    totalValues["memberwinlosscomm"] += entity.MemberWinLossCom;
+                    totalValues["licenseewinloss"] += entity.LicenseeWinloss;
+                    totalValues["bacomm"] += entity.BAComm;
+                }
+
+                totalValues["totalrows"] = dataList.Count();
+            }
+
+            return totalValues;
+        }
+
+        private IList<WinLoss> GetDataList(WinLossMetaModel model, ref IDictionary<string, decimal> totalValues)
+        {
+            var dataList = model.IsValid
+                               ? this._winLossDataAccess.GetDataList(model)
+                               : new List<WinLoss>();
+            totalValues = GetWinlossTotalInfo(dataList);
+
+            return dataList.OrderBy(x => x.GroupByString).ToList();
         }
     }
 }

@@ -6,6 +6,9 @@
 
 namespace Fanex.Athena.DataAccess.Core.Configuration
 {
+    using System;
+    using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
@@ -14,16 +17,41 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
     using Fanex.Data;
     using Fanex.Logging;
 
-    /// <summary>
-    /// Balance data access.
-    /// </summary>
     public class BalanceUpDataAccess : BaseDataAccess, IBalanceUpDataAccess
     {
-        /// <summary>
-        /// Get balance up date.
-        /// </summary>
-        /// <returns>The result value.</returns>
-        public BalanceUp GetBalanceUpDay()
+        private const int CacheTimeoutSeconds = 60;
+
+        private readonly IMemoryCacheService _cache;
+
+        public BalanceUpDataAccess()
+        {
+            _cache = new MemoryCacheService();
+        }
+
+        public BalanceUp GetBalanceUp()
+        {
+            BalanceUp balanceup = null;
+            try
+            {
+                balanceup = _cache.Get<BalanceUp>(CacheKey.MemorycacheCommonBalanceup);
+
+                if (balanceup != null)
+                {
+                    return balanceup;
+                }
+
+                balanceup = GetBalanceUpDayFromDb();
+                _cache.Set(CacheKey.MemorycacheCommonBalanceup, balanceup, CacheTimeoutSeconds);
+            }
+            catch (Exception exception)
+            {
+                LogService.Error(exception.Message, exception);
+            }
+
+            return balanceup;
+        }
+
+        private BalanceUp GetBalanceUpDayFromDb()
         {
             const string UspName = "Lrf_SelBalanceUpDay";
             try
@@ -45,7 +73,6 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }

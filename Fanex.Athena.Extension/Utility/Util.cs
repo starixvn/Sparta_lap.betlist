@@ -31,7 +31,7 @@ namespace Fanex.Athena.Extension.Utility
         {
             get
             {
-                return new Dictionary<string, string>()
+                return new Dictionary<string, string>
                 {
                     { "en-US", "en" },
                     { "zh-TW", "ch" },

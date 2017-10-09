@@ -33,7 +33,7 @@ namespace Fanex.Athena.Excel.Report
         private const int RowGrantTotal = 4;
         private const int RowNoInfoTemplate = 5;
 
-        private static readonly IEnumerable<string> OfferedProducts = new string[]
+        private static readonly IEnumerable<string> OfferedProducts = new[]
         {
             Product.SB, Product.RB, Product.NG, Product.BA, Product.LC, Product.VS, Product.CS, Product.BG, Product.KN, Product.PTCS,
             Product.AGC, Product.MGCLC, Product.CB, Product.MGCRNG, Product.AB, Product.VB, Product.FW, Product.VS2, Product.LT

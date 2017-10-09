@@ -14,15 +14,15 @@
     {
         public static IEnumerable<CurrencyUser> ModifyCurrenciesForKeenOcean(IEnumerable<CurrencyUser> currencies)
         {
-            currencies = currencies.Where(x => x.CurrencyId != CurrencyType.Cny).ToList();
+            var currencyList = currencies.Where(x => x.CurrencyId != CurrencyType.Cny).ToList();
 
-            var currency = currencies.FirstOrDefault(x => x.CurrencyId == CurrencyType.Hkd && !x.CurrencyName.Equals("CNY"));
+            var currency = currencyList.FirstOrDefault(x => x.CurrencyId == CurrencyType.Hkd && !x.CurrencyName.Equals("CNY"));
             if (currency != null)
             {
                 currency.CurrencyName = "CNY";
             }
 
-            return currencies;
+            return currencyList;
         }
 
         public static void KeepHKDCurrencyName(IEnumerable<CurrencyUser> currencies)
@@ -37,12 +37,12 @@
         public static bool VerifyKeanOceanCurrencyRequest(IDictionary<int, string> currenyList, int licenseeId, int selectedCurrencyId)
         {
             return currenyList.ContainsKey(selectedCurrencyId) || (
-                licenseeId == LicenseeIdentityDefinition.KeenOcean && selectedCurrencyId == CurrencyType.Cny);
+                licenseeId == LicenseeIdentity.KeenOcean && selectedCurrencyId == CurrencyType.Cny);
         }
 
         public static void AddHKDCurrencyForTurnOverReport(IDictionary<int, string> currenyList, int licenseeId)
         {
-            if (licenseeId == LicenseeIdentityDefinition.KeenOcean && !currenyList.Values.Contains("CNY"))
+            if (licenseeId == LicenseeIdentity.KeenOcean && !currenyList.Values.Contains("CNY"))
             {
                 currenyList.Add(CurrencyType.Hkd, "CNY");
             }

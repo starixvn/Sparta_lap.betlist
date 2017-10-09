@@ -40,13 +40,33 @@
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelEditCustomer")).Returns(_objectDb);
             var custId = 1;
-            var esportSetting = EsportSettingType.LicenseeOffering;
 
             // Action
-            _dataAccess.GetBetSetting(custId, ref esportSetting);
+            _dataAccess.GetBetSetting(custId);
 
             // Assert
             _objectDb.Received().AddInParameter("CustID", DbType.Int32, custId);
+        }
+
+        [Test]
+        public void GetBetSetting_ReaderNotHaveData_ReturnDefaultResult()
+        {
+            // Arrange
+            _appSetting.IsShowMixedSport.Returns(true);
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelEditCustomer")).Returns(_objectDb);
+            var reader = Substitute.For<IDataReader>();
+            _objectDb.ExecuteReader().Returns(reader);
+            reader.Read().Returns(false);
+
+            // Action
+            var result = _dataAccess.GetBetSetting(Arg.Any<int>());
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.MainData.Any(), Is.False);
+                Assert.That(result.EsportSetting, Is.EqualTo(EsportSettingType.NoneOffering));
+            });
         }
 
         [Test]
@@ -60,12 +80,11 @@
             reader.Read().Returns(true);
             reader.FieldCount.Returns(1);
             var custId = 1;
-            var esportSetting = EsportSettingType.LicenseeOffering;
-            MapReaderData(reader, new Dictionary<string, object>());
+            reader[Arg.Any<string>()].Returns(string.Empty);
 
             // Action
-            var result = _dataAccess.GetBetSetting(custId, ref esportSetting);
-            var sportIdList = string.Join(",", result.Select(x => x.SportId));
+            var result = _dataAccess.GetBetSetting(custId);
+            var sportIdList = string.Join(",", result.MainData.Select(x => x.SportId));
 
             // Assert
             Assert.That(sportIdList, Is.EqualTo("1,2,3,5,8,10,11,99,99MP,154"));
@@ -186,20 +205,6 @@
             // Assert
             Assert.That(result.Code, Is.EqualTo(expected.Code));
             Assert.That(result.Message, Is.EqualTo(expected.Message));
-        }
-
-        private static void MapReaderData(IDataReader reader, Dictionary<string, object> readerDataMapping)
-        {
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
-            });
         }
     }
 }

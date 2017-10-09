@@ -28,16 +28,6 @@
         private const string NewProductIdColumnName = "newproductid";
 
         private const int LCSport = 162;
-        private const int BetType81 = 81;
-        private const int BetType120 = 120;
-        private const int BetType31 = 31;
-        private const int BetType33 = 33;
-        private const int BetType1101 = 1101;
-        private const int BetType1199 = 1199;
-        private const int BetType1201 = 1201;
-        private const int BetType1299 = 1299;
-        private const int BetType2700 = 2700;
-        private const int BetType2899 = 2899;
 
         private static readonly IList<int> VirtualHrBettypes = new List<int> { 1231, 1232, 1233, 1237, 1238 };
         private readonly IMatchWinLossService _matchWinLossService;
@@ -59,7 +49,7 @@
             var userSession = SessionService.UserSession;
             var metaModel = new MatchWinLossMetaModel
             {
-                BalanceUpDay = BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString(),
+                BalanceUpDay = GetBalanceUp().BalanceUpDay.ToShortDateString(),
                 LicenseeId = licenseeSession.LicenseeId
             };
 
@@ -255,7 +245,7 @@
             foreach (DataRow row in mainTable.Rows)
             {
                 var betType = Converter.ToInt(row["bettype"]);
-                AssignProduct(row, betType);
+                row[NewProductIdColumnName] = GetProductId(betType);
 
                 AssignMatchName(row, betType);
 
@@ -265,32 +255,34 @@
             return mainTable;
         }
 
-        private static void AssignProduct(DataRow row, int betType)
+        private static int GetProductId(int bettype)
         {
-            if (betType >= BetType81 && betType < BetType120)
+            if (BetTypeHelper.IsNumberGame(bettype))
             {
-                row[NewProductIdColumnName] = ProductTypes.NumberGame;
+                return ProductTypes.NumberGame;
             }
-            else if (betType >= BetType31 && betType <= BetType33)
+
+            if (BetTypeHelper.IsRacing(bettype))
             {
-                row[NewProductIdColumnName] = ProductTypes.Racing;
+                return ProductTypes.Racing;
             }
-            else if (betType >= BetType1101 && betType <= BetType1199)
+
+            if (BetTypeHelper.IsLiveCasino(bettype))
             {
-                row[NewProductIdColumnName] = ProductTypes.LiveCasino;
+                return ProductTypes.LiveCasino;
             }
-            else if (betType >= BetType1201 && betType <= BetType1299)
+
+            if (BetTypeHelper.IsVirtualSports(bettype))
             {
-                row[NewProductIdColumnName] = ProductTypes.VirtualSports;
+                return ProductTypes.VirtualSports;
             }
-            else if (betType >= BetType2700 && betType <= BetType2899)
+
+            if (BetTypeHelper.IsVirtualSports2(bettype))
             {
-                row[NewProductIdColumnName] = ProductTypes.VirtualSports2;
+                return ProductTypes.VirtualSports2;
             }
-            else
-            {
-                row[NewProductIdColumnName] = ProductTypes.Sportsbook;
-            }
+
+            return ProductTypes.Sportsbook;
         }
 
         private static void AssignMatchName(DataRow row, int betType)

@@ -36,8 +36,8 @@ namespace Fanex.Athena.Service.Core.Users
         private const string DefaultLanguage = "en-US";
 
         private readonly IHttpContextService _context;
-        private readonly string _keyPath = string.Empty;
-        private readonly string _deniedPath = string.Empty;
+        private readonly string _keyPath;
+        private readonly string _deniedPath;
 
         private readonly IUserService _userService;
         private readonly ISessionService _sessionService;
@@ -138,17 +138,13 @@ namespace Fanex.Athena.Service.Core.Users
                 languageCode = DefaultLanguage;
             }
 
-            if (IsUserAuthenticated)
+            if (IsUserAuthenticated && userName == CurrentUserName)
             {
-                if (userName == CurrentUserName)
-                {
-                    // update language code
-                    var langService = new LanguageService();
-                    langService.ChangeLanguage(languageCode);
-                    _formsAuthenticationService.SetAuthCookie(userName, false);
-                    _context.Redirect("~/Home/Index");
-                    return;
-                }
+                var langService = new LanguageService();
+                langService.ChangeLanguage(languageCode);
+                _formsAuthenticationService.SetAuthCookie(userName, false);
+                _context.Redirect("~/Home/Index");
+                return;
             }
 
             if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(passWord))

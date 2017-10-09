@@ -63,29 +63,29 @@ namespace Fanex.Athena.Service.Forecast
                 foreach (DataRow row in forecastHandicapTable.Rows)
                 {
                     forecastResult.ForeCastValue0 =
-                        GetForecastHandicapValue(row, metaModel.CurrentScore, -2, forecastResult.ForeCastValue0, metaModel.IsConvert, metaModel.BaseCurrency);
-                    forecastResult.ForeCastValue1 = GetForecastHandicapValue(
+                        GetForecastValue(row, metaModel.CurrentScore, -2, forecastResult.ForeCastValue0, metaModel.IsConvert, metaModel.BaseCurrency);
+                    forecastResult.ForeCastValue1 = GetForecastValue(
                         row,
                         metaModel.CurrentScore,
                         -1,
                         forecastResult.ForeCastValue1,
                         metaModel.IsConvert,
                         metaModel.BaseCurrency);
-                    forecastResult.ForeCastValue2 = GetForecastHandicapValue(
+                    forecastResult.ForeCastValue2 = GetForecastValue(
                         row,
                         metaModel.CurrentScore,
                         0,
                         forecastResult.ForeCastValue2,
                         metaModel.IsConvert,
                         metaModel.BaseCurrency);
-                    forecastResult.ForeCastValue3 = GetForecastHandicapValue(
+                    forecastResult.ForeCastValue3 = GetForecastValue(
                         row,
                         metaModel.CurrentScore,
                         1,
                         forecastResult.ForeCastValue3,
                         metaModel.IsConvert,
                         metaModel.BaseCurrency);
-                    forecastResult.ForeCastValue4 = GetForecastHandicapValue(
+                    forecastResult.ForeCastValue4 = GetForecastValue(
                         row,
                         metaModel.CurrentScore,
                         2,
@@ -114,15 +114,15 @@ namespace Fanex.Athena.Service.Forecast
                 foreach (DataRow row in overUnderTable.Rows)
                 {
                     result.ForeCastValue0 =
-                        GetFcOverUnderValue(row, metaModel.CurrentScore, 0, result.ForeCastValue0, metaModel.IsConvert, metaModel.BaseCurrency);
+                        GetForecastValue(row, metaModel.CurrentScore, 0, result.ForeCastValue0, metaModel.IsConvert, metaModel.BaseCurrency);
                     result.ForeCastValue1 =
-                        GetFcOverUnderValue(row, metaModel.CurrentScore, 1, result.ForeCastValue1, metaModel.IsConvert, metaModel.BaseCurrency);
+                        GetForecastValue(row, metaModel.CurrentScore, 1, result.ForeCastValue1, metaModel.IsConvert, metaModel.BaseCurrency);
                     result.ForeCastValue2 =
-                        GetFcOverUnderValue(row, metaModel.CurrentScore, 2, result.ForeCastValue2, metaModel.IsConvert, metaModel.BaseCurrency);
+                        GetForecastValue(row, metaModel.CurrentScore, 2, result.ForeCastValue2, metaModel.IsConvert, metaModel.BaseCurrency);
                     result.ForeCastValue3 =
-                        GetFcOverUnderValue(row, metaModel.CurrentScore, 3, result.ForeCastValue3, metaModel.IsConvert, metaModel.BaseCurrency);
+                        GetForecastValue(row, metaModel.CurrentScore, 3, result.ForeCastValue3, metaModel.IsConvert, metaModel.BaseCurrency);
                     result.ForeCastValue4 =
-                        GetFcOverUnderValue(row, metaModel.CurrentScore, 4, result.ForeCastValue4, metaModel.IsConvert, metaModel.BaseCurrency);
+                        GetForecastValue(row, metaModel.CurrentScore, 4, result.ForeCastValue4, metaModel.IsConvert, metaModel.BaseCurrency);
                 }
 
                 result.HasData = true;
@@ -178,17 +178,7 @@ namespace Fanex.Athena.Service.Forecast
 
         #region Utility
 
-        /// <summary>
-        /// Get Handicap value.
-        /// </summary>
-        /// <param name="dataRow">The data row.</param>
-        /// <param name="currentScore">The current score.</param>
-        /// <param name="scoreOffset">The score off set.</param>
-        /// <param name="forecast">The forecast.</param>
-        /// <param name="isConvert">True if you want to convert values to base currency.</param>
-        /// <param name="baseCurrency">The base currency.</param>
-        /// <returns>The Handicap value.</returns>
-        private static decimal GetForecastHandicapValue(
+        private static decimal GetForecastValue(
             DataRow dataRow,
             int currentScore,
             int scoreOffset,
@@ -196,56 +186,7 @@ namespace Fanex.Athena.Service.Forecast
             bool isConvert,
             string baseCurrency)
         {
-            decimal oneHalf = new decimal(0.5);
-            var alcolumnName = DataHelper.GetCurrencyColumnName("al", isConvert, baseCurrency);
-            var hlcolumnName = DataHelper.GetCurrencyColumnName("hl", isConvert, baseCurrency);
-            var offset = ConvertToDec(dataRow["offset"].ToString());
-            var forecastScore = Converter.ToDecimal(currentScore - offset + scoreOffset);
-
-            if (offset % 1 == 0 && forecastScore == 0)
-            {
-                return forecast;
-            }
-
-            if (forecastScore > 0 && forecastScore < oneHalf)
-            {
-                forecast += ConvertToDec(dataRow[alcolumnName].ToString()) / 2;
-            }
-            else if (forecastScore >= oneHalf)
-            {
-                forecast += ConvertToDec(dataRow[alcolumnName].ToString());
-            }
-            else if (forecastScore < 0 && forecastScore > -oneHalf)
-            {
-                forecast += ConvertToDec(dataRow[hlcolumnName].ToString()) / 2;
-            }
-            else if (forecastScore <= oneHalf)
-            {
-                forecast += ConvertToDec(dataRow[hlcolumnName].ToString());
-            }
-
-            return forecast;
-        }
-
-        /// <summary>
-        /// Get Over/Under value.
-        /// </summary>
-        /// <param name="dataRow">The data row.</param>
-        /// <param name="currentScore">The current score.</param>
-        /// <param name="scoreOffset">The score off set.</param>
-        /// <param name="forecast">The forecast.</param>
-        /// <param name="isConvert">True if you want to convert values to base currency.</param>
-        /// <param name="baseCurrency">The base currency.</param>
-        /// <returns>The Over/Under value.</returns>
-        private static decimal GetFcOverUnderValue(
-            DataRow dataRow,
-            int currentScore,
-            int scoreOffset,
-            decimal forecast,
-            bool isConvert,
-            string baseCurrency)
-        {
-            decimal oneHalf = new decimal(0.5);
+            const decimal OneHalf = 0.5m;
             var alcolumnName = DataHelper.GetCurrencyColumnName("al", isConvert, baseCurrency);
             var hlcolumnName = DataHelper.GetCurrencyColumnName("hl", isConvert, baseCurrency);
             var offset = ConvertToDec(dataRow["offset"].ToString());
@@ -256,24 +197,22 @@ namespace Fanex.Athena.Service.Forecast
                 return forecast;
             }
 
-            if (forecastScore > 0 && forecastScore < oneHalf)
+            if (forecastScore > 0 && forecastScore < OneHalf)
             {
-                forecast += ConvertToDec(dataRow[alcolumnName].ToString()) / 2;
+                return forecast + (ConvertToDec(dataRow[alcolumnName].ToString()) / 2);
             }
-            else if (forecastScore >= oneHalf)
+            else if (forecastScore >= OneHalf)
             {
-                forecast += ConvertToDec(dataRow[alcolumnName].ToString());
+                return forecast + ConvertToDec(dataRow[alcolumnName].ToString());
             }
-            else if (forecastScore < 0 && forecastScore > -oneHalf)
+            else if (forecastScore < 0 && forecastScore > -OneHalf)
             {
-                forecast += ConvertToDec(dataRow[hlcolumnName].ToString()) / 2;
+                return forecast + (ConvertToDec(dataRow[hlcolumnName].ToString()) / 2);
             }
-            else if (forecastScore <= oneHalf)
+            else
             {
-                forecast += ConvertToDec(dataRow[hlcolumnName].ToString());
+                return forecast + ConvertToDec(dataRow[hlcolumnName].ToString());
             }
-
-            return forecast;
         }
 
         #region Convert datarow value to decimal

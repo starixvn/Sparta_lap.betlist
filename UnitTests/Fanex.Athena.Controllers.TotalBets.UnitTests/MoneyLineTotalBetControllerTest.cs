@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using DataAccess.TotalBet.Interfaces;
     using Fanex.Athena.Controllers.TotalBets;
-    using Fanex.Athena.Service.TotalBet.Interfaces;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
@@ -12,34 +12,33 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class MoneyLineTotalBetControllerTest : BaseControllerTest
+    public class MoneyLineTotalBetControllerTest : BaseControllerHelperTest
     {
-        private IMoneyLineService _moneyLineService;
+        private IMoneyLineDataAccess _moneyLineDataAccess;
 
         [OneTimeSetUp]
-        public new void FixtureSetUp()
+        public override void FixtureSetUp()
         {
-            FakeBaseControllerDependency();
-            _moneyLineService = Substitute.For<IMoneyLineService>();
-            MoneyLine total;
-            _moneyLineService.GetMoneyLineDataList(Arg.Any<MoneyLineMetaModel>(), out total)
-                .Returns(x =>
-                {
-                    x[1] = new MoneyLine();
-                    return new List<MoneyLine> { new MoneyLine() };
-                });
+            base.FixtureSetUp();
+
+            SetUpDefaultFakeData();
+
+            SepUpForService();
+
+            StubGetValueAppSettings("BaseUsdLicensees", "usd");
         }
 
         [OneTimeTearDown]
-        public new void FixtureTearDown()
+        public override void FixtureTearDown()
         {
-            _moneyLineService = null;
+            base.FixtureTearDown();
+
+            _moneyLineDataAccess = null;
         }
 
         [Test]
         public void Index_WhenCall_ReturnCorrectViewName()
         {
-            // Arrange
             using (var controller = CreateController())
             {
                 // Action
@@ -53,9 +52,9 @@
         [Test]
         public void Index_WhenCall_CallAndGetDataFromService()
         {
-            // Arrange
             using (var controller = CreateController())
             {
+                // Arrange
                 MoneyLine total;
 
                 // Action
@@ -63,7 +62,7 @@
                 var viewModel = viewResult.Model as MoneyLineViewModel;
 
                 // Assert
-                _moneyLineService.ReceivedWithAnyArgs().GetMoneyLineDataList(Arg.Any<MoneyLineMetaModel>(), out total);
+                _moneyLineDataAccess.ReceivedWithAnyArgs().GetMoneyLineDataList(Arg.Any<MoneyLineMetaModel>(), out total);
                 Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
             }
         }
@@ -71,9 +70,9 @@
         [Test]
         public void Index_InvalidCurrency_ViewNameIsAccessDenied()
         {
-            // Arrange
             using (var controller = CreateController())
             {
+                // Arrange
                 var metaModel = new MoneyLineMetaModel
                 {
                     CurrencyId = -999
@@ -87,13 +86,26 @@
             }
         }
 
+        private void SepUpForService()
+        {
+            _moneyLineDataAccess = Substitute.For<IMoneyLineDataAccess>();
+
+            MoneyLine total;
+            _moneyLineDataAccess.GetMoneyLineDataList(Arg.Any<MoneyLineMetaModel>(), out total)
+                .Returns(x =>
+                {
+                    x[1] = new MoneyLine();
+                    return new List<MoneyLine> { new MoneyLine() };
+                });
+        }
+
         private MoneyLineTotalBetController CreateController()
         {
             return new MoneyLineTotalBetController(
                             LangService,
                             SessionService,
                             AppSettings,
-                            _moneyLineService);
+                            _moneyLineDataAccess);
         }
     }
 }

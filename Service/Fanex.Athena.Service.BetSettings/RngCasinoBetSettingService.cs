@@ -7,7 +7,9 @@
 namespace Fanex.Athena.Service.BetSettings
 {
     using System.Collections.Generic;
+    using Casino.Interfaces;
     using CasinoLibrary.SBAgent;
+    using Core.Users.Interfaces;
     using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
@@ -24,7 +26,7 @@ namespace Fanex.Athena.Service.BetSettings
     {
         private readonly IRngCasinoBetSettingDataAccess _betSettingDataAccess;
 
-        private readonly CasinoSetting _casinoSetting;
+        private readonly ICasinoSetting _casinoSetting;
 
         private readonly Customer _customerApi;
 
@@ -38,12 +40,24 @@ namespace Fanex.Athena.Service.BetSettings
             _appSettings = new AppSettings();
         }
 
-        public RngCasinoBetSettingViewModel GetViewModel(int custId, CustomerInfo customer, string language, string licenseeName)
+        public RngCasinoBetSettingService(
+            IAuthorizationService authorizationService,
+            IAppSettings appSettings,
+            ICasinoSetting casinoSetting,
+            IRngCasinoBetSettingDataAccess betSettingDataAccess)
+            : base(authorizationService)
+        {
+            _betSettingDataAccess = betSettingDataAccess;
+            _casinoSetting = casinoSetting;
+            _appSettings = appSettings;
+        }
+
+        public RngCasinoBetSettingViewModel GetViewModel(int custId, CustomerInfo customer, string language)
         {
             IList<GameKind> gameKinds;
 
             gameKinds = customer.SyncCasino ?
-            _casinoSetting.GetRngCasinoSettings(custId, licenseeName, language) : gameKinds = new List<GameKind>();
+            _casinoSetting.GetRngCasinoSettings(custId, language) : new List<GameKind>();
 
             return new RngCasinoBetSettingViewModel
             {
@@ -85,7 +99,7 @@ namespace Fanex.Athena.Service.BetSettings
             {
                 if (!_appSettings.IsDisableRngCasino)
                 {
-                    result = _casinoSetting.UpdateSetting(metaModel.TableParam, metaModel.LicenseeName);
+                    result = _casinoSetting.UpdateSetting(metaModel.TableParam);
 
                     return result ?
                         new ResultInfo { Code = 0, Message = ViewResources.MessageSuccess }
@@ -102,18 +116,17 @@ namespace Fanex.Athena.Service.BetSettings
 
         private static bool? IsRngCasinoEnabled(CustomerInfo customer)
         {
-            bool? resultValue = false;
-
             if (!customer.DisableCasino && customer.SyncCasino)
             {
-                resultValue = true;
-            }
-            else if (!customer.SyncCasino)
-            {
-                resultValue = null;
+                return true;
             }
 
-            return resultValue;
+            if (!customer.SyncCasino)
+            {
+                return null;
+            }
+
+            return false;
         }
     }
 }

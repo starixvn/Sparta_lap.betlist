@@ -108,7 +108,7 @@ namespace Fanex.Athena.Controllers.Forecast
                 if (!Request.IsAjaxRequest())
                 {
                     model.LeagueList = ForecastService.GetForecastRunningLeague(metaModel);
-                    if (model.LeagueList.Count() > 0)
+                    if (model.LeagueList.Any())
                     {
                         metaModel.LeagueId = GetLeagueId(metaModel.LeagueId, model.LeagueList);
                         if (metaModel.LeagueId > 0)
@@ -118,7 +118,7 @@ namespace Fanex.Athena.Controllers.Forecast
                             if (model.MatchList.Count > 0)
                             {
                                 /*get current match or first match*/
-                                var match = model.MatchList.Where(l => l.MatchId == metaModel.MatchId).SingleOrDefault();
+                                var match = model.MatchList.SingleOrDefault(l => l.MatchId == metaModel.MatchId);
                                 if (match == null)
                                 {
                                     match = model.MatchList.FirstOrDefault();

@@ -12,6 +12,8 @@ namespace Fanex.Athena.Controllers.Customer
     using System.IO;
     using System.Linq;
     using System.Web.Mvc;
+    using DataAccess.Core.Users;
+    using DataAccess.Core.Users.Interfaces;
     using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Customer;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -19,8 +21,6 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Model.Customer.ViewModel;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Athena.Service.Core.Users;
-    using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Service.Customer;
     using Fanex.Athena.Service.Customer.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
@@ -37,7 +37,7 @@ namespace Fanex.Athena.Controllers.Customer
         private const string CUSTOMERCOMM = "Commission";
         private const string STATUS = "Status";
 
-        private static readonly IEnumerable<string> GridColumns = new string[]
+        private static readonly IEnumerable<string> GridColumns = new[]
         {
             "ExternalId",
             "SystemId",
@@ -48,15 +48,23 @@ namespace Fanex.Athena.Controllers.Customer
             "CustomerOption"
         };
 
-        private readonly ICustomerService _customerService;
+        private static readonly IEnumerable<string> GridColumnsForFakeLincesee = new[]
+        {
+            "ExternalId",
+            "AvailableFunds",
+            "PendingFunds",
+            "CustomerOption"
+        };
+
+        private readonly ICustomerListService _customerListService;
         private readonly IGroupComService _groupComService;
-        private readonly ILicenseeService _licenseeService;
+        private readonly ILicenseeDataAccess _licenseeDataAccess;
         private readonly IProductService _productService;
 
         public CustomerController()
         {
-            _licenseeService = new LicenseeService();
-            _customerService = new CustomerService();
+            _licenseeDataAccess = new LicenseeDataAccess();
+            _customerListService = new CustomerListService();
             _groupComService = new GroupComService();
             _productService = new ProductService();
         }
@@ -70,13 +78,14 @@ namespace Fanex.Athena.Controllers.Customer
             var userSession = SessionService.UserSession;
             var productAccess = this._productService.GetProductAccess(licenseeId, userSession.Language);
             var allowLicensees = GetAllowLicenseesForStatusFunction();
+            var placeholderUsername = IsFakeLicensee() ? ViewResources.ExternalId : ViewResources.ExternalIdOrSystemId;
             var metaModel = new CustomerListMetaModel
             {
-                Username = userName == ViewResources.ExternalIdOrSystemId ? string.Empty : userName,
+                Username = userName == placeholderUsername ? string.Empty : userName,
                 GroupCommId = groupId,
                 LicenseeId = licenseeId,
                 IsShowStatusDropdown = allowLicensees.Contains(licenseeId.ToString()),
-                GridColumns = this.InitGridColumns(productAccess.IsAllowBA, allowLicensees),
+                GridColumns = InitGridColumns(productAccess.IsAllowBA, allowLicensees),
                 OddsGroups = GetOddsGroups()
             };
 
@@ -94,19 +103,21 @@ namespace Fanex.Athena.Controllers.Customer
         [CustomValidateAntiForgery]
         public dynamic CustomerList(CustomerListMetaModel metaModel)
         {
+            var placeholderUsername = IsFakeLicensee() ?
+                ViewResources.ExternalId :
+                ViewResources.ExternalIdOrSystemId;
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
             metaModel.IsShowStatusDropdown = GetAllowLicenseesForStatusFunction().Contains(metaModel.LicenseeId.ToString());
-            metaModel.Username = metaModel.Username == ViewResources.ExternalIdOrSystemId ? string.Empty : metaModel.Username;
+            metaModel.Username = metaModel.Username == placeholderUsername ? string.Empty : metaModel.Username;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var totalRows = 0;
-            var dataList = _customerService.Search(metaModel, ref totalRows);
+            var result = _customerListService.Search(metaModel);
             return new JsonResult
             {
                 Data = new
                 {
-                    Data = dataList,
-                    TotalRows = totalRows
+                    Data = result.DataList,
+                    TotalRows = result.TotalRows
                 },
                 MaxJsonLength = int.MaxValue
             };
@@ -158,7 +169,7 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var licenseeSession = SessionService.LicenseeSession;
 
-            var logInfo = _customerService.GetCustomerLoginInfo(custId, licenseeSession.LicenseeId);
+            var logInfo = _customerListService.GetCustomerLoginInfo(custId, licenseeSession.LicenseeId);
 
             var model = new LogInfoViewModel
             {
@@ -195,7 +206,8 @@ namespace Fanex.Athena.Controllers.Customer
                 ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
                 IsAllowedUserEditComm = SessionService.IsAllowedEditCommission(userSession),
                 IsAllowedUserChangeBA = SessionService.IsAllowedSpecialBA(userSession),
-                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                IsFakeLicensee = IsFakeLicensee()
             };
             if (licenseeSession.IsAllowedCustomerComm)
             {
@@ -210,9 +222,9 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var model = CreateCustomerViewModel(metaModel);
 
-            var totalRows = 0;
-            model.DataList = _customerService.Search(model.Param, ref totalRows);
-            model.TotalRows = totalRows;
+            var result = _customerListService.Search(model.Param);
+            model.DataList = result.DataList;
+            model.TotalRows = result.TotalRows;
 
             return model;
         }
@@ -239,7 +251,7 @@ namespace Fanex.Athena.Controllers.Customer
             var canUpdateBaMessage = string.Empty;
             if (!specialBaPermission)
             {
-                var canUpdateBaResult = _licenseeService.IsAllowUpdateMemberBAStatus(request, licenseeSession.LicenseeId, out canUpdateBa);
+                var canUpdateBaResult = _licenseeDataAccess.IsAllowUpdateMemberBAStatus(request, licenseeSession.LicenseeId, out canUpdateBa);
                 canUpdateBaMessage = canUpdateBaResult.Message;
             }
 
@@ -250,10 +262,13 @@ namespace Fanex.Athena.Controllers.Customer
             model.CanUpdateBAMessage = canUpdateBaMessage;
         }
 
-        private IList<CheckedItem> InitGridColumns(bool isAllowBA, IList<string> allowLicensees)
+        private IEnumerable<CheckedItem> InitGridColumns(bool isAllowBA, IEnumerable<string> allowLicensees)
         {
+            var licenseeSession = SessionService.LicenseeSession;
+            var isFakeLicensee = IsFakeLicensee();
+            var gridColumns = isFakeLicensee ? GridColumnsForFakeLincesee : GridColumns;
             var items = new List<CheckedItem>();
-            foreach (var name in GridColumns)
+            foreach (var name in gridColumns)
             {
                 items.Add(new CheckedItem { Name = name, Checked = true });
             }
@@ -263,8 +278,7 @@ namespace Fanex.Athena.Controllers.Customer
                 items.Add(new CheckedItem { Name = BASTATUS, Checked = true });
             }
 
-            var licenseeSession = SessionService.LicenseeSession;
-            if (licenseeSession.IsAllowedCustomerComm)
+            if (licenseeSession.IsAllowedCustomerComm && !isFakeLicensee)
             {
                 items.Insert(0, new CheckedItem { Name = GROUP, Checked = true });
                 items.Add(new CheckedItem { Name = CUSTOMERCOMM, Checked = true });

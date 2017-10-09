@@ -56,7 +56,7 @@
         </div>
     </div>
 
-    @if (Model.IsAllowedCustomerCommission)
+    @if (Model.IsAllowedUserEditComm && Model.IsAllowedCustomerCommission)
     {
         <div id="MoveToGroupPopUp" title="@ViewResources.MoveToGroup" style="display: none">
             @{
@@ -76,10 +76,11 @@
     }
     @if (Model.DataList != null)
     {
-        @Html.Hidden("NumOfCheckBox", Model.DataList.Count)
+        @Html.Hidden("NumOfCheckBox", Model.DataList.Count())
     }
     @{ Html.RenderPartial("~/Views/Desktop/Customer/ContextMenu.cshtml", Model); }
     <!--/popup-->
     <input type="hidden" id="IsAllowedCustomerCommission" value="@(Model.IsAllowedCustomerCommission.ToString())" />
+    <input type="hidden" id="IsAllowedUserEditComm" value="@(Model.IsAllowedUserEditComm.ToString())" />
     <input type="hidden" id="ProductAccess" value="@(Model.ProductAccess.ToJson())" />
 }

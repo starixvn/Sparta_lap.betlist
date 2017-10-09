@@ -10,12 +10,14 @@ namespace Fanex.Athena.Controllers.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using DataAccess.Report;
+    using DataAccess.Report.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
-    using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
@@ -24,14 +26,22 @@ namespace Fanex.Athena.Controllers.Report
     [FunctionAuthorization(PermissionKeys.ReportWinLossByBetType)]
     public class WinLossByBetTypeReportController : ReportBaseController
     {
+        private readonly IWinLossByBetTypeDataAccess _winLossByBetTypeDataAccess;
+
+        public WinLossByBetTypeReportController()
+        {
+            _winLossByBetTypeDataAccess = new WinLossByBetTypeDataAccess();
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
+            var balanceUp = GetBalanceUp();
             var metaModel = new WinLossByBetTypeMetaModel
             {
-                BalanceUpDay = BalanceUpService.BalanceUpInfo.BalanceUpDay,
+                BalanceUpDay = balanceUp.BalanceUpDay,
                 LicenseeId = licenseeSession.LicenseeId,
                 UserId = userSession.UserId
             };
@@ -42,7 +52,7 @@ namespace Fanex.Athena.Controllers.Report
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                BalanceUpdate = BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString(),
+                BalanceUpdate = balanceUp.BalanceUpDay.ToShortDateString(),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 CurrencyList = userSession.CurrencyList,
                 ProductAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
@@ -60,8 +70,10 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var winLossByBetTypeService = new WinLossByBetTypeService();
-            var reportData = winLossByBetTypeService.GetDataList(metaModel);
+
+            var reportData = metaModel.IsValid
+                       ? _winLossByBetTypeDataAccess.GetDataList(metaModel)
+                       : new SortableList<WinLossByBetType>();
 
             reportData.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
@@ -70,7 +82,7 @@ namespace Fanex.Athena.Controllers.Report
             {
                 Param = metaModel,
                 MainResult = reportData,
-                BalanceUpdate = BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString(),
+                BalanceUpdate = GetBalanceUp().BalanceUpDay.ToShortDateString(),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 CurrencyList = userSession.CurrencyList,
                 ProductAccess = productAccess,
@@ -85,7 +97,7 @@ namespace Fanex.Athena.Controllers.Report
                 View("~/Views/Report/WinLossByBetType/Main.cshtml", model);
         }
 
-        private static WinLossByBetType GetTotal(IList<WinLossByBetType> dataList)
+        private static WinLossByBetType GetTotal(IEnumerable<WinLossByBetType> dataList)
         {
             return new WinLossByBetType
             {

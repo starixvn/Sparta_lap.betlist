@@ -13,25 +13,19 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
-    using Fanex.Athena.Service.Core.Configuration;
-    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Report.Interfaces;
 
     public class CashOutWinLossService : ICashOutWinLossService
     {
-        private readonly IBalanceUpService _balanceService;
-
         private readonly ICashOutWinLossDataAccess _dataAccess;
 
         public CashOutWinLossService()
         {
-            this._balanceService = new BalanceUpService();
-            this._dataAccess = new CashOutWinLossDataAccess(this._balanceService.BalanceUpInfo);
+            this._dataAccess = new CashOutWinLossDataAccess();
         }
 
-        public CashOutWinLossService(IBalanceUpService balanceService, ICashOutWinLossDataAccess dataAccess)
+        public CashOutWinLossService(ICashOutWinLossDataAccess dataAccess)
         {
-            _balanceService = balanceService;
             _dataAccess = dataAccess;
         }
 
@@ -39,13 +33,11 @@ namespace Fanex.Athena.Service.Report
             CashOutWinLossMetaModel metaModel,
             out IDictionary<string, CashOutWinLoss> summaryTotal)
         {
-            summaryTotal = new Dictionary<string, CashOutWinLoss>();
             return _dataAccess.GetDetail(metaModel, out summaryTotal);
         }
 
         public SortableList<CashOutWinLoss> GetSummary(CashOutWinLossMetaModel metaModel, out IDictionary<string, CashOutWinLoss> summaryTotal)
         {
-            summaryTotal = new Dictionary<string, CashOutWinLoss>();
             var result = this._dataAccess.GetSummary(metaModel, out summaryTotal);
             var date = new System.DateTime();
             var index = 1;

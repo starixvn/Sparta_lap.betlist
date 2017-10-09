@@ -48,7 +48,7 @@ namespace Fanex.Athena.Excel.Report
                 ConvertingOption convertingOption,
                 CasinoProgressiveWinsMetaModel metaModel,
                 CasinoProgressiveWinsViewModel viewModel)
-            : base(templatePath, null)
+            : base(templatePath)
         {
             _convertingOption = convertingOption;
             _metaModel = metaModel;

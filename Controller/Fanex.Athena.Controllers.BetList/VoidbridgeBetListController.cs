@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -17,20 +16,20 @@
         [HttpGet]
         public ActionResult Detail(BetListMetaModel metaModel)
         {
-            metaModel = CreateDefaultMetaModel(metaModel);
+            var model = CreateDefaultMetaModel(metaModel);
 
-            if (!metaModel.IsExportExcel)
+            if (!model.IsExportExcel)
             {
                 ViewBag.BetListTitle = _title;
-                return this.View("~/Views/BetList/VoidbridgeDetail/Main.cshtml", metaModel);
+                return View("~/Views/BetList/VoidbridgeDetail/Main.cshtml", model);
             }
 
-            if (IsValidCurrency(metaModel.CurrencyId))
+            if (IsValidCurrency(model.CurrencyId))
             {
-                return ExcelDetail(metaModel);
+                return ExcelDetail(model);
             }
 
-            return this.EmptyExcel();
+            return EmptyExcel();
         }
 
         private ActionResult ExcelDetail(BetListMetaModel metaModel)
@@ -38,7 +37,7 @@
             const string UspKey = "Lrf_BetList_RNG_Detail";
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
-            var excel = new BetListExcel(new ShowingOption(), SessionService.LicenseeSession.LicenseeId == LicenseeId12Bet, hiddenColumns);
+            var excel = new BetListExcel(new ShowingOption(), SessionService.LicenseeSession.LicenseeId, hiddenColumns);
             var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
             var workbook = excel.Export(ticketResult, _title);
 

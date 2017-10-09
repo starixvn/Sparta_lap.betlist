@@ -1,103 +1,204 @@
 ﻿namespace Fanex.Athena.Controllers.Base.UnitTests
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Security.Principal;
-    using System.Web;
-    using System.Web.Mvc;
-    using System.Web.Routing;
-    using Extension.Utility;
+    using System.Linq;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Users;
+    using Model.Core.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Core.Common.Interfaces;
-    using Service.Core.Users.Interfaces;
-    using Web.RouterConfig;
 
-    [TestFixture]
-    public class BaseControllerTest
+    public class BaseControllerTest : BaseControllerHelperTest
     {
-        protected const string TestingRequestDomain = "http://unit-test-mode";
+        private FakeBaseController _controller;
 
-        protected const string SesssionUserName = "alex.vn";
-
-        protected const int SessionLicenseeId = 100;
-
-        protected const int SessionUserId = 1;
-
-        protected const int SessionOnUserId = 999;
-
-        protected UrlHelper Url { get; set; }
-
-        protected ControllerContext ControllerContext { get; set; }
-
-        protected ILanguageService LangService { get; set; }
-
-        protected ISessionService SessionService { get; set; }
-
-        protected IAppSettings AppSettings { get; set; }
-
-        [OneTimeSetUp]
-        public virtual void FixtureSetUp()
+        [SetUp]
+        public void SetUp()
         {
-            var routes = new RouteCollection();
-            RouteConfig.RegisterRoutes(routes, false);
-
-            var httpContext = Substitute.For<HttpContextBase>();
-            httpContext.Request.ApplicationPath.Returns("/");
-            httpContext.Request.Url.Returns(new Uri(TestingRequestDomain));
-            httpContext.Request.Cookies.Returns(new HttpCookieCollection());
-            httpContext.Response.Cookies.Returns(new HttpCookieCollection());
-            httpContext.Server.MapPath(Arg.Any<string>()).Returns(x => (string)x[0]);
-            var fakeIdentity = new GenericIdentity("User");
-            var principal = new GenericPrincipal(fakeIdentity, null);
-
-            httpContext.User.Returns(principal);
-
-            ControllerContext = Substitute.For<ControllerContext>();
-            ControllerContext.HttpContext = httpContext;
-
-            var requestContext = new RequestContext(httpContext, new RouteData());
-
-            Url = new UrlHelper(requestContext, routes);
+            _controller = new FakeBaseController(LangService, SessionService, AppSettings);
         }
 
-        [OneTimeTearDown]
-        public virtual void FixtureTearDown()
+        [TearDown]
+        public void TearDown()
         {
-            Url = null;
-            ControllerContext = null;
-            LangService = null;
-            SessionService = null;
-            AppSettings = null;
+            _controller.Dispose();
         }
 
-        protected void FakeBaseControllerDependency()
+        [Test]
+        public void SetConvetedUSDCurrencyId_IsBaseUsdLicensee_SetCurrencyIsUsd()
         {
-            LangService = Substitute.For<ILanguageService>();
-
-            SessionService = Substitute.For<ISessionService>();
-            SessionService.UserSession.Returns(new UserSession
+            // Arrange
+            var metaModel = new BaseMetaModel
             {
-                CurrencyList = new Dictionary<int, string> { { 1, "UUS" } },
-                ViewType = ClientViewType.Default,
-                UserId = SessionUserId,
-                Language = "en-Us",
-                UserName = SesssionUserName,
-                OnUserId = SessionOnUserId,
-                FunctionIdList = new List<int>()
+                LicenseeId = 1
+            };
+
+            StubGetValueAppSettings("BaseUsdLicensees", metaModel.LicenseeId.ToString());
+
+            // Action
+            _controller.SetConvetedUSDCurrencyId(metaModel);
+
+            // Assert
+            Assert.That(metaModel.CurrencyId, Is.EqualTo(BaseCurrencyType.Usd));
+        }
+
+        [Test]
+        public void SetConvetedUSDCurrencyId_IsNotBaseUsdLicensee_SetCurrencyIsAll()
+        {
+            // Arrange
+            var metaModel = new BaseMetaModel
+            {
+                LicenseeId = 1
+            };
+
+            StubGetValueAppSettings("BaseUsdLicensees", null);
+
+            // Action
+            _controller.SetConvetedUSDCurrencyId(metaModel);
+
+            // Assert
+            Assert.That(metaModel.CurrencyId, Is.EqualTo(BaseCurrencyType.All));
+        }
+
+        [Test]
+        public void SetConvetedUSDCurrencyName_IsBaseUsdLicensee_SetBaseCurrencyIsUsd()
+        {
+            // Arrange
+            var metaModel = new BaseMetaModel
+            {
+                LicenseeId = 1
+            };
+
+            StubGetValueAppSettings("BaseUsdLicensees", metaModel.LicenseeId.ToString());
+
+            const string ExpectedBaseCurrency = "usd";
+
+            // Action
+            _controller.SetConvetedUSDCurrencyName(metaModel);
+
+            // Assert
+            Assert.That(metaModel.BaseCurrency, Is.EqualTo(ExpectedBaseCurrency));
+        }
+
+        [Test]
+        public void SetConvetedUSDCurrencyName_IsNotBaseUsdLicensee_SetBaseCurrencyIsEur()
+        {
+            // Arrange
+            var metaModel = new BaseMetaModel
+            {
+                LicenseeId = 1
+            };
+
+            StubGetValueAppSettings("BaseUsdLicensees", null);
+
+            const string ExpectedBaseCurrency = "eur";
+
+            // Action
+            _controller.SetConvetedUSDCurrencyName(metaModel);
+
+            // Assert
+            Assert.That(metaModel.BaseCurrency, Is.EqualTo(ExpectedBaseCurrency));
+        }
+
+        [Test]
+        public void GetAllowLicenseesForStatusFunction_NoLicensee_ReturnEmptyList()
+        {
+            // Arrange
+            StubGetValueAppSettings("LicenseeOfferStatusFunction", null);
+
+            // Action
+            var actual = _controller.GetAllowLicenseesForStatusFunction();
+
+            // Assert
+            Assert.That(actual, Is.Empty);
+        }
+
+        [Test]
+        public void GetAllowLicenseesForStatusFunction_WhenCall_ReturnLicenseeIdList()
+        {
+            // Arrange
+            const string LicenseeId = "1,2,3,4";
+            StubGetValueAppSettings("LicenseeOfferStatusFunction", LicenseeId);
+
+            var expected = LicenseeId.Split(',').ToList();
+
+            // Action
+            var actual = _controller.GetAllowLicenseesForStatusFunction();
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(actual.Count, Is.EqualTo(expected.Count));
+                Assert.That(actual.Except(expected), Is.Empty);
+            });
+        }
+
+        [Test]
+        public void Initialize_WhenCall_SetPageCulture()
+        {
+            // Arrange
+            const string Language = "en";
+            LangService.GetCurrentLanguage().Returns(Language);
+
+            // Action
+            _controller.Initialize(Url.RequestContext);
+
+            // Assert
+            LangService.Received().SetPageCulture(Language);
+        }
+
+        [Test]
+        public void View_ClientViewTypeIsNone_ReturnViewNameBaseOnAppSetting()
+        {
+            // Arrange
+            AppSettings.ClientViewType.Returns(Model.Core.DataDomain.ClientViewType.Default.ToString("d"));
+
+            StubUserSessionData(new UserSession
+            {
+                ViewType = Model.Core.DataDomain.ClientViewType.None
             });
 
-            SessionService.LicenseeSession.Returns(new LicenseeSession
+            const string ViewName = "TestView";
+
+            // Action
+            var actual = _controller.View(ViewName, string.Empty, null);
+
+            // Assert
+            Assert.That(actual.ViewName, Is.EqualTo(ViewName));
+        }
+
+        [Test]
+        public void View_UserSessionIsNull_ReturnViewNameBaseOnAppSetting()
+        {
+            // Arrange
+            AppSettings.ClientViewType.Returns(Model.Core.DataDomain.ClientViewType.Default.ToString("d"));
+
+            StubUserSessionData(null);
+
+            const string ViewName = "TestView";
+
+            // Action
+            var actual = _controller.View(ViewName, string.Empty, null);
+
+            // Assert
+            Assert.That(actual.ViewName, Is.EqualTo(ViewName));
+        }
+
+        [Test]
+        public void View_ClientViewTypeIsNotNone_ReturnViewNameBaseOnUserSession()
+        {
+            // Arrange
+            StubUserSessionData(new UserSession
             {
-                LicenseeId = SessionLicenseeId,
-                LicenseeName = "Spondemo"
+                ViewType = Model.Core.DataDomain.ClientViewType.Desktop
             });
 
-            AppSettings = Substitute.For<IAppSettings>();
+            const string ViewName = "";
 
-            AppSettings.ClientViewType.Returns("1");
+            // Action
+            var actual = _controller.View(ViewName, string.Empty, null);
+
+            // Assert
+            Assert.That(actual.ViewName, Is.EqualTo(ViewName));
         }
     }
 }

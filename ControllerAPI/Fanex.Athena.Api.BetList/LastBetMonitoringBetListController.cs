@@ -27,7 +27,7 @@
     [ApiFunctionAuthorization(PermissionKeys.ReportLastBetsMonitoring)]
     public class LastBetMonitoringBetListController : BaseApiController
     {
-        private static readonly IEnumerable<int> ConvertingDecimalOddsBetType = new int[] { 1, 2, 3, 7, 8, 12, 20 };
+        private static readonly IEnumerable<int> ConvertingDecimalOddsBetType = new[] { 1, 2, 3, 7, 8, 12, 20 };
 
         private readonly IMatchService _matchService;
 
@@ -137,7 +137,7 @@
 
         private static string MapPlatForm(string code)
         {
-            switch (code.Trim().ToLower())
+            switch (code.Trim().ToLowerInvariant())
             {
                 case "a":
                 case "z":
@@ -154,7 +154,7 @@
                     return ViewResources.Euro;
 
                 case "m":
-                    return ViewResources.Wap.ToUpper();
+                    return ViewResources.Wap.ToUpperInvariant();
 
                 case "s":
                 case "l":

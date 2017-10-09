@@ -6,36 +6,27 @@
 
 namespace Fanex.Athena.Service.Casino
 {
-    #region Using
-
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using CasinoLibrary.SBAgent;
+    using Extension.Helper;
     using Fanex.Athena.Model.BetSettings.DTO.RngCasino;
-    using Fanex.Athena.Model.Casino.MetaModel;
     using Fanex.Athena.Service.Casino.Interfaces;
     using Fanex.Athena.Service.Core.Exception;
     using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Common;
+    using Model.Customer.MetaModel;
     using CustomerCasinoSetting = CasinoLibrary.SBAgent.Customer;
 
-    #endregion Using
-
-    /// <summary>
-    /// Casino setting class.
-    /// </summary>
     public class CasinoSetting : ICasinoSetting
     {
+        public const int SystemId = 4;
+
         #region ICasinoSetting Members
 
-        /// <summary>
-        /// Suspend customer.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>True if suspending is successful.</returns>
-        public bool UpdateCustSuspend(CasinoStatusMetaModel metaModel)
+        public bool UpdateCustSuspend(CustomerStatusMetaModel metaModel)
         {
             try
             {
@@ -47,7 +38,7 @@ namespace Fanex.Athena.Service.Casino
                                                         metaModel.Ip,
                                                         metaModel.ModifyById,
                                                         metaModel.ModifyByUsername,
-                                                        metaModel.SystemId);
+                                                        SystemId);
             }
             catch (System.Exception e)
             {
@@ -55,12 +46,7 @@ namespace Fanex.Athena.Service.Casino
             }
         }
 
-        /// <summary>
-        /// Close customer.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>True if processing is successful.</returns>
-        public bool UpdateCustClosed(CasinoStatusMetaModel metaModel)
+        public bool UpdateCustClosed(CustomerStatusMetaModel metaModel)
         {
             try
             {
@@ -72,7 +58,7 @@ namespace Fanex.Athena.Service.Casino
                                                         metaModel.Ip,
                                                         metaModel.ModifyById,
                                                         metaModel.ModifyByUsername,
-                                                        metaModel.SystemId);
+                                                        SystemId);
             }
             catch (System.Exception e)
             {
@@ -82,16 +68,9 @@ namespace Fanex.Athena.Service.Casino
 
         #endregion ICasinoSetting Members
 
-        /// <summary>
-        /// Get RNG casino setting.
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="licenseeName">The licensee name.</param>
-        /// <param name="language">Language of licensee.</param>
-        /// <returns>RNG casino setting.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Reviewed. Suppression is OK here.")]
-        public IList<GameKind> GetRngCasinoSettings(int custId, string licenseeName, string language)
+        public IList<GameKind> GetRngCasinoSettings(int custId, string language)
         {
             IList<GameKind> gameKinds;
 
@@ -122,13 +101,7 @@ namespace Fanex.Athena.Service.Casino
             return gameKinds;
         }
 
-        /// <summary>
-        /// Update RNG casino setting.
-        /// </summary>
-        /// <param name="dataTableParam">The parameters.</param>
-        /// <param name="licenseeName">The licensee name.</param>
-        /// <returns>True if updating is successful.</returns>
-        public bool UpdateSetting(DataTable dataTableParam, string licenseeName)
+        public bool UpdateSetting(DataTable dataTableParam)
         {
             try
             {
@@ -149,10 +122,10 @@ namespace Fanex.Athena.Service.Casino
         /// </summary>
         /// <param name="language">Language of name kind.</param>
         /// <returns>The game kind list.</returns>
-        private static List<GameKind> GetGameKind(string language)
+        private static IList<GameKind> GetGameKind(string language)
         {
             var bacsicInfo = new BasicInfo();
-            var gameKindNameByLanguage = GetGameKindColumn(language);
+            var gameKindNameByLanguage = CasinoHelper.GetColumnNameByLanguage("CodeName", language);
             var gameKindTable = bacsicInfo.GetGameKind("01");
 
             var gameKindList = new List<GameKind>();
@@ -184,7 +157,7 @@ namespace Fanex.Athena.Service.Casino
         private static IList<GameType> GetGameType(int gameKindId, string language)
         {
             var bacsicInfo = new BasicInfo();
-            var gameTypeNameByLanguage = GetGameTypeColumn(language);
+            var gameTypeName = CasinoHelper.GetColumnNameByLanguage("GameTypeName", language);
             var gameTypeTable = bacsicInfo.GetGameType(gameKindId);
 
             var gameTypeList = new List<GameType>();
@@ -194,7 +167,7 @@ namespace Fanex.Athena.Service.Casino
                 var gameType = new GameType
                 {
                     GameTypeId = Converter.ToInt(row["GameTypeId"].ToString()),
-                    GameTypeName = row[gameTypeNameByLanguage].ToString()
+                    GameTypeName = row[gameTypeName].ToString()
                 };
 
                 gameTypeList.Add(gameType);
@@ -205,62 +178,6 @@ namespace Fanex.Athena.Service.Casino
 
         #endregion Get Game Type
 
-        /// <summary>
-        /// Get game kind name.
-        /// </summary>
-        /// <param name="language">Language of licensee.</param>
-        /// <returns>Game type name.</returns>
-        private static string GetGameKindColumn(string language)
-        {
-            var gameTypeKind = "CodeName_En";
-
-            switch (language)
-            {
-                case "zh-TW":
-                    gameTypeKind = "CodeName_Ct";
-                    break;
-
-                case "zh-CN":
-                case "zh-Hans":
-                    gameTypeKind = "CodeName_Cs";
-                    break;
-
-                case "ko-KR":
-                    gameTypeKind = "CodeName_Ko";
-                    break;
-            }
-
-            return gameTypeKind;
-        }
-
-        /// <summary>
-        /// Get game type name.
-        /// </summary>
-        /// <param name="language">Language of licensee.</param>
-        /// <returns>Game type name.</returns>
-        private static string GetGameTypeColumn(string language)
-        {
-            var gameTypeName = "GameTypeName_En";
-
-            switch (language)
-            {
-                case "zh-TW":
-                    gameTypeName = "GameTypeName_Ct";
-                    break;
-
-                case "zh-CN":
-                case "zh-Hans":
-                    gameTypeName = "GameTypeName_Cs";
-                    break;
-
-                case "ko-KR":
-                    gameTypeName = "GameTypeName_Ko";
-                    break;
-            }
-
-            return gameTypeName;
-        }
-
         #region Get Cust Stake Level
 
         /// <summary>
@@ -269,7 +186,7 @@ namespace Fanex.Athena.Service.Casino
         /// <param name="custId">The customer id.</param>
         /// <param name="gameTypeId">The game type id.</param>
         /// <returns>The stack level list.</returns>
-        private static List<StakeLevel> GetCustStakeLevel(int custId, int gameTypeId)
+        private static IList<StakeLevel> GetCustStakeLevel(int custId, int gameTypeId)
         {
             var customer = new CustomerCasinoSetting();
             var stakeLevelTable = customer.GetCustStakeLevel(custId, gameTypeId);

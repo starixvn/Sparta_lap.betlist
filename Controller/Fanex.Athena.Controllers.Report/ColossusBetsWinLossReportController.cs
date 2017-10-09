@@ -15,7 +15,7 @@ namespace Fanex.Athena.Controllers.Report
     using Model.Core.DataDomain;
 
     [FunctionAuthorization(PermissionKeys.ReportColossusBetsWinLoss)]
-    public partial class ColossusBetsWinLossReportController : ReportBaseController
+    public class ColossusBetsWinLossReportController : ReportBaseController
     {
         [HttpGet]
         public ActionResult Index()

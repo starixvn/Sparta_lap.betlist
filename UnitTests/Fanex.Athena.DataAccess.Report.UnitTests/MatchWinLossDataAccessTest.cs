@@ -3,12 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using Core.Configuration.Interfaces;
     using Data;
     using Model.Core.DTO.Configuration;
     using Model.Core.MetaModel.Product;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class MatchWinLossDataAccessTest
@@ -20,13 +22,15 @@
         [OneTimeSetUp]
         public void Setup()
         {
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balance = new BalanceUp
             {
                 MoveBetsDay = new DateTime(2016, 8, 10),
                 BalanceUpDay = new DateTime(2016, 8, 31)
             };
+            balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            _dataAccess = Substitute.ForPartsOf<MatchWinLossDataAccess>(_balance);
+            _dataAccess = Substitute.ForPartsOf<MatchWinLossDataAccess>(balanceUpDataAccess);
 
             _metaModel = new MatchWinLossMetaModel
             {
@@ -79,24 +83,15 @@
             objectDb.ExecuteReader().Returns(reader);
             reader.Read().Returns(true, false);
 
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "leagueid", 1 },
-                { "matchid", 2 },
-                { "TurnoverUSD", 100 },
-                { "MemberWinLostUSD", 200 }
+                leagueid = 1,
+                matchid = 2,
+                TurnoverUSD = 100,
+                MemberWinLostUSD = 200
             };
 
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
-            });
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
             var result = _dataAccess.GetDataList(_metaModel);

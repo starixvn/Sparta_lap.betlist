@@ -267,9 +267,6 @@
   <data name="BAStatus" xml:space="preserve">
     <value>BA 현황 </value>
   </data>
-  <data name="BaTurnoverReferenceNote" xml:space="preserve">
-    <value>BA 매출의 금액은 참조일 뿐이며 총 매출에 아직 포함되어있습니다.</value>
-  </data>
   <data name="BAUpdatedBy" xml:space="preserve">
     <value>BA가 업데이트 </value>
   </data>
@@ -1950,9 +1947,6 @@
   <data name="SupportForOnlyNote" xml:space="preserve">
     <value>보고서는 지원만을 위한 것입니다</value>
   </data>
-  <data name="SupportSbOnlyNote" xml:space="preserve">
-    <value>보고서는 스포츠북 제품만을 지원합니다</value>
-  </data>
   <data name="Suspended" xml:space="preserve">
     <value>중지되다</value>
   </data>
@@ -2388,9 +2382,6 @@
   </data>
   <data name="EffectiveBettingValue" xml:space="preserve">
     <value>Effective Betting Value</value>
-  </data>
-  <data name="BingoExcludedNote" xml:space="preserve">
-    <value>Bingo is not included in the report</value>
   </data>
   <data name="ProductBG" xml:space="preserve">
     <value>빙고</value>

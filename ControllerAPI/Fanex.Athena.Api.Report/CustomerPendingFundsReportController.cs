@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net.Http;
     using System.Web.Hosting;
     using System.Web.Http;
@@ -9,6 +10,7 @@
     using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
     using Excel.Report;
+    using Excel.Report.Models;
     using Extension.Utility;
     using Fanex.Athena.Api.Base.Attributes;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -21,19 +23,25 @@
     public class CustomerPendingFundsReportController : ApiReportBaseController
     {
         private const int PageSizeExcel = int.MaxValue - 1000;
+
+        private readonly IAppSettings _appSettings;
+
         private readonly ICustPendingFundsDataAccess _custPendingFundsDataAccess;
 
         public CustomerPendingFundsReportController()
         {
+            _appSettings = new AppSettings();
             _custPendingFundsDataAccess = new CustomerPendingFundsDataAccess();
         }
 
         public CustomerPendingFundsReportController(
+            IAppSettings appSettings,
             ICustPendingFundsDataAccess custPendingFundsDataAccess,
             ISessionService sessionService,
             IProductService productService)
             : base(sessionService, productService)
         {
+            _appSettings = appSettings;
             _custPendingFundsDataAccess = custPendingFundsDataAccess;
         }
 
@@ -44,13 +52,9 @@
         }
 
         [CLSCompliant(false)]
-        protected internal virtual CustomerPendingFundsExcel CreateExcel(
-            string templatePath,
-            ConvertingOption convertingOption,
-            IEnumerable<CustPendingFunds> dataList,
-            CustPendingFunds totalData)
+        protected internal virtual CustomerPendingFundsExcel CreateExcel(string templatePath, CustomerPendingFundsExcelModel excelModel)
         {
-            return new CustomerPendingFundsExcel(templatePath, convertingOption, dataList, totalData);
+            return new CustomerPendingFundsExcel(templatePath, excelModel);
         }
 
         private dynamic ProcessRequest(CustomerPendingFundsMetaModel metaModel)
@@ -92,8 +96,14 @@
             metaModel.PageIndex = 1;
             metaModel.PageSize = PageSizeExcel;
             var dataList = GetData(metaModel, out totalData, out totalRows);
-
-            var custPendingFundsExcel = CreateExcel(templatePath, convertingOption, dataList, totalData);
+            var excelModel = new CustomerPendingFundsExcelModel
+            {
+                ConvertingOption = convertingOption,
+                DataList = dataList,
+                TotalData = totalData,
+                SystemIdVisible = !_appSettings.FakeLicenseeList.Contains(SessionService.LicenseeSession.LicenseeId)
+            };
+            var custPendingFundsExcel = CreateExcel(templatePath, excelModel);
             custPendingFundsExcel.Export();
 
             return ExcelStream(custPendingFundsExcel.Workbook, FileName);

@@ -90,7 +90,7 @@ namespace Fanex.Athena.Model.Core.Helper
         {
             var betTypeName = GetBettype(betType, liveIndicator);
 
-            if (ProductValidator.IsValidBettype(Product.VS2, betType))
+            if (BetTypeHelper.IsVirtualSports2(betType))
             {
                 return betTypeName + " (" + ViewResources.ProductVS2 + ")";
             }
@@ -105,14 +105,11 @@ namespace Fanex.Athena.Model.Core.Helper
 
         private static string GetCurrentIBCLanguageCode(string languageCode = null)
         {
-            if (string.IsNullOrEmpty(languageCode))
-            {
-                languageCode = Thread.CurrentThread.CurrentUICulture.IetfLanguageTag;
-            }
+            var languageKey = string.IsNullOrEmpty(languageCode) ? Thread.CurrentThread.CurrentUICulture.IetfLanguageTag : languageCode;
 
-            if (Util.MapLanguages.ContainsKey(languageCode))
+            if (Util.MapLanguages.ContainsKey(languageKey))
             {
-                return Util.MapLanguages[languageCode];
+                return Util.MapLanguages[languageKey];
             }
 
             return "en";

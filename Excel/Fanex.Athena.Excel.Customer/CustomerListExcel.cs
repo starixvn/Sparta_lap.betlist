@@ -9,10 +9,12 @@ namespace Fanex.Athena.Excel.Customer
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
+    using System.Linq;
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.Customer.ViewModel;
+    using Model.Customer.DTO;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using Resources;
@@ -57,7 +59,7 @@ namespace Fanex.Athena.Excel.Customer
             { OddsGroupColumn, "OddsGroup" }
         };
 
-        private readonly CustomerListViewModel _exportData;
+        private readonly CustomerListViewModel _viewModel;
         private readonly string _templatePath;
 
         private readonly string _reporTitle;
@@ -65,12 +67,11 @@ namespace Fanex.Athena.Excel.Customer
         private readonly IList<string> _showedGridColumns;
 
         private ISheet _templateSheet;
-        private ICellStyle _defaultStyle;
 
         public CustomerListExcel(string templatePath, string reportTitle, CustomerListViewModel model)
         {
             _templatePath = templatePath;
-            this._exportData = model;
+            _viewModel = model;
             _reporTitle = reportTitle;
             _headerTexts = new List<string>
             {
@@ -122,13 +123,13 @@ namespace Fanex.Athena.Excel.Customer
 
             AssignHeader(sheet);
             AssignTitle(sheet);
-            if (this._exportData.DataList.Count == 0)
+            if (_viewModel.DataList.Any())
             {
-                AssignNoInfoRow(sheet);
+                AssignSheetData(sheet);
             }
             else
             {
-                AssignSheetData(sheet);
+                AssignNoInfoRow(sheet);
             }
 
             ProcessUi(sheet);
@@ -166,83 +167,85 @@ namespace Fanex.Athena.Excel.Customer
             ProcessUi(sheet);
         }
 
-        /// <summary>
-        /// Assign report data to current sheet.
-        /// </summary>
-        /// <param name="sheet">The current sheet.</param>
-        [SuppressMessage(
-            "StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private void AssignSheetData(ISheet sheet)
         {
-            var rowCount = _exportData.DataList.Count;
-            var startNumOfRow = (_exportData.Param.PageIndex - 1) * _exportData.Param.PageSize;
+            var rowCount = _viewModel.DataList.Count();
+            var startNumOfRow = (_viewModel.Param.PageIndex - 1) * _viewModel.Param.PageSize;
             startNumOfRow += 1;
             for (int index = 0; index < rowCount; index++)
             {
-                var item = _exportData.DataList[index];
-                var itemType = item.GetType();
+                var item = _viewModel.DataList.ElementAt(index);
                 var rowIndex = index + RowContentTemplate;
                 var numofRow = index + startNumOfRow;
                 var row = sheet.CopyRow(_templateSheet, RowContentTemplate, rowIndex);
                 /*group columns*/
-                if (_exportData.IsAllowedCustomerCommission && _showedGridColumns.Contains(GROUP))
+                if (_viewModel.IsAllowedCustomerCommission && _showedGridColumns.Contains(GROUP))
                 {
                     row.Cells[GroupColumn].SetCellValue(item.GroupCommId == 0 ? ViewResources.None : item.Group);
                 }
 
                 /* commission column*/
-                if (_exportData.IsAllowedCustomerCommission && _showedGridColumns.Contains(CUSTOMERCOMM))
-                {
-                    if (_exportData.ProductAccess.IsAllowSB)
-                    {
-                        row.Cells[SBCommColumn].SetCellValue(item.SBComm.ToStringExt(2));
-                    }
-
-                    if (_exportData.ProductAccess.IsAllowNG)
-                    {
-                        row.Cells[NGCommColumn].SetCellValue(item.NGComm.ToStringExt(2));
-                    }
-
-                    if (_exportData.ProductAccess.IsAllowRB)
-                    {
-                        row.Cells[RCCommColumn].SetCellValue(item.RBComm.ToStringExt(2));
-                    }
-
-                    if (_exportData.ProductAccess.IsAllowLC)
-                    {
-                        row.Cells[LCCommColumn].SetCellValue(item.LCComm.ToStringExt(2));
-                    }
-
-                    if (_exportData.ProductAccess.IsAllowCS)
-                    {
-                        row.Cells[CSCommColumn].SetCellValue(item.CSComm.ToStringExt(2));
-                    }
-                }
+                AssignCommissionColumns(item, row);
 
                 /*BA column*/
-                if (_exportData.ProductAccess.IsAllowBA && _showedGridColumns.Contains(BASTATUS))
+                if (_viewModel.ProductAccess.IsAllowBA && _showedGridColumns.Contains(BASTATUS))
                 {
                     row.Cells[BAStatusColumn].SetCellValue(item.BAStatus ? ViewResources.On : ViewResources.Off);
                 }
 
                 /* common column */
-                row.Cells[0].SetCellValue(numofRow);
-                foreach (var columnName in _gridCommonColumNames)
+                AssignCommonColumns(item, numofRow, row);
+            }
+        }
+
+        private void AssignCommonColumns(CustomerDTO item, int numofRow, IRow row)
+        {
+            var itemType = item.GetType();
+            row.Cells[0].SetCellValue(numofRow);
+            foreach (var columnName in _gridCommonColumNames)
+            {
+                if (_showedGridColumns.Contains(columnName.Value))
                 {
-                    if (_showedGridColumns.Contains(columnName.Value))
+                    var cellValue = itemType.GetProperty(columnName.Value).GetValue(item, null);
+                    if (columnName.Value.Equals("SpecialLevel") && (int)cellValue == 0)
                     {
-                        var cellValue = itemType.GetProperty(columnName.Value).GetValue(item, null);
-                        if (columnName.Value.Equals("SpecialLevel") && (int)cellValue == 0)
-                        {
-                            row.Cells[columnName.Key].SetCellValue(ViewResources.None);
-                        }
-                        else
-                        {
-                            row.Cells[columnName.Key].SetCellValue(cellValue);
-                        }
+                        row.Cells[columnName.Key].SetCellValue(ViewResources.None);
                     }
+                    else
+                    {
+                        row.Cells[columnName.Key].SetCellValue(cellValue);
+                    }
+                }
+            }
+        }
+
+        private void AssignCommissionColumns(CustomerDTO item, IRow row)
+        {
+            if (_viewModel.IsAllowedCustomerCommission && _showedGridColumns.Contains(CUSTOMERCOMM))
+            {
+                if (_viewModel.ProductAccess.IsAllowSB)
+                {
+                    row.Cells[SBCommColumn].SetCellValue(item.SBComm.ToStringExt(2));
+                }
+
+                if (_viewModel.ProductAccess.IsAllowNG)
+                {
+                    row.Cells[NGCommColumn].SetCellValue(item.NGComm.ToStringExt(2));
+                }
+
+                if (_viewModel.ProductAccess.IsAllowRB)
+                {
+                    row.Cells[RCCommColumn].SetCellValue(item.RBComm.ToStringExt(2));
+                }
+
+                if (_viewModel.ProductAccess.IsAllowLC)
+                {
+                    row.Cells[LCCommColumn].SetCellValue(item.LCComm.ToStringExt(2));
+                }
+
+                if (_viewModel.ProductAccess.IsAllowCS)
+                {
+                    row.Cells[CSCommColumn].SetCellValue(item.CSComm.ToStringExt(2));
                 }
             }
         }
@@ -269,9 +272,9 @@ namespace Fanex.Athena.Excel.Customer
                 stream = new FileStream(this._templatePath, FileMode.Open, FileAccess.Read);
                 this.Workbook = new HSSFWorkbook(stream);
                 this._templateSheet = Workbook.GetSheet("Template");
-                _defaultStyle = Workbook.CreateCellStyle();
-                _defaultStyle.ShrinkToFit = true;
-                _defaultStyle.WrapText = true;
+                var defaultStyle = Workbook.CreateCellStyle();
+                defaultStyle.ShrinkToFit = true;
+                defaultStyle.WrapText = true;
             }
             finally
             {
@@ -292,50 +295,27 @@ namespace Fanex.Athena.Excel.Customer
             Justification = "Reviewed. Suppression is OK here.")]
         private void ProcessUi(ISheet sheet)
         {
-            var hidedColumns = new List<int>();
+            var hiddenColumns = new List<int>();
             /*commission and group columns*/
-            if (!_exportData.IsAllowedCustomerCommission || !_showedGridColumns.Contains(CUSTOMERCOMM))
+            if (!_viewModel.IsAllowedCustomerCommission || !_showedGridColumns.Contains(CUSTOMERCOMM))
             {
                 sheet.HideColumn(SBCommColumn, NGCommColumn, RCCommColumn, LCCommColumn, CSCommColumn);
                 sheet.HideRow(RowHeaderTemplate + 1);
             }
             else
             {
-                if (!_exportData.ProductAccess.IsAllowSB)
-                {
-                    hidedColumns.Add(SBCommColumn);
-                }
-
-                if (!_exportData.ProductAccess.IsAllowNG)
-                {
-                    hidedColumns.Add(NGCommColumn);
-                }
-
-                if (!_exportData.ProductAccess.IsAllowRB)
-                {
-                    hidedColumns.Add(RCCommColumn);
-                }
-
-                if (!_exportData.ProductAccess.IsAllowLC)
-                {
-                    hidedColumns.Add(LCCommColumn);
-                }
-
-                if (!_exportData.ProductAccess.IsAllowCS)
-                {
-                    hidedColumns.Add(CSCommColumn);
-                }
+                AddHiddenCommissionColumns(hiddenColumns);
             }
 
-            if (!_exportData.IsAllowedCustomerCommission || !_showedGridColumns.Contains(GROUP))
+            if (!_viewModel.IsAllowedCustomerCommission || !_showedGridColumns.Contains(GROUP))
             {
-                hidedColumns.Add(GroupColumn);
+                hiddenColumns.Add(GroupColumn);
             }
 
             /*BA column*/
-            if (!_exportData.ProductAccess.IsAllowBA || !_showedGridColumns.Contains(BASTATUS))
+            if (!_viewModel.ProductAccess.IsAllowBA || !_showedGridColumns.Contains(BASTATUS))
             {
-                hidedColumns.Add(BAStatusColumn);
+                hiddenColumns.Add(BAStatusColumn);
             }
 
             /*common columns*/
@@ -343,11 +323,39 @@ namespace Fanex.Athena.Excel.Customer
             {
                 if (!_showedGridColumns.Contains(item.Value))
                 {
-                    hidedColumns.Add(item.Key);
+                    hiddenColumns.Add(item.Key);
                 }
             }
 
-            sheet.HideColumn(hidedColumns.ToArray());
+            sheet.HideColumn(hiddenColumns.ToArray());
+        }
+
+        private void AddHiddenCommissionColumns(IList<int> hidedColumns)
+        {
+            if (!_viewModel.ProductAccess.IsAllowSB)
+            {
+                hidedColumns.Add(SBCommColumn);
+            }
+
+            if (!_viewModel.ProductAccess.IsAllowNG)
+            {
+                hidedColumns.Add(NGCommColumn);
+            }
+
+            if (!_viewModel.ProductAccess.IsAllowRB)
+            {
+                hidedColumns.Add(RCCommColumn);
+            }
+
+            if (!_viewModel.ProductAccess.IsAllowLC)
+            {
+                hidedColumns.Add(LCCommColumn);
+            }
+
+            if (!_viewModel.ProductAccess.IsAllowCS)
+            {
+                hidedColumns.Add(CSCommColumn);
+            }
         }
 
         /// <summary>

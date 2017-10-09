@@ -224,6 +224,7 @@
             isAllowRB: true,
             customerCommIndex: 11,
             productBAIndex: 13,
+            customerWlTotalIndex: 7,
             totalColspan: 3,
             gridOption:
             {
@@ -269,6 +270,8 @@
             getColName: function () {
                 var colNames = Site.clone(colNameList);
 
+                colNames[_me.customerWlTotalIndex] = _me.hasCustomerComm ? "Total" : "CustomerW_L";
+
                 return Site.getResources(colNames);
             },
 
@@ -279,6 +282,7 @@
                 amtDueToBAColumn.hidden = !_me.isAllowBA;
                 racingRevenueColumn.hidden = !_me.isAllowRB;
                 amtDueToRacingColumn.hidden = !_me.isAllowRB;
+                systemIdColumn.hidden = Site.isFakeLicensee();
 
                 var colModels = Site.clone(colModelList);
 

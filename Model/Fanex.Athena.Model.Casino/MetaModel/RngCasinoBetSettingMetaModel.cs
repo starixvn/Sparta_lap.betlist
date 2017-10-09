@@ -7,24 +7,13 @@
 namespace Fanex.Athena.Model.Casino.MetaModel
 {
     using System.Data;
+    using Customer.MetaModel;
 
     /// <summary>
     /// RNGCasinoBetSettingMetaModel class.
     /// </summary>
-    public class RngCasinoBetSettingMetaModel : CasinoStatusMetaModel
+    public class RngCasinoBetSettingMetaModel : CustomerStatusMetaModel
     {
-        public int BetTypeId { get; set; }
-
-        public int RoleId
-        {
-            get
-            {
-                return 1;
-            }
-        }
-
-        public string StakeLevelList { get; set; }
-
         public DataTable TableParam { get; set; }
     }
 }

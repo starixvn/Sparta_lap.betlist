@@ -60,7 +60,7 @@
             ConfigureReaderForGetOddEventDrawNoDrawDataListMethod(expected);
 
             // Action
-            var result = _dataAccess.GetOddEventDrawNoDrawDataList(metaModel, out totalData)[0];
+            var result = _dataAccess.GetOddEvenDrawNoDrawDataList(metaModel, out totalData)[0];
 
             // Assert
             Assert.That(result.ShowTime, Is.EqualTo(expected.ShowTime));

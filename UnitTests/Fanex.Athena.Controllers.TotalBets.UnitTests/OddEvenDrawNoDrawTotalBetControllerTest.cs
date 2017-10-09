@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
-    using Fanex.Athena.Service.TotalBet.Interfaces;
+    using DataAccess.TotalBet.Interfaces;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
@@ -12,34 +12,33 @@
     using TotalBets;
 
     [TestFixture]
-    public class OddEvenDrawNoDrawTotalBetControllerTest : BaseControllerTest
+    public class OddEvenDrawNoDrawTotalBetControllerTest : BaseControllerHelperTest
     {
-        private IOddEvenDrawNoDrawService _oddEvenDrawNoDrawService;
-        
+        private IOddEvenDrawNoDrawDataAccess _oddEvenDrawNoDrawDataAccess;        
+
         [OneTimeSetUp]
-        public new void FixtureSetUp()
+        public override void FixtureSetUp()
         {
-            FakeBaseControllerDependency();
-            _oddEvenDrawNoDrawService = Substitute.For<IOddEvenDrawNoDrawService>();
-            OddEvenDrawNoDraw total;
-            _oddEvenDrawNoDrawService.GetOddEvenDrawNoDrawDataList(Arg.Any<OddEvenDrawNoDrawMetaModel>(), out total)
-                .Returns(x =>
-                {
-                    x[1] = new OddEvenDrawNoDraw();
-                    return new List<OddEvenDrawNoDraw> { new OddEvenDrawNoDraw() };
-                });
+            base.FixtureSetUp();
+
+            SetUpDefaultFakeData();
+
+            SepUpForService();
+
+            StubGetValueAppSettings("BaseUsdLicensees", "usd");
         }
 
         [OneTimeTearDown]
-        public new void FixtureTearDown()
+        public override void FixtureTearDown()
         {
-            _oddEvenDrawNoDrawService = null;
+            base.FixtureTearDown();
+
+            _oddEvenDrawNoDrawDataAccess = null;
         }
 
         [Test]
-        public void Index_WhenCall_ReturnCorrectViewName()
+        public void Index_WhenGet_ReturnMainView()
         {
-            // Arrange
             using (var controller = CreateController())
             {
                 // Action
@@ -51,11 +50,11 @@
         }
 
         [Test]
-        public void Index_WhenCall_CallAndGetDataFromService()
+        public void Index_WhenGet_GetDataFromService()
         {
-            // Arrange
             using (var controller = CreateController())
             {
+                // Arrange
                 OddEvenDrawNoDraw total;
 
                 // Action
@@ -63,13 +62,13 @@
                 var viewModel = viewResult.Model as OddEvenDrawNoDrawViewModel;
 
                 // Assert
-                _oddEvenDrawNoDrawService.ReceivedWithAnyArgs().GetOddEvenDrawNoDrawDataList(Arg.Any<OddEvenDrawNoDrawMetaModel>(), out total);
+                _oddEvenDrawNoDrawDataAccess.ReceivedWithAnyArgs().GetOddEvenDrawNoDrawDataList(Arg.Any<OddEvenDrawNoDrawMetaModel>(), out total);
                 Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
             }
         }
 
         [Test]
-        public void Index_InvalidCurrency_ViewNameIsAccessDenied()
+        public void Index_WhenPostWithInvalidCurrency_AccessDenied()
         {
             using (var controller = CreateController())
             {
@@ -93,7 +92,21 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            _oddEvenDrawNoDrawService);
+                            _oddEvenDrawNoDrawDataAccess);
+        }
+
+        private void SepUpForService()
+        {
+            _oddEvenDrawNoDrawDataAccess = Substitute.For<IOddEvenDrawNoDrawDataAccess>();
+
+            OddEvenDrawNoDraw total;
+            _oddEvenDrawNoDrawDataAccess
+                .GetOddEvenDrawNoDrawDataList(Arg.Any<OddEvenDrawNoDrawMetaModel>(), out total)
+                .Returns(x =>
+                {
+                    x[1] = new OddEvenDrawNoDraw();
+                    return new List<OddEvenDrawNoDraw> { new OddEvenDrawNoDraw() };
+                });
         }
     }
 }

@@ -31,30 +31,30 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            metaModel = CreateDefaultMetaModel(metaModel);
-            metaModel.FromDate = DateTime.Today.AddYears(-10);
-            metaModel.ToDate = DateTime.Today.AddYears(10);
+            var model = CreateDefaultMetaModel(metaModel);
+            model.FromDate = DateTime.Today.AddYears(-10);
+            model.ToDate = DateTime.Today.AddYears(10);
 
-            if (metaModel.IsExportExcel)
+            if (model.IsExportExcel)
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
-                if (metaModel.CurrencyId != BaseCurrencyType.All && !currencyList.ContainsKey(metaModel.CurrencyId))
+                if (model.CurrencyId != BaseCurrencyType.All && !currencyList.ContainsKey(model.CurrencyId))
                 {
-                    return this.EmptyExcel();
+                    return EmptyExcel();
                 }
 
                 const string UspKey = "Lrf_BetList_SelRunningByDate_Mem";
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                return this.Excel(metaModel, UspKey);
+                model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
+                return Excel(model, UspKey);
             }
 
-            return View("~/Views/BetList/PendingFunds/Main.cshtml", metaModel);
+            return View("~/Views/BetList/PendingFunds/Main.cshtml", model);
         }
 
         private ActionResult Excel(BetListMetaModel metaModel, string uspKey)
         {
-            var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 
             var showingOption = new ShowingOption
             {
@@ -63,12 +63,12 @@ namespace Fanex.Athena.Controllers.BetList
 
             var title = "Running " + ViewResources.BetList
                 + string.Format(
-                " - {0}({1}) - {2}",
+                " - {0}{1} - {2}",
                 metaModel.ExternalId,
-                metaModel.SystemId,
-                string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
+                metaModel.IsFakeLicensee ? string.Empty : $"({metaModel.SystemId})",
+                string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName));
 
-            var excel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, HiddenColList);
+            var excel = new BetListExcel(showingOption, metaModel.LicenseeId, HiddenColList);
 
             var workbook = excel.Export(ticketResult, title);
 

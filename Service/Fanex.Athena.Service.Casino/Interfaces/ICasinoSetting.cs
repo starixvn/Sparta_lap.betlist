@@ -9,16 +9,16 @@ namespace Fanex.Athena.Service.Casino.Interfaces
     using System.Collections.Generic;
     using System.Data;
     using Fanex.Athena.Model.BetSettings.DTO.RngCasino;
-    using Fanex.Athena.Model.Casino.MetaModel;
+    using Model.Customer.MetaModel;
 
     public interface ICasinoSetting
     {
-        bool UpdateCustSuspend(CasinoStatusMetaModel metaModel);
+        bool UpdateCustSuspend(CustomerStatusMetaModel metaModel);
 
-        bool UpdateCustClosed(CasinoStatusMetaModel metaModel);
+        bool UpdateCustClosed(CustomerStatusMetaModel metaModel);
 
-        IList<GameKind> GetRngCasinoSettings(int custId, string licenseeName, string language);
+        IList<GameKind> GetRngCasinoSettings(int custId, string language);
 
-        bool UpdateSetting(DataTable dataTableParam, string licenseeName);
+        bool UpdateSetting(DataTable dataTableParam);
     }
 }

@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.BetSettings
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using Core.Users.Interfaces;
     using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
@@ -99,25 +100,19 @@ namespace Fanex.Athena.Service.BetSettings
                 return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
-            var errCode = string.Empty;
-            var errMsg = string.Empty;
+            var errMsg = new StringBuilder();
 
             foreach (var curParam in metaModel)
             {
                 var result = _betSettingDataAccess.UpdateBetSetting(userId, custId, curParam, ip, language);
 
-                if (result.Code == 0)
+                if (result.Code != 0)
                 {
-                    continue;
+                    errMsg.Append(result.Message + ", ");
                 }
-
-                errCode += result.Code + ", ";
-                errMsg += result.Message + ", ";
             }
 
-            return errCode.Length == 0
-                ? new ResultInfo { Code = 0, Message = string.Empty }
-                : new ResultInfo { Code = -1, Message = errMsg };
+            return new ResultInfo { Code = errMsg.Length == 0 ? 0 : -1, Message = errMsg.ToString() };
         }
     }
 }

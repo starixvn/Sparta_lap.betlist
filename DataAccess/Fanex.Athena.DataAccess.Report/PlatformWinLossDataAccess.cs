@@ -10,6 +10,8 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using Core;
+    using Core.Configuration;
+    using Core.Configuration.Interfaces;
     using Core.Exception;
     using Extension.Helper;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -18,15 +20,19 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
-    using Model.Core.DTO.Configuration;
 
     public class PlatformWinLossDataAccess : BaseDataAccess, IPlatformWinLossDataAccess
     {
-        private readonly BalanceUp _balanceUp;
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public PlatformWinLossDataAccess(BalanceUp balanceUp)
+        public PlatformWinLossDataAccess()
         {
-            _balanceUp = balanceUp;
+            _balanceUpDataAccess = new BalanceUpDataAccess();
+        }
+
+        public PlatformWinLossDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        {
+            _balanceUpDataAccess = balanceUpDataAccess;
         }
 
         public IList<PlatformWinLossSummary> GetSummaryData(PlatformWinLossMetaModel metaModel, out PlatformWinLossSummary totalData)
@@ -45,7 +51,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -66,7 +71,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -89,11 +93,11 @@ namespace Fanex.Athena.DataAccess.Report
             while (reader.Read())
             {
                 var platformType = reader.ToInt("PlatformType");
-                var productCode = reader.ToString("productprefix").ToUpper();
+                var productCode = reader.ToString("productprefix").ToUpperInvariant();
                 PlatformWinLossSummary parent;
                 if (!parentRows.ContainsKey(platformType))
                 {
-                    parent = new PlatformWinLossSummary()
+                    parent = new PlatformWinLossSummary
                     {
                         PlatformType = platformType,
                         Name = Model.Core.DataDomain.PlatformType.GetPlatformName(platformType),
@@ -185,12 +189,11 @@ namespace Fanex.Athena.DataAccess.Report
                     RacingRevenue = reader.ToDecimal(winLossRbColumn) + reader.ToDecimal(commRbColumn),
                     AmtDueToBA = reader.ToDecimal(amtDueToBaComumn),
                     AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn),
-                    CurrencyId = reader.ToInt("Currency")
+                    CurrencyId = reader.ToInt("Currency"),
+                    SystemId = reader.ToString("username"),
+                    CustomerId = reader.ToInt("custid"),
+                    ExternalId = reader.ToString("nickname")
                 };
-
-                item.SystemId = reader.ToString("username");
-                item.CustomerId = reader.ToInt("custid");
-                item.ExternalId = reader.ToString("nickname");
 
                 dataList.Add(item);
                 index++;
@@ -212,7 +215,7 @@ namespace Fanex.Athena.DataAccess.Report
         private void UpdateUspParams(IObjectDb db, PlatformWinLossMetaModel metaModel)
         {
             db.AddInParameter("PlatformType", DbType.Byte, metaModel.PlatformType);
-            db.AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
+            db.AddInParameter("movebetsday", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
             db.AddInParameter("DrawFilter", DbType.Int16, metaModel.DrawFilter);
             db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
             db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);

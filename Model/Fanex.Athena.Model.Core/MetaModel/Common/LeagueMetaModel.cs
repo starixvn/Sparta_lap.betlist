@@ -10,10 +10,6 @@ namespace Fanex.Athena.Model.Core.MetaModel.Common
 
     public class LeagueMetaModel
     {
-        public LeagueMetaModel()
-        {
-        }
-
         public string AgentListXml { get; set; }
 
         public int CurrencyId { get; set; }

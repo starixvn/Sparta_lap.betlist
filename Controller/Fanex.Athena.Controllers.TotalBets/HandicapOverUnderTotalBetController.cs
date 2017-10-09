@@ -8,6 +8,8 @@ namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Linq;
     using System.Web.Mvc;
+    using DataAccess.TotalBet;
+    using DataAccess.TotalBet.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Model.TotalBet.DTO;
     using Fanex.Athena.Web.ActionFilter;
@@ -16,27 +18,25 @@ namespace Fanex.Athena.Controllers.TotalBets
     using Model.TotalBet.ViewModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.TotalBet;
-    using Service.TotalBet.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.TotalBetHandicapOverUnderLive)]
     public class HandicapOverUnderTotalBetController : TotalBetBaseController
     {
-        private readonly IHandicapOverUnderService _handicapOverUnderService;
+        private readonly IHandicapOverUnderDataAccess _handicapOverUnderDataAccess;
 
         public HandicapOverUnderTotalBetController()
         {
-            _handicapOverUnderService = new HandicapOverUnderService();
+            _handicapOverUnderDataAccess = new HandicapOverUnderDataAccess();
         }
 
         public HandicapOverUnderTotalBetController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IHandicapOverUnderService handicapOverUnderService)
+            IHandicapOverUnderDataAccess handicapOverUnderDataAccess)
             : base(languageService, sessionService, appSetting)
         {
-            _handicapOverUnderService = handicapOverUnderService;
+            _handicapOverUnderDataAccess = handicapOverUnderDataAccess;
         }
 
         [HttpGet]
@@ -70,7 +70,7 @@ namespace Fanex.Athena.Controllers.TotalBets
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 HandicapOverUnder totalData;
-                var dataList = _handicapOverUnderService.GetHandicapOverUnderDataList(metaModel, out totalData);
+                var dataList = _handicapOverUnderDataAccess.GetHandicapOverUnderDataList(metaModel, out totalData);
 
                 var model = new HandicapOverUnderViewModel
                 {

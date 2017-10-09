@@ -7,11 +7,12 @@
 namespace Fanex.Athena.DataAccess.Report
 {
     using System.Data;
+    using Core.Configuration;
+    using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
@@ -20,23 +21,29 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class WinLossByBetTypeDataAccess : BaseDataAccess, IWinLossByBetTypeDataAccess
     {
-        private readonly BalanceUp _balanceUp;
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public WinLossByBetTypeDataAccess(BalanceUp balanceUp)
+        public WinLossByBetTypeDataAccess()
         {
-            _balanceUp = balanceUp;
+            _balanceUpDataAccess = new BalanceUpDataAccess();
+        }
+
+        public WinLossByBetTypeDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        {
+            _balanceUpDataAccess = balanceUpDataAccess;
         }
 
         public SortableList<WinLossByBetType> GetDataList(WinLossByBetTypeMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinLossByBettype";
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             var uspParams = new
             {
                 AgentList = metaModel.AgentListXml,
                 metaModel.FromDate,
                 metaModel.ToDate,
-                _balanceUp.MoveBetsDay,
-                _balanceUp.BalanceUpDay
+                balanceUp.MoveBetsDay,
+                balanceUp.BalanceUpDay
             };
 
             try
@@ -51,7 +58,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);
             }
         }

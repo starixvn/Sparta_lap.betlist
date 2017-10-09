@@ -33,7 +33,6 @@ namespace Fanex.Athena.Api.BetList
                                     + "<span class='system-parlay-combo-type'>{0}</span> x "
                                     + "<span class='system-parlay-unit-stake'>{1} {2}</span>"
                                     + "</p>";
-            var ticketTextRender = string.Empty;
             if (tickets.Count > 0)
             {
                 if (handicap1 == 0)
@@ -46,7 +45,7 @@ namespace Fanex.Athena.Api.BetList
                 {
                     // Combo parlay.
                     tickets = tickets.OrderBy(x => x.MatchId).ToList();
-                    var length = Math.Min(texts.Count(), tickets.Count());
+                    var length = Math.Min(texts.Count(), tickets.Count);
                     for (int i = 0; i < length; i++)
                     {
                         var text = texts[i];

@@ -650,5 +650,21 @@
                 jasmine.clock().uninstall();
             });
         });
+
+        describe("isFakeLicensee()", function () {
+            it("returns true if $('#IsFakeLicensee').val() === '1'", function () {
+                setFixtures('<input type="hidden" id="IsFakeLicensee" value="1">');
+
+                var result = Site.isFakeLicensee();
+
+                expect(result).toBe(true);
+            });
+
+            it("returns value form private variable", function () {
+                var result = Site.isFakeLicensee();
+
+                expect(result).toBe(true);
+            });
+        });
     });
 });

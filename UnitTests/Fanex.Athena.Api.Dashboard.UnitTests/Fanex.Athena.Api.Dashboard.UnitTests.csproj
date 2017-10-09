@@ -43,8 +43,8 @@
       <HintPath>..\..\packages\NSubstitute.2.0.2\lib\net45\NSubstitute.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="nunit.framework, Version=3.6.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -75,6 +75,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="BaseDashboardApiControllerTest.cs" />
+    <Compile Include="FakeBaseDashboardApiController.cs" />
     <Compile Include="LicenseeWinLossByPlatformControllerTest.cs" />
     <Compile Include="PendingFundControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,6 +94,10 @@
       <Project>{0FD46119-9F38-4C3A-BA06-719CF00D75D8}</Project>
       <Name>Fanex.Athena.Api.Dashboard</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Dashboard\Fanex.Athena.DataAccess.Dashboard.csproj">
+      <Project>{96B29EAC-D1B3-42C6-A930-518D6AD33630}</Project>
+      <Name>Fanex.Athena.DataAccess.Dashboard</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
       <Name>Fanex.Athena.Model.Core</Name>
@@ -103,10 +109,6 @@
     <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
       <Project>{FCFD7434-085B-4C93-848F-E1CBCEDCC5A0}</Project>
       <Name>Fanex.Athena.Service.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Dashboard\Fanex.Athena.Service.Dashboard.csproj">
-      <Project>{2AB6D6E9-7C2E-4AF6-BC7C-AEF5E04DA943}</Project>
-      <Name>Fanex.Athena.Service.Dashboard</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

@@ -10,7 +10,7 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
-    using System.Web;
+    using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Report;
@@ -24,6 +24,8 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportActiveCustomerSummary)]
     public class ActiveCustomerSummaryReportController : ApiReportBaseController
@@ -33,6 +35,15 @@ namespace Fanex.Athena.Api.Report
         public ActiveCustomerSummaryReportController()
         {
             _activeCustomerSummaryDataAccess = new ActiveCustomerSummaryDataAccess();
+        }
+
+        public ActiveCustomerSummaryReportController(
+            IActiveCustomerSummaryDataAccess activeCustomerSummaryDataAccess,
+            ISessionService sessionService,
+            IProductService productService)
+            : base(sessionService, productService)
+        {
+            _activeCustomerSummaryDataAccess = activeCustomerSummaryDataAccess;
         }
 
         [HttpPost]
@@ -51,7 +62,7 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
-        #region ProcessRequest
+        #region Private Utility
 
         private static SortableList<ActiveCustomer> SortData(SortableList<ActiveCustomer> dataList, string sortBy = null, string sortOrder = "asc")
         {
@@ -65,7 +76,7 @@ namespace Fanex.Athena.Api.Report
                     var propertyName = nameof(ActiveCustomer.CustomerCount);
                     var productCode = sortBy.Substring(propertyName.Length);
 
-                    dataList.SortByDictionary<string, int>(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+                    dataList.SortByDictionary(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
                 }
                 else
                 {
@@ -76,16 +87,23 @@ namespace Fanex.Athena.Api.Report
             return dataList;
         }
 
-        #endregion ProcessRequest
-
-        #region Private Utility
+        [CLSCompliant(false)]
+        protected internal virtual ActiveCustomerSummaryExcel CreateExcel(
+            string templatePath,
+            ConvertingOption convertingOption,
+            ShowingOption showingOption,
+            ActiveCustomerMetaModel metaModel,
+            ActiveCustomerViewModel excelModel)
+        {
+            return new ActiveCustomerSummaryExcel(templatePath, convertingOption, showingOption, metaModel, excelModel);
+        }
 
         private HttpResponseMessage ExportExcel(ActiveCustomerMetaModel metaModel, IList<ActiveCustomer> dataList, int totalCustomer)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             const string FileName = "ActiveCustomerSummary.xls";
-            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/ActiveCustomerSummary.xls");
+            var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/ActiveCustomerSummary.xls");
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
 
             var currencyList = userSession.CurrencyList;
@@ -110,7 +128,7 @@ namespace Fanex.Athena.Api.Report
                 TotalCustomer = totalCustomer,
             };
 
-            var excel = new ActiveCustomerSummaryExcel(templatePath, convertingOption, showingOption, metaModel, excelModel);
+            var excel = CreateExcel(templatePath, convertingOption, showingOption, metaModel, excelModel);
 
             excel.Export();
 

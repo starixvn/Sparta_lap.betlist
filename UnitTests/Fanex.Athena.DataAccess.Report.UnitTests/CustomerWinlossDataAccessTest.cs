@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using Core.Configuration.Interfaces;
     using Data;
     using Extension.Utility;
     using Model.Core.DTO.Configuration;
@@ -25,13 +26,16 @@
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
+
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balance = new BalanceUp
             {
                 MoveBetsDay = new DateTime(2016, 8, 10),
                 BalanceUpDay = new DateTime(2016, 8, 31)
             };
+            balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            _dataAccess = Substitute.ForPartsOf<CustomerWinlossDataAccess>(_balance);
+            _dataAccess = Substitute.ForPartsOf<CustomerWinlossDataAccess>(balanceUpDataAccess);
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinLoss")).Returns(_objectDb);
 
             _reader = Substitute.For<IDataReader>();

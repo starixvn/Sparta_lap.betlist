@@ -15,6 +15,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Data;
+    using Helpers;
     using Interfaces;
     using Logging;
     using Model.BetSettings.DTO;
@@ -112,7 +113,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, new { });
             }
         }
@@ -140,7 +140,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName, "No params");
             }
         }

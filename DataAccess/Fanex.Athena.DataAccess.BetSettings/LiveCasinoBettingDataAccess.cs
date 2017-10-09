@@ -10,15 +10,28 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using System.Data;
     using System.Linq;
     using Common;
+    using Core;
+    using Extension.Helper;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common.Extensions;
-    using Fanex.Data;
     using Interfaces;
     using Model.BetSettings.DTO;
 
-    public class LiveCasinoBetSettingDataAccess : CasinoBettingBaseDataAccess, ILiveCasinoBetSettingDataAccess
+    public class LiveCasinoBetSettingDataAccess : BaseDataAccess, ILiveCasinoBetSettingDataAccess
     {
         private const int LiveCasinoSportId = 162;
+
+        private readonly ICoreCasinoBetSettingDataAccess _coreCasinoBetSettingDataAccess;
+
+        public LiveCasinoBetSettingDataAccess()
+        {
+            _coreCasinoBetSettingDataAccess = new CoreCasinoBetSettingDataAccess();
+        }
+
+        public LiveCasinoBetSettingDataAccess(ICoreCasinoBetSettingDataAccess coreCasinoBetSettingDataAccess)
+        {
+            _coreCasinoBetSettingDataAccess = coreCasinoBetSettingDataAccess;
+        }
 
         public IList<LiveCasinoBetSetting> GetBetSetting(int custId, string language)
         {
@@ -26,7 +39,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
             var listCasinoBetSetting = new List<LiveCasinoBetSetting>();
 
-            var gameTypeName = GetGameTypeColumn(language);
+            var gameTypeName = CasinoHelper.GetColumnNameByLanguage("GameTypeName", language);
 
             using (var db = this.GetObjectDb(UspName))
             {
@@ -84,7 +97,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 var newParam = GetLiveCasinoLogParam(custId, param.GameTypeId, language);
                 var trackingValue1 = GetTrackingValue(UspName, custId, newParam, ip, language, result);
 
-                WriteLogUpdatingAction(userId, custId, UspName, trackingValue1, trackingValue2);
+                _coreCasinoBetSettingDataAccess.WriteLogUpdatingAction(userId, custId, UspName, trackingValue1, trackingValue2);
 
                 return new ResultInfo
                 {
@@ -96,30 +109,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
         public IResultInfo UpdateStatus(int userId, int custId, int status, string language, string ip)
         {
-            return UpdateCasinoStatus(userId, custId, LiveCasinoSportId, status, language, ip);
-        }
-
-        private static string GetGameTypeColumn(string language)
-        {
-            var gameTypeName = "GameTypeName_En";
-
-            switch (language)
-            {
-                case "zh-TW":
-                    gameTypeName = "GameTypeName_Ct";
-                    break;
-
-                case "zh-CN":
-                case "zh-Hans":
-                    gameTypeName = "GameTypeName_Cs";
-                    break;
-
-                case "ko-KR":
-                    gameTypeName = "GameTypeName_Ko";
-                    break;
-            }
-
-            return gameTypeName;
+            return _coreCasinoBetSettingDataAccess.UpdateCasinoStatus(userId, custId, LiveCasinoSportId, status, language, ip);
         }
 
         private static string GetTrackingValue(

@@ -38,13 +38,5 @@ namespace Fanex.Athena.Model.Report.MetaModel
         public string SortDirection { get; set; }
 
         public string SortColumn { get; set; }
-
-        public int PageSizeExcel
-        {
-            get
-            {
-                return int.MaxValue - 1000;
-            }
-        }
     }
 }

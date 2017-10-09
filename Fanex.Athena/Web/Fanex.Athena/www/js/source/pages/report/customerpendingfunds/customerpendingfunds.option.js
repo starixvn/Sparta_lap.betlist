@@ -127,8 +127,10 @@
             },
 
             getColModel: function (totalRows) {
-                var colModels = Site.clone(colModelList);
+                systemIdColumn.hidden = Site.isFakeLicensee();
 
+                var colModels = Site.clone(colModelList);
+                
                 if (totalRows <= 1) {
                     $.each(colModels, function (index, item) {
                         item.sortable = false;

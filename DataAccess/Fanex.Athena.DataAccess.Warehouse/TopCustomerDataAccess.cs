@@ -22,10 +22,6 @@ namespace Fanex.Athena.DataAccess.Warehouse
     {
         private const string UspName = "Lrf_rpt_DWTopCustomerSel";
 
-        public TopCustomerDataAccess()
-        {
-        }
-
         public IList<TopCustomer> GetDataList(TopCustomerMetaModel metaModel)
         {
             var dataList = new List<TopCustomer>();
@@ -61,7 +57,6 @@ namespace Fanex.Athena.DataAccess.Warehouse
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, param);
             }
 
@@ -81,7 +76,6 @@ namespace Fanex.Athena.DataAccess.Warehouse
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, param);
             }
         }

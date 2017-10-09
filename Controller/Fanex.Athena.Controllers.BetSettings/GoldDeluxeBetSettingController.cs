@@ -43,9 +43,9 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public JsonResult UpdateStatus(int custId, string nickName, int status)
         {
-            if (ProductAccess.IsAllow(ProductTypes.GoldDeluxe) == false || !IsBetSettingEditable())
+            if (!ProductAccess.IsAllow(ProductTypes.GoldDeluxe) || !IsBetSettingEditable())
             {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
 
             var userSession = SessionService.UserSession;
@@ -69,9 +69,9 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public JsonResult UpdateBetSetting(int custId, string nickName, string group)
         {
-            if (ProductAccess.IsAllow(ProductTypes.GoldDeluxe) == false || !IsBetSettingEditable())
+            if (!ProductAccess.IsAllow(ProductTypes.GoldDeluxe) || !IsBetSettingEditable())
             {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
 
             var licenseeSession = SessionService.LicenseeSession;

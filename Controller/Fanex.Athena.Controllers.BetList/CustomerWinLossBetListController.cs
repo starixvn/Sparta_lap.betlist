@@ -28,28 +28,28 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            metaModel = CreateDefaultMetaModel(metaModel);
+            var model = CreateDefaultMetaModel(metaModel);
 
-            if (metaModel.IsExportExcel)
+            if (model.IsExportExcel)
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
+                if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
                 {
-                    return Excel(metaModel);
+                    return Excel(model);
                 }
 
                 return EmptyExcel();
             }
 
-            return View("~/Views/BetList/CustomerWl/Main.cshtml", metaModel);
+            return View("~/Views/BetList/CustomerWl/Main.cshtml", model);
         }
 
         private ActionResult Excel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_SelWinLossByDate_Mem";
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
 
             var showingOption = new ShowingOption
             {
@@ -61,16 +61,16 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper(CultureInfo.CurrentCulture) : metaModel.CurrencyName);
 
             var title = ViewResources.Customer + " " + ViewResources.BetList + string.Format(
-                " - {0} --> {1} - {2}({3}) - {4}",
+                " - {0} --> {1} - {2}{3} - {4}",
                 metaModel.FromDate.ToShortDateString(),
                 metaModel.ToDate.ToShortDateString(),
                 metaModel.ExternalId,
-                metaModel.SystemId,
+                metaModel.IsFakeLicensee ? string.Empty : $"({metaModel.SystemId})",
                 currencyTitle);
 
             var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn };
 
-            var excel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, hiddenColumns);
+            var excel = new BetListExcel(showingOption, metaModel.LicenseeId, hiddenColumns);
 
             var workbook = excel.Export(ticketResult, title);
 

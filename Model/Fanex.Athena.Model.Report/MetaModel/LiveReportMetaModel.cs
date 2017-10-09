@@ -15,14 +15,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
 
         public int LiveIndicator { get; set; }
 
-        public DateTime MinDate
-        {
-            get
-            {
-                return DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(-3);
-            }
-        }
-
         public override bool IsValid
         {
             get

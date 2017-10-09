@@ -8,23 +8,12 @@ namespace Fanex.Athena.Model.Casino.MetaModel
 {
     using System;
 
-    /// <summary>
-    /// RNGCasinoResultMetaModel class.
-    /// </summary>
     [Serializable]
     public class RNGCasinoResultMetaModel
     {
         public bool IsExportExcel { get; set; }
 
         public long RefNo { get; set; }
-
-        public string BetType
-        {
-            get
-            {
-                return "Casino";
-            }
-        }
 
         public bool IsShowPic { get; set; }
 
@@ -35,14 +24,6 @@ namespace Fanex.Athena.Model.Casino.MetaModel
         public string ExternalId { get; set; }
 
         public string SystemId { get; set; }
-
-        public string UserName
-        {
-            get
-            {
-                return SystemId;
-            }
-        }
 
         public int CustId { get; set; }
 
@@ -56,7 +37,7 @@ namespace Fanex.Athena.Model.Casino.MetaModel
         {
             return RefNo > 0
                 && FromDate <= ToDate && CustId > 0
-                && !string.IsNullOrEmpty(UserName);
+                && !string.IsNullOrEmpty(SystemId);
         }
     }
 }

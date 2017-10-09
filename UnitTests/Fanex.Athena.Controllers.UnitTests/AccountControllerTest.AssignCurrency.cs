@@ -1,8 +1,8 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
     using System.Collections.Generic;
-    using System.Collections.Specialized;
     using System.Web.Mvc;
+    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using Model.Core.MetaModel.Account;
@@ -13,113 +13,307 @@
     public partial class AccountControllerTest
     {
         [Test]
-        public void AssignCurrency_NotEnableAssignCurrency_ReturnEmptyResult()
+        public void AssignCurrency_WhenGetWithoutEnableAssignCurrency_ReturnEmptyResult()
         {
-            // Arrange
-            AppSettings.EnableAssignCurrency.Returns(false);
+            using (var controller = CreateController())
+            {
+                // Arrange
+                AppSettings.EnableAssignCurrency.Returns(false);
 
-            // Action
-            var result = _controller.AssignCurrency(0) as EmptyResult;
+                // Action
+                var result = controller.AssignCurrency(0) as EmptyResult;
 
-            // Assert
-            Assert.That(result, Is.Not.Null);
+                // Assert
+                Assert.That(result, Is.Not.Null);
+            }
         }
 
         [Test]
-        public void AssignCurrency_InvalidUserId_RedirectToAccessDenied()
+        public void AssignCurrency_WhenGetWithInvalidUserId_AccessDenied()
         {
-            // Arrange
-            AppSettings.EnableAssignCurrency.Returns(true);
+            using (var controller = CreateController())
+            {
+                // Arrange
+                AppSettings.EnableAssignCurrency.Returns(true);
 
-            // Action
-            var result = _controller.AssignCurrency(0) as RedirectResult;
+                // Action
+                var result = controller.AssignCurrency(0) as RedirectResult;
 
-            // Assert
-            Assert.That(result.Url, Is.EqualTo("~/Utility/AccessDenied"));
+                // Assert
+                Assert.That(result.Url, Is.EqualTo(AccessDeniedUrl));
+            }
         }
 
         [Test]
-        public void AssignCurrency_WhenCall_ReturnCorrectView()
+        public void AssignCurrency_WhenGet_ReturnAssignCurrencyView()
         {
-            // Arrange
-            const int UserId = 111;
-            AppSettings.EnableAssignCurrency.Returns(true);
-            _currencyService.GetCurrenciesByUser(SessionLicenseeId, UserId).Returns(new List<CurrencyUser>
+            using (var controller = CreateController())
+            {
+                // Arrange
+                AppSettings.EnableAssignCurrency.Returns(true);
+
+                _currencyDataAccess.GetCurrenciesByUser(DefaultLicenseeSession.LicenseeId, DefaultUserSession.UserId).Returns(new List<CurrencyUser>
             {
                 new CurrencyUser()
             });
 
-            // Action
-            var viewResult = _controller.AssignCurrency(UserId) as ViewResult;
+                // Action
+                var viewResult = controller.AssignCurrency(DefaultUserSession.UserId) as ViewResult;
 
-            // Assert
-            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Account/AssignCurrency.cshtml"));
-            Assert.That(viewResult.ViewBag.CurrencyList.Count, Is.EqualTo(1));
+                // Assert
+                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Account/AssignCurrency.cshtml"));
+            }
         }
 
         [Test]
-        public void AssignCurrencyPost_InValidUserId_ReturnFailResult()
+        public void AssignCurrency_WhenGetWithKeenOceanLicensee_SetCurrenyNameIsHKD()
         {
-            // Action
-            var result = _controller.AssignCurrency(new AssignCurrencyMetaModel
+            using (var controller = CreateController())
             {
-                UserId = 0
-            }) as JsonResult;
-            var resultInfo = result.Data as ResultInfo;
+                // Arrange
+                AppSettings.EnableAssignCurrency.Returns(true);
 
-            // Assert
-            Assert.That(resultInfo.Code, Is.EqualTo(-2));
-            Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.InvalidRequestMsg));
-        }
-
-        [Test]
-        public void AssignCurrencyPost_NotEnableAssignCurrency_ReturnFailResult()
-        {
-            // Arrange
-            AppSettings.EnableAssignCurrency.Returns(false);
-
-            // Action
-            var result = _controller.AssignCurrency(new AssignCurrencyMetaModel
-            {
-                UserId = 111,
-                CurrencyList = "1,2,3"
-            }) as JsonResult;
-            var resultInfo = result.Data as ResultInfo;
-
-            // Assert
-            Assert.That(resultInfo.Code, Is.EqualTo(-1));
-            Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.FunctionDeniedMsg));
-        }
-
-        [Test]
-        public void AssignCurrencyPost_ValidUserInfo_CallServiceAndBuildCorrectCurrencyList()
-        {
-            // Arrange
-            AppSettings.EnableAssignCurrency.Returns(true);
-            _currencyService.GetCurrenciesByUser(SessionLicenseeId, SessionUserId)
-                .Returns(new List<CurrencyUser>
+                StubLicenseeSessionData(new LicenseeSession
                 {
-                    new CurrencyUser
-                    {
-                        CurrencyId = 1
-                    }
+                    LicenseeId = LicenseeIdentity.KeenOcean
                 });
-            _currencyService.AssignCurrenciesByUser(Arg.Any<AssignCurrencyMetaModel>())
-                .Returns(new ResultInfo());
-            var model = new AssignCurrencyMetaModel
+
+                _currencyDataAccess.GetCurrenciesByUser(LicenseeIdentity.KeenOcean, DefaultUserSession.UserId).Returns(new List<CurrencyUser>
             {
-                UserId = 111,
-                CurrencyList = "1,2,3,4,5"
-            };
+                new CurrencyUser { CurrencyId = CurrencyType.Hkd }
+            });
 
-            // Action
-            var result = _controller.AssignCurrency(model) as JsonResult;
-            var resultInfo = result.Data as ResultInfo;
+                // Action
+                var viewResult = controller.AssignCurrency(DefaultUserSession.UserId) as ViewResult;
 
-            // Assert
-            _currencyService.Received().AssignCurrenciesByUser(Arg.Any<AssignCurrencyMetaModel>());
-            Assert.That(model.CurrencyList, Is.EqualTo("<currencies><currency currencyid=\"1\" status=\"1\"></currency></currencies>"));
-            Assert.That(resultInfo.Code, Is.EqualTo(0));
+                // Assert
+                Assert.That(viewResult.ViewBag.CurrencyList[0].CurrencyName, Is.EqualTo("HKD"));
+            }
+        }
+
+        [Test]
+        public void AssignCurrency_WhenPostWithInValidUserId_ReturnFailResult()
+        {
+            using (var controller = CreateController())
+            {
+                // Action
+                var result = controller.AssignCurrency(new AssignCurrencyMetaModel
+                {
+                    UserId = 0
+                }) as JsonResult;
+
+                var resultInfo = result.Data as ResultInfo;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(resultInfo.Code, Is.EqualTo(-2));
+                    Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.InvalidRequestMsg));
+                });
+            }
+        }
+
+        [Test]
+        public void AssignCurrency_WhenPostWithInCurrencyList_ReturnFailResult()
+        {
+            using (var controller = CreateController())
+            {
+                // Action
+                var result = controller.AssignCurrency(new AssignCurrencyMetaModel
+                {
+                    UserId = DefaultUserSession.UserId,
+                    CurrencyList = null
+                }) as JsonResult;
+
+                var resultInfo = result.Data as ResultInfo;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(resultInfo.Code, Is.EqualTo(-2));
+                    Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.InvalidRequestMsg));
+                });
+            }
+        }
+
+        [Test]
+        public void AssignCurrency_WhenPostWithoutEnableAssignCurrency_ReturnFailResult()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                AppSettings.EnableAssignCurrency.Returns(false);
+
+                // Action
+                var result = controller.AssignCurrency(new AssignCurrencyMetaModel
+                {
+                    UserId = DefaultUserSession.UserId,
+                    CurrencyList = "1,2,3"
+                }) as JsonResult;
+
+                var resultInfo = result.Data as ResultInfo;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(resultInfo.Code, Is.EqualTo(-1));
+                    Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.FunctionDeniedMsg));
+                });
+            }
+        }
+
+        [Test]
+        public void AssignCurrency_WhenPost_ValidatePermissionRestrictionFailed_ReturnFailResult()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                AppSettings.EnableAssignCurrency.Returns(true);
+
+                // Action
+                var result = controller.AssignCurrency(new AssignCurrencyMetaModel
+                {
+                    UserId = DefaultUserSession.UserId,
+                    CurrencyList = "1,2,3"
+                }) as JsonResult;
+
+                var resultInfo = result.Data as ResultInfo;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(resultInfo.Code, Is.EqualTo(-1));
+                    Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.FunctionDeniedMsg));
+                });
+            }
+        }
+
+        [Test]
+        public void AssignCurrency_ValidUser_BuildCorrectCurrencyList()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                AppSettings.EnableAssignCurrency.Returns(true);
+
+                StubGetCurrenciesByUser(
+                    DefaultLicenseeSession.LicenseeId,
+                    DefaultUserSession.UserId,
+                    new List<CurrencyUser>
+                    {
+                    new CurrencyUser { CurrencyId = 1 },
+                    new CurrencyUser { CurrencyId = 6 }
+                    });
+
+                StubAssignCurrenciesByUser(new ResultInfo());
+
+                var model = new AssignCurrencyMetaModel
+                {
+                    UserId = 111,
+                    CurrencyList = "1,2,3,4,5"
+                };
+
+                // Action
+                var result = controller.AssignCurrency(model) as JsonResult;
+                var resultInfo = result.Data as ResultInfo;
+
+                // Assert
+                Assert.That(
+                    model.CurrencyList,
+                    Is.EqualTo("<currencies><currency currencyid=\"1\" status=\"1\"></currency><currency currencyid=\"6\" status=\"0\"></currency></currencies>"));
+            }
+        }
+
+        [Test]
+        public void AssignCurrency_UserCurrencyListGetFromDataAccessIsEmpty_CurrencyListHasEmptyElement()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                AppSettings.EnableAssignCurrency.Returns(true);
+
+                StubGetCurrenciesByUser(DefaultLicenseeSession.LicenseeId, DefaultUserSession.UserId, new List<CurrencyUser>());
+
+                StubAssignCurrenciesByUser(new ResultInfo());
+
+                var model = new AssignCurrencyMetaModel
+                {
+                    UserId = 111,
+                    CurrencyList = "1,2,3,4,5"
+                };
+
+                // Action
+                var result = controller.AssignCurrency(model) as JsonResult;
+                var resultInfo = result.Data as ResultInfo;
+
+                // Assert
+                Assert.That(model.CurrencyList, Is.EqualTo("<currencies></currencies>"));
+            }
+        }
+
+        [Test]
+        public void AssignCurrency_ValidUserInfo_ReturnSuccessfulData()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                AppSettings.EnableAssignCurrency.Returns(true);
+
+                StubGetCurrenciesByUser(DefaultLicenseeSession.LicenseeId, DefaultUserSession.UserId, new List<CurrencyUser> { new CurrencyUser { CurrencyId = 1 } });
+
+                StubAssignCurrenciesByUser(new ResultInfo { Code = 0 });
+
+                var model = new AssignCurrencyMetaModel
+                {
+                    UserId = 111,
+                    CurrencyList = "1,2,3,4,5"
+                };
+
+                // Action
+                var result = controller.AssignCurrency(model) as JsonResult;
+                var resultInfo = result.Data as ResultInfo;
+
+                // Assert
+                Assert.That(resultInfo.IsSuccessful, Is.True);
+            }
+        }
+
+        [Test]
+        public void AssignCurrency_ValidUserButCallSeviceFailed_ReturnUnSuccessfulData()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                AppSettings.EnableAssignCurrency.Returns(true);
+
+                StubGetCurrenciesByUser(DefaultLicenseeSession.LicenseeId, DefaultUserSession.UserId, new List<CurrencyUser> { new CurrencyUser { CurrencyId = 1 } });
+
+                StubAssignCurrenciesByUser(new ResultInfo { Code = 1, Message = "Error" });
+
+                var model = new AssignCurrencyMetaModel
+                {
+                    UserId = 111,
+                    CurrencyList = "1,2,3,4,5"
+                };
+
+                // Action
+                var result = controller.AssignCurrency(model) as JsonResult;
+                var resultInfo = result.Data as ResultInfo;
+
+                // Assert
+                Assert.That(resultInfo.IsSuccessful, Is.False);
+            }
+        }
+
+        private void StubGetCurrenciesByUser(int licenseeId, int userId, List<CurrencyUser> fakeResult)
+        {
+            LangService.GetCurrentLanguage().Returns(DefaultUserSession.Language);
+            _currencyDataAccess.GetCurrenciesByUser(DefaultLicenseeSession.LicenseeId, DefaultUserSession.UserId).Returns(x => fakeResult);
+        }
+
+        private void StubAssignCurrenciesByUser(ResultInfo fakeResult)
+        {
+            _currencyDataAccess.AssignCurrenciesByUser(Arg.Any<AssignCurrencyMetaModel>()).Returns(x => fakeResult);
         }
     }
 }

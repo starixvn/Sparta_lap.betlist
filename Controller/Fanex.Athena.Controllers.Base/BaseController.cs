@@ -56,6 +56,11 @@ namespace Fanex.Athena.Controllers
             get { return _appSettings; }
         }
 
+        protected bool IsFakeLicensee()
+        {
+            return AppSettings.FakeLicenseeList.Contains(SessionService.LicenseeSession.LicenseeId);
+        }
+
         protected void SetConvetedUSDCurrencyId(BaseMetaModel metaModel)
         {
             metaModel.CurrencyId = GetBaseUsdLicensees().Contains(metaModel.LicenseeId.ToString())

@@ -16,8 +16,6 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
-    using Fanex.Athena.Service.Core.Configuration;
-    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Report.Interfaces;
     using Resources;
 
@@ -36,14 +34,11 @@ namespace Fanex.Athena.Service.Report
 
         private static readonly CultureInfo EnglishCulture = new CultureInfo("en-US");
 
-        private readonly IBalanceUpService _balanceUpService;
-
         private readonly MatchWinLossDataAccess _matchWinLossDataAccess;
 
         public MatchWinLossService()
         {
-            this._balanceUpService = new BalanceUpService();
-            this._matchWinLossDataAccess = new MatchWinLossDataAccess(this._balanceUpService.BalanceUpInfo);
+            this._matchWinLossDataAccess = new MatchWinLossDataAccess();
         }
 
         #region IMatchWinLossService Members
@@ -169,17 +164,12 @@ namespace Fanex.Athena.Service.Report
 
         private static string GetLeagueName(MatchWinLoss matchWinLoss)
         {
-            switch (matchWinLoss.ProductName)
-            {
-                case Product.RB:
-                    return ViewResources.ProductRB + " - " + CacheRef.GetLeagueName(matchWinLoss.LeagueId);
-
-                default:
-                    return CacheRef.GetLeagueName(matchWinLoss.LeagueId);
-            }
+            return matchWinLoss.ProductName == Product.RB ?
+                ViewResources.ProductRB + " - " + CacheRef.GetLeagueName(matchWinLoss.LeagueId) :
+                CacheRef.GetLeagueName(matchWinLoss.LeagueId);
         }
 
-        private string GetMatchName(MatchWinLoss matchWinLoss)
+        private static string GetMatchName(MatchWinLoss matchWinLoss)
         {
             switch (matchWinLoss.ProductName)
             {

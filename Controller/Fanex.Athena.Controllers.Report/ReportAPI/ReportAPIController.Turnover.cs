@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report;
@@ -20,10 +21,13 @@ namespace Fanex.Athena.Controllers.Report
         [CustomValidateAntiForgery]
         public ActionResult Turnover(TurnoverMetaModel metaModel)
         {
+            var placeholderUsername = _appSettings.FakeLicenseeList.Contains(SessionService.LicenseeSession.LicenseeId) ? 
+                ViewResources.ExternalId : 
+                ViewResources.ExternalIdOrSystemId;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
 
             metaModel.Username = string.IsNullOrWhiteSpace(metaModel.Username) ||
-                metaModel.Username.Trim() == ViewResources.ExternalIdOrSystemId ? null : metaModel.Username;
+                metaModel.Username.Trim() == placeholderUsername ? null : metaModel.Username;
             var turnoverService = new TurnoverService();
             var dataList = turnoverService.GetDataList(metaModel);
 

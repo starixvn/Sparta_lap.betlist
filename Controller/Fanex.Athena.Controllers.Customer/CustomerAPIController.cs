@@ -13,6 +13,8 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Linq;
     using System.Web.Mvc;
     using System.Web.SessionState;
+    using DataAccess.Core.Users;
+    using DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -20,8 +22,6 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Helpers;
-    using Fanex.Athena.Service.Core.Users;
-    using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Service.Customer;
     using Fanex.Athena.Service.Customer.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
@@ -39,21 +39,19 @@ namespace Fanex.Athena.Controllers.Customer
     {
         private const string CustomerAPIRemoveFromGroupComName = "CustomerAPI_RemoveFromGroupCom";
 
-        #region Fields
-
-        private readonly ICustomerService _customerService;
+        private readonly ICustomerCommService _customerCommService;
+        private readonly ICustomerListService _customerListService;
         private readonly IGroupComService _groupComService;
-        private readonly ILicenseeService _licenseeService;
+        private readonly ILicenseeDataAccess _licenseeDataAccess;
         private readonly IProductService _productService;
-
-        #endregion Fields
 
         #region Constructor
 
         public CustomerApiController()
         {
-            _licenseeService = new LicenseeService();
-            _customerService = new CustomerService();
+            _customerCommService = new CustomerCommService();
+            _licenseeDataAccess = new LicenseeDataAccess();
+            _customerListService = new CustomerListService();
             _groupComService = new GroupComService();
             _productService = new ProductService();
         }
@@ -94,11 +92,11 @@ namespace Fanex.Athena.Controllers.Customer
                         Ip = Request.UserHostAddress
                     };
 
-                    result = _customerService.UpdateCustClosed(customerStatusMetaModel, userSession.Language);
+                    result = _customerListService.UpdateCustClosed(customerStatusMetaModel, userSession.Language);
                     if (result.Code == 0)
                     {
                         customerStatusMetaModel.IsOn = isSuspended;
-                        result = _customerService.UpdateCustSuspend(customerStatusMetaModel, userSession.Language);
+                        result = _customerListService.UpdateCustSuspend(customerStatusMetaModel, userSession.Language);
                     }
 
                     return Json(result);
@@ -128,37 +126,44 @@ namespace Fanex.Athena.Controllers.Customer
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateSpecialLevel(int custId, int level)
         {
-            var userSession = SessionService.UserSession;
+            var isFakeLicensee = IsFakeLicensee();
 
-            try
+            if (!isFakeLicensee)
             {
-                var dataResult = _customerService.UpdateSpecialLevel(
-                    SessionService.LicenseeSession.LicenseeId,
-                    userSession.UserId,
-                    custId,
-                    level,
-                    Request.UserHostAddress,
-                    userSession.Language);
+                var userSession = SessionService.UserSession;
 
-                return Json(new ResultViewModel
+                try
                 {
-                    Success = dataResult.IsSuccessful,
-                    Message = dataResult.Message,
-                    ErrorCode = dataResult.Code,
-                    ErrorMessage = dataResult.Message
-                });
+                    var dataResult = _customerListService.UpdateSpecialLevel(
+                        SessionService.LicenseeSession.LicenseeId,
+                        userSession.UserId,
+                        custId,
+                        level,
+                        Request.UserHostAddress,
+                        userSession.Language);
+
+                    return Json(new ResultViewModel
+                    {
+                        Success = dataResult.IsSuccessful,
+                        Message = dataResult.Message,
+                        ErrorCode = dataResult.Code,
+                        ErrorMessage = dataResult.Message
+                    });
+                }
+                catch (Exception exception)
+                {
+                    LogHelper.WriteError(exception);
+                }
             }
-            catch (Exception exception)
-            {
-                LogHelper.WriteError(exception);
-            }
+
+            var errorMessage = isFakeLicensee ? ViewResources.FunctionDeniedMsg : ViewResources.HttpError_Default;
 
             return Json(new ResultViewModel
             {
                 Success = false,
-                Message = ViewResources.HttpError_Default,
+                Message = errorMessage,
                 ErrorCode = 1,
-                ErrorMessage = ViewResources.HttpError_Default
+                ErrorMessage = errorMessage
             });
         }
 
@@ -174,42 +179,48 @@ namespace Fanex.Athena.Controllers.Customer
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateOddsGroup(int custId, string oddsGroup)
         {
-            var userSession = SessionService.UserSession;
+            var isFakeLicensee = IsFakeLicensee();
 
-            try
+            if (!isFakeLicensee)
             {
-                var metaModel = new CustomerOddsGroupMetaModel
-                {
-                    LicenseeId = SessionService.LicenseeSession.LicenseeId,
-                    CustId = custId,
-                    Ip = Request.UserHostAddress,
-                    Language = userSession.Language,
-                    OddsGroup = oddsGroup,
-                    UserId = userSession.UserId
-                };
-                var dataResult = _customerService.UpdateOddsGroup(metaModel);
+                var userSession = SessionService.UserSession;
 
-                var message = !dataResult.IsSuccessful && string.IsNullOrWhiteSpace(dataResult.Message) ?
-                               ViewResources.HttpError_Default : dataResult.Message;
-                return Json(new ResultViewModel
+                try
                 {
-                    Success = dataResult.IsSuccessful,
-                    Message = message,
-                    ErrorCode = dataResult.Code,
-                    ErrorMessage = message
-                });
-            }
-            catch (Exception exception)
-            {
-                LogHelper.WriteError(exception);
+                    var metaModel = new CustomerOddsGroupMetaModel
+                    {
+                        LicenseeId = SessionService.LicenseeSession.LicenseeId,
+                        CustId = custId,
+                        Ip = Request.UserHostAddress,
+                        Language = userSession.Language,
+                        OddsGroup = oddsGroup,
+                        UserId = userSession.UserId
+                    };
+                    var dataResult = _customerListService.UpdateOddsGroup(metaModel);
+
+                    var message = !dataResult.IsSuccessful && string.IsNullOrWhiteSpace(dataResult.Message) ?
+                                   ViewResources.HttpError_Default : dataResult.Message;
+                    return Json(new ResultViewModel
+                    {
+                        Success = dataResult.IsSuccessful,
+                        Message = message,
+                        ErrorCode = dataResult.Code,
+                        ErrorMessage = message
+                    });
+                }
+                catch (Exception exception)
+                {
+                    LogHelper.WriteError(exception);
+                }
             }
 
+            var errorMessage = isFakeLicensee ? ViewResources.FunctionDeniedMsg : ViewResources.HttpError_Default;
             return Json(new ResultViewModel
             {
                 Success = false,
-                Message = ViewResources.HttpError_Default,
+                Message = errorMessage,
                 ErrorCode = 1,
-                ErrorMessage = ViewResources.HttpError_Default
+                ErrorMessage = errorMessage
             });
         }
 
@@ -258,7 +269,7 @@ namespace Fanex.Athena.Controllers.Customer
             if (!specialBaPermission)
             {
                 bool isAllowUpdateBa;
-                var isAllowUpdateBaResult = _licenseeService.IsAllowUpdateMemberBAStatus(request, licenseeSession.LicenseeId, out isAllowUpdateBa);
+                var isAllowUpdateBaResult = _licenseeDataAccess.IsAllowUpdateMemberBAStatus(request, licenseeSession.LicenseeId, out isAllowUpdateBa);
                 if (!isAllowUpdateBa)
                 {
                     return Json(new
@@ -274,7 +285,7 @@ namespace Fanex.Athena.Controllers.Customer
             }
 
             // update
-            var updateResult = _customerService.UpdateCustomerBAStatus(
+            var updateResult = _customerListService.UpdateCustomerBAStatus(
                 licenseeSession.LicenseeId,
                 custId,
                 userSession.UserId,
@@ -379,7 +390,7 @@ namespace Fanex.Athena.Controllers.Customer
             }
 
             return Json(result);
-        }       
+        }
 
         /// <summary>
         /// Remove customer from group commission.
@@ -414,7 +425,7 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.UserId = userSession.UserId;
             metaModel.Ip = Request.UserHostAddress;
             metaModel.Language = userSession.Language;
-            var temp = _customerService.RemoveCustomersFromGroup(metaModel, productAccess.IsAllowCS);
+            var temp = _customerCommService.RemoveCustomersFromGroup(metaModel, productAccess.IsAllowCS);
             result.Success = temp.IsSuccessful;
             result.Message = ViewResources.MessageSuccess;
             result.ErrorMessage = temp.Message;
@@ -463,7 +474,7 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsAllowedRNG = productAccess.IsAllowCS;
             metaModel.Ip = Request.UserHostAddress;
             metaModel.Language = userSession.Language;
-            var temp = _customerService.MoveCustomersToGroup(metaModel);
+            var temp = _customerCommService.MoveCustomersToGroup(metaModel);
             var result = new ResultViewModel
             {
                 Success = temp.IsSuccessful,
@@ -498,14 +509,15 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpGet]
         public JsonResult SearchCustomer(string query)
         {
-            query = query.Trim();
-
-            var customerNames = _customerService.SearchCustomers(SessionService.UserSession.UserId, query, SessionService.GenerateAgentListXml());
+            var userName = query.Trim();
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            var userId = SessionService.UserSession.UserId;
+            var customerNames = _customerListService.SearchCustomers(licenseeId, userId, query, SessionService.GenerateAgentListXml());
 
             var searchResult = new
             {
                 data = new[] { string.Empty },
-                query = query,
+                query = userName,
                 suggestions = customerNames
             };
 
@@ -522,7 +534,7 @@ namespace Fanex.Athena.Controllers.Customer
         private void ProcessUpdatingCustomerCom(UpdatedCustomerComMetaModel metaModel, ResultViewModel result)
         {
             metaModel.Language = SessionService.UserSession.Language;
-            var temp = _customerService.UpdateCustomersCommission(metaModel, metaModel.IsAllowedCS);
+            var temp = _customerCommService.UpdateCustomersCommission(metaModel, metaModel.IsAllowedCS);
             result.Success = temp.IsSuccessful;
             result.Message = ViewResources.MessageSuccess;
             result.ErrorMessage = temp.Message;

@@ -10,7 +10,6 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -22,49 +21,49 @@ namespace Fanex.Athena.Controllers.BetList
     #endregion Using
 
     [FunctionAuthorization(PermissionKeys.ReportWinLossByLeague)]
-    public partial class WinlossByLeagueBetListController : BetListBaseController
+    public class WinlossByLeagueBetListController : BetListBaseController
     {
         [HttpGet]
         public ActionResult Index(WinLossByLeagueBetListMetaModel metaModel)
         {
-            metaModel = CreateDefaultMetaModel(metaModel) as WinLossByLeagueBetListMetaModel;
+            var model = CreateDefaultMetaModel(metaModel) as WinLossByLeagueBetListMetaModel;
 
-            if (!metaModel.IsExportExcel)
+            if (!model.IsExportExcel)
             {
-                return this.View("~/Views/BetList/WinlossByLeague/Main.cshtml", metaModel);
+                return View("~/Views/BetList/WinlossByLeague/Main.cshtml", model);
             }
 
-            var currencyList = this.SessionService.UserSession.CurrencyList;
+            var currencyList = SessionService.UserSession.CurrencyList;
 
-            if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
+            if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
             {
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                return this.Excel(metaModel);
+                model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
+                return Excel(model);
             }
 
-            return this.EmptyExcel();
+            return EmptyExcel();
         }
 
         private ActionResult Excel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_WinlostByLeague_Mem";
-            var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
 
             // determine currency viewed in
             var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;
             var viewinCurrency = GetViewInCurrency(curencyId, metaModel.CurrencyName);
             var title = string.Format(
-                "{0} - {1} → {2} - {3}({4}) - {5}",
+                "{0} - {1} → {2} - {3}{4} - {5}",
                 ViewResources.CustomerBetList,
                 metaModel.FromDate.ToString(FormatKey.ShortFormatDate),
                 metaModel.ToDate.ToString(FormatKey.ShortFormatDate),
                 metaModel.ExternalId,
-                metaModel.SystemId,
+                metaModel.IsFakeLicensee ? string.Empty : $"({metaModel.SystemId})",
                 viewinCurrency);
 
             var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
 
-            var excel = new BetListExcel(new ShowingOption { CustomerCommVisible = true }, metaModel.LicenseeId == 1, hiddenColumns);
+            var excel = new BetListExcel(new ShowingOption { CustomerCommVisible = true }, metaModel.LicenseeId, hiddenColumns);
 
             var workbook = excel.Export(ticketResult, title);
 

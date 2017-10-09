@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using Core.Configuration.Interfaces;
     using Data;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Configuration;
@@ -11,6 +12,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class PlatformWinLossDataAccessTest
@@ -22,13 +24,15 @@
         [OneTimeSetUp]
         public void Setup()
         {
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balance = new BalanceUp
             {
                 MoveBetsDay = new DateTime(2016, 8, 10),
                 BalanceUpDay = new DateTime(2016, 8, 31)
             };
+            balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            _dataAccess = Substitute.ForPartsOf<PlatformWinLossDataAccess>(_balance);
+            _dataAccess = Substitute.ForPartsOf<PlatformWinLossDataAccess>(balanceUpDataAccess);
 
             _metaModel = new PlatformWinLossMetaModel
             {
@@ -87,7 +91,7 @@
                 { "productprefix", "SB" }
             };
 
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
             var result = _dataAccess.GetSummaryData(_metaModel, out totalData);
@@ -138,13 +142,13 @@
             objectDb.ExecuteReader().Returns(reader);
             reader.Read().Returns(true, false);
             PlatformWinLossMember totalData;
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "TurnoverUSD", 100 },
-                { "WinlostUSD", 200 }
+                TurnoverUSD = 100,
+                WinlostUSD = 200
             };
 
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
             var result = _dataAccess.GetMemberData(_metaModel, out totalData);
@@ -157,20 +161,6 @@
                 Assert.That(result[0].CustomerWinLoss, Is.EqualTo(200));
 
                 Assert.That(totalData.Turnover, Is.EqualTo(100));
-            });
-        }
-
-        private static void MapReaderData(IDataReader reader, Dictionary<string, object> readerDataMapping)
-        {
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
             });
         }
     }

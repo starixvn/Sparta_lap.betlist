@@ -9,7 +9,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
     using System.Collections.Generic;
     using System.Data;
     using Core;
-    using Core.Extensions;
     using DataAccess.TotalBet.Interfaces;
     using Extension.Helper;
     using Fanex.Common.Extensions;
@@ -18,7 +17,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
     public class OddEvenDrawNoDrawDataAccess : BaseDataAccess, IOddEvenDrawNoDrawDataAccess
     {
-        public IList<OddEvenDrawNoDraw> GetOddEventDrawNoDrawDataList(OddEvenDrawNoDrawMetaModel metaModel, out OddEvenDrawNoDraw totalData)
+        public IList<OddEvenDrawNoDraw> GetOddEvenDrawNoDrawDataList(OddEvenDrawNoDrawMetaModel metaModel, out OddEvenDrawNoDraw totalData)
         {
             const string SpName = "Lrf_TotalBets_Sel25";
             var uspParams = new

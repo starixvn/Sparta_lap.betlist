@@ -13,7 +13,7 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
 
     public interface IRngCasinoBetSettingService
     {
-        RngCasinoBetSettingViewModel GetViewModel(int custId, CustomerInfo customer, string language, string licenseeName);
+        RngCasinoBetSettingViewModel GetViewModel(int custId, CustomerInfo customer, string language);
 
         IResultInfo UpdateStatus(int licenseeId, int userId, int custId, int status, string language, string ip, string username, bool isSyncCasino);
 

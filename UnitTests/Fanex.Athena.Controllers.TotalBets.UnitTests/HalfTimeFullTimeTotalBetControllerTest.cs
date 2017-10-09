@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using DataAccess.TotalBet.Interfaces;
     using Fanex.Athena.Controllers.TotalBets;
-    using Fanex.Athena.Service.TotalBet.Interfaces;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
@@ -12,34 +12,33 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class HalfTimeFullTimeTotalBetControllerTest : BaseControllerTest
+    public class HalfTimeFullTimeTotalBetControllerTest : BaseControllerHelperTest
     {
-        private IHalfTimeFullTimeService _halfTimeFullTimeService;
+        private IHalfTimeFullTimeDataAccess _halfTimeFullTimeDataAccess;
 
         [OneTimeSetUp]
-        public new void FixtureSetUp()
+        public override void FixtureSetUp()
         {
-            FakeBaseControllerDependency();
-            _halfTimeFullTimeService = Substitute.For<IHalfTimeFullTimeService>();
-            HalfTimeFullTime total;
-            _halfTimeFullTimeService.GetHalfTimeFullTimeDataList(Arg.Any<HalfTimeFullTimeMetaModel>(), out total)
-                .Returns(x =>
-                {
-                    x[1] = new HalfTimeFullTime();
-                    return new List<HalfTimeFullTime> { new HalfTimeFullTime() };
-                });
+            base.FixtureSetUp();
+
+            SetUpDefaultFakeData();
+
+            SepUpForService();
+
+            StubGetValueAppSettings("BaseUsdLicensees", "usd");
         }
 
         [OneTimeTearDown]
-        public new void FixtureTearDown()
+        public override void FixtureTearDown()
         {
-            _halfTimeFullTimeService = null;
+            base.FixtureTearDown();
+
+            _halfTimeFullTimeDataAccess = null;
         }
 
         [Test]
-        public void Index_WhenCall_ReturnCorrectViewName()
+        public void Index_WhenGet_ReturnMainView()
         {
-            // Arrange
             using (var controller = CreateController())
             {
                 // Action
@@ -51,11 +50,11 @@
         }
 
         [Test]
-        public void Index_WhenCall_CallAndGetDataFromService()
+        public void Index_WhenGet_GetDataFromService()
         {
-            // Arrange
             using (var controller = CreateController())
             {
+                // Arrange
                 HalfTimeFullTime total = null;
 
                 // Action
@@ -63,17 +62,20 @@
                 var viewModel = viewResult.Model as HalfTimeFullTimeViewModel;
 
                 // Assert
-                _halfTimeFullTimeService.ReceivedWithAnyArgs().GetHalfTimeFullTimeDataList(Arg.Any<HalfTimeFullTimeMetaModel>(), out total);
-                Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
+                Assert.Multiple(() =>
+                {
+                    _halfTimeFullTimeDataAccess.ReceivedWithAnyArgs().GetHalfTimeFullTimeDataList(Arg.Any<HalfTimeFullTimeMetaModel>(), out total);
+                    Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
+                });
             }
         }
 
         [Test]
-        public void Index_InvalidCurrency_ViewNameIsAccessDenied()
+        public void Index_WhenPostWithInvalidCurrency_AccessDenied()
         {
-            // Arrange
             using (var controller = CreateController())
             {
+                // Arrange
                 var metaModel = new HalfTimeFullTimeMetaModel
                 {
                     CurrencyId = -999
@@ -87,13 +89,27 @@
             }
         }
 
+        private void SepUpForService()
+        {
+            _halfTimeFullTimeDataAccess = Substitute.For<IHalfTimeFullTimeDataAccess>();
+
+            HalfTimeFullTime total;
+            _halfTimeFullTimeDataAccess
+                .GetHalfTimeFullTimeDataList(Arg.Any<HalfTimeFullTimeMetaModel>(), out total)
+                .Returns(x =>
+                {
+                    x[1] = new HalfTimeFullTime();
+                    return new List<HalfTimeFullTime> { new HalfTimeFullTime() };
+                });
+        }
+
         private HalfTimeFullTimeTotalBetController CreateController()
         {
             return new HalfTimeFullTimeTotalBetController(
                             LangService,
                             SessionService,
                             AppSettings,
-                            _halfTimeFullTimeService);
+                            _halfTimeFullTimeDataAccess);
         }
     }
 }

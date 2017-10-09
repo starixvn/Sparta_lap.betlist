@@ -2,11 +2,11 @@
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Web.Script.Serialization;
     using Data;
     using Model.Report.DTO;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Extensions;
 
     [TestFixture]
     public class SettledMatchCountDataAccessTest
@@ -33,13 +33,17 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_MatchSelResultEntered")).Returns(objectDb);
             dynamic uspParam = null;
             objectDb.Query<SettledMatchCount>(Arg.Do<dynamic>(arg => uspParam = arg));
-            var expectedResult = "{\"isShowAll\":true,\"licenseeid\":1}";
+            var expectedResult = new
+            {
+                isShowAll = true,
+                licenseeid = 1
+            };
 
             // Action
             _dataAccess.GetDataList(true, 1);
 
             // Assert
-            Assert.That(new JavaScriptSerializer().Serialize(uspParam), Is.EqualTo(expectedResult));
+            Assert.That(uspParam, Tobe.SameProperties(expectedResult));
         }
 
         [Test]

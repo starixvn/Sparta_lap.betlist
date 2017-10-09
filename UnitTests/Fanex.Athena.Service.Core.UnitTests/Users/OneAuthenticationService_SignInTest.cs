@@ -1,8 +1,9 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Users
 {
     using System.Web;
-    using Core.Common.Interfaces;
     using Core.Users.Interfaces;
+    using DataAccess.Core.Common.Interfaces;
+    using DataAccess.Core.Users.Interfaces;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DataDomain;
@@ -17,8 +18,8 @@
     {
         private OneAuthenticationService _oneAuthenticationService;
         private ISessionService _sessionService;
-        private ILicenseeService _licenseeService;
-        private ICurrencyService _currencyService;
+        private ILicenseeDataAccess _licenseeDataAccess;
+        private ICurrencyDataAccess _currencyDataAccess;
         private IFormsAuthenticationService _formAuthenticationService;
         private IUserService _userService;
 
@@ -26,16 +27,16 @@
         public void SetUp()
         {
             _sessionService = Substitute.For<ISessionService>();
-            _licenseeService = Substitute.For<ILicenseeService>();
-            _currencyService = Substitute.For<ICurrencyService>();
+            _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
+            _currencyDataAccess = Substitute.For<ICurrencyDataAccess>();
             _userService = Substitute.For<IUserService>();
             _userService.GetByUsername(Arg.Any<string>(), Arg.Any<int>()).Returns(new User { UserID = 1 });
 
             _formAuthenticationService = Substitute.For<IFormsAuthenticationService>();
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(
                 _sessionService,
-                _licenseeService,
-                _currencyService,
+                _licenseeDataAccess,
+                _currencyDataAccess,
                 _formAuthenticationService,
                 _userService,
                 null);
@@ -46,8 +47,8 @@
         {
             _oneAuthenticationService = null;
             _sessionService = null;
-            _licenseeService = null;
-            _currencyService = null;
+            _licenseeDataAccess = null;
+            _currencyDataAccess = null;
             _formAuthenticationService = null;
         }
 
@@ -60,8 +61,14 @@
             {
                 Id = 1
             };
-            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService, null);
-            _licenseeService.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
+            _oneAuthenticationService = new OneAuthenticationService(
+                _sessionService,
+                _licenseeDataAccess,
+                _currencyDataAccess,
+                _formAuthenticationService,
+                _userService,
+                null);
+            _licenseeDataAccess.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
 
             var fakeHttpContext = Substitute.For<HttpContextBase>();
 
@@ -69,7 +76,7 @@
             _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Assert
-            _currencyService.Received().GetCurrenciesByUser(licensee.Id, tokenInfo.UserSEQ);
+            _currencyDataAccess.Received().GetCurrenciesByUser(licensee.Id, tokenInfo.UserSEQ);
         }
 
         [Test]
@@ -91,7 +98,7 @@
             _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).DoNotCallBase();
 
             _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).Do(x => counter++);
-            _licenseeService.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
+            _licenseeDataAccess.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
 
             // Action
             _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
@@ -127,7 +134,7 @@
             _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).Do(x => counter++);
             _sessionService.When(x => x.UpdateLanguage(Arg.Any<string>())).Do(x => langCounter++);
             _sessionService.UpdateLanguage(Arg.Is<string>(newLanguageCode)).Returns(true);
-            _licenseeService.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
+            _licenseeDataAccess.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
 
             // Action
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
@@ -157,7 +164,7 @@
             fakeHttpContext.User.Identity.Name.Returns(tokenInfo.UserID);
             _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).DoNotCallBase();
             _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).Do(x => counter++);
-            _licenseeService.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
+            _licenseeDataAccess.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
 
             // Action
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
@@ -175,7 +182,7 @@
 
             var fakeHttpContext = Substitute.For<HttpContextBase>();
 
-            _licenseeService.GetLicenseeByName(tokenInfo.SiteName).Returns(x => null);
+            _licenseeDataAccess.GetLicenseeByName(tokenInfo.SiteName).Returns(x => null);
 
             // Action
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
@@ -231,7 +238,7 @@
             _sessionService.LicenseeSession.Returns(x => licSession);
             _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).DoNotCallBase();
             _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).Do(x => counter++);
-            _licenseeService.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
+            _licenseeDataAccess.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
 
             // Action
             _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
@@ -247,7 +254,7 @@
             // Arrange
             var tokenInfo = new OneAuthToken { SiteName = "spondemo" };
             Licensee licensee = null;
-            _licenseeService.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
+            _licenseeDataAccess.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
             var expectedResult = new ResultInfo
             {
                 Code = 200,

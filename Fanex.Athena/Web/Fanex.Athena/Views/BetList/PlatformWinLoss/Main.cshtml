@@ -13,14 +13,14 @@
     var platformText = PlatformType.GetPlatformName(Model.PlatformType);
 }
 @section ContentTitle
-{    
-  @ViewResources.CustomerBetList @Model.FromDate.ToShortDateString()<span class="header-title-arrow">
-        → </span>@Model.ToDate.ToShortDateString()
-    - @(Model.ExternalId)(@(Model.SystemId)) - @ViewResources.Platform: @platformText - <span class="base-currency">
-           @{var curencyId = Model.IsConvert ? Model.BaseCurrencyId : Model.CurrencyId;}
+{
+    @ViewResources.CustomerBetList @Model.FromDate.ToShortDateString()
+    <span class="header-title-arrow"> → </span>
+    @Model.ToDate.ToShortDateString() - @Model.ExternalId@(Model.IsFakeLicensee ? string.Empty : "(" + Model.SystemId + ")") - @ViewResources.Platform: @platformText -
+    <span class="base-currency">
+        @{var curencyId = Model.IsConvert ? Model.BaseCurrencyId : Model.CurrencyId;}
 
-        
-            @RazorHelper.ViewInCurrency(curencyId, Model.CurrencyName)        
+        @RazorHelper.ViewInCurrency(curencyId, Model.CurrencyName)
     </span>
 }
 @section BackButton

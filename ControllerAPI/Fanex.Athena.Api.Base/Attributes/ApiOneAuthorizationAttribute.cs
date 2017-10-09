@@ -9,6 +9,8 @@
     using System.Threading.Tasks;
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
+    using DataAccess.Core.Users;
+    using DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Logging;
     using Resources;
@@ -22,18 +24,18 @@
 
         private readonly IOneAuthenticationService _oneAuthenticationService;
 
-        private readonly ILicenseeService _licenseeService;
+        private readonly ILicenseeDataAccess _licenseeDataAccess;
 
         public ApiOneAuthorizationAttribute()
         {
             _oneAuthenticationService = new OneAuthenticationService();
-            _licenseeService = new LicenseeService();
+            _licenseeDataAccess = new LicenseeDataAccess();
         }
 
-        public ApiOneAuthorizationAttribute(IOneAuthenticationService oneAuthenticationService, ILicenseeService licenseeService)
+        public ApiOneAuthorizationAttribute(IOneAuthenticationService oneAuthenticationService, ILicenseeDataAccess licenseeDataAccess)
         {
             _oneAuthenticationService = oneAuthenticationService ?? new OneAuthenticationService();
-            _licenseeService = licenseeService ?? new LicenseeService();
+            _licenseeDataAccess = licenseeDataAccess ?? new LicenseeDataAccess();
         }
 
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(
@@ -59,7 +61,7 @@
                     return UnauthorizeAccessHandlerAsync(actionContext);
                 }
 
-                var licensee = _licenseeService.GetLicenseeByName(token.SiteName);
+                var licensee = _licenseeDataAccess.GetLicenseeByName(token.SiteName);
                 if (licensee == null)
                 {
                     LogInfo(actionContext.Request, "Licensee is null");

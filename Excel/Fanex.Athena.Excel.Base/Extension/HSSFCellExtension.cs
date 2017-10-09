@@ -72,7 +72,6 @@ namespace Fanex.Athena.Excel.Base.Extension
             if (valueType == typeof(string))
             {
                 cell.SetCellValue(Converter.To<string>(value));
-                return;
             }
         }
     }

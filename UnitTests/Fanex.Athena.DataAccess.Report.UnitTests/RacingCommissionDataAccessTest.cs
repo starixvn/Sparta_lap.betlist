@@ -3,13 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Web.Script.Serialization;
+    using Core.Configuration.Interfaces;
     using Data;
+    using Fanex.Athena.UnitTest.Common.Extensions;
     using Model.Core.DTO.Configuration;
-    using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class RacingCommissionDataAccessTest
@@ -21,13 +22,15 @@
         [OneTimeSetUp]
         public void Setup()
         {
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balance = new BalanceUp
             {
                 MoveBetsDay = new DateTime(2016, 8, 10),
                 BalanceUpDay = new DateTime(2016, 8, 31)
             };
+            balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            _dataAccess = Substitute.ForPartsOf<RacingCommissionDataAccess>(_balance);
+            _dataAccess = Substitute.ForPartsOf<RacingCommissionDataAccess>(balanceUpDataAccess);
 
             _metaModel = new RacingCommissionMetaModel
             {
@@ -55,17 +58,23 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_CommByBettype_HR")).Returns(objectDb);
-            RacingCommission totalData = new RacingCommission();
             dynamic uspParam = null;
             objectDb.ExecuteReader(Arg.Do<dynamic>(arg => uspParam = arg));
-            var expectedResult = "{\"AgentList\":\"xml\",\"FromDate\":\"\\/Date(1483203600000)\\/\",\"ToDate\":\"\\/Date(1485968400000)\\/\"," +
-                "\"MoveBetsDay\":\"\\/Date(1470762000000)\\/\",\"PageSize\":100,\"PageIndex\":2}";
+            var expectedResult = new
+            {
+                AgentList = "xml",
+                FromDate = _metaModel.FromDate,
+                ToDate = _metaModel.ToDate,
+                MoveBetsDay = _balance.MoveBetsDay,
+                PageSize = _metaModel.PageSize,
+                PageIndex = _metaModel.PageIndex
+            };
 
             // Action
-            _dataAccess.GetDataList(_metaModel, ref totalData);
+            _dataAccess.GetData(_metaModel);
 
             // Assert
-            Assert.That(new JavaScriptSerializer().Serialize(uspParam), Is.EqualTo(expectedResult));
+            Assert.That(uspParam, Tobe.SameProperties(expectedResult));
         }
 
         [Test]
@@ -78,41 +87,26 @@
             objectDb.ExecuteReader(Arg.Any<object>()).ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false, true, false);
             reader.NextResult().Returns(true);
-            RacingCommission totalData = new RacingCommission();
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "custID", 999 },
-                { "Tote_WinUSD", 100 },
-                { "SumTote_WinUSD", 1000 }
+                custID = 999,
+                Tote_WinUSD = 100,
+                SumTote_WinUSD = 1000
             };
 
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetDataList(_metaModel, ref totalData);
+            var result = _dataAccess.GetData(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count, Is.EqualTo(1));
-                Assert.That(result[0].CustID, Is.EqualTo(999));
-                Assert.That(result[0].ToteWin, Is.EqualTo(100));
+                Assert.That(result.DataList.Count, Is.EqualTo(1));
+                Assert.That(result.DataList[0].CustID, Is.EqualTo(999));
+                Assert.That(result.DataList[0].ToteWin, Is.EqualTo(100));
 
-                Assert.That(totalData.ToteWin, Is.EqualTo(1000));
-            });
-        }
-
-        private static void MapReaderData(IDataReader reader, Dictionary<string, object> readerDataMapping)
-        {
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
+                Assert.That(result.TotalData.ToteWin, Is.EqualTo(1000));
             });
         }
     }

@@ -11,100 +11,174 @@
 
     public partial class AccountControllerTest
     {
+        private const string ValidPassword = "1234aa";
+
         [Test]
-        public void ResetPassword_WhenCall_ReturnCorrectViewNameAndViewModel()
+        public void ResetPassword_WhenGet_ReturnResetPasswordView()
         {
             // Arrange
-            var requestParams = new NameValueCollection
+            SetUpUserRequestParameter();
+            using (var controller = CreateController())
             {
-                { "UserId", "111" }
-            };
-            _controller.ControllerContext.HttpContext.Request.Params.Returns(requestParams);
+                // Action
+                var viewResult = controller.ResetPassword() as ViewResult;
+                var viewModel = viewResult.Model as ResetPasswordMetaModel;
 
-            // Action
-            var viewResult = _controller.ResetPassword() as ViewResult;
-            var viewModel = viewResult.Model as ResetPasswordMetaModel;
-
-            // Assert
-            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Account/ResetPassword.cshtml"));
-            Assert.That(viewModel.UserId, Is.EqualTo(111));
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Account/ResetPassword.cshtml"));
+                    Assert.That(viewModel.UserId, Is.EqualTo(111));
+                });
+            }
         }
 
         [Test]
-        public void ResetPasswordPost_UserNotExists_ReturnFailResult()
+        public void ResetPassword_WhenPostWithInvalidModel_ReturnFailResult()
         {
-            // Arrange
-            _userService.GetUserInfo(Arg.Any<int>(), Arg.Any<int>()).Returns(x => null);
+            using (var controller = CreateController())
+            {
+                // Arrange
+                controller.ModelState.AddModelError("Error", "Invalid model");
 
-            // Action
-            var result = _controller.ResetPassword(new ResetPasswordMetaModel()) as JsonResult;
-            var resultInfo = result.Data as ResultInfo;
+                // Action
+                var result = controller.ResetPassword(new ResetPasswordMetaModel()) as JsonResult;
+                var resultInfo = result.Data as ResultInfo;
 
-            // Assert
-            Assert.That(resultInfo.Code, Is.EqualTo(-4));
-            Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.InvalidRequestMsg));
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(resultInfo.Code, Is.EqualTo(-1));
+                    Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.InvalidRequestMsg));
+                });
+            }
         }
 
         [Test]
-        public void ResetPasswordPost_InValidPassword_ReturnFailResult()
+        public void ResetPassword_WhenPostWithUserDoesNotExist_ReturnFailResult()
         {
-            // Arrange
-            _userService.GetUserInfo(Arg.Any<int>(), Arg.Any<int>()).Returns(new User());
+            using (var controller = CreateController())
+            {
+                // Arrange
+                StubGetUserInfo(x => null);
 
-            // Action
-            var result = _controller.ResetPassword(new ResetPasswordMetaModel()) as JsonResult;
-            var resultInfo = result.Data as ResultInfo;
+                // Action
+                var result = controller.ResetPassword(new ResetPasswordMetaModel()) as JsonResult;
+                var resultInfo = result.Data as ResultInfo;
 
-            // Assert
-            Assert.That(resultInfo.Code, Is.EqualTo(-2));
-            Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.PasswordNoteMsg));
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(resultInfo.Code, Is.EqualTo(-4));
+                    Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.InvalidRequestMsg));
+                });
+            }
         }
 
         [Test]
-        public void ResetPasswordPost_ValidPassword_CallServiceAndReturnSuccess()
+        public void ResetPassword_WhenPostWithRequestUserIsNotTheSameWithSessionUser_ReturnFailResult()
         {
-            // Arrange
-            _userService.GetUserInfo(Arg.Any<int>(), Arg.Any<int>()).Returns(new User());
-            _userService.ResetPassword(Arg.Any<User>(), Arg.Any<int>()).Returns(new ResultInfo
+            using (var controller = CreateController())
             {
-                Code = 0
-            });
+                // Arrange
+                StubGetUserInfo(x => new User { IsInternal = !DefaultUserSession.IsInternal });
 
-            // Action
-            var result = _controller.ResetPassword(new ResetPasswordMetaModel
-            {
-                Password = "1234aa"
-            }) as JsonResult;
-            var resultInfo = result.Data as ResultInfo;
+                // Action
+                var result = controller.ResetPassword(new ResetPasswordMetaModel()) as JsonResult;
+                var resultInfo = result.Data as ResultInfo;
 
-            // Assert
-            _userService.Received().ResetPassword(Arg.Any<User>(), SessionUserId);
-            Assert.That(resultInfo.Code, Is.EqualTo(0));
-            Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.ResetPasswordSuccessMsg));
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(resultInfo.Code, Is.EqualTo(-4));
+                    Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.InvalidRequestMsg));
+                });
+            }
         }
 
         [Test]
-        public void ResetPasswordPost_CallServiceFail_ReturnFail()
+        public void ResetPassword_WhenPostWithInValidPassword_ReturnFailResult()
         {
-            // Arrange
-            const string ResultMessage = "Boss doesn't like this";
-            _userService.GetUserInfo(Arg.Any<int>(), Arg.Any<int>()).Returns(new User());
-            _userService.ResetPassword(Arg.Any<User>(), Arg.Any<int>()).Returns(new ResultInfo
+            using (var controller = CreateController())
             {
-                Code = 1,
-                Message = ResultMessage
-            });
+                // Arrange
+                StubGetUserInfo(x => new User());
 
-            // Action
-            var result = _controller.ResetPassword(new ResetPasswordMetaModel
+                // Action
+                var result = controller.ResetPassword(new ResetPasswordMetaModel
+                {
+                    Password = string.Empty
+                }) as JsonResult;
+                var resultInfo = result.Data as ResultInfo;
+
+                // Assert
+                Assert.That(resultInfo.Code, Is.EqualTo(-2));
+                Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.PasswordNoteMsg));
+            }
+        }
+
+        [Test]
+        public void ResetPassword_WhenPost_ResetPasswordSuccessful_ReturnSuccessResult()
+        {
+            using (var controller = CreateController())
             {
-                Password = "1234aa"
-            }) as JsonResult;
-            var resultInfo = result.Data as ResultInfo;
+                // Arrange
+                StubGetUserInfo(x => new User());
 
-            // Assert
-            Assert.That(resultInfo.Code, Is.EqualTo(-3));
-            Assert.That(resultInfo.Message, Is.EqualTo(ResultMessage));
+                StubResetPassword(new ResultInfo
+                {
+                    Code = 0
+                });
+
+                // Action
+                var result = controller.ResetPassword(new ResetPasswordMetaModel
+                {
+                    Password = ValidPassword
+                }) as JsonResult;
+                var resultInfo = result.Data as ResultInfo;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(resultInfo.Code, Is.EqualTo(0));
+                    Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.ResetPasswordSuccessMsg));
+                });
+            }
+        }
+
+        [Test]
+        public void ResetPassword_WhenPost_ResetPasswordFailed_ReturnFailResult()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                const string ResultMessage = "Boss doesn't like this";
+                StubGetUserInfo(x => new User());
+                StubResetPassword(new ResultInfo
+                {
+                    Code = 1,
+                    Message = ResultMessage
+                });
+
+                // Action
+                var result = controller.ResetPassword(new ResetPasswordMetaModel
+                {
+                    Password = ValidPassword
+                }) as JsonResult;
+                var resultInfo = result.Data as ResultInfo;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(resultInfo.Code, Is.EqualTo(-3));
+                    Assert.That(resultInfo.Message, Is.EqualTo(ResultMessage));
+                });
+            }
+        }
+
+        private void StubResetPassword(ResultInfo fakeResult)
+        {
+            _userService.ResetPassword(Arg.Any<User>(), Arg.Any<int>()).Returns(fakeResult);
         }
     }
 }

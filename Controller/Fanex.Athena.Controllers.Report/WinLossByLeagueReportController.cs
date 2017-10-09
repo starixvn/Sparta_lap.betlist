@@ -10,6 +10,8 @@ namespace Fanex.Athena.Controllers.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using DataAccess.Core.Common;
+    using DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.MetaModel.Product;
@@ -24,14 +26,14 @@ namespace Fanex.Athena.Controllers.Report
     [FunctionAuthorization(PermissionKeys.ReportWinLossByLeague)]
     public class WinLossByLeagueReportController : ReportBaseController
     {
-        private readonly ISportTypeService _sportTypeService;
-        private readonly ILeagueService _leagueService;
+        private readonly ISportTypeDataAccess _sportTypeDataAccess;
+        private readonly ILeagueDataAccess _leagueDataAccess;
         private readonly IMatchService _matchService;
 
         public WinLossByLeagueReportController()
         {
-            _sportTypeService = new SportTypeService();
-            _leagueService = new LeagueService();
+            _sportTypeDataAccess = new SportTypeDataAccess();
+            _leagueDataAccess = new LeagueDataAccess();
             _matchService = new MatchService();
         }
 
@@ -59,8 +61,8 @@ namespace Fanex.Athena.Controllers.Report
 
             SetConvetedUSDCurrencyName(metaModel);
             SetConvetedUSDCurrencyId(metaModel);
-            var sports = this._sportTypeService.GetSportsAndProducts(licenseeSession.LicenseeId, userSession.Language, ProductTypes.Sportsbook);
-            var leagues = this._leagueService.GetLeaguesBySport(
+            var sports = this._sportTypeDataAccess.GetSportsAndProducts(licenseeSession.LicenseeId, userSession.Language, ProductTypes.Sportsbook);
+            var leagues = this._leagueDataAccess.GetLeaguesBySport(
                             new LeagueMetaModel
                             {
                                 LicenseeId = licenseeSession.LicenseeId,
@@ -96,7 +98,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             return Json(
-                _leagueService.GetLeaguesBySport(metaModel)
+                _leagueDataAccess.GetLeaguesBySport(metaModel)
                 .Select(x => new { Key = x.LeagueId, Value = x.LeagueName }));
         }
 

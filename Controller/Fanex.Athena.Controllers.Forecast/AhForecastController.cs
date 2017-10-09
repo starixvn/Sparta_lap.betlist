@@ -23,7 +23,7 @@ namespace Fanex.Athena.Controllers.Forecast
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            var model = this.GetViewModel(metaModel);
+            var model = GetViewModel(metaModel);
 
             return View("~/Views/Forecast/ForecastAH/Main.cshtml", model);
         }
@@ -32,13 +32,9 @@ namespace Fanex.Athena.Controllers.Forecast
         {
             var forecastLink = new List<string>();
             var endIndex = 0;
-            if (currentScore < 0 && IsOverUnder(betType))
-            {
-                currentScore = 0;
-            }
 
-            var startIndex = currentScore + 5;
-            endIndex = currentScore - 5;
+            var startIndex = ((currentScore < 0 && IsOverUnder(betType)) ? 0 : currentScore) + 5;
+            endIndex = startIndex - 10;
 
             if (endIndex < 0 && IsOverUnder(betType))
             {
@@ -56,20 +52,8 @@ namespace Fanex.Athena.Controllers.Forecast
         private static IList<int> RenderForecastHeader(int betType, int currentScore)
         {
             var forecastHeader = new List<int>();
-            var startIndex = 0;
-            if (betType == (int)BetType.Handicap || betType == (int)BetType.FirstHalfHandicap)
-            {
-                startIndex = currentScore + 2;
-            }
-            else
-            {
-                if (currentScore < 0 && IsOverUnder(betType))
-                {
-                    currentScore = 0;
-                }
-
-                startIndex = currentScore + 4;
-            }
+            var isHandicap = betType == (int)BetType.Handicap || betType == (int)BetType.FirstHalfHandicap;
+            var startIndex = isHandicap ? currentScore + 2 : ((currentScore < 0 && IsOverUnder(betType)) ? 0 : currentScore) + 4;
 
             var endIndex = startIndex - 4;
 
@@ -90,23 +74,19 @@ namespace Fanex.Athena.Controllers.Forecast
         {
             var forecastHeaderParam = ForecastService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType);
             ForecastValue forecastValue = null;
-            var userSession = SessionService.UserSession;
+
             if (forecastHeaderParam != null)
             {
                 /* Set default currentScore*/
                 if (Request.QueryString["CurrentScore"] == null)
                 {
-                    if (metaModel.BetType == (int)BetType.OverUnder || metaModel.BetType == (int)BetType.FirstHalfOverUnder)
-                    {
-                        // Overunder
-                        metaModel.CurrentScore = forecastHeaderParam.LiveHomeScore + forecastHeaderParam.LiveAwayScore;
-                    }
-                    else
-                    {
-                        metaModel.CurrentScore = forecastHeaderParam.LiveHomeScore - forecastHeaderParam.LiveAwayScore;
-                    }
+                    var isOverUnder = metaModel.BetType == (int)BetType.OverUnder || metaModel.BetType == (int)BetType.FirstHalfOverUnder;
+                    metaModel.CurrentScore = isOverUnder ?
+                        forecastHeaderParam.LiveHomeScore + forecastHeaderParam.LiveAwayScore :
+                        forecastHeaderParam.LiveHomeScore - forecastHeaderParam.LiveAwayScore;
                 }
 
+                var userSession = SessionService.UserSession;
                 /*Handicap or 1st Handicap*/
                 if (metaModel.BetType == (int)BetType.Handicap || metaModel.BetType == (int)BetType.FirstHalfHandicap)
                 {

@@ -4,7 +4,7 @@
 
     public static class DashboardConfig
     {
-        public static readonly IEnumerable<string> SupportedBaseCurrencies = new string[]
+        public static readonly IEnumerable<string> SupportedBaseCurrencies = new[]
         {
             "EUR", "USD", "GBP", "MYR", "CNY", "THB", "IDR"
         };

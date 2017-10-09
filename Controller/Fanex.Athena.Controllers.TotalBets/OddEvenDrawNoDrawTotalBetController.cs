@@ -7,6 +7,8 @@
 namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Web.Mvc;
+    using DataAccess.TotalBet;
+    using DataAccess.TotalBet.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Model.TotalBet.DTO;
     using Fanex.Athena.Web.ActionFilter;
@@ -15,27 +17,25 @@ namespace Fanex.Athena.Controllers.TotalBets
     using Model.TotalBet.ViewModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.TotalBet;
-    using Service.TotalBet.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.TotalBetOddEven1x2DND)]
     public class OddEvenDrawNoDrawTotalBetController : TotalBetBaseController
     {
-        private readonly IOddEvenDrawNoDrawService _oddEvenDrawNoDrawService;
+        private readonly IOddEvenDrawNoDrawDataAccess _oddEvenDrawNoDrawDataAccess;
 
         public OddEvenDrawNoDrawTotalBetController()
         {
-            _oddEvenDrawNoDrawService = new OddEvenDrawNoDrawService();
+            _oddEvenDrawNoDrawDataAccess = new OddEvenDrawNoDrawDataAccess();
         }
 
         public OddEvenDrawNoDrawTotalBetController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IOddEvenDrawNoDrawService oddEvenDrawNoDrawService)
+            IOddEvenDrawNoDrawDataAccess oddEvenDrawNoDrawDataAccess)
             : base(languageService, sessionService, appSetting)
         {
-            _oddEvenDrawNoDrawService = oddEvenDrawNoDrawService;
+            _oddEvenDrawNoDrawDataAccess = oddEvenDrawNoDrawDataAccess;
         }
 
         [HttpGet]
@@ -68,7 +68,7 @@ namespace Fanex.Athena.Controllers.TotalBets
             {
                 OddEvenDrawNoDraw totalData;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                var dataList = _oddEvenDrawNoDrawService.GetOddEvenDrawNoDrawDataList(metaModel, out totalData);
+                var dataList = _oddEvenDrawNoDrawDataAccess.GetOddEvenDrawNoDrawDataList(metaModel, out totalData);
                 var model = new OddEvenDrawNoDrawViewModel
                 {
                     Param = metaModel,

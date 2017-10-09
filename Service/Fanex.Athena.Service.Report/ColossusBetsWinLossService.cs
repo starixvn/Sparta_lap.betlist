@@ -12,20 +12,15 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
-    using Fanex.Athena.Service.Core.Configuration;
-    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Report.Interfaces;
 
     public class ColossusBetsWinLossService : IColossusBetsWinLossService
     {
-        private readonly IBalanceUpService _balanceUpService;
-
         private readonly IColossusBetsWinLossDataAccess _colossusBetsWinLossDataAccess;
 
         public ColossusBetsWinLossService()
         {
-            _balanceUpService = new BalanceUpService();
-            this._colossusBetsWinLossDataAccess = new ColossusBetsWinLossDataAccess(_balanceUpService.BalanceUpInfo);
+            this._colossusBetsWinLossDataAccess = new ColossusBetsWinLossDataAccess();
         }
 
         public SortableList<ColossusBetWinLoss> GetWinlossDetail(

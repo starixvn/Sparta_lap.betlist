@@ -60,8 +60,8 @@
       <HintPath>..\..\packages\NSubstitute.2.0.2\lib\net45\NSubstitute.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="nunit.framework, Version=3.6.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -78,10 +78,10 @@
   <ItemGroup>
     <Compile Include="DcsBetSettingDataAccessTest.cs" />
     <Compile Include="AgCasinoBetSettingDataAccessTest.cs" />
-    <Compile Include="CasinoBettingBaseDataAccessTest.cs" />
-    <Compile Include="ClassTest\FakeCasinoBettingBaseDataAccess.cs" />
+    <Compile Include="CoreCasinoBetSettingDataAccessTest.cs" />
     <Compile Include="CoreBetSettingDataAccessTest.cs" />
     <Compile Include="KenoBetSettingDataAccessTest.cs" />
+    <Compile Include="RngCasinoBetSettingDataAccessTest.cs" />
     <Compile Include="LiveCasinoBetSettingDataAccessTest.cs" />
     <Compile Include="NumberGameBetSettingDataAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -106,6 +106,10 @@
     <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Fanex.Athena.UnitTest.Common\Fanex.Athena.UnitTest.Common.csproj">
+      <Project>{4A5BDDBC-F707-409A-86EC-D9BC6E9D31C4}</Project>
+      <Name>Fanex.Athena.UnitTest.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.BetSettings\Fanex.Athena.Model.BetSettings.csproj">
       <Project>{ac255686-6654-4a34-8f56-f18c502b5b0a}</Project>

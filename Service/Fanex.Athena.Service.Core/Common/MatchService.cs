@@ -8,11 +8,12 @@ namespace Fanex.Athena.Service.Core.Common
 {
     using System;
     using System.Collections.Generic;
+    using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.DataAccess.Core.Common;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Caching;
 
     /// <summary>
     /// TODO: Update summary.
@@ -20,32 +21,35 @@ namespace Fanex.Athena.Service.Core.Common
     public class MatchService : IMatchService
     {
         private const string RunningMatchCacheKey = "RunningMatchCacheKey_";
+
         private readonly IMatchDataAccess _matchDataAccess;
 
-        private readonly ICache _cacheInstance = Fanex.Caching.CacheService.CreateInstance(CacheType.MemoryCache);
+        private readonly IMemoryCacheService _cache;
 
         public MatchService()
         {
             _matchDataAccess = new MatchDataAccess();
+            _cache = new MemoryCacheService();
         }
 
-        public MatchService(IMatchDataAccess matchDataAccess)
+        public MatchService(IMatchDataAccess matchDataAccess, IMemoryCacheService cache)
         {
             _matchDataAccess = matchDataAccess;
+            _cache = cache;
         }
 
         public IList<Match> GetAllRunningMatch(int sportId)
         {
             var cacheKey = RunningMatchCacheKey + sportId;
-            var isInCache = _cacheInstance.Contains(cacheKey);
+            var isInCache = _cache.Contains(cacheKey);
             if (isInCache)
             {
-                return _cacheInstance.Get<IList<Match>>(cacheKey);
+                return _cache.Get<IList<Match>>(cacheKey);
             }
             else
             {
                 var matchList = _matchDataAccess.GetAllRunningMatch(sportId);
-                _cacheInstance.Set(cacheKey, matchList);
+                _cache.Set(cacheKey, matchList);
 
                 return matchList;
             }

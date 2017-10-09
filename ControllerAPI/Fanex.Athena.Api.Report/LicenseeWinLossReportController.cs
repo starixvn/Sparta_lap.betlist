@@ -13,6 +13,9 @@ namespace Fanex.Athena.Api.Report
     using System.Web;
     using System.Web.Http;
     using Base.Attributes;
+    using DataAccess.Report;
+    using DataAccess.Report.Interfaces;
+    using Excel.Report.Models;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Extension.Helper;
@@ -22,17 +25,19 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
-    using Service.Report;
-    using Service.Report.Interfaces;
+    using Model.Core.MetaModel.Product;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss)]
     public class LicenseeWinLossReportController : ApiReportBaseController
     {
-        private readonly ILicenseeWinLossService _licenseeWinLossService;
+        private readonly IAppSettings _appSettings;
+
+        private readonly ILicenseeWinLossDataAccess _licenseeWinLossDataAccess;
 
         public LicenseeWinLossReportController()
         {
-            _licenseeWinLossService = new LicenseeWinLossService();
+            _appSettings = new AppSettings();
+            _licenseeWinLossDataAccess = new LicenseeWinLossDataAccess();
         }
 
         [HttpPost]
@@ -54,60 +59,60 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel, null, null);
         }
 
-        private static dynamic GetEmptyResult(LicenseeWinLossMetaModel metaModel)
+        private static dynamic GetEmptyResult(IEnumerable<ProductOption> productOptions)
         {
             return new
             {
                 Data = new List<LicenseeWinLossGridViewModel>(),
                 Total = new List<LicenseeWinLossGridViewModel>(),
                 SummaryTotal = new Dictionary<string, LicenseeWinLossGridViewModel>(),
-                ProductOptions = metaModel.ProductOptions.ToJson()
+                ProductOptions = productOptions.ToJson()
             };
         }
-
-        #region ProcessRequest
 
         private static SortableList<LicenseeWinLoss> SortData(SortableList<LicenseeWinLoss> dataList, string sortBy = null, string sortOrder = "asc")
         {
             if (sortBy != null)
             {
+                var propertyName = sortBy;
+
                 // Sort for grouping columns, get the real column name
                 if (sortBy.EndsWith("Single", StringComparison.OrdinalIgnoreCase))
                 {
-                    sortBy = sortBy.Remove(sortBy.LastIndexOf("Single", StringComparison.OrdinalIgnoreCase));
+                    propertyName = sortBy.Remove(sortBy.LastIndexOf("Single", StringComparison.OrdinalIgnoreCase));
                 }
 
-                var property = typeof(LicenseeWinLoss).GetProperty(sortBy);
+                var property = typeof(LicenseeWinLoss).GetProperty(propertyName);
 
                 if (property == null)
                 {
-                    string propertyName, productCode;
+                    string productCode;
 
-                    if (sortBy.Contains(nameof(LicenseeWinLoss.LicenseeWL)))
+                    if (propertyName.Contains(nameof(LicenseeWinLoss.LicenseeWL)))
                     {
-                        propertyName = nameof(LicenseeWinLoss.LicenseeWL);
-                        productCode = sortBy.Substring(propertyName.Length);
+                        var licenseeWLColumn = nameof(LicenseeWinLoss.LicenseeWL);
+
+                        productCode = propertyName.Substring(licenseeWLColumn.Length);
+                        propertyName = licenseeWLColumn;
                     }
                     else
                     {
-                        propertyName = nameof(LicenseeWinLoss.TurnOver);
-                        productCode = sortBy.Substring(propertyName.Length);
+                        var turnOverColumn = nameof(LicenseeWinLoss.TurnOver);
+
+                        productCode = propertyName.Substring(turnOverColumn.Length);
+                        propertyName = turnOverColumn;
                     }
 
-                    dataList.SortByDictionary<string, decimal>(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+                    dataList.SortByDictionary(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
                 }
                 else
                 {
-                    dataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+                    dataList.Sort(propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
                 }
             }
 
             return dataList;
         }
-
-        #endregion ProcessRequest
-
-        #region Private Utility
 
         private static LicenseeWinLossGridViewModel MapToGridView(LicenseeWinLoss item, int index = 0)
         {
@@ -185,23 +190,22 @@ namespace Fanex.Athena.Api.Report
             licenseeWinLoss.TurnOverLT = turnOverProducts.GetValueOrDefault(Product.LT, 0);
         }
 
-        private HttpResponseMessage ExportExcel(LicenseeWinLossMetaModel metaModel, IList<LicenseeWinLoss> dataList, IDictionary<string, LicenseeWinLoss> summaryTotal)
+        private static bool IsProductVisible(IEnumerable<ProductOption> productOptions, ProductAccess productAccess, string productCode)
+        {
+            return productOptions.Any(x => x.Status && x.Code == productCode) && productAccess.IsAllow(productCode);
+        }
+
+        private HttpResponseMessage ExportExcel(
+            LicenseeWinLossMetaModel metaModel,
+            IEnumerable<LicenseeWinLoss> dataList,
+            IEnumerable<LicenseeWinLoss> totalData,
+            IDictionary<string, LicenseeWinLoss> summaryTotal)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             const string FileName = "LicenseeWinLoss.xls";
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/LicenseeWinLoss.xls");
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
-
-            var showingOption = new ShowingOption
-            {
-                SBVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.SB) && productAccess.IsAllow(ProductTypes.Sportsbook),
-                BTVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.BT) && productAccess.IsAllow(ProductTypes.BetTrade),
-                COVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.CO) && productAccess.IsAllow(ProductTypes.CashOut),
-                BAVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.BA) && productAccess.IsAllow(ProductTypes.BA),
-                RBVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.RB) && productAccess.IsAllow(ProductTypes.Racing),
-                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
-            };
 
             var convertingOption = new ConvertingOption
             {
@@ -210,27 +214,30 @@ namespace Fanex.Athena.Api.Report
                 CurrencyName = metaModel.DrillDownLevel == 0 ? metaModel.CurrencyName : metaModel.DrillDownCurrencyName
             };
 
-            if (metaModel.DrillDownLevel > 0 && metaModel.CurrencyId > 0)
-            {
-                metaModel.CurrencyId = metaModel.DrillDownCurrencyId;
-            }
-
             if (metaModel.DrillDownLevel > 0)
             {
                 metaModel.FromDate = metaModel.DrillDownFromDate;
                 metaModel.ToDate = metaModel.DrillDownToDate;
+                metaModel.CurrencyId = metaModel.CurrencyId > 0 ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;
             }
 
-            var excelModel = new LicenseeWinLossViewModel
+            var excelModel = new LicenseeWinLossExcelModel
             {
-                MainResult = dataList,
+                ConvertingOption = convertingOption,
+                DataList = dataList,
+                MetaModel = metaModel,
                 SummaryTotal = summaryTotal,
+                TotalData = totalData,
+                SBVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.SB),
+                BTVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.BT),
+                COVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.CO),
+                BAVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.BA),
+                RBVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.RB),
+                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
+                SystemIdVisible = !_appSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId)
             };
 
-            var licenseeWinLoss = new LicenseeWinLossExcel(_licenseeWinLossService, templatePath, convertingOption, showingOption, metaModel, excelModel)
-            {
-                Level = metaModel.DrillDownLevel,
-            };
+            var licenseeWinLoss = new LicenseeWinLossExcel(templatePath, excelModel);
 
             licenseeWinLoss.Export();
 
@@ -240,12 +247,22 @@ namespace Fanex.Athena.Api.Report
         private void GetData(
                 LicenseeWinLossMetaModel metaModel,
                 out SortableList<LicenseeWinLoss> dataList,
+                out IEnumerable<LicenseeWinLoss> totalData,
                 out IDictionary<string, LicenseeWinLoss> summaryTotal)
         {
-            dataList = metaModel.DrillDownLevel == 0 ? _licenseeWinLossService.GetSummaryWinloss(metaModel, out summaryTotal) :
-                                metaModel.LicenseeId > 0x1 || metaModel.DrillDownLevel == 2
-                               ? _licenseeWinLossService.GetCustomerWinlossDetail(metaModel, out summaryTotal)
-                               : _licenseeWinLossService.GetAgentWinlossDetail(metaModel, out summaryTotal);
+            if (metaModel.IsValid)
+            {
+                dataList = metaModel.DrillDownLevel == 0 ? _licenseeWinLossDataAccess.GetSummaryWinloss(metaModel, out totalData, out summaryTotal) :
+                                metaModel.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.DrillDownLevel == 2
+                               ? _licenseeWinLossDataAccess.GetCustomerWinlossDetail(metaModel, out totalData, out summaryTotal)
+                               : _licenseeWinLossDataAccess.GetAgentWinlossDetail(metaModel, out totalData, out summaryTotal);
+            }
+            else
+            {
+                totalData = new List<LicenseeWinLoss>();
+                summaryTotal = new Dictionary<string, LicenseeWinLoss>();
+                dataList = new SortableList<LicenseeWinLoss>();
+            }
         }
 
         private dynamic ProcessRequest(
@@ -269,14 +286,15 @@ namespace Fanex.Athena.Api.Report
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(level == 0 ? metaModel.CurrencyId : currencyId, metaModel.IsExcludedTestData);
                 IDictionary<string, LicenseeWinLoss> summaryTotal;
                 SortableList<LicenseeWinLoss> dataList;
-                GetData(metaModel, out dataList, out summaryTotal);
+                IEnumerable<LicenseeWinLoss> totalData;
+                GetData(metaModel, out dataList, out totalData, out summaryTotal);
 
                 if (metaModel.IsExportExcel)
                 {
-                    return ExportExcel(metaModel, dataList, summaryTotal);
+                    return ExportExcel(metaModel, dataList, totalData, summaryTotal);
                 }
 
-                if (dataList != null && dataList.Count > 0)
+                if (dataList != null && dataList.Any())
                 {
                     dataList = SortData(dataList, metaModel.SortBy, metaModel.SortOrder);
 
@@ -284,16 +302,14 @@ namespace Fanex.Athena.Api.Report
                     return new
                     {
                         Data = dataList.Select(MapToGridView).ToList(),
-                        Total = _licenseeWinLossService.CalculateTotal(dataList).Select(MapToGridView).ToList(),
+                        Total = totalData.Select(MapToGridView).ToList(),
                         SummaryTotal = summaryTotalView,
                         ProductOptions = metaModel.ProductOptions.ToJson()
                     };
                 }
             }
 
-            return GetEmptyResult(metaModel);
+            return GetEmptyResult(metaModel.ProductOptions);
         }
-
-        #endregion Private Utility
     }
 }

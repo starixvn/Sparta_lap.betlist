@@ -11,7 +11,6 @@ namespace Fanex.Athena.Api.Base
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Web.Http;
-    using Attributes;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users;
@@ -65,17 +64,17 @@ namespace Fanex.Athena.Api.Base
         [System.CLSCompliant(false)]
         protected internal virtual HttpResponseMessage ExcelStream(IWorkbook workbook, string fileName)
         {
-            var memoryStream = new MemoryStream();
-            workbook.Write(memoryStream);
-
-            var result = new HttpResponseMessage(HttpStatusCode.OK) { Content = new ByteArrayContent(memoryStream.ToArray()) };
-            result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-
-            // We used attachment to force download
-            result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            var result = new HttpResponseMessage(HttpStatusCode.OK);
+            using (var memoryStream = new MemoryStream())
             {
-                FileName = fileName
-            };
+                workbook.Write(memoryStream);
+                result.Content = new ByteArrayContent(memoryStream.ToArray());
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                {
+                    FileName = fileName
+                };
+            }
 
             return result;
         }

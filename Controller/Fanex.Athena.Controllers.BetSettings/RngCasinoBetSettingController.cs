@@ -15,6 +15,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Resources;
     using Service.BetSettings;
     using Service.BetSettings.Interfaces;
+    using Service.Casino;
 
     public class RngCasinoBetSettingController : BetSettingBaseController
     {
@@ -29,8 +30,8 @@ namespace Fanex.Athena.Controllers.BetSettings
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
-            var customer = CustomerService.GetCustomerInfo(SessionService.LicenseeSession.LicenseeId, metaModel.CustId);
-            var viewModel = _betSettingService.GetViewModel(metaModel.CustId, customer, SessionService.UserSession.Language, SessionService.LicenseeSession.LicenseeName);
+            var customer = GetCustomerInfo(SessionService.LicenseeSession.LicenseeId, metaModel.CustId);
+            var viewModel = _betSettingService.GetViewModel(metaModel.CustId, customer, SessionService.UserSession.Language);
             AssignRequiredProperties(viewModel, metaModel);
 
             return View("~/Views/Customer/BetSetting/RngCasino.cshtml", viewModel);
@@ -41,10 +42,10 @@ namespace Fanex.Athena.Controllers.BetSettings
         public JsonResult UpdateBetSetting(int custId, string gameTypeChangedList)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var customer = ProductAccess.IsAllowCS ? CustomerService.GetCustomerInfo(licenseeSession.LicenseeId, custId) : null;
-            if (customer == null || customer.SyncCasino == false || !IsBetSettingEditable())
+            var customer = ProductAccess.IsAllowCS ? GetCustomerInfo(licenseeSession.LicenseeId, custId) : null;
+            if (customer == null || !customer.SyncCasino || !IsBetSettingEditable())
             {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
 
             try
@@ -80,14 +81,14 @@ namespace Fanex.Athena.Controllers.BetSettings
         public JsonResult UpdateStatus(int custId, string nickName, int status)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            if (ProductAccess.IsAllowCS == false ||
-                CustomerService.GetCustomerInfo(licenseeId, custId).SyncCasino == false ||
+            if (!ProductAccess.IsAllowCS ||
+                !GetCustomerInfo(licenseeId, custId).SyncCasino ||
                 !IsBetSettingEditable())
             {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
 
-            var customer = CustomerService.GetCustomerInfo(licenseeId, custId);
+            var customer = GetCustomerInfo(licenseeId, custId);
             var userSession = SessionService.UserSession;
             var result = _betSettingService.UpdateStatus(
                 licenseeId,
@@ -124,7 +125,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             foreach (var gameTypeId in gameTypeList)
             {
                 var stakeLevel = this.HttpContext.Request["stake" + gameTypeId];
-                table.Rows.Add(metaModel.CustId, gameTypeId, stakeLevel, 1, metaModel.Ip, metaModel.ModifyById, metaModel.ModifyByUsername, metaModel.SystemId);
+                table.Rows.Add(metaModel.CustId, gameTypeId, stakeLevel, 1, metaModel.Ip, metaModel.ModifyById, metaModel.ModifyByUsername, CasinoSetting.SystemId);
             }
 
             return table;

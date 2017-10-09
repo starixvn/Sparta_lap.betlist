@@ -16,11 +16,6 @@ namespace Fanex.Athena.Model.Warehouse.DTO
     [Serializable]
     public class WinLoss
     {
-        private int _bettypeId;
-        private bool _liveindicator;
-        private object _groupByvalue;
-        private int _reportBy;
-
         public WinLoss()
         {
             MemberWinLoss = 0;
@@ -30,17 +25,9 @@ namespace Fanex.Athena.Model.Warehouse.DTO
             BAComm = 0;
         }
 
-        public bool Liveindicator
-        {
-            get { return _liveindicator; }
-            set { _liveindicator = value; }
-        }
+        public bool Liveindicator { get; set; }
 
-        public int BettypeId
-        {
-            get { return _bettypeId; }
-            set { _bettypeId = value; }
-        }
+        public int BettypeId { get; set; }
 
         public int BetCount { get; set; }
 
@@ -64,33 +51,25 @@ namespace Fanex.Athena.Model.Warehouse.DTO
             get { return Turnover > 0 ? MemberWinLoss / Turnover * 100 : 0; }
         }
 
-        public object GroupByValue
-        {
-            get { return _groupByvalue; }
-            set { _groupByvalue = value; }
-        }
+        public object GroupByValue { get; set; }
 
-        public int ReportBy
-        {
-            get { return _reportBy; }
-            set { _reportBy = value; }
-        }
+        public int ReportBy { get; set; }
 
         public object GroupByString
         {
             get
             {
-                switch (_reportBy)
+                switch (ReportBy)
                 {
                     case (int)WarehouseReportBy.Day:
-                        return Convert.ToDateTime(_groupByvalue).ToString("MM/dd/yyyy");
+                        return Convert.ToDateTime(GroupByValue).ToString("MM/dd/yyyy");
 
                     case (int)WarehouseReportBy.Month:
                     case (int)WarehouseReportBy.Currency:
-                        return _groupByvalue.ToString();
+                        return GroupByValue.ToString();
 
                     case (int)WarehouseReportBy.League:
-                        switch (Convert.ToInt32(_groupByvalue))
+                        switch (Convert.ToInt32(GroupByValue))
                         {
                             case -9:
                                 return ViewResources.SystemParlay;
@@ -99,12 +78,12 @@ namespace Fanex.Athena.Model.Warehouse.DTO
                                 return ViewResources.Outright + " " + ViewResources.Horse + " " + ViewResources.ProductRB;
 
                             default:
-                                return CacheRef.GetLeagueName(_groupByvalue);
+                                return CacheRef.GetLeagueName(GroupByValue);
                         }
 
                     case (int)WarehouseReportBy.Bettype:
-                        return _bettypeId >= 81 && _bettypeId < 120
-                            ? CacheRef.GetBettype(_bettypeId, _liveindicator) : CacheRef.GetBettype(_groupByvalue);
+                        return BettypeId >= 81 && BettypeId < 120
+                            ? CacheRef.GetBettype(BettypeId, Liveindicator) : CacheRef.GetBettype(GroupByValue);
 
                     default:
                         return string.Empty;

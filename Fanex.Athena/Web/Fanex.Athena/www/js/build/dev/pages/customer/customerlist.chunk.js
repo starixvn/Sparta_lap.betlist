@@ -109,10 +109,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
                 return result;
             },
 
-            setColumnVisible: function (models, colName, visible) {
-                for (var i = 0, l = models.length; i < l; i++) {
+            hideColumn: function (models, colName) {
+                for (var i = 0; i < models.length; i++) {
                     if (models[i].name.toLowerCase() === colName.toLowerCase()) {
-                        models[i].hidden = visible;
+                        models[i].hidden = true;
                         break;
                     }
                 }
@@ -5526,7 +5526,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(361), __webpack_require__(119), __webpack_require__(147), __webpack_require__(159),
     __webpack_require__(122), __webpack_require__(123), __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerListState) {
     var _POPUP_LIST = ["#ViewOptionList", "#update-cust-status-popup", "#LevelListContainer", "#OddsGroupListContainer"];
-    var _isAllowedCustomerCommission;
+    var _isAllowedCustomerCommission, _isAllowedUserEditComm;
     var _productAccess;
     var _ajaxRequest = null;
 
@@ -5535,6 +5535,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     var _me = {
         initialize: function () {
             _isAllowedCustomerCommission = $("#IsAllowedCustomerCommission").val() === "True";
+            _isAllowedUserEditComm = $("#IsAllowedUserEditComm").val() === "True";
             _productAccess = JSON.parse($("#ProductAccess").val());
             _state = CustomerListState.getState();
         },
@@ -5655,7 +5656,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             reportGrid.jqGrid(gridOption);
             CustomerListOption.setGroupHeaderColumns(reportGrid);
 
-            if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
+            if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined && _isAllowedUserEditComm) {
                 $("#jqgh_ReportGrid_Index").attr("class", "").html("<input type='checkbox' id='CheckAll' /><label for='CheckAll'></label>");
             } else {
                 $("#jqgh_ReportGrid_Index").html("#");
@@ -5710,7 +5711,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     "<label for='" + rowObject.CustId + "'></label>";
             };
 
-            if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
+            if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined && _isAllowedUserEditComm) {
                 indexColumn.formatter = indexFormatter;
             }
             else {
@@ -6379,11 +6380,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             frozen: true,
             formatter: function (cellValue, options, rowObject) {
                 return "<a href='javascript:;' class='grid-dropdown oddsGroup" + (rowObject.BAStatus ? " disabled" : "")
-                    + "' data-custid='" + rowObject.CustId + "' data-group='" + cellValue + "'>"
-                    + "<span class='grid-dropdown-item grid-dropdown-label group-" + cellValue + "'>"
-                    + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</span>"
-                    + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("OddsGroup") + "'></i>"
-                    + "</a>";
+                + "' data-custid='" + rowObject.CustId + "' data-group='" + cellValue + "'>"
+                + "<span class='grid-dropdown-item grid-dropdown-label group-" + cellValue + "'>"
+                + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</span>"
+                + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("OddsGroup") + "'></i>"
+                + "</a>";
             }
         };
         var customerOptionColumn = {
@@ -6481,8 +6482,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return Site.getResources(temp);
         };
 
-        var getColModel = function (productAccess, isAllowedCustomerCommission) {
+        var getColModel = function (productAccess, isAllowedCustomerCommission) {          
             var temp = Site.clone(colModelList);
+
             if (isAllowedCustomerCommission) {
                 var getCellAttrFunction = function (colName) {
                     return function (rowId, val, rowObj) {

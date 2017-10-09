@@ -10,6 +10,7 @@ var Site = (function ($) {
     var REQUEST_VERIFICATION_TOKEN;
     var _historyDate = null;
     var _licenseeId = null;
+    var _isFakeLicensee = null;
 
     function setLicenseeOption(urlOrParams, currencyId, currencyName, baseCurrency) {
         currencyName = $.trim(currencyName);
@@ -72,6 +73,9 @@ var Site = (function ($) {
                     }
                 }
             });
+        },
+        getUsernamePlaceholderText: function () {
+            return Site.isFakeLicensee() ? Site.getSingleResource('ExternalId') : Site.getSingleResource('ExternalIdOrSystemId');
         },
         setProductCodeListParam: function(url, productCodeList){
             return QueryString.setParam(url, "ProductCodeList", productCodeList);
@@ -137,6 +141,13 @@ var Site = (function ($) {
         },
         showMessaegBox: function (message) {
             $('<div title="' + Site.getSingleResource("LrfNotification") + '">' + message + '!</div>').dialog();
+        },
+        isFakeLicensee: function () {
+            if (_isFakeLicensee == null) {
+                _isFakeLicensee = $("#IsFakeLicensee").val() === "1";
+            }
+
+            return _isFakeLicensee;
         },
         getLicenseeId: function () {
             if (!_licenseeId) {

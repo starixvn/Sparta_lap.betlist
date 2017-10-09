@@ -1,10 +1,10 @@
 ﻿namespace Fanex.Athena.Service.BetList.UnitTests
 {
     using System.Collections.Generic;
-    using System.Web.Script.Serialization;
-    using Core.Configuration.Interfaces;
     using Core.Users.Interfaces;
     using DataAccess.BetList.Interfaces;
+    using DataAccess.Core.Configuration.Interfaces;
+    using Fanex.Athena.UnitTest.Common.Extensions;
     using Fanex.BetList.Core.Entities;
     using Interfaces;
     using Model.BetList.DTO;
@@ -16,7 +16,6 @@
     [TestFixture]
     public class BetListServiceTest
     {
-        private IBalanceUpService _balanceUpService;
         private IBetListDataAccess _betlistDataAccess;
         private IAuthorizationService _authorizationService;
         private IBetListService _betListService;
@@ -24,18 +23,17 @@
         [OneTimeSetUp]
         public void SetUp()
         {
-            _balanceUpService = Substitute.For<IBalanceUpService>();
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _betlistDataAccess = Substitute.For<IBetListDataAccess>();
             _authorizationService = Substitute.For<IAuthorizationService>();
-            _betListService = new BetListService(_balanceUpService, _betlistDataAccess, _authorizationService);
+            _betListService = new BetListService(balanceUpDataAccess, _betlistDataAccess, _authorizationService);
 
-            _balanceUpService.BalanceUpInfo.Returns(new BalanceUp());
+            balanceUpDataAccess.GetBalanceUp().Returns(new BalanceUp());
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            _balanceUpService = null;
             _betlistDataAccess = null;
             _authorizationService = null;
             _betListService = null;
@@ -62,17 +60,16 @@
         public void GetMixParlayDetailTicket_HaveNoPermission_ReturnCorrectData()
         {
             // Arrange
-            var serializer = new JavaScriptSerializer();
-            var expectedResult = serializer.Serialize(new TicketResult());
+            var expectedResult = new TicketResult();
             var licenseeId = 1;
             long transId = 1;
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
 
             // Action
-            var result = serializer.Serialize(_betListService.GetMixParlayDetailTicket(licenseeId, transId));
+            var result = _betListService.GetMixParlayDetailTicket(licenseeId, transId);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.That(result, Tobe.SameProperties(expectedResult));
         }
 
         [Test]
@@ -116,16 +113,15 @@
         public void GetBetListData_HaveNoPermission_ReturnCorrectData()
         {
             // Arrange
-            var serializer = new JavaScriptSerializer();
-            var expectedResult = serializer.Serialize(new TicketResult());
+            var expectedResult = new TicketResult();
             var spname = "Hello";
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
 
             // Action
-            var result = serializer.Serialize(_betListService.GetBetListData(new BetListMetaModel(), spname));
+            var result = _betListService.GetBetListData(new BetListMetaModel(), spname);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.That(result, Tobe.SameProperties(expectedResult));
         }
 
         [Test]
@@ -150,15 +146,13 @@
         public void GetDailyStatementData_HaveNoPermission_ReturnCorrectData()
         {
             // Arrange
-            var serializer = new JavaScriptSerializer();
-            var expectedResult = serializer.Serialize(new List<DailyStatement>());
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
 
             // Action
-            var result = serializer.Serialize(_betListService.GetDailyStatementData(new BetListMetaModel(), false));
+            var result = _betListService.GetDailyStatementData(new BetListMetaModel(), false);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.That(result, Is.Empty);
         }
     }
 }

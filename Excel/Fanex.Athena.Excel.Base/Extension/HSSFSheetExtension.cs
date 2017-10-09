@@ -110,12 +110,12 @@ namespace Fanex.Athena.Excel.Base.Extension
                     destCell.SetCellValue(sourceCell.RichStringCellValue);
                     break;
 
-                case CellType.Unknown:
+                default:
                     destCell.SetCellValue(sourceCell.StringCellValue);
                     break;
             }
 
-            return (ICell)destCell;
+            return destCell;
         }
 
         public static ICell GetCell(this ISheet sheet, int rowIndex, int colIndex)

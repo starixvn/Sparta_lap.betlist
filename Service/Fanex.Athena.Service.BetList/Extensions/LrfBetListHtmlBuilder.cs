@@ -17,6 +17,8 @@ namespace Fanex.Athena.Service.BetList.Extensions
     using Fanex.BetList.Core.App_GlobalResources;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
+    using Helpers;
+    using Model.Core.Helper;
     using Resources;
 
     #endregion Using
@@ -26,10 +28,6 @@ namespace Fanex.Athena.Service.BetList.Extensions
     /// </summary>
     public static class LrfBetListHtmlBuilder
     {
-        private const int MinColossusBetBetType = 18000;
-
-        private const int MaxColossusBetBetType = 18007;
-
         /// <summary>
         /// Get ticket status.
         /// </summary>
@@ -48,7 +46,7 @@ namespace Fanex.Athena.Service.BetList.Extensions
             BetListMetaModel metaModel)
         {
             const string StatusTemp = "<div class='status'>{0}</div>";
-            var statusText = GetStatusText(ticket);
+            var statusText = GetStatusText(ticket.Status);
             var statusNormalText = string.Format(StatusTemp, statusText);
 
             // If Sport type is keno, doesn't show "Result" link.
@@ -84,12 +82,10 @@ namespace Fanex.Athena.Service.BetList.Extensions
         public static string BuildLicenseeWL(this BetListHTMLBuilder builder, LrfTicket ticket)
         {
             var running = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
-            var racing = ticket.BetTypeId == (int)BetType.Win || ticket.BetTypeId == (int)BetType.Place ||
-                           ticket.BetTypeId == (int)BetType.WinPlace;
-            if (racing ||
-                ticket.BetTypeId == (int)BetType.CashOutBought ||
-                ticket.BetTypeId == (int)BetType.BetTradeBought ||
-                (ticket.BetTypeId >= MinColossusBetBetType && ticket.BetTypeId <= MaxColossusBetBetType))
+            
+            if (BetTypeHelper.IsRacing(ticket.BetTypeId) ||
+                BetListHelper.IsBoughtTicket(ticket.BetTypeId) ||
+                BetListHelper.IsColossusBet(ticket.BetTypeId))
             {
                 var licenseeWl = running
                     ? "-"
@@ -187,46 +183,37 @@ namespace Fanex.Athena.Service.BetList.Extensions
         /// </summary>
         /// <param name="ticket">LRF ticket object.</param>
         /// <returns>Status text.</returns>
-        private static string GetStatusText(LrfTicket ticket)
+        private static string GetStatusText(string ticketStatus)
         {
-            var statusText = string.Empty;
-
-            switch (ticket.Status.ToLower())
+            switch (ticketStatus.ToLowerInvariant())
             {
                 case BetStatus.Running:
-                    statusText = CoreBetList.running;
-                    break;
+                    return CoreBetList.running;
 
                 case BetStatus.Reject:
-                    statusText = CoreBetList.reject;
-                    break;
+                    return CoreBetList.reject;
 
                 case BetStatus.Won:
-                    statusText = CoreBetList.won;
-                    break;
+                    return CoreBetList.won;
 
                 case BetStatus.Lose:
-                    statusText = CoreBetList.lose;
-                    break;
+                    return CoreBetList.lose;
 
                 case BetStatus.Draw:
-                    statusText = CoreBetList.draw;
-                    break;
+                    return CoreBetList.draw;
 
                 case BetStatus.Waiting:
-                    statusText = CoreBetList.waiting;
-                    break;
+                    return CoreBetList.waiting;
 
                 case BetStatus.Void:
-                    statusText = CoreBetList.voided;
-                    break;
+                    return CoreBetList.voided;
 
                 case BetStatus.Refund:
-                    statusText = CoreBetList.refund;
-                    break;
-            }
+                    return CoreBetList.refund;
 
-            return statusText;
+                default:
+                    return string.Empty;
+            }
         }
 
         #endregion Private Utility

@@ -35,7 +35,8 @@ namespace Fanex.Athena.Controllers.BetList
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            metaModel.BalanceUpDay = this.BalanceUpService.BalanceUpInfo.BalanceUpDay;
+            var balanceUp = GetBalanceUp();
+            metaModel.BalanceUpDay = balanceUp.BalanceUpDay;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
             var currencies = userSession.CurrencyList;
@@ -85,11 +86,11 @@ namespace Fanex.Athena.Controllers.BetList
             };
             var currencyTitle = string.Format(
                 ViewResources.Viewin,
-                metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
+                metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
             var title = ViewResources.DailyBetList + " " + ViewResources.On
                 + string.Format(" {0} - {1}", metaModel.Date.ToString("MM/dd/yyyy"), currencyTitle);
 
-            var dailyBetListExcel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, new List<int> { BetEffectiveColumn });
+            var dailyBetListExcel = new BetListExcel(showingOption, metaModel.LicenseeId, new List<int> { BetEffectiveColumn });
             var workbook = dailyBetListExcel.Export(ticketResult, title);
 
             return new ExcelResult(workbook, "DailyBetList");

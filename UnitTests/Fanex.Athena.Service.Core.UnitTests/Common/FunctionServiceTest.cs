@@ -13,21 +13,23 @@
     [TestFixture]
     public class FunctionServiceTest
     {
-        private readonly IReadOnlyCollection<Function> _functionList =
-            new ReadOnlyCollection<Function>(new List<Function>()
+        private readonly IEnumerable<Function> _functionList =
+            new List<Function>()
             {
                 new Function { FunctionId = 1 },
                 new Function { FunctionId = 2, ParentId = 1 }
-            });
+            };
 
         private IFunctionDataAccess _functionDataAccess;
+
         private IFunctionService _service;
 
         [SetUp]
         public void SetUp()
         {
             _functionDataAccess = Substitute.For<IFunctionDataAccess>();
-            _service = new FunctionService(_functionDataAccess);
+            var functionStorage = new FunctionStorage(_functionDataAccess);
+            _service = new FunctionService(_functionDataAccess, functionStorage);
             _functionDataAccess.GetFunctionList().Returns(_functionList.ToList());
         }
 
@@ -84,7 +86,7 @@
 
             // Assert
             Assert.That(result.Count, Is.EqualTo(1));
-            Assert.That(result[0].FunctionId, Is.EqualTo(1));
+            Assert.That(result.ElementAt(0).FunctionId, Is.EqualTo(1));
         }
 
         [Test]
@@ -110,8 +112,8 @@
 
             // Assert
             Assert.That(result.Count, Is.EqualTo(2));
-            Assert.That(result[0].FunctionId, Is.EqualTo(2));
-            Assert.That(result[1].FunctionId, Is.EqualTo(1));
+            Assert.That(result.ElementAt(0).FunctionId, Is.EqualTo(2));
+            Assert.That(result.ElementAt(1).FunctionId, Is.EqualTo(1));
         }
 
         [Test]
@@ -120,8 +122,11 @@
             // Arrange
             var licenseeId = 1;
             var userId = 2;
-            var subFunctions = new Dictionary<int, IList<Function>> { { 1, new List<Function> { new Function { FunctionId = 2, ParentId = 1 } } } };
-            var service = new FunctionService(_functionDataAccess, null, null, subFunctions);
+            var subFunctions = new Dictionary<int, IEnumerable<Function>> { { 1, new List<Function> { new Function { FunctionId = 2, ParentId = 1 } } } };
+            var functionStorage = Substitute.ForPartsOf<FunctionStorage>(_functionDataAccess);
+            functionStorage.When(x => { var xxx = x.SubFunctions; }).DoNotCallBase();
+            functionStorage.SubFunctions.Returns(subFunctions);
+            var service = new FunctionService(_functionDataAccess, functionStorage);
             var userFunctionList = new List<Function>
             {
                 new Function { FunctionId = 2 }
@@ -139,8 +144,8 @@
 
             // Assert
             Assert.That(result.Count, Is.EqualTo(2));
-            Assert.That(result[0].FunctionId, Is.EqualTo(2));
-            Assert.That(result[1].FunctionId, Is.EqualTo(1));
+            Assert.That(result.ElementAt(0).FunctionId, Is.EqualTo(2));
+            Assert.That(result.ElementAt(1).FunctionId, Is.EqualTo(1));
         }
 
         [Test]
@@ -167,8 +172,8 @@
 
             // Assert
             Assert.That(result.Count, Is.EqualTo(2));
-            Assert.That(result[0].FunctionId, Is.EqualTo(1));
-            Assert.That(result[1].FunctionId, Is.EqualTo(2));
+            Assert.That(result.ElementAt(0).FunctionId, Is.EqualTo(1));
+            Assert.That(result.ElementAt(1).FunctionId, Is.EqualTo(2));
         }
 
         [Test]
@@ -294,15 +299,16 @@
             var custId = 3;
             var langKey = "en-US";
             var ip = string.Empty;
-            var functionList = new ReadOnlyCollection<Function>(new List<Function>()
+            var functionList = new List<Function>()
             {
                 new Function { FunctionId = 1 },
                 new Function { FunctionId = 2, ParentId = 1 },
                 new Function { FunctionId = 3, ParentId = 1 }
-            });
+            };
             var functionDataAccess = Substitute.For<IFunctionDataAccess>();
-            var service = new FunctionService(functionDataAccess);
-            functionDataAccess.GetFunctionList().Returns(functionList.ToList());
+            var functionStorage = Substitute.For<IFunctionStorage>();
+            var service = new FunctionService(functionDataAccess, functionStorage);
+            functionStorage.FunctionList.Returns(functionList.ToList());
 
             var functionIdList = new List<int> { 2, 3 };
             var userFunctionList = new List<Function>
@@ -345,7 +351,8 @@
                 new Function { FunctionId = 3, ParentId = 1 }
             });
             var functionDataAccess = Substitute.For<IFunctionDataAccess>();
-            var service = new FunctionService(functionDataAccess);
+            var functionStorage = Substitute.For<IFunctionStorage>();
+            var service = new FunctionService(functionDataAccess, functionStorage);
             functionDataAccess.GetFunctionList().Returns(functionList.ToList());
 
             var functionIdList = new List<int> { 2, 3 };
@@ -387,7 +394,7 @@
 
             // Assert
             Assert.That(result.Count, Is.EqualTo(1));
-            Assert.That(result[0].FunctionId, Is.EqualTo(1));
+            Assert.That(result.ElementAt(0).FunctionId, Is.EqualTo(1));
         }
 
         [Test]
@@ -405,7 +412,7 @@
             // Assert
             Assert.That(result.Count, Is.EqualTo(1));
             Assert.That(result[1].Count, Is.EqualTo(1));
-            Assert.That(result[1][0].FunctionId, Is.EqualTo(2));
+            Assert.That(result[1].ElementAt(0).FunctionId, Is.EqualTo(2));
         }
 
         [Test]
@@ -439,7 +446,7 @@
             // Assert
             Assert.That(result.Count, Is.EqualTo(1));
             Assert.That(result[1].Count, Is.EqualTo(1));
-            Assert.That(result[1][0].FunctionId, Is.EqualTo(2));
+            Assert.That(result[1].ElementAt(0).FunctionId, Is.EqualTo(2));
         }
 
         [Test]

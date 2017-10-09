@@ -8,31 +8,37 @@ namespace Fanex.Athena.DataAccess.Report
 {
     using System;
     using System.Data;
+    using Core.Configuration;
+    using Core.Configuration.Interfaces;
     using Data;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
 
     public class CustomerWinlossDataAccess : BaseDataAccess, ICustWinlossDataAccess
     {
-        private readonly BalanceUp _balanceUp;
+        private const int PageSizeExcel = int.MaxValue - 1000;
 
-        public CustomerWinlossDataAccess(BalanceUp balanceUp)
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
+
+        public CustomerWinlossDataAccess()
         {
-            _balanceUp = balanceUp;
+            _balanceUpDataAccess = new BalanceUpDataAccess();
+        }
+
+        public CustomerWinlossDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        {
+            _balanceUpDataAccess = balanceUpDataAccess;
         }
 
         public SortableList<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel, out CustomerWinLoss totalData, out int totalRows)
         {
-            totalRows = 0;
-            totalData = new CustomerWinLoss();
             using (var db = this.GetObjectDb("Lrf_Rpt_WinLoss"))
             {
-                AddParameters(db, metaModel, _balanceUp.MoveBetsDay);
+                AddParameters(db, metaModel, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
 
                 using (var reader = db.ExecuteReader())
                 {
@@ -64,6 +70,11 @@ namespace Fanex.Athena.DataAccess.Report
                         totalData = ReadTotalData(reader, metaModel.BaseCurrency);
                         totalRows = reader.ToInt("TotalRows");
                     }
+                    else
+                    {
+                        totalRows = 0;
+                        totalData = new CustomerWinLoss();
+                    }
 
                     return result;
                 }
@@ -75,7 +86,7 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("drawfilter", DbType.Int32, metaModel.DrawFilter);
             db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
             db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-            db.AddInParameter("pagesize", DbType.Int32, metaModel.IsExportExcel ? metaModel.PageSizeExcel : metaModel.PageSize);
+            db.AddInParameter("pagesize", DbType.Int32, metaModel.IsExportExcel ? PageSizeExcel : metaModel.PageSize);
             db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
             db.AddInParameter("movebetsday", DbType.DateTime, moveBetsDay);
             db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);

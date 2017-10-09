@@ -700,15 +700,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BA Turnover&apos;s figures are for reference purpose only and still be included in the overall Turnover.
-        /// </summary>
-        public static string BaTurnoverReferenceNote {
-            get {
-                return ResourceManager.GetString("BaTurnoverReferenceNote", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to BA Updated By.
         /// </summary>
         public static string BAUpdatedBy {
@@ -894,15 +885,6 @@ namespace Fanex.Athena.Resources {
         public static string Bingo {
             get {
                 return ResourceManager.GetString("Bingo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bingo is not included in the report.
-        /// </summary>
-        public static string BingoExcludedNote {
-            get {
-                return ResourceManager.GetString("BingoExcludedNote", resourceCulture);
             }
         }
         
@@ -1875,15 +1857,6 @@ namespace Fanex.Athena.Resources {
         public static string DailyBetList {
             get {
                 return ResourceManager.GetString("DailyBetList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Daily Bet List report does not include Parlay and Outright tickets..
-        /// </summary>
-        public static string DailyBetListNoteParlayOutright {
-            get {
-                return ResourceManager.GetString("DailyBetListNoteParlayOutright", resourceCulture);
             }
         }
         
@@ -7131,15 +7104,6 @@ namespace Fanex.Athena.Resources {
         public static string SupportForOnlyNote {
             get {
                 return ResourceManager.GetString("SupportForOnlyNote", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The report only supports for SportsBook products.
-        /// </summary>
-        public static string SupportSbOnlyNote {
-            get {
-                return ResourceManager.GetString("SupportSbOnlyNote", resourceCulture);
             }
         }
         

@@ -8,10 +8,10 @@ namespace Fanex.Athena.Service.Core.Configuration
 {
     using System;
     using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.DataAccess.Core.Configuration;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Configuration;
-    using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Core.Helpers;
 
@@ -19,53 +19,60 @@ namespace Fanex.Athena.Service.Core.Configuration
     {
         private const string DefaultLanguage = "en-US";
 
-        private const int CacheTimeoutSeconds = 60; // 1 minutes.
+        private const int CacheTimeoutSeconds = 60;
 
         private readonly IMoveBetDataAccess _moveBetDataAccess;
 
-        private readonly IAppSettings _appSettings;
+        private readonly IMemoryCacheService _cache;
 
         public MoveBetService()
         {
-            this._moveBetDataAccess = new MoveBetDataAccess();
-            this._appSettings = new AppSettings();
+            _moveBetDataAccess = new MoveBetDataAccess();
+            _cache = new MemoryCacheService();
         }
 
-        public MoveBetService(IAppSettings appSettings, IMoveBetDataAccess moveBetDataAccess)
+        public MoveBetService(IMoveBetDataAccess moveBetDataAccess, IMemoryCacheService cache)
         {
-            this._moveBetDataAccess = moveBetDataAccess;
-            this._appSettings = appSettings;
+            _moveBetDataAccess = moveBetDataAccess;
+            _cache = cache;
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Reviewed. Suppression is OK here.")]
         public string GetMoveBetNotification(string language)
         {
-            var result = string.Empty;
             try
             {
-                var moveBet = CacheService.Get<MoveBetNotification>(CacheKey.MemorycacheCommonMoveBet);
+                var moveBet = _cache.Get<MoveBetNotification>(CacheKey.MemorycacheCommonMoveBet);
                 if (moveBet == null)
                 {
                     moveBet = this._moveBetDataAccess.GetMoveBetNotification();
-                    CacheService.Set(CacheKey.MemorycacheCommonMoveBet, moveBet, CacheTimeoutSeconds);
+                    _cache.Set(CacheKey.MemorycacheCommonMoveBet, moveBet, CacheTimeoutSeconds);
                 }
 
-                if (moveBet.ContentByLanguage.ContainsKey(language))
-                {
-                    result = moveBet.ContentByLanguage[language];
-                }
-                else if (moveBet.ContentByLanguage.ContainsKey(DefaultLanguage))
-                {
-                    result = moveBet.ContentByLanguage[DefaultLanguage];
-                }
+                return GetMessage(moveBet, language);
             }
             catch (Exception exception)
             {
                 LogHelper.WriteError(exception);
             }
 
-            return result;
+            return string.Empty;
+        }
+
+        private static string GetMessage(MoveBetNotification moveBet, string language)
+        {
+            if (moveBet.ContentByLanguage.ContainsKey(language))
+            {
+                return moveBet.ContentByLanguage[language];
+            }
+
+            if (moveBet.ContentByLanguage.ContainsKey(DefaultLanguage))
+            {
+                return moveBet.ContentByLanguage[DefaultLanguage];
+            }
+
+            return string.Empty;
         }
     }
 }

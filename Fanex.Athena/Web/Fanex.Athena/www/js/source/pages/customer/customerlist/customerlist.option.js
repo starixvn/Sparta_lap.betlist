@@ -143,11 +143,11 @@
             frozen: true,
             formatter: function (cellValue, options, rowObject) {
                 return "<a href='javascript:;' class='grid-dropdown oddsGroup" + (rowObject.BAStatus ? " disabled" : "")
-                    + "' data-custid='" + rowObject.CustId + "' data-group='" + cellValue + "'>"
-                    + "<span class='grid-dropdown-item grid-dropdown-label group-" + cellValue + "'>"
-                    + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</span>"
-                    + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("OddsGroup") + "'></i>"
-                    + "</a>";
+                + "' data-custid='" + rowObject.CustId + "' data-group='" + cellValue + "'>"
+                + "<span class='grid-dropdown-item grid-dropdown-label group-" + cellValue + "'>"
+                + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</span>"
+                + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("OddsGroup") + "'></i>"
+                + "</a>";
             }
         };
         var customerOptionColumn = {
@@ -245,8 +245,9 @@
             return Site.getResources(temp);
         };
 
-        var getColModel = function (productAccess, isAllowedCustomerCommission) {
+        var getColModel = function (productAccess, isAllowedCustomerCommission) {          
             var temp = Site.clone(colModelList);
+
             if (isAllowedCustomerCommission) {
                 var getCellAttrFunction = function (colName) {
                     return function (rowId, val, rowObj) {

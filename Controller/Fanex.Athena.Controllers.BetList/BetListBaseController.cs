@@ -6,6 +6,8 @@
     using System.Collections.ObjectModel;
     using System.Web.Mvc;
     using System.Web.SessionState;
+    using DataAccess.Core.Configuration;
+    using DataAccess.Core.Configuration.Interfaces;
     using Excel.Base.Helpers;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -13,10 +15,11 @@
     using Fanex.Athena.Service.BetList.Interfaces;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Athena.Service.Core.Configuration;
-    using Fanex.Athena.Service.Core.Configuration.Interfaces;
+    using Model.Core.DTO.Configuration;
     using ONEbook.UM.Filters;
     using Resources;
+    using Service.Core.Users;
+    using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
 
     #endregion Using
@@ -31,8 +34,6 @@
 
         protected const int PageSizeExcel = 63000;
 
-        protected const int LicenseeId12Bet = 1;
-
         protected const int ExternalIdColumn = 1;
         protected const int SystemIdColumn = 2;
         protected const int WinLostColumn = 7;
@@ -40,12 +41,14 @@
         protected const int LicenseeWLColumn = 9;
 
         protected static readonly ReadOnlyCollection<int> HiddenColumnIndexes =
-            new ReadOnlyCollection<int>(new int[] { WinLostColumn, BetEffectiveColumn, LicenseeWLColumn });
+            new ReadOnlyCollection<int>(new[] { WinLostColumn, BetEffectiveColumn, LicenseeWLColumn });
 
         protected static readonly ReadOnlyCollection<int> RacingBetType =
-            new ReadOnlyCollection<int>(new int[] { 31, 32, 33, 41, 42, 43 });
+            new ReadOnlyCollection<int>(new[] { 31, 32, 33, 41, 42, 43 });
 
-        private readonly IBalanceUpService _balanceUpService;
+        private readonly IAuthorizationService _authorizationService;
+
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         private readonly IProductService _productService;
 
@@ -53,14 +56,10 @@
 
         public BetListBaseController()
         {
+            _authorizationService = new AuthorizationService();
             this._productService = new ProductService();
             this._betListService = new BetListService();
-            this._balanceUpService = new BalanceUpService();
-        }
-
-        protected IBalanceUpService BalanceUpService
-        {
-            get { return _balanceUpService; }
+            this._balanceUpDataAccess = new BalanceUpDataAccess();
         }
 
         protected IProductService ProductService
@@ -107,6 +106,16 @@
             return viewinCurrency;
         }
 
+        protected bool HasPermissionOnData(BetListMetaModel metaModel)
+        {
+            return _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId);
+        }
+
+        protected BalanceUp GetBalanceUp()
+        {
+            return _balanceUpDataAccess.GetBalanceUp();
+        }
+
         /// <summary>
         /// Set the Licensee Id, Balance Up Date.
         /// Remove the UTC part of DateTime value.
@@ -115,18 +124,19 @@
         /// <returns>The bet list metal model.</returns>
         protected BetListMetaModel CreateDefaultMetaModel(BetListMetaModel metaModel = null)
         {
-            metaModel = metaModel ?? new BetListMetaModel();
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
+            var defaultMetaModel = metaModel ?? new BetListMetaModel();
+            defaultMetaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+            defaultMetaModel.UserId = SessionService.UserSession.UserId;
 
-            var balanceUpInfo = this.BalanceUpService.BalanceUpInfo;
-            metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUpInfo.BalanceUpDay.Date, DateTimeKind.Utc);
-            metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUpInfo.MoveBetsDay.Date, DateTimeKind.Utc);
-            metaModel.FromDate = DateTime.SpecifyKind(metaModel.FromDate.Date, DateTimeKind.Utc);
-            metaModel.ToDate = DateTime.SpecifyKind(metaModel.ToDate.Date, DateTimeKind.Utc);
-            metaModel.Date = DateTime.SpecifyKind(metaModel.Date.Date, DateTimeKind.Utc);
+            var balanceUp = GetBalanceUp();
+            defaultMetaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
+            defaultMetaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
+            defaultMetaModel.FromDate = DateTime.SpecifyKind(defaultMetaModel.FromDate.Date, DateTimeKind.Utc);
+            defaultMetaModel.ToDate = DateTime.SpecifyKind(defaultMetaModel.ToDate.Date, DateTimeKind.Utc);
+            defaultMetaModel.Date = DateTime.SpecifyKind(defaultMetaModel.Date.Date, DateTimeKind.Utc);
 
-            return metaModel;
+            defaultMetaModel.IsFakeLicensee = IsFakeLicensee();
+            return defaultMetaModel;
         }
 
         /// <summary>

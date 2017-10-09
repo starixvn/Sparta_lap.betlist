@@ -23,6 +23,11 @@ namespace Fanex.Athena.Excel.Base
 
         private int _pageSize;
 
+        protected ReportBase(string templatePath, int pageSize = 0)
+            : this(templatePath, null, pageSize)
+        {
+        }
+
         protected ReportBase(
             string templatePath,
             ShowingOption showingOption,

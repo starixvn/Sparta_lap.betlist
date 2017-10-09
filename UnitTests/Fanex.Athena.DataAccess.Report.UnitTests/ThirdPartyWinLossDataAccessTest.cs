@@ -9,6 +9,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Report;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class ThirdPartyWinLosDataAccessTest
@@ -74,12 +75,12 @@
             objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false);
             IDictionary<string, ThirdPartyWinLoss> summaryTotal;
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "winlostUSD", 100 }
+                winlostUSD = 100
             };
 
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
             var result = _dataAccess.GetSummaryWinloss(_metaModel, out summaryTotal);
@@ -126,12 +127,12 @@
             objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false);
             IDictionary<string, ThirdPartyWinLoss> summaryTotal;
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "winlostUSD", 100 }
+                winlostUSD = 100
             };
 
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
             var result = _dataAccess.GetCustomerWinlossDetail(_metaModel, out summaryTotal);
@@ -175,12 +176,12 @@
             objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false);
             IDictionary<string, ThirdPartyWinLoss> summaryTotal;
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "winlostUSD", 100 }
+                winlostUSD = 100
             };
 
-            MapReaderData(reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
             var result = _dataAccess.GetAgentWinlossDetail(_metaModel, out summaryTotal);
@@ -190,20 +191,6 @@
             {
                 Assert.That(result.Count, Is.EqualTo(1));
                 Assert.That(result[0].CustomerWinLoss, Is.EqualTo(100));
-            });
-        }
-
-        private static void MapReaderData(IDataReader reader, Dictionary<string, object> readerDataMapping)
-        {
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
             });
         }
     }

@@ -6,6 +6,7 @@
     using Model.BetSettings.DTO;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class RacingBetSettingDataAccessTest
@@ -52,7 +53,7 @@
             reader.Read().Returns(true, false);
             reader.FieldCount.Returns(1);
 
-            MapReaderData(reader, new Dictionary<string, object>());
+            reader[Arg.Any<string>()].Returns(string.Empty);
             var custId = 1;
 
             // Action
@@ -94,20 +95,6 @@
             _objectDb.Received().AddInParameter("ip", DbType.String, racingBetSetting.Ip);
             _objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
             _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
-        }
-
-        private static void MapReaderData(IDataReader reader, IDictionary<string, object> readerDataMapping)
-        {
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
-            });
         }
 
         private RacingBetSetting GetRacingBetSetting()

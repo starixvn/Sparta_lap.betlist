@@ -14,16 +14,15 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
 
     public interface ILiveReportDataAccess
     {
-        IList<LiveReport> GetLiveReportSummary(LiveReportMetaModel metaModel, DateTime moveBetsDate);
+        IList<LiveReport> GetLiveReportSummary(LiveReportMetaModel metaModel);
 
-        IList<LiveReport> GetDetailBySport(LiveReportMetaModel metaModel, DateTime moveBetsDate, string productCode);
+        IList<LiveReport> GetDetailBySport(LiveReportMetaModel metaModel, string productCode);
 
         Tuple<IList<LiveReport>, IList<LiveReportByBetType>> GetDetailByCurrencyAndBettype(
             LiveReportMetaModel metaModel,
-            DateTime moveBetsDate,
             string productCode,
             IEnumerable<Product> products);
 
-        IList<LiveReportWinLossByMatch> GetLiveReportWinlossByMatch(LiveReportMatchListMetalModel metaModel, DateTime moveBetsDate);
+        IList<LiveReportWinLossByMatch> GetLiveReportWinlossByMatch(LiveReportMatchListMetalModel metaModel);
     }
 }

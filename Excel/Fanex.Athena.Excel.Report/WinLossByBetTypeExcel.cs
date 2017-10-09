@@ -186,12 +186,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign data to excel row.
-        /// </summary>
-        /// <param name="row">Excel row.</param>
-        /// <param name="winlossByBetType">Win Loss By Bet Type data.</param>
-        protected void AssignCommonData(IRow row, WinLossByBetType winlossByBetType)
+        private static void AssignCommonData(IRow row, WinLossByBetType winlossByBetType)
         {
             row.Cells[ColumnTurnover].SetCellValue(winlossByBetType.Turnover);
             row.Cells[ColumnCustomerWinLoss].SetCellValue(winlossByBetType.CustomerWinLoss);

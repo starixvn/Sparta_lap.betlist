@@ -6,6 +6,7 @@
     using Core.Users.Interfaces;
     using DataAccess.BetSettings.Interfaces;
     using Model.BetSettings.DTO;
+    using Model.BetSettings.ViewModel;
     using Model.Core.DataDomain;
     using NSubstitute;
     using NUnit.Framework;
@@ -42,18 +43,26 @@
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            var esportSetting = EsportSettingType.NoneOffering;
-            var betSettings = new List<BetSetting>()
+
+            var viewModel = new BetSettingViewModel
             {
-                new BetSetting()
+                MainData = new List<BetSetting>()
+                {
+                    new BetSetting()
+                },
+                EsportSetting = EsportSettingType.NoneMemberOffering
             };
-            _dataAccess.GetBetSetting(CustId, ref esportSetting).Returns(betSettings);
+            _dataAccess.GetBetSetting(CustId).Returns(viewModel);
 
             // Action
             var result = _service.GetViewModel(LicenseeId, CustId);
 
             // Assert
-            Assert.That(result.MainData.Count, Is.EqualTo(betSettings.Count));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.MainData.Count, Is.EqualTo(viewModel.MainData.Count));
+                Assert.That(result.EsportSetting, Is.EqualTo(viewModel.EsportSetting));
+            });
         }
 
         [Test]

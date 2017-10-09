@@ -8,12 +8,12 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
 {
     using System.Collections.Generic;
     using Fanex.Athena.Model.BetSettings.DTO;
-    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
+    using Model.BetSettings.ViewModel;
 
     public interface ISportsbookBetSettingDataAccess
     {
-        IList<BetSetting> GetBetSetting(int custId, ref EsportSettingType esportSetting);
+        BetSettingViewModel GetBetSetting(int custId);
 
         IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled);
 

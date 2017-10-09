@@ -64,7 +64,7 @@ namespace Fanex.Athena.Excel.Report
                 ConvertingOption convertingOption,
                 CashOutWinLossMetaModel metaModel,
                 CashOutWinLossViewModel viewModel)
-            : base(templatePath, null)
+            : base(templatePath)
         {
             _convertingOption = convertingOption;
             _metaModel = metaModel;
@@ -148,10 +148,8 @@ namespace Fanex.Athena.Excel.Report
             {
                 var item = _dataList[index];
 
-                // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
 
-                // Report Date
                 var reportDateString = _metaModel.ReportBy == ReportByType.Monthly
                                           ? item.Date.ToString("MM/yyyy")
                                           : item.Date.ToShortDateString();
@@ -225,7 +223,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected void AssignCommonData(IRow row, CashOutWinLoss data)
+        private static void AssignCommonData(IRow row, CashOutWinLoss data)
         {
             row.Cells[ColumnCashOutTimes].SetCellValue(data.CashOutTimes);
             row.Cells[ColumnCashOutTickets].SetCellValue(data.CashOutTickets);
@@ -243,13 +241,28 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnSettleAmountTotal].SetCellValue(data.SettleAmountTotal);
         }
 
-        /// <summary>
-        /// Assign grand total data of EUR.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="rowIndex">The starting row index.</param>
-        /// <returns>The last row index after assign data.</returns>
-        protected int AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
+        private static IList<CashOutWinLoss> GetTotalCurrency(IEnumerable<CashOutWinLoss> dataList)
+        {
+            var listTotalCurrency = dataList.GroupBy(x => new { x.CurrencyName })
+                    .Select(g => new CashOutWinLoss
+                    {
+                        CurrencyName = g.Key.CurrencyName,
+                        CashOutTimes = g.Sum(p => p.CashOutTimes),
+                        CashOutTickets = g.Sum(p => p.CashOutTickets),
+                        CashOutValue = g.Sum(p => p.CashOutValue),
+                        BuyBackAmountSB = g.Sum(p => p.BuyBackAmountSB),
+                        BuyBackAmountBA = g.Sum(p => p.BuyBackAmountBA),
+                        TicketPayout = g.Sum(p => p.TicketPayout),
+                        CashOutCommission = g.Sum(p => p.CashOutCommission),
+                        SettleAmountTicketPayout = g.Sum(p => p.SettleAmountTicketPayout),
+                        SettleAmountBuyBackComm = g.Sum(p => p.SettleAmountBuyBackComm),
+                        SettleAmountTotal = g.Sum(p => p.SettleAmountTotal),
+                    }).ToList();
+
+            return listTotalCurrency;
+        }
+
+        private void AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
         {
             var currencies = _summaryTotal.Keys.Reverse();
 
@@ -258,17 +271,12 @@ namespace Fanex.Athena.Excel.Report
                 // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowGrantTotal, rowIndex);
                 AssignCommonData(row, _summaryTotal[currency]);
-                row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpper());
+                row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpperInvariant());
 
                 // Merge first two column
                 sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
-                checked
-                {
-                    rowIndex++;
-                }
+                rowIndex++;
             }
-
-            return rowIndex;
         }
 
         /// <summary>
@@ -277,7 +285,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="rowIndex">The starting row index.</param>
         /// <returns>The last row index after assign data.</returns>
-        protected int AssignTotalData(ISheet sheet, int rowIndex)
+        private int AssignTotalData(ISheet sheet, int rowIndex)
         {
             int beginTotalRow = rowIndex;
             var totalCurrencyList = GetTotalCurrency(_dataList);
@@ -304,27 +312,6 @@ namespace Fanex.Athena.Excel.Report
             sheet.MergeCells(rowIndex - totalCurrencyList.Count, 0, rowIndex - 1, 3);
 
             return rowIndex;
-        }
-
-        private static IList<CashOutWinLoss> GetTotalCurrency(IEnumerable<CashOutWinLoss> dataList)
-        {
-            var listTotalCurrency = dataList.GroupBy(x => new { x.CurrencyName })
-                    .Select(g => new CashOutWinLoss
-                    {
-                        CurrencyName = g.Key.CurrencyName,
-                        CashOutTimes = g.Sum(p => p.CashOutTimes),
-                        CashOutTickets = g.Sum(p => p.CashOutTickets),
-                        CashOutValue = g.Sum(p => p.CashOutValue),
-                        BuyBackAmountSB = g.Sum(p => p.BuyBackAmountSB),
-                        BuyBackAmountBA = g.Sum(p => p.BuyBackAmountBA),
-                        TicketPayout = g.Sum(p => p.TicketPayout),
-                        CashOutCommission = g.Sum(p => p.CashOutCommission),
-                        SettleAmountTicketPayout = g.Sum(p => p.SettleAmountTicketPayout),
-                        SettleAmountBuyBackComm = g.Sum(p => p.SettleAmountBuyBackComm),
-                        SettleAmountTotal = g.Sum(p => p.SettleAmountTotal),
-                    }).ToList();
-
-            return listTotalCurrency;
         }
     }
 }

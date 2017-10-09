@@ -65,49 +65,49 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public JsonResult UpdateMacauStatus(int custId, string nickName, int status)
         {
-            return UpdateThirdPartyProductStatus((int)ProductTypes.Macau, custId, nickName, status);
+            return UpdateThirdPartyProductStatus(ProductTypes.Macau, custId, nickName, status);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
         public JsonResult UpdateMicroGamingLiveCasinoStatus(int custId, string nickName, int status)
         {
-            return UpdateThirdPartyProductStatus((int)ProductTypes.MicroGamingLiveCasino, custId, nickName, status);
+            return UpdateThirdPartyProductStatus(ProductTypes.MicroGamingLiveCasino, custId, nickName, status);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
         public JsonResult UpdateMicroGamingRNGCasinoStatus(int custId, string nickName, int status)
         {
-            return UpdateThirdPartyProductStatus((int)ProductTypes.MicrogamingRNGCasino, custId, nickName, status);
+            return UpdateThirdPartyProductStatus(ProductTypes.MicrogamingRNGCasino, custId, nickName, status);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
         public JsonResult UpdateBetTradeStatus(int custId, string nickName, int status)
         {
-            return UpdateThirdPartyProductStatus((int)ProductTypes.BetTrade, custId, nickName, status);
+            return UpdateThirdPartyProductStatus(ProductTypes.BetTrade, custId, nickName, status);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
         public JsonResult UpdateColossusBetsStatus(int custId, string nickName, int status)
         {
-            return UpdateThirdPartyProductStatus((int)ProductTypes.ColossusBets, custId, nickName, status);
+            return UpdateThirdPartyProductStatus(ProductTypes.ColossusBets, custId, nickName, status);
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
         public JsonResult UpdateCashOutStatus(int custId, string nickName, int status)
         {
-            return UpdateThirdPartyProductStatus((int)ProductTypes.CashOut, custId, nickName, status);
+            return UpdateThirdPartyProductStatus(ProductTypes.CashOut, custId, nickName, status);
         }
 
         private JsonResult UpdateThirdPartyProductStatus(int productId, int custId, string nickName, int status)
         {
-            if (ProductAccess.IsAllow(productId) == false || !IsBetSettingEditable())
+            if (!ProductAccess.IsAllow(productId) || !IsBetSettingEditable())
             {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
 
             var userSession = SessionService.UserSession;

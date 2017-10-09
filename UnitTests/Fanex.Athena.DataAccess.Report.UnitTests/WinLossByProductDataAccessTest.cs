@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
+    using Core.Configuration.Interfaces;
     using Data;
     using Extension.Utility;
     using Model.Core.DTO.Common;
@@ -12,28 +14,32 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class WinLossByProductDataAccessTest
     {
+        private readonly BalanceUp _balanceUp = new BalanceUp
+        {
+            BalanceUpDay = new DateTime(2018, 1, 1),
+            MoveBetsDay = new DateTime(2018, 2, 2),
+        };
+
         private IAppSettings _appSetting;
 
         private WinLossByProductDataAccess _dataAccess;
 
         private WinLossByProductMetaModel _metaModel;
 
-        private BalanceUp _balanceUp = new BalanceUp
-        {
-            BalanceUpDay = new DateTime(2018, 1, 1),
-            MoveBetsDay = new DateTime(2018, 2, 2),
-        };
-
         [OneTimeSetUp]
         public void Setup()
         {
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
+            balanceUpDataAccess.GetBalanceUp().Returns(_balanceUp);
+
             _appSetting = Substitute.For<IAppSettings>();
             _appSetting.HistoryDate.Returns(new DateTime(2016, 8, 31));
-            _dataAccess = Substitute.ForPartsOf<WinLossByProductDataAccess>(_balanceUp);
+            _dataAccess = Substitute.ForPartsOf<WinLossByProductDataAccess>(balanceUpDataAccess);
             _metaModel = new WinLossByProductMetaModel(_appSetting)
             {
                 ReportBy = 1,
@@ -66,11 +72,12 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlossByProduct")).Returns(objectDb);
-            IDictionary<string, IList<WinLossByProduct>> summaryTotal;
+            IEnumerable<WinLossByProduct> totalData;
+            IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal;
             IResultInfo resultInfo;
 
             // Action
-            _dataAccess.GetWinlossByProducts(_metaModel, out summaryTotal, out resultInfo);
+            _dataAccess.GetWinlossByProducts(_metaModel, out totalData, out summaryTotal, out resultInfo);
 
             // Assert
             Assert.Multiple(() =>
@@ -99,14 +106,15 @@
             objectDb.GetParameterValue("SystemName").Returns("ABC");
             reader.Read().Returns(true, false);
 
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new
             {
-                { "TurnoverUSD", 999 },
-                { "reporttype", "20190101" }
+                TurnoverUSD = 999,
+                reporttype = 20190101
             };
 
-            MapReaderData(reader, readerDataMapping);
-            IDictionary<string, IList<WinLossByProduct>> summaryTotal;
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            IEnumerable<WinLossByProduct> totalData;
+            IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal;
             IResultInfo resultInfo;
 
             // Action
@@ -115,15 +123,16 @@
                 {
                     BaseCurrency = "USD"
                 },
+                out totalData,
                 out summaryTotal,
                 out resultInfo);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count, Is.EqualTo(1));
-                Assert.That(result[0].TurnOver, Is.EqualTo(999));
-                Assert.That(result[0].Date, Is.EqualTo(new DateTime(2019, 1, 1)));
+                Assert.That(result.Count(), Is.EqualTo(1));
+                Assert.That(result.ElementAt(0).TurnOver, Is.EqualTo(999));
+                Assert.That(result.ElementAt(0).Date, Is.EqualTo(new DateTime(2019, 1, 1)));
 
                 Assert.That(resultInfo.ExtendedData, Is.EqualTo("1000;ABC"));
             });
@@ -135,10 +144,11 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlossByProductDetail_Ag")).Returns(objectDb);
-            IDictionary<string, IList<WinLossByProduct>> summaryTotal;
+            IEnumerable<WinLossByProduct> totalData;
+            IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal;
 
             // Action
-            _dataAccess.GetWinlossByProductAgents(_metaModel, out summaryTotal);
+            _dataAccess.GetWinlossByProductAgents(_metaModel, out totalData, out summaryTotal);
 
             // Assert
             Assert.Multiple(() =>
@@ -160,10 +170,11 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlossByProductDetail")).Returns(objectDb);
-            IDictionary<string, IList<WinLossByProduct>> summaryTotal;
+            IEnumerable<WinLossByProduct> totalData;
+            IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal;
 
             // Action
-            _dataAccess.GetWinlossByProductCustomers(_metaModel, out summaryTotal);
+            _dataAccess.GetWinlossByProductCustomers(_metaModel, out totalData, out summaryTotal);
 
             // Assert
             Assert.Multiple(() =>
@@ -177,20 +188,6 @@
                 objectDb.Received().AddInParameter("drawfilter", DbType.Int32, _metaModel.DrawFilter);
                 objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
                 objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-            });
-        }
-
-        private static void MapReaderData(IDataReader reader, Dictionary<string, object> readerDataMapping)
-        {
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
             });
         }
     }

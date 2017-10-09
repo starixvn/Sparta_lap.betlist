@@ -19,7 +19,10 @@
                 <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
             </div>
             <div class="col right icon-block">
+                @if (!Model.IsFakeLicensee)
+                {
                 <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+                }
                 <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
             </div>
         </div>

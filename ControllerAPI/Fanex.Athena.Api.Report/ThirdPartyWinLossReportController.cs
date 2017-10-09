@@ -206,7 +206,7 @@ namespace Fanex.Athena.Api.Report
 
         private bool HasPermission(int productId, UserSession user)
         {
-            var permissionKey = new string[] { _productPermissionMap[productId] };
+            var permissionKey = new[] { _productPermissionMap[productId] };
 
             return user.ApplicationMode == AppMode.Parasitic ?
                 _authorizationService.HasPermissions(user.PortalFunctionList, permissionKey) :

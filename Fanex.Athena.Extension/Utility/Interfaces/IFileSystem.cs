@@ -3,5 +3,7 @@
     public interface IFileSystem
     {
         bool Exists(string path);
+
+        string ReadFile(string path);
     }
 }

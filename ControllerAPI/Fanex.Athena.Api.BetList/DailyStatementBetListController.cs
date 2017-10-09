@@ -33,8 +33,8 @@ namespace Fanex.Athena.Api.BetList
             const string UspKey = "Lrf_BetList_SelByDayAll_Mem";
             const string UspKeyOld = "Lrf_BetList_SelByDayAll_Mem_Old";
 
-            var balanceUpInfo = BalanceUpService.BalanceUpInfo;
-            var uspKey = metaModel.FromDate < balanceUpInfo.BalanceUpDay ? UspKeyOld : UspKey;
+            var balanceUp = GetBalanceUp();
+            var uspKey = metaModel.FromDate < balanceUp.BalanceUpDay ? UspKeyOld : UspKey;
 
             metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);
 

@@ -15,7 +15,7 @@
 }
 @section ContentTitle
 {
- @Model.Param.ExternalId (@(Model.Param.SystemId)) - <span class="base-currency">@RazorHelper.ViewBaseCurrency(Model.Param.CurrencyName, Model.Param.BaseCurrency)</span>
+    @Model.Param.ExternalId@(Model.Param.IsFakeLicensee ? string.Empty : "(" + Model.Param.SystemId + ")") - <span class="base-currency">@RazorHelper.ViewBaseCurrency(Model.Param.CurrencyName, Model.Param.BaseCurrency)</span>
 }
 @section ContentFilter
 {

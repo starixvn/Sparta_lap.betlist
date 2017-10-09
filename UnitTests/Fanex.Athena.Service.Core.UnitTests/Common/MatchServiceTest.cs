@@ -5,6 +5,7 @@
     using Core.Common;
     using Core.Common.Interfaces;
     using DataAccess.Core.Common.Interfaces;
+    using Extension.Utility.Interfaces;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
@@ -12,17 +13,24 @@
     [TestFixture]
     public class MatchServiceTest
     {
+        private static readonly IList<Match> ExpectedResultDataList = new List<Match>
+            {
+                new Match { MatchId = 1 }
+            };
+
+        private IMemoryCacheService _cache;
         private IMatchDataAccess _matchDataAccess;
         private IMatchService _matchService;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUp()
         {
+            _cache = Substitute.For<IMemoryCacheService>();
             _matchDataAccess = Substitute.For<IMatchDataAccess>();
-            _matchService = new MatchService(_matchDataAccess);
+            _matchService = new MatchService(_matchDataAccess, _cache);
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDown()
         {
             _matchDataAccess = null;
@@ -30,78 +38,85 @@
         }
 
         [Test]
-        public void GetAllRunningMatch_WhenCall_ReturnResultFromDataAccess()
+        public void GetAllRunningMatch_CacheContainsData_ReturnDataFromCache()
         {
             // Arrange
-            var expectedResult = new List<Match>
-            {
-                new Match { MatchId = 1 }
-            };
             var sportId = 1;
-            _matchDataAccess.GetAllRunningMatch(sportId).Returns(expectedResult);
+            _cache.Contains(Arg.Any<string>()).Returns(true);
+            _cache.Get<IList<Match>>(Arg.Any<string>()).Returns(ExpectedResultDataList);
 
             // Action
             var result = _matchService.GetAllRunningMatch(sportId);
 
             // Assert
-            Assert.That(result[0].MatchId, Is.EqualTo(expectedResult[0].MatchId));
+            Assert.Multiple(() =>
+            {
+                _cache.Received().Get<IList<Match>>(Arg.Any<string>());
+                Assert.That(result[0].MatchId, Is.EqualTo(ExpectedResultDataList[0].MatchId));
+            });
+        }
+
+        [Test]
+        public void GetAllRunningMatch_WhenCall_ReturnResultFromDataAccess()
+        {
+            // Arrange
+            var sportId = 1;
+            _matchDataAccess.GetAllRunningMatch(sportId).Returns(ExpectedResultDataList);
+
+            // Action
+            var result = _matchService.GetAllRunningMatch(sportId);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _matchDataAccess.Received().GetAllRunningMatch(sportId);
+                Assert.That(result[0].MatchId, Is.EqualTo(ExpectedResultDataList[0].MatchId));
+            });
         }
 
         [Test]
         public void GetAllRunningMatch_GetDataFromCache_ReturnCachedData()
         {
             // Arrange
-            var expectedResult = new List<Match>
-            {
-                new Match { MatchId = 1 }
-            };
             var sportId = 1;
-            _matchDataAccess.GetAllRunningMatch(sportId).Returns(expectedResult);
+            _matchDataAccess.GetAllRunningMatch(sportId).Returns(ExpectedResultDataList);
             var firstCall = _matchService.GetAllRunningMatch(sportId);
 
             // Action
             var result = _matchService.GetAllRunningMatch(sportId);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.That(result, Is.EqualTo(ExpectedResultDataList));
         }
 
         [Test]
         public void GetForecastMatchListByLeague_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var expectedResult = new List<Match>
-            {
-                new Match { MatchId = 1 }
-            };
             var leagueId = 1;
-            _matchDataAccess.GetForecastMatchListByLeague(leagueId).Returns(expectedResult);
+            _matchDataAccess.GetForecastMatchListByLeague(leagueId).Returns(ExpectedResultDataList);
 
             // Action
             var result = _matchService.GetForecastMatchListByLeague(leagueId);
 
             // Assert
-            Assert.That(result[0].MatchId, Is.EqualTo(expectedResult[0].MatchId));
+            Assert.That(result[0].MatchId, Is.EqualTo(ExpectedResultDataList[0].MatchId));
         }
 
         [Test]
         public void GetMatchesByLeague_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var expectedResult = new List<Match>
-            {
-                new Match { MatchId = 1 }
-            };
             var leagueId = 1;
             var fromDate = new DateTime(2016, 1, 1);
             var toDate = new DateTime(2016, 2, 2);
-            _matchDataAccess.GetMatchesByLeague(leagueId, fromDate, toDate).Returns(expectedResult);
+            _matchDataAccess.GetMatchesByLeague(leagueId, fromDate, toDate).Returns(ExpectedResultDataList);
 
             // Action
             var result = _matchService.GetMatchesByLeague(leagueId, fromDate, toDate);
 
             // Assert
-            Assert.That(result[0].MatchId, Is.EqualTo(expectedResult[0].MatchId));
+            Assert.That(result[0].MatchId, Is.EqualTo(ExpectedResultDataList[0].MatchId));
         }
     }
 }

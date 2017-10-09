@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Excel.Base.Entities;
     using Excel.Report;
+    using Excel.Report.Models;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Model.Report.DTO;
@@ -13,19 +13,19 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class CustomerPendingFundsReportControllerTest : ApiReportBaseControllerTest
+    public class CustomerPendingFundsReportControllerTest : BaseApiReportControllerHelperTest
     {
         private ICustPendingFundsDataAccess _dataAccess;
         private CustomerPendingFundsReportController _controller;
 
         [OneTimeSetUp]
-        public override void SetUp()
+        public override void FixtureSetUp()
         {
-            base.SetUp();
+            base.FixtureSetUp();
 
             _dataAccess = Substitute.For<ICustPendingFundsDataAccess>();
 
-            _controller = Substitute.ForPartsOf<CustomerPendingFundsReportController>(_dataAccess, SessionService, ProductService);
+            _controller = Substitute.ForPartsOf<CustomerPendingFundsReportController>(AppSetting, _dataAccess, SessionService, ProductService);
 
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
 
@@ -33,9 +33,9 @@
         }
 
         [OneTimeTearDown]
-        public override void TearDown()
+        public override void FixtureTearDown()
         {
-            base.TearDown();
+            base.FixtureTearDown();
 
             _controller = null;
             _dataAccess = null;
@@ -52,7 +52,7 @@
             Assert.Multiple(() =>
             {
                 Assert.IsEmpty(result.Data);
-                Assert.That(0, Is.EqualTo(result.TotalRows));
+                Assert.That(result.TotalRows, Is.Zero);
             });
         }
 
@@ -69,11 +69,12 @@
             var result = _controller.Index(metaModel);
 
             // Assert
-            Assert.That(expectedData, Is.EqualTo(result.Data));
+            Assert.That(result.Data, Is.EqualTo(expectedData));
         }
 
-        [Test]
-        public void Index_ExportToExcel_ExportWithCorrectData()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Index_ExportToExcel_ExportWithCorrectData(bool isFakeLicensee)
         {
             // Arrange
             CustPendingFunds totalData;
@@ -83,19 +84,13 @@
             var expectedDataList = SetUpForGettingData(metaModel, out totalData, out totalRows);
             const int PageSizeExcel = int.MaxValue - 1000;
 
-            var actualDataList = Enumerable.Empty<CustPendingFunds>();
-            var excel = Substitute.ForPartsOf<CustomerPendingFundsExcel>(
-                   Arg.Any<string>(),
-                   Arg.Any<ConvertingOption>(),
-                   Arg.Do<IEnumerable<CustPendingFunds>>(x => actualDataList = x),
-                   Arg.Any<CustPendingFunds>());
+            AppSetting.FakeLicenseeList.Returns(x => isFakeLicensee ? new int[1] { SessionLicenseeId } : new int[0]);
+
+            var actualExcelModel = new CustomerPendingFundsExcelModel();
+            var excel = Substitute.ForPartsOf<CustomerPendingFundsExcel>(Arg.Any<string>(), Arg.Do<CustomerPendingFundsExcelModel>(x => actualExcelModel = x));
             excel.When(x => x.Export()).DoNotCallBase();
 
-            _controller.CreateExcel(
-                   Arg.Any<string>(),
-                   Arg.Any<ConvertingOption>(),
-                   Arg.Any<IEnumerable<CustPendingFunds>>(),
-                   Arg.Any<CustPendingFunds>()).Returns(excel);
+            _controller.CreateExcel(Arg.Any<string>(), Arg.Any<CustomerPendingFundsExcelModel>()).Returns(excel);
 
             // Action
             _controller.Index(metaModel);
@@ -103,9 +98,10 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(1, Is.EqualTo(metaModel.PageIndex));
-                Assert.That(PageSizeExcel, Is.EqualTo(metaModel.PageSize));
-                Assert.That(actualDataList, Is.EqualTo(expectedDataList.AsEnumerable()));
+                Assert.That(metaModel.PageIndex, Is.EqualTo(1));
+                Assert.That(metaModel.PageSize, Is.EqualTo(PageSizeExcel));
+                Assert.That(actualExcelModel.DataList, Is.EqualTo(expectedDataList.AsEnumerable()));
+                Assert.That(actualExcelModel.SystemIdVisible, Is.EqualTo(!isFakeLicensee));
             });
         }
 

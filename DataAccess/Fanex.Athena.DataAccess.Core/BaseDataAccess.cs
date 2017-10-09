@@ -7,17 +7,15 @@
 namespace Fanex.Athena.DataAccess.Core
 {
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common;
     using Fanex.Data;
+    using Utilities;
 
-    public abstract class BaseDataAccess
+    public class BaseDataAccess
     {
-        protected BaseDataAccess()
-        {
-        }
-
         [CLSCompliant(false)]
         protected static void AddResultParam(IObjectDb db)
         {

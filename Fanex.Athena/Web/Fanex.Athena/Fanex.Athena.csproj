@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -53,6 +53,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <CodeAnalysisRuleSet>Fanex.Athena.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -63,6 +64,7 @@
     <WarningLevel>4</WarningLevel>
     <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
     <Prefer32Bit>false</Prefer32Bit>
+    <CodeAnalysisRuleSet>Fanex.Athena.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Antlr3.Runtime">
@@ -1121,6 +1123,7 @@
     <Content Include="www\css\build\dev\pages\reports\agcasinowinloss.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\reports\agcasinowinloss.css.map" />
     <Content Include=".babelrc" />
+    <Content Include="Fanex.Athena.ruleset" />
     <None Include="www\css\source\pages\customer\customerlist.scss" />
     <Content Include="www\css\source\pages\customer\customerlog.scss" />
     <Content Include="www\css\source\components\tab\_tab.scss" />
@@ -5794,22 +5797,8 @@
     <Content Include="Views\Report\CustomerBalance\Content.cshtml" />
     <Content Include="Views\Report\CustomerBalance\Filter.cshtml" />
     <Content Include="Views\Report\CustomerBalance\Main.cshtml" />
-    <Content Include="Views\Note\LiveReport.cshtml" />
-    <Content Include="Views\Note\LicenseeWinLoss.cshtml" />
     <Content Include="Views\Shared\_NoteLayout.cshtml" />
-    <Content Include="Views\Note\MatchWinLoss.cshtml" />
     <Content Include="Views\Note\WinLossByProduct.cshtml" />
-    <Content Include="Views\Note\WinLossByBetType.cshtml" />
-    <Content Include="Views\Note\RacingCommission.cshtml" />
-    <Content Include="Views\Note\DailyRacingWinLoss.cshtml" />
-    <Content Include="Views\Note\Turnover.cshtml" />
-    <Content Include="Views\Note\MobileWinLoss.cshtml" />
-    <Content Include="Views\Note\Balance.cshtml" />
-    <Content Include="Views\Note\CustomerWinLoss.cshtml" />
-    <Content Include="Views\Note\CustomerPendingFunds.cshtml" />
-    <Content Include="Views\Note\CustomerBalance.cshtml" />
-    <Content Include="Views\Note\CustomerTurnover.cshtml" />
-    <Content Include="Views\Note\CustomerList.cshtml" />
     <Content Include="Views\Shared\_ReportTableLayout.cshtml" />
     <Content Include="Views\Report\LiveReport\HistoryFilter.cshtml" />
     <Content Include="Views\Report\Balance\Content.Header.cshtml" />
@@ -5895,9 +5884,6 @@
     <Content Include="Views\Shared\_BetListLayout.cshtml" />
     <Content Include="Views\BetList\DailyBetList\Main.cshtml" />
     <Content Include="Views\BetList\SystemParlayDetail\Main.cshtml" />
-    <Content Include="Views\Note\SettledMatchCount.cshtml" />
-    <Content Include="Views\Note\CancelledBetList.cshtml" />
-    <Content Include="Views\Note\LastBetsMonitoring.cshtml" />
     <Content Include="Views\Shared\_ReportLayout.SettledMatchCount.cshtml" />
     <Content Include="Views\Report\DailyRacingWinLoss\Content.cshtml" />
     <Content Include="Views\Report\DailyRacingWinLoss\Content.Data.cshtml" />
@@ -5948,7 +5934,6 @@
     <Content Include="Views\BetList\MatchWl\MatchBetType.cshtml" />
     <Content Include="Views\BetList\MatchWl\MixParlay.cshtml" />
     <Content Include="Views\Shared\_BetListLayoutNoStandard.cshtml" />
-    <Content Include="Views\Note\DailyBetList.cshtml" />
     <None Include="Scripts\Languages\ViewResources.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ViewResources.txt</LastGenOutput>
@@ -5961,7 +5946,6 @@
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\EditPermission.cshtml" />
     <Content Include="Views\Account\AssignCurrency.cshtml" />
-    <Content Include="Views\BetList\PlatformWinLoss\Main.cshtml" />
     <Content Include="Views\Customer\CustomerLog\Action\2801.cshtml" />
     <Content Include="Views\Account\PermissionPage.cshtml" />
     <Content Include="Views\Shared\_AccountLayout.cshtml" />
@@ -6157,6 +6141,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\index.jsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

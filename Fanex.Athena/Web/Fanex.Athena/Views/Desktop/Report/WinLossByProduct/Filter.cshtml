@@ -20,13 +20,16 @@
             @DesktopRazorHelper.RenderProductFilter(Model.Param.ProductOptions, 3, 3)
 
             <div class="input-field col l2 m3 s12">
-                @Html.TextBox("Username", Model.Param.Username, new { placeholder = ViewResources.ExternalIdOrSystemId, autocomplete = "off" })
+                @Html.TextBox("Username", Model.Param.Username, new { placeholder = (Model.IsFakeLicensee ? ViewResources.ExternalId : ViewResources.ExternalIdOrSystemId), autocomplete = "off" })
                 <label>@ViewResources.Username</label>
                 <ul id="suggestionDropdown" class="dropdown-content ac-dropdown"></ul>
             </div>
 
             <div class="col right icon-block">
+                @if (!Model.IsFakeLicensee)
+                {
                 <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+                }
                 <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
             </div>
         </div>

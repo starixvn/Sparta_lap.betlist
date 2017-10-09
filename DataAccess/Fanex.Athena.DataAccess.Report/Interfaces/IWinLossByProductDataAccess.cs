@@ -15,21 +15,24 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]
-        IList<WinLossByProduct> GetWinlossByProducts(
+        IEnumerable<WinLossByProduct> GetWinlossByProducts(
             WinLossByProductMetaModel metaModel,
-            out IDictionary<string, IList<WinLossByProduct>> summaryTotal,
+            out IEnumerable<WinLossByProduct> totalData,
+            out IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal,
             out IResultInfo resultInfo);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]
-        IList<WinLossByProduct> GetWinlossByProductAgents(
+        IEnumerable<WinLossByProduct> GetWinlossByProductAgents(
             WinLossByProductMetaModel metaModel,
-            out IDictionary<string, IList<WinLossByProduct>> summaryTotal);
+            out IEnumerable<WinLossByProduct> totalData,
+            out IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]
-        IList<WinLossByProduct> GetWinlossByProductCustomers(
+        IEnumerable<WinLossByProduct> GetWinlossByProductCustomers(
             WinLossByProductMetaModel metaModel,
-            out IDictionary<string, IList<WinLossByProduct>> summaryTotal);
+            out IEnumerable<WinLossByProduct> totalData,
+            out IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal);
     }
 }

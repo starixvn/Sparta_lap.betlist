@@ -119,5 +119,7 @@ namespace Fanex.Athena.Model.BetList.MetaModel
                     && !string.IsNullOrWhiteSpace(ProductCodeList);
             }
         }
+
+        public bool IsFakeLicensee { get; set; }
     }
 }

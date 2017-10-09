@@ -20,78 +20,35 @@ namespace Fanex.Athena.Service.Core.Users
     using Fanex.Common;
     using Resources;
 
-    /// <summary>
-    ///     The user service.
-    /// </summary>
     public class UserService : IUserService
     {
-        #region Constants and Fields
-
         private const int UserNotExistError = 100;
         private const int WrongUserNameOrPasswordError = 104;
 
-        /// <summary>
-        ///     The _user data access.
-        /// </summary>
         private readonly IUserDataAccess _userDataAccess;
 
-        #endregion Constants and Fields
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="UserService" /> class.
-        /// </summary>
         public UserService()
         {
             this._userDataAccess = new UserDataAccess();
         }
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="UserService" /> class.
-        /// </summary>
-        /// <param name="userDataAccess">
-        ///     The user data access.
-        /// </param>
         public UserService(IUserDataAccess userDataAccess)
         {
             this._userDataAccess = userDataAccess;
         }
 
-        #endregion Constructors and Destructors
-
         #region Public Methods and Operators
 
-        /// <summary>
-        ///     The change password.
-        /// </summary>
-        /// <param name="userName">
-        ///     The user name.
-        /// </param>
-        /// <param name="oldPassword">
-        ///     The old password.
-        /// </param>
-        /// <param name="newPassword">
-        ///     The new password.
-        /// </param>
-        /// <param name="ip">
-        ///     The request IP.
-        /// </param>
-        /// <returns>
-        /// The result information.
-        /// </returns>
         public IResultInfo ChangePassword(string userName, string oldPassword, string newPassword, string ip)
         {
-            // if old password is valid, process update password
-            // create salt to hash new password
             var oldSalt = this._userDataAccess.GetUserSalt(userName).ToString();
             var salt = Cryptography.CreateSalt();
-            newPassword = Cryptography.CreateHash(newPassword, salt);
-            oldPassword = Cryptography.CreateHash(oldPassword, oldSalt);
+            var hashedNewPassword = Cryptography.CreateHash(newPassword, salt);
+            var hashedOldPassword = Cryptography.CreateHash(oldPassword, oldSalt);
 
             var user = new User { Request = new Request { Ip = ip }, Username = userName };
 
-            return this._userDataAccess.ChangePassword(user, oldPassword, newPassword, salt);
+            return this._userDataAccess.ChangePassword(user, hashedOldPassword, hashedNewPassword, salt);
         }
 
         public IList<User> GetByLicensee(int licenseeId, bool isInternal)
@@ -109,50 +66,17 @@ namespace Fanex.Athena.Service.Core.Users
             return this._userDataAccess.GetUserInfo(licenseeId, userId);
         }
 
-        /// <summary>
-        ///   If returned value greater than 0, User login successfully.
-        /// </summary>
-        /// <param name="requestUser">
-        ///     The request user.
-        /// </param>
-        /// <param name="netSessionId">
-        ///     The net session id.
-        /// </param>
-        /// <param name="serverId">
-        ///     The server id.
-        /// </param>
-        /// <param name="ip">
-        ///     The request IP.
-        /// </param>
-        /// <returns>
-        ///     The integer value.
-        /// </returns>
         public int LoginOnUser(User requestUser, string netSessionId, int serverId, string ip)
         {
             requestUser.Request = new Request { Ip = ip };
             return this._userDataAccess.LoginOnUser(requestUser, netSessionId, serverId);
         }
 
-        /// <summary>
-        ///     The logout.
-        /// </summary>
-        /// <param name="onuserId">
-        ///     The on user id.
-        /// </param>
         public void Logout(int onuserId)
         {
             this._userDataAccess.Logout(onuserId);
         }
 
-        /// <summary>
-        ///     The re check in.
-        /// </summary>
-        /// <param name="onuserId">
-        ///     The on user id.
-        /// </param>
-        /// <returns>
-        ///     True if re-check is successful.
-        /// </returns>
         public bool RecheckIn(int onuserId)
         {
             return this._userDataAccess.RecheckIn(onuserId);

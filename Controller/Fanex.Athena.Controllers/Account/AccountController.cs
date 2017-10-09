@@ -6,25 +6,26 @@
 
 namespace Fanex.Athena.Controllers.Account
 {
-    using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
     using System.Text;
     using System.Web.Mvc;
+    using DataAccess.Core.Common;
+    using DataAccess.Core.Common.Interfaces;
     using Extension.Utility;
-    using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Core.MetaModel.Account;
-    using Fanex.Athena.Service.Core.Common;
-    using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Athena.Service.Core.Users;
-    using Fanex.Athena.Service.Core.Users.Interfaces;
-    using Fanex.Athena.Web.ActionFilter;
+    using Model.Core.DataDomain;
+    using Model.Core.DTO.Common;
+    using Model.Core.DTO.Users;
+    using Model.Core.MetaModel.Account;
     using ONEbook.UM.Filters;
     using Resources;
+    using Service.Core.Common;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users;
+    using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
+    using Web.ActionFilter;
 
     /// <summary>
     ///     TODO: Update summary.
@@ -36,19 +37,19 @@ namespace Fanex.Athena.Controllers.Account
     {
         private readonly IFunctionService _functionService;
         private readonly IUserService _userService;
-        private readonly ICurrencyService _currencyService;
+        private readonly ICurrencyDataAccess _currencyDataAccess;
 
-        private IList<Function> _allMasterFunctionList;
+        private IEnumerable<Function> _allMasterFunctionList;
 
-        private IDictionary<int, IList<Function>> _allFunctionMap;
+        private IDictionary<int, IEnumerable<Function>> _allFunctionMap;
 
-        private IList<Function> _allUserFunctionList;
+        private IEnumerable<Function> _allUserFunctionList;
 
         public AccountController()
         {
-            this._functionService = new FunctionService();
-            this._userService = new UserService();
-            _currencyService = new CurrencyService();
+            _functionService = new FunctionService();
+            _userService = new UserService();
+            _currencyDataAccess = new CurrencyDataAccess();
         }
 
         public AccountController(
@@ -57,12 +58,12 @@ namespace Fanex.Athena.Controllers.Account
             IAppSettings appSetting,
             IFunctionService functionService,
             IUserService userService,
-            ICurrencyService currencyService)
+            ICurrencyDataAccess currencyDataAccess)
             : base(languageService, sessionService, appSetting)
         {
             _functionService = functionService;
             _userService = userService;
-            _currencyService = currencyService;
+            _currencyDataAccess = currencyDataAccess;
         }
 
         #region Actions
@@ -121,40 +122,34 @@ namespace Fanex.Athena.Controllers.Account
         [CustomValidateAntiForgery]
         public JsonResult EditAccount(EditAccountMetaModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return Json(new ResultInfo
-                {
-                    Code = -1,
-                    Message = ViewResources.InvalidRequestMsg
-                });
-            }
+                var userSession = SessionService.UserSession;
+                var licenseeId = SessionService.LicenseeSession.LicenseeId;
+                var user = _userService.GetUserInfo(licenseeId, model.UserId);
 
-            var userSession = SessionService.UserSession;
-            var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var user = _userService.GetUserInfo(licenseeId, model.UserId);
-
-            if (user != null && user.IsInternal == userSession.IsInternal)
-            {
-                // set info
-                user.FirstName = string.IsNullOrEmpty(model.FirstName) ? string.Empty : model.FirstName.Trim();
-                user.LastName = string.IsNullOrEmpty(model.LastName) ? string.Empty : model.LastName.Trim();
-                user.Status = model.Status;
-                user.Request = new Request
+                if (user != null && user.IsInternal == userSession.IsInternal)
                 {
-                    Ip = Request.UserHostAddress,
-                    Language = userSession.Language
-                };
-                user.Licensee = new Licensee { Id = licenseeId };
+                    // set info
+                    user.FirstName = string.IsNullOrEmpty(model.FirstName) ? string.Empty : model.FirstName.Trim();
+                    user.LastName = string.IsNullOrEmpty(model.LastName) ? string.Empty : model.LastName.Trim();
+                    user.Status = model.Status;
+                    user.Request = new Request
+                    {
+                        Ip = Request.UserHostAddress,
+                        Language = userSession.Language
+                    };
+                    user.Licensee = new Licensee { Id = licenseeId };
 
-                // proceed updating
-                var resultInfo = _userService.UpdateInfo(user, userSession.UserId);
-                if (resultInfo.IsSuccessful)
-                {
-                    resultInfo.Message = ViewResources.UpdateAccountSuccessMsg;
+                    // proceed updating
+                    var resultInfo = _userService.UpdateInfo(user, userSession.UserId);
+                    if (resultInfo.IsSuccessful)
+                    {
+                        resultInfo.Message = ViewResources.UpdateAccountSuccessMsg;
+                    }
+
+                    return Json(resultInfo);
                 }
-
-                return Json(resultInfo);
             }
 
             return Json(new ResultInfo
@@ -186,10 +181,6 @@ namespace Fanex.Athena.Controllers.Account
             return View("~/Views/Account/ResetPassword.cshtml", model);
         }
 
-        [SuppressMessage(
-          "StyleCop.CSharp.StylecopPlus.Rules",
-          "SP2101:MethodMustNotContainMoreLinesThan",
-          Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
         [CustomValidateAntiForgery]
         public JsonResult ResetPassword(ResetPasswordMetaModel model)
@@ -206,48 +197,37 @@ namespace Fanex.Athena.Controllers.Account
             var userSession = SessionService.UserSession;
             var user = _userService.GetUserInfo(SessionService.LicenseeSession.LicenseeId, model.UserId);
 
-            if (user != null && user.IsInternal == userSession.IsInternal)
+            if (user == null || user.IsInternal != userSession.IsInternal)
             {
-                user.Request = new Request
+                return Json(new ResultInfo
                 {
-                    Ip = Request.UserHostAddress,
-                    Language = userSession.Language
-                };
-
-                var validPassword = ValidatePassword(model.Password);
-                user.Password = model.Password;
-
-                if (!validPassword)
-                {
-                    return Json(new ResultInfo
-                    {
-                        Code = -2,
-                        Message = ViewResources.PasswordNoteMsg
-                    });
-                }
-
-                var resultInfo = _userService.ResetPassword(user, userSession.UserId);
-
-                if (resultInfo.IsSuccessful)
-                {
-                    return Json(new ResultInfo
-                    {
-                        Code = 0,
-                        Message = ViewResources.ResetPasswordSuccessMsg
-                    });
-                }
-
-                return this.Json(new ResultInfo
-                {
-                    Code = -3,
-                    Message = resultInfo.Message
+                    Code = -4,
+                    Message = ViewResources.InvalidRequestMsg
                 });
             }
 
+            if (!Util.IsPasswordValid(model.Password))
+            {
+                return Json(new ResultInfo
+                {
+                    Code = -2,
+                    Message = ViewResources.PasswordNoteMsg
+                });
+            }
+
+            user.Request = new Request
+            {
+                Ip = Request.UserHostAddress,
+                Language = userSession.Language
+            };
+            user.Password = model.Password;
+
+            var resultInfo = _userService.ResetPassword(user, userSession.UserId);
+
             return Json(new ResultInfo
             {
-                Code = -4,
-                Message = ViewResources.InvalidRequestMsg
+                Code = resultInfo.IsSuccessful ? 0 : -3,
+                Message = resultInfo.IsSuccessful ? ViewResources.ResetPasswordSuccessMsg : resultInfo.Message
             });
         }
 
@@ -271,7 +251,7 @@ namespace Fanex.Athena.Controllers.Account
                 }
             }
 
-            return this.Redirect("~/Utility/AccessDenied");
+            return Redirect("~/Utility/AccessDenied");
         }
 
         [HttpGet]
@@ -286,15 +266,14 @@ namespace Fanex.Athena.Controllers.Account
                 if (user != null)
                 {
                     InitializeFunctions(userId);
-                    ViewBag.AllMasterFunctions = _allMasterFunctionList;
-                    ViewBag.AllFunctionMap = _allFunctionMap;
-                    ViewBag.AllUserFunctions = _allUserFunctionList;
-                    ViewBag.UserName = user.Username;
 
                     var model = new EditPermissionMetaModel
                     {
                         UserId = userId,
-                        FunctionIdList = string.Empty
+                        FunctionIdList = string.Empty,
+                        AllMasterFunctions = _allMasterFunctionList,
+                        AllFunctionMap = _allFunctionMap,
+                        AllUserFunctions = _allUserFunctionList
                     };
 
                     return View("~/Views/Account/EditPermission.cshtml", model);
@@ -322,20 +301,17 @@ namespace Fanex.Athena.Controllers.Account
             var userSession = SessionService.UserSession;
             var licenseeSession = SessionService.LicenseeSession;
 
-            if (model.UserId > 0)
+            if (model.UserId > 0 && !string.IsNullOrEmpty(model.FunctionIdList))
             {
                 var licenseeId = licenseeSession.LicenseeId;
                 var userLoginId = userSession.UserId;
                 var ip = Request.UserHostAddress;
                 var langKey = LangService.GetCurrentLanguage();
 
-                if (!string.IsNullOrEmpty(model.FunctionIdList))
-                {
-                    var idlist = ParseToIntList(model.FunctionIdList);
-                    var result = _functionService.AssignUserFunctions(licenseeId, model.UserId, idlist, userLoginId, ip, langKey);
+                var idlist = model.FunctionIdList.Split(',').Select(word => int.Parse(word));
+                var result = _functionService.AssignUserFunctions(licenseeId, model.UserId, idlist, userLoginId, ip, langKey);
 
-                    return Json(result);
-                }
+                return Json(result);
             }
 
             return Json(new ResultInfo
@@ -359,8 +335,8 @@ namespace Fanex.Athena.Controllers.Account
 
             if (userId > 0)
             {
-                var currencies = _currencyService.GetCurrenciesByUser(SessionService.LicenseeSession.LicenseeId, userId);
-                if (SessionService.LicenseeSession.LicenseeId == LicenseeIdentityDefinition.KeenOcean)
+                var currencies = _currencyDataAccess.GetCurrenciesByUser(SessionService.LicenseeSession.LicenseeId, userId);
+                if (SessionService.LicenseeSession.LicenseeId == LicenseeIdentity.KeenOcean)
                 {
                     KeanOceanBusinessHelper.KeepHKDCurrencyName(currencies);
                 }
@@ -372,10 +348,6 @@ namespace Fanex.Athena.Controllers.Account
             return Redirect("~/Utility/AccessDenied");
         }
 
-        [SuppressMessage(
-           "StyleCop.CSharp.StylecopPlus.Rules",
-           "SP2101:MethodMustNotContainMoreLinesThan",
-           Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
         [CustomValidateAntiForgery]
         public ActionResult AssignCurrency(AssignCurrencyMetaModel model)
@@ -406,23 +378,10 @@ namespace Fanex.Athena.Controllers.Account
             model.ModifyBy = userSession.UserId;
 
             // convert currencies into xml
-            var currencyDict = _currencyService.GetCurrenciesByUser(licenseeId, userSession.UserId);
-            const string XmlPattern = "<currencies>{0}</currencies>";
-            const string XmlElementPattern = "<currency currencyid=\"{0}\" status=\"{1}\"></currency>";
-            var xmlElementBuilder = new StringBuilder();
-            var selectedCurrencyList = model.CurrencyList.Split(',');
+            var currencyDict = _currencyDataAccess.GetCurrenciesByUser(licenseeId, userSession.UserId);
+            model.CurrencyList = BuildCurrencyListXmlString(currencyDict, model.CurrencyList.Split(',').ToList());
 
-            foreach (var currency in currencyDict)
-            {
-                xmlElementBuilder.Append(string.Format(
-                    XmlElementPattern,
-                    currency.CurrencyId,
-                    selectedCurrencyList.Contains(currency.CurrencyId.ToString(CultureInfo.InvariantCulture)) ? 1 : 0));
-            }
-
-            model.CurrencyList = string.Format(XmlPattern, xmlElementBuilder);
-
-            var result = _currencyService.AssignCurrenciesByUser(model);
+            var result = _currencyDataAccess.AssignCurrenciesByUser(model);
 
             if (result.IsSuccessful)
             {
@@ -436,95 +395,23 @@ namespace Fanex.Athena.Controllers.Account
 
         #endregion Actions
 
-        #region Validations
-
-        [SuppressMessage(
-          "StyleCop.CSharp.StylecopPlus.Rules",
-          "SP2101:MethodMustNotContainMoreLinesThan",
-          Justification = "Reviewed. Suppression is OK here.")]
-        private static bool ValidatePassword(string password)
-        {
-            if (string.IsNullOrWhiteSpace(password) || password.Length < 6)
-            {
-                return false;
-            }
-
-            password = password.ToLower();
-
-            var bvalid = false;
-            var j3 = -1;
-            for (var i = 0; i < 10; i++)
-            {
-                var j1 = password.IndexOf(i.ToString(CultureInfo.InvariantCulture), StringComparison.Ordinal);
-                var j2 = password.LastIndexOf(i.ToString(CultureInfo.InvariantCulture), StringComparison.Ordinal);
-                if (j1 != j2)
-                {
-                    bvalid = true;
-                    break;
-                }
-
-                if (j3 == -1)
-                {
-                    j3 = j1;
-                    continue;
-                }
-
-                if (j3 == -1 || j3 == j1)
-                {
-                    continue;
-                }
-
-                bvalid = true;
-                break;
-            }
-
-            if (bvalid)
-            {
-                const string Az = "abcdefghijklmnopqrstuvwxyz";
-                var count = 0;
-                for (var i = 0; i < password.Length; i++)
-                {
-                    if (Az.Contains(password.Substring(i, 1)))
-                    {
-                        ++count;
-                    }
-
-                    if (count != 2)
-                    {
-                        continue;
-                    }
-
-                    break;
-                }
-
-                if (count < 2)
-                {
-                    bvalid = false;
-                }
-            }
-
-            return bvalid;
-        }
-
-        #endregion Validations
-
         #region Helpers
 
-        /// <summary>
-        /// Parse a comma separated string into  IList.
-        /// </summary>
-        /// <param name="values">The function string.</param>
-        /// <returns>The list id of functions.</returns>
-        private static IList<int> ParseToIntList(string values)
+        private static string BuildCurrencyListXmlString(IList<CurrencyUser> userCurrencyList, IList<string> selectedCurrencyList)
         {
-            var result = new List<int>();
-            if (!string.IsNullOrEmpty(values))
+            const string XmlPattern = "<currencies>{0}</currencies>";
+            const string XmlElementPattern = "<currency currencyid=\"{0}\" status=\"{1}\"></currency>";
+            var xmlElementBuilder = new StringBuilder();
+
+            foreach (var currency in userCurrencyList)
             {
-                var words = values.Split(',');
-                result.AddRange(words.Select(word => Convert.ToInt32(word)));
+                xmlElementBuilder.Append(string.Format(
+                    XmlElementPattern,
+                    currency.CurrencyId,
+                    selectedCurrencyList.Contains(currency.CurrencyId.ToString(CultureInfo.InvariantCulture)) ? 1 : 0));
             }
 
-            return result;
+            return string.Format(XmlPattern, xmlElementBuilder);
         }
 
         /// <summary>

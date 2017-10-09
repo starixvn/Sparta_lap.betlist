@@ -20,9 +20,9 @@ namespace Fanex.Athena.Extension.Utility
     /// </remarks>
     /// <typeparam name="T">Type parameter.</typeparam>
     public class PropertyComparer<T> : IComparer<T>
-    {                
+    {
         public PropertyComparer(string property, ListSortDirection direction)
-        {            
+        {
             PropertyName = property;
             Direction = direction;
         }
@@ -33,47 +33,18 @@ namespace Fanex.Athena.Extension.Utility
 
         #region IComparer<T>
 
-        /// <summary>
-        /// Compare two values.
-        /// </summary>
-        /// <param name="x">First value.</param>
-        /// <param name="y">Second value.</param>
-        /// <returns>Compared result.</returns>
         public virtual int Compare(T x, T y)
         {
-            // Get property values
             var firstValue = GetPropertyValue(x, PropertyName);
             var secondValue = GetPropertyValue(y, PropertyName);
 
-            // Determine sort order
-            if (Direction == ListSortDirection.Ascending)
-            {
-                return CompareAscending(firstValue, secondValue);
-            }
-            else
-            {
-                return CompareDescending(firstValue, secondValue);
-            }
+            return Direction == ListSortDirection.Ascending ?
+                CompareAscending(firstValue, secondValue) :
+                CompareDescending(firstValue, secondValue);
         }
 
-        public bool Equals(T x, T y)
-        {
-            return x.Equals(y);
-        }
+        #endregion IComparer<T>
 
-        public int GetHashCode(T obj)
-        {
-            return obj.GetHashCode();
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Compare two property values of any type.
-        /// </summary>
-        /// <param name="x">First value.</param>
-        /// <param name="y">Second value.</param>
-        /// <returns>Compared result.</returns>
         protected static int CompareAscending(object x, object y)
         {
             int result;
@@ -113,13 +84,11 @@ namespace Fanex.Athena.Extension.Utility
             return CompareAscending(x, y) * -1;
         }
 
-        protected static object GetPropertyValue(T value, string property)
+        protected static object GetPropertyValue(T value, string propertyName)
         {
-            // Get property
-            PropertyInfo propertyInfo = value.GetType().GetProperty(property);
+            var property = value.GetType().GetProperty(propertyName);
 
-            // Return value
-            return propertyInfo.GetValue(value, null);
+            return property.GetValue(value, null);
         }
     }
 }

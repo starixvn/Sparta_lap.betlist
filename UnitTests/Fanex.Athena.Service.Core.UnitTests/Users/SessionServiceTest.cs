@@ -7,6 +7,9 @@
     using Core.Common.Interfaces;
     using Core.Users;
     using Core.Users.Interfaces;
+    using DataAccess.Core.Common.Interfaces;
+    using DataAccess.Core.Users.Interfaces;
+    using Extension.Utility;
     using Model.Core.DTO;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
@@ -18,16 +21,18 @@
     {
         private const int DefaultUserId = 1;
 
+        private IAppSettings _appSettings;
         private IFunctionService _functionService;
-        private ILicenseeService _licenseeService;
-        private ICurrencyService _currencyService;
+        private ILicenseeDataAccess _licenseeDataAccess;
+        private ICurrencyDataAccess _currencyDataAccess;
         private ISessionService _sessionService;
 
         [OneTimeSetUp]
         public void SetUp()
         {
+            _appSettings = Substitute.For<IAppSettings>();
             _functionService = Substitute.For<IFunctionService>();
-            _licenseeService = Substitute.For<ILicenseeService>();
+            _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
             var licenseeList = new List<Licensee>
             {
                 new Licensee
@@ -36,17 +41,17 @@
                     Name = "12bet"
                 }
             };
-            _licenseeService.GetByUser(DefaultUserId).Returns<IList<Licensee>>(i => licenseeList);
-            _currencyService = Substitute.For<ICurrencyService>();
-            _sessionService = new SessionService(_functionService, _licenseeService, _currencyService);
+            _licenseeDataAccess.GetByUser(DefaultUserId).Returns<IList<Licensee>>(i => licenseeList);
+            _currencyDataAccess = Substitute.For<ICurrencyDataAccess>();
+            _sessionService = new SessionService(_appSettings, _functionService, _licenseeDataAccess, _currencyDataAccess);
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
             _functionService = null;
-            _licenseeService = null;
-            _currencyService = null;
+            _licenseeDataAccess = null;
+            _currencyDataAccess = null;
             _sessionService = null;
         }
 
@@ -69,7 +74,7 @@
             {
                 new Licensee { Id = 1, Name = "spondemo" }
             };
-            _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
+            _licenseeDataAccess.GetByUser(DefaultUserId).Returns(licensees);
 
             // Action
             CreateDefaultNewSession(LicenseeId);
@@ -113,7 +118,7 @@
                 new Licensee { Id = 1, Name = "spondemo" },
                 new Licensee { Id = 2, Name = "12bet" },
             };
-            _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
+            _licenseeDataAccess.GetByUser(DefaultUserId).Returns(licensees);
             const int OldLicenseeId = 1;
             const int NewLicenseeId = 2;
             CreateDefaultNewSession(OldLicenseeId);
@@ -135,7 +140,7 @@
                 new Licensee { Id = 1, Name = "spondemo" },
                 new Licensee { Id = 2, Name = "12bet" },
             };
-            _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
+            _licenseeDataAccess.GetByUser(DefaultUserId).Returns(licensees);
             const int OldLicenseeId = 1;
             const int NewLicenseeId = 0;
             CreateDefaultNewSession(OldLicenseeId);
@@ -158,7 +163,7 @@
                 new Licensee { Id = 2, Name = "12bet" },
             };
             var functions = new List<Function> { new Function { FunctionId = 42 } };
-            _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
+            _licenseeDataAccess.GetByUser(DefaultUserId).Returns(licensees);
             const int OldLicenseeId = 1;
             const int NewLicenseeId = 2;
             _functionService.GetUserFunctionList(NewLicenseeId, DefaultUserId).Returns(functions);
@@ -181,7 +186,7 @@
                 new Licensee { Id = 2, Name = "12bet" },
             };
             var functions = new List<Function> { new Function { FunctionId = 1, ParentId = 1, IsActive = true, Url = "TestUrl" } };
-            _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
+            _licenseeDataAccess.GetByUser(DefaultUserId).Returns(licensees);
             const int OldLicenseeId = 1;
             const int NewLicenseeId = 2;
             _functionService.GetUserFunctionList(NewLicenseeId, DefaultUserId).Returns(functions);
@@ -204,7 +209,7 @@
                 new Licensee { Id = 2, Name = "12bet" },
             };
             var functions = new List<Function> { new Function { FunctionId = 1, ParentId = 1, IsActive = false, Url = "TestUrl" } };
-            _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
+            _licenseeDataAccess.GetByUser(DefaultUserId).Returns(licensees);
             const int OldLicenseeId = 1;
             const int NewLicenseeId = 2;
             _functionService.GetUserFunctionList(NewLicenseeId, DefaultUserId).Returns(functions);
@@ -227,7 +232,7 @@
                 new Licensee { Id = 2, Name = "12bet" },
             };
             var functions = new List<Function> { new Function { FunctionId = 1, ParentId = 0, IsActive = true, Url = "TestUrl" } };
-            _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
+            _licenseeDataAccess.GetByUser(DefaultUserId).Returns(licensees);
             const int OldLicenseeId = 1;
             const int NewLicenseeId = 2;
             _functionService.GetUserFunctionList(NewLicenseeId, DefaultUserId).Returns(functions);
@@ -417,7 +422,7 @@
                     AgentIdList = new int[] { 3, 4, 5 }
                 }
             };
-            _currencyService.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
+            _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
             CreateDefaultNewSession();
             var expectedResult = "<ROOT><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/></ROOT>";
 
@@ -444,7 +449,7 @@
                     AgentIdList = new int[] { 1, 2 }
                 }
             };
-            _currencyService.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
+            _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
             CreateDefaultNewSession();
             var expectedResult = "<ROOT><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/></ROOT>";
 
@@ -479,7 +484,7 @@
                     AgentIdList = new int[] { 3 }
                 }
             };
-            _currencyService.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
+            _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
             CreateDefaultNewSession();
             var expectedResult = "<ROOT><Agent AgentId=\"3\" Currency=\"2\"/></ROOT>";
 
@@ -514,7 +519,7 @@
                     AgentIdList = new int[] { 3 }
                 }
             };
-            _currencyService.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
+            _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
             CreateDefaultNewSession();
             var expectedResult = "<ROOT><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/><Agent AgentId=\"3\" Currency=\"2\"/></ROOT>";
 
@@ -549,7 +554,7 @@
                     AgentIdList = new int[] { 3 }
                 }
             };
-            _currencyService.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
+            _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
             CreateDefaultNewSession(96);
             var expectedResult = "<ROOT><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/><Agent AgentId=\"3\" Currency=\"66\"/></ROOT>";
 

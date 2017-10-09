@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using DataAccess.TotalBet.Interfaces;
     using Fanex.Athena.Controllers.TotalBets;
-    using Fanex.Athena.Service.TotalBet.Interfaces;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
@@ -12,29 +12,33 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class HomeDrawAwayNoBetTotalBetControllerTest : BaseControllerTest
+    public class HomeDrawAwayNoBetTotalBetControllerTest : BaseControllerHelperTest
     {
-        private IHomeDrawAwayNoBetService _homeDrawAwayNoBetService;
+        private IHomeDrawAwayNoBetDataAccess _homeDrawAwayNoBetDataAccess;
 
         [OneTimeSetUp]
-        public new void FixtureSetUp()
+        public override void FixtureSetUp()
         {
-            FakeBaseControllerDependency();
-            _homeDrawAwayNoBetService = Substitute.For<IHomeDrawAwayNoBetService>();
-            _homeDrawAwayNoBetService.GetHomeDrawAwayNoBetDataList(Arg.Any<HomeDrawAwayNoBetMetaModel>())
-                .Returns(new List<HomeDrawAwayNoBet> { new HomeDrawAwayNoBet() });
+            base.FixtureSetUp();
+
+            SetUpDefaultFakeData();
+
+            SepUpForService();
+
+            StubGetValueAppSettings("BaseUsdLicensees", "usd");
         }
 
         [OneTimeTearDown]
-        public new void FixtureTearDown()
+        public override void FixtureTearDown()
         {
-            _homeDrawAwayNoBetService = null;
+            base.FixtureTearDown();
+
+            _homeDrawAwayNoBetDataAccess = null;
         }
 
         [Test]
-        public void Index_WhenCall_ReturnCorrectViewName()
+        public void Index_WhenGet_ReturnMainView()
         {
-            // Arrange
             using (var controller = CreateController())
             {
                 // Action
@@ -46,9 +50,8 @@
         }
 
         [Test]
-        public void Index_WhenCall_CallAndGetDataFromService()
+        public void Index_WhenGet_GetDataFromService()
         {
-            // Arrange
             using (var controller = CreateController())
             {
                 // Action
@@ -56,17 +59,17 @@
                 var viewModel = viewResult.Model as HomeDrawAwayNoBetViewModel;
 
                 // Assert
-                _homeDrawAwayNoBetService.ReceivedWithAnyArgs().GetHomeDrawAwayNoBetDataList(Arg.Any<HomeDrawAwayNoBetMetaModel>());
+                _homeDrawAwayNoBetDataAccess.ReceivedWithAnyArgs().GetHomeDrawAwayNoBetDataList(Arg.Any<HomeDrawAwayNoBetMetaModel>());
                 Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
             }
         }
 
         [Test]
-        public void Index_InvalidCurrency_ViewNameIsAccessDenied()
+        public void Index_WhenPostWithInvalidCurrency_AccessDenied()
         {
-            // Arrange
             using (var controller = CreateController())
             {
+                // Arrange
                 var metaModel = new HomeDrawAwayNoBetMetaModel
                 {
                     CurrencyId = -999
@@ -86,7 +89,16 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            _homeDrawAwayNoBetService);
+                            _homeDrawAwayNoBetDataAccess);
+        }
+
+        private void SepUpForService()
+        {
+            _homeDrawAwayNoBetDataAccess = Substitute.For<IHomeDrawAwayNoBetDataAccess>();
+
+            _homeDrawAwayNoBetDataAccess
+                .GetHomeDrawAwayNoBetDataList(Arg.Any<HomeDrawAwayNoBetMetaModel>())
+                .Returns(new List<HomeDrawAwayNoBet> { new HomeDrawAwayNoBet() });
         }
     }
 }

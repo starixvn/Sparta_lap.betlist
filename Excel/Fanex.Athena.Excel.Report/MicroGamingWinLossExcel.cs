@@ -53,7 +53,7 @@ namespace Fanex.Athena.Excel.Report
                 ConvertingOption convertingOption,
                 MicroGamingWinLossMetaModel metaModel,
                 MicroGamingWinLossViewModel viewModel)
-            : base(templatePath, null)
+            : base(templatePath)
         {
             _convertingOption = convertingOption;
             _metaModel = metaModel;
@@ -230,14 +230,11 @@ namespace Fanex.Athena.Excel.Report
                 // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowGrantTotal, rowIndex);
                 AssignCommonData(row, _summaryTotal[currency]);
-                row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpper());
+                row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpperInvariant());
 
                 // Merge first two column
                 sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
-                checked
-                {
-                    rowIndex++;
-                }
+                rowIndex++;
             }
         }
 

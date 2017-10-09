@@ -1,21 +1,21 @@
 ﻿namespace Fanex.Athena.Api.Dashboard
 {
     using System.Web.Http;
+    using DataAccess.Dashboard;
+    using DataAccess.Dashboard.Interfaces;
     using Model.Dashboard.MetaModel;
-    using Service.Dashboard;
-    using Service.Dashboard.Interfaces;
 
     public class PendingFundController : BaseDashboardApiController
     {
-        private readonly ISimpleWidgetService _pendingFundService;
+        private readonly ISimpleWidgetDataAccess _dataAccess;
 
         public PendingFundController() : this(null)
         {
         }
 
-        public PendingFundController(ISimpleWidgetService pendingFundService)
+        public PendingFundController(ISimpleWidgetDataAccess pendingFundService)
         {
-            _pendingFundService = pendingFundService ?? new PendingFundService();
+            _dataAccess = pendingFundService ?? new PendingFundDataAccess();
         }
 
         public decimal GetData([FromUri] DashboardBaseModel metaModel)
@@ -26,7 +26,7 @@
             }
 
             AssignAuthProperties(metaModel);
-            return _pendingFundService.GetData(metaModel);
+            return _dataAccess.GetData(metaModel);
         }
     }
 }

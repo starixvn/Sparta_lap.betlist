@@ -13,6 +13,7 @@ namespace Fanex.Athena.DataAccess.BetList
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.BetList.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
@@ -28,7 +29,6 @@ namespace Fanex.Athena.DataAccess.BetList
 
     public class BetListDataAccess : BaseBetListDataAccess, IBetListDataAccess
     {
-        private const string UspExceptionName = "\n UspName=";
         private static readonly string[] TransTypeHasBetList = { "get", "com", "post", "bet", "gp" };
 
         private static readonly Dictionary<string, int> TransTypeIdMap = new Dictionary<string, int>
@@ -55,7 +55,6 @@ namespace Fanex.Athena.DataAccess.BetList
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message + UspExceptionName + UspName, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
@@ -128,7 +127,6 @@ namespace Fanex.Athena.DataAccess.BetList
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message + UspExceptionName + UspName, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, metaModel);
             }
         }
@@ -180,22 +178,7 @@ namespace Fanex.Athena.DataAccess.BetList
                             ticketResult.TicketDataList.AddRange(ReadLrfReferneceTicket(reader, baseCurrency).ToList());
                         }
 
-                        if (!metaModel.IsServerPaging && !string.IsNullOrWhiteSpace(metaModel.SortBy))
-                        {
-                            // Because Winloss and Commission are shared the same column (in grid)
-                            // so we need to sort by the total of two values which is stored in WinlossComm property.
-                            if (metaModel.SortBy.Equals("WinLoss", StringComparison.OrdinalIgnoreCase))
-                            {
-                                metaModel.SortBy = "WinLossComm";
-                            }
-
-                            if (metaModel.SortBy.Equals("nickname", StringComparison.OrdinalIgnoreCase))
-                            {
-                                metaModel.SortBy = "ExternalId";
-                            }
-
-                            ticketResult.MainTicketList.Sort(metaModel.SortBy, metaModel.SortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
-                        }
+                        SortData(metaModel, ticketResult.MainTicketList);
                     }
 
                     var outSqlParams = db.GetOuputParams();
@@ -229,7 +212,6 @@ namespace Fanex.Athena.DataAccess.BetList
             }
             catch (System.Exception sqlException)
             {
-                LogService.Error(sqlException.Message + UspExceptionName + uspKey, sqlException);
                 throw new DataAccessException(sqlException.Message, uspKey, metaModel);
             }
         }
@@ -275,11 +257,10 @@ namespace Fanex.Athena.DataAccess.BetList
 
                             result.Add(new DailyStatement
                             {
-                                // Add data to CustBalance Item List
                                 TransType = transTypeId.ToString(),
                                 CustId = metaModel.CustId,
-                                ExternalId = metaModel.ExternalId == null ? "0" : metaModel.ExternalId,
-                                SystemId = metaModel.SystemId == null ? "0" : metaModel.SystemId,
+                                ExternalId = metaModel.ExternalId ?? "0",
+                                SystemId = metaModel.SystemId ?? "0",
                                 FullStatementDate = $"{winlostDate:dddd} <br/> {winlostDate}",
                                 TransTypeHasBetList = TransTypeHasBetList.Contains(transType),
                                 Index = index++,
@@ -298,7 +279,6 @@ namespace Fanex.Athena.DataAccess.BetList
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message + UspExceptionName + UspKey, sqlException);
                 throw new DataAccessException(sqlException.Message, UspKey);
             }
         }
@@ -321,6 +301,26 @@ namespace Fanex.Athena.DataAccess.BetList
                 };
 
                 yield return ticket;
+            }
+        }
+
+        private static void SortData(BetListMetaModel metaModel, SortableList<LrfTicket> ticketList)
+        {
+            if (!metaModel.IsServerPaging && !string.IsNullOrWhiteSpace(metaModel.SortBy))
+            {
+                // Because Winloss and Commission are shared the same column (in grid)
+                // so we need to sort by the total of two values which is stored in WinlossComm property.
+                if (metaModel.SortBy.Equals("WinLoss", StringComparison.OrdinalIgnoreCase))
+                {
+                    metaModel.SortBy = "WinLossComm";
+                }
+
+                if (metaModel.SortBy.Equals("nickname", StringComparison.OrdinalIgnoreCase))
+                {
+                    metaModel.SortBy = "ExternalId";
+                }
+
+                ticketList.Sort(metaModel.SortBy, metaModel.SortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
             }
         }
     }
