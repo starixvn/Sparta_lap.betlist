@@ -6,8 +6,6 @@
 
 namespace Fanex.Athena.Service.Casino
 {
-    #region Using
-
     using System;
     using System.Collections.Generic;
     using System.Data;
@@ -22,22 +20,12 @@ namespace Fanex.Athena.Service.Casino
     using Model.Customer.MetaModel;
     using CustomerCasinoSetting = CasinoLibrary.SBAgent.Customer;
 
-    #endregion Using
-
-    /// <summary>
-    /// Casino setting class.
-    /// </summary>
     public class CasinoSetting : ICasinoSetting
     {
         public const int SystemId = 4;
 
         #region ICasinoSetting Members
 
-        /// <summary>
-        /// Suspend customer.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>True if suspending is successful.</returns>
         public bool UpdateCustSuspend(CustomerStatusMetaModel metaModel)
         {
             try
@@ -58,11 +46,6 @@ namespace Fanex.Athena.Service.Casino
             }
         }
 
-        /// <summary>
-        /// Close customer.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>True if processing is successful.</returns>
         public bool UpdateCustClosed(CustomerStatusMetaModel metaModel)
         {
             try
@@ -85,16 +68,9 @@ namespace Fanex.Athena.Service.Casino
 
         #endregion ICasinoSetting Members
 
-        /// <summary>
-        /// Get RNG casino setting.
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="licenseeName">The licensee name.</param>
-        /// <param name="language">Language of licensee.</param>
-        /// <returns>RNG casino setting.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Reviewed. Suppression is OK here.")]
-        public IList<GameKind> GetRngCasinoSettings(int custId, string licenseeName, string language)
+        public IList<GameKind> GetRngCasinoSettings(int custId, string language)
         {
             IList<GameKind> gameKinds;
 
@@ -125,13 +101,7 @@ namespace Fanex.Athena.Service.Casino
             return gameKinds;
         }
 
-        /// <summary>
-        /// Update RNG casino setting.
-        /// </summary>
-        /// <param name="dataTableParam">The parameters.</param>
-        /// <param name="licenseeName">The licensee name.</param>
-        /// <returns>True if updating is successful.</returns>
-        public bool UpdateSetting(DataTable dataTableParam, string licenseeName)
+        public bool UpdateSetting(DataTable dataTableParam)
         {
             try
             {
