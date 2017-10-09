@@ -65,10 +65,7 @@ namespace Fanex.Athena.Service.Core.Common
             }
 
             allowedProducts = _productDataAccess.GetProductAccessList(licenseeId);
-            if (allowedProducts != null && allowedProducts.Count > 0)
-            {
-                _cache.Set(cacheKey, allowedProducts);
-            }
+            _cache.Set(cacheKey, allowedProducts);
 
             return allowedProducts;
         }
