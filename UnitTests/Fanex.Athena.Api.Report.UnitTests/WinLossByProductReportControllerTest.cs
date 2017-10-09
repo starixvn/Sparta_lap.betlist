@@ -234,11 +234,11 @@
             StubProductAccess(new string[0]);
             AppSetting.FakeLicenseeList.Returns(x => isFakeLicensee ? new int[1] { SessionLicenseeId } : new int[0]);
 
-            var excel = Substitute.ForPartsOf<WinlossByProductExcel>(Arg.Any<string>(), Arg.Any<WinLossByProductExcelModel>());
+            var actualExcelModel = new WinLossByProductExcelModel();
+            var excel = Substitute.ForPartsOf<WinlossByProductExcel>(Arg.Any<string>(), Arg.Do<WinLossByProductExcelModel>(x => actualExcelModel = x));
             excel.When(x => x.Export()).DoNotCallBase();
 
-            var actualExcelModel = new WinLossByProductExcelModel();
-            _controller.CreateExcel(Arg.Any<string>(), Arg.Do<WinLossByProductExcelModel>(x => actualExcelModel = x)).Returns(excel);
+            _controller.CreateExcel(Arg.Any<string>(), Arg.Any<WinLossByProductExcelModel>()).Returns(excel);
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
 
             var metaModel = new WinLossByProductMetaModel

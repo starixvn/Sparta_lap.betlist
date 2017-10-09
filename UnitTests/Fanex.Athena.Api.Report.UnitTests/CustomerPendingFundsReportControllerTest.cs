@@ -86,12 +86,11 @@
 
             AppSetting.FakeLicenseeList.Returns(x => isFakeLicensee ? new int[1] { SessionLicenseeId } : new int[0]);
 
-            var excel = Substitute.ForPartsOf<CustomerPendingFundsExcel>(Arg.Any<string>(), Arg.Any<CustomerPendingFundsExcelModel>());
-            excel.When(x => x.Export()).DoNotCallBase();
-            StubGetValueAppSettings("FakeLicenseeList", "1,2");
-
             var actualExcelModel = new CustomerPendingFundsExcelModel();
-            _controller.CreateExcel(Arg.Any<string>(), Arg.Do<CustomerPendingFundsExcelModel>(x => actualExcelModel = x)).Returns(excel);
+            var excel = Substitute.ForPartsOf<CustomerPendingFundsExcel>(Arg.Any<string>(), Arg.Do<CustomerPendingFundsExcelModel>(x => actualExcelModel = x));
+            excel.When(x => x.Export()).DoNotCallBase();
+
+            _controller.CreateExcel(Arg.Any<string>(), Arg.Any<CustomerPendingFundsExcelModel>()).Returns(excel);
 
             // Action
             _controller.Index(metaModel);
