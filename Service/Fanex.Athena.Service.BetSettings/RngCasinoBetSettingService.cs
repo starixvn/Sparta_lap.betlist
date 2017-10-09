@@ -9,6 +9,7 @@ namespace Fanex.Athena.Service.BetSettings
     using System.Collections.Generic;
     using Casino.Interfaces;
     using CasinoLibrary.SBAgent;
+    using Core.Users.Interfaces;
     using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
@@ -39,7 +40,12 @@ namespace Fanex.Athena.Service.BetSettings
             _appSettings = new AppSettings();
         }
 
-        public RngCasinoBetSettingService(IAppSettings appSettings, ICasinoSetting casinoSetting, IRngCasinoBetSettingDataAccess betSettingDataAccess)
+        public RngCasinoBetSettingService(
+            IAuthorizationService authorizationService,
+            IAppSettings appSettings,
+            ICasinoSetting casinoSetting,
+            IRngCasinoBetSettingDataAccess betSettingDataAccess)
+            : base(authorizationService)
         {
             _betSettingDataAccess = betSettingDataAccess;
             _casinoSetting = casinoSetting;
