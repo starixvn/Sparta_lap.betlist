@@ -40,9 +40,6 @@ var CustomerWinLoss = (function ($) {
             _submitData.sortColumn = _sortColumnName;
             _submitData.SortDirection = _sortOrder;
         }
-        if (_submitData.Username === DEFAULT_USERNAME) {
-            _submitData.Username = "";
-        }
     }
 
     function getPostData() {
@@ -51,7 +48,9 @@ var CustomerWinLoss = (function ($) {
         param.PageSize = _pagingOption.pagesize;
         param.sortColumn = _sortColumnName;
         param.SortDirection = _sortOrder;
-
+        if (param.Username === DEFAULT_USERNAME) {
+            param.Username = "";
+        }
         return param;
     }
 
