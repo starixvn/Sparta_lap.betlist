@@ -68,6 +68,8 @@
         <div class="grid_5 filter-input option-list">
             <input type="checkbox" value="true" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData" />
         </div>
+        @*End Row 2*@
+        @*Row 3 - Back to current*@
         <div class="new-line">
         </div>
         <div class="grid_3 filter-label">
@@ -77,15 +79,13 @@
                 <a href="javascript:;" id="current-report-link">@ViewResources.BackToCurrentReport</a>
             </div>
         </div>
-
+        @*End Row 3*@
         <div class="grid_3 filter-label new-line">
             &nbsp;
         </div>
         <div class="grid_2 filter-input">
             <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
         </div>
-
-        @*End Row 2*@
     </form>
     @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
     @Html.Hidden("IsAllowedBA", Model.ProductAccess.IsAllowBA)

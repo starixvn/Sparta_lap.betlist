@@ -11,10 +11,11 @@
     "common/popup",
     "components/paging",
     "helpers/excel",
+    "components/pluginhelper/autocomplete",
     "lib/jqgrid/jquery.jqGrid.en",
     "lib/jqgrid/jquery.jqGrid.min",
     "extensions/jquery.extension"],
-    function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect, Popup, PagingHelper, ExcelHelper) {
+    function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect, Popup, PagingHelper, ExcelHelper, AutoComplete) {
         "use strict";
 
         var _ajaxRequest = null;
@@ -37,6 +38,10 @@
             alwayshow: true
         };
 
+        var _url = {
+            SearchCustomer: "CustomerAPI/SearchCustomer"
+        };
+
         var _selector = {
             SubmitButton: "#SubmitButton",
             ExportToExcel: "#ExportToExcel",
@@ -50,7 +55,8 @@
             IsAllowedCustomerCommissionInput: "#IsAllowedCustomerCommission",
             HistoryLink: "#history-report-link",
             CurrentLink: "#current-report-link",
-            BetListLink: ".bet-list-link"
+            BetListLink: ".bet-list-link",
+            Username: "#Username"
         };
 
         function initialize() {
@@ -68,6 +74,7 @@
 
             _me.initEvent();
             _me.initSetting();
+            _me.initAutoComplete();
         }
 
         function initEvent() {
@@ -123,6 +130,15 @@
             CustomerWinLossOption.isAllowBA = Site.asBool($(_selector.IsAllowedBAInput).val());
             CustomerWinLossOption.isAllowRB = Site.asBool($(_selector.IsAllowedRBInput).val());
             CustomerWinLossOption.hasCustomerComm = Site.asBool($(_selector.IsAllowedCustomerCommissionInput).val());
+        }
+
+        function initAutoComplete() {
+            var option = {
+                url: Site.resolveClientUrl(_url.SearchCustomer),
+                target: _selector.Username
+            };
+
+            AutoComplete.initialize(option);
         }
 
         function submit() {
@@ -339,6 +355,7 @@
             initialize: initialize,
             initEvent: initEvent,
             initSetting: initSetting,
+            initAutoComplete: initAutoComplete,
             submit: submit,
             viewHistoryReport: viewHistoryReport,
             viewCurrentReport: viewCurrentReport,

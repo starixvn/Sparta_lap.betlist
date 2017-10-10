@@ -61,7 +61,6 @@
         </div>
         @*End Row 2*@
         @*Row 3 - Note*@
-
         <div class="grid_3 filter-label new-line">
         </div>
         <div class="grid_15 filter-input">
@@ -70,14 +69,13 @@
                 <a href="javascript:;" id="history-report-link" style="text-decoration: none;">@ViewResources.ToViewHistoryRptMsg</a>
             </div>
         </div>
-
+        @*End Row 3*@
         <div class="grid_3 filter-label new-line">
             &nbsp;
         </div>
         <div class="grid_2 filter-input">
             <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
-        </div>
-        @*End Row 3*@
+        </div>     
     </form>
     @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
     @Html.Hidden("IsAllowedBA", Model.ProductAccess.IsAllowBA)
