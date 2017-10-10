@@ -10,9 +10,7 @@
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
     <form id="CustomerWinlossForm" action="post">
         @Html.AntiForgeryToken()
-        @DatePickerHelper.RenderDateRangePicker(modelParam.FromDate, modelParam.ToDate, minDate, appSettings.MaxDate, "", "", 2, 3, 2, 3)
-        <div class="new-line">
-        </div>
+        @DatePickerHelper.RenderDateRangePicker(modelParam.FromDate, modelParam.ToDate, minDate, appSettings.MaxDate, "", "", 3, 4, 2, 7)
         @*Row 1*@
         <div class="grid_2 filter-label">
             <label>@ViewResources.Currency</label>
@@ -20,7 +18,7 @@
         <div class="grid_3 filter-input">
             @RazorHelper.CurrencyList(Model.CurrencyList, "currencylist")
         </div>
-        <div class="grid_3 filter-label">
+        <div class="grid_2 filter-label">
             <label for="BaseCurrency">
                 @ViewResources.Based
             </label>
@@ -44,12 +42,15 @@
         </div>
         @*End Row 1*@
         @*Row 2*@
-
-        @*End Row 2*@
-        @*Row 3*@
-        <div class="new-line">
+        <div class="grid_3 filter-label new-line">
+            <label>
+                @ViewResources.Username
+            </label>
         </div>
-        @RazorHelper.RenderProductFilter(modelParam.ProductOptions, 2)
+        <div class="grid_4 filter-input" style="margin-right: 0px; width: 155px;">
+            @Html.TextBox("Username", Model.Param.Username, new { })
+        </div>
+        @RazorHelper.RenderProductFilter(modelParam.ProductOptions, 2, false)
         <div class="grid_3 filter-label">
             <label for="IsExcludedTestData">
                 @ViewResources.ExcludeTestData
@@ -58,10 +59,10 @@
         <div class="grid_5 filter-input option-list">
             <input type="checkbox" value="true" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData" />
         </div>
-        @*End Row 3*@
-        @*Row 4 - Note*@
+        @*End Row 2*@
+        @*Row 3 - Note*@
 
-        <div class="grid_2 filter-label new-line">
+        <div class="grid_3 filter-label new-line">
         </div>
         <div class="grid_15 filter-input">
             <div class="note-message">
@@ -70,13 +71,13 @@
             </div>
         </div>
 
-        <div class="grid_2 filter-label new-line">
+        <div class="grid_3 filter-label new-line">
             &nbsp;
         </div>
         <div class="grid_2 filter-input">
             <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
         </div>
-        @*End Row 4*@
+        @*End Row 3*@
     </form>
     @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
     @Html.Hidden("IsAllowedBA", Model.ProductAccess.IsAllowBA)

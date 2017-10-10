@@ -38,5 +38,8 @@ namespace Fanex.Athena.Model.Report.MetaModel
         public string SortDirection { get; set; }
 
         public string SortColumn { get; set; }
+
+        public string Username { get; set; }
+
     }
 }
