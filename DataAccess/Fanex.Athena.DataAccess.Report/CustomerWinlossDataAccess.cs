@@ -8,6 +8,7 @@ namespace Fanex.Athena.DataAccess.Report
 {
     using System;
     using System.Data;
+    using System.Linq;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Data;
@@ -17,6 +18,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
+    using Model.Core.ResultModel;
 
     public class CustomerWinlossDataAccess : BaseDataAccess, ICustWinlossDataAccess
     {
@@ -34,7 +36,7 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public SortableList<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel, out CustomerWinLoss totalData, out int totalRows)
+        public SortableReportResultModel<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel)
         {
             using (var db = this.GetObjectDb("Lrf_Rpt_WinLoss"))
             {
@@ -42,10 +44,10 @@ namespace Fanex.Athena.DataAccess.Report
 
                 using (var reader = db.ExecuteReader())
                 {
-                    var result = new SortableList<CustomerWinLoss>();
+                    var dataList = new SortableList<CustomerWinLoss>();
                     while (reader.Read())
                     {
-                        result.Add(new CustomerWinLoss
+                        dataList.Add(new CustomerWinLoss
                         {
                             CustId = reader.ToInt("CustID"),
                             ExternalId = reader.ToString("nickname"),
@@ -65,15 +67,19 @@ namespace Fanex.Athena.DataAccess.Report
                         });
                     }
 
-                    if (result.Count > 0 && reader.NextResult() && reader.Read())
+                    var result = new SortableReportResultModel<CustomerWinLoss>
                     {
-                        totalData = ReadTotalData(reader, metaModel.BaseCurrency);
-                        totalRows = reader.ToInt("TotalRows");
+                        DataList = dataList
+                    };
+
+                    if (dataList.Any() && reader.NextResult() && reader.Read())
+                    {
+                        result.TotalData = ReadTotalData(reader, metaModel.BaseCurrency);
+                        result.TotalRows = reader.ToInt("TotalRows");
                     }
                     else
                     {
-                        totalRows = 0;
-                        totalData = new CustomerWinLoss();
+                        result.TotalData = new CustomerWinLoss();
                     }
 
                     return result;

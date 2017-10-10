@@ -9,6 +9,7 @@
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Core.MetaModel.Product;
+    using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NPOI.SS.UserModel;
@@ -67,10 +68,8 @@
         public void Index_ValidModel_GetDataFromDataAccess(string sortColumn, string sortDirection)
         {
             // Arrange
-            CustomerWinLoss totalData;
-            int totalRows;
             var metaModel = CreateValidMetaModel(sortColumn, sortDirection);
-            var expectedData = SetUpForGettingData(metaModel, out totalData, out totalRows);
+            var expectedData = SetUpForGettingData(metaModel);
 
             // Action
             var result = _controller.Index(metaModel);
@@ -84,11 +83,9 @@
         public void Index_ExportToExcel_ExportWithCorrectData(bool isFakeLicensee)
         {
             // Arrange
-            CustomerWinLoss totalData;
-            int totalRows;
             var metaModel = CreateValidMetaModel(nameof(CustomerWinLoss.CustId), "asc");
             metaModel.IsExportExcel = true;
-            var expectedDataList = SetUpForGettingData(metaModel, out totalData, out totalRows);
+            var expectedDataList = SetUpForGettingData(metaModel);
 
             StubSingleWalletProductAccess(new string[] { Product.BA });
             AppSetting.FakeLicenseeList.Returns(x => isFakeLicensee ? new int[1] { SessionLicenseeId } : new int[0]);
@@ -128,15 +125,15 @@
             };
         }
 
-        private IEnumerable<CustomerWinLoss> SetUpForGettingData(CustomerWinLossMetaModel metaModel, out CustomerWinLoss totalData, out int totalRows)
+        private IEnumerable<CustomerWinLoss> SetUpForGettingData(CustomerWinLossMetaModel metaModel)
         {
             var expectedSortedData = new SortableList<CustomerWinLoss>();
             var nonSortedData = new SortableList<CustomerWinLoss>();
 
             var random = new Random();
-            var total = random.Next(5, 10);
+            var totalRows = random.Next(5, 10);
 
-            for (int i = 0; i < total; i++)
+            for (int i = 0; i < totalRows; i++)
             {
                 var item = new CustomerWinLoss
                 {
@@ -148,11 +145,11 @@
                 expectedSortedData.Add(item);
             }
 
-            _dataAccess.GetDataList(metaModel, out totalData, out totalRows).Returns(x =>
+            _dataAccess.GetDataList(metaModel).Returns(new SortableReportResultModel<CustomerWinLoss>
             {
-                x[1] = new CustomerWinLoss();
-                x[2] = total;
-                return nonSortedData;
+                TotalData = new CustomerWinLoss(),
+                TotalRows = totalRows,
+                DataList = nonSortedData
             });
 
             if (!string.IsNullOrEmpty(metaModel.SortColumn))

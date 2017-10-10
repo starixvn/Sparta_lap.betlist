@@ -13,6 +13,7 @@
     using Extension.Utility;
     using Fanex.Athena.Api.Base.Attributes;
     using Fanex.Athena.Model.Core.DataDomain;
+    using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Service.Core.Common.Interfaces;
@@ -56,21 +57,19 @@
 
         private dynamic ProcessRequest(CustomerWinLossMetaModel metaModel)
         {
-            CustomerWinLoss totalData;
-            int totalRows;
-            var dataList = this.GetData(metaModel, out totalData, out totalRows);
+            var result = GetData(metaModel);
 
             var index = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
-            foreach (var item in dataList)
+            foreach (var item in result.DataList)
             {
                 item.Index = index++;
             }
 
             return new
             {
-                Data = dataList,
-                Total = totalData,
-                TotalRows = totalRows
+                Data = result.DataList,
+                Total = result.TotalData,
+                TotalRows = result.TotalRows
             };
         }
 
@@ -91,15 +90,13 @@
                 CurrencyName = metaModel.CurrencyName
             };
 
-            CustomerWinLoss totalData;
-            int totalRows;
-            var dataList = GetData(metaModel, out totalData, out totalRows);
+            var result = GetData(metaModel);
             var excelModel = new CustomerWinLossExcelModel
             {
                 ConvertingOption = convertingOption,
-                DataList = dataList,
+                DataList = result.DataList,
                 MetaModel = metaModel,
-                TotalData = totalData,
+                TotalData = result.TotalData,
                 BAVisible = productAccess.IsAllowBA,
                 RBVisible = productAccess.IsAllowRB,
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
@@ -112,23 +109,25 @@
             return ExcelStream(excel.Workbook, FileName);
         }
 
-        private SortableList<CustomerWinLoss> GetData(CustomerWinLossMetaModel metaModel, out CustomerWinLoss totalData, out int totalRow)
+        private SortableReportResultModel<CustomerWinLoss> GetData(CustomerWinLossMetaModel metaModel)
         {
             if (!metaModel.IsValid)
             {
-                totalRow = 0;
-                totalData = new CustomerWinLoss();
-                return new SortableList<CustomerWinLoss>();
+                return new SortableReportResultModel<CustomerWinLoss>
+                {
+                    TotalData = new CustomerWinLoss(),
+                    DataList = new SortableList<CustomerWinLoss>()
+                };
             }
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludedTestData);
-            var dataList = _custWinlossDataAccess.GetDataList(metaModel, out totalData, out totalRow);
+            var result = _custWinlossDataAccess.GetDataList(metaModel);
             if (!string.IsNullOrEmpty(metaModel.SortColumn))
             {
-                dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
+                result.DataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
             }
 
-            return dataList;
+            return result;
         }
     }
 }

@@ -63,12 +63,8 @@
         [Test]
         public void GetDataList_WhenCall_ParametersPassedCorrectly()
         {
-            // Arrange
-            var totalData = new CustomerWinLoss();
-            int totalRow = 0;
-
             // Action
-            _dataAccess.GetDataList(_metaModel, out totalData, out totalRow);
+            _dataAccess.GetDataList(_metaModel);
 
             // Assert
             _objectDb.Received().AddInParameter("drawfilter", DbType.Int32, _metaModel.DrawFilter);
@@ -104,34 +100,33 @@
                 CustomerTotalWL = 15m,
                 RacingRevenue = 15m
             };
-            var totalData = new CustomerWinLoss();
-            int totalRow = 0;
             ConfigureReaderForResult(expectedResult);
             ConfigureReaderForTotalData(expectedTotalData);
 
             // Action
-            var result = _dataAccess.GetDataList(_metaModel, out totalData, out totalRow)[0];
+            var result = _dataAccess.GetDataList(_metaModel);
+            var firstItem = result.DataList[0];
 
             // Assert
-            Assert.That(result.CustId, Is.EqualTo(expectedResult.CustId));
-            Assert.That(result.ExternalId, Is.EqualTo(expectedResult.ExternalId));
-            Assert.That(result.SystemId, Is.EqualTo(expectedResult.SystemId));
-            Assert.That(result.Turnover, Is.EqualTo(expectedResult.Turnover));
-            Assert.That(result.TotalTransaction, Is.EqualTo(expectedResult.TotalTransaction));
-            Assert.That(result.CustomerWL, Is.EqualTo(expectedResult.CustomerWL));
-            Assert.That(result.BetEffective, Is.EqualTo(expectedResult.BetEffective));
-            Assert.That(result.PlayerComm, Is.EqualTo(expectedResult.PlayerComm));
-            Assert.That(result.CustomerTotalWL, Is.EqualTo(expectedResult.CustomerTotalWL));
-            Assert.That(result.RacingRevenue, Is.EqualTo(expectedResult.RacingRevenue));
+            Assert.That(firstItem.CustId, Is.EqualTo(expectedResult.CustId));
+            Assert.That(firstItem.ExternalId, Is.EqualTo(expectedResult.ExternalId));
+            Assert.That(firstItem.SystemId, Is.EqualTo(expectedResult.SystemId));
+            Assert.That(firstItem.Turnover, Is.EqualTo(expectedResult.Turnover));
+            Assert.That(firstItem.TotalTransaction, Is.EqualTo(expectedResult.TotalTransaction));
+            Assert.That(firstItem.CustomerWL, Is.EqualTo(expectedResult.CustomerWL));
+            Assert.That(firstItem.BetEffective, Is.EqualTo(expectedResult.BetEffective));
+            Assert.That(firstItem.PlayerComm, Is.EqualTo(expectedResult.PlayerComm));
+            Assert.That(firstItem.CustomerTotalWL, Is.EqualTo(expectedResult.CustomerTotalWL));
+            Assert.That(firstItem.RacingRevenue, Is.EqualTo(expectedResult.RacingRevenue));
 
-            Assert.That(totalData.Turnover, Is.EqualTo(expectedTotalData.Turnover));
-            Assert.That(totalData.LicenseeWL, Is.EqualTo(expectedTotalData.LicenseeWL));
-            Assert.That(totalData.RacingRevenue, Is.EqualTo(expectedTotalData.RacingRevenue));
-            Assert.That(totalData.TotalTransaction, Is.EqualTo(expectedTotalData.TotalTransaction));
-            Assert.That(totalData.CustomerWL, Is.EqualTo(expectedTotalData.CustomerWL));
-            Assert.That(totalData.PlayerComm, Is.EqualTo(expectedTotalData.PlayerComm));
+            Assert.That(result.TotalData.Turnover, Is.EqualTo(expectedTotalData.Turnover));
+            Assert.That(result.TotalData.LicenseeWL, Is.EqualTo(expectedTotalData.LicenseeWL));
+            Assert.That(result.TotalData.RacingRevenue, Is.EqualTo(expectedTotalData.RacingRevenue));
+            Assert.That(result.TotalData.TotalTransaction, Is.EqualTo(expectedTotalData.TotalTransaction));
+            Assert.That(result.TotalData.CustomerWL, Is.EqualTo(expectedTotalData.CustomerWL));
+            Assert.That(result.TotalData.PlayerComm, Is.EqualTo(expectedTotalData.PlayerComm));
 
-            Assert.That(totalRow, Is.EqualTo(100));
+            Assert.That(result.TotalRows, Is.EqualTo(100));
         }
 
         private IList<ProductOption> GetProductOptions()
