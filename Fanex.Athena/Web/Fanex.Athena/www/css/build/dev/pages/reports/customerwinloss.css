@@ -617,4 +617,11 @@
     .sort-icon-desc.light {
       border-top-color: #fff; }
 
+.dropdown-content {
+  opacity: 1;
+  top: 25px; }
+
+.ac-hover {
+  background-color: #eee; }
+
 /*# sourceMappingURL=customerwinloss.css.map*/

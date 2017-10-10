@@ -22669,9 +22669,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ }),
 /* 137 */,
 /* 138 */,
-/* 139 */,
-/* 140 */,
-/* 141 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
@@ -23142,17 +23140,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 
 /***/ }),
+/* 140 */,
+/* 141 */,
 /* 142 */,
 /* 143 */,
-/* 144 */,
-/* 145 */,
-/* 146 */,
-/* 147 */,
-/* 148 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require option properties: suggestionDropdown, url, target
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(141)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(139)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
     "use strict";
 
     var mainOption = {
@@ -23241,6 +23237,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
+/* 145 */,
+/* 146 */,
+/* 147 */,
+/* 148 */,
 /* 149 */,
 /* 150 */,
 /* 151 */
@@ -23477,7 +23477,7 @@ module.exports = __webpack_require__(321);
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(119), __webpack_require__(323), __webpack_require__(0), __webpack_require__(120),
-    __webpack_require__(127), __webpack_require__(133), __webpack_require__(135), __webpack_require__(148),
+    __webpack_require__(127), __webpack_require__(133), __webpack_require__(135), __webpack_require__(144),
     __webpack_require__(136), __webpack_require__(151),
     __webpack_require__(121), __webpack_require__(122), __webpack_require__(123)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report,
         MultiSelect, AutoComplete, DateHelper, ExcelHelper) {

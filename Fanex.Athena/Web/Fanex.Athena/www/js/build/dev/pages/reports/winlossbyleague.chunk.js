@@ -20841,7 +20841,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /* 144 */,
 /* 145 */,
 /* 146 */,
-/* 147 */
+/* 147 */,
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21020,7 +21021,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 148 */,
 /* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22167,7 +22167,7 @@ module.exports = __webpack_require__(328);
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(119), __webpack_require__(330),
-    __webpack_require__(331), __webpack_require__(133), __webpack_require__(0), __webpack_require__(147), __webpack_require__(151),
+    __webpack_require__(331), __webpack_require__(133), __webpack_require__(0), __webpack_require__(148), __webpack_require__(151),
     __webpack_require__(121), __webpack_require__(122), __webpack_require__(123)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, jqGridAdditional, WinLossByLeagueOption, WinLossByLeagueFilter, Report, moment, PagingHeper, ExcelHelper) {
         "use strict";
 

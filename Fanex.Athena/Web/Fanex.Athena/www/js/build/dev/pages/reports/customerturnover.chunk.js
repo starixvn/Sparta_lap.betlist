@@ -21659,9 +21659,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ }),
 /* 137 */,
 /* 138 */,
-/* 139 */,
-/* 140 */,
-/* 141 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
@@ -22132,12 +22130,107 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 
 /***/ }),
+/* 140 */,
+/* 141 */,
 /* 142 */,
 /* 143 */,
-/* 144 */,
+/* 144 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require option properties: suggestionDropdown, url, target
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(139)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+    "use strict";
+
+    var mainOption = {
+        suggestionDropdown: '#suggestionDropdown',
+        url: null,
+        target: null
+    };
+
+    var DELAY_MILLISECOND = 600;
+
+    var _autoComplete;
+
+    var _me = {
+        initialize: function (option) {
+            _me.initAutoComplete(option);
+            _me.initEvent();
+        },
+
+        initEvent: function () {
+            $('body').click(function () {
+                _me.hideDropdown();
+            });
+
+            $(mainOption.target).keyup(function (e) {
+                if (e.keyCode === 13) {
+                    _me.hideDropdown();
+                }
+            });
+        },
+
+        initAutoComplete: function (option) {
+            $.extend(mainOption, option);
+            if (!mainOption.url || !mainOption.target) {
+                throw Error("Missing data in option");
+            }
+
+            _autoComplete = $(mainOption.target).materialize_autocomplete({ // jshint ignore:line
+                ignoreCase: false,
+                dropdown: {
+                    el: mainOption.suggestionDropdown
+                },
+                getData: Site.debounce(_me.search, DELAY_MILLISECOND),
+            });       
+        },
+
+        search: function (value, callback) {
+            var url = mainOption.url + "?query=" + value;
+
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: url,
+                success: function (response) {
+                    var suggestions = response.suggestions;
+
+                    if (suggestions && suggestions.length > 0) {
+                        var data = suggestions.map(function (item) {
+                            return { id: item, text: item };
+                        });
+
+                        _me.updateWidthOfSuggestionDropdown();
+                        callback(value, data);
+                    }
+                    else {
+                        _me.hideDropdown();
+                    }
+                }
+            });
+        },
+
+        updateWidthOfSuggestionDropdown: function () {
+            var $autoCompleteTarget = $(mainOption.target);
+            var $suggestionDropdown = $(mainOption.suggestionDropdown);
+            if ($suggestionDropdown.innerWidth() !== $autoCompleteTarget.innerWidth()) {
+                $suggestionDropdown.innerWidth($autoCompleteTarget.innerWidth());
+            }
+        },
+
+        hideDropdown: function () {
+            _autoComplete.$dropdown.html('').hide();
+        }
+    };
+
+    return _me;
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
 /* 145 */,
 /* 146 */,
-/* 147 */
+/* 147 */,
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22312,99 +22405,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     return me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ }),
-/* 148 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require option properties: suggestionDropdown, url, target
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(141)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
-    "use strict";
-
-    var mainOption = {
-        suggestionDropdown: '#suggestionDropdown',
-        url: null,
-        target: null
-    };
-
-    var DELAY_MILLISECOND = 600;
-
-    var _autoComplete;
-
-    var _me = {
-        initialize: function (option) {
-            _me.initAutoComplete(option);
-            _me.initEvent();
-        },
-
-        initEvent: function () {
-            $('body').click(function () {
-                _me.hideDropdown();
-            });
-
-            $(mainOption.target).keyup(function (e) {
-                if (e.keyCode === 13) {
-                    _me.hideDropdown();
-                }
-            });
-        },
-
-        initAutoComplete: function (option) {
-            $.extend(mainOption, option);
-            if (!mainOption.url || !mainOption.target) {
-                throw Error("Missing data in option");
-            }
-
-            _autoComplete = $(mainOption.target).materialize_autocomplete({ // jshint ignore:line
-                ignoreCase: false,
-                dropdown: {
-                    el: mainOption.suggestionDropdown
-                },
-                getData: Site.debounce(_me.search, DELAY_MILLISECOND),
-            });       
-        },
-
-        search: function (value, callback) {
-            var url = mainOption.url + "?query=" + value;
-
-            $.ajax({
-                type: "GET",
-                dataType: "json",
-                url: url,
-                success: function (response) {
-                    var suggestions = response.suggestions;
-
-                    if (suggestions && suggestions.length > 0) {
-                        var data = suggestions.map(function (item) {
-                            return { id: item, text: item };
-                        });
-
-                        _me.updateWidthOfSuggestionDropdown();
-                        callback(value, data);
-                    }
-                    else {
-                        _me.hideDropdown();
-                    }
-                }
-            });
-        },
-
-        updateWidthOfSuggestionDropdown: function () {
-            var $autoCompleteTarget = $(mainOption.target);
-            var $suggestionDropdown = $(mainOption.suggestionDropdown);
-            if ($suggestionDropdown.innerWidth() !== $autoCompleteTarget.innerWidth()) {
-                $suggestionDropdown.innerWidth($autoCompleteTarget.innerWidth());
-            }
-        },
-
-        hideDropdown: function () {
-            _autoComplete.$dropdown.html('').hide();
-        }
-    };
-
-    return _me;
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
@@ -25451,10 +25451,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     __webpack_require__(2),
     __webpack_require__(119),
     __webpack_require__(431),
-    __webpack_require__(148),
+    __webpack_require__(144),
     __webpack_require__(127),
     __webpack_require__(136),
-    __webpack_require__(147),
+    __webpack_require__(148),
     __webpack_require__(432),
     __webpack_require__(122),
     __webpack_require__(123),
