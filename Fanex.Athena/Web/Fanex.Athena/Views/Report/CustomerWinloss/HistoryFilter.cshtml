@@ -13,7 +13,7 @@
         <div class="grid_3 filter-label new-line">
             <label>@ViewResources.ViewDataInMonth</label>
         </div>
-        <div class="grid_11 filter-input month-picker">
+        <div class="grid_10 filter-input month-picker">
             <div id="DateControl">
             </div>
             <div id="MonthPickerFromDay">
@@ -22,13 +22,17 @@
             </div>
         </div>
         @*Row 1*@
-        <div class="grid_3 filter-label" style="margin-left:30px">
+        @if (Model.IsFakeLicensee)
+        {
+            <div class="new-line"></div>
+        }
+        <div class="grid_3 filter-label">
             <label>@ViewResources.Currency</label>
         </div>
         <div class="grid_3 filter-input">
             @RazorHelper.CurrencyList(Model.CurrencyList, "currencylist")
         </div>
-        <div class="grid_2 filter-label">
+        <div class="grid_3 filter-label">
             <label for="BaseCurrency">
                 @ViewResources.Based
             </label>
@@ -51,15 +55,23 @@
         </div>
         @*End Row 1*@
         @*Row 2*@
-        <div class="grid_3 filter-label new-line">
-            <label>
-                @ViewResources.Username
-            </label>
-        </div>
-        <div class="grid_4 filter-input" style="margin-right: 0px; width: 155px;">
-            @Html.TextBox("Username", Model.Param.Username, new { })
-        </div>
-        @RazorHelper.RenderProductFilter(Model.Param.ProductOptions, 2, false)
+        <div class="new-line"></div>
+        @if (!Model.IsFakeLicensee)
+        {
+            <div class="grid_3 filter-label">
+                <label>
+                    @ViewResources.Username
+                </label>
+            </div>
+            <div class="grid_4 filter-input" style="margin-right: 0px; width: 155px;">
+                @Html.TextBox("Username", Model.Param.Username, new { })
+            </div>
+            @RazorHelper.RenderProductFilter(Model.Param.ProductOptions, 2, false)
+        }
+        else
+        {
+            @RazorHelper.RenderProductFilter(Model.Param.ProductOptions, 3, false)
+        }
         <div class="grid_3 filter-label">
             <label for="IsExcludedTestData">
                 @ViewResources.ExcludeTestData

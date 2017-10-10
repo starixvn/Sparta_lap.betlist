@@ -24752,12 +24752,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function initAutoComplete() {
-            var option = {
-                url: Site.resolveClientUrl(_url.SearchCustomer),
-                target: _selector.Username
-            };
+            if ($(_selector.Username).length > 0) {
+                var option = {
+                    url: Site.resolveClientUrl(_url.SearchCustomer),
+                    target: _selector.Username
+                };
 
-            AutoComplete.initialize(option);
+                AutoComplete.initialize(option);
+            }
         }
 
         function submit() {
@@ -24965,7 +24967,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             param.PageSize = _pagingOption.pagesize;
             param.sortColumn = _sortColumnName;
             param.SortDirection = _sortOrder;
-
+            if (param.Username === undefined) {
+                param.Username = "";
+            }
             return param;
         }
 

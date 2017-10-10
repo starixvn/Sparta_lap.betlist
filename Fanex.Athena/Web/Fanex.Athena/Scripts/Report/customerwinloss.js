@@ -48,7 +48,7 @@ var CustomerWinLoss = (function ($) {
         param.PageSize = _pagingOption.pagesize;
         param.sortColumn = _sortColumnName;
         param.SortDirection = _sortOrder;
-        if (param.Username === DEFAULT_USERNAME) {
+        if (param.Username === undefined || param.Username === DEFAULT_USERNAME) {
             param.Username = "";
         }
         return param;
