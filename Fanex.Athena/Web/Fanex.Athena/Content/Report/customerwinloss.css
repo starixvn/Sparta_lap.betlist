@@ -23,3 +23,9 @@ select, input[type="text"]
 {
     width: 122px;
 }
+
+.default-username
+{
+    color: #F19D49;
+    font-style: italic;
+}

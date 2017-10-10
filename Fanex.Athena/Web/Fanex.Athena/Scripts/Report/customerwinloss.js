@@ -6,6 +6,7 @@ var CustomerWinLoss = (function ($) {
     var DATA_URL = "api/CustomerWinLossReport/Index";
     var FORM_SELECTOR = "#CustomerWinlossForm";
     var GRID_ID = "ReportGrid";
+    var DEFAULT_USERNAME = Site.getSingleResource('All');
 
     var _ajaxRequest = null;
     var _submitData = null;
@@ -38,6 +39,9 @@ var CustomerWinLoss = (function ($) {
             _submitData.PageSize = _pagingOption.pagesize;
             _submitData.sortColumn = _sortColumnName;
             _submitData.SortDirection = _sortOrder;
+        }
+        if (_submitData.Username === DEFAULT_USERNAME) {
+            _submitData.Username = "";
         }
     }
 
@@ -145,6 +149,8 @@ var CustomerWinLoss = (function ($) {
             CustomerWinLoss.initEvent();
             CustomerWinLoss.initSetting();
             CustomerWinLoss.initMonthPicker();
+            CustomerWinLoss.setDefaultUsername();
+            CustomerWinLoss.initAutoComplete();
             Site.addFilterCollapseExpand();
             Site.addUserGuide({
                 resourceName: "CustomerWL",
@@ -201,6 +207,7 @@ var CustomerWinLoss = (function ($) {
             $("#history-report-link").click(function () {
                 CustomerWinLoss.viewHistoryReport();
             });
+
             $("#current-report-link").click(function () {
                 CustomerWinLoss.viewCurrentReport();
             });
@@ -212,12 +219,27 @@ var CustomerWinLoss = (function ($) {
                 var externalId = target.attr("data-external-id");
                 CustomerWinLoss.viewWinlossBetList(custId, systemId, externalId);
             });
+
+            $("#Username").bind("focus focusout", function () {
+                CustomerWinLoss.setUsernameOnFocus();
+            });
         },
 
         initSetting: function () {
             CustomerWinLossOption.isAllowBA = Site.asBool($("#IsAllowedBA").val());
             CustomerWinLossOption.isAllowRB = Site.asBool($("#IsAllowedRB").val());
             CustomerWinLossOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
+        },
+
+        initAutoComplete: function () {
+            var txtUserName = $('#Username');
+            var serUrl = Site.resolveClientUrl("CustomerAPI/SearchCustomer");
+            if (txtUserName.length > 0) {
+                txtUserName.autocomplete({
+                    serviceUrl: serUrl,
+                    minChars: 2
+                });
+            }
         },
 
         viewHistoryReport: function () {
@@ -327,6 +349,26 @@ var CustomerWinLoss = (function ($) {
             reportGrid.jqGrid(gridOption);
 
             CustomerWinLossOption.setGroupHeaderColumns(reportGrid);
+        },
+
+        setDefaultUsername: function () {
+            var username = $('#Username').val();
+            if (username === '' || username === DEFAULT_USERNAME) {
+                $('#Username').val(DEFAULT_USERNAME);
+                $('#Username').attr('class', 'default-username');
+            }
+            else {
+                $('#Username').attr('class', '');
+            }
+        },
+
+        setUsernameOnFocus: function () {
+            var username = $('#Username').val();
+            if (username === DEFAULT_USERNAME) {
+                $('#Username').val('');
+            } else if (username === '') {
+                $('#Username').val(DEFAULT_USERNAME);
+            }
         }
     };
 })(jQuery);
