@@ -36,7 +36,7 @@
 
             var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
             var showingOption = new ShowingOption { GrandTotalVisible = false, CustomerCommVisible = true };
-            var excel = new BetListExcel(showingOption, licenseeId == LicenseeId12Bet, hiddenColumns);
+            var excel = new BetListExcel(showingOption, licenseeId, hiddenColumns);
             var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
             var workbook = excel.Export(ticketResult, ViewResources.TransactionDetail);
 
