@@ -237,15 +237,20 @@
         }
 
         function setReportTitle() {
-            var titlePattern = "{0}, {1} → {2}, {3}{4}";
+            var titlePattern = "{0}, {1} → {2}, {3}{4}{5}";
             var licenseeWLNote = getLicenseeWLNote();
+            var tempUserName = _submitData.Username.length > 0
+                ? ", " + Site.getSingleResource("Username") + ": " + _submitData.Username
+                : "";
+
             var title = $.format(titlePattern,
                 Site.getSingleResource("CustomerWinLoss"),
                 _submitData.FromDate,
                 _submitData.ToDate,
                 Site.getSingleResource("Viewin").replace("{0}",
                 _submitData.BaseCurrency === "" ? _submitData.CurrencyName : _submitData.BaseCurrency.toUpperCase()),
-                licenseeWLNote === "" ? "" : ", " + licenseeWLNote);
+                licenseeWLNote === "" ? "" : ", " + licenseeWLNote,
+                tempUserName);
 
             $(_selector.Title).html(title);
             $(_selector.Header).removeClass("hide");
