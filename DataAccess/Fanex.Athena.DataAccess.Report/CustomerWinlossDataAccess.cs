@@ -91,6 +91,7 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("movebetsday", DbType.DateTime, moveBetsDay);
             db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            db.AddInParameter("username", DbType.String, metaModel.Username);
             foreach (var item in metaModel.ProductOptions)
             {
                 db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
