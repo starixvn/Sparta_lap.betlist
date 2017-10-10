@@ -199,6 +199,31 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmountDue].SetCellValue(liveReport.AmountDue);
         }
 
+        private static string GetLiveIndicatorString(int liveIndicator)
+        {
+            string title;
+            switch (liveIndicator)
+            {
+                case 0:
+                    title = ViewResources.NoneLive;
+                    break;
+
+                case 1:
+                    title = ViewResources.Live;
+                    break;
+
+                case 2:
+                    title = ViewResources.LiveAndNonLive;
+                    break;
+
+                default:
+                    title = string.Empty;
+                    break;
+            }
+
+            return title + ViewResources.Data;
+        }
+
         private void AssignByBetTypeData(ISheet sheet, int currentRow)
         {
             var liveReportSportList = _liveReportDetailList.ByBetType;
@@ -324,31 +349,6 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmountDue].SetCellValue(_liveReportList.Sum(a => a.AmountDue));
 
             return currentRow + 1;
-        }
-
-        private static string GetLiveIndicatorString(int liveIndicator)
-        {
-            string title;
-            switch (liveIndicator)
-            {
-                case 0:
-                    title = ViewResources.NoneLive;
-                    break;
-
-                case 1:
-                    title = ViewResources.Live;
-                    break;
-
-                case 2:
-                    title = ViewResources.LiveAndNonLive;
-                    break;
-
-                default:
-                    title = string.Empty;
-                    break;
-            }
-
-            return title + ViewResources.Data;
         }
 
         private void AssignCommonHeader(ISheet sheet, string groupName, string firstHeader, int rowTplIdx, int rowIndex)
