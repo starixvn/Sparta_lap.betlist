@@ -18,6 +18,7 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Model.Report.DTO.LiveReports;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report.Interfaces;
+    using Model.Report.ResultModel;
 
     public class LiveReportService : ILiveReportService
     {
@@ -35,39 +36,36 @@ namespace Fanex.Athena.Service.Report
                 new List<LiveReport>();
         }
 
-        public void GetLiveReportSumaryDetail(
+        public LiveReportDetailResultModel GetLiveReportSumaryDetail(
             LiveReportMetaModel model,
-            string productCode,
-            IList<Product> products,
-            out IList<LiveReport> resultBySport,
-            out IList<LiveReport> resultByByCurrency,
-            out IList<LiveReportByBetType> resultByBettype)
+            IEnumerable<Product> products)
         {
-            if (model.IsValid)
+            if (!model.IsValid)
             {
-                var taskForSport = Task<IList<LiveReport>>.Factory.StartNew(() =>
+                return new LiveReportDetailResultModel
                 {
-                    return _liveReportDataAccess.GetDetailBySport(model, productCode);
-                });
-
-                var taskForCurrencyAndBettype = Task<Tuple<IList<LiveReport>, IList<LiveReportByBetType>>>.Factory.StartNew(() =>
-                {
-                    return _liveReportDataAccess.GetDetailByCurrencyAndBettype(
-                        model,
-                        productCode,
-                        products);
-                });
-
-                resultBySport = taskForSport.Result;
-                resultByByCurrency = taskForCurrencyAndBettype.Result.Item1;
-                resultByBettype = taskForCurrencyAndBettype.Result.Item2;
+                    DataBySport = new List<LiveReport>(),
+                    DataByCurrency = new List<LiveReport>(),
+                    DataByBetType = new List<LiveReportByBetType>()
+                };
             }
-            else
+
+            var taskForSport = Task<IList<LiveReport>>.Factory.StartNew(() =>
             {
-                resultBySport = new List<LiveReport>();
-                resultByByCurrency = new List<LiveReport>();
-                resultByBettype = new List<LiveReportByBetType>();
-            }
+                return _liveReportDataAccess.GetDetailBySport(model);
+            });
+
+            var taskForCurrencyAndBettype = Task<Tuple<IList<LiveReport>, IList<LiveReportByBetType>>>.Factory.StartNew(() =>
+            {
+                return _liveReportDataAccess.GetDetailByCurrencyAndBettype(model, products);
+            });
+
+            return new LiveReportDetailResultModel
+            {
+                DataBySport = taskForSport.Result,
+                DataByCurrency = taskForCurrencyAndBettype.Result.Item1,
+                DataByBetType = taskForCurrencyAndBettype.Result.Item2
+            };
         }
 
         public IList<LiveReportWinLossByMatch> GetLiveReportWinLossByMatch(LiveReportMatchListMetalModel model)

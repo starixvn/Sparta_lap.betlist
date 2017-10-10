@@ -55,6 +55,7 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LiveReportSummary")).Returns(objectDb);
+            _metaModel.ProductCodeList = "SB,NG";
 
             // Action
             _dataAccess.GetLiveReportSummary(_metaModel);
@@ -66,6 +67,7 @@
             objectDb.Received().AddInParameter("todate", DbType.DateTime, _metaModel.ToDate.Date);
             objectDb.Received().AddInParameter("liveindicator", DbType.Int32, _metaModel.LiveIndicator);
             objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
+            objectDb.Received().AddInParameter("ProductCodes", DbType.String, "SB,NG");
         }
 
         [Test]
@@ -111,9 +113,10 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LiveReportBySport")).Returns(objectDb);
+            _metaModel.ProductCodeList = "SB,NG";
 
             // Action
-            _dataAccess.GetDetailBySport(_metaModel, "SB");
+            _dataAccess.GetDetailBySport(_metaModel);
 
             // Assert
             objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
@@ -122,7 +125,7 @@
             objectDb.Received().AddInParameter("todate", DbType.DateTime, _metaModel.ToDate.Date);
             objectDb.Received().AddInParameter("liveindicator", DbType.Int32, _metaModel.LiveIndicator);
             objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-            objectDb.Received().AddInParameter("productcode", DbType.String, "SB");
+            objectDb.Received().AddInParameter("ProductCodes", DbType.String, "SB,NG");
         }
 
         [Test]
@@ -143,7 +146,7 @@
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetDetailBySport(_metaModel, string.Empty);
+            var result = _dataAccess.GetDetailBySport(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -161,13 +164,10 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LiveReportSummaryDetail")).Returns(objectDb);
-            var productList = new List<Product>
-            {
-                new Product { ProductCode = "SB" }
-            };
+            _metaModel.ProductCodeList = "SB,NG";
 
             // Action
-            _dataAccess.GetDetailByCurrencyAndBettype(_metaModel, "SB", productList);
+            _dataAccess.GetDetailByCurrencyAndBettype(_metaModel, new List<Product>());
 
             // Assert
             objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
@@ -176,7 +176,7 @@
             objectDb.Received().AddInParameter("todate", DbType.DateTime, _metaModel.ToDate.Date);
             objectDb.Received().AddInParameter("liveindicator", DbType.Int32, _metaModel.LiveIndicator);
             objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-            objectDb.Received().AddInParameter("productcode", DbType.String, "SB");
+            objectDb.Received().AddInParameter("ProductCodes", DbType.String, "SB,NG");
         }
 
         [Test]
@@ -207,7 +207,7 @@
             DataAccessTestHelper.MapReaderData(reader, readerDataMappingForCurrency, readerDataMappingForBettype);
 
             // Action
-            var result = _dataAccess.GetDetailByCurrencyAndBettype(_metaModel, string.Empty, productList);
+            var result = _dataAccess.GetDetailByCurrencyAndBettype(_metaModel, productList);
 
             // Assert
             Assert.Multiple(() =>
@@ -263,7 +263,9 @@
 
             var readerDataMapping = new
             {
-                matchid = 2, homeid = 3, awayid = 4
+                matchid = 2,
+                homeid = 3,
+                awayid = 4
             };
 
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
