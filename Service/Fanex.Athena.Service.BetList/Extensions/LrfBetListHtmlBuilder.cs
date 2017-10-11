@@ -181,7 +181,7 @@ namespace Fanex.Athena.Service.BetList.Extensions
         /// <summary>
         /// Get status text by status id.
         /// </summary>
-        /// <param name="ticket">LRF ticket object.</param>
+        /// <param name="ticketStatus">LRF ticket status.</param>
         /// <returns>Status text.</returns>
         private static string GetStatusText(string ticketStatus)
         {

@@ -67,9 +67,9 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         protected override void AssignData()
         {
-            int numOfDataRow = _balance.BalanceList.Count;
+            var numOfDataRow = _balance.BalanceList.Count;
 
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignTitle(sheet);
 
@@ -93,11 +93,11 @@ namespace Fanex.Athena.Excel.Report
         {
             for (int index = 0; index < _balance.BalanceList.Count; index++)
             {
-                BalanceDetails balanceDetails = _balance.BalanceList[index];
+                var balanceDetails = _balance.BalanceList[index];
 
-                IRow row = sheet.CopyRow(sheet, RowMonth, index + 2);
+                var row = sheet.CopyRow(sheet, RowMonth, index + 2);
 
-                string timeText = index == 0 ? _date : balanceDetails.BalanceDateString;
+                var timeText = index == 0 ? _date : balanceDetails.BalanceDateString;
 
                 AssignCommonData(row, balanceDetails, timeText);
             }
@@ -118,7 +118,7 @@ namespace Fanex.Athena.Excel.Report
 
             // Get row copy from template
             var columIndex = ColumnLicenseeWl;
-            IRow row = sheet.CopyRow(sheet, RowLicensee, RowLicensee);
+            var row = sheet.CopyRow(sheet, RowLicensee, RowLicensee);
             row.Cells[columIndex++].SetCellValue(ViewResources.LicenseeWinLoss);
             row.Cells[columIndex++].SetCellValue(ViewResources.BetTradeCommission);
             row.Cells[columIndex++].SetCellValue(ViewResources.BACommission);
@@ -185,9 +185,9 @@ namespace Fanex.Athena.Excel.Report
         private void AssignCustomerInformation(ISheet sheet)
         {
             const string FormatTotal = "{0} / {1} / {2}";
-            int lastColumnIndex = GetLastIndex();
+            var lastColumnIndex = GetLastIndex();
 
-            IRow row = sheet.CopyRow(sheet, RowCustomerPendingFund, RowCustomerPendingFund);
+            var row = sheet.CopyRow(sheet, RowCustomerPendingFund, RowCustomerPendingFund);
             row.Cells[0].SetCellValue(ViewResources.CustomerPedingFunds);
             row.Cells[lastColumnIndex].SetCellValue(_balance.CustomerPendingFunds);
             sheet.MergeCells(RowCustomerPendingFund, ColumnIndex, RowCustomerPendingFund, lastColumnIndex - 1);

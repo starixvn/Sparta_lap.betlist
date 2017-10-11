@@ -10,9 +10,11 @@
         public void Message_WhenCall_ReturnCorrectValue()
         {
             // Arrange
-            string serviceName = "ServiceName", message = "Test Message";
-            var serviceException = new ServiceException(message, serviceName);
-            var expectedMessage = $"Exception when call Service: {serviceName}. Exception Message: {message}";
+            const string ServiceName = "ServiceName";
+            const string Message = "Test Message";
+
+            var serviceException = new ServiceException(Message, ServiceName);
+            var expectedMessage = $"Exception when call Service: {ServiceName}. Exception Message: {Message}";
 
             // Action
             var result = serviceException.Message;

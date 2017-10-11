@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.BetSettings
 {
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Xml.Linq;
@@ -148,7 +149,7 @@
                     var doc = XDocument.Parse(xmlErrorMessage);
                     return doc.Root.Attribute("Msg").Value;
                 }
-                catch
+                catch (Exception)
                 {
                     Logging.LogService.Error("Invalid xml content: " + xmlErrorMessage);
                 }

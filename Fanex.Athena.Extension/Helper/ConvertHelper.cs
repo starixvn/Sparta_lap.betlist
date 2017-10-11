@@ -27,7 +27,7 @@ namespace Fanex.Athena.Extension.Helper
             var month = Convert.ToInt32(date.Substring(4, 2));
             var day = isMonthly ? 1 : Convert.ToInt32(date.Substring(6, 2));
 
-            return new DateTime(year, month, day);            
+            return new DateTime(year, month, day);
         }
     }
 }

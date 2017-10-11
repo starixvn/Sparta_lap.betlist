@@ -80,7 +80,7 @@ namespace Fanex.Athena.Excel.Report
         protected override void AssignData()
         {
             int numOfDataRow = _dataList.Count;
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
             AssignTitle(sheet);
@@ -103,7 +103,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignHeader(ISheet sheet)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
             for (int i = 0; i < HeaderTextList.Count; i++)
             {
@@ -132,11 +132,11 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignSheetData(ISheet sheet)
         {
-            int rowIndex = 0;
-            int index = 1;
+            var rowIndex = 0;
+            var index = 1;
             foreach (PlatformWinLossMember mobile in _dataList)
             {
-                IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
+                var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
                 row.Cells[ColumnIndex].SetCellValue(index);
                 row.Cells[ColumnCurrency].SetCellValue(mobile.CurrencyName);
                 AssignCellData(row, mobile);
@@ -154,7 +154,7 @@ namespace Fanex.Athena.Excel.Report
         protected override void AssignTitle(ISheet sheet)
         {
             var metaModel = _model.Param;
-            string platformText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(metaModel.PlatformType);
+            var platformText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(metaModel.PlatformType);
             var currencyText = metaModel.CurrencyId == 0 ?
                 ViewResources.AllCurrencies :
                 string.Format("{0} {1}", ViewResources.Currency, metaModel.CurrencyName);
@@ -215,9 +215,9 @@ namespace Fanex.Athena.Excel.Report
 
         private void AssignTotal(ISheet sheet)
         {
-            int totalRow = _dataList.Count + RowContentTemplate;
+            var totalRow = _dataList.Count + RowContentTemplate;
 
-            IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, totalRow);
+            var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, totalRow);
             sheet.MergeCells(totalRow, ColumnIndex, totalRow, ColumnCurrency);
             row.Cells[ColumnIndex].SetCellValue(ViewResources.Total);
             AssignCellData(row, _totalData);

@@ -97,7 +97,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignData()
         {
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
 
@@ -122,7 +122,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignHeader(ISheet sheet)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
             for (int i = 0; i < HeaderTextList.Count; i++)
             {
@@ -151,7 +151,7 @@ namespace Fanex.Athena.Excel.Report
                Justification = "Reviewed. Suppression is OK here.")]
         protected override void AssignSheetData(ISheet sheet)
         {
-            int currentRowIndex = 3;
+            var currentRowIndex = 3;
             var leagueName = string.Empty;
             var matchId = 0;
             var matchName = "Default";
@@ -305,9 +305,9 @@ namespace Fanex.Athena.Excel.Report
                     break;
 
                 default:
-                    string homeName = CacheRef.GetTeamName(exportRow["homeid"]) +
+                    var homeName = CacheRef.GetTeamName(exportRow["homeid"]) +
                                       (Converter.ToBool(exportRow["isneutral"]) ? " " + "(N)" : string.Empty);
-                    string awayName = CacheRef.GetTeamName(exportRow["awayid"]);
+                    var awayName = CacheRef.GetTeamName(exportRow["awayid"]);
                     formatMatchName = homeName + "\n" + awayName;
                     break;
             }
@@ -320,10 +320,10 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         private void AddExtraColumns()
         {
-            string racebookRevenueExpression = string.Format("{0} + {1}", GetCurrencyColumn("commrb"), GetCurrencyColumn("winlossrb"));
-            string revenueExpression = string.Format("{0} + {1}", GetCurrencyColumn("sumcommrb"), GetCurrencyColumn("sumwinlossrb"));
-            string totalExpression = string.Format("{0} + {1}", GetCurrencyColumn("memberwinlost"), GetCurrencyColumn("playercomm"));
-            string sumtotal = string.Format("{0} + {1}", GetCurrencyColumn("summemberwinlost"), GetCurrencyColumn("sumplayercomm"));
+            var racebookRevenueExpression = string.Format("{0} + {1}", GetCurrencyColumn("commrb"), GetCurrencyColumn("winlossrb"));
+            var revenueExpression = string.Format("{0} + {1}", GetCurrencyColumn("sumcommrb"), GetCurrencyColumn("sumwinlossrb"));
+            var totalExpression = string.Format("{0} + {1}", GetCurrencyColumn("memberwinlost"), GetCurrencyColumn("playercomm"));
+            var sumtotal = string.Format("{0} + {1}", GetCurrencyColumn("summemberwinlost"), GetCurrencyColumn("sumplayercomm"));
 
             _exportData.Columns.Add("rbrevenue", typeof(decimal), racebookRevenueExpression);
             _exportData.Columns.Add(GetCurrencyColumn("totalwl"), typeof(decimal), totalExpression);
@@ -338,14 +338,14 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="currentRow">Excel row index.</param>
         private void AssignGrandTotalSummary(ISheet sheet, int currentRow)
         {
-            int cellIndex = 2;
+            var cellIndex = 2;
 
-            IRow row = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate, currentRow);
+            var row = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate, currentRow);
 
             row.Cells[0].SetCellValue(ViewResources.GrandTotal);
             sheet.MergeCells(currentRow, 0, currentRow, 1);
 
-            IList<string> columnNameList = GetTotalColumnNameList();
+            var columnNameList = GetTotalColumnNameList();
 
             foreach (string columnName in columnNameList)
             {
@@ -387,7 +387,7 @@ namespace Fanex.Athena.Excel.Report
             // Calculate match win loss
             for (int i = 0; i < columnNameList.Count; i++)
             {
-                string columnName = columnNameList[i];
+                var columnName = columnNameList[i];
                 decimal columnValue = 0;
                 for (int j = 0; j < rowCount; j++)
                 {
@@ -407,11 +407,11 @@ namespace Fanex.Athena.Excel.Report
             // Assign bettype
             for (int i = 0; i < rowCount; i++)
             {
-                DataRow matchWinloss = matchInfoList[i];
-                IRow betTypeRow = sheet.CopyRow(TemplateSheet, RowBetTypeContentTemplate, currentRow);
-                int betType = Converter.ToInt(matchWinloss["bettype"]);
+                var matchWinloss = matchInfoList[i];
+                var betTypeRow = sheet.CopyRow(TemplateSheet, RowBetTypeContentTemplate, currentRow);
+                var betType = Converter.ToInt(matchWinloss["bettype"]);
                 var liveIndicator = Converter.To<bool>(matchWinloss["liveindicator"]);
-                string betTypeName = "         " + CacheRef.GetBettype(betType, liveIndicator);
+                var betTypeName = "         " + CacheRef.GetBettype(betType, liveIndicator);
 
                 betTypeRow.Cells[1].SetCellValue(betTypeName);
                 ExcelHelper.AssignRowContent(betTypeRow, matchWinloss, columnNameList, 2);
@@ -434,16 +434,16 @@ namespace Fanex.Athena.Excel.Report
         /// </returns>
         private int AssignSpecialBetType(ISheet sheet, IList<DataRow> exportData, int currentRowIndex)
         {
-            int rowCount = exportData.Count;
-            IList<string> columnNameList = GetColumnNameList();
+            var rowCount = exportData.Count;
+            var columnNameList = GetColumnNameList();
 
             // Assign bettype
             for (int i = 0; i < rowCount; i++)
             {
-                DataRow dataRow = exportData[i];
-                IRow betTypeRow = sheet.CopyRow(TemplateSheet, RowSpecialBetTypeTemplate, currentRowIndex);
-                int betType = Converter.ToInt(dataRow["bettype"]);
-                string betTypeName = betType == (int)BetType.VirtualSports2MixParlay ? CacheRef.GetBettypeWithProductName(betType) : CacheRef.GetBettype(betType, false);
+                var dataRow = exportData[i];
+                var betTypeRow = sheet.CopyRow(TemplateSheet, RowSpecialBetTypeTemplate, currentRowIndex);
+                var betType = Converter.ToInt(dataRow["bettype"]);
+                var betTypeName = betType == (int)BetType.VirtualSports2MixParlay ? CacheRef.GetBettypeWithProductName(betType) : CacheRef.GetBettype(betType, false);
 
                 betTypeRow.Cells[0].SetCellValue(betTypeName);
                 ExcelHelper.AssignRowContent(betTypeRow, dataRow, columnNameList, 2);
@@ -464,9 +464,9 @@ namespace Fanex.Athena.Excel.Report
         /// <returns>The row index after assign data.</returns>
         private int AssignTotalSummary(ISheet sheet, IList<string> columnNameList, int currentRow, DataTable sumTable)
         {
-            int cellIndex = 2;
+            var cellIndex = 2;
 
-            IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, currentRow);
+            var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, currentRow);
 
             row.Cells[0].SetCellValue(ViewResources.Total);
             sheet.MergeCells(currentRow, 0, currentRow, 1);
@@ -487,7 +487,7 @@ namespace Fanex.Athena.Excel.Report
 
         private IList<string> GetColumnNameList()
         {
-            IList<string> currencyColumnList = GetCommonColumnNameList();
+            var currencyColumnList = GetCommonColumnNameList();
 
             return currencyColumnList.Select(name => (name == "rbrevenue" || name == "betcount") ? name : GetCurrencyColumn(name))
                    .ToList();
@@ -499,7 +499,7 @@ namespace Fanex.Athena.Excel.Report
         /// <returns>The list of column name in data table.</returns>
         private IList<string> GetTotalColumnNameList()
         {
-            IList<string> currencyColumnList = GetCommonColumnNameList();
+            var currencyColumnList = GetCommonColumnNameList();
 
             for (int i = 0; i < currencyColumnList.Count; i++)
             {

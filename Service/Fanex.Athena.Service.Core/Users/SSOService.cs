@@ -218,7 +218,6 @@ namespace Fanex.Athena.Service.Core.Users
             _context.Redirect(Util.RootPath + string.Format(_deniedPath, code));
         }
 
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3994:UriParametersShouldNotBeStrings",
             Justification = "Reviewed. Suppression is OK here.")]
         private void InternalLogin(

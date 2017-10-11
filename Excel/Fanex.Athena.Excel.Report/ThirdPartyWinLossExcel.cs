@@ -73,9 +73,9 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         protected override void AssignData()
         {
-            int numOfDataRow = _winLossList.Count;
+            var numOfDataRow = _winLossList.Count;
 
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
             AssignTitle(sheet);
@@ -98,7 +98,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignHeader(ISheet sheet)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
             row.Cells[ColumnExternalId].SetCellValue(ViewResources.ExternalId);
             row.Cells[ColumnSystemId].SetCellValue(ViewResources.SystemId);
@@ -237,13 +237,13 @@ namespace Fanex.Athena.Excel.Report
         /// <returns>The last row index after assign data.</returns>
         protected int AssignTotalData(ISheet sheet, int rowIndex)
         {
-            int beginTotalRow = rowIndex;
-            List<ThirdPartyWinLoss> totalCurrencyList = GetTotalCurrency(_winLossList);
+            var beginTotalRow = rowIndex;
+            var totalCurrencyList = GetTotalCurrency(_winLossList);
 
             foreach (ThirdPartyWinLoss totalCurrency in totalCurrencyList)
             {
                 // Copy template
-                IRow row = sheet.CopyRow(TemplateSheet, RowTotalNoSolidBorder, rowIndex);
+                var row = sheet.CopyRow(TemplateSheet, RowTotalNoSolidBorder, rowIndex);
 
                 if (rowIndex == beginTotalRow)
                 {
@@ -293,7 +293,7 @@ namespace Fanex.Athena.Excel.Report
         /// <returns>String of Report Title.</returns>
         private string GenerateProductReportTitle(string fromDate, string toDate, string title)
         {
-            StringBuilder reportTitle = new StringBuilder(string.Empty);
+            var reportTitle = new StringBuilder(string.Empty);
             reportTitle.Append(_metaModel.ProductName).Append(" ");
             reportTitle.Append(ViewResources.WinLoss);
             reportTitle.Append(string.Format(", {0} --> {1} - {2}", fromDate, toDate, title));

@@ -101,10 +101,6 @@ namespace Fanex.Athena.Excel.BetList
             builder.MergeCell(new CellRangeAddress(0, 0, 0, 10));
         }
 
-        [SuppressMessage(
-            "StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private void Build(BetListExcelBuilder builder, TicketResult ticketResult, string title, int startIndex = 1)
         {
             InitializeFonts(builder);
@@ -129,8 +125,10 @@ namespace Fanex.Athena.Excel.BetList
                 if (_isShowSumStake)
                 {
                     builder.AddFooterForSumStake(ticketResult.MainTicketList.Sum(x => x.Stake));
+                    return;
                 }
-                else if (_showingOption.GrandTotalVisible && !_hiddenColumnIndexes.Contains(ColumnWinlossIndex))
+
+                if (_showingOption.GrandTotalVisible && !_hiddenColumnIndexes.Contains(ColumnWinlossIndex))
                 {
                     var sumWl = ticketResult.SumWinLoss + ticketResult.SumPlayerComm;
                     var sumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm;

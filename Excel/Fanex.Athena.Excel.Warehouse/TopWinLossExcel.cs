@@ -78,7 +78,7 @@ namespace Fanex.Athena.Excel.Warehouse
 
         protected override void AssignData()
         {
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
 
@@ -103,7 +103,7 @@ namespace Fanex.Athena.Excel.Warehouse
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignHeader(ISheet sheet)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
             for (int i = 0; i < HeaderTextList.Count; i++)
             {
@@ -133,7 +133,7 @@ namespace Fanex.Athena.Excel.Warehouse
             for (int index = 0; index < rowCount; index++)
             {
                 var item = _dataList[index];
-                IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
+                var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
                 row.Cells[0].SetCellValue(index + 1);
                 row.Cells[GroupingId].SetCellValue(item.GroupByString);
                 row.Cells[ColumnTurnover].SetCellValue(item.Turnover);
@@ -176,7 +176,7 @@ namespace Fanex.Athena.Excel.Warehouse
             sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
             sheet.HideRow(RowTableHeaderTemplate + 1);
 
-            int groupNameIndex = GetGroupNameIndex();
+            var groupNameIndex = GetGroupNameIndex();
             for (int i = 1; i <= 5; i++)
             {
                 if (i != groupNameIndex)
@@ -195,7 +195,7 @@ namespace Fanex.Athena.Excel.Warehouse
         {
             var marginTotal = _totalValues["turnover"] != 0 ? (_totalValues["memberwinloss"] / _totalValues["turnover"]) : 0;
 
-            IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, currentRow);
+            var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, currentRow);
             row.Cells[ColumnTurnover].SetCellValue(_totalValues["turnover"]);
             row.Cells[ColumnTotalTrans].SetCellValue(_totalValues["betcount"]);
             row.Cells[ColumnCustomerWinLoss].SetCellValue(_totalValues["memberwinloss"]);

@@ -109,7 +109,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignHeader(ISheet sheet)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
             for (int i = 0; i < HeaderTextList.Count; i++)
             {
@@ -145,16 +145,15 @@ namespace Fanex.Athena.Excel.Report
           Justification = "Reviewed. Suppression is OK here.")]
         protected override int AssignSheetData(ISheet sheet, int pageIndex)
         {
-            int rowIndex = 0;
-            int minGroup = checked((pageIndex - 1) * PageSize);
-            int maxGroup = Math.Min(_customerTurnoverList.Last().Index, checked(pageIndex * PageSize));
+            var rowIndex = 0;
+            var minGroup = checked((pageIndex - 1) * PageSize);
+            var maxGroup = Math.Min(_customerTurnoverList.Last().Index, checked(pageIndex * PageSize));
             var dataInRange = _customerTurnoverList.Where(x => x.Index > minGroup && x.Index <= maxGroup).ToList();
 
-            for (int index = 0; index < dataInRange.Count; index++)
+            foreach (var customerTurnover in dataInRange)
             {
-                CustTurnover customerTurnover = dataInRange[index];
                 var realIndex = rowIndex + RowContentTemplate;
-                IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, realIndex);
+                var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, realIndex);
                 if (customerTurnover.RowSpan > -1)
                 {
                     row.Cells[ColumnIndex].SetCellValue(customerTurnover.Index);
@@ -234,7 +233,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="totalRow">The total value.</param>
         protected void AssignTotalRow(ISheet sheet, int totalRow)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, totalRow);
+            var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, totalRow);
             row.Cells[ColumnCurrency].SetCellValue(string.Empty);
             row.Cells[ColumnBetType].SetCellValue(string.Empty);
             row.Cells[ColumnSport].SetCellValue(string.Empty);

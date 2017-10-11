@@ -58,8 +58,8 @@ namespace Fanex.Athena.Excel.Warehouse
         /// </summary>
         protected override void AssignData()
         {
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
-            string errorMessage = GetErrorMessage();
+            var sheet = Workbook.CloneSheet("Template", "Data");
+            var errorMessage = GetErrorMessage();
 
             AssignHeader(sheet);
             AssignTitle(sheet);
@@ -83,7 +83,7 @@ namespace Fanex.Athena.Excel.Warehouse
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignHeader(ISheet sheet)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
             for (int i = 0; i < HeaderTextList.Count; i++)
             {
@@ -99,7 +99,7 @@ namespace Fanex.Athena.Excel.Warehouse
 
         protected override void AssignSheetData(ISheet sheet)
         {
-            int rowCount = _exportData.Rows.Count;
+            var rowCount = _exportData.Rows.Count;
 
             var columnNameList = GetColumnNameList();
             for (int index = 0; index < rowCount; index++)
@@ -167,12 +167,12 @@ namespace Fanex.Athena.Excel.Warehouse
 
         private void AssignTotalData(ISheet sheet, int currentRow)
         {
-            int cellIndex = 3;
-            IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, currentRow);
+            var cellIndex = 3;
+            var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, currentRow);
             var columnNameList = GetTotalColumnNameList();
             foreach (string columnName in columnNameList)
             {
-                object sumValue = _exportData.Compute("Sum(" + columnName + ")", string.Empty);
+                var sumValue = _exportData.Compute("Sum(" + columnName + ")", string.Empty);
                 row.Cells[cellIndex].SetCellValue(Converter.ToDecimal(sumValue));
                 cellIndex++;
             }

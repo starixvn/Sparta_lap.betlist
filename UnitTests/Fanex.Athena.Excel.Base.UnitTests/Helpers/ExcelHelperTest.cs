@@ -57,7 +57,7 @@
             dataTable.Columns.Add(columnName[0]);
             dataTable.Columns.Add(columnName[1]);
 
-            DataRow dr = dataTable.NewRow();
+            var dr = dataTable.NewRow();
             dr[columnName[0]] = "Data1";
             dr[columnName[1]] = "Data2";
             dataTable.Rows.Add(dr);

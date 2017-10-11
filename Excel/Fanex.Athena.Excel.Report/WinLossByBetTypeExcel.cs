@@ -75,9 +75,9 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         protected override void AssignData()
         {
-            int numOfDataRow = _winlossByBetTypeList.Count;
+            var numOfDataRow = _winlossByBetTypeList.Count;
 
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
             AssignTitle(sheet);
@@ -100,7 +100,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignHeader(ISheet sheet)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
             for (int i = 0; i < HeaderTextList.Count; i++)
             {
@@ -126,13 +126,13 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignSheetData(ISheet sheet)
         {
-            int rowCount = _winlossByBetTypeList.Count;
+            var rowCount = _winlossByBetTypeList.Count;
 
             for (int index = 0; index < rowCount; index++)
             {
-                WinLossByBetType winlossByBetType = _winlossByBetTypeList[index];
+                var winlossByBetType = _winlossByBetTypeList[index];
 
-                IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
+                var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
 
                 row.Cells[ColumnIndex].SetCellValue(index + 1);
                 row.Cells[ColumnGameTypeName].SetCellValue(winlossByBetType.BetTypeName);
@@ -205,9 +205,9 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected void AssignSumData(ISheet sheet)
         {
-            int totalRow = _winlossByBetTypeList.Count + RowContentTemplate;
+            var totalRow = _winlossByBetTypeList.Count + RowContentTemplate;
 
-            IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, totalRow);
+            var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, totalRow);
 
             sheet.MergeCells(totalRow, ColumnIndex, totalRow, 1);
 

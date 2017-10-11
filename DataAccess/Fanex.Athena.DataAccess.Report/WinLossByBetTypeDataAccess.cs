@@ -77,19 +77,20 @@ namespace Fanex.Athena.DataAccess.Report
 
             while (reader.Read())
             {
-                var item = new WinLossByBetType();
-
-                item.LiveIndicator = reader.ToBool("liveindicator");
-                item.BetType = reader.ToInt("bettype");
-                item.Turnover = reader.ToDecimal(turnoverColumn);
-                item.CustomerWinLoss = reader.ToDecimal(winlossColumn);
-                item.CustomerComm = reader.ToDecimal(custCommColumn);
-                item.LicenseeWL = reader.ToDecimal(licenseeWlColumn);
-                item.BACommission = reader.ToDecimal(commBaColumn);
-                item.RBComm = reader.ToDecimal(commRbColumn);
-                item.RacingRevenue = reader.ToDecimal(racebookRevenue);
-                item.AmtDueToBA = reader.ToDecimal(amtDueToBaComumn);
-                item.AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn);
+                var item = new WinLossByBetType
+                {
+                    LiveIndicator = reader.ToBool("liveindicator"),
+                    BetType = reader.ToInt("bettype"),
+                    Turnover = reader.ToDecimal(turnoverColumn),
+                    CustomerWinLoss = reader.ToDecimal(winlossColumn),
+                    CustomerComm = reader.ToDecimal(custCommColumn),
+                    LicenseeWL = reader.ToDecimal(licenseeWlColumn),
+                    BACommission = reader.ToDecimal(commBaColumn),
+                    RBComm = reader.ToDecimal(commRbColumn),
+                    RacingRevenue = reader.ToDecimal(racebookRevenue),
+                    AmtDueToBA = reader.ToDecimal(amtDueToBaComumn),
+                    AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn)
+                };
 
                 dataList.Add(item);
             }

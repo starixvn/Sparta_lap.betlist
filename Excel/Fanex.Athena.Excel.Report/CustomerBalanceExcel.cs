@@ -92,7 +92,7 @@ namespace Fanex.Athena.Excel.Report
 
             if (numOfDataRow == 0)
             {
-                ISheet sheet = Workbook.CloneSheet("Template", "Data");
+                var sheet = Workbook.CloneSheet("Template", "Data");
                 AssignTitle(sheet);
                 AssignHeader(sheet);
                 AssignNoInfoRow(sheet);
@@ -123,8 +123,8 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignHeader(ISheet sheet)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-            IRow row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 
             for (int i = 0; i < HeaderTextList.Count; i++)
             {
@@ -147,14 +147,14 @@ namespace Fanex.Athena.Excel.Report
 
         protected override int AssignSheetData(ISheet sheet, int pageIndex)
         {
-            int rowCount = _exportData.Count();
-            int startIndex = checked(pageIndex * MaxRowCount);
-            int endIndex = startIndex + MaxRowCount > rowCount ? rowCount : startIndex + MaxRowCount;
-            int rowIndex = 0;
+            var rowCount = _exportData.Count();
+            var startIndex = checked(pageIndex * MaxRowCount);
+            var endIndex = startIndex + MaxRowCount > rowCount ? rowCount : startIndex + MaxRowCount;
+            var rowIndex = 0;
 
             for (int index = startIndex; index < endIndex; index++)
             {
-                IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
+                var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
                 var item = _exportData.ElementAt(index);
 
                 row.Cells[ColumnIndex].SetCellValue(index + 1);
@@ -186,7 +186,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignTitle(ISheet sheet)
         {
-            string pattern = ViewResources.CustomerBalance + ", {0} - {1}, {2}";
+            var pattern = ViewResources.CustomerBalance + ", {0} - {1}, {2}";
             ReportTitle = string.Format(
                                         pattern,
                                         _model.FromDate.ToString("MM/dd/yyyy"),
@@ -223,7 +223,7 @@ namespace Fanex.Athena.Excel.Report
 
         private void AssignTotalData(ISheet sheet, int rowTotal)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, rowTotal);
+            var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, rowTotal);
 
             sheet.MergeCells(rowTotal, ColumnIndex, rowTotal, ColumnSystemId);
             row.Cells[ColumnOpeningBalance].SetCellValue(_totalData.OpeningBalance);

@@ -66,7 +66,7 @@ namespace Fanex.Athena.Controllers.BetList
         {
             var tokenApiUrl = AppSettings.GetValue("ColossusBetTokenAPI");
             tokenApiUrl = string.Format(tokenApiUrl, SessionService.UserSession.UserId, memberId);
-            string json = string.Empty;
+            var json = string.Empty;
             try
             {
                 json = _webClientService.DownloadString(tokenApiUrl);

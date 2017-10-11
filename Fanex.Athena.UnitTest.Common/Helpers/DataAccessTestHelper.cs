@@ -12,7 +12,7 @@
     {
         public static void MapReaderData(IDataReader reader, params object[] readerDataMappingList)
         {
-            Func<CallInfo, object> firstFunc = CreateMappingFunc(readerDataMappingList[0]);
+            var firstFunc = CreateMappingFunc(readerDataMappingList[0]);
             if (readerDataMappingList.Length == 1)
             {
                 reader[Arg.Any<string>()].Returns(firstFunc);

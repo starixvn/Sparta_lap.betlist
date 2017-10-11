@@ -27,11 +27,11 @@ namespace Fanex.Athena.DataAccess.Report
 
         public IEnumerable<WeeklyLiveMatch> GetDataList(WeeklyLiveMatchMetaModel metaModel, out int[] totalData)
         {
-            string uspName = "Lrf_Rpt_LiveMatchWeekly";
+            const string UspName = "Lrf_Rpt_LiveMatchWeekly";
 
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
@@ -46,7 +46,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, uspName);
+                throw new DataAccessException(sqlException.Message, UspName);
             }
         }
 

@@ -63,8 +63,8 @@
 
         protected override void AssignData()
         {
-            int numOfDataRow = _dataList.Count;
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            var numOfDataRow = _dataList.Count;
+            var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
             AssignTitle(sheet);
@@ -81,7 +81,7 @@
 
         protected override void AssignHeader(ISheet sheet)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
             for (int i = 0; i < HeaderTextList.Count; i++)
             {
@@ -102,7 +102,7 @@
 
         protected override void AssignSheetData(ISheet sheet)
         {
-            int rowIndex = RowParentContentTemplate;
+            var rowIndex = RowParentContentTemplate;
             foreach (var item in _dataList)
             {
                 var row = item.Level == 0 ?
@@ -113,14 +113,14 @@
                 rowIndex++;
             }
 
-            IRow totalRow = sheet.CopyRow(TemplateSheet, RowTotal, rowIndex);
+            var totalRow = sheet.CopyRow(TemplateSheet, RowTotal, rowIndex);
             _total.Name = ViewResources.Total;
             AssignCellData(totalRow, _total);
         }
 
         protected override void AssignTitle(ISheet sheet)
         {
-            string platformText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(_model.PlatformType);
+            var platformText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(_model.PlatformType);
             var currencyText = _model.CurrencyId == 0 ?
                 ViewResources.AllCurrencies :
                 string.Format("{0} {1}", ViewResources.Currency, _model.CurrencyName);

@@ -100,7 +100,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         protected override void AssignData()
         {
-            int numOfDataRow = _turnoverList.Count;
+            var numOfDataRow = _turnoverList.Count;
 
             ISheet sheet;
 
@@ -132,8 +132,8 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignHeader(ISheet sheet)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-            IRow row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 
             for (int i = 0; i < HeaderTextList.Count; i++)
             {
@@ -163,7 +163,7 @@ namespace Fanex.Athena.Excel.Report
         /// <returns>Row index.</returns>
         protected override int AssignSheetData(ISheet sheet, int pageIndex)
         {
-            int rowCount = Math.Min(_turnoverList.Count, checked((pageIndex + 1) * PageSize));
+            var rowCount = Math.Min(_turnoverList.Count, checked((pageIndex + 1) * PageSize));
             var currentRow = 3;
 
             for (int index = pageIndex * PageSize; index < rowCount; index++)
@@ -192,12 +192,12 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignTitle(ISheet sheet)
         {
-            string titleNoUserName = string.Format(
+            var titleNoUserName = string.Format(
                         ViewResources.TurnoverTitleNoUser,
                         _viewModel.Param.FromDate.ToString(FormatDate),
                         _viewModel.Param.ToDate.ToString(FormatDate),
                         ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _viewModel.Param.CurrencyId));
-            string title = string.Format(
+            var title = string.Format(
                                         ViewResources.TurnoverTitle,
                                          _viewModel.Param.FromDate.ToString(FormatDate),
                                          _viewModel.Param.ToDate.ToString(FormatDate),
@@ -267,7 +267,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected void AssignTotalCellData(ISheet sheet, int currentRow)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, currentRow);
+            var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, currentRow);
             row.Cells[0].SetCellValue(ViewResources.Total);
             row.Cells[ColumnOpeningBalance].SetCellValue("-");
             row.Cells[ColumnClosingBalance].SetCellValue("-");
