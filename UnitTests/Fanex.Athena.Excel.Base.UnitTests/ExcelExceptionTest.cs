@@ -10,7 +10,7 @@
         {
             // Arrang
             const string Message = "This is a message";
-            const string ExcelFile = "TestFile.xls";            
+            const string ExcelFile = "TestFile.xls";
             const string Expected = "Exception when export excel TestFile.xls. Exception Message: This is a message";
 
             var excelException = new ExcelException(Message, ExcelFile);

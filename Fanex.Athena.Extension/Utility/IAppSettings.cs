@@ -31,7 +31,7 @@
 
         DateTime MaxDate { get; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings", 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
             Justification = "Reviewed. Suppression is OK here.")]
         string RemoteRefUrl { get; }
 

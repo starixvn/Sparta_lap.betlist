@@ -25,7 +25,7 @@
             var expectedResult = temp.Any(i => i.CurrencyId == CurrencyType.Cny);
 
             // Assert
-            Assert.True(expectedResult == false);
+            Assert.IsFalse(expectedResult);
         }
 
         [Test]

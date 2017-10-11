@@ -13,14 +13,14 @@ namespace Fanex.Athena.Service.Core.Exception
     /// Service exception class.
     /// </summary>
     [Serializable]
-    public class ServiceException : System.Exception
+    public class ServiceException : Exception
     {
         private readonly string _serviceName;
 
         public ServiceException(string message, string serviceName)
             : base(message)
         {
-            this._serviceName = serviceName;
+            _serviceName = serviceName;
         }
 
         public ServiceException(SerializationInfo info, StreamingContext context) : base(info, context)
@@ -32,10 +32,7 @@ namespace Fanex.Athena.Service.Core.Exception
         {
             get
             {
-                return string.Format(
-                    "Exception when call Service: {0}. Exception Message: {1}",
-                    this._serviceName,
-                   base.Message);
+                return $"Exception when call Service: {_serviceName}. Exception Message: {base.Message}";
             }
         }
 

@@ -32,7 +32,7 @@ namespace Fanex.Athena.Model.Core.DTO.Common
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
             Justification = "Reviewed. Suppression is OK here.")]
         public string Url { get; set; }
-        
+
         public bool IsMenu { get; set; }
 
         public bool IsActive { get; set; }

@@ -16,12 +16,12 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
         LiveCasinoBetSettingViewModel GetViewModel(int licenseeId, int custId, string language);
 
         IResultInfo UpdateBetSetting(
-            int licenseeId, 
-            int userId, 
-            int custId, 
-            IList<LiveCasinoBetSetting> metaModel, 
-            string ip, 
-            string language, 
+            int licenseeId,
+            int userId,
+            int custId,
+            IList<LiveCasinoBetSetting> metaModel,
+            string ip,
+            string language,
             bool isDisableLiveCasino);
 
         IResultInfo UpdateStatus(int licenseeId, int userId, int custId, int status, string language, string ip, bool isSyncLiveCasino);

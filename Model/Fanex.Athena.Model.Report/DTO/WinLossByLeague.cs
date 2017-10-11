@@ -53,14 +53,14 @@ namespace Fanex.Athena.Model.Report.DTO
 
         public int BetCount { get; set; }
 
-        public decimal BACommission { get; set; }  
+        public decimal BACommission { get; set; }
 
         public string ExternalId { get; set; }
 
         public string SystemId { get; set; }
 
         public int CustomerId { get; set; }
-        
+
         public decimal TurnOver { get; set; }
 
         public decimal LicenseeWL { get; set; }

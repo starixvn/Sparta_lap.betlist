@@ -44,7 +44,7 @@
         public void ToJson_WithComplexObject_ReturnCorrectResult()
         {
             // Arrange
-            var list = new[] 
+            var list = new[]
             {
                 new { Id = 1, Name = "Test1" },
                 new { Id = 2, Name = "Test2" },

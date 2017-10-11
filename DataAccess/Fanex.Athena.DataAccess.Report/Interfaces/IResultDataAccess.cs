@@ -44,7 +44,7 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
         IList<Parlay> GetPopUpParalayMatch(long refNo);
 
         IList<NumberGame> GetPopUpNumberGameMatch(int matchId);
-        
+
         Sportsbook GetSportsbookGameDetail(int matchId);
 
         #endregion Popup

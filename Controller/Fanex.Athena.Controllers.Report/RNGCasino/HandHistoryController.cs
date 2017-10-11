@@ -241,7 +241,6 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
         /// <returns>Excel result.</returns>
         private ActionResult GetExcelResult(RNGCasinoResultMetaModel metaModel)
         {
-            const string FileName = "CasinoHandHistory";
             var templatePath = Server.MapPath("~/App_Data/Template/RNGCasino/HandHistory.xls");
             metaModel.IsShowPic = false;
             var data = GetData(metaModel);
@@ -251,18 +250,18 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
                 Data = data,
             };
 
-            var excel = new HandHistoryExcel(templatePath, FileName, metaModel, viewModel, totalData);
+            var excel = new HandHistoryExcel(templatePath, metaModel, viewModel, totalData);
             excel.Export();
 
-            return new ExcelResult(excel.Workbook, FileName);
+            return new ExcelResult(excel.Workbook, "CasinoHandHistory");
         }
 
         private IList<RNGCasinoResult> GetData(RNGCasinoResultMetaModel metaModel)
         {
             metaModel.BaseCurrency = metaModel.BaseCurrency ?? string.Empty;
             return metaModel.IsValid() && (metaModel.CurrencyId == BaseCurrencyType.All ||
-                this.SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
-                ? this._rgnCasinoService.GetRNGCasinoResult(metaModel)
+                SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
+                ? _rgnCasinoService.GetRNGCasinoResult(metaModel)
                 : new List<RNGCasinoResult>();
         }
     }

@@ -22,7 +22,7 @@ namespace Fanex.Athena.DataAccess.Report
     {
         public IList<DailyRacingWinLoss> GetDataList(DailyRacingWinLossMetaModel metaModel)
         {
-            var uspName = "Lrf_Rpt_WinlostRacing";
+            const string UspName = "Lrf_Rpt_WinlostRacing";
 
             var uspParams = new
             {
@@ -32,7 +32,7 @@ namespace Fanex.Athena.DataAccess.Report
 
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
@@ -43,7 +43,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, uspName, uspParams);
+                throw new DataAccessException(sqlException.Message, UspName, uspParams);
             }
         }
 

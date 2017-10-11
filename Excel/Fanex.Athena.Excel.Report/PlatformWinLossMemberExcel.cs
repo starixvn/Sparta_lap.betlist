@@ -79,7 +79,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         protected override void AssignData()
         {
-            int numOfDataRow = _dataList.Count;
+            var numOfDataRow = _dataList.Count;
             var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
@@ -156,8 +156,7 @@ namespace Fanex.Athena.Excel.Report
             var metaModel = _model.Param;
             var platformText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(metaModel.PlatformType);
             var currencyText = metaModel.CurrencyId == 0 ?
-                ViewResources.AllCurrencies :
-                string.Format("{0} {1}", ViewResources.Currency, metaModel.CurrencyName);
+                ViewResources.AllCurrencies : $"{ViewResources.Currency} {metaModel.CurrencyName}";
 
             ReportTitle = string.Format(
                                         ViewResources.PlatformWinLossTitle,
@@ -227,19 +226,19 @@ namespace Fanex.Athena.Excel.Report
         {
             if (_productOptions.Count() == 1)
             {
-                return string.Format("{0}: {1}", ViewResources.Product, _productOptions.First().Code);
+                return $"{ViewResources.Product}: {_productOptions.First().Code}";
             }
 
             var selectedProducts = _productOptions.Where(x => x.Status);
             if (selectedProducts.Count() == _productOptions.Count())
             {
-                return string.Format("{0}: {1}", ViewResources.Product, ViewResources.All);
+                return $"{ViewResources.Product}: {ViewResources.All}";
             }
 
             var text = selectedProducts
                 .Aggregate(string.Empty, (current, x) => current + (string.IsNullOrEmpty(current) ? x.Code : ", " + x.Code));
 
-            return string.Format("{0}: {1}", ViewResources.Product, text);
+            return $"{ViewResources.Product}: {text}";
         }
 
         private string GetBaseCurrencyTitle()

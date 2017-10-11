@@ -21,7 +21,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
     using Fanex.Result.Core.LiveCasino.DTO;
     using Fanex.Result.Core.NumberGame.DTO;
     using Fanex.Result.Core.Racing.DTO;
@@ -230,7 +229,7 @@ namespace Fanex.Athena.DataAccess.Report
                         }
                         else
                         {
-                            throw new NotSupportedException(string.Format("The type '{0}' is not supported.", type.FullName));
+                            throw new NotSupportedException($"The type '{type.FullName}' is not supported.");
                         }
                     }
                 }
@@ -405,7 +404,7 @@ namespace Fanex.Athena.DataAccess.Report
                         }
                         else
                         {
-                            throw new NotSupportedException(string.Format("The type '{0}' is not supported.", type.FullName));
+                            throw new NotSupportedException($"The type '{type.FullName}' is not supported.");
                         }
                     }
                 }

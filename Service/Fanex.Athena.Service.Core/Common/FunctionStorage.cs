@@ -9,11 +9,11 @@
 
     public class FunctionStorage : IFunctionStorage
     {
-        private static object _lockFunctionList = new object();
+        private static readonly object _lockFunctionList = new object();
 
-        private static object _lockMasterFunction = new object();
+        private static readonly object _lockMasterFunction = new object();
 
-        private static object _lockSubFunction = new object();
+        private static readonly object _lockSubFunction = new object();
 
         private static IEnumerable<Function> _functionList;
 

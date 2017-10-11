@@ -11,7 +11,7 @@
         [Test]
         public void SortByDictionary_AscendingDirection_ListSortedCorrectly()
         {
-            // Arrange            
+            // Arrange
             var firstObject = new Person { Id = 1, Name = "Walter", Children = CreateData("Ariana", "Selena", "Kross") };
             var secondObject = new Person { Id = 2, Name = "Ralph", Children = CreateData("Kyle", "Selena", "Alex") };
             var dataList = new SortableList<Person> { firstObject, secondObject };
@@ -27,7 +27,7 @@
         [Test]
         public void SortByDictionary_DescendingDirection_ListSortedCorrectly()
         {
-            // Arrange            
+            // Arrange
             var firstObject = new Person { Id = 1, Name = "Walter", Children = CreateData("Ariana", "Selena", "Kross") };
             var secondObject = new Person { Id = 2, Name = "Ralph", Children = CreateData("Kyle", "Selena", "Alex") };
             var dataList = new SortableList<Person> { firstObject, secondObject };
@@ -43,7 +43,7 @@
         [Test]
         public void Sort_AscendingDirection_ListSortedCorrectly()
         {
-            // Arrange            
+            // Arrange
             var firstObject = new Person { Id = 1, Name = "Walter" };
             var secondObject = new Person { Id = 2, Name = "Ralph" };
             var dataList = new SortableList<Person> { firstObject, secondObject };
@@ -59,7 +59,7 @@
         [Test]
         public void Sort_DescendingDirection_ListSortedCorrectly()
         {
-            // Arrange            
+            // Arrange
             var firstObject = new Person { Id = 1, Name = "Walter" };
             var secondObject = new Person { Id = 2, Name = "Ralph" };
             var dataList = new SortableList<Person> { firstObject, secondObject };

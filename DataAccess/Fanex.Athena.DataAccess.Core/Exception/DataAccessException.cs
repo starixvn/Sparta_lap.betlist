@@ -16,17 +16,17 @@ namespace Fanex.Athena.DataAccess.Core.Exception
         private readonly string _uspName;
         private readonly object _uspParams;
 
-        public DataAccessException(string message, string uspName, object uspParams)
-            : base(message)
-        {
-            this._uspName = uspName;
-            this._uspParams = uspParams;
-        }
-
         public DataAccessException(string message, string uspName)
             : base(message)
         {
-            this._uspName = uspName;
+            _uspName = uspName;
+        }
+
+        public DataAccessException(string message, string uspName, object uspParams)
+            : base(message)
+        {
+            _uspName = uspName;
+            _uspParams = uspParams;
         }
 
         public DataAccessException(SerializationInfo info, StreamingContext context) : base(info, context)
@@ -35,19 +35,19 @@ namespace Fanex.Athena.DataAccess.Core.Exception
             _uspParams = info.GetValue(nameof(_uspParams), typeof(object));
         }
 
-        public override string Message
-        {
-            get
-            {
-                return string.Format("Exception when call usp {0}. \nException: {1}", this._uspName, base.Message);
-            }
-        }
-
         public string JsonParam
         {
             get
             {
                 return _uspParams == null ? "null" : new JavaScriptSerializer().Serialize(_uspParams);
+            }
+        }
+
+        public override string Message
+        {
+            get
+            {
+                return $"Exception when call usp {_uspName}. \nException: {base.Message}";
             }
         }
 

@@ -25,10 +25,10 @@ namespace Fanex.Athena.DataAccess.Report
     {
         public SortableList<AgCasinoWinLoss> GetSummaryWinloss(AgCasinoWinLossMetaModel metaModel, out IDictionary<string, AgCasinoWinLoss> summaryTotal)
         {
-            var uspName = "Lrf_Rpt_AGCasinoWinloss";
+            const string UspName = "Lrf_Rpt_AGCasinoWinloss";
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = GetObjectDb(UspName))
                 {
                     UpdateUspParams(db, metaModel, false);
 
@@ -42,7 +42,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, uspName, metaModel);
+                throw new DataAccessException(sqlException.Message, UspName, metaModel);
             }
         }
 
@@ -50,10 +50,10 @@ namespace Fanex.Athena.DataAccess.Report
             AgCasinoWinLossMetaModel metaModel,
             out IDictionary<string, AgCasinoWinLoss> summaryTotal)
         {
-            var uspName = "LRF_Rpt_AGCasinoWinloss_Mem";
+            const string UspName = "LRF_Rpt_AGCasinoWinloss_Mem";
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = GetObjectDb(UspName))
                 {
                     db.AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
                     UpdateUspParams(db, metaModel, true);
@@ -65,7 +65,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, uspName, metaModel);
+                throw new DataAccessException(sqlException.Message, UspName, metaModel);
             }
         }
 
@@ -73,10 +73,10 @@ namespace Fanex.Athena.DataAccess.Report
             AgCasinoWinLossMetaModel metaModel,
             out IDictionary<string, AgCasinoWinLoss> summaryTotal)
         {
-            var uspName = "LRF_Rpt_AGCasinoWinloss_Ag";
+            const string UspName = "LRF_Rpt_AGCasinoWinloss_Ag";
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = GetObjectDb(UspName))
                 {
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
@@ -87,7 +87,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, uspName, metaModel);
+                throw new DataAccessException(sqlException.Message, UspName, metaModel);
             }
         }
 

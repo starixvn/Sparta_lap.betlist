@@ -9,7 +9,7 @@
     {
         [TestCase("Id", -1)]
         [TestCase("NickName", 0)]
-        [TestCase("Name", 1)]       
+        [TestCase("Name", 1)]
         public void Compare_AscendingDirection_ReturnCorrectValue(string propertyName, int expected)
         {
             // Arrange
@@ -72,5 +72,5 @@
             // Assert
             Assert.That(result, Is.EqualTo(expected));
         }
-    }   
+    }
 }
