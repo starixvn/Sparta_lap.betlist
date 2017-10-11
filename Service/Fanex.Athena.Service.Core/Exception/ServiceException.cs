@@ -13,7 +13,7 @@ namespace Fanex.Athena.Service.Core.Exception
     /// Service exception class.
     /// </summary>
     [Serializable]
-    public class ServiceException : Exception
+    public sealed class ServiceException : Exception
     {
         private readonly string _serviceName;
 
@@ -23,7 +23,7 @@ namespace Fanex.Athena.Service.Core.Exception
             _serviceName = serviceName;
         }
 
-        public ServiceException(SerializationInfo info, StreamingContext context) : base(info, context)
+        private ServiceException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             _serviceName = info.GetString(nameof(_serviceName));
         }

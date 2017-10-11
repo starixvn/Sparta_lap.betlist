@@ -11,7 +11,7 @@ namespace Fanex.Athena.DataAccess.Core.Exception
     using System.Web.Script.Serialization;
 
     [Serializable]
-    public class DataAccessException : Exception
+    public sealed class DataAccessException : Exception
     {
         private readonly string _uspName;
         private readonly object _uspParams;
@@ -29,7 +29,8 @@ namespace Fanex.Athena.DataAccess.Core.Exception
             _uspParams = uspParams;
         }
 
-        public DataAccessException(SerializationInfo info, StreamingContext context) : base(info, context)
+        private DataAccessException(SerializationInfo info, StreamingContext context) 
+            : base(info, context)
         {
             _uspName = info.GetString(nameof(_uspName));
             _uspParams = info.GetValue(nameof(_uspParams), typeof(object));
