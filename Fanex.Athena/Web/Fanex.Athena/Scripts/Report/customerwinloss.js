@@ -6,7 +6,6 @@ var CustomerWinLoss = (function ($) {
     var DATA_URL = "api/CustomerWinLossReport/Index";
     var FORM_SELECTOR = "#CustomerWinlossForm";
     var GRID_ID = "ReportGrid";
-    var DEFAULT_USERNAME = Site.getSingleResource('All');
 
     var _ajaxRequest = null;
     var _submitData = null;
@@ -15,6 +14,7 @@ var CustomerWinLoss = (function ($) {
     var _sortColumnName = "";
     var _sortOrder = "desc";
     var _isFirstLoad = false;
+    var _defaultUserName = "";
 
     var _pagingOption =
     {
@@ -48,7 +48,7 @@ var CustomerWinLoss = (function ($) {
         param.PageSize = _pagingOption.pagesize;
         param.sortColumn = _sortColumnName;
         param.SortDirection = _sortOrder;
-        if (param.Username === undefined || param.Username === DEFAULT_USERNAME) {
+        if (param.Username === undefined || param.Username === _defaultUserName) {
             param.Username = "";
         }
         return param;
@@ -355,9 +355,11 @@ var CustomerWinLoss = (function ($) {
         },
 
         setDefaultUsername: function () {
+            _defaultUserName = Site.getSingleResource('All');
+
             var username = $('#Username').val();
-            if (username === '' || username === DEFAULT_USERNAME) {
-                $('#Username').val(DEFAULT_USERNAME);
+            if (username === '' || username === _defaultUserName) {
+                $('#Username').val(_defaultUserName);
                 $('#Username').attr('class', 'default-username');
             }
             else {
@@ -367,10 +369,10 @@ var CustomerWinLoss = (function ($) {
 
         setUsernameOnFocus: function () {
             var username = $('#Username').val();
-            if (username === DEFAULT_USERNAME) {
+            if (username === _defaultUserName) {
                 $('#Username').val('');
             } else if (username === '') {
-                $('#Username').val(DEFAULT_USERNAME);
+                $('#Username').val(_defaultUserName);
             }
         }
     };
