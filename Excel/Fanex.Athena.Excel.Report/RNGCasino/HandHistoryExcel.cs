@@ -180,7 +180,8 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
                     ? _metaModel.BaseCurrency
                     : _metaModel.CurrencyName;
 
-            var title = $"{ViewResources.Username}: {_metaModel.ExternalId}({_metaModel.SystemId}) -  {ViewResources.RefNo}: {_metaModel.RefNo} - {string.Format(ViewResources.Viewin, currency.ToUpperInvariant())}";
+            var title = $"{ViewResources.Username}: {_metaModel.ExternalId}({_metaModel.SystemId}) -  "
+                + $"{ViewResources.RefNo}: {_metaModel.RefNo} - {string.Format(ViewResources.Viewin, currency.ToUpperInvariant())}";
 
             sheet.SetTextRowValue(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate, ColumnTemplateCount, title);
 
