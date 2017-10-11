@@ -1,0 +1,54 @@
+﻿@{
+    Layout = "~/Views/Desktop/Shared/_Report.jqGridLayout.cshtml";
+    ViewBag.Title = "LRF - Notifications";
+}
+@section pagecss {
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/reports/notificationreport.css")" rel="stylesheet" />
+}
+@section pagejs {
+    
+}
+@section Menu
+{
+    @{
+        Html.RenderPartial("~/Views/Desktop/Report/Notification/_Menu.cshtml");
+    }
+}
+@section Filter
+{
+<div class="page-form">
+    @using (Html.BeginForm("LogInLog", "CustomerLog", FormMethod.Get, new { @id = "SearchForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="input-field input col l3 m3 s12 calendar date-range">
+                @DesktopRazorHelper.DateRangePicker(DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now)
+            </div>
+
+            <div class="col l2 m2 s12 button-block">
+                <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
+            </div>
+
+            <div class="col right icon-block">
+                <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+            </div>
+        </div>
+    }
+</div>
+}
+
+@section Content
+{
+    <div class="page-results">
+        <div class="main-content">
+            <div class="panel-body">
+                <div class="theme_jqGrid">
+                    <table id="ReportGrid" class="table"></table>
+                    <div id="ppdata">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

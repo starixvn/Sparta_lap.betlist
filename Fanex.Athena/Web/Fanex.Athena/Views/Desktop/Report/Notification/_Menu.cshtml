@@ -1,0 +1,22 @@
+﻿@{
+    Layout = null;
+}
+<div class="header-tab">
+    <ul class="tabs">
+        <!--Notifications tab-->
+        <li class="tab">
+            <a href="@Url.Action("Index", "Notification")" id="NotificationTab">
+                @ViewResources.General
+            </a>
+        </li>
+        <!--/Notifications tab-->
+        <!--Result Amendment log-->
+        <li class="tab">
+            <a href="@Url.Action("CustomerSetting", "CustomerLog")" id="ResultAmendmentTab">
+                @ViewResources.CustomerSetting
+            </a>
+        </li>
+        <!--/Result Amendment log-->
+    </ul>
+
+</div>
