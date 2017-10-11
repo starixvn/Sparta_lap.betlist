@@ -25714,6 +25714,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             param.PageIndex = _pagingOption.pageindex;
             param.PageSize = _pagingOption.pagesize;
 
+            if (!Site.isNumber(param.odds)) {
+                param.odds = 0;
+            }
+
             return param;
         }
 
