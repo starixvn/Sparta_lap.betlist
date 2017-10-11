@@ -122,14 +122,18 @@
             // Arrange
             var licenseeId = 1;
             var userId = 2;
+
             var subFunctions = new Dictionary<int, IEnumerable<Function>> { { 1, new List<Function> { new Function { FunctionId = 2, ParentId = 1 } } } };
-            var functionStorage = Substitute.ForPartsOf<FunctionStorage>(_functionDataAccess);
-            functionStorage.When(x => { var xxx = x.SubFunctions; }).DoNotCallBase();
-            functionStorage.SubFunctions.Returns(subFunctions);
+            var functionStorage = Substitute.For<IFunctionStorage>();
+            functionStorage.SubFunctions.Returns(x => subFunctions);
+            functionStorage.MasterFunctions.Returns(x => new List<Function> { new Function { FunctionId = 1 } });
+            functionStorage.FunctionList.Returns(x => new List<Function> { new Function { FunctionId = 1 }, new Function { FunctionId = 2 } });
+
             var service = new FunctionService(_functionDataAccess, functionStorage);
+
             var userFunctionList = new List<Function>
             {
-                new Function { FunctionId = 2 }
+                new Function { FunctionId = 2, ParentId = 1 }
             };
             var licenseeFunctionList = new List<Function>
             {
@@ -143,9 +147,8 @@
             var result = service.GetUserFunctionList(licenseeId, userId);
 
             // Assert
-            Assert.That(result.Count, Is.EqualTo(2));
+            Assert.That(result.Count, Is.EqualTo(1));
             Assert.That(result.ElementAt(0).FunctionId, Is.EqualTo(2));
-            Assert.That(result.ElementAt(1).FunctionId, Is.EqualTo(1));
         }
 
         [Test]
