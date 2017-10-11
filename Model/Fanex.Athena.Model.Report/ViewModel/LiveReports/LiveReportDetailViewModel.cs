@@ -17,11 +17,11 @@ namespace Fanex.Athena.Model.Report.ViewModel.LiveReports
     /// </summary>
     public class LiveReportDetailViewModel : BaseViewModel
     {
-        public IList<Fanex.Athena.Model.Report.DTO.LiveReports.LiveReport> BySports { get; set; }
+        public IEnumerable<LiveReport> BySports { get; set; }
 
-        public IList<Fanex.Athena.Model.Report.DTO.LiveReports.LiveReport> ByCurrencies { get; set; }
+        public IEnumerable<LiveReport> ByCurrencies { get; set; }
 
-        public IList<LiveReportByBetType> ByBetType { get; set; }
+        public IEnumerable<LiveReportByBetType> ByBetType { get; set; }
 
         public bool IsShowedDetailLink { get; set; }
 

@@ -12,17 +12,28 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Model.Report.DTO.LiveReports;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel.LiveReports;
     using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
+    using Model.Core.DTO.Common;
+    using Model.Report.ResultModel;
+    using Service.Report.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportLiveReport)]
     public class LiveReportController : ReportBaseController
     {
+        private const string ProductCodeAll = "ALL";
+
+        private readonly ILiveReportService _liveReportService;
+
+        public LiveReportController()
+        {
+            _liveReportService = new LiveReportService();
+        }
+
         [HttpGet]
         public ActionResult Index(bool isViewedHistory = false)
         {
@@ -71,7 +82,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             var productAccess = ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language);
-            var liveReportService = new LiveReportService();
+            metaModel.ProductCodeList = string.Join(",", productAccess.ProductList.Select(x => x.ProductCode));
             var model = new LiveReportViewModel
             {
                 Param = metaModel,
@@ -80,7 +91,7 @@ namespace Fanex.Athena.Controllers.Report
                 BalanceUpDate = balanceUp != null ? balanceUp.BalanceUpDay : DateTime.Now,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 ProductAccess = productAccess,
-                MainResult = liveReportService.GetLiveReportSummary(metaModel),
+                MainResult = _liveReportService.GetLiveReportSummary(metaModel),
                 IsFakeLicensee = IsFakeLicensee()
             };
 
@@ -96,8 +107,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
-            var liveReportService = new LiveReportService();
-            var dataList = liveReportService.GetLiveReportWinLossByMatch(metaModel);
+            var dataList = _liveReportService.GetLiveReportWinLossByMatch(metaModel);
 
             var model = new LiveReportMatchListViewModel
             {
@@ -123,26 +133,37 @@ namespace Fanex.Athena.Controllers.Report
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
             var balanceUpDay = this.GetBalanceUp().BalanceUpDay;
 
-            IList<LiveReport> dataByCurrency;
-            IList<LiveReport> dataBySport;
-            IList<LiveReportByBetType> dataByBetType;
-
-            var productList = productAccess.ProductList.Where(i => i.ProductCode == productCode || productCode == "ALL").ToList();
-            var liveReportService = new LiveReportService();
-            liveReportService.GetLiveReportSumaryDetail(metaModel, productCode, productList, out dataBySport, out dataByCurrency, out dataByBetType);
+            var resultModel = GetDetailResult(metaModel, productAccess, productCode);
 
             return View(
                 "~/Views/Report/LiveReport/AjaxTemplate/LiveReportDetail.cshtml",
                 new LiveReportDetailViewModel
                 {
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                    BySports = dataBySport,
-                    ByCurrencies = dataByCurrency,
-                    ByBetType = dataByBetType,
+                    BySports = resultModel.DataBySport,
+                    ByCurrencies = resultModel.DataByCurrency,
+                    ByBetType = resultModel.DataByBetType,
                     IsShowedDetailLink = metaModel.FromDate >= balanceUpDay,
                     Param = metaModel,
                     ProductAccess = productAccess
                 });
+        }
+
+        private LiveReportDetailResultModel GetDetailResult(LiveReportMetaModel metaModel, ProductAccess productAccess, string productCode)
+        {
+            IEnumerable<Product> productList;
+            if (productCode == ProductCodeAll)
+            {
+                productList = productAccess.ProductList.ToList();
+                metaModel.ProductCodeList = string.Join(",", productAccess.ProductList.Select(x => x.ProductCode));
+            }
+            else
+            {
+                productList = productAccess.ProductList.Where(i => i.ProductCode == productCode).ToList();
+                metaModel.ProductCodeList = productCode;
+            }
+
+            return _liveReportService.GetLiveReportSumaryDetail(metaModel, productList);
         }
 
         private ActionResult Excel(LiveReportViewModel viewModel)
@@ -165,22 +186,15 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyName = viewModel.Param.CurrencyName
             };
 
-            IList<LiveReport> dataByCurrency = null;
-            IList<LiveReport> dataBySport = null;
-            IList<LiveReportByBetType> dataByBetType = null;
-
-            if (!string.IsNullOrEmpty(productCode))
-            {
-                var productList = productAccess.ProductList.Where(i => i.ProductCode == productCode || productCode == "ALL").ToList();
-                var liveReportService = new LiveReportService();
-                liveReportService.GetLiveReportSumaryDetail(viewModel.Param, productCode, productList, out dataBySport, out dataByCurrency, out dataByBetType);
-            }
+            var resultModel = string.IsNullOrEmpty(productCode) ?
+                new LiveReportDetailResultModel() :
+                GetDetailResult(viewModel.Param, productAccess, productCode);
 
             var liveReportDetail = new LiveReportDetailViewModel
             {
-                BySports = dataBySport,
-                ByCurrencies = dataByCurrency,
-                ByBetType = dataByBetType,
+                BySports = resultModel.DataBySport,
+                ByCurrencies = resultModel.DataByCurrency,
+                ByBetType = resultModel.DataByBetType,
                 Param = viewModel.Param,
             };
             var liveReportExcel = new LiveReportExcel(

@@ -2,7 +2,7 @@
 
 <div class="panel-body">
     <div class="table-title"><span>@ViewResources.ByBetType</span></div>
-    @if (Model.ByBetType == null || Model.ByBetType.Count == 0)
+    @if (Model.ByBetType == null || Model.ByBetType.Count() == 0)
     {
         <p class="no-info-row">@ViewResources.NoInfo</p>
     }

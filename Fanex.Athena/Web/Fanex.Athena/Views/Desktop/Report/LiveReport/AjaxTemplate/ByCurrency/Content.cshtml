@@ -2,7 +2,7 @@
 
 <div class="panel-body">
     <div class="table-title"><span>@ViewResources.ByCurrency</span></div>
-    @if (Model.ByCurrencies == null || Model.ByCurrencies.Count == 0)
+    @if (Model.ByCurrencies == null || Model.ByCurrencies.Count() == 0)
     {
         <p class="no-info-row">@ViewResources.NoInfo</p>
     }

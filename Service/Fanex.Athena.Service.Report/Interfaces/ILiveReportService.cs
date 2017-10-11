@@ -10,20 +10,13 @@ namespace Fanex.Athena.Service.Report.Interfaces
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.DTO.LiveReports;
     using Fanex.Athena.Model.Report.MetaModel;
+    using Model.Report.ResultModel;
 
     public interface ILiveReportService
     {
         IList<LiveReport> GetLiveReportSummary(LiveReportMetaModel model);
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
-            Justification = "Reviewed. Suppression is OK here.")]
-        void GetLiveReportSumaryDetail(
-            LiveReportMetaModel model,
-            string productCode,
-            IList<Product> products,
-            out IList<LiveReport> resultBySport,
-             out IList<LiveReport> resultByByCurrency,
-              out IList<LiveReportByBetType> resultByBettype);
+        LiveReportDetailResultModel GetLiveReportSumaryDetail(LiveReportMetaModel model, IEnumerable<Product> products);
 
         IList<LiveReportWinLossByMatch> GetLiveReportWinLossByMatch(LiveReportMatchListMetalModel model);
     }

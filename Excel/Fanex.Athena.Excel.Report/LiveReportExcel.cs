@@ -187,11 +187,6 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign common data to excel row.
-        /// </summary>
-        /// <param name="row">Excel row.</param>
-        /// <param name="liveReport">Live report data.</param>
         private static void AssignCommonData(IRow row, LiveReport liveReport)
         {
             row.Cells[ColumnCustomerWl].SetCellValue(liveReport.CustomerWinLoss);
@@ -202,142 +197,6 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnLicenseeComm].SetCellValue(liveReport.LicenseeComm);
             row.Cells[ColumnLicenseeWl].SetCellValue(liveReport.LicenseeWinLoss);
             row.Cells[ColumnAmountDue].SetCellValue(liveReport.AmountDue);
-        }
-
-        /// <summary>
-        /// Assign data to bet type section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="currentRow">Excel row index.</param>
-        protected void AssignByBetTypeData(ISheet sheet, int currentRow)
-        {
-            var liveReportSportList = _liveReportDetailList.ByBetType;
-
-            if (liveReportSportList.Count > 0)
-            {
-                var rowIndex = currentRow;
-                AssignCommonHeader(sheet, ViewResources.ByBetType, ViewResources.BetType, RowByBetTypeHeaderTemplate, rowIndex);
-                rowIndex += 3;
-
-                if (!ShowingOption.CustomerCommVisible)
-                {
-                    // If row isn't hide (in case BA visible), then merge cell and set value for header
-                    var rowHeaderMerge = rowIndex - 2;
-                    sheet.MergeCells(rowHeaderMerge, ColumnCustomerWl, rowHeaderMerge + 1, ColumnCustomerWl);
-                }
-
-                foreach (var liveReportBetType in liveReportSportList)
-                {
-                    var liveReportBetTypeList = liveReportBetType.LiveReports;
-
-                    var row = sheet.CopyRow(TemplateSheet, RowByBetTypeProductTitle, rowIndex);
-                    sheet.MergeCells(rowIndex, ColumnProduct, rowIndex, ColumnAmountDue);
-                    rowIndex++;
-
-                    var productName = liveReportBetType.ProductName.Equals(ViewResources.SB)
-                        ? ViewResources.Sportsbook
-                        : liveReportBetType.ProductName;
-
-                    row.Cells[ColumnProduct].SetCellValue(productName);
-
-                    foreach (LiveReport liveReportSport in liveReportBetTypeList)
-                    {
-                        row = sheet.CopyRow(TemplateSheet, RowContentDetailTemplate, rowIndex);
-                        row.Cells[ColumnProduct].SetCellValue(liveReportSport.ProductName);
-                        AssignCommonData(row, liveReportSport);
-                        rowIndex++;
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Assign data to currency section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="currentRow">Excel row index.</param>
-        /// <returns>The row index after assign data.</returns>
-        protected int AssignByCurrencyData(ISheet sheet, int currentRow)
-        {
-            var liveReportSportList = _liveReportDetailList.ByCurrencies;
-
-            var rowIndex = currentRow;
-            if (liveReportSportList.Count > 0)
-            {
-                AssignCommonHeader(sheet, ViewResources.ByCurrency, ViewResources.Currency, RowByCurrencyHeaderTemplate, rowIndex);
-                rowIndex += 3;
-
-                if (!ShowingOption.CustomerCommVisible)
-                {
-                    // If row isn't hide (in case BA visible), then merge cell and set value for header
-                    var rowHeaderMerge = rowIndex - 2;
-                    sheet.MergeCells(rowHeaderMerge, ColumnCustomerWl, rowHeaderMerge + 1, ColumnCustomerWl);
-                }
-
-                for (int i = 0; i < liveReportSportList.Count; i++)
-                {
-                    var liveReportSport = liveReportSportList[i];
-
-                    var row = sheet.CopyRow(TemplateSheet, RowContentDetailTemplate, rowIndex + i);
-
-                    row.Cells[ColumnProduct].SetCellValue(liveReportSport.ProductName);
-
-                    AssignCommonData(row, liveReportSport);
-                }
-            }
-
-            return rowIndex + liveReportSportList.Count;
-        }
-
-        protected int AssignBySportsTypeData(ISheet sheet, int currentRow)
-        {
-            var liveReportSportList = _liveReportDetailList.BySports;
-
-            var rowIndex = currentRow;
-            if (liveReportSportList.Count > 0)
-            {
-                AssignCommonHeader(sheet, ViewResources.BySportsType, ViewResources.Sport, RowBySportsTypeHeaderTemplate, rowIndex);
-                rowIndex += 3;
-
-                if (!ShowingOption.CustomerCommVisible)
-                {
-                    // If row isn't hide (in case BA visible), then merge cell and set value for header
-                    var rowHeaderMerge = rowIndex - 2;
-                    sheet.MergeCells(rowHeaderMerge, ColumnCustomerWl, rowHeaderMerge + 1, ColumnCustomerWl);
-                }
-
-                for (int i = 0; i < liveReportSportList.Count; i++)
-                {
-                    var liveReportSport = liveReportSportList[i];
-
-                    var row = sheet.CopyRow(TemplateSheet, RowBySportsTypeContentTemplate, rowIndex + i);
-
-                    row.Cells[ColumnProduct].SetCellValue(liveReportSport.ProductName);
-
-                    AssignCommonData(row, liveReportSport);
-                }
-            }
-
-            return rowIndex + liveReportSportList.Count;
-        }
-
-        protected int AssignTotalSummary(ISheet sheet)
-        {
-            var currentRow = RowContentTemplate + _liveReportList.Count;
-
-            var row = sheet.CopyRow(TemplateSheet, RowTotalSummaryTemplate, currentRow);
-
-            row.Cells[ColumnIndex].SetCellValue(ViewResources.Total);
-            row.Cells[ColumnCustomerWl].SetCellValue(_liveReportList.Sum(a => a.CustomerWinLoss));
-            row.Cells[ColumnCustomerComm].SetCellValue(_liveReportList.Sum(a => a.CustomerComm));
-            row.Cells[ColumnCustomerTotal].SetCellValue(_liveReportList.Sum(a => a.CustomerTotal));
-            row.Cells[ColumnTurnover].SetCellValue(_liveReportList.Sum(a => a.TurnOver));
-            row.Cells[ColumnBetCount].SetCellValue(_liveReportList.Sum(a => a.BetCount));
-            row.Cells[ColumnLicenseeWl].SetCellValue(_liveReportList.Sum(a => a.LicenseeWinLoss));
-            row.Cells[ColumnLicenseeComm].SetCellValue(_liveReportList.Sum(a => a.LicenseeComm));
-            row.Cells[ColumnAmountDue].SetCellValue(_liveReportList.Sum(a => a.AmountDue));
-
-            return currentRow + 1;
         }
 
         private static string GetLiveIndicatorString(int liveIndicator)
@@ -363,6 +222,133 @@ namespace Fanex.Athena.Excel.Report
             }
 
             return title + ViewResources.Data;
+        }
+
+        private void AssignByBetTypeData(ISheet sheet, int currentRow)
+        {
+            var liveReportSportList = _liveReportDetailList.ByBetType;
+
+            if (!liveReportSportList.Any())
+            {
+                return;
+            }
+
+            var rowIndex = currentRow;
+            AssignCommonHeader(sheet, ViewResources.ByBetType, ViewResources.BetType, RowByBetTypeHeaderTemplate, rowIndex);
+            rowIndex += 3;
+
+            if (!ShowingOption.CustomerCommVisible)
+            {
+                // If row isn't hide (in case BA visible), then merge cell and set value for header
+                var rowHeaderMerge = rowIndex - 2;
+                sheet.MergeCells(rowHeaderMerge, ColumnCustomerWl, rowHeaderMerge + 1, ColumnCustomerWl);
+            }
+
+            foreach (var liveReportBetType in liveReportSportList)
+            {
+                var liveReportBetTypeList = liveReportBetType.LiveReports;
+
+                var row = sheet.CopyRow(TemplateSheet, RowByBetTypeProductTitle, rowIndex);
+                sheet.MergeCells(rowIndex, ColumnProduct, rowIndex, ColumnAmountDue);
+                rowIndex++;
+
+                var productName = liveReportBetType.ProductName.Equals(ViewResources.SB)
+                    ? ViewResources.Sportsbook
+                    : liveReportBetType.ProductName;
+
+                row.Cells[ColumnProduct].SetCellValue(productName);
+
+                foreach (LiveReport liveReportSport in liveReportBetTypeList)
+                {
+                    row = sheet.CopyRow(TemplateSheet, RowContentDetailTemplate, rowIndex);
+                    row.Cells[ColumnProduct].SetCellValue(liveReportSport.ProductName);
+                    AssignCommonData(row, liveReportSport);
+                    rowIndex++;
+                }
+            }
+        }
+
+        private int AssignByCurrencyData(ISheet sheet, int currentRow)
+        {
+            var liveReportSportList = _liveReportDetailList.ByCurrencies;
+
+            var rowIndex = currentRow;
+            if (liveReportSportList.Any())
+            {
+                AssignCommonHeader(sheet, ViewResources.ByCurrency, ViewResources.Currency, RowByCurrencyHeaderTemplate, rowIndex);
+                rowIndex += 3;
+
+                if (!ShowingOption.CustomerCommVisible)
+                {
+                    // If row isn't hide (in case BA visible), then merge cell and set value for header
+                    var rowHeaderMerge = rowIndex - 2;
+                    sheet.MergeCells(rowHeaderMerge, ColumnCustomerWl, rowHeaderMerge + 1, ColumnCustomerWl);
+                }
+
+                for (int i = 0; i < liveReportSportList.Count(); i++)
+                {
+                    var liveReportSport = liveReportSportList.ElementAt(i);
+
+                    var row = sheet.CopyRow(TemplateSheet, RowContentDetailTemplate, rowIndex + i);
+
+                    row.Cells[ColumnProduct].SetCellValue(liveReportSport.ProductName);
+
+                    AssignCommonData(row, liveReportSport);
+                }
+            }
+
+            return rowIndex + liveReportSportList.Count();
+        }
+
+        private int AssignBySportsTypeData(ISheet sheet, int currentRow)
+        {
+            var liveReportSportList = _liveReportDetailList.BySports;
+
+            var rowIndex = currentRow;
+            if (liveReportSportList.Any())
+            {
+                AssignCommonHeader(sheet, ViewResources.BySportsType, ViewResources.Sport, RowBySportsTypeHeaderTemplate, rowIndex);
+                rowIndex += 3;
+
+                if (!ShowingOption.CustomerCommVisible)
+                {
+                    // If row isn't hide (in case BA visible), then merge cell and set value for header
+                    var rowHeaderMerge = rowIndex - 2;
+                    sheet.MergeCells(rowHeaderMerge, ColumnCustomerWl, rowHeaderMerge + 1, ColumnCustomerWl);
+                }
+
+                for (int i = 0; i < liveReportSportList.Count(); i++)
+                {
+                    var liveReportSport = liveReportSportList.ElementAt(i);
+
+                    var row = sheet.CopyRow(TemplateSheet, RowBySportsTypeContentTemplate, rowIndex + i);
+
+                    row.Cells[ColumnProduct].SetCellValue(liveReportSport.ProductName);
+
+                    AssignCommonData(row, liveReportSport);
+                }
+            }
+
+            return rowIndex + liveReportSportList.Count();
+        }
+
+        private int AssignTotalSummary(ISheet sheet)
+        {
+            var currentRow = RowContentTemplate + _liveReportList.Count;
+
+            var row = sheet.CopyRow(TemplateSheet, RowTotalSummaryTemplate, currentRow);
+
+            row.Cells[ColumnIndex].SetCellValue(ViewResources.Total);
+            row.Cells[ColumnCustomerWl].SetCellValue(_liveReportList.Sum(a => a.CustomerWinLoss));
+            row.Cells[ColumnCustomerComm].SetCellValue(_liveReportList.Sum(a => a.CustomerComm));
+            row.Cells[ColumnCustomerTotal].SetCellValue(_liveReportList.Sum(a => a.CustomerTotal));
+            row.Cells[ColumnTurnover].SetCellValue(_liveReportList.Sum(a => a.TurnOver));
+            row.Cells[ColumnBetCount].SetCellValue(_liveReportList.Sum(a => a.BetCount));
+            row.Cells[ColumnLicenseeWl].SetCellValue(_liveReportList.Sum(a => a.LicenseeWinLoss));
+            row.Cells[ColumnLicenseeComm].SetCellValue(_liveReportList.Sum(a => a.LicenseeComm));
+            row.Cells[ColumnAmountDue].SetCellValue(_liveReportList.Sum(a => a.AmountDue));
+
+            return currentRow + 1;
         }
 
         private void AssignCommonHeader(ISheet sheet, string groupName, string firstHeader, int rowTplIdx, int rowIndex)

@@ -51,6 +51,7 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 using (var db = this.GetObjectDb(UspName))
                 {
+                    db.AddInParameter("ProductCodes", DbType.String, metaModel.ProductCodeList);
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
@@ -90,7 +91,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public IList<LiveReport> GetDetailBySport(LiveReportMetaModel metaModel, string productCode)
+        public IList<LiveReport> GetDetailBySport(LiveReportMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LiveReportBySport";
             var moveBetsDate = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay;
@@ -100,12 +101,12 @@ namespace Fanex.Athena.DataAccess.Report
                 var items = new List<LiveReport>();
                 using (var db = this.GetObjectDb(UspName))
                 {
+                    db.AddInParameter("ProductCodes", DbType.String, metaModel.ProductCodeList);
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
                     db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
                     db.AddInParameter("movebetsday", DbType.DateTime, moveBetsDate);
-                    db.AddInParameter("productcode", DbType.String, productCode.Equals("ALL") ? string.Empty : productCode);
                     db.AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator);
 
                     using (var reader = db.ExecuteReader())
@@ -133,13 +134,12 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException ex)
             {
-                throw new DataAccessException(ex.Message, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate, ProductCode = productCode });
+                throw new DataAccessException(ex.Message, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
             }
         }
 
         public Tuple<IList<LiveReport>, IList<LiveReportByBetType>> GetDetailByCurrencyAndBettype(
             LiveReportMetaModel metaModel,
-            string productCode,
             IEnumerable<Product> products)
         {
             var currency = metaModel.BaseCurrency;
@@ -149,13 +149,13 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 using (var db = this.GetObjectDb(UspName))
                 {
+                    db.AddInParameter("ProductCodes", DbType.String, metaModel.ProductCodeList);
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
                     db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
                     db.AddInParameter("movebetsday", DbType.DateTime, moveBetsDate);
                     db.AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator);
-                    db.AddInParameter("productcode", DbType.String, productCode.Equals("ALL") ? string.Empty : productCode);
                     using (var reader = db.ExecuteReader())
                     {
                         var resultByCurrency = ReadDetailByCurrency(reader, currency);
@@ -168,7 +168,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException ex)
             {
-                throw new DataAccessException(ex.Message, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate, ProductCode = productCode });
+                throw new DataAccessException(ex.Message, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
             }
         }
 

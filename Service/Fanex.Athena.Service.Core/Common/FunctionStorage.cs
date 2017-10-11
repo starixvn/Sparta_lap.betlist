@@ -9,6 +9,12 @@
 
     public class FunctionStorage : IFunctionStorage
     {
+        private static object _lockFunctionList = new object();
+
+        private static object _lockMasterFunction = new object();
+
+        private static object _lockSubFunction = new object();
+
         private static IEnumerable<Function> _functionList;
 
         private static IEnumerable<Function> _masterFunctions;
@@ -27,57 +33,85 @@
             _functionDataAccess = functionDataAccess;
         }
 
-        public virtual IEnumerable<Function> FunctionList
+        public IEnumerable<Function> FunctionList
         {
             get
             {
-                InitilizeData();
+                if (_functionList == null)
+                {
+                    var functionList = _functionDataAccess.GetFunctionList();
+                    AssignFunctionList(functionList);
+                }
+
                 return _functionList;
             }
         }
 
-        public virtual IEnumerable<Function> MasterFunctions
+        public IEnumerable<Function> MasterFunctions
         {
             get
             {
-                InitilizeData();
+                if (_masterFunctions == null)
+                {
+                    AssignMasterFunctionList(FunctionList);
+                }
+
                 return _masterFunctions;
             }
         }
 
-        public virtual IDictionary<int, IEnumerable<Function>> SubFunctions
+        public IDictionary<int, IEnumerable<Function>> SubFunctions
         {
             get
             {
-                InitilizeData();
+                if (_subFunctions == null)
+                {
+                    AssignSubFunctionList(MasterFunctions);
+                }
+
                 return _subFunctions;
             }
         }
 
-        private static void AssignData(IEnumerable<Function> functionList)
+        private static void AssignFunctionList(IEnumerable<Function> functionList)
         {
-            _functionList = functionList;
-
-            _masterFunctions = _functionList.Where(f => f.ParentId == 0)
-                                         .OrderBy(f => f.DisplayOrder)
-                                         .ToList();
-
-            _subFunctions = new Dictionary<int, IEnumerable<Function>>();
-            foreach (var function in _masterFunctions)
+            lock (_lockFunctionList)
             {
-                var subFunctions = _functionList.Where(f => f.ParentId == function.FunctionId)
-                                             .OrderBy(f => f.DisplayOrder)
-                                             .ToList();
-                _subFunctions.Add(function.FunctionId, subFunctions);
+                if (_functionList == null)
+                {
+                    _functionList = functionList;
+                }
             }
         }
 
-        private void InitilizeData()
+        private static void AssignMasterFunctionList(IEnumerable<Function> functionList)
         {
-            if (_functionList == null)
+            lock (_lockMasterFunction)
             {
-                var functionList = _functionDataAccess.GetFunctionList();
-                AssignData(functionList);
+                if (_masterFunctions == null)
+                {
+                    _masterFunctions = functionList.Where(f => f.ParentId == 0)
+                                                 .OrderBy(f => f.DisplayOrder)
+                                                 .ToList();
+                }
+            }
+        }
+
+        private static void AssignSubFunctionList(IEnumerable<Function> masterFunctionList)
+        {
+            lock (_lockSubFunction)
+            {
+                if (_subFunctions == null)
+                {
+                    _subFunctions = new Dictionary<int, IEnumerable<Function>>();
+                    foreach (var function in masterFunctionList)
+                    {
+                        var subFunctions = _functionList.Where(f => f.ParentId == function.FunctionId)
+                                                     .OrderBy(f => f.DisplayOrder)
+                                                     .ToList();
+                        _subFunctions.Add(function.FunctionId, subFunctions);
+                    }
+                }
             }
         }
     }
