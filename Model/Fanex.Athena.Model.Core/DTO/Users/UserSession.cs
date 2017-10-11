@@ -46,6 +46,8 @@ namespace Fanex.Athena.Model.Core.DTO.Users
 
         public IDictionary<int, IEnumerable<int>> CurrencyAgentList { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
+            Justification = "Reviewed. Suppression is OK here.")]
         public string DefaultReportUrl { get; set; }
 
         public ClientViewType ViewType { get; set; }

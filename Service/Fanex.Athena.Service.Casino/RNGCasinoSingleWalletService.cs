@@ -127,6 +127,8 @@ namespace Fanex.Athena.Service.Casino
             }.ToJson();
         }
 
+        [SuppressMessage("Sonar Code Smell", "S3995:UriReturnValuesShouldNotBeStrings",
+            Justification = "Reviewed. Suppression is OK here.")]
         private string GetRngCasinoPopupUrl(string token, string refNo)
         {
             var queryString = GetQueryString(token, refNo);

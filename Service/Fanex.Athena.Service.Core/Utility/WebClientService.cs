@@ -15,6 +15,8 @@
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3994:UriParametersShouldNotBeStrings",
+            Justification = "Reviewed. Suppression is OK here.")]
         public string DownloadString(string url)
         {
             using (WebClient webClient = new WebClient())

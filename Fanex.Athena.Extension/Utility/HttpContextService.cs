@@ -29,6 +29,8 @@
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3994:UriParametersShouldNotBeStrings",
+            Justification = "Reviewed. Suppression is OK here.")]
         public virtual void Redirect(string url)
         {
             _context.Response.Redirect(url);

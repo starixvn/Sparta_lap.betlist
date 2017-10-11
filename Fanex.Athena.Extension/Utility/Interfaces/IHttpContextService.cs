@@ -9,6 +9,8 @@
 
         HttpSessionState Session { get; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3994:UriParametersShouldNotBeStrings",
+            Justification = "Reviewed. Suppression is OK here.")]
         void Redirect(string url);
 
         string MapPath(string path);

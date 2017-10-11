@@ -218,16 +218,9 @@ namespace Fanex.Athena.Service.Core.Users
             _context.Redirect(Util.RootPath + string.Format(_deniedPath, code));
         }
 
-        /// <summary>
-        /// Internal sign in.
-        /// </summary>
-        /// <param name="licname">The licensee name.</param>
-        /// <param name="userName">The user name.</param>
-        /// <param name="passWord">The pass word.</param>
-        /// <param name="timeSpan">The time span.</param>
-        /// <param name="siteOutUrl">The sign out url.</param>
-        /// <param name="languageCode">The language code.</param>
-        /// <param name="resultInfo">The result information.</param>
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3994:UriParametersShouldNotBeStrings",
+            Justification = "Reviewed. Suppression is OK here.")]
         private void InternalLogin(
           string licname,
           string userName,
