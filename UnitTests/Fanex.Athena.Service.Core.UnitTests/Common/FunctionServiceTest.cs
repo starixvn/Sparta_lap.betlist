@@ -14,7 +14,7 @@
     public class FunctionServiceTest
     {
         private readonly IEnumerable<Function> _functionList =
-            new List<Function>()
+            new List<Function>
             {
                 new Function { FunctionId = 1 },
                 new Function { FunctionId = 2, ParentId = 1 }
@@ -302,7 +302,7 @@
             var custId = 3;
             var langKey = "en-US";
             var ip = string.Empty;
-            var functionList = new List<Function>()
+            var functionList = new List<Function>
             {
                 new Function { FunctionId = 1 },
                 new Function { FunctionId = 2, ParentId = 1 },
@@ -347,7 +347,7 @@
             var custId = 3;
             var langKey = "en-US";
             var ip = string.Empty;
-            var functionList = new ReadOnlyCollection<Function>(new List<Function>()
+            var functionList = new ReadOnlyCollection<Function>(new List<Function>
             {
                 new Function { FunctionId = 1 },
                 new Function { FunctionId = 2, ParentId = 1 },

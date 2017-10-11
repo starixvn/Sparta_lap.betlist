@@ -38,7 +38,7 @@
         {
             if (metaModel.IsValid)
             {
-                var agentIdList = metaModel.SubsidiaryList.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                var agentIdList = metaModel.SubsidiaryList.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                                     .Select(x => Convert.ToInt32(x));
                 metaModel.AgentListXml = SessionService.GenerateAgentListXmlByAgentIdList(agentIdList);
 

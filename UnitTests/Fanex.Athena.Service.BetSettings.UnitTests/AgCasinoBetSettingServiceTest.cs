@@ -117,7 +117,7 @@
         public void UpdateAgCasinoBetSetting_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new ResultInfo()
+            var expectedResult = new ResultInfo
             {
                 Code = 999
             };
@@ -144,7 +144,7 @@
         public void UpdateAgCasinoBetSetting_SettingParamIsNull_ReturnCorrectErrorResult()
         {
             // Arrange
-            var expectedResult = new ResultInfo()
+            var expectedResult = new ResultInfo
             {
                 Code = 1,
                 Message = "Invalid parameter. AG Casino is null"
@@ -163,7 +163,7 @@
         public void UpdateAgCasinoBetSetting_IsEnabledOfSettingIsFalse_ReturnCorrectErrorResult()
         {
             // Arrange
-            var expectedResult = new ResultInfo()
+            var expectedResult = new ResultInfo
             {
                 Code = 1,
                 Message = ViewResources.AccessDeniedMsg
@@ -190,7 +190,7 @@
         public void UpdateAgCasinoBetSetting_HaveNoPermission_ReturnCorrectErrorResult()
         {
             // Arrange
-            var expectedResult = new ResultInfo()
+            var expectedResult = new ResultInfo
             {
                 Code = 1,
                 Message = ViewResources.AccessDeniedMsg

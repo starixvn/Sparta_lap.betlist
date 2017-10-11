@@ -48,7 +48,7 @@
 
         public IEnumerable<ProductOption> ProductOptionList { get; set; }
 
-        public IEnumerable<string> BaseCurrencyList => SystemConstants.BaseCurrencyList;
+        public static IEnumerable<string> BaseCurrencyList => SystemConstants.BaseCurrencyList;
 
         public bool ConvertAll { get; set; }
     }

@@ -48,7 +48,7 @@
         public void GetViewModel_CustomerNotSyncCasino_NotCallCasinoSetting()
         {
             // Arrange
-            var customer = new CustomerInfo()
+            var customer = new CustomerInfo
             {
                 SyncCasino = false
             };
@@ -73,7 +73,7 @@
                 new GameKind()
             };
             _casinoSetting.GetRngCasinoSettings(CustId, Language).Returns(resultGameKindList);
-            var customer = new CustomerInfo()
+            var customer = new CustomerInfo
             {
                 SyncCasino = true
             };
@@ -99,7 +99,7 @@
             bool? expectedIsEnabled)
         {
             // Arrange
-            var customer = new CustomerInfo()
+            var customer = new CustomerInfo
             {
                 DisableCasino = isDiabledCasino,
                 SyncCasino = isSyncCasino

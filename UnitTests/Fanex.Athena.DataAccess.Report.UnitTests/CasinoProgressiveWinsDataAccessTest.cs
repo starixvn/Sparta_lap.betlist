@@ -27,7 +27,7 @@
             _objectDb = Substitute.For<IObjectDb>();
 
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
-            var balanceUp = new BalanceUp()
+            var balanceUp = new BalanceUp
             {
                 MoveBetsDay = new DateTime(2016, 8, 10),
                 BalanceUpDay = new DateTime(2016, 8, 30)

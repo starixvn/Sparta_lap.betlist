@@ -41,7 +41,7 @@
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            var betSettings = new List<BetSetting>()
+            var betSettings = new List<BetSetting>
             {
                 new BetSetting()
             };
@@ -60,7 +60,7 @@
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
             var commonBetSetting = new CommonBetSetting();
-            var racingParam = new Dictionary<string, RacingBetSetting>()
+            var racingParam = new Dictionary<string, RacingBetSetting>
             {
                 ["0"] = new RacingBetSetting(CustId, commonBetSetting)
             };
@@ -92,7 +92,7 @@
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
             var commonBetSetting = new CommonBetSetting();
-            var racingParam = new Dictionary<string, RacingBetSetting>()
+            var racingParam = new Dictionary<string, RacingBetSetting>
             {
                 ["0"] = new RacingBetSetting(CustId, commonBetSetting)
             };

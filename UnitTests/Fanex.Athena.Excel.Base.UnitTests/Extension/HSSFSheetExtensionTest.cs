@@ -21,7 +21,7 @@
             sheet.GetRow(destRowIndex).Returns(row);
 
             var cell = Substitute.For<ICell>();
-            row.Cells.Returns(new List<ICell>() { cell });
+            row.Cells.Returns(new List<ICell> { cell });
 
             // Action
             sheet.SetTextRowValue(sourceSheet, sourceRowIndex, destRowIndex, 1, "Test");

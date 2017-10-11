@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Service.BetList
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Extension.Utility;
@@ -125,21 +124,28 @@ namespace Fanex.Athena.Service.BetList
             {
                 case OddsType.Decimal:
                 case OddsType.Hongkong:
-                    if (ticket.Odds > 1)
                     {
-                        ticket.Odds = -1 / ticket.Odds;
+                        if (ticket.Odds > 1)
+                        {
+                            ticket.Odds = -1 / ticket.Odds;
+                        }
+
+                        break;
                     }
-
-                    break;
-
                 case OddsType.Malay:
                 case OddsType.American: // AMERICAN To DEC
-                    if (ticket.Odds < -1 || ticket.Odds > 1)
                     {
-                        ticket.Odds = -1 / ticket.Odds;
-                    }
+                        if (ticket.Odds < -1 || ticket.Odds > 1)
+                        {
+                            ticket.Odds = -1 / ticket.Odds;
+                        }
 
-                    break;
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
             }
         }
 

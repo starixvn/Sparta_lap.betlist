@@ -20,7 +20,8 @@ namespace Fanex.Athena.Model.Customer.MetaModel
         {
             get
             {
-                return string.IsNullOrWhiteSpace(CustomerIds) ? new List<int>() : CustomerIds.Split(',').Select(int.Parse).ToList();
+                var customers = string.IsNullOrWhiteSpace(CustomerIds) ? new List<int>() : CustomerIds.Split(',').Select(int.Parse).ToList();
+                return customers;
             }
         }
 
