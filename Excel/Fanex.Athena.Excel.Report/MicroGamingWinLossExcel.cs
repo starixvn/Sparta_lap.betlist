@@ -68,7 +68,7 @@ namespace Fanex.Athena.Excel.Report
         {
             int numOfDataRow = _winLossList.Count;
 
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
             AssignTitle(sheet);
@@ -87,7 +87,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignHeader(ISheet sheet)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
             row.Cells[ColumnDate].SetCellValue(ViewResources.Date);
             row.Cells[ColumnCurrency].SetCellValue(ViewResources.Currency);
@@ -110,10 +110,10 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignSheetData(ISheet sheet)
         {
-            int indexReport = 1;
+            var indexReport = 1;
             int index;
             var rowCount = _winLossList.Count;
-            int endRowSpan = 1;
+            var endRowSpan = 1;
             var currentRow = 2;
             var typeId = 0;
 
@@ -187,7 +187,7 @@ namespace Fanex.Athena.Excel.Report
 
         private static string GenerateProductReportTitle(string fromDate, string toDate, string title)
         {
-            StringBuilder reportTitle = new StringBuilder(string.Empty);
+            var reportTitle = new StringBuilder(string.Empty);
             reportTitle.Append(ViewResources.Microgaming).Append(" ");
             reportTitle.Append(ViewResources.WinLoss);
             reportTitle.Append(string.Format(", {0} --> {1} - {2}", fromDate, toDate, title));
@@ -246,13 +246,13 @@ namespace Fanex.Athena.Excel.Report
         /// <returns>The last row index after assign data.</returns>
         private int AssignTotalData(ISheet sheet, int rowIndex)
         {
-            int beginTotalRow = rowIndex;
-            List<MicroGamingWinLoss> totalCurrencyList = GetTotalCurrency(_winLossList);
+            var beginTotalRow = rowIndex;
+            var totalCurrencyList = GetTotalCurrency(_winLossList);
 
             foreach (MicroGamingWinLoss totalCurrency in totalCurrencyList)
             {
                 // Copy template
-                IRow row = sheet.CopyRow(TemplateSheet, RowTotalNoSolidBorder, rowIndex);
+                var row = sheet.CopyRow(TemplateSheet, RowTotalNoSolidBorder, rowIndex);
 
                 if (rowIndex == beginTotalRow)
                 {

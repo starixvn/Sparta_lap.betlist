@@ -66,7 +66,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignData()
         {
-            int numOfDataRow = _excelModel.DataList.Count();
+            var numOfDataRow = _excelModel.DataList.Count();
 
             ISheet sheet;
 
@@ -94,7 +94,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignHeader(ISheet sheet)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
             for (int i = 0; i < HeaderTextList.Count; i++)
             {
@@ -116,12 +116,12 @@ namespace Fanex.Athena.Excel.Report
 
         protected override int AssignSheetData(ISheet sheet, int pageIndex)
         {
-            int rowCount = Math.Min(_excelModel.DataList.Count(), checked((pageIndex + 1) * PageSize));
-            int rowIndex = 0;
+            var rowCount = Math.Min(_excelModel.DataList.Count(), checked((pageIndex + 1) * PageSize));
+            var rowIndex = 0;
 
             for (int index = pageIndex * PageSize; index < rowCount; index++)
             {
-                IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
+                var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
 
                 var customerWinloss = _excelModel.DataList.ElementAt(index);
 
@@ -151,11 +151,17 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignTitle(ISheet sheet)
         {
+            var filterTitle = ReportExcelHelper.GetTitleCurrencyName(_excelModel.ConvertingOption)
+                            + ReportExcelHelper.GetLicenseeWLProduct(_excelModel.MetaModel.ProductOptions)
+                            + (string.IsNullOrEmpty(_excelModel.MetaModel.Username)
+                                ? string.Empty
+                                : ", " + ViewResources.Username + ": " + _excelModel.MetaModel.Username);
+
             ReportTitle = string.Format(
                                         ViewResources.CustomerWinLossTitle,
                                         _excelModel.MetaModel.FromDate.ToString(FormatDate),
                                         _excelModel.MetaModel.ToDate.ToString(FormatDate),
-                                        ReportExcelHelper.GetTitleCurrencyName(_excelModel.ConvertingOption)) + ReportExcelHelper.GetLicenseeWLProduct(_excelModel.MetaModel.ProductOptions);
+                                        filterTitle);
 
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
@@ -192,9 +198,9 @@ namespace Fanex.Athena.Excel.Report
 
         protected void AssignSumData(ISheet sheet, int startIndex)
         {
-            int rowTotalNumber = checked(startIndex + RowContentTemplate);
+            var rowTotalNumber = checked(startIndex + RowContentTemplate);
 
-            IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, rowTotalNumber);
+            var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, rowTotalNumber);
 
             row.Cells[ColumnTurnover].SetCellValue(_excelModel.TotalData.Turnover);
             row.Cells[ColumnTotalTransaction].SetCellValue(_excelModel.TotalData.TotalTransaction);

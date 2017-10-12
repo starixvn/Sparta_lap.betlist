@@ -1,4 +1,6 @@
-﻿namespace Fanex.Athena.Extension.UnitTests.Helper
+﻿using Fanex.Athena.Extension.Helper;
+
+namespace Fanex.Athena.Extension.UnitTests.Helper
 {
     using System;
     using Extension.Helper;
@@ -22,7 +24,7 @@
             var decimalNumber = Convert.ToDecimal(value);
 
             // Action
-            var result = NumberHelper.ToStringExt(decimalNumber);
+            var result = decimalNumber.ToStringExt();
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
@@ -32,7 +34,7 @@
         [TestCase(2, "2")]
         [TestCase(25, "25")]
         [TestCase(2530, "2,530")]
-        [TestCase(1000000, "1,000,000")]       
+        [TestCase(1000000, "1,000,000")]
         [TestCase(-1, "-1")]
         [TestCase(-25000, "-25,000")]
         public void ToStringExt_OneArgumentWithIntType_ReturnFormattedNumberWithThousandSeparator(object value, string expected)
@@ -75,7 +77,7 @@
             byte digit = 3;
 
             // Action
-            var result = NumberHelper.ToStringExt(decimalNumber, digit);
+            var result = decimalNumber.ToStringExt(digit);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));

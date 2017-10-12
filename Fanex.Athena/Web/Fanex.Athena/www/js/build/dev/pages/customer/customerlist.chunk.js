@@ -4772,7 +4772,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 
 /***/ }),
 
-/***/ 141:
+/***/ 139:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
@@ -5244,7 +5244,101 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 147:
+/***/ 144:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require option properties: suggestionDropdown, url, target
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(139)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+    "use strict";
+
+    var mainOption = {
+        suggestionDropdown: '#suggestionDropdown',
+        url: null,
+        target: null
+    };
+
+    var DELAY_MILLISECOND = 600;
+
+    var _autoComplete;
+
+    var _me = {
+        initialize: function (option) {
+            _me.initAutoComplete(option);
+            _me.initEvent();
+        },
+
+        initEvent: function () {
+            $('body').click(function () {
+                _me.hideDropdown();
+            });
+
+            $(mainOption.target).keyup(function (e) {
+                if (e.keyCode === 13) {
+                    _me.hideDropdown();
+                }
+            });
+        },
+
+        initAutoComplete: function (option) {
+            $.extend(mainOption, option);
+            if (!mainOption.url || !mainOption.target) {
+                throw Error("Missing data in option");
+            }
+
+            _autoComplete = $(mainOption.target).materialize_autocomplete({ // jshint ignore:line
+                ignoreCase: false,
+                dropdown: {
+                    el: mainOption.suggestionDropdown
+                },
+                getData: Site.debounce(_me.search, DELAY_MILLISECOND),
+            });       
+        },
+
+        search: function (value, callback) {
+            var url = mainOption.url + "?query=" + value;
+
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: url,
+                success: function (response) {
+                    var suggestions = response.suggestions;
+
+                    if (suggestions && suggestions.length > 0) {
+                        var data = suggestions.map(function (item) {
+                            return { id: item, text: item };
+                        });
+
+                        _me.updateWidthOfSuggestionDropdown();
+                        callback(value, data);
+                    }
+                    else {
+                        _me.hideDropdown();
+                    }
+                }
+            });
+        },
+
+        updateWidthOfSuggestionDropdown: function () {
+            var $autoCompleteTarget = $(mainOption.target);
+            var $suggestionDropdown = $(mainOption.suggestionDropdown);
+            if ($suggestionDropdown.innerWidth() !== $autoCompleteTarget.innerWidth()) {
+                $suggestionDropdown.innerWidth($autoCompleteTarget.innerWidth());
+            }
+        },
+
+        hideDropdown: function () {
+            _autoComplete.$dropdown.html('').hide();
+        }
+    };
+
+    return _me;
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 148:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5424,106 +5518,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 148:
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require option properties: suggestionDropdown, url, target
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(141)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
-    "use strict";
-
-    var mainOption = {
-        suggestionDropdown: '#suggestionDropdown',
-        url: null,
-        target: null
-    };
-
-    var DELAY_MILLISECOND = 600;
-
-    var _autoComplete;
-
-    var _me = {
-        initialize: function (option) {
-            _me.initAutoComplete(option);
-            _me.initEvent();
-        },
-
-        initEvent: function () {
-            $('body').click(function () {
-                _me.hideDropdown();
-            });
-
-            $(mainOption.target).keyup(function (e) {
-                if (e.keyCode === 13) {
-                    _me.hideDropdown();
-                }
-            });
-        },
-
-        initAutoComplete: function (option) {
-            $.extend(mainOption, option);
-            if (!mainOption.url || !mainOption.target) {
-                throw Error("Missing data in option");
-            }
-
-            _autoComplete = $(mainOption.target).materialize_autocomplete({ // jshint ignore:line
-                ignoreCase: false,
-                dropdown: {
-                    el: mainOption.suggestionDropdown
-                },
-                getData: Site.debounce(_me.search, DELAY_MILLISECOND),
-            });       
-        },
-
-        search: function (value, callback) {
-            var url = mainOption.url + "?query=" + value;
-
-            $.ajax({
-                type: "GET",
-                dataType: "json",
-                url: url,
-                success: function (response) {
-                    var suggestions = response.suggestions;
-
-                    if (suggestions && suggestions.length > 0) {
-                        var data = suggestions.map(function (item) {
-                            return { id: item, text: item };
-                        });
-
-                        _me.updateWidthOfSuggestionDropdown();
-                        callback(value, data);
-                    }
-                    else {
-                        _me.hideDropdown();
-                    }
-                }
-            });
-        },
-
-        updateWidthOfSuggestionDropdown: function () {
-            var $autoCompleteTarget = $(mainOption.target);
-            var $suggestionDropdown = $(mainOption.suggestionDropdown);
-            if ($suggestionDropdown.innerWidth() !== $autoCompleteTarget.innerWidth()) {
-                $suggestionDropdown.innerWidth($autoCompleteTarget.innerWidth());
-            }
-        },
-
-        hideDropdown: function () {
-            _autoComplete.$dropdown.html('').hide();
-        }
-    };
-
-    return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ }),
-
 /***/ 155:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(361), __webpack_require__(119), __webpack_require__(147), __webpack_require__(159),
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(361), __webpack_require__(119), __webpack_require__(148), __webpack_require__(159),
     __webpack_require__(122), __webpack_require__(123), __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerListState) {
     var _POPUP_LIST = ["#ViewOptionList", "#update-cust-status-popup", "#LevelListContainer", "#OddsGroupListContainer"];
     var _isAllowedCustomerCommission, _isAllowedUserEditComm;
@@ -5869,7 +5869,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     __webpack_require__(365),
     __webpack_require__(363),
     __webpack_require__(364),
-    __webpack_require__(147),
+    __webpack_require__(148),
     __webpack_require__(120),
     __webpack_require__(119)], __WEBPACK_AMD_DEFINE_RESULT__ = function (
         $,
@@ -6088,7 +6088,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(159), __webpack_require__(155), __webpack_require__(148), __webpack_require__(134)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService, AutoComplete) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(159), __webpack_require__(155), __webpack_require__(144), __webpack_require__(134)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService, AutoComplete) {
         var _state;
 
         var _me = {

@@ -12,10 +12,12 @@
         public void CloneSheet_WhenCall_ReturnNewSheet()
         {
             // Arrange
-            string sourceSheetName = "Source", newSheetName = "NewSheet";
+            const string SourceSheetName = "Source";
+            const string NewSheetName = "NewSheet";
+
             var workbook = Substitute.For<IWorkbook>();
             var sourceSheetIndex = 0;
-            workbook.GetSheetIndex(sourceSheetName).Returns(sourceSheetIndex);
+            workbook.GetSheetIndex(SourceSheetName).Returns(sourceSheetIndex);
 
             var newSheet = Substitute.For<ISheet>();
             var newSheetIndex = 1;
@@ -23,7 +25,7 @@
             workbook.GetSheetIndex(newSheet).Returns(newSheetIndex);
 
             // Action
-            var result = workbook.CloneSheet(sourceSheetName, newSheetName);
+            var result = workbook.CloneSheet(SourceSheetName, NewSheetName);
 
             // Assert
             Assert.That(result, Is.SameAs(newSheet));

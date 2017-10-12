@@ -56,7 +56,7 @@
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            _dataAccess.GetBetSetting(CustId, ProductTypes.GoldDeluxe).Returns(new ThirdPartyBetSetting()
+            _dataAccess.GetBetSetting(CustId, ProductTypes.GoldDeluxe).Returns(new ThirdPartyBetSetting
             {
                 IsLineEnabled = true,
                 IsEnabled = true
@@ -96,7 +96,7 @@
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            _dataAccess.GetBetSetting(CustId, ProductTypes.GoldDeluxe).Returns(new ThirdPartyBetSetting()
+            _dataAccess.GetBetSetting(CustId, ProductTypes.GoldDeluxe).Returns(new ThirdPartyBetSetting
             {
                 IsLineEnabled = false,
                 IsEnabled = true,
@@ -149,7 +149,7 @@
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            _dataAccess.GetBetSetting(CustId, ProductTypes.GoldDeluxe).Returns(new ThirdPartyBetSetting()
+            _dataAccess.GetBetSetting(CustId, ProductTypes.GoldDeluxe).Returns(new ThirdPartyBetSetting
             {
                 IsLineEnabled = true,
                 IsEnabled = true,
@@ -202,7 +202,7 @@
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            _dataAccess.GetBetSetting(CustId, ProductTypes.GoldDeluxe).Returns(new ThirdPartyBetSetting()
+            _dataAccess.GetBetSetting(CustId, ProductTypes.GoldDeluxe).Returns(new ThirdPartyBetSetting
             {
                 IsLineEnabled = true,
                 IsEnabled = true,
@@ -255,7 +255,7 @@
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            _dataAccess.GetBetSetting(CustId, ProductTypes.GoldDeluxe).Returns(new ThirdPartyBetSetting()
+            _dataAccess.GetBetSetting(CustId, ProductTypes.GoldDeluxe).Returns(new ThirdPartyBetSetting
             {
                 IsLineEnabled = true,
                 IsEnabled = true
@@ -278,7 +278,7 @@
         public void UpdateBetSetting_IsEnabledInSettingIsFale_ReturnCorrectErrorResult()
         {
             // Arrange
-            _dataAccess.GetBetSetting(CustId, ProductTypes.GoldDeluxe).Returns(new ThirdPartyBetSetting()
+            _dataAccess.GetBetSetting(CustId, ProductTypes.GoldDeluxe).Returns(new ThirdPartyBetSetting
             {
                 IsEnabled = false
             });
@@ -296,7 +296,7 @@
         public void UpdateBetSetting_HaveNoPermission_ReturnCorrectErrorResult()
         {
             // Arrange
-            _dataAccess.GetBetSetting(CustId, ProductTypes.GoldDeluxe).Returns(new ThirdPartyBetSetting()
+            _dataAccess.GetBetSetting(CustId, ProductTypes.GoldDeluxe).Returns(new ThirdPartyBetSetting
             {
                 IsEnabled = true
             });
@@ -316,7 +316,7 @@
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            _dataAccess.GetBetSetting(CustId, ProductTypes.GoldDeluxe).Returns(new ThirdPartyBetSetting()
+            _dataAccess.GetBetSetting(CustId, ProductTypes.GoldDeluxe).Returns(new ThirdPartyBetSetting
             {
                 IsLineEnabled = true,
                 IsEnabled = true
@@ -341,7 +341,7 @@
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            _dataAccess.GetBetSetting(CustId, ProductTypes.GoldDeluxe).Returns(new ThirdPartyBetSetting()
+            _dataAccess.GetBetSetting(CustId, ProductTypes.GoldDeluxe).Returns(new ThirdPartyBetSetting
             {
                 IsLineEnabled = true,
                 IsEnabled = true
@@ -391,7 +391,7 @@
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            _dataAccess.GetBetSetting(CustId, ProductTypes.GoldDeluxe).Returns(new ThirdPartyBetSetting()
+            _dataAccess.GetBetSetting(CustId, ProductTypes.GoldDeluxe).Returns(new ThirdPartyBetSetting
             {
                 IsLineEnabled = false
             });

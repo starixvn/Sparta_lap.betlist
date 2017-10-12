@@ -7,7 +7,6 @@
     using Extension.Utility.Interfaces;
     using Model.Core.DTO.Configuration;
     using NSubstitute;
-    using NSubstitute.ExceptionExtensions;
     using NUnit.Framework;
 
     [TestFixture]
@@ -73,7 +72,7 @@
             // Assert
             Assert.That(result, Is.EqualTo(ExpectedMessage));
         }
-        
+
         [Test]
         public void GetMoveBet_LanguageNotAvailable_ReturnContentWithDefaultLanguage()
         {

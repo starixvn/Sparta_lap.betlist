@@ -13,3 +13,19 @@
     top: 2px;
     margin-left: 3px;
 }
+
+select, input[type="text"]
+{
+    width: 100px;
+}
+
+#Username
+{
+    width: 122px;
+}
+
+.default-username
+{
+    color: #F19D49;
+    font-style: italic;
+}

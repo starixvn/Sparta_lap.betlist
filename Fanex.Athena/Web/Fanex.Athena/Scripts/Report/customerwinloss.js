@@ -14,6 +14,7 @@ var CustomerWinLoss = (function ($) {
     var _sortColumnName = "";
     var _sortOrder = "desc";
     var _isFirstLoad = false;
+    var _defaultUserName = "";
 
     var _pagingOption =
     {
@@ -47,7 +48,9 @@ var CustomerWinLoss = (function ($) {
         param.PageSize = _pagingOption.pagesize;
         param.sortColumn = _sortColumnName;
         param.SortDirection = _sortOrder;
-
+        if (param.Username === undefined || param.Username === _defaultUserName) {
+            param.Username = "";
+        }
         return param;
     }
 
@@ -104,7 +107,9 @@ var CustomerWinLoss = (function ($) {
             }
 
             jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
-            jqGridAdditional.setGroupFooters(CustomerWinLossOption.totalColspan);
+            jqGridAdditional.setGroupFooters(Site.isFakeLicensee() ? 
+                CustomerWinLossOption.totalColspanFakeLicensee :
+                CustomerWinLossOption.totalColspan);
             if (gridOption.shrinkToFit) {
                 jqGridAdditional.resetLayout(reportGrid);
             }
@@ -145,6 +150,8 @@ var CustomerWinLoss = (function ($) {
             CustomerWinLoss.initEvent();
             CustomerWinLoss.initSetting();
             CustomerWinLoss.initMonthPicker();
+            CustomerWinLoss.setDefaultUsername();
+            CustomerWinLoss.initAutoComplete();
             Site.addFilterCollapseExpand();
             Site.addUserGuide({
                 resourceName: "CustomerWL",
@@ -201,6 +208,7 @@ var CustomerWinLoss = (function ($) {
             $("#history-report-link").click(function () {
                 CustomerWinLoss.viewHistoryReport();
             });
+
             $("#current-report-link").click(function () {
                 CustomerWinLoss.viewCurrentReport();
             });
@@ -212,12 +220,27 @@ var CustomerWinLoss = (function ($) {
                 var externalId = target.attr("data-external-id");
                 CustomerWinLoss.viewWinlossBetList(custId, systemId, externalId);
             });
+
+            $("#Username").bind("focus focusout", function () {
+                CustomerWinLoss.setUsernameOnFocus();
+            });
         },
 
         initSetting: function () {
             CustomerWinLossOption.isAllowBA = Site.asBool($("#IsAllowedBA").val());
             CustomerWinLossOption.isAllowRB = Site.asBool($("#IsAllowedRB").val());
             CustomerWinLossOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
+        },
+
+        initAutoComplete: function () {
+            var txtUserName = $('#Username');
+            var serUrl = Site.resolveClientUrl("CustomerAPI/SearchCustomer");
+            if (txtUserName.length > 0) {
+                txtUserName.autocomplete({
+                    serviceUrl: serUrl,
+                    minChars: 2
+                });
+            }
         },
 
         viewHistoryReport: function () {
@@ -255,15 +278,19 @@ var CustomerWinLoss = (function ($) {
         },
 
         setReportTitle: function () {
-            var titlePattern = "{0}, {1} → {2}, {3}{4}";
+            var titlePattern = "{0}, {1} → {2}, {3}{4}{5}";
             var licenseeWLNote = getLicenseeWLNote();
+            var tempUserName = _submitData.Username.length > 0 ?
+             ", " + Site.getSingleResource("Username") + ": " + _submitData.Username : "";
+
             var title = $.format(titlePattern,
                 Site.getSingleResource("CustomerWinLoss"),
                 _submitData.FromDate,
                 _submitData.ToDate,
                 Site.getSingleResource("Viewin").replace("{0}",
                 _submitData.BaseCurrency === "" ? _submitData.CurrencyName : _submitData.BaseCurrency.toUpperCase()),
-                licenseeWLNote === "" ? "" : ", " + licenseeWLNote);
+                licenseeWLNote === "" ? "" : ", " + licenseeWLNote,
+                tempUserName);
 
             $("div.report-title").html(title).show();
         },
@@ -327,6 +354,28 @@ var CustomerWinLoss = (function ($) {
             reportGrid.jqGrid(gridOption);
 
             CustomerWinLossOption.setGroupHeaderColumns(reportGrid);
+        },
+
+        setDefaultUsername: function () {
+            _defaultUserName = Site.getSingleResource('All');
+
+            var username = $('#Username').val();
+            if (username === '' || username === _defaultUserName) {
+                $('#Username').val(_defaultUserName);
+                $('#Username').attr('class', 'default-username');
+            }
+            else {
+                $('#Username').attr('class', '');
+            }
+        },
+
+        setUsernameOnFocus: function () {
+            var username = $('#Username').val();
+            if (username === _defaultUserName) {
+                $('#Username').val('');
+            } else if (username === '') {
+                $('#Username').val(_defaultUserName);
+            }
         }
     };
 })(jQuery);

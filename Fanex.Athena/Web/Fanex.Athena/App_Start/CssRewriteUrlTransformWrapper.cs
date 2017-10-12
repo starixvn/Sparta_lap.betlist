@@ -38,6 +38,10 @@
             return new Regex("url\\(['\"]?(?<url>[^)]+?)['\"]?\\)").Replace(content, matchEvaluator);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3995:UriReturnValuesShouldNotBeStrings",
+            Justification = "Reviewed. Suppression is OK here.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3994:UriParametersShouldNotBeStrings",
+            Justification = "Reviewed. Suppression is OK here.")]
         private static string RebaseUrlToCdnDomain(string cdnDomain, string relativePath, string url)
         {
             if (string.IsNullOrWhiteSpace(url) || url[0] == '/')

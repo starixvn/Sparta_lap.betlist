@@ -22,16 +22,15 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
 
     public class AgCasinoBalanceDataAccess : BaseDataAccess, IAgCasinoBalanceDataAccess
     {
         public SortableList<AgCasinoBalance> GetSummaryWinloss(AgCasinoBalanceMetaModel metaModel, out IDictionary<string, AgCasinoBalance> summaryTotal)
         {
-            var uspName = "Lrf_Rpt_AGCasinoBalance";
+            const string UspName = "Lrf_Rpt_AGCasinoBalance";
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = GetObjectDb(UspName))
                 {
                     UpdateUspParams(db, metaModel, false);
 
@@ -43,7 +42,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (SqlException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, uspName, metaModel);
+                throw new DataAccessException(sqlException.Message, UspName, metaModel);
             }
         }
 
@@ -52,10 +51,10 @@ namespace Fanex.Athena.DataAccess.Report
             out IDictionary<string, AgCasinoBalance> summaryTotal,
             out int totalRows)
         {
-            var uspName = "LRF_Rpt_AGCasinoBalance_Mem";
+            const string UspName = "LRF_Rpt_AGCasinoBalance_Mem";
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = GetObjectDb(UspName))
                 {
                     db.AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
                     db.AddInParameter("pagesize", DbType.Int32, metaModel.IsExportExcel ? AgCasinoBalanceMetaModel.PageSizeExcel : metaModel.PageSize);
@@ -75,7 +74,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (SqlException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, uspName, metaModel);
+                throw new DataAccessException(sqlException.Message, UspName, metaModel);
             }
         }
 
@@ -83,10 +82,10 @@ namespace Fanex.Athena.DataAccess.Report
             AgCasinoBalanceMetaModel metaModel,
             out IDictionary<string, AgCasinoBalance> summaryTotal)
         {
-            var uspName = "LRF_Rpt_AGCasinoBalance_Ag";
+            const string UspName = "LRF_Rpt_AGCasinoBalance_Ag";
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = GetObjectDb(UspName))
                 {
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
@@ -97,7 +96,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (SqlException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, uspName, metaModel);
+                throw new DataAccessException(sqlException.Message, UspName, metaModel);
             }
         }
 

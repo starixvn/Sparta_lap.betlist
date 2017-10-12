@@ -27,7 +27,7 @@ namespace Fanex.Athena.Api.BetList
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            string uspKey = IsRacing(metaModel.BetType)
+            var uspKey = IsRacing(metaModel.BetType)
                 ? "Lrf_BetList_SelAllByDateHR"
                 : "Lrf_BetList_SelRunningByBettypeMatch";
             return GetBetListResult(metaModel, uspKey);

@@ -9,11 +9,11 @@
 
     public class FunctionStorage : IFunctionStorage
     {
-        private static object _lockFunctionList = new object();
+        private static readonly object LockFunctionList = new object();
 
-        private static object _lockMasterFunction = new object();
+        private static readonly object LockMasterFunction = new object();
 
-        private static object _lockSubFunction = new object();
+        private static readonly object LockSubFunction = new object();
 
         private static IEnumerable<Function> _functionList;
 
@@ -75,7 +75,7 @@
 
         private static void AssignFunctionList(IEnumerable<Function> functionList)
         {
-            lock (_lockFunctionList)
+            lock (LockFunctionList)
             {
                 if (_functionList == null)
                 {
@@ -86,7 +86,7 @@
 
         private static void AssignMasterFunctionList(IEnumerable<Function> functionList)
         {
-            lock (_lockMasterFunction)
+            lock (LockMasterFunction)
             {
                 if (_masterFunctions == null)
                 {
@@ -99,7 +99,7 @@
 
         private static void AssignSubFunctionList(IEnumerable<Function> masterFunctionList)
         {
-            lock (_lockSubFunction)
+            lock (LockSubFunction)
             {
                 if (_subFunctions == null)
                 {

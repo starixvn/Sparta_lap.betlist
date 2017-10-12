@@ -13,7 +13,7 @@
         <div class="grid_3 filter-label new-line">
             <label>@ViewResources.ViewDataInMonth</label>
         </div>
-        <div class="grid_8 filter-input month-picker">
+        <div class="grid_10 filter-input month-picker">
             <div id="DateControl">
             </div>
             <div id="MonthPickerFromDay">
@@ -21,9 +21,11 @@
             <div id="MonthPickerToDay">
             </div>
         </div>
-        <div class="new-line">
-        </div>
         @*Row 1*@
+        @if (Model.IsFakeLicensee)
+        {
+            <div class="new-line"></div>
+        }
         <div class="grid_3 filter-label">
             <label>@ViewResources.Currency</label>
         </div>
@@ -53,12 +55,23 @@
         </div>
         @*End Row 1*@
         @*Row 2*@
-
-        <div class="new-line">
-        </div>
-        @*End Row 2*@
-        @*Row 3*@
-        @RazorHelper.RenderProductFilter(Model.Param.ProductOptions, 3)
+        <div class="new-line"></div>
+        @if (!Model.IsFakeLicensee)
+        {
+            <div class="grid_3 filter-label">
+                <label>
+                    @ViewResources.Username
+                </label>
+            </div>
+            <div class="grid_4 filter-input" style="margin-right: 0px; width: 155px;">
+                @Html.TextBox("Username", Model.Param.Username, new { })
+            </div>
+            @RazorHelper.RenderProductFilter(Model.Param.ProductOptions, 2, false)
+        }
+        else
+        {
+            @RazorHelper.RenderProductFilter(Model.Param.ProductOptions, 3, false)
+        }
         <div class="grid_3 filter-label">
             <label for="IsExcludedTestData">
                 @ViewResources.ExcludeTestData
@@ -67,8 +80,8 @@
         <div class="grid_5 filter-input option-list">
             <input type="checkbox" value="true" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData" />
         </div>
-        <div class="new-line">
-        </div>
+        @*End Row 2*@
+        @*Row 3 - Back to current*@
         <div class="new-line">
         </div>
         <div class="grid_3 filter-label">
@@ -78,15 +91,13 @@
                 <a href="javascript:;" id="current-report-link">@ViewResources.BackToCurrentReport</a>
             </div>
         </div>
-
+        @*End Row 3*@
         <div class="grid_3 filter-label new-line">
             &nbsp;
         </div>
         <div class="grid_2 filter-input">
             <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
         </div>
-
-        @*End Row 4*@
     </form>
     @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
     @Html.Hidden("IsAllowedBA", Model.ProductAccess.IsAllowBA)

@@ -102,7 +102,7 @@
             IEnumerable<SubsidiaryPerformanceEntity> totalList;
             var expectedSummaryData = GetFakeSummaryData();
             var expectedGrandTotal = GetExpectedGrandTotal();
-            IEnumerable<SubsidiaryPerformanceEntity> expectedTotalDataList = GetFakeTotalDataList();
+            var expectedTotalDataList = GetFakeTotalDataList();
 
             _service.GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), out totalList).Returns(x =>
             {

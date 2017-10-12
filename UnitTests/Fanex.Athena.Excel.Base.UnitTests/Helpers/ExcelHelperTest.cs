@@ -20,7 +20,7 @@
             var dataRow = GetDataTable(columns).Rows[0];
             var excelRow = Substitute.For<IRow>();
             var cell = Substitute.For<ICell>();
-            excelRow.Cells.Returns(new List<ICell>() { cell, cell });
+            excelRow.Cells.Returns(new List<ICell> { cell, cell });
 
             // Action
             ExcelHelper.AssignRowContent(excelRow, dataRow, columns, 0);
@@ -51,13 +51,13 @@
             Assert.That(result, Is.EqualTo(expected));
         }
 
-        private DataTable GetDataTable(string[] columnName)
+        private static DataTable GetDataTable(string[] columnName)
         {
             var dataTable = new DataTable();
             dataTable.Columns.Add(columnName[0]);
             dataTable.Columns.Add(columnName[1]);
 
-            DataRow dr = dataTable.NewRow();
+            var dr = dataTable.NewRow();
             dr[columnName[0]] = "Data1";
             dr[columnName[1]] = "Data2";
             dataTable.Rows.Add(dr);
@@ -65,14 +65,14 @@
             return dataTable;
         }
 
-        private IList<ProductOption> GetProductOption()
+        private static IList<ProductOption> GetProductOption()
         {
-            return new List<ProductOption>()
+            return new List<ProductOption>
             {
-                new ProductOption() { Code = "SB", Name = "Sportbook", Status = true },
-                new ProductOption() { Code = "CS", Name = "RNGCasino", Status = true },
-                new ProductOption() { Code = "NG", Name = "Number Game", Status = false },
-                new ProductOption() { Code = "BA", Name = "BA", Status = true }
+                new ProductOption { Code = "SB", Name = "Sportbook", Status = true },
+                new ProductOption { Code = "CS", Name = "RNGCasino", Status = true },
+                new ProductOption { Code = "NG", Name = "Number Game", Status = false },
+                new ProductOption { Code = "BA", Name = "BA", Status = true }
             };
         }
     }

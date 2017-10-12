@@ -54,7 +54,7 @@ namespace Fanex.Athena.Model.Core.DTO.Users
                 var functionList = new List<string>();
                 if (!string.IsNullOrEmpty(Functions))
                 {
-                    string functions = Functions.Trim();
+                    var functions = Functions.Trim();
                     if (functions.Contains(','))
                     {
                         functionList = functions.Split(',').ToList();

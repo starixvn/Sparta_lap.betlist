@@ -14,7 +14,7 @@
     [TestFixture]
     public class OddEvenDrawNoDrawTotalBetControllerTest : BaseControllerHelperTest
     {
-        private IOddEvenDrawNoDrawDataAccess _oddEvenDrawNoDrawDataAccess;        
+        private IOddEvenDrawNoDrawDataAccess _oddEvenDrawNoDrawDataAccess;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()

@@ -76,7 +76,7 @@
         public void GetSystemParlayDetail_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new SystemParlayData()
+            var expectedResult = new SystemParlayData
             {
                 Outstanding = 999
             };

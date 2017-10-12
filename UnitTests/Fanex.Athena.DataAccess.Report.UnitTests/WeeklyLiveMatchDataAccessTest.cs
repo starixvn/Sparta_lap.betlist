@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.Report.UnitTests
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using Data;
@@ -81,7 +80,7 @@
                     SortDirection = "asc",
                     SortColumn = "Week0",
                     BaseCurrency = "USD"
-                }, 
+                },
                 out totalData);
 
             // Assert

@@ -13,7 +13,6 @@ namespace Fanex.Athena.Model.Core.DTO.Common
     /// Function class.
     /// </summary>
     [Serializable]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Justification = "Reviewed.")]
     public class Function
     {
         public int FunctionId { get; set; }
@@ -30,7 +29,7 @@ namespace Fanex.Athena.Model.Core.DTO.Common
 
         public int ParentId { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings",
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
             Justification = "Reviewed. Suppression is OK here.")]
         public string Url { get; set; }
 

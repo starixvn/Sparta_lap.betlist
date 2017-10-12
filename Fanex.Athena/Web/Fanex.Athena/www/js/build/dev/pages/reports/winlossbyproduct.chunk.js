@@ -22669,9 +22669,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ }),
 /* 137 */,
 /* 138 */,
-/* 139 */,
-/* 140 */,
-/* 141 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
@@ -23142,17 +23140,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 
 /***/ }),
+/* 140 */,
+/* 141 */,
 /* 142 */,
 /* 143 */,
-/* 144 */,
-/* 145 */,
-/* 146 */,
-/* 147 */,
-/* 148 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require option properties: suggestionDropdown, url, target
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(141)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(139)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
     "use strict";
 
     var mainOption = {
@@ -23241,6 +23237,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
+/* 145 */,
+/* 146 */,
+/* 147 */,
+/* 148 */,
 /* 149 */,
 /* 150 */,
 /* 151 */
@@ -23477,7 +23477,7 @@ module.exports = __webpack_require__(321);
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(119), __webpack_require__(323), __webpack_require__(0), __webpack_require__(120),
-    __webpack_require__(127), __webpack_require__(133), __webpack_require__(135), __webpack_require__(148),
+    __webpack_require__(127), __webpack_require__(133), __webpack_require__(135), __webpack_require__(144),
     __webpack_require__(136), __webpack_require__(151),
     __webpack_require__(121), __webpack_require__(122), __webpack_require__(123)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report,
         MultiSelect, AutoComplete, DateHelper, ExcelHelper) {
@@ -23774,7 +23774,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             bindTotal: function (level, totalData, summaryTotal) {
                 var columnModel = WinLossByProductOption.getTotalColModel(level);
-                var colspan = WinLossByProductOption.totalColspan[level];
+                var colspan = Site.isFakeLicensee() ?
+                    WinLossByProductOption.totalColspanFakeLicensee[level] :
+                    WinLossByProductOption.totalColspan[level];
                 var summaryColspan = colspan + 1;
                 jqGridAdditional.assignTotal(totalData, columnModel);
                 var summaryRowCount = Report.bindSummaryTotal(columnModel, _me.reverse(summaryTotal));
@@ -24094,7 +24096,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         currencyIndex: 4,
         systemIdIndex: 3,
         externalIdIndex: 2,
-        customerWlTotalIndex: 10,
+        customerWlIndex: 8,
         hasCustomerComm: true,
         IsAllowBA: true,
         IsAllowRB: true,
@@ -24102,6 +24104,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         nonePagingSize: 2000,
         rowNum: 50,
         totalColspan: [1, 2, 3],
+        totalColspanFakeLicensee: [1, 2, 2],
         //level 0,1,2
         urlData: 'api/WinLossByProductReport/Index',
         urlExcelData: 'api/WinLossByProductReport/Index',
@@ -24131,14 +24134,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     _me.getColName = function () {
         // Column Customer Wl
-        colNameList[_me.customerWlTotalIndex] = _me.hasCustomerComm ? 'Total' : 'CustomerW_L';
+        colNameList[_me.customerWlIndex] = _me.hasCustomerComm ? '@[Win]/@[Loss]' : 'CustomerW_L';
         return Site.getResources(colNameList);
     };
 
     _me.getColModel = function (level, reportBy) {
         level = Number(level);
         // Column hidden by customer comm
-        customerWlColumn.hidden = !_me.hasCustomerComm;
+        customerWlTotalColumn.hidden = !_me.hasCustomerComm;
         playerCommColumn.hidden = !_me.hasCustomerComm;
         LicenseeWlCommColumn.hidden = !_me.IsAllowBA && !_me.IsAllowRB;
         // Column hidden by level

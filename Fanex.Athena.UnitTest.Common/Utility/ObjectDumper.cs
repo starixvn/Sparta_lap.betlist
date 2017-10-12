@@ -16,7 +16,7 @@
             var result = new StringBuilder();
             foreach (PropertyInfo item in t.GetProperties())
             {
-                object value = t.GetProperty(item.Name).GetValue(obj, null);
+                var value = t.GetProperty(item.Name).GetValue(obj, null);
                 result.AppendFormat("{0}:{1}{2}", item.Name, value, separator);
             }
 

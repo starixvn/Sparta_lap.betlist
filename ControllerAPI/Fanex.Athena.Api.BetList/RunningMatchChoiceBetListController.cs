@@ -36,8 +36,7 @@ namespace Fanex.Athena.Api.BetList
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            string uspKey = "Lrf_BetList_Forecast_SelByMatch";
-            return GetBetListResult(metaModel, uspKey);
+            return GetBetListResult(metaModel, "Lrf_BetList_Forecast_SelByMatch");
         }
     }
 }

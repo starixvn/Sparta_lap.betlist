@@ -36,9 +36,9 @@
             var expectedSportXmlString = "<products><product ID=\"1\" Sport=\"2,3\"> </product></products>";
             var sports = new List<SportProductItem>
             {
-                new SportProductItem() { ParentId = -1, ID = 1 },
-                new SportProductItem() { ParentId = 1, ID = 2 },
-                new SportProductItem() { ParentId = 1, ID = 3 }
+                new SportProductItem { ParentId = -1, ID = 1 },
+                new SportProductItem { ParentId = 1, ID = 2 },
+                new SportProductItem { ParentId = 1, ID = 3 }
             };
 
             var licenseeId = 1;
@@ -57,8 +57,8 @@
             // Arrange
             var expectedResult = new List<CheckedItem>
             {
-                new CheckedItem() { ID = 1 },
-                new CheckedItem() { ID = 2 }
+                new CheckedItem { ID = 1 },
+                new CheckedItem { ID = 2 }
             };
             var sports = new List<SportProductItem>
             {

@@ -296,7 +296,9 @@
                 var productOptions = $.parseJSON(_submitData.ProductOptions);
                 productOptions = productOptions.reverse(); //make orders of product columns like excel file
                 var columnModel = LicenseeWinLossOption.getTotalColModel(level, productOptions);
-                var colspan = LicenseeWinLossOption.totalColspan[level];
+                var colspan = Site.isFakeLicensee() ?
+                     LicenseeWinLossOption.totalColspanFakeLicensee[level] :
+                     LicenseeWinLossOption.totalColspan[level];
                 var summaryColspan = colspan + 1;
 
                 jqGridAdditional.assignTotal(totalData, columnModel);

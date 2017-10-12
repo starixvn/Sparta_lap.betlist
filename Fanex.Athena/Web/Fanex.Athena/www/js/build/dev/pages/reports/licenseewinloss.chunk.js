@@ -25821,7 +25821,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 var productOptions = $.parseJSON(_submitData.ProductOptions);
                 productOptions = productOptions.reverse(); //make orders of product columns like excel file
                 var columnModel = LicenseeWinLossOption.getTotalColModel(level, productOptions);
-                var colspan = LicenseeWinLossOption.totalColspan[level];
+                var colspan = Site.isFakeLicensee() ?
+                     LicenseeWinLossOption.totalColspanFakeLicensee[level] :
+                     LicenseeWinLossOption.totalColspan[level];
                 var summaryColspan = colspan + 1;
 
                 jqGridAdditional.assignTotal(totalData, columnModel);
@@ -25992,12 +25994,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
             turnoverIndex: 5,
             licenseeWlIndex: 12,
             customerWlTotalIndex: 11,
+            customerWlIndex: 9,
             hasCustomerComm: true,
             pageSize: 50,
             nonePagingSize: 2000,
             rowNum: 50,
             rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
             totalColspan: [2, 2, 3],
+            totalColspanFakeLicensee: [2, 2, 2],
             //level 0,1,2
             urlData: 'api/LicenseeWinLossReport/Index',
             urlExcelData: 'api/LicenseeWinLossReport/Index',
@@ -26462,7 +26466,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
             var turnOverIndex = _me.turnoverIndex;
             var licenseeIndex = _me.licenseeWlIndex;
             var customerWLTotalIndex = _me.customerWlTotalIndex;
-            temp[_me.customerWlTotalIndex] = _me.hasCustomerComm ? 'Total' : 'CustomerW_L';
+            temp[_me.customerWlIndex] = _me.hasCustomerComm ? '@[Win]/@[Loss]' : 'CustomerW_L';
             $.each(productOptions, function (index, item) {
                 //insert turn over column
                 if (item.Status === true) {
@@ -26497,7 +26501,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
             reportBy = Number(reportBy);
 
             // Column hidden by customer comm
-            customerWlColumn.hidden = !_me.hasCustomerComm;
+            customerWlTotalColumn.hidden = !_me.hasCustomerComm;
             playerCommColumn.hidden = !_me.hasCustomerComm;
             level = Number(level);
             //set width of licenseeWL column

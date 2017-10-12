@@ -21,7 +21,6 @@ namespace Fanex.Athena.DataAccess.Report
     {
         public Balance GetReportData(BalanceMetaModel metaModel)
         {
-            var uspName = "Lrf_CustomerSelBalance";
             var uspParam = new
             {
                 metaModel.LicenseeId,
@@ -32,7 +31,7 @@ namespace Fanex.Athena.DataAccess.Report
                 AgentList = metaModel.AgentListXml
             };
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = GetObjectDb("Lrf_CustomerSelBalance"))
             {
                 using (var reader = db.ExecuteReader(uspParam))
                 {
@@ -114,8 +113,7 @@ namespace Fanex.Athena.DataAccess.Report
                     AmtDueToBetTrade = reader.ToDecimal(yesterdayAmtDueToBetTradeColumn),
                     AmtDueToRacing = reader.ToDecimal(yesterdayAmtDueToRacingColumn),
                     CustomerCommission = reader.ToDecimal(yesterdayCustomerCommColumn),
-                    BalanceDateString =
-                            string.Format("{0} ({1})", ViewResources.Yesterday, DateTime.Now.AddDays(-1).ToString("MM/dd/yyyy"))
+                    BalanceDateString = $"{ViewResources.Yesterday} ({DateTime.Now.AddDays(-1).ToString("MM/dd/yyyy")})"
                 };
 
                 reportBalanceList.Add(yesterdayBalance);
@@ -131,7 +129,7 @@ namespace Fanex.Athena.DataAccess.Report
                     AmtDueToBA = reader.ToDecimal(todayAmtDueToBaColumn),
                     AmtDueToRacing = reader.ToDecimal(todayAmtDueToRacingColumn),
                     CustomerCommission = reader.ToDecimal(todayCustomerCommColumn),
-                    BalanceDateString = string.Format("{0} ({1})", ViewResources.Today, DateTime.Now.ToString("MM/dd/yyyy"))
+                    BalanceDateString = $"{ViewResources.Today} ({DateTime.Now.ToString("MM/dd/yyyy")})"
                 };
 
                 reportBalanceList.Add(todayBalance);

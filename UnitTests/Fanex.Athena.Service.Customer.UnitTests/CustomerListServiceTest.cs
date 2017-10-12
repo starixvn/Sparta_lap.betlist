@@ -84,7 +84,7 @@
             // Arrange
             var expectedResult = new ReportResultModel<CustomerDTO>
             {
-                DataList = new List<CustomerDTO>()
+                DataList = new List<CustomerDTO>
                 {
                     new CustomerDTO()
                 },

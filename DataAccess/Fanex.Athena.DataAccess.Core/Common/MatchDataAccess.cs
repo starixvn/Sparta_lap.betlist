@@ -12,7 +12,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common.Extensions;
-    using Fanex.Data;
 
     /// <summary>
     ///     TODO: Update summary.
@@ -26,7 +25,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
         /// <returns>The result value.</returns>
         public IList<Match> GetForecastMatchListByLeague(int leagueId)
         {
-            var uspName = "Lrf_Forecast_MatchList";
+            const string UspName = "Lrf_Forecast_MatchList";
             IList<Match> result = new List<Match>();
 
             var uspParam = new
@@ -34,7 +33,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 LeagueId = leagueId
             };
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = GetObjectDb(UspName))
             {
                 using (var reader = db.ExecuteReader(uspParam))
                 {
@@ -67,10 +66,9 @@ namespace Fanex.Athena.DataAccess.Core.Common
         /// <returns>The result value.</returns>
         public IList<Match> GetAllRunningMatch(int sportId)
         {
-            var uspName = "Lrf_LeagueMatchSelRunning";
             var result = new List<Match>();
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = GetObjectDb("Lrf_LeagueMatchSelRunning"))
             {
                 db.AddInParameter("sporttype", System.Data.DbType.Int32, sportId);
                 using (var reader = db.ExecuteReader())
@@ -104,13 +102,12 @@ namespace Fanex.Athena.DataAccess.Core.Common
         /// <returns>List of match.</returns>
         public IList<Match> GetMatchesByLeague(int leagueId, DateTime fromDate, DateTime toDate)
         {
-            var uspName = "Lrf_SelMatchByLeague";
             var result = new List<Match>();
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = GetObjectDb("Lrf_SelMatchByLeague"))
             {
                 var uspParam = new
-                {                    
+                {
                     LeagueID = leagueId,
                     FromDate = fromDate,
                     ToDate = toDate
@@ -118,10 +115,10 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 using (var reader = db.ExecuteReader(uspParam))
                 {
                     while (reader.Read())
-                    {                        
+                    {
                         var match = new Match
                         {
-                            MatchId = Convert.ToInt32(reader["matchid"]),                            
+                            MatchId = Convert.ToInt32(reader["matchid"]),
                             HomeId = reader.ToInt("homeid"),
                             AwayId = reader.ToInt("awayid")
                         };

@@ -71,9 +71,9 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignData()
         {
-            int numOfDataRow = _winLossList.Count;
+            var numOfDataRow = _winLossList.Count;
 
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
             AssignTitle(sheet);
@@ -213,10 +213,10 @@ namespace Fanex.Athena.Excel.Report
 
         private static string GenerateProductReportTitle(string fromDate, string toDate, string title)
         {
-            StringBuilder reportTitle = new StringBuilder(string.Empty);
+            var reportTitle = new StringBuilder(string.Empty);
             reportTitle.Append(ViewResources.ProductCB).Append(" ");
             reportTitle.Append(ViewResources.WinLoss);
-            reportTitle.Append(string.Format(", {0} --> {1} - {2}", fromDate, toDate, title));
+            reportTitle.Append($", {fromDate} --> {toDate} - {title}");
             return reportTitle.ToString();
         }
 
@@ -238,7 +238,7 @@ namespace Fanex.Athena.Excel.Report
 
         private int AssignTotalData(ISheet sheet, int rowIndex)
         {
-            int beginTotalRow = rowIndex;
+            var beginTotalRow = rowIndex;
             var totalCurrencyList = GetTotalCurrency(_winLossList);
 
             foreach (ColossusBetWinLoss totalCurrency in totalCurrencyList)

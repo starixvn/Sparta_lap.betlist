@@ -27,13 +27,13 @@ namespace Fanex.Athena.Excel.BetList
         public static BetListExcelBuilder AddCustomerWL(this BetListExcelBuilder builder, ITicket ticket, bool showPlayerComm, IFont font)
         {
             var isRunning = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
-            string winloss = isRunning
+            var winloss = isRunning
                              ? "-"
                              : string.Format("{0:#,##0.00}\n", ticket.Winlost);
 
             if (showPlayerComm)
             {
-                string comm = isRunning ? "-" : string.Format("{0:#,##0.00}", ticket.PlayerComm);
+                var comm = isRunning ? "-" : string.Format("{0:#,##0.00}", ticket.PlayerComm);
                 winloss += comm;
             }
 
@@ -46,7 +46,7 @@ namespace Fanex.Athena.Excel.BetList
 
         public static BetListExcelBuilder AddBetEffective(this BetListExcelBuilder builder, LrfTicket ticket, IFont font)
         {
-            string betEffective = string.Format("{0:#,##0.00}\n", ticket.BetEffective);
+            var betEffective = string.Format("{0:#,##0.00}\n", ticket.BetEffective);
 
             var rtfBetEffective = new HSSFRichTextString(betEffective);
             rtfBetEffective.ApplyFont(font);
@@ -78,7 +78,7 @@ namespace Fanex.Athena.Excel.BetList
             this BetListExcelBuilder builder,
             decimal sumStake)
         {
-            ICellStyle footerStyle = CreateFooterCellStyle(builder);
+            var footerStyle = CreateFooterCellStyle(builder);
 
             var rtfTotal = new HSSFRichTextString(ViewResources.GrandTotal);
             for (int i = 0; i < 6; i++)
@@ -95,7 +95,7 @@ namespace Fanex.Athena.Excel.BetList
             builder.AddCell(emptyText, footerStyle);
             builder.AddCell(emptyText, footerStyle);
 
-            int lastRowIndex = builder.LastContentRow;
+            var lastRowIndex = builder.LastContentRow;
             builder.MergeCell(new CellRangeAddress(lastRowIndex, lastRowIndex, 0, 5), footerStyle);
 
             return builder;
@@ -119,7 +119,7 @@ namespace Fanex.Athena.Excel.BetList
             IFont redFont,
             IFont blackFont)
         {
-            ICellStyle footerStyle = CreateFooterCellStyle(builder);
+            var footerStyle = CreateFooterCellStyle(builder);
 
             var rtfTotal = new HSSFRichTextString(ViewResources.GrandTotal);
             for (int i = 0; i < 7; i++)
@@ -138,7 +138,7 @@ namespace Fanex.Athena.Excel.BetList
             // add the rest column
             builder.AddCell(new HSSFRichTextString(), footerStyle);
 
-            int lastRowIndex = builder.LastContentRow;
+            var lastRowIndex = builder.LastContentRow;
             builder.MergeCell(new CellRangeAddress(lastRowIndex, lastRowIndex, 0, 6), footerStyle);
 
             return builder;
@@ -204,7 +204,7 @@ namespace Fanex.Athena.Excel.BetList
             builder.SetColumnWidth(licenseeWlCell.ColumnIndex, 5400);
 
             // Status
-            CellAddress statusCell = builder.AddCell(new HSSFRichTextString(ViewResources.Status), headerStyle);
+            var statusCell = builder.AddCell(new HSSFRichTextString(ViewResources.Status), headerStyle);
             builder.SetColumnWidth(statusCell.ColumnIndex, 3400);
 
             return builder;
@@ -236,20 +236,20 @@ namespace Fanex.Athena.Excel.BetList
             IFont redFont,
             IFont blackFont)
         {
-            bool isRunning = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
-            bool isRacing = BetTypeHelper.IsRacing(ticket.BetTypeId);
+            var isRunning = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
+            var isRacing = BetTypeHelper.IsRacing(ticket.BetTypeId);
             var isBoughtTicket = BetListHelper.IsBoughtTicket(ticket.BetTypeId);
             var isColossusBetBettype = BetListHelper.IsColossusBet(ticket.BetTypeId);
             if (isBoughtTicket || (isRacing && is12Bet) || isColossusBetBettype)
             {
-                string licenseeWl = isRunning
+                var licenseeWl = isRunning
                                     ? "-"
                                     : string.Format(NumberFormat, ticket.LicenseeWL);
-                string comm = isRunning
+                var comm = isRunning
                               ? "-"
                               : string.Format(NumberFormat, ticket.Comm);
 
-                string licenseeWlText = string.Format("{0}\n{1}", licenseeWl, comm);
+                var licenseeWlText = string.Format("{0}\n{1}", licenseeWl, comm);
 
                 var rtfLicenseeWl = new HSSFRichTextString(licenseeWlText);
                 rtfLicenseeWl.ApplyFont(0, licenseeWl.Length, ticket.LicenseeWL >= 0 ? blackFont : redFont);
@@ -259,7 +259,7 @@ namespace Fanex.Athena.Excel.BetList
             }
             else
             {
-                string licenseeWl = isRunning
+                var licenseeWl = isRunning
                                     ? "-"
                                     : string.Format(NumberFormat, ticket.LicenseeWL + ticket.Comm);
                 var rtfLicenseeWl = new HSSFRichTextString(licenseeWl);
@@ -290,7 +290,7 @@ namespace Fanex.Athena.Excel.BetList
         /// <returns>Footer Style.</returns>
         private static ICellStyle CreateFooterCellStyle(BetListExcelBuilder builder)
         {
-            ICellStyle footerStyle = builder.CreateCellStyle();
+            var footerStyle = builder.CreateCellStyle();
             footerStyle.CloneStyleFrom(builder.EvenCellStyle);
             footerStyle.FillForegroundColor = 47;
             footerStyle.Alignment = HorizontalAlignment.Right;

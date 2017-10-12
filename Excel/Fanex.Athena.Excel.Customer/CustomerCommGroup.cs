@@ -60,7 +60,7 @@ namespace Fanex.Athena.Excel.Customer
 
         protected override void AssignData()
         {
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
 

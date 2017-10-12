@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.Report.UnitTests
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
     using Data;
     using Model.Report.MetaModel;
@@ -67,7 +66,7 @@
         {
             // Arrange
             _reader.Read().Returns(true, false);
-            var readerDataMapping = new 
+            var readerDataMapping = new
             {
                 Currency = 111,
                 LeagueId = 222

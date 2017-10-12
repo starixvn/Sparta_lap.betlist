@@ -5,7 +5,7 @@ namespace Fanex.Athena.Model.Report.MetaModel.Keno
 
     public class KenoResultMetaModel
     {
-        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings", Justification = "Reviewed. Suppression is OK here.")]
         public string ResultUrl { get; set; }
 
         public string SiteID { get; set; }
@@ -14,16 +14,16 @@ namespace Fanex.Athena.Model.Report.MetaModel.Keno
 
         public string VenderKey { get; set; }
 
-        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings", Justification = "Reviewed. Suppression is OK here.")]
         public string AuthorizedUrl { get; set; }
 
-        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings", Justification = "Reviewed. Suppression is OK here.")]
         public string ExpireTokenUrl { get; set; }
 
-        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings", Justification = "Reviewed. Suppression is OK here.")]
         public string ExtendTokenUrl { get; set; }
 
-        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings", Justification = "Reviewed. Suppression is OK here.")]
         public string KickOutUrl { get; set; }
 
         public string Language { get; set; }

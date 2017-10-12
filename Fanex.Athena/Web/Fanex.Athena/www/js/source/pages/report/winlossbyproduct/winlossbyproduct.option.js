@@ -188,7 +188,7 @@
         currencyIndex: 4,
         systemIdIndex: 3,
         externalIdIndex: 2,
-        customerWlTotalIndex: 10,
+        customerWlIndex: 8,
         hasCustomerComm: true,
         IsAllowBA: true,
         IsAllowRB: true,
@@ -196,6 +196,7 @@
         nonePagingSize: 2000,
         rowNum: 50,
         totalColspan: [1, 2, 3],
+        totalColspanFakeLicensee: [1, 2, 2],
         //level 0,1,2
         urlData: 'api/WinLossByProductReport/Index',
         urlExcelData: 'api/WinLossByProductReport/Index',
@@ -225,14 +226,14 @@
 
     _me.getColName = function () {
         // Column Customer Wl
-        colNameList[_me.customerWlTotalIndex] = _me.hasCustomerComm ? 'Total' : 'CustomerW_L';
+        colNameList[_me.customerWlIndex] = _me.hasCustomerComm ? '@[Win]/@[Loss]' : 'CustomerW_L';
         return Site.getResources(colNameList);
     };
 
     _me.getColModel = function (level, reportBy) {
         level = Number(level);
         // Column hidden by customer comm
-        customerWlColumn.hidden = !_me.hasCustomerComm;
+        customerWlTotalColumn.hidden = !_me.hasCustomerComm;
         playerCommColumn.hidden = !_me.hasCustomerComm;
         LicenseeWlCommColumn.hidden = !_me.IsAllowBA && !_me.IsAllowRB;
         // Column hidden by level

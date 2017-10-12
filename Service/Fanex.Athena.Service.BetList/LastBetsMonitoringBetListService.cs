@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Service.BetList
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Extension.Utility;
@@ -77,13 +76,17 @@ namespace Fanex.Athena.Service.BetList
             {
                 case OddsType.Decimal:
                 case OddsType.Hongkong:
-                    ticket.Odds++;
-                    break;
+                    {
+                        ticket.Odds++;
+                        break;
+                    }
 
                 case OddsType.Malay:
                 case OddsType.Indo:
-                    ticket.Odds = ticket.Odds < 0 ? 1 - (1 / ticket.Odds) : ticket.Odds + 1;
-                    break;
+                    {
+                        ticket.Odds = ticket.Odds < 0 ? 1 - (1 / ticket.Odds) : ticket.Odds + 1;
+                        break;
+                    }
 
                 case OddsType.American:
                     {
@@ -100,9 +103,14 @@ namespace Fanex.Athena.Service.BetList
                         {
                             ticket.Odds++;
                         }
+
+                        break;
                     }
 
-                    break;
+                default:
+                    {
+                        break;
+                    }
             }
         }
 
@@ -116,21 +124,30 @@ namespace Fanex.Athena.Service.BetList
             {
                 case OddsType.Decimal:
                 case OddsType.Hongkong:
-                    if (ticket.Odds > 1)
                     {
-                        ticket.Odds = -1 / ticket.Odds;
-                    }
+                        if (ticket.Odds > 1)
+                        {
+                            ticket.Odds = -1 / ticket.Odds;
+                        }
 
-                    break;
+                        break;
+                    }
 
                 case OddsType.Malay:
                 case OddsType.American: // AMERICAN To DEC
-                    if (ticket.Odds < -1 || ticket.Odds > 1)
                     {
-                        ticket.Odds = -1 / ticket.Odds;
+                        if (ticket.Odds < -1 || ticket.Odds > 1)
+                        {
+                            ticket.Odds = -1 / ticket.Odds;
+                        }
+
+                        break;
                     }
 
-                    break;
+                default:
+                    {
+                        break;
+                    }
             }
         }
 

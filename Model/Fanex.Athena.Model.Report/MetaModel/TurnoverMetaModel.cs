@@ -14,7 +14,7 @@ namespace Fanex.Athena.Model.Report.MetaModel
     public class TurnoverMetaModel : BaseReportMetaModel
     {
         public TurnoverMetaModel()
-        {               
+        {
             Year = DateTime.Today.Year;
             Month = DateTime.Today.Month;
             FromDay = 1;

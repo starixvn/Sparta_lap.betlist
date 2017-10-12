@@ -17,7 +17,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
 
     public class CasinoProgressiveWinsDataAccess : BaseDataAccess, ICasinoProgressiveWinsDataAccess
     {
@@ -37,10 +36,10 @@ namespace Fanex.Athena.DataAccess.Report
 
         public IEnumerable<CasinoProgressiveWins> GetDataList(CasinoProgressiveWinsMetaModel metaModel)
         {
-            var uspName = "Lrf_Rpt_CasinoProgressiveWins";
+            const string UspName = "Lrf_Rpt_CasinoProgressiveWins";
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = GetObjectDb(UspName))
                 {
                     AddParams(db, metaModel);
 
@@ -52,7 +51,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, uspName, metaModel);
+                throw new DataAccessException(sqlException.Message, UspName, metaModel);
             }
         }
 

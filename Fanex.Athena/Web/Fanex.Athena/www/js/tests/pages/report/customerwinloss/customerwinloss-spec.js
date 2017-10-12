@@ -11,8 +11,9 @@
     "components/pluginhelper/multiselect",
     "common/popup",
     "components/paging",
-    "helpers/excel"],
-    function ($, QueryString, Site, Report, CustomerWinLoss, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect, Popup, PagingHelper, ExcelHelper) {
+    "helpers/excel",
+    "components/pluginhelper/autocomplete"],
+    function ($, QueryString, Site, Report, CustomerWinLoss, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect, Popup, PagingHelper, ExcelHelper, AutoComplete) {
         describe("CustomerWinLoss", function () {
             beforeAll(function () {
                 spyOn(Site, "resolveClientUrl").and.callFake(function (url) {
@@ -29,33 +30,43 @@
                 spyOn(DatePicker, "initDateRangePicker");
                 spyOn(MultiSelect, "initProductList");
                 spyOn(MonthPicker, "initMonthPicker");
+                spyOn(AutoComplete, "initialize");
                 spyOn(Site, "blockUI");
                 spyOn(Site, "unBlockUI");
             });
 
             describe("initialize()", function () {
-                it("all initial methods should be called", function () {
+                beforeAll(function () {
                     spyOn(CustomerWinLoss, "initEvent");
                     spyOn(CustomerWinLoss, "initSetting");
+                });
 
+                it("all initial methods should be called", function () {
                     CustomerWinLoss.initialize();
 
                     expect(Site.initialize).toHaveBeenCalled();
                     expect(Site.addUserGuide).toHaveBeenCalled();
                     expect(MultiSelect.initProductList).toHaveBeenCalled();
                     expect(DatePicker.initDateRangePicker).toHaveBeenCalled();
+                    expect(AutoComplete.initialize).not.toHaveBeenCalled();
                     expect(CustomerWinLoss.initEvent).toHaveBeenCalled();
                     expect(CustomerWinLoss.initSetting).toHaveBeenCalled();
                 });
 
                 it("MonthPicker.initMonthPicker() should be called if report is for history", function () {
                     setFixtures('<input type="hidden" id="IsHistory" value="True" />');
-                    spyOn(CustomerWinLoss, "initEvent");
-                    spyOn(CustomerWinLoss, "initSetting");
 
                     CustomerWinLoss.initialize();
 
                     expect(MonthPicker.initMonthPicker).toHaveBeenCalled();
+                });
+
+                it("AutoComplete.initialize() should be called if report have username filter", function () {
+                    setFixtures('<input type="text" id="Username" />');
+
+                    CustomerWinLoss.initialize();
+
+                    expect(AutoComplete.initialize).toHaveBeenCalled();
                 });
             });
 
@@ -198,6 +209,7 @@
                                 + '<input type="hidden" name="FromDate" value="01/01/2011" />'
                                 + '<input type="hidden" name="ToDate" value="01/11/2011" />'
                                 + '<input type="hidden" id="BaseCurrency" name="BaseCurrency" value="eur" />'
+                                + '<input type="hidden" id="Username" name="Username" value="name" />'
                                 + '<div id="ProductList">'
                                 + '<div class="childCheckbox" data-product-code="Code1" data-original="true"></div>'
                                 + '<div class="childCheckbox" data-product-code="Code2" data-original="false"></div>'
@@ -219,7 +231,7 @@
                     appendSetFixtures('<div class="panel-heading hide">'
                         + '<div class="report-title"></div>'
                         + '</div>');
-                    var expectedTitle = "CustomerWinLoss, 01/01/2011 → 01/11/2011, Viewin EUR, LicenseeW_L(CODE1, CODE3)";
+                    var expectedTitle = "CustomerWinLoss, 01/01/2011 → 01/11/2011, Viewin EUR, LicenseeW_L(CODE1, CODE3), Username: name";
 
                     CustomerWinLoss.submit();
 
@@ -235,7 +247,22 @@
                     spyOn(Report, "ValidProducts").and.returnValues(true);
                     $("#BaseCurrency").val("");
                     $("#ProductList").remove();
-                    var expectedTitle = "CustomerWinLoss, 01/01/2011 → 01/11/2011, Viewin USD";
+                    var expectedTitle = "CustomerWinLoss, 01/01/2011 → 01/11/2011, Viewin USD, Username: name";
+
+                    CustomerWinLoss.initEvent();
+                    $('#SubmitButton').click();
+
+                    expect($(".report-title").html()).toEqual(expectedTitle);
+                });
+
+                it("title should be updated correctly after calling ajax successfully with no user name", function () {
+                    appendSetFixtures('<div id="SubmitButton"></div>');
+                    appendSetFixtures('<div class="panel-heading hide">'
+                        + '<div class="report-title"></div>'
+                        + '</div>');
+                    spyOn(Report, "ValidProducts").and.returnValues(true);
+                    $("#Username").remove();
+                    var expectedTitle = "CustomerWinLoss, 01/01/2011 → 01/11/2011, Viewin EUR, LicenseeW_L(CODE1, CODE3)";
 
                     CustomerWinLoss.initEvent();
                     $('#SubmitButton').click();

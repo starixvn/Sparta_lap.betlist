@@ -100,7 +100,7 @@ namespace Fanex.Athena.Excel.Report
         {
             int numOfDataRow = _excelModel.DataList.Count();
 
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
             AssignTitle(sheet);
@@ -121,7 +121,7 @@ namespace Fanex.Athena.Excel.Report
         protected override void AssignHeader(ISheet sheet)
         {
             // row 1
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
             row.Cells[ColumnExternalId].SetCellValue(ViewResources.ExternalId);
             row.Cells[ColumnSystemId].SetCellValue(ViewResources.SystemId);
@@ -146,7 +146,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmtDueToRacing].SetCellValue(ViewResources.AmtDueToRacing);
 
             // row 2
-            IRow row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
+            var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
             row2.Cells[ColumnCustomerWl].SetCellValue(ViewResources.WinLoss);
             row2.Cells[ColumnCustomerComm].SetCellValue(ViewResources.Comm);
             row2.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);

@@ -61,10 +61,11 @@ namespace Fanex.Athena.Service.BetSettings
 
             var betSetting = _betSettingDataAccess.GetBetSetting(custId);
 
-            var viewModel = new AgCasinoBetSettingViewModel();
-
-            viewModel.BetSetting = betSetting;
-            viewModel.Games = GetGroupBettings(custId, licenseeName, betSetting.CurrencyId);
+            var viewModel = new AgCasinoBetSettingViewModel
+            {
+                BetSetting = betSetting,
+                Games = GetGroupBettings(custId, licenseeName, betSetting.CurrencyId)
+            };
             if (!betSetting.CheckedGroups.Contains(betSetting.AgGroup))
             {
                 betSetting.CheckedGroups = betSetting.CheckedGroups.Concat(new[] { betSetting.AgGroup })

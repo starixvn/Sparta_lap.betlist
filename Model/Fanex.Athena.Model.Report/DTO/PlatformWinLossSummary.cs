@@ -25,7 +25,7 @@ namespace Fanex.Athena.Model.Report.DTO
         public int TotalTransactions { get; set; }
 
         public decimal LicenseeWL { get; set; }
-        
+
         public string ProductCode { get; set; }
 
         public decimal CustomerWinLoss { get; set; }

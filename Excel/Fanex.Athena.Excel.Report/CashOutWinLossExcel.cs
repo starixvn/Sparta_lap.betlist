@@ -81,9 +81,9 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignData()
         {
-            int numOfDataRow = _dataList.Count;
+            var numOfDataRow = _dataList.Count;
 
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
             AssignTitle(sheet);
@@ -104,7 +104,7 @@ namespace Fanex.Athena.Excel.Report
         protected override void AssignHeader(ISheet sheet)
         {
             // row 1
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
             row.Cells[ColumnExternalId].SetCellValue(ViewResources.ExternalId);
             row.Cells[ColumnSystemId].SetCellValue(ViewResources.SystemId);
@@ -119,7 +119,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnSettleAmountTicketPayout].SetCellValue(ViewResources.SettleAmount);
 
             // row 2
-            IRow row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
+            var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 
             row2.Cells[ColumnBuyBackAmountSportsbook].SetCellValue(ViewResources.ProductSB);
             row2.Cells[ColumnBuyBackAmountBA].SetCellValue(ViewResources.ProductBA);
@@ -287,13 +287,13 @@ namespace Fanex.Athena.Excel.Report
         /// <returns>The last row index after assign data.</returns>
         private int AssignTotalData(ISheet sheet, int rowIndex)
         {
-            int beginTotalRow = rowIndex;
+            var beginTotalRow = rowIndex;
             var totalCurrencyList = GetTotalCurrency(_dataList);
 
             foreach (var totalCurrency in totalCurrencyList)
             {
                 // Copy template
-                IRow row = sheet.CopyRow(TemplateSheet, RowTotalNoSolidBorder, rowIndex);
+                var row = sheet.CopyRow(TemplateSheet, RowTotalNoSolidBorder, rowIndex);
 
                 if (rowIndex == beginTotalRow)
                 {

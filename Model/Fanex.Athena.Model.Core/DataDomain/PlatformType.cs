@@ -7,13 +7,13 @@
         public const int All = 0;
 
         public const int Asia = 1;
-        
+
         public const int China = 2;
-        
+
         public const int Euro = 3;
-        
+
         public const int Wap = 4;
-        
+
         public const int SmartSite = 5;
 
         public const int Tablet = 6;

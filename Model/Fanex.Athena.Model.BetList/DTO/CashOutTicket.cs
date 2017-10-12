@@ -23,7 +23,7 @@
         public decimal Stake { get; set; }
 
         public decimal Price { get; set; }
-        
+
         public decimal WinLoss { get; set; }
     }
 }

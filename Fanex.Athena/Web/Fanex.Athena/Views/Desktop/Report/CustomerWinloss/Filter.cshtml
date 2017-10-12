@@ -10,7 +10,7 @@
     <form id="CustomerWinlossForm" action="post">
         @Html.AntiForgeryToken()
         <div class="row">
-            <div class="input-field input col l3 m5 s12 calendar date-range">
+            <div class="input-field input col l3 m4 s12 calendar date-range">
                 @DesktopRazorHelper.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, appSettings.MaxDate)
             </div>
             <div class="input-field col l2 m3 s12">
@@ -23,7 +23,19 @@
             </div>
         </div>
         <div class="row">
-            @DesktopRazorHelper.RenderProductFilter(Model.Param.ProductOptions, 3, 5)
+            @if (!Model.IsFakeLicensee)
+            {
+                <div class="input-field col l3 m4 s12">
+                    @Html.TextBox("Username", Model.Param.Username, new { placeholder = ViewResources.All, autocomplete = "off" })
+                    <label>@ViewResources.Username</label>
+                    <ul id="suggestionDropdown" class="dropdown-content ac-dropdown"></ul>
+                </div>
+                @DesktopRazorHelper.RenderProductFilter(Model.Param.ProductOptions, 2, 3)
+            }
+            else
+            {
+                @DesktopRazorHelper.RenderProductFilter(Model.Param.ProductOptions, 3, 4)
+            }
             <div class="input-field input col l2 m3 s12">
                 <input type="radio" value="true" class="with-gap" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData0" />
                 <label for="IsExcludedTestData0">
@@ -35,7 +47,7 @@
                 </label>
                 <label class="active">@ViewResources.ExcludeTestData</label>
             </div>
-            <div class="col l2 m3 s12 button-block">
+            <div class="col l2 m2 s12 button-block">
                 <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
             </div>
         </div>

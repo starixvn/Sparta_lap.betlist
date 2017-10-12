@@ -50,7 +50,7 @@ namespace Fanex.Athena.Excel.Report
         {
             int numOfDataRow = _dataList.Count();
 
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
             AssignTitle(sheet);
@@ -87,7 +87,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignHeader(ISheet sheet)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnSport].SetCellValue(ViewResources.Sport);
 
             var index = ColumnSport + 1;
@@ -127,9 +127,9 @@ namespace Fanex.Athena.Excel.Report
 
         private void AssignTotalRow(ISheet sheet, int rowIndex)
         {
-            int cellIndex = 2;
+            var cellIndex = 2;
 
-            IRow row = sheet.CopyRow(TemplateSheet, RowTotalIndex, rowIndex);
+            var row = sheet.CopyRow(TemplateSheet, RowTotalIndex, rowIndex);
 
             row.Cells[ColumnSport].SetCellValue(ViewResources.Total);
             sheet.MergeCells(rowIndex, 0, rowIndex, 1);

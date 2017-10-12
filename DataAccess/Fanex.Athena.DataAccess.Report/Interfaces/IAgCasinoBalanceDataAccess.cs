@@ -25,8 +25,8 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]
         SortableList<AgCasinoBalance> GetCustomerWinlossDetail(
-            AgCasinoBalanceMetaModel metaModel, 
-            out IDictionary<string, AgCasinoBalance> summaryTotal, 
+            AgCasinoBalanceMetaModel metaModel,
+            out IDictionary<string, AgCasinoBalance> summaryTotal,
             out int totalRows);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",

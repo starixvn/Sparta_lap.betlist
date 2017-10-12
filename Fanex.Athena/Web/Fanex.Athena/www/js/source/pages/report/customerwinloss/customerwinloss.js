@@ -11,10 +11,11 @@
     "common/popup",
     "components/paging",
     "helpers/excel",
+    "components/pluginhelper/autocomplete",
     "lib/jqgrid/jquery.jqGrid.en",
     "lib/jqgrid/jquery.jqGrid.min",
     "extensions/jquery.extension"],
-    function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect, Popup, PagingHelper, ExcelHelper) {
+    function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect, Popup, PagingHelper, ExcelHelper, AutoComplete) {
         "use strict";
 
         var _ajaxRequest = null;
@@ -37,6 +38,10 @@
             alwayshow: true
         };
 
+        var _url = {
+            SearchCustomer: "CustomerAPI/SearchCustomer"
+        };
+
         var _selector = {
             SubmitButton: "#SubmitButton",
             ExportToExcel: "#ExportToExcel",
@@ -50,7 +55,8 @@
             IsAllowedCustomerCommissionInput: "#IsAllowedCustomerCommission",
             HistoryLink: "#history-report-link",
             CurrentLink: "#current-report-link",
-            BetListLink: ".bet-list-link"
+            BetListLink: ".bet-list-link",
+            Username: "#Username"
         };
 
         function initialize() {
@@ -68,6 +74,7 @@
 
             _me.initEvent();
             _me.initSetting();
+            _me.initAutoComplete();
         }
 
         function initEvent() {
@@ -123,6 +130,17 @@
             CustomerWinLossOption.isAllowBA = Site.asBool($(_selector.IsAllowedBAInput).val());
             CustomerWinLossOption.isAllowRB = Site.asBool($(_selector.IsAllowedRBInput).val());
             CustomerWinLossOption.hasCustomerComm = Site.asBool($(_selector.IsAllowedCustomerCommissionInput).val());
+        }
+
+        function initAutoComplete() {
+            if ($(_selector.Username).length > 0) {
+                var option = {
+                    url: Site.resolveClientUrl(_url.SearchCustomer),
+                    target: _selector.Username
+                };
+
+                AutoComplete.initialize(option);
+            }
         }
 
         function submit() {
@@ -221,15 +239,20 @@
         }
 
         function setReportTitle() {
-            var titlePattern = "{0}, {1} → {2}, {3}{4}";
+            var titlePattern = "{0}, {1} → {2}, {3}{4}{5}";
             var licenseeWLNote = getLicenseeWLNote();
+            var tempUserName = _submitData.Username.length > 0
+                ? ", " + Site.getSingleResource("Username") + ": " + _submitData.Username
+                : "";
+
             var title = $.format(titlePattern,
                 Site.getSingleResource("CustomerWinLoss"),
                 _submitData.FromDate,
                 _submitData.ToDate,
                 Site.getSingleResource("Viewin").replace("{0}",
                 _submitData.BaseCurrency === "" ? _submitData.CurrencyName : _submitData.BaseCurrency.toUpperCase()),
-                licenseeWLNote === "" ? "" : ", " + licenseeWLNote);
+                licenseeWLNote === "" ? "" : ", " + licenseeWLNote,
+                tempUserName);
 
             $(_selector.Title).html(title);
             $(_selector.Header).removeClass("hide");
@@ -273,7 +296,9 @@
                 }
 
                 jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
-                jqGridAdditional.setGroupFooters(CustomerWinLossOption.totalColspan);
+                jqGridAdditional.setGroupFooters(Site.isFakeLicensee() ?
+                    CustomerWinLossOption.totalColspanFakeLicensee :
+                    CustomerWinLossOption.totalColspan);
                 resizeGrid();
                 _isFirstLoad = false;
             }
@@ -325,7 +350,9 @@
             param.PageSize = _pagingOption.pagesize;
             param.sortColumn = _sortColumnName;
             param.SortDirection = _sortOrder;
-
+            if (param.Username === undefined) {
+                param.Username = "";
+            }
             return param;
         }
 
@@ -339,6 +366,7 @@
             initialize: initialize,
             initEvent: initEvent,
             initSetting: initSetting,
+            initAutoComplete: initAutoComplete,
             submit: submit,
             viewHistoryReport: viewHistoryReport,
             viewCurrentReport: viewCurrentReport,

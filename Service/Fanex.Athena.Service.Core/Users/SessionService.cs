@@ -240,6 +240,8 @@ namespace Fanex.Athena.Service.Core.Users
             return result;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3995:UriReturnValuesShouldNotBeStrings",
+            Justification = "Reviewed. Suppression is OK here.")]
         private static string GetDefaultReportUrl(IEnumerable<int> functionIdList, IEnumerable<Function> functionList)
         {
             if (!functionIdList.Contains(ReportBalanceId))

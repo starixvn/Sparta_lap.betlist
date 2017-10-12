@@ -15,6 +15,8 @@
 
         public decimal TotalSoldWinLoss { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
+            Justification = "Reviewed. Suppression is OK here.")]
         public string IframeUrl { get; set; }
     }
 }

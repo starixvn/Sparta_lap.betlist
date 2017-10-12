@@ -46,7 +46,7 @@
 
             var viewModel = new BetSettingViewModel
             {
-                MainData = new List<BetSetting>()
+                MainData = new List<BetSetting>
                 {
                     new BetSetting()
                 },

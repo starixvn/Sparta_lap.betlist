@@ -25,7 +25,7 @@ namespace Fanex.Athena.Excel.Base.Extension
            int columnCount,
            string value)
         {
-            IRow row = sheet.CopyRow(sourceSheet, sourceRowIndex, destRowIndex);
+            var row = sheet.CopyRow(sourceSheet, sourceRowIndex, destRowIndex);
             sheet.MergeCells(destRowIndex, 0, destRowIndex, columnCount - 1);
             row.Cells[0].SetCellValue(value);
         }

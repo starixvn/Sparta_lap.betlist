@@ -27,7 +27,7 @@ namespace Fanex.Athena.Service.BetSettings
         }
 
         public NumberGameBetSettingService(
-            IAuthorizationService authorizationService, 
+            IAuthorizationService authorizationService,
             INumberGameBetSettingDataAccess betSettingDataAccess)
             : base(authorizationService)
         {

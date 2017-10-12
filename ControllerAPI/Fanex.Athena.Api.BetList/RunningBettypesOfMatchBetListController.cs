@@ -5,12 +5,8 @@
 // --------------------------------------------------------------------------
 namespace Fanex.Athena.Api.BetList
 {
-    #region Using
-
     using System.Web.Http;
     using Fanex.Athena.Model.BetList.MetaModel;
-
-    #endregion Using
 
     public class RunningBettypesOfMatchBetListController : ApiBetListBaseController
     {
@@ -26,8 +22,7 @@ namespace Fanex.Athena.Api.BetList
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            string uspKey = "Lrf_BetList_SelRunningByMultipleBettypeMatch";
-            return GetBetListResult(metaModel, uspKey);
+            return GetBetListResult(metaModel, "Lrf_BetList_SelRunningByMultipleBettypeMatch");
         }
     }
 }

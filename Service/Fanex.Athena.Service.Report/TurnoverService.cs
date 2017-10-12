@@ -32,23 +32,25 @@ namespace Fanex.Athena.Service.Report
 
         public TurnoverDTO SumTotalData(IList<TurnoverDTO> dataList)
         {
-            var resultTotal = new TurnoverDTO();
-            resultTotal.Deposit = dataList.Sum(p => p.Deposit);
-            resultTotal.Withdrawal = dataList.Sum(p => p.Withdrawal);
-            resultTotal.Bonus = dataList.Sum(p => p.Bonus);
-            resultTotal.Adjustment = dataList.Sum(p => p.Adjustment);
-            resultTotal.Turnover = dataList.Sum(p => p.Turnover);
-            resultTotal.DrawGame = dataList.Sum(p => p.DrawGame);
-            resultTotal.NetTurnover = dataList.Sum(p => p.NetTurnover);
-            resultTotal.PendingFunds = dataList.Sum(p => p.PendingFunds);
-            resultTotal.WinLoss = dataList.Sum(p => p.WinLoss);
-            resultTotal.PlayerComm = dataList.Sum(p => p.PlayerComm);
-            resultTotal.ClosingBalance = dataList.Sum(p => p.ClosingBalance);
-            resultTotal.AffiliateTransfer = dataList.Sum(p => p.AffiliateTransfer);
-            resultTotal.Transfer3rd = dataList.Sum(p => p.Transfer3rd);
-            resultTotal.TurnoverBA = dataList.Sum(p => p.TurnoverBA);
-            resultTotal.CommBA = dataList.Sum(p => p.CommBA);
-            resultTotal.AmountDueToBA = dataList.Sum(p => p.AmountDueToBA);
+            var resultTotal = new TurnoverDTO
+            {
+                Deposit = dataList.Sum(p => p.Deposit),
+                Withdrawal = dataList.Sum(p => p.Withdrawal),
+                Bonus = dataList.Sum(p => p.Bonus),
+                Adjustment = dataList.Sum(p => p.Adjustment),
+                Turnover = dataList.Sum(p => p.Turnover),
+                DrawGame = dataList.Sum(p => p.DrawGame),
+                NetTurnover = dataList.Sum(p => p.NetTurnover),
+                PendingFunds = dataList.Sum(p => p.PendingFunds),
+                WinLoss = dataList.Sum(p => p.WinLoss),
+                PlayerComm = dataList.Sum(p => p.PlayerComm),
+                ClosingBalance = dataList.Sum(p => p.ClosingBalance),
+                AffiliateTransfer = dataList.Sum(p => p.AffiliateTransfer),
+                Transfer3rd = dataList.Sum(p => p.Transfer3rd),
+                TurnoverBA = dataList.Sum(p => p.TurnoverBA),
+                CommBA = dataList.Sum(p => p.CommBA),
+                AmountDueToBA = dataList.Sum(p => p.AmountDueToBA)
+            };
             return resultTotal;
         }
     }

@@ -67,9 +67,9 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignData()
         {
-            int numOfDataRow = _excelModel.DataList.Count();
+            var numOfDataRow = _excelModel.DataList.Count();
 
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
             AssignTitle(sheet);
@@ -88,7 +88,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignHeader(ISheet sheet)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
             for (int i = 0; i < HeaderTextList.Count; i++)
             {
@@ -110,23 +110,23 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignSheetData(ISheet sheet)
         {
-            int indexReport = 1;
+            var indexReport = 1;
 
-            int currentRow = 3;
+            var currentRow = 3;
 
-            int rowCount = _excelModel.DataList.Count();
+            var rowCount = _excelModel.DataList.Count();
 
-            string date = DateTime.MinValue.ToShortDateString();
+            var date = DateTime.MinValue.ToShortDateString();
 
-            int endRowSpan = 2;
+            var endRowSpan = 2;
 
             for (int index = 0; index < rowCount; index++)
             {
-                WinLossByProduct winlossByProduct = _excelModel.DataList.ElementAt(index);
+                var winlossByProduct = _excelModel.DataList.ElementAt(index);
 
                 indexReport = SetDateWinLoss(sheet, winlossByProduct, indexReport, ref date, ref currentRow);
 
-                IRow rowContent = sheet.CopyRow(TemplateSheet, RowContentTemplate, currentRow);
+                var rowContent = sheet.CopyRow(TemplateSheet, RowContentTemplate, currentRow);
 
                 rowContent.Cells[ColumnIndex].SetCellValue(indexReport);
                 rowContent.Cells[ColumnExternalId].SetCellValue(winlossByProduct.ExternalId);
@@ -159,11 +159,11 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignTitle(ISheet sheet)
         {
-            string fromdate = _excelModel.MetaModel.Level == 0
+            var fromdate = _excelModel.MetaModel.Level == 0
                               ? _excelModel.MetaModel.FromDate.ToString(FormatDate)
                               : _excelModel.MetaModel.DrillDownFromDate.ToString(FormatDate);
 
-            string todate = _excelModel.MetaModel.Level == 0
+            var todate = _excelModel.MetaModel.Level == 0
                             ? _excelModel.MetaModel.ToDate.ToString(FormatDate)
                             : _excelModel.MetaModel.DrillDownToDate.ToString(FormatDate);
 
@@ -201,15 +201,14 @@ namespace Fanex.Athena.Excel.Report
                 sheet.HideColumn(ColumnComm);
             }
 
-            switch (_excelModel.MetaModel.Level)
+            if (_excelModel.MetaModel.Level == 0)
             {
-                case 0:
-                    sheet.HideColumn(ColumnExternalId, ColumnSystemId);
-                    break;
+                sheet.HideColumn(ColumnExternalId, ColumnSystemId);
+            }
 
-                case 1:
-                    sheet.HideColumn(ColumnExternalId);
-                    break;
+            if (_excelModel.MetaModel.Level == 1)
+            {
+                sheet.HideColumn(ColumnExternalId);
             }
         }
 
@@ -235,16 +234,16 @@ namespace Fanex.Athena.Excel.Report
             var currencyList = _excelModel.SummaryTotal.Keys.ToList();
             currencyList.Reverse();
 
-            int temp = 0;
+            var temp = 0;
 
             foreach (string currency in currencyList)
             {
-                int rowBegin = currentRow;
+                var rowBegin = currentRow;
                 var productSummaryList = _excelModel.SummaryTotal[currency];
 
                 foreach (WinLossByProduct productSummary in productSummaryList)
                 {
-                    IRow row = sheet.CopyRow(TemplateSheet, RowGrandTotal + temp, currentRow);
+                    var row = sheet.CopyRow(TemplateSheet, RowGrandTotal + temp, currentRow);
                     row.Cells[ColumnProduct].SetCellValue(productSummary.ProductName);
                     row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpperInvariant());
                     AssignCommonData(row, productSummary);
@@ -264,7 +263,7 @@ namespace Fanex.Athena.Excel.Report
         /// <returns>The row index after assign data.</returns>
         private int AssignTotalData(ISheet sheet, int currentRow)
         {
-            int rowBegin = currentRow;
+            var rowBegin = currentRow;
             var currencyList = _excelModel.TotalData.GroupBy(a => a.CurrencyName).ToList();
             var isFirstRowTotal = true;
 
@@ -274,7 +273,7 @@ namespace Fanex.Athena.Excel.Report
                 sheet.MergeCells(currentRow, ColumnCurrency, currentRow + data.Count - 1, ColumnCurrency);
                 foreach (var item in data)
                 {
-                    int cellIndex = ColumnCurrency;
+                    var cellIndex = ColumnCurrency;
                     IRow row;
                     if (isFirstRowTotal)
                     {
@@ -344,11 +343,11 @@ namespace Fanex.Athena.Excel.Report
         {
             if (_excelModel.MetaModel.Level == 0)
             {
-                DateTime dateGetDb = winlossByProduct.Date;
+                var dateGetDb = winlossByProduct.Date;
 
                 if (date != dateGetDb.ToShortDateString())
                 {
-                    string reportDateString = _excelModel.MetaModel.ReportBy == 1
+                    var reportDateString = _excelModel.MetaModel.ReportBy == 1
                                               ? dateGetDb.ToShortDateString()
                                               : dateGetDb.ToString("MM/yyyy");
                     sheet.SetTextRowValue(TemplateSheet, RowContentTitleTemplate, currentRow, ColumnTemplateCount, reportDateString);

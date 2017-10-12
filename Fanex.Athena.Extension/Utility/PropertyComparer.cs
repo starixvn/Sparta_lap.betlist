@@ -9,7 +9,6 @@ namespace Fanex.Athena.Extension.Utility
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Reflection;
 
     /// <summary>
     /// Compare 2 property properties for sorting.
@@ -60,18 +59,10 @@ namespace Fanex.Athena.Extension.Utility
             else
             {
                 var value = x as IComparable;
-                if (value != null)
-                {
-                    result = value.CompareTo(y);
-                }
-                else if (x.Equals(y))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    result = string.Compare(x.ToString(), y.ToString(), StringComparison.OrdinalIgnoreCase);
-                }
+
+                result = value != null
+                    ? value.CompareTo(y)
+                    : (x.Equals(y) ? 0 : string.Compare(x.ToString(), y.ToString(), StringComparison.OrdinalIgnoreCase));
             }
 
             return result;

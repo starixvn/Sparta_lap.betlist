@@ -51,6 +51,8 @@ namespace Fanex.Athena.Controllers.BetList
             return this.View("~/Views/BetList/ColossusBetDetail/Main.cshtml", viewModel);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3995:UriReturnValuesShouldNotBeStrings",
+            Justification = "Reviewed. Suppression is OK here.")]
         private string GetIframeUrl(long betCheck, int memberId)
         {
             var token = GetToken(memberId);
@@ -64,7 +66,7 @@ namespace Fanex.Athena.Controllers.BetList
         {
             var tokenApiUrl = AppSettings.GetValue("ColossusBetTokenAPI");
             tokenApiUrl = string.Format(tokenApiUrl, SessionService.UserSession.UserId, memberId);
-            string json = string.Empty;
+            var json = string.Empty;
             try
             {
                 json = _webClientService.DownloadString(tokenApiUrl);

@@ -57,7 +57,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignData()
         {
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
             AssignTitle(sheet);
@@ -76,7 +76,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignHeader(ISheet sheet)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
             row.Cells[ColumnDate].SetCellValue(ViewResources.Date);
             row.Cells[ColumnExternalId].SetCellValue(ViewResources.ExternalId);
@@ -96,7 +96,7 @@ namespace Fanex.Athena.Excel.Report
         {
             InitializeFonts();
 
-            int index = 0;
+            var index = 0;
 
             foreach (var item in _dataList)
             {
@@ -143,7 +143,7 @@ namespace Fanex.Athena.Excel.Report
             var betTypeName = CacheRef.GetBettype(data.BetType);
             var sportTypeName = CacheRef.GetSportName(data.SportType);
 
-            string choiceText = string.Format("{0}\n{1} {2}", gameName, sportTypeName, betTypeName);
+            var choiceText = string.Format("{0}\n{1} {2}", gameName, sportTypeName, betTypeName);
 
             var result = new HSSFRichTextString(choiceText);
             result.ApplyFont(0, gameName.Length, _boldBlackFont);
@@ -153,10 +153,10 @@ namespace Fanex.Athena.Excel.Report
 
         private void InitializeFonts()
         {
-            _boldBlackFont = this.Workbook.CreateFont();
+            _boldBlackFont = Workbook.CreateFont();
             _boldBlackFont.Boldweight = (short)FontBoldWeight.Bold;
 
-            _boldBlueFont = this.Workbook.CreateFont();
+            _boldBlueFont = Workbook.CreateFont();
             _boldBlueFont.Boldweight = (short)FontBoldWeight.Bold;
             _boldBlueFont.Color = HSSFColor.LightBlue.Index;
         }

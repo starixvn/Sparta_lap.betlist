@@ -213,7 +213,7 @@ namespace Fanex.Athena.Service.Core.Common
                 Message = ViewResources.UpdateFunctionSuccessfulMsg
             };
 
-            var failedIdList = string.Empty;
+            var failedIdList = new StringBuilder();
 
             foreach (var function in addingIdList)
             {
@@ -221,14 +221,15 @@ namespace Fanex.Athena.Service.Core.Common
 
                 if (!tempResult.IsSuccessful)
                 {
-                    failedIdList += function.ToString() + ",";
+                    failedIdList.Append(function.ToString());
+                    failedIdList.Append(",");
                     addedResultInfo = tempResult;
                 }
             }
 
             if (!addedResultInfo.IsSuccessful)
             {
-                addedResultInfo.Message += " [" + failedIdList.TrimEnd(',') + "];";
+                addedResultInfo.Message += " [" + failedIdList.ToString().TrimEnd(',') + "];";
             }
 
             return addedResultInfo;

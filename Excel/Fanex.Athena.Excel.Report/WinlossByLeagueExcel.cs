@@ -77,7 +77,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         protected override void AssignData()
         {
-            int numOfDataRow = _dataList.Count();
+            var numOfDataRow = _dataList.Count();
 
             ISheet sheet;
 
@@ -109,7 +109,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignHeader(ISheet sheet)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
             for (int i = 0; i < HeaderTextList.Count; i++)
             {
@@ -139,8 +139,8 @@ namespace Fanex.Athena.Excel.Report
                 sheet.HideRow(3);
             }
 
-            int rowCount = Math.Min(_dataList.Count(), checked((pageIndex + 1) * PageSize));
-            int currentRow = 4;
+            var rowCount = Math.Min(_dataList.Count(), checked((pageIndex + 1) * PageSize));
+            var currentRow = 4;
 
             var row = sheet.CopyRow(TemplateSheet, RowContentTitleTemplate, 3);
             row.Cells[0].SetCellValue(_metaModel.LeagueName);
@@ -223,10 +223,10 @@ namespace Fanex.Athena.Excel.Report
         /// <returns>The row index after assign data.</returns>
         protected int AssignTotalData(ISheet sheet, int currentRow)
         {
-            int rowTemplate = RowTotalSolidBorder;
+            var rowTemplate = RowTotalSolidBorder;
             sheet.MergeCells(currentRow, 0, currentRow, Level == 0 ? 1 : 3);
 
-            IRow row = sheet.CopyRow(TemplateSheet, rowTemplate, currentRow);
+            var row = sheet.CopyRow(TemplateSheet, rowTemplate, currentRow);
             AssignCommonData(row, _totalData);
             row.Cells[ColumnAmtDueTo].SetCellValue(_totalData.AmountDue);
             row.Cells[ColumnBaComm].SetCellValue(_totalData.BACommission);

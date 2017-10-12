@@ -58,7 +58,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         protected override void AssignData()
         {
-            int numOfDataRow = _racingCommissionList.Count;
+            var numOfDataRow = _racingCommissionList.Count;
 
             ISheet sheet;
 
@@ -90,7 +90,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignHeader(ISheet sheet)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
             row.Cells[ColumnExternalId].SetCellValue(ViewResources.ExternalId);
             row.Cells[ColumnSystemId].SetCellValue(ViewResources.SystemId);
@@ -118,13 +118,13 @@ namespace Fanex.Athena.Excel.Report
         /// <returns>Row index.</returns>
         protected override int AssignSheetData(ISheet sheet, int pageIndex)
         {
-            int rowCount = Math.Min(_racingCommissionList.Count, checked((pageIndex + 1) * PageSize));
-            int rowIndex = 0;
+            var rowCount = Math.Min(_racingCommissionList.Count, checked((pageIndex + 1) * PageSize));
+            var rowIndex = 0;
 
             for (int index = pageIndex * PageSize; index < rowCount; index++)
             {
-                IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
-                RacingCommission racingCommission = _racingCommissionList[index];
+                var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
+                var racingCommission = _racingCommissionList[index];
 
                 row.Cells[ColumnIndex].SetCellValue(index + 1);
                 row.Cells[ColumnExternalId].SetCellValue(racingCommission.ExternalID);
@@ -184,9 +184,9 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="rowIndex">Row index.</param>
         protected void AssignSumData(ISheet sheet, int rowIndex)
         {
-            int totalRow = rowIndex + RowContentTemplate;
+            var totalRow = rowIndex + RowContentTemplate;
 
-            IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, totalRow);
+            var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, totalRow);
             row.Cells[0].SetCellValue(ViewResources.Totalin + " " + _convertingOption.BaseCurrency.ToUpperInvariant());
             sheet.MergeCells(totalRow, ColumnIndex, totalRow, 1);
 

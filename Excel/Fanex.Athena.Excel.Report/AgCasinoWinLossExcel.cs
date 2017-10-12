@@ -69,9 +69,9 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         protected override void AssignData()
         {
-            int numOfDataRow = _winLossList.Count;
+            var numOfDataRow = _winLossList.Count;
 
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
             AssignTitle(sheet);
@@ -90,7 +90,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignHeader(ISheet sheet)
         {
-            IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
             row.Cells[ColumnExternalId].SetCellValue(ViewResources.ExternalId);
             row.Cells[ColumnSystemId].SetCellValue(ViewResources.SystemId);
@@ -244,12 +244,12 @@ namespace Fanex.Athena.Excel.Report
         /// <returns>The last row index after assign data.</returns>
         private int AssignTotalData(ISheet sheet, int rowIndex)
         {
-            int beginTotalRow = rowIndex;
+            var beginTotalRow = rowIndex;
             var totalCurrencyList = GetTotalCurrency(_winLossList);
 
             foreach (AgCasinoWinLoss totalCurrency in totalCurrencyList)
             {
-                IRow row = sheet.CopyRow(TemplateSheet, RowTotalNoSolidBorder, rowIndex);
+                var row = sheet.CopyRow(TemplateSheet, RowTotalNoSolidBorder, rowIndex);
 
                 if (rowIndex == beginTotalRow)
                 {

@@ -33,10 +33,7 @@ namespace Fanex.Athena.Excel.Base
         {
             get
             {
-                return string.Format(
-                            "Exception when export excel {0}. Exception Message: {1}",
-                            _excelFile,
-                            base.Message);
+                return $"Exception when export excel {_excelFile}. Exception Message: {base.Message}";
             }
         }
 

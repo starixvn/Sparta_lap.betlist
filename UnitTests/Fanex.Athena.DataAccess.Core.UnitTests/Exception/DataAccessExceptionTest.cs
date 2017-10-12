@@ -27,8 +27,8 @@ namespace Fanex.Athena.DataAccess.Core.UnitTests.Exception
             // Arrange
             const string ExpectedJson = "{\"Id\":1,\"Name\":\"A\"}";
             var exception = new DataAccessException(
-                string.Empty, 
-                string.Empty, 
+                string.Empty,
+                string.Empty,
                 new
                 {
                     Id = 1,

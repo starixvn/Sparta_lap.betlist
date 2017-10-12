@@ -560,17 +560,31 @@
                 });
 
                 describe("bindTotal(level, totalData, summaryTotal)", function () {
-                    it("Report.bindSummaryTotal should be called with correct params", function () {
+                    beforeEach(function () {
                         spyOn(WinLossByProductOption, "getTotalColModel").and.returnValue([]);
                         WinLossByProductOption.totalColspan = [0, 1, 2];
+                        WinLossByProductOption.totalColspanFakeLicensee = [1, 2, 3];
                         spyOn(WinLossByProduct, "reverse").and.returnValue([]);
                         spyOn(Report, "bindSummaryTotal").and.returnValue(2);
                         spyOn(jqGridAdditional, "setGroupFooters");
+                    });
+
+                    it("Report.bindSummaryTotal should be called with correct params when licensee is not fake", function () {
+                        spyOn(Site, "isFakeLicensee").and.returnValue(false);
 
                         WinLossByProduct.bindTotal(0, [], []);
 
                         expect(Report.bindSummaryTotal).toHaveBeenCalledWith([], []);
                         expect(jqGridAdditional.setGroupFooters).toHaveBeenCalledWith(0, 1, 2, true);
+                    });
+
+                    it("Report.bindSummaryTotal should be called with correct params when licensee is fake", function () {
+                        spyOn(Site, "isFakeLicensee").and.returnValue(true);
+
+                        WinLossByProduct.bindTotal(0, [], []);
+
+                        expect(Report.bindSummaryTotal).toHaveBeenCalledWith([], []);
+                        expect(jqGridAdditional.setGroupFooters).toHaveBeenCalledWith(1, 2, 2, true);
                     });
                 });
 

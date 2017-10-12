@@ -267,6 +267,10 @@
             param.PageIndex = _pagingOption.pageindex;
             param.PageSize = _pagingOption.pagesize;
 
+            if (!Site.isNumber(param.odds)) {
+                param.odds = 0;
+            }
+
             return param;
         }
 

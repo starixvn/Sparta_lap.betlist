@@ -10,10 +10,11 @@
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
     <form id="CustomerWinlossForm" action="post">
         @Html.AntiForgeryToken()
-        @DatePickerHelper.RenderDateRangePicker(modelParam.FromDate, modelParam.ToDate, minDate, appSettings.MaxDate, "", "", 2, 3, 2, 3)
-        <div class="new-line">
-        </div>
-        @*Row 1*@
+        @DatePickerHelper.RenderDateRangePicker(modelParam.FromDate, modelParam.ToDate, minDate, appSettings.MaxDate, "", "", 2, 4, 2, 7)
+        @if(Model.IsFakeLicensee)
+        {
+            <div class="new-line"></div>
+        }
         <div class="grid_2 filter-label">
             <label>@ViewResources.Currency</label>
         </div>
@@ -28,7 +29,7 @@
         <div class="grid_1 filter-input">
             @RazorHelper.BasedCurrency()
         </div>
-        <div class="grid_4 note-group">
+        <div class="grid_2 note-group">
             @if (!Model.IsFakeLicensee)
             {
             <div>
@@ -42,14 +43,19 @@
                        title="@ViewResources.ExportToExcel" class="hand" />
             </div>
         </div>
-        @*End Row 1*@
-        @*Row 2*@
-
-        @*End Row 2*@
-        @*Row 3*@
-        <div class="new-line">
-        </div>
-        @RazorHelper.RenderProductFilter(modelParam.ProductOptions, 2)
+        <div class="new-line"></div>
+        @if (!Model.IsFakeLicensee)
+        {
+            <div class="grid_2 filter-label">
+                <label>
+                    @ViewResources.Username
+                </label>
+            </div>
+            <div class="grid_4 filter-input" style="margin-right: 0px; width: 155px;">
+                @Html.TextBox("Username", Model.Param.Username, new { })
+            </div>
+        }    
+        @RazorHelper.RenderProductFilter(modelParam.ProductOptions, 2, false)
         <div class="grid_3 filter-label">
             <label for="IsExcludedTestData">
                 @ViewResources.ExcludeTestData
@@ -58,9 +64,6 @@
         <div class="grid_5 filter-input option-list">
             <input type="checkbox" value="true" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData" />
         </div>
-        @*End Row 3*@
-        @*Row 4 - Note*@
-
         <div class="grid_2 filter-label new-line">
         </div>
         <div class="grid_15 filter-input">
@@ -69,14 +72,12 @@
                 <a href="javascript:;" id="history-report-link" style="text-decoration: none;">@ViewResources.ToViewHistoryRptMsg</a>
             </div>
         </div>
-
         <div class="grid_2 filter-label new-line">
             &nbsp;
         </div>
         <div class="grid_2 filter-input">
             <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
-        </div>
-        @*End Row 4*@
+        </div>     
     </form>
     @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
     @Html.Hidden("IsAllowedBA", Model.ProductAccess.IsAllowBA)

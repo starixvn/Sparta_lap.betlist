@@ -33,12 +33,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
 
         public string ProductCodeList { get; set; } = string.Empty;
 
-        public IList<ProductOption> ProductOptions
-        {
-            get;
-            set;
-        }
-
         public bool IsExportExcel { get; set; }
 
         public int PageSize { get; set; }
@@ -48,6 +42,12 @@ namespace Fanex.Athena.Model.Report.MetaModel
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }
+
+        public IList<ProductOption> ProductOptions
+        {
+            get;
+            set;
+        }
 
         public new bool IsConvert
         {

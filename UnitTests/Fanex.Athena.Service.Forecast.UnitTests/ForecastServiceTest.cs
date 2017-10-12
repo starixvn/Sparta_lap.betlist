@@ -399,7 +399,7 @@
             dt.Columns.Add("hleur");
 
             var index = 0;
-            DataRow dataRow = dt.NewRow();
+            var dataRow = dt.NewRow();
             foreach (var item in fakeData)
             {
                 dataRow[index] = item.Value;
