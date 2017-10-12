@@ -25228,7 +25228,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             isAllowRB: true,
             customerCommIndex: 11,
             productBAIndex: 13,
-            customerWlTotalIndex: 7,
+            customerWlIndex: 5,
             totalColspan: 3,
             totalColspanFakeLicensee: 2,
             gridOption:
@@ -25275,13 +25275,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             getColName: function () {
                 var colNames = Site.clone(colNameList);
 
-                colNames[_me.customerWlTotalIndex] = _me.hasCustomerComm ? "Total" : "CustomerW_L";
+                colNames[_me.customerWlIndex] = _me.hasCustomerComm ? "@[Win]/@[Loss]" : "CustomerW_L";
 
                 return Site.getResources(colNames);
             },
 
             getColModel: function (totalRows) {
-                customerWlColumn.hidden = !_me.hasCustomerComm;
+                customerWlTotalColumn.hidden = !_me.hasCustomerComm;
                 playerCommColumn.hidden = !_me.hasCustomerComm;
                 bacommColumn.hidden = !_me.isAllowBA;
                 amtDueToBAColumn.hidden = !_me.isAllowBA;

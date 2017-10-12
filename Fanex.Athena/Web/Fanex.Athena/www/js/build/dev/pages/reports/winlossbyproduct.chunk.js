@@ -24096,7 +24096,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         currencyIndex: 4,
         systemIdIndex: 3,
         externalIdIndex: 2,
-        customerWlTotalIndex: 10,
+        customerWlIndex: 8,
         hasCustomerComm: true,
         IsAllowBA: true,
         IsAllowRB: true,
@@ -24134,14 +24134,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
     _me.getColName = function () {
         // Column Customer Wl
-        colNameList[_me.customerWlTotalIndex] = _me.hasCustomerComm ? 'Total' : 'CustomerW_L';
+        colNameList[_me.customerWlIndex] = _me.hasCustomerComm ? '@[Win]/@[Loss]' : 'CustomerW_L';
         return Site.getResources(colNameList);
     };
 
     _me.getColModel = function (level, reportBy) {
         level = Number(level);
         // Column hidden by customer comm
-        customerWlColumn.hidden = !_me.hasCustomerComm;
+        customerWlTotalColumn.hidden = !_me.hasCustomerComm;
         playerCommColumn.hidden = !_me.hasCustomerComm;
         LicenseeWlCommColumn.hidden = !_me.IsAllowBA && !_me.IsAllowRB;
         // Column hidden by level
