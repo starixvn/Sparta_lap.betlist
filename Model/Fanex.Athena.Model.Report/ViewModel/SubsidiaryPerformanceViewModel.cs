@@ -20,6 +20,8 @@
             ToDate = DateTime.Today;
         }
 
+        public static IEnumerable<string> BaseCurrencyList => SystemConstants.BaseCurrencyList;
+
         public IEnumerable<CheckedItem> SubsidiaryList
         {
             get
@@ -47,8 +49,6 @@
         public DateTime ToDate { get; set; }
 
         public IEnumerable<ProductOption> ProductOptionList { get; set; }
-
-        public static IEnumerable<string> BaseCurrencyList => SystemConstants.BaseCurrencyList;
 
         public bool ConvertAll { get; set; }
     }

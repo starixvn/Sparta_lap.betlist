@@ -132,6 +132,7 @@ namespace Fanex.Athena.Service.BetList
 
                         break;
                     }
+
                 case OddsType.Malay:
                 case OddsType.American: // AMERICAN To DEC
                     {
@@ -142,6 +143,7 @@ namespace Fanex.Athena.Service.BetList
 
                         break;
                     }
+
                 default:
                     {
                         break;
