@@ -5432,7 +5432,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 }
 
                 jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
-                jqGridAdditional.setGroupFooters(CustomerPedingFundsOption.totalColspan);
+                jqGridAdditional.setGroupFooters(Site.isFakeLicensee() ?
+                    CustomerPedingFundsOption.totalColspanFakeLicensee :
+                    CustomerPedingFundsOption.totalColspan);
                 resizeGrid();
                 _isFirstLoad = false;
             }
@@ -5561,6 +5563,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             urlData: "api/CustomerPendingFundsReport/Index",
             urlExcelData: "api/CustomerPendingFundsReport/Index",
             totalColspan: 3,
+            totalColspanFakeLicensee: 2,
             gridOption:
             {
                 datatype: "local",

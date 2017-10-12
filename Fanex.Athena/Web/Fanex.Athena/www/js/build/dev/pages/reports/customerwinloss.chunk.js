@@ -24915,7 +24915,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 }
 
                 jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
-                jqGridAdditional.setGroupFooters(CustomerWinLossOption.totalColspan);
+                jqGridAdditional.setGroupFooters(Site.isFakeLicensee() ?
+                    CustomerWinLossOption.totalColspanFakeLicensee :
+                    CustomerWinLossOption.totalColspan);
                 resizeGrid();
                 _isFirstLoad = false;
             }
@@ -25228,6 +25230,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             productBAIndex: 13,
             customerWlTotalIndex: 7,
             totalColspan: 3,
+            totalColspanFakeLicensee: 2,
             gridOption:
             {
                 datatype: "local",
