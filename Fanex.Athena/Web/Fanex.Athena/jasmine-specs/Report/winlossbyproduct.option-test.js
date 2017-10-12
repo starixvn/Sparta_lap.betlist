@@ -4,7 +4,7 @@
             expect(WinLossByProductOption.currencyIndex).toBe(4);
             expect(WinLossByProductOption.systemIdIndex).toBe(3);
             expect(WinLossByProductOption.externalIdIndex).toBe(2);
-            expect(WinLossByProductOption.customerWlTotalIndex).toBe(10);
+            expect(WinLossByProductOption.customerWlIndex).toBe(8);
 
             expect(WinLossByProductOption.pageSize).toBe(50);
             expect(WinLossByProductOption.nonePagingSize).toBe(2000);
@@ -21,16 +21,16 @@
             expect(WinLossByProductOption.getColName().length).toBe(16);
         });
 
-        it("index of customerWlTotalIndex should has value 'Total' when 'hasCustomerComm' equal true", function () {
+        it("index of customerWlIndex should has value 'Win/Loss' when 'hasCustomerComm' equal true", function () {
             WinLossByProductOption.hasCustomerComm = true;
             var colNameList = WinLossByProductOption.getColName();
-            expect(colNameList[WinLossByProductOption.customerWlTotalIndex]).toBe("Total");
+            expect(colNameList[WinLossByProductOption.customerWlIndex]).toBe("Win/Loss");
         });
 
-        it("index of customerWlTotalIndex should has value 'CustomerW_L' when 'hasCustomerComm' equal false", function () {
+        it("index of customerWlIndex should has value 'CustomerW_L' when 'hasCustomerComm' equal false", function () {
             WinLossByProductOption.hasCustomerComm = false;
             var colNameList = WinLossByProductOption.getColName();
-            expect(colNameList[WinLossByProductOption.customerWlTotalIndex]).toBe("CustomerW_L");
+            expect(colNameList[WinLossByProductOption.customerWlIndex]).toBe("CustomerW_L");
         });
     });
 
