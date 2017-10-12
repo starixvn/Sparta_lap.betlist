@@ -368,6 +368,7 @@ var LicenseeWinLossOption = (function () {
         turnoverIndex: 5,
         licenseeWlIndex: 12,
         customerWlTotalIndex: 11,
+        customerWlIndex: 9,
         hasCustomerComm: true,
         pageSize: 50,
         nonePagingSize: 2000,
@@ -500,7 +501,7 @@ var LicenseeWinLossOption = (function () {
         var turnOverIndex = me.turnoverIndex;
         var licenseeIndex = me.licenseeWlIndex;
         var customerWLTotalIndex = me.customerWlTotalIndex;
-        temp[me.customerWlTotalIndex] = me.hasCustomerComm ? 'Total' : 'CustomerW_L';
+        temp[me.customerWlIndex] = me.hasCustomerComm ? '@[Win]/@[Loss]' : 'CustomerW_L';
         $.each(productOptions, function (index, item) {
             //insert turn over column
             if (item.Status === true) {
@@ -535,7 +536,7 @@ var LicenseeWinLossOption = (function () {
         reportBy = Number(reportBy);
 
         // Column hidden by customer comm
-        customerWlColumn.hidden = !me.hasCustomerComm;
+        customerWlTotalColumn.hidden = !me.hasCustomerComm;
         playerCommColumn.hidden = !me.hasCustomerComm;
         level = Number(level);
         //set width of licenseeWL column

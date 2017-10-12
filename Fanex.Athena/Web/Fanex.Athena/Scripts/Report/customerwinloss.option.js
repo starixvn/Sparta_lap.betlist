@@ -220,7 +220,7 @@ var CustomerWinLossOption = (function () {
         isAllowRB: true,
         customerCommIndex: 11,
         productBAIndex: 13,
-        customerWlTotalIndex: 7,
+        customerWlIndex: 5,
         totalColspan: 3,
         totalColspanFakeLicensee: 2,
         gridOption:
@@ -271,14 +271,14 @@ var CustomerWinLossOption = (function () {
         getColName: function () {
             var colNames = Site.clone(colNameList);
 
-            colNames[me.customerWlTotalIndex] = me.hasCustomerComm ? "Total" : "CustomerW_L";
+            colNames[me.customerWlIndex] = me.hasCustomerComm ? "@[Win]/@[Loss]" : "CustomerW_L";
 
             return Site.getResources(colNames);
         },
 
         getColModel: function (totalRows) {
             systemIdColumn.hidden = Site.isFakeLicensee();
-            customerWlColumn.hidden = !me.hasCustomerComm;
+            customerWlTotalColumn.hidden = !me.hasCustomerComm;
             playerCommColumn.hidden = !me.hasCustomerComm;
             bacommColumn.hidden = !me.isAllowBA;
             amtDueToBAColumn.hidden = !me.isAllowBA;

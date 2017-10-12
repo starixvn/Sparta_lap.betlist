@@ -230,7 +230,7 @@ var WinLossByProductOption = (function () {
             currencyIndex: 4,
             systemIdIndex: 3,
             externalIdIndex: 2,
-            customerWlTotalIndex: 10,
+            customerWlIndex: 8,
             hasCustomerComm: true,
             IsAllowBA: true,
             IsAllowRB: true,
@@ -269,14 +269,14 @@ var WinLossByProductOption = (function () {
 
     me.getColName = function () {
         // Column Customer Wl
-        colNameList[me.customerWlTotalIndex] = me.hasCustomerComm ? 'Total' : 'CustomerW_L';
+        colNameList[me.customerWlIndex] = me.hasCustomerComm ? '@[Win]/@[Loss]' : 'CustomerW_L';
         return Site.getResources(colNameList);
     };
 
     me.getColModel = function (level, reportBy) {
         level = Number(level);
         // Column hidden by customer comm
-        customerWlColumn.hidden = !me.hasCustomerComm;
+        customerWlTotalColumn.hidden = !me.hasCustomerComm;
         playerCommColumn.hidden = !me.hasCustomerComm;
         LicenseeWlCommColumn.hidden = !me.IsAllowBA && !me.IsAllowRB;
         // Column hidden by level

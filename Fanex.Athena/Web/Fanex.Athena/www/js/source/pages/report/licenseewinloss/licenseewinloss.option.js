@@ -17,6 +17,7 @@ define(
             turnoverIndex: 5,
             licenseeWlIndex: 12,
             customerWlTotalIndex: 11,
+            customerWlIndex: 9,
             hasCustomerComm: true,
             pageSize: 50,
             nonePagingSize: 2000,
@@ -488,7 +489,7 @@ define(
             var turnOverIndex = _me.turnoverIndex;
             var licenseeIndex = _me.licenseeWlIndex;
             var customerWLTotalIndex = _me.customerWlTotalIndex;
-            temp[_me.customerWlTotalIndex] = _me.hasCustomerComm ? 'Total' : 'CustomerW_L';
+            temp[_me.customerWlIndex] = _me.hasCustomerComm ? '@[Win]/@[Loss]' : 'CustomerW_L';
             $.each(productOptions, function (index, item) {
                 //insert turn over column
                 if (item.Status === true) {
@@ -523,7 +524,7 @@ define(
             reportBy = Number(reportBy);
 
             // Column hidden by customer comm
-            customerWlColumn.hidden = !_me.hasCustomerComm;
+            customerWlTotalColumn.hidden = !_me.hasCustomerComm;
             playerCommColumn.hidden = !_me.hasCustomerComm;
             level = Number(level);
             //set width of licenseeWL column
