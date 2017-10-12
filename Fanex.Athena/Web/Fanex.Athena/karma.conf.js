@@ -86,9 +86,8 @@ module.exports = function (config) {
         'jasmine-specs/Customer/CustomerLog/loginlog-test.js',
 		 
 		  // --------- Customer --------- //
-		'Scripts/Customer/customers.js',
-		'Scripts/Customer/customers.option.js',
-		'jasmine-specs/Customer/customers-test.js',
+		'Scripts/Customer/CustomerList/*.js',
+		'jasmine-specs/Customer/CustomerList/*-test.js',
 		
 		 // --------- Extension --------- //
 		'Scripts/Extension/*.js',
@@ -353,7 +352,7 @@ module.exports = function (config) {
         logLevel: config.LOG_INFO,
         autoWatch: false,
         browsers: ['PhantomJS'],
-        reporters: ['kjhtml', 'dots', 'junit', 'coverage', 'progress'],
+        reporters: ['kjhtml', 'dots', 'junit', 'coverage'],
         singleRun: true,
         junitReporter: {
             outputFile: 'junit/test-results.xml'
