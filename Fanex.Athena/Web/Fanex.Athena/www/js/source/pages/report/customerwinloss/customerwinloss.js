@@ -296,7 +296,9 @@
                 }
 
                 jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
-                jqGridAdditional.setGroupFooters(CustomerWinLossOption.totalColspan);
+                jqGridAdditional.setGroupFooters(Site.isFakeLicensee() ?
+                    CustomerWinLossOption.totalColspanFakeLicensee :
+                    CustomerWinLossOption.totalColspan);
                 resizeGrid();
                 _isFirstLoad = false;
             }

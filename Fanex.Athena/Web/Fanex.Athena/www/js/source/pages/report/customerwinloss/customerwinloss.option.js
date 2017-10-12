@@ -226,6 +226,7 @@
             productBAIndex: 13,
             customerWlTotalIndex: 7,
             totalColspan: 3,
+            totalColspanFakeLicensee: 2,
             gridOption:
             {
                 datatype: "local",

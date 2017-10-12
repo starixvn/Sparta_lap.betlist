@@ -107,7 +107,9 @@ var CustomerWinLoss = (function ($) {
             }
 
             jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
-            jqGridAdditional.setGroupFooters(CustomerWinLossOption.totalColspan);
+            jqGridAdditional.setGroupFooters(Site.isFakeLicensee() ? 
+                CustomerWinLossOption.totalColspanFakeLicensee :
+                CustomerWinLossOption.totalColspan);
             if (gridOption.shrinkToFit) {
                 jqGridAdditional.resetLayout(reportGrid);
             }

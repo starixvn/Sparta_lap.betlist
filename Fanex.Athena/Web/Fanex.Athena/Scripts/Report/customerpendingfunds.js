@@ -87,7 +87,9 @@ var CustPendingFunds = (function ($) {
             }
 
             jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
-            jqGridAdditional.setGroupFooters(CustPendingFundsOption.totalColspan);
+            jqGridAdditional.setGroupFooters(Site.isFakeLicensee() ?
+                CustPendingFundsOption.totalColspanFakeLicensee :
+                CustPendingFundsOption.totalColspan);
             jqGridAdditional.resizeGrid();
             jqGridAdditional.resetLayout(reportGrid);
             _isFirstLoad = false;

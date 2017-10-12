@@ -101,6 +101,7 @@ var CustPendingFundsOption = (function () {
         urlData: "api/CustomerPendingFundsReport/Index",
         urlExcelData: "api/CustomerPendingFundsReport/Index",
         totalColspan: 3,
+        totalColspanFakeLicensee: 2,
         gridOption:
         {
             datatype: "local",
