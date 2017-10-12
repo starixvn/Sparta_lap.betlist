@@ -23,6 +23,7 @@ define(
             rowNum: 50,
             rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
             totalColspan: [2, 2, 3],
+            totalColspanFakeLicensee: [2, 2, 2],
             //level 0,1,2
             urlData: 'api/LicenseeWinLossReport/Index',
             urlExcelData: 'api/LicenseeWinLossReport/Index',

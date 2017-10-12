@@ -23774,7 +23774,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             bindTotal: function (level, totalData, summaryTotal) {
                 var columnModel = WinLossByProductOption.getTotalColModel(level);
-                var colspan = WinLossByProductOption.totalColspan[level];
+                var colspan = Site.isFakeLicensee() ?
+                    WinLossByProductOption.totalColspanFakeLicensee[level] :
+                    WinLossByProductOption.totalColspan[level];
                 var summaryColspan = colspan + 1;
                 jqGridAdditional.assignTotal(totalData, columnModel);
                 var summaryRowCount = Report.bindSummaryTotal(columnModel, _me.reverse(summaryTotal));
@@ -24102,6 +24104,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         nonePagingSize: 2000,
         rowNum: 50,
         totalColspan: [1, 2, 3],
+        totalColspanFakeLicensee: [1, 2, 2],
         //level 0,1,2
         urlData: 'api/WinLossByProductReport/Index',
         urlExcelData: 'api/WinLossByProductReport/Index',

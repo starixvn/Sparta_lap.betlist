@@ -25821,7 +25821,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 var productOptions = $.parseJSON(_submitData.ProductOptions);
                 productOptions = productOptions.reverse(); //make orders of product columns like excel file
                 var columnModel = LicenseeWinLossOption.getTotalColModel(level, productOptions);
-                var colspan = LicenseeWinLossOption.totalColspan[level];
+                var colspan = Site.isFakeLicensee() ?
+                     LicenseeWinLossOption.totalColspanFakeLicensee[level] :
+                     LicenseeWinLossOption.totalColspan[level];
                 var summaryColspan = colspan + 1;
 
                 jqGridAdditional.assignTotal(totalData, columnModel);
@@ -25998,6 +26000,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
             rowNum: 50,
             rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
             totalColspan: [2, 2, 3],
+            totalColspanFakeLicensee: [2, 2, 2],
             //level 0,1,2
             urlData: 'api/LicenseeWinLossReport/Index',
             urlExcelData: 'api/LicenseeWinLossReport/Index',

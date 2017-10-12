@@ -410,7 +410,9 @@ var WinLossByProduct = (function ($) {
 
     bindTotal: function (level, totalData, summaryTotal) {
         var columnModel = WinLossByProductOption.getTotalColModel(level);
-        var colspan = WinLossByProductOption.totalColspan[level];
+        var colspan = Site.isFakeLicensee() ?
+                    WinLossByProductOption.totalColspanFakeLicensee[level] :
+                    WinLossByProductOption.totalColspan[level];
         var summaryColspan = colspan + 1;
         jqGridAdditional.assignTotal(totalData, columnModel);
         var summaryRowCount = WinLossByProduct.bindSummaryTotal(columnModel, summaryTotal);

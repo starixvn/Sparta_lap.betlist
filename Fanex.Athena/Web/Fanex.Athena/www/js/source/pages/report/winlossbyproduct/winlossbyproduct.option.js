@@ -196,6 +196,7 @@
         nonePagingSize: 2000,
         rowNum: 50,
         totalColspan: [1, 2, 3],
+        totalColspanFakeLicensee: [1, 2, 2],
         //level 0,1,2
         urlData: 'api/WinLossByProductReport/Index',
         urlExcelData: 'api/WinLossByProductReport/Index',

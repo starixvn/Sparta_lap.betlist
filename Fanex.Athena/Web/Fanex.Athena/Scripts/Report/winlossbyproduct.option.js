@@ -239,6 +239,7 @@ var WinLossByProductOption = (function () {
             rowNum: 50,
             rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
             totalColspan: [1, 2, 3],
+            totalColspanFakeLicensee: [1, 2, 2],
             //level 0,1,2
             urlData: 'api/WinLossByProductReport/Index',
             urlExcelData: 'api/WinLossByProductReport/Index',
