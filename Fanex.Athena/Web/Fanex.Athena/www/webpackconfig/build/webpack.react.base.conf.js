@@ -18,9 +18,11 @@ function generateConfig(environment) {
                 "core-js/fn/object/assign", "core-js/fn/promise", "core-js/fn/array/find", "moment"
             ],
             excel: ["xlsx-style-sparta"],
-          
-            [`${jsPath}/subsidiaryperformance/subsidiaryperformance`]: pathConfig.scriptPaths.subsidiaryperformance,
+
             [`${jsPath}/lib/langHelper`]: pathConfig.scriptPaths.languageResource,
+
+            [`${jsPath}/subsidiaryperformance/subsidiaryperformance`]: pathConfig.scriptPaths.subsidiaryperformance,
+            [`${jsPath}/notification/notification`]: pathConfig.scriptPaths.notification,
             [`${jsPath}/report/licenseewlbytimezone`]: pathConfig.scriptPaths.licenseewlbytimezone,
             /*css*/
             [`${cssPath}/vendor`]: pathConfig.cssPaths.layout,

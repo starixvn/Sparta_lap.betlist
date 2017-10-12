@@ -21,7 +21,8 @@ var scriptPaths = {
     ],
     /*React page*/
     subsidiaryperformance: "./www/js/source/reactpages/pages/subsidiaryperformance/components/index.jsx",
-    licenseewlbytimezone: "./www/js/source/reactpages/pages/licenseewl-by-timezone/components/index.jsx"
+    licenseewlbytimezone: "./www/js/source/reactpages/pages/licenseewl-by-timezone/components/index.jsx",
+    notification: "./www/js/source/reactpages/pages/notification/components/index.jsx"
 };
 
 module.exports = {

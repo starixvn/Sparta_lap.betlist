@@ -1,13 +1,16 @@
 ﻿namespace Fanex.Athena.Controllers.Report
 {
     using System.Web.Mvc;
+    using Model.Report.ViewModel;
 
     public class NotificationReportController : ReportBaseController
     {
         [HttpGet]
         public ActionResult Index()
         {
-            return View("~/Views/Report/Notification/Notification.cshtml");
+            var model = new NotificationViewModel();
+
+            return View("~/Views/Report/Notification/Notification.cshtml", model);
         }
     }
 }

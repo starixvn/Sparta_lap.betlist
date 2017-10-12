@@ -1,54 +1,31 @@
 ﻿@{
-    Layout = "~/Views/Desktop/Shared/_Report.jqGridLayout.cshtml";
-    ViewBag.Title = "LRF - Notifications";
+    ViewBag.Title = "LRF - " + ViewResources.Report +
+    " - " + ViewResources.SubsidiaryPerformance;
+    Layout = "~/Views/Desktop/Shared/_ReactPageLayout.cshtml";
 }
+@model Fanex.Athena.Model.Report.ViewModel.SubsidiaryPerformanceViewModel
+@{
+    var appSettings = new AppSettings();
+    var minDate = appSettings.HistoryDate;
+    var maxDate = appSettings.MaxDate;
+}
+
 @section pagecss {
-    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/reports/notificationreport.css")" rel="stylesheet" />
+    <link href="@Url.ContentLinkByEnv("/www/css/build/reactpages/subsidiaryperformance/index.css")" rel="stylesheet" type="text/css" />
 }
 @section pagejs {
-    
+    <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/notification/notification.chunk.js")"></script>
 }
-@section Menu
-{
-    @{
-        Html.RenderPartial("~/Views/Desktop/Report/Notification/_Menu.cshtml");
+
+@section globaljscode{
+    window.Lrf = {
+        convertAll: false,
+        dateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
+        xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
+        isLoading: false,
+        dateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'}
     }
 }
-@section Filter
-{
-<div class="page-form">
-    @using (Html.BeginForm("LogInLog", "CustomerLog", FormMethod.Get, new { @id = "SearchForm" }))
-    {
-        @Html.AntiForgeryToken()
+<div id="app-container">
 
-        <div class="row">
-            <div class="input-field input col l3 m3 s12 calendar date-range">
-                @DesktopRazorHelper.DateRangePicker(DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now)
-            </div>
-
-            <div class="col l2 m2 s12 button-block">
-                <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
-            </div>
-
-            <div class="col right icon-block">
-                <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
-            </div>
-        </div>
-    }
 </div>
-}
-
-@section Content
-{
-    <div class="page-results">
-        <div class="main-content">
-            <div class="panel-body">
-                <div class="theme_jqGrid">
-                    <table id="ReportGrid" class="table"></table>
-                    <div id="ppdata">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-}
