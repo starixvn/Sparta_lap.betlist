@@ -40,7 +40,7 @@
             });
 
             describe("getColModel(totalRows)", function () {
-                var customerWlIndex = 5;
+                var customerWlTotalIndex = 7;
                 var playerCommIndex = 6;
                 var bacommIndex = 10;
                 var amtDueToBAIndex = 12;
@@ -55,7 +55,7 @@
 
                     var colModels = CustomerWinLossOption.getColModel(10);
 
-                    expect(colModels[customerWlIndex].hidden).toBe(true);
+                    expect(colModels[customerWlTotalIndex].hidden).toBe(true);
                     expect(colModels[playerCommIndex].hidden).toBe(true);
                 });
 
