@@ -35,7 +35,7 @@
             _licenseeDataAccess.GetLicenseeByName(Arg.Any<string>()).Returns(new Licensee { Id = 1, Name = "spondemo", IsAllowedCustomerComm = true });
             _sessionService.UserSession.Returns(x => null);
             _sessionService.LicenseeSession.Returns(x => null);
-            _userService.GetByUsername(Arg.Any<string>(), Arg.Any<int>()).Returns(new User { UserID = 1 });
+            _userService.GetByUsername(Arg.Any<string>(), Arg.Any<bool>(), Arg.Any<int>()).Returns(new User { UserID = 1 });
             _formAuthenticationService = Substitute.For<IFormsAuthenticationService>();
         }
 

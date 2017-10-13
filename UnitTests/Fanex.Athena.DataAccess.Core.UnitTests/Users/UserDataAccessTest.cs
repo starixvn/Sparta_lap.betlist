@@ -11,6 +11,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using TestHelpers;
+
     [TestFixture]
     public class UserDataAccessTest
     {
@@ -114,22 +115,28 @@
             Assert.That(result[0].IsInternal, Is.EqualTo(expected.IsInternal));
         }
 
-        [Test]
-        public void GetByUsername_WhenCall_QueryMethodIsCalled()
+        [TestCase(true, 1)]
+        [TestCase(false, 1)]
+        [TestCase(true, 0)]
+        [TestCase(false, 0)]
+        public void GetByUsername_WhenCall_QueryMethodIsCalled(bool isInternal, int licenseeId)
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserInfoSelByUserName")).Returns(_objectDb);
             var userName = "test";
 
             // Action
-            _dataAccess.GetByUsername(userName);
+            _dataAccess.GetByUsername(userName, isInternal, licenseeId);
 
             // Assert
             _objectDb.ReceivedWithAnyArgs().Query<User>(null).FirstOrDefault();
         }
 
-        [Test]
-        public void GetByUsername_WhenCall_DataReturnedCorrectly()
+        [TestCase(true, 1)]
+        [TestCase(false, 1)]
+        [TestCase(true, 0)]
+        [TestCase(false, 0)]
+        public void GetByUsername_WhenCall_DataReturnedCorrectly(bool isInternal, int licenseeId)
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserInfoSelByUserName")).Returns(_objectDb);
@@ -138,7 +145,7 @@
             _objectDb.Query<User>(Arg.Any<object>()).Returns(new List<User> { expected });
 
             // Action
-            var result = _dataAccess.GetByUsername(userName);
+            var result = _dataAccess.GetByUsername(userName, isInternal, licenseeId);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
@@ -183,67 +190,6 @@
             Assert.That(result.Status, Is.EqualTo(expected.Status));
             Assert.That(result.Licensee.Id, Is.EqualTo(expected.Licensee.Id));
             Assert.That(result.IsInternal, Is.EqualTo(expected.IsInternal));
-        }
-
-        [Test]
-        public void GetUserSalt_WhenCall_ExecuteScalarMethodIsCalled()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Licensee_UserSaltSel")).Returns(_objectDb);
-            var userName = "test";
-
-            // Action
-            _dataAccess.GetUserSalt(userName);
-
-            // Assert
-            _objectDb.ReceivedWithAnyArgs().ExecuteScalar(null);
-        }
-
-        [Test]
-        public void GetUserSalt_WhenCall_ValueReturnedCorrectly()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Licensee_UserSaltSel")).Returns(_objectDb);          
-            var userName = "test";
-            var expected = "ResultTest";
-            _objectDb.ExecuteScalar(Arg.Any<object>()).Returns(expected);
-
-            // Action
-            var result = _dataAccess.GetUserSalt(userName);
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        [Test]
-        public void IsUsernameExited_WhenCall_ParametersPassedCorrectly()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_IsUserExisted")).Returns(_objectDb);
-            var userName = "test";
-
-            // Action
-            _dataAccess.IsUsernameExisted(userName);
-
-            // Assert
-            _objectDb.Received().AddInParameter("Username", DbType.String, userName);
-            _objectDb.Received().AddOutParameter("IsUserExisted", DbType.Boolean, 1);
-        }
-
-        [TestCase(true)]
-        [TestCase(false)]
-        public void IsUsernameExited_WhenCall_ValueReturnCorrectly(bool expected)
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_IsUserExisted")).Returns(_objectDb);
-            var userName = "test";
-            _objectDb.GetParameterValue("IsUserExisted").Returns(expected);
-
-            // Action
-            var result = _dataAccess.IsUsernameExisted(userName);
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]

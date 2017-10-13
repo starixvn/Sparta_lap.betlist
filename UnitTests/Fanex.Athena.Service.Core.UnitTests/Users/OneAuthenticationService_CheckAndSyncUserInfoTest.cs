@@ -62,7 +62,7 @@
             };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
-            _userService.GetByUsername(tokenInfo.UserID, Arg.Any<int>()).Returns(x => null);
+            _userService.GetByUsername(tokenInfo.UserID, true, Arg.Any<int>()).Returns(x => null);
             _oneAuthenticationService = new OneAuthenticationService(
                 _sessionService,
                 _licenseeDataAccess,
@@ -97,7 +97,7 @@
             };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
-            _userService.GetByUsername(tokenInfo.UserID, Arg.Any<int>()).Returns(x => new User());
+            _userService.GetByUsername(tokenInfo.UserID, true, Arg.Any<int>()).Returns(x => new User());
 
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(
                 _sessionService, _licenseeDataAccess, _currencyDataAccess, _formAuthenticationService, _userService, null);

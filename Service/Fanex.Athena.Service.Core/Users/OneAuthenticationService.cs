@@ -191,7 +191,7 @@
 
         private IResultInfo GetUser(int licenseeId, string userName)
         {
-            var user = _userService.GetByUsername(userName, licenseeId);
+            var user = _userService.GetByUsername(userName, true, licenseeId);
             if (user != null)
             {
                 return new ResultInfo

@@ -104,12 +104,13 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
         }
 
-        public User GetByUsername(string userName, int licenseeId = 0)
+        public User GetByUsername(string userName, bool isInternal, int licenseeId = 0)
         {
             var param = new
             {
                 Username = userName,
-                LicenseeId = licenseeId
+                LicenseeId = licenseeId,
+                isInternal
             };
             using (var objectDb = this.GetObjectDb("Lrf_UserInfoSelByUserName"))
             {
@@ -148,57 +149,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
                         return user;
                     }
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException.Message, UspName);
-            }
-        }
-
-        /// <summary>
-        ///     The get user salt.
-        /// </summary>
-        /// <param name="userName"> The user name. </param>
-        /// <returns> Object result. </returns>
-        public object GetUserSalt(string userName)
-        {
-            const string UspName = "Licensee_UserSaltSel";
-            var uspParams = new { UserName = userName };
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    var salt = db.ExecuteScalar(uspParams);
-                    return salt;
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException.Message, UspName, uspParams);
-            }
-        }
-
-        /// <summary>
-        ///     The is username exited.
-        /// </summary>
-        /// <param name="userName"> The user name. </param>
-        /// <returns> Boolean result. </returns>
-        public bool IsUsernameExisted(string userName)
-        {
-            const string UspName = "Lrf_IsUserExisted";
-            try
-            {
-                bool isUserExisted;
-
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("Username", DbType.String, userName);
-                    db.AddOutParameter("IsUserExisted", DbType.Boolean, 1);
-                    db.ExecuteNonQuery();
-                    isUserExisted = Convert.ToBoolean(db.GetParameterValue("IsUserExisted"));
-                }
-
-                return isUserExisted;
             }
             catch (ObjectDbException sqlException)
             {

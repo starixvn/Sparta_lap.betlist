@@ -31,24 +31,6 @@
         }
 
         [Test]
-        public void ChangePassword_WhenCall_CallRelevantMethodsOfDataAccess()
-        {
-            // Arrange
-            var userName = "user";
-            var oldPassword = "oldpwd";
-            var newPassword = "newpwd";
-            var oldSalt = "anything";
-            var oldEncryptedPassword = Cryptography.CreateHash(oldPassword, oldSalt);
-            _userDataAccess.GetUserSalt(userName).Returns(oldSalt);
-
-            // Action
-            var result = _userService.ChangePassword(userName, oldPassword, newPassword, Arg.Any<string>());
-
-            // Assert
-            _userDataAccess.Received().ChangePassword(Arg.Any<User>(), oldEncryptedPassword, Arg.Any<string>(), Arg.Any<string>());
-        }
-
-        [Test]
         public void GetByLicensee_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
@@ -67,16 +49,19 @@
             Assert.That(result[0].UserID, Is.EqualTo(expectedResult[0].UserID));
         }
 
-        [Test]
-        public void GetByUsername_WhenCall_ReturnDataFromDataAccess()
+        [TestCase(0, true)]
+        [TestCase(0, false)]
+        [TestCase(1, true)]
+        [TestCase(1, false)]
+        public void GetByUsername_WhenCall_ReturnDataFromDataAccess(int licenseeId, bool isInternal)
         {
             // Arrange
             var expectedResult = new User { UserID = 1 };
             var userName = "demo";
-            _userDataAccess.GetByUsername(userName).Returns(expectedResult);
+            _userDataAccess.GetByUsername(userName, isInternal, licenseeId).Returns(expectedResult);
 
             // Action
-            var result = _userService.GetByUsername(userName);
+            var result = _userService.GetByUsername(userName, isInternal, licenseeId);
 
             // Assert
             Assert.That(result.UserID, Is.EqualTo(expectedResult.UserID));
@@ -212,7 +197,7 @@
             };
 
             IResultInfo resultInfo = null;
-            _userDataAccess.GetByUsername("user1").Returns(outputUser);
+            _userDataAccess.GetByUsername("user1", Arg.Any<bool>(), Arg.Any<int>()).Returns(outputUser);
             _userDataAccess.ValidateUserForLrfSystem(Arg.Any<User>(), out resultInfo).Returns(outputUser);
 
             // Action
@@ -241,7 +226,7 @@
             };
 
             IResultInfo resultInfo = null;
-            _userDataAccess.GetByUsername("user1").Returns(outputUser);
+            _userDataAccess.GetByUsername("user1", Arg.Any<bool>(), Arg.Any<int>()).Returns(outputUser);
 
             var expectedResult = new ResultInfo { Code = 104, Message = "Wrong username or password." };
 
@@ -270,7 +255,7 @@
             };
 
             IResultInfo resultInfo = null;
-            _userDataAccess.GetByUsername("user1").Returns(outputUser);
+            _userDataAccess.GetByUsername("user1", Arg.Any<bool>(), Arg.Any<int>()).Returns(outputUser);
             var expectedResult = new ResultInfo { Code = 100, Message = "Not found user" };
 
             // Action
