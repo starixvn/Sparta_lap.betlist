@@ -4606,6 +4606,24 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Match Delay-Done.
+        /// </summary>
+        public static string MatchDelayDone {
+            get {
+                return ResourceManager.GetString("MatchDelayDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Match Delay-New.
+        /// </summary>
+        public static string MatchDelayNew {
+            get {
+                return ResourceManager.GetString("MatchDelayNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Match Win Loss.
         /// </summary>
         public static string MatchWinLoss {
@@ -5857,6 +5875,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Personal.
+        /// </summary>
+        public static string Personal {
+            get {
+                return ResourceManager.GetString("Personal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pick.
         /// </summary>
         public static string Pick {
@@ -6222,6 +6249,15 @@ namespace Fanex.Athena.Resources {
         public static string PShare {
             get {
                 return ResourceManager.GetString("PShare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Public.
+        /// </summary>
+        public static string Public {
+            get {
+                return ResourceManager.GetString("Public", resourceCulture);
             }
         }
         
@@ -7014,6 +7050,15 @@ namespace Fanex.Athena.Resources {
         public static string Sorting {
             get {
                 return ResourceManager.GetString("Sorting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Special.
+        /// </summary>
+        public static string Special {
+            get {
+                return ResourceManager.GetString("Special", resourceCulture);
             }
         }
         

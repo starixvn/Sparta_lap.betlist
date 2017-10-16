@@ -1,17 +1,19 @@
 ﻿@{
     ViewBag.Title = "LRF - " + ViewResources.Report +
-    " - " + ViewResources.SubsidiaryPerformance;
+    " - " + ViewResources.LrfNotification;
     Layout = "~/Views/Desktop/Shared/_ReactPageLayout.cshtml";
 }
-@model Fanex.Athena.Model.Report.ViewModel.SubsidiaryPerformanceViewModel
+@model Fanex.Athena.Model.Report.ViewModel.NotificationViewModel
 @{
     var appSettings = new AppSettings();
     var minDate = appSettings.HistoryDate;
     var maxDate = appSettings.MaxDate;
+    var notificationTypes = Model.NotificationTypes.Select(x => new { value = x.Value, label = x.Text }).ToList();
+    var selectedNotificationType = Model.NotificationTypes.FirstOrDefault(x => x.Selected);
 }
 
 @section pagecss {
-    <link href="@Url.ContentLinkByEnv("/www/css/build/reactpages/subsidiaryperformance/index.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLinkByEnv("/www/css/build/reactpages/notification/index.css")" rel="stylesheet" type="text/css" />
 }
 @section pagejs {
     <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/notification/notification.chunk.js")"></script>
@@ -19,11 +21,12 @@
 
 @section globaljscode{
     window.Lrf = {
-        convertAll: false,
         dateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
         xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
         isLoading: false,
-        dateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'}
+        dateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'},
+        notificationTypes: @Html.Raw(notificationTypes.ToJson()),
+        selectedNotificationType: '@(selectedNotificationType != null ? selectedNotificationType.Value : string.Empty)'
     }
 }
 <div id="app-container">

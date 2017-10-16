@@ -27,7 +27,8 @@ function generateConfig(environment) {
             /*css*/
             [`${cssPath}/vendor`]: pathConfig.cssPaths.layout,
             [`${cssPath}/subsidiaryperformance/index`]: pathConfig.cssPaths.subsidiaryperformance,
-            [`${cssPath}/licenseewlbytimezone/index`]: pathConfig.cssPaths.licenseewlbytimezone
+            [`${cssPath}/licenseewlbytimezone/index`]: pathConfig.cssPaths.licenseewlbytimezone,
+            [`${cssPath}/notification/index`]: pathConfig.cssPaths.notification
         },
         output: {
             path: pathConfig.projectRoot,

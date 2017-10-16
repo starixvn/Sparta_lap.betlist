@@ -55,7 +55,8 @@ export class FormFilter extends Component {
             xsrfToken: this.props.xsrfToken,
             data: {
                 FromDate: Site.convertDateToString(fromDate),
-                ToDate: Site.convertDateToString(toDate)
+                ToDate: Site.convertDateToString(toDate),
+                NotificationTypes: this.props.selectedNotificationType
             }
         }
     }
@@ -68,6 +69,18 @@ export class FormFilter extends Component {
             const message = LangHelper.getSingleResource("DateRangeExceedMsg").replace("{0}", RANGE_MONTH_CONSTRAINT);
             alert(message);
         }
+    }
+
+    _renderNotificationTypeSelectList() {
+        const { notificationTypes, selectedNotificationType} = this.props;
+
+        return notificationTypes && notificationTypes.length ? (
+            <Select id="ddlNotificationType"
+                name="form-field-name"
+                value={selectedNotificationType}
+                options={notificationTypes}
+                onChange={(item) => this.props.setSelectedNotificationType(item.value)} />
+    ) : null;
     }
 
     _renderDateRange() {
@@ -92,7 +105,13 @@ export class FormFilter extends Component {
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-5 col-sm-5 col-lg-5 col-xl-3">
+                    <div className="col-12 col-md-2 col-sm-3 col-lg-2 col-xl-2">
+                        <div className="form-group">
+                            <label className="label-text">{LangHelper.getSingleResource("Type")}</label>
+                            {this._renderNotificationTypeSelectList()}
+                        </div>
+                    </div>
+                    <div className="form-group">
                         <div className="button-group">
                             <button type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
                         </div>

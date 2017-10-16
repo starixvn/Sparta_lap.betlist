@@ -18,3 +18,15 @@ export const dateConstraint = createReducer({}, {
         return action.data;
     }
 })
+
+export const notificationTypes = createReducer({}, {
+    [types.GET_NOTIFICATION_TYPE](state, action) {
+        return action.data;
+    }
+})
+
+export const selectedNotificationType = createReducer({}, {
+    [types.SET_NOTIFICATION_TYPE](state, action) {
+        return action.data;
+    }
+})

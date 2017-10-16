@@ -865,6 +865,7 @@
     <Content Include="www\css\source\reactpages\components\_popup.scss" />
     <Content Include="Views\Desktop\Report\Notification\Notification.cshtml" />
     <Content Include="www\js\build\dev\reactpages\notification\notification.chunk.js.map" />
+    <Content Include="www\css\source\reactpages\pages\notification\index.scss" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />

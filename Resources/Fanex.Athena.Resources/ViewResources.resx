@@ -3102,4 +3102,23 @@
     <value>Back to old UI</value>
     <comment>84932</comment>
   </data>
-</root>
+  <data name="MatchDelayDone" xml:space="preserve">
+    <value>Match Delay-Done</value>
+    <comment>84004</comment>
+  </data>
+  <data name="MatchDelayNew" xml:space="preserve">
+    <value>Match Delay-New</value>
+    <comment>84004</comment>
+  </data>
+  <data name="Personal" xml:space="preserve">
+    <value>Personal</value>
+    <comment>84004</comment>
+  </data>
+  <data name="Public" xml:space="preserve">
+    <value>Public</value>
+    <comment>84004</comment>
+  </data>
+  <data name="Special" xml:space="preserve">
+    <value>Special</value>
+    <comment>84004</comment>
+  </data></root>
