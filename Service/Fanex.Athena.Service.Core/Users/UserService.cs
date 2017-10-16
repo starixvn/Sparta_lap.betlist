@@ -41,14 +41,20 @@ namespace Fanex.Athena.Service.Core.Users
 
         public IResultInfo ChangePassword(string userName, string oldPassword, string newPassword, string ip)
         {
-            var oldSalt = this._userDataAccess.GetByUsername(userName, false).ToString();
+            var user = _userDataAccess.GetByUsername(userName, false);
+            if (user == null)
+            {
+                return new ResultInfo { Code = UserNotExistError, Message = ViewResources.UserNotExist };
+            }
+
+            var oldSalt = user.UserSalt;
             var salt = Cryptography.CreateSalt();
             var hashedNewPassword = Cryptography.CreateHash(newPassword, salt);
             var hashedOldPassword = Cryptography.CreateHash(oldPassword, oldSalt);
 
-            var user = new User { Request = new Request { Ip = ip }, Username = userName };
+            var requestUser = new User { Request = new Request { Ip = ip }, Username = userName };
 
-            return this._userDataAccess.ChangePassword(user, hashedOldPassword, hashedNewPassword, salt);
+            return this._userDataAccess.ChangePassword(requestUser, hashedOldPassword, hashedNewPassword, salt);
         }
 
         public IList<User> GetByLicensee(int licenseeId, bool isInternal)
