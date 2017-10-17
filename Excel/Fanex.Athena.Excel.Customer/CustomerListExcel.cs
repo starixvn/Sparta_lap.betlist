@@ -231,7 +231,7 @@ namespace Fanex.Athena.Excel.Customer
                 {
                     row.Cells[SBCommColumn].SetCellValue(item.SBComm.ToStringExt(2));
 
-                    if (_exportData.ProductAccess.IsAllowAB)
+                    if (_viewModel.ProductAccess.IsAllowAB)
                     {
                         row.Cells[ABCommColumn].SetCellValue(item.ABComm.ToStringExt(2));
                     }
@@ -315,9 +315,9 @@ namespace Fanex.Athena.Excel.Customer
             {
                 AddHiddenCommissionColumns(hiddenColumns);
 
-                if (!_exportData.ProductAccess.IsAllowAB)
+                if (!_viewModel.ProductAccess.IsAllowAB)
                 {
-                    hidedColumns.Add(ABCommColumn);
+                    hiddenColumns.Add(ABCommColumn);
                 }
             }
 
