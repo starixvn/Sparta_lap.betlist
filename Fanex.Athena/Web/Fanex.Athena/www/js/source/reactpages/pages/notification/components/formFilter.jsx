@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux'
 import Select from 'react-select'
 import { DateRange } from '../../../components/date-range/index'
 import LangHelper from '../../../lib/langHelper'
-import ReportExcel from '../lib/reportExcel'
 import Site from '../../../lib/site'
 import service from '../lib/service'
 
@@ -36,12 +35,6 @@ export class FormFilter extends Component {
         }
 
         this.props.toggleLoader(true);
-        this.props.exportExcel(params).then(response => {
-            const title = service.getReportTitle(dateRange);
-            const excel = new ReportExcel(response.data, title);
-            excel.export();
-            this.props.toggleLoader(false);
-        });
     }
 
     _getParams() {
@@ -116,10 +109,6 @@ export class FormFilter extends Component {
                             <button type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
                         </div>
                     </div>
-                </div>
-
-                <div className="caret-block">
-                    <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
                 </div>
             </div>
         );
