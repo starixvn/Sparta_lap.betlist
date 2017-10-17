@@ -30,7 +30,7 @@
             _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
             _currencyDataAccess = Substitute.For<ICurrencyDataAccess>();
             _userService = Substitute.For<IUserService>();
-            _userService.GetByUsername(Arg.Any<string>(), Arg.Any<int>()).Returns(new User { UserID = 1 });
+            _userService.GetByUsername(Arg.Any<string>(), Arg.Any<bool>(), Arg.Any<int>()).Returns(new User { UserID = 1 });
 
             _formAuthenticationService = Substitute.For<IFormsAuthenticationService>();
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(

@@ -242,7 +242,7 @@ namespace Fanex.Athena.Controllers
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public string GetUserSalt(string userName)
         {
-            var user = _userService.GetByUsername(userName);
+            var user = _userService.GetByUsername(userName, false);
             if (user != null)
             {
                 return user.UserSalt;

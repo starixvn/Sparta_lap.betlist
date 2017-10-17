@@ -102,6 +102,7 @@ namespace Fanex.Athena.DataAccess.Report
 
                 reportBalanceList.Add(selectedMonthBalance);
 
+                var yesterdayDateString = DateTime.Now.AddDays(-1).ToString("MM/dd/yyyy");
                 var yesterdayBalance = new BalanceDetails
                 {
                     LicWinLoss = reader.ToDecimal(yesterdayLicColumn),
@@ -113,11 +114,11 @@ namespace Fanex.Athena.DataAccess.Report
                     AmtDueToBetTrade = reader.ToDecimal(yesterdayAmtDueToBetTradeColumn),
                     AmtDueToRacing = reader.ToDecimal(yesterdayAmtDueToRacingColumn),
                     CustomerCommission = reader.ToDecimal(yesterdayCustomerCommColumn),
-                    BalanceDateString = $"{ViewResources.Yesterday} ({DateTime.Now.AddDays(-1).ToString("MM/dd/yyyy")})"
+                    BalanceDateString = $"{ViewResources.Yesterday} ({yesterdayDateString})"
                 };
 
                 reportBalanceList.Add(yesterdayBalance);
-
+                var todayDateString = DateTime.Now.ToString("MM/dd/yyyy");
                 var todayBalance = new BalanceDetails
                 {
                     LicWinLoss = reader.ToDecimal(todayLicColumn),
@@ -129,7 +130,7 @@ namespace Fanex.Athena.DataAccess.Report
                     AmtDueToBA = reader.ToDecimal(todayAmtDueToBaColumn),
                     AmtDueToRacing = reader.ToDecimal(todayAmtDueToRacingColumn),
                     CustomerCommission = reader.ToDecimal(todayCustomerCommColumn),
-                    BalanceDateString = $"{ViewResources.Today} ({DateTime.Now.ToString("MM/dd/yyyy")})"
+                    BalanceDateString = $"{ViewResources.Today} ({todayDateString})"
                 };
 
                 reportBalanceList.Add(todayBalance);

@@ -129,7 +129,7 @@
             {
                 // Arrange
                 const string UserName = "abc";
-                _userService.GetByUsername(UserName).Returns(new User
+                _userService.GetByUsername(UserName, false).Returns(new User
                 {
                     UserSalt = "xxx"
                 });
@@ -149,7 +149,7 @@
             {
                 // Arrange
                 const string UserName = "abc";
-                _userService.GetByUsername(UserName).Returns(x => null);
+                _userService.GetByUsername(UserName, false).Returns(x => null);
 
                 // Action
                 var result = controller.GetUserSalt(UserName) as string;
