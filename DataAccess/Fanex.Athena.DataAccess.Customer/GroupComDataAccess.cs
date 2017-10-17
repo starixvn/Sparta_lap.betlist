@@ -111,7 +111,7 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        public bool UpdateGroup(GroupCommMetaModel newItem, IRequest request, int userId, out IResultInfo resultInfo)
+        public IResultInfo UpdateGroup(GroupCommMetaModel newItem, IRequest request, int userId)
         {
             const string UspName = "Lrf_LicenseeGroupCommUpd";
             try
@@ -141,11 +141,10 @@ namespace Fanex.Athena.DataAccess.Customer
                     AddResultParam(db);
                     db.ExecuteNonQuery();
                     newItem.GroupCommId = Converter.ToInt(db.GetParameterValue("GroupCommID"));
-                    resultInfo = GetResult(db);
+                    var resultInfo = GetResult(db);
                     resultInfo.ExtendedData = Converter.ToString2(db.GetParameterValue("StrCustID"));
+                    return resultInfo;
                 }
-
-                return resultInfo.Code == 0;
             }
             catch (ObjectDbException sqlException)
             {

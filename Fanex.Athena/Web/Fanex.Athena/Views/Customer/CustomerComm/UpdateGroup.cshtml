@@ -12,7 +12,6 @@
 {
     @ViewResources.EditGroup
 }
-@using Fanex.Athena.Model.Report.ViewModel
 @using Fanex.Athena.Extension.Utility
 @model Fanex.Athena.Model.Customer.MetaModel.GroupCommMetaModel
 @if (Model != null)
@@ -25,10 +24,10 @@
         @Html.ValidationSummary(true)
         @if (ViewBag.Result != null)
         {
-            var errorMsg = ViewBag.Result.ErrorMessage;
+            var message = ViewBag.Result.Message;
 
-            <div id="message-update-group" class="@(ViewBag.Result.Success ? "response-area field-validation-success" : "response-area field-validation-error")">
-                @(ViewBag.Result.Success ? ViewBag.Result.Message : string.IsNullOrEmpty(errorMsg) ? Html.ValidationMessageFor(model => model.GroupName) : errorMsg)
+            <div id="message-update-group" class="@(ViewBag.Result.IsSuccessful ? "response-area field-validation-success" : "response-area field-validation-error")">
+                @(ViewBag.Result.IsSuccessful ? message : string.IsNullOrEmpty(message) ? Html.ValidationMessageFor(model => model.GroupName) : message)
             </div>
         }
         else

@@ -29,7 +29,6 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
-    using Model.Core.ViewModel;
     using ONEbook.UM.Filters;
     using Resources;
 
@@ -159,14 +158,15 @@ namespace Fanex.Athena.Controllers.Customer
         [CustomValidateAntiForgery]
         public ActionResult Update(GroupCommMetaModel metaModel)
         {
-            var result = new ResultViewModel();
+            IResultInfo result = new ResultInfo();
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
             if (ModelState.IsValid)
             {
                 if (metaModel.GroupName.Trim().ToLower(CultureInfo.CurrentCulture).Equals("none"))
                 {
-                    result.ErrorMessage = ViewResources.ChooseGroupNameMsg;
+                    result.Code = 1;
+                    result.Message = ViewResources.ChooseGroupNameMsg;
                 }
                 else if (IsValidateCommissions(metaModel))
                 {
@@ -174,12 +174,12 @@ namespace Fanex.Athena.Controllers.Customer
                 }
                 else
                 {
-                    result.ErrorMessage = ViewResources.MessageInvalidCommValue;
-                    result.Success = false;
+                    result.Code = 2;
+                    result.Message = ViewResources.MessageInvalidCommValue;
                 }
             }
 
-            if (result.Success)
+            if (result.IsSuccessful)
             {
                 ModelState.Clear();
             }
@@ -412,39 +412,39 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.OriginalGroupName = metaModel.GroupName;
         }
 
-        private ResultViewModel UpdateGroupComm(GroupCommMetaModel metaModel)
+        private IResultInfo UpdateGroupComm(GroupCommMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
-            var request = new Request
-            {
-                Language = userSession.Language,
-                Ip = Request.UserHostAddress
-            };
             var currentGroup = _customerComService.GetById(metaModel.GroupCommId);
-            var result = new ResultViewModel();
-
             if (currentGroup != null && !currentGroup.Equals(metaModel))
             {
-                _customerComService.UpdateGroup(metaModel, request, userSession, out result);
-
-                if (string.IsNullOrWhiteSpace(result.ErrorMessage))
+                var request = new Request
                 {
-                    result.ErrorMessage = GetUpdateGroupErrorMessage(result.ErrorCode);
+                    Language = userSession.Language,
+                    Ip = Request.UserHostAddress
+                };
+                var result = _customerComService.UpdateGroup(metaModel, request, userSession);
+
+                if (string.IsNullOrWhiteSpace(result.Message))
+                {
+                    result.Message = GetUpdateGroupErrorMessage(result.Code);
                 }
 
-                if (result.Success)
+                if (result.IsSuccessful)
                 {
                     result.Message = ViewResources.MessageSuccess;
                     UpdateMetaModelAfterProcessSuccessfully(metaModel);
                 }
+
+                return result;
             }
             else
             {
-                result.Success = true;
-                result.Message = ViewResources.MessageSuccess;
+                return new ResultInfo
+                {
+                    Message = ViewResources.MessageSuccess
+                };
             }
-
-            return result;
         }
 
         #endregion Utility

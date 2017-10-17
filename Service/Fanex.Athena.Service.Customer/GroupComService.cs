@@ -71,23 +71,13 @@ namespace Fanex.Athena.Service.Customer
             return _groupDataAccess.InsertGroup(item, request, userId);
         }
 
-        public bool UpdateGroup(GroupCommMetaModel newItem, IRequest request, UserSession user, out ResultViewModel result)
+        public IResultInfo UpdateGroup(GroupCommMetaModel newItem, IRequest request, UserSession user)
         {
-            IResultInfo dataResultInfo;
-
-            var data = _groupDataAccess.UpdateGroup(newItem, request, user.UserId, out dataResultInfo);
+            var resultInfo = _groupDataAccess.UpdateGroup(newItem, request, user.UserId);
             var callApiSuccess = true;
-            result = new ResultViewModel
+            if (newItem.IsUpdateCS && !string.IsNullOrEmpty(resultInfo.ExtendedData))
             {
-                ErrorCode = dataResultInfo.Code,
-                ErrorMessage = dataResultInfo.Message,
-                Success = dataResultInfo.IsSuccessful,
-                Message = dataResultInfo.Message,
-                ExtendedData = data
-            };
-            if (newItem.IsUpdateCS && !string.IsNullOrEmpty(dataResultInfo.ExtendedData))
-            {
-                var custtomerList = dataResultInfo.ExtendedData.Split(new[] { ',' });
+                var custtomerList = resultInfo.ExtendedData.Split(new[] { ',' });
                 if (custtomerList.Length > 0)
                 {
                     var rngCasinoService = new RNGCasinoService();
@@ -105,13 +95,11 @@ namespace Fanex.Athena.Service.Customer
 
             if (!callApiSuccess)
             {
-                data = false;
-                result.Success = false;
-                result.ErrorCode = 1;
-                result.ErrorMessage = "Having errors when calling CasinoAPI to update customer commission.";
+                resultInfo.Code = 1;
+                resultInfo.Message = "Having errors when calling CasinoAPI to update customer commission.";
             }
 
-            return data;
+            return resultInfo;
         }
 
         public IResultInfo DeleteGroup(DeleteGroupMetaModel model)

@@ -15,7 +15,7 @@ namespace Fanex.Athena.DataAccess.Customer.Interfaces
     {
         IResultInfo InsertGroup(GroupCommMetaModel item, IRequest request, int userId);
 
-        bool UpdateGroup(GroupCommMetaModel newItem, IRequest request, int userId, out IResultInfo resultInfo);
+        IResultInfo UpdateGroup(GroupCommMetaModel newItem, IRequest request, int userId);
 
         IList<GroupCommMetaModel> GetAll(int licenseeId);
 

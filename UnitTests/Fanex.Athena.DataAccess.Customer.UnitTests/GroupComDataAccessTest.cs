@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.DataAccess.Customer.UnitTests
 {
-    using System.Collections.Generic;
     using System.Data;
     using Data;
     using Model.Core.DTO.Common;
@@ -110,10 +109,9 @@
             var newItem = new GroupCommMetaModel();
             var request = new Request();
             var userId = 0;
-            IResultInfo resultInfo = new ResultInfo();
 
             // Action
-            _dataAccess.UpdateGroup(newItem, request, userId, out resultInfo);
+            _dataAccess.UpdateGroup(newItem, request, userId);
 
             // Assert
             _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, newItem.LicenseeId);
