@@ -191,18 +191,11 @@ namespace Fanex.Athena.Controllers.Customer
         [CustomValidateAntiForgery]
         public JsonResult Delete(int groupId, bool isRemovePlayerComm, bool isResetDefault)
         {
-            var result = new ResultViewModel();
-
-            if (!ModelState.IsValid)
-            {
-                return Json(result, JsonRequestBehavior.AllowGet);
-            }
-
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var userSession = SessionService.UserSession;
             var productAccess = _productService.GetProductAccess(licenseeId, userSession.Language);
 
-            _customerComService.DeleteGroup(
+            var result =_customerComService.DeleteGroup(
                 new DeleteGroupMetaModel
                 {
                     GroupId = groupId,
@@ -214,10 +207,9 @@ namespace Fanex.Athena.Controllers.Customer
                     IsRemoveCommSetting = isRemovePlayerComm,
                     IsAllowedCSComm = productAccess.IsAllowCS,
                     IsResetDefault = isResetDefault
-                },
-                out result);
+                });
 
-            if (result.ErrorCode == 0)
+            if (result.Code == 0)
             {
                 result.Message = isRemovePlayerComm ? ViewResources.CommIsClear : ViewResources.CommIsUnChange;
             }

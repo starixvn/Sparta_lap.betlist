@@ -125,31 +125,21 @@ namespace Fanex.Athena.Service.Customer
             return data;
         }
 
-        public int DeleteGroup(DeleteGroupMetaModel model, out ResultViewModel result)
+        public IResultInfo DeleteGroup(DeleteGroupMetaModel model)
         {
-            IResultInfo dataResultInfo;
-            var returnValue = _groupDataAccess.DeleteGroup(
+            var resultInfo = _groupDataAccess.DeleteGroup(
                 model.GroupId,
                 model.LicenseeId,
                 model.UserId,
                 model.Ip,
                 model.Language,
                 model.IsRemoveCommSetting,
-                model.IsResetDefault,
-                out dataResultInfo);
-            result = new ResultViewModel
-            {
-                ErrorCode = dataResultInfo.Code,
-                ErrorMessage = dataResultInfo.Message,
-                Success = dataResultInfo.IsSuccessful,
-                Message = dataResultInfo.Message,
-                ExtendedData = returnValue
-            };
+                model.IsResetDefault);
             var callApiSuccess = true;
 
-            if (model.IsRemoveCommSetting && model.IsAllowedCSComm && !string.IsNullOrEmpty(dataResultInfo.ExtendedData))
+            if (model.IsRemoveCommSetting && model.IsAllowedCSComm && !string.IsNullOrEmpty(resultInfo.ExtendedData))
             {
-                var custtomerList = dataResultInfo.ExtendedData.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                var custtomerList = resultInfo.ExtendedData.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 if (custtomerList.Length > 0)
                 {
                     var rngCasinoService = new RNGCasinoService();
@@ -166,12 +156,11 @@ namespace Fanex.Athena.Service.Customer
 
             if (!callApiSuccess)
             {
-                result.Success = false;
-                result.ErrorCode = 1;
-                result.ErrorMessage = "Having errors when calling CasinoAPI to update customer commission.";
+                resultInfo.Code = 1;
+                resultInfo.Message = "Having errors when calling CasinoAPI to update customer commission.";
             }
 
-            return returnValue;
+            return resultInfo;
         }
 
         public bool CheckExistingGroupByName(int licenseeId, string groupName)

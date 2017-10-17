@@ -29,8 +29,6 @@ namespace Fanex.Athena.Service.Customer.Interfaces
 
         bool CheckExistingGroupByName(int licenseeId, string groupName);
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
-            Justification = "Reviewed. Suppression is OK here.")]
-        int DeleteGroup(DeleteGroupMetaModel model, out ResultViewModel result);
+        IResultInfo DeleteGroup(DeleteGroupMetaModel model);
     }
 }

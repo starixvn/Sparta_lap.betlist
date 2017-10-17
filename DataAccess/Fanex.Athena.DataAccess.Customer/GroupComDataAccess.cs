@@ -156,15 +156,14 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        public int DeleteGroup(
+        public IResultInfo DeleteGroup(
             int groupId,
             int licenseeId,
             int userId,
             string ip,
             string language,
             bool isRemoveCommSetting,
-            bool isResetDefault,
-            out IResultInfo resultInfo)
+            bool isResetDefault)
         {
             const string UspName = "Lrf_LicenseeGroupCommDel";
             try
@@ -181,11 +180,10 @@ namespace Fanex.Athena.DataAccess.Customer
                     AddResultParam(db);
                     db.AddOutParameter("StrCustID", DbType.String, int.MaxValue);
                     db.ExecuteScalar();
-                    resultInfo = GetResult(db);
+                    var resultInfo = GetResult(db);
                     resultInfo.ExtendedData = Converter.ToString2(db.GetParameterValue("StrCustID"));
+                    return resultInfo;
                 }
-
-                return resultInfo.Code;
             }
             catch (ObjectDbException sqlException)
             {

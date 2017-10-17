@@ -25,14 +25,13 @@ namespace Fanex.Athena.DataAccess.Customer.Interfaces
 
         bool CheckByName(int licenseeId, string groupName);
 
-        int DeleteGroup(
+        IResultInfo DeleteGroup(
             int groupId,
             int licenseeId,
             int userId,
             string ip,
             string language,
             bool isRemoveCommSetting,
-            bool isResetDefault,
-            out IResultInfo resultInfo);
+            bool isResetDefault);
     }
 }

@@ -206,7 +206,6 @@
             };
             ResultViewModel resultViewModel = null;
             var expectedValue = 100;
-            IResultInfo dataResultInfo = null;
             var expectedDataResultInfo = new ResultInfo();
 
             _groupDataAccess.DeleteGroup(
@@ -216,16 +215,11 @@
                 metaModel.Ip,
                 metaModel.Language,
                 metaModel.IsRemoveCommSetting,
-                metaModel.IsResetDefault,
-                out dataResultInfo)
-                .Returns(x =>
-                {
-                    x[7] = expectedDataResultInfo;
-                    return expectedValue;
-                });
+                metaModel.IsResetDefault)
+                .Returns(expectedDataResultInfo);
 
             // Action
-            var result = _groupComService.DeleteGroup(metaModel, out resultViewModel);
+            var result = _groupComService.DeleteGroup(metaModel);
             var outPutViewModel = resultViewModel;
 
             // Assert
@@ -254,7 +248,6 @@
             };
             ResultViewModel resultViewModel = null;
             var expectedValue = 100;
-            IResultInfo dataResultInfo = null;
             var expectedDataResultInfo = new ResultInfo();
 
             _groupDataAccess.DeleteGroup(
@@ -264,16 +257,11 @@
                 metaModel.Ip,
                 metaModel.Language,
                 metaModel.IsRemoveCommSetting,
-                metaModel.IsResetDefault,
-                out dataResultInfo)
-                .Returns(x =>
-                {
-                    x[7] = expectedDataResultInfo;
-                    return expectedValue;
-                });
+                metaModel.IsResetDefault)
+                .Returns(expectedDataResultInfo);
 
             // Action
-            var result = _groupComService.DeleteGroup(metaModel, out resultViewModel);
+            var result = _groupComService.DeleteGroup(metaModel);
             var outPutViewModel = resultViewModel;
 
             // Assert
