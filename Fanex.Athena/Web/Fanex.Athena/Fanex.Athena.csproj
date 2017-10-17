@@ -921,7 +921,6 @@
     <Content Include="www\js\source\reactpages\pages\notification\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\notification\actions\index.js" />
     <Content Include="www\js\source\reactpages\pages\notification\actions\types.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\lib\reportExcel.js" />
     <Content Include="www\js\source\reactpages\pages\notification\lib\service.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\dataHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\filterHandlerReducer.js" />

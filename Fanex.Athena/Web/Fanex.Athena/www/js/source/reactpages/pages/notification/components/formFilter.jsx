@@ -26,17 +26,6 @@ export class FormFilter extends Component {
         this.props.getGridData(params);
     }
 
-    exportExcel = (event) => {
-        event.preventDefault();
-        const { dateRange } = this.props;
-        const params = this._getParams();
-        if (!params) {
-            return;
-        }
-
-        this.props.toggleLoader(true);
-    }
-
     _getParams() {
         if (!this.props.xsrfToken) {
             return null;

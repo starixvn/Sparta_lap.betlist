@@ -10,6 +10,6 @@
 
         public DateTime ToDate { get; set; } = DateTime.Today;
 
-        public List<SelectListItem> NotificationTypes { get; set; }
+        public Dictionary<string, string> NotificationTypes { get; set; }
     }
 }

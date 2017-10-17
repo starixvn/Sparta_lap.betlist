@@ -21,10 +21,6 @@ export function getGridData(params) {
     };
 }
 
-export function exportExcel(params) {
-    return () => fetchData(params);
-}
-
 export function setGridData(data) {
     return {
         type: types.SET_GRID_DATA,

@@ -8,8 +8,8 @@
     var appSettings = new AppSettings();
     var minDate = appSettings.HistoryDate;
     var maxDate = appSettings.MaxDate;
-    var notificationTypes = Model.NotificationTypes.Select(x => new { value = x.Value, label = x.Text }).ToList();
-    var selectedNotificationType = Model.NotificationTypes.FirstOrDefault(x => x.Selected);
+    var notificationTypes = Model.NotificationTypes.Select(x => new { value = x.Key, label = x.Value }).ToList();
+    var selectedNotificationType = notificationTypes.FirstOrDefault();
 }
 
 @section pagecss {
@@ -26,7 +26,7 @@
         isLoading: false,
         dateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'},
         notificationTypes: @Html.Raw(notificationTypes.ToJson()),
-        selectedNotificationType: '@(selectedNotificationType != null ? selectedNotificationType.Value : string.Empty)'
+        selectedNotificationType: '@(selectedNotificationType != null ? selectedNotificationType.value : string.Empty)'
     }
 }
 <div id="app-container">
