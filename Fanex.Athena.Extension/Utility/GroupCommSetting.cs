@@ -6,6 +6,7 @@
 namespace Fanex.Athena.Extension.Utility
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Group commission setting class.
@@ -19,41 +20,24 @@ namespace Fanex.Athena.Extension.Utility
         private const decimal RangValueKey = 0.0005m;
         private const decimal RangeKey = 0.05m;
 
-        private static IDictionary<decimal, decimal> commissions;
-        private static IDictionary<decimal, decimal> validCommissions;
+        private static IEnumerable<decimal> _commissions;
 
-        public static IDictionary<decimal, decimal> Commissions
+        public static bool IsAllValid(params decimal[] commissions)
         {
-            get
+            if (_commissions == null)
             {
-                if (commissions == null)
-                {
-                    commissions = new Dictionary<decimal, decimal>();
-                    for (decimal i = MinKey, j = MaxKey + RangeKey, value = (decimal)MinValue; i < j; i += RangeKey, value += RangValueKey)
-                    {
-                        commissions.Add(i, value);
-                    }
-                }
-
-                return commissions;
+                BuildCommValues();
             }
-        }
 
-        public static IDictionary<decimal, decimal> ValidCommissions
-        {
-            get
+            foreach (decimal value in commissions)
             {
-                if (validCommissions == null)
+                if (!_commissions.Any(x => x == value))
                 {
-                    validCommissions = new Dictionary<decimal, decimal>();
-                    for (decimal i = MinKey, j = MaxKey + RangeKey, value = (decimal)MinValue; i < j; i += RangeKey, value += RangValueKey)
-                    {
-                        validCommissions.Add(i, value);
-                    }
+                    return false;
                 }
-
-                return validCommissions;
             }
+
+            return true;
         }
 
         public static IDictionary<int, int> GetCommValue(int max, int increase)
@@ -65,6 +49,17 @@ namespace Fanex.Athena.Extension.Utility
             }
 
             return items;
+        }
+
+        private static void BuildCommValues()
+        {
+            var commissions = new List<decimal>();
+            for (decimal i = MinKey, j = MaxKey + RangeKey, value = (decimal)MinValue; i < j; i += RangeKey, value += RangValueKey)
+            {
+                commissions.Add(value);
+            }
+
+            _commissions = commissions;
         }
     }
 }

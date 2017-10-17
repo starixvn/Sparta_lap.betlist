@@ -17,9 +17,9 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Linq;
     using System.Web.Mvc;
     using System.Web.SessionState;
+    using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Customer;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
     using Fanex.Athena.Service.Core.Common;
@@ -94,7 +94,7 @@ namespace Fanex.Athena.Controllers.Customer
                 {
                     result.ErrorMessage = ViewResources.ChooseGroupNameMsg;
                 }
-                else if (ValidateCommissions(metaModel))
+                else if (IsValidateCommissions(metaModel))
                 {
                     var request = new Request
                     {
@@ -162,7 +162,7 @@ namespace Fanex.Athena.Controllers.Customer
                 {
                     result.ErrorMessage = ViewResources.ChooseGroupNameMsg;
                 }
-                else if (ValidateCommissions(metaModel))
+                else if (IsValidateCommissions(metaModel))
                 {
                     result = UpdateGroupComm(metaModel);
                 }
@@ -195,7 +195,7 @@ namespace Fanex.Athena.Controllers.Customer
             var userSession = SessionService.UserSession;
             var productAccess = _productService.GetProductAccess(licenseeId, userSession.Language);
 
-            var result =_customerComService.DeleteGroup(
+            var result = _customerComService.DeleteGroup(
                 new DeleteGroupMetaModel
                 {
                     GroupId = groupId,
@@ -268,6 +268,18 @@ namespace Fanex.Athena.Controllers.Customer
         #endregion Export Excel
 
         #region Utility
+
+        private static bool IsValidateCommissions(GroupCommMetaModel metaModel)
+        {
+            return GroupCommSetting.IsAllValid(
+                                metaModel.SBComm,
+                                metaModel.ParlayComm,
+                                metaModel.RCComm,
+                                metaModel.NGComm,
+                                metaModel.LCComm,
+                                metaModel.CSComm,
+                                metaModel.ABComm);
+        }
 
         private static string GetUpdateGroupErrorMessage(int errorCode)
         {
@@ -368,20 +380,6 @@ namespace Fanex.Athena.Controllers.Customer
             model.ABComm1 = SetComm(decAbComm, 1);
             model.ABComm2 = SetComm(decAbComm, 2);
             model.ABComm3 = SetComm(decAbComm, 3);
-        }
-
-        private static bool ValidateCommissions(GroupCommMetaModel metaModel)
-        {
-            var validComms = GroupCommSetting.ValidCommissions;
-            var valid = validComms.Any(i => i.Value == metaModel.SBComm) &&
-                        validComms.Any(i => i.Value == metaModel.ParlayComm) &&
-                        validComms.Any(i => i.Value == metaModel.RCComm) &&
-                        validComms.Any(i => i.Value == metaModel.NGComm) &&
-                        validComms.Any(i => i.Value == metaModel.LCComm) &&
-                        validComms.Any(i => i.Value == metaModel.CSComm) &&
-                        validComms.Any(i => i.Value == metaModel.ABComm);
-
-            return valid;
         }
 
         private static void UpdateMetaModelAfterProcessSuccessfully(GroupCommMetaModel metaModel)

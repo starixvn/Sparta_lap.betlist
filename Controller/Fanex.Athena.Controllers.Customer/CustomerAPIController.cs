@@ -341,14 +341,14 @@ namespace Fanex.Athena.Controllers.Customer
             };
             if (metaModel.Customers != null && metaModel.Customers.Count > 0)
             {
-                var commList = GroupCommSetting.Commissions;
-                var isvalid = commList.Any(i => i.Value == metaModel.SBComm) &&
-                              commList.Any(i => i.Value == metaModel.ParlayComm) &&
-                              commList.Any(i => i.Value == metaModel.RCComm) &&
-                              commList.Any(i => i.Value == metaModel.NGComm) &&
-                              commList.Any(i => i.Value == metaModel.LCComm) &&
-                              commList.Any(i => i.Value == metaModel.CSComm) &&
-                              commList.Any(i => i.Value == metaModel.ABComm);
+                var isvalid = GroupCommSetting.IsAllValid(
+                                metaModel.SBComm, 
+                                metaModel.ParlayComm, 
+                                metaModel.RCComm,
+                                metaModel.NGComm,
+                                metaModel.LCComm,
+                                metaModel.CSComm,
+                                metaModel.ABComm);
                 var licenseeSession = SessionService.LicenseeSession;
                 var userSession = SessionService.UserSession;
 
