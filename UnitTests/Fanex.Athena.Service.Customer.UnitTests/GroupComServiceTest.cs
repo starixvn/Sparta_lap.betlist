@@ -107,17 +107,12 @@
             // Arrange
             ResultViewModel resultViewModel = null;
             var expectedValue = 1;
-            IResultInfo dataResultInfo = null;
             var expectedDataResultInfo = new ResultInfo();
-            _groupDataAccess.InsertGroup(Arg.Any<GroupCommMetaModel>(), Arg.Any<IRequest>(), Arg.Any<int>(), out dataResultInfo)
-                .Returns(x =>
-                {
-                    x[3] = expectedDataResultInfo;
-                    return expectedValue;
-                });
+            _groupDataAccess.InsertGroup(Arg.Any<GroupCommMetaModel>(), Arg.Any<IRequest>(), Arg.Any<int>())
+                .Returns(expectedDataResultInfo);
 
             // Action
-            var result = _groupComService.InsertGroup(Arg.Any<GroupCommMetaModel>(), Arg.Any<IRequest>(), Arg.Any<int>(), out resultViewModel);
+            var result = _groupComService.InsertGroup(Arg.Any<GroupCommMetaModel>(), Arg.Any<IRequest>(), Arg.Any<int>());
             var outPutViewModel = resultViewModel;
 
             // Assert

@@ -15,7 +15,7 @@ namespace Fanex.Athena.Service.Customer.Interfaces
 
     public interface IGroupComService
     {
-        int InsertGroup(GroupCommMetaModel item, IRequest request, int userId, out ResultViewModel result);
+        IResultInfo InsertGroup(GroupCommMetaModel item, IRequest request, int userId);
 
         bool UpdateGroup(GroupCommMetaModel newItem, IRequest request, UserSession user, out ResultViewModel result);
 

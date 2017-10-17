@@ -10,7 +10,6 @@ namespace Fanex.Athena.Controllers.Customer
 
     using System;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using DataAccess.Core.Users;
@@ -342,8 +341,8 @@ namespace Fanex.Athena.Controllers.Customer
             if (metaModel.Customers != null && metaModel.Customers.Count > 0)
             {
                 var isvalid = GroupCommSetting.IsAllValid(
-                                metaModel.SBComm, 
-                                metaModel.ParlayComm, 
+                                metaModel.SBComm,
+                                metaModel.ParlayComm,
                                 metaModel.RCComm,
                                 metaModel.NGComm,
                                 metaModel.LCComm,
@@ -368,21 +367,10 @@ namespace Fanex.Athena.Controllers.Customer
                     /* Get oldGroup Commission to compare with new group commission.
                      * Check data for Update group commission
                      * exclude groupId = -1, 0 (get all group or get none group)*/
-                    if (metaModel.GroupId > 0)
+                    if (metaModel.GroupId > 0 && IsSameOldComm(metaModel))
                     {
-                        var oldGoup = this._groupComService.GetById(metaModel.GroupId);
-                        var invalidComm = oldGoup.NGComm == metaModel.NGComm && oldGoup.SBComm == metaModel.SBComm &&
-                                           oldGoup.RCComm == metaModel.RCComm && oldGoup.LCComm == metaModel.LCComm &&
-                                           oldGoup.CSComm == metaModel.CSComm && oldGoup.ABComm == metaModel.ABComm;
-                        if (invalidComm)
-                        {
-                            result.Success = false;
-                            result.ErrorMessage = ViewResources.MessageCommNoChange;
-                        }
-                        else
-                        {
-                            this.ProcessUpdatingCustomerCom(metaModel, result);
-                        }
+                        result.Success = false;
+                        result.ErrorMessage = ViewResources.MessageCommNoChange;
                     }
                     else
                     {
@@ -526,6 +514,14 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         #endregion Customer Comm API
+
+        private bool IsSameOldComm(UpdatedCustomerComMetaModel metaModel)
+        {
+            var oldGroup = this._groupComService.GetById(metaModel.GroupId);
+            return oldGroup.NGComm == metaModel.NGComm && oldGroup.SBComm == metaModel.SBComm &&
+                               oldGroup.RCComm == metaModel.RCComm && oldGroup.LCComm == metaModel.LCComm &&
+                               oldGroup.CSComm == metaModel.CSComm && oldGroup.ABComm == metaModel.ABComm;
+        }
 
         /// <summary>
         /// Process updating customer commission.

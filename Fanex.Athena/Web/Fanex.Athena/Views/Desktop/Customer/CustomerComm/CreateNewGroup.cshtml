@@ -20,11 +20,11 @@
                 @if (ViewBag.Result != null)
                 {
                     var msg = ViewBag.Result.Message;
-                    var errorMsg = string.IsNullOrEmpty(ViewBag.Result.ErrorMessage)
+                    var errorMsg = !ViewBag.Result.IsSuccessful && string.IsNullOrEmpty(msg)
                         ? (ViewData.ModelState["GroupName"].Errors.Any() ? ViewData.ModelState["GroupName"].Errors[0].ErrorMessage : string.Empty)
-                        : ViewBag.Result.ErrorMessage;
+                        : msg;
 
-                    @Html.TextBoxFor(model => model.GroupName, new { @class = ViewBag.Result.Success ? "validate valid" : "validate invalid", autofocus="autofocus" })
+                    @Html.TextBoxFor(model => model.GroupName, new { @class = ViewBag.Result.IsSuccessful ? "validate valid" : "validate invalid", autofocus="autofocus" })
                     <label for="GroupName" data-error="@errorMsg" data-success="@msg">@ViewResources.GroupName</label>
                 }
                 else

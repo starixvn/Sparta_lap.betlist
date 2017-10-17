@@ -13,7 +13,7 @@ namespace Fanex.Athena.DataAccess.Customer.Interfaces
 
     public interface IGroupComDataAccess
     {
-        int InsertGroup(GroupCommMetaModel item, IRequest request, int userId, out IResultInfo resultInfo);
+        IResultInfo InsertGroup(GroupCommMetaModel item, IRequest request, int userId);
 
         bool UpdateGroup(GroupCommMetaModel newItem, IRequest request, int userId, out IResultInfo resultInfo);
 

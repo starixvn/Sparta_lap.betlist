@@ -79,10 +79,9 @@
             var item = new GroupCommMetaModel();
             var request = new Request();
             var userId = 0;
-            IResultInfo resultInfo = new ResultInfo();
 
             // Action
-            _dataAccess.InsertGroup(item, request, userId, out resultInfo);
+            _dataAccess.InsertGroup(item, request, userId);
 
             // Assert
             _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, item.LicenseeId);

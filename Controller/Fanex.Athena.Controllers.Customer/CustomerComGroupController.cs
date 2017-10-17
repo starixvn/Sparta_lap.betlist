@@ -85,14 +85,15 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var result = new ResultViewModel { Success = false };
+            IResultInfo result = new ResultInfo();
             metaModel.LicenseeId = licenseeSession.LicenseeId;
 
             if (ModelState.IsValid)
             {
                 if (metaModel.GroupName.Trim().Equals("none", StringComparison.OrdinalIgnoreCase))
                 {
-                    result.ErrorMessage = ViewResources.ChooseGroupNameMsg;
+                    result.Code = 1;
+                    result.Message = ViewResources.ChooseGroupNameMsg;
                 }
                 else if (IsValidateCommissions(metaModel))
                 {
@@ -101,11 +102,11 @@ namespace Fanex.Athena.Controllers.Customer
                         Language = userSession.Language,
                         Ip = Request.UserHostAddress
                     };
-                    _customerComService.InsertGroup(metaModel, request, userSession.UserId, out result);
+                    result = _customerComService.InsertGroup(metaModel, request, userSession.UserId);
 
-                    result.ErrorMessage = GetCreateGroupErrorMessage(result.ErrorCode);
+                    result.Message = GetCreateGroupErrorMessage(result.Code);
 
-                    if (result.Success)
+                    if (result.IsSuccessful)
                     {
                         result.Message = ViewResources.MessageSuccess;
                         UpdateMetaModelAfterProcessSuccessfully(metaModel);
@@ -113,9 +114,14 @@ namespace Fanex.Athena.Controllers.Customer
                 }
                 else
                 {
-                    result.ErrorMessage = ViewResources.MessageInvalidCommValue;
-                    result.Success = false;
+                    result.Code = 2;
+                    result.Message = ViewResources.MessageInvalidCommValue;
                 }
+            }
+            else
+            {
+                result.Code = 3;
+                result.Message = ViewResources.InvalidParams;
             }
 
             ViewBag.Result = result;

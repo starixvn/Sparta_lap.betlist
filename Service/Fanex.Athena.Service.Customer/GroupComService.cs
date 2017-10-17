@@ -66,20 +66,9 @@ namespace Fanex.Athena.Service.Customer
             return groupList.Where(g => g.IsDefaultGroup).Select(g => g.GroupCommId).FirstOrDefault();
         }
 
-        public int InsertGroup(GroupCommMetaModel item, IRequest request, int userId, out ResultViewModel result)
+        public IResultInfo InsertGroup(GroupCommMetaModel item, IRequest request, int userId)
         {
-            IResultInfo dataResultInfo;
-            var data = _groupDataAccess.InsertGroup(item, request, userId, out dataResultInfo);
-
-            result = new ResultViewModel
-            {
-                ErrorCode = dataResultInfo.Code,
-                ErrorMessage = dataResultInfo.Message,
-                Success = dataResultInfo.IsSuccessful,
-                Message = dataResultInfo.Message,
-                ExtendedData = data
-            };
-            return data;
+            return _groupDataAccess.InsertGroup(item, request, userId);
         }
 
         public bool UpdateGroup(GroupCommMetaModel newItem, IRequest request, UserSession user, out ResultViewModel result)

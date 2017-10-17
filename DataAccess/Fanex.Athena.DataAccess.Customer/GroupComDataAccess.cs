@@ -74,7 +74,7 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        public int InsertGroup(GroupCommMetaModel item, IRequest request, int userId, out IResultInfo resultInfo)
+        public IResultInfo InsertGroup(GroupCommMetaModel item, IRequest request, int userId)
         {
             const string UspName = "Lrf_LicenseeGroupCommIns";
             try
@@ -96,17 +96,14 @@ namespace Fanex.Athena.DataAccess.Customer
                     db.AddInParameter("IsDefault", DbType.Boolean, item.IsDefaultGroup);
                     db.AddInParameter("IsResetDefault", DbType.Boolean, item.IsResetDefault);
 
-                    // add output parameter
                     db.AddOutParameter("GroupCommID", DbType.Int32, 4);
                     AddResultParam(db);
                     db.ExecuteNonQuery();
 
                     item.GroupCommId = Converter.ToInt(db.GetParameterValue("GroupCommID"));
 
-                    resultInfo = GetResult(db);
+                    return GetResult(db);
                 }
-
-                return resultInfo.Code;
             }
             catch (ObjectDbException sqlException)
             {
