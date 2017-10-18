@@ -7,6 +7,8 @@
     {
         IEnumerable<int> LicenseeOfferStatusFunction { get; }
 
+        string NotificationTypeApiUrl { get; }
+
         IEnumerable<int> FakeLicenseeList { get; }
 
         bool IsEnabledMoveBetNotification { get; }

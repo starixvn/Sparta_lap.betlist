@@ -9,6 +9,7 @@ namespace Fanex.Athena.Extension.Utility
     using System;
     using System.Collections.Generic;
     using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
     /// <summary>
@@ -28,6 +29,13 @@ namespace Fanex.Athena.Extension.Utility
                 var value = GetValue("LicenseeOfferStatusFunction");
                 return string.IsNullOrWhiteSpace(value) ? new int[] { } : value.Split(',').Select(n => Convert.ToInt32(n));
             }
+        }
+
+        [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
+            Justification = "Reviewed. Suppression is OK here.")]
+        public string NotificationTypeApiUrl
+        {
+            get { return GetValue("NotificationTypeApiUrl"); }
         }
 
         public IEnumerable<int> FakeLicenseeList

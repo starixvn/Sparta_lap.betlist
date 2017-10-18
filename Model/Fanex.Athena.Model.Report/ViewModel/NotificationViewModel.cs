@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Web.Mvc;
 
     public class NotificationViewModel
     {
@@ -10,6 +9,6 @@
 
         public DateTime ToDate { get; set; } = DateTime.Today;
 
-        public Dictionary<string, string> NotificationTypes { get; set; }
+        public IDictionary<string, string> NotificationTypes { get; set; }
     }
 }
