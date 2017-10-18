@@ -107,7 +107,7 @@ var CustomerWinLoss = (function ($) {
             }
 
             jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
-            jqGridAdditional.setGroupFooters(Site.isFakeLicensee() ? 
+            jqGridAdditional.setGroupFooters(Site.isFakeLicensee() ?
                 CustomerWinLossOption.totalColspanFakeLicensee :
                 CustomerWinLossOption.totalColspan);
             if (gridOption.shrinkToFit) {
@@ -202,6 +202,13 @@ var CustomerWinLoss = (function ($) {
                 var data = getPostData();
                 data.PageIndex = 1;
                 Site.exportExcel(data, Site.resolveClientUrl(DATA_URL));
+                Site.blockUI();
+                setInterval(function () {
+                    if ($.cookie("fileDownload") === "true") {
+                        $.removeCookie("fileDownload");
+                        Site.unBlockUI();
+                    }
+                }, 1000);
                 return false;
             });
 
