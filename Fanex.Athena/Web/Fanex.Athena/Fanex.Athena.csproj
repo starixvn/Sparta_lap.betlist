@@ -821,6 +821,7 @@
     <Content Include="www\js\build\dev\reactpages\vendors\reactpages.chunk.js.map" />
     <Content Include="www\css\source\components\toast\toast.scss" />
     <Content Include="Content\Plugin\Toast\toast.scss" />
+    <Content Include="App_Code\GroupCommRazorHelper.cshtml" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />

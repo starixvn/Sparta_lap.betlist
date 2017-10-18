@@ -53,15 +53,7 @@ productCodeList = string.IsNullOrEmpty(productCodeList) ? string.Empty : string.
 
     @productCodeList
 }
-@helper GroupComSettingDropDownList(string name, IDictionary<int, int> items, decimal selectedValue = 0, string className = "")
-{
-    <select id="@name" name="@name" class="@className commission-selection">
-        @foreach (var item in items)
-        {
-            <option @(selectedValue == item.Value ? "selected=selected" : string.Empty) value="@item.Value">@item.Key.ToString("0.#")</option>
-        }
-    </select>
-}
+
 @helper TruncateWithTip(String value, Int32 maxLength, bool hasSpanReturn = false)
 {
 if (value.Length > maxLength)

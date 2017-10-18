@@ -1,16 +1,11 @@
-﻿@using Fanex.Athena.Model.Report.ViewModel
-@using Fanex.Athena.Extension.Utility
-@model Fanex.Athena.Model.Core.DTO.Common.ProductAccess
+﻿@model Fanex.Athena.Model.Core.DTO.Common.ProductAccess
 <table>
     <tr>
         <td>
             @ViewResources.SBComm (%)
         </td>
         <td>
-            @RazorHelper.GroupComSettingDropDownList("CustSBComm1", GroupCommSetting.GetCommValue(15, 1))
-            &#8226
-            @RazorHelper.GroupComSettingDropDownList("CustSBComm2", GroupCommSetting.GetCommValue(9, 1))
-            @RazorHelper.GroupComSettingDropDownList("CustSBComm3", GroupCommSetting.GetCommValue(1, 5))
+            @GroupCommRazorHelper.CommDropdowns("CustSBComm")
         </td>
     </tr>
 
@@ -19,10 +14,7 @@
             @ViewResources.ParlayComm (%)
         </td>
         <td>
-            @RazorHelper.GroupComSettingDropDownList("CustParlayComm1", GroupCommSetting.GetCommValue(15, 1))
-            &#8226
-            @RazorHelper.GroupComSettingDropDownList("CustParlayComm2", GroupCommSetting.GetCommValue(9, 1))
-            @RazorHelper.GroupComSettingDropDownList("CustParlayComm3", GroupCommSetting.GetCommValue(1, 5))
+            @GroupCommRazorHelper.CommDropdowns("CustParlayComm")
         </td>
     </tr>
 
@@ -31,10 +23,7 @@
             @ViewResources.RBComm (%)
         </td>
         <td>
-            @RazorHelper.GroupComSettingDropDownList("CustRBComm1", GroupCommSetting.GetCommValue(15, 1))
-            &#8226
-            @RazorHelper.GroupComSettingDropDownList("CustRBComm2", GroupCommSetting.GetCommValue(9, 1))
-            @RazorHelper.GroupComSettingDropDownList("CustRBComm3", GroupCommSetting.GetCommValue(1, 5))
+            @GroupCommRazorHelper.CommDropdowns("CustRBComm")
         </td>
     </tr>
     <tr class="@(!Model.IsAllowNG ? "hide" : "")">
@@ -42,10 +31,7 @@
             @ViewResources.NGComm (%)
         </td>
         <td>
-            @RazorHelper.GroupComSettingDropDownList("CustNGComm1", GroupCommSetting.GetCommValue(15, 1))
-            &#8226
-            @RazorHelper.GroupComSettingDropDownList("CustNGComm2", GroupCommSetting.GetCommValue(9, 1))
-            @RazorHelper.GroupComSettingDropDownList("CustNGComm3", GroupCommSetting.GetCommValue(1, 5))
+            @GroupCommRazorHelper.CommDropdowns("CustNGComm")
         </td>
     </tr>
     <tr class="@(!Model.IsAllowLC ? "hide" : "")">
@@ -53,10 +39,7 @@
             @ViewResources.LCComm (%)
         </td>
         <td>
-            @RazorHelper.GroupComSettingDropDownList("CustLCComm1", GroupCommSetting.GetCommValue(15, 1))
-            &#8226
-            @RazorHelper.GroupComSettingDropDownList("CustLCComm2", GroupCommSetting.GetCommValue(9, 1))
-            @RazorHelper.GroupComSettingDropDownList("CustLCComm3", GroupCommSetting.GetCommValue(1, 5))
+            @GroupCommRazorHelper.CommDropdowns("CustLCComm")
         </td>
     </tr>
     <tr class="@(!Model.IsAllowCS ? "hide" : "")">
@@ -64,10 +47,7 @@
             @ViewResources.CSComm (%)
         </td>
         <td>
-            @RazorHelper.GroupComSettingDropDownList("CustCSComm1", GroupCommSetting.GetCommValue(15, 1))
-            &#8226
-            @RazorHelper.GroupComSettingDropDownList("CustCSComm2", GroupCommSetting.GetCommValue(9, 1))
-            @RazorHelper.GroupComSettingDropDownList("CustCSComm3", GroupCommSetting.GetCommValue(1, 5))
+            @GroupCommRazorHelper.CommDropdowns("CustCSComm")
         </td>
     </tr>
     <tr class="@(!Model.IsAllowAB ? "hide" : "")">
@@ -75,10 +55,7 @@
             @ViewResources.ABComm (%)
         </td>
         <td>
-            @RazorHelper.GroupComSettingDropDownList("CustABComm1", GroupCommSetting.GetCommValue(15, 1))
-            &#8226
-            @RazorHelper.GroupComSettingDropDownList("CustABComm2", GroupCommSetting.GetCommValue(9, 1))
-            @RazorHelper.GroupComSettingDropDownList("CustABComm3", GroupCommSetting.GetCommValue(1, 5))
+            @GroupCommRazorHelper.CommDropdowns("CustABComm")
         </td>
     </tr>
 </table>
