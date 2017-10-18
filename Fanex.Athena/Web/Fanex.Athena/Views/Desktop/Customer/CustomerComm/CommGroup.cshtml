@@ -13,13 +13,13 @@
     </div>
     <div class="col l1 m3 s4 first-value">
         @Html.HiddenFor(model => model.SBComm)
-        @DesktopRazorHelper.GroupComSettingDropDownList("SBComm1", GroupCommSetting.GetCommValue(15, 1), Model.SBComm1, "select")        
+        @DesktopGroupCommRazorHelper.CommDropDownFirst("SBComm1", Model.SBComm1)    
     </div>
     <div class="col l1 m3 s4">
-        @DesktopRazorHelper.GroupComSettingDropDownList("SBComm2", GroupCommSetting.GetCommValue(9, 1), Model.SBComm2, "select")
+        @DesktopGroupCommRazorHelper.CommDropDownSecond("SBComm2", Model.SBComm2)
     </div>
     <div class="col l1 m3 s4 third-value">
-        @DesktopRazorHelper.GroupComSettingDropDownList("SBComm3", GroupCommSetting.GetCommValue(1, 5), Model.SBComm3, "select")
+        @DesktopGroupCommRazorHelper.CommDropDownThird("SBComm3", Model.SBComm3)
     </div>
 </div>
 <div class="row">
@@ -28,13 +28,13 @@
     </div>
     <div class="col l1 m3 s4 first-value">
         @Html.HiddenFor(model => model.ParlayComm)
-        @DesktopRazorHelper.GroupComSettingDropDownList("ParlayComm1", GroupCommSetting.GetCommValue(15, 1), Model.ParlayComm1, "select")       
+        @DesktopGroupCommRazorHelper.CommDropDownFirst("ParlayComm1", Model.ParlayComm1)       
     </div>
     <div class="col l1 m3 s4">
-        @DesktopRazorHelper.GroupComSettingDropDownList("ParlayComm2", GroupCommSetting.GetCommValue(9, 1), Model.ParlayComm2, "select")
+        @DesktopGroupCommRazorHelper.CommDropDownSecond("ParlayComm2", Model.ParlayComm2)
     </div>
     <div class="col l1 m3 s4 third-value">
-        @DesktopRazorHelper.GroupComSettingDropDownList("ParlayComm3", GroupCommSetting.GetCommValue(1, 5), Model.ParlayComm3, "select")
+        @DesktopGroupCommRazorHelper.CommDropDownThird("ParlayComm3", Model.ParlayComm3)
     </div>
 </div>
 @if (Model.IsUpdateRacing)
@@ -45,13 +45,13 @@
         </div>
         <div class="col l1 m3 s4 first-value">
             @Html.HiddenFor(model => model.RCComm)
-            @DesktopRazorHelper.GroupComSettingDropDownList("RCComm1", GroupCommSetting.GetCommValue(15, 1), Model.RCComm1, "select")            
+            @DesktopGroupCommRazorHelper.CommDropDownFirst("RCComm1", Model.RCComm1)            
         </div>
         <div class="col l1 m3 s4">
-            @DesktopRazorHelper.GroupComSettingDropDownList("RCComm2", GroupCommSetting.GetCommValue(9, 1), Model.RCComm2, "select")
+            @DesktopGroupCommRazorHelper.CommDropDownSecond("RCComm2", Model.RCComm2)
         </div>
         <div class="col l1 m3 s4 third-value">
-            @DesktopRazorHelper.GroupComSettingDropDownList("RCComm3", GroupCommSetting.GetCommValue(1, 5), Model.RCComm3, "select")
+            @DesktopGroupCommRazorHelper.CommDropDownThird("RCComm3", Model.RCComm3)
         </div>
     </div>
 }
@@ -67,13 +67,13 @@ else
         </div>
         <div class="col l1 m3 s4 first-value">
             @Html.HiddenFor(model => model.NGComm)
-            @DesktopRazorHelper.GroupComSettingDropDownList("NGComm1", GroupCommSetting.GetCommValue(15, 1), Model.NGComm1, "select")
+            @DesktopGroupCommRazorHelper.CommDropDownFirst("NGComm1", Model.NGComm1)
         </div>
         <div class="col l1 m3 s4">
-            @DesktopRazorHelper.GroupComSettingDropDownList("NGComm2", GroupCommSetting.GetCommValue(9, 1), Model.NGComm2, "select")
+            @DesktopGroupCommRazorHelper.CommDropDownSecond("NGComm2", Model.NGComm2)
         </div>
         <div class="col l1 m3 s4 third-value">
-            @DesktopRazorHelper.GroupComSettingDropDownList("NGComm3", GroupCommSetting.GetCommValue(1, 5), Model.NGComm3, "select")
+            @DesktopGroupCommRazorHelper.CommDropDownThird("NGComm3", Model.NGComm3)
         </div>
     </div>
 }
@@ -89,13 +89,13 @@ else
         </div>
         <div class="col l1 m3 s4 first-value">
             @Html.HiddenFor(model => model.LCComm)
-            @DesktopRazorHelper.GroupComSettingDropDownList("LCComm1", GroupCommSetting.GetCommValue(15, 1), Model.LCComm1, "select")           
+            @DesktopGroupCommRazorHelper.CommDropDownFirst("LCComm1", Model.LCComm1)           
         </div>
         <div class="col l1 m3 s4">
-            @DesktopRazorHelper.GroupComSettingDropDownList("LCComm2", GroupCommSetting.GetCommValue(9, 1), Model.LCComm2, "select")
+            @DesktopGroupCommRazorHelper.CommDropDownSecond("LCComm2", Model.LCComm2)
         </div>
         <div class="col l1 m3 s4 third-value">
-            @DesktopRazorHelper.GroupComSettingDropDownList("LCComm3", GroupCommSetting.GetCommValue(1, 5), Model.LCComm3, "select")
+            @DesktopGroupCommRazorHelper.CommDropDownThird("LCComm3", Model.LCComm3)
         </div>
     </div>
 }
@@ -111,13 +111,13 @@ else
         </div>
         <div class="col l1 m3 s4 first-value">
             @Html.HiddenFor(model => model.CSComm)
-            @DesktopRazorHelper.GroupComSettingDropDownList("CSComm1", GroupCommSetting.GetCommValue(15, 1), Model.CSComm1, "select")          
+            @DesktopGroupCommRazorHelper.CommDropDownFirst("CSComm1", Model.CSComm1)          
         </div>
         <div class="col l1 m3 s4">
-            @DesktopRazorHelper.GroupComSettingDropDownList("CSComm2", GroupCommSetting.GetCommValue(9, 1), Model.CSComm2, "select")
+            @DesktopGroupCommRazorHelper.CommDropDownSecond("CSComm2", Model.CSComm2)
         </div>
         <div class="col l1 m3 s4 third-value">
-            @DesktopRazorHelper.GroupComSettingDropDownList("CSComm3", GroupCommSetting.GetCommValue(1, 5), Model.CSComm3, "select")
+            @DesktopGroupCommRazorHelper.CommDropDownThird("CSComm3", Model.CSComm3)
         </div>
     </div>
 }
@@ -133,13 +133,13 @@ else
         </div>
         <div class="col l1 m3 s4 first-value">
             @Html.HiddenFor(model => model.ABComm)
-            @DesktopRazorHelper.GroupComSettingDropDownList("ABComm1", GroupCommSetting.GetCommValue(15, 1), Model.ABComm1, "select")
+            @DesktopGroupCommRazorHelper.CommDropDownFirst("ABComm1", Model.ABComm1)
         </div>
         <div class="col l1 m3 s4">
-            @DesktopRazorHelper.GroupComSettingDropDownList("ABComm2", GroupCommSetting.GetCommValue(9, 1), Model.ABComm2, "select")
+            @DesktopGroupCommRazorHelper.CommDropDownSecond("ABComm2", Model.ABComm2)
         </div>
         <div class="col l1 m3 s4 third-value">
-            @DesktopRazorHelper.GroupComSettingDropDownList("ABComm3", GroupCommSetting.GetCommValue(1, 5), Model.ABComm3, "select")
+            @DesktopGroupCommRazorHelper.CommDropDownThird("ABComm3", Model.ABComm3)
         </div>
     </div>
 }
