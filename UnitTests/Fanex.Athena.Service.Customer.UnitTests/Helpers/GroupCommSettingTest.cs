@@ -1,7 +1,6 @@
-﻿namespace Fanex.Athena.Extension.UnitTests.Utility
+﻿namespace Fanex.Athena.Service.Customer.UnitTests.Helpers
 {
-    using System.Linq;
-    using Extension.Utility;
+    using Customer.Helpers;
     using NUnit.Framework;
 
     [TestFixture]
@@ -13,8 +12,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(GroupCommSetting.IsAllValid(0, 1, 2), Is.False);
-                Assert.That(GroupCommSetting.IsAllValid(0, 0.0005m, 0.001m, 0.15m), Is.True);
+                Assert.That(GroupCommHelper.IsAllValid(0, 1, 2), Is.False);
+                Assert.That(GroupCommHelper.IsAllValid(0, 0.0005m, 0.001m, 0.15m), Is.True);
             });
         }
     }

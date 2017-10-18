@@ -1,15 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="CustomerComGroupController.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-/*
- * @Alex20120724
- * Customer-group-list report,include these function are CreateGroup,ListGroup (Index) and CustomerList
- */
-
-namespace Fanex.Athena.Controllers.Customer
+﻿namespace Fanex.Athena.Controllers.Customer
 {
     using System;
     using System.Globalization;
@@ -17,7 +6,6 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Linq;
     using System.Web.Mvc;
     using System.Web.SessionState;
-    using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Customer;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -31,6 +19,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Model.Core.DataDomain;
     using ONEbook.UM.Filters;
     using Resources;
+    using Service.Customer.Helpers;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
@@ -277,7 +266,7 @@ namespace Fanex.Athena.Controllers.Customer
 
         private static bool IsValidateCommissions(GroupCommMetaModel metaModel)
         {
-            return GroupCommSetting.IsAllValid(
+            return GroupCommHelper.IsAllValid(
                                 metaModel.SBComm,
                                 metaModel.ParlayComm,
                                 metaModel.RCComm,

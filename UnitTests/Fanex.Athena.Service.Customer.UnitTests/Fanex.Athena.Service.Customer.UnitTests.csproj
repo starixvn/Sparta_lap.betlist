@@ -64,6 +64,7 @@
     <Compile Include="CustomerServiceTest.cs" />
     <Compile Include="CustomerListServiceTest.cs" />
     <Compile Include="GroupComServiceTest.cs" />
+    <Compile Include="Helpers\GroupCommSettingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

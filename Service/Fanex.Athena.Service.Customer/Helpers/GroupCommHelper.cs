@@ -1,17 +1,9 @@
-﻿// <copyright file="GroupCommSetting.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.Extension.Utility
+﻿namespace Fanex.Athena.Service.Customer.Helpers
 {
     using System.Collections.Generic;
     using System.Linq;
 
-    /// <summary>
-    /// Group commission setting class.
-    /// </summary>
-    public static class GroupCommSetting
+    public static class GroupCommHelper
     {
         private const decimal MinKey = 0;
         private const decimal MaxKey = 15;
@@ -38,17 +30,6 @@ namespace Fanex.Athena.Extension.Utility
             }
 
             return true;
-        }
-
-        public static IDictionary<int, int> GetCommValue(int max, int increase)
-        {
-            var items = new Dictionary<int, int>();
-            for (int i = 0; i <= max; i++)
-            {
-                items.Add(i * increase, i * increase);
-            }
-
-            return items;
         }
 
         private static void BuildCommValues()

@@ -15,7 +15,6 @@ namespace Fanex.Athena.Controllers.Customer
     using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Extension.Helper;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
     using Fanex.Athena.Service.Core.Common;
@@ -28,6 +27,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Model.Core.ViewModel;
     using ONEbook.UM.Filters;
     using Resources;
+    using Service.Customer.Helpers;
 
     #endregion Using
 
@@ -340,7 +340,7 @@ namespace Fanex.Athena.Controllers.Customer
             };
             if (metaModel.Customers != null && metaModel.Customers.Count > 0)
             {
-                var isvalid = GroupCommSetting.IsAllValid(
+                var isvalid = GroupCommHelper.IsAllValid(
                                 metaModel.SBComm,
                                 metaModel.ParlayComm,
                                 metaModel.RCComm,
