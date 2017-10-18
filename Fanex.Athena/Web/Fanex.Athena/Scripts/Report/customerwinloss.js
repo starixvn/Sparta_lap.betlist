@@ -200,15 +200,33 @@ var CustomerWinLoss = (function ($) {
                 }
 
                 var data = getPostData();
+                data.isExportExcel = true;
                 data.PageIndex = 1;
-                Site.exportExcel(data, Site.resolveClientUrl(DATA_URL));
-                Site.blockUI();
-                setInterval(function () {
-                    if ($.cookie("fileDownload") === "true") {
-                        $.removeCookie("fileDownload");
+                //Site.exportExcel(data, Site.resolveClientUrl(DATA_URL));
+                //Site.blockUI();
+                //setInterval(function () {
+                //    if ($.cookie("fileDownload123") === "true") {
+                //        $.removeCookie("fileDownload123");
+                //        Site.unBlockUI();
+                //    }
+                //}, 1000);
+                var option = {
+                    type: "POST",
+                    data: data,
+                    dataType: "json",
+                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    cache: false,
+                    url: Site.resolveClientUrl(DATA_URL),
+                    success: function (response) {
+                    },
+                    beforeSend: function () {
+                        Site.blockUI();
+                    },
+                    complete: function () {
                         Site.unBlockUI();
                     }
-                }, 1000);
+                };
+                $.ajax(option)
                 return false;
             });
 
