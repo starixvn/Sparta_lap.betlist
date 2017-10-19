@@ -70,48 +70,48 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
-        private static SortableList<LicenseeWinLoss> SortData(SortableList<LicenseeWinLoss> dataList, string sortBy = null, string sortOrder = "asc")
+        private static void SortData(SortableList<LicenseeWinLoss> dataList, string sortBy, string sortOrder = "asc")
         {
-            if (sortBy != null)
+            if (string.IsNullOrEmpty(sortBy))
             {
-                var propertyName = sortBy;
+                return;
+            }
 
-                // Sort for grouping columns, get the real column name
-                if (sortBy.EndsWith("Single", StringComparison.OrdinalIgnoreCase))
+            var propertyName = sortBy;
+
+            // Sort for grouping columns, get the real column name
+            if (sortBy.EndsWith("Single", StringComparison.OrdinalIgnoreCase))
+            {
+                propertyName = sortBy.Remove(sortBy.LastIndexOf("Single", StringComparison.OrdinalIgnoreCase));
+            }
+
+            var property = typeof(LicenseeWinLoss).GetProperty(propertyName);
+
+            if (property == null)
+            {
+                string productCode;
+
+                if (propertyName.Contains(nameof(LicenseeWinLoss.LicenseeWL)))
                 {
-                    propertyName = sortBy.Remove(sortBy.LastIndexOf("Single", StringComparison.OrdinalIgnoreCase));
-                }
+                    var licenseeWLColumn = nameof(LicenseeWinLoss.LicenseeWL);
 
-                var property = typeof(LicenseeWinLoss).GetProperty(propertyName);
-
-                if (property == null)
-                {
-                    string productCode;
-
-                    if (propertyName.Contains(nameof(LicenseeWinLoss.LicenseeWL)))
-                    {
-                        var licenseeWLColumn = nameof(LicenseeWinLoss.LicenseeWL);
-
-                        productCode = propertyName.Substring(licenseeWLColumn.Length);
-                        propertyName = licenseeWLColumn;
-                    }
-                    else
-                    {
-                        var turnOverColumn = nameof(LicenseeWinLoss.TurnOver);
-
-                        productCode = propertyName.Substring(turnOverColumn.Length);
-                        propertyName = turnOverColumn;
-                    }
-
-                    dataList.SortByDictionary(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+                    productCode = propertyName.Substring(licenseeWLColumn.Length);
+                    propertyName = licenseeWLColumn;
                 }
                 else
                 {
-                    dataList.Sort(propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
-                }
-            }
+                    var turnOverColumn = nameof(LicenseeWinLoss.TurnOver);
 
-            return dataList;
+                    productCode = propertyName.Substring(turnOverColumn.Length);
+                    propertyName = turnOverColumn;
+                }
+
+                dataList.SortByDictionary(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+            }
+            else
+            {
+                dataList.Sort(propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+            }
         }
 
         private static LicenseeWinLossGridViewModel MapToGridView(LicenseeWinLoss item, int index = 0)
@@ -294,9 +294,9 @@ namespace Fanex.Athena.Api.Report
                     return ExportExcel(metaModel, dataList, totalData, summaryTotal);
                 }
 
-                if (dataList != null && dataList.Any())
+                if (dataList.Any())
                 {
-                    dataList = SortData(dataList, metaModel.SortBy, metaModel.SortOrder);
+                    SortData(dataList, metaModel.SortBy, metaModel.SortOrder);
 
                     var summaryTotalView = summaryTotal.ToDictionary(d => d.Key, d => MapToGridView(d.Value));
                     return new

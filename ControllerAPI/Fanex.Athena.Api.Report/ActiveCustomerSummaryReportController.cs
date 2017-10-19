@@ -64,27 +64,27 @@ namespace Fanex.Athena.Api.Report
 
         #region Private Utility
 
-        private static SortableList<ActiveCustomer> SortData(SortableList<ActiveCustomer> dataList, string sortBy = null, string sortOrder = "asc")
+        private static void SortData(SortableList<ActiveCustomer> dataList, string sortBy, string sortOrder = "asc")
         {
-            if (sortBy != null)
+            if (string.IsNullOrEmpty(sortBy))
             {
-                var property = typeof(ActiveCustomer).GetProperty(sortBy);
-
-                if (property == null)
-                {
-                    // The two last characters is product code.
-                    var propertyName = nameof(ActiveCustomer.CustomerCount);
-                    var productCode = sortBy.Substring(propertyName.Length);
-
-                    dataList.SortByDictionary(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
-                }
-                else
-                {
-                    dataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
-                }
+                return;
             }
 
-            return dataList;
+            var property = typeof(ActiveCustomer).GetProperty(sortBy);
+
+            if (property == null)
+            {
+                // The two last characters is product code.
+                var propertyName = nameof(ActiveCustomer.CustomerCount);
+                var productCode = sortBy.Substring(propertyName.Length);
+
+                dataList.SortByDictionary(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+            }
+            else
+            {
+                dataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+            }
         }
 
         [CLSCompliant(false)]
@@ -153,7 +153,7 @@ namespace Fanex.Athena.Api.Report
 
                 if (dataList.Any())
                 {
-                    dataList = SortData(dataList, metaModel.SortBy, metaModel.SortOrder);
+                    SortData(dataList, metaModel.SortBy, metaModel.SortOrder);
 
                     return new
                     {
