@@ -26,6 +26,7 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
     using Model.Core.MetaModel.Product;
+    using Model.Core.ResultModel;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss)]
     public class LicenseeWinLossReportController : ApiReportBaseController
@@ -196,10 +197,8 @@ namespace Fanex.Athena.Api.Report
         }
 
         private HttpResponseMessage ExportExcel(
-            LicenseeWinLossMetaModel metaModel,
-            IEnumerable<LicenseeWinLoss> dataList,
-            IEnumerable<LicenseeWinLoss> totalData,
-            IDictionary<string, LicenseeWinLoss> summaryTotal)
+            LicenseeWinLossMetaModel metaModel, 
+            SortableSummaryReportResultModel<LicenseeWinLoss> data)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -224,10 +223,10 @@ namespace Fanex.Athena.Api.Report
             var excelModel = new LicenseeWinLossExcelModel
             {
                 ConvertingOption = convertingOption,
-                DataList = dataList,
+                DataList = data.DataList,
                 MetaModel = metaModel,
-                SummaryTotal = summaryTotal,
-                TotalData = totalData,
+                SummaryTotal = data.SummaryTotal,
+                TotalData = data.TotalData,
                 SBVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.SB),
                 BTVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.BT),
                 COVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.CO),
@@ -244,25 +243,22 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(licenseeWinLoss.Workbook, FileName);
         }
 
-        private void GetData(
-                LicenseeWinLossMetaModel metaModel,
-                out SortableList<LicenseeWinLoss> dataList,
-                out IEnumerable<LicenseeWinLoss> totalData,
-                out IDictionary<string, LicenseeWinLoss> summaryTotal)
+        private SortableSummaryReportResultModel<LicenseeWinLoss> GetData(LicenseeWinLossMetaModel metaModel)
         {
             if (metaModel.IsValid)
             {
-                dataList = metaModel.DrillDownLevel == 0 ? _licenseeWinLossDataAccess.GetSummaryWinloss(metaModel, out totalData, out summaryTotal) :
+                return metaModel.DrillDownLevel == 0 ? _licenseeWinLossDataAccess.GetSummaryWinloss(metaModel) :
                                 metaModel.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.DrillDownLevel == 2
-                               ? _licenseeWinLossDataAccess.GetCustomerWinlossDetail(metaModel, out totalData, out summaryTotal)
-                               : _licenseeWinLossDataAccess.GetAgentWinlossDetail(metaModel, out totalData, out summaryTotal);
+                               ? _licenseeWinLossDataAccess.GetCustomerWinlossDetail(metaModel)
+                               : _licenseeWinLossDataAccess.GetAgentWinlossDetail(metaModel);
             }
-            else
+
+            return new SortableSummaryReportResultModel<LicenseeWinLoss>
             {
-                totalData = new List<LicenseeWinLoss>();
-                summaryTotal = new Dictionary<string, LicenseeWinLoss>();
-                dataList = new SortableList<LicenseeWinLoss>();
-            }
+                TotalData = new List<LicenseeWinLoss>(),
+                SummaryTotal = new Dictionary<string, LicenseeWinLoss>(),
+                DataList = new SortableList<LicenseeWinLoss>()
+            };
         }
 
         private dynamic ProcessRequest(
@@ -284,25 +280,22 @@ namespace Fanex.Athena.Api.Report
                 metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;
                 metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(level == 0 ? metaModel.CurrencyId : currencyId, metaModel.IsExcludedTestData);
-                IDictionary<string, LicenseeWinLoss> summaryTotal;
-                SortableList<LicenseeWinLoss> dataList;
-                IEnumerable<LicenseeWinLoss> totalData;
-                GetData(metaModel, out dataList, out totalData, out summaryTotal);
+                var result = GetData(metaModel);
 
                 if (metaModel.IsExportExcel)
                 {
-                    return ExportExcel(metaModel, dataList, totalData, summaryTotal);
+                    return ExportExcel(metaModel, result);
                 }
 
-                if (dataList.Any())
+                if (result.DataList.Any())
                 {
-                    SortData(dataList, metaModel.SortBy, metaModel.SortOrder);
+                    SortData(result.DataList, metaModel.SortBy, metaModel.SortOrder);
 
-                    var summaryTotalView = summaryTotal.ToDictionary(d => d.Key, d => MapToGridView(d.Value));
+                    var summaryTotalView = result.SummaryTotal.ToDictionary(d => d.Key, d => MapToGridView(d.Value));
                     return new
                     {
-                        Data = dataList.Select(MapToGridView).ToList(),
-                        Total = totalData.Select(MapToGridView).ToList(),
+                        Data = result.DataList.Select(MapToGridView).ToList(),
+                        Total = result.TotalData.Select(MapToGridView).ToList(),
                         SummaryTotal = summaryTotalView,
                         ProductOptions = metaModel.ProductOptions.ToJson()
                     };

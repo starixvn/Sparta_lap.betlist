@@ -19,7 +19,7 @@
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
+    using Model.Core.ResultModel;
 
     public class LicenseeWinLossDataAccess : BaseDataAccess, ILicenseeWinLossDataAccess
     {
@@ -38,10 +38,8 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public SortableList<LicenseeWinLoss> GetSummaryWinloss(
-            LicenseeWinLossMetaModel metaModel,
-            out IEnumerable<LicenseeWinLoss> totalData,
-            out IDictionary<string, LicenseeWinLoss> summaryTotal)
+        public SortableSummaryReportResultModel<LicenseeWinLoss> GetSummaryWinloss(
+            LicenseeWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LicWinloss";
             try
@@ -53,7 +51,7 @@
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel, false, out totalData, out summaryTotal);
+                        return GetData(reader, metaModel, false);
                     }
                 }
             }
@@ -63,10 +61,8 @@
             }
         }
 
-        public SortableList<LicenseeWinLoss> GetCustomerWinlossDetail(
-            LicenseeWinLossMetaModel metaModel,
-            out IEnumerable<LicenseeWinLoss> totalData,
-            out IDictionary<string, LicenseeWinLoss> summaryTotal)
+        public SortableSummaryReportResultModel<LicenseeWinLoss> GetCustomerWinlossDetail(
+            LicenseeWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LicWinlossDetail";
             try
@@ -77,7 +73,7 @@
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel, true, out totalData, out summaryTotal);
+                        return GetData(reader, metaModel, true);
                     }
                 }
             }
@@ -87,10 +83,8 @@
             }
         }
 
-        public SortableList<LicenseeWinLoss> GetAgentWinlossDetail(
-            LicenseeWinLossMetaModel metaModel,
-            out IEnumerable<LicenseeWinLoss> totalData,
-            out IDictionary<string, LicenseeWinLoss> summaryTotal)
+        public SortableSummaryReportResultModel<LicenseeWinLoss> GetAgentWinlossDetail(
+            LicenseeWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LicWinlossDetail_Ag";
             try
@@ -100,7 +94,7 @@
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel, true, out totalData, out summaryTotal);
+                        return GetData(reader, metaModel, true);
                     }
                 }
             }
@@ -122,20 +116,17 @@
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private static SortableList<LicenseeWinLoss> GetData(
+        private static SortableSummaryReportResultModel<LicenseeWinLoss> GetData(
             IDataReader reader,
             LicenseeWinLossMetaModel metaModel,
-            bool drilldown,
-            out IEnumerable<LicenseeWinLoss> totalData,
-            out IDictionary<string, LicenseeWinLoss> summaryTotal)
+            bool drilldown)
         {
-            var result = new SortableList<LicenseeWinLoss>();
-            summaryTotal = InitSummaryTotal();
+            var dataList = new SortableList<LicenseeWinLoss>();
+            var summaryTotal = InitSummaryTotal();
 
             var hasSystemId = reader.HasColumn("username");
             var hasExternalId = reader.HasColumn("nickname");
             var hasCustomerId = reader.HasColumn("custid");
-            var index = 1;
             var baseCurrency = metaModel.BaseCurrency;
             var licenseeWLColumns = new Dictionary<string, string>();
             var turnoverColumns = new Dictionary<string, string>();
@@ -160,18 +151,6 @@
 
             while (reader.Read())
             {
-                var licenseeWl = new Dictionary<string, decimal>();
-                var turnOver = new Dictionary<string, decimal>();
-                foreach (var column in licenseeWLColumns)
-                {
-                    licenseeWl.Add(column.Value, reader.ToDecimal(column.Key));
-                }
-
-                foreach (var column in turnoverColumns)
-                {
-                    turnOver.Add(column.Value, reader.ToDecimal(column.Key));
-                }
-
                 var item = new LicenseeWinLoss
                 {
                     SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
@@ -184,8 +163,8 @@
                     ActualStake = reader.ToDecimal("BTActualStake" + baseCurrency),
                     BuyBackAmountSB = reader.ToDecimal("BuyBackAmtSB" + baseCurrency),
                     BuyBackAmountBA = reader.ToDecimal("BuyBackAmtBA" + baseCurrency),
-                    LicenseeWL = licenseeWl,
-                    TurnOver = turnOver,
+                    LicenseeWL = ReadLicenseeWinLossList(reader, licenseeWLColumns),
+                    TurnOver = ReadTurnoverList(reader, turnoverColumns),
                     TotalTransaction = reader.ToInt("betcount"),
                     RacingRevenue = reader.ToDecimal("licenseewlrb" + baseCurrency) + reader.ToDecimal("commrb" + baseCurrency),
                     BACommission = reader.ToDecimal("commba" + baseCurrency),
@@ -199,15 +178,39 @@
                         : ConvertHelper.ToDateTime(reader.ToString("reporttype"), metaModel.ReportBy == ReportByType.Monthly)
                 };
 
-                result.Add(item);
-
+                dataList.Add(item);
                 ReadSummaryTotal(reader, metaModel.ProductOptions, summaryTotal);
-
-                index++;
             }
 
-            totalData = CalculateTotal(result);
-            return result;
+            return new SortableSummaryReportResultModel<LicenseeWinLoss>
+            {
+                DataList = dataList,
+                TotalData = CalculateTotal(dataList),
+                SummaryTotal = summaryTotal
+            };
+        }
+
+        private static IDictionary<string, decimal> ReadTurnoverList(IDataReader reader, IDictionary<string, string> turnoverColumns)
+        {
+            var turnOver = new Dictionary<string, decimal>();
+            foreach (var column in turnoverColumns)
+            {
+                turnOver.Add(column.Value, reader.ToDecimal(column.Key));
+            }
+
+            return turnOver;
+        }
+
+        private static IDictionary<string, decimal> ReadLicenseeWinLossList(IDataReader reader, IDictionary<string, string> licenseeWLColumns)
+        {
+            var licenseeWl = new Dictionary<string, decimal>();
+
+            foreach (var column in licenseeWLColumns)
+            {
+                licenseeWl.Add(column.Value, reader.ToDecimal(column.Key));
+            }
+
+            return licenseeWl;
         }
 
         private static IDictionary<string, LicenseeWinLoss> InitSummaryTotal()
