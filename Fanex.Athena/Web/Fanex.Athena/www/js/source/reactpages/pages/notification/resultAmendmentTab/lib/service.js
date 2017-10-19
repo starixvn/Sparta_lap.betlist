@@ -1,9 +1,9 @@
-import LangHelper from '../../../lib/langHelper'
-import Site from '../../../lib/site'
+import LangHelper from '../../../../lib/langHelper'
+import Site from '../../../../lib/site'
 
 const headerText = {
-    type: LangHelper.getSingleResource("Type"),
-    dateTime: LangHelper.getSingleResource("DateTime"),
+    ticketList: LangHelper.getSingleResource("TicketList"),
+    dateTime: `${LangHelper.getSingleResource("Date")}/${LangHelper.getSingleResource("Time")}`,
     content: LangHelper.getSingleResource("Content")
 }
 

@@ -17,19 +17,20 @@
         [HttpGet]
         public ActionResult Index()
         {
-            var model = CreateViewModel();
-
-            return View("~/Views/Report/Notification/Notification.cshtml", model);
-        }
-
-        private NotificationViewModel CreateViewModel()
-        {
-            var viewModel = new NotificationViewModel
+            var model = new NotificationViewModel
             {
                 NotificationTypes = _notificationReportService.GetNotificationTypes()
             };
 
-            return viewModel;
+            return View("~/Views/Report/Notification/Notification.cshtml", model);
+        }
+
+        [HttpGet]
+        public ActionResult ResultAmendment()
+        {
+            var model = new ResultAmendmentViewModel();
+
+            return View("~/Views/Report/Notification/ResultAmendment.cshtml", model);
         }
     }
 }

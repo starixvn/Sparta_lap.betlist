@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
 import Select from 'react-select'
-import { DateRange } from '../../../components/date-range/index'
-import LangHelper from '../../../lib/langHelper'
-import Site from '../../../lib/site'
+import { DateRange } from '../../../../components/date-range/index'
+import LangHelper from '../../../../lib/langHelper'
+import Site from '../../../../lib/site'
 import service from '../lib/service'
 
 const RANGE_MONTH_CONSTRAINT = 3;
@@ -62,7 +62,12 @@ export class FormFilter extends Component {
                 value={selectedNotificationType}
                 options={notificationTypes}
                 onChange={(item) => this.props.setSelectedNotificationType(item.value)} />
-    ) : null;
+            ) : (
+            <Select id="ddlNotificationType"
+                    name="form-field-name"
+                    value={0}
+                    options={[]} />
+            );
     }
 
     _renderDateRange() {
@@ -78,24 +83,29 @@ export class FormFilter extends Component {
 
     render() {
         return (
-            <div className="page-filter">
-                <div className="row">
-                    <div className="col-12 col-md-4 col-sm-4 col-lg-3 col-xl-3">
-                        <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Date")}</label>
-                            {this._renderDateRange()}
+            <div className="page-filter-tab">
+                <div className="page-filter">
+                    <div className="row">
+                        <div className="col-12 col-md-4 col-sm-4 col-lg-3 col-xl-3">
+                            <div className="form-group">
+                                <label className="label-text">{LangHelper.getSingleResource("Date")}</label>
+                                {this._renderDateRange()}
+                            </div>
                         </div>
-                    </div>
 
-                    <div className="col-12 col-md-2 col-sm-3 col-lg-2 col-xl-2">
-                        <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Type")}</label>
-                            {this._renderNotificationTypeSelectList()}
+                        <div className="col-12 col-md-2 col-sm-3 col-lg-2 col-xl-2">
+                            <div className="form-group">
+                                <label className="label-text">{LangHelper.getSingleResource("Type")}</label>
+                                {this._renderNotificationTypeSelectList()}
+                            </div>
                         </div>
-                    </div>
-                    <div className="form-group">
-                        <div className="button-group">
-                            <button type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
+
+                        <div className="col-12 col-md-2 col-sm-3 col-lg-2 col-xl-2">
+                            <div className="form-group">
+                                <div className="button-group">
+                                    <button type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

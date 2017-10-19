@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "LRF - " + ViewResources.Report +
-    " - " + ViewResources.LrfNotification;
+    " - " + ViewResources.Notifications;
     Layout = "~/Views/Desktop/Shared/_ReactPageLayout.cshtml";
 }
 @model Fanex.Athena.Model.Report.ViewModel.NotificationViewModel
@@ -10,6 +10,11 @@
     var maxDate = appSettings.MaxDate;
     var notificationTypes = Model.NotificationTypes.Select(x => new { value = x.Key, label = x.Value }).ToList();
     var selectedNotificationType = notificationTypes.FirstOrDefault();
+    var tabList = new[]
+    {
+        new { isActive = true, name = ViewResources.Notifications, url = Url.Action("Index", "NotificationReport") },
+        new { isActive = false, name = ViewResources.ResultAmendment, url = Url.Action("ResultAmendment", "NotificationReport") }
+    };
 }
 
 @section pagecss {
@@ -26,7 +31,8 @@
         isLoading: false,
         dateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'},
         notificationTypes: @Html.Raw(notificationTypes.ToJson()),
-        selectedNotificationType: '@(selectedNotificationType != null ? selectedNotificationType.value : string.Empty)'
+        selectedNotificationType: '@(selectedNotificationType != null ? selectedNotificationType.value : string.Empty)',
+        tabList: @Html.Raw(tabList.ToJson())
     }
 }
 <div id="app-container">

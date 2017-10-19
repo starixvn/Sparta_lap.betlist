@@ -3054,6 +3054,7 @@
   <data name="SubsidiaryWL" xml:space="preserve">
     <value>Subsidiary WL</value>
   </data>
+    <value>Match Delay-Done</value>
   <data name="NewAsia" xml:space="preserve">
     <value>New Asia</value>
     <comment>#85203</comment>
@@ -3104,21 +3105,17 @@
   </data>
   <data name="MatchDelayDone" xml:space="preserve">
     <value>Match Delay-Done</value>
-    <comment>84004</comment>
-  </data>
   <data name="MatchDelayNew" xml:space="preserve">
-    <value>Match Delay-New</value>
+    <value>Match Delay-New</value
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
     <comment>84004</comment>
   </data>
-  <data name="Personal" xml:space="preserve">
-    <value>Personal</value>
+  <data name="TicketList" xml:space="preserve">
+    <value>Ticket List</value>
     <comment>84004</comment>
   </data>
-  <data name="Public" xml:space="preserve">
-    <value>Public</value>
-    <comment>84004</comment>
-  </data>
-  <data name="Special" xml:space="preserve">
-    <value>Special</value>
+  <data name="ResultAmendment" xml:space="preserve">
+    <value>Result Amendment</value>
     <comment>84004</comment>
   </data></root>

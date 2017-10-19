@@ -6,7 +6,7 @@ import { createLogger } from 'redux-logger'
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import reducer from '../reducers/index.js'
-import { debuggingConfig } from '../../../constants/config'
+import { debuggingConfig } from '../../../../constants/config'
 
 const isDev = process.env.NODE_ENV === "development";
 const configName = debuggingConfig.name;

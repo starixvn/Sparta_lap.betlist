@@ -24,6 +24,7 @@ function generateConfig(environment) {
             [`${jsPath}/subsidiaryperformance/subsidiaryperformance`]: pathConfig.scriptPaths.subsidiaryperformance,
             [`${jsPath}/notification/notification`]: pathConfig.scriptPaths.notification,
             [`${jsPath}/report/licenseewlbytimezone`]: pathConfig.scriptPaths.licenseewlbytimezone,
+            [`${jsPath}/notification/resultamendment`]: pathConfig.scriptPaths.resultamendment,
             /*css*/
             [`${cssPath}/vendor`]: pathConfig.cssPaths.layout,
             [`${cssPath}/subsidiaryperformance/index`]: pathConfig.cssPaths.subsidiaryperformance,

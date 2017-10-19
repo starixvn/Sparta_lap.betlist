@@ -2,11 +2,11 @@
 import { connect } from 'react-redux'
 import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
-import { Table, Row, Cell } from '../../../components/fixed-table-header'
-import LangHelper from '../../../lib/langHelper'
-import NumberFormat from '../../../lib/numberFormat'
-import ReportTitle from '../../../components/ReportTitle'
-import NoDataTitle from '../../../components/NoDataTitle'
+import { Table, Row, Cell } from '../../../../components/fixed-table-header'
+import LangHelper from '../../../../lib/langHelper'
+import NumberFormat from '../../../../lib/numberFormat'
+import ReportTitle from '../../../../components/ReportTitle'
+import NoDataTitle from '../../../../components/NoDataTitle'
 import service from '../lib/service'
 
 export class DataGrid extends Component {
@@ -29,10 +29,10 @@ export class DataGrid extends Component {
 
         return (
             <Row style={{ height: 32 }}>
-                <Cell colWidth={150} header={true} title="#">#</Cell>
+                <Cell colWidth={30} header={true} title="#">#</Cell>
                 <Cell colWidth={150} header={true} title={headerText.type}>{headerText.type}</Cell>
-                <Cell colWidth={200} header={true} title={headerText.dateTime}>{headerText.dateTime}</Cell>
-                <Cell colWidth={150} header={true} title={headerText.content}>{headerText.content}</Cell>
+                <Cell colWidth={150} header={true} title={headerText.dateTime}>{headerText.dateTime}</Cell>
+                <Cell colWidth={300} header={true} title={headerText.content}>{headerText.content}</Cell>
             </Row>
         )
     }
@@ -92,8 +92,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { gridData, dateRange, selectedBaseCurrency, isLoading } = state;
-    return Object.assign({}, { gridData, dateRange, selectedBaseCurrency, isLoading });
+    const { gridData, dateRange, selectedNotificationType, isLoading } = state;
+    return Object.assign({}, { gridData, dateRange, selectedNotificationType, isLoading });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

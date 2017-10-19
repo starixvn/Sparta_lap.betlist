@@ -195,6 +195,7 @@
     <Compile Include="ViewModel\ColossusBetWinLossViewModel.cs" />
     <Compile Include="ViewModel\LicenseeWinLossByTimeZoneViewModel.cs" />
     <Compile Include="ViewModel\NotificationViewModel.cs" />
+    <Compile Include="ViewModel\ResultAmendmentViewModel.cs" />
     <Compile Include="ViewModel\SubsidiaryPerformanceViewModel.cs" />
     <Compile Include="ViewModel\ThirdPartyWinLossViewModel.cs" />
     <Compile Include="ViewModel\WinLossByLeagueViewModel.cs" />
