@@ -130,7 +130,7 @@ namespace Fanex.Athena.Excel.Warehouse
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        protected void ProcessUI(ISheet sheet)
+        private static void ProcessUI(ISheet sheet)
         {
             sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
             sheet.HideRow(RowTableHeaderTemplate + 1);

@@ -13,7 +13,7 @@ namespace Fanex.Athena.Excel.Base
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
 
-    public abstract class ReportBase : ExcelBase
+    public class ReportBase : ExcelBase
     {
         public const int RowHeaderTemplate = 1;
         public const int RowTitleTemplate = 0;

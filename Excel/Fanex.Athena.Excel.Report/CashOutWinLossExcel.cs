@@ -161,12 +161,7 @@ namespace Fanex.Athena.Excel.Report
                 // Merge cell
                 if (needMerge && rowSpan > 1)
                 {
-                    if (Level == 0)
-                    {
-                        sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnIndex, index + RowContentTemplate, ColumnIndex);
-                    }
-
-                    sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnDate, index + RowContentTemplate, ColumnDate);
+                    MergeCells(sheet, rowSpan, index);
                 }
 
                 rowSpan = needMerge ? 1 : rowSpan + 1;
@@ -204,7 +199,6 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         protected void ProcessUI(ISheet sheet)
         {
             if (!_isAllowBA)
@@ -312,6 +306,16 @@ namespace Fanex.Athena.Excel.Report
             sheet.MergeCells(rowIndex - totalCurrencyList.Count, 0, rowIndex - 1, 3);
 
             return rowIndex;
+        }
+
+        private void MergeCells(ISheet sheet, int rowSpan, int index)
+        {
+            if (Level == 0)
+            {
+                sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnIndex, index + RowContentTemplate, ColumnIndex);
+            }
+
+            sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnDate, index + RowContentTemplate, ColumnDate);
         }
     }
 }
