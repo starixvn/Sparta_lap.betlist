@@ -10,7 +10,7 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
-    using System.Web;
+    using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Report;
@@ -27,6 +27,8 @@ namespace Fanex.Athena.Api.Report
     using Model.Core.DataDomain;
     using Model.Core.MetaModel.Product;
     using Model.Core.ResultModel;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss)]
     public class LicenseeWinLossReportController : ApiReportBaseController
@@ -39,6 +41,17 @@ namespace Fanex.Athena.Api.Report
         {
             _appSettings = new AppSettings();
             _licenseeWinLossDataAccess = new LicenseeWinLossDataAccess();
+        }
+
+        public LicenseeWinLossReportController(
+            ISessionService sessionService,
+            IProductService productService,
+            IAppSettings appSettings,
+            ILicenseeWinLossDataAccess licenseeWinLossDataAccess)
+            : base(sessionService, productService)
+        {
+            _appSettings = appSettings;
+            _licenseeWinLossDataAccess = licenseeWinLossDataAccess;
         }
 
         [HttpPost]
@@ -197,13 +210,13 @@ namespace Fanex.Athena.Api.Report
         }
 
         private HttpResponseMessage ExportExcel(
-            LicenseeWinLossMetaModel metaModel, 
+            LicenseeWinLossMetaModel metaModel,
             SortableSummaryReportResultModel<LicenseeWinLoss> data)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             const string FileName = "LicenseeWinLoss.xls";
-            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/LicenseeWinLoss.xls");
+            var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/LicenseeWinLoss.xls");
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
 
             var convertingOption = new ConvertingOption
@@ -236,11 +249,17 @@ namespace Fanex.Athena.Api.Report
                 SystemIdVisible = !_appSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId)
             };
 
-            var licenseeWinLoss = new LicenseeWinLossExcel(templatePath, excelModel);
+            var excel = CreateExcel(templatePath, excelModel);
 
-            licenseeWinLoss.Export();
+            excel.Export();
 
-            return ExcelStream(licenseeWinLoss.Workbook, FileName);
+            return ExcelStream(excel.Workbook, FileName);
+        }
+
+        [CLSCompliant(false)]
+        protected internal virtual LicenseeWinLossExcel CreateExcel(string templatePath, LicenseeWinLossExcelModel excelModel)
+        {
+            return new LicenseeWinLossExcel(templatePath, excelModel);
         }
 
         private SortableSummaryReportResultModel<LicenseeWinLoss> GetData(LicenseeWinLossMetaModel metaModel)

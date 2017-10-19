@@ -82,6 +82,11 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly bool _isAllowBA;
 
+        protected internal LicenseeWinLossExcel(string templatePath)
+            : base(templatePath)
+        {
+        }
+
         public LicenseeWinLossExcel(string templatePath, LicenseeWinLossExcelModel excelModel)
             : base(templatePath)
         {
@@ -199,12 +204,7 @@ namespace Fanex.Athena.Excel.Report
                 // Merge cell
                 if (needMerge && rowSpan > 1)
                 {
-                    if (_excelModel.MetaModel.DrillDownLevel == 0)
-                    {
-                        sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnIndex, index + RowContentTemplate, ColumnIndex);
-                    }
-
-                    sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnDate, index + RowContentTemplate, ColumnDate);
+                    MergeCells(sheet, rowSpan, index);
                 }
 
                 rowSpan = needMerge ? 1 : rowSpan + 1;
@@ -222,6 +222,16 @@ namespace Fanex.Athena.Excel.Report
 
             rowIndex = AssignTotalData(sheet, index + 3);
             AssignGrandTotalInEurData(sheet, rowIndex);
+        }
+
+        private void MergeCells(ISheet sheet, int rowSpan, int index)
+        {
+            if (_excelModel.MetaModel.DrillDownLevel == 0)
+            {
+                sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnIndex, index + RowContentTemplate, ColumnIndex);
+            }
+
+            sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnDate, index + RowContentTemplate, ColumnDate);
         }
 
         protected void AssignTitle(ISheet sheet)
