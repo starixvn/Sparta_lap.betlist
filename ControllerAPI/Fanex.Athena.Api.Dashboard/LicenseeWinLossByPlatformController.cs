@@ -9,15 +9,15 @@
 
     public class LicenseeWinLossByPlatformController : BaseDashboardApiController
     {
-        private readonly IWidgetByPlatformDataAccess _dataAccess;
+        private readonly ILicenseeDataByPlatformDataAccess _dataAccess;
 
         public LicenseeWinLossByPlatformController() : this(null)
         {
         }
 
-        public LicenseeWinLossByPlatformController(IWidgetByPlatformDataAccess dataAccess)
+        public LicenseeWinLossByPlatformController(ILicenseeDataByPlatformDataAccess dataAccess)
         {
-            this._dataAccess = dataAccess ?? new LicenseeWinLossByPlatformDataAccess();
+            this._dataAccess = dataAccess ?? new LicenseeDataByPlatformDataAccess();
         }
 
         [HttpGet]
@@ -32,7 +32,7 @@
             var now = DateTime.Now.Date;
             metaModel.FromDate = new DateTime(now.Year, now.Month, 1);
             metaModel.ToDate = now;
-            return _dataAccess.GetData(metaModel);
+            return _dataAccess.GetWinLoss(metaModel);
         }
     }
 }

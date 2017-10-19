@@ -12,12 +12,12 @@
     [TestFixture]
     public class LicenseeWinLossByPlatformControllerTest
     {
-        private IWidgetByPlatformDataAccess _dataAccess;
+        private ILicenseeDataByPlatformDataAccess _dataAccess;
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            _dataAccess = Substitute.For<IWidgetByPlatformDataAccess>();
+            _dataAccess = Substitute.For<ILicenseeDataByPlatformDataAccess>();
         }
 
         [OneTimeTearDown]
@@ -27,7 +27,7 @@
         }
 
         [TestCase("CLMV")]
-        public void GetData_InvalidBaseCurrency_ReturnNullData(string baseCurrency)
+        public void GetWinLoss_InvalidBaseCurrency_ReturnNullData(string baseCurrency)
         {
             // Arrange
             var metaModel = new DashboardBaseModel
@@ -50,7 +50,7 @@
         }
 
         [Test]
-        public void GetData_WhenCall_ReturnCorrectData()
+        public void GetWinLoss_WhenCall_ReturnCorrectData()
         {
             // Arrange
             var expected = new WidgetByPlatformViewModel
@@ -68,7 +68,7 @@
             {
                 BaseCurrency = "EUR"
             };
-            _dataAccess.GetData(metaModel).Returns(expected);
+            _dataAccess.GetWinLoss(metaModel).Returns(expected);
 
             using (var controller = CreateController())
             {
