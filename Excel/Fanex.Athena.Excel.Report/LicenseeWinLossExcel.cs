@@ -118,7 +118,7 @@ namespace Fanex.Athena.Excel.Report
         }
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             // row 1
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
@@ -168,13 +168,13 @@ namespace Fanex.Athena.Excel.Report
             row2.Cells[ColumnLicenseeWlTotal].SetCellValue(ViewResources.Total);
         }
 
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
-        protected override void AssignSheetData(ISheet sheet)
+        protected void AssignSheetData(ISheet sheet)
         {
             var rowSpan = 1;
             var rowIndex = 1;
@@ -224,7 +224,7 @@ namespace Fanex.Athena.Excel.Report
             AssignGrandTotalInEurData(sheet, rowIndex);
         }
 
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
             var fromdate = _excelModel.MetaModel.FromDate.ToString(FormatDate);
             var todate = _excelModel.MetaModel.ToDate.ToString(FormatDate);
@@ -247,7 +247,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
-        protected override void ProcessUI(ISheet sheet)
+        protected void ProcessUI(ISheet sheet)
         {
             if (!_excelModel.SystemIdVisible)
             {

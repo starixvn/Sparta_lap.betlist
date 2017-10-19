@@ -86,7 +86,7 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
@@ -102,13 +102,13 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
         }
 
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             var message = string.IsNullOrWhiteSpace(_excelModel.ErrorMessage) ? ViewResources.NoInfo : _excelModel.ErrorMessage;
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, ColumnTemplateCount, message);
         }
 
-        protected override void AssignSheetData(ISheet sheet)
+        protected void AssignSheetData(ISheet sheet)
         {
             var indexReport = 1;
 
@@ -157,7 +157,7 @@ namespace Fanex.Athena.Excel.Report
             AssignSummaryTotal(sheet, currentRow);
         }
 
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
             var fromdate = _excelModel.MetaModel.Level == 0
                               ? _excelModel.MetaModel.FromDate.ToString(FormatDate)
@@ -183,7 +183,7 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        protected override void ProcessUI(ISheet sheet)
+        protected void ProcessUI(ISheet sheet)
         {
             if (!_excelModel.SystemIdVisible)
             {

@@ -102,31 +102,6 @@ namespace Fanex.Athena.Excel.Base
         {
         }
 
-        protected virtual void AssignHeader(ISheet sheet)
-        {
-        }
-
-        protected internal virtual void AssignNoInfoRow(ISheet sheet)
-        {
-        }
-
-        protected internal virtual void AssignSheetData(ISheet sheet)
-        {
-        }
-
-        protected virtual int AssignSheetData(ISheet sheet, int pageIndex)
-        {
-            return 0;
-        }
-
-        protected virtual void AssignTitle(ISheet sheet)
-        {
-        }
-
-        protected virtual void ProcessUI(ISheet sheet)
-        {
-        }
-
         protected internal virtual void LoadTemplate()
         {
             FileStream stream = null;

@@ -65,7 +65,7 @@
             }
         }
 
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             for (int i = 0; i < HeaderTextList.Count; i++)
@@ -74,13 +74,13 @@
             }
         }
 
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
-        protected override int AssignSheetData(ISheet sheet, int pageIndex)
+        protected int AssignSheetData(ISheet sheet, int pageIndex)
         {
             var rowCount = Math.Min(_excelModel.DataList.Count(), checked((pageIndex + 1) * PageSize));
             var rowIndex = 0;
@@ -105,7 +105,7 @@
             return rowIndex;
         }
 
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
             ReportTitle = string.Format(ViewResources.CustomerPedingFundsTitle, ReportExcelHelper.GetTitleCurrencyName(_excelModel.ConvertingOption));
 
@@ -131,7 +131,7 @@
             sheet.MergeCells(totalRow, 0, totalRow, 2);
         }
 
-        protected override void ProcessUI(ISheet sheet)
+        protected void ProcessUI(ISheet sheet)
         {
             if (!_excelModel.SystemIdVisible)
             {

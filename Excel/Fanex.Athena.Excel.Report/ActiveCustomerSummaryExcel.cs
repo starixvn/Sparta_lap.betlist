@@ -81,12 +81,11 @@ namespace Fanex.Athena.Excel.Report
                 AssignSheetData(sheet);
             }
 
-            ProcessUI(sheet);
             sheet.MergeCells(RowTableHeader, ColumnFirstProduct, RowTableHeader, ColumnLastProduct);
             sheet.HideColumn(_hiddenColumnIndexes.ToArray());
         }
 
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnDate].SetCellValue(ViewResources.Month);
@@ -104,13 +103,12 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
-            ProcessUI(sheet);
         }
 
-        protected override void AssignSheetData(ISheet sheet)
+        protected void AssignSheetData(ISheet sheet)
         {
             int index;
             var rowCount = _activeCustomerList.Count();
@@ -143,7 +141,7 @@ namespace Fanex.Athena.Excel.Report
             sheet.MergeCells(totalRowIndex, ColumnDate, totalRowIndex, ColumnTotalTransaction);
         }
 
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
             var todate = _metaModel.ToDate.ToString(FormatDate);

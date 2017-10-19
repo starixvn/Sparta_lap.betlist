@@ -81,11 +81,9 @@ namespace Fanex.Athena.Excel.Report
             {
                 AssignSheetData(sheet);
             }
-
-            ProcessUI(sheet);
         }
 
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
@@ -102,13 +100,12 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnProgressiveFee].SetCellValue(ViewResources.ProgressiveFee);
         }
 
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, ColumnTemplateCount, ViewResources.NoInfo);
-            ProcessUI(sheet);
         }
 
-        protected override void AssignSheetData(ISheet sheet)
+        protected void AssignSheetData(ISheet sheet)
         {
             var indexReport = 1;
             int index;
@@ -156,7 +153,7 @@ namespace Fanex.Athena.Excel.Report
             AssignGrandTotalInEurData(sheet, currentRow);
         }
 
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
             var todate = _metaModel.ToDate.ToString(FormatDate);

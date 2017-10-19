@@ -70,11 +70,9 @@ namespace Fanex.Athena.Excel.Report
             {
                 AssignNoInfoRow(sheet);
             }
-
-            ProcessUI(sheet);
         }
 
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
@@ -86,13 +84,12 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmount].SetCellValue(ViewResources.Amount);
         }
 
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
-            ProcessUI(sheet);
         }
 
-        protected override void AssignSheetData(ISheet sheet)
+        protected void AssignSheetData(ISheet sheet)
         {
             InitializeFonts();
 
@@ -106,7 +103,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
             var todate = _metaModel.ToDate.ToString(FormatDate);

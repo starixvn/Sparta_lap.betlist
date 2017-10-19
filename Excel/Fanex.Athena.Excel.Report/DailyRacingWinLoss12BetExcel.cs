@@ -124,7 +124,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to header section.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[0].SetCellValue(ViewResources.Race);
@@ -143,7 +143,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign "no information" string to sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentStart, ColumnCount, ViewResources.NoInfo);
             ProcessUI(sheet);
@@ -153,7 +153,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignSheetData(ISheet sheet)
+        protected void AssignSheetData(ISheet sheet)
         {
             // Get current row depend licensee id
             var contentData = DailyRacingWinLossData.ContentData;
@@ -207,7 +207,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign title for the report.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
             ReportTitle = string.Format(
                                         ViewResources.DailyRacing12BetTitle,
@@ -227,7 +227,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected override void ProcessUI(ISheet sheet)
+        protected void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {

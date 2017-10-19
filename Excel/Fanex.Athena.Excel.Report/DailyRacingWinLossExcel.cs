@@ -108,7 +108,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to header section.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             for (int i = 0; i < HeaderTextList.Count; i++)
@@ -117,7 +117,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentStart, ColumnTemplateCount, ViewResources.NoInfo);
         }
@@ -126,7 +126,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignSheetData(ISheet sheet)
+        protected void AssignSheetData(ISheet sheet)
         {
             var contentData = DailyRacingWinLossData.ContentData;
             var contentTotalData = DailyRacingWinLossData.ContentTotalData;
@@ -170,7 +170,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign title for the report.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
             ReportTitle = string.Format(
                                         ViewResources.DailyRacingTitle,
@@ -191,7 +191,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected override void ProcessUI(ISheet sheet)
+        protected void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {

@@ -81,7 +81,7 @@ namespace Fanex.Athena.Excel.Warehouse
         /// Assign data to header section.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
@@ -97,7 +97,7 @@ namespace Fanex.Athena.Excel.Warehouse
             row.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
         }
 
-        protected override void AssignSheetData(ISheet sheet)
+        protected void AssignSheetData(ISheet sheet)
         {
             var rowCount = _exportData.Rows.Count;
 
@@ -113,7 +113,7 @@ namespace Fanex.Athena.Excel.Warehouse
             AssignTotalData(sheet, RowContentTemplate + rowCount);
         }
 
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
@@ -130,7 +130,7 @@ namespace Fanex.Athena.Excel.Warehouse
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        protected override void ProcessUI(ISheet sheet)
+        protected void ProcessUI(ISheet sheet)
         {
             sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
             sheet.HideRow(RowTableHeaderTemplate + 1);

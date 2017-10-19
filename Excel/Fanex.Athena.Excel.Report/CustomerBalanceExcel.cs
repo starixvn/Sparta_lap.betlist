@@ -121,7 +121,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
@@ -140,12 +140,12 @@ namespace Fanex.Athena.Excel.Report
             row2.Cells[ColumnAmountDueToBa].SetCellValue(ViewResources.AmtDueTo);
         }
 
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
 
-        protected override int AssignSheetData(ISheet sheet, int pageIndex)
+        protected int AssignSheetData(ISheet sheet, int pageIndex)
         {
             var rowCount = _exportData.Count();
             var startIndex = checked(pageIndex * MaxRowCount);
@@ -184,7 +184,7 @@ namespace Fanex.Athena.Excel.Report
             return rowIndex;
         }
 
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
             var pattern = ViewResources.CustomerBalance + ", {0} - {1}, {2}";
             ReportTitle = string.Format(
@@ -199,7 +199,7 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        protected override void ProcessUI(ISheet sheet)
+        protected void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {
