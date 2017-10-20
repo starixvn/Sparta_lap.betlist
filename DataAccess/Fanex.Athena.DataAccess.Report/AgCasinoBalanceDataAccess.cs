@@ -43,7 +43,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (SqlException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, metaModel);
+                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 
@@ -73,7 +73,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (SqlException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, metaModel);
+                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 
@@ -93,7 +93,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (SqlException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, metaModel);
+                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 

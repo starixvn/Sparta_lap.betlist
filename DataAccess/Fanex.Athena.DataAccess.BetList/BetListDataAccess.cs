@@ -55,7 +55,7 @@ namespace Fanex.Athena.DataAccess.BetList
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
 
@@ -127,7 +127,7 @@ namespace Fanex.Athena.DataAccess.BetList
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, metaModel);
+                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 
@@ -212,7 +212,7 @@ namespace Fanex.Athena.DataAccess.BetList
             }
             catch (System.Exception sqlException)
             {
-                throw new DataAccessException(sqlException.Message, uspKey, metaModel);
+                throw new DataAccessException(sqlException, uspKey, metaModel);
             }
         }
 
@@ -279,7 +279,7 @@ namespace Fanex.Athena.DataAccess.BetList
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspKey);
+                throw new DataAccessException(sqlException, UspKey);
             }
         }
 

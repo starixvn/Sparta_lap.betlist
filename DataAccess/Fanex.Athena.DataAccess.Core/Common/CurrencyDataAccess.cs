@@ -33,7 +33,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, uspParams);
+                throw new DataAccessException(sqlException, UspName, uspParams);
             }
         }
 
@@ -65,7 +65,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
 
@@ -85,7 +85,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
 

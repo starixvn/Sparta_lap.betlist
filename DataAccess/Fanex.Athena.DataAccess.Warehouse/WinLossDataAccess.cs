@@ -65,7 +65,7 @@ namespace Fanex.Athena.DataAccess.Warehouse
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, uspParams);
+                throw new DataAccessException(sqlException, UspName, uspParams);
             }
 
             return dataList;

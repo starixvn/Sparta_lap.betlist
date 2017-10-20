@@ -131,7 +131,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, spname, metaModel);
+                throw new DataAccessException(sqlException, spname, metaModel);
             }
         }
 

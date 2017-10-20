@@ -58,7 +58,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, uspParams);
+                throw new DataAccessException(sqlException, UspName, uspParams);
             }
         }
 

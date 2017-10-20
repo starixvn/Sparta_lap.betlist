@@ -15,7 +15,7 @@ namespace Fanex.Athena.DataAccess.Core.UnitTests.Exception
             const string ExpectedMessage = "Exception when call usp SP_Hello. \nException: Hello";
 
             // Action
-            var exception = new DataAccessException(InputMessage, UspName);
+            var exception = new DataAccessException(new System.Exception(InputMessage), UspName);
 
             // Assert
             Assert.That(exception.Message, Is.EqualTo(ExpectedMessage));
@@ -27,7 +27,7 @@ namespace Fanex.Athena.DataAccess.Core.UnitTests.Exception
             // Arrange
             const string ExpectedJson = "{\"Id\":1,\"Name\":\"A\"}";
             var exception = new DataAccessException(
-                string.Empty,
+                new System.Exception(),
                 string.Empty,
                 new
                 {

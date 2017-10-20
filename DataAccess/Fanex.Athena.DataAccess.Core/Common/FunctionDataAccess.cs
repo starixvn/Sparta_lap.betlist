@@ -161,7 +161,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
 
@@ -198,7 +198,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
     }

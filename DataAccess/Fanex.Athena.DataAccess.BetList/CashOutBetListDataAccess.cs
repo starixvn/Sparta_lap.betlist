@@ -54,7 +54,7 @@ namespace Fanex.Athena.DataAccess.BetList
             }
             catch (ObjectDbException exception)
             {
-                throw new DataAccessException(exception.Message, UspKey, metaModel);
+                throw new DataAccessException(exception, UspKey, metaModel);
             }
         }
 
