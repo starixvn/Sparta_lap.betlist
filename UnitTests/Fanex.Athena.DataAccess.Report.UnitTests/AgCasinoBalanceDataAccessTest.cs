@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Data;
     using Model.Core.DataDomain;
-    using Model.Core.DTO.Configuration;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
@@ -38,7 +38,7 @@
         }
 
         [Test]
-        public void GetSummaryWinloss_WhenCall_ParametersPassedCorrectly()
+        public void GetSummaryBalance_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_AGCasinoBalance")).Returns(_objectDb);
@@ -48,10 +48,9 @@
                 FromDate = new DateTime(2016, 8, 10),
                 ToDate = new DateTime(2016, 8, 29)
             };
-            IDictionary<string, AgCasinoBalance> summaryTotal = new Dictionary<string, AgCasinoBalance>();
 
             // Action
-            _dataAccess.GetSummaryWinloss(metaModel, out summaryTotal);
+            _dataAccess.GetSummaryBalance(metaModel);
 
             // Assert
             _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
@@ -60,7 +59,7 @@
         }
 
         [Test]
-        public void GetSummaryWinloss_WhenCall_DataReturnedCorrectly()
+        public void GetSummaryBalance_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_AGCasinoBalance")).Returns(_objectDb);
@@ -72,8 +71,6 @@
                 DrillDownFromDate = new DateTime(2016, 8, 29),
                 BaseCurrency = "UUS"
             };
-            IDictionary<string, AgCasinoBalance> summaryTotal = new Dictionary<string, AgCasinoBalance>();
-
             var expected = new AgCasinoBalance
             {
                 SystemId = string.Empty,
@@ -84,7 +81,7 @@
             ConfigureReaderForGetSummaryWinlossMethod(expected);
 
             // Action
-            var result = _dataAccess.GetSummaryWinloss(metaModel, out summaryTotal)[0];
+            var result = _dataAccess.GetSummaryBalance(metaModel).DataList.First();
 
             // Assert
             Assert.That(result.SystemId, Is.EqualTo(expected.SystemId));
@@ -104,7 +101,7 @@
         }
 
         [Test]
-        public void GetCustomerWinlossDetail_WhenCall_ParametersReturnedCorrectly()
+        public void GetCustomerBalanceDetail_WhenCall_ParametersReturnedCorrectly()
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("LRF_Rpt_AGCasinoBalance_Mem")).Returns(_objectDb);
@@ -116,12 +113,10 @@
                 DrillDownFromDate = new DateTime(2016, 8, 10),
                 DrillDownToDate = new DateTime(2016, 8, 29)
             };
-            IDictionary<string, AgCasinoBalance> summaryTotal = new Dictionary<string, AgCasinoBalance>();
-            var totalRows = 0;
             _objectDb.GetParameterValue("TotalRows").Returns(10);
 
             // Action
-            _dataAccess.GetCustomerWinlossDetail(metaModel, out summaryTotal, out totalRows);
+            _dataAccess.GetCustomerBalanceDetail(metaModel);
 
             // Assert
             _objectDb.Received().AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
@@ -134,7 +129,7 @@
         }
 
         [Test]
-        public void GetCustomerWinlossDetail_WhenCall_DataReturnedCorrectly()
+        public void GetCustomerBalanceDetail_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("LRF_Rpt_AGCasinoBalance_Mem")).Returns(_objectDb);
@@ -147,8 +142,6 @@
                 DrillDownToDate = new DateTime(2016, 8, 29),
                 BaseCurrency = "UUS"
             };
-            IDictionary<string, AgCasinoBalance> summaryTotal = new Dictionary<string, AgCasinoBalance>();
-            var totalRows = 0;
             _objectDb.GetParameterValue("TotalRows").Returns(10);
 
             var expected = new AgCasinoBalance
@@ -161,7 +154,7 @@
             ConfigureReaderForGetSummaryWinlossMethod(expected);
 
             // Action
-            var result = _dataAccess.GetCustomerWinlossDetail(metaModel, out summaryTotal, out totalRows)[0];
+            var result = _dataAccess.GetCustomerBalanceDetail(metaModel).DataList[0];
 
             // Assert
             Assert.That(result.SystemId, Is.EqualTo(expected.SystemId));
@@ -172,7 +165,7 @@
         }
 
         [Test]
-        public void GetAgentWinlossDetail_WhenCall_DataReturnedCorrectly()
+        public void GetAgentBalanceDetail_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("LRF_Rpt_AGCasinoBalance_Ag")).Returns(_objectDb);
@@ -196,7 +189,7 @@
             ConfigureReaderForGetSummaryWinlossMethod(expected);
 
             // Action
-            var result = _dataAccess.GetAgentWinlossDetail(metaModel, out summaryTotal)[0];
+            var result = _dataAccess.GetAgentBalanceDetail(metaModel).DataList[0];
 
             // Assert
             Assert.That(result.SystemId, Is.EqualTo(expected.SystemId));

@@ -3,10 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Web.Script.Serialization;
+    using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
     using Excel.Report;
     using Extension.Utility;
-    using Fanex.Athena.Service.Report.Interfaces;
+    using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Model.Report.ViewModel;
@@ -16,7 +17,7 @@
 
     public class AgCasinoBalanceReportControllerTest : BaseApiReportControllerHelperTest
     {
-        private IAgCasinoBalanceService _service;
+        private IAgCasinoBalanceDataAccess _dataAccess;
         private AgCasinoBalanceReportController _controller;
 
         [OneTimeSetUp]
@@ -26,9 +27,9 @@
 
             MockSessionData();
 
-            _service = Substitute.For<IAgCasinoBalanceService>();
+            _dataAccess = Substitute.For<IAgCasinoBalanceDataAccess>();
 
-            _controller = Substitute.ForPartsOf<AgCasinoBalanceReportController>(_service, SessionService, ProductService);
+            _controller = Substitute.ForPartsOf<AgCasinoBalanceReportController>(_dataAccess, SessionService, ProductService);
         }
 
         [OneTimeTearDown]
@@ -36,7 +37,7 @@
         {
             base.FixtureTearDown();
 
-            _service = null;
+            _dataAccess = null;
             _controller = null;
         }
 
@@ -50,11 +51,7 @@
                 DrillDownCurrencyId = 1
             };
 
-            const int TotalRow = 0;
-            var data = new List<AgCasinoBalance>();
-            var total = new List<AgCasinoBalance>();
-            var summaryTotal = new Dictionary<string, AgCasinoBalance>();
-            var expectedResult = GetSerializationData(TotalRow, data, total, summaryTotal);
+            var expectedResult = GetSerializationData();
 
             // Action
             var result = ToJson(_controller.Index(metaModel));
@@ -63,10 +60,8 @@
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
-        [TestCase(true)]
-        [TestCase(false)]
-        [TestCase(null)]
-        public void Index_Level0_CallGetSummaryBalanceInService_ReturnCorrectData(bool? emptyDataList)
+        [Test]
+        public void Index_Level0_ReturnCorrectDataFromDataAccess()
         {
             // Arrange
             const int CurrencyId = -2;
@@ -79,28 +74,27 @@
                 IsExcludedTestData = IsExcludedTestData
             };
 
-            IDictionary<string, AgCasinoBalance> summaryData;
-            var expectedSummaryData = new Dictionary<string, AgCasinoBalance>();
-            var dataListResult = !emptyDataList.HasValue 
-                ? null 
-                : emptyDataList.Value ? new SortableList<AgCasinoBalance>() : new SortableList<AgCasinoBalance> { new AgCasinoBalance() };
-            _service.GetSummaryBalance(metaModel, out summaryData).Returns(x =>
+            var resultModel = new SortableSummaryReportResultModel<AgCasinoBalance>
             {
-                x[1] = expectedSummaryData;
-                return dataListResult;
-            });
+                DataList = new SortableList<AgCasinoBalance> { new AgCasinoBalance() },
+                SummaryTotal = new Dictionary<string, AgCasinoBalance>()
+            };
+            _dataAccess.GetSummaryBalance(metaModel).Returns(resultModel);
 
-            var totalData = new List<AgCasinoBalance> { new AgCasinoBalance() };
-            _service.TotalCalc(dataListResult).Returns(totalData);
-
-            const int TotalRow = 0;
-            var expectedResult = GetSerializationData(TotalRow, dataListResult, totalData, expectedSummaryData, emptyDataList ?? true);
+            var expectedDataList = new SortableList<AgCasinoBalance>
+                {
+                    new AgCasinoBalance
+                    {
+                        RowSpan = 1,
+                        Index = 1
+                    }
+                };
 
             // Action
-            var result = ToJson(_controller.Index(metaModel));
+            var result = _controller.Index(metaModel).Data;
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.That(ToJson(result), Is.EqualTo(ToJson(expectedDataList)));
         }
 
         [Test]
@@ -117,20 +111,14 @@
                 IsExcludedTestData = IsExcludedTestData
             };
 
-            IDictionary<string, AgCasinoBalance> summaryData;
-            var expectedSummaryData = new Dictionary<string, AgCasinoBalance>();
-            var dataListResult = new SortableList<AgCasinoBalance> { new AgCasinoBalance() };
-            _service.GetAgentBalanceDetail(metaModel, out summaryData).Returns(x =>
+            var resultModel = new SortableSummaryReportResultModel<AgCasinoBalance>
             {
-                x[1] = expectedSummaryData;
-                return dataListResult;
-            });
-
-            var totalData = new List<AgCasinoBalance> { new AgCasinoBalance() };
-            _service.TotalCalc(dataListResult).Returns(totalData);
-
-            const int TotalRow = 0;
-            var expectedResult = GetSerializationData(TotalRow, dataListResult, totalData, expectedSummaryData);
+                TotalData = new List<AgCasinoBalance> { new AgCasinoBalance() },
+                DataList = new SortableList<AgCasinoBalance> { new AgCasinoBalance() },
+                SummaryTotal = new Dictionary<string, AgCasinoBalance>()
+            };
+            _dataAccess.GetAgentBalanceDetail(metaModel).Returns(resultModel);
+            var expectedResult = GetSerializationData(resultModel);
 
             // Action
             var result = ToJson(_controller.Index(metaModel));
@@ -153,22 +141,16 @@
                 IsExcludedTestData = IsExcludedTestData
             };
 
-            IDictionary<string, AgCasinoBalance> summaryData;
-            var expectedSummaryData = new Dictionary<string, AgCasinoBalance>();
-            var dataListResult = new SortableList<AgCasinoBalance> { new AgCasinoBalance() };
-            var totalRow = 0;
-            const int ExpectedTotalRow = 1;
-            _service.GetCustomerBalanceDetail(metaModel, out summaryData, out totalRow).Returns(x =>
+            var resultModel = new SortableSummaryReportResultModel<AgCasinoBalance>
             {
-                x[1] = expectedSummaryData;
-                x[2] = ExpectedTotalRow;
-                return dataListResult;
-            });
+                TotalRows = 100,
+                TotalData = new SortableList<AgCasinoBalance> { new AgCasinoBalance() },
+                DataList = new SortableList<AgCasinoBalance> { new AgCasinoBalance() },
+                SummaryTotal = new Dictionary<string, AgCasinoBalance>()
+            };
+            _dataAccess.GetCustomerBalanceDetail(metaModel).Returns(resultModel);
 
-            var totalData = new List<AgCasinoBalance> { new AgCasinoBalance() };
-            _service.TotalCalc(dataListResult).Returns(totalData);
-
-            var expectedResult = GetSerializationData(ExpectedTotalRow, dataListResult, totalData, expectedSummaryData);
+            var expectedResult = GetSerializationData(resultModel);
 
             // Action
             var result = ToJson(_controller.Index(metaModel));
@@ -183,16 +165,14 @@
         public void Index_IsExportExcelTrue_CallExcelStreamWithCorrectData(int drillDownLevel, int currencyId)
         {
             // Arrange
-            const int CurrencyId = -2, CustId = 1;
             var fromDate = new DateTime(2017, 4, 1);
             var toDate = new DateTime(2017, 4, 18);
             var metaModel = new AgCasinoBalanceMetaModel
             {
                 CurrencyId = currencyId,
-                IsExcludedTestData = true,
                 DrillDownLevel = drillDownLevel,
-                DrillDownCurrencyId = CurrencyId,
-                DrillDownCustomerId = CustId,
+                DrillDownCurrencyId = -2,
+                DrillDownCustomerId = 1,
                 IsExportExcel = true,
                 DrillDownFromDate = fromDate.AddDays(1),
                 DrillDownToDate = toDate.AddDays(1),
@@ -213,6 +193,7 @@
             var expectedFromDate = drillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate;
             var expectedToDate = drillDownLevel > 0 ? metaModel.DrillDownToDate : metaModel.ToDate;
             var expectedCurrencyId = drillDownLevel > 0 && currencyId > 0 ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;
+            MockDataAccess(_dataAccess, metaModel);
 
             // Action
             _controller.Index(metaModel);
@@ -227,19 +208,27 @@
             });
         }
 
+        private static void MockDataAccess(IAgCasinoBalanceDataAccess dataAccess, AgCasinoBalanceMetaModel metaModel)
+        {
+            var resultModel = new SortableSummaryReportResultModel<AgCasinoBalance>
+            {
+                TotalData = new List<AgCasinoBalance> { new AgCasinoBalance() },
+                DataList = new SortableList<AgCasinoBalance> { new AgCasinoBalance() },
+                SummaryTotal = new Dictionary<string, AgCasinoBalance>()
+            };
+            dataAccess.GetSummaryBalance(metaModel).Returns(resultModel);
+            dataAccess.GetAgentBalanceDetail(metaModel).Returns(resultModel);
+            dataAccess.GetCustomerBalanceDetail(metaModel).Returns(resultModel);
+        }
+
         private static string ToJson(object value)
         {
             return new JavaScriptSerializer().Serialize(value);
         }
 
-        private static string GetSerializationData(
-            int totalRow,
-            IEnumerable<AgCasinoBalance> data,
-            IEnumerable<AgCasinoBalance> total,
-            Dictionary<string, AgCasinoBalance> summaryTotal,
-            bool isEmptyData = false)
+        private static string GetSerializationData(SortableSummaryReportResultModel<AgCasinoBalance> data = null)
         {
-            if (isEmptyData)
+            if (data == null)
             {
                 return ToJson(
                 new
@@ -254,10 +243,10 @@
             return ToJson(
                 new
                 {
-                    TotalRows = totalRow,
-                    Data = data,
-                    Total = total,
-                    SummaryTotal = summaryTotal
+                    TotalRows = data.TotalRows,
+                    Data = data.DataList,
+                    Total = data.TotalData,
+                    SummaryTotal = data.SummaryTotal
                 });
         }
     }

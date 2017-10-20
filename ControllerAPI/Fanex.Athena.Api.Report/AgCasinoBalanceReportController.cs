@@ -13,6 +13,8 @@ namespace Fanex.Athena.Api.Report
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
+    using DataAccess.Report;
+    using DataAccess.Report.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Extension.Utility;
@@ -20,28 +22,27 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
+    using Model.Core.ResultModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.Report;
-    using Service.Report.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportAGCasinoBalance)]
     public class AgCasinoBalanceReportController : ApiReportBaseController
     {
-        private readonly IAgCasinoBalanceService _agcasinoBalanceService;
+        private readonly IAgCasinoBalanceDataAccess _agcasinoBalanceDataAccess;
 
         public AgCasinoBalanceReportController()
         {
-            _agcasinoBalanceService = new AgCasinoBalanceService();
+            _agcasinoBalanceDataAccess = new AgCasinoBalanceDataAccess();
         }
 
         public AgCasinoBalanceReportController(
-            IAgCasinoBalanceService agcasinoBalanceService,
+            IAgCasinoBalanceDataAccess agcasinoBalanceDataAccess,
             ISessionService sessionService,
             IProductService productService)
             : base(sessionService, productService)
         {
-            _agcasinoBalanceService = agcasinoBalanceService;
+            _agcasinoBalanceDataAccess = agcasinoBalanceDataAccess;
         }
 
         [HttpPost]
@@ -72,6 +73,46 @@ namespace Fanex.Athena.Api.Report
                 Total = new List<AgCasinoBalance>(),
                 SummaryTotal = new Dictionary<string, AgCasinoBalance>()
             };
+        }
+
+        private static IList<AgCasinoBalance> CalculateTotal(IList<AgCasinoBalance> dataList)
+        {
+            if (!dataList.Any())
+            {
+                return new SortableList<AgCasinoBalance>();
+            }
+
+            return dataList.GroupBy(d => d.CurrencyName).Select(g => new AgCasinoBalance
+            {
+                CurrencyName = g.Key,
+                TurnOver = g.Sum(p => p.TurnOver),
+                TotalTransaction = g.Sum(p => p.TotalTransaction),
+                CustomerWinLoss = g.Sum(p => p.CustomerWinLoss),
+                LicenseeWL = g.Sum(p => p.LicenseeWL),
+                OpeningBalance = g.Sum(p => p.OpeningBalance),
+                TransferIn = g.Sum(p => p.TransferIn),
+                TransferOut = g.Sum(p => p.TransferOut),
+                ClosingBalance = g.Sum(p => p.ClosingBalance),
+            }).ToList();
+        }
+
+        private static void AssignRowSpan(IEnumerable<AgCasinoBalance> dataList)
+        {
+            var date = new DateTime();
+            var index = 1;
+            foreach (var item in dataList)
+            {
+                if (date != item.Date)
+                {
+                    date = item.Date ?? new DateTime();
+                    item.RowSpan = dataList.Count(x => x.Date == item.Date);
+                    item.Index = index++;
+                }
+                else
+                {
+                    item.RowSpan = -1;
+                }
+            }
         }
 
         private HttpResponseMessage ExportExcel(AgCasinoBalanceMetaModel metaModel, IList<AgCasinoBalance> dataList, IDictionary<string, AgCasinoBalance> summaryTotal)
@@ -111,19 +152,23 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(excel.Workbook, FileName);
         }
 
-        private void GetData(
-                AgCasinoBalanceMetaModel metaModel,
-                out SortableList<AgCasinoBalance> dataList,
-                out IDictionary<string, AgCasinoBalance> summaryTotal,
-                out int totalRows)
+        private SortableSummaryReportResultModel<AgCasinoBalance> GetData(AgCasinoBalanceMetaModel metaModel)
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(
                 metaModel.DrillDownCurrencyId == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId,
                 metaModel.IsExcludedTestData);
-            totalRows = 0;
-            dataList = metaModel.DrillDownLevel == 0 ? _agcasinoBalanceService.GetSummaryBalance(metaModel, out summaryTotal) : metaModel.DrillDownLevel == 2
-                               ? _agcasinoBalanceService.GetCustomerBalanceDetail(metaModel, out summaryTotal, out totalRows)
-                               : _agcasinoBalanceService.GetAgentBalanceDetail(metaModel, out summaryTotal);
+            if (metaModel.DrillDownLevel == 0)
+            {
+                var result = _agcasinoBalanceDataAccess.GetSummaryBalance(metaModel);
+                AssignRowSpan(result.DataList);
+                return result;
+            }
+            else
+            {
+                return metaModel.DrillDownLevel == 1 ?
+                    _agcasinoBalanceDataAccess.GetAgentBalanceDetail(metaModel) :
+                    _agcasinoBalanceDataAccess.GetCustomerBalanceDetail(metaModel);
+            }
         }
 
         private dynamic ProcessRequest(AgCasinoBalanceMetaModel metaModel)
@@ -131,25 +176,21 @@ namespace Fanex.Athena.Api.Report
             if (IsValidRequest(metaModel, metaModel.DrillDownCurrencyId))
             {
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-
-                IDictionary<string, AgCasinoBalance> summaryTotal;
-                SortableList<AgCasinoBalance> dataList;
-                int totalRows;
-                GetData(metaModel, out dataList, out summaryTotal, out totalRows);
+                var result = GetData(metaModel);
 
                 if (metaModel.IsExportExcel)
                 {
-                    return ExportExcel(metaModel, dataList, summaryTotal);
+                    return ExportExcel(metaModel, result.DataList, result.SummaryTotal);
                 }
 
-                if (dataList != null && dataList.Count > 0)
+                if (result.DataList.Any())
                 {
                     return new
                     {
-                        TotalRows = totalRows,
-                        Data = dataList,
-                        Total = _agcasinoBalanceService.TotalCalc(dataList),
-                        SummaryTotal = summaryTotal
+                        TotalRows = result.TotalRows,
+                        Data = result.DataList,
+                        Total = CalculateTotal(result.DataList),
+                        SummaryTotal = result.SummaryTotal
                     };
                 }
             }
