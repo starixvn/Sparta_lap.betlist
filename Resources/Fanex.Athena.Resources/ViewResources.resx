@@ -3054,4 +3054,8 @@
   <data name="SubsidiaryWL" xml:space="preserve">
     <value>Subsidiary WL</value>
   </data>
+  <data name="NewAsia" xml:space="preserve">
+    <value>New Asia</value>
+    <comment>#85203</comment>
+  </data>
 </root>

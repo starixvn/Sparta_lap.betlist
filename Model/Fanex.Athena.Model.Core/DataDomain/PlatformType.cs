@@ -18,6 +18,8 @@
 
         public const int Tablet = 6;
 
+        public const int NewAsia = 7;
+
         public static string GetPlatformName(int type)
         {
             switch (type)
@@ -28,6 +30,7 @@
                 case Wap: return ViewResources.Wap;
                 case SmartSite: return ViewResources.SmartSite;
                 case Tablet: return ViewResources.Tablet;
+                case NewAsia: return ViewResources.NewAsia;
                 default: return ViewResources.All;
             }
         }

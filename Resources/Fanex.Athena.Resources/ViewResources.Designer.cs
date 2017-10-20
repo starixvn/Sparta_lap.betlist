@@ -5002,6 +5002,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Asia.
+        /// </summary>
+        public static string NewAsia {
+            get {
+                return ResourceManager.GetString("NewAsia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Group.
         /// </summary>
         public static string NewGroup {
