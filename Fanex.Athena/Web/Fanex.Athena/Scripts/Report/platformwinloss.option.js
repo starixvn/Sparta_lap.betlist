@@ -245,7 +245,8 @@ var PlatformWinLossOption = (function () {
             "3": Site.getSingleResource("Euro"),
             "4": Site.getSingleResource("Wap"),
             "5": Site.getSingleResource("SmartSite"),
-            "6": Site.getSingleResource("Tablet")
+            "6": Site.getSingleResource("Tablet"),
+            "7": Site.getSingleResource("NewAsia")
         },
         totalColspan: [0, 4],
         urlData: 'api/PlatformWinLossReport/Index',
