@@ -45,14 +45,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
 
         public string SortOrder { get; set; }
 
-        public override bool IsValid
-        {
-            get
-            {
-                return true;
-            }
-        }
-
         public bool IsAllowReportby { get; set; }
     }
 }

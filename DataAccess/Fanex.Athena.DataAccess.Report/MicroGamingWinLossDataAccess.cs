@@ -8,7 +8,6 @@ namespace Fanex.Athena.DataAccess.Report
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -19,11 +18,11 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
+    using Model.Core.ResultModel;
 
     public class MicroGamingWinLossDataAccess : BaseDataAccess, IMicroGamingWinLossDataAccess
     {
-        public SortableList<MicroGamingWinLoss> GetSummaryWinloss(MicroGamingWinLossMetaModel metaModel, out IDictionary<string, MicroGamingWinLoss> summaryTotal)
+        public SortableSummaryReportResultModel<MicroGamingWinLoss> GetSummaryWinloss(MicroGamingWinLossMetaModel metaModel)
         {
             var uspName = "LRF_Rpt_MicroGamingWinloss";
             try
@@ -37,7 +36,7 @@ namespace Fanex.Athena.DataAccess.Report
                     db.AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel, out summaryTotal);
+                        return GetData(reader, metaModel);
                     }
                 }
             }
@@ -47,16 +46,13 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private static SortableList<MicroGamingWinLoss> GetData(
+        private static SortableSummaryReportResultModel<MicroGamingWinLoss> GetData(
             IDataReader reader,
-            MicroGamingWinLossMetaModel metaModel,
-            out IDictionary<string, MicroGamingWinLoss> summaryTotal)
+            MicroGamingWinLossMetaModel metaModel)
         {
             var result = new SortableList<MicroGamingWinLoss>();
 
-            summaryTotal = new Dictionary<string, MicroGamingWinLoss>();
+            var summaryTotal = new Dictionary<string, MicroGamingWinLoss>();
             foreach (var currency in SystemConstants.BaseCurrencyList)
             {
                 summaryTotal.Add(currency, new MicroGamingWinLoss());
@@ -93,22 +89,30 @@ namespace Fanex.Athena.DataAccess.Report
                 };
 
                 result.Add(item);
-
-                foreach (var currency in SystemConstants.BaseCurrencyList)
-                {
-                    summaryTotal[currency].TurnOver += reader.ToDecimal("turnover" + currency);
-                    summaryTotal[currency].TotalTransaction += reader.ToInt("totaltrans");
-                    summaryTotal[currency].CustomerWinLoss += reader.ToDecimal("winlost" + currency);
-                    summaryTotal[currency].ProgressiveContribution += reader.ToDecimal("ProgressiveContribution" + currency);
-                    summaryTotal[currency].ProgressivePayout += reader.ToDecimal("ProgressivePayout" + currency);
-                    summaryTotal[currency].LicenseeWL += reader.ToDecimal("licenseewinlost" + currency);
-                    summaryTotal[currency].LicenseeNetWin += reader.ToDecimal("LicenseeNetWin" + currency);
-                    summaryTotal[currency].AmountDueToMGC += reader.ToDecimal("AmtDueToMGC" + currency);
-                    summaryTotal[currency].ProgressiveFee += reader.ToDecimal("ProgressiveFee" + currency);
-                }
+                ReadSummaryTotal(reader, summaryTotal);
             }
 
-            return result;
+            return new SortableSummaryReportResultModel<MicroGamingWinLoss>
+            {
+                DataList = result,
+                SummaryTotal = summaryTotal
+            };
+        }
+
+        private static void ReadSummaryTotal(IDataReader reader, IDictionary<string, MicroGamingWinLoss> summaryTotal)
+        {
+            foreach (var currency in SystemConstants.BaseCurrencyList)
+            {
+                summaryTotal[currency].TurnOver += reader.ToDecimal("turnover" + currency);
+                summaryTotal[currency].TotalTransaction += reader.ToInt("totaltrans");
+                summaryTotal[currency].CustomerWinLoss += reader.ToDecimal("winlost" + currency);
+                summaryTotal[currency].ProgressiveContribution += reader.ToDecimal("ProgressiveContribution" + currency);
+                summaryTotal[currency].ProgressivePayout += reader.ToDecimal("ProgressivePayout" + currency);
+                summaryTotal[currency].LicenseeWL += reader.ToDecimal("licenseewinlost" + currency);
+                summaryTotal[currency].LicenseeNetWin += reader.ToDecimal("LicenseeNetWin" + currency);
+                summaryTotal[currency].AmountDueToMGC += reader.ToDecimal("AmtDueToMGC" + currency);
+                summaryTotal[currency].ProgressiveFee += reader.ToDecimal("ProgressiveFee" + currency);
+            }
         }
     }
 }
