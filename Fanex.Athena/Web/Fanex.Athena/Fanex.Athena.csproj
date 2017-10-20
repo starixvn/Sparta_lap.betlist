@@ -878,6 +878,7 @@
     <Content Include="www\css\source\reactpages\components\_tab.scss" />
     <Content Include="Views\Desktop\Report\Notification\ResultAmendment.cshtml" />
     <Content Include="www\js\build\dev\reactpages\notification\resultamendment.chunk.js.map" />
+    <Content Include="www\css\source\reactpages\components\_collapseRow.scss" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />

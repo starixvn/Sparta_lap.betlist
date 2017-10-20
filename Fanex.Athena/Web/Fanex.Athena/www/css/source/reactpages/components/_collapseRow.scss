@@ -1,0 +1,34 @@
+﻿.collapse-item {
+    position: relative;
+
+    .icon-arrow {
+        position: absolute;
+        right: 7px;
+        top: 4px;
+        cursor: pointer;
+    }
+
+    .subject-item {
+        font-weight: bold;
+    }
+
+    .content-item {
+        margin-top: 1em;
+    }
+}
+
+.collapse {
+    .icon-arrow {
+        transform: rotate(-90deg);
+        right: 5px;
+        top: 0;
+    }
+
+    .subject-item {
+        font-weight: initial;
+    }
+
+    .content-item {
+        display: none;
+    }
+}

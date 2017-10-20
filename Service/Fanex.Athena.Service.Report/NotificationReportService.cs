@@ -9,6 +9,7 @@
     using Fanex.Athena.Service.Core.Utility;
     using Fanex.Athena.Service.Core.Utility.Interfaces;
     using Interfaces;
+    using Model.Report.DTO;
     using Newtonsoft.Json.Linq;
 
     public class NotificationReportService : INotificationReportService
@@ -66,6 +67,26 @@
             }
 
             return jobject.ToObject<Dictionary<string, string>>();
+        }
+
+        public IList<Notification> GetNotifications()
+        {
+            return new List<Notification>
+                {
+                    new Notification { Type = "Type 1", Subject = "Subject 1", Content = "this is content of subject 1" },
+                    new Notification { Type = "Type 2", Subject = "Subject 2", Content = null },
+                    new Notification { Type = "Type 3", Subject = "Subject 3", Content = string.Empty }
+                };
+        }
+
+        public IList<ResultAmendment> GetResultAmendment()
+        {
+            return new List<ResultAmendment>
+                {
+                    new ResultAmendment { Subject = "Subject 1", Content = "this is content of subject 1" },
+                    new ResultAmendment { Subject = "Subject 2", Content = null },
+                    new ResultAmendment { Subject = "Subject 3", Content = string.Empty }
+                };
         }
     }
 }

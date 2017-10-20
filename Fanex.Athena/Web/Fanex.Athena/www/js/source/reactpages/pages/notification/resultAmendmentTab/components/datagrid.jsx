@@ -32,7 +32,7 @@ export class DataGrid extends Component {
             <Row style={{ height: 32 }}>
                 <Cell colWidth={30} header={true} title="#">#</Cell>
                 <Cell colWidth={150} header={true} title={headerText.dateTime}>{headerText.dateTime}</Cell>
-                <Cell colWidth={300} header={true} title={headerText.content}>{headerText.content}</Cell>
+                <Cell colWidth={340} header={true} title={headerText.content}>{headerText.content}</Cell>
                 <Cell colWidth={30} header={true} title={headerText.ticketList}>{headerText.ticketList}</Cell>
             </Row>
         );
@@ -84,7 +84,7 @@ export class DataGrid extends Component {
                 <ReportTitle content={this.reportTitle} />
 
                 <Table
-                    minWidth={600}
+                    minWidth={550}
                     autoWidth={true}
                     bodyHeight={300}
                     header={this._buildHeader()}

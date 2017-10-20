@@ -4,30 +4,53 @@
     using System.Web.Http;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
+    using Service.Report;
+    using Service.Report.Interfaces;
 
     public class NotificationReportController : ApiReportBaseController
     {
+        private readonly INotificationReportService _notificationReportService;
+
+        public NotificationReportController()
+        {
+            _notificationReportService = new NotificationReportService();
+        }
+
         [HttpPost]
         public dynamic Index(NotificationMetaModel metaModel)
         {
-            if (metaModel.IsValid)
+            if (!metaModel.IsValid)
             {
-                var mainData = new List<Notification>
-                {
-                    new Notification { Type = "abc", Subject = "Subject 1", Content = "this is content of subject 1" },
-                    new Notification { Type = "dbc", Subject = "Subject 2", Content = null  },
-                    new Notification { Type = "dbc", Subject = "Subject 3", Content = ""  }
-                };
-
                 return new
                 {
-                    Data = mainData
+                    Data = new List<Notification>()
                 };
             }
 
+            var mainData = _notificationReportService.GetNotifications();
+
             return new
             {
-                Data = new List<Notification>()
+                Data = mainData
+            };
+        }
+
+        [HttpPost]
+        public dynamic ResultAmendment(NotificationMetaModel metaModel)
+        {
+            if (!metaModel.IsValid)
+            {
+                return new
+                {
+                    Data = new List<Notification>()
+                };
+            }
+
+            var mainData = _notificationReportService.GetNotifications();
+
+            return new
+            {
+                Data = mainData
             };
         }
     }

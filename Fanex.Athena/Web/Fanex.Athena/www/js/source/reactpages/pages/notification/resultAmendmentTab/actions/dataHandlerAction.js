@@ -4,7 +4,7 @@ import axios from 'axios'
 import Site from '../../../../lib/site'
 
 const fetchData = (params) => {
-    const url = Site.resolveClientUrl('api/NotificationReport/Index');
+    const url = Site.resolveClientUrl('api/NotificationReport/ResultAmendment');
     return axios.post(url, params.data, {
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
