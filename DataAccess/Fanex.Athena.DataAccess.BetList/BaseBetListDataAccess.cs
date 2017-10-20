@@ -84,7 +84,7 @@ namespace Fanex.Athena.DataAccess.BetList
 
                     // Long
                     TransId = reader.GetLong("transid"),
-                    RefCode = reader.GetInt("refcode"),
+                    RefCode = reader.GetLong("refcode"),
                     BetId = reader.GetNullableLong("betid"),
 
                     // DateTime
