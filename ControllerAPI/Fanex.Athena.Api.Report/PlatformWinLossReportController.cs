@@ -65,11 +65,10 @@ namespace Fanex.Athena.Api.Report
         [CLSCompliant(false)]
         protected internal virtual PlatformWinLossMemberExcel CreateExcelMember(
             string templatePath,
-            PlatformWinLossMetaModel metaModel,
             PlatformWinLossViewModel excelModel,
             ShowingOption showingOption)
         {
-            return new PlatformWinLossMemberExcel(templatePath, excelModel, showingOption, metaModel.ProductOptions);
+            return new PlatformWinLossMemberExcel(templatePath, excelModel, showingOption);
         }
 
         private HttpResponseMessage ExportExcelSummary(
@@ -122,7 +121,7 @@ namespace Fanex.Athena.Api.Report
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
-            var platformWinLossExcel = CreateExcelMember(templatePath, metaModel, excelModel, showingOption);
+            var platformWinLossExcel = CreateExcelMember(templatePath, excelModel, showingOption);
             platformWinLossExcel.Export();
 
             return ExcelStream(platformWinLossExcel.Workbook, FileName);

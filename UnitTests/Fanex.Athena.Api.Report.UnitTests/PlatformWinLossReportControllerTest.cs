@@ -7,72 +7,53 @@
     using System.Web.Http.Results;
     using DataAccess.Report.Interfaces;
     using Model.Core.DataDomain;
-    using Model.Core.DTO.Users;
     using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
+    using NPOI.SS.UserModel;
     using NSubstitute;
     using NUnit.Framework;
     using Report;
     using Resources;
-    using Service.Core.Common.Interfaces;
-    using Service.Core.Users.Interfaces;
 
-    public class PlatformWinLossReportControllerTest
+    public partial class PlatformWinLossReportControllerTest : BaseApiReportControllerHelperTest
     {
         private const int ExpectedCustomerComm = 999;
+
         private PlatformWinLossReportController _controller;
-        private IProductService _productService;
         private IPlatformWinLossDataAccess _dataAccess;
-        private ISessionService _sessionService;
 
         [OneTimeSetUp]
-        public void FixtureSetUp()
+        public override void FixtureSetUp()
         {
-            _sessionService = Substitute.For<ISessionService>();
-            _productService = Substitute.For<IProductService>();
+            base.FixtureSetUp();
+
+            MockSessionData();
+
             _dataAccess = Substitute.For<IPlatformWinLossDataAccess>();
-            _controller = Substitute.ForPartsOf<PlatformWinLossReportController>(_sessionService, _productService, _dataAccess);
+            _controller = Substitute.ForPartsOf<PlatformWinLossReportController>(SessionService, ProductService, _dataAccess);
             _controller.Request = new HttpRequestMessage();
             _controller.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
-            _sessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns("XmlData");
-
-            // Mock data for Level = 1
-            var memberData = new List<PlatformWinLossMember>
-            {
-                new PlatformWinLossMember(),
-                new PlatformWinLossMember(),
-                new PlatformWinLossMember()
-            };
-            PlatformWinLossMember totalMemberData;
-            _dataAccess.GetMemberData(Arg.Any<PlatformWinLossMetaModel>(), out totalMemberData).ReturnsForAnyArgs(x =>
-            {
-                x[1] = new PlatformWinLossMember
-                {
-                    CustomerComm = ExpectedCustomerComm
-                };
-                return memberData;
-            });
-
-            CreateSession();
+            _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
         }
 
         [OneTimeTearDown]
-        public void FixtureTearDown()
+        public override void FixtureTearDown()
         {
+            base.FixtureTearDown();
+
             _dataAccess = null;
             _controller = null;
-            _sessionService = null;
         }
 
         [TestCase(2)]
-        public void Index_WhenCallWithLevel0_CallAndGetCorrectDataFromService(int numberOfRow)
+        public void Index_WhenCallWithLevel0_ReturnCorrectData(int numberOfRow)
         {
             // Arrange
             PlatformWinLossSummary totalData;
 
             // Mock data for Level = 0
-            FakeSummaryData(numberOfRow);
+            SetUpDataAccessGetSummaryData();
 
             // Action
             var result = _controller.Index(CreateMetaModel(0));
@@ -100,10 +81,13 @@
         }
 
         [Test]
-        public void Index_WhenCallWithLevel1_CallAndGetCorrectDataFromService()
+        public void Index_WhenCallWithLevel1_ReturnCorrectData()
         {
             // Arrange
             PlatformWinLossMember totalData;
+
+            // Mock data for Level = 1
+            StubDataAccessGetMemberData();
 
             // Action
             var result = _controller.Index(CreateMetaModel(1));
@@ -117,7 +101,7 @@
             });
         }
 
-        private static PlatformWinLossMetaModel CreateMetaModel(int level)
+        private static PlatformWinLossMetaModel CreateMetaModel(int level, bool isExportExcel = false)
         {
             return new PlatformWinLossMetaModel
             {
@@ -127,6 +111,7 @@
                 Month = 1,
                 FromDay = 1,
                 ToDay = 2,
+                IsExportExcel = isExportExcel,
                 ProductOptions = new List<ProductOption>
                 {
                     new ProductOption
@@ -138,36 +123,32 @@
             };
         }
 
-        private void CreateSession()
+        private void StubDataAccessGetMemberData()
         {
-            var userSession = new UserSession
+            var memberData = new List<PlatformWinLossMember>
             {
-                CurrencyList = new Dictionary<int, string>
+                new PlatformWinLossMember(),
+                new PlatformWinLossMember(),
+                new PlatformWinLossMember()
+            };
+            PlatformWinLossMember totalMemberData;
+            _dataAccess.GetMemberData(Arg.Any<PlatformWinLossMetaModel>(), out totalMemberData).ReturnsForAnyArgs(x =>
+            {
+                x[1] = new PlatformWinLossMember
                 {
-                    { -1, "EUR" }, { -2, "USD" }
-                },
-                Language = "en-US"
-            };
-
-            var licenseeSession = new LicenseeSession
-            {
-                LicenseeId = 1,
-                IsAllowedCustomerComm = true
-            };
-
-            _sessionService.UserSession.Returns(userSession);
-            _sessionService.LicenseeSession.Returns(licenseeSession);
+                    CustomerComm = ExpectedCustomerComm
+                };
+                return memberData;
+            });
         }
 
-        private void FakeSummaryData(int numberOfRow)
+        private void SetUpDataAccessGetSummaryData()
         {
-            var summaryData = new List<PlatformWinLossSummary>();
-
-            for (var i = 0; i < numberOfRow; i++)
+            var summaryData = new List<PlatformWinLossSummary>
             {
-                summaryData.Add(new PlatformWinLossSummary());
-            }
-
+                new PlatformWinLossSummary(),
+                new PlatformWinLossSummary()
+            };
             PlatformWinLossSummary totalSummaryData;
             _dataAccess.GetSummaryData(Arg.Any<PlatformWinLossMetaModel>(), out totalSummaryData).ReturnsForAnyArgs(x =>
             {

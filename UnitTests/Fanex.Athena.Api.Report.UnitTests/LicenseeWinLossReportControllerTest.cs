@@ -209,7 +209,7 @@
                 dataList.Add(new LicenseeWinLoss
                 {
                     ActualStake = random.Next(1, 100),
-                    LicenseeWL = new Dictionary<string, decimal>()
+                    LicenseeWL = new Dictionary<string, decimal>
                     {
                         { "SB", random.Next(1, 100) }
                     },
