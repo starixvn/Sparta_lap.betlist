@@ -8,4 +8,15 @@ export default class Site {
     static convertDateToString(date) {
         return typeof date === "string" ? date : date.format("MM/DD/YYYY");
     }
+
+    static asNull(text) {
+        if (text != null) {
+            text = text.trim();
+            if (text === '') {
+                return null;
+            }
+        }
+
+        return text;
+    }
 }

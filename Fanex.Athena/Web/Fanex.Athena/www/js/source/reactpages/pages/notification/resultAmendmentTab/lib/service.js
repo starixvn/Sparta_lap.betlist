@@ -12,7 +12,7 @@ export default class Service {
         const fromDate = Site.convertDateToString(dateRange.fromDate);
         const toDate = Site.convertDateToString(dateRange.toDate);
         
-        return `${LangHelper.getSingleResource("Notification")}, ${fromDate} - ${toDate}`;
+        return `${LangHelper.getSingleResource("ResultAmendment")}, ${fromDate} - ${toDate}`;
     }
 
     static getHeaderText() {

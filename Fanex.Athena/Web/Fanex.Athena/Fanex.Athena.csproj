@@ -2620,7 +2620,10 @@
     <Content Include="www\js\source\reactpages\pages\notification\resultAmendmentTab\components\AppContainer.jsx" />
     <Content Include="www\js\source\reactpages\pages\notification\resultAmendmentTab\components\datagrid.jsx" />
     <Content Include="www\js\source\reactpages\pages\notification\resultAmendmentTab\components\formFilter.jsx" />
-    <Content Include="www\js\source\reactpages\pages\notification\resultAmendmentTab\components\index.jsx" /  <ItemGroup>
+    <Content Include="www\js\source\reactpages\pages\notification\resultAmendmentTab\components\index.jsx" />
+    <Content Include="www\js\source\reactpages\components\CollapseRow.jsx" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
       <SubType>Designer</SubType>
     </Content>

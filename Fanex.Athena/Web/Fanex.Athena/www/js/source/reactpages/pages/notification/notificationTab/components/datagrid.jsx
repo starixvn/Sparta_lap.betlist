@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
 import { Table, Row, Cell } from '../../../../components/fixed-table-header'
-import LangHelper from '../../../../lib/langHelper'
-import NumberFormat from '../../../../lib/numberFormat'
 import ReportTitle from '../../../../components/ReportTitle'
 import NoDataTitle from '../../../../components/NoDataTitle'
 import service from '../lib/service'
+import CollapseRow from '../../../../components/CollapseRow'
+import Site from '../../../../lib/site'
 
 export class DataGrid extends Component {
     constructor(props) {
@@ -47,7 +47,12 @@ export class DataGrid extends Component {
                     <Cell title={i+1} className="center-align">{i+1}</Cell>
                     <Cell title={item.Type}>{item.Type}</Cell>
                     <Cell title={item.DateTime} className="center-align">{item.DateTime}</Cell>
-                    <Cell title={item.Content}>{item.Subject}</Cell>
+                    <Cell title={item.Subject}>{
+                        Site.asNull(item.Content) === null
+                        ? <div>{item.Subject}</div>
+                        : <CollapseRow subject={item.Subject} content={item.Content} />
+                    }
+                    </Cell>
                 </Row>)
         }
 
