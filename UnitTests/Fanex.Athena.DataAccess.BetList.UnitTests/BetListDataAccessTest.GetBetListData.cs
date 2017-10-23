@@ -2,9 +2,12 @@
 {
     using System;
     using System.Data;
+    using Fanex.BetList.Core.Entities;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Extensions;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public partial class BetListDataAccessTest
@@ -28,6 +31,40 @@
             _objectDb.Received().AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
             _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
             _objectDb.DidNotReceive().AddInParameter("showNG", DbType.Boolean, true);
+        }
+
+        [Test]
+        public void GetBetListData_CalledByLiveReportBetListByMatch_ReturnCorrectTicketDataList()
+        {
+            // Arrange
+            const string UspKey = "Lrf_BetList_LiveReport_SelWinlossByMatch";
+            var expectResult = new TicketData
+            {
+                RefNo = "2",
+                Status = "3",
+                BetTypeId = 4,
+                Odds = 5
+            };
+            _dataAccess.GetObjectDb(Arg.Is<string>(UspKey)).Returns(_objectDb);
+            var reader = Substitute.For<IDataReader>();
+            _objectDb.ExecuteReader().Returns(reader);
+            reader.NextResult().Returns(true);
+            reader.Read().Returns(false, true, false);
+            DataAccessTestHelper.MapReaderData(
+                reader, 
+                new
+                {
+                    refno = expectResult.RefNo,
+                    status = expectResult.Status,
+                    bettype = expectResult.BetTypeId,
+                    odds = expectResult.Odds
+                });
+
+            // Action
+            var result = _dataAccess.GetBetListData(new LiveReportBetListMetaModel(), UspKey);
+
+            // Assert
+            Assert.That(result.TicketDataList[0], Tobe.SameProperties(expectResult));
         }
 
         [Test]
