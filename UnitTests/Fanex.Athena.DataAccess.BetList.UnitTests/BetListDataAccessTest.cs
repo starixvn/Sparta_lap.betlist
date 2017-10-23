@@ -49,30 +49,6 @@
         }
 
         [Test]
-        public void GetSystemParlayDetail_WhenCall_ParametersPassedCorrectly()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_BetList_SelCombinationParlayDetail")).Returns(_objectDb);
-            var metaModel = GetSystemParlayDetailMetaModel();
-
-            var dataset = new DataSet();
-            _objectDb.ExecuteDataSet().Returns(dataset);
-
-            // Action
-            _dataAccess.GetSystemParlayDetail(metaModel);
-
-            // Assert
-            _objectDb.Received().AddInParameter("refno", DbType.Int64, metaModel.RefNo);
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
-            _objectDb.Received().AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
-            _objectDb.Received().AddOutParameter("outstanding", DbType.Currency, 8);
-            _objectDb.Received().AddOutParameter("outstandingeur", DbType.Currency, 8);
-            _objectDb.Received().AddOutParameter("outstandingusd", DbType.Currency, 8);
-            _objectDb.Received().AddOutParameter("outstandinggbp", DbType.Currency, 8);
-        }
-
-        [Test]
         public void GetDailyStatementData_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
@@ -121,18 +97,6 @@
             Assert.That(result.CreditDebit, Is.EqualTo(expected.CreditDebit));
             Assert.That(result.Commission, Is.EqualTo(expected.Commission));
             Assert.That(result.Balance, Is.EqualTo(expected.Balance));
-        }
-
-        private static SystemParlayDetailMetaModel GetSystemParlayDetailMetaModel()
-        {
-            return new SystemParlayDetailMetaModel
-            {
-                RefNo = 1,
-                UserId = 2,
-                LicenseeId = 3,
-                MoveBetsDay = new DateTime(2016, 8, 10),
-                BalanceUpDay = new DateTime(2016, 8, 18)
-            };
         }
 
         private static BetListMetaModel GetBetListMetaModel()

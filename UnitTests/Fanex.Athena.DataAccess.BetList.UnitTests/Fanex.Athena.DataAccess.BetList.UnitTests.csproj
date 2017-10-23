@@ -110,7 +110,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseBetListDataAccessTest.cs" />
-    <Compile Include="BetListDataAccessTest.LiveReport.cs" />
+    <Compile Include="BetListDataAccessTest.GetSystemParlayDetail.cs" />
+    <Compile Include="BetListDataAccessTest.GetBetListData.cs" />
     <Compile Include="BetListDataAccessTest.cs" />
     <Compile Include="CashOutBetListDataAccessTest.cs" />
     <Compile Include="ColossusBetBetListDataAccessTest.cs" />
