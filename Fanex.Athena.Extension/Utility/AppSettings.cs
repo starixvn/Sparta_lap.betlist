@@ -35,7 +35,14 @@ namespace Fanex.Athena.Extension.Utility
             Justification = "Reviewed. Suppression is OK here.")]
         public string NotificationTypeApiUrl
         {
-            get { return GetValue("NotificationTypeApiUrl"); }
+            get { return GetValue(nameof(NotificationTypeApiUrl)); }
+        }
+
+        [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
+            Justification = "Reviewed. Suppression is OK here.")]
+        public string NotificationApiUrl
+        {
+            get { return GetValue(nameof(NotificationApiUrl)); }
         }
 
         public IEnumerable<int> FakeLicenseeList

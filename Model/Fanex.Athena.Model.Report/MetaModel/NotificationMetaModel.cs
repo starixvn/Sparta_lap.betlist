@@ -2,12 +2,16 @@
 {
     using System;
 
-    public class NotificationMetaModel
+    public class NotificationMetaModel : BaseReportMetaModel
     {
-        public DateTime FromDate { get; set; }
+        public int Type { get; set; }
 
-        public DateTime ToDate { get; set; }
+        public string LicenseeName { get; set; }
 
-        public bool IsValid => FromDate <= ToDate;
+        public bool IsOnlyUnread { get; set; }
+
+        public string Language { get; set; }
+
+        public override bool IsValid => FromDate <= ToDate;
     }
 }

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Web.Http;
+    using Extension.Utility;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Service.Report;
@@ -27,11 +28,15 @@
                 };
             }
 
-            var mainData = _notificationReportService.GetNotifications();
+            metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.LicenseeName = SessionService.LicenseeSession.LicenseeName;
+            metaModel.Language = Util.MapLanguages.GetValueOrDefault(SessionService.UserSession.Language, "en");
+
+            var mainData = _notificationReportService.GetNotifications(metaModel);
 
             return new
             {
-                Data = mainData
+                Data = mainData.DataList
             };
         }
 
@@ -46,7 +51,7 @@
                 };
             }
 
-            var mainData = _notificationReportService.GetNotifications();
+            var mainData = _notificationReportService.GetResultAmendment();
 
             return new
             {

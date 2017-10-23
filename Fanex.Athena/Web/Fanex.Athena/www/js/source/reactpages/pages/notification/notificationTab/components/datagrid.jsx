@@ -8,6 +8,7 @@ import NoDataTitle from '../../../../components/NoDataTitle'
 import service from '../lib/service'
 import CollapseRow from '../../../../components/CollapseRow'
 import Site from '../../../../lib/site'
+import moment from 'moment'
 
 export class DataGrid extends Component {
     constructor(props) {
@@ -42,11 +43,12 @@ export class DataGrid extends Component {
         let rows = [];
         for (let i = 0; i < data.length; i++) {
             const item = data[i];
+            const datetimeString = moment(item.DateTime).format("MM/DD/YYYY hh:mm:ss A");
             rows.push(
                 <Row key={`tr${i}`}>
                     <Cell title={i+1} className="center-align">{i+1}</Cell>
                     <Cell title={item.Type}>{item.Type}</Cell>
-                    <Cell title={item.DateTime} className="center-align">{item.DateTime}</Cell>
+                    <Cell title={datetimeString} className="center-align">{datetimeString}</Cell>
                     <Cell title={item.Subject}>{
                         Site.asNull(item.Content) === null
                         ? <div>{item.Subject}</div>
