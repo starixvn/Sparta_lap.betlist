@@ -9,5 +9,7 @@
         public T TotalData { get; set; }
 
         public int TotalRows { get; set; }
+
+        public IDictionary<string, T> SummaryTotal { get; set; }
     }
 }

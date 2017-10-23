@@ -10,23 +10,17 @@
 namespace Fanex.Athena.Service.Report.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
+    using Model.Core.ResultModel;
 
     public interface IAgCasinoWinLossService
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
-            Justification = "Reviewed. Suppression is OK here.")]
-        SortableList<AgCasinoWinLoss> GetAgentWinlossDetail(AgCasinoWinLossMetaModel metaModel, out IDictionary<string, AgCasinoWinLoss> summaryTotal);
+        ReportResultModel<AgCasinoWinLoss> GetAgentWinlossDetail(AgCasinoWinLossMetaModel metaModel);
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
-            Justification = "Reviewed. Suppression is OK here.")]
-        SortableList<AgCasinoWinLoss> GetCustomerWinlossDetail(AgCasinoWinLossMetaModel metaModel, out IDictionary<string, AgCasinoWinLoss> summaryTotal);
+        ReportResultModel<AgCasinoWinLoss> GetCustomerWinlossDetail(AgCasinoWinLossMetaModel metaModel);
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
-            Justification = "Reviewed. Suppression is OK here.")]
-        SortableList<AgCasinoWinLoss> GetSummaryWinloss(AgCasinoWinLossMetaModel metaModel, out IDictionary<string, AgCasinoWinLoss> summaryTotal);
+        ReportResultModel<AgCasinoWinLoss> GetSummaryWinloss(AgCasinoWinLossMetaModel metaModel);
 
         IEnumerable<AgCasinoWinLoss> CalculateTotal(IEnumerable<AgCasinoWinLoss> dataList);
     }

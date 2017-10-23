@@ -38,7 +38,7 @@ namespace Fanex.Athena.Excel.Report
         private const int RowNoInfoTemplate = 6;
 
         // This is drill down of report
-        private readonly IList<AgCasinoWinLoss> _winLossList;
+        private readonly IEnumerable<AgCasinoWinLoss> _winLossList;
 
         private readonly AgCasinoWinLossMetaModel _metaModel;
         private readonly IDictionary<string, AgCasinoWinLoss> _summaryTotal;
@@ -48,12 +48,11 @@ namespace Fanex.Athena.Excel.Report
         public AgCasinoWinLossExcel(
                 string templatePath,
                 ConvertingOption convertingOption,
-                AgCasinoWinLossMetaModel metaModel,
                 AgCasinoWinLossViewModel viewModel)
             : base(templatePath)
         {
             _convertingOption = convertingOption;
-            _metaModel = metaModel;
+            _metaModel = viewModel.Param;
             _winLossList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
         }
@@ -69,7 +68,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         protected override void AssignData()
         {
-            var numOfDataRow = _winLossList.Count;
+            var numOfDataRow = _winLossList.Count();
 
             var sheet = Workbook.CloneSheet("Template", "Data");
 
@@ -117,11 +116,11 @@ namespace Fanex.Athena.Excel.Report
             var rowIndex = 1;
             int index;
             var dateStringFormat = _metaModel.ReportBy == 1 ? "MM/dd/yyyy" : "MM/yyyy";
-            var rowCount = _winLossList.Count;
+            var rowCount = _winLossList.Count();
 
             for (index = 0; index < rowCount; index++)
             {
-                var licenseeWinLoss = _winLossList[index];
+                var licenseeWinLoss = _winLossList.ElementAt(index);
 
                 // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);

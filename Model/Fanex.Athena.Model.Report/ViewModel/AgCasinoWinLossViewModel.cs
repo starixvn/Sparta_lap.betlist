@@ -13,7 +13,7 @@ namespace Fanex.Athena.Model.Report.ViewModel
 
     public class AgCasinoWinLossViewModel : BaseViewModel
     {
-        public IList<AgCasinoWinLoss> MainResult { get; set; }
+        public IEnumerable<AgCasinoWinLoss> MainResult { get; set; }
 
         public IDictionary<string, AgCasinoWinLoss> SummaryTotal { get; set; }
 

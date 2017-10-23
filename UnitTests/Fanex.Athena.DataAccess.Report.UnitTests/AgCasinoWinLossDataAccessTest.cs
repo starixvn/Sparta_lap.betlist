@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Data;
     using Model.Core.DataDomain;
     using Model.Report.DTO;
@@ -50,7 +51,7 @@
             IDictionary<string, AgCasinoWinLoss> summaryTotal = new Dictionary<string, AgCasinoWinLoss>();
 
             // Action
-            _dataAccess.GetSummaryWinloss(metaModel, out summaryTotal);
+            _dataAccess.GetSummaryWinloss(metaModel);
 
             // Assert
             _objectDb.Received().AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
@@ -84,7 +85,7 @@
             ConfigureReaderForGetSummaryWinlossMethod(expected);
 
             // Action
-            var result = _dataAccess.GetSummaryWinloss(metaModel, out summaryTotal)[0];
+            var result = _dataAccess.GetSummaryWinloss(metaModel).DataList.ElementAt(0);
 
             // Assert
             Assert.That(result.SystemId, Is.EqualTo(expected.SystemId));
@@ -116,7 +117,7 @@
             IDictionary<string, AgCasinoWinLoss> summaryTotal = new Dictionary<string, AgCasinoWinLoss>();
 
             // Action
-            _dataAccess.GetCustomerWinlossDetail(metaModel, out summaryTotal);
+            _dataAccess.GetCustomerWinlossDetail(metaModel);
 
             // Assert
             _objectDb.Received().AddInParameter("fromdate", DbType.Date, metaModel.DrillDownFromDate);
@@ -150,7 +151,7 @@
             ConfigureReaderForGetSummaryWinlossMethod(expected);
 
             // Action
-            var result = _dataAccess.GetCustomerWinlossDetail(metaModel, out summaryTotal)[0];
+            var result = _dataAccess.GetCustomerWinlossDetail(metaModel).DataList.ElementAt(0);
 
             // Assert
             Assert.That(result.SystemId, Is.EqualTo(expected.SystemId));
@@ -182,7 +183,7 @@
             IDictionary<string, AgCasinoWinLoss> summaryTotal = new Dictionary<string, AgCasinoWinLoss>();
 
             // Action
-            _dataAccess.GetAgentWinlossDetail(metaModel, out summaryTotal);
+            _dataAccess.GetAgentWinlossDetail(metaModel);
 
             // Assert
             _objectDb.Received().AddInParameter("fromdate", DbType.Date, metaModel.DrillDownFromDate);
@@ -215,7 +216,7 @@
             ConfigureReaderForGetSummaryWinlossMethod(expected);
 
             // Action
-            var result = _dataAccess.GetAgentWinlossDetail(metaModel, out summaryTotal)[0];
+            var result = _dataAccess.GetAgentWinlossDetail(metaModel).DataList.ElementAt(0);
 
             // Assert
             Assert.That(result.SystemId, Is.EqualTo(expected.SystemId));
