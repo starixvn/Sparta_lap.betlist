@@ -10,6 +10,7 @@ namespace Fanex.Athena.Service.Report
     using System.Data;
     using System.Globalization;
     using System.Linq;
+    using DataAccess.Report.Interfaces;
     using Fanex.Athena.DataAccess.Report;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -34,7 +35,12 @@ namespace Fanex.Athena.Service.Report
 
         private static readonly CultureInfo EnglishCulture = new CultureInfo("en-US");
 
-        private readonly MatchWinLossDataAccess _matchWinLossDataAccess;
+        private readonly IMatchWinLossDataAccess _matchWinLossDataAccess;
+
+        public MatchWinLossService(IMatchWinLossDataAccess matchWinLossDataAccess)
+        {
+            this._matchWinLossDataAccess = matchWinLossDataAccess;
+        }
 
         public MatchWinLossService()
         {
@@ -45,11 +51,6 @@ namespace Fanex.Athena.Service.Report
 
         public IList<MatchWinLoss> GetDataList(MatchWinLossMetaModel metaModel)
         {
-            if (!metaModel.IsValid)
-            {
-                return new List<MatchWinLoss>();
-            }
-
             var dataList = _matchWinLossDataAccess.GetDataList(metaModel);
 
             foreach (var data in dataList)
@@ -65,23 +66,17 @@ namespace Fanex.Athena.Service.Report
 
         public DataSet GetDetailDataSet(MatchWinLossMetaModel metaModel)
         {
-            return metaModel.IsValid
-                       ? this._matchWinLossDataAccess.GetDetailDataSet(metaModel)
-                       : new DataSet();
+            return _matchWinLossDataAccess.GetDetailDataSet(metaModel);
         }
 
         public IList<MatchWinLoss> GetDetailDataList(MatchWinLossMetaModel metaModel)
         {
-            return metaModel.IsValid
-                       ? this._matchWinLossDataAccess.GetDetailDataList(metaModel)
-                       : new List<MatchWinLoss>();
+            return _matchWinLossDataAccess.GetDetailDataList(metaModel);
         }
 
         public IList<MatchWinLoss> GetOutrightParlayList(MatchWinLossMetaModel metaModel)
         {
-            return metaModel.IsValid
-                       ? this._matchWinLossDataAccess.GetOutrightParlayList(metaModel)
-                       : new List<MatchWinLoss>();
+            return _matchWinLossDataAccess.GetOutrightParlayList(metaModel);
         }
 
         #endregion IMatchWinLossService Members
