@@ -34,5 +34,10 @@
                 default: return ViewResources.All;
             }
         }
+
+        public static bool IsValidPlatform(int type)
+        {
+            return type >= All && type <= NewAsia;
+        }
     }
 }
