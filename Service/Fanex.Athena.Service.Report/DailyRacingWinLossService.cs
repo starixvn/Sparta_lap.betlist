@@ -17,28 +17,21 @@ namespace Fanex.Athena.Service.Report
 
     public class DailyRacingWinLossService : IDailyRacingWinLossService
     {
-        #region Fields
-
         private readonly IDailyRacingWinLossDataAccess _dailyRacingWinLossDataAccess;
-
-        #endregion Fields
-
-        #region Constructor
 
         public DailyRacingWinLossService()
         {
             _dailyRacingWinLossDataAccess = new DailyRacingWinLossDataAccess();
         }
 
-        #endregion Constructor
-
-        #region Public
+        public DailyRacingWinLossService(IDailyRacingWinLossDataAccess dailyRacingWinLossDataAccess)
+        {
+            _dailyRacingWinLossDataAccess = dailyRacingWinLossDataAccess;
+        }
 
         public IList<DailyRacingWinLoss> GetDataList(DailyRacingWinLossMetaModel metaModel)
         {
-            return metaModel.IsValid
-                       ? _dailyRacingWinLossDataAccess.GetDataList(metaModel)
-                       : new List<DailyRacingWinLoss>();
+            return _dailyRacingWinLossDataAccess.GetDataList(metaModel);
         }
 
         public DailyRacingWinLossData GetDailyRacingWinLossData(DailyRacingWinLossMetaModel metaModel)
@@ -64,10 +57,6 @@ namespace Fanex.Athena.Service.Report
                 GrandTotalData = grandTotalData
             };
         }
-
-        #endregion Public
-
-        #region Private
 
         [SuppressMessage(
            "StyleCop.CSharp.StylecopPlus.Rules",
@@ -159,7 +148,5 @@ namespace Fanex.Athena.Service.Report
 
             return result;
         }
-
-        #endregion Private
     }
 }
