@@ -12,7 +12,8 @@ namespace Fanex.Athena.DataAccess.Dashboard
             { Euro, nameof(Euro) },
             { Wap, nameof(Wap) },
             { SmartSite, nameof(SmartSite) },
-            { Tablet, nameof(Tablet) }
+            { Tablet, nameof(Tablet) },
+            { NewAsia, nameof(NewAsia) }
         };
 
         public const int All = 0;
@@ -28,6 +29,8 @@ namespace Fanex.Athena.DataAccess.Dashboard
         public const int SmartSite = 5;
 
         public const int Tablet = 6;
+
+        public const int NewAsia = 7;
 
         public static string GetPlatformName(int type)
         {
