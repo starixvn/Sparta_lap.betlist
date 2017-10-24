@@ -22,7 +22,7 @@ namespace Fanex.Athena.Excel.Customer
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class CustomerListExcel : ExcelBase
+    public class CustomerListExcel
     {
         private const int RowHeaderTemplate = 1;
         private const int RowTitleTemplate = 0;

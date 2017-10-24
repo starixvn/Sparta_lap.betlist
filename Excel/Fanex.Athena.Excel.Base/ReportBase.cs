@@ -12,11 +12,15 @@ namespace Fanex.Athena.Excel.Base
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
 
-    public class ReportBase : ExcelBase
+    public class ReportBase
     {
         public const int RowHeaderTemplate = 1;
         public const int RowTitleTemplate = 0;
         public const int MaxRowCount = 30000;
+
+        protected const int ColumnIndex = 0;
+
+        protected const string FormatDate = "MM/dd/yyyy";
 
         private readonly string _templatePath;
 
@@ -35,6 +39,12 @@ namespace Fanex.Athena.Excel.Base
             _templatePath = templatePath;
             ShowingOption = showingOption;
             PageSize = pageSize;
+        }
+
+        protected ShowingOption ShowingOption
+        {
+            get;
+            set;
         }
 
         protected int PageSize
