@@ -8,8 +8,13 @@ define([
     "lib/jquery.marquee",
     "materialize-autocomplete",
     "components/selectlist",
-    "lib/jquery.jclock"],
+    "lib/jquery.jclock",
+    "extensions/jquery.extension"],
     function (Site, Recheckin, AutoComplete) {
+        var MAP_NOTIFICATION_STATUS_CLASS = {
+            0: "New",
+            1: "Update"
+        };
         var $searchBox;
 
         function initialize() {
@@ -17,6 +22,7 @@ define([
             initVariables();
             initEvent();
             checkMoveBetNotification();
+            getNotificationMessages();
             activeDefaultMenuItem();
             setTimeout(function () {
                 var $mainFrame = $("#mainFrame");
@@ -90,7 +96,7 @@ define([
             });
 
             $(window).on('blur', function () {
-                $('.dropdown-button').dropdown('close');
+                $('.dropdown-button', '.languages-block').dropdown('close');
                 $('#ddlLicensee').selectList("close");
                 $("#suggestionDropdown").hide();
             });
@@ -178,6 +184,81 @@ define([
                     }
                 });
             }
+
+            processNotification();
+            setInterval(processNotification, 60000);
+        }
+
+        function getNotificationMessages() {
+            var $notificationDdl = $("#notificationmsg");
+
+            if ($notificationDdl.length === 0) {
+                return;
+            }
+
+            var $notificationLabel = $(".dropdown-button", ".notifications-block");
+            var newMsg = null;
+
+            var apiUrl = Site.resolveClientUrl("api/NotificationReport/GetNotificationMessages");
+            var detailUrl = Site.resolveClientUrl("NotificationReport/Index");
+
+            var itemPattern = "<li class='notification-item' title={0}><a href='{1}'>{2}</a><span class='status {3}'>{4}</span><span class='time-passed'>{5}</span></li>";
+
+            var calculationDuration = function (date, now) {
+                var duration = (now - date) / 1000 / 60;
+                var min = Math.round(duration % 60);
+                var hour = Math.floor(duration / 60);
+
+                return (hour > 0 ? hour + " h " : "") + min + " minutes ago"
+            }
+
+            var addNotification = function (data) {
+                var now = new Date();
+                var $numberOfMsg = $(".number-notifications", ".notifications-block");
+
+                $notificationDdl.children(".notification-item").remove();
+
+                if (data === null || data.length === 0) {
+                    $numberOfMsg.remove();
+                }
+                else {
+                    var total = data.length;
+
+                    if ($numberOfMsg.length) {
+                        $numberOfMsg.text(total);
+                    }
+                    else {
+                        $notificationLabel.append("<span class='number-notifications'>" + total + "</span>");
+                    }
+
+                    for (var i = 0; i < total; i++) {
+                        var item = data[i];
+                        var timePassed = calculationDuration(new Date(item.DateTime), now);
+                        $notificationDdl.prepend($.format(itemPattern, item.Content, detailUrl, item.Content, MAP_NOTIFICATION_STATUS_CLASS[item.Status], MAP_NOTIFICATION_STATUS_CLASS[item.Status], timePassed));
+                    }
+                }
+            }
+
+            var processNotification = function () {
+                $.get(apiUrl, function (data) {
+                    if ($notificationDdl.is(":visible")) {
+                        newMsg = data;
+                        return;
+                    }
+
+                    newMsg = null;
+                    addNotification(data);
+                });
+            };
+
+            $(window).on('blur', function () {
+                if ($notificationDdl.is(":visible")) {
+                    if (newMsg != null) {
+                        addNotification(newMsg);
+                    }
+                    $notificationLabel.dropdown('close');
+                }
+            });
 
             processNotification();
             setInterval(processNotification, 60000);

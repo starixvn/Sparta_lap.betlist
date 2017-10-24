@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Extension.Utility.Interfaces;
     using Fanex.Athena.Resources;
@@ -9,7 +11,9 @@
     using Fanex.Athena.Service.Core.Utility;
     using Fanex.Athena.Service.Core.Utility.Interfaces;
     using Interfaces;
+    using Model.Core.ResultModel;
     using Model.Report.DTO;
+    using Model.Report.MetaModel;
     using Newtonsoft.Json.Linq;
 
     public class NotificationReportService : INotificationReportService
@@ -69,14 +73,53 @@
             return jobject.ToObject<Dictionary<string, string>>();
         }
 
-        public IList<Notification> GetNotifications()
+        public ReportResultModel<Notification> GetNotifications(NotificationMetaModel metaModel)
         {
-            return new List<Notification>
+            var notificationUrl = string.Format(
+                _appSetting.NotificationApiUrl,
+                metaModel.Type,
+                metaModel.FromDate,
+                metaModel.ToDate,
+                metaModel.UserId,
+                metaModel.LicenseeName,
+                false);
+
+            var json = string.Empty;
+            try
+            {
+                json = _webClientService.DownloadString(notificationUrl);
+            }
+            catch (Exception exception)
+            {
+                LogHelper.WriteError(exception, "ApiUrl: " + notificationUrl);
+            }
+
+            var dataList = new List<Notification>();
+            var totalPage = 0;
+
+            var jobject = JObject.Parse(json);
+            if (jobject.HasValues)
+            {
+                var lang = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(metaModel.Language.ToLowerInvariant());
+                var subjectKey = "Subject" + lang;
+                var contentKey = "Content" + lang;
+
+                dataList.AddRange(jobject["Data"].Children().Select(x => new Notification
                 {
-                    new Notification { Type = "Type 1", Subject = "Subject 1", Content = "this is content of subject 1" },
-                    new Notification { Type = "Type 2", Subject = "Subject 2", Content = null },
-                    new Notification { Type = "Type 3", Subject = "Subject 3", Content = string.Empty }
-                };
+                    DateTime = x["Date"].Value<DateTime>(),
+                    Type = x["Type"].Value<string>(),
+                    Content = x[contentKey].Value<string>(),
+                    Subject = x[subjectKey].Value<string>()
+                }));
+
+                totalPage = jobject["TotalPage"].Value<int>();
+            }
+
+            return new ReportResultModel<Notification>
+            {
+                DataList = dataList,
+                TotalRows = totalPage
+            };
         }
 
         public IList<ResultAmendment> GetResultAmendment()

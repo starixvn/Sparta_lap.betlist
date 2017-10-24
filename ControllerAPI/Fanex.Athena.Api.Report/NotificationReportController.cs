@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Api.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Web.Http;
     using Extension.Utility;
@@ -15,6 +16,22 @@
         public NotificationReportController()
         {
             _notificationReportService = new NotificationReportService();
+        }
+
+        [HttpGet]
+        public dynamic GetNotificationMessages()
+        {
+            var mainData = new List<NotificationMessage>();
+
+            var random = new Random();
+
+            var length = random.Next(0, 5);
+            for (int i = 0; i < length; i++)
+            {
+                mainData.Add(new NotificationMessage { Content = i.ToString(), DateTime = DateTime.Today, Status = i % 2 });
+            }
+
+            return mainData;
         }
 
         [HttpPost]

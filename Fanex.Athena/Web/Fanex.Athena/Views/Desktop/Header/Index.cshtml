@@ -73,6 +73,29 @@
             </ul>
         </div>
 
+        <div class="notifications-block">
+            <a class="dropdown-button" href="javascript:void(0)" data-activates="notificationmsg">
+                <i class="icon-notification"></i>
+                <span class="number-notifications">3</span>
+            </a>
+
+            <ul id="notificationmsg" class="dropdown-content">
+                <li class="notification-item">
+                    <a href="javascript:void(0)">
+                        dsfd
+                    </a>
+                    <span class="status update">
+                        Update
+                    </span>
+                    <span class="time-passed">
+                        50
+                    </span>
+                <li class="notification-all">
+                    <a href="@Url.Action("Index", "NotificationReport")">Show all</a>
+                </li>
+            </ul>
+        </div>
+
         @if (Model.IsAllowedManagementMember)
         {
             <div class="search-block">

@@ -403,6 +403,78 @@ header {
                 }
             }
         }
+        //------------ Notification block -------------------//
+        .notifications-block {
+            position: relative;
+            margin: 5px;
+            cursor: pointer;
+
+            .number-notifications {
+                background-color: #d91a1a;
+                width: 16px;
+                height: 16px;
+                position: absolute;
+                border-radius: 50%;
+                right: -3px;
+                top: 0;
+                line-height: 16px;
+                text-align: center;
+                font-size: 0.8em;
+            }
+
+            .dropdown-content {
+                background-color: #4C6375;
+                top: 30px !important;
+                left: -30px !important;
+                width: 30rem !important;
+
+                li {
+                    border-bottom: 1px solid #314453;
+                }
+
+                li:hover {
+                    background-color: #314453;
+                }
+
+                li > a {
+                    color: #fff;
+                    display: block;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+
+                li > span {
+                    font-size: 0.9em;
+                    padding-top: 0;
+                }
+
+                .status {
+                    width: 30%;
+                }
+
+                .status:before {
+                    content: "\2022";
+                    font-size: 3.5em;
+                    vertical-align: middle;
+                }
+
+                .status.Update {
+                    color: #4caf50;
+                }
+
+                .status.New {
+                    color: #ffd700;
+                }
+
+                .time-passed {
+                    width: 70%;
+                    float: right;
+                    text-align: right;
+                    color: #d3d3d3;
+                }
+            }
+        }
     }
 
     @media only screen and (max-width: 992px) {
