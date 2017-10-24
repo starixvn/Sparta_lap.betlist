@@ -1,4 +1,4 @@
-﻿// Generated at: 10/20/2017 10:49:35 AM
+﻿// Generated at: 10/24/2017 3:11:35 PM
 var _language_zh_TW = {
 AA:"客客",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -473,6 +473,7 @@ Multiplier:"倍增",
 Name:"姓名",
 NetGaming:"Net Gaming",
 NetTurnover:"淨交易額",
+NewAsia:"新亞洲版",
 NewGroup:"新組別",
 Next:"下個",
 NG:"百練賽",
