@@ -21,7 +21,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Model.Core.Helper;
     using Model.Core.ResultModel;
 
-    public class CustomerTurnoverDataAccess : BaseDataAccess, ICustTurnoverDataAccess
+    public class CustomerTurnoverDataAccess : BaseDataAccess, ICustomerTurnoverDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
