@@ -130,14 +130,9 @@ namespace Fanex.Athena.Excel.Customer
             }
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected void AssignTitle(ISheet sheet)
         {
-            ReportTitle = _excelTitle;
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _excelTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 2);

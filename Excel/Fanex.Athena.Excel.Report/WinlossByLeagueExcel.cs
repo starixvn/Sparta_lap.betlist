@@ -175,10 +175,6 @@ namespace Fanex.Athena.Excel.Report
             return currentRow;
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected void AssignTitle(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, Level == 0 ? NumOfRowLevel0 : NumOfRowLevel1, _metaModel.ReportTitle);

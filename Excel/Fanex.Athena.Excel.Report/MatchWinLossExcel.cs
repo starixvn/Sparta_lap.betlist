@@ -213,18 +213,14 @@ namespace Fanex.Athena.Excel.Report
             AssignGrandTotalSummary(sheet, currentRowIndex);
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected void AssignTitle(ISheet sheet)
         {
-            ReportTitle = string.Format(
+            var reportTitle = string.Format(
                 ViewResources.MatchWinLossTitle,
                 _model.Date.ToString(FormatDate),
                 ReportExcelHelper.GetTitleCurrencyName(_convertingOption)) + ReportExcelHelper.GetLicenseeWLProduct(_model.ProductOptions);
 
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);

@@ -203,18 +203,14 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected void AssignTitle(ISheet sheet)
         {
-            ReportTitle = string.Format(
+            var reportTitle = string.Format(
                                         ViewResources.DailyRacing12BetTitle,
                                         ViewModel.Param.Date.ToString(FormatDate),
                                         ReportExcelHelper.GetTitleCurrencyName(_convertingOption));
 
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnCount, reportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);

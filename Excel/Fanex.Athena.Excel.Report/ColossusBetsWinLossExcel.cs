@@ -159,8 +159,8 @@ namespace Fanex.Athena.Excel.Report
                 ? ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.DrillDownCurrencyId)
                 : ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId);
 
-            ReportTitle = GenerateProductReportTitle(fromdate, todate, title);
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            var reportTitle = GenerateProductReportTitle(fromdate, todate, title);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze rows title and header
             sheet.CreateFreezePane(0, 3);

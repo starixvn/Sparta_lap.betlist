@@ -30,14 +30,17 @@ namespace Fanex.Athena.Excel.Warehouse
 
         private readonly DataTable _exportData;
 
+        private readonly string _reportTitle;
+
         public TopCustomerExcel(
                 string templatePath,
                 ShowingOption showingOption,
-                DataTable exportData)
+                DataTable exportData,
+                string reportTitle)
             : base(templatePath, showingOption)
         {
             _exportData = exportData;
-
+            _reportTitle = reportTitle;
             HeaderTextList = new List<string>
             {
                 "#",
@@ -115,7 +118,7 @@ namespace Fanex.Athena.Excel.Warehouse
 
         protected void AssignTitle(ISheet sheet)
         {
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _reportTitle);
 
             // Only show LicenseeWL if licensee doesn't have NG
             if (!ShowingOption.NGVisible)

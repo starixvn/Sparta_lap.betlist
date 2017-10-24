@@ -146,10 +146,6 @@ namespace Fanex.Athena.Excel.Report
             AssignTotal(sheet);
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected void AssignTitle(ISheet sheet)
         {
             var metaModel = _model.Param;
@@ -157,15 +153,15 @@ namespace Fanex.Athena.Excel.Report
             var currencyText = metaModel.CurrencyId == 0 ?
                 ViewResources.AllCurrencies : $"{ViewResources.Currency} {metaModel.CurrencyName}";
 
-            ReportTitle = string.Format(
-                                        ViewResources.PlatformWinLossTitle,
-                                        metaModel.FromDate.ToString(FormatDate),
-                                        metaModel.ToDate.ToString(FormatDate),
-                                        currencyText,
-                                        GetBaseCurrencyTitle(),
-                                        platformText) + ", " + GetProductTitle();
+            var reportTitle = string.Format(
+                                         ViewResources.PlatformWinLossTitle,
+                                         metaModel.FromDate.ToString(FormatDate),
+                                         metaModel.ToDate.ToString(FormatDate),
+                                         currencyText,
+                                         GetBaseCurrencyTitle(),
+                                         platformText) + ", " + GetProductTitle();
 
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             sheet.CreateFreezePane(0, 3);
 

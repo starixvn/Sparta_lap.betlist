@@ -172,9 +172,9 @@ namespace Fanex.Athena.Excel.Report
 
             var currencyName = ReportExcelHelper.GetExactTitleCurrencyName(_excelModel.ConvertingOption, currencyId);
             var productsTitle = ReportExcelHelper.GetLicenseeWLProduct(_excelModel.MetaModel.ProductOptions, _excelModel.SystemId);
-            ReportTitle = string.Format(ViewResources.WinLossByProductTitle, fromdate, todate, currencyName + productsTitle);
+            var reportTitle = string.Format(ViewResources.WinLossByProductTitle, fromdate, todate, currencyName + productsTitle);
 
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);

@@ -45,17 +45,20 @@ namespace Fanex.Athena.Excel.Warehouse
 
         private readonly IDictionary<string, decimal> _totalValues;
 
+        private readonly string _reportTitle;
+
         public TopWinLossExcel(
                 string templatePath,
                 ShowingOption showingOption,
-                IList<Fanex.Athena.Model.Warehouse.DTO.WinLoss> dataList,
-                IDictionary<string, decimal> totalValues)
+                IList<WinLoss> dataList,
+                IDictionary<string, decimal> totalValues,
+                string reportTitle)
             : base(templatePath, showingOption)
         {
             _dataList = dataList;
 
             _totalValues = totalValues;
-
+            _reportTitle = reportTitle;
             HeaderTextList = new List<string>
             {
                 "#",
@@ -146,13 +149,9 @@ namespace Fanex.Athena.Excel.Warehouse
             AssignTotalData(sheet, _dataList.Count + RowContentTemplate);
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected void AssignTitle(ISheet sheet)
         {
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _reportTitle);
 
             // Only show LicenseeWL if licensee doesn't have NG
             if (!ShowingOption.NGVisible)

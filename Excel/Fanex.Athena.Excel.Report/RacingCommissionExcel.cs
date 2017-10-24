@@ -144,19 +144,15 @@ namespace Fanex.Athena.Excel.Report
             return rowIndex;
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected void AssignTitle(ISheet sheet)
         {
-            ReportTitle = string.Format(
+            var reportTitle = string.Format(
                                         ViewResources.RacingCommissionTitle,
                                         _viewModel.Param.FromDate.ToString(FormatDate),
                                         _viewModel.Param.ToDate.ToString(FormatDate),
                                         ReportExcelHelper.GetTitleCurrencyName(_convertingOption));
 
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);

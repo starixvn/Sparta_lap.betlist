@@ -157,13 +157,13 @@ namespace Fanex.Athena.Excel.Report
                                 ? string.Empty
                                 : ", " + ViewResources.Username + ": " + _excelModel.MetaModel.Username);
 
-            ReportTitle = string.Format(
+            var reportTitle = string.Format(
                                         ViewResources.CustomerWinLossTitle,
                                         _excelModel.MetaModel.FromDate.ToString(FormatDate),
                                         _excelModel.MetaModel.ToDate.ToString(FormatDate),
                                         filterTitle);
 
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);

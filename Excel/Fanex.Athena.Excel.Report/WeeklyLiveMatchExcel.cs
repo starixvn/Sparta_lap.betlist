@@ -74,8 +74,8 @@ namespace Fanex.Athena.Excel.Report
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
             var todate = _metaModel.ToDate.ToString(FormatDate);
 
-            ReportTitle = string.Format(ViewResources.WeeklyLiveMatches + ", {0} --> {1}", fromdate, todate);
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            var reportTitle = string.Format(ViewResources.WeeklyLiveMatches + ", {0} --> {1}", fromdate, todate);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 2);

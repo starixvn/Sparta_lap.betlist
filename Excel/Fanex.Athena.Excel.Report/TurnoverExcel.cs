@@ -186,10 +186,6 @@ namespace Fanex.Athena.Excel.Report
             return currentRow;
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected void AssignTitle(ISheet sheet)
         {
             var titleNoUserName = string.Format(
@@ -204,8 +200,8 @@ namespace Fanex.Athena.Excel.Report
                                          ViewResources.Customer,
                                          _viewModel.Param.Username,
                                          _viewModel.Param.CurrencyName);
-            ReportTitle = _viewModel.Param.Username.IsNullOrTrimEmpty() ? titleNoUserName : title;
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            var reportTitle = _viewModel.Param.Username.IsNullOrTrimEmpty() ? titleNoUserName : title;
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);

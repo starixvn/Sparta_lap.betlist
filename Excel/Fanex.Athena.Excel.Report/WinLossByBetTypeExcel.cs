@@ -142,19 +142,15 @@ namespace Fanex.Athena.Excel.Report
             AssignSumData(sheet);
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected void AssignTitle(ISheet sheet)
         {
-            ReportTitle = string.Format(
+            var reportTitle = string.Format(
                                         ViewResources.WinLossByBetTypeTitle,
                                         _viewModel.Param.FromDate.ToString(FormatDate),
                                         _viewModel.Param.ToDate.ToString(FormatDate),
                                         ReportExcelHelper.GetTitleCurrencyName(_convertingOption));
 
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);

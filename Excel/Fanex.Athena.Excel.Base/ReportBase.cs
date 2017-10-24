@@ -57,12 +57,6 @@ namespace Fanex.Athena.Excel.Base
             set;
         }
 
-        public string ReportTitle
-        {
-            get;
-            set;
-        }
-
         protected internal ISheet TemplateSheet
         {
             get;

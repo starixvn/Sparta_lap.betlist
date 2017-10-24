@@ -125,7 +125,7 @@
                 ViewResources.AllCurrencies :
                 string.Format("{0} {1}", ViewResources.Currency, _model.CurrencyName);
 
-            ReportTitle = string.Format(
+            var reportTitle = string.Format(
                                         ViewResources.PlatformWinLossTitle,
                                         _model.FromDate.ToString(FormatDate),
                                         _model.ToDate.ToString(FormatDate),
@@ -133,7 +133,7 @@
                                         GetBaseCurrencyTitle(),
                                         platformText) + ", " + GetProductTitle();
 
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnNoContent, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnNoContent, reportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);

@@ -44,18 +44,21 @@ namespace Fanex.Athena.Excel.Report
         private readonly IEnumerable<CustTurnover> _customerTurnoverList;
         private readonly string _formatDateTime;
         private readonly CustTurnover _total;
+        private readonly string _reportTitle;
 
         public CustomerTurnoverExcel(
                                      string templatePath,
                                      ShowingOption showingOption,
                                      IEnumerable<CustTurnover> customerTurnoverList,
                                      CustTurnover total,
-                                     string formatDateTime)
+                                     string formatDateTime,
+                                     string reportTitle)
             : base(templatePath, showingOption)
         {
             _customerTurnoverList = customerTurnoverList;
             _total = total;
             _formatDateTime = formatDateTime;
+            _reportTitle = reportTitle;
             HeaderTextList = new List<string>
             {
                 "#",
@@ -198,13 +201,9 @@ namespace Fanex.Athena.Excel.Report
             return rowIndex;
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected void AssignTitle(ISheet sheet)
         {
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _reportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);
