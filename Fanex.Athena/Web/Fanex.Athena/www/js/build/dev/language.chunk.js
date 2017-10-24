@@ -15,7 +15,7 @@ module.exports = __webpack_require__(193);
 /***/ 189:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 10/20/2017 10:49:59 AM
+﻿// Generated at: 10/24/2017 3:11:49 PM
 window._language_en_US = {
 AA:"AA",
 AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -960,7 +960,7 @@ YouNotChooseAnyCustomerMsg:"You did not choose any customers."
 /***/ 190:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 10/20/2017 10:49:59 AM
+﻿// Generated at: 10/24/2017 3:11:49 PM
 window._language_zh_CN = {
 AA:"客客",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -1435,6 +1435,7 @@ Multiplier:"倍增",
 Name:"姓名",
 NetGaming:"Net Gaming",
 NetTurnover:"净交易额",
+NewAsia:"新亚洲版",
 NewGroup:"新组别",
 Next:"下个",
 NG:"百练赛",
@@ -1768,7 +1769,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 191:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 10/20/2017 10:49:59 AM
+﻿// Generated at: 10/24/2017 3:11:49 PM
 window._language_zh_TW = {
 AA:"客客",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -2243,6 +2244,7 @@ Multiplier:"倍增",
 Name:"姓名",
 NetGaming:"Net Gaming",
 NetTurnover:"淨交易額",
+NewAsia:"新亞洲版",
 NewGroup:"新組別",
 Next:"下個",
 NG:"百練賽",
@@ -2576,7 +2578,7 @@ YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 /***/ 192:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 10/20/2017 10:49:59 AM
+﻿// Generated at: 10/24/2017 3:11:49 PM
 window._language_zh_Hans = {
 AA:"客客",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -3039,6 +3041,7 @@ Multiplier:"倍增",
 Name:"姓名",
 NetGaming:"Net Gaming",
 NetTurnover:"净交易额",
+NewAsia:"新亚洲版",
 NewGroup:"新组别",
 Next:"下个",
 NG:"百练赛",
@@ -3370,7 +3373,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 193:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 10/20/2017 10:49:59 AM
+﻿// Generated at: 10/24/2017 3:11:49 PM
 window._language_ko_KR = {
 AA:"AA",
 AccessDeniedMsg:"죄송합니다. 이 페이지에 접근할 권한이 없습니다.",
