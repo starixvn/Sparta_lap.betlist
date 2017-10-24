@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.Report
 {
     using System.Collections.Generic;
     using System.Linq;
+    using DataAccess.Report.Interfaces;
     using Fanex.Athena.DataAccess.Report;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -18,31 +19,24 @@ namespace Fanex.Athena.Service.Report
 
     public class SettledMatchCountService : ISettledMatchCountService
     {
-        #region Field
-
-        private readonly SettledMatchCountDataAccess _settledMatchCountDataAccess;
-
-        #endregion Field
-
-        #region Constructor
+        private readonly ISettledMatchCountDataAccess _settledMatchCountDataAccess;
 
         public SettledMatchCountService()
         {
             this._settledMatchCountDataAccess = new SettledMatchCountDataAccess();
         }
 
-        #endregion Constructor
+        public SettledMatchCountService(ISettledMatchCountDataAccess settledMatchCountDataAccess)
+        {
+            this._settledMatchCountDataAccess = settledMatchCountDataAccess;
+        }
 
         public IList<SettledMatchCountViewModel> GetDataList(bool isShowAll, int licenseeId, ProductAccess producAccess)
         {
             var result = _settledMatchCountDataAccess.GetDataList(isShowAll, licenseeId);
 
-            return GetDataListAfterCheckProductAccess(result, producAccess);
+            return FilterValidSports(result, producAccess);
         }
-
-        #region Utility
-
-        #region Get data list after check product access
 
         private static bool IsValidSportType(int sportType, ProductAccess productAccess)
         {
@@ -67,16 +61,12 @@ namespace Fanex.Athena.Service.Report
             }
         }
 
-        #endregion Get data list after check product access
-
-        #region Convert DTO data to View data for display
-
         /// <summary>
         /// Mapping data.
         /// </summary>
         /// <param name="dtoData">The data list.</param>
         /// <returns>The view model.</returns>
-        private static List<SettledMatchCountViewModel> ConvertDtoDataToViewData(IList<SettledMatchCount> dtoData)
+        private static IList<SettledMatchCountViewModel> ConvertDtoDataToViewData(IList<SettledMatchCount> dtoData)
         {
             var resultList = dtoData.Where(x => x.IsToday == 0)
                                     .Select(i => new SettledMatchCountViewModel
@@ -121,16 +111,12 @@ namespace Fanex.Athena.Service.Report
             return resultList;
         }
 
-        #endregion Convert DTO data to View data for display
-
-        private static IList<SettledMatchCountViewModel> GetDataListAfterCheckProductAccess(
+        private static IList<SettledMatchCountViewModel> FilterValidSports(
          IEnumerable<SettledMatchCount> settledMatchCountList, ProductAccess productAccess)
         {
             var listAfterCheckProduct = settledMatchCountList.Where(item => IsValidSportType(item.SportType, productAccess)).ToList();
 
             return ConvertDtoDataToViewData(listAfterCheckProduct);
         }
-
-        #endregion Utility
     }
 }
