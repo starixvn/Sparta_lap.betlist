@@ -48,17 +48,6 @@
             _total = total;
 
             _productOptions = metaModel.ProductOptions;
-            HeaderTextList = new List<string>
-            {
-                ViewResources.Platform,
-                ViewResources.Turnover,
-                ViewResources.TurnoverPercent,
-                ViewResources.TotalTransaction,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.LicenseeW_L,
-            };
         }
 
         protected override void AssignData()
@@ -82,10 +71,21 @@
         protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            var headerTextList = new[]
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                ViewResources.Platform,
+                ViewResources.Turnover,
+                ViewResources.TurnoverPercent,
+                ViewResources.TotalTransaction,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.LicenseeW_L,
+            };
+
+            for (int i = 0; i < headerTextList.Length; i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
 
             row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);

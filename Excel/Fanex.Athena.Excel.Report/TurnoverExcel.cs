@@ -66,27 +66,6 @@ namespace Fanex.Athena.Excel.Report
             _viewModel = viewModel;
             _turnoverList = viewModel.DataList;
             _total = viewModel.TotalData;
-            HeaderTextList = new List<string>
-            {
-                "#",
-                ViewResources.Date,
-                ViewResources.OpeningBalance,
-                ViewResources.Deposit,
-                ViewResources.Withdrawal,
-                ViewResources.Bonus,
-                ViewResources.Adjustment,
-                ViewResources.Turnover,
-                ViewResources.DrawGame,
-                ViewResources.NetTurnover,
-                ViewResources.PendingFunds,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.ClosingBalance,
-                ViewResources.AffiliateTransfer,
-                ViewResources.CasinoTransfer,
-                ViewResources.ProductBA
-            };
         }
 
         public int LicenseeId
@@ -126,18 +105,35 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
-
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            var headerTextList = new[]
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                "#",
+                ViewResources.Date,
+                ViewResources.OpeningBalance,
+                ViewResources.Deposit,
+                ViewResources.Withdrawal,
+                ViewResources.Bonus,
+                ViewResources.Adjustment,
+                ViewResources.Turnover,
+                ViewResources.DrawGame,
+                ViewResources.NetTurnover,
+                ViewResources.PendingFunds,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.ClosingBalance,
+                ViewResources.AffiliateTransfer,
+                ViewResources.CasinoTransfer,
+                ViewResources.ProductBA
+            };
+
+            for (int i = 0; i < headerTextList.Length; i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
 
             row2.Cells[ColumnCustomerWinLoss].SetCellValue(ViewResources.WinLoss);

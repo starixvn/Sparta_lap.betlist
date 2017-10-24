@@ -41,19 +41,6 @@ namespace Fanex.Athena.Excel.Warehouse
         {
             _exportData = exportData;
             _reportTitle = reportTitle;
-            HeaderTextList = new List<string>
-            {
-                "#",
-                ViewResources.Customer,
-                ViewResources.Currency,
-                ViewResources.Turnover,
-                ViewResources.BetCount,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.LicenseeW_L,
-                ViewResources.LastActivityDate,
-            };
         }
 
         /// <summary>
@@ -80,17 +67,26 @@ namespace Fanex.Athena.Excel.Warehouse
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            var headerTextList = new[]
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                "#",
+                ViewResources.Customer,
+                ViewResources.Currency,
+                ViewResources.Turnover,
+                ViewResources.BetCount,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.LicenseeW_L,
+                ViewResources.LastActivityDate,
+            };
+
+            for (int i = 0; i < headerTextList.Length; i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
 
             row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);

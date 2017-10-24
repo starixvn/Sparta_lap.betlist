@@ -53,24 +53,6 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
             _metaModel = metaModel;
             _data = viewModel.Data;
             _totalData = totalData;
-
-            HeaderTextList = new[]
-            {
-                "#",
-                ViewResources.GameID,
-                ViewResources.PlayerHistoryNo,
-                ViewResources.GameType,
-                ViewResources.GameGroup,
-                ViewResources.StartDate,
-                ViewResources.EndDate,
-                ViewResources.StartBalance,
-                ViewResources.EndBalance,
-                ViewResources.Stake,
-                ViewResources.Bet,
-                ViewResources.WinLoss,
-                ViewResources.RollingComm,
-                ViewResources.Results
-            };
         }
 
         /// <summary>
@@ -95,17 +77,30 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
             }
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            var headerTextList = new[]
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                "#",
+                ViewResources.GameID,
+                ViewResources.PlayerHistoryNo,
+                ViewResources.GameType,
+                ViewResources.GameGroup,
+                ViewResources.StartDate,
+                ViewResources.EndDate,
+                ViewResources.StartBalance,
+                ViewResources.EndBalance,
+                ViewResources.Stake,
+                ViewResources.Bet,
+                ViewResources.WinLoss,
+                ViewResources.RollingComm,
+                ViewResources.Results
+            };
+            for (int i = 0; i < headerTextList.Length; i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
         }
 

@@ -63,27 +63,6 @@ namespace Fanex.Athena.Excel.Report
             _model = model;
             _exportData = exportData;
             _totalData = totalData;
-            HeaderTextList = new List<string>
-            {
-                "#",
-                ViewResources.ExternalId,
-                ViewResources.SystemId,
-                ViewResources.OpeningBalance,
-                ViewResources.Deposit,
-                ViewResources.Withdrawal,
-                ViewResources.Bonus,
-                ViewResources.Adjustment,
-                ViewResources.Turnover,
-                ViewResources.DrawGame,
-                ViewResources.NetTurnover,
-                ViewResources.PendingFunds,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.ClosingBalance,
-                ViewResources.AffiliateTransfer,
-                ViewResources.ProductBA
-            };
         }
 
         protected override void AssignData()
@@ -123,12 +102,34 @@ namespace Fanex.Athena.Excel.Report
 
         protected void AssignHeader(ISheet sheet)
         {
+            var headerTextList = new[]
+            {
+                "#",
+                ViewResources.ExternalId,
+                ViewResources.SystemId,
+                ViewResources.OpeningBalance,
+                ViewResources.Deposit,
+                ViewResources.Withdrawal,
+                ViewResources.Bonus,
+                ViewResources.Adjustment,
+                ViewResources.Turnover,
+                ViewResources.DrawGame,
+                ViewResources.NetTurnover,
+                ViewResources.PendingFunds,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.ClosingBalance,
+                ViewResources.AffiliateTransfer,
+                ViewResources.ProductBA
+            };
+
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            for (int i = 0; i < headerTextList.Length; i++)
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
 
             row2.Cells[ColumnCustomerWinLoss].SetCellValue(ViewResources.WinLoss);

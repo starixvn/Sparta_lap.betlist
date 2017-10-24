@@ -14,9 +14,6 @@ namespace Fanex.Athena.Excel.Warehouse
     using NPOI.SS.UserModel;
     using Resources;
 
-    /// <summary>
-    /// Win Loss Report - Export excel.
-    /// </summary>
     public class TopWinLossExcel : ReportBase
     {
         private const int ColumnCustomerComm = 9;
@@ -59,22 +56,6 @@ namespace Fanex.Athena.Excel.Warehouse
 
             _totalValues = totalValues;
             _reportTitle = reportTitle;
-            HeaderTextList = new List<string>
-            {
-                "#",
-                ViewResources.Date,
-                ViewResources.Month,
-                ViewResources.Currency,
-                ViewResources.BetType,
-                ViewResources.League,
-                ViewResources.Turnover,
-                ViewResources.TotalTransaction,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.Margin,
-                ViewResources.LicenseeW_L,
-             };
         }
 
         public int GroupingId { get; set; }
@@ -100,17 +81,28 @@ namespace Fanex.Athena.Excel.Warehouse
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            var headerTextList = new[]
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                "#",
+                ViewResources.Date,
+                ViewResources.Month,
+                ViewResources.Currency,
+                ViewResources.BetType,
+                ViewResources.League,
+                ViewResources.Turnover,
+                ViewResources.TotalTransaction,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.Margin,
+                ViewResources.LicenseeW_L,
+             };
+            for (int i = 0; i < headerTextList.Length; i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
 
             row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);

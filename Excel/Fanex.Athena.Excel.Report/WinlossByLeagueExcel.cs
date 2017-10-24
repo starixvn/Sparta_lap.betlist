@@ -51,19 +51,6 @@ namespace Fanex.Athena.Excel.Report
             _metaModel = metaModel;
             _dataList = resultModel.DataList;
             _totalData = resultModel.TotalData;
-            HeaderTextList = new List<string>
-            {
-                "#",
-                ViewResources.Match,
-                ViewResources.ExternalId,
-                ViewResources.SystemId,
-                ViewResources.BetCount,
-                ViewResources.Turnover,
-                ViewResources.CustomerW_L,
-                ViewResources.LicenseeW_L,
-                ViewResources.BACommission,
-                ViewResources.AmountDueTo,
-            };
         }
 
         public int Level
@@ -103,17 +90,25 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            var headerTextList = new[]
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                "#",
+                ViewResources.Match,
+                ViewResources.ExternalId,
+                ViewResources.SystemId,
+                ViewResources.BetCount,
+                ViewResources.Turnover,
+                ViewResources.CustomerW_L,
+                ViewResources.LicenseeW_L,
+                ViewResources.BACommission,
+                ViewResources.AmountDueTo,
+            };
+            for (int i = 0; i < headerTextList.Length; i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
 
             row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);

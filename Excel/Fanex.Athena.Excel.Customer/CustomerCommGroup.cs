@@ -44,18 +44,6 @@ namespace Fanex.Athena.Excel.Customer
             : base(templatePath, showingOption)
         {
             _exportData = exportData;
-            HeaderTextList = new List<string>
-            {
-                "#",
-                ViewResources.GroupName,
-                ViewResources.DefaultGroup,
-                ViewResources.NoOfCustmer,
-                ViewResources.SBComm + " (%)",
-                ViewResources.RacingComm + " (%)",
-                ViewResources.NGComm + " (%)",
-                ViewResources.LCComm + " (%)",
-                ViewResources.CSComm + " (%)",
-            };
         }
 
         protected override void AssignData()
@@ -79,16 +67,24 @@ namespace Fanex.Athena.Excel.Customer
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected void AssignHeader(ISheet sheet)
         {
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            var headerTextList = new[]
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                "#",
+                ViewResources.GroupName,
+                ViewResources.DefaultGroup,
+                ViewResources.NoOfCustmer,
+                ViewResources.SBComm + " (%)",
+                ViewResources.RacingComm + " (%)",
+                ViewResources.NGComm + " (%)",
+                ViewResources.LCComm + " (%)",
+                ViewResources.CSComm + " (%)",
+            };
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            for (int i = 0; i < headerTextList.Length; i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
         }
 

@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Excel.Report
 {
-    using System.Collections.Generic;
     using System.Globalization;
     using Base;
     using Base.Entities;
@@ -53,19 +52,6 @@ namespace Fanex.Athena.Excel.Report
             _convertingOption = convertingOption;
             ViewModel = viewModel;
             DailyRacingWinLossData = viewModel.DailyRacingWinLossData;
-            HeaderTextList = new List<string>
-            {
-                ViewResources.MeettingCurrency,
-                ViewResources.Race,
-                ViewResources.WinTO,
-                ViewResources.PlaceTO,
-                ViewResources.WPTO,
-                ViewResources.TotalTO,
-                ViewResources.DividendWon,
-                ViewResources.CustomerCommission,
-                ViewResources.Comm,
-                ViewResources.AmtDueToRacing
-            };
         }
 
         protected DailyRacingWinLossData DailyRacingWinLossData
@@ -104,16 +90,25 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected void AssignHeader(ISheet sheet)
         {
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            var headerTextList = new[]
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                ViewResources.MeettingCurrency,
+                ViewResources.Race,
+                ViewResources.WinTO,
+                ViewResources.PlaceTO,
+                ViewResources.WPTO,
+                ViewResources.TotalTO,
+                ViewResources.DividendWon,
+                ViewResources.CustomerCommission,
+                ViewResources.Comm,
+                ViewResources.AmtDueToRacing
+            };
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            for (int i = 0; i < headerTextList.Length; i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
         }
 

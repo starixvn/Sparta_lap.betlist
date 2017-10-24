@@ -27,14 +27,6 @@
             : base(templatePath)
         {
             _excelModel = excelModel;
-            HeaderTextList = new List<string>
-            {
-                "#",
-                ViewResources.ExternalId,
-                ViewResources.SystemId,
-                ViewResources.BetCount,
-                ViewResources.PendingFunds
-            };
         }
 
         protected override void AssignData()
@@ -68,9 +60,17 @@
         protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            var headerTextList = new[]
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                "#",
+                ViewResources.ExternalId,
+                ViewResources.SystemId,
+                ViewResources.BetCount,
+                ViewResources.PendingFunds
+            };
+            for (int i = 0; i < headerTextList.Length; i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
         }
 

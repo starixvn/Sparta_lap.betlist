@@ -54,20 +54,6 @@ namespace Fanex.Athena.Excel.Report
             _viewModel = viewModel;
             _winlossByBetTypeList = viewModel.MainResult;
             _total = viewModel.Total;
-            HeaderTextList = new List<string>
-            {
-                "#",
-                ViewResources.GameTypeName,
-                ViewResources.Turnover,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.LicenseeW_L,
-                ViewResources.BACommission,
-                ViewResources.RacingRevenue,
-                ViewResources.AmtDueToBA,
-                ViewResources.AmtDueToRacing
-            };
         }
 
         /// <summary>
@@ -94,17 +80,26 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            var headerTextList = new[]
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                "#",
+                ViewResources.GameTypeName,
+                ViewResources.Turnover,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.LicenseeW_L,
+                ViewResources.BACommission,
+                ViewResources.RacingRevenue,
+                ViewResources.AmtDueToBA,
+                ViewResources.AmtDueToRacing
+            };
+            for (int i = 0; i < headerTextList.Length; i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
 
             row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);

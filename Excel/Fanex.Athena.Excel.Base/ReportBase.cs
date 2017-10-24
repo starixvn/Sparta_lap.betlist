@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Excel.Base
 {
-    using System.Collections.Generic;
     using System.IO;
     using Excel.Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
@@ -49,12 +48,6 @@ namespace Fanex.Athena.Excel.Base
             {
                 _pageSize = (value == 0 || value > MaxRowCount) ? MaxRowCount : value;
             }
-        }
-
-        protected IList<string> HeaderTextList
-        {
-            get;
-            set;
         }
 
         protected internal ISheet TemplateSheet

@@ -58,23 +58,6 @@ namespace Fanex.Athena.Excel.Report
             _convertingOption = convertingOption;
             ViewModel = viewModel;
             DailyRacingWinLossData = viewModel.DailyRacingWinLossData;
-            HeaderTextList = new List<string>
-            {
-                ViewResources.Race,
-                ViewResources.WinTO,
-                ViewResources.PlaceTO,
-                ViewResources.WPTO,
-                ViewResources.TotalTO,
-                ViewResources.DividendWon,
-                ViewResources.Customer + " " + ViewResources.Comm,
-                ViewResources.WinTO,
-                ViewResources.PlaceTO,
-                ViewResources.WPTO,
-                ViewResources.TotalTO,
-                ViewResources.WinLoss,
-                ViewResources.Comm,
-                ViewResources.AmtDueTo
-            };
         }
 
         protected int ColumnCount
@@ -120,10 +103,6 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
@@ -133,9 +112,26 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[14].SetCellValue(ViewResources.AmtDueTo);
 
             row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            var headerTextList = new[]
             {
-                row.Cells[i + 1].SetCellValue(HeaderTextList[i]);
+                ViewResources.Race,
+                ViewResources.WinTO,
+                ViewResources.PlaceTO,
+                ViewResources.WPTO,
+                ViewResources.TotalTO,
+                ViewResources.DividendWon,
+                ViewResources.Customer + " " + ViewResources.Comm,
+                ViewResources.WinTO,
+                ViewResources.PlaceTO,
+                ViewResources.WPTO,
+                ViewResources.TotalTO,
+                ViewResources.WinLoss,
+                ViewResources.Comm,
+                ViewResources.AmtDueTo
+            };
+            for (int i = 0; i < headerTextList.Length; i++)
+            {
+                row.Cells[i + 1].SetCellValue(headerTextList[i]);
             }
         }
 

@@ -46,23 +46,6 @@ namespace Fanex.Athena.Excel.Report
             : base(templatePath)
         {
             _excelModel = excelModel;
-
-            HeaderTextList = new List<string>
-            {
-                "#",
-                ViewResources.ExternalId,
-                ViewResources.SystemId,
-                ViewResources.Currency,
-                ViewResources.Product,
-                ViewResources.Turnover,
-                ViewResources.TotalTransaction,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.LicenseeW_L,
-                ViewResources.Comm,
-                ViewResources.AmountDue,
-            };
         }
 
         protected override void AssignData()
@@ -90,9 +73,26 @@ namespace Fanex.Athena.Excel.Report
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            var headerTextList = new[]
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                "#",
+                ViewResources.ExternalId,
+                ViewResources.SystemId,
+                ViewResources.Currency,
+                ViewResources.Product,
+                ViewResources.Turnover,
+                ViewResources.TotalTransaction,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.LicenseeW_L,
+                ViewResources.Comm,
+                ViewResources.AmountDue,
+            };
+
+            for (int i = 0; i < headerTextList.Length; i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
 
             row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
