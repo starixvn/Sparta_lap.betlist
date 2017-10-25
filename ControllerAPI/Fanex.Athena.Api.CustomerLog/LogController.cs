@@ -20,7 +20,6 @@ namespace Fanex.Athena.Api.CustomerLog
     using Extension.Utility;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Model.Customer.ViewModel.CustomerLog;
-    using Fanex.Athena.Service.Customer;
     using Model.Core.DataDomain;
     using RazorEngine;
     using RazorEngine.Templating;
@@ -28,7 +27,6 @@ namespace Fanex.Athena.Api.CustomerLog
     using Service.Core.Helpers;
     using Service.Core.Users;
     using Service.Core.Users.Interfaces;
-    using Service.Customer.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.CustomerInfoCustomerLog)]
     public partial class LogController : BaseApiController
@@ -56,6 +54,7 @@ namespace Fanex.Athena.Api.CustomerLog
             { "NGComm", ViewResources.NGComm },
             { "LCComm", ViewResources.LCComm },
             { "CSComm", ViewResources.CS + " " + ViewResources.Comm },
+            { "ABComm", ViewResources.AB + " " + ViewResources.Comm },
             { "Yes", ViewResources.Yes },
             { "No", ViewResources.No },
             { "OldColor", ViewResources.OldColor }
@@ -148,7 +147,8 @@ namespace Fanex.Athena.Api.CustomerLog
                 "RacingComm",
                 "NGComm",
                 "LCComm",
-                "RNGComm"
+                "RNGComm",
+                "AllbetComm"
             };
             var doc = new XmlDocument();
             var docOld = new XmlDocument();

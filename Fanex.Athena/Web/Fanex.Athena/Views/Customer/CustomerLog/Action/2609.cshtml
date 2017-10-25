@@ -11,6 +11,8 @@
     var lcCommOld = Converter.ToDecimal(Model.Data["LCCommOld"]);
     var csComm = Converter.ToDecimal(Model.Data["RNGComm"]);
     var csCommOld = Converter.ToDecimal(Model.Data["RNGCommOld"]);
+    var abComm = Converter.ToDecimal(Model.Data["AllbetComm"]);
+    var abCommOld = Converter.ToDecimal(Model.Data["AllbetCommOld"]);
 
     var groupId = Model.Data["GroupCommID"];
     var groupColor = Model.Data["GroupColor"];
@@ -23,6 +25,7 @@
     var isChangeNgComm = ngComm != ngCommOld;
     var isChangeLcComm = lcComm != lcCommOld;
     var isChangeCsComm = csComm != csCommOld;
+    var isChangeAbComm = abComm != abCommOld;
     var isChangeGroupColor = groupColor != groupColorOld;
     var isChangeGroupName = groupName != groupNameOld;
 
@@ -31,6 +34,7 @@
     var ngCommTitle = ngCommOld.ToString("0.####") + "-->" + ngComm.ToString("0.####");
     var lcCommTitle = lcCommOld.ToString("0.####") + "-->" + lcComm.ToString("0.####");
     var csCommTitle = csCommOld.ToString("0.####") + "-->" + csComm.ToString("0.####");
+    var abCommTitle = abCommOld.ToString("0.####") + "-->" + abComm.ToString("0.####");
 
     var groupNameLength = groupName.Length;
     var groupNameOldLength = groupNameOld.Length;
@@ -43,28 +47,30 @@
                 </td>
                 <td style="width: 20%">@Model.Resource["GroupName"]
                 </td>
-                <td style="width: 12%">@Model.Resource["GroupColor"]
+                <td style="width: 10%">@Model.Resource["GroupColor"]
                 </td>
-                <td style="width: 12%">@Model.Resource["SBComm"]
+                <td style="width: 10%">@Model.Resource["SBComm"]
                 </td>
-                <td style="width: 12%">@Model.Resource["RBComm"]
+                <td style="width: 10%">@Model.Resource["RBComm"]
                 </td>
-                <td style="width: 12%">@Model.Resource["NGComm"]
+                <td style="width: 10%">@Model.Resource["NGComm"]
                 </td>
-                <td style="width: 12%">@Model.Resource["LCComm"]
+                <td style="width: 10%">@Model.Resource["LCComm"]
                 </td>
-                <td style="width: 12%">@Model.Resource["CSComm"]
+                <td style="width: 10%">@Model.Resource["CSComm"]
+                </td>
+                <td style="width: 10%">@Model.Resource["ABComm"]
                 </td>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td class="title-text" style="width: 8%">@groupId
+                <td class="title-text">@groupId
                 </td>
                 <td class="title-text" @(isChangeGroupName ? @Raw("style='color:red;width:20%'") : @Raw("style=width:20%")) @(groupNameLength > 25 ? @Raw("title='" + groupName + "'") : "") >@groupNameDisplay
                     <div @(isChangeGroupName ? "class=old-value" : "style=display:none") @(groupNameOldLength > 25 ? @Raw("title='" + groupNameOld + "'") : "")>@groupNameOldDisplay</div>
                 </td>
-                <td class="title-text" style="width: 12%">
+                <td class="title-text" style="width: 10%">
                     <div style="background-color:@groupColor;" class="group-color-box">
                     </div>
                     <div @(isChangeGroupColor ? "class=old-value" : "style=display:none")>
@@ -72,21 +78,25 @@
                         </div>
                     </div>
                 </td>
-                <td class="title-text" @(isChangeSbComm ? "style=color:red;width:12% title=" + sbCommTitle + " " : "style=width:12%")>@sbComm.ToString("0.####")
+                <td class="title-text" @(isChangeSbComm ? "style=color:red;width:10% title=" + sbCommTitle + " " : "style=width:10%")>@sbComm.ToString("0.####")
                     <div @(isChangeSbComm ? "class=old-value" : "style=display:none")>@sbCommOld.ToString("0.####")</div>
                 </td>
-                <td class="title-text" @(isChangeRacingComm ? "style=color:red;width:12% title=" + RacingCommTitle + "" : "style=width:12%")>@rbComm.ToString("0.####")
+                <td class="title-text" @(isChangeRacingComm ? "style=color:red;width:10% title=" + RacingCommTitle + "" : "style=width:10%")>@rbComm.ToString("0.####")
                     <div @(isChangeRacingComm ? "class=old-value" : "style=display:none")>@rbCommOld.ToString("0.####")</div>
                 </td>
-                <td class="title-text" @(isChangeNgComm ? "style=color:red;width:12% title=" + ngCommTitle + " " : "style=width:12%")>@ngComm.ToString("0.####")
+                <td class="title-text" @(isChangeNgComm ? "style=color:red;width:10% title=" + ngCommTitle + " " : "style=width:10%")>@ngComm.ToString("0.####")
                     <div @(isChangeNgComm ? "class=old-value" : "style=display:none")>@ngCommOld.ToString("0.####")</div>
                 </td>
-                <td class="title-text" @(isChangeLcComm ? "style=color:red;width:12% title=" + lcCommTitle + " " : "style=width:12%")>@lcComm.ToString("0.####")
+                <td class="title-text" @(isChangeLcComm ? "style=color:red;width:10% title=" + lcCommTitle + " " : "style=width:10%")>@lcComm.ToString("0.####")
                     <div @(isChangeLcComm ? "class=old-value" : "style=display:none")>@lcCommOld.ToString("0.####")</div>
                 </td>
-                <td class="title-text" @(isChangeCsComm ? "style=color:red;width:12% title=" + csCommTitle + " " : "style=width:12%")>@csComm.ToString("0.####")
+                <td class="title-text" @(isChangeCsComm ? "style=color:red;width:10% title=" + csCommTitle + " " : "style=width:10%")>@csComm.ToString("0.####")
                     <div @(isChangeCsComm ? "class=old-value" : "style=display:none")>@csCommOld.ToString("0.####")</div>
                 </td>
+                <td class="title-text" @(isChangeAbComm ? "style=color:red;width:10% title=" + abCommTitle + " " : "style=width:10%")>
+                    @abComm.ToString("0.####")
+                <div @(isChangeAbComm ? "class=old-value" : "style=display:none")>@abCommOld.ToString("0.####")</div>
+            </td>
             </tr>
         </tbody>
     </table>

@@ -10,6 +10,9 @@
     var lcCommOld = Converter.ToDecimal(Model.Data["LCCommOld"]);
     var csComm = Converter.ToDecimal(Model.Data["RNGComm"]);
     var csCommOld = Converter.ToDecimal(Model.Data["RNGCommOld"]);
+    var abComm = Converter.ToDecimal(Model.Data["AllbetComm"]);
+    var abCommOld = Converter.ToDecimal(Model.Data["AllbetCommOld"]);
+
     var groupId = Model.Data["GroupCommID"];
     var groupOld = Model.Data["GroupCommIDOld"];
 
@@ -18,6 +21,7 @@
     var isChangeNgComm = ngComm != ngCommOld;
     var isChangeLcComm = lcComm != lcCommOld;
     var isChangeCsComm = csComm != csCommOld;
+    var isChangeAbComm = abComm != abCommOld;
     var isChangeGroupId = groupId != groupOld;
 
     var sbCommTitle = sbCommOld.ToString("0.####") + "-->" + sbComm.ToString("0.####");
@@ -25,6 +29,7 @@
     var ngCommTitle = ngCommOld.ToString("0.####") + "-->" + ngComm.ToString("0.####");
     var lcCommTitle = lcCommOld.ToString("0.####") + "-->" + lcComm.ToString("0.####");
     var csCommTitle = csCommOld.ToString("0.####") + "-->" + csComm.ToString("0.####");
+    var abCommTitle = abCommOld.ToString("0.####") + "-->" + abComm.ToString("0.####");
 
     <table class="report-table" style="width: 100%">
         <thead>
@@ -38,6 +43,9 @@
                 <td>@Model.Resource["LCComm"]
                 </td>
                 <td>@Model.Resource["CSComm"]
+                </td>
+                <td>
+                    @Model.Resource["ABComm"]
                 </td>
                 <td>@Model.Resource["GroupId"]
                 </td>
@@ -60,6 +68,10 @@
                 <td class="title-text" @(isChangeCsComm ? "style=color:red title=" + csCommTitle + "" : "")>@csComm.ToString("0.####")
                     <div @(isChangeCsComm ? "class=old-value" : "style=display:none")>@csCommOld.ToString("0.####")</div>
                 </td>
+                <td class="title-text" @(isChangeAbComm ? "style=color:red title=" + abCommTitle + "" : "")>
+                    @abComm.ToString("0.####")
+                <div @(isChangeAbComm ? "class=old-value" : "style=display:none")>@abCommOld.ToString("0.####")</div>
+               </td>
                 <td class="title-text" @(isChangeGroupId ? "style=color:red" : "")>@groupId
                     <div @(isChangeGroupId ? "class=old-value" : "style=display:none")>@groupOld</div>
                 </td>
