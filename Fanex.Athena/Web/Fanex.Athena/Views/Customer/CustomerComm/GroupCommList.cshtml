@@ -12,7 +12,6 @@
 {
     @ViewResources.CommissionGroupList
 }
-@using Fanex.Athena.Model.Report.ViewModel;
 @model IList<Fanex.Athena.Model.Customer.MetaModel.GroupCommMetaModel>
 <div class="note-message">
     @ViewResources.GroupCommNote
@@ -42,26 +41,25 @@
         </div>
         <div class="block-body">
         </div>
-        <div id="ContentMainHeader">
             <table class="report-table">
                 <thead>
                     <tr class="report-header">
-                        <td style="width: 4%">
+                        <td style="width: 20px">
                             #
                         </td>
-                        <td style="width: 8%">
+                        <td style="width: 50px">
                             @ViewResources.GroupId
                         </td>
-                        <td style="width: 20%">
+                        <td style="width: 150px">
                             @ViewResources.GroupName
                         </td>
-                        <td style="width: 8%">
+                        <td style="width: 60px">
                             @ViewResources.DefaultGroup
                         </td>
-                        <td style="width: 10%">
+                        <td style="width: 70px">
                             @ViewResources.NoOfCustmer
                         </td>
-                        <td style="width: 8%">
+                        <td style="width: 50px">
                             @ViewResources.SBComm (%)
                         </td>
                         @{
@@ -73,38 +71,38 @@
                         }
                         @if (isAllowRc)
                         {
-                            <td style="width: 8%">
+                            <td style="width: 50px">
                                 @ViewResources.RacingComm (%)
                             </td>
                         }
                         @if (isAllowNg)
                         {
-                            <td style="width: 8%">
+                            <td style="width:50px">
                                 @ViewResources.NGComm (%)
                             </td>
                         }
                         @if (isAllowLc)
                         {
-                            <td style="width: 8%">
+                            <td style="width: 50px">
                                 @ViewResources.LCComm (%)
                             </td>
                         }
                         @if (isAllowCs)
                         {
-                            <td style="width: 8%">
+                            <td style="width: 50px">
                                 @ViewResources.CSComm (%)
                             </td>
                         }
                         @if (isAllowAb)
                         {
-                            <td style="width: 8%">
+                            <td style="width: 50px">
                                 @ViewResources.ABComm (%)
                             </td>
                         }
-                        <td style="width: 10%">
+                        <td style="width: 8%">
                             @ViewResources.GroupColor
                         </td>
-                        <td style="width: 10%">
+                        <td style="width: 30px">
                             @ViewResources.EditGroup
                         </td>
                     </tr>
@@ -116,12 +114,12 @@
                         foreach (var groupComm in Model)
                         {
                         <tr>
-                            <td style="width: 4%" class="title-text">
+                            <td class="title-text">
                                 @(number++)
                             </td>
-                            <td class="middle-text" style="width: 8%">@groupComm.GroupCommId
+                            <td class="middle-text">@groupComm.GroupCommId
                             </td>
-                            <td style="width: 20%;" class="left-text">
+                            <td class="left-text">
                                 <a href="@Url.Action("Update", "CustomerComGroup", new { groupId = @groupComm.GroupCommId })" title="@ViewResources.EditGroup">
                                     @if (groupComm.GroupName.Length > maxLength)
                                     {
@@ -134,57 +132,57 @@
                                     }
                                 </a>
                             </td>
-                            <td style="width:8%;" class="middle-text @(groupComm.IsDefaultGroup ? "default-group" : string.Empty)">
+                            <td class="middle-text @(groupComm.IsDefaultGroup ? "default-group" : string.Empty)">
                             </td>
-                            <td style="width: 10%;" class="middle-text">
+                            <td class="middle-text">
                                 <div class="no-customer-border" onclick="javascript:GroupComm.navigateNoOfCustomer(@groupComm.GroupCommId)">
                                     <span class="no-cus-font">@groupComm.NumberOfCustomer</span>
                                 </div>
                             </td>
-                            <td style="width: 8%;" class="middle-text">
+                            <td class="middle-text">
                                 @((groupComm.SBComm * 100).ToString("0.##"))
                                 %
                             </td>
                             @if (isAllowRc)
                             {
-                                <td style="width: 8%;" class="middle-text">
+                                <td class="middle-text">
                                     @((groupComm.RCComm * 100).ToString("0.##"))
                                     %
                                 </td>
                             }
                             @if (isAllowNg)
                             {
-                                <td style="width: 8%; text-align: center">
+                                <td style="text-align: center">
                                     @((groupComm.NGComm * 100).ToString("0.##"))
                                     %
                                 </td>
                             }
                             @if (isAllowLc)
                             {
-                                <td style="width: 8%; text-align: center">
+                                <td style="text-align: center">
                                     @((groupComm.LCComm * 100).ToString("0.##"))
                                     %
                                 </td>
                             }
                             @if (isAllowCs)
                             {
-                                <td style="width: 8%; text-align: center">
+                                <td style="text-align: center">
                                     @((groupComm.CSComm * 100).ToString("0.##"))
                                     %
                                 </td>
                             }
                             @if (isAllowAb)
                             {
-                                <td style="width: 8%; text-align: center">
+                                <td style="text-align: center">
                                     @((groupComm.ABComm * 100).ToString("0.##"))
                                     %
                                 </td>
                             }
-                            <td style="width: 10%; text-align: center;">
+                            <td style="text-align: center;">
                                 <div class="group-color-box" style="background-color:@groupComm.GroupColor;">
                                 </div>
                             </td>
-                            <td style="width: 10%; text-align: center">
+                            <td style="text-align: center">
                                 <a class="underline" href="@Url.Action("Update", "CustomerComGroup", new { groupId = @groupComm.GroupCommId })" title="@ViewResources.EditGroup">
                                     <img src="@Url.ContentLink("/Content/Customer/images/edit.png")"
                                 style="width:16px; height: 16px;" />
@@ -214,7 +212,6 @@
                     }
                 </tbody>
             </table>
-        </div>
     </div>
 
     <div id="Delete">
