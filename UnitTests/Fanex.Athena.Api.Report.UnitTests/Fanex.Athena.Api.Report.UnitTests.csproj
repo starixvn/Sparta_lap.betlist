@@ -87,6 +87,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AgCasinoWinLossReportControllerTest.cs" />
+    <Compile Include="CasinoProgressiveWinsReportControllerTest.cs" />
     <Compile Include="MicrogamingWinlossReportControllerTest.cs" />
     <Compile Include="LicenseeWinLossReportControllerTest.cs" />
     <Compile Include="ActiveCustomerSummaryReportControllerTest.cs" />

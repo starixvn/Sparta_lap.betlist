@@ -46,12 +46,11 @@ namespace Fanex.Athena.Excel.Report
         public CasinoProgressiveWinsExcel(
                 string templatePath,
                 ConvertingOption convertingOption,
-                CasinoProgressiveWinsMetaModel metaModel,
                 CasinoProgressiveWinsViewModel viewModel)
             : base(templatePath)
         {
             _convertingOption = convertingOption;
-            _metaModel = metaModel;
+            _metaModel = viewModel.Param;
             _dataList = viewModel.DataList;
         }
 

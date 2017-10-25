@@ -6,11 +6,12 @@
 
 namespace Fanex.Athena.Api.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
     using System.Text;
-    using System.Web;
+    using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Report;
@@ -22,6 +23,8 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportCasinoProgressiveWins)]
     public class CasinoProgressiveWinsReportController : ApiReportBaseController
@@ -31,6 +34,12 @@ namespace Fanex.Athena.Api.Report
         public CasinoProgressiveWinsReportController()
         {
             _casinoProgressiveWinsDataAccess = new CasinoProgressiveWinsDataAccess();
+        }
+
+        public CasinoProgressiveWinsReportController(ICasinoProgressiveWinsDataAccess _dataAccess, ISessionService sessionService, IProductService productService)
+            : base(sessionService, productService)
+        {
+            _casinoProgressiveWinsDataAccess = _dataAccess;
         }
 
         [HttpPost]
@@ -65,10 +74,19 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
+        [CLSCompliant(false)]
+        protected internal virtual CasinoProgressiveWinsExcel CreateExcel(
+            string templatePath,
+            ConvertingOption convertingOption,
+            CasinoProgressiveWinsViewModel excelModel)
+        {
+            return new CasinoProgressiveWinsExcel(templatePath, convertingOption, excelModel);
+        }
+
         private HttpResponseMessage ExportExcel(CasinoProgressiveWinsMetaModel metaModel, IEnumerable<CasinoProgressiveWins> dataList)
         {
             const string FileName = "CasinoProgressiveWin_Microgaming.xls";
-            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/CasinoProgressiveWins.xls");
+            var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/CasinoProgressiveWins.xls");
 
             var convertingOption = new ConvertingOption
             {
@@ -79,10 +97,11 @@ namespace Fanex.Athena.Api.Report
 
             var excelModel = new CasinoProgressiveWinsViewModel
             {
-                DataList = dataList
+                DataList = dataList,
+                Param = metaModel
             };
 
-            var excel = new CasinoProgressiveWinsExcel(templatePath, convertingOption, metaModel, excelModel);
+            var excel = CreateExcel(templatePath, convertingOption, excelModel);
 
             excel.Export();
 

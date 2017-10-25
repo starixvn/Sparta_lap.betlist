@@ -7,7 +7,6 @@
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Service.Report.Interfaces;
-    using Model.Core.DataDomain;
     using Model.Core.DTO.Users;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
@@ -53,9 +52,7 @@
             };
             StubUserSessionData(new UserSession
             {
-                CurrencyList = new Dictionary<int, string>(),
-                ApplicationMode = AppMode.Self,
-                FunctionIdList = new List<int>()
+                CurrencyList = new Dictionary<int, string>()
             });
             StubLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
 
