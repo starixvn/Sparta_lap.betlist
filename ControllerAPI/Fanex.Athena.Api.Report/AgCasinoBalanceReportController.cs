@@ -77,11 +77,6 @@ namespace Fanex.Athena.Api.Report
 
         private static IList<AgCasinoBalance> CalculateTotal(IList<AgCasinoBalance> dataList)
         {
-            if (!dataList.Any())
-            {
-                return new SortableList<AgCasinoBalance>();
-            }
-
             return dataList.GroupBy(d => d.CurrencyName).Select(g => new AgCasinoBalance
             {
                 CurrencyName = g.Key,

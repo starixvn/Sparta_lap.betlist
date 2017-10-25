@@ -61,6 +61,31 @@
         }
 
         [Test]
+        public void Index_NoDataReturned_ReturnEmptyResult()
+        {
+            // Arrange
+            var metaModel = new AgCasinoBalanceMetaModel
+            {
+                CurrencyId = -1
+            };
+
+            var resultModel = new SortableSummaryReportResultModel<AgCasinoBalance>
+            {
+                DataList = new SortableList<AgCasinoBalance>(),
+                SummaryTotal = new Dictionary<string, AgCasinoBalance>()
+            };
+            _dataAccess.GetSummaryBalance(metaModel).Returns(resultModel);
+
+            var expectedResult = GetSerializationData();
+
+            // Action
+            var result = ToJson(_controller.Index(metaModel));
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
         public void Index_Level0_ReturnCorrectDataFromDataAccess()
         {
             // Arrange
@@ -74,20 +99,26 @@
                 IsExcludedTestData = IsExcludedTestData
             };
 
+            var today = DateTime.Today;
             var resultModel = new SortableSummaryReportResultModel<AgCasinoBalance>
             {
-                DataList = new SortableList<AgCasinoBalance> { new AgCasinoBalance() },
+                DataList = new SortableList<AgCasinoBalance>
+                {
+                    new AgCasinoBalance { Date = null },
+                    new AgCasinoBalance { Date = today },
+                    new AgCasinoBalance { Date = today },
+                    new AgCasinoBalance { Date = today.AddDays(1) },
+                },
                 SummaryTotal = new Dictionary<string, AgCasinoBalance>()
             };
             _dataAccess.GetSummaryBalance(metaModel).Returns(resultModel);
 
             var expectedDataList = new SortableList<AgCasinoBalance>
                 {
-                    new AgCasinoBalance
-                    {
-                        RowSpan = 1,
-                        Index = 1
-                    }
+                    new AgCasinoBalance { Date = null, RowSpan = 1, Index = 1 },
+                    new AgCasinoBalance { Date = today, RowSpan = 2, Index = 2 },
+                    new AgCasinoBalance { Date = today, RowSpan = -1, Index = 0 },
+                    new AgCasinoBalance { Date = today.AddDays(1), RowSpan = 1, Index = 3 }
                 };
 
             // Action
