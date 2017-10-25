@@ -1,11 +1,12 @@
 ﻿define(
     ["jquery", "common/querystring", "common/site", "../report", "./licenseewinloss.option", "lib/jqgrid/jquery.jqgrid.additional",
-        "components/pluginhelper/daterangepicker", "moment", "common/popup", "components/pluginhelper/multiselect", "helpers/daterange",
-        "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension", "lib/linq"],
-    function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup, MultiSelect, DateHelper) {
+        "components/pluginhelper/daterangepicker", "moment", "common/popup", "components/pluginhelper/multiselect", "helpers/daterange", "helpers/downloader",
+        "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension", "lib/linq", "extensions/ajaxBinaryTransporting"],
+    function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup, MultiSelect, DateHelper, Downloader) {
         "use strict";
         var REPORT_BY_MONTHLY = 2;
         var VALID_MONTH_RANGE = 3;
+        var EXCEL_FILENAME = "LicenseeWinLoss.xlsx";
 
         var cacheData = {};
         var ajaxRequest = null;
@@ -86,11 +87,30 @@
 
                 $('#ExportToExcel').click(function () {
                     $('#IsExportExcel').val(true);
-                    var mainForm = $("#licenseewinloss");
-                    var url = Site.resolveClientUrl(LicenseeWinLossOption.urlExcelData);
-                    mainForm.attr("action", url);
-                    mainForm.submit();
-                    $('#IsExportExcel').val(false);
+
+                    var data = $("#licenseewinloss").serializeObject();
+
+                    var option = {
+                        type: "POST",
+                        data: data,
+                        dataType: "binary",
+                        responseType: "blob",
+                        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                        cache: false,
+                        url: Site.resolveClientUrl(LicenseeWinLossOption.urlExcelData),
+                        success: function (response) {
+                            Downloader.download(response, EXCEL_FILENAME);
+                        },
+                        beforeSend: function () {
+                            Site.blockUI();
+                        },
+                        complete: function () {
+                            Site.unBlockUI();
+                        }
+                    };
+
+                    $.ajax(option);
+
                     return false;
                 });
 

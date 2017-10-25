@@ -12,12 +12,15 @@
     "components/paging",
     "helpers/excel",
     "components/pluginhelper/autocomplete",
+    "helpers/downloader",
     "lib/jqgrid/jquery.jqGrid.en",
     "lib/jqgrid/jquery.jqGrid.min",
-    "extensions/jquery.extension"],
-    function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker,
-        MonthPicker, MultiSelect, Popup, PagingHelper, ExcelHelper, AutoComplete) {
+    "extensions/jquery.extension",
+    "extensions/ajaxBinaryTransporting"],
+    function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect, Popup, PagingHelper, ExcelHelper, AutoComplete, Downloader) {
         "use strict";
+
+        var EXCEL_FILENAME = "CustomerWinLoss.xlsx";
 
         var _ajaxRequest = null;
         var _submitData = null;
@@ -97,7 +100,28 @@
 
                 var data = getPostData();
                 data.PageIndex = 1;
-                ExcelHelper.exportExcel(data, Site.resolveClientUrl(CustomerWinLossOption.urlExcelData));
+                data.isExportExcel = true;
+
+                var option = {
+                    type: "POST",
+                    data: data,
+                    dataType: "binary",
+                    responseType: "blob",
+                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    cache: false,
+                    url: Site.resolveClientUrl(CustomerWinLossOption.urlExcelData),
+                    success: function (response) {
+                        Downloader.download(response, EXCEL_FILENAME);
+                    },
+                    beforeSend: function () {
+                        Site.blockUI();
+                    },
+                    complete: function () {
+                        Site.unBlockUI();
+                    }
+                };
+                $.ajax(option);
+
                 return false;
             });
 

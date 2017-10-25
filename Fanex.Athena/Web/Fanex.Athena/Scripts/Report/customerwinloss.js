@@ -6,6 +6,7 @@ var CustomerWinLoss = (function ($) {
     var DATA_URL = "api/CustomerWinLossReport/Index";
     var FORM_SELECTOR = "#CustomerWinlossForm";
     var GRID_ID = "ReportGrid";
+    var EXCEL_FILENAME = "CustomerWinLoss.xlsx";
 
     var _ajaxRequest = null;
     var _submitData = null;
@@ -202,22 +203,17 @@ var CustomerWinLoss = (function ($) {
                 var data = getPostData();
                 data.isExportExcel = true;
                 data.PageIndex = 1;
-                //Site.exportExcel(data, Site.resolveClientUrl(DATA_URL));
-                //Site.blockUI();
-                //setInterval(function () {
-                //    if ($.cookie("fileDownload123") === "true") {
-                //        $.removeCookie("fileDownload123");
-                //        Site.unBlockUI();
-                //    }
-                //}, 1000);
+
                 var option = {
                     type: "POST",
                     data: data,
-                    dataType: "json",
+                    dataType: "binary",
+                    responseType:"blob",
                     contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                     cache: false,
                     url: Site.resolveClientUrl(DATA_URL),
                     success: function (response) {
+                        Downloader.download(response, EXCEL_FILENAME);
                     },
                     beforeSend: function () {
                         Site.blockUI();
@@ -226,7 +222,8 @@ var CustomerWinLoss = (function ($) {
                         Site.unBlockUI();
                     }
                 };
-                $.ajax(option)
+                $.ajax(option);
+
                 return false;
             });
 

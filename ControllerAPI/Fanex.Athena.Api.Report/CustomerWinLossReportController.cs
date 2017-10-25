@@ -75,7 +75,6 @@
 
         private HttpResponseMessage ExportExcel(CustomerWinLossMetaModel metaModel)
         {
-            System.Threading.Thread.Sleep(4000);
             const string FileName = "CustomerWinLoss.xls";
             const string TemplatePath = @"~/App_Data/Template/CustomerReports/CustomerWinLoss.xls";
 

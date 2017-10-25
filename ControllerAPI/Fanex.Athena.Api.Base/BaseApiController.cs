@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Api.Base
 {
-    using System;
     using System.IO;
     using System.Net;
     using System.Net.Http;
@@ -77,10 +76,6 @@ namespace Fanex.Athena.Api.Base
                 };
             }
 
-            var cookie = new CookieHeaderValue("fileDownload", "true");
-            cookie.Expires = DateTimeOffset.Now.AddHours(1);
-            cookie.Path = "/";
-            result.Headers.AddCookies(new[] { cookie });
             return result;
         }
 
