@@ -1,27 +1,27 @@
 webpackJsonp([64],{
 
-/***/ 172:
+/***/ 174:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ 173:
+/***/ 175:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ 454:
+/***/ 456:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(172);
-module.exports = __webpack_require__(173);
+__webpack_require__(174);
+module.exports = __webpack_require__(175);
 
 
 /***/ })
 
-},[454]);
+},[456]);
 //# sourceMappingURL=betlistSimpleLayout.chunk.js.map

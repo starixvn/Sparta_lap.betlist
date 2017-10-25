@@ -1,19 +1,19 @@
 webpackJsonp([85],{
 
-/***/ 529:
+/***/ 531:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(530);
+module.exports = __webpack_require__(532);
 
 
 /***/ }),
 
-/***/ 530:
+/***/ 532:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ })
 
-},[529]);
+},[531]);
 //# sourceMappingURL=customerturnover.chunk.js.map

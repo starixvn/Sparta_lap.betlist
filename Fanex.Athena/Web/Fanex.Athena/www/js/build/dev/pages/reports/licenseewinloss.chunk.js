@@ -1,4 +1,4 @@
-webpackJsonp([5],[
+webpackJsonp([1],[
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21604,170 +21604,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 /* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(120)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
-    "use strict";
-    var REPORT_BY_MONTHLY = 2;
-    var LICENSEE_12BET = 1;
-    function lastDateOfMonth(year, month) {
-        return new Date(year, month + 1, 0);
-    }
-
-    var _me = {
-        GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
-            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
-            var tdate = fdate;
-            if (Number(reportBy) === REPORT_BY_MONTHLY) {
-                var fday = 1;
-                var month = fdate.getMonth();
-                var year = fdate.getFullYear();
-                var orignalFDate = new Date(fromDate);
-                if (month === orignalFDate.getMonth()) {
-                    fday = orignalFDate.getDate();
-                }
-                fdate = new Date(year, month, fday, 0, 0, 0, 0);
-                var originalTDate = new Date(toDate);
-
-                if (month === originalTDate.getMonth()) {
-                    var tday = originalTDate.getDate();
-                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
-                }
-                else {
-                    tdate = lastDateOfMonth(year, month);
-                }
-            }
-
-            return {
-                FromDate: fdate,
-                ToDate: tdate
-            };
-        },
-        ValidProducts: function () {
-            var temp = true;
-            if ($(".childCheckbox:checked").length === 0) {
-                temp = false;
-                var title = Site.getSingleResource("LrfNotification");
-                var message = Site.getSingleResource("AlertChooseProductMsg");
-                var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
-
-                Popup.openPopup($dialog, {
-                    width: 380,
-                    height: 150,
-                    title: title,
-                    id: "product-invalid",
-                    className: "popup-notification",
-                    onOpen: function () {
-                        $('#SubmitButton').prop('disabled', true);
-                    },
-                    onClose: function () {
-                        $('#SubmitButton').removeAttr('disabled');
-                    }
-                });
-            }
-
-            return temp;
-        },
-
-        setOriginalProduct: function () {
-            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
-                var isCheck = $(this).is(":checked");
-                $(element).attr({ 'data-original': isCheck });
-            });
-        },
-
-        bindSummaryTotal: function (columnModel, summaryTotal) {
-            if (!summaryTotal || summaryTotal.length === 0) {
-                return;
-            }
-
-            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
-            var rowCount = 0;
-            var currencyList = [];
-
-            function processColumnModel(dataItem) {
-                var row = mainFooter.clone();
-                var cellList = $("td", row);
-
-                $(columnModel).each(function (cellIndex, modelElement) {
-                    var isCustomFormater = typeof modelElement.formatter === "function";
-                    var rawValue = dataItem[modelElement.name];
-                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
-                                $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
-
-                    var $cell = $(cellList.get(cellIndex));
-                    if (cellIndex === 0) {
-                        var content = "Total in " + currency;
-                        $cell.html(content)
-                            .addClass("group-" + currency)
-                            .attr("title", content);
-                    }
-                    else {
-                        var title = $.isNumeric(rawValue) && rawValue < 0 ? undefined : value;
-                        $cell.html(value).attr("title", title);
-                    }
-                });
-
-                row.insertAfter(mainFooter);
-                rowCount++;
-            }
-
-            for (var currency in summaryTotal) {
-                currencyList.push(currency);
-                var summaryData = summaryTotal[currency];
-                if (Array.isArray(summaryData)) {
-                    summaryData.forEach(processColumnModel);
-                }
-                else {
-                    processColumnModel(summaryData);
-                }
-            }
-
-            $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
-            mainFooter.remove();
-
-            return rowCount;
-        },
-
-        getCurrencyNameForReportTitle: function (currencyId) {
-            var viewinKey = Site.getSingleResource("Viewin");
-            var currencyTextList = {
-                "-3": viewinKey.replace("{0}", "GBP"),
-                "-2": viewinKey.replace("{0}", "USD"),
-                "-1": viewinKey.replace("{0}", "EUR"),
-                "0": Site.getSingleResource('AllCurrencies')
-            };
-
-            return currencyTextList[currencyId] === undefined
-                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
-                : currencyTextList[currencyId];
-        },
-
-        renderBreadCrumb: function (level, licenseeId) {
-            level = Number(level);
-            if (level === 0) {
-                $(".breadCrumbHolder").hide();
-            }
-            else {
-                $(".breadCrumbHolder").show();
-                $("#level-link-container .level0").show();
-
-                var isLevel2 = level === 2;
-                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
-
-                var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
-                $("#level-link-container .level1").toggle(allowShowLevel1);
-                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
-            }
-        }
-    };
-
-    return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ }),
-/* 134 */
-/***/ (function(module, exports, __webpack_require__) {
-
 /* WEBPACK VAR INJECTION */(function(jQuery) {﻿/// <reference path="/@JSense.js" />
 (function ($) {
     var currentTriggerEvents = [];
@@ -22553,12 +22389,176 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
+/* 134 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(120)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+    "use strict";
+    var REPORT_BY_MONTHLY = 2;
+    var LICENSEE_12BET = 1;
+    function lastDateOfMonth(year, month) {
+        return new Date(year, month + 1, 0);
+    }
+
+    var _me = {
+        GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
+            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
+            var tdate = fdate;
+            if (Number(reportBy) === REPORT_BY_MONTHLY) {
+                var fday = 1;
+                var month = fdate.getMonth();
+                var year = fdate.getFullYear();
+                var orignalFDate = new Date(fromDate);
+                if (month === orignalFDate.getMonth()) {
+                    fday = orignalFDate.getDate();
+                }
+                fdate = new Date(year, month, fday, 0, 0, 0, 0);
+                var originalTDate = new Date(toDate);
+
+                if (month === originalTDate.getMonth()) {
+                    var tday = originalTDate.getDate();
+                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
+                }
+                else {
+                    tdate = lastDateOfMonth(year, month);
+                }
+            }
+
+            return {
+                FromDate: fdate,
+                ToDate: tdate
+            };
+        },
+        ValidProducts: function () {
+            var temp = true;
+            if ($(".childCheckbox:checked").length === 0) {
+                temp = false;
+                var title = Site.getSingleResource("LrfNotification");
+                var message = Site.getSingleResource("AlertChooseProductMsg");
+                var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
+
+                Popup.openPopup($dialog, {
+                    width: 380,
+                    height: 150,
+                    title: title,
+                    id: "product-invalid",
+                    className: "popup-notification",
+                    onOpen: function () {
+                        $('#SubmitButton').prop('disabled', true);
+                    },
+                    onClose: function () {
+                        $('#SubmitButton').removeAttr('disabled');
+                    }
+                });
+            }
+
+            return temp;
+        },
+
+        setOriginalProduct: function () {
+            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
+                var isCheck = $(this).is(":checked");
+                $(element).attr({ 'data-original': isCheck });
+            });
+        },
+
+        bindSummaryTotal: function (columnModel, summaryTotal) {
+            if (!summaryTotal || summaryTotal.length === 0) {
+                return;
+            }
+
+            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
+            var rowCount = 0;
+            var currencyList = [];
+
+            function processColumnModel(dataItem) {
+                var row = mainFooter.clone();
+                var cellList = $("td", row);
+
+                $(columnModel).each(function (cellIndex, modelElement) {
+                    var isCustomFormater = typeof modelElement.formatter === "function";
+                    var rawValue = dataItem[modelElement.name];
+                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
+                                $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
+
+                    var $cell = $(cellList.get(cellIndex));
+                    if (cellIndex === 0) {
+                        var content = "Total in " + currency;
+                        $cell.html(content)
+                            .addClass("group-" + currency)
+                            .attr("title", content);
+                    }
+                    else {
+                        var title = $.isNumeric(rawValue) && rawValue < 0 ? undefined : value;
+                        $cell.html(value).attr("title", title);
+                    }
+                });
+
+                row.insertAfter(mainFooter);
+                rowCount++;
+            }
+
+            for (var currency in summaryTotal) {
+                currencyList.push(currency);
+                var summaryData = summaryTotal[currency];
+                if (Array.isArray(summaryData)) {
+                    summaryData.forEach(processColumnModel);
+                }
+                else {
+                    processColumnModel(summaryData);
+                }
+            }
+
+            $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
+            mainFooter.remove();
+
+            return rowCount;
+        },
+
+        getCurrencyNameForReportTitle: function (currencyId) {
+            var viewinKey = Site.getSingleResource("Viewin");
+            var currencyTextList = {
+                "-3": viewinKey.replace("{0}", "GBP"),
+                "-2": viewinKey.replace("{0}", "USD"),
+                "-1": viewinKey.replace("{0}", "EUR"),
+                "0": Site.getSingleResource('AllCurrencies')
+            };
+
+            return currencyTextList[currencyId] === undefined
+                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
+                : currencyTextList[currencyId];
+        },
+
+        renderBreadCrumb: function (level, licenseeId) {
+            level = Number(level);
+            if (level === 0) {
+                $(".breadCrumbHolder").hide();
+            }
+            else {
+                $(".breadCrumbHolder").show();
+                $("#level-link-container .level0").show();
+
+                var isLevel2 = level === 2;
+                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
+
+                var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
+                $("#level-link-container .level1").toggle(allowShowLevel1);
+                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
+            }
+        }
+    };
+
+    return _me;
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
 /* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(134)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(133)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
     var _me = {
         initProductList: function () {
             var selector = "#grid-products-multiselect";
@@ -25433,8 +25433,90 @@ Enumerable = (function ()
 /* 163 */,
 /* 164 */,
 /* 165 */,
-/* 166 */,
-/* 167 */,
+/* 166 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+    var _me = {
+        download: function (blob, fileName) {
+            // IE 10+
+            if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob) {
+                navigator.msSaveOrOpenBlob(blob, fileName);
+            } else {
+                var element = window.document.createElement('a');
+                element.href = window.URL.createObjectURL(blob);
+                element.download = fileName;
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+            }
+        }
+    };
+
+    return _me;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+/* 167 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {﻿(function ($) {
+    "use strict";
+
+    // use this transport for "binary" data type
+    $.ajaxTransport("+binary", function (options, originalOptions, jqXHR) {
+        // check for conditions and support for blob / arraybuffer response type
+        if (window.FormData && ((options.dataType && (options.dataType == 'binary')) ||
+            (options.data && ((window.ArrayBuffer && options.data instanceof ArrayBuffer) ||
+            (window.Blob && options.data instanceof Blob))))) {
+            return {
+                // create new XMLHttpRequest
+                send: function (headers, callback) {
+                    // setup all variables
+                    var xhr = new XMLHttpRequest(),
+                        url = options.url,
+                        type = options.type,
+                        async = options.async || true,
+                        // blob or arraybuffer. Default is blob
+                        dataType = options.responseType || "blob",
+                        data = options.data || null,
+                        username = options.username || null,
+                        password = options.password || null;
+
+                    xhr.addEventListener('load', function () {
+                        var data = {};
+                        data[options.dataType] = xhr.response;
+                        // make callback and send data
+                        callback(xhr.status, xhr.statusText, data, xhr.getAllResponseHeaders());
+                    });
+                    xhr.addEventListener('error', function () {
+                        var data = {};
+                        data[options.dataType] = xhr.response;
+                        // make callback and send data
+                        callback(xhr.status, xhr.statusText, data, xhr.getAllResponseHeaders());
+                    });
+
+                    xhr.open(type, url, async, username, password);
+
+                    // setup custom headers
+                    for (var i in headers) {
+                        xhr.setRequestHeader(i, headers[i]);
+                    }
+
+                    xhr.responseType = dataType;
+                    xhr.send(data);
+                },
+                abort: function () { }
+            };
+        }
+    });
+})(__webpack_provided_window_dot_jQuery);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
 /* 168 */,
 /* 169 */,
 /* 170 */,
@@ -25504,17 +25586,19 @@ Enumerable = (function ()
 /* 234 */,
 /* 235 */,
 /* 236 */,
-/* 237 */
+/* 237 */,
+/* 238 */,
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(238);
+module.exports = __webpack_require__(240);
 
 
 /***/ }),
-/* 238 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(239)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LicenseeWinLoss) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(241)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LicenseeWinLoss) {
     "use strict";
     $(LicenseeWinLoss.initialize);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -25522,15 +25606,16 @@ module.exports = __webpack_require__(238);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 239 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(118), __webpack_require__(2), __webpack_require__(133), __webpack_require__(240), __webpack_require__(119),
-        __webpack_require__(127), __webpack_require__(0), __webpack_require__(120), __webpack_require__(135), __webpack_require__(136),
-        __webpack_require__(122), __webpack_require__(123), __webpack_require__(121), __webpack_require__(154)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup, MultiSelect, DateHelper) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(118), __webpack_require__(2), __webpack_require__(134), __webpack_require__(242), __webpack_require__(119),
+        __webpack_require__(127), __webpack_require__(0), __webpack_require__(120), __webpack_require__(135), __webpack_require__(136), __webpack_require__(166),
+        __webpack_require__(122), __webpack_require__(123), __webpack_require__(121), __webpack_require__(154), __webpack_require__(167)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup, MultiSelect, DateHelper, Downloader) {
         "use strict";
         var REPORT_BY_MONTHLY = 2;
         var VALID_MONTH_RANGE = 3;
+        var EXCEL_FILENAME = "LicenseeWinLoss.xlsx";
 
         var cacheData = {};
         var ajaxRequest = null;
@@ -25611,11 +25696,30 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
                 $('#ExportToExcel').click(function () {
                     $('#IsExportExcel').val(true);
-                    var mainForm = $("#licenseewinloss");
-                    var url = Site.resolveClientUrl(LicenseeWinLossOption.urlExcelData);
-                    mainForm.attr("action", url);
-                    mainForm.submit();
-                    $('#IsExportExcel').val(false);
+
+                    var data = $("#licenseewinloss").serializeObject();
+
+                    var option = {
+                        type: "POST",
+                        data: data,
+                        dataType: "binary",
+                        responseType: "blob",
+                        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                        cache: false,
+                        url: Site.resolveClientUrl(LicenseeWinLossOption.urlExcelData),
+                        success: function (response) {
+                            Downloader.download(response, EXCEL_FILENAME);
+                        },
+                        beforeSend: function () {
+                            Site.blockUI();
+                        },
+                        complete: function () {
+                            Site.unBlockUI();
+                        }
+                    };
+
+                    $.ajax(option);
+
                     return false;
                 });
 
@@ -25974,7 +26078,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 240 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <reference path="/@JSense.js" />
@@ -26792,5 +26896,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
-],[237]);
+],[239]);
 //# sourceMappingURL=licenseewinloss.chunk.js.map

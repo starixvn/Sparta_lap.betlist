@@ -1,4 +1,4 @@
-webpackJsonp([3],[
+webpackJsonp([4],[
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25425,17 +25425,19 @@ Enumerable = (function ()
 /* 425 */,
 /* 426 */,
 /* 427 */,
-/* 428 */
+/* 428 */,
+/* 429 */,
+/* 430 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(429);
+module.exports = __webpack_require__(431);
 
 
 /***/ }),
-/* 429 */
+/* 431 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(430)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerTurnover) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(432)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerTurnover) {
     "use strict";
     $(CustomerTurnover.initialize);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -25443,19 +25445,19 @@ module.exports = __webpack_require__(429);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 430 */
+/* 432 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
     __webpack_require__(1),
     __webpack_require__(2),
     __webpack_require__(119),
-    __webpack_require__(431),
+    __webpack_require__(433),
     __webpack_require__(144),
     __webpack_require__(127),
     __webpack_require__(136),
     __webpack_require__(148),
-    __webpack_require__(432),
+    __webpack_require__(434),
     __webpack_require__(122),
     __webpack_require__(123),
     __webpack_require__(121),
@@ -26002,7 +26004,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 431 */
+/* 433 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2), __webpack_require__(119)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Site, jqGridAdditional) {
@@ -26215,7 +26217,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 432 */
+/* 434 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {﻿/// <reference path="/@JSense.js" />
@@ -27047,5 +27049,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ })
-],[428]);
+],[430]);
 //# sourceMappingURL=customerturnover.chunk.js.map

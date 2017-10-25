@@ -1016,20 +1016,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 395:
+/***/ 397:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(396);
+module.exports = __webpack_require__(398);
 
 
 /***/ }),
 
-/***/ 396:
+/***/ 398:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(397)], __WEBPACK_AMD_DEFINE_RESULT__ = function (KenoBetSetting) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(399)], __WEBPACK_AMD_DEFINE_RESULT__ = function (KenoBetSetting) {
     $(KenoBetSetting.initialize);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -1037,7 +1037,7 @@ module.exports = __webpack_require__(396);
 
 /***/ }),
 
-/***/ 397:
+/***/ 399:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1082,5 +1082,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ })
 
-},[395]);
+},[397]);
 //# sourceMappingURL=kenobetsetting.chunk.js.map
