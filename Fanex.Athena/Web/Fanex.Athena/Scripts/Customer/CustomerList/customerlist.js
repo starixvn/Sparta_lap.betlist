@@ -273,7 +273,7 @@ var CustomerList = (function ($) {
         $("#CheckAll").prop("checked", _checkedAllRows);
         // $(".select-cust-checkbox").checkboxgroup();
 
-        var gridWidth = reportGrid.width();
+        var gridWidth = reportGrid.width() + 10;
 
         $(".paging").width(gridWidth);
         $(".report-title").width(gridWidth - 25);

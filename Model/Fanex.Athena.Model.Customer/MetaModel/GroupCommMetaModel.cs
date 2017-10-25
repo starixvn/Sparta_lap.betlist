@@ -118,17 +118,12 @@ namespace Fanex.Athena.Model.Customer.MetaModel
 
         public bool IsUpdateAB { get; set; }
 
-        /// <summary>
-        /// Equals method.
-        /// </summary>
-        /// <param name="obj">Comparing object.</param>
-        /// <returns>Two object equal or not.</returns>
         public override bool Equals(object obj)
         {
             var temp = obj as GroupCommMetaModel;
             if (temp != null)
             {
-                var isSameComm = temp.SBComm == SBComm && temp.RCComm == RCComm && temp.CSComm == CSComm;
+                var isSameComm = temp.SBComm == SBComm && temp.RCComm == RCComm && temp.CSComm == CSComm && temp.ABComm == ABComm;
                 return isSameComm && temp.GroupColor.Equals(GroupColor, StringComparison.OrdinalIgnoreCase)
                     && temp.GroupCommId == GroupCommId && temp.GroupName.Equals(GroupName);
             }

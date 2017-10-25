@@ -45,6 +45,7 @@
             _objectDb.Received().AddInParameter("IsUpdateRacing", DbType.Boolean, metaModel.IsAllowedRC);
             _objectDb.Received().AddInParameter("IsUpdateLC", DbType.Boolean, metaModel.IsAllowedLC);
             _objectDb.Received().AddInParameter("IsUpdateRNG", DbType.Boolean, metaModel.IsAllowedRNG);
+            _objectDb.Received().AddInParameter("IsUpdateAllbet", DbType.Boolean, metaModel.IsAllowedAB);
             _objectDb.Received().AddInParameter("Ip", DbType.String, metaModel.Ip);
             _objectDb.Received().AddInParameter("langkey", DbType.String, metaModel.Language);
             _objectDb.Received().AddInParameter("strCustIDOriginal", DbType.String, metaModel.CustomerToSQLParam);
@@ -93,10 +94,12 @@
             _objectDb.Received().AddInParameter("RacingComm", DbType.Decimal, metaModel.RCComm);
             _objectDb.Received().AddInParameter("LCComm", DbType.Decimal, metaModel.LCComm);
             _objectDb.Received().AddInParameter("RNGComm", DbType.Decimal, metaModel.CSComm);
+            _objectDb.Received().AddInParameter("AllbetComm", DbType.Decimal, metaModel.ABComm);
             _objectDb.Received().AddInParameter("IsUpdateNG", DbType.Boolean, metaModel.IsAllowedNG);
             _objectDb.Received().AddInParameter("IsUpdateRacing", DbType.Boolean, metaModel.IsAllowedRC);
             _objectDb.Received().AddInParameter("IsUpdateLC", DbType.Boolean, metaModel.IsAllowedLC);
             _objectDb.Received().AddInParameter("IsUpdateRNG", DbType.Boolean, metaModel.IsAllowedCS);
+            _objectDb.Received().AddInParameter("IsUpdateAllbet", DbType.Boolean, metaModel.IsAllowedAB);
             _objectDb.Received().AddInParameter("Ip", DbType.String, metaModel.Ip);
             _objectDb.Received().AddInParameter("langkey", DbType.String, metaModel.Language);
             _objectDb.Received().AddInParameter("strCustIDOriginal", DbType.String, metaModel.CustomerToSQLParam);

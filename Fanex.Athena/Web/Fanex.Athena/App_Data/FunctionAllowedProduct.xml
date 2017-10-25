@@ -26,6 +26,6 @@
   </Group>
 
   <Group Name="API">
-    <Function Name="CustomerAPI_RemoveFromGroupCom" Product="SB,BA,NG,LC,VS,CS,RB,BG,MGC"></Function>
+    <Function Name="CustomerAPI_RemoveFromGroupCom" Product="SB,BA,NG,LC,VS,CS,RB,BG,MGC,AB"></Function>
   </Group>
 </Root>

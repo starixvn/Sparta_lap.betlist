@@ -33,6 +33,7 @@
                     db.AddInParameter("IsUpdateRacing", DbType.Boolean, metaModel.IsAllowedRC);
                     db.AddInParameter("IsUpdateLC", DbType.Boolean, metaModel.IsAllowedLC);
                     db.AddInParameter("IsUpdateRNG", DbType.Boolean, metaModel.IsAllowedRNG);
+                    db.AddInParameter("IsUpdateAllbet", DbType.Boolean, metaModel.IsAllowedAB);
                     db.AddInParameter("Ip", DbType.String, metaModel.Ip);
                     db.AddInParameter("langkey", DbType.String, metaModel.Language);
                     db.AddInParameter("strCustIDOriginal", DbType.String, metaModel.CustomerToSQLParam);
@@ -98,10 +99,12 @@
                     db.AddInParameter("RacingComm", DbType.Decimal, metaModel.RCComm);
                     db.AddInParameter("LCComm", DbType.Decimal, metaModel.LCComm);
                     db.AddInParameter("RNGComm", DbType.Decimal, metaModel.CSComm);
+                    db.AddInParameter("AllbetComm", DbType.Decimal, metaModel.ABComm);
                     db.AddInParameter("IsUpdateNG", DbType.Boolean, metaModel.IsAllowedNG);
                     db.AddInParameter("IsUpdateRacing", DbType.Boolean, metaModel.IsAllowedRC);
                     db.AddInParameter("IsUpdateLC", DbType.Boolean, metaModel.IsAllowedLC);
                     db.AddInParameter("IsUpdateRNG", DbType.Boolean, metaModel.IsAllowedCS);
+                    db.AddInParameter("IsUpdateAllbet", DbType.Boolean, metaModel.IsAllowedAB);
                     db.AddInParameter("Ip", DbType.String, metaModel.Ip);
                     db.AddInParameter("langkey", DbType.String, metaModel.Language);
                     db.AddInParameter("strCustIDOriginal", DbType.String, metaModel.CustomerToSQLParam);
