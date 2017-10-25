@@ -4,7 +4,7 @@ define(["jquery", "common/site", "./customerlist.option", "lib/jqgrid/jquery.jqg
 function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerListState) {
     var _POPUP_LIST = ["#ViewOptionList", "#update-cust-status-popup", "#LevelListContainer", "#OddsGroupListContainer"];
     var _isAllowedCustomerCommission, _isAllowedUserEditComm;
-    var _productAccess;
+    var _productList;
     var _ajaxRequest = null;
 
     var _state;
@@ -13,7 +13,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
         initialize: function () {
             _isAllowedCustomerCommission = $("#IsAllowedCustomerCommission").val() === "True";
             _isAllowedUserEditComm = $("#IsAllowedUserEditComm").val() === "True";
-            _productAccess = JSON.parse($("#ProductAccess").val());
+            _productList = $("#ProductList").val().split(",");
             _state = CustomerListState.getState();
         },
 
@@ -170,7 +170,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
         },
 
         processGridOption: function (showingColumns) {
-            var gridOption = CustomerListOption.getGridOption(_productAccess, _isAllowedCustomerCommission);
+            var gridOption = CustomerListOption.getGridOption(_productList, _isAllowedCustomerCommission);
             var indexColumn = gridOption.colModel[0];
 
             _me.updateIndexColumnFormatter(indexColumn, showingColumns);

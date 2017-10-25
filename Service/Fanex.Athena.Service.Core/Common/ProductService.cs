@@ -57,17 +57,17 @@ namespace Fanex.Athena.Service.Core.Common
         public IList<Product> GetProductList(int licenseeId, string languageCode)
         {
             var cacheKey = CacheKey.MemorycacheCommonProduct + licenseeId + languageCode;
-            var allowedProducts = _cache.Get<IList<Product>>(cacheKey);
+            var productList = _cache.Get<IList<Product>>(cacheKey);
 
-            if (allowedProducts != null)
+            if (productList != null)
             {
-                return allowedProducts;
+                return productList;
             }
 
-            allowedProducts = _productDataAccess.GetProductAccessList(licenseeId);
-            _cache.Set(cacheKey, allowedProducts);
+            productList = _productDataAccess.GetProductAccessList(licenseeId);
+            _cache.Set(cacheKey, productList);
 
-            return allowedProducts;
+            return productList;
         }
 
         public ProductAccess GetProductAccess(int licenseeId, string languageCode, string functionConfigKey = null)

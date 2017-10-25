@@ -218,20 +218,20 @@
             }
         };
 
-        var products = ["SB", "RB", "NG", "LC", "CS", "AB"];
+        var PRODUCTS = ["SB", "RB", "NG", "LC", "CS", "AB"];
         var numOfProductColumns = 0;
         var firstProductCode;
 
-        var getColName = function (productAccess, isAllowedCustomerCommission) {
+        var getColName = function (productList, isAllowedCustomerCommission) {
             numOfProductColumns = 1;
             var temp = Site.clone(colNameList);
             if (isAllowedCustomerCommission) {
                 temp.insertAfter("Group", 0);
 
                 firstProductCode = null;
-                for (var i = 0; i < products.length; i++) {
-                    var productCode = products[i];
-                    if (productAccess["IsAllow" + productCode]) {
+                for (var i = 0; i < PRODUCTS.length; i++) {
+                    var productCode = PRODUCTS[i];
+                    if (productList.indexOf(productCode) >= 0) {
                         if (!firstProductCode) {
                             firstProductCode = productCode.toUpperCase();
                         }
@@ -245,7 +245,7 @@
             return Site.getResources(temp);
         };
 
-        var getColModel = function (productAccess, isAllowedCustomerCommission) {          
+        var getColModel = function (productList, isAllowedCustomerCommission) {
             var temp = Site.clone(colModelList);
 
             if (isAllowedCustomerCommission) {
@@ -258,8 +258,8 @@
                 var col = Site.clone(groupColumn);
                 temp.insertAfter(col, 0);
 
-                $.each(products, function (index, value) {
-                    if (productAccess["IsAllow" + value]) {
+                $.each(PRODUCTS, function (index, value) {
+                    if (productList.indexOf(value) >= 0) {
                         col = Site.clone(commissionColumn);
                         col.name = value + "Comm";
                         col.index = col.name;
@@ -284,9 +284,9 @@
             });
         };
 
-        me.getGridOption = function (productAccess, isAllowedCustomerCommission) {
-            me.gridOption.colNames = getColName(productAccess, isAllowedCustomerCommission);
-            me.gridOption.colModel = getColModel(productAccess, isAllowedCustomerCommission);
+        me.getGridOption = function (productList, isAllowedCustomerCommission) {
+            me.gridOption.colNames = getColName(productList, isAllowedCustomerCommission);
+            me.gridOption.colModel = getColModel(productList, isAllowedCustomerCommission);
             return me.gridOption;
         };
 
