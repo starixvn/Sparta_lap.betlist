@@ -79,7 +79,7 @@ namespace Fanex.Athena.Controllers.WareHouse
             };
             var viewByCurrency =
                 string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
-            var groupingList = GroupingMetaModel.GetCollection();
+            var groupingList = GroupingMetaModel.GroupingList;
             var titleText = string.Format(
                 FormatTitle,
                 ViewResources.ReportBy,
