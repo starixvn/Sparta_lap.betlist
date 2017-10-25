@@ -45,9 +45,7 @@
                 };
             }
 
-            metaModel.UserId = SessionService.UserSession.UserId;
-            metaModel.LicenseeName = SessionService.LicenseeSession.LicenseeName;
-            metaModel.Language = Util.MapLanguages.GetValueOrDefault(SessionService.UserSession.Language, "en");
+            UpdateMetaModel(metaModel);
 
             var mainData = _notificationReportService.GetNotifications(metaModel);
 
@@ -68,12 +66,21 @@
                 };
             }
 
-            var mainData = _notificationReportService.GetResultAmendment();
+            UpdateMetaModel(metaModel);
+
+            var mainData = _notificationReportService.GetResultAmendment(metaModel);
 
             return new
             {
-                Data = mainData
+                Data = mainData.DataList
             };
+        }
+
+        private void UpdateMetaModel(NotificationMetaModel metaModel)
+        {
+            metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.LicenseeName = SessionService.LicenseeSession.LicenseeName;
+            metaModel.Language = Util.MapLanguages.GetValueOrDefault(SessionService.UserSession.Language, "en");
         }
     }
 }

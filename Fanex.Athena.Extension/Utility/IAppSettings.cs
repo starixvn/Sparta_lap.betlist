@@ -11,6 +11,8 @@
 
         string NotificationApiUrl { get; }
 
+        string ResultAmendmentApiUrl { get; }
+
         IEnumerable<int> FakeLicenseeList { get; }
 
         bool IsEnabledMoveBetNotification { get; }

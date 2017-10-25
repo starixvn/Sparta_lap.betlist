@@ -11,6 +11,6 @@
 
         ReportResultModel<Notification> GetNotifications(NotificationMetaModel metaModel);
 
-        IList<ResultAmendment> GetResultAmendment();
+        ReportResultModel<ResultAmendment> GetResultAmendment(NotificationMetaModel metaModel);
     }
 }

@@ -82,7 +82,9 @@
                 metaModel.ToDate,
                 metaModel.UserId,
                 metaModel.LicenseeName,
-                false);
+                metaModel.IsOnlyUnread,
+                metaModel.PageSize,
+                metaModel.PageIndex);
 
             var json = string.Empty;
             try
@@ -122,14 +124,54 @@
             };
         }
 
-        public IList<ResultAmendment> GetResultAmendment()
+        public ReportResultModel<ResultAmendment> GetResultAmendment(NotificationMetaModel metaModel)
         {
-            return new List<ResultAmendment>
+            var resultAmendmentUrl = string.Format(
+                _appSetting.ResultAmendmentApiUrl,
+                metaModel.FromDate,
+                metaModel.ToDate,
+                metaModel.UserId,
+                metaModel.LicenseeName,
+                metaModel.IsOnlyUnread,
+                metaModel.PageSize,
+                metaModel.PageIndex);
+
+            var json = string.Empty;
+            try
+            {
+                json = _webClientService.DownloadString(resultAmendmentUrl);
+            }
+            catch (Exception exception)
+            {
+                LogHelper.WriteError(exception, "ApiUrl: " + resultAmendmentUrl);
+            }
+
+            var dataList = new List<ResultAmendment>();
+            var totalPage = 0;
+
+            var jobject = JObject.Parse(json);
+            if (jobject.HasValues)
+            {
+                var lang = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(metaModel.Language.ToLowerInvariant());
+                var subjectKey = "Subject" + lang;
+                var contentKey = "Content" + lang;
+
+                dataList.AddRange(jobject["Data"].Children().Select(x => new ResultAmendment
                 {
-                    new ResultAmendment { Subject = "Subject 1", Content = "this is content of subject 1" },
-                    new ResultAmendment { Subject = "Subject 2", Content = null },
-                    new ResultAmendment { Subject = "Subject 3", Content = string.Empty }
-                };
+                    DateTime = x["Date"].Value<DateTime>(),
+                    Content = x[contentKey].Value<string>(),
+                    Subject = x[subjectKey].Value<string>(),
+                    DataFilePath = x["DataFilePath"].Value<string>()
+                }));
+
+                totalPage = jobject["TotalPage"].Value<int>();
+            }
+
+            return new ReportResultModel<ResultAmendment>
+            {
+                DataList = dataList,
+                TotalRows = totalPage
+            };
         }
     }
 }
