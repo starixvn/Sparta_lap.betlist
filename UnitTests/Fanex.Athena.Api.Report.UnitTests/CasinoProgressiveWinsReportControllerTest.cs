@@ -48,11 +48,6 @@
             {
                 CurrencyId = 1
             };
-            StubUserSessionData(new UserSession
-            {
-                CurrencyList = new Dictionary<int, string>()
-            });
-            StubLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
 
             // Action
             var result = _controller.Index(model);

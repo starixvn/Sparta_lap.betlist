@@ -6,16 +6,19 @@
 
 namespace Fanex.Athena.Api.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
-    using System.Web;
+    using System.Web.Hosting;
     using System.Web.Http;
     using Excel.Report;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report;
     using Fanex.Athena.Service.Report.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
 
     public class WeeklyLiveMatchReportController : ApiReportBaseController
     {
@@ -24,6 +27,12 @@ namespace Fanex.Athena.Api.Report
         public WeeklyLiveMatchReportController()
         {
             _weeklyLiveMatchService = new WeeklyLiveMatchService();
+        }
+
+        public WeeklyLiveMatchReportController(IWeeklyLiveMatchService service, ISessionService sessionService, IProductService productService)
+            : base(sessionService, productService)
+        {
+            _weeklyLiveMatchService = service;
         }
 
         [HttpPost]
@@ -73,6 +82,17 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
+        [CLSCompliant(false)]
+        protected internal virtual WeeklyLiveMatchExcel CreateExcel(
+            string templatePath,
+            WeeklyLiveMatchMetaModel metaModel,
+            IEnumerable<WeeklyLiveMatch> dataList,
+            int[] totalData,
+            IEnumerable<string> weekHeaders)
+        {
+            return new WeeklyLiveMatchExcel(templatePath, metaModel, dataList, totalData, weekHeaders);
+        }
+
         private HttpResponseMessage ExportExcel(
             WeeklyLiveMatchMetaModel metaModel,
             IEnumerable<WeeklyLiveMatch> dataList,
@@ -80,9 +100,9 @@ namespace Fanex.Athena.Api.Report
             IEnumerable<string> weekHeaders)
         {
             const string FileName = "WeeklyLiveMatches.xls";
-            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/WeeklyLiveMatch.xls");
+            var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/WeeklyLiveMatch.xls");
 
-            var excel = new WeeklyLiveMatchExcel(templatePath, metaModel, dataList, totalData, weekHeaders);
+            var excel = CreateExcel(templatePath, metaModel, dataList, totalData, weekHeaders);
 
             excel.Export();
 
