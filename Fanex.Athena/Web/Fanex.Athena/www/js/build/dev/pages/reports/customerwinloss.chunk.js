@@ -24366,7 +24366,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         text: "Please add text message!",
         position: "top right",
         itemStyle: "default",
-        timeout: 3000
+        timeout: 6000
     }
 
     function generatePagePortal(position) {
@@ -24425,8 +24425,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             }
 
             setTimeout(function () {
-                $toastItem.fadeOut(2000);
-            });
+                $toastItem.fadeOut("fast");
+            }, toastOption.timeout);
         }
     }
 
