@@ -10,6 +10,7 @@
                 spyOn(Site, "getSingleResource").and.callFake(function (str) {
                     return str;
                 });
+                spyOn(Site, "redirect");
             });
 
             describe("initialize", function () {
@@ -113,8 +114,8 @@
                             .stubRequest("CustomerComGroup/Delete")
                             .andReturn({
                                 responseText: JSON.stringify({
-                                    ErrorCode: 1,
-                                    ErrorMessage: "Error message"
+                                    Code: 1,
+                                    Message: "Error message"
                                 })
                             });
 
@@ -124,7 +125,6 @@
                 });
 
                 it("redirect to index if group is deleted successfully", function () {
-                    spyOn(Site, "redirect");
                     jasmine.Ajax
                             .stubRequest("CustomerComGroup/Delete")
                             .andReturn({

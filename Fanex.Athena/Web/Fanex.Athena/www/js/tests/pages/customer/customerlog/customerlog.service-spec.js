@@ -162,7 +162,7 @@
                     CustomerLogService.bindData(data, gridOption, hasCheckBox);
                     gridOption.onSortCol("", 1);
 
-                    expect($(".ui-jqgrid-sortable", "#col2").css("text-decoration")).toBe("underline");
+                    expect($(".ui-jqgrid-sortable", "#col2").css("text-decoration")).toContain("underline");
                 });
 
                 it("resizeGrid should be called after grid completed", function () {

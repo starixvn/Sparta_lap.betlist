@@ -30,7 +30,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
             it("sets value for varibles", function () {
                 setFixtures('<input type="hidden" id="IsAllowedCustomerCommission" value="True">'
                     + '<input type="hidden" id="IsAllowedUserEditComm" value="True">'
-                    + '<input type="hidden" id="ProductAccess" value="{&quot;ProductList&quot;:[],&quot;IsAllowSB&quot;:true}">');
+                    + '<input type="hidden" id="ProductList" value="SB">');
 
                 CustomerListService.initialize();
 
