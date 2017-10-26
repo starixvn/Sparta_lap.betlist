@@ -161,8 +161,7 @@ namespace Fanex.Athena.Controllers
                     break;
             }
 
-            ViewBag.Message = errorStr;
-            return View("~/Views/Desktop/Utility/Error.cshtml");
+            return View("~/Views/Desktop/Utility/Error.cshtml", (object)errorStr);
         }
 
         public ActionResult UnderMaintenance(bool notReload = false)

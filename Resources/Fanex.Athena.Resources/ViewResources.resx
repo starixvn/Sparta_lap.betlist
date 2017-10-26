@@ -3058,4 +3058,8 @@
     <value>New Asia</value>
     <comment>#85203</comment>
   </data>
+  <data name="FunctionNotAvailableOldUIMsg" xml:space="preserve">
+    <value>This function is only supported in the new admin portal. Please switch to use our new system for better experience and stability.</value>
+    <comment>85203</comment>
+  </data>
 </root>

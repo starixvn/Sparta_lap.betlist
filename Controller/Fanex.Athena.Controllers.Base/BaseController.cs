@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web.Hosting;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -17,6 +18,7 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Web.ActionFilter;
     using Logging;
     using Model.Core.MetaModel;
+    using Resources;
     using Service.Core.Common;
     using Service.Core.Helpers;
     using Service.Core.Users;
@@ -34,7 +36,10 @@ namespace Fanex.Athena.Controllers
         {
         }
 
-        protected BaseController(ILanguageService languageService, ISessionService sessionService, IAppSettings appSetting)
+        protected BaseController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting)
         {
             _langService = languageService ?? new LanguageService();
             _sessionService = sessionService ?? new SessionService();
@@ -103,10 +108,15 @@ namespace Fanex.Athena.Controllers
         {
             var userSession = SessionService.UserSession;
 
-            var option = userSession != null && userSession.ViewType != ClientViewType.None ?
+            var viewType = userSession != null && userSession.ViewType != ClientViewType.None ?
                 userSession.ViewType : (ClientViewType)int.Parse(AppSettings.ClientViewType);
 
-            var viewByOption = ClientViewHelper.GetViewPath(viewName, option);
+            if (viewType != ClientViewType.Desktop && !System.IO.File.Exists(HostingEnvironment.MapPath(viewName)))
+            {
+                return base.View("~/Views/Desktop/Utility/Error.cshtml", (object)ViewResources.FunctionNotAvailableOldUIMsg);
+            }
+
+            var viewByOption = ClientViewHelper.GetViewPath(viewName, viewType);
             return base.View(viewByOption, masterName, model);
         }
 
