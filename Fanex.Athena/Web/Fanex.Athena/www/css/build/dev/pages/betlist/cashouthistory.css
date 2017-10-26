@@ -1,5 +1,7 @@
 body {
   background: #fff; }
+/* z-index */
+/* z-index */
 .page-title .title {
   font-size: 16px;
   color: #4060a4;
@@ -43,6 +45,8 @@ body {
   transform: rotate(0);
   display: inline-block; }
 
+/* z-index */
+/* z-index */
 .button-block {
   margin-top: 0.5rem; }
   @media (max-width: 600px) {
@@ -194,6 +198,8 @@ body {
   font-size: 1.3rem;
   color: #2c2c2c; }
 
+/* z-index */
+/* z-index */
 .table a {
   color: #147ccc;
   text-decoration: none; }
@@ -273,6 +279,7 @@ body {
       display: inline-block;
       margin-top: 4px; }
 
+/* z-index */
 .input-field label {
   position: absolute;
   top: -10px; }
@@ -442,6 +449,7 @@ table tbody tr.row-group-level1 td {
 .disabled {
   pointer-events: none; }
 
+/* z-index */
 .sortable {
   cursor: pointer; }
   .sortable:hover .sort-heading {

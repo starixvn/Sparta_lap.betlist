@@ -1,3 +1,4 @@
+/* z-index */
 .daterangepicker {
   position: absolute;
   color: inherit;
@@ -377,6 +378,7 @@
     background: #4c6375;
     border: 0; }
 
+/* z-index */
 .pagingContainer {
   padding: 3px;
   font-size: 1.1rem;

@@ -1,19 +1,19 @@
 webpackJsonp([109],{
 
-/***/ 473:
+/***/ 474:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(474);
+module.exports = __webpack_require__(475);
 
 
 /***/ }),
 
-/***/ 474:
+/***/ 475:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ })
 
-},[473]);
+},[474]);
 //# sourceMappingURL=betlistdaily.chunk.js.map

@@ -1,3 +1,5 @@
+/* z-index */
+/* z-index */
 .page-title .title {
   font-size: 16px;
   color: #4060a4;
@@ -41,6 +43,8 @@
   transform: rotate(0);
   display: inline-block; }
 
+/* z-index */
+/* z-index */
 .button-block {
   margin-top: 0.5rem; }
   @media (max-width: 600px) {
@@ -192,6 +196,8 @@
   font-size: 1.3rem;
   color: #2c2c2c; }
 
+/* z-index */
+/* z-index */
 .table a {
   color: #147ccc;
   text-decoration: none; }
@@ -271,6 +277,7 @@
       display: inline-block;
       margin-top: 4px; }
 
+/* z-index */
 .input-field label {
   position: absolute;
   top: -10px; }
@@ -440,6 +447,7 @@ table tbody tr.row-group-level1 td {
 .disabled {
   pointer-events: none; }
 
+/* z-index */
 .popup-block-body {
   background: transparent;
   border: none;
@@ -569,6 +577,7 @@ table tbody tr.row-group-level1 td {
   height: 100%;
   z-index: 10000; }
 
+/* z-index */
 .page-results .result-content {
   border: solid 1px #d6d6d6; }
 
@@ -616,6 +625,7 @@ table tbody tr.row-group-level1 td {
     font-weight: bold;
     border-bottom: none; }
 
+/* z-index */
 .daterangepicker {
   position: absolute;
   color: inherit;

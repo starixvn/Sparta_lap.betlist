@@ -1,3 +1,4 @@
+/* z-index */
 .tabs {
   position: relative;
   overflow-x: auto;
@@ -38,6 +39,7 @@
 .ac-hover {
   background-color: #eee; }
 
+/* z-index */
 /*
 * monPickr - jQuery Plugin
 * Just a simple month picker
@@ -195,6 +197,7 @@
         color: #000;
         cursor: default; }
 
+/* z-index */
 input[type="checkbox"] {
   position: absolute;
   left: -9999px;
@@ -243,6 +246,9 @@ input[type="checkbox"] {
 .invalid input[type="checkbox"] + label:after {
   border: 2px solid #d91a1a; }
 
+/* z-index */
+/* z-index */
+/* z-index */
 .page-title .title {
   font-size: 16px;
   color: #4060a4;
@@ -286,6 +292,8 @@ input[type="checkbox"] {
   transform: rotate(0);
   display: inline-block; }
 
+/* z-index */
+/* z-index */
 .button-block {
   margin-top: 0.5rem; }
   @media (max-width: 600px) {
@@ -437,6 +445,8 @@ input[type="checkbox"] {
   font-size: 1.3rem;
   color: #2c2c2c; }
 
+/* z-index */
+/* z-index */
 .table a {
   color: #147ccc;
   text-decoration: none; }
@@ -516,6 +526,7 @@ input[type="checkbox"] {
       display: inline-block;
       margin-top: 4px; }
 
+/* z-index */
 .input-field label {
   position: absolute;
   top: -10px; }
@@ -685,6 +696,7 @@ table tbody tr.row-group-level1 td {
 .disabled {
   pointer-events: none; }
 
+/* z-index */
 .popup-block-body {
   background: transparent;
   border: none;
@@ -1453,6 +1465,7 @@ tr.ui-search-toolbar select {
 .ui-jqgrid .ui-ellipsis {
   text-overflow: ellipsis; }
 
+/* z-index */
 .theme_jqGrid a {
   color: #147ccc;
   text-decoration: none; }
@@ -1961,6 +1974,7 @@ Rad tree view css
   text-align: left !important;
   height: 19px !important; }
 
+/* z-index */
 .multiselect-container > label {
   position: absolute;
   top: -10px;

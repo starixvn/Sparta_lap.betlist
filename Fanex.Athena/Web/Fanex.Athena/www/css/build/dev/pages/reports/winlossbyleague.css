@@ -1,3 +1,5 @@
+/* z-index */
+/* z-index */
 /*
 * monPickr - jQuery Plugin
 * Just a simple month picker
@@ -155,6 +157,7 @@
         color: #000;
         cursor: default; }
 
+/* z-index */
 .pagingContainer {
   padding: 3px;
   font-size: 1.1rem;
@@ -211,6 +214,7 @@
     min-width: 65px;
     border: 1px solid #e2d6d6; }
 
+/* z-index */
 input[type="checkbox"] {
   position: absolute;
   left: -9999px;

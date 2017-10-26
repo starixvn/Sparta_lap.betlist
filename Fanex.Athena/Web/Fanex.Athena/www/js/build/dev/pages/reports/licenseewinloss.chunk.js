@@ -25609,13 +25609,16 @@ module.exports = __webpack_require__(240);
 /* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(118), __webpack_require__(2), __webpack_require__(134), __webpack_require__(242), __webpack_require__(119),
-        __webpack_require__(127), __webpack_require__(0), __webpack_require__(120), __webpack_require__(135), __webpack_require__(136), __webpack_require__(166),
-        __webpack_require__(122), __webpack_require__(123), __webpack_require__(121), __webpack_require__(154), __webpack_require__(167)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup, MultiSelect, DateHelper, Downloader) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(118), __webpack_require__(2), __webpack_require__(134), __webpack_require__(242), __webpack_require__(119), __webpack_require__(127),
+        __webpack_require__(0), __webpack_require__(120), __webpack_require__(135), __webpack_require__(136), __webpack_require__(166), __webpack_require__(439),
+        __webpack_require__(122), __webpack_require__(123), __webpack_require__(121), __webpack_require__(154), __webpack_require__(167)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup, MultiSelect, DateHelper, Downloader, Toast) {
         "use strict";
         var REPORT_BY_MONTHLY = 2;
         var VALID_MONTH_RANGE = 3;
         var EXCEL_FILENAME = "LicenseeWinLoss.xlsx";
+        var toastOption = {
+            text: "File is downloading..."
+        };
 
         var cacheData = {};
         var ajaxRequest = null;
@@ -25711,10 +25714,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                             Downloader.download(response, EXCEL_FILENAME);
                         },
                         beforeSend: function () {
-                            Site.blockUI();
-                        },
-                        complete: function () {
-                            Site.unBlockUI();
+                            Toast.show(toastOption);
                         }
                     };
 
@@ -26893,6 +26893,285 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
 
         return _me;
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+/* 243 */,
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */,
+/* 253 */,
+/* 254 */,
+/* 255 */,
+/* 256 */,
+/* 257 */,
+/* 258 */,
+/* 259 */,
+/* 260 */,
+/* 261 */,
+/* 262 */,
+/* 263 */,
+/* 264 */,
+/* 265 */,
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */,
+/* 274 */,
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */,
+/* 279 */,
+/* 280 */,
+/* 281 */,
+/* 282 */,
+/* 283 */,
+/* 284 */,
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */,
+/* 289 */,
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
+/* 320 */,
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */,
+/* 327 */,
+/* 328 */,
+/* 329 */,
+/* 330 */,
+/* 331 */,
+/* 332 */,
+/* 333 */,
+/* 334 */,
+/* 335 */,
+/* 336 */,
+/* 337 */,
+/* 338 */,
+/* 339 */,
+/* 340 */,
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */,
+/* 345 */,
+/* 346 */,
+/* 347 */,
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */,
+/* 353 */,
+/* 354 */,
+/* 355 */,
+/* 356 */,
+/* 357 */,
+/* 358 */,
+/* 359 */,
+/* 360 */,
+/* 361 */,
+/* 362 */,
+/* 363 */,
+/* 364 */,
+/* 365 */,
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */,
+/* 370 */,
+/* 371 */,
+/* 372 */,
+/* 373 */,
+/* 374 */,
+/* 375 */,
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */,
+/* 380 */,
+/* 381 */,
+/* 382 */,
+/* 383 */,
+/* 384 */,
+/* 385 */,
+/* 386 */,
+/* 387 */,
+/* 388 */,
+/* 389 */,
+/* 390 */,
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */,
+/* 395 */,
+/* 396 */,
+/* 397 */,
+/* 398 */,
+/* 399 */,
+/* 400 */,
+/* 401 */,
+/* 402 */,
+/* 403 */,
+/* 404 */,
+/* 405 */,
+/* 406 */,
+/* 407 */,
+/* 408 */,
+/* 409 */,
+/* 410 */,
+/* 411 */,
+/* 412 */,
+/* 413 */,
+/* 414 */,
+/* 415 */,
+/* 416 */,
+/* 417 */,
+/* 418 */,
+/* 419 */,
+/* 420 */,
+/* 421 */,
+/* 422 */,
+/* 423 */,
+/* 424 */,
+/* 425 */,
+/* 426 */,
+/* 427 */,
+/* 428 */,
+/* 429 */,
+/* 430 */,
+/* 431 */,
+/* 432 */,
+/* 433 */,
+/* 434 */,
+/* 435 */,
+/* 436 */,
+/* 437 */,
+/* 438 */,
+/* 439 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+    var defaultOption = {
+        text: "Please add text message!",
+        position: "bottom right",
+        itemStyle: "default",
+        timeout: 8000
+    }
+
+    function generatePagePortal(position) {
+        var positionClassName = generateClassByPosition(position);
+
+        return '<div class="page-portal">' +
+        '<div class="toast-container' + positionClassName + '">' +
+                '<div class="toast-align">' +
+                '</div>' +
+            '</div>' +
+        '</div>'
+    }
+
+    function generateClassByPosition(position) {
+        var positions = position.trim().split(' ');
+        if (positions.length < 2) {
+            return "";
+        }
+
+        return position.map(function (item) {
+            return " toast-container-" + item;
+        });
+    }
+
+    function generateToastItem(styleName, text) {
+        return '<div class="toast-item toast-item-' + styleName + '">' +
+                    '<p class="toast-message">' + text + '</p>' +
+                    generateButtonGroup() +
+                '</div>';
+    }
+
+    function generateButtonGroup() {
+        return '<div class="toast-button-group">' +
+                '<button type="button" class="icon icon-close toast-item-close"></button>'
+        '</div>';
+    }
+
+    var _me = {
+        show: function (options) {
+            var toastOption = $.extend({}, defaultOption, options || {});
+
+            var existed = $("body").find(".page-portal .toast-container .toast-align").length > 0;
+            var $pagePortal = existed ? $(".page-portal") : $(generatePagePortal(toastOption.position));
+
+            var $toastAlign = $pagePortal.find(".toast-align");
+            var $toastItem = $(generateToastItem(toastOption.itemStyle, toastOption.text));
+
+            $toastItem.on("click", ".toast-item-close", function () {
+                $toastItem.remove();
+            });
+
+            $toastAlign.append($toastItem);
+
+            if (!existed) {
+                $("body").append($pagePortal);
+            }
+
+            _me.removeToastItem($toastItem, toastOption.timeout);
+        },
+
+        removeToastItem: function ($toastItem, timeout) {
+            setTimeout(function () {
+                $toastItem.fadeOut();
+            }, timeout);
+        }
+    }
+
+    return _me;
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
