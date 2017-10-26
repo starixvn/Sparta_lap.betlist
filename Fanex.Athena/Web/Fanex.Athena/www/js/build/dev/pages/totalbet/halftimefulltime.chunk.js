@@ -586,18 +586,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 274:
+/***/ 275:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(275);
+module.exports = __webpack_require__(276);
 
 
 /***/ }),
 
-/***/ 275:
+/***/ 276:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(276)], __WEBPACK_AMD_DEFINE_RESULT__ = function (HalfTimeFullTime) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(277)], __WEBPACK_AMD_DEFINE_RESULT__ = function (HalfTimeFullTime) {
     "use strict";
 
     $(HalfTimeFullTime.initialize);
@@ -607,7 +607,7 @@ module.exports = __webpack_require__(275);
 
 /***/ }),
 
-/***/ 276:
+/***/ 277:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(145), __webpack_require__(130)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, RefreshCountDown) {
@@ -647,5 +647,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ })
 
-},[274]);
+},[275]);
 //# sourceMappingURL=halftimefulltime.chunk.js.map

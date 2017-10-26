@@ -1062,20 +1062,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 391:
+/***/ 392:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(392);
+module.exports = __webpack_require__(393);
 
 
 /***/ }),
 
-/***/ 392:
+/***/ 393:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(393)], __WEBPACK_AMD_DEFINE_RESULT__ = function (DcsBetSetting) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(394)], __WEBPACK_AMD_DEFINE_RESULT__ = function (DcsBetSetting) {
     $(DcsBetSetting.initialize);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -1083,7 +1083,7 @@ module.exports = __webpack_require__(392);
 
 /***/ }),
 
-/***/ 393:
+/***/ 394:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1162,5 +1162,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* AllBet, Vo
 
 /***/ })
 
-},[391]);
+},[392]);
 //# sourceMappingURL=dcsbetsetting.chunk.js.map

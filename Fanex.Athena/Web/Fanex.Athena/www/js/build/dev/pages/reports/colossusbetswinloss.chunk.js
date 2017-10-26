@@ -21855,7 +21855,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /* 169 */,
 /* 170 */,
 /* 171 */,
-/* 172 */
+/* 172 */,
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -22159,7 +22160,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Site) {
@@ -22270,7 +22271,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 174 */,
 /* 175 */,
 /* 176 */,
 /* 177 */,
@@ -22518,17 +22518,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /* 419 */,
 /* 420 */,
 /* 421 */,
-/* 422 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(423);
-
-
-/***/ }),
+/* 422 */,
 /* 423 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(424)], __WEBPACK_AMD_DEFINE_RESULT__ = function (ColossusBetsWinLoss) {
+module.exports = __webpack_require__(424);
+
+
+/***/ }),
+/* 424 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(425)], __WEBPACK_AMD_DEFINE_RESULT__ = function (ColossusBetsWinLoss) {
     "use strict";
     $(ColossusBetsWinLoss.initialize);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -22536,10 +22537,10 @@ module.exports = __webpack_require__(423);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 424 */
+/* 425 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(172), __webpack_require__(425)], __WEBPACK_AMD_DEFINE_RESULT__ = function (ThirdPartyWinLoss, ColossusBetsWinLossOption) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(173), __webpack_require__(426)], __WEBPACK_AMD_DEFINE_RESULT__ = function (ThirdPartyWinLoss, ColossusBetsWinLossOption) {
         "use strict";
         function initialize() {
             ThirdPartyWinLoss.initialize({
@@ -22560,10 +22561,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 425 */
+/* 426 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(119), __webpack_require__(173)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional, ThirdPartyWinLossOption) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(119), __webpack_require__(174)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional, ThirdPartyWinLossOption) {
         "use strict";
 
         var REPORT_BY_DAILY = 1;
@@ -22808,5 +22809,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
-],[422]);
+],[423]);
 //# sourceMappingURL=colossusbetswinloss.chunk.js.map

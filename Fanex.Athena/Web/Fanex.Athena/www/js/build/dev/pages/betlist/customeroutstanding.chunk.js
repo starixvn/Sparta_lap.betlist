@@ -23465,31 +23465,32 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /* 373 */,
 /* 374 */,
 /* 375 */,
-/* 376 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(377);
-
-
-/***/ }),
+/* 376 */,
 /* 377 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(378)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerOutStanding) {
-    $(CustomerOutStanding.initialize);
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+module.exports = __webpack_require__(378);
+
 
 /***/ }),
 /* 378 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(379)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerOutStanding) {
+    $(CustomerOutStanding.initialize);
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 379 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(134), __webpack_require__(379), __webpack_require__(137),
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(134), __webpack_require__(380), __webpack_require__(137),
             __webpack_require__(127), __webpack_require__(135)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, Report, DailyStatement, BetList, DatePicker, MultiSelect) {
         var _viewName;
         var _viewOption;
@@ -23646,12 +23647,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 379 */
+/* 380 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(380), __webpack_require__(137),
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(381), __webpack_require__(137),
     __webpack_require__(119), __webpack_require__(122), __webpack_require__(123)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, DailyStatementOption, BetList, jqGridAdditional) {
         var _me = {
             loadData: function (params, url) {
@@ -23706,7 +23707,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 380 */
+/* 381 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23809,5 +23810,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
-],[376]);
+],[377]);
 //# sourceMappingURL=customeroutstanding.chunk.js.map

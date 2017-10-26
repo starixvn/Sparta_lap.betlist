@@ -21513,7 +21513,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /* 178 */,
 /* 179 */,
 /* 180 */,
-/* 181 */
+/* 181 */,
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21795,7 +21796,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 182 */,
 /* 183 */,
 /* 184 */,
 /* 185 */,
@@ -21957,17 +21957,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /* 341 */,
 /* 342 */,
 /* 343 */,
-/* 344 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(345);
-
-
-/***/ }),
+/* 344 */,
 /* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(346), __webpack_require__(181)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LastBetFilter, LastBetGrid) {
+module.exports = __webpack_require__(346);
+
+
+/***/ }),
+/* 346 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(347), __webpack_require__(182)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LastBetFilter, LastBetGrid) {
     "use strict";
 
     $(function () {
@@ -21985,12 +21986,12 @@ module.exports = __webpack_require__(345);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 346 */
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(181), __webpack_require__(133), __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, LastBetGrid) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(182), __webpack_require__(133), __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, LastBetGrid) {
         var _me = {};
 
         var _highLightSubmitIntervalId = 0;
@@ -22381,5 +22382,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
-],[344]);
+],[345]);
 //# sourceMappingURL=lastbetmonitoring.chunk.js.map

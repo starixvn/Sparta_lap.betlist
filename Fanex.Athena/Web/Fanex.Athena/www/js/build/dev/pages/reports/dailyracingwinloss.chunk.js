@@ -18113,26 +18113,27 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /* 323 */,
 /* 324 */,
 /* 325 */,
-/* 326 */
+/* 326 */,
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(327);
+module.exports = __webpack_require__(328);
 
 
 /***/ }),
-/* 327 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(328)], __WEBPACK_AMD_DEFINE_RESULT__ = function (DailyRacingWinLoss) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(329)], __WEBPACK_AMD_DEFINE_RESULT__ = function (DailyRacingWinLoss) {
     $(DailyRacingWinLoss.initialize);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 328 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18200,5 +18201,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
-],[326]);
+],[327]);
 //# sourceMappingURL=dailyracingwinloss.chunk.js.map

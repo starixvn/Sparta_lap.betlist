@@ -24359,6 +24359,85 @@ var __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+    var defaultOption = {
+        text: "Please add text message!",
+        position: "top right",
+        itemStyle: "default",
+        timeout: 3000
+    }
+
+    function generatePagePortal(position) {
+        var positionClassName = generateClassByPosition(position);
+
+        return '<div class="page-portal">' +
+        '<div class="toast-container' + positionClassName + '">' +
+                '<div class="toast-align">' +
+                '</div>' +
+            '</div>' +
+        '</div>'
+    }
+
+    function generateClassByPosition(position) {
+        var positions = position.trim().split(' ');
+        if (positions.length < 2) {
+            return "";
+        }
+
+        return position.map(function (item) {
+            return " toast-container-" + item;
+        });
+    }
+
+    function generateToastItem(styleName, text) {
+        return '<div class="toast-item toast-item-' + styleName + '">' +
+                    '<p class="toast-message">' + text + '</p>' +
+                    generateButtonGroup() +
+                '</div>';
+    }
+
+    function generateButtonGroup() {
+        return '<div class="toast-button-group">' +
+                '<button type="button" class="icon icon-close toast-item-close"></button>'
+        '</div>';
+    }
+
+    var _me = {
+        show: function (options) {
+            var toastOption = $.extend({}, defaultOption, options || {});
+
+            var existed = $("body").find(".page-portal .toast-container .toast-align").length > 0;
+            var $pagePortal = existed ? $(".page-portal") : $(generatePagePortal(toastOption.position));
+
+            var $toastAlign = $pagePortal.find(".toast-align");
+            var $toastItem = $(generateToastItem(toastOption.itemStyle, toastOption.text));
+
+            $toastItem.on("click", ".toast-item-close", function () {
+                $toastItem.remove();
+            });
+
+            $toastAlign.append($toastItem);
+
+            if (!existed) {
+                $("body").append($pagePortal);
+            }
+
+            setTimeout(function () {
+                $toastItem.fadeOut(2000);
+            });
+        }
+    }
+
+    return _me;
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+/* 168 */
+/***/ (function(module, exports, __webpack_require__) {
+
 /* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {﻿(function ($) {
     "use strict";
 
@@ -24413,7 +24492,6 @@ var __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 168 */,
 /* 169 */,
 /* 170 */,
 /* 171 */,
@@ -24680,17 +24758,18 @@ var __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /* 432 */,
 /* 433 */,
 /* 434 */,
-/* 435 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(436);
-
-
-/***/ }),
+/* 435 */,
 /* 436 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(437)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerWinLoss) {
+module.exports = __webpack_require__(437);
+
+
+/***/ }),
+/* 437 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(438)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerWinLoss) {
     "use strict";
 
     $(CustomerWinLoss.initialize);
@@ -24699,7 +24778,7 @@ module.exports = __webpack_require__(436);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 437 */
+/* 438 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -24707,7 +24786,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     __webpack_require__(118),
     __webpack_require__(2),
     __webpack_require__(134),
-    __webpack_require__(438),
+    __webpack_require__(439),
     __webpack_require__(119),
     __webpack_require__(127),
     __webpack_require__(149),
@@ -24717,15 +24796,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     __webpack_require__(151),
     __webpack_require__(144),
     __webpack_require__(166),
-    __webpack_require__(439),
+    __webpack_require__(167),
     __webpack_require__(122),
     __webpack_require__(123),
     __webpack_require__(121),
-    __webpack_require__(167)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect, Popup, PagingHelper, ExcelHelper, AutoComplete, Downloader, Toast) {
+    __webpack_require__(168)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect, Popup, PagingHelper, ExcelHelper, AutoComplete, Downloader, Toast) {
         "use strict";
 
         var EXCEL_FILENAME = "CustomerWinLoss.xlsx";
-        var toastOption = { text: "File is downloading..." };
+        var toastOption = { text: "Data is being downloaded" };
 
         var _ajaxRequest = null;
         var _submitData = null;
@@ -25108,7 +25187,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 438 */
+/* 439 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -25413,89 +25492,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
-/* 439 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
-    var defaultOption = {
-        text: "Please add text message!",
-        position: "bottom right",
-        itemStyle: "default",
-        timeout: 8000
-    }
-
-    function generatePagePortal(position) {
-        var positionClassName = generateClassByPosition(position);
-
-        return '<div class="page-portal">' +
-        '<div class="toast-container' + positionClassName + '">' +
-                '<div class="toast-align">' +
-                '</div>' +
-            '</div>' +
-        '</div>'
-    }
-
-    function generateClassByPosition(position) {
-        var positions = position.trim().split(' ');
-        if (positions.length < 2) {
-            return "";
-        }
-
-        return position.map(function (item) {
-            return " toast-container-" + item;
-        });
-    }
-
-    function generateToastItem(styleName, text) {
-        return '<div class="toast-item toast-item-' + styleName + '">' +
-                    '<p class="toast-message">' + text + '</p>' +
-                    generateButtonGroup() +
-                '</div>';
-    }
-
-    function generateButtonGroup() {
-        return '<div class="toast-button-group">' +
-                '<button type="button" class="icon icon-close toast-item-close"></button>'
-        '</div>';
-    }
-
-    var _me = {
-        show: function (options) {
-            var toastOption = $.extend({}, defaultOption, options || {});
-
-            var existed = $("body").find(".page-portal .toast-container .toast-align").length > 0;
-            var $pagePortal = existed ? $(".page-portal") : $(generatePagePortal(toastOption.position));
-
-            var $toastAlign = $pagePortal.find(".toast-align");
-            var $toastItem = $(generateToastItem(toastOption.itemStyle, toastOption.text));
-
-            $toastItem.on("click", ".toast-item-close", function () {
-                $toastItem.remove();
-            });
-
-            $toastAlign.append($toastItem);
-
-            if (!existed) {
-                $("body").append($pagePortal);
-            }
-
-            _me.removeToastItem($toastItem, toastOption.timeout);
-        },
-
-        removeToastItem: function ($toastItem, timeout) {
-            setTimeout(function () {
-                $toastItem.fadeOut();
-            }, timeout);
-        }
-    }
-
-    return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
 /***/ })
-],[435]);
+],[436]);
 //# sourceMappingURL=customerwinloss.chunk.js.map

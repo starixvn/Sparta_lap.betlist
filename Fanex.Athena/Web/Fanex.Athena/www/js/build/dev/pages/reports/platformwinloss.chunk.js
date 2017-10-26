@@ -8689,18 +8689,18 @@ Enumerable = (function ()
 
 /***/ }),
 
-/***/ 337:
+/***/ 338:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(338);
+module.exports = __webpack_require__(339);
 
 
 /***/ }),
 
-/***/ 338:
+/***/ 339:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(339)], __WEBPACK_AMD_DEFINE_RESULT__ = function (PlatformWinLoss) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(340)], __WEBPACK_AMD_DEFINE_RESULT__ = function (PlatformWinLoss) {
     "use strict";
     $(PlatformWinLoss.initialize);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -8709,7 +8709,7 @@ module.exports = __webpack_require__(338);
 
 /***/ }),
 
-/***/ 339:
+/***/ 340:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -8717,7 +8717,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     __webpack_require__(118),
     __webpack_require__(2),
     __webpack_require__(134),
-    __webpack_require__(340),
+    __webpack_require__(341),
     __webpack_require__(119),
     __webpack_require__(149),
     __webpack_require__(135),
@@ -9136,7 +9136,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 340:
+/***/ 341:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <reference path="/@JSense.js" />
@@ -9558,5 +9558,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
 
 /***/ })
 
-},[337]);
+},[338]);
 //# sourceMappingURL=platformwinloss.chunk.js.map

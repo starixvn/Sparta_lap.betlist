@@ -5313,7 +5313,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 171:
+/***/ 172:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5405,24 +5405,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 373:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(374);
-
-
-/***/ }),
-
 /***/ 374:
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(375)], __WEBPACK_AMD_DEFINE_RESULT__ = function (GroupCommission) {
-    $(GroupCommission.initialize);
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+module.exports = __webpack_require__(375);
+
 
 /***/ }),
 
@@ -5430,8 +5417,21 @@ module.exports = __webpack_require__(374);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(376)], __WEBPACK_AMD_DEFINE_RESULT__ = function (GroupCommission) {
+    $(GroupCommission.initialize);
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+
+/***/ 376:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(144), __webpack_require__(171),
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(144), __webpack_require__(172),
     __webpack_require__(149), __webpack_require__(161)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, AutoComplete, CommonOption, MonthPicker, CustomerLogService) {
         var _me = {
             initialize: function () {
@@ -5480,5 +5480,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ })
 
-},[373]);
+},[374]);
 //# sourceMappingURL=groupcommission.chunk.js.map

@@ -22936,17 +22936,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /* 403 */,
 /* 404 */,
 /* 405 */,
-/* 406 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(407);
-
-
-/***/ }),
+/* 406 */,
 /* 407 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(408)], __WEBPACK_AMD_DEFINE_RESULT__ = function (ActiveCustomerSummary) {
+module.exports = __webpack_require__(408);
+
+
+/***/ }),
+/* 408 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(409)], __WEBPACK_AMD_DEFINE_RESULT__ = function (ActiveCustomerSummary) {
     "use strict";
 
     $(ActiveCustomerSummary.initialize);
@@ -22955,14 +22956,14 @@ module.exports = __webpack_require__(407);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 408 */
+/* 409 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
         __webpack_require__(1),
         __webpack_require__(2),
         __webpack_require__(134),
-        __webpack_require__(409),
+        __webpack_require__(410),
         __webpack_require__(127),
         __webpack_require__(135),
         __webpack_require__(136),
@@ -23188,7 +23189,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 409 */
+/* 410 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
@@ -23327,5 +23328,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
-],[406]);
+],[407]);
 //# sourceMappingURL=activecustomersummary.chunk.js.map

@@ -1062,20 +1062,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 400:
+/***/ 401:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(401);
+module.exports = __webpack_require__(402);
 
 
 /***/ }),
 
-/***/ 401:
+/***/ 402:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(402)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LiveCasinoBetSetting) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(403)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LiveCasinoBetSetting) {
     $(LiveCasinoBetSetting.initialize);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -1083,7 +1083,7 @@ module.exports = __webpack_require__(401);
 
 /***/ }),
 
-/***/ 402:
+/***/ 403:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1169,5 +1169,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ })
 
-},[400]);
+},[401]);
 //# sourceMappingURL=livecasinobetsetting.chunk.js.map

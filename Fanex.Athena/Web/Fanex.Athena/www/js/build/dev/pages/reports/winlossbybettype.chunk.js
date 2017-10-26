@@ -17955,7 +17955,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /* 165 */,
 /* 166 */,
 /* 167 */,
-/* 168 */
+/* 168 */,
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18010,7 +18011,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 169 */,
 /* 170 */,
 /* 171 */,
 /* 172 */,
@@ -18182,26 +18182,27 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /* 338 */,
 /* 339 */,
 /* 340 */,
-/* 341 */
+/* 341 */,
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(342);
+module.exports = __webpack_require__(343);
 
 
 /***/ }),
-/* 342 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(343)], __WEBPACK_AMD_DEFINE_RESULT__ = function (WinLossByBetType) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(344)], __WEBPACK_AMD_DEFINE_RESULT__ = function (WinLossByBetType) {
     $(WinLossByBetType.initialize);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 343 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18212,7 +18213,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     __webpack_require__(118),
     __webpack_require__(127),
     __webpack_require__(152),
-    __webpack_require__(168),
+    __webpack_require__(169),
     __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, DatePicker, GridHelper, SortableHeader) {
         var _me = {
             initialize: function () {
@@ -18279,5 +18280,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
-],[341]);
+],[342]);
 //# sourceMappingURL=winlossbybettype.chunk.js.map

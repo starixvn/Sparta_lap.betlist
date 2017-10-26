@@ -21855,7 +21855,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /* 169 */,
 /* 170 */,
 /* 171 */,
-/* 172 */
+/* 172 */,
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -22159,7 +22160,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Site) {
@@ -22270,7 +22271,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 174 */,
 /* 175 */,
 /* 176 */,
 /* 177 */,
@@ -22514,17 +22514,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /* 415 */,
 /* 416 */,
 /* 417 */,
-/* 418 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(419);
-
-
-/***/ }),
+/* 418 */,
 /* 419 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(420)], __WEBPACK_AMD_DEFINE_RESULT__ = function (GoldDeluxeWinLoss) {
+module.exports = __webpack_require__(420);
+
+
+/***/ }),
+/* 420 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(421)], __WEBPACK_AMD_DEFINE_RESULT__ = function (GoldDeluxeWinLoss) {
     "use strict";
     $(GoldDeluxeWinLoss.initialize);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -22532,10 +22533,10 @@ module.exports = __webpack_require__(419);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 420 */
+/* 421 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(172), __webpack_require__(421)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, ThirdPartyWinLoss, GoldDeluxeWinLossOption) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(173), __webpack_require__(422)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, ThirdPartyWinLoss, GoldDeluxeWinLossOption) {
         "use strict";
         function initialize() {
             GoldDeluxeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
@@ -22556,10 +22557,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 421 */
+/* 422 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(119), __webpack_require__(173)], __WEBPACK_AMD_DEFINE_RESULT__ = function (jqGridAdditional, ThirdPartyWinLossOption) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(119), __webpack_require__(174)], __WEBPACK_AMD_DEFINE_RESULT__ = function (jqGridAdditional, ThirdPartyWinLossOption) {
         "use strict";
 
         var LICENSEE_12BET = 1;
@@ -22739,5 +22740,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
-],[418]);
+],[419]);
 //# sourceMappingURL=golddeluxewinloss.chunk.js.map

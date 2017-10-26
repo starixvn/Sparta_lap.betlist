@@ -20545,17 +20545,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /* 247 */,
 /* 248 */,
 /* 249 */,
-/* 250 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(251);
-
-
-/***/ }),
+/* 250 */,
 /* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(252)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetListRunningMultipleBettypes) {
+module.exports = __webpack_require__(252);
+
+
+/***/ }),
+/* 252 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(253)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetListRunningMultipleBettypes) {
     "use strict";
 
     $(function () {
@@ -20566,7 +20567,7 @@ module.exports = __webpack_require__(251);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 252 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20623,5 +20624,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
-],[250]);
+],[251]);
 //# sourceMappingURL=betlistrunningmultiplebettypes.chunk.js.map

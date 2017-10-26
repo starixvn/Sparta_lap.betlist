@@ -22146,17 +22146,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /* 326 */,
 /* 327 */,
 /* 328 */,
-/* 329 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(330);
-
-
-/***/ }),
+/* 329 */,
 /* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(331)], __WEBPACK_AMD_DEFINE_RESULT__ = function (WinLossByLeague) {
+module.exports = __webpack_require__(331);
+
+
+/***/ }),
+/* 331 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(332)], __WEBPACK_AMD_DEFINE_RESULT__ = function (WinLossByLeague) {
     "use strict";
 
     $(WinLossByLeague.initialize);
@@ -22165,11 +22166,11 @@ module.exports = __webpack_require__(330);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 331 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(119), __webpack_require__(332),
-    __webpack_require__(333), __webpack_require__(134), __webpack_require__(0), __webpack_require__(148), __webpack_require__(151),
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(119), __webpack_require__(333),
+    __webpack_require__(334), __webpack_require__(134), __webpack_require__(0), __webpack_require__(148), __webpack_require__(151),
     __webpack_require__(121), __webpack_require__(122), __webpack_require__(123)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, jqGridAdditional, WinLossByLeagueOption, WinLossByLeagueFilter, Report, moment, PagingHeper, ExcelHelper) {
         "use strict";
 
@@ -22458,7 +22459,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 332 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(119)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
@@ -22666,7 +22667,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 333 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(149), __webpack_require__(135), __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, MonthPicker, MultiSelect) {
@@ -22872,5 +22873,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
-],[329]);
+],[330]);
 //# sourceMappingURL=winlossbyleague.chunk.js.map

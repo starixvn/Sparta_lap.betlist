@@ -22374,17 +22374,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /* 292 */,
 /* 293 */,
 /* 294 */,
-/* 295 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(296);
-
-
-/***/ }),
+/* 295 */,
 /* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(297)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetListDaily) {
+module.exports = __webpack_require__(297);
+
+
+/***/ }),
+/* 297 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(298)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetListDaily) {
     "use strict";
 
     $(BetListDaily.initialize);
@@ -22393,7 +22394,7 @@ module.exports = __webpack_require__(296);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 297 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22483,5 +22484,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
-],[295]);
+],[296]);
 //# sourceMappingURL=betlistdaily.chunk.js.map

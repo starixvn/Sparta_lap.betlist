@@ -20548,17 +20548,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /* 250 */,
 /* 251 */,
 /* 252 */,
-/* 253 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(254);
-
-
-/***/ }),
+/* 253 */,
 /* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(255)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetListCorrectScore) {
+module.exports = __webpack_require__(255);
+
+
+/***/ }),
+/* 255 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(256)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetListCorrectScore) {
     "use strict";
 
     $(function () {
@@ -20569,7 +20570,7 @@ module.exports = __webpack_require__(254);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 255 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20618,5 +20619,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
-],[253]);
+],[254]);
 //# sourceMappingURL=betlistcorrectscore.chunk.js.map

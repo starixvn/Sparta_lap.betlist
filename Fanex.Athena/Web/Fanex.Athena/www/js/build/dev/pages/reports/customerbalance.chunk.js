@@ -23122,17 +23122,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /* 411 */,
 /* 412 */,
 /* 413 */,
-/* 414 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(415);
-
-
-/***/ }),
+/* 414 */,
 /* 415 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(416)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerBalance) {
+module.exports = __webpack_require__(416);
+
+
+/***/ }),
+/* 416 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(417)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerBalance) {
     "use strict";
     $(CustomerBalance.initialize);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -23140,14 +23141,14 @@ module.exports = __webpack_require__(415);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 416 */
+/* 417 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
     __webpack_require__(1),
     __webpack_require__(2),
     __webpack_require__(119),
-    __webpack_require__(417),
+    __webpack_require__(418),
     __webpack_require__(127),
     __webpack_require__(135),
     __webpack_require__(136),
@@ -23402,7 +23403,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 417 */
+/* 418 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(119)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
@@ -23846,5 +23847,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
-],[414]);
+],[415]);
 //# sourceMappingURL=customerbalance.chunk.js.map

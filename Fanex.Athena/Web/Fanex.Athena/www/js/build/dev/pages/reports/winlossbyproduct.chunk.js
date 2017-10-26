@@ -23456,17 +23456,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /* 319 */,
 /* 320 */,
 /* 321 */,
-/* 322 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(323);
-
-
-/***/ }),
+/* 322 */,
 /* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(324)], __WEBPACK_AMD_DEFINE_RESULT__ = function (WinLossByProduct) {
+module.exports = __webpack_require__(324);
+
+
+/***/ }),
+/* 324 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(325)], __WEBPACK_AMD_DEFINE_RESULT__ = function (WinLossByProduct) {
     "use strict";
 
     $(WinLossByProduct.initialize);
@@ -23475,10 +23476,10 @@ module.exports = __webpack_require__(323);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 324 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(119), __webpack_require__(325), __webpack_require__(0), __webpack_require__(120),
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(119), __webpack_require__(326), __webpack_require__(0), __webpack_require__(120),
     __webpack_require__(127), __webpack_require__(134), __webpack_require__(135), __webpack_require__(144),
     __webpack_require__(136), __webpack_require__(151),
     __webpack_require__(121), __webpack_require__(122), __webpack_require__(123)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report,
@@ -23905,7 +23906,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 325 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(119)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
@@ -24207,5 +24208,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
-],[322]);
+],[323]);
 //# sourceMappingURL=winlossbyproduct.chunk.js.map
