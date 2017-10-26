@@ -22,7 +22,7 @@
         "use strict";
 
         var EXCEL_FILENAME = "CustomerWinLoss.xlsx";
-        var toastOption = { text: "File is downloading..." };
+        var toastOption = { text: "Data is being downloaded" };
 
         var _ajaxRequest = null;
         var _submitData = null;

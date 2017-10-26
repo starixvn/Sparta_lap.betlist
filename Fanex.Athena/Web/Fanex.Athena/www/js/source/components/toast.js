@@ -2,9 +2,9 @@
 define(["jquery"], function ($) {
     var defaultOption = {
         text: "Please add text message!",
-        position: "bottom right",
+        position: "top right",
         itemStyle: "default",
-        timeout: 8000
+        timeout: 3000
     }
 
     function generatePagePortal(position) {
@@ -62,13 +62,9 @@ define(["jquery"], function ($) {
                 $("body").append($pagePortal);
             }
 
-            _me.removeToastItem($toastItem, toastOption.timeout);
-        },
-
-        removeToastItem: function ($toastItem, timeout) {
             setTimeout(function () {
-                $toastItem.fadeOut();
-            }, timeout);
+                $toastItem.fadeOut(2000);
+            });
         }
     }
 

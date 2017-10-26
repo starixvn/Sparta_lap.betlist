@@ -8,7 +8,7 @@
         var VALID_MONTH_RANGE = 3;
         var EXCEL_FILENAME = "LicenseeWinLoss.xlsx";
         var toastOption = {
-            text: "File is downloading..."
+            text: "Data is being downloaded"
         };
 
         var cacheData = {};
