@@ -387,6 +387,40 @@
             metaModel.OriginalGroupName = metaModel.GroupName;
         }
 
+        private static decimal[] BuildCommissionList(GroupCommMetaModel groupComm)
+        {
+            return new[]
+           {
+                groupComm.SBComm,
+                groupComm.ParlayComm,
+                groupComm.RCComm,
+                groupComm.NGComm,
+                groupComm.LCComm,
+                groupComm.CSComm,
+                groupComm.ABComm
+            };
+        }
+
+        private static bool CompareGroupComm(GroupCommMetaModel currentGroup, GroupCommMetaModel editedGroup)
+        {
+            var currentComm = BuildCommissionList(currentGroup);
+
+            var editedComm = BuildCommissionList(editedGroup);
+
+            for (var i = 0; i < currentComm.Count(); i++)
+            {
+                if (currentComm[i] != editedComm[i])
+                {
+                    return false;
+                }
+            }
+
+            return currentGroup.GroupColor.Equals(editedGroup.GroupColor, StringComparison.OrdinalIgnoreCase)
+                && currentGroup.GroupCommId == editedGroup.GroupCommId
+                && currentGroup.GroupName.Equals(editedGroup.GroupName)
+                && currentGroup.IsDefaultGroup == editedGroup.IsDefaultGroup;
+        }
+
         private void CreateMetaModel(GroupCommMetaModel metaModel)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
@@ -408,7 +442,7 @@
         {
             var userSession = SessionService.UserSession;
             var currentGroup = _customerComService.GetById(metaModel.GroupCommId);
-            if (currentGroup != null && !currentGroup.Equals(metaModel))
+            if (currentGroup != null && !CompareGroupComm(currentGroup, metaModel))
             {
                 var request = new Request
                 {

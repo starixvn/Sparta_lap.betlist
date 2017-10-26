@@ -105,8 +105,7 @@ var UpdateGroup = (function ($) {
 
                 UpdateGroup.validateName($.trim(groupName));
             });
-            $("#Save").click(function () {
-                Site.blockUI();
+            $("#Save").click(function () {              
                 GroupComm.initCommParam();
                 GroupComm.initDefaultParam("#update-group-popup");
             });

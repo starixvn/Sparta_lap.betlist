@@ -217,6 +217,7 @@ var GroupComm = (function ($) {
             if (isDefault && defaultGroupId !== currentGroupId && defaultGroupId !== 0) {
                 GroupComm.showConfirmAction(Site.getSingleResource('GroupSetAsDefaultMsg'), GroupComm.doSubmit, id);
             } else {
+                Site.blockUI();
                 $('form').submit();
             }
         },
@@ -243,6 +244,7 @@ var GroupComm = (function ($) {
             $('<div id="' + id.substr(1) + '" title="">' + message + '</div>').dialog(options);
         },
         doSubmit: function () {
+            Site.blockUI();
             $('#IsResetDefault').val(true);
             $('form').submit();
         },
