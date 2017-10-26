@@ -776,6 +776,7 @@
     <Content Include="www\js\build\pro\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\vendors\excel.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\vendors\reactpages.chunk.js" />
+    <Content Include="www\js\source\components\toast.js" />
     <Content Include="www\js\source\extensions\ajaxBinaryTransporting.js" />
     <Content Include="www\js\source\helpers\downloader.js" />
     <Content Include="www\js\source\reactpages\actions\baseCurrencyAction.js" />
@@ -807,6 +808,7 @@
     <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\vendors\excel.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\vendors\reactpages.chunk.js.map" />
+    <Content Include="www\css\source\components\toast\toast.scss" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />

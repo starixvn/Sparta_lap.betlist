@@ -13,14 +13,16 @@
     "helpers/excel",
     "components/pluginhelper/autocomplete",
     "helpers/downloader",
+    "components/toast",
     "lib/jqgrid/jquery.jqGrid.en",
     "lib/jqgrid/jquery.jqGrid.min",
     "extensions/jquery.extension",
     "extensions/ajaxBinaryTransporting"],
-    function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect, Popup, PagingHelper, ExcelHelper, AutoComplete, Downloader) {
+    function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect, Popup, PagingHelper, ExcelHelper, AutoComplete, Downloader, Toast) {
         "use strict";
 
         var EXCEL_FILENAME = "CustomerWinLoss.xlsx";
+        var toastOption = { text: "File is downloading..." };
 
         var _ajaxRequest = null;
         var _submitData = null;
@@ -114,10 +116,7 @@
                         Downloader.download(response, EXCEL_FILENAME);
                     },
                     beforeSend: function () {
-                        Site.blockUI();
-                    },
-                    complete: function () {
-                        Site.unBlockUI();
+                        Toast.show(toastOption);
                     }
                 };
                 $.ajax(option);
