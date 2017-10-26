@@ -5,7 +5,6 @@
     using Core.Exception;
     using Data;
     using Interfaces;
-    using Logging;
     using Model.Customer.DTO;
 
     public class CustomerDataAccess : BaseDataAccess, ICustomerDataAccess

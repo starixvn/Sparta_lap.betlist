@@ -16,7 +16,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Common;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
 
     public class FunctionDataAccess : BaseDataAccess, IFunctionDataAccess
     {

@@ -16,7 +16,6 @@ namespace Fanex.Athena.DataAccess.Customer
     using Fanex.Athena.Model.Customer.MetaModel;
     using Fanex.Common;
     using Fanex.Data;
-    using Fanex.Logging;
 
     public class GroupComDataAccess : BaseDataAccess, IGroupComDataAccess
     {

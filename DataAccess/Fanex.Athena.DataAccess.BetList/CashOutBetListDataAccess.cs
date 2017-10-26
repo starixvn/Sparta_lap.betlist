@@ -14,7 +14,6 @@ namespace Fanex.Athena.DataAccess.BetList
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Interfaces;
-    using Logging;
     using Model.BetList.DTO;
     using Model.BetList.ViewModel;
 

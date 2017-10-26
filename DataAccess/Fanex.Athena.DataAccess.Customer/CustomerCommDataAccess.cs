@@ -8,7 +8,6 @@
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
     using Fanex.Data;
-    using Fanex.Logging;
 
     public class CustomerCommDataAccess : BaseDataAccess, ICustomerCommDataAccess
     {

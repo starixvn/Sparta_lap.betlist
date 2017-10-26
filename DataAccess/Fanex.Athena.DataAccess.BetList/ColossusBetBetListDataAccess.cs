@@ -16,7 +16,6 @@ namespace Fanex.Athena.DataAccess.BetList
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Interfaces;
-    using Logging;
     using Model.BetList.ViewModel;
 
     public class ColossusBetBetListDataAccess : BaseBetListDataAccess, IColossusBetBetListDataAccess

@@ -24,7 +24,6 @@ namespace Fanex.Athena.DataAccess.BetList
     using Fanex.Common;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
     using Util;
 
     public class BetListDataAccess : BaseBetListDataAccess, IBetListDataAccess

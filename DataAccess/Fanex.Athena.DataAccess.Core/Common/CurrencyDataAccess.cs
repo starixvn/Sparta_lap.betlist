@@ -15,7 +15,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Data;
-    using Fanex.Logging;
     using Model.Core.MetaModel.Account;
 
     public class CurrencyDataAccess : BaseDataAccess, ICurrencyDataAccess

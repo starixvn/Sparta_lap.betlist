@@ -23,7 +23,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
 
     public class MatchWinLossDataAccess : BaseDataAccess, IMatchWinLossDataAccess
     {

@@ -13,7 +13,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
 
     /// <summary>
     /// Exchange rate data access.

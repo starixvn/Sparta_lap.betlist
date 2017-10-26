@@ -15,7 +15,6 @@
     using Fanex.Common;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
     using Model.Core.ResultModel;
     using Resources;
 

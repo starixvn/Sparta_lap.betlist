@@ -15,7 +15,6 @@ namespace Fanex.Athena.DataAccess.BetList
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Data;
     using Interfaces;
-    using Logging;
 
     public class CancelledBetListDataAccess : BaseDataAccess, ICancelledBetListDataAccess
     {

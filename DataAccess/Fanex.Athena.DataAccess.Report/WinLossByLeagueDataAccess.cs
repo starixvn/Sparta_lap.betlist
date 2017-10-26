@@ -19,7 +19,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
     using Model.Core.ResultModel;
 
     public class WinLossByLeagueDataAccess : BaseDataAccess, IWinLossByLeagueDataAccess

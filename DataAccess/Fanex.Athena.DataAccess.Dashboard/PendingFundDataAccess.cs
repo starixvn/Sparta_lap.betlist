@@ -5,7 +5,6 @@
     using Data;
     using Fanex.Athena.DataAccess.Dashboard.Interfaces;
     using Fanex.Common.Extensions;
-    using Logging;
     using Model.Dashboard.MetaModel;
 
     public class PendingFundDataAccess : BaseDataAccess, ISimpleWidgetDataAccess

@@ -17,7 +17,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
     using Model.Core.ResultModel;
 
     public class RacingCommissionDataAccess : BaseDataAccess, IRacingCommissionDataAccess

@@ -13,7 +13,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Data;
-    using Fanex.Logging;
 
     /// <summary>
     /// TODO: Update summary.

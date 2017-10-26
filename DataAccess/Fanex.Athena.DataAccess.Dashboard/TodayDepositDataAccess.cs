@@ -6,7 +6,6 @@
     using Fanex.Athena.Model.Dashboard.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
 
     public class TodayDepositDataAccess : BaseDataAccess, ISimpleWidgetDataAccess
     {

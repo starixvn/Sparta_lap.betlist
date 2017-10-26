@@ -16,7 +16,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common;
     using Fanex.Data;
-    using Fanex.Logging;
     using Resources;
 
     public class ProductDataAccess : BaseDataAccess, IProductDataAccess

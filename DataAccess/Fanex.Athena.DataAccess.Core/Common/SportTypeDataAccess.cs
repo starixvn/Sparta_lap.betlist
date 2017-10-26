@@ -16,7 +16,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Athena.Model.Core.Helper;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
     using Resources;
 
     /// <summary>

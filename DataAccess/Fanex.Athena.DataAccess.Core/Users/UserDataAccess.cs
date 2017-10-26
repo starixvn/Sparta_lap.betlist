@@ -18,7 +18,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
     using Fanex.Common;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
+    using Logging;
 
     /// <summary>
     ///     The user data access.

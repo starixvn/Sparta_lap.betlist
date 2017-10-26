@@ -14,7 +14,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Data;
     using Fanex.Common.Extensions;
     using Interfaces;
-    using Logging;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
 

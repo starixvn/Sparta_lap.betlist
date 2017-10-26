@@ -11,7 +11,7 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
     using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
+    using Logging;
 
     public class MoveBetDataAccess : BaseDataAccess, IMoveBetDataAccess
     {

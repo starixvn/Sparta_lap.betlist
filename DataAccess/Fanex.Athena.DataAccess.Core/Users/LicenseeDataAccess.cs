@@ -15,7 +15,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Data;
-    using Fanex.Logging;
     using Model.Core.DTO.Users;
 
     public class LicenseeDataAccess : BaseDataAccess, ILicenseeDataAccess
