@@ -93,6 +93,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
              $("#CSComm1").on("change", function () {
                  commissionOnChange($(this).val(), "CSComm");
              });
+
+             $("#ABComm1").on("change", function () {
+                 commissionOnChange($(this).val(), "ABComm");
+             });
          }
 
          function setPageTitle(title) {
@@ -184,6 +188,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
              initCommParam("#NGComm");
              initCommParam("#LCComm");
              initCommParam("#CSComm");
+             initCommParam("#ABComm");
 
              initDefaultParam(formId);
          }

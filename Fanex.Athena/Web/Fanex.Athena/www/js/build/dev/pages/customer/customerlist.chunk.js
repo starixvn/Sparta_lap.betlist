@@ -5527,7 +5527,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     __webpack_require__(122), __webpack_require__(123), __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerListState) {
     var _POPUP_LIST = ["#ViewOptionList", "#update-cust-status-popup", "#LevelListContainer", "#OddsGroupListContainer"];
     var _isAllowedCustomerCommission, _isAllowedUserEditComm;
-    var _productAccess;
+    var _productList;
     var _ajaxRequest = null;
 
     var _state;
@@ -5536,7 +5536,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         initialize: function () {
             _isAllowedCustomerCommission = $("#IsAllowedCustomerCommission").val() === "True";
             _isAllowedUserEditComm = $("#IsAllowedUserEditComm").val() === "True";
-            _productAccess = JSON.parse($("#ProductAccess").val());
+            _productList = $("#ProductList").val().split(",");
             _state = CustomerListState.getState();
         },
 
@@ -5693,7 +5693,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         processGridOption: function (showingColumns) {
-            var gridOption = CustomerListOption.getGridOption(_productAccess, _isAllowedCustomerCommission);
+            var gridOption = CustomerListOption.getGridOption(_productList, _isAllowedCustomerCommission);
             var indexColumn = gridOption.colModel[0];
 
             _me.updateIndexColumnFormatter(indexColumn, showingColumns);
@@ -6455,20 +6455,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
         };
 
-        var products = ["SB", "RB", "NG", "LC", "CS"];
+        var PRODUCTS = ["SB", "RB", "NG", "LC", "CS", "AB"];
         var numOfProductColumns = 0;
         var firstProductCode;
 
-        var getColName = function (productAccess, isAllowedCustomerCommission) {
+        var getColName = function (productList, isAllowedCustomerCommission) {
             numOfProductColumns = 1;
             var temp = Site.clone(colNameList);
             if (isAllowedCustomerCommission) {
                 temp.insertAfter("Group", 0);
 
                 firstProductCode = null;
-                for (var i = 0; i < products.length; i++) {
-                    var productCode = products[i];
-                    if (productAccess["IsAllow" + productCode]) {
+                for (var i = 0; i < PRODUCTS.length; i++) {
+                    var productCode = PRODUCTS[i];
+                    if (productList.indexOf(productCode) >= 0) {
                         if (!firstProductCode) {
                             firstProductCode = productCode.toUpperCase();
                         }
@@ -6482,7 +6482,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return Site.getResources(temp);
         };
 
-        var getColModel = function (productAccess, isAllowedCustomerCommission) {          
+        var getColModel = function (productList, isAllowedCustomerCommission) {
             var temp = Site.clone(colModelList);
 
             if (isAllowedCustomerCommission) {
@@ -6495,8 +6495,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 var col = Site.clone(groupColumn);
                 temp.insertAfter(col, 0);
 
-                $.each(products, function (index, value) {
-                    if (productAccess["IsAllow" + value]) {
+                $.each(PRODUCTS, function (index, value) {
+                    if (productList.indexOf(value) >= 0) {
                         col = Site.clone(commissionColumn);
                         col.name = value + "Comm";
                         col.index = col.name;
@@ -6521,9 +6521,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
         };
 
-        me.getGridOption = function (productAccess, isAllowedCustomerCommission) {
-            me.gridOption.colNames = getColName(productAccess, isAllowedCustomerCommission);
-            me.gridOption.colModel = getColModel(productAccess, isAllowedCustomerCommission);
+        me.getGridOption = function (productList, isAllowedCustomerCommission) {
+            me.gridOption.colNames = getColName(productList, isAllowedCustomerCommission);
+            me.gridOption.colModel = getColModel(productList, isAllowedCustomerCommission);
             return me.gridOption;
         };
 
@@ -6934,6 +6934,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 $('#CustCSComm1').on('change', function () {
                     _me.commissionOnChange($(this).val(), 'CustCSComm');
                 });
+
+                $('#CustABComm1').on('change', function () {
+                    _me.commissionOnChange($(this).val(), 'CustABComm');
+                });
             },
 
             commissionOnChange: function (value, idName) {
@@ -7061,7 +7065,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
                             CustomerListGrid.updateGridGroupAndComm(groupid, groupNameText, result.ExtendedData.GroupColor,
                                                  result.ExtendedData.SBComm, result.ExtendedData.NGComm,
-                                                result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
+                                                result.ExtendedData.RCComm, result.ExtendedData.LCComm,
+                                                result.ExtendedData.RNGComm, result.ExtendedData.ABComm);
                         }
                         else {
                             _me.showMsg(result.ErrorMessage, result.Success);
@@ -7141,6 +7146,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 var ngcom = _me.initCommissionParam('#CustNGComm');
                 var lccom = _me.initCommissionParam('#CustLCComm');
                 var cscom = _me.initCommissionParam('#CustCSComm');
+                var abcom = _me.initCommissionParam('#CustABComm');
                 var param =
                 {
                     GroupId: groupCommId,
@@ -7150,7 +7156,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     RCComm: rbcom,
                     NGComm: ngcom,
                     LCComm: lccom,
-                    CSComm: cscom
+                    CSComm: cscom,
+                    ABComm: abcom
                 };
 
                 $.ajax({
@@ -7171,7 +7178,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
                             CustomerListGrid.updateGridGroupAndComm(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor,
                                                  result.ExtendedData.SBComm, result.ExtendedData.NGComm,
-                                                result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
+                                                result.ExtendedData.RCComm, result.ExtendedData.LCComm,
+                                                result.ExtendedData.RNGComm, result.ExtendedData.ABComm);
                         }
                         else {
                             _me.showMsg(result.ErrorMessage, result.Success);
@@ -7264,7 +7272,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                             if (param.isRemovePlayercomm) {
                                 CustomerListGrid.updateGridGroupAndComm(0, result.ExtendedData.GroupName, "",
                                                  result.ExtendedData.SBComm, result.ExtendedData.NGComm,
-                                                result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
+                                                result.ExtendedData.RCComm, result.ExtendedData.LCComm,
+                                                result.ExtendedData.RNGComm, result.ExtendedData.ABComm);
                             }
                             else {
                                 CustomerListGrid.updateGridGroup(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor);
@@ -7316,6 +7325,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 $('#NewNgComm').text($("#NGComm" + groupId).val());
                 $('#NewLcComm').text($("#LCComm" + groupId).val());
                 $('#NewCsComm').text($("#CSComm" + groupId).val());
+                $('#NewAbComm').text($("#ABComm" + groupId).val());
             }
         };
 
