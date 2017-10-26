@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Core.DataDomain;
     using Core.DTO.Common;
     using Core.MetaModel.Product;
     using Service.Core.Users;
