@@ -11,7 +11,7 @@ namespace Fanex.Athena.Model.BetList.DTO
     /// </summary>
     public class BetListMatch
     {
-        public byte SportType { get; set; }
+        public int SportType { get; set; }
 
         public string Status { get; set; }
 
