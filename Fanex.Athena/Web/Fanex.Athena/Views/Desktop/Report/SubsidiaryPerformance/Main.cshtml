@@ -3,11 +3,12 @@
     " - " + ViewResources.SubsidiaryPerformance;
     Layout = "~/Views/Desktop/Shared/_ReactPageLayout.cshtml";
 }
+@using Fanex.Athena.Model.Core.DataDomain;
 @model Fanex.Athena.Model.Report.ViewModel.SubsidiaryPerformanceViewModel
 @{
     var productOptions = Model.ProductOptionList;
     var selectedProductCode = string.Join(",", productOptions.Where(x => x.Status).Select(x => x.Code).ToArray());
-    var baseCurrencyList = Model.BaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
+    var baseCurrencyList = SystemConstants.BaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
     var subsidiaryList = Model.SubsidiaryList;
     var selectedSubsidiary = string.Join(",", subsidiaryList.Where(x => x.Checked).Select(x => x.ID).ToArray());
 
