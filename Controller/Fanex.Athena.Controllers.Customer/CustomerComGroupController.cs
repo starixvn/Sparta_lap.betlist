@@ -246,9 +246,12 @@
             var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
             var showingOption = new ShowingOption
             {
+                SBVisible = productAccess.IsAllowSB,
                 RBVisible = productAccess.IsAllowRB,
                 NGVisible = productAccess.IsAllowNG,
-                CSVisible = productAccess.IsAllowCS
+                CSVisible = productAccess.IsAllowCS,
+                LCVisible = productAccess.IsAllowLC,
+                ABVisible = productAccess.IsAllowAB
             };
 
             var mainTable = _customerComService.GetDataForExcel(licenseeId);

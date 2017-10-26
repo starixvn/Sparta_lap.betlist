@@ -314,11 +314,6 @@ namespace Fanex.Athena.Excel.Customer
             else
             {
                 AddHiddenCommissionColumns(hiddenColumns);
-
-                if (!_viewModel.ProductAccess.IsAllowAB)
-                {
-                    hiddenColumns.Add(ABCommColumn);
-                }
             }
 
             if (!_viewModel.IsAllowedCustomerCommission || !_showedGridColumns.Contains(GROUP))
@@ -369,6 +364,11 @@ namespace Fanex.Athena.Excel.Customer
             if (!_viewModel.ProductAccess.IsAllowCS)
             {
                 hidedColumns.Add(CSCommColumn);
+            }
+
+            if (!_viewModel.ProductAccess.IsAllowAB)
+            {
+                hidedColumns.Add(ABCommColumn);
             }
         }
 

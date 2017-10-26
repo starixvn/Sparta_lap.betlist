@@ -29,6 +29,7 @@ namespace Fanex.Athena.Excel.Customer
         private const int ColumnNoOfCustomer = 3;
         private const int ColumnRbCommission = 5;
         private const int ColumnSbCommission = 4;
+        private const int ColumnAbCommission = 9;
         private const int ColumnTemplateCount = 7;
         private const int RowContentTemplate = 2;
         private const int RowNoInfoTemplate = 5;
@@ -80,6 +81,7 @@ namespace Fanex.Athena.Excel.Customer
                 ViewResources.NGComm + " (%)",
                 ViewResources.LCComm + " (%)",
                 ViewResources.CSComm + " (%)",
+				ViewResources.ABComm + " (%)"
             };
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             for (int i = 0; i < headerTextList.Length; i++)
@@ -113,6 +115,7 @@ namespace Fanex.Athena.Excel.Customer
                 var numberGameCommValue = Converter.ToDecimal(exportRow["NGComm"].ToString()) * 100;
                 var liveCasinoCommValue = Converter.ToDecimal(exportRow["LCComm"].ToString()) * 100;
                 var rngCommValue = Converter.ToDecimal(exportRow["RNGComm"].ToString()) * 100;
+                var allbetCommValue = Converter.ToDecimal(exportRow["AllbetComm"].ToString()) * 100;
 
                 row.Cells[ColumnIndex].SetCellValue(index + 1);
                 row.Cells[ColumnGroupName].SetCellValue(exportRow["GroupName"]);
@@ -123,6 +126,7 @@ namespace Fanex.Athena.Excel.Customer
                 row.Cells[ColumnNgCommission].SetCellValue(numberGameCommValue.ToString("#,##0.00"));
                 row.Cells[ColumnLcCommission].SetCellValue(liveCasinoCommValue.ToString("#,##0.00"));
                 row.Cells[ColumnCsCommission].SetCellValue(rngCommValue.ToString("#,##0.00"));
+                row.Cells[ColumnAbCommission].SetCellValue(allbetCommValue.ToString("#,##0.00"));
             }
         }
 
@@ -145,6 +149,11 @@ namespace Fanex.Athena.Excel.Customer
         /// <param name="sheet">Excel sheet.</param>
         protected void ProcessUI(ISheet sheet)
         {
+            if (!ShowingOption.SBVisible)
+            {
+                sheet.HideColumn(ColumnSbCommission);
+            }
+
             if (!ShowingOption.RBVisible)
             {
                 sheet.HideColumn(ColumnRbCommission);
@@ -158,6 +167,16 @@ namespace Fanex.Athena.Excel.Customer
             if (!ShowingOption.CSVisible)
             {
                 sheet.HideColumn(ColumnCsCommission);
+            }
+
+            if (!ShowingOption.LCVisible)
+            {
+                sheet.HideColumn(ColumnLcCommission);
+            }
+
+            if (!ShowingOption.ABVisible)
+            {
+                sheet.HideColumn(ColumnAbCommission);
             }
         }
     }

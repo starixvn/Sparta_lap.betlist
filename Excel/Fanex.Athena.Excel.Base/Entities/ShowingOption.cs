@@ -18,6 +18,7 @@ namespace Fanex.Athena.Excel.Base.Entities
             CSVisible = false;
             BGVisible = false;
             KNVisible = false;
+            ABVisible = false;
         }
 
         public bool GrandTotalVisible { get; set; }
@@ -43,5 +44,7 @@ namespace Fanex.Athena.Excel.Base.Entities
         public bool KNVisible { get; set; }
 
         public bool BTVisible { get; set; }
+
+        public bool ABVisible { get; set; }
     }
 }
