@@ -7,9 +7,6 @@
         var REPORT_BY_MONTHLY = 2;
         var VALID_MONTH_RANGE = 3;
         var EXCEL_FILENAME = "LicenseeWinLoss.xlsx";
-        var toastOption = {
-            text: "Data is being downloaded"
-        };
 
         var cacheData = {};
         var ajaxRequest = null;
@@ -105,7 +102,7 @@
                             Downloader.download(response, EXCEL_FILENAME);
                         },
                         beforeSend: function () {
-                            Toast.show(toastOption);
+                            Toast.show();
                         }
                     };
 

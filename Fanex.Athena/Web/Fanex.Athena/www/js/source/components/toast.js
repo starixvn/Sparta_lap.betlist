@@ -1,7 +1,7 @@
 ﻿"use strict";
 define(["jquery"], function ($) {
     var defaultOption = {
-        text: "Please add text message!",
+        text: "Data is being downloaded",
         position: "top right",
         itemStyle: "default",
         timeout: 6000
