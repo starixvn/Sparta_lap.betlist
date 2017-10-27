@@ -125,6 +125,10 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
               "StyleCop.CSharp.StylecopPlus.Rules",
               "SP2101:MethodMustNotContainMoreLinesThan",
               Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage(
+            "Sonar Code Smell",
+            "S1541:Methods and properties should not be too complex",
+            Justification = "Reviewed.")]
         private static string GetGroupByGameTypeId(int gameTypeId)
         {
             switch (gameTypeId)

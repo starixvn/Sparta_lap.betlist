@@ -8,7 +8,6 @@ namespace Fanex.Athena.Controllers
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Drawing;
     using System.Drawing.Imaging;
     using System.Globalization;
@@ -90,54 +89,28 @@ namespace Fanex.Athena.Controllers
             return View("~/Views/Authorization/SignIn.cshtml");
         }
 
-        /// <summary>
-        /// The sign in page.
-        /// </summary>
-        /// <param name="model">The sign in metal model.</param>
-        /// <returns>The redirected action or sign in page in case of having a error .</returns>
         [CheckUMFilter]
         [AllowAnonymous]
         [HandleAntiForgeryError]
         [HttpPost]
         [CustomValidateAntiForgery]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        [SuppressMessage(
-          "StyleCop.CSharp.StylecopPlus.Rules",
-          "SP2101:MethodMustNotContainMoreLinesThan",
-          Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult SignIn(LoginMetalModel model)
         {
-            var isValid = true;
-
-            var isAllowAutomationCaptchaCode = AppSettings.GetValue("AllowAutomationCaptchaCode") == "1";
-            if (!isAllowAutomationCaptchaCode && model.Captcha != SessionService.CaptchaCode)
+            if (string.IsNullOrEmpty(model.UserName))
+            {
+                SetErrorForView(InvalidUserNameError, ViewResources.AlertUserNameMsg);
+            }
+            else if (string.IsNullOrEmpty(model.PassWord))
+            {
+                SetErrorForView(InvalidPasswordError, ViewResources.AlertPasswordEmptyMsg);
+            }
+            else if (!IsValidCaptcha(model.Captcha))
             {
                 SessionService.CaptchaCode = CreateRandomCaptchaCode();
                 SetErrorForView(InvalidCaptchaError, ViewResources.InvalidCaptchaMsg);
-                isValid = false;
             }
-
-            var secretCaptcha = AppSettings.GetValue("SecretCaptcha");
-            var companyIP = AppSettings.GetValue("CompanyIP");
-            if (!isValid && !string.IsNullOrWhiteSpace(secretCaptcha) && model.Captcha == secretCaptcha &&
-                 Regex.IsMatch(Request.UserHostAddress, companyIP))
-            {
-                isValid = true;
-            }
-
-            if (isValid && string.IsNullOrEmpty(model.UserName))
-            {
-                SetErrorForView(InvalidUserNameError, ViewResources.AlertUserNameMsg);
-                isValid = false;
-            }
-
-            if (isValid && string.IsNullOrEmpty(model.PassWord))
-            {
-                SetErrorForView(InvalidPasswordError, ViewResources.AlertPasswordEmptyMsg);
-                isValid = false;
-            }
-
-            if (isValid)
+            else
             {
                 IResultInfo resultInfo;
                 var requestUser = new User
@@ -339,6 +312,26 @@ namespace Fanex.Athena.Controllers
             }
 
             return randomNumber.ToString();
+        }
+
+        private bool IsValidCaptcha(string inputCaptcha)
+        {
+            var isAllowAutomationCaptchaCode = AppSettings.GetValue("AllowAutomationCaptchaCode") == "1";
+            if (isAllowAutomationCaptchaCode ||
+                inputCaptcha == SessionService.CaptchaCode ||
+                IsValidSecretCaptcha(inputCaptcha))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool IsValidSecretCaptcha(string inputCaptcha)
+        {
+            var secretCaptcha = AppSettings.GetValue("SecretCaptcha");
+            return !string.IsNullOrWhiteSpace(secretCaptcha) && inputCaptcha == secretCaptcha &&
+                 Regex.IsMatch(Request.UserHostAddress, AppSettings.GetValue("CompanyIP"));
         }
 
         private void CreateSession(User user)
