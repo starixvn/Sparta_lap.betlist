@@ -13,7 +13,7 @@ namespace Fanex.Athena.Model.Report.ViewModel
 
     public class PlatformWinLossViewModel : BaseViewModel
     {
-        public IList<PlatformWinLossMember> MainResult { get; set; }
+        public IEnumerable<PlatformWinLossMember> MainResult { get; set; }
 
         public PlatformWinLossMember TotalResult { get; set; }
 

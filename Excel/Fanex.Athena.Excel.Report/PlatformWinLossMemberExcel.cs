@@ -38,7 +38,7 @@ namespace Fanex.Athena.Excel.Report
         private const int RowNoInfoTemplate = 5;
         private const int RowTotalTemplate = 4;
 
-        private readonly IList<PlatformWinLossMember> _dataList;
+        private readonly IEnumerable<PlatformWinLossMember> _dataList;
         private readonly PlatformWinLossViewModel _model;
         private readonly PlatformWinLossMember _totalData;
 
@@ -61,7 +61,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         protected override void AssignData()
         {
-            var numOfDataRow = _dataList.Count;
+            var numOfDataRow = _dataList.Count();
             var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
@@ -205,7 +205,7 @@ namespace Fanex.Athena.Excel.Report
 
         private void AssignTotal(ISheet sheet)
         {
-            var totalRow = _dataList.Count + RowContentTemplate;
+            var totalRow = _dataList.Count() + RowContentTemplate;
 
             var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, totalRow);
             sheet.MergeCells(totalRow, ColumnIndex, totalRow, ColumnCurrency);

@@ -23,6 +23,8 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
+    using Model.Core.MetaModel.Product;
+    using Model.Core.ResultModel;
     using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
@@ -56,7 +58,7 @@ namespace Fanex.Athena.Api.Report
         protected internal virtual PlatformWinLossSummaryExcel CreateExcelSummary(
             string templatePath,
             PlatformWinLossMetaModel metaModel,
-            IList<PlatformWinLossSummary> dataList,
+            IEnumerable<PlatformWinLossSummary> dataList,
             PlatformWinLossSummary total)
         {
             return new PlatformWinLossSummaryExcel(templatePath, metaModel, dataList, total);
@@ -73,7 +75,7 @@ namespace Fanex.Athena.Api.Report
 
         private HttpResponseMessage ExportExcelSummary(
             PlatformWinLossMetaModel metaModel,
-            IList<PlatformWinLossSummary> dataList,
+            IEnumerable<PlatformWinLossSummary> dataList,
             PlatformWinLossSummary total)
         {
             const string FileName = "PlatformWinLossSummary.xls";
@@ -87,26 +89,13 @@ namespace Fanex.Athena.Api.Report
 
         private HttpResponseMessage ExportExcelMember(
             PlatformWinLossMetaModel metaModel,
-            IList<PlatformWinLossMember> dataList,
+            IEnumerable<PlatformWinLossMember> dataList,
             PlatformWinLossMember totalData)
         {
             const string FileName = "PlatformWinLossMember.xls";
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/PlatformWinLossMember.xls");
-
-            var showingOption = new ShowingOption
-            {
-                BAVisible = metaModel.ProductOptions.Any(p => p.Code == Product.BA && p.Status),
-                RBVisible = metaModel.ProductOptions.Any(p => p.Code == Product.RB && p.Status),
-                NGVisible = metaModel.ProductOptions.Any(p => p.Code == Product.NG && p.Status),
-                LCVisible = metaModel.ProductOptions.Any(p => p.Code == Product.LC && p.Status),
-                SBVisible = metaModel.ProductOptions.Any(p => p.Code == Product.SB && p.Status),
-                VSVisible = metaModel.ProductOptions.Any(p => p.Code == Product.VS && p.Status),
-                CSVisible = metaModel.ProductOptions.Any(p => p.Code == Product.CS && p.Status),
-                KNVisible = metaModel.ProductOptions.Any(p => p.Code == Product.KN && p.Status),
-                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
-            };
 
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.PlatformWinloss);
 
@@ -121,10 +110,28 @@ namespace Fanex.Athena.Api.Report
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
+            var showingOption = CreateShowingOption(metaModel.ProductOptions, licenseeSession.IsAllowedCustomerComm);
+
             var platformWinLossExcel = CreateExcelMember(templatePath, excelModel, showingOption);
             platformWinLossExcel.Export();
 
             return ExcelStream(platformWinLossExcel.Workbook, FileName);
+        }
+
+        private static ShowingOption CreateShowingOption(IEnumerable<ProductOption> productOptions, bool isAllowedCustomerComm)
+        {
+            return new ShowingOption
+            {
+                BAVisible = productOptions.Any(p => p.Code == Product.BA && p.Status),
+                RBVisible = productOptions.Any(p => p.Code == Product.RB && p.Status),
+                NGVisible = productOptions.Any(p => p.Code == Product.NG && p.Status),
+                LCVisible = productOptions.Any(p => p.Code == Product.LC && p.Status),
+                SBVisible = productOptions.Any(p => p.Code == Product.SB && p.Status),
+                VSVisible = productOptions.Any(p => p.Code == Product.VS && p.Status),
+                CSVisible = productOptions.Any(p => p.Code == Product.CS && p.Status),
+                KNVisible = productOptions.Any(p => p.Code == Product.KN && p.Status),
+                CustomerCommVisible = isAllowedCustomerComm
+            };
         }
 
         private dynamic ProcessRequest(PlatformWinLossMetaModel metaModel)
@@ -138,32 +145,38 @@ namespace Fanex.Athena.Api.Report
 
             if (metaModel.Level == 0)
             {
-                var totalData = new PlatformWinLossSummary();
-                var dataList = metaModel.IsValid ?
-                    _platformWinLossDataAccess.GetSummaryData(metaModel, out totalData) :
-                    new List<PlatformWinLossSummary>();
+                var result = metaModel.IsValid ?
+                    _platformWinLossDataAccess.GetSummaryData(metaModel) :
+                    new ReportResultModel<PlatformWinLossSummary>
+                    {
+                        DataList = new List<PlatformWinLossSummary>(),
+                        TotalData = new PlatformWinLossSummary()
+                    };
                 return metaModel.IsExportExcel ?
-                    ExportExcelSummary(metaModel, dataList, totalData) :
+                    ExportExcelSummary(metaModel, result.DataList, result.TotalData) :
                    (dynamic)new
                    {
-                       Data = dataList,
-                       Total = totalData,
+                       Data = result.DataList,
+                       Total = result.TotalData,
                        ProductOptions = metaModel.ProductOptions.ToJson()
                    };
             }
             else
             {
-                var totalData = new PlatformWinLossMember();
-                var dataList = metaModel.IsValid ?
-                    _platformWinLossDataAccess.GetMemberData(metaModel, out totalData) :
-                    new List<PlatformWinLossMember>();
+                var result = metaModel.IsValid ?
+                    _platformWinLossDataAccess.GetMemberData(metaModel) :
+                    new ReportResultModel<PlatformWinLossMember>
+                    {
+                        DataList = new List<PlatformWinLossMember>(),
+                        TotalData = new PlatformWinLossMember()
+                    };
 
                 return metaModel.IsExportExcel
-                    ? ExportExcelMember(metaModel, dataList, totalData)
+                    ? ExportExcelMember(metaModel, result.DataList, result.TotalData)
                     : (dynamic)new
                     {
-                        Data = dataList,
-                        Total = totalData,
+                        Data = result.DataList,
+                        Total = result.TotalData,
                         ProductOptions = metaModel.ProductOptions.ToJson()
                     };
             }

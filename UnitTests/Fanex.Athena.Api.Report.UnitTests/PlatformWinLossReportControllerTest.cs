@@ -8,6 +8,7 @@
     using DataAccess.Report.Interfaces;
     using Model.Core.DataDomain;
     using Model.Core.MetaModel.Product;
+    using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NPOI.SS.UserModel;
@@ -50,9 +51,6 @@
         public void Index_WhenCallWithLevel0_ReturnCorrectData(int numberOfRow)
         {
             // Arrange
-            PlatformWinLossSummary totalData;
-
-            // Mock data for Level = 0
             SetUpDataAccessGetSummaryData();
 
             // Action
@@ -61,7 +59,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.ReceivedWithAnyArgs().GetSummaryData(Arg.Any<PlatformWinLossMetaModel>(), out totalData);
+                _dataAccess.ReceivedWithAnyArgs().GetSummaryData(Arg.Any<PlatformWinLossMetaModel>());
                 Assert.That(result.Data.Count, Is.EqualTo(numberOfRow));
                 Assert.That(result.Total.CustomerComm, Is.EqualTo(ExpectedCustomerComm));
             });
@@ -84,9 +82,6 @@
         public void Index_WhenCallWithLevel1_ReturnCorrectData()
         {
             // Arrange
-            PlatformWinLossMember totalData;
-
-            // Mock data for Level = 1
             StubDataAccessGetMemberData();
 
             // Action
@@ -95,7 +90,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.ReceivedWithAnyArgs().GetMemberData(Arg.Any<PlatformWinLossMetaModel>(), out totalData);
+                _dataAccess.ReceivedWithAnyArgs().GetMemberData(Arg.Any<PlatformWinLossMetaModel>());
                 Assert.That(result.Data.Count, Is.EqualTo(3));
                 Assert.That(result.Total.CustomerComm, Is.EqualTo(ExpectedCustomerComm));
             });
@@ -131,15 +126,15 @@
                 new PlatformWinLossMember(),
                 new PlatformWinLossMember()
             };
-            PlatformWinLossMember totalMemberData;
-            _dataAccess.GetMemberData(Arg.Any<PlatformWinLossMetaModel>(), out totalMemberData).ReturnsForAnyArgs(x =>
-            {
-                x[1] = new PlatformWinLossMember
+            _dataAccess.GetMemberData(Arg.Any<PlatformWinLossMetaModel>()).ReturnsForAnyArgs(
+                new ReportResultModel<PlatformWinLossMember>
                 {
-                    CustomerComm = ExpectedCustomerComm
-                };
-                return memberData;
-            });
+                    TotalData = new PlatformWinLossMember
+                    {
+                        CustomerComm = ExpectedCustomerComm
+                    },
+                    DataList = memberData
+                });
         }
 
         private void SetUpDataAccessGetSummaryData()
@@ -149,15 +144,15 @@
                 new PlatformWinLossSummary(),
                 new PlatformWinLossSummary()
             };
-            PlatformWinLossSummary totalSummaryData;
-            _dataAccess.GetSummaryData(Arg.Any<PlatformWinLossMetaModel>(), out totalSummaryData).ReturnsForAnyArgs(x =>
-            {
-                x[1] = new PlatformWinLossSummary
+            _dataAccess.GetSummaryData(Arg.Any<PlatformWinLossMetaModel>()).ReturnsForAnyArgs(
+                new ReportResultModel<PlatformWinLossSummary>
                 {
-                    CustomerComm = ExpectedCustomerComm
-                };
-                return summaryData;
-            });
+                    TotalData = new PlatformWinLossSummary
+                    {
+                        CustomerComm = ExpectedCustomerComm
+                    },
+                    DataList = summaryData
+                });
         }
     }
 }

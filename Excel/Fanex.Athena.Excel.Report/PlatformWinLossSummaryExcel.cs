@@ -31,7 +31,7 @@
         private const int RowNoInfoTemplate = 6;
 
         private readonly PlatformWinLossMetaModel _model;
-        private readonly IList<PlatformWinLossSummary> _dataList;
+        private readonly IEnumerable<PlatformWinLossSummary> _dataList;
         private readonly PlatformWinLossSummary _total;
 
         private readonly IEnumerable<ProductOption> _productOptions;
@@ -39,7 +39,7 @@
         public PlatformWinLossSummaryExcel(
             string templatePath,
             PlatformWinLossMetaModel metaModel,
-            IList<PlatformWinLossSummary> dataList,
+            IEnumerable<PlatformWinLossSummary> dataList,
             PlatformWinLossSummary total)
             : base(templatePath)
         {
@@ -52,7 +52,7 @@
 
         protected override void AssignData()
         {
-            var numOfDataRow = _dataList.Count;
+            var numOfDataRow = _dataList.Count();
             var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
