@@ -24803,7 +24803,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     __webpack_require__(168)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect, Popup, PagingHelper, ExcelHelper, AutoComplete, Downloader, Toast) {
         "use strict";
 
-        var EXCEL_FILENAME = "CustomerWinLoss.xlsx";
+        var EXCEL_FILENAME = "CustomerWinLoss.xls";
 
         var _ajaxRequest = null;
         var _submitData = null;
