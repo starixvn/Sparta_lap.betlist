@@ -6,7 +6,7 @@ var CustomerWinLoss = (function ($) {
     var DATA_URL = "api/CustomerWinLossReport/Index";
     var FORM_SELECTOR = "#CustomerWinlossForm";
     var GRID_ID = "ReportGrid";
-    var EXCEL_FILENAME = "CustomerWinLoss.xlsx";
+    var EXCEL_FILENAME = "CustomerWinLoss.xls";
 
     var _ajaxRequest = null;
     var _submitData = null;

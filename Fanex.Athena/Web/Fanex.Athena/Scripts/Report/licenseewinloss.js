@@ -5,7 +5,7 @@ var LicenseeWinLoss = (function ($) {
     "use strict";
     var REPORT_BY_MONTHLY = 2;
     var VALID_MONTH_RANGE = 3;
-    var EXCEL_FILENAME = "LicenseeWinLoss.xlsx";
+    var EXCEL_FILENAME = "LicenseeWinLoss.xls";
 
     var cacheData = {};
     var ajaxRequest = null;

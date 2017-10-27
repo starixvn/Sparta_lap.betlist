@@ -21,7 +21,7 @@
     function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect, Popup, PagingHelper, ExcelHelper, AutoComplete, Downloader, Toast) {
         "use strict";
 
-        var EXCEL_FILENAME = "CustomerWinLoss.xlsx";
+        var EXCEL_FILENAME = "CustomerWinLoss.xls";
 
         var _ajaxRequest = null;
         var _submitData = null;
