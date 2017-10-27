@@ -14,6 +14,7 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report.Interfaces;
+    using Model.Core.ResultModel;
 
     public class CashOutWinLossService : ICashOutWinLossService
     {
@@ -29,24 +30,23 @@ namespace Fanex.Athena.Service.Report
             _dataAccess = dataAccess;
         }
 
-        public SortableList<CashOutWinLoss> GetDetail(
-            CashOutWinLossMetaModel metaModel,
-            out IDictionary<string, CashOutWinLoss> summaryTotal)
+        public SortableReportResultModel<CashOutWinLoss> GetDetail(CashOutWinLossMetaModel metaModel)
         {
-            return _dataAccess.GetDetail(metaModel, out summaryTotal);
+            return _dataAccess.GetDetail(metaModel);
         }
 
-        public SortableList<CashOutWinLoss> GetSummary(CashOutWinLossMetaModel metaModel, out IDictionary<string, CashOutWinLoss> summaryTotal)
+        public SortableReportResultModel<CashOutWinLoss> GetSummary(CashOutWinLossMetaModel metaModel)
         {
-            var result = this._dataAccess.GetSummary(metaModel, out summaryTotal);
+            var result = this._dataAccess.GetSummary(metaModel);
             var date = new System.DateTime();
             var index = 1;
-            foreach (var item in result)
+            var dataList = result.DataList;
+            foreach (var item in dataList)
             {
                 if (date != item.Date)
                 {
                     date = item.Date;
-                    item.RowSpan = result.Count(x => x.Date == item.Date);
+                    item.RowSpan = dataList.Count(x => x.Date == item.Date);
                     item.Index = index++;
                 }
                 else

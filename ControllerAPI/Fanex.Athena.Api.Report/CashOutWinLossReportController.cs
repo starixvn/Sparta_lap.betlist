@@ -20,6 +20,7 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
+    using Model.Core.ResultModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Report;
@@ -146,22 +147,20 @@ namespace Fanex.Athena.Api.Report
                 metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;
                 metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(level > 0 ? currencyId : metaModel.CurrencyId, metaModel.IsExcludedTestData);
-                IDictionary<string, CashOutWinLoss> summaryTotal;
-                SortableList<CashOutWinLoss> dataList;
-                GetData(metaModel, out dataList, out summaryTotal);
+                var result = GetData(metaModel);
 
                 if (metaModel.IsExportExcel)
                 {
-                    return ExportExcel(metaModel, dataList, summaryTotal);
+                    return ExportExcel(metaModel, result.DataList, result.SummaryTotal);
                 }
 
-                if (dataList != null && dataList.Count > 0)
+                if (result.DataList != null && result.DataList.Any())
                 {
                     return new
                     {
-                        Data = dataList,
-                        Total = _cashOutWinLossService.TotalCalc(dataList),
-                        SummaryTotal = summaryTotal
+                        Data = result.DataList,
+                        Total = _cashOutWinLossService.TotalCalc(result.DataList),
+                        SummaryTotal = result.SummaryTotal
                     };
                 }
             }
@@ -169,14 +168,11 @@ namespace Fanex.Athena.Api.Report
             return GetEmptyResult();
         }
 
-        private void GetData(
-                CashOutWinLossMetaModel metaModel,
-                out SortableList<CashOutWinLoss> dataList,
-                out IDictionary<string, CashOutWinLoss> summaryTotal)
+        private SortableReportResultModel<CashOutWinLoss> GetData(CashOutWinLossMetaModel metaModel)
         {
-            dataList = metaModel.DrillDownLevel == 0 ?
-                _cashOutWinLossService.GetSummary(metaModel, out summaryTotal) :
-                _cashOutWinLossService.GetDetail(metaModel, out summaryTotal);
+            return metaModel.DrillDownLevel == 0 ?
+                _cashOutWinLossService.GetSummary(metaModel) :
+                _cashOutWinLossService.GetDetail(metaModel);
         }
     }
 }

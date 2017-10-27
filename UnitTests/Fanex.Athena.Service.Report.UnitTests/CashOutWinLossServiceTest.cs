@@ -1,8 +1,10 @@
 ﻿namespace Fanex.Athena.Service.Report.UnitTests
 {
     using System.Collections.Generic;
+    using System.Linq;
     using DataAccess.Report.Interfaces;
     using Extension.Utility;
+    using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
@@ -34,13 +36,12 @@
         {
             // Arrange
             var metaModel = new CashOutWinLossMetaModel();
-            IDictionary<string, CashOutWinLoss> summaryTotal;
 
             // Action
-            _service.GetDetail(metaModel, out summaryTotal);
+            _service.GetDetail(metaModel);
 
             // Assert
-            _dataAccess.Received().GetDetail(metaModel, out summaryTotal);
+            _dataAccess.Received().GetDetail(metaModel);
         }
 
         [Test]
@@ -48,9 +49,8 @@
         {
             // Arrange
             var metaModel = new CashOutWinLossMetaModel();
-            IDictionary<string, CashOutWinLoss> summaryTotal;
             var fakeData = CreateFakeSummaryData();
-            _dataAccess.GetSummary(metaModel, out summaryTotal).ReturnsForAnyArgs(fakeData);
+            _dataAccess.GetSummary(metaModel).ReturnsForAnyArgs(fakeData);
             var expectedData = new SortableList<CashOutWinLoss>
             {
                 new CashOutWinLoss
@@ -65,12 +65,12 @@
             };
 
             // Action
-            var result = _service.GetSummary(metaModel, out summaryTotal);
+            var result = _service.GetSummary(metaModel);
 
             // Assert
-            Assert.That(result[0].RowSpan, Is.EqualTo(expectedData[0].RowSpan));
-            Assert.That(result[1].RowSpan, Is.EqualTo(expectedData[1].RowSpan));
-            Assert.That(result[1].Index, Is.EqualTo(expectedData[1].Index));
+            Assert.That(result.DataList.ElementAt(0).RowSpan, Is.EqualTo(expectedData[0].RowSpan));
+            Assert.That(result.DataList.ElementAt(1).RowSpan, Is.EqualTo(expectedData[1].RowSpan));
+            Assert.That(result.DataList.ElementAt(1).Index, Is.EqualTo(expectedData[1].Index));
         }
 
         [Test]
@@ -134,9 +134,9 @@
             });
         }
 
-        private static SortableList<CashOutWinLoss> CreateFakeSummaryData()
+        private static SortableReportResultModel<CashOutWinLoss> CreateFakeSummaryData()
         {
-            return new SortableList<CashOutWinLoss>
+            var dataList = new SortableList<CashOutWinLoss>
             {
                 new CashOutWinLoss
                 {
@@ -146,6 +146,11 @@
                 {
                     Date = new System.DateTime(2017, 4, 17)
                 }
+            };
+
+            return new SortableReportResultModel<CashOutWinLoss>
+            {
+                DataList = dataList
             };
         }
 
