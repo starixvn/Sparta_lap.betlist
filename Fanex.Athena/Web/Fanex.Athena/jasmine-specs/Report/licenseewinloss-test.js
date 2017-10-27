@@ -48,15 +48,50 @@
             expect($excelField.val()).toBe(false);
         });
 
-        it("#LicenseeWinLossForm.submit() should be called if #ExportToExcel is clicked.", function () {
-            var $export = affix('#ExportToExcel');
-            var $mainform = affix('#licenseewinloss');
+        describe("Export excel", function () {
+            var ajaxOption;
 
-            var spyEvent = spyOnEvent($mainform, 'submit');
-            
-            LicenseeWinLoss.initEvent();
-            $export.click();
-            expect(spyEvent).toHaveBeenTriggered();
+            beforeEach(function () {
+                setFixtures('<div id="ExportToExcel"></div>');
+                appendSetFixtures('<form id="licenseewinloss"><input type="hidden" name="CurrencyId" value="0" /></form>');
+
+                spyOn(Downloader, "download");
+                spyOn(Toast, "show");
+
+                spyOn($, "ajax").and.callFake(function (option) {
+                    option.beforeSend();
+                    ajaxOption = option;
+                });
+
+                LicenseeWinLoss.initEvent();
+            });
+
+            it("#ExportToExcel click - ajax settings should be correct", function () {
+                var postData = { CurrencyId: '0' };
+                $('#ExportToExcel').click();
+
+                expect(ajaxOption.type).toBe("POST");
+                expect(ajaxOption.dataType).toBe("binary");
+                expect(ajaxOption.responseType).toBe("blob");
+                expect(ajaxOption.url).toBe(LicenseeWinLossOption.urlExcelData);
+                expect(ajaxOption.data).toEqual(postData);
+            });
+
+            it("#ExportToExcel click - beforeSend - Toast.show should be called", function () {
+                $('#ExportToExcel').click();
+
+                expect(Toast.show).toHaveBeenCalled();
+            });
+
+            it("#ExportToExcel click - call success os ajax function - Downloader.download should be called with correct parameter", function () {
+                $('#ExportToExcel').click();
+
+                var fileName = "LicenseeWinLoss.xls";
+                var response = "Binary Data";
+                ajaxOption.success(response);
+
+                expect(Downloader.download).toHaveBeenCalledWith(response, fileName);
+            });
         });
 
         it("#LicenseeWinLoss.goBack() should be called with correct param when .level-link is clicked.", function () {
