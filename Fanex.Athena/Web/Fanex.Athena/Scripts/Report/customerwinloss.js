@@ -1,4 +1,4 @@
-﻿/*global Site, QueryString, ProductListHelper, PagingHeper, jqGridAdditional, CustomerWinLossOption, Report*/
+﻿/*global Site, QueryString, ProductListHelper, PagingHeper, jqGridAdditional, CustomerWinLossOption, Report, Toast*/
 /// <reference path="/@JSense.js" />
 var CustomerWinLoss = (function ($) {
     "use strict";
@@ -216,10 +216,7 @@ var CustomerWinLoss = (function ($) {
                         Downloader.download(response, EXCEL_FILENAME);
                     },
                     beforeSend: function () {
-                        Site.blockUI();
-                    },
-                    complete: function () {
-                        Site.unBlockUI();
+                        Toast.show();
                     }
                 };
                 $.ajax(option);

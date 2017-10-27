@@ -1,4 +1,4 @@
-﻿/*global jqGridAdditional, JSLINQ, LicenseeWinLossOption, QueryString, Report, Site, ProductListHelper */
+﻿/*global jqGridAdditional, JSLINQ, LicenseeWinLossOption, QueryString, Report, Site, ProductListHelper, Toast */
 /// <reference path="/@JSense.js" />
 ///
 var LicenseeWinLoss = (function ($) {
@@ -99,10 +99,7 @@ var LicenseeWinLoss = (function ($) {
                         Downloader.download(response, EXCEL_FILENAME);
                     },
                     beforeSend: function () {
-                        Site.blockUI();
-                    },
-                    complete: function () {
-                        Site.unBlockUI();
+                        Toast.show();
                     }
                 };
 

@@ -744,6 +744,12 @@
     <Content Include="Content\Plugin\ColorPicker\images\checked-dark.png" />
     <Content Include="Content\Plugin\ColorPicker\images\transparent.png" />
     <Content Include="Content\Plugin\ColorPicker\images\checked-light.png" />
+    <Content Include="Content\Plugin\Toast\toast.css">
+      <DependentUpon>toast.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Plugin\Toast\toast.min.css">
+      <DependentUpon>toast.css</DependentUpon>
+    </Content>
     <Content Include="Content\Report\cashoutwinloss.css" />
     <Content Include="Content\Report\customertbalance.css" />
     <Content Include="Content\Utility\images\UM.png" />
@@ -759,6 +765,7 @@
     <Content Include="Scripts\Helper\ProductListHelper.js" />
     <Content Include="Scripts\Library\jquery.marquee.js" />
     <Content Include="Scripts\Customer\CustomerList\customerlist.custoption.js" />
+    <Content Include="Scripts\Plugin\Toast\toast.js" />
     <Content Include="Scripts\Report\cashoutwinloss.js" />
     <Content Include="Scripts\Report\cashoutwinloss.option.js" />
     <Content Include="Scripts\Report\customerpendingfunds.option.js" />
@@ -809,6 +816,7 @@
     <Content Include="www\js\build\dev\reactpages\vendors\excel.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\vendors\reactpages.chunk.js.map" />
     <Content Include="www\css\source\components\toast\toast.scss" />
+    <Content Include="Content\Plugin\Toast\toast.scss" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />

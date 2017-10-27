@@ -236,7 +236,8 @@
                         "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
                         "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js",
                         "~/Scripts/Extension/ajaxBinaryTransporting.js",
-                        "~/Scripts/Helper/downloader.js");
+                        "~/Scripts/Helper/downloader.js",
+                        "~/Scripts/Plugin/Toast/toast.js");
             AddNewScriptBundle(bundles, bundle);
         }
 
@@ -577,7 +578,8 @@
                 "~/Content/Plugin/DateRangePicker/daterangepicker.css",
                 "~/Content/FlatPopup/jquery.custom-scrollbar.css",
                 "~/Content/FlatPopup/jquery.flatpopup.css",
-                "~/Content/Plugin/MultiSelect/jquery.multiselect.css");
+                "~/Content/Plugin/MultiSelect/jquery.multiselect.css",
+                "~/Content/Plugin/Toast/toast.min.css");
         }
 
         /// <summary>
