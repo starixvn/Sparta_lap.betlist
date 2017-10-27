@@ -530,14 +530,14 @@ namespace Fanex.Athena.Controllers.Report.Result
             }
         }
 
-        /// <summary>
-        /// Get data for normal page.
-        /// </summary>
-        /// <param name="metalModel">The metal model.</param>
         [SuppressMessage(
            "StyleCop.CSharp.StylecopPlus.Rules",
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage(
+            "Sonar Code Smell",
+            "S1541:Methods and properties should not be too complex",
+            Justification = "OK")]
         private void GetNormalData(ResultMetalModel metalModel)
         {
             var setting = GetNormalResultSetting(metalModel);
@@ -552,69 +552,38 @@ namespace Fanex.Athena.Controllers.Report.Result
                 case SportType.VirtualCycling:
                 case SportType.VirtualSpeedway:
                     var dataRc = _resultService.GetRacingMatches(metalModel);
-                    if (dataRc != null)
-                    {
-                        if (metalModel.IsExportExcel)
-                        {
-                            _excelStream = ResultEngine.ExcelParser(dataRc, setting);
-                        }
-                        else
-                        {
-                            _htmlResult = ResultEngine.HtmlParser(dataRc, setting);
-                        }
-                    }
-
+                    ParseResult(dataRc, setting, metalModel.IsExportExcel);
                     break;
 
                 case SportType.LiveCasino:
                     var dataLc = _resultService.GetLiveCasinoMatches(metalModel);
-
-                    if (dataLc != null)
-                    {
-                        if (metalModel.IsExportExcel)
-                        {
-                            _excelStream = ResultEngine.ExcelParser(dataLc, setting);
-                        }
-                        else
-                        {
-                            _htmlResult = ResultEngine.HtmlParser(dataLc, setting);
-                        }
-                    }
-
+                    ParseResult(dataLc, setting, metalModel.IsExportExcel);
                     break;
 
                 case SportType.NumberGame:
-                    var dataNg = _resultService.GetNumberGameMatches(
-                        metalModel);
-                    if (dataNg != null)
-                    {
-                        if (metalModel.IsExportExcel)
-                        {
-                            _excelStream = ResultEngine.ExcelParser(dataNg, setting);
-                        }
-                        else
-                        {
-                            _htmlResult = ResultEngine.HtmlParser(dataNg, setting);
-                        }
-                    }
-
+                    var dataNg = _resultService.GetNumberGameMatches(metalModel);
+                    ParseResult(dataNg, setting, metalModel.IsExportExcel);
                     break;
 
                 default:
                     var data = _resultService.GetMatches(metalModel);
-                    if (data != null)
-                    {
-                        if (metalModel.IsExportExcel)
-                        {
-                            _excelStream = ResultEngine.ExcelParser(data, setting);
-                        }
-                        else
-                        {
-                            _htmlResult = ResultEngine.HtmlParser(data, setting);
-                        }
-                    }
-
+                    ParseResult(data, setting, metalModel.IsExportExcel);
                     break;
+            }
+        }
+
+        private void ParseResult<T>(IList<T> data, ResultSetting setting, bool isExportExcel)
+        {
+            if (data != null)
+            {
+                if (isExportExcel)
+                {
+                    _excelStream = ResultEngine.ExcelParser(data, setting);
+                }
+                else
+                {
+                    _htmlResult = ResultEngine.HtmlParser(data, setting);
+                }
             }
         }
 
