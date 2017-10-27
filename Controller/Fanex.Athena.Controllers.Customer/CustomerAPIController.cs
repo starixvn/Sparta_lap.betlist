@@ -227,16 +227,6 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region BA API
 
-        /// <summary>
-        /// Update customer BA status.
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="isAllowBA">Allowed BA if ISALLOWBA equals true.</param>
-        /// <returns>The action result.</returns>
-        [SuppressMessage(
-          "StyleCop.CSharp.StylecopPlus.Rules",
-          "SP2101:MethodMustNotContainMoreLinesThan",
-          Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
@@ -247,15 +237,7 @@ namespace Fanex.Athena.Controllers.Customer
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             if (!productAccess.IsAllowBA)
             {
-                return Json(new
-                {
-                    IsSuccessful = false,
-                    Message = ViewResources.NotAllowBA,
-                    IsBA = isAllowBA,
-                    BAStatus = isAllowBA ? "On" : "Off",
-                    ConfirmMessage = isAllowBA ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
-                    Tooltip = isAllowBA ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip
-                });
+                return CreateUpdatingBaResult(isAllowBA, false, ViewResources.NotAllowBA);
             }
 
             var request = new Request
@@ -271,19 +253,10 @@ namespace Fanex.Athena.Controllers.Customer
                 var isAllowUpdateBaResult = _licenseeDataAccess.IsAllowUpdateMemberBAStatus(request, licenseeSession.LicenseeId, out isAllowUpdateBa);
                 if (!isAllowUpdateBa)
                 {
-                    return Json(new
-                    {
-                        IsSuccessful = false,
-                        isAllowUpdateBaResult.Message,
-                        IsBA = isAllowBA,
-                        BAStatus = isAllowBA ? "On" : "Off",
-                        ConfirmMessage = isAllowBA ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
-                        Tooltip = isAllowBA ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip
-                    });
+                    return CreateUpdatingBaResult(isAllowBA, false, isAllowUpdateBaResult.Message);
                 }
             }
 
-            // update
             var updateResult = _customerListService.UpdateCustomerBAStatus(
                 licenseeSession.LicenseeId,
                 custId,
@@ -292,27 +265,10 @@ namespace Fanex.Athena.Controllers.Customer
                 request);
             if (updateResult.IsSuccessful)
             {
-                return Json(new
-                {
-                    IsSuccessful = true,
-                    updateResult.Message,
-                    IsBA = !isAllowBA,
-                    BAStatus = isAllowBA ? "On" : "Off",
-                    ConfirmMessage = isAllowBA ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
-                    Tooltip = isAllowBA ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip,
-                    OddsGroup = updateResult.ExtendedData
-                });
+                return CreateUpdatingBaResult(isAllowBA, true, updateResult.Message, updateResult.ExtendedData);
             }
 
-            return this.Json(new
-            {
-                IsSuccessful = false,
-                updateResult.Message,
-                IsBA = isAllowBA,
-                BAStatus = isAllowBA ? "On" : "Off",
-                ConfirmMessage = isAllowBA ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
-                Tooltip = isAllowBA ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip
-            });
+            return CreateUpdatingBaResult(isAllowBA, false, updateResult.Message);
         }
 
         #endregion BA API
@@ -547,6 +503,20 @@ namespace Fanex.Athena.Controllers.Customer
                 GroupName = ViewResources.None,
                 GroupColor = "#ffffff",
             };
+        }
+
+        private ActionResult CreateUpdatingBaResult(bool isAllowBA, bool isSuccessful, string message, string oddsGroup = null)
+        {
+            return Json(new
+            {
+                IsSuccessful = isSuccessful,
+                Message = message,
+                IsBA = isAllowBA,
+                BAStatus = isAllowBA ? "On" : "Off",
+                ConfirmMessage = isAllowBA ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
+                Tooltip = isAllowBA ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip,
+                OddsGroup = oddsGroup
+            });
         }
     }
 }
