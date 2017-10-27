@@ -25490,7 +25490,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             return "";
         }
 
-        return position.map(function (item) {
+        return positions.map(function (item) {
             return " toast-container-" + item;
         });
     }
@@ -25504,8 +25504,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
     function generateButtonGroup() {
         return '<div class="toast-button-group">' +
-                '<button type="button" class="icon icon-close toast-item-close"></button>'
-        '</div>';
+                '<button type="button" class="icon icon-close toast-item-close"></button>' +
+            '</div>';
     }
 
     var _me = {
