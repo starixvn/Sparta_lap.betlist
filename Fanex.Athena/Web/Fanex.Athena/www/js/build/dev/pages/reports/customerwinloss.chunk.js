@@ -24363,7 +24363,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;﻿
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
     var defaultOption = {
-        text: "Please add text message!",
+        text: "Data is being downloaded",
         position: "top right",
         itemStyle: "default",
         timeout: 6000
@@ -24804,7 +24804,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         "use strict";
 
         var EXCEL_FILENAME = "CustomerWinLoss.xlsx";
-        var toastOption = { text: "Data is being downloaded" };
 
         var _ajaxRequest = null;
         var _submitData = null;
@@ -24898,7 +24897,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                         Downloader.download(response, EXCEL_FILENAME);
                     },
                     beforeSend: function () {
-                        Toast.show(toastOption);
+                        Toast.show();
                     }
                 };
                 $.ajax(option);
