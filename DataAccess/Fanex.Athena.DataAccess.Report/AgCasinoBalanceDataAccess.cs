@@ -26,7 +26,7 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class AgCasinoBalanceDataAccess : BaseDataAccess, IAgCasinoBalanceDataAccess
     {
-        public SortableSummaryReportResultModel<AgCasinoBalance> GetSummaryBalance(AgCasinoBalanceMetaModel metaModel)
+        public SortableReportResultModel<AgCasinoBalance> GetSummaryBalance(AgCasinoBalanceMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_AGCasinoBalance";
             try
@@ -47,7 +47,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public SortableSummaryReportResultModel<AgCasinoBalance> GetCustomerBalanceDetail(AgCasinoBalanceMetaModel metaModel)
+        public SortableReportResultModel<AgCasinoBalance> GetCustomerBalanceDetail(AgCasinoBalanceMetaModel metaModel)
         {
             const string UspName = "LRF_Rpt_AGCasinoBalance_Mem";
             try
@@ -60,7 +60,7 @@ namespace Fanex.Athena.DataAccess.Report
                     db.AddOutParameter("TotalRows", DbType.Int32, 10);
 
                     UpdateUspParams(db, metaModel, true);
-                    SortableSummaryReportResultModel<AgCasinoBalance> result;
+                    SortableReportResultModel<AgCasinoBalance> result;
                     using (var reader = db.ExecuteReader())
                     {
                         result = GetData(reader, metaModel);
@@ -77,7 +77,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public SortableSummaryReportResultModel<AgCasinoBalance> GetAgentBalanceDetail(AgCasinoBalanceMetaModel metaModel)
+        public SortableReportResultModel<AgCasinoBalance> GetAgentBalanceDetail(AgCasinoBalanceMetaModel metaModel)
         {
             const string UspName = "LRF_Rpt_AGCasinoBalance_Ag";
             try
@@ -99,7 +99,7 @@ namespace Fanex.Athena.DataAccess.Report
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private static SortableSummaryReportResultModel<AgCasinoBalance> GetData(
+        private static SortableReportResultModel<AgCasinoBalance> GetData(
             IDataReader reader,
             AgCasinoBalanceMetaModel metaModel)
         {
@@ -156,7 +156,7 @@ namespace Fanex.Athena.DataAccess.Report
                 }
             }
 
-            return new SortableSummaryReportResultModel<AgCasinoBalance>
+            return new SortableReportResultModel<AgCasinoBalance>
             {
                 DataList = dataList,
                 SummaryTotal = summaryTotal

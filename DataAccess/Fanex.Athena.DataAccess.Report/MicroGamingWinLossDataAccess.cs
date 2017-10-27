@@ -22,7 +22,7 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class MicroGamingWinLossDataAccess : BaseDataAccess, IMicroGamingWinLossDataAccess
     {
-        public SortableSummaryReportResultModel<MicroGamingWinLoss> GetSummaryWinloss(MicroGamingWinLossMetaModel metaModel)
+        public SortableReportResultModel<MicroGamingWinLoss> GetSummaryWinloss(MicroGamingWinLossMetaModel metaModel)
         {
             var uspName = "LRF_Rpt_MicroGamingWinloss";
             try
@@ -46,7 +46,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private static SortableSummaryReportResultModel<MicroGamingWinLoss> GetData(
+        private static SortableReportResultModel<MicroGamingWinLoss> GetData(
             IDataReader reader,
             MicroGamingWinLossMetaModel metaModel)
         {
@@ -92,7 +92,7 @@ namespace Fanex.Athena.DataAccess.Report
                 ReadSummaryTotal(reader, summaryTotal);
             }
 
-            return new SortableSummaryReportResultModel<MicroGamingWinLoss>
+            return new SortableReportResultModel<MicroGamingWinLoss>
             {
                 DataList = result,
                 SummaryTotal = summaryTotal

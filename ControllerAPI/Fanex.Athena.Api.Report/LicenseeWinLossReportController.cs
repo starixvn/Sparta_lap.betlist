@@ -211,7 +211,7 @@ namespace Fanex.Athena.Api.Report
 
         private HttpResponseMessage ExportExcel(
             LicenseeWinLossMetaModel metaModel,
-            SortableSummaryReportResultModel<LicenseeWinLoss> data)
+            SortableReportResultModel<LicenseeWinLoss> data)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -239,7 +239,7 @@ namespace Fanex.Athena.Api.Report
                 DataList = data.DataList,
                 MetaModel = metaModel,
                 SummaryTotal = data.SummaryTotal,
-                TotalData = data.TotalData,
+                TotalData = data.TotalDataList,
                 SBVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.SB),
                 BTVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.BT),
                 COVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.CO),
@@ -262,7 +262,7 @@ namespace Fanex.Athena.Api.Report
             return new LicenseeWinLossExcel(templatePath, excelModel);
         }
 
-        private SortableSummaryReportResultModel<LicenseeWinLoss> GetData(LicenseeWinLossMetaModel metaModel)
+        private SortableReportResultModel<LicenseeWinLoss> GetData(LicenseeWinLossMetaModel metaModel)
         {
             if (metaModel.IsValid)
             {
@@ -272,9 +272,9 @@ namespace Fanex.Athena.Api.Report
                                : _licenseeWinLossDataAccess.GetAgentWinlossDetail(metaModel);
             }
 
-            return new SortableSummaryReportResultModel<LicenseeWinLoss>
+            return new SortableReportResultModel<LicenseeWinLoss>
             {
-                TotalData = new List<LicenseeWinLoss>(),
+                TotalDataList = new List<LicenseeWinLoss>(),
                 SummaryTotal = new Dictionary<string, LicenseeWinLoss>(),
                 DataList = new SortableList<LicenseeWinLoss>()
             };
@@ -314,7 +314,7 @@ namespace Fanex.Athena.Api.Report
                     return new
                     {
                         Data = result.DataList.Select(MapToGridView).ToList(),
-                        Total = result.TotalData.Select(MapToGridView).ToList(),
+                        Total = result.TotalDataList.Select(MapToGridView).ToList(),
                         SummaryTotal = summaryTotalView,
                         ProductOptions = metaModel.ProductOptions.ToJson()
                     };

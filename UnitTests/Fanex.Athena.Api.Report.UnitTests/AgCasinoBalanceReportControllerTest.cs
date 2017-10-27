@@ -69,7 +69,7 @@
                 CurrencyId = -1
             };
 
-            var resultModel = new SortableSummaryReportResultModel<AgCasinoBalance>
+            var resultModel = new SortableReportResultModel<AgCasinoBalance>
             {
                 DataList = new SortableList<AgCasinoBalance>(),
                 SummaryTotal = new Dictionary<string, AgCasinoBalance>()
@@ -100,7 +100,7 @@
             };
 
             var today = DateTime.Today;
-            var resultModel = new SortableSummaryReportResultModel<AgCasinoBalance>
+            var resultModel = new SortableReportResultModel<AgCasinoBalance>
             {
                 DataList = new SortableList<AgCasinoBalance>
                 {
@@ -142,9 +142,9 @@
                 IsExcludedTestData = IsExcludedTestData
             };
 
-            var resultModel = new SortableSummaryReportResultModel<AgCasinoBalance>
+            var resultModel = new SortableReportResultModel<AgCasinoBalance>
             {
-                TotalData = new List<AgCasinoBalance> { new AgCasinoBalance() },
+                TotalDataList = new List<AgCasinoBalance> { new AgCasinoBalance() },
                 DataList = new SortableList<AgCasinoBalance> { new AgCasinoBalance() },
                 SummaryTotal = new Dictionary<string, AgCasinoBalance>()
             };
@@ -172,10 +172,10 @@
                 IsExcludedTestData = IsExcludedTestData
             };
 
-            var resultModel = new SortableSummaryReportResultModel<AgCasinoBalance>
+            var resultModel = new SortableReportResultModel<AgCasinoBalance>
             {
                 TotalRows = 100,
-                TotalData = new SortableList<AgCasinoBalance> { new AgCasinoBalance() },
+                TotalDataList = new SortableList<AgCasinoBalance> { new AgCasinoBalance() },
                 DataList = new SortableList<AgCasinoBalance> { new AgCasinoBalance() },
                 SummaryTotal = new Dictionary<string, AgCasinoBalance>()
             };
@@ -241,9 +241,9 @@
 
         private static void MockDataAccess(IAgCasinoBalanceDataAccess dataAccess, AgCasinoBalanceMetaModel metaModel)
         {
-            var resultModel = new SortableSummaryReportResultModel<AgCasinoBalance>
+            var resultModel = new SortableReportResultModel<AgCasinoBalance>
             {
-                TotalData = new List<AgCasinoBalance> { new AgCasinoBalance() },
+                TotalDataList = new List<AgCasinoBalance> { new AgCasinoBalance() },
                 DataList = new SortableList<AgCasinoBalance> { new AgCasinoBalance() },
                 SummaryTotal = new Dictionary<string, AgCasinoBalance>()
             };
@@ -257,7 +257,7 @@
             return new JavaScriptSerializer().Serialize(value);
         }
 
-        private static string GetSerializationData(SortableSummaryReportResultModel<AgCasinoBalance> data = null)
+        private static string GetSerializationData(SortableReportResultModel<AgCasinoBalance> data = null)
         {
             if (data == null)
             {
@@ -276,7 +276,7 @@
                 {
                     TotalRows = data.TotalRows,
                     Data = data.DataList,
-                    Total = data.TotalData,
+                    Total = data.TotalDataList,
                     SummaryTotal = data.SummaryTotal
                 });
         }

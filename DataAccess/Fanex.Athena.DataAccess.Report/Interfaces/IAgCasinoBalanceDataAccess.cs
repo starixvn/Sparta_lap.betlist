@@ -8,10 +8,10 @@
 
     public interface IAgCasinoBalanceDataAccess
     {
-        SortableSummaryReportResultModel<AgCasinoBalance> GetAgentBalanceDetail(AgCasinoBalanceMetaModel metaModel);
+        SortableReportResultModel<AgCasinoBalance> GetAgentBalanceDetail(AgCasinoBalanceMetaModel metaModel);
 
-        SortableSummaryReportResultModel<AgCasinoBalance> GetCustomerBalanceDetail(AgCasinoBalanceMetaModel metaModel);
+        SortableReportResultModel<AgCasinoBalance> GetCustomerBalanceDetail(AgCasinoBalanceMetaModel metaModel);
 
-        SortableSummaryReportResultModel<AgCasinoBalance> GetSummaryBalance(AgCasinoBalanceMetaModel metaModel);
+        SortableReportResultModel<AgCasinoBalance> GetSummaryBalance(AgCasinoBalanceMetaModel metaModel);
     }
 }

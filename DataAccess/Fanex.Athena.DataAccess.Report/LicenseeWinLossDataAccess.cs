@@ -38,7 +38,7 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public SortableSummaryReportResultModel<LicenseeWinLoss> GetSummaryWinloss(
+        public SortableReportResultModel<LicenseeWinLoss> GetSummaryWinloss(
             LicenseeWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LicWinloss";
@@ -61,8 +61,7 @@
             }
         }
 
-        public SortableSummaryReportResultModel<LicenseeWinLoss> GetCustomerWinlossDetail(
-            LicenseeWinLossMetaModel metaModel)
+        public SortableReportResultModel<LicenseeWinLoss> GetCustomerWinlossDetail(LicenseeWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LicWinlossDetail";
             try
@@ -83,8 +82,7 @@
             }
         }
 
-        public SortableSummaryReportResultModel<LicenseeWinLoss> GetAgentWinlossDetail(
-            LicenseeWinLossMetaModel metaModel)
+        public SortableReportResultModel<LicenseeWinLoss> GetAgentWinlossDetail(LicenseeWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LicWinlossDetail_Ag";
             try
@@ -116,7 +114,7 @@
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private static SortableSummaryReportResultModel<LicenseeWinLoss> GetData(
+        private static SortableReportResultModel<LicenseeWinLoss> GetData(
             IDataReader reader,
             LicenseeWinLossMetaModel metaModel,
             bool drilldown)
@@ -182,10 +180,10 @@
                 ReadSummaryTotal(reader, metaModel.ProductOptions, summaryTotal);
             }
 
-            return new SortableSummaryReportResultModel<LicenseeWinLoss>
+            return new SortableReportResultModel<LicenseeWinLoss>
             {
                 DataList = dataList,
-                TotalData = CalculateTotal(dataList),
+                TotalDataList = CalculateTotal(dataList),
                 SummaryTotal = summaryTotal
             };
         }

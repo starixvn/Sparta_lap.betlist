@@ -198,7 +198,7 @@
             return model;
         }
 
-        private SortableSummaryReportResultModel<LicenseeWinLoss> SetUpForGettingData(LicenseeWinLossMetaModel metaModel)
+        private SortableReportResultModel<LicenseeWinLoss> SetUpForGettingData(LicenseeWinLossMetaModel metaModel)
         {
             var dataList = new SortableList<LicenseeWinLoss>();
 
@@ -217,10 +217,10 @@
                 });
             }
 
-            var result = new SortableSummaryReportResultModel<LicenseeWinLoss>
+            var result = new SortableReportResultModel<LicenseeWinLoss>
             {
                 DataList = dataList,
-                TotalData = new List<LicenseeWinLoss>(),
+                TotalDataList = new List<LicenseeWinLoss>(),
                 SummaryTotal = new Dictionary<string, LicenseeWinLoss>()
             };
 

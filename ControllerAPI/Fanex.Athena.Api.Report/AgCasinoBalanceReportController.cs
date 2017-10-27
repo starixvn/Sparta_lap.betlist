@@ -147,7 +147,7 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(excel.Workbook, FileName);
         }
 
-        private SortableSummaryReportResultModel<AgCasinoBalance> GetData(AgCasinoBalanceMetaModel metaModel)
+        private SortableReportResultModel<AgCasinoBalance> GetData(AgCasinoBalanceMetaModel metaModel)
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(
                 metaModel.DrillDownCurrencyId == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId,

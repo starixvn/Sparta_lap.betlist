@@ -126,7 +126,7 @@
             return model;
         }
 
-        private SortableSummaryReportResultModel<MicroGamingWinLoss> SetUpForGettingData(MicroGamingWinLossMetaModel metaModel)
+        private SortableReportResultModel<MicroGamingWinLoss> SetUpForGettingData(MicroGamingWinLossMetaModel metaModel)
         {
             var dataList = new SortableList<MicroGamingWinLoss>();
 
@@ -137,10 +137,10 @@
                 dataList.Add(new MicroGamingWinLoss());
             }
 
-            var result = new SortableSummaryReportResultModel<MicroGamingWinLoss>
+            var result = new SortableReportResultModel<MicroGamingWinLoss>
             {
                 DataList = dataList,
-                TotalData = new List<MicroGamingWinLoss>(),
+                TotalDataList = new List<MicroGamingWinLoss>(),
                 SummaryTotal = new Dictionary<string, MicroGamingWinLoss>()
             };
 

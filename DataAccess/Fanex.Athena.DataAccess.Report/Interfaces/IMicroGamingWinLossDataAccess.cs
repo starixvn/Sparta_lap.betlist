@@ -13,6 +13,6 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
 
     public interface IMicroGamingWinLossDataAccess
     {
-        SortableSummaryReportResultModel<MicroGamingWinLoss> GetSummaryWinloss(MicroGamingWinLossMetaModel metaModel);
+        SortableReportResultModel<MicroGamingWinLoss> GetSummaryWinloss(MicroGamingWinLossMetaModel metaModel);
     }
 }
