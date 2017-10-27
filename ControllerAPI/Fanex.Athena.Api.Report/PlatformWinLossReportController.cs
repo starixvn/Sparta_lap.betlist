@@ -73,6 +73,22 @@ namespace Fanex.Athena.Api.Report
             return new PlatformWinLossMemberExcel(templatePath, excelModel, showingOption);
         }
 
+        private static ShowingOption CreateShowingOption(IEnumerable<ProductOption> productOptions, bool isAllowedCustomerComm)
+        {
+            return new ShowingOption
+            {
+                BAVisible = productOptions.Any(p => p.Code == Product.BA && p.Status),
+                RBVisible = productOptions.Any(p => p.Code == Product.RB && p.Status),
+                NGVisible = productOptions.Any(p => p.Code == Product.NG && p.Status),
+                LCVisible = productOptions.Any(p => p.Code == Product.LC && p.Status),
+                SBVisible = productOptions.Any(p => p.Code == Product.SB && p.Status),
+                VSVisible = productOptions.Any(p => p.Code == Product.VS && p.Status),
+                CSVisible = productOptions.Any(p => p.Code == Product.CS && p.Status),
+                KNVisible = productOptions.Any(p => p.Code == Product.KN && p.Status),
+                CustomerCommVisible = isAllowedCustomerComm
+            };
+        }
+
         private HttpResponseMessage ExportExcelSummary(
             PlatformWinLossMetaModel metaModel,
             IEnumerable<PlatformWinLossSummary> dataList,
@@ -116,22 +132,6 @@ namespace Fanex.Athena.Api.Report
             platformWinLossExcel.Export();
 
             return ExcelStream(platformWinLossExcel.Workbook, FileName);
-        }
-
-        private static ShowingOption CreateShowingOption(IEnumerable<ProductOption> productOptions, bool isAllowedCustomerComm)
-        {
-            return new ShowingOption
-            {
-                BAVisible = productOptions.Any(p => p.Code == Product.BA && p.Status),
-                RBVisible = productOptions.Any(p => p.Code == Product.RB && p.Status),
-                NGVisible = productOptions.Any(p => p.Code == Product.NG && p.Status),
-                LCVisible = productOptions.Any(p => p.Code == Product.LC && p.Status),
-                SBVisible = productOptions.Any(p => p.Code == Product.SB && p.Status),
-                VSVisible = productOptions.Any(p => p.Code == Product.VS && p.Status),
-                CSVisible = productOptions.Any(p => p.Code == Product.CS && p.Status),
-                KNVisible = productOptions.Any(p => p.Code == Product.KN && p.Status),
-                CustomerCommVisible = isAllowedCustomerComm
-            };
         }
 
         private dynamic ProcessRequest(PlatformWinLossMetaModel metaModel)
