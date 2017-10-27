@@ -15,17 +15,17 @@
 
 @helper CommDropDownFirst(string name, decimal selectedValue = 0)
 {
-    @GroupComSettingDropDownList(name, GetCommValue(15, 1))
+    @GroupComSettingDropDownList(name, GetCommValue(15, 1), selectedValue)
 }
 
 @helper CommDropDownSecond(string name, decimal selectedValue = 0)
 {
-    @GroupComSettingDropDownList(name, GetCommValue(9, 1))
+    @GroupComSettingDropDownList(name, GetCommValue(9, 1), selectedValue)
 }
 
 @helper CommDropDownThird(string name, decimal selectedValue = 0)
 {
-    @GroupComSettingDropDownList(name, GetCommValue(1, 5))
+    @GroupComSettingDropDownList(name, GetCommValue(1, 5), selectedValue)
 }
 
 @helper GroupComSettingDropDownList(string name, IDictionary<int, int> items, decimal selectedValue = 0)
