@@ -150,16 +150,7 @@ namespace Fanex.Athena.Controllers
                 var user = _userService.ValidateUserForLrfSystem(requestUser, model.LogInToken, out resultInfo);
                 if (resultInfo.IsSuccessful)
                 {
-                    var onuserId = _userService.LoginOnUser(user, Session.SessionID, user.ServerId, Request.UserHostAddress);
-                    SessionService.CreateNewSession(
-                        user.UserID,
-                        onuserId,
-                        user.Username,
-                        user.IsInternal,
-                        user.Licensee.Id);
-
-                    _formAuthenticationService.SetAuthCookie(user.Username, false);
-
+                    CreateSession(user);
                     if (user.IsInRole(UserRole.Admin.ToString()))
                     {
                         return RedirectToAction("Index", "LicenseeList");
@@ -348,6 +339,19 @@ namespace Fanex.Athena.Controllers
             }
 
             return randomNumber.ToString();
+        }
+
+        private void CreateSession(User user)
+        {
+            var onuserId = _userService.LoginOnUser(user, Session.SessionID, user.ServerId, Request.UserHostAddress);
+            SessionService.CreateNewSession(
+                user.UserID,
+                onuserId,
+                user.Username,
+                user.IsInternal,
+                user.Licensee.Id);
+
+            _formAuthenticationService.SetAuthCookie(user.Username, false);
         }
 
         private void DoSignOut()

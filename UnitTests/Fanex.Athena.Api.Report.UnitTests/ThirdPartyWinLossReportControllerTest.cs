@@ -10,12 +10,12 @@
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Users;
+    using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Model.Report.ViewModel;
     using NPOI.SS.UserModel;
     using NSubstitute;
-    using NSubstitute.Core;
     using NUnit.Framework;
     using Service.Report.Interfaces;
 
@@ -107,11 +107,8 @@
             // Arrange
             var metaModel = CreateValidMetaModel();
 
-            IDictionary<string, ThirdPartyWinLoss> summaryTotal;
-            _thirdPartyWinLossService.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>(), out summaryTotal).Returns(x =>
-            {
-                return null;
-            });
+            _thirdPartyWinLossService.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>()).Returns(
+                new SortableReportResultModel<ThirdPartyWinLoss>());
 
             // Action
             var result = _controller.Index(metaModel);
@@ -131,8 +128,7 @@
             // Arrange
             var model = CreateValidMetaModel();
 
-            IDictionary<string, ThirdPartyWinLoss> summaryTotal;
-            SetUpForGettingData(out summaryTotal);
+            SetUpForGettingData();
 
             // Action
             _controller.Index(model);
@@ -142,7 +138,7 @@
             {
                 Assert.That(model.DrillDownLevel, Is.Zero);
                 Assert.That(model.DrillDownCustomerId, Is.Zero);
-                _thirdPartyWinLossService.ReceivedWithAnyArgs().GetSummaryWinloss(model, out summaryTotal);
+                _thirdPartyWinLossService.ReceivedWithAnyArgs().GetSummaryWinloss(model);
             });
         }
 
@@ -152,9 +148,8 @@
             // Arrange
             var model = CreateValidMetaModel();
 
-            IDictionary<string, ThirdPartyWinLoss> summaryTotal;
-            var expectedData = SetUpForGettingData(out summaryTotal);
-            var expectedTotal = expectedData.AsEnumerable();
+            var expectedResult = SetUpForGettingData();
+            var expectedTotal = expectedResult.DataList.AsEnumerable();
 
             // Action
             var result = _controller.Index(model);
@@ -162,9 +157,9 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Data, Is.EqualTo(expectedData));
+                Assert.That(result.Data, Is.EqualTo(expectedResult.DataList));
                 Assert.That(result.Total, Is.EqualTo(expectedTotal));
-                Assert.That(result.SummaryTotal, Is.EqualTo(summaryTotal));
+                Assert.That(result.SummaryTotal, Is.EqualTo(expectedResult.SummaryTotal));
             });
         }
 
@@ -179,8 +174,7 @@
             var currencyId = 2;
             var custId = 3;
 
-            IDictionary<string, ThirdPartyWinLoss> summaryTotal;
-            SetUpForGettingData(out summaryTotal, level);
+            SetUpForGettingData(level);
 
             // Action
             _controller.Index(model, fdate, tdate, level, currencyId, custId);
@@ -193,7 +187,7 @@
                 Assert.That(model.DrillDownFromDate, Is.EqualTo(fdate));
                 Assert.That(model.DrillDownToDate, Is.EqualTo(tdate));
                 SessionService.Received().GenerateAgentListXml(currencyId, Arg.Any<bool>());
-                _thirdPartyWinLossService.ReceivedWithAnyArgs().GetAgentWinlossDetail(model, out summaryTotal);
+                _thirdPartyWinLossService.ReceivedWithAnyArgs().GetAgentWinlossDetail(model);
             });
         }
 
@@ -208,8 +202,7 @@
             var currencyId = 2;
             var custId = 3;
 
-            IDictionary<string, ThirdPartyWinLoss> summaryTotal;
-            SetUpForGettingData(out summaryTotal, level);
+            SetUpForGettingData(level);
 
             // Action
             _controller.Index(model, fdate, tdate, level, currencyId, custId);
@@ -222,7 +215,7 @@
                 Assert.That(model.DrillDownFromDate, Is.EqualTo(fdate));
                 Assert.That(model.DrillDownToDate, Is.EqualTo(tdate));
                 SessionService.Received().GenerateAgentListXml(currencyId, Arg.Any<bool>());
-                _thirdPartyWinLossService.ReceivedWithAnyArgs().GetCustomerWinlossDetail(model, out summaryTotal);
+                _thirdPartyWinLossService.ReceivedWithAnyArgs().GetCustomerWinlossDetail(model);
             });
         }
 
@@ -237,8 +230,7 @@
 
             var expectedFileName = $"{model.ProductCode}WinLoss_{model.FromDate:ddMMMyyyy}_All.xls";
 
-            IDictionary<string, ThirdPartyWinLoss> summaryTotal;
-            SetUpForGettingData(out summaryTotal);
+            SetUpForGettingData();
             SetUpForExportExcel();
 
             // Action
@@ -268,8 +260,7 @@
 
             var expectedFileName = $"{model.ProductCode}WinLoss_{fdate:ddMMMyyyy}_{nameof(ThirdPartyWinLossMetaModel.DrillDownCurrencyId)}.xls";
 
-            IDictionary<string, ThirdPartyWinLoss> summaryTotal;
-            SetUpForGettingData(out summaryTotal, level);
+            SetUpForGettingData(level);
             SetUpForExportExcel();
 
             // Action
@@ -314,34 +305,33 @@
             return model;
         }
 
-        private SortableList<ThirdPartyWinLoss> SetUpForGettingData(out IDictionary<string, ThirdPartyWinLoss> summaryTotal, int level = 0)
+        private SortableReportResultModel<ThirdPartyWinLoss> SetUpForGettingData(int level = 0)
         {
             var expectedData = new SortableList<ThirdPartyWinLoss> { new ThirdPartyWinLoss { Index = 1 } };
             var expectedSummaryData = new Dictionary<string, ThirdPartyWinLoss> { { nameof(ThirdPartyWinLoss), new ThirdPartyWinLoss() } };
 
-            Func<CallInfo, SortableList<ThirdPartyWinLoss>> returnFunc = x =>
+            var expectedResult = new SortableReportResultModel<ThirdPartyWinLoss>
             {
-                x[1] = expectedSummaryData;
-                return expectedData;
+                DataList = expectedData,
+                SummaryTotal = expectedSummaryData
             };
 
             if (level == 0)
             {
-                _thirdPartyWinLossService.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>(), out summaryTotal).Returns(returnFunc);
+                _thirdPartyWinLossService.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>()).Returns(expectedResult);
             }
             else if (level == 1)
             {
-                _thirdPartyWinLossService.GetAgentWinlossDetail(Arg.Any<ThirdPartyWinLossMetaModel>(), out summaryTotal).Returns(returnFunc);
+                _thirdPartyWinLossService.GetAgentWinlossDetail(Arg.Any<ThirdPartyWinLossMetaModel>()).Returns(expectedResult);
             }
             else
             {
-                _thirdPartyWinLossService.GetCustomerWinlossDetail(Arg.Any<ThirdPartyWinLossMetaModel>(), out summaryTotal).Returns(returnFunc);
+                _thirdPartyWinLossService.GetCustomerWinlossDetail(Arg.Any<ThirdPartyWinLossMetaModel>()).Returns(expectedResult);
             }
 
             _thirdPartyWinLossService.TotalCalc(Arg.Any<SortableList<ThirdPartyWinLoss>>()).Returns(expectedData.AsEnumerable());
 
-            summaryTotal = expectedSummaryData;
-            return expectedData;
+            return expectedResult;
         }
 
         private void SetUpForExportExcel()

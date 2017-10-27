@@ -19,10 +19,11 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
+    using Model.Core.ResultModel;
 
     public class ThirdPartyWinLossDataAccess : BaseDataAccess, IThirdPartyWinLossDataAccess
     {
-        public SortableList<ThirdPartyWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, out IDictionary<string, ThirdPartyWinLoss> summaryTotal)
+        public SortableReportResultModel<ThirdPartyWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel)
         {
             var uspName = "Lrf_Rpt_ThirdPartyWinloss";
             try
@@ -34,7 +35,7 @@ namespace Fanex.Athena.DataAccess.Report
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel, out summaryTotal);
+                        return GetData(reader, metaModel);
                     }
                 }
             }
@@ -44,9 +45,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public SortableList<ThirdPartyWinLoss> GetCustomerWinlossDetail(
-            ThirdPartyWinLossMetaModel metaModel,
-            out IDictionary<string, ThirdPartyWinLoss> summaryTotal)
+        public SortableReportResultModel<ThirdPartyWinLoss> GetCustomerWinlossDetail(ThirdPartyWinLossMetaModel metaModel)
         {
             var uspName = "LRF_Rpt_ThirdPartyWinloss_Mem";
             try
@@ -57,7 +56,7 @@ namespace Fanex.Athena.DataAccess.Report
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel, out summaryTotal);
+                        return GetData(reader, metaModel);
                     }
                 }
             }
@@ -67,9 +66,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public SortableList<ThirdPartyWinLoss> GetAgentWinlossDetail(
-            ThirdPartyWinLossMetaModel metaModel,
-            out IDictionary<string, ThirdPartyWinLoss> summaryTotal)
+        public SortableReportResultModel<ThirdPartyWinLoss> GetAgentWinlossDetail(ThirdPartyWinLossMetaModel metaModel)
         {
             var uspName = "LRF_Rpt_ThirdPartyWinloss_Ag";
             try
@@ -79,7 +76,7 @@ namespace Fanex.Athena.DataAccess.Report
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel, out summaryTotal);
+                        return GetData(reader, metaModel);
                     }
                 }
             }
@@ -89,14 +86,11 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private static SortableList<ThirdPartyWinLoss> GetData(
-            IDataReader reader,
-            ThirdPartyWinLossMetaModel metaModel,
-            out IDictionary<string, ThirdPartyWinLoss> summaryTotal)
+        private static SortableReportResultModel<ThirdPartyWinLoss> GetData(IDataReader reader, ThirdPartyWinLossMetaModel metaModel)
         {
             var result = new SortableList<ThirdPartyWinLoss>();
 
-            summaryTotal = new Dictionary<string, ThirdPartyWinLoss>();
+            var summaryTotal = new Dictionary<string, ThirdPartyWinLoss>();
             foreach (var currency in SystemConstants.BaseCurrencyList)
             {
                 summaryTotal.Add(currency, new ThirdPartyWinLoss());
@@ -133,7 +127,11 @@ namespace Fanex.Athena.DataAccess.Report
                 ReadSummaryTotal(reader, summaryTotal);
             }
 
-            return result;
+            return new SortableReportResultModel<ThirdPartyWinLoss>
+            {
+                DataList = result,
+                SummaryTotal = summaryTotal
+            };
         }
 
         private static void ReadSummaryTotal(IDataReader reader, IDictionary<string, ThirdPartyWinLoss> summaryTotal)
