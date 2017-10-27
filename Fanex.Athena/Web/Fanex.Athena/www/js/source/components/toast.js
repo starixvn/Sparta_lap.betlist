@@ -24,7 +24,7 @@ define(["jquery"], function ($) {
             return "";
         }
 
-        return position.map(function (item) {
+        return positions.map(function (item) {
             return " toast-container-" + item;
         });
     }
@@ -38,8 +38,8 @@ define(["jquery"], function ($) {
 
     function generateButtonGroup() {
         return '<div class="toast-button-group">' +
-                '<button type="button" class="icon icon-close toast-item-close"></button>'
-        '</div>';
+                '<button type="button" class="icon icon-close toast-item-close"></button>' +
+            '</div>';
     }
 
     var _me = {

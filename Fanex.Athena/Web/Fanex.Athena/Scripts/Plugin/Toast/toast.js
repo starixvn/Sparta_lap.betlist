@@ -24,7 +24,7 @@ var Toast = (function ($) {
             return "";
         }
 
-        return position.map(function (item) {
+        return positions.map(function (item) {
             return " toast-container-" + item;
         });
     }
@@ -38,7 +38,7 @@ var Toast = (function ($) {
 
     function generateButtonGroup() {
         return '<div class="toast-button-group">' +
-                '<button type="button" class="icon icon-close toast-item-close"></button>'
+                '<button type="button" class="icon icon-close toast-item-close"></button>' +
         '</div>';
     }
 
