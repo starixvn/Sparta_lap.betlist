@@ -6,38 +6,63 @@
 
 namespace Fanex.Athena.Api.BetList
 {
-    #region Using
-
+    using System.Collections.Generic;
     using System.Web.Http;
+    using Base;
     using Base.Attributes;
+    using DataAccess.BetList;
+    using DataAccess.BetList.Interfaces;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Model.BetList.DTO;
     using Model.Core.DataDomain;
-
-    #endregion Using
+    using Service.Core.Users;
+    using Service.Core.Users.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
-    public class OutstandingDailyStatementBetListController : ApiBetListBaseController
+    public class OutstandingDailyStatementBetListController : BaseApiController
     {
+        private readonly IAuthorizationService _authorizationService;
+
+        private readonly IDailyStatementBetListDataAccess _dailyStatementBetListDataAccess;
+
+        public OutstandingDailyStatementBetListController()
+        {
+            _authorizationService = new AuthorizationService();
+            _dailyStatementBetListDataAccess = new DailyStatementBetListDataAccess();
+        }
+
+        public OutstandingDailyStatementBetListController(
+            IAuthorizationService authorizationService,
+            IDailyStatementBetListDataAccess dailyStatementBetListDataAccess)
+        {
+            _authorizationService = authorizationService;
+            _dailyStatementBetListDataAccess = dailyStatementBetListDataAccess;
+        }
+
         [HttpPost]
         public dynamic Index(BetListMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var balanceUp = GetBalanceUp();
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.BalanceUpDay = balanceUp.BalanceUpDay;
-            metaModel.MoveBetsDay = balanceUp.MoveBetsDay;
             metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);
 
             return new
             {
-                Main = BetListService.GetDailyStatementData(metaModel, licenseeSession.IsAllowedCustomerComm),
+                Main = GetData(metaModel, licenseeSession.IsAllowedCustomerComm),
                 Total = new
                 {
                     SumWinLoss = 0,
                     SumLicenseeWl = 0
                 }
             };
+        }
+
+        private IEnumerable<DailyStatement> GetData(BetListMetaModel metaModel, bool isAllowCustComm)
+        {
+            return _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId)
+                        ? _dailyStatementBetListDataAccess.GetDailyStatementData(metaModel, isAllowCustComm)
+                         : new List<DailyStatement>();
         }
     }
 }

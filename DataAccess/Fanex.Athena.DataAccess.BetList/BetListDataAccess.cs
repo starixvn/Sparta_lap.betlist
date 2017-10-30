@@ -11,7 +11,6 @@ namespace Fanex.Athena.DataAccess.BetList
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using System.Globalization;
     using System.Linq;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.BetList.Interfaces;
@@ -28,14 +27,6 @@ namespace Fanex.Athena.DataAccess.BetList
 
     public class BetListDataAccess : BaseBetListDataAccess, IBetListDataAccess
     {
-        private static readonly string[] TransTypeHasBetList = { "get", "com", "post", "bet", "gp" };
-
-        private static readonly Dictionary<string, int> TransTypeIdMap = new Dictionary<string, int>
-            {
-                { "betting statement", 1 }, { "void/cancelled bet", 2 },
-                { "outstanding bet", 3 }, { "grand prize", 4 }
-            };
-
         public TicketResult GetMixParlayDetailTicket(long transId)
         {
             const string UspName = "Lrf_BetList_SelParlayDetail";
@@ -212,73 +203,6 @@ namespace Fanex.Athena.DataAccess.BetList
             catch (System.Exception sqlException)
             {
                 throw new DataAccessException(sqlException, uspKey, metaModel);
-            }
-        }
-
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        public IList<DailyStatement> GetDailyStatementData(BetListMetaModel metaModel, bool allowCustComm)
-        {
-            const string FormatRemark = "<span class='bl-underdog'>{0} <br/>- {1}</span>";
-            const string UspKey = "Lrf_Statement_Mem";
-            var index = 1;
-            var result = new List<DailyStatement>();
-            var commissionColumn = "commission" + metaModel.BaseCurrency;
-            var totalAmtColumn = "totalamt" + metaModel.BaseCurrency;
-            var turnoverColumn = "turnover" + metaModel.BaseCurrency;
-
-            try
-            {
-                using (var db = this.GetObjectDb(UspKey))
-                {
-                    db.AddInParameter("CustID", DbType.Int32, metaModel.CustId);
-                    BetListParameterBuilder.CreateBetListDateRangeParameters(db, metaModel);
-                    BetListParameterBuilder.CreateBetlistBUParameters(db, metaModel);
-                    BetListParameterBuilder.CreateBetListPagingParameters(db, metaModel);
-                    decimal balance = 0;
-                    var currentCulture = CultureInfo.CurrentCulture;
-                    using (var reader = db.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            var winlostDate = reader.ToDateTime("winlostdate");
-                            var transType = reader.ToString("transtype").ToLower(currentCulture);
-                            var transDesc = reader.ToString("transdesc");
-                            var transTypeId = TransTypeIdMap.ContainsKey(transDesc.ToLower(currentCulture)) ? TransTypeIdMap[transDesc.ToLower(currentCulture)] : 0;
-                            var credit = transDesc.ToLower(currentCulture) == "outstanding bet" || transType == "bal" ? 0 : reader.ToDecimal(totalAmtColumn);
-                            var comm = reader.ToDecimal(commissionColumn);
-
-                            // Add commission.
-                            if (!transType.Equals("gp"))
-                            {
-                                balance = transType == "bal" ? reader.ToDecimal(totalAmtColumn) : balance + credit + (allowCustComm ? comm : 0);
-                            }
-
-                            result.Add(new DailyStatement
-                            {
-                                TransType = transTypeId.ToString(),
-                                CustId = metaModel.CustId,
-                                ExternalId = metaModel.ExternalId ?? "0",
-                                SystemId = metaModel.SystemId ?? "0",
-                                FullStatementDate = $"{winlostDate:dddd} <br/> {winlostDate}",
-                                TransTypeHasBetList = TransTypeHasBetList.Contains(transType),
-                                Index = index++,
-                                Date = winlostDate.ToShortDateString(),
-                                Remark = string.Format(FormatRemark, transType.ToUpper(currentCulture), transDesc),
-                                Turnover = NumberReport(reader.ToDecimal(turnoverColumn)),
-                                CreditDebit = NumberReport(credit),
-                                Commission = NumberReport(comm),
-                                Balance = NumberReport(balance)
-                            });
-                        }
-                    }
-                }
-
-                return result;
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspKey);
             }
         }
 
