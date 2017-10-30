@@ -30,9 +30,9 @@ module.exports = function (config) {
             'Scripts/Plugin/DateRangePicker/date.min.js',
             'jasmine-specs/setup.js',
 
-            // --------- Customer --------- //
-		    'Scripts/Customer/CustomerList/*.js',
-		    'jasmine-specs/Customer/CustomerList/*-test.js'
+            // --------- Helper --------- //
+		    'Scripts/Plugin/Toast/toast.js',
+		    'jasmine-specs/Plugin/Toast/*-test.js'
         ],
         port: 9870,
         colors: true,
