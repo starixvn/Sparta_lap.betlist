@@ -52,7 +52,7 @@
         }
 
         [Test]
-        public void Index_InvalidRequest_ReturnEmptyData()
+        public void Index_InvalidModel_ReturnEmptyData()
         {
             // Arrange
             var model = new LicenseeWinLossMetaModel
@@ -61,6 +61,28 @@
                 {
                     new ProductOption()
                 }
+            };
+
+            // Action
+            var result = _controller.Index(model);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Data, Is.Empty);
+                Assert.That(result.Total, Is.Empty);
+                Assert.That(result.SummaryTotal, Is.Empty);
+                Assert.That(result.ProductOptions, Is.EqualTo(model.ProductOptions.ToJson()));
+            });
+        }
+
+        [Test]
+        public void Index_InvalidRequest_ReturnEmptyData()
+        {
+            // Arrange
+            var model = new LicenseeWinLossMetaModel
+            {
+                CurrencyId = 3
             };
 
             // Action
@@ -125,6 +147,23 @@
         }
 
         [Test]
+        public void Index_SortByTurnOverSB_ReturnCorrectOrderedData()
+        {
+            // Arrange
+            var metaModel = CreateValidMetaModel(sortBy: "TurnOverSB");
+            var resultModel = SetUpForGettingData(metaModel);
+            resultModel.DataList.SortByDictionary("SB", "TurnOver", true);
+            var expectedResult = resultModel.DataList.Select(x => x.TurnOver["SB"]).ToArray();
+
+            // Action
+            var result = _controller.Index(metaModel);
+            IList<LicenseeWinLossGridViewModel> dataList = result.Data;
+
+            // Assert
+            Assert.That(dataList.Select(x => x.TurnOverSB).ToArray(), Is.EqualTo(expectedResult));
+        }
+
+        [Test]
         public void Index_ExportToExcel_ExportWithCorrectData()
         {
             // Arrange
@@ -166,6 +205,56 @@
             });
         }
 
+        [TestCase(1, 1)]
+        [TestCase(2, 0)]
+        public void Index_ExportToExcel_LevelGreaterThan0_ExportWithCorrectData(int level, int currencyId)
+        {
+            // Arrange
+            const int CustId = 1;
+            const string CurrencyName = "USD";
+            const int DrillDownCurrencyId = 0;
+            var fdate = DateTime.Today;
+            var tdate = DateTime.Today.AddDays(1);
+
+            var metaModel = CreateValidMetaModel();
+            metaModel.CurrencyId = currencyId;
+            metaModel.IsExportExcel = true;
+
+            var expectedResult = SetUpForGettingData(metaModel, level);
+
+            ProductService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>()).Returns(
+                new ProductAccess(
+                    new List<Product>
+                    {
+                        new Product { ProductCode = "SB" },
+                        new Product { ProductCode = "BA" }
+                    }));
+
+            var actualExcelModel = new LicenseeWinLossExcelModel();
+            var excel = Substitute.ForPartsOf<LicenseeWinLossExcel>(
+                   string.Empty);
+            excel.When(x => x.Export()).DoNotCallBase();
+
+            _controller.CreateExcel(
+                  string.Empty,
+                  Arg.Any<LicenseeWinLossExcelModel>()).ReturnsForAnyArgs(excel);
+            _controller.When(x => x.CreateExcel(
+                   Arg.Any<string>(),
+                   Arg.Any<LicenseeWinLossExcelModel>())).Do(p => actualExcelModel = (LicenseeWinLossExcelModel)p[1]);
+
+            // Action
+            _controller.Index(metaModel, fdate, tdate, level, DrillDownCurrencyId, CustId, CurrencyName);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(actualExcelModel.MetaModel, Is.EqualTo(metaModel));
+                Assert.That(metaModel.FromDate, Is.EqualTo(metaModel.DrillDownFromDate));
+                Assert.That(metaModel.ToDate, Is.EqualTo(metaModel.DrillDownToDate));
+                Assert.That(metaModel.CurrencyId, Is.EqualTo(currencyId > 0 ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId));
+            });
+        }
+
         private LicenseeWinLossMetaModel CreateValidMetaModel(string sortBy = null, string sortOrder = "asc")
         {
             var model = new LicenseeWinLossMetaModel
@@ -192,13 +281,13 @@
                 },
                 FunctionIdList = new List<int>()
             });
-            StubLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
+            StubLicenseeSessionData(new LicenseeSession { LicenseeId = 1 });
             SessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns(string.Empty);
 
             return model;
         }
 
-        private SortableReportResultModel<LicenseeWinLoss> SetUpForGettingData(LicenseeWinLossMetaModel metaModel)
+        private SortableReportResultModel<LicenseeWinLoss> SetUpForGettingData(LicenseeWinLossMetaModel metaModel, int level = 0)
         {
             var dataList = new SortableList<LicenseeWinLoss>();
 
@@ -213,7 +302,10 @@
                     {
                         { "SB", random.Next(1, 100) }
                     },
-                    TurnOver = new Dictionary<string, decimal>()
+                    TurnOver = new Dictionary<string, decimal>
+                    {
+                        { "SB", random.Next(1, 100) }
+                    }
                 });
             }
 
@@ -224,7 +316,19 @@
                 SummaryTotal = new Dictionary<string, LicenseeWinLoss>()
             };
 
-            _dataAccess.GetSummaryWinloss(metaModel).Returns(result);
+            if (level == 0)
+            {
+                _dataAccess.GetSummaryWinloss(metaModel).Returns(result);
+            }
+            else if (level == 1)
+            {
+                _dataAccess.GetAgentWinlossDetail(metaModel).Returns(result);
+            }
+            else
+            {
+                _dataAccess.GetCustomerWinlossDetail(metaModel).Returns(result);
+            }
+
             return result;
         }
     }
