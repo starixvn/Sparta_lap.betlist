@@ -326,8 +326,8 @@ div.mx-parlay .system-parlay-ticket-infor .system-parlay-unit-stake{
 .bonus-icon {
     background: url(images/bonus.png) no-repeat scroll center center transparent;
     display: inline-block;
-    height: 15px;
-    width: 15px;
+    height: 18px;
+    width: 18px;
 }
 
 .bonus-icon:hover {
