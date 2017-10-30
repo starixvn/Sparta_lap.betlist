@@ -15,7 +15,8 @@
     "lib/jqgrid/jquery.jqGrid.en",
     "lib/jqgrid/jquery.jqGrid.min",
     "extensions/jquery.extension"],
-    function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect, Popup, PagingHelper, ExcelHelper, AutoComplete) {
+    function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker,
+        MonthPicker, MultiSelect, Popup, PagingHelper, ExcelHelper, AutoComplete) {
         "use strict";
 
         var _ajaxRequest = null;
