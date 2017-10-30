@@ -2,6 +2,7 @@
 {
     using System;
     using System.Data;
+    using System.Linq;
     using Core.Configuration.Interfaces;
     using Data;
     using Model.BetList.DTO;
@@ -78,22 +79,23 @@
             var expected = GetDailyStatementData(_metaModel);
 
             // Action
-            var result = _dataAccess.GetDailyStatementData(_metaModel, true)[0];
+            var result = _dataAccess.GetDailyStatementData(_metaModel, true);
+            var firstItem = result.First();
 
             // Assert
-            Assert.That(result.TransType, Is.EqualTo(expected.TransType));
-            Assert.That(result.CustId, Is.EqualTo(expected.CustId));
-            Assert.That(result.ExternalId, Is.EqualTo(expected.ExternalId));
-            Assert.That(result.SystemId, Is.EqualTo(expected.SystemId));
-            Assert.That(result.FullStatementDate, Is.EqualTo(expected.FullStatementDate));
-            Assert.That(result.TransTypeHasBetList, Is.EqualTo(expected.TransTypeHasBetList));
-            Assert.That(result.Index, Is.EqualTo(expected.Index));
-            Assert.That(result.Date, Is.EqualTo(expected.Date));
-            Assert.That(result.Remark, Is.EqualTo(expected.Remark));
-            Assert.That(result.Turnover, Is.EqualTo(expected.Turnover));
-            Assert.That(result.CreditDebit, Is.EqualTo(expected.CreditDebit));
-            Assert.That(result.Commission, Is.EqualTo(expected.Commission));
-            Assert.That(result.Balance, Is.EqualTo(expected.Balance));
+            Assert.That(firstItem.TransType, Is.EqualTo(expected.TransType));
+            Assert.That(firstItem.CustId, Is.EqualTo(expected.CustId));
+            Assert.That(firstItem.ExternalId, Is.EqualTo(expected.ExternalId));
+            Assert.That(firstItem.SystemId, Is.EqualTo(expected.SystemId));
+            Assert.That(firstItem.FullStatementDate, Is.EqualTo(expected.FullStatementDate));
+            Assert.That(firstItem.TransTypeHasBetList, Is.EqualTo(expected.TransTypeHasBetList));
+            Assert.That(firstItem.Index, Is.EqualTo(expected.Index));
+            Assert.That(firstItem.Date, Is.EqualTo(expected.Date));
+            Assert.That(firstItem.Remark, Is.EqualTo(expected.Remark));
+            Assert.That(firstItem.Turnover, Is.EqualTo(expected.Turnover));
+            Assert.That(firstItem.CreditDebit, Is.EqualTo(expected.CreditDebit));
+            Assert.That(firstItem.Commission, Is.EqualTo(expected.Commission));
+            Assert.That(firstItem.Balance, Is.EqualTo(expected.Balance));
         }
 
         private static BetListMetaModel CreateBetListMetaModel()

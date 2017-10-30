@@ -6,6 +6,6 @@
 
     public interface IDailyStatementBetListDataAccess
     {
-        IList<DailyStatement> GetDailyStatementData(BetListMetaModel metaModel, bool allowCustComm);
+        IEnumerable<DailyStatement> GetDailyStatementData(BetListMetaModel metaModel, bool allowCustComm);
     }
 }

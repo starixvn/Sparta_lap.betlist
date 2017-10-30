@@ -116,18 +116,6 @@ namespace Fanex.Athena.DataAccess.BetList
         }
 
         /// <summary>
-        /// Numbers the report.
-        /// </summary>
-        /// <param name="value">The decimal number. value.</param>
-        /// <returns>The result value.</returns>
-        protected static string NumberReport(object value)
-        {
-            var number = Convert.ToDecimal(value);
-            return number >= 0 ? "<span class='bl-underdog'>" + $"{number:#,##0.00}" + "</span>"
-                       : "<span class='bl-favorite'>" + $"{number:#,##0.00}" + "</span>";
-        }
-
-        /// <summary>
         /// Read boolean value.
         /// </summary>
         /// <param name="value">Convert value.</param>
