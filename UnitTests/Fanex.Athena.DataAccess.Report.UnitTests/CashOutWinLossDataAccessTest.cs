@@ -83,7 +83,6 @@
             reader.Read().Returns(true, false);
             _objectDb.ExecuteReader().Returns(reader);
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_CashoutWinloss")).Returns(_objectDb);
-            IDictionary<string, CashOutWinLoss> summaryTotal = new Dictionary<string, CashOutWinLoss>();
             ConfigCheckingColumnForReader(reader);
 
             var fakeData = CreateFakeData();
@@ -93,12 +92,11 @@
             var expectedSummaryTotal = serializer.Serialize(CreateExpectedSummaryTotalData());
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetSummary(_metaModel));
-            var summaryTotalResult = serializer.Serialize(summaryTotal);
+            var result = _dataAccess.GetSummary(_metaModel);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedCashoutWinLossData));
-            Assert.That(summaryTotalResult, Is.EqualTo(expectedSummaryTotal));
+            Assert.That(serializer.Serialize(result.DataList), Is.EqualTo(expectedCashoutWinLossData));
+            Assert.That(serializer.Serialize(result.SummaryTotal), Is.EqualTo(expectedSummaryTotal));
         }
 
         [Test]
@@ -125,10 +123,10 @@
             var expectedCashoutWinLossData = serializer.Serialize(cashoutWinLossData);
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetSummary(_metaModel));
+            var result = _dataAccess.GetSummary(_metaModel);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedCashoutWinLossData));
+            Assert.That(serializer.Serialize(result.DataList), Is.EqualTo(expectedCashoutWinLossData));
         }
 
         [Test]

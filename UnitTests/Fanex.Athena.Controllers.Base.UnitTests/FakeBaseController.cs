@@ -3,14 +3,15 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Model.Core.MetaModel;
     using Service.Core.Users.Interfaces;
 
     public class FakeBaseController : BaseController
     {
-        internal FakeBaseController(ILanguageService languageService, ISessionService sessionService, IAppSettings appSetting)
-            : base(languageService, sessionService, appSetting)
+        internal FakeBaseController(ILanguageService languageService, ISessionService sessionService, IAppSettings appSetting, IFileSystem fileSystem)
+            : base(languageService, sessionService, appSetting, fileSystem)
         {
         }
 

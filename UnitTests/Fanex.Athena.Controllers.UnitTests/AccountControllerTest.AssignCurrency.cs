@@ -53,9 +53,9 @@
                 AppSettings.EnableAssignCurrency.Returns(true);
 
                 _currencyDataAccess.GetCurrenciesByUser(DefaultLicenseeSession.LicenseeId, DefaultUserSession.UserId).Returns(new List<CurrencyUser>
-            {
-                new CurrencyUser()
-            });
+                {
+                    new CurrencyUser()
+                });
 
                 // Action
                 var viewResult = controller.AssignCurrency(DefaultUserSession.UserId) as ViewResult;

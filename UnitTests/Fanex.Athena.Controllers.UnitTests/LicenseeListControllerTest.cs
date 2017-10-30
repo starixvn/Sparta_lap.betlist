@@ -132,7 +132,7 @@
 
         private LicenseeListController CreateController()
         {
-            return new LicenseeListController(LangService, SessionService, AppSettings, _licenseeDataAccess);
+            return new LicenseeListController(LangService, SessionService, AppSettings, FileSystem, _licenseeDataAccess);
         }
 
         private void StubLicenseeDataAccessGetByUser(int userId, List<Licensee> fakeResult)

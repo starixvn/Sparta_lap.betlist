@@ -14,6 +14,7 @@ namespace Fanex.Athena.Controllers.Account
     using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
     using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
@@ -56,10 +57,11 @@ namespace Fanex.Athena.Controllers.Account
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IFileSystem fileSystem,
             IFunctionService functionService,
             IUserService userService,
             ICurrencyDataAccess currencyDataAccess)
-            : base(languageService, sessionService, appSetting)
+            : base(languageService, sessionService, appSetting, fileSystem)
         {
             _functionService = functionService;
             _userService = userService;

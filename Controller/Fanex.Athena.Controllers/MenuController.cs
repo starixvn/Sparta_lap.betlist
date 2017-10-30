@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers
     using System.Linq;
     using System.Web.Mvc;
     using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.Model.Core.ViewModel;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
@@ -30,8 +31,9 @@ namespace Fanex.Athena.Controllers
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IFileSystem fileSystem,
             IFunctionService functionService)
-            : base(languageService, sessionService, appSetting)
+            : base(languageService, sessionService, appSetting, fileSystem)
         {
             _functionService = functionService;
         }

@@ -59,10 +59,11 @@ namespace Fanex.Athena.Controllers
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IFileSystem fileSystem,
             IMaintenanceService maintenanceService,
             IUserService userService,
             IFormsAuthenticationService formAuthenticationService)
-            : base(languageService, sessionService, appSetting)
+            : base(languageService, sessionService, appSetting, fileSystem)
         {
             _maintenanceService = maintenanceService;
             _userService = userService;

@@ -14,7 +14,7 @@
         [SetUp]
         public void SetUp()
         {
-            _controller = new FakeBaseController(LangService, SessionService, AppSettings);
+            _controller = new FakeBaseController(LangService, SessionService, AppSettings, FileSystem);
         }
 
         [TearDown]
