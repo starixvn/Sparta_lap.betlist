@@ -12,6 +12,8 @@ namespace Fanex.Athena.Service.Casino.Interfaces
 
         DataTable UpdateCustGameTypeStakeLevel(DataTable sourceTable);
 
-        DataTable GetCustStakeLevel(int ibcCustID, int gameTypeId);
+        DataTable GetCustStakeLevel(int ibcCustId, int gameTypeId);
+
+        bool UpdateComm(string[] ibcCustID, decimal memberRollingRate, string ip, int modifyBy, string modifyUserName, int system);
     }
 }

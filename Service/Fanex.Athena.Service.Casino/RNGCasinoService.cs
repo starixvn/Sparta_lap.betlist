@@ -30,13 +30,28 @@ namespace Fanex.Athena.Service.Casino
     {
         private const int System = 4;
 
+        private readonly IReportApiWrapper _reportApiWrapper;
+
+        private readonly ICustomerApiWrapper _customerApiWrapper;
+
         private readonly ILanguageService _langService;
+
         private readonly IExChangeRateDataAccess _exchangeRateService;
 
-        public RNGCasinoService()
+        public RNGCasinoService() : this(null, null, null, null)
         {
-            _langService = new LanguageService();
-            _exchangeRateService = new ExChangeRateDataAccess();
+        }
+
+        public RNGCasinoService(
+            IReportApiWrapper reportApiWrapper,
+            ICustomerApiWrapper customerApiWrapper,
+            ILanguageService langService,
+            IExChangeRateDataAccess exchangeRateService)
+        {
+            _reportApiWrapper = reportApiWrapper ?? new ReportApiWrapper();
+            _customerApiWrapper = customerApiWrapper ?? new CustomerApiWrapper();
+            _langService = langService ?? new LanguageService();
+            _exchangeRateService = exchangeRateService ?? new ExChangeRateDataAccess();
         }
 
         public List<RNGCasinoResult> GetRNGCasinoResult(RNGCasinoResultMetaModel metaModel)
@@ -89,10 +104,9 @@ namespace Fanex.Athena.Service.Casino
         public CasinoHandHistoryDetailViewModel GetRNGCasinoResultDetail(RNGCasinoResultDetailMetaModel metaModel)
         {
             var resultModel = new CasinoHandHistoryDetailViewModel();
-            var casinoLib = new CasinoLibrary.SBAgent.Report();
             try
             {
-                var tables = casinoLib.WinLossDetail(metaModel.UserBetId);
+                var tables = _reportApiWrapper.WinLossDetail(metaModel.UserBetId);
 
                 if (tables != null && tables.Length > 1)
                 {
@@ -126,7 +140,6 @@ namespace Fanex.Athena.Service.Casino
         {
             const string API_ERROR_MSG = "Found errors when calling casino API to update customer commission.\n customers=";
             const string AdditionErrorMsgPattern = "\n IP={0},CustomerId={1},ModifyBy={2},ModifyBy={3},System={4},Site={5}";
-            var customer = new CasinoLibrary.SBAgent.Customer();
             var additionalErrorMsg = string.Format(
                 AdditionErrorMsgPattern,
                 metaModel.FromIp,
@@ -138,7 +151,7 @@ namespace Fanex.Athena.Service.Casino
             var success = false;
             try
             {
-                success = customer.UpdateComm(
+                success = _customerApiWrapper.UpdateComm(
                      metaModel.CustomerId,
                      metaModel.Comm,
                      metaModel.FromIp,
@@ -184,24 +197,6 @@ namespace Fanex.Athena.Service.Casino
                 default:
                     return 1;
             }
-        }
-
-        private static DataTable GetResultFromAPI(RNGCasinoResultMetaModel metalModel)
-        {
-            const string BetType = "Casino";
-            var casinoLib = new CasinoLibrary.SBAgent.Report();
-            var dataTable = casinoLib.WinLossHandHistory(metalModel.RefNo, BetType, RNGCasinoSetting.CasinoGroup1, metalModel.IsShowPic);
-            if (dataTable == null)
-            {
-                dataTable = casinoLib.RealTimeWinLossHandHistory(
-                metalModel.FromDate,
-                metalModel.ToDate,
-                metalModel.CustId,
-                RNGCasinoSetting.CasinoGroup1,
-                metalModel.IsShowPic);
-            }
-
-            return dataTable;
         }
 
         /// <summary>
@@ -268,6 +263,23 @@ namespace Fanex.Athena.Service.Casino
             return row.Table.Columns.Contains(columnName) ? row[columnName].ToString()
                     : row.Table.Columns.Contains(extColumnName) ? row[extColumnName].ToString()
                     : string.Empty;
+        }
+
+        private DataTable GetResultFromAPI(RNGCasinoResultMetaModel metalModel)
+        {
+            const string BetType = "Casino";
+            var dataTable = _reportApiWrapper.WinLossHandHistory(metalModel.RefNo, BetType, RNGCasinoSetting.CasinoGroup1, metalModel.IsShowPic);
+            if (dataTable == null)
+            {
+                dataTable = _reportApiWrapper.RealTimeWinLossHandHistory(
+                metalModel.FromDate,
+                metalModel.ToDate,
+                metalModel.CustId,
+                RNGCasinoSetting.CasinoGroup1,
+                metalModel.IsShowPic);
+            }
+
+            return dataTable;
         }
 
         /// <summary>

@@ -37,5 +37,10 @@
         {
             return _customerApi.GetCustStakeLevel(ibcCustId, gameTypeId);
         }
+
+        public bool UpdateComm(string[] ibcCustID, decimal memberRollingRate, string ip, int modifyBy, string modifyUserName, int system)
+        {
+            return _customerApi.UpdateComm(ibcCustID, memberRollingRate, ip, modifyBy, modifyUserName, system);
+        }
     }
 }
