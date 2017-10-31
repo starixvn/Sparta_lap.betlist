@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Excel.Customer
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
     using Base;
     using Base.Entities;
@@ -81,7 +80,7 @@ namespace Fanex.Athena.Excel.Customer
                 ViewResources.NGComm + " (%)",
                 ViewResources.LCComm + " (%)",
                 ViewResources.CSComm + " (%)",
-				ViewResources.ABComm + " (%)"
+                ViewResources.ABComm + " (%)"
             };
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             for (int i = 0; i < headerTextList.Length; i++)
