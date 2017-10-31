@@ -41,7 +41,7 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     Code = i.ProductCode,
                     Name = i.ProductName,
-                    Status = i.ProductCode == Product.SB
+                    Status = true
                 }).ToList(),
             };
 
