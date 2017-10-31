@@ -11,10 +11,6 @@ define([
     "lib/jquery.jclock",
     "extensions/jquery.extension"],
     function (Site, Recheckin, AutoComplete) {
-        var MAP_NOTIFICATION_STATUS_CLASS = {
-            0: "New",
-            1: "Update"
-        };
         var $searchBox;
 
         function initialize() {
@@ -196,22 +192,28 @@ define([
                 return;
             }
 
-            var $notificationLabel = $(".dropdown-button", ".notifications-block");
-            var newMsg = null;
-
-            var apiUrl = Site.resolveClientUrl("api/NotificationReport/GetNotificationMessages");
-            var detailUrl = Site.resolveClientUrl("NotificationReport/Index");
-
-            var itemPattern = "<li class='notification-item' title={0}><a href='{1}'>{2}</a><span class='status {3}'>{4}</span><span class='time-passed'>{5}</span></li>";
-
+            var timePassedString = Site.getSingleResource("TimePassed");
+            var hour = Site.getSingleResource("Hour");
+            var minute = Site.getSingleResource("Minute");
+            var hours = Site.getSingleResource("Hours");
+            var minutes = Site.getSingleResource("Minutes");
+           
             var calculationDuration = function (date, now) {
                 var duration = (now - date) / 1000 / 60;
-                var min = Math.round(duration % 60);
-                var hour = Math.floor(duration / 60);
+                var m = Math.round(duration % 60);
+                var h = Math.floor(duration / 60);
 
-                return (hour > 0 ? hour + " h " : "") + min + " minutes ago"
+                var hourString = h > 0 ? h + " " + (h > 1 ? hours : hour ) : "";
+                var minuteString = m > 0 ? " " + m + " " + (m > 1 ? minutes : minute ) : "";
+
+                return $.format(timePassedString, hourString, minuteString);
             }
 
+            var $notificationLabel = $(".dropdown-button", ".notifications-block");
+            var newMsg = null;
+            var itemPattern = "<li class='notification-item' title={0}><a href='{1}'>{2}</a><span class='time-passed'>{3}</span></li>";
+            var apiUrl = Site.resolveClientUrl("api/NotificationReport/GetNotificationMessages");
+            var detailUrl = Site.resolveClientUrl("NotificationReport/Index");
             var addNotification = function (data) {
                 var now = new Date();
                 var $numberOfMsg = $(".number-notifications", ".notifications-block");
@@ -234,7 +236,7 @@ define([
                     for (var i = 0; i < total; i++) {
                         var item = data[i];
                         var timePassed = calculationDuration(new Date(item.DateTime), now);
-                        $notificationDdl.prepend($.format(itemPattern, item.Content, detailUrl, item.Content, MAP_NOTIFICATION_STATUS_CLASS[item.Status], MAP_NOTIFICATION_STATUS_CLASS[item.Status], timePassed));
+                        $notificationDdl.prepend($.format(itemPattern, item.Content, detailUrl, item.Content, timePassed));
                     }
                 }
             }

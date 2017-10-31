@@ -28,7 +28,7 @@
             var length = random.Next(0, 5);
             for (int i = 0; i < length; i++)
             {
-                mainData.Add(new NotificationMessage { Content = i.ToString(), DateTime = DateTime.Today, Status = i % 2 });
+                mainData.Add(new NotificationMessage { Content = i.ToString(), DateTime = DateTime.Today });
             }
 
             return mainData;
@@ -81,6 +81,7 @@
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.LicenseeName = SessionService.LicenseeSession.LicenseeName;
             metaModel.Language = Util.MapLanguages.GetValueOrDefault(SessionService.UserSession.Language, "en");
+            metaModel.PageSize = 10;
         }
     }
 }

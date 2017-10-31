@@ -449,26 +449,7 @@ header {
                     padding-top: 0;
                 }
 
-                .status {
-                    width: 30%;
-                }
-
-                .status:before {
-                    content: "\2022";
-                    font-size: 3.5em;
-                    vertical-align: middle;
-                }
-
-                .status.Update {
-                    color: #4caf50;
-                }
-
-                .status.New {
-                    color: #ffd700;
-                }
-
                 .time-passed {
-                    width: 70%;
                     float: right;
                     text-align: right;
                     color: #d3d3d3;

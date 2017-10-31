@@ -3118,4 +3118,25 @@
   <data name="ResultAmendment" xml:space="preserve">
     <value>Result Amendment</value>
     <comment>84004</comment>
-  </data></root>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>hour</value>
+    <comment>84004</comment>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>minutes</value>
+    <comment>84004</comment>
+  </data>
+  <data name="TimePassed" xml:space="preserve">
+    <value>{0}{1} ago</value>
+    <comment>84004</comment>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>hours</value>
+    <comment>84004</comment>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>minute</value>
+    <comment>84004</comment>
+  </data>
+</root>

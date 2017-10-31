@@ -86,21 +86,22 @@
                 metaModel.PageSize,
                 metaModel.PageIndex);
 
-            var json = string.Empty;
-            try
-            {
-                json = _webClientService.DownloadString(notificationUrl);
-            }
-            catch (Exception exception)
-            {
-                LogHelper.WriteError(exception, "ApiUrl: " + notificationUrl);
-            }
+            var json = GetApiResultString(notificationUrl);
 
             var dataList = new List<Notification>();
-            var totalPage = 0;
+            var totalRecords = 0;
+
+            if (string.IsNullOrEmpty(json))
+            {
+                return new ReportResultModel<Notification>
+                {
+                    DataList = dataList,
+                    TotalRows = totalRecords
+                };
+            }
 
             var jobject = JObject.Parse(json);
-            if (jobject.HasValues)
+            if (jobject.HasValues && jobject["Data"].Children().Any())
             {
                 var lang = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(metaModel.Language.ToLowerInvariant());
                 var subjectKey = "Subject" + lang;
@@ -114,13 +115,13 @@
                     Subject = x[subjectKey].Value<string>()
                 }));
 
-                totalPage = jobject["TotalPage"].Value<int>();
+                totalRecords = jobject["TotalRecords"].Value<int>();
             }
 
             return new ReportResultModel<Notification>
             {
                 DataList = dataList,
-                TotalRows = totalPage
+                TotalRows = totalRecords
             };
         }
 
@@ -136,21 +137,22 @@
                 metaModel.PageSize,
                 metaModel.PageIndex);
 
-            var json = string.Empty;
-            try
-            {
-                json = _webClientService.DownloadString(resultAmendmentUrl);
-            }
-            catch (Exception exception)
-            {
-                LogHelper.WriteError(exception, "ApiUrl: " + resultAmendmentUrl);
-            }
+            var json = GetApiResultString(resultAmendmentUrl);
 
             var dataList = new List<ResultAmendment>();
-            var totalPage = 0;
+            var totalRecords = 0;
+
+            if (string.IsNullOrEmpty(json))
+            {
+                return new ReportResultModel<ResultAmendment>
+                {
+                    DataList = dataList,
+                    TotalRows = totalRecords
+                };
+            }
 
             var jobject = JObject.Parse(json);
-            if (jobject.HasValues)
+            if (jobject.HasValues && jobject["Data"].Children().Any())
             {
                 var lang = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(metaModel.Language.ToLowerInvariant());
                 var subjectKey = "Subject" + lang;
@@ -164,14 +166,30 @@
                     DataFilePath = x["DataFilePath"].Value<string>()
                 }));
 
-                totalPage = jobject["TotalPage"].Value<int>();
+                totalRecords = jobject["TotalRecords"].Value<int>();
             }
 
             return new ReportResultModel<ResultAmendment>
             {
                 DataList = dataList,
-                TotalRows = totalPage
+                TotalRows = totalRecords
             };
+        }
+
+        private string GetApiResultString(string api)
+        {
+            var json = string.Empty;
+
+            try
+            {
+                json = _webClientService.DownloadString(api);
+            }
+            catch (Exception exception)
+            {
+                LogHelper.WriteError(exception, "ApiUrl: " + api);
+            }
+
+            return json;
         }
     }
 }
