@@ -101,7 +101,7 @@ namespace Fanex.Athena.Excel.Report
         }
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             // row 1
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
@@ -130,13 +130,13 @@ namespace Fanex.Athena.Excel.Report
             row2.Cells[ColumnSettleAmountTotal].SetCellValue(ViewResources.Total);
         }
 
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
-        protected override void AssignSheetData(ISheet sheet)
+        protected void AssignSheetData(ISheet sheet)
         {
             var rowSpan = 1;
             var rowIndex = 1;
@@ -161,12 +161,7 @@ namespace Fanex.Athena.Excel.Report
                 // Merge cell
                 if (needMerge && rowSpan > 1)
                 {
-                    if (Level == 0)
-                    {
-                        sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnIndex, index + RowContentTemplate, ColumnIndex);
-                    }
-
-                    sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnDate, index + RowContentTemplate, ColumnDate);
+                    MergeCells(sheet, rowSpan, index);
                 }
 
                 rowSpan = needMerge ? 1 : rowSpan + 1;
@@ -186,7 +181,7 @@ namespace Fanex.Athena.Excel.Report
             AssignGrandTotalInEurData(sheet, rowIndex);
         }
 
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
             var todate = _metaModel.ToDate.ToString(FormatDate);
@@ -194,8 +189,8 @@ namespace Fanex.Athena.Excel.Report
                 ? ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.DrillDownCurrencyId)
                 : ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId);
 
-            ReportTitle = string.Format(ViewResources.CashOutWinLoss + ", {0} --> {1} - {2}", fromdate, todate, title);
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            var reportTitle = string.Format(ViewResources.CashOutWinLoss + ", {0} --> {1} - {2}", fromdate, todate, title);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);
@@ -204,8 +199,7 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
-        protected override void ProcessUI(ISheet sheet)
+        protected void ProcessUI(ISheet sheet)
         {
             if (!_isAllowBA)
             {
@@ -312,6 +306,16 @@ namespace Fanex.Athena.Excel.Report
             sheet.MergeCells(rowIndex - totalCurrencyList.Count, 0, rowIndex - 1, 3);
 
             return rowIndex;
+        }
+
+        private void MergeCells(ISheet sheet, int rowSpan, int index)
+        {
+            if (Level == 0)
+            {
+                sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnIndex, index + RowContentTemplate, ColumnIndex);
+            }
+
+            sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnDate, index + RowContentTemplate, ColumnDate);
         }
     }
 }

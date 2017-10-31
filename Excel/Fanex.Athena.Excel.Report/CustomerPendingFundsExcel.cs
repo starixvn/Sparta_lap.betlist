@@ -27,14 +27,6 @@
             : base(templatePath)
         {
             _excelModel = excelModel;
-            HeaderTextList = new List<string>
-            {
-                "#",
-                ViewResources.ExternalId,
-                ViewResources.SystemId,
-                ViewResources.BetCount,
-                ViewResources.PendingFunds
-            };
         }
 
         protected override void AssignData()
@@ -65,22 +57,30 @@
             }
         }
 
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            var headerTextList = new[]
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                "#",
+                ViewResources.ExternalId,
+                ViewResources.SystemId,
+                ViewResources.BetCount,
+                ViewResources.PendingFunds
+            };
+            for (int i = 0; i < headerTextList.Length; i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
         }
 
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
-        protected override int AssignSheetData(ISheet sheet, int pageIndex)
+        protected int AssignSheetData(ISheet sheet, int pageIndex)
         {
             var rowCount = Math.Min(_excelModel.DataList.Count(), checked((pageIndex + 1) * PageSize));
             var rowIndex = 0;
@@ -105,11 +105,11 @@
             return rowIndex;
         }
 
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
-            ReportTitle = string.Format(ViewResources.CustomerPedingFundsTitle, ReportExcelHelper.GetTitleCurrencyName(_excelModel.ConvertingOption));
+            var reportTitle = string.Format(ViewResources.CustomerPedingFundsTitle, ReportExcelHelper.GetTitleCurrencyName(_excelModel.ConvertingOption));
 
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 2);
@@ -131,7 +131,7 @@
             sheet.MergeCells(totalRow, 0, totalRow, 2);
         }
 
-        protected override void ProcessUI(ISheet sheet)
+        protected void ProcessUI(ISheet sheet)
         {
             if (!_excelModel.SystemIdVisible)
             {

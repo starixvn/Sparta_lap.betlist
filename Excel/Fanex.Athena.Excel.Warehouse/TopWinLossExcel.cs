@@ -14,9 +14,6 @@ namespace Fanex.Athena.Excel.Warehouse
     using NPOI.SS.UserModel;
     using Resources;
 
-    /// <summary>
-    /// Win Loss Report - Export excel.
-    /// </summary>
     public class TopWinLossExcel : ReportBase
     {
         private const int ColumnCustomerComm = 9;
@@ -45,33 +42,20 @@ namespace Fanex.Athena.Excel.Warehouse
 
         private readonly IDictionary<string, decimal> _totalValues;
 
+        private readonly string _reportTitle;
+
         public TopWinLossExcel(
                 string templatePath,
                 ShowingOption showingOption,
-                IList<Fanex.Athena.Model.Warehouse.DTO.WinLoss> dataList,
-                IDictionary<string, decimal> totalValues)
+                IList<WinLoss> dataList,
+                IDictionary<string, decimal> totalValues,
+                string reportTitle)
             : base(templatePath, showingOption)
         {
             _dataList = dataList;
 
             _totalValues = totalValues;
-
-            HeaderTextList = new List<string>
-            {
-                "#",
-                ViewResources.Date,
-                ViewResources.Month,
-                ViewResources.Currency,
-                ViewResources.BetType,
-                ViewResources.League,
-                ViewResources.Turnover,
-                ViewResources.TotalTransaction,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.Margin,
-                ViewResources.LicenseeW_L,
-             };
+            _reportTitle = reportTitle;
         }
 
         public int GroupingId { get; set; }
@@ -97,17 +81,28 @@ namespace Fanex.Athena.Excel.Warehouse
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            var headerTextList = new[]
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                "#",
+                ViewResources.Date,
+                ViewResources.Month,
+                ViewResources.Currency,
+                ViewResources.BetType,
+                ViewResources.League,
+                ViewResources.Turnover,
+                ViewResources.TotalTransaction,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.Margin,
+                ViewResources.LicenseeW_L,
+             };
+            for (int i = 0; i < headerTextList.Length; i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
 
             row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
@@ -117,7 +112,7 @@ namespace Fanex.Athena.Excel.Warehouse
             row.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
         }
 
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
@@ -126,7 +121,7 @@ namespace Fanex.Athena.Excel.Warehouse
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignSheetData(ISheet sheet)
+        protected void AssignSheetData(ISheet sheet)
         {
             var rowCount = _dataList.Count;
 
@@ -146,13 +141,9 @@ namespace Fanex.Athena.Excel.Warehouse
             AssignTotalData(sheet, _dataList.Count + RowContentTemplate);
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _reportTitle);
 
             // Only show LicenseeWL if licensee doesn't have NG
             if (!ShowingOption.NGVisible)
@@ -171,7 +162,7 @@ namespace Fanex.Athena.Excel.Warehouse
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected override void ProcessUI(ISheet sheet)
+        protected void ProcessUI(ISheet sheet)
         {
             sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
             sheet.HideRow(RowTableHeaderTemplate + 1);

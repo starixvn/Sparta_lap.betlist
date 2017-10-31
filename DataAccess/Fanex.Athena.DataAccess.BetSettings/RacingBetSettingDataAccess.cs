@@ -113,7 +113,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, new { });
+                throw new DataAccessException(sqlException, UspName, new { });
             }
         }
 
@@ -140,7 +140,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, uspName, "No params");
+                throw new DataAccessException(sqlException, uspName, "No params");
             }
         }
     }

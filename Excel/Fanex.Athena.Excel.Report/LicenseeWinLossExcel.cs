@@ -82,6 +82,11 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly bool _isAllowBA;
 
+        protected internal LicenseeWinLossExcel(string templatePath)
+            : base(templatePath)
+        {
+        }
+
         public LicenseeWinLossExcel(string templatePath, LicenseeWinLossExcelModel excelModel)
             : base(templatePath)
         {
@@ -118,7 +123,7 @@ namespace Fanex.Athena.Excel.Report
         }
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             // row 1
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
@@ -168,13 +173,13 @@ namespace Fanex.Athena.Excel.Report
             row2.Cells[ColumnLicenseeWlTotal].SetCellValue(ViewResources.Total);
         }
 
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
-        protected override void AssignSheetData(ISheet sheet)
+        protected void AssignSheetData(ISheet sheet)
         {
             var rowSpan = 1;
             var rowIndex = 1;
@@ -199,12 +204,7 @@ namespace Fanex.Athena.Excel.Report
                 // Merge cell
                 if (needMerge && rowSpan > 1)
                 {
-                    if (_excelModel.MetaModel.DrillDownLevel == 0)
-                    {
-                        sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnIndex, index + RowContentTemplate, ColumnIndex);
-                    }
-
-                    sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnDate, index + RowContentTemplate, ColumnDate);
+                    MergeCells(sheet, rowSpan, index);
                 }
 
                 rowSpan = needMerge ? 1 : rowSpan + 1;
@@ -224,7 +224,17 @@ namespace Fanex.Athena.Excel.Report
             AssignGrandTotalInEurData(sheet, rowIndex);
         }
 
-        protected override void AssignTitle(ISheet sheet)
+        private void MergeCells(ISheet sheet, int rowSpan, int index)
+        {
+            if (_excelModel.MetaModel.DrillDownLevel == 0)
+            {
+                sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnIndex, index + RowContentTemplate, ColumnIndex);
+            }
+
+            sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnDate, index + RowContentTemplate, ColumnDate);
+        }
+
+        protected void AssignTitle(ISheet sheet)
         {
             var fromdate = _excelModel.MetaModel.FromDate.ToString(FormatDate);
             var todate = _excelModel.MetaModel.ToDate.ToString(FormatDate);
@@ -232,8 +242,8 @@ namespace Fanex.Athena.Excel.Report
                 ? ReportExcelHelper.GetExactTitleCurrencyName(_excelModel.ConvertingOption, _excelModel.MetaModel.DrillDownCurrencyId)
                 : ReportExcelHelper.GetExactTitleCurrencyName(_excelModel.ConvertingOption, _excelModel.MetaModel.CurrencyId);
 
-            ReportTitle = string.Format(ViewResources.LicenseeWinLoss + ", {0} --> {1} - {2}", fromdate, todate, title);
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            var reportTitle = string.Format(ViewResources.LicenseeWinLoss + ", {0} --> {1} - {2}", fromdate, todate, title);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);
@@ -247,7 +257,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
-        protected override void ProcessUI(ISheet sheet)
+        protected void ProcessUI(ISheet sheet)
         {
             if (!_excelModel.SystemIdVisible)
             {

@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
-    using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
@@ -93,6 +92,7 @@
                             LangService,
                             SessionService,
                             AppSettings,
+                            FileSystem,
                             _totalGoalDataAccess);
         }
 

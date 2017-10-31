@@ -104,9 +104,7 @@ namespace Fanex.Athena.Controllers.Report
             var usernameExcelTitle = string.IsNullOrEmpty(metaModel.Username) ?
                 string.Empty
                 : "- " + ViewResources.Username + ": " + metaModel.Username;
-            var excel = new CustomerTurnoverExcel(templatePath, showingOption, result.DataList, result.TotalData, formatDateTime)
-            {
-                ReportTitle = string.Format(
+            var reportTitle = string.Format(
                 "{0}, {1} --> {2} - {3}: {4} - {5}: {6} {7}",
                                             ViewResources.Customer + " " + ViewResources.Turnover,
                                             metaModel.FromDate.ToShortDateString(),
@@ -115,8 +113,8 @@ namespace Fanex.Athena.Controllers.Report
                                             currencyName,
                                             ViewResources.MinimumOdds,
                                             metaModel.Odds,
-                                            usernameExcelTitle)
-            };
+                                            usernameExcelTitle);
+            var excel = new CustomerTurnoverExcel(templatePath, showingOption, result.DataList, result.TotalData, formatDateTime, reportTitle);
             excel.Export();
             return new ExcelResult(excel.Workbook, FileName);
         }

@@ -10,7 +10,7 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
-    using System.Web;
+    using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Report;
@@ -26,6 +26,9 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
     using Model.Core.MetaModel.Product;
+    using Model.Core.ResultModel;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss)]
     public class LicenseeWinLossReportController : ApiReportBaseController
@@ -38,6 +41,17 @@ namespace Fanex.Athena.Api.Report
         {
             _appSettings = new AppSettings();
             _licenseeWinLossDataAccess = new LicenseeWinLossDataAccess();
+        }
+
+        public LicenseeWinLossReportController(
+            ISessionService sessionService,
+            IProductService productService,
+            IAppSettings appSettings,
+            ILicenseeWinLossDataAccess licenseeWinLossDataAccess)
+            : base(sessionService, productService)
+        {
+            _appSettings = appSettings;
+            _licenseeWinLossDataAccess = licenseeWinLossDataAccess;
         }
 
         [HttpPost]
@@ -70,48 +84,48 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
-        private static SortableList<LicenseeWinLoss> SortData(SortableList<LicenseeWinLoss> dataList, string sortBy = null, string sortOrder = "asc")
+        private static void SortData(SortableList<LicenseeWinLoss> dataList, string sortBy, string sortOrder = "asc")
         {
-            if (sortBy != null)
+            if (string.IsNullOrEmpty(sortBy))
             {
-                var propertyName = sortBy;
+                return;
+            }
 
-                // Sort for grouping columns, get the real column name
-                if (sortBy.EndsWith("Single", StringComparison.OrdinalIgnoreCase))
+            var propertyName = sortBy;
+
+            // Sort for grouping columns, get the real column name
+            if (sortBy.EndsWith("Single", StringComparison.OrdinalIgnoreCase))
+            {
+                propertyName = sortBy.Remove(sortBy.LastIndexOf("Single", StringComparison.OrdinalIgnoreCase));
+            }
+
+            var property = typeof(LicenseeWinLoss).GetProperty(propertyName);
+
+            if (property == null)
+            {
+                string productCode;
+
+                if (propertyName.Contains(nameof(LicenseeWinLoss.LicenseeWL)))
                 {
-                    propertyName = sortBy.Remove(sortBy.LastIndexOf("Single", StringComparison.OrdinalIgnoreCase));
-                }
+                    var licenseeWLColumn = nameof(LicenseeWinLoss.LicenseeWL);
 
-                var property = typeof(LicenseeWinLoss).GetProperty(propertyName);
-
-                if (property == null)
-                {
-                    string productCode;
-
-                    if (propertyName.Contains(nameof(LicenseeWinLoss.LicenseeWL)))
-                    {
-                        var licenseeWLColumn = nameof(LicenseeWinLoss.LicenseeWL);
-
-                        productCode = propertyName.Substring(licenseeWLColumn.Length);
-                        propertyName = licenseeWLColumn;
-                    }
-                    else
-                    {
-                        var turnOverColumn = nameof(LicenseeWinLoss.TurnOver);
-
-                        productCode = propertyName.Substring(turnOverColumn.Length);
-                        propertyName = turnOverColumn;
-                    }
-
-                    dataList.SortByDictionary(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+                    productCode = propertyName.Substring(licenseeWLColumn.Length);
+                    propertyName = licenseeWLColumn;
                 }
                 else
                 {
-                    dataList.Sort(propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
-                }
-            }
+                    var turnOverColumn = nameof(LicenseeWinLoss.TurnOver);
 
-            return dataList;
+                    productCode = propertyName.Substring(turnOverColumn.Length);
+                    propertyName = turnOverColumn;
+                }
+
+                dataList.SortByDictionary(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+            }
+            else
+            {
+                dataList.Sort(propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+            }
         }
 
         private static LicenseeWinLossGridViewModel MapToGridView(LicenseeWinLoss item, int index = 0)
@@ -197,14 +211,12 @@ namespace Fanex.Athena.Api.Report
 
         private HttpResponseMessage ExportExcel(
             LicenseeWinLossMetaModel metaModel,
-            IEnumerable<LicenseeWinLoss> dataList,
-            IEnumerable<LicenseeWinLoss> totalData,
-            IDictionary<string, LicenseeWinLoss> summaryTotal)
+            SortableReportResultModel<LicenseeWinLoss> data)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             const string FileName = "LicenseeWinLoss.xls";
-            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/LicenseeWinLoss.xls");
+            var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/LicenseeWinLoss.xls");
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
 
             var convertingOption = new ConvertingOption
@@ -224,10 +236,10 @@ namespace Fanex.Athena.Api.Report
             var excelModel = new LicenseeWinLossExcelModel
             {
                 ConvertingOption = convertingOption,
-                DataList = dataList,
+                DataList = data.DataList,
                 MetaModel = metaModel,
-                SummaryTotal = summaryTotal,
-                TotalData = totalData,
+                SummaryTotal = data.SummaryTotal,
+                TotalData = data.TotalDataList,
                 SBVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.SB),
                 BTVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.BT),
                 COVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.CO),
@@ -237,32 +249,35 @@ namespace Fanex.Athena.Api.Report
                 SystemIdVisible = !_appSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId)
             };
 
-            var licenseeWinLoss = new LicenseeWinLossExcel(templatePath, excelModel);
+            var excel = CreateExcel(templatePath, excelModel);
 
-            licenseeWinLoss.Export();
+            excel.Export();
 
-            return ExcelStream(licenseeWinLoss.Workbook, FileName);
+            return ExcelStream(excel.Workbook, FileName);
         }
 
-        private void GetData(
-                LicenseeWinLossMetaModel metaModel,
-                out SortableList<LicenseeWinLoss> dataList,
-                out IEnumerable<LicenseeWinLoss> totalData,
-                out IDictionary<string, LicenseeWinLoss> summaryTotal)
+        [CLSCompliant(false)]
+        protected internal virtual LicenseeWinLossExcel CreateExcel(string templatePath, LicenseeWinLossExcelModel excelModel)
+        {
+            return new LicenseeWinLossExcel(templatePath, excelModel);
+        }
+
+        private SortableReportResultModel<LicenseeWinLoss> GetData(LicenseeWinLossMetaModel metaModel)
         {
             if (metaModel.IsValid)
             {
-                dataList = metaModel.DrillDownLevel == 0 ? _licenseeWinLossDataAccess.GetSummaryWinloss(metaModel, out totalData, out summaryTotal) :
+                return metaModel.DrillDownLevel == 0 ? _licenseeWinLossDataAccess.GetSummaryWinloss(metaModel) :
                                 metaModel.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.DrillDownLevel == 2
-                               ? _licenseeWinLossDataAccess.GetCustomerWinlossDetail(metaModel, out totalData, out summaryTotal)
-                               : _licenseeWinLossDataAccess.GetAgentWinlossDetail(metaModel, out totalData, out summaryTotal);
+                               ? _licenseeWinLossDataAccess.GetCustomerWinlossDetail(metaModel)
+                               : _licenseeWinLossDataAccess.GetAgentWinlossDetail(metaModel);
             }
-            else
+
+            return new SortableReportResultModel<LicenseeWinLoss>
             {
-                totalData = new List<LicenseeWinLoss>();
-                summaryTotal = new Dictionary<string, LicenseeWinLoss>();
-                dataList = new SortableList<LicenseeWinLoss>();
-            }
+                TotalDataList = new List<LicenseeWinLoss>(),
+                SummaryTotal = new Dictionary<string, LicenseeWinLoss>(),
+                DataList = new SortableList<LicenseeWinLoss>()
+            };
         }
 
         private dynamic ProcessRequest(
@@ -284,25 +299,22 @@ namespace Fanex.Athena.Api.Report
                 metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;
                 metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(level == 0 ? metaModel.CurrencyId : currencyId, metaModel.IsExcludedTestData);
-                IDictionary<string, LicenseeWinLoss> summaryTotal;
-                SortableList<LicenseeWinLoss> dataList;
-                IEnumerable<LicenseeWinLoss> totalData;
-                GetData(metaModel, out dataList, out totalData, out summaryTotal);
+                var result = GetData(metaModel);
 
                 if (metaModel.IsExportExcel)
                 {
-                    return ExportExcel(metaModel, dataList, totalData, summaryTotal);
+                    return ExportExcel(metaModel, result);
                 }
 
-                if (dataList != null && dataList.Any())
+                if (result.DataList.Any())
                 {
-                    dataList = SortData(dataList, metaModel.SortBy, metaModel.SortOrder);
+                    SortData(result.DataList, metaModel.SortBy, metaModel.SortOrder);
 
-                    var summaryTotalView = summaryTotal.ToDictionary(d => d.Key, d => MapToGridView(d.Value));
+                    var summaryTotalView = result.SummaryTotal.ToDictionary(d => d.Key, d => MapToGridView(d.Value));
                     return new
                     {
-                        Data = dataList.Select(MapToGridView).ToList(),
-                        Total = totalData.Select(MapToGridView).ToList(),
+                        Data = result.DataList.Select(MapToGridView).ToList(),
+                        Total = result.TotalDataList.Select(MapToGridView).ToList(),
                         SummaryTotal = summaryTotalView,
                         ProductOptions = metaModel.ProductOptions.ToJson()
                     };

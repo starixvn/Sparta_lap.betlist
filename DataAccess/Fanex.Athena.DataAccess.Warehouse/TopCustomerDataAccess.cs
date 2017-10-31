@@ -16,7 +16,6 @@ namespace Fanex.Athena.DataAccess.Warehouse
     using Fanex.Athena.Model.Warehouse.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
 
     public class TopCustomerDataAccess : BaseDataAccess, ITopCustomerDataAccess
     {
@@ -57,7 +56,7 @@ namespace Fanex.Athena.DataAccess.Warehouse
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, param);
+                throw new DataAccessException(sqlException, UspName, param);
             }
 
             return dataList;
@@ -76,7 +75,7 @@ namespace Fanex.Athena.DataAccess.Warehouse
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, param);
+                throw new DataAccessException(sqlException, UspName, param);
             }
         }
 

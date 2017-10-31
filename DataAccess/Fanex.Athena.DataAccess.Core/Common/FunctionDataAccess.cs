@@ -16,7 +16,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Common;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
 
     public class FunctionDataAccess : BaseDataAccess, IFunctionDataAccess
     {
@@ -161,7 +160,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
 
@@ -198,7 +197,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
     }

@@ -21,6 +21,7 @@
         private IMaintenanceService _maintenanceService;
         private IUserService _userService;
         private IFormsAuthenticationService _formAuthenticationService;
+        private IFileSystem _fileSystem;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
@@ -30,6 +31,7 @@
             _maintenanceService = Substitute.For<IMaintenanceService>();
             _userService = Substitute.For<IUserService>();
             _formAuthenticationService = Substitute.For<IFormsAuthenticationService>();
+            _fileSystem = Substitute.For<IFileSystem>();
         }
 
         [OneTimeTearDown]
@@ -399,6 +401,7 @@
                LangService,
                SessionService,
                AppSettings,
+               FileSystem,
                _maintenanceService,
                _userService,
                _formAuthenticationService)

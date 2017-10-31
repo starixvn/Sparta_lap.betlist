@@ -16,20 +16,20 @@ namespace Fanex.Athena.DataAccess.Core.Exception
         private readonly string _uspName;
         private readonly object _uspParams;
 
-        public DataAccessException(string message, string uspName)
-            : base(message)
+        public DataAccessException(Exception exception, string uspName)
+            : base(exception.Message, exception.InnerException)
         {
             _uspName = uspName;
         }
 
-        public DataAccessException(string message, string uspName, object uspParams)
-            : base(message)
+        public DataAccessException(Exception exception, string uspName, object uspParams)
+            : base(exception.Message, exception.InnerException)
         {
             _uspName = uspName;
             _uspParams = uspParams;
         }
 
-        private DataAccessException(SerializationInfo info, StreamingContext context) 
+        private DataAccessException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
             _uspName = info.GetString(nameof(_uspName));

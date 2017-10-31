@@ -85,9 +85,9 @@ namespace Fanex.Athena.DataAccess.Report
                     }
                 }
             }
-            catch (ObjectDbException ex)
+            catch (ObjectDbException exception)
             {
-                throw new DataAccessException(ex.Message, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
+                throw new DataAccessException(exception, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
             }
         }
 
@@ -132,9 +132,9 @@ namespace Fanex.Athena.DataAccess.Report
                     }
                 }
             }
-            catch (ObjectDbException ex)
+            catch (ObjectDbException exception)
             {
-                throw new DataAccessException(ex.Message, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
+                throw new DataAccessException(exception, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
             }
         }
 
@@ -166,9 +166,9 @@ namespace Fanex.Athena.DataAccess.Report
                     }
                 }
             }
-            catch (ObjectDbException ex)
+            catch (ObjectDbException exception)
             {
-                throw new DataAccessException(ex.Message, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
+                throw new DataAccessException(exception, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
             }
         }
 
@@ -225,7 +225,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException ex)
             {
-                throw new DataAccessException(ex.Message, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
+                throw new DataAccessException(ex, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
             }
         }
 

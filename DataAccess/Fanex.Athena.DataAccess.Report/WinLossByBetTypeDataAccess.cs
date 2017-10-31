@@ -17,7 +17,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
 
     public class WinLossByBetTypeDataAccess : BaseDataAccess, IWinLossByBetTypeDataAccess
     {
@@ -58,7 +57,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, uspParams);
+                throw new DataAccessException(sqlException, UspName, uspParams);
             }
         }
 

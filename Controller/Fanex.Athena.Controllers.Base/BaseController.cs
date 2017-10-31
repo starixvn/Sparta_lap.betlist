@@ -8,8 +8,10 @@ namespace Fanex.Athena.Controllers
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Service.Core.Common.Interfaces;
@@ -17,6 +19,7 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Web.ActionFilter;
     using Logging;
     using Model.Core.MetaModel;
+    using Resources;
     using Service.Core.Common;
     using Service.Core.Helpers;
     using Service.Core.Users;
@@ -29,16 +32,22 @@ namespace Fanex.Athena.Controllers
         private readonly ILanguageService _langService;
         private readonly ISessionService _sessionService;
         private readonly IAppSettings _appSettings;
+        private readonly IFileSystem _fileSystem;
 
-        public BaseController() : this(null, null, null)
+        public BaseController() : this(null, null, null, null)
         {
         }
 
-        protected BaseController(ILanguageService languageService, ISessionService sessionService, IAppSettings appSetting)
+        protected BaseController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IFileSystem fileSystem)
         {
             _langService = languageService ?? new LanguageService();
             _sessionService = sessionService ?? new SessionService();
             _appSettings = appSetting ?? new AppSettings();
+            _fileSystem = fileSystem ?? new FileSystem();
         }
 
         public ILanguageService LangService
@@ -72,7 +81,7 @@ namespace Fanex.Athena.Controllers
             metaModel.BaseCurrency = GetBaseUsdLicensees().Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         protected IList<string> GetAllowLicenseesForStatusFunction()
         {
             var items = _appSettings.GetValue("LicenseeOfferStatusFunction");
@@ -103,10 +112,15 @@ namespace Fanex.Athena.Controllers
         {
             var userSession = SessionService.UserSession;
 
-            var option = userSession != null && userSession.ViewType != ClientViewType.None ?
+            var viewType = userSession != null && userSession.ViewType != ClientViewType.None ?
                 userSession.ViewType : (ClientViewType)int.Parse(AppSettings.ClientViewType);
 
-            var viewByOption = ClientViewHelper.GetViewPath(viewName, option);
+            if (viewType != ClientViewType.Desktop && !_fileSystem.ViewExists(viewName))
+            {
+                return base.View("~/Views/Desktop/Utility/Error.cshtml", null, ViewResources.FunctionNotAvailableOldUIMsg);
+            }
+
+            var viewByOption = ClientViewHelper.GetViewPath(viewName, viewType);
             return base.View(viewByOption, masterName, model);
         }
 

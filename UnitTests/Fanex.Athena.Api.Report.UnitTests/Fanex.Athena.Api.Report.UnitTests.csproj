@@ -86,6 +86,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AgCasinoWinLossReportControllerTest.cs" />
+    <Compile Include="CasinoProgressiveWinsReportControllerTest.cs" />
+    <Compile Include="MicrogamingWinlossReportControllerTest.cs" />
+    <Compile Include="LicenseeWinLossReportControllerTest.cs" />
     <Compile Include="ActiveCustomerSummaryReportControllerTest.cs" />
     <Compile Include="AgCasinoBalanceReportControllerTest.cs" />
     <Compile Include="BaseApiReportControllerHelperTest.cs" />
@@ -97,6 +101,7 @@
     <Compile Include="PlatformWinLossReportControllerTest.cs" />
     <Compile Include="SubsidiaryPerformanceReportControllerTest.cs" />
     <Compile Include="ThirdPartyWinLossReportControllerTest.cs" />
+    <Compile Include="WeeklyLiveMatchReportControllerTest.cs" />
     <Compile Include="WinLossByLeagueReportControllerTest.cs" />
     <Compile Include="WinLossByProductReportControllerTest.cs" />
     <Compile Include="CashOutWinLossReportControllerTest.cs" />

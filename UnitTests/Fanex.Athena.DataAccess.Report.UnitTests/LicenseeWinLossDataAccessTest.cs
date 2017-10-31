@@ -3,12 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Core.Configuration.Interfaces;
     using Data;
     using Extension.Utility;
     using Model.Core.DTO.Configuration;
     using Model.Core.MetaModel.Product;
-    using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -66,11 +66,9 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LicWinloss")).Returns(objectDb);
-            IEnumerable<LicenseeWinLoss> totalData;
-            IDictionary<string, LicenseeWinLoss> summaryTotal;
 
             // Action
-            _dataAccess.GetSummaryWinloss(_metaModel, out totalData, out summaryTotal);
+            _dataAccess.GetSummaryWinloss(_metaModel);
 
             // Assert
             objectDb.Received().AddInParameter("reporttype", DbType.Byte, _metaModel.ReportBy);
@@ -92,8 +90,6 @@
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LicWinloss")).Returns(objectDb);
             objectDb.ExecuteReader().Returns(reader);
-            IEnumerable<LicenseeWinLoss> totalData;
-            IDictionary<string, LicenseeWinLoss> summaryTotal;
             reader.Read().Returns(true, false);
             reader.FieldCount.Returns(3);
             reader.GetName(0).Returns("LicenseeWLSBUSD");
@@ -110,15 +106,16 @@
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetSummaryWinloss(_metaModel, out totalData, out summaryTotal);
+            var result = _dataAccess.GetSummaryWinloss(_metaModel);
+            var firstItem = result.DataList.First();
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count, Is.EqualTo(1));
-                Assert.That(result[0].SystemId, Is.EqualTo("testacc"));
-                Assert.That(result[0].LicenseeWL["SB"], Is.EqualTo(100));
-                Assert.That(result[0].TurnOver["SB"], Is.EqualTo(200));
+                Assert.That(result.DataList.Count, Is.EqualTo(1));
+                Assert.That(firstItem.SystemId, Is.EqualTo("testacc"));
+                Assert.That(firstItem.LicenseeWL["SB"], Is.EqualTo(100));
+                Assert.That(firstItem.TurnOver["SB"], Is.EqualTo(200));
             });
         }
 
@@ -130,8 +127,6 @@
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LicWinloss")).Returns(objectDb);
             objectDb.ExecuteReader().Returns(reader);
-            IEnumerable<LicenseeWinLoss> totalData;
-            IDictionary<string, LicenseeWinLoss> summaryTotal;
             reader.Read().Returns(true, false);
             reader.FieldCount.Returns(2);
             reader.GetName(0).Returns("LicenseeWLSBUSD");
@@ -146,13 +141,13 @@
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
-            _dataAccess.GetSummaryWinloss(_metaModel, out totalData, out summaryTotal);
+            var result = _dataAccess.GetSummaryWinloss(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(summaryTotal["USD"].LicenseeWL["SB"], Is.EqualTo(100));
-                Assert.That(summaryTotal["USD"].TurnOver["SB"], Is.EqualTo(200));
+                Assert.That(result.SummaryTotal["USD"].LicenseeWL["SB"], Is.EqualTo(100));
+                Assert.That(result.SummaryTotal["USD"].TurnOver["SB"], Is.EqualTo(200));
             });
         }
 
@@ -162,11 +157,9 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LicWinlossDetail")).Returns(objectDb);
-            IEnumerable<LicenseeWinLoss> totalData;
-            IDictionary<string, LicenseeWinLoss> summaryTotal;
 
             // Action
-            _dataAccess.GetCustomerWinlossDetail(_metaModel, out totalData, out summaryTotal);
+            _dataAccess.GetCustomerWinlossDetail(_metaModel);
 
             // Assert
             objectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.DrillDownCustomerId);
@@ -185,11 +178,9 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LicWinlossDetail_Ag")).Returns(objectDb);
-            IEnumerable<LicenseeWinLoss> totalData;
-            IDictionary<string, LicenseeWinLoss> summaryTotal;
 
             // Action
-            _dataAccess.GetAgentWinlossDetail(_metaModel, out totalData, out summaryTotal);
+            _dataAccess.GetAgentWinlossDetail(_metaModel);
 
             // Assert
             objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);

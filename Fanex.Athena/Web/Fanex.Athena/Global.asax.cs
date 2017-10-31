@@ -8,6 +8,7 @@ namespace Fanex.Athena
 {
     using System;
     using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
     using System.Web;
     using System.Web.Helpers;
     using System.Web.Http;
@@ -25,12 +26,7 @@ namespace Fanex.Athena
 
     public class MvcApplication : HttpApplication
     {
-        /// <summary>
-        /// The application errors.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The event ARGS.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public void Application_Error(object sender, EventArgs e)
         {
             var deploymentMode = ConfigurationManager.AppSettings["DeploymentMode"];
@@ -60,6 +56,7 @@ namespace Fanex.Athena
             }
         }
 
+        [SuppressMessage("Sonar Code Smell", "S2325:Methods and properties that don't access instance data should be static", Justification = "Reviewed.")]
         public void Application_Start(object sender, EventArgs e)
         {
             var deploymentMode = ConfigurationManager.AppSettings["DeploymentMode"];

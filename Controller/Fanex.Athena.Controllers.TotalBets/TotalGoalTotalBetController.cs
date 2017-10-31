@@ -10,6 +10,7 @@ namespace Fanex.Athena.Controllers.TotalBets
     using DataAccess.TotalBet;
     using DataAccess.TotalBet.Interfaces;
     using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.Model.TotalBet.DTO;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
@@ -32,8 +33,9 @@ namespace Fanex.Athena.Controllers.TotalBets
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IFileSystem fileSystem,
             ITotalGoalDataAccess totalGoalDataAccess)
-            : base(languageService, sessionService, appSetting)
+            : base(languageService, sessionService, appSetting, fileSystem)
         {
             _totalGoalDataAccess = totalGoalDataAccess;
         }

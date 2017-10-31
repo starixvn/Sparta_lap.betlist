@@ -1,0 +1,169 @@
+﻿namespace Fanex.Athena.Api.Report.UnitTests
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Excel.Report;
+    using Fanex.Athena.Service.Report.Interfaces;
+    using Model.Report.DTO;
+    using Model.Report.MetaModel;
+    using NPOI.SS.UserModel;
+    using NSubstitute;
+    using NUnit.Framework;
+
+    internal class WeeklyLiveMatchReportControllerTest : BaseApiReportControllerHelperTest
+    {
+        private IWeeklyLiveMatchService _service;
+        private WeeklyLiveMatchReportController _controller;
+
+        [OneTimeSetUp]
+        public override void FixtureSetUp()
+        {
+            base.FixtureSetUp();
+
+            MockSessionData();
+
+            _service = Substitute.For<IWeeklyLiveMatchService>();
+            _controller = Substitute.ForPartsOf<WeeklyLiveMatchReportController>(_service, SessionService, ProductService);
+            _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
+        }
+
+        [OneTimeTearDown]
+        public override void FixtureTearDown()
+        {
+            base.FixtureTearDown();
+
+            _service = null;
+            _controller = null;
+        }
+
+        [Test]
+        public void Index_InvalidRequest_ReturnEmptyData()
+        {
+            // Arrange
+            var model = new WeeklyLiveMatchMetaModel
+            {
+                CurrencyId = 1
+            };
+
+            // Action
+            var result = _controller.Index(model);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.IsEmpty(result.WeekHeaders);
+                Assert.Zero(result.NumberOfWeeks);
+                Assert.IsEmpty(result.Data);
+                Assert.IsEmpty(result.TotalData);
+            });
+        }
+
+        [Test]
+        public void Index_NoDataReturned_ReturnEmptyData()
+        {
+            // Arrange
+            var model = new WeeklyLiveMatchMetaModel
+            {
+                CurrencyId = -1
+            };
+
+            int[] totalData;
+            _service.GetData(Arg.Any<WeeklyLiveMatchMetaModel>(), out totalData).Returns(Enumerable.Empty<WeeklyLiveMatch>());
+            _service.GetWeekHeaders(Arg.Any<DateTime>(), Arg.Any<DateTime>(), Arg.Any<int>()).Returns(Enumerable.Empty<string>());
+
+            // Action
+            var result = _controller.Index(model);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.IsEmpty(result.WeekHeaders);
+                Assert.Zero(result.NumberOfWeeks);
+                Assert.IsEmpty(result.Data);
+                Assert.IsEmpty(result.TotalData);
+            });
+        }
+
+        [Test]
+        public void Index_ValidModel_ReturnCorrectData()
+        {
+            // Arrange
+            const int NumberOfWeek = 3;
+            var fromDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
+            var model = new WeeklyLiveMatchMetaModel
+            {
+                CurrencyId = -1,
+                FromDate = fromDate,
+                ToDate = fromDate.AddDays((NumberOfWeek - 1) * 7)
+            };
+
+            int[] totalData;
+            var data = new List<WeeklyLiveMatch>
+            {
+                new WeeklyLiveMatch { Index = 1, SportName = "Sport 1", NumbersOfMatches = new[] { 1, 2, 3 } },
+                new WeeklyLiveMatch { Index = 2, SportName = "Sport 2", NumbersOfMatches = new[] { 2, 3 } },
+                new WeeklyLiveMatch { Index = 3, SportName = "Sport 3", NumbersOfMatches = new[] { 3 } }
+            };
+            _service.GetData(Arg.Any<WeeklyLiveMatchMetaModel>(), out totalData).Returns(x =>
+            {
+                totalData = data.Select(d => d.Index).ToArray();
+                x[1] = totalData;
+                return data;
+            });
+
+            var weekHeaders = new[] { "H1", "H2", "H3" };
+            _service.GetWeekHeaders(Arg.Any<DateTime>(), Arg.Any<DateTime>(), Arg.Any<int>()).Returns(weekHeaders);
+
+            // Action
+            var result = _controller.Index(model);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.WeekHeaders, Is.EqualTo(weekHeaders));
+                Assert.That(result.NumberOfWeeks, Is.EqualTo(NumberOfWeek));
+                Assert.That(result.Data[0].Cell[0], Is.EqualTo(data[0].Index));
+                Assert.That(result.TotalData, Is.EqualTo(totalData));
+            });
+        }
+
+        [Test]
+        public void Index_ExportExcel_ExportWithCorrectData()
+        {
+            // Arrange
+            var model = new WeeklyLiveMatchMetaModel
+            {
+                CurrencyId = -1,
+                IsExportExcel = true
+            };
+
+            int[] totalData;
+            _service.GetData(Arg.Any<WeeklyLiveMatchMetaModel>(), out totalData).Returns(Enumerable.Empty<WeeklyLiveMatch>());
+            _service.GetWeekHeaders(Arg.Any<DateTime>(), Arg.Any<DateTime>(), Arg.Any<int>()).Returns(Enumerable.Empty<string>());
+
+            var expectedFileName = "WeeklyLiveMatches.xls";
+
+            var excel = Substitute.ForPartsOf<WeeklyLiveMatchExcel>(
+                Arg.Any<string>(),
+                Arg.Any<WeeklyLiveMatchMetaModel>(),
+                Arg.Any<IEnumerable<WeeklyLiveMatch>>(),
+                Arg.Any<int[]>(),
+                Arg.Any<IEnumerable<string>>());
+            excel.When(x => x.Export()).DoNotCallBase();
+
+            _controller.CreateExcel(
+                Arg.Any<string>(),
+                Arg.Any<WeeklyLiveMatchMetaModel>(),
+                Arg.Any<IEnumerable<WeeklyLiveMatch>>(),
+                Arg.Any<int[]>(),
+                Arg.Any<IEnumerable<string>>()).ReturnsForAnyArgs(excel);
+
+            // Action
+            _controller.Index(model);
+
+            // Assert
+            _controller.Received().ExcelStream(Arg.Any<IWorkbook>(), expectedFileName);
+        }
+    }
+}

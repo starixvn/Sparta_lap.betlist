@@ -1,10 +1,9 @@
 ﻿namespace Fanex.Athena.DataAccess.Report.UnitTests
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Data;
-    using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -48,11 +47,10 @@
         {
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_ThirdPartyWinloss")).Returns(objectDb);
-            IDictionary<string, ThirdPartyWinLoss> summaryTotal;
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_ThirdPartyWinloss")).Returns(objectDb);
 
             // Action
-            _dataAccess.GetSummaryWinloss(_metaModel, out summaryTotal);
+            _dataAccess.GetSummaryWinloss(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -71,10 +69,9 @@
             // Arrange
             var reader = Substitute.For<IDataReader>();
             var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_ThirdPartyWinloss")).Returns(objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_ThirdPartyWinloss")).Returns(objectDb);
             objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false);
-            IDictionary<string, ThirdPartyWinLoss> summaryTotal;
             var readerDataMapping = new
             {
                 winlostUSD = 100
@@ -83,15 +80,15 @@
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetSummaryWinloss(_metaModel, out summaryTotal);
+            var result = _dataAccess.GetSummaryWinloss(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count, Is.EqualTo(1));
-                Assert.That(result[0].CustomerWinLoss, Is.EqualTo(100));
+                Assert.That(result.DataList.Count, Is.EqualTo(1));
+                Assert.That(result.DataList.First().CustomerWinLoss, Is.EqualTo(100));
 
-                Assert.That(summaryTotal["USD"].CustomerWinLoss, Is.EqualTo(100));
+                Assert.That(result.SummaryTotal["USD"].CustomerWinLoss, Is.EqualTo(100));
             });
         }
 
@@ -101,10 +98,9 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("LRF_Rpt_ThirdPartyWinloss_Mem")).Returns(objectDb);
-            IDictionary<string, ThirdPartyWinLoss> summaryTotal;
 
             // Action
-            _dataAccess.GetCustomerWinlossDetail(_metaModel, out summaryTotal);
+            _dataAccess.GetCustomerWinlossDetail(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -126,7 +122,6 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("LRF_Rpt_ThirdPartyWinloss_Mem")).Returns(objectDb);
             objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false);
-            IDictionary<string, ThirdPartyWinLoss> summaryTotal;
             var readerDataMapping = new
             {
                 winlostUSD = 100
@@ -135,13 +130,13 @@
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetCustomerWinlossDetail(_metaModel, out summaryTotal);
+            var result = _dataAccess.GetCustomerWinlossDetail(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count, Is.EqualTo(1));
-                Assert.That(result[0].CustomerWinLoss, Is.EqualTo(100));
+                Assert.That(result.DataList.Count, Is.EqualTo(1));
+                Assert.That(result.DataList.First().CustomerWinLoss, Is.EqualTo(100));
             });
         }
 
@@ -151,10 +146,9 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("LRF_Rpt_ThirdPartyWinloss_Ag")).Returns(objectDb);
-            IDictionary<string, ThirdPartyWinLoss> summaryTotal;
 
             // Action
-            _dataAccess.GetAgentWinlossDetail(_metaModel, out summaryTotal);
+            _dataAccess.GetAgentWinlossDetail(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -175,7 +169,6 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("LRF_Rpt_ThirdPartyWinloss_Ag")).Returns(objectDb);
             objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false);
-            IDictionary<string, ThirdPartyWinLoss> summaryTotal;
             var readerDataMapping = new
             {
                 winlostUSD = 100
@@ -184,13 +177,13 @@
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetAgentWinlossDetail(_metaModel, out summaryTotal);
+            var result = _dataAccess.GetAgentWinlossDetail(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count, Is.EqualTo(1));
-                Assert.That(result[0].CustomerWinLoss, Is.EqualTo(100));
+                Assert.That(result.DataList.Count, Is.EqualTo(1));
+                Assert.That(result.DataList.First().CustomerWinLoss, Is.EqualTo(100));
             });
         }
     }

@@ -45,23 +45,6 @@ namespace Fanex.Athena.Excel.Report
             : base(templatePath, excelModel.MetaModel.PageSize)
         {
             _excelModel = excelModel;
-            HeaderTextList = new List<string>
-            {
-                "#",
-                ViewResources.ExternalId,
-                ViewResources.SystemId,
-                ViewResources.Turnover,
-                ViewResources.TotalTransaction,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.EffectiveBettingValue,
-                ViewResources.LicenseeW_L,
-                ViewResources.BACommission,
-                ViewResources.RacingRevenue,
-                ViewResources.AmtDueToBA,
-                ViewResources.AmtDueToRacing
-            };
         }
 
         protected override void AssignData()
@@ -92,13 +75,30 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            var headerTextList = new[]
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                "#",
+                ViewResources.ExternalId,
+                ViewResources.SystemId,
+                ViewResources.Turnover,
+                ViewResources.TotalTransaction,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.EffectiveBettingValue,
+                ViewResources.LicenseeW_L,
+                ViewResources.BACommission,
+                ViewResources.RacingRevenue,
+                ViewResources.AmtDueToBA,
+                ViewResources.AmtDueToRacing
+            };
+            for (int i = 0; i < headerTextList.Length; i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
 
             row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
@@ -108,13 +108,13 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[7].SetCellValue(ViewResources.Total);
         }
 
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
-        protected override int AssignSheetData(ISheet sheet, int pageIndex)
+        protected int AssignSheetData(ISheet sheet, int pageIndex)
         {
             var rowCount = Math.Min(_excelModel.DataList.Count(), checked((pageIndex + 1) * PageSize));
             var rowIndex = 0;
@@ -149,7 +149,7 @@ namespace Fanex.Athena.Excel.Report
             return rowIndex;
         }
 
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
             var filterTitle = ReportExcelHelper.GetTitleCurrencyName(_excelModel.ConvertingOption)
                             + ReportExcelHelper.GetLicenseeWLProduct(_excelModel.MetaModel.ProductOptions)
@@ -157,13 +157,13 @@ namespace Fanex.Athena.Excel.Report
                                 ? string.Empty
                                 : ", " + ViewResources.Username + ": " + _excelModel.MetaModel.Username);
 
-            ReportTitle = string.Format(
+            var reportTitle = string.Format(
                                         ViewResources.CustomerWinLossTitle,
                                         _excelModel.MetaModel.FromDate.ToString(FormatDate),
                                         _excelModel.MetaModel.ToDate.ToString(FormatDate),
                                         filterTitle);
 
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);
@@ -172,7 +172,7 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        protected override void ProcessUI(ISheet sheet)
+        protected void ProcessUI(ISheet sheet)
         {
             if (!_excelModel.SystemIdVisible)
             {

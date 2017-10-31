@@ -16,7 +16,6 @@ namespace Fanex.Athena.DataAccess.BetList
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Interfaces;
-    using Logging;
     using Model.BetList.ViewModel;
 
     public class ColossusBetBetListDataAccess : BaseBetListDataAccess, IColossusBetBetListDataAccess
@@ -39,7 +38,7 @@ namespace Fanex.Athena.DataAccess.BetList
             }
             catch (ObjectDbException exception)
             {
-                throw new DataAccessException(exception.Message, UspKey, new { CustId = custId });
+                throw new DataAccessException(exception, UspKey, new { CustId = custId });
             }
         }
 
@@ -62,7 +61,7 @@ namespace Fanex.Athena.DataAccess.BetList
             }
             catch (ObjectDbException exception)
             {
-                throw new DataAccessException(exception.Message, UspKey, metaModel);
+                throw new DataAccessException(exception, UspKey, metaModel);
             }
         }
 

@@ -48,6 +48,11 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly ConvertingOption _convertingOption;
 
+        protected internal MicroGamingWinLossExcel(string templatePath)
+            : base(templatePath)
+        {
+        }
+
         public MicroGamingWinLossExcel(
                 string templatePath,
                 ConvertingOption convertingOption,
@@ -81,11 +86,9 @@ namespace Fanex.Athena.Excel.Report
             {
                 AssignSheetData(sheet);
             }
-
-            ProcessUI(sheet);
         }
 
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
@@ -102,13 +105,12 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnProgressiveFee].SetCellValue(ViewResources.ProgressiveFee);
         }
 
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, ColumnTemplateCount, ViewResources.NoInfo);
-            ProcessUI(sheet);
         }
 
-        protected override void AssignSheetData(ISheet sheet)
+        protected void AssignSheetData(ISheet sheet)
         {
             var indexReport = 1;
             int index;
@@ -156,14 +158,14 @@ namespace Fanex.Athena.Excel.Report
             AssignGrandTotalInEurData(sheet, currentRow);
         }
 
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
             var todate = _metaModel.ToDate.ToString(FormatDate);
             var title = ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId);
 
-            ReportTitle = GenerateProductReportTitle(fromdate, todate, title);
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            var reportTitle = GenerateProductReportTitle(fromdate, todate, title);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 2);

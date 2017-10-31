@@ -3,9 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Data;
-    using Model.Core.DTO.Configuration;
-    using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -47,10 +46,9 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("LRF_Rpt_MicroGamingWinloss")).Returns(objectDb);
-            IDictionary<string, MicroGamingWinLoss> summaryTotal;
 
             // Action
-            _dataAccess.GetSummaryWinloss(_metaModel, out summaryTotal);
+            _dataAccess.GetSummaryWinloss(_metaModel);
 
             // Assert
             objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
@@ -69,7 +67,6 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("LRF_Rpt_MicroGamingWinloss")).Returns(objectDb);
             objectDb.ExecuteReader().Returns(reader);
             reader.Read().Returns(true, false);
-            IDictionary<string, MicroGamingWinLoss> summaryTotal;
             var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
             {
                 { "typeid", 1 },
@@ -80,17 +77,18 @@
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetSummaryWinloss(_metaModel, out summaryTotal);
+            var result = _dataAccess.GetSummaryWinloss(_metaModel);
+            var firstItem = result.DataList.First();
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count, Is.EqualTo(1));
-                Assert.That(result[0].TypeID, Is.EqualTo(1));
-                Assert.That(result[0].Date, Is.EqualTo(new DateTime(2017, 1, 1)));
-                Assert.That(result[0].TurnOver, Is.EqualTo(100));
+                Assert.That(result.DataList.Count, Is.EqualTo(1));
+                Assert.That(firstItem.TypeID, Is.EqualTo(1));
+                Assert.That(firstItem.Date, Is.EqualTo(new DateTime(2017, 1, 1)));
+                Assert.That(firstItem.TurnOver, Is.EqualTo(100));
 
-                Assert.That(summaryTotal["USD"].TurnOver, Is.EqualTo(100));
+                Assert.That(result.SummaryTotal["USD"].TurnOver, Is.EqualTo(100));
             });
         }
     }

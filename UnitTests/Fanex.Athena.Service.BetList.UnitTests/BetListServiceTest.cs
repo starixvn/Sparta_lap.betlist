@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Service.BetList.UnitTests
 {
-    using System.Collections.Generic;
     using Core.Users.Interfaces;
     using DataAccess.BetList.Interfaces;
     using DataAccess.Core.Configuration.Interfaces;
@@ -122,37 +121,6 @@
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expectedResult));
-        }
-
-        [Test]
-        public void GetDailyStatementData_WhenCall_ReturnDataFromDataAccess()
-        {
-            // Arrange
-            var expectedResult = new List<DailyStatement>
-            {
-                new DailyStatement()
-            };
-            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            _betlistDataAccess.GetDailyStatementData(Arg.Any<BetListMetaModel>(), false).Returns(expectedResult);
-
-            // Action
-            var result = _betListService.GetDailyStatementData(new BetListMetaModel(), false);
-
-            // Assert
-            Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-        }
-
-        [Test]
-        public void GetDailyStatementData_HaveNoPermission_ReturnCorrectData()
-        {
-            // Arrange
-            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
-
-            // Action
-            var result = _betListService.GetDailyStatementData(new BetListMetaModel(), false);
-
-            // Assert
-            Assert.That(result, Is.Empty);
         }
     }
 }

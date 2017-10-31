@@ -5,7 +5,6 @@
     using Data;
     using Fanex.Athena.DataAccess.Dashboard.Interfaces;
     using Fanex.Common.Extensions;
-    using Logging;
     using Model.Dashboard.MetaModel;
 
     public class TodayWithdrawalDataAccess : BaseDataAccess, ISimpleWidgetDataAccess
@@ -32,7 +31,7 @@
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, metaModel);
+                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
     }

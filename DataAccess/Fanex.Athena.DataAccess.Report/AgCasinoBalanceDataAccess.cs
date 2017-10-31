@@ -22,10 +22,11 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
+    using Model.Core.ResultModel;
 
     public class AgCasinoBalanceDataAccess : BaseDataAccess, IAgCasinoBalanceDataAccess
     {
-        public SortableList<AgCasinoBalance> GetSummaryWinloss(AgCasinoBalanceMetaModel metaModel, out IDictionary<string, AgCasinoBalance> summaryTotal)
+        public SortableReportResultModel<AgCasinoBalance> GetSummaryBalance(AgCasinoBalanceMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_AGCasinoBalance";
             try
@@ -36,20 +37,17 @@ namespace Fanex.Athena.DataAccess.Report
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel, out summaryTotal);
+                        return GetData(reader, metaModel);
                     }
                 }
             }
             catch (SqlException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, metaModel);
+                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 
-        public SortableList<AgCasinoBalance> GetCustomerWinlossDetail(
-            AgCasinoBalanceMetaModel metaModel,
-            out IDictionary<string, AgCasinoBalance> summaryTotal,
-            out int totalRows)
+        public SortableReportResultModel<AgCasinoBalance> GetCustomerBalanceDetail(AgCasinoBalanceMetaModel metaModel)
         {
             const string UspName = "LRF_Rpt_AGCasinoBalance_Mem";
             try
@@ -62,25 +60,24 @@ namespace Fanex.Athena.DataAccess.Report
                     db.AddOutParameter("TotalRows", DbType.Int32, 10);
 
                     UpdateUspParams(db, metaModel, true);
-                    SortableList<AgCasinoBalance> data;
+                    SortableReportResultModel<AgCasinoBalance> result;
                     using (var reader = db.ExecuteReader())
                     {
-                        data = GetData(reader, metaModel, out summaryTotal);
+                        result = GetData(reader, metaModel);
                     }
 
-                    totalRows = (int)db.GetParameterValue("TotalRows");
-                    return data;
+                    result.TotalRows = (int)db.GetParameterValue("TotalRows");
+
+                    return result;
                 }
             }
             catch (SqlException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, metaModel);
+                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 
-        public SortableList<AgCasinoBalance> GetAgentWinlossDetail(
-            AgCasinoBalanceMetaModel metaModel,
-            out IDictionary<string, AgCasinoBalance> summaryTotal)
+        public SortableReportResultModel<AgCasinoBalance> GetAgentBalanceDetail(AgCasinoBalanceMetaModel metaModel)
         {
             const string UspName = "LRF_Rpt_AGCasinoBalance_Ag";
             try
@@ -90,26 +87,25 @@ namespace Fanex.Athena.DataAccess.Report
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel, out summaryTotal);
+                        return GetData(reader, metaModel);
                     }
                 }
             }
             catch (SqlException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, metaModel);
+                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private static SortableList<AgCasinoBalance> GetData(
+        private static SortableReportResultModel<AgCasinoBalance> GetData(
             IDataReader reader,
-            AgCasinoBalanceMetaModel metaModel,
-            out IDictionary<string, AgCasinoBalance> summaryTotal)
+            AgCasinoBalanceMetaModel metaModel)
         {
-            var result = new SortableList<AgCasinoBalance>();
+            var dataList = new SortableList<AgCasinoBalance>();
 
-            summaryTotal = SystemConstants.BaseCurrencyList.ToDictionary(x => x, x => new AgCasinoBalance());
+            var summaryTotal = SystemConstants.BaseCurrencyList.ToDictionary(x => x, x => new AgCasinoBalance());
 
             var winlostColumn = "winlost" + metaModel.BaseCurrency;
             var licenseewlColumn = "licenseewinlost" + metaModel.BaseCurrency;
@@ -145,9 +141,8 @@ namespace Fanex.Athena.DataAccess.Report
                     ClosingBalance = reader.ToDecimal(closingBalanceColumn),
                 };
 
-                result.Add(item);
+                dataList.Add(item);
 
-                // Read Summary
                 foreach (var currencySuffix in SystemConstants.BaseCurrencyList)
                 {
                     summaryTotal[currencySuffix].CustomerWinLoss += reader.ToDecimal("winlost" + currencySuffix);
@@ -161,7 +156,11 @@ namespace Fanex.Athena.DataAccess.Report
                 }
             }
 
-            return result;
+            return new SortableReportResultModel<AgCasinoBalance>
+            {
+                DataList = dataList,
+                SummaryTotal = summaryTotal
+            };
         }
 
         private static void UpdateUspParams(IObjectDb db, AgCasinoBalanceMetaModel metaModel, bool drilldown)

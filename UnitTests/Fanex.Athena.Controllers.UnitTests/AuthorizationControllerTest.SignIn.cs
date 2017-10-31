@@ -78,6 +78,8 @@
                 // Action
                 var result = controller.SignIn(new LoginMetalModel
                 {
+                    UserName = "anything",
+                    PassWord = "anything",
                     Captcha = "WrongCaptcha"
                 }) as ViewResult;
 

@@ -14,7 +14,6 @@ namespace Fanex.Athena.DataAccess.BetList
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Data;
     using Interfaces;
-    using Logging;
 
     public class LastBetsMonitoringBetListDataAccess : BaseBetListDataAccess, ILastBetsMonitoringBetListDataAccess
     {
@@ -53,7 +52,7 @@ namespace Fanex.Athena.DataAccess.BetList
             }
             catch (ObjectDbException exception)
             {
-                throw new DataAccessException(exception.Message, UspKey, metaModel);
+                throw new DataAccessException(exception, UspKey, metaModel);
             }
         }
 
@@ -68,7 +67,7 @@ namespace Fanex.Athena.DataAccess.BetList
             }
             catch (ObjectDbException exception)
             {
-                throw new DataAccessException(exception.Message, uspKey);
+                throw new DataAccessException(exception, uspKey);
             }
         }
     }

@@ -19,7 +19,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
     using Model.Core.ResultModel;
 
     public class WinLossByLeagueDataAccess : BaseDataAccess, IWinLossByLeagueDataAccess
@@ -56,7 +55,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, metaModel);
+                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 
@@ -107,7 +106,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, metaModel);
+                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 

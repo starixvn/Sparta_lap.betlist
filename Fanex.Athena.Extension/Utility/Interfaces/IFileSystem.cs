@@ -4,6 +4,8 @@
     {
         bool Exists(string path);
 
+        bool ViewExists(string relativePath);
+
         string ReadFile(string path);
     }
 }

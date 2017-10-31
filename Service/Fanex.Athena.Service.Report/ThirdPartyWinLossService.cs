@@ -13,6 +13,7 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report.Interfaces;
+    using Model.Core.ResultModel;
 
     public class ThirdPartyWinLossService : IThirdPartyWinLossService
     {
@@ -23,38 +24,28 @@ namespace Fanex.Athena.Service.Report
             this._thirdPartyWinLossDataAccess = new ThirdPartyWinLossDataAccess();
         }
 
-        public SortableList<ThirdPartyWinLoss> GetAgentWinlossDetail(
-            ThirdPartyWinLossMetaModel metaModel,
-            out IDictionary<string, ThirdPartyWinLoss> summaryTotal)
+        public SortableReportResultModel<ThirdPartyWinLoss> GetAgentWinlossDetail(ThirdPartyWinLossMetaModel metaModel)
         {
-            summaryTotal = new Dictionary<string, ThirdPartyWinLoss>();
-            return metaModel.IsValid
-                       ? this._thirdPartyWinLossDataAccess.GetAgentWinlossDetail(metaModel, out summaryTotal)
-                       : new SortableList<ThirdPartyWinLoss>();
+            return _thirdPartyWinLossDataAccess.GetAgentWinlossDetail(metaModel);
         }
 
-        public SortableList<ThirdPartyWinLoss> GetCustomerWinlossDetail(
-            ThirdPartyWinLossMetaModel metaModel,
-            out IDictionary<string, ThirdPartyWinLoss> summaryTotal)
+        public SortableReportResultModel<ThirdPartyWinLoss> GetCustomerWinlossDetail(ThirdPartyWinLossMetaModel metaModel)
         {
-            summaryTotal = new Dictionary<string, ThirdPartyWinLoss>();
-            return metaModel.IsValid
-                       ? this._thirdPartyWinLossDataAccess.GetCustomerWinlossDetail(metaModel, out summaryTotal)
-                       : new SortableList<ThirdPartyWinLoss>();
+            return _thirdPartyWinLossDataAccess.GetCustomerWinlossDetail(metaModel);
         }
 
-        public SortableList<ThirdPartyWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, out IDictionary<string, ThirdPartyWinLoss> summaryTotal)
+        public SortableReportResultModel<ThirdPartyWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel)
         {
-            summaryTotal = new Dictionary<string, ThirdPartyWinLoss>();
-            var result = this._thirdPartyWinLossDataAccess.GetSummaryWinloss(metaModel, out summaryTotal);
+            var result = this._thirdPartyWinLossDataAccess.GetSummaryWinloss(metaModel);
             var date = new System.DateTime();
             var index = 1;
-            foreach (var item in result)
+            var dataList = result.DataList;
+            foreach (var item in dataList)
             {
                 if (date != item.Date)
                 {
                     date = item.Date ?? new System.DateTime();
-                    item.RowSpan = result.Count(x => x.Date == item.Date);
+                    item.RowSpan = dataList.Count(x => x.Date == item.Date);
                     item.Index = index++;
                 }
                 else

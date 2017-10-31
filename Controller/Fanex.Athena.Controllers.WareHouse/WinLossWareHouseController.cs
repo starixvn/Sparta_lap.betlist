@@ -79,7 +79,7 @@ namespace Fanex.Athena.Controllers.WareHouse
             };
             var viewByCurrency =
                 string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
-            var groupingList = GroupingMetaModel.GetCollection();
+            var groupingList = GroupingMetaModel.GroupingList;
             var titleText = string.Format(
                 FormatTitle,
                 ViewResources.ReportBy,
@@ -91,10 +91,9 @@ namespace Fanex.Athena.Controllers.WareHouse
             IDictionary<string, decimal> totalValues = new Dictionary<string, decimal>();
             var exportData = GetDataList(metaModel, ref totalValues);
 
-            var winLossExcel = new TopWinLossExcel(templatePath, showingOption, exportData, totalValues)
+            var winLossExcel = new TopWinLossExcel(templatePath, showingOption, exportData, totalValues, titleText)
             {
-                GroupingId = metaModel.ReportBy,
-                ReportTitle = titleText
+                GroupingId = metaModel.ReportBy
             };
 
             winLossExcel.Export();

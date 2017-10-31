@@ -33,7 +33,6 @@ var LastBetGrid = (function () {
     var _postedParam;
 
     var _intervalId;
-    var _errorMessage;
     var _isLoading;
     var _intervalMiliseconds;
 
@@ -58,7 +57,6 @@ var LastBetGrid = (function () {
          { Name: "Status", IsShow: 1 }];
     _me.initialize = function () {
         _intervalId = 0;
-        _errorMessage = null;
         _isLoading = false;
         _intervalMiliseconds = 3000;
 

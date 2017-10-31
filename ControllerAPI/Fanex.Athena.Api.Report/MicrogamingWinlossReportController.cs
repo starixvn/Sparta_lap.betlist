@@ -6,21 +6,23 @@
 
 namespace Fanex.Athena.Api.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
-    using System.Web;
+    using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportMicrogamingWinloss)]
     public class MicrogamingWinlossReportController : ApiReportBaseController
@@ -32,30 +34,35 @@ namespace Fanex.Athena.Api.Report
             _microGamingWinLossDataAccess = new MicroGamingWinLossDataAccess();
         }
 
+        public MicrogamingWinlossReportController(
+            ISessionService sessionService,
+            IProductService productService,
+            IMicroGamingWinLossDataAccess microGamingWinLossDataAccess)
+            : base(sessionService, productService)
+        {
+            _microGamingWinLossDataAccess = microGamingWinLossDataAccess;
+        }
+
         [HttpPost]
-        public dynamic Index(
-            MicroGamingWinLossMetaModel metaModel)
+        public dynamic Index(MicroGamingWinLossMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludedTestData);
-            IDictionary<string, MicroGamingWinLoss> summaryTotal = new Dictionary<string, MicroGamingWinLoss>();
 
-            var dataList = metaModel.IsValid ?
-                this._microGamingWinLossDataAccess.GetSummaryWinloss(metaModel, out summaryTotal) :
-                new SortableList<MicroGamingWinLoss>();
+            var result = _microGamingWinLossDataAccess.GetSummaryWinloss(metaModel);
 
             if (metaModel.IsExportExcel)
             {
-                return ExportExcel(metaModel, dataList, summaryTotal);
+                return ExportExcel(metaModel, result.DataList, result.SummaryTotal);
             }
 
-            if (dataList.Any())
+            if (result.DataList.Any())
             {
                 return new
                 {
-                    Data = DoRestructureDataMicroGaming(dataList.GroupBy(i => new { i.TypeID, i.Date })),
-                    Total = CalculateTotal(dataList),
-                    SummaryTotal = summaryTotal
+                    Data = DoRestructureDataMicroGaming(result.DataList.GroupBy(i => new { i.TypeID, i.Date })),
+                    Total = CalculateTotal(result.DataList),
+                    SummaryTotal = result.SummaryTotal
                 };
             }
 
@@ -127,13 +134,23 @@ namespace Fanex.Athena.Api.Report
             }).ToList();
         }
 
+        [CLSCompliant(false)]
+        protected internal virtual MicroGamingWinLossExcel CreateExcel(
+            MicroGamingWinLossMetaModel metaModel,
+            string templatePath,
+            ConvertingOption convertingOption,
+            MicroGamingWinLossViewModel excelModel)
+        {
+            return new MicroGamingWinLossExcel(templatePath, convertingOption, metaModel, excelModel);
+        }
+
         private HttpResponseMessage ExportExcel(
             MicroGamingWinLossMetaModel metaModel,
             IList<MicroGamingWinLoss> dataList,
             IDictionary<string, MicroGamingWinLoss> summaryTotal)
         {
             var userSession = SessionService.UserSession;
-            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/MicroGamingWinLoss.xls");
+            var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/MicroGamingWinLoss.xls");
             var currency = userSession.CurrencyList.SingleOrDefault(i => i.Key == metaModel.CurrencyId);
 
             var exportedFileName = string.Format(
@@ -153,7 +170,7 @@ namespace Fanex.Athena.Api.Report
                 SummaryTotal = summaryTotal,
             };
 
-            var excel = new MicroGamingWinLossExcel(templatePath, convertingOption, metaModel, excelModel);
+            var excel = CreateExcel(metaModel, templatePath, convertingOption, excelModel);
 
             excel.Export();
 

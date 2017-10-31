@@ -33,9 +33,7 @@ namespace Fanex.Athena.Service.Core.Helpers
             var sqlException = exception as SqlException;
             if (sqlException != null)
             {
-                content.AppendLine("Procedure: " + sqlException.Procedure)
-                    .AppendLine("Line Number: " + sqlException.LineNumber)
-                    .AppendLine("Server: " + sqlException.Server);
+                AppendLogForSqlException(content, sqlException);
             }
             else
             {
@@ -46,7 +44,24 @@ namespace Fanex.Athena.Service.Core.Helpers
                 }
             }
 
+            AppendLogForInnerException(content, exception.InnerException);
             LogService.Error(content.ToString(), exception);
+        }
+
+        private static void AppendLogForInnerException(StringBuilder content, Exception innerException)
+        {
+            var exception = innerException as SqlException;
+            if (innerException != null)
+            {
+                AppendLogForSqlException(content, exception);
+            }
+        }
+
+        private static void AppendLogForSqlException(StringBuilder content, SqlException sqlException)
+        {
+            content.AppendLine("Procedure: " + sqlException.Procedure)
+                                .AppendLine("Line Number: " + sqlException.LineNumber)
+                                .AppendLine("Server: " + sqlException.Server);
         }
 
         public static void WriteError(string message)

@@ -10,16 +10,18 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
-    using System.Web;
+    using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
+    using Model.Core.ResultModel;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
     using Service.Report;
     using Service.Report.Interfaces;
 
@@ -31,6 +33,12 @@ namespace Fanex.Athena.Api.Report
         public AgCasinoWinLossReportController()
         {
             _agcasinoWinLossService = new AgCasinoWinLossService();
+        }
+
+        public AgCasinoWinLossReportController(IAgCasinoWinLossService agcasinoWinLossService, ISessionService sessionService, IProductService productService)
+            : base(sessionService, productService)
+        {
+            _agcasinoWinLossService = agcasinoWinLossService;
         }
 
         [HttpPost]
@@ -51,6 +59,18 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel, null, null);
         }
 
+        [CLSCompliant(false)]
+        protected internal virtual AgCasinoWinLossExcel CreateExcel(
+            string templatePath,
+            ConvertingOption convertingOption,
+            AgCasinoWinLossViewModel excelModel)
+        {
+            return new AgCasinoWinLossExcel(templatePath, convertingOption, excelModel)
+            {
+                Level = excelModel.Param.DrillDownLevel
+            };
+        }
+
         private static dynamic GetEmptyResult()
         {
             return new
@@ -61,10 +81,13 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
-        private HttpResponseMessage ExportExcel(AgCasinoWinLossMetaModel metaModel, IList<AgCasinoWinLoss> dataList, IDictionary<string, AgCasinoWinLoss> summaryTotal)
+        private HttpResponseMessage ExportExcel(
+            AgCasinoWinLossMetaModel metaModel,
+            IEnumerable<AgCasinoWinLoss> dataList,
+            IDictionary<string, AgCasinoWinLoss> summaryTotal)
         {
             var userSession = SessionService.UserSession;
-            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/AgCasinoWinLoss.xls");
+            var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/AgCasinoWinLoss.xls");
             var currency = userSession.CurrencyList.SingleOrDefault(i => i.Key == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
             var fromDate = metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate;
             var currencyText = currency.Key == 0 ? "All" : currency.Value;
@@ -87,12 +110,10 @@ namespace Fanex.Athena.Api.Report
             {
                 MainResult = dataList,
                 SummaryTotal = summaryTotal,
+                Param = metaModel
             };
 
-            var excel = new AgCasinoWinLossExcel(templatePath, convertingOption, metaModel, exccelModel)
-            {
-                Level = metaModel.DrillDownLevel,
-            };
+            var excel = CreateExcel(templatePath, convertingOption, exccelModel);
 
             excel.Export();
 
@@ -116,22 +137,20 @@ namespace Fanex.Athena.Api.Report
                 metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(level > 0 ? currencyId : metaModel.CurrencyId, metaModel.IsExcludedTestData);
 
-                IDictionary<string, AgCasinoWinLoss> summaryTotal;
-                SortableList<AgCasinoWinLoss> dataList;
-                GetData(metaModel, out dataList, out summaryTotal);
+                var data = GetData(metaModel);
 
                 if (metaModel.IsExportExcel)
                 {
-                    return ExportExcel(metaModel, dataList, summaryTotal);
+                    return ExportExcel(metaModel, data.DataList, data.SummaryTotal);
                 }
 
-                if (dataList.Count > 0)
+                if (data.DataList != null && data.DataList.Any())
                 {
                     return new
                     {
-                        Data = dataList,
-                        Total = _agcasinoWinLossService.CalculateTotal(dataList),
-                        SummaryTotal = summaryTotal
+                        Data = data.DataList,
+                        Total = _agcasinoWinLossService.CalculateTotal(data.DataList),
+                        SummaryTotal = data.SummaryTotal
                     };
                 }
             }
@@ -139,14 +158,11 @@ namespace Fanex.Athena.Api.Report
             return GetEmptyResult();
         }
 
-        private void GetData(
-                AgCasinoWinLossMetaModel metaModel,
-                out SortableList<AgCasinoWinLoss> dataList,
-                out IDictionary<string, AgCasinoWinLoss> summaryTotal)
+        private ReportResultModel<AgCasinoWinLoss> GetData(AgCasinoWinLossMetaModel metaModel)
         {
-            dataList = metaModel.DrillDownLevel == 0 ? _agcasinoWinLossService.GetSummaryWinloss(metaModel, out summaryTotal) : metaModel.DrillDownLevel == 2
-                               ? _agcasinoWinLossService.GetCustomerWinlossDetail(metaModel, out summaryTotal)
-                               : _agcasinoWinLossService.GetAgentWinlossDetail(metaModel, out summaryTotal);
+            return metaModel.DrillDownLevel == 0 ? _agcasinoWinLossService.GetSummaryWinloss(metaModel) : metaModel.DrillDownLevel == 2
+                               ? _agcasinoWinLossService.GetCustomerWinlossDetail(metaModel)
+                               : _agcasinoWinLossService.GetAgentWinlossDetail(metaModel);
         }
     }
 }

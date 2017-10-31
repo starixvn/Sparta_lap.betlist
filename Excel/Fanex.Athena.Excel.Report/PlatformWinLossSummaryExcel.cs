@@ -31,7 +31,7 @@
         private const int RowNoInfoTemplate = 6;
 
         private readonly PlatformWinLossMetaModel _model;
-        private readonly IList<PlatformWinLossSummary> _dataList;
+        private readonly IEnumerable<PlatformWinLossSummary> _dataList;
         private readonly PlatformWinLossSummary _total;
 
         private readonly IEnumerable<ProductOption> _productOptions;
@@ -39,7 +39,7 @@
         public PlatformWinLossSummaryExcel(
             string templatePath,
             PlatformWinLossMetaModel metaModel,
-            IList<PlatformWinLossSummary> dataList,
+            IEnumerable<PlatformWinLossSummary> dataList,
             PlatformWinLossSummary total)
             : base(templatePath)
         {
@@ -48,22 +48,11 @@
             _total = total;
 
             _productOptions = metaModel.ProductOptions;
-            HeaderTextList = new List<string>
-            {
-                ViewResources.Platform,
-                ViewResources.Turnover,
-                ViewResources.TurnoverPercent,
-                ViewResources.TotalTransaction,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.LicenseeW_L,
-            };
         }
 
         protected override void AssignData()
         {
-            var numOfDataRow = _dataList.Count;
+            var numOfDataRow = _dataList.Count();
             var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
@@ -79,13 +68,24 @@
             }
         }
 
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            var headerTextList = new[]
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                ViewResources.Platform,
+                ViewResources.Turnover,
+                ViewResources.TurnoverPercent,
+                ViewResources.TotalTransaction,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.LicenseeW_L,
+            };
+
+            for (int i = 0; i < headerTextList.Length; i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
 
             row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
@@ -95,12 +95,12 @@
             row.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
         }
 
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowParentContentTemplate, ColumnNoContent, ViewResources.NoInfo);
         }
 
-        protected override void AssignSheetData(ISheet sheet)
+        protected void AssignSheetData(ISheet sheet)
         {
             var rowIndex = RowParentContentTemplate;
             foreach (var item in _dataList)
@@ -118,14 +118,14 @@
             AssignCellData(totalRow, _total);
         }
 
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
             var platformText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(_model.PlatformType);
             var currencyText = _model.CurrencyId == 0 ?
                 ViewResources.AllCurrencies :
                 string.Format("{0} {1}", ViewResources.Currency, _model.CurrencyName);
 
-            ReportTitle = string.Format(
+            var reportTitle = string.Format(
                                         ViewResources.PlatformWinLossTitle,
                                         _model.FromDate.ToString(FormatDate),
                                         _model.ToDate.ToString(FormatDate),
@@ -133,7 +133,7 @@
                                         GetBaseCurrencyTitle(),
                                         platformText) + ", " + GetProductTitle();
 
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnNoContent, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnNoContent, reportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);

@@ -15,7 +15,6 @@
     using Fanex.Common;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
     using Model.Core.ResultModel;
     using Resources;
 
@@ -38,7 +37,7 @@
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, "Lrf_CustomerSelUserSearch");
+                throw new DataAccessException(sqlException, "Lrf_CustomerSelUserSearch");
             }
         }
 
@@ -115,7 +114,7 @@
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
 
@@ -138,7 +137,7 @@
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
 
@@ -166,7 +165,7 @@
             }
             catch (SqlException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, "Lrf_CustomerUpdUgroup");
+                throw new DataAccessException(sqlException, "Lrf_CustomerUpdUgroup");
             }
         }
 
@@ -190,7 +189,7 @@
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, "Lrf_CustomerUpdClosed");
+                throw new DataAccessException(sqlException, "Lrf_CustomerUpdClosed");
             }
         }
 
@@ -214,7 +213,7 @@
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, "Lrf_CustomerUpdSuspended");
+                throw new DataAccessException(sqlException, "Lrf_CustomerUpdSuspended");
             }
         }
 
@@ -243,7 +242,7 @@
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
 
@@ -267,7 +266,7 @@
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
 
@@ -291,7 +290,7 @@
             }
             catch (SqlException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
 

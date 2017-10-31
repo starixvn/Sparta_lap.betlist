@@ -112,7 +112,6 @@
     <Compile Include="Extension\HSSFCellExtension.cs" />
     <Compile Include="Extension\HSSFSheetExtension.cs" />
     <Compile Include="Extension\HSSFWorkbookExtension.cs" />
-    <Compile Include="ExcelBase.cs" />
     <Compile Include="Entities\ConvertingOption.cs" />
     <Compile Include="Entities\ShowingOption.cs" />
     <Compile Include="ExcelException.cs" />

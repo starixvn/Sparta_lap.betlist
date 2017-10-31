@@ -1,166 +1,74 @@
 ﻿namespace Fanex.Athena.Api.Report.UnitTests
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Net.Http;
-    using System.Web.Http;
-    using System.Web.Http.Hosting;
-    using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
     using Excel.Report;
-    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
-    using Model.Report.MetaModel;
     using Model.Report.ViewModel;
-    using NPOI.SS.UserModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Report;
-    using Service.Core.Common.Interfaces;
-    using Service.Core.Users.Interfaces;
 
-    public class PlatformWinLossReportController_ExportExcelTest
+    public partial class PlatformWinLossReportControllerTest
     {
-        private const bool IsAllowedCustomerComm = true;
-        private const int ExpectedCustomerComm = 999;
-        private const string Language = "en-US";
-        private const int LicenseeId = 1;
-        private const string FunctionName = "PlatformWinloss";
-        private PlatformWinLossReportController _controller;
-        private IProductService _productService;
-        private IPlatformWinLossDataAccess _platformWinLossDataAccess;
-        private ISessionService _sessionService;
-        private PlatformWinLossMetaModel _metalModel;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _metalModel = new PlatformWinLossMetaModel
-            {
-                IsExportExcel = true,
-                PlatformType = PlatformType.Asia,
-                Year = 2017,
-                Month = 1,
-                FromDay = 1,
-                ToDay = 2,
-                ProductOptions = new List<ProductOption>
-                {
-                    new ProductOption
-                    {
-                        Code = "SB",
-                        Status = true
-                    }
-                }
-            };
-        }
-
-        [OneTimeSetUp]
-        public void FixtureSetUp()
-        {
-            FakeSession();
-            _productService = Substitute.For<IProductService>();
-            _platformWinLossDataAccess = Substitute.For<IPlatformWinLossDataAccess>();
-            _controller = Substitute.ForPartsOf<PlatformWinLossReportController>(_sessionService, _productService, _platformWinLossDataAccess);
-            _controller.Request = new HttpRequestMessage();
-            _controller.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
-            _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
-            _sessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns("XmlData");
-        }
-
-        [OneTimeTearDown]
-        public void FixtureTearDown()
-        {
-            _platformWinLossDataAccess = null;
-            _controller = null;
-            _sessionService = null;
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _metalModel = null;
-        }
-
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Index_ExportExcelMemberWithLevel1_PassCustomerCommVisibleInShowingOptionToExcelCorrectly(bool hasLicenseeComm)
+        [TestCase(true, new[] { Product.BA, Product.RB, Product.NG, Product.LC }, new[] { Product.BA, Product.RB })]
+        [TestCase(false, new[] { Product.SB, Product.VS, Product.CS, Product.KN }, new[] { Product.RB })]
+        [TestCase(false, new string[0], new string[0])]
+        public void Index_ExportExcelMemberWithLevel1_PassCorrectParamsToCreateExcel(
+            bool hasLicenseeComm,
+            string[] productOptions,
+            string[] productAccess)
         {
             // Arrange
-            FakeLicenseeSession(hasLicenseeComm);
-            _metalModel.Level = 1;
-            _metalModel.ProductOptions = RandomProductOption();
-            FakeMemberData();
-            FakeProductAccess();
-            ShowingOption expetedShowingOption = null;
+            StubLicenseeSessionData(new LicenseeSession
+            {
+                LicenseeId = 1,
+                IsAllowedCustomerComm = hasLicenseeComm
+            });
+            var metalModel = CreateMetaModel(1, true);
+            metalModel.ProductOptions = SetUpProductOption(productOptions);
 
-            var excelModel = new PlatformWinLossViewModel();
+            StubDataAccessGetMemberData();
+            StubProductAccess(productAccess);
+
+            ShowingOption expetedShowingOption = null;
+            var actualExcelModel = new PlatformWinLossViewModel();
+            var excelModel = new PlatformWinLossViewModel { Param = metalModel };
             var excel = Substitute.ForPartsOf<PlatformWinLossMemberExcel>(
                Arg.Any<string>(),
                excelModel,
-               Arg.Do<ShowingOption>(x => expetedShowingOption = x),
-               Arg.Any<IEnumerable<ProductOption>>());
+               Arg.Do<ShowingOption>(x => expetedShowingOption = x));
             excel.When(x => x.Export()).DoNotCallBase();
-
+            
             _controller.CreateExcelMember(
                 Arg.Any<string>(),
-                _metalModel,
                 excelModel,
-                Arg.Any<ShowingOption>())
-                .ReturnsForAnyArgs(excel);
+                Arg.Any<ShowingOption>()).ReturnsForAnyArgs(excel);
+
+            var expectedColSpan = GetExpectedColSpan(productAccess);
 
             // Action
-            _controller.Index(_metalModel);
+            _controller.Index(metalModel);
 
             // Assert
             Assert.IsTrue(expetedShowingOption.CustomerCommVisible == hasLicenseeComm);
-        }
-
-        [Test]
-        public void Index_ExportExcelMemberWithLevel1_PassProductionOptionToExcelCorrectly()
-        {
-            // Arrange
-            _metalModel.Level = 1;
-            _metalModel.ProductOptions = RandomProductOption();
-            FakeMemberData();
-            FakeProductAccess();
-
-            ShowingOption expetedShowingOption = null;
-
-            var excelModel = new PlatformWinLossViewModel();
-            var excel = Substitute.ForPartsOf<PlatformWinLossMemberExcel>(
-               Arg.Any<string>(),
-               excelModel,
-               Arg.Do<ShowingOption>(x => expetedShowingOption = x),
-               Arg.Any<IEnumerable<ProductOption>>());
-            excel.When(x => x.Export()).DoNotCallBase();
-
-            _controller.CreateExcelMember(
-                Arg.Any<string>(),
-                _metalModel,
-                excelModel,
-                Arg.Any<ShowingOption>())
-                .ReturnsForAnyArgs(excel);
-
-            // Action
-            _controller.Index(_metalModel);
-
-            // Assert
-            VerifyShowingOption(_metalModel.ProductOptions, expetedShowingOption);
+            VerifyShowingOption(metalModel.ProductOptions, expetedShowingOption);
+            _controller.Received().CreateExcelMember(Arg.Any<string>(), Arg.Is<PlatformWinLossViewModel>(p => p.Colspan == expectedColSpan), Arg.Any<ShowingOption>());
         }
 
         [Test]
         public void Index_ExportExcelSummaryWithLevel0_PassCorrectParamsToCreateExcel()
         {
             // Arrange
-            FakeGetSummaryData();
+            var metalModel = CreateMetaModel(0, true);
+            SetUpDataAccessGetSummaryData();
 
             var excel = Substitute.ForPartsOf<PlatformWinLossSummaryExcel>(
                 null,
-                _metalModel,
+                metalModel,
                 Arg.Any<IList<PlatformWinLossSummary>>(),
                 Arg.Any<PlatformWinLossSummary>());
 
@@ -168,24 +76,41 @@
 
             _controller.CreateExcelSummary(
                 null,
-                _metalModel,
+                metalModel,
                 Arg.Any<IList<PlatformWinLossSummary>>(),
                 Arg.Any<PlatformWinLossSummary>())
                 .Returns(excel);
 
             // Action
-            _controller.Index(_metalModel);
+            _controller.Index(metalModel);
 
             // Assert
             Assert.Multiple(() =>
             {
                 _controller.Received().CreateExcelSummary(
                     Arg.Any<string>(),
-                    _metalModel,
+                    metalModel,
                     Arg.Is<IList<PlatformWinLossSummary>>(x => x.Count == 2),
                     Arg.Is<PlatformWinLossSummary>(x => x.CustomerComm == ExpectedCustomerComm));
-                Assert.That(_metalModel.AgentListXml, Is.EqualTo("XmlData"));
+                Assert.That(metalModel.AgentListXml, Is.EqualTo(AgentListXml));
             });
+        }
+
+        private static IList<ProductOption> SetUpProductOption(string[] productCodes)
+        {
+            var productOptions = new List<string>
+            {
+                Product.BA,
+                Product.RB,
+                Product.NG,
+                Product.LC,
+                Product.SB,
+                Product.VS,
+                Product.CS,
+                Product.KN
+            };
+
+            return productOptions.Select(p => new ProductOption { Code = p, Status = productCodes.Contains(p) }).ToList();
         }
 
         private static void VerifyShowingOption(IEnumerable<ProductOption> productOptions, ShowingOption expetedShowingOption)
@@ -205,93 +130,21 @@
             });
         }
 
-        private static IList<ProductOption> RandomProductOption()
+        private static int GetExpectedColSpan(string[] productAccess)
         {
-            var productOptions = new List<string>
+            var expectedColSpan = 7;
+
+            if (productAccess.Contains(Product.BA))
             {
-                Product.BA,
-                Product.RB,
-                Product.NG,
-                Product.LC,
-                Product.SB,
-                Product.VS,
-                Product.CS,
-                Product.KN
-            };
+                expectedColSpan += 2;
+            }
 
-            var rand = new Random();
-
-            return productOptions.Select(p => new ProductOption { Code = p, Status = rand.Next(1, 13) % 2 == 0 }).ToList();
-        }
-
-        private void FakeGetSummaryData()
-        {
-            var summaryData = new List<PlatformWinLossSummary>
+            if (productAccess.Contains(Product.RB))
             {
-                new PlatformWinLossSummary(),
-                new PlatformWinLossSummary()
-            };
-            PlatformWinLossSummary totalSummaryData;
-            _platformWinLossDataAccess.GetSummaryData(Arg.Any<PlatformWinLossMetaModel>(), out totalSummaryData).ReturnsForAnyArgs(x =>
-            {
-                x[1] = new PlatformWinLossSummary
-                {
-                    CustomerComm = ExpectedCustomerComm
-                };
-                return summaryData;
-            });
-        }
+                expectedColSpan += 2;
+            }
 
-        private void FakeProductAccess()
-        {
-            var productAccess = new ProductAccess(new List<Product> { new Product { ProductCode = Product.BA }, new Product { ProductCode = Product.RB } });
-            _productService.GetProductAccess(LicenseeId, Language, FunctionName).Returns(productAccess);
-        }
-
-        private void FakeMemberData()
-        {
-            var memberData = new List<PlatformWinLossMember>
-            {
-                new PlatformWinLossMember(),
-                new PlatformWinLossMember(),
-                new PlatformWinLossMember()
-            };
-            PlatformWinLossMember totalMemberData;
-            _platformWinLossDataAccess.GetMemberData(Arg.Any<PlatformWinLossMetaModel>(), out totalMemberData).ReturnsForAnyArgs(x =>
-            {
-                x[1] = new PlatformWinLossMember
-                {
-                    CustomerComm = ExpectedCustomerComm
-                };
-                return memberData;
-            });
-        }
-
-        private void FakeSession()
-        {
-            _sessionService = Substitute.For<ISessionService>();
-            var userSession = new UserSession
-            {
-                CurrencyList = new Dictionary<int, string>
-                {
-                    { -1, "EUR" }, { -2, "USD" }
-                },
-                Language = Language
-            };
-
-            FakeLicenseeSession(IsAllowedCustomerComm);
-
-            _sessionService.UserSession.Returns(userSession);
-        }
-
-        private void FakeLicenseeSession(bool isAllowCustomerComm)
-        {
-            var licenseeSession = new LicenseeSession
-            {
-                LicenseeId = LicenseeId,
-                IsAllowedCustomerComm = isAllowCustomerComm
-            };
-            _sessionService.LicenseeSession.Returns(licenseeSession);
+            return expectedColSpan;
         }
     }
 }

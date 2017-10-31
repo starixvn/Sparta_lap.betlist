@@ -8,6 +8,7 @@
     using Excel.Report;
     using Extension.Utility;
     using Fanex.Athena.Service.Report.Interfaces;
+    using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Model.Report.ViewModel;
@@ -78,18 +79,18 @@
                 AgentListXml = "XmlData"
             };
             SessionService.GenerateAgentListXml(CurrencyId, metaModel.IsExcludedTestData).Returns("XmlData");
-            IDictionary<string, CashOutWinLoss> summaryData;
             var dataListResult = new SortableList<CashOutWinLoss>
             {
                 new CashOutWinLoss()
             };
             var totalDataResult = dataListResult.ToList();
             var summaryTotalResult = new Dictionary<string, CashOutWinLoss> { { "EUR", new CashOutWinLoss() } };
-            _service.GetSummary(Arg.Is<CashOutWinLossMetaModel>(x => IsValidMetaModelForLevel0(x, Level)), out summaryData).Returns(x =>
-            {
-                x[1] = summaryTotalResult;
-                return dataListResult;
-            });
+            _service.GetSummary(Arg.Is<CashOutWinLossMetaModel>(x => IsValidMetaModelForLevel0(x, Level))).Returns(
+                new SortableReportResultModel<CashOutWinLoss>
+                {
+                    SummaryTotal = summaryTotalResult,
+                    DataList = dataListResult
+                });
             _service.TotalCalc(dataListResult).Returns(totalDataResult);
             var expectedResult = CreateResultData(dataListResult, totalDataResult, summaryTotalResult);
 
@@ -117,18 +118,18 @@
                 AgentListXml = "XmlData"
             };
             SessionService.GenerateAgentListXml(CurrencyId, metaModel.IsExcludedTestData).Returns("XmlData");
-            IDictionary<string, CashOutWinLoss> summaryData;
             var dataListResult = new SortableList<CashOutWinLoss>
             {
                 new CashOutWinLoss()
             };
             var totalDataResult = dataListResult.ToList();
             var summaryTotalResult = new Dictionary<string, CashOutWinLoss> { { "EUR", new CashOutWinLoss() } };
-            _service.GetDetail(Arg.Is<CashOutWinLossMetaModel>(x => IsValidMetaModelForLevel0(x, Level)), out summaryData).Returns(x =>
-            {
-                x[1] = summaryTotalResult;
-                return dataListResult;
-            });
+            _service.GetDetail(Arg.Is<CashOutWinLossMetaModel>(x => IsValidMetaModelForLevel0(x, Level))).Returns(
+                new SortableReportResultModel<CashOutWinLoss>
+                {
+                    SummaryTotal = summaryTotalResult,
+                    DataList = dataListResult
+                });
             _service.TotalCalc(dataListResult).Returns(totalDataResult);
             var expectedResult = CreateResultData(dataListResult, totalDataResult, summaryTotalResult);
 
@@ -156,12 +157,8 @@
                 AgentListXml = "XmlData"
             };
             SessionService.GenerateAgentListXml(CurrencyId, metaModel.IsExcludedTestData).Returns("XmlData");
-            IDictionary<string, CashOutWinLoss> summaryData;
 
-            _service.GetDetail(Arg.Any<CashOutWinLossMetaModel>(), out summaryData).ReturnsForAnyArgs(x =>
-            {
-                return null;
-            });
+            _service.GetDetail(Arg.Any<CashOutWinLossMetaModel>()).ReturnsForAnyArgs(new SortableReportResultModel<CashOutWinLoss>());
 
             var expectedResult = CreateResultData(new List<CashOutWinLoss>(), new List<CashOutWinLoss>(), new Dictionary<string, CashOutWinLoss>());
 
@@ -191,7 +188,7 @@
                 DrillDownToDate = toDate,
                 FromDate = fromDate
             };
-
+            _service.GetSummary(Arg.Any<CashOutWinLossMetaModel>()).ReturnsForAnyArgs(new SortableReportResultModel<CashOutWinLoss>());
             var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
             excel.When(x => x.Export()).DoNotCallBase();
             _controller.CreateExcel(
@@ -228,6 +225,7 @@
                 ToDate = toDate.AddDays(1)
             };
 
+            _service.GetSummary(Arg.Any<CashOutWinLossMetaModel>()).ReturnsForAnyArgs(new SortableReportResultModel<CashOutWinLoss>());
             var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
             excel.When(x => x.Export()).DoNotCallBase();
             _controller.CreateExcel(

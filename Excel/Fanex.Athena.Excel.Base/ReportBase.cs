@@ -6,18 +6,21 @@
 
 namespace Fanex.Athena.Excel.Base
 {
-    using System.Collections.Generic;
     using System.IO;
     using Excel.Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
 
-    public abstract class ReportBase : ExcelBase
+    public class ReportBase
     {
         public const int RowHeaderTemplate = 1;
         public const int RowTitleTemplate = 0;
         public const int MaxRowCount = 30000;
+
+        protected const int ColumnIndex = 0;
+
+        protected const string FormatDate = "MM/dd/yyyy";
 
         private readonly string _templatePath;
 
@@ -38,6 +41,12 @@ namespace Fanex.Athena.Excel.Base
             PageSize = pageSize;
         }
 
+        protected ShowingOption ShowingOption
+        {
+            get;
+            set;
+        }
+
         protected int PageSize
         {
             get
@@ -49,18 +58,6 @@ namespace Fanex.Athena.Excel.Base
             {
                 _pageSize = (value == 0 || value > MaxRowCount) ? MaxRowCount : value;
             }
-        }
-
-        protected IList<string> HeaderTextList
-        {
-            get;
-            set;
-        }
-
-        public string ReportTitle
-        {
-            get;
-            set;
         }
 
         protected internal ISheet TemplateSheet
@@ -99,31 +96,6 @@ namespace Fanex.Athena.Excel.Base
         }
 
         protected internal virtual void AssignData()
-        {
-        }
-
-        protected virtual void AssignHeader(ISheet sheet)
-        {
-        }
-
-        protected internal virtual void AssignNoInfoRow(ISheet sheet)
-        {
-        }
-
-        protected internal virtual void AssignSheetData(ISheet sheet)
-        {
-        }
-
-        protected virtual int AssignSheetData(ISheet sheet, int pageIndex)
-        {
-            return 0;
-        }
-
-        protected virtual void AssignTitle(ISheet sheet)
-        {
-        }
-
-        protected virtual void ProcessUI(ISheet sheet)
         {
         }
 

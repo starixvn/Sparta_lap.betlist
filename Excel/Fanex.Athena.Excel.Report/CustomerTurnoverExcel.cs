@@ -44,32 +44,21 @@ namespace Fanex.Athena.Excel.Report
         private readonly IEnumerable<CustTurnover> _customerTurnoverList;
         private readonly string _formatDateTime;
         private readonly CustTurnover _total;
+        private readonly string _reportTitle;
 
         public CustomerTurnoverExcel(
                                      string templatePath,
                                      ShowingOption showingOption,
                                      IEnumerable<CustTurnover> customerTurnoverList,
                                      CustTurnover total,
-                                     string formatDateTime)
+                                     string formatDateTime,
+                                     string reportTitle)
             : base(templatePath, showingOption)
         {
             _customerTurnoverList = customerTurnoverList;
             _total = total;
             _formatDateTime = formatDateTime;
-            HeaderTextList = new List<string>
-            {
-                "#",
-                ViewResources.Date,
-                ViewResources.Username,
-                ViewResources.Currency,
-                ViewResources.Sport,
-                ViewResources.BetType,
-                ViewResources.EffectiveBettingValue,
-                ViewResources.TotalTransaction,
-                ViewResources.Turnover,
-                ViewResources.Total + " " + ViewResources.Turnover,
-                ViewResources.CustomerW_L,
-            };
+            _reportTitle = reportTitle;
         }
 
         /// <summary>
@@ -103,17 +92,26 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            var headerTextList = new[]
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                "#",
+                ViewResources.Date,
+                ViewResources.Username,
+                ViewResources.Currency,
+                ViewResources.Sport,
+                ViewResources.BetType,
+                ViewResources.EffectiveBettingValue,
+                ViewResources.TotalTransaction,
+                ViewResources.Turnover,
+                ViewResources.Total + " " + ViewResources.Turnover,
+                ViewResources.CustomerW_L,
+            };
+            for (int i = 0; i < headerTextList.Length; i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
 
             row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
@@ -127,7 +125,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign "no info" to sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
@@ -143,7 +141,7 @@ namespace Fanex.Athena.Excel.Report
           "StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
-        protected override int AssignSheetData(ISheet sheet, int pageIndex)
+        protected int AssignSheetData(ISheet sheet, int pageIndex)
         {
             var rowIndex = 0;
             var minGroup = checked((pageIndex - 1) * PageSize);
@@ -198,13 +196,9 @@ namespace Fanex.Athena.Excel.Report
             return rowIndex;
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _reportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);
@@ -217,7 +211,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected override void ProcessUI(ISheet sheet)
+        protected void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {

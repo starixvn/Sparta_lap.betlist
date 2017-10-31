@@ -18,6 +18,7 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report.Interfaces;
+    using Model.Core.ResultModel;
 
     public class AgCasinoWinLossService : IAgCasinoWinLossService
     {
@@ -25,41 +26,34 @@ namespace Fanex.Athena.Service.Report
 
         public AgCasinoWinLossService()
         {
-            this._agcasinoWinLossDataAccess = new AgCasinoWinLossDataAccess();
+            _agcasinoWinLossDataAccess = new AgCasinoWinLossDataAccess();
         }
 
-        public SortableList<AgCasinoWinLoss> GetAgentWinlossDetail(
-            AgCasinoWinLossMetaModel metaModel,
-            out IDictionary<string, AgCasinoWinLoss> summaryTotal)
+        public ReportResultModel<AgCasinoWinLoss> GetAgentWinlossDetail(AgCasinoWinLossMetaModel metaModel)
         {
-            summaryTotal = new Dictionary<string, AgCasinoWinLoss>();
             return metaModel.IsValid
-                       ? this._agcasinoWinLossDataAccess.GetAgentWinlossDetail(metaModel, out summaryTotal)
-                       : new SortableList<AgCasinoWinLoss>();
+                       ? _agcasinoWinLossDataAccess.GetAgentWinlossDetail(metaModel)
+                       : new ReportResultModel<AgCasinoWinLoss>();
         }
 
-        public SortableList<AgCasinoWinLoss> GetCustomerWinlossDetail(
-            AgCasinoWinLossMetaModel metaModel,
-            out IDictionary<string, AgCasinoWinLoss> summaryTotal)
+        public ReportResultModel<AgCasinoWinLoss> GetCustomerWinlossDetail(AgCasinoWinLossMetaModel metaModel)
         {
-            summaryTotal = new Dictionary<string, AgCasinoWinLoss>();
             return metaModel.IsValid
-                       ? this._agcasinoWinLossDataAccess.GetCustomerWinlossDetail(metaModel, out summaryTotal)
-                       : new SortableList<AgCasinoWinLoss>();
+                       ? _agcasinoWinLossDataAccess.GetCustomerWinlossDetail(metaModel)
+                       : new ReportResultModel<AgCasinoWinLoss>();
         }
 
-        public SortableList<AgCasinoWinLoss> GetSummaryWinloss(AgCasinoWinLossMetaModel metaModel, out IDictionary<string, AgCasinoWinLoss> summaryTotal)
+        public ReportResultModel<AgCasinoWinLoss> GetSummaryWinloss(AgCasinoWinLossMetaModel metaModel)
         {
-            summaryTotal = new Dictionary<string, AgCasinoWinLoss>();
-            var result = this._agcasinoWinLossDataAccess.GetSummaryWinloss(metaModel, out summaryTotal);
+            var result = _agcasinoWinLossDataAccess.GetSummaryWinloss(metaModel);
             var date = new DateTime();
             var index = 1;
-            foreach (var item in result)
+            foreach (var item in result.DataList)
             {
                 if (date != item.Date)
                 {
                     date = item.Date ?? new DateTime();
-                    item.RowSpan = result.Count(x => x.Date == item.Date);
+                    item.RowSpan = result.DataList.Count(x => x.Date == item.Date);
                     item.Index = index++;
                 }
                 else

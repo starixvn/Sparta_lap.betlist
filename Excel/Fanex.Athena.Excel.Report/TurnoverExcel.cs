@@ -66,27 +66,6 @@ namespace Fanex.Athena.Excel.Report
             _viewModel = viewModel;
             _turnoverList = viewModel.DataList;
             _total = viewModel.TotalData;
-            HeaderTextList = new List<string>
-            {
-                "#",
-                ViewResources.Date,
-                ViewResources.OpeningBalance,
-                ViewResources.Deposit,
-                ViewResources.Withdrawal,
-                ViewResources.Bonus,
-                ViewResources.Adjustment,
-                ViewResources.Turnover,
-                ViewResources.DrawGame,
-                ViewResources.NetTurnover,
-                ViewResources.PendingFunds,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.ClosingBalance,
-                ViewResources.AffiliateTransfer,
-                ViewResources.CasinoTransfer,
-                ViewResources.ProductBA
-            };
         }
 
         public int LicenseeId
@@ -126,18 +105,35 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
-
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            var headerTextList = new[]
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                "#",
+                ViewResources.Date,
+                ViewResources.OpeningBalance,
+                ViewResources.Deposit,
+                ViewResources.Withdrawal,
+                ViewResources.Bonus,
+                ViewResources.Adjustment,
+                ViewResources.Turnover,
+                ViewResources.DrawGame,
+                ViewResources.NetTurnover,
+                ViewResources.PendingFunds,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.ClosingBalance,
+                ViewResources.AffiliateTransfer,
+                ViewResources.CasinoTransfer,
+                ViewResources.ProductBA
+            };
+
+            for (int i = 0; i < headerTextList.Length; i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
 
             row2.Cells[ColumnCustomerWinLoss].SetCellValue(ViewResources.WinLoss);
@@ -149,7 +145,7 @@ namespace Fanex.Athena.Excel.Report
             row2.Cells[ColumnAmountDueToBa].SetCellValue(ViewResources.AmtDueTo);
         }
 
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemp, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
@@ -161,7 +157,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="pageIndex">Start index.</param>
         /// <returns>Row index.</returns>
-        protected override int AssignSheetData(ISheet sheet, int pageIndex)
+        protected int AssignSheetData(ISheet sheet, int pageIndex)
         {
             var rowCount = Math.Min(_turnoverList.Count, checked((pageIndex + 1) * PageSize));
             var currentRow = 3;
@@ -186,11 +182,7 @@ namespace Fanex.Athena.Excel.Report
             return currentRow;
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
             var titleNoUserName = string.Format(
                         ViewResources.TurnoverTitleNoUser,
@@ -204,8 +196,8 @@ namespace Fanex.Athena.Excel.Report
                                          ViewResources.Customer,
                                          _viewModel.Param.Username,
                                          _viewModel.Param.CurrencyName);
-            ReportTitle = _viewModel.Param.Username.IsNullOrTrimEmpty() ? titleNoUserName : title;
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            var reportTitle = _viewModel.Param.Username.IsNullOrTrimEmpty() ? titleNoUserName : title;
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);
@@ -218,7 +210,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected override void ProcessUI(ISheet sheet)
+        protected void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {

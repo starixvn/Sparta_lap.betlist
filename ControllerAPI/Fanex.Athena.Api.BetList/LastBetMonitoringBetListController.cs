@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.Api.BetList
 {
-    #region Using
-
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
@@ -22,11 +21,25 @@
     using Service.BetList.Interfaces;
     using BetListCacheRef = Fanex.BetList.Core.TicketHelper.CacheRef;
 
-    #endregion Using
-
     [ApiFunctionAuthorization(PermissionKeys.ReportLastBetsMonitoring)]
     public class LastBetMonitoringBetListController : BaseApiController
     {
+        private static readonly IDictionary<string, string> MapPlatformCode = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        {
+            { "a", nameof(ViewResources.China) },
+            { "z", nameof(ViewResources.China) },
+            { "d", nameof(ViewResources.Asia) },
+            { "g", nameof(ViewResources.Asia) },
+            { "e", nameof(ViewResources.Euro) },
+            { "u", nameof(ViewResources.Euro) },
+            { "y", nameof(ViewResources.Euro) },
+            { "m", nameof(ViewResources.Wap) },
+            { "s", nameof(ViewResources.SmartSite) },
+            { "l", nameof(ViewResources.SmartSite) },
+            { "r", nameof(ViewResources.Tablet) },
+            { "x", nameof(ViewResources.NewAsia) }
+        };
+
         private static readonly IEnumerable<int> ConvertingDecimalOddsBetType = new[] { 1, 2, 3, 7, 8, 12, 20 };
 
         private readonly IMatchService _matchService;
@@ -135,37 +148,12 @@
             }
         }
 
-        private static string MapPlatForm(string code)
+        private static string GetPlatformText(string platformCode)
         {
-            switch (code.Trim().ToLowerInvariant())
-            {
-                case "a":
-                case "z":
-                    return ViewResources.China;
-
-                case "d":
-                case "g":
-                case "x":
-                    return ViewResources.Asia;
-
-                case "e":
-                case "u":
-                case "y":
-                    return ViewResources.Euro;
-
-                case "m":
-                    return ViewResources.Wap.ToUpperInvariant();
-
-                case "s":
-                case "l":
-                    return ViewResources.SmartSite;
-
-                case "r":
-                    return ViewResources.Tablet;
-
-                default:
-                    return ViewResources.Others;
-            }
+            var code = platformCode.Trim();
+            return MapPlatformCode.ContainsKey(code) ?
+                ViewResources.ResourceManager.GetString(MapPlatformCode[code]) :
+                ViewResources.Others;
         }
 
         private static string GetLasBetMonitoringStatus(ITicket ticket)
@@ -201,7 +189,7 @@
                 var row = $"<tr class='content-row monitor-hightlight' id='trans-{ticket.TransId}' data-transid='{ticket.TransId}'>";
                 builder.Append(row);
 
-                builder.Append($"<td data-name='Platform'>{MapPlatForm(ticket.BetFrom)}</td>");
+                builder.Append($"<td data-name='Platform'>{GetPlatformText(ticket.BetFrom)}</td>");
                 builder.Append($"<td data-name='ExternalId' class='special-color-{ticket.SpecialLevel}'>{ticket.ExternalId}</td>");
                 builder.Append($"<td data-name='SystemId' class='special-color-{ticket.SpecialLevel}'>{ticket.UserName}</td>");
                 builder.AddTrans(ticket, "<td data-name='TransTime' class='special-color-0'>", "</td>");

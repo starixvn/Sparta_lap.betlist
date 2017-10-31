@@ -11,6 +11,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Linq;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
+    using Core.Exception;
     using Data;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -38,53 +39,66 @@ namespace Fanex.Athena.DataAccess.Report
 
         public SortableReportResultModel<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel)
         {
-            using (var db = this.GetObjectDb("Lrf_Rpt_WinLoss"))
+            const string UspName = "Lrf_Rpt_WinLoss";
+            try
             {
-                AddParameters(db, metaModel, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-
-                using (var reader = db.ExecuteReader())
+                using (var db = this.GetObjectDb(UspName))
                 {
-                    var dataList = new SortableList<CustomerWinLoss>();
-                    while (reader.Read())
+                    AddParameters(db, metaModel, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+
+                    using (var reader = db.ExecuteReader())
                     {
-                        dataList.Add(new CustomerWinLoss
+                        var dataList = new SortableList<CustomerWinLoss>();
+                        while (reader.Read())
                         {
-                            CustId = reader.ToInt("CustID"),
-                            ExternalId = reader.ToString("nickname"),
-                            SystemId = reader.ToString("username"),
-                            Turnover = reader.ToDecimal("turnover" + metaModel.BaseCurrency),
-                            TotalTransaction = reader.ToInt("betcount"),
-                            CustomerWL = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency),
-                            BetEffective = reader.ToDecimal("beteffective" + metaModel.BaseCurrency),
-                            PlayerComm = reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
-                            CustomerTotalWL = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency) + reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
-                            LicenseeWL = reader.ToDecimal("licenseewl" + metaModel.BaseCurrency),
-                            BAComm = reader.ToDecimal("commba" + metaModel.BaseCurrency),
-                            RacingRevenue = reader.ToDecimal("winlossrb" + metaModel.BaseCurrency)
-                                + reader.ToDecimal("commrb" + metaModel.BaseCurrency),
-                            AmtDueToBA = reader.ToDecimal("amtduetoba" + metaModel.BaseCurrency),
-                            AmtDueToRacing = reader.ToDecimal("amtduetorb" + metaModel.BaseCurrency)
-                        });
-                    }
+                            var item = ReadDataItem(reader, metaModel.BaseCurrency);
+                            dataList.Add(item);
+                        }
 
-                    var result = new SortableReportResultModel<CustomerWinLoss>
-                    {
-                        DataList = dataList
-                    };
+                        var result = new SortableReportResultModel<CustomerWinLoss>
+                        {
+                            DataList = dataList
+                        };
 
-                    if (dataList.Any() && reader.NextResult() && reader.Read())
-                    {
-                        result.TotalData = ReadTotalData(reader, metaModel.BaseCurrency);
-                        result.TotalRows = reader.ToInt("TotalRows");
-                    }
-                    else
-                    {
-                        result.TotalData = new CustomerWinLoss();
-                    }
+                        if (dataList.Any() && reader.NextResult() && reader.Read())
+                        {
+                            result.TotalData = ReadTotalData(reader, metaModel.BaseCurrency);
+                            result.TotalRows = reader.ToInt("TotalRows");
+                        }
+                        else
+                        {
+                            result.TotalData = new CustomerWinLoss();
+                        }
 
-                    return result;
+                        return result;
+                    }
                 }
             }
+            catch (ObjectDbException sqlException)
+            {
+                throw new DataAccessException(sqlException, UspName, metaModel);
+            }
+        }
+
+        private static CustomerWinLoss ReadDataItem(IDataReader reader, string baseCurrency)
+        {
+            return new CustomerWinLoss
+            {
+                CustId = reader.ToInt("CustID"),
+                ExternalId = reader.ToString("nickname"),
+                SystemId = reader.ToString("username"),
+                Turnover = reader.ToDecimal("turnover" + baseCurrency),
+                TotalTransaction = reader.ToInt("betcount"),
+                CustomerWL = reader.ToDecimal("memberwinlost" + baseCurrency),
+                BetEffective = reader.ToDecimal("beteffective" + baseCurrency),
+                PlayerComm = reader.ToDecimal("playercomm" + baseCurrency),
+                CustomerTotalWL = reader.ToDecimal("memberwinlost" + baseCurrency) + reader.ToDecimal("playercomm" + baseCurrency),
+                LicenseeWL = reader.ToDecimal("licenseewl" + baseCurrency),
+                BAComm = reader.ToDecimal("commba" + baseCurrency),
+                RacingRevenue = reader.ToDecimal("winlossrb" + baseCurrency) + reader.ToDecimal("commrb" + baseCurrency),
+                AmtDueToBA = reader.ToDecimal("amtduetoba" + baseCurrency),
+                AmtDueToRacing = reader.ToDecimal("amtduetorb" + baseCurrency)
+            };
         }
 
         private static void AddParameters(IObjectDb db, CustomerWinLossMetaModel metaModel, DateTime moveBetsDay)

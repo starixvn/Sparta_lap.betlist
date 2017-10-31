@@ -63,27 +63,6 @@ namespace Fanex.Athena.Excel.Report
             _model = model;
             _exportData = exportData;
             _totalData = totalData;
-            HeaderTextList = new List<string>
-            {
-                "#",
-                ViewResources.ExternalId,
-                ViewResources.SystemId,
-                ViewResources.OpeningBalance,
-                ViewResources.Deposit,
-                ViewResources.Withdrawal,
-                ViewResources.Bonus,
-                ViewResources.Adjustment,
-                ViewResources.Turnover,
-                ViewResources.DrawGame,
-                ViewResources.NetTurnover,
-                ViewResources.PendingFunds,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.ClosingBalance,
-                ViewResources.AffiliateTransfer,
-                ViewResources.ProductBA
-            };
         }
 
         protected override void AssignData()
@@ -121,14 +100,36 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
+            var headerTextList = new[]
+            {
+                "#",
+                ViewResources.ExternalId,
+                ViewResources.SystemId,
+                ViewResources.OpeningBalance,
+                ViewResources.Deposit,
+                ViewResources.Withdrawal,
+                ViewResources.Bonus,
+                ViewResources.Adjustment,
+                ViewResources.Turnover,
+                ViewResources.DrawGame,
+                ViewResources.NetTurnover,
+                ViewResources.PendingFunds,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.ClosingBalance,
+                ViewResources.AffiliateTransfer,
+                ViewResources.ProductBA
+            };
+
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            for (int i = 0; i < headerTextList.Length; i++)
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
 
             row2.Cells[ColumnCustomerWinLoss].SetCellValue(ViewResources.WinLoss);
@@ -140,12 +141,12 @@ namespace Fanex.Athena.Excel.Report
             row2.Cells[ColumnAmountDueToBa].SetCellValue(ViewResources.AmtDueTo);
         }
 
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
 
-        protected override int AssignSheetData(ISheet sheet, int pageIndex)
+        protected int AssignSheetData(ISheet sheet, int pageIndex)
         {
             var rowCount = _exportData.Count();
             var startIndex = checked(pageIndex * MaxRowCount);
@@ -184,22 +185,22 @@ namespace Fanex.Athena.Excel.Report
             return rowIndex;
         }
 
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
             var pattern = ViewResources.CustomerBalance + ", {0} - {1}, {2}";
-            ReportTitle = string.Format(
+            var reportTitle = string.Format(
                                         pattern,
                                         _model.FromDate.ToString("MM/dd/yyyy"),
                                         _model.ToDate.ToString("MM/dd/yyyy"),
                                         ReportExcelHelper.GetTitleCurrencyName(_convertingOption));
 
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        protected override void ProcessUI(ISheet sheet)
+        protected void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {

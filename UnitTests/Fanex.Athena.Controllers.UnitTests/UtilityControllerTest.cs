@@ -306,7 +306,7 @@
                 var result = controller.Error() as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewBag.Message, Is.EqualTo(ViewResources.ResourceManager.GetString(returnedMessageResourceKey)));
+                Assert.That(result.Model, Is.EqualTo(ViewResources.ResourceManager.GetString(returnedMessageResourceKey)));
             }
         }
 

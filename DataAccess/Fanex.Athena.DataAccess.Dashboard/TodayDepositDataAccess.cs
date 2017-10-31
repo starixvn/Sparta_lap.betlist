@@ -6,7 +6,6 @@
     using Fanex.Athena.Model.Dashboard.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
 
     public class TodayDepositDataAccess : BaseDataAccess, ISimpleWidgetDataAccess
     {
@@ -32,7 +31,7 @@
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, metaModel);
+                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
     }

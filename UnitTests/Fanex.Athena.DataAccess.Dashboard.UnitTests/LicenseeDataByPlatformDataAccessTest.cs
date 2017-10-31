@@ -7,31 +7,30 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class TurnoverByPlatformDataAccessTest
+    public class LicenseeDataByPlatformDataAccessTest
     {
-        private TurnoverByPlatformDataAccess _turnoverByPlatformDataAccess;
+        private LicenseeDataByPlatformDataAccess _winLossByPlatformDataAccess;
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            _turnoverByPlatformDataAccess = Substitute.ForPartsOf<TurnoverByPlatformDataAccess>();
-            _turnoverByPlatformDataAccess.When(x => x.GetObjectDb(Arg.Any<string>())).DoNotCallBase();
+            _winLossByPlatformDataAccess = Substitute.ForPartsOf<LicenseeDataByPlatformDataAccess>();
+            _winLossByPlatformDataAccess.When(x => x.GetObjectDb(Arg.Any<string>())).DoNotCallBase();
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            _turnoverByPlatformDataAccess = null;
+            _winLossByPlatformDataAccess = null;
         }
 
         [Test]
-        public void GetData_WhenCall_PassCorectData()
+        public void GetWinLoss_WhenCall_PassCorrectParam()
         {
             // Arrange
             object passedParam = null;
-            var reader = _turnoverByPlatformDataAccess.GetObjectDb("Lrf_GetLicenseeTurnoverByPlatform")
+            var reader = _winLossByPlatformDataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetLicenseeWLByPlatform"))
                 .ExecuteReader(Arg.Do<object>(x => passedParam = x));
-
             var metaModel = new DashboardBaseModel
             {
                 BaseCurrency = "EUR",
@@ -40,12 +39,13 @@
                 FromDate = new System.DateTime(2017, 1, 1),
                 ToDate = new System.DateTime(2017, 2, 15)
             };
+
             reader.Read().Returns(true, false);
             reader["PlatformType"].Returns(1);
-            reader["TurnoverEUR"].Returns(100M);
+            reader["LicenseeWLEUR"].Returns(100M);
 
             // Action
-            _turnoverByPlatformDataAccess.GetData(metaModel);
+            _winLossByPlatformDataAccess.GetWinLoss(metaModel);
             var type = passedParam.GetType();
 
             // Assert
@@ -56,10 +56,10 @@
         }
 
         [Test]
-        public void GetData_WhenCall_ReturnCorrectData()
+        public void GetWinLoss_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var reader = _turnoverByPlatformDataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetLicenseeTurnoverByPlatform"))
+            var reader = _winLossByPlatformDataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetLicenseeWLByPlatform"))
                 .ExecuteReader(Arg.Any<object>());
 
             var expected = new WidgetByPlatformViewModel
@@ -76,10 +76,10 @@
             var metaModel = new DashboardBaseModel { BaseCurrency = "EUR" };
             reader.Read().Returns(true, false);
             reader["PlatformType"].Returns(1);
-            reader["TurnoverEUR"].Returns(100M);
+            reader["LicenseeWLEUR"].Returns(100M);
 
             // Action
-            var result = _turnoverByPlatformDataAccess.GetData(metaModel);
+            var result = _winLossByPlatformDataAccess.GetWinLoss(metaModel);
 
             // Assert
             Assert.Multiple(() =>

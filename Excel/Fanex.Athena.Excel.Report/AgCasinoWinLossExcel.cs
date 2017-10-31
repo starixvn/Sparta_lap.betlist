@@ -38,7 +38,7 @@ namespace Fanex.Athena.Excel.Report
         private const int RowNoInfoTemplate = 6;
 
         // This is drill down of report
-        private readonly IList<AgCasinoWinLoss> _winLossList;
+        private readonly IEnumerable<AgCasinoWinLoss> _winLossList;
 
         private readonly AgCasinoWinLossMetaModel _metaModel;
         private readonly IDictionary<string, AgCasinoWinLoss> _summaryTotal;
@@ -48,12 +48,11 @@ namespace Fanex.Athena.Excel.Report
         public AgCasinoWinLossExcel(
                 string templatePath,
                 ConvertingOption convertingOption,
-                AgCasinoWinLossMetaModel metaModel,
                 AgCasinoWinLossViewModel viewModel)
             : base(templatePath)
         {
             _convertingOption = convertingOption;
-            _metaModel = metaModel;
+            _metaModel = viewModel.Param;
             _winLossList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
         }
@@ -69,7 +68,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         protected override void AssignData()
         {
-            var numOfDataRow = _winLossList.Count;
+            var numOfDataRow = _winLossList.Count();
 
             var sheet = Workbook.CloneSheet("Template", "Data");
 
@@ -88,7 +87,7 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
@@ -102,7 +101,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnLicenseeWl].SetCellValue(ViewResources.LicenseeW_L);
         }
 
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
@@ -112,16 +111,16 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignSheetData(ISheet sheet)
+        protected void AssignSheetData(ISheet sheet)
         {
             var rowIndex = 1;
             int index;
             var dateStringFormat = _metaModel.ReportBy == 1 ? "MM/dd/yyyy" : "MM/yyyy";
-            var rowCount = _winLossList.Count;
+            var rowCount = _winLossList.Count();
 
             for (index = 0; index < rowCount; index++)
             {
-                var licenseeWinLoss = _winLossList[index];
+                var licenseeWinLoss = _winLossList.ElementAt(index);
 
                 // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
@@ -149,11 +148,7 @@ namespace Fanex.Athena.Excel.Report
             AssignGrandTotalInEurData(sheet, rowIndex);
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
             var todate = _metaModel.ToDate.ToString(FormatDate);
@@ -161,8 +156,8 @@ namespace Fanex.Athena.Excel.Report
                 ? ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.DrillDownCurrencyId)
                 : ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId);
 
-            ReportTitle = string.Format(ViewResources.AGCasinoWinLoss + ", {0} --> {1} - {2}", fromdate, todate, title);
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            var reportTitle = string.Format(ViewResources.AGCasinoWinLoss + ", {0} --> {1} - {2}", fromdate, todate, title);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 2);
@@ -171,7 +166,7 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        protected override void ProcessUI(ISheet sheet)
+        protected void ProcessUI(ISheet sheet)
         {
             switch (Level)
             {

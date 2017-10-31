@@ -44,18 +44,6 @@ namespace Fanex.Athena.Excel.Customer
             : base(templatePath, showingOption)
         {
             _exportData = exportData;
-            HeaderTextList = new List<string>
-            {
-                "#",
-                ViewResources.GroupName,
-                ViewResources.DefaultGroup,
-                ViewResources.NoOfCustmer,
-                ViewResources.SBComm + " (%)",
-                ViewResources.RacingComm + " (%)",
-                ViewResources.NGComm + " (%)",
-                ViewResources.LCComm + " (%)",
-                ViewResources.CSComm + " (%)",
-            };
         }
 
         protected override void AssignData()
@@ -79,20 +67,28 @@ namespace Fanex.Athena.Excel.Customer
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
-            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            var headerTextList = new[]
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                "#",
+                ViewResources.GroupName,
+                ViewResources.DefaultGroup,
+                ViewResources.NoOfCustmer,
+                ViewResources.SBComm + " (%)",
+                ViewResources.RacingComm + " (%)",
+                ViewResources.NGComm + " (%)",
+                ViewResources.LCComm + " (%)",
+                ViewResources.CSComm + " (%)",
+            };
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            for (int i = 0; i < headerTextList.Length; i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
         }
 
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
@@ -101,7 +97,7 @@ namespace Fanex.Athena.Excel.Customer
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignSheetData(ISheet sheet)
+        protected void AssignSheetData(ISheet sheet)
         {
             var rowCount = _exportData.Rows.Count;
             int index;
@@ -130,14 +126,9 @@ namespace Fanex.Athena.Excel.Customer
             }
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
-            ReportTitle = _excelTitle;
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _excelTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 2);
@@ -152,7 +143,7 @@ namespace Fanex.Athena.Excel.Customer
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected override void ProcessUI(ISheet sheet)
+        protected void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.RBVisible)
             {

@@ -13,6 +13,8 @@
     {
         protected const int SessionLicenseeId = 1;
 
+        protected const string AgentListXml = "XmlData";
+
         protected ISessionService SessionService { get; private set; }
 
         protected IProductService ProductService { get; private set; }
@@ -50,7 +52,7 @@
 
             StubUserSessionData(userSession);
             StubLicenseeSessionData(licenseeSession);
-            SessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns(string.Empty);
+            SessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns("XmlData");
         }
 
         protected void StubSingleWalletProductAccess(string[] productCode)

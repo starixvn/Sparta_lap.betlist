@@ -53,24 +53,6 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
             _metaModel = metaModel;
             _data = viewModel.Data;
             _totalData = totalData;
-
-            HeaderTextList = new[]
-            {
-                "#",
-                ViewResources.GameID,
-                ViewResources.PlayerHistoryNo,
-                ViewResources.GameType,
-                ViewResources.GameGroup,
-                ViewResources.StartDate,
-                ViewResources.EndDate,
-                ViewResources.StartBalance,
-                ViewResources.EndBalance,
-                ViewResources.Stake,
-                ViewResources.Bet,
-                ViewResources.WinLoss,
-                ViewResources.RollingComm,
-                ViewResources.Results
-            };
         }
 
         /// <summary>
@@ -93,25 +75,36 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
             {
                 AssignSheetData(sheet);
             }
-
-            ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            var headerTextList = new[]
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                "#",
+                ViewResources.GameID,
+                ViewResources.PlayerHistoryNo,
+                ViewResources.GameType,
+                ViewResources.GameGroup,
+                ViewResources.StartDate,
+                ViewResources.EndDate,
+                ViewResources.StartBalance,
+                ViewResources.EndBalance,
+                ViewResources.Stake,
+                ViewResources.Bet,
+                ViewResources.WinLoss,
+                ViewResources.RollingComm,
+                ViewResources.Results
+            };
+            for (int i = 0; i < headerTextList.Length; i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
         }
 
-        protected override void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
@@ -120,7 +113,7 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignSheetData(ISheet sheet)
+        protected void AssignSheetData(ISheet sheet)
         {
             var indexReport = 1;
             var currentRow = 3;
@@ -163,15 +156,9 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
             AssignGrandTotal(sheet, ++currentRow);
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
-            ReportTitle = ViewResources.CASINOHANDHISTORY;
-
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ViewResources.CASINOHANDHISTORY);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);

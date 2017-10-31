@@ -18,11 +18,16 @@ namespace Fanex.Athena.Service.Report
 
     public class CustomerTurnoverService : ICustomerTurnoverService
     {
-        private readonly ICustTurnoverDataAccess _custTurnoverDataAccess;
+        private readonly ICustomerTurnoverDataAccess _customerTurnoverDataAccess;
 
         public CustomerTurnoverService()
         {
-            _custTurnoverDataAccess = new CustomerTurnoverDataAccess();
+            _customerTurnoverDataAccess = new CustomerTurnoverDataAccess();
+        }
+
+        public CustomerTurnoverService(ICustomerTurnoverDataAccess customerTurnoverDataAccess)
+        {
+            _customerTurnoverDataAccess = customerTurnoverDataAccess;
         }
 
         public ReportResultModel<CustTurnover> GetDataList(CustomerTurnoverMetaModel metaModel, string languageCode)
@@ -36,7 +41,7 @@ namespace Fanex.Athena.Service.Report
                 };
             }
 
-            var result = _custTurnoverDataAccess.GetDataList(metaModel, languageCode);
+            var result = _customerTurnoverDataAccess.GetDataList(metaModel, languageCode);
 
             if (result.DataList.Any())
             {

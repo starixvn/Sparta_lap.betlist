@@ -16,7 +16,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common;
     using Fanex.Data;
-    using Fanex.Logging;
     using Resources;
 
     public class ProductDataAccess : BaseDataAccess, IProductDataAccess
@@ -57,7 +56,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, uspName);
+                throw new DataAccessException(sqlException, uspName);
             }
         }
     }

@@ -10,6 +10,7 @@ namespace Fanex.Athena.Controllers.TotalBets
     using DataAccess.TotalBet;
     using DataAccess.TotalBet.Interfaces;
     using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
     using Model.TotalBet.MetaModel;
@@ -31,8 +32,9 @@ namespace Fanex.Athena.Controllers.TotalBets
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IFileSystem fileSystem,
             IOutrightDataAccess outrightDataAccess)
-            : base(languageService, sessionService, appSetting)
+            : base(languageService, sessionService, appSetting, fileSystem)
         {
             _outrightDataAccess = outrightDataAccess;
         }

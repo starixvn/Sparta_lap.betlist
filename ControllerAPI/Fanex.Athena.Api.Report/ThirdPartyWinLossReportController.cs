@@ -14,12 +14,12 @@ namespace Fanex.Athena.Api.Report
     using System.Web.Http;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Users;
+    using Model.Core.ResultModel;
     using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users;
@@ -144,14 +144,11 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(excel.Workbook, exportedFileName);
         }
 
-        private void GetData(
-                ThirdPartyWinLossMetaModel metaModel,
-                out SortableList<ThirdPartyWinLoss> dataList,
-                out IDictionary<string, ThirdPartyWinLoss> summaryTotal)
+        private SortableReportResultModel<ThirdPartyWinLoss> GetData(ThirdPartyWinLossMetaModel metaModel)
         {
-            dataList = metaModel.DrillDownLevel == 0 ? _thirdPartyWinLossService.GetSummaryWinloss(metaModel, out summaryTotal) : metaModel.DrillDownLevel == 2
-                               ? _thirdPartyWinLossService.GetCustomerWinlossDetail(metaModel, out summaryTotal)
-                               : _thirdPartyWinLossService.GetAgentWinlossDetail(metaModel, out summaryTotal);
+            return metaModel.DrillDownLevel == 0 ? _thirdPartyWinLossService.GetSummaryWinloss(metaModel) : metaModel.DrillDownLevel == 2
+                               ? _thirdPartyWinLossService.GetCustomerWinlossDetail(metaModel)
+                               : _thirdPartyWinLossService.GetAgentWinlossDetail(metaModel);
         }
 
         private dynamic ProcessRequest(
@@ -181,22 +178,20 @@ namespace Fanex.Athena.Api.Report
                 metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(level == 0 ? metaModel.CurrencyId : currencyId, metaModel.IsExcludedTestData);
 
-                IDictionary<string, ThirdPartyWinLoss> summaryTotal;
-                SortableList<ThirdPartyWinLoss> dataList;
-                GetData(metaModel, out dataList, out summaryTotal);
+                var result = GetData(metaModel);
 
                 if (metaModel.IsExportExcel)
                 {
-                    return ExportExcel(metaModel, dataList, summaryTotal);
+                    return ExportExcel(metaModel, result.DataList, result.SummaryTotal);
                 }
 
-                if (dataList != null && dataList.Count > 0)
+                if (result.DataList != null && result.DataList.Any())
                 {
                     return new
                     {
-                        Data = dataList,
-                        Total = _thirdPartyWinLossService.TotalCalc(dataList),
-                        SummaryTotal = summaryTotal
+                        Data = result.DataList,
+                        Total = _thirdPartyWinLossService.TotalCalc(result.DataList),
+                        SummaryTotal = result.SummaryTotal
                     };
                 }
             }

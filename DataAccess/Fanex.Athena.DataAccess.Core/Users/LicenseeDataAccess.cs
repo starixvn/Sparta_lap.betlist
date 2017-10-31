@@ -15,7 +15,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Data;
-    using Fanex.Logging;
     using Model.Core.DTO.Users;
 
     public class LicenseeDataAccess : BaseDataAccess, ILicenseeDataAccess
@@ -41,7 +40,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
 
@@ -84,7 +83,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, uspParams);
+                throw new DataAccessException(sqlException, UspName, uspParams);
             }
         }
 
@@ -101,7 +100,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, uspParams);
+                throw new DataAccessException(sqlException, UspName, uspParams);
             }
         }
 
@@ -118,7 +117,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, uspParams);
+                throw new DataAccessException(sqlException, UspName, uspParams);
             }
         }
     }

@@ -22,7 +22,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
+    using Model.Core.ResultModel;
 
     public class CashOutWinLossDataAccess : BaseDataAccess, ICashOutWinLossDataAccess
     {
@@ -38,7 +38,7 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public SortableList<CashOutWinLoss> GetSummary(CashOutWinLossMetaModel metaModel, out IDictionary<string, CashOutWinLoss> summaryTotal)
+        public SortableReportResultModel<CashOutWinLoss> GetSummary(CashOutWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_CashoutWinloss";
             try
@@ -50,19 +50,17 @@ namespace Fanex.Athena.DataAccess.Report
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel, out summaryTotal);
+                        return GetData(reader, metaModel);
                     }
                 }
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, metaModel);
+                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 
-        public SortableList<CashOutWinLoss> GetDetail(
-            CashOutWinLossMetaModel metaModel,
-            out IDictionary<string, CashOutWinLoss> summaryTotal)
+        public SortableReportResultModel<CashOutWinLoss> GetDetail(CashOutWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_CashoutWinloss_Detail";
             try
@@ -72,26 +70,23 @@ namespace Fanex.Athena.DataAccess.Report
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel, out summaryTotal);
+                        return GetData(reader, metaModel);
                     }
                 }
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName, metaModel);
+                throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private static SortableList<CashOutWinLoss> GetData(
-            IDataReader reader,
-            CashOutWinLossMetaModel metaModel,
-            out IDictionary<string, CashOutWinLoss> summaryTotal)
+        private static SortableReportResultModel<CashOutWinLoss> GetData(IDataReader reader, CashOutWinLossMetaModel metaModel)
         {
             var result = new SortableList<CashOutWinLoss>();
 
-            summaryTotal = new Dictionary<string, CashOutWinLoss>();
+            var summaryTotal = new Dictionary<string, CashOutWinLoss>();
             foreach (var currency in SystemConstants.BaseCurrencyList)
             {
                 summaryTotal.Add(currency, new CashOutWinLoss());
@@ -140,23 +135,31 @@ namespace Fanex.Athena.DataAccess.Report
                 };
 
                 result.Add(item);
-
-                foreach (var currency in SystemConstants.BaseCurrencyList)
-                {
-                    summaryTotal[currency].CashOutValue += reader.ToDecimal("cashoutvalue" + currency);
-                    summaryTotal[currency].CashOutTickets += reader.ToInt("cashoutticket");
-                    summaryTotal[currency].CashOutTimes += reader.ToInt("cashouttime");
-                    summaryTotal[currency].BuyBackAmountSB += reader.ToDecimal("buybackamountSB" + currency);
-                    summaryTotal[currency].BuyBackAmountBA += reader.ToDecimal("buybackamountBA" + currency);
-                    summaryTotal[currency].TicketPayout += reader.ToDecimal("ticketpayout" + currency);
-                    summaryTotal[currency].CashOutCommission += reader.ToDecimal("cashoutcomm" + currency);
-                    summaryTotal[currency].SettleAmountTicketPayout += reader.ToDecimal("AmountDue_TicketPayout" + currency);
-                    summaryTotal[currency].SettleAmountBuyBackComm += reader.ToDecimal("AmountDue_Comm" + currency);
-                    summaryTotal[currency].SettleAmountTotal += reader.ToDecimal("Amount_Total" + currency);
-                }
+                ReadSummaryTotal(reader, summaryTotal);
             }
 
-            return result;
+            return new SortableReportResultModel<CashOutWinLoss>
+            {
+                DataList = result,
+                SummaryTotal = summaryTotal
+            };
+        }
+
+        private static void ReadSummaryTotal(IDataReader reader, IDictionary<string, CashOutWinLoss> summaryTotal)
+        {
+            foreach (var currency in SystemConstants.BaseCurrencyList)
+            {
+                summaryTotal[currency].CashOutValue += reader.ToDecimal("cashoutvalue" + currency);
+                summaryTotal[currency].CashOutTickets += reader.ToInt("cashoutticket");
+                summaryTotal[currency].CashOutTimes += reader.ToInt("cashouttime");
+                summaryTotal[currency].BuyBackAmountSB += reader.ToDecimal("buybackamountSB" + currency);
+                summaryTotal[currency].BuyBackAmountBA += reader.ToDecimal("buybackamountBA" + currency);
+                summaryTotal[currency].TicketPayout += reader.ToDecimal("ticketpayout" + currency);
+                summaryTotal[currency].CashOutCommission += reader.ToDecimal("cashoutcomm" + currency);
+                summaryTotal[currency].SettleAmountTicketPayout += reader.ToDecimal("AmountDue_TicketPayout" + currency);
+                summaryTotal[currency].SettleAmountBuyBackComm += reader.ToDecimal("AmountDue_Comm" + currency);
+                summaryTotal[currency].SettleAmountTotal += reader.ToDecimal("Amount_Total" + currency);
+            }
         }
 
         private void UpdateUspParams(IObjectDb db, CashOutWinLossMetaModel metaModel, bool drilldown)

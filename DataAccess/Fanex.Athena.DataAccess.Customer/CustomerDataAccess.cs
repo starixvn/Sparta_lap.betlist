@@ -5,7 +5,6 @@
     using Core.Exception;
     using Data;
     using Interfaces;
-    using Logging;
     using Model.Customer.DTO;
 
     public class CustomerDataAccess : BaseDataAccess, ICustomerDataAccess
@@ -24,7 +23,7 @@
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
     }

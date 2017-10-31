@@ -49,7 +49,7 @@ namespace Fanex.Athena.Controllers
             IAppSettings appSetting,
             IFileSystem fileSystem,
             IProductService productService)
-            : base(languageService, sessionService, appSetting)
+            : base(languageService, sessionService, appSetting, fileSystem)
         {
             _productService = productService;
             _fileSystem = fileSystem;

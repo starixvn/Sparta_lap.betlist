@@ -3,11 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Core.Configuration.Interfaces;
     using Data;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Configuration;
-    using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -60,10 +60,9 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_PlatformWinloss")).Returns(objectDb);
-            PlatformWinLossSummary totalData;
 
             // Action
-            _dataAccess.GetSummaryData(_metaModel, out totalData);
+            _dataAccess.GetSummaryData(_metaModel);
 
             // Assert
             objectDb.Received().AddInParameter("PlatformType", DbType.Byte, _metaModel.PlatformType);
@@ -83,7 +82,6 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_PlatformWinloss")).Returns(objectDb);
             objectDb.ExecuteReader().Returns(reader);
             reader.Read().Returns(true, false);
-            PlatformWinLossSummary totalData;
             var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
             {
                 { "PlatformType", PlatformType.Asia },
@@ -94,21 +92,23 @@
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetSummaryData(_metaModel, out totalData);
+            var result = _dataAccess.GetSummaryData(_metaModel);
+            var firstItem = result.DataList.First();
+            var secondItem = result.DataList.ElementAt(1);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count, Is.EqualTo(2));
-                Assert.That(result[0].PlatformType, Is.EqualTo(PlatformType.Asia));
-                Assert.That(result[0].Name, Is.EqualTo(ViewResources.Asia));
-                Assert.That(result[0].Turnover, Is.EqualTo(100));
+                Assert.That(result.DataList.Count, Is.EqualTo(2));
+                Assert.That(firstItem.PlatformType, Is.EqualTo(PlatformType.Asia));
+                Assert.That(firstItem.Name, Is.EqualTo(ViewResources.Asia));
+                Assert.That(firstItem.Turnover, Is.EqualTo(100));
 
-                Assert.That(result[1].Parent, Is.EqualTo(PlatformType.Asia.ToString()));
-                Assert.That(result[1].Name, Is.EqualTo(ViewResources.ProductSB));
-                Assert.That(result[1].Turnover, Is.EqualTo(100));
+                Assert.That(secondItem.Parent, Is.EqualTo(PlatformType.Asia.ToString()));
+                Assert.That(secondItem.Name, Is.EqualTo(ViewResources.ProductSB));
+                Assert.That(secondItem.Turnover, Is.EqualTo(100));
 
-                Assert.That(totalData.TurnoverPercent, Is.EqualTo(100));
+                Assert.That(result.TotalData.TurnoverPercent, Is.EqualTo(100));
             });
         }
 
@@ -118,10 +118,9 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_PlatformWinlossDetail")).Returns(objectDb);
-            PlatformWinLossMember totalData;
 
             // Action
-            _dataAccess.GetMemberData(_metaModel, out totalData);
+            _dataAccess.GetMemberData(_metaModel);
 
             // Assert
             objectDb.Received().AddInParameter("PlatformType", DbType.Byte, _metaModel.PlatformType);
@@ -141,7 +140,6 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_PlatformWinlossDetail")).Returns(objectDb);
             objectDb.ExecuteReader().Returns(reader);
             reader.Read().Returns(true, false);
-            PlatformWinLossMember totalData;
             var readerDataMapping = new
             {
                 TurnoverUSD = 100,
@@ -151,16 +149,16 @@
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetMemberData(_metaModel, out totalData);
+            var result = _dataAccess.GetMemberData(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count, Is.EqualTo(1));
-                Assert.That(result[0].Turnover, Is.EqualTo(100));
-                Assert.That(result[0].CustomerWinLoss, Is.EqualTo(200));
+                Assert.That(result.DataList.Count, Is.EqualTo(1));
+                Assert.That(result.DataList.ElementAt(0).Turnover, Is.EqualTo(100));
+                Assert.That(result.DataList.ElementAt(0).CustomerWinLoss, Is.EqualTo(200));
 
-                Assert.That(totalData.Turnover, Is.EqualTo(100));
+                Assert.That(result.TotalData.Turnover, Is.EqualTo(100));
             });
         }
     }

@@ -16,7 +16,6 @@ namespace Fanex.Athena.DataAccess.Customer
     using Fanex.Athena.Model.Customer.MetaModel;
     using Fanex.Common;
     using Fanex.Data;
-    using Fanex.Logging;
 
     public class GroupComDataAccess : BaseDataAccess, IGroupComDataAccess
     {
@@ -34,7 +33,7 @@ namespace Fanex.Athena.DataAccess.Customer
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
 
@@ -53,7 +52,7 @@ namespace Fanex.Athena.DataAccess.Customer
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
 
@@ -71,7 +70,7 @@ namespace Fanex.Athena.DataAccess.Customer
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
 
@@ -111,7 +110,7 @@ namespace Fanex.Athena.DataAccess.Customer
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
 
@@ -153,7 +152,7 @@ namespace Fanex.Athena.DataAccess.Customer
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
 
@@ -190,7 +189,7 @@ namespace Fanex.Athena.DataAccess.Customer
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
 
@@ -209,7 +208,7 @@ namespace Fanex.Athena.DataAccess.Customer
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
     }

@@ -30,27 +30,17 @@ namespace Fanex.Athena.Excel.Warehouse
 
         private readonly DataTable _exportData;
 
+        private readonly string _reportTitle;
+
         public TopCustomerExcel(
                 string templatePath,
                 ShowingOption showingOption,
-                DataTable exportData)
+                DataTable exportData,
+                string reportTitle)
             : base(templatePath, showingOption)
         {
             _exportData = exportData;
-
-            HeaderTextList = new List<string>
-            {
-                "#",
-                ViewResources.Customer,
-                ViewResources.Currency,
-                ViewResources.Turnover,
-                ViewResources.BetCount,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.CustomerW_L,
-                ViewResources.LicenseeW_L,
-                ViewResources.LastActivityDate,
-            };
+            _reportTitle = reportTitle;
         }
 
         /// <summary>
@@ -77,17 +67,26 @@ namespace Fanex.Athena.Excel.Warehouse
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        protected override void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-
-            for (int i = 0; i < HeaderTextList.Count; i++)
+            var headerTextList = new[]
             {
-                row.Cells[i].SetCellValue(HeaderTextList[i]);
+                "#",
+                ViewResources.Customer,
+                ViewResources.Currency,
+                ViewResources.Turnover,
+                ViewResources.BetCount,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.LicenseeW_L,
+                ViewResources.LastActivityDate,
+            };
+
+            for (int i = 0; i < headerTextList.Length; i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList[i]);
             }
 
             row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
@@ -97,7 +96,7 @@ namespace Fanex.Athena.Excel.Warehouse
             row.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
         }
 
-        protected override void AssignSheetData(ISheet sheet)
+        protected void AssignSheetData(ISheet sheet)
         {
             var rowCount = _exportData.Rows.Count;
 
@@ -113,9 +112,9 @@ namespace Fanex.Athena.Excel.Warehouse
             AssignTotalData(sheet, RowContentTemplate + rowCount);
         }
 
-        protected override void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _reportTitle);
 
             // Only show LicenseeWL if licensee doesn't have NG
             if (!ShowingOption.NGVisible)
@@ -130,7 +129,7 @@ namespace Fanex.Athena.Excel.Warehouse
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        protected override void ProcessUI(ISheet sheet)
+        private static void ProcessUI(ISheet sheet)
         {
             sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
             sheet.HideRow(RowTableHeaderTemplate + 1);

@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Service.BetList
 {
-    using System.Collections.Generic;
     using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.BetList;
@@ -14,7 +13,6 @@ namespace Fanex.Athena.Service.BetList
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Service.BetList.Interfaces;
-    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.BetList.Core.Entities;
@@ -65,19 +63,6 @@ namespace Fanex.Athena.Service.BetList
             return _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId)
                         ? _betlistDataAccess.GetBetListData(metaModel, uspKey)
                         : new TicketResult();
-        }
-
-        /// <summary>
-        /// Get Daily Statement Data of Customer.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="isAllowCustComm">The allowed customer commission.</param>
-        /// <returns>The daily-statement list.</returns>
-        public IList<DailyStatement> GetDailyStatementData(BetListMetaModel metaModel, bool isAllowCustComm)
-        {
-            return _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId)
-                        ? _betlistDataAccess.GetDailyStatementData(metaModel, isAllowCustComm)
-                         : new List<DailyStatement>();
         }
 
         private void UpdateCommonInfo(BetListMetaModel metaModel)

@@ -19,7 +19,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
+    using Model.Core.ResultModel;
 
     public class PlatformWinLossDataAccess : BaseDataAccess, IPlatformWinLossDataAccess
     {
@@ -35,7 +35,7 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public IList<PlatformWinLossSummary> GetSummaryData(PlatformWinLossMetaModel metaModel, out PlatformWinLossSummary totalData)
+        public ReportResultModel<PlatformWinLossSummary> GetSummaryData(PlatformWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_PlatformWinloss";
             try
@@ -45,17 +45,17 @@ namespace Fanex.Athena.DataAccess.Report
                     UpdateUspParams(db, metaModel);
                     using (var reader = db.ExecuteReader())
                     {
-                        return ReadSummaryData(reader, metaModel, out totalData);
+                        return ReadSummaryData(reader, metaModel);
                     }
                 }
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
 
-        public IList<PlatformWinLossMember> GetMemberData(PlatformWinLossMetaModel metaModel, out PlatformWinLossMember totalData)
+        public ReportResultModel<PlatformWinLossMember> GetMemberData(PlatformWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_PlatformWinlossDetail";
             try
@@ -65,13 +65,13 @@ namespace Fanex.Athena.DataAccess.Report
                     UpdateUspParams(db, metaModel);
                     using (var reader = db.ExecuteReader())
                     {
-                        return ReadMemberData(reader, metaModel.BaseCurrency, out totalData);
+                        return ReadMemberData(reader, metaModel.BaseCurrency);
                     }
                 }
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException.Message, UspName);
+                throw new DataAccessException(sqlException, UspName);
             }
         }
 
@@ -79,10 +79,10 @@ namespace Fanex.Athena.DataAccess.Report
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private static IList<PlatformWinLossSummary> ReadSummaryData(IDataReader reader, PlatformWinLossMetaModel metaModel, out PlatformWinLossSummary totalData)
+        private static ReportResultModel<PlatformWinLossSummary> ReadSummaryData(IDataReader reader, PlatformWinLossMetaModel metaModel)
         {
             var dataList = new List<PlatformWinLossSummary>();
-            totalData = new PlatformWinLossSummary();
+            var totalData = new PlatformWinLossSummary();
 
             var turnoverColumn = "Turnover" + metaModel.BaseCurrency;
             var winlostComumn = "Winlost" + metaModel.BaseCurrency;
@@ -133,12 +133,7 @@ namespace Fanex.Athena.DataAccess.Report
                 parent.LicenseeWL += child.LicenseeWL;
 
                 dataList.Add(child);
-
-                totalData.TotalTransactions += child.TotalTransactions;
-                totalData.Turnover += child.Turnover;
-                totalData.CustomerWinLoss += child.CustomerWinLoss;
-                totalData.CustomerComm += child.CustomerComm;
-                totalData.LicenseeWL += child.LicenseeWL;
+                AddTotalData(totalData, child);
             }
 
             totalData.TurnoverPercent = totalData.Turnover > 0 ? 100 : 0;
@@ -150,18 +145,26 @@ namespace Fanex.Athena.DataAccess.Report
                 }
             }
 
-            return dataList;
+            return new ReportResultModel<PlatformWinLossSummary>
+            {
+                DataList = dataList,
+                TotalData = totalData
+            };
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private static IList<PlatformWinLossMember> ReadMemberData(
-            IDataReader reader,
-            string baseCurrency,
-            out PlatformWinLossMember totalData)
+        private static void AddTotalData(PlatformWinLossSummary totalData, PlatformWinLossSummary child)
+        {
+            totalData.TotalTransactions += child.TotalTransactions;
+            totalData.Turnover += child.Turnover;
+            totalData.CustomerWinLoss += child.CustomerWinLoss;
+            totalData.CustomerComm += child.CustomerComm;
+            totalData.LicenseeWL += child.LicenseeWL;
+        }
+
+        private static ReportResultModel<PlatformWinLossMember> ReadMemberData(IDataReader reader, string baseCurrency)
         {
             var dataList = new List<PlatformWinLossMember>();
-            totalData = new PlatformWinLossMember();
+            var totalData = new PlatformWinLossMember();
 
             var turnoverColumn = "Turnover" + baseCurrency;
             var winlostComumn = "Winlost" + baseCurrency;
@@ -197,19 +200,27 @@ namespace Fanex.Athena.DataAccess.Report
 
                 dataList.Add(item);
                 index++;
-
-                totalData.TotalTransactions += item.TotalTransactions;
-                totalData.Turnover += item.Turnover;
-                totalData.CustomerWinLoss += item.CustomerWinLoss;
-                totalData.CustomerComm += item.CustomerComm;
-                totalData.LicenseeWL += item.LicenseeWL;
-                totalData.BACommission += item.BACommission;
-                totalData.RacingRevenue += item.RacingRevenue;
-                totalData.AmtDueToBA += item.AmtDueToBA;
-                totalData.AmtDueToRacing += item.AmtDueToRacing;
+                AddTotalData(totalData, item);
             }
 
-            return dataList;
+            return new ReportResultModel<PlatformWinLossMember>
+            {
+                DataList = dataList,
+                TotalData = totalData
+            };
+        }
+
+        private static void AddTotalData(PlatformWinLossMember totalData, PlatformWinLossMember item)
+        {
+            totalData.TotalTransactions += item.TotalTransactions;
+            totalData.Turnover += item.Turnover;
+            totalData.CustomerWinLoss += item.CustomerWinLoss;
+            totalData.CustomerComm += item.CustomerComm;
+            totalData.LicenseeWL += item.LicenseeWL;
+            totalData.BACommission += item.BACommission;
+            totalData.RacingRevenue += item.RacingRevenue;
+            totalData.AmtDueToBA += item.AmtDueToBA;
+            totalData.AmtDueToRacing += item.AmtDueToRacing;
         }
 
         private void UpdateUspParams(IObjectDb db, PlatformWinLossMetaModel metaModel)
