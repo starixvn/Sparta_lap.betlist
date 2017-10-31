@@ -99,6 +99,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CasinoSetting.cs" />
+    <Compile Include="CustomerApiWrapper.cs" />
+    <Compile Include="Interfaces\ICustomerApiWrapper.cs" />
     <Compile Include="Interfaces\ICasinoSetting.cs" />
     <Compile Include="Interfaces\IRNGCasinoService.cs" />
     <Compile Include="Interfaces\IRNGCasinoSingleWalletService.cs" />
