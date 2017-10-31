@@ -43,7 +43,7 @@ namespace Fanex.Athena.Service.Customer
         {
             _customerDataAccess = new CustomerDataAccess();
             _customerListDataAccess = new CustomerListDataAccess();
-            _casinoSetting = new CasinoSetting();
+            _casinoSetting = new CasinoSettingService();
             _authorizationService = new AuthorizationService();
             _productService = new ProductService();
             _appSettings = new AppSettings();

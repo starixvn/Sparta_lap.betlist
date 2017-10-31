@@ -44,7 +44,7 @@ namespace Fanex.Athena.Service.BetSettings
             : base(authorizationService)
         {
             _betSettingDataAccess = betSettingDataAccess ?? new RngCasinoBetSettingDataAccess();
-            _casinoSetting = casinoSetting ?? new CasinoSetting();
+            _casinoSetting = casinoSetting ?? new CasinoSettingService();
             _appSettings = appSettings ?? new AppSettings();
             _customerApiWrapper = customerApiWrapper ?? new CustomerApiWrapper();
         }

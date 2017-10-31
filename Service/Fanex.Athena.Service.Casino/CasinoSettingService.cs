@@ -10,7 +10,6 @@ namespace Fanex.Athena.Service.Casino
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using CasinoLibrary.SBAgent;
     using Extension.Helper;
     using Fanex.Athena.Model.BetSettings.DTO.RngCasino;
     using Fanex.Athena.Service.Casino.Interfaces;
@@ -18,29 +17,38 @@ namespace Fanex.Athena.Service.Casino
     using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Common;
     using Model.Customer.MetaModel;
-    using CustomerCasinoSetting = CasinoLibrary.SBAgent.Customer;
 
-    public class CasinoSetting : ICasinoSetting
+    public class CasinoSettingService : ICasinoSetting
     {
         public const int SystemId = 4;
 
-        #region ICasinoSetting Members
+        private readonly ICustomerApiWrapper _customerApiWrapper;
+
+        private readonly IBasicInfoApiWrapper _basicInfoApiWrapper;
+
+        public CasinoSettingService() : this(null, null)
+        {
+        }
+
+        public CasinoSettingService(ICustomerApiWrapper customerApiWrapper, IBasicInfoApiWrapper basicInfoApiWrapper)
+        {
+            _customerApiWrapper = customerApiWrapper ?? new CustomerApiWrapper();
+            _basicInfoApiWrapper = basicInfoApiWrapper ?? new BasicInfoApiWrapper();
+        }
 
         public bool UpdateCustSuspend(CustomerStatusMetaModel metaModel)
         {
             try
             {
-                var casinoCustomerBo = new CustomerCasinoSetting();
-
-                return casinoCustomerBo.UpdateCustSuspend(
-                    metaModel.CustId,
-                                                        metaModel.IsOn,
-                                                        metaModel.Ip,
-                                                        metaModel.ModifyById,
-                                                        metaModel.ModifyByUsername,
-                                                        SystemId);
+                return _customerApiWrapper.UpdateCustSuspend(
+                            metaModel.CustId,
+                            metaModel.IsOn,
+                            metaModel.Ip,
+                            metaModel.ModifyById,
+                            metaModel.ModifyByUsername,
+                            SystemId);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 throw new ServiceException("Error when call casino api UpdateCustSuspend. Message: " + e.Message, "casino api service");
             }
@@ -50,26 +58,20 @@ namespace Fanex.Athena.Service.Casino
         {
             try
             {
-                var casinoCustomerBo = new CustomerCasinoSetting();
-
-                return casinoCustomerBo.UpdateCustClosed(
-                    metaModel.CustId,
-                                                        metaModel.IsOn,
-                                                        metaModel.Ip,
-                                                        metaModel.ModifyById,
-                                                        metaModel.ModifyByUsername,
-                                                        SystemId);
+                return _customerApiWrapper.UpdateCustClosed(
+                            metaModel.CustId,
+                            metaModel.IsOn,
+                            metaModel.Ip,
+                            metaModel.ModifyById,
+                            metaModel.ModifyByUsername,
+                            SystemId);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 throw new ServiceException("Error when call casino api UpdateCustClosed. Message: " + e.Message, "Casino api service");
             }
         }
 
-        #endregion ICasinoSetting Members
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
-            Justification = "Reviewed. Suppression is OK here.")]
         public IList<GameKind> GetRngCasinoSettings(int custId, string language)
         {
             IList<GameKind> gameKinds;
@@ -105,28 +107,19 @@ namespace Fanex.Athena.Service.Casino
         {
             try
             {
-                var casinoCustomerBo = new CustomerCasinoSetting();
-                var resultTable = casinoCustomerBo.UpdateCustGameTypeStakeLevel(dataTableParam);
+                var resultTable = _customerApiWrapper.UpdateCustGameTypeStakeLevel(dataTableParam);
                 return resultTable.Rows.Count == 0;
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 throw new ServiceException("Error when call casino api UpdateCustSuspend. Message: " + e.Message, "casino api");
             }
         }
 
-        #region Get Game Kind
-
-        /// <summary>
-        /// Get RNG casino game kind.
-        /// </summary>
-        /// <param name="language">Language of name kind.</param>
-        /// <returns>The game kind list.</returns>
-        private static IList<GameKind> GetGameKind(string language)
+        private IList<GameKind> GetGameKind(string language)
         {
-            var bacsicInfo = new BasicInfo();
             var gameKindNameByLanguage = CasinoHelper.GetColumnNameByLanguage("CodeName", language);
-            var gameKindTable = bacsicInfo.GetGameKind("01");
+            var gameKindTable = _basicInfoApiWrapper.GetGameKind("01");
 
             var gameKindList = new List<GameKind>();
 
@@ -144,21 +137,10 @@ namespace Fanex.Athena.Service.Casino
             return gameKindList;
         }
 
-        #endregion Get Game Kind
-
-        #region Get Game Type
-
-        /// <summary>
-        /// Get game types.
-        /// </summary>
-        /// <param name="gameKindId">The game kind id.</param>
-        /// <param name="language">Language of licensee.</param>
-        /// <returns>The game type list. </returns>
-        private static IList<GameType> GetGameType(int gameKindId, string language)
+        private IList<GameType> GetGameType(int gameKindId, string language)
         {
-            var bacsicInfo = new BasicInfo();
             var gameTypeName = CasinoHelper.GetColumnNameByLanguage("GameTypeName", language);
-            var gameTypeTable = bacsicInfo.GetGameType(gameKindId);
+            var gameTypeTable = _basicInfoApiWrapper.GetGameType(gameKindId);
 
             var gameTypeList = new List<GameType>();
 
@@ -176,20 +158,9 @@ namespace Fanex.Athena.Service.Casino
             return gameTypeList.OrderBy(m => m.GameTypeName).ToList();
         }
 
-        #endregion Get Game Type
-
-        #region Get Cust Stake Level
-
-        /// <summary>
-        /// Get stake level of customer.
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="gameTypeId">The game type id.</param>
-        /// <returns>The stack level list.</returns>
-        private static IList<StakeLevel> GetCustStakeLevel(int custId, int gameTypeId)
+        private IList<StakeLevel> GetCustStakeLevel(int custId, int gameTypeId)
         {
-            var customer = new CustomerCasinoSetting();
-            var stakeLevelTable = customer.GetCustStakeLevel(custId, gameTypeId);
+            var stakeLevelTable = _customerApiWrapper.GetCustStakeLevel(custId, gameTypeId);
 
             var stakeLevelList = new List<StakeLevel>();
 
@@ -207,7 +178,5 @@ namespace Fanex.Athena.Service.Casino
 
             return stakeLevelList;
         }
-
-        #endregion Get Cust Stake Level
     }
 }
