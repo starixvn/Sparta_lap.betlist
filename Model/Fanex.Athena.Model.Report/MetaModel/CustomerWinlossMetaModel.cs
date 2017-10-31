@@ -24,7 +24,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
             ToDate = DateTime.Today;
             PageIndex = 1;
             PageSize = 1000;
-            DrawFilter = DrawFilterType.Normal;
             OrderItem = 0;
             IsAscSort = true;
         }
@@ -32,8 +31,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
         public bool IsHistory { get; set; }
 
         public bool IsExcludedTestData { get; set; }
-
-        public int DrawFilter { get; set; }
 
         public int OrderItem { get; set; }
 

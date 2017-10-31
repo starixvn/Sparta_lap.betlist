@@ -36,7 +36,6 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
             var metaModel = new CustomerWinLossMetaModel
             {
-                DrawFilter = DrawFilterType.Normal,
                 IsExcludedTestData = true,
                 FromDate = isHistory ? new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1) : DateTime.Today
             };
