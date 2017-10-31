@@ -24272,8 +24272,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 151 */,
-/* 152 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24316,6 +24315,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
+/* 152 */,
 /* 153 */,
 /* 154 */,
 /* 155 */,
@@ -24330,169 +24330,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /* 164 */,
 /* 165 */,
 /* 166 */,
-/* 167 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-var __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
-    var _me = {
-        download: function (blob, fileName) {
-            // IE 10+
-            if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob) {
-                navigator.msSaveOrOpenBlob(blob, fileName);
-            } else {
-                var element = window.document.createElement('a');
-                element.href = window.URL.createObjectURL(blob);
-                element.download = fileName;
-                document.body.appendChild(element);
-                element.click();
-                document.body.removeChild(element);
-            }
-        }
-    };
-
-    return _me;
-}.call(exports, __webpack_require__, exports, module),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ }),
-/* 168 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
-    var defaultOption = {
-        text: "Data is being downloaded",
-        position: "top right",
-        itemStyle: "default",
-        timeout: 6000
-    };
-
-    function generatePagePortal(position) {
-        var positionClassName = generateClassByPosition(position);
-
-        return '<div class="page-portal">' +
-        '<div class="toast-container' + positionClassName + '">' +
-                '<div class="toast-align">' +
-                '</div>' +
-            '</div>' +
-        '</div>';
-    }
-
-    function generateClassByPosition(position) {
-        var positions = position.trim().split(' ');
-        if (positions.length < 2) {
-            return "";
-        }
-
-        return positions.map(function (item) {
-            return " toast-container-" + item;
-        });
-    }
-
-    function generateToastItem(styleName, text) {
-        return '<div class="toast-item toast-item-' + styleName + '">' +
-                    '<p class="toast-message">' + text + '</p>' +
-                    generateButtonGroup() +
-                '</div>';
-    }
-
-    function generateButtonGroup() {
-        return '<div class="toast-button-group">' +
-                '<button type="button" class="icon icon-close toast-item-close"></button>' +
-            '</div>';
-    }
-
-    var _me = {
-        show: function (options) {
-            var toastOption = $.extend({}, defaultOption, options || {});
-
-            var existed = $("body").find(".page-portal .toast-container .toast-align").length > 0;
-            var $pagePortal = existed ? $(".page-portal") : $(generatePagePortal(toastOption.position));
-
-            var $toastAlign = $pagePortal.find(".toast-align");
-            var $toastItem = $(generateToastItem(toastOption.itemStyle, toastOption.text));
-
-            $toastItem.on("click", ".toast-item-close", function () {
-                $toastItem.remove();
-            });
-
-            $toastAlign.append($toastItem);
-
-            if (!existed) {
-                $("body").append($pagePortal);
-            }
-
-            setTimeout(function () {
-                $toastItem.fadeOut("fast");
-            }, toastOption.timeout);
-        }
-    };
-
-    return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ }),
-/* 169 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {﻿(function ($) {
-    "use strict";
-
-    // use this transport for "binary" data type
-    $.ajaxTransport("+binary", function (options) {
-        // check for conditions and support for blob / arraybuffer response type
-        if (window.FormData && ((options.dataType && (options.dataType === 'binary')) ||
-            (options.data && ((window.ArrayBuffer && options.data instanceof ArrayBuffer) ||
-            (window.Blob && options.data instanceof Blob))))) {
-            return {
-                // create new XMLHttpRequest
-                send: function (headers, callback) {
-                    // setup all variables
-                    var xhr = new XMLHttpRequest(),
-                        url = options.url,
-                        type = options.type,
-                        async = options.async || true,
-                        // blob or arraybuffer. Default is blob
-                        dataType = options.responseType || "blob",
-                        data = options.data || null,
-                        username = options.username || null,
-                        password = options.password || null;
-
-                    xhr.addEventListener('load', function () {
-                        var data = {};
-                        data[options.dataType] = xhr.response;
-                        // make callback and send data
-                        callback(xhr.status, xhr.statusText, data, xhr.getAllResponseHeaders());
-                    });
-                    xhr.addEventListener('error', function () {
-                        var data = {};
-                        data[options.dataType] = xhr.response;
-                        // make callback and send data
-                        callback(xhr.status, xhr.statusText, data, xhr.getAllResponseHeaders());
-                    });
-
-                    xhr.open(type, url, async, username, password);
-
-                    // setup custom headers
-                    for (var i in headers) {
-                        xhr.setRequestHeader(i, headers[i]);
-                    }
-
-                    xhr.responseType = dataType;
-                    xhr.send(data);
-                },
-                abort: function () { }
-            };
-        }
-    });
-})(__webpack_provided_window_dot_jQuery);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
+/* 167 */,
+/* 168 */,
+/* 169 */,
 /* 170 */,
 /* 171 */,
 /* 172 */,
@@ -24756,21 +24596,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /* 430 */,
 /* 431 */,
 /* 432 */,
-/* 433 */,
-/* 434 */,
-/* 435 */,
-/* 436 */,
-/* 437 */
+/* 433 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(438);
+module.exports = __webpack_require__(434);
 
 
 /***/ }),
-/* 438 */
+/* 434 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(439)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerWinLoss) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(435)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerWinLoss) {
     "use strict";
 
     $(CustomerWinLoss.initialize);
@@ -24779,7 +24615,7 @@ module.exports = __webpack_require__(438);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 439 */
+/* 435 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -24787,48 +24623,27 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     __webpack_require__(118),
     __webpack_require__(2),
     __webpack_require__(133),
-    __webpack_require__(440),
+    __webpack_require__(436),
     __webpack_require__(119),
     __webpack_require__(127),
     __webpack_require__(149),
     __webpack_require__(135),
     __webpack_require__(120),
     __webpack_require__(148),
-    __webpack_require__(152),
+    __webpack_require__(151),
     __webpack_require__(144),
-    __webpack_require__(167),
-    __webpack_require__(168),
     __webpack_require__(122),
     __webpack_require__(123),
-    __webpack_require__(121),
-    __webpack_require__(169)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect, Popup,
-        PagingHelper, ExcelHelper, AutoComplete, Downloader, Toast) {
+    __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker,
+        MonthPicker, MultiSelect, Popup, PagingHelper, ExcelHelper, AutoComplete) {
         "use strict";
-
-        var EXCEL_FILENAME = "CustomerWinLoss.xls";
-        var SORTING_CODE = {
-            "ExternalId": 2,
-            "SystemId": 1,
-            "Turnover": 3,
-            "TotalTransaction": 13,
-            "CustomerWL": 4,
-            "BetEffective": 5,
-            "PlayerComm": 10,
-            "CustomerTotalWL": 14,
-            "LicenseeWL": 6,
-            "BAComm": 8,
-            "RacingRevenue": 15,
-            "AmtDueToBA": 11,
-            "AmtDueToRacing": 12
-        };
 
         var _ajaxRequest = null;
         var _submitData = null;
         var _productCodes = [];
 
         var _sortColumnName = "";
-        var _sortOrder = "";
-        var _orderItem = 0;
+        var _sortOrder = "desc";
         var _isFirstLoad = false;
 
         var _pagingOption =
@@ -24901,25 +24716,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
                 var data = getPostData();
                 data.PageIndex = 1;
-                data.isExportExcel = true;
-
-                var option = {
-                    type: "POST",
-                    data: data,
-                    dataType: "binary",
-                    responseType: "blob",
-                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-                    cache: false,
-                    url: Site.resolveClientUrl(CustomerWinLossOption.urlExcelData),
-                    success: function (response) {
-                        Downloader.download(response, EXCEL_FILENAME);
-                    },
-                    beforeSend: function () {
-                        Toast.show();
-                    }
-                };
-                $.ajax(option);
-
+                ExcelHelper.exportExcel(data, Site.resolveClientUrl(CustomerWinLossOption.urlExcelData));
                 return false;
             });
 
@@ -24953,7 +24750,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             CustomerWinLossOption.isAllowBA = Site.asBool($(_selector.IsAllowedBAInput).val());
             CustomerWinLossOption.isAllowRB = Site.asBool($(_selector.IsAllowedRBInput).val());
             CustomerWinLossOption.hasCustomerComm = Site.asBool($(_selector.IsAllowedCustomerCommissionInput).val());
-            resetParam();
         }
 
         function initAutoComplete() {
@@ -25101,7 +24897,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     } else {
                         _sortOrder = "asc";
                         _sortColumnName = index;
-                        _orderItem = SORTING_CODE[_sortColumnName];
                     }
                     _me.submit();
                 }, 100);
@@ -25157,15 +24952,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             else {
                 _submitData.PageIndex = _pagingOption.pageindex;
                 _submitData.PageSize = _pagingOption.pagesize;
-                _submitData.OrderItem = _orderItem;
-                _submitData.IsAscSort = _sortOrder === "asc";
+                _submitData.sortColumn = _sortColumnName;
+                _submitData.SortDirection = _sortOrder;
             }
         }
 
         function resetParam() {
             _sortColumnName = "ExternalId";
             _sortOrder = "asc";
-            _orderItem = SORTING_CODE[_sortColumnName];
             _pagingOption.pageindex = 1;
             _submitData = null;
         }
@@ -25174,9 +24968,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             var param = $(_selector.Form).serializeObject();
             param.PageIndex = _pagingOption.pageindex;
             param.PageSize = _pagingOption.pagesize;
-            param.OrderItem = _orderItem;
-            param.IsAscSort = _sortOrder === "asc";
-            
+            param.sortColumn = _sortColumnName;
+            param.SortDirection = _sortOrder;
             if (param.Username === undefined) {
                 param.Username = "";
             }
@@ -25208,7 +25001,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 440 */
+/* 436 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -25514,5 +25307,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
-],[437]);
+],[433]);
 //# sourceMappingURL=customerwinloss.chunk.js.map
