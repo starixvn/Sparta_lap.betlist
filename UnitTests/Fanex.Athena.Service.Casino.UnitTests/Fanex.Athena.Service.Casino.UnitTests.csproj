@@ -92,6 +92,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Casino\Fanex.Athena.Model.Casino.csproj">
+      <Project>{840A8298-60ED-40DC-A64E-F9048ABD32B5}</Project>
+      <Name>Fanex.Athena.Model.Casino</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Customer\Fanex.Athena.Model.Customer.csproj">
       <Project>{3B212F2F-4DEB-449B-9AE0-36F6E4F49F5F}</Project>
       <Name>Fanex.Athena.Model.Customer</Name>
@@ -99,6 +103,10 @@
     <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Casino\Fanex.Athena.Service.Casino.csproj">
       <Project>{EFAB3719-796C-4B55-8873-D4573416F07A}</Project>
       <Name>Fanex.Athena.Service.Casino</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
+      <Project>{FCFD7434-085B-4C93-848F-E1CBCEDCC5A0}</Project>
+      <Name>Fanex.Athena.Service.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
