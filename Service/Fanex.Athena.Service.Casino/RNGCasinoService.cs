@@ -24,32 +24,25 @@ namespace Fanex.Athena.Service.Casino
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Common;
-    using Fanex.Logging;
 
     public class RNGCasinoService : IRNGCasinoService
     {
-        private const int System = 4;
-
         private readonly IReportApiWrapper _reportApiWrapper;
-
-        private readonly ICustomerApiWrapper _customerApiWrapper;
 
         private readonly ILanguageService _langService;
 
         private readonly IExChangeRateDataAccess _exchangeRateService;
 
-        public RNGCasinoService() : this(null, null, null, null)
+        public RNGCasinoService() : this(null, null, null)
         {
         }
 
         public RNGCasinoService(
             IReportApiWrapper reportApiWrapper,
-            ICustomerApiWrapper customerApiWrapper,
             ILanguageService langService,
             IExChangeRateDataAccess exchangeRateService)
         {
             _reportApiWrapper = reportApiWrapper ?? new ReportApiWrapper();
-            _customerApiWrapper = customerApiWrapper ?? new CustomerApiWrapper();
             _langService = langService ?? new LanguageService();
             _exchangeRateService = exchangeRateService ?? new ExChangeRateDataAccess();
         }
@@ -126,52 +119,6 @@ namespace Fanex.Athena.Service.Casino
 
             return resultModel;
         }
-
-        #region Commission
-
-        /// <summary>
-        /// Update member commission.
-        /// </summary>
-        /// <param name="metaModel">Meta model data.</param>
-        /// <returns>Success or fail.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
-            Justification = "Reviewed. Suppression is OK here.")]
-        public bool UpdateMemberCommission(RNGCasinoUpdateMemberComMetaModel metaModel)
-        {
-            const string API_ERROR_MSG = "Found errors when calling casino API to update customer commission.\n customers=";
-            const string AdditionErrorMsgPattern = "\n IP={0},CustomerId={1},ModifyBy={2},ModifyBy={3},System={4},Site={5}";
-            var additionalErrorMsg = string.Format(
-                AdditionErrorMsgPattern,
-                metaModel.FromIp,
-                string.Join(",", metaModel.CustomerId),
-                metaModel.ModifyBy,
-                metaModel.ModifyUserName,
-                System,
-                metaModel.SiteName);
-            var success = false;
-            try
-            {
-                success = _customerApiWrapper.UpdateComm(
-                     metaModel.CustomerId,
-                     metaModel.Comm,
-                     metaModel.FromIp,
-                     metaModel.ModifyBy,
-                     metaModel.ModifyUserName,
-                     System);
-                if (!success)
-                {
-                    LogService.Error(API_ERROR_MSG + string.Join(",", metaModel.CustomerId) + additionalErrorMsg);
-                }
-            }
-            catch (Exception exception)
-            {
-                LogService.Error(exception.Message + additionalErrorMsg, exception);
-            }
-
-            return success;
-        }
-
-        #endregion Commission
 
         #region Ultilities
 

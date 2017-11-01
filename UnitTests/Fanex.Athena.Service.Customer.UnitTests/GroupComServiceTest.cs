@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Data;
     using DataAccess.Customer.Interfaces;
+    using Interfaces;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using Model.Customer.MetaModel;
@@ -12,6 +13,8 @@
     [TestFixture]
     public class GroupComServiceTest
     {
+        private ICustomerCommService _customerCommService;
+
         private IGroupComDataAccess _groupDataAccess;
 
         private GroupComService _groupComService;
@@ -19,8 +22,9 @@
         [SetUp]
         public void SetUp()
         {
+            _customerCommService = Substitute.For<ICustomerCommService>();
             _groupDataAccess = Substitute.For<IGroupComDataAccess>();
-            _groupComService = new GroupComService(_groupDataAccess);
+            _groupComService = new GroupComService(_customerCommService, _groupDataAccess);
         }
 
         [TearDown]
@@ -115,7 +119,7 @@
         }
 
         [Test]
-        public void UpdateGroup_IsUpdateCSInMetaModelIsFalse_ReturnCorrectData()
+        public void UpdateGroup_IsUpdateCSIsFalse_ReturnCorrectData()
         {
             // Arrange
             var groupCommMetaModel = new GroupCommMetaModel { IsUpdateCS = false };
@@ -128,6 +132,30 @@
 
             // Assert
             Assert.That(result.IsSuccessful, Is.True);
+        }
+
+        [Test]
+        public void UpdateGroup_IsUpdateCSIsTrue_CallUpdateMemberCommissionApi()
+        {
+            // Arrange
+            var groupCommMetaModel = new GroupCommMetaModel { IsUpdateCS = true };
+            var userSession = new UserSession { UserId = 1 };
+            _groupDataAccess.UpdateGroup(Arg.Any<GroupCommMetaModel>(), Arg.Any<IRequest>(), Arg.Any<int>())
+                .Returns(new ResultInfo
+                {
+                    ExtendedData = "1,2,3"
+                });
+            _customerCommService.UpdateMemberCommissionApi(null).ReturnsForAnyArgs(false);
+
+            // Action
+            var result = _groupComService.UpdateGroup(groupCommMetaModel, new Request(), userSession);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _customerCommService.ReceivedWithAnyArgs().UpdateMemberCommissionApi(null);
+                Assert.That(result.IsSuccessful, Is.False);
+            });
         }
 
         [Test]
@@ -147,7 +175,7 @@
         }
 
         [Test]
-        public void DeleteGroup_IsRemoveCommSettingInMetaModelIsFalse_ReturnCorrectData()
+        public void DeleteGroup_IsRemoveCommSettingIsFalse_ReturnCorrectData()
         {
             // Arrange
             var metaModel = new DeleteGroupMetaModel
@@ -182,7 +210,7 @@
         }
 
         [Test]
-        public void DeleteGroup_IsAllowedCSCommInMetaModelIsFalse_ReturnCorrectData()
+        public void DeleteGroup_IsAllowedCSCommIsFalse_ReturnCorrectData()
         {
             // Arrange
             var metaModel = new DeleteGroupMetaModel
@@ -213,6 +241,33 @@
             Assert.Multiple(() =>
             {
                 Assert.That(result.IsSuccessful, Is.True);
+            });
+        }
+
+        [Test]
+        public void DeleteGroup_IsAllowedCSCommIsTrue_CallUpdateMemberCommissionApi()
+        {
+            // Arrange
+            var metaModel = new DeleteGroupMetaModel
+            {
+                IsRemoveCommSetting = true,
+                IsAllowedCSComm = true
+            };
+            _groupDataAccess.DeleteGroup(0, 0, 0, null, null, false, false)
+                .ReturnsForAnyArgs(new ResultInfo
+                {
+                    ExtendedData = "1,2,3"
+                });
+            _customerCommService.UpdateMemberCommissionApi(null).ReturnsForAnyArgs(false);
+
+            // Action
+            var result = _groupComService.DeleteGroup(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _customerCommService.ReceivedWithAnyArgs().UpdateMemberCommissionApi(null);
+                Assert.That(result.IsSuccessful, Is.False);
             });
         }
 

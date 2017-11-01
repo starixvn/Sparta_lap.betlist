@@ -6,8 +6,6 @@
 
 namespace Fanex.Athena.Service.Customer
 {
-    #region
-
     using System;
     using System.Collections.Generic;
     using System.Data;
@@ -18,33 +16,23 @@ namespace Fanex.Athena.Service.Customer
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Model.Customer.MetaModel;
-    using Fanex.Athena.Service.Casino;
     using Fanex.Athena.Service.Customer.Interfaces;
-    using Model.Core.ViewModel;
-
-    #endregion
 
     public class GroupComService : IGroupComService
     {
-        #region Constants and Fields
+        private readonly ICustomerCommService _customerCommService;
 
         private readonly IGroupComDataAccess _groupDataAccess;
 
-        #endregion
-
-        #region Constructors and Destructors
-
-        public GroupComService()
-            : this(new GroupComDataAccess())
+        public GroupComService() : this(null, null)
         {
         }
 
-        public GroupComService(IGroupComDataAccess groupDataAccess)
+        public GroupComService(ICustomerCommService customerCommService, IGroupComDataAccess groupDataAccess)
         {
-            _groupDataAccess = groupDataAccess;
+            _customerCommService = customerCommService ?? new CustomerCommService();
+            _groupDataAccess = groupDataAccess ?? new GroupComDataAccess();
         }
-
-        #endregion
 
         public IList<GroupCommMetaModel> GetAll(int licenseeId)
         {
@@ -80,7 +68,6 @@ namespace Fanex.Athena.Service.Customer
                 var custtomerList = resultInfo.ExtendedData.Split(new[] { ',' });
                 if (custtomerList.Length > 0)
                 {
-                    var rngCasinoService = new RNGCasinoService();
                     var apiCasinoMetalModel = new RNGCasinoUpdateMemberComMetaModel
                     {
                         Comm = newItem.CSComm,
@@ -89,7 +76,7 @@ namespace Fanex.Athena.Service.Customer
                         ModifyBy = user.UserId,
                         ModifyUserName = user.UserName
                     };
-                    callApiSuccess = rngCasinoService.UpdateMemberCommission(apiCasinoMetalModel);
+                    callApiSuccess = _customerCommService.UpdateMemberCommissionApi(apiCasinoMetalModel);
                 }
             }
 
@@ -119,8 +106,7 @@ namespace Fanex.Athena.Service.Customer
                 var custtomerList = resultInfo.ExtendedData.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 if (custtomerList.Length > 0)
                 {
-                    var rngCasinoService = new RNGCasinoService();
-                    callApiSuccess = rngCasinoService.UpdateMemberCommission(new RNGCasinoUpdateMemberComMetaModel
+                    callApiSuccess = _customerCommService.UpdateMemberCommissionApi(new RNGCasinoUpdateMemberComMetaModel
                     {
                         Comm = 0,
                         CustomerId = custtomerList,

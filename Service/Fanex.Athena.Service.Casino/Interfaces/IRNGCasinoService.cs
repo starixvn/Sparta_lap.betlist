@@ -16,7 +16,5 @@ namespace Fanex.Athena.Service.Casino.Interfaces
         List<RNGCasinoResult> GetRNGCasinoResult(RNGCasinoResultMetaModel metaModel);
 
         CasinoHandHistoryDetailViewModel GetRNGCasinoResultDetail(RNGCasinoResultDetailMetaModel metaModel);
-
-        bool UpdateMemberCommission(RNGCasinoUpdateMemberComMetaModel metaModel);
     }
 }

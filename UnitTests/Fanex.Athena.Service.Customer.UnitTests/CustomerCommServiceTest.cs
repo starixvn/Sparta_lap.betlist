@@ -5,6 +5,7 @@
     using Customer;
     using DataAccess.Customer.Interfaces;
     using Interfaces;
+    using Logging;
     using Model.Casino.MetaModel;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
@@ -15,11 +16,13 @@
     [TestFixture]
     public class CustomerCommServiceTest
     {
+        private ILogger _logger;
+
+        private ICustomerApiWrapper _customerApiWrapper;
+
         private ICustomerCommDataAccess _customerCommDataAccess;
 
         private ISessionService _sessionService;
-
-        private IRNGCasinoService _rngCasinoService;
 
         private IGroupComService _groupCommService;
 
@@ -28,24 +31,27 @@
         [SetUp]
         public void SetUp()
         {
+            _logger = Substitute.For<ILogger>();
+            _customerApiWrapper = Substitute.For<ICustomerApiWrapper>();
             _customerCommDataAccess = Substitute.For<ICustomerCommDataAccess>();
             _sessionService = Substitute.For<ISessionService>();
-            _rngCasinoService = Substitute.For<IRNGCasinoService>();
             _groupCommService = Substitute.For<IGroupComService>();
 
             _customerCommService = new CustomerCommService(
+                _logger,
+                _customerApiWrapper,
                 _customerCommDataAccess,
                 _sessionService,
-                _rngCasinoService,
                 _groupCommService);
         }
 
         [TearDown]
         public void TearDown()
         {
+            _logger = null;
+            _customerApiWrapper = null;
             _customerCommDataAccess = null;
             _sessionService = null;
-            _rngCasinoService = null;
             _groupCommService = null;
             _customerCommService = null;
         }
@@ -65,13 +71,7 @@
             _sessionService.UserSession.Returns(userSession);
             var expectedResult = new ResultInfo { ExtendedData = "1,2,3" };
             _customerCommDataAccess.UpdateCustomersCommission(metaModel).Returns(expectedResult);
-            _rngCasinoService.UpdateMemberCommission(Arg.Is<RNGCasinoUpdateMemberComMetaModel>(param =>
-                                                    param.Comm == metaModel.CSComm &&
-                                                    param.CustomerId.Length == 3 &&
-                                                    param.FromIp == metaModel.Ip &&
-                                                    param.ModifyBy == metaModel.UserId &&
-                                                    param.ModifyUserName == userSession.UserName))
-                                                    .Returns(true);
+            _customerApiWrapper.UpdateComm(null, 0, null, 0, null, 0).ReturnsForAnyArgs(true);
 
             // Action
             var result = _customerCommService.UpdateCustomersCommission(metaModel, isSyncCSComm);
@@ -140,13 +140,7 @@
             _sessionService.UserSession.Returns(userSession);
             var resultInfo = new ResultInfo { ExtendedData = "1" };
             _customerCommDataAccess.UpdateCustomersCommission(metaModel).Returns(resultInfo);
-            _rngCasinoService.UpdateMemberCommission(Arg.Is<RNGCasinoUpdateMemberComMetaModel>(param =>
-                                                    param.Comm == metaModel.CSComm &&
-                                                    param.CustomerId.Length == 1 &&
-                                                    param.FromIp == metaModel.Ip &&
-                                                    param.ModifyBy == metaModel.UserId &&
-                                                    param.ModifyUserName == userSession.UserName))
-                                                    .Returns(false);
+            _customerApiWrapper.UpdateComm(null, 0, null, 0, null, 0).ReturnsForAnyArgs(false);
             var expectedResult = new ResultInfo
             {
                 Code = 1,
@@ -171,13 +165,7 @@
             _customerCommDataAccess.RemoveCustomersFromGroup(metaModel).Returns(expectedResult);
             var userSession = new UserSession { UserName = "tester", UserId = 1 };
             _sessionService.UserSession.Returns(userSession);
-            _rngCasinoService.UpdateMemberCommission(Arg.Is<RNGCasinoUpdateMemberComMetaModel>(param =>
-                                                    param.Comm == 0 &&
-                                                    param.CustomerId.Length == 3 &&
-                                                    param.FromIp == metaModel.Ip &&
-                                                    param.ModifyBy == userSession.UserId &&
-                                                    param.ModifyUserName == userSession.UserName))
-                                                    .Returns(true);
+            _customerApiWrapper.UpdateComm(null, 0, null, 0, null, 0).ReturnsForAnyArgs(true);
 
             // Action
             var result = _customerCommService.RemoveCustomersFromGroup(metaModel, isAllowedRNGCasino);
@@ -196,13 +184,7 @@
             _customerCommDataAccess.RemoveCustomersFromGroup(metaModel).Returns(resultInfo);
             var userSession = new UserSession { UserName = "tester", UserId = 1 };
             _sessionService.UserSession.Returns(userSession);
-            _rngCasinoService.UpdateMemberCommission(Arg.Is<RNGCasinoUpdateMemberComMetaModel>(param =>
-                                                    param.Comm == 0 &&
-                                                    param.CustomerId.Length == 3 &&
-                                                    param.FromIp == metaModel.Ip &&
-                                                    param.ModifyBy == userSession.UserId &&
-                                                    param.ModifyUserName == userSession.UserName))
-                                                    .Returns(false);
+            _customerApiWrapper.UpdateComm(null, 0, null, 0, null, 0).ReturnsForAnyArgs(false);
             var expectedResult = new ResultInfo
             {
                 Code = 1,
