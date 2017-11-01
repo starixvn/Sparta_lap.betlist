@@ -10,11 +10,6 @@
     var maxDate = appSettings.MaxDate;
     var notificationTypes = Model.NotificationTypes.Select(x => new { value = x.Key, label = x.Value }).ToList();
     var selectedNotificationType = notificationTypes.FirstOrDefault();
-    var tabList = new[]
-    {
-        new { isActive = true, name = ViewResources.Notifications, url = Url.Action("Index", "NotificationReport") },
-        new { isActive = false, name = ViewResources.ResultAmendment, url = Url.Action("ResultAmendment", "NotificationReport") }
-    };
 }
 
 @section pagecss {
@@ -26,13 +21,15 @@
 
 @section globaljscode{
     window.Lrf = {
-        dateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
-        xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
+        notificationDateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
+        notificationXsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
         isLoading: false,
-        dateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'},
+        notificationDateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'},
         notificationTypes: @Html.Raw(notificationTypes.ToJson()),
         selectedNotificationType: '@(selectedNotificationType != null ? selectedNotificationType.value : string.Empty)',
-        tabList: @Html.Raw(tabList.ToJson())
+        resultAmendmentDateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
+        resultAmendmentXsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
+        resultAmendmentDateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'}
     }
 }
 <div id="app-container">

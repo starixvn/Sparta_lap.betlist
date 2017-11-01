@@ -18,10 +18,22 @@ export class DataGrid extends Component {
         this.reportTitle = "";
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.gridData !== nextProps.gridData) {
-            const { dateRange } = nextProps;
+    componentWillMount() {
+        const { resultAmendmentParam } = this.props;
+        if(resultAmendmentParam !== null && resultAmendmentParam.hasOwnProperty("FromDate")) {
+            const dateRange = {
+                fromDate: resultAmendmentParam.FromDate,
+                toDate: resultAmendmentParam.ToDate
+            };
+
             this.reportTitle = service.getReportTitle(dateRange);
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.resultAmendmentGridData !== nextProps.resultAmendmentGridData) {
+            const { resultAmendmentDateRange } = nextProps;
+            this.reportTitle = service.getReportTitle(resultAmendmentDateRange);
             this.props.toggleLoader(false);
         }
     }
@@ -40,7 +52,7 @@ export class DataGrid extends Component {
     }
 
     _buildBody() {
-        const data = this.props.gridData.Data;
+        const data = this.props.resultAmendmentGridData.Data;
         let rows = [];
         for (let i = 0; i < data.length; i++) {
             const item = data[i];
@@ -72,7 +84,7 @@ export class DataGrid extends Component {
     }
 
     render() {
-        const { Data } = this.props.gridData;
+        const { Data } = this.props.resultAmendmentGridData;
         if (!Data) {
             return null;
         }
@@ -101,8 +113,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-    const { gridData, dateRange, selectedNotificationType, isLoading } = state;
-    return Object.assign({}, { gridData, dateRange, selectedNotificationType, isLoading });
+    const { resultAmendmentGridData, resultAmendmentDateRange, resultAmendmentParam } = state;
+    return Object.assign({}, { resultAmendmentGridData, resultAmendmentDateRange, resultAmendmentParam });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

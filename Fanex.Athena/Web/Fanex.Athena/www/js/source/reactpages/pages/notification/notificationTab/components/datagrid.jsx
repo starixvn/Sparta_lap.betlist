@@ -17,10 +17,22 @@ export class DataGrid extends Component {
         this.reportTitle = "";
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.gridData !== nextProps.gridData) {
-            const { dateRange } = nextProps;
+    componentWillMount() {
+        const { notificationParam } = this.props;
+        if(notificationParam !== null && notificationParam.hasOwnProperty("FromDate")) {
+            const dateRange = {
+                fromDate: notificationParam.FromDate,
+                toDate: notificationParam.ToDate
+            };
+
             this.reportTitle = service.getReportTitle(dateRange);
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.notificationGridData !== nextProps.notificationGridData) {
+            const { notificationDateRange } = nextProps;
+            this.reportTitle = service.getReportTitle(notificationDateRange);
             this.props.toggleLoader(false);
         }
     }
@@ -39,7 +51,7 @@ export class DataGrid extends Component {
     }
 
     _buildBody() {
-        const data = this.props.gridData.Data;
+        const data = this.props.notificationGridData.Data;
         let rows = [];
         for (let i = 0; i < data.length; i++) {
             const item = data[i];
@@ -71,7 +83,7 @@ export class DataGrid extends Component {
     }
 
     render() {
-        const { Data } = this.props.gridData;
+        const { Data } = this.props.notificationGridData;
         if (!Data) {
             return null;
         }
@@ -99,8 +111,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { gridData, dateRange, selectedNotificationType, isLoading } = state;
-    return Object.assign({}, { gridData, dateRange, selectedNotificationType, isLoading });
+    const { notificationGridData, notificationDateRange, notificationParam } = state;
+    return Object.assign({}, { notificationGridData, notificationDateRange, notificationParam });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

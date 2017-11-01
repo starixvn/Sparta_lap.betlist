@@ -24,13 +24,5 @@
 
             return View("~/Views/Report/Notification/Notification.cshtml", model);
         }
-
-        [HttpGet]
-        public ActionResult ResultAmendment()
-        {
-            var model = new ResultAmendmentViewModel();
-
-            return View("~/Views/Report/Notification/ResultAmendment.cshtml", model);
-        }
     }
 }

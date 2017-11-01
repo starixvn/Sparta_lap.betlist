@@ -1,6 +1,6 @@
 import * as types from './types.js'
 
-export const setDateRange = (dateRange) => {
+export const setNotificationDateRange = (dateRange) => {
     const range = {
         fromDate: dateRange.startDate,
         toDate: dateRange.endDate
@@ -12,9 +12,9 @@ export const setDateRange = (dateRange) => {
     }
 }
 
-export const setSelectedNotificationType = (notificationTypesKeys) => {
+export const setNotificationParam = (param) => {
     return {
-        type: types.SET_NOTIFICATION_TYPE,
-        data: notificationTypesKeys
-    }
+        type: types.SET_PARAM,
+        data: param
+    };
 }

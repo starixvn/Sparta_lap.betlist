@@ -1,28 +1,25 @@
-﻿import React from 'react';
-import ReactDOM from 'react-dom';
+﻿import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-export default class Tab extends React.Component {
+export default class Tab extends Component {
     constructor(props) {
         super(props);
-    };
 
-    _renderTab() {
-        const tabs = this.props.tabList;
+    }
 
-        return tabs.map(function(tab, i){
-            return <li key={`tab${i}`} className="tab">
-                    <a className={tab.isActive ? "active" : ""} href={tab.url}>{tab.name}</a>
-                </li>            
-            });
+    static propTypes = {
+        isActive: PropTypes.bool
+    }
+
+    static defaultProps = {
+        label: ""
     }
 
     render() {
-        return <div className="header-tab">
-            <div className="content-tab">
-                <ul className="tabs">
-                    {this._renderTab()}
-                </ul>
-            </div>
-        </div>
-        }
+        return (
+            <li className="tab">
+                <a className={this.props.isActive ? "active" : ""} href="javascript:;" onClick={this.props.onClick}>{this.props.label}</a>
+            </li>
+        );
+    }
 };

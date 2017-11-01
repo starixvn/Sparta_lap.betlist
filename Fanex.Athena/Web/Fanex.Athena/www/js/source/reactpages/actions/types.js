@@ -18,6 +18,3 @@ export const CHANGE_IS_EXCLUDE_TEST = "CHANGE_IS_EXCLUDE_TEST"
 
 /* User mini guide */
 export const USER_GUIDE_CONTENT = "USER_GUIDE_CONTENT;"
-
-/* Tab */
-export const GET_TABLIST = "GET_TABLIST"

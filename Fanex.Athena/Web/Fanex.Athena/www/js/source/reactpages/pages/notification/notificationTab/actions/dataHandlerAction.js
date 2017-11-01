@@ -13,15 +13,15 @@ const fetchData = (params) => {
     });
 }
 
-export function getGridData(params) {
+export function getNotificationGridData(params) {
     return (dispatch) => {
         fetchData(params).then(response => {
-            dispatch(setGridData(response.data));
+            dispatch(setNotificationGridData(response.data));
         });
     };
 }
 
-export function setGridData(data) {
+export function setNotificationGridData(data) {
     return {
         type: types.SET_GRID_DATA,
         data: data
