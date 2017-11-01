@@ -1,8 +1,7 @@
-﻿namespace Fanex.Athena.Service.Casino
+﻿namespace Fanex.Athena.Service.Casino.Wrappers
 {
     using System.Data;
     using CasinoLibrary.SBAgent;
-    using Interfaces;
 
     public class CustomerApiWrapper : ICustomerApiWrapper
     {

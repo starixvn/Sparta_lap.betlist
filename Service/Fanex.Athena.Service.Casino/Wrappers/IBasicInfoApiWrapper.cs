@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Service.Casino.Interfaces
+﻿namespace Fanex.Athena.Service.Casino.Wrappers
 {
     using System.Data;
 

@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.BetSettings
 {
     using System.Collections.Generic;
     using Casino.Interfaces;
+    using Casino.Wrappers;
     using Core.Users.Interfaces;
     using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;

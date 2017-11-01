@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.Service.Customer.UnitTests
 {
     using Casino;
-    using Casino.Interfaces;
+    using Casino.Wrappers;
     using Model.Customer.MetaModel;
     using NSubstitute;
     using NUnit.Framework;

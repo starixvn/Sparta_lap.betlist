@@ -7,13 +7,12 @@
 namespace Fanex.Athena.Service.Customer
 {
     using System;
+    using Casino.Wrappers;
     using DataAccess.Customer.Interfaces;
     using Fanex.Athena.DataAccess.Customer;
     using Fanex.Athena.Model.Casino.MetaModel;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
-    using Fanex.Athena.Service.Casino;
-    using Fanex.Athena.Service.Casino.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Service.Customer.Interfaces;

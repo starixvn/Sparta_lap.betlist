@@ -98,11 +98,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasicInfoApiWrapper.cs" />
+    <Compile Include="Wrappers\BasicInfoApiWrapper.cs" />
     <Compile Include="CasinoSettingService.cs" />
-    <Compile Include="CustomerApiWrapper.cs" />
-    <Compile Include="Interfaces\IBasicInfoApiWrapper.cs" />
-    <Compile Include="Interfaces\ICustomerApiWrapper.cs" />
+    <Compile Include="Wrappers\CustomerApiWrapper.cs" />
+    <Compile Include="Wrappers\IBasicInfoApiWrapper.cs" />
+    <Compile Include="Wrappers\ICustomerApiWrapper.cs" />
     <Compile Include="Interfaces\ICasinoSetting.cs" />
     <Compile Include="Interfaces\IRNGCasinoService.cs" />
     <Compile Include="Interfaces\IRNGCasinoSingleWalletService.cs" />

@@ -4,6 +4,7 @@
     using System.Linq;
     using BetSettings;
     using Casino.Interfaces;
+    using Casino.Wrappers;
     using Core.Users.Interfaces;
     using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;

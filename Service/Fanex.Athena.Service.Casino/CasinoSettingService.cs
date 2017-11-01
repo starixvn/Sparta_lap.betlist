@@ -17,6 +17,7 @@ namespace Fanex.Athena.Service.Casino
     using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Common;
     using Model.Customer.MetaModel;
+    using Wrappers;
 
     public class CasinoSettingService : ICasinoSetting
     {
