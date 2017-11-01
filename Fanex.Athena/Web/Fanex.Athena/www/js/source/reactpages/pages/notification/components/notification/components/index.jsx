@@ -2,7 +2,7 @@
 import DataGrid from './datagrid'
 import FormFilter from './formFilter'
 
-export default class NotificationTab extends Component {
+export default class Notification extends Component {
   constructor(props) {
     super(props);
   }

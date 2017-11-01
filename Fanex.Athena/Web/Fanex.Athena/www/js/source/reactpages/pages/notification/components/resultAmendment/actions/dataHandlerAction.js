@@ -1,7 +1,7 @@
 import * as types from './types.js'
 import axios from 'axios'
 
-import Site from '../../../../lib/site'
+import Site from '../../../../../lib/site'
 
 const fetchData = (params) => {
     const url = Site.resolveClientUrl('api/NotificationReport/ResultAmendment');

@@ -6,8 +6,8 @@ export default class Tabs extends Component {
     constructor(props) {
         super(props);
 
-        const tabComponents = this._getTabComponents();
-        const tabState = tabComponents.map((item) => {
+        this.tabComponents = React.Children.toArray(props.children);
+        const tabState = this.tabComponents.map((item) => {
             return item.props.isActive;
         });
 
@@ -17,39 +17,28 @@ export default class Tabs extends Component {
     }
 
     _renderActiveTabContent() {
-        const tabComponents = this._getTabComponents();
         const activeTabIndex = this.state.tabState.findIndex(x => x);
 
-        return tabComponents[activeTabIndex].props.children;
+        return this.tabComponents[activeTabIndex].props.children;
     }
 
     onTabChange(tabIndex) {
+        const newTabState = this.state.tabState.map((item, index) => {
+            return index === tabIndex;
+        });
+
         this.setState({
-            tabState : this.state.tabState.map((item, index) => {
-                if(index === tabIndex) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            })
+            tabState: newTabState
         });
     }
 
     _renderTabComponents() {
-        const tabComponents = this._getTabComponents();
-        const that = this;
-
-        return tabComponents.map((item, index) => {
+        return this.tabComponents.map((item, index) => {
             return (
-                <Tab key={`tab${index}`} isActive={that.state.tabState[index]} label={item.props.label} onClick={() => that.onTabChange(index)} />
+                <Tab key={`tab${index}`} isActive={this.state.tabState[index]} label={item.props.label} onClick={this.onTabChange.bind(this, index)} />
             );
         });
-        }
-
-   _getTabComponents() {
-        return React.Children.toArray(this.props.children);
-        }
+    }
 
     render() {
         return (

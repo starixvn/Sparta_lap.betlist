@@ -2,7 +2,7 @@
 import DataGrid from './datagrid'
 import FormFilter from './formFilter'
 
-export default class ResultAmendmentTab extends Component {
+export default class ResultAmendment extends Component {
   constructor(props) {
     super(props);
   }

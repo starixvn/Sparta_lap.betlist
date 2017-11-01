@@ -1,13 +1,13 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
+
 import { ActionCreators } from '../actions/index'
-import NotificationTab from '../notificationTab/components/notificationTab'
-import ResultAmendmentTab from '../resultAmendmentTab/components/resultAmendmentTab'
+import Notification from './notification/components'
+import ResultAmendment from './resultAmendment/components'
 import Loader from '../../../components/Loader'
 import AppLayout from '../../../layouts/AppLayout'
-import Tab from '../../../components/Tab'
-import Tabs from '../../../components/Tabs'
+import { Tabs, Tab } from '../../../components/tab'
 import LangHelper from '../../../lib/langHelper'
 
 export class AppContainer extends Component {
@@ -17,19 +17,19 @@ export class AppContainer extends Component {
 
     render() {
         return (
-          <AppLayout>
-            <Loader isLoading={this.props.isLoading} />
-            <Tabs>
-                <Tab isActive={true} label={LangHelper.getSingleResource("Notification")}>
-                    <NotificationTab />
-                </Tab>
-                <Tab isActive={false} label={LangHelper.getSingleResource("ResultAmendment")}>
-                    <ResultAmendmentTab />
-                </Tab>
-            </Tabs>
-          </AppLayout>
-    );
-}
+            <AppLayout>
+                <Loader isLoading={this.props.isLoading} />
+                <Tabs>
+                    <Tab isActive={true} label={LangHelper.getSingleResource("Notification")}>
+                        <Notification />
+                    </Tab>
+                    <Tab isActive={false} label={LangHelper.getSingleResource("ResultAmendment")}>
+                        <ResultAmendment />
+                    </Tab>
+                </Tabs>
+            </AppLayout>
+        );
+    }
 }
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);

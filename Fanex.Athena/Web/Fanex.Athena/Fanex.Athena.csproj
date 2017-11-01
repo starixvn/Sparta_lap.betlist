@@ -930,22 +930,25 @@
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\filterHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\notification\actions\index.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\notificationTab\actions\dataHandlerAction.js" />    <Content Include="www\js\source\reactpages\pages\notification\notificationTab\actions\filterHandlerAction.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\notificationTab\actions\index.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\notificationTab\actions\types.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\notificationTab\lib\service.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\notificationTab\reducers\dataHandlerReducer.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\notificationTab\reducers\filterHandlerReducer.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\notificationTab\reducers\index.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\notification\actions\dataHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\notification\actions\filterHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\notification\actions\index.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\notification\actions\types.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\notification\lib\service.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\notification\reducers\dataHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\notification\reducers\filterHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\notification\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\index.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\resultAmendmentTab\actions\dataHandlerAction.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\resultAmendmentTab\actions\filterHandlerAction.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\resultAmendmentTab\actions\index.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\resultAmendmentTab\actions\types.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\resultAmendmentTab\lib\service.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\resultAmendmentTab\reducers\dataHandlerReducer.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\resultAmendmentTab\reducers\filterHandlerReducer.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\resultAmendmentTab\reducers\index.js" />    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" /    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\actions\dataHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\actions\filterHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\actions\index.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\actions\types.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\lib\service.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\reducers\dataHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\reducers\filterHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\reducers\index.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\dataHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\filterHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\datagrid.test.js" />
@@ -2611,18 +2614,17 @@
     <Content Include="www\js\source\reactpages\components\popup\Popup.jsx" />
     <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\UserGuide.test.js.snap" />
     <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\Popup.test.js.snap" />
-    <Content Include="www\js\source\reactpages\pages\notification\notificationTab\components\notificationTab.jsx" />    <Content Include="www\js\source\reactpages\pages\notification\notificationTab\components\datagrid.jsx" />
-    <Content Include="www\js\source\reactpages\pages\notification\notificationTab\components\formFilter.jsx" />
-    <Content Include="www\js\source\reactpages\pages\notification\notificationTab\components\index.jsx" />
-    <Content Include="www\js\source\reactpages\pages\notification\resultAmendmentTab\components\resultAmendmentTab.jsx" />
-    <Content Include="www\js\source\reactpages\pages\notification\resultAmendmentTab\components\datagrid.jsx" />
-    <Content Include="www\js\source\reactpages\pages\notification\resultAmendmentTab\components\formFilter.jsx" />
-    <Content Include="www\js\source\reactpages\pages\notification\resultAmendmentTab\components\index.jsx" />
-    <Content Include="www\js\source\reactpages\components\CollapseRow.jsx" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\notification\components\index.jsx" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\notification\components\datagrid.jsx" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\notification\components\formFilter.jsx" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\components\index.jsx" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\components\datagrid.jsx" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\components\formFilter.jsx" />    <Content Include="www\js\source\reactpages\components\CollapseRow.jsx" />
     <Content Include="www\js\source\reactpages\pages\notification\components\AppContainer.jsx" />
     <Content Include="www\js\source\reactpages\pages\notification\components\index.jsx" />
-    <Content Include="www\js\source\reactpages\components\Tab.jsx" />
-    <Content Include="www\js\source\reactpages\components\Tabs.jsx" />
+    <Content Include="www\js\source\reactpages\components\tab\Tab.jsx" />
+    <Content Include="www\js\source\reactpages\components\tab\Tabs.jsx" />
+    <Content Include="www\js\source\reactpages\components\tab\index.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
