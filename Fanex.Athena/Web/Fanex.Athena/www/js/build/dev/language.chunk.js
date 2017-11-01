@@ -15,7 +15,7 @@ module.exports = __webpack_require__(197);
 /***/ 193:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 10/31/2017 4:32:49 PM
+﻿// Generated at: 11/1/2017 3:25:33 PM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -963,9 +963,10 @@ YouNotChooseAnyCustomerMsg:"You did not choose any customers."
 /***/ 194:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 10/31/2017 4:32:49 PM
+﻿// Generated at: 11/1/2017 3:25:33 PM
 window._language_zh_CN = {
 AA:"客客",
+ABComm:"AB 佣金",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
 Account:"账号",
 AccountManagement:"帐户管理",
@@ -1772,9 +1773,10 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 195:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 10/31/2017 4:32:49 PM
+﻿// Generated at: 11/1/2017 3:25:33 PM
 window._language_zh_TW = {
 AA:"客客",
+ABComm:"AB 佣金",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
 Account:"賬號",
 AccountManagement:"帳戶管理",
@@ -2581,9 +2583,10 @@ YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 /***/ 196:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 10/31/2017 4:32:49 PM
+﻿// Generated at: 11/1/2017 3:25:33 PM
 window._language_zh_Hans = {
 AA:"客客",
+ABComm:"AB 佣金",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
 Account:"账号",
 AccountManagement:"帐户管理",
@@ -3376,7 +3379,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 197:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 10/31/2017 4:32:49 PM
+﻿// Generated at: 11/1/2017 3:25:33 PM
 window._language_ko_KR = {
 AA:"AA",
 AccessDeniedMsg:"죄송합니다. 이 페이지에 접근할 권한이 없습니다.",

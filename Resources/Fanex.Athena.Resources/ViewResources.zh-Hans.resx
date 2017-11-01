@@ -2533,4 +2533,7 @@
   <data name="NewAsia" xml:space="preserve">
     <value>新亚洲版</value>
   </data>
+  <data name="ABComm" xml:space="preserve">
+    <value>AB 佣金</value>
+  </data>
 </root>

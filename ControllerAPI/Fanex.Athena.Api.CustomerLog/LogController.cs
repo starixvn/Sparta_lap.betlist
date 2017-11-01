@@ -53,8 +53,8 @@ namespace Fanex.Athena.Api.CustomerLog
             { "RBComm", ViewResources.RBComm },
             { "NGComm", ViewResources.NGComm },
             { "LCComm", ViewResources.LCComm },
-            { "CSComm", ViewResources.CS + " " + ViewResources.Comm },
-            { "ABComm", ViewResources.AB + " " + ViewResources.Comm },
+            { "CSComm", ViewResources.CSComm },
+            { "ABComm", ViewResources.ABComm },
             { "Yes", ViewResources.Yes },
             { "No", ViewResources.No },
             { "OldColor", ViewResources.OldColor }

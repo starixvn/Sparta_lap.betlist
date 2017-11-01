@@ -1,6 +1,7 @@
-﻿// Generated at: 10/31/2017 4:32:38 PM
+﻿// Generated at: 11/1/2017 3:25:22 PM
 var _language_zh_TW = {
 AA:"客客",
+ABComm:"AB 佣金",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
 Account:"賬號",
 AccountManagement:"帳戶管理",
