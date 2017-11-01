@@ -19,7 +19,7 @@
             _customerCommDataAccess.RemoveCustomersFromGroup(metaModel).Returns(expectedResult);
             var userSession = new UserSession { UserName = "tester", UserId = 1 };
             _sessionService.UserSession.Returns(userSession);
-            _customerApiWrapper.UpdateComm(null, 0, null, 0, null).ReturnsForAnyArgs(true);
+            _casinoCustomerService.UpdateCommission(null).ReturnsForAnyArgs(true);
 
             // Action
             var result = _customerCommService.RemoveCustomersFromGroup(metaModel, isAllowedRNGCasino);
@@ -38,12 +38,12 @@
             _customerCommDataAccess.RemoveCustomersFromGroup(metaModel).Returns(resultInfo);
             var userSession = new UserSession { UserName = "tester", UserId = 1 };
             _sessionService.UserSession.Returns(userSession);
-            _customerApiWrapper.UpdateComm(null, 0, null, 0, null).ReturnsForAnyArgs(false);
+            _casinoCustomerService.UpdateCommission(null).ReturnsForAnyArgs(false);
             var expectedResult = new ResultInfo
             {
                 Code = 1,
                 Message = "Having errors when calling CasinoAPI to update customer commission."
-            }; 
+            };
 
             // Action
             var result = _customerCommService.RemoveCustomersFromGroup(metaModel, isAllowedRNGCasino);

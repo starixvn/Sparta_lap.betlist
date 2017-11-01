@@ -1,6 +1,6 @@
 ﻿namespace Fanex.Athena.Service.Customer.UnitTests
 {
-    using Casino.Wrappers;
+    using Casino.Interfaces;
     using Core.Users.Interfaces;
     using Customer;
     using DataAccess.Customer.Interfaces;
@@ -16,7 +16,7 @@
     {
         private ILogger _logger;
 
-        private ICustomerApiWrapper _customerApiWrapper;
+        private ICasinoCustomerService _casinoCustomerService;
 
         private ICustomerCommDataAccess _customerCommDataAccess;
 
@@ -30,14 +30,14 @@
         public void SetUp()
         {
             _logger = Substitute.For<ILogger>();
-            _customerApiWrapper = Substitute.For<ICustomerApiWrapper>();
+            _casinoCustomerService = Substitute.For<ICasinoCustomerService>();
             _customerCommDataAccess = Substitute.For<ICustomerCommDataAccess>();
             _sessionService = Substitute.For<ISessionService>();
             _groupCommDataAccess = Substitute.For<IGroupComDataAccess>();
 
             _customerCommService = new CustomerCommService(
                 _logger,
-                _customerApiWrapper,
+                _casinoCustomerService,
                 _customerCommDataAccess,
                 _sessionService,
                 _groupCommDataAccess);
@@ -47,7 +47,7 @@
         public void TearDown()
         {
             _logger = null;
-            _customerApiWrapper = null;
+            _casinoCustomerService = null;
             _customerCommDataAccess = null;
             _sessionService = null;
             _groupCommDataAccess = null;
@@ -69,7 +69,7 @@
             _sessionService.UserSession.Returns(userSession);
             var expectedResult = new ResultInfo { ExtendedData = "1,2,3" };
             _customerCommDataAccess.UpdateCustomersCommission(metaModel).Returns(expectedResult);
-            _customerApiWrapper.UpdateComm(null, 0, null, 0, null).ReturnsForAnyArgs(true);
+            _casinoCustomerService.UpdateCommission(null).ReturnsForAnyArgs(true);
 
             // Action
             var result = _customerCommService.UpdateCustomersCommission(metaModel, isSyncCSComm);
@@ -138,7 +138,7 @@
             _sessionService.UserSession.Returns(userSession);
             var resultInfo = new ResultInfo { ExtendedData = "1" };
             _customerCommDataAccess.UpdateCustomersCommission(metaModel).Returns(resultInfo);
-            _customerApiWrapper.UpdateComm(null, 0, null, 0, null).ReturnsForAnyArgs(false);
+            _casinoCustomerService.UpdateCommission(null).ReturnsForAnyArgs(false);
             var expectedResult = new ResultInfo
             {
                 Code = 1,
@@ -198,7 +198,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _customerApiWrapper.DidNotReceiveWithAnyArgs().UpdateComm(null, 0, null, 0, null);
+                _casinoCustomerService.DidNotReceiveWithAnyArgs().UpdateCommission(null);
                 Assert.That(result.IsSuccessful, Is.False);
             });
         }
@@ -219,7 +219,7 @@
             var expectedResult = new ResultInfo { ExtendedData = "1,2,3" };
             _groupCommDataAccess.GetById(metaModel.GroupComId).Returns(new GroupCommMetaModel());
             _customerCommDataAccess.MoveCustomersToGroup(metaModel).Returns(expectedResult);
-            _customerApiWrapper.UpdateComm(null, 0, null, 0, null).ReturnsForAnyArgs(true);
+            _casinoCustomerService.UpdateCommission(null).ReturnsForAnyArgs(true);
 
             // Action
             var result = _customerCommService.MoveCustomersToGroup(metaModel);
@@ -227,7 +227,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _customerApiWrapper.ReceivedWithAnyArgs().UpdateComm(null, 0, null, 0, null);
+                _casinoCustomerService.ReceivedWithAnyArgs().UpdateCommission(null);
                 Assert.That(result, Is.EqualTo(expectedResult));
             });
         }

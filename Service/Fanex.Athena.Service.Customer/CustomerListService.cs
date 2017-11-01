@@ -31,7 +31,7 @@ namespace Fanex.Athena.Service.Customer
 
         private readonly ICustomerListDataAccess _customerListDataAccess;
 
-        private readonly ICasinoSettingService _casinoSetting;
+        private readonly ICasinoCustomerService _casinoCustomerService;
 
         private readonly IAuthorizationService _authorizationService;
 
@@ -43,7 +43,7 @@ namespace Fanex.Athena.Service.Customer
         {
             _customerDataAccess = new CustomerDataAccess();
             _customerListDataAccess = new CustomerListDataAccess();
-            _casinoSetting = new CasinoSettingService();
+            _casinoCustomerService = new CasinoCustomerService();
             _authorizationService = new AuthorizationService();
             _productService = new ProductService();
             _appSettings = new AppSettings();
@@ -52,14 +52,14 @@ namespace Fanex.Athena.Service.Customer
         public CustomerListService(
             ICustomerDataAccess customerDataAccess,
             ICustomerListDataAccess customerListDataAccess,
-            ICasinoSettingService casinoSetting,
+            ICasinoCustomerService casinoCustomerService,
             IAuthorizationService authorizationService,
             IProductService productService,
             IAppSettings appSettings)
         {
             _customerDataAccess = customerDataAccess;
             _customerListDataAccess = customerListDataAccess;
-            _casinoSetting = casinoSetting;
+            _casinoCustomerService = casinoCustomerService;
             _authorizationService = authorizationService;
             _productService = productService;
             _appSettings = appSettings;
@@ -132,7 +132,7 @@ namespace Fanex.Athena.Service.Customer
                         ModifyByUsername = metaModel.ModifyByUsername,
                         Ip = metaModel.Ip
                     };
-                    closeCasinoResult = _casinoSetting.UpdateCustClosed(casinoMetaModel);
+                    closeCasinoResult = _casinoCustomerService.UpdateClosed(casinoMetaModel);
                 }
                 else
                 {
@@ -171,7 +171,7 @@ namespace Fanex.Athena.Service.Customer
                         Ip = metaModel.Ip
                     };
 
-                    suspendCasinoResult = _casinoSetting.UpdateCustSuspend(casinoMetaModel);
+                    suspendCasinoResult = _casinoCustomerService.UpdateSuspend(casinoMetaModel);
                 }
                 else
                 {

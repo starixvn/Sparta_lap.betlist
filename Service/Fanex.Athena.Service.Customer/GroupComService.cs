@@ -10,6 +10,8 @@ namespace Fanex.Athena.Service.Customer
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using Casino;
+    using Casino.Interfaces;
     using Fanex.Athena.DataAccess.Customer;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Casino.MetaModel;
@@ -20,7 +22,7 @@ namespace Fanex.Athena.Service.Customer
 
     public class GroupComService : IGroupComService
     {
-        private readonly ICustomerCommService _customerCommService;
+        private readonly ICasinoCustomerService _casinoCustomerService;
 
         private readonly IGroupComDataAccess _groupDataAccess;
 
@@ -28,9 +30,9 @@ namespace Fanex.Athena.Service.Customer
         {
         }
 
-        public GroupComService(ICustomerCommService customerCommService, IGroupComDataAccess groupDataAccess)
+        public GroupComService(ICasinoCustomerService casinoCustomerService, IGroupComDataAccess groupDataAccess)
         {
-            _customerCommService = customerCommService ?? new CustomerCommService();
+            _casinoCustomerService = casinoCustomerService ?? new CasinoCustomerService();
             _groupDataAccess = groupDataAccess ?? new GroupComDataAccess();
         }
 
@@ -76,7 +78,7 @@ namespace Fanex.Athena.Service.Customer
                         ModifyBy = user.UserId,
                         ModifyUserName = user.UserName
                     };
-                    callApiSuccess = _customerCommService.UpdateMemberCommissionApi(apiCasinoMetalModel);
+                    callApiSuccess = _casinoCustomerService.UpdateCommission(apiCasinoMetalModel);
                 }
             }
 
@@ -106,7 +108,7 @@ namespace Fanex.Athena.Service.Customer
                 var custtomerList = resultInfo.ExtendedData.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 if (custtomerList.Length > 0)
                 {
-                    callApiSuccess = _customerCommService.UpdateMemberCommissionApi(new RNGCasinoUpdateMemberComMetaModel
+                    callApiSuccess = _casinoCustomerService.UpdateCommission(new RNGCasinoUpdateMemberComMetaModel
                     {
                         Comm = 0,
                         CustomerId = custtomerList,

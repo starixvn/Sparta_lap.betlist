@@ -2,7 +2,6 @@
 {
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
-    using Model.Casino.MetaModel;
 
     public interface ICustomerCommService
     {
@@ -18,7 +17,5 @@
         IResultInfo RemoveCustomersFromGroup(RemoveFromGroupComMetaModel metaModel, bool isAllowedRNGCasino);
 
         IResultInfo UpdateCustomersCommission(UpdatedCustomerComMetaModel metaModel, bool isSyncCSComm = false);
-
-        bool UpdateMemberCommissionApi(RNGCasinoUpdateMemberComMetaModel metaModel);
     }
 }

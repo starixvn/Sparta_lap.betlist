@@ -84,7 +84,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CasinoSettingServiceTest.cs" />
+    <Compile Include="CasinoCustomerServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -6,8 +6,8 @@
 
 namespace Fanex.Athena.Service.Customer
 {
-    using System;
-    using Casino.Wrappers;
+    using Casino;
+    using Casino.Interfaces;
     using DataAccess.Customer.Interfaces;
     using Fanex.Athena.DataAccess.Customer;
     using Fanex.Athena.Model.Casino.MetaModel;
@@ -22,7 +22,7 @@ namespace Fanex.Athena.Service.Customer
     {
         private readonly ILogger _logger;
 
-        private readonly ICustomerApiWrapper _customerApiWrapper;
+        private readonly ICasinoCustomerService _casinoCustomerService;
 
         private readonly ICustomerCommDataAccess _customerCommDataAccess;
 
@@ -36,13 +36,13 @@ namespace Fanex.Athena.Service.Customer
 
         public CustomerCommService(
             ILogger logger,
-            ICustomerApiWrapper customerApiWrapper,
+            ICasinoCustomerService casinoCustomerService,
             ICustomerCommDataAccess customerCommDataAccess,
             ISessionService sessionService,
             IGroupComDataAccess groupComDataAccess)
         {
             _logger = logger ?? Logger.Log;
-            _customerApiWrapper = customerApiWrapper ?? new CustomerApiWrapper();
+            _casinoCustomerService = casinoCustomerService ?? new CasinoCustomerService();
             _customerCommDataAccess = customerCommDataAccess ?? new CustomerCommDataAccess();
             _sessionService = sessionService ?? new SessionService();
             _groupComDataAccess = groupComDataAccess ?? new GroupComDataAccess();
@@ -114,48 +114,13 @@ namespace Fanex.Athena.Service.Customer
             };
         }
 
-        public bool UpdateMemberCommissionApi(RNGCasinoUpdateMemberComMetaModel metaModel)
-        {
-            const int System = 4;
-            const string API_ERROR_MSG = "Found errors when calling casino API to update customer commission.\n customers=";
-            const string AdditionErrorMsgPattern = "\n IP={0},CustomerId={1},ModifyBy={2},ModifyBy={3},System={4},Site={5}";
-            var additionalErrorMsg = string.Format(
-                AdditionErrorMsgPattern,
-                metaModel.FromIp,
-                string.Join(",", metaModel.CustomerId),
-                metaModel.ModifyBy,
-                metaModel.ModifyUserName,
-                System,
-                metaModel.SiteName);
-            var success = false;
-            try
-            {
-                success = _customerApiWrapper.UpdateComm(
-                     metaModel.CustomerId,
-                     metaModel.Comm,
-                     metaModel.FromIp,
-                     metaModel.ModifyBy,
-                     metaModel.ModifyUserName);
-                if (!success)
-                {
-                    _logger.Error(API_ERROR_MSG + string.Join(",", metaModel.CustomerId) + additionalErrorMsg);
-                }
-            }
-            catch (Exception exception)
-            {
-                _logger.Error(exception.Message + additionalErrorMsg, exception);
-            }
-
-            return success;
-        }
-
         private bool CallApiToUpdateComm(string customerIdList, decimal commission, string ip)
         {
             var customerIds = customerIdList.Split(',');
             if (customerIds.Length > 0)
             {
                 var userSession = _sessionService.UserSession;
-                return UpdateMemberCommissionApi(new RNGCasinoUpdateMemberComMetaModel
+                return _casinoCustomerService.UpdateCommission(new RNGCasinoUpdateMemberComMetaModel
                 {
                     Comm = commission,
                     CustomerId = customerIds,

@@ -2,43 +2,41 @@
 {
     using Casino;
     using Casino.Wrappers;
+    using Logging;
     using Model.Customer.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
 
     [TestFixture]
-    public class CasinoSettingServiceTest
+    public class CasinoCustomerServiceTest
     {
         private ICustomerApiWrapper _customerApiWrapper;
 
-        private IBasicInfoApiWrapper _basicInfoApiWrapper;
-
-        private CasinoSettingService _casinoSettingService;
+        private CasinoCustomerService _casinoCustomerService;
 
         [SetUp]
         public void SetUp()
         {
+            var logger = Substitute.For<ILogger>();
             _customerApiWrapper = Substitute.For<ICustomerApiWrapper>();
 
-            _basicInfoApiWrapper = Substitute.For<IBasicInfoApiWrapper>();
-            _casinoSettingService = new CasinoSettingService(_customerApiWrapper, _basicInfoApiWrapper);
+            _casinoCustomerService = new CasinoCustomerService(logger, _customerApiWrapper);
         }
 
         [TearDown]
         public void TearDown()
         {
             _customerApiWrapper = null;
-            _basicInfoApiWrapper = null;
         }
 
         [Test]
-        public void UpdateCustSuspend_WhenCall_CallApiCorrectly()
+        public void UpdateSuspend_WhenCall_CallApiCorrectly()
         {
             // Arrange
             var metaModel = CreateStatusMetaModel();
 
             // Action
-            var result = _casinoSettingService.UpdateCustSuspend(metaModel);
+            var result = _casinoCustomerService.UpdateSuspend(metaModel);
 
             // Assert
             _customerApiWrapper.Received().UpdateCustSuspend(
@@ -50,13 +48,13 @@
         }
 
         [Test]
-        public void UpdateCustClosed_WhenCall_CallApiCorrectly()
+        public void UpdateClosed_WhenCall_CallApiCorrectly()
         {
             // Arrange
             var metaModel = CreateStatusMetaModel();
 
             // Action
-            var result = _casinoSettingService.UpdateCustClosed(metaModel);
+            var result = _casinoCustomerService.UpdateClosed(metaModel);
 
             // Assert
             _customerApiWrapper.Received().UpdateCustClosed(

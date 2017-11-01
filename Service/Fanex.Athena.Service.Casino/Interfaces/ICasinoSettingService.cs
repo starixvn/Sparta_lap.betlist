@@ -13,10 +13,6 @@ namespace Fanex.Athena.Service.Casino.Interfaces
 
     public interface ICasinoSettingService
     {
-        bool UpdateCustSuspend(CustomerStatusMetaModel metaModel);
-
-        bool UpdateCustClosed(CustomerStatusMetaModel metaModel);
-
         IList<GameKind> GetRngCasinoSettings(int custId, string language);
 
         bool UpdateSetting(DataTable dataTableParam);

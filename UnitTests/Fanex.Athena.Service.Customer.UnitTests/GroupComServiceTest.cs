@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using Casino.Interfaces;
     using DataAccess.Customer.Interfaces;
-    using Interfaces;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using Model.Customer.MetaModel;
@@ -13,7 +13,7 @@
     [TestFixture]
     public class GroupComServiceTest
     {
-        private ICustomerCommService _customerCommService;
+        private ICasinoCustomerService _casinoCustomerService;
 
         private IGroupComDataAccess _groupDataAccess;
 
@@ -22,9 +22,9 @@
         [SetUp]
         public void SetUp()
         {
-            _customerCommService = Substitute.For<ICustomerCommService>();
+            _casinoCustomerService = Substitute.For<ICasinoCustomerService>();
             _groupDataAccess = Substitute.For<IGroupComDataAccess>();
-            _groupComService = new GroupComService(_customerCommService, _groupDataAccess);
+            _groupComService = new GroupComService(_casinoCustomerService, _groupDataAccess);
         }
 
         [TearDown]
@@ -145,7 +145,7 @@
                 {
                     ExtendedData = "1,2,3"
                 });
-            _customerCommService.UpdateMemberCommissionApi(null).ReturnsForAnyArgs(false);
+            _casinoCustomerService.UpdateCommission(null).ReturnsForAnyArgs(false);
 
             // Action
             var result = _groupComService.UpdateGroup(groupCommMetaModel, new Request(), userSession);
@@ -153,7 +153,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _customerCommService.ReceivedWithAnyArgs().UpdateMemberCommissionApi(null);
+                _casinoCustomerService.ReceivedWithAnyArgs().UpdateCommission(null);
                 Assert.That(result.IsSuccessful, Is.False);
             });
         }
@@ -258,7 +258,7 @@
                 {
                     ExtendedData = "1,2,3"
                 });
-            _customerCommService.UpdateMemberCommissionApi(null).ReturnsForAnyArgs(false);
+            _casinoCustomerService.UpdateCommission(null).ReturnsForAnyArgs(false);
 
             // Action
             var result = _groupComService.DeleteGroup(metaModel);
@@ -266,7 +266,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _customerCommService.ReceivedWithAnyArgs().UpdateMemberCommissionApi(null);
+                _casinoCustomerService.ReceivedWithAnyArgs().UpdateCommission(null);
                 Assert.That(result.IsSuccessful, Is.False);
             });
         }

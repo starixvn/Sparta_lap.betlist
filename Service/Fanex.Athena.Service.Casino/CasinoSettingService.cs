@@ -16,7 +16,6 @@ namespace Fanex.Athena.Service.Casino
     using Fanex.Athena.Service.Core.Exception;
     using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Common;
-    using Model.Customer.MetaModel;
     using Wrappers;
 
     public class CasinoSettingService : ICasinoSettingService
@@ -33,40 +32,6 @@ namespace Fanex.Athena.Service.Casino
         {
             _customerApiWrapper = customerApiWrapper ?? new CustomerApiWrapper();
             _basicInfoApiWrapper = basicInfoApiWrapper ?? new BasicInfoApiWrapper();
-        }
-
-        public bool UpdateCustSuspend(CustomerStatusMetaModel metaModel)
-        {
-            try
-            {
-                return _customerApiWrapper.UpdateCustSuspend(
-                            metaModel.CustId,
-                            metaModel.IsOn,
-                            metaModel.Ip,
-                            metaModel.ModifyById,
-                            metaModel.ModifyByUsername);
-            }
-            catch (Exception e)
-            {
-                throw new ServiceException("Error when call casino api UpdateCustSuspend. Message: " + e.Message, "casino api service");
-            }
-        }
-
-        public bool UpdateCustClosed(CustomerStatusMetaModel metaModel)
-        {
-            try
-            {
-                return _customerApiWrapper.UpdateCustClosed(
-                            metaModel.CustId,
-                            metaModel.IsOn,
-                            metaModel.Ip,
-                            metaModel.ModifyById,
-                            metaModel.ModifyByUsername);
-            }
-            catch (Exception e)
-            {
-                throw new ServiceException("Error when call casino api UpdateCustClosed. Message: " + e.Message, "Casino api service");
-            }
         }
 
         public IList<GameKind> GetRngCasinoSettings(int custId, string language)
