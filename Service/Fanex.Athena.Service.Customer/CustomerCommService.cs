@@ -29,9 +29,9 @@ namespace Fanex.Athena.Service.Customer
 
         private readonly ISessionService _sessionService;
 
-        private readonly IGroupComService _groupComService;
+        private readonly IGroupComDataAccess _groupComDataAccess;
 
-        public CustomerCommService()
+        public CustomerCommService() : this(null, null, null, null, null)
         {
         }
 
@@ -40,13 +40,13 @@ namespace Fanex.Athena.Service.Customer
             ICustomerApiWrapper customerApiWrapper,
             ICustomerCommDataAccess customerCommDataAccess,
             ISessionService sessionService,
-            IGroupComService groupComService)
+            IGroupComDataAccess groupComDataAccess)
         {
             _logger = logger ?? Logger.Log;
             _customerApiWrapper = customerApiWrapper ?? new CustomerApiWrapper();
             _customerCommDataAccess = customerCommDataAccess ?? new CustomerCommDataAccess();
             _sessionService = sessionService ?? new SessionService();
-            _groupComService = groupComService ?? new GroupComService();
+            _groupComDataAccess = groupComDataAccess ?? new GroupComDataAccess();
         }
 
         public IResultInfo UpdateCustomersCommission(UpdatedCustomerComMetaModel metaModel, bool isSyncCSComm = false)
@@ -55,18 +55,7 @@ namespace Fanex.Athena.Service.Customer
             var callApiSuccess = true;
             if (result.IsSuccessful && isSyncCSComm && !string.IsNullOrWhiteSpace(result.ExtendedData))
             {
-                var customerIds = result.ExtendedData.Split(',');
-                if (customerIds.Length > 0)
-                {
-                    callApiSuccess = UpdateMemberCommissionApi(new RNGCasinoUpdateMemberComMetaModel
-                    {
-                        Comm = metaModel.CSComm,
-                        CustomerId = customerIds,
-                        FromIp = metaModel.Ip,
-                        ModifyBy = metaModel.UserId,
-                        ModifyUserName = _sessionService.UserSession.UserName
-                    });
-                }
+                callApiSuccess = CallApiToUpdateComm(result.ExtendedData, metaModel.CSComm, metaModel.Ip);
             }
 
             return callApiSuccess ? result : new ResultInfo
@@ -86,28 +75,21 @@ namespace Fanex.Athena.Service.Customer
         public IResultInfo MoveCustomersToGroup(MoveToGroupComMetaModel metaModel)
         {
             IResultInfo result = null;
-            var groupInfo = _groupComService.GetById(metaModel.GroupComId);
-            var callApiSuccess = true;
-            if (groupInfo != null)
+            var groupInfo = _groupComDataAccess.GetById(metaModel.GroupComId);
+            if (groupInfo == null)
             {
-                result = _customerCommDataAccess.MoveCustomersToGroup(metaModel);
-
-                if (result.IsSuccessful && metaModel.IsAllowedRNG && !string.IsNullOrWhiteSpace(result.ExtendedData))
+                return new ResultInfo
                 {
-                    var customerIds = result.ExtendedData.Split(',');
-                    if (customerIds.Length > 0)
-                    {
-                        var user = _sessionService.UserSession;
-                        callApiSuccess = UpdateMemberCommissionApi(new RNGCasinoUpdateMemberComMetaModel
-                        {
-                            Comm = groupInfo.CSComm,
-                            CustomerId = customerIds,
-                            FromIp = metaModel.Ip,
-                            ModifyBy = user.UserId,
-                            ModifyUserName = user.UserName
-                        });
-                    }
-                }
+                    Code = 1,
+                    Message = "Group does not exists"
+                };
+            }
+
+            var callApiSuccess = true;
+            result = _customerCommDataAccess.MoveCustomersToGroup(metaModel);
+            if (result.IsSuccessful && metaModel.IsAllowedRNG && !string.IsNullOrWhiteSpace(result.ExtendedData))
+            {
+                callApiSuccess = CallApiToUpdateComm(result.ExtendedData, groupInfo.CSComm, metaModel.Ip);
             }
 
             return callApiSuccess ? result : new ResultInfo
@@ -123,19 +105,7 @@ namespace Fanex.Athena.Service.Customer
             var callApiSuccess = true;
             if (result.IsSuccessful && metaModel.IsRemovePlayercomm && isAllowedRNGCasino && !string.IsNullOrWhiteSpace(result.ExtendedData))
             {
-                var customerIds = result.ExtendedData.Split(',');
-                if (customerIds.Length > 0)
-                {
-                    var user = _sessionService.UserSession;
-                    callApiSuccess = UpdateMemberCommissionApi(new RNGCasinoUpdateMemberComMetaModel
-                    {
-                        Comm = 0,
-                        CustomerId = customerIds,
-                        FromIp = metaModel.Ip,
-                        ModifyBy = user.UserId,
-                        ModifyUserName = user.UserName
-                    });
-                }
+                callApiSuccess = CallApiToUpdateComm(result.ExtendedData, 0, metaModel.Ip);
             }
 
             return callApiSuccess ? result : new ResultInfo
@@ -179,6 +149,25 @@ namespace Fanex.Athena.Service.Customer
             }
 
             return success;
+        }
+
+        private bool CallApiToUpdateComm(string customerIdList, decimal commission, string ip)
+        {
+            var customerIds = customerIdList.Split(',');
+            if (customerIds.Length > 0)
+            {
+                var userSession = _sessionService.UserSession;
+                return UpdateMemberCommissionApi(new RNGCasinoUpdateMemberComMetaModel
+                {
+                    Comm = commission,
+                    CustomerId = customerIds,
+                    FromIp = ip,
+                    ModifyBy = userSession.UserId,
+                    ModifyUserName = userSession.UserName
+                });
+            }
+
+            return true;
         }
     }
 }

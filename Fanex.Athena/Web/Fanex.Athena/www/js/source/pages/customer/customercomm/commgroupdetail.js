@@ -134,6 +134,7 @@
          }      
 
          function submit(formId) {
+             Site.blockUI();
              initCommParam("#SBComm");
              initCommParam("#ParlayComm");
              initCommParam("#RCComm");
