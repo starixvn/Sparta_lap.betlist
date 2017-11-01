@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Fanex.Athena.Service.Casino.Interfaces
+namespace Fanex.Athena.Service.Casino.Wrappers
 {
     public interface IReportApiWrapper
     {

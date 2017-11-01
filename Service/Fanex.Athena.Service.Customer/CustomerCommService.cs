@@ -135,8 +135,7 @@ namespace Fanex.Athena.Service.Customer
                      metaModel.Comm,
                      metaModel.FromIp,
                      metaModel.ModifyBy,
-                     metaModel.ModifyUserName,
-                     System);
+                     metaModel.ModifyUserName);
                 if (!success)
                 {
                     _logger.Error(API_ERROR_MSG + string.Join(",", metaModel.CustomerId) + additionalErrorMsg);

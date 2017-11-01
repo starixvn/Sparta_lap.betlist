@@ -9,8 +9,6 @@
     [TestFixture]
     public class CasinoSettingServiceTest
     {
-        private const int System = 4;
-
         private ICustomerApiWrapper _customerApiWrapper;
 
         private IBasicInfoApiWrapper _basicInfoApiWrapper;
@@ -48,8 +46,7 @@
                             metaModel.IsOn,
                             metaModel.Ip,
                             metaModel.ModifyById,
-                            metaModel.ModifyByUsername,
-                            System);
+                            metaModel.ModifyByUsername);
         }
 
         [Test]
@@ -67,8 +64,7 @@
                             metaModel.IsOn,
                             metaModel.Ip,
                             metaModel.ModifyById,
-                            metaModel.ModifyByUsername,
-                            System);
+                            metaModel.ModifyByUsername);
         }
 
         private static CustomerStatusMetaModel CreateStatusMetaModel()

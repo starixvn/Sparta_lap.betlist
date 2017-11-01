@@ -24,6 +24,7 @@ namespace Fanex.Athena.Service.Casino
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Common;
+    using Wrappers;
 
     public class RNGCasinoService : IRNGCasinoService
     {

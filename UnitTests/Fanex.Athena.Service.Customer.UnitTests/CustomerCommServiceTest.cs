@@ -69,7 +69,7 @@
             _sessionService.UserSession.Returns(userSession);
             var expectedResult = new ResultInfo { ExtendedData = "1,2,3" };
             _customerCommDataAccess.UpdateCustomersCommission(metaModel).Returns(expectedResult);
-            _customerApiWrapper.UpdateComm(null, 0, null, 0, null, 0).ReturnsForAnyArgs(true);
+            _customerApiWrapper.UpdateComm(null, 0, null, 0, null).ReturnsForAnyArgs(true);
 
             // Action
             var result = _customerCommService.UpdateCustomersCommission(metaModel, isSyncCSComm);
@@ -138,7 +138,7 @@
             _sessionService.UserSession.Returns(userSession);
             var resultInfo = new ResultInfo { ExtendedData = "1" };
             _customerCommDataAccess.UpdateCustomersCommission(metaModel).Returns(resultInfo);
-            _customerApiWrapper.UpdateComm(null, 0, null, 0, null, 0).ReturnsForAnyArgs(false);
+            _customerApiWrapper.UpdateComm(null, 0, null, 0, null).ReturnsForAnyArgs(false);
             var expectedResult = new ResultInfo
             {
                 Code = 1,
@@ -198,7 +198,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _customerApiWrapper.DidNotReceiveWithAnyArgs().UpdateComm(null, 0, null, 0, null, 0);
+                _customerApiWrapper.DidNotReceiveWithAnyArgs().UpdateComm(null, 0, null, 0, null);
                 Assert.That(result.IsSuccessful, Is.False);
             });
         }
@@ -219,7 +219,7 @@
             var expectedResult = new ResultInfo { ExtendedData = "1,2,3" };
             _groupCommDataAccess.GetById(metaModel.GroupComId).Returns(new GroupCommMetaModel());
             _customerCommDataAccess.MoveCustomersToGroup(metaModel).Returns(expectedResult);
-            _customerApiWrapper.UpdateComm(null, 0, null, 0, null, 0).ReturnsForAnyArgs(true);
+            _customerApiWrapper.UpdateComm(null, 0, null, 0, null).ReturnsForAnyArgs(true);
 
             // Action
             var result = _customerCommService.MoveCustomersToGroup(metaModel);
@@ -227,7 +227,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _customerApiWrapper.ReceivedWithAnyArgs().UpdateComm(null, 0, null, 0, null, 0);
+                _customerApiWrapper.ReceivedWithAnyArgs().UpdateComm(null, 0, null, 0, null);
                 Assert.That(result, Is.EqualTo(expectedResult));
             });
         }

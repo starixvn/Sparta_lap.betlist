@@ -19,10 +19,8 @@ namespace Fanex.Athena.Service.Casino
     using Model.Customer.MetaModel;
     using Wrappers;
 
-    public class CasinoSettingService : ICasinoSetting
+    public class CasinoSettingService : ICasinoSettingService
     {
-        public const int SystemId = 4;
-
         private readonly ICustomerApiWrapper _customerApiWrapper;
 
         private readonly IBasicInfoApiWrapper _basicInfoApiWrapper;
@@ -46,8 +44,7 @@ namespace Fanex.Athena.Service.Casino
                             metaModel.IsOn,
                             metaModel.Ip,
                             metaModel.ModifyById,
-                            metaModel.ModifyByUsername,
-                            SystemId);
+                            metaModel.ModifyByUsername);
             }
             catch (Exception e)
             {
@@ -64,8 +61,7 @@ namespace Fanex.Athena.Service.Casino
                             metaModel.IsOn,
                             metaModel.Ip,
                             metaModel.ModifyById,
-                            metaModel.ModifyByUsername,
-                            SystemId);
+                            metaModel.ModifyByUsername);
             }
             catch (Exception e)
             {

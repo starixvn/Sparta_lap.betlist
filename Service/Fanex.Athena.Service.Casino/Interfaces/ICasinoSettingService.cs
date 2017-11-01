@@ -11,7 +11,7 @@ namespace Fanex.Athena.Service.Casino.Interfaces
     using Fanex.Athena.Model.BetSettings.DTO.RngCasino;
     using Model.Customer.MetaModel;
 
-    public interface ICasinoSetting
+    public interface ICasinoSettingService
     {
         bool UpdateCustSuspend(CustomerStatusMetaModel metaModel);
 

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Data;
 using CasinoLibrary.SBAgent;
-using Fanex.Athena.Service.Casino.Interfaces;
 
-namespace Fanex.Athena.Service.Casino
+namespace Fanex.Athena.Service.Casino.Wrappers
 {
     public class ReportApiWrapper : IReportApiWrapper
     {

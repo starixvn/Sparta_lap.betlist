@@ -26,7 +26,7 @@ namespace Fanex.Athena.Service.BetSettings
     {
         private readonly IRngCasinoBetSettingDataAccess _betSettingDataAccess;
 
-        private readonly ICasinoSetting _casinoSetting;
+        private readonly ICasinoSettingService _casinoSetting;
 
         private readonly ICustomerApiWrapper _customerApiWrapper;
 
@@ -39,7 +39,7 @@ namespace Fanex.Athena.Service.BetSettings
         public RngCasinoBetSettingService(
             IAuthorizationService authorizationService,
             IAppSettings appSettings,
-            ICasinoSetting casinoSetting,
+            ICasinoSettingService casinoSetting,
             ICustomerApiWrapper customerApiWrapper,
             IRngCasinoBetSettingDataAccess betSettingDataAccess)
             : base(authorizationService)
@@ -73,7 +73,7 @@ namespace Fanex.Athena.Service.BetSettings
 
             if (isSyncCasino && !_appSettings.IsDisableRngCasino)
             {
-                if (!_customerApiWrapper.UpdateCustEnableCasino(custId, status == 0, false, ip, userId, username, 4))
+                if (!_customerApiWrapper.UpdateCustEnableCasino(custId, status == 0, false, ip, userId, username))
                 {
                     return ErrorResult(ViewResources.UpdateUnSuccess);
                 }

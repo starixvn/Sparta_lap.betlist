@@ -31,7 +31,7 @@ namespace Fanex.Athena.Service.Customer
 
         private readonly ICustomerListDataAccess _customerListDataAccess;
 
-        private readonly ICasinoSetting _casinoSetting;
+        private readonly ICasinoSettingService _casinoSetting;
 
         private readonly IAuthorizationService _authorizationService;
 
@@ -52,7 +52,7 @@ namespace Fanex.Athena.Service.Customer
         public CustomerListService(
             ICustomerDataAccess customerDataAccess,
             ICustomerListDataAccess customerListDataAccess,
-            ICasinoSetting casinoSetting,
+            ICasinoSettingService casinoSetting,
             IAuthorizationService authorizationService,
             IProductService productService,
             IAppSettings appSettings)

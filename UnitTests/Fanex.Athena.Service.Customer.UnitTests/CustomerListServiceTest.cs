@@ -21,7 +21,7 @@
 
         private ICustomerListDataAccess _customerListDataAccess;
 
-        private ICasinoSetting _casinoSetting;
+        private ICasinoSettingService _casinoSetting;
 
         private IAuthorizationService _authorizationService;
 
@@ -36,7 +36,7 @@
         {
             _customerDataAccess = Substitute.For<ICustomerDataAccess>();
             _customerListDataAccess = Substitute.For<ICustomerListDataAccess>();
-            _casinoSetting = Substitute.For<ICasinoSetting>();
+            _casinoSetting = Substitute.For<ICasinoSettingService>();
             _authorizationService = Substitute.For<IAuthorizationService>();
             _productService = Substitute.For<IProductService>();
             _appSettings = Substitute.For<IAppSettings>();
