@@ -1,4 +1,5 @@
-﻿"use strict";
+﻿/*exported Downloader*/
+"use strict";
 var Downloader = (function () {
     return {
         download: function (blob, fileName) {

@@ -15386,7 +15386,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
         }
 
         function currencyConstraint(userChange) {
-            var currency = Number($("#CurrencyId").val());
+            var currency = Number($("#CurrencyId").val()) || 0;
             var currencyName = $("#CurrencyId option:selected").text();
             currencyName = $.trim(currencyName);
             $("#CurrencyName").val(currencyName);

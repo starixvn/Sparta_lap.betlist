@@ -5,7 +5,7 @@ define(["jquery"], function ($) {
         position: "top right",
         itemStyle: "default",
         timeout: 6000
-    }
+    };
 
     function generatePagePortal(position) {
         var positionClassName = generateClassByPosition(position);
@@ -15,7 +15,7 @@ define(["jquery"], function ($) {
                 '<div class="toast-align">' +
                 '</div>' +
             '</div>' +
-        '</div>'
+        '</div>';
     }
 
     function generateClassByPosition(position) {
@@ -66,7 +66,7 @@ define(["jquery"], function ($) {
                 $toastItem.fadeOut("fast");
             }, toastOption.timeout);
         }
-    }
+    };
 
     return _me;
 });

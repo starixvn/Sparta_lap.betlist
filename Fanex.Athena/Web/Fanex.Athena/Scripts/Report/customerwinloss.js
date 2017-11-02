@@ -1,4 +1,4 @@
-﻿/*global Site, QueryString, ProductListHelper, PagingHeper, jqGridAdditional, CustomerWinLossOption, Report, Toast*/
+﻿/*global Site, QueryString, ProductListHelper, PagingHeper, jqGridAdditional, CustomerWinLossOption, Downloader, Report, Toast*/
 /// <reference path="/@JSense.js" />
 var CustomerWinLoss = (function ($) {
     "use strict";

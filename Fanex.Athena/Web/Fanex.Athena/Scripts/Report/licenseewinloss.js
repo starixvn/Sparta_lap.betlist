@@ -1,4 +1,4 @@
-﻿/*global jqGridAdditional, JSLINQ, LicenseeWinLossOption, QueryString, Report, Site, ProductListHelper, Toast */
+﻿/*global jqGridAdditional, JSLINQ, LicenseeWinLossOption, QueryString, Report, Site, ProductListHelper, Downloader, Toast */
 /// <reference path="/@JSense.js" />
 ///
 var LicenseeWinLoss = (function ($) {

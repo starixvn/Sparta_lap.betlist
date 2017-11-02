@@ -1,8 +1,10 @@
 ﻿define(
-    ["jquery", "common/querystring", "common/site", "../report", "./licenseewinloss.option", "lib/jqgrid/jquery.jqgrid.additional", "components/pluginhelper/daterangepicker",
-        "moment", "common/popup", "components/pluginhelper/multiselect", "helpers/daterange", "helpers/downloader", "components/toast",
-        "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension", "lib/linq", "extensions/ajaxBinaryTransporting"],
-    function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup, MultiSelect, DateHelper, Downloader, Toast) {
+    ["jquery", "common/querystring", "common/site", "../report", "./licenseewinloss.option", "lib/jqgrid/jquery.jqgrid.additional",
+        "components/pluginhelper/daterangepicker", "moment", "common/popup", "components/pluginhelper/multiselect",
+        "helpers/daterange", "helpers/downloader", "components/toast", "lib/jqgrid/jquery.jqGrid.en",
+        "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension", "lib/linq", "extensions/ajaxBinaryTransporting"],
+    function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup,
+        MultiSelect, DateHelper, Downloader, Toast) {
         "use strict";
         var REPORT_BY_MONTHLY = 2;
         var VALID_MONTH_RANGE = 3;

@@ -24367,7 +24367,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         position: "top right",
         itemStyle: "default",
         timeout: 6000
-    }
+    };
 
     function generatePagePortal(position) {
         var positionClassName = generateClassByPosition(position);
@@ -24377,7 +24377,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 '<div class="toast-align">' +
                 '</div>' +
             '</div>' +
-        '</div>'
+        '</div>';
     }
 
     function generateClassByPosition(position) {
@@ -24428,7 +24428,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 $toastItem.fadeOut("fast");
             }, toastOption.timeout);
         }
-    }
+    };
 
     return _me;
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -24442,9 +24442,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     "use strict";
 
     // use this transport for "binary" data type
-    $.ajaxTransport("+binary", function (options, originalOptions, jqXHR) {
+    $.ajaxTransport("+binary", function (options) {
         // check for conditions and support for blob / arraybuffer response type
-        if (window.FormData && ((options.dataType && (options.dataType == 'binary')) ||
+        if (window.FormData && ((options.dataType && (options.dataType === 'binary')) ||
             (options.data && ((window.ArrayBuffer && options.data instanceof ArrayBuffer) ||
             (window.Blob && options.data instanceof Blob))))) {
             return {
@@ -24800,7 +24800,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     __webpack_require__(122),
     __webpack_require__(123),
     __webpack_require__(121),
-    __webpack_require__(168)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect, Popup, PagingHelper, ExcelHelper, AutoComplete, Downloader, Toast) {
+    __webpack_require__(168)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect, Popup,
+        PagingHelper, ExcelHelper, AutoComplete, Downloader, Toast) {
         "use strict";
 
         var EXCEL_FILENAME = "CustomerWinLoss.xls";

@@ -25471,7 +25471,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         position: "top right",
         itemStyle: "default",
         timeout: 6000
-    }
+    };
 
     function generatePagePortal(position) {
         var positionClassName = generateClassByPosition(position);
@@ -25481,7 +25481,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 '<div class="toast-align">' +
                 '</div>' +
             '</div>' +
-        '</div>'
+        '</div>';
     }
 
     function generateClassByPosition(position) {
@@ -25532,7 +25532,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 $toastItem.fadeOut("fast");
             }, toastOption.timeout);
         }
-    }
+    };
 
     return _me;
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -25546,9 +25546,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     "use strict";
 
     // use this transport for "binary" data type
-    $.ajaxTransport("+binary", function (options, originalOptions, jqXHR) {
+    $.ajaxTransport("+binary", function (options) {
         // check for conditions and support for blob / arraybuffer response type
-        if (window.FormData && ((options.dataType && (options.dataType == 'binary')) ||
+        if (window.FormData && ((options.dataType && (options.dataType === 'binary')) ||
             (options.data && ((window.ArrayBuffer && options.data instanceof ArrayBuffer) ||
             (window.Blob && options.data instanceof Blob))))) {
             return {
@@ -25688,9 +25688,11 @@ module.exports = __webpack_require__(241);
 /* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(118), __webpack_require__(2), __webpack_require__(134), __webpack_require__(243), __webpack_require__(119), __webpack_require__(127),
-        __webpack_require__(0), __webpack_require__(120), __webpack_require__(135), __webpack_require__(136), __webpack_require__(166), __webpack_require__(167),
-        __webpack_require__(122), __webpack_require__(123), __webpack_require__(121), __webpack_require__(154), __webpack_require__(168)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup, MultiSelect, DateHelper, Downloader, Toast) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(118), __webpack_require__(2), __webpack_require__(134), __webpack_require__(243), __webpack_require__(119),
+        __webpack_require__(127), __webpack_require__(0), __webpack_require__(120), __webpack_require__(135),
+        __webpack_require__(136), __webpack_require__(166), __webpack_require__(167), __webpack_require__(122),
+        __webpack_require__(123), __webpack_require__(121), __webpack_require__(154), __webpack_require__(168)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup,
+        MultiSelect, DateHelper, Downloader, Toast) {
         "use strict";
         var REPORT_BY_MONTHLY = 2;
         var VALID_MONTH_RANGE = 3;
