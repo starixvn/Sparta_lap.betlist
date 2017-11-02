@@ -21,15 +21,19 @@
 
 @section globaljscode{
     window.Lrf = {
-        notificationDateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
-        notificationXsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
+        notification: {
+            notificationDateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
+            notificationXsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
+            notificationDateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'},
+            notificationTypes: @Html.Raw(notificationTypes.ToJson()),
+            selectedNotificationType: '@(selectedNotificationType != null ? selectedNotificationType.value : string.Empty)'
+        },
+        resultAmendment: {
+            resultAmendmentDateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
+            resultAmendmentXsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
+            resultAmendmentDateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'}
+        },
         isLoading: false,
-        notificationDateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'},
-        notificationTypes: @Html.Raw(notificationTypes.ToJson()),
-        selectedNotificationType: '@(selectedNotificationType != null ? selectedNotificationType.value : string.Empty)',
-        resultAmendmentDateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
-        resultAmendmentXsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
-        resultAmendmentDateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'}
     }
 }
 <div id="app-container">

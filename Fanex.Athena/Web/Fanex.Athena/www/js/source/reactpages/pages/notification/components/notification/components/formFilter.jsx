@@ -58,7 +58,7 @@ export class FormFilter extends Component {
     }
 
     _renderNotificationTypeSelectList() {
-        const { notificationTypes, selectedNotificationType} = this.props;
+        const { notificationTypes, selectedNotificationType } = this.props;
 
         return notificationTypes && notificationTypes.length ? (
             <Select id="ddlNotificationType"
@@ -66,8 +66,8 @@ export class FormFilter extends Component {
                 value={selectedNotificationType}
                 options={notificationTypes}
                 onChange={(item) => this.props.setSelectedNotificationType(item.value)} />
-            ) : (
-            <Select id="ddlNotificationType"
+        ) : (
+                <Select id="ddlNotificationType"
                     name="form-field-name"
                     value={0}
                     options={[]} />
@@ -79,7 +79,7 @@ export class FormFilter extends Component {
 
         return (
             <DateRange startDate={notificationDateRange.fromDate} endDate={notificationDateRange.toDate}
-            minDate={notificationDateConstraint.minDate} maxDate={notificationDateConstraint.maxDate}
+                minDate={notificationDateConstraint.minDate} maxDate={notificationDateConstraint.maxDate}
                 today={notificationDateRange.toDate} limitedMonthRange={RANGE_MONTH_CONSTRAINT}
                 onChange={this.applyDateRangeHandler} />
         )
@@ -119,7 +119,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { notificationGridData, ...rest } = state;
+    const { notificationGridData, ...rest } = state.notification;
     return Object.assign({}, rest);
 };
 

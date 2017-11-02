@@ -928,9 +928,7 @@
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\lib\__tests__\service.test.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\dataHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\filterHandlerReducer.js" />
-    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\index.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\actions\index.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\components\notification\actions\dataHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\index.js" />    <Content Include="www\js\source\reactpages\pages\notification\components\notification\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\notification\components\notification\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\notification\components\notification\actions\index.js" />
     <Content Include="www\js\source\reactpages\pages\notification\components\notification\actions\types.js" />

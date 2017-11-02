@@ -2,7 +2,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
-import { ActionCreators } from '../actions/index'
 import Notification from './notification/components'
 import ResultAmendment from './resultAmendment/components'
 import Loader from '../../../components/Loader'
@@ -31,12 +30,9 @@ export class AppContainer extends Component {
         );
     }
 }
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(ActionCreators, dispatch);
-}
 
 function mapStateToProps(state) {
     return Object.assign({}, { isLoading: state.isLoading });
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
+export default connect(mapStateToProps)(AppContainer);

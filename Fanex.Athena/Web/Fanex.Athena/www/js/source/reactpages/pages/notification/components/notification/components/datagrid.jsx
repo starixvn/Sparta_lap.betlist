@@ -19,7 +19,7 @@ export class DataGrid extends Component {
 
     componentWillMount() {
         const { notificationParam } = this.props;
-        if(notificationParam !== null && notificationParam.hasOwnProperty("FromDate")) {
+        if (notificationParam && notificationParam.hasOwnProperty("FromDate")) {
             const dateRange = {
                 fromDate: notificationParam.FromDate,
                 toDate: notificationParam.ToDate
@@ -58,13 +58,13 @@ export class DataGrid extends Component {
             const datetimeString = moment(item.DateTime).format("MM/DD/YYYY hh:mm:ss A");
             rows.push(
                 <Row key={`tr${i}`}>
-                    <Cell title={i+1} className="center-align">{i+1}</Cell>
+                    <Cell title={i + 1} className="center-align">{i + 1}</Cell>
                     <Cell title={item.Type}>{item.Type}</Cell>
                     <Cell title={datetimeString} className="center-align">{datetimeString}</Cell>
                     <Cell title={item.Subject}>{
                         Site.asNull(item.Content) === null
-                        ? <div>{item.Subject}</div>
-                        : <CollapseRow subject={item.Subject} content={item.Content} />
+                            ? <div>{item.Subject}</div>
+                            : <CollapseRow subject={item.Subject} content={item.Content} />
                     }
                     </Cell>
                 </Row>)
@@ -72,7 +72,7 @@ export class DataGrid extends Component {
 
         return rows;
     }
-    
+
     _renderNodata() {
         return (
             <div className="result-content">
@@ -83,7 +83,12 @@ export class DataGrid extends Component {
     }
 
     render() {
-        const { Data } = this.props.notificationGridData;
+        const { notification } = this.props;
+        if (!notification) {
+            return null;
+        }
+
+        const { Data } = notification.notificationGridData;
         if (!Data) {
             return null;
         }
@@ -91,7 +96,7 @@ export class DataGrid extends Component {
         if (!Data || !Data.length) {
             return this._renderNodata();
         }
-        
+
         return (
             <div className="result-content">
                 <ReportTitle content={this.reportTitle} />
@@ -111,7 +116,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { notificationGridData, notificationDateRange, notificationParam } = state;
+    const { notificationGridData, notificationDateRange, notificationParam } = state.notification;
     return Object.assign({}, { notificationGridData, notificationDateRange, notificationParam });
 };
 

@@ -60,7 +60,7 @@ export class FormFilter extends Component {
 
         return (
             <DateRange startDate={resultAmendmentDateRange.fromDate} endDate={resultAmendmentDateRange.toDate}
-            minDate={resultAmendmentDateConstraint.minDate} maxDate={resultAmendmentDateConstraint.maxDate}
+                minDate={resultAmendmentDateConstraint.minDate} maxDate={resultAmendmentDateConstraint.maxDate}
                 today={resultAmendmentDateRange.toDate} limitedMonthRange={RANGE_MONTH_CONSTRAINT}
                 onChange={this.applyDateRangeHandler} />
         )
@@ -93,7 +93,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { resultAmendmentGridData, ...rest } = state;
+    const { resultAmendmentGridData, ...rest } = state.resultAmendment;
     return Object.assign({}, rest);
 };
 

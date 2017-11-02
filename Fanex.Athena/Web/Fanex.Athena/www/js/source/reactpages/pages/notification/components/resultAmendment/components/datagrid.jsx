@@ -20,7 +20,7 @@ export class DataGrid extends Component {
 
     componentWillMount() {
         const { resultAmendmentParam } = this.props;
-        if(resultAmendmentParam !== null && resultAmendmentParam.hasOwnProperty("FromDate")) {
+        if (resultAmendmentParam && resultAmendmentParam.hasOwnProperty("FromDate")) {
             const dateRange = {
                 fromDate: resultAmendmentParam.FromDate,
                 toDate: resultAmendmentParam.ToDate
@@ -59,12 +59,12 @@ export class DataGrid extends Component {
             const datetimeString = moment(item.DateTime).format("MM/DD/YYYY hh:mm:ss A");
             rows.push(
                 <Row key={`tr${i}`}>
-                    <Cell title={i+1} className="center-align">{i+1}</Cell>
+                    <Cell title={i + 1} className="center-align">{i + 1}</Cell>
                     <Cell title={datetimeString} className="center-align">{datetimeString}</Cell>
                     <Cell title={item.Subject}>{
                         Site.asNull(item.Content) === null
-                        ? <div>{item.Subject}</div>
-                        : <CollapseRow subject={item.Subject} content={item.Content} />
+                            ? <div>{item.Subject}</div>
+                            : <CollapseRow subject={item.Subject} content={item.Content} />
                     }
                     </Cell>
                     <Cell title={LangHelper.getSingleResource("ExportToExcel")} className="center-align"><i className="icon-excel"></i></Cell>
@@ -84,7 +84,12 @@ export class DataGrid extends Component {
     }
 
     render() {
-        const { Data } = this.props.resultAmendmentGridData;
+        const { resultAmendment } = this.props;
+        if (!resultAmendment) {
+            return null;
+        }
+
+        const { Data } = resultAmendment.resultAmendmentGridData;
         if (!Data) {
             return null;
         }
@@ -104,16 +109,16 @@ export class DataGrid extends Component {
                     header={this._buildHeader()}
                     body={this._buildBody()} />
             </div>
-            );
-        }
+        );
     }
+}
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 
 function mapStateToProps(state) {
-    const { resultAmendmentGridData, resultAmendmentDateRange, resultAmendmentParam } = state;
+    const { resultAmendmentGridData, resultAmendmentDateRange, resultAmendmentParam } = state.resultAmendment;
     return Object.assign({}, { resultAmendmentGridData, resultAmendmentDateRange, resultAmendmentParam });
 };
 
