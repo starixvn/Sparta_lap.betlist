@@ -32,7 +32,7 @@ namespace Fanex.Athena.Service.Casino
 
         private readonly ILanguageService _langService;
 
-        private readonly IExChangeRateDataAccess _exchangeRateService;
+        private readonly IExChangeRateDataAccess _exchangeRateDataAccess;
 
         public RNGCasinoService() : this(null, null, null)
         {
@@ -41,11 +41,11 @@ namespace Fanex.Athena.Service.Casino
         public RNGCasinoService(
             IReportApiWrapper reportApiWrapper,
             ILanguageService langService,
-            IExChangeRateDataAccess exchangeRateService)
+            IExChangeRateDataAccess exchangeRateDataAccess)
         {
             _reportApiWrapper = reportApiWrapper ?? new ReportApiWrapper();
             _langService = langService ?? new LanguageService();
-            _exchangeRateService = exchangeRateService ?? new ExChangeRateDataAccess();
+            _exchangeRateDataAccess = exchangeRateDataAccess ?? new ExChangeRateDataAccess();
         }
 
         public List<RNGCasinoResult> GetRNGCasinoResult(RNGCasinoResultMetaModel metaModel)
@@ -57,7 +57,7 @@ namespace Fanex.Athena.Service.Casino
                 var currency = GetDataRowExtension(dataTable.Rows[0], "Currency");
 
                 var date = Converter.ToDateTime(GetDataRowExtension(dataTable.Rows[0], "StartTime"));
-                var exchangeRate = this._exchangeRateService.GetExChangeRate(currency, date);
+                var exchangeRate = this._exchangeRateDataAccess.GetExChangeRate(currency, date);
                 var language = _langService.GetCurrentLanguage();
                 for (int i = 0; i < dataTable.Rows.Count; i++)
                 {
@@ -251,7 +251,7 @@ namespace Fanex.Athena.Service.Casino
             if (detailTable.Rows.Count > 0)
             {
                 var currency = GetDataRowExtension(detailTable.Rows[0], "Currency");
-                exchangeRate = this._exchangeRateService.GetExChangeRate(currency, betTime);
+                exchangeRate = this._exchangeRateDataAccess.GetExChangeRate(currency, betTime);
             }
             else
             {
