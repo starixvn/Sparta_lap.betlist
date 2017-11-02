@@ -1,3 +1,5 @@
+/* z-index */
+/* z-index */
 .daterangepicker {
   position: absolute;
   color: inherit;
@@ -431,6 +433,7 @@
   .breadcrumb.flat a.active:hover {
     background: #4C6375; }
 
+/* z-index */
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-sdiv .ui-jqgrid-ftable .grandTotal > td {
   background: #fff; }
 

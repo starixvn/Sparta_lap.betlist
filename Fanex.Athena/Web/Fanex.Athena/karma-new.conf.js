@@ -31,7 +31,9 @@ module.exports = function (config) {
             'www/js/source/common/**/*.js': ['coverage'],
             'www/js/source/extensions/**/*.js': ['coverage'],
             'www/js/source/pages/**/*.js': ['coverage'],
-            'www/js/source/helpers/**/*.js': ['coverage']
+            'www/js/source/helpers/**/*.js': ['coverage'],
+            'www/js/source/components/**/refreshcountdown.js': ['coverage'],
+            'www/js/source/components/**/toast.js': ['coverage']
         },
         port: 9875,
         colors: true,

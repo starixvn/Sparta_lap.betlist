@@ -1,19 +1,19 @@
 webpackJsonp([101],{
 
-/***/ 505:
+/***/ 508:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(506);
+module.exports = __webpack_require__(509);
 
 
 /***/ }),
 
-/***/ 506:
+/***/ 509:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ })
 
-},[505]);
+},[508]);
 //# sourceMappingURL=commgroupdetail.chunk.js.map

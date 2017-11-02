@@ -1,3 +1,4 @@
+/* z-index */
 .daterangepicker {
   position: absolute;
   color: inherit;
@@ -771,6 +772,7 @@ Rad tree view css
   text-align: left !important;
   height: 19px !important; }
 
+/* z-index */
 .multiselect-container > label {
   position: absolute;
   top: -10px;

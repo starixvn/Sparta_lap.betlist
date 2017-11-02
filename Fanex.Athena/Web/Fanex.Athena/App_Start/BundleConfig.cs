@@ -234,7 +234,10 @@
                         "~/Scripts/Report/report.js",
                         "~/Scripts/global/prototype.js",
                         "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
-                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
+                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js",
+                        "~/Scripts/Extension/ajaxBinaryTransporting.js",
+                        "~/Scripts/Helper/downloader.js",
+                        "~/Scripts/Plugin/Toast/toast.js");
             AddNewScriptBundle(bundles, bundle);
         }
 
@@ -575,7 +578,8 @@
                 "~/Content/Plugin/DateRangePicker/daterangepicker.css",
                 "~/Content/FlatPopup/jquery.custom-scrollbar.css",
                 "~/Content/FlatPopup/jquery.flatpopup.css",
-                "~/Content/Plugin/MultiSelect/jquery.multiselect.css");
+                "~/Content/Plugin/MultiSelect/jquery.multiselect.css",
+                "~/Content/Plugin/Toast/toast.min.css");
         }
 
         /// <summary>
@@ -710,7 +714,7 @@
                 .Include(
                         "~/Scripts/Plugin/MultiSelect/jquery.multiselect.js",
                         "~/Scripts/Plugin/LinqJs/JSLINQ.js",
-                        "~/Scripts/Global/prototype.js",                      
+                        "~/Scripts/Global/prototype.js",
                         "~/Scripts/BetList/lastbet.grid.js",
                         "~/Scripts/BetList/lastbet.filter.js");
             AddNewScriptBundle(bundles, bundle);

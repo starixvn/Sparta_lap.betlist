@@ -1,2 +1,6 @@
 ﻿[
+  {
+    "outputFile": "Content/Plugin/Toast/toast.css",
+    "inputFile": "Content/Plugin/Toast/toast.scss"
+  }
 ]

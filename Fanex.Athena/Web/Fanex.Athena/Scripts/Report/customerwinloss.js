@@ -1,4 +1,4 @@
-﻿/*global Site, QueryString, ProductListHelper, PagingHeper, jqGridAdditional, CustomerWinLossOption, Report*/
+﻿/*global Site, QueryString, ProductListHelper, PagingHeper, jqGridAdditional, CustomerWinLossOption, Downloader, Report, Toast*/
 /// <reference path="/@JSense.js" />
 var CustomerWinLoss = (function ($) {
     "use strict";
@@ -6,6 +6,7 @@ var CustomerWinLoss = (function ($) {
     var DATA_URL = "api/CustomerWinLossReport/Index";
     var FORM_SELECTOR = "#CustomerWinlossForm";
     var GRID_ID = "ReportGrid";
+    var EXCEL_FILENAME = "CustomerWinLoss.xls";
 
     var _ajaxRequest = null;
     var _submitData = null;
@@ -107,7 +108,7 @@ var CustomerWinLoss = (function ($) {
             }
 
             jqGridAdditional.assignTotal(response.Total, gridOption.colModel);
-            jqGridAdditional.setGroupFooters(Site.isFakeLicensee() ? 
+            jqGridAdditional.setGroupFooters(Site.isFakeLicensee() ?
                 CustomerWinLossOption.totalColspanFakeLicensee :
                 CustomerWinLossOption.totalColspan);
             if (gridOption.shrinkToFit) {
@@ -200,8 +201,26 @@ var CustomerWinLoss = (function ($) {
                 }
 
                 var data = getPostData();
+                data.isExportExcel = true;
                 data.PageIndex = 1;
-                Site.exportExcel(data, Site.resolveClientUrl(DATA_URL));
+
+                var option = {
+                    type: "POST",
+                    data: data,
+                    dataType: "binary",
+                    responseType:"blob",
+                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    cache: false,
+                    url: Site.resolveClientUrl(DATA_URL),
+                    success: function (response) {
+                        Downloader.download(response, EXCEL_FILENAME);
+                    },
+                    beforeSend: function () {
+                        Toast.show();
+                    }
+                };
+                $.ajax(option);
+
                 return false;
             });
 

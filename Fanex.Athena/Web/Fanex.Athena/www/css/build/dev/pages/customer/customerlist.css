@@ -1740,6 +1740,7 @@ input[type=checkbox]:not(:disabled).tabbed:focus ~ .lever::after {
 .switch label input[type=checkbox][disabled]:checked + .lever:after {
   background-color: #BDBDBD; }
 
+/* z-index */
 input[type="checkbox"] {
   position: absolute;
   left: -9999px;
@@ -1788,6 +1789,7 @@ input[type="checkbox"] {
 .invalid input[type="checkbox"] + label:after {
   border: 2px solid #d91a1a; }
 
+/* z-index */
 .label {
   display: inline-block;
   padding: 3px 8px;
@@ -1853,6 +1855,7 @@ input[type="checkbox"] {
     background-color: #fff;
     left: 34px; }
 
+/* z-index */
 .grid-dropdown {
   border: 1px solid #C0C0BE;
   border-radius: 3px;
@@ -1874,6 +1877,7 @@ input[type="checkbox"] {
     width: 15px;
     font-size: 7px; }
 
+/* z-index */
 .pagingContainer {
   padding: 3px;
   font-size: 1.1rem;

@@ -1,6 +1,6 @@
 ﻿define(['jquery', "common/querystring", 'common/site', 'components/pluginhelper/daterangepicker', 'pages/report/licenseewinloss/licenseewinloss.option', 'pages/report/licenseewinloss/licenseewinloss',
-    'pages/report/report', 'lib/jqgrid/jquery.jqgrid.additional', 'common/popup', 'components/pluginhelper/multiselect', "helpers/daterange"],
-    function ($, QueryString, Site, DatePicker, LicenseeWinLossOption, LicenseeWinLoss, Report, jqGridAdditional, Popup, MultiSelect, DateHelper) {
+    'pages/report/report', 'lib/jqgrid/jquery.jqgrid.additional', 'common/popup', 'components/pluginhelper/multiselect', "helpers/daterange", "helpers/downloader", "components/toast"],
+    function ($, QueryString, Site, DatePicker, LicenseeWinLossOption, LicenseeWinLoss, Report, jqGridAdditional, Popup, MultiSelect, DateHelper, Downloader, Toast) {
         describe("LicenseeWinLoss", function () {
             beforeAll(function () {
                 spyOn(Site, "getSingleResource").and.callFake(function (text) {
@@ -74,15 +74,50 @@
                     expect($('#IsExportExcel').val()).toBe(false);
                 });
 
-                it("#LicenseeWinLossForm.submit() should be called if #ExportToExcel is clicked.", function () {
-                    setFixtures('<div id="ExportToExcel"></div>');
-                    appendSetFixtures('<div id="licenseewinloss"></div>');
+                describe("Export excel", function () {
+                    var ajaxOption;
 
-                    var spyEvent = spyOnEvent('#licenseewinloss', 'submit');
+                    beforeEach(function () {
+                        setFixtures('<div id="ExportToExcel"></div>');
+                        appendSetFixtures('<form id="licenseewinloss"><input type="hidden" name="CurrencyId" value="0" /></form>');
 
-                    LicenseeWinLoss.initEvent();
-                    $('#ExportToExcel').click();
-                    expect(spyEvent).toHaveBeenTriggered();
+                        spyOn(Downloader, "download");
+                        spyOn(Toast, "show");
+
+                        spyOn($, "ajax").and.callFake(function (option) {
+                            option.beforeSend();
+                            ajaxOption = option;
+                        });
+
+                        LicenseeWinLoss.initEvent();
+                    });
+
+                    it("#ExportToExcel click - ajax settings should be correct", function () {
+                        var postData = { CurrencyId: '0' };
+                        $('#ExportToExcel').click();
+
+                        expect(ajaxOption.type).toBe("POST");
+                        expect(ajaxOption.dataType).toBe("binary");
+                        expect(ajaxOption.responseType).toBe("blob");
+                        expect(ajaxOption.url).toBe(LicenseeWinLossOption.urlExcelData);
+                        expect(ajaxOption.data).toEqual(postData);
+                    });
+
+                    it("#ExportToExcel click - beforeSend - Toast.show should be called", function () {
+                        $('#ExportToExcel').click();
+
+                        expect(Toast.show).toHaveBeenCalled();
+                    });
+
+                    it("#ExportToExcel click - call success os ajax function - Downloader.download should be called with correct parameter", function () {
+                        $('#ExportToExcel').click();
+
+                        var fileName = "LicenseeWinLoss.xls";
+                        var response = "Binary Data";
+                        ajaxOption.success(response);
+
+                        expect(Downloader.download).toHaveBeenCalledWith(response, fileName);
+                    });
                 });
 
                 it("#LicenseeWinLoss.goBack() is not called when data-level in .level-link is greater than 1.", function () {
@@ -630,7 +665,7 @@
                     };
                 });
 
-                xdescribe("Report by monthly", function () {
+                describe("Report by monthly", function () {
                     it("Popup.openPopupWithIframe(url, option) should be called with correct parameter", function () {
                         LicenseeWinLoss.submit();
                         var ajaxOption = $.ajax.calls.mostRecent().args[0];
@@ -675,7 +710,7 @@
                     });
                 });
 
-                xdescribe("Report not by monthly", function () {
+                describe("Report not by monthly", function () {
                     afterEach(function () {
                         submitData = {
                             ProductOptions: '["SB","RC"]',

@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -744,19 +744,30 @@
     <Content Include="Content\Plugin\ColorPicker\images\checked-dark.png" />
     <Content Include="Content\Plugin\ColorPicker\images\transparent.png" />
     <Content Include="Content\Plugin\ColorPicker\images\checked-light.png" />
+    <Content Include="Content\Plugin\Toast\toast.css">
+      <DependentUpon>toast.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Plugin\Toast\toast.min.css">
+      <DependentUpon>toast.css</DependentUpon>
+    </Content>
     <Content Include="Content\Report\cashoutwinloss.css" />
     <Content Include="Content\Report\customertbalance.css" />
     <Content Include="Content\Utility\images\UM.png" />
     <Content Include="jasmine-specs\BetList\lastbet.filter-test.js" />
     <Content Include="jasmine-specs\Customer\CustomerList\customerlist.custoption-test.js" />
+    <Content Include="jasmine-specs\Helper\downloader-test.js" />
+    <Content Include="jasmine-specs\Plugin\Toast\toast-test.js" />
     <Content Include="Jasmine\NewUI\SpecRunner.html" />
     <Content Include="karma-new-dev.conf.js" />
     <Content Include="karma-new.conf.js" />
     <Content Include="karma.conf-dev.js" />
     <Content Include="Scripts\BetList\lastbet.filter.js" />
+    <Content Include="Scripts\Extension\ajaxBinaryTransporting.js" />
+    <Content Include="Scripts\Helper\downloader.js" />
     <Content Include="Scripts\Helper\ProductListHelper.js" />
     <Content Include="Scripts\Library\jquery.marquee.js" />
     <Content Include="Scripts\Customer\CustomerList\customerlist.custoption.js" />
+    <Content Include="Scripts\Plugin\Toast\toast.js" />
     <Content Include="Scripts\Report\cashoutwinloss.js" />
     <Content Include="Scripts\Report\cashoutwinloss.option.js" />
     <Content Include="Scripts\Report\customerpendingfunds.option.js" />
@@ -774,6 +785,9 @@
     <Content Include="www\js\build\pro\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\vendors\excel.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\vendors\reactpages.chunk.js" />
+    <Content Include="www\js\source\components\toast.js" />
+    <Content Include="www\js\source\extensions\ajaxBinaryTransporting.js" />
+    <Content Include="www\js\source\helpers\downloader.js" />
     <Content Include="www\js\source\reactpages\actions\baseCurrencyAction.js" />
     <Content Include="www\js\source\reactpages\actions\loaderAction.js" />
     <Content Include="www\js\source\reactpages\actions\productAction.js" />
@@ -803,6 +817,8 @@
     <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\vendors\excel.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\vendors\reactpages.chunk.js.map" />
+    <Content Include="www\css\source\components\toast\toast.scss" />
+    <Content Include="Content\Plugin\Toast\toast.scss" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
@@ -852,6 +868,10 @@
     <Content Include="www\js\source\reactpages\reducers\__tests__\baseCurrency.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\loaderReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\productReducer.test.js" />
+    <Content Include="www\js\tests\components\toast-spec.js" />
+    <Content Include="www\js\tests\extensions\ajaxBinaryTransporting-spec.js" />
+    <Content Include="www\js\tests\extensions\prototype-spec.js" />
+    <Content Include="www\js\tests\helpers\downloader-spec.js" />
     <Content Include="www\webpackconfig\config\pathReact.js" />
     <Content Include="www\webpackconfig\config\pluginReact.js" />
     <None Include="bundleconfig.json" />

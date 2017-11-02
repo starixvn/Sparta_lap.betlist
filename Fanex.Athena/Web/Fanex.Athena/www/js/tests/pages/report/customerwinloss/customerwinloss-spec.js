@@ -12,8 +12,11 @@
     "common/popup",
     "components/paging",
     "helpers/excel",
-    "components/pluginhelper/autocomplete"],
-    function ($, QueryString, Site, Report, CustomerWinLoss, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect, Popup, PagingHelper, ExcelHelper, AutoComplete) {
+    "components/pluginhelper/autocomplete",
+    "helpers/downloader",
+    "components/toast"],
+    function ($, QueryString, Site, Report, CustomerWinLoss, CustomerWinLossOption, jqGridAdditional, DatePicker, MonthPicker, MultiSelect,
+        Popup, PagingHelper, ExcelHelper, AutoComplete, Downloader, Toast) {
         describe("CustomerWinLoss", function () {
             beforeAll(function () {
                 spyOn(Site, "resolveClientUrl").and.callFake(function (url) {
@@ -101,26 +104,68 @@
                     expect(CustomerWinLoss.submit).not.toHaveBeenCalled();
                 });
 
-                it("ExcelHelper.exportExcel should be called if ExportToExcel button is clicked", function () {
-                    setFixtures('<div id="ExportToExcel"></div>');
-                    spyOn(Report, "ValidProducts").and.returnValues(true);
-                    spyOn(ExcelHelper, "exportExcel");
+                describe("Export excel", function () {
+                    var ajaxOption;
 
-                    CustomerWinLoss.initEvent();
-                    $('#ExportToExcel').click();
+                    beforeEach(function () {
+                        spyOn(Downloader, "download");
+                        spyOn(Toast, "show");
 
-                    expect(ExcelHelper.exportExcel).toHaveBeenCalled();
-                });
+                        spyOn($, "ajax").and.callFake(function (option) {
+                            option.beforeSend();
+                            ajaxOption = option;
+                        });
+                    });
 
-                it("ExcelHelper.exportExcel should be called if ExportToExcel button is clicked with no product selected", function () {
-                    setFixtures('<div id="ExportToExcel"></div>');
-                    spyOn(Report, "ValidProducts").and.returnValues(false);
-                    spyOn(ExcelHelper, "exportExcel");
+                    it("ExcelHelper.exportExcel should not be called if ExportToExcel button is clicked with no product selected", function () {
+                        setFixtures('<div id="ExportToExcel"></div>');
+                        spyOn(Report, "ValidProducts").and.returnValues(false);
+                        spyOn(ExcelHelper, "exportExcel");
 
-                    CustomerWinLoss.initEvent();
-                    $('#ExportToExcel').click();
+                        CustomerWinLoss.initEvent();
+                        $('#ExportToExcel').click();
 
-                    expect(ExcelHelper.exportExcel).not.toHaveBeenCalled();
+                        expect(ExcelHelper.exportExcel).not.toHaveBeenCalled();
+                    });
+
+                    it("#ExportToExcel click - ajax settings should be correct", function () {
+                        setFixtures('<div id="ExportToExcel"></div>');
+                        spyOn(Report, "ValidProducts").and.returnValues(true);
+                        var postData = { PageIndex: 1, PageSize: 500, sortColumn: 'ExternalId', SortDirection: 'asc', Username: '', isExportExcel: true };
+
+                        CustomerWinLoss.initEvent();
+                        $('#ExportToExcel').click();
+
+                        expect(ajaxOption.type).toBe("POST");
+                        expect(ajaxOption.dataType).toBe("binary");
+                        expect(ajaxOption.responseType).toBe("blob");
+                        expect(ajaxOption.url).toBe(CustomerWinLossOption.urlExcelData);
+                        expect(ajaxOption.data).toEqual(postData);
+                    });
+
+                    it("#ExportToExcel click - beforeSend - Toast.show should be called", function () {
+                        setFixtures('<div id="ExportToExcel"></div>');
+                        spyOn(Report, "ValidProducts").and.returnValues(true);
+
+                        CustomerWinLoss.initEvent();
+                        $('#ExportToExcel').click();
+
+                        expect(Toast.show).toHaveBeenCalled();
+                    });
+
+                    it("#ExportToExcel click - call success os ajax function - Downloader.download should be called with correct parameter", function () {
+                        setFixtures('<div id="ExportToExcel"></div>');
+                        spyOn(Report, "ValidProducts").and.returnValues(true);
+
+                        CustomerWinLoss.initEvent();
+                        $('#ExportToExcel').click();
+
+                        var fileName = "CustomerWinLoss.xls";
+                        var response = "Binary Data";
+                        ajaxOption.success(response);
+
+                        expect(Downloader.download).toHaveBeenCalledWith(response, fileName);
+                    });
                 });
 
                 it("CustomerWinLoss.viewWinlossBetList() should be called if BetList link is clicked", function () {

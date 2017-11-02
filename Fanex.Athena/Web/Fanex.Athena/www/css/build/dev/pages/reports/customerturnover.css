@@ -1,3 +1,5 @@
+/* z-index */
+/* z-index */
 .daterangepicker {
   position: absolute;
   color: inherit;
@@ -382,6 +384,7 @@
   text-align: center;
   padding: 20px; }
 
+/* z-index */
 .pagingContainer {
   padding: 3px;
   font-size: 1.1rem;
@@ -445,6 +448,7 @@
 .ac-hover {
   background-color: #eee; }
 
+/* z-index */
 input[type="checkbox"] {
   position: absolute;
   left: -9999px;
