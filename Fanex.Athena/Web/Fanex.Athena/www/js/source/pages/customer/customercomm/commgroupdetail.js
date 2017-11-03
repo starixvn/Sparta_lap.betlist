@@ -134,7 +134,6 @@
          }      
 
          function submit(formId) {
-             Site.blockUI();
              initCommParam("#SBComm");
              initCommParam("#ParlayComm");
              initCommParam("#RCComm");
@@ -166,9 +165,11 @@
              if (isDefault && defaultGroupId !== currentGroupId && defaultGroupId !== 0) {
                  showConfirmAction(Site.getSingleResource('GroupSetAsDefaultMsg'), function () {
                      $("#IsResetDefault").val(true);
+                     Site.blockUI();
                      $(formId).submit();
                  });
              } else {
+                 Site.blockUI();
                  $(formId).submit();
              }
          }

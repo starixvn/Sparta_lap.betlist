@@ -182,7 +182,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
          }      
 
          function submit(formId) {
-             Site.blockUI();
              initCommParam("#SBComm");
              initCommParam("#ParlayComm");
              initCommParam("#RCComm");
@@ -214,9 +213,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
              if (isDefault && defaultGroupId !== currentGroupId && defaultGroupId !== 0) {
                  showConfirmAction(Site.getSingleResource('GroupSetAsDefaultMsg'), function () {
                      $("#IsResetDefault").val(true);
+                     Site.blockUI();
                      $(formId).submit();
                  });
              } else {
+                 Site.blockUI();
                  $(formId).submit();
              }
          }
