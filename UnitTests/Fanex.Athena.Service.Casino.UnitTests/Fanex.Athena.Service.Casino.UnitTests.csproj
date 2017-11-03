@@ -84,6 +84,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CasinoSettingServiceTest.cs" />
     <Compile Include="RNGCasinoServiceTest.cs" />
     <Compile Include="CasinoCustomerServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,6 +97,10 @@
     <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
       <Project>{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}</Project>
       <Name>Fanex.Athena.DataAccess.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.BetSettings\Fanex.Athena.Model.BetSettings.csproj">
+      <Project>{ac255686-6654-4a34-8f56-f18c502b5b0a}</Project>
+      <Name>Fanex.Athena.Model.BetSettings</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Casino\Fanex.Athena.Model.Casino.csproj">
       <Project>{840A8298-60ED-40DC-A64E-F9048ABD32B5}</Project>

@@ -80,7 +80,7 @@ namespace Fanex.Athena.Service.Casino
 
         private IList<GameKind> GetGameKind(string language)
         {
-            var gameKindNameByLanguage = CasinoHelper.GetColumnNameByLanguage("CodeName", language);
+            var gameKindNameColumn = CasinoHelper.GetColumnNameByLanguage("CodeName", language);
             var gameKindTable = _basicInfoApiWrapper.GetGameKind("01");
 
             var gameKindList = new List<GameKind>();
@@ -90,7 +90,7 @@ namespace Fanex.Athena.Service.Casino
                 var gameKind = new GameKind
                 {
                     GameKindId = Converter.ToInt(row["CodeId"].ToString()),
-                    GameKindName = row[gameKindNameByLanguage].ToString()
+                    GameKindName = row[gameKindNameColumn].ToString()
                 };
 
                 gameKindList.Add(gameKind);
