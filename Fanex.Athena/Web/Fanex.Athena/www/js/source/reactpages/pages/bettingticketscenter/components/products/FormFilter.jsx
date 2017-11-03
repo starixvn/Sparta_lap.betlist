@@ -1,17 +1,23 @@
 ﻿import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import axios from 'axios'
 
 import Select from 'react-select'
 import MultipleSelect from '../../../../components/multiple-select'
-import { DateRange } from '../../../../components/date-range/index'
+import { DateRange } from '../../../../components/date-range'
+import AutoComplete from '../../../../components/auto-complete'
 
-import { ActionCreators } from '../../actions/products/index.js'
+import { ActionCreators } from '../../actions/products'
 import LangHelper from '../../../../lib/langHelper'
 
 export class FormFilter extends Component {
     constructor(props) {
         super(props);
+    }
+
+    _onSelectAutoCompleteItem(selectedItem) {
+        console.log(selectedItem);
     }
 
     _renderDateRange() {
@@ -23,7 +29,7 @@ export class FormFilter extends Component {
     _renderProductSelectList() {
         const productOptions = [{ "value": "SB", "label": "Sportsbook" }, { "value": "RB", "label": "Racing" }];
         const selectedProduct = productOptions[0];
-        
+
         return productOptions && productOptions.length ? (
             <Select id="ddlBased"
                 name="form-field-name"
@@ -114,7 +120,8 @@ export class FormFilter extends Component {
                     <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Username")}</label>
-                            <input type="text" className="input-text" placeholder="External ID or System ID" />
+                            <AutoComplete url="/CustomerAPI/SearchCustomer" placeholder="External ID or System ID"
+                                onSelect={this._onSelectAutoCompleteItem} />
                         </div>
                     </div>
 
