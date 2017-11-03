@@ -19,11 +19,11 @@ export class DataGrid extends Component {
     }
 
     componentWillMount() {
-        const { resultAmendmentParam } = this.props;
-        if (resultAmendmentParam && resultAmendmentParam.hasOwnProperty("FromDate")) {
+        const param = this.props.resultAmendmentParam;
+        if(param && param.hasOwnProperty("FromDate")) {
             const dateRange = {
-                fromDate: resultAmendmentParam.FromDate,
-                toDate: resultAmendmentParam.ToDate
+                fromDate: param.FromDate,
+                toDate: param.ToDate
             };
 
             this.reportTitle = service.getReportTitle(dateRange);
@@ -36,6 +36,22 @@ export class DataGrid extends Component {
             this.reportTitle = service.getReportTitle(resultAmendmentDateRange);
             this.props.toggleLoader(false);
         }
+    }
+
+    onPaging = (index, size) => {
+        let paramData = this.props.resultAmendmentParam;
+
+        paramData.PageIndex = index;
+        paramData.PageSize = size;
+
+        const params = {
+            xsrfToken: this.props.resultAmendmentXsrfToken,
+            data: paramData
+        };
+
+        this.props.toggleLoader(true);
+        this.props.getResultAmendmentGridData(params);
+        this.props.setResultAmendmentParam(paramData);
     }
 
     _buildHeader() {
@@ -84,19 +100,22 @@ export class DataGrid extends Component {
     }
 
     render() {
-        const { resultAmendment } = this.props;
-        if (!resultAmendment) {
-            return null;
-        }
-
-        const { Data } = resultAmendment.resultAmendmentGridData;
+        const { Data } = this.props.resultAmendmentGridData;
         if (!Data) {
             return null;
         }
 
         if (!Data || !Data.length) {
             return this._renderNodata();
-        }
+    }
+
+        const param = this.props.resultAmendmentParam;
+        const pageOption = {
+            pageIndex: param.PageIndex,
+            pageSize: param.PageSize,
+            totalItem: gridData.Total,
+            pageList: [50, 100, 200]
+        };
 
         return (
             <div className="result-content">
@@ -107,7 +126,10 @@ export class DataGrid extends Component {
                     autoWidth={true}
                     bodyHeight={300}
                     header={this._buildHeader()}
-                    body={this._buildBody()} />
+                    body={this._buildBody()} 
+                    isPaging={true}
+                    pageOption={pageOption}
+                    onPaging={this.onPaging} />
             </div>
         );
     }

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Web.Http;
     using Extension.Utility;
+    using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Service.Report;
@@ -39,20 +40,16 @@
         {
             if (!metaModel.IsValid)
             {
-                return new
+                return new ReportResultModel<Notification>
                 {
-                    Data = new List<Notification>()
+                    DataList = new List<Notification>(),
+                    TotalRows = 0
                 };
             }
 
             UpdateMetaModel(metaModel);
 
-            var mainData = _notificationReportService.GetNotifications(metaModel);
-
-            return new
-            {
-                Data = mainData.DataList
-            };
+            return _notificationReportService.GetNotifications(metaModel);
         }
 
         [HttpPost]
@@ -60,20 +57,16 @@
         {
             if (!metaModel.IsValid)
             {
-                return new
+                return new ReportResultModel<ResultAmendment>
                 {
-                    Data = new List<Notification>()
+                    DataList = new List<ResultAmendment>(),
+                    TotalRows = 0
                 };
             }
 
             UpdateMetaModel(metaModel);
 
-            var mainData = _notificationReportService.GetResultAmendment(metaModel);
-
-            return new
-            {
-                Data = mainData.DataList
-            };
+            return _notificationReportService.GetResultAmendment(metaModel);
         }
 
         private void UpdateMetaModel(NotificationMetaModel metaModel)
@@ -81,7 +74,6 @@
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.LicenseeName = SessionService.LicenseeSession.LicenseeName;
             metaModel.Language = Util.MapLanguages.GetValueOrDefault(SessionService.UserSession.Language, "en");
-            metaModel.PageSize = 10;
         }
     }
 }

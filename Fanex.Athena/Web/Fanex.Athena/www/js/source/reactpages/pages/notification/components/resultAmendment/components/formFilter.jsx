@@ -7,7 +7,7 @@ import LangHelper from '../../../../../lib/langHelper'
 import Site from '../../../../../lib/site'
 import service from '../lib/service'
 
-const RANGE_MONTH_CONSTRAINT = 3;
+const RANGE_MONTH_CONSTRAINT = 6;
 
 export class FormFilter extends Component {
     constructor(props) {
@@ -30,11 +30,19 @@ export class FormFilter extends Component {
             return null;
         }
 
+        let pageSize = 50;
+        const param = this.props.resultAmendmentParam;
+        if(param && param.hasOwnProperty("PageSize")) {
+            pageSize = param.PageSize;
+        }
+
         const { fromDate, toDate } = this.props.resultAmendmentDateRange;
 
         const paramData = {
             FromDate: Site.convertDateToString(fromDate),
             ToDate: Site.convertDateToString(toDate),
+            PageSize: pageSize,
+            PageIndex: 1
         };
 
         this.props.setResultAmendmentParam(paramData);

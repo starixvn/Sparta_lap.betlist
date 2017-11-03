@@ -18,11 +18,11 @@ export class DataGrid extends Component {
     }
 
     componentWillMount() {
-        const { notificationParam } = this.props;
-        if (notificationParam && notificationParam.hasOwnProperty("FromDate")) {
+        const param = this.props.notificationParam;
+        if(param && param.hasOwnProperty("FromDate")) {
             const dateRange = {
-                fromDate: notificationParam.FromDate,
-                toDate: notificationParam.ToDate
+                fromDate: param.FromDate,
+                toDate: param.ToDate
             };
 
             this.reportTitle = service.getReportTitle(dateRange);
@@ -35,6 +35,22 @@ export class DataGrid extends Component {
             this.reportTitle = service.getReportTitle(notificationDateRange);
             this.props.toggleLoader(false);
         }
+    }
+
+    onPaging = (index, size) => {
+        let paramData = this.props.notificationParam;
+
+        paramData.PageIndex = index;
+        paramData.PageSize = size;
+
+        const params = {
+            xsrfToken: this.props.notificationXsrfToken,
+            data: paramData
+        };
+
+        this.props.toggleLoader(true);
+        this.props.getNotificationGridData(params);
+        this.props.setNotificationParam(paramData);
     }
 
     _buildHeader() {
@@ -83,19 +99,22 @@ export class DataGrid extends Component {
     }
 
     render() {
-        const { notification } = this.props;
-        if (!notification) {
+        const gridData = this.props.notificationGridData;
+        if (!gridData.Data) {
             return null;
         }
 
-        const { Data } = notification.notificationGridData;
-        if (!Data) {
-            return null;
-        }
-
-        if (!Data || !Data.length) {
+        if (!gridData.Data || !gridData.Data.length) {
             return this._renderNodata();
         }
+
+        const param = this.props.notificationParam;
+        const pageOption = {
+            pageIndex: param.PageIndex,
+            pageSize: param.PageSize,
+            totalItem: gridData.Total,
+            pageList: [50, 100, 200]
+        };
 
         return (
             <div className="result-content">
@@ -104,10 +123,12 @@ export class DataGrid extends Component {
                 <Table
                     minWidth={650}
                     autoWidth={true}
-                    bodyHeight={300}
+                    bodyHeight={600}
                     header={this._buildHeader()}
                     body={this._buildBody()}
-                />
+                    isPaging={true}
+                    pageOption={pageOption}
+                    onPaging={this.onPaging} />
             </div>
         );
     }

@@ -16,7 +16,10 @@ const fetchData = (params) => {
 export function getNotificationGridData(params) {
     return (dispatch) => {
         fetchData(params).then(response => {
-            dispatch(setNotificationGridData(response.data));
+            dispatch(setNotificationGridData({
+                Data: response.data.DataList,
+                Total: response.data.TotalRows
+            }));
         });
     };
 }

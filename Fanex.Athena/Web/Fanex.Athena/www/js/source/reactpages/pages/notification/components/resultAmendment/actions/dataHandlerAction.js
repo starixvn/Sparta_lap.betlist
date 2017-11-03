@@ -16,7 +16,10 @@ const fetchData = (params) => {
 export function getResultAmendmentGridData(params) {
     return (dispatch) => {
         fetchData(params).then(response => {
-            dispatch(settResultAmendmentGridData(response.data));
+            dispatch(settResultAmendmentGridData({
+                Data: response.data.DataList,
+                Total: response.data.TotalRows
+            }));
         });
     };
 }

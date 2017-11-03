@@ -12,6 +12,13 @@ export const setNotificationDateRange = (dateRange) => {
     }
 }
 
+export const setSelectedNotificationType = (notificationTypesKeys) => {
+    return {
+        type: types.SET_NOTIFICATION_TYPE,
+        data: notificationTypesKeys
+    }
+}
+
 export const setNotificationParam = (param) => {
     return {
         type: types.SET_PARAM,

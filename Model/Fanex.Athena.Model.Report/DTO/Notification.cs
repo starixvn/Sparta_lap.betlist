@@ -4,7 +4,9 @@
 
     public class Notification
     {
-        public string Type { get; set; }
+        public int MessageId { get; set; }
+
+        public int MessageTypeId { get; set; }
 
         public DateTime DateTime { get; set; }
 

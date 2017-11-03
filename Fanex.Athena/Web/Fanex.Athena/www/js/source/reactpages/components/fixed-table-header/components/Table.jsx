@@ -4,6 +4,7 @@ import RowLayout from './RowLayout';
 import PropTypes from 'prop-types';
 import createTableSection from './tableSection';
 import { MAX_WIDTH, DEFAULT_MILLISECOND_FOR_WAITING, DEFAULT_COLUMN_WIDTH, BODY_WIDTH } from '../constants';
+import Page from './Page';
 
 function debounce(func, wait) {
     let timeout;
@@ -49,13 +50,17 @@ class Table extends Component {
         bodyHeight: PropTypes.number,
         header: PropTypes.oneOfType([PropTypes.object, PropTypes.arrayOf(PropTypes.object)]).isRequired,
         body: PropTypes.arrayOf(PropTypes.object),
-        footer: PropTypes.arrayOf(PropTypes.object)
+        footer: PropTypes.arrayOf(PropTypes.object),
+        isPaging: PropTypes.bool,
+        onPaging: PropTypes.func,
+        pageOption: PropTypes.object
     }
 
     static defaultProps = {
         width: MAX_WIDTH,
         maxWidth: MAX_WIDTH,
-        autoWidth: true
+        autoWidth: true,
+        isPaging: false
     }
 
     _getColumnsWidth() {
@@ -170,7 +175,7 @@ class Table extends Component {
     }
 
     render() {
-        const { width, autoWidth, minWidth, header, body, footer } = this.props;
+        const { width, autoWidth, minWidth, header, body, footer, isPaging, pageOption, onPaging } = this.props;
         const maxWidth = this.state.maxWidth;
 
         const newColumnLayout = this.columnWidthSum && this.columnWidthSum !== width ?
@@ -209,6 +214,11 @@ class Table extends Component {
                         {rowLayout}
                         {footer}
                     </Footer>
+                }
+
+                {
+                    isPaging && 
+                    <Page {...pageOption} onPaging={onPaging} />
                 }
             </div>
         )

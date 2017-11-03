@@ -1,7 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-
 import Notification from './notification/components'
 import ResultAmendment from './resultAmendment/components'
 import Loader from '../../../components/Loader'

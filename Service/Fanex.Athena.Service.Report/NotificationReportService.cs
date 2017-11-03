@@ -110,12 +110,12 @@
                 dataList.AddRange(jobject["Data"].Children().Select(x => new Notification
                 {
                     DateTime = x["Date"].Value<DateTime>(),
-                    Type = x["Type"].Value<string>(),
+                    MessageTypeId = x["MessageTypeId"].Value<int>(),
                     Content = x[contentKey].Value<string>(),
                     Subject = x[subjectKey].Value<string>()
                 }));
 
-                totalRecords = jobject["TotalRecords"].Value<int>();
+                totalRecords = jobject["TotalItems"].Value<int>();
             }
 
             return new ReportResultModel<Notification>
@@ -166,7 +166,7 @@
                     DataFilePath = x["DataFilePath"].Value<string>()
                 }));
 
-                totalRecords = jobject["TotalRecords"].Value<int>();
+                totalRecords = jobject["TotalItems"].Value<int>();
             }
 
             return new ReportResultModel<ResultAmendment>
