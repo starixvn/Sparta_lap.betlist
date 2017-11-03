@@ -16,12 +16,9 @@ namespace Fanex.Athena.Service.Customer
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Service.Customer.Interfaces;
-    using Logging;
 
     public class CustomerCommService : ICustomerCommService
     {
-        private readonly ILogger _logger;
-
         private readonly ICasinoCustomerService _casinoCustomerService;
 
         private readonly ICustomerCommDataAccess _customerCommDataAccess;
@@ -30,18 +27,16 @@ namespace Fanex.Athena.Service.Customer
 
         private readonly IGroupComDataAccess _groupComDataAccess;
 
-        public CustomerCommService() : this(null, null, null, null, null)
+        public CustomerCommService() : this(null, null, null, null)
         {
         }
 
         public CustomerCommService(
-            ILogger logger,
             ICasinoCustomerService casinoCustomerService,
             ICustomerCommDataAccess customerCommDataAccess,
             ISessionService sessionService,
             IGroupComDataAccess groupComDataAccess)
         {
-            _logger = logger ?? Logger.Log;
             _casinoCustomerService = casinoCustomerService ?? new CasinoCustomerService();
             _customerCommDataAccess = customerCommDataAccess ?? new CustomerCommDataAccess();
             _sessionService = sessionService ?? new SessionService();

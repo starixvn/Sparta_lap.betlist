@@ -4,7 +4,6 @@
     using Core.Users.Interfaces;
     using Customer;
     using DataAccess.Customer.Interfaces;
-    using Logging;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using Model.Customer.MetaModel;
@@ -14,8 +13,6 @@
     [TestFixture]
     public partial class CustomerCommServiceTest
     {
-        private ILogger _logger;
-
         private ICasinoCustomerService _casinoCustomerService;
 
         private ICustomerCommDataAccess _customerCommDataAccess;
@@ -29,14 +26,12 @@
         [SetUp]
         public void SetUp()
         {
-            _logger = Substitute.For<ILogger>();
             _casinoCustomerService = Substitute.For<ICasinoCustomerService>();
             _customerCommDataAccess = Substitute.For<ICustomerCommDataAccess>();
             _sessionService = Substitute.For<ISessionService>();
             _groupCommDataAccess = Substitute.For<IGroupComDataAccess>();
 
             _customerCommService = new CustomerCommService(
-                _logger,
                 _casinoCustomerService,
                 _customerCommDataAccess,
                 _sessionService,
@@ -46,7 +41,6 @@
         [TearDown]
         public void TearDown()
         {
-            _logger = null;
             _casinoCustomerService = null;
             _customerCommDataAccess = null;
             _sessionService = null;
