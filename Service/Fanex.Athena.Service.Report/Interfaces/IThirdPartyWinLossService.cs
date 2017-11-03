@@ -13,12 +13,18 @@ namespace Fanex.Athena.Service.Report.Interfaces
 
     public interface IThirdPartyWinLossService
     {
-        SortableReportResultModel<ThirdPartyWinLoss> GetAgentWinlossDetail(ThirdPartyWinLossMetaModel metaModel);
+        SortableReportResultModel<ThirdPartyWinLoss> GetAgentWinlossDetail(
+            ThirdPartyWinLossMetaModel metaModel,
+            string spname = null);
 
-        SortableReportResultModel<ThirdPartyWinLoss> GetCustomerWinlossDetail(ThirdPartyWinLossMetaModel metaModel);
+        SortableReportResultModel<ThirdPartyWinLoss> GetCustomerWinlossDetail(
+            ThirdPartyWinLossMetaModel metaModel,
+            string spname = null);
 
-        SortableReportResultModel<ThirdPartyWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel);
+        SortableReportResultModel<ThirdPartyWinLoss> GetSummaryWinloss(
+            ThirdPartyWinLossMetaModel metaModel,
+            string spname = null);
 
-        IList<ThirdPartyWinLoss> TotalCalc(IList<ThirdPartyWinLoss> dataList);
+        IList<ThirdPartyWinLoss> TotalCalc(IEnumerable<ThirdPartyWinLoss> dataList);
     }
 }

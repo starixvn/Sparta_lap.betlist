@@ -110,7 +110,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CashOutWinLossExcel.cs" />
-    <Compile Include="AgCasinoWinLossExcel.cs" />
     <Compile Include="ActiveCustomerSummaryExcel.cs" />
     <Compile Include="CasinoProgressiveWinsExcel.cs" />
     <Compile Include="Helpers\ReportExcelHelper.cs" />

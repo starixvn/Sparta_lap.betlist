@@ -23,9 +23,9 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class ThirdPartyWinLossDataAccess : BaseDataAccess, IThirdPartyWinLossDataAccess
     {
-        public SortableReportResultModel<ThirdPartyWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel)
+        public SortableReportResultModel<ThirdPartyWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, string spname = null)
         {
-            var uspName = "Lrf_Rpt_ThirdPartyWinloss";
+            var uspName = spname ?? "Lrf_Rpt_ThirdPartyWinloss";
             try
             {
                 using (var db = this.GetObjectDb(uspName))
@@ -45,9 +45,9 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public SortableReportResultModel<ThirdPartyWinLoss> GetCustomerWinlossDetail(ThirdPartyWinLossMetaModel metaModel)
+        public SortableReportResultModel<ThirdPartyWinLoss> GetCustomerWinlossDetail(ThirdPartyWinLossMetaModel metaModel, string spname = null)
         {
-            var uspName = "LRF_Rpt_ThirdPartyWinloss_Mem";
+            var uspName = spname ?? "LRF_Rpt_ThirdPartyWinloss_Mem";
             try
             {
                 using (var db = this.GetObjectDb(uspName))
@@ -66,9 +66,9 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public SortableReportResultModel<ThirdPartyWinLoss> GetAgentWinlossDetail(ThirdPartyWinLossMetaModel metaModel)
+        public SortableReportResultModel<ThirdPartyWinLoss> GetAgentWinlossDetail(ThirdPartyWinLossMetaModel metaModel, string spname = null)
         {
-            var uspName = "LRF_Rpt_ThirdPartyWinloss_Ag";
+            var uspName = spname ?? "LRF_Rpt_ThirdPartyWinloss_Ag";
             try
             {
                 using (var db = this.GetObjectDb(uspName))
@@ -148,9 +148,12 @@ namespace Fanex.Athena.DataAccess.Report
         private static void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
         {
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("productid", DbType.Int32, metaModel.ProductId);
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
+            if (metaModel.ProductId > 0)
+            {
+                db.AddInParameter("productid", DbType.Int32, metaModel.ProductId);
+            }
         }
     }
 }

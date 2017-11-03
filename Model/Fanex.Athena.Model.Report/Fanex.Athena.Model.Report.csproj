@@ -119,7 +119,6 @@
     <Compile Include="DTO\Keno\KenoAuthorization.cs" />
     <Compile Include="DTO\Keno\KenoAuthorizedData.cs" />
     <Compile Include="DTO\Keno\KenoExtendedToken.cs" />
-    <Compile Include="DTO\AgCasinoWinLoss.cs" />
     <Compile Include="DTO\ActiveCustomer.cs" />
     <Compile Include="DTO\AgCasinoBalance.cs" />
     <Compile Include="DTO\PlatformWinLossSummary.cs" />
@@ -156,7 +155,6 @@
     <Compile Include="MetaModel\Keno\KenoResultMetaModel.cs" />
     <Compile Include="MetaModel\BalanceMetaModel.cs" />
     <Compile Include="MetaModel\BaseReportMetaModel.cs" />
-    <Compile Include="MetaModel\AgCasinoWinLossMetaModel.cs" />
     <Compile Include="MetaModel\ActiveCustomerMetaModel.cs" />
     <Compile Include="MetaModel\CasinoProgressiveWinsMetaModel.cs" />
     <Compile Include="MetaModel\MicroGamingWinLossMetaModel.cs" />
@@ -187,7 +185,6 @@
     <Compile Include="ViewModel\CustomerWinlossViewModel.cs" />
     <Compile Include="ViewModel\Note\NoteViewModel.cs" />
     <Compile Include="ViewModel\BalanceViewModel.cs" />
-    <Compile Include="ViewModel\AgCasinoWinLossViewModel.cs" />
     <Compile Include="ViewModel\ActiveCustomerViewModel.cs" />
     <Compile Include="ViewModel\CasinoProgressiveWinsViewModel.cs" />
     <Compile Include="ViewModel\CasinoProgressiveWinsGridViewModel.cs" />

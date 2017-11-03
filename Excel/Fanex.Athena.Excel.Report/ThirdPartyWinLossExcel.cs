@@ -195,13 +195,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnLicenseeWl].SetCellValue(data.LicenseeWL);
         }
 
-        /// <summary>
-        /// Assign grand total data of EUR.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="rowIndex">The starting row index.</param>
-        /// <returns>The last row index after assign data.</returns>
-        protected int AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
+        protected void AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
         {
             var currencyList = _summaryTotal.Keys.ToList();
             currencyList.Reverse();
@@ -217,8 +211,6 @@ namespace Fanex.Athena.Excel.Report
                 sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
                 rowIndex++;
             }
-
-            return rowIndex;
         }
 
         /// <summary>

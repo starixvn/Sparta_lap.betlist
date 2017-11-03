@@ -24,19 +24,25 @@ namespace Fanex.Athena.Service.Report
             this._thirdPartyWinLossDataAccess = new ThirdPartyWinLossDataAccess();
         }
 
-        public SortableReportResultModel<ThirdPartyWinLoss> GetAgentWinlossDetail(ThirdPartyWinLossMetaModel metaModel)
+        public SortableReportResultModel<ThirdPartyWinLoss> GetAgentWinlossDetail(
+            ThirdPartyWinLossMetaModel metaModel,
+            string spname = null)
         {
-            return _thirdPartyWinLossDataAccess.GetAgentWinlossDetail(metaModel);
+            return _thirdPartyWinLossDataAccess.GetAgentWinlossDetail(metaModel, spname);
         }
 
-        public SortableReportResultModel<ThirdPartyWinLoss> GetCustomerWinlossDetail(ThirdPartyWinLossMetaModel metaModel)
+        public SortableReportResultModel<ThirdPartyWinLoss> GetCustomerWinlossDetail(
+            ThirdPartyWinLossMetaModel metaModel,
+            string spname = null)
         {
-            return _thirdPartyWinLossDataAccess.GetCustomerWinlossDetail(metaModel);
+            return _thirdPartyWinLossDataAccess.GetCustomerWinlossDetail(metaModel, spname);
         }
 
-        public SortableReportResultModel<ThirdPartyWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel)
+        public SortableReportResultModel<ThirdPartyWinLoss> GetSummaryWinloss(
+            ThirdPartyWinLossMetaModel metaModel,
+            string spname = null)
         {
-            var result = this._thirdPartyWinLossDataAccess.GetSummaryWinloss(metaModel);
+            var result = this._thirdPartyWinLossDataAccess.GetSummaryWinloss(metaModel, spname);
             var date = new System.DateTime();
             var index = 1;
             var dataList = result.DataList;
@@ -57,9 +63,9 @@ namespace Fanex.Athena.Service.Report
             return result;
         }
 
-        public IList<ThirdPartyWinLoss> TotalCalc(IList<ThirdPartyWinLoss> dataList)
+        public IList<ThirdPartyWinLoss> TotalCalc(IEnumerable<ThirdPartyWinLoss> dataList)
         {
-            if (dataList == null || dataList.Count == 0)
+            if (dataList == null || !dataList.Any())
             {
                 return new SortableList<ThirdPartyWinLoss>();
             }
