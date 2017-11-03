@@ -14,6 +14,7 @@ namespace Fanex.Athena.DataAccess.BetList
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.BetList.DTO;
+    using Model.Core.DataDomain;
 
     public class BaseBetListDataAccess : BaseDataAccess
     {
@@ -22,14 +23,16 @@ namespace Fanex.Athena.DataAccess.BetList
         [CLSCompliant(false)]
         protected internal SortableList<LrfTicket> ReadBetListTicket(IDataReader dataReader, string baseCurrency, long custId = 0)
         {
-            var playerCommCol = "playercomm" + baseCurrency;
-            var commCol = "comm" + baseCurrency;
-            var licenseeWlCol = "licenseewl" + baseCurrency;
-            var winlostCol = "winlost" + baseCurrency;
-            var beteffectiveCol = "beteffective" + baseCurrency;
-            var stakeCol = "stake" + baseCurrency;
-            var actualStakeCol = "actual_stake" + baseCurrency;
-            var originalStakeCol = "originalstake" + baseCurrency;
+            var columnSuffix = SystemConstants.BaseCurrencyList.Contains(baseCurrency.ToUpperInvariant()) ? baseCurrency : string.Empty;
+
+            var playerCommCol = "playercomm" + columnSuffix;
+            var commCol = "comm" + columnSuffix;
+            var licenseeWlCol = "licenseewl" + columnSuffix;
+            var winlostCol = "winlost" + columnSuffix;
+            var beteffectiveCol = "beteffective" + columnSuffix;
+            var stakeCol = "stake" + columnSuffix;
+            var actualStakeCol = "actual_stake" + columnSuffix;
+            var originalStakeCol = "originalstake" + columnSuffix;
 
             var tickets = new SortableList<LrfTicket>();
             var columns = new[]
