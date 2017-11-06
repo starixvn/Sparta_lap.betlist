@@ -7,7 +7,7 @@ import AppLayout from '../../../layouts/AppLayout'
 import { Tabs, Tab } from '../../../components/tab'
 import LangHelper from '../../../lib/langHelper'
 
-import Product from './products'
+import Product from './product'
 import RefNo from './refno'
 import CasinoDetailed from './casinodetailed'
 

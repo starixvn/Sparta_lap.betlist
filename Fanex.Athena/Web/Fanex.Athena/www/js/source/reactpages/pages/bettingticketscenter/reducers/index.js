@@ -3,10 +3,8 @@
 import * as loaderReducer from '../../../reducers/loaderReducer'
 import * as xsrfTokenReducer from '../../../reducers/xsrfTokenReducer'
 
-import productReducer from './products'
+import productReducer from './product'
 
 const products = combineReducers(productReducer);
 
-export default combineReducers(Object.assign({}, {
-    products
-}, loaderReducer, xsrfTokenReducer));
+export default combineReducers(Object.assign({}, {}, loaderReducer, xsrfTokenReducer));

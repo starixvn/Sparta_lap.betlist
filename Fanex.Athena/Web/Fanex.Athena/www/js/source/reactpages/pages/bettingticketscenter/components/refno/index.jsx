@@ -1,15 +1,19 @@
 ﻿import React, { Component } from 'react'
 
-export default class RefNo extends Component {
-  constructor(props) {
-    super(props);
-  }
+import DataGrid from './DataGrid'
+import FormFilter from './FormFilter'
 
-  render() {
-    return (
-      <div>
-          RefNo
-      </div>
-    );
-  }
+export default class RefNo extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div>
+                <FormFilter />
+                <DataGrid />
+            </div>
+        );
+    }
 }

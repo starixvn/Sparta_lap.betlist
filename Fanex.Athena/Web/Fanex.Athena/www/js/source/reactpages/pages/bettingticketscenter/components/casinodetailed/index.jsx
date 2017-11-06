@@ -1,15 +1,19 @@
 ﻿import React, { Component } from 'react'
 
-export default class CasinoDetailed extends Component {
-  constructor(props) {
-    super(props);
-  }
+import DataGrid from './DataGrid'
+import FormFilter from './FormFilter'
 
-  render() {
-    return (
-      <div>
-          CasinoDetailed
-      </div>
-    );
-  }
+export default class CasinoDetailed extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div>
+                <FormFilter />
+                <DataGrid />
+            </div>
+        );
+    }
 }

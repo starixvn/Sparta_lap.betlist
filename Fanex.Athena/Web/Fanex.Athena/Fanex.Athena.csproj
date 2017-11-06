@@ -971,8 +971,8 @@
     <None Include="www\js\source\reactpages\pages\bettingticketscenter\components\products\AppContainer.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\casinodetailed\index.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\AppContainer.jsx" />
-    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\actions\products\index.js" />
-    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\reducers\products\index.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\actions\product\index.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\reducers\product\index.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\filterHandlerAction.test.js" />
@@ -2584,10 +2584,14 @@
     <Content Include="www\js\source\reactpages\components\month-picker\index.js" />
     <Content Include="www\js\source\reactpages\components\Overlay.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\index.jsx" />
-    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\products\index.jsx" />
-    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\products\FormFilter.jsx" />
-    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\products\DataGrid.jsx" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\product\index.jsx" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\product\FormFilter.jsx" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\product\DataGrid.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\refno\index.jsx" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\casinodetailed\DataGrid.jsx" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\casinodetailed\FormFilter.jsx" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\refno\DataGrid.jsx" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\refno\FormFilter.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

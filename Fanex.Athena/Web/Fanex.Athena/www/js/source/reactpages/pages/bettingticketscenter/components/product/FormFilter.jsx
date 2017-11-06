@@ -1,14 +1,12 @@
 ﻿import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import axios from 'axios'
 
 import Select from 'react-select'
-import MultipleSelect from '../../../../components/multiple-select'
 import { DateRange } from '../../../../components/date-range'
 import AutoComplete from '../../../../components/auto-complete'
 
-import { ActionCreators } from '../../actions/products'
+import { ActionCreators } from '../../actions/product'
 import LangHelper from '../../../../lib/langHelper'
 
 export class FormFilter extends Component {

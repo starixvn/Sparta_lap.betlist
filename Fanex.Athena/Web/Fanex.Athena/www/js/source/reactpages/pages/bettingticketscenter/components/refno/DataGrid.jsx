@@ -2,7 +2,7 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { ActionCreators } from '../../actions/products/index.js'
+import { ActionCreators } from '../../actions/refno'
 import { Table, Row, Cell } from '../../../../components/fixed-table-header'
 
 export class DataGrid extends Component {
@@ -35,7 +35,7 @@ export class DataGrid extends Component {
         for (let i = 0; i < 5; i++) {
             let content = i + 1;
             rows.push(
-                <Row>
+                <Row key={`refno-${i}`}>
                     <Cell>{content}</Cell>
                     <Cell>Platform 1</Cell>
                     <Cell>External ID 1</Cell>

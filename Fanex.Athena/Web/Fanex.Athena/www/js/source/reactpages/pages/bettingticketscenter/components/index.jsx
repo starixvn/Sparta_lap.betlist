@@ -8,7 +8,6 @@ import thunkMiddleware from 'redux-thunk'
 import reducer from '../reducers'
 import AppContainer from './AppContainer'
 
-console.log(reducer);
 const store = createStore(reducer, {});
 
 export default class App extends React.Component {
