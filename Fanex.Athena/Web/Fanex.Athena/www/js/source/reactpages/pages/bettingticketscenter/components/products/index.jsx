@@ -1,25 +1,18 @@
 ﻿import React, { Component } from 'react'
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
+import DataGrid from './DataGrid'
+import FormFilter from './FormFilter'
 
-import AppContainer from './AppContainer.jsx'
-import reducer from '../../reducers/products/index.js'
-import Store from '../../../../lib/store'
+export default class Product extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-const store = Store.createStore(reducer);
-
-export default class App extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-            <Provider store={store}>
-                <AppContainer />
-            </Provider>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <FormFilter />
+        <DataGrid />
+      </div>
+    );
+  }
 }
-
-ReactDOM.render(<App />, document.getElementById("app-container"));

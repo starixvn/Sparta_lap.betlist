@@ -1,1 +1,28 @@
-﻿import Products from './products'
+﻿import React from 'react'
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux'
+import { createLogger } from 'redux-logger'
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+
+import reducer from '../reducers'
+import AppContainer from './AppContainer'
+
+console.log(reducer);
+const store = createStore(reducer, {});
+
+export default class App extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <Provider store={store}>
+                <AppContainer />
+            </Provider>
+        );
+    }
+}
+
+ReactDOM.render(<App />, document.getElementById("app-container"));
