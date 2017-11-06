@@ -5,6 +5,9 @@ import PropTypes from 'prop-types'
 import axios from 'axios'
 
 import SuggestionList from './SuggestionList'
+import Timer from '../utils/timer'
+
+const DELAY_TIME_MILLISECOND = 1000;
 
 export default class AutoComplete extends Component {
     constructor(props) {
@@ -19,6 +22,8 @@ export default class AutoComplete extends Component {
         this.wrapper = null;
         this.suggestionsWidth = 0;
         this.cacheData = {};
+
+        this.onChange = Timer.debounce(this._onChange, DELAY_TIME_MILLISECOND).bind(this);
     }
 
     static propTypes = {
@@ -28,7 +33,8 @@ export default class AutoComplete extends Component {
         onSelect: PropTypes.func,
         onInput: PropTypes.func,
         responseDataField: PropTypes.string,
-        cache: PropTypes.bool
+        cache: PropTypes.bool,
+        queryParamName: PropTypes.string
     }
 
     static defaultProps = {
@@ -36,7 +42,8 @@ export default class AutoComplete extends Component {
         limitToList: true,
         maxItemsShown: 10,
         responseDataField: "suggestions",
-        cache: true
+        cache: true,
+        queryParamName: "query"
     }
 
     componentDidMount() {
@@ -89,7 +96,8 @@ export default class AutoComplete extends Component {
 
     _setStateWithCaching(value, suggestionList) {
         if (this.props.cache) {
-            this.cacheData[value] = suggestionList;
+            const cacheKey = value.toLowerCase();
+            this.cacheData[cacheKey] = suggestionList;
         }
 
         this.setState({
@@ -110,8 +118,8 @@ export default class AutoComplete extends Component {
     }
 
     _getDataByUrl(url, value) {
-        const { responseDataField } = this.props;
-        const apiUrl = `${url}?query=${value}`;
+        const { responseDataField, queryParamName } = this.props;
+        const apiUrl = `${url}?${queryParamName}=${value}`;
 
         axios.get(apiUrl, {
             headers: { 'X-Requested-With': 'XMLHttpRequest' }
@@ -122,7 +130,7 @@ export default class AutoComplete extends Component {
     }
 
     _onChange = (event) => {
-        const value = event.target.value;
+        const value = this.input.value;
         if (value === "") {
             this._clearState();
             return;
@@ -147,7 +155,7 @@ export default class AutoComplete extends Component {
         return (
             <div className="ac-container" ref={(element) => this.wrapper = element}>
                 <input type="text" className="input-text" placeholder={this.props.placeholder}
-                    onChange={this._onChange} onKeyDown={this._onKeyDown}
+                    onChange={this.onChange} onKeyDown={this._onKeyDown}
                     ref={(element) => this.input = element} />
 
                 {this.showItems ?

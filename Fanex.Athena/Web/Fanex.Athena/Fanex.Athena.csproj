@@ -876,6 +876,7 @@
     <Content Include="www\js\source\reactpages\components\popup\constants.js" />
     <Content Include="www\js\source\reactpages\components\UserGuide.jsx" />
     <Content Include="www\js\source\reactpages\components\__tests__\CollapsibleRow.test.js" />
+    <Content Include="www\js\source\reactpages\components\utils\timer.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\Loader.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\NoDataTitle.test.js" />
     <Content Include="www\js\source\reactpages\components\popup\__tests__\Popup.test.js" />
