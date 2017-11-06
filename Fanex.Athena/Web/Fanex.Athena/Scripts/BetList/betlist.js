@@ -18,6 +18,7 @@ var BetList = (function ($) {
     var SPORT_ALLBET = 211;
     var SPORT_VOIDBRIDGE = 212;
     var SPORT_GLOBALGAMING = 219;
+    var BETLIST_META_MODEL = "#BetListMetaModel";
 
     var _sortColumnName, _sortOrder;
     var _params, _url;
@@ -703,7 +704,7 @@ var BetList = (function ($) {
             });
         },
         showColossusBetsDetails: function (refNo, winlostDate, transId, custId, betCheck) {
-            var params = $.parseJSON($("#BetListMetaModel").val());
+            var params = $.parseJSON($(BETLIST_META_MODEL).val());
             var url = Site.resolveClientUrl('ColossusBetBetList/Detail');
             url = QueryString.setParam(url, "refNo", refNo);
             url = QueryString.setParam(url, "date", winlostDate);
@@ -724,7 +725,7 @@ var BetList = (function ($) {
             });
         },
         showGlobalGamingDetails: function (transId, winlostDate, custId, transType) {
-            var params = $.parseJSON($("#BetListMetaModel").val());
+            var params = $.parseJSON($(BETLIST_META_MODEL).val());
             var url = Site.resolveClientUrl('GlobalGamingBetList/Detail');
             url = QueryString.setParam(url, "transId", transId);
             url = QueryString.setParam(url, "winlostDate", winlostDate);
@@ -772,7 +773,7 @@ var BetList = (function ($) {
 
         viewCashOutHistory: function (transId, refNo, betType, betdaqId) {
             var $baseCurrency = $("#BaseCurrency");
-            var baseCurrency = $baseCurrency.length ? $baseCurrency.val() : $.parseJSON($("#BetListMetaModel").val()).BaseCurrency;
+            var baseCurrency = $baseCurrency.length ? $baseCurrency.val() : $.parseJSON($(BETLIST_META_MODEL).val()).BaseCurrency;
 
             var isCashOut = betdaqId < 1 || betType === BETTYPE_CASHOUT;
             var url = Site.resolveClientUrl('CashOutBetList/Detail');
@@ -796,10 +797,13 @@ var BetList = (function ($) {
         },
 
         showBonusDetails: function (refCode, transId) {
+            var $baseCurrency = $("#BaseCurrency");
+            var baseCurrency = $baseCurrency.length ? $baseCurrency.val() : $.parseJSON($(BETLIST_META_MODEL).val()).BaseCurrency;
+
             var url = Site.resolveClientUrl('BonusBetList/Detail');
             url = QueryString.setParam(url, "RefCode", refCode);
             url = QueryString.setParam(url, "TransId", transId);
-            url = QueryString.setParam(url, "BaseCurrency", $.parseJSON($("#BetListMetaModel").val()).BaseCurrency);
+            url = QueryString.setParam(url, "BaseCurrency", baseCurrency);
 
             var popH = Math.min($(window).height() - 100, 550), popW = 840;
             var title = Site.getSingleResource("TransactionDetail");
