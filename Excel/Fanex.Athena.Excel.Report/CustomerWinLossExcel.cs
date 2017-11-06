@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Excel.Report
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using Base;
     using Fanex.Athena.Excel.Base.Extension;
@@ -45,34 +44,8 @@ namespace Fanex.Athena.Excel.Report
             : base(templatePath, excelModel.MetaModel.PageSize)
         {
             _excelModel = excelModel;
-        }
-
-        protected override void AssignData()
-        {
-            var numOfDataRow = _excelModel.DataList.Count();
-
-            ISheet sheet;
-
-            if (numOfDataRow == 0)
-            {
-                sheet = Workbook.CloneSheet("Template", "Data");
-                AssignTitle(sheet);
-                AssignHeader(sheet);
-                AssignNoInfoRow(sheet);
-                ProcessUI(sheet);
-            }
-            else
-            {
-                var numOfSheet = GetNumberOfSheets(numOfDataRow, _excelModel.MetaModel.PageSize);
-                for (int i = 0; i < numOfSheet; i++)
-                {
-                    sheet = Workbook.CloneSheet("Template", "Data" + (i + 1).ToString());
-                    AssignTitle(sheet);
-                    AssignHeader(sheet);
-                    AssignSheetData(sheet, i);
-                    ProcessUI(sheet);
-                }
-            }
+            PageSize = _excelModel.MetaModel.PageSize;
+            IsMultiSheet = true;
         }
 
         protected override void AssignHeader(ISheet sheet)
@@ -114,7 +87,7 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
-        protected override int AssignSheetData(ISheet sheet, int pageIndex)
+        protected override void AssignSheetData(ISheet sheet, int pageIndex)
         {
             var rowCount = Math.Min(_excelModel.DataList.Count(), checked((pageIndex + 1) * PageSize));
             var rowIndex = 0;
@@ -146,7 +119,6 @@ namespace Fanex.Athena.Excel.Report
             AssignSumData(sheet, rowIndex);
 
             ProcessUI(sheet);
-            return rowIndex;
         }
 
         protected override void AssignTitle(ISheet sheet)

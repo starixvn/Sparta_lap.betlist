@@ -66,40 +66,13 @@ namespace Fanex.Athena.Excel.Report
             _casinoList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
             PageSize = metaModel.DrillDownLevel == 2 ? metaModel.PageSize : AgCasinoBalanceMetaModel.PageSizeExcel;
+            IsMultiSheet = true;
         }
 
         public int Level
         {
             get;
             set;
-        }
-
-        protected override void AssignData()
-        {
-            int numOfDataRow = _casinoList.Count;
-
-            ISheet sheet;
-
-            if (numOfDataRow == 0)
-            {
-                sheet = Workbook.CloneSheet("Template", "Data");
-                AssignTitle(sheet);
-                AssignHeader(sheet);
-                AssignNoInfoRow(sheet);
-                ProcessUI(sheet);
-            }
-            else
-            {
-                var numOfSheet = GetNumberOfSheets(numOfDataRow, PageSize);
-                for (int i = 0; i < numOfSheet; i++)
-                {
-                    sheet = Workbook.CloneSheet("Template", "Data" + (i + 1).ToString());
-                    AssignTitle(sheet);
-                    AssignHeader(sheet);
-                    AssignSheetData(sheet, i);
-                    ProcessUI(sheet);
-                }
-            }
         }
 
         protected override void AssignHeader(ISheet sheet)
@@ -131,7 +104,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="pageIndex">Page index.</param>
         /// <returns>The row index.</returns>
-        protected override int AssignSheetData(ISheet sheet, int pageIndex)
+        protected override void AssignSheetData(ISheet sheet, int pageIndex)
         {
             int rowCount = Math.Min(_casinoList.Count, checked((pageIndex + 1) * PageSize));
             var rowIndex = 0;
@@ -167,7 +140,6 @@ namespace Fanex.Athena.Excel.Report
 
             rowIndex = AssignTotalData(sheet, rowIndex + 2);
             AssignGrandTotalData(sheet, rowIndex);
-            return rowIndex;
         }
 
         protected override void AssignTitle(ISheet sheet)

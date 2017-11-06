@@ -150,7 +150,7 @@ namespace Fanex.Athena.Excel.Report
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
 
-        protected override int AssignSheetData(ISheet sheet, int pageIndex)
+        protected new int AssignSheetData(ISheet sheet, int pageIndex)
         {
             var rowCount = _exportData.Count();
             var startIndex = checked(pageIndex * MaxRowCount);

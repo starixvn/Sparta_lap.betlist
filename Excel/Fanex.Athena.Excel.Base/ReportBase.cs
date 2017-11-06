@@ -45,11 +45,9 @@ namespace Fanex.Athena.Excel.Base
             PageSize = pageSize;
         }
 
-        protected ShowingOption ShowingOption
-        {
-            get;
-            set;
-        }
+        protected bool IsMultiSheet { get; set; }
+
+        protected ShowingOption ShowingOption { get; set; }
 
         protected int TotalRows
         {
@@ -72,23 +70,22 @@ namespace Fanex.Athena.Excel.Base
             }
         }
 
-        protected internal ISheet TemplateSheet
-        {
-            get;
-            private set;
-        }
+        protected internal ISheet TemplateSheet { get; private set; }
 
-        public virtual IWorkbook Workbook
-        {
-            get;
-            private set;
-        }
+        public virtual IWorkbook Workbook { get; private set; }
 
         public virtual void Export()
         {
             LoadTemplate();
 
-            AssignData();
+            if (IsMultiSheet)
+            {
+                AssignDataMultiSheet();
+            }
+            else
+            {
+                AssignData();
+            }
 
             RemoveTemplate();
         }
@@ -126,6 +123,32 @@ namespace Fanex.Athena.Excel.Base
             ProcessUI(sheet);
         }
 
+        protected internal virtual void AssignDataMultiSheet()
+        {
+            ISheet sheet;
+
+            if (_totalRows == 0)
+            {
+                sheet = Workbook.CloneSheet("Template", "Data");
+                AssignTitle(sheet);
+                AssignHeader(sheet);
+                AssignNoInfoRow(sheet);
+                ProcessUI(sheet);
+            }
+            else
+            {
+                var numOfSheet = GetNumberOfSheets(_totalRows, PageSize);
+                for (int i = 0; i < numOfSheet; i++)
+                {
+                    sheet = Workbook.CloneSheet("Template", "Data" + (i + 1).ToString());
+                    AssignTitle(sheet);
+                    AssignHeader(sheet);
+                    AssignSheetData(sheet, i);
+                    ProcessUI(sheet);
+                }
+            }
+        }
+
         protected abstract void AssignTitle(ISheet sheet);
 
         protected abstract void AssignHeader(ISheet sheet);
@@ -142,9 +165,8 @@ namespace Fanex.Athena.Excel.Base
         {
         }
 
-        protected virtual int AssignSheetData(ISheet sheet, int pageIndex)
+        protected virtual void AssignSheetData(ISheet sheet, int pageIndex)
         {
-            return 0;
         }
 
         protected internal virtual void LoadTemplate()

@@ -51,39 +51,9 @@ namespace Fanex.Athena.Excel.Report
             _viewModel = viewModel;
             _racingCommissionList = viewModel.RacingCommissionList;
             _total = viewModel.Total;
+            IsMultiSheet = true;
         }
-
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
-        protected override void AssignData()
-        {
-            var numOfDataRow = _racingCommissionList.Count;
-
-            ISheet sheet;
-
-            if (numOfDataRow == 0)
-            {
-                sheet = Workbook.CloneSheet("Template", "Data");
-                AssignTitle(sheet);
-                AssignHeader(sheet);
-                AssignNoInfoRow(sheet);
-                ProcessUI(sheet);
-            }
-            else
-            {
-                var numOfSheet = GetNumberOfSheets(numOfDataRow, PageSize);
-                for (int i = 0; i < numOfSheet; i++)
-                {
-                    sheet = Workbook.CloneSheet("Template", "Data" + (i + 1).ToString());
-                    AssignTitle(sheet);
-                    AssignHeader(sheet);
-                    AssignSheetData(sheet, i);
-                    ProcessUI(sheet);
-                }
-            }
-        }
-
+        
         protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
@@ -112,7 +82,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="pageIndex">Start index.</param>
         /// <returns>Row index.</returns>
-        protected override int AssignSheetData(ISheet sheet, int pageIndex)
+        protected override void AssignSheetData(ISheet sheet, int pageIndex)
         {
             var rowCount = Math.Min(_racingCommissionList.Count, checked((pageIndex + 1) * PageSize));
             var rowIndex = 0;
@@ -137,7 +107,6 @@ namespace Fanex.Athena.Excel.Report
             AssignSumData(sheet, rowIndex);
 
             ProcessUI(sheet);
-            return rowIndex;
         }
 
         protected override void AssignTitle(ISheet sheet)
