@@ -71,9 +71,10 @@
 
         private void UpdateMetaModel(NotificationMetaModel metaModel)
         {
-            metaModel.UserId = SessionService.UserSession.UserId;
+            var userSession = SessionService.UserSession;
+            metaModel.UserId = userSession.UserId;
             metaModel.LicenseeName = SessionService.LicenseeSession.LicenseeName;
-            metaModel.Language = Util.MapLanguages.GetValueOrDefault(SessionService.UserSession.Language, "en");
+            metaModel.Language = Util.MapLanguages.GetValueOrDefault(userSession.Language, "en");
         }
     }
 }

@@ -7,10 +7,10 @@
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Extension.Utility.Interfaces;
     using Fanex.Athena.Resources;
-    using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Athena.Service.Core.Utility;
     using Fanex.Athena.Service.Core.Utility.Interfaces;
     using Interfaces;
+    using Logging;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -20,17 +20,29 @@
     {
         private const string CacheNotificationTypeKey = "NotificationReport_NotificationType";
 
+        private readonly ILogger _logger;
+
         private readonly IMemoryCacheService _cache;
 
         private readonly IAppSettings _appSetting;
 
         private readonly IWebClientService _webClientService;
 
-        public NotificationReportService()
+        public NotificationReportService() : this(null, null, null, null)
         {
-            _cache = new MemoryCacheService();
-            _appSetting = new AppSettings();
-            _webClientService = new WebClientService();
+        }
+
+        [CLSCompliant(false)]
+        public NotificationReportService(
+            ILogger logger,
+            IMemoryCacheService cache,
+            IAppSettings appSetting,
+            IWebClientService webClientService)
+        {
+            _logger = logger ?? Logger.Log;
+            _cache = cache ?? new MemoryCacheService();
+            _appSetting = appSetting ?? new AppSettings();
+            _webClientService = webClientService ?? new WebClientService();
         }
 
         public IDictionary<string, string> GetNotificationTypes()
@@ -56,7 +68,7 @@
             }
             catch (Exception exception)
             {
-                LogHelper.WriteError(exception, "ApiUrl: " + notificationTypeUrl);
+                _logger.Error(exception.Message + "\nApiUrl: " + notificationTypeUrl, exception);
             }
 
             if (string.IsNullOrEmpty(json))
@@ -186,7 +198,7 @@
             }
             catch (Exception exception)
             {
-                LogHelper.WriteError(exception, "ApiUrl: " + api);
+                _logger.Error(exception.Message + "\nApiUrl: " + api, exception);
             }
 
             return json;
