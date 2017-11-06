@@ -1,13 +1,13 @@
 ﻿import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { ActionCreators } from '../actions/index'
+import { ActionCreators } from '../../actions/notification'
 import { bindActionCreators } from 'redux'
-import { Table, Row, Cell } from '../../../../../components/fixed-table-header'
-import ReportTitle from '../../../../../components/ReportTitle'
-import NoDataTitle from '../../../../../components/NoDataTitle'
-import service from '../lib/service'
-import CollapseRow from '../../../../../components/CollapseRow'
-import Site from '../../../../../lib/site'
+import { Table, Row, Cell } from '../../../../components/fixed-table-header'
+import ReportTitle from '../../../../components/ReportTitle'
+import NoDataTitle from '../../../../components/NoDataTitle'
+import service from '../../lib/notificationService'
+import CollapseRow from '../../../../components/CollapseRow'
+import Site from '../../../../lib/site'
 import moment from 'moment'
 
 export class DataGrid extends Component {
@@ -18,8 +18,8 @@ export class DataGrid extends Component {
     }
 
     componentWillMount() {
-        const param = this.props.notificationParam;
-        if(param && param.hasOwnProperty("FromDate")) {
+        const param = this.props.param;
+        if (param && param.hasOwnProperty("FromDate")) {
             const dateRange = {
                 fromDate: param.FromDate,
                 toDate: param.ToDate
@@ -30,27 +30,27 @@ export class DataGrid extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.notificationGridData !== nextProps.notificationGridData) {
-            const { notificationDateRange } = nextProps;
-            this.reportTitle = service.getReportTitle(notificationDateRange);
+        if (this.props.gridData !== nextProps.gridData) {
+            const { dateRange } = nextProps;
+            this.reportTitle = service.getReportTitle(dateRange);
             this.props.toggleLoader(false);
         }
     }
 
     onPaging = (index, size) => {
-        let paramData = this.props.notificationParam;
+        let paramData = this.props.param;
 
         paramData.PageIndex = index;
         paramData.PageSize = size;
 
         const params = {
-            xsrfToken: this.props.notificationXsrfToken,
+            xsrfToken: this.props.xsrfToken,
             data: paramData
         };
 
         this.props.toggleLoader(true);
-        this.props.getNotificationGridData(params);
-        this.props.setNotificationParam(paramData);
+        this.props.getGridData(params);
+        this.props.setParam(paramData);
     }
 
     _buildHeader() {
@@ -67,7 +67,7 @@ export class DataGrid extends Component {
     }
 
     _buildBody() {
-        const data = this.props.notificationGridData.Data;
+        const data = this.props.gridData.Data;
         let rows = [];
         for (let i = 0; i < data.length; i++) {
             const item = data[i];
@@ -99,7 +99,7 @@ export class DataGrid extends Component {
     }
 
     render() {
-        const gridData = this.props.notificationGridData;
+        const gridData = this.props.gridData;
         if (!gridData.Data) {
             return null;
         }
@@ -108,7 +108,7 @@ export class DataGrid extends Component {
             return this._renderNodata();
         }
 
-        const param = this.props.notificationParam;
+        const param = this.props.param;
         const pageOption = {
             pageIndex: param.PageIndex,
             pageSize: param.PageSize,
@@ -137,8 +137,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { notificationGridData, notificationDateRange, notificationParam } = state.notification;
-    return Object.assign({}, { notificationGridData, notificationDateRange, notificationParam });
+    const { gridData, dateRange, param } = state.notification;
+    return Object.assign({}, { gridData, dateRange, param, xsrfToken: state.xsrfToken });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

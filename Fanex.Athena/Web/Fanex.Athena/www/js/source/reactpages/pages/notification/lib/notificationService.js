@@ -1,5 +1,5 @@
-import LangHelper from '../../../../../lib/langHelper'
-import Site from '../../../../../lib/site'
+import LangHelper from '../../../lib/langHelper'
+import Site from '../../../lib/site'
 
 const headerText = {
     type: LangHelper.getSingleResource("Type"),
@@ -7,7 +7,7 @@ const headerText = {
     content: LangHelper.getSingleResource("Content")
 }
 
-export default class Service {
+export default class NotificationService {
     static getReportTitle(dateRange) {
         const fromDate = Site.convertDateToString(dateRange.fromDate);
         const toDate = Site.convertDateToString(dateRange.toDate);

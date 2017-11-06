@@ -1,12 +1,12 @@
 ﻿import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { ActionCreators } from '../actions/index'
+import { ActionCreators } from '../../actions/notification'
 import { bindActionCreators } from 'redux'
 import Select from 'react-select'
-import { DateRange } from '../../../../../components/date-range'
-import LangHelper from '../../../../../lib/langHelper'
-import Site from '../../../../../lib/site'
-import service from '../lib/service'
+import { DateRange } from '../../../../components/date-range'
+import LangHelper from '../../../../lib/langHelper'
+import Site from '../../../../lib/site'
+import service from '../../lib/notificationService'
 
 const RANGE_MONTH_CONSTRAINT = 6;
 
@@ -23,41 +23,41 @@ export class FormFilter extends Component {
         }
 
         this.props.toggleLoader(true);
-        this.props.getNotificationGridData(params);
+        this.props.getGridData(params);
     }
 
     _getParams() {
-        if (!this.props.notificationXsrfToken) {
+        if (!this.props.xsrfToken) {
             return null;
         }
 
         let pageSize = 50;
-        const param = this.props.notificationParam;
-        if(param && param.hasOwnProperty("PageSize")) {
+        const param = this.props.param;
+        if (param && param.hasOwnProperty("PageSize")) {
             pageSize = param.PageSize;
         }
 
-        const { fromDate, toDate } = this.props.notificationDateRange;
+        const { fromDate, toDate } = this.props.dateRange;
 
         const paramData = {
             FromDate: Site.convertDateToString(fromDate),
             ToDate: Site.convertDateToString(toDate),
-            NotificationTypes: this.props.selectedNotificationType,
+            NotificationTypes: this.props.selectedType,
             PageSize: pageSize,
             PageIndex: 1
         };
 
-        this.props.setNotificationParam(paramData);
+        this.props.setParam(paramData);
 
         return {
-            xsrfToken: this.props.notificationXsrfToken,
+            xsrfToken: this.props.xsrfToken,
             data: paramData
         }
     }
 
     applyDateRangeHandler = (date, isValidMonthRange = true) => {
         if (isValidMonthRange) {
-            this.props.setNotificationDateRange(date);
+            this.props.setDateRange(date);
         }
         else {
             const message = LangHelper.getSingleResource("DateRangeExceedMsg").replace("{0}", RANGE_MONTH_CONSTRAINT);
@@ -66,14 +66,14 @@ export class FormFilter extends Component {
     }
 
     _renderNotificationTypeSelectList() {
-        const { notificationTypes, selectedNotificationType } = this.props;
+        const { notificationTypes, selectedType } = this.props;
 
         return notificationTypes && notificationTypes.length ? (
             <Select id="ddlNotificationType"
                 name="form-field-name"
-                value={selectedNotificationType}
+                value={selectedType}
                 options={notificationTypes}
-                onChange={(item) => this.props.setSelectedNotificationType(item.value)} />
+                onChange={(item) => this.props.setSelectedType(item.value)} />
         ) : (
                 <Select id="ddlNotificationType"
                     name="form-field-name"
@@ -83,12 +83,12 @@ export class FormFilter extends Component {
     }
 
     _renderDateRange() {
-        const { notificationDateRange, notificationDateConstraint } = this.props;
+        const { dateRange, dateConstraint } = this.props;
 
         return (
-            <DateRange startDate={notificationDateRange.fromDate} endDate={notificationDateRange.toDate}
-                minDate={notificationDateConstraint.minDate} maxDate={notificationDateConstraint.maxDate}
-                today={notificationDateRange.toDate} limitedMonthRange={RANGE_MONTH_CONSTRAINT}
+            <DateRange startDate={dateRange.fromDate} endDate={dateRange.toDate}
+                minDate={dateConstraint.minDate} maxDate={dateConstraint.maxDate}
+                today={dateRange.toDate} limitedMonthRange={RANGE_MONTH_CONSTRAINT}
                 onChange={this.applyDateRangeHandler} />
         )
     }
@@ -127,8 +127,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { notificationGridData, ...rest } = state.notification;
-    return Object.assign({}, rest);
+    const { gridData, ...rest } = state.notification;
+    return Object.assign({}, rest, { xsrfToken: state.xsrfToken });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);
