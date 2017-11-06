@@ -1,7 +1,7 @@
 ﻿import { combineReducers } from 'redux'
 
 import notificationReducer from './notification'
-import resultAmendmentReducer from '../components/resultAmendment/reducers'
+import resultAmendmentReducer from './resultAmendment'
 
 import * as loaderReducer from '../../../reducers/loaderReducer'
 import * as xsrfTokenReducer from '../../../reducers/xsrfTokenReducer'

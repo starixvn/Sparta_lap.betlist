@@ -1,11 +1,11 @@
 ﻿import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { ActionCreators } from '../actions/index'
+import { ActionCreators } from '../../actions/resultAmendment'
 import { bindActionCreators } from 'redux'
-import { DateRange } from '../../../../../components/date-range'
-import LangHelper from '../../../../../lib/langHelper'
-import Site from '../../../../../lib/site'
-import service from '../lib/service'
+import { DateRange } from '../../../../components/date-range'
+import LangHelper from '../../../../lib/langHelper'
+import Site from '../../../../lib/site'
+import service from '../../lib/resultAmendmentService'
 
 const RANGE_MONTH_CONSTRAINT = 6;
 
@@ -22,21 +22,21 @@ export class FormFilter extends Component {
         }
 
         this.props.toggleLoader(true);
-        this.props.getResultAmendmentGridData(params);
+        this.props.getGridData(params);
     }
 
     _getParams() {
-        if (!this.props.resultAmendmentXsrfToken) {
+        if (!this.props.xsrfToken) {
             return null;
         }
 
         let pageSize = 50;
-        const param = this.props.resultAmendmentParam;
-        if(param && param.hasOwnProperty("PageSize")) {
+        const param = this.props.param;
+        if (param && param.hasOwnProperty("PageSize")) {
             pageSize = param.PageSize;
         }
 
-        const { fromDate, toDate } = this.props.resultAmendmentDateRange;
+        const { fromDate, toDate } = this.props.dateRange;
 
         const paramData = {
             FromDate: Site.convertDateToString(fromDate),
@@ -45,17 +45,17 @@ export class FormFilter extends Component {
             PageIndex: 1
         };
 
-        this.props.setResultAmendmentParam(paramData);
+        this.props.setParam(paramData);
 
         return {
-            xsrfToken: this.props.resultAmendmentXsrfToken,
+            xsrfToken: this.props.xsrfToken,
             data: paramData
         }
     }
 
     applyDateRangeHandler = (date, isValidMonthRange = true) => {
         if (isValidMonthRange) {
-            this.props.setResultAmendmentDateRange(date);
+            this.props.setDateRange(date);
         }
         else {
             const message = LangHelper.getSingleResource("DateRangeExceedMsg").replace("{0}", RANGE_MONTH_CONSTRAINT);
@@ -64,12 +64,12 @@ export class FormFilter extends Component {
     }
 
     _renderDateRange() {
-        const { resultAmendmentDateRange, resultAmendmentDateConstraint } = this.props;
+        const { dateRange, dateConstraint } = this.props;
 
         return (
-            <DateRange startDate={resultAmendmentDateRange.fromDate} endDate={resultAmendmentDateRange.toDate}
-                minDate={resultAmendmentDateConstraint.minDate} maxDate={resultAmendmentDateConstraint.maxDate}
-                today={resultAmendmentDateRange.toDate} limitedMonthRange={RANGE_MONTH_CONSTRAINT}
+            <DateRange startDate={dateRange.fromDate} endDate={dateRange.toDate}
+                minDate={dateConstraint.minDate} maxDate={dateConstraint.maxDate}
+                today={dateRange.toDate} limitedMonthRange={RANGE_MONTH_CONSTRAINT}
                 onChange={this.applyDateRangeHandler} />
         )
     }
@@ -101,8 +101,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { resultAmendmentGridData, ...rest } = state.resultAmendment;
-    return Object.assign({}, rest);
+    const { gridData, ...rest } = state.resultAmendment;
+    return Object.assign({}, rest, { xsrfToken: state.xsrfToken });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);

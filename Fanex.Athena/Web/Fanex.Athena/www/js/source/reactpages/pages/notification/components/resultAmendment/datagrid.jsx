@@ -1,14 +1,14 @@
 ﻿import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { ActionCreators } from '../actions/index.js'
+import { ActionCreators } from '../../actions/resultAmendment'
 import { bindActionCreators } from 'redux'
-import { Table, Row, Cell } from '../../../../../components/fixed-table-header'
-import LangHelper from '../../../../../lib/langHelper'
-import ReportTitle from '../../../../../components/ReportTitle'
-import NoDataTitle from '../../../../../components/NoDataTitle'
-import service from '../lib/service'
-import Site from '../../../../../lib/site'
-import CollapseRow from '../../../../../components/CollapseRow'
+import { Table, Row, Cell } from '../../../../components/fixed-table-header'
+import LangHelper from '../../../../lib/langHelper'
+import ReportTitle from '../../../../components/ReportTitle'
+import NoDataTitle from '../../../../components/NoDataTitle'
+import service from '../../lib/resultAmendmentService'
+import Site from '../../../../lib/site'
+import CollapseRow from '../../../../components/CollapseRow'
 import moment from 'moment'
 
 export class DataGrid extends Component {
@@ -19,7 +19,7 @@ export class DataGrid extends Component {
     }
 
     componentWillMount() {
-        const param = this.props.resultAmendmentParam;
+        const param = this.props.param;
         if(param && param.hasOwnProperty("FromDate")) {
             const dateRange = {
                 fromDate: param.FromDate,
@@ -31,27 +31,27 @@ export class DataGrid extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.resultAmendmentGridData !== nextProps.resultAmendmentGridData) {
-            const { resultAmendmentDateRange } = nextProps;
-            this.reportTitle = service.getReportTitle(resultAmendmentDateRange);
+        if (this.props.gridData !== nextProps.gridData) {
+            const { dateRange } = nextProps;
+            this.reportTitle = service.getReportTitle(dateRange);
             this.props.toggleLoader(false);
         }
     }
 
     onPaging = (index, size) => {
-        let paramData = this.props.resultAmendmentParam;
+        let paramData = this.props.param;
 
         paramData.PageIndex = index;
         paramData.PageSize = size;
 
         const params = {
-            xsrfToken: this.props.resultAmendmentXsrfToken,
+            xsrfToken: this.props.xsrfToken,
             data: paramData
         };
 
         this.props.toggleLoader(true);
-        this.props.getResultAmendmentGridData(params);
-        this.props.setResultAmendmentParam(paramData);
+        this.props.getGridData(params);
+        this.props.setParam(paramData);
     }
 
     _buildHeader() {
@@ -68,7 +68,7 @@ export class DataGrid extends Component {
     }
 
     _buildBody() {
-        const data = this.props.resultAmendmentGridData.Data;
+        const data = this.props.gridData.Data;
         let rows = [];
         for (let i = 0; i < data.length; i++) {
             const item = data[i];
@@ -100,7 +100,7 @@ export class DataGrid extends Component {
     }
 
     render() {
-        const { Data } = this.props.resultAmendmentGridData;
+        const { Data } = this.props.gridData;
         if (!Data) {
             return null;
         }
@@ -109,7 +109,7 @@ export class DataGrid extends Component {
             return this._renderNodata();
     }
 
-        const param = this.props.resultAmendmentParam;
+        const param = this.props.param;
         const pageOption = {
             pageIndex: param.PageIndex,
             pageSize: param.PageSize,
@@ -140,8 +140,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-    const { resultAmendmentGridData, resultAmendmentDateRange, resultAmendmentParam } = state.resultAmendment;
-    return Object.assign({}, { resultAmendmentGridData, resultAmendmentDateRange, resultAmendmentParam });
+    const { gridData, dateRange, param } = state.resultAmendment;
+    return Object.assign({}, { gridData, dateRange, param, xsrfToken: state.xsrfToken });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

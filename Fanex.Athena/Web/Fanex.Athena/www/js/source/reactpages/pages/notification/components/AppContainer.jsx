@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import Notification from './notification'
-import ResultAmendment from './resultAmendment/components'
+import ResultAmendment from './resultAmendment'
 import Loader from '../../../components/Loader'
 import AppLayout from '../../../layouts/AppLayout'
 import { Tabs, Tab } from '../../../components/tab'

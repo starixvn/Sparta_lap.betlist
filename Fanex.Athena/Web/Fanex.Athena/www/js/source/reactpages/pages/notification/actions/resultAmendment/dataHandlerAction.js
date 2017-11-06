@@ -1,7 +1,7 @@
 import * as types from './types.js'
 import axios from 'axios'
 
-import Site from '../../../../../lib/site'
+import Site from '../../../../lib/site'
 
 const fetchData = (params) => {
     const url = Site.resolveClientUrl('api/NotificationReport/ResultAmendment');
@@ -13,10 +13,10 @@ const fetchData = (params) => {
     });
 }
 
-export function getResultAmendmentGridData(params) {
+export function getGridData(params) {
     return (dispatch) => {
         fetchData(params).then(response => {
-            dispatch(settResultAmendmentGridData({
+            dispatch(setGridData({
                 Data: response.data.DataList,
                 Total: response.data.TotalRows
             }));
@@ -24,7 +24,7 @@ export function getResultAmendmentGridData(params) {
     };
 }
 
-export function settResultAmendmentGridData(data) {
+export function setGridData(data) {
     return {
         type: types.SET_GRID_DATA,
         data: data

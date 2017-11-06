@@ -28,9 +28,8 @@
             selectedType: '@(selectedNotificationType != null ? selectedNotificationType.value : string.Empty)'
         },
         resultAmendment: {
-            resultAmendmentDateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
-            resultAmendmentXsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
-            resultAmendmentDateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'}
+            dateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
+            dateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'}
         },
         isLoading: false,
         xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value

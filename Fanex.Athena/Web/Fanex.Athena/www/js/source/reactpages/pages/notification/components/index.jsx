@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { createLogger } from 'redux-logger'
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
-import reducer from '../reducers/index.js'
+import reducer from '../reducers'
 import { debuggingConfig } from '../../../constants/config'
 
 const isDev = process.env.NODE_ENV === "development";

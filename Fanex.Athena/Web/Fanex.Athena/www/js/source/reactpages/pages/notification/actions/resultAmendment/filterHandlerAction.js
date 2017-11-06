@@ -1,6 +1,6 @@
 import * as types from './types.js'
 
-export const setResultAmendmentDateRange = (dateRange) => {
+export const setDateRange = (dateRange) => {
     const range = {
         fromDate: dateRange.startDate,
         toDate: dateRange.endDate
@@ -12,7 +12,7 @@ export const setResultAmendmentDateRange = (dateRange) => {
     }
 }
 
-export const setResultAmendmentParam = (param) => {
+export const setParam = (param) => {
     return {
         type: types.SET_PARAM,
         data: param
