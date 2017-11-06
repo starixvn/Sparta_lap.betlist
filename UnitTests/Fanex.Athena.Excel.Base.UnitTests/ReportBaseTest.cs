@@ -13,7 +13,7 @@
         public void Export_WhenCall_AssignDataMethodIsCalled()
         {
             // Arrange
-            var report = Substitute.ForPartsOf<ReportBase>("ExportFileName", new ShowingOption(), 0);
+            var report = Substitute.ForPartsOf<ReportBase>("ExportFileName", 0, new ShowingOption(), 0);
             report.When(x => x.AssignData()).DoNotCallBase();
             report.When(x => x.LoadTemplate()).DoNotCallBase();
             report.When(x => x.RemoveTemplate()).DoNotCallBase();

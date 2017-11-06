@@ -53,7 +53,7 @@ namespace Fanex.Athena.Excel.Report
                                             ConvertingOption convertingOption,
                                             ShowingOption showingOption,
                                             DailyRacingWinLossViewModel viewModel)
-            : base(templatePath, showingOption)
+            : base(templatePath, viewModel.DailyRacingWinLossData.ContentData.Count, showingOption)
         {
             _convertingOption = convertingOption;
             ViewModel = viewModel;
@@ -80,30 +80,7 @@ namespace Fanex.Athena.Excel.Report
             set;
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
-        protected override void AssignData()
-        {
-            var numOfDataRow = DailyRacingWinLossData.ContentData.Count;
-            var sheet = Workbook.CloneSheet("Template", "Data");
-
-            AssignTitle(sheet);
-            AssignHeader(sheet);
-
-            if (numOfDataRow == 0)
-            {
-                AssignNoInfoRow(sheet);
-            }
-            else
-            {
-                AssignSheetData(sheet);
-            }
-
-            ProcessUI(sheet);
-        }
-
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[0].SetCellValue(ViewResources.Race);
@@ -139,7 +116,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign "no information" string to sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentStart, ColumnCount, ViewResources.NoInfo);
             ProcessUI(sheet);
@@ -149,7 +126,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             // Get current row depend licensee id
             var contentData = DailyRacingWinLossData.ContentData;
@@ -199,7 +176,7 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             var reportTitle = string.Format(
                                         ViewResources.DailyRacing12BetTitle,
@@ -219,7 +196,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {

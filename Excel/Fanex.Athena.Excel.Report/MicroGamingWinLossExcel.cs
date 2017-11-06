@@ -49,7 +49,7 @@ namespace Fanex.Athena.Excel.Report
         private readonly ConvertingOption _convertingOption;
 
         protected internal MicroGamingWinLossExcel(string templatePath)
-            : base(templatePath)
+            : base(templatePath, 0)
         {
         }
 
@@ -58,7 +58,7 @@ namespace Fanex.Athena.Excel.Report
                 ConvertingOption convertingOption,
                 MicroGamingWinLossMetaModel metaModel,
                 MicroGamingWinLossViewModel viewModel)
-            : base(templatePath)
+            : base(templatePath, viewModel.MainResult.Count)
         {
             _convertingOption = convertingOption;
             _metaModel = metaModel;
@@ -66,29 +66,7 @@ namespace Fanex.Athena.Excel.Report
             _summaryTotal = viewModel.SummaryTotal;
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
-        protected override void AssignData()
-        {
-            int numOfDataRow = _winLossList.Count;
-
-            var sheet = Workbook.CloneSheet("Template", "Data");
-
-            AssignHeader(sheet);
-            AssignTitle(sheet);
-
-            if (numOfDataRow == 0)
-            {
-                AssignNoInfoRow(sheet);
-            }
-            else
-            {
-                AssignSheetData(sheet);
-            }
-        }
-
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
@@ -105,12 +83,12 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnProgressiveFee].SetCellValue(ViewResources.ProgressiveFee);
         }
 
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
 
-        protected void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             var indexReport = 1;
             int index;
@@ -158,7 +136,7 @@ namespace Fanex.Athena.Excel.Report
             AssignGrandTotalInEurData(sheet, currentRow);
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
             var todate = _metaModel.ToDate.ToString(FormatDate);

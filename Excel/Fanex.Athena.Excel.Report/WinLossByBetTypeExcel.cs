@@ -48,7 +48,7 @@ namespace Fanex.Athena.Excel.Report
                                      ConvertingOption convertingOption,
                                      ShowingOption showingOption,
                                      WinLossByBetTypeViewModel viewModel)
-            : base(templatePath, showingOption)
+            : base(templatePath, viewModel.MainResult.Count, showingOption)
         {
             _convertingOption = convertingOption;
             _viewModel = viewModel;
@@ -56,31 +56,7 @@ namespace Fanex.Athena.Excel.Report
             _total = viewModel.Total;
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
-        protected override void AssignData()
-        {
-            var numOfDataRow = _winlossByBetTypeList.Count;
-
-            var sheet = Workbook.CloneSheet("Template", "Data");
-
-            AssignHeader(sheet);
-            AssignTitle(sheet);
-
-            if (numOfDataRow == 0)
-            {
-                AssignNoInfoRow(sheet);
-            }
-            else
-            {
-                AssignSheetData(sheet);
-            }
-
-            ProcessUI(sheet);
-        }
-
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             var headerTextList = new[]
@@ -109,7 +85,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
         }
 
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
@@ -119,7 +95,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             var rowCount = _winlossByBetTypeList.Count;
 
@@ -137,7 +113,7 @@ namespace Fanex.Athena.Excel.Report
             AssignSumData(sheet);
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             var reportTitle = string.Format(
                                         ViewResources.WinLossByBetTypeTitle,
@@ -158,7 +134,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {

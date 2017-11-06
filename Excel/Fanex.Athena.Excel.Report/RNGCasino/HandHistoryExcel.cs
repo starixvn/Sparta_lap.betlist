@@ -48,7 +48,7 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
                     RNGCasinoResultMetaModel metaModel,
                     RNGCasinoResultViewModel viewModel,
                     RNGCasinoResult totalData)
-            : base(templatePath)
+            : base(templatePath, viewModel.Data.Count)
         {
             _metaModel = metaModel;
             _data = viewModel.Data;
@@ -77,7 +77,7 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
             }
         }
 
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 
@@ -104,7 +104,7 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
             }
         }
 
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
@@ -113,7 +113,7 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             var indexReport = 1;
             var currentRow = 3;
@@ -156,7 +156,7 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
             AssignGrandTotal(sheet, ++currentRow);
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ViewResources.CASINOHANDHISTORY);
 

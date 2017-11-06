@@ -182,14 +182,20 @@
                    Arg.Any<string>(),
                    Arg.Any<ConvertingOption>(),
                    Arg.Any<ThirdPartyWinLossMetaModel>(),
-                   new ColossusBetWinLossViewModel());
+                   new ColossusBetWinLossViewModel
+                   {
+                       MainResult = new ColossusBetWinLoss[] { }
+                   });
             excel.When(x => x.Export()).DoNotCallBase();
 
             _controller.CreateExcel(
                    Arg.Any<string>(),
                    Arg.Any<ConvertingOption>(),
                    Arg.Any<ThirdPartyWinLossMetaModel>(),
-                   new ColossusBetWinLossViewModel()).ReturnsForAnyArgs(excel);
+                   new ColossusBetWinLossViewModel
+                   {
+                       MainResult = new ColossusBetWinLoss[] { }
+                   }).ReturnsForAnyArgs(excel);
 
             // Action
             _controller.Index(model);
@@ -227,7 +233,10 @@
                    Arg.Any<string>(),
                    Arg.Any<ConvertingOption>(),
                    Arg.Any<ThirdPartyWinLossMetaModel>(),
-                   new ColossusBetWinLossViewModel());
+                   new ColossusBetWinLossViewModel
+                   {
+                       MainResult = new ColossusBetWinLoss[] { }
+                   });
             excel.When(x => x.Export()).DoNotCallBase();
 
             _controller.CreateExcel(

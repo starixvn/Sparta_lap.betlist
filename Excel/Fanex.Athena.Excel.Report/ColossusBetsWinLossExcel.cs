@@ -55,7 +55,7 @@ namespace Fanex.Athena.Excel.Report
                 ConvertingOption convertingOption,
                 ThirdPartyWinLossMetaModel metaModel,
                 ColossusBetWinLossViewModel viewModel)
-            : base(templatePath)
+            : base(templatePath, viewModel.MainResult.Count())
         {
             _convertingOption = convertingOption;
             _metaModel = metaModel;
@@ -69,28 +69,7 @@ namespace Fanex.Athena.Excel.Report
             set;
         }
 
-        protected override void AssignData()
-        {
-            var numOfDataRow = _winLossList.Count;
-
-            var sheet = Workbook.CloneSheet("Template", "Data");
-
-            AssignHeader(sheet);
-            AssignTitle(sheet);
-
-            if (numOfDataRow == 0)
-            {
-                AssignNoInfoRow(sheet);
-            }
-            else
-            {
-                AssignSheetData(sheet);
-            }
-
-            ProcessUI(sheet);
-        }
-
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
@@ -111,13 +90,13 @@ namespace Fanex.Athena.Excel.Report
             row2.Cells[ColumnCashOutAmt].SetCellValue(ViewResources.CashOutAmt);
         }
 
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
-        protected void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             var rowIndex = 1;
             int index;
@@ -151,7 +130,7 @@ namespace Fanex.Athena.Excel.Report
             AssignGrandTotal(sheet, rowIndex);
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
             var todate = _metaModel.ToDate.ToString(FormatDate);
@@ -169,7 +148,7 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        protected void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (Level == 0)
             {

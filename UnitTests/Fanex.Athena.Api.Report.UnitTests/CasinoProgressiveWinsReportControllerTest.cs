@@ -118,7 +118,10 @@
             var excel = Substitute.ForPartsOf<CasinoProgressiveWinsExcel>(
                    Arg.Any<string>(),
                    Arg.Do<ConvertingOption>(x => actualOption = x),
-                   new CasinoProgressiveWinsViewModel());
+                   new CasinoProgressiveWinsViewModel
+                   {
+                       DataList = new CasinoProgressiveWins[] { }
+                   });
             excel.When(x => x.Export()).DoNotCallBase();
 
             _controller.CreateExcel(

@@ -194,7 +194,10 @@
                    Arg.Any<ConvertingOption>(),
                    Arg.Do<ShowingOption>(x => actualShowingOption = x),
                    new ActiveCustomerMetaModel(),
-                   new ActiveCustomerViewModel());
+                   new ActiveCustomerViewModel
+                   {
+                       MainResult = new ActiveCustomer[] { }
+                   });
             excel.When(x => x.Export()).DoNotCallBase();
 
             _controller.CreateExcel(

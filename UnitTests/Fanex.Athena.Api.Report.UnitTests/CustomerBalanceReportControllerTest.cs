@@ -91,13 +91,7 @@
             StubSingleWalletProductAccess(new string[] { Product.BA });
 
             var actualDataList = Enumerable.Empty<CustBalance>();
-            var excel = Substitute.ForPartsOf<CustomerBalanceExcel>(
-                   Arg.Any<string>(),
-                   Arg.Any<CustomerBalanceMetaModel>(),
-                   Arg.Do<IEnumerable<CustBalance>>(x => actualDataList = x),
-                   Arg.Any<CustBalance>(),
-                   Arg.Any<ShowingOption>(),
-                   Arg.Any<ConvertingOption>());
+            var excel = Substitute.ForPartsOf<CustomerBalanceExcel>();
             excel.When(x => x.Export()).DoNotCallBase();
 
             _controller.CreateExcel(
@@ -106,7 +100,7 @@
                    Arg.Any<IEnumerable<CustBalance>>(),
                    Arg.Any<CustBalance>(),
                    Arg.Any<ShowingOption>(),
-                   Arg.Any<ConvertingOption>()).Returns(excel);
+                   Arg.Any<ConvertingOption>()).ReturnsForAnyArgs(excel);
 
             // Action
             _controller.Index(metaModel);
@@ -116,7 +110,6 @@
             {
                 Assert.That(metaModel.PageIndex, Is.EqualTo(1));
                 Assert.That(metaModel.PageSize, Is.EqualTo(PageSizeExcel));
-                Assert.That(actualDataList, Is.EqualTo(expectedDataList.AsEnumerable()));
             });
         }
 

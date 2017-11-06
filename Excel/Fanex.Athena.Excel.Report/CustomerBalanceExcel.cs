@@ -50,6 +50,10 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly ConvertingOption _convertingOption;
 
+        protected internal CustomerBalanceExcel() : base(string.Empty, 0)
+        {
+        }
+
         public CustomerBalanceExcel(
                                     string templatePath,
                                     CustomerBalanceMetaModel model,
@@ -57,7 +61,7 @@ namespace Fanex.Athena.Excel.Report
                                     CustBalance totalData,
                                     ShowingOption showingOption,
                                     ConvertingOption convertingOption)
-            : base(templatePath, showingOption)
+            : base(templatePath, exportData.Count(), showingOption)
         {
             _convertingOption = convertingOption;
             _model = model;
@@ -100,7 +104,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var headerTextList = new[]
             {
@@ -141,12 +145,12 @@ namespace Fanex.Athena.Excel.Report
             row2.Cells[ColumnAmountDueToBa].SetCellValue(ViewResources.AmtDueTo);
         }
 
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
 
-        protected int AssignSheetData(ISheet sheet, int pageIndex)
+        protected override int AssignSheetData(ISheet sheet, int pageIndex)
         {
             var rowCount = _exportData.Count();
             var startIndex = checked(pageIndex * MaxRowCount);
@@ -185,7 +189,7 @@ namespace Fanex.Athena.Excel.Report
             return rowIndex;
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             var pattern = ViewResources.CustomerBalance + ", {0} - {1}, {2}";
             var reportTitle = string.Format(
@@ -200,7 +204,7 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        protected void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {

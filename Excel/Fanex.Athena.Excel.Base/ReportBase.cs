@@ -12,7 +12,7 @@ namespace Fanex.Athena.Excel.Base
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
 
-    public class ReportBase
+    public abstract class ReportBase
     {
         public const int RowHeaderTemplate = 1;
         public const int RowTitleTemplate = 0;
@@ -24,19 +24,23 @@ namespace Fanex.Athena.Excel.Base
 
         private readonly string _templatePath;
 
+        private readonly int _totalRows;
+
         private int _pageSize;
 
-        protected ReportBase(string templatePath, int pageSize = 0)
-            : this(templatePath, null, pageSize)
+        protected ReportBase(string templatePath, int totalRows, int pageSize = 0)
+            : this(templatePath, totalRows, null, pageSize)
         {
         }
 
         protected ReportBase(
             string templatePath,
+            int totalRows,
             ShowingOption showingOption,
             int pageSize = 0)
         {
             _templatePath = templatePath;
+            _totalRows = totalRows;
             ShowingOption = showingOption;
             PageSize = pageSize;
         }
@@ -45,6 +49,14 @@ namespace Fanex.Athena.Excel.Base
         {
             get;
             set;
+        }
+
+        protected int TotalRows
+        {
+            get
+            {
+                return _totalRows;
+            }
         }
 
         protected int PageSize
@@ -97,6 +109,42 @@ namespace Fanex.Athena.Excel.Base
 
         protected internal virtual void AssignData()
         {
+            var sheet = Workbook.CloneSheet("Template", "Data");
+
+            AssignHeader(sheet);
+            AssignTitle(sheet);
+
+            if (_totalRows == 0)
+            {
+                AssignNoInfoRow(sheet);
+            }
+            else
+            {
+                AssignSheetData(sheet);
+            }
+
+            ProcessUI(sheet);
+        }
+
+        protected abstract void AssignTitle(ISheet sheet);
+
+        protected abstract void AssignHeader(ISheet sheet);
+
+        protected virtual void ProcessUI(ISheet sheet)
+        {
+        }
+
+        protected virtual void AssignNoInfoRow(ISheet sheet)
+        {
+        }
+
+        protected virtual void AssignSheetData(ISheet sheet)
+        {
+        }
+
+        protected virtual int AssignSheetData(ISheet sheet, int pageIndex)
+        {
+            return 0;
         }
 
         protected internal virtual void LoadTemplate()

@@ -41,33 +41,12 @@ namespace Fanex.Athena.Excel.Customer
                                  string templatePath,
                                  DataTable exportData,
                                  ShowingOption showingOption)
-            : base(templatePath, showingOption)
+            : base(templatePath, exportData.Rows.Count, showingOption)
         {
             _exportData = exportData;
         }
 
-        protected override void AssignData()
-        {
-            var sheet = Workbook.CloneSheet("Template", "Data");
-
-            AssignHeader(sheet);
-
-            AssignTitle(sheet);
-
-            if (_exportData == null || _exportData.Rows.Count == 0)
-            {
-                AssignNoInfoRow(sheet);
-            }
-            else
-            {
-                AssignSheetData(sheet);
-            }
-
-            // Hide unnecessary column
-            ProcessUI(sheet);
-        }
-
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var headerTextList = new[]
             {
@@ -89,7 +68,7 @@ namespace Fanex.Athena.Excel.Customer
             }
         }
 
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
@@ -98,7 +77,7 @@ namespace Fanex.Athena.Excel.Customer
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             var rowCount = _exportData.Rows.Count;
             int index;
@@ -129,7 +108,7 @@ namespace Fanex.Athena.Excel.Customer
             }
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _excelTitle);
 
@@ -146,7 +125,7 @@ namespace Fanex.Athena.Excel.Customer
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.SBVisible)
             {

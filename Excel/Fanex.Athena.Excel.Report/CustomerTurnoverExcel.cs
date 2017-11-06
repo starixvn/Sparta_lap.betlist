@@ -53,7 +53,7 @@ namespace Fanex.Athena.Excel.Report
                                      CustTurnover total,
                                      string formatDateTime,
                                      string reportTitle)
-            : base(templatePath, showingOption)
+            : base(templatePath, customerTurnoverList.Count(), showingOption)
         {
             _customerTurnoverList = customerTurnoverList;
             _total = total;
@@ -92,7 +92,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             var headerTextList = new[]
@@ -125,7 +125,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign "no info" to sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
@@ -141,7 +141,7 @@ namespace Fanex.Athena.Excel.Report
           "StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
-        protected int AssignSheetData(ISheet sheet, int pageIndex)
+        protected override int AssignSheetData(ISheet sheet, int pageIndex)
         {
             var rowIndex = 0;
             var minGroup = checked((pageIndex - 1) * PageSize);
@@ -196,7 +196,7 @@ namespace Fanex.Athena.Excel.Report
             return rowIndex;
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _reportTitle);
 
@@ -211,7 +211,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {

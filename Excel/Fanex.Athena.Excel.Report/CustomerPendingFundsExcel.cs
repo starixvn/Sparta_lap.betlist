@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.Excel.Report
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using Base;
     using Fanex.Athena.Excel.Base.Extension;
@@ -23,8 +22,12 @@
 
         private readonly CustomerPendingFundsExcelModel _excelModel;
 
+        protected internal CustomerPendingFundsExcel() : base(string.Empty, 0)
+        {
+        }
+
         public CustomerPendingFundsExcel(string templatePath, CustomerPendingFundsExcelModel excelModel)
-            : base(templatePath)
+            : base(templatePath, excelModel.DataList.Count())
         {
             _excelModel = excelModel;
         }
@@ -57,7 +60,7 @@
             }
         }
 
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             var headerTextList = new[]
@@ -74,13 +77,13 @@
             }
         }
 
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
-        protected int AssignSheetData(ISheet sheet, int pageIndex)
+        protected override int AssignSheetData(ISheet sheet, int pageIndex)
         {
             var rowCount = Math.Min(_excelModel.DataList.Count(), checked((pageIndex + 1) * PageSize));
             var rowIndex = 0;
@@ -105,7 +108,7 @@
             return rowIndex;
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             var reportTitle = string.Format(ViewResources.CustomerPedingFundsTitle, ReportExcelHelper.GetTitleCurrencyName(_excelModel.ConvertingOption));
 
@@ -131,7 +134,7 @@
             sheet.MergeCells(totalRow, 0, totalRow, 2);
         }
 
-        protected void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!_excelModel.SystemIdVisible)
             {

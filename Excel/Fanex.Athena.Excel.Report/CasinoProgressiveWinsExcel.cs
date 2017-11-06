@@ -47,31 +47,14 @@ namespace Fanex.Athena.Excel.Report
                 string templatePath,
                 ConvertingOption convertingOption,
                 CasinoProgressiveWinsViewModel viewModel)
-            : base(templatePath)
+            : base(templatePath, viewModel.DataList.Count())
         {
             _convertingOption = convertingOption;
             _metaModel = viewModel.Param;
             _dataList = viewModel.DataList;
         }
 
-        protected override void AssignData()
-        {
-            var sheet = Workbook.CloneSheet("Template", "Data");
-
-            AssignHeader(sheet);
-            AssignTitle(sheet);
-
-            if (_dataList.Any())
-            {
-                AssignSheetData(sheet);
-            }
-            else
-            {
-                AssignNoInfoRow(sheet);
-            }
-        }
-
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
@@ -83,12 +66,12 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmount].SetCellValue(ViewResources.Amount);
         }
 
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
 
-        protected void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             InitializeFonts();
 
@@ -102,7 +85,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
             var todate = _metaModel.ToDate.ToString(FormatDate);

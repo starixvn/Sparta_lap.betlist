@@ -32,13 +32,17 @@ namespace Fanex.Athena.Excel.Report
         private readonly int[] _totalData;
         private readonly IEnumerable<string> _weekHeaders;
 
+        protected internal WeeklyLiveMatchExcel() : base(string.Empty, 0)
+        {
+        }
+
         public WeeklyLiveMatchExcel(
                 string templatePath,
                 WeeklyLiveMatchMetaModel metaModel,
                 IEnumerable<WeeklyLiveMatch> dataList,
                 int[] totalData,
                 IEnumerable<string> weekHeaders)
-            : base(templatePath)
+            : base(templatePath, dataList.Count())
         {
             _totalData = totalData;
             _metaModel = metaModel;
@@ -46,30 +50,14 @@ namespace Fanex.Athena.Excel.Report
             _weekHeaders = weekHeaders;
         }
 
-        protected override void AssignData()
+        protected override void ProcessUI(ISheet sheet)
         {
-            int numOfDataRow = _dataList.Count();
-
-            var sheet = Workbook.CloneSheet("Template", "Data");
-
-            AssignHeader(sheet);
-            AssignTitle(sheet);
-
-            if (numOfDataRow == 0)
-            {
-                AssignNoInfoRow(sheet);
-            }
-            else
-            {
-                AssignSheetData(sheet);
-            }
-
-            AssignTotalRow(sheet, numOfDataRow + 2);
+            AssignTotalRow(sheet, TotalRows + 2);
             var hiddenColumns = Enumerable.Range(_metaModel.NumberOfWeeks + NumberOfStaticColumns, MaxWeekColumns - _metaModel.NumberOfWeeks);
             sheet.HideColumn(hiddenColumns.ToArray());
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
             var todate = _metaModel.ToDate.ToString(FormatDate);
@@ -84,7 +72,7 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnSport].SetCellValue(ViewResources.Sport);
@@ -96,12 +84,12 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
 
-        protected void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             int index;
             var rowCount = _dataList.Count();

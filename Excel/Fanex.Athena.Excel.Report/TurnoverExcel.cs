@@ -60,7 +60,7 @@ namespace Fanex.Athena.Excel.Report
                              ConvertingOption convertingOption,
                              ShowingOption showingOption,
                              TurnoverViewModel viewModel)
-            : base(templatePath, showingOption)
+            : base(templatePath, viewModel.DataList.Count, showingOption)
         {
             _convertingOption = convertingOption;
             _viewModel = viewModel;
@@ -105,7 +105,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
@@ -145,7 +145,7 @@ namespace Fanex.Athena.Excel.Report
             row2.Cells[ColumnAmountDueToBa].SetCellValue(ViewResources.AmtDueTo);
         }
 
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemp, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
@@ -157,7 +157,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="pageIndex">Start index.</param>
         /// <returns>Row index.</returns>
-        protected int AssignSheetData(ISheet sheet, int pageIndex)
+        protected override int AssignSheetData(ISheet sheet, int pageIndex)
         {
             var rowCount = Math.Min(_turnoverList.Count, checked((pageIndex + 1) * PageSize));
             var currentRow = 3;
@@ -182,7 +182,7 @@ namespace Fanex.Athena.Excel.Report
             return currentRow;
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             var titleNoUserName = string.Format(
                         ViewResources.TurnoverTitleNoUser,
@@ -210,7 +210,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {

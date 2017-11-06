@@ -37,7 +37,7 @@ namespace Fanex.Athena.Excel.Warehouse
                 ShowingOption showingOption,
                 DataTable exportData,
                 string reportTitle)
-            : base(templatePath, showingOption)
+            : base(templatePath, exportData.Rows.Count, showingOption)
         {
             _exportData = exportData;
             _reportTitle = reportTitle;
@@ -67,7 +67,7 @@ namespace Fanex.Athena.Excel.Warehouse
             ProcessUI(sheet);
         }
 
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             var headerTextList = new[]
@@ -96,7 +96,7 @@ namespace Fanex.Athena.Excel.Warehouse
             row.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
         }
 
-        protected void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             var rowCount = _exportData.Rows.Count;
 
@@ -112,7 +112,7 @@ namespace Fanex.Athena.Excel.Warehouse
             AssignTotalData(sheet, RowContentTemplate + rowCount);
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _reportTitle);
 
@@ -129,7 +129,7 @@ namespace Fanex.Athena.Excel.Warehouse
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        private static void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);
             sheet.HideRow(RowTableHeaderTemplate + 1);

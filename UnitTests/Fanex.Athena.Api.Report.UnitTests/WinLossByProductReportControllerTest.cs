@@ -234,11 +234,10 @@
             StubProductAccess(new string[0]);
             AppSetting.FakeLicenseeList.Returns(x => isFakeLicensee ? new int[1] { SessionLicenseeId } : new int[0]);
 
-            var actualExcelModel = new WinLossByProductExcelModel();
-            var excel = Substitute.ForPartsOf<WinlossByProductExcel>(Arg.Any<string>(), Arg.Do<WinLossByProductExcelModel>(x => actualExcelModel = x));
+            var excel = Substitute.ForPartsOf<WinlossByProductExcel>();
             excel.When(x => x.Export()).DoNotCallBase();
 
-            _controller.CreateExcel(Arg.Any<string>(), Arg.Any<WinLossByProductExcelModel>()).Returns(excel);
+            _controller.CreateExcel(Arg.Any<string>(), Arg.Any<WinLossByProductExcelModel>()).ReturnsForAnyArgs(excel);
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
 
             var metaModel = new WinLossByProductMetaModel
@@ -261,7 +260,6 @@
                 _controller.Received().ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>());
                 Assert.That(metaModel.FromDate, Is.EqualTo(expectedFromDate));
                 Assert.That(metaModel.ToDate, Is.EqualTo(expectedToDate));
-                Assert.That(actualExcelModel.SystemIdVisible, Is.EqualTo(!isFakeLicensee));
             });
         }
 

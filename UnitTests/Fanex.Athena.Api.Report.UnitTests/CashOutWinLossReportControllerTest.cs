@@ -189,7 +189,14 @@
                 FromDate = fromDate
             };
             _service.GetSummary(Arg.Any<CashOutWinLossMetaModel>()).ReturnsForAnyArgs(new SortableReportResultModel<CashOutWinLoss>());
-            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
+            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(
+                string.Empty, 
+                new ConvertingOption(), 
+                metaModel, 
+                new CashOutWinLossViewModel
+                {
+                    MainResult = new CashOutWinLoss[] { }
+                });
             excel.When(x => x.Export()).DoNotCallBase();
             _controller.CreateExcel(
                 Arg.Any<string>(),
@@ -226,7 +233,14 @@
             };
 
             _service.GetSummary(Arg.Any<CashOutWinLossMetaModel>()).ReturnsForAnyArgs(new SortableReportResultModel<CashOutWinLoss>());
-            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
+            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(
+                string.Empty,
+                new ConvertingOption(),
+                metaModel, 
+                new CashOutWinLossViewModel
+                {
+                    MainResult = new CashOutWinLoss[] { }
+                });
             excel.When(x => x.Export()).DoNotCallBase();
             _controller.CreateExcel(
                 Arg.Any<string>(),

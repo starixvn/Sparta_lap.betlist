@@ -211,14 +211,14 @@
                 ToDate = toDate,
             };
 
-            var excel = Substitute.ForPartsOf<AgCasinoBalanceExcel>(string.Empty, new ConvertingOption(), metaModel, new AgCasinoBalanceViewModel());
+            var excel = Substitute.ForPartsOf<AgCasinoBalanceExcel>();
             excel.When(x => x.Export()).DoNotCallBase();
             _controller.CreateExcel(
                 Arg.Any<string>(),
                 Arg.Any<ConvertingOption>(),
                 Arg.Any<AgCasinoBalanceMetaModel>(),
                 Arg.Any<AgCasinoBalanceViewModel>())
-                .Returns(excel);
+                .ReturnsForAnyArgs(excel);
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
 
             var expectedFromDate = drillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate;

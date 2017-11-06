@@ -340,7 +340,10 @@
                    Arg.Any<string>(),
                    Arg.Any<ConvertingOption>(),
                    Arg.Any<ThirdPartyWinLossMetaModel>(),
-                   new ThirdPartyWinLossViewModel());
+                   new ThirdPartyWinLossViewModel
+                   {
+                       MainResult = new ThirdPartyWinLoss[] { }
+                   });
             excel.When(x => x.Export()).DoNotCallBase();
 
             _controller.CreateExcel(

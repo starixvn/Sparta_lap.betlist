@@ -46,7 +46,7 @@ namespace Fanex.Athena.Excel.Report
                                     string templatePath,
                                     ReportResultModel<WinLossByLeague> resultModel,
                                     WinLossByLeagueMetaModel metaModel)
-            : base(templatePath)
+            : base(templatePath, resultModel.DataList.Count())
         {
             _metaModel = metaModel;
             _dataList = resultModel.DataList;
@@ -90,7 +90,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             var headerTextList = new[]
@@ -116,7 +116,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerWinLoss].SetCellValue(ViewResources.WinLoss);
         }
 
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, Level == 0 ? NumOfRowLevel0 : NumOfRowLevel1, ViewResources.NoInfo);
         }
@@ -127,7 +127,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="pageIndex">Start index.</param>
         /// <returns>Row index.</returns>
-        protected int AssignSheetData(ISheet sheet, int pageIndex)
+        protected override int AssignSheetData(ISheet sheet, int pageIndex)
         {
             if (Level == 1)
             {
@@ -170,7 +170,7 @@ namespace Fanex.Athena.Excel.Report
             return currentRow;
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, Level == 0 ? NumOfRowLevel0 : NumOfRowLevel1, _metaModel.ReportTitle);
 
@@ -185,7 +185,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (Level == 0)
             {

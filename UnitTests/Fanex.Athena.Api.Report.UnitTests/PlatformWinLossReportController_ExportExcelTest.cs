@@ -36,7 +36,11 @@
 
             ShowingOption expetedShowingOption = null;
             var actualExcelModel = new PlatformWinLossViewModel();
-            var excelModel = new PlatformWinLossViewModel { Param = metalModel };
+            var excelModel = new PlatformWinLossViewModel
+            {
+                Param = metalModel,
+                MainResult = new PlatformWinLossMember[] { }
+            };
             var excel = Substitute.ForPartsOf<PlatformWinLossMemberExcel>(
                Arg.Any<string>(),
                excelModel,
@@ -66,20 +70,16 @@
             var metalModel = CreateMetaModel(0, true);
             SetUpDataAccessGetSummaryData();
 
-            var excel = Substitute.ForPartsOf<PlatformWinLossSummaryExcel>(
-                null,
-                metalModel,
-                Arg.Any<IList<PlatformWinLossSummary>>(),
-                Arg.Any<PlatformWinLossSummary>());
+            var excel = Substitute.ForPartsOf<PlatformWinLossSummaryExcel>();
 
             excel.When(x => x.Export()).DoNotCallBase();
 
             _controller.CreateExcelSummary(
-                null,
+                Arg.Any<string>(),
                 metalModel,
                 Arg.Any<IList<PlatformWinLossSummary>>(),
                 Arg.Any<PlatformWinLossSummary>())
-                .Returns(excel);
+                .ReturnsForAnyArgs(excel);
 
             // Action
             _controller.Index(metalModel);

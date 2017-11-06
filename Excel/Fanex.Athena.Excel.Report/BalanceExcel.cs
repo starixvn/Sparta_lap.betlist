@@ -49,7 +49,7 @@ namespace Fanex.Athena.Excel.Report
                             ConvertingOption convertingOption,
                             Balance balance,
                             string date)
-            : base(templatePath, showingOption)
+            : base(templatePath, 0, showingOption)
         {
             _convertingOption = convertingOption;
             _balance = balance;
@@ -80,7 +80,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             for (int index = 0; index < _balance.BalanceList.Count; index++)
             {
@@ -96,13 +96,16 @@ namespace Fanex.Athena.Excel.Report
             AssignCustomerInformation(sheet);
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             var reportTitle = string.Format(ViewResources.BalanceTitle, ReportExcelHelper.GetTitleCurrencyName(_convertingOption));
 
             // Set for Balance, report title
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
+        }
 
+        protected override void AssignHeader(ISheet sheet)
+        {
             // Get row copy from template
             var columIndex = ColumnLicenseeWl;
             var row = sheet.CopyRow(sheet, RowLicensee, RowLicensee);
@@ -129,7 +132,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.BAVisible)
             {

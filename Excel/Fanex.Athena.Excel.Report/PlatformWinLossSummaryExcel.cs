@@ -36,12 +36,16 @@
 
         private readonly IEnumerable<ProductOption> _productOptions;
 
+        protected internal PlatformWinLossSummaryExcel() : base(string.Empty, 0)
+        {
+        }
+
         public PlatformWinLossSummaryExcel(
             string templatePath,
             PlatformWinLossMetaModel metaModel,
             IEnumerable<PlatformWinLossSummary> dataList,
             PlatformWinLossSummary total)
-            : base(templatePath)
+            : base(templatePath, dataList.Count())
         {
             _model = metaModel;
             _dataList = dataList;
@@ -50,25 +54,7 @@
             _productOptions = metaModel.ProductOptions;
         }
 
-        protected override void AssignData()
-        {
-            var numOfDataRow = _dataList.Count();
-            var sheet = Workbook.CloneSheet("Template", "Data");
-
-            AssignHeader(sheet);
-            AssignTitle(sheet);
-
-            if (numOfDataRow == 0)
-            {
-                AssignNoInfoRow(sheet);
-            }
-            else
-            {
-                AssignSheetData(sheet);
-            }
-        }
-
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             var headerTextList = new[]
@@ -95,12 +81,12 @@
             row.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
         }
 
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowParentContentTemplate, ColumnNoContent, ViewResources.NoInfo);
         }
 
-        protected void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             var rowIndex = RowParentContentTemplate;
             foreach (var item in _dataList)
@@ -118,7 +104,7 @@
             AssignCellData(totalRow, _total);
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             var platformText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(_model.PlatformType);
             var currencyText = _model.CurrencyId == 0 ?
