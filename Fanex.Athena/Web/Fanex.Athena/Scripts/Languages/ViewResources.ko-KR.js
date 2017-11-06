@@ -1,6 +1,7 @@
-﻿// Generated at: 11/1/2017 3:25:22 PM
+﻿// Generated at: 11/6/2017 5:06:31 PM
 var _language_ko_KR = {
 AA:"AA",
+ABComm:"AllBet 수수료",
 AccessDeniedMsg:"죄송합니다. 이 페이지에 접근할 권한이 없습니다.",
 Account:"회계",
 AccountManagement:"회계 관리",

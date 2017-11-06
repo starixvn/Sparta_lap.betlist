@@ -1511,7 +1511,7 @@
     <value>赛事</value>
   </data>
   <data name="RacingComm" xml:space="preserve">
-    <value>赛事佣金</value>
+    <value>赛马佣金</value>
   </data>
   <data name="RacingCommission" xml:space="preserve">
     <value>赛事佣金</value>
@@ -1526,7 +1526,7 @@
     <value>赛事所得:赛事相关产品所得</value>
   </data>
   <data name="RBComm" xml:space="preserve">
-    <value>RB佣金</value>
+    <value>赛马佣金</value>
   </data>
   <data name="RCCommission" xml:space="preserve">
     <value>赛马赛事佣金</value>
@@ -2330,7 +2330,7 @@
     <comment>#13958</comment>
   </data>
   <data name="RB" xml:space="preserve">
-    <value>赛事</value>
+    <value>赛马</value>
   </data>
   <data name="VirtualCycling" xml:space="preserve">
     <value>Virtual Cycling</value>
@@ -2463,7 +2463,7 @@
     <comment>#49196</comment>
   </data>
   <data name="ProductRB" xml:space="preserve">
-    <value>赛事</value>
+    <value>赛马</value>
     <comment>#49196</comment>
   </data>
   <data name="ProductVS" xml:space="preserve">
@@ -2534,6 +2534,11 @@
     <value>新亚洲版</value>
   </data>
   <data name="ABComm" xml:space="preserve">
-    <value>AB 佣金</value>
+    <value>AllBet 佣金</value>
+    <comment>82036</comment>
+  </data>
+  <data name="ParlayComm" xml:space="preserve">
+    <value>Parlay 佣金</value>
+    <comment>82036</comment>
   </data>
 </root>

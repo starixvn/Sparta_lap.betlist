@@ -158,7 +158,7 @@ namespace Fanex.Athena.Excel.Customer
             row.Cells[NGCommColumn].SetCellValue(ViewResources.NG);
             row.Cells[LCCommColumn].SetCellValue(ViewResources.LC);
             row.Cells[CSCommColumn].SetCellValue(ViewResources.CS);
-            row.Cells[ABCommColumn].SetCellValue(ViewResources.AB);
+            row.Cells[ABCommColumn].SetCellValue(ViewResources.ProductAB);
         }
 
         /// <summary>

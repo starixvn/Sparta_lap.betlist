@@ -41,25 +41,6 @@ namespace Fanex.Athena.Api.CustomerLog
 
         private readonly IAppSettings _appSettings;
 
-        private readonly IDictionary<string, string> _resourcesMap = new Dictionary<string, string>
-        {
-            { "Closed", ViewResources.Closed },
-            { "Suspended", ViewResources.Suspended },
-            { "SpecialLevel", ViewResources.SpecialLevel },
-            { "GroupId", ViewResources.GroupId },
-            { "GroupName", ViewResources.GroupName },
-            { "GroupColor", ViewResources.GroupColor },
-            { "SBComm", ViewResources.SBComm },
-            { "RBComm", ViewResources.RBComm },
-            { "NGComm", ViewResources.NGComm },
-            { "LCComm", ViewResources.LCComm },
-            { "CSComm", ViewResources.CSComm },
-            { "ABComm", ViewResources.ABComm },
-            { "Yes", ViewResources.Yes },
-            { "No", ViewResources.No },
-            { "OldColor", ViewResources.OldColor }
-        };
-
         private readonly IEnumerable<int> _actionIdListForBA = new List<int> { 2401, 2403, 2801 };
 
         #endregion Field
@@ -227,6 +208,25 @@ namespace Fanex.Athena.Api.CustomerLog
 
         private IList<CustomerLog> GetDetails(IList<CustomerLog> dataList)
         {
+            var resourcesMap = new Dictionary<string, string>
+            {
+                { "Closed", ViewResources.Closed },
+                { "Suspended", ViewResources.Suspended },
+                { "SpecialLevel", ViewResources.SpecialLevel },
+                { "GroupId", ViewResources.GroupId },
+                { "GroupName", ViewResources.GroupName },
+                { "GroupColor", ViewResources.GroupColor },
+                { "SBComm", ViewResources.SBComm },
+                { "RBComm", ViewResources.RBComm },
+                { "NGComm", ViewResources.NGComm },
+                { "LCComm", ViewResources.LCComm },
+                { "CSComm", ViewResources.CSComm },
+                { "ABComm", ViewResources.ABComm },
+                { "Yes", ViewResources.Yes },
+                { "No", ViewResources.No },
+                { "OldColor", ViewResources.OldColor }
+            };
+
             foreach (var item in dataList)
             {
                 // No need to read xml data for BA
@@ -238,7 +238,7 @@ namespace Fanex.Athena.Api.CustomerLog
 
                 var dictonary = GetXmlAttr(item.TrackingValue, item.TrackingValueOld);
 
-                item.Details = ParseDictonaryToRazorView(item.ActionId, new ActionViewModel { Data = dictonary, Resource = _resourcesMap });
+                item.Details = ParseDictonaryToRazorView(item.ActionId, new ActionViewModel { Data = dictonary, Resource = resourcesMap });
             }
 
             return dataList;

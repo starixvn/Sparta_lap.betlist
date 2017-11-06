@@ -1,8 +1,8 @@
-﻿// Generated at: 11/1/2017 3:25:22 PM
+﻿// Generated at: 11/6/2017 5:06:31 PM
 var _language_en_US = {
 AA:"AA",
 AB:"AB",
-ABComm:"AB Comm",
+ABComm:"AllBet Comm",
 AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
 Account:"Account",
 AccountManagement:"Account Management",

@@ -220,7 +220,13 @@ var CustomersOption = (function () {
         }
     };
 
-    var PRODUCTS = ["SB", "RB", "NG", "LC", "CS", "AB"];
+    var PRODUCTS = [
+        { Code: "SB", Display: "SB" },
+        { Code: "RB", Display: "RB" },
+        { Code: "NG", Display: "NG" },
+        { Code: "LC", Display: "LC" },
+        { Code: "CS", Display: "CS" },
+        { Code: "AB", Display: "ProductAB" }];
     var numOfProductColumns = 0;
     var firstProductCode;
 
@@ -233,14 +239,14 @@ var CustomersOption = (function () {
 
             firstProductCode = null;
             for (var i = 0; i < PRODUCTS.length; i++) {
-                var productCode = PRODUCTS[i];
-                if (productList.indexOf(productCode) >=0) {
+                var product = PRODUCTS[i];
+                if (productList.indexOf(product.Code) >=0) {
                     if (!firstProductCode) {
-                        firstProductCode = productCode.toUpperCase();
+                        firstProductCode = product.Code.toUpperCase();
                     }
 
                     numOfProductColumns++;
-                    temp.push(Site.getSingleResource(productCode.toUpperCase()));
+                    temp.push(Site.getSingleResource(product.Display));
                 }
             }
         }
@@ -261,9 +267,9 @@ var CustomersOption = (function () {
             temp.insertAfter(col, 0);
 
             $.each(PRODUCTS, function (index, value) {
-                if (productList.indexOf(value) >= 0) {
+                if (productList.indexOf(value.Code) >= 0) {
                     col = Site.clone(commissionColumn);
-                    col.name = value + "Comm";
+                    col.name = value.Code + "Comm";
                     col.index = col.name;
                     col.cellattr = getCellAttrFunction(col.name);
                     temp.push(col);
