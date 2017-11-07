@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import Select from 'react-select'
-import { DateRange } from '../../../../components/date-range'
+import { DatePicker } from '../../../../components/date-range'
 import AutoComplete from '../../../../components/auto-complete'
 
 import { ActionCreators } from '../../actions/casinodetailed'
@@ -20,8 +20,12 @@ export class FormFilter extends Component {
 
     _renderDateRange() {
         return (
-            <DateRange showRange={false} calendars={1} />
+            <DatePicker onChange={this.handleChange} />
         )
+    }
+
+    handleChange = (date) => {
+        console.log(date);
     }
 
     _renderProductSelectList() {

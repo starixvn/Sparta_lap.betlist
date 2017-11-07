@@ -854,6 +854,7 @@
     <Content Include="www\js\source\reactpages\components\auto-complete\AutoComplete.jsx" />
     <Content Include="www\js\source\reactpages\components\auto-complete\index.jsx" />
     <Content Include="www\js\source\reactpages\components\auto-complete\SuggestionList.jsx" />
+    <Content Include="www\js\source\reactpages\components\date-range\DatePicker.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
