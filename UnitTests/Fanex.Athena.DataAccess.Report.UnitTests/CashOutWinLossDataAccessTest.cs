@@ -19,7 +19,7 @@
     {
         private CashOutWinLossDataAccess _dataAccess;
         private BalanceUp _balance;
-        private CashOutWinLossMetaModel _metaModel;
+        private ThirdPartyWinLossMetaModel _metaModel;
         private IObjectDb _objectDb;
 
         [SetUp]
@@ -34,7 +34,7 @@
 
             _dataAccess = Substitute.ForPartsOf<CashOutWinLossDataAccess>(balanceUpDataAccess);
             _objectDb = Substitute.For<IObjectDb>();
-            _metaModel = new CashOutWinLossMetaModel
+            _metaModel = new ThirdPartyWinLossMetaModel
             {
                 DrillDownFromDate = new DateTime(2017, 4, 1),
                 DrillDownToDate = new DateTime(2017, 4, 30),

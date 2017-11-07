@@ -36,7 +36,7 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly IEnumerable<CasinoProgressiveWins> _dataList;
 
-        private readonly CasinoProgressiveWinsMetaModel _metaModel;
+        private readonly BaseReportMetaModel _metaModel;
 
         private readonly ConvertingOption _convertingOption;
 
@@ -87,11 +87,12 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignTitle(ISheet sheet)
         {
-            var fromdate = _metaModel.FromDate.ToString(FormatDate);
-            var todate = _metaModel.ToDate.ToString(FormatDate);
-            var title = ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId);
-
-            var reportTitle = string.Format(ViewResources.CasinoProgressiveWins + ", {0} --> {1} - {2}", fromdate, todate, title);
+            var reportTitle = ReportExcelHelper.GenerateReportTitle(
+                ViewResources.CasinoProgressiveWins, 
+                _convertingOption, 
+                _metaModel.FromDate,
+                _metaModel.ToDate,
+                _metaModel.CurrencyId);
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header

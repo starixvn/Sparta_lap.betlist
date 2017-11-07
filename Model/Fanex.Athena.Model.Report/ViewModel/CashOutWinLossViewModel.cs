@@ -19,6 +19,6 @@ namespace Fanex.Athena.Model.Report.ViewModel
 
         public IDictionary<string, CashOutWinLoss> SummaryTotal { get; set; }
 
-        public CashOutWinLossMetaModel Param { get; set; }
+        public ThirdPartyWinLossMetaModel Param { get; set; }
     }
 }

@@ -47,7 +47,7 @@ namespace Fanex.Athena.Api.Report
 
         [HttpPost]
         public dynamic Index(
-            CashOutWinLossMetaModel metaModel,
+            ThirdPartyWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
             int level = 0,
@@ -58,7 +58,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index([FromBody] CashOutWinLossMetaModel metaModel)
+        public dynamic Index([FromBody] ThirdPartyWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);
         }
@@ -68,7 +68,7 @@ namespace Fanex.Athena.Api.Report
             string templatePath,
             string exportingFileName,
             ConvertingOption convertingOption,
-            CashOutWinLossMetaModel metaModel,
+            ThirdPartyWinLossMetaModel metaModel,
             CashOutWinLossViewModel viewModel)
         {
             return new CashOutWinLossExcel(templatePath, convertingOption, metaModel, viewModel)
@@ -87,7 +87,7 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
-        private HttpResponseMessage ExportExcel(CashOutWinLossMetaModel metaModel, IList<CashOutWinLoss> dataList, IDictionary<string, CashOutWinLoss> summaryTotal)
+        private HttpResponseMessage ExportExcel(ThirdPartyWinLossMetaModel metaModel, IList<CashOutWinLoss> dataList, IDictionary<string, CashOutWinLoss> summaryTotal)
         {
             var userSession = SessionService.UserSession;
             var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/CashOutWinLoss.xls");
@@ -132,7 +132,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         private dynamic ProcessRequest(
-            CashOutWinLossMetaModel metaModel,
+            ThirdPartyWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
             int level = 0,
@@ -168,7 +168,7 @@ namespace Fanex.Athena.Api.Report
             return GetEmptyResult();
         }
 
-        private SortableReportResultModel<CashOutWinLoss> GetData(CashOutWinLossMetaModel metaModel)
+        private SortableReportResultModel<CashOutWinLoss> GetData(ThirdPartyWinLossMetaModel metaModel)
         {
             return metaModel.DrillDownLevel == 0 ?
                 _cashOutWinLossService.GetSummary(metaModel) :

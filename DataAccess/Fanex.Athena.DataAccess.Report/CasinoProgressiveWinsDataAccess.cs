@@ -34,7 +34,7 @@ namespace Fanex.Athena.DataAccess.Report
 
         #region ICasinoProgressiveWinsDataAccess Members
 
-        public IEnumerable<CasinoProgressiveWins> GetDataList(CasinoProgressiveWinsMetaModel metaModel)
+        public IEnumerable<CasinoProgressiveWins> GetDataList(BaseReportMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_CasinoProgressiveWins";
             try
@@ -91,7 +91,7 @@ namespace Fanex.Athena.DataAccess.Report
             return result;
         }
 
-        private void AddParams(IObjectDb db, CasinoProgressiveWinsMetaModel metaModel)
+        private void AddParams(IObjectDb db, BaseReportMetaModel metaModel)
         {
             var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);

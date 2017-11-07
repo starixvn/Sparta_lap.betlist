@@ -32,9 +32,8 @@ namespace Fanex.Athena.Controllers.Report
                 return this.Redirect("~/Utility/AccessDenied");
             }
 
-            var metaModel = new MicroGamingWinLossMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
-                IsAllowReportby = true,
                 FromDate = date,
                 ToDate = date,
                 LicenseeId = licenseeSession.LicenseeId,

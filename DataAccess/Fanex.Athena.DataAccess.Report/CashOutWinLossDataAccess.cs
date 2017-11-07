@@ -38,7 +38,7 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public SortableReportResultModel<CashOutWinLoss> GetSummary(CashOutWinLossMetaModel metaModel)
+        public SortableReportResultModel<CashOutWinLoss> GetSummary(ThirdPartyWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_CashoutWinloss";
             try
@@ -60,7 +60,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public SortableReportResultModel<CashOutWinLoss> GetDetail(CashOutWinLossMetaModel metaModel)
+        public SortableReportResultModel<CashOutWinLoss> GetDetail(ThirdPartyWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_CashoutWinloss_Detail";
             try
@@ -82,7 +82,7 @@ namespace Fanex.Athena.DataAccess.Report
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private static SortableReportResultModel<CashOutWinLoss> GetData(IDataReader reader, CashOutWinLossMetaModel metaModel)
+        private static SortableReportResultModel<CashOutWinLoss> GetData(IDataReader reader, ThirdPartyWinLossMetaModel metaModel)
         {
             var result = new SortableList<CashOutWinLoss>();
 
@@ -162,7 +162,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private void UpdateUspParams(IObjectDb db, CashOutWinLossMetaModel metaModel, bool drilldown)
+        private void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
         {
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);

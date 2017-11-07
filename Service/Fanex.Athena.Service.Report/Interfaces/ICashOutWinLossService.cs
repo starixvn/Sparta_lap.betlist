@@ -16,9 +16,9 @@ namespace Fanex.Athena.Service.Report.Interfaces
 
     public interface ICashOutWinLossService
     {
-        SortableReportResultModel<CashOutWinLoss> GetDetail(CashOutWinLossMetaModel metaModel);
+        SortableReportResultModel<CashOutWinLoss> GetDetail(ThirdPartyWinLossMetaModel metaModel);
 
-        SortableReportResultModel<CashOutWinLoss> GetSummary(CashOutWinLossMetaModel metaModel);
+        SortableReportResultModel<CashOutWinLoss> GetSummary(ThirdPartyWinLossMetaModel metaModel);
 
         IList<CashOutWinLoss> TotalCalc(IList<CashOutWinLoss> dataList);
     }

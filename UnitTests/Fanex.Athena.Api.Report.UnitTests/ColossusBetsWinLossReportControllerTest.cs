@@ -203,7 +203,6 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(model.CurrencyId, Is.Not.EqualTo(model.DrillDownCurrencyId));
                 Assert.That(model.FromDate, Is.Not.EqualTo(model.DrillDownFromDate));
                 Assert.That(model.ToDate, Is.Not.EqualTo(model.DrillDownToDate));
                 _controller.Received().ExcelStream(Arg.Any<IWorkbook>(), expectedFileName);
@@ -224,7 +223,7 @@
             var currencyId = 3;
             var custId = 4;
 
-            var expectedFileName = $"ColossusBetsWinLoss_{fdate:ddMMMyyy}_{nameof(ThirdPartyWinLossMetaModel.DrillDownCurrencyId)}.xls";
+            var expectedFileName = $"ColossusBetsWinLoss_{fdate:ddMMMyyy}_All.xls";
 
             IDictionary<string, ColossusBetWinLoss> summaryTotal;
             SetUpForGettingData(out summaryTotal, level);
@@ -251,7 +250,6 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(model.DrillDownCurrencyId, Is.EqualTo(model.CurrencyId));
                 Assert.That(model.DrillDownFromDate, Is.EqualTo(model.FromDate));
                 Assert.That(model.DrillDownToDate, Is.EqualTo(model.ToDate));
                 _controller.Received().ExcelStream(Arg.Any<IWorkbook>(), expectedFileName);

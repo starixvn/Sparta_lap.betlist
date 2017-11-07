@@ -8,7 +8,6 @@ namespace Fanex.Athena.Excel.Report
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
@@ -132,13 +131,8 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignTitle(ISheet sheet)
         {
-            var fromdate = _metaModel.FromDate.ToString(FormatDate);
-            var todate = _metaModel.ToDate.ToString(FormatDate);
-            var title = _metaModel.DrillDownLevel > 0 && _metaModel.CurrencyId == 0
-                ? ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.DrillDownCurrencyId)
-                : ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId);
-
-            var reportTitle = GenerateProductReportTitle(fromdate, todate, title);
+            var reportName = ViewResources.ProductCB + " " + ViewResources.WinLoss;
+            var reportTitle = ReportExcelHelper.GenerateReportTitle(reportName, _convertingOption, _metaModel);
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze rows title and header
@@ -188,15 +182,6 @@ namespace Fanex.Athena.Excel.Report
                     }).ToList();
 
             return listTotalCurrency;
-        }
-
-        private static string GenerateProductReportTitle(string fromDate, string toDate, string title)
-        {
-            var reportTitle = new StringBuilder(string.Empty);
-            reportTitle.Append(ViewResources.ProductCB).Append(" ");
-            reportTitle.Append(ViewResources.WinLoss);
-            reportTitle.Append($", {fromDate} --> {toDate} - {title}");
-            return reportTitle.ToString();
         }
 
         private void AssignGrandTotal(ISheet sheet, int rowIndex)

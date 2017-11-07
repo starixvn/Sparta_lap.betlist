@@ -215,13 +215,10 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignTitle(ISheet sheet)
         {
-            var fromdate = _excelModel.MetaModel.FromDate.ToString(FormatDate);
-            var todate = _excelModel.MetaModel.ToDate.ToString(FormatDate);
-            var title = _excelModel.MetaModel.DrillDownLevel > 0 && _excelModel.MetaModel.CurrencyId == 0
-                ? ReportExcelHelper.GetExactTitleCurrencyName(_excelModel.ConvertingOption, _excelModel.MetaModel.DrillDownCurrencyId)
-                : ReportExcelHelper.GetExactTitleCurrencyName(_excelModel.ConvertingOption, _excelModel.MetaModel.CurrencyId);
-
-            var reportTitle = string.Format(ViewResources.LicenseeWinLoss + ", {0} --> {1} - {2}", fromdate, todate, title);
+            var reportTitle = ReportExcelHelper.GenerateReportTitle(
+                ViewResources.LicenseeWinLoss,
+                _excelModel.ConvertingOption,
+                _excelModel.MetaModel);
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header

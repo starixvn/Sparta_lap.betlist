@@ -8,7 +8,6 @@ namespace Fanex.Athena.Excel.Report
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
@@ -125,13 +124,8 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignTitle(ISheet sheet)
         {
-            var fromdate = _metaModel.FromDate.ToString(FormatDate);
-            var todate = _metaModel.ToDate.ToString(FormatDate);
-            var title = _metaModel.DrillDownLevel > 0 && _metaModel.CurrencyId == 0
-                ? ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.DrillDownCurrencyId)
-                : ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId);
-
-            var reportTitle = GenerateProductReportTitle(fromdate, todate, title);
+            var reportName = _metaModel.ProductName + " " + ViewResources.WinLoss;
+            var reportTitle = ReportExcelHelper.GenerateReportTitle(reportName, _convertingOption, _metaModel);
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
@@ -242,22 +236,6 @@ namespace Fanex.Athena.Excel.Report
                     }).ToList();
 
             return listTotalCurrency;
-        }
-
-        /// <summary>
-        /// Generates the product report's title.
-        /// </summary>
-        /// <param name="fromDate">The fromDate.</param>
-        /// <param name="toDate">The toDate.</param>
-        /// <param name="title">The title.</param>
-        /// <returns>String of Report Title.</returns>
-        private string GenerateProductReportTitle(string fromDate, string toDate, string title)
-        {
-            var reportTitle = new StringBuilder(string.Empty);
-            reportTitle.Append(_metaModel.ProductName).Append(" ");
-            reportTitle.Append(ViewResources.WinLoss);
-            reportTitle.Append($", {fromDate} --> {toDate} - {title}");
-            return reportTitle.ToString();
         }
     }
 }

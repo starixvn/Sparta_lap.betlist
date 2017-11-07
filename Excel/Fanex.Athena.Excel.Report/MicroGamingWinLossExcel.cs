@@ -8,7 +8,6 @@ namespace Fanex.Athena.Excel.Report
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
@@ -43,7 +42,7 @@ namespace Fanex.Athena.Excel.Report
         private const int RowNoInfoTemplate = 7;
 
         private readonly IList<MicroGamingWinLoss> _winLossList;
-        private readonly MicroGamingWinLossMetaModel _metaModel;
+        private readonly ThirdPartyWinLossMetaModel _metaModel;
         private readonly IDictionary<string, MicroGamingWinLoss> _summaryTotal;
 
         private readonly ConvertingOption _convertingOption;
@@ -56,7 +55,7 @@ namespace Fanex.Athena.Excel.Report
         public MicroGamingWinLossExcel(
                 string templatePath,
                 ConvertingOption convertingOption,
-                MicroGamingWinLossMetaModel metaModel,
+                ThirdPartyWinLossMetaModel metaModel,
                 MicroGamingWinLossViewModel viewModel)
             : base(templatePath, viewModel.MainResult.Count)
         {
@@ -138,11 +137,13 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignTitle(ISheet sheet)
         {
-            var fromdate = _metaModel.FromDate.ToString(FormatDate);
-            var todate = _metaModel.ToDate.ToString(FormatDate);
-            var title = ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId);
-
-            var reportTitle = GenerateProductReportTitle(fromdate, todate, title);
+            var reportName = ViewResources.Microgaming + " " + ViewResources.WinLoss;
+            var reportTitle = ReportExcelHelper.GenerateReportTitle(
+                reportName,
+                _convertingOption,
+                _metaModel.FromDate,
+                _metaModel.ToDate,
+                _metaModel.CurrencyId);
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
@@ -163,15 +164,6 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnLicenseeNetWin].SetCellValue(data.LicenseeNetWin);
             row.Cells[ColumnAmountDueToMGC].SetCellValue(data.AmountDueToMGC);
             row.Cells[ColumnProgressiveFee].SetCellValue(data.ProgressiveFee);
-        }
-
-        private static string GenerateProductReportTitle(string fromDate, string toDate, string title)
-        {
-            var reportTitle = new StringBuilder(string.Empty);
-            reportTitle.Append(ViewResources.Microgaming).Append(" ");
-            reportTitle.Append(ViewResources.WinLoss);
-            reportTitle.Append(string.Format(", {0} --> {1} - {2}", fromDate, toDate, title));
-            return reportTitle.ToString();
         }
 
         private static List<MicroGamingWinLoss> GetTotalCurrency(IEnumerable<MicroGamingWinLoss> dataList)

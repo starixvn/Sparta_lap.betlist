@@ -54,7 +54,7 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly IList<CashOutWinLoss> _dataList;
 
-        private readonly CashOutWinLossMetaModel _metaModel;
+        private readonly ThirdPartyWinLossMetaModel _metaModel;
         private readonly IDictionary<string, CashOutWinLoss> _summaryTotal;
 
         private readonly ConvertingOption _convertingOption;
@@ -62,7 +62,7 @@ namespace Fanex.Athena.Excel.Report
         public CashOutWinLossExcel(
                 string templatePath,
                 ConvertingOption convertingOption,
-                CashOutWinLossMetaModel metaModel,
+                ThirdPartyWinLossMetaModel metaModel,
                 CashOutWinLossViewModel viewModel)
             : base(templatePath, viewModel.MainResult.Count())
         {
@@ -162,13 +162,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignTitle(ISheet sheet)
         {
-            var fromdate = _metaModel.FromDate.ToString(FormatDate);
-            var todate = _metaModel.ToDate.ToString(FormatDate);
-            var title = _metaModel.DrillDownLevel > 0 && _metaModel.CurrencyId == 0
-                ? ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.DrillDownCurrencyId)
-                : ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId);
-
-            var reportTitle = string.Format(ViewResources.CashOutWinLoss + ", {0} --> {1} - {2}", fromdate, todate, title);
+            var reportTitle = ReportExcelHelper.GenerateReportTitle(ViewResources.CashOutWinLoss, _convertingOption, _metaModel);
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header

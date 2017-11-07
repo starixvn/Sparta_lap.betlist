@@ -30,12 +30,12 @@ namespace Fanex.Athena.Service.Report
             _dataAccess = dataAccess;
         }
 
-        public SortableReportResultModel<CashOutWinLoss> GetDetail(CashOutWinLossMetaModel metaModel)
+        public SortableReportResultModel<CashOutWinLoss> GetDetail(ThirdPartyWinLossMetaModel metaModel)
         {
             return _dataAccess.GetDetail(metaModel);
         }
 
-        public SortableReportResultModel<CashOutWinLoss> GetSummary(CashOutWinLossMetaModel metaModel)
+        public SortableReportResultModel<CashOutWinLoss> GetSummary(ThirdPartyWinLossMetaModel metaModel)
         {
             var result = this._dataAccess.GetSummary(metaModel);
             var date = new System.DateTime();

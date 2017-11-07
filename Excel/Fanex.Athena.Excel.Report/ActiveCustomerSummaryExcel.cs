@@ -127,11 +127,12 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignTitle(ISheet sheet)
         {
-            var fromdate = _metaModel.FromDate.ToString(FormatDate);
-            var todate = _metaModel.ToDate.ToString(FormatDate);
-            var title = ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId);
-
-            var reportTitle = string.Format(ViewResources.ActiveCustomerSummary + ", {0} --> {1} - {2}", fromdate, todate, title);
+            var reportTitle = ReportExcelHelper.GenerateReportTitle(
+                ViewResources.ActiveCustomerSummary,
+                _convertingOption,
+                _metaModel.FromDate,
+                _metaModel.ToDate,
+                _metaModel.CurrencyId);
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header

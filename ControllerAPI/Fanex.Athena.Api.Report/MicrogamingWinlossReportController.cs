@@ -44,7 +44,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index(MicroGamingWinLossMetaModel metaModel)
+        public dynamic Index(ThirdPartyWinLossMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludedTestData);
@@ -136,7 +136,7 @@ namespace Fanex.Athena.Api.Report
 
         [CLSCompliant(false)]
         protected internal virtual MicroGamingWinLossExcel CreateExcel(
-            MicroGamingWinLossMetaModel metaModel,
+            ThirdPartyWinLossMetaModel metaModel,
             string templatePath,
             ConvertingOption convertingOption,
             MicroGamingWinLossViewModel excelModel)
@@ -145,7 +145,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         private HttpResponseMessage ExportExcel(
-            MicroGamingWinLossMetaModel metaModel,
+            ThirdPartyWinLossMetaModel metaModel,
             IList<MicroGamingWinLoss> dataList,
             IDictionary<string, MicroGamingWinLoss> summaryTotal)
         {

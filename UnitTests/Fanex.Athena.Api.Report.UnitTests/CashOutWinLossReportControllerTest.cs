@@ -48,7 +48,7 @@
         public void Index_InvalidRequest_ReturnEmptyResult()
         {
             // Arrange
-            var metaModel = new CashOutWinLossMetaModel { CurrencyId = -4 };
+            var metaModel = new ThirdPartyWinLossMetaModel { CurrencyId = -4 };
 
             // Action
             var result = _controller.Index(metaModel);
@@ -67,7 +67,7 @@
         {
             // Arrange
             const int CurrencyId = -2, Level = 0, CustId = 1;
-            var metaModel = new CashOutWinLossMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = CurrencyId,
                 IsExcludedTestData = true,
@@ -85,7 +85,7 @@
             };
             var totalDataResult = dataListResult.ToList();
             var summaryTotalResult = new Dictionary<string, CashOutWinLoss> { { "EUR", new CashOutWinLoss() } };
-            _service.GetSummary(Arg.Is<CashOutWinLossMetaModel>(x => IsValidMetaModelForLevel0(x, Level))).Returns(
+            _service.GetSummary(Arg.Is<ThirdPartyWinLossMetaModel>(x => IsValidMetaModelForLevel0(x, Level))).Returns(
                 new SortableReportResultModel<CashOutWinLoss>
                 {
                     SummaryTotal = summaryTotalResult,
@@ -108,7 +108,7 @@
             const int CurrencyId = -2, Level = 1, CustId = 1;
             var fromDate = new DateTime(2017, 4, 1);
             var toDate = new DateTime(2017, 4, 18);
-            var metaModel = new CashOutWinLossMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = CurrencyId,
                 IsExcludedTestData = true,
@@ -124,7 +124,7 @@
             };
             var totalDataResult = dataListResult.ToList();
             var summaryTotalResult = new Dictionary<string, CashOutWinLoss> { { "EUR", new CashOutWinLoss() } };
-            _service.GetDetail(Arg.Is<CashOutWinLossMetaModel>(x => IsValidMetaModelForLevel0(x, Level))).Returns(
+            _service.GetDetail(Arg.Is<ThirdPartyWinLossMetaModel>(x => IsValidMetaModelForLevel0(x, Level))).Returns(
                 new SortableReportResultModel<CashOutWinLoss>
                 {
                     SummaryTotal = summaryTotalResult,
@@ -147,7 +147,7 @@
             const int CurrencyId = -2, Level = 1, CustId = 1;
             var fromDate = new DateTime(2017, 4, 1);
             var toDate = new DateTime(2017, 4, 18);
-            var metaModel = new CashOutWinLossMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = -1,
                 IsExcludedTestData = true,
@@ -158,7 +158,7 @@
             };
             SessionService.GenerateAgentListXml(CurrencyId, metaModel.IsExcludedTestData).Returns("XmlData");
 
-            _service.GetDetail(Arg.Any<CashOutWinLossMetaModel>()).ReturnsForAnyArgs(new SortableReportResultModel<CashOutWinLoss>());
+            _service.GetDetail(Arg.Any<ThirdPartyWinLossMetaModel>()).ReturnsForAnyArgs(new SortableReportResultModel<CashOutWinLoss>());
 
             var expectedResult = CreateResultData(new List<CashOutWinLoss>(), new List<CashOutWinLoss>(), new Dictionary<string, CashOutWinLoss>());
 
@@ -176,7 +176,7 @@
             const int CurrencyId = -2, Level = 1, CustId = 1;
             var fromDate = new DateTime(2017, 4, 1);
             var toDate = new DateTime(2017, 4, 18);
-            var metaModel = new CashOutWinLossMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = -1,
                 IsExcludedTestData = true,
@@ -188,7 +188,7 @@
                 DrillDownToDate = toDate,
                 FromDate = fromDate
             };
-            _service.GetSummary(Arg.Any<CashOutWinLossMetaModel>()).ReturnsForAnyArgs(new SortableReportResultModel<CashOutWinLoss>());
+            _service.GetSummary(Arg.Any<ThirdPartyWinLossMetaModel>()).ReturnsForAnyArgs(new SortableReportResultModel<CashOutWinLoss>());
             var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(
                 string.Empty, 
                 new ConvertingOption(), 
@@ -202,7 +202,7 @@
                 Arg.Any<string>(),
                 Arg.Any<string>(),
                 Arg.Any<ConvertingOption>(),
-                Arg.Any<CashOutWinLossMetaModel>(),
+                Arg.Any<ThirdPartyWinLossMetaModel>(),
                 Arg.Any<CashOutWinLossViewModel>())
                 .Returns(excel);
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
@@ -223,7 +223,7 @@
             const int CustId = 1, DrilldownCurrency = 2;
             var fromDate = new DateTime(2017, 4, 1);
             var toDate = new DateTime(2017, 4, 18);
-            var metaModel = new CashOutWinLossMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = currencyId,
                 IsExcludedTestData = true,
@@ -232,7 +232,7 @@
                 ToDate = toDate.AddDays(1)
             };
 
-            _service.GetSummary(Arg.Any<CashOutWinLossMetaModel>()).ReturnsForAnyArgs(new SortableReportResultModel<CashOutWinLoss>());
+            _service.GetSummary(Arg.Any<ThirdPartyWinLossMetaModel>()).ReturnsForAnyArgs(new SortableReportResultModel<CashOutWinLoss>());
             var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(
                 string.Empty,
                 new ConvertingOption(),
@@ -246,7 +246,7 @@
                 Arg.Any<string>(),
                 Arg.Any<string>(),
                 Arg.Any<ConvertingOption>(),
-                Arg.Any<CashOutWinLossMetaModel>(),
+                Arg.Any<ThirdPartyWinLossMetaModel>(),
                 Arg.Any<CashOutWinLossViewModel>())
                 .Returns(excel);
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
@@ -269,7 +269,7 @@
             });
         }
 
-        private static bool IsValidMetaModelForLevel0(CashOutWinLossMetaModel metaModel, int level)
+        private static bool IsValidMetaModelForLevel0(ThirdPartyWinLossMetaModel metaModel, int level)
         {
             return metaModel.DrillDownCurrencyId == -2 && metaModel.DrillDownLevel == level &&
                 metaModel.DrillDownCustomerId == 1 && metaModel.DrillDownFromDate == new DateTime(2017, 4, 1) &&

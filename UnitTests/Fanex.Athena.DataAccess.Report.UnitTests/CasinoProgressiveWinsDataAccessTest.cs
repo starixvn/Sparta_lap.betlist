@@ -19,7 +19,7 @@
         private IObjectDb _objectDb;
         private CasinoProgressiveWinsDataAccess _dataAccess;
         private IDataReader _reader;
-        private CasinoProgressiveWinsMetaModel _metaModel;
+        private BaseReportMetaModel _metaModel;
 
         [OneTimeSetUp]
         public void Setup()
@@ -40,7 +40,7 @@
             _reader = Substitute.For<IDataReader>();
             _objectDb.ExecuteReader().Returns(_reader);
 
-            _metaModel = new CasinoProgressiveWinsMetaModel
+            _metaModel = new BaseReportMetaModel
             {
                 LicenseeId = 1,
                 UserId = 2,

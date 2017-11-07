@@ -8,7 +8,7 @@ namespace Fanex.Athena.Model.Report.MetaModel
 {
     using System;
 
-    public class ThirdPartyWinLossMetaModel : BaseReportMetaModel
+    public class ThirdPartyWinLossMetaModel : BaseDrilldownReportMetaModel
     {
         private DateTime? _fromDate;
 
@@ -17,16 +17,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
         public bool IsExcludedTestData { get; set; }
 
         public byte ReportBy { get; set; }
-
-        public int DrillDownCurrencyId { get; set; }
-
-        public DateTime DrillDownFromDate { get; set; }
-
-        public DateTime DrillDownToDate { get; set; }
-
-        public int DrillDownLevel { get; set; }
-
-        public int DrillDownCustomerId { get; set; }
 
         public int Year { get; set; }
 
@@ -48,10 +38,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
             set { _toDate = value; }
         }
 
-        public string SortBy { get; set; }
-
-        public string SortOrder { get; set; }
-
         public override bool IsValid
         {
             get
@@ -65,7 +51,5 @@ namespace Fanex.Athena.Model.Report.MetaModel
         public string ProductCode { get; set; }
 
         public string ProductName { get; set; }
-
-        public bool IsAllowReportby { get; set; }
     }
 }

@@ -35,7 +35,7 @@
         public void GetDetail_WhenCallWithValidModel_CallDataAccess()
         {
             // Arrange
-            var metaModel = new CashOutWinLossMetaModel();
+            var metaModel = new ThirdPartyWinLossMetaModel();
 
             // Action
             _service.GetDetail(metaModel);
@@ -48,7 +48,7 @@
         public void GetSummary_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var metaModel = new CashOutWinLossMetaModel();
+            var metaModel = new ThirdPartyWinLossMetaModel();
             var fakeData = CreateFakeSummaryData();
             _dataAccess.GetSummary(metaModel).ReturnsForAnyArgs(fakeData);
             var expectedData = new SortableList<CashOutWinLoss>
