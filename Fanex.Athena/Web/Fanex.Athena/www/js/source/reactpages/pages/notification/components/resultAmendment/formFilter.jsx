@@ -63,6 +63,10 @@ export class FormFilter extends Component {
         }
     }
 
+    exportExcel = () => {
+
+    }
+
     _renderDateRange() {
         const { dateRange, dateConstraint } = this.props;
 
@@ -92,6 +96,16 @@ export class FormFilter extends Component {
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className="row">
+                    <div className="col-12">
+                            <span className="circle"></span>
+                            {LangHelper.getSingleResource("NotificationDateRangeLimitNote")}
+                        </div>
+                    </div>
+                <div className="caret-block">
+                    <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
+                    <i className="icon-book right" title={LangHelper.getSingleResource("UserGuide")}></i>                 
                 </div>
             </div>
         );

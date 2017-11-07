@@ -5380,6 +5380,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data is available within 6 months.
+        /// </summary>
+        public static string NotificationDateRangeLimitNote {
+            get {
+                return ResourceManager.GetString("NotificationDateRangeLimitNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notifications.
         /// </summary>
         public static string Notifications {

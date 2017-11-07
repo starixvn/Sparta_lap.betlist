@@ -3054,7 +3054,6 @@
   <data name="SubsidiaryWL" xml:space="preserve">
     <value>Subsidiary WL</value>
   </data>
-    <value>Match Delay-Done</value>
   <data name="NewAsia" xml:space="preserve">
     <value>New Asia</value>
     <comment>#85203</comment>
@@ -3137,6 +3136,10 @@
   </data>
   <data name="Minute" xml:space="preserve">
     <value>minute</value>
+    <comment>84004</comment>
+  </data>
+  <data name="NotificationDateRangeLimitNote" xml:space="preserve">
+    <value>Data is available within 6 months</value>
     <comment>84004</comment>
   </data>
 </root>
