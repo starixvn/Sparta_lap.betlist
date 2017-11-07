@@ -148,6 +148,7 @@ namespace Fanex.Athena.Api.Report
         {
             if (IsValidRequest(metaModel, currencyId))
             {
+                metaModel.DrillDownCurrencyId = currencyId;
                 metaModel.DrillDownLevel = level;
                 metaModel.DrillDownCustomerId = custId;
                 metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;

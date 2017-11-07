@@ -22548,7 +22548,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 UserGuideResourceName: "ColossusBetsWL",
                 UserGuideTitle: "ColossusBetsWinLoss",
                 ValidMonthRange: 0,
-                ReportTitle: "GoldDeluxeWinLoss",
+                ReportTitle: "ColossusBetsWinLoss",
                 GridOption: ColossusBetsWinLossOption
             });
         }
