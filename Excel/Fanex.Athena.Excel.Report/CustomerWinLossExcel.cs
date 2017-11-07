@@ -41,7 +41,7 @@ namespace Fanex.Athena.Excel.Report
         private readonly CustomerWinLossExcelModel _excelModel;
 
         public CustomerWinLossExcel(string templatePath, CustomerWinLossExcelModel excelModel)
-            : base(templatePath, excelModel.MetaModel.PageSize)
+            : base(templatePath, excelModel.DataList.Count())
         {
             _excelModel = excelModel;
             PageSize = _excelModel.MetaModel.PageSize;
