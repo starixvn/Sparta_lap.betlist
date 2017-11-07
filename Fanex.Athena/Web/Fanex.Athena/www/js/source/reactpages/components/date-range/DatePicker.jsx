@@ -8,6 +8,7 @@ import { MomentFormat } from './constants'
 import { defaultClasses } from './styles.js'
 import joiningClassNames from 'classnames'
 
+import Overlay from '../Overlay'
 import Calendar from './Calendar.js'
 
 export default class DatePicker extends Component {
@@ -64,39 +65,31 @@ export default class DatePicker extends Component {
         this.setState({ show: true });
     }
 
-    hide = () => {
-        this.setState({ show: false });
-    }
-
     render() {
         const { format, firstDayOfWeek, minDate, maxDate, classNames, onlyClasses, shownDate } = this.props;
         const classes = { ...defaultClasses, ...classNames };
         const { show } = this.state;
 
-        const dateRangeClass = joiningClassNames({
-            [classes.dateRange]: true,
-            [classes.show]: show,
-            [classes.hide]: !show
-        });
-
         return (
             <div className="daterange-container">
-                <div className="daterange-label" onClick={this.show} ref={element => this.dateRangeInput = element}>
+                <div className="daterange-label" onClick={this.show}>
                     <input readOnly className="input-text datepicker" type="text" autoComplete="off" value={this.dateText} />
                     <i className="icon icon-calendar"></i>
                 </div>
 
-                <div className={dateRangeClass} ref={element => this.calendarContainer = element}>
-                    <Calendar
-                        shownDate={shownDate}
-                        format={format}
-                        firstDayOfWeek={firstDayOfWeek}
-                        minDate={minDate}
-                        maxDate={maxDate}
-                        classNames={classNames}
-                        onChange={this.handleSelect.bind(this)}
-                        locale={this.locale} />
-                </div>
+                <Overlay isOpening={show}>
+                    <div className={classes.dateRange} ref={element => this.calendarContainer = element}>
+                        <Calendar
+                            shownDate={shownDate}
+                            format={format}
+                            firstDayOfWeek={firstDayOfWeek}
+                            minDate={minDate}
+                            maxDate={maxDate}
+                            classNames={classNames}
+                            onChange={this.handleSelect.bind(this)}
+                            locale={this.locale} />
+                    </div>
+                </Overlay>
             </div>
         )
     }

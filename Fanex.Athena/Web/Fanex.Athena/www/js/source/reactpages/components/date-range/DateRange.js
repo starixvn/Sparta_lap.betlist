@@ -10,6 +10,8 @@ import { MomentFormat } from './constants';
 import defaultOptions from './defaultOptions.js';
 import Overlay from '../Overlay';
 
+import Overlay from '../Overlay'
+
 class DateRange extends Component {
 
   constructor(props, context) {

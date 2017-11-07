@@ -2593,6 +2593,7 @@
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\casinodetailed\FormFilter.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\refno\DataGrid.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\refno\FormFilter.jsx" />
+    <Content Include="www\js\source\reactpages\components\Overlay.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
