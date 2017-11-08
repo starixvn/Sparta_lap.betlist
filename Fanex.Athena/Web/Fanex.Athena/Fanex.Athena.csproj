@@ -848,6 +848,8 @@
     <None Include="SiteConfig\Web.BACKUPMNLStatic.config" />
     <Content Include="Views\Desktop\Report\Result\Popup\Microgaming.cshtml" />
     <Content Include="Views\Desktop\Report\Result\Popup\AllBet.cshtml" />
+    <Content Include="Views\Desktop\Report\BettingTicketsCenter\Main.cshtml" />
+    <Content Include="www\css\source\reactpages\pages\bettingticketscenter\index.scss" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
@@ -961,6 +963,10 @@
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\lib\service.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\reducers\filterHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\reducers\index.js" />
+    <None Include="www\js\source\reactpages\pages\bettingticketscenter\components\products\AppContainer.jsx" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\actions\products\index.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\reducers\products\index.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\filterHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\DataGrid.redux.test.js" />
@@ -2570,6 +2576,10 @@
     <Content Include="www\js\source\reactpages\components\month-picker\Day.jsx" />
     <Content Include="www\js\source\reactpages\components\month-picker\index.js" />
     <Content Include="www\js\source\reactpages\components\Overlay.jsx" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\index.jsx" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\products\index.jsx" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\products\FormFilter.jsx" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\products\DataGrid.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
@@ -5710,6 +5720,9 @@
   <ItemGroup>
     <Folder Include="Logs\" />
     <Folder Include="www\css\source\reactpages\lib\" />
+    <Folder Include="www\js\source\reactpages\pages\bettingticketscenter\components\casinodetailed\" />
+    <Folder Include="www\js\source\reactpages\pages\bettingticketscenter\components\refno\" />
+    <Folder Include="www\js\source\reactpages\pages\bettingticketscenter\lib\" />
     <Folder Include="www\js\source\reactpages\vendors\" />
   </ItemGroup>
   <ItemGroup>

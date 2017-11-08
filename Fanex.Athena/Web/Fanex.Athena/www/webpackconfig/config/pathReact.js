@@ -10,6 +10,7 @@ var cssPaths = {
     notification: "./www/css/source/reactpages/pages/notification/index.scss",
     exchangewl: "./www/css/source/reactpages/pages/exchangewl/index.scss",
     speciallicenseewl: "./www/css/source/reactpages/pages/speciallicenseewl/index.scss"
+    bettingticketscenter: "./www/css/source/reactpages/pages/bettingticketscenter/index.scss"
 };
 
 var scriptPaths = {
@@ -28,6 +29,7 @@ var scriptPaths = {
     notification: "./www/js/source/reactpages/pages/notification/components/resultAmendment/index.jsx",
     exchangewl: "./www/js/source/reactpages/pages/exchangewl/components/index.jsx",
     speciallicenseewl: "./www/js/source/reactpages/pages/speciallicenseewl/components/index.jsx"
+    bettingticketscenter: "./www/js/source/reactpages/pages/bettingticketscenter/components/index.jsx"
 };
 module.exports = {
     projectRoot: projectRoot,

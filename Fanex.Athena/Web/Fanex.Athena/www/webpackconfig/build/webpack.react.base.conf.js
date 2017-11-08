@@ -25,6 +25,8 @@ function generateConfig(environment) {
             [`${jsPath}/report/licenseewlbytimezone`]: pathConfig.scriptPaths.licenseewlbytimezone,
             [`${jsPath}/exchangewl/exchangewl`]: pathConfig.scriptPaths.exchangewl,
             [`${jsPath}/report/speciallicenseewl`]: pathConfig.scriptPaths.speciallicenseewl,
+            [`${jsPath}/bettingticketscenter/bettingticketscenter`]: pathConfig.scriptPaths.bettingticketscenter,
+
             /*css*/
             [`${cssPath}/vendor`]: pathConfig.cssPaths.layout,
             [`${cssPath}/subsidiaryperformance/index`]: pathConfig.cssPaths.subsidiaryperformance,
@@ -32,6 +34,7 @@ function generateConfig(environment) {
             [`${cssPath}/notification/index`]: pathConfig.cssPaths.notification,
             [`${cssPath}/exchangewl/index`]: pathConfig.cssPaths.exchangewl,
             [`${cssPath}/speciallicenseewl/index`]: pathConfig.cssPaths.speciallicenseewl
+            [`${cssPath}/bettingticketscenter/index`]: pathConfig.cssPaths.bettingticketscenter
         },
         output: {
             path: pathConfig.projectRoot,
