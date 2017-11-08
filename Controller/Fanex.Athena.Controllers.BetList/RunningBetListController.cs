@@ -29,6 +29,7 @@ namespace Fanex.Athena.Controllers.BetList
     /// B/O/N team to score     - bet type: 26.
     /// To win to nil           - bet type: 27.
     /// 3-Way Handicap          - bet type: 28.
+    /// 1H 3-Way Handicap       - bet type: 453.
     /// </summary>
     public class RunningBetListController : BetListBaseController
     {
@@ -57,12 +58,13 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult ThreeWayHandicap(BetListMetaModel metaModel)
         {
             metaModel.BetType = (int)BetType.ThreeWayHandicap;
+            metaModel.MultipleBettype = $"{(int)BetType.ThreeWayHandicap},{(int)BetType.FirstHalfThreeWayHandicap}";
             ViewBag.ReportTitle = ViewResources.lbl3WayHandicap;
             ViewBag.UserGuideName = "TotalBets3WayHandicap";
-            return ProcessRequest(metaModel);
+            return ProcessRequest(metaModel, "Lrf_BetList_SelRunningByBettypeList");
         }
 
-        private ActionResult ProcessRequest(BetListMetaModel metaModel)
+        private ActionResult ProcessRequest(BetListMetaModel metaModel, string uspKey = "Lrf_BetList_SelRunningByBettype")
         {
             var userSession = SessionService.UserSession;
             var viewParam = CreateDefaultMetaModel(metaModel);
@@ -73,7 +75,7 @@ namespace Fanex.Athena.Controllers.BetList
                 if (viewParam.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(viewParam.CurrencyId))
                 {
                     viewParam.AgentListXml = SessionService.GenerateAgentListXml(viewParam.CurrencyId);
-                    return Excel(viewParam);
+                    return Excel(viewParam, uspKey);
                 }
 
                 return EmptyExcel();
@@ -93,9 +95,9 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/BetList/RunningBetList/Main.cshtml", model);
         }
 
-        private ActionResult Excel(BetListMetaModel metaModel)
+        private ActionResult Excel(BetListMetaModel metaModel, string uspKey)
         {
-            var ticketResult = BetListService.GetBetListData(metaModel, "Lrf_BetList_SelRunningByBettype");
+            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 
             var showingOption = new ShowingOption
             {

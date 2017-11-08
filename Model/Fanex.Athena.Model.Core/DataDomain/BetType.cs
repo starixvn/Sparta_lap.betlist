@@ -251,6 +251,8 @@ namespace Fanex.Athena.Model.Core.DataDomain
 
         VirtualSports2Ft1X2 = 2701,
 
-        VirtualSports2MixParlay = 2799
+        VirtualSports2MixParlay = 2799,
+
+        FirstHalfThreeWayHandicap = 453
     }
 }

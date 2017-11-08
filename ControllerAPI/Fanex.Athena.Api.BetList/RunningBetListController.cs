@@ -22,7 +22,8 @@ namespace Fanex.Athena.Api.BetList
     /// Double Chance           - bet type: 24
     /// B/O/N team to score     - bet type: 26
     /// To win to nil           - bet type: 27
-    /// 3-Way Handicap          - bet type: 28.
+    /// 3-Way Handicap          - bet type: 28
+    /// 1H 3-Way Handicap       - bet type: 453
     /// </summary>
     public class RunningBetListController : ApiBetListBaseController
     {
@@ -46,11 +47,11 @@ namespace Fanex.Athena.Api.BetList
         [ApiFunctionAuthorization(PermissionKeys.TotalBet3WayHandicap)]
         public dynamic ThreeWayHandicap(BetListMetaModel metaModel)
         {
-            metaModel.BetType = (int)BetType.ThreeWayHandicap;
-            return ProcessRequest(metaModel);
+            metaModel.MultipleBettype = $"{(int)BetType.ThreeWayHandicap},{(int)BetType.FirstHalfThreeWayHandicap}";
+            return ProcessRequest(metaModel, "Lrf_BetList_SelRunningByBettypeList");
         }
 
-        private dynamic ProcessRequest(BetListMetaModel metaModel)
+        private dynamic ProcessRequest(BetListMetaModel metaModel, string uspKey = "Lrf_BetList_SelRunningByBettype")
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
@@ -62,8 +63,7 @@ namespace Fanex.Athena.Api.BetList
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            const string UspKey = "Lrf_BetList_SelRunningByBettype";
-            return GetBetListResult(metaModel, UspKey);
+            return GetBetListResult(metaModel, uspKey);
         }
     }
 }
