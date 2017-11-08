@@ -19,7 +19,7 @@
     public class SSOServiceTest
     {
         private IHttpContextService _httpContextService;
-        private IUserService _userService;
+        private IAuthService _authService;
         private ISessionService _sessionService;
         private IRSAEncryptor _rsaEncryptor;
         private IFileSystem _fileSystem;
@@ -31,14 +31,14 @@
         {
             MockHttpContext();
             _httpContextService = Substitute.ForPartsOf<HttpContextService>();
-            _userService = Substitute.For<IUserService>();
+            _authService = Substitute.For<IAuthService>();
             _sessionService = Substitute.For<ISessionService>();
             _rsaEncryptor = Substitute.For<IRSAEncryptor>();
             _fileSystem = Substitute.For<IFileSystem>();
             _formsAuthenticationService = Substitute.For<IFormsAuthenticationService>();
             _ssoService = Substitute.ForPartsOf<SSOService>(
                 _httpContextService,
-                _userService,
+                _authService,
                 _sessionService,
                 _rsaEncryptor,
                 _fileSystem,
@@ -54,7 +54,6 @@
         public void TearDown()
         {
             _httpContextService = null;
-            _userService = null;
             _sessionService = null;
             _rsaEncryptor = null;
             _fileSystem = null;
@@ -71,7 +70,7 @@
             _rsaEncryptor.DecryptString(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<string>()).Returns(decryptedQueryString);
             IResultInfo resultInfo;
             var onuserId = 12345;
-            _userService.ValidateInternalUser(Arg.Any<User>(), "spondemo", timeSpan, out resultInfo)
+            _authService.ValidateInternalUser(Arg.Any<User>(), "spondemo", timeSpan, out resultInfo)
                 .Returns(x =>
                 {
                     x[3] = new ResultInfo();
@@ -86,7 +85,7 @@
                         }
                     };
                 });
-            _userService.LoginOnUser(Arg.Any<User>(), HttpContext.Current.Session.SessionID, 999, HttpContext.Current.Request.UserHostAddress)
+            _authService.LoginOnUser(Arg.Any<User>(), HttpContext.Current.Session.SessionID, 999, HttpContext.Current.Request.UserHostAddress)
                 .Returns(onuserId);
 
             // Action
@@ -119,7 +118,7 @@
 
             IResultInfo resultInfo;
             var onuserId = 12345;
-            _userService.ValidateInternalUser(Arg.Any<User>(), "spondemo", timeSpan, out resultInfo)
+            _authService.ValidateInternalUser(Arg.Any<User>(), "spondemo", timeSpan, out resultInfo)
                 .Returns(x =>
                 {
                     x[3] = new ResultInfo();
@@ -134,7 +133,7 @@
                         }
                     };
                 });
-            _userService.LoginOnUser(Arg.Any<User>(), HttpContext.Current.Session.SessionID, 999, HttpContext.Current.Request.UserHostAddress)
+            _authService.LoginOnUser(Arg.Any<User>(), HttpContext.Current.Session.SessionID, 999, HttpContext.Current.Request.UserHostAddress)
                 .Returns(onuserId);
 
             // Action

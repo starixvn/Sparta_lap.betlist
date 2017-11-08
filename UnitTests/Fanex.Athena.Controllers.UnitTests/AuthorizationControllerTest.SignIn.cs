@@ -152,7 +152,7 @@
                 StubGetValueAppSettings("AllowAutomationCaptchaCode", "1");
                 SessionService.CaptchaCode.Returns("OriginalCaptcha");
 
-                _userService.ValidateUserForLrfSystem(Arg.Any<User>(), Arg.Any<string>(), out resultInfo)
+                _authService.ValidateUserForLrfSystem(Arg.Any<User>(), Arg.Any<string>(), out resultInfo)
                     .Returns(x =>
                     {
                         x[2] = new ResultInfo
@@ -191,7 +191,7 @@
                 StubGetValueAppSettings("SecretCaptcha", "SecretCaptcha");
                 StubGetValueAppSettings("CompanyIP", controller.ControllerContext.HttpContext.Request.UserHostAddress);
 
-                _userService.ValidateUserForLrfSystem(Arg.Any<User>(), Arg.Any<string>(), out resultInfo)
+                _authService.ValidateUserForLrfSystem(Arg.Any<User>(), Arg.Any<string>(), out resultInfo)
                     .Returns(x =>
                     {
                         x[2] = new ResultInfo
@@ -233,7 +233,7 @@
                 StubGetValueAppSettings("AllowAutomationCaptchaCode", "1");
                 SessionService.CaptchaCode.Returns("OriginalCaptcha");
 
-                _userService.ValidateUserForLrfSystem(Arg.Any<User>(), Arg.Any<string>(), out resultInfo)
+                _authService.ValidateUserForLrfSystem(Arg.Any<User>(), Arg.Any<string>(), out resultInfo)
                     .Returns(x =>
                     {
                         x[2] = new ResultInfo
@@ -274,7 +274,7 @@
                 StubGetValueAppSettings("AllowAutomationCaptchaCode", "1");
                 SessionService.CaptchaCode.Returns("OriginalCaptcha");
 
-                _userService.ValidateUserForLrfSystem(Arg.Any<User>(), Arg.Any<string>(), out resultInfo)
+                _authService.ValidateUserForLrfSystem(Arg.Any<User>(), Arg.Any<string>(), out resultInfo)
                     .Returns(x =>
                     {
                         x[2] = new ResultInfo

@@ -45,12 +45,14 @@ namespace Fanex.Athena.Controllers
         #endregion Constant
 
         private readonly IUserService _userService;
+        private readonly IAuthService _authService;
         private readonly IMaintenanceService _maintenanceService;
         private readonly IFormsAuthenticationService _formAuthenticationService;
 
         public AuthorizationController()
         {
             _userService = new UserService();
+            _authService = new AuthService();
             _maintenanceService = new MaintenanceService();
             _formAuthenticationService = new FormsAuthenticationService();
         }
@@ -62,11 +64,13 @@ namespace Fanex.Athena.Controllers
             IFileSystem fileSystem,
             IMaintenanceService maintenanceService,
             IUserService userService,
+            IAuthService authService,
             IFormsAuthenticationService formAuthenticationService)
             : base(languageService, sessionService, appSetting, fileSystem)
         {
             _maintenanceService = maintenanceService;
             _userService = userService;
+            _authService = authService;
             _formAuthenticationService = formAuthenticationService;
         }
 
@@ -121,7 +125,7 @@ namespace Fanex.Athena.Controllers
                     Request = new Request { Ip = Request.UserHostAddress },
                 };
 
-                var user = _userService.ValidateUserForLrfSystem(requestUser, model.LogInToken, out resultInfo);
+                var user = _authService.ValidateUserForLrfSystem(requestUser, model.LogInToken, out resultInfo);
                 if (resultInfo.IsSuccessful)
                 {
                     CreateSession(user);
@@ -337,7 +341,7 @@ namespace Fanex.Athena.Controllers
 
         private void CreateSession(User user)
         {
-            var onuserId = _userService.LoginOnUser(user, Session.SessionID, user.ServerId, Request.UserHostAddress);
+            var onuserId = _authService.LoginOnUser(user, Session.SessionID, user.ServerId, Request.UserHostAddress);
             SessionService.CreateNewSession(
                 user.UserID,
                 onuserId,
@@ -353,7 +357,7 @@ namespace Fanex.Athena.Controllers
             var userSession = SessionService.UserSession;
             if (userSession != null)
             {
-                _userService.Logout(userSession.OnUserId);
+                _authService.Logout(userSession.OnUserId);
             }
 
             Session.Clear();
