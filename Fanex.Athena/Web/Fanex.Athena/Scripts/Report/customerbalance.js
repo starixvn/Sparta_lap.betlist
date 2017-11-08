@@ -129,6 +129,7 @@ var CustomerBalance = (function ($) {
                 $(EXCEL_NAME_SELECTOR).val(true);
                 var mainForm = $(FORM_SELECTOR);
                 var url = Site.resolveClientUrl(CustomerBalanceOption.urlExcelData);
+                $("#OrderItem", FORM_SELECTOR).val(_orderColumnCode);
                 mainForm.attr("action", url);
                 mainForm.submit();
                 $(EXCEL_NAME_SELECTOR).val(false);

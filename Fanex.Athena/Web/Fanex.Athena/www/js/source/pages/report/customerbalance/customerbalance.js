@@ -79,6 +79,7 @@
                 $(_selector.ExportExcelInput).val(true);
                 var mainForm = $(_selector.Form);
                 var url = Site.resolveClientUrl(CustomerBalanceOption.urlExcelData);
+                $(_selector.OrderItemInput, _selector.Form).val(_orderColumnCode);
                 mainForm.attr("action", url);
                 mainForm.submit();
                 $(_selector.ExportExcelInput).val(false);
