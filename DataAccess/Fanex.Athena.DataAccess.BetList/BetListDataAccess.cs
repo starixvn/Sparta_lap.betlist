@@ -238,6 +238,11 @@ namespace Fanex.Athena.DataAccess.BetList
                     metaModel.SortBy = "WinLossComm";
                 }
 
+                if (metaModel.SortBy.Equals("LicenseeWL", StringComparison.OrdinalIgnoreCase))
+                {
+                    metaModel.SortBy = "LicenseeWLComm";
+                }
+
                 if (metaModel.SortBy.Equals("nickname", StringComparison.OrdinalIgnoreCase))
                 {
                     metaModel.SortBy = "ExternalId";

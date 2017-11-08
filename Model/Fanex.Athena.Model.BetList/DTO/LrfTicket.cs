@@ -30,7 +30,15 @@ namespace Fanex.Athena.Model.BetList.DTO
         {
             get
             {
-                return Winlost + Comm;
+                return Winlost + PlayerComm;
+            }
+        }
+
+        public decimal LicenseeWLComm
+        {
+            get
+            {
+                return LicenseeWL + Comm;
             }
         }
     }
