@@ -57,45 +57,19 @@ namespace Fanex.Athena.DataAccess.Core.Users
             const string UspName = "Lrf_InternalLogin";
             try
             {
-                var user = new User();
                 using (var db = this.GetObjectDb(UspName))
                 {
-                    db.AddInParameter("UserName", DbType.String, requestUser.Username);
+                    AddCommonParameters(requestUser, db);
+
                     db.AddInParameter("EncryptedPassword", DbType.String, requestUser.Password);
                     db.AddInParameter("LicenseeName", DbType.String, licenseeName);
                     db.AddInParameter("LoginTime", DbType.DateTime, new DateTime(timeStamp));
-                    db.AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
-                    db.AddInParameter("LoginDomain", DbType.String, requestUser.Request.Domain);
-                    db.AddInParameter("BrowserName", DbType.String, requestUser.Request.Browser);
-                    db.AddInParameter("Platform", DbType.String, requestUser.Request.Platform);
-                    db.AddInParameter("CountryCode", DbType.String, requestUser.Request.CountryCode);
                     db.AddInParameter("Language", DbType.String, requestUser.Request.Language);
-                    AddResultParam(db);
-                    db.AddOutParameter("ServerID", DbType.Int32, 4);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            user = new User
-                            {
-                                UserID = reader.ToInt("UserID"),
-                                Username = reader.ToString("username"),
-                                FirstName = reader.ToString("firstname"),
-                                LastName = reader.ToString("lastname"),
-                                Email = reader.ToString("email"),
-                                Role = reader.ToString("userrole"),
-                                IsInternal = Converter.ToBool(reader["isinternal"])
-                            };
-                            var licensee = new Licensee { Id = reader.GetInt32(reader.GetOrdinal("LicenseeID")) };
-                            user.Licensee = licensee;
-                        }
-                    }
 
-                    user.ServerId = Converter.ToInt(db.GetParameterValue("ServerId"));
+                    var user = ReadUser(db);
                     resultInfo = GetResult(db);
+                    return user;
                 }
-
-                return user;
             }
             catch (ObjectDbException sqlException)
             {
@@ -108,49 +82,54 @@ namespace Fanex.Athena.DataAccess.Core.Users
             const string UspName = "Lrf_UserLogin";
             try
             {
-                var user = new User();
                 using (var db = this.GetObjectDb(UspName))
                 {
-                    db.AddInParameter("UserName", DbType.String, requestUser.Username);
-                    db.AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
-                    db.AddInParameter("LoginDomain", DbType.String, requestUser.Request.Domain);
-                    db.AddInParameter("BrowserName", DbType.String, requestUser.Request.Browser);
-                    db.AddInParameter("Platform", DbType.String, requestUser.Request.Platform);
-                    db.AddInParameter("CountryCode", DbType.String, requestUser.Request.CountryCode);
+                    AddCommonParameters(requestUser, db);
                     db.AddInParameter("langkey", DbType.String, requestUser.Request.Language);
-                    AddResultParam(db);
-                    db.AddOutParameter("ServerID", DbType.Int32, 4);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            user = new User
-                            {
-                                UserID = reader.ToInt("UserID"),
-                                Username = reader.ToString("username"),
-                                FirstName = reader.ToString("firstname"),
-                                LastName = reader.ToString("lastname"),
-                                Email = reader.ToString("email"),
-                                Role = reader.ToString("userrole"),
-                                IsInternal = Converter.ToBool(reader["isinternal"])
-                            };
-
-                            var licensee = new Licensee { Id = reader.GetInt32(reader.GetOrdinal("LicenseeID")) };
-                            user.Licensee = licensee;
-                        }
-                    }
-
-                    user.ServerId = Converter.ToInt(db.GetParameterValue("ServerId"));
+                    var user = ReadUser(db);
                     resultInfo = GetResult(db);
+                    return user;
                 }
-
-                return user;
             }
             catch (ObjectDbException sqlException)
             {
                 throw new DataAccessException(sqlException, UspName);
             }
+        }
+
+        private static void AddCommonParameters(User requestUser, IObjectDb db)
+        {
+            db.AddInParameter("UserName", DbType.String, requestUser.Username);
+            db.AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
+            db.AddInParameter("LoginDomain", DbType.String, requestUser.Request.Domain);
+            db.AddInParameter("BrowserName", DbType.String, requestUser.Request.Browser);
+            db.AddInParameter("Platform", DbType.String, requestUser.Request.Platform);
+            db.AddInParameter("CountryCode", DbType.String, requestUser.Request.CountryCode);
+            AddResultParam(db);
+            db.AddOutParameter("ServerID", DbType.Int32, 4);
+        }
+
+        private static User ReadUser(IObjectDb db)
+        {
+            var user = new User();
+            using (var reader = db.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    user.UserID = reader.ToInt("UserID");
+                    user.Username = reader.ToString("username");
+                    user.FirstName = reader.ToString("firstname");
+                    user.LastName = reader.ToString("lastname");
+                    user.Email = reader.ToString("email");
+                    user.Role = reader.ToString("userrole");
+                    user.IsInternal = Converter.ToBool(reader["isinternal"]);
+                    user.Licensee = new Licensee { Id = reader.GetInt32(reader.GetOrdinal("LicenseeID")) };
+                }
+            }
+
+            user.ServerId = Converter.ToInt(db.GetParameterValue("ServerId"));
+            return user;
         }
     }
 }
