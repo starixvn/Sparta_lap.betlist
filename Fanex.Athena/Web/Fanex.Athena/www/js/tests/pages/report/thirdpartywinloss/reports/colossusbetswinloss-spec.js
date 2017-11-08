@@ -16,7 +16,7 @@
                         UserGuideResourceName: "ColossusBetsWL",
                         UserGuideTitle: "ColossusBetsWinLoss",
                         ValidMonthRange: 0,
-                        ReportTitle: "GoldDeluxeWinLoss",
+                        ReportTitle: "ColossusBetsWinLoss",
                         GridOption: ColossusBetsWinLossOption
                     });
                 });
