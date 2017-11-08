@@ -9,18 +9,18 @@
     [TestFixture]
     public class TodayDepositControllerTest
     {
-        private ISimpleWidgetDataAccess _todayDepositService;
+        private ISingleValueDataAccess _dataAccess;
 
         [OneTimeSetUp]
         public void Setup()
         {
-            _todayDepositService = Substitute.For<ISimpleWidgetDataAccess>();
+            _dataAccess = Substitute.For<ISingleValueDataAccess>();
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            _todayDepositService = null;
+            _dataAccess = null;
         }
 
         [TestCase("CLMV")]
@@ -51,7 +51,7 @@
             {
                 BaseCurrency = "EUR"
             };
-            _todayDepositService.GetData(metaModel).Returns(expected);
+            _dataAccess.GetTodayDeposit(metaModel).Returns(expected);
 
             using (var controller = CreateController())
             {
@@ -71,7 +71,7 @@
                 ActionArguments = { { "licenseeid", 1 }, { "userid", 2 }, { "currencyIDList", "1" } }
             };
 
-            return new TodayDepositController(_todayDepositService)
+            return new TodayDepositController(_dataAccess)
             {
                 ActionContext = mockActionContext
             };

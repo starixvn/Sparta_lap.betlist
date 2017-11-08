@@ -60,6 +60,7 @@ namespace Fanex.Athena.Service.Casino
 
         public bool UpdateCommission(RNGCasinoUpdateMemberComMetaModel metaModel)
         {
+            return true;
             const string API_ERROR_MSG = "Found errors when calling casino API to update customer commission.\n customers=";
             const string AdditionErrorMsgPattern = "\n IP={0},CustomerId={1},ModifyBy={2},ModifyBy={3},Site={4}";
             var additionalErrorMsg = string.Format(

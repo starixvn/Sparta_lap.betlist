@@ -9,12 +9,12 @@
     [TestFixture]
     public class PendingFundControllerTest
     {
-        private ISimpleWidgetDataAccess _dataAccess;
+        private ISingleValueDataAccess _dataAccess;
 
         [OneTimeSetUp]
         public void Setup()
         {
-            _dataAccess = Substitute.For<ISimpleWidgetDataAccess>();
+            _dataAccess = Substitute.For<ISingleValueDataAccess>();
         }
 
         [OneTimeTearDown]
@@ -51,7 +51,7 @@
             {
                 BaseCurrency = "EUR"
             };
-            _dataAccess.GetData(metaModel).Returns(Expected);
+            _dataAccess.GetPendingFunds(metaModel).Returns(Expected);
 
             using (var controller = CreateController())
             {

@@ -8,15 +8,15 @@
 
     public class TodayWithdrawalController : BaseDashboardApiController
     {
-        private readonly ISimpleWidgetDataAccess _dataAccess;
+        private readonly ISingleValueDataAccess _dataAccess;
 
         public TodayWithdrawalController() : this(null)
         {
         }
 
-        public TodayWithdrawalController(ISimpleWidgetDataAccess todayWithdrawal)
+        public TodayWithdrawalController(ISingleValueDataAccess todayWithdrawal)
         {
-            _dataAccess = todayWithdrawal ?? new TodayWithdrawalDataAccess();
+            _dataAccess = todayWithdrawal ?? new SingleValueDataAccess();
         }
 
         public decimal GetData([FromUri] DashboardBaseModel metaModel)
@@ -28,7 +28,7 @@
 
             AssignAuthProperties(metaModel);
             metaModel.FromDate = DateTime.Now.Date;
-            return _dataAccess.GetData(metaModel);
+            return _dataAccess.GetTodayWithdrawal(metaModel);
         }
     }
 }

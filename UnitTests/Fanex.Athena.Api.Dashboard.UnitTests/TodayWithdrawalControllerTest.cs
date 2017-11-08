@@ -9,18 +9,18 @@
     [TestFixture]
     public class TodayWithdrawalControllerTest
     {
-        private ISimpleWidgetDataAccess _todayWithdrawalService;
+        private ISingleValueDataAccess _dataAccess;
 
         [OneTimeSetUp]
         public void Setup()
         {
-            _todayWithdrawalService = Substitute.For<ISimpleWidgetDataAccess>();
+            _dataAccess = Substitute.For<ISingleValueDataAccess>();
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            _todayWithdrawalService = null;
+            _dataAccess = null;
         }
 
         [TestCase("CLMV")]
@@ -39,7 +39,7 @@
 
                 // Assert
                 Assert.That(result, Is.Zero);
-                _todayWithdrawalService.DidNotReceive().GetData(metaModel);
+                _dataAccess.DidNotReceive().GetTodayWithdrawal(metaModel);
             }
         }
 
@@ -52,7 +52,7 @@
             {
                 BaseCurrency = "EUR"
             };
-            _todayWithdrawalService.GetData(metaModel).Returns(expected);
+            _dataAccess.GetTodayWithdrawal(metaModel).Returns(expected);
 
             using (var controller = CreateController())
             {
@@ -72,7 +72,7 @@
                 ActionArguments = { { "licenseeid", 1 }, { "userid", 2 }, { "currencyIDList", "1" } }
             };
 
-            return new TodayWithdrawalController(_todayWithdrawalService)
+            return new TodayWithdrawalController(_dataAccess)
             {
                 ActionContext = mockActionContext
             };

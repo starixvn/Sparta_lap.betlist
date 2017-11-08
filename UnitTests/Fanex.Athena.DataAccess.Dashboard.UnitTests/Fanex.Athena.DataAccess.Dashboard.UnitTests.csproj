@@ -74,10 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LicenseeDataByPlatformDataAccessTest.cs" />
-    <Compile Include="PendingFundDataAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CustomerBalanceDataAccessTest.cs" />
-    <Compile Include="TodayDepositDataAccessTest.cs" />
     <Compile Include="TodayWithdrawalDataAccessTest.cs" />
   </ItemGroup>
   <ItemGroup>

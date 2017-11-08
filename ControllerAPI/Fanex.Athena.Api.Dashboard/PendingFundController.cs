@@ -7,15 +7,15 @@
 
     public class PendingFundController : BaseDashboardApiController
     {
-        private readonly ISimpleWidgetDataAccess _dataAccess;
+        private readonly ISingleValueDataAccess _dataAccess;
 
         public PendingFundController() : this(null)
         {
         }
 
-        public PendingFundController(ISimpleWidgetDataAccess pendingFundService)
+        public PendingFundController(ISingleValueDataAccess dataAccess)
         {
-            _dataAccess = pendingFundService ?? new PendingFundDataAccess();
+            _dataAccess = dataAccess ?? new SingleValueDataAccess();
         }
 
         public decimal GetData([FromUri] DashboardBaseModel metaModel)
@@ -26,7 +26,7 @@
             }
 
             AssignAuthProperties(metaModel);
-            return _dataAccess.GetData(metaModel);
+            return _dataAccess.GetPendingFunds(metaModel);
         }
     }
 }
