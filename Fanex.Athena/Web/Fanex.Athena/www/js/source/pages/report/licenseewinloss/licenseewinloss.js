@@ -91,6 +91,10 @@
                     $('#IsExportExcel').val(true);
 
                     var data = $("#licenseewinloss").serializeObject();
+                    if (_sortColumnName) {
+                        data.sortby = _sortColumnName;
+                        data.sortOrder = _sortOrder;
+                    }
 
                     var option = {
                         type: "POST",

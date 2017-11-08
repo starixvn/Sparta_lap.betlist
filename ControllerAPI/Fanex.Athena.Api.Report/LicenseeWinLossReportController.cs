@@ -266,10 +266,17 @@ namespace Fanex.Athena.Api.Report
         {
             if (metaModel.IsValid)
             {
-                return metaModel.DrillDownLevel == 0 ? _licenseeWinLossDataAccess.GetSummaryWinloss(metaModel) :
+                var result = metaModel.DrillDownLevel == 0 ? _licenseeWinLossDataAccess.GetSummaryWinloss(metaModel) :
                                 metaModel.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.DrillDownLevel == 2
                                ? _licenseeWinLossDataAccess.GetCustomerWinlossDetail(metaModel)
                                : _licenseeWinLossDataAccess.GetAgentWinlossDetail(metaModel);
+
+                if (result.DataList.Any())
+                {
+                    SortData(result.DataList, metaModel.SortBy, metaModel.SortOrder);
+                }
+
+                return result;
             }
 
             return new SortableReportResultModel<LicenseeWinLoss>
@@ -308,8 +315,6 @@ namespace Fanex.Athena.Api.Report
 
                 if (result.DataList.Any())
                 {
-                    SortData(result.DataList, metaModel.SortBy, metaModel.SortOrder);
-
                     var summaryTotalView = result.SummaryTotal.ToDictionary(d => d.Key, d => MapToGridView(d.Value));
                     return new
                     {
