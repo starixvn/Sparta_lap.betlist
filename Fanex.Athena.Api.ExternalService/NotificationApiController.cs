@@ -1,11 +1,12 @@
 ﻿namespace Fanex.Athena.Api.ExternalService
 {
-    using System;
     using System.Collections.Generic;
     using System.Web.Http;
     using System.Web.Http.Cors;
     using Base.Attributes;
+    using Model.Core.ResultModel;
     using Model.Report.DTO;
+    using Model.Report.MetaModel;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
     using Service.Core.Configuration;
@@ -40,19 +41,21 @@
         }
 
         [HttpGet]
-        public dynamic GetNotificationMessages()
+        public dynamic GetNotificationMessages([FromUri]NotificationMetaModel metaModel)
         {
-            var mainData = new List<NotificationMessage>();
-
-            var random = new Random();
-
-            var length = random.Next(0, 5);
-            for (int i = 0; i < length; i++)
+            if (!metaModel.IsValid)
             {
-                mainData.Add(new NotificationMessage { Content = i.ToString(), DateTime = DateTime.Today });
+                return new ReportResultModel<ResultAmendment>
+                {
+                    DataList = new List<ResultAmendment>(),
+                    TotalRows = 0
+                };
             }
 
-            return mainData;
+            metaModel.PageSize = 10;
+            metaModel.PageIndex = 0;
+
+            return _notificationReportService.GetResultAmendment(metaModel);
         }
     }
 }
