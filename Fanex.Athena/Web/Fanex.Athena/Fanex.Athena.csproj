@@ -855,6 +855,7 @@
     <Content Include="www\js\source\reactpages\components\auto-complete\index.jsx" />
     <Content Include="www\js\source\reactpages\components\auto-complete\SuggestionList.jsx" />
     <Content Include="www\js\source\reactpages\components\date-range\DatePicker.jsx" />
+    <Content Include="www\css\source\reactpages\components\_tab.scss" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
@@ -973,6 +974,7 @@
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\casinodetailed\index.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\AppContainer.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\actions\product\index.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\reducers\product\index.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />
@@ -1000,6 +1002,8 @@
     <Content Include="www\js\source\reactpages\reducers\xsrfTokenReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\excludeTestReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\baseCurrencyReducer.test.js" />
+    <Content Include="www\js\source\reactpages\reducers\xsrfTokenReducer.js" />
+    <Content Include="www\js\source\reactpages\reducers\__tests__\baseCurrency.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\loaderReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\productReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\userGuideReducer.test.js" />
