@@ -18,6 +18,12 @@ define(
                 });
 
                 $('#ExportToExcel').click(function () {
+                    var sortParam = BetList.getSortParams();
+                    if (sortParam != null) {
+                        $("#SortBy").val(sortParam.SortBy);
+                        $("#SortOrder").val(sortParam.SortOrder);
+                    }
+
                     $('#CorrectScoreBetListForm').submit();
                 });
 
