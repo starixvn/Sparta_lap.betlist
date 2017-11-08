@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import classNames from "classnames"
 
-const Classes = {
+const wrapperClasses = {
     OVERLAY: "overlay",
     OVERLAY_OPEN: "overlay-open"
 }
@@ -85,9 +85,9 @@ export default class Overlay extends Component {
     render() {
         const { className, children } = this.props;
         const mergedClassName = classNames(
-            Classes.OVERLAY,
+            wrapperClasses.OVERLAY,
             {
-                [Classes.OVERLAY_OPEN]: this.state.isOpening
+                [wrapperClasses.OVERLAY_OPEN]: this.state.isOpening
             },
             className
         );

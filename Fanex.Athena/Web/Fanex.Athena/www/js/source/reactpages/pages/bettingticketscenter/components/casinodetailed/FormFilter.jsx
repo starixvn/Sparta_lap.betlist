@@ -8,6 +8,9 @@ import AutoComplete from '../../../../components/auto-complete'
 
 import { ActionCreators } from '../../actions/casinodetailed'
 import LangHelper from '../../../../lib/langHelper'
+import Site from '../../../../lib/site'
+
+const CUSTOMER_SEARCHING_URL = Site.resolveClientUrl("CustomerAPI/SearchCustomer");
 
 export class FormFilter extends Component {
     constructor(props) {
@@ -65,8 +68,9 @@ export class FormFilter extends Component {
                     <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Username")}</label>
-                            <AutoComplete url="/CustomerAPI/SearchCustomer" placeholder="External ID or System ID"
-                                onSelect={this._onSelectAutoCompleteItem} />
+                            <AutoComplete url={CUSTOMER_SEARCHING_URL}
+                                onSelect={this._onSelectAutoCompleteItem}
+                                htmlAttributes={{ placeholder: LangHelper.getSingleResource("ExternalIdOrSystemId") }} />
                         </div>
                     </div>
 

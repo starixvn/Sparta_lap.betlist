@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import axios from 'axios'
 
+import Overlay from '../Overlay'
 import SuggestionList from './SuggestionList'
 import Timer from '../utils/timer'
 
@@ -19,8 +20,6 @@ export default class AutoComplete extends Component {
         }
 
         this.input = null;
-        this.wrapper = null;
-        this.suggestionsWidth = 0;
         this.cacheData = {};
 
         this.onChange = Timer.debounce(this._onChange, DELAY_TIME_MILLISECOND).bind(this);
@@ -28,44 +27,23 @@ export default class AutoComplete extends Component {
 
     static propTypes = {
         url: PropTypes.string,
-        limitToList: PropTypes.bool,
-        maxItemsShown: PropTypes.number,
         onSelect: PropTypes.func,
         onInput: PropTypes.func,
         responseDataField: PropTypes.string,
         cache: PropTypes.bool,
-        queryParamName: PropTypes.string
+        queryParamName: PropTypes.string,
+        htmlAttributes: PropTypes.object
     }
 
     static defaultProps = {
         url: null,
-        limitToList: true,
-        maxItemsShown: 10,
         responseDataField: "suggestions",
         cache: true,
         queryParamName: "query"
     }
 
-    componentDidMount() {
-        this.suggestionsWidth = this.input.clientWidth;
-
-        document.addEventListener('click', this._handleDocumentClick)
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('click', this._handleDocumentClick)
-    }
-
     get showItems() {
         return this.state.suggestions && this.state.suggestions.length > 0;
-    }
-
-    _handleDocumentClick = (event) => {
-        const clickOutside = this.wrapper && !this.wrapper.contains(event.target);
-
-        if (clickOutside && this.showItems) {
-            this._clearState();
-        }
     }
 
     _onKeyDown = (event) => {
@@ -105,7 +83,7 @@ export default class AutoComplete extends Component {
         });
     }
 
-    _clearState() {
+    _clearState = () => {
         this.setState({ suggestions: null, selectedIndex: -1 });
     }
 
@@ -153,16 +131,18 @@ export default class AutoComplete extends Component {
 
     render() {
         return (
-            <div className="ac-container" ref={(element) => this.wrapper = element}>
-                <input type="text" className="input-text" placeholder={this.props.placeholder}
+            <div className="ac-container">
+                <input type="text" className="input-text" {...this.props.htmlAttributes}
                     onChange={this.onChange} onKeyDown={this._onKeyDown}
                     ref={(element) => this.input = element} />
 
                 {this.showItems ?
-                    <SuggestionList selectedIndex={this.state.selectedIndex}
-                        width={this.suggestionsWidth}
-                        dataList={this.state.suggestions}
-                        onSelect={this._onSelect} />
+                    <Overlay isOpening={this.showItems} onClose={this._clearState}>
+                        <SuggestionList selectedIndex={this.state.selectedIndex}
+                            width={this.input.clientWidth}
+                            dataList={this.state.suggestions}
+                            onSelect={this._onSelect} />
+                    </Overlay>
                     : null}
             </div>
         );
