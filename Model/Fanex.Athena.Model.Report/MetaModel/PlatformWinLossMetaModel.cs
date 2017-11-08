@@ -51,6 +51,10 @@ namespace Fanex.Athena.Model.Report.MetaModel
 
         public bool IsExcludedTestData { get; set; }
 
+        public string SortBy { get; set; }
+
+        public string SortOrder { get; set; }
+
         public override bool IsValid
         {
             get

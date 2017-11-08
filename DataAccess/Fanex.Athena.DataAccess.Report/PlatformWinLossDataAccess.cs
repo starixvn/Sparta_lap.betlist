@@ -14,6 +14,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Core.Configuration.Interfaces;
     using Core.Exception;
     using Extension.Helper;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -55,7 +56,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public ReportResultModel<PlatformWinLossMember> GetMemberData(PlatformWinLossMetaModel metaModel)
+        public SortableReportResultModel<PlatformWinLossMember> GetMemberData(PlatformWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_PlatformWinlossDetail";
             try
@@ -161,9 +162,9 @@ namespace Fanex.Athena.DataAccess.Report
             totalData.LicenseeWL += child.LicenseeWL;
         }
 
-        private static ReportResultModel<PlatformWinLossMember> ReadMemberData(IDataReader reader, string baseCurrency)
+        private static SortableReportResultModel<PlatformWinLossMember> ReadMemberData(IDataReader reader, string baseCurrency)
         {
-            var dataList = new List<PlatformWinLossMember>();
+            var dataList = new SortableList<PlatformWinLossMember>();
             var totalData = new PlatformWinLossMember();
 
             var turnoverColumn = "Turnover" + baseCurrency;
@@ -203,7 +204,7 @@ namespace Fanex.Athena.DataAccess.Report
                 AddTotalData(totalData, item);
             }
 
-            return new ReportResultModel<PlatformWinLossMember>
+            return new SortableReportResultModel<PlatformWinLossMember>
             {
                 DataList = dataList,
                 TotalData = totalData

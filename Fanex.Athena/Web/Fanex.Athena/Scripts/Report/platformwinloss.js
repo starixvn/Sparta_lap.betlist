@@ -123,6 +123,10 @@ var PlatformWinLoss = (function ($) {
                 var data = _level === 0 ? Site.clone(_submitData) : Site.clone(_drilldownData);
                 data.IsExportExcel = true;
                 data.Level = _level;
+                if (_sortColumnName) {
+                    data.SortBy = _sortColumnName;
+                    data.SortOrder = _sortOrder;
+                }
                 Site.exportExcel(data, Site.resolveClientUrl(PlatformWinLossOption.urlExcelData));
                 return false;
             });
@@ -343,6 +347,8 @@ var PlatformWinLoss = (function ($) {
         drillDown: function (data) {
             _level = 1;
             _pageSize = PlatformWinLossOption.pageSize;
+            _sortColumnName = null;
+            _sortOrder = "desc";
 
             var productOptions;
             if (data.ProductCode) {
