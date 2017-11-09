@@ -1,9 +1,13 @@
 ﻿namespace Fanex.Athena.DataAccess.Customer.UnitTests
 {
+    using System;
     using System.Data;
     using Data;
+    using Model.Customer.DTO.CustomerLog;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Extensions;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class LogInLogDataAccessTest
@@ -29,7 +33,7 @@
         public void GetDataList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserLog_LoginSel")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_UserLog_LoginSel")).Returns(_objectDb);
             var licenseeId = 0;
             var username = string.Empty;
             var agentList = "xml";
@@ -38,9 +42,44 @@
             _dataAccess.GetDataList(licenseeId, username, agentList);
 
             // Assert
-            _objectDb.Received().AddInParameter("UserName", DbType.String, string.IsNullOrEmpty(username) ? string.Empty : username.Trim());
-            _objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, licenseeId);
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, agentList);
+            Assert.Multiple(() =>
+            {
+                _objectDb.Received().AddInParameter("UserName", DbType.String, string.IsNullOrEmpty(username) ? string.Empty : username.Trim());
+                _objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, licenseeId);
+                _objectDb.Received().AddInParameter("AgentList", DbType.String, agentList);
+            });
+        }
+
+        [Test]
+        public void GetDataList_WhenCall_ReturnCorrectData()
+        {
+            // Arrange
+            var expectedResult = new LogInLog
+            {
+                UserName = "a",
+                CreatedDate = new DateTime(2011, 1, 1),
+                LastTxn = new DateTime(2011, 2, 2),
+            };
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_UserLog_LoginSel")).Returns(_objectDb);
+            var reader = Substitute.For<IDataReader>();
+            _objectDb.ExecuteReader().Returns(reader);
+            reader.Read().Returns(true, false);
+
+            DataAccessTestHelper.MapReaderData(
+                reader,
+                new
+                {
+                    expectedResult.UserName,
+                    expectedResult.CreatedDate,
+                    expectedResult.LastTxn
+                });
+
+            // Action
+            var result = _dataAccess.GetDataList(0, null, null);
+            var firstItem = result[0];
+
+            // Assert
+            Assert.That(firstItem, Tobe.SameProperties(expectedResult));
         }
     }
 }

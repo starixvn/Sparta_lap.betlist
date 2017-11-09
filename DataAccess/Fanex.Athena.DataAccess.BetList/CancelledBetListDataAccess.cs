@@ -10,10 +10,8 @@ namespace Fanex.Athena.DataAccess.BetList
     using System.Data;
     using System.Linq;
     using Core;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.Data;
     using Interfaces;
 
     public class CancelledBetListDataAccess : BaseDataAccess, ICancelledBetListDataAccess
@@ -22,17 +20,10 @@ namespace Fanex.Athena.DataAccess.BetList
 
         public IList<CustomerCancelBetItem> GetCancelBetCustList(BetListMetaModel metaModel)
         {
-            try
+            using (var db = this.GetObjectDb(UspKey))
             {
-                using (var db = this.GetObjectDb(UspKey))
-                {
-                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                    return db.Query<CustomerCancelBetItem>().ToList();
-                }
-            }
-            catch (ObjectDbException exception)
-            {
-                throw new DataAccessException(exception, UspKey);
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                return db.Query<CustomerCancelBetItem>().ToList();
             }
         }
     }

@@ -2,8 +2,6 @@
 {
     using System.Data;
     using Core;
-    using Core.Exception;
-    using Data;
     using Interfaces;
     using Model.Customer.DTO;
 
@@ -12,18 +10,12 @@
         public CustomerInfo GetCustomerInfo(int custId)
         {
             const string UspName = "Lrf_CustomerSelStatus";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("custid", DbType.Int32, custId);
 
-                    return db.QueryEntity<CustomerInfo>();
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName);
+                db.AddInParameter("custid", DbType.Int32, custId);
+
+                return db.QueryEntity<CustomerInfo>();
             }
         }
     }
