@@ -20660,6 +20660,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 url = Site.setLicenseeOptionParam(url);
                 url = QueryString.setParam(url, "custId", $("#CustId").val());
                 $('#IsExportExcel').val(true);
+                var sortParam = BetList.getSortParams();
+                if (sortParam != null) {
+                    $("#SortBy").val(sortParam.SortBy);
+                    $("#SortOrder").val(sortParam.SortOrder);
+                }
+
                 $('#CancellerBetsBetListForm').submit();
             }
         };

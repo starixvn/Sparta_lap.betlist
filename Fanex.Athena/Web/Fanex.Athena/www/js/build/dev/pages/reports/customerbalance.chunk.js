@@ -23224,6 +23224,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 $(_selector.ExportExcelInput).val(true);
                 var mainForm = $(_selector.Form);
                 var url = Site.resolveClientUrl(CustomerBalanceOption.urlExcelData);
+                $(_selector.OrderItemInput, _selector.Form).val(_orderColumnCode);
                 mainForm.attr("action", url);
                 mainForm.submit();
                 $(_selector.ExportExcelInput).val(false);

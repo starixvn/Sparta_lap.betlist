@@ -25779,6 +25779,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     $('#IsExportExcel').val(true);
 
                     var data = $("#licenseewinloss").serializeObject();
+                    if (_sortColumnName) {
+                        data.sortby = _sortColumnName;
+                        data.sortOrder = _sortOrder;
+                    }
 
                     var option = {
                         type: "POST",

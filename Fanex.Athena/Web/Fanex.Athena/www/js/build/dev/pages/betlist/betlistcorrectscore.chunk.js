@@ -20592,6 +20592,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 });
 
                 $('#ExportToExcel').click(function () {
+                    var sortParam = BetList.getSortParams();
+                    if (sortParam != null) {
+                        $("#SortBy").val(sortParam.SortBy);
+                        $("#SortOrder").val(sortParam.SortOrder);
+                    }
+
                     $('#CorrectScoreBetListForm').submit();
                 });
 

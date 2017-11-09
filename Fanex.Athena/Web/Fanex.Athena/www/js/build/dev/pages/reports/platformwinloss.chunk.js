@@ -8806,7 +8806,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
 
             $('#ExportToExcel').click(function () {
-                _me.exportToExcel(gridControl.level);
+                _me.exportToExcel(gridControl.level, gridControl.sortColumnName, gridControl.sortOrder);
             });
         }
 
@@ -8873,10 +8873,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return true;
         }
 
-        function exportToExcel(level) {
+        function exportToExcel(level, sortBy, sortOrder) {
             var data = Site.clone(_filterData[level]);
             data.IsExportExcel = true;
             data.Level = level;
+            if (sortBy) {
+                data.SortBy = sortBy;
+                data.SortOrder = sortOrder
+            }
             ExcelHelper.exportExcel(data, Site.resolveClientUrl(PlatformWinLossOption.urlExcelData));
             return false;
         }
@@ -9001,6 +9005,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         function drillDown(level, data) {
             gridControl.level = level;
             gridControl.pageSize = PlatformWinLossOption.pageSize;
+            gridControl.sortColumnName = null;
+            gridControl.sortOrder = "desc";
 
             var submitData = _filterData[level - 1];
             var productOptions;
