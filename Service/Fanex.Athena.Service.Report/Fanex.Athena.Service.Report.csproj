@@ -189,8 +189,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CashOutWinLossService.cs" />
-    <Compile Include="Interfaces\ICashOutWinLossService.cs" />
     <Compile Include="Interfaces\IColossusBetsWinLossService.cs" />
     <Compile Include="Interfaces\ISubsidiaryPerformanceService.cs" />
     <Compile Include="Interfaces\IWeeklyLiveMatchService.cs" />

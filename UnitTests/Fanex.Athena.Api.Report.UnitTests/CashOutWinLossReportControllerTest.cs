@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Script.Serialization;
+    using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
     using Excel.Report;
     using Extension.Utility;
-    using Fanex.Athena.Service.Report.Interfaces;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -19,7 +19,7 @@
 
     public class CashOutWinLossReportControllerTest : BaseApiReportControllerHelperTest
     {
-        private ICashOutWinLossService _service;
+        private ICashOutWinLossDataAccess _dataAccess;
         private CashOutWinLossReportController _controller;
         private JavaScriptSerializer _serializer;
 
@@ -30,8 +30,8 @@
 
             MockSessionData();
 
-            _service = Substitute.For<ICashOutWinLossService>();
-            _controller = Substitute.ForPartsOf<CashOutWinLossReportController>(_service, SessionService, ProductService);
+            _dataAccess = Substitute.For<ICashOutWinLossDataAccess>();
+            _controller = Substitute.ForPartsOf<CashOutWinLossReportController>(_dataAccess, SessionService, ProductService);
             _serializer = new JavaScriptSerializer();
         }
 
@@ -40,7 +40,7 @@
         {
             base.FixtureTearDown();
 
-            _service = null;
+            _dataAccess = null;
             _controller = null;
         }
 
@@ -85,13 +85,14 @@
             };
             var totalDataResult = dataListResult.ToList();
             var summaryTotalResult = new Dictionary<string, CashOutWinLoss> { { "EUR", new CashOutWinLoss() } };
-            _service.GetSummary(Arg.Is<ThirdPartyWinLossMetaModel>(x => IsValidMetaModelForLevel0(x, Level))).Returns(
+            _dataAccess.GetSummary(Arg.Is<ThirdPartyWinLossMetaModel>(x => IsValidMetaModelForLevel0(x, Level))).Returns(
                 new SortableReportResultModel<CashOutWinLoss>
                 {
                     SummaryTotal = summaryTotalResult,
-                    DataList = dataListResult
+                    DataList = dataListResult,
+                    TotalDataList = totalDataResult
                 });
-            _service.TotalCalc(dataListResult).Returns(totalDataResult);
+
             var expectedResult = CreateResultData(dataListResult, totalDataResult, summaryTotalResult);
 
             // Action
@@ -124,13 +125,13 @@
             };
             var totalDataResult = dataListResult.ToList();
             var summaryTotalResult = new Dictionary<string, CashOutWinLoss> { { "EUR", new CashOutWinLoss() } };
-            _service.GetDetail(Arg.Is<ThirdPartyWinLossMetaModel>(x => IsValidMetaModelForLevel0(x, Level))).Returns(
+            _dataAccess.GetDetail(Arg.Is<ThirdPartyWinLossMetaModel>(x => IsValidMetaModelForLevel0(x, Level))).Returns(
                 new SortableReportResultModel<CashOutWinLoss>
                 {
                     SummaryTotal = summaryTotalResult,
-                    DataList = dataListResult
+                    DataList = dataListResult,
+                    TotalDataList = totalDataResult
                 });
-            _service.TotalCalc(dataListResult).Returns(totalDataResult);
             var expectedResult = CreateResultData(dataListResult, totalDataResult, summaryTotalResult);
 
             // Action
@@ -158,7 +159,7 @@
             };
             SessionService.GenerateAgentListXml(CurrencyId, metaModel.IsExcludedTestData).Returns("XmlData");
 
-            _service.GetDetail(Arg.Any<ThirdPartyWinLossMetaModel>()).ReturnsForAnyArgs(new SortableReportResultModel<CashOutWinLoss>());
+            _dataAccess.GetDetail(Arg.Any<ThirdPartyWinLossMetaModel>()).ReturnsForAnyArgs(new SortableReportResultModel<CashOutWinLoss>());
 
             var expectedResult = CreateResultData(new List<CashOutWinLoss>(), new List<CashOutWinLoss>(), new Dictionary<string, CashOutWinLoss>());
 
@@ -188,11 +189,11 @@
                 DrillDownToDate = toDate,
                 FromDate = fromDate
             };
-            _service.GetSummary(Arg.Any<ThirdPartyWinLossMetaModel>()).ReturnsForAnyArgs(new SortableReportResultModel<CashOutWinLoss>());
+            _dataAccess.GetSummary(Arg.Any<ThirdPartyWinLossMetaModel>()).ReturnsForAnyArgs(new SortableReportResultModel<CashOutWinLoss>());
             var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(
-                string.Empty, 
-                new ConvertingOption(), 
-                metaModel, 
+                string.Empty,
+                new ConvertingOption(),
+                metaModel,
                 new CashOutWinLossViewModel
                 {
                     MainResult = new CashOutWinLoss[] { }
@@ -232,11 +233,11 @@
                 ToDate = toDate.AddDays(1)
             };
 
-            _service.GetSummary(Arg.Any<ThirdPartyWinLossMetaModel>()).ReturnsForAnyArgs(new SortableReportResultModel<CashOutWinLoss>());
+            _dataAccess.GetSummary(Arg.Any<ThirdPartyWinLossMetaModel>()).ReturnsForAnyArgs(new SortableReportResultModel<CashOutWinLoss>());
             var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(
                 string.Empty,
                 new ConvertingOption(),
-                metaModel, 
+                metaModel,
                 new CashOutWinLossViewModel
                 {
                     MainResult = new CashOutWinLoss[] { }

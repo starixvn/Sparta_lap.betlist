@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Extension.Helper;
@@ -50,7 +51,9 @@ namespace Fanex.Athena.DataAccess.Report
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel);
+                        var result = GetData(reader, metaModel);
+                        AssignRowSpan(result.DataList);
+                        return result;
                     }
                 }
             }
@@ -135,12 +138,39 @@ namespace Fanex.Athena.DataAccess.Report
                 };
 
                 result.Add(item);
+
+                var item1 = new CashOutWinLoss
+                {
+                    Index = index++,
+                    SystemId = hasSystemId ? reader.ToString("systemid") : string.Empty,
+                    ExternalId = hasExternalId ? reader.ToString("externalid") : string.Empty,
+                    CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
+                    CurrencyId = reader.ToInt("currencyid"),
+                    CurrencyName = reader.ToString("currencyname"),
+                    CashOutTimes = reader.ToInt("cashouttime"),
+                    CashOutValue = reader.ToDecimal(cashOutValueColumn),
+                    CashOutTickets = reader.ToInt("cashoutticket"),
+                    BuyBackAmountSB = reader.ToDecimal(buybackAmountSBColumn),
+                    BuyBackAmountBA = reader.ToDecimal(buybackAmountBAColumn),
+                    TicketPayout = reader.ToDecimal(ticketPayoutColumn),
+                    CashOutCommission = reader.ToDecimal(cashOutCommColumn),
+                    SettleAmountTicketPayout = reader.ToDecimal(settleTicketPayoutColumn),
+                    SettleAmountBuyBackComm = reader.ToDecimal(settleCommColumn),
+                    SettleAmountTotal = reader.ToDecimal(settleTotalColumn),
+                    Date = isDrilldown
+                        ? metaModel.DrillDownFromDate
+                        : ConvertHelper.ToDateTime(reader.ToString("reporttype"), metaModel.ReportBy == ReportByType.Monthly)
+                };
+
+                result.Add(item1);
+
                 ReadSummaryTotal(reader, summaryTotal);
             }
 
             return new SortableReportResultModel<CashOutWinLoss>
             {
                 DataList = result,
+                TotalDataList = CalculateTotal(result),
                 SummaryTotal = summaryTotal
             };
         }
@@ -160,6 +190,48 @@ namespace Fanex.Athena.DataAccess.Report
                 summaryTotal[currency].SettleAmountBuyBackComm += reader.ToDecimal("AmountDue_Comm" + currency);
                 summaryTotal[currency].SettleAmountTotal += reader.ToDecimal("Amount_Total" + currency);
             }
+        }
+
+        private static void AssignRowSpan(IEnumerable<CashOutWinLoss> dataList)
+        {
+            var date = new System.DateTime();
+            var index = 1;
+            foreach (var item in dataList)
+            {
+                if (date != item.Date)
+                {
+                    date = item.Date;
+                    item.RowSpan = dataList.Count(x => x.Date == item.Date);
+                    item.Index = index++;
+                }
+                else
+                {
+                    item.RowSpan = -1;
+                }
+            }
+        }
+
+        private static IEnumerable<CashOutWinLoss> CalculateTotal(IEnumerable<CashOutWinLoss> dataList)
+        {
+            if (dataList == null || !dataList.Any())
+            {
+                return new List<CashOutWinLoss>();
+            }
+
+            return dataList.GroupBy(d => d.CurrencyName).Select(g => new CashOutWinLoss
+            {
+                CurrencyName = g.Key,
+                CashOutTimes = g.Sum(p => p.CashOutTimes),
+                CashOutTickets = g.Sum(p => p.CashOutTickets),
+                CashOutValue = g.Sum(p => p.CashOutValue),
+                BuyBackAmountSB = g.Sum(p => p.BuyBackAmountSB),
+                BuyBackAmountBA = g.Sum(p => p.BuyBackAmountBA),
+                TicketPayout = g.Sum(p => p.TicketPayout),
+                CashOutCommission = g.Sum(p => p.CashOutCommission),
+                SettleAmountTicketPayout = g.Sum(p => p.SettleAmountTicketPayout),
+                SettleAmountBuyBackComm = g.Sum(p => p.SettleAmountBuyBackComm),
+                SettleAmountTotal = g.Sum(p => p.SettleAmountTotal),
+            }).ToList();
         }
 
         private void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
