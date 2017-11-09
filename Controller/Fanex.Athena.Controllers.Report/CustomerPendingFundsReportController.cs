@@ -33,15 +33,8 @@ namespace Fanex.Athena.Controllers.Report
                 metaModel.LicenseeId,
                 userSession.Language,
                 FunctionNames.CustomerPendingFunds);
-            var productOption = productAccess.ProductList
-                                             .Select(i => new ProductOption
-                                             {
-                                                 Code = i.ProductCode,
-                                                 Name = i.ProductName,
-                                                 Status = i.ProductCode == Product.SB
-                                             }).ToList();
 
-            metaModel.ProductOptions = productOption;
+            metaModel.ProductOptions = ToProductOptions(productAccess.ProductList);
 
             var model = new CustomerPendingFundsViewModel
             {

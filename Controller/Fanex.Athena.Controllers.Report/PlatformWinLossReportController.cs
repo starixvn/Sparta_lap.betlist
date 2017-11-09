@@ -29,18 +29,11 @@ namespace Fanex.Athena.Controllers.Report
                 licenseeId,
                 userSession.Language,
                 FunctionNames.PlatformWinloss);
-            var productOption = productAccess.ProductList
-                                             .Select(i => new ProductOption
-                                             {
-                                                 Code = i.ProductCode,
-                                                 Name = i.ProductName,
-                                                 Status = i.ProductCode == Product.SB
-                                             }).ToList();
 
             SetConvetedUSDCurrencyId(metaModel);
             SetConvetedUSDCurrencyName(metaModel);
 
-            metaModel.ProductOptions = productOption;
+            metaModel.ProductOptions = ToProductOptions(productAccess.ProductList);
 
             var model = new PlatformWinLossViewModel
             {

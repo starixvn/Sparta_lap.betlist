@@ -33,12 +33,7 @@ namespace Fanex.Athena.Controllers.Report
                 FromDate = DateTime.Now.AddMonths(-3),
                 ToDate = DateTime.Now,
                 LicenseeId = licenseeSession.LicenseeId,
-                ProductOptions = productAccess.ProductList.Select(i => new ProductOption
-                {
-                    Code = i.ProductCode,
-                    Name = i.ProductName,
-                    Status = i.ProductCode == Product.MGCRNG
-                }).ToList(),
+                ProductOptions = ToProductOptions(productAccess.ProductList)
             };
 
             SetConvetedUSDCurrencyId(metaModel);

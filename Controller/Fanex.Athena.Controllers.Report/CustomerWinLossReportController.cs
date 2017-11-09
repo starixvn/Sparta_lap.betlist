@@ -46,15 +46,8 @@ namespace Fanex.Athena.Controllers.Report
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 FunctionNames.CustomerWinLoss);
-            var productOption = productAccess.ProductList
-                                             .Select(i => new ProductOption
-                                             {
-                                                 Code = i.ProductCode,
-                                                 Name = i.ProductName,
-                                                 Status = i.ProductCode == Product.SB
-                                             }).ToList();
 
-            metaModel.ProductOptions = productOption;
+            metaModel.ProductOptions = ToProductOptions(productAccess.ProductList);
             var model = new CustomerWinLossViewModel
             {
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
