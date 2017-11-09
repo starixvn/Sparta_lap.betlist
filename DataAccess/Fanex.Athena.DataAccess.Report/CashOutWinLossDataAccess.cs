@@ -138,32 +138,6 @@ namespace Fanex.Athena.DataAccess.Report
                 };
 
                 result.Add(item);
-
-                var item1 = new CashOutWinLoss
-                {
-                    Index = index++,
-                    SystemId = hasSystemId ? reader.ToString("systemid") : string.Empty,
-                    ExternalId = hasExternalId ? reader.ToString("externalid") : string.Empty,
-                    CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
-                    CurrencyId = reader.ToInt("currencyid"),
-                    CurrencyName = reader.ToString("currencyname"),
-                    CashOutTimes = reader.ToInt("cashouttime"),
-                    CashOutValue = reader.ToDecimal(cashOutValueColumn),
-                    CashOutTickets = reader.ToInt("cashoutticket"),
-                    BuyBackAmountSB = reader.ToDecimal(buybackAmountSBColumn),
-                    BuyBackAmountBA = reader.ToDecimal(buybackAmountBAColumn),
-                    TicketPayout = reader.ToDecimal(ticketPayoutColumn),
-                    CashOutCommission = reader.ToDecimal(cashOutCommColumn),
-                    SettleAmountTicketPayout = reader.ToDecimal(settleTicketPayoutColumn),
-                    SettleAmountBuyBackComm = reader.ToDecimal(settleCommColumn),
-                    SettleAmountTotal = reader.ToDecimal(settleTotalColumn),
-                    Date = isDrilldown
-                        ? metaModel.DrillDownFromDate
-                        : ConvertHelper.ToDateTime(reader.ToString("reporttype"), metaModel.ReportBy == ReportByType.Monthly)
-                };
-
-                result.Add(item1);
-
                 ReadSummaryTotal(reader, summaryTotal);
             }
 

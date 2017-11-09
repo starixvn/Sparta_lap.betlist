@@ -28,6 +28,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
         {
         }
 
+        [CLSCompliant(false)]
         public UserDataAccess(ILogger logger)
         {
             _logger = logger ?? Logger.Log;

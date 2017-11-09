@@ -82,13 +82,13 @@
             var reader = Substitute.For<IDataReader>();
             reader.Read().Returns(true, false);
             _objectDb.ExecuteReader().Returns(reader);
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_CashoutWinloss")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_CashoutWinloss")).Returns(_objectDb);
             ConfigCheckingColumnForReader(reader);
 
             var fakeData = CreateFakeData();
             DataAccessTestHelper.MapReaderData(reader, fakeData);
             var serializer = new JavaScriptSerializer();
-            var expectedCashoutWinLossData = serializer.Serialize(CreateExpectedCashoutWinLossData());
+            var expectedCashoutWinLossData = serializer.Serialize(CreateExpectedCashoutWinLossData(1));
             var expectedSummaryTotal = serializer.Serialize(CreateExpectedSummaryTotalData());
 
             // Action
@@ -107,14 +107,14 @@
             var reader = Substitute.For<IDataReader>();
             reader.Read().Returns(true, false);
             _objectDb.ExecuteReader().Returns(reader);
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_CashoutWinloss")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_CashoutWinloss")).Returns(_objectDb);
             reader.FieldCount.Returns(0);
 
             var fakeData = CreateFakeData();
             DataAccessTestHelper.MapReaderData(reader, fakeData);
             var serializer = new JavaScriptSerializer();
 
-            var cashoutWinLossData = CreateExpectedCashoutWinLossData();
+            var cashoutWinLossData = CreateExpectedCashoutWinLossData(1);
             cashoutWinLossData[0].Date = _metaModel.DrillDownFromDate;
             cashoutWinLossData[0].SystemId = string.Empty;
             cashoutWinLossData[0].ExternalId = string.Empty;
@@ -155,7 +155,7 @@
             var reader = Substitute.For<IDataReader>();
             reader.Read().Returns(true, false);
             _objectDb.ExecuteReader().Returns(reader);
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_CashoutWinloss_Detail")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_CashoutWinloss_Detail")).Returns(_objectDb);
             ConfigCheckingColumnForReader(reader);
 
             var fakeData = CreateFakeData();
@@ -164,6 +164,7 @@
             var expectedResult = new SortableReportResultModel<CashOutWinLoss>
             {
                 DataList = CreateExpectedCashoutWinLossData(),
+                TotalDataList = CreateExpectedCashoutWinLossTotalData(),
                 SummaryTotal = CreateExpectedSummaryTotalData()
             };
 
@@ -195,12 +196,13 @@
             };
         }
 
-        private static SortableList<CashOutWinLoss> CreateExpectedCashoutWinLossData()
+        private static SortableList<CashOutWinLoss> CreateExpectedCashoutWinLossData(int rowSpan = 0)
         {
             return new SortableList<CashOutWinLoss>
             {
                 new CashOutWinLoss
                 {
+                    RowSpan = rowSpan,
                     Index = 1,
                     SystemId = "1",
                     ExternalId = "2",
@@ -220,6 +222,18 @@
                     Date = new DateTime(2017, 4, 17)
                 }
             };
+        }
+
+        private static SortableList<CashOutWinLoss> CreateExpectedCashoutWinLossTotalData(int rowSpan = 0)
+        {
+            var data = CreateExpectedCashoutWinLossData(rowSpan);
+            data[0].Index = 0;
+            data[0].Date = DateTime.MinValue;
+            data[0].SystemId = null;
+            data[0].ExternalId = null;
+            data[0].CustomerId = 0;
+            data[0].CurrencyId = 0;
+            return data;
         }
 
         private static IDictionary<string, CashOutWinLoss> CreateExpectedSummaryTotalData()
