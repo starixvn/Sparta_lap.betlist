@@ -19,7 +19,7 @@ namespace Fanex.Athena.DataAccess.Core.Users.Interfaces
 
         IResultInfo ChangePassword(User requestUser, string oldPassword, string newPassword, string salt);
 
-        List<User> GetByLicensee(int licenseeId, bool isInternal);
+        IList<User> GetByLicensee(int licenseeId, bool isInternal);
 
         User GetByUsername(string userName, bool isInternal, int licenseeId = 0);
 

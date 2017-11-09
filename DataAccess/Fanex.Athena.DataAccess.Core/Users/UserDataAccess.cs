@@ -20,53 +20,39 @@ namespace Fanex.Athena.DataAccess.Core.Users
     using Fanex.Data;
     using Logging;
 
-    /// <summary>
-    ///     The user data access.
-    /// </summary>
     public class UserDataAccess : BaseDataAccess, IUserDataAccess
     {
-        #region Public Methods and Operators
+        private readonly ILogger _logger;
 
-        /// <summary>
-        ///     The change password.
-        /// </summary>
-        /// <param name="requestUser"> The request user. </param>
-        /// <param name="oldPassword"> The old password. </param>
-        /// <param name="newPassword"> The new password. </param>
-        /// <param name="salt"> The salt value. </param>
-        /// <returns> Result information. </returns>
+        public UserDataAccess() : this(null)
+        {
+        }
+
+        public UserDataAccess(ILogger logger)
+        {
+            _logger = logger ?? Logger.Log;
+        }
+
         public IResultInfo ChangePassword(User requestUser, string oldPassword, string newPassword, string salt)
         {
             const string UspName = "Licensee_UserPasswordUpd";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("UserName", DbType.String, requestUser.Username);
-                    db.AddInParameter("OldPwd", DbType.String, oldPassword);
-                    db.AddInParameter("NewPwd", DbType.String, newPassword);
-                    db.AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
-                    db.AddInParameter("UserSalt", DbType.String, salt);
-                    AddResultParam(db);
 
-                    db.ExecuteNonQuery();
-
-                    return GetResult(db);
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName);
+                db.AddInParameter("UserName", DbType.String, requestUser.Username);
+                db.AddInParameter("OldPwd", DbType.String, oldPassword);
+                db.AddInParameter("NewPwd", DbType.String, newPassword);
+                db.AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
+                db.AddInParameter("UserSalt", DbType.String, salt);
+                AddResultParam(db);
+
+                db.ExecuteNonQuery();
+
+                return GetResult(db);
             }
         }
 
-        /// <summary>
-        ///     The get by licensee.
-        /// </summary>
-        /// <param name="licenseeId"> The licensee ID. </param>
-        /// <param name="isInternal"> The is internal. </param>
-        /// <returns>List user. </returns>
-        public List<User> GetByLicensee(int licenseeId, bool isInternal)
+        public IList<User> GetByLicensee(int licenseeId, bool isInternal)
         {
             const string UspName = "Lrf_UserAccessSel";
             var uspParams = new { LicenseeID = licenseeId, IsInternal = isInternal };
@@ -112,106 +98,75 @@ namespace Fanex.Athena.DataAccess.Core.Users
                 LicenseeId = licenseeId,
                 isInternal
             };
-            using (var objectDb = this.GetObjectDb("Lrf_UserInfoSelByUserName"))
+            using (var objectDb = GetObjectDb("Lrf_UserInfoSelByUserName"))
             {
                 return objectDb.Query<User>(param).FirstOrDefault();
             }
         }
 
-        /// <summary>
-        ///     The get user info.
-        /// </summary>
-        /// <param name="licenseeId"> The licensee id. </param>
-        /// <param name="userId"> The user id. </param>
-        /// <returns> User result.</returns>
         public User GetUserInfo(int licenseeId, int userId)
         {
             const string UspName = "Lrf_UserInfoSel";
             var uspParams = new { LicenseeId = licenseeId, UserId = userId };
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    using (var reader = db.ExecuteReader(uspParams))
-                    {
-                        var user = new User();
-                        if (reader.Read())
-                        {
-                            user.UserID = reader.ToInt("userid");
-                            user.Username = reader.ToString("username");
-                            user.FirstName = reader.ToString("firstname");
-                            user.LastName = reader.ToString("lastname");
-                            user.Status = reader.ToString("status");
-                            user.Licensee = new Licensee { Id = licenseeId };
-                            user.IsInternal = Converter.ToBool(reader["isinternal"]);
-                        }
 
-                        return user;
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName);
+                using (var reader = db.ExecuteReader(uspParams))
+                {
+                    var user = new User();
+                    if (reader.Read())
+                    {
+                        user.UserID = reader.ToInt("userid");
+                        user.Username = reader.ToString("username");
+                        user.FirstName = reader.ToString("firstname");
+                        user.LastName = reader.ToString("lastname");
+                        user.Status = reader.ToString("status");
+                        user.Licensee = new Licensee { Id = licenseeId };
+                        user.IsInternal = Converter.ToBool(reader["isinternal"]);
+                    }
+
+                    return user;
+                }
             }
         }
 
         public bool RecheckIn(int userId)
         {
             const string UspName = "Lrf_ReCheckIn";
-            try
-            {
-                bool isKickedOut;
-                using (var db = new ObjectDb(UspName, 30))
-                {
-                    db.AddInParameter("On_Userid", DbType.Int32, userId);
-                    db.AddOutParameter("IsKickedOut", DbType.Boolean, 0);
-                    db.ExecuteNonQuery();
 
-                    // get OnUserId
-                    isKickedOut = Convert.ToBoolean(db.GetParameterValue("IsKickedOut"));
-                }
-
-                return isKickedOut;
-            }
-            catch (ObjectDbException sqlException)
+            bool isKickedOut;
+            using (var db = GetObjectDb(UspName, 30))
             {
-                throw new DataAccessException(sqlException, UspName);
+                db.AddInParameter("On_Userid", DbType.Int32, userId);
+                db.AddOutParameter("IsKickedOut", DbType.Boolean, 0);
+                db.ExecuteNonQuery();
+
+                // get OnUserId
+                isKickedOut = Convert.ToBoolean(db.GetParameterValue("IsKickedOut"));
             }
+
+            return isKickedOut;
         }
 
-        /// <summary>
-        ///     The reset password.
-        /// </summary>
-        /// <param name="user"> The user value. </param>
-        /// <param name="salt"> The salt value. </param>
-        /// <param name="resetPwdBy"> The reset password by. </param>
-        /// <returns>Result information. </returns>
         public IResultInfo ResetPassword(User user, string salt, int resetPwdBy)
         {
             const string UspName = "Lrf_UserPwdReset";
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
-                    db.AddInParameter("UserId", DbType.Int32, user.UserID);
-                    db.AddInParameter("UpdateBy", DbType.Int32, resetPwdBy);
-                    db.AddInParameter("Pwd", DbType.String, user.Password);
-                    db.AddInParameter("UserSalt", DbType.String, salt);
-                    db.AddInParameter("langkey", DbType.String, user.Request.Language);
-                    db.AddInParameter("LoginIP", DbType.String, user.Request.Ip);
+                db.AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
+                db.AddInParameter("UserId", DbType.Int32, user.UserID);
+                db.AddInParameter("UpdateBy", DbType.Int32, resetPwdBy);
+                db.AddInParameter("Pwd", DbType.String, user.Password);
+                db.AddInParameter("UserSalt", DbType.String, salt);
+                db.AddInParameter("langkey", DbType.String, user.Request.Language);
+                db.AddInParameter("LoginIP", DbType.String, user.Request.Ip);
 
-                    AddResultParam(db);
+                AddResultParam(db);
 
-                    db.ExecuteNonQuery();
+                db.ExecuteNonQuery();
 
-                    return GetResult(db);
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName);
+                return GetResult(db);
             }
         }
 
@@ -239,44 +194,30 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
             finally
             {
-                LogService.Info($"Synced user from LAP system - userName={userName}");
+                _logger.Info($"Synced user from LAP system - userName={userName}");
             }
         }
 
-        /// <summary>
-        ///     The update info.
-        /// </summary>
-        /// <param name="user"> The user value. </param>
-        /// <param name="updatedBy"> The updated by. </param>
-        /// <returns> Result information. </returns>
         public IResultInfo UpdateInfo(User user, int updatedBy)
         {
             const string UspName = "Lrf_UserUpdAccount";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
-                    db.AddInParameter("UserId", DbType.Int32, user.UserID);
-                    db.AddInParameter("UpdateBy", DbType.Int32, updatedBy);
-                    db.AddInParameter("FirstName", DbType.String, user.FirstName);
-                    db.AddInParameter("LastName", DbType.String, user.LastName);
-                    db.AddInParameter("Status", DbType.String, user.Status);
-                    db.AddInParameter("langkey", DbType.String, user.Request.Language);
-                    db.AddInParameter("LoginIP", DbType.String, user.Request.Ip);
-                    AddResultParam(db);
 
-                    db.ExecuteNonQuery();
-
-                    return GetResult(db);
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName);
+                db.AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
+                db.AddInParameter("UserId", DbType.Int32, user.UserID);
+                db.AddInParameter("UpdateBy", DbType.Int32, updatedBy);
+                db.AddInParameter("FirstName", DbType.String, user.FirstName);
+                db.AddInParameter("LastName", DbType.String, user.LastName);
+                db.AddInParameter("Status", DbType.String, user.Status);
+                db.AddInParameter("langkey", DbType.String, user.Request.Language);
+                db.AddInParameter("LoginIP", DbType.String, user.Request.Ip);
+                AddResultParam(db);
+
+                db.ExecuteNonQuery();
+
+                return GetResult(db);
             }
         }
-
-        #endregion Public Methods and Operators
     }
 }

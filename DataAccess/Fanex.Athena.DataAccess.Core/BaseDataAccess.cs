@@ -37,9 +37,9 @@ namespace Fanex.Athena.DataAccess.Core
         }
 
         [CLSCompliant(false)]
-        protected internal virtual IObjectDb GetObjectDb(string spname)
+        protected internal virtual IObjectDb GetObjectDb(string spname, int timeout = 120)
         {
-            return new ObjectDb(spname);
+            return new ObjectDb(spname, timeout);
         }
     }
 }

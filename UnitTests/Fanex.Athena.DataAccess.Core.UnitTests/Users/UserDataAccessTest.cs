@@ -5,6 +5,7 @@
     using System.Linq;
     using Core.Users;
     using Data;
+    using Logging;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using NSubstitute;
@@ -14,6 +15,7 @@
     [TestFixture]
     public class UserDataAccessTest
     {
+        private ILogger _logger;
         private IObjectDb _objectDb;
         private UserDataAccess _dataAccess;
         private IDataReader _reader;
@@ -21,8 +23,9 @@
         [OneTimeSetUp]
         public void Setup()
         {
+            _logger = Substitute.For<ILogger>();
             _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<UserDataAccess>();
+            _dataAccess = Substitute.ForPartsOf<UserDataAccess>(_logger);
             _reader = Substitute.For<IDataReader>();
         }
 
@@ -192,10 +195,42 @@
         }
 
         [Test]
+        public void RecheckIn_WhenCall_ParameterPassesCorrectly()
+        {
+            // Arrange
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_ReCheckIn"), Arg.Any<int>()).Returns(_objectDb);
+            const int UserId = 2;
+
+            // Action
+            var result = _dataAccess.RecheckIn(UserId);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _objectDb.Received().AddInParameter("On_Userid", DbType.Int32, UserId);
+                _objectDb.Received().AddOutParameter("IsKickedOut", DbType.Boolean, 0);
+            });
+        }
+
+        [Test]
+        public void RecheckIn_WhenCall_ReturnDataCorrectly()
+        {
+            // Arrange
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_ReCheckIn"), Arg.Any<int>()).Returns(_objectDb);
+            _objectDb.GetParameterValue("IsKickedOut").Returns(true);
+
+            // Action
+            var result = _dataAccess.RecheckIn(0);
+
+            // Assert
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
         public void ResetPassword_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserPwdReset")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_UserPwdReset")).Returns(_objectDb);
             var user = new User
             {
                 UserID = 1,
@@ -223,7 +258,7 @@
         public void ResetPassword_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserPwdReset")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_UserPwdReset")).Returns(_objectDb);
             var user = new User
             {
                 UserID = 1,
@@ -244,10 +279,54 @@
         }
 
         [Test]
+        public void SyncUserInfo_WhenCall_ParametersPassedCorrectly()
+        {
+            // Arrange
+            const string LicenseeName = "spondemo";
+            const string UserName = "user1";
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_SyncInternalUser")).Returns(_objectDb);
+
+            // Action
+            _dataAccess.SyncUserInfo(LicenseeName, UserName);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _objectDb.Received().AddInParameter("LicenseeName", DbType.String, LicenseeName);
+                _objectDb.Received().AddInParameter("Username", DbType.String, UserName);
+                _objectDb.Received().AddInParameter("EncryptedPassword", DbType.String, Arg.Any<string>());
+                _objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
+                _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+                _logger.Received().Info($"Synced user from LAP system - userName={UserName}");
+            });
+        }
+
+        [Test]
+        public void SyncUserInfo_WhenCall_ReturnDataCorrectly()
+        {
+            // Arrange
+            const int ErrCode = 1;
+            const string ErrMsg = "Error";
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_SyncInternalUser")).Returns(_objectDb);
+            _objectDb.GetParameterValue("ErrCode").Returns(ErrCode);
+            _objectDb.GetParameterValue("ErrMsg").Returns(ErrMsg);
+
+            // Action
+            var result = _dataAccess.SyncUserInfo(null, null);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Code, Is.EqualTo(ErrCode));
+                Assert.That(result.Message, Is.EqualTo(ErrMsg));
+            });
+        }
+
+        [Test]
         public void UpdateInfo_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserUpdAccount")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_UserUpdAccount")).Returns(_objectDb);
             var user = new User
             {
                 UserID = 1,
