@@ -2598,9 +2598,6 @@
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\refno\DataGrid.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\refno\FormFilter.jsx" />
     <Content Include="www\js\source\reactpages\components\Overlay.jsx" />
-    <Content Include="www\js\source\reactpages\components\tab\index.jsx" />
-    <Content Include="www\js\source\reactpages\components\tab\Tab.jsx" />
-    <Content Include="www\js\source\reactpages\components\tab\Tabs.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

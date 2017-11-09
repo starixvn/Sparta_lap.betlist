@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 
 import Loader from '../../../components/Loader'
 import AppLayout from '../../../layouts/AppLayout'
-import { Tabs, Tab } from '../../../components/tab'
+import { Tabs, Tab } from '@9softstudio/simple-react-tab'
 import LangHelper from '../../../lib/langHelper'
 
 import Product from './product'
