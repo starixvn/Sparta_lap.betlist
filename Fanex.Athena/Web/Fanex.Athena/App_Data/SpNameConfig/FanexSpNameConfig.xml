@@ -8,4 +8,6 @@
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_CheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <!--Do not delete this-->
 
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_Outstanding" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_WinLoss" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
