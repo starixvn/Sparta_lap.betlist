@@ -24805,6 +24805,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         "use strict";
 
         var EXCEL_FILENAME = "CustomerWinLoss.xls";
+        var SORTING_CODE = {
+            "SystemId": 1,
+            "ExternalId": 2,
+            "Turnover": 3,
+            "MemberWinLost": 4,
+            "BetEffective": 5,
+            "LicenseeWL": 6,
+            "AmtDuetoBA": 11,
+            "AmtDueToRacing": 12,
+            "TotalTransaction": 13,
+            "CustomerTotalWL": 14,
+            "RacingRevenue": 15
+        };
 
         var _ajaxRequest = null;
         var _submitData = null;
@@ -24812,6 +24825,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
         var _sortColumnName = "";
         var _sortOrder = "desc";
+        var _orderItem = 0;
         var _isFirstLoad = false;
 
         var _pagingOption =
@@ -25083,6 +25097,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     } else {
                         _sortOrder = "asc";
                         _sortColumnName = index;
+                        _orderItem = SORTING_CODE[_sortColumnName];
                     }
                     _me.submit();
                 }, 100);
@@ -25138,14 +25153,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             else {
                 _submitData.PageIndex = _pagingOption.pageindex;
                 _submitData.PageSize = _pagingOption.pagesize;
-                _submitData.sortColumn = _sortColumnName;
-                _submitData.SortDirection = _sortOrder;
+                _submitData.OrderItem = _orderItem;
+                _submitData.IsAscSort = _sortOrder === "asc";
             }
         }
 
         function resetParam() {
             _sortColumnName = "ExternalId";
             _sortOrder = "asc";
+            _orderItem = SORTING_CODE[_sortColumnName];
             _pagingOption.pageindex = 1;
             _submitData = null;
         }
@@ -25154,8 +25170,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             var param = $(_selector.Form).serializeObject();
             param.PageIndex = _pagingOption.pageindex;
             param.PageSize = _pagingOption.pagesize;
-            param.sortColumn = _sortColumnName;
-            param.SortDirection = _sortOrder;
+            param.OrderItem = _orderItem;
+            param.IsAscSort = _sortOrder === "asc";
+            
             if (param.Username === undefined) {
                 param.Username = "";
             }
