@@ -5,8 +5,8 @@
     using System.Linq;
     using Excel.Report;
     using Excel.Report.Models;
-    using Extension.Utility;
     using Fanex.Athena.DataAccess.Report.Interfaces;
+    using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NPOI.SS.UserModel;
@@ -60,10 +60,8 @@
         public void Index_ValidModel_GetDataFromDataAccess()
         {
             // Arrange
-            CustPendingFunds totalData;
-            int totalRows;
-            var metaModel = CreateValidMetaModel(nameof(CustPendingFunds.CustId), "asc");
-            var expectedData = SetUpForGettingData(metaModel, out totalData, out totalRows);
+            var metaModel = CreateValidMetaModel();
+            var expectedData = SetUpForGettingData(metaModel);
 
             // Action
             var result = _controller.Index(metaModel);
@@ -77,11 +75,9 @@
         public void Index_ExportToExcel_ExportWithCorrectData(bool isFakeLicensee)
         {
             // Arrange
-            CustPendingFunds totalData;
-            int totalRows;
-            var metaModel = CreateValidMetaModel(nameof(CustPendingFunds.CustId), "asc");
+            var metaModel = CreateValidMetaModel();
             metaModel.IsExportExcel = true;
-            var expectedDataList = SetUpForGettingData(metaModel, out totalData, out totalRows);
+            var expectedDataList = SetUpForGettingData(metaModel);
             const int PageSizeExcel = int.MaxValue - 1000;
 
             AppSetting.FakeLicenseeList.Returns(x => isFakeLicensee ? new int[1] { SessionLicenseeId } : new int[0]);
@@ -105,24 +101,20 @@
             });
         }
 
-        private static CustomerPendingFundsMetaModel CreateValidMetaModel(string sortColumn, string sortDirection)
+        private static CustomerPendingFundsMetaModel CreateValidMetaModel()
         {
             return new CustomerPendingFundsMetaModel
             {
-                AgentListXml = string.Empty,
-                SortColumn = sortColumn,
-                SortDirection = sortDirection
+                AgentListXml = string.Empty
             };
         }
 
-        private IEnumerable<CustPendingFunds> SetUpForGettingData(CustomerPendingFundsMetaModel metaModel, out CustPendingFunds totalData, out int totalRows)
+        private IEnumerable<CustPendingFunds> SetUpForGettingData(CustomerPendingFundsMetaModel metaModel)
         {
-            var expectedSortedData = new SortableList<CustPendingFunds>();
-            var nonSortedData = new SortableList<CustPendingFunds>();
+            var expectedData = new List<CustPendingFunds>();
 
             var random = new Random();
             var total = random.Next(5, 10);
-
             for (int i = 0; i < total; i++)
             {
                 var item = new CustPendingFunds
@@ -133,20 +125,20 @@
                     BetCounts = random.Next(1, 10),
                     PendingFunds = random.Next(1, 10)
                 };
-                nonSortedData.Add(item);
-                expectedSortedData.Add(item);
+                expectedData.Add(item);
             }
 
-            _dataAccess.GetDataList(metaModel, out totalData, out totalRows).Returns(x =>
+            _dataAccess.GetDataList(metaModel).Returns(x =>
             {
-                x[1] = new CustPendingFunds();
-                x[2] = total;
-                return nonSortedData;
+                return new ReportResultModel<CustPendingFunds>
+                {
+                    TotalData = new CustPendingFunds(),
+                    TotalRows = total,
+                    DataList = expectedData
+                };
             });
 
-            expectedSortedData.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("asc", StringComparison.OrdinalIgnoreCase));
-
-            return expectedSortedData;
+            return expectedData;
         }
     }
 }

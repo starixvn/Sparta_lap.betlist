@@ -7,10 +7,18 @@ var CustPendingFunds = (function ($) {
     var FORM_SELECTOR = "#CustomerPendingFundsForm";
     var EXCEL_NAME_SELECTOR = "#IsExportExcel";
     var GRID_ID = "ReportGrid";
+    var SORTING_CODE = {
+        "SystemId": 1,
+        "PendingFunds": 2,
+        "BetCounts": 3,
+        "ExternalId": 4
+    };
+
     var _ajaxRequest;
     var _isFirstLoad = false;
-    var _sortDirection = "";
+    var _sortDirection = "asc";
     var _sortColumn = "";
+    var _orderItem = 0;
     var _submitData = null;
     var _pagingOption =
     {
@@ -31,18 +39,17 @@ var CustPendingFunds = (function ($) {
             _submitData = $(FORM_SELECTOR).serializeObject();
         }
         _submitData.PageIndex = _pagingOption.pageindex;
-        _submitData.PageSize = _pagingOption.pagesize;
-        _submitData.SortColumn = _sortColumn;
-        _submitData.SortDirection = _sortDirection;
+        _submitData.PageSize = _pagingOption.pagesize;      
+        _submitData.OrderItem = orderItem;
+        _submitData.IsAscSort = _sortDirection === "asc";
     }
 
     function sort(index) {
         if (_pagingOption.totalrow > 1) {
             _sortDirection = index === _sortColumn ? (_sortDirection === "asc" ? "desc" : "asc") : "asc";
             _sortColumn = index;
+            _orderItem = SORTING_CODE[_sortColumn];
             window.setTimeout(function () {
-                $("#SortColumn").val(_sortColumn);
-                $("#SortDirection").val(_sortDirection);
                 CustPendingFunds.submit();
             }, 100);
         }
@@ -118,6 +125,8 @@ var CustPendingFunds = (function ($) {
                     return false;
                 }
 
+                $("#OrderItem").val(_orderItem);
+                $("#IsAscSort").val(_sortDirection === "asc");
                 $(EXCEL_NAME_SELECTOR).val(true);
                 var mainForm = $(FORM_SELECTOR);
                 var url = Site.resolveClientUrl(CustPendingFundsOption.urlExcelData);
@@ -140,8 +149,9 @@ var CustPendingFunds = (function ($) {
         },
 
         initSetting: function () {
-            _sortColumn = $("#SortColumn").val();
-            _sortDirection = $("#SortDirection").val();
+            _sortColumn = "ExternalId";
+            _sortDirection = "asc";
+            orderItem = SORTING_CODE[_sortColumn];
         },
 
         submit: function () {

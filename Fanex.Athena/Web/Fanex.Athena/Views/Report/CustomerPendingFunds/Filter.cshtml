@@ -5,8 +5,8 @@
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
     <form id="CustomerPendingFundsForm" method="post">
         @Html.AntiForgeryToken()
-        @Html.Hidden("SortDirection", Model.Param.SortDirection)
-        @Html.Hidden("SortColumn", Model.Param.SortColumn)
+        @Html.Hidden("OrderItem", Model.Param.OrderItem)
+        @Html.Hidden("IsAscSort", Model.Param.IsAscSort)
         @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
         <div class="grid_2 filter-label">
             <label>@ViewResources.Currency</label>

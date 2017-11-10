@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Data;
     using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
@@ -47,12 +48,8 @@
         [Test]
         public void GetDataList_WhenCall_ParametersPassedCorrectly()
         {
-            // Arrange
-            CustPendingFunds totalData;
-            int totalRow;
-
             // Action
-            _dataAccess.GetDataList(_metaModel, out totalData, out totalRow);
+            _dataAccess.GetDataList(_metaModel);
 
             // Assert
             _objectDb.Received().AddInParameter("pagesize", DbType.Int32, _metaModel.PageSize);
@@ -83,25 +80,25 @@
                 BetCounts = 10,
                 PendingFunds = 15m
             };
-            CustPendingFunds totalData;
-            int totalRow;
+
             ConfigureReaderForTotalData(expectedTotalData);
             ConfigureReaderForResult(expectedResult);
 
             // Action
-            var result = _dataAccess.GetDataList(_metaModel, out totalData, out totalRow)[0];
+            var result = _dataAccess.GetDataList(_metaModel);
+            var item = result.DataList.First();
 
             // Assert
-            Assert.That(result.CustId, Is.EqualTo(expectedResult.CustId));
-            Assert.That(result.ExternalId, Is.EqualTo(expectedResult.ExternalId));
-            Assert.That(result.SystemId, Is.EqualTo(expectedResult.SystemId));
-            Assert.That(result.BetCounts, Is.EqualTo(expectedResult.BetCounts));
-            Assert.That(result.PendingFunds, Is.EqualTo(expectedResult.PendingFunds));
+            Assert.That(item.CustId, Is.EqualTo(expectedResult.CustId));
+            Assert.That(item.ExternalId, Is.EqualTo(expectedResult.ExternalId));
+            Assert.That(item.SystemId, Is.EqualTo(expectedResult.SystemId));
+            Assert.That(item.BetCounts, Is.EqualTo(expectedResult.BetCounts));
+            Assert.That(item.PendingFunds, Is.EqualTo(expectedResult.PendingFunds));
 
-            Assert.That(totalData.BetCounts, Is.EqualTo(expectedTotalData.BetCounts));
-            Assert.That(totalData.PendingFunds, Is.EqualTo(expectedTotalData.PendingFunds));
+            Assert.That(result.TotalData.BetCounts, Is.EqualTo(expectedTotalData.BetCounts));
+            Assert.That(result.TotalData.PendingFunds, Is.EqualTo(expectedTotalData.PendingFunds));
 
-            Assert.That(totalRow, Is.EqualTo(100));
+            Assert.That(result.TotalRows, Is.EqualTo(100));
         }
 
         private IList<ProductOption> GetProductOptions()

@@ -6,61 +6,92 @@
 
 namespace Fanex.Athena.DataAccess.Report
 {
+    using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
+    using Core.Exception;
+    using Data;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
+    using Model.Core.ResultModel;
 
     public class CustomerPendingFundsDataAccess : BaseDataAccess, ICustPendingFundsDataAccess
     {
-        public SortableList<CustPendingFunds> GetDataList(CustomerPendingFundsMetaModel metaModel, out CustPendingFunds totalData, out int totalRows)
+        public ReportResultModel<CustPendingFunds> GetDataList(CustomerPendingFundsMetaModel metaModel)
         {
-            using (var db = this.GetObjectDb("Lrf_Rpt_Outstanding"))
+            const string UspName = "Lrf_Rpt_Outstanding";
+            try
             {
-                db.AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
-                db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                foreach (var item in metaModel.ProductOptions)
+                using (var db = GetObjectDb(UspName))
                 {
-                    db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
-                }
+                    AddParameters(db, metaModel);
 
-                var result = new SortableList<CustPendingFunds>();
-                using (var reader = db.ExecuteReader())
-                {
-                    while (reader.Read())
+                    using (var reader = db.ExecuteReader())
                     {
-                        result.Add(new CustPendingFunds
+                        var dataList = new List<CustPendingFunds>();
+                        var index = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
+                        while (reader.Read())
                         {
-                            CustId = reader.ToInt("CustID"),
-                            ExternalId = reader.ToString("nickname"),
-                            SystemId = reader.ToString("username"),
-                            BetCounts = reader.ToInt("BetCounts"),
-                            PendingFunds = reader.ToDecimal("Outstanding" + metaModel.BaseCurrency)
-                        });
-                    }
+                            dataList.Add(ReadData(reader, metaModel.BaseCurrency, index++));
+                        }
 
-                    if (result.Count > 0 && reader.NextResult() && reader.Read())
-                    {
-                        totalData = new CustPendingFunds
+                        var result = new ReportResultModel<CustPendingFunds>
                         {
-                            BetCounts = reader.ToInt("SumBetCounts"),
-                            PendingFunds = reader.ToDecimal("SumOutstanding" + metaModel.BaseCurrency)
+                            DataList = dataList
                         };
-                        totalRows = reader.ToInt("TotalRows");
-                    }
-                    else
-                    {
-                        totalData = new CustPendingFunds();
-                        totalRows = 0;
+
+                        if (dataList.Any() && reader.NextResult() && reader.Read())
+                        {
+                            result.TotalData = new CustPendingFunds
+                            {
+                                BetCounts = reader.ToInt("SumBetCounts"),
+                                PendingFunds = reader.ToDecimal("SumOutstanding" + metaModel.BaseCurrency)
+                            };
+                            result.TotalRows = reader.ToInt("TotalRows");
+                        }
+                        else
+                        {
+                            result.TotalData = new CustPendingFunds();
+                        }
+
+                        return result;
                     }
                 }
-
-                return result;
             }
+            catch (ObjectDbException sqlException)
+            {
+                throw new DataAccessException(sqlException, UspName, metaModel);
+            }
+        }
+
+        private static void AddParameters(IObjectDb db, CustomerPendingFundsMetaModel metaModel)
+        {
+            db.AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
+            db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
+            db.AddInParameter("OrderItem", DbType.Int16, metaModel.OrderItem);
+            db.AddInParameter("IsAscSort", DbType.Boolean, metaModel.IsAscSort);
+            db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency.ToUpperInvariant());
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            foreach (var item in metaModel.ProductOptions)
+            {
+                db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
+            }
+        }
+
+        private static CustPendingFunds ReadData(IDataReader reader, string baseCurrency, int index)
+        {
+            return new CustPendingFunds
+            {
+                Index = index,
+                CustId = reader.ToInt("CustID"),
+                ExternalId = reader.ToString("nickname"),
+                SystemId = reader.ToString("username"),
+                BetCounts = reader.ToInt("BetCounts"),
+                PendingFunds = reader.ToDecimal("Outstanding" + baseCurrency)
+            };
         }
     }
 }

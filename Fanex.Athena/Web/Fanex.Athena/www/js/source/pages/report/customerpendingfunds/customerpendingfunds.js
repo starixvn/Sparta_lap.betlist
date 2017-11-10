@@ -14,9 +14,17 @@
     function ($, QueryString, Site, jqGridAdditional, CustomerPedingFundsOption, MultiSelect, PagingHelper, Popup, Report) {
         "use strict";
 
+        var SORTING_CODE = {
+            "SystemId": 1,
+            "PendingFunds": 2,
+            "BetCounts": 3,
+            "ExternalId": 4
+        };
+
         var _ajaxRequest = null;
         var _sortDirection = "";
         var _sortColumn = "";
+        var _orderItem = 0;
         var _isFirstLoad = true;
         var _submitData = null;
         var _pagingOption =
@@ -71,6 +79,8 @@
                     return false;
                 }
 
+                $("#OrderItem").val(_orderItem);
+                $("#IsAscSort").val(_sortDirection === "asc");
                 $(_selector.ExportExcelInput).val(true);
                 var mainForm = $(_selector.Form);
                 var url = Site.resolveClientUrl(CustomerPedingFundsOption.urlExcelData);
@@ -99,8 +109,9 @@
         }
 
         function initSetting() {
-            _sortColumn = $(_selector.SortColumnInput).val();
-            _sortDirection = $(_selector.SortDirectionInput).val();
+            _sortColumn = "ExternalId";
+            _sortDirection = "asc";
+            _orderItem = SORTING_CODE[_sortColumn];
         }
 
         function submit() {
@@ -189,8 +200,8 @@
             }
             _submitData.PageIndex = _pagingOption.pageindex;
             _submitData.PageSize = _pagingOption.pagesize;
-            _submitData.SortColumn = _sortColumn;
-            _submitData.SortDirection = _sortDirection;
+            _submitData.OrderItem = _orderItem;
+            _submitData.IsAscSort = _sortDirection === "asc";
         }
 
         function createPaging(totalRows) {
@@ -208,6 +219,7 @@
             if (_pagingOption.totalrow > 1) {
                 _sortDirection = index === _sortColumn ? (_sortDirection === "asc" ? "desc" : "asc") : "asc";
                 _sortColumn = index;
+                _orderItem = SORTING_CODE[_sortColumn];
                 window.setTimeout(function () {
                     $(_selector.SortColumnInput).val(_sortColumn);
                     $(_selector.SortDirectionInput).val(_sortDirection);
