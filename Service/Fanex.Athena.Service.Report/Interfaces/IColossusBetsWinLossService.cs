@@ -7,19 +7,15 @@
 namespace Fanex.Athena.Service.Report.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
+    using Model.Core.ResultModel;
 
     public interface IColossusBetsWinLossService
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
-            Justification = "Reviewed. Suppression is OK here.")]
-        SortableList<ColossusBetWinLoss> GetWinlossDetail(ThirdPartyWinLossMetaModel metaModel, out IDictionary<string, ColossusBetWinLoss> summaryTotal);
+        SortableReportResultModel<ColossusBetWinLoss> GetWinlossDetail(ThirdPartyWinLossMetaModel metaModel);
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
-            Justification = "Reviewed. Suppression is OK here.")]
-        SortableList<ColossusBetWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, out IDictionary<string, ColossusBetWinLoss> summaryTotal);
+        SortableReportResultModel<ColossusBetWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel);
 
         IEnumerable<ColossusBetWinLoss> CalculateTotal(IEnumerable<ColossusBetWinLoss> dataList);
     }

@@ -8,6 +8,7 @@
     using Extension.Utility;
     using Fanex.Athena.Service.Report.Interfaces;
     using Model.Core.DTO.Users;
+    using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Model.Report.ViewModel;
@@ -74,11 +75,8 @@
             // Arrange
             var metaModel = CreateValidMetaModel();
 
-            IDictionary<string, ColossusBetWinLoss> summaryTotal;
-            _service.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>(), out summaryTotal).Returns(x =>
-            {
-                return null;
-            });
+            _service.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>()).Returns(
+                new SortableReportResultModel<ColossusBetWinLoss>());
 
             // Action
             var result = _controller.Index(metaModel);
@@ -98,8 +96,7 @@
             // Arrange
             var model = CreateValidMetaModel();
 
-            IDictionary<string, ColossusBetWinLoss> summaryTotal;
-            SetUpForGettingData(out summaryTotal);
+            SetUpForGettingData();
 
             // Action
             _controller.Index(model);
@@ -109,7 +106,7 @@
             {
                 Assert.That(0, Is.EqualTo(model.DrillDownLevel));
                 Assert.That(0, Is.EqualTo(model.DrillDownCustomerId));
-                _service.ReceivedWithAnyArgs().GetSummaryWinloss(model, out summaryTotal);
+                _service.ReceivedWithAnyArgs().GetSummaryWinloss(model);
             });
         }
 
@@ -119,9 +116,8 @@
             // Arrange
             var model = CreateValidMetaModel();
 
-            IDictionary<string, ColossusBetWinLoss> summaryTotal;
-            var expectedData = SetUpForGettingData(out summaryTotal);
-            var expectedTotal = expectedData.AsEnumerable();
+            var expectedData = SetUpForGettingData();
+            var expectedTotal = expectedData.DataList.AsEnumerable();
 
             // Action
             var result = _controller.Index(model);
@@ -129,9 +125,9 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Data, Is.EqualTo(expectedData));
+                Assert.That(result.Data, Is.EqualTo(expectedData.DataList));
                 Assert.That(result.Total, Is.EqualTo(expectedTotal));
-                Assert.That(result.SummaryTotal, Is.EqualTo(summaryTotal));
+                Assert.That(result.SummaryTotal, Is.EqualTo(expectedData.SummaryTotal));
             });
         }
 
@@ -146,8 +142,7 @@
             var currencyId = 2;
             var custId = 3;
 
-            IDictionary<string, ColossusBetWinLoss> summaryTotal;
-            SetUpForGettingData(out summaryTotal, level);
+            SetUpForGettingData(level);
 
             // Action
             _controller.Index(model, fdate, tdate, level, currencyId, custId);
@@ -160,7 +155,7 @@
                 Assert.That(fdate, Is.EqualTo(model.DrillDownFromDate));
                 Assert.That(tdate, Is.EqualTo(model.DrillDownToDate));
                 SessionService.Received().GenerateAgentListXml(currencyId, Arg.Any<bool>());
-                _service.ReceivedWithAnyArgs().GetWinlossDetail(model, out summaryTotal);
+                _service.ReceivedWithAnyArgs().GetWinlossDetail(model);
             });
         }
 
@@ -172,11 +167,8 @@
             var drilldownCurrencyId = 1;
             var model = CreateValidMetaModel(currencyId, drilldownCurrencyId);
             model.IsExportExcel = true;
-
             var expectedFileName = $"ColossusBetsWinLoss_{model.FromDate:ddMMMyyy}_All.xls";
-
-            IDictionary<string, ColossusBetWinLoss> summaryTotal;
-            SetUpForGettingData(out summaryTotal);
+            SetUpForGettingData();
 
             var excel = Substitute.ForPartsOf<ColossusBetsWinLossExcel>(
                    Arg.Any<string>(),
@@ -225,8 +217,7 @@
 
             var expectedFileName = $"ColossusBetsWinLoss_{fdate:ddMMMyyy}_All.xls";
 
-            IDictionary<string, ColossusBetWinLoss> summaryTotal;
-            SetUpForGettingData(out summaryTotal, level);
+            SetUpForGettingData(level);
 
             var excel = Substitute.ForPartsOf<ColossusBetsWinLossExcel>(
                    Arg.Any<string>(),
@@ -280,32 +271,27 @@
             return model;
         }
 
-        private SortableList<ColossusBetWinLoss> SetUpForGettingData(out IDictionary<string, ColossusBetWinLoss> summaryTotal, int level = 0)
+        private SortableReportResultModel<ColossusBetWinLoss> SetUpForGettingData(int level = 0)
         {
-            var expectedData = new SortableList<ColossusBetWinLoss> { new ColossusBetWinLoss { Index = 1 } };
+            var expectedDataList = new SortableList<ColossusBetWinLoss> { new ColossusBetWinLoss { Index = 1 } };
             var expectedSummaryData = new Dictionary<string, ColossusBetWinLoss> { { nameof(ColossusBetWinLoss), new ColossusBetWinLoss() } };
-
+            var expectedResult = new SortableReportResultModel<ColossusBetWinLoss>
+            {
+                SummaryTotal = expectedSummaryData,
+                DataList = expectedDataList
+            };
             if (level == 0)
             {
-                _service.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>(), out summaryTotal).Returns(x =>
-                {
-                    x[1] = expectedSummaryData;
-                    return expectedData;
-                });
+                _service.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>()).Returns(expectedResult);
             }
             else
             {
-                _service.GetWinlossDetail(Arg.Any<ThirdPartyWinLossMetaModel>(), out summaryTotal).Returns(x =>
-                {
-                    x[1] = expectedSummaryData;
-                    return expectedData;
-                });
+                _service.GetWinlossDetail(Arg.Any<ThirdPartyWinLossMetaModel>()).Returns(expectedResult);
             }
 
-            _service.CalculateTotal(Arg.Any<SortableList<ColossusBetWinLoss>>()).Returns(expectedData.AsEnumerable());
+            _service.CalculateTotal(Arg.Any<SortableList<ColossusBetWinLoss>>()).Returns(expectedDataList.AsEnumerable());
 
-            summaryTotal = expectedSummaryData;
-            return expectedData;
+            return expectedResult;
         }
     }
 }
