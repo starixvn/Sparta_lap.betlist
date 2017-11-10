@@ -12,6 +12,6 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
 
     public interface ICustWinlossDataAccess
     {
-        SortableReportResultModel<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel);
+        ReportResultModel<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel);
     }
 }

@@ -59,12 +59,6 @@
         {
             var result = GetData(metaModel);
 
-            var index = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
-            foreach (var item in result.DataList)
-            {
-                item.Index = index++;
-            }
-
             return new
             {
                 Data = result.DataList,
@@ -109,11 +103,11 @@
             return ExcelStream(excel.Workbook, FileName);
         }
 
-        private SortableReportResultModel<CustomerWinLoss> GetData(CustomerWinLossMetaModel metaModel)
+        private ReportResultModel<CustomerWinLoss> GetData(CustomerWinLossMetaModel metaModel)
         {
             if (!metaModel.IsValid)
             {
-                return new SortableReportResultModel<CustomerWinLoss>
+                return new ReportResultModel<CustomerWinLoss>
                 {
                     TotalData = new CustomerWinLoss(),
                     DataList = new SortableList<CustomerWinLoss>()
@@ -121,13 +115,7 @@
             }
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludedTestData);
-            var result = _custWinlossDataAccess.GetDataList(metaModel);
-            if (!string.IsNullOrEmpty(metaModel.SortColumn))
-            {
-                result.DataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
-            }
-
-            return result;
+            return _custWinlossDataAccess.GetDataList(metaModel);
         }
     }
 }

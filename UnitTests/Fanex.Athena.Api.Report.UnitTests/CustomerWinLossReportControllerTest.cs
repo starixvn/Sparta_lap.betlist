@@ -119,16 +119,13 @@
                 FromDate = DateTime.Now,
                 ToDate = DateTime.Now.AddDays(1),
                 ProductOptions = new List<ProductOption> { new ProductOption { Status = true } },
-                AgentListXml = string.Empty,
-                SortColumn = sortColumn,
-                SortDirection = sortDirection
+                AgentListXml = string.Empty
             };
         }
 
         private IEnumerable<CustomerWinLoss> SetUpForGettingData(CustomerWinLossMetaModel metaModel)
         {
-            var expectedSortedData = new SortableList<CustomerWinLoss>();
-            var nonSortedData = new SortableList<CustomerWinLoss>();
+            var expectedData = new SortableList<CustomerWinLoss>();
 
             var random = new Random();
             var totalRows = random.Next(5, 10);
@@ -141,29 +138,23 @@
                     ExternalId = random.Next(1, 10).ToString(),
                     SystemId = random.Next(1, 10).ToString()
                 };
-                nonSortedData.Add(item);
-                expectedSortedData.Add(item);
+                expectedData.Add(item);
             }
 
-            _dataAccess.GetDataList(metaModel).Returns(new SortableReportResultModel<CustomerWinLoss>
+            _dataAccess.GetDataList(metaModel).Returns(new ReportResultModel<CustomerWinLoss>
             {
                 TotalData = new CustomerWinLoss(),
                 TotalRows = totalRows,
-                DataList = nonSortedData
+                DataList = expectedData
             });
 
-            if (!string.IsNullOrEmpty(metaModel.SortColumn))
-            {
-                expectedSortedData.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("asc", StringComparison.OrdinalIgnoreCase));
-            }
-
             var index = 1;
-            foreach (var item in expectedSortedData)
+            foreach (var item in expectedData)
             {
                 item.Index = index++;
             }
 
-            return expectedSortedData;
+            return expectedData;
         }
     }
 }

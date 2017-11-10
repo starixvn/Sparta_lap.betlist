@@ -61,7 +61,7 @@
             it("#ExportToExcel click - ajax settings should be correct", function () {
                 setFixtures('<div id="ExportToExcel"></div>');
                 spyOn(Report, "ValidProducts").and.returnValues(true);
-                var postData = { PageIndex: 1, PageSize: 500, sortColumn: 'ExternalId', SortDirection: 'asc', Username: '', isExportExcel: true };
+                var postData = { PageIndex: 1, PageSize: 500, OrderItem: 2, IsAscSort: true, Username: '', isExportExcel: true };
 
                 CustomerWinLoss.initEvent();
                 $('#ExportToExcel').click();
