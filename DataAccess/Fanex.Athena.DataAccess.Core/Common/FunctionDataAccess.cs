@@ -11,11 +11,9 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common;
     using Fanex.Common.Extensions;
-    using Fanex.Data;
 
     public class FunctionDataAccess : BaseDataAccess, IFunctionDataAccess
     {
@@ -96,12 +94,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
             return functionList;
         }
 
-        /// <summary>
-        /// Get User function list.
-        /// </summary>
-        /// <param name="licenseeId">Licensee ID value.</param>
-        /// <param name="userId">User ID value.</param>
-        /// <returns>The result value.</returns>
         public IList<Function> GetUserFunctionList(int licenseeId, int userId)
         {
             var functionList = new List<Function>();
@@ -127,77 +119,38 @@ namespace Fanex.Athena.DataAccess.Core.Common
             return functionList;
         }
 
-        /// <summary>
-        /// Assign user function.
-        /// </summary>
-        /// <param name="licenseeId">Licensee ID value.</param>
-        /// <param name="custId">Customer ID value.</param>
-        /// <param name="functionId">Function ID value.</param>
-        /// <param name="userId">User ID value.</param>
-        /// <param name="ip">IP parameter value.</param>
-        /// <param name="langKey">Language key value.</param>
-        /// <returns>The result value.</returns>
         public IResultInfo AssignUserFunction(int licenseeId, int custId, int functionId, int userId, string ip, string langKey)
         {
-            const string UspName = "Lrf_LicenseeUserFunctionsIns";
-
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("UserID", DbType.Int32, userId);
-                    db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
-                    db.AddInParameter("FunctionID", DbType.Int32, functionId);
-                    db.AddInParameter("CustID", DbType.Int32, custId);
-                    db.AddInParameter("LangKey", DbType.String, langKey);
-                    db.AddInParameter("IP", DbType.String, ip);
-
-                    AddResultParam(db);
-                    db.ExecuteNonQuery();
-
-                    return GetResult(db);
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName);
-            }
+            return ExecuteNonQueryUserFunction("Lrf_LicenseeUserFunctionsIns", licenseeId, userId, custId, ip, functionId, langKey);
         }
 
-        /// <summary>
-        /// Remove user function.
-        /// </summary>
-        /// <param name="licenseeId">Licensee ID value.</param>
-        /// <param name="userId">User ID value.</param>
-        /// <param name="custId">Customer ID value.</param>
-        /// <param name="ip">IP parameter value.</param>
-        /// <param name="functionId">Function ID value.</param>
-        /// <param name="langKey">Language key value.</param>
-        /// <returns>The result value.</returns>
         public IResultInfo RemoveUserFunction(int licenseeId, int userId, int custId, string ip, int functionId, string langKey)
         {
-            const string UspName = "Lrf_LicenseeUserFunctionsDel";
+            return ExecuteNonQueryUserFunction("Lrf_LicenseeUserFunctionsDel", licenseeId, userId, custId, ip, functionId, langKey);
+        }
 
-            try
+        private IResultInfo ExecuteNonQueryUserFunction(
+            string uspName,
+            int licenseeId,
+            int userId,
+            int custId,
+            string ip,
+            int functionId,
+            string langKey)
+        {
+            using (var db = GetObjectDb(uspName))
             {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("UserID", DbType.Int32, userId);
-                    db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
-                    db.AddInParameter("FunctionID", DbType.Int32, functionId);
-                    db.AddInParameter("CustID", DbType.Int32, custId);
-                    db.AddInParameter("LangKey", DbType.String, langKey);
-                    db.AddInParameter("IP", DbType.String, ip);
+                db.AddInParameter("UserID", DbType.Int32, userId);
+                db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
+                db.AddInParameter("FunctionID", DbType.Int32, functionId);
+                db.AddInParameter("CustID", DbType.Int32, custId);
+                db.AddInParameter("LangKey", DbType.String, langKey);
+                db.AddInParameter("IP", DbType.String, ip);
 
-                    AddResultParam(db);
-                    db.ExecuteNonQuery();
+                AddResultParam(db);
+                db.ExecuteNonQuery();
 
-                    return GetResult(db);
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName);
+                return GetResult(db);
             }
         }
     }
