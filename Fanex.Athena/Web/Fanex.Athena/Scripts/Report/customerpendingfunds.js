@@ -40,7 +40,7 @@ var CustPendingFunds = (function ($) {
         }
         _submitData.PageIndex = _pagingOption.pageindex;
         _submitData.PageSize = _pagingOption.pagesize;      
-        _submitData.OrderItem = orderItem;
+        _submitData.OrderItem = _orderItem;
         _submitData.IsAscSort = _sortDirection === "asc";
     }
 
@@ -151,7 +151,7 @@ var CustPendingFunds = (function ($) {
         initSetting: function () {
             _sortColumn = "ExternalId";
             _sortDirection = "asc";
-            orderItem = SORTING_CODE[_sortColumn];
+            _orderItem = SORTING_CODE[_sortColumn];
         },
 
         submit: function () {

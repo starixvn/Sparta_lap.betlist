@@ -24806,17 +24806,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
         var EXCEL_FILENAME = "CustomerWinLoss.xls";
         var SORTING_CODE = {
-            "SystemId": 1,
             "ExternalId": 2,
+            "SystemId": 1,
             "Turnover": 3,
-            "MemberWinLost": 4,
-            "BetEffective": 5,
-            "LicenseeWL": 6,
-            "AmtDuetoBA": 11,
-            "AmtDueToRacing": 12,
             "TotalTransaction": 13,
+            "CustomerWL": 4,
+            "BetEffective": 5,
+            "PlayerComm": 10,
             "CustomerTotalWL": 14,
-            "RacingRevenue": 15
+            "LicenseeWL": 6,
+            "BAComm": 8,
+            "RacingRevenue": 15,
+            "AmtDueToBA": 11,
+            "AmtDueToRacing": 12
         };
 
         var _ajaxRequest = null;
