@@ -72,31 +72,31 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
              // Commission dropdownlist change
              $("#SBComm1").on("change", function () {
                  commissionOnChange($(this).val(), "SBComm");
-             });
-
+             }).change();
+             
              $("#ParlayComm1").on("change", function () {
                  commissionOnChange($(this).val(), "ParlayComm");
-             });
+             }).change();
 
              $("#RCComm1").on("change", function () {
                  commissionOnChange($(this).val(), "RCComm");
-             });
+             }).change();
 
              $("#NGComm1").on("change", function () {
                  commissionOnChange($(this).val(), "NGComm");
-             });
+             }).change();
 
              $("#LCComm1").on("change", function () {
                  commissionOnChange($(this).val(), "LCComm");
-             });
+             }).change();
 
              $("#CSComm1").on("change", function () {
                  commissionOnChange($(this).val(), "CSComm");
-             });
+             }).change();
 
              $("#ABComm1").on("change", function () {
                  commissionOnChange($(this).val(), "ABComm");
-             });
+             }).change();
          }
 
          function setPageTitle(title) {
