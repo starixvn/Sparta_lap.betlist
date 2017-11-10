@@ -143,36 +143,12 @@
 
         public IResultInfo UpdateCustClosed(CustomerStatusMetaModel metaModel)
         {
-            using (var db = this.GetObjectDb("Lrf_CustomerUpdClosed"))
-            {
-                db.AddInParameter("LicenseeId", DbType.String, metaModel.LicenseeId);
-                db.AddInParameter("UserId", DbType.String, metaModel.ModifyById);
-                db.AddInParameter("CustId", DbType.String, metaModel.CustId);
-                db.AddInParameter("Closed", DbType.String, metaModel.IsOn);
-                db.AddInParameter("IP", DbType.String, metaModel.Ip);
-
-                AddResultParam(db);
-                db.ExecuteNonQuery();
-
-                return GetResult(db);
-            }
+            return UpdateCustomerStatus(metaModel, "Lrf_CustomerUpdClosed", "Closed");
         }
 
         public IResultInfo UpdateCustSuspend(CustomerStatusMetaModel metaModel)
         {
-            using (var db = this.GetObjectDb("Lrf_CustomerUpdSuspended"))
-            {
-                db.AddInParameter("LicenseeId", DbType.String, metaModel.LicenseeId);
-                db.AddInParameter("UserId", DbType.String, metaModel.ModifyById);
-                db.AddInParameter("CustId", DbType.String, metaModel.CustId);
-                db.AddInParameter("Suspended", DbType.String, metaModel.IsOn);
-                db.AddInParameter("IP", DbType.String, metaModel.Ip);
-
-                AddResultParam(db);
-                db.ExecuteNonQuery();
-
-                return GetResult(db);
-            }
+            return UpdateCustomerStatus(metaModel, "Lrf_CustomerUpdSuspended", "Suspended");
         }
 
         public IResultInfo UpdateCustomerBAStatus(int licenseeId, int custId, int modifiedBy, bool allowBA, Request request)
@@ -244,6 +220,23 @@
                 var selectedOddsGroups = oddsGroups.Where(g => g.Checked).Select(g => g.Name).ToArray();
                 var oddsGroupValues = string.Join(",", selectedOddsGroups);
                 objectDb.AddInParameter("OddsGroups", DbType.String, oddsGroupValues);
+            }
+        }
+
+        private IResultInfo UpdateCustomerStatus(CustomerStatusMetaModel metaModel, string uspName, string statusParamName)
+        {
+            using (var db = GetObjectDb(uspName))
+            {
+                db.AddInParameter("LicenseeId", DbType.String, metaModel.LicenseeId);
+                db.AddInParameter("UserId", DbType.String, metaModel.ModifyById);
+                db.AddInParameter("CustId", DbType.String, metaModel.CustId);
+                db.AddInParameter("IP", DbType.String, metaModel.Ip);
+                db.AddInParameter(statusParamName, DbType.String, metaModel.IsOn);
+
+                AddResultParam(db);
+                db.ExecuteNonQuery();
+
+                return GetResult(db);
             }
         }
     }
