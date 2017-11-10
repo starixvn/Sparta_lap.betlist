@@ -26,6 +26,7 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Model.Core.MetaModel.Product;
+    using Model.Report.ResultModel;
     using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
@@ -81,23 +82,13 @@ namespace Fanex.Athena.Api.Report
             return new WinlossByProductExcel(templatePath, excelModel);
         }
 
-        #region Private Utility
-
-        /// <summary>
-        /// Restructure data.
-        /// </summary>
-        /// <param name="dataList">The data collection.</param>
-        /// <param name="level">The Level value.</param>
-        /// <returns>Return the grid view data collection.</returns>
-        private static IEnumerable<WinLossByProduct> WinLossByProductRestructureData(IEnumerable<WinLossByProduct> dataList, int level)
+        private static IEnumerable<WinLossByProduct> RestructureData(IEnumerable<WinLossByProduct> dataList, int level)
         {
             // Calculate rowspan
             return level == 0
                 ? DoRestructureData(dataList.GroupBy(i => new { i.Date, i.CurrencyName }))
                 : DoRestructureData(dataList.GroupBy(i => new { i.SystemId, i.CurrencyName }));
         }
-
-        #endregion Private Utility
 
         private static dynamic GetEmptyResult(IEnumerable<ProductOption> productOptions, int memberId, string systemId, string errorMessage)
         {
@@ -169,11 +160,8 @@ namespace Fanex.Athena.Api.Report
 
         private HttpResponseMessage ExportExcel(
             WinLossByProductMetaModel metaModel,
-            IEnumerable<WinLossByProduct> dataList,
-            IEnumerable<WinLossByProduct> totalData,
-            IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal,
-            string systemId,
-            string errorMessage)
+            WinLossByProductResultModel resultModel,
+            string systemId)
         {
             const string FileName = "WinLossByProduct.xls";
             var templatePath = HostingEnvironment.MapPath("~/App_Data/Template/Reports/WinLossByProducts.xls");
@@ -194,12 +182,12 @@ namespace Fanex.Athena.Api.Report
             var excelModel = new WinLossByProductExcelModel
             {
                 ConvertingOption = convertingOption,
-                DataList = dataList,
-                ErrorMessage = errorMessage,
+                DataList = resultModel.DataList,
+                ErrorMessage = resultModel.ResultInfo.Message,
                 MetaModel = metaModel,
-                SummaryTotal = summaryTotal,
+                SummaryTotal = resultModel.SummaryTotal,
                 SystemId = systemId,
-                TotalData = totalData,
+                TotalData = resultModel.TotalData,
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
                 BAVisible = productAccess.IsAllowBA,
                 RBVisible = productAccess.IsAllowRB,
@@ -212,32 +200,30 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(winlossByProduct.Workbook, FileName);
         }
 
-        private void GetData(
-            WinLossByProductMetaModel metaModel,
-            out IEnumerable<WinLossByProduct> dataList,
-            out IEnumerable<WinLossByProduct> totalData,
-            out IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal,
-            out IResultInfo resultInfo)
+        private WinLossByProductResultModel GetData(WinLossByProductMetaModel metaModel)
         {
             if (!metaModel.IsValid)
             {
-                dataList = new List<WinLossByProduct>();
-                totalData = new List<WinLossByProduct>();
-                summaryTotal = new Dictionary<string, IEnumerable<WinLossByProduct>>();
-                resultInfo = new ResultInfo();
-                return;
+                return new WinLossByProductResultModel
+                {
+                    DataList = new List<WinLossByProduct>(),
+                    TotalData = new List<WinLossByProduct>(),
+                    SummaryTotal = new Dictionary<string, IEnumerable<WinLossByProduct>>(),
+                    ResultInfo = new ResultInfo()
+                };
             }
 
             if (metaModel.Level == 0)
             {
-                dataList = _winlossByProductDataAccess.GetWinlossByProducts(metaModel, out totalData, out summaryTotal, out resultInfo);
+                return _winlossByProductDataAccess.GetWinlossByProducts(metaModel);
+            }
+            else if (SessionService.LicenseeSession.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.Level == 2)
+            {
+                return _winlossByProductDataAccess.GetWinlossByProductCustomers(metaModel);
             }
             else
             {
-                resultInfo = new ResultInfo();
-                dataList = SessionService.LicenseeSession.LicenseeId > 1 || metaModel.Level == 2
-                               ? _winlossByProductDataAccess.GetWinlossByProductCustomers(metaModel, out totalData, out summaryTotal)
-                               : _winlossByProductDataAccess.GetWinlossByProductAgents(metaModel, out totalData, out summaryTotal);
+                return _winlossByProductDataAccess.GetWinlossByProductAgents(metaModel);
             }
         }
 
@@ -289,19 +275,14 @@ namespace Fanex.Athena.Api.Report
                 metaModel.DrillDownToDate = tdate.Value;
             }
 
-            IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal;
-            IEnumerable<WinLossByProduct> dataList;
-            IEnumerable<WinLossByProduct> totalData;
-            IResultInfo resultInfo;
+            var result = GetData(metaModel);
 
-            GetData(metaModel, out dataList, out totalData, out summaryTotal, out resultInfo);
-
-            resultInfo.Message = GetErrorMessage(resultInfo.Code);
+            result.ResultInfo.Message = GetErrorMessage(result.ResultInfo.Code);
 
             var drillDownSystemId = systemId;
-            if (drillDownMemberId == 0 && !string.IsNullOrWhiteSpace(resultInfo.ExtendedData))
+            if (drillDownMemberId == 0 && !string.IsNullOrWhiteSpace(result.ResultInfo.ExtendedData))
             {
-                var extendedItems = resultInfo.ExtendedData.Split(';');
+                var extendedItems = result.ResultInfo.ExtendedData.Split(';');
                 drillDownMemberId = string.IsNullOrWhiteSpace(extendedItems[0]) ? 0 : Convert.ToInt32(extendedItems[0]);
                 drillDownSystemId = extendedItems[1];
                 metaModel.MemberId = drillDownMemberId;
@@ -309,21 +290,21 @@ namespace Fanex.Athena.Api.Report
 
             if (metaModel.IsExportExcel)
             {
-                return ExportExcel(metaModel, dataList, totalData, summaryTotal, drillDownSystemId, resultInfo.Message);
+                return ExportExcel(metaModel, result, drillDownSystemId);
             }
 
-            return dataList.Any()
+            return result.DataList.Any()
                 ? new
                 {
-                    Data = WinLossByProductRestructureData(dataList, level),
-                    Total = totalData,
-                    SummaryTotal = summaryTotal,
+                    Data = RestructureData(result.DataList, level),
+                    Total = result.TotalData,
+                    SummaryTotal = result.SummaryTotal,
                     ProductOptions = metaModel.ProductOptions.ToJson(),
                     MemberId = drillDownMemberId,
                     SystemId = drillDownSystemId,
-                    ErrorMessage = resultInfo.Message
+                    ErrorMessage = result.ResultInfo.Message
                 }
-                : GetEmptyResult(metaModel.ProductOptions, memberId, drillDownSystemId, resultInfo.Message);
+                : GetEmptyResult(metaModel.ProductOptions, memberId, drillDownSystemId, result.ResultInfo.Message);
         }
 
         #endregion ProcessRequest

@@ -179,6 +179,7 @@
     <Compile Include="MetaModel\WinLossByBetTypeMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultModel\LiveReportDetailResultModel.cs" />
+    <Compile Include="ResultModel\WinLossByProductResultModel.cs" />
     <Compile Include="ViewModel\CashOutWinLossViewModel.cs" />
     <Compile Include="ViewModel\CustomerWinlossViewModel.cs" />
     <Compile Include="ViewModel\Note\NoteViewModel.cs" />

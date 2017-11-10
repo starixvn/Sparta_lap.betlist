@@ -6,33 +6,15 @@
 
 namespace Fanex.Athena.DataAccess.Report.Interfaces
 {
-    using System.Collections.Generic;
-    using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
+    using Model.Report.ResultModel;
 
     public interface IWinLossByProductDataAccess
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
-            Justification = "Reviewed. Suppression is OK here.")]
-        IEnumerable<WinLossByProduct> GetWinlossByProducts(
-            WinLossByProductMetaModel metaModel,
-            out IEnumerable<WinLossByProduct> totalData,
-            out IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal,
-            out IResultInfo resultInfo);
+        WinLossByProductResultModel GetWinlossByProducts(WinLossByProductMetaModel metaModel);
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
-            Justification = "Reviewed. Suppression is OK here.")]
-        IEnumerable<WinLossByProduct> GetWinlossByProductAgents(
-            WinLossByProductMetaModel metaModel,
-            out IEnumerable<WinLossByProduct> totalData,
-            out IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal);
+        WinLossByProductResultModel GetWinlossByProductAgents(WinLossByProductMetaModel metaModel);
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
-            Justification = "Reviewed. Suppression is OK here.")]
-        IEnumerable<WinLossByProduct> GetWinlossByProductCustomers(
-            WinLossByProductMetaModel metaModel,
-            out IEnumerable<WinLossByProduct> totalData,
-            out IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal);
+        WinLossByProductResultModel GetWinlossByProductCustomers(WinLossByProductMetaModel metaModel);
     }
 }
