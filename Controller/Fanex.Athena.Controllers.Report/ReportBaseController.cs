@@ -1,10 +1,14 @@
 ﻿namespace Fanex.Athena.Controllers.Report
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
+    using Model.Core.DTO.Common;
     using Model.Core.DTO.Configuration;
+    using Model.Core.MetaModel.Product;
     using ONEbook.UM.Filters;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
@@ -27,6 +31,16 @@
         protected IProductService ProductService
         {
             get { return _productService; }
+        }
+
+        protected static IList<ProductOption> ToProductOptions(IEnumerable<Product> productList)
+        {
+            return productList.Select(i => new ProductOption
+            {
+                Code = i.ProductCode,
+                Name = i.ProductName,
+                Status = true
+            }).ToList();
         }
 
         protected BalanceUp GetBalanceUp()

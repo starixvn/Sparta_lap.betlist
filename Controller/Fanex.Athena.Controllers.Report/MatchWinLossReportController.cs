@@ -59,13 +59,7 @@
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 FunctionNames.MatchWinLoss);
-            metaModel.ProductOptions = productAccess.ProductList
-                                             .Select(i => new ProductOption
-                                             {
-                                                 Code = i.ProductCode,
-                                                 Name = i.ProductName,
-                                                 Status = i.ProductCode == Product.SB
-                                             }).ToList();
+            metaModel.ProductOptions = ToProductOptions(productAccess.ProductList);
 
             var model = new MatchWinLossViewModel
             {

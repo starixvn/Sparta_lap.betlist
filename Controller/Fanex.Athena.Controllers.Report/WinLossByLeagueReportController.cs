@@ -51,12 +51,7 @@ namespace Fanex.Athena.Controllers.Report
                 UserId = userSession.UserId,
                 FromDate = new DateTime(date.Year, date.Month, 1),
                 ToDate = date,
-                ProductOptions = productList.Select(i => new ProductOption
-                {
-                    Code = i.ProductCode,
-                    Name = i.ProductName,
-                    Status = true
-                }).ToList(),
+                ProductOptions = ToProductOptions(productList)
             };
 
             SetConvetedUSDCurrencyName(metaModel);

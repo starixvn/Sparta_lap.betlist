@@ -25,19 +25,13 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var productAccess = this.ProductService.GetProductAccessForActiveCustomerSummary(licenseeSession.LicenseeId, userSession.Language);
-            var productList = productAccess.ProductList;
             var defaultDate = DateTime.Now.AddDays(-1);
             var metaModel = new ActiveCustomerMetaModel
             {
                 FromDate = defaultDate,
                 ToDate = defaultDate,
                 LicenseeId = licenseeSession.LicenseeId,
-                ProductOptions = productList.Select(i => new ProductOption
-                {
-                    Code = i.ProductCode,
-                    Name = i.ProductName,
-                    Status = i.ProductCode == Product.SB
-                }).ToList(),
+                ProductOptions = ToProductOptions(productAccess.ProductList)
             };
 
             SetConvetedUSDCurrencyId(metaModel);

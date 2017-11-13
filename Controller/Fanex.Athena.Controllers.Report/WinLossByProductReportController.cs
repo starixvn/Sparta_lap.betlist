@@ -28,7 +28,6 @@ namespace Fanex.Athena.Controllers.Report
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 FunctionNames.WinLossByProduct);
-            var productList = productAccess.ProductList;
             var metaModel = new WinLossByProductMetaModel
             {
                 FromDate = DateTime.Now,
@@ -37,12 +36,7 @@ namespace Fanex.Athena.Controllers.Report
                 IsExcludedTestData = true,
                 DrawFilter = DrawFilterType.Normal,
                 ReportBy = ReportByType.Daily,
-                ProductOptions = productList.Select(i => new ProductOption
-                {
-                    Code = i.ProductCode,
-                    Name = i.ProductName,
-                    Status = i.ProductCode == Product.SB
-                }).ToList(),
+                ProductOptions = ToProductOptions(productAccess.ProductList)
             };
 
             SetConvetedUSDCurrencyId(metaModel);
