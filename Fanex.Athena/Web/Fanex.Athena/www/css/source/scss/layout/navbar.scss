@@ -1,4 +1,7 @@
 ﻿@import "../abstracts/_variables.scss";
+@import '../../components/flatpopup/flatpopup';
+@import '../../vendors/materialize/components/buttons';
+@import '../../scss/components/button';
 
 @mixin searchBarFocusedMobile() {
     position: fixed;
@@ -445,11 +448,17 @@ header {
                 }
 
                 li > span {
-                    font-size: 0.9em;
+                    font-size: 0.8em;
                     padding-top: 0;
                 }
 
-                .time-passed {
+                .type {
+                    width: 50%;
+                    color: #4caf50;
+                }
+
+                .date-time {
+                    width: 50%;
                     float: right;
                     text-align: right;
                     color: #d3d3d3;
@@ -496,7 +505,6 @@ header {
         }
     }
 }
-
 // ----------- iPhone 5 and 5S Portrait ----------- //
 @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
     .select-list-result-container {

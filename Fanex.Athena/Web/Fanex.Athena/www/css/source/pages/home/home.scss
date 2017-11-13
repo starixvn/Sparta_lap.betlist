@@ -39,6 +39,25 @@
     }
 }
 
+.view-notification {
+    .subject {
+        font-weight: bold;
+    }
+
+    .date-time {
+        font-size: .9em;
+        text-align: right;
+    }
+
+    .content {
+        border: solid 1px $colorBorderTable;
+    }
+
+    .wrapContent {
+        max-height: 600px;
+    }
+}
+
 /*Hack for IE*/
 .logo {
     .logo-image {
