@@ -18,7 +18,7 @@ namespace Fanex.Athena.Excel.Customer
     /// <summary>
     /// Customer group commission.
     /// </summary>
-    public class CustomerCommGroup : ReportBase
+    public class CustomerCommGroupExcel : ReportBase
     {
         private const int ColumnDefaultGroup = 2;
         private const int ColumnGroupName = 1;
@@ -37,7 +37,7 @@ namespace Fanex.Athena.Excel.Customer
 
         private readonly DataTable _exportData;
 
-        public CustomerCommGroup(
+        public CustomerCommGroupExcel(
                                  string templatePath,
                                  DataTable exportData,
                                  ShowingOption showingOption)

@@ -256,7 +256,7 @@
 
             var mainTable = _customerComService.GetDataForExcel(licenseeId);
 
-            var custmerCommGroupExcel = new CustomerCommGroup(templatePath, mainTable, showingOption);
+            var custmerCommGroupExcel = new CustomerCommGroupExcel(templatePath, mainTable, showingOption);
 
             custmerCommGroupExcel.Export();
 

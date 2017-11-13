@@ -70,7 +70,7 @@ namespace Fanex.Athena.Excel.Base
             }
         }
 
-        protected internal ISheet TemplateSheet { get; private set; }
+        protected internal virtual ISheet TemplateSheet { get; private set; }
 
         public virtual IWorkbook Workbook { get; private set; }
 
