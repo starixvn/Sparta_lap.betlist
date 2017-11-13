@@ -18,5 +18,20 @@ namespace Fanex.Athena.Excel.Customer.UnitTests.TestableClasses
         {
             AssignHeader(sheet);
         }
+
+        public void Public_AssignSheetData(ISheet sheet)
+        {
+            AssignSheetData(sheet);
+        }
+
+        public void Public_AssignTitle(ISheet sheet)
+        {
+            AssignTitle(sheet);
+        }
+
+        public void Public_ProcessUI(ISheet sheet)
+        {
+            ProcessUI(sheet);
+        }
     }
 }

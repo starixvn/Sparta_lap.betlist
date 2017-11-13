@@ -117,8 +117,6 @@ namespace Fanex.Athena.Excel.Customer
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
-
-            AssignHeader(sheet);
         }
 
         /// <summary>
