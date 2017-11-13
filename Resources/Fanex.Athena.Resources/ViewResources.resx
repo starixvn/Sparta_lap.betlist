@@ -3108,34 +3108,16 @@
     <value>Match Delay-New</value
   <data name="Notifications" xml:space="preserve">
     <value>Notifications</value>
+  <data name="ViewNotification" xml:space="preserve">
+    <value>View Notifications</value>
     <comment>84004</comment>
   </data>
   <data name="TicketList" xml:space="preserve">
     <value>Ticket List</value>
     <comment>84004</comment>
   </data>
-  <data name="ResultAmendment" xml:space="preserve">
-    <value>Result Amendment</value>
-    <comment>84004</comment>
-  </data>
-  <data name="Hour" xml:space="preserve">
-    <value>hour</value>
-    <comment>84004</comment>
-  </data>
-  <data name="Minutes" xml:space="preserve">
-    <value>minutes</value>
-    <comment>84004</comment>
-  </data>
-  <data name="TimePassed" xml:space="preserve">
-    <value>{0}{1} ago</value>
-    <comment>84004</comment>
-  </data>
-  <data name="Hours" xml:space="preserve">
-    <value>hours</value>
-    <comment>84004</comment>
-  </data>
-  <data name="Minute" xml:space="preserve">
-    <value>minute</value>
+  <data name="Amendment" xml:space="preserve">
+    <value>Result Amendment/ Recalculation</value>
     <comment>84004</comment>
   </data>
   <data name="NotificationDateRangeLimitNote" xml:space="preserve">

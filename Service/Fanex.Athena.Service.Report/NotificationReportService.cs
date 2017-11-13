@@ -11,6 +11,7 @@
     using Fanex.Athena.Service.Core.Utility.Interfaces;
     using Interfaces;
     using Logging;
+    using Model.Core.DTO.Common;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -85,7 +86,25 @@
             return jobject.ToObject<Dictionary<string, string>>();
         }
 
-        public ReportResultModel<Notification> GetNotifications(NotificationMetaModel metaModel)
+        public ReportResultModel<NotificationMessage> GetNotificationMessages(NotificationMetaModel metaModel)
+        {
+            var result = GetResultAmendment(metaModel);
+            var dataList = result.DataList.Select(x => new NotificationMessage
+            {
+                DateTime = x.DateTime,
+                Subject = x.Subject,
+                Content = x.Content,
+                Type = "Amendment"
+            }).ToList();
+
+            return new ReportResultModel<NotificationMessage>
+            {
+                DataList = dataList,
+                TotalRows = result.TotalRows
+            };
+        }
+
+        public ReportResultModel<Notification> GetGeneral(NotificationMetaModel metaModel)
         {
             var notificationUrl = string.Format(
                 _appSetting.NotificationApiUrl,
@@ -96,7 +115,7 @@
                 metaModel.LicenseeName,
                 metaModel.IsOnlyUnread,
                 metaModel.PageSize,
-                metaModel.PageIndex);
+                metaModel.PageIndex - 1);
 
             var json = GetApiResultString(notificationUrl);
 
@@ -147,7 +166,7 @@
                 metaModel.LicenseeName,
                 metaModel.IsOnlyUnread,
                 metaModel.PageSize,
-                metaModel.PageIndex);
+                metaModel.PageIndex - 1);
 
             var json = GetApiResultString(resultAmendmentUrl);
 
@@ -185,6 +204,30 @@
             {
                 DataList = dataList,
                 TotalRows = totalRecords
+            };
+        }
+
+        public IResultInfo MarkNotificationAsRead(int userId, string licenseeName, NotificationMessage metaModel)
+        {
+            var api = new Uri(_appSetting.MarkNotificationAsReadApiUrl);
+            var param = $"MessageType={metaModel.Type}&MessageId={metaModel.Id}&UserId={userId}&LicenseeName={licenseeName}";
+
+            var json = string.Empty;
+            try
+            {
+                json = _webClientService.UploadString(api, param);
+            }
+            catch (Exception exception)
+            {
+                _logger.Error(exception.Message + "\nApiUrl: " + api, exception);
+            }
+
+            var jobject = JObject.Parse(json);
+
+            return new ResultInfo
+            {
+                Code = jobject["Code"].Value<int>(),
+                Message = jobject["Message"].Value<string>()
             };
         }
 

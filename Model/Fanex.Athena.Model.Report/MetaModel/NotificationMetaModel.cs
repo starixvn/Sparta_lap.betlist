@@ -2,8 +2,20 @@
 {
     using System;
 
-    public class NotificationMetaModel : BaseReportMetaModel
+    public class NotificationMetaModel
     {
+        public int LicenseeId { get; set; }
+
+        public int UserId { get; set; }
+
+        public int PageSize { get; set; }
+
+        public int PageIndex { get; set; }
+
+        public DateTime FromDate { get; set; }
+
+        public DateTime ToDate { get; set; }
+
         public int Type { get; set; }
 
         public string LicenseeName { get; set; }
@@ -12,6 +24,6 @@
 
         public string Language { get; set; }
 
-        public override bool IsValid => FromDate <= ToDate;
+        public bool IsValid => FromDate <= ToDate;
     }
 }

@@ -22,17 +22,18 @@
         [HttpGet]
         public dynamic GetNotificationMessages()
         {
-            var mainData = new List<NotificationMessage>();
-
-            var random = new Random();
-
-            var length = random.Next(0, 5);
-            for (int i = 0; i < length; i++)
+            var metaModel = new NotificationMetaModel
             {
-                mainData.Add(new NotificationMessage { Content = i.ToString(), DateTime = DateTime.Today });
-            }
+                IsOnlyUnread = true,
+                FromDate = new DateTime(1990, 1, 1),
+                ToDate = new DateTime(3000, 1, 1),
+                PageIndex = 1,
+                PageSize = 10
+            };
 
-            return mainData;
+            UpdateMetaModel(metaModel);
+
+            return _notificationReportService.GetNotificationMessages(metaModel);
         }
 
         [HttpPost]
@@ -49,7 +50,7 @@
 
             UpdateMetaModel(metaModel);
 
-            return _notificationReportService.GetNotifications(metaModel);
+            return _notificationReportService.GetGeneral(metaModel);
         }
 
         [HttpPost]
@@ -67,6 +68,21 @@
             UpdateMetaModel(metaModel);
 
             return _notificationReportService.GetResultAmendment(metaModel);
+        }
+
+        [HttpPost]
+        public dynamic MarkNotificationAsRead(NotificationMessage metaModel)
+        {
+            var userSession = SessionService.UserSession;
+
+            var result = _notificationReportService.MarkNotificationAsRead(userSession.UserId, SessionService.LicenseeSession.LicenseeName, metaModel);
+
+            return new
+            {
+                Code = result.Code,
+                Message = result.Message,
+                IsSuccessful = result.IsSuccessful
+            };
         }
 
         private void UpdateMetaModel(NotificationMetaModel metaModel)
