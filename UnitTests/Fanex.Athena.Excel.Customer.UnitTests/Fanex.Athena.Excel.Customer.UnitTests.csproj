@@ -60,7 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomerCommGroupExcelTest.cs" />
+    <Compile Include="CustomerListExcelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestableClasses\CustomerListExcelTestable.cs" />
     <Compile Include="TestableClasses\CustomerCommGroupExcelTestable.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +81,10 @@
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5F410090-94C0-46A5-9FEC-B6C3B745B7A0}</Project>
       <Name>Fanex.Athena.Model.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Customer\Fanex.Athena.Model.Customer.csproj">
+      <Project>{3B212F2F-4DEB-449B-9AE0-36F6E4F49F5F}</Project>
+      <Name>Fanex.Athena.Model.Customer</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Resources\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
       <Project>{17B0022C-4902-4C61-908A-5DB81568DC3A}</Project>

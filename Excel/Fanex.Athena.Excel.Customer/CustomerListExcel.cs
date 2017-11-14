@@ -7,10 +7,8 @@
 namespace Fanex.Athena.Excel.Customer
 {
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Linq;
-    using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.Customer.ViewModel;
@@ -51,7 +49,7 @@ namespace Fanex.Athena.Excel.Customer
 
         private const int ColumnTemplateCount = 14;
 
-        private readonly Dictionary<int, string> _gridCommonColumNames = new Dictionary<int, string>
+        private readonly IDictionary<int, string> _gridCommonColumNames = new Dictionary<int, string>
         {
             { ExternalIDColumn, "ExternalId" },
             { SystemIDColumn, "SystemId" },
@@ -68,8 +66,6 @@ namespace Fanex.Athena.Excel.Customer
         private readonly string _reporTitle;
         private readonly IList<string> _headerTexts;
         private readonly IList<string> _showedGridColumns;
-
-        private ISheet _templateSheet;
 
         public CustomerListExcel(string templatePath, string reportTitle, CustomerListViewModel model)
         {
@@ -100,7 +96,9 @@ namespace Fanex.Athena.Excel.Customer
             }
         }
 
-        public HSSFWorkbook Workbook { get; set; }
+        protected internal virtual ISheet TemplateSheet { get; private set; }
+
+        public IWorkbook Workbook { get; set; }
 
         public void Export()
         {
@@ -135,23 +133,23 @@ namespace Fanex.Athena.Excel.Customer
                 AssignNoInfoRow(sheet);
             }
 
-            ProcessUi(sheet);
+            ProcessUI(sheet);
         }
 
         /// <summary>
         /// Assign text to header column.
         /// </summary>
         /// <param name="sheet">The current sheet.</param>
-        private void AssignHeader(ISheet sheet)
+        protected void AssignHeader(ISheet sheet)
         {
-            var row = sheet.CopyRow(_templateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
             for (int i = 0; i < _headerTexts.Count; i++)
             {
                 row.Cells[i].SetCellValue(_headerTexts[i]);
             }
 
-            row = sheet.CopyRow(_templateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
+            row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 
             row.Cells[SBCommColumn].SetCellValue(ViewResources.SB);
             row.Cells[RCCommColumn].SetCellValue(ViewResources.RB);
@@ -165,13 +163,13 @@ namespace Fanex.Athena.Excel.Customer
         /// Assign an empty row which contain a explained text.
         /// </summary>
         /// <param name="sheet">The current sheet.</param>
-        private void AssignNoInfoRow(ISheet sheet)
+        protected void AssignNoInfoRow(ISheet sheet)
         {
-            sheet.SetTextRowValue(_templateSheet, RowNoInfoTemp, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
-            ProcessUi(sheet);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemp, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
+            ProcessUI(sheet);
         }
 
-        private void AssignSheetData(ISheet sheet)
+        protected void AssignSheetData(ISheet sheet)
         {
             var rowCount = _viewModel.DataList.Count();
             var startNumOfRow = (_viewModel.Param.PageIndex - 1) * _viewModel.Param.PageSize;
@@ -181,14 +179,13 @@ namespace Fanex.Athena.Excel.Customer
                 var item = _viewModel.DataList.ElementAt(index);
                 var rowIndex = index + RowContentTemplate;
                 var numofRow = index + startNumOfRow;
-                var row = sheet.CopyRow(_templateSheet, RowContentTemplate, rowIndex);
+                var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex);
                 /*group columns*/
                 if (_viewModel.IsAllowedCustomerCommission && _showedGridColumns.Contains(GROUP))
                 {
                     row.Cells[GroupColumn].SetCellValue(item.GroupCommId == 0 ? ViewResources.None : item.Group);
                 }
 
-                /* commission column*/
                 AssignCommissionColumns(item, row);
 
                 /*BA column*/
@@ -197,12 +194,11 @@ namespace Fanex.Athena.Excel.Customer
                     row.Cells[BAStatusColumn].SetCellValue(item.BAStatus ? ViewResources.On : ViewResources.Off);
                 }
 
-                /* common column */
                 AssignCommonColumns(item, numofRow, row);
             }
         }
 
-        private void AssignCommonColumns(CustomerDTO item, int numofRow, IRow row)
+        protected void AssignCommonColumns(CustomerDTO item, int numofRow, IRow row)
         {
             var itemType = item.GetType();
             row.Cells[0].SetCellValue(numofRow);
@@ -223,18 +219,13 @@ namespace Fanex.Athena.Excel.Customer
             }
         }
 
-        private void AssignCommissionColumns(CustomerDTO item, IRow row)
+        protected void AssignCommissionColumns(CustomerDTO item, IRow row)
         {
             if (_viewModel.IsAllowedCustomerCommission && _showedGridColumns.Contains(CUSTOMERCOMM))
             {
                 if (_viewModel.ProductAccess.IsAllowSB)
                 {
                     row.Cells[SBCommColumn].SetCellValue(item.SBComm.ToStringExt(2));
-
-                    if (_viewModel.ProductAccess.IsAllowAB)
-                    {
-                        row.Cells[ABCommColumn].SetCellValue(item.ABComm.ToStringExt(2));
-                    }
                 }
 
                 if (_viewModel.ProductAccess.IsAllowNG)
@@ -256,12 +247,17 @@ namespace Fanex.Athena.Excel.Customer
                 {
                     row.Cells[CSCommColumn].SetCellValue(item.CSComm.ToStringExt(2));
                 }
+
+                if (_viewModel.ProductAccess.IsAllowAB)
+                {
+                    row.Cells[ABCommColumn].SetCellValue(item.ABComm.ToStringExt(2));
+                }
             }
         }
 
-        private void AssignTitle(ISheet sheet)
+        protected void AssignTitle(ISheet sheet)
         {
-            sheet.SetTextRowValue(_templateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _reporTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _reporTitle);
 
             /*Freeze 2 rows title and header*/
             sheet.CreateFreezePane(0, 3);
@@ -280,7 +276,7 @@ namespace Fanex.Athena.Excel.Customer
             {
                 stream = new FileStream(this._templatePath, FileMode.Open, FileAccess.Read);
                 this.Workbook = new HSSFWorkbook(stream);
-                this._templateSheet = Workbook.GetSheet("Template");
+                this.TemplateSheet = Workbook.GetSheet("Template");
                 var defaultStyle = Workbook.CreateCellStyle();
                 defaultStyle.ShrinkToFit = true;
                 defaultStyle.WrapText = true;
@@ -294,15 +290,7 @@ namespace Fanex.Athena.Excel.Customer
             }
         }
 
-        /// <summary>
-        /// Hide  columns.
-        /// </summary>
-        /// <param name="sheet">The current sheet.</param>
-        [SuppressMessage(
-            "StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private void ProcessUi(ISheet sheet)
+        protected void ProcessUI(ISheet sheet)
         {
             var hiddenColumns = new List<int>();
             /*commission and group columns*/
@@ -372,9 +360,6 @@ namespace Fanex.Athena.Excel.Customer
             }
         }
 
-        /// <summary>
-        /// Remove template.
-        /// </summary>
         private void RemoveTemplate()
         {
             this.Workbook.RemoveSheet("Template");

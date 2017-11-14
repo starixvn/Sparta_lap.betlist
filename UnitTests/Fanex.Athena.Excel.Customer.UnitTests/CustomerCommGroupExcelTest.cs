@@ -14,6 +14,7 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
     [TestFixture]
     public class CustomerCommGroupExcelTest
     {
+        private const int ColumnCount = 10;
         private ISheet _sheet;
 
         [SetUp]
@@ -36,7 +37,7 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
             Assert.Multiple(() =>
             {
                 _sheet.Received().CopyRow(excel.TemplateSheet, ReportBase.RowHeaderTemplate, ReportBase.RowHeaderTemplate);
-                cell.ReceivedWithAnyArgs(10).SetCellValue(string.Empty);
+                cell.ReceivedWithAnyArgs(ColumnCount).SetCellValue(string.Empty);
             });
         }
 
@@ -160,7 +161,6 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
 
         private static ICell MockSheetGetRow(ISheet sheet)
         {
-            const int ColumnCount = 10;
             var row = Substitute.For<IRow>();
             var cell = Substitute.For<ICell>();
             var cellList = new List<ICell>();
