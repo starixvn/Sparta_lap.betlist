@@ -13,6 +13,7 @@
     using DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Logging;
+    using Newtonsoft.Json.Linq;
     using Resources;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
@@ -45,15 +46,14 @@
         {
             try
             {
-                var tokenParam = actionContext.Request.GetQueryNameValuePairs().FirstOrDefault(x => x.Key.Equals(KeyName, StringComparison.OrdinalIgnoreCase));
-
-                if (tokenParam.Key == null)
+                var tokenValue = GetAuthToken(actionContext.Request);
+                if (string.IsNullOrEmpty(tokenValue))
                 {
-                    LogInfo(actionContext.Request, "TokenKey is null");
+                    LogInfo(actionContext.Request, "Auth Token is null");
                     return UnauthorizeAccessHandlerAsync(actionContext);
                 }
 
-                var token = _oneAuthenticationService.GetTokenInfo(tokenParam.Value);
+                var token = _oneAuthenticationService.GetTokenInfo(tokenValue);
 
                 if (token == null || string.IsNullOrWhiteSpace(token.SiteName) || token.UserSEQ <= 0)
                 {
@@ -77,6 +77,20 @@
             {
                 LogHelper.WriteError(exception);
                 return UnauthorizeAccessHandlerAsync(actionContext);
+            }
+        }
+
+        private static string GetAuthToken(HttpRequestMessage request)
+        {
+            if (request.Method == HttpMethod.Post)
+            {
+                var formData = request.Content.ReadAsStringAsync().Result;
+
+                return JObject.Parse(formData)[KeyName]?.Value<string>();
+            }
+            else
+            {
+                return request.GetQueryNameValuePairs().FirstOrDefault(x => x.Key.Equals(KeyName, StringComparison.OrdinalIgnoreCase)).Value;
             }
         }
 
