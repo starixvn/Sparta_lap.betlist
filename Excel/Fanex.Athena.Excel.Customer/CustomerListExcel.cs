@@ -7,23 +7,20 @@
 namespace Fanex.Athena.Excel.Customer
 {
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
+    using Base;
     using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.Customer.ViewModel;
     using Model.Customer.DTO;
-    using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using Resources;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class CustomerListExcel
+    public class CustomerListExcel : ReportBase
     {
-        private const int RowHeaderTemplate = 1;
-        private const int RowTitleTemplate = 0;
         private const int RowNoInfoTemp = 4;
         private const int RowContentTemplate = 3;
         private const int GroupColumn = 1;
@@ -61,15 +58,14 @@ namespace Fanex.Athena.Excel.Customer
         };
 
         private readonly CustomerListViewModel _viewModel;
-        private readonly string _templatePath;
 
         private readonly string _reporTitle;
         private readonly IList<string> _headerTexts;
         private readonly IList<string> _showedGridColumns;
 
         public CustomerListExcel(string templatePath, string reportTitle, CustomerListViewModel model)
+            : base(templatePath, model.DataList.Count())
         {
-            _templatePath = templatePath;
             _viewModel = model;
             _reporTitle = reportTitle;
             _headerTexts = new List<string>
@@ -96,51 +92,7 @@ namespace Fanex.Athena.Excel.Customer
             }
         }
 
-        protected internal virtual ISheet TemplateSheet { get; private set; }
-
-        public IWorkbook Workbook { get; set; }
-
-        public void Export()
-        {
-            LoadTemplate();
-
-            AssignData();
-
-            RemoveTemplate();
-        }
-
-        private static void ClearTemplate(ISheet sheet, int startRowIndex)
-        {
-            var lastRowNum = sheet.LastRowNum;
-            for (int i = startRowIndex; i <= lastRowNum; i++)
-            {
-                sheet.DeleteRow(i);
-            }
-        }
-
-        private void AssignData()
-        {
-            var sheet = Workbook.CloneSheet("Template", "Data");
-
-            AssignHeader(sheet);
-            AssignTitle(sheet);
-            if (_viewModel.DataList.Any())
-            {
-                AssignSheetData(sheet);
-            }
-            else
-            {
-                AssignNoInfoRow(sheet);
-            }
-
-            ProcessUI(sheet);
-        }
-
-        /// <summary>
-        /// Assign text to header column.
-        /// </summary>
-        /// <param name="sheet">The current sheet.</param>
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
@@ -159,17 +111,13 @@ namespace Fanex.Athena.Excel.Customer
             row.Cells[ABCommColumn].SetCellValue(ViewResources.ProductAB);
         }
 
-        /// <summary>
-        /// Assign an empty row which contain a explained text.
-        /// </summary>
-        /// <param name="sheet">The current sheet.</param>
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemp, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
-        protected void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             var rowCount = _viewModel.DataList.Count();
             var startNumOfRow = (_viewModel.Param.PageIndex - 1) * _viewModel.Param.PageSize;
@@ -180,7 +128,7 @@ namespace Fanex.Athena.Excel.Customer
                 var rowIndex = index + RowContentTemplate;
                 var numofRow = index + startNumOfRow;
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex);
-                /*group columns*/
+
                 if (_viewModel.IsAllowedCustomerCommission && _showedGridColumns.Contains(GROUP))
                 {
                     row.Cells[GroupColumn].SetCellValue(item.GroupCommId == 0 ? ViewResources.None : item.Group);
@@ -188,7 +136,6 @@ namespace Fanex.Athena.Excel.Customer
 
                 AssignCommissionColumns(item, row);
 
-                /*BA column*/
                 if (_viewModel.ProductAccess.IsAllowBA && _showedGridColumns.Contains(BASTATUS))
                 {
                     row.Cells[BAStatusColumn].SetCellValue(item.BAStatus ? ViewResources.On : ViewResources.Off);
@@ -255,7 +202,7 @@ namespace Fanex.Athena.Excel.Customer
             }
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _reporTitle);
 
@@ -266,31 +213,7 @@ namespace Fanex.Athena.Excel.Customer
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        /// <summary>
-        /// Load template.
-        /// </summary>
-        private void LoadTemplate()
-        {
-            FileStream stream = null;
-            try
-            {
-                stream = new FileStream(this._templatePath, FileMode.Open, FileAccess.Read);
-                this.Workbook = new HSSFWorkbook(stream);
-                this.TemplateSheet = Workbook.GetSheet("Template");
-                var defaultStyle = Workbook.CreateCellStyle();
-                defaultStyle.ShrinkToFit = true;
-                defaultStyle.WrapText = true;
-            }
-            finally
-            {
-                if (stream != null)
-                {
-                    stream.Close();
-                }
-            }
-        }
-
-        protected void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             var hiddenColumns = new List<int>();
             /*commission and group columns*/
@@ -358,11 +281,6 @@ namespace Fanex.Athena.Excel.Customer
             {
                 hidedColumns.Add(ABCommColumn);
             }
-        }
-
-        private void RemoveTemplate()
-        {
-            this.Workbook.RemoveSheet("Template");
         }
     }
 }
