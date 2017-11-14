@@ -2,10 +2,11 @@
 
 define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
     function (Site, moment, Popup) {
-        const NOTIFICATION_ITEM = "<li class='notification-item' title={0}><a href='javascript:void(0)'>{1}</a><span class='type'>{2}</span><span class='date-time'>{3}</span></li>";
-        const GET_NOTIFICATION_URL = "api/NotificationReport/GetNotificationMessages";
-        const MARK_NOTIFICATION = "api/NotificationReport/MarkNotificationAsRead";
-        var $notificationDdl = "";
+        var NOTIFICATION_ITEM = "<li class='notification-item' title={0}>" +
+                                    "<a href='javascript:void(0)'>{1}</a><span class='type'>{2}</span><span class='date-time'>{3}</span>" +
+                                  "</li>";
+        var GET_NOTIFICATION_URL = "api/NotificationReport/GetNotificationMessages";
+        var MARK_NOTIFICATION = "api/NotificationReport/MarkNotificationAsRead";
 
         function openDetailPopup(message) {
             var options = {
@@ -38,10 +39,9 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
                                 + '</div>';
 
             Popup.openPopupWithButton(popupContent, options, buttons);
-        };
+        }
 
         function addNotificationItems($parent, $label, data) {
-            var now = new Date();
             var $numberOfMsg = $(".number-notifications", ".notifications-block");
 
             $parent.children(".notification-item").remove();
@@ -59,7 +59,8 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
                     $label.append("<span class='number-notifications'>" + total + "</span>");
                 }
                 data.DataList.forEach(function (item) {
-                    var message = $($.format(NOTIFICATION_ITEM, item.Subject, item.Subject, Site.getSingleResource(item.Type), moment(item.DateTime).format("hh:mm:ss A MM/DD/YYYY")));
+                    var time = moment(item.DateTime).format("hh:mm:ss A MM/DD/YYYY");
+                    var message = $($.format(NOTIFICATION_ITEM, item.Subject, item.Subject, Site.getSingleResource(item.Type), time));
                     message.on("click", function () {
                         openDetailPopup(item);
                     });
@@ -104,7 +105,7 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
 
             $(window).on('blur', function () {
                 if ($notificationDdl.is(":visible")) {
-                    if (newMsg != null) {
+                    if (newMsg !== null) {
                         addNotificationItems($notificationDdl, $notificationLabel, newMsg);
                     }
                     $notificationLabel.dropdown('close');
@@ -117,5 +118,5 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
 
         return {
             add: addNotification
-        }
+        };
     });

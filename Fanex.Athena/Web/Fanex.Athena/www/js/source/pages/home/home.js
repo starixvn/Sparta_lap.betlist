@@ -17,6 +17,7 @@ define([
             Site.initialize();
             initVariables();
             initEvent();
+            checkMoveBetNotification();
             Notification.add();
             activeDefaultMenuItem();
             setTimeout(function () {
