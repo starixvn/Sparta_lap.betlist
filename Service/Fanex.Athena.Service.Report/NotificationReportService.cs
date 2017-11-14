@@ -207,10 +207,10 @@
             };
         }
 
-        public IResultInfo MarkNotificationAsRead(int userId, string licenseeName, NotificationMessage metaModel)
+        public IResultInfo MarkNotificationAsRead(NotificationMarkAsReadMetaModel metaModel)
         {
             var api = new Uri(_appSetting.MarkNotificationAsReadApiUrl);
-            var param = $"MessageType={metaModel.Type}&MessageId={metaModel.Id}&UserId={userId}&LicenseeName={licenseeName}";
+            var param = $"MessageType={metaModel.MessageType}&MessageId={metaModel.MessageId}&UserId={metaModel.UserId}&LicenseeName={metaModel.LicenseeName}";
 
             var json = string.Empty;
             try

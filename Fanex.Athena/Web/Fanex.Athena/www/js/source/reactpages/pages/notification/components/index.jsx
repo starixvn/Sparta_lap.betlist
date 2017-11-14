@@ -18,7 +18,7 @@ const loggerMiddleware = createLogger({
         (!window[configName].actionFilter || window[configName].actionFilter === action.type))
 });
 
-const defaultState = Object.assign({}, window.Lrf);
+const defaultState = Object.assign({}, window.initialState);
 
 function configureStore(initialState) {
     const enhancer = compose(

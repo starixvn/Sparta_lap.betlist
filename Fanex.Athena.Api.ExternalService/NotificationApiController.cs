@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Api.ExternalService
 {
+    using System;
     using System.Collections.Generic;
     using System.Web.Http;
     using System.Web.Http.Cors;
@@ -19,6 +20,10 @@
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class NotificationApiController : ApiController
     {
+        private static readonly DateTime MinDate = new DateTime(1990, 1, 1);
+
+        private static readonly DateTime MaxDate = new DateTime(3000, 1, 1);
+
         private readonly IMoveBetService _moveBetService;
 
         private readonly ILanguageService _languageService;
@@ -52,10 +57,26 @@
                 };
             }
 
+            metaModel.IsOnlyUnread = true;
+            metaModel.FromDate = MinDate;
+            metaModel.ToDate = MaxDate;
             metaModel.PageSize = 10;
-            metaModel.PageIndex = 0;
+            metaModel.PageIndex = 1;
 
-            return _notificationReportService.GetResultAmendment(metaModel);
+            return _notificationReportService.GetNotificationMessages(metaModel);
+        }
+
+        [HttpPost]
+        public dynamic MarkNotificationAsRead(NotificationMarkAsReadMetaModel metaModel)
+        {
+            var result = _notificationReportService.MarkNotificationAsRead(metaModel);
+
+            return new
+            {
+                Code = result.Code,
+                Message = result.Message,
+                IsSuccessful = result.IsSuccessful
+            };
         }
     }
 }

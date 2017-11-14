@@ -16,6 +16,6 @@
 
         ReportResultModel<ResultAmendment> GetResultAmendment(NotificationMetaModel metaModel);
 
-        IResultInfo MarkNotificationAsRead(int userId, string licenseeName, NotificationMessage metaModel);
+        IResultInfo MarkNotificationAsRead(NotificationMarkAsReadMetaModel metaModel);
     }
 }

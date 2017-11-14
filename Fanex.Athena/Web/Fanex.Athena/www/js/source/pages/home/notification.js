@@ -15,7 +15,12 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
                 id: "view-notifiation",
                 width: 600,
                 onClose: function () {
-                    markMessageAsRead(message);
+                    var postData = {
+                        MessageType: message.Type,
+                        MessageId: message.Id
+                    };
+
+                    markMessageAsRead(postData);
                 }
             };
 
@@ -63,11 +68,11 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
             }
         }
 
-        function markMessageAsRead(message) {
+        function markMessageAsRead(postData) {
             $.ajax({
                 url: Site.resolveClientUrl(MARK_NOTIFICATION),
                 type: "POST",
-                data: message,
+                data: postData,
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false
@@ -81,7 +86,6 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
                 return;
             }
 
-            var apiUrlMarkAsRead = Site.resolveClientUrl("api/NotificationReport/GetNotificationMessages");
             var $notificationLabel = $(".dropdown-button", ".notifications-block");
             var newMsg = null;          
             var apiUrl = Site.resolveClientUrl(GET_NOTIFICATION_URL);

@@ -12,6 +12,10 @@
 
     public class NotificationReportController : ApiReportBaseController
     {
+        private static readonly DateTime MinDate = new DateTime(1990, 1, 1);
+
+        private static readonly DateTime MaxDate = new DateTime(3000, 1, 1);
+
         private readonly INotificationReportService _notificationReportService;
 
         public NotificationReportController()
@@ -25,8 +29,8 @@
             var metaModel = new NotificationMetaModel
             {
                 IsOnlyUnread = true,
-                FromDate = new DateTime(1990, 1, 1),
-                ToDate = new DateTime(3000, 1, 1),
+                FromDate = MinDate,
+                ToDate = MaxDate,
                 PageIndex = 1,
                 PageSize = 10
             };
@@ -71,11 +75,12 @@
         }
 
         [HttpPost]
-        public dynamic MarkNotificationAsRead(NotificationMessage metaModel)
+        public dynamic MarkNotificationAsRead(NotificationMarkAsReadMetaModel metaModel)
         {
-            var userSession = SessionService.UserSession;
+            metaModel.UserId = SessionService.UserSession.UserId.ToString();
+            metaModel.LicenseeName = SessionService.LicenseeSession.LicenseeName;
 
-            var result = _notificationReportService.MarkNotificationAsRead(userSession.UserId, SessionService.LicenseeSession.LicenseeName, metaModel);
+            var result = _notificationReportService.MarkNotificationAsRead(metaModel);
 
             return new
             {
