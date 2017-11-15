@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Api.Base.Attributes
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
@@ -13,7 +14,6 @@
     using DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Logging;
-    using Newtonsoft.Json.Linq;
     using Resources;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
@@ -82,16 +82,13 @@
 
         private static string GetAuthToken(HttpRequestMessage request)
         {
-            if (request.Method == HttpMethod.Post)
+            IEnumerable<string> headerValues = null;
+            if (request.Headers.TryGetValues(KeyName, out headerValues))
             {
-                var formData = request.Content.ReadAsStringAsync().Result;
+                return headerValues.FirstOrDefault();
+            }
 
-                return JObject.Parse(formData)[KeyName]?.Value<string>();
-            }
-            else
-            {
-                return request.GetQueryNameValuePairs().FirstOrDefault(x => x.Key.Equals(KeyName, StringComparison.OrdinalIgnoreCase)).Value;
-            }
+            return request.GetQueryNameValuePairs().FirstOrDefault(x => x.Key.Equals(KeyName, StringComparison.OrdinalIgnoreCase)).Value;
         }
 
         private static Task<HttpResponseMessage> UnauthorizeAccessHandlerAsync(HttpActionContext actionContext)
