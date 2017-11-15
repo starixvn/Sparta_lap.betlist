@@ -102,7 +102,7 @@ namespace Fanex.Athena.Api.Report
                 return;
             }
 
-            dataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+            dataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase), nameof(PlatformWinLossMember.Index), true);
         }
 
         private HttpResponseMessage ExportExcelSummary(

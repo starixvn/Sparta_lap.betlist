@@ -371,19 +371,19 @@
                 it("Array data should be returned with ascending order at first time", function () {
                     var result = LicenseeWinLoss.sortData(arrayData);
 
-                    expect(result).toEqual(arrayData);
+                    expect(result).toEqual([{ Index: 1, Column2: "A", SortIndex: 1 }, { Index: 2, Column2: "B", SortIndex: 2 }]);
                 });
 
                 it("Array data should be returned with descending order at second time", function () {
                     var result = LicenseeWinLoss.sortData(arrayData);
 
-                    expect(result).toEqual([{ Index: 1, Column2: "B" }, { Index: 2, Column2: "A" }]);
+                    expect(result).toEqual([{ Index: 1, Column2: "B", SortIndex: 2 }, { Index: 2, Column2: "A", SortIndex: 1 }]);
                 });
 
                 it("Array data should be returned with ascending order at third time", function () {
                     var result = LicenseeWinLoss.sortData(arrayData);
 
-                    expect(result).toEqual(arrayData);
+                    expect(result).toEqual([{ Index: 1, Column2: "A", SortIndex: 1 }, { Index: 2, Column2: "B", SortIndex: 2 }]);
                 });
             });
 
@@ -748,6 +748,8 @@
 
             describe("bindData(level, reportBy, response)", function () {
                 var submitData, gridOption;
+                var data = [{ Index: 1, Column2: "A" }, { Index: 2, Column2: "B" }];
+
                 beforeEach(function () {
                     submitData = {
                         ProductOptions: '["SB","RC"]',
@@ -793,15 +795,15 @@
                     expect(jqGridAdditional.setNoInfo).toHaveBeenCalled();
                 });
                 it("jqGrid function should be called with correct grid option value", function () {
-                    LicenseeWinLoss.bindData(0, 2, { Data: [1, 2, 3], Total: [1] });
+                    LicenseeWinLoss.bindData(0, 2, { Data: data, Total: [1] });
 
                     expect($.fn.jqGrid).toHaveBeenCalled();
                     expect(gridOption.rownumbers).toBe(true);
-                    expect(gridOption.data).toEqual([1, 2, 3]);
+                    expect(gridOption.data).toEqual(data);
                     expect(gridOption.userData).toEqual({});
                     expect(gridOption.rowNum).toBe(2000);
                     expect(gridOption.rowList).toEqual([50, 100, 200, 300, 400, 500, 1000, 2000]);
-                    expect(gridOption.rowTotal).toBe(3);
+                    expect(gridOption.rowTotal).toBe(2);
                     expect(gridOption.pager).toBe("#ppdata");
                 });
 
@@ -819,7 +821,7 @@
 
                 describe("gridOption.onPaging(pgButton)", function () {
                     it("Should return 'stop' when level not equal 2", function () {
-                        LicenseeWinLoss.bindData(0, 2, { Data: [1, 2, 3], Total: [1] });
+                        LicenseeWinLoss.bindData(0, 2, { Data: data, Total: [1] });
 
                         var result = gridOption.onPaging("Test");
 
@@ -827,7 +829,7 @@
                     });
 
                     it("Should return 'stop' when numOfRow not greater than LicenseeWinLossOption.pageSize", function () {
-                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [1] });
+                        LicenseeWinLoss.bindData(2, 2, { Data: data, Total: [1] });
 
                         var result = gridOption.onPaging("Test");
 
@@ -837,7 +839,7 @@
                     it("Site.blockUI() should be called when pgButton not has class 'ui-state-disabled'", function () {
                         var defaultPagesize = LicenseeWinLossOption.pageSize;
                         appendSetFixtures('<button id="pgButton"></button>');
-                        LicenseeWinLossOption.pageSize = 2;
+                        LicenseeWinLossOption.pageSize = 1;
                         spyOn(Site, "blockUI");
 
                         gridOption.onPaging("pgButton");
@@ -876,7 +878,7 @@
                     });
 
                     it("jqGridAdditional.gridComplete() should be called", function () {
-                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [1] });
+                        LicenseeWinLoss.bindData(2, 2, { Data: data, Total: [1] });
 
                         gridOption.gridComplete();
 
@@ -884,7 +886,7 @@
                     });
 
                     it("LicenseeWinLoss.resizeGrid() should be called", function () {
-                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [1] });
+                        LicenseeWinLoss.bindData(2, 2, { Data: data, Total: [1] });
 
                         gridOption.gridComplete();
 
@@ -892,7 +894,7 @@
                     });
 
                     it("LicenseeWinLoss.bindTotal() should be called with correct parameter", function () {
-                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [1], SummaryTotal: [2] });
+                        LicenseeWinLoss.bindData(2, 2, { Data: data, Total: [1], SummaryTotal: [2] });
 
                         gridOption.gridComplete();
 
@@ -901,7 +903,7 @@
 
                     it("#footer should has correct html content when onPaging is false or level is not 2", function () {
                         appendSetFixtures('<div class="ui-jqgrid-ftable">Footer Content</div> <div id="footer"></div>');
-                        LicenseeWinLoss.bindData(1, 2, { Data: [1, 2, 3], Total: [1], SummaryTotal: [2] });
+                        LicenseeWinLoss.bindData(1, 2, { Data: data, Total: [1], SummaryTotal: [2] });
 
                         gridOption.gridComplete();
                         var result = $("#footer").html();
@@ -910,7 +912,7 @@
                     });
 
                     it("LicenseeWinLossOption.addProductButton should be called with correct parameter", function () {
-                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [1] });
+                        LicenseeWinLoss.bindData(2, 2, { Data: data, Total: [1] });
 
                         gridOption.gridComplete();
 
@@ -918,7 +920,7 @@
                     });
 
                     it("LicenseeWinLossOption.addProductButton should not be called when Total data is empty", function () {
-                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [] });
+                        LicenseeWinLoss.bindData(2, 2, { Data: data, Total: [] });
 
                         gridOption.gridComplete();
 
@@ -927,7 +929,7 @@
 
                     it("#pg_ppdata should be showed when level is 2 and rowNum greater than pagesize", function () {
                         appendSetFixtures('<button id="pg_ppdata"></button>');
-                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [1] });
+                        LicenseeWinLoss.bindData(2, 2, { Data: data, Total: [1] });
                         LicenseeWinLossOption.pageSize = 1;
 
                         gridOption.gridComplete();
@@ -936,7 +938,7 @@
                     });
 
                     it(".ui-jqgrid-ftable should has correct html content when onPaging is true and level is 2", function () {
-                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [] });
+                        LicenseeWinLoss.bindData(2, 2, { Data: data, Total: [] });
                         appendSetFixtures('<button id="pgButton"></button>' +
                             '<div class="ui-jqgrid-ftable"></div>' +
                             '<div id="footer">Footer Content</div>');
@@ -951,7 +953,7 @@
 
                     it("#pg_ppdata should be hidden when level is not 2", function () {
                         appendSetFixtures('<button id="pg_ppdata"></button>');
-                        LicenseeWinLoss.bindData(1, 2, { Data: [1, 2, 3], Total: [1] });
+                        LicenseeWinLoss.bindData(1, 2, { Data: data, Total: [1] });
 
                         gridOption.gridComplete();
 

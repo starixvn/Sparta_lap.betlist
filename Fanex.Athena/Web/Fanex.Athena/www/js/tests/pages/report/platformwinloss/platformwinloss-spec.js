@@ -84,6 +84,8 @@
 
             describe("PlatformWinLossOption.gridOption.onSortCol(index)", function () {
                 var _sortColumn = "PlatformType";
+                var data = [{ Index: 1, PlatformType: 3 }, { Index: 1, PlatformType: 2 }, { Index: 1, PlatformType: 4 }];
+                var gridOption = {};
 
                 beforeAll(function () {
                     jasmine.Ajax.install();
@@ -97,12 +99,13 @@
                     spyOn(grid, "getGridParam").and.returnValue(50);
                     spyOn(Report, "ValidProducts").and.returnValue(true);
                     spyOn(Site, "blockUI");
-                    spyOn(PlatformWinLoss, "bindData");
-                    spyOn(PlatformWinLoss, "setReportTitle");
+                    spyOn(PlatformWinLossOption, "getGridOption").and.returnValue(gridOption);
+                    spyOn($.fn, "jqGrid");
+                    spyOn(jqGridAdditional, "setGroupCustomerWLColumns");
+                    spyOn(jqGridAdditional, "addSortableHeader");
                     spyOn(Report, "renderBreadCrumb");
                     spyOn(Site, "unBlockUI");
 
-                    var data = [{ Index: 1, PlatformType: 3 }, { Index: 1, PlatformType: 2 }, { Index: 1, PlatformType: 4 }];
                     jasmine.Ajax
                             .stubRequest("api/PlatformWinLossReport/Index")
                             .andReturn({
@@ -113,6 +116,7 @@
                             });
 
                     PlatformWinLoss.submit(); //set value for cache data
+                    PlatformWinLoss.drillDown(1, { ProductCode: "SB", PlatformType: 1 }); // set level = 1
                 });
 
                 afterAll(function () {
@@ -141,38 +145,42 @@
                     expect(Site.unBlockUI).toHaveBeenCalled();
                 });
 
-                it("PlatformWinLoss.bindData() should be called with data ascending", function () {
+                it("data should be sorted ascending", function () {
+                    var expectedData = [
+                            { Index: 1, PlatformType: 2, SortIndex: 2 },
+                            { Index: 2, PlatformType: 3, SortIndex: 1 },
+                            { Index: 3, PlatformType: 4, SortIndex: 3 }];
                     var expectedResponse = {
-                        Data: [
-                            { Index: 1, PlatformType: 2 },
-                            { Index: 2, PlatformType: 3 },
-                            { Index: 3, PlatformType: 4 }],
+                        Data: data,
                         ProductOptions: '[{"Code":"SB","Status":true}]'
                     };
                     var expectedProductOpts = [{ Code: "SB", Status: true }];
-                    var level = 0;
+                    var level = 1;
 
                     PlatformWinLossOption.gridOption.onSortCol(_sortColumn);
                     jasmine.clock().tick(101);
 
-                    expect(PlatformWinLoss.bindData.calls.argsFor(1)).toEqual([level, expectedResponse, expectedProductOpts]);
+                    //expect(PlatformWinLoss.bindData.calls.argsFor(1)).toEqual([level, expectedResponse, expectedProductOpts]);
+                    expect(gridOption.datastr).toEqual(expectedData);
                 });
 
-                it("PlatformWinLoss.bindData() should be called with with data descending", function () {
+                it("data should be sorted descending", function () {
+                    var expectedData = [
+                            { Index: 1, PlatformType: 4, SortIndex: 3 },
+                            { Index: 2, PlatformType: 3, SortIndex: 1 },
+                            { Index: 3, PlatformType: 2, SortIndex: 2 }];
                     var expectedResponse = {
-                        Data: [
-                            { Index: 1, PlatformType: 4 },
-                            { Index: 2, PlatformType: 3 },
-                            { Index: 3, PlatformType: 2 }],
+                        Data: data,
                         ProductOptions: '[{"Code":"SB","Status":true}]'
                     };
                     var expectedProductOpts = [{ Code: "SB", Status: true }];
-                    var level = 0;
+                    var level = 1;
 
                     PlatformWinLossOption.gridOption.onSortCol(_sortColumn);
                     jasmine.clock().tick(101);
 
-                    expect(PlatformWinLoss.bindData.calls.argsFor(1)).toEqual([level, expectedResponse, expectedProductOpts]);
+                    //expect(PlatformWinLoss.bindData.calls.argsFor(1)).toEqual([level, expectedResponse, expectedProductOpts]);
+                    expect(gridOption.datastr).toEqual(expectedData);
                 });
             });
 
@@ -441,7 +449,7 @@
                     PlatformWinLoss.bindData(0, { Data: [{ index: 1 }] }, {});
 
                     expect(gridOption.treeGrid).toBe(true);
-                    expect(gridOption.rowNum).toBe(-1);
+                    expect(gridOption.rowNum).toBe(1);
                 });
 
                 it("treeGrid should not be set if level is 1", function () {
@@ -469,13 +477,13 @@
                     expect(jqGridAdditional.setGroupCustomerWLColumns).not.toHaveBeenCalled();
                 });
 
-                it("jqGridAdditional.addSortableHeader should not be called if level is 1 and removeSorting is false", function () {
-                    PlatformWinLoss.bindData(1, { Data: [{ index: 1 }] }, {});
+                it("jqGridAdditional.addSortableHeader should not be called if level is 0", function () {
+                    PlatformWinLoss.bindData(0, { Data: [{ index: 1 }] }, {});
 
                     expect(jqGridAdditional.addSortableHeader).not.toHaveBeenCalled();
                 });
 
-                it("jqGridAdditional.addSortableHeader should be called if level is 1 and removeSorting is true", function () {
+                it("jqGridAdditional.addSortableHeader should be called if level is 1", function () {
                     jasmine.Ajax.install();
                     jasmine.clock().install();
 

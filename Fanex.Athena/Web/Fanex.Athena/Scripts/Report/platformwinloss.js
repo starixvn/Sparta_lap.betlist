@@ -13,19 +13,47 @@ var PlatformWinLoss = (function ($) {
     var _level = null;
     var _sortColumnName = null;
     var _sortOrder = "desc";
-    var _removeSorting = false;
     var _pageSize = 0;
     var _submitData = {};
     var _drilldownData = {};
 
     function sortData(arrayData) {
-        var data = _sortOrder === "asc" ?
-             JSLINQ(arrayData).OrderBy(function (x) { return x[_sortColumnName]; }).items
-             : JSLINQ(arrayData).OrderByDescending(function (x) { return x[_sortColumnName]; }).items;
-        for (var i = 0; i < data.length; i++) {
-            data[i].Index = i + 1;
+        if (_sortColumnName && arrayData.length > 1) {
+            var data = [];
+            if (_sortOrder === "asc") {
+                data = JSLINQ(arrayData).OrderBy(function (x) { return x[_sortColumnName]; }).items;
+            }
+            else {
+                var tempArray = [];
+                for (var i = 0; i < arrayData.length; i++) {
+                    tempArray[i] = arrayData[i];
+                }
+
+                data = tempArray.sort(function (a, b) {
+                    var x = a[_sortColumnName];
+                    var y = b[_sortColumnName];
+
+                    // sort desc
+                    var result = ((x > y) ? -1 : ((x < y) ? 1 : 0));
+                    if (result !== 0) {
+                        return result;
+                    }
+
+                    x = a.SortIndex;
+                    y = b.SortIndex;
+                    // sort asc
+                    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                });
+            }
+
+            for (var j = 0; j < data.length; j++) {
+                arrayData[j].SortIndex = j + 1;
+                data[j].Index = j + 1;
+            }
+            return data;
         }
-        return data;
+
+        return arrayData;
     }
 
     function getProductText(productOptionJson) {
@@ -56,15 +84,12 @@ var PlatformWinLoss = (function ($) {
                 _pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
                 Site.blockUI();
                 window.setTimeout(function () {
-                    _removeSorting = false;
                     if (_sortColumnName === index) {
                         _sortOrder = _sortOrder === "asc" ? "desc" : "asc";
                     } else {
                         _sortOrder = "asc";
                         _sortColumnName = index;
                     }
-
-                    cacheData[_level].Data = sortData(cacheData[_level].Data);
 
                     var productOptions = _level === 0 ? $.parseJSON(_submitData.ProductOptions) : _drilldownData.ProductOptions;
 
@@ -115,7 +140,6 @@ var PlatformWinLoss = (function ($) {
             });
 
             $('#SubmitButton').click(function () {
-                _removeSorting = true;
                 PlatformWinLoss.submit();
             });
 
@@ -123,7 +147,7 @@ var PlatformWinLoss = (function ($) {
                 var data = _level === 0 ? Site.clone(_submitData) : Site.clone(_drilldownData);
                 data.IsExportExcel = true;
                 data.Level = _level;
-                if (_sortColumnName) {
+                if (_level === 1 && _sortColumnName) {
                     data.SortBy = _sortColumnName;
                     data.SortOrder = _sortOrder;
                 }
@@ -213,11 +237,13 @@ var PlatformWinLoss = (function ($) {
             jqGridAdditional.clearGrid("ReportGrid");
             var reportGrid = $("#ReportGrid");
             var onPaging = false;
-            var gridOption = PlatformWinLossOption.getGridOption(level, productOptions);
             var numOfRow = response.Data.length;
-            gridOption.datastr = response.Data;
+            var data = level === 1 ? sortData(response.Data) : response.Data;
+
+            var gridOption = PlatformWinLossOption.getGridOption(level, productOptions);
+            gridOption.datastr = data;
             gridOption.rowList = PlatformWinLossOption.rowList;
-            gridOption.rowNum = level === 1 ? _pageSize : -1;
+            gridOption.rowNum = level === 1 ? _pageSize : numOfRow;
             gridOption.treeGrid = level === 0;
             gridOption.onPaging = function (pgButton) {
                 _pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
@@ -270,7 +296,7 @@ var PlatformWinLoss = (function ($) {
             }
             jqGridAdditional.resetLayout(reportGrid);
 
-            if (level === 1 && !_removeSorting) {
+            if (level === 1 && _sortColumnName) {
                 reportGrid.closest("div.ui-jqgrid-view")
                            .find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column > div.ui-jqgrid-sortable")
                 .each(function (index, element) {

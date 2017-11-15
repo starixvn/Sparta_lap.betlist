@@ -13,19 +13,46 @@ var LicenseeWinLoss = (function ($) {
     var _sortColumnName = null;
     var _sortOrder = "desc";
     var _level = 0;
-    var _removeSorting = false;
     var _reportBy = null;
     var _submitData; // cache submit data of level 0.
 
     function sortData(arrayData) {
-        var data = _sortOrder === "asc" ?
-             JSLINQ(arrayData).OrderBy(function (x) { return x[_sortColumnName]; }).items
-             : JSLINQ(arrayData).OrderByDescending(function (x) { return x[_sortColumnName]; }).items;
-        for (var i = 0; i < data.length; i++) {
-            data[i].Index = i + 1;
+        if (_sortColumnName && arrayData.length > 1) {
+            var data = [];
+            if (_sortOrder === "asc") {
+                data = JSLINQ(arrayData).OrderBy(function (x) { return x[_sortColumnName]; }).items;
+            }
+            else {
+                var tempArray = [];
+                for (var i = 0; i < arrayData.length; i++) {
+                    tempArray[i] = arrayData[i];
+                }
+
+                data = tempArray.sort(function (a, b) {
+                    var x = a[_sortColumnName];
+                    var y = b[_sortColumnName];
+
+                    // sort desc
+                    var result = ((x > y) ? -1 : ((x < y) ? 1 : 0));
+                    if (result !== 0) {
+                        return result;
+                    }
+
+                    x = a.SortIndex;
+                    y = b.SortIndex;
+                    // sort asc
+                    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                });
+            }
+
+            for (var j = 0; j < data.length; j++) {
+                arrayData[j].SortIndex = j + 1;
+                data[j].Index = j + 1;
+            }
+            return data;
         }
 
-        return data;
+        return arrayData;
     }
 
     return {
@@ -39,15 +66,12 @@ var LicenseeWinLoss = (function ($) {
             LicenseeWinLossOption.gridOption.onSortCol = function (index/*, columnIndex, sortOrder*/) {
                 Site.blockUI();
                 window.setTimeout(function () {
-                    _removeSorting = false;
                     if (_sortColumnName === index) {
                         _sortOrder = _sortOrder === "asc" ? "desc" : "asc";
                     } else {
                         _sortOrder = "asc";
                         _sortColumnName = index;
                     }
-
-                    cacheData[_level].Data = sortData(cacheData[_level].Data);
 
                     LicenseeWinLoss.bindData(_level, _reportBy, cacheData[_level]);
 
@@ -80,6 +104,8 @@ var LicenseeWinLoss = (function ($) {
                 // Site.blockUI();
                 $('#IsExportExcel').val(false);
                 _level = 0;
+                _sortColumnName = null;
+                _sortOrder = "desc";
                 LicenseeWinLoss.submit();
             });
 
@@ -202,10 +228,6 @@ var LicenseeWinLoss = (function ($) {
 
             var mainForm = $("#licenseewinloss");
             var data = mainForm.serializeObject();
-            if (_sortColumnName) {
-                data.sortby = _sortColumnName;
-                data.sortOrder = _sortOrder;
-            }
 
             var option = {
                 type: "POST",
@@ -248,11 +270,8 @@ var LicenseeWinLoss = (function ($) {
             return new Date(year, month + 1, 0);
         },
 
-        drillDown: function (level, currencyId, customerId, datetime, currencyName, keepSorting) {
+        drillDown: function (level, currencyId, customerId, datetime, currencyName) {
             level = Number(level);
-            if (!keepSorting) {
-                _removeSorting = true;
-            }
 
             if (_level !== level) {
                 _level = level;
@@ -290,10 +309,6 @@ var LicenseeWinLoss = (function ($) {
                 else {
                     tdate = LicenseeWinLoss.lastDateOfMonth(year, month);
                 }
-            }
-            if (keepSorting && _sortColumnName) {
-                param.SortBy = _sortColumnName;
-                param.SortOrder = _sortOrder;
             }
 
             var postData = JSON.stringify(param);
@@ -357,7 +372,7 @@ var LicenseeWinLoss = (function ($) {
             var productOptions = $.parseJSON(_submitData.ProductOptions);
             productOptions = productOptions.reverse(); //make orders of product columns like excel file
             var columnModel = LicenseeWinLossOption.getTotalColModel(level, productOptions);
-            var colspan = Site.isFakeLicensee() ? 
+            var colspan = Site.isFakeLicensee() ?
                  LicenseeWinLossOption.totalColspanFakeLicensee[level] :
                 LicenseeWinLossOption.totalColspan[level];
             var summaryColspan = colspan + 1;
@@ -383,10 +398,11 @@ var LicenseeWinLoss = (function ($) {
             totalRowCount = numOfTotalRow;
 
             var onPaging = false;
+            var data = sortData(response.Data);
 
             var gridOption = LicenseeWinLossOption.getGridOption(level, reportBy, productOptions);
             gridOption.rownumbers = true;
-            gridOption.data = response.Data;
+            gridOption.data = data;
             gridOption.userData = {};
             gridOption.rowNum = level === 2 ? LicenseeWinLossOption.pageSize : LicenseeWinLossOption.nonePagingSize;
             gridOption.rowList = LicenseeWinLossOption.rowList;
@@ -437,7 +453,7 @@ var LicenseeWinLoss = (function ($) {
             // Show the grid
             reportGrid.jqGrid(gridOption);
 
-            if (!_removeSorting) {
+            if (_sortColumnName) {
                 reportGrid.closest("div.ui-jqgrid-view")
                     .find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column > div.ui-jqgrid-sortable")
                     .each(function (index, element) {

@@ -26,8 +26,7 @@
             level: 0,
             pageSize: 50,
             sortColumnName: null,
-            sortOrder: "desc",
-            removerSorting: true
+            sortOrder: "desc"
         };
 
         function initialize() {
@@ -68,13 +67,12 @@
 
         function initEvent() {
             $('#SubmitButton').click(function () {
-                gridControl.removeSorting = true;
                 _me.submit();
             });
 
             $("body").on("click", ".drilldown", function () {
                 var dataDrillDown = $(this).data("drill-down");
-                _me.drillDown(gridControl.level + 1, dataDrillDown);
+                _me.drillDown(1, dataDrillDown);
             });
 
             $("body").on("click", ".bet-list-link", function () {
@@ -105,15 +103,12 @@
                 Site.blockUI();
                 gridControl.pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
                 window.setTimeout(function () {
-                    gridControl.removeSorting = false;
                     if (gridControl.sortColumnName === index) {
                         gridControl.sortOrder = gridControl.sortOrder === "asc" ? "desc" : "asc";
                     } else {
                         gridControl.sortOrder = "asc";
                         gridControl.sortColumnName = index;
                     }
-
-                    _cacheData[gridControl.level].Data = sortData(_cacheData[gridControl.level].Data);
 
                     _me.bindData(gridControl.level, _cacheData[gridControl.level], _filterData[gridControl.level].ProductOptions);
 
@@ -164,9 +159,9 @@
             var data = Site.clone(_filterData[level]);
             data.IsExportExcel = true;
             data.Level = level;
-            if (sortBy) {
+            if (level === 1 && sortBy) {
                 data.SortBy = sortBy;
-                data.SortOrder = sortOrder
+                data.SortOrder = sortOrder;
             }
             ExcelHelper.exportExcel(data, Site.resolveClientUrl(PlatformWinLossOption.urlExcelData));
             return false;
@@ -183,9 +178,11 @@
 
             var reportGrid = $("#ReportGrid");
             var onPaging = false;
+            var data = level === 1 ? sortData(response.Data) : response.Data;
+
             var gridOption = PlatformWinLossOption.getGridOption(level, productOptions);
-            gridOption.datastr = response.Data;
-            gridOption.rowNum = level === 0 ? -1 : gridControl.pageSize;
+            gridOption.datastr = data;
+            gridOption.rowNum = level === 0 ? numOfRow : gridControl.pageSize;
             gridOption.treeGrid = level === 0;
             gridOption.onPaging = function (pgButton) {
                 gridControl.pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
@@ -231,7 +228,7 @@
                 jqGridAdditional.setGroupCustomerWLColumns(reportGrid);
             }
 
-            if (level === 1 && !gridControl.removeSorting) {
+            if (level === 1 && gridControl.sortColumnName) {
                 jqGridAdditional.addSortableHeader(reportGrid, gridControl.sortColumnName, gridControl.sortOrder);
             }
         }
@@ -377,18 +374,27 @@
         }
 
         function sortData(arrayData) {
-            var sortType = gridControl.sortOrder === "asc" ? "OrderBy" : "OrderByDescending";
-            var sortFunction = function (row) {
-                return row[gridControl.sortColumnName];
-            };
+            if (gridControl.sortColumnName && arrayData.length > 1) {
+                var data = gridControl.sortOrder === "asc"
+                       ? Enumerable.From(arrayData)
+                           .OrderBy(function (x) { return x[gridControl.sortColumnName]; })
+                           .ToArray()
+                       : Enumerable.From(arrayData)
+                           .OrderByDescending(function (x) { return x[gridControl.sortColumnName]; })
+                           .ThenBy(function (x) {
+                               return x.SortIndex;
+                           })
+                           .ToArray();
 
-            var data = Enumerable.From(arrayData)[sortType](sortFunction).ToArray();
+                for (var i = 0; i < data.length; i++) {
+                    arrayData[i].SortIndex = i + 1;
+                    data[i].Index = i + 1;
+                }
 
-            for (var i = 0; i < data.length; i++) {
-                data[i].Index = i + 1;
+                return data;
             }
 
-            return data;
+            return arrayData;
         }
 
         function getProductText(productOptions) {

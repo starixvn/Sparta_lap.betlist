@@ -22,24 +22,44 @@ namespace Fanex.Athena.Extension.Utility
     {
         public PropertyComparer(string property, ListSortDirection direction)
         {
-            PropertyName = property;
-            Direction = direction;
+            FirstPropertyName = property;
+            FirstDirection = direction;
         }
 
-        protected string PropertyName { get; set; }
+        public PropertyComparer(string firstProperty, ListSortDirection firstDirection, string secondProperty, ListSortDirection secondDirection)
+        {
+            FirstPropertyName = firstProperty;
+            FirstDirection = firstDirection;
+            SecondPropertyName = secondProperty;
+            SecondDirection = secondDirection;
+        }
 
-        protected ListSortDirection Direction { get; set; }
+        protected string FirstPropertyName { get; set; }
+
+        protected ListSortDirection FirstDirection { get; set; }
+
+        protected string SecondPropertyName { get; set; }
+
+        protected ListSortDirection SecondDirection { get; set; }
 
         #region IComparer<T>
 
         public virtual int Compare(T x, T y)
         {
-            var firstValue = GetPropertyValue(x, PropertyName);
-            var secondValue = GetPropertyValue(y, PropertyName);
+            var firstValue = GetPropertyValue(x, FirstPropertyName);
+            var secondValue = GetPropertyValue(y, FirstPropertyName);
 
-            return Direction == ListSortDirection.Ascending ?
-                CompareAscending(firstValue, secondValue) :
-                CompareDescending(firstValue, secondValue);
+            var result = CompareValues(firstValue, secondValue, FirstDirection);
+
+            if (result != 0 || string.IsNullOrEmpty(SecondPropertyName))
+            {
+                return result;
+            }
+
+            firstValue = GetPropertyValue(x, SecondPropertyName);
+            secondValue = GetPropertyValue(y, SecondPropertyName);
+
+            return CompareValues(firstValue, secondValue, SecondDirection);
         }
 
         #endregion IComparer<T>
@@ -80,6 +100,13 @@ namespace Fanex.Athena.Extension.Utility
             var property = value.GetType().GetProperty(propertyName);
 
             return property.GetValue(value, null);
+        }
+
+        protected static int CompareValues(object x, object y, ListSortDirection direction)
+        {
+            return direction == ListSortDirection.Ascending ?
+                CompareAscending(x, y) :
+                CompareDescending(x, y);
         }
     }
 }

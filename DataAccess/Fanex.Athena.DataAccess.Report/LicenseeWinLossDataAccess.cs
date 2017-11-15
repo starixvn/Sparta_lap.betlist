@@ -112,19 +112,11 @@
             return IgnoredTurnoverProducts.Contains(productCode);
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private static SortableReportResultModel<LicenseeWinLoss> GetData(
             IDataReader reader,
             LicenseeWinLossMetaModel metaModel,
             bool drilldown)
         {
-            var dataList = new SortableList<LicenseeWinLoss>();
-            var summaryTotal = InitSummaryTotal();
-
-            var hasSystemId = reader.HasColumn("username");
-            var hasExternalId = reader.HasColumn("nickname");
-            var hasCustomerId = reader.HasColumn("custid");
             var baseCurrency = metaModel.BaseCurrency;
             var licenseeWLColumns = new Dictionary<string, string>();
             var turnoverColumns = new Dictionary<string, string>();
@@ -147,10 +139,29 @@
                 }
             }
 
+            return ReadData(reader, metaModel, licenseeWLColumns, turnoverColumns, drilldown);
+        }
+
+        private static SortableReportResultModel<LicenseeWinLoss> ReadData(
+            IDataReader reader, 
+            LicenseeWinLossMetaModel metaModel, 
+            IDictionary<string, string> licenseeWLColumns,
+            IDictionary<string, string> turnoverColumns,
+            bool drilldown)
+        {
+            var dataList = new SortableList<LicenseeWinLoss>();
+            var summaryTotal = InitSummaryTotal();
+            var hasSystemId = reader.HasColumn("username");
+            var hasExternalId = reader.HasColumn("nickname");
+            var hasCustomerId = reader.HasColumn("custid");
+            var baseCurrency = metaModel.BaseCurrency;
+
+            var index = 1;
             while (reader.Read())
             {
                 var item = new LicenseeWinLoss
                 {
+                    Index = index++,
                     SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
                     ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
                     CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
