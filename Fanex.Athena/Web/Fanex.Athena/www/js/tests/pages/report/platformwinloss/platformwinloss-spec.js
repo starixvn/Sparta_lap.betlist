@@ -147,9 +147,9 @@
 
                 it("data should be sorted ascending", function () {
                     var expectedData = [
-                            { Index: 1, PlatformType: 2, SortIndex: 2 },
-                            { Index: 2, PlatformType: 3, SortIndex: 1 },
-                            { Index: 3, PlatformType: 4, SortIndex: 3 }];
+                            { Index: 1, PlatformType: 2, Id: 2 },
+                            { Index: 2, PlatformType: 3, Id: 1 },
+                            { Index: 3, PlatformType: 4, Id: 3 }];
                     var expectedResponse = {
                         Data: data,
                         ProductOptions: '[{"Code":"SB","Status":true}]'
@@ -166,9 +166,9 @@
 
                 it("data should be sorted descending", function () {
                     var expectedData = [
-                            { Index: 1, PlatformType: 4, SortIndex: 3 },
-                            { Index: 2, PlatformType: 3, SortIndex: 1 },
-                            { Index: 3, PlatformType: 2, SortIndex: 2 }];
+                            { Index: 1, PlatformType: 4, Id: 3 },
+                            { Index: 2, PlatformType: 3, Id: 1 },
+                            { Index: 3, PlatformType: 2, Id: 2 }];
                     var expectedResponse = {
                         Data: data,
                         ProductOptions: '[{"Code":"SB","Status":true}]'
@@ -625,7 +625,7 @@
                 it("columnheader should be removed ui-jqgrid-sortable if level is 0", function () {
                     setFixtures('<th role="columnheader"><div class="ui-jqgrid-sortable"></div></th>');
 
-                    PlatformWinLoss.bindData(0, { Data: {} }, {});
+                    PlatformWinLoss.bindData(0, { Data: [{ Index: 1 }] }, {});
                     PlatformWinLossOption.gridOption.gridComplete();
 
                     expect($("th[role='columnheader']").find("div").hasClass("ui-jqgrid-sortable")).toBe(false);
@@ -634,7 +634,7 @@
                 it("columnheader should not be removed ui-jqgrid-sortable if level is 1", function () {
                     setFixtures('<th role="columnheader"><div class="ui-jqgrid-sortable"></div></th>');
 
-                    PlatformWinLoss.bindData(1, { Data: {} }, {});
+                    PlatformWinLoss.bindData(1, { Data: [{ Index: 1 }] }, {});
                     PlatformWinLossOption.gridOption.gridComplete();
 
                     expect($("th[role='columnheader']").find("div").hasClass("ui-jqgrid-sortable")).toBe(true);

@@ -16,20 +16,18 @@ var WeeklyLiveMatch = (function ($) {
 
     function sortData(arrayData) {
         var columnIndex = SPORT_COLUMN_INDEX;
+        var sortThenBy = null;
+
         if (_sortColumn.indexOf('Week') === 0) {
             columnIndex = Number(_sortColumn.replace('Week', '')) + START_WEEK_COLUMN_INDEX;
-            arrayData = DataHelper.sort(arrayData, SPORT_COLUMN_INDEX, "asc");
+            sortThenBy = function (x) { return x.Cell[SPORT_COLUMN_INDEX]; };
         }
 
-        for (var i = 0; i < arrayData.length; i++) {
-            arrayData[i].SortingValue = arrayData[i].Cell[columnIndex];
-        }
-
-        var data = DataHelper.sort(arrayData, "SortingValue", _sortDirection);
+        var data = DataHelper.sort(arrayData, function (x) { return x.Cell[columnIndex]; }, _sortDirection, sortThenBy, "asc");
 
         // Re-assign Index column.
-        for (var j = 0; j < data.length; j++) {
-            data[j].Cell[0] = j + 1;
+        for (var i= 0; i < data.length; i++) {
+            data[i].Cell[0] = i + 1;
         }
 
         return data;

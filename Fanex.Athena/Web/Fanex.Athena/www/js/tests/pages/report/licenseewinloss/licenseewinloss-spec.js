@@ -371,19 +371,19 @@
                 it("Array data should be returned with ascending order at first time", function () {
                     var result = LicenseeWinLoss.sortData(arrayData);
 
-                    expect(result).toEqual([{ Index: 1, Column2: "A", SortIndex: 1 }, { Index: 2, Column2: "B", SortIndex: 2 }]);
+                    expect(result).toEqual([{ Index: 1, Column2: "A", Id: 1 }, { Index: 2, Column2: "B", Id: 2 }]);
                 });
 
                 it("Array data should be returned with descending order at second time", function () {
                     var result = LicenseeWinLoss.sortData(arrayData);
 
-                    expect(result).toEqual([{ Index: 1, Column2: "B", SortIndex: 2 }, { Index: 2, Column2: "A", SortIndex: 1 }]);
+                    expect(result).toEqual([{ Index: 1, Column2: "B", Id: 2 }, { Index: 2, Column2: "A", Id: 1 }]);
                 });
 
                 it("Array data should be returned with ascending order at third time", function () {
                     var result = LicenseeWinLoss.sortData(arrayData);
 
-                    expect(result).toEqual([{ Index: 1, Column2: "A", SortIndex: 1 }, { Index: 2, Column2: "B", SortIndex: 2 }]);
+                    expect(result).toEqual([{ Index: 1, Column2: "A", Id: 1 }, { Index: 2, Column2: "B", Id: 2 }]);
                 });
             });
 

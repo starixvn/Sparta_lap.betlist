@@ -378,12 +378,17 @@
             var totalData = arrayData.length;
 
             if (!gridControl.sortColumnName || totalData <= 1) {
-                return arrayData
+                return arrayData;
             }
 
             var sortThenBy = arrayData[0].Id ? "Id" : "Index";
 
-            var data = DataHelper.sort(arrayData, gridControl.sortColumnName, gridControl.sortOrder, sortThenBy, "asc");
+            var data = DataHelper.sort(
+                arrayData,
+                function (x) { return x[gridControl.sortColumnName]; },
+                gridControl.sortOrder,
+                function (x) { return x[sortThenBy]; },
+                "asc");
 
             if (sortThenBy === "Id") {
                 for (var i = 0; i < totalData; i++) {
@@ -391,9 +396,9 @@
                 }
             }
             else {
-                for (var i = 0; i < totalData; i++) {
-                    arrayData[i].Id = i + 1;
-                    data[i].Index = i + 1;
+                for (var j = 0; j < totalData; j++) {
+                    arrayData[j].Id = j + 1;
+                    data[j].Index = j + 1;
                 }
             }
 

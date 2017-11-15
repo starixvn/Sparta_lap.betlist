@@ -11,32 +11,34 @@ var DataHelper = (function () {
         return order === "asc" ? result : -result;
     }
 
-    function sort(arrayData, sortBy, sortOrder, sortThenBy, sortThenOrder) {
-        if (sortBy && arrayData.length > 1) {
-            var tempArray = [];
-            for (var i = 0; i < arrayData.length; i++) {
-                tempArray[i] = arrayData[i];
-            }
+    function sort(arrayData, sortByFunc, sortOrder, sortThenByFunc, sortThenOrder) {
+        var totalData = arrayData.length;
 
-            var data = tempArray.sort(function (a, b) {
-                var x = a[sortBy];
-                var y = b[sortBy];
-
-                var result = compareValues(x, y, sortOrder);
-                if (result !== 0 || !sortThenBy) {
-                    return result;
-                }
-
-                x = a[sortThenBy];
-                y = b[sortThenBy];
-
-                return compareValues(x, y, sortThenOrder);
-            });
-
-            return data;
+        if (!sortByFunc || totalData <= 1) {
+            return arrayData;
         }
 
-        return arrayData;
+        var tempArray = [];
+        for (var i = 0; i < totalData; i++) {
+            tempArray[i] = arrayData[i];
+        }
+
+        var data = tempArray.sort(function (a, b) {
+            var x = sortByFunc(a);
+            var y = sortByFunc(b);
+
+            var result = compareValues(x, y, sortOrder);
+            if (result !== 0 || !sortThenByFunc) {
+                return result;
+            }
+
+            x = sortThenByFunc(a);
+            y = sortThenByFunc(b);
+
+            return compareValues(x, y, sortThenOrder);
+        });
+
+        return data;
     }
 
     return {

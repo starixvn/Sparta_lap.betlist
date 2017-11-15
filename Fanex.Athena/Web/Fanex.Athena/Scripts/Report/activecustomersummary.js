@@ -23,7 +23,7 @@ var ActiveCustomer = (function ($) {
             }
         }
 
-        return DataHelper(arrayData, sortColumn, _sortOrder);
+        return DataHelper.sort(arrayData, function (x) { return x[sortColumn]; }, _sortOrder);
     }
 
     return {
