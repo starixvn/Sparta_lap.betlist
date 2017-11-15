@@ -1,4 +1,4 @@
-﻿/*global Site, Report, QueryString, PlatformWinLossOption, jqGridAdditional, ProductListHelper*/
+﻿/*global Site, Report, QueryString, PlatformWinLossOption, jqGridAdditional, ProductListHelper, DataHelper*/
 /// <reference path="/@JSense.js" />
 /// //##
 /*
@@ -18,37 +18,28 @@ var PlatformWinLoss = (function ($) {
     var _drilldownData = {};
 
     function sortData(arrayData) {
-        if (_sortColumnName && arrayData.length > 1) {
-            var tempArray = [];
-            for (var i = 0; i < arrayData.length; i++) {
-                tempArray[i] = arrayData[i];
-                tempArray[i].SortIndex = arrayData[i].SortIndex ? arrayData[i].SortIndex : arrayData[i].Index;
-            }
+        var totalData = arrayData.length;
 
-            var data = tempArray.sort(function (a, b) {
-                var x = a[_sortColumnName];
-                var y = b[_sortColumnName];
-
-                // sort desc
-                var result = _sortOrder === "asc" ? ((x < y) ? - 1 : ((x > y) ? 1 : 0)) : ((x > y) ? -1: ((x < y) ? 1: 0));
-                if (result !== 0) {
-                    return result;
-                }
-
-                x = a.SortIndex;
-                y = b.SortIndex;
-                // sort asc
-                return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-            });
-
-            for (var j = 0; j < data.length; j++) {
-                arrayData[j].SortIndex = j + 1;
-                data[j].Index = j + 1;
-            }
-            return data;
+        if (!_sortColumnName || totalData <= 1) {
+            return arrayData;
         }
 
-        return arrayData;
+        var sortThenBy = arrayData[0].Id ? "Id" : "Index";
+        var data = DataHelper.sort(arrayData, _sortColumnName, _sortOrder, sortThenBy, "asc");
+
+        if (sortThenBy === "Id") {
+            for (var i = 0; i < totalData; i++) {
+                data[i].Index = i + 1;
+            }
+        }
+        else {
+            for (var i = 0; i < totalData; i++) {
+                arrayData[i].Id = i + 1;
+                data[i].Index = i + 1;
+            }
+        }
+
+        return data;
     }
 
     function getProductText(productOptionJson) {

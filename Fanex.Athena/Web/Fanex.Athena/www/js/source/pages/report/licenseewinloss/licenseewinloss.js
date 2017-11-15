@@ -1,10 +1,10 @@
 ﻿define(
     ["jquery", "common/querystring", "common/site", "../report", "./licenseewinloss.option", "lib/jqgrid/jquery.jqgrid.additional",
         "components/pluginhelper/daterangepicker", "moment", "common/popup", "components/pluginhelper/multiselect",
-        "helpers/daterange", "helpers/downloader", "components/toast", "lib/jqgrid/jquery.jqGrid.en",
+        "helpers/daterange", "helpers/downloader", "components/toast", "helpers/datahelper", "lib/jqgrid/jquery.jqGrid.en",
         "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension", "lib/linq", "extensions/ajaxBinaryTransporting"],
     function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup,
-        MultiSelect, DateHelper, Downloader, Toast) {
+        MultiSelect, DateHelper, Downloader, Toast, DataHelper) {
         "use strict";
         var REPORT_BY_MONTHLY = 2;
         var VALID_MONTH_RANGE = 3;
@@ -56,27 +56,29 @@
             },
 
             sortData: function (arrayData) {
-                if (_sortColumnName && arrayData.length > 1) {
-                    var data = _sortOrder === "asc"
-                        ? Enumerable.From(arrayData)
-                            .OrderBy(function (x) { return x[_sortColumnName]; })
-                            .ToArray()
-                        : Enumerable.From(arrayData)
-                            .OrderByDescending(function (x) { return x[_sortColumnName]; })
-                            .ThenBy(function (x) {
-                                return x.SortIndex;
-                            })
-                            .ToArray();
+                var totalData = arrayData.length;
 
-                    for (var i = 0; i < data.length; i++) {
-                        arrayData[i].SortIndex = i + 1;
-                        data[i].Index = i + 1;
-                    }
-
-                    return data;
+                if (!_sortColumnName || totalData <= 1) {
+                    return arrayData
                 }
 
-                return arrayData;
+                var sortThenBy = arrayData[0].Id ? "Id" : "Index";
+
+                var data = DataHelper.sort(arrayData, _sortColumnName, _sortOrder, sortThenBy, "asc");
+
+                if (sortThenBy === "Id") {
+                    for (var i = 0; i < totalData; i++) {
+                        data[i].Index = i + 1;
+                    }
+                }
+                else {
+                    for (var i = 0; i < totalData; i++) {
+                        arrayData[i].Id = i + 1;
+                        data[i].Index = i + 1;
+                    }
+                }
+
+                return data;
             },
 
             initSetting: function () {

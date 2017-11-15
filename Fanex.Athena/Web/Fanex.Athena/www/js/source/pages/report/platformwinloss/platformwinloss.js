@@ -9,11 +9,12 @@
     "components/pluginhelper/multiselect",
     "common/popup",
     "helpers/excel",
+    "helpers/datahelper",
     "lib/jqgrid/jquery.jqGrid.en",
     "lib/jqgrid/jquery.jqGrid.min",
     "extensions/jquery.extension",
     "lib/linq"],
-    function ($, QueryString, Site, Report, PlatformWinLossOption, jqGridAdditional, MonthPicker, MultiSelect, Popup, ExcelHelper) {
+    function ($, QueryString, Site, Report, PlatformWinLossOption, jqGridAdditional, MonthPicker, MultiSelect, Popup, ExcelHelper, DataHelper) {
         "use strict";
 
         var BETLIST_IGNORED_PRODUCTS = ["AB"];
@@ -374,27 +375,29 @@
         }
 
         function sortData(arrayData) {
-            if (gridControl.sortColumnName && arrayData.length > 1) {
-                var data = gridControl.sortOrder === "asc"
-                       ? Enumerable.From(arrayData)
-                           .OrderBy(function (x) { return x[gridControl.sortColumnName]; })
-                           .ToArray()
-                       : Enumerable.From(arrayData)
-                           .OrderByDescending(function (x) { return x[gridControl.sortColumnName]; })
-                           .ThenBy(function (x) {
-                               return x.SortIndex;
-                           })
-                           .ToArray();
+            var totalData = arrayData.length;
 
-                for (var i = 0; i < data.length; i++) {
-                    arrayData[i].SortIndex = i + 1;
-                    data[i].Index = i + 1;
-                }
-
-                return data;
+            if (!gridControl.sortColumnName || totalData <= 1) {
+                return arrayData
             }
 
-            return arrayData;
+            var sortThenBy = arrayData[0].Id ? "Id" : "Index";
+
+            var data = DataHelper.sort(arrayData, gridControl.sortColumnName, gridControl.sortOrder, sortThenBy, "asc");
+
+            if (sortThenBy === "Id") {
+                for (var i = 0; i < totalData; i++) {
+                    data[i].Index = i + 1;
+                }
+            }
+            else {
+                for (var i = 0; i < totalData; i++) {
+                    arrayData[i].Id = i + 1;
+                    data[i].Index = i + 1;
+                }
+            }
+
+            return data;
         }
 
         function getProductText(productOptions) {

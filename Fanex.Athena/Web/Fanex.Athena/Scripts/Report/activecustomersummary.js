@@ -1,4 +1,4 @@
-﻿/*global jqGridAdditional, JSLINQ, ActiveCustomerOption, Report, Site, ProductListHelper */
+﻿/*global jqGridAdditional, ActiveCustomerOption, Report, Site, ProductListHelper, DataHelper*/
 /// <reference path="/@JSense.js" />
 ///
 var ActiveCustomer = (function ($) {
@@ -23,11 +23,7 @@ var ActiveCustomer = (function ($) {
             }
         }
 
-        var data = _sortOrder === "asc" ?
-             JSLINQ(arrayData).OrderBy(function (x) { return x[sortColumn]; }).items
-             : JSLINQ(arrayData).OrderByDescending(function (x) { return x[sortColumn]; }).items;
-
-        return data;
+        return DataHelper(arrayData, sortColumn, _sortOrder);
     }
 
     return {

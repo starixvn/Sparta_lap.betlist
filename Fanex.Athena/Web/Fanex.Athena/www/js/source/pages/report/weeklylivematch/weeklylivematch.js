@@ -1,8 +1,8 @@
 ﻿"use strict";
 define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.jqgrid.additional",
-        "components/pluginhelper/daterangepicker", "helpers/daterange", "helpers/excel",
+        "components/pluginhelper/daterangepicker", "helpers/daterange", "helpers/excel", "helpers/datahelper",
         "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "lib/linq", "extensions/jquery.extension"],
-        function ($, Site, WeeklyLiveMatchOption, jqGridAdditional, DatePicker, DateHelper, ExcelHelper) {
+        function ($, Site, WeeklyLiveMatchOption, jqGridAdditional, DatePicker, DateHelper, ExcelHelper, DataHelper) {
             var VALID_MONTH_RANGE = 2;
             var SPORT_COLUMN_INDEX = 1;
             var START_WEEK_COLUMN_INDEX = 2;
@@ -48,16 +48,14 @@ define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.
                     var columnIndex = SPORT_COLUMN_INDEX;
                     if (_sortColumn.indexOf('Week') === 0) {
                         columnIndex = Number(_sortColumn.replace('Week', '')) + START_WEEK_COLUMN_INDEX;
-                        arrayData = Enumerable.From(arrayData).OrderBy(function (x) { return x.Cell[SPORT_COLUMN_INDEX]; }).ToArray();
+                        arrayData = DataHelper.sort(arrayData, SPORT_COLUMN_INDEX, "asc");;
                     }
 
                     for (var i = 0; i < arrayData.length; i++) {
                         arrayData[i].SortingValue = arrayData[i].Cell[columnIndex];
                     }
 
-                    var data = _sortDirection === "asc" ?
-                 Enumerable.From(arrayData).OrderBy(function (x) { return x.SortingValue; }).ToArray()
-                 : Enumerable.From(arrayData).OrderByDescending(function (x) { return x.SortingValue; }).ToArray();
+                    var data = DataHelper.sort(arrayData, "SortingValue", _sortDirection);
 
                     // Re-assign Index column.
                     for (var j = 0; j < data.length; j++) {
