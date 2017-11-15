@@ -21,6 +21,7 @@ function generateConfig(environment) {
           
             [`${jsPath}/subsidiaryperformance/subsidiaryperformance`]: pathConfig.scriptPaths.subsidiaryperformance,
             [`${jsPath}/lib/langHelper`]: pathConfig.scriptPaths.languageResource,
+            [`${jsPath}/report/licenseewlbytimezone`]: pathConfig.scriptPaths.licenseewlbytimezone,
             /*css*/
             [`${cssPath}/vendor`]: pathConfig.cssPaths.layout,
             [`${cssPath}/subsidiaryperformance/index`]: pathConfig.cssPaths.subsidiaryperformance

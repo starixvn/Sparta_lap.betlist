@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Report +
+    " - " + ViewResources.LicenseeWinLoss;
+    Layout = "~/Views/Desktop/Shared/_ReactPageLayout.cshtml";
+}
+@using Fanex.Athena.Model.Core.DataDomain;
+@model Fanex.Athena.Model.Report.ViewModel.LicenseeWinLossByTimeZoneViewModel
+@{
+    var productOptions = Model.ProductOptionList;
+    var selectedProductCode = string.Join(",", productOptions.Where(x => x.Status).Select(x => x.Code).ToArray());
+    var baseCurrencyList = SystemConstants.BaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
+    var timeZoneList = new List<dynamic> {
+        new { value = "1", label = "GMT-4" },
+        new { value = "2", label = "GMT-8" }
+    };
+    var currencyList = Model.CurrencyList.Select(x => new { value = x.Key, label = x.Value });
+    var reportByList = new List<dynamic> {
+        new { value = "1", label = ViewResources.Summary },
+        new { value = "2", label = ViewResources.Monthly },
+        new { value = "3", label = ViewResources.Daily }
+    };
+
+
+    var appSettings = new AppSettings();
+    var minDate = appSettings.HistoryDate;
+    var maxDate = appSettings.MaxDate;
+}
+
+@section pagecss {
+
+<link href="@Url.ContentLinkByEnv("/www/css/build/reactpages/subsidiaryperformance/index.css")" rel="stylesheet" type="text/css" />
+
+}
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/report/licenseewlbytimezone.chunk.js")"></script>
+}
+
+@section globaljscode{
+    window.initialState = {
+        productOptions: @Html.Raw(productOptions.ToJson()),
+        selectedProduct: '@(selectedProductCode)',
+        currencyList: @Html.Raw(currencyList.ToJson()),
+        selectedCurrency: @(currencyList.First().value),
+        baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
+        selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
+        timeZoneList: @Html.Raw(timeZoneList.ToJson()),
+        selectedTimeZone: '@(timeZoneList.First().value)',
+        reportByList: @Html.Raw(reportByList.ToJson()),
+        selectedReportBy: '@(reportByList.First().value)',
+        convertAll: false,
+        dateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
+        xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
+        isLoading: false,
+        dateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'}
+    }
+}
+<div id="app-container">
+
+</div>

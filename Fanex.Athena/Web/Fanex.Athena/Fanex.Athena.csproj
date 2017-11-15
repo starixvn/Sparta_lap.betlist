@@ -781,6 +781,7 @@
     <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.css" />
     <Content Include="www\css\build\dev\reactpages\vendor.chunk.js" />
     <Content Include="www\css\build\pro\reactpages\subsidiaryperformance\index.css" />
+    <Content Include="www\js\build\dev\reactpages\report\licenseewlbytimezone.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\vendors\excel.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\vendors\reactpages.chunk.js" />
@@ -792,6 +793,7 @@
     <Content Include="www\js\source\extensions\ajaxBinaryTransporting.js" />
     <Content Include="www\js\source\helpers\datahelper.js" />
     <Content Include="www\js\source\helpers\downloader.js" />
+    <Content Include="www\js\source\reactpages\actions\currencyAction.js" />
     <Content Include="www\js\source\reactpages\actions\baseCurrencyAction.js" />
     <Content Include="www\js\source\reactpages\actions\loaderAction.js" />
     <Content Include="www\js\source\reactpages\actions\productAction.js" />
@@ -825,6 +827,8 @@
     <Content Include="Content\Plugin\Toast\toast.scss" />
     <Content Include="App_Code\GroupCommRazorHelper.cshtml" />
     <Content Include="App_Code\DesktopGroupCommRazorHelper.cshtml" />
+    <Content Include="Views\Desktop\Report\LicenseeWinLossByTimeZone\Main.cshtml" />
+    <Content Include="www\js\build\dev\reactpages\report\licenseewlbytimezone.chunk.js.map" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
@@ -851,6 +855,18 @@
     <Content Include="www\js\source\reactpages\lib\__tests__\langHelper.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\numberFormat.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\site.test.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\dataHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\filterHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\index.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\types.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\lib\reportExcel.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\lib\service.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\lib\__tests__\fakeData.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\lib\__tests__\reportExcel.test.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\lib\__tests__\service.test.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\dataHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\filterHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\dataHandlerAction.test.js" />
@@ -868,6 +884,7 @@
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\filterHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\__tests__\dataHandlerReducer.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\__tests__\filterHandlerReducer.test.js" />
+    <Content Include="www\js\source\reactpages\reducers\currencyReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\baseCurrency.js" />
     <Content Include="www\js\source\reactpages\reducers\loaderReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\productReducer.js" />
@@ -2505,6 +2522,10 @@
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\Table.test.js.snap" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\tableSection.test.js.snap" />
     <Content Include="www\js\source\reactpages\components\multiple-select\components\__tests__\__snapshots__\Option.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\AppContainer.jsx" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\datagrid.jsx" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\formFilter.jsx" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\index.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

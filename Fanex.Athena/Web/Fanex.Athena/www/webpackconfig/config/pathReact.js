@@ -19,7 +19,8 @@ var scriptPaths = {
         "./www/js/source/common/languages/ViewResources.zh-TW.js"
     ],
     /*React page*/
-    subsidiaryperformance: "./www/js/source/reactpages/pages/subsidiaryperformance/components/index.jsx"
+    subsidiaryperformance: "./www/js/source/reactpages/pages/subsidiaryperformance/components/index.jsx",
+    licenseewlbytimezone: "./www/js/source/reactpages/pages/licenseewl-by-timezone/components/index.jsx"
 };
 
 module.exports = {
