@@ -1,4 +1,4 @@
-﻿/*global Site, Report, QueryString, PlatformWinLossOption, JSLINQ,jqGridAdditional, ProductListHelper*/
+﻿/*global Site, Report, QueryString, PlatformWinLossOption, jqGridAdditional, ProductListHelper*/
 /// <reference path="/@JSense.js" />
 /// //##
 /*
@@ -19,32 +19,27 @@ var PlatformWinLoss = (function ($) {
 
     function sortData(arrayData) {
         if (_sortColumnName && arrayData.length > 1) {
-            var data = [];
-            if (_sortOrder === "asc") {
-                data = JSLINQ(arrayData).OrderBy(function (x) { return x[_sortColumnName]; }).items;
+            var tempArray = [];
+            for (var i = 0; i < arrayData.length; i++) {
+                tempArray[i] = arrayData[i];
+                tempArray[i].SortIndex = arrayData[i].SortIndex ? arrayData[i].SortIndex : arrayData[i].Index;
             }
-            else {
-                var tempArray = [];
-                for (var i = 0; i < arrayData.length; i++) {
-                    tempArray[i] = arrayData[i];
+
+            var data = tempArray.sort(function (a, b) {
+                var x = a[_sortColumnName];
+                var y = b[_sortColumnName];
+
+                // sort desc
+                var result = _sortOrder === "asc" ? ((x < y) ? - 1 : ((x > y) ? 1 : 0)) : ((x > y) ? -1: ((x < y) ? 1: 0));
+                if (result !== 0) {
+                    return result;
                 }
 
-                data = tempArray.sort(function (a, b) {
-                    var x = a[_sortColumnName];
-                    var y = b[_sortColumnName];
-
-                    // sort desc
-                    var result = ((x > y) ? -1 : ((x < y) ? 1 : 0));
-                    if (result !== 0) {
-                        return result;
-                    }
-
-                    x = a.SortIndex;
-                    y = b.SortIndex;
-                    // sort asc
-                    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-                });
-            }
+                x = a.SortIndex;
+                y = b.SortIndex;
+                // sort asc
+                return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+            });
 
             for (var j = 0; j < data.length; j++) {
                 arrayData[j].SortIndex = j + 1;
