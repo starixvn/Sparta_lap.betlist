@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.Report
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
     using Core;
     using Core.Configuration;
@@ -31,7 +30,7 @@
         {
             const string SpName = "Lrf_Rpt_SubsidiaryWinloss";
             var dataList = new SortableList<LicenseeWinLossByTimeZone>();
-            var totalDataList = new List<LicenseeWinLossByTimeZone>();
+            var totalData = new LicenseeWinLossByTimeZone();
             var baseCurrency = metaModel.ConvertAll ? metaModel.BaseCurrency : string.Empty;
             using (var objectDb = this.GetObjectDb(SpName))
             {
@@ -42,7 +41,6 @@
                     while (reader.Read())
                     {
                         dataList.Add(GetEntityData(reader, baseCurrency));
-                        totalDataList.Add(GetEntityData(reader, metaModel.BaseCurrency));
                     }
                 }
             }
@@ -50,7 +48,7 @@
             return new SortableReportResultModel<LicenseeWinLossByTimeZone>
             {
                 DataList = dataList,
-                TotalDataList = totalDataList
+                TotalData = totalData
             };
         }
 

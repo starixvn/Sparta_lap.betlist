@@ -1,0 +1,54 @@
+﻿namespace Fanex.Athena.Api.Report
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Http;
+    using DataAccess.Report;
+    using DataAccess.Report.Interfaces;
+    using Model.Report.DTO;
+    using Model.Report.MetaModel;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
+
+    public class LicenseeWinLossByTimeZoneReportController : ApiReportBaseController
+    {
+        private readonly ILicenseeWinLossByTimeZoneDataAccess _licenseeWinLossByTimeZoneDataAccess;
+
+        public LicenseeWinLossByTimeZoneReportController()
+        {
+            _licenseeWinLossByTimeZoneDataAccess = new LicenseeWinLossByTimeZoneDataAccess();
+        }
+
+        public LicenseeWinLossByTimeZoneReportController(
+            ISessionService sessionService,
+            IProductService productService,
+            ILicenseeWinLossByTimeZoneDataAccess licenseeWinLossByTimeZoneDataAccess)
+            : base(sessionService, productService)
+        {
+            _licenseeWinLossByTimeZoneDataAccess = licenseeWinLossByTimeZoneDataAccess;
+        }
+
+        [HttpPost]
+        public dynamic Index(LicenseeWinLossByTimeZoneMetaModel metaModel)
+        {
+            if (metaModel.IsValid)
+            {
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+
+                var result = _licenseeWinLossByTimeZoneDataAccess.GetData(metaModel);
+
+                return new
+                {
+                    Data = result.DataList,
+                    Total = result.TotalData
+                };
+            }
+
+            return new
+            {
+                Data = new List<LicenseeWinLossByTimeZone>()
+            };
+        }
+    }
+}

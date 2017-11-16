@@ -829,6 +829,7 @@
     <Content Include="App_Code\DesktopGroupCommRazorHelper.cshtml" />
     <Content Include="Views\Desktop\Report\LicenseeWinLossByTimeZone\Main.cshtml" />
     <Content Include="www\js\build\dev\reactpages\report\licenseewlbytimezone.chunk.js.map" />
+    <Content Include="www\css\source\reactpages\pages\licenseewl-by-timezone\index.scss" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />

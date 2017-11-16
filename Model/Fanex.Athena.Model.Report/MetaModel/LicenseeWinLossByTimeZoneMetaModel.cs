@@ -12,9 +12,9 @@
 
         public string ProductCodeList { get; set; }
 
-        public string SubsidiaryList { get; set; } = string.Empty;
-
         public string BaseCurrency { get; set; }
+
+        public int CurrencyId { get; set; }
 
         public bool ConvertAll { get; set; }
 

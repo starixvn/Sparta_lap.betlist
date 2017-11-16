@@ -19205,6 +19205,7 @@ var SET_REPORTBY = exports.SET_REPORTBY = "SET_REPORTBY";
 
 var SET_DATE_RANGE = exports.SET_DATE_RANGE = "SET_DATE_RANGE";
 var GET_DATE_CONSTRAINT = exports.GET_DATE_CONSTRAINT = "GET_DATE_CONSTRAINT";
+var CHANGE_GROUPBY = exports.CHANGE_GROUPBY = "CHANGE_GROUPBY";
 var CHANGE_CONVERT_ALL = exports.CHANGE_CONVERT_ALL = "CHANGE_CONVERT_ALL";
 
 var GET_XSRF_TOKEN = exports.GET_XSRF_TOKEN = "GET_XSRF_TOKEN";
@@ -23560,7 +23561,7 @@ function setGridData(data) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.changeConvertAll = exports.setDateRange = exports.setSelectedTimeZone = undefined;
+exports.changeConvertAll = exports.changeGroupBy = exports.setDateRange = exports.setSelectedReportBy = exports.setSelectedTimeZone = undefined;
 
 var _types = __webpack_require__(217);
 
@@ -23568,10 +23569,17 @@ var types = _interopRequireWildcard(_types);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var setSelectedTimeZone = exports.setSelectedTimeZone = function setSelectedTimeZone(timeZoneKeys) {
+var setSelectedTimeZone = exports.setSelectedTimeZone = function setSelectedTimeZone(value) {
     return {
-        type: types.SET_SUBSIDIARY,
-        data: timeZoneKeys
+        type: types.SET_TIMEZONE,
+        data: value
+    };
+};
+
+var setSelectedReportBy = exports.setSelectedReportBy = function setSelectedReportBy(value) {
+    return {
+        type: types.SET_REPORTBY,
+        data: value
     };
 };
 
@@ -23584,6 +23592,13 @@ var setDateRange = exports.setDateRange = function setDateRange(dateRange) {
     return {
         type: types.SET_DATE_RANGE,
         data: range
+    };
+};
+
+var changeGroupBy = exports.changeGroupBy = function changeGroupBy(value) {
+    return {
+        type: types.CHANGE_GROUPBY,
+        data: value
     };
 };
 
@@ -23753,75 +23768,14 @@ var DataGrid = exports.DataGrid = function (_Component) {
             var rows = [];
             for (var i = 0; i < data.length; i++) {
                 var item = data[i];
-                var rowSpan = item.Details.length;
-
-                var isFirstRow = true;
-                for (var j = 0; j < item.Details.length; j++) {
-                    var detail = item.Details[j];
-                    var betcount = _numberFormat2.default.format(detail.BetCount),
-                        turnover = _numberFormat2.default.formatDecimal(detail.Turnover),
-                        customerWinLoss = _numberFormat2.default.formatDecimal(detail.CustomerWinLoss),
-                        subsidiaryWinLoss = _numberFormat2.default.formatDecimal(detail.SubsidiaryWinLoss);
-
-                    rows.push(_react2.default.createElement(
-                        _fixedTableHeader.Row,
-                        { key: 'tr' + i + '-detail' + j },
-                        isFirstRow ? _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: item.Subsidiary, rowSpan: rowSpan },
-                            item.Subsidiary
-                        ) : undefined,
-                        isFirstRow ? _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: item.CurrencyName, rowSpan: rowSpan, className: 'center-align' },
-                            item.CurrencyName
-                        ) : undefined,
-                        _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: detail.Product },
-                            detail.Product
-                        ),
-                        _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: betcount, className: 'right-align' },
-                            betcount
-                        ),
-                        _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: turnover, className: 'right-align' },
-                            turnover
-                        ),
-                        _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: customerWinLoss, className: 'right-align' },
-                            customerWinLoss
-                        ),
-                        _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: subsidiaryWinLoss, className: 'right-align ' + (detail.SubsidiaryWinLoss < 0 ? "negative" : "") },
-                            subsidiaryWinLoss
-                        )
-                    ));
-
-                    isFirstRow = false;
-                }
-            }
-
-            return rows;
-        }
-    }, {
-        key: '_buildFooter',
-        value: function _buildFooter() {
-            var totalData = this.props.gridData.Total;
-            var footer = totalData.map(function (item, index) {
                 var betcount = _numberFormat2.default.format(item.BetCount),
                     turnover = _numberFormat2.default.formatDecimal(item.Turnover),
                     customerWinLoss = _numberFormat2.default.formatDecimal(item.CustomerWinLoss),
                     subsidiaryWinLoss = _numberFormat2.default.formatDecimal(item.SubsidiaryWinLoss);
 
-                return _react2.default.createElement(
+                rows.push(_react2.default.createElement(
                     _fixedTableHeader.Row,
-                    { className: 'fixed-table-total', key: 'total' + index },
+                    { key: 'tr' + i },
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: item.Subsidiary },
@@ -23829,10 +23783,14 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { title: item.CurrencyName },
+                        { title: item.CurrencyName, className: 'center-align' },
                         item.CurrencyName
                     ),
-                    _react2.default.createElement(_fixedTableHeader.Cell, null),
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: item.Product },
+                        item.Product
+                    ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: betcount, className: 'right-align' },
@@ -23853,38 +23811,32 @@ var DataGrid = exports.DataGrid = function (_Component) {
                         { title: subsidiaryWinLoss, className: 'right-align ' + (item.SubsidiaryWinLoss < 0 ? "negative" : "") },
                         subsidiaryWinLoss
                     )
-                );
-            });
-
-            footer.push(this._buildGrandTotal());
-
-            return footer;
-        }
-    }, {
-        key: '_buildGrandTotal',
-        value: function _buildGrandTotal() {
-            var grandTotal = this.props.gridData.GrandTotal;
-            if (!grandTotal) {
-                return null;
+                ));
             }
 
-            var betcount = _numberFormat2.default.format(grandTotal.BetCount),
-                turnover = _numberFormat2.default.formatDecimal(grandTotal.Turnover),
-                customerWinLoss = _numberFormat2.default.formatDecimal(grandTotal.CustomerWinLoss),
-                subsidiaryWinLoss = _numberFormat2.default.formatDecimal(grandTotal.SubsidiaryWinLoss);
+            return rows;
+        }
+    }, {
+        key: '_buildFooter',
+        value: function _buildFooter() {
+            var item = this.props.gridData.Total;
+            var betcount = _numberFormat2.default.format(item.BetCount),
+                turnover = _numberFormat2.default.formatDecimal(item.Turnover),
+                customerWinLoss = _numberFormat2.default.formatDecimal(item.CustomerWinLoss),
+                subsidiaryWinLoss = _numberFormat2.default.formatDecimal(item.SubsidiaryWinLoss);
 
             return _react2.default.createElement(
                 _fixedTableHeader.Row,
-                { key: 'grandTotal', className: 'fixed-table-grant-total' },
+                { className: 'fixed-table-total' },
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { title: grandTotal.Subsidiary },
-                    grandTotal.Subsidiary
+                    { title: item.Subsidiary },
+                    item.Subsidiary
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { title: grandTotal.CurrencyName },
-                    grandTotal.CurrencyName
+                    { title: item.CurrencyName },
+                    item.CurrencyName
                 ),
                 _react2.default.createElement(_fixedTableHeader.Cell, null),
                 _react2.default.createElement(
@@ -23904,10 +23856,12 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { title: subsidiaryWinLoss, className: 'right-align ' + (subsidiaryWinLoss < 0 ? "negative" : "") },
+                    { title: subsidiaryWinLoss, className: 'right-align ' + (item.SubsidiaryWinLoss < 0 ? "negative" : "") },
                     subsidiaryWinLoss
                 )
             );
+
+            return footer;
         }
     }, {
         key: '_renderNodata',
@@ -23993,6 +23947,8 @@ var _reactSelect = __webpack_require__(287);
 
 var _reactSelect2 = _interopRequireDefault(_reactSelect);
 
+var _reactRadioGroup = __webpack_require__(747);
+
 var _multipleSelect = __webpack_require__(293);
 
 var _multipleSelect2 = _interopRequireDefault(_multipleSelect);
@@ -24070,10 +24026,6 @@ var FormFilter = exports.FormFilter = function (_Component) {
             _this.props.setSelectedProduct(selectedItemsKey);
         };
 
-        _this.subsidiaryChangeHandler = function (currentItem, selectedItemsKey) {
-            _this.props.setSelectedSubsidiary(selectedItemsKey);
-        };
-
         _this.applyDateRangeHandler = function (date) {
             var isValidMonthRange = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
@@ -24104,7 +24056,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 xsrfToken: this.props.xsrfToken,
                 data: {
                     BaseCurrency: this.props.selectedBaseCurrency,
-                    SubsidiaryList: this.props.selectedSubsidiary,
+                    CurrencyId: this.props.selectedCurrency,
                     ProductCodeList: this.props.selectedProduct,
                     ConvertAll: this.props.convertAll,
                     FromDate: _site2.default.convertDateToString(fromDate),
@@ -24166,15 +24118,17 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 currencyList = _props3.currencyList,
                 selectedCurrency = _props3.selectedCurrency;
 
+            if (currencyList[0].value > 0) {
+                currencyList.unshift({ value: 0, label: _langHelper2.default.getSingleResource("All") });
+            }
 
-            return currencyList && currencyList.length ? _react2.default.createElement(_reactSelect2.default, { id: 'ddlCurrency',
+            return _react2.default.createElement(_reactSelect2.default, { id: 'ddlCurrency',
                 name: 'form-field-name',
-                labelKey: 'All',
-                value: selectedCurrency,
+                value: selectedCurrency || 0,
                 options: currencyList,
                 onChange: function onChange(item) {
                     return _this4.props.setSelectedCurrency(item.value);
-                } }) : null;
+                } });
         }
     }, {
         key: '_renderBaseCurrencySelectList',
@@ -24303,16 +24257,12 @@ var FormFilter = exports.FormFilter = function (_Component) {
                                 { className: 'label-text' },
                                 _langHelper2.default.getSingleResource("GroupBy")
                             ),
-                            _react2.default.createElement('input', { type: 'radio', id: 'GroupByProduct', name: 'GroupBy' }),
                             _react2.default.createElement(
-                                'label',
-                                { htmlFor: 'GroupByProduct' },
-                                _langHelper2.default.getSingleResource("Product")
-                            ),
-                            _react2.default.createElement('input', { type: 'radio', id: 'GroupByCurrency', name: 'GroupBy', className: 'with-gap' }),
-                            _react2.default.createElement(
-                                'label',
-                                { htmlFor: 'GroupByCurrency' },
+                                _reactRadioGroup.RadioGroup,
+                                { name: 'fruit', selectedValue: this.props.groupBy, onChange: this.props.changeGroupBy },
+                                _react2.default.createElement(_reactRadioGroup.Radio, { value: 'apple' }),
+                                _langHelper2.default.getSingleResource("Product"),
+                                _react2.default.createElement(_reactRadioGroup.Radio, { value: 'orange' }),
                                 _langHelper2.default.getSingleResource("Currency")
                             )
                         )
@@ -24696,11 +24646,11 @@ var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProper
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.dateConstraint = exports.xsrfToken = exports.convertAll = exports.dateRange = exports.selectedReportBy = exports.reportByList = exports.selectedTimeZone = exports.timeZoneList = undefined;
+exports.dateConstraint = exports.xsrfToken = exports.convertAll = exports.groupBy = exports.dateRange = exports.selectedReportBy = exports.reportByList = exports.selectedTimeZone = exports.timeZoneList = undefined;
 
-var _createReducer9 = __webpack_require__(26);
+var _createReducer10 = __webpack_require__(26);
 
-var _createReducer10 = _interopRequireDefault(_createReducer9);
+var _createReducer11 = _interopRequireDefault(_createReducer10);
 
 var _types = __webpack_require__(217);
 
@@ -24712,35 +24662,39 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var timeZoneList = exports.timeZoneList = (0, _createReducer10.default)({}, _defineProperty({}, types.GET_TIMEZONE, function (state, action) {
+var timeZoneList = exports.timeZoneList = (0, _createReducer11.default)({}, _defineProperty({}, types.GET_TIMEZONE, function (state, action) {
     return action.data;
 }));
 
-var selectedTimeZone = exports.selectedTimeZone = (0, _createReducer10.default)({}, _defineProperty({}, types.SET_TIMEZONE, function (state, action) {
+var selectedTimeZone = exports.selectedTimeZone = (0, _createReducer11.default)({}, _defineProperty({}, types.SET_TIMEZONE, function (state, action) {
     return action.data;
 }));
 
-var reportByList = exports.reportByList = (0, _createReducer10.default)({}, _defineProperty({}, types.GET_REPORTBY, function (state, action) {
+var reportByList = exports.reportByList = (0, _createReducer11.default)({}, _defineProperty({}, types.GET_REPORTBY, function (state, action) {
     return action.data;
 }));
 
-var selectedReportBy = exports.selectedReportBy = (0, _createReducer10.default)({}, _defineProperty({}, types.SET_REPORTBY, function (state, action) {
+var selectedReportBy = exports.selectedReportBy = (0, _createReducer11.default)({}, _defineProperty({}, types.SET_REPORTBY, function (state, action) {
     return action.data;
 }));
 
-var dateRange = exports.dateRange = (0, _createReducer10.default)({}, _defineProperty({}, types.SET_DATE_RANGE, function (state, action) {
+var dateRange = exports.dateRange = (0, _createReducer11.default)({}, _defineProperty({}, types.SET_DATE_RANGE, function (state, action) {
     return action.data;
 }));
 
-var convertAll = exports.convertAll = (0, _createReducer10.default)({}, _defineProperty({}, types.CHANGE_CONVERT_ALL, function (state, action) {
+var groupBy = exports.groupBy = (0, _createReducer11.default)({}, _defineProperty({}, types.CHANGE_GROUPBY, function (state, action) {
     return action.data;
 }));
 
-var xsrfToken = exports.xsrfToken = (0, _createReducer10.default)({}, _defineProperty({}, types.GET_XSRF_TOKEN, function (state, action) {
+var convertAll = exports.convertAll = (0, _createReducer11.default)({}, _defineProperty({}, types.CHANGE_CONVERT_ALL, function (state, action) {
     return action.data;
 }));
 
-var dateConstraint = exports.dateConstraint = (0, _createReducer10.default)({}, _defineProperty({}, types.GET_DATE_CONSTRAINT, function (state, action) {
+var xsrfToken = exports.xsrfToken = (0, _createReducer11.default)({}, _defineProperty({}, types.GET_XSRF_TOKEN, function (state, action) {
+    return action.data;
+}));
+
+var dateConstraint = exports.dateConstraint = (0, _createReducer11.default)({}, _defineProperty({}, types.GET_DATE_CONSTRAINT, function (state, action) {
     return action.data;
 }));
 
@@ -24777,6 +24731,153 @@ var selectedCurrency = exports.selectedCurrency = (0, _createReducer4.default)({
 var currencyList = exports.currencyList = (0, _createReducer4.default)({}, _defineProperty({}, types.GET_CURRENCY, function (state, action) {
     return action.data;
 }));
+
+/***/ }),
+/* 740 */,
+/* 741 */,
+/* 742 */,
+/* 743 */,
+/* 744 */,
+/* 745 */,
+/* 746 */,
+/* 747 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _propTypes = __webpack_require__(3);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var Radio = (function (_React$Component) {
+  _inherits(Radio, _React$Component);
+
+  function Radio() {
+    _classCallCheck(this, Radio);
+
+    _get(Object.getPrototypeOf(Radio.prototype), 'constructor', this).apply(this, arguments);
+  }
+
+  _createClass(Radio, [{
+    key: 'render',
+    value: function render() {
+      var _context$radioGroup = this.context.radioGroup;
+      var name = _context$radioGroup.name;
+      var selectedValue = _context$radioGroup.selectedValue;
+      var onChange = _context$radioGroup.onChange;
+
+      var optional = {};
+      if (selectedValue !== undefined) {
+        optional.checked = this.props.value === selectedValue;
+      }
+      if (typeof onChange === 'function') {
+        optional.onChange = onChange.bind(null, this.props.value);
+      }
+
+      return _react2['default'].createElement('input', _extends({}, this.props, {
+        type: 'radio',
+        name: name
+      }, optional));
+    }
+  }]);
+
+  return Radio;
+})(_react2['default'].Component);
+
+exports.Radio = Radio;
+;
+
+Radio.contextTypes = {
+  radioGroup: _propTypes2['default'].object
+};
+
+var RadioGroup = (function (_React$Component2) {
+  _inherits(RadioGroup, _React$Component2);
+
+  function RadioGroup() {
+    _classCallCheck(this, RadioGroup);
+
+    _get(Object.getPrototypeOf(RadioGroup.prototype), 'constructor', this).apply(this, arguments);
+  }
+
+  _createClass(RadioGroup, [{
+    key: 'getChildContext',
+    value: function getChildContext() {
+      var _props = this.props;
+      var name = _props.name;
+      var selectedValue = _props.selectedValue;
+      var onChange = _props.onChange;
+
+      return {
+        radioGroup: {
+          name: name, selectedValue: selectedValue, onChange: onChange
+        }
+      };
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props2 = this.props;
+      var Component = _props2.Component;
+      var name = _props2.name;
+      var selectedValue = _props2.selectedValue;
+      var onChange = _props2.onChange;
+      var children = _props2.children;
+
+      var rest = _objectWithoutProperties(_props2, ['Component', 'name', 'selectedValue', 'onChange', 'children']);
+
+      return _react2['default'].createElement(
+        Component,
+        rest,
+        children
+      );
+    }
+  }]);
+
+  return RadioGroup;
+})(_react2['default'].Component);
+
+exports.RadioGroup = RadioGroup;
+;
+
+RadioGroup.defaultProps = {
+  Component: "div"
+};
+
+RadioGroup.propTypes = {
+  name: _propTypes2['default'].string,
+  selectedValue: _propTypes2['default'].oneOfType([_propTypes2['default'].string, _propTypes2['default'].number, _propTypes2['default'].bool]),
+  onChange: _propTypes2['default'].func,
+  children: _propTypes2['default'].node.isRequired,
+  Component: _propTypes2['default'].oneOfType([_propTypes2['default'].string, _propTypes2['default'].func, _propTypes2['default'].object])
+};
+
+RadioGroup.childContextTypes = {
+  radioGroup: _propTypes2['default'].object
+};
 
 /***/ })
 ],[728]);

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
 import Select from 'react-select'
+import { RadioGroup, Radio } from 'react-radio-group'
 import MultipleSelect from '../../../components/multiple-select'
 import { DateRange } from '../../../components/date-range/index'
 import LangHelper from '../../../lib/langHelper'
@@ -61,7 +62,7 @@ export class FormFilter extends Component {
             xsrfToken: this.props.xsrfToken,
             data: {
                 BaseCurrency: this.props.selectedBaseCurrency,
-                SubsidiaryList: this.props.selectedSubsidiary,
+                CurrencyId: this.props.selectedCurrency,
                 ProductCodeList: this.props.selectedProduct,
                 ConvertAll: this.props.convertAll,
                 FromDate: Site.convertDateToString(fromDate),
@@ -74,10 +75,6 @@ export class FormFilter extends Component {
         this.props.setSelectedProduct(selectedItemsKey)
     }
 
-    subsidiaryChangeHandler = (currentItem, selectedItemsKey) => {
-        this.props.setSelectedSubsidiary(selectedItemsKey)
-    }
-
     applyDateRangeHandler = (date, isValidMonthRange = true) => {
         if (isValidMonthRange) {
             this.props.setDateRange(date);
@@ -88,7 +85,6 @@ export class FormFilter extends Component {
         }
     }
 
-    
     _renderTimeZoneSelectList() {
         const { timeZoneList, selectedTimeZone } = this.props;
 
@@ -100,7 +96,7 @@ export class FormFilter extends Component {
         const { reportByList, selectedReportBy } = this.props;
 
         return <Select value={selectedReportBy} options={reportByList}
-        onChange={(item) => this.props.setSelectedReportBy(item.value)} />
+                onChange={(item) => this.props.setSelectedReportBy(item.value)} />
     }
 
     _renderProductSelectList() {
@@ -120,15 +116,16 @@ export class FormFilter extends Component {
 
     _renderCurrencySelectList() {
         const { currencyList, selectedCurrency } = this.props;
+        if(currencyList[0].value > 0)
+        {
+            currencyList.unshift({ value: 0, label: LangHelper.getSingleResource("All")});
+        }
 
-        return currencyList && currencyList.length ? (
-            <Select id="ddlCurrency"
+        return <Select id="ddlCurrency"
                 name="form-field-name"
-            labelKey = "All"
-                value={selectedCurrency}
+                value={selectedCurrency || 0}
                 options={currencyList}
                 onChange={(item) => this.props.setSelectedCurrency(item.value)} />
-            ) : null;
     }
 
     _renderBaseCurrencySelectList() {
@@ -198,11 +195,11 @@ export class FormFilter extends Component {
                 <div className="row">
                     <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
                         <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("GroupBy")}</label>
-                            <input type="radio" id="GroupByProduct" name="GroupBy" />
-                           <label htmlFor="GroupByProduct">{LangHelper.getSingleResource("Product")}</label>
-                           <input type="radio" id="GroupByCurrency" name="GroupBy" className="with-gap" />
-                           <label htmlFor="GroupByCurrency">{LangHelper.getSingleResource("Currency")}</label>
+                               <label className="label-text">{LangHelper.getSingleResource("GroupBy")}</label>
+                            <RadioGroup name="fruit" selectedValue={this.props.groupBy} onChange={this.props.changeGroupBy}>
+                              <Radio value="apple" />{LangHelper.getSingleResource("Product")}
+                              <Radio value="orange" />{LangHelper.getSingleResource("Currency")}
+                            </RadioGroup>
                     </div>
                 </div>
                  <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">

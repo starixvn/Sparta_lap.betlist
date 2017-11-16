@@ -31,6 +31,13 @@ export const dateRange = createReducer({}, {
     }
 })
 
+
+export const groupBy = createReducer({}, {
+    [types.CHANGE_GROUPBY](state, action) {
+        return action.data;
+    }
+})
+
 export const convertAll = createReducer({}, {
     [types.CHANGE_CONVERT_ALL](state, action) {
         return action.data;

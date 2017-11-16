@@ -1,9 +1,16 @@
 import * as types from './types.js'
 
-export const setSelectedTimeZone = (timeZoneKeys) => {
+export const setSelectedTimeZone = (value) => {
     return {
-        type: types.SET_SUBSIDIARY,
-        data: timeZoneKeys
+        type: types.SET_TIMEZONE,
+        data: value
+    }
+}
+
+export const setSelectedReportBy = (value) => {
+    return {
+        type: types.SET_REPORTBY,
+        data: value
     }
 }
 
@@ -16,6 +23,14 @@ export const setDateRange = (dateRange) => {
     return {
         type: types.SET_DATE_RANGE,
         data: range
+    }
+}
+
+
+export const changeGroupBy = (value) => {
+    return {
+        type: types.CHANGE_GROUPBY,
+        data: value
     }
 }
 

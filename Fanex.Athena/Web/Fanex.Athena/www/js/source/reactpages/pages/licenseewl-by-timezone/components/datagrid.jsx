@@ -46,47 +46,38 @@ export class DataGrid extends Component {
         let rows = [];
         for (let i = 0; i < data.length; i++) {
             const item = data[i];
-            const rowSpan = item.Details.length;
-
-            let isFirstRow = true;
-            for (let j = 0; j < item.Details.length; j++) {
-                const detail = item.Details[j];
-                const betcount = NumberFormat.format(detail.BetCount),
-                    turnover = NumberFormat.formatDecimal(detail.Turnover),
-                    customerWinLoss = NumberFormat.formatDecimal(detail.CustomerWinLoss),
-                    subsidiaryWinLoss = NumberFormat.formatDecimal(detail.SubsidiaryWinLoss);
+            const betcount = NumberFormat.format(item.BetCount),
+                    turnover = NumberFormat.formatDecimal(item.Turnover),
+                    customerWinLoss = NumberFormat.formatDecimal(item.CustomerWinLoss),
+                    subsidiaryWinLoss = NumberFormat.formatDecimal(item.SubsidiaryWinLoss);
 
                 rows.push(
-                    <Row key={`tr${i}-detail${j}`}>
-                        {isFirstRow ? <Cell title={item.Subsidiary} rowSpan={rowSpan}>{item.Subsidiary}</Cell> : undefined}
-                        {isFirstRow ? <Cell title={item.CurrencyName} rowSpan={rowSpan} className="center-align">{item.CurrencyName}</Cell> : undefined}
-                        <Cell title={detail.Product}>{detail.Product}</Cell>
+                    <Row key={`tr${i}`}>
+                        <Cell title={item.Subsidiary}>{item.Subsidiary}</Cell>
+                        <Cell title={item.CurrencyName} className="center-align">{item.CurrencyName}</Cell>
+                        <Cell title={item.Product}>{item.Product}</Cell>
                         <Cell title={betcount} className="right-align">{betcount}</Cell>
                         <Cell title={turnover} className="right-align">{turnover}</Cell>
                         <Cell title={customerWinLoss} className="right-align">{customerWinLoss}</Cell>
-                        <Cell title={subsidiaryWinLoss} className={`right-align ${detail.SubsidiaryWinLoss < 0 ? "negative" : ""}`}>
+                        <Cell title={subsidiaryWinLoss} className={`right-align ${item.SubsidiaryWinLoss < 0 ? "negative" : ""}`}>
                             {subsidiaryWinLoss}
                         </Cell>
                     </Row>
                 );
-
-                isFirstRow = false;
-            }
         }
 
         return rows;
     }
 
     _buildFooter() {
-        const totalData = this.props.gridData.Total;
-        const footer = totalData.map((item, index) => {
-            const betcount = NumberFormat.format(item.BetCount),
+        const item = this.props.gridData.Total;
+        const betcount = NumberFormat.format(item.BetCount),
                 turnover = NumberFormat.formatDecimal(item.Turnover),
                 customerWinLoss = NumberFormat.formatDecimal(item.CustomerWinLoss),
                 subsidiaryWinLoss = NumberFormat.formatDecimal(item.SubsidiaryWinLoss);
 
             return (
-                <Row className="fixed-table-total" key={`total${index}`}>
+                <Row className="fixed-table-total">
                     <Cell title={item.Subsidiary}>{item.Subsidiary}</Cell>
                     <Cell title={item.CurrencyName}>{item.CurrencyName}</Cell>
                     <Cell></Cell>
@@ -98,35 +89,8 @@ export class DataGrid extends Component {
                     </Cell>
                 </Row>
             )
-        })
-
-        footer.push(this._buildGrandTotal());
 
         return footer;
-    }
-
-    _buildGrandTotal() {
-        const grandTotal = this.props.gridData.GrandTotal;
-        if (!grandTotal) {
-            return null;
-        }
-
-        const betcount = NumberFormat.format(grandTotal.BetCount),
-            turnover = NumberFormat.formatDecimal(grandTotal.Turnover),
-            customerWinLoss = NumberFormat.formatDecimal(grandTotal.CustomerWinLoss),
-            subsidiaryWinLoss = NumberFormat.formatDecimal(grandTotal.SubsidiaryWinLoss);
-
-        return (
-            <Row key="grandTotal" className="fixed-table-grant-total">
-                <Cell title={grandTotal.Subsidiary}>{grandTotal.Subsidiary}</Cell>
-                <Cell title={grandTotal.CurrencyName}>{grandTotal.CurrencyName}</Cell>
-                <Cell></Cell>
-                <Cell title={betcount} className="right-align">{betcount}</Cell>
-                <Cell title={turnover} className="right-align">{turnover}</Cell>
-                <Cell title={customerWinLoss} className="right-align">{customerWinLoss}</Cell>
-                <Cell title={subsidiaryWinLoss} className={`right-align ${subsidiaryWinLoss < 0 ? "negative" : ""}`}>{subsidiaryWinLoss}</Cell>
-            </Row>
-        )
     }
 
     _renderNodata() {
