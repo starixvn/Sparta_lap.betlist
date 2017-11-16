@@ -27,9 +27,9 @@ var CustomerWinLoss = (function ($) {
     var _submitData = null;
     var _productCodes = [];
 
-    var _sortColumnName = "";
+    var _sortColumnName = "ExternalId";
     var _sortOrder = "desc";
-    var _orderItem = 0;
+    var _orderItem = 2;
     var _isFirstLoad = false;
     var _defaultUserName = "";
 
