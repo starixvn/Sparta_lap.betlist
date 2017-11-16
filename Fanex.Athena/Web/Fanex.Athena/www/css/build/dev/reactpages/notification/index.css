@@ -349,14 +349,14 @@
 /* z-index */
 /* Table */
 /* Label Text */
-.pagingContainer {
+.page-container {
   padding: 3px;
   font-size: 1.1rem;
   background-color: #EFF3F8;
   border-left: 1px solid #d1dae1;
   border-right: 1px solid #d1dae1;
   border-bottom: 1px solid #d1dae1; }
-  .pagingContainer .icon {
+  .page-container .icon {
     font-family: 'icomoon' !important;
     speak: none;
     font-style: normal;
@@ -368,45 +368,49 @@
     font-size: 1.2rem;
     color: #4c6375;
     cursor: pointer; }
-  .pagingContainer .pagingDisable {
+  .page-container .disable {
     color: #d1dae1;
     cursor: default; }
-  .pagingContainer .pagingFirst:before {
+  .page-container .page-first:before {
     content: "\EA21"; }
-  .pagingContainer .pagingPrev:before {
+  .page-container .page-prev:before {
     content: "\EA1F"; }
-  .pagingContainer .pagingNext:before {
+  .page-container .page-next:before {
     content: "\EA20"; }
-  .pagingContainer .pagingLast:before {
+  .page-container .page-last:before {
     content: "\EA22"; }
-  .pagingContainer .paging-form {
+  .page-container .page-form {
     width: auto;
     height: auto;
     font-size: inherit;
     padding: 2px;
     text-align: center;
     margin: 0; }
-    .pagingContainer .paging-form, .pagingContainer .paging-form:focus {
+    .page-container .page-form, .page-container .page-form:focus {
       background: #fff;
       border: 1px solid #e2d6d6;
       box-shadow: none; }
-  .pagingContainer .paging-info {
+  .page-container .page-info {
     display: inline-block; }
-    .pagingContainer .paging-info:after, .pagingContainer .paging-info:before {
+    .page-container .page-info:after, .page-container .page-info:before {
       content: "";
       border: 1px solid #ccc; }
-    .pagingContainer .paging-info:after {
+    .page-container .page-info:after {
       margin-left: 5px; }
-    .pagingContainer .paging-info:before {
+    .page-container .page-info:before {
       margin-right: 5px; }
-  .pagingContainer .pageSizeSelected {
+  .page-container .pagesize-select {
     height: auto;
     font-size: inherit;
     padding: 2px;
     min-width: 65px;
-    border: 1px solid #e2d6d6; }
+    border: 1px solid #e2d6d6;
+    margin-left: 5px; }
 
 .button-group {
   margin-top: 15px; }
+
+.unread td {
+  background-color: #f5c0ab !important; }
 
 /*# sourceMappingURL=index.css.map*/

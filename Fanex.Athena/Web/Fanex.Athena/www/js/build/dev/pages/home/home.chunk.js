@@ -18073,9 +18073,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2), __webpack_require__(0), __webpack_require__(120), __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Site, moment, Popup) {
-        var NOTIFICATION_ITEM = "<li class='notification-item' title={0}>" +
-                                    "<a href='javascript:void(0)'>{1}</a><span class='type'>{2}</span><span class='date-time'>{3}</span>" +
-                                  "</li>";
+        var NOTIFICATION_ITEM = "<li class='notification-item' title='{0}'>" +
+                                "<a href='javascript:void(0)'>{1}</a><span class='type'>{2}</span><span class='date-time'>{3}</span>" +
+                                "</li>";
         var GET_NOTIFICATION_URL = "api/NotificationReport/GetNotificationMessages";
         var MARK_NOTIFICATION = "api/NotificationReport/MarkNotificationAsRead";
 
@@ -18106,7 +18106,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             var popupContent = '<div class="view-notification">'
                                 + '<p class="subject">' + message.Subject + '</p>'
                                 + '<p class="date-time">' + moment(message.DateTime).format("MM/DD/YYYY hh:mm:ss A") + '</p>'
-                                + '<div class="content">' + message.Content + '</div>'
+                                + (Site.asNull(message.Content) === null ? "" : '<div class="content">' + message.Content + '</div>')
                                 + '</div>';
 
             Popup.openPopupWithButton(popupContent, options, buttons);
