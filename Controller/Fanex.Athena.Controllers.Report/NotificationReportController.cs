@@ -7,11 +7,11 @@
 
     public class NotificationReportController : ReportBaseController
     {
-        private readonly INotificationReportService _notificationReportService;
+        private readonly INotificationService _notificationService;
 
         public NotificationReportController()
         {
-            _notificationReportService = new NotificationReportService();
+            _notificationService = new NotificationService();
         }
 
         [HttpGet]
@@ -19,7 +19,7 @@
         {
             var model = new NotificationViewModel
             {
-                NotificationTypes = _notificationReportService.GetNotificationTypes()
+                NotificationTypes = _notificationService.GetNotificationTypes()
             };
 
             return View("~/Views/Report/Notification/Notification.cshtml", model);

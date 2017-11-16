@@ -3124,4 +3124,8 @@
     <value>Data is available within 6 months</value>
     <comment>84004</comment>
   </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
+    <comment>84004</comment>
+  </data>
 </root>

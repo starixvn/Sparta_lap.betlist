@@ -16,11 +16,11 @@
 
         private static readonly DateTime MaxDate = new DateTime(3000, 1, 1);
 
-        private readonly INotificationReportService _notificationReportService;
+        private readonly INotificationService _notificationService;
 
         public NotificationReportController()
         {
-            _notificationReportService = new NotificationReportService();
+            _notificationService = new NotificationService();
         }
 
         [HttpGet]
@@ -37,7 +37,7 @@
 
             UpdateMetaModel(metaModel);
 
-            return _notificationReportService.GetNotificationMessages(metaModel);
+            return _notificationService.GetNotificationMessages(metaModel);
         }
 
         [HttpPost]
@@ -45,16 +45,16 @@
         {
             if (!metaModel.IsValid)
             {
-                return new ReportResultModel<Notification>
+                return new ReportResultModel<GeneralNotification>
                 {
-                    DataList = new List<Notification>(),
+                    DataList = new List<GeneralNotification>(),
                     TotalRows = 0
                 };
             }
 
             UpdateMetaModel(metaModel);
 
-            return _notificationReportService.GetGeneral(metaModel);
+            return _notificationService.GetGeneral(metaModel);
         }
 
         [HttpPost]
@@ -71,7 +71,7 @@
 
             UpdateMetaModel(metaModel);
 
-            return _notificationReportService.GetResultAmendment(metaModel);
+            return _notificationService.GetResultAmendment(metaModel);
         }
 
         [HttpPost]
@@ -80,7 +80,7 @@
             metaModel.UserId = SessionService.UserSession.UserId.ToString();
             metaModel.LicenseeName = SessionService.LicenseeSession.LicenseeName;
 
-            var result = _notificationReportService.MarkNotificationAsRead(metaModel);
+            var result = _notificationService.MarkNotificationAsRead(metaModel);
 
             return new
             {

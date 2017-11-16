@@ -28,13 +28,13 @@
 
         private readonly ILanguageService _languageService;
 
-        private readonly INotificationReportService _notificationReportService;
+        private readonly INotificationService _notificationService;
 
         public NotificationApiController()
         {
             _moveBetService = new MoveBetService();
             _languageService = new LanguageService();
-            _notificationReportService = new NotificationReportService();
+            _notificationService = new NotificationService();
         }
 
         [HttpGet]
@@ -63,13 +63,13 @@
             metaModel.PageSize = 10;
             metaModel.PageIndex = 1;
 
-            return _notificationReportService.GetNotificationMessages(metaModel);
+            return _notificationService.GetNotificationMessages(metaModel);
         }
 
         [HttpPost]
         public dynamic MarkNotificationAsRead(NotificationMarkAsReadMetaModel metaModel)
         {
-            var result = _notificationReportService.MarkNotificationAsRead(metaModel);
+            var result = _notificationService.MarkNotificationAsRead(metaModel);
 
             return new
             {

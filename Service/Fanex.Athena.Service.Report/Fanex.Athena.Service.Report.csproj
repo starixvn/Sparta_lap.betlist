@@ -190,12 +190,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CashOutWinLossService.cs" />
-    <Compile Include="Interfaces\INotificationReportService.cs" />
+    <Compile Include="Interfaces\INotificationService.cs" />
     <Compile Include="Interfaces\ICashOutWinLossService.cs" />
     <Compile Include="Interfaces\IColossusBetsWinLossService.cs" />
     <Compile Include="Interfaces\ISubsidiaryPerformanceService.cs" />
     <Compile Include="Interfaces\IWeeklyLiveMatchService.cs" />
-    <Compile Include="NotificationReportService.cs" />
+    <Compile Include="NotificationService.cs" />
     <Compile Include="Result\KenoApi.cs" />
     <Compile Include="ColossusBetsWinLossService.cs" />
     <Compile Include="SubsidiaryPerformanceService.cs" />

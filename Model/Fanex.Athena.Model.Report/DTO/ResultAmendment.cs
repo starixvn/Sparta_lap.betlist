@@ -2,14 +2,8 @@
 {
     using System;
 
-    public class ResultAmendment
+    public class ResultAmendment : Notification
     {
-        public DateTime DateTime { get; set; }
-
-        public string Subject { get; set; }
-
-        public string Content { get; set; }
-
         public string DataFilePath { get; set; }
     }
 }

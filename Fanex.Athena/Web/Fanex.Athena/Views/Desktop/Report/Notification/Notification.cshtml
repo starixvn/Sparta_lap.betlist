@@ -21,7 +21,7 @@
 
 @section globaljscode{
     window.initialState = {
-        notification: {
+        general: {
             dateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
             dateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'},
             notificationTypes: @Html.Raw(notificationTypes.ToJson()),

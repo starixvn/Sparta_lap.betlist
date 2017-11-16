@@ -6,13 +6,13 @@
     using Model.Report.DTO;
     using Model.Report.MetaModel;
 
-    public interface INotificationReportService
+    public interface INotificationService
     {
         IDictionary<string, string> GetNotificationTypes();
 
         ReportResultModel<NotificationMessage> GetNotificationMessages(NotificationMetaModel metaModel);
 
-        ReportResultModel<Notification> GetGeneral(NotificationMetaModel metaModel);
+        ReportResultModel<GeneralNotification> GetGeneral(NotificationMetaModel metaModel);
 
         ReportResultModel<ResultAmendment> GetResultAmendment(NotificationMetaModel metaModel);
 

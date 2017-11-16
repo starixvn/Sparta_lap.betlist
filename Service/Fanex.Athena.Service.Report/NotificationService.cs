@@ -17,9 +17,15 @@
     using Model.Report.MetaModel;
     using Newtonsoft.Json.Linq;
 
-    public class NotificationReportService : INotificationReportService
+    public class NotificationService : INotificationService
     {
         private const string CacheNotificationTypeKey = "NotificationReport_NotificationType";
+
+        private readonly IDictionary<string, string> _notificationType = new Dictionary<string, string>
+        {
+            { nameof(GeneralNotification), "General" },
+            { nameof(ResultAmendment), "Amendment" }
+        };
 
         private readonly ILogger _logger;
 
@@ -29,12 +35,12 @@
 
         private readonly IWebClientService _webClientService;
 
-        public NotificationReportService() : this(null, null, null, null)
+        public NotificationService() : this(null, null, null, null)
         {
         }
 
         [CLSCompliant(false)]
-        public NotificationReportService(
+        public NotificationService(
             ILogger logger,
             IMemoryCacheService cache,
             IAppSettings appSetting,
@@ -91,10 +97,11 @@
             var result = GetResultAmendment(metaModel);
             var dataList = result.DataList.Select(x => new NotificationMessage
             {
+                Id = x.Id,
                 DateTime = x.DateTime,
                 Subject = x.Subject,
                 Content = x.Content,
-                Type = "Amendment"
+                Type = _notificationType[nameof(ResultAmendment)]
             }).ToList();
 
             return new ReportResultModel<NotificationMessage>
@@ -104,7 +111,7 @@
             };
         }
 
-        public ReportResultModel<Notification> GetGeneral(NotificationMetaModel metaModel)
+        public ReportResultModel<GeneralNotification> GetGeneral(NotificationMetaModel metaModel)
         {
             var notificationUrl = string.Format(
                 _appSetting.NotificationApiUrl,
@@ -116,15 +123,13 @@
                 metaModel.IsOnlyUnread,
                 metaModel.PageSize,
                 metaModel.PageIndex - 1);
-
-            var json = GetApiResultString(notificationUrl);
-
-            var dataList = new List<Notification>();
+            var dataList = new List<GeneralNotification>();
             var totalRecords = 0;
 
+            var json = GetApiResultString(notificationUrl);
             if (string.IsNullOrEmpty(json))
             {
-                return new ReportResultModel<Notification>
+                return new ReportResultModel<GeneralNotification>
                 {
                     DataList = dataList,
                     TotalRows = totalRecords
@@ -138,18 +143,12 @@
                 var subjectKey = "Subject" + lang;
                 var contentKey = "Content" + lang;
 
-                dataList.AddRange(jobject["Data"].Children().Select(x => new Notification
-                {
-                    DateTime = x["Date"].Value<DateTime>(),
-                    MessageTypeId = x["MessageTypeId"].Value<int>(),
-                    Content = x[contentKey].Value<string>(),
-                    Subject = x[subjectKey].Value<string>()
-                }));
+                dataList.AddRange(jobject["Data"].Children().Select(x => MapToGeneralNotification(x, subjectKey, contentKey)));
 
                 totalRecords = jobject["TotalItems"].Value<int>();
             }
 
-            return new ReportResultModel<Notification>
+            return new ReportResultModel<GeneralNotification>
             {
                 DataList = dataList,
                 TotalRows = totalRecords
@@ -167,12 +166,10 @@
                 metaModel.IsOnlyUnread,
                 metaModel.PageSize,
                 metaModel.PageIndex - 1);
-
-            var json = GetApiResultString(resultAmendmentUrl);
-
             var dataList = new List<ResultAmendment>();
             var totalRecords = 0;
 
+            var json = GetApiResultString(resultAmendmentUrl);
             if (string.IsNullOrEmpty(json))
             {
                 return new ReportResultModel<ResultAmendment>
@@ -189,13 +186,9 @@
                 var subjectKey = "Subject" + lang;
                 var contentKey = "Content" + lang;
 
-                dataList.AddRange(jobject["Data"].Children().Select(x => new ResultAmendment
-                {
-                    DateTime = x["Date"].Value<DateTime>(),
-                    Content = x[contentKey].Value<string>(),
-                    Subject = x[subjectKey].Value<string>(),
-                    DataFilePath = x["DataFilePath"].Value<string>()
-                }));
+                var attachmentFileApi = jobject["AttachmentFileApi"].Value<string>();
+
+                dataList.AddRange(jobject["Data"].Children().Select(x => MapToResultAmendment(x, subjectKey, contentKey, attachmentFileApi)));
 
                 totalRecords = jobject["TotalItems"].Value<int>();
             }
@@ -228,6 +221,34 @@
             {
                 Code = jobject["Code"].Value<int>(),
                 Message = jobject["Message"].Value<string>()
+            };
+        }
+
+        private ResultAmendment MapToResultAmendment(JToken token, string subjectKey, string contentKey, string attachmentFileApi)
+        {
+            return new ResultAmendment
+            {
+                Id = token["MessageId"].Value<int>(),
+                DateTime = token["Date"].Value<DateTime>(),
+                Content = token[contentKey].Value<string>(),
+                Subject = token[subjectKey].Value<string>(),
+                DataFilePath = $"{attachmentFileApi}?site=SpecialDelete&name={token["DataFilePath"].Value<string>()}&saveAs=123.xls",
+                IsRead = token["IsRead"].Value<bool>(),
+                Type = _notificationType[nameof(ResultAmendment)]
+            };
+        }
+
+        private GeneralNotification MapToGeneralNotification(JToken token, string subjectKey, string contentKey)
+        {
+            return new GeneralNotification
+            {
+                Id = token["MessageId"].Value<int>(),
+                DateTime = token["Date"].Value<DateTime>(),
+                MessageTypeId = token["MessageTypeId"].Value<int>(),
+                Content = token[contentKey].Value<string>(),
+                Subject = token[subjectKey].Value<string>(),
+                IsRead = token["IsRead"].Value<bool>(),
+                Type = _notificationType[nameof(GeneralNotification)]
             };
         }
 
