@@ -237,7 +237,8 @@
                         "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js",
                         "~/Scripts/Extension/ajaxBinaryTransporting.js",
                         "~/Scripts/Helper/downloader.js",
-                        "~/Scripts/Plugin/Toast/toast.js");
+                        "~/Scripts/Plugin/Toast/toast.js",
+                        "~/Scripts/Helper/datahelper.js");
             AddNewScriptBundle(bundles, bundle);
         }
 

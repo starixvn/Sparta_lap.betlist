@@ -9,11 +9,12 @@
     "components/pluginhelper/multiselect",
     "common/popup",
     "helpers/excel",
+    "helpers/datahelper",
     "lib/jqgrid/jquery.jqGrid.en",
     "lib/jqgrid/jquery.jqGrid.min",
     "extensions/jquery.extension",
     "lib/linq"],
-    function ($, QueryString, Site, Report, PlatformWinLossOption, jqGridAdditional, MonthPicker, MultiSelect, Popup, ExcelHelper) {
+    function ($, QueryString, Site, Report, PlatformWinLossOption, jqGridAdditional, MonthPicker, MultiSelect, Popup, ExcelHelper, DataHelper) {
         "use strict";
 
         var BETLIST_IGNORED_PRODUCTS = ["AB"];
@@ -26,8 +27,7 @@
             level: 0,
             pageSize: 50,
             sortColumnName: null,
-            sortOrder: "desc",
-            removerSorting: true
+            sortOrder: "desc"
         };
 
         function initialize() {
@@ -68,13 +68,12 @@
 
         function initEvent() {
             $('#SubmitButton').click(function () {
-                gridControl.removeSorting = true;
                 _me.submit();
             });
 
             $("body").on("click", ".drilldown", function () {
                 var dataDrillDown = $(this).data("drill-down");
-                _me.drillDown(gridControl.level + 1, dataDrillDown);
+                _me.drillDown(1, dataDrillDown);
             });
 
             $("body").on("click", ".bet-list-link", function () {
@@ -93,7 +92,7 @@
             });
 
             $('#ExportToExcel').click(function () {
-                _me.exportToExcel(gridControl.level);
+                _me.exportToExcel(gridControl.level, gridControl.sortColumnName, gridControl.sortOrder);
             });
         }
 
@@ -105,15 +104,12 @@
                 Site.blockUI();
                 gridControl.pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
                 window.setTimeout(function () {
-                    gridControl.removeSorting = false;
                     if (gridControl.sortColumnName === index) {
                         gridControl.sortOrder = gridControl.sortOrder === "asc" ? "desc" : "asc";
                     } else {
                         gridControl.sortOrder = "asc";
                         gridControl.sortColumnName = index;
                     }
-
-                    _cacheData[gridControl.level].Data = sortData(_cacheData[gridControl.level].Data);
 
                     _me.bindData(gridControl.level, _cacheData[gridControl.level], _filterData[gridControl.level].ProductOptions);
 
@@ -160,10 +156,14 @@
             return true;
         }
 
-        function exportToExcel(level) {
+        function exportToExcel(level, sortBy, sortOrder) {
             var data = Site.clone(_filterData[level]);
             data.IsExportExcel = true;
             data.Level = level;
+            if (level === 1 && sortBy) {
+                data.SortBy = sortBy;
+                data.SortOrder = sortOrder;
+            }
             ExcelHelper.exportExcel(data, Site.resolveClientUrl(PlatformWinLossOption.urlExcelData));
             return false;
         }
@@ -179,9 +179,11 @@
 
             var reportGrid = $("#ReportGrid");
             var onPaging = false;
+            var data = level === 1 ? sortData(response.Data) : response.Data;
+
             var gridOption = PlatformWinLossOption.getGridOption(level, productOptions);
-            gridOption.datastr = response.Data;
-            gridOption.rowNum = level === 0 ? -1 : gridControl.pageSize;
+            gridOption.datastr = data;
+            gridOption.rowNum = level === 0 ? numOfRow : gridControl.pageSize;
             gridOption.treeGrid = level === 0;
             gridOption.onPaging = function (pgButton) {
                 gridControl.pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
@@ -227,7 +229,7 @@
                 jqGridAdditional.setGroupCustomerWLColumns(reportGrid);
             }
 
-            if (level === 1 && !gridControl.removeSorting) {
+            if (level === 1 && gridControl.sortColumnName) {
                 jqGridAdditional.addSortableHeader(reportGrid, gridControl.sortColumnName, gridControl.sortOrder);
             }
         }
@@ -288,6 +290,8 @@
         function drillDown(level, data) {
             gridControl.level = level;
             gridControl.pageSize = PlatformWinLossOption.pageSize;
+            gridControl.sortColumnName = null;
+            gridControl.sortOrder = "desc";
 
             var submitData = _filterData[level - 1];
             var productOptions;
@@ -371,15 +375,31 @@
         }
 
         function sortData(arrayData) {
-            var sortType = gridControl.sortOrder === "asc" ? "OrderBy" : "OrderByDescending";
-            var sortFunction = function (row) {
-                return row[gridControl.sortColumnName];
-            };
+            var totalData = arrayData.length;
 
-            var data = Enumerable.From(arrayData)[sortType](sortFunction).ToArray();
+            if (!gridControl.sortColumnName || totalData <= 1) {
+                return arrayData;
+            }
 
-            for (var i = 0; i < data.length; i++) {
-                data[i].Index = i + 1;
+            var sortThenBy = arrayData[0].Id ? "Id" : "Index";
+
+            var data = DataHelper.sort(
+                arrayData,
+                function (x) { return x[gridControl.sortColumnName]; },
+                gridControl.sortOrder,
+                function (x) { return x[sortThenBy]; },
+                "asc");
+
+            if (sortThenBy === "Id") {
+                for (var i = 0; i < totalData; i++) {
+                    data[i].Index = i + 1;
+                }
+            }
+            else {
+                for (var j = 0; j < totalData; j++) {
+                    arrayData[j].Id = j + 1;
+                    data[j].Index = j + 1;
+                }
             }
 
             return data;

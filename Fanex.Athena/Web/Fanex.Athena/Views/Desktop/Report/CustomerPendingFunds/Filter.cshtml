@@ -2,8 +2,8 @@
 <div class="page-form">
     <form id="CustomerPendingFundsForm" name="CustomerPendingFundsForm" method="post" action="">
         @Html.AntiForgeryToken()
-        @Html.Hidden("SortDirection", Model.Param.SortDirection)
-        @Html.Hidden("SortColumn", Model.Param.SortColumn)
+        @Html.Hidden("OrderItem", Model.Param.OrderItem)
+        @Html.Hidden("IsAscSort", Model.Param.IsAscSort)
         @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
         <div class="row">
             <div class="input-field col l2 m3 s12">

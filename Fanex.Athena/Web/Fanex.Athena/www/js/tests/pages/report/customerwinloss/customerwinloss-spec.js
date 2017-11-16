@@ -131,7 +131,7 @@
                     it("#ExportToExcel click - ajax settings should be correct", function () {
                         setFixtures('<div id="ExportToExcel"></div>');
                         spyOn(Report, "ValidProducts").and.returnValues(true);
-                        var postData = { PageIndex: 1, PageSize: 500, sortColumn: 'ExternalId', SortDirection: 'asc', Username: '', isExportExcel: true };
+                        var postData = { PageIndex: 1, PageSize: 500, OrderItem: 2, IsAscSort: true, Username: '', isExportExcel: true };
 
                         CustomerWinLoss.initEvent();
                         $('#ExportToExcel').click();
@@ -413,7 +413,7 @@
                         jasmine.clock().tick(101);
 
                         var submitData = CustomerWinLoss.getSubmitData();
-                        expect(submitData.SortDirection).toBe("asc");
+                        expect(submitData.IsAscSort).toBe(true);
                     });
 
                     it("grid should be sorted descending on the second time", function () {
@@ -424,13 +424,13 @@
                         jasmine.clock().tick(101);
 
                         var submitData = CustomerWinLoss.getSubmitData();
-                        expect(submitData.SortDirection).toBe("asc");
+                        expect(submitData.IsAscSort).toBe(true);
 
                         gridOption.onSortCol(2);
                         jasmine.clock().tick(101);
 
                         submitData = CustomerWinLoss.getSubmitData();
-                        expect(submitData.SortDirection).toBe("desc");
+                        expect(submitData.IsAscSort).toBe(false);
                     });
 
                     it("grid should be sorted ascending on the third time", function () {
@@ -441,19 +441,19 @@
                         jasmine.clock().tick(101);
 
                         var submitData = CustomerWinLoss.getSubmitData();
-                        expect(submitData.SortDirection).toBe("asc");
+                        expect(submitData.IsAscSort).toBe(true);
 
                         gridOption.onSortCol(2);
                         jasmine.clock().tick(101);
 
                         submitData = CustomerWinLoss.getSubmitData();
-                        expect(submitData.SortDirection).toBe("desc");
+                        expect(submitData.IsAscSort).toBe(false);
 
                         gridOption.onSortCol(2);
                         jasmine.clock().tick(101);
 
                         submitData = CustomerWinLoss.getSubmitData();
-                        expect(submitData.SortDirection).toBe("asc");
+                        expect(submitData.IsAscSort).toBe(true);
                     });
                 });
 

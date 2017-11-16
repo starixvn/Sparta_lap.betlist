@@ -45,6 +45,7 @@
             </div>
         </div>
         @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+        @Html.Hidden("OrderItem", Model.Param.OrderItem)
     </form>
     @Html.Hidden("IsAllowedBACommission", Model.ProductAccess.IsAllowBA)
     @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)

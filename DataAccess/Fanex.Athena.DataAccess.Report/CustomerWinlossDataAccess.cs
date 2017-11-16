@@ -7,6 +7,7 @@
 namespace Fanex.Athena.DataAccess.Report
 {
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using Core.Configuration;
@@ -15,7 +16,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Data;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
@@ -37,25 +37,25 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public SortableReportResultModel<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel)
+        public ReportResultModel<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinLoss";
             try
             {
-                using (var db = this.GetObjectDb(UspName))
+                using (var db = GetObjectDb(UspName))
                 {
                     AddParameters(db, metaModel, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
 
                     using (var reader = db.ExecuteReader())
                     {
-                        var dataList = new SortableList<CustomerWinLoss>();
+                        var dataList = new List<CustomerWinLoss>();
+                        var index = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
                         while (reader.Read())
                         {
-                            var item = ReadDataItem(reader, metaModel.BaseCurrency);
-                            dataList.Add(item);
+                            dataList.Add(ReadDataItem(reader, metaModel.BaseCurrency, index++));
                         }
 
-                        var result = new SortableReportResultModel<CustomerWinLoss>
+                        var result = new ReportResultModel<CustomerWinLoss>
                         {
                             DataList = dataList
                         };
@@ -80,10 +80,11 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private static CustomerWinLoss ReadDataItem(IDataReader reader, string baseCurrency)
+        private static CustomerWinLoss ReadDataItem(IDataReader reader, string baseCurrency, int index)
         {
             return new CustomerWinLoss
             {
+                Index = index,
                 CustId = reader.ToInt("CustID"),
                 ExternalId = reader.ToString("nickname"),
                 SystemId = reader.ToString("username"),
@@ -92,10 +93,10 @@ namespace Fanex.Athena.DataAccess.Report
                 CustomerWL = reader.ToDecimal("memberwinlost" + baseCurrency),
                 BetEffective = reader.ToDecimal("beteffective" + baseCurrency),
                 PlayerComm = reader.ToDecimal("playercomm" + baseCurrency),
-                CustomerTotalWL = reader.ToDecimal("memberwinlost" + baseCurrency) + reader.ToDecimal("playercomm" + baseCurrency),
+                CustomerTotalWL = reader.ToDecimal("customertotalwl" + baseCurrency),
                 LicenseeWL = reader.ToDecimal("licenseewl" + baseCurrency),
                 BAComm = reader.ToDecimal("commba" + baseCurrency),
-                RacingRevenue = reader.ToDecimal("winlossrb" + baseCurrency) + reader.ToDecimal("commrb" + baseCurrency),
+                RacingRevenue = reader.ToDecimal("racingrevenue" + baseCurrency),
                 AmtDueToBA = reader.ToDecimal("amtduetoba" + baseCurrency),
                 AmtDueToRacing = reader.ToDecimal("amtduetorb" + baseCurrency)
             };
@@ -112,6 +113,9 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("username", DbType.String, metaModel.Username);
+            db.AddInParameter("OrderItem", DbType.Int16, metaModel.OrderItem);
+            db.AddInParameter("IsAscSort", DbType.Boolean, metaModel.IsAscSort);
+            db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency.ToUpperInvariant());
             foreach (var item in metaModel.ProductOptions)
             {
                 db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
@@ -128,12 +132,11 @@ namespace Fanex.Athena.DataAccess.Report
                 PlayerComm = reader.ToDecimal("sumplayercomm" + baseCurrency),
                 LicenseeWL = reader.ToDecimal("sumlicenseewl" + baseCurrency),
                 BAComm = reader.ToDecimal("sumcommba" + baseCurrency),
-                RacingRevenue = reader.ToDecimal("sumwinlossrb" + baseCurrency)
-                + reader.ToDecimal("sumcommrb" + baseCurrency),
+                RacingRevenue = reader.ToDecimal("sumracingrevenue" + baseCurrency),
                 AmtDueToBA = reader.ToDecimal("sumamtduetoba" + baseCurrency),
                 AmtDueToRacing = reader.ToDecimal("sumamtduetorb" + baseCurrency),
                 BetEffective = reader.ToDecimal("sumbeteffective" + baseCurrency),
-                CustomerTotalWL = reader.ToDecimal("summemberwinlost" + baseCurrency) + reader.ToDecimal("sumplayercomm" + baseCurrency)
+                CustomerTotalWL = reader.ToDecimal("sumcustomertotalwl" + baseCurrency)
             };
         }
     }

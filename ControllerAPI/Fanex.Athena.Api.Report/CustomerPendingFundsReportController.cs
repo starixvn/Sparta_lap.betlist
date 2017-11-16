@@ -14,6 +14,7 @@
     using Extension.Utility;
     using Fanex.Athena.Api.Base.Attributes;
     using Fanex.Athena.Model.Core.DataDomain;
+    using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Service.Core.Common.Interfaces;
@@ -59,21 +60,13 @@
 
         private dynamic ProcessRequest(CustomerPendingFundsMetaModel metaModel)
         {
-            CustPendingFunds totalData;
-            int totalRows;
-            var dataList = GetData(metaModel, out totalData, out totalRows);
-
-            var index = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
-            foreach (var item in dataList)
-            {
-                item.Index = index++;
-            }
+            var data = GetData(metaModel);
 
             return new
             {
-                Data = dataList,
-                Total = totalData,
-                TotalRows = totalRows
+                Data = data.DataList,
+                Total = data.TotalData,
+                TotalRows = data.TotalRows
             };
         }
 
@@ -91,16 +84,14 @@
                 CurrencyName = metaModel.CurrencyName
             };
 
-            CustPendingFunds totalData;
-            int totalRows;
             metaModel.PageIndex = 1;
             metaModel.PageSize = PageSizeExcel;
-            var dataList = GetData(metaModel, out totalData, out totalRows);
+            var data = GetData(metaModel);
             var excelModel = new CustomerPendingFundsExcelModel
             {
                 ConvertingOption = convertingOption,
-                DataList = dataList,
-                TotalData = totalData,
+                DataList = data.DataList,
+                TotalData = data.TotalData,
                 SystemIdVisible = !_appSettings.FakeLicenseeList.Contains(SessionService.LicenseeSession.LicenseeId)
             };
             var custPendingFundsExcel = CreateExcel(templatePath, excelModel);
@@ -109,20 +100,19 @@
             return ExcelStream(custPendingFundsExcel.Workbook, FileName);
         }
 
-        private IEnumerable<CustPendingFunds> GetData(CustomerPendingFundsMetaModel metaModel, out CustPendingFunds totalData, out int totalRows)
+        private ReportResultModel<CustPendingFunds> GetData(CustomerPendingFundsMetaModel metaModel)
         {
-            if (!metaModel.IsValid)
+            if (!metaModel.IsValid || !IsValidRequest(metaModel))
             {
-                totalData = new CustPendingFunds();
-                totalRows = 0;
-                return new SortableList<CustPendingFunds>();
+                return new ReportResultModel<CustPendingFunds>
+                {
+                    DataList = new List<CustPendingFunds>(),
+                    TotalData = new CustPendingFunds()
+                };
             }
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var dataList = _custPendingFundsDataAccess.GetDataList(metaModel, out totalData, out totalRows);
-            dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("asc", StringComparison.OrdinalIgnoreCase));
-
-            return dataList;
+            return _custPendingFundsDataAccess.GetDataList(metaModel);
         }
     }
 }

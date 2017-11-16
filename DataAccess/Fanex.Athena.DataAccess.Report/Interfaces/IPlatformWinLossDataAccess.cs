@@ -12,7 +12,7 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
 
     public interface IPlatformWinLossDataAccess
     {
-        ReportResultModel<PlatformWinLossMember> GetMemberData(PlatformWinLossMetaModel metaModel);
+        SortableReportResultModel<PlatformWinLossMember> GetMemberData(PlatformWinLossMetaModel metaModel);
 
         ReportResultModel<PlatformWinLossSummary> GetSummaryData(PlatformWinLossMetaModel metaModel);
     }

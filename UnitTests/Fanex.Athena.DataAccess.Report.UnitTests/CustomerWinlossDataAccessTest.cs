@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Core.Configuration.Interfaces;
     using Data;
     using Extension.Utility;
@@ -105,7 +106,7 @@
 
             // Action
             var result = _dataAccess.GetDataList(_metaModel);
-            var firstItem = result.DataList[0];
+            var firstItem = result.DataList.First();
 
             // Assert
             Assert.That(firstItem.CustId, Is.EqualTo(expectedResult.CustId));
@@ -150,6 +151,8 @@
             var commrbColumn = "commrb" + _metaModel.BaseCurrency;
             var amtduetobaColumn = "amtduetoba" + _metaModel.BaseCurrency;
             var amtduetorbColumn = "amtduetorb" + _metaModel.BaseCurrency;
+            var customertotalwlColumn = "customertotalwl" + _metaModel.BaseCurrency;
+            var racingrevenueColumn = "racingrevenue" + _metaModel.BaseCurrency;
 
             _reader["CustID"].Returns(expected.CustId);
             _reader["nickname"].Returns(expected.ExternalId);
@@ -165,6 +168,8 @@
             _reader[commrbColumn].Returns(5m);
             _reader[amtduetobaColumn].Returns(expected.AmtDueToBA);
             _reader[amtduetorbColumn].Returns(expected.AmtDueToRacing);
+            _reader[customertotalwlColumn].Returns(expected.CustomerTotalWL);
+            _reader[racingrevenueColumn].Returns(expected.RacingRevenue);
         }
 
         private void ConfigureReaderForTotalData(CustomerWinLoss expected)
@@ -179,6 +184,8 @@
             var commrbColumn = "sumcommrb" + _metaModel.BaseCurrency;
             var amtduetobaColumn = "sumamtduetoba" + _metaModel.BaseCurrency;
             var amtduetorbColumn = "sumamtduetorb" + _metaModel.BaseCurrency;
+            var sumracingrevenueColumn = "sumracingrevenue" + _metaModel.BaseCurrency;
+            var sumcustomertotalwlColumn = "sumcustomertotalwl" + _metaModel.BaseCurrency;
 
             _reader[turnoverColumn].Returns(expected.Turnover);
             _reader["sumbetcount"].Returns(expected.TotalTransaction);
@@ -191,6 +198,8 @@
             _reader[commrbColumn].Returns(5m);
             _reader[amtduetobaColumn].Returns(expected.AmtDueToBA);
             _reader[amtduetorbColumn].Returns(expected.AmtDueToRacing);
+            _reader[sumracingrevenueColumn].Returns(expected.RacingRevenue);
+            _reader[sumcustomertotalwlColumn].Returns(expected.CustomerTotalWL);
 
             _reader["TotalRows"].Returns(100);
         }

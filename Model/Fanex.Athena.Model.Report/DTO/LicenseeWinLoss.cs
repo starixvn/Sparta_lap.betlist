@@ -16,6 +16,8 @@ namespace Fanex.Athena.Model.Report.DTO
     [Serializable]
     public class LicenseeWinLoss : ICustomerWinLoss, ILicenseeWL, ITurnOver
     {
+        public int Index { get; set; }
+
         public DateTime Date { get; set; }
 
         public string ExternalId { get; set; }

@@ -1,10 +1,10 @@
 ﻿define(
     ["jquery", "common/querystring", "common/site", "../report", "./licenseewinloss.option", "lib/jqgrid/jquery.jqgrid.additional",
         "components/pluginhelper/daterangepicker", "moment", "common/popup", "components/pluginhelper/multiselect",
-        "helpers/daterange", "helpers/downloader", "components/toast", "lib/jqgrid/jquery.jqGrid.en",
+        "helpers/daterange", "helpers/downloader", "components/toast", "helpers/datahelper", "lib/jqgrid/jquery.jqGrid.en",
         "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension", "lib/linq", "extensions/ajaxBinaryTransporting"],
     function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup,
-        MultiSelect, DateHelper, Downloader, Toast) {
+        MultiSelect, DateHelper, Downloader, Toast, DataHelper) {
         "use strict";
         var REPORT_BY_MONTHLY = 2;
         var VALID_MONTH_RANGE = 3;
@@ -15,7 +15,6 @@
         var _sortColumnName = null;
         var _sortOrder = "desc";
         var _level = 0;
-        var _removeSorting = false;
         var _reportBy = null;
         var _submitData; // cache submit data of level 0.
 
@@ -29,15 +28,12 @@
                 LicenseeWinLossOption.gridOption.onSortCol = function (index) {
                     Site.blockUI();
                     window.setTimeout(function () {
-                        _removeSorting = false;
                         if (_sortColumnName === index) {
                             _sortOrder = _sortOrder === "asc" ? "desc" : "asc";
                         } else {
                             _sortOrder = "asc";
                             _sortColumnName = index;
                         }
-
-                        cacheData[_level].Data = _me.sortData(cacheData[_level].Data);
 
                         _me.bindData(_level, _reportBy, cacheData[_level]);
 
@@ -60,11 +56,31 @@
             },
 
             sortData: function (arrayData) {
-                var data = _sortOrder === "asc" ?
-                 Enumerable.From(arrayData).OrderBy(function (x) { return x[_sortColumnName]; }).ToArray()
-                 : Enumerable.From(arrayData).OrderByDescending(function (x) { return x[_sortColumnName]; }).ToArray();
-                for (var i = 0; i < data.length; i++) {
-                    data[i].Index = i + 1;
+                var totalData = arrayData.length;
+
+                if (!_sortColumnName || totalData <= 1) {
+                    return arrayData;
+                }
+
+                var sortThenBy = arrayData[0].Id ? "Id" : "Index";
+
+                var data = DataHelper.sort(
+                    arrayData,
+                    function (x) { return x[_sortColumnName]; },
+                    _sortOrder,
+                    function (x) { return x[sortThenBy]; },
+                    "asc");
+
+                if (sortThenBy === "Id") {
+                    for (var i = 0; i < totalData; i++) {
+                        data[i].Index = i + 1;
+                    }
+                }
+                else {
+                    for (var j = 0; j < totalData; j++) {
+                        arrayData[j].Id = j + 1;
+                        data[j].Index = j + 1;
+                    }
                 }
 
                 return data;
@@ -84,6 +100,8 @@
                 $('#SubmitButton').click(function () {
                     $('#IsExportExcel').val(false);
                     _level = 0;
+                    _sortColumnName = null;
+                    _sortOrder = "desc";
                     _me.submit();
                 });
 
@@ -91,6 +109,10 @@
                     $('#IsExportExcel').val(true);
 
                     var data = $("#licenseewinloss").serializeObject();
+                    if (_sortColumnName) {
+                        data.sortby = _sortColumnName;
+                        data.sortOrder = _sortOrder;
+                    }
 
                     var option = {
                         type: "POST",
@@ -182,10 +204,6 @@
 
                 var mainForm = $("#licenseewinloss");
                 var data = mainForm.serializeObject();
-                if (_sortColumnName) {
-                    data.sortby = _sortColumnName;
-                    data.sortOrder = _sortOrder;
-                }
 
                 var option = {
                     type: "POST",
@@ -228,11 +246,8 @@
                 return new Date(year, month + 1, 0);
             },
 
-            drillDown: function (level, currencyId, customerId, datetime, currencyName, keepSorting) {
+            drillDown: function (level, currencyId, customerId, datetime, currencyName) {
                 level = Number(level);
-                if (!keepSorting) {
-                    _removeSorting = true;
-                }
 
                 if (_level !== level) {
                     _level = level;
@@ -251,11 +266,6 @@
 
                 var drilldownDate = new Date(datetime);
                 var dateRange = Report.GetDrilldownDateRange(param.ReportBy, param.FromDate, param.ToDate, drilldownDate);
-
-                if (keepSorting && _sortColumnName) {
-                    param.SortBy = _sortColumnName;
-                    param.SortOrder = _sortOrder;
-                }
 
                 var postData = JSON.stringify(param);
 
@@ -340,10 +350,11 @@
 
                 var numOfTotalRow = response.Total.length;
                 var onPaging = false;
+                var data = _me.sortData(response.Data);
 
                 var gridOption = LicenseeWinLossOption.getGridOption(level, reportBy, productOptions);
                 gridOption.rownumbers = true;
-                gridOption.data = response.Data;
+                gridOption.data = data;
                 gridOption.userData = {};
                 gridOption.rowNum = level === 2 ? LicenseeWinLossOption.pageSize : LicenseeWinLossOption.nonePagingSize;
                 gridOption.rowList = LicenseeWinLossOption.rowList;
@@ -392,7 +403,7 @@
                 // Show the grid
                 reportGrid.jqGrid(gridOption);
 
-                if (!_removeSorting) {
+                if (_sortColumnName) {
                     jqGridAdditional.addSortableHeader(reportGrid, _sortColumnName, _sortOrder);
                 }
 

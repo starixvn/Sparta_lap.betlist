@@ -24,9 +24,9 @@ namespace Fanex.Athena.Model.Report.MetaModel
             ToDate = DateTime.Today;
             PageIndex = 1;
             PageSize = 1000;
-            SortDirection = "ASC";
-            SortColumn = "ExternalId";
             DrawFilter = DrawFilterType.Normal;
+            OrderItem = 0;
+            IsAscSort = true;
         }
 
         public bool IsHistory { get; set; }
@@ -35,9 +35,9 @@ namespace Fanex.Athena.Model.Report.MetaModel
 
         public int DrawFilter { get; set; }
 
-        public string SortDirection { get; set; }
+        public int OrderItem { get; set; }
 
-        public string SortColumn { get; set; }
+        public bool IsAscSort { get; set; }
 
         public string Username { get; set; }
     }

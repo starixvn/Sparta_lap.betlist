@@ -1,4 +1,4 @@
-﻿/*global jqGridAdditional, WeeklyLiveMatchOption, Site, JSLINQ */
+﻿/*global jqGridAdditional, WeeklyLiveMatchOption, Site, DataHelper */
 /// <reference path="/@JSense.js" />
 ///
 var WeeklyLiveMatch = (function ($) {
@@ -16,22 +16,18 @@ var WeeklyLiveMatch = (function ($) {
 
     function sortData(arrayData) {
         var columnIndex = SPORT_COLUMN_INDEX;
+        var sortThenBy = null;
+
         if (_sortColumn.indexOf('Week') === 0) {
             columnIndex = Number(_sortColumn.replace('Week', '')) + START_WEEK_COLUMN_INDEX;
-            arrayData = JSLINQ(arrayData).OrderBy(function (x) { return x.Cell[SPORT_COLUMN_INDEX]; }).items;
+            sortThenBy = function (x) { return x.Cell[SPORT_COLUMN_INDEX]; };
         }
 
-        for (var i = 0; i < arrayData.length; i++) {
-            arrayData[i].SortingValue = arrayData[i].Cell[columnIndex];
-        }
-
-        var data = _sortDirection === "asc" ?
-     JSLINQ(arrayData).OrderBy(function (x) { return x.SortingValue; }).items
-     : JSLINQ(arrayData).OrderByDescending(function (x) { return x.SortingValue; }).items;
+        var data = DataHelper.sort(arrayData, function (x) { return x.Cell[columnIndex]; }, _sortDirection, sortThenBy, "asc");
 
         // Re-assign Index column.
-        for (var j = 0; j < data.length; j++) {
-            data[j].Cell[0] = j + 1;
+        for (var i= 0; i < data.length; i++) {
+            data[i].Cell[0] = i + 1;
         }
 
         return data;

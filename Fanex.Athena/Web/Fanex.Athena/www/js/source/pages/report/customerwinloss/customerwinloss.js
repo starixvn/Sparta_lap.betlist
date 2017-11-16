@@ -23,13 +23,29 @@
         "use strict";
 
         var EXCEL_FILENAME = "CustomerWinLoss.xls";
+        var SORTING_CODE = {
+            "ExternalId": 2,
+            "SystemId": 1,
+            "Turnover": 3,
+            "TotalTransaction": 13,
+            "CustomerWL": 4,
+            "BetEffective": 5,
+            "PlayerComm": 10,
+            "CustomerTotalWL": 14,
+            "LicenseeWL": 6,
+            "BAComm": 8,
+            "RacingRevenue": 15,
+            "AmtDueToBA": 11,
+            "AmtDueToRacing": 12
+        };
 
         var _ajaxRequest = null;
         var _submitData = null;
         var _productCodes = [];
 
         var _sortColumnName = "";
-        var _sortOrder = "desc";
+        var _sortOrder = "";
+        var _orderItem = 0;
         var _isFirstLoad = false;
 
         var _pagingOption =
@@ -154,6 +170,7 @@
             CustomerWinLossOption.isAllowBA = Site.asBool($(_selector.IsAllowedBAInput).val());
             CustomerWinLossOption.isAllowRB = Site.asBool($(_selector.IsAllowedRBInput).val());
             CustomerWinLossOption.hasCustomerComm = Site.asBool($(_selector.IsAllowedCustomerCommissionInput).val());
+            resetParam();
         }
 
         function initAutoComplete() {
@@ -301,6 +318,7 @@
                     } else {
                         _sortOrder = "asc";
                         _sortColumnName = index;
+                        _orderItem = SORTING_CODE[_sortColumnName];
                     }
                     _me.submit();
                 }, 100);
@@ -356,14 +374,15 @@
             else {
                 _submitData.PageIndex = _pagingOption.pageindex;
                 _submitData.PageSize = _pagingOption.pagesize;
-                _submitData.sortColumn = _sortColumnName;
-                _submitData.SortDirection = _sortOrder;
+                _submitData.OrderItem = _orderItem;
+                _submitData.IsAscSort = _sortOrder === "asc";
             }
         }
 
         function resetParam() {
             _sortColumnName = "ExternalId";
             _sortOrder = "asc";
+            _orderItem = SORTING_CODE[_sortColumnName];
             _pagingOption.pageindex = 1;
             _submitData = null;
         }
@@ -372,8 +391,9 @@
             var param = $(_selector.Form).serializeObject();
             param.PageIndex = _pagingOption.pageindex;
             param.PageSize = _pagingOption.pagesize;
-            param.sortColumn = _sortColumnName;
-            param.SortDirection = _sortOrder;
+            param.OrderItem = _orderItem;
+            param.IsAscSort = _sortOrder === "asc";
+            
             if (param.Username === undefined) {
                 param.Username = "";
             }

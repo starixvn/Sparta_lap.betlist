@@ -15,13 +15,13 @@ namespace Fanex.Athena.Model.Report.MetaModel
         {
             PageIndex = 1;
             PageSize = 1000;
-            SortDirection = "asc";
-            SortColumn = "ExternalId";
+            OrderItem = 0;
+            IsAscSort = true;
         }
 
-        public string SortDirection { get; set; }
+        public int OrderItem { get; set; }
 
-        public string SortColumn { get; set; }
+        public bool IsAscSort { get; set; }
 
         public override bool IsValid
         {

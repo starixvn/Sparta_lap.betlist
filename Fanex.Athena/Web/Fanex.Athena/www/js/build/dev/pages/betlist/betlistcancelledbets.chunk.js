@@ -20588,17 +20588,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /* 290 */,
 /* 291 */,
 /* 292 */,
-/* 293 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(294);
-
-
-/***/ }),
+/* 293 */,
 /* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(295)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetListCancelledBets) {
+module.exports = __webpack_require__(295);
+
+
+/***/ }),
+/* 295 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(296)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetListCancelledBets) {
     "use strict";
 
     $(BetListCancelledBets.initialize);
@@ -20607,7 +20608,7 @@ module.exports = __webpack_require__(294);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 295 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20660,6 +20661,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 url = Site.setLicenseeOptionParam(url);
                 url = QueryString.setParam(url, "custId", $("#CustId").val());
                 $('#IsExportExcel').val(true);
+                var sortParam = BetList.getSortParams();
+                if (sortParam != null) {
+                    $("#SortBy").val(sortParam.SortBy);
+                    $("#SortOrder").val(sortParam.SortOrder);
+                }
+
                 $('#CancellerBetsBetListForm').submit();
             }
         };
@@ -20669,5 +20676,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
-],[293]);
+],[294]);
 //# sourceMappingURL=betlistcancelledbets.chunk.js.map

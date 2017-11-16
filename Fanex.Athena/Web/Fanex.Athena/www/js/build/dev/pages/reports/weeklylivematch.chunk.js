@@ -1,4 +1,4 @@
-webpackJsonp([11],[
+webpackJsonp([9],[
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21672,51 +21672,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /* 149 */,
 /* 150 */,
 /* 151 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
-    var _me = {
-        exportExcel: function (postData, url, method) {
-            var data = Site.clone(postData);
-            data.IsExportExcel = true;
-            var $form = $('<form id="ExportExcelForm">').attr({ action: url, method: method || 'post' })
-                .appendTo('body');
-            for (var property in data) {
-                if (data.hasOwnProperty(property)) {
-                    var value = data[property];
-                    if (property === "ProductOptions") {
-                        var products = typeof (value) === "object" ? value : JSON.parse(value);
-                        for (var i = 0; i < products.length; i++) {
-                            var product = products[i];
-                            $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Code', value: product.Code }).appendTo($form);
-                            $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Status', value: product.Status }).appendTo($form);
-                        }
-                    } else {
-                        $('<input type="hidden">').attr({ name: property, value: value }).appendTo($form);
-                    }
-                }
-            }
-            if (!data["__RequestVerificationToken"]) {
-                $('<input type="hidden">')
-                    .attr({ name: '__RequestVerificationToken', value: $("input[name=__RequestVerificationToken]").val() })
-                    .appendTo($form);
-            }
-
-            $form.submit();
-            $form.remove();
-        }
-    };
-
-    return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ }),
-/* 152 */,
-/* 153 */,
-/* 154 */
 /***/ (function(module, exports) {
 
 ﻿/*--------------------------------------------------------------------------
@@ -24454,12 +24409,85 @@ Enumerable = (function ()
 })()
 
 /***/ }),
+/* 152 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+    var _me = {
+        exportExcel: function (postData, url, method) {
+            var data = Site.clone(postData);
+            data.IsExportExcel = true;
+            var $form = $('<form id="ExportExcelForm">').attr({ action: url, method: method || 'post' })
+                .appendTo('body');
+            for (var property in data) {
+                if (data.hasOwnProperty(property)) {
+                    var value = data[property];
+                    if (property === "ProductOptions") {
+                        var products = typeof (value) === "object" ? value : JSON.parse(value);
+                        for (var i = 0; i < products.length; i++) {
+                            var product = products[i];
+                            $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Code', value: product.Code }).appendTo($form);
+                            $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Status', value: product.Status }).appendTo($form);
+                        }
+                    } else {
+                        $('<input type="hidden">').attr({ name: property, value: value }).appendTo($form);
+                    }
+                }
+            }
+            if (!data["__RequestVerificationToken"]) {
+                $('<input type="hidden">')
+                    .attr({ name: '__RequestVerificationToken', value: $("input[name=__RequestVerificationToken]").val() })
+                    .appendTo($form);
+            }
+
+            $form.submit();
+            $form.remove();
+        }
+    };
+
+    return _me;
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+/* 153 */,
+/* 154 */,
 /* 155 */,
 /* 156 */,
 /* 157 */,
 /* 158 */,
 /* 159 */,
-/* 160 */,
+/* 160 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(151)], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+    function sort(arrayData, sortByFunc, sortOrder, sortThenByFunc, sortThenOrder) {
+        if (!sortByFunc || arrayData.length <= 1) {
+            return arrayData;
+        }
+
+        var sortType = sortOrder === "asc" ? "OrderBy" : "OrderByDescending";
+
+        if (!sortThenByFunc) {
+            return Enumerable.From(arrayData)[sortType](sortByFunc).ToArray();
+        }
+
+        var sortThenType = sortThenOrder === "asc" ? "ThenBy" : "ThenByDescending";
+
+        return Enumerable.From(arrayData)[sortType](sortByFunc)[sortThenType](sortThenByFunc).ToArray();
+    }
+
+    return {
+        sort: sort
+    };
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
 /* 161 */,
 /* 162 */,
 /* 163 */,
@@ -24604,17 +24632,18 @@ Enumerable = (function ()
 /* 302 */,
 /* 303 */,
 /* 304 */,
-/* 305 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(306);
-
-
-/***/ }),
+/* 305 */,
 /* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(307)], __WEBPACK_AMD_DEFINE_RESULT__ = function (WeeklyLiveMatch) {
+module.exports = __webpack_require__(307);
+
+
+/***/ }),
+/* 307 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(308)], __WEBPACK_AMD_DEFINE_RESULT__ = function (WeeklyLiveMatch) {
     "use strict";
 
     $(function () {
@@ -24631,14 +24660,14 @@ module.exports = __webpack_require__(306);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 307 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(308), __webpack_require__(119),
-        __webpack_require__(127), __webpack_require__(136), __webpack_require__(151),
-        __webpack_require__(122), __webpack_require__(123), __webpack_require__(154), __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, WeeklyLiveMatchOption, jqGridAdditional, DatePicker, DateHelper, ExcelHelper) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(309), __webpack_require__(119),
+        __webpack_require__(127), __webpack_require__(136), __webpack_require__(152), __webpack_require__(160),
+        __webpack_require__(122), __webpack_require__(123), __webpack_require__(151), __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, WeeklyLiveMatchOption, jqGridAdditional, DatePicker, DateHelper, ExcelHelper, DataHelper) {
             var VALID_MONTH_RANGE = 2;
             var SPORT_COLUMN_INDEX = 1;
             var START_WEEK_COLUMN_INDEX = 2;
@@ -24682,22 +24711,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
                 sortData: function (arrayData) {
                     var columnIndex = SPORT_COLUMN_INDEX;
+                    var sortThenBy = null;
+
                     if (_sortColumn.indexOf('Week') === 0) {
                         columnIndex = Number(_sortColumn.replace('Week', '')) + START_WEEK_COLUMN_INDEX;
-                        arrayData = Enumerable.From(arrayData).OrderBy(function (x) { return x.Cell[SPORT_COLUMN_INDEX]; }).ToArray();
+                        sortThenBy = function (x) { return x.Cell[SPORT_COLUMN_INDEX]; };
                     }
 
-                    for (var i = 0; i < arrayData.length; i++) {
-                        arrayData[i].SortingValue = arrayData[i].Cell[columnIndex];
-                    }
-
-                    var data = _sortDirection === "asc" ?
-                 Enumerable.From(arrayData).OrderBy(function (x) { return x.SortingValue; }).ToArray()
-                 : Enumerable.From(arrayData).OrderByDescending(function (x) { return x.SortingValue; }).ToArray();
+                    var data = DataHelper.sort(arrayData, function (x) { return x.Cell[columnIndex]; }, _sortDirection, sortThenBy, "asc");
 
                     // Re-assign Index column.
-                    for (var j = 0; j < data.length; j++) {
-                        data[j].Cell[0] = j + 1;
+                    for (var i = 0; i < data.length; i++) {
+                        data[i].Cell[0] = i + 1;
                     }
 
                     return data;
@@ -24805,7 +24830,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 308 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24901,5 +24926,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
-],[305]);
+],[306]);
 //# sourceMappingURL=weeklylivematch.chunk.js.map

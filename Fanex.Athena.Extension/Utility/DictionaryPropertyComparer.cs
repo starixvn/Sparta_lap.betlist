@@ -19,16 +19,35 @@ namespace Fanex.Athena.Extension.Utility
             _key = key;
         }
 
+        public DictionaryPropertyComparer(
+            object key, 
+            string dicProperty, 
+            ListSortDirection dicDirection, 
+            string propertyName, 
+            ListSortDirection propDirection)
+            : base(dicProperty, dicDirection, propertyName, propDirection)
+        {
+            _key = key;
+        }
+
         #region IComparer<T>
 
         public override int Compare(T x, T y)
         {
-            var firstValue = (GetPropertyValue(x, PropertyName) as IDictionary)[_key];
-            var secondValue = (GetPropertyValue(y, PropertyName) as IDictionary)[_key];
+            var firstValue = (GetPropertyValue(x, FirstPropertyName) as IDictionary)[_key];
+            var secondValue = (GetPropertyValue(y, FirstPropertyName) as IDictionary)[_key];
 
-            return Direction == ListSortDirection.Ascending ?
-                CompareAscending(firstValue, secondValue) :
-                CompareDescending(firstValue, secondValue);
+            var result = CompareValues(firstValue, secondValue, FirstDirection);
+
+            if (result != 0 || string.IsNullOrEmpty(SecondPropertyName))
+            {
+                return result;
+            }
+
+            firstValue = GetPropertyValue(x, SecondPropertyName);
+            secondValue = GetPropertyValue(y, SecondPropertyName);
+
+            return CompareValues(firstValue, secondValue, SecondDirection);
         }
 
         #endregion IComparer<T>

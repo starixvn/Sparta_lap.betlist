@@ -15,6 +15,7 @@ namespace Fanex.Athena.Api.Report
     using Base.Attributes;
     using DataAccess.Report;
     using DataAccess.Report.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Extension.Helper;
@@ -89,6 +90,21 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
+        private static void SortMemberData(SortableList<PlatformWinLossMember> dataList, string sortBy, string sortOrder = "asc")
+        {
+            if (string.IsNullOrEmpty(sortBy) || string.IsNullOrEmpty(sortOrder))
+            {
+                return;
+            }
+
+            if (typeof(PlatformWinLossMember).GetProperty(sortBy) == null)
+            {
+                return;
+            }
+
+            dataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase), nameof(PlatformWinLossMember.Index), true);
+        }
+
         private HttpResponseMessage ExportExcelSummary(
             PlatformWinLossMetaModel metaModel,
             IEnumerable<PlatformWinLossSummary> dataList,
@@ -105,7 +121,7 @@ namespace Fanex.Athena.Api.Report
 
         private HttpResponseMessage ExportExcelMember(
             PlatformWinLossMetaModel metaModel,
-            IEnumerable<PlatformWinLossMember> dataList,
+            SortableList<PlatformWinLossMember> dataList,
             PlatformWinLossMember totalData)
         {
             const string FileName = "PlatformWinLossMember.xls";
@@ -114,6 +130,11 @@ namespace Fanex.Athena.Api.Report
             var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/PlatformWinLossMember.xls");
 
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.PlatformWinloss);
+
+            if (dataList.Any())
+            {
+                SortMemberData(dataList, metaModel.SortBy, metaModel.SortOrder);
+            }
 
             var excelModel = new PlatformWinLossViewModel
             {
@@ -165,9 +186,9 @@ namespace Fanex.Athena.Api.Report
             {
                 var result = metaModel.IsValid ?
                     _platformWinLossDataAccess.GetMemberData(metaModel) :
-                    new ReportResultModel<PlatformWinLossMember>
+                    new SortableReportResultModel<PlatformWinLossMember>
                     {
-                        DataList = new List<PlatformWinLossMember>(),
+                        DataList = new SortableList<PlatformWinLossMember>(),
                         TotalData = new PlatformWinLossMember()
                     };
 

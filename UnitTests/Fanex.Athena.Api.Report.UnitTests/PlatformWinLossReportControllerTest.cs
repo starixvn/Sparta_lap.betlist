@@ -6,6 +6,7 @@
     using System.Web.Http.Hosting;
     using System.Web.Http.Results;
     using DataAccess.Report.Interfaces;
+    using Extension.Utility;
     using Model.Core.DataDomain;
     using Model.Core.MetaModel.Product;
     using Model.Core.ResultModel;
@@ -120,14 +121,14 @@
 
         private void StubDataAccessGetMemberData()
         {
-            var memberData = new List<PlatformWinLossMember>
+            var memberData = new SortableList<PlatformWinLossMember>
             {
                 new PlatformWinLossMember(),
                 new PlatformWinLossMember(),
                 new PlatformWinLossMember()
             };
             _dataAccess.GetMemberData(Arg.Any<PlatformWinLossMetaModel>()).ReturnsForAnyArgs(
-                new ReportResultModel<PlatformWinLossMember>
+                new SortableReportResultModel<PlatformWinLossMember>
                 {
                     TotalData = new PlatformWinLossMember
                     {

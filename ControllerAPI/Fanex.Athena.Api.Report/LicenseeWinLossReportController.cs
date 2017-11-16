@@ -120,19 +120,19 @@ namespace Fanex.Athena.Api.Report
                     propertyName = turnOverColumn;
                 }
 
-                dataList.SortByDictionary(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+                dataList.SortByDictionary(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase), nameof(LicenseeWinLoss.Index), true);
             }
             else
             {
-                dataList.Sort(propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+                dataList.Sort(propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase), nameof(LicenseeWinLoss.Index), true);
             }
         }
 
-        private static LicenseeWinLossGridViewModel MapToGridView(LicenseeWinLoss item, int index = 0)
+        private static LicenseeWinLossGridViewModel MapToGridView(LicenseeWinLoss item)
         {
             var licenseeWinLossGrid = new LicenseeWinLossGridViewModel
             {
-                Index = index + 1,
+                Index = item.Index,
                 AmtDueToBA = item.AmtDueToBA,
                 AmtDueToRacing = item.AmtDueToRacing,
                 AmtDueToBetTrade = item.AmtDueToBetTrade,
@@ -233,6 +233,11 @@ namespace Fanex.Athena.Api.Report
                 metaModel.CurrencyId = metaModel.CurrencyId > 0 ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;
             }
 
+            if (data.DataList.Any())
+            {
+                SortData(data.DataList, metaModel.SortBy, metaModel.SortOrder);
+            }
+
             var excelModel = new LicenseeWinLossExcelModel
             {
                 ConvertingOption = convertingOption,
@@ -266,10 +271,12 @@ namespace Fanex.Athena.Api.Report
         {
             if (metaModel.IsValid)
             {
-                return metaModel.DrillDownLevel == 0 ? _licenseeWinLossDataAccess.GetSummaryWinloss(metaModel) :
+                var result = metaModel.DrillDownLevel == 0 ? _licenseeWinLossDataAccess.GetSummaryWinloss(metaModel) :
                                 metaModel.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.DrillDownLevel == 2
                                ? _licenseeWinLossDataAccess.GetCustomerWinlossDetail(metaModel)
                                : _licenseeWinLossDataAccess.GetAgentWinlossDetail(metaModel);
+
+                return result;
             }
 
             return new SortableReportResultModel<LicenseeWinLoss>
@@ -308,8 +315,6 @@ namespace Fanex.Athena.Api.Report
 
                 if (result.DataList.Any())
                 {
-                    SortData(result.DataList, metaModel.SortBy, metaModel.SortOrder);
-
                     var summaryTotalView = result.SummaryTotal.ToDictionary(d => d.Key, d => MapToGridView(d.Value));
                     return new
                     {
