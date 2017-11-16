@@ -105,7 +105,7 @@
 
         private ReportResultModel<CustomerWinLoss> GetData(CustomerWinLossMetaModel metaModel)
         {
-            if (!metaModel.IsValid)
+            if (!metaModel.IsValid || !IsValidRequest(metaModel))
             {
                 return new ReportResultModel<CustomerWinLoss>
                 {
