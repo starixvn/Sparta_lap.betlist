@@ -289,8 +289,7 @@
   background-color: #fff;
   margin-top: 10px; }
   .header-tab .content-tab {
-    border-bottom: 1px solid #9e9e9e;
-    margin: 0 15px; }
+    border-bottom: 1px solid #9e9e9e; }
   .header-tab .tabs {
     position: relative;
     overflow-x: auto;
@@ -323,11 +322,89 @@
           font-weight: bold;
           border-bottom: 3px solid #f05b1f; }
 
-.page-filter-tab {
-  background-color: #fff;
-  padding: 15px; }
-  .page-filter-tab .page-filter {
+/*.page-filter-tab {
+    background-color: #fff;
+    padding: 0 15px 15px;  
+}*/
+.collapse-item {
+  position: relative; }
+  .collapse-item .icon-arrow {
+    position: absolute;
+    right: 7px;
+    top: 4px;
+    cursor: pointer; }
+  .collapse-item .subject-item {
+    font-weight: bold; }
+  .collapse-item .content-item {
+    margin-top: 1em; }
+
+.collapse .icon-arrow {
+  transform: rotate(-90deg);
+  right: 5px;
+  top: 0; }
+
+.collapse .content-item {
+  display: none; }
+
+/* z-index */
+/* Table */
+/* Label Text */
+.pagingContainer {
+  padding: 3px;
+  font-size: 1.1rem;
+  background-color: #EFF3F8;
+  border-left: 1px solid #d1dae1;
+  border-right: 1px solid #d1dae1;
+  border-bottom: 1px solid #d1dae1; }
+  .pagingContainer .icon {
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    font-size: 1.2rem;
+    color: #4c6375;
+    cursor: pointer; }
+  .pagingContainer .pagingDisable {
+    color: #d1dae1;
+    cursor: default; }
+  .pagingContainer .pagingFirst:before {
+    content: "\EA21"; }
+  .pagingContainer .pagingPrev:before {
+    content: "\EA1F"; }
+  .pagingContainer .pagingNext:before {
+    content: "\EA20"; }
+  .pagingContainer .pagingLast:before {
+    content: "\EA22"; }
+  .pagingContainer .paging-form {
+    width: auto;
+    height: auto;
+    font-size: inherit;
+    padding: 2px;
+    text-align: center;
     margin: 0; }
+    .pagingContainer .paging-form, .pagingContainer .paging-form:focus {
+      background: #fff;
+      border: 1px solid #e2d6d6;
+      box-shadow: none; }
+  .pagingContainer .paging-info {
+    display: inline-block; }
+    .pagingContainer .paging-info:after, .pagingContainer .paging-info:before {
+      content: "";
+      border: 1px solid #ccc; }
+    .pagingContainer .paging-info:after {
+      margin-left: 5px; }
+    .pagingContainer .paging-info:before {
+      margin-right: 5px; }
+  .pagingContainer .pageSizeSelected {
+    height: auto;
+    font-size: inherit;
+    padding: 2px;
+    min-width: 65px;
+    border: 1px solid #e2d6d6; }
 
 .button-group {
   margin-top: 15px; }

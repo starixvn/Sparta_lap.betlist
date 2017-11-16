@@ -1,9 +1,53 @@
-webpackJsonp([4],{
+webpackJsonp([3],{
+
+/***/ 13:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var DEFAULT_RESOURCE_NAME = "_language_en_US";
+var langCode = window.PageLanguage || "en-US";
+var resourceName = "_language_" + langCode.replace("-", "_");
+
+var LangHelper = function () {
+    function LangHelper() {
+        _classCallCheck(this, LangHelper);
+    }
+
+    _createClass(LangHelper, null, [{
+        key: "getSingleResource",
+        value: function getSingleResource(key) {
+            var langHandler = window[resourceName];
+
+            return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
+        }
+    }, {
+        key: "currentLanguage",
+        get: function get() {
+            return langCode;
+        }
+    }]);
+
+    return LangHelper;
+}();
+
+exports.default = LangHelper;
+
+/***/ }),
 
 /***/ 688:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(9);
+__webpack_require__(13);
 __webpack_require__(689);
 __webpack_require__(690);
 __webpack_require__(691);
@@ -19,7 +63,7 @@ module.exports = __webpack_require__(693);
 "use strict";
 
 
-// Generated at: 10/19/2017 3:07:44 PM
+// Generated at: 11/13/2017 1:13:44 PM
 window._language_en_US = {
   AA: "AA",
   AccessDeniedMsg: "Sorry, You don&apos;t have permission to access this page.",
@@ -55,6 +99,7 @@ window._language_en_US = {
   AllBetTypes: "All Bet Types",
   AllCurrencies: "All Currencies",
   AllSites: "All Sites",
+  Amendment: "Result Amendment/ Recalculation",
   Amount: "Amount",
   AmountDue: "Amount Due",
   AmountDueTo: "Amount Due To",
@@ -334,6 +379,7 @@ window._language_en_US = {
   Function: "Function",
   FunctionDeniedMsg: "Sorry, you don&apos;t have permission to access this function.",
   FunctionNoAvailableMsg: "This function was no longer available!",
+  FunctionNotAvailableOldUIMsg: "This function is only supported in the new admin portal. Please switch to use our new system for better experience and stability.",
   Game: "Game",
   GameGroup: "Game Group",
   GameID: "Game ID",
@@ -570,6 +616,7 @@ window._language_en_US = {
   NetGaming: "Net Gaming",
   NetTurnover: "Net Turnover",
   NetworkTimeoutMsg: "Network time out. Please try again.",
+  NewAsia: "New Asia",
   NewGroup: "New Group",
   Next: "Next",
   NG: "NG",
@@ -597,7 +644,7 @@ window._language_en_US = {
   Note: "Note",
   NotIdenticalPasswordMsg: "Passwords are not identical",
   Notification: "Notification",
-  Notifications: "Notifications",
+  NotificationDateRangeLimitNote: "Data is available within 6 months",
   NotSupportYet: "This game type has not been supported yet!",
   Nov: "Nov",
   November: "November",
@@ -730,7 +777,6 @@ window._language_en_US = {
   ResetPassword: "Reset Password",
   ResetPasswordSuccessMsg: "Reset password successfully!",
   Result: "Result",
-  ResultAmendment: "Result Amendment",
   Results: "Results",
   Resultswithpictures: "Results with pictures",
   Revenue: "Revenue",
@@ -920,6 +966,7 @@ window._language_en_US = {
   ViewBy: "View by",
   ViewDataInMonth: "View data in month",
   Viewin: "View in {0}",
+  ViewNotification: "View Notifications",
   VIP: "VIP",
   VirtualCycling: "Virtual Cycling",
   VirtualGreyhounds: "Virtual Greyhounds",
@@ -968,7 +1015,7 @@ window._language_en_US = {
 "use strict";
 
 
-// Generated at: 10/19/2017 3:07:44 PM
+// Generated at: 10/24/2017 3:11:49 PM
 window._language_ko_KR = {
   AA: "AA",
   AccessDeniedMsg: "죄송합니다. 이 페이지에 접근할 권한이 없습니다.",
@@ -1739,7 +1786,7 @@ window._language_ko_KR = {
 "use strict";
 
 
-// Generated at: 10/19/2017 3:07:44 PM
+// Generated at: 10/24/2017 3:11:49 PM
 window._language_zh_CN = {
   AA: "客客",
   AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
@@ -2214,6 +2261,7 @@ window._language_zh_CN = {
   Name: "姓名",
   NetGaming: "Net Gaming",
   NetTurnover: "净交易额",
+  NewAsia: "新亚洲版",
   NewGroup: "新组别",
   Next: "下个",
   NG: "百练赛",
@@ -2549,7 +2597,7 @@ window._language_zh_CN = {
 "use strict";
 
 
-// Generated at: 10/19/2017 3:07:44 PM
+// Generated at: 10/24/2017 3:11:49 PM
 window._language_zh_Hans = {
   AA: "客客",
   AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
@@ -3012,6 +3060,7 @@ window._language_zh_Hans = {
   Name: "姓名",
   NetGaming: "Net Gaming",
   NetTurnover: "净交易额",
+  NewAsia: "新亚洲版",
   NewGroup: "新组别",
   Next: "下个",
   NG: "百练赛",
@@ -3345,7 +3394,7 @@ window._language_zh_Hans = {
 "use strict";
 
 
-// Generated at: 10/19/2017 3:07:44 PM
+// Generated at: 10/24/2017 3:11:49 PM
 window._language_zh_TW = {
   AA: "客客",
   AccessDeniedMsg: "對不起，您沒有權限訪問此頁面。",
@@ -3820,6 +3869,7 @@ window._language_zh_TW = {
   Name: "姓名",
   NetGaming: "Net Gaming",
   NetTurnover: "淨交易額",
+  NewAsia: "新亞洲版",
   NewGroup: "新組別",
   Next: "下個",
   NG: "百練賽",
@@ -4146,50 +4196,6 @@ window._language_zh_TW = {
   Yesterday: "昨日",
   YouNotChooseAnyCustomerMsg: "您還沒有選擇任何會員"
 };
-
-/***/ }),
-
-/***/ 9:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var DEFAULT_RESOURCE_NAME = "_language_en_US";
-var langCode = window.PageLanguage || "en-US";
-var resourceName = "_language_" + langCode.replace("-", "_");
-
-var LangHelper = function () {
-    function LangHelper() {
-        _classCallCheck(this, LangHelper);
-    }
-
-    _createClass(LangHelper, null, [{
-        key: "getSingleResource",
-        value: function getSingleResource(key) {
-            var langHandler = window[resourceName];
-
-            return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
-        }
-    }, {
-        key: "currentLanguage",
-        get: function get() {
-            return langCode;
-        }
-    }]);
-
-    return LangHelper;
-}();
-
-exports.default = LangHelper;
 
 /***/ })
 
