@@ -23,6 +23,8 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class CustomerWinlossDataAccess : BaseDataAccess, ICustWinlossDataAccess
     {
+        private const int DefaultOrderBy = 1;
+
         private const int PageSizeExcel = int.MaxValue - 1000;
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
@@ -113,7 +115,7 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("username", DbType.String, metaModel.Username);
-            db.AddInParameter("OrderItem", DbType.Int16, metaModel.OrderItem);
+            db.AddInParameter("OrderItem", DbType.Int16, metaModel.OrderItem <= 0 ? DefaultOrderBy : metaModel.OrderItem);
             db.AddInParameter("IsAscSort", DbType.Boolean, metaModel.IsAscSort);
             db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency.ToUpperInvariant());
             foreach (var item in metaModel.ProductOptions)
