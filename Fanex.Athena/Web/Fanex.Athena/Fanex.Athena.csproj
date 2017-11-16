@@ -811,14 +811,12 @@
     <Content Include="www\js\build\dev\reactpages\report\licenseewlbytimezone.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\notification\notification.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\notification\notification.chunk.js.map" />
-    <Content Include="www\js\build\dev\reactpages\notification\resultamendment.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\vendors\excel.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\vendors\reactpages.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\lib\langHelper.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\report\licenseewlbytimezone.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\notification\notification.chunk.js" />
-    <Content Include="www\js\build\pro\reactpages\notification\resultamendment.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\vendors\excel.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\vendors\reactpages.chunk.js" />
@@ -877,7 +875,6 @@
     <Content Include="Views\Desktop\Report\Notification\Notification.cshtml" />
     <Content Include="www\css\source\reactpages\pages\notification\index.scss" />
     <Content Include="www\css\source\reactpages\components\_tab.scss" />
-    <Content Include="www\js\build\dev\reactpages\notification\resultamendment.chunk.js.map" />
     <Content Include="www\css\source\reactpages\components\_collapseRow.scss" />
     <Content Include="www\css\source\reactpages\components\_paging.scss" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
