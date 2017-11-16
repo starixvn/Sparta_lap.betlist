@@ -24826,9 +24826,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         var _submitData = null;
         var _productCodes = [];
 
-        var _sortColumnName = "ExternalId";
-        var _sortOrder = "desc";
-        var _orderItem = 2;
+        var _sortColumnName = "";
+        var _sortOrder = "";
+        var _orderItem = 0;
         var _isFirstLoad = false;
 
         var _pagingOption =
@@ -24953,6 +24953,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             CustomerWinLossOption.isAllowBA = Site.asBool($(_selector.IsAllowedBAInput).val());
             CustomerWinLossOption.isAllowRB = Site.asBool($(_selector.IsAllowedRBInput).val());
             CustomerWinLossOption.hasCustomerComm = Site.asBool($(_selector.IsAllowedCustomerCommissionInput).val());
+            resetParam();
         }
 
         function initAutoComplete() {
