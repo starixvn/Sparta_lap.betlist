@@ -1,7 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import Notification from './notification'
 import ResultAmendment from './resultAmendment'
 import Loader from '../../../components/Loader'
 import AppLayout from '../../../layouts/AppLayout'
@@ -18,10 +17,7 @@ export class AppContainer extends Component {
             <AppLayout>
                 <Loader isLoading={this.props.isLoading} />
                 <Tabs>
-                    <Tab isActive={true} label={LangHelper.getSingleResource("Notification")}>
-                        <Notification />
-                    </Tab>
-                    <Tab isActive={false} label={LangHelper.getSingleResource("ResultAmendment")}>
+                    <Tab isActive={true} label={LangHelper.getSingleResource("Amendment")}>
                         <ResultAmendment />
                     </Tab>
                 </Tabs>

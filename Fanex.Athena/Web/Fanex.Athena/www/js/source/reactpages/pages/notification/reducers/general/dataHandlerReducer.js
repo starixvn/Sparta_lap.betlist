@@ -1,5 +1,5 @@
 import createReducer from '../../../../lib/createReducer.js'
-import * as types from '../../actions/notification/types.js'
+import * as types from '../../actions/general/types.js'
 
 export const gridData = createReducer({}, {
     [types.SET_GRID_DATA](state, action) {

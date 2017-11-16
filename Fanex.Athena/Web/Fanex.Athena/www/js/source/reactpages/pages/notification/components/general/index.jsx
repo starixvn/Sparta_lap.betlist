@@ -2,7 +2,7 @@
 import DataGrid from './datagrid'
 import FormFilter from './formFilter'
 
-export default class Notification extends Component {
+export default class General extends Component {
   constructor(props) {
     super(props);
   }

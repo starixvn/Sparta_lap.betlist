@@ -5,7 +5,7 @@ $colorDisabledPgButton: $ligh-gray;
 $bgPaging: #EFF3F8;
 $colorBorderPaging: #d1dae1;
 
-.pagingContainer {
+.page-container {
     padding: 3px;
     font-size: 1.1rem;
     background-color: $bgPaging;
@@ -27,36 +27,36 @@ $colorBorderPaging: #d1dae1;
         cursor: pointer;
     }
 
-    .pagingDisable {
+    .disable {
         color: $colorDisabledPgButton;
         cursor: default;
     }
 
-    .pagingFirst {
+    .page-first {
         &:before {
             content: "\ea21";
         }
     }
 
-    .pagingPrev {
+    .page-prev {
         &:before {
             content: "\ea1f";
         }
     }
 
-    .pagingNext {
+    .page-next {
         &:before {
             content: "\ea20";
         }
     }
 
-    .pagingLast {
+    .page-last {
         &:before {
             content: "\ea22";
         }
     }
 
-    .paging-form {
+    .page-form {
         width: auto;
         height: auto;
         font-size: inherit;
@@ -71,7 +71,7 @@ $colorBorderPaging: #d1dae1;
         }
     }
 
-    .paging-info {
+    .page-info {
         display: inline-block;
 
         &:after, &:before {
@@ -88,11 +88,12 @@ $colorBorderPaging: #d1dae1;
         }
     }
 
-    .pageSizeSelected {
+    .pagesize-select {
         height: auto;
         font-size: inherit;
         padding: 2px;
         min-width: 65px;
         border: 1px solid #e2d6d6;
+        margin-left: 5px;
     }
 }

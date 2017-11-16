@@ -217,8 +217,8 @@ class Table extends Component {
                 }
 
                 {
-                    isPaging && 
-                    <Page {...pageOption} onPaging={onPaging} />
+                    isPaging && pageOption &&
+                    <Page pageOption={pageOption} onPaging={onPaging} />
                 }
             </div>
         )

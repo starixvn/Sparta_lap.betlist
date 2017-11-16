@@ -1,11 +1,11 @@
 ﻿import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { ActionCreators } from '../../actions/notification'
+import { ActionCreators } from '../../actions/general'
 import { bindActionCreators } from 'redux'
 import { Table, Row, Cell } from '../../../../components/fixed-table-header'
 import ReportTitle from '../../../../components/ReportTitle'
 import NoDataTitle from '../../../../components/NoDataTitle'
-import service from '../../lib/notificationService'
+import service from '../../lib/generalService'
 import CollapseRow from '../../../../components/CollapseRow'
 import Site from '../../../../lib/site'
 import moment from 'moment'
@@ -73,15 +73,12 @@ export class DataGrid extends Component {
             const item = data[i];
             const datetimeString = moment(item.DateTime).format("MM/DD/YYYY hh:mm:ss A");
             rows.push(
-                <Row key={`tr${i}`}>
+                <Row key={`tr${i}`} className={ item.IsRead ? "" : "unread" }>
                     <Cell title={i + 1} className="center-align">{i + 1}</Cell>
                     <Cell title={item.Type}>{item.Type}</Cell>
                     <Cell title={datetimeString} className="center-align">{datetimeString}</Cell>
-                    <Cell title={item.Subject}>{
-                        Site.asNull(item.Content) === null
-                            ? <div>{item.Subject}</div>
-                            : <CollapseRow subject={item.Subject} content={item.Content} />
-                    }
+                    <Cell title={item.Subject}>
+                        <CollapseRow subject={item.Subject} content={item.Content} />
                     </Cell>
                 </Row>)
         }
@@ -110,10 +107,10 @@ export class DataGrid extends Component {
 
         const param = this.props.param;
         const pageOption = {
-            pageIndex: param.PageIndex,
-            pageSize: param.PageSize,
-            totalItem: gridData.Total,
-            pageList: [50, 100, 200]
+            PageIndex: param.PageIndex,
+            PageSize: param.PageSize,
+            TotalItem: gridData.Total,
+            PageList: [10, 20, 50, 100, 500]
         };
 
         return (
@@ -137,7 +134,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { gridData, dateRange, param } = state.notification;
+    const { gridData, dateRange, param } = state.general;
     return Object.assign({}, { gridData, dateRange, param, xsrfToken: state.xsrfToken });
 };
 

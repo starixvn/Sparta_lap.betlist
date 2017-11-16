@@ -225,17 +225,22 @@
         }
 
         private ResultAmendment MapToResultAmendment(JToken token, string subjectKey, string contentKey, string attachmentFileApi)
-        {
-            return new ResultAmendment
+        {           
+            var result = new ResultAmendment
             {
                 Id = token["MessageId"].Value<int>(),
                 DateTime = token["Date"].Value<DateTime>(),
                 Content = token[contentKey].Value<string>(),
                 Subject = token[subjectKey].Value<string>(),
-                DataFilePath = $"{attachmentFileApi}?site=SpecialDelete&name={token["DataFilePath"].Value<string>()}&saveAs=123.xls",
+                DataFilePath = token["DataFilePath"].Value<string>(),
                 IsRead = token["IsRead"].Value<bool>(),
                 Type = _notificationType[nameof(ResultAmendment)]
             };
+
+            var attachmentFileName = $"Amendment_{result.DateTime:ddMMMyyyy}_{result.DateTime:hh-mm-ss-tt}.xls";
+            result.DataFilePath = $"{attachmentFileApi}?site=SpecialDelete&name={result.DataFilePath}&saveAs={attachmentFileName}";
+
+            return result;
         }
 
         private GeneralNotification MapToGeneralNotification(JToken token, string subjectKey, string contentKey)

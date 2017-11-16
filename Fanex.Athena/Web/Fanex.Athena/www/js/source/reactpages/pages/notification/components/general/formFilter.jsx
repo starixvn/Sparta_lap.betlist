@@ -1,12 +1,12 @@
 ﻿import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { ActionCreators } from '../../actions/notification'
+import { ActionCreators } from '../../actions/general'
 import { bindActionCreators } from 'redux'
 import Select from 'react-select'
 import { DateRange } from '../../../../components/date-range'
 import LangHelper from '../../../../lib/langHelper'
 import Site from '../../../../lib/site'
-import service from '../../lib/notificationService'
+import service from '../../lib/generalService'
 
 const RANGE_MONTH_CONSTRAINT = 6;
 
@@ -31,7 +31,7 @@ export class FormFilter extends Component {
             return null;
         }
 
-        let pageSize = 50;
+        let pageSize = 10;
         const param = this.props.param;
         if (param && param.hasOwnProperty("PageSize")) {
             pageSize = param.PageSize;
@@ -141,7 +141,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { gridData, ...rest } = state.notification;
+    const { gridData, ...rest } = state.general;
     return Object.assign({}, rest, { xsrfToken: state.xsrfToken });
 };
 

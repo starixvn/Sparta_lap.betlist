@@ -6,12 +6,18 @@ export default class CollapseRow extends React.Component {
         super(props);
 
         this.state = {
-            isCollapse : true
+            isCollapse : !this.props.isExpand
         };
     };
 
     onClick = () => {
-        this.setState({ isCollapse : !this.state.isCollapse });
+        const newState = !this.state.isCollapse;
+
+        this.setState({ isCollapse : newState });
+
+        if (!newState) {
+            this.props.onExpand && this.props.onExpand();
+        }
     }
 
     render() {

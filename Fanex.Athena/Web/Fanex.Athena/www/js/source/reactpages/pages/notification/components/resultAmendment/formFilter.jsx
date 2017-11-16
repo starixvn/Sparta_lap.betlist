@@ -30,7 +30,7 @@ export class FormFilter extends Component {
             return null;
         }
 
-        let pageSize = 50;
+        let pageSize = 10;
         const param = this.props.param;
         if (param && param.hasOwnProperty("PageSize")) {
             pageSize = param.PageSize;

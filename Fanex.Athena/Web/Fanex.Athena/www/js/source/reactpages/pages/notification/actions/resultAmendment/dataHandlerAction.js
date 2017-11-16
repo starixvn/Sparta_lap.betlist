@@ -13,6 +13,11 @@ const fetchData = (params) => {
     });
 }
 
+const markNotification = (id, type) => {
+    const url = Site.resolveClientUrl('api/NotificationReport/MarkNotificationAsRead');
+    return axios.post(url, { MessageId: id, MessageType: type });
+}
+
 export function getGridData(params) {
     return (dispatch) => {
         fetchData(params).then(response => {
@@ -28,5 +33,23 @@ export function setGridData(data) {
     return {
         type: types.SET_GRID_DATA,
         data: data
+    };
+}
+
+export function markItemAsRead(params) {   
+    return (dispatch) => {
+        markNotification(params.Id, params.Type).then(response => {
+            if(response.data.IsSuccessful)
+            {
+                var item = params.Data[params.Index];
+                item.IsRead = true;
+                item.IsExpand = true;
+
+                dispatch(setGridData({
+                    Data: params.Data,
+                    Total: params.Total
+                }));
+            }
+        });
     };
 }

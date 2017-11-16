@@ -54,6 +54,20 @@ export class DataGrid extends Component {
         this.props.setParam(paramData);
     }
 
+    onExpand(index, item) {
+        if(!item.IsRead) {
+            const { Data, Total } = this.props.gridData;
+
+            this.props.markItemAsRead({
+                Index: index,
+                Id: item.Id,
+                Type: item.Type,
+                Data: Data,
+                ToTal: Total
+            });
+        }
+    }
+
     _buildHeader() {
         const headerText = service.getHeaderText();
 
@@ -68,22 +82,23 @@ export class DataGrid extends Component {
     }
 
     _buildBody() {
-        const data = this.props.gridData.Data;
+        const data = this.props.gridData.Data;       
         let rows = [];
         for (let i = 0; i < data.length; i++) {
             const item = data[i];
             const datetimeString = moment(item.DateTime).format("MM/DD/YYYY hh:mm:ss A");
             rows.push(
-                <Row key={`tr${i}`}>
+                <Row key={`tr${i}`} className={ item.IsRead ? "" : "unread" }>
                     <Cell title={i + 1} className="center-align">{i + 1}</Cell>
                     <Cell title={datetimeString} className="center-align">{datetimeString}</Cell>
-                    <Cell title={item.Subject}>{
-                        Site.asNull(item.Content) === null
-                            ? <div>{item.Subject}</div>
-                            : <CollapseRow subject={item.Subject} content={item.Content} />
-                    }
+                    <Cell title={item.Subject}>
+                        <CollapseRow subject={item.Subject} content={item.Content} onExpand={() => this.onExpand(i, item)} isExpand={item.IsExpand} />
                     </Cell>
-                    <Cell title={LangHelper.getSingleResource("ExportToExcel")} className="center-align"><i className="icon-excel"></i></Cell>
+                    {
+                        Site.asNull(item.DataFilePath) === null 
+                        ? <Cell></Cell>
+                        : <Cell title={LangHelper.getSingleResource("ExportToExcel")} className="center-align"><a href={item.DataFilePath} className="icon-excel"></a></Cell>
+                    }
                 </Row>)
         }
 
@@ -100,36 +115,35 @@ export class DataGrid extends Component {
     }
 
     render() {
-        const { Data } = this.props.gridData;
-        if (!Data) {
+        const gridData = this.props.gridData;
+        if (!gridData.Data) {
             return null;
         }
 
-        if (!Data || !Data.length) {
+        if (!gridData.Data || !gridData.Data.length) {
             return this._renderNodata();
-    }
+        }
 
         const param = this.props.param;
         const pageOption = {
-            pageIndex: param.PageIndex,
-            pageSize: param.PageSize,
-            totalItem: gridData.Total,
-            pageList: [50, 100, 200]
+            PageIndex: param.PageIndex,
+            PageSize: param.PageSize,
+            TotalItem: gridData.Total,
+            PageList: [10, 20, 50, 100, 500]
         };
 
         return (
             <div className="result-content">
                 <ReportTitle content={this.reportTitle} />
 
-                <Table
-                    minWidth={550}
-                    autoWidth={true}
-                    bodyHeight={300}
-                    header={this._buildHeader()}
-                    body={this._buildBody()} 
-                    isPaging={true}
-                    pageOption={pageOption}
-                    onPaging={this.onPaging} />
+                <Table minWidth={650}
+                       autoWidth={true}
+                       bodyHeight={600}
+                       header={this._buildHeader()}
+                       body={this._buildBody()}
+                       isPaging={true}
+                       pageOption={pageOption}
+                       onPaging={this.onPaging} />
             </div>
         );
     }

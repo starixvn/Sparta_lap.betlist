@@ -2,9 +2,9 @@
 
 define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
     function (Site, moment, Popup) {
-        var NOTIFICATION_ITEM = "<li class='notification-item' title={0}>" +
-                                    "<a href='javascript:void(0)'>{1}</a><span class='type'>{2}</span><span class='date-time'>{3}</span>" +
-                                  "</li>";
+        var NOTIFICATION_ITEM = "<li class='notification-item' title='{0}'>" +
+                                "<a href='javascript:void(0)'>{1}</a><span class='type'>{2}</span><span class='date-time'>{3}</span>" +
+                                "</li>";
         var GET_NOTIFICATION_URL = "api/NotificationReport/GetNotificationMessages";
         var MARK_NOTIFICATION = "api/NotificationReport/MarkNotificationAsRead";
 
@@ -35,7 +35,7 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
             var popupContent = '<div class="view-notification">'
                                 + '<p class="subject">' + message.Subject + '</p>'
                                 + '<p class="date-time">' + moment(message.DateTime).format("MM/DD/YYYY hh:mm:ss A") + '</p>'
-                                + '<div class="content">' + message.Content + '</div>'
+                                + (Site.asNull(message.Content) === null ? "" : '<div class="content">' + message.Content + '</div>')
                                 + '</div>';
 
             Popup.openPopupWithButton(popupContent, options, buttons);
