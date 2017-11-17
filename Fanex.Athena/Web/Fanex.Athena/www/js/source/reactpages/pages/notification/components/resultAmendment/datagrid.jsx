@@ -55,17 +55,21 @@ export class DataGrid extends Component {
     }
 
     onExpand(index, item) {
-        if(!item.IsRead) {
-            const { Data, Total } = this.props.gridData;
+        const { Data, Total } = this.props.gridData;
+        Data[index].IsExpand = true;
 
+        if(!item.IsRead) {
             this.props.markItemAsRead({
                 Index: index,
                 Id: item.Id,
                 Type: item.Type,
                 Data: Data,
-                ToTal: Total
+                Total: Total
             });
         }
+        else {
+            this.props.setGridData({ Data: Data, Total: Total });
+        }        
     }
 
     _buildHeader() {
@@ -73,7 +77,7 @@ export class DataGrid extends Component {
 
         return (
             <Row style={{ height: 32 }}>
-                <Cell colWidth={30} header={true} title="#">#</Cell>
+                <Cell colWidth={30} header={true} title={headerText.index}>{headerText.index}</Cell>
                 <Cell colWidth={150} header={true} title={headerText.dateTime}>{headerText.dateTime}</Cell>
                 <Cell colWidth={340} header={true} title={headerText.content}>{headerText.content}</Cell>
                 <Cell colWidth={30} header={true} title={headerText.ticketList}>{headerText.ticketList}</Cell>
@@ -92,7 +96,7 @@ export class DataGrid extends Component {
                     <Cell title={i + 1} className="center-align">{i + 1}</Cell>
                     <Cell title={datetimeString} className="center-align">{datetimeString}</Cell>
                     <Cell title={item.Subject}>
-                        <CollapseRow subject={item.Subject} content={item.Content} onExpand={() => this.onExpand(i, item)} isExpand={item.IsExpand} />
+                        <CollapseRow subject={item.Subject} content={item.Content} onExpand={() => this.onExpand(i, item)} isExpand={item.IsExpand} isHtml={true} />
                     </Cell>
                     {
                         Site.asNull(item.DataFilePath) === null 

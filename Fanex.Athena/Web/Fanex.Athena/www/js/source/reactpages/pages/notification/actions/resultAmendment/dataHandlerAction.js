@@ -41,9 +41,7 @@ export function markItemAsRead(params) {
         markNotification(params.Id, params.Type).then(response => {
             if(response.data.IsSuccessful)
             {
-                var item = params.Data[params.Index];
-                item.IsRead = true;
-                item.IsExpand = true;
+                params.Data[params.Index].IsRead = true;
 
                 dispatch(setGridData({
                     Data: params.Data,
@@ -52,4 +50,8 @@ export function markItemAsRead(params) {
             }
         });
     };
+}
+
+export function exportExcel(params) {
+    return () => fetchData(params);
 }

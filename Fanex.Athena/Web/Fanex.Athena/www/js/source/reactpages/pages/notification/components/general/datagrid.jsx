@@ -78,7 +78,7 @@ export class DataGrid extends Component {
                     <Cell title={item.Type}>{item.Type}</Cell>
                     <Cell title={datetimeString} className="center-align">{datetimeString}</Cell>
                     <Cell title={item.Subject}>
-                        <CollapseRow subject={item.Subject} content={item.Content} />
+                        <CollapseRow subject={item.Subject} content={item.Content} isHTML={true} />
                     </Cell>
                 </Row>)
         }

@@ -932,7 +932,7 @@
     <Content Include="www\js\source\reactpages\pages\notification\actions\general\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\notification\actions\general\index.js" />
     <Content Include="www\js\source\reactpages\pages\notification\actions\general\types.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\lib\generalService.js" />    <Content Include="www\js\source\reactpages\pages\notification\lib\notificationService.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\lib\generalService.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\general\dataHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\general\filterHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\general\index.js" />

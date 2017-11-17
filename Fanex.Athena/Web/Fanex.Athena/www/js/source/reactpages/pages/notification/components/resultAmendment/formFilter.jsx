@@ -5,7 +5,8 @@ import { bindActionCreators } from 'redux'
 import { DateRange } from '../../../../components/date-range'
 import LangHelper from '../../../../lib/langHelper'
 import Site from '../../../../lib/site'
-import service from '../../lib/resultAmendmentService'
+import Service from '../../lib/resultAmendmentService'
+import ReportExcel from '../../lib/resultAmendmentExcel'
 
 const RANGE_MONTH_CONSTRAINT = 6;
 
@@ -21,6 +22,7 @@ export class FormFilter extends Component {
             return;
         }
 
+        this.props.setParam(params.data);
         this.props.toggleLoader(true);
         this.props.getGridData(params);
     }
@@ -45,8 +47,6 @@ export class FormFilter extends Component {
             PageIndex: 1
         };
 
-        this.props.setParam(paramData);
-
         return {
             xsrfToken: this.props.xsrfToken,
             data: paramData
@@ -61,10 +61,6 @@ export class FormFilter extends Component {
             const message = LangHelper.getSingleResource("DateRangeExceedMsg").replace("{0}", RANGE_MONTH_CONSTRAINT);
             alert(message);
         }
-    }
-
-    exportExcel = () => {
-
     }
 
     _renderDateRange() {
@@ -104,7 +100,6 @@ export class FormFilter extends Component {
                         </div>
                     </div>
                 <div className="caret-block">
-                    <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
                     <i className="icon-book right" title={LangHelper.getSingleResource("UserGuide")}></i>                 
                 </div>
             </div>
