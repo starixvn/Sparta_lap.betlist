@@ -122,7 +122,7 @@ namespace Fanex.Athena.Controllers
 
             if (viewType != ClientViewType.Desktop && !_fileSystem.ViewExists(viewName))
             {
-                return base.View("~/Views/Desktop/Utility/Error.cshtml", null, ViewResources.FunctionNotAvailableOldUIMsg);
+                return base.View("~/Views/Desktop/Utility/FunctionNotAvailableOldUI.cshtml", null, ViewResources.FunctionNotAvailableOldUIMsg);
             }
 
             var viewByOption = ClientViewHelper.GetViewPath(viewName, viewType);

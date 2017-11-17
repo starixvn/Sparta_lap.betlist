@@ -1,0 +1,24 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Notification</title>
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/utility/error.css")" rel="stylesheet" />
+</head>
+<body>
+    <div class="error-content">
+        <img src="@Url.ContentLink("/www/assets/images/new-system.svg")" />
+        <p>@Html.Raw(Model)</p>
+
+        <div style="text-align: center;">
+            <a href="#" class="btn btn-submit">Go to new site →</a>
+        </div>
+    </div>
+</body>
+</html>
