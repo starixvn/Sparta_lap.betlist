@@ -15,9 +15,11 @@ module.exports = __webpack_require__(197);
 /***/ 193:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 10/24/2017 3:11:49 PM
+﻿// Generated at: 11/6/2017 5:06:25 PM
 window._language_en_US = {
 AA:"AA",
+AB:"AB",
+ABComm:"AllBet Comm",
 AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
 Account:"Account",
 AccountManagement:"Account Management",
@@ -330,6 +332,7 @@ FullTime:"FullTime",
 Function:"Function",
 FunctionDeniedMsg:"Sorry, you don&apos;t have permission to access this function.",
 FunctionNoAvailableMsg:"This function was no longer available!",
+FunctionNotAvailableOldUIMsg:"This function is only supported in the new admin portal. Please switch to use our new system for better experience and stability.",
 Game:"Game",
 GameGroup:"Game Group",
 GameID:"Game ID",
@@ -961,9 +964,10 @@ YouNotChooseAnyCustomerMsg:"You did not choose any customers."
 /***/ 194:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 10/24/2017 3:11:49 PM
+﻿// Generated at: 11/6/2017 5:06:25 PM
 window._language_zh_CN = {
 AA:"客客",
+ABComm:"AllBet 佣金",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
 Account:"账号",
 AccountManagement:"帐户管理",
@@ -1503,6 +1507,7 @@ P2:"2P",
 P3:"3P",
 Page:"页面",
 Parlay:"混合过关",
+ParlayComm:"Parlay 佣金",
 Password:"密码",
 PasswordChangedMsg:"密码更改！",
 PasswordConfirmErrorMsg:"密码无法确认",
@@ -1531,7 +1536,7 @@ ProductCO:"即时兑现",
 ProductCS:"娱乐城",
 ProductLC:"娱乐厅",
 ProductNG:"百练赛",
-ProductRB:"赛事",
+ProductRB:"赛马",
 ProductSB:"体育博彩",
 ProductVS:"虚拟运动",
 ProductVS2:"虚拟运动2",
@@ -1543,13 +1548,13 @@ Q3:"3Q",
 Q4:"4Q",
 Race:"赛事",
 Racing:"赛事",
-RacingComm:"赛事佣金",
+RacingComm:"赛马佣金",
 RacingCommission:"赛事佣金",
 RacingCommissionTitle:"赛事佣金,{0} --&gt; {1} - {2}",
 RacingRevenue:"赛事所得",
 RacingRevenueBalanceNote:"赛事所得:赛事相关产品所得",
-RB:"赛事",
-RBComm:"RB佣金",
+RB:"赛马",
+RBComm:"赛马佣金",
 RCCommission:"赛马赛事佣金",
 RecommendBrowserOnReportPageMsg:"若页面大小 &gt; 1,000, 请您考虑使用火狐或Chrome以获得更好的体验",
 RefNo:"参考号码",
@@ -1770,9 +1775,10 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 195:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 10/24/2017 3:11:49 PM
+﻿// Generated at: 11/6/2017 5:06:25 PM
 window._language_zh_TW = {
 AA:"客客",
+ABComm:"AllBet 佣金",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
 Account:"賬號",
 AccountManagement:"帳戶管理",
@@ -2312,6 +2318,7 @@ P2:"2P",
 P3:"3P",
 Page:"頁面",
 Parlay:"混合過關",
+ParlayComm:"Parlay 佣金",
 Password:"密碼",
 PasswordChangedMsg:"密碼更改！",
 PasswordConfirmErrorMsg:"密碼無法確認",
@@ -2340,7 +2347,7 @@ ProductCO:"即時兌現",
 ProductCS:"娛樂城",
 ProductLC:"娛樂廳",
 ProductNG:"百練賽",
-ProductRB:"賽事",
+ProductRB:"賽馬",
 ProductSB:"體育博彩",
 ProductVS:"虛擬運動",
 ProductVS2:"虛擬運動2",
@@ -2352,13 +2359,13 @@ Q3:"3Q",
 Q4:"4Q",
 Race:"賽事",
 Racing:"賽事",
-RacingComm:"賽事佣金",
+RacingComm:"賽馬佣金",
 RacingCommission:"賽事佣金",
 RacingCommissionTitle:"賽事佣金 ,{0} --&gt; {1} - {2}",
 RacingRevenue:"賽事所得",
 RacingRevenueBalanceNote:"賽事所得:賽事相關產品所得",
-RB:"賽事",
-RBComm:"RB傭金",
+RB:"賽馬",
+RBComm:"賽馬佣金",
 RCCommission:"赛马赛事佣金",
 RecommendBrowserOnReportPageMsg:"若頁面大小&gt; 1,000，請您考慮使用火狐或Chrome瀏覽器以獲得更好的體驗",
 RefNo:"參考號碼",
@@ -2579,9 +2586,10 @@ YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 /***/ 196:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 10/24/2017 3:11:49 PM
+﻿// Generated at: 11/6/2017 5:06:25 PM
 window._language_zh_Hans = {
 AA:"客客",
+ABComm:"AllBet 佣金",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
 Account:"账号",
 AccountManagement:"帐户管理",
@@ -3109,6 +3117,7 @@ P2:"2P",
 P3:"3P",
 Page:"页面",
 Parlay:"混合过关",
+ParlayComm:"Parlay 佣金",
 Password:"密码",
 PasswordChangedMsg:"密码更改！",
 PasswordConfirmErrorMsg:"密码无法确认",
@@ -3136,7 +3145,7 @@ ProductBG:"宾果",
 ProductCS:"娱乐城",
 ProductLC:"娱乐厅",
 ProductNG:"百练赛",
-ProductRB:"赛事",
+ProductRB:"赛马",
 ProductSB:"体育博彩",
 ProductVS:"虚拟运动",
 ProductVS2:"虚拟运动2",
@@ -3148,13 +3157,13 @@ Q3:"3Q",
 Q4:"4Q",
 Race:"赛事",
 Racing:"赛事",
-RacingComm:"赛事佣金",
+RacingComm:"赛马佣金",
 RacingCommission:"赛事佣金",
 RacingCommissionTitle:"赛事佣金,{0} --&gt; {1} - {2}",
 RacingRevenue:"赛事所得",
 RacingRevenueBalanceNote:"赛事所得:赛事相关产品所得",
-RB:"赛事",
-RBComm:"RB佣金",
+RB:"赛马",
+RBComm:"赛马佣金",
 RCCommission:"赛马赛事佣金",
 RecommendBrowserOnReportPageMsg:"若页面大小 &gt; 1,000, 请您考虑使用火狐或Chrome以获得更好的体验",
 RefNo:"参考号码",
@@ -3374,9 +3383,10 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 197:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 10/24/2017 3:11:49 PM
+﻿// Generated at: 11/6/2017 5:06:25 PM
 window._language_ko_KR = {
 AA:"AA",
+ABComm:"AllBet 수수료",
 AccessDeniedMsg:"죄송합니다. 이 페이지에 접근할 권한이 없습니다.",
 Account:"회계",
 AccountManagement:"회계 관리",
