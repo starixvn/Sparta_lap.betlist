@@ -6,7 +6,7 @@
 
     public class LicenseeWinLossByTimeZoneViewModel
     {
-        public DateTime FromDate { get; set; } = DateTime.Today;
+        public DateTime FromDate { get; set; } = DateTime.Now.AddMonths(-1);
 
         public DateTime ToDate { get; set; } = DateTime.Today;
 

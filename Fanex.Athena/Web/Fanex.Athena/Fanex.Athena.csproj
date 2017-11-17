@@ -778,6 +778,8 @@
     <Content Include="Scripts\Report\customerbalance.option.js" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
     <Content Include="www\assets\images\new-system.svg" />
+    <Content Include="www\css\build\dev\reactpages\licenseewlbytimezone\index.chunk.js" />
+    <Content Include="www\css\build\dev\reactpages\licenseewlbytimezone\index.css" />
     <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.chunk.js" />
     <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.css" />
     <Content Include="www\css\build\dev\reactpages\vendor.chunk.js" />
@@ -832,6 +834,8 @@
     <Content Include="www\js\build\dev\reactpages\report\licenseewlbytimezone.chunk.js.map" />
     <Content Include="www\css\source\reactpages\pages\licenseewl-by-timezone\index.scss" />
     <Content Include="Views\Desktop\Utility\FunctionNotAvailableOldUI.cshtml" />
+    <Content Include="www\css\build\dev\reactpages\licenseewlbytimezone\index.chunk.js.map" />
+    <Content Include="www\css\build\dev\reactpages\licenseewlbytimezone\index.css.map" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />

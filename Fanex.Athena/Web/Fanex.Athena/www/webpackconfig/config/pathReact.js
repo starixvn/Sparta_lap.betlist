@@ -5,7 +5,8 @@ var projectRoot = path.resolve(__dirname, '../../../');
 var cssPaths = {
     build: "www/css/build",
     layout: "./www/css/source/reactpages/main.scss",
-    subsidiaryperformance: "./www/css/source/reactpages/pages/subsidiaryperformance/index.scss"
+    subsidiaryperformance: "./www/css/source/reactpages/pages/subsidiaryperformance/index.scss",
+    licenseewlbytimezone: "./www/css/source/reactpages/pages/licenseewl-by-timezone/index.scss"
 };
 
 var scriptPaths = {

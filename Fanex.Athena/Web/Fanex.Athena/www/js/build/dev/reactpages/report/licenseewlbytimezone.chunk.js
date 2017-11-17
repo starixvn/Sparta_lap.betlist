@@ -4666,7 +4666,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -6565,7 +6565,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -6720,7 +6720,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -6989,7 +6989,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -7363,7 +7363,7 @@ var _reactDom = __webpack_require__(8);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -18538,7 +18538,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -19398,7 +19398,7 @@ var _RowLayout = __webpack_require__(279);
 
 var _RowLayout2 = _interopRequireDefault(_RowLayout);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -19647,7 +19647,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -19718,7 +19718,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -19906,7 +19906,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -20188,7 +20188,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -20422,7 +20422,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -20483,7 +20483,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -20772,7 +20772,7 @@ var _reactDom = __webpack_require__(8);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -21018,7 +21018,7 @@ var _reactDom = __webpack_require__(8);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -21122,7 +21122,7 @@ var _reactDom = __webpack_require__(8);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -21207,7 +21207,7 @@ var _reactDom = __webpack_require__(8);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -21326,7 +21326,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -22006,7 +22006,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -22209,7 +22209,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -22860,12 +22860,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var headerText = {
+    Index: "#",
     Product: _langHelper2.default.getSingleResource("Product"),
     Currency: _langHelper2.default.getSingleResource("Currency"),
     BetCount: _langHelper2.default.getSingleResource("BetCount"),
     Turnover: _langHelper2.default.getSingleResource("Turnover"),
     CustomerComm: _langHelper2.default.getSingleResource("CustomerComm"),
     LicenseeWL: _langHelper2.default.getSingleResource("LicenseeWL"),
+    LicenseeComm: _langHelper2.default.getSingleResource("LicenseeComm"),
     LicenseeNetWL: _langHelper2.default.getSingleResource("LicenseeNetWL"),
     Margin: _langHelper2.default.getSingleResource("Margin")
 };
@@ -22882,7 +22884,7 @@ var Service = function () {
             var toDate = _site2.default.convertDateToString(dateRange.toDate);
             var viewInByCurrency = '' + _langHelper2.default.getSingleResource("Viewin").replace("{0}", selectedBaseCurrency);
 
-            return _langHelper2.default.getSingleResource("LicenseeWinLossByTimeZone") + ', ' + fromDate + ' - ' + toDate + ' - ' + viewInByCurrency;
+            return _langHelper2.default.getSingleResource("LicenseeWinLoss") + ', ' + fromDate + ' - ' + toDate + ' - ' + viewInByCurrency;
         }
     }, {
         key: 'getHeaderText',
@@ -23345,7 +23347,7 @@ var _reduxThunk = __webpack_require__(237);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _index = __webpack_require__(736);
+var _index = __webpack_require__(737);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -23721,6 +23723,11 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 { style: { height: 32 } },
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
+                    { colWidth: 50, header: true, title: '#' },
+                    headerText.Index
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
                     { colWidth: 150, header: true, title: headerText.Product },
                     headerText.Product
                 ),
@@ -23751,6 +23758,11 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
+                    { colWidth: 200, header: true, title: headerText.LicenseeComm },
+                    headerText.LicenseeComm
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
                     { colWidth: 200, header: true, title: headerText.LicenseeNetWL },
                     headerText.LicenseeNetWL
                 ),
@@ -23770,26 +23782,29 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 var item = data[i];
                 var betcount = _numberFormat2.default.format(item.BetCount),
                     turnover = _numberFormat2.default.formatDecimal(item.Turnover),
-                    customerWinLoss = _numberFormat2.default.formatDecimal(item.CustomerWinLoss),
-                    subsidiaryWinLoss = _numberFormat2.default.formatDecimal(item.SubsidiaryWinLoss);
+                    customerComm = _numberFormat2.default.formatDecimal(item.CustomerComm),
+                    licenseeWL = _numberFormat2.default.formatDecimal(item.LicenseeWL),
+                    licenseeComm = _numberFormat2.default.formatDecimal(item.LicenseeComm),
+                    licenseeNetWL = _numberFormat2.default.formatDecimal(item.LicenseeNetWL),
+                    margin = _numberFormat2.default.formatDecimal(item.Margin);
 
                 rows.push(_react2.default.createElement(
                     _fixedTableHeader.Row,
                     { key: 'tr' + i },
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { title: item.Subsidiary },
-                        item.Subsidiary
-                    ),
-                    _react2.default.createElement(
-                        _fixedTableHeader.Cell,
-                        { title: item.CurrencyName, className: 'center-align' },
-                        item.CurrencyName
+                        { className: 'center-align' },
+                        i + 1
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: item.Product },
                         item.Product
+                    ),
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: item.CurrencyName, className: 'center-align' },
+                        item.CurrencyName
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
@@ -23803,13 +23818,28 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { title: customerWinLoss, className: 'right-align' },
-                        customerWinLoss
+                        { title: customerComm, className: 'right-align' },
+                        customerComm
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { title: subsidiaryWinLoss, className: 'right-align ' + (item.SubsidiaryWinLoss < 0 ? "negative" : "") },
-                        subsidiaryWinLoss
+                        { title: licenseeWL, className: "right-align" },
+                        licenseeWL
+                    ),
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: licenseeComm, className: "right-align" },
+                        licenseeComm
+                    ),
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: licenseeNetWL, className: "right-align" },
+                        licenseeNetWL
+                    ),
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: margin, className: "right-align" },
+                        margin
                     )
                 ));
             }
@@ -23822,23 +23852,20 @@ var DataGrid = exports.DataGrid = function (_Component) {
             var item = this.props.gridData.Total;
             var betcount = _numberFormat2.default.format(item.BetCount),
                 turnover = _numberFormat2.default.formatDecimal(item.Turnover),
-                customerWinLoss = _numberFormat2.default.formatDecimal(item.CustomerWinLoss),
-                subsidiaryWinLoss = _numberFormat2.default.formatDecimal(item.SubsidiaryWinLoss);
+                customerComm = _numberFormat2.default.formatDecimal(item.CustomerComm),
+                licenseeWL = _numberFormat2.default.formatDecimal(item.LicenseeWL),
+                licenseeComm = _numberFormat2.default.formatDecimal(item.LicenseeComm),
+                licenseeNetWL = _numberFormat2.default.formatDecimal(item.LicenseeNetWL),
+                margin = _numberFormat2.default.formatDecimal(item.Margin);
 
-            return _react2.default.createElement(
+            return [_react2.default.createElement(
                 _fixedTableHeader.Row,
-                { className: 'fixed-table-total' },
+                { className: 'fixed-table-grant-total', key: 1 },
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { title: item.Subsidiary },
-                    item.Subsidiary
+                    { className: 'center-align', colSpan: 3 },
+                    _langHelper2.default.getSingleResource("Totalin") + "EUR"
                 ),
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { title: item.CurrencyName },
-                    item.CurrencyName
-                ),
-                _react2.default.createElement(_fixedTableHeader.Cell, null),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { title: betcount, className: 'right-align' },
@@ -23851,17 +23878,30 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { title: customerWinLoss, className: 'right-align' },
-                    customerWinLoss
+                    { title: customerComm, className: 'right-align' },
+                    customerComm
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { title: subsidiaryWinLoss, className: 'right-align ' + (item.SubsidiaryWinLoss < 0 ? "negative" : "") },
-                    subsidiaryWinLoss
+                    { title: licenseeWL, className: "right-align" },
+                    licenseeWL
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { title: licenseeComm, className: "right-align" },
+                    licenseeComm
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { title: licenseeNetWL, className: "right-align" },
+                    licenseeNetWL
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { title: margin, className: "right-align" },
+                    margin
                 )
-            );
-
-            return footer;
+            )];
         }
     }, {
         key: '_renderNodata',
@@ -23947,7 +23987,7 @@ var _reactSelect = __webpack_require__(287);
 
 var _reactSelect2 = _interopRequireDefault(_reactSelect);
 
-var _reactRadioGroup = __webpack_require__(747);
+var _reactRadioGroup = __webpack_require__(735);
 
 var _multipleSelect = __webpack_require__(293);
 
@@ -23959,7 +23999,7 @@ var _langHelper = __webpack_require__(14);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _reportExcel = __webpack_require__(735);
+var _reportExcel = __webpack_require__(736);
 
 var _reportExcel2 = _interopRequireDefault(_reportExcel);
 
@@ -24352,400 +24392,6 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _ref, _ref2, _ref4, _ref5, _ref6, _ref7;
-
-var _excel = __webpack_require__(304);
-
-var _excel2 = _interopRequireDefault(_excel);
-
-var _langHelper = __webpack_require__(14);
-
-var _langHelper2 = _interopRequireDefault(_langHelper);
-
-var _excelStyle = __webpack_require__(305);
-
-var _service = __webpack_require__(313);
-
-var _service2 = _interopRequireDefault(_service);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var COLUMN_COUNT = 7;
-var TITLE_ROW_INDEX = 0;
-var HEADER_ROW_INDEX = 1;
-var DATA_ROW_INDEX = 2;
-
-var SUBSIDIARY_COLUMN_INDEX = 0;
-var CURRENCY_COLUMN_INDEX = 1;
-var PRODUCT_COLUMN_INDEX = 2;
-var BETCOUNT_COLUMN_INDEX = 3;
-var TURNOVER_COLUMN_INDEX = 4;
-var CUSTOMERWL_COLUMN_INDEX = 5;
-var SUBSIDIARYWL_COLUMN_INDEX = 6;
-
-var MAIN_SECTION_STYLE = "mainSectionStyle";
-var TOTAL_SECTION_STYLE = "totalSectionStyle";
-var GRAND_TOTAL_SECTION_STYLE = "grandTotalSectionStyle";
-
-var fields = {
-    subsidiary: "Subsidiary",
-    currencyName: "CurrencyName",
-    product: "Product",
-    betCount: "BetCount",
-    turnover: "Turnover",
-    customerWinLoss: "CustomerWinLoss",
-    subsidiaryWinLoss: "SubsidiaryWinLoss"
-};
-
-var columnConfigs = [(_ref = {
-    field: fields.subsidiary
-}, _defineProperty(_ref, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.rowspan), _defineProperty(_ref, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.default), _defineProperty(_ref, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.default), _ref), (_ref2 = {
-    field: fields.currencyName
-}, _defineProperty(_ref2, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), _defineProperty(_ref2, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.default), _defineProperty(_ref2, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.default), _ref2), _defineProperty({
-    field: fields.product
-}, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.default), (_ref4 = {
-    field: fields.betCount
-}, _defineProperty(_ref4, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.number), _defineProperty(_ref4, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.number), _defineProperty(_ref4, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.number), _ref4), (_ref5 = {
-    field: fields.turnover
-}, _defineProperty(_ref5, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_ref5, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.decimal), _defineProperty(_ref5, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _ref5), (_ref6 = {
-    field: fields.customerWinLoss
-}, _defineProperty(_ref6, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_ref6, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.decimal), _defineProperty(_ref6, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _ref6), (_ref7 = {
-    field: fields.subsidiaryWinLoss
-}, _defineProperty(_ref7, MAIN_SECTION_STYLE, { positive: _excelStyle.bodyCellStyle.decimal, negative: _excelStyle.bodyCellStyle.negativeDecimal }), _defineProperty(_ref7, TOTAL_SECTION_STYLE, { positive: _excelStyle.totalCellStyle.decimal, negative: _excelStyle.totalCellStyle.negativeDecimal }), _defineProperty(_ref7, GRAND_TOTAL_SECTION_STYLE, { positive: _excelStyle.grandTotalCellStyle.decimal, negative: _excelStyle.grandTotalCellStyle.negativeDecimal }), _ref7)];
-
-var ReportExcel = function () {
-    function ReportExcel() {
-        var gridData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        var title = arguments[1];
-        var fileName = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SubsidiaryPerformance";
-
-        _classCallCheck(this, ReportExcel);
-
-        this.worksheet = {};
-        this.title = title;
-        this.fileName = fileName;
-        this.gridData = gridData;
-        this.currentRowIndex = DATA_ROW_INDEX;
-        this.mergeConfig = [];
-    }
-
-    _createClass(ReportExcel, [{
-        key: 'export',
-        value: function _export() {
-            if (!this.gridData.Data || !this.gridData.Data.length) {
-                return;
-            }
-
-            this._createTitle();
-            this._createHeader();
-            this._createSheetData();
-            this._createExcelConfig();
-
-            _excel2.default.export(this.worksheet, this.fileName);
-        }
-    }, {
-        key: '_createTitle',
-        value: function _createTitle() {
-            this.mergeConfig.push({ s: { r: TITLE_ROW_INDEX, c: 0 }, e: { r: TITLE_ROW_INDEX, c: COLUMN_COUNT - 1 } });
-            var address = _excel2.default.getCellAddress({ c: 0, r: TITLE_ROW_INDEX });
-            this.worksheet[address] = { t: "s", v: this.title, s: _excelStyle.titleCellStyle };
-        }
-    }, {
-        key: '_createHeader',
-        value: function _createHeader() {
-            var headerText = _service2.default.getHeaderText();
-            var keys = Object.keys(headerText);
-            for (var i = 0; i < keys.length; i++) {
-                var address = _excel2.default.getCellAddress({ c: i, r: HEADER_ROW_INDEX });
-                var header = headerText[keys[i]];
-                this.worksheet[address] = { t: "s", v: header, s: _excelStyle.headerCellStyle };
-            }
-        }
-    }, {
-        key: '_createSheetData',
-        value: function _createSheetData() {
-            this._createMainData();
-            this._createFooterData();
-            this._createGrandTotalData();
-        }
-    }, {
-        key: '_createMainData',
-        value: function _createMainData() {
-            var mainData = this.gridData.Data;
-
-            for (var i = 0; i < mainData.length; i++) {
-                var item = mainData[i];
-                var details = item.Details;
-
-                this._createRowByColumnIndex(item, MAIN_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
-
-                this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex + details.length - 1, c: 0 } });
-                this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex + details.length - 1, c: 1 } });
-
-                for (var detailIndex = 0; detailIndex < details.length; detailIndex++) {
-                    var detail = details[detailIndex];
-                    this._createRowByColumnIndex(detail, MAIN_SECTION_STYLE, PRODUCT_COLUMN_INDEX, SUBSIDIARYWL_COLUMN_INDEX);
-                    this.currentRowIndex++;
-                }
-            }
-        }
-    }, {
-        key: '_createFooterData',
-        value: function _createFooterData() {
-            var totalDataList = this.gridData.Total;
-
-            for (var i = 0; i < totalDataList.length; i++) {
-                var item = totalDataList[i];
-                this._createRowByColumnIndex(item, TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARYWL_COLUMN_INDEX);
-                this.currentRowIndex++;
-            }
-        }
-    }, {
-        key: '_createGrandTotalData',
-        value: function _createGrandTotalData() {
-            var grandTotal = this.gridData.GrandTotal;
-            this._createRowByColumnIndex(grandTotal, GRAND_TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARYWL_COLUMN_INDEX);
-        }
-    }, {
-        key: '_createExcelConfig',
-        value: function _createExcelConfig() {
-            var cellStart = _excel2.default.getCellAddress({ r: 0, c: 0 });
-            var cellEnd = _excel2.default.getCellAddress({ r: this.currentRowIndex, c: COLUMN_COUNT - 1 });
-
-            this.worksheet["!merges"] = this.mergeConfig;
-            this.worksheet["!ref"] = cellStart + ':' + cellEnd;
-            var wscols = [{ wpx: 150 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }];
-
-            this.worksheet['!cols'] = wscols;
-        }
-    }, {
-        key: '_createRowByColumnIndex',
-        value: function _createRowByColumnIndex(item, sectionStyle, startIndex, endIndex) {
-            for (var i = startIndex; i <= endIndex; i++) {
-                var _getCellObject2 = this._getCellObject(item, sectionStyle, i),
-                    cellAddress = _getCellObject2.cellAddress,
-                    type = _getCellObject2.type,
-                    value = _getCellObject2.value,
-                    style = _getCellObject2.style;
-
-                this.worksheet[cellAddress] = { t: type, v: value, s: style };
-            }
-        }
-    }, {
-        key: '_getCellObject',
-        value: function _getCellObject(item, sectionStyle, columnIndex) {
-            var columnConfig = columnConfigs[columnIndex];
-            var field = columnConfig.field;
-
-            var cellAddress = _excel2.default.getCellAddress({ c: columnIndex, r: this.currentRowIndex });
-            var type = typeof item[columnConfig.field] === "number" ? "n" : "s";
-            var value = item[field] !== null ? item[field] : "";
-
-            var style = columnConfig[sectionStyle];
-            if (field === fields.subsidiaryWinLoss) {
-                style = value < 0 ? style.negative : style.positive;
-            }
-
-            return { cellAddress: cellAddress, type: type, value: value, style: style };
-        }
-    }]);
-
-    return ReportExcel;
-}();
-
-exports.default = ReportExcel;
-
-/***/ }),
-/* 736 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _redux = __webpack_require__(21);
-
-var _dataHandlerReducer = __webpack_require__(737);
-
-var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
-
-var _filterHandlerReducer = __webpack_require__(738);
-
-var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
-
-var _productReducer = __webpack_require__(308);
-
-var productReducer = _interopRequireWildcard(_productReducer);
-
-var _currencyReducer = __webpack_require__(739);
-
-var currencyReducer = _interopRequireWildcard(_currencyReducer);
-
-var _baseCurrency = __webpack_require__(309);
-
-var baseCurrencyReducer = _interopRequireWildcard(_baseCurrency);
-
-var _loaderReducer = __webpack_require__(310);
-
-var loaderReducer = _interopRequireWildcard(_loaderReducer);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, filterHandlerReducer, productReducer, currencyReducer, baseCurrencyReducer, loaderReducer));
-
-/***/ }),
-/* 737 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.gridData = undefined;
-
-var _createReducer2 = __webpack_require__(26);
-
-var _createReducer3 = _interopRequireDefault(_createReducer2);
-
-var _types = __webpack_require__(217);
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProperty({}, types.SET_GRID_DATA, function (state, action) {
-    return action.data;
-}));
-
-/***/ }),
-/* 738 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.dateConstraint = exports.xsrfToken = exports.convertAll = exports.groupBy = exports.dateRange = exports.selectedReportBy = exports.reportByList = exports.selectedTimeZone = exports.timeZoneList = undefined;
-
-var _createReducer10 = __webpack_require__(26);
-
-var _createReducer11 = _interopRequireDefault(_createReducer10);
-
-var _types = __webpack_require__(217);
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var timeZoneList = exports.timeZoneList = (0, _createReducer11.default)({}, _defineProperty({}, types.GET_TIMEZONE, function (state, action) {
-    return action.data;
-}));
-
-var selectedTimeZone = exports.selectedTimeZone = (0, _createReducer11.default)({}, _defineProperty({}, types.SET_TIMEZONE, function (state, action) {
-    return action.data;
-}));
-
-var reportByList = exports.reportByList = (0, _createReducer11.default)({}, _defineProperty({}, types.GET_REPORTBY, function (state, action) {
-    return action.data;
-}));
-
-var selectedReportBy = exports.selectedReportBy = (0, _createReducer11.default)({}, _defineProperty({}, types.SET_REPORTBY, function (state, action) {
-    return action.data;
-}));
-
-var dateRange = exports.dateRange = (0, _createReducer11.default)({}, _defineProperty({}, types.SET_DATE_RANGE, function (state, action) {
-    return action.data;
-}));
-
-var groupBy = exports.groupBy = (0, _createReducer11.default)({}, _defineProperty({}, types.CHANGE_GROUPBY, function (state, action) {
-    return action.data;
-}));
-
-var convertAll = exports.convertAll = (0, _createReducer11.default)({}, _defineProperty({}, types.CHANGE_CONVERT_ALL, function (state, action) {
-    return action.data;
-}));
-
-var xsrfToken = exports.xsrfToken = (0, _createReducer11.default)({}, _defineProperty({}, types.GET_XSRF_TOKEN, function (state, action) {
-    return action.data;
-}));
-
-var dateConstraint = exports.dateConstraint = (0, _createReducer11.default)({}, _defineProperty({}, types.GET_DATE_CONSTRAINT, function (state, action) {
-    return action.data;
-}));
-
-/***/ }),
-/* 739 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.currencyList = exports.selectedCurrency = undefined;
-
-var _types = __webpack_require__(15);
-
-var types = _interopRequireWildcard(_types);
-
-var _createReducer3 = __webpack_require__(26);
-
-var _createReducer4 = _interopRequireDefault(_createReducer3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var selectedCurrency = exports.selectedCurrency = (0, _createReducer4.default)({}, _defineProperty({}, types.SET_SELECTED_CURRENCY, function (state, action) {
-    return action.data;
-}));
-
-var currencyList = exports.currencyList = (0, _createReducer4.default)({}, _defineProperty({}, types.GET_CURRENCY, function (state, action) {
-    return action.data;
-}));
-
-/***/ }),
-/* 740 */,
-/* 741 */,
-/* 742 */,
-/* 743 */,
-/* 744 */,
-/* 745 */,
-/* 746 */,
-/* 747 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
@@ -24764,7 +24410,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -24878,6 +24524,387 @@ RadioGroup.propTypes = {
 RadioGroup.childContextTypes = {
   radioGroup: _propTypes2['default'].object
 };
+
+/***/ }),
+/* 736 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7, _ref8, _ref9, _ref10;
+
+var _excel = __webpack_require__(304);
+
+var _excel2 = _interopRequireDefault(_excel);
+
+var _langHelper = __webpack_require__(14);
+
+var _langHelper2 = _interopRequireDefault(_langHelper);
+
+var _excelStyle = __webpack_require__(305);
+
+var _service = __webpack_require__(313);
+
+var _service2 = _interopRequireDefault(_service);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var COLUMN_COUNT = 10;
+var TITLE_ROW_INDEX = 0;
+var HEADER_ROW_INDEX = 1;
+var DATA_ROW_INDEX = 2;
+
+var INDEX_COLUMN_INDEX = 0;
+var PRODUCT_COLUMN_INDEX = 1;
+var CURRENCY_COLUMN_INDEX = 2;
+var BETCOUNT_COLUMN_INDEX = 3;
+var TURNOVER_COLUMN_INDEX = 4;
+var CUSTOMERCOMM_COLUMN_INDEX = 5;
+var LICENSEEWL_COLUMN_INDEX = 6;
+var LICENSEECOMM_COLUMN_INDEX = 7;
+var LICENSEENETWL_COLUMN_INDEX = 8;
+var MARGIN_COLUMN_INDEX = 9;
+
+var MAIN_SECTION_STYLE = "mainSectionStyle";
+var TOTAL_SECTION_STYLE = "totalSectionStyle";
+var GRAND_TOTAL_SECTION_STYLE = "grandTotalSectionStyle";
+
+var fields = {
+    Index: "#",
+    Product: "Product",
+    CurrencyName: "CurrencyName",
+    BetCount: "BetCount",
+    Turnover: "Turnover",
+    CustomerWinLoss: "CustomerComm",
+    LicenseeWL: "LicenseeWL",
+    LicenseeComm: "LicenseeComm",
+    LicenseeNetWL: "LicenseeNetWL"
+};
+
+var columnConfigs = [(_ref = {
+    field: "#"
+}, _defineProperty(_ref, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), _defineProperty(_ref, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.default), _ref), (_ref2 = {
+    field: fields.Product
+}, _defineProperty(_ref2, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.rowspan), _defineProperty(_ref2, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.default), _ref2), (_ref3 = {
+    field: fields.CurrencyName
+}, _defineProperty(_ref3, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), _defineProperty(_ref3, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.default), _ref3), (_ref4 = {
+    field: fields.BetCount
+}, _defineProperty(_ref4, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.number), _defineProperty(_ref4, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.number), _ref4), (_ref5 = {
+    field: fields.Turnover
+}, _defineProperty(_ref5, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_ref5, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _ref5), (_ref6 = {
+    field: fields.CustomerComm
+}, _defineProperty(_ref6, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_ref6, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _ref6), (_ref7 = {
+    field: fields.LicenseeWL
+}, _defineProperty(_ref7, MAIN_SECTION_STYLE, { positive: _excelStyle.bodyCellStyle.decimal, negative: _excelStyle.bodyCellStyle.negativeDecimal }), _defineProperty(_ref7, GRAND_TOTAL_SECTION_STYLE, { positive: _excelStyle.grandTotalCellStyle.decimal, negative: _excelStyle.grandTotalCellStyle.negativeDecimal }), _ref7), (_ref8 = {
+    field: fields.LicenseeComm
+}, _defineProperty(_ref8, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_ref8, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _ref8), (_ref9 = {
+    field: fields.LicenseeNetWL
+}, _defineProperty(_ref9, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_ref9, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _ref9), (_ref10 = {
+    field: fields.Margin
+}, _defineProperty(_ref10, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_ref10, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _ref10)];
+
+var ReportExcel = function () {
+    function ReportExcel() {
+        var gridData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        var title = arguments[1];
+        var fileName = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "LicenseeWinLoss";
+
+        _classCallCheck(this, ReportExcel);
+
+        this.worksheet = {};
+        this.title = title;
+        this.fileName = fileName;
+        this.gridData = gridData;
+        this.currentRowIndex = DATA_ROW_INDEX;
+        this.mergeConfig = [];
+    }
+
+    _createClass(ReportExcel, [{
+        key: 'export',
+        value: function _export() {
+            if (!this.gridData.Data || !this.gridData.Data.length) {
+                return;
+            }
+
+            this._createTitle();
+            this._createHeader();
+            this._createSheetData();
+            this._createExcelConfig();
+
+            _excel2.default.export(this.worksheet, this.fileName);
+        }
+    }, {
+        key: '_createTitle',
+        value: function _createTitle() {
+            this.mergeConfig.push({ s: { r: TITLE_ROW_INDEX, c: 0 }, e: { r: TITLE_ROW_INDEX, c: COLUMN_COUNT - 1 } });
+            var address = _excel2.default.getCellAddress({ c: 0, r: TITLE_ROW_INDEX });
+            this.worksheet[address] = { t: "s", v: this.title, s: _excelStyle.titleCellStyle };
+        }
+    }, {
+        key: '_createHeader',
+        value: function _createHeader() {
+            var headerText = _service2.default.getHeaderText();
+            var keys = Object.keys(headerText);
+            for (var i = 0; i < keys.length; i++) {
+                var address = _excel2.default.getCellAddress({ c: i, r: HEADER_ROW_INDEX });
+                var header = headerText[keys[i]];
+                this.worksheet[address] = { t: "s", v: header, s: _excelStyle.headerCellStyle };
+            }
+        }
+    }, {
+        key: '_createSheetData',
+        value: function _createSheetData() {
+            this._createMainData();
+            this._createFooterData();
+        }
+    }, {
+        key: '_createMainData',
+        value: function _createMainData() {
+            var mainData = this.gridData.Data;
+
+            for (var i = 0; i < mainData.length; i++) {
+                var item = mainData[i];
+
+                this._createRowByColumnIndex(item, MAIN_SECTION_STYLE, INDEX_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
+                this.currentRowIndex++;
+            }
+        }
+    }, {
+        key: '_createFooterData',
+        value: function _createFooterData() {
+            this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex, c: BETCOUNT_COLUMN_INDEX } });
+            var totalData = this.gridData.Total;
+
+            var cellAddress = _excel2.default.getCellAddress({ c: INDEX_COLUMN_INDEX, r: this.currentRowIndex });
+            this.worksheet[cellAddress] = { t: "s", v: _langHelper2.default.getSingleResource("Totalin") + "EUR", s: _excelStyle.bodyCellStyle.center };
+            this._createRowByColumnIndex(totalData, GRAND_TOTAL_SECTION_STYLE, BETCOUNT_COLUMN_INDEX, MARGIN_COLUMN_INDEX);
+        }
+    }, {
+        key: '_createExcelConfig',
+        value: function _createExcelConfig() {
+            var cellStart = _excel2.default.getCellAddress({ r: 0, c: 0 });
+            var cellEnd = _excel2.default.getCellAddress({ r: this.currentRowIndex, c: COLUMN_COUNT - 1 });
+
+            this.worksheet["!merges"] = this.mergeConfig;
+            this.worksheet["!ref"] = cellStart + ':' + cellEnd;
+            var wscols = [{ wpx: 50 }, { wpx: 150 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }];
+
+            this.worksheet['!cols'] = wscols;
+        }
+    }, {
+        key: '_createRowByColumnIndex',
+        value: function _createRowByColumnIndex(item, sectionStyle, startIndex, endIndex) {
+            for (var i = startIndex; i <= endIndex; i++) {
+                var _getCellObject2 = this._getCellObject(item, sectionStyle, i),
+                    cellAddress = _getCellObject2.cellAddress,
+                    type = _getCellObject2.type,
+                    value = _getCellObject2.value,
+                    style = _getCellObject2.style;
+
+                this.worksheet[cellAddress] = { t: type, v: value, s: style };
+            }
+        }
+    }, {
+        key: '_getCellObject',
+        value: function _getCellObject(item, sectionStyle, columnIndex) {
+            var columnConfig = columnConfigs[columnIndex];
+            var field = columnConfig.field;
+
+            var cellAddress = _excel2.default.getCellAddress({ c: columnIndex, r: this.currentRowIndex });
+            var type = typeof item[columnConfig.field] === "number" ? "n" : "s";
+            var value = item[field] !== null ? item[field] : "";
+
+            var style = columnConfig[sectionStyle];
+            if (field === fields.LicenseeWL) {
+                style = value < 0 ? style.negative : style.positive;
+            }
+
+            return { cellAddress: cellAddress, type: type, value: value, style: style };
+        }
+    }]);
+
+    return ReportExcel;
+}();
+
+exports.default = ReportExcel;
+
+/***/ }),
+/* 737 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _redux = __webpack_require__(21);
+
+var _dataHandlerReducer = __webpack_require__(738);
+
+var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
+
+var _filterHandlerReducer = __webpack_require__(739);
+
+var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
+
+var _productReducer = __webpack_require__(308);
+
+var productReducer = _interopRequireWildcard(_productReducer);
+
+var _currencyReducer = __webpack_require__(740);
+
+var currencyReducer = _interopRequireWildcard(_currencyReducer);
+
+var _baseCurrency = __webpack_require__(309);
+
+var baseCurrencyReducer = _interopRequireWildcard(_baseCurrency);
+
+var _loaderReducer = __webpack_require__(310);
+
+var loaderReducer = _interopRequireWildcard(_loaderReducer);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, filterHandlerReducer, productReducer, currencyReducer, baseCurrencyReducer, loaderReducer));
+
+/***/ }),
+/* 738 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.gridData = undefined;
+
+var _createReducer2 = __webpack_require__(26);
+
+var _createReducer3 = _interopRequireDefault(_createReducer2);
+
+var _types = __webpack_require__(217);
+
+var types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProperty({}, types.SET_GRID_DATA, function (state, action) {
+    return action.data;
+}));
+
+/***/ }),
+/* 739 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.dateConstraint = exports.xsrfToken = exports.convertAll = exports.groupBy = exports.dateRange = exports.selectedReportBy = exports.reportByList = exports.selectedTimeZone = exports.timeZoneList = undefined;
+
+var _createReducer10 = __webpack_require__(26);
+
+var _createReducer11 = _interopRequireDefault(_createReducer10);
+
+var _types = __webpack_require__(217);
+
+var types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var timeZoneList = exports.timeZoneList = (0, _createReducer11.default)({}, _defineProperty({}, types.GET_TIMEZONE, function (state, action) {
+    return action.data;
+}));
+
+var selectedTimeZone = exports.selectedTimeZone = (0, _createReducer11.default)({}, _defineProperty({}, types.SET_TIMEZONE, function (state, action) {
+    return action.data;
+}));
+
+var reportByList = exports.reportByList = (0, _createReducer11.default)({}, _defineProperty({}, types.GET_REPORTBY, function (state, action) {
+    return action.data;
+}));
+
+var selectedReportBy = exports.selectedReportBy = (0, _createReducer11.default)({}, _defineProperty({}, types.SET_REPORTBY, function (state, action) {
+    return action.data;
+}));
+
+var dateRange = exports.dateRange = (0, _createReducer11.default)({}, _defineProperty({}, types.SET_DATE_RANGE, function (state, action) {
+    return action.data;
+}));
+
+var groupBy = exports.groupBy = (0, _createReducer11.default)({}, _defineProperty({}, types.CHANGE_GROUPBY, function (state, action) {
+    return action.data;
+}));
+
+var convertAll = exports.convertAll = (0, _createReducer11.default)({}, _defineProperty({}, types.CHANGE_CONVERT_ALL, function (state, action) {
+    return action.data;
+}));
+
+var xsrfToken = exports.xsrfToken = (0, _createReducer11.default)({}, _defineProperty({}, types.GET_XSRF_TOKEN, function (state, action) {
+    return action.data;
+}));
+
+var dateConstraint = exports.dateConstraint = (0, _createReducer11.default)({}, _defineProperty({}, types.GET_DATE_CONSTRAINT, function (state, action) {
+    return action.data;
+}));
+
+/***/ }),
+/* 740 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.currencyList = exports.selectedCurrency = undefined;
+
+var _types = __webpack_require__(15);
+
+var types = _interopRequireWildcard(_types);
+
+var _createReducer3 = __webpack_require__(26);
+
+var _createReducer4 = _interopRequireDefault(_createReducer3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var selectedCurrency = exports.selectedCurrency = (0, _createReducer4.default)({}, _defineProperty({}, types.SET_SELECTED_CURRENCY, function (state, action) {
+    return action.data;
+}));
+
+var currencyList = exports.currencyList = (0, _createReducer4.default)({}, _defineProperty({}, types.GET_CURRENCY, function (state, action) {
+    return action.data;
+}));
 
 /***/ })
 ],[728]);

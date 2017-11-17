@@ -2,12 +2,14 @@ import LangHelper from '../../../lib/langHelper'
 import Site from '../../../lib/site'
 
 const headerText = {
+    Index: "#",
     Product : LangHelper.getSingleResource("Product"),
     Currency: LangHelper.getSingleResource("Currency"),
     BetCount: LangHelper.getSingleResource("BetCount"),
     Turnover: LangHelper.getSingleResource("Turnover"),
     CustomerComm: LangHelper.getSingleResource("CustomerComm"),
     LicenseeWL: LangHelper.getSingleResource("LicenseeWL"),
+    LicenseeComm: LangHelper.getSingleResource("LicenseeComm"),
     LicenseeNetWL: LangHelper.getSingleResource("LicenseeNetWL"),
     Margin: LangHelper.getSingleResource("Margin")
 }
@@ -18,7 +20,7 @@ export default class Service {
         const toDate = Site.convertDateToString(dateRange.toDate);
         const viewInByCurrency = `${LangHelper.getSingleResource("Viewin").replace("{0}", selectedBaseCurrency)}`;
 
-        return `${LangHelper.getSingleResource("LicenseeWinLossByTimeZone")}, ${fromDate} - ${toDate} - ${viewInByCurrency}`;
+        return `${LangHelper.getSingleResource("LicenseeWinLoss")}, ${fromDate} - ${toDate} - ${viewInByCurrency}`;
     }
 
     static getHeaderText() {
