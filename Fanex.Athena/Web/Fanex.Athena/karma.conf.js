@@ -204,7 +204,7 @@ module.exports = function (config) {
         exclude: [
         ],
         preprocessors: {
-            'Scripts/**/*.js': ['coverage']
+            ['Scripts/!(Library|Plugin)/**/*.js']: ['coverage']
         },
         port: 9876,
         colors: true,
