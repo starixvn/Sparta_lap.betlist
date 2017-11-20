@@ -17,6 +17,19 @@
 
             expect(colModelList.length).toEqual(15);
         });
+
+        it("resultColumn.formatter should return correct result", function () {
+            var colModelList = RNGCasinoOption.getColModel();
+            var resultCommn = colModelList[14];
+
+            var resultTagLink = resultCommn.formatter("123", null, {
+                UserBetId: 1,
+                GameTypeId: 2,
+                GameTypeName: 3
+            });
+
+            expect(resultTagLink).toBe('<a class="hand-history-detail-link" data-url="HandHistory/RNGCasinoDetail?userbetid=1&gametypeid=2&gametypename=3" href="javascript:;" >123</a>');
+        });
     });
 
     describe("getGridOption()", function () {

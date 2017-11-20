@@ -125,10 +125,13 @@
     });
 
     describe("loadGrid(isShowAll)", function () {
+        var gridOption;
         beforeEach(function () {
             affix("#CustomerSettingLogGrid");
 
-            spyOn($.fn, "jqGrid");
+            spyOn($.fn, "jqGrid").and.callFake(function (param) {
+                gridOption = param;
+            });
 
             CustomerSettingLog.loadGrid(true);
         });
@@ -139,6 +142,14 @@
 
         it("jqGrid function of jquery should be called two times", function () {
             expect($.fn.jqGrid.calls.count()).toBe(2);
+        });
+
+        it("gridOption.gridComplete() should call jqGridAdditional.gridComplete()", function () {
+            spyOn(CustomerLog, "checkShowAll");
+            spyOn(jqGridAdditional, "setNoInfo");
+            spyOn(jqGridAdditional, "gridComplete");
+            gridOption.gridComplete();
+            expect(jqGridAdditional.gridComplete).toHaveBeenCalled();
         });
     });
 

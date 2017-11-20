@@ -109,13 +109,15 @@
     });
 
     describe("bindData(response)", function () {
+        var gridOption = {}
         beforeEach(function () {
             affix("#ReportGrid");
 
             spyOn(jqGridAdditional, "clearGrid");
-            spyOn(RNGCasinoOption, "getGridOption").and.returnValue({});
-            spyOn($.fn, "jqGrid");
+            spyOn(RNGCasinoOption, "getGridOption").and.returnValue(gridOption);
+            
             spyOn(jqGridAdditional, "resetLayout");
+            spyOn($.fn, "jqGrid");
 
             RNGCasino.bindData({ Data: [] });
         });
@@ -130,6 +132,13 @@
 
         it("jqGridAdditional.resetLayout(reportGrid) should be called", function () {
             expect(jqGridAdditional.resetLayout).toHaveBeenCalled();
+        });
+
+        it("gridOption.gridComplete() should call jqGridAdditional.gridComplete()", function () {
+            spyOn(jqGridAdditional, "setNoInfo");
+            spyOn(jqGridAdditional, "gridComplete");
+            gridOption.gridComplete();
+            expect(jqGridAdditional.gridComplete).toHaveBeenCalled();
         });
     });
 

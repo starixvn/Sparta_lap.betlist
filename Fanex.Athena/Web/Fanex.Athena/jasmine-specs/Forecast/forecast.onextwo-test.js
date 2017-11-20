@@ -36,12 +36,12 @@
             ForecastOneXTwo.initEvent();
         });
 
-        it("ForecastOneXTwo.loadSelectedLeague(leagueId) should be called with correct parameter when '.league-list' fired change event", function () {
-            spyOn(ForecastOneXTwo, "loadSelectedLeague");
+        it("ForecastOneXTwo.submit() should be called with correct parameter when '.league-list' fired change event", function () {
+            spyOn(ForecastOneXTwo, "submit");
 
             $leagueList.change();
 
-            expect(ForecastOneXTwo.loadSelectedLeague).toHaveBeenCalledWith("1");
+            expect(ForecastOneXTwo.submit).toHaveBeenCalledWith();
         });
         it("ForecastOneXTwo.openForecast(matchId, betType) should be called with correct parameter when '.button-add' fired click event", function () {
             spyOn(ForecastOneXTwo, "openForecast");
@@ -82,16 +82,6 @@
         });
     });
 
-    describe("loadSelectedLeague(leagueId)", function () {
-        it("ForecastOneXTwo.submit() should be called", function () {
-            spyOn(ForecastOneXTwo, "submit");
-
-            ForecastOneXTwo.loadSelectedLeague(1);
-
-            expect(ForecastOneXTwo.submit).toHaveBeenCalled();
-        });
-    });
-
     describe("submit()", function () {
         it("submit function of jquery should be called", function () {
             affix("form#ForecastOneXTwoForm");
@@ -103,5 +93,4 @@
             expect($.fn.submit).toHaveBeenCalled();
         });
     });
-
 });

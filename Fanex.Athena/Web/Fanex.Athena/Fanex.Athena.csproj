@@ -755,8 +755,10 @@
     <Content Include="Content\Utility\images\UM.png" />
     <Content Include="jasmine-specs\BetList\lastbet.filter-test.js" />
     <Content Include="jasmine-specs\Customer\CustomerList\customerlist.custoption-test.js" />
+    <Content Include="jasmine-specs\Helper\ProductListHelper-test.js" />
     <Content Include="jasmine-specs\Helper\downloader-test.js" />
     <Content Include="jasmine-specs\Plugin\Toast\toast-test.js" />
+    <Content Include="jasmine-specs\Report\customerwinloss.option-test.js" />
     <Content Include="Jasmine\NewUI\SpecRunner.html" />
     <Content Include="karma-new-dev.conf.js" />
     <Content Include="karma-new.conf.js" />

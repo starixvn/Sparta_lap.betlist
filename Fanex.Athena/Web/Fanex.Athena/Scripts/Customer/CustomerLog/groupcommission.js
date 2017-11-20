@@ -114,10 +114,6 @@ var GroupCommLog = (function ($) {
             groupCommLogGrid.jqGrid(grid);
         },
         initParam: function () {
-            var userName = $('#Username').val();
-            if (userName === Site.getSingleResource("ExternalIdOrSystemId")) {
-                userName = '';
-            }
             var fromDay = $('#FromDay').val();
             var toDay = $('#ToDay').val();
             var year = $('#Year').val();
