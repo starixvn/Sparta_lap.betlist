@@ -6,7 +6,6 @@ import { DateRange } from '../../../../components/date-range'
 import LangHelper from '../../../../lib/langHelper'
 import Site from '../../../../lib/site'
 import Service from '../../lib/resultAmendmentService'
-import ReportExcel from '../../lib/resultAmendmentExcel'
 
 const RANGE_MONTH_CONSTRAINT = 6;
 
