@@ -33,31 +33,26 @@ var CreateGroup = (function ($) {
                 GroupComm.initDefaultParam("#create-group-popup");
             });
             $('#Cancel').click(function () {
-                window.location.href = Site.resolveClientUrl("CustomerComGroup/Index");
+                Site.redirect(Site.resolveClientUrl("CustomerComGroup/Index"));
             });
 
             $('#Validate').click(function () {
                 var groupName = $('#GroupName').val();
-
-                //Check empty group name
                 if (groupName.length < 1) {
                     CreateGroup.displayError(Site.getSingleResource('GroupNameNotEmptyMsg'));
                     return;
                 }
 
-                //Check if group name lengh greater than 100.
                 if (groupName.length >= 100) {
                     CreateGroup.displayError(Site.getSingleResource('GroupNameNotExceed100CharactersMsg'));
                     return;
                 }
 
-                //Check if group name is 'none'.
                 if ($.trim(groupName).toLowerCase() === "none") {
                     CreateGroup.displayError(Site.getSingleResource('ChooseGroupNameMsg'));
                     return;
                 }
 
-                // Check valid group name (allow characters and number only).
                 if (!groupName.match('^[a-zA-Z0-9 ]+$')) {
                     CreateGroup.displayError(Site.getSingleResource('GroupNameOnlyContainCharactersAndNumberMsg'));
                     return;

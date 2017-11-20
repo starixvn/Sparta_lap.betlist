@@ -86,11 +86,8 @@ if (!window._IsInJsTestingMode) {
 
         var height = Math.min(parentWindow.innerHeight - 20, 460);
         var top = (parentWindow.innerHeight - height) / 2;
-
-        // Set default value for popup
         parentWindow.$('.ui-dialog').css({ width: 700 + 'px', height: height + 'px', top: top + 'px', left: '20%', margin: 'auto' });
         parentWindow.$('.ui-dialog-title').html(Site.getSingleResource('Forecast') + ' - ' + Site.getSingleResource('OneXTwo'));
-        
         parentWindow.$('#myframe').attr('width', 690, 'height', height);
         parentWindow.$('#forecast-dialog')
             .attr('style', 'width:680px;height:' + (height - 60) + 'px')
