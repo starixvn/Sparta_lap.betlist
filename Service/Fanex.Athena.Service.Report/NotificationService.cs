@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.IO;
     using System.Linq;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Extension.Utility.Interfaces;
@@ -68,15 +69,7 @@
         {
             var notificationTypeUrl = _appSetting.NotificationTypeApiUrl;
 
-            var json = string.Empty;
-            try
-            {
-                json = _webClientService.DownloadString(notificationTypeUrl);
-            }
-            catch (Exception exception)
-            {
-                _logger.Error(exception.Message + "\nApiUrl: " + notificationTypeUrl, exception);
-            }
+            var json = GetApiResultString(notificationTypeUrl);
 
             if (string.IsNullOrEmpty(json))
             {
