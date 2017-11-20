@@ -1,12 +1,9 @@
 ﻿namespace Fanex.Athena.Api.ExternalService
 {
     using System;
-    using System.Collections.Generic;
     using System.Web.Http;
     using System.Web.Http.Cors;
     using Base.Attributes;
-    using Model.Core.ResultModel;
-    using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
@@ -30,11 +27,15 @@
 
         private readonly INotificationService _notificationService;
 
-        public NotificationApiController()
+        public NotificationApiController() : this(null, null, null)
         {
-            _moveBetService = new MoveBetService();
-            _languageService = new LanguageService();
-            _notificationService = new NotificationService();
+        }
+
+        public NotificationApiController(IMoveBetService moveBetService, ILanguageService languageService, INotificationService notificationService)
+        {
+            _moveBetService = moveBetService ?? new MoveBetService();
+            _languageService = languageService ?? new LanguageService();
+            _notificationService = notificationService ?? new NotificationService();
         }
 
         [HttpGet]
@@ -48,15 +49,6 @@
         [HttpGet]
         public dynamic GetNotificationMessages([FromUri]NotificationMetaModel metaModel)
         {
-            if (!metaModel.IsValid)
-            {
-                return new ReportResultModel<ResultAmendment>
-                {
-                    DataList = new List<ResultAmendment>(),
-                    TotalRows = 0
-                };
-            }
-
             metaModel.IsOnlyUnread = true;
             metaModel.FromDate = MinDate;
             metaModel.ToDate = MaxDate;
