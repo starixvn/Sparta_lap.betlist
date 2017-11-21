@@ -1,4 +1,6 @@
 {
+        "eslint": "^4.11.0",
+        "eslint-plugin-react": "^7.5.1",
   "name": "lrfweb",
   "version": "1.0.0",
   "description": "LRF Web",
@@ -62,7 +64,8 @@
     "test-react": "jest --updateSnapshot --coverage",
     "test-react-one": "jest formFilter1.eventhandler.test.js --watch -u",
     "test-react-watch": "jest --watch",
-    "jest-install": "npm install jest-cli -g "
+    "jest-install": "npm install jest-cli -g",
+     "lint": "eslint ./www/js/source/reactpages"
   },
   "author": "Sparta",
   "license": "vn",
