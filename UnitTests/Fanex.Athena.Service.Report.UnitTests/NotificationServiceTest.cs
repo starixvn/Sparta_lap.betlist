@@ -8,10 +8,12 @@
     using Extension.Utility.Interfaces;
     using Interfaces;
     using Logging;
+    using Model.Core.DTO.Common;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Resources;
 
     public class NotificationServiceTest
     {
@@ -50,6 +52,7 @@
         {
             _webClientService.ClearReceivedCalls();
             _cache.ClearReceivedCalls();
+            _logger.ClearReceivedCalls();
         }
 
         [Test]
@@ -91,24 +94,6 @@
         }
 
         [Test]
-        public void GetNotificationTypes_ApiReturnsEmpty_ReturnEmptyDictionary()
-        {
-            // Arrange
-            _cache.Get<IDictionary<string, string>>(Arg.Any<string>()).Returns(x => { return null; });
-
-            var url = "API3";
-            _appSettings.NotificationTypeApiUrl.Returns(url);
-
-            _webClientService.DownloadString(url).Returns(string.Empty);
-
-            // Action
-            var result = _notificationService.GetNotificationTypes();
-
-            // Assert
-            Assert.That(result, Is.Empty);
-        }
-
-        [Test]
         public void GetNotificationTypes_ApiReturnsData_ReturnCorrectResult()
         {
             // Arrange
@@ -139,8 +124,9 @@
             });
         }
 
-        [Test]
-        public void GetNotificationTypes_ApiReturnsNoValue_ReturnEmptyDictionary()
+        [TestCase("")]
+        [TestCase("{}")]
+        public void GetNotificationTypes_ApiReturnsNoValue_ReturnEmptyDictionary(string jsonString)
         {
             // Arrange
             _cache.Get<IDictionary<string, string>>(Arg.Any<string>()).Returns(x => { return null; });
@@ -148,7 +134,6 @@
             var url = "API5";
             _appSettings.NotificationTypeApiUrl.Returns(url);
 
-            var jsonString = "{}";
             _webClientService.DownloadString(url).Returns(jsonString);
 
             // Action
@@ -180,29 +165,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(result, Is.Empty);
-                _logger.Received().Error($"{exceptionMsg}\nApiUrl: {url}", Arg.Any<Exception>());
-            });
-        }
-
-        [Test]
-        public void GetGeneral_ApiReturnsEmpty_ReturnEmptyResult()
-        {
-            // Arrange
-            var metaModel = new NotificationMetaModel();
-
-            var url = "API7";
-            _appSettings.NotificationApiUrl.Returns(url);
-
-            _webClientService.DownloadString(url).Returns(string.Empty);
-
-            // Action
-            var result = _notificationService.GetGeneral(metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.DataList, Is.Empty);
-                Assert.That(result.TotalRows, Is.Zero);
+                AssertWriteLogException(exceptionMsg, url);
             });
         }
 
@@ -252,6 +215,7 @@
         }
 
         [TestCase("{}")]
+        [TestCase("")]
         [TestCase("{'TotalItems':'0','Data':[]}")]
         public void GetGeneral_ApiReturnsNoValue_ReturnEmptyDictionary(string jsonString)
         {
@@ -278,24 +242,29 @@
         }
 
         [Test]
-        public void GetResultAmendment_ApiReturnsEmpty_ReturnEmptyResult()
+        public void GetGeneral_ApiThrowsException_WriteLog()
         {
             // Arrange
             var metaModel = new NotificationMetaModel();
 
             var url = "API10";
-            _appSettings.ResultAmendmentApiUrl.Returns(url);
+            _appSettings.NotificationApiUrl.Returns(url);
 
-            _webClientService.DownloadString(url).Returns(string.Empty);
+            var exceptionMsg = "Failure";
+            _webClientService.When(x => x.DownloadString(url)).Do(x =>
+            {
+                throw new Exception(exceptionMsg);
+            });
 
             // Action
-            var result = _notificationService.GetResultAmendment(metaModel);
+            var result = _notificationService.GetGeneral(metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(result.DataList, Is.Empty);
                 Assert.That(result.TotalRows, Is.Zero);
+                AssertWriteLogException(exceptionMsg, url);
             });
         }
 
@@ -345,6 +314,7 @@
         }
 
         [TestCase("{}")]
+        [TestCase("")]
         [TestCase("{'TotalItems':'0','Data':[]}")]
         public void GetResultAmendment_ApiReturnsNoValue_ReturnEmptyDictionary(string jsonString)
         {
@@ -371,12 +341,39 @@
         }
 
         [Test]
-        public void GetNotificationMessages_WhenCall_ReturnCorrectResult()
+        public void GetResultAmendment_ApiThrowsException_WriteLog()
         {
             // Arrange
             var metaModel = new NotificationMetaModel();
 
             var url = "API13";
+            _appSettings.ResultAmendmentApiUrl.Returns(url);
+
+            var exceptionMsg = "Failure";
+            _webClientService.When(x => x.DownloadString(url)).Do(x =>
+            {
+                throw new Exception(exceptionMsg);
+            });
+
+            // Action
+            var result = _notificationService.GetResultAmendment(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.DataList, Is.Empty);
+                Assert.That(result.TotalRows, Is.Zero);
+                AssertWriteLogException(exceptionMsg, url);
+            });
+        }
+
+        [Test]
+        public void GetNotificationMessages_WhenCall_ReturnCorrectResult()
+        {
+            // Arrange
+            var metaModel = new NotificationMetaModel();
+
+            var url = "API14";
             _appSettings.ResultAmendmentApiUrl.Returns(url);
 
             _webClientService.DownloadString(url).Returns(string.Empty);
@@ -390,6 +387,126 @@
                 Assert.That(result.DataList, Is.Empty);
                 Assert.That(result.TotalRows, Is.Zero);
             });
+        }
+
+        [Test]
+        public void MarkNotificationAsRead_WhenCall_CallApiWithCorrectParameter()
+        {
+            // Arrange
+            var metaModel = new NotificationMarkAsReadMetaModel
+            {
+                MessageType = "1",
+                MessageId = 2,
+                UserId = "3",
+                LicenseeName = "Name"
+            };
+
+            var url = "http://API15";
+            _appSettings.MarkNotificationAsReadApiUrl.Returns(url);
+
+            // Action
+            var result = _notificationService.MarkNotificationAsRead(metaModel);
+
+            // Assert
+            _webClientService.Received().UploadString(new Uri(url), "MessageType=1&MessageId=2&UserId=3&LicenseeName=Name");
+        }
+
+        [TestCase("{}")]
+        [TestCase("")]        
+        public void MarkNotificationAsRead_ApiReturnsNoData_CallApiWithCorrectParameter(string jsonString)
+        {
+            // Arrange
+            var metaModel = new NotificationMarkAsReadMetaModel
+            {
+                MessageType = "1",
+                MessageId = 2,
+                UserId = "3",
+                LicenseeName = "Name"
+            };
+
+            var url = "http://API16";
+            _appSettings.MarkNotificationAsReadApiUrl.Returns(url);
+
+            _webClientService.UploadString(new Uri(url), Arg.Any<string>()).Returns(jsonString);
+
+            // Action
+            var result = _notificationService.MarkNotificationAsRead(metaModel);
+
+            // Assert
+            _webClientService.Received().UploadString(new Uri(url), "MessageType=1&MessageId=2&UserId=3&LicenseeName=Name");
+        }
+
+        [Test]
+        public void MarkNotificationAsRead_ApiReturnsData_ReturnCorrectResult()
+        {
+            // Arrange
+            var metaModel = new NotificationMarkAsReadMetaModel
+            {
+                MessageType = "1",
+                MessageId = 2,
+                UserId = "3",
+                LicenseeName = "Name"
+            };
+
+            var url = "http://API17";
+            _appSettings.MarkNotificationAsReadApiUrl.Returns(url);
+
+            var jsonString = "{'Code':'1','Message':'Error'}";
+            _webClientService.UploadString(new Uri(url), Arg.Any<string>()).Returns(jsonString);
+
+            var expectedResult = new ResultInfo
+            {
+                Code = 1,
+                Message = "Error"
+            };
+
+            // Action
+            var result = _notificationService.MarkNotificationAsRead(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
+                Assert.That(result.Message, Is.EqualTo(expectedResult.Message));
+            });
+        }
+
+        [Test]
+        public void MarkNotificationAsRead_ApiThrowException_WriteLog()
+        {
+            // Arrange
+            var metaModel = new NotificationMarkAsReadMetaModel
+            {
+                MessageType = "1",
+                MessageId = 2,
+                UserId = "3",
+                LicenseeName = "Name"
+            };
+
+            var url = "http://API18";
+            _appSettings.MarkNotificationAsReadApiUrl.Returns(url);
+
+            var exceptionMsg = "Failure";
+            _webClientService.When(x => x.UploadString(new Uri(url), Arg.Any<string>())).Do(x =>
+            {
+                throw new Exception(exceptionMsg);
+            });
+
+            // Action
+            var result = _notificationService.MarkNotificationAsRead(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Code, Is.EqualTo(1));
+                Assert.That(result.Message, Is.EqualTo(ViewResources.ErrorProcessingMsg));
+                AssertWriteLogException(exceptionMsg, (new Uri(url)) + "\nParameter: MessageType=1&MessageId=2&UserId=3&LicenseeName=Name");
+            });
+        }
+
+        private void AssertWriteLogException(string exceptionMsg, string api)
+        {
+            _logger.Received().Error($"{exceptionMsg}\nApiUrl: {api}", Arg.Any<Exception>());
         }
     }
 }

@@ -69,20 +69,29 @@
         {
             var notificationTypeUrl = _appSetting.NotificationTypeApiUrl;
 
-            var json = GetApiResultString(notificationTypeUrl);
+            try
+            {               
+                var json = _webClientService.DownloadString(notificationTypeUrl);
 
-            if (string.IsNullOrEmpty(json))
+                if (string.IsNullOrEmpty(json))
+                {
+                    return new Dictionary<string, string>();
+                }
+
+                var jobject = JObject.Parse(json);
+                if (jobject.HasValues)
+                {
+                    jobject.AddFirst(new JProperty("0", ViewResources.All));
+                }
+
+                return jobject.ToObject<Dictionary<string, string>>();
+            }
+            catch (Exception e)
             {
-                return new Dictionary<string, string>();
+                LogError(notificationTypeUrl, e);
             }
 
-            var jobject = JObject.Parse(json);
-            if (jobject.HasValues)
-            {
-                jobject.AddFirst(new JProperty("0", ViewResources.All));
-            }
-
-            return jobject.ToObject<Dictionary<string, string>>();
+            return new Dictionary<string, string>();
         }
 
         public ReportResultModel<NotificationMessage> GetNotificationMessages(NotificationMetaModel metaModel)
@@ -118,27 +127,33 @@
                 metaModel.PageIndex - 1);
             var dataList = new List<GeneralNotification>();
             var totalRecords = 0;
-
-            var json = GetApiResultString(notificationUrl);
-            if (string.IsNullOrEmpty(json))
+            try
             {
-                return new ReportResultModel<GeneralNotification>
+                var json = _webClientService.DownloadString(notificationUrl);
+                if (string.IsNullOrEmpty(json))
                 {
-                    DataList = dataList,
-                    TotalRows = totalRecords
-                };
+                    return new ReportResultModel<GeneralNotification>
+                    {
+                        DataList = dataList,
+                        TotalRows = totalRecords
+                    };
+                }
+
+                var jobject = JObject.Parse(json);
+                if (jobject.HasValues && jobject["Data"].Children().Any())
+                {
+                    var lang = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(metaModel.Language.ToLowerInvariant());
+                    var subjectKey = "Subject" + lang;
+                    var contentKey = "Content" + lang;
+
+                    dataList.AddRange(jobject["Data"].Children().Select(x => MapToGeneralNotification(x, subjectKey, contentKey)));
+
+                    totalRecords = jobject["TotalItems"].Value<int>();
+                }
             }
-
-            var jobject = JObject.Parse(json);
-            if (jobject.HasValues && jobject["Data"].Children().Any())
+            catch (Exception e)
             {
-                var lang = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(metaModel.Language.ToLowerInvariant());
-                var subjectKey = "Subject" + lang;
-                var contentKey = "Content" + lang;
-
-                dataList.AddRange(jobject["Data"].Children().Select(x => MapToGeneralNotification(x, subjectKey, contentKey)));
-
-                totalRecords = jobject["TotalItems"].Value<int>();
+                LogError(notificationUrl, e);
             }
 
             return new ReportResultModel<GeneralNotification>
@@ -162,28 +177,35 @@
             var dataList = new List<ResultAmendment>();
             var totalRecords = 0;
 
-            var json = GetApiResultString(resultAmendmentUrl);
-            if (string.IsNullOrEmpty(json))
+            try
             {
-                return new ReportResultModel<ResultAmendment>
+                var json = _webClientService.DownloadString(resultAmendmentUrl);
+                if (string.IsNullOrEmpty(json))
                 {
-                    DataList = dataList,
-                    TotalRows = totalRecords
-                };
+                    return new ReportResultModel<ResultAmendment>
+                    {
+                        DataList = dataList,
+                        TotalRows = totalRecords
+                    };
+                }
+
+                var jobject = JObject.Parse(json);
+                if (jobject.HasValues && jobject["Data"].Children().Any())
+                {
+                    var lang = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(metaModel.Language.ToLowerInvariant());
+                    var subjectKey = "Subject" + lang;
+                    var contentKey = "Content" + lang;
+
+                    var attachmentFileApi = jobject["AttachmentFileApi"].Value<string>();
+
+                    dataList.AddRange(jobject["Data"].Children().Select(x => MapToResultAmendment(x, subjectKey, contentKey, attachmentFileApi)));
+
+                    totalRecords = jobject["TotalItems"].Value<int>();
+                }
             }
-
-            var jobject = JObject.Parse(json);
-            if (jobject.HasValues && jobject["Data"].Children().Any())
+            catch (Exception e)
             {
-                var lang = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(metaModel.Language.ToLowerInvariant());
-                var subjectKey = "Subject" + lang;
-                var contentKey = "Content" + lang;
-
-                var attachmentFileApi = jobject["AttachmentFileApi"].Value<string>();
-
-                dataList.AddRange(jobject["Data"].Children().Select(x => MapToResultAmendment(x, subjectKey, contentKey, attachmentFileApi)));
-
-                totalRecords = jobject["TotalItems"].Value<int>();
+                LogError(resultAmendmentUrl, e);
             }
 
             return new ReportResultModel<ResultAmendment>
@@ -198,23 +220,36 @@
             var api = new Uri(_appSetting.MarkNotificationAsReadApiUrl);
             var param = $"MessageType={metaModel.MessageType}&MessageId={metaModel.MessageId}&UserId={metaModel.UserId}&LicenseeName={metaModel.LicenseeName}";
 
-            var json = string.Empty;
+            var result = new ResultInfo
+            {
+                Code = 1,
+                Message = ViewResources.ErrorProcessingMsg
+            };
             try
             {
-                json = _webClientService.UploadString(api, param);
+                var json = _webClientService.UploadString(api, param);
+                if (string.IsNullOrEmpty(json))
+                {
+                    return result;
+                }
+
+                var jobject = JObject.Parse(json);
+
+                if (jobject.HasValues)
+                {
+                    return new ResultInfo
+                    {
+                        Code = jobject["Code"].Value<int>(),
+                        Message = jobject["Message"].Value<string>()
+                    };
+                }
             }
-            catch (Exception exception)
+            catch (Exception e)
             {
-                _logger.Error(exception.Message + "\nApiUrl: " + api, exception);
+                LogError(api + "\nParameter: " + param, e);
             }
 
-            var jobject = JObject.Parse(json);
-
-            return new ResultInfo
-            {
-                Code = jobject["Code"].Value<int>(),
-                Message = jobject["Message"].Value<string>()
-            };
+            return result;
         }
 
         private ResultAmendment MapToResultAmendment(JToken token, string subjectKey, string contentKey, string attachmentFileApi)
@@ -250,20 +285,9 @@
             };
         }
 
-        private string GetApiResultString(string api)
+        private void LogError(string api, Exception exception)
         {
-            var json = string.Empty;
-
-            try
-            {
-                json = _webClientService.DownloadString(api);
-            }
-            catch (Exception exception)
-            {
-                _logger.Error(exception.Message + "\nApiUrl: " + api, exception);
-            }
-
-            return json;
+            _logger.Error(exception.Message + "\nApiUrl: " + api, exception);
         }
     }
 }
