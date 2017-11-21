@@ -3,7 +3,7 @@
         "react"
     ],
     "parserOptions": {
-        "ecmaVersion": 6,
+        "ecmaVersion": 7,
         "sourceType": "module",
         "ecmaFeatures": {
             "jsx": true,
@@ -19,5 +19,6 @@
         "eslint:recommended",
         "plugin:react/recommended"
     ],
+    "parser": "babel-eslint",
     "rules": {}
 }
