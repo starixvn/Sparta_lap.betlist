@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
 import Select from 'react-select'
-import { RadioGroup, Radio } from 'react-radio-group'
 import MultipleSelect from '../../../components/multiple-select'
 import { DateRange } from '../../../components/date-range/index'
 import LangHelper from '../../../lib/langHelper'
@@ -193,14 +192,16 @@ export class FormFilter extends Component {
                 </div>
 
                 <div className="row">
-                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                 <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
                         <div className="form-group">
                                <label className="label-text">{LangHelper.getSingleResource("GroupBy")}</label>
-                            <RadioGroup name="fruit" selectedValue={this.props.groupBy} onChange={this.props.changeGroupBy}>
-                              <Radio value="apple" />{LangHelper.getSingleResource("Product")}
-                              <Radio value="orange" />{LangHelper.getSingleResource("Currency")}
-                            </RadioGroup>
-                    </div>
+                                <input type="radio" value={1} checked={this.props.groupBy == 1} name="GroupBy" id="GroupByDaily"
+                                        onChange={() => this.props.changeGroupBy(1)} />
+                                <label htmlFor="GroupByDaily">{LangHelper.getSingleResource("Daily")}</label>
+                                <input type="radio" value={2} name="GroupBy" id="GroupByMonthly" checked={this.props.groupBy == 2}
+                                        onChange={() => this.props.changeGroupBy(2)} />
+                                <label htmlFor="GroupByMonthly">{LangHelper.getSingleResource("Monthly")}</label>
+                        </div>
                 </div>
                  <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
                         <div className="form-group">

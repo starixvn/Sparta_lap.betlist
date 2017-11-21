@@ -7,7 +7,7 @@ $font-size: 1.2rem;
 $colorHyperlink: #147ccc;
 $colorPositiveNumber: $red;
 
-$secondary-color: #26a69a;
+$secondary-color: #6790b0;
 
 /* z-index */
 $indexLoader: 1000;
@@ -47,3 +47,7 @@ $input-disabled-solid-color: #BDBDBD !default;
 $input-disabled-border: 1px dotted $input-disabled-color !default;
 $input-invalid-border: 1px solid $input-error-color !default;
 $input-focus-color: $secondary-color !default;
+
+// Radio Buttons
+$radio-color: $secondary-color !default;
+$radio-border: 2px solid $secondary-color !default;
