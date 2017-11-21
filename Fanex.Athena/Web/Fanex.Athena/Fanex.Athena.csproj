@@ -800,6 +800,7 @@
     <Content Include="www\js\source\reactpages\actions\baseCurrencyAction.js" />
     <Content Include="www\js\source\reactpages\actions\loaderAction.js" />
     <Content Include="www\js\source\reactpages\actions\productAction.js" />
+    <Content Include="www\js\source\reactpages\actions\__tests__\currencyAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\baseCurrencyAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\loaderAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\productAction.test.js" />
@@ -867,10 +868,9 @@
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\index.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\types.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\__tests__\dataHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\lib\reportExcel.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\lib\service.js" />
-    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\lib\__tests__\fakeData.js" />
-    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\lib\__tests__\reportExcel.test.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\lib\__tests__\service.test.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\dataHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\filterHandlerReducer.js" />
