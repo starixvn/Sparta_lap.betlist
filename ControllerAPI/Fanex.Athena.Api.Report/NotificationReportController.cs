@@ -7,6 +7,8 @@
     using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
     using Service.Report;
     using Service.Report.Interfaces;
 
@@ -21,6 +23,15 @@
         public NotificationReportController()
         {
             _notificationService = new NotificationService();
+        }
+
+        public NotificationReportController(
+            INotificationService notificationService,
+            ISessionService sessionService,
+            IProductService productService)
+            : base(sessionService, productService)
+        {
+            _notificationService = notificationService;
         }
 
         [HttpGet]
