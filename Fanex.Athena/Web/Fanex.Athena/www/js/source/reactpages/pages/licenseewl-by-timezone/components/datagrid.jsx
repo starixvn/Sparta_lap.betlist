@@ -18,8 +18,8 @@ export class DataGrid extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.gridData !== nextProps.gridData) {
-            const { dateRange, selectedBaseCurrency } = nextProps;
-            this.reportTitle = service.getReportTitle(dateRange, selectedBaseCurrency);
+            const { selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency } = nextProps;
+            this.reportTitle = service.getReportTitle(selectedTimeZone, dateRange, selectedCurrency.label, selectedBaseCurrency);
             this.props.toggleLoader(false);
         }
     }
@@ -51,9 +51,9 @@ export class DataGrid extends Component {
                         const betcount = NumberFormat.format(item.BetCount),
                                 turnover = NumberFormat.formatDecimal(item.Turnover),
                                 customerComm= NumberFormat.formatDecimal(item.CustomerComm),
-                                licenseeWL = NumberFormat.formatDecimal(item.LicenseeWL),
+                                licenseeWL = NumberFormat.formatDecimal(item.LicenseeWinLoss),
                                 licenseeComm = NumberFormat.formatDecimal(item.LicenseeComm),
-                                licenseeNetWL = NumberFormat.formatDecimal(item.LicenseeNetWL),
+                                licenseeNetWL = NumberFormat.formatDecimal(item.LicenseeNetWinLoss),
                                 margin = NumberFormat.formatDecimal(item.Margin);
 
                         rows.push(
@@ -80,9 +80,9 @@ export class DataGrid extends Component {
         const betcount = NumberFormat.format(item.BetCount),
                     turnover = NumberFormat.formatDecimal(item.Turnover),
                     customerComm= NumberFormat.formatDecimal(item.CustomerComm),
-                    licenseeWL = NumberFormat.formatDecimal(item.LicenseeWL),
+                    licenseeWL = NumberFormat.formatDecimal(item.LicenseeWinLoss),
                     licenseeComm = NumberFormat.formatDecimal(item.LicenseeComm),
-                    licenseeNetWL = NumberFormat.formatDecimal(item.LicenseeNetWL),
+                    licenseeNetWL = NumberFormat.formatDecimal(item.LicenseeNetWinLoss),
                     margin = NumberFormat.formatDecimal(item.Margin);
 
             return [(
@@ -138,8 +138,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
                 }
 function mapStateToProps(state) {
-    const { gridData, dateRange, selectedBaseCurrency, isLoading } = state;
-    return Object.assign({}, { gridData, dateRange, selectedBaseCurrency, isLoading });
+    const { gridData, selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency, isLoading } = state;
+    return Object.assign({}, { gridData, selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency, isLoading });
                 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

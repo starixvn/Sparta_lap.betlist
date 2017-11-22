@@ -15,12 +15,13 @@ const headerText = {
 }
 
 export default class Service {
-    static getReportTitle(dateRange, selectedBaseCurrency) {
+    static getReportTitle(timeZone, dateRange, currency, baseCurrency) {
         const fromDate = Site.convertDateToString(dateRange.fromDate);
         const toDate = Site.convertDateToString(dateRange.toDate);
-        const viewInByCurrency = `${LangHelper.getSingleResource("Viewin").replace("{0}", selectedBaseCurrency)}`;
-
-        return `${LangHelper.getSingleResource("LicenseeWinLoss")}, ${fromDate} - ${toDate} - ${viewInByCurrency}`;
+        const viewInByCurrency = `${LangHelper.getSingleResource("Viewin").replace("{0}", baseCurrency)}`;
+        var timeZoneText =  "GMT" + (timeZone === "1" ? "-4" : "+8");
+        var currencyText = LangHelper.getSingleResource("Currency") + ": " + currency;
+        return `${LangHelper.getSingleResource("LicenseeWinLoss")}, ${timeZoneText}, ${fromDate} - ${toDate}, ${currencyText}, ${viewInByCurrency}`;
     }
 
     static getHeaderText() {

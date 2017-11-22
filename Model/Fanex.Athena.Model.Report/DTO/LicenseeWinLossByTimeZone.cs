@@ -16,6 +16,8 @@
 
         public decimal LicenseeWinLoss { get; set; }
 
+        public decimal LicenseeComm { get; set; }
+
         public decimal LicenseeNetWinLoss { get; set; }
 
         public decimal Margin { get; set; }

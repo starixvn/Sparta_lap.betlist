@@ -35,7 +35,7 @@ export class FormFilter extends Component {
 
     exportExcel = (event) => {
         event.preventDefault();
-        const { dateRange, selectedBaseCurrency } = this.props;
+        const { selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency } = this.props;
         const params = this._getParams();
         if (!params) {
             return;
@@ -43,7 +43,7 @@ export class FormFilter extends Component {
 
         this.props.toggleLoader(true);
         this.props.exportExcel(params).then(response => {
-            const title = service.getReportTitle(dateRange, selectedBaseCurrency);
+            const title = service.getReportTitle(selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency);
             const excel = new ReportExcel(response.data, title);
             excel.export();
             this.props.toggleLoader(false);
@@ -115,11 +115,7 @@ export class FormFilter extends Component {
 
     _renderCurrencySelectList() {
         const { currencyList, selectedCurrency } = this.props;
-        if(currencyList[0].value > 0)
-        {
-            currencyList.unshift({ value: 0, label: LangHelper.getSingleResource("All")});
-        }
-
+        
         return <Select id="ddlCurrency"
                 name="form-field-name"
                 value={selectedCurrency || 0}
