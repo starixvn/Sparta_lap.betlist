@@ -1,10 +1,11 @@
+import React from 'react'
 import renderer from 'react-test-renderer'
 import moment from 'moment'
 
 import getTheme from '../styles'
 import DayCell from '../DayCell'
 
-const now = moment();
+const now = moment("11/22/2017", "MM/DD/YYYY");
 const defaultProps = {
     theme: { 'Day': {} },
     onlyClasses: false,
@@ -225,5 +226,61 @@ describe('DayCell', () => {
 
             expect(result).toBe(expectedResult);
         })
+
+        it('using new props - conditions are true - return correct class name', () => {
+            const expectedResult = Object.keys(classNames).map(item => {
+                return item;
+            }).join(" ");
+
+            const newProps = {
+                isSelected: true,
+                isInRange: true,
+                isPassive: true,
+                isStartEdge: true,
+                isEndEdge: true,
+                isToday: true,
+                isSunday: true,
+                isSpecialDay: true
+            };
+            const props = Object.assign({}, defaultProps, newProps);
+            const componentInstance = new DayCell(props);
+
+            const result = componentInstance.getClassNames(classNames);
+
+            expect(result).toBe(expectedResult);
+        })
     });
+
+    describe('render', () => {
+        const classNames = {
+            day: "day",
+            dayActive: "dayActive",
+            dayPassive: "dayPassive",
+            dayInRange: "dayInRange",
+            dayStartEdge: "dayStartEdge",
+            dayEndEdge: "dayEndEdge",
+            dayToday: "dayToday",
+            daySunday: "daySunday",
+            daySpecialDay: "daySpecialDay"
+        }
+
+        it('onlyClasses is false - render correct content', () => {
+            const props = Object.assign({}, defaultProps, { classNames });
+            const component = renderer.create(<DayCell {...props} />);
+
+            const tree = component.toJSON();
+
+            expect(tree).toMatchSnapshot();
+        })
+
+        it('onlyClasses is true - render correct content', () => {
+            const props = Object.assign({}, defaultProps, { classNames, onlyClasses: true });
+            const component = renderer.create(<DayCell {...props} />);
+
+            const tree = component.toJSON();
+
+            expect(tree).toMatchSnapshot();
+        })
+    });
+
 });
