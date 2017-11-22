@@ -51,7 +51,3 @@ export function markItemAsRead(params) {
         });
     };
 }
-
-export function exportExcel(params) {
-    return () => fetchData(params);
-}

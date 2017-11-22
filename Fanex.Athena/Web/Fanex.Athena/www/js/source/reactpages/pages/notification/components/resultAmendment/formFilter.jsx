@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux'
 import { DateRange } from '../../../../components/date-range'
 import LangHelper from '../../../../lib/langHelper'
 import Site from '../../../../lib/site'
-import Service from '../../lib/resultAmendmentService'
 
 const RANGE_MONTH_CONSTRAINT = 6;
 

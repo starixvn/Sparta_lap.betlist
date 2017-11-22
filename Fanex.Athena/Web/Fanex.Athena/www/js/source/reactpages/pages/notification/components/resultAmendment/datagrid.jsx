@@ -69,7 +69,7 @@ export class DataGrid extends Component {
         }
         else {
             this.props.setGridData({ Data: Data, Total: Total });
-        }        
+        }
     }
 
     _buildHeader() {

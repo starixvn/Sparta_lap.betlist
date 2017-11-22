@@ -58,7 +58,7 @@ export class DataGrid extends Component {
 
         return (
             <Row style={{ height: 32 }}>
-                <Cell colWidth={30} header={true} title="#">#</Cell>
+                <Cell colWidth={30} header={true} title={headerText.index}>{headerText.index}</Cell>
                 <Cell colWidth={150} header={true} title={headerText.type}>{headerText.type}</Cell>
                 <Cell colWidth={150} header={true} title={headerText.dateTime}>{headerText.dateTime}</Cell>
                 <Cell colWidth={320} header={true} title={headerText.content}>{headerText.content}</Cell>
