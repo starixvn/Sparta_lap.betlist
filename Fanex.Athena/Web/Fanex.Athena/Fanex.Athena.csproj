@@ -934,10 +934,21 @@
     <Content Include="www\js\source\reactpages\pages\notification\actions\general\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\notification\actions\general\index.js" />
     <Content Include="www\js\source\reactpages\pages\notification\actions\general\types.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\actions\general\__tests__\dataHandlerAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\actions\general\__tests__\filterHandlerAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\actions\resultAmendment\__tests__\dataHandlerAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\actions\resultAmendment\__tests__\filterHandlerAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\general\__test__\formFilter.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\datagrid.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\formFilter.test.js" />
     <Content Include="www\js\source\reactpages\pages\notification\lib\generalService.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\lib\__test__\generalService.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\lib\__test__\resultAmendmentService.test.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\general\dataHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\general\filterHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\general\index.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\reducers\general\__test__\dataHandlerReducer.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\reducers\general\__test__\filterHandlerReducer.test.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\notification\actions\resultAmendment\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\notification\actions\resultAmendment\filterHandlerAction.js" />
@@ -947,6 +958,8 @@
     <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\dataHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\filterHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\index.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\__test__\dataHandlerReducer.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\__test__\filterHandlerReducer.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\dataHandlerAction.test.js" />
@@ -2630,6 +2643,9 @@
     <Content Include="www\js\source\reactpages\pages\notification\components\general\index.jsx" />
     <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\CollapsibleRow.test.js.snap" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\Page.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\general\__test__\__snapshots__\formFilter.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\__snapshots__\datagrid.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\__snapshots__\formFilter.test.js.snap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

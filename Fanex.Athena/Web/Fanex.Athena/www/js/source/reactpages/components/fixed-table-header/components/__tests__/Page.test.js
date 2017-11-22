@@ -128,7 +128,7 @@ describe('Page ', () => {
         
             expect(result).toMatchSnapshot();
             expect(result.children[prevPageIndex].props.className).toContain("disable"); 
-            });
+        });
 
         it('_renderPageIcon - previous page icon - disable icon if PageIndex is not 1', () => { 
             const props = {
