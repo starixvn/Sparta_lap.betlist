@@ -23,6 +23,8 @@ namespace Fanex.Athena
     using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.RouterConfig;
+    using Fanex.Logging.Extensions.Web;
+    using Logging.Extensions.Database;
 
     public class MvcApplication : HttpApplication
     {
@@ -33,17 +35,7 @@ namespace Fanex.Athena
             if (string.IsNullOrEmpty(deploymentMode) || !deploymentMode.Equals("Static"))
             {
                 // Code that runs when an unhandled error occurs
-                var exception = Server.GetLastError().GetBaseException();
-                if (exception is HttpAntiForgeryException)
-                {
-                    return;
-                }
-
-                var httpException = exception as HttpException;
-                if (httpException != null && httpException.GetHttpCode() == 404)
-                {
-                    return;
-                }
+                var exception = Server.GetLastError();
 
                 // Exception when passing wrong data type to action method
                 if (exception.TargetSite.DeclaringType == typeof(ActionDescriptor) &&
@@ -84,6 +76,11 @@ namespace Fanex.Athena
                 DbSettingProviderManager.Current.Start();
                 log4net.Config.XmlConfigurator.Configure();
                 log4net.LogManager.GetLogger("GeneralLog").Info("Start");
+
+                Logging.Extensions.Web.ExceptionHandler.UseConfig(new LoggingConfiguration())
+                    .IgnoreException<HttpAntiForgeryException>()
+                    .GetHttpHeaderInfo()
+                    .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
 
                 if (ConfigurationManager.AppSettings["EnableCasinoService"] == "1")
                 {
