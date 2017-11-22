@@ -9,6 +9,7 @@ namespace Fanex.Athena.Service.Core.Helpers
     using System;
     using System.Collections.Generic;
     using System.Web.Script.Serialization;
+    using DataAccess.Core.Exception;
     using Fanex.Athena.Service.Core.Users;
 
     /// <summary>
@@ -19,6 +20,12 @@ namespace Fanex.Athena.Service.Core.Helpers
         public static void WriteError(Exception exception, string additionalMessage = null)
         {
             var data = GetCustomInfo(additionalMessage);
+            var dataAccessException = exception as DataAccessException;
+            if (dataAccessException != null)
+            {
+                data.Add("DataAccess Param", dataAccessException.JsonParam);
+            }
+
             Logging.Extensions.Web.ExceptionHandler.Handle(exception, data);
         }
 
