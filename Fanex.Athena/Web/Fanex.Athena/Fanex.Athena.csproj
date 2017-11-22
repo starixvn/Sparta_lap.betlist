@@ -882,6 +882,7 @@
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Table.jsx" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Cell.test.js" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Page.test.js" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Row.test.js" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\RowLayout.test.js" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Table.test.js" />
@@ -891,6 +892,7 @@
     <Content Include="www\js\source\reactpages\components\multiple-select\components\__tests__\OptionAll.test.js" />
     <Content Include="www\js\source\reactpages\components\popup\constants.js" />
     <Content Include="www\js\source\reactpages\components\UserGuide.jsx" />
+    <Content Include="www\js\source\reactpages\components\__tests__\CollapsibleRow.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\Loader.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\NoDataTitle.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\Popup.test.js" />
@@ -2626,6 +2628,8 @@
     <Content Include="www\js\source\reactpages\components\tab\index.jsx" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Page.jsx" />
     <Content Include="www\js\source\reactpages\pages\notification\components\general\index.jsx" />
+    <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\CollapsibleRow.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\Page.test.js.snap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

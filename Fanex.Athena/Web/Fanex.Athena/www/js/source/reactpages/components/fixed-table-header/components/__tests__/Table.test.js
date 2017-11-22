@@ -193,6 +193,28 @@ describe('Table ', () => {
 
             expect(result).toMatchSnapshot();
         })
+
+        it('isPaging is true - return content with paging that match with snapshot', () => {
+            const header = [<Row key="header"><Cell>Header 1</Cell></Row>];
+            const body = [<Row key="body"><Cell>Body 1</Cell></Row>];
+            const footer = [<Row key="footer"><Cell>Footer 1</Cell></Row>];
+            const paging = {
+                isPaging: true,
+                pageOption: {
+                    PageIndex: 1,
+                    PageSize: 5,
+                    PageList: [5, 10, 20],
+                    TotalItem: 15
+                }
+            };
+
+            const props = Object.assign({}, defaultProps, paging, { header, body, footer });
+            const table = renderer.create(<Table {...props} />);
+
+            const result = table.toJSON();
+
+            expect(result).toMatchSnapshot();
+        })
     })
 
     describe('_handleResize', () => {
