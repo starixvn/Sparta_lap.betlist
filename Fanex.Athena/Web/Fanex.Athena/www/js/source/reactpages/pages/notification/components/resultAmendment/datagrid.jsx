@@ -8,7 +8,7 @@ import ReportTitle from '../../../../components/ReportTitle'
 import NoDataTitle from '../../../../components/NoDataTitle'
 import service from '../../lib/resultAmendmentService'
 import Site from '../../../../lib/site'
-import CollapseRow from '../../../../components/CollapseRow'
+import CollapsibleRow from '../../../../components/CollapsibleRow'
 import moment from 'moment'
 
 export class DataGrid extends Component {
@@ -96,7 +96,7 @@ export class DataGrid extends Component {
                     <Cell title={i + 1} className="center-align">{i + 1}</Cell>
                     <Cell title={datetimeString} className="center-align">{datetimeString}</Cell>
                     <Cell title={item.Subject}>
-                        <CollapseRow subject={item.Subject} content={item.Content} onExpand={() => this.onExpand(i, item)} isExpand={item.IsExpand} isHtml={true} />
+                        <CollapsibleRow subject={item.Subject} content={item.Content} onExpand={() => this.onExpand(i, item)} isExpand={item.IsExpand} isHtml={true} />
                     </Cell>
                     {
                         Site.asNull(item.DataFilePath) === null 

@@ -6,7 +6,7 @@ import { Table, Row, Cell } from '../../../../components/fixed-table-header'
 import ReportTitle from '../../../../components/ReportTitle'
 import NoDataTitle from '../../../../components/NoDataTitle'
 import service from '../../lib/generalService'
-import CollapseRow from '../../../../components/CollapseRow'
+import CollapsibleRow from '../../../../components/CollapsibleRow'
 import Site from '../../../../lib/site'
 import moment from 'moment'
 
@@ -78,7 +78,7 @@ export class DataGrid extends Component {
                     <Cell title={item.Type}>{item.Type}</Cell>
                     <Cell title={datetimeString} className="center-align">{datetimeString}</Cell>
                     <Cell title={item.Subject}>
-                        <CollapseRow subject={item.Subject} content={item.Content} isHTML={true} />
+                        <CollapsibleRow subject={item.Subject} content={item.Content} isHTML={true} />
                     </Cell>
                 </Row>)
         }

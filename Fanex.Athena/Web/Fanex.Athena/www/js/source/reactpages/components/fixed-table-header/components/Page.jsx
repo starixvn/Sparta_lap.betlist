@@ -8,8 +8,11 @@ export default class Page extends Component {
         this.state = {
             index: this.props.pageOption.PageIndex,
             isShow: this.props.pageOption.TotalItem > this.props.pageOption.PageList[0],
-            totalPage: Math.ceil(this.props.pageOption.TotalItem/this.props.pageOption.PageSize)
+            totalPage: Math.ceil(this.props.pageOption.TotalItem/this.props.pageOption.PageSize),
+            pageSize: this.props.pageOption.PageSize
         };
+
+        this.inputValue = this.props.pageOption.PageIndex;
     }
 
     static propTypes = {
@@ -31,14 +34,15 @@ export default class Page extends Component {
             this._updateState(
                 nextProps.pageOption.PageIndex,
                 nextProps.pageOption.TotalItem > nextProps.pageOption.PageList[0],
-                Math.ceil(nextProps.pageOption.TotalItem/nextProps.pageOption.PageSize)
+                Math.ceil(nextProps.pageOption.TotalItem/nextProps.pageOption.PageSize),
+                nextProps.pageOption.PageSize
             );
         }
     }
 
-    goToPage(index, size) {
-        this._updateState(index, null, this.props.pageOption.TotalItem/size);
-        this.props.onPaging && this.props.onPaging(index, size);
+    goToPage(index, pageSize) {
+        this._updateState(index, null, this.props.pageOption.TotalItem/pageSize, pageSize);
+        this.props.onPaging && this.props.onPaging(index, pageSize);
     }
 
     onKeyUpHandle = (e) => {
@@ -46,23 +50,31 @@ export default class Page extends Component {
         if (code === 13) {
             var value = parseInt(this.state.index);
             if (value > 0 && value <= this.state.totalPage) {
-                this.goToPage(value, this.props.pageOption.PageSize);
+                this.goToPage(value, this.state.pageSize);
             }
         }
     }
 
-    _updateState(index, isShow, totalPage) {
+    onClickHandle(isDisable, handleFunc) {
+        if(!isDisable) {
+            handleFunc();
+        }
+    }
+
+
+    _updateState(index, isShow, totalPage, pageSize) {
         this.setState({
-            index: index ? index : this.state.index,
-            isShow: isShow ? isShow : this.state.isShow,
-            totalPage: totalPage ? totalPage : this.state.totalPage
+            index: index !== null ? index : this.state.index,
+            isShow: isShow !== null ? isShow : this.state.isShow,
+            totalPage: totalPage ? totalPage : this.state.totalPage,
+            pageSize: pageSize ? pageSize : this.state.pageSize
         });
     }
 
-    _renderPageSizeSelection(pageIndex, pageSize, pageList) {
+    _renderPageSizeSelection(isDisable, pageIndex, pageSize) {
         return (
-            <select className="pagesize-select" value={pageSize} onChange={(e) => this.goToPage(1, e.target.value)}>
-                {this._renderPageSizeOption(pageList)}
+            <select className="pagesize-select" disabled={isDisable} value={pageSize} onChange={(e) => this.goToPage(1, e.target.value)}>
+                {this._renderPageSizeOption(this.props.pageOption.PageList)}
 	        </select>
         );
     }
@@ -74,29 +86,30 @@ export default class Page extends Component {
     }
 
     _renderPageIcon(iconClass, isDisable, onClickFunc) {
-        return (<a href="javascript:;" className={`icon ${iconClass} ${isDisable ? "disable" : ""}`} onClick={onClickFunc}></a>);
+        return (<a href="javascript:;" className={`icon ${iconClass} ${isDisable ? "disable" : ""}`} onClick={() => this.onClickHandle(isDisable, onClickFunc)}></a>);
     }
 
-    _renderPageSizeInput() {
-    return (
-        <div className="page-info">Page <input type="text" className="page-form" value={this.state.index} maxLength="4" size="2"
-                    onChange={(e) => { this._updateState(e.target.value, null, null); }}
-                    onKeyUp={this.onKeyUpHandle} />
-        {` of ${this.state.totalPage}`}
-        </div>);
+    _renderPageInput(index) {
+        return (
+            <div className="page-info"><span>Page </span><input type="text" className="page-form" value={index} maxLength="4" size="2"
+                        onChange={(e) => this._updateState(e.target.value, null, null, null) }
+                        onKeyUp={this.onKeyUpHandle} />
+            <span>{` of ${this.state.totalPage}`} </span>
+            </div>);
     }
 
     render() {
-    const { PageIndex, PageSize, PageList } = this.props.pageOption;
+        const { index, totalPage, pageSize } = this.state;
+        const isDisable = isNaN(parseInt(index));
 
-    return (
-        <div className="page-container center-align" style={{ display: `${this.state.isShow ? 'block' : 'none'}` }}>
-            {this._renderPageIcon("page-first", PageIndex <= 1, () => this.goToPage(1, PageSize))}
-            {this._renderPageIcon("page-prev", PageIndex <= 1, () => this.goToPage(PageIndex - 1, PageSize))}
-            {this._renderPageSizeInput()}
-            {this._renderPageIcon("page-next", PageIndex >= this.state.totalPage, () => this.goToPage(PageIndex + 1, PageSize))}
-            {this._renderPageIcon("page-last", PageIndex >= this.state.totalPage, () => this.goToPage(this.state.totalPage, PageSize))}
-            {this._renderPageSizeSelection(PageIndex, PageSize, PageList)}
-        </div>);
+        return (
+            <div className="page-container center-align" style={{ display: `${this.state.isShow ? 'block' : 'none'}` }}>
+                {this._renderPageIcon("page-first", index === 1, () => this.goToPage(1, pageSize))}
+                {this._renderPageIcon("page-prev", isDisable || index <= 1 || index > totalPage, () => this.goToPage(index - 1, pageSize))}
+                {this._renderPageInput(index)}
+                {this._renderPageIcon("page-next", isDisable || index >= totalPage || index < 1, () => this.goToPage(index + 1, pageSize))}
+                {this._renderPageIcon("page-last", index === totalPage, () => this.goToPage(totalPage, pageSize))}
+                {this._renderPageSizeSelection(isDisable, index, pageSize)}
+            </div>);
     }
 }
