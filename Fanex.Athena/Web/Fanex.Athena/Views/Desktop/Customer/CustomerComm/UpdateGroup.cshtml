@@ -12,7 +12,7 @@
 @model Fanex.Athena.Model.Customer.MetaModel.GroupCommMetaModel
 
 <div class="row page-form">
-    <form class="col" id="customer-comm-group-edit" action=@Url.Content("~/CustomerComGroup/Update") method="post">
+    <form class="col l9 m10 s12" id="customer-comm-group-edit" action=@Url.Content("~/CustomerComGroup/Update") method="post">
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
         <div class="row">
