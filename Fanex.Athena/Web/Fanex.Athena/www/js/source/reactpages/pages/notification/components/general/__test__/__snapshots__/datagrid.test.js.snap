@@ -1,0 +1,361 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataGrid  _buildBody matches with Snapshot 1`] = `
+<tr
+  className="unread"
+>
+  <td
+    className="center-align"
+    title={1}
+  >
+    1
+  </td>
+  <td
+    title={undefined}
+  />
+  <td
+    className="center-align"
+    title="11/23/2017 11:01:45 AM"
+  >
+    11/23/2017 11:01:45 AM
+  </td>
+  <td
+    title="Subject"
+  >
+    <div
+      className="collapse-item collapse"
+    >
+      <div
+        className="subject-item"
+      >
+        <span>
+          Subject
+        </span>
+        <i
+          className="icon-arrow"
+          onClick={[Function]}
+        />
+      </div>
+      <div
+        className="content-item"
+      >
+        Content
+      </div>
+    </div>
+  </td>
+</tr>
+`;
+
+exports[`DataGrid  render  has data - render table 1`] = `
+<div
+  className="result-content"
+>
+  <div
+    className="report-title-container"
+  >
+    <p
+      className="report-title"
+    >
+      
+    </p>
+  </div>
+  <div
+    className="table-container"
+    style={
+      Object {
+        "maxWidth": -30,
+      }
+    }
+  >
+    <div
+      className="header-content"
+      style={
+        Object {
+          "maxHeight": undefined,
+          "minWidth": 650,
+          "width": -30,
+        }
+      }
+    >
+      <div
+        className="table-wrapper"
+      >
+        <table
+          className="table"
+          style={
+            Object {
+              "width": 631,
+            }
+          }
+        >
+          <thead>
+            <tr
+              className="first-row"
+            >
+              <td
+                style={
+                  Object {
+                    "width": "-1.3846153846153846px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.923076923076923px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.923076923076923px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-14.76923076923077px",
+                  }
+                }
+              />
+            </tr>
+            <tr
+              style={
+                Object {
+                  "height": 32,
+                }
+              }
+            >
+              <th
+                title="#"
+              >
+                #
+              </th>
+              <th
+                title="Type"
+              >
+                Type
+              </th>
+              <th
+                title="Date/Time"
+              >
+                Date/Time
+              </th>
+              <th
+                title="Content"
+              >
+                Content
+              </th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+    <div
+      className="body-content"
+      style={
+        Object {
+          "maxHeight": 600,
+          "minWidth": 650,
+          "width": -30,
+        }
+      }
+    >
+      <div
+        className="table-wrapper"
+      >
+        <table
+          className="table"
+          style={
+            Object {
+              "width": 631,
+            }
+          }
+        >
+          <tbody>
+            <tr
+              className="first-row"
+            >
+              <td
+                style={
+                  Object {
+                    "width": "-1.3846153846153846px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.923076923076923px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.923076923076923px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-14.76923076923077px",
+                  }
+                }
+              />
+            </tr>
+            <tr
+              className="unread"
+            >
+              <td
+                className="center-align"
+                title={1}
+              >
+                1
+              </td>
+              <td
+                title={undefined}
+              />
+              <td
+                className="center-align"
+                title="11/23/2017 11:01:45 AM"
+              >
+                11/23/2017 11:01:45 AM
+              </td>
+              <td
+                title="Subject"
+              >
+                <div
+                  className="collapse-item collapse"
+                >
+                  <div
+                    className="subject-item"
+                  >
+                    <span>
+                      Subject
+                    </span>
+                    <i
+                      className="icon-arrow"
+                      onClick={[Function]}
+                    />
+                  </div>
+                  <div
+                    className="content-item"
+                  >
+                    Content
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div
+      className="page-container center-align"
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    >
+      <a
+        className="icon page-first disable"
+        href="javascript:;"
+        onClick={[Function]}
+      />
+      <a
+        className="icon page-prev disable"
+        href="javascript:;"
+        onClick={[Function]}
+      />
+      <div
+        className="page-info"
+      >
+        <span>
+          Page 
+        </span>
+        <input
+          className="page-form"
+          maxLength="4"
+          onChange={[Function]}
+          onKeyUp={[Function]}
+          size="2"
+          type="text"
+          value={1}
+        />
+        <span>
+           of 1
+           
+        </span>
+      </div>
+      <a
+        className="icon page-next disable"
+        href="javascript:;"
+        onClick={[Function]}
+      />
+      <a
+        className="icon page-last disable"
+        href="javascript:;"
+        onClick={[Function]}
+      />
+      <select
+        className="pagesize-select"
+        disabled={false}
+        onChange={[Function]}
+        value={10}
+      >
+        <option
+          value={10}
+        >
+          10
+        </option>
+        <option
+          value={20}
+        >
+          20
+        </option>
+        <option
+          value={50}
+        >
+          50
+        </option>
+        <option
+          value={100}
+        >
+          100
+        </option>
+        <option
+          value={500}
+        >
+          500
+        </option>
+      </select>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DataGrid  render  no data - render No data title 1`] = `
+<div
+  className="result-content"
+>
+  <div
+    className="report-title-container"
+  >
+    <p
+      className="report-title"
+    >
+      
+    </p>
+  </div>
+  <p
+    className="no-info-row center-align"
+  >
+    NoInfo
+  </p>
+</div>
+`;

@@ -938,6 +938,7 @@
     <Content Include="www\js\source\reactpages\pages\notification\actions\general\__tests__\filterHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\notification\actions\resultAmendment\__tests__\dataHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\notification\actions\resultAmendment\__tests__\filterHandlerAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\general\__test__\datagrid.test.js" />
     <Content Include="www\js\source\reactpages\pages\notification\components\general\__test__\formFilter.test.js" />
     <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\datagrid.test.js" />
     <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\formFilter.test.js" />
@@ -2646,6 +2647,7 @@
     <Content Include="www\js\source\reactpages\pages\notification\components\general\__test__\__snapshots__\formFilter.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\__snapshots__\datagrid.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\__snapshots__\formFilter.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\general\__test__\__snapshots__\datagrid.test.js.snap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

@@ -172,9 +172,9 @@ exports[`DataGrid  render  has data - render table 1`] = `
               </td>
               <td
                 className="center-align"
-                title="11/22/2017 06:04:21 PM"
+                title="11/23/2017 11:01:46 AM"
               >
-                11/22/2017 06:04:21 PM
+                11/23/2017 11:01:46 AM
               </td>
               <td
                 title="Subject"
@@ -203,15 +203,7 @@ exports[`DataGrid  render  has data - render table 1`] = `
                   />
                 </div>
               </td>
-              <td
-                className="center-align"
-                title="ExportToExcel"
-              >
-                <a
-                  className="icon-excel"
-                  href={undefined}
-                />
-              </td>
+              <td />
             </tr>
           </tbody>
         </table>

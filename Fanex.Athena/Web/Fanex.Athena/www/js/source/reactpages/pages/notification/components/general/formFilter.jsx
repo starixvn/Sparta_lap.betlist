@@ -123,9 +123,6 @@ export class FormFilter extends Component {
                         {LangHelper.getSingleResource("NotificationDateRangeLimitNote")}
                     </div>
                 </div>
-                <div className="caret-block">
-                    <i className="icon-book right" title={LangHelper.getSingleResource("UserGuide")}></i>                 
-                </div>
             </div>
         );
     }
