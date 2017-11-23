@@ -57,7 +57,7 @@ namespace Fanex.Athena.Excel.Base
             }
         }
 
-        protected int PageSize
+        protected internal int PageSize
         {
             get
             {
@@ -90,7 +90,7 @@ namespace Fanex.Athena.Excel.Base
             RemoveTemplate();
         }
 
-        protected static void ClearTemplate(ISheet sheet, int startRowIndex)
+        protected internal static void ClearTemplate(ISheet sheet, int startRowIndex)
         {
             int lastRowNum = sheet.LastRowNum;
             for (int i = startRowIndex; i <= lastRowNum; i++)
@@ -149,23 +149,23 @@ namespace Fanex.Athena.Excel.Base
             }
         }
 
-        protected abstract void AssignTitle(ISheet sheet);
+        protected internal abstract void AssignTitle(ISheet sheet);
 
-        protected abstract void AssignHeader(ISheet sheet);
+        protected internal abstract void AssignHeader(ISheet sheet);
 
-        protected virtual void ProcessUI(ISheet sheet)
+        protected internal virtual void ProcessUI(ISheet sheet)
         {
         }
 
-        protected virtual void AssignNoInfoRow(ISheet sheet)
+        protected internal virtual void AssignNoInfoRow(ISheet sheet)
         {
         }
 
-        protected virtual void AssignSheetData(ISheet sheet)
+        protected internal virtual void AssignSheetData(ISheet sheet)
         {
         }
 
-        protected virtual void AssignSheetData(ISheet sheet, int pageIndex)
+        protected internal virtual void AssignSheetData(ISheet sheet, int pageIndex)
         {
         }
 
