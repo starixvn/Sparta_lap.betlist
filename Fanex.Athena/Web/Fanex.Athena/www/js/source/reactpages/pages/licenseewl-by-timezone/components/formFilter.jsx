@@ -43,7 +43,7 @@ export class FormFilter extends Component {
 
         this.props.toggleLoader(true);
         this.props.exportExcel(params).then(response => {
-            const title = service.getReportTitle(selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency);
+            const title = service.getReportTitle(selectedTimeZone, dateRange, selectedCurrency.label, selectedBaseCurrency);
             const excel = new ReportExcel(response.data, title);
             excel.export();
             this.props.toggleLoader(false);

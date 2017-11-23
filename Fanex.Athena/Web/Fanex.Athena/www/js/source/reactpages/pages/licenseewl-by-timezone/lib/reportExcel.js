@@ -24,15 +24,16 @@ const TOTAL_SECTION_STYLE = "totalSectionStyle";
 const GRAND_TOTAL_SECTION_STYLE = "grandTotalSectionStyle";
 
 const fields = {
-    Index: "#",
+    Index: "Index",
     Product: "Product",
     CurrencyName: "CurrencyName",
     BetCount: "BetCount",
     Turnover: "Turnover",
-    CustomerWinLoss: "CustomerComm",
-    LicenseeWL: "LicenseeWL",
+    CustomerComm: "CustomerComm",
+    LicenseeWL: "LicenseeWinLoss",
     LicenseeComm: "LicenseeComm",
-    LicenseeNetWL: "LicenseeNetWL"
+    LicenseeNetWL: "LicenseeNetWinLoss",
+    Margin: "Margin"
 }
 
 const columnConfigs = [
@@ -137,8 +138,9 @@ export default class ReportExcel {
 
         for (let i = 0; i < mainData.length; i++) {
             const item = mainData[i];
-
-            this._createRowByColumnIndex(item, MAIN_SECTION_STYLE, INDEX_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
+            var cellAddress = Excel.getCellAddress({ c: INDEX_COLUMN_INDEX, r: this.currentRowIndex });
+            this.worksheet[cellAddress] = { t: "s", v: (i + 1), s: bodyCellStyle.center };
+            this._createRowByColumnIndex(item, MAIN_SECTION_STYLE, PRODUCT_COLUMN_INDEX, MARGIN_COLUMN_INDEX);
             this.currentRowIndex++;
         }
     }
