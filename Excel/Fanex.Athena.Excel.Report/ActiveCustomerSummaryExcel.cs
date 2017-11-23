@@ -142,7 +142,7 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        protected IEnumerable<ProductOption> GetAllProductOptions(IEnumerable<ProductOption> products)
+        private IEnumerable<ProductOption> GetAllProductOptions(IEnumerable<ProductOption> products)
         {
             var result = new List<ProductOption>();
 
