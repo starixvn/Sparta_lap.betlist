@@ -61,7 +61,7 @@ export class FormFilter extends Component {
             xsrfToken: this.props.xsrfToken,
             data: {
                 BaseCurrency: this.props.selectedBaseCurrency,
-                CurrencyId: this.props.selectedCurrency,
+                CurrencyId: this.props.selectedCurrency.value,
                 ProductCodeList: this.props.selectedProduct,
                 ConvertAll: this.props.convertAll,
                 FromDate: Site.convertDateToString(fromDate),
@@ -118,9 +118,9 @@ export class FormFilter extends Component {
         
         return <Select id="ddlCurrency"
                 name="form-field-name"
-                value={selectedCurrency || 0}
+                value={selectedCurrency.value}
                 options={currencyList}
-                onChange={(item) => this.props.setSelectedCurrency(item.value)} />
+                onChange={(item) => this.props.setSelectedCurrency(item)} />
     }
 
     _renderBaseCurrencySelectList() {
