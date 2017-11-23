@@ -5405,20 +5405,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 375:
+/***/ 376:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(376);
+module.exports = __webpack_require__(377);
 
 
 /***/ }),
 
-/***/ 376:
+/***/ 377:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(377)], __WEBPACK_AMD_DEFINE_RESULT__ = function (GroupCommission) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(378)], __WEBPACK_AMD_DEFINE_RESULT__ = function (GroupCommission) {
     $(GroupCommission.initialize);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -5426,7 +5426,7 @@ module.exports = __webpack_require__(376);
 
 /***/ }),
 
-/***/ 377:
+/***/ 378:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5480,5 +5480,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ })
 
-},[375]);
+},[376]);
 //# sourceMappingURL=groupcommission.chunk.js.map

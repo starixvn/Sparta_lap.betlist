@@ -18922,17 +18922,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /* 333 */,
 /* 334 */,
 /* 335 */,
-/* 336 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(337);
-
-
-/***/ }),
+/* 336 */,
 /* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(338)], __WEBPACK_AMD_DEFINE_RESULT__ = function (MatchWinLoss) {
+module.exports = __webpack_require__(338);
+
+
+/***/ }),
+/* 338 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(339)], __WEBPACK_AMD_DEFINE_RESULT__ = function (MatchWinLoss) {
     "use strict";
 
     $(MatchWinLoss.initialize);
@@ -18941,7 +18942,7 @@ module.exports = __webpack_require__(337);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 338 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19154,5 +19155,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
-],[336]);
+],[337]);
 //# sourceMappingURL=matchwinloss.chunk.js.map

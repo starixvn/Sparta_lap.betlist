@@ -391,7 +391,7 @@
       border: 1px solid #e2d6d6;
       box-shadow: none; }
   .page-container .page-info {
-    display: inline-block; }
+    display: inline; }
     .page-container .page-info:after, .page-container .page-info:before {
       content: "";
       border: 1px solid #ccc; }

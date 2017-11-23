@@ -11,7 +11,10 @@
     using Service.Core.Users.Interfaces;
     using Service.Report;
     using Service.Report.Interfaces;
+    using Base.Attributes;
+    using Model.Core.DataDomain;
 
+    [ApiFunctionAuthorization(PermissionKeys.ResultAmendmentNotificationReport)]
     public class NotificationReportController : ApiReportBaseController
     {
         private static readonly DateTime MinDate = new DateTime(1990, 1, 1);

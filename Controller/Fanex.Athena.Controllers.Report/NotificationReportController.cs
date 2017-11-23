@@ -4,7 +4,10 @@
     using Model.Report.ViewModel;
     using Service.Report;
     using Service.Report.Interfaces;
+    using Web.ActionFilter;
+    using Model.Core.DataDomain;
 
+    [FunctionAuthorization(PermissionKeys.ResultAmendmentNotificationReport)]
     public class NotificationReportController : ReportBaseController
     {
         private readonly INotificationService _notificationService;

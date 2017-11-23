@@ -627,18 +627,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 352:
+/***/ 353:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(353);
+module.exports = __webpack_require__(354);
 
 
 /***/ }),
 
-/***/ 353:
+/***/ 354:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(354)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupAdd) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(355)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupAdd) {
     "use strict";
 
     $(CustomerCommGroupAdd.initialize);
@@ -648,7 +648,7 @@ module.exports = __webpack_require__(353);
 
 /***/ }),
 
-/***/ 354:
+/***/ 355:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(171)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, CommGroupDetail) {
@@ -685,5 +685,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ })
 
-},[352]);
+},[353]);
 //# sourceMappingURL=commgroupadd.chunk.js.map

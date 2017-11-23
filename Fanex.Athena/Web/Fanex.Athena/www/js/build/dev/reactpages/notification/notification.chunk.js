@@ -17481,7 +17481,7 @@ var Page = function (_Component) {
             if (code === 13) {
                 var value = parseInt(_this.state.index);
                 if (value > 0 && value <= _this.state.totalPage) {
-                    _this.goToPage(value, _this.props.pageOption.PageSize);
+                    _this.goToPage(value, _this.state.pageSize);
                 }
             }
         };
@@ -17489,8 +17489,11 @@ var Page = function (_Component) {
         _this.state = {
             index: _this.props.pageOption.PageIndex,
             isShow: _this.props.pageOption.TotalItem > _this.props.pageOption.PageList[0],
-            totalPage: Math.ceil(_this.props.pageOption.TotalItem / _this.props.pageOption.PageSize)
+            totalPage: Math.ceil(_this.props.pageOption.TotalItem / _this.props.pageOption.PageSize),
+            pageSize: _this.props.pageOption.PageSize
         };
+
+        _this.inputValue = _this.props.pageOption.PageIndex;
         return _this;
     }
 
@@ -17498,35 +17501,43 @@ var Page = function (_Component) {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
             if (this.props.pageOption !== nextProps.pageOption) {
-                this._updateState(nextProps.pageOption.PageIndex, nextProps.pageOption.TotalItem > nextProps.pageOption.PageList[0], Math.ceil(nextProps.pageOption.TotalItem / nextProps.pageOption.PageSize));
+                this._updateState(nextProps.pageOption.PageIndex, nextProps.pageOption.TotalItem > nextProps.pageOption.PageList[0], Math.ceil(nextProps.pageOption.TotalItem / nextProps.pageOption.PageSize), nextProps.pageOption.PageSize);
             }
         }
     }, {
         key: 'goToPage',
-        value: function goToPage(index, size) {
-            this._updateState(index, null, this.props.pageOption.TotalItem / size);
-            this.props.onPaging && this.props.onPaging(index, size);
+        value: function goToPage(index, pageSize) {
+            this._updateState(index, null, this.props.pageOption.TotalItem / pageSize, pageSize);
+            this.props.onPaging && this.props.onPaging(index, pageSize);
+        }
+    }, {
+        key: 'onClickHandle',
+        value: function onClickHandle(isDisable, handleFunc) {
+            if (!isDisable) {
+                handleFunc();
+            }
         }
     }, {
         key: '_updateState',
-        value: function _updateState(index, isShow, totalPage) {
+        value: function _updateState(index, isShow, totalPage, pageSize) {
             this.setState({
-                index: index ? index : this.state.index,
-                isShow: isShow ? isShow : this.state.isShow,
-                totalPage: totalPage ? totalPage : this.state.totalPage
+                index: index !== null ? index : this.state.index,
+                isShow: isShow !== null ? isShow : this.state.isShow,
+                totalPage: totalPage ? totalPage : this.state.totalPage,
+                pageSize: pageSize ? pageSize : this.state.pageSize
             });
         }
     }, {
         key: '_renderPageSizeSelection',
-        value: function _renderPageSizeSelection(pageIndex, pageSize, pageList) {
+        value: function _renderPageSizeSelection(isDisable, pageIndex, pageSize) {
             var _this2 = this;
 
             return _react2.default.createElement(
                 'select',
-                { className: 'pagesize-select', value: pageSize, onChange: function onChange(e) {
+                { className: 'pagesize-select', disabled: isDisable, value: pageSize, onChange: function onChange(e) {
                         return _this2.goToPage(1, e.target.value);
                     } },
-                this._renderPageSizeOption(pageList)
+                this._renderPageSizeOption(this.props.pageOption.PageList)
             );
         }
     }, {
@@ -17543,53 +17554,67 @@ var Page = function (_Component) {
     }, {
         key: '_renderPageIcon',
         value: function _renderPageIcon(iconClass, isDisable, onClickFunc) {
-            return _react2.default.createElement('a', { href: 'javascript:;', className: 'icon ' + iconClass + ' ' + (isDisable ? "disable" : ""), onClick: onClickFunc });
+            var _this3 = this;
+
+            return _react2.default.createElement('a', { href: 'javascript:;', className: 'icon ' + iconClass + ' ' + (isDisable ? "disable" : ""), onClick: function onClick() {
+                    return _this3.onClickHandle(isDisable, onClickFunc);
+                } });
         }
     }, {
-        key: '_renderPageSizeInput',
-        value: function _renderPageSizeInput() {
-            var _this3 = this;
+        key: '_renderPageInput',
+        value: function _renderPageInput(index) {
+            var _this4 = this;
 
             return _react2.default.createElement(
                 'div',
                 { className: 'page-info' },
-                'Page ',
-                _react2.default.createElement('input', { type: 'text', className: 'page-form', value: this.state.index, maxLength: '4', size: '2',
+                _react2.default.createElement(
+                    'span',
+                    null,
+                    'Page '
+                ),
+                _react2.default.createElement('input', { type: 'text', className: 'page-form', value: index, maxLength: '4', size: '2',
                     onChange: function onChange(e) {
-                        _this3._updateState(e.target.value, null, null);
+                        return _this4._updateState(e.target.value, null, null, null);
                     },
                     onKeyUp: this.onKeyUpHandle }),
-                ' of ' + this.state.totalPage
+                _react2.default.createElement(
+                    'span',
+                    null,
+                    ' of ' + this.state.totalPage,
+                    ' '
+                )
             );
         }
     }, {
         key: 'render',
         value: function render() {
-            var _this4 = this;
+            var _this5 = this;
 
-            var _props$pageOption = this.props.pageOption,
-                PageIndex = _props$pageOption.PageIndex,
-                PageSize = _props$pageOption.PageSize,
-                PageList = _props$pageOption.PageList;
+            var _state = this.state,
+                index = _state.index,
+                totalPage = _state.totalPage,
+                pageSize = _state.pageSize;
 
+            var isDisable = isNaN(parseInt(index));
 
             return _react2.default.createElement(
                 'div',
                 { className: 'page-container center-align', style: { display: '' + (this.state.isShow ? 'block' : 'none') } },
-                this._renderPageIcon("page-first", PageIndex <= 1, function () {
-                    return _this4.goToPage(1, PageSize);
+                this._renderPageIcon("page-first", index === 1, function () {
+                    return _this5.goToPage(1, pageSize);
                 }),
-                this._renderPageIcon("page-prev", PageIndex <= 1, function () {
-                    return _this4.goToPage(PageIndex - 1, PageSize);
+                this._renderPageIcon("page-prev", isDisable || index <= 1 || index > totalPage, function () {
+                    return _this5.goToPage(index - 1, pageSize);
                 }),
-                this._renderPageSizeInput(),
-                this._renderPageIcon("page-next", PageIndex >= this.state.totalPage, function () {
-                    return _this4.goToPage(PageIndex + 1, PageSize);
+                this._renderPageInput(index),
+                this._renderPageIcon("page-next", isDisable || index >= totalPage || index < 1, function () {
+                    return _this5.goToPage(index + 1, pageSize);
                 }),
-                this._renderPageIcon("page-last", PageIndex >= this.state.totalPage, function () {
-                    return _this4.goToPage(_this4.state.totalPage, PageSize);
+                this._renderPageIcon("page-last", index === totalPage, function () {
+                    return _this5.goToPage(totalPage, pageSize);
                 }),
-                this._renderPageSizeSelection(PageIndex, PageSize, PageList)
+                this._renderPageSizeSelection(isDisable, index, pageSize)
             );
         }
     }]);
@@ -19271,11 +19296,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ActionCreators = undefined;
 
-var _dataHandlerAction = __webpack_require__(717);
+var _dataHandlerAction = __webpack_require__(716);
 
 var dataHandlerAction = _interopRequireWildcard(_dataHandlerAction);
 
-var _filterHandlerAction = __webpack_require__(718);
+var _filterHandlerAction = __webpack_require__(717);
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
 
@@ -19289,62 +19314,6 @@ var ActionCreators = exports.ActionCreators = Object.assign({}, dataHandlerActio
 
 /***/ }),
 /* 385 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _langHelper = __webpack_require__(14);
-
-var _langHelper2 = _interopRequireDefault(_langHelper);
-
-var _site = __webpack_require__(40);
-
-var _site2 = _interopRequireDefault(_site);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var headerText = {
-    ticketList: _langHelper2.default.getSingleResource("TicketList"),
-    dateTime: _langHelper2.default.getSingleResource("Date") + '/' + _langHelper2.default.getSingleResource("Time"),
-    content: _langHelper2.default.getSingleResource("Content")
-};
-
-var Service = function () {
-    function Service() {
-        _classCallCheck(this, Service);
-    }
-
-    _createClass(Service, null, [{
-        key: 'getReportTitle',
-        value: function getReportTitle(dateRange) {
-            var fromDate = _site2.default.convertDateToString(dateRange.fromDate);
-            var toDate = _site2.default.convertDateToString(dateRange.toDate);
-
-            return _langHelper2.default.getSingleResource("Amendment") + ', ' + fromDate + ' - ' + toDate;
-        }
-    }, {
-        key: 'getHeaderText',
-        value: function getHeaderText() {
-            return headerText;
-        }
-    }]);
-
-    return Service;
-}();
-
-exports.default = Service;
-
-/***/ }),
-/* 386 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19409,7 +19378,7 @@ exports.default = Tab;
 ;
 
 /***/ }),
-/* 387 */
+/* 386 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19431,6 +19400,7 @@ var GET_NOTIFICATION_TYPE = exports.GET_NOTIFICATION_TYPE = "GENERAL_GET_NOTIFIC
 var SET_PARAM = exports.SET_PARAM = "GENERAL_SET_PARAM";
 
 /***/ }),
+/* 387 */,
 /* 388 */,
 /* 389 */,
 /* 390 */,
@@ -19755,8 +19725,7 @@ var SET_PARAM = exports.SET_PARAM = "GENERAL_SET_PARAM";
 /* 709 */,
 /* 710 */,
 /* 711 */,
-/* 712 */,
-/* 713 */
+/* 712 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19776,7 +19745,7 @@ var _reactDom = __webpack_require__(10);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _AppContainer = __webpack_require__(714);
+var _AppContainer = __webpack_require__(713);
 
 var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
@@ -19853,7 +19822,7 @@ exports.default = App;
 _reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById("app-container"));
 
 /***/ }),
-/* 714 */
+/* 713 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19874,7 +19843,7 @@ var _reactRedux = __webpack_require__(33);
 
 var _redux = __webpack_require__(19);
 
-var _resultAmendment = __webpack_require__(715);
+var _resultAmendment = __webpack_require__(714);
 
 var _resultAmendment2 = _interopRequireDefault(_resultAmendment);
 
@@ -19939,7 +19908,7 @@ function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(AppContainer);
 
 /***/ }),
-/* 715 */
+/* 714 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19955,7 +19924,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _datagrid = __webpack_require__(716);
+var _datagrid = __webpack_require__(715);
 
 var _datagrid2 = _interopRequireDefault(_datagrid);
 
@@ -19998,7 +19967,7 @@ var ResultAmendment = function (_Component) {
 exports.default = ResultAmendment;
 
 /***/ }),
-/* 716 */
+/* 715 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20035,7 +20004,7 @@ var _NoDataTitle = __webpack_require__(264);
 
 var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
 
-var _resultAmendmentService = __webpack_require__(385);
+var _resultAmendmentService = __webpack_require__(718);
 
 var _resultAmendmentService2 = _interopRequireDefault(_resultAmendmentService);
 
@@ -20043,9 +20012,9 @@ var _site = __webpack_require__(40);
 
 var _site2 = _interopRequireDefault(_site);
 
-var _CollapseRow = __webpack_require__(719);
+var _CollapsibleRow = __webpack_require__(719);
 
-var _CollapseRow2 = _interopRequireDefault(_CollapseRow);
+var _CollapsibleRow2 = _interopRequireDefault(_CollapsibleRow);
 
 var _moment = __webpack_require__(0);
 
@@ -20113,19 +20082,22 @@ var DataGrid = exports.DataGrid = function (_Component) {
     }, {
         key: 'onExpand',
         value: function onExpand(index, item) {
+            var _props$gridData = this.props.gridData,
+                Data = _props$gridData.Data,
+                Total = _props$gridData.Total;
+
+            Data[index].IsExpand = true;
+
             if (!item.IsRead) {
-                var _props$gridData = this.props.gridData,
-                    Data = _props$gridData.Data,
-                    Total = _props$gridData.Total;
-
-
                 this.props.markItemAsRead({
                     Index: index,
                     Id: item.Id,
                     Type: item.Type,
                     Data: Data,
-                    ToTal: Total
+                    Total: Total
                 });
+            } else {
+                this.props.setGridData({ Data: Data, Total: Total });
             }
         }
     }, {
@@ -20138,8 +20110,8 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 { style: { height: 32 } },
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 30, header: true, title: '#' },
-                    '#'
+                    { colWidth: 30, header: true, title: headerText.index },
+                    headerText.index
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
@@ -20185,9 +20157,9 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: item.Subject },
-                        _react2.default.createElement(_CollapseRow2.default, { subject: item.Subject, content: item.Content, onExpand: function onExpand() {
+                        _react2.default.createElement(_CollapsibleRow2.default, { subject: item.Subject, content: item.Content, onExpand: function onExpand() {
                                 return _this2.onExpand(i, item);
-                            }, isExpand: item.IsExpand })
+                            }, isExpand: item.IsExpand, isHtml: true })
                     ),
                     _site2.default.asNull(item.DataFilePath) === null ? _react2.default.createElement(_fixedTableHeader.Cell, null) : _react2.default.createElement(
                         _fixedTableHeader.Cell,
@@ -20268,7 +20240,7 @@ function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DataGrid);
 
 /***/ }),
-/* 717 */
+/* 716 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20334,9 +20306,7 @@ function markItemAsRead(params) {
     return function (dispatch) {
         markNotification(params.Id, params.Type).then(function (response) {
             if (response.data.IsSuccessful) {
-                var item = params.Data[params.Index];
-                item.IsRead = true;
-                item.IsExpand = true;
+                params.Data[params.Index].IsRead = true;
 
                 dispatch(setGridData({
                     Data: params.Data,
@@ -20348,7 +20318,7 @@ function markItemAsRead(params) {
 }
 
 /***/ }),
-/* 718 */
+/* 717 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20385,6 +20355,63 @@ var setParam = exports.setParam = function setParam(param) {
 };
 
 /***/ }),
+/* 718 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _langHelper = __webpack_require__(14);
+
+var _langHelper2 = _interopRequireDefault(_langHelper);
+
+var _site = __webpack_require__(40);
+
+var _site2 = _interopRequireDefault(_site);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var headerText = {
+    index: "#",
+    ticketList: _langHelper2.default.getSingleResource("TicketList"),
+    dateTime: _langHelper2.default.getSingleResource("Date") + '/' + _langHelper2.default.getSingleResource("Time"),
+    content: _langHelper2.default.getSingleResource("Content")
+};
+
+var Service = function () {
+    function Service() {
+        _classCallCheck(this, Service);
+    }
+
+    _createClass(Service, null, [{
+        key: 'getReportTitle',
+        value: function getReportTitle(dateRange) {
+            var fromDate = _site2.default.convertDateToString(dateRange.fromDate);
+            var toDate = _site2.default.convertDateToString(dateRange.toDate);
+
+            return _langHelper2.default.getSingleResource("Amendment") + ', ' + fromDate + ' - ' + toDate;
+        }
+    }, {
+        key: 'getHeaderText',
+        value: function getHeaderText() {
+            return headerText;
+        }
+    }]);
+
+    return Service;
+}();
+
+exports.default = Service;
+
+/***/ }),
 /* 719 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20405,6 +20432,10 @@ var _reactDom = __webpack_require__(10);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _propTypes = __webpack_require__(6);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20413,13 +20444,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var CollapseRow = function (_React$Component) {
-    _inherits(CollapseRow, _React$Component);
+var CollapsibleRow = function (_React$Component) {
+    _inherits(CollapsibleRow, _React$Component);
 
-    function CollapseRow(props) {
-        _classCallCheck(this, CollapseRow);
+    function CollapsibleRow(props) {
+        _classCallCheck(this, CollapsibleRow);
 
-        var _this = _possibleConstructorReturn(this, (CollapseRow.__proto__ || Object.getPrototypeOf(CollapseRow)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (CollapsibleRow.__proto__ || Object.getPrototypeOf(CollapsibleRow)).call(this, props));
 
         _this.onClick = function () {
             var newState = !_this.state.isCollapse;
@@ -20437,7 +20468,14 @@ var CollapseRow = function (_React$Component) {
         return _this;
     }
 
-    _createClass(CollapseRow, [{
+    _createClass(CollapsibleRow, [{
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            if (this.props.isExpand !== nextProps.isExpand) {
+                this.setState({ isCollapse: !nextProps.isExpand });
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -20446,10 +20484,14 @@ var CollapseRow = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'subject-item' },
-                    this.props.subject,
+                    _react2.default.createElement(
+                        'span',
+                        null,
+                        this.props.subject
+                    ),
                     _react2.default.createElement('i', { className: 'icon-arrow', onClick: this.onClick })
                 ),
-                _react2.default.createElement(
+                this.props.isHtml ? _react2.default.createElement('div', { className: 'content-item', dangerouslySetInnerHTML: { __html: this.props.content } }) : _react2.default.createElement(
                     'div',
                     { className: 'content-item' },
                     this.props.content
@@ -20458,10 +20500,17 @@ var CollapseRow = function (_React$Component) {
         }
     }]);
 
-    return CollapseRow;
+    return CollapsibleRow;
 }(_react2.default.Component);
 
-exports.default = CollapseRow;
+CollapsibleRow.propTypes = {
+    isExpand: _propTypes2.default.bool,
+    isHtml: _propTypes2.default.bool,
+    subject: _propTypes2.default.string,
+    content: _propTypes2.default.string,
+    onExpand: _propTypes2.default.func
+};
+exports.default = CollapsibleRow;
 ;
 
 /***/ }),
@@ -20498,10 +20547,6 @@ var _site = __webpack_require__(40);
 
 var _site2 = _interopRequireDefault(_site);
 
-var _resultAmendmentService = __webpack_require__(385);
-
-var _resultAmendmentService2 = _interopRequireDefault(_resultAmendmentService);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -20529,6 +20574,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 return;
             }
 
+            _this.props.setParam(params.data);
             _this.props.toggleLoader(true);
             _this.props.getGridData(params);
         };
@@ -20543,8 +20589,6 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 alert(message);
             }
         };
-
-        _this.exportExcel = function () {};
 
         return _this;
     }
@@ -20573,8 +20617,6 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 PageSize: pageSize,
                 PageIndex: 1
             };
-
-            this.props.setParam(paramData);
 
             return {
                 xsrfToken: this.props.xsrfToken,
@@ -20648,7 +20690,6 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'caret-block' },
-                    _react2.default.createElement('i', { className: 'icon-excel right', onClick: this.exportExcel, title: _langHelper2.default.getSingleResource("ExportToExcel") }),
                     _react2.default.createElement('i', { className: 'icon-book right', title: _langHelper2.default.getSingleResource("UserGuide") })
                 )
             );
@@ -20687,7 +20728,7 @@ var _Tabs = __webpack_require__(722);
 
 var _Tabs2 = _interopRequireDefault(_Tabs);
 
-var _Tab = __webpack_require__(386);
+var _Tab = __webpack_require__(385);
 
 var _Tab2 = _interopRequireDefault(_Tab);
 
@@ -20713,7 +20754,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Tab = __webpack_require__(386);
+var _Tab = __webpack_require__(385);
 
 var _Tab2 = _interopRequireDefault(_Tab);
 
@@ -20895,7 +20936,7 @@ var _createReducer2 = __webpack_require__(23);
 
 var _createReducer3 = _interopRequireDefault(_createReducer2);
 
-var _types = __webpack_require__(387);
+var _types = __webpack_require__(386);
 
 var types = _interopRequireWildcard(_types);
 
@@ -20925,7 +20966,7 @@ var _createReducer6 = __webpack_require__(23);
 
 var _createReducer7 = _interopRequireDefault(_createReducer6);
 
-var _types = __webpack_require__(387);
+var _types = __webpack_require__(386);
 
 var types = _interopRequireWildcard(_types);
 
@@ -21079,5 +21120,5 @@ var xsrfToken = exports.xsrfToken = (0, _createReducer3.default)({}, _defineProp
 }));
 
 /***/ })
-],[713]);
+],[712]);
 //# sourceMappingURL=notification.chunk.js.map

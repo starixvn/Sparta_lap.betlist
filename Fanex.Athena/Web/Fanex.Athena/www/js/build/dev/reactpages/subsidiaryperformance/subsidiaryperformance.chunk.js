@@ -16885,7 +16885,7 @@ var _reactDom = __webpack_require__(10);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactInputAutosize = __webpack_require__(695);
+var _reactInputAutosize = __webpack_require__(694);
 
 var _reactInputAutosize2 = _interopRequireDefault(_reactInputAutosize);
 
@@ -16893,7 +16893,7 @@ var _classnames = __webpack_require__(26);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _defaultArrowRenderer = __webpack_require__(696);
+var _defaultArrowRenderer = __webpack_require__(695);
 
 var _defaultArrowRenderer2 = _interopRequireDefault(_defaultArrowRenderer);
 
@@ -16905,11 +16905,11 @@ var _defaultMenuRenderer = __webpack_require__(379);
 
 var _defaultMenuRenderer2 = _interopRequireDefault(_defaultMenuRenderer);
 
-var _defaultClearRenderer = __webpack_require__(697);
+var _defaultClearRenderer = __webpack_require__(696);
 
 var _defaultClearRenderer2 = _interopRequireDefault(_defaultClearRenderer);
 
-var _Option = __webpack_require__(698);
+var _Option = __webpack_require__(697);
 
 var _Option2 = _interopRequireDefault(_Option);
 
@@ -18238,19 +18238,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ActionCreators = undefined;
 
-var _dataHandlerAction = __webpack_require__(687);
+var _dataHandlerAction = __webpack_require__(686);
 
 var dataHandlerAction = _interopRequireWildcard(_dataHandlerAction);
 
-var _filterHandlerAction = __webpack_require__(688);
+var _filterHandlerAction = __webpack_require__(687);
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
 
-var _productAction = __webpack_require__(689);
+var _productAction = __webpack_require__(688);
 
 var productAction = _interopRequireWildcard(_productAction);
 
-var _baseCurrencyAction = __webpack_require__(690);
+var _baseCurrencyAction = __webpack_require__(689);
 
 var baseCurrencyAction = _interopRequireWildcard(_baseCurrencyAction);
 
@@ -18839,7 +18839,7 @@ var Page = function (_Component) {
             if (code === 13) {
                 var value = parseInt(_this.state.index);
                 if (value > 0 && value <= _this.state.totalPage) {
-                    _this.goToPage(value, _this.props.pageOption.PageSize);
+                    _this.goToPage(value, _this.state.pageSize);
                 }
             }
         };
@@ -18847,8 +18847,11 @@ var Page = function (_Component) {
         _this.state = {
             index: _this.props.pageOption.PageIndex,
             isShow: _this.props.pageOption.TotalItem > _this.props.pageOption.PageList[0],
-            totalPage: Math.ceil(_this.props.pageOption.TotalItem / _this.props.pageOption.PageSize)
+            totalPage: Math.ceil(_this.props.pageOption.TotalItem / _this.props.pageOption.PageSize),
+            pageSize: _this.props.pageOption.PageSize
         };
+
+        _this.inputValue = _this.props.pageOption.PageIndex;
         return _this;
     }
 
@@ -18856,35 +18859,43 @@ var Page = function (_Component) {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
             if (this.props.pageOption !== nextProps.pageOption) {
-                this._updateState(nextProps.pageOption.PageIndex, nextProps.pageOption.TotalItem > nextProps.pageOption.PageList[0], Math.ceil(nextProps.pageOption.TotalItem / nextProps.pageOption.PageSize));
+                this._updateState(nextProps.pageOption.PageIndex, nextProps.pageOption.TotalItem > nextProps.pageOption.PageList[0], Math.ceil(nextProps.pageOption.TotalItem / nextProps.pageOption.PageSize), nextProps.pageOption.PageSize);
             }
         }
     }, {
         key: 'goToPage',
-        value: function goToPage(index, size) {
-            this._updateState(index, null, this.props.pageOption.TotalItem / size);
-            this.props.onPaging && this.props.onPaging(index, size);
+        value: function goToPage(index, pageSize) {
+            this._updateState(index, null, this.props.pageOption.TotalItem / pageSize, pageSize);
+            this.props.onPaging && this.props.onPaging(index, pageSize);
+        }
+    }, {
+        key: 'onClickHandle',
+        value: function onClickHandle(isDisable, handleFunc) {
+            if (!isDisable) {
+                handleFunc();
+            }
         }
     }, {
         key: '_updateState',
-        value: function _updateState(index, isShow, totalPage) {
+        value: function _updateState(index, isShow, totalPage, pageSize) {
             this.setState({
-                index: index ? index : this.state.index,
-                isShow: isShow ? isShow : this.state.isShow,
-                totalPage: totalPage ? totalPage : this.state.totalPage
+                index: index !== null ? index : this.state.index,
+                isShow: isShow !== null ? isShow : this.state.isShow,
+                totalPage: totalPage ? totalPage : this.state.totalPage,
+                pageSize: pageSize ? pageSize : this.state.pageSize
             });
         }
     }, {
         key: '_renderPageSizeSelection',
-        value: function _renderPageSizeSelection(pageIndex, pageSize, pageList) {
+        value: function _renderPageSizeSelection(isDisable, pageIndex, pageSize) {
             var _this2 = this;
 
             return _react2.default.createElement(
                 'select',
-                { className: 'pagesize-select', value: pageSize, onChange: function onChange(e) {
+                { className: 'pagesize-select', disabled: isDisable, value: pageSize, onChange: function onChange(e) {
                         return _this2.goToPage(1, e.target.value);
                     } },
-                this._renderPageSizeOption(pageList)
+                this._renderPageSizeOption(this.props.pageOption.PageList)
             );
         }
     }, {
@@ -18901,53 +18912,67 @@ var Page = function (_Component) {
     }, {
         key: '_renderPageIcon',
         value: function _renderPageIcon(iconClass, isDisable, onClickFunc) {
-            return _react2.default.createElement('a', { href: 'javascript:;', className: 'icon ' + iconClass + ' ' + (isDisable ? "disable" : ""), onClick: onClickFunc });
+            var _this3 = this;
+
+            return _react2.default.createElement('a', { href: 'javascript:;', className: 'icon ' + iconClass + ' ' + (isDisable ? "disable" : ""), onClick: function onClick() {
+                    return _this3.onClickHandle(isDisable, onClickFunc);
+                } });
         }
     }, {
-        key: '_renderPageSizeInput',
-        value: function _renderPageSizeInput() {
-            var _this3 = this;
+        key: '_renderPageInput',
+        value: function _renderPageInput(index) {
+            var _this4 = this;
 
             return _react2.default.createElement(
                 'div',
                 { className: 'page-info' },
-                'Page ',
-                _react2.default.createElement('input', { type: 'text', className: 'page-form', value: this.state.index, maxLength: '4', size: '2',
+                _react2.default.createElement(
+                    'span',
+                    null,
+                    'Page '
+                ),
+                _react2.default.createElement('input', { type: 'text', className: 'page-form', value: index, maxLength: '4', size: '2',
                     onChange: function onChange(e) {
-                        _this3._updateState(e.target.value, null, null);
+                        return _this4._updateState(e.target.value, null, null, null);
                     },
                     onKeyUp: this.onKeyUpHandle }),
-                ' of ' + this.state.totalPage
+                _react2.default.createElement(
+                    'span',
+                    null,
+                    ' of ' + this.state.totalPage,
+                    ' '
+                )
             );
         }
     }, {
         key: 'render',
         value: function render() {
-            var _this4 = this;
+            var _this5 = this;
 
-            var _props$pageOption = this.props.pageOption,
-                PageIndex = _props$pageOption.PageIndex,
-                PageSize = _props$pageOption.PageSize,
-                PageList = _props$pageOption.PageList;
+            var _state = this.state,
+                index = _state.index,
+                totalPage = _state.totalPage,
+                pageSize = _state.pageSize;
 
+            var isDisable = isNaN(parseInt(index));
 
             return _react2.default.createElement(
                 'div',
                 { className: 'page-container center-align', style: { display: '' + (this.state.isShow ? 'block' : 'none') } },
-                this._renderPageIcon("page-first", PageIndex <= 1, function () {
-                    return _this4.goToPage(1, PageSize);
+                this._renderPageIcon("page-first", index === 1, function () {
+                    return _this5.goToPage(1, pageSize);
                 }),
-                this._renderPageIcon("page-prev", PageIndex <= 1, function () {
-                    return _this4.goToPage(PageIndex - 1, PageSize);
+                this._renderPageIcon("page-prev", isDisable || index <= 1 || index > totalPage, function () {
+                    return _this5.goToPage(index - 1, pageSize);
                 }),
-                this._renderPageSizeInput(),
-                this._renderPageIcon("page-next", PageIndex >= this.state.totalPage, function () {
-                    return _this4.goToPage(PageIndex + 1, PageSize);
+                this._renderPageInput(index),
+                this._renderPageIcon("page-next", isDisable || index >= totalPage || index < 1, function () {
+                    return _this5.goToPage(index + 1, pageSize);
                 }),
-                this._renderPageIcon("page-last", PageIndex >= this.state.totalPage, function () {
-                    return _this4.goToPage(_this4.state.totalPage, PageSize);
+                this._renderPageIcon("page-last", index === totalPage, function () {
+                    return _this5.goToPage(totalPage, pageSize);
                 }),
-                this._renderPageSizeSelection(PageIndex, PageSize, PageList)
+                this._renderPageSizeSelection(isDisable, index, pageSize)
             );
         }
     }]);
@@ -22005,8 +22030,7 @@ exports.default = Option;
 /* 681 */,
 /* 682 */,
 /* 683 */,
-/* 684 */,
-/* 685 */
+/* 684 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22026,7 +22050,7 @@ var _reactDom = __webpack_require__(10);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _AppContainer = __webpack_require__(686);
+var _AppContainer = __webpack_require__(685);
 
 var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
@@ -22040,7 +22064,7 @@ var _reduxThunk = __webpack_require__(227);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _index = __webpack_require__(708);
+var _index = __webpack_require__(707);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -22103,7 +22127,7 @@ exports.default = App;
 _reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById("app-container"));
 
 /***/ }),
-/* 686 */
+/* 685 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22126,11 +22150,11 @@ var _redux = __webpack_require__(19);
 
 var _index = __webpack_require__(254);
 
-var _datagrid = __webpack_require__(691);
+var _datagrid = __webpack_require__(690);
 
 var _datagrid2 = _interopRequireDefault(_datagrid);
 
-var _formFilter = __webpack_require__(693);
+var _formFilter = __webpack_require__(692);
 
 var _formFilter2 = _interopRequireDefault(_formFilter);
 
@@ -22186,7 +22210,7 @@ function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(AppContainer);
 
 /***/ }),
-/* 687 */
+/* 686 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22247,7 +22271,7 @@ function setGridData(data) {
 }
 
 /***/ }),
-/* 688 */
+/* 687 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22291,7 +22315,7 @@ var changeConvertAll = exports.changeConvertAll = function changeConvertAll(chec
 };
 
 /***/ }),
-/* 689 */
+/* 688 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22316,7 +22340,7 @@ var setSelectedProduct = exports.setSelectedProduct = function setSelectedProduc
 };
 
 /***/ }),
-/* 690 */
+/* 689 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22341,7 +22365,7 @@ var setSelectedBaseCurrency = exports.setSelectedBaseCurrency = function setSele
 };
 
 /***/ }),
-/* 691 */
+/* 690 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22370,7 +22394,7 @@ var _langHelper = __webpack_require__(14);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _numberFormat = __webpack_require__(692);
+var _numberFormat = __webpack_require__(691);
 
 var _numberFormat2 = _interopRequireDefault(_numberFormat);
 
@@ -22682,7 +22706,7 @@ function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DataGrid);
 
 /***/ }),
-/* 692 */
+/* 691 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22729,7 +22753,7 @@ var NumberFormat = function () {
 exports.default = NumberFormat;
 
 /***/ }),
-/* 693 */
+/* 692 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22752,11 +22776,11 @@ var _index = __webpack_require__(254);
 
 var _redux = __webpack_require__(19);
 
-var _reactSelect = __webpack_require__(694);
+var _reactSelect = __webpack_require__(693);
 
 var _reactSelect2 = _interopRequireDefault(_reactSelect);
 
-var _multipleSelect = __webpack_require__(700);
+var _multipleSelect = __webpack_require__(699);
 
 var _multipleSelect2 = _interopRequireDefault(_multipleSelect);
 
@@ -22766,7 +22790,7 @@ var _langHelper = __webpack_require__(14);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _reportExcel = __webpack_require__(705);
+var _reportExcel = __webpack_require__(704);
 
 var _reportExcel2 = _interopRequireDefault(_reportExcel);
 
@@ -23072,7 +23096,7 @@ function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(FormFilter);
 
 /***/ }),
-/* 694 */
+/* 693 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23091,7 +23115,7 @@ var _Async = __webpack_require__(381);
 
 var _Async2 = _interopRequireDefault(_Async);
 
-var _AsyncCreatable = __webpack_require__(699);
+var _AsyncCreatable = __webpack_require__(698);
 
 var _AsyncCreatable2 = _interopRequireDefault(_AsyncCreatable);
 
@@ -23117,7 +23141,7 @@ exports.Creatable = _Creatable2.default;
 exports.Value = _Value2.default;
 
 /***/ }),
-/* 695 */
+/* 694 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23354,7 +23378,7 @@ AutosizeInput.defaultProps = {
 exports.default = AutosizeInput;
 
 /***/ }),
-/* 696 */
+/* 695 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23389,7 +23413,7 @@ arrowRenderer.propTypes = {
 };
 
 /***/ }),
-/* 697 */
+/* 696 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23414,7 +23438,7 @@ function clearRenderer() {
 };
 
 /***/ }),
-/* 698 */
+/* 697 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23579,7 +23603,7 @@ Option.propTypes = {
 exports.default = Option;
 
 /***/ }),
-/* 699 */
+/* 698 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23680,7 +23704,7 @@ var AsyncCreatableSelect = function (_React$Component) {
 exports.default = AsyncCreatableSelect;
 
 /***/ }),
-/* 700 */
+/* 699 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23690,7 +23714,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _MultipleSelect = __webpack_require__(701);
+var _MultipleSelect = __webpack_require__(700);
 
 var _MultipleSelect2 = _interopRequireDefault(_MultipleSelect);
 
@@ -23699,7 +23723,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _MultipleSelect2.default;
 
 /***/ }),
-/* 701 */
+/* 700 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23723,15 +23747,15 @@ var _propTypes = __webpack_require__(6);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _MultipleSelectLabel = __webpack_require__(702);
+var _MultipleSelectLabel = __webpack_require__(701);
 
 var _MultipleSelectLabel2 = _interopRequireDefault(_MultipleSelectLabel);
 
-var _MultipleSelectOptionList = __webpack_require__(703);
+var _MultipleSelectOptionList = __webpack_require__(702);
 
 var _MultipleSelectOptionList2 = _interopRequireDefault(_MultipleSelectOptionList);
 
-var _OptionAll = __webpack_require__(704);
+var _OptionAll = __webpack_require__(703);
 
 var _OptionAll2 = _interopRequireDefault(_OptionAll);
 
@@ -23945,7 +23969,7 @@ MultipleSelect.defaultProps = {
 exports.default = MultipleSelect;
 
 /***/ }),
-/* 702 */
+/* 701 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24049,7 +24073,7 @@ MultipleSelectLabel.defaultProps = {
 exports.default = MultipleSelectLabel;
 
 /***/ }),
-/* 703 */
+/* 702 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24134,7 +24158,7 @@ MultipleSelectOptionList.propTypes = {
 exports.default = MultipleSelectOptionList;
 
 /***/ }),
-/* 704 */
+/* 703 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24230,7 +24254,7 @@ OptionAll.defaultProps = {
 exports.default = OptionAll;
 
 /***/ }),
-/* 705 */
+/* 704 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24244,7 +24268,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _ref, _ref2, _ref4, _ref5, _ref6, _ref7;
 
-var _excel = __webpack_require__(706);
+var _excel = __webpack_require__(705);
 
 var _excel2 = _interopRequireDefault(_excel);
 
@@ -24252,7 +24276,7 @@ var _langHelper = __webpack_require__(14);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _excelStyle = __webpack_require__(707);
+var _excelStyle = __webpack_require__(706);
 
 var _service = __webpack_require__(265);
 
@@ -24450,7 +24474,7 @@ var ReportExcel = function () {
 exports.default = ReportExcel;
 
 /***/ }),
-/* 706 */
+/* 705 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24530,7 +24554,7 @@ var Excel = function () {
 exports.default = Excel;
 
 /***/ }),
-/* 707 */
+/* 706 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24592,7 +24616,7 @@ var grandTotalCellStyle = exports.grandTotalCellStyle = {
 };
 
 /***/ }),
-/* 708 */
+/* 707 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24604,19 +24628,19 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(19);
 
-var _dataHandlerReducer = __webpack_require__(709);
+var _dataHandlerReducer = __webpack_require__(708);
 
 var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
 
-var _filterHandlerReducer = __webpack_require__(710);
+var _filterHandlerReducer = __webpack_require__(709);
 
 var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
 
-var _productReducer = __webpack_require__(711);
+var _productReducer = __webpack_require__(710);
 
 var productReducer = _interopRequireWildcard(_productReducer);
 
-var _baseCurrency = __webpack_require__(712);
+var _baseCurrency = __webpack_require__(711);
 
 var baseCurrencyReducer = _interopRequireWildcard(_baseCurrency);
 
@@ -24629,7 +24653,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, filterHandlerReducer, productReducer, baseCurrencyReducer, loaderReducer));
 
 /***/ }),
-/* 709 */
+/* 708 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24659,7 +24683,7 @@ var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProper
 }));
 
 /***/ }),
-/* 710 */
+/* 709 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24709,7 +24733,7 @@ var dateConstraint = exports.dateConstraint = (0, _createReducer8.default)({}, _
 }));
 
 /***/ }),
-/* 711 */
+/* 710 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24743,7 +24767,7 @@ var productOptions = exports.productOptions = (0, _createReducer4.default)({}, _
 }));
 
 /***/ }),
-/* 712 */
+/* 711 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24777,5 +24801,5 @@ var baseCurrencyList = exports.baseCurrencyList = (0, _createReducer4.default)({
 }));
 
 /***/ })
-],[685]);
+],[684]);
 //# sourceMappingURL=subsidiaryperformance.chunk.js.map

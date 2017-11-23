@@ -18281,19 +18281,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /* 307 */,
 /* 308 */,
 /* 309 */,
-/* 310 */
+/* 310 */,
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(311);
+module.exports = __webpack_require__(312);
 
 
 /***/ }),
-/* 311 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(312)], __WEBPACK_AMD_DEFINE_RESULT__ = function (RacingCommission) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(313)], __WEBPACK_AMD_DEFINE_RESULT__ = function (RacingCommission) {
     $(function () {
         RacingCommission.initialize();
 
@@ -18308,7 +18309,7 @@ module.exports = __webpack_require__(311);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 312 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18391,5 +18392,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
-],[310]);
+],[311]);
 //# sourceMappingURL=racingcommission.chunk.js.map

@@ -5405,20 +5405,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 372:
+/***/ 373:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(373);
+module.exports = __webpack_require__(374);
 
 
 /***/ }),
 
-/***/ 373:
+/***/ 374:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(374)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerSetting) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(375)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerSetting) {
     $(CustomerSetting.initialize);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -5426,7 +5426,7 @@ module.exports = __webpack_require__(373);
 
 /***/ }),
 
-/***/ 374:
+/***/ 375:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5494,5 +5494,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ })
 
-},[372]);
+},[373]);
 //# sourceMappingURL=customersetting.chunk.js.map

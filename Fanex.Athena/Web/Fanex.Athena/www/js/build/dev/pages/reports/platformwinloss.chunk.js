@@ -3938,6 +3938,171 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 /***/ 133:
 /***/ (function(module, exports, __webpack_require__) {
 
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(120)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+    "use strict";
+    var REPORT_BY_MONTHLY = 2;
+    var LICENSEE_12BET = 1;
+    function lastDateOfMonth(year, month) {
+        return new Date(year, month + 1, 0);
+    }
+
+    var _me = {
+        GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
+            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
+            var tdate = fdate;
+            if (Number(reportBy) === REPORT_BY_MONTHLY) {
+                var fday = 1;
+                var month = fdate.getMonth();
+                var year = fdate.getFullYear();
+                var orignalFDate = new Date(fromDate);
+                if (month === orignalFDate.getMonth()) {
+                    fday = orignalFDate.getDate();
+                }
+                fdate = new Date(year, month, fday, 0, 0, 0, 0);
+                var originalTDate = new Date(toDate);
+
+                if (month === originalTDate.getMonth()) {
+                    var tday = originalTDate.getDate();
+                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
+                }
+                else {
+                    tdate = lastDateOfMonth(year, month);
+                }
+            }
+
+            return {
+                FromDate: fdate,
+                ToDate: tdate
+            };
+        },
+        ValidProducts: function () {
+            var temp = true;
+            if ($(".childCheckbox:checked").length === 0) {
+                temp = false;
+                var title = Site.getSingleResource("LrfNotification");
+                var message = Site.getSingleResource("AlertChooseProductMsg");
+                var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
+
+                Popup.openPopup($dialog, {
+                    width: 380,
+                    height: 150,
+                    title: title,
+                    id: "product-invalid",
+                    className: "popup-notification",
+                    onOpen: function () {
+                        $('#SubmitButton').prop('disabled', true);
+                    },
+                    onClose: function () {
+                        $('#SubmitButton').removeAttr('disabled');
+                    }
+                });
+            }
+
+            return temp;
+        },
+
+        setOriginalProduct: function () {
+            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
+                var isCheck = $(this).is(":checked");
+                $(element).attr({ 'data-original': isCheck });
+            });
+        },
+
+        bindSummaryTotal: function (columnModel, summaryTotal) {
+            if (!summaryTotal || summaryTotal.length === 0) {
+                return;
+            }
+
+            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
+            var rowCount = 0;
+            var currencyList = [];
+
+            function processColumnModel(dataItem) {
+                var row = mainFooter.clone();
+                var cellList = $("td", row);
+
+                $(columnModel).each(function (cellIndex, modelElement) {
+                    var isCustomFormater = typeof modelElement.formatter === "function";
+                    var rawValue = dataItem[modelElement.name];
+                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
+                                $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
+
+                    var $cell = $(cellList.get(cellIndex));
+                    if (cellIndex === 0) {
+                        var content = "Total in " + currency;
+                        $cell.html(content)
+                            .addClass("group-" + currency)
+                            .attr("title", content);
+                    }
+                    else {
+                        var title = $.isNumeric(rawValue) && rawValue < 0 ? undefined : value;
+                        $cell.html(value).attr("title", title);
+                    }
+                });
+
+                row.insertAfter(mainFooter);
+                rowCount++;
+            }
+
+            for (var currency in summaryTotal) {
+                currencyList.push(currency);
+                var summaryData = summaryTotal[currency];
+                if (Array.isArray(summaryData)) {
+                    summaryData.forEach(processColumnModel);
+                }
+                else {
+                    processColumnModel(summaryData);
+                }
+            }
+
+            $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
+            mainFooter.remove();
+
+            return rowCount;
+        },
+
+        getCurrencyNameForReportTitle: function (currencyId) {
+            var viewinKey = Site.getSingleResource("Viewin");
+            var currencyTextList = {
+                "-3": viewinKey.replace("{0}", "GBP"),
+                "-2": viewinKey.replace("{0}", "USD"),
+                "-1": viewinKey.replace("{0}", "EUR"),
+                "0": Site.getSingleResource('AllCurrencies')
+            };
+
+            return currencyTextList[currencyId] === undefined
+                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
+                : currencyTextList[currencyId];
+        },
+
+        renderBreadCrumb: function (level, licenseeId) {
+            level = Number(level);
+            if (level === 0) {
+                $(".breadCrumbHolder").hide();
+            }
+            else {
+                $(".breadCrumbHolder").show();
+                $("#level-link-container .level0").show();
+
+                var isLevel2 = level === 2;
+                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
+
+                var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
+                $("#level-link-container .level1").toggle(allowShowLevel1);
+                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
+            }
+        }
+    };
+
+    return _me;
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 134:
+/***/ (function(module, exports, __webpack_require__) {
+
 /* WEBPACK VAR INJECTION */(function(jQuery) {﻿/// <reference path="/@JSense.js" />
 (function ($) {
     var currentTriggerEvents = [];
@@ -4724,177 +4889,12 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 
 /***/ }),
 
-/***/ 134:
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(120)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
-    "use strict";
-    var REPORT_BY_MONTHLY = 2;
-    var LICENSEE_12BET = 1;
-    function lastDateOfMonth(year, month) {
-        return new Date(year, month + 1, 0);
-    }
-
-    var _me = {
-        GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
-            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
-            var tdate = fdate;
-            if (Number(reportBy) === REPORT_BY_MONTHLY) {
-                var fday = 1;
-                var month = fdate.getMonth();
-                var year = fdate.getFullYear();
-                var orignalFDate = new Date(fromDate);
-                if (month === orignalFDate.getMonth()) {
-                    fday = orignalFDate.getDate();
-                }
-                fdate = new Date(year, month, fday, 0, 0, 0, 0);
-                var originalTDate = new Date(toDate);
-
-                if (month === originalTDate.getMonth()) {
-                    var tday = originalTDate.getDate();
-                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
-                }
-                else {
-                    tdate = lastDateOfMonth(year, month);
-                }
-            }
-
-            return {
-                FromDate: fdate,
-                ToDate: tdate
-            };
-        },
-        ValidProducts: function () {
-            var temp = true;
-            if ($(".childCheckbox:checked").length === 0) {
-                temp = false;
-                var title = Site.getSingleResource("LrfNotification");
-                var message = Site.getSingleResource("AlertChooseProductMsg");
-                var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
-
-                Popup.openPopup($dialog, {
-                    width: 380,
-                    height: 150,
-                    title: title,
-                    id: "product-invalid",
-                    className: "popup-notification",
-                    onOpen: function () {
-                        $('#SubmitButton').prop('disabled', true);
-                    },
-                    onClose: function () {
-                        $('#SubmitButton').removeAttr('disabled');
-                    }
-                });
-            }
-
-            return temp;
-        },
-
-        setOriginalProduct: function () {
-            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
-                var isCheck = $(this).is(":checked");
-                $(element).attr({ 'data-original': isCheck });
-            });
-        },
-
-        bindSummaryTotal: function (columnModel, summaryTotal) {
-            if (!summaryTotal || summaryTotal.length === 0) {
-                return;
-            }
-
-            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
-            var rowCount = 0;
-            var currencyList = [];
-
-            function processColumnModel(dataItem) {
-                var row = mainFooter.clone();
-                var cellList = $("td", row);
-
-                $(columnModel).each(function (cellIndex, modelElement) {
-                    var isCustomFormater = typeof modelElement.formatter === "function";
-                    var rawValue = dataItem[modelElement.name];
-                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
-                                $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
-
-                    var $cell = $(cellList.get(cellIndex));
-                    if (cellIndex === 0) {
-                        var content = "Total in " + currency;
-                        $cell.html(content)
-                            .addClass("group-" + currency)
-                            .attr("title", content);
-                    }
-                    else {
-                        var title = $.isNumeric(rawValue) && rawValue < 0 ? undefined : value;
-                        $cell.html(value).attr("title", title);
-                    }
-                });
-
-                row.insertAfter(mainFooter);
-                rowCount++;
-            }
-
-            for (var currency in summaryTotal) {
-                currencyList.push(currency);
-                var summaryData = summaryTotal[currency];
-                if (Array.isArray(summaryData)) {
-                    summaryData.forEach(processColumnModel);
-                }
-                else {
-                    processColumnModel(summaryData);
-                }
-            }
-
-            $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
-            mainFooter.remove();
-
-            return rowCount;
-        },
-
-        getCurrencyNameForReportTitle: function (currencyId) {
-            var viewinKey = Site.getSingleResource("Viewin");
-            var currencyTextList = {
-                "-3": viewinKey.replace("{0}", "GBP"),
-                "-2": viewinKey.replace("{0}", "USD"),
-                "-1": viewinKey.replace("{0}", "EUR"),
-                "0": Site.getSingleResource('AllCurrencies')
-            };
-
-            return currencyTextList[currencyId] === undefined
-                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
-                : currencyTextList[currencyId];
-        },
-
-        renderBreadCrumb: function (level, licenseeId) {
-            level = Number(level);
-            if (level === 0) {
-                $(".breadCrumbHolder").hide();
-            }
-            else {
-                $(".breadCrumbHolder").show();
-                $("#level-link-container .level0").show();
-
-                var isLevel2 = level === 2;
-                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
-
-                var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
-                $("#level-link-container .level1").toggle(allowShowLevel1);
-                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
-            }
-        }
-    };
-
-    return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ }),
-
 /***/ 135:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(133)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(134)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
     var _me = {
         initProductList: function () {
             var selector = "#grid-products-multiselect";
@@ -5859,50 +5859,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ }),
 
 /***/ 151:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
-    var _me = {
-        exportExcel: function (postData, url, method) {
-            var data = Site.clone(postData);
-            data.IsExportExcel = true;
-            var $form = $('<form id="ExportExcelForm">').attr({ action: url, method: method || 'post' })
-                .appendTo('body');
-            for (var property in data) {
-                if (data.hasOwnProperty(property)) {
-                    var value = data[property];
-                    if (property === "ProductOptions") {
-                        var products = typeof (value) === "object" ? value : JSON.parse(value);
-                        for (var i = 0; i < products.length; i++) {
-                            var product = products[i];
-                            $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Code', value: product.Code }).appendTo($form);
-                            $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Status', value: product.Status }).appendTo($form);
-                        }
-                    } else {
-                        $('<input type="hidden">').attr({ name: property, value: value }).appendTo($form);
-                    }
-                }
-            }
-            if (!data["__RequestVerificationToken"]) {
-                $('<input type="hidden">')
-                    .attr({ name: '__RequestVerificationToken', value: $("input[name=__RequestVerificationToken]").val() })
-                    .appendTo($form);
-            }
-
-            $form.submit();
-            $form.remove();
-        }
-    };
-
-    return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ }),
-
-/***/ 154:
 /***/ (function(module, exports) {
 
 ﻿/*--------------------------------------------------------------------------
@@ -8641,18 +8597,92 @@ Enumerable = (function ()
 
 /***/ }),
 
-/***/ 339:
+/***/ 152:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(340);
+"use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+    var _me = {
+        exportExcel: function (postData, url, method) {
+            var data = Site.clone(postData);
+            data.IsExportExcel = true;
+            var $form = $('<form id="ExportExcelForm">').attr({ action: url, method: method || 'post' })
+                .appendTo('body');
+            for (var property in data) {
+                if (data.hasOwnProperty(property)) {
+                    var value = data[property];
+                    if (property === "ProductOptions") {
+                        var products = typeof (value) === "object" ? value : JSON.parse(value);
+                        for (var i = 0; i < products.length; i++) {
+                            var product = products[i];
+                            $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Code', value: product.Code }).appendTo($form);
+                            $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Status', value: product.Status }).appendTo($form);
+                        }
+                    } else {
+                        $('<input type="hidden">').attr({ name: property, value: value }).appendTo($form);
+                    }
+                }
+            }
+            if (!data["__RequestVerificationToken"]) {
+                $('<input type="hidden">')
+                    .attr({ name: '__RequestVerificationToken', value: $("input[name=__RequestVerificationToken]").val() })
+                    .appendTo($form);
+            }
 
+            $form.submit();
+            $form.remove();
+        }
+    };
+
+    return _me;
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 160:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(151)], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+    function sort(arrayData, sortByFunc, sortOrder, sortThenByFunc, sortThenOrder) {
+        if (!sortByFunc || arrayData.length <= 1) {
+            return arrayData;
+        }
+
+        var sortType = sortOrder === "asc" ? "OrderBy" : "OrderByDescending";
+
+        if (!sortThenByFunc) {
+            return Enumerable.From(arrayData)[sortType](sortByFunc).ToArray();
+        }
+
+        var sortThenType = sortThenOrder === "asc" ? "ThenBy" : "ThenByDescending";
+
+        return Enumerable.From(arrayData)[sortType](sortByFunc)[sortThenType](sortThenByFunc).ToArray();
+    }
+
+    return {
+        sort: sort
+    };
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
 /***/ 340:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(341)], __WEBPACK_AMD_DEFINE_RESULT__ = function (PlatformWinLoss) {
+module.exports = __webpack_require__(341);
+
+
+/***/ }),
+
+/***/ 341:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(342)], __WEBPACK_AMD_DEFINE_RESULT__ = function (PlatformWinLoss) {
     "use strict";
     $(PlatformWinLoss.initialize);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -8661,24 +8691,25 @@ module.exports = __webpack_require__(340);
 
 /***/ }),
 
-/***/ 341:
+/***/ 342:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
     __webpack_require__(1),
     __webpack_require__(118),
     __webpack_require__(2),
-    __webpack_require__(134),
-    __webpack_require__(342),
+    __webpack_require__(133),
+    __webpack_require__(343),
     __webpack_require__(119),
     __webpack_require__(149),
     __webpack_require__(135),
     __webpack_require__(120),
-    __webpack_require__(151),
+    __webpack_require__(152),
+    __webpack_require__(160),
     __webpack_require__(124),
     __webpack_require__(125),
     __webpack_require__(121),
-    __webpack_require__(154)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, PlatformWinLossOption, jqGridAdditional, MonthPicker, MultiSelect, Popup, ExcelHelper) {
+    __webpack_require__(151)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, PlatformWinLossOption, jqGridAdditional, MonthPicker, MultiSelect, Popup, ExcelHelper, DataHelper) {
         "use strict";
 
         var BETLIST_IGNORED_PRODUCTS = ["AB"];
@@ -8691,8 +8722,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             level: 0,
             pageSize: 50,
             sortColumnName: null,
-            sortOrder: "desc",
-            removerSorting: true
+            sortOrder: "desc"
         };
 
         function initialize() {
@@ -8733,13 +8763,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
         function initEvent() {
             $('#SubmitButton').click(function () {
-                gridControl.removeSorting = true;
                 _me.submit();
             });
 
             $("body").on("click", ".drilldown", function () {
                 var dataDrillDown = $(this).data("drill-down");
-                _me.drillDown(gridControl.level + 1, dataDrillDown);
+                _me.drillDown(1, dataDrillDown);
             });
 
             $("body").on("click", ".bet-list-link", function () {
@@ -8758,7 +8787,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
 
             $('#ExportToExcel').click(function () {
-                _me.exportToExcel(gridControl.level);
+                _me.exportToExcel(gridControl.level, gridControl.sortColumnName, gridControl.sortOrder);
             });
         }
 
@@ -8770,15 +8799,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 Site.blockUI();
                 gridControl.pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
                 window.setTimeout(function () {
-                    gridControl.removeSorting = false;
                     if (gridControl.sortColumnName === index) {
                         gridControl.sortOrder = gridControl.sortOrder === "asc" ? "desc" : "asc";
                     } else {
                         gridControl.sortOrder = "asc";
                         gridControl.sortColumnName = index;
                     }
-
-                    _cacheData[gridControl.level].Data = sortData(_cacheData[gridControl.level].Data);
 
                     _me.bindData(gridControl.level, _cacheData[gridControl.level], _filterData[gridControl.level].ProductOptions);
 
@@ -8825,10 +8851,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return true;
         }
 
-        function exportToExcel(level) {
+        function exportToExcel(level, sortBy, sortOrder) {
             var data = Site.clone(_filterData[level]);
             data.IsExportExcel = true;
             data.Level = level;
+            if (level === 1 && sortBy) {
+                data.SortBy = sortBy;
+                data.SortOrder = sortOrder;
+            }
             ExcelHelper.exportExcel(data, Site.resolveClientUrl(PlatformWinLossOption.urlExcelData));
             return false;
         }
@@ -8844,9 +8874,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             var reportGrid = $("#ReportGrid");
             var onPaging = false;
+            var data = level === 1 ? sortData(response.Data) : response.Data;
+
             var gridOption = PlatformWinLossOption.getGridOption(level, productOptions);
-            gridOption.datastr = response.Data;
-            gridOption.rowNum = level === 0 ? -1 : gridControl.pageSize;
+            gridOption.datastr = data;
+            gridOption.rowNum = level === 0 ? numOfRow : gridControl.pageSize;
             gridOption.treeGrid = level === 0;
             gridOption.onPaging = function (pgButton) {
                 gridControl.pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
@@ -8892,7 +8924,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 jqGridAdditional.setGroupCustomerWLColumns(reportGrid);
             }
 
-            if (level === 1 && !gridControl.removeSorting) {
+            if (level === 1 && gridControl.sortColumnName) {
                 jqGridAdditional.addSortableHeader(reportGrid, gridControl.sortColumnName, gridControl.sortOrder);
             }
         }
@@ -8953,6 +8985,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         function drillDown(level, data) {
             gridControl.level = level;
             gridControl.pageSize = PlatformWinLossOption.pageSize;
+            gridControl.sortColumnName = null;
+            gridControl.sortOrder = "desc";
 
             var submitData = _filterData[level - 1];
             var productOptions;
@@ -9036,15 +9070,31 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function sortData(arrayData) {
-            var sortType = gridControl.sortOrder === "asc" ? "OrderBy" : "OrderByDescending";
-            var sortFunction = function (row) {
-                return row[gridControl.sortColumnName];
-            };
+            var totalData = arrayData.length;
 
-            var data = Enumerable.From(arrayData)[sortType](sortFunction).ToArray();
+            if (!gridControl.sortColumnName || totalData <= 1) {
+                return arrayData;
+            }
 
-            for (var i = 0; i < data.length; i++) {
-                data[i].Index = i + 1;
+            var sortThenBy = arrayData[0].Id ? "Id" : "Index";
+
+            var data = DataHelper.sort(
+                arrayData,
+                function (x) { return x[gridControl.sortColumnName]; },
+                gridControl.sortOrder,
+                function (x) { return x[sortThenBy]; },
+                "asc");
+
+            if (sortThenBy === "Id") {
+                for (var i = 0; i < totalData; i++) {
+                    data[i].Index = i + 1;
+                }
+            }
+            else {
+                for (var j = 0; j < totalData; j++) {
+                    arrayData[j].Id = j + 1;
+                    data[j].Index = j + 1;
+                }
             }
 
             return data;
@@ -9088,7 +9138,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 342:
+/***/ 343:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <reference path="/@JSense.js" />
@@ -9510,5 +9560,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
 
 /***/ })
 
-},[339]);
+},[340]);
 //# sourceMappingURL=platformwinloss.chunk.js.map

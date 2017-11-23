@@ -20541,17 +20541,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /* 243 */,
 /* 244 */,
 /* 245 */,
-/* 246 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(247);
-
-
-/***/ }),
+/* 246 */,
 /* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(137), __webpack_require__(248)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetList, CommonBetList) {
+module.exports = __webpack_require__(248);
+
+
+/***/ }),
+/* 248 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(137), __webpack_require__(249)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetList, CommonBetList) {
     "use strict";
 
     $(window).on("load", function () {
@@ -20562,7 +20563,7 @@ module.exports = __webpack_require__(247);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 248 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(137)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, BetList) {
@@ -20642,5 +20643,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 
 /***/ })
-],[246]);
+],[247]);
 //# sourceMappingURL=betlistsimple.chunk.js.map

@@ -83,5 +83,9 @@
         /* Account. */
 
         public const string AccountManageAccount = "ManageAccount46";
+
+        /*Notification*/
+
+        public const string ResultAmendmentNotificationReport = "ResultAmendment_Recalculation75";
     }
 }

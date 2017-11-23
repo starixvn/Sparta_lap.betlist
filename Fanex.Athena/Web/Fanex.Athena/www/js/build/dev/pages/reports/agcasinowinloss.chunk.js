@@ -21553,8 +21553,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 /* 130 */,
 /* 131 */,
 /* 132 */,
-/* 133 */,
-/* 134 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(120)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
@@ -21718,6 +21717,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
+/* 134 */,
 /* 135 */,
 /* 136 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -22047,17 +22047,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /* 409 */,
 /* 410 */,
 /* 411 */,
-/* 412 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(413);
-
-
-/***/ }),
+/* 412 */,
 /* 413 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(414)], __WEBPACK_AMD_DEFINE_RESULT__ = function (AgCasinoWinLoss) {
+module.exports = __webpack_require__(414);
+
+
+/***/ }),
+/* 414 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(415)], __WEBPACK_AMD_DEFINE_RESULT__ = function (AgCasinoWinLoss) {
     "use strict";
     $(function () {
         AgCasinoWinLoss.initialize();
@@ -22067,12 +22068,12 @@ module.exports = __webpack_require__(413);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 414 */
+/* 415 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(415), __webpack_require__(134), __webpack_require__(119),
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(416), __webpack_require__(133), __webpack_require__(119),
         __webpack_require__(127), __webpack_require__(0), __webpack_require__(136),
         __webpack_require__(121), __webpack_require__(124), __webpack_require__(125)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, AgCasinoWinLossOption, Report, jqGridAdditional, DatePicker, moment, DateHelper) {
         var cacheData = {};
@@ -22358,7 +22359,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 
 /***/ }),
-/* 415 */
+/* 416 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22607,5 +22608,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
-],[412]);
+],[413]);
 //# sourceMappingURL=agcasinowinloss.chunk.js.map
