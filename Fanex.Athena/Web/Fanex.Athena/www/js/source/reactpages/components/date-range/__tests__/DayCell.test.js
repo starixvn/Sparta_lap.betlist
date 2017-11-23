@@ -5,20 +5,20 @@ import moment from 'moment'
 import getTheme from '../styles'
 import DayCell from '../DayCell'
 
-const now = moment("11/22/2017", "MM/DD/YYYY");
-const defaultProps = {
-    theme: { 'Day': {} },
-    onlyClasses: false,
-    dayMoment: now,
-    onSelect: undefined,
-    isSelected: undefined,
-    isInRange: undefined,
-    isPassive: undefined,
-    isSpecialDay: undefined,
-    classNames: undefined
-}
-
 describe('DayCell', () => {
+    const now = moment("11/22/2017", "MM/DD/YYYY");
+    const defaultProps = {
+        theme: { 'Day': {} },
+        onlyClasses: false,
+        dayMoment: now,
+        onSelect: undefined,
+        isSelected: undefined,
+        isInRange: undefined,
+        isPassive: undefined,
+        isSpecialDay: undefined,
+        classNames: undefined
+    }
+
     afterAll(() => {
         jest.resetAllMocks();
     })

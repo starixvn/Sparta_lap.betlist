@@ -6,32 +6,32 @@ import { MomentFormat } from '../constants'
 import getTheme from '../styles'
 import Calendar from '../Calendar'
 
-const defaultProps = {
-    format: MomentFormat.default,
-    theme: {},
-    showMonthArrow: true,
-    disableDaysBeforeToday: false,
-    onlyClasses: false,
-    classNames: {},
-    specialDays: [],
-    lang: undefined,
-    sets: undefined,
-    range: undefined,
-    minDate: undefined,
-    maxDate: undefined,
-    date: undefined,
-    firstDayOfWeek: undefined,
-    onChange: undefined,
-    onInit: undefined,
-    link: undefined,
-    linkCB: undefined,
-    theme: undefined,
-    locale: undefined
-}
+describe('Calendar - Event Handler', () => {
+    const defaultProps = {
+        format: MomentFormat.default,
+        theme: {},
+        showMonthArrow: true,
+        disableDaysBeforeToday: false,
+        onlyClasses: false,
+        classNames: {},
+        specialDays: [],
+        lang: undefined,
+        sets: undefined,
+        range: undefined,
+        minDate: undefined,
+        maxDate: undefined,
+        date: undefined,
+        firstDayOfWeek: undefined,
+        onChange: undefined,
+        onInit: undefined,
+        link: undefined,
+        linkCB: undefined,
+        theme: undefined,
+        locale: undefined
+    }
 
-const initialProps = Object.assign({}, defaultProps, { date: "11/22/2017", offset: 0, firstDayOfWeek: 0 });
+    const initialProps = Object.assign({}, defaultProps, { date: "11/22/2017", offset: 0, firstDayOfWeek: 0 });
 
-describe('Calendar', () => {
     afterAll(() => {
         jest.resetAllMocks();
     })
