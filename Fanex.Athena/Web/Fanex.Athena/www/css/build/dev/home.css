@@ -6310,10 +6310,12 @@ header nav {
 
 .view-notification .content {
   padding: 5px;
-  border: solid 1px #d1dae1; }
+  border: solid 1px #d1dae1;
+  position: relative; }
 
 .view-notification .wrapContent {
-  max-height: 600px; }
+  max-height: 600px;
+  max-width: 600px; }
 
 /*Hack for IE*/
 .logo .logo-image {

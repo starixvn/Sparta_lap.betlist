@@ -17502,7 +17502,7 @@ var Page = function (_Component) {
     }, {
         key: 'goToPage',
         value: function goToPage(index, pageSize) {
-            this._updateState(index, null, this.props.pageOption.TotalItem / pageSize, pageSize);
+            this._updateState(index, null, Math.ceil(this.props.pageOption.TotalItem / pageSize), pageSize);
             this.props.onPaging && this.props.onPaging(index, pageSize);
         }
     }, {
@@ -20196,7 +20196,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
 
             this.props.toggleLoader(true);
             this.props.exportAttachment(params).then(function (response) {
-                if (response.statusCode === 204) {
+                if (response.status === 204) {
                     alert(_langHelper2.default.getSingleResource('DataIsNotAvailable'));
                 } else {
                     var blob = response.data;
