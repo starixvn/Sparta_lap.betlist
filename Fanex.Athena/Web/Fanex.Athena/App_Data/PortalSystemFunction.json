@@ -242,5 +242,9 @@
   {
     "FunctionId": 72,
     "FunctionKey": "CashOutWinLoss72"
+  },
+  {
+    "FunctionId": 75,
+    "FunctionKey": "ResultAmendment_Recalculation75"
   }
 ]
