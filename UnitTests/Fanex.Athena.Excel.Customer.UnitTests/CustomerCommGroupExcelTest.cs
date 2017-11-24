@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using Fanex.Athena.Excel.Base;
 using Fanex.Athena.Excel.Base.Entities;
 using Fanex.Athena.Excel.Base.Extension;
 using Fanex.Athena.Excel.Customer.UnitTests.TestableClasses;
 using Fanex.Athena.Resources;
+using Fanex.Athena.UnitTest.Common.Helpers;
 using NPOI.SS.UserModel;
 using NSubstitute;
 using NUnit.Framework;
@@ -27,7 +27,7 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
         public void AssignHeader_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            var cell = MockSheetGetRow(_sheet);
+            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
             var excel = CreateExcel();
 
             // Action
@@ -45,7 +45,7 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
         public void AssignSheetData_WhenCall_CallSetValueCorrectly()
         {
             // Arrange
-            var cell = MockSheetGetRow(_sheet);
+            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
             var excel = CreateExcel();
 
             // Action
@@ -71,7 +71,7 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
         {
             // Arrange
             _sheet.LastRowNum.Returns(2);
-            MockSheetGetRow(_sheet);
+            ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
             var excel = CreateExcel();
 
             // Action
@@ -157,21 +157,6 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
             table.Columns.Add("NumberOfCustomer", typeof(int));
             table.Rows.Add(true, 1, 2, 3, 4, 5, 6, "GroupA", 100);
             return table;
-        }
-
-        private static ICell MockSheetGetRow(ISheet sheet)
-        {
-            var row = Substitute.For<IRow>();
-            var cell = Substitute.For<ICell>();
-            var cellList = new List<ICell>();
-            for (int i = 0; i < ColumnCount; i++)
-            {
-                cellList.Add(cell);
-            }
-
-            row.Cells.ReturnsForAnyArgs(cellList);
-            sheet.GetRow(0).ReturnsForAnyArgs(row);
-            return cell;
         }
     }
 }

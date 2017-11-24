@@ -10,6 +10,7 @@ using Fanex.Athena.Model.Report.DTO;
 using Fanex.Athena.Model.Report.MetaModel;
 using Fanex.Athena.Model.Report.ViewModel;
 using Fanex.Athena.Resources;
+using Fanex.Athena.UnitTest.Common.Helpers;
 using NPOI.SS.UserModel;
 using NSubstitute;
 using NUnit.Framework;
@@ -80,7 +81,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void AssignHeader_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            var cell = MockSheetGetRow(_sheet);
+            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
             var excel = CreateExcel();
 
             // Action
@@ -98,7 +99,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void AssignSheetData_WhenCall_CallSetValueCorrectly()
         {
             // Arrange
-            var cell = MockSheetGetRow(_sheet);
+            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
             var excel = CreateExcel();
 
             // Action
@@ -120,7 +121,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         {
             // Arrange
             _sheet.LastRowNum.Returns(2);
-            MockSheetGetRow(_sheet);
+            ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
             var excel = CreateExcel();
             var expectedTitle = ReportExcelHelper.GenerateReportTitle(
                 ViewResources.ActiveCustomerSummary,
@@ -156,21 +157,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 ViewModel);
             excel.TemplateSheet.Returns(Substitute.For<ISheet>());
             return excel;
-        }
-
-        private static ICell MockSheetGetRow(ISheet sheet)
-        {
-            var row = Substitute.For<IRow>();
-            var cell = Substitute.For<ICell>();
-            var cellList = new List<ICell>();
-            for (int i = 0; i < ColumnCount; i++)
-            {
-                cellList.Add(cell);
-            }
-
-            row.Cells.ReturnsForAnyArgs(cellList);
-            sheet.GetRow(0).ReturnsForAnyArgs(row);
-            return cell;
         }
     }
 }

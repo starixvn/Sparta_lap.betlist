@@ -78,6 +78,10 @@
       <Project>{0FC566E3-C900-4FF7-BC30-922FA73969F7}</Project>
       <Name>Fanex.Athena.Excel.Report</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Fanex.Athena.UnitTest.Common\Fanex.Athena.UnitTest.Common.csproj">
+      <Project>{4A5BDDBC-F707-409A-86EC-D9BC6E9D31C4}</Project>
+      <Name>Fanex.Athena.UnitTest.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5F410090-94C0-46A5-9FEC-B6C3B745B7A0}</Project>
       <Name>Fanex.Athena.Model.Core</Name>
