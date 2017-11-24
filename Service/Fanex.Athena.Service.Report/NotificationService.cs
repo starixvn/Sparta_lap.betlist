@@ -241,7 +241,7 @@
 
         private string GetSupportedLanguage(string lang)
         {
-            if(_supportedLanguage.Contains(lang))
+            if (_supportedLanguage.Contains(lang))
             {
                 return lang;
             }
