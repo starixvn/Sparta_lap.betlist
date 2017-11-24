@@ -289,8 +289,8 @@ namespace Fanex.Athena.Model.Core.DataDomain
         CommissionGroupList = 55,
 
         /// <summary>
-        /// Notification function, value = 74.
+        /// Notification ->  ResultAmendment/Recalculation function, value = 75.
         /// </summary>
-        Notification = 74
+        ResultAmendment_Recalculation = 75
     }
 }

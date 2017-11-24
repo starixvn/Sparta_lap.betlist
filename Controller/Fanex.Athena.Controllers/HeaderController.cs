@@ -45,7 +45,7 @@ namespace Fanex.Athena.Controllers
                 CurrentLicenseeId = SessionService.LicenseeSession.LicenseeId,
                 IsAllowedManagementMember = userSession.FunctionIdList.Contains((int)FunctionType.CustomerList),
                 IsFakeLicensee = IsFakeLicensee(),
-                IsAllowedNotification = userSession.FunctionIdList.Contains((int)FunctionType.Notification)
+                IsAllowedNotification = userSession.FunctionIdList.Contains((int)FunctionType.ResultAmendment_Recalculation)
             };
             return View("~/Views/Header/Index.cshtml", viewModel);
         }
