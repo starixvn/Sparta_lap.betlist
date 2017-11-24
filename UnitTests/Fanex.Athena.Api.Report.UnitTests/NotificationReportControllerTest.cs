@@ -1,7 +1,10 @@
 ﻿namespace Fanex.Athena.Api.Report.UnitTests
 {
     using System;
+    using System.Collections.Generic;
     using Model.Core.DTO.Common;
+    using Model.Core.ResultModel;
+    using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -94,7 +97,7 @@
             Assert.Multiple(() =>
             {
                 _service.Received().GetGeneral(Arg.Any<NotificationMetaModel>());
-                Assert.That(metaModel.UserId, Is.EqualTo(SessionUserId));
+                Assert.That(metaModel.UserName, Is.EqualTo(SessionUserName));
                 Assert.That(metaModel.Language, Is.EqualTo(SessionLanguage));
                 Assert.That(metaModel.LicenseeName, Is.EqualTo(SessionLicenseeName));
             });
@@ -128,6 +131,12 @@
             // Arrange
             var metaModel = new NotificationMetaModel();
 
+            _service.GetResultAmendment(Arg.Any<NotificationMetaModel>()).Returns(new ReportResultModel<ResultAmendment>
+            {
+                DataList = new List<ResultAmendment>(),
+                TotalRows = 0
+            });
+
             // Action
             _controller.ResultAmendment(metaModel);
 
@@ -135,7 +144,7 @@
             Assert.Multiple(() =>
             {
                 _service.Received().GetResultAmendment(Arg.Any<NotificationMetaModel>());
-                Assert.That(metaModel.UserId, Is.EqualTo(SessionUserId));
+                Assert.That(metaModel.UserName, Is.EqualTo(SessionUserName));
                 Assert.That(metaModel.Language, Is.EqualTo(SessionLanguage));
                 Assert.That(metaModel.LicenseeName, Is.EqualTo(SessionLicenseeName));
             });

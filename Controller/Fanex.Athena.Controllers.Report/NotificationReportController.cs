@@ -1,11 +1,11 @@
 ﻿namespace Fanex.Athena.Controllers.Report
 {
     using System.Web.Mvc;
+    using Model.Core.DataDomain;
     using Model.Report.ViewModel;
     using Service.Report;
     using Service.Report.Interfaces;
     using Web.ActionFilter;
-    using Model.Core.DataDomain;
 
     [FunctionAuthorization(PermissionKeys.ResultAmendmentNotificationReport)]
     public class NotificationReportController : ReportBaseController

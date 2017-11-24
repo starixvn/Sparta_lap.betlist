@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Web.Script.Serialization;
     using ExternalService;
-    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
@@ -11,6 +10,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Configuration.Interfaces;
     using Service.Report.Interfaces;
 
     public class NotificationApiControllerTest
@@ -63,7 +63,7 @@
             var metaModel = new NotificationMetaModel
             {
                 LicenseeName = "12bet",
-                UserId = 1,
+                UserName = "user 1",
                 Language = "en"
             };
 
@@ -90,7 +90,7 @@
             // Arrange
             var metaModel = new NotificationMarkAsReadMetaModel
             {
-                UserId = "1",
+                UserName = "1",
                 LicenseeName = "12bet",
                 MessageId = 1,
                 MessageType = "Amendment"

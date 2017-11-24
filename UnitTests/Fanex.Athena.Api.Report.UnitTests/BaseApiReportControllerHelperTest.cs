@@ -17,6 +17,8 @@
 
         protected const int SessionUserId = 1;
 
+        protected const string SessionUserName = "Test User";
+
         protected const string SessionLanguage = "en";
 
         protected const string AgentListXml = "XmlData";
@@ -48,6 +50,7 @@
             var userSession = new UserSession
             {
                 UserId = SessionUserId,
+                UserName = SessionUserName,
                 CurrencyList = new Dictionary<int, string> { { -1, "EUR" }, { -2, "USD" } },
                 Language = SessionLanguage
             };

@@ -2,8 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Net;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Web.Http;
+    using Base.Attributes;
     using Extension.Utility;
+    using Model.Core.DataDomain;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -11,8 +16,6 @@
     using Service.Core.Users.Interfaces;
     using Service.Report;
     using Service.Report.Interfaces;
-    using Base.Attributes;
-    using Model.Core.DataDomain;
 
     [ApiFunctionAuthorization(PermissionKeys.ResultAmendmentNotificationReport)]
     public class NotificationReportController : ApiReportBaseController
@@ -85,13 +88,20 @@
 
             UpdateMetaModel(metaModel);
 
-            return _notificationService.GetResultAmendment(metaModel);
+            var result = _notificationService.GetResultAmendment(metaModel);
+
+            return new
+            {
+                DataList = result.DataList,
+                TotalRows = result.TotalRows,
+                DownloadFileApi = result.AdditionalInfo
+            };
         }
 
         [HttpPost]
         public dynamic MarkNotificationAsRead(NotificationMarkAsReadMetaModel metaModel)
         {
-            metaModel.UserId = SessionService.UserSession.UserId.ToString();
+            metaModel.UserName = SessionService.UserSession.UserName;
             metaModel.LicenseeName = SessionService.LicenseeSession.LicenseeName;
 
             var result = _notificationService.MarkNotificationAsRead(metaModel);
@@ -104,10 +114,26 @@
             };
         }
 
+        [HttpPost]
+        public HttpResponseMessage DownLoadFileAttachment(NotificationAttachmentMetaModel metaModel)
+        {
+            var content = _notificationService.GetFileAttachmentData(metaModel.Api, metaModel.FileName);
+            if (content == null)
+            {
+                return new HttpResponseMessage(HttpStatusCode.NoContent);
+            }
+
+            var result = new HttpResponseMessage(HttpStatusCode.OK);
+            result.Content = new ByteArrayContent(content);
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+
+            return result;
+        }
+
         private void UpdateMetaModel(NotificationMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
-            metaModel.UserId = userSession.UserId;
+            metaModel.UserName = userSession.UserName;
             metaModel.LicenseeName = SessionService.LicenseeSession.LicenseeName;
             metaModel.Language = Util.MapLanguages.GetValueOrDefault(userSession.Language, "en");
         }

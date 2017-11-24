@@ -10,6 +10,7 @@ import service from '../../lib/resultAmendmentService'
 import Site from '../../../../lib/site'
 import CollapsibleRow from '../../../../components/CollapsibleRow'
 import moment from 'moment'
+import Excel from '../../../../lib/excel'
 
 export class DataGrid extends Component {
     constructor(props) {
@@ -44,10 +45,9 @@ export class DataGrid extends Component {
         paramData.PageIndex = index;
         paramData.PageSize = size;
 
-        const params = {
-            xsrfToken: this.props.xsrfToken,
+        const params = this._buildParams({
             data: paramData
-        };
+        });
 
         this.props.toggleLoader(true);
         this.props.getGridData(params);
@@ -55,21 +55,48 @@ export class DataGrid extends Component {
     }
 
     onExpand(index, item) {
-        const { Data, Total } = this.props.gridData;
+        const { Data, Total, DownloadFileApi } = this.props.gridData;
         Data[index].IsExpand = true;
 
         if(!item.IsRead) {
-            this.props.markItemAsRead({
+            this.props.markItemAsRead(this._buildParams({
                 Index: index,
                 Id: item.Id,
                 Type: item.Type,
                 Data: Data,
-                Total: Total
-            });
+                Total: Total,
+                DownloadFileApi: DownloadFileApi
+            }));
         }
         else {
-            this.props.setGridData({ Data: Data, Total: Total });
+            this.props.setGridData({ Data: Data, Total: Total, DownloadFileApi: DownloadFileApi });
         }
+    }
+
+    exportExcel(item) {
+        const params = this._buildParams({
+            api: this.props.gridData.DownloadFileApi,
+            fileName: item.DataFilePath
+        });
+        const datetimeString = moment(item.DateTime).format("MM-DD-YYYY_hh-mm-ss-A");
+
+        this.props.toggleLoader(true);
+        this.props.exportAttachment(params).then(response => {
+            if(response.statusCode === 204) {
+                alert(LangHelper.getSingleResource('DataIsNotAvailable'));
+            }
+            else{
+                const blob = response.data;
+                const fileName = `AmendmentAttachmemt_${datetimeString}`;
+                Excel.downloadFromBolb(blob, fileName);
+            }
+            this.props.toggleLoader(false);
+        });
+    }
+
+    _buildParams(params) {
+        params.xsrfToken = this.props.xsrfToken;
+        return params;
     }
 
     _buildHeader() {
@@ -86,7 +113,9 @@ export class DataGrid extends Component {
     }
 
     _buildBody() {
-        const data = this.props.gridData.Data;       
+        const data = this.props.gridData.Data;
+        const exportToExcelTitle = LangHelper.getSingleResource("ExportToExcel");
+
         let rows = [];
         for (let i = 0; i < data.length; i++) {
             const item = data[i];
@@ -101,7 +130,7 @@ export class DataGrid extends Component {
                     {
                         Site.asNull(item.DataFilePath) === null 
                         ? <Cell></Cell>
-                        : <Cell title={LangHelper.getSingleResource("ExportToExcel")} className="center-align"><a href={item.DataFilePath} className="icon-excel"></a></Cell>
+                        : <Cell title={exportToExcelTitle} className="center-align"><a onClick={() => this.exportExcel(item)} className="icon-excel"></a></Cell>
                     }
                 </Row>)
         }

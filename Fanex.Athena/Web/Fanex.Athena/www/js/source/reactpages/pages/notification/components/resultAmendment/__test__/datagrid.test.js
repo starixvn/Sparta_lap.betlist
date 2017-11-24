@@ -36,7 +36,7 @@ describe('DataGrid ', () => {
         it('has data - render table', () => {
             const props = { 
                 gridData: { 
-                    Data: [{ DateTime: new Date(), Subject: 'Subject', Content: 'Content', DataFilePath: '' }],
+                    Data: [{ DateTime: '2017-01-01T12:00:00', Subject: 'Subject', Content: 'Content', DataFilePath: '' }],
                     Total: 1
                 },
                 param: {
@@ -57,7 +57,7 @@ describe('DataGrid ', () => {
         it('renders correct header', () => {
             const props = { 
                 gridData: { 
-                    Data: [{ DateTime: new Date(), Subject: 'Subject', Content: 'Content', DataFilePath: '' }],
+                    Data: [{ DateTime: '2017-01-01T12:00:00', Subject: 'Subject', Content: 'Content', DataFilePath: '' }],
                     Total: 1
                 },
                 param: {
@@ -88,7 +88,7 @@ describe('DataGrid ', () => {
         it('DataFilePath does not have value - return empty cell', () => {
             const props = { 
                 gridData: { 
-                    Data: [{ DateTime: new Date(), Subject: 'Subject', Content: 'Content', DataFilePath: '' }],
+                    Data: [{ DateTime: '2017-01-01T12:00:00', Subject: 'Subject', Content: 'Content', DataFilePath: '' }],
                     Total: 1
                 },
                 param: {
@@ -107,7 +107,7 @@ describe('DataGrid ', () => {
         it('DataFilePath has value - return export excel cell', () => {
             const props = { 
                 gridData: { 
-                    Data: [{ DateTime: new Date(), Subject: 'Subject', Content: 'Content', DataFilePath: 'DataFilePath' }],
+                    Data: [{ DateTime: '2017-01-01T12:00:00', Subject: 'Subject', Content: 'Content', DataFilePath: 'DataFilePath' }],
                     Total: 1
                 },
                 param: {
@@ -126,7 +126,7 @@ describe('DataGrid ', () => {
         it('on expand row - mark item as read item is unread', () => {
             const props = { 
                 gridData: { 
-                    Data: [{ DateTime: new Date(), Subject: 'Subject', Content: 'Content', DataFilePath: 'DataFilePath', IsRead: false }],
+                    Data: [{ DateTime: '2017-01-01T12:00:00', Subject: 'Subject', Content: 'Content', DataFilePath: 'DataFilePath', IsRead: false }],
                     Total: 1
                 },
                 param: {
@@ -148,7 +148,7 @@ describe('DataGrid ', () => {
         it('on expand row - set GridData state with correct data if item is read', () => {
             const props = { 
                 gridData: { 
-                    Data: [{ DateTime: new Date(), Subject: 'Subject', Content: 'Content', DataFilePath: 'DataFilePath', IsRead: true }],
+                    Data: [{ DateTime: '2017-01-01T12:00:00', Subject: 'Subject', Content: 'Content', DataFilePath: 'DataFilePath', IsRead: true }],
                     Total: 1
                 },
                 param: {
@@ -158,7 +158,7 @@ describe('DataGrid ', () => {
                 setGridData: jest.fn()
             };
             const grid = new DataGrid(props);
-            const expectedData = [{ DateTime: new Date(), Subject: 'Subject', Content: 'Content', DataFilePath: 'DataFilePath', IsRead: true, IsExpand: true }];
+            const expectedData = [{ DateTime: '2017-01-01T12:00:00', Subject: 'Subject', Content: 'Content', DataFilePath: 'DataFilePath', IsRead: true, IsExpand: true }];
 
             const body = renderer.create(grid._buildBody()[0]);
             const result = body.toJSON();

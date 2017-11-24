@@ -163,6 +163,7 @@
     <Compile Include="MetaModel\ActiveCustomerMetaModel.cs" />
     <Compile Include="MetaModel\AgCasinoBalanceMetaModel.cs" />
     <Compile Include="MetaModel\LicenseeWinLossByTimeZoneMetaModel.cs" />
+    <Compile Include="MetaModel\NotificationAttachmentMetaModel.cs" />
     <Compile Include="MetaModel\NotificationMarkAsReadMetaModel.cs" />
     <Compile Include="MetaModel\NotificationMetaModel.cs" />
     <Compile Include="MetaModel\SubsidiaryPerformanceMetaModel.cs" />

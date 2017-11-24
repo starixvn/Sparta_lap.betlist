@@ -17,5 +17,7 @@
         ReportResultModel<ResultAmendment> GetResultAmendment(NotificationMetaModel metaModel);
 
         IResultInfo MarkNotificationAsRead(NotificationMarkAsReadMetaModel metaModel);
+
+        byte[] GetFileAttachmentData(string api, string fileName);
     }
 }

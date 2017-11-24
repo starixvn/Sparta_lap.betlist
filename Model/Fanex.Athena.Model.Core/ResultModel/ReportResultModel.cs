@@ -13,5 +13,7 @@
         public int TotalRows { get; set; }
 
         public IDictionary<string, T> SummaryTotal { get; set; }
+
+        public string AdditionalInfo { get; set; }
     }
 }

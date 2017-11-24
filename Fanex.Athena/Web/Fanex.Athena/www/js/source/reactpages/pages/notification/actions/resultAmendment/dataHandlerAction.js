@@ -3,19 +3,33 @@ import axios from 'axios'
 
 import Site from '../../../../lib/site'
 
+const header = (xsrfToken) => {
+    return {
+        'X-Requested-With': 'XMLHttpRequest',
+        '__RequestVerificationToken': xsrfToken
+    };
+}
+
 const fetchData = (params) => {
     const url = Site.resolveClientUrl('api/NotificationReport/ResultAmendment');
     return axios.post(url, params.data, {
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            '__RequestVerificationToken': params.xsrfToken
-        }
+        headers: header(params.xsrfToken)
     });
 }
 
-const markNotification = (id, type) => {
+const markNotification = (params) => {
     const url = Site.resolveClientUrl('api/NotificationReport/MarkNotificationAsRead');
-    return axios.post(url, { MessageId: id, MessageType: type });
+    return axios.post(url, { MessageId: params.id, MessageType: params.type }, {
+        headers: header(params.xsrfToken)
+    });
+}
+
+const downloadData = (params) => {
+    const url = Site.resolveClientUrl('api/NotificationReport/DownLoadFileAttachment');
+    return axios.post(url, { FileName: params.fileName, Api: params.api } ,{
+        headers: header(params.xsrfToken),
+        responseType: 'blob'
+    });
 }
 
 export function getGridData(params) {
@@ -23,7 +37,8 @@ export function getGridData(params) {
         fetchData(params).then(response => {
             dispatch(setGridData({
                 Data: response.data.DataList,
-                Total: response.data.TotalRows
+                Total: response.data.TotalRows,
+                DownloadFileApi: response.data.DownloadFileApi
             }));
         });
     };
@@ -38,16 +53,21 @@ export function setGridData(data) {
 
 export function markItemAsRead(params) {   
     return (dispatch) => {
-        markNotification(params.Id, params.Type).then(response => {
+        markNotification({ id: params.Id, type: params.Type, xsrfToken: params.xsrfToken }).then(response => {
             if(response.data.IsSuccessful)
             {
                 params.Data[params.Index].IsRead = true;
 
                 dispatch(setGridData({
                     Data: params.Data,
-                    Total: params.Total
+                    Total: params.Total,
+                    DownloadFileApi: params.DownloadFileApi
                 }));
             }
         });
     };
+}
+
+export function exportAttachment(params) {
+    return () => downloadData(params);
 }

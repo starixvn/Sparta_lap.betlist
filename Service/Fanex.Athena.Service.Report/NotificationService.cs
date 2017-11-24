@@ -65,35 +65,6 @@
             return data;
         }
 
-        private IDictionary<string, string> GetNotificationTypeFromApi()
-        {
-            var notificationTypeUrl = _appSetting.NotificationTypeApiUrl;
-
-            try
-            {               
-                var json = _webClientService.DownloadString(notificationTypeUrl);
-
-                if (string.IsNullOrEmpty(json))
-                {
-                    return new Dictionary<string, string>();
-                }
-
-                var jobject = JObject.Parse(json);
-                if (jobject.HasValues)
-                {
-                    jobject.AddFirst(new JProperty("0", ViewResources.All));
-                }
-
-                return jobject.ToObject<Dictionary<string, string>>();
-            }
-            catch (Exception e)
-            {
-                LogError(notificationTypeUrl, e);
-            }
-
-            return new Dictionary<string, string>();
-        }
-
         public ReportResultModel<NotificationMessage> GetNotificationMessages(NotificationMetaModel metaModel)
         {
             var result = GetResultAmendment(metaModel);
@@ -120,7 +91,7 @@
                 metaModel.Type,
                 metaModel.FromDate,
                 metaModel.ToDate,
-                metaModel.UserId,
+                metaModel.UserName,
                 metaModel.LicenseeName,
                 metaModel.IsOnlyUnread,
                 metaModel.PageSize,
@@ -169,13 +140,14 @@
                 _appSetting.ResultAmendmentApiUrl,
                 metaModel.FromDate,
                 metaModel.ToDate,
-                metaModel.UserId,
+                metaModel.UserName,
                 metaModel.LicenseeName,
                 metaModel.IsOnlyUnread,
                 metaModel.PageSize,
                 metaModel.PageIndex - 1);
             var dataList = new List<ResultAmendment>();
             var totalRecords = 0;
+            var downloadFileApi = string.Empty;
 
             try
             {
@@ -184,8 +156,7 @@
                 {
                     return new ReportResultModel<ResultAmendment>
                     {
-                        DataList = dataList,
-                        TotalRows = totalRecords
+                        DataList = dataList
                     };
                 }
 
@@ -196,11 +167,10 @@
                     var subjectKey = "Subject" + lang;
                     var contentKey = "Content" + lang;
 
-                    var attachmentFileApi = jobject["AttachmentFileApi"].Value<string>();
-
-                    dataList.AddRange(jobject["Data"].Children().Select(x => MapToResultAmendment(x, subjectKey, contentKey, attachmentFileApi)));
-
                     totalRecords = jobject["TotalItems"].Value<int>();
+                    downloadFileApi = jobject["AttachmentFileApi"].Value<string>();
+
+                    dataList.AddRange(jobject["Data"].Children().Select(x => MapToResultAmendment(x, subjectKey, contentKey)));                   
                 }
             }
             catch (Exception e)
@@ -211,14 +181,15 @@
             return new ReportResultModel<ResultAmendment>
             {
                 DataList = dataList,
-                TotalRows = totalRecords
+                TotalRows = totalRecords,
+                AdditionalInfo = downloadFileApi
             };
         }
 
         public IResultInfo MarkNotificationAsRead(NotificationMarkAsReadMetaModel metaModel)
         {
             var api = new Uri(_appSetting.MarkNotificationAsReadApiUrl);
-            var param = $"MessageType={metaModel.MessageType}&MessageId={metaModel.MessageId}&UserId={metaModel.UserId}&LicenseeName={metaModel.LicenseeName}";
+            var param = $"MessageType={metaModel.MessageType}&MessageId={metaModel.MessageId}&UserName={metaModel.UserName}&LicenseeName={metaModel.LicenseeName}";
 
             var result = new ResultInfo
             {
@@ -252,9 +223,53 @@
             return result;
         }
 
-        private ResultAmendment MapToResultAmendment(JToken token, string subjectKey, string contentKey, string attachmentFileApi)
+        public byte[] GetFileAttachmentData(string api, string fileName)
+        {
+            try
+            {
+                var url = $"{api}?site=SpecialDelete&name={fileName}";
+                return _webClientService.DownloadData(url);
+            }
+            catch (Exception e)
+            {
+                LogError(api, e);
+            }
+
+            return null;
+        }
+
+        private IDictionary<string, string> GetNotificationTypeFromApi()
+        {
+            var notificationTypeUrl = _appSetting.NotificationTypeApiUrl;
+
+            try
+            {
+                var json = _webClientService.DownloadString(notificationTypeUrl);
+
+                if (string.IsNullOrEmpty(json))
+                {
+                    return new Dictionary<string, string>();
+                }
+
+                var jobject = JObject.Parse(json);
+                if (jobject.HasValues)
+                {
+                    jobject.AddFirst(new JProperty("0", ViewResources.All));
+                }
+
+                return jobject.ToObject<Dictionary<string, string>>();
+            }
+            catch (Exception e)
+            {
+                LogError(notificationTypeUrl, e);
+            }
+
+            return new Dictionary<string, string>();
+        }
+
+        private ResultAmendment MapToResultAmendment(JToken token, string subjectKey, string contentKey)
         {           
-            var result = new ResultAmendment
+            return new ResultAmendment
             {
                 Id = token["MessageId"].Value<int>(),
                 DateTime = token["Date"].Value<DateTime>(),
@@ -264,11 +279,6 @@
                 IsRead = token["IsRead"].Value<bool>(),
                 Type = _notificationType[nameof(ResultAmendment)]
             };
-
-            var attachmentFileName = $"Amendment_{result.DateTime:ddMMMyyyy}_{result.DateTime:hh-mm-ss-tt}.xls";
-            result.DataFilePath = $"{attachmentFileApi}?site=SpecialDelete&name={result.DataFilePath}&saveAs={attachmentFileName}";
-
-            return result;
         }
 
         private GeneralNotification MapToGeneralNotification(JToken token, string subjectKey, string contentKey)

@@ -36,7 +36,7 @@ describe('DataGrid ', () => {
         it('has data - render table', () => {
             const props = { 
                 gridData: { 
-                    Data: [{ DateTime: new Date(), Subject: 'Subject', Content: 'Content'}],
+                    Data: [{ DateTime: '2017-01-01T12:00:00', Subject: 'Subject', Content: 'Content'}],
                     Total: 1
                 },
                 param: {
@@ -57,7 +57,7 @@ describe('DataGrid ', () => {
         it('renders correct header', () => {
             const props = { 
                 gridData: { 
-                    Data: [{ DateTime: new Date(), Subject: 'Subject', Content: 'Content'}],
+                    Data: [{ DateTime: '2017-01-01T12:00:00', Subject: 'Subject', Content: 'Content'}],
                     Total: 1
                 },
                 param: {
@@ -88,7 +88,7 @@ describe('DataGrid ', () => {
         it('matches with Snapshot', () => {
             const props = { 
                 gridData: { 
-                    Data: [{ DateTime: new Date(), Subject: 'Subject', Content: 'Content'}],
+                    Data: [{ DateTime: '2017-01-01T12:00:00', Subject: 'Subject', Content: 'Content'}],
                     Total: 1
                 },
                 param: {

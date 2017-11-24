@@ -288,7 +288,7 @@
             {
                 Id = 1,
                 DateTime = new DateTime(2017, 01, 01, 12, 0, 0),
-                DataFilePath = $"AttachmentFileApi?site=SpecialDelete&name=Path1&saveAs=Amendment_01Jan2017_12-00-00-PM.xls",
+                DataFilePath = "Path1",
                 Content = "Content",
                 Subject = "Subject",
                 IsRead = true,
@@ -397,7 +397,7 @@
             {
                 MessageType = "1",
                 MessageId = 2,
-                UserId = "3",
+                UserName = "3",
                 LicenseeName = "Name"
             };
 
@@ -408,7 +408,7 @@
             var result = _notificationService.MarkNotificationAsRead(metaModel);
 
             // Assert
-            _webClientService.Received().UploadString(new Uri(url), "MessageType=1&MessageId=2&UserId=3&LicenseeName=Name");
+            _webClientService.Received().UploadString(new Uri(url), "MessageType=1&MessageId=2&UserName=3&LicenseeName=Name");
         }
 
         [TestCase("{}")]
@@ -420,7 +420,7 @@
             {
                 MessageType = "1",
                 MessageId = 2,
-                UserId = "3",
+                UserName = "3",
                 LicenseeName = "Name"
             };
 
@@ -433,7 +433,7 @@
             var result = _notificationService.MarkNotificationAsRead(metaModel);
 
             // Assert
-            _webClientService.Received().UploadString(new Uri(url), "MessageType=1&MessageId=2&UserId=3&LicenseeName=Name");
+            _webClientService.Received().UploadString(new Uri(url), "MessageType=1&MessageId=2&UserName=3&LicenseeName=Name");
         }
 
         [Test]
@@ -444,7 +444,7 @@
             {
                 MessageType = "1",
                 MessageId = 2,
-                UserId = "3",
+                UserName = "3",
                 LicenseeName = "Name"
             };
 
@@ -479,7 +479,7 @@
             {
                 MessageType = "1",
                 MessageId = 2,
-                UserId = "3",
+                UserName = "3",
                 LicenseeName = "Name"
             };
 
@@ -500,7 +500,7 @@
             {
                 Assert.That(result.Code, Is.EqualTo(1));
                 Assert.That(result.Message, Is.EqualTo(ViewResources.ErrorProcessingMsg));
-                AssertWriteLogException(exceptionMsg, (new Uri(url)) + "\nParameter: MessageType=1&MessageId=2&UserId=3&LicenseeName=Name");
+                AssertWriteLogException(exceptionMsg, (new Uri(url)) + "\nParameter: MessageType=1&MessageId=2&UserName=3&LicenseeName=Name");
             });
         }
 
