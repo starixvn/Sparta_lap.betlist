@@ -2,6 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Net;
+    using System.Net.Http;
+    using System.Text;
     using Model.Core.DTO.Common;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
@@ -190,6 +193,39 @@
             {
                 _service.Received().MarkNotificationAsRead(Arg.Any<NotificationMarkAsReadMetaModel>());
                 Assert.That(result.IsSuccessful, Is.False);
+            });
+        }
+
+        [Test]
+        public void DownLoadFileAttachment_ServiceReturnsNull_ReturnStatusNoContent()
+        {
+            // Arrange
+            var metaModel = new NotificationAttachmentMetaModel();
+            _service.GetFileAttachmentData(metaModel).Returns(x => { return null; });
+
+            // Action
+            var result = _controller.DownLoadFileAttachment(metaModel) as HttpResponseMessage;
+
+            // Asset
+            Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));
+        }
+
+        [Test]
+        public void DownLoadFileAttachment_ServiceReturnsData_ReturnCorrectResult()
+        {
+            // Arrange
+            var metaModel = new NotificationAttachmentMetaModel();
+            var data = "test";
+            _service.GetFileAttachmentData(metaModel).Returns(Encoding.ASCII.GetBytes(data));
+
+            // Action
+            var result = _controller.DownLoadFileAttachment(metaModel) as HttpResponseMessage;
+
+            // Asset
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+                Assert.That(result.Content, Is.Not.Null);
             });
         }
     }

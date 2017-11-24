@@ -117,7 +117,7 @@
         [HttpPost]
         public HttpResponseMessage DownLoadFileAttachment(NotificationAttachmentMetaModel metaModel)
         {
-            var content = _notificationService.GetFileAttachmentData(metaModel.Api, metaModel.FileName);
+            var content = _notificationService.GetFileAttachmentData(metaModel);
             if (content == null)
             {
                 return new HttpResponseMessage(HttpStatusCode.NoContent);

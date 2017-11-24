@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
-    using System.IO;
     using System.Linq;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Extension.Utility.Interfaces;
@@ -27,6 +26,8 @@
             { nameof(GeneralNotification), "General" },
             { nameof(ResultAmendment), "Amendment" }
         };
+
+        private readonly string[] _supportedLanguage = { "En", "Ch", "Cs" };
 
         private readonly ILogger _logger;
 
@@ -113,7 +114,7 @@
                 var jobject = JObject.Parse(json);
                 if (jobject.HasValues && jobject["Data"].Children().Any())
                 {
-                    var lang = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(metaModel.Language.ToLowerInvariant());
+                    var lang = GetSupportedLanguage(CultureInfo.InvariantCulture.TextInfo.ToTitleCase(metaModel.Language.ToLowerInvariant()));
                     var subjectKey = "Subject" + lang;
                     var contentKey = "Content" + lang;
 
@@ -163,7 +164,7 @@
                 var jobject = JObject.Parse(json);
                 if (jobject.HasValues && jobject["Data"].Children().Any())
                 {
-                    var lang = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(metaModel.Language.ToLowerInvariant());
+                    var lang = GetSupportedLanguage(CultureInfo.InvariantCulture.TextInfo.ToTitleCase(metaModel.Language.ToLowerInvariant()));
                     var subjectKey = "Subject" + lang;
                     var contentKey = "Content" + lang;
 
@@ -223,19 +224,29 @@
             return result;
         }
 
-        public byte[] GetFileAttachmentData(string api, string fileName)
+        public byte[] GetFileAttachmentData(NotificationAttachmentMetaModel metaModel)
         {
+            var url = $"{metaModel.Api}?site=SpecialDelete&name={metaModel.FileName}";
             try
-            {
-                var url = $"{api}?site=SpecialDelete&name={fileName}";
+            {           
                 return _webClientService.DownloadData(url);
             }
             catch (Exception e)
             {
-                LogError(api, e);
+                LogError(url, e);
             }
 
             return null;
+        }
+
+        private string GetSupportedLanguage(string lang)
+        {
+            if(_supportedLanguage.Contains(lang))
+            {
+                return lang;
+            }
+
+            return _supportedLanguage[0];
         }
 
         private IDictionary<string, string> GetNotificationTypeFromApi()

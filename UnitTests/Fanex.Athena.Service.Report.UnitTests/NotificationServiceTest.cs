@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using Core.Utility.Interfaces;
     using Extension.Utility;
     using Extension.Utility.Interfaces;
@@ -175,14 +176,14 @@
             // Arrange
             var metaModel = new NotificationMetaModel
             {
-                Language = "lang"
+                Language = "en"
             };
 
             var url = "API8";
             _appSettings.NotificationApiUrl.Returns(url);
 
             var jsonString = "{'TotalItems':'1',"
-                + "'Data':[{'SubjectLang':'Subject','ContentLang':'Content','MessageId':'1','Date':'2017-01-01T12:00:00','IsRead':'true','MessageTypeId':'2'}]}";
+                + "'Data':[{'SubjectEn':'Subject','ContentEn':'Content','MessageId':'1','Date':'2017-01-01T12:00:00','IsRead':'true','MessageTypeId':'2'}]}";
             _webClientService.DownloadString(url).Returns(jsonString);
 
             var expectedData = new GeneralNotification
@@ -211,6 +212,42 @@
                 Assert.That(data.Subject, Is.EqualTo(expectedData.Subject));
                 Assert.That(data.IsRead, Is.EqualTo(expectedData.IsRead));
                 Assert.That(data.Type, Is.EqualTo(expectedData.Type));
+            });
+        }
+
+        [Test]
+        public void GetGeneral_LanguageIsNotSupported_ReturnDefaultLanguage()
+        {
+            // Arrange
+            var metaModel = new NotificationMetaModel
+            {
+                Language = "lang"
+            };
+
+            var url = "API8b";
+            _appSettings.NotificationApiUrl.Returns(url);
+
+            var jsonString = "{'TotalItems':'1',"
+                + "'Data':[{'SubjectEn':'SubjectEn','ContentEn':'ContentEn','ContentCh':'ContentCh',"
+                + "'MessageId':'1','Date':'2017-01-01T12:00:00','IsRead':'true','MessageTypeId':'2'}]}";
+            _webClientService.DownloadString(url).Returns(jsonString);
+
+            var expectedData = new GeneralNotification
+            {
+                Content = "ContentEn",
+                Subject = "SubjectEn",
+            };
+
+            // Action
+            var result = _notificationService.GetGeneral(metaModel);
+            var data = result.DataList.ElementAt(0);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.TotalRows, Is.EqualTo(1));
+                Assert.That(data.Subject, Is.EqualTo(expectedData.Subject));
+                Assert.That(data.Content, Is.EqualTo(expectedData.Content));
             });
         }
 
@@ -274,14 +311,14 @@
             // Arrange
             var metaModel = new NotificationMetaModel
             {
-                Language = "lang"
+                Language = "en"
             };
 
             var url = "API11";
             _appSettings.ResultAmendmentApiUrl.Returns(url);
 
             var jsonString = "{'TotalItems':'1','AttachmentFileApi':'AttachmentFileApi',"
-                + "'Data':[{'SubjectLang':'Subject','ContentLang':'Content','MessageId':'1','Date':'2017-01-01T12:00:00','IsRead':'true','DataFilePath':'Path1'}]}";
+                + "'Data':[{'SubjectEn':'Subject','ContentEn':'Content','MessageId':'1','Date':'2017-01-01T12:00:00','IsRead':'true','DataFilePath':'Path1'}]}";
             _webClientService.DownloadString(url).Returns(jsonString);
 
             var expectedData = new ResultAmendment
@@ -501,6 +538,73 @@
                 Assert.That(result.Code, Is.EqualTo(1));
                 Assert.That(result.Message, Is.EqualTo(ViewResources.ErrorProcessingMsg));
                 AssertWriteLogException(exceptionMsg, (new Uri(url)) + "\nParameter: MessageType=1&MessageId=2&UserName=3&LicenseeName=Name");
+            });
+        }
+
+        [Test]
+        public void GetFileAttachmentData_WhenCall_CallApiWithCorrectUrl()
+        {
+            // Arrange
+            var metaModel = new NotificationAttachmentMetaModel
+            {
+                Api = "API",
+                FileName = "FileName1"
+            };
+            var expectedUrl = "API?site=SpecialDelete&name=FileName1";
+
+            // Action
+            var result = _notificationService.GetFileAttachmentData(metaModel);
+
+            // Assert
+            _webClientService.Received().DownloadData(expectedUrl);
+        }
+
+        [Test]
+        public void GetFileAttachmentData_WhenCall_ReturnCorrectData()
+        {
+            // Arrange
+            var metaModel = new NotificationAttachmentMetaModel
+            {
+                Api = "API",
+                FileName = "FileName2"
+            };
+            var url = "API?site=SpecialDelete&name=FileName2";
+            var data = Encoding.ASCII.GetBytes("Test");
+
+            _webClientService.DownloadData(url).Returns(data);
+
+            // Action
+            var result = _notificationService.GetFileAttachmentData(metaModel);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(data));
+        }
+
+        [Test]
+        public void GetFileAttachmentData_ApiThrowException_WriteLog()
+        {
+            // Arrange
+            var metaModel = new NotificationAttachmentMetaModel
+            {
+                Api = "API",
+                FileName = "FileName3"
+            };
+            var expectedUrl = "API?site=SpecialDelete&name=FileName3";
+
+            var exceptionMsg = "Failure";
+            _webClientService.When(x => x.DownloadData(expectedUrl)).Do(x =>
+            {
+                throw new Exception(exceptionMsg);
+            });
+
+            // Action
+            var result = _notificationService.GetFileAttachmentData(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Null);
+                AssertWriteLogException(exceptionMsg, expectedUrl);
             });
         }
 
