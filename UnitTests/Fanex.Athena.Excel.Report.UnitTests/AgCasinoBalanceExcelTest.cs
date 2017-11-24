@@ -20,7 +20,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
     [TestFixture]
     public class AgCasinoBalanceExcelTest
     {
-        private const int ColumnCount = 21;
+        private const int ColumnCount = 13;
 
         private static readonly AgCasinoBalance DataItem = new AgCasinoBalance
         {

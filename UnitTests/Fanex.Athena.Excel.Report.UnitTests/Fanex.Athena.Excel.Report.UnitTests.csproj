@@ -61,9 +61,11 @@
   <ItemGroup>
     <Compile Include="AgCasinoBalanceExcelTest.cs" />
     <Compile Include="ActiveCustomerSummaryExcelTest.cs" />
+    <Compile Include="CashOutWinLossExcelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestableClasses\AgCasinoBalanceExcelTestable.cs" />
     <Compile Include="TestableClasses\ActiveCustomerSummaryExcelTestable.cs" />
+    <Compile Include="TestableClasses\CashOutWinLossExcelTestable.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Excel\Fanex.Athena.Excel.Base\Fanex.Athena.Excel.Base.csproj">
