@@ -1145,7 +1145,7 @@ exports[`Page  goToPage page size selection is changed - call onPaging 2`] = `
       value={1}
     />
     <span>
-       of 1.5
+       of 2
        
     </span>
   </div>

@@ -22,16 +22,17 @@ describe('dataHandlerAction', () => {
     })
 
     describe('getGridData', () => {
-        const expectedUrl = "api/NotificationReport/ResultAmendment";
+        const expectedUrl = 'api/NotificationReport/ResultAmendment';
         const fakeDataResponse = {
             data: {
                 DataList: [],
-                TotalRows: 0
+                TotalRows: 0,
+                DownloadFileApi: 'DownloadFileApi'
             }
         }
         const params = {
-            data: { FromDate: "01/01/2017", ToDate: "01/10/2017" },
-            xsrfToken: "token"
+            data: { FromDate: '01/01/2017', ToDate: '01/10/2017' },
+            xsrfToken: 'token'
         }
         const expectedHeader = {
             'X-Requested-With': 'XMLHttpRequest',
@@ -45,9 +46,19 @@ describe('dataHandlerAction', () => {
 
         it('dispatch correct action', () => {
             const expectedActions = [
-                { type: types.SET_GRID_DATA, data: { Data: fakeDataResponse.data.DataList, Total: fakeDataResponse.data.TotalRows } }
+                { 
+                    type: types.SET_GRID_DATA, 
+                    data: { 
+                        Data: fakeDataResponse.data.DataList, 
+                        Total: fakeDataResponse.data.TotalRows, 
+                        DownloadFileApi: fakeDataResponse.data.DownloadFileApi 
+                    } 
+                }
             ];
-            const store = mockStore({ gridData: Object.assign({}, { Data: fakeDataResponse.data.DataList, Total: fakeDataResponse.data.TotalRows }) });
+            const store = mockStore({ gridData: Object.assign({}, { 
+                Data: fakeDataResponse.data.DataList, 
+                Total: fakeDataResponse.data.TotalRows, 
+                DownloadFileApi: fakeDataResponse.data.DownloadFileApi }) });
             store.dispatch(actions.getGridData({}));
 
             Promise.resolve().then(() => {
@@ -69,7 +80,8 @@ describe('dataHandlerAction', () => {
         it('create an correct action', () => {
             const data = {
                 Data: [],
-                Total: 0
+                Total: 0,
+                DownloadFileApi: 'DownloadFileApi'
             };
             const expectedAction = {
                 type: types.SET_GRID_DATA,
@@ -83,34 +95,41 @@ describe('dataHandlerAction', () => {
     })
 
     describe('markItemAsRead', () => {
-        const expectedUrl = "api/NotificationReport/MarkNotificationAsRead";
+        const expectedUrl = 'api/NotificationReport/MarkNotificationAsRead';
         const params = {
             Id: 1,
             Type: 2,
             Index: 0,
             Data: [{ Id: 1 }],
-            Total: 1
+            Total: 1,
+            DownloadFileApi: '',
+            xsrfToken: 'token'
+        };
+        const expectedHeader = {
+            'X-Requested-With': 'XMLHttpRequest',
+            '__RequestVerificationToken': params.xsrfToken
         };
 
         it('axios.post should be called with correct parameters', () => {
             const promise = Promise.resolve({ data: { IsSuccessful: false } });
             axios.post = jest.fn(() => promise);
 
-            const store = mockStore({ gridData: Object.assign({}, { Data: [{ Id: 1 }], Total: 1 }) });
+            const store = mockStore({ gridData: Object.assign({}, { Data: [{ Id: 1 }], Total: 1, DownloadFileApi: '' }) });
             store.dispatch(actions.markItemAsRead(params));
 
             Promise.resolve().then(() => {
-                expect(axios.post).toHaveBeenCalledWith(expectedUrl, { MessageId: params.Id, MessageType: params.Type });
+                expect(axios.post).toHaveBeenCalledWith(expectedUrl, { MessageId: params.Id, MessageType: params.Type }, { headers: expectedHeader });
             })
         })
 
         it('is not successful - do not dispatch to setGridData', () => {
             const promise = Promise.resolve({ data: { IsSuccessful: false } });
             axios.post = jest.fn(() => promise);
-            const expectedActions = [
-                { type: types.SET_GRID_DATA, data: { Data: [{ Id: 1, IsRead: true }], Total: 1 } }
+            const expectedActions = [{ 
+                type: types.SET_GRID_DATA, 
+                data: { Data: [{ Id: 1, IsRead: true }], Total: 1, DownloadFileApi: '' } }
             ];
-            const store = mockStore({ gridData: Object.assign({}, { Data: [{ Id: 1 }], Total: 1 }) });
+            const store = mockStore({ gridData: Object.assign({}, { Data: [{ Id: 1 }], Total: 1, DownloadFileApi: '' }) });
             store.dispatch(actions.markItemAsRead(params));
 
             Promise.resolve().then(() => {
@@ -121,14 +140,42 @@ describe('dataHandlerAction', () => {
         it('is successful - do not dispatch to setGridData', () => {
             const promise = Promise.resolve({ data: { IsSuccessful: true } });
             axios.post = jest.fn(() => promise);
-            const expectedActions = [
-                { type: types.SET_GRID_DATA, data: { Data: [{ Id: 1, IsRead: true }], Total: 1 } }
+            const expectedActions = [{ 
+                type: types.SET_GRID_DATA, 
+                data: { Data: [{ Id: 1, IsRead: true }], Total: 1, DownloadFileApi: '' } }
             ];
-            const store = mockStore({ gridData: Object.assign({}, { Data: [{ Id: 1 }], Total: 1 }) });
+            const store = mockStore({ gridData: Object.assign({}, { Data: [{ Id: 1 }], Total: 1, DownloadFileApi: '' }) });
             store.dispatch(actions.markItemAsRead(params));
 
             Promise.resolve().then(() => {
                 expect(store.getActions()).toEqual(expectedActions);
+            })
+        })
+    })
+
+    describe('exportAttachment', () => {
+        it('axios.post should be called with correct parameters', () => {
+            const expectedUrl = 'api/NotificationReport/DownLoadFileAttachment';
+            const params = {
+                xsrfToken: 'token',
+                api: 'api',
+                fileName: 'fileName'
+            };
+            const expectedHeader = {
+                'X-Requested-With': 'XMLHttpRequest',
+                '__RequestVerificationToken': params.xsrfToken
+            };
+            const promise = Promise.resolve({ data: {} });
+            axios.post = jest.fn(() => promise);
+
+            const store = mockStore({});
+            store.dispatch(actions.exportAttachment(params));
+
+            Promise.resolve().then(() => {
+                expect(axios.post).toHaveBeenCalledWith(
+                    expectedUrl, 
+                    { FileName: params.fileName, Api: params.api }, 
+                    { headers: expectedHeader, responseType: 'blob'});
             })
         })
     })

@@ -95,28 +95,28 @@ exports[`DataGrid  render  has data - render table 1`] = `
               <td
                 style={
                   Object {
-                    "width": "-1.3846153846153846px",
+                    "width": "-1.4285714285714284px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.923076923076923px",
+                    "width": "-7.142857142857142px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.923076923076923px",
+                    "width": "-7.142857142857142px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-14.76923076923077px",
+                    "width": "-14.285714285714285px",
                   }
                 }
               />
@@ -157,7 +157,7 @@ exports[`DataGrid  render  has data - render table 1`] = `
       className="body-content"
       style={
         Object {
-          "maxHeight": 600,
+          "maxHeight": 540,
           "minWidth": 650,
           "width": -30,
         }
@@ -181,28 +181,28 @@ exports[`DataGrid  render  has data - render table 1`] = `
               <td
                 style={
                   Object {
-                    "width": "-1.3846153846153846px",
+                    "width": "-1.4285714285714284px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.923076923076923px",
+                    "width": "-7.142857142857142px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.923076923076923px",
+                    "width": "-7.142857142857142px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-14.76923076923077px",
+                    "width": "-14.285714285714285px",
                   }
                 }
               />
