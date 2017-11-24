@@ -68,13 +68,7 @@ namespace Fanex.Athena.Excel.Report
             PageSize = metaModel.DrillDownLevel == 2 ? metaModel.PageSize : AgCasinoBalanceMetaModel.PageSizeExcel;
             IsMultiSheet = true;
         }
-
-        public int Level
-        {
-            get;
-            set;
-        }
-
+        
         protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
@@ -160,7 +154,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void ProcessUI(ISheet sheet)
         {
-            switch (Level)
+            switch (_metaModel.DrillDownLevel)
             {
                 case 0:
                     sheet.HideColumn(ColumnExternalId, ColumnSystemId);
@@ -203,7 +197,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="rowIndex">The starting row index.</param>
         /// <returns>The last row index after assign data.</returns>
-        protected int AssignGrandTotalData(ISheet sheet, int rowIndex)
+        protected internal virtual int AssignGrandTotalData(ISheet sheet, int rowIndex)
         {
             var currencyList = _summaryTotal.Keys.ToList();
             currencyList.Reverse();
@@ -229,7 +223,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="rowIndex">The starting row index.</param>
         /// <returns>The last row index after assign data.</returns>
-        protected int AssignTotalData(ISheet sheet, int rowIndex)
+        protected internal virtual int AssignTotalData(ISheet sheet, int rowIndex)
         {
             var beginTotalRow = rowIndex;
             var totalCurrencyList = GetTotalCurrency(_casinoList);
@@ -252,7 +246,7 @@ namespace Fanex.Athena.Excel.Report
             }
 
             // Merge first two column
-            sheet.MergeCells(rowIndex - totalCurrencyList.Count, 0, rowIndex - 1, 3);
+            sheet.MergeCells(rowIndex - totalCurrencyList.Count(), 0, rowIndex - 1, 3);
 
             return rowIndex;
         }
@@ -262,7 +256,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="dataList">Report data.</param>
         /// <returns>List of AgCasinoBalance entity.</returns>
-        private static List<AgCasinoBalance> GetTotalCurrency(IEnumerable<AgCasinoBalance> dataList)
+        private static IEnumerable<AgCasinoBalance> GetTotalCurrency(IEnumerable<AgCasinoBalance> dataList)
         {
             var listTotalCurrency = dataList.GroupBy(x => new { x.CurrencyName })
                     .Select(group => new AgCasinoBalance

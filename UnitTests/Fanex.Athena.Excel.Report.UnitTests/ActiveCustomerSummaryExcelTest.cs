@@ -147,12 +147,12 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             });
         }
 
-        private static ActiveCustomerSummaryExcelTestable CreateExcel(ShowingOption showingOption = null)
+        private static ActiveCustomerSummaryExcelTestable CreateExcel()
         {
             var excel = Substitute.ForPartsOf<ActiveCustomerSummaryExcelTestable>(
                 string.Empty,
                 new ConvertingOption(),
-                showingOption ?? new ShowingOption(),
+                new ShowingOption(),
                 MetaModel,
                 ViewModel);
             excel.TemplateSheet.Returns(Substitute.For<ISheet>());

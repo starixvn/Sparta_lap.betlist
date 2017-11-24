@@ -58,10 +58,7 @@ namespace Fanex.Athena.Api.Report
             AgCasinoBalanceMetaModel metaModel,
             AgCasinoBalanceViewModel viewModel)
         {
-            return new AgCasinoBalanceExcel(templatePath, convertingOption, metaModel, viewModel)
-            {
-                Level = metaModel.DrillDownLevel,
-            };
+            return new AgCasinoBalanceExcel(templatePath, convertingOption, metaModel, viewModel);
         }
 
         private static dynamic GetAgCasinoBalanceEmptyResult()

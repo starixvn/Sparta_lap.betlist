@@ -59,8 +59,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgCasinoBalanceExcelTest.cs" />
     <Compile Include="ActiveCustomerSummaryExcelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestableClasses\AgCasinoBalanceExcelTestable.cs" />
     <Compile Include="TestableClasses\ActiveCustomerSummaryExcelTestable.cs" />
   </ItemGroup>
   <ItemGroup>
