@@ -317,8 +317,7 @@ describe('Calendar - Render', () => {
                     if (showMonthArrow) {
                         expect(firstChild).not.toBe(null);
                         expect(lastChild).not.toBe(null);
-                    }
-                    else {
+                    } else {
                         expect(firstChild).toBe(null);
                         expect(lastChild).toBe(null);
                     }
@@ -438,6 +437,7 @@ describe('Calendar - Render', () => {
 
         describe('Assert props', () => {
             const weekDaysLocale = locale.weekdays;
+
             function assertByOnlyClassesProp({ onlyClasses, expectedStyle }) {
                 it(`onlyClasses = ${onlyClasses.toString()} - element props should be correct`, () => {
                     const expectedResult = {
@@ -473,7 +473,7 @@ describe('Calendar - Render', () => {
         })
     })
 
-    describe('renderDays', () => {
+    describe('renderDays - current month is november', () => {
         const defaultPropsOfRenderDay = {
             range: { startDate: moment("11/1/2017", "MM/DD/YYYY"), endDate: moment("11/30/2017", "MM/DD/YYYY") },
             minDate: moment("10/1/2017", "MM/DD/YYYY"),
@@ -578,6 +578,7 @@ describe('Calendar - Render', () => {
             const classes = {
                 calendar: "calendar"
             }
+
             function assertByOnlyClassesProp({ onlyClasses, expectedStyle }) {
                 it(`onlyClasses = ${onlyClasses.toString()} - element props should be correct`, () => {
                     const expectedResult = {

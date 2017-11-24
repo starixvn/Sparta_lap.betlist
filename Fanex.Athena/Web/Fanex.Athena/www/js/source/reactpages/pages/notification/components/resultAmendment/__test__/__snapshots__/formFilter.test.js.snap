@@ -1853,13 +1853,5 @@ exports[`FormFilter match to snapshot 1`] = `
       NotificationDateRangeLimitNote
     </div>
   </div>
-  <div
-    className="caret-block"
-  >
-    <i
-      className="icon-book right"
-      title="UserGuide"
-    />
-  </div>
 </div>
 `;
