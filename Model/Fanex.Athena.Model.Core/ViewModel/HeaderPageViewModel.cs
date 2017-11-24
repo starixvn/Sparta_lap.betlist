@@ -33,5 +33,7 @@ namespace Fanex.Athena.Model.Core.ViewModel
         public bool IsAllowedManagementMember { get; set; }
 
         public bool IsFakeLicensee { get; set; }
+
+        public bool IsAllowedNotification { get; set; }
     }
 }

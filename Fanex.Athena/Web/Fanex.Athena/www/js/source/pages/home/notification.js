@@ -69,7 +69,6 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
                 type: "POST",
                 data: postData,
                 dataType: "json",
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false,
                 success: function (response) {
                     setTimeout(function () {
@@ -110,14 +109,23 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
             var apiUrl = Site.resolveClientUrl(GET_NOTIFICATION_URL);
 
             var processNotification = function () {
-                $.get(apiUrl, function (data) {
-                    if ($notificationDdl.is(":visible")) {
-                        _newMsg = data;
-                        return;
-                    }
+                $.ajax({
+                    url: apiUrl,
+                    async: false,
+                    type: "GET",
+                    cache: false,
+                    success: function (data) {
+                        if ($notificationDdl.is(":visible")) {
+                            _newMsg = data;
+                            return;
+                        }
 
-                    _newMsg = null;
-                    addNotificationItems(data);
+                        _newMsg = null;
+                        addNotificationItems(data);
+                    },
+                    statusCode: {
+                        403: function () {}
+                    }
                 });
             };
 

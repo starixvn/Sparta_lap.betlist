@@ -385,7 +385,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Result Amendment/ Recalculation.
+        ///   Looks up a localized string similar to Result Amendment/Recalculation.
         /// </summary>
         public static string Amendment {
             get {
@@ -1974,6 +1974,15 @@ namespace Fanex.Athena.Resources {
         public static string Data {
             get {
                 return ResourceManager.GetString("Data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data is not available.
+        /// </summary>
+        public static string DataIsNotAvailable {
+            get {
+                return ResourceManager.GetString("DataIsNotAvailable", resourceCulture);
             }
         }
         

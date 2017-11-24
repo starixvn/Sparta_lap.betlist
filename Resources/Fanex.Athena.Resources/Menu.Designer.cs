@@ -646,6 +646,24 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NOTIFICATION.
+        /// </summary>
+        public static string Menu_74 {
+            get {
+                return ResourceManager.GetString("Menu_74", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result Amendment/Recalculation.
+        /// </summary>
+        public static string Menu_75 {
+            get {
+                return ResourceManager.GetString("Menu_75", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Money Line.
         /// </summary>
         public static string Menu_8 {

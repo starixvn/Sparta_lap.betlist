@@ -287,5 +287,10 @@ namespace Fanex.Athena.Model.Core.DataDomain
         /// CommissionGroupList function, value = 55.
         /// </summary>
         CommissionGroupList = 55,
+
+        /// <summary>
+        /// Notification function, value = 74.
+        /// </summary>
+        Notification = 74
     }
 }

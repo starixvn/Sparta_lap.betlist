@@ -73,14 +73,17 @@
             </ul>
         </div>
 
-        <div class="notifications-block">
-            <a class="dropdown-button" href="javascript:void(0)" data-activates="notificationmsg">
-                <i class="icon-notification"></i>
-            </a>
+        @if (Model.IsAllowedNotification)
+        {
+            <div class="notifications-block">
+                <a class="dropdown-button" href="javascript:void(0)" data-activates="notificationmsg">
+                    <i class="icon-notification"></i>
+                </a>
 
-            <ul id="notificationmsg" class="dropdown-content">
-            </ul>
-        </div>
+                <ul id="notificationmsg" class="dropdown-content">
+                </ul>
+            </div>
+        }
 
         @if (Model.IsAllowedManagementMember)
         {

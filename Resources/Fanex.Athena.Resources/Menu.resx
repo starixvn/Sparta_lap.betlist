@@ -326,4 +326,12 @@
     <value>Win Loss By Time Zone</value>
     <comment>84932</comment>
   </data>
+  <data name="Menu_74" xml:space="preserve">
+    <value>NOTIFICATION</value>
+    <comment>84004</comment>
+  </data>
+  <data name="Menu_75" xml:space="preserve">
+    <value>Result Amendment/Recalculation</value>
+    <comment>84004</comment>
+  </data>
 </root>

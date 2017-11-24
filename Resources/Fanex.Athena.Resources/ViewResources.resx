@@ -3117,7 +3117,7 @@
     <comment>84004</comment>
   </data>
   <data name="Amendment" xml:space="preserve">
-    <value>Result Amendment/ Recalculation</value>
+    <value>Result Amendment/Recalculation</value>
     <comment>84004</comment>
   </data>
   <data name="NotificationDateRangeLimitNote" xml:space="preserve">
@@ -3126,6 +3126,10 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Notifications</value>
+    <comment>84004</comment>
+  </data>
+  <data name="DataIsNotAvailable" xml:space="preserve">
+    <value>Data is not available</value>
     <comment>84004</comment>
   </data>
 </root>
