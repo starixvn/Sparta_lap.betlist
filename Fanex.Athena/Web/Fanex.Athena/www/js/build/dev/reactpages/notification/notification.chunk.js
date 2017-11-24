@@ -20232,7 +20232,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 340, header: true, title: headerText.content },
+                    { colWidth: 320, header: true, title: headerText.content },
                     headerText.content
                 ),
                 _react2.default.createElement(
@@ -20327,7 +20327,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 _react2.default.createElement(_ReportTitle2.default, { content: this.reportTitle }),
                 _react2.default.createElement(_fixedTableHeader.Table, { minWidth: 650,
                     autoWidth: true,
-                    bodyHeight: 600,
+                    bodyHeight: 530,
                     header: this._buildHeader(),
                     body: this._buildBody(),
                     isPaging: true,
@@ -20909,7 +20909,7 @@ var Tabs = function (_Component) {
         var _this = _possibleConstructorReturn(this, (Tabs.__proto__ || Object.getPrototypeOf(Tabs)).call(this, props));
 
         _this.tabComponents = _react2.default.Children.toArray(props.children);
-        var tabState = _this.tabComponents.map(function (item) {
+        var tabState = _this.tabComponents.map(function (item, index) {
             return item.props.isActive;
         });
 
@@ -20917,19 +20917,19 @@ var Tabs = function (_Component) {
             tabState: tabState
         };
 
-        _this.currentTabIndex = 0;
+        for (var i = 0; i < tabState.length; i++) {
+            if (tabState[i]) {
+                _this.currentTabIndex = i;
+                break;
+            }
+        }
         return _this;
     }
 
     _createClass(Tabs, [{
         key: '_renderActiveTabContent',
         value: function _renderActiveTabContent() {
-            var activeTabIndex = this.state.tabState.findIndex(function (x) {
-                return x;
-            });
-            this.currentTabIndex = activeTabIndex;
-
-            return this.tabComponents[activeTabIndex].props.children;
+            return this.tabComponents[this.currentTabIndex].props.children;
         }
     }, {
         key: 'onTabChange',
@@ -20945,6 +20945,8 @@ var Tabs = function (_Component) {
             this.setState({
                 tabState: newTabState
             });
+
+            this.currentTabIndex = tabIndex;
         }
     }, {
         key: '_renderTabComponents',

@@ -106,7 +106,7 @@ export class DataGrid extends Component {
             <Row style={{ height: 32 }}>
                 <Cell colWidth={30} header={true} title={headerText.index}>{headerText.index}</Cell>
                 <Cell colWidth={150} header={true} title={headerText.dateTime}>{headerText.dateTime}</Cell>
-                <Cell colWidth={340} header={true} title={headerText.content}>{headerText.content}</Cell>
+                <Cell colWidth={320} header={true} title={headerText.content}>{headerText.content}</Cell>
                 <Cell colWidth={30} header={true} title={headerText.ticketList}>{headerText.ticketList}</Cell>
             </Row>
         );
@@ -171,7 +171,7 @@ export class DataGrid extends Component {
 
                 <Table minWidth={650}
                        autoWidth={true}
-                       bodyHeight={600}
+                       bodyHeight={540}
                        header={this._buildHeader()}
                        body={this._buildBody()}
                        isPaging={true}

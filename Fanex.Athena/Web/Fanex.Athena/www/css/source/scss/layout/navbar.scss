@@ -448,18 +448,18 @@ header {
                 }
 
                 li > span {
-                    font-size: 0.8em;
+                    font-size: 0.9em;
                     padding-top: 0;
                 }
 
                 .type {
-                    width: 55%;
                     color: #4caf50;
+                    display: block;
+                    padding-bottom: 0;
                 }
 
                 .date-time {
-                    width: 45%;
-                    float: right;
+                    display: block;
                     text-align: right;
                     color: #d3d3d3;
                 }

@@ -7,7 +7,7 @@ export default class Tabs extends Component {
         super(props);
 
         this.tabComponents = React.Children.toArray(props.children);
-        const tabState = this.tabComponents.map((item) => {
+        const tabState = this.tabComponents.map((item, index) => {
             return item.props.isActive;
         });
 
@@ -15,14 +15,16 @@ export default class Tabs extends Component {
             tabState: tabState
         }
 
-        this.currentTabIndex = 0;
+        for (let i = 0; i < tabState.length; i++) {
+            if (tabState[i]) {
+                this.currentTabIndex = i;
+                break;
+            }
+        }       
     }
 
     _renderActiveTabContent() {
-        const activeTabIndex = this.state.tabState.findIndex(x => x);
-        this.currentTabIndex = activeTabIndex;
-
-        return this.tabComponents[activeTabIndex].props.children;
+        return this.tabComponents[this.currentTabIndex].props.children;
     }
 
     onTabChange(tabIndex) {
@@ -37,6 +39,8 @@ export default class Tabs extends Component {
         this.setState({
             tabState: newTabState
         });
+
+        this.currentTabIndex = tabIndex;
     }
 
     _renderTabComponents() {
