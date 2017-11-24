@@ -7,18 +7,26 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
                                 "</li>";
         var GET_NOTIFICATION_URL = "api/NotificationReport/GetNotificationMessages";
         var MARK_NOTIFICATION = "api/NotificationReport/MarkNotificationAsRead";
+        var POPUP_ID = "view-notifiation";
 
         var $notificationDdl = "";
         var $notificationLabel = "";
         var _newMsg = null;
+        var _totalMsg = 0;
 
         function openDetailPopup(message, index) {
+
+            var popup = $("#" + POPUP_ID);
+            if (popup.is(":visible")) {
+                popup.find('a.popup-close').click();
+            }
+
             var options = {
                 modal: true,
                 title: Site.getSingleResource("ViewNotification"),
                 height: "auto",
-                id: "view-notifiation",
-                width: 600,
+                id: POPUP_ID,
+                width: "auto",
                 onClose: function () {
                     var postData = {
                         MessageType: message.Type,
@@ -26,6 +34,7 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
                     };
 
                     markMessageAsRead(postData, index);
+                    $("#" + POPUP_ID).remove();
                 }
             };
 
@@ -73,7 +82,7 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
                 success: function (response) {
                     setTimeout(function () {
                         if (_newMsg === null && response.IsSuccessful) {
-                            updateNumberLabel($notificationDdl.children(".notification-item").length - 1);
+                            updateNumberLabel(_totalMsg - 1);
                             $notificationDdl.find("#notification-item-" + index).remove();
                         }
                     }, 100);
@@ -83,6 +92,8 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
 
         function updateNumberLabel(num) {
             var $numberOfMsg = $(".number-notifications", ".notifications-block");
+
+            _totalMsg = num;
 
             if (num <= 0) {
                 $numberOfMsg.remove();

@@ -52,10 +52,12 @@
     .content {
         padding: 5px;
         border: solid 1px $colorBorderTable;
+        position: relative;
     }
 
     .wrapContent {
         max-height: 600px;
+        max-width: 600px;
     }
 }
 

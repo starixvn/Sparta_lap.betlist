@@ -82,7 +82,7 @@ export class DataGrid extends Component {
 
         this.props.toggleLoader(true);
         this.props.exportAttachment(params).then(response => {
-            if(response.statusCode === 204) {
+            if(response.status === 204) {
                 alert(LangHelper.getSingleResource('DataIsNotAvailable'));
             }
             else{

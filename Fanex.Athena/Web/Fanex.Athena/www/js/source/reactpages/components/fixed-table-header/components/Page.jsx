@@ -41,7 +41,7 @@ export default class Page extends Component {
     }
 
     goToPage(index, pageSize) {
-        this._updateState(index, null, this.props.pageOption.TotalItem/pageSize, pageSize);
+        this._updateState(index, null, Math.ceil(this.props.pageOption.TotalItem/pageSize), pageSize);
         this.props.onPaging && this.props.onPaging(index, pageSize);
     }
 
