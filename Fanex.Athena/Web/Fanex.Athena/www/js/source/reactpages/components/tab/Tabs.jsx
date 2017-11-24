@@ -15,12 +15,7 @@ export default class Tabs extends Component {
             tabState: tabState
         }
 
-        for (let i = 0; i < tabState.length; i++) {
-            if (tabState[i]) {
-                this.currentTabIndex = i;
-                break;
-            }
-        }       
+        this.currentTabIndex = tabState.findIndex(x => x);    
     }
 
     _renderActiveTabContent() {
