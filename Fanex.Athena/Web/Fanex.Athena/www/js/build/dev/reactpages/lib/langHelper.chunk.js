@@ -44,26 +44,26 @@ exports.default = LangHelper;
 
 /***/ }),
 
-/***/ 678:
+/***/ 679:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(14);
-__webpack_require__(679);
 __webpack_require__(680);
 __webpack_require__(681);
 __webpack_require__(682);
-module.exports = __webpack_require__(683);
+__webpack_require__(683);
+module.exports = __webpack_require__(684);
 
 
 /***/ }),
 
-/***/ 679:
+/***/ 680:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 11/13/2017 1:13:44 PM
+// Generated at: 11/24/2017 8:53:23 AM
 window._language_en_US = {
   AA: "AA",
   AccessDeniedMsg: "Sorry, You don&apos;t have permission to access this page.",
@@ -99,7 +99,7 @@ window._language_en_US = {
   AllBetTypes: "All Bet Types",
   AllCurrencies: "All Currencies",
   AllSites: "All Sites",
-  Amendment: "Result Amendment/ Recalculation",
+  Amendment: "Result Amendment/Recalculation",
   Amount: "Amount",
   AmountDue: "Amount Due",
   AmountDueTo: "Amount Due To",
@@ -272,6 +272,7 @@ window._language_en_US = {
   DailyStatement: "Daily Statement",
   DailyStatementMsg: "Support data up to 4 months only",
   Data: "data",
+  DataIsNotAvailable: "Data is not available",
   DataWareHouse: "Data Warehouse",
   Date: "Date",
   DateRange: "Date Range",
@@ -645,6 +646,7 @@ window._language_en_US = {
   NotIdenticalPasswordMsg: "Passwords are not identical",
   Notification: "Notification",
   NotificationDateRangeLimitNote: "Data is available within 6 months",
+  Notifications: "Notifications",
   NotSupportYet: "This game type has not been supported yet!",
   Nov: "Nov",
   November: "November",
@@ -1009,7 +1011,7 @@ window._language_en_US = {
 
 /***/ }),
 
-/***/ 680:
+/***/ 681:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1780,7 +1782,7 @@ window._language_ko_KR = {
 
 /***/ }),
 
-/***/ 681:
+/***/ 682:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2591,7 +2593,7 @@ window._language_zh_CN = {
 
 /***/ }),
 
-/***/ 682:
+/***/ 683:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3388,7 +3390,7 @@ window._language_zh_Hans = {
 
 /***/ }),
 
-/***/ 683:
+/***/ 684:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4199,5 +4201,5 @@ window._language_zh_TW = {
 
 /***/ })
 
-},[678]);
+},[679]);
 //# sourceMappingURL=langHelper.chunk.js.map

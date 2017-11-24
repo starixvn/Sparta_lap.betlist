@@ -15,7 +15,7 @@ module.exports = __webpack_require__(197);
 /***/ 193:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 11/13/2017 1:13:44 PM
+﻿// Generated at: 11/24/2017 8:53:23 AM
 window._language_en_US = {
 AA:"AA",
 AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -51,7 +51,7 @@ All:"All",
 AllBetTypes:"All Bet Types",
 AllCurrencies:"All Currencies",
 AllSites:"All Sites",
-Amendment:"Result Amendment/ Recalculation",
+Amendment:"Result Amendment/Recalculation",
 Amount:"Amount",
 AmountDue:"Amount Due",
 AmountDueTo:"Amount Due To",
@@ -224,6 +224,7 @@ DailyRacingWinLoss:"Daily Racing Win Loss",
 DailyStatement:"Daily Statement",
 DailyStatementMsg:"Support data up to 4 months only",
 Data:"data",
+DataIsNotAvailable:"Data is not available",
 DataWareHouse:"Data Warehouse",
 Date:"Date",
 DateRange:"Date Range",
@@ -597,6 +598,7 @@ Note:"Note",
 NotIdenticalPasswordMsg:"Passwords are not identical",
 Notification:"Notification",
 NotificationDateRangeLimitNote:"Data is available within 6 months",
+Notifications:"Notifications",
 NotSupportYet:"This game type has not been supported yet!",
 Nov:"Nov",
 November:"November",

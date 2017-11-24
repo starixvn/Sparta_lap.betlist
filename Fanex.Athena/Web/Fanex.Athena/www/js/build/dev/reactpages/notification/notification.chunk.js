@@ -1831,7 +1831,7 @@ function loadLocale(name) {
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
-            __webpack_require__(268)("./" + name);
+            __webpack_require__(269)("./" + name);
             // because defineLocale currently also sets the global locale, we
             // want to undo that for lazy loaded locales
             getSetGlobalLocale(oldLocale);
@@ -16201,7 +16201,7 @@ var _parseInput = __webpack_require__(45);
 
 var _parseInput2 = _interopRequireDefault(_parseInput);
 
-var _DayCell = __webpack_require__(269);
+var _DayCell = __webpack_require__(270);
 
 var _DayCell2 = _interopRequireDefault(_DayCell);
 
@@ -16759,7 +16759,7 @@ var _langHelper = __webpack_require__(14);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _locale = __webpack_require__(271);
+var _locale = __webpack_require__(272);
 
 var _locale2 = _interopRequireDefault(_locale);
 
@@ -16768,12 +16768,6 @@ var _constants = __webpack_require__(46);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function cloneMomentObject(date, defaultValue) {
-    if (date) {
-        return date.clone();
-    }
-}
 
 exports.default = {
     ranges: function ranges(today) {
@@ -16905,7 +16899,8 @@ var SET_PARAM = exports.SET_PARAM = "RESULTAMENDMENT_SET_PARAM";
 /* 252 */,
 /* 253 */,
 /* 254 */,
-/* 255 */
+/* 255 */,
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16930,7 +16925,7 @@ var toggleLoader = exports.toggleLoader = function toggleLoader(show) {
 };
 
 /***/ }),
-/* 256 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16941,15 +16936,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Cell = exports.Row = exports.Table = undefined;
 
-var _Table = __webpack_require__(257);
+var _Table = __webpack_require__(258);
 
 var _Table2 = _interopRequireDefault(_Table);
 
-var _Row = __webpack_require__(261);
+var _Row = __webpack_require__(262);
 
 var _Row2 = _interopRequireDefault(_Row);
 
-var _Cell = __webpack_require__(262);
+var _Cell = __webpack_require__(263);
 
 var _Cell2 = _interopRequireDefault(_Cell);
 
@@ -16960,7 +16955,7 @@ exports.Row = _Row2.default;
 exports.Cell = _Cell2.default;
 
 /***/ }),
-/* 257 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16982,7 +16977,7 @@ var _reactDom = __webpack_require__(10);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _RowLayout = __webpack_require__(258);
+var _RowLayout = __webpack_require__(259);
 
 var _RowLayout2 = _interopRequireDefault(_RowLayout);
 
@@ -16990,13 +16985,13 @@ var _propTypes = __webpack_require__(6);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _tableSection = __webpack_require__(259);
+var _tableSection = __webpack_require__(260);
 
 var _tableSection2 = _interopRequireDefault(_tableSection);
 
 var _constants = __webpack_require__(70);
 
-var _Page = __webpack_require__(260);
+var _Page = __webpack_require__(261);
 
 var _Page2 = _interopRequireDefault(_Page);
 
@@ -17231,7 +17226,7 @@ Table.defaultProps = {
 exports.default = Table;
 
 /***/ }),
-/* 258 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17300,7 +17295,7 @@ RowLayout.propTypes = {
 exports.default = RowLayout;
 
 /***/ }),
-/* 259 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17440,7 +17435,7 @@ var createTableSection = function createTableSection(extendedContainerProps, ext
 exports.default = createTableSection;
 
 /***/ }),
-/* 260 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17637,7 +17632,7 @@ Page.defaultProps = {
 exports.default = Page;
 
 /***/ }),
-/* 261 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17687,7 +17682,7 @@ var Row = function (_Component) {
 exports.default = Row;
 
 /***/ }),
-/* 262 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17758,7 +17753,7 @@ Cell.defaultProps = {
 exports.default = Cell;
 
 /***/ }),
-/* 263 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17816,7 +17811,7 @@ var ReportTitle = function (_Component) {
 exports.default = ReportTitle;
 
 /***/ }),
-/* 264 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17874,8 +17869,8 @@ var NoDataTitle = function (_Component) {
 exports.default = NoDataTitle;
 
 /***/ }),
-/* 265 */,
-/* 266 */
+/* 266 */,
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17886,7 +17881,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Calendar = exports.DateRange = undefined;
 
-var _DateRange = __webpack_require__(267);
+var _DateRange = __webpack_require__(268);
 
 var _DateRange2 = _interopRequireDefault(_DateRange);
 
@@ -17900,7 +17895,7 @@ exports.DateRange = _DateRange2.default;
 exports.Calendar = _Calendar2.default;
 
 /***/ }),
-/* 267 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17934,7 +17929,7 @@ var _Calendar = __webpack_require__(186);
 
 var _Calendar2 = _interopRequireDefault(_Calendar);
 
-var _PredefinedRanges = __webpack_require__(270);
+var _PredefinedRanges = __webpack_require__(271);
 
 var _PredefinedRanges2 = _interopRequireDefault(_PredefinedRanges);
 
@@ -18328,7 +18323,7 @@ DateRange.propTypes = {
 exports.default = DateRange;
 
 /***/ }),
-/* 268 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -18577,10 +18572,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 268;
+webpackContext.id = 269;
 
 /***/ }),
-/* 269 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18783,7 +18778,7 @@ DayCell.propTypes = {
 exports.default = DayCell;
 
 /***/ }),
-/* 270 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18986,7 +18981,7 @@ PredefinedRanges.propTypes = {
 exports.default = PredefinedRanges;
 
 /***/ }),
-/* 271 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19013,7 +19008,92 @@ exports.default = {
 };
 
 /***/ }),
-/* 272 */
+/* 273 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _xlsxStyle = __webpack_require__(237);
+
+var XLSX = _interopRequireWildcard(_xlsxStyle);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var EXCEL_TYPE = "xlsx";
+
+var Excel = function () {
+    function Excel() {
+        _classCallCheck(this, Excel);
+    }
+
+    _createClass(Excel, null, [{
+        key: 'export',
+        value: function _export(worksheet, fileName) {
+            var option = { bookType: EXCEL_TYPE, bookSST: false, type: 'binary' };
+            var workbook = { SheetNames: [fileName], Sheets: {}, Props: {} };
+            workbook.Sheets[fileName] = worksheet;
+
+            var workbookOutput = XLSX.write(workbook, option);
+            this.download(workbookOutput, fileName);
+        }
+    }, {
+        key: 'getCellAddress',
+        value: function getCellAddress(cellObject) {
+            return XLSX.utils.encode_cell(cellObject);
+        }
+    }, {
+        key: 'download',
+        value: function download(workbookOut, fileName) {
+            var blob = new Blob([this.sheetToArrayBuffer(workbookOut)], {
+                type: "application/octet-stream"
+            });
+
+            this.downloadFromBolb(blob, fileName);
+        }
+    }, {
+        key: 'downloadFromBolb',
+        value: function downloadFromBolb(blob, fileName) {
+            var fileNameDownload = fileName + '.' + EXCEL_TYPE;
+
+            // IE 10+
+            if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob) {
+                navigator.msSaveOrOpenBlob(blob, fileNameDownload);
+            } else {
+                var element = window.document.createElement('a');
+                element.href = window.URL.createObjectURL(blob);
+                element.download = fileNameDownload;
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+            }
+        }
+    }, {
+        key: 'sheetToArrayBuffer',
+        value: function sheetToArrayBuffer(s) {
+            var buffer = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buffer);
+            for (var i = 0; i != s.length; ++i) {
+                view[i] = s.charCodeAt(i) & 0xFF;
+            }return buffer;
+        }
+    }]);
+
+    return Excel;
+}();
+
+exports.default = Excel;
+
+/***/ }),
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19078,7 +19158,7 @@ exports.default = Loader;
 ;
 
 /***/ }),
-/* 273 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19132,7 +19212,7 @@ var AppLayout = function (_Component) {
 exports.default = AppLayout;
 
 /***/ }),
-/* 274 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19162,7 +19242,7 @@ var isLoading = exports.isLoading = (0, _createReducer3.default)({}, _defineProp
 }));
 
 /***/ }),
-/* 275 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19177,8 +19257,6 @@ var debuggingConfig = exports.debuggingConfig = {
 };
 
 /***/ }),
-/* 276 */,
-/* 277 */,
 /* 278 */,
 /* 279 */,
 /* 280 */,
@@ -19285,7 +19363,8 @@ var debuggingConfig = exports.debuggingConfig = {
 /* 381 */,
 /* 382 */,
 /* 383 */,
-/* 384 */
+/* 384 */,
+/* 385 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19304,7 +19383,7 @@ var _filterHandlerAction = __webpack_require__(717);
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
 
-var _loaderAction = __webpack_require__(255);
+var _loaderAction = __webpack_require__(256);
 
 var loaderAction = _interopRequireWildcard(_loaderAction);
 
@@ -19313,7 +19392,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var ActionCreators = exports.ActionCreators = Object.assign({}, dataHandlerAction, filterHandlerAction, loaderAction);
 
 /***/ }),
-/* 385 */
+/* 386 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19378,7 +19457,7 @@ exports.default = Tab;
 ;
 
 /***/ }),
-/* 386 */
+/* 387 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19400,7 +19479,6 @@ var GET_NOTIFICATION_TYPE = exports.GET_NOTIFICATION_TYPE = "GENERAL_GET_NOTIFIC
 var SET_PARAM = exports.SET_PARAM = "GENERAL_SET_PARAM";
 
 /***/ }),
-/* 387 */,
 /* 388 */,
 /* 389 */,
 /* 390 */,
@@ -19763,7 +19841,7 @@ var _reducers = __webpack_require__(723);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
-var _config = __webpack_require__(275);
+var _config = __webpack_require__(277);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19847,11 +19925,11 @@ var _resultAmendment = __webpack_require__(714);
 
 var _resultAmendment2 = _interopRequireDefault(_resultAmendment);
 
-var _Loader = __webpack_require__(272);
+var _Loader = __webpack_require__(274);
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
-var _AppLayout = __webpack_require__(273);
+var _AppLayout = __webpack_require__(275);
 
 var _AppLayout2 = _interopRequireDefault(_AppLayout);
 
@@ -19986,21 +20064,21 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(33);
 
-var _resultAmendment = __webpack_require__(384);
+var _resultAmendment = __webpack_require__(385);
 
 var _redux = __webpack_require__(19);
 
-var _fixedTableHeader = __webpack_require__(256);
+var _fixedTableHeader = __webpack_require__(257);
 
 var _langHelper = __webpack_require__(14);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _ReportTitle = __webpack_require__(263);
+var _ReportTitle = __webpack_require__(264);
 
 var _ReportTitle2 = _interopRequireDefault(_ReportTitle);
 
-var _NoDataTitle = __webpack_require__(264);
+var _NoDataTitle = __webpack_require__(265);
 
 var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
 
@@ -20019,6 +20097,10 @@ var _CollapsibleRow2 = _interopRequireDefault(_CollapsibleRow);
 var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
+
+var _excel = __webpack_require__(273);
+
+var _excel2 = _interopRequireDefault(_excel);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20042,10 +20124,9 @@ var DataGrid = exports.DataGrid = function (_Component) {
             paramData.PageIndex = index;
             paramData.PageSize = size;
 
-            var params = {
-                xsrfToken: _this.props.xsrfToken,
+            var params = _this._buildParams({
                 data: paramData
-            };
+            });
 
             _this.props.toggleLoader(true);
             _this.props.getGridData(params);
@@ -20084,21 +20165,52 @@ var DataGrid = exports.DataGrid = function (_Component) {
         value: function onExpand(index, item) {
             var _props$gridData = this.props.gridData,
                 Data = _props$gridData.Data,
-                Total = _props$gridData.Total;
+                Total = _props$gridData.Total,
+                DownloadFileApi = _props$gridData.DownloadFileApi;
 
             Data[index].IsExpand = true;
 
             if (!item.IsRead) {
-                this.props.markItemAsRead({
+                this.props.markItemAsRead(this._buildParams({
                     Index: index,
                     Id: item.Id,
                     Type: item.Type,
                     Data: Data,
-                    Total: Total
-                });
+                    Total: Total,
+                    DownloadFileApi: DownloadFileApi
+                }));
             } else {
-                this.props.setGridData({ Data: Data, Total: Total });
+                this.props.setGridData({ Data: Data, Total: Total, DownloadFileApi: DownloadFileApi });
             }
+        }
+    }, {
+        key: 'exportExcel',
+        value: function exportExcel(item) {
+            var _this2 = this;
+
+            var params = this._buildParams({
+                api: this.props.gridData.DownloadFileApi,
+                fileName: item.DataFilePath
+            });
+            var datetimeString = (0, _moment2.default)(item.DateTime).format("MM-DD-YYYY_hh-mm-ss-A");
+
+            this.props.toggleLoader(true);
+            this.props.exportAttachment(params).then(function (response) {
+                if (response.statusCode === 204) {
+                    alert(_langHelper2.default.getSingleResource('DataIsNotAvailable'));
+                } else {
+                    var blob = response.data;
+                    var fileName = 'AmendmentAttachmemt_' + datetimeString;
+                    _excel2.default.downloadFromBolb(blob, fileName);
+                }
+                _this2.props.toggleLoader(false);
+            });
+        }
+    }, {
+        key: '_buildParams',
+        value: function _buildParams(params) {
+            params.xsrfToken = this.props.xsrfToken;
+            return params;
         }
     }, {
         key: '_buildHeader',
@@ -20133,9 +20245,11 @@ var DataGrid = exports.DataGrid = function (_Component) {
     }, {
         key: '_buildBody',
         value: function _buildBody() {
-            var _this2 = this;
+            var _this3 = this;
 
             var data = this.props.gridData.Data;
+            var exportToExcelTitle = _langHelper2.default.getSingleResource("ExportToExcel");
+
             var rows = [];
 
             var _loop = function _loop(i) {
@@ -20158,13 +20272,15 @@ var DataGrid = exports.DataGrid = function (_Component) {
                         _fixedTableHeader.Cell,
                         { title: item.Subject },
                         _react2.default.createElement(_CollapsibleRow2.default, { subject: item.Subject, content: item.Content, onExpand: function onExpand() {
-                                return _this2.onExpand(i, item);
+                                return _this3.onExpand(i, item);
                             }, isExpand: item.IsExpand, isHtml: true })
                     ),
                     _site2.default.asNull(item.DataFilePath) === null ? _react2.default.createElement(_fixedTableHeader.Cell, null) : _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { title: _langHelper2.default.getSingleResource("ExportToExcel"), className: 'center-align' },
-                        _react2.default.createElement('a', { href: item.DataFilePath, className: 'icon-excel' })
+                        { title: exportToExcelTitle, className: 'center-align' },
+                        _react2.default.createElement('a', { onClick: function onClick() {
+                                return _this3.exportExcel(item);
+                            }, className: 'icon-excel' })
                     )
                 ));
             };
@@ -20252,6 +20368,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.getGridData = getGridData;
 exports.setGridData = setGridData;
 exports.markItemAsRead = markItemAsRead;
+exports.exportAttachment = exportAttachment;
 
 var _types = __webpack_require__(207);
 
@@ -20269,19 +20386,33 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
+var header = function header(xsrfToken) {
+    return {
+        'X-Requested-With': 'XMLHttpRequest',
+        '__RequestVerificationToken': xsrfToken
+    };
+};
+
 var fetchData = function fetchData(params) {
     var url = _site2.default.resolveClientUrl('api/NotificationReport/ResultAmendment');
     return _axios2.default.post(url, params.data, {
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            '__RequestVerificationToken': params.xsrfToken
-        }
+        headers: header(params.xsrfToken)
     });
 };
 
-var markNotification = function markNotification(id, type) {
+var markNotification = function markNotification(params) {
     var url = _site2.default.resolveClientUrl('api/NotificationReport/MarkNotificationAsRead');
-    return _axios2.default.post(url, { MessageId: id, MessageType: type });
+    return _axios2.default.post(url, { MessageId: params.id, MessageType: params.type }, {
+        headers: header(params.xsrfToken)
+    });
+};
+
+var downloadData = function downloadData(params) {
+    var url = _site2.default.resolveClientUrl('api/NotificationReport/DownLoadFileAttachment');
+    return _axios2.default.post(url, { FileName: params.fileName, Api: params.api }, {
+        headers: header(params.xsrfToken),
+        responseType: 'blob'
+    });
 };
 
 function getGridData(params) {
@@ -20289,7 +20420,8 @@ function getGridData(params) {
         fetchData(params).then(function (response) {
             dispatch(setGridData({
                 Data: response.data.DataList,
-                Total: response.data.TotalRows
+                Total: response.data.TotalRows,
+                DownloadFileApi: response.data.DownloadFileApi
             }));
         });
     };
@@ -20304,16 +20436,23 @@ function setGridData(data) {
 
 function markItemAsRead(params) {
     return function (dispatch) {
-        markNotification(params.Id, params.Type).then(function (response) {
+        markNotification({ id: params.Id, type: params.Type, xsrfToken: params.xsrfToken }).then(function (response) {
             if (response.data.IsSuccessful) {
                 params.Data[params.Index].IsRead = true;
 
                 dispatch(setGridData({
                     Data: params.Data,
-                    Total: params.Total
+                    Total: params.Total,
+                    DownloadFileApi: params.DownloadFileApi
                 }));
             }
         });
+    };
+}
+
+function exportAttachment(params) {
+    return function () {
+        return downloadData(params);
     };
 }
 
@@ -20533,11 +20672,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(33);
 
-var _resultAmendment = __webpack_require__(384);
+var _resultAmendment = __webpack_require__(385);
 
 var _redux = __webpack_require__(19);
 
-var _dateRange = __webpack_require__(266);
+var _dateRange = __webpack_require__(267);
 
 var _langHelper = __webpack_require__(14);
 
@@ -20686,11 +20825,6 @@ var FormFilter = exports.FormFilter = function (_Component) {
                         _react2.default.createElement('span', { className: 'circle' }),
                         _langHelper2.default.getSingleResource("NotificationDateRangeLimitNote")
                     )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'caret-block' },
-                    _react2.default.createElement('i', { className: 'icon-book right', title: _langHelper2.default.getSingleResource("UserGuide") })
                 )
             );
         }
@@ -20728,7 +20862,7 @@ var _Tabs = __webpack_require__(722);
 
 var _Tabs2 = _interopRequireDefault(_Tabs);
 
-var _Tab = __webpack_require__(385);
+var _Tab = __webpack_require__(386);
 
 var _Tab2 = _interopRequireDefault(_Tab);
 
@@ -20754,7 +20888,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Tab = __webpack_require__(385);
+var _Tab = __webpack_require__(386);
 
 var _Tab2 = _interopRequireDefault(_Tab);
 
@@ -20875,7 +21009,7 @@ var _resultAmendment = __webpack_require__(727);
 
 var _resultAmendment2 = _interopRequireDefault(_resultAmendment);
 
-var _loaderReducer = __webpack_require__(274);
+var _loaderReducer = __webpack_require__(276);
 
 var loaderReducer = _interopRequireWildcard(_loaderReducer);
 
@@ -20936,7 +21070,7 @@ var _createReducer2 = __webpack_require__(23);
 
 var _createReducer3 = _interopRequireDefault(_createReducer2);
 
-var _types = __webpack_require__(386);
+var _types = __webpack_require__(387);
 
 var types = _interopRequireWildcard(_types);
 
@@ -20966,7 +21100,7 @@ var _createReducer6 = __webpack_require__(23);
 
 var _createReducer7 = _interopRequireDefault(_createReducer6);
 
-var _types = __webpack_require__(386);
+var _types = __webpack_require__(387);
 
 var types = _interopRequireWildcard(_types);
 

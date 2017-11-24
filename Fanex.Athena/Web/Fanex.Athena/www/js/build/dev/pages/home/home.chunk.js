@@ -18141,7 +18141,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                 type: "POST",
                 data: postData,
                 dataType: "json",
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false,
                 success: function (response) {
                     setTimeout(function () {
@@ -18182,14 +18181,23 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             var apiUrl = Site.resolveClientUrl(GET_NOTIFICATION_URL);
 
             var processNotification = function () {
-                $.get(apiUrl, function (data) {
-                    if ($notificationDdl.is(":visible")) {
-                        _newMsg = data;
-                        return;
-                    }
+                $.ajax({
+                    url: apiUrl,
+                    async: false,
+                    type: "GET",
+                    cache: false,
+                    success: function (data) {
+                        if ($notificationDdl.is(":visible")) {
+                            _newMsg = data;
+                            return;
+                        }
 
-                    _newMsg = null;
-                    addNotificationItems(data);
+                        _newMsg = null;
+                        addNotificationItems(data);
+                    },
+                    statusCode: {
+                        403: function () {}
+                    }
                 });
             };
 
