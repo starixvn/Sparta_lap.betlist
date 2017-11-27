@@ -88,8 +88,8 @@ namespace Fanex.Athena.Excel.Report
         protected override void AssignTitle(ISheet sheet)
         {
             var reportTitle = ReportExcelHelper.GenerateReportTitle(
-                ViewResources.CasinoProgressiveWins, 
-                _convertingOption, 
+                ViewResources.CasinoProgressiveWins,
+                _convertingOption,
                 _metaModel.FromDate,
                 _metaModel.ToDate,
                 _metaModel.CurrencyId);
@@ -102,16 +102,12 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        protected void AssignCommonData(IRow row, CasinoProgressiveWins data)
+        private void AssignCommonData(IRow row, CasinoProgressiveWins data)
         {
             row.Cells[ColumnIndex].SetCellValue(data.Index);
             row.Cells[ColumnExternalId].SetCellValue(data.ExternalId);
             row.Cells[ColumnSystemId].SetCellValue(data.SystemId);
             row.Cells[ColumnDate].SetCellValue(data.WinlostDate.ToShortDateString());
-            row.Cells[ColumnIndex].SetCellValue(data.Index);
-            row.Cells[ColumnDate].SetCellValue(data.WinlostDate);
-            row.Cells[ColumnExternalId].SetCellValue(data.ExternalId);
-            row.Cells[ColumnSystemId].SetCellValue(data.SystemId);
             row.Cells[ColumnRefNo].SetCellValue(data.RefNo);
             row.Cells[ColumnChoice].SetCellValue(GetChoiceText(data));
             row.Cells[ColumnAmount].SetCellValue(data.WinAmount);

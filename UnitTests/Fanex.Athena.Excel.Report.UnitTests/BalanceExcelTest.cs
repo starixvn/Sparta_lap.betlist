@@ -17,7 +17,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
     {
         private const string Date = "abc";
 
-        private const int ColumnCount = 21;
+        private const int ColumnCount = 9;
 
         private static readonly BalanceDetails DataItem = new BalanceDetails
         {
