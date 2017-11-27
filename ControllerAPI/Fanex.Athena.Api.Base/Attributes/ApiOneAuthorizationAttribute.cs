@@ -71,6 +71,9 @@
                 actionContext.ActionArguments["licenseeid"] = licensee.Id;
                 actionContext.ActionArguments["userid"] = token.UserSEQ;
                 actionContext.ActionArguments["currencyIDList"] = string.Join(",", token.Currency.Select(i => i.CurrencyId).ToArray());
+                actionContext.ActionArguments["username"] = token.UserID;
+                actionContext.ActionArguments["sitename"] = token.SiteName;
+
                 return continuation?.Invoke();
             }
             catch (Exception exception)

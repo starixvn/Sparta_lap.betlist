@@ -38,6 +38,10 @@
             _notificationService = notificationService ?? new NotificationService();
         }
 
+        private string UserName => (string)ActionContext.ActionArguments["username"];
+
+        private string SiteName => (string)ActionContext.ActionArguments["sitename"];
+
         [HttpGet]
         public string Index()
         {
@@ -54,6 +58,8 @@
             metaModel.ToDate = MaxDate;
             metaModel.PageSize = 10;
             metaModel.PageIndex = 1;
+            metaModel.UserName = UserName;
+            metaModel.LicenseeName = SiteName;
 
             return _notificationService.GetNotificationMessages(metaModel);
         }
@@ -61,6 +67,9 @@
         [HttpPost]
         public dynamic MarkNotificationAsRead(NotificationMarkAsReadMetaModel metaModel)
         {
+            metaModel.UserName = UserName;
+            metaModel.LicenseeName = SiteName;
+
             var result = _notificationService.MarkNotificationAsRead(metaModel);
 
             return new
