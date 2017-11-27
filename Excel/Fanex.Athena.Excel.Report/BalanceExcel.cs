@@ -56,12 +56,6 @@ namespace Fanex.Athena.Excel.Report
             _date = date;
         }
 
-        public string SelectedMonth
-        {
-            get;
-            set;
-        }
-
         /// <summary>
         /// Assign data to excel sheet.
         /// </summary>
