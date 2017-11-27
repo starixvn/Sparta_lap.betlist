@@ -13,13 +13,13 @@
 
             describe("initialize(titleResource)", function () {
                 it("Site is initialized", function () {
-                    spyOn(CustomerCommGroupDetail, "setPageTitle");
+                    spyOn(CustomerCommGroup, "setPageTitle");
                     spyOn($.fn, "colorPicker");
 
                     CustomerCommGroupDetail.initialize("title");
 
                     expect(Site.initialize).toHaveBeenCalled();
-                    expect(CustomerCommGroupDetail.setPageTitle).toHaveBeenCalledWith("title");
+                    expect(CustomerCommGroup.setPageTitle).toHaveBeenCalledWith("title");
                     expect($("#GroupColor").colorPicker).toHaveBeenCalled();
                 });
 
@@ -46,13 +46,13 @@
 
                 it("redirect to Index if Cancel button is clicked", function () {
                     setFixtures('<button id="Cancel"></button>');
-                    spyOn(CustomerCommGroupDetail, "setPageTitle");
+                    spyOn(CustomerCommGroup, "setPageTitle");
                     spyOn(Site, "redirect");
 
                     CustomerCommGroupDetail.initEvent();
                     $("#Cancel").click();
 
-                    expect(CustomerCommGroupDetail.setPageTitle).toHaveBeenCalledWith("CommissionGroupList");
+                    expect(CustomerCommGroup.setPageTitle).toHaveBeenCalledWith("CommissionGroupList");
                     expect(Site.redirect).toHaveBeenCalledWith("CustomerComGroup/Index");
                 });
 
@@ -233,17 +233,6 @@
                         expect(actualMethod).toEqual("disabled");
                         expect(actualOptions).toEqual(false);
                     });
-                });
-            });
-
-            describe("setPageTitle(title)", function () {
-                it("change page title with correct param", function () {
-                    var expectedTitle = "title";
-                    spyOn(CustomerCommGroup, "setPageTitle");
-
-                    CustomerCommGroupDetail.setPageTitle(expectedTitle);
-
-                    expect(CustomerCommGroup.setPageTitle).toHaveBeenCalledWith(expectedTitle);
                 });
             });
 

@@ -6,7 +6,7 @@
              Site.initialize();
           
              initColorPicker();
-             _me.setPageTitle(Site.getSingleResource(titleResource));
+             CustomerCommGroup.setPageTitle(Site.getSingleResource(titleResource));
              _me.initEvent();
          }
 
@@ -17,7 +17,7 @@
              });
 
              $("#Cancel").click(function () {
-                 _me.setPageTitle("CommissionGroupList");
+                 CustomerCommGroup.setPageTitle(Site.getSingleResource("CommissionGroupList"));
                  Site.redirect(Site.resolveClientUrl("CustomerComGroup/Index"));
              });
 
@@ -49,10 +49,6 @@
              $("#ABComm1").on("change", function () {
                  commissionOnChange($(this).val(), "ABComm");
              }).change();
-         }
-
-         function setPageTitle(title) {
-             CustomerCommGroup.setPageTitle(title);
          }
 
          function checkAvailableGroup(groupName) {
@@ -213,7 +209,6 @@
              initEvent: initEvent,
              submit: submit,
              checkAvailableGroup: checkAvailableGroup,
-             setPageTitle: setPageTitle,
              goToCustomerList: goToCustomerList
          };
 
