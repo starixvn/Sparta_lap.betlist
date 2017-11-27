@@ -54,7 +54,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
              Site.initialize();
           
              initColorPicker();
-             _me.setPageTitle(Site.getSingleResource(titleResource));
+             CustomerCommGroup.setPageTitle(Site.getSingleResource(titleResource));
              _me.initEvent();
          }
 
@@ -65,7 +65,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
              });
 
              $("#Cancel").click(function () {
-                 _me.setPageTitle("CommissionGroupList");
+                 CustomerCommGroup.setPageTitle(Site.getSingleResource("CommissionGroupList"));
                  Site.redirect(Site.resolveClientUrl("CustomerComGroup/Index"));
              });
 
@@ -97,10 +97,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
              $("#ABComm1").on("change", function () {
                  commissionOnChange($(this).val(), "ABComm");
              }).change();
-         }
-
-         function setPageTitle(title) {
-             CustomerCommGroup.setPageTitle(title);
          }
 
          function checkAvailableGroup(groupName) {
@@ -261,7 +257,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
              initEvent: initEvent,
              submit: submit,
              checkAvailableGroup: checkAvailableGroup,
-             setPageTitle: setPageTitle,
              goToCustomerList: goToCustomerList
          };
 
