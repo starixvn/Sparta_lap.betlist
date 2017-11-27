@@ -28,7 +28,7 @@ pushd ..\
 
 REM NUnit
 REM OpenCover
-set command=packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe" -targetargs:"%fileList% --result=UnitTestResult_%project%.xml;format=nunit2" -output:"UnitTestCoverage_%project%.xml" -filter:"+[*]* -[Fanex.Result.Core.*]* -[Fanex.Athena.Resources]*"
+set command=packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe" -targetargs:"%fileList% --result=UnitTestResult_%project%.xml;format=nunit2 --process=Separate" -output:"UnitTestCoverage_%project%.xml" -filter:"+[*]* -[Fanex.Result.Core.*]* -[Fanex.Athena.Resources]*"
 call %command%
 
 if %errorlevel% neq 0 goto error

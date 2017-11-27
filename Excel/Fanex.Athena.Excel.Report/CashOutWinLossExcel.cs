@@ -75,12 +75,6 @@ namespace Fanex.Athena.Excel.Report
             _totalData = viewModel.TotalData;
         }
 
-        public int Level
-        {
-            get;
-            set;
-        }
-
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         protected override void AssignHeader(ISheet sheet)
         {
@@ -147,7 +141,7 @@ namespace Fanex.Athena.Excel.Report
 
                 rowSpan = needMerge ? 1 : rowSpan + 1;
 
-                var indexid = Level == 0 ? rowIndex : indexDetail++;
+                var indexid = _metaModel.DrillDownLevel == 0 ? rowIndex : indexDetail++;
                 row.Cells[ColumnIndex].SetCellValue(indexid);
                 rowIndex = needMerge ? rowIndex + 1 : rowIndex;
 
@@ -182,7 +176,7 @@ namespace Fanex.Athena.Excel.Report
                 sheet.MergeCells(RowHeaderTemplate, ColumnBuyBackAmountSportsbook, RowHeaderTemplate + 1, ColumnBuyBackAmountSportsbook);
             }
 
-            if (Level == 0)
+            if (_metaModel.DrillDownLevel == 0)
             {
                 sheet.HideColumn(ColumnExternalId, ColumnSystemId);
             }
@@ -263,7 +257,7 @@ namespace Fanex.Athena.Excel.Report
 
         private void MergeCells(ISheet sheet, int rowSpan, int index)
         {
-            if (Level == 0)
+            if (_metaModel.DrillDownLevel == 0)
             {
                 sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnIndex, index + RowContentTemplate, ColumnIndex);
             }

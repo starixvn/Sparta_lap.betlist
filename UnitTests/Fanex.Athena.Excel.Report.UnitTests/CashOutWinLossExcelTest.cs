@@ -153,6 +153,77 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             });
         }
 
+        [Test]
+        public void ProcessUI_NotAllowBA_CallHideColumnCorrectly()
+        {
+            // Arrange
+            const int ColumnBuyBackAmountBA = 9;
+            const int ColumnBuyBackAmountTotal = 10;
+            ViewModel.IsLicenseeOfferBA = false;
+            var excel = CreateExcel();
+
+            // Action
+            excel.Public_ProcessUI(_sheet);
+
+            // Assert
+            _sheet.Received().HideColumn(ColumnBuyBackAmountBA, ColumnBuyBackAmountTotal);
+        }
+
+        [TestCase(0, new[] { 2, 3 })]
+        [TestCase(1, new[] { 1 })]
+        public void ProcessUI_WhenCall_CallHideColumnCorrectly(int level, int[] hiddenColumnList)
+        {
+            // Arrange
+            var excel = CreateExcel(level);
+
+            // Action
+            excel.Public_ProcessUI(_sheet);
+
+            // Assert
+            _sheet.Received().HideColumn(hiddenColumnList);
+        }
+
+        [Test]
+        public void AssignGrandTotalInEurData_WhenCall_CallRelevantMethods()
+        {
+            // Arrange
+            const int RowIndex = 1;
+            const int ColumnCurrency = 4;
+            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var excel = CreateExcel();
+            var expectedTitle = ReportExcelHelper.GenerateReportTitle(ViewResources.AGCasinoBalance, new ConvertingOption(), MetaModel);
+
+            // Action
+            excel.AssignGrandTotalInEurData(_sheet, RowIndex);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                cell.Received(1).SetCellValue(ViewResources.Totalin + " USD");
+                _sheet.ReceivedWithAnyArgs(1).MergeCells(RowIndex, 0, RowIndex, ColumnCurrency);
+            });
+        }
+
+        [Test]
+        public void AssignTotalData_WhenCall_CallRelevantMethods()
+        {
+            // Arrange
+            const int RowIndex = 100;
+            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var excel = CreateExcel();
+
+            // Action
+            excel.AssignTotalData(_sheet, RowIndex);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                cell.Received(1).SetCellValue(ViewResources.Total);
+                cell.Received(1).SetCellValue(DataItem.CurrencyName);
+                _sheet.MergeCells(RowIndex - 1, 0, RowIndex - 1, 3);
+            });
+        }
+
         private static CashOutWinLossExcelTestable CreateExcel(int level = 0)
         {
             MetaModel.DrillDownLevel = level;

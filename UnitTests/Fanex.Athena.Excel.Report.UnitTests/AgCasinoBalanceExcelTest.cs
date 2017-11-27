@@ -174,7 +174,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             excel.Public_ProcessUI(_sheet);
 
             // Assert
-            _sheet.ReceivedWithAnyArgs(1).HideColumn(hiddenColumnIndexList);
+            _sheet.Received(1).HideColumn(hiddenColumnIndexList);
         }
 
         [Test]
@@ -205,7 +205,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             const int RowIndex = 100;
             var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
             var excel = CreateExcel();
-            var expectedTitle = ReportExcelHelper.GenerateReportTitle(ViewResources.AGCasinoBalance, new ConvertingOption(), MetaModel);
 
             // Action
             excel.AssignTotalData(_sheet, RowIndex);
