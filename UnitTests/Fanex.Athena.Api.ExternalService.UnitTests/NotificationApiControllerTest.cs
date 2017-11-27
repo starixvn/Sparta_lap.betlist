@@ -1,6 +1,8 @@
 ﻿namespace Fanex.Athena.Api.ExternalService.UnitTests
 {
+    using System;
     using System.Collections.Generic;
+    using System.Web.Http.Controllers;
     using System.Web.Script.Serialization;
     using ExternalService;
     using Model.Core.DTO.Common;
@@ -25,13 +27,21 @@
 
         private JavaScriptSerializer _serializer = new JavaScriptSerializer();
 
+        private static readonly DateTime MinDate = new DateTime(1990, 1, 1);
+
+        private static readonly DateTime MaxDate = new DateTime(3000, 1, 1);
+
+        private const string UserName = "admin";
+
+        private const string SiteName = "12bet";
+
         [SetUp]
         public void SetUp()
         {
             _moveBetService = Substitute.For<IMoveBetService>();
             _languageService = Substitute.For<ILanguageService>();
             _notificationService = Substitute.For<INotificationService>();
-            _apiController = new NotificationApiController(_moveBetService, _languageService, _notificationService);
+            _apiController = GetControllerWithActionArguments(_moveBetService, _languageService, _notificationService);
         }
 
         [TearDown]
@@ -62,9 +72,14 @@
             // Arrange
             var metaModel = new NotificationMetaModel
             {
-                LicenseeName = "12bet",
-                UserName = "user 1",
-                Language = "en"
+                Language = "en",
+                IsOnlyUnread = true,
+                FromDate = MinDate,
+                ToDate = MaxDate,
+                PageSize = 10,
+                PageIndex = 1,
+                UserName = UserName,
+                LicenseeName = SiteName
             };
 
             var expectedResultModel = new ReportResultModel<NotificationMessage>
@@ -90,10 +105,10 @@
             // Arrange
             var metaModel = new NotificationMarkAsReadMetaModel
             {
-                UserName = "1",
-                LicenseeName = "12bet",
                 MessageId = 1,
-                MessageType = "Amendment"
+                MessageType = "Amendment",
+                UserName = UserName,
+                LicenseeName = SiteName
             };
 
             var resultModel = new ResultInfo
@@ -117,6 +132,27 @@
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        private NotificationApiController GetControllerWithActionArguments(
+            IMoveBetService moveBetService,
+            ILanguageService languageService,
+            INotificationService notificationService)
+        {
+            var mockActionContext = new HttpActionContext
+            {
+                ControllerContext = new HttpControllerContext(),
+                ActionArguments =
+                {
+                    { "username", "admin" },
+                    { "sitename", "12bet" }
+                }
+            };
+
+            return new NotificationApiController(moveBetService, languageService, notificationService)
+            {
+                ActionContext = mockActionContext
+            };
         }
     }
 }
