@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
     using Core.Configuration;
@@ -38,8 +37,6 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public IEnumerable<DailyStatement> GetDailyStatementData(BetListMetaModel metaModel, bool allowCustComm)
         {
             const string UspKey = "Lrf_Statement_Mem";
@@ -63,7 +60,7 @@
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException, UspKey);
+                throw new DataAccessException(sqlException, UspKey, metaModel);
             }
         }
 

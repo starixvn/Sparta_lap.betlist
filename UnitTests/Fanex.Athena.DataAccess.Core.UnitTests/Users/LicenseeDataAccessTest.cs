@@ -1,9 +1,12 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Users
 {
+    using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Core.Users;
     using Data;
     using Model.Core.DTO.Common;
+    using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using TestHelpers;
@@ -35,7 +38,7 @@
         public void IsAllowUpdateMemberBAStatus_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_BATimeCheck")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_BATimeCheck")).Returns(_objectDb);
             var request = new Request { Language = "en-US" };
             var licenseeId = 1;
             var isAllow = true;
@@ -53,7 +56,7 @@
         public void IsAllowUpdateMemberBAStatus_WhenCall_ValueReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_BATimeCheck")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_BATimeCheck")).Returns(_objectDb);
             _objectDb.GetParameterValue("isallow").Returns(false);
             var request = new Request { Language = "en-US" };
             var licenseeId = 1;
@@ -67,6 +70,24 @@
             Assert.That(isAllow, Is.False);
             Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
             Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
+        }
+
+        [TestCase(1, true)]
+        [TestCase(2, false)]
+        public void IsLicenseeBelongToUser_WhenCall_ValueReturnedCorrectly(int licenseeId, bool expectedResult)
+        {
+            // Arrange
+            const int UserId = 1;
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_LicenseeSel")).Returns(_objectDb);
+            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
+            _reader.Read().Returns(true, false);
+            _reader.GetInt32(0).ReturnsForAnyArgs(1);
+
+            // Action
+            var result = _dataAccess.IsLicenseeBelongToUser(licenseeId, UserId);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
@@ -87,7 +108,7 @@
         public void GetByUser_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeSel")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_LicenseeSel")).Returns(_objectDb);
             _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
             _reader.Read().Returns(true, false);
 
@@ -116,7 +137,7 @@
         public void GetLicenseeByName_WhenCall_ValueReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeSelBySiteName")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_LicenseeSelBySiteName")).Returns(_objectDb);
             var expected = new Licensee
             {
                 Id = 100
@@ -128,6 +149,28 @@
 
             // Assert
             Assert.That(result.Id, Is.EqualTo(expected.Id));
+        }
+
+        [Test]
+        public void GetLicenseeSourcedSettings_WhenCall_ValueReturnedCorrectly()
+        {
+            // Arrange
+            _dataAccess.GetObjectDb(Arg.Is("LRF_LicenseeSourcedSel")).Returns(_objectDb);
+            var expectedItem = new LicenseeSourcedSetting
+            {
+                SourcedAgentId = 1
+            };
+            _objectDb.Query<LicenseeSourcedSetting>(Arg.Any<object>()).Returns(
+                new List<LicenseeSourcedSetting>
+                {
+                    expectedItem
+                });
+
+            // Action
+            var result = _dataAccess.GetLicenseeSourcedSettings(0);
+
+            // Assert
+            Assert.That(result.First().SourcedAgentId, Is.EqualTo(expectedItem.SourcedAgentId));
         }
     }
 }
