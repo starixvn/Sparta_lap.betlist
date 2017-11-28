@@ -191,7 +191,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             const int ColumnCurrency = 4;
             var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
             var excel = CreateExcel();
-            var expectedTitle = ReportExcelHelper.GenerateReportTitle(ViewResources.AGCasinoBalance, new ConvertingOption(), MetaModel);
 
             // Action
             excel.AssignGrandTotalInEurData(_sheet, RowIndex);

@@ -69,10 +69,7 @@ namespace Fanex.Athena.Api.Report
             ThirdPartyWinLossMetaModel metaModel,
             ColossusBetWinLossViewModel excelModel)
         {
-            return new ColossusBetsWinLossExcel(templatePath, convertingOption, metaModel, excelModel)
-            {
-                Level = metaModel.DrillDownLevel
-            };
+            return new ColossusBetsWinLossExcel(templatePath, convertingOption, metaModel, excelModel);
         }
 
         private static dynamic GetEmptyThirdPartyWinLossResult()

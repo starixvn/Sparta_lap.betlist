@@ -62,12 +62,6 @@ namespace Fanex.Athena.Excel.Report
             _summaryTotal = viewModel.SummaryTotal;
         }
 
-        public int Level
-        {
-            get;
-            set;
-        }
-
         protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
@@ -144,7 +138,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void ProcessUI(ISheet sheet)
         {
-            if (Level == 0)
+            if (_metaModel.DrillDownLevel  == 0)
             {
                 sheet.HideColumn(ColumnExternalId, ColumnSystemId);
             }
@@ -184,7 +178,7 @@ namespace Fanex.Athena.Excel.Report
             return listTotalCurrency;
         }
 
-        private void AssignGrandTotal(ISheet sheet, int rowIndex)
+        protected internal virtual void AssignGrandTotal(ISheet sheet, int rowIndex)
         {
             var currencyList = _summaryTotal.Keys.ToList();
             currencyList.Reverse();
@@ -200,7 +194,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        private int AssignTotalData(ISheet sheet, int rowIndex)
+        protected internal virtual int AssignTotalData(ISheet sheet, int rowIndex)
         {
             var beginTotalRow = rowIndex;
             var totalCurrencyList = GetTotalCurrency(_winLossList);
