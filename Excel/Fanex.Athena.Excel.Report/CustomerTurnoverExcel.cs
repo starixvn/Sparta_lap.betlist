@@ -114,9 +114,10 @@ namespace Fanex.Athena.Excel.Report
           Justification = "Reviewed. Suppression is OK here.")]
         protected override void AssignSheetData(ISheet sheet, int pageIndex)
         {
+            var actualPageIndex = pageIndex + 1;
             var rowIndex = 0;
-            var minGroup = checked((pageIndex - 1) * PageSize);
-            var maxGroup = Math.Min(_customerTurnoverList.Last().Index, checked(pageIndex * PageSize));
+            var minGroup = checked((actualPageIndex - 1) * PageSize);
+            var maxGroup = Math.Min(_customerTurnoverList.Last().Index, checked(actualPageIndex * PageSize));
             var dataInRange = _customerTurnoverList.Where(x => x.Index > minGroup && x.Index <= maxGroup).ToList();
 
             foreach (var customerTurnover in dataInRange)
