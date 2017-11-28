@@ -15,7 +15,6 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Resources;
     using Service.BetSettings;
     using Service.BetSettings.Interfaces;
-    using Service.Casino;
 
     public class RngCasinoBetSettingController : BetSettingBaseController
     {
@@ -125,7 +124,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             foreach (var gameTypeId in gameTypeList)
             {
                 var stakeLevel = this.HttpContext.Request["stake" + gameTypeId];
-                table.Rows.Add(metaModel.CustId, gameTypeId, stakeLevel, 1, metaModel.Ip, metaModel.ModifyById, metaModel.ModifyByUsername, CasinoSetting.SystemId);
+                table.Rows.Add(metaModel.CustId, gameTypeId, stakeLevel, 1, metaModel.Ip, metaModel.ModifyById, metaModel.ModifyByUsername);
             }
 
             return table;

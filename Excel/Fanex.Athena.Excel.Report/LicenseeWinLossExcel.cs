@@ -80,12 +80,12 @@ namespace Fanex.Athena.Excel.Report
         private readonly string[] _showProductOptions;
 
         protected internal LicenseeWinLossExcel(string templatePath)
-            : base(templatePath)
+            : base(templatePath, 0)
         {
         }
 
         public LicenseeWinLossExcel(string templatePath, LicenseeWinLossExcelModel excelModel)
-            : base(templatePath)
+            : base(templatePath, excelModel.DataList.Count())
         {
             _excelModel = excelModel;
 
@@ -101,29 +101,8 @@ namespace Fanex.Athena.Excel.Report
                 .ToArray();
         }
 
-        protected override void AssignData()
-        {
-            int numOfDataRow = _excelModel.DataList.Count();
-
-            var sheet = Workbook.CloneSheet("Template", "Data");
-
-            AssignHeader(sheet);
-            AssignTitle(sheet);
-
-            if (numOfDataRow == 0)
-            {
-                AssignNoInfoRow(sheet);
-            }
-            else
-            {
-                AssignSheetData(sheet);
-            }
-
-            ProcessUI(sheet);
-        }
-
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             // row 1
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
@@ -173,13 +152,13 @@ namespace Fanex.Athena.Excel.Report
             row2.Cells[ColumnLicenseeWlTotal].SetCellValue(ViewResources.Total);
         }
 
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
-        protected void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             var rowSpan = 1;
             var rowIndex = 1;
@@ -234,15 +213,12 @@ namespace Fanex.Athena.Excel.Report
             sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnDate, index + RowContentTemplate, ColumnDate);
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
-            var fromdate = _excelModel.MetaModel.FromDate.ToString(FormatDate);
-            var todate = _excelModel.MetaModel.ToDate.ToString(FormatDate);
-            var title = _excelModel.MetaModel.DrillDownLevel > 0 && _excelModel.MetaModel.CurrencyId == 0
-                ? ReportExcelHelper.GetExactTitleCurrencyName(_excelModel.ConvertingOption, _excelModel.MetaModel.DrillDownCurrencyId)
-                : ReportExcelHelper.GetExactTitleCurrencyName(_excelModel.ConvertingOption, _excelModel.MetaModel.CurrencyId);
-
-            var reportTitle = string.Format(ViewResources.LicenseeWinLoss + ", {0} --> {1} - {2}", fromdate, todate, title);
+            var reportTitle = ReportExcelHelper.GenerateReportTitle(
+                ViewResources.LicenseeWinLoss,
+                _excelModel.ConvertingOption,
+                _excelModel.MetaModel);
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
@@ -257,7 +233,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
-        protected void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!_excelModel.SystemIdVisible)
             {

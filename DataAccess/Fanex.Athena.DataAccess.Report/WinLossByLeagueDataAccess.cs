@@ -30,22 +30,8 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 using (var db = this.GetObjectDb(UspName))
                 {
-                    var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status);
-                    var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status);
-
-                    db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-                    db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-                    db.AddInParameter("odds", DbType.Decimal, metaModel.Odds);
-                    db.AddInParameter("leagueid", DbType.Int32, metaModel.League);
-                    db.AddInParameter("matchid", DbType.Int32, metaModel.Match);
-                    db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
+                    AddCommonParams(metaModel, db);
                     db.AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
-                    db.AddInParameter("showwin", DbType.Boolean, metaModel.ShowWin);
-                    db.AddInParameter("showloss", DbType.Boolean, metaModel.ShowLoss);
-                    db.AddInParameter("showdraw", DbType.Boolean, metaModel.ShowDraw);
-                    db.AddInParameter("showsb", DbType.Boolean, showSb);
-                    db.AddInParameter("showba", DbType.Boolean, showBa);
-                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
 
                     using (var reader = db.ExecuteReader())
                     {
@@ -66,23 +52,10 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 using (var db = this.GetObjectDb(UspName))
                 {
-                    var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status);
-                    var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status);
-
-                    db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-                    db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-                    db.AddInParameter("odds", DbType.Decimal, metaModel.Odds);
-                    db.AddInParameter("leagueid", DbType.Int32, metaModel.League);
-                    db.AddInParameter("matchid", DbType.Int32, metaModel.Match);
-                    db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
-                    db.AddInParameter("showwin", DbType.Boolean, metaModel.ShowWin);
-                    db.AddInParameter("showloss", DbType.Boolean, metaModel.ShowLoss);
-                    db.AddInParameter("showdraw", DbType.Boolean, metaModel.ShowDraw);
-                    db.AddInParameter("showsb", DbType.Boolean, showSb);
-                    db.AddInParameter("showba", DbType.Boolean, showBa);
+                    AddCommonParams(metaModel, db);
                     db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
                     db.AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
-                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+
                     db.AddOutParameter("totalrows", DbType.Int32, int.MaxValue);
 
                     IEnumerable<WinLossByLeague> dataList = null;
@@ -110,7 +83,24 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        #region Private
+        private static void AddCommonParams(WinLossByLeagueMetaModel metaModel, IObjectDb db)
+        {
+            var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status);
+            var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status);
+
+            db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
+            db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
+            db.AddInParameter("odds", DbType.Decimal, metaModel.Odds);
+            db.AddInParameter("leagueid", DbType.Int32, metaModel.League);
+            db.AddInParameter("matchid", DbType.Int32, metaModel.Match);
+            db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
+            db.AddInParameter("showsb", DbType.Boolean, showSb);
+            db.AddInParameter("showba", DbType.Boolean, showBa);
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            db.AddInParameter("showwin", DbType.Boolean, metaModel.ShowWin);
+            db.AddInParameter("showloss", DbType.Boolean, metaModel.ShowLoss);
+            db.AddInParameter("showdraw", DbType.Boolean, metaModel.ShowDraw);
+        }
 
         private static IEnumerable<WinLossByLeague> GetMatches(IDataReader reader, string baseCurrency)
         {
@@ -194,7 +184,5 @@ namespace Fanex.Athena.DataAccess.Report
 
             return totalData;
         }
-
-        #endregion Private
     }
 }

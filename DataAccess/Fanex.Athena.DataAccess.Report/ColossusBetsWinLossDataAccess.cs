@@ -21,6 +21,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
+    using Model.Core.ResultModel;
 
     public class ColossusBetsWinLossDataAccess : BaseDataAccess, IColossusBetsWinLossDataAccess
     {
@@ -36,20 +37,19 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public SortableList<ColossusBetWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, out IDictionary<string, ColossusBetWinLoss> summaryTotal)
+        public SortableReportResultModel<ColossusBetWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel)
         {
-            return GetData("Lrf_Rpt_ColossusBetsWinloss", metaModel, out summaryTotal);
+            return GetData("Lrf_Rpt_ColossusBetsWinloss", metaModel);
         }
 
-        public SortableList<ColossusBetWinLoss> GetWinlossDetail(ThirdPartyWinLossMetaModel metaModel, out IDictionary<string, ColossusBetWinLoss> summaryTotal)
+        public SortableReportResultModel<ColossusBetWinLoss> GetWinlossDetail(ThirdPartyWinLossMetaModel metaModel)
         {
-            return GetData("Lrf_Rpt_ColossusBetsWinloss_detail", metaModel, out summaryTotal);
+            return GetData("Lrf_Rpt_ColossusBetsWinloss_detail", metaModel);
         }
 
-        private static SortableList<ColossusBetWinLoss> ReadData(
+        private static SortableReportResultModel<ColossusBetWinLoss> ReadData(
             IDataReader reader,
-            ThirdPartyWinLossMetaModel metaModel,
-            out IDictionary<string, ColossusBetWinLoss> summaryTotal)
+            ThirdPartyWinLossMetaModel metaModel)
         {
             var turnoverColumn = "turnover" + metaModel.BaseCurrency;
             var memberWinningColumn = "winningprize" + metaModel.BaseCurrency;
@@ -57,18 +57,14 @@ namespace Fanex.Athena.DataAccess.Report
             var cashOutShareColumn = "cashinamt" + metaModel.BaseCurrency;
             var grantPrizeColumn = "grandamt" + metaModel.BaseCurrency;
             var commColumn = "commamt" + metaModel.BaseCurrency;
-
             var hasSystemId = reader.HasColumn("systemid");
             var hasExternalId = reader.HasColumn("externalid");
             var hasCustomerId = reader.HasColumn("custid");
-
             var index = 1;
             var isFirstLevel = metaModel.DrillDownLevel == 0;
             var isMonthly = metaModel.ReportBy == ReportByType.Monthly;
-
             var result = new SortableList<ColossusBetWinLoss>();
-
-            summaryTotal = new Dictionary<string, ColossusBetWinLoss>();
+            var summaryTotal = new Dictionary<string, ColossusBetWinLoss>();
             foreach (var currency in SystemConstants.BaseCurrencyList)
             {
                 summaryTotal.Add(currency, new ColossusBetWinLoss());
@@ -98,7 +94,11 @@ namespace Fanex.Athena.DataAccess.Report
                 ReadSummaryTotal(reader, summaryTotal);
             }
 
-            return result;
+            return new SortableReportResultModel<ColossusBetWinLoss>
+            {
+                DataList = result,
+                SummaryTotal = summaryTotal
+            };
         }
 
         private static void ReadSummaryTotal(IDataReader reader, IDictionary<string, ColossusBetWinLoss> summaryTotal)
@@ -115,7 +115,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private SortableList<ColossusBetWinLoss> GetData(string spname, ThirdPartyWinLossMetaModel metaModel, out IDictionary<string, ColossusBetWinLoss> summaryTotal)
+        private SortableReportResultModel<ColossusBetWinLoss> GetData(string spname, ThirdPartyWinLossMetaModel metaModel)
         {
             try
             {
@@ -124,7 +124,7 @@ namespace Fanex.Athena.DataAccess.Report
                     UpdateUspParams(db, metaModel, metaModel.DrillDownLevel > 0);
                     using (var reader = db.ExecuteReader())
                     {
-                        return ReadData(reader, metaModel, out summaryTotal);
+                        return ReadData(reader, metaModel);
                     }
                 }
             }

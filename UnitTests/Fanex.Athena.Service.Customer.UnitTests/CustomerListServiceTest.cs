@@ -21,7 +21,7 @@
 
         private ICustomerListDataAccess _customerListDataAccess;
 
-        private ICasinoSetting _casinoSetting;
+        private ICasinoCustomerService _casinoCustomerService;
 
         private IAuthorizationService _authorizationService;
 
@@ -36,7 +36,7 @@
         {
             _customerDataAccess = Substitute.For<ICustomerDataAccess>();
             _customerListDataAccess = Substitute.For<ICustomerListDataAccess>();
-            _casinoSetting = Substitute.For<ICasinoSetting>();
+            _casinoCustomerService = Substitute.For<ICasinoCustomerService>();
             _authorizationService = Substitute.For<IAuthorizationService>();
             _productService = Substitute.For<IProductService>();
             _appSettings = Substitute.For<IAppSettings>();
@@ -44,7 +44,7 @@
             _customerListService = new CustomerListService(
                 _customerDataAccess,
                 _customerListDataAccess,
-                _casinoSetting,
+                _casinoCustomerService,
                 _authorizationService,
                 _productService,
                 _appSettings);
@@ -54,7 +54,7 @@
         public void TearDown()
         {
             _customerListDataAccess = null;
-            _casinoSetting = null;
+            _casinoCustomerService = null;
             _authorizationService = null;
             _productService = null;
             _appSettings = null;
@@ -244,7 +244,7 @@
             _productService.GetProductAccess(LicenseeId, string.Empty).Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
             _appSettings.IsDisableRngCasino.Returns(false);
 
-            _casinoSetting.UpdateCustClosed(Arg.Is<CustomerStatusMetaModel>(param =>
+            _casinoCustomerService.UpdateClosed(Arg.Is<CustomerStatusMetaModel>(param =>
                                         param.CustId == metaModel.CustId &&
                                         param.LicenseeName == metaModel.LicenseeName.ToUpperInvariant() &&
                                         param.IsOn == metaModel.IsOn &&
@@ -283,7 +283,7 @@
             _productService.GetProductAccess(LicenseeId, string.Empty).Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
             _appSettings.IsDisableRngCasino.Returns(false);
 
-            _casinoSetting.UpdateCustClosed(Arg.Is<CustomerStatusMetaModel>(param =>
+            _casinoCustomerService.UpdateClosed(Arg.Is<CustomerStatusMetaModel>(param =>
                                         param.CustId == metaModel.CustId &&
                                         param.LicenseeName == metaModel.LicenseeName.ToUpperInvariant() &&
                                         param.IsOn == metaModel.IsOn &&
@@ -380,7 +380,7 @@
             _productService.GetProductAccess(LicenseeId, string.Empty).Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
             _appSettings.IsDisableRngCasino.Returns(false);
 
-            _casinoSetting.UpdateCustSuspend(Arg.Is<CustomerStatusMetaModel>(param =>
+            _casinoCustomerService.UpdateSuspend(Arg.Is<CustomerStatusMetaModel>(param =>
                                         param.CustId == metaModel.CustId &&
                                         param.LicenseeName == metaModel.LicenseeName.ToUpperInvariant() &&
                                         param.IsOn == metaModel.IsOn &&
@@ -419,7 +419,7 @@
             _productService.GetProductAccess(LicenseeId, string.Empty).Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
             _appSettings.IsDisableRngCasino.Returns(false);
 
-            _casinoSetting.UpdateCustSuspend(Arg.Is<CustomerStatusMetaModel>(param =>
+            _casinoCustomerService.UpdateSuspend(Arg.Is<CustomerStatusMetaModel>(param =>
                                         param.CustId == metaModel.CustId &&
                                         param.LicenseeName == metaModel.LicenseeName.ToUpperInvariant() &&
                                         param.IsOn == metaModel.IsOn &&

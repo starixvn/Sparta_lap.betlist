@@ -220,11 +220,17 @@ var CustomersOption = (function () {
         }
     };
 
-    var products = ["SB", "RB", "NG", "LC", "CS"];
+    var PRODUCTS = [
+        { Code: "SB", Display: "SB" },
+        { Code: "RB", Display: "RB" },
+        { Code: "NG", Display: "NG" },
+        { Code: "LC", Display: "LC" },
+        { Code: "CS", Display: "CS" },
+        { Code: "AB", Display: "ProductAB" }];
     var numOfProductColumns = 0;
     var firstProductCode;
 
-    var getColName = function (productAccess, isAllowedCustomerCommission) {
+    var getColName = function (productList, isAllowedCustomerCommission) {
         numOfProductColumns = 1;
         var temp = Site.clone(colNameList);
         if (isAllowedCustomerCommission) {
@@ -232,15 +238,15 @@ var CustomersOption = (function () {
             temp.insertAfter("Group", 0);
 
             firstProductCode = null;
-            for (var i = 0; i < products.length; i++) {
-                var productCode = products[i];
-                if (productAccess["IsAllow" + productCode]) {
+            for (var i = 0; i < PRODUCTS.length; i++) {
+                var product = PRODUCTS[i];
+                if (productList.indexOf(product.Code) >=0) {
                     if (!firstProductCode) {
-                        firstProductCode = productCode.toUpperCase();
+                        firstProductCode = product.Code.toUpperCase();
                     }
 
                     numOfProductColumns++;
-                    temp.push(Site.getSingleResource(productCode.toUpperCase()));
+                    temp.push(Site.getSingleResource(product.Display));
                 }
             }
         }
@@ -248,7 +254,7 @@ var CustomersOption = (function () {
         return Site.getResources(temp);
     };
 
-    var getColModel = function (productAccess, isAllowedCustomerCommission) {
+    var getColModel = function (productList, isAllowedCustomerCommission) {
         var temp = Site.clone(colModelList);
         if (isAllowedCustomerCommission) {
             var getCellAttrFunction = function (colName) {
@@ -260,10 +266,10 @@ var CustomersOption = (function () {
             var col = Site.clone(groupColumn);
             temp.insertAfter(col, 0);
 
-            $.each(products, function (index, value) {
-                if (productAccess["IsAllow" + value]) {
+            $.each(PRODUCTS, function (index, value) {
+                if (productList.indexOf(value.Code) >= 0) {
                     col = Site.clone(commissionColumn);
-                    col.name = value + "Comm";
+                    col.name = value.Code + "Comm";
                     col.index = col.name;
                     col.cellattr = getCellAttrFunction(col.name);
                     temp.push(col);
@@ -286,9 +292,9 @@ var CustomersOption = (function () {
         });
     };
 
-    me.getGridOption = function (productAccess, isAllowedCustomerCommission) {
-        me.gridOption.colNames = getColName(productAccess, isAllowedCustomerCommission);
-        me.gridOption.colModel = getColModel(productAccess, isAllowedCustomerCommission);
+    me.getGridOption = function (productList, isAllowedCustomerCommission) {
+        me.gridOption.colNames = getColName(productList, isAllowedCustomerCommission);
+        me.gridOption.colModel = getColModel(productList, isAllowedCustomerCommission);
         return me.gridOption;
     };
 

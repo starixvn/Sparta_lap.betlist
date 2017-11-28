@@ -8,15 +8,15 @@
 
     public class TodayDepositController : BaseDashboardApiController
     {
-        private readonly ISimpleWidgetDataAccess _dataAccess;
+        private readonly ISingleValueDataAccess _dataAccess;
 
         public TodayDepositController() : this(null)
         {
         }
 
-        public TodayDepositController(ISimpleWidgetDataAccess dataAccess)
+        public TodayDepositController(ISingleValueDataAccess dataAccess)
         {
-            this._dataAccess = dataAccess ?? new TodayDepositDataAccess();
+            this._dataAccess = dataAccess ?? new SingleValueDataAccess();
         }
 
         public decimal GetData([FromUri] DashboardBaseModel metaModel)
@@ -28,7 +28,7 @@
 
             AssignAuthProperties(metaModel);
             metaModel.FromDate = DateTime.Now.Date;
-            return _dataAccess.GetData(metaModel);
+            return _dataAccess.GetTodayDeposit(metaModel);
         }
     }
 }

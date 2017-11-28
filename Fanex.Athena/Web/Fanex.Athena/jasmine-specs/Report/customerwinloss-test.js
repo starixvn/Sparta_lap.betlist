@@ -34,7 +34,7 @@
     describe("initEvent()", function () {
         it("CustomerWinLoss.submit() should be called if #SubmitButton is clicked.", function () {
             var $button = affix('#SubmitButton');
-            var $mainform = affix('#CustomerWinlossForm');
+            affix('#CustomerWinlossForm');
 
             spyOn(Report, "ValidProducts").and.returnValues(true);
             spyOn(CustomerWinLoss, 'submit');

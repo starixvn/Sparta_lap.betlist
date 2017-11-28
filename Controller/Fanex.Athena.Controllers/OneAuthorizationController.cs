@@ -23,7 +23,7 @@
         {
         }
 
-        internal OneAuthorizationController(
+        public OneAuthorizationController(
             IMaintenanceService maintenanceService,
             IOneAuthenticationService oneAuthenticationService,
             IAppSettings appSetting,

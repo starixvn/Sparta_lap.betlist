@@ -1,15 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="CustomerComGroupController.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-/*
- * @Alex20120724
- * Customer-group-list report,include these function are CreateGroup,ListGroup (Index) and CustomerList
- */
-
-namespace Fanex.Athena.Controllers.Customer
+﻿namespace Fanex.Athena.Controllers.Customer
 {
     using System;
     using System.Globalization;
@@ -19,7 +8,6 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Web.SessionState;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Customer;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
     using Fanex.Athena.Service.Core.Common;
@@ -29,9 +17,9 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
-    using Model.Core.ViewModel;
     using ONEbook.UM.Filters;
     using Resources;
+    using Service.Customer.Helpers;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
@@ -60,6 +48,7 @@ namespace Fanex.Athena.Controllers.Customer
             ViewBag.IsAllowRC = productAccess.IsAllowRB;
             ViewBag.IsAllowLC = productAccess.IsAllowLC;
             ViewBag.IsAllowCS = productAccess.IsAllowCS;
+            ViewBag.IsAllowAB = productAccess.IsAllowAB;
 
             return View("~/Views/Customer/CustomerComm/GroupCommList.cshtml", model);
         }
@@ -84,27 +73,28 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var result = new ResultViewModel { Success = false };
+            IResultInfo result = new ResultInfo();
             metaModel.LicenseeId = licenseeSession.LicenseeId;
 
             if (ModelState.IsValid)
             {
                 if (metaModel.GroupName.Trim().Equals("none", StringComparison.OrdinalIgnoreCase))
                 {
-                    result.ErrorMessage = ViewResources.ChooseGroupNameMsg;
+                    result.Code = 1;
+                    result.Message = ViewResources.ChooseGroupNameMsg;
                 }
-                else if (ValidateCommissions(metaModel))
+                else if (IsValidateCommissions(metaModel))
                 {
                     var request = new Request
                     {
                         Language = userSession.Language,
                         Ip = Request.UserHostAddress
                     };
-                    _customerComService.InsertGroup(metaModel, request, userSession.UserId, out result);
+                    result = _customerComService.InsertGroup(metaModel, request, userSession.UserId);
 
-                    result.ErrorMessage = GetCreateGroupErrorMessage(result.ErrorCode);
+                    result.Message = GetCreateGroupErrorMessage(result.Code);
 
-                    if (result.Success)
+                    if (result.IsSuccessful)
                     {
                         result.Message = ViewResources.MessageSuccess;
                         UpdateMetaModelAfterProcessSuccessfully(metaModel);
@@ -112,9 +102,14 @@ namespace Fanex.Athena.Controllers.Customer
                 }
                 else
                 {
-                    result.ErrorMessage = ViewResources.MessageInvalidCommValue;
-                    result.Success = false;
+                    result.Code = 2;
+                    result.Message = ViewResources.MessageInvalidCommValue;
                 }
+            }
+            else
+            {
+                result.Code = 3;
+                result.Message = ViewResources.InvalidParams;
             }
 
             ViewBag.Result = result;
@@ -152,27 +147,28 @@ namespace Fanex.Athena.Controllers.Customer
         [CustomValidateAntiForgery]
         public ActionResult Update(GroupCommMetaModel metaModel)
         {
-            var result = new ResultViewModel();
+            IResultInfo result = new ResultInfo();
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
             if (ModelState.IsValid)
             {
                 if (metaModel.GroupName.Trim().ToLower(CultureInfo.CurrentCulture).Equals("none"))
                 {
-                    result.ErrorMessage = ViewResources.ChooseGroupNameMsg;
+                    result.Code = 1;
+                    result.Message = ViewResources.ChooseGroupNameMsg;
                 }
-                else if (ValidateCommissions(metaModel))
+                else if (IsValidateCommissions(metaModel))
                 {
                     result = UpdateGroupComm(metaModel);
                 }
                 else
                 {
-                    result.ErrorMessage = ViewResources.MessageInvalidCommValue;
-                    result.Success = false;
+                    result.Code = 2;
+                    result.Message = ViewResources.MessageInvalidCommValue;
                 }
             }
 
-            if (result.Success)
+            if (result.IsSuccessful)
             {
                 ModelState.Clear();
             }
@@ -190,18 +186,11 @@ namespace Fanex.Athena.Controllers.Customer
         [CustomValidateAntiForgery]
         public JsonResult Delete(int groupId, bool isRemovePlayerComm, bool isResetDefault)
         {
-            var result = new ResultViewModel();
-
-            if (!ModelState.IsValid)
-            {
-                return Json(result, JsonRequestBehavior.AllowGet);
-            }
-
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var userSession = SessionService.UserSession;
             var productAccess = _productService.GetProductAccess(licenseeId, userSession.Language);
 
-            _customerComService.DeleteGroup(
+            var result = _customerComService.DeleteGroup(
                 new DeleteGroupMetaModel
                 {
                     GroupId = groupId,
@@ -213,10 +202,9 @@ namespace Fanex.Athena.Controllers.Customer
                     IsRemoveCommSetting = isRemovePlayerComm,
                     IsAllowedCSComm = productAccess.IsAllowCS,
                     IsResetDefault = isResetDefault
-                },
-                out result);
+                });
 
-            if (result.ErrorCode == 0)
+            if (result.Code == 0)
             {
                 result.Message = isRemovePlayerComm ? ViewResources.CommIsClear : ViewResources.CommIsUnChange;
             }
@@ -258,14 +246,17 @@ namespace Fanex.Athena.Controllers.Customer
             var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
             var showingOption = new ShowingOption
             {
+                SBVisible = productAccess.IsAllowSB,
                 RBVisible = productAccess.IsAllowRB,
                 NGVisible = productAccess.IsAllowNG,
-                CSVisible = productAccess.IsAllowCS
+                CSVisible = productAccess.IsAllowCS,
+                LCVisible = productAccess.IsAllowLC,
+                ABVisible = productAccess.IsAllowAB
             };
 
             var mainTable = _customerComService.GetDataForExcel(licenseeId);
 
-            var custmerCommGroupExcel = new CustomerCommGroup(templatePath, mainTable, showingOption);
+            var custmerCommGroupExcel = new CustomerCommGroupExcel(templatePath, mainTable, showingOption);
 
             custmerCommGroupExcel.Export();
 
@@ -275,6 +266,18 @@ namespace Fanex.Athena.Controllers.Customer
         #endregion Export Excel
 
         #region Utility
+
+        private static bool IsValidateCommissions(GroupCommMetaModel metaModel)
+        {
+            return GroupCommHelper.IsAllValid(
+                                metaModel.SBComm,
+                                metaModel.ParlayComm,
+                                metaModel.RCComm,
+                                metaModel.NGComm,
+                                metaModel.LCComm,
+                                metaModel.CSComm,
+                                metaModel.ABComm);
+        }
 
         private static string GetUpdateGroupErrorMessage(int errorCode)
         {
@@ -346,6 +349,7 @@ namespace Fanex.Athena.Controllers.Customer
             var decNgComm = model.NGComm;
             var decLcComm = model.LCComm;
             var decCsComm = model.CSComm;
+            var decAbComm = model.ABComm;
 
             model.SBComm1 = SetComm(decSbComm, 1);
             model.SBComm2 = SetComm(decSbComm, 2);
@@ -370,19 +374,10 @@ namespace Fanex.Athena.Controllers.Customer
             model.CSComm1 = SetComm(decCsComm, 1);
             model.CSComm2 = SetComm(decCsComm, 2);
             model.CSComm3 = SetComm(decCsComm, 3);
-        }
 
-        private static bool ValidateCommissions(GroupCommMetaModel metaModel)
-        {
-            var validComms = GroupCommSetting.ValidCommissions;
-            var valid = validComms.Any(i => i.Value == metaModel.SBComm) &&
-                        validComms.Any(i => i.Value == metaModel.ParlayComm) &&
-                        validComms.Any(i => i.Value == metaModel.RCComm) &&
-                        validComms.Any(i => i.Value == metaModel.NGComm) &&
-                        validComms.Any(i => i.Value == metaModel.LCComm) &&
-                        validComms.Any(i => i.Value == metaModel.CSComm);
-
-            return valid;
+            model.ABComm1 = SetComm(decAbComm, 1);
+            model.ABComm2 = SetComm(decAbComm, 2);
+            model.ABComm3 = SetComm(decAbComm, 3);
         }
 
         private static void UpdateMetaModelAfterProcessSuccessfully(GroupCommMetaModel metaModel)
@@ -390,6 +385,40 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsResetDefault = false;
             metaModel.DefaultGroupId = metaModel.IsDefaultGroup ? metaModel.GroupCommId : metaModel.DefaultGroupId;
             metaModel.OriginalGroupName = metaModel.GroupName;
+        }
+
+        private static decimal[] BuildCommissionList(GroupCommMetaModel groupComm)
+        {
+            return new[]
+           {
+                groupComm.SBComm,
+                groupComm.ParlayComm,
+                groupComm.RCComm,
+                groupComm.NGComm,
+                groupComm.LCComm,
+                groupComm.CSComm,
+                groupComm.ABComm
+            };
+        }
+
+        private static bool CompareGroupComm(GroupCommMetaModel currentGroup, GroupCommMetaModel editedGroup)
+        {
+            var currentComm = BuildCommissionList(currentGroup);
+
+            var editedComm = BuildCommissionList(editedGroup);
+
+            for (var i = 0; i < currentComm.Count(); i++)
+            {
+                if (currentComm[i] != editedComm[i])
+                {
+                    return false;
+                }
+            }
+
+            return currentGroup.GroupColor.Equals(editedGroup.GroupColor, StringComparison.OrdinalIgnoreCase)
+                && currentGroup.GroupCommId == editedGroup.GroupCommId
+                && currentGroup.GroupName.Equals(editedGroup.GroupName)
+                && currentGroup.IsDefaultGroup == editedGroup.IsDefaultGroup;
         }
 
         private void CreateMetaModel(GroupCommMetaModel metaModel)
@@ -404,43 +433,44 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsUpdateRacing = productAccess.IsAllowRB;
             metaModel.IsUpdateLC = productAccess.IsAllowLC;
             metaModel.IsUpdateCS = productAccess.IsAllowCS;
+            metaModel.IsUpdateAB = productAccess.IsAllowAB;
             metaModel.DefaultGroupId = defaultGroupId;
             metaModel.OriginalGroupName = metaModel.GroupName;
         }
 
-        private ResultViewModel UpdateGroupComm(GroupCommMetaModel metaModel)
+        private IResultInfo UpdateGroupComm(GroupCommMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
-            var request = new Request
-            {
-                Language = userSession.Language,
-                Ip = Request.UserHostAddress
-            };
             var currentGroup = _customerComService.GetById(metaModel.GroupCommId);
-            var result = new ResultViewModel();
-
-            if (currentGroup != null && !currentGroup.Equals(metaModel))
+            if (currentGroup != null && !CompareGroupComm(currentGroup, metaModel))
             {
-                _customerComService.UpdateGroup(metaModel, request, userSession, out result);
-
-                if (string.IsNullOrWhiteSpace(result.ErrorMessage))
+                var request = new Request
                 {
-                    result.ErrorMessage = GetUpdateGroupErrorMessage(result.ErrorCode);
+                    Language = userSession.Language,
+                    Ip = Request.UserHostAddress
+                };
+                var result = _customerComService.UpdateGroup(metaModel, request, userSession);
+
+                if (string.IsNullOrWhiteSpace(result.Message))
+                {
+                    result.Message = GetUpdateGroupErrorMessage(result.Code);
                 }
 
-                if (result.Success)
+                if (result.IsSuccessful)
                 {
                     result.Message = ViewResources.MessageSuccess;
                     UpdateMetaModelAfterProcessSuccessfully(metaModel);
                 }
+
+                return result;
             }
             else
             {
-                result.Success = true;
-                result.Message = ViewResources.MessageSuccess;
+                return new ResultInfo
+                {
+                    Message = ViewResources.MessageSuccess
+                };
             }
-
-            return result;
         }
 
         #endregion Utility

@@ -21,7 +21,7 @@
                 null,
                 null,
                 null,
-                null,
+                Substitute.For<IUserService>(),
                 _oneBookSecurityWrapper);
         }
 

@@ -5,6 +5,7 @@
     var isAllowRc = ViewBag.IsAllowRC;
     var isAllowLc = ViewBag.IsAllowLC;
     var isAllowCs = ViewBag.IsAllowCS;
+    var isAllowAb = ViewBag.IsAllowAB;
 }
 <div class="page-results">
     <div class="result-content">
@@ -39,6 +40,10 @@
                             @if (isAllowCs)
                             {
                                 <th class="col-child medium">@ViewResources.CSComm (%)</th>
+                            }
+                            @if (isAllowAb)
+                            {
+                                <th class="col-child medium">@ViewResources.ABComm (%)</th>
                             }
                             <th class="col-child medium">@ViewResources.GroupColor</th>
                             <th class="col-child medium">@ViewResources.EditGroup</th>
@@ -88,6 +93,12 @@
                                     {
                                         <td class="center-align">
                                             @(groupComm.CSComm.ToString("P2"))
+                                        </td>
+                                    }
+                                    @if (isAllowAb)
+                                    {
+                                        <td class="center-align">
+                                            @(groupComm.ABComm.ToString("P2"))
                                         </td>
                                     }
                                     <td class="center-align">

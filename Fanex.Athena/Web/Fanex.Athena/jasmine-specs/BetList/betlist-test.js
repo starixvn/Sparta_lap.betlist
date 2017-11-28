@@ -107,13 +107,13 @@
 
         it("'.league-name-title' should contain resource 'BetList' as default", function () {
             BetList.setLeagueTitle();
-            var result = BetList.getMicrogamingResultUrl(1, 2);
+            BetList.getMicrogamingResultUrl(1, 2);
             expect($('.league-name-title').html()).toBe('BetList - ');
         });
 
         it("'.league-name-title' should contain the text passed as paramter", function () {
             BetList.setLeagueTitle('Hello');
-            var result = BetList.getMicrogamingResultUrl(1, 2);
+            BetList.getMicrogamingResultUrl(1, 2);
             expect($('.league-name-title').html()).toBe('Hello - ');
         });
     });

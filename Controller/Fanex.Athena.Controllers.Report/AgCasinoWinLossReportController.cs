@@ -23,7 +23,7 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
             var date = DateTime.Now;
 
-            var metaModel = new AgCasinoWinLossMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
                 FromDate = date.AddDays(-1),
                 ToDate = date.AddDays(-1),
@@ -34,7 +34,7 @@ namespace Fanex.Athena.Controllers.Report
 
             SetConvetedUSDCurrencyId(metaModel);
 
-            var model = new AgCasinoWinLossViewModel
+            var model = new ThirdPartyWinLossViewModel
             {
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList

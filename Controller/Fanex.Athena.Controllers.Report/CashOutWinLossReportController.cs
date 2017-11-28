@@ -22,7 +22,7 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
 
-            var metaModel = new CashOutWinLossMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
                 FromDate = DateTime.Now,
                 ToDate = DateTime.Now,

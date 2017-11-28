@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -755,8 +755,10 @@
     <Content Include="Content\Utility\images\UM.png" />
     <Content Include="jasmine-specs\BetList\lastbet.filter-test.js" />
     <Content Include="jasmine-specs\Customer\CustomerList\customerlist.custoption-test.js" />
+    <Content Include="jasmine-specs\Helper\ProductListHelper-test.js" />
     <Content Include="jasmine-specs\Helper\downloader-test.js" />
     <Content Include="jasmine-specs\Plugin\Toast\toast-test.js" />
+    <Content Include="jasmine-specs\Report\customerwinloss.option-test.js" />
     <Content Include="Jasmine\NewUI\SpecRunner.html" />
     <Content Include="karma-new-dev.conf.js" />
     <Content Include="karma-new.conf.js" />
@@ -821,6 +823,8 @@
     <Content Include="www\js\build\dev\reactpages\vendors\reactpages.chunk.js.map" />
     <Content Include="www\css\source\components\toast\toast.scss" />
     <Content Include="Content\Plugin\Toast\toast.scss" />
+    <Content Include="App_Code\GroupCommRazorHelper.cshtml" />
+    <Content Include="App_Code\DesktopGroupCommRazorHelper.cshtml" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
@@ -1831,7 +1835,6 @@
     <Content Include="Content\UserGuide\Images\team-to-score-guide3.png" />
     <Content Include="Content\UserGuide\user-guide.css" />
     <Content Include="Deployment.ignore" />
-    <Content Include="App_Data\Template\Reports\AgCasinoWinLoss.xls" />
     <None Include="App_Data\SpNameConfig\FanexSpName.xml.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>FanexSpName.xml1.txt</LastGenOutput>

@@ -32,7 +32,7 @@
 
         [TestCase(0, 2)]
         [TestCase(2, 0)]
-        public void CopyRow(int sourceRowIndex, int destRowIndex)
+        public void CopyRow_WhenCall_ResultNotNull(int sourceRowIndex, int destRowIndex)
         {
             // Arrange
             var sheet = Substitute.For<ISheet>();
@@ -43,6 +43,37 @@
 
             // Assert
             Assert.That(row, Is.Not.Null);
+        }
+
+        [Test]
+        public void CopyRow_SourceSheetRowNull_ReturnNull()
+        {
+            // Arrange
+            var sheet = Substitute.For<ISheet>();
+            var sourceSheet = Substitute.For<ISheet>();
+            sourceSheet.GetRow(0).ReturnsForAnyArgs((IRow)null);
+
+            // Action
+            var row = sheet.CopyRow(sourceSheet, 0, 0);
+
+            // Assert
+            Assert.That(row, Is.Null);
+        }
+
+        [Test]
+        public void CopyRow_DestRowNull_CreateNewRow()
+        {
+            // Arrange
+            const int DestRowIndex = 1000;
+            var sheet = Substitute.For<ISheet>();
+            var sourceSheet = Substitute.For<ISheet>();
+            sheet.GetRow(DestRowIndex).Returns((IRow)null);
+
+            // Action
+            var row = sheet.CopyRow(sourceSheet, 0, DestRowIndex);
+
+            // Assert
+            sheet.Received().CreateRow(DestRowIndex);
         }
 
         [Test]

@@ -19,171 +19,102 @@
         [HttpGet]
         public ActionResult Match(LiveReportBetListMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-            if (model.IsExportExcel)
-            {
-                var currencyList = SessionService.UserSession.CurrencyList;
-
-                if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
-                {
-                    const string UspKey = "Lrf_BetList_LiveReport_SelWinlossByMatch";
-                    var matchName = model.HomeId > 0 && model.AwayId > 0
-                        ? CacheRef.GetTeamName(model.HomeId) + " vs " + CacheRef.GetTeamName(model.AwayId) + " "
-                        : string.Empty;
-                    var title = ViewResources.BetList
-
-                        + string.Format(
-                        " - {0} - {1} --> {2} - {3}",
-                        matchName + CacheRef.GetBettype(model.BetType),
-                        model.FromDate.ToShortDateString(),
-                        model.ToDate.ToShortDateString(),
-                        string.Format(ViewResources.Viewin, model.IsConvert ? model.BaseCurrency.ToUpperInvariant() : model.CurrencyName));
-                    return Excel(model, UspKey, title);
-                }
-
-                return EmptyExcel();
-            }
-
-            return View("~/Views/BetList/LiveReport/Match.cshtml", model);
+            return ProcessRequest(
+                metaModel,
+                "Lrf_BetList_LiveReport_SelWinlossByMatch",
+                "~/Views/BetList/LiveReport/Match.cshtml");
         }
 
         [HttpGet]
         public ActionResult MixParlay(LiveReportBetListMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-            if (model.IsExportExcel)
-            {
-                var currencyList = SessionService.UserSession.CurrencyList;
-
-                if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
-                {
-                    const string UspKey = "Lrf_BetList_LiveReport_SelWinlossParlay";
-                    var matchName = model.HomeId > 0 && model.AwayId > 0
-                        ? CacheRef.GetTeamName(model.HomeId) + " vs " + CacheRef.GetTeamName(model.AwayId) + "- "
-                        : string.Empty;
-                    var title = ViewResources.BetList
-
-                        + string.Format(
-                        " - {0} - {1} --> {2} - {3}",
-                        matchName + CacheRef.GetBettype(model.BetType),
-                        model.FromDate.ToShortDateString(),
-                        model.ToDate.ToShortDateString(),
-                        string.Format(ViewResources.Viewin, model.IsConvert ? model.BaseCurrency.ToUpperInvariant() : model.CurrencyName));
-                    return Excel(model, UspKey, title);
-                }
-
-                return EmptyExcel();
-            }
-
-            return View("~/Views/BetList/LiveReport/MixParlay.cshtml", model);
+            return ProcessRequest(
+                metaModel,
+                "Lrf_BetList_LiveReport_SelWinlossParlay",
+                "~/Views/BetList/LiveReport/MixParlay.cshtml");
         }
 
         [HttpGet]
         public ActionResult Outright(LiveReportBetListMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-
-            if (model.IsExportExcel)
-            {
-                var currencyList = SessionService.UserSession.CurrencyList;
-
-                if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
-                {
-                    const string UspKey = "Lrf_BetList_LiveReport_SelWinlossOutright";
-                    var title = ViewResources.BetList
-
-                        + string.Format(
-                        " - {0} - {1} --> {2} - {3}",
-                        ViewResources.Outright,
-                        model.FromDate.ToShortDateString(),
-                        model.ToDate.ToShortDateString(),
-                        string.Format(ViewResources.Viewin, model.IsConvert ? model.BaseCurrency.ToUpperInvariant() : model.CurrencyName));
-                    return Excel(model, UspKey, title);
-                }
-
-                return EmptyExcel();
-            }
-
-            return View("~/Views/BetList/LiveReport/Outright.cshtml", model);
+            return ProcessRequest(
+                metaModel,
+                "Lrf_BetList_LiveReport_SelWinlossOutright",
+                "~/Views/BetList/LiveReport/Outright.cshtml",
+                ViewResources.Outright);
         }
 
         [HttpGet]
         public ActionResult NumberGame(LiveReportBetListMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-            if (model.IsExportExcel)
-            {
-                var currencyList = SessionService.UserSession.CurrencyList;
-
-                if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
-                {
-                    const string UspKey = "Lrf_BetList_LiveReport_SelWinlossNumberGame";
-                    var title = ViewResources.BetList
-
-                        + string.Format(
-                        " - {0} - {1} --> {2} - {3}",
-                        ViewResources.ProductNG,
-                        model.FromDate.ToShortDateString(),
-                        model.ToDate.ToShortDateString(),
-                        string.Format(ViewResources.Viewin, model.IsConvert ? model.BaseCurrency.ToUpperInvariant() : model.CurrencyName));
-                    return Excel(model, UspKey, title);
-                }
-
-                return EmptyExcel();
-            }
-
-            return View("~/Views/BetList/LiveReport/NumberGame.cshtml", model);
+            return ProcessRequest(
+                metaModel,
+                "Lrf_BetList_LiveReport_SelWinlossNumberGame",
+                "~/Views/BetList/LiveReport/NumberGame.cshtml",
+                ViewResources.ProductNG);
         }
 
         [HttpGet]
         public ActionResult Racing(LiveReportBetListMetaModel metaModel)
         {
-            const string UspName = "Lrf_BetList_LiveReport_SelWinlossRacing";
-
-            var model = CreateDefaultMetaModel(metaModel);
-            var sportName = CacheRef.GetSportName(model.SportType);
-            if (!model.IsExportExcel)
-            {
-                ViewBag.SportName = sportName;
-                return View("~/Views/BetList/LiveReport/Racing.cshtml", model);
-            }
-
-            var currencyList = SessionService.UserSession.CurrencyList;
-
-            if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
-            {
-                var currencyName = string.Format(ViewResources.Viewin, model.IsConvert ? model.BaseCurrency.ToUpperInvariant() : model.CurrencyName);
-                var title = ViewResources.BetList
-                    + $" - {sportName} - {model.FromDate.ToShortDateString()} --> {model.ToDate.ToShortDateString()} - {currencyName}";
-
-                return Excel(model, UspName, title);
-            }
-
-            return EmptyExcel();
+            var sportName = CacheRef.GetSportName(metaModel.SportType);
+            return ProcessRequest(
+                metaModel,
+                "Lrf_BetList_LiveReport_SelWinlossRacing",
+                "~/Views/BetList/LiveReport/Racing.cshtml",
+                sportName,
+                sportName);
         }
 
         [HttpGet]
         public ActionResult VirtualSports(LiveReportBetListMetaModel metaModel)
         {
-            const string UspName = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
+            var sportName = CacheRef.GetSportName(metaModel.SportType);
+            return ProcessRequest(
+                metaModel,
+                "Lrf_BetList_LiveReport_SelWinlossVHRacing",
+                "~/Views/BetList/LiveReport/VirtualSports.cshtml",
+                sportName,
+                sportName);
+        }
 
+        private static string GetMatchName(LiveReportBetListMetaModel model)
+        {
+            return model.HomeId > 0 && model.AwayId > 0
+                                ? CacheRef.GetTeamName(model.HomeId) + " vs " + CacheRef.GetTeamName(model.AwayId) + " "
+                                : string.Empty;
+        }
+
+        private ActionResult ProcessRequest(
+            LiveReportBetListMetaModel metaModel,
+            string uspKey,
+            string viewPath,
+            string caption = null,
+            string sportName = null)
+        {
             var model = CreateDefaultMetaModel(metaModel);
-            var sportName = CacheRef.GetSportName(model.SportType);
             if (!model.IsExportExcel)
             {
                 ViewBag.SportName = sportName;
-                return View("~/Views/BetList/LiveReport/VirtualSports.cshtml", model);
+                return View(viewPath, model);
             }
 
             var currencyList = SessionService.UserSession.CurrencyList;
 
             if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
             {
-                var currencyName = string.Format(ViewResources.Viewin, model.IsConvert ? model.BaseCurrency.ToUpperInvariant() : model.CurrencyName);
+                var betlistCaption = string.IsNullOrEmpty(caption) ?
+                    GetMatchName(model) + CacheRef.GetBettype(model.BetType) :
+                    caption;
+                var viewInCaption = string.Format(ViewResources.Viewin, model.IsConvert ? model.BaseCurrency.ToUpperInvariant() : model.CurrencyName);
                 var title = ViewResources.BetList
-                    + $" - {sportName} - {model.FromDate.ToShortDateString()} --> {model.ToDate.ToShortDateString()} - {currencyName}";
-
-                return Excel(model, UspName, title);
+                    + string.Format(
+                    " - {0} - {1} --> {2} - {3}",
+                    betlistCaption,
+                    model.FromDate.ToShortDateString(),
+                    model.ToDate.ToShortDateString(),
+                    viewInCaption);
+                return Excel(model, uspKey, title);
             }
 
             return EmptyExcel();
@@ -211,8 +142,6 @@
             return new ExcelResult(workbook, "LiveReportBetList");
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters",
-            Justification = "Reviewed.")]
         private LiveReportBetListMetaModel CreateDefaultMetaModel(LiveReportBetListMetaModel metaModel = null)
         {
             var defaultMetaModel = metaModel ?? new LiveReportBetListMetaModel();

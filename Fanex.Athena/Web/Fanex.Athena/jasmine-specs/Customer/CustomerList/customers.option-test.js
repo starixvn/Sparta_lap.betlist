@@ -10,25 +10,7 @@
         var productAccessData;
         var isAllowComission = true;
         beforeEach(function () {
-            productAccessData = {
-                IsAllowSB: true,
-                IsAllowRB: false,              
-                ProductList: [
-                {
-                    ProductID: 0,
-                    ProductName: 'Sportsbook',
-                    ProductCode: 'SB',
-                    AllowCommission: true,
-                    AllowWinloss: true
-                },
-                {
-                    ProductID: 1,
-                    ProductName: 'Racing',
-                    ProductCode: 'RB',
-                    AllowCommission: true,
-                    AllowWinloss: true
-                }]
-            };
+            productAccessData = ["SB", "AA"];
 
             CustomersOption.getGridOption(productAccessData, isAllowComission);
         });

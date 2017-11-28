@@ -24,19 +24,28 @@ namespace Fanex.Athena.Service.Casino
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Common;
-    using Fanex.Logging;
+    using Wrappers;
 
     public class RNGCasinoService : IRNGCasinoService
     {
-        private const int System = 4;
+        private readonly IReportApiWrapper _reportApiWrapper;
 
         private readonly ILanguageService _langService;
-        private readonly IExChangeRateDataAccess _exchangeRateService;
 
-        public RNGCasinoService()
+        private readonly IExChangeRateDataAccess _exchangeRateDataAccess;
+
+        public RNGCasinoService() : this(null, null, null)
         {
-            _langService = new LanguageService();
-            _exchangeRateService = new ExChangeRateDataAccess();
+        }
+
+        public RNGCasinoService(
+            IReportApiWrapper reportApiWrapper,
+            ILanguageService langService,
+            IExChangeRateDataAccess exchangeRateDataAccess)
+        {
+            _reportApiWrapper = reportApiWrapper ?? new ReportApiWrapper();
+            _langService = langService ?? new LanguageService();
+            _exchangeRateDataAccess = exchangeRateDataAccess ?? new ExChangeRateDataAccess();
         }
 
         public List<RNGCasinoResult> GetRNGCasinoResult(RNGCasinoResultMetaModel metaModel)
@@ -48,11 +57,12 @@ namespace Fanex.Athena.Service.Casino
                 var currency = GetDataRowExtension(dataTable.Rows[0], "Currency");
 
                 var date = Converter.ToDateTime(GetDataRowExtension(dataTable.Rows[0], "StartTime"));
-                var exchangeRate = this._exchangeRateService.GetExChangeRate(currency, date);
+                var exchangeRate = this._exchangeRateDataAccess.GetExChangeRate(currency, date);
+                var language = _langService.GetCurrentLanguage();
                 for (int i = 0; i < dataTable.Rows.Count; i++)
                 {
                     var dr = dataTable.Rows[i];
-                    var casino = MapDataToCasinoItem(dr);
+                    var casino = MapDataToCasinoItem(dr, language);
                     casino.Index = i + 1;
                     if (metaModel.IsShowPic)
                     {
@@ -89,10 +99,9 @@ namespace Fanex.Athena.Service.Casino
         public CasinoHandHistoryDetailViewModel GetRNGCasinoResultDetail(RNGCasinoResultDetailMetaModel metaModel)
         {
             var resultModel = new CasinoHandHistoryDetailViewModel();
-            var casinoLib = new CasinoLibrary.SBAgent.Report();
             try
             {
-                var tables = casinoLib.WinLossDetail(metaModel.UserBetId);
+                var tables = _reportApiWrapper.WinLossDetail(metaModel.UserBetId);
 
                 if (tables != null && tables.Length > 1)
                 {
@@ -112,53 +121,6 @@ namespace Fanex.Athena.Service.Casino
 
             return resultModel;
         }
-
-        #region Commission
-
-        /// <summary>
-        /// Update member commission.
-        /// </summary>
-        /// <param name="metaModel">Meta model data.</param>
-        /// <returns>Success or fail.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
-            Justification = "Reviewed. Suppression is OK here.")]
-        public bool UpdateMemberCommission(RNGCasinoUpdateMemberComMetaModel metaModel)
-        {
-            const string API_ERROR_MSG = "Found errors when calling casino API to update customer commission.\n customers=";
-            const string AdditionErrorMsgPattern = "\n IP={0},CustomerId={1},ModifyBy={2},ModifyBy={3},System={4},Site={5}";
-            var customer = new CasinoLibrary.SBAgent.Customer();
-            var additionalErrorMsg = string.Format(
-                AdditionErrorMsgPattern,
-                metaModel.FromIp,
-                string.Join(",", metaModel.CustomerId),
-                metaModel.ModifyBy,
-                metaModel.ModifyUserName,
-                System,
-                metaModel.SiteName);
-            var success = false;
-            try
-            {
-                success = customer.UpdateComm(
-                     metaModel.CustomerId,
-                     metaModel.Comm,
-                     metaModel.FromIp,
-                     metaModel.ModifyBy,
-                     metaModel.ModifyUserName,
-                     System);
-                if (!success)
-                {
-                    LogService.Error(API_ERROR_MSG + string.Join(",", metaModel.CustomerId) + additionalErrorMsg);
-                }
-            }
-            catch (Exception exception)
-            {
-                LogService.Error(exception.Message + additionalErrorMsg, exception);
-            }
-
-            return success;
-        }
-
-        #endregion Commission
 
         #region Ultilities
 
@@ -184,24 +146,6 @@ namespace Fanex.Athena.Service.Casino
                 default:
                     return 1;
             }
-        }
-
-        private static DataTable GetResultFromAPI(RNGCasinoResultMetaModel metalModel)
-        {
-            const string BetType = "Casino";
-            var casinoLib = new CasinoLibrary.SBAgent.Report();
-            var dataTable = casinoLib.WinLossHandHistory(metalModel.RefNo, BetType, RNGCasinoSetting.CasinoGroup1, metalModel.IsShowPic);
-            if (dataTable == null)
-            {
-                dataTable = casinoLib.RealTimeWinLossHandHistory(
-                metalModel.FromDate,
-                metalModel.ToDate,
-                metalModel.CustId,
-                RNGCasinoSetting.CasinoGroup1,
-                metalModel.IsShowPic);
-            }
-
-            return dataTable;
         }
 
         /// <summary>
@@ -270,6 +214,23 @@ namespace Fanex.Athena.Service.Casino
                     : string.Empty;
         }
 
+        private DataTable GetResultFromAPI(RNGCasinoResultMetaModel metalModel)
+        {
+            const string BetType = "Casino";
+            var dataTable = _reportApiWrapper.WinLossHandHistory(metalModel.RefNo, BetType, RNGCasinoSetting.CasinoGroup1, metalModel.IsShowPic);
+            if (dataTable == null)
+            {
+                dataTable = _reportApiWrapper.RealTimeWinLossHandHistory(
+                metalModel.FromDate,
+                metalModel.ToDate,
+                metalModel.CustId,
+                RNGCasinoSetting.CasinoGroup1,
+                metalModel.IsShowPic);
+            }
+
+            return dataTable;
+        }
+
         /// <summary>
         /// Process result detail.
         /// </summary>
@@ -285,12 +246,12 @@ namespace Fanex.Athena.Service.Casino
         {
             // get exchange rate
             var betTime = Converter.ToDateTime(GetDataRowExtension(headTable.Rows[0], "BetTime"));
-
+            var language = _langService.GetCurrentLanguage();
             ExChangeRate exchangeRate;
             if (detailTable.Rows.Count > 0)
             {
                 var currency = GetDataRowExtension(detailTable.Rows[0], "Currency");
-                exchangeRate = this._exchangeRateService.GetExChangeRate(currency, betTime);
+                exchangeRate = this._exchangeRateDataAccess.GetExChangeRate(currency, betTime);
             }
             else
             {
@@ -299,7 +260,7 @@ namespace Fanex.Athena.Service.Casino
 
             foreach (DataRow row in headTable.Rows)
             {
-                var headItem = MapDataToHeaderItem(row);
+                var headItem = MapDataToHeaderItem(row, language);
 
                 headItem.CoinSizeBaseCurrencyValue = GetBaseCurrencyValue(headItem.CoinSize, exchangeRate, metaModel.CurrencyName);
                 headItem.WinBaseCurrencyValue = GetBaseCurrencyValue(headItem.Win, exchangeRate, metaModel.CurrencyName);
@@ -313,7 +274,7 @@ namespace Fanex.Athena.Service.Casino
 
             foreach (DataRow row in detailTable.Rows)
             {
-                var detailItem = MapDataToDetailItem(row);
+                var detailItem = MapDataToDetailItem(row, language);
 
                 var rate = GetExchangeRate(exchangeRate, metaModel.CurrencyName);
 
@@ -328,12 +289,6 @@ namespace Fanex.Athena.Service.Casino
             }
         }
 
-        private string GetColumnNameByCurrentLanguage(string columnName)
-        {
-            var currentLang = this._langService.GetCurrentLanguage();
-            return CasinoHelper.GetColumnNameByLanguage(columnName, currentLang);
-        }
-
         #region Map Data
 
         /// <summary>
@@ -341,9 +296,9 @@ namespace Fanex.Athena.Service.Casino
         /// </summary>
         /// <param name="row">The data row.</param>
         /// <returns>The RNG Casino.</returns>
-        private RNGCasinoResult MapDataToCasinoItem(DataRow row)
+        private RNGCasinoResult MapDataToCasinoItem(DataRow row, string language)
         {
-            var gameTypeName = GetDataRowExtension(row, GetColumnNameByCurrentLanguage("GameTypeName"));
+            var gameTypeName = GetDataRowExtension(row, CasinoHelper.GetColumnNameByLanguage("GameTypeName", language));
             gameTypeName = gameTypeName.Replace("<BR>", " ");
 
             return new RNGCasinoResult
@@ -367,12 +322,12 @@ namespace Fanex.Athena.Service.Casino
                 HandNo = GetDataRowExtension(row, "HandNo"),
                 ResultId = GetDataRowExtension(row, "ResultId"),
                 UserName = GetDataRowExtension(row, "UserName"),
-                Result = GetDataRowExtension(row, GetColumnNameByCurrentLanguage("Result")),
+                Result = GetDataRowExtension(row, CasinoHelper.GetColumnNameByLanguage("Result", language)),
                 Status = Converter.ToInt(GetDataRowExtension(row, "Status")),
                 GameGroupId = Converter.ToInt(GetDataRowExtension(row, "GameGroupId")),
                 GameTypeNo = GetDataRowExtension(row, "GameTypeNo"),
                 GameTypeName = gameTypeName,
-                GameGroupName = GetDataRowExtension(row, GetColumnNameByCurrentLanguage("GameGroupName")),
+                GameGroupName = GetDataRowExtension(row, CasinoHelper.GetColumnNameByLanguage("GameGroupName", language)),
                 Currency = GetDataRowExtension(row, "Currency"),
                 TableName = GetDataRowExtension(row, "TableName"),
                 RollingComm = Converter.ToDecimal(GetDataRowExtension(row, "RollComm")),
@@ -384,12 +339,12 @@ namespace Fanex.Athena.Service.Casino
         /// </summary>
         /// <param name="row">The data row.</param>
         /// <returns>The detail data.</returns>
-        private CasinoWinLossDetail MapDataToDetailItem(DataRow row)
+        private CasinoWinLossDetail MapDataToDetailItem(DataRow row, string language)
         {
             return new CasinoWinLossDetail
             {
                 BetTypeId = Converter.ToInt(GetDataRowExtension(row, "BetTypeId")),
-                BetTypeName = GetDataRowExtension(row, GetColumnNameByCurrentLanguage("BetTypeName")),
+                BetTypeName = GetDataRowExtension(row, CasinoHelper.GetColumnNameByLanguage("BetTypeName", language)),
                 Bet = Converter.ToDecimal(GetDataRowExtension(row, "Bet")),
                 Odds = Converter.ToDecimal(GetDataRowExtension(row, "Odds")),
                 Win = Converter.ToDecimal(GetDataRowExtension(row, "Win")),
@@ -405,38 +360,38 @@ namespace Fanex.Athena.Service.Casino
         /// </summary>
         /// <param name="row">The data row.</param>
         /// <returns>The detail header data.</returns>
-        private CasinoWinLossDetailHeader MapDataToHeaderItem(DataRow row)
+        private CasinoWinLossDetailHeader MapDataToHeaderItem(DataRow row, string language)
         {
             return new CasinoWinLossDetailHeader
             {
                 ShowType = GetDataRowExtension(row, "ShowType"),
-                TableName = GetDataRowExtension(row, GetColumnNameByCurrentLanguage("TableName")),
+                TableName = GetDataRowExtension(row, CasinoHelper.GetColumnNameByLanguage("TableName", language)),
                 BetTime = Converter.ToDateTime(GetDataRowExtension(row, "BetTime")),
                 UserName = GetDataRowExtension(row, "UserName"),
-                ResultName = GetDataRowExtension(row, GetColumnNameByCurrentLanguage("ResultName")),
+                ResultName = GetDataRowExtension(row, CasinoHelper.GetColumnNameByLanguage("ResultName", language)),
                 Result = GetDataRowExtension(row, "Result"),
                 PlayerHistoryNo = GetDataRowExtension(row, "PlayerHistoryNo_Result"),
                 Symbol = GetDataRowExtension(row, "Symbol"),
                 CoinSize = GetDataRowExtension(row, "CoinSize"),
-                CoinSizeAmount = GetDataRowExtension(row, GetColumnNameByCurrentLanguage("CoinSizeAmount")),
+                CoinSizeAmount = GetDataRowExtension(row, CasinoHelper.GetColumnNameByLanguage("CoinSizeAmount", language)),
                 Bet = GetDataRowExtension(row, "Bet"),
                 Odds = GetDataRowExtension(row, "Odds"),
                 Multiplier = GetDataRowExtensionMultiple(row, "Multiplier_Result", "Multiplier"),
                 Win = GetDataRowExtension(row, "Win"),
                 WinResult = GetDataRowExtensionMultiple(row, "Win_Result", "WinResult"),
-                ModeResult = GetDataRowExtension(row, GetColumnNameByCurrentLanguage("ModeResult")),
-                AutoSpinResult = GetDataRowExtension(row, GetColumnNameByCurrentLanguage("AutoSpinResult")),
-                FreeSpinResult = GetDataRowExtension(row, GetColumnNameByCurrentLanguage("FreeSpinResult")),
-                BonusName = GetDataRowExtension(row, GetColumnNameByCurrentLanguage("BonusName")),
+                ModeResult = GetDataRowExtension(row, CasinoHelper.GetColumnNameByLanguage("ModeResult", language)),
+                AutoSpinResult = GetDataRowExtension(row, CasinoHelper.GetColumnNameByLanguage("AutoSpinResult", language)),
+                FreeSpinResult = GetDataRowExtension(row, CasinoHelper.GetColumnNameByLanguage("FreeSpinResult", language)),
+                BonusName = GetDataRowExtension(row, CasinoHelper.GetColumnNameByLanguage("BonusName", language)),
                 LineNo = GetDataRowExtension(row, "LineNo"),
                 TotalLineBet = GetDataRowExtension(row, "TotalLineBet"),
-                RoundTypeResult = GetDataRowExtension(row, GetColumnNameByCurrentLanguage("RoundTypeResult")),
+                RoundTypeResult = GetDataRowExtension(row, CasinoHelper.GetColumnNameByLanguage("RoundTypeResult", language)),
                 BetPerLine = GetDataRowExtension(row, "BetPerLine"),
-                RankResult = GetDataRowExtension(row, GetColumnNameByCurrentLanguage("RankResult")),
+                RankResult = GetDataRowExtension(row, CasinoHelper.GetColumnNameByLanguage("RankResult", language)),
                 FinalHandResult = GetDataRowExtension(row, "FinalResult"),
-                BetTypeName = GetDataRowExtension(row, GetColumnNameByCurrentLanguage("BetTypeName")),
-                AutoPlayResult = GetDataRowExtension(row, GetColumnNameByCurrentLanguage("AutoPlayResult")),
-                ActionName = GetDataRowExtension(row, GetColumnNameByCurrentLanguage("ActionName")),
+                BetTypeName = GetDataRowExtension(row, CasinoHelper.GetColumnNameByLanguage("BetTypeName", language)),
+                AutoPlayResult = GetDataRowExtension(row, CasinoHelper.GetColumnNameByLanguage("AutoPlayResult", language)),
+                ActionName = GetDataRowExtension(row, CasinoHelper.GetColumnNameByLanguage("ActionName", language)),
                 WinLossResult = GetDataRowExtension(row, "WinLoss_Result"),
                 HandNoResult = GetDataRowExtension(row, "HandNoResult"),
                 PickNo = GetDataRowExtension(row, "Pick_No"),

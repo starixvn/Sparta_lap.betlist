@@ -110,7 +110,9 @@
     <Compile Include="Exception\DataAccessException.cs" />
     <Compile Include="Extensions\DataReaderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Users\AuthDataAccess.cs" />
     <Compile Include="Users\AuthorizationDataAccess.cs" />
+    <Compile Include="Users\Interfaces\IAuthDataAccess.cs" />
     <Compile Include="Users\LicenseeDataAccess.cs" />
     <Compile Include="Users\UserDataAccess.cs" />
     <Compile Include="Users\Interfaces\IAthorizationDataAccess.cs" />

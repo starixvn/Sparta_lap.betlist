@@ -39,7 +39,7 @@ namespace Fanex.Athena.Service.Core.Users
         private readonly string _keyPath;
         private readonly string _deniedPath;
 
-        private readonly IUserService _userService;
+        private readonly IAuthService _authService;
         private readonly ISessionService _sessionService;
         private readonly IRSAEncryptor _rsaEncryptor;
         private readonly IFileSystem _fileSystem;
@@ -48,7 +48,7 @@ namespace Fanex.Athena.Service.Core.Users
         public SSOService()
         {
             _context = new HttpContextService();
-            _userService = new UserService();
+            _authService = new AuthService();
             _sessionService = new SessionService();
             _rsaEncryptor = new RSAEncryptor();
             _fileSystem = new FileSystem();
@@ -59,7 +59,7 @@ namespace Fanex.Athena.Service.Core.Users
 
         public SSOService(
             IHttpContextService httpContextService,
-            IUserService userService,
+            IAuthService authService,
             ISessionService sessionService,
             IRSAEncryptor rsaEncryptor,
             IFileSystem fileSystem,
@@ -68,7 +68,7 @@ namespace Fanex.Athena.Service.Core.Users
             string keyPath)
         {
             _context = httpContextService;
-            _userService = userService;
+            _authService = authService;
             _sessionService = sessionService;
             _rsaEncryptor = rsaEncryptor;
             _fileSystem = fileSystem;
@@ -242,13 +242,13 @@ namespace Fanex.Athena.Service.Core.Users
                 }
             };
             IResultInfo loginResultInfo;
-            var user = _userService.ValidateInternalUser(requestUser, licname, timeSpan, out loginResultInfo);
+            var user = _authService.ValidateInternalUser(requestUser, licname, timeSpan, out loginResultInfo);
 
             if (loginResultInfo.IsSuccessful)
             {
                 _sessionService.CreateNewSession(
                     user.UserID,
-                    _userService.LoginOnUser(user, _context.Session.SessionID, user.ServerId, _context.Request.UserHostAddress),
+                    _authService.LoginOnUser(user, _context.Session.SessionID, user.ServerId, _context.Request.UserHostAddress),
                     user.Username,
                     true,
                     user.Licensee.Id,

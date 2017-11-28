@@ -92,7 +92,11 @@
 
             var excel = Substitute.ForPartsOf<CustomerWinLossExcel>(
                 Arg.Any<string>(),
-                new CustomerWinLossExcelModel { MetaModel = new CustomerWinLossMetaModel() });
+                new CustomerWinLossExcelModel
+                {
+                    MetaModel = new CustomerWinLossMetaModel(),
+                    DataList = new CustomerWinLoss[] { }
+                });
             excel.When(x => x.Export()).DoNotCallBase();
             StubGetValueAppSettings("FakeLicenseeList", "1,2");
 

@@ -8,7 +8,6 @@ namespace Fanex.Athena.Excel.Report
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
@@ -55,7 +54,7 @@ namespace Fanex.Athena.Excel.Report
                 ConvertingOption convertingOption,
                 ThirdPartyWinLossMetaModel metaModel,
                 ColossusBetWinLossViewModel viewModel)
-            : base(templatePath)
+            : base(templatePath, viewModel.MainResult.Count())
         {
             _convertingOption = convertingOption;
             _metaModel = metaModel;
@@ -63,34 +62,7 @@ namespace Fanex.Athena.Excel.Report
             _summaryTotal = viewModel.SummaryTotal;
         }
 
-        public int Level
-        {
-            get;
-            set;
-        }
-
-        protected override void AssignData()
-        {
-            var numOfDataRow = _winLossList.Count;
-
-            var sheet = Workbook.CloneSheet("Template", "Data");
-
-            AssignHeader(sheet);
-            AssignTitle(sheet);
-
-            if (numOfDataRow == 0)
-            {
-                AssignNoInfoRow(sheet);
-            }
-            else
-            {
-                AssignSheetData(sheet);
-            }
-
-            ProcessUI(sheet);
-        }
-
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
@@ -111,13 +83,13 @@ namespace Fanex.Athena.Excel.Report
             row2.Cells[ColumnCashOutAmt].SetCellValue(ViewResources.CashOutAmt);
         }
 
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
-        protected void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             var rowIndex = 1;
             int index;
@@ -151,15 +123,10 @@ namespace Fanex.Athena.Excel.Report
             AssignGrandTotal(sheet, rowIndex);
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
-            var fromdate = _metaModel.FromDate.ToString(FormatDate);
-            var todate = _metaModel.ToDate.ToString(FormatDate);
-            var title = _metaModel.DrillDownLevel > 0 && _metaModel.CurrencyId == 0
-                ? ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.DrillDownCurrencyId)
-                : ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId);
-
-            var reportTitle = GenerateProductReportTitle(fromdate, todate, title);
+            var reportName = ViewResources.ProductCB + " " + ViewResources.WinLoss;
+            var reportTitle = ReportExcelHelper.GenerateReportTitle(reportName, _convertingOption, _metaModel);
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze rows title and header
@@ -169,9 +136,9 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        protected void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
-            if (Level == 0)
+            if (_metaModel.DrillDownLevel  == 0)
             {
                 sheet.HideColumn(ColumnExternalId, ColumnSystemId);
             }
@@ -211,16 +178,7 @@ namespace Fanex.Athena.Excel.Report
             return listTotalCurrency;
         }
 
-        private static string GenerateProductReportTitle(string fromDate, string toDate, string title)
-        {
-            var reportTitle = new StringBuilder(string.Empty);
-            reportTitle.Append(ViewResources.ProductCB).Append(" ");
-            reportTitle.Append(ViewResources.WinLoss);
-            reportTitle.Append($", {fromDate} --> {toDate} - {title}");
-            return reportTitle.ToString();
-        }
-
-        private void AssignGrandTotal(ISheet sheet, int rowIndex)
+        protected internal virtual void AssignGrandTotal(ISheet sheet, int rowIndex)
         {
             var currencyList = _summaryTotal.Keys.ToList();
             currencyList.Reverse();
@@ -236,7 +194,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        private int AssignTotalData(ISheet sheet, int rowIndex)
+        protected internal virtual int AssignTotalData(ISheet sheet, int rowIndex)
         {
             var beginTotalRow = rowIndex;
             var totalCurrencyList = GetTotalCurrency(_winLossList);

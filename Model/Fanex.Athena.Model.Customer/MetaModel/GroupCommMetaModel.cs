@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Model.Customer.MetaModel
 {
-    using System;
     using System.ComponentModel.DataAnnotations;
     using Resources;
 
@@ -91,6 +90,15 @@ namespace Fanex.Athena.Model.Customer.MetaModel
         public int CSComm3 { get; set; }
 
         [Required]
+        public decimal ABComm { get; set; }
+
+        public int ABComm1 { get; set; }
+
+        public int ABComm2 { get; set; }
+
+        public int ABComm3 { get; set; }
+
+        [Required]
         public string GroupColor { get; set; }
 
         public bool IsUpdateRacing { get; set; }
@@ -107,22 +115,6 @@ namespace Fanex.Athena.Model.Customer.MetaModel
 
         public bool IsUpdateCS { get; set; }
 
-        public override bool Equals(object obj)
-        {
-            var temp = obj as GroupCommMetaModel;
-            if (temp != null)
-            {
-                var isSameComm = temp.SBComm == SBComm && temp.RCComm == RCComm && temp.CSComm == CSComm;
-                return isSameComm && temp.GroupColor.Equals(GroupColor, StringComparison.OrdinalIgnoreCase)
-                    && temp.GroupCommId == GroupCommId && temp.GroupName.Equals(GroupName);
-            }
-
-            return false;
-        }
-
-        public override int GetHashCode()
-        {
-            return GroupCommId.GetHashCode();
-        }
+        public bool IsUpdateAB { get; set; }
     }
 }

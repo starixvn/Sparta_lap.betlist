@@ -2411,4 +2411,8 @@
     <value>스포츠북</value>
     <comment>#49196</comment>
   </data>
+  <data name="ABComm" xml:space="preserve">
+    <value>AllBet 수수료</value>
+    <comment>82036</comment>
+  </data>
 </root>

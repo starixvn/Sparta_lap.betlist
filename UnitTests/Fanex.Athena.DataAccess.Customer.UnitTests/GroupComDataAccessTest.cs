@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.DataAccess.Customer.UnitTests
 {
-    using System.Collections.Generic;
     using System.Data;
     using Data;
     using Model.Core.DTO.Common;
@@ -79,10 +78,9 @@
             var item = new GroupCommMetaModel();
             var request = new Request();
             var userId = 0;
-            IResultInfo resultInfo = new ResultInfo();
 
             // Action
-            _dataAccess.InsertGroup(item, request, userId, out resultInfo);
+            _dataAccess.InsertGroup(item, request, userId);
 
             // Assert
             _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, item.LicenseeId);
@@ -111,10 +109,9 @@
             var newItem = new GroupCommMetaModel();
             var request = new Request();
             var userId = 0;
-            IResultInfo resultInfo = new ResultInfo();
 
             // Action
-            _dataAccess.UpdateGroup(newItem, request, userId, out resultInfo);
+            _dataAccess.UpdateGroup(newItem, request, userId);
 
             // Assert
             _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, newItem.LicenseeId);
@@ -144,7 +141,7 @@
         public void CheckByName_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_GroupCommCheckByName")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_GroupCommCheckByName")).Returns(_objectDb);
             var licenseeId = 0;
             var groupName = string.Empty;
 
@@ -154,6 +151,35 @@
             // Assert
             _objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, licenseeId);
             _objectDb.Received().AddInParameter("GroupName", DbType.String, groupName);
+        }
+
+        [Test]
+        public void DeleteGroup_WhenCall_ParametersPassedCorrectly()
+        {
+            // Arrange
+            const int GroupId = 1;
+            const int LicenseeId = 2;
+            const int UserId = 3;
+            const string Ip = "4";
+            const string Language = "5";
+            const bool IsRemoveCommSetting = true;
+            const bool IsResetDefault = true;
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_LicenseeGroupCommDel")).Returns(_objectDb);
+
+            // Action
+            _dataAccess.DeleteGroup(GroupId, LicenseeId, UserId, Ip, Language, IsRemoveCommSetting, IsResetDefault);
+
+            // Assert
+            _objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, LicenseeId);
+            _objectDb.Received().AddInParameter("GroupCommId", DbType.Int32, GroupId);
+            _objectDb.Received().AddInParameter("UserId", DbType.Int32, UserId);
+            _objectDb.Received().AddInParameter("Ip", DbType.String, Ip);
+            _objectDb.Received().AddInParameter("langkey", DbType.String, Language);
+            _objectDb.Received().AddInParameter("IsRemovePlayercomm", DbType.Boolean, IsRemoveCommSetting);
+            _objectDb.Received().AddInParameter("IsResetDefault", DbType.Boolean, IsResetDefault);
+            _objectDb.Received().AddOutParameter("StrCustID", DbType.String, int.MaxValue);
+            _objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
+            _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
         }
     }
 }

@@ -4,8 +4,6 @@
     using Core.Users.Interfaces;
     using Customer;
     using DataAccess.Customer.Interfaces;
-    using Interfaces;
-    using Model.Casino.MetaModel;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using Model.Customer.MetaModel;
@@ -13,40 +11,40 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class CustomerCommServiceTest
+    public partial class CustomerCommServiceTest
     {
+        private ICasinoCustomerService _casinoCustomerService;
+
         private ICustomerCommDataAccess _customerCommDataAccess;
 
         private ISessionService _sessionService;
 
-        private IRNGCasinoService _rngCasinoService;
-
-        private IGroupComService _groupCommService;
+        private IGroupComDataAccess _groupCommDataAccess;
 
         private CustomerCommService _customerCommService;
 
         [SetUp]
         public void SetUp()
         {
+            _casinoCustomerService = Substitute.For<ICasinoCustomerService>();
             _customerCommDataAccess = Substitute.For<ICustomerCommDataAccess>();
             _sessionService = Substitute.For<ISessionService>();
-            _rngCasinoService = Substitute.For<IRNGCasinoService>();
-            _groupCommService = Substitute.For<IGroupComService>();
+            _groupCommDataAccess = Substitute.For<IGroupComDataAccess>();
 
             _customerCommService = new CustomerCommService(
+                _casinoCustomerService,
                 _customerCommDataAccess,
                 _sessionService,
-                _rngCasinoService,
-                _groupCommService);
+                _groupCommDataAccess);
         }
 
         [TearDown]
         public void TearDown()
         {
+            _casinoCustomerService = null;
             _customerCommDataAccess = null;
             _sessionService = null;
-            _rngCasinoService = null;
-            _groupCommService = null;
+            _groupCommDataAccess = null;
             _customerCommService = null;
         }
 
@@ -65,13 +63,7 @@
             _sessionService.UserSession.Returns(userSession);
             var expectedResult = new ResultInfo { ExtendedData = "1,2,3" };
             _customerCommDataAccess.UpdateCustomersCommission(metaModel).Returns(expectedResult);
-            _rngCasinoService.UpdateMemberCommission(Arg.Is<RNGCasinoUpdateMemberComMetaModel>(param =>
-                                                    param.Comm == metaModel.CSComm &&
-                                                    param.CustomerId.Length == 3 &&
-                                                    param.FromIp == metaModel.Ip &&
-                                                    param.ModifyBy == metaModel.UserId &&
-                                                    param.ModifyUserName == userSession.UserName))
-                                                    .Returns(true);
+            _casinoCustomerService.UpdateCommission(null).ReturnsForAnyArgs(true);
 
             // Action
             var result = _customerCommService.UpdateCustomersCommission(metaModel, isSyncCSComm);
@@ -140,13 +132,7 @@
             _sessionService.UserSession.Returns(userSession);
             var resultInfo = new ResultInfo { ExtendedData = "1" };
             _customerCommDataAccess.UpdateCustomersCommission(metaModel).Returns(resultInfo);
-            _rngCasinoService.UpdateMemberCommission(Arg.Is<RNGCasinoUpdateMemberComMetaModel>(param =>
-                                                    param.Comm == metaModel.CSComm &&
-                                                    param.CustomerId.Length == 1 &&
-                                                    param.FromIp == metaModel.Ip &&
-                                                    param.ModifyBy == metaModel.UserId &&
-                                                    param.ModifyUserName == userSession.UserName))
-                                                    .Returns(false);
+            _casinoCustomerService.UpdateCommission(null).ReturnsForAnyArgs(false);
             var expectedResult = new ResultInfo
             {
                 Code = 1,
@@ -162,122 +148,82 @@
         }
 
         [Test]
-        public void RemoveCustomersFromGroup_CallApiSuccess_ReturnCorrectData()
+        public void MoveCustomersToGroup_GroupNotExists_NotCallMoveCustomersToGroup()
         {
             // Arrange
-            var isAllowedRNGCasino = true;
-            var metaModel = new RemoveFromGroupComMetaModel { Ip = "1.1.1.1", IsRemovePlayercomm = true };
-            var expectedResult = new ResultInfo { ExtendedData = "1,2,3" };
-            _customerCommDataAccess.RemoveCustomersFromGroup(metaModel).Returns(expectedResult);
-            var userSession = new UserSession { UserName = "tester", UserId = 1 };
-            _sessionService.UserSession.Returns(userSession);
-            _rngCasinoService.UpdateMemberCommission(Arg.Is<RNGCasinoUpdateMemberComMetaModel>(param =>
-                                                    param.Comm == 0 &&
-                                                    param.CustomerId.Length == 3 &&
-                                                    param.FromIp == metaModel.Ip &&
-                                                    param.ModifyBy == userSession.UserId &&
-                                                    param.ModifyUserName == userSession.UserName))
-                                                    .Returns(true);
+            var metaModel = new MoveToGroupComMetaModel
+            {
+                GroupComId = 1
+            };
+            _groupCommDataAccess.GetById(metaModel.GroupComId).Returns(x => null);
 
             // Action
-            var result = _customerCommService.RemoveCustomersFromGroup(metaModel, isAllowedRNGCasino);
+            var result = _customerCommService.MoveCustomersToGroup(metaModel);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                _customerCommDataAccess.DidNotReceiveWithAnyArgs().MoveCustomersToGroup(null);
+                Assert.That(result.IsSuccessful, Is.False);
+            });
         }
 
         [Test]
-        public void RemoveCustomersFromGroup_CallApiFailed_ReturnCorrectData()
+        public void MoveCustomersToGroup_CallDataAccessNotSuccess_NotCallApi()
         {
             // Arrange
-            var isAllowedRNGCasino = true;
-            var metaModel = new RemoveFromGroupComMetaModel { Ip = "1.1.1.1", IsRemovePlayercomm = true };
-            var resultInfo = new ResultInfo { ExtendedData = "1,2,3" };
-            _customerCommDataAccess.RemoveCustomersFromGroup(metaModel).Returns(resultInfo);
-            var userSession = new UserSession { UserName = "tester", UserId = 1 };
-            _sessionService.UserSession.Returns(userSession);
-            _rngCasinoService.UpdateMemberCommission(Arg.Is<RNGCasinoUpdateMemberComMetaModel>(param =>
-                                                    param.Comm == 0 &&
-                                                    param.CustomerId.Length == 3 &&
-                                                    param.FromIp == metaModel.Ip &&
-                                                    param.ModifyBy == userSession.UserId &&
-                                                    param.ModifyUserName == userSession.UserName))
-                                                    .Returns(false);
-            var expectedResult = new ResultInfo
+            var metaModel = new MoveToGroupComMetaModel
+            {
+                IsAllowedRNG = true,
+                GroupComId = 1,
+                Ip = "1.1.1.1",
+                UserId = 1
+            };
+            _groupCommDataAccess.GetById(metaModel.GroupComId).Returns(new GroupCommMetaModel());
+            _customerCommDataAccess.MoveCustomersToGroup(metaModel).Returns(new ResultInfo
             {
                 Code = 1,
-                Message = "Having errors when calling CasinoAPI to update customer commission."
+                Message = "..."
+            });
+
+            // Action
+            var result = _customerCommService.MoveCustomersToGroup(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _casinoCustomerService.DidNotReceiveWithAnyArgs().UpdateCommission(null);
+                Assert.That(result.IsSuccessful, Is.False);
+            });
+        }
+
+        [Test]
+        public void MoveCustomersToGroup_IsAllowedRNGTrue_CallApiUpdateComm()
+        {
+            // Arrange
+            var metaModel = new MoveToGroupComMetaModel
+            {
+                IsAllowedRNG = true,
+                GroupComId = 1,
+                Ip = "1.1.1.1",
+                UserId = 1
             };
+            var userSession = new UserSession { UserName = "tester" };
+            _sessionService.UserSession.Returns(userSession);
+            var expectedResult = new ResultInfo { ExtendedData = "1,2,3" };
+            _groupCommDataAccess.GetById(metaModel.GroupComId).Returns(new GroupCommMetaModel());
+            _customerCommDataAccess.MoveCustomersToGroup(metaModel).Returns(expectedResult);
+            _casinoCustomerService.UpdateCommission(null).ReturnsForAnyArgs(true);
 
             // Action
-            var result = _customerCommService.RemoveCustomersFromGroup(metaModel, isAllowedRNGCasino);
+            var result = _customerCommService.MoveCustomersToGroup(metaModel);
 
             // Assert
-            Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
-            Assert.That(result.Message, Is.EqualTo(expectedResult.Message));
-        }
-
-        [Test]
-        public void RemoveCustomersFromGroup_RemoveFailed_ReturnCorrectData()
-        {
-            // Arrange
-            var isAllowedRNGCasino = true;
-            var expectedResult = new ResultInfo { Code = 1, Message = "Failed" };
-            _customerCommDataAccess.RemoveCustomersFromGroup(Arg.Any<RemoveFromGroupComMetaModel>()).Returns(expectedResult);
-
-            // Action
-            var result = _customerCommService.RemoveCustomersFromGroup(new RemoveFromGroupComMetaModel(), isAllowedRNGCasino);
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
-        }
-
-        [Test]
-        public void RemoveCustomersFromGroup_IsRemovePlayercommInMetaModelIsFalse_ReturnCorrectData()
-        {
-            // Arrange
-            var isAllowedRNGCasino = true;
-            var metaModel = new RemoveFromGroupComMetaModel { IsRemovePlayercomm = false };
-            var expectedResult = new ResultInfo();
-            _customerCommDataAccess.RemoveCustomersFromGroup(metaModel).Returns(expectedResult);
-
-            // Action
-            var result = _customerCommService.RemoveCustomersFromGroup(metaModel, isAllowedRNGCasino);
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
-        }
-
-        [Test]
-        public void RemoveCustomersFromGroup_IsAllowedRNGCasinoIsFalse_ReturnCorrectData()
-        {
-            // Arrange
-            var isAllowedRNGCasino = false;
-            var metaModel = new RemoveFromGroupComMetaModel { IsRemovePlayercomm = true };
-            var expectedResult = new ResultInfo();
-            _customerCommDataAccess.RemoveCustomersFromGroup(metaModel).Returns(expectedResult);
-
-            // Action
-            var result = _customerCommService.RemoveCustomersFromGroup(metaModel, isAllowedRNGCasino);
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
-        }
-
-        [Test]
-        public void RemoveCustomersFromGroup_ExtendedDataInResultIsEmpty_ReturnCorrectData()
-        {
-            // Arrange
-            var isAllowedRNGCasino = true;
-            var metaModel = new RemoveFromGroupComMetaModel { IsRemovePlayercomm = true };
-            var expectedResult = new ResultInfo { ExtendedData = string.Empty };
-            _customerCommDataAccess.RemoveCustomersFromGroup(metaModel).Returns(expectedResult);
-
-            // Action
-            var result = _customerCommService.RemoveCustomersFromGroup(metaModel, isAllowedRNGCasino);
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                _casinoCustomerService.ReceivedWithAnyArgs().UpdateCommission(null);
+                Assert.That(result, Is.EqualTo(expectedResult));
+            });
         }
     }
 }

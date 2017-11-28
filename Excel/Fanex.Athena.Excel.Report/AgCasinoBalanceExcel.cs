@@ -50,55 +50,26 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly ConvertingOption _convertingOption;
 
+        protected internal AgCasinoBalanceExcel() : base(string.Empty, 0)
+        {
+        }
+
         public AgCasinoBalanceExcel(
                 string templatePath,
                 ConvertingOption convertingOption,
                 AgCasinoBalanceMetaModel metaModel,
                 AgCasinoBalanceViewModel viewModel)
-            : base(templatePath)
+            : base(templatePath, viewModel.MainResult.Count())
         {
             _convertingOption = convertingOption;
             _metaModel = metaModel;
             _casinoList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
             PageSize = metaModel.DrillDownLevel == 2 ? metaModel.PageSize : AgCasinoBalanceMetaModel.PageSizeExcel;
+            IsMultiSheet = true;
         }
-
-        public int Level
-        {
-            get;
-            set;
-        }
-
-        protected override void AssignData()
-        {
-            int numOfDataRow = _casinoList.Count;
-
-            ISheet sheet;
-
-            if (numOfDataRow == 0)
-            {
-                sheet = Workbook.CloneSheet("Template", "Data");
-                AssignTitle(sheet);
-                AssignHeader(sheet);
-                AssignNoInfoRow(sheet);
-                ProcessUI(sheet);
-            }
-            else
-            {
-                var numOfSheet = GetNumberOfSheets(numOfDataRow, PageSize);
-                for (int i = 0; i < numOfSheet; i++)
-                {
-                    sheet = Workbook.CloneSheet("Template", "Data" + (i + 1).ToString());
-                    AssignTitle(sheet);
-                    AssignHeader(sheet);
-                    AssignSheetData(sheet, i);
-                    ProcessUI(sheet);
-                }
-            }
-        }
-
-        protected void AssignHeader(ISheet sheet)
+        
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
@@ -116,7 +87,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnClosingBalance].SetCellValue(ViewResources.ClosingBalance);
         }
 
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
@@ -127,7 +98,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="pageIndex">Page index.</param>
         /// <returns>The row index.</returns>
-        protected int AssignSheetData(ISheet sheet, int pageIndex)
+        protected override void AssignSheetData(ISheet sheet, int pageIndex)
         {
             int rowCount = Math.Min(_casinoList.Count, checked((pageIndex + 1) * PageSize));
             var rowIndex = 0;
@@ -163,19 +134,11 @@ namespace Fanex.Athena.Excel.Report
 
             rowIndex = AssignTotalData(sheet, rowIndex + 2);
             AssignGrandTotalData(sheet, rowIndex);
-
-            return rowIndex;
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
-            var fromdate = _metaModel.FromDate.ToString(FormatDate);
-            var todate = _metaModel.ToDate.ToString(FormatDate);
-            var title = _metaModel.DrillDownLevel > 0 && _metaModel.CurrencyId == 0
-                ? ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.DrillDownCurrencyId)
-                : ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId);
-
-            var reportTitle = string.Format(ViewResources.AGCasinoBalance + ", {0} --> {1} - {2}", fromdate, todate, title);
+            var reportTitle = ReportExcelHelper.GenerateReportTitle(ViewResources.AGCasinoBalance, _convertingOption, _metaModel);
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
@@ -189,9 +152,9 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
-            switch (Level)
+            switch (_metaModel.DrillDownLevel)
             {
                 case 0:
                     sheet.HideColumn(ColumnExternalId, ColumnSystemId);
@@ -234,7 +197,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="rowIndex">The starting row index.</param>
         /// <returns>The last row index after assign data.</returns>
-        protected int AssignGrandTotalData(ISheet sheet, int rowIndex)
+        protected internal virtual int AssignGrandTotalData(ISheet sheet, int rowIndex)
         {
             var currencyList = _summaryTotal.Keys.ToList();
             currencyList.Reverse();
@@ -260,7 +223,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="rowIndex">The starting row index.</param>
         /// <returns>The last row index after assign data.</returns>
-        protected int AssignTotalData(ISheet sheet, int rowIndex)
+        protected internal virtual int AssignTotalData(ISheet sheet, int rowIndex)
         {
             var beginTotalRow = rowIndex;
             var totalCurrencyList = GetTotalCurrency(_casinoList);
@@ -283,7 +246,7 @@ namespace Fanex.Athena.Excel.Report
             }
 
             // Merge first two column
-            sheet.MergeCells(rowIndex - totalCurrencyList.Count, 0, rowIndex - 1, 3);
+            sheet.MergeCells(rowIndex - totalCurrencyList.Count(), 0, rowIndex - 1, 3);
 
             return rowIndex;
         }
@@ -293,7 +256,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="dataList">Report data.</param>
         /// <returns>List of AgCasinoBalance entity.</returns>
-        private static List<AgCasinoBalance> GetTotalCurrency(IEnumerable<AgCasinoBalance> dataList)
+        private static IEnumerable<AgCasinoBalance> GetTotalCurrency(IEnumerable<AgCasinoBalance> dataList)
         {
             var listTotalCurrency = dataList.GroupBy(x => new { x.CurrencyName })
                     .Select(group => new AgCasinoBalance

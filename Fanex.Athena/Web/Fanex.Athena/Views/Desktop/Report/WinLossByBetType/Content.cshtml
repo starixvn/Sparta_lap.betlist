@@ -15,10 +15,23 @@
         }
 
         <td class="col-child"></td>
-        <td class="col-child medium"></td>
+        @if (Model.ProductAccess.IsAllowBA)
+        {
+            <td class="col-child medium"></td>
+        }
+        @if (Model.ProductAccess.IsAllowRB)
+        {
+            <td class="col-child small"></td>
+        }
+        @if (Model.ProductAccess.IsAllowBA)
+        {
+            <td class="col-child small"></td>
+        }
+
+        @if (Model.ProductAccess.IsAllowRB)
+        {
         <td class="col-child small"></td>
-        <td class="col-child small"></td>
-        <td class="col-child small"></td>
+        }
     </tr>
 }
 

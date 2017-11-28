@@ -13,9 +13,9 @@ namespace Fanex.Athena.DataAccess.Customer.Interfaces
 
     public interface IGroupComDataAccess
     {
-        int InsertGroup(GroupCommMetaModel item, IRequest request, int userId, out IResultInfo resultInfo);
+        IResultInfo InsertGroup(GroupCommMetaModel item, IRequest request, int userId);
 
-        bool UpdateGroup(GroupCommMetaModel newItem, IRequest request, int userId, out IResultInfo resultInfo);
+        IResultInfo UpdateGroup(GroupCommMetaModel newItem, IRequest request, int userId);
 
         IList<GroupCommMetaModel> GetAll(int licenseeId);
 
@@ -25,14 +25,13 @@ namespace Fanex.Athena.DataAccess.Customer.Interfaces
 
         bool CheckByName(int licenseeId, string groupName);
 
-        int DeleteGroup(
+        IResultInfo DeleteGroup(
             int groupId,
             int licenseeId,
             int userId,
             string ip,
             string language,
             bool isRemoveCommSetting,
-            bool isResetDefault,
-            out IResultInfo resultInfo);
+            bool isResetDefault);
     }
 }

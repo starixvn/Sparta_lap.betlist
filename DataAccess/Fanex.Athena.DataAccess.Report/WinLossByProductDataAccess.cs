@@ -8,7 +8,6 @@ namespace Fanex.Athena.DataAccess.Report
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
@@ -18,12 +17,13 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
+    using Model.Core.DTO.Common;
     using Model.Core.Helper;
+    using Model.Report.ResultModel;
 
     public class WinLossByProductDataAccess : BaseDataAccess, IWinLossByProductDataAccess
     {
@@ -39,16 +39,12 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public IEnumerable<WinLossByProduct> GetWinlossByProducts(
-            WinLossByProductMetaModel metaModel,
-            out IEnumerable<WinLossByProduct> totalData,
-            out IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal,
-            out IResultInfo resultInfo)
+        public WinLossByProductResultModel GetWinlossByProducts(WinLossByProductMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinlossByProduct";
             try
             {
-                IEnumerable<WinLossByProduct> data;
+                WinLossByProductResultModel data;
                 using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
@@ -59,11 +55,12 @@ namespace Fanex.Athena.DataAccess.Report
                     AddResultParam(db);
                     using (var reader = db.ExecuteReader())
                     {
-                        data = GetData(reader, metaModel, false, out totalData, out summaryTotal);
+                        data = GetData(reader, metaModel, false);
                     }
 
-                    resultInfo = GetResult(db);
+                    var resultInfo = GetResult(db);
                     resultInfo.ExtendedData = db.GetParameterValue("CustID") + ";" + db.GetParameterValue("SystemName");
+                    data.ResultInfo = resultInfo;
                 }
 
                 return data;
@@ -74,10 +71,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public IEnumerable<WinLossByProduct> GetWinlossByProductAgents(
-            WinLossByProductMetaModel metaModel,
-            out IEnumerable<WinLossByProduct> totalData,
-            out IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal)
+        public WinLossByProductResultModel GetWinlossByProductAgents(WinLossByProductMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinlossByProductDetail_Ag";
             try
@@ -88,7 +82,7 @@ namespace Fanex.Athena.DataAccess.Report
                     db.AddInParameter("CustID", DbType.Int32, metaModel.MemberId);
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel, true, out totalData, out summaryTotal);
+                        return GetData(reader, metaModel, true);
                     }
                 }
             }
@@ -98,10 +92,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public IEnumerable<WinLossByProduct> GetWinlossByProductCustomers(
-            WinLossByProductMetaModel metaModel,
-            out IEnumerable<WinLossByProduct> totalData,
-            out IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal)
+        public WinLossByProductResultModel GetWinlossByProductCustomers(WinLossByProductMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinlossByProductDetail";
             try
@@ -114,7 +105,7 @@ namespace Fanex.Athena.DataAccess.Report
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel, true, out totalData, out summaryTotal);
+                        return GetData(reader, metaModel, true);
                     }
                 }
             }
@@ -124,20 +115,13 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        #region Private
-
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private static IEnumerable<WinLossByProduct> GetData(
+        private static WinLossByProductResultModel GetData(
             IDataReader reader,
             WinLossByProductMetaModel metaModel,
-            bool drilldown,
-            out IEnumerable<WinLossByProduct> totalData,
-            out IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal)
+            bool drilldown)
         {
             var result = new List<WinLossByProduct>();
             var summaryTotalTemp = new Dictionary<string, IList<WinLossByProduct>>();
-            summaryTotal = new Dictionary<string, IEnumerable<WinLossByProduct>>();
             foreach (var currency in SystemConstants.BaseCurrencyList)
             {
                 summaryTotalTemp.Add(currency, new List<WinLossByProduct>());
@@ -172,27 +156,43 @@ namespace Fanex.Athena.DataAccess.Report
                 };
                 result.Add(item);
 
-                // Read Summary
-                foreach (var currency in SystemConstants.BaseCurrencyList)
-                {
-                    var code = reader.ToString("productcode");
-                    var summaryItem = new WinLossByProduct
-                    {
-                        ProductCode = code,
-                        ProductName = ProductHelper.GetProductName(code),
-                        TurnOver = reader.ToDecimal("turnover" + currency.ToLowerInvariant()),
-                        CustomerWinLoss = reader.ToDecimal("winlost" + currency.ToLowerInvariant()),
-                        CustomerComm = reader.ToDecimal("playercomm" + currency.ToLowerInvariant()),
-                        LicenseeWL = reader.ToDecimal("licenseewl" + currency.ToLowerInvariant()),
-                        TotalTransaction = reader.ToInt("betcount"),
-                        AmountDue = reader.ToDecimal("amtdueto3rd" + currency.ToLowerInvariant()),
-                        LicenseeWLComm = reader.ToDecimal("comm" + currency.ToLowerInvariant()),
-                    };
-                    summaryTotalTemp[currency].Add(summaryItem);
-                }
+                ReadSummary(reader, summaryTotalTemp);
             }
 
-            // Calculate summary
+            return new WinLossByProductResultModel
+            {
+                DataList = result,
+                TotalData = CalculateTotal(result),
+                SummaryTotal = CalculateSummaryTotal(summaryTotalTemp),
+                ResultInfo = new ResultInfo()
+            };
+        }
+
+        private static void ReadSummary(IDataReader reader, IDictionary<string, IList<WinLossByProduct>> summaryTotalTemp)
+        {
+            foreach (var currency in SystemConstants.BaseCurrencyList)
+            {
+                var code = reader.ToString("productcode");
+                var summaryItem = new WinLossByProduct
+                {
+                    ProductCode = code,
+                    ProductName = ProductHelper.GetProductName(code),
+                    TurnOver = reader.ToDecimal("turnover" + currency.ToLowerInvariant()),
+                    CustomerWinLoss = reader.ToDecimal("winlost" + currency.ToLowerInvariant()),
+                    CustomerComm = reader.ToDecimal("playercomm" + currency.ToLowerInvariant()),
+                    LicenseeWL = reader.ToDecimal("licenseewl" + currency.ToLowerInvariant()),
+                    TotalTransaction = reader.ToInt("betcount"),
+                    AmountDue = reader.ToDecimal("amtdueto3rd" + currency.ToLowerInvariant()),
+                    LicenseeWLComm = reader.ToDecimal("comm" + currency.ToLowerInvariant()),
+                };
+                summaryTotalTemp[currency].Add(summaryItem);
+            }
+        }
+
+        private static IDictionary<string, IEnumerable<WinLossByProduct>> CalculateSummaryTotal(
+            IDictionary<string, IList<WinLossByProduct>> summaryTotalTemp)
+        {
+            var summaryTotal = new Dictionary<string, IEnumerable<WinLossByProduct>>();
             foreach (var currency in SystemConstants.BaseCurrencyList)
             {
                 summaryTotal[currency] = summaryTotalTemp[currency].GroupBy(i => new { i.ProductCode })
@@ -210,8 +210,7 @@ namespace Fanex.Athena.DataAccess.Report
                                     }).ToList();
             }
 
-            totalData = CalculateTotal(result);
-            return result;
+            return summaryTotal;
         }
 
         private static IEnumerable<WinLossByProduct> CalculateTotal(IEnumerable<WinLossByProduct> dataList)
@@ -248,7 +247,5 @@ namespace Fanex.Athena.DataAccess.Report
                 db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
             }
         }
-
-        #endregion Private
     }
 }

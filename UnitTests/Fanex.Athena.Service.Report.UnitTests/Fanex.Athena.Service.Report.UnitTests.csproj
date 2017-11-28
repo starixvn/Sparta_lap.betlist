@@ -64,7 +64,6 @@
     <Compile Include="CustomerTurnoverServiceTest.cs" />
     <Compile Include="DailyRacingWinLossServiceTest.cs" />
     <Compile Include="MatchWinLossServiceTest.cs" />
-    <Compile Include="CashOutWinLossServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubsidiaryPerformanceServiceTest.cs" />
   </ItemGroup>

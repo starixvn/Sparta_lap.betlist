@@ -18,12 +18,12 @@ namespace Fanex.Athena.Model.Report.MetaModel
     {
         private readonly IAppSettings _appSettings;
 
-        protected BaseReportMetaModel()
+        public BaseReportMetaModel()
             : this(new AppSettings())
         {
         }
 
-        protected BaseReportMetaModel(IAppSettings appSetting)
+        public BaseReportMetaModel(IAppSettings appSetting)
         {
             _appSettings = appSetting;
             ProductOptions = new List<ProductOption>();

@@ -92,32 +92,43 @@
 
     describe("updateStatus()", function () {
         var request;
-        beforeEach(function (done) {
-            affix("input#ProductId[value=11]");
+        function setUp(productId, url, done) {
+            affix("input#ProductId[value=" + productId + "]");
             spyOn(BetSetting, "showDialogMesage");
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest("GoldDeluxeBetSetting/UpdateStatus")
+                .stubRequest(url)
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
                     'responseText': '{ IsSuccessful: true }'
                 });
-
             BetSetting.updateStatus();
 
             request = jasmine.Ajax.requests.mostRecent();
 
             setTimeout(done, 10);
-        });
+        }
 
         afterEach(function () {
             jasmine.Ajax.uninstall();
         });
 
-        it("ajax request should be called with url is 'GoldDeluxeBetSetting/UpdateStatus'", function () {
-            expect(request.url).toBe("GoldDeluxeBetSetting/UpdateStatus");
+        it("Gold Deluxe: ajax request should be called with correct url", function (done) {
+            const Url = "GoldDeluxeBetSetting/UpdateStatus";
+            setUp(11, Url, done)
+            expect(request.url).toBe(Url);
+        });
+        it("Live Casino: ajax request should be called with correct url", function (done) {
+            const Url = "LiveCasinoBetSetting/UpdateStatus";
+            setUp(4, Url, done)
+            expect(request.url).toBe(Url);
+        });
+        it("Cash Out: ajax request should be called with correct url", function (done) {
+            const Url = "ThirdPartyBetSetting/UpdateCashOutStatus";
+            setUp(25, Url, done)
+            expect(request.url).toBe(Url);
         });
     });
 
@@ -152,6 +163,10 @@
     });
 
     describe("checkEnableBetSetting(tabId, enable)", function () {
+        beforeAll(function () {
+            spyOn(BetSetting, "checkEnable");
+        });
+
         it("BetSetting.checkEnableLiveCasino(enable) should be called with correct parameter when tabId is TAB_LIVECASINO", function () {
             spyOn(BetSetting, "checkEnableLiveCasino");
             BetSetting.checkEnableBetSetting(4, true);
@@ -159,14 +174,12 @@
             expect(BetSetting.checkEnableLiveCasino).toHaveBeenCalledWith(true);
         });
         it("BetSetting.checkEnable(sportIds, enable) should not be called when tabId equal TAB_LIVECASINO", function () {
-            spyOn(BetSetting, "checkEnable");
             BetSetting.checkEnableBetSetting(4, true);
 
             expect(BetSetting.checkEnable).not.toHaveBeenCalled();
         });
 
         it("BetSetting.checkEnable() should be called when tabId not equal TAB_LIVECASINO", function () {
-            spyOn(BetSetting, "checkEnable");
             BetSetting.checkEnableBetSetting(2, true);
 
             expect(BetSetting.checkEnable).toHaveBeenCalled();
@@ -174,7 +187,6 @@
 
         it("'#max-per-ball-161' should be disabled when tabId equal TAB_NUMBERGAME", function () {
             affix("input#max-per-ball-161");
-            spyOn(BetSetting, "checkEnable");
             BetSetting.checkEnableBetSetting(2, false);
 
             expect($("#max-per-ball-161")).toBeDisabled();
@@ -182,7 +194,6 @@
 
         it("'#copy-settting' should be hide when tabId equal TAB_SPORTSBOOK", function () {
             affix("#copy-settting");
-            spyOn(BetSetting, "checkEnable");
             BetSetting.checkEnableBetSetting(0, false);
 
             expect($("#copy-settting")).not.toBeVisible();

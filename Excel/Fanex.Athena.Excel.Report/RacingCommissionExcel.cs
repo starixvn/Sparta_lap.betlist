@@ -45,46 +45,16 @@ namespace Fanex.Athena.Excel.Report
                                      ConvertingOption convertingOption,
                                      ShowingOption showingOption,
                                      RacingCommissionViewModel viewModel)
-            : base(templatePath, showingOption)
+            : base(templatePath, viewModel.RacingCommissionList.Count, showingOption)
         {
             _convertingOption = convertingOption;
             _viewModel = viewModel;
             _racingCommissionList = viewModel.RacingCommissionList;
             _total = viewModel.Total;
+            IsMultiSheet = true;
         }
-
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
-        protected override void AssignData()
-        {
-            var numOfDataRow = _racingCommissionList.Count;
-
-            ISheet sheet;
-
-            if (numOfDataRow == 0)
-            {
-                sheet = Workbook.CloneSheet("Template", "Data");
-                AssignTitle(sheet);
-                AssignHeader(sheet);
-                AssignNoInfoRow(sheet);
-                ProcessUI(sheet);
-            }
-            else
-            {
-                var numOfSheet = GetNumberOfSheets(numOfDataRow, PageSize);
-                for (int i = 0; i < numOfSheet; i++)
-                {
-                    sheet = Workbook.CloneSheet("Template", "Data" + (i + 1).ToString());
-                    AssignTitle(sheet);
-                    AssignHeader(sheet);
-                    AssignSheetData(sheet, i);
-                    ProcessUI(sheet);
-                }
-            }
-        }
-
-        protected void AssignHeader(ISheet sheet)
+        
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
@@ -100,7 +70,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnToteTotal].SetCellValue(ViewResources.Total);
         }
 
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
@@ -112,7 +82,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="pageIndex">Start index.</param>
         /// <returns>Row index.</returns>
-        protected int AssignSheetData(ISheet sheet, int pageIndex)
+        protected override void AssignSheetData(ISheet sheet, int pageIndex)
         {
             var rowCount = Math.Min(_racingCommissionList.Count, checked((pageIndex + 1) * PageSize));
             var rowIndex = 0;
@@ -137,10 +107,9 @@ namespace Fanex.Athena.Excel.Report
             AssignSumData(sheet, rowIndex);
 
             ProcessUI(sheet);
-            return rowIndex;
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             var reportTitle = string.Format(
                                         ViewResources.RacingCommissionTitle,
@@ -161,7 +130,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {

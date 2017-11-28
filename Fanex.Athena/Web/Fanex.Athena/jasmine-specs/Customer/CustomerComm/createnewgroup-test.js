@@ -13,22 +13,13 @@
         beforeEach(function () {
             affix("input#GroupColor[value=#fff]");
             affix("#showInput");
-
             affix("#Add");
-
             affix("#Cancel");
-
             affix("#Validate");
-            affix("input#GroupName[value=abc]");
-
             affix("input#DdlSBComm1[value=2]");
-
             affix("input#DdlRCComm1[value=10]");
-
             affix("input#DdlNGComm1[value=20]");
-
             affix("input#DdlLCComm1[value=30]");
-
             affix("input#DdlCSComm1[value=50]");
 
             spyOn($.fn, "spectrum").and.returnValue({});
@@ -51,6 +42,14 @@
             expect(GroupComm.initCommParam).toHaveBeenCalled();
         });
 
+        it("Site.redirect() should be called with correct url when '#Cancel' fired click event", function () {
+            spyOn(Site, "redirect");
+
+            $("#Cancel").click();
+
+            expect(Site.redirect).toHaveBeenCalledWith(Site.resolveClientUrl("CustomerComGroup/Index"));
+        });
+
         it("GroupComm.initDefaultParam() should be called with correct parameter when '#Add' fired click event", function () {
             spyOn(GroupComm, "initDefaultParam");
 
@@ -59,12 +58,42 @@
             expect(GroupComm.initDefaultParam).toHaveBeenCalledWith("#create-group-popup");
         });
 
-        it("CreateGroup.validateName(groupname) should be called when '#Validate' fired click event", function () {
-            spyOn(CreateGroup, "validateName");
+        describe("#Validate button click", function () {
+            beforeAll(function () {
+                spyOn(CreateGroup, "validateName");
+                spyOn(CreateGroup, "displayError");
+            });
 
-            $("#Validate").click();
+            it("CreateGroup.displayError() should be called with correct param if groupname is empty", function () {
+                affix('input#GroupName[type=text]');
+                $("#Validate").click();
+                expect(CreateGroup.displayError).toHaveBeenCalledWith('GroupNameNotEmptyMsg');
+            });
 
-            expect(CreateGroup.validateName).toHaveBeenCalled();
+            it("CreateGroup.displayError() should be called with correct param if groupname length >= 100", function () {
+                var text = new Array(101).join("a");
+                affix('input#GroupName[type=text][value=' + text + ']');
+                $("#Validate").click();
+                expect(CreateGroup.displayError).toHaveBeenCalledWith('GroupNameNotExceed100CharactersMsg');
+            });
+
+            it("CreateGroup.displayError() should be called with correct param if groupname = 'none'", function () {
+                affix('input#GroupName[type=text][value=none]');
+                $("#Validate").click();
+                expect(CreateGroup.displayError).toHaveBeenCalledWith('ChooseGroupNameMsg');
+            });
+
+            it("CreateGroup.displayError() should be called with correct param if groupname contains special characters", function () {
+                affix('input#GroupName[type=text][value=$%^&]');
+                $("#Validate").click();
+                expect(CreateGroup.displayError).toHaveBeenCalledWith('GroupNameOnlyContainCharactersAndNumberMsg');
+            });
+
+            it("CreateGroup.validateName(groupname) should be called if groupname is valid", function () {
+                affix('input#GroupName[type=text][value=abc]');
+                $("#Validate").click();
+                expect(CreateGroup.validateName).toHaveBeenCalledWith("abc");
+            });
         });
 
         it("'#Add' should be enabled when '#GroupName' fired keyup event", function () {

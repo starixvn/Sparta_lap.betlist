@@ -28,7 +28,7 @@ namespace Fanex.Athena.Controllers.Report
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 FunctionNames.CasinoProgressiveWins);
-            var metaModel = new CasinoProgressiveWinsMetaModel
+            var metaModel = new BaseReportMetaModel
             {
                 FromDate = DateTime.Now.AddMonths(-3),
                 ToDate = DateTime.Now,

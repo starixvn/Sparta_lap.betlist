@@ -37,15 +37,6 @@
     <CodeAnalysisRuleSet>Fanex.Athena.Service.BetSettings.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CasinoLibrary">
-      <HintPath>..\..\DLLs\Casino\CasinoLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="CasinoSetting">
-      <HintPath>..\..\DLLs\Casino\CasinoSetting.dll</HintPath>
-    </Reference>
-    <Reference Include="CasinoUtility">
-      <HintPath>..\..\DLLs\Casino\CasinoUtility.dll</HintPath>
-    </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
       <Private>True</Private>

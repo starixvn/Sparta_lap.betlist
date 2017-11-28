@@ -7,10 +7,8 @@
     using Core.Configuration.Interfaces;
     using Data;
     using Extension.Utility;
-    using Model.Core.DTO.Common;
     using Model.Core.DTO.Configuration;
     using Model.Core.MetaModel.Product;
-    using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -71,13 +69,10 @@
         {
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlossByProduct")).Returns(objectDb);
-            IEnumerable<WinLossByProduct> totalData;
-            IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal;
-            IResultInfo resultInfo;
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_WinlossByProduct")).Returns(objectDb);
 
             // Action
-            _dataAccess.GetWinlossByProducts(_metaModel, out totalData, out summaryTotal, out resultInfo);
+            _dataAccess.GetWinlossByProducts(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -100,7 +95,7 @@
             // Arrange
             var reader = Substitute.For<IDataReader>();
             var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlossByProduct")).Returns(objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_WinlossByProduct")).Returns(objectDb);
             objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
             objectDb.GetParameterValue("CustID").Returns(1000);
             objectDb.GetParameterValue("SystemName").Returns("ABC");
@@ -113,28 +108,22 @@
             };
 
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
-            IEnumerable<WinLossByProduct> totalData;
-            IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal;
-            IResultInfo resultInfo;
 
             // Action
             var result = _dataAccess.GetWinlossByProducts(
                 new WinLossByProductMetaModel(_appSetting)
                 {
                     BaseCurrency = "USD"
-                },
-                out totalData,
-                out summaryTotal,
-                out resultInfo);
+                });
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count(), Is.EqualTo(1));
-                Assert.That(result.ElementAt(0).TurnOver, Is.EqualTo(999));
-                Assert.That(result.ElementAt(0).Date, Is.EqualTo(new DateTime(2019, 1, 1)));
+                Assert.That(result.DataList.Count(), Is.EqualTo(1));
+                Assert.That(result.DataList.ElementAt(0).TurnOver, Is.EqualTo(999));
+                Assert.That(result.DataList.ElementAt(0).Date, Is.EqualTo(new DateTime(2019, 1, 1)));
 
-                Assert.That(resultInfo.ExtendedData, Is.EqualTo("1000;ABC"));
+                Assert.That(result.ResultInfo.ExtendedData, Is.EqualTo("1000;ABC"));
             });
         }
 
@@ -144,11 +133,9 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlossByProductDetail_Ag")).Returns(objectDb);
-            IEnumerable<WinLossByProduct> totalData;
-            IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal;
 
             // Action
-            _dataAccess.GetWinlossByProductAgents(_metaModel, out totalData, out summaryTotal);
+            _dataAccess.GetWinlossByProductAgents(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -170,11 +157,9 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlossByProductDetail")).Returns(objectDb);
-            IEnumerable<WinLossByProduct> totalData;
-            IDictionary<string, IEnumerable<WinLossByProduct>> summaryTotal;
 
             // Action
-            _dataAccess.GetWinlossByProductCustomers(_metaModel, out totalData, out summaryTotal);
+            _dataAccess.GetWinlossByProductCustomers(_metaModel);
 
             // Assert
             Assert.Multiple(() =>

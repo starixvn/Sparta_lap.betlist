@@ -1,0 +1,39 @@
+﻿@functions
+{
+    public static IDictionary<int, int> GetCommValue(int max, int increase)
+    {
+        var items = new Dictionary<int, int>();
+        for (int i = 0; i <= max; i++)
+        {
+            items.Add(i * increase, i * increase);
+        }
+
+        return items;
+    }
+}
+
+
+@helper CommDropDownFirst(string name, decimal selectedValue = 0)
+{
+    @GroupComSettingDropDownList(name, GetCommValue(15, 1), selectedValue)
+}
+
+@helper CommDropDownSecond(string name, decimal selectedValue = 0)
+{
+    @GroupComSettingDropDownList(name, GetCommValue(9, 1), selectedValue)
+}
+
+@helper CommDropDownThird(string name, decimal selectedValue = 0)
+{
+    @GroupComSettingDropDownList(name, GetCommValue(1, 5), selectedValue)
+}
+
+@helper GroupComSettingDropDownList(string name, IDictionary<int, int> items, decimal selectedValue = 0)
+{
+    <select id="@name" name="@name" class="hide select commission-selection" data-original="@selectedValue">
+        @foreach (var item in items)
+        {
+            <option @(selectedValue == item.Value ? "selected=selected" : string.Empty) value="@item.Value">@item.Key.ToString("0.#")</option>
+        }
+    </select>
+}

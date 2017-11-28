@@ -36,7 +36,7 @@ namespace Fanex.Athena.Controllers
             _maintenanceService = new MaintenanceService();
         }
 
-        internal UtilityController(IAppSettings appSettings, ILanguageService languageService, IMaintenanceService maintenanceService)
+        public UtilityController(IAppSettings appSettings, ILanguageService languageService, IMaintenanceService maintenanceService)
         {
             _appSettings = appSettings ?? new AppSettings();
             _languageService = languageService ?? new LanguageService();

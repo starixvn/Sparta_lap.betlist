@@ -106,6 +106,8 @@
     <Compile Include="Common\FunctionStorage.cs" />
     <Compile Include="Common\Interfaces\IFunctionStorage.cs" />
     <Compile Include="Helpers\ClientViewHelper.cs" />
+    <Compile Include="Users\AuthService.cs" />
+    <Compile Include="Users\Interfaces\IAuthService.cs" />
     <Compile Include="Users\Interfaces\IOneBookSecurityWrapper.cs" />
     <Compile Include="Users\OneBookSecurityWrapper.cs" />
     <Compile Include="Users\Interfaces\IOneAuthenticationService.cs" />

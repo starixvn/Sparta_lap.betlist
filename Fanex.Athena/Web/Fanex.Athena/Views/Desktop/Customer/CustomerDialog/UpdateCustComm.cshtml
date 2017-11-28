@@ -1,78 +1,89 @@
-﻿@using Fanex.Athena.Extension.Utility
-@model Fanex.Athena.Model.Core.DTO.Common.ProductAccess
+﻿@model Fanex.Athena.Model.Core.DTO.Common.ProductAccess
 
 <div class="row">
     <div class="col l4 m4 s4 input-field first-value">
-        @DesktopRazorHelper.GroupComSettingDropDownList("CustSBComm1", GroupCommSetting.GetCommValue(15, 1))
+        @DesktopGroupCommRazorHelper.CommDropDownFirst("CustSBComm1")
         <label>@ViewResources.SBComm (%)</label>
     </div>
     <div class="col l4 m4 s4 input-field">
-        @DesktopRazorHelper.GroupComSettingDropDownList("CustSBComm2", GroupCommSetting.GetCommValue(9, 1))
+        @DesktopGroupCommRazorHelper.CommDropDownSecond("CustSBComm2")
     </div>
     <div class="col l4 m4 s4 input-field third-value">
-        @DesktopRazorHelper.GroupComSettingDropDownList("CustSBComm3", GroupCommSetting.GetCommValue(1, 5))
+        @DesktopGroupCommRazorHelper.CommDropDownThird("CustSBComm3")
     </div>
 </div>
 
 <div class="row">
     <div class="col l4 m4 s4 input-field first-value">
-        @DesktopRazorHelper.GroupComSettingDropDownList("CustParlayComm1", GroupCommSetting.GetCommValue(15, 1))
+        @DesktopGroupCommRazorHelper.CommDropDownFirst("CustParlayComm1")
         <label>@ViewResources.ParlayComm (%)</label>
     </div>
     <div class="col l4 m4 s4 input-field">
-        @DesktopRazorHelper.GroupComSettingDropDownList("CustParlayComm2", GroupCommSetting.GetCommValue(9, 1))
+        @DesktopGroupCommRazorHelper.CommDropDownSecond("CustParlayComm2")
     </div>
     <div class="col l4 m4 s4 input-field third-value">
-        @DesktopRazorHelper.GroupComSettingDropDownList("CustParlayComm3", GroupCommSetting.GetCommValue(1, 5))
+        @DesktopGroupCommRazorHelper.CommDropDownThird("CustParlayComm3")
     </div>
 </div>
 
 <div class="row @(!Model.IsAllowRB ? "hide" : "")">
     <div class="col l4 m4 s4 input-field first-value">
-        @DesktopRazorHelper.GroupComSettingDropDownList("CustRBComm1", GroupCommSetting.GetCommValue(15, 1))
+        @DesktopGroupCommRazorHelper.CommDropDownFirst("CustRBComm1")
         <label>@ViewResources.RBComm (%)</label>
     </div>
     <div class="col l4 m4 s4 input-field">
-        @DesktopRazorHelper.GroupComSettingDropDownList("CustRBComm2", GroupCommSetting.GetCommValue(9, 1))
+        @DesktopGroupCommRazorHelper.CommDropDownSecond("CustRBComm2")
     </div>
     <div class="col l4 m4 s4 input-field third-value">
-        @DesktopRazorHelper.GroupComSettingDropDownList("CustRBComm3", GroupCommSetting.GetCommValue(1, 5))
+        @DesktopGroupCommRazorHelper.CommDropDownThird("CustRBComm3")
     </div>
 </div>
 <div class="row @(!Model.IsAllowNG ? "hide" : "")">
     <div class="col l4 m4 s4 input-field first-value">
-        @DesktopRazorHelper.GroupComSettingDropDownList("CustNGComm1", GroupCommSetting.GetCommValue(15, 1))
+        @DesktopGroupCommRazorHelper.CommDropDownFirst("CustNGComm1")
         <label>@ViewResources.NGComm (%)</label>
     </div>
     <div class="col l4 m4 s4 input-field">
-        @DesktopRazorHelper.GroupComSettingDropDownList("CustNGComm2", GroupCommSetting.GetCommValue(9, 1))
+        @DesktopGroupCommRazorHelper.CommDropDownSecond("CustNGComm2")
     </div>
     <div class="col l4 m4 s4 input-field third-value">
-        @DesktopRazorHelper.GroupComSettingDropDownList("CustNGComm3", GroupCommSetting.GetCommValue(1, 5))
+        @DesktopGroupCommRazorHelper.CommDropDownThird("CustNGComm3")
     </div>
 </div>
 <div class="row @(!Model.IsAllowLC ? "hide" : "")">
     <div class="col l4 m4 s4 input-field first-value">
-        @DesktopRazorHelper.GroupComSettingDropDownList("CustLCComm1", GroupCommSetting.GetCommValue(15, 1))
+        @DesktopGroupCommRazorHelper.CommDropDownFirst("CustLCComm1")
         <label>@ViewResources.LCComm (%)</label>
     </div>
     <div class="col l4 m4 s4 input-field">
-        @DesktopRazorHelper.GroupComSettingDropDownList("CustLCComm2", GroupCommSetting.GetCommValue(9, 1))
+        @DesktopGroupCommRazorHelper.CommDropDownSecond("CustLCComm2")
     </div>
     <div class="col l4 m4 s4 input-field third-value">
-        @DesktopRazorHelper.GroupComSettingDropDownList("CustLCComm3", GroupCommSetting.GetCommValue(1, 5))
+        @DesktopGroupCommRazorHelper.CommDropDownThird("CustLCComm3")
     </div>
 </div>
 <div class="row @(!Model.IsAllowCS ? "hide" : "")">
     <div class="col l4 m4 s4 input-field first-value">
-        @DesktopRazorHelper.GroupComSettingDropDownList("CustCSComm1", GroupCommSetting.GetCommValue(15, 1))
+        @DesktopGroupCommRazorHelper.CommDropDownFirst("CustCSComm1")
         <label>@ViewResources.CSComm (%)</label>
     </div>
     <div class="col l4 m4 s4 input-field">
-        @DesktopRazorHelper.GroupComSettingDropDownList("CustCSComm2", GroupCommSetting.GetCommValue(9, 1))
+        @DesktopGroupCommRazorHelper.CommDropDownSecond("CustCSComm2")
     </div>
     <div class="col l4 m4 s4 input-field third-value">
-        @DesktopRazorHelper.GroupComSettingDropDownList("CustCSComm3", GroupCommSetting.GetCommValue(1, 5))
+        @DesktopGroupCommRazorHelper.CommDropDownThird("CustCSComm3")
+    </div>
+</div>
+<div class="row @(!Model.IsAllowAB ? "hide" : "")">
+    <div class="col l4 m4 s4 input-field first-value">
+        @DesktopGroupCommRazorHelper.CommDropDownFirst("CustABComm1")
+        <label>@ViewResources.ABComm (%)</label>
+    </div>
+    <div class="col l4 m4 s4 input-field">
+        @DesktopGroupCommRazorHelper.CommDropDownSecond("CustABComm2")
+    </div>
+    <div class="col l4 m4 s4 input-field third-value">
+        @DesktopGroupCommRazorHelper.CommDropDownThird("CustABComm3")
     </div>
 </div>
 <div class="row">

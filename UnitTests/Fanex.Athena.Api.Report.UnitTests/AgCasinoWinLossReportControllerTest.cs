@@ -17,7 +17,7 @@
 
     public class AgCasinoWinLossReportControllerTest : BaseApiReportControllerHelperTest
     {
-        private IAgCasinoWinLossService _service;
+        private IThirdPartyWinLossService _service;
         private AgCasinoWinLossReportController _controller;
 
         [OneTimeSetUp]
@@ -27,7 +27,7 @@
 
             MockSessionData();
 
-            _service = Substitute.For<IAgCasinoWinLossService>();
+            _service = Substitute.For<IThirdPartyWinLossService>();
             _controller = Substitute.ForPartsOf<AgCasinoWinLossReportController>(_service, SessionService, ProductService);
 
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
@@ -46,7 +46,7 @@
         public void Index_InvalidModel_ReturnEmptyData()
         {
             // Arrange
-            var model = new AgCasinoWinLossMetaModel
+            var model = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = 1
             };
@@ -72,14 +72,14 @@
         public void Index_NoDataReturnedFromService_ReturnEmptyData()
         {
             // Arrange
-            var metaModel = new AgCasinoWinLossMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = -1
             };
 
-            _service.GetSummaryWinloss(Arg.Any<AgCasinoWinLossMetaModel>()).Returns(x =>
+            _service.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>(), string.Empty).ReturnsForAnyArgs(x =>
             {
-                return new ReportResultModel<AgCasinoWinLoss>();
+                return new SortableReportResultModel<ThirdPartyWinLoss>();
             });
 
             // Action
@@ -98,7 +98,7 @@
         public void Index_ValidModelLevel0_CallServiceWithCorrectParameter()
         {
             // Arrange
-            var model = new AgCasinoWinLossMetaModel
+            var model = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = -1
             };
@@ -121,7 +121,7 @@
         public void Index_ValidModelLevel0_ReturnCorrectData()
         {
             // Arrange
-            var model = new AgCasinoWinLossMetaModel
+            var model = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = -1
             };
@@ -150,7 +150,7 @@
             var tdate = DateTime.Now.AddDays(1);
             var currencyId = 2;
             var custId = 3;
-            var model = new AgCasinoWinLossMetaModel
+            var model = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = -1
             };
@@ -178,7 +178,7 @@
         public void Index_ValidModelLevel1_ReturnCorrectData()
         {
             // Arrange
-            var model = new AgCasinoWinLossMetaModel
+            var model = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = -1
             };
@@ -202,7 +202,7 @@
         public void Index_ValidModelLevel2_ReturnCorrectData()
         {
             // Arrange
-            var model = new AgCasinoWinLossMetaModel
+            var model = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = -1
             };
@@ -232,7 +232,7 @@
                 CurrencyList = new Dictionary<int, string> { { 0, "CurrencyName0" }, { 1, "CurrencyName1" } },
             });
 
-            var model = new AgCasinoWinLossMetaModel
+            var model = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = 0,
                 IsExportExcel = true,
@@ -270,7 +270,7 @@
                 CurrencyList = new Dictionary<int, string> { { 1, "CurrencyName1" }, { 2, "CurrencyName2" } },
             });
 
-            var model = new AgCasinoWinLossMetaModel
+            var model = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = 1,
                 IsExportExcel = true,
@@ -300,44 +300,48 @@
             });
         }
 
-        private ReportResultModel<AgCasinoWinLoss> SetUpForGettingData(int level = 0)
+        private SortableReportResultModel<ThirdPartyWinLoss> SetUpForGettingData(int level = 0)
         {
-            var expectedData = new ReportResultModel<AgCasinoWinLoss>
+            var expectedData = new SortableReportResultModel<ThirdPartyWinLoss>
             {
-                DataList = new SortableList<AgCasinoWinLoss> { new AgCasinoWinLoss { Index = 1 } },
-                SummaryTotal = new Dictionary<string, AgCasinoWinLoss> { { nameof(AgCasinoWinLoss), new AgCasinoWinLoss() } }
+                DataList = new SortableList<ThirdPartyWinLoss> { new ThirdPartyWinLoss { Index = 1 } },
+                SummaryTotal = new Dictionary<string, ThirdPartyWinLoss> { { nameof(ThirdPartyWinLoss), new ThirdPartyWinLoss() } }
             };
 
             if (level == 0)
             {
-                _service.GetSummaryWinloss(Arg.Any<AgCasinoWinLossMetaModel>()).Returns(expectedData);
+                _service.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>(), "Lrf_Rpt_AGCasinoWinloss").Returns(expectedData);
             }
             else if (level == 1)
             {
-                _service.GetAgentWinlossDetail(Arg.Any<AgCasinoWinLossMetaModel>()).Returns(expectedData);
+                _service.GetAgentWinlossDetail(Arg.Any<ThirdPartyWinLossMetaModel>(), "LRF_Rpt_AGCasinoWinloss_Ag").Returns(expectedData);
             }
             else
             {
-                _service.GetCustomerWinlossDetail(Arg.Any<AgCasinoWinLossMetaModel>()).Returns(expectedData);
+                _service.GetCustomerWinlossDetail(Arg.Any<ThirdPartyWinLossMetaModel>(), "LRF_Rpt_AGCasinoWinloss_Mem").Returns(expectedData);
             }
 
-            _service.CalculateTotal(Arg.Any<IEnumerable<AgCasinoWinLoss>>()).Returns(expectedData.DataList);
+            _service.TotalCalc(Arg.Any<IEnumerable<ThirdPartyWinLoss>>()).Returns(expectedData.DataList);
 
             return expectedData;
         }
 
         private void SetUpForExportExcel()
         {
-            var excel = Substitute.ForPartsOf<AgCasinoWinLossExcel>(
+            var excel = Substitute.ForPartsOf<ThirdPartyWinLossExcel>(
                    Arg.Any<string>(),
                    Arg.Any<ConvertingOption>(),
-                   new AgCasinoWinLossViewModel());
+                   new ThirdPartyWinLossMetaModel(),
+                   new ThirdPartyWinLossViewModel
+                   {
+                       MainResult = new ThirdPartyWinLoss[] { }
+                   });
             excel.When(x => x.Export()).DoNotCallBase();
 
             _controller.CreateExcel(
                    Arg.Any<string>(),
                    Arg.Any<ConvertingOption>(),
-                   new AgCasinoWinLossViewModel()).ReturnsForAnyArgs(excel);
+                   new ThirdPartyWinLossViewModel()).ReturnsForAnyArgs(excel);
         }
     }
 }

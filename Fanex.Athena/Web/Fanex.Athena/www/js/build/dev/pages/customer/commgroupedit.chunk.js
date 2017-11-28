@@ -54,7 +54,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
              Site.initialize();
           
              initColorPicker();
-             _me.setPageTitle(Site.getSingleResource(titleResource));
+             CustomerCommGroup.setPageTitle(Site.getSingleResource(titleResource));
              _me.initEvent();
          }
 
@@ -65,38 +65,38 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
              });
 
              $("#Cancel").click(function () {
-                 _me.setPageTitle("CommissionGroupList");
+                 CustomerCommGroup.setPageTitle(Site.getSingleResource("CommissionGroupList"));
                  Site.redirect(Site.resolveClientUrl("CustomerComGroup/Index"));
              });
 
              // Commission dropdownlist change
              $("#SBComm1").on("change", function () {
                  commissionOnChange($(this).val(), "SBComm");
-             });
-
+             }).change();
+             
              $("#ParlayComm1").on("change", function () {
                  commissionOnChange($(this).val(), "ParlayComm");
-             });
+             }).change();
 
              $("#RCComm1").on("change", function () {
                  commissionOnChange($(this).val(), "RCComm");
-             });
+             }).change();
 
              $("#NGComm1").on("change", function () {
                  commissionOnChange($(this).val(), "NGComm");
-             });
+             }).change();
 
              $("#LCComm1").on("change", function () {
                  commissionOnChange($(this).val(), "LCComm");
-             });
+             }).change();
 
              $("#CSComm1").on("change", function () {
                  commissionOnChange($(this).val(), "CSComm");
-             });
-         }
+             }).change();
 
-         function setPageTitle(title) {
-             CustomerCommGroup.setPageTitle(title);
+             $("#ABComm1").on("change", function () {
+                 commissionOnChange($(this).val(), "ABComm");
+             }).change();
          }
 
          function checkAvailableGroup(groupName) {
@@ -184,6 +184,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
              initCommParam("#NGComm");
              initCommParam("#LCComm");
              initCommParam("#CSComm");
+             initCommParam("#ABComm");
 
              initDefaultParam(formId);
          }
@@ -208,9 +209,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
              if (isDefault && defaultGroupId !== currentGroupId && defaultGroupId !== 0) {
                  showConfirmAction(Site.getSingleResource('GroupSetAsDefaultMsg'), function () {
                      $("#IsResetDefault").val(true);
+                     Site.blockUI();
                      $(formId).submit();
                  });
              } else {
+                 Site.blockUI();
                  $(formId).submit();
              }
          }
@@ -254,7 +257,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
              initEvent: initEvent,
              submit: submit,
              checkAvailableGroup: checkAvailableGroup,
-             setPageTitle: setPageTitle,
              goToCustomerList: goToCustomerList
          };
 

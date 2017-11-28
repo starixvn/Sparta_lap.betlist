@@ -8,7 +8,7 @@ namespace Fanex.Athena.Service.BetSettings
 {
     using System.Collections.Generic;
     using Casino.Interfaces;
-    using CasinoLibrary.SBAgent;
+    using Casino.Wrappers;
     using Core.Users.Interfaces;
     using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
@@ -26,30 +26,28 @@ namespace Fanex.Athena.Service.BetSettings
     {
         private readonly IRngCasinoBetSettingDataAccess _betSettingDataAccess;
 
-        private readonly ICasinoSetting _casinoSetting;
+        private readonly ICasinoSettingService _casinoSetting;
 
-        private readonly Customer _customerApi;
+        private readonly ICustomerApiWrapper _customerApiWrapper;
 
         private readonly IAppSettings _appSettings;
 
-        public RngCasinoBetSettingService()
+        public RngCasinoBetSettingService() : this(null, null, null, null, null)
         {
-            _betSettingDataAccess = new RngCasinoBetSettingDataAccess();
-            _casinoSetting = new CasinoSetting();
-            _customerApi = new Customer();
-            _appSettings = new AppSettings();
         }
 
         public RngCasinoBetSettingService(
             IAuthorizationService authorizationService,
             IAppSettings appSettings,
-            ICasinoSetting casinoSetting,
+            ICasinoSettingService casinoSetting,
+            ICustomerApiWrapper customerApiWrapper,
             IRngCasinoBetSettingDataAccess betSettingDataAccess)
             : base(authorizationService)
         {
-            _betSettingDataAccess = betSettingDataAccess;
-            _casinoSetting = casinoSetting;
-            _appSettings = appSettings;
+            _betSettingDataAccess = betSettingDataAccess ?? new RngCasinoBetSettingDataAccess();
+            _casinoSetting = casinoSetting ?? new CasinoSettingService();
+            _appSettings = appSettings ?? new AppSettings();
+            _customerApiWrapper = customerApiWrapper ?? new CustomerApiWrapper();
         }
 
         public RngCasinoBetSettingViewModel GetViewModel(int custId, CustomerInfo customer, string language)
@@ -75,7 +73,7 @@ namespace Fanex.Athena.Service.BetSettings
 
             if (isSyncCasino && !_appSettings.IsDisableRngCasino)
             {
-                if (!_customerApi.UpdateCustEnableCasino(custId, status == 0, false, ip, userId, username, 4))
+                if (!_customerApiWrapper.UpdateCustEnableCasino(custId, status == 0, false, ip, userId, username))
                 {
                     return ErrorResult(ViewResources.UpdateUnSuccess);
                 }

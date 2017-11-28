@@ -43,7 +43,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index(CasinoProgressiveWinsMetaModel metaModel)
+        public dynamic Index(BaseReportMetaModel metaModel)
         {
             return ProcessRequest(metaModel);
         }
@@ -83,7 +83,7 @@ namespace Fanex.Athena.Api.Report
             return new CasinoProgressiveWinsExcel(templatePath, convertingOption, excelModel);
         }
 
-        private HttpResponseMessage ExportExcel(CasinoProgressiveWinsMetaModel metaModel, IEnumerable<CasinoProgressiveWins> dataList)
+        private HttpResponseMessage ExportExcel(BaseReportMetaModel metaModel, IEnumerable<CasinoProgressiveWins> dataList)
         {
             const string FileName = "CasinoProgressiveWin_Microgaming.xls";
             var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/CasinoProgressiveWins.xls");
@@ -108,7 +108,7 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(excel.Workbook, FileName);
         }
 
-        private dynamic ProcessRequest(CasinoProgressiveWinsMetaModel metaModel)
+        private dynamic ProcessRequest(BaseReportMetaModel metaModel)
         {
             if (IsValidRequest(metaModel))
             {

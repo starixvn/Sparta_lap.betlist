@@ -10,6 +10,7 @@ namespace Fanex.Athena.Controllers.WareHouse
     using System.Web.SessionState;
     using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
+    using Excel.Base.Entities;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Model.Core.DTO.Configuration;
@@ -37,6 +38,19 @@ namespace Fanex.Athena.Controllers.WareHouse
         protected BalanceUp GetBalanceUp()
         {
             return _balancUpDataAccess.GetBalanceUp();
+        }
+
+        protected ShowingOption GetShowingOption()
+        {
+            var productAccess = ProductService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
+            return new ShowingOption
+            {
+                BAVisible = productAccess.IsAllowBA,
+                RBVisible = productAccess.IsAllowRB,
+                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                NGVisible = productAccess.IsAllowNG,
+                SBVisible = productAccess.IsAllowSB
+            };
         }
     }
 }

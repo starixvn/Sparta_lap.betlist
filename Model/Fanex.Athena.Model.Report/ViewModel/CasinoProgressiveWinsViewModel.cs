@@ -15,6 +15,6 @@ namespace Fanex.Athena.Model.Report.ViewModel
     {
         public IEnumerable<CasinoProgressiveWins> DataList { get; set; }
 
-        public CasinoProgressiveWinsMetaModel Param { get; set; }
+        public BaseReportMetaModel Param { get; set; }
     }
 }

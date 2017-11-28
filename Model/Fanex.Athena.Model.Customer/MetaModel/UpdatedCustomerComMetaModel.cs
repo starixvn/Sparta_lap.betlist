@@ -21,6 +21,8 @@ namespace Fanex.Athena.Model.Customer.MetaModel
 
         public bool IsAllowedCS { get; set; }
 
+        public bool IsAllowedAB { get; set; }
+
         public decimal SBComm { get; set; }
 
         public decimal ParlayComm { get; set; }
@@ -32,5 +34,7 @@ namespace Fanex.Athena.Model.Customer.MetaModel
         public decimal LCComm { get; set; }
 
         public decimal CSComm { get; set; }
+
+        public decimal ABComm { get; set; }
     }
 }

@@ -40,8 +40,7 @@ var ForecastOneXTwo = (function ($) {
 
             // League change
             $('.league-list').on('change', function () {
-                var leagueId = $(this).val();
-                ForecastOneXTwo.loadSelectedLeague(leagueId);
+                ForecastOneXTwo.submit();
             });
 
             // Forecast button click
@@ -69,12 +68,6 @@ var ForecastOneXTwo = (function ($) {
                 window.location.href = url;
             }
         },
-        loadSelectedLeague: function (leagueId) {
-            var url = Site.resolveClientUrl("OneXTwoForecast/Index");
-            url = Site.setLicenseeOptionOriginalParam(url);
-            url = QueryString.setParam(url, "LeagueId", leagueId);
-            ForecastOneXTwo.submit();
-        },
         submit: function () {
             Site.blockUI();
             $("#ForecastOneXTwoForm").submit();
@@ -92,18 +85,13 @@ if (!window._IsInJsTestingMode) {
         }
 
         var height = Math.min(parentWindow.innerHeight - 20, 460);
-        // Set default value for popup
-        parentWindow.$('.ui-dialog').css({ 'width': 700 + 'px' });
-        parentWindow.$('.ui-dialog').css({ 'height': height + 'px' });
-        parentWindow.$('.ui-dialog').css({ 'top': (parentWindow.innerHeight - height) / 2 + 'px' });
-        parentWindow.$('.ui-dialog').css({ 'left': '20%' });
-        parentWindow.$('.ui-dialog').css({ 'margin': 'auto' });
+        var top = (parentWindow.innerHeight - height) / 2;
+        parentWindow.$('.ui-dialog').css({ width: 700 + 'px', height: height + 'px', top: top + 'px', left: '20%', margin: 'auto' });
         parentWindow.$('.ui-dialog-title').html(Site.getSingleResource('Forecast') + ' - ' + Site.getSingleResource('OneXTwo'));
-        
-        parentWindow.$('#myframe').attr('width', 690);
-        parentWindow.$('#myframe').attr('height', height);
-        parentWindow.$('#forecast-dialog').attr('style', 'width:680px;height:' + (height - 60) + 'px');
-        parentWindow.$('#forecast-dialog').css({ 'overflow': 'hidden' });
+        parentWindow.$('#myframe').attr('width', 690, 'height', height);
+        parentWindow.$('#forecast-dialog')
+            .attr('style', 'width:680px;height:' + (height - 60) + 'px')
+            .css({ 'overflow': 'hidden' });
     });
 
     $(window).resize(function () {

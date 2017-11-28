@@ -36,7 +36,7 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly IEnumerable<CasinoProgressiveWins> _dataList;
 
-        private readonly CasinoProgressiveWinsMetaModel _metaModel;
+        private readonly BaseReportMetaModel _metaModel;
 
         private readonly ConvertingOption _convertingOption;
 
@@ -47,31 +47,14 @@ namespace Fanex.Athena.Excel.Report
                 string templatePath,
                 ConvertingOption convertingOption,
                 CasinoProgressiveWinsViewModel viewModel)
-            : base(templatePath)
+            : base(templatePath, viewModel.DataList.Count())
         {
             _convertingOption = convertingOption;
             _metaModel = viewModel.Param;
             _dataList = viewModel.DataList;
         }
 
-        protected override void AssignData()
-        {
-            var sheet = Workbook.CloneSheet("Template", "Data");
-
-            AssignHeader(sheet);
-            AssignTitle(sheet);
-
-            if (_dataList.Any())
-            {
-                AssignSheetData(sheet);
-            }
-            else
-            {
-                AssignNoInfoRow(sheet);
-            }
-        }
-
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
@@ -83,12 +66,12 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmount].SetCellValue(ViewResources.Amount);
         }
 
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
 
-        protected void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             InitializeFonts();
 
@@ -102,13 +85,14 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
-            var fromdate = _metaModel.FromDate.ToString(FormatDate);
-            var todate = _metaModel.ToDate.ToString(FormatDate);
-            var title = ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId);
-
-            var reportTitle = string.Format(ViewResources.CasinoProgressiveWins + ", {0} --> {1} - {2}", fromdate, todate, title);
+            var reportTitle = ReportExcelHelper.GenerateReportTitle(
+                ViewResources.CasinoProgressiveWins,
+                _convertingOption,
+                _metaModel.FromDate,
+                _metaModel.ToDate,
+                _metaModel.CurrencyId);
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
@@ -118,16 +102,12 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        protected void AssignCommonData(IRow row, CasinoProgressiveWins data)
+        private void AssignCommonData(IRow row, CasinoProgressiveWins data)
         {
             row.Cells[ColumnIndex].SetCellValue(data.Index);
             row.Cells[ColumnExternalId].SetCellValue(data.ExternalId);
             row.Cells[ColumnSystemId].SetCellValue(data.SystemId);
             row.Cells[ColumnDate].SetCellValue(data.WinlostDate.ToShortDateString());
-            row.Cells[ColumnIndex].SetCellValue(data.Index);
-            row.Cells[ColumnDate].SetCellValue(data.WinlostDate);
-            row.Cells[ColumnExternalId].SetCellValue(data.ExternalId);
-            row.Cells[ColumnSystemId].SetCellValue(data.SystemId);
             row.Cells[ColumnRefNo].SetCellValue(data.RefNo);
             row.Cells[ColumnChoice].SetCellValue(GetChoiceText(data));
             row.Cells[ColumnAmount].SetCellValue(data.WinAmount);

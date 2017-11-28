@@ -12,7 +12,7 @@ namespace Fanex.Athena.Excel.Base
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
 
-    public class ReportBase
+    public abstract class ReportBase
     {
         public const int RowHeaderTemplate = 1;
         public const int RowTitleTemplate = 0;
@@ -24,30 +24,40 @@ namespace Fanex.Athena.Excel.Base
 
         private readonly string _templatePath;
 
+        private readonly int _totalRows;
+
         private int _pageSize;
 
-        protected ReportBase(string templatePath, int pageSize = 0)
-            : this(templatePath, null, pageSize)
+        protected ReportBase(string templatePath, int totalRows, int pageSize = 0)
+            : this(templatePath, totalRows, null, pageSize)
         {
         }
 
         protected ReportBase(
             string templatePath,
+            int totalRows,
             ShowingOption showingOption,
             int pageSize = 0)
         {
             _templatePath = templatePath;
+            _totalRows = totalRows;
             ShowingOption = showingOption;
             PageSize = pageSize;
         }
 
-        protected ShowingOption ShowingOption
+        protected bool IsMultiSheet { get; set; }
+
+        protected ShowingOption ShowingOption { get; set; }
+
+        protected int TotalRows
         {
-            get;
-            set;
+            get
+            {
+                return _totalRows;
+            }
         }
 
-        protected int PageSize
+        protected internal int PageSize
         {
             get
             {
@@ -60,28 +70,27 @@ namespace Fanex.Athena.Excel.Base
             }
         }
 
-        protected internal ISheet TemplateSheet
-        {
-            get;
-            private set;
-        }
+        protected internal virtual ISheet TemplateSheet { get; private set; }
 
-        public virtual IWorkbook Workbook
-        {
-            get;
-            private set;
-        }
+        public virtual IWorkbook Workbook { get; private set; }
 
         public virtual void Export()
         {
             LoadTemplate();
 
-            AssignData();
+            if (IsMultiSheet)
+            {
+                AssignDataMultiSheet();
+            }
+            else
+            {
+                AssignData();
+            }
 
             RemoveTemplate();
         }
 
-        protected static void ClearTemplate(ISheet sheet, int startRowIndex)
+        protected internal static void ClearTemplate(ISheet sheet, int startRowIndex)
         {
             int lastRowNum = sheet.LastRowNum;
             for (int i = startRowIndex; i <= lastRowNum; i++)
@@ -96,6 +105,67 @@ namespace Fanex.Athena.Excel.Base
         }
 
         protected internal virtual void AssignData()
+        {
+            var sheet = Workbook.CloneSheet("Template", "Data");
+
+            AssignHeader(sheet);
+            AssignTitle(sheet);
+
+            if (_totalRows == 0)
+            {
+                AssignNoInfoRow(sheet);
+            }
+            else
+            {
+                AssignSheetData(sheet);
+            }
+
+            ProcessUI(sheet);
+        }
+
+        protected internal virtual void AssignDataMultiSheet()
+        {
+            ISheet sheet;
+
+            if (_totalRows == 0)
+            {
+                sheet = Workbook.CloneSheet("Template", "Data");
+                AssignTitle(sheet);
+                AssignHeader(sheet);
+                AssignNoInfoRow(sheet);
+                ProcessUI(sheet);
+            }
+            else
+            {
+                var numOfSheet = GetNumberOfSheets(_totalRows, PageSize);
+                for (int i = 0; i < numOfSheet; i++)
+                {
+                    sheet = Workbook.CloneSheet("Template", "Data" + (i + 1).ToString());
+                    AssignTitle(sheet);
+                    AssignHeader(sheet);
+                    AssignSheetData(sheet, i);
+                    ProcessUI(sheet);
+                }
+            }
+        }
+
+        protected internal abstract void AssignTitle(ISheet sheet);
+
+        protected internal abstract void AssignHeader(ISheet sheet);
+
+        protected internal virtual void ProcessUI(ISheet sheet)
+        {
+        }
+
+        protected internal virtual void AssignNoInfoRow(ISheet sheet)
+        {
+        }
+
+        protected internal virtual void AssignSheetData(ISheet sheet)
+        {
+        }
+
+        protected internal virtual void AssignSheetData(ISheet sheet, int pageIndex)
         {
         }
 

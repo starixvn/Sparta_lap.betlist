@@ -20,6 +20,7 @@
     {
         private IMaintenanceService _maintenanceService;
         private IUserService _userService;
+        private IAuthService _authService;
         private IFormsAuthenticationService _formAuthenticationService;
         private IFileSystem _fileSystem;
 
@@ -30,6 +31,7 @@
 
             _maintenanceService = Substitute.For<IMaintenanceService>();
             _userService = Substitute.For<IUserService>();
+            _authService = Substitute.For<IAuthService>();
             _formAuthenticationService = Substitute.For<IFormsAuthenticationService>();
             _fileSystem = Substitute.For<IFileSystem>();
         }
@@ -53,6 +55,7 @@
         {
             AppSettings.ClearReceivedCalls();
             _userService.ClearReceivedCalls();
+            _authService.ClearReceivedCalls();
         }
 
         [Test]
@@ -170,7 +173,7 @@
                 var result = controller.SignOut() as RedirectToRouteResult;
 
                 // Assert
-                _userService.Received().Logout(DefaultUserSession.OnUserId);
+                _authService.Received().Logout(DefaultUserSession.OnUserId);
                 _formAuthenticationService.Received().SignOut();
             }
         }
@@ -189,7 +192,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    _userService.DidNotReceive().Logout(Arg.Any<int>());
+                    _authService.DidNotReceive().Logout(Arg.Any<int>());
                     _formAuthenticationService.Received().SignOut();
                 });
             }
@@ -219,7 +222,7 @@
             {
                 // Arrange
                 const string CookieName = "cookie1";
-                controller.ControllerContext.HttpContext.Request.Cookies.Add(new System.Web.HttpCookie(CookieName));
+                controller.ControllerContext.HttpContext.Request.Cookies.Add(new HttpCookie(CookieName));
 
                 // Action
                 var result = controller.SignOut() as RedirectToRouteResult;
@@ -275,7 +278,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    _userService.Received().Logout(DefaultUserSession.OnUserId);
+                    _authService.Received().Logout(DefaultUserSession.OnUserId);
                     _formAuthenticationService.Received().SignOut();
                 });
             }
@@ -404,6 +407,7 @@
                FileSystem,
                _maintenanceService,
                _userService,
+               _authService,
                _formAuthenticationService)
             {
                 ControllerContext = ControllerContext

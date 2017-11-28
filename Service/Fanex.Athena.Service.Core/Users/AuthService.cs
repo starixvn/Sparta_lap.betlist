@@ -1,0 +1,73 @@
+﻿using System;
+using Fanex.Athena.DataAccess.Core.Users;
+using Fanex.Athena.DataAccess.Core.Users.Interfaces;
+using Fanex.Athena.Model.Core.DTO.Common;
+using Fanex.Athena.Model.Core.DTO.Users;
+using Fanex.Athena.Resources;
+using Fanex.Athena.Service.Core.Users.Interfaces;
+using Fanex.Common;
+
+namespace Fanex.Athena.Service.Core.Users
+{
+    public class AuthService : IAuthService
+    {
+        private const int UserNotExistError = 100;
+        private const int WrongUserNameOrPasswordError = 104;
+
+        private readonly IUserDataAccess _userDataAccess;
+
+        private readonly IAuthDataAccess _authenticationDataAccess;
+
+        public AuthService() : this(null, null)
+        {
+        }
+
+        public AuthService(
+            IUserDataAccess userDataAccess,
+            IAuthDataAccess authenticationDataAccess)
+        {
+            _userDataAccess = userDataAccess ?? new UserDataAccess();
+            _authenticationDataAccess = authenticationDataAccess ?? new AuthDataAccess();
+        }
+
+        public int LoginOnUser(User requestUser, string netSessionId, int serverId, string ip)
+        {
+            requestUser.Request = new Request { Ip = ip };
+            return this._authenticationDataAccess.LoginOnUser(requestUser, netSessionId, serverId);
+        }
+
+        public void Logout(int onuserId)
+        {
+            this._authenticationDataAccess.Logout(onuserId);
+        }
+
+        public User ValidateInternalUser(User requestUser, string licenseeName, long timeStamp, out IResultInfo resultInfo)
+        {
+            return this._authenticationDataAccess.ValidateInternalUser(requestUser, timeStamp, licenseeName, out resultInfo);
+        }
+
+        public User ValidateUserForLrfSystem(User requestUser, string loginToken, out IResultInfo resultInfo)
+        {
+            var user = _userDataAccess.GetByUsername(requestUser.Username, isInternal: false);
+
+            if (user != null)
+            {
+                var hashPassword = Cryptography.CreateHash(user.Password + loginToken, user.UserSalt);
+                if (requestUser.Password.Equals(hashPassword, StringComparison.OrdinalIgnoreCase))
+                {
+                    user = this._authenticationDataAccess.ValidateUserForLrfSystem(requestUser, out resultInfo);
+                }
+                else
+                {
+                    resultInfo = new ResultInfo { Code = WrongUserNameOrPasswordError, Message = ViewResources.WrongUserNamePassword };
+                }
+            }
+            else
+            {
+                resultInfo = new ResultInfo { Code = UserNotExistError, Message = ViewResources.UserNotExist };
+            }
+
+            return user;
+        }
+    }
+}

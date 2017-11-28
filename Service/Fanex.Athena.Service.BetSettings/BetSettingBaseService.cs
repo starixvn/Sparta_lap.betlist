@@ -14,14 +14,13 @@ namespace Fanex.Athena.Service.BetSettings
     {
         private readonly IAuthorizationService _authorizationService;
 
-        public BetSettingBaseService()
+        public BetSettingBaseService() : this(null)
         {
-            _authorizationService = new AuthorizationService();
         }
 
         public BetSettingBaseService(IAuthorizationService authorizationService)
         {
-            _authorizationService = authorizationService;
+            _authorizationService = authorizationService ?? new AuthorizationService();
         }
 
         protected static IResultInfo ErrorResult(string message)

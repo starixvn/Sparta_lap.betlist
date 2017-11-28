@@ -2,12 +2,10 @@
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.SqlClient;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
     using Fanex.Athena.DataAccess.Core;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.DTO;
@@ -24,20 +22,13 @@
 
         public IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml)
         {
-            try
+            using (var db = this.GetObjectDb("Lrf_CustomerSelUserSearch"))
             {
-                using (var db = this.GetObjectDb("Lrf_CustomerSelUserSearch"))
-                {
-                    db.AddInParameter("userid", DbType.Int32, userId);
-                    db.AddInParameter("username", DbType.String, userName);
-                    db.AddInParameter("AgentList", DbType.String, agentListXml);
+                db.AddInParameter("userid", DbType.Int32, userId);
+                db.AddInParameter("username", DbType.String, userName);
+                db.AddInParameter("AgentList", DbType.String, agentListXml);
 
-                    return db.Query<string>();
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, "Lrf_CustomerSelUserSearch");
+                return db.Query<string>();
             }
         }
 
@@ -47,74 +38,68 @@
         {
             const string UspName = "Lrf_CustomerSel";
 
-            try
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                db.AddInParameter("LicenseeID", DbType.Int32, metaModel.LicenseeId);
+                db.AddInParameter("username", DbType.String, metaModel.Username);
+                db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
+                db.AddInParameter("PageIndex ", DbType.Int32, metaModel.PageIndex);
+                db.AddInParameter("BAFilter", DbType.Int32, metaModel.BAFilter);
+                db.AddInParameter("CustStatus", DbType.String, metaModel.CustStatus ?? string.Empty);
+                db.AddInParameter("SpecialLevel", DbType.Int32, metaModel.SpecialLevel);
+                db.AddInParameter("GroupCommId", DbType.Int32, metaModel.GroupCommId);
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                db.AddOutParameter("TotalRows", DbType.Int32, 4);
+
+                AddOddsGroupParam(db, metaModel);
+
+                var dataList = new List<CustomerDTO>();
+
+                using (var reader = db.ExecuteReader())
                 {
-                    db.AddInParameter("LicenseeID", DbType.Int32, metaModel.LicenseeId);
-                    db.AddInParameter("username", DbType.String, metaModel.Username);
-                    db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-                    db.AddInParameter("PageIndex ", DbType.Int32, metaModel.PageIndex);
-                    db.AddInParameter("BAFilter", DbType.Int32, metaModel.BAFilter);
-                    db.AddInParameter("CustStatus", DbType.String, metaModel.CustStatus ?? string.Empty);
-                    db.AddInParameter("SpecialLevel", DbType.Int32, metaModel.SpecialLevel);
-                    db.AddInParameter("GroupCommId", DbType.Int32, metaModel.GroupCommId);
-                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                    db.AddOutParameter("TotalRows", DbType.Int32, 4);
+                    var availableFundsCol = "TotalBalance" + metaModel.BaseCurrency;
+                    var pendingFundsCol = "OutStanding" + metaModel.BaseCurrency;
 
-                    AddOddsGroupParam(db, metaModel);
+                    var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
 
-                    var dataList = new List<CustomerDTO>();
-
-                    using (var reader = db.ExecuteReader())
+                    while (reader.Read())
                     {
-                        var availableFundsCol = "TotalBalance" + metaModel.BaseCurrency;
-                        var pendingFundsCol = "OutStanding" + metaModel.BaseCurrency;
-
-                        var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
-
-                        while (reader.Read())
+                        var customer = new CustomerDTO
                         {
-                            var customer = new CustomerDTO
-                            {
-                                Index = startIndex++,
-                                CustId = reader.ToInt("custid"),
-                                SystemId = reader.ToString("username"),
-                                ExternalId = reader.ToString("nickname"),
-                                IsClosed = reader.ToBool("closed"),
-                                IsSuspended = reader.ToBool("suspended"),
-                                BAStatus = reader.ToBool("BAStatus"),
-                                SpecialLevel = reader.ToInt("SpecialLevel"),
-                                IsPowerBAUserTurnoff = reader.ToBool("IsPowerBAUserTurnoff"),
-                                AvailableFunds = reader.ToDecimal(availableFundsCol),
-                                PendingFunds = reader.ToDecimal(pendingFundsCol),
-                                GroupCommId = reader.ToInt("GroupCommId"),
-                                GroupColor = reader.ToString("GroupColor"),
-                                Group = reader.ToString("GroupName"),
-                                OddsGroup = reader.ToString("OddsGroup"),
-                                SBComm = reader.ToDecimal("SBComm") * 100,
-                                RBComm = reader.ToDecimal("RacingComm") * 100,
-                                NGComm = reader.ToDecimal("NGComm") * 100,
-                                LCComm = reader.ToDecimal("LCComm") * 100,
-                                CSComm = reader.ToDecimal("RNGComm") * 100
-                            };
+                            Index = startIndex++,
+                            CustId = reader.ToInt("custid"),
+                            SystemId = reader.ToString("username"),
+                            ExternalId = reader.ToString("nickname"),
+                            IsClosed = reader.ToBool("closed"),
+                            IsSuspended = reader.ToBool("suspended"),
+                            BAStatus = reader.ToBool("BAStatus"),
+                            SpecialLevel = reader.ToInt("SpecialLevel"),
+                            IsPowerBAUserTurnoff = reader.ToBool("IsPowerBAUserTurnoff"),
+                            AvailableFunds = reader.ToDecimal(availableFundsCol),
+                            PendingFunds = reader.ToDecimal(pendingFundsCol),
+                            GroupCommId = reader.ToInt("GroupCommId"),
+                            GroupColor = reader.ToString("GroupColor"),
+                            Group = reader.ToString("GroupName"),
+                            OddsGroup = reader.ToString("OddsGroup"),
+                            SBComm = reader.ToDecimal("SBComm") * 100,
+                            RBComm = reader.ToDecimal("RacingComm") * 100,
+                            NGComm = reader.ToDecimal("NGComm") * 100,
+                            LCComm = reader.ToDecimal("LCComm") * 100,
+                            CSComm = reader.ToDecimal("RNGComm") * 100,
+                            ABComm = reader.ToDecimal("AllbetComm") * 100
+                        };
 
-                            customer.Status = customer.IsClosed ? ViewResources.Closed : customer.IsSuspended ? ViewResources.Suspended : ViewResources.Open;
-                            dataList.Add(customer);
-                        }
+                        customer.Status = customer.IsClosed ? ViewResources.Closed : customer.IsSuspended ? ViewResources.Suspended : ViewResources.Open;
+                        dataList.Add(customer);
                     }
-
-                    var totalRows = Converter.ToInt(db.GetParameterValue("TotalRows"));
-                    return new ReportResultModel<CustomerDTO>
-                    {
-                        DataList = dataList,
-                        TotalRows = totalRows
-                    };
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName);
+
+                var totalRows = Converter.ToInt(db.GetParameterValue("TotalRows"));
+                return new ReportResultModel<CustomerDTO>
+                {
+                    DataList = dataList,
+                    TotalRows = totalRows
+                };
             }
         }
 
@@ -125,19 +110,13 @@
         public LogInfo GetCustomerLoginInfo(int custId, int licenseeId)
         {
             const string UspName = "Lrf_CustomerLoginInfo";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("custid", DbType.Int32, custId);
-                    db.AddInParameter(nameof(licenseeId), DbType.Int32, licenseeId);
 
-                    return db.QueryEntity<LogInfo>();
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName);
+                db.AddInParameter("custid", DbType.Int32, custId);
+                db.AddInParameter(nameof(licenseeId), DbType.Int32, licenseeId);
+
+                return db.QueryEntity<LogInfo>();
             }
         }
 
@@ -147,150 +126,87 @@
 
         public IResultInfo UpdateOddsGroup(CustomerOddsGroupMetaModel metaModel)
         {
-            try
+            using (var db = this.GetObjectDb("Lrf_CustomerUpdUgroup"))
             {
-                using (var db = this.GetObjectDb("Lrf_CustomerUpdUgroup"))
-                {
-                    db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("CustId", DbType.Int32, metaModel.CustId);
-                    db.AddInParameter("OddsGroup", DbType.String, metaModel.OddsGroup);
-                    db.AddInParameter("IP", DbType.String, metaModel.Ip);
-                    db.AddInParameter("Langkey", DbType.String, metaModel.Language);
+                db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
+                db.AddInParameter("CustId", DbType.Int32, metaModel.CustId);
+                db.AddInParameter("OddsGroup", DbType.String, metaModel.OddsGroup);
+                db.AddInParameter("IP", DbType.String, metaModel.Ip);
+                db.AddInParameter("Langkey", DbType.String, metaModel.Language);
 
-                    AddResultParam(db);
-                    db.ExecuteNonQuery();
+                AddResultParam(db);
+                db.ExecuteNonQuery();
 
-                    return GetResult(db);
-                }
-            }
-            catch (SqlException sqlException)
-            {
-                throw new DataAccessException(sqlException, "Lrf_CustomerUpdUgroup");
+                return GetResult(db);
             }
         }
 
         public IResultInfo UpdateCustClosed(CustomerStatusMetaModel metaModel)
         {
-            try
-            {
-                using (var db = this.GetObjectDb("Lrf_CustomerUpdClosed"))
-                {
-                    db.AddInParameter("LicenseeId", DbType.String, metaModel.LicenseeId);
-                    db.AddInParameter("UserId", DbType.String, metaModel.ModifyById);
-                    db.AddInParameter("CustId", DbType.String, metaModel.CustId);
-                    db.AddInParameter("Closed", DbType.String, metaModel.IsOn);
-                    db.AddInParameter("IP", DbType.String, metaModel.Ip);
-
-                    AddResultParam(db);
-                    db.ExecuteNonQuery();
-
-                    return GetResult(db);
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, "Lrf_CustomerUpdClosed");
-            }
+            return UpdateCustomerStatus(metaModel, "Lrf_CustomerUpdClosed", "Closed");
         }
 
         public IResultInfo UpdateCustSuspend(CustomerStatusMetaModel metaModel)
         {
-            try
-            {
-                using (var db = this.GetObjectDb("Lrf_CustomerUpdSuspended"))
-                {
-                    db.AddInParameter("LicenseeId", DbType.String, metaModel.LicenseeId);
-                    db.AddInParameter("UserId", DbType.String, metaModel.ModifyById);
-                    db.AddInParameter("CustId", DbType.String, metaModel.CustId);
-                    db.AddInParameter("Suspended", DbType.String, metaModel.IsOn);
-                    db.AddInParameter("IP", DbType.String, metaModel.Ip);
-
-                    AddResultParam(db);
-                    db.ExecuteNonQuery();
-
-                    return GetResult(db);
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, "Lrf_CustomerUpdSuspended");
-            }
+            return UpdateCustomerStatus(metaModel, "Lrf_CustomerUpdSuspended", "Suspended");
         }
 
         public IResultInfo UpdateCustomerBAStatus(int licenseeId, int custId, int modifiedBy, bool allowBA, Request request)
         {
             const string UspName = "Lrf_CustomerUpdMemberBAStatus";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
-                    db.AddInParameter("CustID", DbType.String, custId);
-                    db.AddInParameter("ModifyBy", DbType.String, modifiedBy);
-                    db.AddInParameter("IsBA", DbType.Boolean, allowBA);
-                    db.AddInParameter("langkey", DbType.String, request.Language);
-                    db.AddInParameter("IP", DbType.String, request.Ip);
-                    db.AddOutParameter("OddsGroup", DbType.String, 10);
-                    AddResultParam(db);
-                    db.ExecuteNonQuery();
 
-                    var resultInfo = GetResult(db);
-                    resultInfo.ExtendedData = db.GetParameterValue("OddsGroup").ToString().ToUpper(CultureInfo.CurrentCulture);
-
-                    return resultInfo;
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName);
+                db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
+                db.AddInParameter("CustID", DbType.String, custId);
+                db.AddInParameter("ModifyBy", DbType.String, modifiedBy);
+                db.AddInParameter("IsBA", DbType.Boolean, allowBA);
+                db.AddInParameter("langkey", DbType.String, request.Language);
+                db.AddInParameter("IP", DbType.String, request.Ip);
+                db.AddOutParameter("OddsGroup", DbType.String, 10);
+                AddResultParam(db);
+                db.ExecuteNonQuery();
+
+                var resultInfo = GetResult(db);
+                resultInfo.ExtendedData = db.GetParameterValue("OddsGroup").ToString().ToUpper(CultureInfo.CurrentCulture);
+
+                return resultInfo;
             }
         }
 
         public IResultInfo UpdateSpecialLevel(int userId, int custId, int level, string ip, string language)
         {
             const string UspName = "Lrf_CustomerUpdSpecialLevel";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("custid", DbType.Int32, custId);
-                    db.AddInParameter("userid", DbType.Int32, userId);
-                    db.AddInParameter("speciallevel", DbType.Int32, level);
-                    db.AddInParameter(nameof(ip), DbType.String, ip);
-                    db.AddInParameter("langkey", DbType.String, language);
-                    AddResultParam(db);
-                    db.ExecuteNonQuery();
 
-                    return GetResult(db);
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName);
+                db.AddInParameter("custid", DbType.Int32, custId);
+                db.AddInParameter("userid", DbType.Int32, userId);
+                db.AddInParameter("speciallevel", DbType.Int32, level);
+                db.AddInParameter(nameof(ip), DbType.String, ip);
+                db.AddInParameter("langkey", DbType.String, language);
+                AddResultParam(db);
+                db.ExecuteNonQuery();
+
+                return GetResult(db);
             }
         }
 
         public IResultInfo UpdateOddsGroup(int userId, int custId, string group, string ip, string language)
         {
             const string UspName = "Lrf_CustomerUpdOddsGroup";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("custid", DbType.Int32, custId);
-                    db.AddInParameter("userid", DbType.Int32, userId);
-                    db.AddInParameter("oddsgroup", DbType.String, group);
-                    db.AddInParameter(nameof(ip), DbType.String, ip);
-                    db.AddInParameter("langkey", DbType.String, language);
-                    AddResultParam(db);
-                    db.ExecuteNonQuery();
 
-                    return GetResult(db);
-                }
-            }
-            catch (SqlException sqlException)
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName);
+                db.AddInParameter("custid", DbType.Int32, custId);
+                db.AddInParameter("userid", DbType.Int32, userId);
+                db.AddInParameter("oddsgroup", DbType.String, group);
+                db.AddInParameter(nameof(ip), DbType.String, ip);
+                db.AddInParameter("langkey", DbType.String, language);
+                AddResultParam(db);
+                db.ExecuteNonQuery();
+
+                return GetResult(db);
             }
         }
 
@@ -304,6 +220,23 @@
                 var selectedOddsGroups = oddsGroups.Where(g => g.Checked).Select(g => g.Name).ToArray();
                 var oddsGroupValues = string.Join(",", selectedOddsGroups);
                 objectDb.AddInParameter("OddsGroups", DbType.String, oddsGroupValues);
+            }
+        }
+
+        private IResultInfo UpdateCustomerStatus(CustomerStatusMetaModel metaModel, string uspName, string statusParamName)
+        {
+            using (var db = GetObjectDb(uspName))
+            {
+                db.AddInParameter("LicenseeId", DbType.String, metaModel.LicenseeId);
+                db.AddInParameter("UserId", DbType.String, metaModel.ModifyById);
+                db.AddInParameter("CustId", DbType.String, metaModel.CustId);
+                db.AddInParameter("IP", DbType.String, metaModel.Ip);
+                db.AddInParameter(statusParamName, DbType.String, metaModel.IsOn);
+
+                AddResultParam(db);
+                db.ExecuteNonQuery();
+
+                return GetResult(db);
             }
         }
     }

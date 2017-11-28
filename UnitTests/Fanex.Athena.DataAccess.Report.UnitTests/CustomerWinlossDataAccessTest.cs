@@ -68,7 +68,6 @@
             _dataAccess.GetDataList(_metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("drawfilter", DbType.Int32, _metaModel.DrawFilter);
             _objectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
             _objectDb.Received().AddInParameter("todate", DbType.DateTime, _metaModel.ToDate);
             _objectDb.Received().AddInParameter("pagesize", DbType.Int32, _metaModel.PageSize);

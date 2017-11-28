@@ -140,7 +140,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CashOutWinLossDataAccess.cs" />
-    <Compile Include="AgCasinoWinLossDataAccess.cs" />
     <Compile Include="ActiveCustomerSummaryDataAccess.cs" />
     <Compile Include="CasinoProgressiveWinsDataAccess.cs" />
     <Compile Include="Interfaces\ICashOutWinLossDataAccess.cs" />
@@ -159,7 +158,6 @@
     <Compile Include="Interfaces\IMicroGamingWinLossDataAccess.cs" />
     <Compile Include="Interfaces\IActiveCustomerSummaryDataAccess.cs" />
     <Compile Include="Interfaces\IAgCasinoBalanceDataAccess.cs" />
-    <Compile Include="Interfaces\IAgCasinoWinLossDataAccess.cs" />
     <Compile Include="Interfaces\IThirdPartyWinLossDataAccess.cs" />
     <Compile Include="Interfaces\IWinLossByLeagueDataAccess.cs" />
     <Compile Include="Interfaces\IResultDataAccess.cs" />

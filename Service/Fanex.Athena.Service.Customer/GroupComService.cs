@@ -6,45 +6,35 @@
 
 namespace Fanex.Athena.Service.Customer
 {
-    #region
-
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using Casino;
+    using Casino.Interfaces;
     using Fanex.Athena.DataAccess.Customer;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Casino.MetaModel;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Model.Customer.MetaModel;
-    using Fanex.Athena.Service.Casino;
     using Fanex.Athena.Service.Customer.Interfaces;
-    using Model.Core.ViewModel;
-
-    #endregion
 
     public class GroupComService : IGroupComService
     {
-        #region Constants and Fields
+        private readonly ICasinoCustomerService _casinoCustomerService;
 
         private readonly IGroupComDataAccess _groupDataAccess;
 
-        #endregion
-
-        #region Constructors and Destructors
-
-        public GroupComService()
-            : this(new GroupComDataAccess())
+        public GroupComService() : this(null, null)
         {
         }
 
-        public GroupComService(IGroupComDataAccess groupDataAccess)
+        public GroupComService(ICasinoCustomerService casinoCustomerService, IGroupComDataAccess groupDataAccess)
         {
-            _groupDataAccess = groupDataAccess;
+            _casinoCustomerService = casinoCustomerService ?? new CasinoCustomerService();
+            _groupDataAccess = groupDataAccess ?? new GroupComDataAccess();
         }
-
-        #endregion
 
         public IList<GroupCommMetaModel> GetAll(int licenseeId)
         {
@@ -66,42 +56,20 @@ namespace Fanex.Athena.Service.Customer
             return groupList.Where(g => g.IsDefaultGroup).Select(g => g.GroupCommId).FirstOrDefault();
         }
 
-        public int InsertGroup(GroupCommMetaModel item, IRequest request, int userId, out ResultViewModel result)
+        public IResultInfo InsertGroup(GroupCommMetaModel item, IRequest request, int userId)
         {
-            IResultInfo dataResultInfo;
-            var data = _groupDataAccess.InsertGroup(item, request, userId, out dataResultInfo);
-
-            result = new ResultViewModel
-            {
-                ErrorCode = dataResultInfo.Code,
-                ErrorMessage = dataResultInfo.Message,
-                Success = dataResultInfo.IsSuccessful,
-                Message = dataResultInfo.Message,
-                ExtendedData = data
-            };
-            return data;
+            return _groupDataAccess.InsertGroup(item, request, userId);
         }
 
-        public bool UpdateGroup(GroupCommMetaModel newItem, IRequest request, UserSession user, out ResultViewModel result)
+        public IResultInfo UpdateGroup(GroupCommMetaModel newItem, IRequest request, UserSession user)
         {
-            IResultInfo dataResultInfo;
-
-            var data = _groupDataAccess.UpdateGroup(newItem, request, user.UserId, out dataResultInfo);
+            var resultInfo = _groupDataAccess.UpdateGroup(newItem, request, user.UserId);
             var callApiSuccess = true;
-            result = new ResultViewModel
+            if (newItem.IsUpdateCS && !string.IsNullOrEmpty(resultInfo.ExtendedData))
             {
-                ErrorCode = dataResultInfo.Code,
-                ErrorMessage = dataResultInfo.Message,
-                Success = dataResultInfo.IsSuccessful,
-                Message = dataResultInfo.Message,
-                ExtendedData = data
-            };
-            if (newItem.IsUpdateCS && !string.IsNullOrEmpty(dataResultInfo.ExtendedData))
-            {
-                var custtomerList = dataResultInfo.ExtendedData.Split(new[] { ',' });
+                var custtomerList = resultInfo.ExtendedData.Split(new[] { ',' });
                 if (custtomerList.Length > 0)
                 {
-                    var rngCasinoService = new RNGCasinoService();
                     var apiCasinoMetalModel = new RNGCasinoUpdateMemberComMetaModel
                     {
                         Comm = newItem.CSComm,
@@ -110,50 +78,37 @@ namespace Fanex.Athena.Service.Customer
                         ModifyBy = user.UserId,
                         ModifyUserName = user.UserName
                     };
-                    callApiSuccess = rngCasinoService.UpdateMemberCommission(apiCasinoMetalModel);
+                    callApiSuccess = _casinoCustomerService.UpdateCommission(apiCasinoMetalModel);
                 }
             }
 
             if (!callApiSuccess)
             {
-                data = false;
-                result.Success = false;
-                result.ErrorCode = 1;
-                result.ErrorMessage = "Having errors when calling CasinoAPI to update customer commission.";
+                resultInfo.Code = 1;
+                resultInfo.Message = "Having errors when calling CasinoAPI to update customer commission.";
             }
 
-            return data;
+            return resultInfo;
         }
 
-        public int DeleteGroup(DeleteGroupMetaModel model, out ResultViewModel result)
+        public IResultInfo DeleteGroup(DeleteGroupMetaModel model)
         {
-            IResultInfo dataResultInfo;
-            var returnValue = _groupDataAccess.DeleteGroup(
+            var resultInfo = _groupDataAccess.DeleteGroup(
                 model.GroupId,
                 model.LicenseeId,
                 model.UserId,
                 model.Ip,
                 model.Language,
                 model.IsRemoveCommSetting,
-                model.IsResetDefault,
-                out dataResultInfo);
-            result = new ResultViewModel
-            {
-                ErrorCode = dataResultInfo.Code,
-                ErrorMessage = dataResultInfo.Message,
-                Success = dataResultInfo.IsSuccessful,
-                Message = dataResultInfo.Message,
-                ExtendedData = returnValue
-            };
+                model.IsResetDefault);
             var callApiSuccess = true;
 
-            if (model.IsRemoveCommSetting && model.IsAllowedCSComm && !string.IsNullOrEmpty(dataResultInfo.ExtendedData))
+            if (model.IsRemoveCommSetting && model.IsAllowedCSComm && !string.IsNullOrEmpty(resultInfo.ExtendedData))
             {
-                var custtomerList = dataResultInfo.ExtendedData.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                var custtomerList = resultInfo.ExtendedData.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 if (custtomerList.Length > 0)
                 {
-                    var rngCasinoService = new RNGCasinoService();
-                    callApiSuccess = rngCasinoService.UpdateMemberCommission(new RNGCasinoUpdateMemberComMetaModel
+                    callApiSuccess = _casinoCustomerService.UpdateCommission(new RNGCasinoUpdateMemberComMetaModel
                     {
                         Comm = 0,
                         CustomerId = custtomerList,
@@ -166,12 +121,11 @@ namespace Fanex.Athena.Service.Customer
 
             if (!callApiSuccess)
             {
-                result.Success = false;
-                result.ErrorCode = 1;
-                result.ErrorMessage = "Having errors when calling CasinoAPI to update customer commission.";
+                resultInfo.Code = 1;
+                resultInfo.Message = "Having errors when calling CasinoAPI to update customer commission.";
             }
 
-            return returnValue;
+            return resultInfo;
         }
 
         public bool CheckExistingGroupByName(int licenseeId, string groupName)

@@ -106,7 +106,7 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomerCommGroup.cs" />
+    <Compile Include="CustomerCommGroupExcel.cs" />
     <Compile Include="CustomerListExcel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -20,6 +20,7 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
     using Model.Core.ResultModel;
+    using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Report;
@@ -28,22 +29,22 @@ namespace Fanex.Athena.Api.Report
     [ApiFunctionAuthorization(PermissionKeys.ReportAGCasinoWinLoss)]
     public class AgCasinoWinLossReportController : ApiReportBaseController
     {
-        private readonly IAgCasinoWinLossService _agcasinoWinLossService;
+        private readonly IThirdPartyWinLossService _thirdPartyWinLossService;
 
         public AgCasinoWinLossReportController()
         {
-            _agcasinoWinLossService = new AgCasinoWinLossService();
+            _thirdPartyWinLossService = new ThirdPartyWinLossService();
         }
 
-        public AgCasinoWinLossReportController(IAgCasinoWinLossService agcasinoWinLossService, ISessionService sessionService, IProductService productService)
+        public AgCasinoWinLossReportController(IThirdPartyWinLossService thirdPartyWinLossService, ISessionService sessionService, IProductService productService)
             : base(sessionService, productService)
         {
-            _agcasinoWinLossService = agcasinoWinLossService;
+            _thirdPartyWinLossService = thirdPartyWinLossService;
         }
 
         [HttpPost]
         public dynamic Index(
-            AgCasinoWinLossMetaModel metaModel,
+            ThirdPartyWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
             int level = 0,
@@ -54,18 +55,18 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index([FromBody] AgCasinoWinLossMetaModel metaModel)
+        public dynamic Index([FromBody] ThirdPartyWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);
         }
 
         [CLSCompliant(false)]
-        protected internal virtual AgCasinoWinLossExcel CreateExcel(
+        protected internal virtual ThirdPartyWinLossExcel CreateExcel(
             string templatePath,
             ConvertingOption convertingOption,
-            AgCasinoWinLossViewModel excelModel)
+            ThirdPartyWinLossViewModel excelModel)
         {
-            return new AgCasinoWinLossExcel(templatePath, convertingOption, excelModel)
+            return new ThirdPartyWinLossExcel(templatePath, convertingOption, excelModel.Param, excelModel)
             {
                 Level = excelModel.Param.DrillDownLevel
             };
@@ -75,19 +76,19 @@ namespace Fanex.Athena.Api.Report
         {
             return new
             {
-                Data = new List<AgCasinoWinLoss>(),
-                Total = new List<AgCasinoWinLoss>(),
-                SummaryTotal = new Dictionary<string, AgCasinoWinLoss>()
+                Data = new List<ThirdPartyWinLoss>(),
+                Total = new List<ThirdPartyWinLoss>(),
+                SummaryTotal = new Dictionary<string, ThirdPartyWinLoss>()
             };
         }
 
         private HttpResponseMessage ExportExcel(
-            AgCasinoWinLossMetaModel metaModel,
-            IEnumerable<AgCasinoWinLoss> dataList,
-            IDictionary<string, AgCasinoWinLoss> summaryTotal)
+            ThirdPartyWinLossMetaModel metaModel,
+            IEnumerable<ThirdPartyWinLoss> dataList,
+            IDictionary<string, ThirdPartyWinLoss> summaryTotal)
         {
             var userSession = SessionService.UserSession;
-            var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/AgCasinoWinLoss.xls");
+            var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/ThirdPartyWinLoss.xls");
             var currency = userSession.CurrencyList.SingleOrDefault(i => i.Key == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
             var fromDate = metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate;
             var currencyText = currency.Key == 0 ? "All" : currency.Value;
@@ -106,14 +107,15 @@ namespace Fanex.Athena.Api.Report
                 metaModel.CurrencyId = metaModel.CurrencyId > 0 ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;
             }
 
-            var exccelModel = new AgCasinoWinLossViewModel
+            metaModel.ProductName = ViewResources.ProductAGC;
+            var excelModel = new ThirdPartyWinLossViewModel
             {
-                MainResult = dataList,
+                MainResult = dataList.ToList(),
                 SummaryTotal = summaryTotal,
                 Param = metaModel
             };
 
-            var excel = CreateExcel(templatePath, convertingOption, exccelModel);
+            var excel = CreateExcel(templatePath, convertingOption, excelModel);
 
             excel.Export();
 
@@ -121,7 +123,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         private dynamic ProcessRequest(
-            AgCasinoWinLossMetaModel metaModel,
+            ThirdPartyWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
             int level = 0,
@@ -149,7 +151,7 @@ namespace Fanex.Athena.Api.Report
                     return new
                     {
                         Data = data.DataList,
-                        Total = _agcasinoWinLossService.CalculateTotal(data.DataList),
+                        Total = _thirdPartyWinLossService.TotalCalc(data.DataList),
                         SummaryTotal = data.SummaryTotal
                     };
                 }
@@ -158,11 +160,22 @@ namespace Fanex.Athena.Api.Report
             return GetEmptyResult();
         }
 
-        private ReportResultModel<AgCasinoWinLoss> GetData(AgCasinoWinLossMetaModel metaModel)
+        private SortableReportResultModel<ThirdPartyWinLoss> GetData(ThirdPartyWinLossMetaModel metaModel)
         {
-            return metaModel.DrillDownLevel == 0 ? _agcasinoWinLossService.GetSummaryWinloss(metaModel) : metaModel.DrillDownLevel == 2
-                               ? _agcasinoWinLossService.GetCustomerWinlossDetail(metaModel)
-                               : _agcasinoWinLossService.GetAgentWinlossDetail(metaModel);
+            switch (metaModel.DrillDownLevel)
+            {
+                case 0:
+                    return _thirdPartyWinLossService.GetSummaryWinloss(metaModel, "Lrf_Rpt_AGCasinoWinloss");
+
+                case 1:
+                    return _thirdPartyWinLossService.GetAgentWinlossDetail(metaModel, "LRF_Rpt_AGCasinoWinloss_Ag");
+
+                case 2:
+                    return _thirdPartyWinLossService.GetCustomerWinlossDetail(metaModel, "LRF_Rpt_AGCasinoWinloss_Mem");
+
+                default:
+                    throw new ArgumentException("Invalid level: " + metaModel.DrillDownLevel);
+            }
         }
     }
 }

@@ -15,11 +15,11 @@ namespace Fanex.Athena.Api.Report
     using Base.Attributes;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
+    using Model.Core.ResultModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Report;
@@ -69,10 +69,7 @@ namespace Fanex.Athena.Api.Report
             ThirdPartyWinLossMetaModel metaModel,
             ColossusBetWinLossViewModel excelModel)
         {
-            return new ColossusBetsWinLossExcel(templatePath, convertingOption, metaModel, excelModel)
-            {
-                Level = metaModel.DrillDownLevel
-            };
+            return new ColossusBetsWinLossExcel(templatePath, convertingOption, metaModel, excelModel);
         }
 
         private static dynamic GetEmptyThirdPartyWinLossResult()
@@ -128,14 +125,11 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(excel.Workbook, exportedFileName);
         }
 
-        private void GetData(
-                ThirdPartyWinLossMetaModel metaModel,
-                out SortableList<ColossusBetWinLoss> dataList,
-                out IDictionary<string, ColossusBetWinLoss> summaryTotal)
+        private SortableReportResultModel<ColossusBetWinLoss> GetData(ThirdPartyWinLossMetaModel metaModel)
         {
-            dataList = metaModel.DrillDownLevel == 0 ?
-                _colossusBetsWinLossService.GetSummaryWinloss(metaModel, out summaryTotal) :
-                _colossusBetsWinLossService.GetWinlossDetail(metaModel, out summaryTotal);
+            return metaModel.DrillDownLevel == 0 ?
+                _colossusBetsWinLossService.GetSummaryWinloss(metaModel) :
+                _colossusBetsWinLossService.GetWinlossDetail(metaModel);
         }
 
         private dynamic ProcessRequest(
@@ -148,27 +142,27 @@ namespace Fanex.Athena.Api.Report
         {
             if (IsValidRequest(metaModel, currencyId))
             {
+                metaModel.DrillDownCurrencyId = currencyId;
                 metaModel.DrillDownLevel = level;
                 metaModel.DrillDownCustomerId = custId;
                 metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;
                 metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(level > 0 ? currencyId : metaModel.CurrencyId, metaModel.IsExcludedTestData);
-                IDictionary<string, ColossusBetWinLoss> summaryTotal;
-                SortableList<ColossusBetWinLoss> dataList;
-                GetData(metaModel, out dataList, out summaryTotal);
+
+                var result = GetData(metaModel);
 
                 if (metaModel.IsExportExcel)
                 {
-                    return ExportExcel(metaModel, dataList, summaryTotal);
+                    return ExportExcel(metaModel, result.DataList, result.SummaryTotal);
                 }
 
-                if (dataList != null && dataList.Count > 0)
+                if (result.DataList != null && result.DataList.Any())
                 {
                     return new
                     {
-                        Data = dataList,
-                        Total = _colossusBetsWinLossService.CalculateTotal(dataList),
-                        SummaryTotal = summaryTotal
+                        Data = result.DataList,
+                        Total = _colossusBetsWinLossService.CalculateTotal(result.DataList),
+                        SummaryTotal = result.SummaryTotal
                     };
                 }
             }

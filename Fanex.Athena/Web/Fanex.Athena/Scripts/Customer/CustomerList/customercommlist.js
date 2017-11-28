@@ -46,6 +46,10 @@ var CustomerComm = (function ($) {
             $('#CustCSComm1').on('change', function () {
                 CustomerComm.commissionOnChange($(this).val(), '#CustCSComm');
             });
+
+            $('#CustABComm1').on('change', function () {
+                CustomerComm.commissionOnChange($(this).val(), '#CustABComm');
+            });
         },
 
         commissionOnChange: function (value, id) {
@@ -157,7 +161,8 @@ var CustomerComm = (function ($) {
 
                         CustomerList.updateGridGroupAndComm(groupid, groupNameText, result.ExtendedData.GroupColor,
                                              result.ExtendedData.SBComm, result.ExtendedData.NGComm,
-                                            result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
+                                            result.ExtendedData.RCComm, result.ExtendedData.LCComm,
+                                            result.ExtendedData.RNGComm, result.ExtendedData.ABComm);
                     }
                     else {
                         CustomerComm.showMsg(result.ErrorMessage, result.Success);
@@ -228,6 +233,7 @@ var CustomerComm = (function ($) {
             var ngcom = CustomerComm.initCommissionParam('#CustNGComm');
             var lccom = CustomerComm.initCommissionParam('#CustLCComm');
             var cscom = CustomerComm.initCommissionParam('#CustCSComm');
+            var abcom = CustomerComm.initCommissionParam('#CustABComm');
             var param =
             {
                 GroupId: groupCommId,
@@ -237,7 +243,8 @@ var CustomerComm = (function ($) {
                 RCComm: rbcom,
                 NGComm: ngcom,
                 LCComm: lccom,
-                CSComm: cscom
+                CSComm: cscom,
+                ABComm: abcom
             };
 
             $.ajax({
@@ -259,7 +266,8 @@ var CustomerComm = (function ($) {
 
                         CustomerList.updateGridGroupAndComm(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor,
                                              result.ExtendedData.SBComm, result.ExtendedData.NGComm,
-                                            result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
+                                            result.ExtendedData.RCComm, result.ExtendedData.LCComm,
+                                            result.ExtendedData.RNGComm, result.ExtendedData.ABComm);
                     }
                     else {
                         CustomerComm.showMsg(result.ErrorMessage, result.Success);
@@ -355,7 +363,8 @@ var CustomerComm = (function ($) {
                         if (param.isRemovePlayercomm) {
                             CustomerList.updateGridGroupAndComm(0, result.ExtendedData.GroupName, "",
                                              result.ExtendedData.SBComm, result.ExtendedData.NGComm,
-                                            result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
+                                            result.ExtendedData.RCComm, result.ExtendedData.LCComm,
+                                            result.ExtendedData.RNGComm, result.ExtendedData.ABComm);
                         }
                         else {
                             CustomerList.updateGridGroup(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor);
@@ -413,6 +422,7 @@ var CustomerComm = (function ($) {
             $('#NewNgComm').val($("#NGComm" + groupId).val());
             $('#NewLcComm').val($("#LCComm" + groupId).val());
             $('#NewCsComm').val($("#CSComm" + groupId).val());
+            $('#NewAbComm').val($("#ABComm" + groupId).val());
         }
     };
 })(jQuery);

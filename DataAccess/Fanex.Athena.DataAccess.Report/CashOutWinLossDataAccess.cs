@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Extension.Helper;
@@ -38,7 +39,7 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public SortableReportResultModel<CashOutWinLoss> GetSummary(CashOutWinLossMetaModel metaModel)
+        public SortableReportResultModel<CashOutWinLoss> GetSummary(ThirdPartyWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_CashoutWinloss";
             try
@@ -50,7 +51,9 @@ namespace Fanex.Athena.DataAccess.Report
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel);
+                        var result = GetData(reader, metaModel);
+                        AssignRowSpan(result.DataList);
+                        return result;
                     }
                 }
             }
@@ -60,7 +63,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public SortableReportResultModel<CashOutWinLoss> GetDetail(CashOutWinLossMetaModel metaModel)
+        public SortableReportResultModel<CashOutWinLoss> GetDetail(ThirdPartyWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_CashoutWinloss_Detail";
             try
@@ -82,7 +85,7 @@ namespace Fanex.Athena.DataAccess.Report
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private static SortableReportResultModel<CashOutWinLoss> GetData(IDataReader reader, CashOutWinLossMetaModel metaModel)
+        private static SortableReportResultModel<CashOutWinLoss> GetData(IDataReader reader, ThirdPartyWinLossMetaModel metaModel)
         {
             var result = new SortableList<CashOutWinLoss>();
 
@@ -141,6 +144,7 @@ namespace Fanex.Athena.DataAccess.Report
             return new SortableReportResultModel<CashOutWinLoss>
             {
                 DataList = result,
+                TotalDataList = CalculateTotal(result),
                 SummaryTotal = summaryTotal
             };
         }
@@ -162,7 +166,49 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private void UpdateUspParams(IObjectDb db, CashOutWinLossMetaModel metaModel, bool drilldown)
+        private static void AssignRowSpan(IEnumerable<CashOutWinLoss> dataList)
+        {
+            var date = new System.DateTime();
+            var index = 1;
+            foreach (var item in dataList)
+            {
+                if (date != item.Date)
+                {
+                    date = item.Date;
+                    item.RowSpan = dataList.Count(x => x.Date == item.Date);
+                    item.Index = index++;
+                }
+                else
+                {
+                    item.RowSpan = -1;
+                }
+            }
+        }
+
+        private static IEnumerable<CashOutWinLoss> CalculateTotal(IEnumerable<CashOutWinLoss> dataList)
+        {
+            if (dataList == null || !dataList.Any())
+            {
+                return new List<CashOutWinLoss>();
+            }
+
+            return dataList.GroupBy(d => d.CurrencyName).Select(g => new CashOutWinLoss
+            {
+                CurrencyName = g.Key,
+                CashOutTimes = g.Sum(p => p.CashOutTimes),
+                CashOutTickets = g.Sum(p => p.CashOutTickets),
+                CashOutValue = g.Sum(p => p.CashOutValue),
+                BuyBackAmountSB = g.Sum(p => p.BuyBackAmountSB),
+                BuyBackAmountBA = g.Sum(p => p.BuyBackAmountBA),
+                TicketPayout = g.Sum(p => p.TicketPayout),
+                CashOutCommission = g.Sum(p => p.CashOutCommission),
+                SettleAmountTicketPayout = g.Sum(p => p.SettleAmountTicketPayout),
+                SettleAmountBuyBackComm = g.Sum(p => p.SettleAmountBuyBackComm),
+                SettleAmountTotal = g.Sum(p => p.SettleAmountTotal),
+            }).ToList();
+        }
+
+        private void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
         {
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);

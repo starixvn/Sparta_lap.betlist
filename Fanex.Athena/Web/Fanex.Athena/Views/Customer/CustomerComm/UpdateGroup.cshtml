@@ -12,8 +12,6 @@
 {
     @ViewResources.EditGroup
 }
-@using Fanex.Athena.Model.Report.ViewModel
-@using Fanex.Athena.Extension.Utility
 @model Fanex.Athena.Model.Customer.MetaModel.GroupCommMetaModel
 @if (Model != null)
 {
@@ -25,10 +23,10 @@
         @Html.ValidationSummary(true)
         @if (ViewBag.Result != null)
         {
-            var errorMsg = ViewBag.Result.ErrorMessage;
+            var message = ViewBag.Result.Message;
 
-            <div id="message-update-group" class="@(ViewBag.Result.Success ? "response-area field-validation-success" : "response-area field-validation-error")">
-                @(ViewBag.Result.Success ? ViewBag.Result.Message : string.IsNullOrEmpty(errorMsg) ? Html.ValidationMessageFor(model => model.GroupName) : errorMsg)
+            <div id="message-update-group" class="@(ViewBag.Result.IsSuccessful ? "response-area field-validation-success" : "response-area field-validation-error")">
+                @(ViewBag.Result.IsSuccessful ? message : string.IsNullOrEmpty(message) ? Html.ValidationMessageFor(model => model.GroupName) : message)
             </div>
         }
         else
@@ -63,10 +61,7 @@
                         <div class="grid_3 product-label">
                             @ViewResources.Sportsbook</div>
                         <div class="grid_5">
-                            @RazorHelper.GroupComSettingDropDownList("DdlSBComm1", GroupCommSetting.GetCommValue(15, 1), Model.SBComm1)
-                            &#8226
-                            @RazorHelper.GroupComSettingDropDownList("DdlSBComm2", GroupCommSetting.GetCommValue(9, 1), Model.SBComm2)
-                            @RazorHelper.GroupComSettingDropDownList("DdlSBComm3", GroupCommSetting.GetCommValue(1, 5), Model.SBComm3)
+                            @GroupCommRazorHelper.CommDropdowns("DdlSBComm", Model.SBComm1, Model.SBComm2, Model.SBComm3)
                             @Html.HiddenFor(model => model.SBComm)
                             @Html.HiddenFor(model => model.SBComm1)
                             @Html.HiddenFor(model => model.SBComm2)
@@ -82,10 +77,7 @@
                             @ViewResources.Parlay
                         </div>
                         <div class="grid_5">
-                            @RazorHelper.GroupComSettingDropDownList("DdlParlayComm1", GroupCommSetting.GetCommValue(15, 1), Model.ParlayComm1)
-                            &#8226
-                            @RazorHelper.GroupComSettingDropDownList("DdlParlayComm2", GroupCommSetting.GetCommValue(9, 1), Model.ParlayComm2)
-                            @RazorHelper.GroupComSettingDropDownList("DdlParlayComm3", GroupCommSetting.GetCommValue(1, 5), Model.ParlayComm3)
+                            @GroupCommRazorHelper.CommDropdowns("DdlParlayComm", Model.ParlayComm1, Model.ParlayComm2, Model.ParlayComm3)
                             @Html.HiddenFor(model => model.ParlayComm)
                             @Html.HiddenFor(model => model.ParlayComm1)
                             @Html.HiddenFor(model => model.ParlayComm2)
@@ -102,10 +94,7 @@
                         <td>
                             <div class="grid_3 product-label">@ViewResources.ProductRB</div>
                             <div class="grid_5">
-                                @RazorHelper.GroupComSettingDropDownList("DdlRCComm1", GroupCommSetting.GetCommValue(15, 1), Model.RCComm1)
-                                &#8226
-                                @RazorHelper.GroupComSettingDropDownList("DdlRCComm2", GroupCommSetting.GetCommValue(9, 1), Model.RCComm2)
-                                @RazorHelper.GroupComSettingDropDownList("DdlRCComm3", GroupCommSetting.GetCommValue(1, 5), Model.RCComm3)
+                                @GroupCommRazorHelper.CommDropdowns("DdlRCComm", Model.RCComm1, Model.RCComm2, Model.RCComm3)
                                 @Html.HiddenFor(model => model.RCComm)
                                 @Html.HiddenFor(model => model.RCComm1)
                                 @Html.HiddenFor(model => model.RCComm2)
@@ -122,10 +111,7 @@
                         <td>
                             <div class="grid_3 product-label">@ViewResources.ProductNG</div>
                             <div class="grid_5">
-                                @RazorHelper.GroupComSettingDropDownList("DdlNGComm1", GroupCommSetting.GetCommValue(15, 1), Model.NGComm1)
-                                &#8226
-                                @RazorHelper.GroupComSettingDropDownList("DdlNGComm2", GroupCommSetting.GetCommValue(9, 1), Model.NGComm2)
-                                @RazorHelper.GroupComSettingDropDownList("DdlNGComm3", GroupCommSetting.GetCommValue(1, 5), Model.NGComm3)
+                                @GroupCommRazorHelper.CommDropdowns("DdlNGComm", Model.NGComm1, Model.NGComm2, Model.NGComm3)
                                 @Html.HiddenFor(model => model.NGComm)
                                 @Html.HiddenFor(model => model.NGComm1)
                                 @Html.HiddenFor(model => model.NGComm2)
@@ -142,10 +128,7 @@
                         <td>
                             <div class="grid_3 product-label">@ViewResources.ProductLC</div>
                             <div class="grid_5">
-                                @RazorHelper.GroupComSettingDropDownList("DdlLCComm1", GroupCommSetting.GetCommValue(15, 1), Model.LCComm1)
-                                &#8226
-                                @RazorHelper.GroupComSettingDropDownList("DdlLCComm2", GroupCommSetting.GetCommValue(9, 1), Model.LCComm2)
-                                @RazorHelper.GroupComSettingDropDownList("DdlLCComm3", GroupCommSetting.GetCommValue(1, 5), Model.LCComm3)
+                                @GroupCommRazorHelper.CommDropdowns("DdlLCComm", Model.LCComm1, Model.LCComm2, Model.LCComm3)
                                 @Html.HiddenFor(model => model.LCComm)
                                 @Html.HiddenFor(model => model.LCComm1)
                                 @Html.HiddenFor(model => model.LCComm2)
@@ -162,14 +145,27 @@
                         <td>
                             <div class="grid_3 product-label">@ViewResources.ProductCS</div>
                             <div class="grid_5">
-                                @RazorHelper.GroupComSettingDropDownList("DdlCSComm1", GroupCommSetting.GetCommValue(15, 1), Model.CSComm1)
-                                &#8226
-                                @RazorHelper.GroupComSettingDropDownList("DdlCSComm2", GroupCommSetting.GetCommValue(9, 1), Model.CSComm2)
-                                @RazorHelper.GroupComSettingDropDownList("DdlCSComm3", GroupCommSetting.GetCommValue(1, 5), Model.CSComm3)
+                                @GroupCommRazorHelper.CommDropdowns("DdlCSComm", Model.CSComm1, Model.CSComm2, Model.CSComm3)
                                 @Html.HiddenFor(model => model.CSComm)
                                 @Html.HiddenFor(model => model.CSComm1)
                                 @Html.HiddenFor(model => model.CSComm2)
                                 @Html.HiddenFor(model => model.CSComm3)
+                            </div>
+                        </td>
+                    </tr>
+                }
+                @if (Model.IsUpdateAB)
+                {
+                    <tr>
+                        <td></td>
+                        <td>
+                            <div class="grid_3 product-label">@ViewResources.ProductAB</div>
+                            <div class="grid_5">
+                                @GroupCommRazorHelper.CommDropdowns("DdlABComm", Model.ABComm1, Model.ABComm2, Model.ABComm3)
+                                @Html.HiddenFor(model => model.ABComm)
+                                @Html.HiddenFor(model => model.ABComm1)
+                                @Html.HiddenFor(model => model.ABComm2)
+                                @Html.HiddenFor(model => model.ABComm3)
                             </div>
                         </td>
                     </tr>
@@ -227,6 +223,7 @@
     @Html.HiddenFor(model => model.IsUpdateRacing)
     @Html.HiddenFor(model => model.IsUpdateLC)
     @Html.HiddenFor(model => model.IsUpdateCS)
+    @Html.HiddenFor(model => model.IsUpdateAB)
     }
 }
 else

@@ -12,13 +12,9 @@
 
             describe("getGridOption(productAccess, isAllowedCustomerCommission)", function () {
                 it("adds 2 columns of product to colModel and colNames if 2 product and customer commission are allowed", function () {
-                    var productAccess = {
-                        "IsAllowSB": true,
-                        "IsAllowRB": true,
-                        "IsAllowCS": false
-                    };
+                    var productList = ["SB", "RB"];
 
-                    CustomerListOption.getGridOption(productAccess, true);
+                    CustomerListOption.getGridOption(productList, true);
 
                     expect(CustomerListOption.gridOption.colNames.indexOf("SB")).toBeGreaterThan(-1);
                     expect(CustomerListOption.gridOption.colNames.indexOf("RB")).toBeGreaterThan(-1);
@@ -30,13 +26,9 @@
                 });
 
                 it("does not add any columns of product to colModel and colNames if 2 product are allowed but not customer commission", function () {
-                    var productAccess = {
-                        "IsAllowSB": true,
-                        "IsAllowRB": true,
-                        "IsAllowCS": false
-                    };
+                    var productList = ["SB", "RB"];
 
-                    CustomerListOption.getGridOption(productAccess, false);
+                    CustomerListOption.getGridOption(productList, false);
 
                     expect(CustomerListOption.gridOption.colNames.indexOf("SB")).toBe(-1);
                     expect(CustomerListOption.gridOption.colNames.indexOf("RB")).toBe(-1);
@@ -51,13 +43,9 @@
                 it("jqGrid header should be grouped with correct option with 2 product columns", function () {
                     var grid = jasmine.createSpyObj("grid", ["jqGrid"]);
 
-                    var productAccess = {
-                        "IsAllowSB": true,
-                        "IsAllowRB": true,
-                        "IsAllowCS": false
-                    };
+                    var productList = ["SB", "RB"];
 
-                    CustomerListOption.getGridOption(productAccess, true);
+                    CustomerListOption.getGridOption(productList, true);
                     CustomerListOption.setGroupHeaderColumns(grid);
 
                     expect(grid.jqGrid).toHaveBeenCalledWith("setGroupHeaders", {
@@ -80,7 +68,7 @@
                     };
                     var expectedFormat = "<div id='groupName-custId' style='background-color:#fff' class='commission-color'>None</div>";
 
-                    CustomerListOption.getGridOption({}, true);
+                    CustomerListOption.getGridOption([], true);
 
                     var groupColumnIndex = 1;
                     var groupColumn = CustomerListOption.gridOption.colModel[groupColumnIndex];
@@ -97,7 +85,7 @@
                     var cellValue = "cellValue";
                     var expectedFormat = "<div id='groupName-custId' style='background-color:#fff' class='commission-color'>cellValue</div>";
 
-                    CustomerListOption.getGridOption({}, true);
+                    CustomerListOption.getGridOption([], true);
 
                     var groupColumnIndex = 1;
                     var groupColumn = CustomerListOption.gridOption.colModel[groupColumnIndex];
@@ -111,7 +99,7 @@
                     var cellValue = 0;
                     var expectedFormat = "0.00";
 
-                    CustomerListOption.getGridOption({}, false);
+                    CustomerListOption.getGridOption([], false);
 
                     var pedingFundColumnIndex = 4;
                     var pedingFundColumn = CustomerListOption.gridOption.colModel[pedingFundColumnIndex];
@@ -128,7 +116,7 @@
                     var cellValue = 10;
                     var expectedFormat = "<a href='javascript:;' class='pendingFunds' data-custid='custId' data-systemid='systemId' data-externalid='externalId'>10.00</a>";
 
-                    CustomerListOption.getGridOption({}, false);
+                    CustomerListOption.getGridOption([], false);
 
                     var pedingFundColumnIndex = 4;
                     var pedingFundColumn = CustomerListOption.gridOption.colModel[pedingFundColumnIndex];
@@ -149,7 +137,7 @@
                     var expectedFormat = "<a href='javascript:;' title='Status' class='custStatusOption' id='edit-cust-status-custId'"
                             + " data-custid='custId' data-externalid='externalId' data-issuspended='true' data-isclosed='false'>status</a>";
 
-                    CustomerListOption.getGridOption({}, false);
+                    CustomerListOption.getGridOption([], false);
 
                     var statusColumnIndex = 5;
                     var statusColumn = CustomerListOption.gridOption.colModel[statusColumnIndex];
@@ -172,7 +160,7 @@
                     + "' /><span class='lever'></span><label>"
                     + "</div>";
 
-                    CustomerListOption.getGridOption({}, false);
+                    CustomerListOption.getGridOption([], false);
 
                     var baStatusColumnIndex = 6;
                     var baStatusColumn = CustomerListOption.gridOption.colModel[baStatusColumnIndex];
@@ -193,7 +181,7 @@
                     + "' /><span class='lever'></span><label>"
                     + "</div>";
 
-                    CustomerListOption.getGridOption({}, false);
+                    CustomerListOption.getGridOption([], false);
 
                     var baStatusColumnIndex = 6;
                     var baStatusColumn = CustomerListOption.gridOption.colModel[baStatusColumnIndex];
@@ -213,7 +201,7 @@
                     + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='SpecialLevel'></i>"
                     + "</a>";
 
-                    CustomerListOption.getGridOption({}, false);
+                    CustomerListOption.getGridOption([], false);
 
                     var specialLevelColumnIndex = 7;
                     var specialLevelColumn = CustomerListOption.gridOption.colModel[specialLevelColumnIndex];
@@ -231,7 +219,7 @@
                     + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='SpecialLevel'></i>"
                     + "</a>";
 
-                    CustomerListOption.getGridOption({}, false);
+                    CustomerListOption.getGridOption([], false);
 
                     var specialLevelColumnIndex = 7;
                     var specialLevelColumn = CustomerListOption.gridOption.colModel[specialLevelColumnIndex];
@@ -252,7 +240,7 @@
                     + "<span class='grid-dropdown-item grid-dropdown-label group-0'>None</span>"
                     + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='OddsGroup'></i></a>";
 
-                    CustomerListOption.getGridOption({}, false);
+                    CustomerListOption.getGridOption([], false);
 
                     var oddsGroupColumnIndex = 8;
                     var oddsGroupColumn = CustomerListOption.gridOption.colModel[oddsGroupColumnIndex];
@@ -271,7 +259,7 @@
                     + "<span class='grid-dropdown-item grid-dropdown-label group-1'>1</span>"
                     + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='OddsGroup'></i></a>";
 
-                    CustomerListOption.getGridOption({}, false);
+                    CustomerListOption.getGridOption([], false);
 
                     var oddsGroupColumnIndex = 8;
                     var oddsGroupColumn = CustomerListOption.gridOption.colModel[oddsGroupColumnIndex];
@@ -291,7 +279,7 @@
                     var expectedFormat = "<a href='javascript:;' data-systemid='systemId' data-externalid='externalId' data-custid='custId' "
                         + "title='CustomerOption' class='custoptionlink' id='cust-option-link-custId'>View<i class='grid-dropdown-icon icon-arrow'></i></a>";
 
-                    CustomerListOption.getGridOption({}, false);
+                    CustomerListOption.getGridOption([], false);
 
                     var customerOptionColumnIndex = 9;
                     var customerOptionColumn = CustomerListOption.gridOption.colModel[customerOptionColumnIndex];
@@ -307,7 +295,7 @@
                     };
                     var expectedFormat = " id='SBComm-custId' ";
 
-                    CustomerListOption.getGridOption({ "IsAllowSB": true }, true);
+                    CustomerListOption.getGridOption(["SB"], true);
 
                     var sbColumnIndex = CustomerListOption.gridOption.colModel.length - 1;
                     var sbColumn = CustomerListOption.gridOption.colModel[sbColumnIndex];

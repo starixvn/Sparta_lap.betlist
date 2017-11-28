@@ -11,7 +11,7 @@ namespace Fanex.Athena.Model.Report.MetaModel
     /// <summary>
     /// AgCasinoWinLossMetaModel class.
     /// </summary>
-    public class AgCasinoBalanceMetaModel : BaseReportMetaModel
+    public class AgCasinoBalanceMetaModel : BaseDrilldownReportMetaModel
     {
         public const int PageSizeExcel = int.MaxValue - 1000;
 
@@ -19,19 +19,7 @@ namespace Fanex.Athena.Model.Report.MetaModel
 
         private DateTime? _toDate;
 
-        public int Level { get; set; }
-
         public bool IsExcludedTestData { get; set; }
-
-        public int DrillDownCurrencyId { get; set; }
-
-        public DateTime DrillDownFromDate { get; set; }
-
-        public DateTime DrillDownToDate { get; set; }
-
-        public int DrillDownLevel { get; set; }
-
-        public int DrillDownCustomerId { get; set; }
 
         public int Year { get; set; }
 
@@ -52,11 +40,7 @@ namespace Fanex.Athena.Model.Report.MetaModel
             get { return _toDate ?? new DateTime(Year, Month, ToDay); }
             set { _toDate = value; }
         }
-
-        public string SortBy { get; set; }
-
-        public string SortOrder { get; set; }
-
+        
         public override bool IsValid
         {
             get

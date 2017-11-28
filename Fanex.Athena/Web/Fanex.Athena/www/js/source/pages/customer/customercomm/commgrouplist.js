@@ -58,17 +58,15 @@
                 url: Site.resolveClientUrl("CustomerComGroup/Delete"),
                 data: deleteGroupData,
                 success: function (result) {
-                    if (result.ErrorCode > 0 || result.ErrorMessage.length > 0) {
-                        _me.showResultPopup(result.ErrorCode > 0 ? "Error" : "Successful", result.ErrorMessage);
+                    if (result.Code > 0) {
+                        _me.showResultPopup("Error", result.Message);
                     } else {
                         Site.redirect(Site.resolveClientUrl("CustomerComGroup/Index"));
                     }
 
                     Site.unBlockUI();
                 },
-                beforeSend: function () {
-                    Site.blockUI();
-                },
+                beforeSend: Site.blockUI
             });
         }
 

@@ -142,6 +142,7 @@
       <Mapping DataField="Parlaycomm" ObjectProperty="ParlayComm" />
       <Mapping DataField="RacingComm" ObjectProperty="RCComm" />
       <Mapping DataField="RNGComm" ObjectProperty="CSComm" />
+      <Mapping DataField="AllbetComm" ObjectProperty="ABComm" />
       <Mapping DataField="IsDefault" ObjectProperty="IsDefaultGroup" />
     </Setting>
     <Setting Key="Lrf_LicenseeGroupCommIns" SpName="Lrf_LicenseeGroupCommIns" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
@@ -151,6 +152,7 @@
       <Mapping DataField="Parlaycomm" ObjectProperty="ParlayComm" />
       <Mapping DataField="RacingComm" ObjectProperty="RCComm" />
       <Mapping DataField="RNGComm" ObjectProperty="CSComm" />
+      <Mapping DataField="AllbetComm" ObjectProperty="ABComm" />
       <Mapping DataField="IsDefault" ObjectProperty="IsDefaultGroup" />
     </Setting>
     <Setting Key="Lrf_GroupCommCheckByName" SpName="Lrf_GroupCommCheckByName" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />

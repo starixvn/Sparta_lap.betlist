@@ -9,7 +9,6 @@
 
 namespace Fanex.Athena.Service.Core.Users
 {
-    using System;
     using System.Collections.Generic;
     using Fanex.Athena.DataAccess.Core.Users;
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
@@ -23,7 +22,6 @@ namespace Fanex.Athena.Service.Core.Users
     public class UserService : IUserService
     {
         private const int UserNotExistError = 100;
-        private const int WrongUserNameOrPasswordError = 104;
 
         private readonly IUserDataAccess _userDataAccess;
 
@@ -72,17 +70,6 @@ namespace Fanex.Athena.Service.Core.Users
             return this._userDataAccess.GetUserInfo(licenseeId, userId);
         }
 
-        public int LoginOnUser(User requestUser, string netSessionId, int serverId, string ip)
-        {
-            requestUser.Request = new Request { Ip = ip };
-            return this._userDataAccess.LoginOnUser(requestUser, netSessionId, serverId);
-        }
-
-        public void Logout(int onuserId)
-        {
-            this._userDataAccess.Logout(onuserId);
-        }
-
         public bool RecheckIn(int onuserId)
         {
             return this._userDataAccess.RecheckIn(onuserId);
@@ -108,35 +95,6 @@ namespace Fanex.Athena.Service.Core.Users
         public IResultInfo UpdateInfo(User user, int updatedBy)
         {
             return this._userDataAccess.UpdateInfo(user, updatedBy);
-        }
-
-        public User ValidateInternalUser(User requestUser, string licenseeName, long timeStamp, out IResultInfo resultInfo)
-        {
-            return this._userDataAccess.ValidateInternalUser(requestUser, timeStamp, licenseeName, out resultInfo);
-        }
-
-        public User ValidateUserForLrfSystem(User requestUser, string loginToken, out IResultInfo resultInfo)
-        {
-            var user = GetByUsername(requestUser.Username, isInternal: false);
-
-            if (user != null)
-            {
-                var hashPassword = Cryptography.CreateHash(user.Password + loginToken, user.UserSalt);
-                if (requestUser.Password.Equals(hashPassword, StringComparison.OrdinalIgnoreCase))
-                {
-                    user = this._userDataAccess.ValidateUserForLrfSystem(requestUser, out resultInfo);
-                }
-                else
-                {
-                    resultInfo = new ResultInfo { Code = WrongUserNameOrPasswordError, Message = ViewResources.WrongUserNamePassword };
-                }
-            }
-            else
-            {
-                resultInfo = new ResultInfo { Code = UserNotExistError, Message = ViewResources.UserNotExist };
-            }
-
-            return user;
         }
 
         #endregion Public Methods and Operators

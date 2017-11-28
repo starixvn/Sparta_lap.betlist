@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Excel.Report
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using Base;
     using Fanex.Athena.Excel.Base.Extension;
@@ -42,34 +41,17 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly WinLossByProductExcelModel _excelModel;
 
+        protected internal WinlossByProductExcel() : base(string.Empty, 0)
+        {
+        }
+
         public WinlossByProductExcel(string templatePath, WinLossByProductExcelModel excelModel)
-            : base(templatePath)
+            : base(templatePath, excelModel.DataList.Count())
         {
             _excelModel = excelModel;
         }
 
-        protected override void AssignData()
-        {
-            var numOfDataRow = _excelModel.DataList.Count();
-
-            var sheet = Workbook.CloneSheet("Template", "Data");
-
-            AssignHeader(sheet);
-            AssignTitle(sheet);
-
-            if (numOfDataRow == 0)
-            {
-                AssignNoInfoRow(sheet);
-            }
-            else
-            {
-                AssignSheetData(sheet);
-            }
-
-            ProcessUI(sheet);
-        }
-
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
@@ -102,13 +84,13 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
         }
 
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             var message = string.IsNullOrWhiteSpace(_excelModel.ErrorMessage) ? ViewResources.NoInfo : _excelModel.ErrorMessage;
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, ColumnTemplateCount, message);
         }
 
-        protected void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             var indexReport = 1;
 
@@ -157,7 +139,7 @@ namespace Fanex.Athena.Excel.Report
             AssignSummaryTotal(sheet, currentRow);
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             var fromdate = _excelModel.MetaModel.Level == 0
                               ? _excelModel.MetaModel.FromDate.ToString(FormatDate)
@@ -183,7 +165,7 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        protected void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!_excelModel.SystemIdVisible)
             {

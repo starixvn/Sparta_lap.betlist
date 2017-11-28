@@ -7,6 +7,7 @@
     using Data;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class SportTypeDataAccessTest
@@ -32,7 +33,7 @@
         public void GetSportsAndProducts_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelSportDetail")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_SelSportDetail")).Returns(_objectDb);
             var licenseeId = 1;
             var languageCode = "en-US";
 
@@ -48,7 +49,7 @@
         public void GetSportsAndProducts_WhenCall_DataReturnCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelSportDetail")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_SelSportDetail")).Returns(_objectDb);
             var reader = Substitute.For<IDataReader>();
             _objectDb.ExecuteReader().Returns(reader);
             reader.Read().Returns(true, true, false);
@@ -69,29 +70,43 @@
         }
 
         [Test]
-        public void GetAllSports_WhenCall_ExecuteReaderMethodIsCalled()
+        public void GetAllSports_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SportsGetAll")).Returns(_objectDb);
+            const int SportType = 100;
+            var reader = Substitute.For<IDataReader>();
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_SportsGetAll")).Returns(_objectDb);
+            _objectDb.ExecuteReader().Returns(reader);
+            reader.Read().Returns(true, false);
+            DataAccessTestHelper.MapReaderData(reader, new { Sporttype = SportType });
 
             // Action
-            _dataAccess.GetAllSports();
+            var result = _dataAccess.GetAllSports();
 
             // Assert
-            _objectDb.Received().ExecuteReader();
+            Assert.That(result.ContainsKey(SportType), Is.True);
         }
 
         [Test]
-        public void GetAllWHSports_WhenCall_ExecuteReaderMethodIsCalled()
+        public void GetAllWHSports_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SportSel")).Returns(_objectDb);
+            const int SportType = 100;
+            var reader = Substitute.For<IDataReader>();
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_SportSel")).Returns(_objectDb);
+            _objectDb.ExecuteReader().Returns(reader);
+            reader.Read().Returns(true, false);
+            DataAccessTestHelper.MapReaderData(reader, new { Sporttype = SportType });
 
             // Action
-            _dataAccess.GetAllWHSports();
+            var result = _dataAccess.GetAllWHSports();
 
             // Assert
-            _objectDb.Received().ExecuteReader();
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.First().SportId, Is.EqualTo("0"));
+                Assert.That(result.ElementAt(1).SportId, Is.EqualTo(SportType.ToString()));
+            });
         }
     }
 }

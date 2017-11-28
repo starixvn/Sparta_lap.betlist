@@ -2,10 +2,10 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using Casino.Interfaces;
     using DataAccess.Customer.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
-    using Model.Core.ViewModel;
     using Model.Customer.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -13,6 +13,8 @@
     [TestFixture]
     public class GroupComServiceTest
     {
+        private ICasinoCustomerService _casinoCustomerService;
+
         private IGroupComDataAccess _groupDataAccess;
 
         private GroupComService _groupComService;
@@ -20,8 +22,9 @@
         [SetUp]
         public void SetUp()
         {
+            _casinoCustomerService = Substitute.For<ICasinoCustomerService>();
             _groupDataAccess = Substitute.For<IGroupComDataAccess>();
-            _groupComService = new GroupComService(_groupDataAccess);
+            _groupComService = new GroupComService(_casinoCustomerService, _groupDataAccess);
         }
 
         [TearDown]
@@ -105,57 +108,53 @@
         public void InsertGroup_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            ResultViewModel resultViewModel = null;
-            var expectedValue = 1;
-            IResultInfo dataResultInfo = null;
-            var expectedDataResultInfo = new ResultInfo();
-            _groupDataAccess.InsertGroup(Arg.Any<GroupCommMetaModel>(), Arg.Any<IRequest>(), Arg.Any<int>(), out dataResultInfo)
-                .Returns(x =>
-                {
-                    x[3] = expectedDataResultInfo;
-                    return expectedValue;
-                });
+            _groupDataAccess.InsertGroup(Arg.Any<GroupCommMetaModel>(), Arg.Any<IRequest>(), Arg.Any<int>())
+                .Returns(new ResultInfo());
 
             // Action
-            var result = _groupComService.InsertGroup(Arg.Any<GroupCommMetaModel>(), Arg.Any<IRequest>(), Arg.Any<int>(), out resultViewModel);
-            var outPutViewModel = resultViewModel;
+            var result = _groupComService.InsertGroup(Arg.Any<GroupCommMetaModel>(), Arg.Any<IRequest>(), Arg.Any<int>());
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result, Is.EqualTo(expectedValue));
-                Assert.That(outPutViewModel.ExtendedData, Is.EqualTo(expectedValue));
-                Assert.That(outPutViewModel.Success, Is.True);
-            });
+            Assert.That(result.IsSuccessful, Is.True);
         }
 
         [Test]
-        public void UpdateGroup_IsUpdateCSInMetaModelIsFalse_ReturnCorrectData()
+        public void UpdateGroup_IsUpdateCSIsFalse_ReturnCorrectData()
         {
             // Arrange
-            ResultViewModel resultViewModel = null;
-            var expectedValue = true;
-            IResultInfo dataResultInfo = null;
-            var expectedDataResultInfo = new ResultInfo();
             var groupCommMetaModel = new GroupCommMetaModel { IsUpdateCS = false };
             var userSession = new UserSession { UserId = 1 };
-            _groupDataAccess.UpdateGroup(Arg.Any<GroupCommMetaModel>(), Arg.Any<IRequest>(), Arg.Any<int>(), out dataResultInfo)
-                .Returns(x =>
-                {
-                    x[3] = expectedDataResultInfo;
-                    return expectedValue;
-                });
+            _groupDataAccess.UpdateGroup(Arg.Any<GroupCommMetaModel>(), Arg.Any<IRequest>(), Arg.Any<int>())
+                .Returns(new ResultInfo());
 
             // Action
-            var result = _groupComService.UpdateGroup(groupCommMetaModel, Arg.Any<IRequest>(), userSession, out resultViewModel);
-            var outPutViewModel = resultViewModel;
+            var result = _groupComService.UpdateGroup(groupCommMetaModel, Arg.Any<IRequest>(), userSession);
+
+            // Assert
+            Assert.That(result.IsSuccessful, Is.True);
+        }
+
+        [Test]
+        public void UpdateGroup_IsUpdateCSIsTrue_CallUpdateMemberCommissionApi()
+        {
+            // Arrange
+            var groupCommMetaModel = new GroupCommMetaModel { IsUpdateCS = true };
+            var userSession = new UserSession { UserId = 1 };
+            _groupDataAccess.UpdateGroup(Arg.Any<GroupCommMetaModel>(), Arg.Any<IRequest>(), Arg.Any<int>())
+                .Returns(new ResultInfo
+                {
+                    ExtendedData = "1,2,3"
+                });
+            _casinoCustomerService.UpdateCommission(null).ReturnsForAnyArgs(false);
+
+            // Action
+            var result = _groupComService.UpdateGroup(groupCommMetaModel, new Request(), userSession);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result, Is.EqualTo(expectedValue));
-                Assert.That(outPutViewModel.ExtendedData, Is.EqualTo(expectedValue));
-                Assert.That(outPutViewModel.Success, Is.True);
+                _casinoCustomerService.ReceivedWithAnyArgs().UpdateCommission(null);
+                Assert.That(result.IsSuccessful, Is.False);
             });
         }
 
@@ -163,34 +162,20 @@
         public void UpdateGroup_ExtendedDataIsEmpty_ReturnCorrectData()
         {
             // Arrange
-            ResultViewModel resultViewModel = null;
-            var expectedValue = true;
-            IResultInfo dataResultInfo = null;
-            var expectedDataResultInfo = new ResultInfo { ExtendedData = string.Empty };
             var groupCommMetaModel = new GroupCommMetaModel { IsUpdateCS = false };
             var userSession = new UserSession { UserId = 1 };
-            _groupDataAccess.UpdateGroup(Arg.Any<GroupCommMetaModel>(), Arg.Any<IRequest>(), Arg.Any<int>(), out dataResultInfo)
-                .Returns(x =>
-                {
-                    x[3] = expectedDataResultInfo;
-                    return expectedValue;
-                });
+            _groupDataAccess.UpdateGroup(Arg.Any<GroupCommMetaModel>(), Arg.Any<IRequest>(), Arg.Any<int>())
+                .Returns(new ResultInfo());
 
             // Action
-            var result = _groupComService.UpdateGroup(groupCommMetaModel, Arg.Any<IRequest>(), userSession, out resultViewModel);
-            var outPutViewModel = resultViewModel;
+            var result = _groupComService.UpdateGroup(groupCommMetaModel, Arg.Any<IRequest>(), userSession);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result, Is.EqualTo(expectedValue));
-                Assert.That(outPutViewModel.ExtendedData, Is.EqualTo(expectedValue));
-                Assert.That(outPutViewModel.Success, Is.True);
-            });
+            Assert.That(result.IsSuccessful, Is.True);
         }
 
         [Test]
-        public void DeleteGroup_IsRemoveCommSettingInMetaModelIsFalse_ReturnCorrectData()
+        public void DeleteGroup_IsRemoveCommSettingIsFalse_ReturnCorrectData()
         {
             // Arrange
             var metaModel = new DeleteGroupMetaModel
@@ -204,11 +189,6 @@
                 IsResetDefault = true,
                 IsAllowedCSComm = true
             };
-            ResultViewModel resultViewModel = null;
-            var expectedValue = 100;
-            IResultInfo dataResultInfo = null;
-            var expectedDataResultInfo = new ResultInfo();
-
             _groupDataAccess.DeleteGroup(
                 metaModel.GroupId,
                 metaModel.LicenseeId,
@@ -216,29 +196,21 @@
                 metaModel.Ip,
                 metaModel.Language,
                 metaModel.IsRemoveCommSetting,
-                metaModel.IsResetDefault,
-                out dataResultInfo)
-                .Returns(x =>
-                {
-                    x[7] = expectedDataResultInfo;
-                    return expectedValue;
-                });
+                metaModel.IsResetDefault)
+                .Returns(new ResultInfo());
 
             // Action
-            var result = _groupComService.DeleteGroup(metaModel, out resultViewModel);
-            var outPutViewModel = resultViewModel;
+            var result = _groupComService.DeleteGroup(metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result, Is.EqualTo(expectedValue));
-                Assert.That(outPutViewModel.ExtendedData, Is.EqualTo(expectedValue));
-                Assert.That(outPutViewModel.Success, Is.True);
+                Assert.That(result.IsSuccessful, Is.True);
             });
         }
 
         [Test]
-        public void DeleteGroup_IsAllowedCSCommInMetaModelIsFalse_ReturnCorrectData()
+        public void DeleteGroup_IsAllowedCSCommIsFalse_ReturnCorrectData()
         {
             // Arrange
             var metaModel = new DeleteGroupMetaModel
@@ -252,11 +224,6 @@
                 IsResetDefault = true,
                 IsAllowedCSComm = false
             };
-            ResultViewModel resultViewModel = null;
-            var expectedValue = 100;
-            IResultInfo dataResultInfo = null;
-            var expectedDataResultInfo = new ResultInfo();
-
             _groupDataAccess.DeleteGroup(
                 metaModel.GroupId,
                 metaModel.LicenseeId,
@@ -264,24 +231,43 @@
                 metaModel.Ip,
                 metaModel.Language,
                 metaModel.IsRemoveCommSetting,
-                metaModel.IsResetDefault,
-                out dataResultInfo)
-                .Returns(x =>
-                {
-                    x[7] = expectedDataResultInfo;
-                    return expectedValue;
-                });
+                metaModel.IsResetDefault)
+                .Returns(new ResultInfo());
 
             // Action
-            var result = _groupComService.DeleteGroup(metaModel, out resultViewModel);
-            var outPutViewModel = resultViewModel;
+            var result = _groupComService.DeleteGroup(metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result, Is.EqualTo(expectedValue));
-                Assert.That(outPutViewModel.ExtendedData, Is.EqualTo(expectedValue));
-                Assert.That(outPutViewModel.Success, Is.True);
+                Assert.That(result.IsSuccessful, Is.True);
+            });
+        }
+
+        [Test]
+        public void DeleteGroup_IsAllowedCSCommIsTrue_CallUpdateMemberCommissionApi()
+        {
+            // Arrange
+            var metaModel = new DeleteGroupMetaModel
+            {
+                IsRemoveCommSetting = true,
+                IsAllowedCSComm = true
+            };
+            _groupDataAccess.DeleteGroup(0, 0, 0, null, null, false, false)
+                .ReturnsForAnyArgs(new ResultInfo
+                {
+                    ExtendedData = "1,2,3"
+                });
+            _casinoCustomerService.UpdateCommission(null).ReturnsForAnyArgs(false);
+
+            // Action
+            var result = _groupComService.DeleteGroup(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _casinoCustomerService.ReceivedWithAnyArgs().UpdateCommission(null);
+                Assert.That(result.IsSuccessful, Is.False);
             });
         }
 

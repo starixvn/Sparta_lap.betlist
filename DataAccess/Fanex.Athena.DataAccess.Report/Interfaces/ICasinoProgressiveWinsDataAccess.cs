@@ -12,6 +12,6 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
 
     public interface ICasinoProgressiveWinsDataAccess
     {
-        IEnumerable<CasinoProgressiveWins> GetDataList(CasinoProgressiveWinsMetaModel metaModel);
+        IEnumerable<CasinoProgressiveWins> GetDataList(BaseReportMetaModel metaModel);
     }
 }

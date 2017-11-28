@@ -10,12 +10,12 @@
     [TestFixture]
     public class CustomerBalanceControllerTest
     {
-        private ISimpleWidgetDataAccess _dataAccess;
+        private ISingleValueDataAccess _dataAccess;
 
         [OneTimeSetUp]
         public void Setup()
         {
-            _dataAccess = Substitute.For<ISimpleWidgetDataAccess>();
+            _dataAccess = Substitute.For<ISingleValueDataAccess>();
         }
 
         [OneTimeTearDown]
@@ -53,7 +53,7 @@
                 BaseCurrency = "EUR"
             };
 
-            _dataAccess.GetData(metaModel).Returns(expected);
+            _dataAccess.GetCustomerBalance(metaModel).Returns(expected);
 
             using (var controller = CreateController())
             {

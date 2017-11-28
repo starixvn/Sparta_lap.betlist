@@ -71,15 +71,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\ISimpleWidgetDataAccess.cs" />
+    <Compile Include="Interfaces\ISingleValueDataAccess.cs" />
     <Compile Include="Interfaces\ILicenseeDataByPlatformDataAccess.cs" />
     <Compile Include="LicenseeDataByPlatformDataAccess.cs" />
-    <Compile Include="PendingFundDataAccess.cs" />
     <Compile Include="PlatformKey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CustomerBalanceDataAccess.cs" />
-    <Compile Include="TodayDepositDataAccess.cs" />
-    <Compile Include="TodayWithdrawalDataAccess.cs" />
+    <Compile Include="SingleValueDataAccess.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">

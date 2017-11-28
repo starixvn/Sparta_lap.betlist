@@ -174,7 +174,6 @@
     describe("setReportTitle(currencyId, fromdate, todate)", function () {
         it("setReportTitle() should assign correct content to .report-title.", function () {
             var $title = affix('.report-title');
-            var date = new Date();
             spyOn(Date.prototype, 'toString').and.callFake(function() {
                 return '1/1/2016';
             });

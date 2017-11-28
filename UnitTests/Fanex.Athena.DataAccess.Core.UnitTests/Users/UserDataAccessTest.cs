@@ -1,11 +1,11 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Users
 {
-    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using Core.Users;
     using Data;
+    using Logging;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using NSubstitute;
@@ -15,6 +15,7 @@
     [TestFixture]
     public class UserDataAccessTest
     {
+        private ILogger _logger;
         private IObjectDb _objectDb;
         private UserDataAccess _dataAccess;
         private IDataReader _reader;
@@ -22,8 +23,9 @@
         [OneTimeSetUp]
         public void Setup()
         {
+            _logger = Substitute.For<ILogger>();
             _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<UserDataAccess>();
+            _dataAccess = Substitute.ForPartsOf<UserDataAccess>(_logger);
             _reader = Substitute.For<IDataReader>();
         }
 
@@ -193,63 +195,42 @@
         }
 
         [Test]
-        public void LoginOnUser_WhenCall_ParametersPassedCorrectly()
+        public void RecheckIn_WhenCall_ParameterPassesCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CheckIn")).Returns(_objectDb);
-            var requestUser = new User { UserID = 1, Request = new Request { Ip = "::1" } };
-            var netSessionId = "1a2b3c";
-            var serverId = 2;
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_ReCheckIn"), Arg.Any<int>()).Returns(_objectDb);
+            const int UserId = 2;
 
             // Action
-            _dataAccess.LoginOnUser(requestUser, netSessionId, serverId);
+            var result = _dataAccess.RecheckIn(UserId);
 
             // Assert
-            _objectDb.Received().AddInParameter("CustID", DbType.Int32, requestUser.UserID);
-            _objectDb.Received().AddInParameter("NetSessionID", DbType.String, netSessionId);
-            _objectDb.Received().AddInParameter("ServerID", DbType.Int32, serverId);
-            _objectDb.Received().AddOutParameter("On_UserID", DbType.Int32, 4);
-            _objectDb.Received().AddInParameter("IP", DbType.String, requestUser.Request.Ip);
+            Assert.Multiple(() =>
+            {
+                _objectDb.Received().AddInParameter("On_Userid", DbType.Int32, UserId);
+                _objectDb.Received().AddOutParameter("IsKickedOut", DbType.Boolean, 0);
+            });
         }
 
         [Test]
-        public void LoginOnUser_WhenCall_DataReturnedCorrectly()
+        public void RecheckIn_WhenCall_ReturnDataCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CheckIn")).Returns(_objectDb);
-            var requestUser = new User { UserID = 1, Request = new Request { Ip = "::1" } };
-            var netSessionId = "1a2b3c";
-            var serverId = 2;
-
-            var expected = 10;
-            _objectDb.GetParameterValue("On_UserID").Returns(expected);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_ReCheckIn"), Arg.Any<int>()).Returns(_objectDb);
+            _objectDb.GetParameterValue("IsKickedOut").Returns(true);
 
             // Action
-            var result = _dataAccess.LoginOnUser(requestUser, netSessionId, serverId);
+            var result = _dataAccess.RecheckIn(0);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        [Test]
-        public void Logout_WhenCall_ExecuteNonQueryMethodIsCalled()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserLogout")).Returns(_objectDb);
-            var userId = 1;
-
-            // Action
-            _dataAccess.Logout(userId);
-
-            // Assert
-            _objectDb.ReceivedWithAnyArgs().ExecuteNonQuery(null);
+            Assert.That(result, Is.True);
         }
 
         [Test]
         public void ResetPassword_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserPwdReset")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_UserPwdReset")).Returns(_objectDb);
             var user = new User
             {
                 UserID = 1,
@@ -277,7 +258,7 @@
         public void ResetPassword_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserPwdReset")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_UserPwdReset")).Returns(_objectDb);
             var user = new User
             {
                 UserID = 1,
@@ -298,10 +279,54 @@
         }
 
         [Test]
+        public void SyncUserInfo_WhenCall_ParametersPassedCorrectly()
+        {
+            // Arrange
+            const string LicenseeName = "spondemo";
+            const string UserName = "user1";
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_SyncInternalUser")).Returns(_objectDb);
+
+            // Action
+            _dataAccess.SyncUserInfo(LicenseeName, UserName);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _objectDb.Received().AddInParameter("LicenseeName", DbType.String, LicenseeName);
+                _objectDb.Received().AddInParameter("Username", DbType.String, UserName);
+                _objectDb.Received().AddInParameter("EncryptedPassword", DbType.String, Arg.Any<string>());
+                _objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
+                _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+                _logger.Received().Info($"Synced user from LAP system - userName={UserName}");
+            });
+        }
+
+        [Test]
+        public void SyncUserInfo_WhenCall_ReturnDataCorrectly()
+        {
+            // Arrange
+            const int ErrCode = 1;
+            const string ErrMsg = "Error";
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_SyncInternalUser")).Returns(_objectDb);
+            _objectDb.GetParameterValue("ErrCode").Returns(ErrCode);
+            _objectDb.GetParameterValue("ErrMsg").Returns(ErrMsg);
+
+            // Action
+            var result = _dataAccess.SyncUserInfo(null, null);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Code, Is.EqualTo(ErrCode));
+                Assert.That(result.Message, Is.EqualTo(ErrMsg));
+            });
+        }
+
+        [Test]
         public void UpdateInfo_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserUpdAccount")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_UserUpdAccount")).Returns(_objectDb);
             var user = new User
             {
                 UserID = 1,
@@ -354,183 +379,6 @@
             // Assert
             Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
             Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
-        }
-
-        [Test]
-        public void ValidateInternalUser_WhenCall_ParametersPassedCorrectly()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_InternalLogin")).Returns(_objectDb);
-            var requestUser = new User
-            {
-                Username = "UserNameTest",
-                Password = "1234aa",
-                Request = new Request
-                {
-                    Ip = "::1",
-                    Language = "en-US",
-                    Domain = "abc.xyz",
-                    Browser = "Chrome",
-                    Platform = "Web",
-                    CountryCode = "VN"
-                }
-            };
-            var licenseeName = "TestName";
-            var timeStamp = TimeSpan.TicksPerMillisecond;
-            IResultInfo result = new ResultInfo();
-
-            // Action
-            _dataAccess.ValidateInternalUser(requestUser, timeStamp, licenseeName, out result);
-
-            // Assert
-            _objectDb.Received().AddInParameter("UserName", DbType.String, requestUser.Username);
-            _objectDb.Received().AddInParameter("EncryptedPassword", DbType.String, requestUser.Password);
-            _objectDb.Received().AddInParameter("LicenseeName", DbType.String, licenseeName);
-            _objectDb.Received().AddInParameter("LoginTime", DbType.DateTime, new DateTime(timeStamp));
-            _objectDb.Received().AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
-            _objectDb.Received().AddInParameter("LoginDomain", DbType.String, requestUser.Request.Domain);
-            _objectDb.Received().AddInParameter("BrowserName", DbType.String, requestUser.Request.Browser);
-            _objectDb.Received().AddInParameter("Platform", DbType.String, requestUser.Request.Platform);
-            _objectDb.Received().AddInParameter("CountryCode", DbType.String, requestUser.Request.CountryCode);
-            _objectDb.Received().AddInParameter("Language", DbType.String, requestUser.Request.Language);
-            _objectDb.Received().AddOutParameter("ServerID", DbType.Int32, 4);
-            _objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-            _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
-        }
-
-        [Test]
-        public void ValidateInternalUser_WhenCall_DataReturnedCorrectly()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_InternalLogin")).Returns(_objectDb);
-            _objectDb.ExecuteReader().Returns(_reader);
-            var requestUser = new User
-            {
-                Username = "UserNameTest",
-                Password = "1234aa",
-                Request = new Request
-                {
-                    Ip = "::1",
-                    Language = "en-US",
-                    Domain = "abc.xyz",
-                    Browser = "Chrome",
-                    Platform = "Web",
-                    CountryCode = "VN"
-                }
-            };
-            var licenseeName = "TestName";
-            var timeStamp = TimeSpan.TicksPerMillisecond;
-            IResultInfo resultInfo = new ResultInfo();
-
-            var expected = GetFakeUserData();
-            expected.Licensee = new Licensee { Id = 1 };
-            expected.ServerId = 12;
-            expected.Email = "test@gmail.com";
-            expected.Role = "RoleTest";
-            ConfigureDataReader(expected);
-
-            _reader.GetInt32(Arg.Any<int>()).Returns(expected.Licensee.Id);
-            _reader["email"].Returns(expected.Email);
-            _reader["userrole"].Returns(expected.Role);
-            _objectDb.GetParameterValue("ServerId").Returns(expected.ServerId);
-
-            // Action
-            var result = _dataAccess.ValidateInternalUser(requestUser, timeStamp, licenseeName, out resultInfo);
-
-            // Assert
-            Assert.That(result.UserID, Is.EqualTo(expected.UserID));
-            Assert.That(result.Username, Is.EqualTo(expected.Username));
-            Assert.That(result.FirstName, Is.EqualTo(expected.FirstName));
-            Assert.That(result.LastName, Is.EqualTo(expected.LastName));
-            Assert.That(result.Email, Is.EqualTo(expected.Email));
-            Assert.That(result.Role, Is.EqualTo(expected.Role));
-            Assert.That(result.IsInternal, Is.EqualTo(expected.IsInternal));
-            Assert.That(result.Licensee.Id, Is.EqualTo(expected.Licensee.Id));
-            Assert.That(result.ServerId, Is.EqualTo(expected.ServerId));
-        }
-
-        [Test]
-        public void ValidateUserForLrfSystem_WhenCall_ParametersPassedCorrectly()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserLogin")).Returns(_objectDb);
-            var requestUser = new User
-            {
-                Username = "UserNameTest",
-                Request = new Request
-                {
-                    Ip = "::1",
-                    Language = "en-US",
-                    Domain = "abc.xyz",
-                    Browser = "Chrome",
-                    Platform = "Web",
-                    CountryCode = "VN"
-                }
-            };
-            IResultInfo result = new ResultInfo();
-
-            // Action
-            _dataAccess.ValidateUserForLrfSystem(requestUser, out result);
-
-            // Assert
-            _objectDb.Received().AddInParameter("UserName", DbType.String, requestUser.Username);
-            _objectDb.Received().AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
-            _objectDb.Received().AddInParameter("LoginDomain", DbType.String, requestUser.Request.Domain);
-            _objectDb.Received().AddInParameter("BrowserName", DbType.String, requestUser.Request.Browser);
-            _objectDb.Received().AddInParameter("Platform", DbType.String, requestUser.Request.Platform);
-            _objectDb.Received().AddInParameter("CountryCode", DbType.String, requestUser.Request.CountryCode);
-            _objectDb.Received().AddInParameter("langkey", DbType.String, requestUser.Request.Language);
-            _objectDb.Received().AddOutParameter("ServerID", DbType.Int32, 4);
-            _objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-            _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
-        }
-
-        [Test]
-        public void ValidateUserForLrfSystem_WhenCall_DataReturnedCorrectly()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserLogin")).Returns(_objectDb);
-            _objectDb.ExecuteReader().Returns(_reader);
-            var requestUser = new User
-            {
-                Username = "UserNameTest",
-                Request = new Request
-                {
-                    Ip = "::1",
-                    Language = "en-US",
-                    Domain = "abc.xyz",
-                    Browser = "Chrome",
-                    Platform = "Web",
-                    CountryCode = "VN"
-                }
-            };
-            IResultInfo resultInfo = new ResultInfo();
-
-            var expected = GetFakeUserData();
-            expected.Licensee = new Licensee { Id = 1 };
-            expected.ServerId = 12;
-            expected.Email = "test@gmail.com";
-            expected.Role = "RoleTest";
-            ConfigureDataReader(expected);
-
-            _reader.GetInt32(Arg.Any<int>()).Returns(expected.Licensee.Id);
-            _reader["email"].Returns(expected.Email);
-            _reader["userrole"].Returns(expected.Role);
-            _objectDb.GetParameterValue("ServerId").Returns(expected.ServerId);
-
-            // Action
-            var result = _dataAccess.ValidateUserForLrfSystem(requestUser, out resultInfo);
-
-            // Assert
-            Assert.That(result.UserID, Is.EqualTo(expected.UserID));
-            Assert.That(result.Username, Is.EqualTo(expected.Username));
-            Assert.That(result.FirstName, Is.EqualTo(expected.FirstName));
-            Assert.That(result.LastName, Is.EqualTo(expected.LastName));
-            Assert.That(result.Email, Is.EqualTo(expected.Email));
-            Assert.That(result.Role, Is.EqualTo(expected.Role));
-            Assert.That(result.IsInternal, Is.EqualTo(expected.IsInternal));
-            Assert.That(result.Licensee.Id, Is.EqualTo(expected.Licensee.Id));
-            Assert.That(result.ServerId, Is.EqualTo(expected.ServerId));
         }
 
         private User GetFakeUserData(int licenseeId = 1)

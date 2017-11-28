@@ -4,6 +4,7 @@
     using System.Linq;
     using BetSettings;
     using Casino.Interfaces;
+    using Casino.Wrappers;
     using Core.Users.Interfaces;
     using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
@@ -21,7 +22,8 @@
 
         private IAuthorizationService _authorizationService;
         private IAppSettings _appSettings;
-        private ICasinoSetting _casinoSetting;
+        private ICasinoSettingService _casinoSetting;
+        private ICustomerApiWrapper _customerApiWrapper;
         private IRngCasinoBetSettingDataAccess _dataAccess;
         private IRngCasinoBetSettingService _service;
 
@@ -30,9 +32,10 @@
         {
             _authorizationService = Substitute.For<IAuthorizationService>();
             _appSettings = Substitute.For<IAppSettings>();
-            _casinoSetting = Substitute.For<ICasinoSetting>();
+            _casinoSetting = Substitute.For<ICasinoSettingService>();
+            _customerApiWrapper = Substitute.For<ICustomerApiWrapper>();
             _dataAccess = Substitute.For<IRngCasinoBetSettingDataAccess>();
-            _service = new RngCasinoBetSettingService(_authorizationService, _appSettings, _casinoSetting, _dataAccess);
+            _service = new RngCasinoBetSettingService(_authorizationService, _appSettings, _casinoSetting, _customerApiWrapper, _dataAccess);
         }
 
         [TearDown]

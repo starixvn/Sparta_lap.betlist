@@ -57,10 +57,9 @@
                 FromDate = new DateTime(2016, 8, 10),
                 ToDate = new DateTime(2016, 8, 29)
             };
-            IDictionary<string, ColossusBetWinLoss> summaryTotal = new Dictionary<string, ColossusBetWinLoss>();
 
             // Action
-            _dataAccess.GetSummaryWinloss(metaModel, out summaryTotal);
+            _dataAccess.GetSummaryWinloss(metaModel);
 
             // Assert
             _objectDb.Received().AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
@@ -83,8 +82,6 @@
                 DrillDownFromDate = new DateTime(2016, 8, 29),
                 BaseCurrency = "UUS"
             };
-            IDictionary<string, ColossusBetWinLoss> summaryTotal = new Dictionary<string, ColossusBetWinLoss>();
-
             var expected = new ColossusBetWinLoss
             {
                 SystemId = string.Empty,
@@ -95,7 +92,7 @@
             ConfigureReaderForGetSummaryWinlossMethod(expected);
 
             // Action
-            var result = _dataAccess.GetSummaryWinloss(metaModel, out summaryTotal)[0];
+            var result = _dataAccess.GetSummaryWinloss(metaModel).DataList[0];
 
             // Assert
             Assert.That(result.SystemId, Is.EqualTo(expected.SystemId));
@@ -123,10 +120,9 @@
                 DrillDownToDate = new DateTime(2016, 8, 29),
                 DrillDownLevel = 1
             };
-            IDictionary<string, ColossusBetWinLoss> summaryTotal = new Dictionary<string, ColossusBetWinLoss>();
 
             // Action
-            _dataAccess.GetWinlossDetail(metaModel, out summaryTotal);
+            _dataAccess.GetWinlossDetail(metaModel);
 
             // Assert
             _objectDb.Received().AddInParameter("fromdate", DbType.Date, metaModel.DrillDownFromDate);
@@ -161,7 +157,7 @@
             ConfigureReaderForGetSummaryWinlossMethod(expected);
 
             // Action
-            var result = _dataAccess.GetWinlossDetail(metaModel, out summaryTotal)[0];
+            var result = _dataAccess.GetWinlossDetail(metaModel).DataList[0];
 
             // Assert
             Assert.That(result.SystemId, Is.EqualTo(expected.SystemId));

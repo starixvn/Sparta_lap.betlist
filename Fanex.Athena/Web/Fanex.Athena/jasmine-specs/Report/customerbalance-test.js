@@ -1,19 +1,19 @@
-﻿describe("CustBalance", function () {
+﻿describe("CustomerBalance", function () {
     
     describe("initialize()", function () {
-        xit("initEvent() should be call when initialize() is called", function () {
+        it("initEvent() should be call when initialize() is called", function () {
             spyOn(ProductListHelper, 'initProductList');
-            spyOn(CustBalance, 'initEvent');
+            spyOn(CustomerBalance, 'initEvent');
 
-            CustBalance.initialize();
+            CustomerBalance.initialize();
 
-            expect(CustBalance.initEvent).toHaveBeenCalled();
+            expect(CustomerBalance.initEvent).toHaveBeenCalled();
         });
 
-        xit("Site.addUserGuide() should be call when initialize() is called with correct params.", function () {
+        it("Site.addUserGuide() should be call when initialize() is called with correct params.", function () {
             spyOn(Site, 'addUserGuide');
 
-            CustBalance.initialize();
+            CustomerBalance.initialize();
 
             expect(Site.addUserGuide).toHaveBeenCalledWith({
                 resourceName: "CustomerBalance",
@@ -23,32 +23,57 @@
     });
 
     describe("initEvent()", function () {
-        xit("#data-content should be register scroll event.", function () {
-            affix('#data-content');
-            spyOn($.fn, 'scroll');
+        var $submitButton, $exportToExcel, $isExportExcel;
+        beforeEach(function () {
+            $submitButton = affix("#SubmitButton");
+            $exportToExcel = affix("#ExportToExcel");
 
-            CustBalance.initEvent();
+            $isExportExcel = affix("input#IsExportExcel");
+            spyOn(Report, "ValidProducts").and.returnValues(true);
+            CustomerBalance.initEvent();
+        });
 
-            expect($.fn.scroll.calls.mostRecent().object.selector).toBe('#data-content');
+        describe("'#SubmitButton' fired click event", function () {
+            it("'#IsExportExcel' should has value equal empty", function () {
+                spyOn(CustomerBalance, 'submit');
+                $submitButton.click();
+
+                expect($isExportExcel.val()).toBe("");
+            });
+
+            it("CustomerBalance.submit() should be called", function () {
+                spyOn(CustomerBalance, "submit");
+
+                $submitButton.click();
+
+                expect(CustomerBalance.submit).toHaveBeenCalled();
+            });
+        });
+
+        describe("'#ExportToExcel' fired click event", function () {
+            it("'#IsExportExcel' should has value equal false", function () {
+                $exportToExcel.click();
+
+                expect($isExportExcel.val()).toBe("false");
+            });
+
+            it("submit function of jquery should be called", function () {
+                spyOn($.fn, "submit");
+
+                $exportToExcel.click();
+
+                expect($.fn.submit).toHaveBeenCalled();
+            });
         });
     });
 
-    describe("checkIsValidTimeRequest()", function () {
-        xit("$.fn.dialog() will not be called if #IsValidTimeRequest does not have value = 'False'.", function () {
-            spyOn($.fn, 'dialog');
+    describe("setReportTitle(fromDate, toDate, currencyName)", function () {
+        it("setReportTitle() should assign correct content to .report-title.", function () {
+            var $title = affix('.report-title');
+            
+            CustomerBalance.setReportTitle("1/1/2016", "1/1/2017", "UUS");
 
-            CustBalance.checkIsValidTimeRequest();
-
-            expect($.fn.dialog).not.toHaveBeenCalled();
-        });
-
-        xit("$.fn.dialog will be called on a correct html element.", function () {
-            var $input = affix('input#IsValidTimeRequest[value="False"]');
-            spyOn($.fn, 'dialog');
-
-            CustBalance.checkIsValidTimeRequest();
-
-            expect($.fn.dialog.calls.mostRecent().object[0].outerHTML).toBe('<div title="LrfNotification">CustomerBalanceDateRangeNotification</div>');
+            expect($title.html()).toBe('CustomerBalance, 1/1/2016 → 1/1/2017, Viewin');
         });
     });
 });

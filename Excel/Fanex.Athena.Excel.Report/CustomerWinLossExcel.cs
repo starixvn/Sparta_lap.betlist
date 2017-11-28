@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Excel.Report
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using Base;
     using Fanex.Athena.Excel.Base.Extension;
@@ -42,40 +41,14 @@ namespace Fanex.Athena.Excel.Report
         private readonly CustomerWinLossExcelModel _excelModel;
 
         public CustomerWinLossExcel(string templatePath, CustomerWinLossExcelModel excelModel)
-            : base(templatePath, excelModel.MetaModel.PageSize)
+            : base(templatePath, excelModel.DataList.Count())
         {
             _excelModel = excelModel;
+            PageSize = _excelModel.MetaModel.PageSize;
+            IsMultiSheet = true;
         }
 
-        protected override void AssignData()
-        {
-            var numOfDataRow = _excelModel.DataList.Count();
-
-            ISheet sheet;
-
-            if (numOfDataRow == 0)
-            {
-                sheet = Workbook.CloneSheet("Template", "Data");
-                AssignTitle(sheet);
-                AssignHeader(sheet);
-                AssignNoInfoRow(sheet);
-                ProcessUI(sheet);
-            }
-            else
-            {
-                var numOfSheet = GetNumberOfSheets(numOfDataRow, _excelModel.MetaModel.PageSize);
-                for (int i = 0; i < numOfSheet; i++)
-                {
-                    sheet = Workbook.CloneSheet("Template", "Data" + (i + 1).ToString());
-                    AssignTitle(sheet);
-                    AssignHeader(sheet);
-                    AssignSheetData(sheet, i);
-                    ProcessUI(sheet);
-                }
-            }
-        }
-
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
@@ -108,13 +81,13 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[7].SetCellValue(ViewResources.Total);
         }
 
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
-        protected int AssignSheetData(ISheet sheet, int pageIndex)
+        protected override void AssignSheetData(ISheet sheet, int pageIndex)
         {
             var rowCount = Math.Min(_excelModel.DataList.Count(), checked((pageIndex + 1) * PageSize));
             var rowIndex = 0;
@@ -146,10 +119,9 @@ namespace Fanex.Athena.Excel.Report
             AssignSumData(sheet, rowIndex);
 
             ProcessUI(sheet);
-            return rowIndex;
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             var filterTitle = ReportExcelHelper.GetTitleCurrencyName(_excelModel.ConvertingOption)
                             + ReportExcelHelper.GetLicenseeWLProduct(_excelModel.MetaModel.ProductOptions)
@@ -172,7 +144,7 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        protected void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!_excelModel.SystemIdVisible)
             {

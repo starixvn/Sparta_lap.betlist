@@ -44,7 +44,7 @@
         public void Index_InvalidRequest_ReturnEmptyData()
         {
             // Arrange
-            var model = new CasinoProgressiveWinsMetaModel
+            var model = new BaseReportMetaModel
             {
                 CurrencyId = 1
             };
@@ -60,7 +60,7 @@
         public void Index_InvalidModel_ReturnEmptyData()
         {
             // Arrange
-            var model = new CasinoProgressiveWinsMetaModel
+            var model = new BaseReportMetaModel
             {
                 CurrencyId = -1,
                 FromDate = DateTime.Today,
@@ -78,7 +78,7 @@
         public void Index_ValidModel_ReturnCorrectChoice()
         {
             // Arrange
-            var model = new CasinoProgressiveWinsMetaModel
+            var model = new BaseReportMetaModel
             {
                 CurrencyId = -1,
                 ProductOptions = new List<ProductOption>
@@ -100,7 +100,7 @@
         public void Index_ExportExcel_ExportWithCorrectData()
         {
             // Arrange
-            var model = new CasinoProgressiveWinsMetaModel
+            var model = new BaseReportMetaModel
             {
                 CurrencyId = -1,
                 BaseCurrency = "USD",
@@ -118,7 +118,10 @@
             var excel = Substitute.ForPartsOf<CasinoProgressiveWinsExcel>(
                    Arg.Any<string>(),
                    Arg.Do<ConvertingOption>(x => actualOption = x),
-                   new CasinoProgressiveWinsViewModel());
+                   new CasinoProgressiveWinsViewModel
+                   {
+                       DataList = new CasinoProgressiveWins[] { }
+                   });
             excel.When(x => x.Export()).DoNotCallBase();
 
             _controller.CreateExcel(
@@ -142,7 +145,7 @@
         private void SetUpForDataAccess()
         {
             _dataAccess = Substitute.For<ICasinoProgressiveWinsDataAccess>();
-            _dataAccess.GetDataList(Arg.Any<CasinoProgressiveWinsMetaModel>()).Returns(new List<CasinoProgressiveWins>
+            _dataAccess.GetDataList(Arg.Any<BaseReportMetaModel>()).Returns(new List<CasinoProgressiveWins>
             {
                 new CasinoProgressiveWins { BetType = -100, SportType = -100 }
             });

@@ -1,12 +1,16 @@
 ﻿namespace Fanex.Athena.DataAccess.Customer.UnitTests
 {
+    using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Customer;
     using Data;
     using Model.Core.DTO.Common;
     using Model.Customer.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Resources;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class CustomerListDataAccessTest
@@ -49,8 +53,16 @@
         public void Search_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSel")).Returns(_objectDb);
-            var metaModel = new CustomerListMetaModel();
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSel")).Returns(_objectDb);
+            var metaModel = new CustomerListMetaModel
+            {
+                OddsGroups = new List<CheckedItem>
+                {
+                    new CheckedItem { Checked = true, Name = "A" },
+                    new CheckedItem { Checked = false, Name = "B" },
+                    new CheckedItem { Checked = true, Name = "C" }
+                }
+            };
 
             // Action
             _dataAccess.Search(metaModel);
@@ -65,7 +77,38 @@
             _objectDb.Received().AddInParameter("CustStatus", DbType.String, metaModel.CustStatus ?? string.Empty);
             _objectDb.Received().AddInParameter("SpecialLevel", DbType.Int32, metaModel.SpecialLevel);
             _objectDb.Received().AddInParameter("GroupCommId", DbType.Int32, metaModel.GroupCommId);
+            _objectDb.Received().AddInParameter("OddsGroups", DbType.String, "A,C");
             _objectDb.Received().AddOutParameter("TotalRows", DbType.Int32, 4);
+        }
+
+        [Test]
+        public void Search_WhenCall_ReturnCorrectData()
+        {
+            // Arrange
+            const int ExpectedCustId = 999;
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSel")).Returns(_objectDb);
+            var reader = Substitute.For<IDataReader>();
+            reader.Read().Returns(true, false);
+            _objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
+            DataAccessTestHelper.MapReaderData(
+                reader,
+                new
+                {
+                    custid = ExpectedCustId,
+                    closed = true
+                });
+            var metaModel = new CustomerListMetaModel();
+
+            // Action
+            var result = _dataAccess.Search(metaModel);
+            var firstItem = result.DataList.First();
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(firstItem.CustId, Is.EqualTo(ExpectedCustId));
+                Assert.That(firstItem.Status, Is.EqualTo(ViewResources.Closed));
+            });
         }
 
         [Test]

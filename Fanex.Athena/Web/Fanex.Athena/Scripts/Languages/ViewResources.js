@@ -1,6 +1,8 @@
-﻿// Generated at: 10/24/2017 3:11:35 PM
+﻿// Generated at: 11/6/2017 5:06:31 PM
 var _language_en_US = {
 AA:"AA",
+AB:"AB",
+ABComm:"AllBet Comm",
 AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
 Account:"Account",
 AccountManagement:"Account Management",
@@ -313,6 +315,7 @@ FullTime:"FullTime",
 Function:"Function",
 FunctionDeniedMsg:"Sorry, you don&apos;t have permission to access this function.",
 FunctionNoAvailableMsg:"This function was no longer available!",
+FunctionNotAvailableOldUIMsg:"This function is only supported in the new admin portal. Please switch to use our new system for better experience and stability.",
 Game:"Game",
 GameGroup:"Game Group",
 GameID:"Game ID",

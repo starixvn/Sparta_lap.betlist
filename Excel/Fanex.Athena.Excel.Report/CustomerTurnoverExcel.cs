@@ -53,46 +53,17 @@ namespace Fanex.Athena.Excel.Report
                                      CustTurnover total,
                                      string formatDateTime,
                                      string reportTitle)
-            : base(templatePath, showingOption)
+            : base(templatePath, customerTurnoverList.Count(), showingOption)
         {
             _customerTurnoverList = customerTurnoverList;
             _total = total;
             _formatDateTime = formatDateTime;
             _reportTitle = reportTitle;
+            PageSize = 1500;
+            IsMultiSheet = true;
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
-        protected override void AssignData()
-        {
-            int numOfDataRow = _customerTurnoverList.Count();
-            ISheet sheet;
-
-            if (numOfDataRow == 0)
-            {
-                sheet = Workbook.CloneSheet("Template", "Data");
-                AssignTitle(sheet);
-                AssignHeader(sheet);
-                AssignNoInfoRow(sheet);
-                ProcessUI(sheet);
-            }
-            else
-            {
-                PageSize = 1500;
-                var numOfSheet = GetNumberOfSheets(_customerTurnoverList.Last().Index, PageSize);
-                for (int i = 1; i <= numOfSheet; i++)
-                {
-                    sheet = Workbook.CloneSheet("Template", "Data" + i.ToString());
-                    AssignTitle(sheet);
-                    AssignHeader(sheet);
-                    AssignSheetData(sheet, i);
-                    ProcessUI(sheet);
-                }
-            }
-        }
-
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             var headerTextList = new[]
@@ -125,7 +96,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign "no info" to sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
@@ -141,11 +112,11 @@ namespace Fanex.Athena.Excel.Report
           "StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
-        protected int AssignSheetData(ISheet sheet, int pageIndex)
+        protected override void AssignSheetData(ISheet sheet, int pageIndex)
         {
             var rowIndex = 0;
-            var minGroup = checked((pageIndex - 1) * PageSize);
-            var maxGroup = Math.Min(_customerTurnoverList.Last().Index, checked(pageIndex * PageSize));
+            var minGroup = checked(pageIndex * PageSize);
+            var maxGroup = Math.Min(_customerTurnoverList.Last().Index, checked((pageIndex + 1) * PageSize));
             var dataInRange = _customerTurnoverList.Where(x => x.Index > minGroup && x.Index <= maxGroup).ToList();
 
             foreach (var customerTurnover in dataInRange)
@@ -193,10 +164,9 @@ namespace Fanex.Athena.Excel.Report
             }
 
             AssignTotalRow(sheet, rowIndex + RowContentTemplate);
-            return rowIndex;
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, _reportTitle);
 
@@ -211,7 +181,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {

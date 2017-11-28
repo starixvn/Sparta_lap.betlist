@@ -15,9 +15,9 @@ namespace Fanex.Athena.Service.Customer.Interfaces
 
     public interface IGroupComService
     {
-        int InsertGroup(GroupCommMetaModel item, IRequest request, int userId, out ResultViewModel result);
+        IResultInfo InsertGroup(GroupCommMetaModel item, IRequest request, int userId);
 
-        bool UpdateGroup(GroupCommMetaModel newItem, IRequest request, UserSession user, out ResultViewModel result);
+        IResultInfo UpdateGroup(GroupCommMetaModel newItem, IRequest request, UserSession user);
 
         IList<GroupCommMetaModel> GetAll(int licenseeId);
 
@@ -29,8 +29,6 @@ namespace Fanex.Athena.Service.Customer.Interfaces
 
         bool CheckExistingGroupByName(int licenseeId, string groupName);
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
-            Justification = "Reviewed. Suppression is OK here.")]
-        int DeleteGroup(DeleteGroupMetaModel model, out ResultViewModel result);
+        IResultInfo DeleteGroup(DeleteGroupMetaModel model);
     }
 }

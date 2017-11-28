@@ -7,7 +7,7 @@ var CustomerList = (function ($) {
     var _$specialLevelCell, _$oddsGroupCell = null;
     var _isAllowedCustomerCommission = false;
     var _isAllowedUserEditComm;
-    var _productAccess = null;
+    var _productList = null;
     var _cacheData = null;
     var _checkedAllRows = false;
     var _checkedCustomerArray = [];
@@ -194,7 +194,7 @@ var CustomerList = (function ($) {
     }
 
     function processGridOption(hasData, showingColumns) {
-        var gridOption = CustomersOption.getGridOption(_productAccess, _isAllowedCustomerCommission);
+        var gridOption = CustomersOption.getGridOption(_productList, _isAllowedCustomerCommission);
 
         // Change formatter for Index col
         if (hasData && _isAllowedCustomerCommission && showingColumns["Group"] !== undefined && _isAllowedUserEditComm) {
@@ -273,7 +273,7 @@ var CustomerList = (function ($) {
         $("#CheckAll").prop("checked", _checkedAllRows);
         // $(".select-cust-checkbox").checkboxgroup();
 
-        var gridWidth = reportGrid.width();
+        var gridWidth = reportGrid.width() + 10;
 
         $(".paging").width(gridWidth);
         $(".report-title").width(gridWidth - 25);
@@ -374,7 +374,7 @@ var CustomerList = (function ($) {
             updateGroupForCheckCustomerArray(groupid);
             bindData(_cacheData);
         },
-        updateGridGroupAndComm: function (groupid, groupName, groupColor, sbCom, ngCom, rbCom, lcCom, csCom) {
+        updateGridGroupAndComm: function (groupid, groupName, groupColor, sbCom, ngCom, rbCom, lcCom, csCom, abCom) {
             var count = 0;
             var length = _checkedCustomerArray.length;
 
@@ -391,6 +391,7 @@ var CustomerList = (function ($) {
                     item.RBComm = rbCom;
                     item.LCComm = lcCom;
                     item.CSComm = csCom;
+                    item.ABComm = abCom;
                     count++;
                 }
             });
@@ -416,7 +417,7 @@ var CustomerList = (function ($) {
             $("#SubmitButtonComm").prop("disabled", false);
             _isAllowedCustomerCommission = $("#IsAllowedCustomerCommission").val() === "True";
             _isAllowedUserEditComm = $("#IsAllowedUserEditComm").val() === "True";
-            _productAccess = JSON.parse($("#ProductAccess").val());
+            _productList = $("#ProductList").val().split(",");
             addGridCheckBoxesEvent();
             Site.addUserGuide({
                 resourceName: "CustomerList",
@@ -691,7 +692,7 @@ var CustomerList = (function ($) {
                     Site.unBlockUI();
                 }
             };
-            if (ajaxRequest != null) {
+            if (ajaxRequest !== null) {
                 ajaxRequest.abort();
             }
             ajaxRequest = $.ajax(option);

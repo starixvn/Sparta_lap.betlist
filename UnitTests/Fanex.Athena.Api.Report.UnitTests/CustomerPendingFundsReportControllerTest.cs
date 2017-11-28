@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Excel.Report;
     using Excel.Report.Models;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -82,11 +81,10 @@
 
             AppSetting.FakeLicenseeList.Returns(x => isFakeLicensee ? new int[1] { SessionLicenseeId } : new int[0]);
 
-            var actualExcelModel = new CustomerPendingFundsExcelModel();
-            var excel = Substitute.ForPartsOf<CustomerPendingFundsExcel>(Arg.Any<string>(), Arg.Do<CustomerPendingFundsExcelModel>(x => actualExcelModel = x));
+            var excel = Substitute.ForPartsOf<CustomerPendingFundsExcel>();
             excel.When(x => x.Export()).DoNotCallBase();
 
-            _controller.CreateExcel(Arg.Any<string>(), Arg.Any<CustomerPendingFundsExcelModel>()).Returns(excel);
+            _controller.CreateExcel(Arg.Any<string>(), Arg.Any<CustomerPendingFundsExcelModel>()).ReturnsForAnyArgs(excel);
 
             // Action
             _controller.Index(metaModel);
@@ -96,8 +94,6 @@
             {
                 Assert.That(metaModel.PageIndex, Is.EqualTo(1));
                 Assert.That(metaModel.PageSize, Is.EqualTo(PageSizeExcel));
-                Assert.That(actualExcelModel.DataList, Is.EqualTo(expectedDataList.AsEnumerable()));
-                Assert.That(actualExcelModel.SystemIdVisible, Is.EqualTo(!isFakeLicensee));
             });
         }
 

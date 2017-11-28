@@ -144,12 +144,7 @@
 
             var expectedFileName = "WeeklyLiveMatches.xls";
 
-            var excel = Substitute.ForPartsOf<WeeklyLiveMatchExcel>(
-                Arg.Any<string>(),
-                Arg.Any<WeeklyLiveMatchMetaModel>(),
-                Arg.Any<IEnumerable<WeeklyLiveMatch>>(),
-                Arg.Any<int[]>(),
-                Arg.Any<IEnumerable<string>>());
+            var excel = Substitute.ForPartsOf<WeeklyLiveMatchExcel>();
             excel.When(x => x.Export()).DoNotCallBase();
 
             _controller.CreateExcel(

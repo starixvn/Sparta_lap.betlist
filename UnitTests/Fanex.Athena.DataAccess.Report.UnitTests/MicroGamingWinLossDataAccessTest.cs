@@ -15,14 +15,14 @@
     {
         private MicroGamingWinLossDataAccess _dataAccess;
 
-        private MicroGamingWinLossMetaModel _metaModel;
+        private ThirdPartyWinLossMetaModel _metaModel;
 
         [OneTimeSetUp]
         public void Setup()
         {
             _dataAccess = Substitute.ForPartsOf<MicroGamingWinLossDataAccess>();
 
-            _metaModel = new MicroGamingWinLossMetaModel
+            _metaModel = new ThirdPartyWinLossMetaModel
             {
                 LicenseeId = 1,
                 BaseCurrency = "USD",

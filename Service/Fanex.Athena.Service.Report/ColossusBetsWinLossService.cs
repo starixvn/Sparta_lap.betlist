@@ -13,6 +13,7 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report.Interfaces;
+    using Model.Core.ResultModel;
 
     public class ColossusBetsWinLossService : IColossusBetsWinLossService
     {
@@ -23,27 +24,21 @@ namespace Fanex.Athena.Service.Report
             this._colossusBetsWinLossDataAccess = new ColossusBetsWinLossDataAccess();
         }
 
-        public SortableList<ColossusBetWinLoss> GetWinlossDetail(
-            ThirdPartyWinLossMetaModel metaModel,
-            out IDictionary<string, ColossusBetWinLoss> summaryTotal)
+        public SortableReportResultModel<ColossusBetWinLoss> GetWinlossDetail(ThirdPartyWinLossMetaModel metaModel)
         {
-            summaryTotal = new Dictionary<string, ColossusBetWinLoss>();
-            return metaModel.IsValid
-                       ? this._colossusBetsWinLossDataAccess.GetWinlossDetail(metaModel, out summaryTotal)
-                       : new SortableList<ColossusBetWinLoss>();
+            return _colossusBetsWinLossDataAccess.GetWinlossDetail(metaModel);
         }
 
-        public SortableList<ColossusBetWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, out IDictionary<string, ColossusBetWinLoss> summaryTotal)
+        public SortableReportResultModel<ColossusBetWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel)
         {
-            summaryTotal = new Dictionary<string, ColossusBetWinLoss>();
-            var result = this._colossusBetsWinLossDataAccess.GetSummaryWinloss(metaModel, out summaryTotal);
+            var result = this._colossusBetsWinLossDataAccess.GetSummaryWinloss(metaModel);
             var date = new System.DateTime();
-            foreach (var item in result)
+            foreach (var item in result.DataList)
             {
                 if (date != item.Date)
                 {
                     date = item.Date;
-                    item.RowSpan = result.Count(x => x.Date == item.Date);
+                    item.RowSpan = result.DataList.Count(x => x.Date == item.Date);
                 }
                 else
                 {

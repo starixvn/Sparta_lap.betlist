@@ -38,7 +38,6 @@
     describe("initMonthPicker()", function () {
         it("monPickr function of jquery should be called", function () {
             affix("input#DateControl");
-
             spyOn($.fn, "monPickr");
 
             GroupCommLog.initMonthPicker();
@@ -125,10 +124,13 @@
     });
 
     describe("loadGrid(isShowAll)", function () {
+        var gridOption;
         beforeEach(function () {
             affix("#GroupCommLogGrid");
 
-            spyOn($.fn, "jqGrid");
+            spyOn($.fn, "jqGrid").and.callFake(function (param) {
+                gridOption = param;
+            });
 
             GroupCommLog.loadGrid(true);
         });
@@ -139,6 +141,14 @@
 
         it("jqGrid function of jquery should be called two times", function () {
             expect($.fn.jqGrid.calls.count()).toBe(2);
+        });
+
+        it("gridOption.gridComplete() should call jqGridAdditional.gridComplete()", function () {
+            spyOn(CustomerLog, "checkShowAll");
+            spyOn(jqGridAdditional, "setNoInfo");
+            spyOn(jqGridAdditional, "gridComplete");
+            gridOption.gridComplete();
+            expect(jqGridAdditional.gridComplete).toHaveBeenCalled();
         });
     });
 

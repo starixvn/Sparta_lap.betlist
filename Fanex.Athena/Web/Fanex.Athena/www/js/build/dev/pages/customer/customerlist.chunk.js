@@ -516,54 +516,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
         return o;
     };
 
-    $.fn.getStyleObject = function () {
-        /// <summary>
-        /// don't work on ie8
-        /// </summary>
-        /// <returns type=""></returns>
-        var dom = this.get(0);
-        if(!dom)
-        {
-            return;
-        }
-
-        var style;
-        var returns = {};
-
-        if (window.getComputedStyle) {
-            var camelize = function (a, b) {
-                return b.toUpperCase();
-            };
-            style = window.getComputedStyle(dom, null);
-            for (var i = 0, l = style.length; i < l; i++) {
-                var prop = style[i];
-                var camel = prop.replace(/\-([a-z])/, camelize);
-                var val = style.getPropertyValue(prop);
-                returns[camel] = val;
-            }
-            return returns;
-        }
-        try {
-            if (dom.currentStyle) {
-                style = dom.currentStyle;
-                for (var p1 in style) {
-                    returns[p1] = style[p1];
-                }
-                return returns;
-            }
-            if (style === dom.style) {
-                for (var p2 in style) {
-                    if (typeof style[p2] !== 'function') {
-                        returns[p2] = style[p2];
-                    }
-                }
-                return returns;
-            }
-        } catch (err) {
-        }
-        return returns;
-    };
-
     jQuery.fn.tableRowSpan = function (colIndexs, effectToIndex) {
         /// <summary>
         /// Created by Alex@20130228
@@ -5527,7 +5479,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     __webpack_require__(122), __webpack_require__(123), __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerListState) {
     var _POPUP_LIST = ["#ViewOptionList", "#update-cust-status-popup", "#LevelListContainer", "#OddsGroupListContainer"];
     var _isAllowedCustomerCommission, _isAllowedUserEditComm;
-    var _productAccess;
+    var _productList;
     var _ajaxRequest = null;
 
     var _state;
@@ -5536,7 +5488,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         initialize: function () {
             _isAllowedCustomerCommission = $("#IsAllowedCustomerCommission").val() === "True";
             _isAllowedUserEditComm = $("#IsAllowedUserEditComm").val() === "True";
-            _productAccess = JSON.parse($("#ProductAccess").val());
+            _productList = $("#ProductList").val().split(",");
             _state = CustomerListState.getState();
         },
 
@@ -5693,7 +5645,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         },
 
         processGridOption: function (showingColumns) {
-            var gridOption = CustomerListOption.getGridOption(_productAccess, _isAllowedCustomerCommission);
+            var gridOption = CustomerListOption.getGridOption(_productList, _isAllowedCustomerCommission);
             var indexColumn = gridOption.colModel[0];
 
             _me.updateIndexColumnFormatter(indexColumn, showingColumns);
@@ -5988,7 +5940,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 Popup.openPopupWithIframe(url, popupOption);
             },
 
-            updateGridGroupAndComm: function (groupid, groupName, groupColor, sbCom, ngCom, rbCom, lcCom, csCom) {
+            updateGridGroupAndComm: function (groupid, groupName, groupColor, sbCom, ngCom, rbCom, lcCom, csCom, abCom) {
                 var count = 0;
                 var length = Object.keys(_state.selectedCustomers).length;
 
@@ -6005,6 +5957,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                         item.RBComm = rbCom;
                         item.LCComm = lcCom;
                         item.CSComm = csCom;
+                        item.ABComm = abCom;
                         count++;
                     }
                 });
@@ -6455,26 +6408,32 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
         };
 
-        var products = ["SB", "RB", "NG", "LC", "CS"];
+        var PRODUCTS = [
+            { Code: "SB", Display: "SB" },
+            { Code: "RB", Display: "RB" },
+            { Code: "NG", Display: "NG" },
+            { Code: "LC", Display: "LC" },
+            { Code: "CS", Display: "CS" },
+            { Code: "AB", Display: "ProductAB" }];
         var numOfProductColumns = 0;
         var firstProductCode;
 
-        var getColName = function (productAccess, isAllowedCustomerCommission) {
+        var getColName = function (productList, isAllowedCustomerCommission) {
             numOfProductColumns = 1;
             var temp = Site.clone(colNameList);
             if (isAllowedCustomerCommission) {
                 temp.insertAfter("Group", 0);
 
                 firstProductCode = null;
-                for (var i = 0; i < products.length; i++) {
-                    var productCode = products[i];
-                    if (productAccess["IsAllow" + productCode]) {
+                for (var i = 0; i < PRODUCTS.length; i++) {
+                    var product = PRODUCTS[i];
+                    if (productList.indexOf(product.Code) >= 0) {
                         if (!firstProductCode) {
-                            firstProductCode = productCode.toUpperCase();
+                            firstProductCode = product.Code.toUpperCase();
                         }
 
                         numOfProductColumns++;
-                        temp.push(Site.getSingleResource(productCode.toUpperCase()));
+                        temp.push(Site.getSingleResource(product.Display));
                     }
                 }
             }
@@ -6482,7 +6441,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return Site.getResources(temp);
         };
 
-        var getColModel = function (productAccess, isAllowedCustomerCommission) {          
+        var getColModel = function (productList, isAllowedCustomerCommission) {
             var temp = Site.clone(colModelList);
 
             if (isAllowedCustomerCommission) {
@@ -6495,10 +6454,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 var col = Site.clone(groupColumn);
                 temp.insertAfter(col, 0);
 
-                $.each(products, function (index, value) {
-                    if (productAccess["IsAllow" + value]) {
+                $.each(PRODUCTS, function (index, value) {
+                    if (productList.indexOf(value.Code) >= 0) {
                         col = Site.clone(commissionColumn);
-                        col.name = value + "Comm";
+                        col.name = value.Code + "Comm";
                         col.index = col.name;
                         col.cellattr = getCellAttrFunction(col.name);
                         temp.push(col);
@@ -6521,9 +6480,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             });
         };
 
-        me.getGridOption = function (productAccess, isAllowedCustomerCommission) {
-            me.gridOption.colNames = getColName(productAccess, isAllowedCustomerCommission);
-            me.gridOption.colModel = getColModel(productAccess, isAllowedCustomerCommission);
+        me.getGridOption = function (productList, isAllowedCustomerCommission) {
+            me.gridOption.colNames = getColName(productList, isAllowedCustomerCommission);
+            me.gridOption.colModel = getColModel(productList, isAllowedCustomerCommission);
             return me.gridOption;
         };
 
@@ -6934,6 +6893,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 $('#CustCSComm1').on('change', function () {
                     _me.commissionOnChange($(this).val(), 'CustCSComm');
                 });
+
+                $('#CustABComm1').on('change', function () {
+                    _me.commissionOnChange($(this).val(), 'CustABComm');
+                });
             },
 
             commissionOnChange: function (value, idName) {
@@ -7061,7 +7024,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
                             CustomerListGrid.updateGridGroupAndComm(groupid, groupNameText, result.ExtendedData.GroupColor,
                                                  result.ExtendedData.SBComm, result.ExtendedData.NGComm,
-                                                result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
+                                                result.ExtendedData.RCComm, result.ExtendedData.LCComm,
+                                                result.ExtendedData.RNGComm, result.ExtendedData.ABComm);
                         }
                         else {
                             _me.showMsg(result.ErrorMessage, result.Success);
@@ -7141,6 +7105,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 var ngcom = _me.initCommissionParam('#CustNGComm');
                 var lccom = _me.initCommissionParam('#CustLCComm');
                 var cscom = _me.initCommissionParam('#CustCSComm');
+                var abcom = _me.initCommissionParam('#CustABComm');
                 var param =
                 {
                     GroupId: groupCommId,
@@ -7150,7 +7115,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     RCComm: rbcom,
                     NGComm: ngcom,
                     LCComm: lccom,
-                    CSComm: cscom
+                    CSComm: cscom,
+                    ABComm: abcom
                 };
 
                 $.ajax({
@@ -7171,7 +7137,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
                             CustomerListGrid.updateGridGroupAndComm(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor,
                                                  result.ExtendedData.SBComm, result.ExtendedData.NGComm,
-                                                result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
+                                                result.ExtendedData.RCComm, result.ExtendedData.LCComm,
+                                                result.ExtendedData.RNGComm, result.ExtendedData.ABComm);
                         }
                         else {
                             _me.showMsg(result.ErrorMessage, result.Success);
@@ -7264,7 +7231,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                             if (param.isRemovePlayercomm) {
                                 CustomerListGrid.updateGridGroupAndComm(0, result.ExtendedData.GroupName, "",
                                                  result.ExtendedData.SBComm, result.ExtendedData.NGComm,
-                                                result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
+                                                result.ExtendedData.RCComm, result.ExtendedData.LCComm,
+                                                result.ExtendedData.RNGComm, result.ExtendedData.ABComm);
                             }
                             else {
                                 CustomerListGrid.updateGridGroup(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor);
@@ -7316,6 +7284,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 $('#NewNgComm').text($("#NGComm" + groupId).val());
                 $('#NewLcComm').text($("#LCComm" + groupId).val());
                 $('#NewCsComm').text($("#CSComm" + groupId).val());
+                $('#NewAbComm').text($("#ABComm" + groupId).val());
             }
         };
 

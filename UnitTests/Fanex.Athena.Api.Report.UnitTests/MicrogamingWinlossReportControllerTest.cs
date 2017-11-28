@@ -74,12 +74,12 @@
             excel.When(x => x.Export()).DoNotCallBase();
 
             _controller.CreateExcel(
-                  Arg.Any<MicroGamingWinLossMetaModel>(),
+                  Arg.Any<ThirdPartyWinLossMetaModel>(),
                   string.Empty,
                   Arg.Any<ConvertingOption>(),
                   Arg.Any<MicroGamingWinLossViewModel>()).ReturnsForAnyArgs(excel);
             _controller.When(x => x.CreateExcel(
-                   Arg.Any<MicroGamingWinLossMetaModel>(),
+                   Arg.Any<ThirdPartyWinLossMetaModel>(),
                   Arg.Any<string>(),
                   Arg.Any<ConvertingOption>(),
                   Arg.Any<MicroGamingWinLossViewModel>())).Do(p => actualExcelModel = (MicroGamingWinLossViewModel)p[3]);
@@ -94,12 +94,10 @@
             });
         }
 
-        private MicroGamingWinLossMetaModel CreateValidMetaModel(string sortBy = null, string sortOrder = "asc")
+        private ThirdPartyWinLossMetaModel CreateValidMetaModel()
         {
-            var model = new MicroGamingWinLossMetaModel
+            var model = new ThirdPartyWinLossMetaModel
             {
-                SortBy = sortBy,
-                SortOrder = sortOrder,
                 FromDate = new DateTime(2016, 1, 1),
                 ToDate = new DateTime(2017, 1, 1),
                 ProductOptions = new List<ProductOption>
@@ -126,7 +124,7 @@
             return model;
         }
 
-        private SortableReportResultModel<MicroGamingWinLoss> SetUpForGettingData(MicroGamingWinLossMetaModel metaModel)
+        private SortableReportResultModel<MicroGamingWinLoss> SetUpForGettingData(ThirdPartyWinLossMetaModel metaModel)
         {
             var dataList = new SortableList<MicroGamingWinLoss>();
 

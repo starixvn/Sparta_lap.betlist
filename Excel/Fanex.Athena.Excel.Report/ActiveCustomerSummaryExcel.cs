@@ -54,7 +54,7 @@ namespace Fanex.Athena.Excel.Report
                 ShowingOption showingOption,
                 ActiveCustomerMetaModel metaModel,
                 ActiveCustomerViewModel viewModel)
-            : base(templatePath, showingOption)
+            : base(templatePath, viewModel.MainResult.Count(), showingOption)
         {
             _convertingOption = convertingOption;
             _metaModel = metaModel;
@@ -63,29 +63,13 @@ namespace Fanex.Athena.Excel.Report
             _allProductOptions = GetAllProductOptions(metaModel.ProductOptions);
         }
 
-        protected override void AssignData()
+        protected override void ProcessUI(ISheet sheet)
         {
-            var numOfDataRow = _activeCustomerList.Count();
-
-            var sheet = Workbook.CloneSheet("Template", "Data");
-
-            AssignHeader(sheet);
-            AssignTitle(sheet);
-
-            if (numOfDataRow == 0)
-            {
-                AssignNoInfoRow(sheet);
-            }
-            else
-            {
-                AssignSheetData(sheet);
-            }
-
             sheet.MergeCells(RowTableHeader, ColumnFirstProduct, RowTableHeader, ColumnLastProduct);
             sheet.HideColumn(_hiddenColumnIndexes.ToArray());
         }
 
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnDate].SetCellValue(ViewResources.Month);
@@ -103,12 +87,12 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
 
-        protected void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             int index;
             var rowCount = _activeCustomerList.Count();
@@ -141,13 +125,14 @@ namespace Fanex.Athena.Excel.Report
             sheet.MergeCells(totalRowIndex, ColumnDate, totalRowIndex, ColumnTotalTransaction);
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
-            var fromdate = _metaModel.FromDate.ToString(FormatDate);
-            var todate = _metaModel.ToDate.ToString(FormatDate);
-            var title = ReportExcelHelper.GetExactTitleCurrencyName(_convertingOption, _metaModel.CurrencyId);
-
-            var reportTitle = string.Format(ViewResources.ActiveCustomerSummary + ", {0} --> {1} - {2}", fromdate, todate, title);
+            var reportTitle = ReportExcelHelper.GenerateReportTitle(
+                ViewResources.ActiveCustomerSummary,
+                _convertingOption,
+                _metaModel.FromDate,
+                _metaModel.ToDate,
+                _metaModel.CurrencyId);
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
@@ -157,7 +142,7 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        protected IEnumerable<ProductOption> GetAllProductOptions(IEnumerable<ProductOption> products)
+        private IEnumerable<ProductOption> GetAllProductOptions(IEnumerable<ProductOption> products)
         {
             var result = new List<ProductOption>();
 

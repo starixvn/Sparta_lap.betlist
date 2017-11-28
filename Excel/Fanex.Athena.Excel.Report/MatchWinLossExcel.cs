@@ -70,7 +70,7 @@ namespace Fanex.Athena.Excel.Report
                                 DataTable exportData,
                                 DataTable totalData,
                                 MatchWinLossMetaModel model)
-            : base(templatePath, showingOption)
+            : base(templatePath, exportData.Rows.Count, showingOption)
         {
             _convertingOption = convertingOption;
             _model = model;
@@ -79,28 +79,7 @@ namespace Fanex.Athena.Excel.Report
             AddExtraColumns();
         }
 
-        protected override void AssignData()
-        {
-            var sheet = Workbook.CloneSheet("Template", "Data");
-
-            AssignHeader(sheet);
-
-            AssignTitle(sheet);
-
-            if (_exportData == null || _exportData.Rows.Count == 0)
-            {
-                AssignNoInfoRow(sheet);
-            }
-            else
-            {
-                AssignSheetData(sheet);
-            }
-
-            // Hide unnecessary column
-            ProcessUI(sheet);
-        }
-
-        protected void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
@@ -131,7 +110,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
         }
 
-        protected void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowMatchTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
@@ -144,7 +123,7 @@ namespace Fanex.Athena.Excel.Report
                "StyleCop.CSharp.StylecopPlus.Rules",
                "SP2101:MethodMustNotContainMoreLinesThan",
                Justification = "Reviewed. Suppression is OK here.")]
-        protected void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             var currentRowIndex = 3;
             var leagueName = string.Empty;
@@ -208,7 +187,7 @@ namespace Fanex.Athena.Excel.Report
             AssignGrandTotalSummary(sheet, currentRowIndex);
         }
 
-        protected void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             var reportTitle = string.Format(
                 ViewResources.MatchWinLossTitle,
@@ -228,7 +207,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {

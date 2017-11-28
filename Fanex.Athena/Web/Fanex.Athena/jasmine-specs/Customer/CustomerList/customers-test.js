@@ -1,19 +1,9 @@
 ﻿describe("CustomerList", function () {
     describe("initialize()", function () {
         beforeEach(function () {
-            var productAccessData = {
-                ProductList: [
-                                {
-                                    ProductID: 0,
-                                    ProductName: 'Sportsbook',
-                                    ProductCode: 'SB',
-                                    AllowCommission: true,
-                                    AllowWinloss: true
-                                }]
-            };
-            var productAccessValue = JSON.stringify(productAccessData);
-            affix("input#ProductAccess");
-            $("#ProductAccess").val(productAccessValue);
+            var productAccessValue = "1,2,3";
+            affix("input#ProductList");
+            $("#ProductList").val(productAccessValue);
             spyOn(CustomerList, "initEvent");
             spyOn(CustomerList, "initPopup");
             spyOn(CustomerList, "initAutoComplete");

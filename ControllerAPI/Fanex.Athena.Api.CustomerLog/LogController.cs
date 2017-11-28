@@ -20,7 +20,6 @@ namespace Fanex.Athena.Api.CustomerLog
     using Extension.Utility;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Model.Customer.ViewModel.CustomerLog;
-    using Fanex.Athena.Service.Customer;
     using Model.Core.DataDomain;
     using RazorEngine;
     using RazorEngine.Templating;
@@ -28,7 +27,6 @@ namespace Fanex.Athena.Api.CustomerLog
     using Service.Core.Helpers;
     using Service.Core.Users;
     using Service.Core.Users.Interfaces;
-    using Service.Customer.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.CustomerInfoCustomerLog)]
     public partial class LogController : BaseApiController
@@ -42,24 +40,6 @@ namespace Fanex.Athena.Api.CustomerLog
         private readonly ISessionService _sessionService;
 
         private readonly IAppSettings _appSettings;
-
-        private readonly IDictionary<string, string> _resourcesMap = new Dictionary<string, string>
-        {
-            { "Closed", ViewResources.Closed },
-            { "Suspended", ViewResources.Suspended },
-            { "SpecialLevel", ViewResources.SpecialLevel },
-            { "GroupId", ViewResources.GroupId },
-            { "GroupName", ViewResources.GroupName },
-            { "GroupColor", ViewResources.GroupColor },
-            { "SBComm", ViewResources.SBComm },
-            { "RBComm", ViewResources.RBComm },
-            { "NGComm", ViewResources.NGComm },
-            { "LCComm", ViewResources.LCComm },
-            { "CSComm", ViewResources.CS + " " + ViewResources.Comm },
-            { "Yes", ViewResources.Yes },
-            { "No", ViewResources.No },
-            { "OldColor", ViewResources.OldColor }
-        };
 
         private readonly IEnumerable<int> _actionIdListForBA = new List<int> { 2401, 2403, 2801 };
 
@@ -148,7 +128,8 @@ namespace Fanex.Athena.Api.CustomerLog
                 "RacingComm",
                 "NGComm",
                 "LCComm",
-                "RNGComm"
+                "RNGComm",
+                "AllbetComm"
             };
             var doc = new XmlDocument();
             var docOld = new XmlDocument();
@@ -227,6 +208,25 @@ namespace Fanex.Athena.Api.CustomerLog
 
         private IList<CustomerLog> GetDetails(IList<CustomerLog> dataList)
         {
+            var resourcesMap = new Dictionary<string, string>
+            {
+                { "Closed", ViewResources.Closed },
+                { "Suspended", ViewResources.Suspended },
+                { "SpecialLevel", ViewResources.SpecialLevel },
+                { "GroupId", ViewResources.GroupId },
+                { "GroupName", ViewResources.GroupName },
+                { "GroupColor", ViewResources.GroupColor },
+                { "SBComm", ViewResources.SBComm },
+                { "RBComm", ViewResources.RBComm },
+                { "NGComm", ViewResources.NGComm },
+                { "LCComm", ViewResources.LCComm },
+                { "CSComm", ViewResources.CSComm },
+                { "ABComm", ViewResources.ABComm },
+                { "Yes", ViewResources.Yes },
+                { "No", ViewResources.No },
+                { "OldColor", ViewResources.OldColor }
+            };
+
             foreach (var item in dataList)
             {
                 // No need to read xml data for BA
@@ -238,7 +238,7 @@ namespace Fanex.Athena.Api.CustomerLog
 
                 var dictonary = GetXmlAttr(item.TrackingValue, item.TrackingValueOld);
 
-                item.Details = ParseDictonaryToRazorView(item.ActionId, new ActionViewModel { Data = dictonary, Resource = _resourcesMap });
+                item.Details = ParseDictonaryToRazorView(item.ActionId, new ActionViewModel { Data = dictonary, Resource = resourcesMap });
             }
 
             return dataList;

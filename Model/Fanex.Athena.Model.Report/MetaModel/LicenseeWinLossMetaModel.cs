@@ -6,10 +6,9 @@
 
 namespace Fanex.Athena.Model.Report.MetaModel
 {
-    using System;
     using Extension.Utility;
 
-    public class LicenseeWinLossMetaModel : BaseReportMetaModel
+    public class LicenseeWinLossMetaModel : BaseDrilldownReportMetaModel
     {
         public LicenseeWinLossMetaModel()
             : this(new AppSettings())
@@ -27,17 +26,7 @@ namespace Fanex.Athena.Model.Report.MetaModel
 
         public bool IsExcludedTestData { get; set; }
 
-        public int DrillDownCurrencyId { get; set; }
-
         public string DrillDownCurrencyName { get; set; }
-
-        public DateTime DrillDownFromDate { get; set; }
-
-        public DateTime DrillDownToDate { get; set; }
-
-        public int DrillDownLevel { get; set; }
-
-        public int DrillDownCustomerId { get; set; }
 
         public string SortBy { get; set; }
 
