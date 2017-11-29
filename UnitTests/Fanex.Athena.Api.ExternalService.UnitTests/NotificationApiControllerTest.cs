@@ -16,6 +16,10 @@
 
     public class NotificationApiControllerTest
     {
+        private const string UserName = "admin";
+
+        private const string SiteName = "12bet";
+
         private IMoveBetService _moveBetService;
 
         private ILanguageService _languageService;
@@ -25,10 +29,6 @@
         private NotificationApiController _apiController;
 
         private JavaScriptSerializer _serializer = new JavaScriptSerializer();
-
-        private const string UserName = "admin";
-
-        private const string SiteName = "12bet";
 
         [SetUp]
         public void SetUp()

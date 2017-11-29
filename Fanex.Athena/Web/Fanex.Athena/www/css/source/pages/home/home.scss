@@ -53,11 +53,13 @@
         padding: 5px;
         border: solid 1px $colorBorderTable;
         position: relative;
+        height: calc(100% - 90px);
+        padding: 5px;
+        overflow: auto;
     }
 
-    .wrapContent {
-        max-height: 600px;
-        max-width: 600px;
+    .popup-close {
+        display: none;
     }
 }
 
@@ -75,6 +77,6 @@ footer {
     width: 100%;
 }
 
-#clock{
+#clock {
     margin-left: 5px;
 }

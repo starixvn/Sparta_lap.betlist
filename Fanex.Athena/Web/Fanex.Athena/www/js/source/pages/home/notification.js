@@ -24,9 +24,9 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
             var options = {
                 modal: true,
                 title: Site.getSingleResource("ViewNotification"),
-                height: "auto",
+                height: "80%",
                 id: POPUP_ID,
-                width: "auto",
+                width: "55%",
                 onClose: function () {
                     var postData = {
                         MessageType: message.Type,
@@ -46,9 +46,10 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
                 }];
 
             var popupContent = '<div class="view-notification">'
-                                + '<p class="subject">' + message.Subject + '</p>'
+                                + '<p class="subject">' + Site.getSingleResource("Subject") + ": " + message.Subject + '</p>'
                                 + '<p class="date-time">' + moment(message.DateTime).format("MM/DD/YYYY hh:mm:ss A") + '</p>'
-                                + (Site.asNull(message.Content) === null ? "" : '<div class="content">' + message.Content + '</div>')
+                                + '<div class="content"><iframe src="data:text/html;charset=utf-8,'
+                                + (Site.asNull(message.Content) === null ? '' : encodeURI(message.Content)) + '"></iframe></div>'
                                 + '</div>';
 
             Popup.openPopupWithButton(popupContent, options, buttons);

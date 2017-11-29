@@ -3110,9 +3110,10 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Notifications</value>
+    <comment>84004</comment>
   </data>
   <data name="ViewNotification" xml:space="preserve">
-    <value>View Notifications</value>
+    <value>View Notification</value>
     <comment>84004</comment>
   </data>
   <data name="TicketList" xml:space="preserve">
@@ -3127,12 +3128,12 @@
     <value>Data is available within 6 months</value>
     <comment>84004</comment>
   </data>
-  <data name="Notifications" xml:space="preserve">
-    <value>Notifications</value>
-    <comment>84004</comment>
-  </data>
   <data name="DataIsNotAvailable" xml:space="preserve">
     <value>Data is not available</value>
+    <comment>84004</comment>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Subject</value>
     <comment>84004</comment>
   </data>
 </root>
