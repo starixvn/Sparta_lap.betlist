@@ -15,9 +15,7 @@
 
     public class NotificationReportControllerTest : BaseApiReportControllerHelperTest
     {
-        private static readonly DateTime MinDate = new DateTime(1990, 1, 1);
-
-        private static readonly DateTime MaxDate = new DateTime(3000, 1, 1);
+        private const int MaximumMonth = 6;
 
         private INotificationService _service;
 
@@ -57,8 +55,7 @@
             Assert.Multiple(() =>
             {
                 _service.Received().GetNotificationMessages(Arg.Any<NotificationMetaModel>());
-                Assert.That(metaModel.FromDate, Is.EqualTo(MinDate));
-                Assert.That(metaModel.ToDate, Is.EqualTo(MaxDate));
+                Assert.That(metaModel.ToDate.AddDays(-1).AddMonths(-MaximumMonth), Is.EqualTo(metaModel.FromDate));
                 Assert.That(metaModel.IsOnlyUnread, Is.True);
                 Assert.That(metaModel.PageIndex, Is.EqualTo(1));
                 Assert.That(metaModel.PageSize, Is.EqualTo(10));

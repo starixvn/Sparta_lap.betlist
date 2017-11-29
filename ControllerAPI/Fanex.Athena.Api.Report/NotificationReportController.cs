@@ -20,9 +20,7 @@
     [ApiFunctionAuthorization(PermissionKeys.ResultAmendmentNotificationReport)]
     public class NotificationReportController : ApiReportBaseController
     {
-        private static readonly DateTime MinDate = new DateTime(1990, 1, 1);
-
-        private static readonly DateTime MaxDate = new DateTime(3000, 1, 1);
+        private const int MaximumMonth = 6;
 
         private readonly INotificationService _notificationService;
 
@@ -46,8 +44,8 @@
             var metaModel = new NotificationMetaModel
             {
                 IsOnlyUnread = true,
-                FromDate = MinDate,
-                ToDate = MaxDate,
+                FromDate = DateTime.Today.AddMonths(-MaximumMonth),
+                ToDate = DateTime.Today.AddDays(1),
                 PageIndex = 1,
                 PageSize = 10
             };

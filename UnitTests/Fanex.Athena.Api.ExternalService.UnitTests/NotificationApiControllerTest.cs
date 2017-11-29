@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Api.ExternalService.UnitTests
 {
-    using System;
     using System.Collections.Generic;
     using System.Web.Http.Controllers;
     using System.Web.Script.Serialization;
@@ -26,10 +25,6 @@
         private NotificationApiController _apiController;
 
         private JavaScriptSerializer _serializer = new JavaScriptSerializer();
-
-        private static readonly DateTime MinDate = new DateTime(1990, 1, 1);
-
-        private static readonly DateTime MaxDate = new DateTime(3000, 1, 1);
 
         private const string UserName = "admin";
 
@@ -74,8 +69,6 @@
             {
                 Language = "en",
                 IsOnlyUnread = true,
-                FromDate = MinDate,
-                ToDate = MaxDate,
                 PageSize = 10,
                 PageIndex = 1,
                 UserName = UserName,

@@ -17,9 +17,7 @@
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class NotificationApiController : ApiController
     {
-        private static readonly DateTime MinDate = new DateTime(1990, 1, 1);
-
-        private static readonly DateTime MaxDate = new DateTime(3000, 1, 1);
+        private const int MaximumMonth = 6;
 
         private readonly IMoveBetService _moveBetService;
 
@@ -54,8 +52,8 @@
         public dynamic GetNotificationMessages([FromUri]NotificationMetaModel metaModel)
         {
             metaModel.IsOnlyUnread = true;
-            metaModel.FromDate = MinDate;
-            metaModel.ToDate = MaxDate;
+            metaModel.FromDate = DateTime.Today.AddMonths(-MaximumMonth);
+            metaModel.ToDate = DateTime.Today.AddDays(1);
             metaModel.PageSize = 10;
             metaModel.PageIndex = 1;
             metaModel.UserName = UserName;
