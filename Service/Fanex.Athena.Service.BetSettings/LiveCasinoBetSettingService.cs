@@ -14,6 +14,7 @@ namespace Fanex.Athena.Service.BetSettings
     using DataAccess.BetSettings.Interfaces;
     using Interfaces;
     using Model.BetSettings.DTO;
+    using Model.BetSettings.MetaModel;
     using Model.BetSettings.ViewModel;
     using Model.Core.DTO.Common;
     using Resources;
@@ -35,16 +36,16 @@ namespace Fanex.Athena.Service.BetSettings
             _betSettingDataAccess = betSettingDataAccess;
         }
 
-        public IResultInfo UpdateStatus(int licenseeId, int userId, int custId, int status, string language, string ip, bool isSyncLiveCasino)
+        public IResultInfo UpdateStatus(BetSettingCasinoStatusMetaModel metaModel)
         {
-            if (!HasPermissionOnData(licenseeId, custId))
+            if (!HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId))
             {
                 return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
-            if (isSyncLiveCasino)
+            if (metaModel.IsSyncCasino)
             {
-                return _betSettingDataAccess.UpdateStatus(userId, custId, status, language, ip);
+                return _betSettingDataAccess.UpdateStatus(metaModel);
             }
 
             return new ResultInfo { Code = 1, Message = ViewResources.LCCasinoUpdateSettingUnAvailableMsg };

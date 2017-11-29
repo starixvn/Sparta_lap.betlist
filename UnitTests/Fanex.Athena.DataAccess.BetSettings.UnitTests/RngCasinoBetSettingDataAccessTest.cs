@@ -2,6 +2,7 @@
 {
     using Data;
     using Interfaces;
+    using Model.BetSettings.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
 
@@ -31,18 +32,21 @@
         public void UpdateStatus_WhenCall_CallCoreCasinoBetSettingDataAccess()
         {
             // Arrange
-            const int UserId = 1;
-            const int CustId = 2;
-            const int Status = 3;
-            const string Language = "Lao";
-            const string Ip = "123";
+            var metaModel = new BetSettingCasinoStatusMetaModel
+            {
+                UserId = 1,
+                CustId = 2,
+                Status = 3,
+                Language = "Lao",
+                Ip = "123"
+            };
             const int RngCasinoSportId = 251;
 
             // Action
-            _dataAccess.UpdateStatus(UserId, CustId, Status, Language, Ip);
+            _dataAccess.UpdateStatus(metaModel);
 
             // Assert
-            _coreCasinoBetSettingDataAccess.Received().UpdateCasinoStatus(UserId, CustId, RngCasinoSportId, Status, Language, Ip);
+            _coreCasinoBetSettingDataAccess.Received().UpdateCasinoStatus(metaModel, RngCasinoSportId);
         }
     }
 }

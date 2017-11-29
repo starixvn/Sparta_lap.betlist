@@ -16,6 +16,7 @@ namespace Fanex.Athena.Service.BetSettings
     using Fanex.Athena.Service.Casino;
     using Interfaces;
     using Model.BetSettings.DTO.RngCasino;
+    using Model.BetSettings.MetaModel;
     using Model.BetSettings.ViewModel;
     using Model.Casino.MetaModel;
     using Model.Core.DTO.Common;
@@ -64,21 +65,21 @@ namespace Fanex.Athena.Service.BetSettings
             };
         }
 
-        public IResultInfo UpdateStatus(int licenseeId, int userId, int custId, int status, string language, string ip, string username, bool isSyncCasino)
+        public IResultInfo UpdateStatus(BetSettingCasinoStatusMetaModel metaModel)
         {
-            if (!HasPermissionOnData(licenseeId, custId))
+            if (!HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId))
             {
                 return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
-            if (isSyncCasino && !_appSettings.IsDisableRngCasino)
+            if (metaModel.IsSyncCasino && !_appSettings.IsDisableRngCasino)
             {
-                if (!_customerApiWrapper.UpdateCustEnableCasino(custId, status == 0, false, ip, userId, username))
+                if (!_customerApiWrapper.UpdateCustEnableCasino(metaModel.CustId, metaModel.Status == 0, false, metaModel.Ip, metaModel.UserId, metaModel.UserName))
                 {
                     return ErrorResult(ViewResources.UpdateUnSuccess);
                 }
 
-                return _betSettingDataAccess.UpdateStatus(userId, custId, status, language, ip);
+                return _betSettingDataAccess.UpdateStatus(metaModel);
             }
 
             return new ResultInfo { Code = 1, Message = ViewResources.RNGCasinoUpdateSettingUnAvailableMsg };

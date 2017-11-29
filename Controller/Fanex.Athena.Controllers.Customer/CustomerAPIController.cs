@@ -507,9 +507,11 @@ namespace Fanex.Athena.Controllers.Customer
         private bool IsSameOldComm(UpdatedCustomerComMetaModel metaModel)
         {
             var oldGroup = this._groupComService.GetById(metaModel.GroupId);
+#pragma warning disable S1067 // Expressions should not be too complex
             return oldGroup.NGComm == metaModel.NGComm && oldGroup.SBComm == metaModel.SBComm &&
                                oldGroup.RCComm == metaModel.RCComm && oldGroup.LCComm == metaModel.LCComm &&
                                oldGroup.CSComm == metaModel.CSComm && oldGroup.ABComm == metaModel.ABComm;
+#pragma warning restore S1067 // Expressions should not be too complex
         }
 
         /// <summary>

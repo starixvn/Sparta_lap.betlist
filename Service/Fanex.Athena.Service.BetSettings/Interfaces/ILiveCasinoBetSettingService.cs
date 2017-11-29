@@ -10,6 +10,7 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
     using Fanex.Athena.Model.BetSettings.DTO;
     using Fanex.Athena.Model.BetSettings.ViewModel;
     using Fanex.Athena.Model.Core.DTO.Common;
+    using Model.BetSettings.MetaModel;
 
     public interface ILiveCasinoBetSettingService
     {
@@ -24,6 +25,6 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
             string language,
             bool isDisableLiveCasino);
 
-        IResultInfo UpdateStatus(int licenseeId, int userId, int custId, int status, string language, string ip, bool isSyncLiveCasino);
+        IResultInfo UpdateStatus(BetSettingCasinoStatusMetaModel metaModel);
     }
 }

@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
     using System.Collections.Generic;
     using Fanex.Athena.Model.BetSettings.DTO;
     using Fanex.Athena.Model.Core.DTO.Common;
+    using Model.BetSettings.MetaModel;
 
     public interface ILiveCasinoBetSettingDataAccess
     {
@@ -16,6 +17,6 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
 
         IResultInfo UpdateBetSetting(int userId, int custId, LiveCasinoBetSetting param, string ip, string language);
 
-        IResultInfo UpdateStatus(int userId, int custId, int status, string language, string ip);
+        IResultInfo UpdateStatus(CoreCasinoStatusMetaModel metaModel);
     }
 }

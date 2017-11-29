@@ -16,6 +16,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using Fanex.Common.Extensions;
     using Interfaces;
     using Model.BetSettings.DTO;
+    using Model.BetSettings.MetaModel;
 
     public class LiveCasinoBetSettingDataAccess : BaseDataAccess, ILiveCasinoBetSettingDataAccess
     {
@@ -107,9 +108,9 @@ namespace Fanex.Athena.DataAccess.BetSettings
             }
         }
 
-        public IResultInfo UpdateStatus(int userId, int custId, int status, string language, string ip)
+        public IResultInfo UpdateStatus(CoreCasinoStatusMetaModel metaModel)
         {
-            return _coreCasinoBetSettingDataAccess.UpdateCasinoStatus(userId, custId, LiveCasinoSportId, status, language, ip);
+            return _coreCasinoBetSettingDataAccess.UpdateCasinoStatus(metaModel, LiveCasinoSportId);
         }
 
         private static string GetTrackingValue(

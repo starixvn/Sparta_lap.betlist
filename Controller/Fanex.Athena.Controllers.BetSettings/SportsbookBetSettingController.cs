@@ -41,7 +41,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             if (!ProductAccess.IsAllowSB || !IsBetSettingEditable())
             {
-                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return AccessDenied();
             }
 
             var sportsBook = GetBetSettingCommonParam();
@@ -68,7 +68,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
             if (!IsBetSettingEditable())
             {
-                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return AccessDenied();
             }
 
             var sportsBook = GetBetSettingCommonParam();

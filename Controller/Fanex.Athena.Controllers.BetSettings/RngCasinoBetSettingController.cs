@@ -44,7 +44,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             var customer = ProductAccess.IsAllowCS ? GetCustomerInfo(licenseeSession.LicenseeId, custId) : null;
             if (customer == null || !customer.SyncCasino || !IsBetSettingEditable())
             {
-                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return AccessDenied();
             }
 
             try
@@ -84,20 +84,23 @@ namespace Fanex.Athena.Controllers.BetSettings
                 !GetCustomerInfo(licenseeId, custId).SyncCasino ||
                 !IsBetSettingEditable())
             {
-                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return AccessDenied();
             }
 
             var customer = GetCustomerInfo(licenseeId, custId);
             var userSession = SessionService.UserSession;
-            var result = _betSettingService.UpdateStatus(
-                licenseeId,
-                userSession.UserId,
-                custId,
-                status,
-                userSession.Language,
-                Request.UserHostAddress,
-                userSession.UserName,
-                customer.SyncCasino);
+            var metaModel = new BetSettingCasinoStatusMetaModel
+            {
+                LicenseeId = licenseeId,
+                UserId = userSession.UserId,
+                CustId = custId,
+                Status = status,
+                Language = userSession.Language,
+                Ip = Request.UserHostAddress,
+                UserName = userSession.UserName,
+                IsSyncCasino = customer.SyncCasino
+            };
+            var result = _betSettingService.UpdateStatus(metaModel);
 
             if (result.Code == 0)
             {

@@ -40,7 +40,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             if (!ProductAccess.IsAllowKN || !IsBetSettingEditable())
             {
-                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return AccessDenied();
             }
 
             var id = Convert.ToInt32(Request["id"]);

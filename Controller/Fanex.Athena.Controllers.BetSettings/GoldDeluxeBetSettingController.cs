@@ -45,7 +45,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             if (!ProductAccess.IsAllow(ProductTypes.GoldDeluxe) || !IsBetSettingEditable())
             {
-                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return AccessDenied();
             }
 
             var userSession = SessionService.UserSession;
@@ -71,7 +71,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             if (!ProductAccess.IsAllow(ProductTypes.GoldDeluxe) || !IsBetSettingEditable())
             {
-                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return AccessDenied();
             }
 
             var licenseeSession = SessionService.LicenseeSession;
