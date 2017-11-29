@@ -10,6 +10,7 @@ namespace Fanex.Athena.Controllers.Customer
 
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Net;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using DataAccess.Core.Users;
@@ -283,12 +284,19 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
+        [FunctionAuthorization(PermissionKeys.CustomerInfoCommissionGroupList)]
         [SuppressMessage(
          "StyleCop.CSharp.StylecopPlus.Rules",
          "SP2101:MethodMustNotContainMoreLinesThan",
          Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult UpdateCustomerCom(UpdatedCustomerComMetaModel metaModel)
         {
+            var licenseeSession = SessionService.LicenseeSession;
+            if (!licenseeSession.IsAllowedCustomerComm)
+            {
+                return AccessDenied();
+            }
+
             var result = new ResultViewModel
             {
                 Success = false,
@@ -304,7 +312,6 @@ namespace Fanex.Athena.Controllers.Customer
                                 metaModel.LCComm,
                                 metaModel.CSComm,
                                 metaModel.ABComm);
-                var licenseeSession = SessionService.LicenseeSession;
                 var userSession = SessionService.UserSession;
 
                 var productAccess =
@@ -347,8 +354,15 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
+        [FunctionAuthorization(PermissionKeys.CustomerInfoCommissionGroupList)]
         public ActionResult RemoveFromGroupCom(string customerIds, bool isRemovePlayercomm)
         {
+            var licenseeSession = SessionService.LicenseeSession;
+            if (!licenseeSession.IsAllowedCustomerComm)
+            {
+                return AccessDenied();
+            }
+
             var result = new ResultViewModel
             {
                 Success = false,
@@ -360,7 +374,6 @@ namespace Fanex.Athena.Controllers.Customer
                 CustomerIds = customerIds,
                 IsRemovePlayercomm = isRemovePlayercomm
             };
-            var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
 
             var productAccess = _productService.GetProductAccess(
@@ -399,9 +412,15 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
+        [FunctionAuthorization(PermissionKeys.CustomerInfoCommissionGroupList)]
         public ActionResult MoveToGroupCom(string customerIds, int groupComId)
         {
             var licenseeSession = SessionService.LicenseeSession;
+            if (!licenseeSession.IsAllowedCustomerComm)
+            {
+                return AccessDenied();
+            }
+
             var userSession = SessionService.UserSession;
             var productAccess = _productService.GetProductAccess(
                 licenseeSession.LicenseeId,
@@ -429,21 +448,10 @@ namespace Fanex.Athena.Controllers.Customer
 
             if (result.Success)
             {
-                var groupService = new GroupComService();
-                var newGroup = groupService.GetById(metaModel.GroupComId);
+                var newGroup = _groupComService.GetById(metaModel.GroupComId);
                 if (newGroup != null)
                 {
-                    result.ExtendedData = new
-                    {
-                        SBComm = NumberHelper.DecFormat(newGroup.SBComm * 100, 2),
-                        RCComm = NumberHelper.DecFormat(newGroup.RCComm * 100, 2),
-                        NGComm = NumberHelper.DecFormat(newGroup.NGComm * 100, 2),
-                        LCComm = NumberHelper.DecFormat(newGroup.LCComm * 100, 2),
-                        RNGComm = NumberHelper.DecFormat(newGroup.CSComm * 100, 2),
-                        ABComm = NumberHelper.DecFormat(newGroup.ABComm * 100, 2),
-                        newGroup.GroupName,
-                        newGroup.GroupColor,
-                    };
+                    result.ExtendedData = CreateExtendedData(newGroup);
                 }
             }
 
@@ -470,6 +478,31 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         #endregion Customer Comm API
+
+        private static object CreateExtendedData(GroupCommMetaModel newGroup)
+        {
+            return new
+            {
+                SBComm = NumberHelper.DecFormat(newGroup.SBComm * 100, 2),
+                RCComm = NumberHelper.DecFormat(newGroup.RCComm * 100, 2),
+                NGComm = NumberHelper.DecFormat(newGroup.NGComm * 100, 2),
+                LCComm = NumberHelper.DecFormat(newGroup.LCComm * 100, 2),
+                RNGComm = NumberHelper.DecFormat(newGroup.CSComm * 100, 2),
+                ABComm = NumberHelper.DecFormat(newGroup.ABComm * 100, 2),
+                newGroup.GroupName,
+                newGroup.GroupColor,
+            };
+        }
+
+        private ActionResult AccessDenied()
+        {
+            HttpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+            return new JsonResult
+            {
+                Data = new { ErrCode = 403, ErrMsg = "Access Denied." },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
 
         private bool IsSameOldComm(UpdatedCustomerComMetaModel metaModel)
         {
