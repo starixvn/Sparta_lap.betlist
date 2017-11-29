@@ -2,100 +2,51 @@ import NumberFormat from '../numberFormat';
 
 describe('NumberFormat ', () => {
     describe('format', () => {
-        it('value is not a number - return empty string', () => {
-            const expectedResult = "";
+        function assertFormat({ value, digits, expected }) {
+            it(`value=${value}, digits=${digits} - return ${expected}`, () => {
+                const result = NumberFormat.format(value, digits);
 
-            const value = NaN;
-            const result = NumberFormat.format(value);
+                expect(result).toBe(expected);
+            })
+        }
 
-            expect(result).toBe(expectedResult);
-        })
+        const testCases = [
+            { value: NaN, digits: undefined, expected: "" },
+            { value: 2000, digits: undefined, expected: "2,000" },
+            { value: 2000, digits: 1, expected: "2,000.0" },
+            { value: 2000.5555, digits: 3, expected: "2,000.556" },
+            { value: -2000.5555, digits: 3, expected: "-2,000.556" },
+            { value: 200, digits: 3, expected: "200.000" },
+            { value: 1.0155, digits: 3, expected: "1.016" },
+            { value: -1.0155, digits: 3, expected: "-1.016" },
+            { value: 0, digits: 3, expected: "0.000" },
+            { value: undefined, digits: 3, expected: "" },
+            { value: "Abc", digits: 3, expected: "" }
+        ]
 
-        it('do not pass digit param - get default digit and return correct value', () => {
-            const value = 2000;
-            const expectedResult = "2,000";
-
-            const result = NumberFormat.format(value);
-
-            expect(result).toBe(expectedResult);
-        })
-
-        it('pass digit param - return correct formatted value', () => {
-            const value = 2000;
-            const digit = 1;
-            const expectedResult = "2,000.0";
-
-            const result = NumberFormat.format(value, digit);
-
-            expect(result).toBe(expectedResult);
-        })
-
-        it('digit is 3 and value is positive decimal - return rounded value correctly', () => {
-            const value = 2000.5555;
-            const digit = 3;
-            const expectedResult = "2,000.556";
-
-            const result = NumberFormat.format(value, digit);
-
-            expect(result).toBe(expectedResult);
-        })
-
-        it('digit is 3 and value is negative decimal - return rounded value correctly', () => {
-            const value = -2000.5555;
-            const digit = 3;
-            const expectedResult = "-2,000.556";
-
-            const result = NumberFormat.format(value, digit);
-
-            expect(result).toBe(expectedResult);
-        })
-
-        it('digit is 3 with hundred place value - return correct formatted value', () => {
-            const value = 200;
-            const digit = 3;
-            const expectedResult = "200.000";
-
-            const result = NumberFormat.format(value, digit);
-
-            expect(result).toBe(expectedResult);
-        })
+        testCases.forEach(assertFormat);
     })
 
     describe('formatDecimal', () => {
-        it('value is positive - return correct formatted value', () => {
-            const value = 2000.23;
-            const expectedResult = "2,000.23";
+        function assertFormat({ value, expected }) {
+            it(`value=${value} - return ${expected}`, () => {
+                const result = NumberFormat.formatDecimal(value);
 
-            const result = NumberFormat.formatDecimal(value);
+                expect(result).toBe(expected);
+            })
+        }
 
-            expect(result).toBe(expectedResult);
-        })
+        const testCases = [
+            { value: 2000.23, expected: "2,000.23" },
+            { value: -2000, expected: "-2,000.00" },
+            { value: 2000.345, expected: "2,000.35" },
+            { value: 0, expected: "0.00" },
+            { value: 1.0155, expected: "1.02" },
+            { value: -1.0155, expected: "-1.02" },
+            { value: 2, expected: "2.00" },
+            { value: -2, expected: "-2.00" }
+        ]
 
-        it('value is negative - return correct formatted value', () => {
-            const value = -2000;
-            const expectedResult = "-2,000.00";
-
-            const result = NumberFormat.formatDecimal(value);
-
-            expect(result).toBe(expectedResult);
-        })
-
-        it('value is positive - return rounded value correctly', () => {
-            const value = 2000.345;
-            const expectedResult = "2,000.35";
-
-            const result = NumberFormat.formatDecimal(value);
-
-            expect(result).toBe(expectedResult);
-        })
-
-        it('value is zero - return correct formatted value', () => {
-            const value = 0;
-            const expectedResult = "0.00";
-
-            const result = NumberFormat.formatDecimal(value);
-
-            expect(result).toBe(expectedResult);
-        })
+        testCases.forEach(assertFormat);
     })
 })
