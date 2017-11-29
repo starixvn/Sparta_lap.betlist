@@ -56,14 +56,14 @@ exports[`DataGrid  render  has data - render table 1`] = `
               <td
                 style={
                   Object {
-                    "width": "-8.49056603773585px",
+                    "width": "-6.7924528301886795px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-18.11320754716981px",
+                    "width": "-19.81132075471698px",
                   }
                 }
               />
@@ -142,14 +142,14 @@ exports[`DataGrid  render  has data - render table 1`] = `
               <td
                 style={
                   Object {
-                    "width": "-8.49056603773585px",
+                    "width": "-6.7924528301886795px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-18.11320754716981px",
+                    "width": "-19.81132075471698px",
                   }
                 }
               />
