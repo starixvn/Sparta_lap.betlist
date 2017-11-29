@@ -3104,10 +3104,13 @@
   </data>
   <data name="MatchDelayDone" xml:space="preserve">
     <value>Match Delay-Done</value>
+  </data>
   <data name="MatchDelayNew" xml:space="preserve">
-    <value>Match Delay-New</value
+    <value>Match Delay-New</value>
+  </data>
   <data name="Notifications" xml:space="preserve">
     <value>Notifications</value>
+  </data>
   <data name="ViewNotification" xml:space="preserve">
     <value>View Notifications</value>
     <comment>84004</comment>

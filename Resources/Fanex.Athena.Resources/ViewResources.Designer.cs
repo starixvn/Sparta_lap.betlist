@@ -4624,6 +4624,24 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Match Delay-Done.
+        /// </summary>
+        public static string MatchDelayDone {
+            get {
+                return ResourceManager.GetString("MatchDelayDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Match Delay-New.
+        /// </summary>
+        public static string MatchDelayNew {
+            get {
+                return ResourceManager.GetString("MatchDelayNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Match Win Loss.
         /// </summary>
         public static string MatchWinLoss {
