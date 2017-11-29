@@ -6311,11 +6311,13 @@ header nav {
 .view-notification .content {
   padding: 5px;
   border: solid 1px #d1dae1;
-  position: relative; }
+  position: relative;
+  height: calc(100% - 90px);
+  padding: 5px;
+  overflow: auto; }
 
-.view-notification .wrapContent {
-  max-height: 600px;
-  max-width: 600px; }
+.view-notification .popup-close {
+  display: none; }
 
 /*Hack for IE*/
 .logo .logo-image {

@@ -15,7 +15,7 @@ module.exports = __webpack_require__(197);
 /***/ 193:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 11/29/2017 8:54:52 AM
+﻿// Generated at: 11/29/2017 12:02:20 PM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -603,7 +603,6 @@ NotIdenticalPasswordMsg:"Passwords are not identical",
 Notification:"Notification",
 NotificationDateRangeLimitNote:"Data is available within 6 months",
 Notifications:"Notifications",
-Notifications:"Notifications",
 NotSupportYet:"This game type has not been supported yet!",
 Nov:"Nov",
 November:"November",
@@ -804,6 +803,7 @@ StartTime:"Start Time",
 Statement:"Statement",
 Status:"Status",
 Su:"Su",
+Subject:"Subject",
 Submit:"Submit",
 Subsidiary:"Subsidiary",
 SubsidiaryPerformance:"Subsidiary Performance",
@@ -925,7 +925,7 @@ View:"View",
 ViewBy:"View by",
 ViewDataInMonth:"View data in month",
 Viewin:"View in {0}",
-ViewNotification:"View Notifications",
+ViewNotification:"View Notification",
 VIP:"VIP",
 VirtualCycling:"Virtual Cycling",
 VirtualGreyhounds:"Virtual Greyhounds",
