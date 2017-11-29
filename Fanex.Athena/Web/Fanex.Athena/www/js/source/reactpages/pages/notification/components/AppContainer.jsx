@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux'
 import ResultAmendment from './resultAmendment'
 import Loader from '../../../components/Loader'
 import AppLayout from '../../../layouts/AppLayout'
-import { Tabs, Tab } from '../../../components/tab'
 import LangHelper from '../../../lib/langHelper'
 
 export class AppContainer extends Component {
@@ -16,11 +15,7 @@ export class AppContainer extends Component {
         return (
             <AppLayout>
                 <Loader isLoading={this.props.isLoading} />
-                <Tabs>
-                    <Tab isActive={true} label={LangHelper.getSingleResource("Amendment")}>
-                        <ResultAmendment />
-                    </Tab>
-                </Tabs>
+                <ResultAmendment />
             </AppLayout>
         );
     }
