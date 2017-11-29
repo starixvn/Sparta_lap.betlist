@@ -15,6 +15,8 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Web.SessionState;
     using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
+    using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
@@ -27,7 +29,9 @@ namespace Fanex.Athena.Controllers.Customer
     using Model.Core.DataDomain;
     using Model.Core.ViewModel;
     using ONEbook.UM.Filters;
+    using ONEbook.UM.Services;
     using Resources;
+    using Service.Core.Users.Interfaces;
     using Service.Customer.Helpers;
 
     #endregion Using
@@ -46,6 +50,27 @@ namespace Fanex.Athena.Controllers.Customer
         private readonly IProductService _productService;
 
         #region Constructor
+
+#pragma warning disable S107 // Methods should not have too many parameters
+        public CustomerApiController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IFileSystem fileSystem,
+            ICustomerCommService customerCommService,
+            ICustomerListService customerListService,
+            IGroupComService groupComService,
+            ILicenseeDataAccess licenseeDataAccess,
+            IProductService productService)
+#pragma warning restore S107 // Methods should not have too many parameters
+            : base(languageService, sessionService, appSetting, fileSystem)
+        {
+            _customerCommService = customerCommService ?? new CustomerCommService();
+            _licenseeDataAccess = licenseeDataAccess ?? new LicenseeDataAccess();
+            _customerListService = customerListService ?? new CustomerListService();
+            _groupComService = groupComService ?? new GroupComService();
+            _productService = productService ?? new ProductService();
+        }
 
         public CustomerApiController()
         {
