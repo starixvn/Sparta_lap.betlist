@@ -71,7 +71,7 @@ $colorBorderPaging: #d1dae1;
         }
     }
 
-    .page-info {
+    .page-input {
         display: inline;
 
         &:after, &:before {
@@ -95,5 +95,10 @@ $colorBorderPaging: #d1dae1;
         min-width: 65px;
         border: 1px solid #e2d6d6;
         margin-left: 5px;
+    }
+
+    .page-info {
+        float: right;
+        padding: 3px;
     }
 }

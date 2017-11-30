@@ -42,18 +42,19 @@
 .view-notification {
     .subject {
         font-weight: bold;
+        font-size: 1.2em;
     }
 
     .date-time {
-        font-size: .9em;
         text-align: right;
+        font-size: 1.2em;
     }
 
     .content {
         padding: 5px;
         border: solid 1px $colorBorderTable;
         position: relative;
-        height: calc(100% - 90px);
+        height: calc(100% - 100px);
         padding: 5px;
         overflow: auto;
     }

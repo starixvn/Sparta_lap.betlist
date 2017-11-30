@@ -20,7 +20,7 @@ exports[`Page  PageInput onKeyUpHandle page size input is inputted - key code is
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -71,6 +71,11 @@ exports[`Page  PageInput onKeyUpHandle page size input is inputted - key code is
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 3-5 of 15
+  </span>
 </div>
 `;
 
@@ -94,7 +99,7 @@ exports[`Page  PageInput onKeyUpHandle page size input is inputted - key code is
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -145,6 +150,11 @@ exports[`Page  PageInput onKeyUpHandle page size input is inputted - key code is
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 3-5 of 15
+  </span>
 </div>
 `;
 
@@ -168,7 +178,7 @@ exports[`Page  PageInput onKeyUpHandle page size input is is inputted - key code
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -219,6 +229,11 @@ exports[`Page  PageInput onKeyUpHandle page size input is is inputted - key code
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 1-5 of 15
+  </span>
 </div>
 `;
 
@@ -242,7 +257,7 @@ exports[`Page  PageInput onKeyUpHandle page size input is is inputted - key code
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -293,6 +308,11 @@ exports[`Page  PageInput onKeyUpHandle page size input is is inputted - key code
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 1-5 of 15
+  </span>
 </div>
 `;
 
@@ -316,7 +336,7 @@ exports[`Page  PageInput onKeyUpHandle page size input is is inputted - key code
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -367,6 +387,11 @@ exports[`Page  PageInput onKeyUpHandle page size input is is inputted - key code
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 5-5 of 15
+  </span>
 </div>
 `;
 
@@ -390,7 +415,7 @@ exports[`Page  PageInput onKeyUpHandle page size input is is inputted - key code
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -441,6 +466,11 @@ exports[`Page  PageInput onKeyUpHandle page size input is is inputted - key code
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 5-5 of 15
+  </span>
 </div>
 `;
 
@@ -464,7 +494,7 @@ exports[`Page  PageInput page size input is changed - value is not a number - di
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -515,6 +545,11 @@ exports[`Page  PageInput page size input is changed - value is not a number - di
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View a-5 of 15
+  </span>
 </div>
 `;
 
@@ -538,7 +573,7 @@ exports[`Page  goToPage page icon is clicked - call onPaging 1`] = `
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -589,6 +624,11 @@ exports[`Page  goToPage page icon is clicked - call onPaging 1`] = `
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 2-5 of 15
+  </span>
 </div>
 `;
 
@@ -612,7 +652,7 @@ exports[`Page  goToPage page icon is clicked - call onPaging 2`] = `
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -663,6 +703,11 @@ exports[`Page  goToPage page icon is clicked - call onPaging 2`] = `
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 1-5 of 15
+  </span>
 </div>
 `;
 
@@ -686,7 +731,7 @@ exports[`Page  goToPage page icon is clicked - call onPaging 3`] = `
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -737,6 +782,11 @@ exports[`Page  goToPage page icon is clicked - call onPaging 3`] = `
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 3-5 of 15
+  </span>
 </div>
 `;
 
@@ -760,7 +810,7 @@ exports[`Page  goToPage page icon is clicked - call onPaging 4`] = `
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -811,6 +861,11 @@ exports[`Page  goToPage page icon is clicked - call onPaging 4`] = `
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 2-5 of 15
+  </span>
 </div>
 `;
 
@@ -834,7 +889,7 @@ exports[`Page  goToPage page icon is clicked - call onPaging 5`] = `
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -885,6 +940,11 @@ exports[`Page  goToPage page icon is clicked - call onPaging 5`] = `
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 3-5 of 15
+  </span>
 </div>
 `;
 
@@ -908,7 +968,7 @@ exports[`Page  goToPage page index is invalid - do not call onPaging 1`] = `
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -959,6 +1019,11 @@ exports[`Page  goToPage page index is invalid - do not call onPaging 1`] = `
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 1-5 of 15
+  </span>
 </div>
 `;
 
@@ -982,7 +1047,7 @@ exports[`Page  goToPage page index is invalid - do not call onPaging 2`] = `
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -1033,6 +1098,11 @@ exports[`Page  goToPage page index is invalid - do not call onPaging 2`] = `
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View a-5 of 15
+  </span>
 </div>
 `;
 
@@ -1056,7 +1126,7 @@ exports[`Page  goToPage page size selection is changed - call onPaging 1`] = `
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -1107,6 +1177,11 @@ exports[`Page  goToPage page size selection is changed - call onPaging 1`] = `
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 1-5 of 15
+  </span>
 </div>
 `;
 
@@ -1130,7 +1205,7 @@ exports[`Page  goToPage page size selection is changed - call onPaging 2`] = `
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -1181,6 +1256,11 @@ exports[`Page  goToPage page size selection is changed - call onPaging 2`] = `
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 1-10 of 15
+  </span>
 </div>
 `;
 
@@ -1204,7 +1284,7 @@ exports[`Page  render _renderPageIcon - first page icon - disable icon if PageIn
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -1255,6 +1335,11 @@ exports[`Page  render _renderPageIcon - first page icon - disable icon if PageIn
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 1-5 of 10
+  </span>
 </div>
 `;
 
@@ -1278,7 +1363,7 @@ exports[`Page  render _renderPageIcon - first page icon - disable icon if PageIn
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -1329,6 +1414,11 @@ exports[`Page  render _renderPageIcon - first page icon - disable icon if PageIn
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 2-5 of 10
+  </span>
 </div>
 `;
 
@@ -1352,7 +1442,7 @@ exports[`Page  render _renderPageIcon - last page icon - disable icon if PageInd
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -1403,6 +1493,11 @@ exports[`Page  render _renderPageIcon - last page icon - disable icon if PageInd
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 2-5 of 15
+  </span>
 </div>
 `;
 
@@ -1426,7 +1521,7 @@ exports[`Page  render _renderPageIcon - last page icon - disable icon if PageInd
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -1477,6 +1572,11 @@ exports[`Page  render _renderPageIcon - last page icon - disable icon if PageInd
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 3-5 of 15
+  </span>
 </div>
 `;
 
@@ -1500,7 +1600,7 @@ exports[`Page  render _renderPageIcon - next page icon - disable icon if PageInd
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -1551,6 +1651,11 @@ exports[`Page  render _renderPageIcon - next page icon - disable icon if PageInd
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 2-5 of 15
+  </span>
 </div>
 `;
 
@@ -1574,7 +1679,7 @@ exports[`Page  render _renderPageIcon - next page icon - disable icon if PageInd
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -1625,6 +1730,11 @@ exports[`Page  render _renderPageIcon - next page icon - disable icon if PageInd
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 3-5 of 15
+  </span>
 </div>
 `;
 
@@ -1648,7 +1758,7 @@ exports[`Page  render _renderPageIcon - previous page icon - disable icon if Pag
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -1699,6 +1809,11 @@ exports[`Page  render _renderPageIcon - previous page icon - disable icon if Pag
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 1-5 of 10
+  </span>
 </div>
 `;
 
@@ -1722,7 +1837,7 @@ exports[`Page  render _renderPageIcon - previous page icon - disable icon if Pag
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -1773,6 +1888,11 @@ exports[`Page  render _renderPageIcon - previous page icon - disable icon if Pag
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 2-5 of 10
+  </span>
 </div>
 `;
 
@@ -1796,7 +1916,7 @@ exports[`Page  render component is hidden if paging is not available 1`] = `
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -1847,6 +1967,11 @@ exports[`Page  render component is hidden if paging is not available 1`] = `
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 1-5 of 1
+  </span>
 </div>
 `;
 
@@ -1870,7 +1995,7 @@ exports[`Page  render component is rendered correctly 1`] = `
     onClick={[Function]}
   />
   <div
-    className="page-info"
+    className="page-input"
   >
     <span>
       Page 
@@ -1921,5 +2046,10 @@ exports[`Page  render component is rendered correctly 1`] = `
       20
     </option>
   </select>
+  <span
+    className="page-info"
+  >
+    View 1-5 of 10
+  </span>
 </div>
 `;

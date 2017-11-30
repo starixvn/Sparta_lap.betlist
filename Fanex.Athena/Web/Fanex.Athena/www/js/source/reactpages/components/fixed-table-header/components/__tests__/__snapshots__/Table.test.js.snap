@@ -244,7 +244,7 @@ exports[`Table  render isPaging is true - return content with paging that match 
       onClick={[Function]}
     />
     <div
-      className="page-info"
+      className="page-input"
     >
       <span>
         Page 
@@ -295,6 +295,11 @@ exports[`Table  render isPaging is true - return content with paging that match 
         20
       </option>
     </select>
+    <span
+      className="page-info"
+    >
+      View 1-5 of 15
+    </span>
   </div>
 </div>
 `;

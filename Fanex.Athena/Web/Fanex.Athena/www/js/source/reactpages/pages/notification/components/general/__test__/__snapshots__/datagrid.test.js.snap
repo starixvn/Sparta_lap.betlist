@@ -273,7 +273,7 @@ exports[`DataGrid  render  has data - render table 1`] = `
         onClick={[Function]}
       />
       <div
-        className="page-info"
+        className="page-input"
       >
         <span>
           Page 
@@ -334,6 +334,11 @@ exports[`DataGrid  render  has data - render table 1`] = `
           500
         </option>
       </select>
+      <span
+        className="page-info"
+      >
+        View 1-10 of 1
+      </span>
     </div>
   </div>
 </div>

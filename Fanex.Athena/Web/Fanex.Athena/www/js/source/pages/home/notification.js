@@ -63,7 +63,7 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
             if (data !== null && data.DataList.length > 0 ) {
                 data.DataList.forEach(function (item, index) {
                     var time = moment(item.DateTime).format("hh:mm:ss A MM/DD/YYYY");
-                    var message = $($.format(NOTIFICATION_ITEM, index, item.Subject, item.Subject, Site.getSingleResource(item.Type), time));
+                    var message = $($.format(NOTIFICATION_ITEM, index, (item.Subject || ''), (item.Subject || ''), Site.getSingleResource(item.Type), time));
                     message.on("click", function () {
                         openDetailPopup(item, index);
                     });

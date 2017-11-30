@@ -91,12 +91,16 @@ export default class Page extends Component {
 
     _renderPageInput(index) {
         return (
-            <div className="page-info"><span>Page </span><input type="text" className="page-form" value={index} maxLength="4" size="2"
+            <div className="page-input"><span>Page </span><input type="text" className="page-form" value={index} maxLength="4" size="2"
                         onChange={(e) => this._updateState(e.target.value, null, null, null) }
                         onKeyUp={this.onKeyUpHandle} />
             <span>{` of ${this.state.totalPage}`} </span>
             </div>);
     }
+
+    _renderPageInfo(index, pageSize, totalItem) {
+        return (<span className="page-info">{`View ${index}-${pageSize} of ${totalItem}`}</span>);
+    }    
 
     render() {
         const { index, totalPage, pageSize } = this.state;
@@ -110,6 +114,7 @@ export default class Page extends Component {
                 {this._renderPageIcon("page-next", isDisable || index >= totalPage || index < 1, () => this.goToPage(index + 1, pageSize))}
                 {this._renderPageIcon("page-last", index === totalPage, () => this.goToPage(totalPage, pageSize))}
                 {this._renderPageSizeSelection(isDisable, index, pageSize)}
+                {this._renderPageInfo(index, pageSize, this.props.pageOption.TotalItem)}
             </div>);
     }
 }

@@ -430,6 +430,7 @@ header {
                 top: 30px !important;
                 left: -45px !important;
                 width: 35rem !important;
+                max-height: 580px;
 
                 li {
                     border-bottom: 1px solid #314453;
@@ -445,17 +446,24 @@ header {
                     overflow: hidden;
                     text-overflow: ellipsis;
                     white-space: nowrap;
+                    font-size: 12px;
                 }
 
                 li > span {
-                    font-size: 0.9em;
                     padding-top: 0;
+                    font-size: 12px;
                 }
 
                 .type {
                     color: #4caf50;
                     display: block;
                     padding-bottom: 0;
+                }
+
+                .type:before {
+                    content: "\2022";
+                    font-size: 2.5em;
+                    vertical-align: middle;
                 }
 
                 .date-time {
