@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Net;
     using System.Net.Http;
-    using System.Text;
     using Model.Core.DTO.Common;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
@@ -15,7 +14,7 @@
 
     public class NotificationReportControllerTest : BaseApiReportControllerHelperTest
     {
-        private const int MaximumMonth = 6;
+        private const int MaximumMonthDistance = 5;
 
         private INotificationService _service;
 
@@ -55,7 +54,7 @@
             Assert.Multiple(() =>
             {
                 _service.Received().GetNotificationMessages(Arg.Any<NotificationMetaModel>());
-                Assert.That(metaModel.ToDate.AddDays(-1).AddMonths(-MaximumMonth), Is.EqualTo(metaModel.FromDate));
+                Assert.That(new DateTime(metaModel.ToDate.Year, metaModel.ToDate.AddDays(-1).Month, 1).AddMonths(-MaximumMonthDistance), Is.EqualTo(metaModel.FromDate));
                 Assert.That(metaModel.IsOnlyUnread, Is.True);
                 Assert.That(metaModel.PageIndex, Is.EqualTo(1));
                 Assert.That(metaModel.PageSize, Is.EqualTo(10));

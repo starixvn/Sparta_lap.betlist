@@ -20,7 +20,7 @@
     [ApiFunctionAuthorization(PermissionKeys.ResultAmendmentNotificationReport)]
     public class NotificationReportController : ApiReportBaseController
     {
-        private const int MaximumMonth = 6;
+        private const int MaximumMonthDistance = 5;
 
         private readonly INotificationService _notificationService;
 
@@ -41,11 +41,12 @@
         [HttpGet]
         public dynamic GetNotificationMessages()
         {
+            var today = DateTime.Today;
             var metaModel = new NotificationMetaModel
             {
                 IsOnlyUnread = true,
-                FromDate = DateTime.Today.AddMonths(-MaximumMonth),
-                ToDate = DateTime.Today.AddDays(1),
+                FromDate = new DateTime(today.Year, today.Month, 1).AddMonths(-MaximumMonthDistance),
+                ToDate = today.AddDays(1).AddMilliseconds(-1),
                 PageIndex = 1,
                 PageSize = 10
             };

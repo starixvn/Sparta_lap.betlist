@@ -15,7 +15,6 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
         var _totalMsg = 0;
 
         function openDetailPopup(message, index) {
-
             var popup = $("#" + POPUP_ID);
             if (popup.is(":visible")) {
                 popup.find('a.popup-close').click();
@@ -59,15 +58,20 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
             $notificationDdl.children(".notification-item").remove();
 
             updateNumberLabel(data.TotalRows);
-
-            if (data !== null && data.DataList.length > 0 ) {
+            if (data !== null && data.DataList.length > 0) {
                 data.DataList.forEach(function (item, index) {
                     var time = moment(item.DateTime).format("hh:mm:ss A MM/DD/YYYY");
-                    var message = $($.format(NOTIFICATION_ITEM, index, (item.Subject || ''), (item.Subject || ''), Site.getSingleResource(item.Type), time));
+                    var subject = item.Subject || '';
+                    var message = $($.format(NOTIFICATION_ITEM,
+                        index,
+                        subject,
+                        (subject.length > 100 ? subject.substr(0, 97) + '...' : subject),
+                        Site.getSingleResource(item.Type),
+                        time));
                     message.on("click", function () {
                         openDetailPopup(item, index);
                     });
-                   
+
                     $notificationDdl.append(message);
                 });
             }
@@ -109,6 +113,20 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
             }
         }
 
+        function showNotification(isShow) {
+            if (isShow) {
+                $notificationDdl.mCustomScrollbar({ theme: "minimal" });
+                $notificationDdl.show();
+            }
+            else {
+                $notificationDdl.hide();
+                $notificationDdl.mCustomScrollbar("destroy");
+                if (_newMsg !== null) {
+                    addNotificationItems(_newMsg);
+                }
+            }
+        }
+
         function addNotification() {
             $notificationDdl = $("#notificationmsg");
 
@@ -116,7 +134,12 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
                 return;
             }
 
-            $notificationLabel = $(".dropdown-button", ".notifications-block");
+            $notificationLabel = $(".notification-button", ".notifications-block");
+
+            $notificationLabel.click(function (e) {
+                e.stopPropagation();
+                showNotification(!$notificationDdl.is(":visible"));
+            });
 
             var apiUrl = Site.resolveClientUrl(GET_NOTIFICATION_URL);
 
@@ -136,17 +159,19 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
                         addNotificationItems(data);
                     },
                     statusCode: {
-                        403: function () {}
+                        403: function () { }
                     }
                 });
             };
 
+            $('html').on('click', function () {
+                if ($notificationDdl.is(":visible")) {
+                    showNotification(false);
+                }
+            });
             $(window).on('blur', function () {
                 if ($notificationDdl.is(":visible")) {
-                    if (_newMsg !== null) {
-                        addNotificationItems(_newMsg);
-                    }
-                    $notificationLabel.dropdown('close');
+                    showNotification(false);
                 }
             });
 
