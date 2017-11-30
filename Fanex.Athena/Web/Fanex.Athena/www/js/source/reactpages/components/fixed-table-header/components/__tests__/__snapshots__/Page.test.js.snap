@@ -74,7 +74,7 @@ exports[`Page  PageInput onKeyUpHandle page size input is inputted - key code is
   <span
     className="page-info"
   >
-    View 3-5 of 15
+    View 11-15 of 15
   </span>
 </div>
 `;
@@ -153,7 +153,7 @@ exports[`Page  PageInput onKeyUpHandle page size input is inputted - key code is
   <span
     className="page-info"
   >
-    View 3-5 of 15
+    View 11-15 of 15
   </span>
 </div>
 `;
@@ -390,7 +390,7 @@ exports[`Page  PageInput onKeyUpHandle page size input is is inputted - key code
   <span
     className="page-info"
   >
-    View 5-5 of 15
+    View 21-15 of 15
   </span>
 </div>
 `;
@@ -469,7 +469,7 @@ exports[`Page  PageInput onKeyUpHandle page size input is is inputted - key code
   <span
     className="page-info"
   >
-    View 5-5 of 15
+    View 21-15 of 15
   </span>
 </div>
 `;
@@ -519,7 +519,7 @@ exports[`Page  PageInput page size input is changed - value is not a number - di
     onClick={[Function]}
   />
   <a
-    className="icon page-last "
+    className="icon page-last disable"
     href="javascript:;"
     onClick={[Function]}
   />
@@ -548,7 +548,7 @@ exports[`Page  PageInput page size input is changed - value is not a number - di
   <span
     className="page-info"
   >
-    View a-5 of 15
+    View 11-15 of 15
   </span>
 </div>
 `;
@@ -627,7 +627,7 @@ exports[`Page  goToPage page icon is clicked - call onPaging 1`] = `
   <span
     className="page-info"
   >
-    View 2-5 of 15
+    View 6-10 of 15
   </span>
 </div>
 `;
@@ -785,7 +785,7 @@ exports[`Page  goToPage page icon is clicked - call onPaging 3`] = `
   <span
     className="page-info"
   >
-    View 3-5 of 15
+    View 11-15 of 15
   </span>
 </div>
 `;
@@ -864,7 +864,7 @@ exports[`Page  goToPage page icon is clicked - call onPaging 4`] = `
   <span
     className="page-info"
   >
-    View 2-5 of 15
+    View 6-10 of 15
   </span>
 </div>
 `;
@@ -943,7 +943,7 @@ exports[`Page  goToPage page icon is clicked - call onPaging 5`] = `
   <span
     className="page-info"
   >
-    View 3-5 of 15
+    View 11-15 of 15
   </span>
 </div>
 `;
@@ -1037,7 +1037,7 @@ exports[`Page  goToPage page index is invalid - do not call onPaging 2`] = `
   }
 >
   <a
-    className="icon page-first "
+    className="icon page-first disable"
     href="javascript:;"
     onClick={[Function]}
   />
@@ -1101,7 +1101,7 @@ exports[`Page  goToPage page index is invalid - do not call onPaging 2`] = `
   <span
     className="page-info"
   >
-    View a-5 of 15
+    View 1-5 of 15
   </span>
 </div>
 `;
@@ -1417,7 +1417,7 @@ exports[`Page  render _renderPageIcon - first page icon - disable icon if PageIn
   <span
     className="page-info"
   >
-    View 2-5 of 10
+    View 6-10 of 10
   </span>
 </div>
 `;
@@ -1496,7 +1496,7 @@ exports[`Page  render _renderPageIcon - last page icon - disable icon if PageInd
   <span
     className="page-info"
   >
-    View 2-5 of 15
+    View 6-10 of 15
   </span>
 </div>
 `;
@@ -1575,7 +1575,7 @@ exports[`Page  render _renderPageIcon - last page icon - disable icon if PageInd
   <span
     className="page-info"
   >
-    View 3-5 of 15
+    View 11-15 of 15
   </span>
 </div>
 `;
@@ -1654,7 +1654,7 @@ exports[`Page  render _renderPageIcon - next page icon - disable icon if PageInd
   <span
     className="page-info"
   >
-    View 2-5 of 15
+    View 6-10 of 15
   </span>
 </div>
 `;
@@ -1733,7 +1733,7 @@ exports[`Page  render _renderPageIcon - next page icon - disable icon if PageInd
   <span
     className="page-info"
   >
-    View 3-5 of 15
+    View 11-15 of 15
   </span>
 </div>
 `;
@@ -1891,7 +1891,7 @@ exports[`Page  render _renderPageIcon - previous page icon - disable icon if Pag
   <span
     className="page-info"
   >
-    View 2-5 of 10
+    View 6-10 of 10
   </span>
 </div>
 `;
@@ -1970,7 +1970,7 @@ exports[`Page  render component is hidden if paging is not available 1`] = `
   <span
     className="page-info"
   >
-    View 1-5 of 1
+    View 1-1 of 1
   </span>
 </div>
 `;

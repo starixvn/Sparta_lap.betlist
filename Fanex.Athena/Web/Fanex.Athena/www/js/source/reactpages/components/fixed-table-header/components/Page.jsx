@@ -9,10 +9,9 @@ export default class Page extends Component {
             index: this.props.pageOption.PageIndex,
             isShow: this.props.pageOption.TotalItem > this.props.pageOption.PageList[0],
             totalPage: Math.ceil(this.props.pageOption.TotalItem/this.props.pageOption.PageSize),
-            pageSize: this.props.pageOption.PageSize
+            pageSize: this.props.pageOption.PageSize,
+            inputValue: this.props.pageOption.PageIndex
         };
-
-        this.inputValue = this.props.pageOption.PageIndex;
     }
 
     static propTypes = {
@@ -35,20 +34,21 @@ export default class Page extends Component {
                 nextProps.pageOption.PageIndex,
                 nextProps.pageOption.TotalItem > nextProps.pageOption.PageList[0],
                 Math.ceil(nextProps.pageOption.TotalItem/nextProps.pageOption.PageSize),
-                nextProps.pageOption.PageSize
+                nextProps.pageOption.PageSize,
+                nextProps.pageOption.PageIndex
             );
         }
     }
 
     goToPage(index, pageSize) {
-        this._updateState(index, null, Math.ceil(this.props.pageOption.TotalItem/pageSize), pageSize);
+        this._updateState(index, null, Math.ceil(this.props.pageOption.TotalItem/pageSize), pageSize, index);
         this.props.onPaging && this.props.onPaging(index, pageSize);
     }
 
     onKeyUpHandle = (e) => {
         const code =  e.keyCode ? e.keyCode : e.which;
         if (code === 13) {
-            var value = parseInt(this.state.index);
+            var value = parseInt(this.state.inputValue);
             if (value > 0 && value <= this.state.totalPage) {
                 this.goToPage(value, this.state.pageSize);
             }
@@ -62,12 +62,13 @@ export default class Page extends Component {
     }
 
 
-    _updateState(index, isShow, totalPage, pageSize) {
+    _updateState(index, isShow, totalPage, pageSize, input) {
         this.setState({
             index: index !== null ? index : this.state.index,
             isShow: isShow !== null ? isShow : this.state.isShow,
             totalPage: totalPage ? totalPage : this.state.totalPage,
-            pageSize: pageSize ? pageSize : this.state.pageSize
+            pageSize: pageSize ? pageSize : this.state.pageSize,
+            inputValue: input !== null ? input : this.state.inputValue
         });
     }
 
@@ -92,25 +93,27 @@ export default class Page extends Component {
     _renderPageInput(index) {
         return (
             <div className="page-input"><span>Page </span><input type="text" className="page-form" value={index} maxLength="4" size="2"
-                        onChange={(e) => this._updateState(e.target.value, null, null, null) }
+                        onChange={(e) => this._updateState(null, null, null, null, e.target.value) }
                         onKeyUp={this.onKeyUpHandle} />
             <span>{` of ${this.state.totalPage}`} </span>
             </div>);
     }
 
     _renderPageInfo(index, pageSize, totalItem) {
-        return (<span className="page-info">{`View ${index}-${pageSize} of ${totalItem}`}</span>);
+        const viewFrom = ((index - 1) * pageSize) + 1;
+        const viewTo = index * pageSize;
+        return (<span className="page-info">{`View ${viewFrom}-${viewTo > totalItem ? totalItem : viewTo} of ${totalItem}`}</span>);
     }    
 
     render() {
-        const { index, totalPage, pageSize } = this.state;
-        const isDisable = isNaN(parseInt(index));
+        const { index, totalPage, pageSize, inputValue } = this.state;
+        const isDisable = isNaN(parseInt(inputValue));
 
         return (
             <div className="page-container center-align" style={{ display: `${this.state.isShow ? 'block' : 'none'}` }}>
                 {this._renderPageIcon("page-first", index === 1, () => this.goToPage(1, pageSize))}
                 {this._renderPageIcon("page-prev", isDisable || index <= 1 || index > totalPage, () => this.goToPage(index - 1, pageSize))}
-                {this._renderPageInput(index)}
+                {this._renderPageInput(inputValue)}
                 {this._renderPageIcon("page-next", isDisable || index >= totalPage || index < 1, () => this.goToPage(index + 1, pageSize))}
                 {this._renderPageIcon("page-last", index === totalPage, () => this.goToPage(totalPage, pageSize))}
                 {this._renderPageSizeSelection(isDisable, index, pageSize)}
