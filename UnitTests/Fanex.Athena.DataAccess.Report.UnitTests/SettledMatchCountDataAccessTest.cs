@@ -6,7 +6,7 @@
     using Model.Report.DTO;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Extensions;
+    using UnitTest.Common.NUnitExtensions;
 
     [TestFixture]
     public class SettledMatchCountDataAccessTest

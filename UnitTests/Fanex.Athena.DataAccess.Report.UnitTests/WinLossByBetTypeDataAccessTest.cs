@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.Report.UnitTests
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
     using Core.Configuration.Interfaces;
     using Data;
@@ -9,8 +8,8 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Extensions;
     using UnitTest.Common.Helpers;
+    using UnitTest.Common.NUnitExtensions;
 
     [TestFixture]
     public class WinLossByBetTypeDataAccessTest

@@ -6,7 +6,7 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Extensions;
+    using UnitTest.Common.NUnitExtensions;
 
     [TestFixture]
     public partial class BetListDataAccessTest

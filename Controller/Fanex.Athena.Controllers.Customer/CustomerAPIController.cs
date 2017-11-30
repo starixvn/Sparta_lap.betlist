@@ -519,7 +519,7 @@ namespace Fanex.Athena.Controllers.Customer
             };
         }
 
-        private ActionResult AccessDenied()
+        private JsonResult AccessDenied()
         {
             HttpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
             return new JsonResult
