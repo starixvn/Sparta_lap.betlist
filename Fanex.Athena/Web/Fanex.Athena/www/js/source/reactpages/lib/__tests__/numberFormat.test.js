@@ -44,7 +44,9 @@ describe('NumberFormat ', () => {
             { value: 1.0155, expected: "1.02" },
             { value: -1.0155, expected: "-1.02" },
             { value: 2, expected: "2.00" },
-            { value: -2, expected: "-2.00" }
+            { value: -2, expected: "-2.00" },
+            { value: 999999999999999, expected: "999,999,999,999,999.00" },
+            { value: -999999999999999, expected: "-999,999,999,999,999.00" }
         ]
 
         testCases.forEach(assertFormat);

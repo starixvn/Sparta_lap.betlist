@@ -135,7 +135,7 @@ describe('Table ', () => {
                 </Row>
             )
 
-            const props = Object.assign({}, defaultProps, { maxWidth: 300, header });
+            const props = Object.assign({}, defaultProps, { maxWidth: 319, header });
             const table = new Table(props);
 
             const result = table._getUpdatedColumnLayout();
@@ -152,7 +152,7 @@ describe('Table ', () => {
                 </Row>
             )
 
-            const props = Object.assign({}, defaultProps, { autoWidth: false, width: 400, header });
+            const props = Object.assign({}, defaultProps, { autoWidth: false, width: 419, header });
             const table = new Table(props);
 
             const result = table._getUpdatedColumnLayout();

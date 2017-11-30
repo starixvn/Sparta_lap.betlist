@@ -49,28 +49,28 @@ exports[`DataGrid  render  has data - render table 1`] = `
               <td
                 style={
                   Object {
-                    "width": "-1.6981132075471699px",
+                    "width": "-2.773584905660377px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.7924528301886795px",
+                    "width": "-11.094339622641508px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-19.81132075471698px",
+                    "width": "-32.35849056603773px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-1.6981132075471699px",
+                    "width": "-2.773584905660377px",
                   }
                 }
               />
@@ -135,28 +135,28 @@ exports[`DataGrid  render  has data - render table 1`] = `
               <td
                 style={
                   Object {
-                    "width": "-1.6981132075471699px",
+                    "width": "-2.773584905660377px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-6.7924528301886795px",
+                    "width": "-11.094339622641508px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-19.81132075471698px",
+                    "width": "-32.35849056603773px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-1.6981132075471699px",
+                    "width": "-2.773584905660377px",
                   }
                 }
               />
