@@ -20081,25 +20081,16 @@ var DataGrid = exports.DataGrid = function (_Component) {
     }
 
     _createClass(DataGrid, [{
-        key: 'componentWillMount',
-        value: function componentWillMount() {
-            var param = this.props.param;
-            if (param && param.hasOwnProperty("FromDate")) {
-                var dateRange = {
-                    fromDate: param.FromDate,
-                    toDate: param.ToDate
-                };
-
-                this.reportTitle = _resultAmendmentService2.default.getReportTitle(dateRange);
-            }
-        }
-    }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
             if (this.props.gridData !== nextProps.gridData) {
-                var dateRange = nextProps.dateRange;
-
-                this.reportTitle = _resultAmendmentService2.default.getReportTitle(dateRange);
+                var paramData = this.props.param;
+                if (paramData) {
+                    this.reportTitle = _resultAmendmentService2.default.getReportTitle({
+                        fromDate: paramData.FromDate,
+                        toDate: paramData.ToDate
+                    });
+                }
                 this.props.toggleLoader(false);
             }
         }

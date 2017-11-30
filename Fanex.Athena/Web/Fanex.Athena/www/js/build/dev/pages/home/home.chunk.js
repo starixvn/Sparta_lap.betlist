@@ -18079,9 +18079,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         }
 
         function addNotificationItems(data) {
-            $notificationDdl.children(".notification-item").remove();
-
+            $notificationDdl.find(".notification-item").remove();
             updateNumberLabel(data.TotalRows);
+
+            var $container = $notificationDdl.find(".first-notification").parent();
             if (data !== null && data.DataList.length > 0) {
                 data.DataList.forEach(function (item, index) {
                     var time = moment(item.DateTime).format("hh:mm:ss A MM/DD/YYYY");
@@ -18096,7 +18097,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                         openDetailPopup(item, index);
                     });
 
-                    $notificationDdl.append(message);
+                    $container.append(message);
                 });
             }
         }
@@ -18139,12 +18140,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
         function showNotification(isShow) {
             if (isShow) {
-                $notificationDdl.mCustomScrollbar({ theme: "minimal" });
                 $notificationDdl.show();
             }
             else {
                 $notificationDdl.hide();
-                $notificationDdl.mCustomScrollbar("destroy");
                 if (_newMsg !== null) {
                     addNotificationItems(_newMsg);
                 }
@@ -18201,6 +18200,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
             processNotification();
             setInterval(processNotification, 60000);
+            $notificationDdl.mCustomScrollbar({ theme: "minimal" });
         }
 
         return {
