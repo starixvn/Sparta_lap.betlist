@@ -9,6 +9,6 @@
 
         public DateTime ToDate { get; set; } = DateTime.Today;
 
-        public IDictionary<string, string> NotificationTypes { get; set; }
+        public string LicenseeName { get; set; }
     }
 }

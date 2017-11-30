@@ -300,6 +300,7 @@ describe('DataGrid ', () => {
             gridData: { DownloadFileApi: 'DownloadFileApi' },
             dateRange: {},
             xsrfToken: 'token',
+            licenseeName: 'test',
             toggleLoader: jest.fn()
         };
 
@@ -355,7 +356,7 @@ describe('DataGrid ', () => {
                 DateTime: '2017-01-01T12:00:00'
             };
 
-            const expectedName = 'AmendmentAttachmemt_01-01-2017_12-00-00-PM';
+            const expectedName = 'test';
 
             dataGrid.props.exportAttachment = jest.fn(() => promise);
 

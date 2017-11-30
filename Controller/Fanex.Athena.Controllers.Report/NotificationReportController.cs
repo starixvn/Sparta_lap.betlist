@@ -11,7 +11,10 @@
         [HttpGet]
         public ActionResult Index()
         {
-            var model = new NotificationViewModel();
+            var model = new NotificationViewModel
+            {
+                LicenseeName = SessionService.LicenseeSession.LicenseeName
+            };
 
             return View("~/Views/Report/Notification/Notification.cshtml", model);
         }

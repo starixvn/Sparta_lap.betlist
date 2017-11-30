@@ -78,7 +78,7 @@ export class DataGrid extends Component {
             api: this.props.gridData.DownloadFileApi,
             fileName: item.DataFilePath
         });
-        const datetimeString = moment(item.DateTime).format("MM-DD-YYYY_hh-mm-ss-A");
+        const fileName = this.props.licenseeName;
 
         this.props.toggleLoader(true);
         this.props.exportAttachment(params).then(response => {
@@ -87,7 +87,6 @@ export class DataGrid extends Component {
             }
             else{
                 const blob = response.data;
-                const fileName = `AmendmentAttachmemt_${datetimeString}`;
                 Excel.downloadFromBolb(blob, fileName);
             }
             this.props.toggleLoader(false);
@@ -117,15 +116,21 @@ export class DataGrid extends Component {
         const exportToExcelTitle = LangHelper.getSingleResource("ExportToExcel");
 
         let rows = [];
+        let index = ((this.props.param.PageIndex - 1) * this.props.param.PageSize) + 1;
         for (let i = 0; i < data.length; i++) {
             const item = data[i];
             const datetimeString = moment(item.DateTime).format("MM/DD/YYYY hh:mm:ss A");
             rows.push(
                 <Row key={`tr${i}`} className={ item.IsRead ? "" : "unread" }>
-                    <Cell title={i + 1} className="center-align">{i + 1}</Cell>
+                    <Cell title={index} className="center-align">{index}</Cell>
                     <Cell title={datetimeString} className="center-align">{datetimeString}</Cell>
                     <Cell title={item.Subject}>
-                        <CollapsibleRow subject={item.Subject} content={item.Content} onExpand={() => this.onExpand(i, item)} isExpand={item.IsExpand} isHtml={true} />
+                        <CollapsibleRow 
+                            subject={item.Subject} 
+                            content={item.Content} 
+                            onExpand={() => this.onExpand(i, item)} 
+                            isExpand={item.IsExpand} 
+                            isHtml={true} />
                     </Cell>
                     {
                         Site.asNull(item.DataFilePath) === null 
@@ -133,6 +138,7 @@ export class DataGrid extends Component {
                         : <Cell title={exportToExcelTitle} className="center-align"><a onClick={() => this.exportExcel(item)} className="icon-excel"></a></Cell>
                     }
                 </Row>)
+            index++;
         }
 
         return rows;
@@ -187,8 +193,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-    const { gridData, dateRange, param } = state.resultAmendment;
-    return Object.assign({}, { gridData, dateRange, param, xsrfToken: state.xsrfToken });
+    const { gridData, dateRange, param, licenseeName } = state.resultAmendment;
+    return Object.assign({}, { gridData, dateRange, param, xsrfToken: state.xsrfToken, licenseeName });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

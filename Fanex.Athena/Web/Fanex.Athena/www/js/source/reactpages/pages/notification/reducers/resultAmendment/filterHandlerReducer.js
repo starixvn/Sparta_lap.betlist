@@ -18,3 +18,9 @@ export const param = createReducer({}, {
         return action.data;
     }
 })
+
+export const licenseeName = createReducer({}, {
+    [types.GET_LICENSEE_NAME](state, action) {
+        return action.data;
+    }
+})
