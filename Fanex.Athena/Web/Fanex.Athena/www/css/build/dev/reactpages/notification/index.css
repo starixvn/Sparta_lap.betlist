@@ -180,7 +180,8 @@
 /* Table */
 /* Label Text */
 .table {
-  line-height: 1.15; }
+  line-height: 1.15;
+  table-layout: fixed; }
   .table a {
     color: #147ccc;
     text-decoration: none; }
@@ -234,7 +235,7 @@
   white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 1px; }
+  min-width: 1px; }
 
 .header-content,
 .body-content,
@@ -349,14 +350,14 @@
       background: #fff;
       border: 1px solid #e2d6d6;
       box-shadow: none; }
-  .page-container .page-info {
+  .page-container .page-input {
     display: inline; }
-    .page-container .page-info:after, .page-container .page-info:before {
+    .page-container .page-input:after, .page-container .page-input:before {
       content: "";
       border: 1px solid #ccc; }
-    .page-container .page-info:after {
+    .page-container .page-input:after {
       margin-left: 5px; }
-    .page-container .page-info:before {
+    .page-container .page-input:before {
       margin-right: 5px; }
   .page-container .pagesize-select {
     height: auto;
@@ -365,6 +366,9 @@
     min-width: 65px;
     border: 1px solid #e2d6d6;
     margin-left: 5px; }
+  .page-container .page-info {
+    float: right;
+    padding: 3px; }
 
 .button-group {
   margin-top: 15px; }

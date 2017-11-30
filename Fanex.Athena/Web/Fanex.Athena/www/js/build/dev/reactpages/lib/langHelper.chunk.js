@@ -63,7 +63,7 @@ module.exports = __webpack_require__(685);
 "use strict";
 
 
-// Generated at: 11/29/2017 12:02:20 PM
+// Generated at: 11/30/2017 8:48:49 AM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -221,6 +221,7 @@ window._language_en_US = {
   Confirmation: "Confirmation",
   ConfirmCommission: "Confirm Customer&apos;s Commission:",
   ConfirmPassword: "Confirm Password",
+  Content: "Content",
   ConvertAll: "Convert All",
   ConvertTo: "Convert to",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
@@ -1794,7 +1795,7 @@ window._language_ko_KR = {
 "use strict";
 
 
-// Generated at: 11/29/2017 8:54:52 AM
+// Generated at: 11/30/2017 8:48:49 AM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -1824,6 +1825,7 @@ window._language_zh_CN = {
   AllBetTypes: "所有投注类型",
   AllCurrencies: "所有货币",
   AllSites: "所有网站",
+  Amendment: "赛果更改/重新结算",
   Amount: "金额",
   AmountDue: "应付金额",
   AmountDueTo: "应付金额",
@@ -1925,6 +1927,7 @@ window._language_zh_CN = {
   Confirmation: "确认",
   ConfirmCommission: "确认会员的佣金:",
   ConfirmPassword: "确认密码",
+  Content: "内容",
   ConvertTo: "转换为",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
   CopyBetSettingFromRacing: "从赛马赛事复制所有投注设定",
@@ -2296,6 +2299,7 @@ window._language_zh_CN = {
   NotAuthorizedMsg: "您没有被授权于此功能",
   NotIdenticalPasswordMsg: "密码不相同",
   Notification: "通知",
+  NotificationDateRangeLimitNote: "最多可以检索六个月前的资料",
   NotSupportYet: "目前还不支持此游戏",
   Nov: "十一月",
   November: "十一月",
@@ -2484,6 +2488,7 @@ window._language_zh_CN = {
   ThereIsNoSelectedItem: "There is no selected item.",
   Thursday: "星期四",
   TicketFilter: "注单筛选",
+  TicketList: "注单清单",
   TicketNo: "票劵号码",
   Time: "时间",
   TimeZone: "时区",
@@ -2567,6 +2572,7 @@ window._language_zh_CN = {
   ViewBy: "查看由",
   ViewDataInMonth: "检阅每月数据",
   Viewin: "以 {0} 查看",
+  ViewNotification: "查看通知",
   VirtualCycling: "Virtual Cycling",
   VirtualHorseRacing: "Virtual Horse Racing",
   VirtualSoccer: "Virtual Soccer",
@@ -2607,7 +2613,7 @@ window._language_zh_CN = {
 "use strict";
 
 
-// Generated at: 11/29/2017 8:54:52 AM
+// Generated at: 11/30/2017 8:48:49 AM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2637,6 +2643,7 @@ window._language_zh_Hans = {
   AllBetTypes: "所有投注类型",
   AllCurrencies: "所有货币",
   AllSites: "所有网站",
+  Amendment: "赛果更改/重新结算",
   Amount: "金额",
   AmountDue: "应付金额",
   AmountDueTo: "应付金额",
@@ -2728,6 +2735,7 @@ window._language_zh_Hans = {
   Confirmation: "确认",
   ConfirmCommission: "确认会员的佣金:",
   ConfirmPassword: "确认密码",
+  Content: "内容",
   ConvertTo: "转换为",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
   CopyBetSettingFromRacing: "从赛马赛事复制所有投注设定",
@@ -3097,6 +3105,7 @@ window._language_zh_Hans = {
   NotAuthorizedMsg: "您没有被授权于此功能",
   NotIdenticalPasswordMsg: "密码不相同",
   Notification: "通知",
+  NotificationDateRangeLimitNote: "最多可以检索六个月前的资料",
   NotSupportYet: "目前还不支持此游戏",
   Nov: "十一月",
   November: "十一月",
@@ -3284,6 +3293,7 @@ window._language_zh_Hans = {
   ThereIsNoSelectedItem: "There is no selected item.",
   Thursday: "星期四",
   TicketFilter: "注单筛选",
+  TicketList: "注单清单",
   TicketNo: "票劵号码",
   Time: "时间",
   TimeZone: "时区",
@@ -3366,6 +3376,7 @@ window._language_zh_Hans = {
   ViewBy: "查看由",
   ViewDataInMonth: "检阅每月数据",
   Viewin: "以 {0} 查看",
+  ViewNotification: "查看通知",
   VirtualCycling: "Virtual Cycling",
   VirtualHorseRacing: "Virtual Horse Racing",
   VirtualSoccer: "Virtual Soccer",
@@ -3406,7 +3417,7 @@ window._language_zh_Hans = {
 "use strict";
 
 
-// Generated at: 11/29/2017 8:54:52 AM
+// Generated at: 11/30/2017 8:48:49 AM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3436,6 +3447,7 @@ window._language_zh_TW = {
   AllBetTypes: "所有投注類型",
   AllCurrencies: "所有貨幣",
   AllSites: "所有網站",
+  Amendment: "賽果更改/重新結算",
   Amount: "金額",
   AmountDue: "應付金額",
   AmountDueTo: "應付金額",
@@ -3537,6 +3549,7 @@ window._language_zh_TW = {
   Confirmation: "確認",
   ConfirmCommission: "確認會員的佣金:",
   ConfirmPassword: "確認密碼",
+  Content: "内容",
   ConvertTo: "轉換為",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
   CopyBetSettingFromRacing: "從賽馬賽事複製所有投注設定",
@@ -3908,6 +3921,7 @@ window._language_zh_TW = {
   NotAuthorizedMsg: "您沒有被授權於此功能",
   NotIdenticalPasswordMsg: "密碼不相同",
   Notification: "通知",
+  NotificationDateRangeLimitNote: "最多可以檢索六個月前的資料",
   NotSupportYet: "目前還不支持此遊戲",
   Nov: "十一月",
   November: "十一月",
@@ -4096,6 +4110,7 @@ window._language_zh_TW = {
   ThereIsNoSelectedItem: "There is no selected item.",
   Thursday: "星期四",
   TicketFilter: "注單篩選",
+  TicketList: "注單清單",
   TicketNo: "票劵號碼",
   Time: "時間",
   TimeZone: "時區",
@@ -4179,6 +4194,7 @@ window._language_zh_TW = {
   ViewBy: "查看由",
   ViewDataInMonth: "检阅每月數據",
   Viewin: "以 {0} 查看",
+  ViewNotification: "查看通知",
   VirtualCycling: "Virtual Cycling",
   VirtualHorseRacing: "Virtual Horse Racing",
   VirtualSoccer: "Virtual Soccer",

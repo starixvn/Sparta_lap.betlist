@@ -16851,6 +16851,8 @@ var GET_XSRF_TOKEN = exports.GET_XSRF_TOKEN = "RESULTAMENDMENT_GET_XSRF_TOKEN";
 
 var SET_PARAM = exports.SET_PARAM = "RESULTAMENDMENT_SET_PARAM";
 
+var GET_LICENSEE_NAME = exports.GET_LICENSEE_NAME = "RESULTAMENDMENT_GET_LICENSEE_NAME";
+
 /***/ }),
 /* 208 */,
 /* 209 */,
@@ -17134,6 +17136,7 @@ var Table = function (_Component) {
                 autoWidth = _props.autoWidth;
 
             var sumOfColumnWidth = autoWidth ? this.state.maxWidth : width;
+            sumOfColumnWidth = sumOfColumnWidth - _constants.SCROLLBAR_WIDTH;
 
             var newColumnsWidth = this.columnWidthSum && this.columnsWidth.map(function (cellWidth) {
                 return sumOfColumnWidth / _this3.columnWidthSum * cellWidth;
@@ -17563,7 +17566,7 @@ var Page = function (_Component) {
 
             return _react2.default.createElement(
                 'div',
-                { className: 'page-info' },
+                { className: 'page-input' },
                 _react2.default.createElement(
                     'span',
                     null,
@@ -17580,6 +17583,15 @@ var Page = function (_Component) {
                     ' of ' + this.state.totalPage,
                     ' '
                 )
+            );
+        }
+    }, {
+        key: '_renderPageInfo',
+        value: function _renderPageInfo(index, pageSize, totalItem) {
+            return _react2.default.createElement(
+                'span',
+                { className: 'page-info' },
+                'View ' + index + '-' + pageSize + ' of ' + totalItem
             );
         }
     }, {
@@ -17610,7 +17622,8 @@ var Page = function (_Component) {
                 this._renderPageIcon("page-last", index === totalPage, function () {
                     return _this5.goToPage(totalPage, pageSize);
                 }),
-                this._renderPageSizeSelection(isDisable, index, pageSize)
+                this._renderPageSizeSelection(isDisable, index, pageSize),
+                this._renderPageInfo(index, pageSize, this.props.pageOption.TotalItem)
             );
         }
     }]);
@@ -20119,7 +20132,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 api: this.props.gridData.DownloadFileApi,
                 fileName: item.DataFilePath
             });
-            var datetimeString = (0, _moment2.default)(item.DateTime).format("MM-DD-YYYY_hh-mm-ss-A");
+            var fileName = this.props.licenseeName;
 
             this.props.toggleLoader(true);
             this.props.exportAttachment(params).then(function (response) {
@@ -20127,7 +20140,6 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     alert(_langHelper2.default.getSingleResource('DataIsNotAvailable'));
                 } else {
                     var blob = response.data;
-                    var fileName = 'AmendmentAttachmemt_' + datetimeString;
                     _excel2.default.downloadFromBolb(blob, fileName);
                 }
                 _this2.props.toggleLoader(false);
@@ -20178,6 +20190,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
             var exportToExcelTitle = _langHelper2.default.getSingleResource("ExportToExcel");
 
             var rows = [];
+            var index = (this.props.param.PageIndex - 1) * this.props.param.PageSize + 1;
 
             var _loop = function _loop(i) {
                 var item = data[i];
@@ -20187,8 +20200,8 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     { key: 'tr' + i, className: item.IsRead ? "" : "unread" },
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { title: i + 1, className: 'center-align' },
-                        i + 1
+                        { title: index, className: 'center-align' },
+                        index
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
@@ -20198,9 +20211,14 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: item.Subject },
-                        _react2.default.createElement(_CollapsibleRow2.default, { subject: item.Subject, content: item.Content, onExpand: function onExpand() {
+                        _react2.default.createElement(_CollapsibleRow2.default, {
+                            subject: item.Subject,
+                            content: item.Content,
+                            onExpand: function onExpand() {
                                 return _this3.onExpand(i, item);
-                            }, isExpand: item.IsExpand, isHtml: true })
+                            },
+                            isExpand: item.IsExpand,
+                            isHtml: true })
                     ),
                     _site2.default.asNull(item.DataFilePath) === null ? _react2.default.createElement(_fixedTableHeader.Cell, null) : _react2.default.createElement(
                         _fixedTableHeader.Cell,
@@ -20210,6 +20228,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                             }, className: 'icon-excel' })
                     )
                 ));
+                index++;
             };
 
             for (var i = 0; i < data.length; i++) {
@@ -20275,9 +20294,10 @@ function mapStateToProps(state) {
     var _state$resultAmendmen = state.resultAmendment,
         gridData = _state$resultAmendmen.gridData,
         dateRange = _state$resultAmendmen.dateRange,
-        param = _state$resultAmendmen.param;
+        param = _state$resultAmendmen.param,
+        licenseeName = _state$resultAmendmen.licenseeName;
 
-    return Object.assign({}, { gridData: gridData, dateRange: dateRange, param: param, xsrfToken: state.xsrfToken });
+    return Object.assign({}, { gridData: gridData, dateRange: dateRange, param: param, xsrfToken: state.xsrfToken, licenseeName: licenseeName });
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DataGrid);
@@ -20980,11 +21000,11 @@ var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProper
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.param = exports.dateConstraint = exports.dateRange = undefined;
+exports.licenseeName = exports.param = exports.dateConstraint = exports.dateRange = undefined;
 
-var _createReducer4 = __webpack_require__(23);
+var _createReducer5 = __webpack_require__(23);
 
-var _createReducer5 = _interopRequireDefault(_createReducer4);
+var _createReducer6 = _interopRequireDefault(_createReducer5);
 
 var _types = __webpack_require__(207);
 
@@ -20996,15 +21016,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var dateRange = exports.dateRange = (0, _createReducer5.default)({}, _defineProperty({}, types.SET_DATE_RANGE, function (state, action) {
+var dateRange = exports.dateRange = (0, _createReducer6.default)({}, _defineProperty({}, types.SET_DATE_RANGE, function (state, action) {
     return action.data;
 }));
 
-var dateConstraint = exports.dateConstraint = (0, _createReducer5.default)({}, _defineProperty({}, types.GET_DATE_CONSTRAINT, function (state, action) {
+var dateConstraint = exports.dateConstraint = (0, _createReducer6.default)({}, _defineProperty({}, types.GET_DATE_CONSTRAINT, function (state, action) {
     return action.data;
 }));
 
-var param = exports.param = (0, _createReducer5.default)({}, _defineProperty({}, types.SET_PARAM, function (state, action) {
+var param = exports.param = (0, _createReducer6.default)({}, _defineProperty({}, types.SET_PARAM, function (state, action) {
+    return action.data;
+}));
+
+var licenseeName = exports.licenseeName = (0, _createReducer6.default)({}, _defineProperty({}, types.GET_LICENSEE_NAME, function (state, action) {
     return action.data;
 }));
 

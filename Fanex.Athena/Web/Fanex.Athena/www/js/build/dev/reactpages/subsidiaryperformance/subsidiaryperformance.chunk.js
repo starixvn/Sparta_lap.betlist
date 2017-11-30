@@ -18492,6 +18492,7 @@ var Table = function (_Component) {
                 autoWidth = _props.autoWidth;
 
             var sumOfColumnWidth = autoWidth ? this.state.maxWidth : width;
+            sumOfColumnWidth = sumOfColumnWidth - _constants.SCROLLBAR_WIDTH;
 
             var newColumnsWidth = this.columnWidthSum && this.columnsWidth.map(function (cellWidth) {
                 return sumOfColumnWidth / _this3.columnWidthSum * cellWidth;
@@ -18921,7 +18922,7 @@ var Page = function (_Component) {
 
             return _react2.default.createElement(
                 'div',
-                { className: 'page-info' },
+                { className: 'page-input' },
                 _react2.default.createElement(
                     'span',
                     null,
@@ -18938,6 +18939,15 @@ var Page = function (_Component) {
                     ' of ' + this.state.totalPage,
                     ' '
                 )
+            );
+        }
+    }, {
+        key: '_renderPageInfo',
+        value: function _renderPageInfo(index, pageSize, totalItem) {
+            return _react2.default.createElement(
+                'span',
+                { className: 'page-info' },
+                'View ' + index + '-' + pageSize + ' of ' + totalItem
             );
         }
     }, {
@@ -18968,7 +18978,8 @@ var Page = function (_Component) {
                 this._renderPageIcon("page-last", index === totalPage, function () {
                     return _this5.goToPage(totalPage, pageSize);
                 }),
-                this._renderPageSizeSelection(isDisable, index, pageSize)
+                this._renderPageSizeSelection(isDisable, index, pageSize),
+                this._renderPageInfo(index, pageSize, this.props.pageOption.TotalItem)
             );
         }
     }]);
