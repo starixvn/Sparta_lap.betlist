@@ -2622,4 +2622,24 @@
   <data name="BackToOldUI" xml:space="preserve">
     <value>回到舊版本</value>
   </data>
+  <data name="Amendment" xml:space="preserve">
+    <value>賽果更改/重新結算</value>
+    <comment>84004</comment>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>内容</value>
+    <comment>84004</comment>
+  </data>
+  <data name="NotificationDateRangeLimitNote" xml:space="preserve">
+    <value>最多可以檢索六個月前的資料</value>
+    <comment>84004</comment>
+  </data>
+  <data name="TicketList" xml:space="preserve">
+    <value>注單清單</value>
+    <comment>84004</comment>
+  </data>
+  <data name="ViewNotification" xml:space="preserve">
+    <value>查看通知</value>
+    <comment>84004</comment>
+  </data>
 </root>
