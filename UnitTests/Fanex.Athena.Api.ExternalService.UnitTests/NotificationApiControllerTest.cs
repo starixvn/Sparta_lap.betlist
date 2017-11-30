@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Api.ExternalService.UnitTests
 {
+    using System;
     using System.Collections.Generic;
     using System.Web.Http.Controllers;
     using System.Web.Script.Serialization;
@@ -19,6 +20,8 @@
         private const string UserName = "admin";
 
         private const string SiteName = "12bet";
+
+        private const int MaximumMonth = 6;
 
         private IMoveBetService _moveBetService;
 
@@ -93,6 +96,41 @@
         }
 
         [Test]
+        public void GetNotificationMessages_WhenCall_ParameterPassedCorrectly()
+        {
+            // Arrange
+            var metaModel = new NotificationMetaModel
+            {
+                Language = "en"
+            };
+            var expectedMetaModel = new NotificationMetaModel
+            {
+                FromDate = DateTime.Today.AddMonths(-MaximumMonth),
+                ToDate = DateTime.Today.AddDays(1),
+                Language = "en",
+                IsOnlyUnread = true,
+                PageSize = 10,
+                PageIndex = 1,
+                UserName = UserName,
+                LicenseeName = SiteName
+            };
+
+            NotificationMetaModel passedParam = null;
+
+            _notificationService.GetNotificationMessages(Arg.Do<NotificationMetaModel>(x => passedParam = x))
+                                .Returns(new ReportResultModel<NotificationMessage>());
+
+            var expectedResult = _serializer.Serialize(expectedMetaModel);
+
+            // Action
+            _apiController.GetNotificationMessages(metaModel);
+            var result = _serializer.Serialize(passedParam);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
         public void MarkNotificationAsRead_WhenCall_ReturnExpectedResult()
         {
             // Arrange
@@ -122,6 +160,40 @@
             // Action
             var markNotificationAsReadResult = _apiController.MarkNotificationAsRead(metaModel);
             var result = _serializer.Serialize(markNotificationAsReadResult);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void MarkNotificationAsRead_WhenCall_ParameterPassedCorrectly()
+        {
+            // Arrange
+            var metaModel = new NotificationMarkAsReadMetaModel
+            {
+                MessageId = 1,
+                MessageType = "Amendment"
+            };
+
+            var expectedMetaModel = new NotificationMarkAsReadMetaModel
+            {
+                MessageId = 1,
+                MessageType = "Amendment",
+                UserName = UserName,
+                LicenseeName = SiteName
+            };
+
+            NotificationMarkAsReadMetaModel passedParam = null;
+
+
+            _notificationService.MarkNotificationAsRead(Arg.Do<NotificationMarkAsReadMetaModel>(x => passedParam = x))
+                                .Returns(new ResultInfo());
+
+            var expectedResult = _serializer.Serialize(expectedMetaModel);
+
+            // Action
+            _apiController.MarkNotificationAsRead(metaModel);
+            var result = _serializer.Serialize(passedParam);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
