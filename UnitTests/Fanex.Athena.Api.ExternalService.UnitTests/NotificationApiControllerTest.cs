@@ -21,7 +21,7 @@
 
         private const string SiteName = "12bet";
 
-        private const int MaximumMonth = 6;
+        private const int MaximumMonthDistance = 5;
 
         private IMoveBetService _moveBetService;
 
@@ -103,10 +103,11 @@
             {
                 Language = "en"
             };
+            var today = DateTime.Today;
             var expectedMetaModel = new NotificationMetaModel
             {
-                FromDate = DateTime.Today.AddMonths(-MaximumMonth),
-                ToDate = DateTime.Today.AddDays(1),
+                FromDate = new DateTime(today.Year, today.Month, 1).AddMonths(-MaximumMonthDistance),
+                ToDate = today.AddDays(1).AddMilliseconds(-1),
                 Language = "en",
                 IsOnlyUnread = true,
                 PageSize = 10,
