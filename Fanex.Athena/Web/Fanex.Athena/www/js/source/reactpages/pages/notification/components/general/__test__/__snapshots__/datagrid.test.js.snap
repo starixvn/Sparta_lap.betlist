@@ -337,7 +337,7 @@ exports[`DataGrid  render  has data - render table 1`] = `
       <span
         className="page-info"
       >
-        View 1-10 of 1
+        View 1-1 of 1
       </span>
     </div>
   </div>

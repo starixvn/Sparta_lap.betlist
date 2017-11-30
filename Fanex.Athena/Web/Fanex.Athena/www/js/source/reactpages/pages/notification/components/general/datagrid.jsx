@@ -17,22 +17,15 @@ export class DataGrid extends Component {
         this.reportTitle = "";
     }
 
-    componentWillMount() {
-        const param = this.props.param;
-        if (param && param.hasOwnProperty("FromDate")) {
-            const dateRange = {
-                fromDate: param.FromDate,
-                toDate: param.ToDate
-            };
-
-            this.reportTitle = service.getReportTitle(dateRange);
-        }
-    }
-
     componentWillReceiveProps(nextProps) {
         if (this.props.gridData !== nextProps.gridData) {
-            const { dateRange } = nextProps;
-            this.reportTitle = service.getReportTitle(dateRange);
+            const paramData = this.props.param;
+            if(paramData) {
+                this.reportTitle = service.getReportTitle({
+                    fromDate: paramData.FromDate,
+                    toDate: paramData.ToDate
+                });
+            }
             this.props.toggleLoader(false);
         }
     }

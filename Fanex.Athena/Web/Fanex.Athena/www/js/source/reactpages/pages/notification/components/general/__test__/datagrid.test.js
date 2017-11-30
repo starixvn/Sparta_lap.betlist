@@ -140,35 +140,6 @@ describe('DataGrid ', () => {
         })
     })
 
-    describe('componentWillMount', () => {
-        it('param does not exist - do not set report title', () => {
-            const props = {};
-
-            const grid = new DataGrid(props);
-            grid.componentWillMount();
-
-            expect(Service.getReportTitle).not.toHaveBeenCalledWith();
-        })
-
-        it('param has FromDater - set report title', () => {
-            const props = { 
-                param: {
-                    FromDate: '01/01/2017',
-                    ToDate: '01/10/2017'
-                }
-            };
-            const expectedParam = {
-                fromDate: props.param.FromDate,
-                toDate: props.param.ToDate
-            };
-
-            const grid = new DataGrid(props);
-            grid.componentWillMount();
-
-            expect(Service.getReportTitle).toHaveBeenCalledWith(expectedParam);
-        })
-    })
-
     describe('componentWillReceiveProps', () => {
         it('next grid data is the same with the current - do nothing', () => {
             const props = {
@@ -183,24 +154,41 @@ describe('DataGrid ', () => {
             expect(props.toggleLoader).not.toHaveBeenCalledWith();
         })
 
-        it('next grid data is not the same with the current - update title', () => {
+        it('next grid data is not the same with the current - hide loader', () => {
             const props = {
                 gridData: {},
                 dateRange: {},
                 toggleLoader: jest.fn()
             };
             const nextProps = {
-                gridData: {},
-                dateRange: {
-                    fromDate: '',
-                    toDate: ''
-                }
+                gridData: {}
             };
 
             const grid = new DataGrid(props);
             grid.componentWillReceiveProps(nextProps);
 
-            expect(Service.getReportTitle).toHaveBeenCalledWith(nextProps.dateRange);
+            expect(Service.getReportTitle).not.toHaveBeenCalled();
+            expect(props.toggleLoader).toHaveBeenCalledWith(false);
+        })
+
+        it('next grid data is not the same with the current - param data is existing - update title', () => {
+            const props = {
+                gridData: {},
+                dateRange: {},
+                param: {
+                    FromData: '',
+                    ToDate: ''
+                },
+                toggleLoader: jest.fn()
+            };
+            const nextProps = {
+                gridData: {},
+            };
+
+            const grid = new DataGrid(props);
+            grid.componentWillReceiveProps(nextProps);
+
+            expect(Service.getReportTitle).toHaveBeenCalled();
             expect(props.toggleLoader).toHaveBeenCalledWith(false);
         })
     })
