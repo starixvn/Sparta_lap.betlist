@@ -115,14 +115,14 @@
         [HttpPost]
         public HttpResponseMessage DownLoadFileAttachment(NotificationAttachmentMetaModel metaModel)
         {
-            var content = _notificationService.GetFileAttachmentData(metaModel);
-            if (content == null)
+            var data = _notificationService.GetFileAttachmentData(metaModel);
+            if (data.Code != 0)
             {
                 return new HttpResponseMessage(HttpStatusCode.NoContent);
             }
 
             var result = new HttpResponseMessage(HttpStatusCode.OK);
-            result.Content = new ByteArrayContent(content);
+            result.Content = new ByteArrayContent(Convert.FromBase64String(data.ExtendedData));
             result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
 
             return result;

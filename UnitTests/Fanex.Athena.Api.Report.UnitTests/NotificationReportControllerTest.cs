@@ -194,11 +194,11 @@
         }
 
         [Test]
-        public void DownLoadFileAttachment_ServiceReturnsNull_ReturnStatusNoContent()
+        public void DownLoadFileAttachment_ServiceReturnsError_ReturnStatusNoContent()
         {
             // Arrange
             var metaModel = new NotificationAttachmentMetaModel();
-            _service.GetFileAttachmentData(metaModel).Returns(x => { return null; });
+            _service.GetFileAttachmentData(metaModel).Returns(new ResultInfo { Code = 1 });
 
             // Action
             var result = _controller.DownLoadFileAttachment(metaModel) as HttpResponseMessage;
@@ -213,7 +213,7 @@
             // Arrange
             var metaModel = new NotificationAttachmentMetaModel();
             var data = "test";
-            _service.GetFileAttachmentData(metaModel).Returns(Encoding.ASCII.GetBytes(data));
+            _service.GetFileAttachmentData(metaModel).Returns(new ResultInfo { Code = 0, ExtendedData = data });
 
             // Action
             var result = _controller.DownLoadFileAttachment(metaModel) as HttpResponseMessage;

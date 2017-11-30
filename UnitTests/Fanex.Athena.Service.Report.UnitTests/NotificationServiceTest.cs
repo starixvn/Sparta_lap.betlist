@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using Core.Utility.Interfaces;
     using Extension.Utility;
     using Extension.Utility.Interfaces;
@@ -449,7 +448,7 @@
         }
 
         [TestCase("{}")]
-        [TestCase("")]        
+        [TestCase("")]
         public void MarkNotificationAsRead_ApiReturnsNoData_CallApiWithCorrectParameter(string jsonString)
         {
             // Arrange
@@ -556,7 +555,7 @@
             var result = _notificationService.GetFileAttachmentData(metaModel);
 
             // Assert
-            _webClientService.Received().DownloadData(expectedUrl);
+            _webClientService.Received().DownloadString(expectedUrl);
         }
 
         [Test]
@@ -569,15 +568,16 @@
                 FileName = "FileName2"
             };
             var url = "API?site=SpecialDelete&name=FileName2";
-            var data = Encoding.ASCII.GetBytes("Test");
+            var jsonString = "{'content':'Test','result':{'errorCode':'1','message':'Error'}}";
+            var expectedData = "Test";
 
-            _webClientService.DownloadData(url).Returns(data);
+            _webClientService.DownloadString(url).Returns(jsonString);
 
             // Action
             var result = _notificationService.GetFileAttachmentData(metaModel);
 
             // Assert
-            Assert.That(result, Is.EqualTo(data));
+            Assert.That(result.ExtendedData, Is.EqualTo(expectedData));
         }
 
         [Test]
@@ -592,7 +592,7 @@
             var expectedUrl = "API?site=SpecialDelete&name=FileName3";
 
             var exceptionMsg = "Failure";
-            _webClientService.When(x => x.DownloadData(expectedUrl)).Do(x =>
+            _webClientService.When(x => x.DownloadString(expectedUrl)).Do(x =>
             {
                 throw new Exception(exceptionMsg);
             });
@@ -603,7 +603,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result, Is.Null);
+                Assert.That(result.Code, Is.Not.Zero);
                 AssertWriteLogException(exceptionMsg, expectedUrl);
             });
         }

@@ -224,19 +224,40 @@
             return result;
         }
 
-        public byte[] GetFileAttachmentData(NotificationAttachmentMetaModel metaModel)
+        public IResultInfo GetFileAttachmentData(NotificationAttachmentMetaModel metaModel)
         {
             var url = $"{metaModel.Api}?site=SpecialDelete&name={metaModel.FileName}";
+            var result = new ResultInfo
+            {
+                Code = 1,
+                Message = ViewResources.ErrorProcessingMsg
+            };
             try
-            {           
-                return _webClientService.DownloadData(url);
+            {
+                var json = _webClientService.DownloadString(url);
+                if (string.IsNullOrEmpty(json))
+                {
+                    return result;
+                }
+
+                var jobject = JObject.Parse(json);
+
+                if (jobject.HasValues)
+                {
+                    return new ResultInfo
+                    {
+                        ExtendedData = jobject["content"].Value<string>(),
+                        Code = jobject["result"]["errorCode"].Value<int>(),
+                        Message = jobject["result"]["message"].Value<string>()
+                    };
+                }
             }
             catch (Exception e)
             {
                 LogError(url, e);
             }
 
-            return null;
+            return result;
         }
 
         private string GetSupportedLanguage(string lang)

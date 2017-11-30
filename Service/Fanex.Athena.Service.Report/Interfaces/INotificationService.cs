@@ -18,6 +18,6 @@
 
         IResultInfo MarkNotificationAsRead(NotificationMarkAsReadMetaModel metaModel);
 
-        byte[] GetFileAttachmentData(NotificationAttachmentMetaModel metaModel);
+        IResultInfo GetFileAttachmentData(NotificationAttachmentMetaModel metaModel);
     }
 }
