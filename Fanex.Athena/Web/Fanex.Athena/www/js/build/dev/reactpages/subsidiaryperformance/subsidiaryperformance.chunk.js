@@ -18834,7 +18834,7 @@ var Page = function (_Component) {
         _this.onKeyUpHandle = function (e) {
             var code = e.keyCode ? e.keyCode : e.which;
             if (code === 13) {
-                var value = parseInt(_this.state.index);
+                var value = parseInt(_this.state.inputValue);
                 if (value > 0 && value <= _this.state.totalPage) {
                     _this.goToPage(value, _this.state.pageSize);
                 }
@@ -18845,10 +18845,9 @@ var Page = function (_Component) {
             index: _this.props.pageOption.PageIndex,
             isShow: _this.props.pageOption.TotalItem > _this.props.pageOption.PageList[0],
             totalPage: Math.ceil(_this.props.pageOption.TotalItem / _this.props.pageOption.PageSize),
-            pageSize: _this.props.pageOption.PageSize
+            pageSize: _this.props.pageOption.PageSize,
+            inputValue: _this.props.pageOption.PageIndex
         };
-
-        _this.inputValue = _this.props.pageOption.PageIndex;
         return _this;
     }
 
@@ -18856,13 +18855,13 @@ var Page = function (_Component) {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
             if (this.props.pageOption !== nextProps.pageOption) {
-                this._updateState(nextProps.pageOption.PageIndex, nextProps.pageOption.TotalItem > nextProps.pageOption.PageList[0], Math.ceil(nextProps.pageOption.TotalItem / nextProps.pageOption.PageSize), nextProps.pageOption.PageSize);
+                this._updateState(nextProps.pageOption.PageIndex, nextProps.pageOption.TotalItem > nextProps.pageOption.PageList[0], Math.ceil(nextProps.pageOption.TotalItem / nextProps.pageOption.PageSize), nextProps.pageOption.PageSize, nextProps.pageOption.PageIndex);
             }
         }
     }, {
         key: 'goToPage',
         value: function goToPage(index, pageSize) {
-            this._updateState(index, null, Math.ceil(this.props.pageOption.TotalItem / pageSize), pageSize);
+            this._updateState(index, null, Math.ceil(this.props.pageOption.TotalItem / pageSize), pageSize, index);
             this.props.onPaging && this.props.onPaging(index, pageSize);
         }
     }, {
@@ -18874,12 +18873,13 @@ var Page = function (_Component) {
         }
     }, {
         key: '_updateState',
-        value: function _updateState(index, isShow, totalPage, pageSize) {
+        value: function _updateState(index, isShow, totalPage, pageSize, input) {
             this.setState({
                 index: index !== null ? index : this.state.index,
                 isShow: isShow !== null ? isShow : this.state.isShow,
                 totalPage: totalPage ? totalPage : this.state.totalPage,
-                pageSize: pageSize ? pageSize : this.state.pageSize
+                pageSize: pageSize ? pageSize : this.state.pageSize,
+                inputValue: input !== null ? input : this.state.inputValue
             });
         }
     }, {
@@ -18930,7 +18930,7 @@ var Page = function (_Component) {
                 ),
                 _react2.default.createElement('input', { type: 'text', className: 'page-form', value: index, maxLength: '4', size: '2',
                     onChange: function onChange(e) {
-                        return _this4._updateState(e.target.value, null, null, null);
+                        return _this4._updateState(null, null, null, null, e.target.value);
                     },
                     onKeyUp: this.onKeyUpHandle }),
                 _react2.default.createElement(
@@ -18944,10 +18944,12 @@ var Page = function (_Component) {
     }, {
         key: '_renderPageInfo',
         value: function _renderPageInfo(index, pageSize, totalItem) {
+            var viewFrom = (index - 1) * pageSize + 1;
+            var viewTo = index * pageSize;
             return _react2.default.createElement(
                 'span',
                 { className: 'page-info' },
-                'View ' + index + '-' + pageSize + ' of ' + totalItem
+                'View ' + viewFrom + '-' + (viewTo > totalItem ? totalItem : viewTo) + ' of ' + totalItem
             );
         }
     }, {
@@ -18958,9 +18960,10 @@ var Page = function (_Component) {
             var _state = this.state,
                 index = _state.index,
                 totalPage = _state.totalPage,
-                pageSize = _state.pageSize;
+                pageSize = _state.pageSize,
+                inputValue = _state.inputValue;
 
-            var isDisable = isNaN(parseInt(index));
+            var isDisable = isNaN(parseInt(inputValue));
 
             return _react2.default.createElement(
                 'div',
@@ -18971,7 +18974,7 @@ var Page = function (_Component) {
                 this._renderPageIcon("page-prev", isDisable || index <= 1 || index > totalPage, function () {
                     return _this5.goToPage(index - 1, pageSize);
                 }),
-                this._renderPageInput(index),
+                this._renderPageInput(inputValue),
                 this._renderPageIcon("page-next", isDisable || index >= totalPage || index < 1, function () {
                     return _this5.goToPage(index + 1, pageSize);
                 }),
