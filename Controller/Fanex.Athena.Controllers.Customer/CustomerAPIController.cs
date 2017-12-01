@@ -490,7 +490,7 @@ namespace Fanex.Athena.Controllers.Customer
             var userName = query.Trim();
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var userId = SessionService.UserSession.UserId;
-            var customerNames = _customerListService.SearchCustomers(licenseeId, userId, query, SessionService.GenerateAgentListXml());
+            var customerNames = _customerListService.SearchCustomers(licenseeId, userId, userName, SessionService.GenerateAgentListXml());
 
             var searchResult = new
             {

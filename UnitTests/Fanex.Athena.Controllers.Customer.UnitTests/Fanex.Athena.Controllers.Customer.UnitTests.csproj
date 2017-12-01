@@ -126,6 +126,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="CustomerApiControllerTest.MoveToGroupCom.cs" />
     <Compile Include="CustomerApiControllerTest.UpdateCustomerCom.cs" />
     <Compile Include="CustomerApiControllerTest.UpdateBAStatus.cs" />
     <Compile Include="CustomerApiControllerTest.cs" />

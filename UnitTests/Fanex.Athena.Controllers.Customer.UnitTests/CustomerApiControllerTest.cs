@@ -255,7 +255,7 @@
                 {
                     _customerCommService.Received(1).RemoveCustomersFromGroup(
                         Arg.Is<RemoveFromGroupComMetaModel>(x =>
-                        x.CustomerIds == CustmerIds && x.IsRemovePlayercomm == isRemovePlayerComm), 
+                        x.CustomerIds == CustmerIds && x.IsRemovePlayercomm == isRemovePlayerComm),
                         false);
                     Assert.That(resultData.ExtendedData.GetValue("GroupName"), Is.EqualTo("None"));
                     Assert.That(resultData.ExtendedData.GetValue("GroupColor"), Is.EqualTo("#ffffff"));
@@ -264,56 +264,32 @@
         }
 
         [Test]
-        public void MoveToGroupCom_NotAllowedCustomerComm_ReturnErrorResult()
+        public void SearchCustomer_WhenCall_ReturnCorrectData()
         {
             using (var controller = CreateController())
             {
                 // Arrange
-                SessionService.LicenseeSession.Returns(new LicenseeSession
-                {
-                    IsAllowedCustomerComm = false
-                });
+                const string Query = " test   ";
+                const string AgentListXml = "Agent List XML";
+                var expectedCustomerNames = new[] { "test1", "test2" };
+                SessionService.GenerateAgentListXml().Returns(AgentListXml);
+                _customerListService.SearchCustomers(0, 0, string.Empty, string.Empty)
+                    .ReturnsForAnyArgs(expectedCustomerNames);
 
                 // Action
-                var result = controller.MoveToGroupCom(string.Empty, 0) as JsonResult;
+                var result = controller.SearchCustomer(Query) as JsonResult;
                 var resultData = result.Data as object;
 
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(controller.Response.StatusCode, Is.EqualTo(403));
-                    Assert.That(resultData.GetValue("ErrCode"), Is.EqualTo(403));
-                });
-            }
-        }
-
-        [Test]
-        public void MoveToGroupCom_WhenCall_CallRemoveCustomerComm()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                const string CustmerIds = "1,2";
-                const int GroupId = 100;
-                _productService.GetProductAccess(0, string.Empty, string.Empty).ReturnsForAnyArgs(new ProductAccess(new List<Product>()));
-                SessionService.LicenseeSession.Returns(new LicenseeSession
-                {
-                    IsAllowedCustomerComm = true
-                });
-
-                // Action
-                var result = controller.MoveToGroupCom(CustmerIds, GroupId) as JsonResult;
-                var resultData = result.Data as ResultViewModel;
-
-                // Assert
-                Assert.Multiple(() =>
-                {
-                    _customerCommService.Received(1).MoveCustomersToGroup(
-                        Arg.Is<MoveToGroupComMetaModel>(x =>
-                            x.CustomerIds == CustmerIds &&
-                            x.GroupComId == GroupId &&
-                            x.LicenseeId == SessionService.LicenseeSession.LicenseeId &&
-                            x.UserId == SessionService.UserSession.UserId));
+                    _customerListService.Received(1).SearchCustomers(
+                        SessionService.LicenseeSession.LicenseeId,
+                        SessionService.UserSession.UserId,
+                        Query.Trim(),
+                        AgentListXml);
+                    Assert.That(resultData.GetValue("query"), Is.EqualTo(Query.Trim()));
+                    Assert.That(resultData.GetValue("suggestions"), Is.EqualTo(expectedCustomerNames));
                 });
             }
         }

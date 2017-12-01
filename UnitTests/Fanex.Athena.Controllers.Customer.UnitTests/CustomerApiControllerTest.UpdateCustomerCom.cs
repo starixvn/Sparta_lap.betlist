@@ -75,7 +75,7 @@
                 });
                 var metaModel = new UpdatedCustomerComMetaModel
                 {
-                    CustomerIds = "1,2",
+                    CustomerIds = "1",
                     SBComm = -1
                 };
 
@@ -105,7 +105,7 @@
                 });
                 var metaModel = new UpdatedCustomerComMetaModel
                 {
-                    CustomerIds = "1,2",
+                    CustomerIds = "1",
                     GroupId = -1,
                     SBComm = 0.15m
                 };
@@ -119,6 +119,42 @@
                 {
                     _customerCommService.Received(1).UpdateCustomersCommission(metaModel, metaModel.IsAllowedCS);
                     Assert.That(resultData.ExtendedData.GetValue("SBComm"), Is.EqualTo("15.00"));
+                });
+            }
+        }
+
+        [Test]
+        public void UpdateCustomerCom_SameOldComm_ReturnCorrectErrorMessage()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                _productService.GetProductAccess(0, string.Empty).ReturnsForAnyArgs(new ProductAccess(new List<Product>()));
+                SessionService.LicenseeSession.Returns(new LicenseeSession
+                {
+                    IsAllowedCustomerComm = true
+                });
+                var metaModel = new UpdatedCustomerComMetaModel
+                {
+                    CustomerIds = "1",
+                    GroupId = 1,
+                    SBComm = 0.05m
+                };
+                _groupComService.GetById(metaModel.GroupId).Returns(new GroupCommMetaModel
+                {
+                    SBComm = metaModel.SBComm
+                });
+
+                // Action
+                var result = controller.UpdateCustomerCom(metaModel) as JsonResult;
+                var resultData = result.Data as ResultViewModel;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    _customerCommService.DidNotReceiveWithAnyArgs().UpdateCustomersCommission(null, false);
+                    Assert.That(resultData.Success, Is.False);
+                    Assert.That(resultData.ErrorMessage, Is.EqualTo(ViewResources.MessageCommNoChange));
                 });
             }
         }
