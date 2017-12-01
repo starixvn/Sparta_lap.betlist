@@ -130,6 +130,10 @@
     <Compile Include="CustomerApiControllerTest.UpdateCustomerCom.cs" />
     <Compile Include="CustomerApiControllerTest.UpdateBAStatus.cs" />
     <Compile Include="CustomerApiControllerTest.cs" />
+    <Compile Include="CustomerLogController.CustomerSettingTest.cs" />
+    <Compile Include="CustomerLogController.GroupCommissionTest.cs" />
+    <Compile Include="CustomerLogController.LogInLogTest.cs" />
+    <Compile Include="CustomerLogControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
