@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Extension.Utility.Interfaces;
@@ -27,7 +26,13 @@
             { nameof(ResultAmendment), "Amendment" }
         };
 
-        private readonly string[] _supportedLanguage = { "En", "Ch", "Cs" };
+        private readonly IDictionary<string, string> _supportedLanguage = new Dictionary<string, string>
+        {
+            { "en", "En" },
+            { "ch", "Ch" },
+            { "cs", "Cs" },
+            { "zhcn", "Cs" }
+        };
 
         private readonly ILogger _logger;
 
@@ -114,7 +119,7 @@
                 var jobject = JObject.Parse(json);
                 if (jobject.HasValues && jobject["Data"].Children().Any())
                 {
-                    var lang = GetSupportedLanguage(CultureInfo.InvariantCulture.TextInfo.ToTitleCase(metaModel.Language.ToLowerInvariant()));
+                    var lang = GetSupportedLanguage(metaModel.Language);
                     var subjectKey = "Subject" + lang;
                     var contentKey = "Content" + lang;
 
@@ -164,7 +169,7 @@
                 var jobject = JObject.Parse(json);
                 if (jobject.HasValues && jobject["Data"].Children().Any())
                 {
-                    var lang = GetSupportedLanguage(CultureInfo.InvariantCulture.TextInfo.ToTitleCase(metaModel.Language.ToLowerInvariant()));
+                    var lang = GetSupportedLanguage(metaModel.Language);
                     var subjectKey = "Subject" + lang;
                     var contentKey = "Content" + lang;
 
@@ -262,12 +267,13 @@
 
         private string GetSupportedLanguage(string lang)
         {
-            if (_supportedLanguage.Contains(lang))
+            var key = lang.ToLowerInvariant();
+            if (_supportedLanguage.ContainsKey(key))
             {
-                return lang;
+                return _supportedLanguage[key];
             }
 
-            return _supportedLanguage[0];
+            return _supportedLanguage.First().Value;
         }
 
         private IDictionary<string, string> GetNotificationTypeFromApi()
