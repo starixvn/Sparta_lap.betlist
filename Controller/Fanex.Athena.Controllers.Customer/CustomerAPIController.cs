@@ -65,11 +65,11 @@ namespace Fanex.Athena.Controllers.Customer
 #pragma warning restore S107 // Methods should not have too many parameters
             : base(languageService, sessionService, appSetting, fileSystem)
         {
-            _customerCommService = customerCommService ?? new CustomerCommService();
-            _licenseeDataAccess = licenseeDataAccess ?? new LicenseeDataAccess();
-            _customerListService = customerListService ?? new CustomerListService();
-            _groupComService = groupComService ?? new GroupComService();
-            _productService = productService ?? new ProductService();
+            _customerCommService = customerCommService;
+            _licenseeDataAccess = licenseeDataAccess;
+            _customerListService = customerListService;
+            _groupComService = groupComService;
+            _productService = productService;
         }
 
         public CustomerApiController()

@@ -1,11 +1,16 @@
 ﻿namespace Fanex.Athena.Controllers.Customer
 {
     using System;
+    using System.Collections.Generic;
+    using System.Data;
     using System.Globalization;
     using System.IO;
     using System.Linq;
+    using System.Web.Hosting;
     using System.Web.Mvc;
     using System.Web.SessionState;
+    using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Customer;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -19,6 +24,7 @@
     using Model.Core.DataDomain;
     using ONEbook.UM.Filters;
     using Resources;
+    using Service.Core.Users.Interfaces;
     using Service.Customer.Helpers;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
@@ -26,12 +32,43 @@
     [FunctionAuthorization(PermissionKeys.CustomerInfoCommissionGroupList)]
     public class CustomerComGroupController : BaseController
     {
-        private readonly IGroupComService _customerComService;
+        private static readonly IDictionary<int, string> UpdatingErrorMap = new Dictionary<int, string>
+        {
+            { 100, nameof(ViewResources.MessageCommCannotGreaterThan) },
+            { 101, nameof(ViewResources.MessageGroupDoesNotExistMsg) },
+            { 102, nameof(ViewResources.MessageGroupHasAlreadyChoosen) },
+            { 103, nameof(ViewResources.GroupSetAsDefaultMsg) },
+        };
+
+        private static readonly IDictionary<int, string> CreatingErrorMap = new Dictionary<int, string>
+        {
+            { 100, nameof(ViewResources.MessageCommCannotGreaterThan) },
+            { 101, nameof(ViewResources.MessageGroupCreationFail) },
+            { 102, nameof(ViewResources.GroupNameExistedMsg) }
+        };
+
+        private readonly IFileSystem _fileSystem;
+        private readonly IGroupComService _groupComService;
         private readonly IProductService _productService;
+
+        public CustomerComGroupController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IFileSystem fileSystem,
+            IGroupComService groupComService,
+            IProductService productService)
+            : base(languageService, sessionService, appSetting, fileSystem)
+        {
+            _groupComService = groupComService;
+            _productService = productService;
+            _fileSystem = fileSystem;
+        }
 
         public CustomerComGroupController()
         {
-            _customerComService = new GroupComService();
+            _fileSystem = new FileSystem();
+            _groupComService = new GroupComService();
             _productService = new ProductService();
         }
 
@@ -42,7 +79,7 @@
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
-            var model = _customerComService.GetAll(licenseeId);
+            var model = _groupComService.GetAll(licenseeId);
 
             ViewBag.IsAllowNG = productAccess.IsAllowNG;
             ViewBag.IsAllowRC = productAccess.IsAllowRB;
@@ -90,7 +127,7 @@
                         Language = userSession.Language,
                         Ip = Request.UserHostAddress
                     };
-                    result = _customerComService.InsertGroup(metaModel, request, userSession.UserId);
+                    result = _groupComService.InsertGroup(metaModel, request, userSession.UserId);
 
                     result.Message = GetCreateGroupErrorMessage(result.Code);
 
@@ -119,7 +156,7 @@
         [HttpGet]
         public string Validate(string groupName)
         {
-            return string.IsNullOrEmpty(groupName) || _customerComService.CheckExistingGroupByName(SessionService.LicenseeSession.LicenseeId, groupName)
+            return string.IsNullOrEmpty(groupName) || _groupComService.CheckExistingGroupByName(SessionService.LicenseeSession.LicenseeId, groupName)
                 ? "NO" : "OK";
         }
 
@@ -130,7 +167,7 @@
         [HttpGet]
         public ActionResult Update(int groupId)
         {
-            var model = _customerComService.GetById(groupId);
+            var model = _groupComService.GetById(groupId);
 
             if (model != null)
             {
@@ -190,7 +227,7 @@
             var userSession = SessionService.UserSession;
             var productAccess = _productService.GetProductAccess(licenseeId, userSession.Language);
 
-            var result = _customerComService.DeleteGroup(
+            var result = _groupComService.DeleteGroup(
                 new DeleteGroupMetaModel
                 {
                     GroupId = groupId,
@@ -220,7 +257,7 @@
         public JsonResult GetDefaultGroup()
         {
             /* Gathering group list*/
-            var groupList = _customerComService.GetAll(SessionService.LicenseeSession.LicenseeId);
+            var groupList = _groupComService.GetAll(SessionService.LicenseeSession.LicenseeId);
             var defaultGroupId = groupList.FirstOrDefault(x => x.IsDefaultGroup)?.GroupCommId ?? 0;
 
             return Json(new { id = defaultGroupId }, JsonRequestBehavior.AllowGet);
@@ -235,9 +272,9 @@
         public ActionResult ExportExcel()
         {
             const string FileName = "CustomerCommGroup";
-            var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerGroup/CustomerCommGroup.xls");
+            var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/CustomerGroup/CustomerCommGroup.xls");
 
-            if (!System.IO.File.Exists(templatePath))
+            if (!_fileSystem.Exists(templatePath))
             {
                 throw new FileNotFoundException(templatePath);
             }
@@ -254,13 +291,18 @@
                 ABVisible = productAccess.IsAllowAB
             };
 
-            var mainTable = _customerComService.GetDataForExcel(licenseeId);
+            var mainTable = _groupComService.GetDataForExcel(licenseeId);
 
-            var custmerCommGroupExcel = new CustomerCommGroupExcel(templatePath, mainTable, showingOption);
+            var excel = CreateExcel(templatePath, mainTable, showingOption);
 
-            custmerCommGroupExcel.Export();
+            excel.Export();
 
-            return new ExcelResult(custmerCommGroupExcel.Workbook, FileName);
+            return new ExcelResult(excel.Workbook, FileName);
+        }
+
+        protected internal virtual CustomerCommGroupExcel CreateExcel(string templatePath, DataTable mainTable, ShowingOption showingOption)
+        {
+            return new CustomerCommGroupExcel(templatePath, mainTable, showingOption);
         }
 
         #endregion Export Excel
@@ -281,41 +323,22 @@
 
         private static string GetUpdateGroupErrorMessage(int errorCode)
         {
-            switch (errorCode)
+            if (!UpdatingErrorMap.ContainsKey(errorCode))
             {
-                case 100:
-                    return ViewResources.MessageCommCannotGreaterThan;
-
-                case 101:
-                    return ViewResources.MessageGroupDoesNotExistMsg;
-
-                case 102:
-                    return ViewResources.MessageGroupHasAlreadyChoosen;
-
-                case 103:
-                    return ViewResources.GroupSetAsDefaultMsg;
-
-                default:
-                    return string.Empty;
+                return string.Empty;
             }
+
+            return ViewResources.ResourceManager.GetString(UpdatingErrorMap[errorCode]);
         }
 
         private static string GetCreateGroupErrorMessage(int errorCode)
         {
-            switch (errorCode)
+            if (!CreatingErrorMap.ContainsKey(errorCode))
             {
-                case 100:
-                    return ViewResources.MessageCommCannotGreaterThan;
-
-                case 101:
-                    return ViewResources.MessageGroupCreationFail;
-
-                case 102:
-                    return ViewResources.GroupNameExistedMsg;
-
-                default:
-                    return string.Empty;
+                return string.Empty;
             }
+
+            return ViewResources.ResourceManager.GetString(CreatingErrorMap[errorCode]);
         }
 
         private static int SetComm(decimal comm, int position)
@@ -425,7 +448,7 @@
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
-            var groupList = _customerComService.GetAll(licenseeId);
+            var groupList = _groupComService.GetAll(licenseeId);
             var defaultGroupId = groupList.FirstOrDefault(x => x.IsDefaultGroup)?.GroupCommId ?? 0;
 
             metaModel.LicenseeId = licenseeId;
@@ -441,7 +464,7 @@
         private IResultInfo UpdateGroupComm(GroupCommMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
-            var currentGroup = _customerComService.GetById(metaModel.GroupCommId);
+            var currentGroup = _groupComService.GetById(metaModel.GroupCommId);
             if (currentGroup != null && !CompareGroupComm(currentGroup, metaModel))
             {
                 var request = new Request
@@ -449,8 +472,7 @@
                     Language = userSession.Language,
                     Ip = Request.UserHostAddress
                 };
-                var result = _customerComService.UpdateGroup(metaModel, request, userSession);
-
+                var result = _groupComService.UpdateGroup(metaModel, request, userSession);
                 if (string.IsNullOrWhiteSpace(result.Message))
                 {
                     result.Message = GetUpdateGroupErrorMessage(result.Code);

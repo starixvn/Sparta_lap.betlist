@@ -89,6 +89,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Web" />
@@ -126,6 +127,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="CustomerComGroupControllerTest.Update.cs" />
+    <Compile Include="CustomerComGroupControllerTest.Create.cs" />
+    <Compile Include="CustomerComGroupControllerTest.cs" />
     <Compile Include="CustomerApiControllerTest.MoveToGroupCom.cs" />
     <Compile Include="CustomerApiControllerTest.UpdateCustomerCom.cs" />
     <Compile Include="CustomerApiControllerTest.UpdateBAStatus.cs" />
@@ -148,6 +152,14 @@
     <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
       <Project>{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}</Project>
       <Name>Fanex.Athena.DataAccess.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Excel\Fanex.Athena.Excel.Base\Fanex.Athena.Excel.Base.csproj">
+      <Project>{413861ad-068b-4c02-b913-10b1de708fb7}</Project>
+      <Name>Fanex.Athena.Excel.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Excel\Fanex.Athena.Excel.Customer\Fanex.Athena.Excel.Customer.csproj">
+      <Project>{c741a329-44b9-4dd1-98c1-4eaaed4a9012}</Project>
+      <Name>Fanex.Athena.Excel.Customer</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
