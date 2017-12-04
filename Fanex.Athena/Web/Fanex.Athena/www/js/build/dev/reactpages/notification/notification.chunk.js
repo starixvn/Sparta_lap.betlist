@@ -20204,7 +20204,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { title: item.Subject },
+                        { title: item.Subject, className: 'notification-content' },
                         _react2.default.createElement(_CollapsibleRow2.default, {
                             subject: item.Subject,
                             content: item.Content,

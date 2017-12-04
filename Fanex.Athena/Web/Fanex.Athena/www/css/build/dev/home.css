@@ -6329,8 +6329,35 @@ header nav {
   border: solid 1px #d1dae1;
   position: relative;
   height: calc(100% - 100px);
-  padding: 5px;
-  overflow: auto; }
+  overflow: auto;
+  line-height: 1.42; }
+  .view-notification .content h1, .view-notification .content h2, .view-notification .content h3, .view-notification .content h4, .view-notification .content h5, .view-notification .content h6 {
+    font-weight: normal;
+    line-height: 100%; }
+  .view-notification .content ol li, .view-notification .content ul li {
+    padding-left: 1.5em;
+    list-style-position: inside; }
+  .view-notification .content ol li {
+    list-style-type: decimal; }
+  .view-notification .content ul li {
+    list-style-type: disc; }
+  .view-notification .content pre {
+    white-space: pre-wrap;
+    margin: 5px 0 5px 0;
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    border-radius: 3px;
+    display: block;
+    color: #333; }
+  .view-notification .content blockquote {
+    border-left: 4px solid #ccc;
+    margin: 5px 0 5px 0;
+    padding-left: 16px;
+    font-size: 1.4em; }
+  .view-notification .content strong {
+    font-weight: bold; }
+  .view-notification .content:after, .view-notification .content:before {
+    clear: both; }
 
 .view-notification .popup-close {
   display: none; }

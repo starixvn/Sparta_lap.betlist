@@ -370,6 +370,39 @@
     float: right;
     padding: 3px; }
 
+.notification-content {
+  line-height: 1.42; }
+  .notification-content * {
+    padding: 0;
+    margin: 0; }
+  .notification-content h1, .notification-content h2, .notification-content h3, .notification-content h4, .notification-content h5, .notification-content h6 {
+    font-weight: normal;
+    line-height: 100%; }
+  .notification-content ol li, .notification-content ul li {
+    padding-left: 1.5em;
+    list-style-position: inside; }
+  .notification-content ol li {
+    list-style-type: decimal; }
+  .notification-content ul li {
+    list-style-type: disc; }
+  .notification-content pre {
+    white-space: pre-wrap;
+    margin: 5px 0 5px 0;
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    border-radius: 3px;
+    display: block;
+    color: #333; }
+  .notification-content blockquote {
+    border-left: 4px solid #ccc;
+    margin: 5px 0 5px 0;
+    padding-left: 16px;
+    font-size: 1.4em; }
+  .notification-content strong {
+    font-weight: bold; }
+  .notification-content:after, .notification-content:before {
+    clear: both; }
+
 .button-group {
   margin-top: 15px; }
 
