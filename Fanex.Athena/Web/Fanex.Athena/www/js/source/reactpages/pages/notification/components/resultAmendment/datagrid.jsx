@@ -117,7 +117,7 @@ export class DataGrid extends Component {
                 <Row key={`tr${i}`} className={ item.IsRead ? "" : "unread" }>
                     <Cell title={index} className="center-align">{index}</Cell>
                     <Cell title={datetimeString} className="center-align">{datetimeString}</Cell>
-                    <Cell title={item.Subject}>
+                    <Cell title={item.Subject}  className="notification-content">
                         <CollapsibleRow 
                             subject={item.Subject} 
                             content={item.Content} 

@@ -47,8 +47,7 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
             var popupContent = '<div class="view-notification">'
                                 + '<p class="subject">' + Site.getSingleResource("Subject") + ": " + message.Subject + '</p>'
                                 + '<p class="date-time">' + moment(message.DateTime).format("MM/DD/YYYY hh:mm:ss A") + '</p>'
-                                + '<div class="content"><iframe src="data:text/html;charset=utf-8,'
-                                + (Site.asNull(message.Content) === null ? '' : encodeURI(message.Content)) + '"></iframe></div>'
+                                + '<div class="content">' + (message.Content || '') + '</div>'
                                 + '</div>';
 
             Popup.openPopupWithButton(popupContent, options, buttons);

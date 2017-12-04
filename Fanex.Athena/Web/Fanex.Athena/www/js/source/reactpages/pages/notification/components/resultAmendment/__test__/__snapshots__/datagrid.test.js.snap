@@ -177,6 +177,7 @@ exports[`DataGrid  render  has data - render table 1`] = `
                 01/01/2017 12:00:00 PM
               </td>
               <td
+                className="notification-content"
                 title="Subject"
               >
                 <div
