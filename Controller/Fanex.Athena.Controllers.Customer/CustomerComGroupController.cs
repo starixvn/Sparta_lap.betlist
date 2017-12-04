@@ -204,10 +204,10 @@
                     result.Message = ViewResources.MessageInvalidCommValue;
                 }
             }
-
-            if (result.IsSuccessful)
+            else
             {
-                ModelState.Clear();
+                result.Code = 3;
+                result.Message = ViewResources.InvalidParams;
             }
 
             ViewBag.Result = result;

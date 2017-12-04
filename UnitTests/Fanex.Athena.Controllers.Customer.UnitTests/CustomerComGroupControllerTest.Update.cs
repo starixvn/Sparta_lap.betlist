@@ -70,7 +70,8 @@
                 Assert.Multiple(() =>
                 {
                     Assert.That(result.ViewName, Is.EqualTo("~/Views/Customer/CustomerComm/UpdateGroup.cshtml"));
-                    Assert.That(resultInfo.IsSuccessful, Is.True);
+                    Assert.That(resultInfo.IsSuccessful, Is.False);
+                    Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.InvalidParams));
                 });
             }
         }
