@@ -15,6 +15,8 @@ namespace Fanex.Athena.Controllers.Customer
     using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Excel.Base.Helpers;
+    using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.Excel.Customer;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
@@ -28,6 +30,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Model.Core.DataDomain;
     using Newtonsoft.Json;
     using Resources;
+    using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
     public class CustomerController : BaseController
@@ -67,6 +70,26 @@ namespace Fanex.Athena.Controllers.Customer
             _customerListService = new CustomerListService();
             _groupComService = new GroupComService();
             _productService = new ProductService();
+        }
+
+#pragma warning disable S107 // Methods should not have too many parameters
+
+        public CustomerController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IFileSystem fileSystem,
+            ICustomerListService customerListService,
+            IGroupComService groupComService,
+            ILicenseeDataAccess licenseeDataAccess,
+            IProductService productService)
+#pragma warning restore S107 // Methods should not have too many parameters
+            : base(languageService, sessionService, appSetting, fileSystem)
+        {
+            _customerListService = customerListService;
+            _groupComService = groupComService;
+            _licenseeDataAccess = licenseeDataAccess;
+            _productService = productService;
         }
 
         #region Action
@@ -142,18 +165,18 @@ namespace Fanex.Athena.Controllers.Customer
 
                 if (metaModel.GridColumns.Any(i => i.Checked))
                 {
-                    var model = GetCustomers(metaModel);
                     var templatePath = Server.MapPath(@"~/App_Data/Template/Customers/CustomerList.xls");
-                    var fileName = "CustomerList_" + DateTime.Now.ToString("MM-dd-yyyy");
-                    if (!System.IO.File.Exists(templatePath))
+                    if (!FileSystem.Exists(templatePath))
                     {
                         throw new FileNotFoundException(templatePath);
                     }
 
+                    var model = GetCustomers(metaModel);
+                    var fileName = "CustomerList_" + DateTime.Now.ToString("MM-dd-yyyy");
                     var reportTitle = ViewResources.CustomerList + " - "
                         + string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper(CultureInfo.CurrentCulture) : metaModel.CurrencyName);
 
-                    var excel = new CustomerListExcel(templatePath, reportTitle, model);
+                    var excel = CreateExcel(templatePath, reportTitle, model);
 
                     excel.Export();
 
@@ -183,6 +206,14 @@ namespace Fanex.Athena.Controllers.Customer
         #endregion Action
 
         #region Ultilities
+
+        protected internal virtual CustomerListExcel CreateExcel(
+        string templatePath,
+        string reportTitle,
+        CustomerListViewModel model)
+        {
+            return new CustomerListExcel(templatePath, reportTitle, model);
+        }
 
         private static IEnumerable<CheckedItem> GetOddsGroups()
         {

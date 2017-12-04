@@ -65,6 +65,11 @@ namespace Fanex.Athena.Controllers
             get { return _appSettings; }
         }
 
+        public IFileSystem FileSystem
+        {
+            get { return _fileSystem; }
+        }
+
         protected bool IsFakeLicensee()
         {
             return AppSettings.FakeLicenseeList.Contains(SessionService.LicenseeSession.LicenseeId);
