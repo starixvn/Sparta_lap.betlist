@@ -16,7 +16,7 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
                 Site.initialize();
                 BetSettingBase.initialize();
 
-                _bettingGroupLimitCache = JSON.parse($("#BettingLimit").val());
+                _bettingGroupLimitCache = JSON.parse($("#BettingLimit").val() || '[]');
 
                 _productId = parseInt($("#ProductId").val());
                 _me.initEvent();
