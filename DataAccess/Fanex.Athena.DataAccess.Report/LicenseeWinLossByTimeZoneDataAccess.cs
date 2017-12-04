@@ -31,7 +31,7 @@
             const string SpName = "Lrf_Rpt_LicWinlossByTimeZone";
             var dataList = new SortableList<LicenseeWinLossByTimeZone>();
             var totalData = new LicenseeWinLossByTimeZone();
-            var baseCurrency = metaModel.ConvertAll ? metaModel.BaseCurrency : string.Empty;
+            var baseCurrency = metaModel.IsConvertAll ? metaModel.BaseCurrency : string.Empty;
             using (var objectDb = this.GetObjectDb(SpName))
             {
                 AssignParameter(objectDb, metaModel);

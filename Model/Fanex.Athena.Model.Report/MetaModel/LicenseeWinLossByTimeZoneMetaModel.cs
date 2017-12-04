@@ -16,7 +16,9 @@
 
         public int CurrencyId { get; set; }
 
-        public bool ConvertAll { get; set; }
+        public bool IsIncludeDrawData { get; set; }
+
+        public bool IsConvertAll { get; set; }
 
         public short TimeZone { get; set; }
 

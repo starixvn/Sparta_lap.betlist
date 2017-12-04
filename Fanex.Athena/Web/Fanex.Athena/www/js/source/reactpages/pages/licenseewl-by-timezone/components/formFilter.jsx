@@ -50,6 +50,14 @@ export class FormFilter extends Component {
         });
     }
 
+    changeGroupBy = (value) => {
+        this.props.changeGroupBy(value);
+        if(value === 1)
+        {
+            this.props.changeIsConvertAll(true);
+        }
+    }
+
     _getParams() {
         if (!this.props.xsrfToken || !this.isValidModel) {
             return null;
@@ -63,7 +71,8 @@ export class FormFilter extends Component {
                 BaseCurrency: this.props.selectedBaseCurrency,
                 CurrencyId: this.props.selectedCurrency.value,
                 ProductCodeList: this.props.selectedProduct,
-                ConvertAll: this.props.convertAll,
+                IsConvertAll: this.props.isConvertAll,
+                IsIncludeDrawData: this.props.isIncludeDrawData,
                 FromDate: Site.convertDateToString(fromDate),
                 ToDate: Site.convertDateToString(toDate),
                 TimeZone: this.props.selectedTimeZone,
@@ -194,12 +203,12 @@ export class FormFilter extends Component {
                  <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
                         <div className="form-group">
                                <label className="label-text">{LangHelper.getSingleResource("GroupBy")}</label>
-                                <input type="radio" value={1} checked={this.props.groupBy == 1} name="GroupBy" id="GroupByDaily"
-                                        onChange={() => this.props.changeGroupBy(1)} />
-                                <label htmlFor="GroupByDaily">{LangHelper.getSingleResource("Daily")}</label>
-                                <input type="radio" value={2} name="GroupBy" id="GroupByMonthly" checked={this.props.groupBy == 2}
-                                        onChange={() => this.props.changeGroupBy(2)} />
-                                <label htmlFor="GroupByMonthly">{LangHelper.getSingleResource("Monthly")}</label>
+                                <input type="radio" value={1} checked={this.props.groupBy == 1} name="GroupBy" id="GroupByProduct"
+                                onChange={() => this.changeGroupBy(1) } />
+                                <label htmlFor="GroupByProduct">{LangHelper.getSingleResource("Product")}</label>
+                                <input type="radio" value={2} name="GroupBy" id="GroupByCurrency" checked={this.props.groupBy == 2}
+                                        onChange={() => this.changeGroupBy(2)} />
+                                <label htmlFor="GroupByCurrency">{LangHelper.getSingleResource("Currency")}</label>
                         </div>
                 </div>
                  <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
@@ -209,19 +218,32 @@ export class FormFilter extends Component {
                            </div>
                        </div>
 
-                    <div className="col-12 col-md-5 col-sm-5 col-lg-5 col-xl-3">
+                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
                         <div className="form-group">
-                            <div className="checkbox-group">
-                                <input type="checkbox" className="checkbox" checked={this.props.convertAll} id="IsConvertAll"
-                                    onClick={() => this.props.changeConvertAll(!this.props.convertAll)} />
-                                <label htmlFor="IsConvertAll">{LangHelper.getSingleResource("ConvertAll")}</label>
-                            </div>
-
-                            <div className="button-group">
-                                <button disabled={!this.isValidModel} type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
+                           <div className="checkbox-group">
+                                <input type="checkbox" className="checkbox" checked={this.props.isIncludeDrawData} id="IncludeDrawData"
+                                onChange={() => this.props.changeIsIncludeDrawData(!this.props.isIncludeDrawData)} />
+                                <label htmlFor="IncludeDrawData">{LangHelper.getSingleResource("IncludeDrawData")}</label>
                             </div>
                         </div>
                     </div>
+                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                        <div className="form-group">
+                            <div className="checkbox-group">
+                                <input type="checkbox" className="checkbox" checked={this.props.groupBy === 1 || this.props.isConvertAll} id="IsConvertAll"
+                                 disabled={this.props.groupBy === 1}
+                                onChange={() => this.props.changeIsConvertAll(!this.props.isConvertAll)} />
+                                <label htmlFor="IsConvertAll">{LangHelper.getSingleResource("ConvertAllFiguresToBaseCurrency")}</label>
+                            </div>
+                        </div>
+                    </div>
+                     <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                        <div className="form-group">
+                          <div className="button-group">
+                            <button disabled={!this.isValidModel} type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
+                        </div>
+                    </div>
+                </div>
                 </div>
 
                 <div className="caret-block">

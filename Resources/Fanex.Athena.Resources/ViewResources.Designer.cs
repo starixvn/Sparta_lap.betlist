@@ -1465,6 +1465,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Convert all figures to Base Currency.
+        /// </summary>
+        public static string ConvertAllFiguresToBaseCurrency {
+            get {
+                return ResourceManager.GetString("ConvertAllFiguresToBaseCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Convert to.
         /// </summary>
         public static string ConvertTo {
@@ -3495,6 +3504,15 @@ namespace Fanex.Athena.Resources {
         public static string InactiveSinceLast {
             get {
                 return ResourceManager.GetString("InactiveSinceLast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include Draw data.
+        /// </summary>
+        public static string IncludeDrawData {
+            get {
+                return ResourceManager.GetString("IncludeDrawData", resourceCulture);
             }
         }
         

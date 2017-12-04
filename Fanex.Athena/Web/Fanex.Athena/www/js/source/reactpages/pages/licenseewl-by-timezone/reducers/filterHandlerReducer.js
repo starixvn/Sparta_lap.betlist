@@ -38,8 +38,14 @@ export const groupBy = createReducer({}, {
     }
 })
 
-export const convertAll = createReducer({}, {
-    [types.CHANGE_CONVERT_ALL](state, action) {
+export const isConvertAll = createReducer({}, {
+    [types.CHANGE_IS_CONVERT_ALL](state, action) {
+        return action.data;
+    }
+})
+
+export const isIncludeDrawData = createReducer({}, {
+    [types.CHANGE_IS_INCLUDE_DRAW_DATA](state, action) {
         return action.data;
     }
 })

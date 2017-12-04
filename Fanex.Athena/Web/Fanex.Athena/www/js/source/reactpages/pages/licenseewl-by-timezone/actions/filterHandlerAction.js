@@ -34,9 +34,16 @@ export const changeGroupBy = (value) => {
     }
 }
 
-export const changeConvertAll = (checked) => {
+export const changeIsConvertAll = (checked) => {
     return {
-        type: types.CHANGE_CONVERT_ALL,
+        type: types.CHANGE_IS_CONVERT_ALL,
+        data: checked
+    }
+}
+
+export const changeIsIncludeDrawData = (checked) => {
+    return {
+        type: types.CHANGE_IS_INCLUDE_DRAW_DATA,
         data: checked
     }
 }

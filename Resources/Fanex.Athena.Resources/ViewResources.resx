@@ -3070,4 +3070,12 @@
     <value>AB</value>
     <comment>82036</comment>
   </data>
+  <data name="ConvertAllFiguresToBaseCurrency" xml:space="preserve">
+    <value>Convert all figures to Base Currency</value>
+    <comment>84932</comment>
+  </data>
+  <data name="IncludeDrawData" xml:space="preserve">
+    <value>Include Draw data</value>
+    <comment>84932</comment>
+  </data>
 </root>
