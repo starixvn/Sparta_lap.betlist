@@ -10,8 +10,8 @@
     var selectedProductCode = string.Join(",", productOptions.Where(x => x.Status).Select(x => x.Code).ToArray());
     var baseCurrencyList = SystemConstants.BaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
     var timeZoneList = new List<dynamic> {
-        new { value = "1", label = "GMT-4" },
-        new { value = "2", label = "GMT+8" }
+        new { value = "-4", label = "GMT-4" },
+        new { value = "8", label = "GMT+8" }
     };
     var currencyList = Model.CurrencyList.Select(x => new { value = x.Key, label = x.Value }).ToList();
     currencyList.Insert(0, new
@@ -23,7 +23,6 @@
         new { value = "2", label = ViewResources.Monthly },
         new { value = "3", label = ViewResources.Daily }
     };
-
 
     var appSettings = new AppSettings();
     var minDate = appSettings.HistoryDate;

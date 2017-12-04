@@ -65,7 +65,10 @@ export class FormFilter extends Component {
                 ProductCodeList: this.props.selectedProduct,
                 ConvertAll: this.props.convertAll,
                 FromDate: Site.convertDateToString(fromDate),
-                ToDate: Site.convertDateToString(toDate)
+                ToDate: Site.convertDateToString(toDate),
+                TimeZone: this.props.selectedTimeZone,
+                ReportBy: this.props.selectedReportBy,
+                GroupBy: this.props.groupBy
             }
         }
     }

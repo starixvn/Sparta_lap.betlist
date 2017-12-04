@@ -28,7 +28,7 @@
 
         public SortableReportResultModel<LicenseeWinLossByTimeZone> GetData(LicenseeWinLossByTimeZoneMetaModel metaModel)
         {
-            const string SpName = "Lrf_Rpt_SubsidiaryWinloss";
+            const string SpName = "Lrf_Rpt_LicWinlossByTimeZone";
             var dataList = new SortableList<LicenseeWinLossByTimeZone>();
             var totalData = new LicenseeWinLossByTimeZone();
             var baseCurrency = metaModel.ConvertAll ? metaModel.BaseCurrency : string.Empty;
@@ -71,8 +71,11 @@
             objectDb.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
             objectDb.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
             objectDb.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-            objectDb.AddInParameter("ProductList", DbType.String, metaModel.ProductCodeList);
+            objectDb.AddInParameter("ProductCodes", DbType.String, metaModel.ProductCodeList);
             objectDb.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            objectDb.AddInParameter("TimeZone", DbType.Int16, metaModel.TimeZone);
+            objectDb.AddInParameter("ReportBy", DbType.Byte, metaModel.ReportBy);
+            objectDb.AddInParameter("GroupBy", DbType.Byte, metaModel.GroupBy);
         }
     }
 }

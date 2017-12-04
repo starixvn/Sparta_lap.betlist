@@ -18,6 +18,12 @@
 
         public bool ConvertAll { get; set; }
 
+        public short TimeZone { get; set; }
+
+        public byte ReportBy { get; set; }
+
+        public byte GroupBy { get; set; }
+
         public bool IsValid => FromDate <= ToDate &&
                                 !string.IsNullOrEmpty(ProductCodeList) &&
                                 !string.IsNullOrEmpty(BaseCurrency);
