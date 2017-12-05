@@ -15,7 +15,7 @@ namespace Fanex.Athena.Controllers.Report
             var productAccess = this.ProductService.GetSingleWalletProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
-                FunctionNames.SubsidiaryPerformance);
+                FunctionNames.LicenseeWinLoss);
 
             var model = new LicenseeWinLossByTimeZoneViewModel
             {

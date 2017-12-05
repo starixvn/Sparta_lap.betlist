@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Report
 {
-    using System;
     using System.Data;
+    using Common.Extensions;
     using Core;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
@@ -56,13 +56,13 @@
         {
             return new LicenseeWinLossByTimeZone
             {
-                CurrencyId = Convert.ToInt32(reader["Currency"]),
+                CurrencyId = reader.ToInt("Currency"),
                 CurrencyName = reader["CurrencyName"].ToString(),
                 Product = reader["ProductCode"].ToString(),
-                BetCount = Convert.ToInt32(reader["BetCount"]),
-                Turnover = Convert.ToDecimal(reader["Turnover" + baseCurrency]),
-                CustomerComm = Convert.ToDecimal(reader["Winlost" + baseCurrency]),
-                LicenseeWinLoss = Convert.ToDecimal(reader["LicenseeWL" + baseCurrency])
+                BetCount = reader.ToInt("BetCount"),
+                Turnover = reader.ToDecimal("Turnover" + baseCurrency),
+                CustomerComm = reader.ToDecimal("Winlost" + baseCurrency),
+                LicenseeWinLoss = reader.ToDecimal("LicenseeWL" + baseCurrency)
             };
         }
 
@@ -71,7 +71,7 @@
             objectDb.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
             objectDb.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
             objectDb.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-            objectDb.AddInParameter("ProductCodes", DbType.String, metaModel.ProductCodeList);
+            objectDb.AddInParameter("ProductList", DbType.String, metaModel.ProductCodeList);
             objectDb.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             objectDb.AddInParameter("TimeZone", DbType.Int16, metaModel.TimeZone);
             objectDb.AddInParameter("ReportBy", DbType.Byte, metaModel.ReportBy);
