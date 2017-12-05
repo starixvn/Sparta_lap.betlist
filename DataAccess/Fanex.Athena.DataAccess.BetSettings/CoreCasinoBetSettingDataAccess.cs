@@ -12,39 +12,40 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using Fanex.Athena.Model.Core.DTO.Common;
     using Interfaces;
     using Model.BetSettings.DTO;
+    using Model.BetSettings.MetaModel;
 
     public class CoreCasinoBetSettingDataAccess : BaseDataAccess, ICoreCasinoBetSettingDataAccess
     {
         private const int LiveCasinoActionId = 2037;
 
-        public IResultInfo UpdateCasinoStatus(int userId, int custId, int sportid, int status, string language, string ip)
+        public IResultInfo UpdateCasinoStatus(CoreCasinoStatusMetaModel metaModel, int sportId)
         {
             var uspName = "Lrf_CustomerUpdCasinoStatus";
 
-            var trackingValue1 = GetTrackingValueForUpdateStatus(uspName, userId, custId, sportid, status == 1 ? 0 : 1, ip, language);
-            var trackingValue2 = GetTrackingValueForUpdateStatus(uspName, userId, custId, sportid, status, ip, language);
-
             using (var db = this.GetObjectDb(uspName))
             {
-                db.AddInParameter("userid", DbType.Int32, userId);
-                db.AddInParameter("custid", DbType.Int32, custId);
-                db.AddInParameter("sportid", DbType.Int32, sportid);
-                db.AddInParameter("language", DbType.String, language);
-                db.AddInParameter("ip", DbType.String, ip);
-                db.AddInParameter("status", DbType.Int32, status);
+                db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
+                db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
+                db.AddInParameter("sportid", DbType.Int32, sportId);
+                db.AddInParameter("language", DbType.String, metaModel.Language);
+                db.AddInParameter("ip", DbType.String, metaModel.Ip);
+                db.AddInParameter("status", DbType.Int32, metaModel.Status);
                 db.AddOutParameter("ErrCode", DbType.String, 5);
                 db.AddOutParameter("ErrMsg", DbType.String, 6000);
 
                 db.ExecuteNonQuery();
 
-                var errorCode = db.GetParameterValue("ErrCode");
-                var errorMessage = db.GetParameterValue("ErrMsg");
-                WriteLogUpdatingAction(userId, custId, uspName, trackingValue1, trackingValue2);
+                var errorCode = Converter.ToInt(db.GetParameterValue("ErrCode"));
+                var errorMessage = Converter.ToString2(db.GetParameterValue("ErrMsg"));
+
+                var trackingValue1 = GetTrackingValueForUpdateStatus(metaModel, uspName, sportId, metaModel.Status == 1 ? 0 : 1);
+                var trackingValue2 = GetTrackingValueForUpdateStatus(metaModel, uspName, sportId, metaModel.Status, errorCode, errorMessage);
+                WriteLogUpdatingAction(metaModel.UserId, metaModel.CustId, uspName, trackingValue1, trackingValue2);
 
                 return new ResultInfo
                 {
-                    Code = Converter.ToInt(errorCode),
-                    Message = Converter.ToString2(errorMessage)
+                    Code = errorCode,
+                    Message = errorMessage
                 };
             }
         }
@@ -68,25 +69,23 @@ namespace Fanex.Athena.DataAccess.BetSettings
         }
 
         private static string GetTrackingValueForUpdateStatus(
+            CoreCasinoStatusMetaModel metaModel,
             string storeProcedureName,
-            int userId,
-            int custId,
-            int sportid,
+            int sportId,
             int status,
-            string ip,
-            string language,
-            IResultInfo resultInfo = null)
+            int errorCode = 0,
+            string errorMessage = "")
         {
             var casinoLog = new BetSettingWriteLog { SpName = storeProcedureName };
-            casinoLog.TrackingParams.Add(new LogParam { Param = "UserID", Value = userId });
-            casinoLog.TrackingParams.Add(new LogParam { Param = "CustID", Value = custId });
-            casinoLog.TrackingParams.Add(new LogParam { Param = "SportID", Value = sportid });
+            casinoLog.TrackingParams.Add(new LogParam { Param = "UserID", Value = metaModel.UserId });
+            casinoLog.TrackingParams.Add(new LogParam { Param = "CustID", Value = metaModel.CustId });
+            casinoLog.TrackingParams.Add(new LogParam { Param = "SportID", Value = sportId });
             casinoLog.TrackingParams.Add(new LogParam { Param = "Status", Value = status });
-            casinoLog.TrackingParams.Add(new LogParam { Param = "Ip", Value = ip });
-            casinoLog.TrackingParams.Add(new LogParam { Param = "Lang", Value = language });
+            casinoLog.TrackingParams.Add(new LogParam { Param = "Ip", Value = metaModel.Ip });
+            casinoLog.TrackingParams.Add(new LogParam { Param = "Lang", Value = metaModel.Language });
             casinoLog.TrackingParams.Add(new LogParam { Param = "RoleID", Value = 1 });
-            casinoLog.TrackingParams.Add(new LogParam { Param = "ErrCode", Value = resultInfo != null ? resultInfo.Code : 0 });
-            casinoLog.TrackingParams.Add(new LogParam { Param = "ErrMsg", Value = resultInfo != null ? resultInfo.Message : string.Empty });
+            casinoLog.TrackingParams.Add(new LogParam { Param = "ErrCode", Value = errorCode });
+            casinoLog.TrackingParams.Add(new LogParam { Param = "ErrMsg", Value = errorMessage });
 
             return casinoLog.TrackingValue;
         }

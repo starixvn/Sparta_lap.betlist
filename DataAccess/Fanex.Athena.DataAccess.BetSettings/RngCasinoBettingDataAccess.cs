@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using Core;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Interfaces;
+    using Model.BetSettings.MetaModel;
 
     public class RngCasinoBetSettingDataAccess : BaseDataAccess, IRngCasinoBetSettingDataAccess
     {
@@ -26,9 +27,9 @@ namespace Fanex.Athena.DataAccess.BetSettings
             _coreCasinoBetSettingDataAccess = coreCasinoBetSettingDataAccess;
         }
 
-        public IResultInfo UpdateStatus(int userId, int custId, int status, string language, string ip)
+        public IResultInfo UpdateStatus(CoreCasinoStatusMetaModel metaModel)
         {
-            return _coreCasinoBetSettingDataAccess.UpdateCasinoStatus(userId, custId, RngCasinoSportId, status, language, ip);
+            return _coreCasinoBetSettingDataAccess.UpdateCasinoStatus(metaModel, RngCasinoSportId);
         }
     }
 }

@@ -7,8 +7,8 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Extensions;
     using UnitTest.Common.Helpers;
+    using UnitTest.Common.NUnitExtensions;
 
     [TestFixture]
     public class CashOutBetListDataAccessTest

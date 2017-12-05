@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Model.Casino.MetaModel
+namespace Fanex.Athena.Model.BetSettings.MetaModel
 {
     using System.Data;
     using Customer.MetaModel;

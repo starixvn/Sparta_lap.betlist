@@ -20,6 +20,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Model.Core.DTO.Common;
     using Model.Customer.DTO;
     using ONEbook.UM.Filters;
+    using Resources;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users;
@@ -62,6 +63,11 @@ namespace Fanex.Athena.Controllers.BetSettings
             {
                 return _productAccess.Value;
             }
+        }
+
+        protected JsonResult AccessDenied()
+        {
+            return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
         }
 
         protected CustomerInfo GetCustomerInfo(int licenseeId, int custId)

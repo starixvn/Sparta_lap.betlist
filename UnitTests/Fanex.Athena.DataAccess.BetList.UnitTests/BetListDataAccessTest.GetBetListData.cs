@@ -6,8 +6,8 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Extensions;
     using UnitTest.Common.Helpers;
+    using UnitTest.Common.NUnitExtensions;
 
     [TestFixture]
     public partial class BetListDataAccessTest
@@ -51,7 +51,7 @@
             reader.NextResult().Returns(true);
             reader.Read().Returns(false, true, false);
             DataAccessTestHelper.MapReaderData(
-                reader, 
+                reader,
                 new
                 {
                     refno = expectResult.RefNo,

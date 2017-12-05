@@ -48,18 +48,21 @@ namespace Fanex.Athena.Controllers.BetSettings
             var customer = GetCustomerInfo(licenseeId, custId);
             if (!ProductAccess.IsAllowLC || !customer.SyncLiveCasino || !IsBetSettingEditable())
             {
-                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return AccessDenied();
             }
 
             var userSession = SessionService.UserSession;
-            var result = _betSettingService.UpdateStatus(
-                licenseeId,
-                userSession.UserId,
-                custId,
-                status,
-                userSession.Language,
-                Request.UserHostAddress,
-                customer.SyncLiveCasino);
+            var metaModel = new BetSettingCasinoStatusMetaModel
+            {
+                LicenseeId = licenseeId,
+                UserId = userSession.UserId,
+                CustId = custId,
+                Status = status,
+                Language = userSession.Language,
+                Ip = Request.UserHostAddress,
+                IsSyncCasino = customer.SyncLiveCasino
+            };
+            var result = _betSettingService.UpdateStatus(metaModel);
 
             if (result.Code == 0)
             {
@@ -79,7 +82,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
             if (customer == null || !customer.SyncLiveCasino || !IsBetSettingEditable())
             {
-                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return AccessDenied();
             }
 
             var userSession = SessionService.UserSession;

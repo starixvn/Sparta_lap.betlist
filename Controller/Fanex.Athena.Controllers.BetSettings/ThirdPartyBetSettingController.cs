@@ -107,7 +107,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             if (!ProductAccess.IsAllow(productId) || !IsBetSettingEditable())
             {
-                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return AccessDenied();
             }
 
             var userSession = SessionService.UserSession;

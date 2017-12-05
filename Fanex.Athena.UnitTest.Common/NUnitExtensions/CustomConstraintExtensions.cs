@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.UnitTest.Common.Extensions
+﻿namespace Fanex.Athena.UnitTest.Common.NUnitExtensions
 {
     using Constraints;
     using NUnit.Framework.Constraints;

@@ -5,7 +5,7 @@
     using System.Data;
     using Core.Configuration.Interfaces;
     using Data;
-    using Fanex.Athena.UnitTest.Common.Extensions;
+    using Fanex.Athena.UnitTest.Common.NUnitExtensions;
     using Model.Core.DTO.Configuration;
     using Model.Report.MetaModel;
     using NSubstitute;

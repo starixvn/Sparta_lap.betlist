@@ -6,6 +6,7 @@
     using DataAccess.BetSettings.Interfaces;
     using Interfaces;
     using Model.BetSettings.DTO;
+    using Model.BetSettings.MetaModel;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
@@ -44,15 +45,22 @@
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            var status = 4;
-            var ip = "ip";
-            var isSyncLiveCasino = true;
+            var metaModel = new BetSettingCasinoStatusMetaModel
+            {
+                LicenseeId = LicenseeId,
+                UserId = UserId,
+                CustId = CustId,
+                Status = 4,
+                Language = Language,
+                Ip = "ip",
+                IsSyncCasino = true
+            };
 
             // Action
-            _service.UpdateStatus(LicenseeId, UserId, CustId, status, Language, ip, isSyncLiveCasino);
+            _service.UpdateStatus(metaModel);
 
             // Assert
-            _dataAccess.Received().UpdateStatus(UserId, CustId, status, Language, ip);
+            _dataAccess.Received().UpdateStatus(metaModel);
         }
 
         [Test]
@@ -60,12 +68,9 @@
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
-            var status = 4;
-            var ip = "ip";
-            var isSyncLiveCasino = true;
 
             // Action
-            var result = _service.UpdateStatus(LicenseeId, UserId, CustId, status, Language, ip, isSyncLiveCasino);
+            var result = _service.UpdateStatus(new BetSettingCasinoStatusMetaModel());
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(1));
@@ -77,12 +82,13 @@
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            var status = 4;
-            var ip = "ip";
-            var isSyncLiveCasino = false;
+            var metaModel = new BetSettingCasinoStatusMetaModel
+            {
+                IsSyncCasino = false
+            };
 
             // Action
-            var result = _service.UpdateStatus(LicenseeId, UserId, CustId, status, Language, ip, isSyncLiveCasino);
+            var result = _service.UpdateStatus(metaModel);
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(1));

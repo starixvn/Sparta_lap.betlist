@@ -3,7 +3,7 @@
     using Core.Users.Interfaces;
     using DataAccess.BetList.Interfaces;
     using DataAccess.Core.Configuration.Interfaces;
-    using Fanex.Athena.UnitTest.Common.Extensions;
+    using Fanex.Athena.UnitTest.Common.NUnitExtensions;
     using Fanex.BetList.Core.Entities;
     using Interfaces;
     using Model.BetList.DTO;

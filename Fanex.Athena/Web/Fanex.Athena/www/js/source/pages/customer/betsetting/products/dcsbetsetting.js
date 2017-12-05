@@ -18,6 +18,7 @@ define(["jquery", "common/site", "../common/constant","../common/betsettingbase"
             initialize: function () {
                 Site.initialize();
                 BetSettingBase.initialize();
+                BetSettingBase.setEnable();
                 _me.initEvent();
                 _me.checkToDisableInput();
             },

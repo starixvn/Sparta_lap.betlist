@@ -1,13 +1,13 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ICoreBetSettingService.cs" company="">
+// <copyright file="IRngCasinoBetSettingService.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
 namespace Fanex.Athena.Service.BetSettings.Interfaces
 {
-    using Fanex.Athena.Model.Casino.MetaModel;
     using Fanex.Athena.Model.Core.DTO.Common;
+    using Model.BetSettings.MetaModel;
     using Model.BetSettings.ViewModel;
     using Model.Customer.DTO;
 
@@ -15,7 +15,7 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
     {
         RngCasinoBetSettingViewModel GetViewModel(int custId, CustomerInfo customer, string language);
 
-        IResultInfo UpdateStatus(int licenseeId, int userId, int custId, int status, string language, string ip, string username, bool isSyncCasino);
+        IResultInfo UpdateStatus(BetSettingCasinoStatusMetaModel metaModel);
 
         IResultInfo UpdateSetting(RngCasinoBetSettingMetaModel metaModel, bool isSyncCasino, bool isDisableCasino);
     }

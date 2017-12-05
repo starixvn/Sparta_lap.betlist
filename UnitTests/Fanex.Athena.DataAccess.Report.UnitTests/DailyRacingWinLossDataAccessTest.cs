@@ -6,8 +6,8 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Extensions;
     using UnitTest.Common.Helpers;
+    using UnitTest.Common.NUnitExtensions;
 
     [TestFixture]
     public class DailyRacingWinLossDataAccessTest
