@@ -1106,6 +1106,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* AllBet, Vo
             initialize: function () {
                 Site.initialize();
                 BetSettingBase.initialize();
+                BetSettingBase.setEnable();
                 _me.initEvent();
                 _me.checkToDisableInput();
             },

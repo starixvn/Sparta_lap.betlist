@@ -1104,7 +1104,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 Site.initialize();
                 BetSettingBase.initialize();
 
-                _bettingGroupLimitCache = JSON.parse($("#BettingLimit").val());
+                _bettingGroupLimitCache = JSON.parse($("#BettingLimit").val() || '[]');
 
                 _productId = parseInt($("#ProductId").val());
                 _me.initEvent();
