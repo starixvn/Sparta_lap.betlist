@@ -6,12 +6,15 @@
     using System.Web.SessionState;
     using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Configuration;
     using Model.Core.MetaModel.Product;
     using ONEbook.UM.Filters;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
@@ -26,6 +29,19 @@
         {
             _balanceUpDataAccess = new BalanceUpDataAccess();
             _productService = new ProductService();
+        }
+
+        public ReportBaseController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IFileSystem fileSystem,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            IProductService productService)
+            : base(languageService, sessionService, appSetting, fileSystem)
+        {
+            _balanceUpDataAccess = balanceUpDataAccess;
+            _productService = productService;
         }
 
         protected IProductService ProductService
