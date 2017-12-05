@@ -2707,6 +2707,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exchange Win Loss.
+        /// </summary>
+        public static string ExchangeWinLoss {
+            get {
+                return ResourceManager.GetString("ExchangeWinLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exclude Test Data.
         /// </summary>
         public static string ExcludeTestData {

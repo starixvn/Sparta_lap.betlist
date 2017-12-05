@@ -3156,4 +3156,8 @@
     <value>Invalid Charge Commission</value>
     <comment>88192</comment>
   </data>
+  <data name="ExchangeWinLoss" xml:space="preserve">
+    <value>Exchange Win Loss</value>
+    <comment>86640</comment>
+  </data>
 </root>

@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Report +
+    " - " + ViewResources.ExchangeWinLoss;
+    Layout = "~/Views/Desktop/Shared/_ReactPageLayout.cshtml";
+}
+@model Fanex.Athena.Model.Report.ViewModel.ExchangeWinLossViewModel
+@{
+    var currencyList = Model.CurrencyList.Select(c => new { value = c, label = c }).ToList();
+    var appSettings = new AppSettings();
+    var minDate = appSettings.HistoryDate;
+    var maxDate = appSettings.MaxDate;
+}
+
+@section pagecss {
+
+    <link href="@Url.ContentLinkByEnv("/www/css/build/reactpages/exchangewl/index.css")" rel="stylesheet" type="text/css" />
+
+}
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/exchangewl/exchangewl.chunk.js")"></script>
+}
+
+@section globaljscode{
+    window.initialState = {
+    currencyList: @Html.Raw(currencyList.ToJson()),
+    selectedCurrency: '@Model.CurrencyId',
+    dateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
+    selectedReportBy: '@Model.ReportBy',
+    selectedExcludeTestData: '@Model.ExcludeTestData',
+    xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
+    isLoading: false,
+    dateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'}
+    }
+}
+<div id="app-container">
+
+</div>

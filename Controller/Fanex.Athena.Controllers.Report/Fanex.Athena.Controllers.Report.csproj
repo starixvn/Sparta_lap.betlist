@@ -189,6 +189,7 @@
     <Compile Include="NotificationReportController.cs" />
     <Compile Include="ColossusBetsWinLossReportController.cs" />
     <Compile Include="CashOutWinLossReportController.cs" />
+    <Compile Include="ExchangeWinLossReportController.cs" />
     <Compile Include="LicenseeWinLossReportController.cs" />
     <Compile Include="LiveReportController.cs" />
     <Compile Include="NoteController.cs" />
