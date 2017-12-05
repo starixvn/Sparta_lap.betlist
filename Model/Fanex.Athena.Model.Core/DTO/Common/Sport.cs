@@ -15,18 +15,18 @@ namespace Fanex.Athena.Model.Core.DTO.Common
     {
         private string _sportName;
 
-        public Sport(string id)
+        public Sport(int id)
         {
             SportId = id;
         }
 
-        public Sport(string id, string name)
+        public Sport(int id, string name)
         {
             SportId = id;
             SportName = name;
         }
 
-        public string SportId { get; set; }
+        public int SportId { get; set; }
 
         public string SportName
         {

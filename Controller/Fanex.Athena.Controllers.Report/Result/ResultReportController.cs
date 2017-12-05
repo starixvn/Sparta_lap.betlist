@@ -3,7 +3,6 @@ namespace Fanex.Athena.Controllers.Report.Result
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Net;
@@ -138,16 +137,14 @@ namespace Fanex.Athena.Controllers.Report.Result
         {
             if (ModelState.IsValid)
             {
-                IList<Sport> sports;
-                IList<League> leagues;
                 if (metalModel.IsOutRight)
                 {
-                    return GetOutRightSports(metalModel, out sports, out leagues);
+                    return GetOutRightSports(metalModel);
                 }
 
                 if (metalModel.SportId == 0)
                 {
-                    return GetNormalSports(metalModel, out sports, out leagues);
+                    return GetNormalSports(metalModel);
                 }
                 else
                 {
@@ -268,6 +265,33 @@ namespace Fanex.Athena.Controllers.Report.Result
             return betType == ParlayBetType || betType == SystemParlayBetType || betType == (int)Model.Core.DataDomain.BetType.VirtualSports2MixParlay;
         }
 
+        private static IEnumerable<Sport> RemoveNotAllowedSports(IEnumerable<Sport> sports, ProductAccess productAccess)
+        {
+            var limitedSports = sports;
+            if (!productAccess.IsAllowNG)
+            {
+                limitedSports = limitedSports.Where(i => i.SportId != (int)SportType.NumberGame);
+            }
+
+            if (!productAccess.IsAllowLC)
+            {
+                limitedSports = limitedSports.Where(i => i.SportId != (int)SportType.LiveCasino);
+            }
+
+            if (!productAccess.IsAllowRB)
+            {
+                limitedSports = limitedSports.Where(i => i.SportId != (int)SportType.HorseRacing
+                && i.SportId != (int)SportType.Greyhound && i.SportId != (int)SportType.Harness);
+            }
+
+            if (!productAccess.IsAllowVS)
+            {
+                limitedSports = limitedSports.Where(i => i.SportId != (int)SportType.VirtualSports);
+            }
+
+            return limitedSports;
+        }
+
         /// <summary>
         /// Get data for pop-up page.
         /// </summary>
@@ -299,17 +323,13 @@ namespace Fanex.Athena.Controllers.Report.Result
             }
         }
 
-        /// <summary>
-        /// Get normal pop up data.
-        /// </summary>
-        /// <param name="metalModel">The metal model.</param>
-        /// <param name="sportType">The sport type.</param>
-        /// <param name="setting">The setting result.</param>
         [SuppressMessage(
            "StyleCop.CSharp.StylecopPlus.Rules",
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
+#pragma warning disable S1541 // Methods and properties should not be too complex
         private void GetNormalPopUpData(ResultPopupMetalModel metalModel, SportType sportType, ResultSetting setting)
+#pragma warning restore S1541 // Methods and properties should not be too complex
         {
             switch (sportType)
             {
@@ -373,76 +393,25 @@ namespace Fanex.Athena.Controllers.Report.Result
 
         #region spots list
 
-        /// <summary>
-        /// Get normal sports.
-        /// </summary>
-        /// <param name="metalModel">The metal model.</param>
-        /// <param name="sports">The sport list.</param>
-        /// <param name="leagues">The league list.</param>
-        /// <returns>The JSON result.</returns>
-        [SuppressMessage(
-          "StyleCop.CSharp.StylecopPlus.Rules",
-          "SP2101:MethodMustNotContainMoreLinesThan",
-          Justification = "Reviewed. Suppression is OK here.")]
-        private ActionResult GetNormalSports(ResultMetalModel metalModel, out IList<Sport> sports, out IList<League> leagues)
+        private ActionResult GetNormalSports(ResultMetalModel metalModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            leagues = null;
-            sports = _resultService.GetSports(metalModel.FromDate, licenseeSession.LicenseeId);
-            if (sports.Count > 0)
+            var sports = _resultService.GetSports(metalModel.FromDate, licenseeSession.LicenseeId);
+            if (sports.Any())
             {
-                IEnumerable<Sport> limitedSports;
                 var productAccess = ProductService.GetProductAccess(
                     licenseeSession.LicenseeId,
                     SessionService.UserSession.Language,
                     ResultPageGetNormalSportsName);
-                var limitedProduct =
+                var isAllowAllProducts =
                     productAccess.IsAllowRB && productAccess.IsAllowLC && productAccess.IsAllowNG
                     && productAccess.IsAllowVS;
-                if (!limitedProduct)
-                {
-                    const int LCSport = (int)SportType.LiveCasino;
-                    const int NGSport = (int)SportType.NumberGame;
-                    const int HRSport = (int)SportType.HorseRacing;
-                    const int GRSport = (int)SportType.Greyhound;
-                    const int HNSport = (int)SportType.Harness;
-                    const int VSSoccer = (int)SportType.VirtualSports;
-                    limitedSports = sports.Where(i => !i.SportId.Equals(LCSport.ToString())
-                      && !i.SportId.Equals(NGSport.ToString()) && !i.SportId.Equals(VSSoccer.ToString()) && !i.SportId.Equals(HRSport.ToString())
-                      && !i.SportId.Equals(GRSport.ToString()) && !i.SportId.Equals(HNSport.ToString())).ToList();
 
-                    if (productAccess.IsAllowNG)
-                    {
-                        limitedSports = limitedSports.Union(sports.Where(i => i.SportId.Equals(NGSport.ToString())));
-                    }
-
-                    if (productAccess.IsAllowLC)
-                    {
-                        limitedSports = limitedSports.Union(sports.Where(i => i.SportId.Equals(LCSport.ToString())));
-                    }
-
-                    if (productAccess.IsAllowRB)
-                    {
-                        limitedSports = limitedSports.Union(sports.Where(i => i.SportId.Equals(HRSport.ToString())
-                        || i.SportId.Equals(GRSport.ToString())
-                        || i.SportId.Equals(HNSport.ToString())));
-                    }
-
-                    if (productAccess.IsAllowVS)
-                    {
-                        limitedSports = limitedSports.Union(sports.Where(i => i.SportId.Equals(VSSoccer.ToString())));
-                    }
-                }
-                else
-                {
-                    limitedSports = sports;
-                }
+                var limitedSports = isAllowAllProducts ? sports : RemoveNotAllowedSports(sports, productAccess);
 
                 if (limitedSports.Any())
                 {
-                    leagues = _resultService.GetLeagues(
-                       metalModel.FromDate,
-                       int.Parse(limitedSports.First().SportId));
+                    var leagues = _resultService.GetLeagues(metalModel.FromDate, limitedSports.First().SportId);
                     return Json(new { Sports = limitedSports, Leagues = leagues });
                 }
             }
@@ -450,34 +419,20 @@ namespace Fanex.Athena.Controllers.Report.Result
             return Json(string.Empty);
         }
 
-        /// <summary>
-        /// Get out right sport list.
-        /// </summary>
-        /// <param name="metalModel">The metal model.</param>
-        /// <param name="sports">The sport list.</param>
-        /// <param name="leagues">The league list.</param>
-        /// <returns>The JSON result.</returns>
-        private ActionResult GetOutRightSports(ResultMetalModel metalModel, out IList<Sport> sports, out IList<League> leagues)
+        private ActionResult GetOutRightSports(ResultMetalModel metalModel)
         {
-            sports = null;
-            leagues = null;
             var cacheKey = GenerateOutRightCacheKey(metalModel);
             var outRightData = (IList<Outright>)HttpRuntime.Cache.Get(cacheKey) ?? _resultService.GetOutRight(metalModel);
             if (outRightData != null && outRightData.Count > 0)
             {
-                sports =
-                    outRightData.Where(i => i.SportType == metalModel.SportId || metalModel.SportId == 0)
-                    .Select(i => i.SportType).Distinct()
-                    .Select(i => new Sport(i.ToString(CultureInfo.InvariantCulture)))
-                        .ToList();
+                var sports = outRightData.Where(i => i.SportType == metalModel.SportId || metalModel.SportId == 0)
+                        .Select(i => i.SportType).Distinct()
+                        .Select(i => new Sport(i)).ToList();
                 if (sports.Count > 0)
                 {
-                    var selectedSport = metalModel.SportId > 0 ? metalModel.SportId
-                        : int.Parse(sports[0].SportId);
-                    leagues =
-                        outRightData.Where(i => i.SportType == selectedSport)
-                            .Select(i => i.LeagueId)
-                            .Distinct()
+                    var selectedSport = metalModel.SportId > 0 ? metalModel.SportId : sports[0].SportId;
+                    var leagues = outRightData.Where(i => i.SportType == selectedSport)
+                            .Select(i => i.LeagueId).Distinct()
                             .Select(i => new League { LeagueId = i }).ToList();
 
                     return Json(new { Sports = sports, Leagues = leagues });
@@ -494,12 +449,7 @@ namespace Fanex.Athena.Controllers.Report.Result
         private int GetSportId(DateTime fromDate, int licenseeId)
         {
             var sports = _resultService.GetSports(fromDate, licenseeId);
-            if (sports != null && sports.Count > 0)
-            {
-                return int.Parse(sports[0].SportId);
-            }
-
-            return 0;
+            return sports.Any() ? sports[0].SportId : 0;
         }
 
         /// <summary>

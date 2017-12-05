@@ -146,6 +146,7 @@
         public void GetSports_ReturnCorrectData()
         {
             // Arrange
+            const int SportId = 111;
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Result_SportSelByDate")).Returns(objectDb);
             var reader = Substitute.For<IDataReader>();
@@ -154,12 +155,12 @@
 
             var expectedResult = new List<Sport>
             {
-                new Sport("sport1")
+                new Sport(SportId)
             };
 
             var readerDataMapping = new
             {
-                sporttype = "sport1"
+                sporttype = SportId
             };
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
             var date = new DateTime(2017, 3, 16);

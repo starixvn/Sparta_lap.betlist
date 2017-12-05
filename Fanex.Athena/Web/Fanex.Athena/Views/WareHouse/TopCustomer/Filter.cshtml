@@ -62,8 +62,8 @@
                   var dllSportList = Model.SportList.Select(i => new SelectListItem
                   {
                       Text = i.SportName,
-                      Value = i.SportId,
-                      Selected = i.SportId == Model.Param.SportId.ToString(CultureInfo.InvariantCulture)
+                      Value = i.SportId.ToString(),
+                      Selected = i.SportId == Model.Param.SportId
                   }).ToList();      
         <div class="grid_3 filter-input" id="SportList">
             @Html.DropDownList("SelectSport", dllSportList, new { @style = "width:100px" })
