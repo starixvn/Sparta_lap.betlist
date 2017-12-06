@@ -3,8 +3,8 @@ import Site from '../../../lib/site'
 
 const headerText = {
     Index: "#",
-    Product : LangHelper.getSingleResource("Product"),
-    Currency: LangHelper.getSingleResource("Currency"),
+    ReportBy: "",
+    GroupBy : "",
     BetCount: LangHelper.getSingleResource("BetCount"),
     Turnover: LangHelper.getSingleResource("Turnover"),
     CustomerComm: LangHelper.getSingleResource("CustomerComm"),
@@ -24,7 +24,10 @@ export default class Service {
         return `${LangHelper.getSingleResource("LicenseeWinLoss")}, ${timeZoneText}, ${fromDate} - ${toDate}, ${currencyText}, ${viewInByCurrency}`;
     }
 
-    static getHeaderText() {
+    static getHeaderText(reportBy, groupBy) {
+        headerText.ReportBy = LangHelper.getSingleResource(reportBy === 2 ? "Daily" : "Monthly");
+        headerText.GroupBy = LangHelper.getSingleResource(groupBy === 1 ? "Product" : "Currency");
+        
         return headerText;
     }
 }

@@ -19,9 +19,9 @@
         value = 0, label = ViewResources.All
     });
     var reportByList = new List<dynamic> {
-        new { value = "1", label = ViewResources.Summary },
-        new { value = "2", label = ViewResources.Monthly },
-        new { value = "3", label = ViewResources.Daily }
+        new { value = 1, label = ViewResources.Summary },
+        new { value = 2, label = ViewResources.Daily },
+        new { value = 3, label = ViewResources.Monthly }
     };
 
     var appSettings = new AppSettings();
@@ -49,7 +49,7 @@
         timeZoneList: @Html.Raw(timeZoneList.ToJson()),
         selectedTimeZone: '@(timeZoneList.First().value)',
         reportByList: @Html.Raw(reportByList.ToJson()),
-        selectedReportBy: '@(reportByList.First().value)',
+        selectedReportBy: @(reportByList.First().value),
         groupBy: 1,
         isConvertAll: true,
         isIncludeDrawData: true,

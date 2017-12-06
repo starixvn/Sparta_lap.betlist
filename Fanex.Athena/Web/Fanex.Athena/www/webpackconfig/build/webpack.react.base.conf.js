@@ -15,7 +15,7 @@ function generateConfig(environment) {
 
             /*  */
             reactpages: ["react", "react-redux", "redux", "react-dom", "redux-thunk", "redux-logger", "axios",
-                "core-js/fn/object/assign", "core-js/fn/promise", "core-js/fn/array/find"
+                "core-js/fn/object/assign", "core-js/fn/promise", "core-js/fn/array/find", "moment"
             ],
             excel: ["xlsx-style"],
           

@@ -21,6 +21,10 @@ namespace Fanex.Athena.Controllers.Report
     [FunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss)]
     public class LicenseeWinLossReportController : ReportBaseController
     {
+        public LicenseeWinLossReportController()
+        {
+        }
+
         public LicenseeWinLossReportController(
             ILanguageService languageService,
             ISessionService sessionService,

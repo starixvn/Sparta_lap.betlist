@@ -1,4 +1,5 @@
-﻿import React, { Component } from 'react'
+﻿import moment from 'moment'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
@@ -14,24 +15,31 @@ export class DataGrid extends Component {
         super(props);
 
         this.reportTitle = "";
+        this.groupBy = 0;
+        this.selectedBaseCurrency = "";
+        this.selectedReportBy = 0;
     }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.gridData !== nextProps.gridData) {
-            const { selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency } = nextProps;
+            const { groupBy, selectedReportBy, selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency } = nextProps;
+            this.groupBy = groupBy;
+            this.selectedReportBy = selectedReportBy;
+            this.selectedBaseCurrency = selectedBaseCurrency;
             this.reportTitle = service.getReportTitle(selectedTimeZone, dateRange, selectedCurrency.label, selectedBaseCurrency);
             this.props.toggleLoader(false);
         }
     }
 
     _buildHeader() {
-        const headerText = service.getHeaderText();
-
+        const headerText = service.getHeaderText(this.selectedReportBy, this.groupBy);
         return (
             <Row style={{ height: 32 }}>
                 <Cell colWidth={50} header={true} title="#">{headerText.Index}</Cell>
-                <Cell colWidth={150} header={true} title={headerText.Product}>{headerText.Product}</Cell>
-                <Cell colWidth={150} header={true} title={headerText.Currency}>{headerText.Currency}</Cell>
+                { this.selectedReportBy === 1 ? null :
+                    <Cell colWidth={100} header={true} title={headerText.ReportBy}>{headerText.ReportBy}</Cell> 
+                }
+                <Cell colWidth={150} header={true} title={headerText.GroupBy}>{headerText.GroupBy}</Cell>
                 <Cell colWidth={150} header={true} title={headerText.BetCount}>{headerText.BetCount}</Cell>
                 <Cell colWidth={200} header={true} title={headerText.Turnover}>{headerText.Turnover}</Cell>
                 <Cell colWidth={200} header={true} title={headerText.CustomerComm}>{headerText.CustomerComm}</Cell>
@@ -45,34 +53,40 @@ export class DataGrid extends Component {
 
     _buildBody() {
                     const data = this.props.gridData.Data;
+                   
+                    const groupByClassName = this.groupBy === 1 ? "left-align" : "center-align";
+                    
                     let rows = [];
                     for (let i = 0; i < data.length; i++) {
                         const item = data[i];
-                        const betcount = NumberFormat.format(item.BetCount),
+                        const reportBy = moment(item.ReportBy).format(this.selectedReportBy === 2 ? "MM/DD/YYYY" : "MM/YYYY"),
+                                betcount = NumberFormat.format(item.BetCount),
                                 turnover = NumberFormat.formatDecimal(item.Turnover),
                                 customerComm= NumberFormat.formatDecimal(item.CustomerComm),
                                 licenseeWL = NumberFormat.formatDecimal(item.LicenseeWinLoss),
                                 licenseeComm = NumberFormat.formatDecimal(item.LicenseeComm),
                                 licenseeNetWL = NumberFormat.formatDecimal(item.LicenseeNetWinLoss),
                                 margin = NumberFormat.formatDecimal(item.Margin);
-
+                        
                         rows.push(
                             <Row key={`tr${i}`}>
-                        <Cell className="center-align">{i + 1}</Cell>
-                        <Cell title={item.Product}>{item.Product}</Cell>
-                        <Cell title={item.CurrencyName} className="center-align">{item.CurrencyName}</Cell>
-                        <Cell title={betcount} className="right-align">{betcount}</Cell>
-                        <Cell title={turnover} className="right-align">{turnover}</Cell>
-                        <Cell title={customerComm} className="right-align">{customerComm}</Cell>
-                        <Cell title={licenseeWL} className={"right-align"}>{licenseeWL}</Cell>
-                        <Cell title={licenseeComm} className={"right-align"}>{licenseeComm}</Cell>
-                        <Cell title={licenseeNetWL} className={"right-align"}>{licenseeNetWL}</Cell>
-                        <Cell title={margin} className={"right-align"}>{margin}</Cell>
-                    </Row>
-                );
+                    <Cell className="center-align">{i + 1}</Cell>
+                { this.selectedReportBy === 1 ? null :
+                        <Cell title={reportBy} className="center-align">{reportBy}</Cell>
+                }
+                    <Cell title={item.GroupBy} className={groupByClassName}>{item.GroupBy}</Cell>
+                    <Cell title={betcount} className="right-align">{betcount}</Cell>
+                    <Cell title={turnover} className="right-align">{turnover}</Cell>
+                    <Cell title={customerComm} className="right-align">{customerComm}</Cell>
+                    <Cell title={licenseeWL} className="right-align">{licenseeWL}</Cell>
+                    <Cell title={licenseeComm} className="right-align">{licenseeComm}</Cell>
+                    <Cell title={licenseeNetWL} className="right-align">{licenseeNetWL}</Cell>
+                    <Cell title={margin} className="right-align">{margin}</Cell>
+                </Row>
+            );
                 }
 
-        return rows;
+    return rows;
                 }
 
     _buildFooter() {
@@ -84,10 +98,10 @@ export class DataGrid extends Component {
                     licenseeComm = NumberFormat.formatDecimal(item.LicenseeComm),
                     licenseeNetWL = NumberFormat.formatDecimal(item.LicenseeNetWinLoss),
                     margin = NumberFormat.formatDecimal(item.Margin);
-
+            const colSpan = this.selectedReportBy === 1 ? 2 : 3;
             return [(
                 <Row className="fixed-table-grant-total" key={1}>
-                   <Cell className="center-align" colSpan={3}>{LangHelper.getSingleResource("Totalin") + "EUR"}</Cell>
+                   <Cell className="center-align" colSpan={colSpan}>{LangHelper.getSingleResource("Totalin") + " " + this.selectedBaseCurrency}</Cell>
                    <Cell title={betcount} className="right-align">{betcount}</Cell>
                    <Cell title={turnover} className="right-align">{turnover}</Cell>
                    <Cell title={customerComm} className="right-align">{customerComm}</Cell>
@@ -138,8 +152,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
                 }
 function mapStateToProps(state) {
-    const { gridData, selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency, isLoading } = state;
-    return Object.assign({}, { gridData, selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency, isLoading });
+    const { gridData, groupBy, selectedReportBy, selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency, isLoading } = state;
+    return Object.assign({}, { gridData, groupBy, selectedReportBy, selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency, isLoading });
                 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

@@ -74,14 +74,14 @@
                 _dataReader, 
                 new
                 {
-                    Currency = 111
+                    GroupBy = "111"
                 });
 
             // Action
             var result = _dataAccess.GetData(metaModel);
 
             // Assert
-            Assert.That(result.DataList[0].CurrencyId, Is.EqualTo(111));
+            Assert.That(result.DataList[0].GroupBy, Is.EqualTo("111"));
         }
 
         private static LicenseeWinLossByTimeZoneMetaModel GetDefaultMetaModel()

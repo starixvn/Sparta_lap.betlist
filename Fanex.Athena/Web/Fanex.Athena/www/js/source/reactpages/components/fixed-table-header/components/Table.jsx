@@ -35,7 +35,6 @@ class Table extends Component {
 
         this.diffWidth = BODY_WIDTH - props.maxWidth;
         this.columnsWidth = this._getColumnsWidth();
-
         this.state = {
             maxWidth: props.maxWidth
         }
@@ -71,6 +70,10 @@ class Table extends Component {
         const getWidthByCells = (cells, currentRowIndex) => {
             for (let i = 0; i < cells.length; i++) {
                 const cell = cells[i];
+                if(!cell) {
+                    continue;
+                }
+
                 const cellProps = cell.props;
                 const colspan = Number(cellProps.colSpan);
 
@@ -128,6 +131,9 @@ class Table extends Component {
         window.removeEventListener('resize', debounce(this._handleResize))
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.columnsWidth = this._getColumnsWidth();
+    }
     _handleResize = (event) => {
         event && event.preventDefault();
         const maxWidth = document.body.clientWidth - this.diffWidth;

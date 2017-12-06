@@ -6,8 +6,10 @@
     using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Data;
+    using Extension.Helper;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.Report.Interfaces;
+    using Model.Core.Helper;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -31,7 +33,6 @@
             const string SpName = "Lrf_Rpt_LicWinlossByTimeZone";
             var dataList = new SortableList<LicenseeWinLossByTimeZone>();
             var totalData = new LicenseeWinLossByTimeZone();
-            var baseCurrency = metaModel.IsConvertAll ? metaModel.BaseCurrency : string.Empty;
             using (var objectDb = this.GetObjectDb(SpName))
             {
                 AssignParameter(objectDb, metaModel);
@@ -40,7 +41,21 @@
                 {
                     while (reader.Read())
                     {
-                        dataList.Add(GetEntityData(reader, baseCurrency));
+                        var item = ReadDataInBaseCurrency(reader, metaModel);
+                        totalData.Turnover += item.Turnover;
+                        totalData.CustomerComm += item.CustomerComm;
+                        totalData.LicenseeWinLoss += item.LicenseeWinLoss;
+                        totalData.LicenseeComm += item.LicenseeComm;
+
+                        if (!metaModel.IsConvertAll)
+                        {
+                            item.Turnover = reader.ToDecimal("Turnover");
+                            item.CustomerComm = reader.ToDecimal("PlayerComm");
+                            item.LicenseeWinLoss = reader.ToDecimal("LicenseeWL");
+                            item.LicenseeComm = reader.ToDecimal("LicenseeComm");
+                        }
+
+                        dataList.Add(item);
                     }
                 }
             }
@@ -52,18 +67,32 @@
             };
         }
 
-        private static LicenseeWinLossByTimeZone GetEntityData(IDataReader reader, string baseCurrency)
+        private static LicenseeWinLossByTimeZone ReadDataInBaseCurrency(IDataReader reader, LicenseeWinLossByTimeZoneMetaModel metaModel)
         {
-            return new LicenseeWinLossByTimeZone
+            const byte GroupByProduct = 1;
+            const int ReportBySummary = 1;
+            const int ReportByMonthly = 3;
+            var baseCurrency = metaModel.BaseCurrency;
+            var item = new LicenseeWinLossByTimeZone
             {
-                CurrencyId = reader.ToInt("Currency"),
-                CurrencyName = reader["CurrencyName"].ToString(),
-                Product = reader["ProductCode"].ToString(),
+                GroupBy = reader["GroupBy"].ToString(),
                 BetCount = reader.ToInt("BetCount"),
                 Turnover = reader.ToDecimal("Turnover" + baseCurrency),
-                CustomerComm = reader.ToDecimal("Winlost" + baseCurrency),
-                LicenseeWinLoss = reader.ToDecimal("LicenseeWL" + baseCurrency)
+                CustomerComm = reader.ToDecimal("PlayerComm" + baseCurrency),
+                LicenseeWinLoss = reader.ToDecimal("LicenseeWL" + baseCurrency),
+                LicenseeComm = reader.ToDecimal("LicenseeComm" + baseCurrency)
             };
+            if (metaModel.ReportBy != ReportBySummary)
+            {
+                item.ReportBy = ConvertHelper.ToDateTime(reader.ToString("reportby"), metaModel.ReportBy == ReportByMonthly);
+            }
+
+            if (metaModel.GroupBy == GroupByProduct)
+            {
+                item.GroupBy = ProductHelper.GetProductName(item.GroupBy);
+            }
+
+            return item;
         }
 
         private void AssignParameter(IObjectDb objectDb, LicenseeWinLossByTimeZoneMetaModel metaModel)
@@ -76,6 +105,7 @@
             objectDb.AddInParameter("TimeZone", DbType.Int16, metaModel.TimeZone);
             objectDb.AddInParameter("ReportBy", DbType.Byte, metaModel.ReportBy);
             objectDb.AddInParameter("GroupBy", DbType.Byte, metaModel.GroupBy);
+            objectDb.AddInParameter("IncludeDraw", DbType.Boolean, metaModel.IsIncludeDrawData);
         }
     }
 }
