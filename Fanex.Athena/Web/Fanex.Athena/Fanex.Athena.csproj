@@ -870,8 +870,10 @@
     <Content Include="www\js\source\reactpages\lib\excel.js" />
     <Content Include="www\js\source\reactpages\constants\excelStyle.js" />
     <Content Include="www\js\source\reactpages\lib\langHelper.js" />
+    <Content Include="www\js\source\reactpages\lib\logger.js" />
     <Content Include="www\js\source\reactpages\lib\numberFormat.js" />
     <Content Include="www\js\source\reactpages\lib\site.js" />
+    <Content Include="www\js\source\reactpages\lib\store.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\excel.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\langHelper.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\numberFormat.test.js" />
