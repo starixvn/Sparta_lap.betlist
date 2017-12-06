@@ -25,3 +25,17 @@ export const setDateRange = (dateRange) => {
         data: range
     }
 }
+
+export const setReportLevel = (value) => {
+    return {
+        type: types.SET_REPORT_LEVEL,
+        data: value
+    }
+}
+
+export const setParams = (value) => {
+    return {
+        type: types.SET_PARAM,
+        data: value
+    }
+}

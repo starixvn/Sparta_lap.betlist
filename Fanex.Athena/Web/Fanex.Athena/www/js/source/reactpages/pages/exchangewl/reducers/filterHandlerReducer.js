@@ -42,3 +42,15 @@ export const xsrfToken = createReducer({}, {
         return action.data;
     }
 })
+
+export const reportLevel = createReducer({}, {
+    [types.GET_REPORT_LEVEL](state, action) {
+        return action.data;
+    }
+})
+
+export const params = createReducer({}, {
+    [types.GET_PARAM](state, action) {
+        return action.data;
+    }
+})

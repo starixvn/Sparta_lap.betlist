@@ -5,7 +5,9 @@
 }
 @model Fanex.Athena.Model.Report.ViewModel.ExchangeWinLossViewModel
 @{
-    var currencyList = Model.CurrencyList.Select(c => new { value = c, label = c }).ToList();
+    var currencyList = Model.CurrencyList.Select(c => new { value = c.Key, label = c.Value }).ToList();
+    var reportByOption = Model.ReportByOption.Select(c => new { value = c.Key, label = c.Value }).ToList();
+    var excludeTestDataOption = Model.ExcludeTestDataOption.Select(c => new { value = c.Key, label = c.Value }).ToList();
     var appSettings = new AppSettings();
     var minDate = appSettings.HistoryDate;
     var maxDate = appSettings.MaxDate;
@@ -22,14 +24,16 @@
 
 @section globaljscode{
     window.initialState = {
-    currencyList: @Html.Raw(currencyList.ToJson()),
-    selectedCurrency: '@Model.CurrencyId',
-    dateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
-    selectedReportBy: '@Model.ReportBy',
-    selectedExcludeTestData: '@Model.ExcludeTestData',
-    xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
-    isLoading: false,
-    dateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'}
+        currencyList: @Html.Raw(currencyList.ToJson()),
+        selectedCurrency: @Html.Raw(currencyList.FirstOrDefault(x => x.value == Model.CurrencyId).ToJson()),
+        dateRange: { fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
+        reportByOption: @Html.Raw(reportByOption.ToJson()),
+        selectedReportBy: @Model.ReportBy,
+        excludeTestDataOption: @Html.Raw(excludeTestDataOption.ToJson()),
+        selectedExcludeTestData: true,
+        xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
+        isLoading: false,
+        dateConstraint: { minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'}
     }
 }
 <div id="app-container">

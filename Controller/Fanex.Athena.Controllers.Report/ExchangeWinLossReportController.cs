@@ -33,7 +33,17 @@
             return new ExchangeWinLossViewModel
             {
                 CurrencyList = currencyList,
-                CurrencyId = GetConvetedUSDCurrencyId(SessionService.LicenseeSession.LicenseeId)
+                CurrencyId = GetConvetedUSDCurrencyId(SessionService.LicenseeSession.LicenseeId),
+                ReportByOption = new Dictionary<byte, string>
+                {
+                    { ReportByType.Daily, ViewResources.Daily },
+                    { ReportByType.Monthly, ViewResources.Monthly }
+                },
+                ExcludeTestDataOption = new Dictionary<bool, string>
+                {
+                    { true, ViewResources.Yes },
+                    { false, ViewResources.No }
+                }
             };
         }
     }

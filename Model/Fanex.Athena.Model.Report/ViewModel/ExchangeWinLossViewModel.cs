@@ -13,6 +13,8 @@
             ReportBy = ReportByType.Daily;
             ExcludeTestData = true;
             CurrencyList = new Dictionary<int, string>();
+            ReportByOption = new Dictionary<byte, string>();
+            ExcludeTestDataOption = new Dictionary<bool, string>();
         }
 
         public DateTime FromDate { get; set; }
@@ -26,5 +28,9 @@
         public int CurrencyId { get; set; }
 
         public IDictionary<int, string> CurrencyList { get; set; }
+
+        public IDictionary<byte, string> ReportByOption { get; set; }
+
+        public IDictionary<bool, string> ExcludeTestDataOption { get; set; }
     }
 }

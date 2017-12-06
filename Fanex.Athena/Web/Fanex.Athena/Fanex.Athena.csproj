@@ -925,6 +925,7 @@
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\index.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\types.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\lib\service.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\reducers\dataHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\reducers\filterHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\reducers\index.js" />
@@ -6306,7 +6307,6 @@
   <ItemGroup>
     <Folder Include="Logs\" />
     <Folder Include="www\css\source\reactpages\lib\" />
-    <Folder Include="www\js\source\reactpages\pages\exchangewl\lib\" />
     <Folder Include="www\js\source\reactpages\vendors\" />
   </ItemGroup>
   <ItemGroup>
