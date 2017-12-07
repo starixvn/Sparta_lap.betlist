@@ -322,4 +322,8 @@
   <data name="Menu_73" xml:space="preserve">
     <value>Subsidiary Performance</value>
   </data>
+  <data name="Menu_76" xml:space="preserve">
+    <value>Licensee Win Loss By Time Zone</value>
+    <comment>84932</comment>
+  </data>
 </root>
