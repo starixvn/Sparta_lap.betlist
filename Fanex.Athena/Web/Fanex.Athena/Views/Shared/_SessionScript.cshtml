@@ -1,13 +1,28 @@
 ﻿<script type="text/javascript" language="javascript">
-    $(function () {
+    function getJSON(url, onSuccess) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open('GET', url, true);
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                if (typeof (onSuccess) === "function") {
+                    var data = JSON.parse(xmlhttp.responseText);
+                    onSuccess(data);
+                }
+            }
+        };
+
+        xmlhttp.send(null);
+    }
+
+    window.onload = function () {
         var internalSessionUrl = '@Url.Content("~/Utility/SessionIsAlive")';
         var internalSignOutUrl = '@Url.Content("~/Authorization/InternalSignOut")';
         setInterval(function () {
-            $.getJSON(internalSessionUrl, function (data) {
+            getJSON(internalSessionUrl, function (data) {
                 if (data === false) {
                     document.location.href = internalSignOutUrl;
                 }
             });
         }, 30000);
-    });
+    };
 </script>
