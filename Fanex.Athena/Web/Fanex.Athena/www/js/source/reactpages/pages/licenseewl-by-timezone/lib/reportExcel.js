@@ -3,6 +3,7 @@ import Excel from '../../../lib/excel'
 import LangHelper from '../../../lib/langHelper'
 import { titleCellStyle, headerCellStyle, bodyCellStyle, totalCellStyle, grandTotalCellStyle } from '../../../constants/excelStyle'
 import service from '../lib/service'
+import { SettingConst } from '../constants/settingConst'
 
 const TITLE_ROW_INDEX = 0;
 const HEADER_ROW_INDEX = 1;
@@ -160,7 +161,7 @@ export default class ReportExcel {
     }
 
     _createExcelConfig() {        
-        const columnModels = [{ wpx: 50 }, { wpx: 100, hidden: this.reportBy === 1 }, { wpx: 200 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 150 }, 
+        const columnModels = [{ wpx: 50 }, { wpx: 100, hidden: this.reportBy === SettingConst.ReportBySummary }, { wpx: 200 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 150 }, 
             { wpx: 150 }, { wpx: 150 }, { wpx: 150 }, { wpx: 150 }];
         
         const cellStart = Excel.getCellAddress({ r: 0, c: 0 });
@@ -183,7 +184,7 @@ export default class ReportExcel {
         const columnConfig = columnConfigs[columnIndex];
         if (columnIndex === GROUPBY_COLUMN_INDEX)
         {
-            columnConfig[MAIN_SECTION_STYLE] = this.groupBy === 1 ? bodyCellStyle.rowspan : bodyCellStyle.center;
+            columnConfig[MAIN_SECTION_STYLE] = this.groupBy === SettingConst.GroupByProduct ? bodyCellStyle.rowspan : bodyCellStyle.center;
         }
 
         const field = columnConfig.field;
@@ -198,7 +199,7 @@ export default class ReportExcel {
         }
         else if (columnIndex === REPORTBY_COLUMN_INDEX)
         {
-            value = moment(value).format(this.reportBy === 2 ? "MM/DD/YYYY" : "MM/YYYY");
+            value = moment(value).format(this.reportBy === SettingConst.ReportByDaily ? "MM/DD/YYYY" : "MM/YYYY");
         }
 
         return { cellAddress, type, value, style };
