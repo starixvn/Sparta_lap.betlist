@@ -3,14 +3,13 @@ import LangHelper from '../../../lib/langHelper'
 import { titleCellStyle, headerCellStyle, bodyCellStyle, totalCellStyle, grandTotalCellStyle } from '../../../constants/excelStyle'
 import service from '../lib/service'
 
-const COLUMN_COUNT = 10;
 const TITLE_ROW_INDEX = 0;
 const HEADER_ROW_INDEX = 1;
 const DATA_ROW_INDEX = 2;
 
 const INDEX_COLUMN_INDEX = 0;
-const PRODUCT_COLUMN_INDEX = 1;
-const CURRENCY_COLUMN_INDEX = 2;
+const REPORTBY_COLUMN_INDEX = 1;
+const GROUPBY_COLUMN_INDEX = 2;
 const BETCOUNT_COLUMN_INDEX = 3;
 const TURNOVER_COLUMN_INDEX = 4;
 const CUSTOMERCOMM_COLUMN_INDEX = 5;
@@ -19,14 +18,16 @@ const LICENSEECOMM_COLUMN_INDEX = 7;
 const LICENSEENETWL_COLUMN_INDEX = 8;
 const MARGIN_COLUMN_INDEX = 9;
 
+const COLUMN_COUNT = 10;
+
 const MAIN_SECTION_STYLE = "mainSectionStyle";
 const TOTAL_SECTION_STYLE = "totalSectionStyle";
 const GRAND_TOTAL_SECTION_STYLE = "grandTotalSectionStyle";
 
 const fields = {
     Index: "Index",
-    Product: "Product",
-    CurrencyName: "CurrencyName",
+    ReportBy: "ReportBy",
+    GroupBy: "GroupBy",
     BetCount: "BetCount",
     Turnover: "Turnover",
     CustomerComm: "CustomerComm",
@@ -40,17 +41,17 @@ const columnConfigs = [
     {
         field: "#",
         [MAIN_SECTION_STYLE]: bodyCellStyle.center,
-        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.default
+        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.number
     },
     {
-        field: fields.Product,
-        [MAIN_SECTION_STYLE]: bodyCellStyle.rowspan,
-        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.default
-    },
-    {
-        field: fields.CurrencyName,
+        field: fields.ReportBy,
         [MAIN_SECTION_STYLE]: bodyCellStyle.center,
-        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.default
+        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.number
+    },
+    {
+        field: fields.GroupBy,
+        [MAIN_SECTION_STYLE]: bodyCellStyle.rowspan,
+        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.number
     },
     {
         field: fields.BetCount,
@@ -90,11 +91,14 @@ const columnConfigs = [
 ]
 
 export default class ReportExcel {
-    constructor(gridData = {}, title, fileName = "LicenseeWinLoss") {
+    constructor(gridData = {}, title, reportBy, groupBy, baseCurrency) {
         this.worksheet = {};
         this.title = title;
-        this.fileName = fileName;
+        this.fileName = "LicenseeWinLossByTimeZone";
         this.gridData = gridData;
+        this.reportBy = reportBy;
+        this.groupBy = groupBy;
+        this.baseCurrency = baseCurrency;
         this.currentRowIndex = DATA_ROW_INDEX;
         this.mergeConfig = [];
     }
@@ -119,7 +123,7 @@ export default class ReportExcel {
     }
 
     _createHeader() {
-        const headerText = service.getHeaderText();
+        const headerText = service.getHeaderText(this.reportBy, this.groupBy);
         const keys = Object.keys(headerText);
         for (let i = 0; i < keys.length; i++) {
             const address = Excel.getCellAddress({ c: i, r: HEADER_ROW_INDEX });
@@ -140,29 +144,31 @@ export default class ReportExcel {
             const item = mainData[i];
             var cellAddress = Excel.getCellAddress({ c: INDEX_COLUMN_INDEX, r: this.currentRowIndex });
             this.worksheet[cellAddress] = { t: "s", v: (i + 1), s: bodyCellStyle.center };
-            this._createRowByColumnIndex(item, MAIN_SECTION_STYLE, PRODUCT_COLUMN_INDEX, MARGIN_COLUMN_INDEX);
+            this._createRowByColumnIndex(item, MAIN_SECTION_STYLE, GROUPBY_COLUMN_INDEX, MARGIN_COLUMN_INDEX);
             this.currentRowIndex++;
         }
     }
 
     _createFooterData() {
-        this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex, c: BETCOUNT_COLUMN_INDEX } });
+        this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex, c: GROUPBY_COLUMN_INDEX } });
         const totalData = this.gridData.Total;
 
         var cellAddress = Excel.getCellAddress({ c: INDEX_COLUMN_INDEX, r: this.currentRowIndex });
-        this.worksheet[cellAddress] = { t: "s", v: LangHelper.getSingleResource("Totalin") + "EUR", s: bodyCellStyle.center };
+        this.worksheet[cellAddress] = { t: "s", v: LangHelper.getSingleResource("Totalin") + " " + this.baseCurrency, s: grandTotalCellStyle.center };
         this._createRowByColumnIndex(totalData, GRAND_TOTAL_SECTION_STYLE, BETCOUNT_COLUMN_INDEX, MARGIN_COLUMN_INDEX);
     }
 
-    _createExcelConfig() {
+    _createExcelConfig() {        
+        const columnModels = [{ wpx: 50 }, { wpx: 100, hidden: this.reportBy === 1 }, { wpx: 200 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 150 }, 
+            { wpx: 150 }, { wpx: 150 }, { wpx: 150 }, { wpx: 150 }];
+        
         const cellStart = Excel.getCellAddress({ r: 0, c: 0 });
         const cellEnd = Excel.getCellAddress({ r: this.currentRowIndex, c: COLUMN_COUNT - 1 });
 
         this.worksheet["!merges"] = this.mergeConfig;
         this.worksheet["!ref"] = `${cellStart}:${cellEnd}`;
-        const wscols = [{ wpx: 50 }, { wpx: 150 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }];
 
-        this.worksheet['!cols'] = wscols;
+        this.worksheet['!cols'] = columnModels;
     }
 
     _createRowByColumnIndex(item, sectionStyle, startIndex, endIndex) {
@@ -174,6 +180,11 @@ export default class ReportExcel {
 
     _getCellObject(item, sectionStyle, columnIndex) {
         const columnConfig = columnConfigs[columnIndex];
+        if (columnIndex === 2)
+        {
+            columnConfig[MAIN_SECTION_STYLE] = this.groupBy === 1 ? bodyCellStyle.rowspan : bodyCellStyle.center;
+        }
+
         const field = columnConfig.field;
 
         const cellAddress = Excel.getCellAddress({ c: columnIndex, r: this.currentRowIndex });

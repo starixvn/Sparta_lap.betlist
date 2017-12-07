@@ -42,6 +42,7 @@ const grandTotalTextStyle = {
 const decimalGrandTotalStyle = {...grandTotalTextStyle, numFmt: "#,##0.00" };
 export const grandTotalCellStyle = {
     default: grandTotalTextStyle,
+    center: {...grandTotalTextStyle, alignment: { horizontal: "center" } },
     number: {...grandTotalTextStyle, numFmt: "#,##0" },
     decimal: decimalGrandTotalStyle,
     negativeDecimal: {...decimalGrandTotalStyle, font: { bold: true, color: { rgb: "FF0000" } } }

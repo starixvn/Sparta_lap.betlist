@@ -1,4 +1,4 @@
-import * as XLSX from 'xlsx-style';
+import * as XLSX from 'xlsx-style-sparta';
 
 const EXCEL_TYPE = "xlsx";
 
