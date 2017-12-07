@@ -7,7 +7,8 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
                                 "</li>";
         var GET_NOTIFICATION_URL = "api/NotificationReport/GetNotificationMessages";
         var MARK_NOTIFICATION = "api/NotificationReport/MarkNotificationAsRead";
-        var POPUP_ID = "view-notifiation";
+        var POPUP_ID = "view-notification";
+        var POPUP_CONTENT_MIN_HEIGHT = 300;
 
         var $notificationDdl = "";
         var $notificationLabel = "";
@@ -26,6 +27,16 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
                 height: "80%",
                 id: POPUP_ID,
                 width: "55%",
+                onOpened: function () {
+                    var popupHeight = $(".wrapContent", ".view-notification").height();
+                    var subjectHeight = $(".subject", ".view-notification").height();
+                    var dateTimeHeight = $(".date-time", ".view-notification").height();
+                    var height = popupHeight - subjectHeight - dateTimeHeight - 60;
+
+                    if (height > POPUP_CONTENT_MIN_HEIGHT) {
+                        var content = $(".content", ".view-notification").height(height);
+                    }
+                },
                 onClose: function () {
                     var postData = {
                         MessageType: message.Type,

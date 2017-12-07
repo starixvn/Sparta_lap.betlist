@@ -15,6 +15,7 @@ define(['jquery'], function ($) {
                 container: "body",
                 modal: DEFAULT_MODAL,
                 onOpen: null,
+                onOpened: null,
                 onClose: null
             };
 
@@ -66,6 +67,10 @@ define(['jquery'], function ($) {
                 }
 
                 _methods.show.call($self, options.modal);
+
+                if (options.onOpened) {
+                    setTimeout(options.onOpened.apply($self), 350);
+                }
             });
         },
 
