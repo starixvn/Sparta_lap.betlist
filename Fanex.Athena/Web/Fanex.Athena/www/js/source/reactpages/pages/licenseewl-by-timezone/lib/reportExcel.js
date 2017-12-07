@@ -1,3 +1,4 @@
+import moment from 'moment'
 import Excel from '../../../lib/excel'
 import LangHelper from '../../../lib/langHelper'
 import { titleCellStyle, headerCellStyle, bodyCellStyle, totalCellStyle, grandTotalCellStyle } from '../../../constants/excelStyle'
@@ -144,7 +145,7 @@ export default class ReportExcel {
             const item = mainData[i];
             var cellAddress = Excel.getCellAddress({ c: INDEX_COLUMN_INDEX, r: this.currentRowIndex });
             this.worksheet[cellAddress] = { t: "s", v: (i + 1), s: bodyCellStyle.center };
-            this._createRowByColumnIndex(item, MAIN_SECTION_STYLE, GROUPBY_COLUMN_INDEX, MARGIN_COLUMN_INDEX);
+            this._createRowByColumnIndex(item, MAIN_SECTION_STYLE, REPORTBY_COLUMN_INDEX, MARGIN_COLUMN_INDEX);
             this.currentRowIndex++;
         }
     }
@@ -180,7 +181,7 @@ export default class ReportExcel {
 
     _getCellObject(item, sectionStyle, columnIndex) {
         const columnConfig = columnConfigs[columnIndex];
-        if (columnIndex === 2)
+        if (columnIndex === GROUPBY_COLUMN_INDEX)
         {
             columnConfig[MAIN_SECTION_STYLE] = this.groupBy === 1 ? bodyCellStyle.rowspan : bodyCellStyle.center;
         }
@@ -188,12 +189,16 @@ export default class ReportExcel {
         const field = columnConfig.field;
 
         const cellAddress = Excel.getCellAddress({ c: columnIndex, r: this.currentRowIndex });
-        const type = typeof item[columnConfig.field] === "number" ? "n" : "s";
-        const value = item[field] !== null ? item[field] : "";
+        const type = Excel.getCellType(item[columnConfig.field]);
+        let value = item[field] !== null ? item[field] : "";
 
         let style = columnConfig[sectionStyle];
         if (field === fields.LicenseeWL) {
             style = value < 0 ? style.negative : style.positive;
+        }
+        else if (columnIndex === REPORTBY_COLUMN_INDEX)
+        {
+            value = moment(value).format(this.reportBy === 2 ? "MM/DD/YYYY" : "MM/YYYY");
         }
 
         return { cellAddress, type, value, style };
