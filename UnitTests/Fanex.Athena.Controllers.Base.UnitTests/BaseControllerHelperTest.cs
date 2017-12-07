@@ -7,7 +7,6 @@
     using System.Web.Mvc;
     using System.Web.Routing;
     using Extension.Utility;
-    using Extension.Utility.Interfaces;
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
@@ -49,15 +48,12 @@
 
         protected IAppSettings AppSettings { get; set; }
 
-        protected IFileSystem FileSystem { get; set; }
-
         [OneTimeSetUp]
         public virtual void FixtureSetUp()
         {
             LangService = Substitute.For<ILanguageService>();
             SessionService = Substitute.For<ISessionService>();
             AppSettings = Substitute.For<IAppSettings>();
-            FileSystem = Substitute.For<IFileSystem>();
             SetUpForContexts();
         }
 

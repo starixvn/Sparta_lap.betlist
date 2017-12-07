@@ -131,8 +131,6 @@
                 const string ExcelFileName = "Empty.xls";
                 const string ExcelParam = "{'GridColumns': []}";
 
-                FileSystem.Exists(Arg.Any<string>()).Returns(false);
-
                 // Action
                 var result = controller.ExportExcel(ExcelParam) as FileContentResult;
 

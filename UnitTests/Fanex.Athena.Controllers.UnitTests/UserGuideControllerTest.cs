@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using Extension.Utility.Interfaces;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using NSubstitute;
@@ -16,6 +17,8 @@
 
         private IProductService _productService;
 
+        private IFileSystem _fileSystem;
+
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
@@ -28,6 +31,7 @@
         public void SetUp()
         {
             _productService = Substitute.For<IProductService>();
+            _fileSystem = Substitute.For<IFileSystem>();
         }
 
         [TearDown]
@@ -46,8 +50,8 @@
 
                 controller.Url = Url;
 
-                FileSystem.Exists(Arg.Any<string>()).Returns(true);
-                FileSystem.ReadFile(Arg.Any<string>()).Returns("{rooturl}");
+                _fileSystem.Exists(Arg.Any<string>()).Returns(true);
+                _fileSystem.ReadFile(Arg.Any<string>()).Returns("{rooturl}");
 
                 // Action
                 var result = controller.Index(ResourceName) as ViewResult;
@@ -73,8 +77,8 @@
 
                 controller.Url = Url;
 
-                FileSystem.Exists(Arg.Any<string>()).Returns(false);
-                FileSystem.ReadFile(Arg.Do<string>(x => actualFilePath = x)).Returns("{rooturl}");
+                _fileSystem.Exists(Arg.Any<string>()).Returns(false);
+                _fileSystem.ReadFile(Arg.Do<string>(x => actualFilePath = x)).Returns("{rooturl}");
 
                 // Action
                 controller.Index(ResourceName);
@@ -97,8 +101,8 @@
 
                 controller.Url = Url;
 
-                FileSystem.Exists(Arg.Any<string>()).Returns(true);
-                FileSystem.ReadFile(Arg.Do<string>(x => actualFileName = x)).Returns("{rooturl}");
+                _fileSystem.Exists(Arg.Any<string>()).Returns(true);
+                _fileSystem.ReadFile(Arg.Do<string>(x => actualFileName = x)).Returns("{rooturl}");
 
                 // Action
                 controller.Index(ResourceName);
@@ -121,8 +125,8 @@
 
                 controller.Url = Url;
 
-                FileSystem.Exists(Arg.Any<string>()).Returns(false);
-                FileSystem.ReadFile(Arg.Do<string>(x => actualFileName = x)).Returns("{rooturl}");
+                _fileSystem.Exists(Arg.Any<string>()).Returns(false);
+                _fileSystem.ReadFile(Arg.Do<string>(x => actualFileName = x)).Returns("{rooturl}");
 
                 // Action
                 controller.Index(ResourceName);
@@ -143,8 +147,8 @@
 
                 controller.Url = Url;
 
-                FileSystem.Exists(Arg.Any<string>()).Returns(false);
-                FileSystem.ReadFile(Arg.Any<string>()).Returns("{rooturl}");
+                _fileSystem.Exists(Arg.Any<string>()).Returns(false);
+                _fileSystem.ReadFile(Arg.Any<string>()).Returns("{rooturl}");
 
                 // Action
                 var result = controller.Index(ResourceName) as ViewResult;
@@ -171,8 +175,8 @@
 
                 controller.Url = Url;
 
-                FileSystem.Exists(Arg.Any<string>()).Returns(false);
-                FileSystem.ReadFile(Arg.Any<string>()).Returns(Content);
+                _fileSystem.Exists(Arg.Any<string>()).Returns(false);
+                _fileSystem.ReadFile(Arg.Any<string>()).Returns(Content);
 
                 // Action
                 var result = controller.Index(ResourceName) as ViewResult;
@@ -199,8 +203,8 @@
 
                 controller.Url = Url;
 
-                FileSystem.Exists(Arg.Any<string>()).Returns(false);
-                FileSystem.ReadFile(Arg.Any<string>()).Returns(Content);
+                _fileSystem.Exists(Arg.Any<string>()).Returns(false);
+                _fileSystem.ReadFile(Arg.Any<string>()).Returns(Content);
 
                 // Action
                 var result = controller.Index(ResourceName) as ViewResult;
@@ -229,8 +233,8 @@
 
                 controller.Url = Url;
 
-                FileSystem.Exists(Arg.Any<string>()).Returns(false);
-                FileSystem.ReadFile(Arg.Any<string>()).Returns(Content);
+                _fileSystem.Exists(Arg.Any<string>()).Returns(false);
+                _fileSystem.ReadFile(Arg.Any<string>()).Returns(Content);
 
                 // Action
                 var result = controller.Index(ResourceName) as ViewResult;
@@ -258,8 +262,8 @@
 
                 controller.Url = Url;
 
-                FileSystem.Exists(Arg.Any<string>()).Returns(false);
-                FileSystem.ReadFile(Arg.Any<string>()).Returns(Content);
+                _fileSystem.Exists(Arg.Any<string>()).Returns(false);
+                _fileSystem.ReadFile(Arg.Any<string>()).Returns(Content);
 
                 // Action
                 var result = controller.Index(ResourceName) as ViewResult;
@@ -277,7 +281,7 @@
                 // Arrange
                 SessionService.LicenseeSession.IsEnableBA = true;
 
-                FileSystem.Exists(Arg.Any<string>()).Returns(false);
+                _fileSystem.Exists(Arg.Any<string>()).Returns(false);
 
                 // Action
                 var result = controller.DownloadCustomerListPdf();
@@ -295,7 +299,7 @@
                 // Arrange
                 SessionService.LicenseeSession.IsEnableBA = false;
 
-                FileSystem.Exists(Arg.Any<string>()).Returns(false);
+                _fileSystem.Exists(Arg.Any<string>()).Returns(false);
 
                 // Action
                 var result = controller.DownloadCustomerListPdf();
@@ -307,7 +311,7 @@
 
         private UserGuideController CreateController()
         {
-            var controller = new UserGuideController(LangService, SessionService, AppSettings, FileSystem, _productService)
+            var controller = new UserGuideController(LangService, SessionService, AppSettings, _fileSystem, _productService)
             {
                 ControllerContext = ControllerContext
             };
