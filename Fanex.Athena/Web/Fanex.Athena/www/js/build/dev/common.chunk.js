@@ -14935,6 +14935,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 container: "body",
                 modal: DEFAULT_MODAL,
                 onOpen: null,
+                onOpened: null,
                 onClose: null
             };
 
@@ -14986,6 +14987,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 }
 
                 _methods.show.call($self, options.modal);
+
+                if (options.onOpened) {
+                    setTimeout(options.onOpened.apply($self), 350);
+                }
             });
         },
 

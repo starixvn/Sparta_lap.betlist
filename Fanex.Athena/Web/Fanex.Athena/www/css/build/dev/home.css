@@ -6328,7 +6328,7 @@ header nav {
   padding: 5px;
   border: solid 1px #d1dae1;
   position: relative;
-  height: calc(100% - 100px);
+  height: 100%;
   overflow: auto;
   line-height: 1.42; }
   .view-notification .content h1, .view-notification .content h2, .view-notification .content h3, .view-notification .content h4, .view-notification .content h5, .view-notification .content h6 {
