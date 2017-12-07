@@ -404,7 +404,6 @@
                LangService,
                SessionService,
                AppSettings,
-               FileSystem,
                _maintenanceService,
                _userService,
                _authService,

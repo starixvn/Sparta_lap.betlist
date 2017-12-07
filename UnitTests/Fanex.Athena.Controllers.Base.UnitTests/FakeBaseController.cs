@@ -10,8 +10,8 @@
 
     public class FakeBaseController : BaseController
     {
-        internal FakeBaseController(ILanguageService languageService, ISessionService sessionService, IAppSettings appSetting, IFileSystem fileSystem)
-            : base(languageService, sessionService, appSetting, fileSystem)
+        internal FakeBaseController(ILanguageService languageService, ISessionService sessionService, IAppSettings appSetting)
+            : base(languageService, sessionService, appSetting)
         {
         }
 

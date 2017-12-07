@@ -11,7 +11,6 @@ namespace Fanex.Athena.Controllers
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
-    using Extension.Utility.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Service.Core.Common.Interfaces;
@@ -19,7 +18,6 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Web.ActionFilter;
     using Logging;
     using Model.Core.MetaModel;
-    using Resources;
     using Service.Core.Common;
     using Service.Core.Helpers;
     using Service.Core.Users;
@@ -32,22 +30,19 @@ namespace Fanex.Athena.Controllers
         private readonly ILanguageService _langService;
         private readonly ISessionService _sessionService;
         private readonly IAppSettings _appSettings;
-        private readonly IFileSystem _fileSystem;
 
-        public BaseController() : this(null, null, null, null)
+        public BaseController() : this(null, null, null)
         {
         }
 
         protected BaseController(
             ILanguageService languageService,
             ISessionService sessionService,
-            IAppSettings appSetting,
-            IFileSystem fileSystem)
+            IAppSettings appSetting)
         {
             _langService = languageService ?? new LanguageService();
             _sessionService = sessionService ?? new SessionService();
             _appSettings = appSetting ?? new AppSettings();
-            _fileSystem = fileSystem ?? new FileSystem();
         }
 
         public ILanguageService LangService
@@ -63,11 +58,6 @@ namespace Fanex.Athena.Controllers
         public IAppSettings AppSettings
         {
             get { return _appSettings; }
-        }
-
-        public IFileSystem FileSystem
-        {
-            get { return _fileSystem; }
         }
 
         protected bool IsFakeLicensee()
@@ -113,18 +103,17 @@ namespace Fanex.Athena.Controllers
             }
         }
 
+        protected ViewResult ViewForNewUI(string viewName, object model, string returnPath)
+        {
+            var viewType = GetViewType();
+            return viewType != ClientViewType.Desktop && !string.IsNullOrEmpty(returnPath) ?
+                base.View("~/Views/Desktop/Utility/FunctionNotAvailableOldUI.cshtml", model: returnPath) :
+                View(viewName, null, model);
+        }
+
         protected override ViewResult View(string viewName, string masterName, object model)
         {
-            var userSession = SessionService.UserSession;
-
-            var viewType = userSession != null && userSession.ViewType != ClientViewType.None ?
-                userSession.ViewType : (ClientViewType)int.Parse(AppSettings.ClientViewType);
-
-            if (viewType != ClientViewType.Desktop && !_fileSystem.ViewExists(viewName))
-            {
-                return base.View("~/Views/Desktop/Utility/FunctionNotAvailableOldUI.cshtml", null, ViewResources.FunctionNotAvailableOldUIMsg);
-            }
-
+            var viewType = GetViewType();
             var viewByOption = ClientViewHelper.GetViewPath(viewName, viewType);
             return base.View(viewByOption, masterName, model);
         }
@@ -138,6 +127,13 @@ namespace Fanex.Athena.Controllers
             }
 
             return new string[] { };
+        }
+
+        private ClientViewType GetViewType()
+        {
+            var userSession = SessionService.UserSession;
+            return userSession != null && userSession.ViewType != ClientViewType.None ?
+                userSession.ViewType : (ClientViewType)int.Parse(AppSettings.ClientViewType);
         }
     }
 }

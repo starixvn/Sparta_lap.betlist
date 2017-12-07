@@ -35,10 +35,9 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IFileSystem fileSystem,
             IBalanceUpDataAccess balanceUpDataAccess,
             IProductService productService)
-            : base(languageService, sessionService, appSetting, fileSystem)
+            : base(languageService, sessionService, appSetting)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
             _productService = productService;

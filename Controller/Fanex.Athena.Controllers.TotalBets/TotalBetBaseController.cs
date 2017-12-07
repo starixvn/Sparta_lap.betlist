@@ -25,9 +25,8 @@ namespace Fanex.Athena.Controllers.TotalBets
         public TotalBetBaseController(
             ILanguageService languageService,
             ISessionService sessionService,
-            IAppSettings appSetting,
-            IFileSystem fileSystem)
-            : base(languageService, sessionService, appSetting, fileSystem)
+            IAppSettings appSetting)
+            : base(languageService, sessionService, appSetting)
         {
         }
     }

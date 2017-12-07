@@ -4,7 +4,6 @@
     using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility;
-    using Extension.Utility.Interfaces;
     using Model.Core.DataDomain;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
@@ -24,9 +23,8 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IFileSystem fileSystem,
             ILicenseeDataAccess licenseeDataAccess)
-            : base(languageService, sessionService, appSetting, fileSystem)
+            : base(languageService, sessionService, appSetting)
         {
             _licenseeDataAccess = licenseeDataAccess;
         }

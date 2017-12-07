@@ -2905,15 +2905,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This function is only supported in the new admin portal.&lt;br/&gt;Please switch to use our new system for better experience and stability..
-        /// </summary>
-        public static string FunctionNotAvailableOldUIMsg {
-            get {
-                return ResourceManager.GetString("FunctionNotAvailableOldUIMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Game.
         /// </summary>
         public static string Game {

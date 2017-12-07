@@ -58,7 +58,6 @@
             SessionService = Substitute.For<ISessionService>();
             AppSettings = Substitute.For<IAppSettings>();
             FileSystem = Substitute.For<IFileSystem>();
-            FileSystem.ViewExists(string.Empty).ReturnsForAnyArgs(true);
             SetUpForContexts();
         }
 

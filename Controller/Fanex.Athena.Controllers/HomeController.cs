@@ -25,9 +25,8 @@ namespace Fanex.Athena.Controllers
         public HomeController(
             ILanguageService languageService,
             ISessionService sessionService,
-            IAppSettings appSetting,
-            IFileSystem fileSystem)
-            : base(languageService, sessionService, appSetting, fileSystem)
+            IAppSettings appSetting)
+            : base(languageService, sessionService, appSetting)
         {
         }
 
@@ -45,9 +44,10 @@ namespace Fanex.Athena.Controllers
             return ReAuthorize("~/Views/Home/IndexIpad.cshtml");
         }
 
-        public ActionResult SwitchView(ClientViewType type = ClientViewType.Default)
+        public ActionResult SwitchView(ClientViewType type = ClientViewType.Default, string returnPath = null)
         {
             SessionService.UserSession.ViewType = type;
+            TempData["ReturnPath"] = returnPath;
             return RedirectToAction(nameof(Index), "Home");
         }
 
@@ -74,8 +74,9 @@ namespace Fanex.Athena.Controllers
 
         private void AssignViewBagData()
         {
+            var returnPath = TempData["ReturnPath"];
             var userSession = SessionService.UserSession;
-            ViewBag.DefaultReportUrl = userSession.DefaultReportUrl;
+            ViewBag.DefaultReportUrl = returnPath == null ? userSession.DefaultReportUrl : returnPath.ToString();
             ViewBag.OnUserId = userSession.OnUserId;
             ViewBag.IsInternal = userSession.IsInternal ? "1" : "0";
             ViewBag.HasRecheckIn = AppSettings.LocalTest ? "0" : "1";

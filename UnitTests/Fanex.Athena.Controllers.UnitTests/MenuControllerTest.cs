@@ -72,7 +72,7 @@
 
         private MenuController CreateController()
         {
-            return new MenuController(LangService, SessionService, AppSettings, FileSystem, _functionService);
+            return new MenuController(LangService, SessionService, AppSettings, _functionService);
         }
     }
 }

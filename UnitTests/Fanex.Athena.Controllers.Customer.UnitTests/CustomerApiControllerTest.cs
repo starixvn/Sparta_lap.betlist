@@ -300,7 +300,6 @@
                LangService,
                SessionService,
                AppSettings,
-               FileSystem,
                _customerCommService,
                _customerListService,
                _groupComService,

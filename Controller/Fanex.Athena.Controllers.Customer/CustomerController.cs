@@ -9,7 +9,6 @@ namespace Fanex.Athena.Controllers.Customer
     using System;
     using System.Collections.Generic;
     using System.Globalization;
-    using System.IO;
     using System.Linq;
     using System.Web.Mvc;
     using DataAccess.Core.Users;
@@ -78,13 +77,12 @@ namespace Fanex.Athena.Controllers.Customer
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IFileSystem fileSystem,
             ICustomerListService customerListService,
             IGroupComService groupComService,
             ILicenseeDataAccess licenseeDataAccess,
             IProductService productService)
 #pragma warning restore S107 // Methods should not have too many parameters
-            : base(languageService, sessionService, appSetting, fileSystem)
+            : base(languageService, sessionService, appSetting)
         {
             _customerListService = customerListService;
             _groupComService = groupComService;
@@ -166,10 +164,6 @@ namespace Fanex.Athena.Controllers.Customer
                 if (metaModel.GridColumns.Any(i => i.Checked))
                 {
                     var templatePath = Server.MapPath(@"~/App_Data/Template/Customers/CustomerList.xls");
-                    if (!FileSystem.Exists(templatePath))
-                    {
-                        throw new FileNotFoundException(templatePath);
-                    }
 
                     var model = GetCustomers(metaModel);
                     var fileName = "CustomerList_" + DateTime.Now.ToString("MM-dd-yyyy");

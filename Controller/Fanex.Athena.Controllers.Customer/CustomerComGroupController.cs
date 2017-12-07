@@ -4,13 +4,11 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Globalization;
-    using System.IO;
     using System.Linq;
     using System.Web.Hosting;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using Extension.Utility;
-    using Extension.Utility.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Customer;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -47,7 +45,6 @@
             { 102, nameof(ViewResources.GroupNameExistedMsg) }
         };
 
-        private readonly IFileSystem _fileSystem;
         private readonly IGroupComService _groupComService;
         private readonly IProductService _productService;
 
@@ -55,19 +52,16 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IFileSystem fileSystem,
             IGroupComService groupComService,
             IProductService productService)
-            : base(languageService, sessionService, appSetting, fileSystem)
+            : base(languageService, sessionService, appSetting)
         {
             _groupComService = groupComService;
             _productService = productService;
-            _fileSystem = fileSystem;
         }
 
         public CustomerComGroupController()
         {
-            _fileSystem = new FileSystem();
             _groupComService = new GroupComService();
             _productService = new ProductService();
         }
@@ -273,11 +267,6 @@
         {
             const string FileName = "CustomerCommGroup";
             var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/CustomerGroup/CustomerCommGroup.xls");
-
-            if (!_fileSystem.Exists(templatePath))
-            {
-                throw new FileNotFoundException(templatePath);
-            }
 
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);

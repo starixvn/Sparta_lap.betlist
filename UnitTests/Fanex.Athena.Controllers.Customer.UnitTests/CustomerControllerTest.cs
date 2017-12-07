@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.Customer.UnitTests
 {
     using System.Collections.Generic;
-    using System.IO;
     using System.Web.Mvc;
     using DataAccess.Core.Users.Interfaces;
     using Excel.Customer;
@@ -142,24 +141,6 @@
             }
         }
 
-        [Test]
-        public void ExportExcel_FileDoesNotExists_ThrowException()
-        {
-            using (var controller = CreateContoller())
-            {
-                // Arrange
-                const string ExcelParam = "{'GridColumns': [{'Name': 'Column1', 'Checked': 'true'}]}";
-                FileSystem.Exists(Arg.Any<string>()).Returns(false);
-                controller.Server.MapPath(Arg.Any<string>()).Returns(string.Empty);
-
-                // Action
-                TestDelegate testDelegate = () => controller.ExportExcel(ExcelParam);
-
-                // Assert
-                Assert.Throws(typeof(FileNotFoundException), testDelegate);
-            }
-        }
-
         [TestCase(false)]
         [TestCase(true)]
         public void ExportExcel_IsConvertIsFalse_ExportWithCorrectReportTitle(bool isConvert)
@@ -173,7 +154,6 @@
                 var excelParam = "{'CurrencyName': 'Currency', " + (isConvert ? "'BaseCurrency': 'BaseCurrency' ," : string.Empty)
                     + "'GridColumns': [{'Name': 'Column1', 'Checked': 'true'}]}";
 
-                FileSystem.Exists(Arg.Any<string>()).Returns(true);
                 controller.Server.MapPath(Arg.Any<string>()).Returns(Path);
                 StubLicenseeSessionData(DefaultLicenseeSession);
                 _productService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>()).Returns(new ProductAccess(new List<Product>()));
@@ -220,7 +200,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                FileSystem,
                 _customerListService,
                 _groupComService,
                 _licenseeDataAccess,

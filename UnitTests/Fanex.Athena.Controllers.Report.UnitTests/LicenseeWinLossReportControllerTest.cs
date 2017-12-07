@@ -54,7 +54,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                FileSystem,
                 Substitute.For<IBalanceUpDataAccess>(),
                 productService);
         }

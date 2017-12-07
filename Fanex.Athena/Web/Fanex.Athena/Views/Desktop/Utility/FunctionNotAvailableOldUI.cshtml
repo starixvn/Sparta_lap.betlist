@@ -14,11 +14,14 @@
 <body>
     <div class="error-content">
         <img src="@Url.ContentLink("/www/assets/images/new-system.svg")" />
-        <p>@Html.Raw(Model)</p>
+        <p>This function is available only with new UI design.</p>
 
         <div style="text-align: center;">
-            <a href="#" class="btn btn-submit">Go to new site →</a>
+            <a href="@Url.Content("/Home/Switchview?type=2&returnpath=" + Model)" target="_top" class="btn btn-submit">Click here for better experience and stability.</a>
         </div>
     </div>
+    <script>
+
+    </script>
 </body>
 </html>

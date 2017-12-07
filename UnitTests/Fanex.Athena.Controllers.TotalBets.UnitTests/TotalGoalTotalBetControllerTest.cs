@@ -88,12 +88,7 @@
 
         private TotalGoalTotalBetController CreateController()
         {
-            return new TotalGoalTotalBetController(
-                            LangService,
-                            SessionService,
-                            AppSettings,
-                            FileSystem,
-                            _totalGoalDataAccess);
+            return new TotalGoalTotalBetController(LangService, SessionService, AppSettings, _totalGoalDataAccess);
         }
 
         private void SepUpForService()

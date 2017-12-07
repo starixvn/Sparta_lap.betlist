@@ -57,11 +57,10 @@ namespace Fanex.Athena.Controllers.Account
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IFileSystem fileSystem,
             IFunctionService functionService,
             IUserService userService,
             ICurrencyDataAccess currencyDataAccess)
-            : base(languageService, sessionService, appSetting, fileSystem)
+            : base(languageService, sessionService, appSetting)
         {
             _functionService = functionService;
             _userService = userService;

@@ -109,7 +109,6 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            FileSystem,
                             _halfTimeFullTimeDataAccess);
         }
     }

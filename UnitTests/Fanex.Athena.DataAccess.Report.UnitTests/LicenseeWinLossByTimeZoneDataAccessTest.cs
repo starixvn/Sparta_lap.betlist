@@ -74,14 +74,14 @@
                 _dataReader, 
                 new
                 {
-                    GroupBy = "111"
+                    ReportBy = "20171122"
                 });
 
             // Action
             var result = _dataAccess.GetData(metaModel);
 
             // Assert
-            Assert.That(result.DataList[0].GroupBy, Is.EqualTo("111"));
+            Assert.That(result.DataList[0].ReportBy.Date, Is.EqualTo(new DateTime(2017, 11, 22)));
         }
 
         private static LicenseeWinLossByTimeZoneMetaModel GetDefaultMetaModel()

@@ -92,7 +92,6 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            FileSystem,
                             _oddEvenDrawNoDrawDataAccess);
         }
 
