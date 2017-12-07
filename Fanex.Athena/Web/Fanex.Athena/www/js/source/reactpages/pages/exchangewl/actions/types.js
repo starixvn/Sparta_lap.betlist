@@ -12,8 +12,6 @@ export const GET_DATE_CONSTRAINT = "GET_DATE_CONSTRAINT"
 
 export const GET_XSRF_TOKEN = "GET_XSRF_TOKEN"
 
-export const GET_REPORT_LEVEL = "GET_REPORT_LEVEL"
 export const SET_REPORT_LEVEL = "SET_REPORT_LEVEL"
 
-export const GET_PARAM = "GET_PARAM"
 export const SET_PARAM = "SET_PARAM"

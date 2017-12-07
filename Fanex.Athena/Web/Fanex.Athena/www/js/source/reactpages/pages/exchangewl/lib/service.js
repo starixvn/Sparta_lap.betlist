@@ -20,6 +20,11 @@ const headerText = {
     licenseeComm: LangHelper.getSingleResource("LicenseeComm"),
 }
 
+const totalText = {
+    total: LangHelper.getSingleResource("Total"),
+    totalIn: LangHelper.getSingleResource("Totalin")
+}
+
 export default class Service {
     static getReportTitle(dateRange, selectedBaseCurrency) {
         const fromDate = Site.convertDateToString(dateRange.fromDate);
@@ -31,5 +36,9 @@ export default class Service {
 
     static getHeaderText() {
         return headerText;
+    }
+
+    static getTotalText() {
+        return totalText;
     }
 }

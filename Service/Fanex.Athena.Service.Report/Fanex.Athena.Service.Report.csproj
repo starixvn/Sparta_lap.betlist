@@ -190,7 +190,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\INotificationService.cs" />
+    <Compile Include="ExchangeWinLossService.cs" />
     <Compile Include="Interfaces\IColossusBetsWinLossService.cs" />
+    <Compile Include="Interfaces\IExchangeWinLossService.cs" />
     <Compile Include="Interfaces\ISubsidiaryPerformanceService.cs" />
     <Compile Include="Interfaces\IWeeklyLiveMatchService.cs" />
     <Compile Include="NotificationService.cs" />

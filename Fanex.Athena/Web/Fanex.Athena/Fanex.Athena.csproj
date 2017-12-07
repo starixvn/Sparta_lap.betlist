@@ -909,6 +909,7 @@
     <Content Include="www\js\source\reactpages\components\__tests__\ReportTitle.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\UserGuide.test.js" />
     <Content Include="www\js\source\reactpages\constants\config.js" />
+    <Content Include="www\js\source\reactpages\constants\report.js" />
     <Content Include="www\js\source\reactpages\layouts\AppLayout.jsx" />
     <Content Include="www\js\source\reactpages\lib\excel.js" />
     <Content Include="www\js\source\reactpages\constants\excelStyle.js" />

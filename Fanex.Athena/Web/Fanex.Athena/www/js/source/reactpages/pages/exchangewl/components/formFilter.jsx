@@ -6,6 +6,7 @@ import Select from 'react-select'
 import { DateRange } from '../../../components/date-range/index'
 import LangHelper from '../../../lib/langHelper'
 import Site from '../../../lib/site'
+import { ReportLevel } from '../../../constants/report'
 
 const RANGE_MONTH_CONSTRAINT = 3;
 
@@ -14,6 +15,7 @@ export class FormFilter extends Component {
         super(props);
 
         this.props.setParams([]);
+        this.props.setReportLevel(ReportLevel.MAIN);
     }
 
     submit = (event) => {
@@ -110,7 +112,7 @@ export class FormFilter extends Component {
             name="form-field-name"
             value={selectedCurrency}
             options={currencyList}
-            onChange={(item) => this.props.setSelectedCurrency(item.value)} />
+            onChange={(item) => this.props.setSelectedCurrency(item)} />
     }    
 
     _renderReportByOption() {

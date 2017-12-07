@@ -165,6 +165,7 @@
     <Compile Include="CustomerPendingFundsReportController.cs" />
     <Compile Include="CustomerWinLossReportController.cs" />
     <Compile Include="CustomerBalanceReportController.cs" />
+    <Compile Include="ExchangeWinLossReportController.cs" />
     <Compile Include="LicenseeWinLossByTimeZoneReportController.cs" />
     <Compile Include="NotificationReportController.cs" />
     <Compile Include="SubsidiaryPerformanceReportController.cs" />
