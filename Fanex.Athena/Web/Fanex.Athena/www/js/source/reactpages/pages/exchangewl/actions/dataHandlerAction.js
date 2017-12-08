@@ -16,7 +16,10 @@ const fetchData = (params) => {
 export function getGridData(params) {
     return (dispatch) => {
         fetchData(params).then(response => {
-            dispatch(setGridData(response.data));
+            dispatch(setGridData({
+                level: params.data.Level,
+                data: response.data
+            }));
         });
     };
 }
@@ -28,6 +31,13 @@ export function exportExcel(params) {
 export function setGridData(data) {
     return {
         type: types.SET_GRID_DATA,
+        data: data
+    };
+}
+
+export function setLevelGridData(data) {
+    return {
+        type: types.SET_LEVEL_GRID_DATA,
         data: data
     };
 }

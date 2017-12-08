@@ -9,6 +9,8 @@ import service from '../lib/service'
 import { ReportLevel, ReportBy } from '../../../constants/report'
 import NoDataTitle from '../../../components/NoDataTitle'
 import moment from 'moment'
+import Breadcrumb from '../../../components/breadcrumb/Breadcrumb'
+import Site from '../../../lib/site'
 
 export class DataGrid extends Component {
     constructor(props) {
@@ -24,7 +26,7 @@ export class DataGrid extends Component {
             this.props.toggleLoader(false);
         }
     }
-    
+
     _getColSpan(level) {
         switch(level) {
             case ReportLevel.MAIN:
@@ -37,6 +39,63 @@ export class DataGrid extends Component {
         }
     }
 
+    _getDrillDownParams(level, fromDate, toDate, currencyId, currencyName, custId) {
+        if (!this.props.xsrfToken) {
+            return null;
+        }
+
+        let param = this.props.params[ReportLevel.MAIN];
+        if (!param) {
+            return null;
+        }
+
+        param.CurrencyId = currencyId;
+        param.CurrencyName = currencyName;
+        param.FromDate = Site.convertDateToString(fromDate);
+        param.ToDate = Site.convertDateToString(toDate);
+        param.Level = level;
+        param.CustId = custId;
+
+        let params = this.props.params;
+        params[level] = param;       
+        this.props.setParams(params);
+
+        return {
+            xsrfToken: this.props.xsrfToken,
+            data: param
+        };
+    }
+
+    _drillDownData(level) {
+        const currentLevel = this.props.gridData.level;
+
+        if (currentLevel === level || level <= ReportLevel.MAIN || level > ReportLevel.CUSTOMER) {
+            return;
+        }
+
+        if (level > currentLevel) {
+            const params = this._getDrillDownParams(level);
+            if (!params) {
+                return;
+            }
+
+            this.props.toggleLoader(true);
+            this.props.getGridData(params);
+        }
+        else {
+            const data = this.props.levelGridData[level];
+            if (!data) {
+                return;
+            }
+
+            this.props.toggleLoader(true);
+            this.props.setGridData({
+                data: data,
+                level: level
+            });
+        }
+    }
+
     _buildHeader(level, reportBy) {
         const headerText = service.getHeaderText();
         let headerRows = [];
@@ -44,26 +103,26 @@ export class DataGrid extends Component {
         headerRows.push(
             <Row style={{ height: 32 }} key='tr-header1'>
                 <Cell colWidth={30} header={true} title={headerText.index} rowSpan='2'>{headerText.index}</Cell>
-                {level === ReportLevel.MAIN ? <Cell colWidth={150} header={true} title={reportBy === ReportBy.DAILY ? headerText.date : headerText.month} rowSpan='2'>{reportBy === ReportBy.DAILY ? headerText.date : headerText.month}</Cell> : null}
-                {level === ReportLevel.CUSTOMER ? <Cell colWidth={150} header={true} title={headerText.externalId} rowSpan='2'>{headerText.externalId}</Cell> : null}
-                {level !== ReportLevel.MAIN ? <Cell colWidth={150} header={true} title={headerText.systemId} rowSpan='2'>{headerText.systemId}</Cell> : null}
-                <Cell colWidth={90} header={true} title={headerText.currency} rowSpan='2'>{headerText.currency}</Cell>
-                <Cell colWidth={150} header={true} title={headerText.turnover} rowSpan='2'>{headerText.turnover}</Cell>
-                <Cell colWidth={120} header={true} title={headerText.totalTransaction} rowSpan='2'>{headerText.totalTransaction}</Cell>
-                <Cell colWidth={150} header={true} title={headerText.customer} colSpan='3'>{headerText.customer}</Cell>
-                <Cell colWidth={150} header={true} title={headerText.licensee} colSpan='4'>{headerText.licensee}</Cell>
+                {level === ReportLevel.MAIN ? <Cell colWidth={100} header={true} title={reportBy === ReportBy.DAILY ? headerText.date : headerText.month} rowSpan='2'>{reportBy === ReportBy.DAILY ? headerText.date : headerText.month}</Cell> : undefined}
+                {level === ReportLevel.CUSTOMER ? <Cell colWidth={100} header={true} title={headerText.externalId} rowSpan='2'>{headerText.externalId}</Cell> : undefined}
+                {level !== ReportLevel.MAIN ? <Cell colWidth={100} header={true} title={headerText.systemId} rowSpan='2'>{headerText.systemId}</Cell> : undefined}
+                <Cell colWidth={70} header={true} title={headerText.currency} rowSpan='2'>{headerText.currency}</Cell>
+                <Cell colWidth={100} header={true} title={headerText.turnover} rowSpan='2'>{headerText.turnover}</Cell>
+                <Cell colWidth={80} header={true} title={headerText.totalTransaction} rowSpan='2'>{headerText.totalTransaction}</Cell>
+                <Cell colWidth={100} header={true} title={headerText.customer} colSpan='3'>{headerText.customer}</Cell>
+                <Cell colWidth={100} header={true} title={headerText.licensee} colSpan='4'>{headerText.licensee}</Cell>
             </Row>
         );
 
         headerRows.push(
           <Row style={{ height: 32 }} key='tr-header2'>
-                <Cell colWidth={150} header={true} title={headerText.customerWL}>{headerText.customerWL}</Cell>
-                <Cell colWidth={150} header={true} title={headerText.customerComm}>{headerText.customerComm}</Cell>
-                <Cell colWidth={150} header={true} title={headerText.total}>{headerText.total}</Cell>
-                <Cell colWidth={150} header={true} title={headerText.licenseeWL}>{headerText.licenseeWL}</Cell>
-                <Cell colWidth={150} header={true} title={headerText.amountDueTo}>{headerText.amountDueTo}</Cell>
-                <Cell colWidth={150} header={true} title={headerText.licenseeComm}>{headerText.licenseeComm}</Cell>
-                <Cell colWidth={150} header={true} title={headerText.total}>{headerText.total}</Cell>
+                <Cell colWidth={100} header={true} title={headerText.customerWL}>{headerText.customerWL}</Cell>
+                <Cell colWidth={100} header={true} title={headerText.customerComm}>{headerText.customerComm}</Cell>
+                <Cell colWidth={100} header={true} title={headerText.total}>{headerText.total}</Cell>
+                <Cell colWidth={100} header={true} title={headerText.licenseeWL}>{headerText.licenseeWL}</Cell>
+                <Cell colWidth={100} header={true} title={headerText.amountDueTo}>{headerText.amountDueTo}</Cell>
+                <Cell colWidth={100} header={true} title={headerText.licenseeComm}>{headerText.licenseeComm}</Cell>
+                <Cell colWidth={100} header={true} title={headerText.total}>{headerText.total}</Cell>
             </Row>
         );
 
@@ -71,7 +130,7 @@ export class DataGrid extends Component {
     }
 
     _buildBody(level, reportBy) {
-        const data = this.props.gridData.DataList;
+        const data = this.props.gridData.data.DataList;
         let rows = [];
         for (let i = 0; i < data.length; i++) {
             const item = data[i];
@@ -79,10 +138,10 @@ export class DataGrid extends Component {
 
             rows.push(
                 <Row key={`tr-main${i}`}>
-                    <Cell title={i} className='center-align'>{i}</Cell>
-                    {level === ReportLevel.MAIN ? <Cell title={date} className='center-align'>{date}</Cell> : null}
-                    {level === ReportLevel.CUSTOMER ? <Cell title={item.ExternalId} className='center-align'>{item.ExternalId}</Cell> : null}
-                    {level !== ReportLevel.MAIN ? <Cell title={item.SystemId} className='center-align'>{item.SystemId}</Cell> : null}
+                    <Cell title={i+1} className='center-align'>{i+1}</Cell>
+                    {level === ReportLevel.MAIN ? <Cell title={date} className='center-align'>{date}</Cell> : undefined}
+                    {level === ReportLevel.CUSTOMER ? <Cell title={item.ExternalId} className='center-align'>{item.ExternalId}</Cell> : undefined}
+                    {level !== ReportLevel.MAIN ? <Cell title={item.SystemId} className='center-align'>{item.SystemId}</Cell> : undefined}
                     <Cell title={item.CurrencyName} className='center-align'>{item.CurrencyName}</Cell>
                     {this._buildCell(item)}
                 </Row>
@@ -99,7 +158,7 @@ export class DataGrid extends Component {
     _buildTotal(level) {
         let totalRows = [];
 
-        const data = this.props.gridData.TotalDataList,
+        const data = this.props.gridData.data.TotalDataList,
             totalText = service.getTotalText().total,
             colSpan = this._getColSpan(level),
             rowSpan = data.length;
@@ -116,7 +175,7 @@ export class DataGrid extends Component {
             );
         }
 
-        const dataSummary = this.props.gridData.SummaryTotal,
+        const dataSummary = this.props.gridData.data.SummaryTotal,
             baseCurrencyList = Object.keys(dataSummary),
             totalInText = service.getTotalText().totalIn,
             colSummarySpan = this._getColSpan(level) + 1;
@@ -162,6 +221,21 @@ export class DataGrid extends Component {
         return cells;
     }
 
+    _renderBreadcrumb() {
+        const items = [{
+                    label: '1',
+                    value: ReportLevel.MAIN,               
+                },{
+                    label: '2',
+                    value: ReportLevel.LICENSEE,               
+                },{
+                    label: '3',
+                    value: ReportLevel.CUSTOMER,               
+                }];
+
+        return <Breadcrumb items={items} value={this.props.gridData.level} />
+    }
+
     _renderNodata() {
         return (
             <div className="result-content">
@@ -169,27 +243,32 @@ export class DataGrid extends Component {
                 <NoDataTitle />
             </div>
         )
-            }
+    }
+
+    _renderDrillDownLink(item, level) {
+    }
 
     render() {
-        const { DataList } = this.props.gridData;
-        if (!DataList) {
+        const gridData = this.props.gridData;
+        if (!gridData.data) {
             return null;
-            }
+        }
 
-        if (!DataList.length) {
+        if (!gridData.data.DataList.length) {
             return this._renderNodata();
-            }
+        }
 
-        const reportLevel = this.props.reportLevel;
+        const reportLevel = gridData.level;
         const reportBy = this.props.params[ReportLevel.MAIN].ReportBy;
 
         return (
             <div className='result-content'>
+                {this._renderBreadcrumb()}
+
                 <ReportTitle content={this.reportTitle} />
 
                 <Table
-                    minWidth={600}
+                    minWidth={1000}
                     autoWidth={true}
                     bodyHeight={300}
                     header={this._buildHeader(reportLevel, reportBy)}
@@ -206,8 +285,8 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps(state) {
-    const { gridData, dateRange, selectedCurrency, selectedReportBy, excludeTestDataOption, isLoading, params, reportLevel } = state;
-    return Object.assign({}, { gridData, dateRange, selectedCurrency, selectedReportBy, excludeTestDataOption, isLoading, params, reportLevel });
+    const { gridData, dateRange, selectedCurrency, selectedReportBy, excludeTestDataOption, isLoading, params } = state;
+    return Object.assign({}, { gridData, dateRange, selectedCurrency, selectedReportBy, excludeTestDataOption, isLoading, params });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);
