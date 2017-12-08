@@ -82,13 +82,13 @@ const columnConfigs = [
     },
     {
         field: fields.LicenseeNetWL,
-        [MAIN_SECTION_STYLE]: bodyCellStyle.decimal,
-        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.decimal
+        [MAIN_SECTION_STYLE]: { positive: bodyCellStyle.decimal, negative: bodyCellStyle.negativeDecimal },
+        [GRAND_TOTAL_SECTION_STYLE]: { positive: grandTotalCellStyle.decimal, negative: grandTotalCellStyle.negativeDecimal }
     },
     {
         field: fields.Margin,
-        [MAIN_SECTION_STYLE]: bodyCellStyle.decimal,
-        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.decimal
+        [MAIN_SECTION_STYLE]: bodyCellStyle.percent,
+        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.percent
     }
 ]
 
@@ -194,7 +194,7 @@ export default class ReportExcel {
         let value = item[field] !== null ? item[field] : "";
 
         let style = columnConfig[sectionStyle];
-        if (field === fields.LicenseeWL) {
+        if (columnIndex === LICENSEEWL_COLUMN_INDEX || columnIndex === LICENSEENETWL_COLUMN_INDEX) {
             style = value < 0 ? style.negative : style.positive;
         }
         else if (columnIndex === REPORTBY_COLUMN_INDEX)

@@ -67,21 +67,21 @@ export class DataGrid extends Component {
                                 licenseeWL = NumberFormat.formatDecimal(item.LicenseeWinLoss),
                                 licenseeComm = NumberFormat.formatDecimal(item.LicenseeComm),
                                 licenseeNetWL = NumberFormat.formatDecimal(item.LicenseeNetWinLoss),
-                                margin = NumberFormat.formatDecimal(item.Margin);
+                                margin = NumberFormat.formatDecimal(item.Margin) + "%";
                         
                         rows.push(
                             <Row key={`tr${i}`}>
                     <Cell className="center-align">{i + 1}</Cell>
-                { this.selectedReportBy === SettingConst.ReportBySummary  ? null :
+                    { this.selectedReportBy === SettingConst.ReportBySummary  ? null :
                         <Cell title={reportBy} className="center-align">{reportBy}</Cell>
-                }
+                            }
                     <Cell title={item.GroupBy} className={groupByClassName}>{item.GroupBy}</Cell>
                     <Cell title={betcount} className="right-align">{betcount}</Cell>
                     <Cell title={turnover} className="right-align">{turnover}</Cell>
                     <Cell title={customerComm} className="right-align">{customerComm}</Cell>
-                    <Cell title={licenseeWL} className="right-align">{licenseeWL}</Cell>
+                    <Cell title={licenseeWL} className={`right-align ${item.LicenseeWinLoss < 0 ? "negative" : ""}`}>{licenseeWL}</Cell>
                     <Cell title={licenseeComm} className="right-align">{licenseeComm}</Cell>
-                    <Cell title={licenseeNetWL} className="right-align">{licenseeNetWL}</Cell>
+                    <Cell title={licenseeNetWL} className={`right-align ${item.LicenseeNetWinLoss < 0 ? "negative" : ""}`}>{licenseeNetWL}</Cell>
                     <Cell title={margin} className="right-align">{margin}</Cell>
                 </Row>
             );
@@ -98,7 +98,7 @@ export class DataGrid extends Component {
                     licenseeWL = NumberFormat.formatDecimal(item.LicenseeWinLoss),
                     licenseeComm = NumberFormat.formatDecimal(item.LicenseeComm),
                     licenseeNetWL = NumberFormat.formatDecimal(item.LicenseeNetWinLoss),
-                    margin = NumberFormat.formatDecimal(item.Margin);
+                    margin = NumberFormat.formatDecimal(item.Margin) + "%";
             const colSpan = this.selectedReportBy === SettingConst.ReportBySummary ? 2 : 3;
             return [(
                 <Row className="fixed-table-grant-total" key={1}>
@@ -106,9 +106,9 @@ export class DataGrid extends Component {
                    <Cell title={betcount} className="right-align">{betcount}</Cell>
                    <Cell title={turnover} className="right-align">{turnover}</Cell>
                    <Cell title={customerComm} className="right-align">{customerComm}</Cell>
-                   <Cell title={licenseeWL} className={"right-align"}>{licenseeWL}</Cell>
+                   <Cell title={licenseeWL} className={`right-align ${item.LicenseeWinLoss < 0 ? "negative" : ""}`}>{licenseeWL}</Cell>
                    <Cell title={licenseeComm} className={"right-align"}>{licenseeComm}</Cell>
-                   <Cell title={licenseeNetWL} className={"right-align"}>{licenseeNetWL}</Cell>
+                   <Cell title={licenseeNetWL} className={`right-align ${item.LicenseeNetWinLoss < 0 ? "negative" : ""}`}>{licenseeNetWL}</Cell>
                    <Cell title={margin} className={"right-align"}>{margin}</Cell>
                 </Row>
             )]
