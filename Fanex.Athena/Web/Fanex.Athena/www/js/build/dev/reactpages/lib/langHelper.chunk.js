@@ -44,30 +44,30 @@ exports.default = LangHelper;
 
 /***/ }),
 
-/***/ 722:
+/***/ 726:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(14);
-__webpack_require__(723);
-__webpack_require__(724);
-__webpack_require__(725);
-__webpack_require__(726);
-module.exports = __webpack_require__(727);
+__webpack_require__(727);
+__webpack_require__(728);
+__webpack_require__(729);
+__webpack_require__(730);
+module.exports = __webpack_require__(731);
 
 
 /***/ }),
 
-/***/ 723:
+/***/ 727:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 9/25/2017 2:00:48 PM
+// Generated at: 12/4/2017 3:57:27 PM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
-  ABComm: "AB Comm",
+  ABComm: "AllBet Comm",
   AccessDeniedMsg: "Sorry, You don&apos;t have permission to access this page.",
   Account: "Account",
   AccountManagement: "Account Management",
@@ -138,7 +138,6 @@ window._language_en_US = {
   BANote: "BA status can only be changed on Monday from 1PM to 5PM (GMT+8)",
   Based: "Based",
   BAStatus: "BA Status",
-  BaTurnoverReferenceNote: "BA Turnover&apos;s figures are for reference purpose only and still be included in the overall Turnover",
   BAUpdatedBy: "BA Updated By",
   BBAmtComm: "BB Amt + Comm",
   Bestviewedin: "Best viewed in",
@@ -160,7 +159,6 @@ window._language_en_US = {
   BetType: "Bet type",
   BG: "BG",
   Bingo: "Bingo",
-  BingoExcludedNote: "Bingo is not included in the report",
   BONTeamToScore: "Both/One/Neither Team To Score",
   Bonus: "Bonus",
   BoughtAmount: "Bought Amount",
@@ -223,6 +221,7 @@ window._language_en_US = {
   ConfirmCommission: "Confirm Customer&apos;s Commission:",
   ConfirmPassword: "Confirm Password",
   ConvertAll: "Convert All",
+  ConvertAllFiguresToBaseCurrency: "Convert all figures to Base Currency",
   ConvertTo: "Convert to",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
   CopyBetSettingFromRacing: "Copy All Bet Setting from Racing",
@@ -269,7 +268,6 @@ window._language_en_US = {
   DA: "DA",
   Daily: "Daily",
   DailyBetList: "Daily Bet List",
-  DailyBetListNoteParlayOutright: "Daily Bet List report does not include Parlay and Outright tickets.",
   DailyRacing12BetTitle: "12Bet Daily Racing Win Loss on {0} - {1}",
   DailyRacingTitle: "Daily Racing Win Loss on {1} - {2}",
   DailyRacingWinLoss: "Daily Racing Win Loss",
@@ -383,6 +381,7 @@ window._language_en_US = {
   Function: "Function",
   FunctionDeniedMsg: "Sorry, you don&apos;t have permission to access this function.",
   FunctionNoAvailableMsg: "This function was no longer available!",
+  FunctionNotAvailableOldUIMsg: "This function is only supported in the new admin portal.&lt;br/&gt;Please switch to use our new system for better experience and stability.",
   Game: "Game",
   GameGroup: "Game Group",
   GameID: "Game ID",
@@ -449,6 +448,7 @@ window._language_en_US = {
   HttpError_404: "Page not found, please check the address",
   HttpError_Default: "Oops... you are here because of a system error, please notify the administrators",
   InactiveSinceLast: "Inactive since last",
+  IncludeDrawData: "Include Draw data",
   IncorrectMaxBet: "Incorrect Max Bet",
   IncorrectMaxPerBall: "Incorrect Max Per Ball",
   IncorrectMaxPerMatch: "Incorrect Max Per Match",
@@ -619,6 +619,7 @@ window._language_en_US = {
   NetGaming: "Net Gaming",
   NetTurnover: "Net Turnover",
   NetworkTimeoutMsg: "Network time out. Please try again.",
+  NewAsia: "New Asia",
   NewGroup: "New Group",
   Next: "Next",
   NG: "NG",
@@ -853,7 +854,6 @@ window._language_en_US = {
   Summary: "Summary",
   Sunday: "Sunday",
   SupportForOnlyNote: "The report only supports",
-  SupportSbOnlyNote: "The report only supports for SportsBook products",
   Suspended: "Suspended",
   Symbol: "Symbol",
   SystemId: "System ID",
@@ -1009,15 +1009,16 @@ window._language_en_US = {
 
 /***/ }),
 
-/***/ 724:
+/***/ 728:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 9/27/2017 1:40:47 PM
+// Generated at: 11/6/2017 5:06:25 PM
 window._language_ko_KR = {
   AA: "AA",
+  ABComm: "AllBet 수수료",
   AccessDeniedMsg: "죄송합니다. 이 페이지에 접근할 권한이 없습니다.",
   Account: "회계",
   AccountManagement: "회계 관리",
@@ -1070,7 +1071,6 @@ window._language_ko_KR = {
   BANote: "BA 현황은 월요일 오후 1시에서 5시사이(표준시각 + 8)에만 변경됩니다.",
   Based: "통화단위",
   BAStatus: "BA 현황",
-  BaTurnoverReferenceNote: "BA 매출의 금액은 참조일 뿐이며 총 매출에 아직 포함되어있습니다.",
   BAUpdatedBy: "BA가 업데이트",
   Bestviewedin: "에 최고로 보여진",
   BestViewResolution: "Resolution 1280x1024",
@@ -1087,7 +1087,6 @@ window._language_ko_KR = {
   BetType: "배팅 유형",
   BG: "BG",
   Bingo: "빙고",
-  BingoExcludedNote: "Bingo is not included in the report",
   BONTeamToScore: "양팀/한팀/양측 모두가 아닌 팀이 점수 획득",
   Bonus: "보너스",
   ByBetType: "배팅 유형에 따라",
@@ -1658,7 +1657,6 @@ window._language_ko_KR = {
   Summary: "요약",
   Sunday: "일요일",
   SupportForOnlyNote: "보고서는 지원만을 위한 것입니다",
-  SupportSbOnlyNote: "보고서는 스포츠북 제품만을 지원합니다",
   Suspended: "중지되다",
   Symbol: "기호",
   SystemId: "시스템 아이디",
@@ -1783,15 +1781,16 @@ window._language_ko_KR = {
 
 /***/ }),
 
-/***/ 725:
+/***/ 729:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 9/27/2017 1:40:47 PM
+// Generated at: 11/6/2017 5:06:25 PM
 window._language_zh_CN = {
   AA: "客客",
+  ABComm: "AllBet 佣金",
   AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
   Account: "账号",
   AccountManagement: "帐户管理",
@@ -1851,7 +1850,6 @@ window._language_zh_CN = {
   BANote: "投注总计状态只能在周一下午1点至下午5点 (GMT +8) 进行更改",
   Based: "基于",
   BAStatus: "BA 状态",
-  BaTurnoverReferenceNote: "投注总计的数额仅供参考用途及仍然包含整体的投注额",
   BAUpdatedBy: "投注总计跟新由",
   Bestviewedin: "最佳浏览",
   BestViewResolution: "Resolution 1280x1024",
@@ -1868,7 +1866,6 @@ window._language_zh_CN = {
   BetType: "投注类别",
   BG: "BG",
   Bingo: "宾果",
-  BingoExcludedNote: "Bingo is not included in the report",
   BONTeamToScore: "双方/一方/两者皆不得分",
   Bonus: "红利",
   BoughtAmount: "买的金额",
@@ -2266,6 +2263,7 @@ window._language_zh_CN = {
   Name: "姓名",
   NetGaming: "Net Gaming",
   NetTurnover: "净交易额",
+  NewAsia: "新亚洲版",
   NewGroup: "新组别",
   Next: "下个",
   NG: "百练赛",
@@ -2332,6 +2330,7 @@ window._language_zh_CN = {
   P3: "3P",
   Page: "页面",
   Parlay: "混合过关",
+  ParlayComm: "Parlay 佣金",
   Password: "密码",
   PasswordChangedMsg: "密码更改！",
   PasswordConfirmErrorMsg: "密码无法确认",
@@ -2360,7 +2359,7 @@ window._language_zh_CN = {
   ProductCS: "娱乐城",
   ProductLC: "娱乐厅",
   ProductNG: "百练赛",
-  ProductRB: "赛事",
+  ProductRB: "赛马",
   ProductSB: "体育博彩",
   ProductVS: "虚拟运动",
   ProductVS2: "虚拟运动2",
@@ -2372,13 +2371,13 @@ window._language_zh_CN = {
   Q4: "4Q",
   Race: "赛事",
   Racing: "赛事",
-  RacingComm: "赛事佣金",
+  RacingComm: "赛马佣金",
   RacingCommission: "赛事佣金",
   RacingCommissionTitle: "赛事佣金,{0} --&gt; {1} - {2}",
   RacingRevenue: "赛事所得",
   RacingRevenueBalanceNote: "赛事所得:赛事相关产品所得",
-  RB: "赛事",
-  RBComm: "RB佣金",
+  RB: "赛马",
+  RBComm: "赛马佣金",
   RCCommission: "赛马赛事佣金",
   RecommendBrowserOnReportPageMsg: "若页面大小 &gt; 1,000, 请您考虑使用火狐或Chrome以获得更好的体验",
   RefNo: "参考号码",
@@ -2465,7 +2464,6 @@ window._language_zh_CN = {
   Summary: "总结",
   Sunday: "星期六",
   SupportForOnlyNote: "报告仅支持",
-  SupportSbOnlyNote: "此报告只支持体育博彩产品",
   Suspended: "暂停",
   Symbol: "符号",
   SystemId: "系统账号",
@@ -2596,15 +2594,16 @@ window._language_zh_CN = {
 
 /***/ }),
 
-/***/ 726:
+/***/ 730:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 9/27/2017 1:40:47 PM
+// Generated at: 11/6/2017 5:06:25 PM
 window._language_zh_Hans = {
   AA: "客客",
+  ABComm: "AllBet 佣金",
   AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
   Account: "账号",
   AccountManagement: "帐户管理",
@@ -2664,7 +2663,6 @@ window._language_zh_Hans = {
   BANote: "投注总计状态只能在周一下午1点至下午5点 (GMT +8) 进行更改",
   Based: "基于",
   BAStatus: "BA 状态",
-  BaTurnoverReferenceNote: "投注总计的数额仅供参考用途及仍然包含整体的投注额",
   BAUpdatedBy: "投注总计跟新由",
   Bestviewedin: "最佳浏览",
   BestViewResolution: "Resolution 1280x1024",
@@ -2681,7 +2679,6 @@ window._language_zh_Hans = {
   BetType: "投注类别",
   BG: "BG",
   Bingo: "宾果",
-  BingoExcludedNote: "Bingo is not included in the report",
   BONTeamToScore: "双方/一方/两者皆不得分",
   Bonus: "红利",
   ByBetType: "根据投注类型",
@@ -3067,6 +3064,7 @@ window._language_zh_Hans = {
   Name: "姓名",
   NetGaming: "Net Gaming",
   NetTurnover: "净交易额",
+  NewAsia: "新亚洲版",
   NewGroup: "新组别",
   Next: "下个",
   NG: "百练赛",
@@ -3133,6 +3131,7 @@ window._language_zh_Hans = {
   P3: "3P",
   Page: "页面",
   Parlay: "混合过关",
+  ParlayComm: "Parlay 佣金",
   Password: "密码",
   PasswordChangedMsg: "密码更改！",
   PasswordConfirmErrorMsg: "密码无法确认",
@@ -3160,7 +3159,7 @@ window._language_zh_Hans = {
   ProductCS: "娱乐城",
   ProductLC: "娱乐厅",
   ProductNG: "百练赛",
-  ProductRB: "赛事",
+  ProductRB: "赛马",
   ProductSB: "体育博彩",
   ProductVS: "虚拟运动",
   ProductVS2: "虚拟运动2",
@@ -3172,13 +3171,13 @@ window._language_zh_Hans = {
   Q4: "4Q",
   Race: "赛事",
   Racing: "赛事",
-  RacingComm: "赛事佣金",
+  RacingComm: "赛马佣金",
   RacingCommission: "赛事佣金",
   RacingCommissionTitle: "赛事佣金,{0} --&gt; {1} - {2}",
   RacingRevenue: "赛事所得",
   RacingRevenueBalanceNote: "赛事所得:赛事相关产品所得",
-  RB: "赛事",
-  RBComm: "RB佣金",
+  RB: "赛马",
+  RBComm: "赛马佣金",
   RCCommission: "赛马赛事佣金",
   RecommendBrowserOnReportPageMsg: "若页面大小 &gt; 1,000, 请您考虑使用火狐或Chrome以获得更好的体验",
   RefNo: "参考号码",
@@ -3265,7 +3264,6 @@ window._language_zh_Hans = {
   Summary: "总结",
   Sunday: "星期六",
   SupportForOnlyNote: "报告仅支持",
-  SupportSbOnlyNote: "此报告只支持体育博彩产品",
   Suspended: "暂停",
   Symbol: "符号",
   SystemId: "系统账号",
@@ -3395,15 +3393,16 @@ window._language_zh_Hans = {
 
 /***/ }),
 
-/***/ 727:
+/***/ 731:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 9/27/2017 1:40:47 PM
+// Generated at: 11/6/2017 5:06:25 PM
 window._language_zh_TW = {
   AA: "客客",
+  ABComm: "AllBet 佣金",
   AccessDeniedMsg: "對不起，您沒有權限訪問此頁面。",
   Account: "賬號",
   AccountManagement: "帳戶管理",
@@ -3463,7 +3462,6 @@ window._language_zh_TW = {
   BANote: "投注總計狀態只能在週一下午1點至下午5點 (GMT +8) 進行更改",
   Based: "基於",
   BAStatus: "BA 狀態",
-  BaTurnoverReferenceNote: "投注總計的數額僅供參考用途及仍然包含整體的投注額",
   BAUpdatedBy: "投注總計跟新由",
   Bestviewedin: "最佳瀏覽",
   BestViewResolution: "Resolution 1280x1024",
@@ -3480,7 +3478,6 @@ window._language_zh_TW = {
   BetType: "投注類別",
   BG: "BG",
   Bingo: "賓果",
-  BingoExcludedNote: "Bingo is not included in the report",
   BONTeamToScore: "雙方/一方/兩者皆不得分",
   Bonus: "紅利",
   BoughtAmount: "買的金額",
@@ -3878,6 +3875,7 @@ window._language_zh_TW = {
   Name: "姓名",
   NetGaming: "Net Gaming",
   NetTurnover: "淨交易額",
+  NewAsia: "新亞洲版",
   NewGroup: "新組別",
   Next: "下個",
   NG: "百練賽",
@@ -3944,6 +3942,7 @@ window._language_zh_TW = {
   P3: "3P",
   Page: "頁面",
   Parlay: "混合過關",
+  ParlayComm: "Parlay 佣金",
   Password: "密碼",
   PasswordChangedMsg: "密碼更改！",
   PasswordConfirmErrorMsg: "密碼無法確認",
@@ -3972,7 +3971,7 @@ window._language_zh_TW = {
   ProductCS: "娛樂城",
   ProductLC: "娛樂廳",
   ProductNG: "百練賽",
-  ProductRB: "賽事",
+  ProductRB: "賽馬",
   ProductSB: "體育博彩",
   ProductVS: "虛擬運動",
   ProductVS2: "虛擬運動2",
@@ -3984,13 +3983,13 @@ window._language_zh_TW = {
   Q4: "4Q",
   Race: "賽事",
   Racing: "賽事",
-  RacingComm: "賽事佣金",
+  RacingComm: "賽馬佣金",
   RacingCommission: "賽事佣金",
   RacingCommissionTitle: "賽事佣金 ,{0} --&gt; {1} - {2}",
   RacingRevenue: "賽事所得",
   RacingRevenueBalanceNote: "賽事所得:賽事相關產品所得",
-  RB: "賽事",
-  RBComm: "RB傭金",
+  RB: "賽馬",
+  RBComm: "賽馬佣金",
   RCCommission: "赛马赛事佣金",
   RecommendBrowserOnReportPageMsg: "若頁面大小&gt; 1,000，請您考慮使用火狐或Chrome瀏覽器以獲得更好的體驗",
   RefNo: "參考號碼",
@@ -4077,7 +4076,6 @@ window._language_zh_TW = {
   Summary: "總結",
   Sunday: "星期六",
   SupportForOnlyNote: "報告僅支持",
-  SupportSbOnlyNote: "此報告只支持體育博彩產品",
   Suspended: "暫停",
   Symbol: "符號",
   SystemId: "系統帳號",
@@ -4208,5 +4206,5 @@ window._language_zh_TW = {
 
 /***/ })
 
-},[722]);
+},[726]);
 //# sourceMappingURL=langHelper.chunk.js.map
