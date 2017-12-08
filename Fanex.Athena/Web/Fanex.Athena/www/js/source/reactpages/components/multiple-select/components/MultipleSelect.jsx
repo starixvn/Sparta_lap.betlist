@@ -50,6 +50,16 @@ export default class MultipleSelect extends Component {
         document.removeEventListener('click', this._handleDocumentClick)
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(this.props.dataSource != nextProps.dataSource){
+            var newDataSource = this._convertDataSourceToState(nextProps);
+            this.setState({
+                dataSource: newDataSource
+            });
+            this._callBackToParent(null, newDataSource);
+        }
+    }
+
     get selectedItems() {
         return this.state.dataSource.filter(item => item.checked);
     }

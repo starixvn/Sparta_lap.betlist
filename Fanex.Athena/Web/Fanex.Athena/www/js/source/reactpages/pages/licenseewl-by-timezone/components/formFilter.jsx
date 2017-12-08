@@ -58,6 +58,13 @@ export class FormFilter extends Component {
         }
     }
 
+    changeTimeZone = (item) => {
+        this.props.setSelectedTimeZone(item.value);
+        var newList = item.value === 8 ? [window.cache.productOptions[0]] : window.cache.productOptions;
+
+        this.props.setProductOptions(newList);
+    }
+
     _getParams() {
         if (!this.props.xsrfToken || !this.isValidModel) {
             return null;
@@ -100,7 +107,7 @@ export class FormFilter extends Component {
         const { timeZoneList, selectedTimeZone } = this.props;
 
         return <Select value={selectedTimeZone} options={timeZoneList}
-                onChange={(item) => this.props.setSelectedTimeZone(item.value)} />
+                onChange={this.changeTimeZone} />
     }
 
     _renderReportBySelectList() {
@@ -112,7 +119,6 @@ export class FormFilter extends Component {
 
     _renderProductSelectList() {
         const { productOptions } = this.props;
-
         return productOptions && productOptions.length ? (
             <MultipleSelect
                 dataSource={this.props.productOptions}

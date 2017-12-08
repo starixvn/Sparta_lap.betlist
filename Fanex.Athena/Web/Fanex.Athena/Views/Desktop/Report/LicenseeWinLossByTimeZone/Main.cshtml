@@ -10,8 +10,8 @@
     var selectedProductCode = string.Join(",", productOptions.Where(x => x.Status).Select(x => x.Code).ToArray());
     var baseCurrencyList = SystemConstants.BaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
     var timeZoneList = new List<dynamic> {
-        new { value = "-4", label = "GMT-4" },
-        new { value = "8", label = "GMT+8" }
+        new { value = -4, label = "GMT-4" },
+        new { value = 8, label = "GMT+8" }
     };
     var currencyList = Model.CurrencyList.Select(x => new { value = x.Key, label = x.Value }).ToList();
     currencyList.Insert(0, new
@@ -39,6 +39,9 @@
 }
 
 @section globaljscode{
+    window.cache = {
+        productOptions: @Html.Raw(productOptions.ToJson())
+    };
     window.initialState = {
         productOptions: @Html.Raw(productOptions.ToJson()),
         selectedProduct: '@(selectedProductCode)',
@@ -47,7 +50,7 @@
         baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
         selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
         timeZoneList: @Html.Raw(timeZoneList.ToJson()),
-        selectedTimeZone: '@(timeZoneList.First().value)',
+        selectedTimeZone: @(timeZoneList.First().value),
         reportByList: @Html.Raw(reportByList.ToJson()),
         selectedReportBy: @(reportByList.First().value),
         groupBy: 1,
