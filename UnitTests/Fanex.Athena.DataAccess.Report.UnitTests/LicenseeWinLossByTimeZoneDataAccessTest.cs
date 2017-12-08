@@ -2,6 +2,7 @@
 {
     using System;
     using System.Data;
+    using System.Linq;
     using Core.Configuration.Interfaces;
     using Data;
     using Model.Core.DTO.Configuration;
@@ -71,7 +72,7 @@
             var metaModel = GetDefaultMetaModel();
             _dataReader.Read().Returns(true, false);
             DataAccessTestHelper.MapReaderData(
-                _dataReader, 
+                _dataReader,
                 new
                 {
                     ReportBy = "20171122"
@@ -81,7 +82,7 @@
             var result = _dataAccess.GetData(metaModel);
 
             // Assert
-            Assert.That(result.DataList[0].ReportBy.Date, Is.EqualTo(new DateTime(2017, 11, 22)));
+            Assert.That(result.DataList.ElementAt(0).ReportBy.Date, Is.EqualTo(new DateTime(2017, 11, 22)));
         }
 
         private static LicenseeWinLossByTimeZoneMetaModel GetDefaultMetaModel()
@@ -110,6 +111,7 @@
             _objectDb.Received().AddInParameter("TimeZone", DbType.Int16, metaModel.TimeZone);
             _objectDb.Received().AddInParameter("ReportBy", DbType.Byte, metaModel.ReportBy);
             _objectDb.Received().AddInParameter("GroupBy", DbType.Byte, metaModel.GroupBy);
+            _objectDb.Received().AddInParameter("IncludeDraw", DbType.Boolean, metaModel.IsIncludeDrawData);
         }
     }
 }

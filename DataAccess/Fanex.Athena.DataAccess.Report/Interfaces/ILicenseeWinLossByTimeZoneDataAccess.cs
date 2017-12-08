@@ -6,6 +6,6 @@
 
     public interface ILicenseeWinLossByTimeZoneDataAccess
     {
-        SortableReportResultModel<LicenseeWinLossByTimeZone> GetData(LicenseeWinLossByTimeZoneMetaModel metaModel);
+        ReportResultModel<LicenseeWinLossByTimeZone> GetData(LicenseeWinLossByTimeZoneMetaModel metaModel);
     }
 }

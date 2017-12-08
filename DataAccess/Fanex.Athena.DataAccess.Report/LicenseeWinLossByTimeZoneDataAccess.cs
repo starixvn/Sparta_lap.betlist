@@ -28,7 +28,7 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public SortableReportResultModel<LicenseeWinLossByTimeZone> GetData(LicenseeWinLossByTimeZoneMetaModel metaModel)
+        public ReportResultModel<LicenseeWinLossByTimeZone> GetData(LicenseeWinLossByTimeZoneMetaModel metaModel)
         {
             const string SpName = "Lrf_Rpt_LicWinlossByTimeZone";
             var dataList = new SortableList<LicenseeWinLossByTimeZone>();
@@ -60,7 +60,7 @@
                 }
             }
 
-            return new SortableReportResultModel<LicenseeWinLossByTimeZone>
+            return new ReportResultModel<LicenseeWinLossByTimeZone>
             {
                 DataList = dataList,
                 TotalData = totalData
