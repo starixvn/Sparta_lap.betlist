@@ -1,4 +1,4 @@
-import LangHelper from '../../../lib/langHelper'
+﻿import LangHelper from '../../../lib/langHelper'
 import Site from '../../../lib/site'
 
 const headerText = {
@@ -18,10 +18,10 @@ export default class Service {
     static getReportTitle(timeZone, dateRange, currency, baseCurrency) {
         const fromDate = Site.convertDateToString(dateRange.fromDate);
         const toDate = Site.convertDateToString(dateRange.toDate);
-        const viewInByCurrency = `${LangHelper.getSingleResource("Viewin").replace("{0}", baseCurrency)}`;
-        var timeZoneText =  "GMT" + (timeZone === "1" ? "-4" : "+8");
+        const viewInByCurrency = LangHelper.getSingleResource("BaseCurrency") + ": " + baseCurrency;
+        var timeZoneText =  "GMT" + (timeZone < 0 ? timeZone : "+" + timeZone);
         var currencyText = LangHelper.getSingleResource("Currency") + ": " + currency;
-        return `${LangHelper.getSingleResource("LicenseeWinLoss")}, ${timeZoneText}, ${fromDate} - ${toDate}, ${currencyText}, ${viewInByCurrency}`;
+        return `${LangHelper.getSingleResource("LicenseeWinLoss")}, ${timeZoneText}, ${fromDate} → ${toDate}, ${currencyText}, ${viewInByCurrency}`;
     }
 
     static getHeaderText(reportBy, groupBy) {

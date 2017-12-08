@@ -3074,4 +3074,8 @@
     <value>Include Draw data</value>
     <comment>84932</comment>
   </data>
+  <data name="BaseCurrency" xml:space="preserve">
+    <value>Base currency</value>
+    <comment>84932</comment>
+  </data>
 </root>

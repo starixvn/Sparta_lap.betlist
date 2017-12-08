@@ -700,6 +700,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Base currency.
+        /// </summary>
+        public static string BaseCurrency {
+            get {
+                return ResourceManager.GetString("BaseCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Based.
         /// </summary>
         public static string Based {

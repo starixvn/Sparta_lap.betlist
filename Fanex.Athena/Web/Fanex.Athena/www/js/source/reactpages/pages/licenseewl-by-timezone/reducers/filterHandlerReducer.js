@@ -31,7 +31,6 @@ export const dateRange = createReducer({}, {
     }
 })
 
-
 export const groupBy = createReducer({}, {
     [types.CHANGE_GROUPBY](state, action) {
         return action.data;
