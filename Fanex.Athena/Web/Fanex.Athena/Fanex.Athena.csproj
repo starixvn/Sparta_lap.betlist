@@ -887,6 +887,9 @@
     <Content Include="Views\Desktop\Customer\BetSetting\Exchange.cshtml" />
     <Content Include="Views\Desktop\Report\ExchangeWinLoss\Main.cshtml" />
     <Content Include="www\css\source\reactpages\pages\exchangewl\index.scss" />
+    <Content Include="www\js\source\reactpages\components\breadcrumb\Breadcrumb.jsx" />
+    <Content Include="www\js\source\reactpages\components\breadcrumb\BreadcrumbItem.jsx" />
+    <Content Include="www\css\source\reactpages\components\_breadcrumb.scss" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
