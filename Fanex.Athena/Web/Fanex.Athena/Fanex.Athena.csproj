@@ -795,12 +795,14 @@
     <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.chunk.js" />
     <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.css" />
     <Content Include="www\css\build\dev\reactpages\vendor.chunk.js" />
+    <Content Include="www\css\build\pro\reactpages\licenseewlbytimezone\index.css" />
     <Content Include="www\css\build\pro\reactpages\subsidiaryperformance\index.css" />
     <Content Include="www\js\build\dev\reactpages\report\licenseewlbytimezone.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\vendors\excel.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\vendors\reactpages.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\lib\langHelper.chunk.js" />
+    <Content Include="www\js\build\pro\reactpages\report\licenseewlbytimezone.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\vendors\excel.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\vendors\reactpages.chunk.js" />
