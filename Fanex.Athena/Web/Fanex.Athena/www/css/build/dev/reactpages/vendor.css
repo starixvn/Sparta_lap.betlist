@@ -634,7 +634,8 @@ a {
     display: block;
     color: #808080; }
   .form-group .checkbox-group, .form-group .button-group {
-    display: inline-block; }
+    display: inline-block;
+    margin-top: 15px; }
 
 .input-text {
   background-color: transparent;

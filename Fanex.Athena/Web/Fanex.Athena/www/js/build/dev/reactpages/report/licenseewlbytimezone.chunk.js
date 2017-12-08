@@ -83,7 +83,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Product */
 var SET_SELECTED_PRODUCT = exports.SET_SELECTED_PRODUCT = "SET_SELECTED_PRODUCT";
-var GET_PRODUCT_OPTIONS = exports.GET_PRODUCT_OPTIONS = "GET_PRODUCT_OPTIONS";
+var SET_PRODUCT_OPTIONS = exports.SET_PRODUCT_OPTIONS = "SET_PRODUCT_OPTIONS";
 
 /* Base Currency */
 var SET_SELECTED_BASECURRENCY = exports.SET_SELECTED_BASECURRENCY = "SET_SELECTED_BASECURRENCY";
@@ -107,7 +107,7 @@ var TOGGLE_LOADER = exports.TOGGLE_LOADER = "TOGGLE_LOADER";
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.setSelectedProduct = undefined;
+exports.setProductOptions = exports.setSelectedProduct = undefined;
 
 var _types = __webpack_require__(15);
 
@@ -119,6 +119,12 @@ var setSelectedProduct = exports.setSelectedProduct = function setSelectedProduc
     return {
         type: types.SET_SELECTED_PRODUCT,
         data: product
+    };
+};
+var setProductOptions = exports.setProductOptions = function setProductOptions(productList) {
+    return {
+        type: types.SET_PRODUCT_OPTIONS,
+        data: productList
     };
 };
 
@@ -1799,6 +1805,17 @@ var MultipleSelect = function (_Component) {
             document.removeEventListener('click', this._handleDocumentClick);
         }
     }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            if (this.props.dataSource != nextProps.dataSource) {
+                var newDataSource = this._convertDataSourceToState(nextProps);
+                this.setState({
+                    dataSource: newDataSource
+                });
+                this._callBackToParent(null, newDataSource);
+            }
+        }
+    }, {
         key: '_callBackToParent',
         value: function _callBackToParent(selectedItem, newDataSource) {
             var selectedItemsKey = this._getSelectedItemKey(newDataSource);
@@ -3216,7 +3233,8 @@ var bodyCellStyle = exports.bodyCellStyle = {
     center: { alignment: _extends({}, bodyTextStyle.alignment, { horizontal: "center" }) },
     number: { numFmt: "#,##0" },
     decimal: bodyDecimalStyle,
-    negativeDecimal: _extends({}, bodyDecimalStyle, { font: { color: { rgb: "FF0000" } } })
+    negativeDecimal: _extends({}, bodyDecimalStyle, { font: { color: { rgb: "FF0000" } } }),
+    percent: { numFmt: "#,##0.00\\%" }
 };
 
 var totalTextStyle = { font: { bold: true } };
@@ -3241,7 +3259,8 @@ var grandTotalCellStyle = exports.grandTotalCellStyle = {
     center: _extends({}, grandTotalTextStyle, { alignment: { horizontal: "center" } }),
     number: _extends({}, grandTotalTextStyle, { numFmt: "#,##0" }),
     decimal: decimalGrandTotalStyle,
-    negativeDecimal: _extends({}, decimalGrandTotalStyle, { font: { bold: true, color: { rgb: "FF0000" } } })
+    negativeDecimal: _extends({}, decimalGrandTotalStyle, { font: { bold: true, color: { rgb: "FF0000" } } }),
+    percent: _extends({}, grandTotalTextStyle, { numFmt: "#,##0.00\\%" })
 };
 
 /***/ }),
@@ -3396,7 +3415,7 @@ var selectedProduct = exports.selectedProduct = (0, _createReducer4.default)({},
     return action.data;
 }));
 
-var productOptions = exports.productOptions = (0, _createReducer4.default)({}, _defineProperty({}, types.GET_PRODUCT_OPTIONS, function (state, action) {
+var productOptions = exports.productOptions = (0, _createReducer4.default)({}, _defineProperty({}, types.SET_PRODUCT_OPTIONS, function (state, action) {
     return action.data;
 }));
 
@@ -3572,10 +3591,10 @@ var Service = function () {
         value: function getReportTitle(timeZone, dateRange, currency, baseCurrency) {
             var fromDate = _site2.default.convertDateToString(dateRange.fromDate);
             var toDate = _site2.default.convertDateToString(dateRange.toDate);
-            var viewInByCurrency = '' + _langHelper2.default.getSingleResource("Viewin").replace("{0}", baseCurrency);
-            var timeZoneText = "GMT" + (timeZone === "1" ? "-4" : "+8");
+            var viewInByCurrency = _langHelper2.default.getSingleResource("BaseCurrency") + ": " + baseCurrency;
+            var timeZoneText = "GMT" + (timeZone < 0 ? timeZone : "+" + timeZone);
             var currencyText = _langHelper2.default.getSingleResource("Currency") + ": " + currency;
-            return _langHelper2.default.getSingleResource("LicenseeWinLoss") + ', ' + timeZoneText + ', ' + fromDate + ' - ' + toDate + ', ' + currencyText + ', ' + viewInByCurrency;
+            return _langHelper2.default.getSingleResource("LicenseeWinLoss") + ', ' + timeZoneText + ', ' + fromDate + ' \u2192 ' + toDate + ', ' + currencyText + ', ' + viewInByCurrency;
         }
     }, {
         key: 'getHeaderText',
@@ -5831,7 +5850,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     licenseeWL = _numberFormat2.default.formatDecimal(item.LicenseeWinLoss),
                     licenseeComm = _numberFormat2.default.formatDecimal(item.LicenseeComm),
                     licenseeNetWL = _numberFormat2.default.formatDecimal(item.LicenseeNetWinLoss),
-                    margin = _numberFormat2.default.formatDecimal(item.Margin);
+                    margin = _numberFormat2.default.formatDecimal(item.Margin) + "%";
 
                 rows.push(_react2.default.createElement(
                     _fixedTableHeader.Row,
@@ -5868,7 +5887,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { title: licenseeWL, className: 'right-align' },
+                        { title: licenseeWL, className: 'right-align ' + (item.LicenseeWinLoss < 0 ? "negative" : "") },
                         licenseeWL
                     ),
                     _react2.default.createElement(
@@ -5878,7 +5897,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { title: licenseeNetWL, className: 'right-align' },
+                        { title: licenseeNetWL, className: 'right-align ' + (item.LicenseeNetWinLoss < 0 ? "negative" : "") },
                         licenseeNetWL
                     ),
                     _react2.default.createElement(
@@ -5901,7 +5920,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 licenseeWL = _numberFormat2.default.formatDecimal(item.LicenseeWinLoss),
                 licenseeComm = _numberFormat2.default.formatDecimal(item.LicenseeComm),
                 licenseeNetWL = _numberFormat2.default.formatDecimal(item.LicenseeNetWinLoss),
-                margin = _numberFormat2.default.formatDecimal(item.Margin);
+                margin = _numberFormat2.default.formatDecimal(item.Margin) + "%";
             var colSpan = this.selectedReportBy === _settingConst.SettingConst.ReportBySummary ? 2 : 3;
             return [_react2.default.createElement(
                 _fixedTableHeader.Row,
@@ -5928,7 +5947,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { title: licenseeWL, className: "right-align" },
+                    { title: licenseeWL, className: 'right-align ' + (item.LicenseeWinLoss < 0 ? "negative" : "") },
                     licenseeWL
                 ),
                 _react2.default.createElement(
@@ -5938,7 +5957,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { title: licenseeNetWL, className: "right-align" },
+                    { title: licenseeNetWL, className: 'right-align ' + (item.LicenseeNetWinLoss < 0 ? "negative" : "") },
                     licenseeNetWL
                 ),
                 _react2.default.createElement(
@@ -6119,6 +6138,13 @@ var FormFilter = exports.FormFilter = function (_Component) {
             }
         };
 
+        _this.changeTimeZone = function (item) {
+            _this.props.setSelectedTimeZone(item.value);
+            var newList = item.value === 8 ? [window.cache.productOptions[0]] : window.cache.productOptions;
+
+            _this.props.setProductOptions(newList);
+        };
+
         _this.productChangeHandler = function (currentItem, selectedItemsKey) {
             _this.props.setSelectedProduct(selectedItemsKey);
         };
@@ -6168,22 +6194,18 @@ var FormFilter = exports.FormFilter = function (_Component) {
     }, {
         key: '_renderTimeZoneSelectList',
         value: function _renderTimeZoneSelectList() {
-            var _this2 = this;
-
             var _props = this.props,
                 timeZoneList = _props.timeZoneList,
                 selectedTimeZone = _props.selectedTimeZone;
 
 
             return _react2.default.createElement(_reactSelect2.default, { value: selectedTimeZone, options: timeZoneList,
-                onChange: function onChange(item) {
-                    return _this2.props.setSelectedTimeZone(item.value);
-                } });
+                onChange: this.changeTimeZone });
         }
     }, {
         key: '_renderReportBySelectList',
         value: function _renderReportBySelectList() {
-            var _this3 = this;
+            var _this2 = this;
 
             var _props2 = this.props,
                 reportByList = _props2.reportByList,
@@ -6192,14 +6214,13 @@ var FormFilter = exports.FormFilter = function (_Component) {
 
             return _react2.default.createElement(_reactSelect2.default, { value: selectedReportBy, options: reportByList,
                 onChange: function onChange(item) {
-                    return _this3.props.setSelectedReportBy(item.value);
+                    return _this2.props.setSelectedReportBy(item.value);
                 } });
         }
     }, {
         key: '_renderProductSelectList',
         value: function _renderProductSelectList() {
             var productOptions = this.props.productOptions;
-
 
             return productOptions && productOptions.length ? _react2.default.createElement(_multipleSelect2.default, {
                 dataSource: this.props.productOptions,
@@ -6213,7 +6234,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
     }, {
         key: '_renderCurrencySelectList',
         value: function _renderCurrencySelectList() {
-            var _this4 = this;
+            var _this3 = this;
 
             var _props3 = this.props,
                 currencyList = _props3.currencyList,
@@ -6225,13 +6246,13 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 value: selectedCurrency.value,
                 options: currencyList,
                 onChange: function onChange(item) {
-                    return _this4.props.setSelectedCurrency(item);
+                    return _this3.props.setSelectedCurrency(item);
                 } });
         }
     }, {
         key: '_renderBaseCurrencySelectList',
         value: function _renderBaseCurrencySelectList() {
-            var _this5 = this;
+            var _this4 = this;
 
             var _props4 = this.props,
                 baseCurrencyList = _props4.baseCurrencyList,
@@ -6243,7 +6264,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 value: selectedBaseCurrency,
                 options: baseCurrencyList,
                 onChange: function onChange(item) {
-                    return _this5.props.setSelectedBaseCurrency(item.value);
+                    return _this4.props.setSelectedBaseCurrency(item.value);
                 } }) : null;
         }
     }, {
@@ -6262,7 +6283,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this6 = this;
+            var _this5 = this;
 
             return _react2.default.createElement(
                 'div',
@@ -6357,7 +6378,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                             ),
                             _react2.default.createElement('input', { type: 'radio', value: 1, checked: this.props.groupBy == 1, name: 'GroupBy', id: 'GroupByProduct',
                                 onChange: function onChange() {
-                                    return _this6.changeGroupBy(1);
+                                    return _this5.changeGroupBy(1);
                                 } }),
                             _react2.default.createElement(
                                 'label',
@@ -6366,7 +6387,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                             ),
                             _react2.default.createElement('input', { type: 'radio', value: 2, name: 'GroupBy', id: 'GroupByCurrency', checked: this.props.groupBy == 2,
                                 onChange: function onChange() {
-                                    return _this6.changeGroupBy(2);
+                                    return _this5.changeGroupBy(2);
                                 } }),
                             _react2.default.createElement(
                                 'label',
@@ -6400,7 +6421,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                                 { className: 'checkbox-group' },
                                 _react2.default.createElement('input', { type: 'checkbox', className: 'checkbox', checked: this.props.isIncludeDrawData, id: 'IncludeDrawData',
                                     onChange: function onChange() {
-                                        return _this6.props.changeIsIncludeDrawData(!_this6.props.isIncludeDrawData);
+                                        return _this5.props.changeIsIncludeDrawData(!_this5.props.isIncludeDrawData);
                                     } }),
                                 _react2.default.createElement(
                                     'label',
@@ -6422,7 +6443,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                                 _react2.default.createElement('input', { type: 'checkbox', className: 'checkbox', checked: this.props.groupBy === 1 || this.props.isConvertAll, id: 'IsConvertAll',
                                     disabled: this.props.groupBy === 1,
                                     onChange: function onChange() {
-                                        return _this6.props.changeIsConvertAll(!_this6.props.isConvertAll);
+                                        return _this5.props.changeIsConvertAll(!_this5.props.isConvertAll);
                                     } }),
                                 _react2.default.createElement(
                                     'label',
@@ -6577,9 +6598,9 @@ var columnConfigs = [(_ref = {
     field: fields.LicenseeComm
 }, _defineProperty(_ref8, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_ref8, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _ref8), (_ref9 = {
     field: fields.LicenseeNetWL
-}, _defineProperty(_ref9, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_ref9, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _ref9), (_ref10 = {
+}, _defineProperty(_ref9, MAIN_SECTION_STYLE, { positive: _excelStyle.bodyCellStyle.decimal, negative: _excelStyle.bodyCellStyle.negativeDecimal }), _defineProperty(_ref9, GRAND_TOTAL_SECTION_STYLE, { positive: _excelStyle.grandTotalCellStyle.decimal, negative: _excelStyle.grandTotalCellStyle.negativeDecimal }), _ref9), (_ref10 = {
     field: fields.Margin
-}, _defineProperty(_ref10, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_ref10, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _ref10)];
+}, _defineProperty(_ref10, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.percent), _defineProperty(_ref10, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.percent), _ref10)];
 
 var ReportExcel = function () {
     function ReportExcel() {
@@ -6704,7 +6725,7 @@ var ReportExcel = function () {
             var value = item[field] !== null ? item[field] : "";
 
             var style = columnConfig[sectionStyle];
-            if (field === fields.LicenseeWL) {
+            if (columnIndex === LICENSEEWL_COLUMN_INDEX || columnIndex === LICENSEENETWL_COLUMN_INDEX) {
                 style = value < 0 ? style.negative : style.positive;
             } else if (columnIndex === REPORTBY_COLUMN_INDEX) {
                 value = (0, _moment2.default)(value).format(this.reportBy === _settingConst.SettingConst.ReportByDaily ? "MM/DD/YYYY" : "MM/YYYY");

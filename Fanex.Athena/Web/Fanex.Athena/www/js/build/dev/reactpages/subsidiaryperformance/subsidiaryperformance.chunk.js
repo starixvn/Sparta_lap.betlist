@@ -78,7 +78,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Product */
 var SET_SELECTED_PRODUCT = exports.SET_SELECTED_PRODUCT = "SET_SELECTED_PRODUCT";
-var GET_PRODUCT_OPTIONS = exports.GET_PRODUCT_OPTIONS = "GET_PRODUCT_OPTIONS";
+var SET_PRODUCT_OPTIONS = exports.SET_PRODUCT_OPTIONS = "SET_PRODUCT_OPTIONS";
 
 /* Base Currency */
 var SET_SELECTED_BASECURRENCY = exports.SET_SELECTED_BASECURRENCY = "SET_SELECTED_BASECURRENCY";
@@ -139,7 +139,7 @@ var ActionCreators = exports.ActionCreators = Object.assign({}, dataHandlerActio
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.setSelectedProduct = undefined;
+exports.setProductOptions = exports.setSelectedProduct = undefined;
 
 var _types = __webpack_require__(15);
 
@@ -151,6 +151,12 @@ var setSelectedProduct = exports.setSelectedProduct = function setSelectedProduc
     return {
         type: types.SET_SELECTED_PRODUCT,
         data: product
+    };
+};
+var setProductOptions = exports.setProductOptions = function setProductOptions(productList) {
+    return {
+        type: types.SET_PRODUCT_OPTIONS,
+        data: productList
     };
 };
 
@@ -1893,6 +1899,17 @@ var MultipleSelect = function (_Component) {
             document.removeEventListener('click', this._handleDocumentClick);
         }
     }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            if (this.props.dataSource != nextProps.dataSource) {
+                var newDataSource = this._convertDataSourceToState(nextProps);
+                this.setState({
+                    dataSource: newDataSource
+                });
+                this._callBackToParent(null, newDataSource);
+            }
+        }
+    }, {
         key: '_callBackToParent',
         value: function _callBackToParent(selectedItem, newDataSource) {
             var selectedItemsKey = this._getSelectedItemKey(newDataSource);
@@ -3310,7 +3327,8 @@ var bodyCellStyle = exports.bodyCellStyle = {
     center: { alignment: _extends({}, bodyTextStyle.alignment, { horizontal: "center" }) },
     number: { numFmt: "#,##0" },
     decimal: bodyDecimalStyle,
-    negativeDecimal: _extends({}, bodyDecimalStyle, { font: { color: { rgb: "FF0000" } } })
+    negativeDecimal: _extends({}, bodyDecimalStyle, { font: { color: { rgb: "FF0000" } } }),
+    percent: { numFmt: "#,##0.00\\%" }
 };
 
 var totalTextStyle = { font: { bold: true } };
@@ -3335,7 +3353,8 @@ var grandTotalCellStyle = exports.grandTotalCellStyle = {
     center: _extends({}, grandTotalTextStyle, { alignment: { horizontal: "center" } }),
     number: _extends({}, grandTotalTextStyle, { numFmt: "#,##0" }),
     decimal: decimalGrandTotalStyle,
-    negativeDecimal: _extends({}, decimalGrandTotalStyle, { font: { bold: true, color: { rgb: "FF0000" } } })
+    negativeDecimal: _extends({}, decimalGrandTotalStyle, { font: { bold: true, color: { rgb: "FF0000" } } }),
+    percent: _extends({}, grandTotalTextStyle, { numFmt: "#,##0.00\\%" })
 };
 
 /***/ }),
@@ -3490,7 +3509,7 @@ var selectedProduct = exports.selectedProduct = (0, _createReducer4.default)({},
     return action.data;
 }));
 
-var productOptions = exports.productOptions = (0, _createReducer4.default)({}, _defineProperty({}, types.GET_PRODUCT_OPTIONS, function (state, action) {
+var productOptions = exports.productOptions = (0, _createReducer4.default)({}, _defineProperty({}, types.SET_PRODUCT_OPTIONS, function (state, action) {
     return action.data;
 }));
 

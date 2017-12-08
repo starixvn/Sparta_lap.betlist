@@ -6,13 +6,11 @@
 
     public class LicenseeWinLossByTimeZoneViewModel
     {
-        public DateTime FromDate { get; set; } = DateTime.Now.AddMonths(-1);
+        public DateTime FromDate { get; set; } = DateTime.Today;
 
         public DateTime ToDate { get; set; } = DateTime.Today;
 
         public IEnumerable<ProductOption> ProductOptionList { get; set; }
-
-        public bool ConvertAll { get; set; }
 
         public IDictionary<int, string> CurrencyList { get; set; }
     }
