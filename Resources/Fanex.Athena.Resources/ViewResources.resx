@@ -3078,4 +3078,16 @@
     <value>Base currency</value>
     <comment>84932</comment>
   </data>
+  <data name="CustomerComm" xml:space="preserve">
+    <value>Customer Comm</value>
+    <comment>84932</comment>
+  </data>
+  <data name="LicenseeComm" xml:space="preserve">
+    <value>Licensee Comm</value>
+    <comment>84932</comment>
+  </data>
+  <data name="LicenseeNetWL" xml:space="preserve">
+    <value>Licensee Net WL</value>
+    <comment>84932</comment>
+  </data>
 </root>

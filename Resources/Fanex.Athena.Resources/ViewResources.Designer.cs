@@ -1681,6 +1681,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer Comm.
+        /// </summary>
+        public static string CustomerComm {
+            get {
+                return ResourceManager.GetString("CustomerComm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer Commission.
         /// </summary>
         public static string CustomerCommission {
@@ -4192,6 +4201,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Licensee Comm.
+        /// </summary>
+        public static string LicenseeComm {
+            get {
+                return ResourceManager.GetString("LicenseeComm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Licensee Fee.
         /// </summary>
         public static string LicenseeFee {
@@ -4224,6 +4242,15 @@ namespace Fanex.Athena.Resources {
         public static string LicenseeNetWin {
             get {
                 return ResourceManager.GetString("LicenseeNetWin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Licensee Net WL.
+        /// </summary>
+        public static string LicenseeNetWL {
+            get {
+                return ResourceManager.GetString("LicenseeNetWL", resourceCulture);
             }
         }
         

@@ -63,7 +63,7 @@ module.exports = __webpack_require__(731);
 "use strict";
 
 
-// Generated at: 12/8/2017 11:26:39 AM
+// Generated at: 12/11/2017 9:05:16 AM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -245,6 +245,7 @@ window._language_en_US = {
   CustomerBalance: "Customer Balance",
   CustomerBalanceDateRangeNotification: "Date range exceeds 2 months. Please try again!",
   CustomerBetList: "Customer Bet List",
+  CustomerComm: "Customer Comm",
   CustomerCommission: "Customer Commission",
   CustomerHasNeverPlayed: "This customer has never played {0}.",
   CustomerInfo: "Customer Information",
@@ -524,10 +525,12 @@ window._language_en_US = {
   Levels: "levels",
   Licensee: "Licensee",
   Licensee12Bet: "12Bet Licensee",
+  LicenseeComm: "Licensee Comm",
   LicenseeFee: "Licensee Fee",
   Licenseegrossrevenuefor: "Licensee gross revenue for {0}",
   LicenseeIsNotExisted: "Not found licensee",
   LicenseeNetWin: "Licensee Net Win",
+  LicenseeNetWL: "Licensee Net WL",
   LicenseeW_L: "Licensee W/L",
   LicenseeWinLoss: "Licensee Win Loss",
   LicenseeWinLossTip1: "Drill down to view data in",
@@ -1015,7 +1018,7 @@ window._language_en_US = {
 "use strict";
 
 
-// Generated at: 12/8/2017 11:26:39 AM
+// Generated at: 12/11/2017 9:05:16 AM
 window._language_ko_KR = {
   AA: "AA",
   ABComm: "AllBet 수수료",
@@ -1787,7 +1790,7 @@ window._language_ko_KR = {
 "use strict";
 
 
-// Generated at: 12/8/2017 11:26:39 AM
+// Generated at: 12/11/2017 9:05:16 AM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2600,7 +2603,7 @@ window._language_zh_CN = {
 "use strict";
 
 
-// Generated at: 12/8/2017 11:26:39 AM
+// Generated at: 12/11/2017 9:05:16 AM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3399,7 +3402,7 @@ window._language_zh_Hans = {
 "use strict";
 
 
-// Generated at: 12/8/2017 11:26:39 AM
+// Generated at: 12/11/2017 9:05:16 AM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",

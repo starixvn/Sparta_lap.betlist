@@ -3599,7 +3599,7 @@ var Service = function () {
     }, {
         key: 'getHeaderText',
         value: function getHeaderText(reportBy, groupBy) {
-            headerText.ReportBy = _langHelper2.default.getSingleResource(reportBy === 2 ? "Daily" : "Monthly");
+            headerText.ReportBy = _langHelper2.default.getSingleResource(reportBy === 2 ? "Date" : "Month");
             headerText.GroupBy = _langHelper2.default.getSingleResource(groupBy === 1 ? "Product" : "Currency");
 
             return headerText;

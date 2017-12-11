@@ -25,7 +25,7 @@ export default class Service {
     }
 
     static getHeaderText(reportBy, groupBy) {
-        headerText.ReportBy = LangHelper.getSingleResource(reportBy === 2 ? "Daily" : "Monthly");
+        headerText.ReportBy = LangHelper.getSingleResource(reportBy === 2 ? "Date" : "Month");
         headerText.GroupBy = LangHelper.getSingleResource(groupBy === 1 ? "Product" : "Currency");
         
         return headerText;

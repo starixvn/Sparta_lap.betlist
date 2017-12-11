@@ -42,6 +42,7 @@
                     while (reader.Read())
                     {
                         var item = ReadDataInBaseCurrency(reader, metaModel);
+                        totalData.BetCount += item.BetCount;
                         totalData.Turnover += item.Turnover;
                         totalData.CustomerComm += item.CustomerComm;
                         totalData.LicenseeWinLoss += item.LicenseeWinLoss;
