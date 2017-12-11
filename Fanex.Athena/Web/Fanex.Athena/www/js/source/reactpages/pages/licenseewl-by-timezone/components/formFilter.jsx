@@ -66,13 +66,6 @@ export class FormFilter extends Component {
         }
     }
 
-    changeTimeZone = (item) => {
-        this.props.setSelectedTimeZone(item.value);
-        var newList = item.value === 8 ? [window.cache.productOptions[0]] : window.cache.productOptions;
-
-        this.props.setProductOptions(newList);
-    }
-
     _getParams() {
         if (!this.props.xsrfToken || !this.isValidModel) {
             return null;
@@ -115,7 +108,7 @@ export class FormFilter extends Component {
         const { timeZoneList, selectedTimeZone } = this.props;
 
         return <Select instanceId="ddlTimeZone" value={selectedTimeZone} options={timeZoneList}
-                onChange={this.changeTimeZone} />
+        onChange={(item) => this.props.setSelectedTimeZone(item.value)} />
     }
 
     _renderReportBySelectList() {

@@ -41,9 +41,6 @@
 }
 
 @section globaljscode{
-    window.cache = {
-        productOptions: @Html.Raw(productOptions.ToJson())
-    };
     window.initialState = {
         productOptions: @Html.Raw(productOptions.ToJson()),
         selectedProduct: '@(selectedProductCode)',

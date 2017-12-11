@@ -22,6 +22,6 @@
 
         public const string SubsidiaryPerformance = "SubsidiaryPerformance";
 
-        public const string LicenseeWinLossByTimeZone = "LicenseeWinLossByTimeZone";
+        public const string WinLossByTimeZone = "WinLossByTimeZone";
     }
 }
