@@ -1877,7 +1877,7 @@ var MultipleSelect = function (_Component) {
 
             return _react2.default.createElement(
                 'div',
-                { className: 'multiple-select-container', ref: function ref(element) {
+                { className: 'multiple-select-container', id: this.id, ref: function ref(element) {
                         return _this2.wrapper = element;
                     } },
                 _react2.default.createElement(_MultipleSelectLabel2.default, {
@@ -3588,13 +3588,14 @@ var Service = function () {
 
     _createClass(Service, null, [{
         key: 'getReportTitle',
-        value: function getReportTitle(timeZone, dateRange, currency, baseCurrency) {
+        value: function getReportTitle(timeZone, dateRange, currency, baseCurrency, isConvertAll) {
+            console.log(isConvertAll);
             var fromDate = _site2.default.convertDateToString(dateRange.fromDate);
             var toDate = _site2.default.convertDateToString(dateRange.toDate);
-            var viewInByCurrency = _langHelper2.default.getSingleResource("BaseCurrency") + ": " + baseCurrency;
+            var viewInByCurrency = isConvertAll ? ", " + _langHelper2.default.getSingleResource("BaseCurrency") + ": " + baseCurrency : "";
             var timeZoneText = "GMT" + (timeZone < 0 ? timeZone : "+" + timeZone);
             var currencyText = _langHelper2.default.getSingleResource("Currency") + ": " + currency;
-            return _langHelper2.default.getSingleResource("LicenseeWinLoss") + ', ' + timeZoneText + ', ' + fromDate + ' \u2192 ' + toDate + ', ' + currencyText + ', ' + viewInByCurrency;
+            return _langHelper2.default.getSingleResource("WinLossByTimeZone") + ', ' + timeZoneText + ', ' + fromDate + ' \u2192 ' + toDate + ', ' + currencyText + viewInByCurrency;
         }
     }, {
         key: 'getHeaderText',
@@ -5765,12 +5766,13 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     selectedTimeZone = nextProps.selectedTimeZone,
                     dateRange = nextProps.dateRange,
                     selectedCurrency = nextProps.selectedCurrency,
-                    selectedBaseCurrency = nextProps.selectedBaseCurrency;
+                    selectedBaseCurrency = nextProps.selectedBaseCurrency,
+                    isConvertAll = nextProps.isConvertAll;
 
                 this.groupBy = groupBy;
                 this.selectedReportBy = selectedReportBy;
                 this.selectedBaseCurrency = selectedBaseCurrency;
-                this.reportTitle = _service2.default.getReportTitle(selectedTimeZone, dateRange, selectedCurrency.label, selectedBaseCurrency);
+                this.reportTitle = _service2.default.getReportTitle(selectedTimeZone, dateRange, selectedCurrency.label, selectedBaseCurrency, isConvertAll);
                 this.props.toggleLoader(false);
             }
         }
@@ -6020,9 +6022,10 @@ function mapStateToProps(state) {
         dateRange = state.dateRange,
         selectedCurrency = state.selectedCurrency,
         selectedBaseCurrency = state.selectedBaseCurrency,
-        isLoading = state.isLoading;
+        isLoading = state.isLoading,
+        isConvertAll = state.isConvertAll;
 
-    return Object.assign({}, { gridData: gridData, groupBy: groupBy, selectedReportBy: selectedReportBy, selectedTimeZone: selectedTimeZone, dateRange: dateRange, selectedCurrency: selectedCurrency, selectedBaseCurrency: selectedBaseCurrency, isLoading: isLoading });
+    return Object.assign({}, { gridData: gridData, groupBy: groupBy, selectedReportBy: selectedReportBy, selectedTimeZone: selectedTimeZone, dateRange: dateRange, selectedCurrency: selectedCurrency, selectedBaseCurrency: selectedBaseCurrency, isLoading: isLoading, isConvertAll: isConvertAll });
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DataGrid);
@@ -6132,7 +6135,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     return;
                 }
 
-                var title = _service2.default.getReportTitle(selectedTimeZone, dateRange, selectedCurrency.label, selectedBaseCurrency);
+                var title = _service2.default.getReportTitle(selectedTimeZone, dateRange, selectedCurrency.label, selectedBaseCurrency, _this.props.isConvertAll);
                 var excel = new _reportExcel2.default(response.data, title, _this.props.selectedReportBy, _this.props.groupBy, selectedBaseCurrency);
                 excel.export();
                 _this.props.toggleLoader(false);
@@ -6144,13 +6147,6 @@ var FormFilter = exports.FormFilter = function (_Component) {
             if (value === _settingConst.SettingConst.GroupByProduct && _this.props.selectedCurrency.value === 0) {
                 _this.props.changeIsConvertAll(true);
             }
-        };
-
-        _this.changeTimeZone = function (item) {
-            _this.props.setSelectedTimeZone(item.value);
-            var newList = item.value === 8 ? [window.cache.productOptions[0]] : window.cache.productOptions;
-
-            _this.props.setProductOptions(newList);
         };
 
         _this.productChangeHandler = function (currentItem, selectedItemsKey) {
@@ -6202,18 +6198,22 @@ var FormFilter = exports.FormFilter = function (_Component) {
     }, {
         key: '_renderTimeZoneSelectList',
         value: function _renderTimeZoneSelectList() {
+            var _this2 = this;
+
             var _props = this.props,
                 timeZoneList = _props.timeZoneList,
                 selectedTimeZone = _props.selectedTimeZone;
 
 
             return _react2.default.createElement(_reactSelect2.default, { instanceId: 'ddlTimeZone', value: selectedTimeZone, options: timeZoneList,
-                onChange: this.changeTimeZone });
+                onChange: function onChange(item) {
+                    return _this2.props.setSelectedTimeZone(item.value);
+                } });
         }
     }, {
         key: '_renderReportBySelectList',
         value: function _renderReportBySelectList() {
-            var _this2 = this;
+            var _this3 = this;
 
             var _props2 = this.props,
                 reportByList = _props2.reportByList,
@@ -6222,7 +6222,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
 
             return _react2.default.createElement(_reactSelect2.default, { instanceId: 'ddlReportBy', value: selectedReportBy, options: reportByList,
                 onChange: function onChange(item) {
-                    return _this2.props.setSelectedReportBy(item.value);
+                    return _this3.props.setSelectedReportBy(item.value);
                 } });
         }
     }, {
@@ -6230,7 +6230,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
         value: function _renderProductSelectList() {
             var productOptions = this.props.productOptions;
 
-            return productOptions && productOptions.length ? _react2.default.createElement(_multipleSelect2.default, {
+            return productOptions && productOptions.length ? _react2.default.createElement(_multipleSelect2.default, { id: 'ProductList',
                 dataSource: this.props.productOptions,
                 keyField: "Code",
                 valueField: "Name",
@@ -6242,7 +6242,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
     }, {
         key: '_renderCurrencySelectList',
         value: function _renderCurrencySelectList() {
-            var _this3 = this;
+            var _this4 = this;
 
             var _props3 = this.props,
                 currencyList = _props3.currencyList,
@@ -6253,13 +6253,13 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 value: selectedCurrency.value,
                 options: currencyList,
                 onChange: function onChange(item) {
-                    return _this3.props.setSelectedCurrency(item);
+                    return _this4.props.setSelectedCurrency(item);
                 } });
         }
     }, {
         key: '_renderBaseCurrencySelectList',
         value: function _renderBaseCurrencySelectList() {
-            var _this4 = this;
+            var _this5 = this;
 
             var _props4 = this.props,
                 baseCurrencyList = _props4.baseCurrencyList,
@@ -6270,7 +6270,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 value: selectedBaseCurrency,
                 options: baseCurrencyList,
                 onChange: function onChange(item) {
-                    return _this4.props.setSelectedBaseCurrency(item.value);
+                    return _this5.props.setSelectedBaseCurrency(item.value);
                 } }) : null;
         }
     }, {
@@ -6289,7 +6289,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this5 = this;
+            var _this6 = this;
 
             return _react2.default.createElement(
                 'div',
@@ -6384,7 +6384,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                             ),
                             _react2.default.createElement('input', { type: 'radio', value: 1, checked: this.props.groupBy == 1, name: 'GroupBy', id: 'GroupByProduct',
                                 onChange: function onChange() {
-                                    return _this5.changeGroupBy(1);
+                                    return _this6.changeGroupBy(1);
                                 } }),
                             _react2.default.createElement(
                                 'label',
@@ -6393,7 +6393,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                             ),
                             _react2.default.createElement('input', { type: 'radio', value: 2, name: 'GroupBy', id: 'GroupByCurrency', checked: this.props.groupBy == 2,
                                 onChange: function onChange() {
-                                    return _this5.changeGroupBy(2);
+                                    return _this6.changeGroupBy(2);
                                 } }),
                             _react2.default.createElement(
                                 'label',
@@ -6427,7 +6427,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                                 { className: 'checkbox-group' },
                                 _react2.default.createElement('input', { type: 'checkbox', className: 'checkbox', checked: this.props.isIncludeDrawData, id: 'IncludeDrawData',
                                     onChange: function onChange() {
-                                        return _this5.props.changeIsIncludeDrawData(!_this5.props.isIncludeDrawData);
+                                        return _this6.props.changeIsIncludeDrawData(!_this6.props.isIncludeDrawData);
                                     } }),
                                 _react2.default.createElement(
                                     'label',
@@ -6449,7 +6449,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                                 _react2.default.createElement('input', { type: 'checkbox', className: 'checkbox', checked: this.props.groupBy === 1 && this.props.selectedCurrency.value == 0 || this.props.isConvertAll, id: 'IsConvertAll',
                                     disabled: this.props.groupBy === 1 && this.props.selectedCurrency.value == 0,
                                     onChange: function onChange() {
-                                        return _this5.props.changeIsConvertAll(!_this5.props.isConvertAll);
+                                        return _this6.props.changeIsConvertAll(!_this6.props.isConvertAll);
                                     } }),
                                 _react2.default.createElement(
                                     'label',
@@ -6624,7 +6624,7 @@ var ReportExcel = function () {
 
         this.worksheet = {};
         this.title = title;
-        this.fileName = "LicenseeWinLossByTimeZone";
+        this.fileName = "WinLossByTimeZone";
         this.gridData = gridData;
         this.reportBy = reportBy;
         this.groupBy = groupBy;

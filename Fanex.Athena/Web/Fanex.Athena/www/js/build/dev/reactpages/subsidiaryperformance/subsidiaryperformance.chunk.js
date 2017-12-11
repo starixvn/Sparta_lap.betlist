@@ -1971,7 +1971,7 @@ var MultipleSelect = function (_Component) {
 
             return _react2.default.createElement(
                 'div',
-                { className: 'multiple-select-container', ref: function ref(element) {
+                { className: 'multiple-select-container', id: this.id, ref: function ref(element) {
                         return _this2.wrapper = element;
                     } },
                 _react2.default.createElement(_MultipleSelectLabel2.default, {

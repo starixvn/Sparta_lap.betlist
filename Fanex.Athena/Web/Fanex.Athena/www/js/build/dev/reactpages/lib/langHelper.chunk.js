@@ -63,7 +63,7 @@ module.exports = __webpack_require__(731);
 "use strict";
 
 
-// Generated at: 12/11/2017 4:29:02 PM
+// Generated at: 12/11/2017 4:42:38 PM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -997,6 +997,7 @@ window._language_en_US = {
   WinLossByProduct: "Win Loss By Products",
   WinLossByProductNote1: "Figures of Sportsbook {0} (Amount Due) are displayed in Italic and for reference only",
   WinLossByProductTitle: "Win Loss By Products, {0} --&gt; {1} - {2}",
+  WinLossByTimeZone: "Win Loss By Time Zone",
   WinPlace: "Win Place",
   WinTO: "Win TO",
   Withdrawal: "Withdrawal",
@@ -1019,7 +1020,7 @@ window._language_en_US = {
 "use strict";
 
 
-// Generated at: 12/11/2017 4:29:02 PM
+// Generated at: 12/11/2017 4:42:38 PM
 window._language_ko_KR = {
   AA: "AA",
   ABComm: "AllBet 수수료",
@@ -1791,7 +1792,7 @@ window._language_ko_KR = {
 "use strict";
 
 
-// Generated at: 12/11/2017 4:29:02 PM
+// Generated at: 12/11/2017 4:42:38 PM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2604,7 +2605,7 @@ window._language_zh_CN = {
 "use strict";
 
 
-// Generated at: 12/11/2017 4:29:02 PM
+// Generated at: 12/11/2017 4:42:38 PM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3403,7 +3404,7 @@ window._language_zh_Hans = {
 "use strict";
 
 
-// Generated at: 12/11/2017 4:29:02 PM
+// Generated at: 12/11/2017 4:42:38 PM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",

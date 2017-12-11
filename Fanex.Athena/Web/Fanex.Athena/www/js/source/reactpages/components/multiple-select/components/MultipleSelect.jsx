@@ -156,7 +156,7 @@ export default class MultipleSelect extends Component {
         const { noneSelectedLabel, maxDisplayItemCount, hasAllOption } = this.props;
 
         return (
-            <div className="multiple-select-container" ref={element => this.wrapper = element}>
+            <div className="multiple-select-container" id={this.id} ref={element => this.wrapper = element}>
                 <MultipleSelectLabel
                     selectedItems={this.selectedItems}
                     onToggle={this.onToggle}
