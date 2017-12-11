@@ -3328,7 +3328,7 @@ var bodyCellStyle = exports.bodyCellStyle = {
     number: { numFmt: "#,##0" },
     decimal: bodyDecimalStyle,
     negativeDecimal: _extends({}, bodyDecimalStyle, { font: { color: { rgb: "FF0000" } } }),
-    percent: { numFmt: "#,##0.00\\%" }
+    percent: { numFmt: '#,##0.00%' }
 };
 
 var totalTextStyle = { font: { bold: true } };
@@ -3354,7 +3354,7 @@ var grandTotalCellStyle = exports.grandTotalCellStyle = {
     number: _extends({}, grandTotalTextStyle, { numFmt: "#,##0" }),
     decimal: decimalGrandTotalStyle,
     negativeDecimal: _extends({}, decimalGrandTotalStyle, { font: { bold: true, color: { rgb: "FF0000" } } }),
-    percent: _extends({}, grandTotalTextStyle, { numFmt: "#,##0.00\\%" })
+    percent: _extends({}, grandTotalTextStyle, { numFmt: "#,##0.00%" })
 };
 
 /***/ }),

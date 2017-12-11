@@ -3234,7 +3234,7 @@ var bodyCellStyle = exports.bodyCellStyle = {
     number: { numFmt: "#,##0" },
     decimal: bodyDecimalStyle,
     negativeDecimal: _extends({}, bodyDecimalStyle, { font: { color: { rgb: "FF0000" } } }),
-    percent: { numFmt: "#,##0.00\\%" }
+    percent: { numFmt: '#,##0.00%' }
 };
 
 var totalTextStyle = { font: { bold: true } };
@@ -3260,7 +3260,7 @@ var grandTotalCellStyle = exports.grandTotalCellStyle = {
     number: _extends({}, grandTotalTextStyle, { numFmt: "#,##0" }),
     decimal: decimalGrandTotalStyle,
     negativeDecimal: _extends({}, decimalGrandTotalStyle, { font: { bold: true, color: { rgb: "FF0000" } } }),
-    percent: _extends({}, grandTotalTextStyle, { numFmt: "#,##0.00\\%" })
+    percent: _extends({}, grandTotalTextStyle, { numFmt: "#,##0.00%" })
 };
 
 /***/ }),
@@ -6078,6 +6078,8 @@ var _service = __webpack_require__(197);
 
 var _service2 = _interopRequireDefault(_service);
 
+var _settingConst = __webpack_require__(416);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -6124,6 +6126,12 @@ var FormFilter = exports.FormFilter = function (_Component) {
 
             _this.props.toggleLoader(true);
             _this.props.exportExcel(params).then(function (response) {
+                if (response.data.Data.length === 0) {
+                    alert(_langHelper2.default.getSingleResource("NoInfo"));
+                    _this.props.toggleLoader(false);
+                    return;
+                }
+
                 var title = _service2.default.getReportTitle(selectedTimeZone, dateRange, selectedCurrency.label, selectedBaseCurrency);
                 var excel = new _reportExcel2.default(response.data, title, _this.props.selectedReportBy, _this.props.groupBy, selectedBaseCurrency);
                 excel.export();
@@ -6133,7 +6141,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
 
         _this.changeGroupBy = function (value) {
             _this.props.changeGroupBy(value);
-            if (value === 1) {
+            if (value === _settingConst.SettingConst.GroupByProduct && _this.props.selectedCurrency.value === 0) {
                 _this.props.changeIsConvertAll(true);
             }
         };
@@ -6199,7 +6207,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 selectedTimeZone = _props.selectedTimeZone;
 
 
-            return _react2.default.createElement(_reactSelect2.default, { value: selectedTimeZone, options: timeZoneList,
+            return _react2.default.createElement(_reactSelect2.default, { instanceId: 'ddlTimeZone', value: selectedTimeZone, options: timeZoneList,
                 onChange: this.changeTimeZone });
         }
     }, {
@@ -6212,7 +6220,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 selectedReportBy = _props2.selectedReportBy;
 
 
-            return _react2.default.createElement(_reactSelect2.default, { value: selectedReportBy, options: reportByList,
+            return _react2.default.createElement(_reactSelect2.default, { instanceId: 'ddlReportBy', value: selectedReportBy, options: reportByList,
                 onChange: function onChange(item) {
                     return _this2.props.setSelectedReportBy(item.value);
                 } });
@@ -6241,8 +6249,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 selectedCurrency = _props3.selectedCurrency;
 
 
-            return _react2.default.createElement(_reactSelect2.default, { id: 'ddlCurrency',
-                name: 'form-field-name',
+            return _react2.default.createElement(_reactSelect2.default, { instanceId: 'ddlCurrency',
                 value: selectedCurrency.value,
                 options: currencyList,
                 onChange: function onChange(item) {
@@ -6259,8 +6266,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 selectedBaseCurrency = _props4.selectedBaseCurrency;
 
 
-            return baseCurrencyList && baseCurrencyList.length ? _react2.default.createElement(_reactSelect2.default, { id: 'ddlBased',
-                name: 'form-field-name',
+            return baseCurrencyList && baseCurrencyList.length ? _react2.default.createElement(_reactSelect2.default, { instanceId: 'ddlBased',
                 value: selectedBaseCurrency,
                 options: baseCurrencyList,
                 onChange: function onChange(item) {
@@ -6440,8 +6446,8 @@ var FormFilter = exports.FormFilter = function (_Component) {
                             _react2.default.createElement(
                                 'div',
                                 { className: 'checkbox-group' },
-                                _react2.default.createElement('input', { type: 'checkbox', className: 'checkbox', checked: this.props.groupBy === 1 || this.props.isConvertAll, id: 'IsConvertAll',
-                                    disabled: this.props.groupBy === 1,
+                                _react2.default.createElement('input', { type: 'checkbox', className: 'checkbox', checked: this.props.groupBy === 1 && this.props.selectedCurrency.value == 0 || this.props.isConvertAll, id: 'IsConvertAll',
+                                    disabled: this.props.groupBy === 1 && this.props.selectedCurrency.value == 0,
                                     onChange: function onChange() {
                                         return _this5.props.changeIsConvertAll(!_this5.props.isConvertAll);
                                     } }),
@@ -6519,6 +6525,10 @@ Object.defineProperty(exports, "__esModule", {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7, _ref8, _ref9, _ref10;
+
+var _numberFormat = __webpack_require__(168);
+
+var _numberFormat2 = _interopRequireDefault(_numberFormat);
 
 var _moment = __webpack_require__(0);
 
@@ -6729,6 +6739,8 @@ var ReportExcel = function () {
                 style = value < 0 ? style.negative : style.positive;
             } else if (columnIndex === REPORTBY_COLUMN_INDEX) {
                 value = (0, _moment2.default)(value).format(this.reportBy === _settingConst.SettingConst.ReportByDaily ? "MM/DD/YYYY" : "MM/YYYY");
+            } else if (columnIndex === MARGIN_COLUMN_INDEX) {
+                value /= 100; // percentage
             }
 
             return { cellAddress: cellAddress, type: type, value: value, style: style };
