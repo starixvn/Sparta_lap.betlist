@@ -1,4 +1,4 @@
-﻿// Generated at: 12/11/2017 9:05:16 AM
+﻿// Generated at: 12/11/2017 4:29:02 PM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -341,6 +341,7 @@ GrandTotalIn:"Grand Total In",
 GreyhoundAustTote:"Greyhound Aust Tote",
 GreyhoundUK_IrishTote:"Greyhound UK/Irish Tote",
 Group:"Group",
+GroupBy:"Group By",
 GroupColor:"Group Color",
 GroupCommission:"Group commission",
 GroupCommissionlog:"Group Commission log",

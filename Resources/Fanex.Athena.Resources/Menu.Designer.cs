@@ -637,7 +637,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WL By Time Zone.
+        ///   Looks up a localized string similar to Win Loss By Time Zone.
         /// </summary>
         public static string Menu_76 {
             get {
