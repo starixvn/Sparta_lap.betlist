@@ -1,4 +1,4 @@
-import LangHelper from '../../../../lib/langHelper'
+﻿import LangHelper from '../../../../lib/langHelper'
 import Site from '../../../../lib/site'
 
 import service from '../service'
@@ -20,36 +20,64 @@ describe('service ', () => {
     })
 
     describe('getReportTitle', () => {
-        it('return correct content', () => {
-            const fromDate = "09/01/2017";
-            const toDate = "09/30/2017";
-            const selectedBaseCurrency = "EUR";
+        const fromDate = "09/01/2017";
+        const toDate = "09/30/2017";
+        const baseCurrency = "EUR";
+        const currency = "UUS";
 
-            const expectedResult = `LicenseeWinLoss, ${fromDate} - ${toDate} - Viewin ${selectedBaseCurrency}`
+        it('positive time zone: return correct content', () => {
+            const timeZone = 8;
+
+            const expectedResult = `LicenseeWinLoss, GMT+8, ${fromDate} → ${toDate}, Currency: ${currency}, BaseCurrency: ${baseCurrency}`
             const dateRange = { fromDate, toDate };
 
-            const result = service.getReportTitle(dateRange, selectedBaseCurrency);
+            const result = service.getReportTitle(timeZone, dateRange, currency, baseCurrency);
+
+            expect(result).toBe(expectedResult);
+        })
+
+        it('negative time zone: return correct content', () => {
+            const timeZone = -4;
+
+            const expectedResult = `LicenseeWinLoss, GMT-4, ${fromDate} → ${toDate}, Currency: ${currency}, BaseCurrency: ${baseCurrency}`
+            const dateRange = { fromDate, toDate };
+
+            const result = service.getReportTitle(timeZone, dateRange, currency, baseCurrency);
 
             expect(result).toBe(expectedResult);
         })
     })
 
     describe('getHeaderText', () => {
-        it('header text should has correct content', () => {
-            const expectedResult = {
-                Index: "#",
-                Product:  "Product",
-                Currency: "Currency",
-                BetCount: "BetCount",
-                Turnover: "Turnover",
-                CustomerComm: "CustomerComm",
-                LicenseeWL: "LicenseeWL",
-                LicenseeComm: "LicenseeComm",
-                LicenseeNetWL: "LicenseeNetWL",
-                Margin: "Margin"
-            }
+        const expectedResult = {
+            Index: "#",
+            ReportBy: "",
+            GroupBy:  "",
+            BetCount: "BetCount",
+            Turnover: "Turnover",
+            CustomerComm: "CustomerComm",
+            LicenseeWL: "LicenseeWL",
+            LicenseeComm: "LicenseeComm",
+            LicenseeNetWL: "LicenseeNetWL",
+            Margin: "Margin"
+        }
 
-            const result = service.getHeaderText();
+        it('GroupBy Product and ReportBy Summary: header text should has correct content', () => {
+            expectedResult.ReportBy = "Month";
+            expectedResult.GroupBy = "Product";
+            const ReportBy = 1;
+            const GroupBy = 1;
+            const result = service.getHeaderText(ReportBy, GroupBy);
+
+            expect(result).toEqual(expectedResult);
+        })
+
+        it('GroupBy Currency and ReportBy Daily: header text should has correct content', () => {
+            expectedResult.ReportBy = "Date";
+            expectedResult.GroupBy = "Currency";
+            const ReportBy = 2;
+            const GroupBy = 2;
+            const result = service.getHeaderText(ReportBy, GroupBy);
 
             expect(result).toEqual(expectedResult);
         })

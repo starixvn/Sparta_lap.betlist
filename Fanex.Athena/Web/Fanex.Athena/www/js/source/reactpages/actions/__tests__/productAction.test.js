@@ -13,4 +13,16 @@ describe('productAction ', () => {
 
         expect(result).toEqual(expectedAction)
     })
+
+    it('setProductOptions - should create correct action', () => {
+        const data = [1,2,3];
+        const expectedAction = {
+            type: types.SET_PRODUCT_OPTIONS,
+            data: data
+        }
+
+        const result = actions.setProductOptions(data);
+
+        expect(result).toEqual(expectedAction)
+    })
 })

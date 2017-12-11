@@ -1,7 +1,7 @@
-import * as XLSX from 'xlsx-style';
+import * as XLSX from 'xlsx-style-sparta';
 import Excel from '../excel';
 
-jest.mock('xlsx-style');
+jest.mock('xlsx-style-sparta');
 
 const originalDownloadFunction = Excel.download;
 
@@ -41,6 +41,14 @@ describe('Excel ', () => {
 
             expect(Excel.download).toHaveBeenCalledWith(worksheetContent, filename);
         })
+    })
+
+    it('getCellType - return correct result', () => {
+        const value = 123;
+
+        var result = Excel.getCellType(value);
+
+        expect(result).toBe("n");
     })
 
     it('getCellAddress - XLSX.utils.encode_cell should be called with correct parameter', () => {

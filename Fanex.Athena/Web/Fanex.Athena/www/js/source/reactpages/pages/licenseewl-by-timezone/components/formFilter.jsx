@@ -9,6 +9,7 @@ import LangHelper from '../../../lib/langHelper'
 import ReportExcel from '../lib/reportExcel'
 import Site from '../../../lib/site'
 import service from '../lib/service'
+import { SettingConst } from '../constants/settingConst'
 
 const RANGE_MONTH_CONSTRAINT = 3;
 
@@ -59,7 +60,7 @@ export class FormFilter extends Component {
 
     changeGroupBy = (value) => {
         this.props.changeGroupBy(value);
-        if (value === 1)
+        if (value === SettingConst.GroupByProduct && this.props.selectedCurrency.value === 0)
         {
             this.props.changeIsConvertAll(true);
         }

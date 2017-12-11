@@ -5,7 +5,7 @@ const emptyState = {};
 
 const reducerList = [
     { name: "selectedProduct", actionType: types.SET_SELECTED_PRODUCT, expected: "SB,BA" },
-    { name: "productOptions", actionType: types.GET_PRODUCT_OPTIONS, expected: [{ Code: "SB", Name: "SB", Status: true }] }
+    { name: "productOptions", actionType: types.SET_PRODUCT_OPTIONS, expected: [{ Code: "SB", Name: "SB", Status: true }] }
 ]
 
 describe('productReducer ', () => {
