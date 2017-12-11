@@ -3094,4 +3094,8 @@
     <value>Group By</value>
     <comment>84932</comment>
   </data>
+  <data name="WinLossByTimeZone" xml:space="preserve">
+    <value>Win Loss By Time Zone</value>
+    <comment>84932</comment>
+  </data>
 </root>

@@ -23,11 +23,11 @@ export class DataGrid extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.gridData !== nextProps.gridData) {
-            const { groupBy, selectedReportBy, selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency } = nextProps;
+            const { groupBy, selectedReportBy, selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency, isConvertAll } = nextProps;
             this.groupBy = groupBy;
             this.selectedReportBy = selectedReportBy;
             this.selectedBaseCurrency = selectedBaseCurrency;
-            this.reportTitle = service.getReportTitle(selectedTimeZone, dateRange, selectedCurrency.label, selectedBaseCurrency);
+            this.reportTitle = service.getReportTitle(selectedTimeZone, dateRange, selectedCurrency.label, selectedBaseCurrency, isConvertAll);
             this.props.toggleLoader(false);
         }
     }
@@ -153,8 +153,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
                 }
 function mapStateToProps(state) {
-    const { gridData, groupBy, selectedReportBy, selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency, isLoading } = state;
-    return Object.assign({}, { gridData, groupBy, selectedReportBy, selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency, isLoading });
+    const { gridData, groupBy, selectedReportBy, selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency, isLoading, isConvertAll } = state;
+    return Object.assign({}, { gridData, groupBy, selectedReportBy, selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency, isLoading, isConvertAll });
                 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

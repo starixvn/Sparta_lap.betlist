@@ -97,7 +97,7 @@ export default class ReportExcel {
     constructor(gridData = {}, title, reportBy, groupBy, baseCurrency) {
         this.worksheet = {};
         this.title = title;
-        this.fileName = "LicenseeWinLossByTimeZone";
+        this.fileName = "WinLossByTimeZone";
         this.gridData = gridData;
         this.reportBy = reportBy;
         this.groupBy = groupBy;

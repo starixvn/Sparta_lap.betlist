@@ -8449,6 +8449,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Win Loss By Time Zone.
+        /// </summary>
+        public static string WinLossByTimeZone {
+            get {
+                return ResourceManager.GetString("WinLossByTimeZone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Win Place.
         /// </summary>
         public static string WinPlace {

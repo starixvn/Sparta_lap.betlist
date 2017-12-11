@@ -51,7 +51,7 @@ export class FormFilter extends Component {
                 return;
             }
 
-            const title = service.getReportTitle(selectedTimeZone, dateRange, selectedCurrency.label, selectedBaseCurrency);
+            const title = service.getReportTitle(selectedTimeZone, dateRange, selectedCurrency.label, selectedBaseCurrency, this.props.isConvertAll);
             const excel = new ReportExcel(response.data, title, this.props.selectedReportBy, this.props.groupBy, selectedBaseCurrency);
             excel.export();
             this.props.toggleLoader(false);
@@ -121,7 +121,7 @@ export class FormFilter extends Component {
     _renderProductSelectList() {
         const { productOptions } = this.props;
         return productOptions && productOptions.length ? (
-            <MultipleSelect
+            <MultipleSelect id="ProductList"
                 dataSource={this.props.productOptions}
                 keyField={"Code"}
                 valueField={"Name"}
