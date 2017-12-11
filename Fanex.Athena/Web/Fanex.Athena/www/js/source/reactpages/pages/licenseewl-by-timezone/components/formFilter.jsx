@@ -43,6 +43,13 @@ export class FormFilter extends Component {
 
         this.props.toggleLoader(true);
         this.props.exportExcel(params).then(response => {
+            if(response.data.Data.length === 0)
+            {
+                alert(LangHelper.getSingleResource("NoInfo"));
+                this.props.toggleLoader(false);
+                return;
+            }
+
             const title = service.getReportTitle(selectedTimeZone, dateRange, selectedCurrency.label, selectedBaseCurrency);
             const excel = new ReportExcel(response.data, title, this.props.selectedReportBy, this.props.groupBy, selectedBaseCurrency);
             excel.export();
@@ -52,7 +59,7 @@ export class FormFilter extends Component {
 
     changeGroupBy = (value) => {
         this.props.changeGroupBy(value);
-        if(value === 1)
+        if (value === 1)
         {
             this.props.changeIsConvertAll(true);
         }
@@ -236,8 +243,8 @@ export class FormFilter extends Component {
                     <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <div className="checkbox-group">
-                                <input type="checkbox" className="checkbox" checked={this.props.groupBy === 1 || this.props.isConvertAll} id="IsConvertAll"
-                                 disabled={this.props.groupBy === 1}
+                                <input type="checkbox" className="checkbox" checked={(this.props.groupBy === 1 && this.props.selectedCurrency.value == 0) || this.props.isConvertAll} id="IsConvertAll"
+                                 disabled={this.props.groupBy === 1 && this.props.selectedCurrency.value == 0}
                                 onChange={() => this.props.changeIsConvertAll(!this.props.isConvertAll)} />
                                 <label htmlFor="IsConvertAll">{LangHelper.getSingleResource("ConvertAllFiguresToBaseCurrency")}</label>
                             </div>

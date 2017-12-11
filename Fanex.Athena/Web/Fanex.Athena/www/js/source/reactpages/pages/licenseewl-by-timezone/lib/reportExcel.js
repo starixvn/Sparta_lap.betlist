@@ -1,3 +1,4 @@
+import NumberFormat from '../../../lib/numberFormat'
 import moment from 'moment'
 import Excel from '../../../lib/excel'
 import LangHelper from '../../../lib/langHelper'
@@ -201,6 +202,10 @@ export default class ReportExcel {
         else if (columnIndex === REPORTBY_COLUMN_INDEX)
         {
             value = moment(value).format(this.reportBy === SettingConst.ReportByDaily ? "MM/DD/YYYY" : "MM/YYYY");
+        }
+        else if (columnIndex === MARGIN_COLUMN_INDEX)
+        {
+            value /= 100; // percentage
         }
 
         return { cellAddress, type, value, style };

@@ -21,7 +21,7 @@ export const bodyCellStyle = {
     number: { numFmt: "#,##0" },
     decimal: bodyDecimalStyle,
     negativeDecimal: {...bodyDecimalStyle, font: { color: { rgb: "FF0000" } } },
-    percent: { numFmt: "#,##0.00\\%" },
+    percent: { numFmt: '#,##0.00%' }
 }
 
 const totalTextStyle = { font: { bold: true } };
@@ -47,5 +47,5 @@ export const grandTotalCellStyle = {
     number: {...grandTotalTextStyle, numFmt: "#,##0" },
     decimal: decimalGrandTotalStyle,
     negativeDecimal: {...decimalGrandTotalStyle, font: { bold: true, color: { rgb: "FF0000" } } },
-    percent: {...grandTotalTextStyle, numFmt: "#,##0.00\\%" },
+    percent: {...grandTotalTextStyle, numFmt: "#,##0.00%" },
 }
