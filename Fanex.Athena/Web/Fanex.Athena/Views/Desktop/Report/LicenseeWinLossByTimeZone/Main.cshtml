@@ -8,7 +8,9 @@
 @{
     var productOptions = Model.ProductOptionList;
     var selectedProductCode = string.Join(",", productOptions.Where(x => x.Status).Select(x => x.Code).ToArray());
-    var baseCurrencyList = SystemConstants.BaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
+    var baseCurrencyList = SystemConstants.BaseCurrencyList.Concat(new[] { "MYR", "CNY", "THB", "IDR" })
+        .Select(c => new { value = c, label = c }).ToList();
+    
     var timeZoneList = new List<dynamic> {
         new { value = -4, label = "GMT-4" },
         new { value = 8, label = "GMT+8" }

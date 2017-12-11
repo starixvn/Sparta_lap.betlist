@@ -114,14 +114,14 @@ export class FormFilter extends Component {
     _renderTimeZoneSelectList() {
         const { timeZoneList, selectedTimeZone } = this.props;
 
-        return <Select value={selectedTimeZone} options={timeZoneList}
+        return <Select instanceId="ddlTimeZone" value={selectedTimeZone} options={timeZoneList}
                 onChange={this.changeTimeZone} />
     }
 
     _renderReportBySelectList() {
         const { reportByList, selectedReportBy } = this.props;
 
-        return <Select value={selectedReportBy} options={reportByList}
+        return <Select instanceId="ddlReportBy" value={selectedReportBy} options={reportByList}
                 onChange={(item) => this.props.setSelectedReportBy(item.value)} />
     }
 
@@ -142,8 +142,7 @@ export class FormFilter extends Component {
     _renderCurrencySelectList() {
         const { currencyList, selectedCurrency } = this.props;
         
-        return <Select id="ddlCurrency"
-                name="form-field-name"
+        return <Select instanceId="ddlCurrency"
                 value={selectedCurrency.value}
                 options={currencyList}
                 onChange={(item) => this.props.setSelectedCurrency(item)} />
@@ -153,8 +152,7 @@ export class FormFilter extends Component {
         const { baseCurrencyList, selectedBaseCurrency } = this.props;
 
         return baseCurrencyList && baseCurrencyList.length ? (
-            <Select id="ddlBased"
-                name="form-field-name"
+            <Select instanceId="ddlBased"
                 value={selectedBaseCurrency}
                 options={baseCurrencyList}
                 onChange={(item) => this.props.setSelectedBaseCurrency(item.value)} />
