@@ -3589,7 +3589,6 @@ var Service = function () {
     _createClass(Service, null, [{
         key: 'getReportTitle',
         value: function getReportTitle(timeZone, dateRange, currency, baseCurrency, isConvertAll) {
-            console.log(isConvertAll);
             var fromDate = _site2.default.convertDateToString(dateRange.fromDate);
             var toDate = _site2.default.convertDateToString(dateRange.toDate);
             var viewInByCurrency = isConvertAll ? ", " + _langHelper2.default.getSingleResource("BaseCurrency") + ": " + baseCurrency : "";
@@ -6487,11 +6486,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
     }, {
         key: 'isValidModel',
         get: function get() {
-            var _props6 = this.props,
-                selectedSubsidiary = _props6.selectedSubsidiary,
-                selectedProduct = _props6.selectedProduct;
-
-            return selectedSubsidiary !== "" && selectedProduct !== "";
+            return this.props.selectedProduct !== "";
         }
     }]);
 
