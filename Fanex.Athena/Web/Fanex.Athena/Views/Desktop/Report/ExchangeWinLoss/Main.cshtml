@@ -30,7 +30,9 @@
         reportByOption: @Html.Raw(reportByOption.ToJson()),
         selectedReportBy: @Model.ReportBy,
         excludeTestDataOption: @Html.Raw(excludeTestDataOption.ToJson()),
-        selectedExcludeTestData: true,
+        selectedExcludeTestData: @Model.ExcludeTestData.ToJson(),
+        isAllowedCustomerComm: @Model.IsAllowedCustomerComm.ToJson(),
+        licenseeId: @Model.LicenseeId,
         xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
         isLoading: false,
         dateConstraint: { minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'}

@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Service.Report
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Athena.Model.Core.ResultModel;
@@ -13,7 +12,7 @@
     {
         public ReportResultModel<ExchangeWinLoss> GetData(ExchangeWinLossMetaModel metaModel)
         {
-            var dataList = GetMainData();
+            var dataList = GetMainData(metaModel);
             return new ReportResultModel<ExchangeWinLoss>
             {
                 DataList = dataList,
@@ -22,15 +21,16 @@
             };
         }
 
-        private IEnumerable<ExchangeWinLoss> GetMainData()
+        private IEnumerable<ExchangeWinLoss> GetMainData(ExchangeWinLossMetaModel metaModel)
         {
             var data = new List<ExchangeWinLoss>();
+            var dateCount = metaModel.ToDate.Subtract(metaModel.FromDate).Days;
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < dateCount; i++)
             {
                 data.Add(new ExchangeWinLoss
                 {
-                    Date = DateTime.Today.AddDays(-i),
+                    Date = metaModel.FromDate.AddDays(i),
                     CurrencyName = i.ToString(),
                     CurrencyId = i,
                     ExternalId = "ExternalId" + i,
@@ -41,7 +41,9 @@
                     CustomerComm = i,
                     LicenseeWL = -i,
                     LicenseeComm = i,
-                    AmountDueTo = i
+                    AmountDueTo = i,
+                    CusId = i,
+                    NetTurnover = i
                 });
             }
 
@@ -60,7 +62,8 @@
                 CustomerComm = g.Sum(x => x.CustomerComm),
                 LicenseeWL = g.Sum(x => x.LicenseeWL),
                 LicenseeComm = g.Sum(x => x.LicenseeComm),
-                AmountDueTo = g.Sum(x => x.AmountDueTo)
+                AmountDueTo = g.Sum(x => x.AmountDueTo),
+                NetTurnover = g.Sum(x => x.NetTurnover)
             }).ToList();
         }
 

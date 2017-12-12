@@ -14,7 +14,11 @@
 
         public string SystemId { get; set; }
 
+        public int CusId { get; set; }
+
         public decimal Turnover { get; set; }
+
+        public decimal NetTurnover { get; set; }
 
         public decimal TotalTransaction { get; set; }
 

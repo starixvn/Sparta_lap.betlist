@@ -17,6 +17,7 @@
 
         private ExchangeWinLossViewModel CreateViewModel()
         {
+            var licensee = SessionService.LicenseeSession;
             var currencyList = new Dictionary<int, string>
             {
                 { BaseCurrencyType.All, ViewResources.All },
@@ -33,7 +34,9 @@
             return new ExchangeWinLossViewModel
             {
                 CurrencyList = currencyList,
-                CurrencyId = GetConvetedUSDCurrencyId(SessionService.LicenseeSession.LicenseeId),
+                CurrencyId = GetConvetedUSDCurrencyId(licensee.LicenseeId),
+                IsAllowedCustomerComm = licensee.IsAllowedCustomerComm,
+                LicenseeId = licensee.LicenseeId,
                 ReportByOption = new Dictionary<byte, string>
                 {
                     { ReportByType.Daily, ViewResources.Daily },

@@ -9,6 +9,7 @@ const headerText = {
     systemId: LangHelper.getSingleResource('SystemId'),
     currency: LangHelper.getSingleResource('Currency'),
     turnover: LangHelper.getSingleResource('Turnover'),
+    netTurnover: LangHelper.getSingleResource('NetTurnover'),
     totalTransaction: LangHelper.getSingleResource('TotalTransaction'),
     customer: LangHelper.getSingleResource('Customer'),
     customerWL: LangHelper.getSingleResource('CustomerW_L'),

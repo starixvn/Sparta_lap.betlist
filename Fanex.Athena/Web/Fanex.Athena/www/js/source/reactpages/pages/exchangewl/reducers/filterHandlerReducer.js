@@ -48,3 +48,15 @@ export const params = createReducer({}, {
         return action.data;
     }
 })
+
+export const licenseeId = createReducer({}, {
+    [types.GET_LICENSEE](state, action) {
+        return action.data;
+    }
+})
+
+export const isAllowedCustomerComm = createReducer({}, {
+    [types.GET_ISALLOWED_CUSTOMERCOMM](state, action) {
+        return action.data;
+    }
+})

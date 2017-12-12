@@ -7,22 +7,26 @@ import NumberFormat from '../../../lib/numberFormat'
 import ReportTitle from '../../../components/ReportTitle'
 import service from '../lib/service'
 import { ReportLevel, ReportBy } from '../../../constants/report'
+import { Licensee } from '../../../constants/licensee'
 import NoDataTitle from '../../../components/NoDataTitle'
 import moment from 'moment'
 import Breadcrumb from '../../../components/breadcrumb/Breadcrumb'
 import Site from '../../../lib/site'
+import Report from '../../../lib/report'
 
 export class DataGrid extends Component {
     constructor(props) {
         super(props);
 
         this.reportTitle = '';
+        this.isAllowedCustomerComm = this.props.isAllowedCustomerComm;
+        this.licenseeId = this.props.licenseeId;
     }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.gridData !== nextProps.gridData) {
-            const { dateRange, selectedCurrency } = nextProps;
-            this.reportTitle = service.getReportTitle(dateRange, selectedCurrency.label);
+            const param = this.props.params[nextProps.gridData.level];
+            this.reportTitle = service.getReportTitle({ fromDate: param.FromDate, toDate: param.ToDate }, param.CurrencyName);
             this.props.toggleLoader(false);
         }
     }
@@ -39,7 +43,7 @@ export class DataGrid extends Component {
         }
     }
 
-    _getDrillDownParams(level, fromDate, toDate, currencyId, currencyName, custId) {
+    _getDrillDownParams(level, date, currencyId, currencyName, custId) {
         if (!this.props.xsrfToken) {
             return null;
         }
@@ -49,38 +53,49 @@ export class DataGrid extends Component {
             return null;
         }
 
-        param.CurrencyId = currencyId;
-        param.CurrencyName = currencyName;
-        param.FromDate = Site.convertDateToString(fromDate);
-        param.ToDate = Site.convertDateToString(toDate);
-        param.Level = level;
-        param.CustId = custId;
+        const drillDownDate = Report.getDrilldownDateRange(param.ReportBy, param.FromDate, param.ToDate, date);
+        const drillDownData = { 
+            ...param,
+            CurrencyId: currencyId,
+            CurrencyName: currencyName,
+            FromDate: Site.convertDateToString(moment(drillDownDate.fromDate)),
+            ToDate: Site.convertDateToString(moment(drillDownDate.toDate)),
+            Level: level,
+            CustId: custId
+        };
 
         let params = this.props.params;
-        params[level] = param;       
+        params[level] = drillDownData;       
         this.props.setParams(params);
 
         return {
             xsrfToken: this.props.xsrfToken,
-            data: param
+            data: drillDownData
         };
     }
 
-    _drillDownData(level) {
+    _drillDownData(level, date, currencyId, currencyName, custId) {
         const currentLevel = this.props.gridData.level;
 
-        if (currentLevel === level || level <= ReportLevel.MAIN || level > ReportLevel.CUSTOMER) {
+        if (currentLevel === level || level < ReportLevel.MAIN || level > ReportLevel.CUSTOMER) {
             return;
         }
 
         if (level > currentLevel) {
-            const params = this._getDrillDownParams(level);
+            const params = this._getDrillDownParams(level, date, currencyId, currencyName, custId);
             if (!params) {
                 return;
             }
 
             this.props.toggleLoader(true);
             this.props.getGridData(params);
+
+            let levelGridData = this.props.levelGridData;
+            if (!levelGridData) {
+                levelGridData = [];
+            }
+            levelGridData[level-1] = this.props.gridData.data;
+            this.props.setLevelGridData(levelGridData);
         }
         else {
             const data = this.props.levelGridData[level];
@@ -96,6 +111,11 @@ export class DataGrid extends Component {
         }
     }
 
+    
+    _renderDrillDownLink(text, level, date, currencyId, currencyName, custId) {
+        return <a onClick={()=>this._drillDownData(level, date, currencyId, currencyName, custId)} href='javascript:;'>{text}</a>
+   }
+
     _buildHeader(level, reportBy) {
         const headerText = service.getHeaderText();
         let headerRows = [];
@@ -108,23 +128,40 @@ export class DataGrid extends Component {
                 {level !== ReportLevel.MAIN ? <Cell colWidth={100} header={true} title={headerText.systemId} rowSpan='2'>{headerText.systemId}</Cell> : undefined}
                 <Cell colWidth={70} header={true} title={headerText.currency} rowSpan='2'>{headerText.currency}</Cell>
                 <Cell colWidth={100} header={true} title={headerText.turnover} rowSpan='2'>{headerText.turnover}</Cell>
+                <Cell colWidth={100} header={true} title={headerText.netTurnover} rowSpan='2'>{headerText.netTurnover}</Cell>
                 <Cell colWidth={80} header={true} title={headerText.totalTransaction} rowSpan='2'>{headerText.totalTransaction}</Cell>
-                <Cell colWidth={100} header={true} title={headerText.customer} colSpan='3'>{headerText.customer}</Cell>
+                {
+                    this.isAllowedCustomerComm
+                    ? <Cell colWidth={100} header={true} title={headerText.customer} colSpan='3'>{headerText.customer}</Cell>
+                    : <Cell colWidth={100} header={true} title={headerText.customerWL} rowSpan='2'>{headerText.customerWL}</Cell>
+                }
                 <Cell colWidth={100} header={true} title={headerText.licensee} colSpan='4'>{headerText.licensee}</Cell>
             </Row>
         );
 
-        headerRows.push(
-          <Row style={{ height: 32 }} key='tr-header2'>
-                <Cell colWidth={100} header={true} title={headerText.customerWL}>{headerText.customerWL}</Cell>
-                <Cell colWidth={100} header={true} title={headerText.customerComm}>{headerText.customerComm}</Cell>
-                <Cell colWidth={100} header={true} title={headerText.total}>{headerText.total}</Cell>
-                <Cell colWidth={100} header={true} title={headerText.licenseeWL}>{headerText.licenseeWL}</Cell>
-                <Cell colWidth={100} header={true} title={headerText.amountDueTo}>{headerText.amountDueTo}</Cell>
-                <Cell colWidth={100} header={true} title={headerText.licenseeComm}>{headerText.licenseeComm}</Cell>
-                <Cell colWidth={100} header={true} title={headerText.total}>{headerText.total}</Cell>
-            </Row>
-        );
+        if (this.isAllowedCustomerComm) {
+            headerRows.push(
+                <Row style={{ height: 32 }} key='tr-header2'>
+                    <Cell colWidth={100} header={true} title={headerText.customerWL}>{headerText.customerWL}</Cell>
+                    <Cell colWidth={100} header={true} title={headerText.customerComm}>{headerText.customerComm}</Cell>
+                    <Cell colWidth={100} header={true} title={headerText.total}>{headerText.total}</Cell>
+                    <Cell colWidth={100} header={true} title={headerText.licenseeWL}>{headerText.licenseeWL}</Cell>
+                    <Cell colWidth={100} header={true} title={headerText.amountDueTo}>{headerText.amountDueTo}</Cell>
+                    <Cell colWidth={100} header={true} title={headerText.licenseeComm}>{headerText.licenseeComm}</Cell>
+                    <Cell colWidth={100} header={true} title={headerText.total}>{headerText.total}</Cell>
+                </Row>
+            );
+        }
+        else {
+            headerRows.push(
+                <Row style={{ height: 32 }} key='tr-header2'>
+                    <Cell colWidth={100} header={true} title={headerText.licenseeWL}>{headerText.licenseeWL}</Cell>
+                    <Cell colWidth={100} header={true} title={headerText.amountDueTo}>{headerText.amountDueTo}</Cell>
+                    <Cell colWidth={100} header={true} title={headerText.licenseeComm}>{headerText.licenseeComm}</Cell>
+                    <Cell colWidth={100} header={true} title={headerText.total}>{headerText.total}</Cell>
+                </Row>
+            );
+        }
 
         return headerRows;
     }
@@ -141,8 +178,20 @@ export class DataGrid extends Component {
                     <Cell title={i+1} className='center-align'>{i+1}</Cell>
                     {level === ReportLevel.MAIN ? <Cell title={date} className='center-align'>{date}</Cell> : undefined}
                     {level === ReportLevel.CUSTOMER ? <Cell title={item.ExternalId} className='center-align'>{item.ExternalId}</Cell> : undefined}
-                    {level !== ReportLevel.MAIN ? <Cell title={item.SystemId} className='center-align'>{item.SystemId}</Cell> : undefined}
-                    <Cell title={item.CurrencyName} className='center-align'>{item.CurrencyName}</Cell>
+                    {
+                        level !== ReportLevel.MAIN
+                            ? <Cell title={item.SystemId} className='center-align'>
+                                {level === ReportLevel.LICENSEE ? this._renderDrillDownLink(item.SystemId, ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName) : item.SystemId}
+                            </Cell>
+                            : undefined
+                    }
+                    <Cell title={item.CurrencyName} className='center-align'>
+                    {
+                        level === ReportLevel.MAIN 
+                        ? this._renderDrillDownLink(item.CurrencyName, this.licenseeId === Licensee.ONE_TWO_BET ? ReportLevel.LICENSEE : ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName, item.CustId) 
+                        : item.CurrencyName
+                    }
+                    </Cell>
                     {this._buildCell(item)}
                 </Row>
             );
@@ -197,6 +246,7 @@ export class DataGrid extends Component {
 
     _buildCell(item) {
         const turnover = NumberFormat.formatDecimal(item.Turnover),
+            netTurnover = NumberFormat.formatDecimal(item.NetTurnover),
             totalTransaction = NumberFormat.format(item.TotalTransaction),
             customerWL = NumberFormat.formatDecimal(item.CustomerWL),
             customerComm = NumberFormat.formatDecimal(item.CustomerComm),
@@ -206,46 +256,51 @@ export class DataGrid extends Component {
             licenseeComm = NumberFormat.formatDecimal(item.LicenseeComm),
             licenseeWLTotal = NumberFormat.formatDecimal(item.LicenseeWLTotal);
 
-        var cells = 
+        let cells = 
             [<Cell key='turnover' title={turnover} className='right-align'>{turnover}</Cell>,
+            <Cell key='netturnover' title={netTurnover} className='right-align'>{netTurnover}</Cell>,
             <Cell key='totalTransaction' title={totalTransaction} className='right-align'>{totalTransaction}</Cell>,
             <Cell key='customerWL' title={customerWL} className='right-align'>{customerWL}</Cell>,
-            <Cell key='customerComm' title={customerComm} className='right-align'>{customerComm}</Cell>,
-            <Cell key='customerWLTotal' title={customerWLTotal} className='right-align'>{customerWLTotal}</Cell>,
+            this.isAllowedCustomerComm ? <Cell key='customerComm' title={customerComm} className='right-align'>{customerComm}</Cell> : undefined,
+            this.isAllowedCustomerComm ? <Cell key='customerWLTotal' title={customerWLTotal} className='right-align'>{customerWLTotal}</Cell> : undefined,
             <Cell key='licenseeWL' title={licenseeWL} className={`right-align ${item.LicenseeWL < 0 ? 'negative' : ''}`}>{licenseeWL}</Cell>,
             <Cell key='amountDueTo' title={amountDueTo} className='right-align'>{amountDueTo}</Cell>,
             <Cell key='licenseeComm' title={licenseeComm} className='right-align'>{licenseeComm}</Cell>,
-            <Cell key='licenseeWLTotal' title={licenseeWLTotal} className={`right-align ${item.LicenseeWLTotal < 0 ? 'negative' : ''}`}>{licenseeWLTotal}</Cell>]
-        ;
+            <Cell key='licenseeWLTotal' title={licenseeWLTotal} className={`right-align ${item.LicenseeWLTotal < 0 ? 'negative' : ''}`}>{licenseeWLTotal}</Cell>];
 
         return cells;
     }
 
     _renderBreadcrumb() {
+        const breadcrumbText = service.getBreadcrumbText();
         const items = [{
-                    label: '1',
-                    value: ReportLevel.MAIN,               
-                },{
-                    label: '2',
-                    value: ReportLevel.LICENSEE,               
-                },{
-                    label: '3',
-                    value: ReportLevel.CUSTOMER,               
+                    label: breadcrumbText.main,
+                    value: ReportLevel.MAIN,        
                 }];
 
-        return <Breadcrumb items={items} value={this.props.gridData.level} />
+        if (Number(this.licenseeId) === Licensee.ONE_TWO_BET) {
+            items.push({
+                label: breadcrumbText.licensee,
+                value: ReportLevel.LICENSEE,          
+            });
+        }
+
+        items.push({
+            label: breadcrumbText.customer,
+            value: ReportLevel.CUSTOMER,           
+        });
+
+        return <Breadcrumb items={items} value={this.props.gridData.level} onChange={(item) => this._drillDownData(item.value)} />
     }
 
     _renderNodata() {
         return (
             <div className="result-content">
+                {this._renderBreadcrumb()}
                 <ReportTitle content={this.reportTitle} />
                 <NoDataTitle />
             </div>
         )
-    }
-
-    _renderDrillDownLink(item, level) {
     }
 
     render() {
@@ -285,8 +340,8 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps(state) {
-    const { gridData, dateRange, selectedCurrency, selectedReportBy, excludeTestDataOption, isLoading, params } = state;
-    return Object.assign({}, { gridData, dateRange, selectedCurrency, selectedReportBy, excludeTestDataOption, isLoading, params });
+    const { gridData, dateRange, selectedCurrency, selectedReportBy, excludeTestDataOption, isLoading, params, xsrfToken, levelGridData, licenseeId, isAllowedCustomerComm } = state;
+    return Object.assign({}, { gridData, dateRange, selectedCurrency, selectedReportBy, excludeTestDataOption, isLoading, params, xsrfToken, levelGridData, licenseeId, isAllowedCustomerComm });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

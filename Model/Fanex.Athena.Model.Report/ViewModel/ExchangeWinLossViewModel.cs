@@ -25,7 +25,11 @@
 
         public bool ExcludeTestData { get; set; }
 
+        public bool IsAllowedCustomerComm { get; set; }
+
         public int CurrencyId { get; set; }
+
+        public int LicenseeId { get; set; }
 
         public IDictionary<int, string> CurrencyList { get; set; }
 

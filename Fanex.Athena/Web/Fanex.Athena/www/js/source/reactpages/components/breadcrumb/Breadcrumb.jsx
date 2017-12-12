@@ -9,12 +9,21 @@ class BreadcrumbItem extends Component {
         this.state = {
             value: this.props.value
         };
+        this.items = this.props.items;
     }
 
     static propTypes = {
         items: PropTypes.arrayOf(PropTypes.object).isRequired,
         value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         onChange: PropTypes.func
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.value !== nextProps.value) {
+            this.setState({
+                value: nextProps.value
+            });
+        }
     }
 
     onChange(item) {
@@ -30,12 +39,11 @@ class BreadcrumbItem extends Component {
     }
 
     _renderItem() {
-        const items = this.props.items;
         const value = this.state.value;
         let breadcrumbItems = [];
 
-        for (let i = 0; i< items.length; i++) {
-            const item = items[i];
+        for (let i = 0; i< this.items.length; i++) {
+            const item = this.items[i];
             const isActive = item.value === value;
 
             breadcrumbItems.push(

@@ -3160,12 +3160,4 @@
     <value>Exchange Win Loss</value>
     <comment>86640</comment>
   </data>
-  <data name="CustomerComm" xml:space="preserve">
-    <value>Customer Comm</value>
-    <comment>86640</comment>
-  </data>
-  <data name="LicenseeComm" xml:space="preserve">
-    <value>Licensee Comm</value>
-    <comment>86640</comment>
-  </data>
 </root>

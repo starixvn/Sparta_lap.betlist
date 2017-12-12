@@ -912,6 +912,7 @@
     <Content Include="www\js\source\reactpages\components\__tests__\ReportTitle.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\UserGuide.test.js" />
     <Content Include="www\js\source\reactpages\constants\config.js" />
+    <Content Include="www\js\source\reactpages\constants\licensee.js" />
     <Content Include="www\js\source\reactpages\constants\report.js" />
     <Content Include="www\js\source\reactpages\layouts\AppLayout.jsx" />
     <Content Include="www\js\source\reactpages\lib\excel.js" />
@@ -919,6 +920,7 @@
     <Content Include="www\js\source\reactpages\lib\langHelper.js" />
     <Content Include="www\js\source\reactpages\lib\logger.js" />
     <Content Include="www\js\source\reactpages\lib\numberFormat.js" />
+    <Content Include="www\js\source\reactpages\lib\report.js" />
     <Content Include="www\js\source\reactpages\lib\site.js" />
     <Content Include="www\js\source\reactpages\lib\store.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\excel.test.js" />
