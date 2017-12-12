@@ -19,8 +19,7 @@ export class FormFilter extends Component {
     }
 
     get isValidModel() {
-        const { selectedSubsidiary, selectedProduct } = this.props;
-        return selectedSubsidiary !== "" && selectedProduct !== "";
+        return this.props.selectedProduct !== "";
     }
 
     submit = (event) => {

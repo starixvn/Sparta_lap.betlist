@@ -28,10 +28,10 @@ describe('service ', () => {
         it('positive time zone: return correct content', () => {
             const timeZone = 8;
 
-            const expectedResult = `LicenseeWinLoss, GMT+8, ${fromDate} → ${toDate}, Currency: ${currency}, BaseCurrency: ${baseCurrency}`
+            const expectedResult = `WinLossByTimeZone, GMT+8, ${fromDate} → ${toDate}, Currency: ${currency}, BaseCurrency: ${baseCurrency}`
             const dateRange = { fromDate, toDate };
 
-            const result = service.getReportTitle(timeZone, dateRange, currency, baseCurrency);
+            const result = service.getReportTitle(timeZone, dateRange, currency, baseCurrency, true);
 
             expect(result).toBe(expectedResult);
         })
@@ -39,10 +39,10 @@ describe('service ', () => {
         it('negative time zone: return correct content', () => {
             const timeZone = -4;
 
-            const expectedResult = `LicenseeWinLoss, GMT-4, ${fromDate} → ${toDate}, Currency: ${currency}, BaseCurrency: ${baseCurrency}`
+            const expectedResult = `WinLossByTimeZone, GMT-4, ${fromDate} → ${toDate}, Currency: ${currency}`
             const dateRange = { fromDate, toDate };
 
-            const result = service.getReportTitle(timeZone, dateRange, currency, baseCurrency);
+            const result = service.getReportTitle(timeZone, dateRange, currency, baseCurrency, false);
 
             expect(result).toBe(expectedResult);
         })

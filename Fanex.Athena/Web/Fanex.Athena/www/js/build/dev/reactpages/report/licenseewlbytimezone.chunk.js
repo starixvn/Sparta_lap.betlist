@@ -2011,7 +2011,7 @@ var MultipleSelectLabel = function (_Component) {
             if (selectedItemCount >= maxDisplayItemCount) {
                 displayText = selectedItemCount + ' selected';
             } else if (selectedItemCount >= 1) {
-                displayText = selectedValues.join(",");
+                displayText = selectedValues.join(", ");
             }
 
             return displayText;

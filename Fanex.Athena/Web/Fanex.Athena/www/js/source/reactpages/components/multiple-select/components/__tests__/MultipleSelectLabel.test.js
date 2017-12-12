@@ -44,7 +44,7 @@ describe('MultipleSelectLabel ', () => {
         })
 
         it('has selected item and item count is less than maxDisplayItemCount - return value of selected items with comma separator', () => {
-            const expectedResult = "valueDefault,value1";
+            const expectedResult = "valueDefault, value1";
             const selectedItems = [defaultSelectedItem, { key: "key1", value: "value1" }];
 
             const props = Object.assign({}, defaultProps, { selectedItems });

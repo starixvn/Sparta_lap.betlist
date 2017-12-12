@@ -20,6 +20,7 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
         </label>
         <div
           className="multiple-select-container"
+          id="multiple-select-1"
         >
           <button
             className="multiple-select-default multiple-select-label"
@@ -1934,6 +1935,7 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
         </label>
         <div
           className="multiple-select-container"
+          id="multiple-select-2"
         >
           <button
             className="multiple-select-default multiple-select-label"
@@ -1942,9 +1944,9 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
           >
             <span
               className="text-display"
-              title="Sportsbook,BA"
+              title="Sportsbook, BA"
             >
-              Sportsbook,BA
+              Sportsbook, BA
             </span>
             <b
               className="caret"

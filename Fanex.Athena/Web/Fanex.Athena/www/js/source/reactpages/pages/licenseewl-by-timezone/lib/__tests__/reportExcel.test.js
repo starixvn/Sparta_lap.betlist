@@ -8,7 +8,7 @@ import { totalData, bodyData } from './fakeData';
 
 const gridData = { Data: bodyData, Total: totalData};
 const title = "Report Title";
-const fileName = "LicenseeWinLossByTimeZone";
+const fileName = "WinLossByTimeZone";
 
 const COLUMN_COUNT = 10;
 const TITLE_ROW_INDEX = 0;

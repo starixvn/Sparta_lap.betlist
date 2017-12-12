@@ -16,7 +16,6 @@ const headerText = {
 
 export default class Service {
     static getReportTitle(timeZone, dateRange, currency, baseCurrency, isConvertAll) {
-        console.log(isConvertAll)
         const fromDate = Site.convertDateToString(dateRange.fromDate);
         const toDate = Site.convertDateToString(dateRange.toDate);
         const viewInByCurrency = isConvertAll ? ", " + LangHelper.getSingleResource("BaseCurrency") + ": " + baseCurrency : "";
