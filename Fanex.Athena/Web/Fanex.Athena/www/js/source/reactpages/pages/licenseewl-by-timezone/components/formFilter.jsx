@@ -168,7 +168,7 @@ export class FormFilter extends Component {
             <div className="page-filter">
                 <div className="row">
 
-                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-3 col-sm-3 col-lg-3 col-xl-3">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Date")}</label>
                             {this._renderDateRange()}
@@ -205,7 +205,7 @@ export class FormFilter extends Component {
                 </div>
 
                 <div className="row">
-                 <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                 <div className="col-12 col-md-3 col-sm-3 col-lg-3 col-xl-3">
                         <div className="form-group">
                                <label className="label-text">{LangHelper.getSingleResource("GroupBy")}</label>
                                 <input type="radio" value={1} checked={this.props.groupBy == 1} name="GroupBy" id="GroupByProduct"
@@ -232,7 +232,7 @@ export class FormFilter extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-3 col-sm-3 col-lg-3 col-xl-3">
                         <div className="form-group">
                             <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={(this.props.groupBy === 1 && this.props.selectedCurrency.value == 0) || this.props.isConvertAll} id="IsConvertAll"
@@ -242,7 +242,7 @@ export class FormFilter extends Component {
                             </div>
                         </div>
                     </div>
-                     <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                     <div className="col-12 col-md-1 col-sm-1 col-lg-1 col-xl-1">
                         <div className="form-group">
                           <div className="button-group">
                             <button disabled={!this.isValidModel} type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>

@@ -7,6 +7,54 @@ webpackJsonp([1],{
 
 
 Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var NumberFormat = function () {
+    function NumberFormat() {
+        _classCallCheck(this, NumberFormat);
+    }
+
+    _createClass(NumberFormat, null, [{
+        key: "formatDecimal",
+        value: function formatDecimal(value) {
+            return this.format(value, 2);
+        }
+    }, {
+        key: "format",
+        value: function format(value) {
+            var digits = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+            if (typeof value !== "number" || isNaN(value)) {
+                return "";
+            }
+
+            var sign = value < 0 ? -1 : 1;
+            var shift = Math.pow(10, digits);
+            var rounded = Math.round(Math.abs(value) * shift) / shift;
+
+            return (sign * rounded).toFixed(digits).replace(/(\d)(?=(\d{3})+(\.|$))/g, "$1,");
+        }
+    }]);
+
+    return NumberFormat;
+}();
+
+exports.default = NumberFormat;
+
+/***/ }),
+
+/***/ 102:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var FETCH_DATA = exports.FETCH_DATA = 'FETCH_DATA';
@@ -98,38 +146,6 @@ var TOGGLE_LOADER = exports.TOGGLE_LOADER = "TOGGLE_LOADER";
 
 /***/ }),
 
-/***/ 159:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.setProductOptions = exports.setSelectedProduct = undefined;
-
-var _types = __webpack_require__(15);
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var setSelectedProduct = exports.setSelectedProduct = function setSelectedProduct(product) {
-    return {
-        type: types.SET_SELECTED_PRODUCT,
-        data: product
-    };
-};
-var setProductOptions = exports.setProductOptions = function setProductOptions(productList) {
-    return {
-        type: types.SET_PRODUCT_OPTIONS,
-        data: productList
-    };
-};
-
-/***/ }),
-
 /***/ 16:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -195,6 +211,38 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.setProductOptions = exports.setSelectedProduct = undefined;
+
+var _types = __webpack_require__(15);
+
+var types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var setSelectedProduct = exports.setSelectedProduct = function setSelectedProduct(product) {
+    return {
+        type: types.SET_SELECTED_PRODUCT,
+        data: product
+    };
+};
+var setProductOptions = exports.setProductOptions = function setProductOptions(productList) {
+    return {
+        type: types.SET_PRODUCT_OPTIONS,
+        data: productList
+    };
+};
+
+/***/ }),
+
+/***/ 161:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 exports.setSelectedBaseCurrency = undefined;
 
 var _types = __webpack_require__(15);
@@ -212,7 +260,7 @@ var setSelectedBaseCurrency = exports.setSelectedBaseCurrency = function setSele
 
 /***/ }),
 
-/***/ 161:
+/***/ 162:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -238,7 +286,7 @@ var toggleLoader = exports.toggleLoader = function toggleLoader(show) {
 
 /***/ }),
 
-/***/ 162:
+/***/ 163:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -249,15 +297,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Cell = exports.Row = exports.Table = undefined;
 
-var _Table = __webpack_require__(163);
+var _Table = __webpack_require__(164);
 
 var _Table2 = _interopRequireDefault(_Table);
 
-var _Row = __webpack_require__(166);
+var _Row = __webpack_require__(167);
 
 var _Row2 = _interopRequireDefault(_Row);
 
-var _Cell = __webpack_require__(167);
+var _Cell = __webpack_require__(168);
 
 var _Cell2 = _interopRequireDefault(_Cell);
 
@@ -269,7 +317,7 @@ exports.Cell = _Cell2.default;
 
 /***/ }),
 
-/***/ 163:
+/***/ 164:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -291,7 +339,7 @@ var _reactDom = __webpack_require__(8);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _RowLayout = __webpack_require__(164);
+var _RowLayout = __webpack_require__(165);
 
 var _RowLayout2 = _interopRequireDefault(_RowLayout);
 
@@ -299,7 +347,7 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _tableSection = __webpack_require__(165);
+var _tableSection = __webpack_require__(166);
 
 var _tableSection2 = _interopRequireDefault(_tableSection);
 
@@ -537,7 +585,7 @@ exports.default = Table;
 
 /***/ }),
 
-/***/ 164:
+/***/ 165:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -607,7 +655,7 @@ exports.default = RowLayout;
 
 /***/ }),
 
-/***/ 165:
+/***/ 166:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -748,7 +796,7 @@ exports.default = createTableSection;
 
 /***/ }),
 
-/***/ 166:
+/***/ 167:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -799,7 +847,7 @@ exports.default = Row;
 
 /***/ }),
 
-/***/ 167:
+/***/ 168:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -868,54 +916,6 @@ Cell.defaultProps = {
     header: false
 };
 exports.default = Cell;
-
-/***/ }),
-
-/***/ 168:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var NumberFormat = function () {
-    function NumberFormat() {
-        _classCallCheck(this, NumberFormat);
-    }
-
-    _createClass(NumberFormat, null, [{
-        key: "formatDecimal",
-        value: function formatDecimal(value) {
-            return this.format(value, 2);
-        }
-    }, {
-        key: "format",
-        value: function format(value) {
-            var digits = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-            if (typeof value !== "number" || isNaN(value)) {
-                return "";
-            }
-
-            var sign = value < 0 ? -1 : 1;
-            var shift = Math.pow(10, digits);
-            var rounded = Math.round(Math.abs(value) * shift) / shift;
-
-            return (sign * rounded).toFixed(digits).replace(/(\d)(?=(\d{3})+(\.|$))/g, "$1,");
-        }
-    }]);
-
-    return NumberFormat;
-}();
-
-exports.default = NumberFormat;
 
 /***/ }),
 
@@ -3122,7 +3122,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _xlsxStyleSparta = __webpack_require__(140);
+var _xlsxStyleSparta = __webpack_require__(141);
 
 var XLSX = _interopRequireWildcard(_xlsxStyleSparta);
 
@@ -3522,7 +3522,7 @@ var _filterHandlerAction = __webpack_require__(735);
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
 
-var _productAction = __webpack_require__(159);
+var _productAction = __webpack_require__(160);
 
 var productAction = _interopRequireWildcard(_productAction);
 
@@ -3530,11 +3530,11 @@ var _currencyAction = __webpack_require__(736);
 
 var currencyAction = _interopRequireWildcard(_currencyAction);
 
-var _baseCurrencyAction = __webpack_require__(160);
+var _baseCurrencyAction = __webpack_require__(161);
 
 var baseCurrencyAction = _interopRequireWildcard(_baseCurrencyAction);
 
-var _loaderAction = __webpack_require__(161);
+var _loaderAction = __webpack_require__(162);
 
 var loaderAction = _interopRequireWildcard(_loaderAction);
 
@@ -3611,6 +3611,23 @@ var Service = function () {
 }();
 
 exports.default = Service;
+
+/***/ }),
+
+/***/ 198:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var SettingConst = exports.SettingConst = {
+    GroupByProduct: 1,
+    ReportBySummary: 1,
+    ReportByDaily: 2
+};
 
 /***/ }),
 
@@ -5262,23 +5279,6 @@ exports.default = function () {
 
 /***/ }),
 
-/***/ 416:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var SettingConst = exports.SettingConst = {
-    GroupByProduct: 1,
-    ReportBySummary: 1,
-    ReportByDaily: 2
-};
-
-/***/ }),
-
 /***/ 44:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5542,11 +5542,11 @@ exports.getGridData = getGridData;
 exports.exportExcel = exportExcel;
 exports.setGridData = setGridData;
 
-var _types = __webpack_require__(101);
+var _types = __webpack_require__(102);
 
 var types = _interopRequireWildcard(_types);
 
-var _axios = __webpack_require__(124);
+var _axios = __webpack_require__(125);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -5602,7 +5602,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.changeIsIncludeDrawData = exports.changeIsConvertAll = exports.changeGroupBy = exports.setDateRange = exports.setSelectedReportBy = exports.setSelectedTimeZone = undefined;
 
-var _types = __webpack_require__(101);
+var _types = __webpack_require__(102);
 
 var types = _interopRequireWildcard(_types);
 
@@ -5710,13 +5710,13 @@ var _index = __webpack_require__(196);
 
 var _redux = __webpack_require__(21);
 
-var _fixedTableHeader = __webpack_require__(162);
+var _fixedTableHeader = __webpack_require__(163);
 
 var _langHelper = __webpack_require__(14);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _numberFormat = __webpack_require__(168);
+var _numberFormat = __webpack_require__(101);
 
 var _numberFormat2 = _interopRequireDefault(_numberFormat);
 
@@ -5732,7 +5732,7 @@ var _service = __webpack_require__(197);
 
 var _service2 = _interopRequireDefault(_service);
 
-var _settingConst = __webpack_require__(416);
+var _settingConst = __webpack_require__(198);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5790,7 +5790,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 ),
                 this.selectedReportBy === _settingConst.SettingConst.ReportBySummary ? null : _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 100, header: true, title: headerText.ReportBy },
+                    { colWidth: 150, header: true, title: headerText.ReportBy },
                     headerText.ReportBy
                 ),
                 _react2.default.createElement(
@@ -6081,7 +6081,7 @@ var _service = __webpack_require__(197);
 
 var _service2 = _interopRequireDefault(_service);
 
-var _settingConst = __webpack_require__(416);
+var _settingConst = __webpack_require__(198);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6299,7 +6299,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     { className: 'row' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2' },
+                        { className: 'col-12 col-md-3 col-sm-3 col-lg-3 col-xl-3' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -6373,7 +6373,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     { className: 'row' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2' },
+                        { className: 'col-12 col-md-3 col-sm-3 col-lg-3 col-xl-3' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -6439,7 +6439,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2' },
+                        { className: 'col-12 col-md-3 col-sm-3 col-lg-3 col-xl-3' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -6461,7 +6461,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2' },
+                        { className: 'col-12 col-md-1 col-sm-1 col-lg-1 col-xl-1' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -6526,7 +6526,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7, _ref8, _ref9, _ref10;
 
-var _numberFormat = __webpack_require__(168);
+var _numberFormat = __webpack_require__(101);
 
 var _numberFormat2 = _interopRequireDefault(_numberFormat);
 
@@ -6548,7 +6548,7 @@ var _service = __webpack_require__(197);
 
 var _service2 = _interopRequireDefault(_service);
 
-var _settingConst = __webpack_require__(416);
+var _settingConst = __webpack_require__(198);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6829,7 +6829,7 @@ var _createReducer2 = __webpack_require__(26);
 
 var _createReducer3 = _interopRequireDefault(_createReducer2);
 
-var _types = __webpack_require__(101);
+var _types = __webpack_require__(102);
 
 var types = _interopRequireWildcard(_types);
 
@@ -6860,7 +6860,7 @@ var _createReducer11 = __webpack_require__(26);
 
 var _createReducer12 = _interopRequireDefault(_createReducer11);
 
-var _types = __webpack_require__(101);
+var _types = __webpack_require__(102);
 
 var types = _interopRequireWildcard(_types);
 
@@ -6961,7 +6961,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _redux = __webpack_require__(21);
 
-var _reduxThunk = __webpack_require__(122);
+var _reduxThunk = __webpack_require__(123);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -7009,7 +7009,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _reduxLogger = __webpack_require__(123);
+var _reduxLogger = __webpack_require__(124);
 
 var _config = __webpack_require__(195);
 

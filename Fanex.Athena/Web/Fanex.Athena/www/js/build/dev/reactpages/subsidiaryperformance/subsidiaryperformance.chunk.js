@@ -23,6 +23,54 @@ var GET_XSRF_TOKEN = exports.GET_XSRF_TOKEN = "GET_XSRF_TOKEN";
 
 /***/ }),
 
+/***/ 101:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var NumberFormat = function () {
+    function NumberFormat() {
+        _classCallCheck(this, NumberFormat);
+    }
+
+    _createClass(NumberFormat, null, [{
+        key: "formatDecimal",
+        value: function formatDecimal(value) {
+            return this.format(value, 2);
+        }
+    }, {
+        key: "format",
+        value: function format(value) {
+            var digits = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+            if (typeof value !== "number" || isNaN(value)) {
+                return "";
+            }
+
+            var sign = value < 0 ? -1 : 1;
+            var shift = Math.pow(10, digits);
+            var rounded = Math.round(Math.abs(value) * shift) / shift;
+
+            return (sign * rounded).toFixed(digits).replace(/(\d)(?=(\d{3})+(\.|$))/g, "$1,");
+        }
+    }]);
+
+    return NumberFormat;
+}();
+
+exports.default = NumberFormat;
+
+/***/ }),
+
 /***/ 14:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -93,7 +141,7 @@ var TOGGLE_LOADER = exports.TOGGLE_LOADER = "TOGGLE_LOADER";
 
 /***/ }),
 
-/***/ 158:
+/***/ 159:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -112,53 +160,21 @@ var _filterHandlerAction = __webpack_require__(719);
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
 
-var _productAction = __webpack_require__(159);
+var _productAction = __webpack_require__(160);
 
 var productAction = _interopRequireWildcard(_productAction);
 
-var _baseCurrencyAction = __webpack_require__(160);
+var _baseCurrencyAction = __webpack_require__(161);
 
 var baseCurrencyAction = _interopRequireWildcard(_baseCurrencyAction);
 
-var _loaderAction = __webpack_require__(161);
+var _loaderAction = __webpack_require__(162);
 
 var loaderAction = _interopRequireWildcard(_loaderAction);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var ActionCreators = exports.ActionCreators = Object.assign({}, dataHandlerAction, filterHandlerAction, productAction, baseCurrencyAction, loaderAction);
-
-/***/ }),
-
-/***/ 159:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.setProductOptions = exports.setSelectedProduct = undefined;
-
-var _types = __webpack_require__(15);
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var setSelectedProduct = exports.setSelectedProduct = function setSelectedProduct(product) {
-    return {
-        type: types.SET_SELECTED_PRODUCT,
-        data: product
-    };
-};
-var setProductOptions = exports.setProductOptions = function setProductOptions(productList) {
-    return {
-        type: types.SET_PRODUCT_OPTIONS,
-        data: productList
-    };
-};
 
 /***/ }),
 
@@ -227,6 +243,38 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.setProductOptions = exports.setSelectedProduct = undefined;
+
+var _types = __webpack_require__(15);
+
+var types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var setSelectedProduct = exports.setSelectedProduct = function setSelectedProduct(product) {
+    return {
+        type: types.SET_SELECTED_PRODUCT,
+        data: product
+    };
+};
+var setProductOptions = exports.setProductOptions = function setProductOptions(productList) {
+    return {
+        type: types.SET_PRODUCT_OPTIONS,
+        data: productList
+    };
+};
+
+/***/ }),
+
+/***/ 161:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 exports.setSelectedBaseCurrency = undefined;
 
 var _types = __webpack_require__(15);
@@ -244,7 +292,7 @@ var setSelectedBaseCurrency = exports.setSelectedBaseCurrency = function setSele
 
 /***/ }),
 
-/***/ 161:
+/***/ 162:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -270,7 +318,7 @@ var toggleLoader = exports.toggleLoader = function toggleLoader(show) {
 
 /***/ }),
 
-/***/ 162:
+/***/ 163:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -281,15 +329,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Cell = exports.Row = exports.Table = undefined;
 
-var _Table = __webpack_require__(163);
+var _Table = __webpack_require__(164);
 
 var _Table2 = _interopRequireDefault(_Table);
 
-var _Row = __webpack_require__(166);
+var _Row = __webpack_require__(167);
 
 var _Row2 = _interopRequireDefault(_Row);
 
-var _Cell = __webpack_require__(167);
+var _Cell = __webpack_require__(168);
 
 var _Cell2 = _interopRequireDefault(_Cell);
 
@@ -301,7 +349,7 @@ exports.Cell = _Cell2.default;
 
 /***/ }),
 
-/***/ 163:
+/***/ 164:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -323,7 +371,7 @@ var _reactDom = __webpack_require__(8);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _RowLayout = __webpack_require__(164);
+var _RowLayout = __webpack_require__(165);
 
 var _RowLayout2 = _interopRequireDefault(_RowLayout);
 
@@ -331,7 +379,7 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _tableSection = __webpack_require__(165);
+var _tableSection = __webpack_require__(166);
 
 var _tableSection2 = _interopRequireDefault(_tableSection);
 
@@ -569,7 +617,7 @@ exports.default = Table;
 
 /***/ }),
 
-/***/ 164:
+/***/ 165:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -639,7 +687,7 @@ exports.default = RowLayout;
 
 /***/ }),
 
-/***/ 165:
+/***/ 166:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -780,7 +828,7 @@ exports.default = createTableSection;
 
 /***/ }),
 
-/***/ 166:
+/***/ 167:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -831,7 +879,7 @@ exports.default = Row;
 
 /***/ }),
 
-/***/ 167:
+/***/ 168:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -900,54 +948,6 @@ Cell.defaultProps = {
     header: false
 };
 exports.default = Cell;
-
-/***/ }),
-
-/***/ 168:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var NumberFormat = function () {
-    function NumberFormat() {
-        _classCallCheck(this, NumberFormat);
-    }
-
-    _createClass(NumberFormat, null, [{
-        key: "formatDecimal",
-        value: function formatDecimal(value) {
-            return this.format(value, 2);
-        }
-    }, {
-        key: "format",
-        value: function format(value) {
-            var digits = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-            if (typeof value !== "number" || isNaN(value)) {
-                return "";
-            }
-
-            var sign = value < 0 ? -1 : 1;
-            var shift = Math.pow(10, digits);
-            var rounded = Math.round(Math.abs(value) * shift) / shift;
-
-            return (sign * rounded).toFixed(digits).replace(/(\d)(?=(\d{3})+(\.|$))/g, "$1,");
-        }
-    }]);
-
-    return NumberFormat;
-}();
-
-exports.default = NumberFormat;
 
 /***/ }),
 
@@ -3216,7 +3216,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _xlsxStyleSparta = __webpack_require__(140);
+var _xlsxStyleSparta = __webpack_require__(141);
 
 var XLSX = _interopRequireWildcard(_xlsxStyleSparta);
 
@@ -5362,11 +5362,11 @@ var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
 var _reactRedux = __webpack_require__(33);
 
-var _reduxLogger = __webpack_require__(123);
+var _reduxLogger = __webpack_require__(124);
 
 var _redux = __webpack_require__(21);
 
-var _reduxThunk = __webpack_require__(122);
+var _reduxThunk = __webpack_require__(123);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -5455,7 +5455,7 @@ var _reactRedux = __webpack_require__(33);
 
 var _redux = __webpack_require__(21);
 
-var _index = __webpack_require__(158);
+var _index = __webpack_require__(159);
 
 var _datagrid = __webpack_require__(720);
 
@@ -5535,7 +5535,7 @@ var _types = __webpack_require__(100);
 
 var types = _interopRequireWildcard(_types);
 
-var _axios = __webpack_require__(124);
+var _axios = __webpack_require__(125);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -5644,17 +5644,17 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(33);
 
-var _index = __webpack_require__(158);
+var _index = __webpack_require__(159);
 
 var _redux = __webpack_require__(21);
 
-var _fixedTableHeader = __webpack_require__(162);
+var _fixedTableHeader = __webpack_require__(163);
 
 var _langHelper = __webpack_require__(14);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _numberFormat = __webpack_require__(168);
+var _numberFormat = __webpack_require__(101);
 
 var _numberFormat2 = _interopRequireDefault(_numberFormat);
 
@@ -5986,7 +5986,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(33);
 
-var _index = __webpack_require__(158);
+var _index = __webpack_require__(159);
 
 var _redux = __webpack_require__(21);
 

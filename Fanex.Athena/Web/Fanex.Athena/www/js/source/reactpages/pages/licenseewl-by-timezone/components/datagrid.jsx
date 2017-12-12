@@ -38,7 +38,7 @@ export class DataGrid extends Component {
             <Row style={{ height: 32 }}>
                 <Cell colWidth={50} header={true} title="#">{headerText.Index}</Cell>
                 { this.selectedReportBy === SettingConst.ReportBySummary ? null :
-                    <Cell colWidth={100} header={true} title={headerText.ReportBy}>{headerText.ReportBy}</Cell> 
+                    <Cell colWidth={150} header={true} title={headerText.ReportBy}>{headerText.ReportBy}</Cell> 
                 }
                 <Cell colWidth={150} header={true} title={headerText.GroupBy}>{headerText.GroupBy}</Cell>
                 <Cell colWidth={150} header={true} title={headerText.BetCount}>{headerText.BetCount}</Cell>
