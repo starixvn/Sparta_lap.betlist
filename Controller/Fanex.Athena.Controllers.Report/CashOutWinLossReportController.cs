@@ -8,14 +8,30 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System;
     using System.Web.Mvc;
+    using Extension.Utility;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
     using Web.ActionFilter;
 
     [FunctionAuthorization(PermissionKeys.ReportCashOutWinLoss)]
     public class CashOutWinLossReportController : ReportBaseController
     {
+        public CashOutWinLossReportController()
+        {
+        }
+
+        public CashOutWinLossReportController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IProductService productService)
+            : base(languageService, sessionService, appSetting, productService)
+        {
+        }
+
         [HttpGet]
         public ActionResult Index()
         {

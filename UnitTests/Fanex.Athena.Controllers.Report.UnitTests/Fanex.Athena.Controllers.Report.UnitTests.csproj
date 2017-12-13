@@ -126,6 +126,11 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ColossusBetsWinLossReportControllerTest.cs" />
+    <Compile Include="CasinoProgressiveWinsReportControllerTest.cs" />
+    <Compile Include="CashOutWinLossReportControllerTest.cs" />
+    <Compile Include="BalanceReportControllerTest.cs" />
+    <Compile Include="AgCasinoWinLossReportControllerTest.cs" />
     <Compile Include="AgCasinoBalanceReportControllerTest.cs" />
     <Compile Include="ActiveCustomerSummaryReportControllerTest.cs" />
     <Compile Include="LicenseeWinLossReportControllerTest.cs" />
@@ -147,6 +152,14 @@
     <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Report\Fanex.Athena.DataAccess.Report.csproj">
       <Project>{5653bc29-0843-4d75-9140-5b370df2f88c}</Project>
       <Name>Fanex.Athena.DataAccess.Report</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Excel\Fanex.Athena.Excel.Base\Fanex.Athena.Excel.Base.csproj">
+      <Project>{413861AD-068B-4C02-B913-10B1DE708FB7}</Project>
+      <Name>Fanex.Athena.Excel.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Excel\Fanex.Athena.Excel.Report\Fanex.Athena.Excel.Report.csproj">
+      <Project>{0fc566e3-c900-4ff7-bc30-922fa73969f7}</Project>
+      <Name>Fanex.Athena.Excel.Report</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>

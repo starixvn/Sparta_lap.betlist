@@ -41,16 +41,11 @@
 
         private AgCasinoBalanceReportController CreateController()
         {
-            var productService = Substitute.For<IProductService>();
-            productService.GetProductAccessForActiveCustomerSummary(
-                SessionService.LicenseeSession.LicenseeId,
-                SessionService.UserSession.Language)
-                .Returns(new ProductAccess(new List<Product>()));
             return new AgCasinoBalanceReportController(
                 LangService,
                 SessionService,
                 AppSettings,
-                productService);
+                Substitute.For<IProductService>());
         }
     }
 }

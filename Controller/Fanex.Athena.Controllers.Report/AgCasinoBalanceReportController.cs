@@ -8,7 +8,6 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System;
     using System.Web.Mvc;
-    using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;

@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
-    using DataAccess.Core.Configuration.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Report.ViewModel;
     using NSubstitute;

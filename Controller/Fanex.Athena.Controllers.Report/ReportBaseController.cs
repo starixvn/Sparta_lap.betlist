@@ -32,7 +32,7 @@
             IProductService productService)
             : base(languageService, sessionService, appSetting)
         {
-            _productService = productService;
+            _productService = productService ?? new ProductService();
         }
 
         protected IProductService ProductService
