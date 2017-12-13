@@ -47,7 +47,6 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
-            metaModel.MoveBetsDay = GetBalanceUp().MoveBetsDay;
             var reportData = metaModel.IsValid
                        ? _balanceDataAccess.GetReportData(metaModel)
                        : new Balance();

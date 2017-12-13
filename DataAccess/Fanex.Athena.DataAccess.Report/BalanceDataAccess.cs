@@ -10,6 +10,8 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using Core.Configuration;
+    using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
@@ -19,12 +21,23 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class BalanceDataAccess : BaseDataAccess, IBalanceDataAccess
     {
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
+
+        public BalanceDataAccess() : this(null)
+        {
+        }
+
+        public BalanceDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        {
+            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
+        }
+
         public Balance GetReportData(BalanceMetaModel metaModel)
         {
             var uspParam = new
             {
                 metaModel.LicenseeId,
-                metaModel.MoveBetsDay,
+                MoveBetsDay = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay,
                 metaModel.FromDate,
                 metaModel.ToDate,
                 metaModel.IsOld,

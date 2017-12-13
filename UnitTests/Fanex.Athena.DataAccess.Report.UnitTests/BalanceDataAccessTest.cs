@@ -3,26 +3,35 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using Core.Configuration.Interfaces;
     using Data;
     using Extension.Utility;
+    using Model.Core.DTO.Configuration;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
 
     [TestFixture]
-    public class CreditBalanceDataAccessTest
+    public class BalanceDataAccessTest
     {
         private IObjectDb _objectDb;
+        private IBalanceUpDataAccess _balanceUpDataAccess;
         private BalanceDataAccess _dataAccess;
         private IDataReader _reader;
 
         [OneTimeSetUp]
         public void Setup()
         {
+            _balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
+            _balanceUpDataAccess.GetBalanceUp().Returns(new BalanceUp
+            {
+                BalanceUpDay = new DateTime(2017, 12, 1),
+                MoveBetsDay = new DateTime(2017, 12, 2)
+            });
             _objectDb = Substitute.For<IObjectDb>();
 
-            _dataAccess = Substitute.ForPartsOf<BalanceDataAccess>();
+            _dataAccess = Substitute.ForPartsOf<BalanceDataAccess>(_balanceUpDataAccess);
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelBalance")).Returns(_objectDb);
 
             _reader = Substitute.For<IDataReader>();

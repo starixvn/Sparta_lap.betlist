@@ -7,6 +7,8 @@
 namespace Fanex.Athena.Controllers.Report
 {
     using System.Web.Mvc;
+    using DataAccess.Core.Configuration;
+    using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -20,13 +22,18 @@ namespace Fanex.Athena.Controllers.Report
     [FunctionAuthorization(PermissionKeys.ReportDailyRacingWinLoss)]
     public class DailyRacingWinLossReportController : ReportBaseController
     {
-        private const int Licensee12Bet = 1;
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         private readonly IDailyRacingWinLossService _dailyRacingWinLossService;
 
-        public DailyRacingWinLossReportController()
+        public DailyRacingWinLossReportController() : this(null, null)
         {
-            _dailyRacingWinLossService = new DailyRacingWinLossService();
+        }
+
+        public DailyRacingWinLossReportController(IBalanceUpDataAccess balanceUpDataAccess, IDailyRacingWinLossService dailyRacingWinLossService)
+        {
+            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
+            _dailyRacingWinLossService = dailyRacingWinLossService ?? new DailyRacingWinLossService();
         }
 
         [HttpGet]
@@ -38,7 +45,7 @@ namespace Fanex.Athena.Controllers.Report
             {
                 LicenseeId = licenseeSession.LicenseeId,
                 UserId = userSession.UserId,
-                BalanceUpDay = GetBalanceUp().BalanceUpDay.ToShortDateString()
+                BalanceUpDay = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay.ToShortDateString()
             };
 
             SetConvetedUSDCurrencyName(metaModel);
@@ -60,7 +67,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = SessionService.LicenseeSession;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            metaModel.BalanceUpDay = GetBalanceUp().BalanceUpDay.ToShortDateString();
+            metaModel.BalanceUpDay = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay.ToShortDateString();
             var dailyRacingWlData = _dailyRacingWinLossService.GetDailyRacingWinLossData(metaModel);
 
             var model = new DailyRacingWinLossViewModel
@@ -98,7 +105,7 @@ namespace Fanex.Athena.Controllers.Report
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
 
-            if (licenseeSession.LicenseeId == Licensee12Bet)
+            if (licenseeSession.LicenseeId == LicenseeIdentity.OneTwoBet)
             {
                 var racingWinLossExcel12Bet = new DailyRacingWinLoss12BetExcel(templatePath, currencyConvert, showingOption, viewModel);
                 racingWinLossExcel12Bet.Export();

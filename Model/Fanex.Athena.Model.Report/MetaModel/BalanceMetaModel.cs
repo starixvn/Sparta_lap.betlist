@@ -27,8 +27,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
             ToDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
         }
 
-        public DateTime MoveBetsDay { get; set; }
-
         public override bool IsValid
         {
             get
