@@ -76,7 +76,7 @@ export class DataGrid extends Component {
         this.props.toggleLoader(true);
         this.props.exportAttachment(params).then(response => {
             if(response.status === 204) {
-                alert(LangHelper.getSingleResource('DataIsNotAvailable'));
+                alert(LangHelper.getSingleResource('FileIsNotReady'));
             }
             else{
                 const blob = response.data;

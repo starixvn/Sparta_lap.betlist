@@ -315,7 +315,7 @@ describe('DataGrid ', () => {
             dataGrid.exportExcel(item);
 
             Promise.resolve().then(() => {
-                expect(window.alert).toHaveBeenCalledWith('DataIsNotAvailable');
+                expect(window.alert).toHaveBeenCalledWith('FileIsNotReady');
             });
         });
 

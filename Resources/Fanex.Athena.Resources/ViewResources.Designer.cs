@@ -1987,15 +1987,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data is not available.
-        /// </summary>
-        public static string DataIsNotAvailable {
-            get {
-                return ResourceManager.GetString("DataIsNotAvailable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Data Warehouse.
         /// </summary>
         public static string DataWareHouse {
@@ -2775,6 +2766,15 @@ namespace Fanex.Athena.Resources {
         public static string FGLG {
             get {
                 return ResourceManager.GetString("FGLG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file is not ready, please try again later..
+        /// </summary>
+        public static string FileIsNotReady {
+            get {
+                return ResourceManager.GetString("FileIsNotReady", resourceCulture);
             }
         }
         

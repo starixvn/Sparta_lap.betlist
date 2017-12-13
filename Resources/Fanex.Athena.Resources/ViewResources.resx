@@ -3128,8 +3128,8 @@
     <value>Data is available within 6 months</value>
     <comment>84004</comment>
   </data>
-  <data name="DataIsNotAvailable" xml:space="preserve">
-    <value>Data is not available</value>
+  <data name="FileIsNotReady" xml:space="preserve">
+    <value>The file is not ready, please try again later.</value>
     <comment>84004</comment>
   </data>
   <data name="Subject" xml:space="preserve">
