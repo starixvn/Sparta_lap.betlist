@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Model.Report.ViewModel
 {
+    using System;
     using System.Collections.Generic;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -20,7 +21,7 @@ namespace Fanex.Athena.Model.Report.ViewModel
 
         public WinLossByBetTypeMetaModel Param { get; set; }
 
-        public string BalanceUpdate { get; set; }
+        public DateTime BalanceUpDay { get; set; }
 
         public int ColumnCount { get; set; }
 

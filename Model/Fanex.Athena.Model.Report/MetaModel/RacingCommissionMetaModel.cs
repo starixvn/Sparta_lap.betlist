@@ -25,8 +25,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
 
         public DateTime BalanceUpDay { get; set; }
 
-        public DateTime MoveBetsDay { get; set; }
-
         public string SortDirection { get; set; }
 
         public string SortColumn { get; set; }

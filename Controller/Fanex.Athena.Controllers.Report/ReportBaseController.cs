@@ -7,7 +7,6 @@
     using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
-    using Extension.Utility.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Configuration;
     using Model.Core.MetaModel.Product;

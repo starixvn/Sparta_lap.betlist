@@ -10,6 +10,8 @@ namespace Fanex.Athena.Controllers.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using DataAccess.Core.Configuration;
+    using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -27,11 +29,17 @@ namespace Fanex.Athena.Controllers.Report
     {
         private const string ProductCodeAll = "ALL";
 
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
         private readonly ILiveReportService _liveReportService;
 
-        public LiveReportController()
+        public LiveReportController() : this(null, null)
         {
-            _liveReportService = new LiveReportService();
+        }
+
+        public LiveReportController(IBalanceUpDataAccess balanceUpDataAccess, ILiveReportService liveReportService)
+        {
+            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
+            _liveReportService = liveReportService ?? new LiveReportService();
         }
 
         [HttpGet]
@@ -39,7 +47,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var balanceUp = GetBalanceUp();
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             var metaModel = new LiveReportMetaModel
             {
                 FromDate = DateTime.Now,
@@ -77,7 +85,7 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
 
-            var balanceUp = GetBalanceUp();
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
@@ -131,7 +139,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
-            var balanceUpDay = this.GetBalanceUp().BalanceUpDay;
+            var balanceUpDay = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay;
 
             var resultModel = GetDetailResult(metaModel, productAccess, productCode);
 

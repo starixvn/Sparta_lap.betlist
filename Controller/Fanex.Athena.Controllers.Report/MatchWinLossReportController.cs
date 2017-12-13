@@ -5,13 +5,14 @@
     using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
+    using DataAccess.Core.Configuration;
+    using DataAccess.Core.Configuration.Interfaces;
     using Excel.Base.Helpers;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.Helper;
-    using Fanex.Athena.Model.Core.MetaModel.Product;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
@@ -30,15 +31,16 @@
         private const int LCSport = 162;
 
         private static readonly IList<int> VirtualHrBettypes = new List<int> { 1231, 1232, 1233, 1237, 1238 };
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
         private readonly IMatchWinLossService _matchWinLossService;
 
-        public MatchWinLossReportController()
+        public MatchWinLossReportController() : this(null, null)
         {
-            _matchWinLossService = new MatchWinLossService();
         }
 
-        public MatchWinLossReportController(IMatchWinLossService matchWinLossService)
+        public MatchWinLossReportController(IBalanceUpDataAccess balanceUpDataAccess, IMatchWinLossService matchWinLossService)
         {
+            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
             _matchWinLossService = matchWinLossService ?? new MatchWinLossService();
         }
 
@@ -49,7 +51,7 @@
             var userSession = SessionService.UserSession;
             var metaModel = new MatchWinLossMetaModel
             {
-                BalanceUpDay = GetBalanceUp().BalanceUpDay.ToShortDateString(),
+                BalanceUpDay = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay.ToShortDateString(),
                 LicenseeId = licenseeSession.LicenseeId
             };
 

@@ -25,8 +25,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
 
         public string SortColumn { get; set; }
 
-        public DateTime BalanceUpDay { get; set; }
-
         public override bool IsValid
         {
             get
