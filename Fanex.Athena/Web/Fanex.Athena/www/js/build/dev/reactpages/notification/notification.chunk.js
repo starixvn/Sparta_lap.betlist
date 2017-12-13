@@ -20131,7 +20131,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
             this.props.toggleLoader(true);
             this.props.exportAttachment(params).then(function (response) {
                 if (response.status === 204) {
-                    alert(_langHelper2.default.getSingleResource('DataIsNotAvailable'));
+                    alert(_langHelper2.default.getSingleResource('FileIsNotReady'));
                 } else {
                     var blob = response.data;
                     _excel2.default.downloadFromBolb(blob, fileName);

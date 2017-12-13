@@ -15,7 +15,7 @@ module.exports = __webpack_require__(197);
 /***/ 193:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 11/30/2017 8:48:49 AM
+﻿// Generated at: 12/13/2017 9:47:18 AM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -227,7 +227,6 @@ DailyRacingWinLoss:"Daily Racing Win Loss",
 DailyStatement:"Daily Statement",
 DailyStatementMsg:"Support data up to 4 months only",
 Data:"data",
-DataIsNotAvailable:"Data is not available",
 DataWareHouse:"Data Warehouse",
 Date:"Date",
 DateRange:"Date Range",
@@ -315,6 +314,7 @@ Fail:"Fail",
 Feb:"Feb",
 February:"February",
 FGLG:"FG/LG",
+FileIsNotReady:"The file is not ready, please try again later.",
 FinalHand:"Final Hand",
 FinalScore:"Final Score",
 FirstGoal:"First Goal",
@@ -973,7 +973,7 @@ YouNotChooseAnyCustomerMsg:"You did not choose any customers."
 /***/ 194:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 11/30/2017 8:48:49 AM
+﻿// Generated at: 12/13/2017 9:47:18 AM
 window._language_zh_CN = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -1789,7 +1789,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 195:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 11/30/2017 8:48:49 AM
+﻿// Generated at: 12/13/2017 9:47:18 AM
 window._language_zh_TW = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -2605,7 +2605,7 @@ YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 /***/ 196:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 11/30/2017 8:48:49 AM
+﻿// Generated at: 12/13/2017 9:47:18 AM
 window._language_zh_Hans = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -3407,7 +3407,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 197:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 11/29/2017 8:54:52 AM
+﻿// Generated at: 12/13/2017 9:47:18 AM
 window._language_ko_KR = {
 AA:"AA",
 ABComm:"AllBet 수수료",

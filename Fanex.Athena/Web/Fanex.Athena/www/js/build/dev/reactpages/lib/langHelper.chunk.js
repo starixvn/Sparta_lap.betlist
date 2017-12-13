@@ -63,7 +63,7 @@ module.exports = __webpack_require__(685);
 "use strict";
 
 
-// Generated at: 11/30/2017 8:48:49 AM
+// Generated at: 12/13/2017 9:47:18 AM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -275,7 +275,6 @@ window._language_en_US = {
   DailyStatement: "Daily Statement",
   DailyStatementMsg: "Support data up to 4 months only",
   Data: "data",
-  DataIsNotAvailable: "Data is not available",
   DataWareHouse: "Data Warehouse",
   Date: "Date",
   DateRange: "Date Range",
@@ -363,6 +362,7 @@ window._language_en_US = {
   Feb: "Feb",
   February: "February",
   FGLG: "FG/LG",
+  FileIsNotReady: "The file is not ready, please try again later.",
   FinalHand: "Final Hand",
   FinalScore: "Final Score",
   FirstGoal: "First Goal",
@@ -1023,7 +1023,7 @@ window._language_en_US = {
 "use strict";
 
 
-// Generated at: 11/29/2017 8:54:52 AM
+// Generated at: 12/13/2017 9:47:18 AM
 window._language_ko_KR = {
   AA: "AA",
   ABComm: "AllBet 수수료",
@@ -1795,7 +1795,7 @@ window._language_ko_KR = {
 "use strict";
 
 
-// Generated at: 11/30/2017 8:48:49 AM
+// Generated at: 12/13/2017 9:47:18 AM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2613,7 +2613,7 @@ window._language_zh_CN = {
 "use strict";
 
 
-// Generated at: 11/30/2017 8:48:49 AM
+// Generated at: 12/13/2017 9:47:18 AM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3417,7 +3417,7 @@ window._language_zh_Hans = {
 "use strict";
 
 
-// Generated at: 11/30/2017 8:48:49 AM
+// Generated at: 12/13/2017 9:47:18 AM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",
