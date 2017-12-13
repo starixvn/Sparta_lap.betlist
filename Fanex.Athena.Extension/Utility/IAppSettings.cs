@@ -5,6 +5,8 @@
 
     public interface IAppSettings
     {
+        IEnumerable<int> LicenseeOfferStatusFunction { get; }
+
         IEnumerable<int> FakeLicenseeList { get; }
 
         bool IsEnabledMoveBetNotification { get; }

@@ -8,7 +8,6 @@ namespace Fanex.Athena.Controllers
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
@@ -74,18 +73,6 @@ namespace Fanex.Athena.Controllers
         protected void SetConvetedUSDCurrencyName(BaseMetaModel metaModel)
         {
             metaModel.BaseCurrency = GetBaseUsdLicensees().Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
-        }
-
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
-        protected IList<string> GetAllowLicenseesForStatusFunction()
-        {
-            var items = _appSettings.GetValue("LicenseeOfferStatusFunction");
-            if (!string.IsNullOrEmpty(items))
-            {
-                return items.Split(',');
-            }
-
-            return new List<string>();
         }
 
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)

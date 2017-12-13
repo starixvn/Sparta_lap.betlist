@@ -10,6 +10,7 @@ namespace Fanex.Athena.Controllers.Customer
 
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using System.Net;
     using System.Web.Mvc;
     using System.Web.SessionState;
@@ -50,6 +51,7 @@ namespace Fanex.Athena.Controllers.Customer
         #region Constructor
 
 #pragma warning disable S107 // Methods should not have too many parameters
+
         public CustomerApiController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -99,10 +101,9 @@ namespace Fanex.Athena.Controllers.Customer
             try
             {
                 var licenseeSession = SessionService.LicenseeSession;
-                var userSession = SessionService.UserSession;
-                var allowLicensees = GetAllowLicenseesForStatusFunction();
-                if (allowLicensees.Contains(licenseeSession.LicenseeId.ToString()))
+                if (AppSettings.LicenseeOfferStatusFunction.Contains(licenseeSession.LicenseeId))
                 {
+                    var userSession = SessionService.UserSession;
                     var customerStatusMetaModel = new CustomerStatusMetaModel
                     {
                         LicenseeId = licenseeSession.LicenseeId,

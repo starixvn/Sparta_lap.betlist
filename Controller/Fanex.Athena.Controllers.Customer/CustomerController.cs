@@ -15,7 +15,6 @@ namespace Fanex.Athena.Controllers.Customer
     using DataAccess.Core.Users.Interfaces;
     using Excel.Base.Helpers;
     using Extension.Utility;
-    using Extension.Utility.Interfaces;
     using Fanex.Athena.Excel.Customer;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
@@ -98,14 +97,14 @@ namespace Fanex.Athena.Controllers.Customer
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var userSession = SessionService.UserSession;
             var productAccess = this._productService.GetProductAccess(licenseeId, userSession.Language);
-            var allowLicensees = GetAllowLicenseesForStatusFunction();
+            var allowLicensees = AppSettings.LicenseeOfferStatusFunction;
             var placeholderUsername = IsFakeLicensee() ? ViewResources.ExternalId : ViewResources.ExternalIdOrSystemId;
             var metaModel = new CustomerListMetaModel
             {
                 Username = userName == placeholderUsername ? string.Empty : userName,
                 GroupCommId = groupId,
                 LicenseeId = licenseeId,
-                IsShowStatusDropdown = allowLicensees.Contains(licenseeId.ToString()),
+                IsShowStatusDropdown = allowLicensees.Contains(licenseeId),
                 GridColumns = InitGridColumns(productAccess.IsAllow(Product.BA), allowLicensees),
                 OddsGroups = GetOddsGroups()
             };
@@ -129,7 +128,7 @@ namespace Fanex.Athena.Controllers.Customer
                 ViewResources.ExternalIdOrSystemId;
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
-            metaModel.IsShowStatusDropdown = GetAllowLicenseesForStatusFunction().Contains(metaModel.LicenseeId.ToString());
+            metaModel.IsShowStatusDropdown = AppSettings.LicenseeOfferStatusFunction.Contains(metaModel.LicenseeId);
             metaModel.Username = metaModel.Username == placeholderUsername ? string.Empty : metaModel.Username;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var result = _customerListService.Search(metaModel);
@@ -157,7 +156,7 @@ namespace Fanex.Athena.Controllers.Customer
             if (metaModel != null)
             {
                 var licenseeId = SessionService.LicenseeSession.LicenseeId;
-                metaModel.IsShowStatusDropdown = GetAllowLicenseesForStatusFunction().Contains(licenseeId.ToString());
+                metaModel.IsShowStatusDropdown = AppSettings.LicenseeOfferStatusFunction.Contains(licenseeId);
                 metaModel.LicenseeId = licenseeId;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
@@ -287,7 +286,7 @@ namespace Fanex.Athena.Controllers.Customer
             model.CanUpdateBAMessage = canUpdateBaMessage;
         }
 
-        private IEnumerable<CheckedItem> InitGridColumns(bool isAllowBA, IEnumerable<string> allowLicensees)
+        private IEnumerable<CheckedItem> InitGridColumns(bool isAllowBA, IEnumerable<int> allowLicensees)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var isFakeLicensee = IsFakeLicensee();
@@ -309,7 +308,7 @@ namespace Fanex.Athena.Controllers.Customer
                 items.Add(new CheckedItem { Name = CUSTOMERCOMM, Checked = true });
             }
 
-            if (allowLicensees.Contains(licenseeSession.LicenseeId.ToString()))
+            if (allowLicensees.Contains(licenseeSession.LicenseeId))
             {
                 items.Add(new CheckedItem { Name = STATUS, Checked = true });
             }

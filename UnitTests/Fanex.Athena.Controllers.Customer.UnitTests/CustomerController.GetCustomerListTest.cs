@@ -99,7 +99,7 @@
                 StubLicenseeSessionData(DefaultLicenseeSession);
                 AppSettings.FakeLicenseeList.Returns(new int[] { DefaultLicenseeSession.LicenseeId });
                 _productService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>()).Returns(new ProductAccess(new List<Product>()));
-                AppSettings.GetValue("LicenseeOfferStatusFunction").Returns(DefaultLicenseeSession.LicenseeId.ToString());
+                AppSettings.LicenseeOfferStatusFunction.Returns(new[] { DefaultLicenseeSession.LicenseeId });
 
                 // Action
                 var result = (CustomerListViewModel)(controller.CustomerList() as ViewResult).Model;

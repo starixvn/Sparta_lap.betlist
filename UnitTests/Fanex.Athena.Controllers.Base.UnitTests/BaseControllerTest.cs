@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Controllers.Base.UnitTests
 {
-    using System.Linq;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Users;
     using Model.Core.MetaModel;
@@ -97,39 +96,6 @@
 
             // Assert
             Assert.That(metaModel.BaseCurrency, Is.EqualTo(ExpectedBaseCurrency));
-        }
-
-        [Test]
-        public void GetAllowLicenseesForStatusFunction_NoLicensee_ReturnEmptyList()
-        {
-            // Arrange
-            StubGetValueAppSettings("LicenseeOfferStatusFunction", null);
-
-            // Action
-            var actual = _controller.GetAllowLicenseesForStatusFunction();
-
-            // Assert
-            Assert.That(actual, Is.Empty);
-        }
-
-        [Test]
-        public void GetAllowLicenseesForStatusFunction_WhenCall_ReturnLicenseeIdList()
-        {
-            // Arrange
-            const string LicenseeId = "1,2,3,4";
-            StubGetValueAppSettings("LicenseeOfferStatusFunction", LicenseeId);
-
-            var expected = LicenseeId.Split(',').ToList();
-
-            // Action
-            var actual = _controller.GetAllowLicenseesForStatusFunction();
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(actual.Count, Is.EqualTo(expected.Count));
-                Assert.That(actual.Except(expected), Is.Empty);
-            });
         }
 
         [Test]
