@@ -8,7 +8,6 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System;
     using System.Web.Mvc;
-    using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -28,9 +27,8 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IBalanceUpDataAccess balanceUpDataAccess,
             IProductService productService)
-            : base(languageService, sessionService, appSetting, balanceUpDataAccess, productService)
+            : base(languageService, sessionService, appSetting, productService)
         {
         }
 

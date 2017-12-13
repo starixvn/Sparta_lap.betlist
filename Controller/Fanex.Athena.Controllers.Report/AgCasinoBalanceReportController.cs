@@ -28,9 +28,8 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IBalanceUpDataAccess balanceUpDataAccess,
             IProductService productService)
-            : base(languageService, sessionService, appSetting, balanceUpDataAccess, productService)
+            : base(languageService, sessionService, appSetting, productService)
         {
         }
 
