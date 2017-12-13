@@ -7,6 +7,8 @@ import { DateRange } from '../../../components/date-range/index'
 import LangHelper from '../../../lib/langHelper'
 import Site from '../../../lib/site'
 import { ReportLevel } from '../../../constants/report'
+import ReportExcel from '../lib/reportExcel'
+import service from '../lib/service'
 
 const RANGE_MONTH_CONSTRAINT = 3;
 
@@ -26,6 +28,33 @@ export class FormFilter extends Component {
 
         this.props.toggleLoader(true);
         this.props.getGridData(params);
+    }
+
+    exportExcel = (event) => {
+        event.preventDefault();
+        this.props.toggleLoader(true);
+
+        const level = this.props.gridData.level || 0;
+
+        const isAllowedCustomerComm = this.props.isAllowedCustomerComm;
+        const params = this._getParams(level);
+        if (!params) {
+            return;
+        }
+     
+        if (level === 0) {           
+            this.props.exportExcel(params).then(response => this._doExportExcel(params, isAllowedCustomerComm, response.data));
+        }
+        else {
+            this._doExportExcel(params, isAllowedCustomerComm, this.props.gridData.data);
+        }
+    }
+
+    _doExportExcel(params, isAllowedCustomerComm, data) {
+        const title = service.getReportTitle({ fromDate: params.data.FromDate, toDate: params.data.ToDate }, params.data.CurrencyName);
+        const excel = new ReportExcel(data, title, params.data.Level, isAllowedCustomerComm, params.data.ReportBy);
+        excel.export();
+        this.props.toggleLoader(false);
     }
 
     _getParams(level) {
@@ -189,7 +218,7 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps(state) {
-    const { gridData, ...rest } = state;
+    const { licenseeId, levelGridData, ...rest } = state;
     return Object.assign({}, rest);
 };
 

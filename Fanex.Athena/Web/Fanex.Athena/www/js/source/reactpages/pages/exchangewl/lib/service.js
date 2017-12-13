@@ -33,10 +33,10 @@ const breadcrumbText = {
 }
 
 export default class Service {
-    static getReportTitle(dateRange, selectedBaseCurrency) {
+    static getReportTitle(dateRange, selectedCurrency) {
         const fromDate = Site.convertDateToString(dateRange.fromDate);
         const toDate = Site.convertDateToString(dateRange.toDate);
-        const viewInByCurrency = `${LangHelper.getSingleResource('Viewin').replace('{0}', selectedBaseCurrency)}`;
+        const viewInByCurrency = `${LangHelper.getSingleResource('Viewin').replace('{0}', selectedCurrency)}`;
 
         return `${LangHelper.getSingleResource('ExchangeWinLoss')}, ${fromDate} - ${toDate} - ${viewInByCurrency}`;
     }

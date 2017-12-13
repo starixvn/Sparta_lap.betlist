@@ -88,14 +88,15 @@ export class DataGrid extends Component {
             }
 
             this.props.toggleLoader(true);
-            this.props.getGridData(params);
 
             let levelGridData = this.props.levelGridData;
             if (!levelGridData) {
                 levelGridData = [];
             }
-            levelGridData[level-1] = this.props.gridData.data;
+            levelGridData[currentLevel] = this.props.gridData.data;
             this.props.setLevelGridData(levelGridData);
+
+            this.props.getGridData(params);
         }
         else {
             const data = this.props.levelGridData[level];
