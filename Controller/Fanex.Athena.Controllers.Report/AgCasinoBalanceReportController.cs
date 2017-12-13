@@ -8,14 +8,32 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System;
     using System.Web.Mvc;
+    using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportAGCasinoBalance)]
     public class AgCasinoBalanceReportController : ReportBaseController
     {
+        public AgCasinoBalanceReportController()
+        {
+        }
+
+        public AgCasinoBalanceReportController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            IProductService productService)
+            : base(languageService, sessionService, appSetting, balanceUpDataAccess, productService)
+        {
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -35,7 +53,6 @@ namespace Fanex.Athena.Controllers.Report
 
             var model = new AgCasinoBalanceViewModel
             {
-                ShowEmptyContent = true,
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList
             };
