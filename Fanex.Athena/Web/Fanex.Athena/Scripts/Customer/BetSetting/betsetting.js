@@ -23,6 +23,7 @@ var BetSetting = (function ($) {
     var TAB_CASHOUT = 25;
     var TAB_VIRTUALSPORTS2 = 27;
     var TAB_LOTTERY = 28;
+    var TAB_EXCHANGE = 31;
 
     var _sportIds = null;
 
@@ -126,6 +127,7 @@ var BetSetting = (function ($) {
                 case TAB_VOIDBRIDGE:
                 case TAB_FISHINGWORLD:
                 case TAB_LOTTERY:
+                case TAB_EXCHANGE:
                     url = "DcsBetSetting/UpdateStatus";
                     break;
                 case TAB_CASHOUT:
