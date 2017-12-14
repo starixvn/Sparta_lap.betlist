@@ -97,7 +97,7 @@ namespace Fanex.Athena.DataAccess.Report
                         var data = new List<Sport>();
                         while (reader.Read())
                         {
-                            data.Add(new Sport(reader["sporttype"].ToString()));
+                            data.Add(new Sport(reader.ToInt("sporttype")));
                         }
 
                         return data;

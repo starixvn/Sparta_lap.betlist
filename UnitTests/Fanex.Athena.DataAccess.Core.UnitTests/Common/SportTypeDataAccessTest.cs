@@ -104,8 +104,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.First().SportId, Is.EqualTo("0"));
-                Assert.That(result.ElementAt(1).SportId, Is.EqualTo(SportType.ToString()));
+                Assert.That(result.First().SportId, Is.EqualTo(0));
+                Assert.That(result.ElementAt(1).SportId, Is.EqualTo(SportType));
             });
         }
     }

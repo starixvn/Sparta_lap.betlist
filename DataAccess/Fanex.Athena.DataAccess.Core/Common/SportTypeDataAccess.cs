@@ -87,10 +87,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
             return result;
         }
 
-        /// <summary>
-        /// Get sport by date.
-        /// </summary>
-        /// <returns> The result value.</returns>
         public IList<Sport> GetAllWHSports()
         {
             const string UspName = "Lrf_SportSel";
@@ -107,11 +103,11 @@ namespace Fanex.Athena.DataAccess.Core.Common
                             var sportId = reader.ToInt("Sporttype");
                             var sportName = CacheRef.GetSportName(sportId);
 
-                            result.Add(new Sport(sportId.ToString(), sportName));
+                            result.Add(new Sport(sportId, sportName));
                         }
                     }
 
-                    result.Insert(0, new Sport("0", ViewResources.All));
+                    result.Insert(0, new Sport(0, ViewResources.All));
                     return result;
                 }
             }
