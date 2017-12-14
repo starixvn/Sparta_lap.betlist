@@ -26,7 +26,7 @@ export class DataGrid extends Component {
     componentWillReceiveProps(nextProps) {
         if (this.props.gridData !== nextProps.gridData) {
             const param = this.props.params[nextProps.gridData.level];
-            this.reportTitle = service.getReportTitle({ fromDate: param.FromDate, toDate: param.ToDate }, param.CurrencyName);
+            this.reportTitle = service.getReportTitle({ fromDate: param.FromDate, toDate: param.ToDate }, param.CurrencyName, param.CurrencyId === 0);
             this.props.toggleLoader(false);
         }
     }
@@ -112,7 +112,6 @@ export class DataGrid extends Component {
         }
     }
 
-    
     _renderDrillDownLink(text, level, date, currencyId, currencyName, custId) {
         return <a onClick={()=>this._drillDownData(level, date, currencyId, currencyName, custId)} href='javascript:;'>{text}</a>
    }
@@ -200,12 +199,8 @@ export class DataGrid extends Component {
 
         return rows;
     }
-
-    _buildFooter(level) {       
-        return this._buildTotal(level);
-    }
      
-    _buildTotal(level) {
+    _buildFooter(level) {
         let totalRows = [];
 
         const data = this.props.gridData.data.TotalDataList,
@@ -306,7 +301,7 @@ export class DataGrid extends Component {
 
     render() {
         const gridData = this.props.gridData;
-        if (!gridData.data) {
+        if (!gridData || !gridData.data) {
             return null;
         }
 

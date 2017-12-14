@@ -28,11 +28,14 @@ export class FormFilter extends Component {
 
         this.props.toggleLoader(true);
         this.props.getGridData(params);
+
+        let paramArr = this.props.params;
+        paramArr[0] = params.data;       
+        this.props.setParams(paramArr);
     }
 
     exportExcel = (event) => {
         event.preventDefault();
-        this.props.toggleLoader(true);
 
         const level = this.props.gridData.level || 0;
 
@@ -42,17 +45,18 @@ export class FormFilter extends Component {
             return;
         }
      
+        this.props.toggleLoader(true);
         if (level === 0) {           
-            this.props.exportExcel(params).then(response => this._doExportExcel(params, isAllowedCustomerComm, response.data));
+            this.props.exportExcel(params).then(response => this._doExportExcel(params.data, isAllowedCustomerComm, response.data));
         }
         else {
-            this._doExportExcel(params, isAllowedCustomerComm, this.props.gridData.data);
+            this._doExportExcel(params.data, isAllowedCustomerComm, this.props.gridData.data);
         }
     }
 
-    _doExportExcel(params, isAllowedCustomerComm, data) {
-        const title = service.getReportTitle({ fromDate: params.data.FromDate, toDate: params.data.ToDate }, params.data.CurrencyName);
-        const excel = new ReportExcel(data, title, params.data.Level, isAllowedCustomerComm, params.data.ReportBy);
+    _doExportExcel(param, isAllowedCustomerComm, data) {
+        const title = service.getReportTitle({ fromDate: param.FromDate, toDate: param.ToDate }, param.CurrencyName, param.CurrencyId === 0);
+        const excel = new ReportExcel(data, title, param.Level, isAllowedCustomerComm, param.ReportBy);
         excel.export();
         this.props.toggleLoader(false);
     }
@@ -62,9 +66,7 @@ export class FormFilter extends Component {
             return null;
         }
 
-        let params = this.props.params;
         let param = {};
-
         if (level === 0) {
             const { fromDate, toDate } = this.props.dateRange;
 
@@ -77,11 +79,9 @@ export class FormFilter extends Component {
                 ExcludeTestData: this.props.selectedExcludeTestData,
                 Level: level
             };
-
-            params[0] = param;       
-            this.props.setParams(params);
         }
         else {
+            let params = this.props.params;
             param = params[level];
             if (!param) {
                 param = params[0];
@@ -105,14 +105,16 @@ export class FormFilter extends Component {
     }
 
     changeReportBy = (event) => {
-        if (this.props.selectedReportBy !== event.target.value) {
-            this.props.setReportBy(parseInt(event.target.value));
+        const newValue = parseInt(event.target.value);
+        if (!isNaN(newValue) && this.props.selectedReportBy !== newValue) {
+            this.props.setReportBy(newValue);
         }
     }
 
     changeExcludeTestData = (event) => {
-        if (this.props.selectedExcludeTestData !== event.target.value) {
-            this.props.setExcludeTestData(event.target.value === 'true');
+        const newValue = event.target.value === 'true';
+        if (this.props.selectedExcludeTestData !== newValue) {
+            this.props.setExcludeTestData(newValue);
         }
     }
 
