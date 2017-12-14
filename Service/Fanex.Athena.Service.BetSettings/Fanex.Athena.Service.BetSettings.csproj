@@ -37,6 +37,9 @@
     <CodeAnalysisRuleSet>Fanex.Athena.Service.BetSettings.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CitiXchangeLibrary">
+      <HintPath>..\..\DLLs\ExchangeProduct\CitiXchangeLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
       <Private>True</Private>
@@ -60,10 +63,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IExchangeCommApiService.cs" />
     <Compile Include="Interfaces\IKenoBetSettingService.cs" />
     <Compile Include="Interfaces\ILiveCasinoBetSettingService.cs" />
     <Compile Include="Interfaces\IRngCasinoBetSettingService.cs" />
     <Compile Include="KenoBetSettingService.cs" />
+    <Compile Include="ExchangeCommApiService.cs" />
     <Compile Include="RngCasinoBetSettingService.cs" />
     <Compile Include="LiveCasinoBetSettingService.cs" />
     <Compile Include="Interfaces\IRacingBetSettingService.cs" />

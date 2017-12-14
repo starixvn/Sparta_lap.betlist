@@ -309,6 +309,7 @@ namespace Fanex.Athena.Model.Core.DataDomain
 
         FishingWorld = 219,
 
-        Lottery = 220
+        Lottery = 220,
+        Exchange = 221
     }
 }

@@ -1240,6 +1240,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Charge Commission.
+        /// </summary>
+        public static string ChargeCommission {
+            get {
+                return ResourceManager.GetString("ChargeCommission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check All.
         /// </summary>
         public static string CheckAll {
@@ -6096,6 +6105,15 @@ namespace Fanex.Athena.Resources {
         public static string ProductBT {
             get {
                 return ResourceManager.GetString("ProductBT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exchange.
+        /// </summary>
+        public static string ProductBX {
+            get {
+                return ResourceManager.GetString("ProductBX", resourceCulture);
             }
         }
         
