@@ -931,11 +931,18 @@
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\index.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\types.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\actions\__tests__\dataHandlerAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\actions\__tests__\filterHandlerAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\dataGrid.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\formFilter.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\lib\reportExcel.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\lib\service.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\lib\__tests__\service.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\reducers\dataHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\reducers\filterHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\reducers\index.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\reducers\__tests__\dataHandlerReducer.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\reducers\__tests__\filterHandlerReducer.test.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\index.js" />
@@ -2658,6 +2665,8 @@
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\index.jsx" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\formFilter.jsx" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\dataGrid.jsx" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\formFilter.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\dataGrid.test.js.snap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

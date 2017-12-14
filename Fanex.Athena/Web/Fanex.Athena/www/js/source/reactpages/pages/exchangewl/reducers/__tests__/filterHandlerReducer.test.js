@@ -1,0 +1,43 @@
+﻿import * as filterHandlerReducer from '../filterHandlerReducer'
+import * as types from '../../actions/types'
+
+const emptyState = {};
+
+const reducerList = [
+    { name: 'reportByOption', actionType: types.GET_REPORTBY, expected: [{ value: 1 }, { value: 2 }] },
+    { name: 'selectedReportBy', actionType: types.SET_REPORTBY, expected: { value: 1 } },
+    { name: 'excludeTestDataOption', actionType: types.GET_EXCLUDE_TESTDATA, expected: [{ value: 1 }, { value: 2 }] },
+    { name: 'selectedExcludeTestData', actionType: types.SET_EXCLUDE_TESTDATA, expected: { value: 1 } },
+    { name: 'dateRange', actionType: types.SET_DATE_RANGE, expected: { from: '01/01/2017', to: '10/10/2017' } },
+    { name: 'dateConstraint', actionType: types.GET_DATE_CONSTRAINT, expected: { from: '01/01/2017', to: '09/30/2017' } },
+    { name: 'xsrfToken', actionType: types.GET_XSRF_TOKEN, expected: 'xsrfToken' },
+    { name: 'licenseeId', actionType: types.GET_LICENSEE, expected: 1 },
+    { name: 'isAllowedCustomerComm', actionType: types.GET_ISALLOWED_CUSTOMERCOMM, expected: false },
+]
+
+describe('filterHandlerReducer ', () => {
+    reducerList.forEach(({ name, actionType, expected }) => {
+        it(name, () => {
+            const action = {
+                type: actionType,
+                data: expected
+            }
+
+            const result = filterHandlerReducer[name](emptyState, action);
+
+            expect(result).toEqual(expected);
+        })
+    })
+
+    it('return default state when no match action type', () => {
+        const initialState = {};
+        const action = {
+            type: 'Action no match',
+            data: '1,2,3'
+        }
+
+        const result = filterHandlerReducer.reportByOption(initialState, action)
+
+        expect(result).toEqual(initialState);
+    })
+})

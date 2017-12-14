@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataGrid  Render grid No data gridData length is 0 - render correct content 1`] = `
+<div
+  className="result-content"
+>
+  <div
+    className="breadcrumb"
+  >
+    <a
+      className="breadcrumb-item "
+      href="javascript:;"
+      onClick={[Function]}
+    >
+      Main
+    </a>
+    <a
+      className="breadcrumb-item "
+      href="javascript:;"
+      onClick={[Function]}
+    >
+      Customer
+    </a>
+  </div>
+  <div
+    className="report-title-container"
+  >
+    <p
+      className="report-title"
+    >
+      
+    </p>
+  </div>
+  <p
+    className="no-info-row center-align"
+  >
+    NoInfo
+  </p>
+</div>
+`;
+
+exports[`DataGrid  Render grid No data gridData length is 0 - update state - render container with correct report title content 1`] = `
+<div
+  className="result-content"
+>
+  <div
+    className="report-title-container"
+  >
+    <p
+      className="report-title"
+    >
+      ExchangeWinLoss
+    </p>
+  </div>
+  <p
+    className="no-info-row center-align"
+  >
+    NoInfo
+  </p>
+</div>
+`;
