@@ -7,6 +7,8 @@
     {
         IEnumerable<int> LicenseeOfferStatusFunction { get; }
 
+        string ExchangeProductApiHost { get; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
             Justification = "Reviewed. Suppression is OK here.")]
         string ResultAmendmentApiUrl { get; }

@@ -31,6 +31,11 @@ namespace Fanex.Athena.Extension.Utility
             }
         }
 
+        public string ExchangeProductApiHost
+        {
+            get { return GetValue("ExchangeProductApiHost"); }
+        }
+
         [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
             Justification = "Reviewed. Suppression is OK here.")]
         public string ResultAmendmentApiUrl
