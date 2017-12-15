@@ -24,20 +24,19 @@ namespace Fanex.Athena.Service.BetSettings
         public ExchangeCommApiService(IAppSettings appSetting, ICitiXchangeClient apiClient)
         {
             _appSetting = appSetting ?? new AppSettings();
+            _apiClient = apiClient ?? (ICitiXchangeClient)Activator.GetObject(typeof(ICitiXchangeClient), _appSetting.ExchangeProductApiHost);
         }
 
         public decimal GetCommission(int ibcCustId, int currencyId)
         {
-            // var result = _apiClient.getProfile(ibcCustId, currencyId, Enviro.PRD);
-            // return result.commission;
-            return 100;
+            var result = _apiClient.getProfile(ibcCustId, currencyId, Enviro.SIT);
+            return result.commission;
         }
 
         public decimal UpdateCommission(int ibcCustId, int commission)
         {
-            // var result = _apiClient.updateCommission(ibcCustId, commission, Enviro.PRD);
-            // return result.commission;
-            return 100;
+            var result = _apiClient.updateCommission(ibcCustId, commission, Enviro.SIT);
+            return result.commission;
         }
     }
 }
