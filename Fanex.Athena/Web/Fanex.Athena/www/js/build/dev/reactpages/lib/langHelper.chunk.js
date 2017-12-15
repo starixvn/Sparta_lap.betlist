@@ -44,26 +44,26 @@ exports.default = LangHelper;
 
 /***/ }),
 
-/***/ 680:
+/***/ 701:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(14);
-__webpack_require__(681);
-__webpack_require__(682);
-__webpack_require__(683);
-__webpack_require__(684);
-module.exports = __webpack_require__(685);
+__webpack_require__(702);
+__webpack_require__(703);
+__webpack_require__(704);
+__webpack_require__(705);
+module.exports = __webpack_require__(706);
 
 
 /***/ }),
 
-/***/ 681:
+/***/ 702:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/13/2017 9:47:18 AM
+// Generated at: 12/13/2017 9:26:43 AM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -1017,13 +1017,13 @@ window._language_en_US = {
 
 /***/ }),
 
-/***/ 682:
+/***/ 703:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/13/2017 9:47:18 AM
+// Generated at: 11/29/2017 8:54:52 AM
 window._language_ko_KR = {
   AA: "AA",
   ABComm: "AllBet 수수료",
@@ -1789,13 +1789,13 @@ window._language_ko_KR = {
 
 /***/ }),
 
-/***/ 683:
+/***/ 704:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/13/2017 9:47:18 AM
+// Generated at: 11/30/2017 8:48:49 AM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2607,13 +2607,13 @@ window._language_zh_CN = {
 
 /***/ }),
 
-/***/ 684:
+/***/ 705:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/13/2017 9:47:18 AM
+// Generated at: 11/30/2017 8:48:49 AM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3411,13 +3411,13 @@ window._language_zh_Hans = {
 
 /***/ }),
 
-/***/ 685:
+/***/ 706:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/13/2017 9:47:18 AM
+// Generated at: 11/30/2017 8:48:49 AM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -4229,5 +4229,5 @@ window._language_zh_TW = {
 
 /***/ })
 
-},[680]);
+},[701]);
 //# sourceMappingURL=langHelper.chunk.js.map
