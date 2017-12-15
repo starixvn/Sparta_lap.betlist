@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.BetSettings.UnitTests
 {
     using System.Data;
+    using Core.Common.Interfaces;
     using Data;
     using Interfaces;
     using Model.BetSettings.DTO;
@@ -20,7 +21,8 @@
         {
             _objectDb = Substitute.For<IObjectDb>();
             _coreCasinoBetSettingDataAccess = Substitute.For<ICoreCasinoBetSettingDataAccess>();
-            _dataAccess = Substitute.ForPartsOf<LiveCasinoBetSettingDataAccess>(_coreCasinoBetSettingDataAccess);
+            var userLogDataAccess = Substitute.For<IUserLogDataAccess>();
+            _dataAccess = Substitute.ForPartsOf<LiveCasinoBetSettingDataAccess>(userLogDataAccess, _coreCasinoBetSettingDataAccess);
         }
 
         [OneTimeTearDown]

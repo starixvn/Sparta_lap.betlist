@@ -123,6 +123,7 @@
     <Compile Include="MetaModel\Authorization\LoginMetalModel.cs" />
     <Compile Include="MetaModel\BaseMetaModel.cs" />
     <Compile Include="MetaModel\Common\LeagueMetaModel.cs" />
+    <Compile Include="MetaModel\Common\UserLogMetaModel.cs" />
     <Compile Include="MetaModel\Product\ProductOption.cs" />
     <Compile Include="MetaModel\Product\ProductOptionMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

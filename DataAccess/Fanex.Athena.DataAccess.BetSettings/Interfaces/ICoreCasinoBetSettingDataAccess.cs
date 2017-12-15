@@ -6,7 +6,5 @@
     public interface ICoreCasinoBetSettingDataAccess
     {
         IResultInfo UpdateCasinoStatus(CoreCasinoStatusMetaModel metaModel, int sportId);
-
-        void WriteLogUpdatingAction(int userId, int custId, string storeProcedureName, string trackingValue1, string trackingValue2);
     }
 }
