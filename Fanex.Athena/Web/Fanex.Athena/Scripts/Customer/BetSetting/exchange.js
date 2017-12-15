@@ -1,4 +1,4 @@
-﻿/*global BetSetting*/
+﻿/*global Site, BetSetting*/
 /// <reference path="/@JSense.js" />
 "use strict";
 var Exchange = (function ($) {

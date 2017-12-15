@@ -4,6 +4,6 @@
     {
         decimal GetCommission(int ibcCustId, int currencyId);
 
-        decimal UpdateCommission(int ibcCustId, int commission);
+        decimal UpdateCommission(int ibcCustId, decimal commission);
     }
 }

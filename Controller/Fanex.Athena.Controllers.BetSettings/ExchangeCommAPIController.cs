@@ -46,7 +46,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        public ActionResult UpdateComm(int custId, int commission)
+        public ActionResult UpdateComm(int custId, decimal commission)
         {
             _exchangeCommApiService.UpdateCommission(custId, commission);
             return Json(new ResultInfo { Code = 0, Message = ViewResources.UpdateCommSucessfulMsg });

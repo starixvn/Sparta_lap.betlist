@@ -33,9 +33,9 @@ namespace Fanex.Athena.Service.BetSettings
             return result.commission;
         }
 
-        public decimal UpdateCommission(int ibcCustId, int commission)
+        public decimal UpdateCommission(int ibcCustId, decimal commission)
         {
-            var result = _apiClient.updateCommission(ibcCustId, commission, Enviro.SIT);
+            var result = _apiClient.updateCommission(ibcCustId, (int)commission, Enviro.SIT);
             return result.commission;
         }
     }
