@@ -233,7 +233,7 @@ export class FormFilter extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 col-md-5 col-sm-5 col-lg-5 col-xl-3">
+                    <div className="col-12 col-md-8 col-sm-8 col-lg-5 col-xl-5">
                         <div className="form-group">
                             <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={(this.props.groupBy === 1 && this.props.selectedCurrency.value == 0) || this.props.isConvertAll} id="IsConvertAll"

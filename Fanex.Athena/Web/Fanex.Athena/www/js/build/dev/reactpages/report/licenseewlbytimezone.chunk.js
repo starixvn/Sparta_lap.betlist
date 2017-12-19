@@ -6472,7 +6472,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-5 col-sm-5 col-lg-5 col-xl-3' },
+                        { className: 'col-12 col-md-8 col-sm-8 col-lg-5 col-xl-5' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
