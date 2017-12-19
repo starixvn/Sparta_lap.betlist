@@ -63,7 +63,7 @@ module.exports = __webpack_require__(731);
 "use strict";
 
 
-// Generated at: 12/11/2017 4:42:38 PM
+// Generated at: 12/19/2017 3:47:38 PM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -136,7 +136,7 @@ window._language_en_US = {
   BalanceInformation: "Balance Information",
   BalanceTitle: "Balance Information - {0}",
   BANote: "BA status can only be changed on Monday from 1PM to 5PM (GMT+8)",
-  BaseCurrency: "Base currency",
+  BaseCurrency: "Base Currency",
   Based: "Based",
   BAStatus: "BA Status",
   BAUpdatedBy: "BA Updated By",
@@ -1020,7 +1020,7 @@ window._language_en_US = {
 "use strict";
 
 
-// Generated at: 12/11/2017 4:42:38 PM
+// Generated at: 12/19/2017 3:47:38 PM
 window._language_ko_KR = {
   AA: "AA",
   ABComm: "AllBet 수수료",
@@ -1792,7 +1792,7 @@ window._language_ko_KR = {
 "use strict";
 
 
-// Generated at: 12/11/2017 4:42:38 PM
+// Generated at: 12/19/2017 3:47:38 PM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2605,7 +2605,7 @@ window._language_zh_CN = {
 "use strict";
 
 
-// Generated at: 12/11/2017 4:42:38 PM
+// Generated at: 12/19/2017 3:47:38 PM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3404,7 +3404,7 @@ window._language_zh_Hans = {
 "use strict";
 
 
-// Generated at: 12/11/2017 4:42:38 PM
+// Generated at: 12/19/2017 3:47:38 PM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",

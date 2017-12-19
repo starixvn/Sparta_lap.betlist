@@ -6200,6 +6200,9 @@ var FormFilter = exports.FormFilter = function (_Component) {
     }
 
     _createClass(FormFilter, [{
+        key: 'showUserGuide',
+        value: function showUserGuide() {}
+    }, {
         key: '_getParams',
         value: function _getParams() {
             if (!this.props.xsrfToken || !this.isValidModel) {
@@ -6395,7 +6398,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                             _react2.default.createElement(
                                 'label',
                                 { className: 'label-text' },
-                                _langHelper2.default.getSingleResource("Based")
+                                _langHelper2.default.getSingleResource("BaseCurrency")
                             ),
                             this._renderBaseCurrencySelectList()
                         )
@@ -6472,7 +6475,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-8 col-sm-8 col-lg-5 col-xl-5' },
+                        { className: 'col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -6488,19 +6491,35 @@ var FormFilter = exports.FormFilter = function (_Component) {
                                     'label',
                                     { htmlFor: 'IsConvertAll' },
                                     _langHelper2.default.getSingleResource("ConvertAllFiguresToBaseCurrency")
-                                ),
+                                )
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'form-group' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'checkbox-group' },
                                 _react2.default.createElement('input', { type: 'checkbox', className: 'checkbox', checked: this.props.isExcludeTest, id: 'ExcludeTest',
                                     onChange: function onChange() {
                                         return _this6.props.changeIsExcludeTest(!_this6.props.isExcludeTest);
                                     } }),
                                 _react2.default.createElement(
                                     'label',
-                                    { style: { marginLeft: "20px" }, htmlFor: 'ExcludeTest' },
+                                    { style: { marginLeft: "0px" }, htmlFor: 'ExcludeTest' },
                                     _langHelper2.default.getSingleResource("ExcludeTestData")
                                 )
                             )
                         )
-                    ),
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
                     _react2.default.createElement(
                         'div',
                         { className: 'col-12 col-md-1 col-sm-1 col-lg-1 col-xl-1' },
@@ -6521,7 +6540,8 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'caret-block' },
-                        _react2.default.createElement('i', { className: 'icon-excel right', onClick: this.exportExcel, title: _langHelper2.default.getSingleResource("ExportToExcel") })
+                        _react2.default.createElement('i', { className: 'icon-excel right', onClick: this.exportExcel, title: _langHelper2.default.getSingleResource("ExportToExcel") }),
+                        _react2.default.createElement('i', { className: 'icon-book right', onClick: this.showUserGuide, title: _langHelper2.default.getSingleResource("UserGuide") })
                     )
                 )
             );

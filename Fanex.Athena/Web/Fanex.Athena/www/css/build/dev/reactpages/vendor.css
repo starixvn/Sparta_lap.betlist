@@ -301,6 +301,9 @@ template {
 .icon-calendar:before {
   content: "\E90F"; }
 
+.icon-book:before {
+  content: "\E904"; }
+
 /* z-index */
 /* Table */
 /* Label Text */
@@ -352,6 +355,14 @@ a {
   height: 18px;
   cursor: pointer;
   display: inline-block; }
+
+.icon-book {
+  line-height: 18px;
+  font-size: 18px;
+  color: #066CC0;
+  cursor: pointer; }
+  .icon-book.right {
+    margin-left: 10px; }
 
 .negative {
   color: #ff0000 !important; }
