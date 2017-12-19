@@ -139,6 +139,9 @@ var GET_CURRENCY = exports.GET_CURRENCY = "GET_CURRENCY";
 /* Loader */
 var TOGGLE_LOADER = exports.TOGGLE_LOADER = "TOGGLE_LOADER";
 
+/* Exclude Test Data */
+var CHANGE_IS_EXCLUDE_TEST = exports.CHANGE_IS_EXCLUDE_TEST = "CHANGE_IS_EXCLUDE_TEST";
+
 /***/ }),
 
 /***/ 159:

@@ -84,7 +84,8 @@ export class FormFilter extends Component {
                 ToDate: Site.convertDateToString(toDate),
                 TimeZone: this.props.selectedTimeZone,
                 ReportBy: this.props.selectedReportBy,
-                GroupBy: this.props.groupBy
+                GroupBy: this.props.groupBy,
+                IsExcludeTestData: this.props.isExcludeTest
             }
         }
     }
@@ -201,6 +202,7 @@ export class FormFilter extends Component {
                             {this._renderBaseCurrencySelectList()}
                         </div>
                     </div>
+
                 </div>
 
                 <div className="row">
@@ -231,27 +233,32 @@ export class FormFilter extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 col-md-3 col-sm-3 col-lg-3 col-xl-3">
+                    <div className="col-12 col-md-5 col-sm-5 col-lg-5 col-xl-3">
                         <div className="form-group">
                             <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={(this.props.groupBy === 1 && this.props.selectedCurrency.value == 0) || this.props.isConvertAll} id="IsConvertAll"
                                  disabled={this.props.groupBy === 1 && this.props.selectedCurrency.value == 0}
                                 onChange={() => this.props.changeIsConvertAll(!this.props.isConvertAll)} />
                                 <label htmlFor="IsConvertAll">{LangHelper.getSingleResource("ConvertAllFiguresToBaseCurrency")}</label>
+
+                                <input type="checkbox" className="checkbox" checked={this.props.isExcludeTest} id="ExcludeTest"
+                                onChange={() => this.props.changeIsExcludeTest(!this.props.isExcludeTest)} />
+                                <label style={{marginLeft: "20px"}} htmlFor="ExcludeTest">{LangHelper.getSingleResource("ExcludeTestData")}</label>
                             </div>
                         </div>
+                        
                     </div>
-                     <div className="col-12 col-md-1 col-sm-1 col-lg-1 col-xl-1">
-                        <div className="form-group">
-                          <div className="button-group">
-                            <button disabled={!this.isValidModel} type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
+                    
+                    <div className="col-12 col-md-1 col-sm-1 col-lg-1 col-xl-1">
+                    <div className="form-group">
+                        <div className="button-group">
+                        <button disabled={!this.isValidModel} type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
                         </div>
                     </div>
-                </div>
-                </div>
-
-                <div className="caret-block">
-                    <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
+                    </div>
+                    <div className="caret-block">
+                        <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
+                    </div>
                 </div>
             </div>
         );

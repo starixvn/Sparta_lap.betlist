@@ -12,3 +12,6 @@ export const GET_CURRENCY = "GET_CURRENCY";
 
 /* Loader */
 export const TOGGLE_LOADER = "TOGGLE_LOADER";
+
+/* Exclude Test Data */
+export const CHANGE_IS_EXCLUDE_TEST = "CHANGE_IS_EXCLUDE_TEST"

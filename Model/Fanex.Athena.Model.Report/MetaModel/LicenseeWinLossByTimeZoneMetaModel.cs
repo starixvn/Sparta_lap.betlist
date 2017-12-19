@@ -20,6 +20,8 @@
 
         public bool IsConvertAll { get; set; }
 
+        public bool IsExcludeTestData { get; set; }
+
         public short TimeZone { get; set; }
 
         public byte ReportBy { get; set; }

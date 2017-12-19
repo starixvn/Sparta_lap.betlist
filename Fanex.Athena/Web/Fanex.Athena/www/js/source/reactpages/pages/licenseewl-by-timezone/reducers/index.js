@@ -5,6 +5,7 @@ import * as productReducer from '../../../reducers/productReducer'
 import * as currencyReducer from '../../../reducers/currencyReducer'
 import * as baseCurrencyReducer from '../../../reducers/baseCurrency'
 import * as loaderReducer from '../../../reducers/loaderReducer'
+import * as excludeTestReducer from '../../../reducers/excludeTestReducer'
 
 export default combineReducers(Object.assign(
     dataHandlerReducer,
@@ -12,5 +13,6 @@ export default combineReducers(Object.assign(
     productReducer,
     currencyReducer,
     baseCurrencyReducer,
-    loaderReducer
+    loaderReducer,
+    excludeTestReducer
 ));

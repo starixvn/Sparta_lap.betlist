@@ -144,6 +144,9 @@ var GET_CURRENCY = exports.GET_CURRENCY = "GET_CURRENCY";
 /* Loader */
 var TOGGLE_LOADER = exports.TOGGLE_LOADER = "TOGGLE_LOADER";
 
+/* Exclude Test Data */
+var CHANGE_IS_EXCLUDE_TEST = exports.CHANGE_IS_EXCLUDE_TEST = "CHANGE_IS_EXCLUDE_TEST";
+
 /***/ }),
 
 /***/ 16:
@@ -3538,9 +3541,13 @@ var _loaderAction = __webpack_require__(162);
 
 var loaderAction = _interopRequireWildcard(_loaderAction);
 
+var _excludeTestAction = __webpack_require__(755);
+
+var excludeTestAction = _interopRequireWildcard(_excludeTestAction);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var ActionCreators = exports.ActionCreators = Object.assign({}, dataHandlerAction, filterHandlerAction, productAction, currencyAction, baseCurrencyAction, loaderAction);
+var ActionCreators = exports.ActionCreators = Object.assign({}, dataHandlerAction, filterHandlerAction, productAction, currencyAction, baseCurrencyAction, loaderAction, excludeTestAction);
 
 /***/ }),
 
@@ -6190,7 +6197,8 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     ToDate: _site2.default.convertDateToString(toDate),
                     TimeZone: this.props.selectedTimeZone,
                     ReportBy: this.props.selectedReportBy,
-                    GroupBy: this.props.groupBy
+                    GroupBy: this.props.groupBy,
+                    IsExcludeTestData: this.props.isExcludeTest
                 }
             };
         }
@@ -6438,7 +6446,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-3 col-sm-3 col-lg-3 col-xl-3' },
+                        { className: 'col-12 col-md-5 col-sm-5 col-lg-5 col-xl-3' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -6454,6 +6462,15 @@ var FormFilter = exports.FormFilter = function (_Component) {
                                     'label',
                                     { htmlFor: 'IsConvertAll' },
                                     _langHelper2.default.getSingleResource("ConvertAllFiguresToBaseCurrency")
+                                ),
+                                _react2.default.createElement('input', { type: 'checkbox', className: 'checkbox', checked: this.props.isExcludeTest, id: 'ExcludeTest',
+                                    onChange: function onChange() {
+                                        return _this6.props.changeIsExcludeTest(!_this6.props.isExcludeTest);
+                                    } }),
+                                _react2.default.createElement(
+                                    'label',
+                                    { style: { marginLeft: "20px" }, htmlFor: 'ExcludeTest' },
+                                    _langHelper2.default.getSingleResource("ExcludeTestData")
                                 )
                             )
                         )
@@ -6474,12 +6491,12 @@ var FormFilter = exports.FormFilter = function (_Component) {
                                 )
                             )
                         )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'caret-block' },
+                        _react2.default.createElement('i', { className: 'icon-excel right', onClick: this.exportExcel, title: _langHelper2.default.getSingleResource("ExportToExcel") })
                     )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'caret-block' },
-                    _react2.default.createElement('i', { className: 'icon-excel right', onClick: this.exportExcel, title: _langHelper2.default.getSingleResource("ExportToExcel") })
                 )
             );
         }
@@ -6803,9 +6820,13 @@ var _loaderReducer = __webpack_require__(194);
 
 var loaderReducer = _interopRequireWildcard(_loaderReducer);
 
+var _excludeTestReducer = __webpack_require__(756);
+
+var excludeTestReducer = _interopRequireWildcard(_excludeTestReducer);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, filterHandlerReducer, productReducer, currencyReducer, baseCurrencyReducer, loaderReducer));
+exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, filterHandlerReducer, productReducer, currencyReducer, baseCurrencyReducer, loaderReducer, excludeTestReducer));
 
 /***/ }),
 
@@ -7088,6 +7109,70 @@ function filterOptions(options, filterValue, excludeOptions, props) {
 }
 
 exports.default = filterOptions;
+
+/***/ }),
+
+/***/ 755:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.changeIsExcludeTest = exports.setSelectedCurrency = undefined;
+
+var _types = __webpack_require__(15);
+
+var types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var setSelectedCurrency = exports.setSelectedCurrency = function setSelectedCurrency(item) {
+    return {
+        type: types.SET_SELECTED_CURRENCY,
+        data: item
+    };
+};
+
+var changeIsExcludeTest = exports.changeIsExcludeTest = function changeIsExcludeTest(checked) {
+    return {
+        type: types.CHANGE_IS_EXCLUDE_TEST,
+        data: checked
+    };
+};
+
+/***/ }),
+
+/***/ 756:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.isExcludeTest = undefined;
+
+var _types = __webpack_require__(15);
+
+var types = _interopRequireWildcard(_types);
+
+var _createReducer2 = __webpack_require__(26);
+
+var _createReducer3 = _interopRequireDefault(_createReducer2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var isExcludeTest = exports.isExcludeTest = (0, _createReducer3.default)({}, _defineProperty({}, types.CHANGE_IS_EXCLUDE_TEST, function (state, action) {
+    return action.data;
+}));
 
 /***/ }),
 
