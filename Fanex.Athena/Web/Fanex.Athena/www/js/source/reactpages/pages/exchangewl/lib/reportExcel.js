@@ -290,7 +290,7 @@ export default class ReportExcel {
                 nextColumnIndex = sectionColumn.index_c ? sectionColumn.index_c : nextColumnIndex;
                 const address = Excel.getCellAddress({ c: nextColumnIndex, r: startRowIndex });
                 const value = data[column.field];
-                this.worksheet[address] = { t: column.type, v: value, s: sectionColumn.hasNegativeStyle ? (value > 0 ? sectionColumn.style.positive : sectionColumn.style.negative ) : sectionColumn.style };
+                this.worksheet[address] = { t: column.type, v: value, s: sectionColumn.hasNegativeStyle ? (value >= 0 ? sectionColumn.style.positive : sectionColumn.style.negative ) : sectionColumn.style };
 
                 ++nextColumnIndex;
             }

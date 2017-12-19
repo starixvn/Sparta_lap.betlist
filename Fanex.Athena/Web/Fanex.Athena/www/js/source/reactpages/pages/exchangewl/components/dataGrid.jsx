@@ -225,7 +225,7 @@ export class DataGrid extends Component {
             totalInText = service.getTotalText().totalIn,
             colSummarySpan = this._getColSpan(level) + 1;
 
-        for (let i = 0; i < baseCurrencyList.length; i++) {
+        for (let i = baseCurrencyList.length - 1; i >= 0; i--) {
             const currency = baseCurrencyList[i],
                 item = dataSummary[currency];
            
