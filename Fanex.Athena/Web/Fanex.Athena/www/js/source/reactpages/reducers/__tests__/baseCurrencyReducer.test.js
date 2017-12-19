@@ -1,4 +1,4 @@
-import * as baseCurrencyReducer from '../baseCurrency'
+import * as baseCurrencyReducer from '../baseCurrencyReducer'
 import * as types from '../../actions/types'
 
 const emptyState = {};
