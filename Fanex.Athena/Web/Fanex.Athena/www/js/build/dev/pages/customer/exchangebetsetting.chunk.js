@@ -1169,7 +1169,19 @@ module.exports = __webpack_require__(412);
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(177), __webpack_require__(132)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, DcsBetSetting, BetSettingHelper) {
-    
+        var _count = 0;
+        var _message = [
+            "Has anyone told you not to click me ;(?",
+            "Please stop it!",
+            "I'm getting tired of you!",
+            "Ok! I will not say anything anymore",
+        ];
+        function alertNotAvailable() {
+            if (_count < _message.length) {
+                alert(_message[_count]);
+                _count++;
+            }
+        }
     var _me = {
         initialize: function () {
             DcsBetSetting.initialize();
@@ -1178,7 +1190,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
         initEvent: function () {
             $("#btnSubmit").click(function () {
-                _me.updateComm($(this).attr("data-cust-id"), $("#ddlCommission").val());
+                alertNotAvailable();
+                // _me.updateComm($(this).attr("data-cust-id"), $("#ddlCommission").val());
+            });
+
+            $("#btnReset").click(function () {
+                var $dropdown = $("#ddlCommission");
+                $dropdown.val($dropdown.data("original-value")).change();
             });
         },
 

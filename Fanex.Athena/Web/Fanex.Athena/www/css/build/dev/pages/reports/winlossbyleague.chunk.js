@@ -1,19 +1,19 @@
-webpackJsonp([71],{
+webpackJsonp([72],{
 
-/***/ 498:
+/***/ 503:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(499);
+module.exports = __webpack_require__(504);
 
 
 /***/ }),
 
-/***/ 499:
+/***/ 504:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ })
 
-},[498]);
+},[503]);
 //# sourceMappingURL=winlossbyleague.chunk.js.map

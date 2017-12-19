@@ -1,17 +1,17 @@
-webpackJsonp([61],{
+webpackJsonp([62],{
 
-/***/ 301:
+/***/ 304:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(302);
+module.exports = __webpack_require__(305);
 
 
 /***/ }),
 
-/***/ 302:
+/***/ 305:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(303)], __WEBPACK_AMD_DEFINE_RESULT__ = function (SettledMatchCount) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(306)], __WEBPACK_AMD_DEFINE_RESULT__ = function (SettledMatchCount) {
     "use strict";
 
     $(SettledMatchCount.initialize);
@@ -21,7 +21,7 @@ module.exports = __webpack_require__(302);
 
 /***/ }),
 
-/***/ 303:
+/***/ 306:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44,5 +44,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ })
 
-},[301]);
+},[304]);
 //# sourceMappingURL=settledmatchcount.chunk.js.map

@@ -1,19 +1,19 @@
-webpackJsonp([79],{
+webpackJsonp([80],{
 
-/***/ 500:
+/***/ 505:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(501);
+module.exports = __webpack_require__(506);
 
 
 /***/ }),
 
-/***/ 501:
+/***/ 506:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ })
 
-},[500]);
+},[505]);
 //# sourceMappingURL=matchwinloss.chunk.js.map

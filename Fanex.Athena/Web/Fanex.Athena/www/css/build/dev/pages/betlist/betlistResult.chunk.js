@@ -1,19 +1,19 @@
-webpackJsonp([105],{
+webpackJsonp([106],{
 
-/***/ 460:
+/***/ 465:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(461);
+module.exports = __webpack_require__(466);
 
 
 /***/ }),
 
-/***/ 461:
+/***/ 466:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ })
 
-},[460]);
+},[465]);
 //# sourceMappingURL=betlistResult.chunk.js.map
