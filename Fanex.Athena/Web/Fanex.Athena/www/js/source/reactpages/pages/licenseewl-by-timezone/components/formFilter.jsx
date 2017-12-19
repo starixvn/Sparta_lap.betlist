@@ -57,6 +57,10 @@ export class FormFilter extends Component {
         });
     }
 
+    showUserGuide() {
+
+    }
+
     changeGroupBy = (value) => {
         this.props.changeGroupBy(value);
         if (value === SettingConst.GroupByProduct && this.props.selectedCurrency.value === 0)
@@ -198,7 +202,7 @@ export class FormFilter extends Component {
 
                     <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
                         <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Based")}</label>
+                            <label className="label-text">{LangHelper.getSingleResource("BaseCurrency")}</label>
                             {this._renderBaseCurrencySelectList()}
                         </div>
                     </div>
@@ -233,7 +237,7 @@ export class FormFilter extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 col-md-8 col-sm-8 col-lg-5 col-xl-5">
+                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={(this.props.groupBy === 1 && this.props.selectedCurrency.value == 0) || this.props.isConvertAll} id="IsConvertAll"
@@ -241,13 +245,22 @@ export class FormFilter extends Component {
                                 onChange={() => this.props.changeIsConvertAll(!this.props.isConvertAll)} />
                                 <label htmlFor="IsConvertAll">{LangHelper.getSingleResource("ConvertAllFiguresToBaseCurrency")}</label>
 
-                                <input type="checkbox" className="checkbox" checked={this.props.isExcludeTest} id="ExcludeTest"
-                                onChange={() => this.props.changeIsExcludeTest(!this.props.isExcludeTest)} />
-                                <label style={{marginLeft: "20px"}} htmlFor="ExcludeTest">{LangHelper.getSingleResource("ExcludeTestData")}</label>
                             </div>
                         </div>
                         
                     </div>
+                     <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                        <div className="form-group">
+                           <div className="checkbox-group">
+                                <input type="checkbox" className="checkbox" checked={this.props.isExcludeTest} id="ExcludeTest"
+                           onChange={() => this.props.changeIsExcludeTest(!this.props.isExcludeTest)} />
+                           <label style={{marginLeft: "0px"}} htmlFor="ExcludeTest">{LangHelper.getSingleResource("ExcludeTestData")}</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div className="row">
                     
                     <div className="col-12 col-md-1 col-sm-1 col-lg-1 col-xl-1">
                     <div className="form-group">
@@ -258,6 +271,7 @@ export class FormFilter extends Component {
                     </div>
                     <div className="caret-block">
                         <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
+                        <i className="icon-book right" onClick={this.showUserGuide} title={LangHelper.getSingleResource("UserGuide")}></i>
                     </div>
                 </div>
             </div>

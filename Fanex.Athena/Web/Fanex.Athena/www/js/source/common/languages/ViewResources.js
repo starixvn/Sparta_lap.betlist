@@ -1,4 +1,4 @@
-﻿// Generated at: 12/11/2017 4:42:38 PM
+﻿// Generated at: 12/19/2017 3:47:38 PM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -71,7 +71,7 @@ Balance:"Balance",
 BalanceInformation:"Balance Information",
 BalanceTitle:"Balance Information - {0}",
 BANote:"BA status can only be changed on Monday from 1PM to 5PM (GMT+8)",
-BaseCurrency:"Base currency",
+BaseCurrency:"Base Currency",
 Based:"Based",
 BAStatus:"BA Status",
 BAUpdatedBy:"BA Updated By",
