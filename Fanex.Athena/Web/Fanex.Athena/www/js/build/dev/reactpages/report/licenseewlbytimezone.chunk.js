@@ -83,6 +83,35 @@ var GET_XSRF_TOKEN = exports.GET_XSRF_TOKEN = "GET_XSRF_TOKEN";
 
 
 Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/* Product */
+var SET_SELECTED_PRODUCT = exports.SET_SELECTED_PRODUCT = "SET_SELECTED_PRODUCT";
+var SET_PRODUCT_OPTIONS = exports.SET_PRODUCT_OPTIONS = "SET_PRODUCT_OPTIONS";
+
+/* Base Currency */
+var SET_SELECTED_BASECURRENCY = exports.SET_SELECTED_BASECURRENCY = "SET_SELECTED_BASECURRENCY";
+var GET_BASECURRENCY = exports.GET_BASECURRENCY = "GET_BASECURRENCY";
+
+/* Currency */
+var SET_SELECTED_CURRENCY = exports.SET_SELECTED_CURRENCY = "SET_SELECTED_CURRENCY";
+var GET_CURRENCY = exports.GET_CURRENCY = "GET_CURRENCY";
+
+/* Loader */
+var TOGGLE_LOADER = exports.TOGGLE_LOADER = "TOGGLE_LOADER";
+
+/* Exclude Test Data */
+var CHANGE_IS_EXCLUDE_TEST = exports.CHANGE_IS_EXCLUDE_TEST = "CHANGE_IS_EXCLUDE_TEST";
+
+/***/ }),
+
+/***/ 15:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
@@ -117,35 +146,6 @@ var LangHelper = function () {
 }();
 
 exports.default = LangHelper;
-
-/***/ }),
-
-/***/ 15:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-/* Product */
-var SET_SELECTED_PRODUCT = exports.SET_SELECTED_PRODUCT = "SET_SELECTED_PRODUCT";
-var SET_PRODUCT_OPTIONS = exports.SET_PRODUCT_OPTIONS = "SET_PRODUCT_OPTIONS";
-
-/* Base Currency */
-var SET_SELECTED_BASECURRENCY = exports.SET_SELECTED_BASECURRENCY = "SET_SELECTED_BASECURRENCY";
-var GET_BASECURRENCY = exports.GET_BASECURRENCY = "GET_BASECURRENCY";
-
-/* Currency */
-var SET_SELECTED_CURRENCY = exports.SET_SELECTED_CURRENCY = "SET_SELECTED_CURRENCY";
-var GET_CURRENCY = exports.GET_CURRENCY = "GET_CURRENCY";
-
-/* Loader */
-var TOGGLE_LOADER = exports.TOGGLE_LOADER = "TOGGLE_LOADER";
-
-/* Exclude Test Data */
-var CHANGE_IS_EXCLUDE_TEST = exports.CHANGE_IS_EXCLUDE_TEST = "CHANGE_IS_EXCLUDE_TEST";
 
 /***/ }),
 
@@ -216,7 +216,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.setProductOptions = exports.setSelectedProduct = undefined;
 
-var _types = __webpack_require__(15);
+var _types = __webpack_require__(14);
 
 var types = _interopRequireWildcard(_types);
 
@@ -248,7 +248,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.setSelectedBaseCurrency = undefined;
 
-var _types = __webpack_require__(15);
+var _types = __webpack_require__(14);
 
 var types = _interopRequireWildcard(_types);
 
@@ -274,7 +274,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.toggleLoader = undefined;
 
-var _types = __webpack_require__(15);
+var _types = __webpack_require__(14);
 
 var types = _interopRequireWildcard(_types);
 
@@ -1001,7 +1001,7 @@ var _reactDom = __webpack_require__(8);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _langHelper = __webpack_require__(14);
+var _langHelper = __webpack_require__(15);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
@@ -3097,7 +3097,7 @@ var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _langHelper = __webpack_require__(14);
+var _langHelper = __webpack_require__(15);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
@@ -3400,11 +3400,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.productOptions = exports.selectedProduct = undefined;
 
-var _types = __webpack_require__(15);
+var _types = __webpack_require__(14);
 
 var types = _interopRequireWildcard(_types);
 
-var _createReducer3 = __webpack_require__(26);
+var _createReducer3 = __webpack_require__(20);
 
 var _createReducer4 = _interopRequireDefault(_createReducer3);
 
@@ -3435,11 +3435,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.baseCurrencyList = exports.selectedBaseCurrency = undefined;
 
-var _types = __webpack_require__(15);
+var _types = __webpack_require__(14);
 
 var types = _interopRequireWildcard(_types);
 
-var _createReducer3 = __webpack_require__(26);
+var _createReducer3 = __webpack_require__(20);
 
 var _createReducer4 = _interopRequireDefault(_createReducer3);
 
@@ -3470,11 +3470,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.isLoading = undefined;
 
-var _types = __webpack_require__(15);
+var _types = __webpack_require__(14);
 
 var types = _interopRequireWildcard(_types);
 
-var _createReducer2 = __webpack_require__(26);
+var _createReducer2 = __webpack_require__(20);
 
 var _createReducer3 = _interopRequireDefault(_createReducer2);
 
@@ -3541,7 +3541,7 @@ var _loaderAction = __webpack_require__(162);
 
 var loaderAction = _interopRequireWildcard(_loaderAction);
 
-var _excludeTestAction = __webpack_require__(755);
+var _excludeTestAction = __webpack_require__(737);
 
 var excludeTestAction = _interopRequireWildcard(_excludeTestAction);
 
@@ -3563,7 +3563,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _langHelper = __webpack_require__(14);
+var _langHelper = __webpack_require__(15);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
@@ -3637,7 +3637,7 @@ var SettingConst = exports.SettingConst = {
 
 /***/ }),
 
-/***/ 26:
+/***/ 20:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5402,11 +5402,11 @@ var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
 var _reactRedux = __webpack_require__(33);
 
-var _index = __webpack_require__(740);
+var _index = __webpack_require__(741);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _store = __webpack_require__(744);
+var _store = __webpack_require__(746);
 
 var _store2 = _interopRequireDefault(_store);
 
@@ -5470,15 +5470,15 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(33);
 
-var _redux = __webpack_require__(21);
+var _redux = __webpack_require__(22);
 
 var _index = __webpack_require__(196);
 
-var _datagrid = __webpack_require__(737);
+var _datagrid = __webpack_require__(738);
 
 var _datagrid2 = _interopRequireDefault(_datagrid);
 
-var _formFilter = __webpack_require__(738);
+var _formFilter = __webpack_require__(739);
 
 var _formFilter2 = _interopRequireDefault(_formFilter);
 
@@ -5674,7 +5674,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.setSelectedCurrency = undefined;
 
-var _types = __webpack_require__(15);
+var _types = __webpack_require__(14);
 
 var types = _interopRequireWildcard(_types);
 
@@ -5690,6 +5690,32 @@ var setSelectedCurrency = exports.setSelectedCurrency = function setSelectedCurr
 /***/ }),
 
 /***/ 737:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.changeIsExcludeTest = undefined;
+
+var _types = __webpack_require__(14);
+
+var types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var changeIsExcludeTest = exports.changeIsExcludeTest = function changeIsExcludeTest(checked) {
+    return {
+        type: types.CHANGE_IS_EXCLUDE_TEST,
+        data: checked
+    };
+};
+
+/***/ }),
+
+/***/ 738:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5714,11 +5740,11 @@ var _reactRedux = __webpack_require__(33);
 
 var _index = __webpack_require__(196);
 
-var _redux = __webpack_require__(21);
+var _redux = __webpack_require__(22);
 
 var _fixedTableHeader = __webpack_require__(163);
 
-var _langHelper = __webpack_require__(14);
+var _langHelper = __webpack_require__(15);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
@@ -6038,7 +6064,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 738:
+/***/ 739:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6059,7 +6085,7 @@ var _reactRedux = __webpack_require__(33);
 
 var _index = __webpack_require__(196);
 
-var _redux = __webpack_require__(21);
+var _redux = __webpack_require__(22);
 
 var _reactSelect = __webpack_require__(172);
 
@@ -6071,11 +6097,11 @@ var _multipleSelect2 = _interopRequireDefault(_multipleSelect);
 
 var _index2 = __webpack_require__(183);
 
-var _langHelper = __webpack_require__(14);
+var _langHelper = __webpack_require__(15);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _reportExcel = __webpack_require__(739);
+var _reportExcel = __webpack_require__(740);
 
 var _reportExcel2 = _interopRequireDefault(_reportExcel);
 
@@ -6524,7 +6550,25 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 739:
+/***/ 74:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var SCROLLBAR_WIDTH = exports.SCROLLBAR_WIDTH = 19;
+var BODY_WIDTH = exports.BODY_WIDTH = document.body.clientWidth;
+var GUTTER = exports.GUTTER = 15;
+var MAX_WIDTH = exports.MAX_WIDTH = BODY_WIDTH - GUTTER * 2;
+var DEFAULT_MILLISECOND_FOR_WAITING = exports.DEFAULT_MILLISECOND_FOR_WAITING = 500;
+var DEFAULT_COLUMN_WIDTH = exports.DEFAULT_COLUMN_WIDTH = 100;
+
+/***/ }),
+
+/***/ 740:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6550,7 +6594,7 @@ var _excel = __webpack_require__(188);
 
 var _excel2 = _interopRequireDefault(_excel);
 
-var _langHelper = __webpack_require__(14);
+var _langHelper = __webpack_require__(15);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
@@ -6766,25 +6810,7 @@ exports.default = ReportExcel;
 
 /***/ }),
 
-/***/ 74:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var SCROLLBAR_WIDTH = exports.SCROLLBAR_WIDTH = 19;
-var BODY_WIDTH = exports.BODY_WIDTH = document.body.clientWidth;
-var GUTTER = exports.GUTTER = 15;
-var MAX_WIDTH = exports.MAX_WIDTH = BODY_WIDTH - GUTTER * 2;
-var DEFAULT_MILLISECOND_FOR_WAITING = exports.DEFAULT_MILLISECOND_FOR_WAITING = 500;
-var DEFAULT_COLUMN_WIDTH = exports.DEFAULT_COLUMN_WIDTH = 100;
-
-/***/ }),
-
-/***/ 740:
+/***/ 741:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6794,13 +6820,13 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _redux = __webpack_require__(21);
+var _redux = __webpack_require__(22);
 
-var _dataHandlerReducer = __webpack_require__(741);
+var _dataHandlerReducer = __webpack_require__(742);
 
 var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
 
-var _filterHandlerReducer = __webpack_require__(742);
+var _filterHandlerReducer = __webpack_require__(743);
 
 var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
 
@@ -6808,19 +6834,19 @@ var _productReducer = __webpack_require__(192);
 
 var productReducer = _interopRequireWildcard(_productReducer);
 
-var _currencyReducer = __webpack_require__(743);
+var _currencyReducer = __webpack_require__(744);
 
 var currencyReducer = _interopRequireWildcard(_currencyReducer);
 
-var _baseCurrency = __webpack_require__(193);
+var _baseCurrencyReducer = __webpack_require__(193);
 
-var baseCurrencyReducer = _interopRequireWildcard(_baseCurrency);
+var baseCurrencyReducer = _interopRequireWildcard(_baseCurrencyReducer);
 
 var _loaderReducer = __webpack_require__(194);
 
 var loaderReducer = _interopRequireWildcard(_loaderReducer);
 
-var _excludeTestReducer = __webpack_require__(756);
+var _excludeTestReducer = __webpack_require__(745);
 
 var excludeTestReducer = _interopRequireWildcard(_excludeTestReducer);
 
@@ -6830,7 +6856,7 @@ exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, 
 
 /***/ }),
 
-/***/ 741:
+/***/ 742:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6841,7 +6867,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.gridData = undefined;
 
-var _createReducer2 = __webpack_require__(26);
+var _createReducer2 = __webpack_require__(20);
 
 var _createReducer3 = _interopRequireDefault(_createReducer2);
 
@@ -6861,7 +6887,7 @@ var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProper
 
 /***/ }),
 
-/***/ 742:
+/***/ 743:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6872,7 +6898,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.dateConstraint = exports.xsrfToken = exports.isIncludeDrawData = exports.isConvertAll = exports.groupBy = exports.dateRange = exports.selectedReportBy = exports.reportByList = exports.selectedTimeZone = exports.timeZoneList = undefined;
 
-var _createReducer11 = __webpack_require__(26);
+var _createReducer11 = __webpack_require__(20);
 
 var _createReducer12 = _interopRequireDefault(_createReducer11);
 
@@ -6928,7 +6954,7 @@ var dateConstraint = exports.dateConstraint = (0, _createReducer12.default)({}, 
 
 /***/ }),
 
-/***/ 743:
+/***/ 744:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6939,11 +6965,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.currencyList = exports.selectedCurrency = undefined;
 
-var _types = __webpack_require__(15);
+var _types = __webpack_require__(14);
 
 var types = _interopRequireWildcard(_types);
 
-var _createReducer3 = __webpack_require__(26);
+var _createReducer3 = __webpack_require__(20);
 
 var _createReducer4 = _interopRequireDefault(_createReducer3);
 
@@ -6963,7 +6989,38 @@ var currencyList = exports.currencyList = (0, _createReducer4.default)({}, _defi
 
 /***/ }),
 
-/***/ 744:
+/***/ 745:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.isExcludeTest = undefined;
+
+var _types = __webpack_require__(14);
+
+var types = _interopRequireWildcard(_types);
+
+var _createReducer2 = __webpack_require__(20);
+
+var _createReducer3 = _interopRequireDefault(_createReducer2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var isExcludeTest = exports.isExcludeTest = (0, _createReducer3.default)({}, _defineProperty({}, types.CHANGE_IS_EXCLUDE_TEST, function (state, action) {
+    return action.data;
+}));
+
+/***/ }),
+
+/***/ 746:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6975,13 +7032,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _redux = __webpack_require__(21);
+var _redux = __webpack_require__(22);
 
 var _reduxThunk = __webpack_require__(123);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _logger = __webpack_require__(745);
+var _logger = __webpack_require__(747);
 
 var _logger2 = _interopRequireDefault(_logger);
 
@@ -7013,7 +7070,7 @@ exports.default = Store;
 
 /***/ }),
 
-/***/ 745:
+/***/ 747:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7109,70 +7166,6 @@ function filterOptions(options, filterValue, excludeOptions, props) {
 }
 
 exports.default = filterOptions;
-
-/***/ }),
-
-/***/ 755:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.changeIsExcludeTest = exports.setSelectedCurrency = undefined;
-
-var _types = __webpack_require__(15);
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var setSelectedCurrency = exports.setSelectedCurrency = function setSelectedCurrency(item) {
-    return {
-        type: types.SET_SELECTED_CURRENCY,
-        data: item
-    };
-};
-
-var changeIsExcludeTest = exports.changeIsExcludeTest = function changeIsExcludeTest(checked) {
-    return {
-        type: types.CHANGE_IS_EXCLUDE_TEST,
-        data: checked
-    };
-};
-
-/***/ }),
-
-/***/ 756:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.isExcludeTest = undefined;
-
-var _types = __webpack_require__(15);
-
-var types = _interopRequireWildcard(_types);
-
-var _createReducer2 = __webpack_require__(26);
-
-var _createReducer3 = _interopRequireDefault(_createReducer2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var isExcludeTest = exports.isExcludeTest = (0, _createReducer3.default)({}, _defineProperty({}, types.CHANGE_IS_EXCLUDE_TEST, function (state, action) {
-    return action.data;
-}));
 
 /***/ }),
 
@@ -8749,7 +8742,7 @@ var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _langHelper = __webpack_require__(14);
+var _langHelper = __webpack_require__(15);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
