@@ -114,6 +114,9 @@
     <Setting Key="Lrf_Rpt_CashoutWinloss_Detail" SpName="Lrf_Rpt_CashoutWinloss_Detail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_SubsidiaryWinloss" SpName="Lrf_Rpt_SubsidiaryWinloss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_LicWinlossByTimeZone" SpName="Lrf_Rpt_LicWinlossByTimeZone" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_ExchangeWinloss" SpName="Lrf_Rpt_ExchangeWinloss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_ExchangeWinloss_Ag" SpName="Lrf_Rpt_ExchangeWinloss_Ag" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_ExchangeWinloss_Mem" SpName="Lrf_Rpt_ExchangeWinloss_Mem" DbName="DBEXT.bodb02.bodbLicenseeNet" />
   </Function>
 
   <Function Name="CustomerInformation">
