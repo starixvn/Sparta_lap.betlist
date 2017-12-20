@@ -319,5 +319,48 @@ describe('FormFilter ', () => {
                 })
             })
         })
+
+        describe('showUserGuide', () => {
+            it('userGuideContent is not empty - do nothing', () => {
+                const props = {
+                    userGuideContent: '<hr/>',
+                    xsrfToken: 'token',
+                    getUserGuideContent: jest.fn()
+                };
+                const formFilter = new FormFilter(props);
+
+                formFilter.showUserGuide();
+
+                expect(props.getUserGuideContent).not.toHaveBeenCalled();
+            })
+
+            it('userGuideContent is empty - xsrfToken is null - do nothing', () => {
+                const props = {
+                    userGuideContent: '',
+                    getUserGuideContent: jest.fn()
+                };
+                const formFilter = new FormFilter(props);
+
+                formFilter.showUserGuide();
+
+                expect(props.getUserGuideContent).not.toHaveBeenCalled();
+            })
+
+            it('userGuideContent is empty - get UserGuideContent', () => {
+                const props = {
+                    userGuideContent: '',
+                    getUserGuideContent: jest.fn(),
+                    xsrfToken: 'token',
+                };
+                const formFilter = new FormFilter(props);
+
+                formFilter.showUserGuide();
+
+                expect(props.getUserGuideContent).toHaveBeenCalledWith({
+                    xsrfToken: props.xsrfToken,  
+                    resourceName: 'LicenseeWLByTimeZone'
+                });
+            })
+        })
     })
 })

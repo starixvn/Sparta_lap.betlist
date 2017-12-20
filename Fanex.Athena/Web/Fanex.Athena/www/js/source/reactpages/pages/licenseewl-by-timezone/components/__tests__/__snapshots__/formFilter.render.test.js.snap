@@ -2189,7 +2189,7 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
         <label
           className="label-text"
         >
-          Based
+          BaseCurrency
         </label>
         <div
           className="Select Select--single is-clearable is-searchable has-value"
@@ -2506,7 +2506,7 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
       </div>
     </div>
     <div
-      className="col-12 col-md-5 col-sm-5 col-lg-5 col-xl-3"
+      className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2"
     >
       <div
         className="form-group"
@@ -2527,6 +2527,18 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
           >
             ConvertAllFiguresToBaseCurrency
           </label>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2"
+    >
+      <div
+        className="form-group"
+      >
+        <div
+          className="checkbox-group"
+        >
           <input
             checked={undefined}
             className="checkbox"
@@ -2538,7 +2550,7 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
             htmlFor="ExcludeTest"
             style={
               Object {
-                "marginLeft": "20px",
+                "marginLeft": "0px",
               }
             }
           >
@@ -2547,6 +2559,10 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
         </div>
       </div>
     </div>
+  </div>
+  <div
+    className="row"
+  >
     <div
       className="col-12 col-md-1 col-sm-1 col-lg-1 col-xl-1"
     >
@@ -2575,6 +2591,56 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
         onClick={[Function]}
         title="ExportToExcel"
       />
+      <div>
+        <i
+          className="icon-book right"
+          onClick={[Function]}
+          title="UserGuide"
+        />
+        <div
+          className="popup-container hide"
+        >
+          <div
+            className="popup-block-body"
+          />
+          <div
+            className="flat-popup"
+            style={
+              Object {
+                "height": "480px",
+                "width": "640px",
+              }
+            }
+          >
+            <div
+              className="popup-title"
+            >
+              <div
+                className="txt-title"
+              >
+                WinLossByTimeZone
+              </div>
+              <a
+                className="popup-close"
+                href="javascript:;"
+                onClick={[Function]}
+              >
+                <i
+                  className="icon-close"
+                />
+              </a>
+            </div>
+            <div
+              className="popup-content"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

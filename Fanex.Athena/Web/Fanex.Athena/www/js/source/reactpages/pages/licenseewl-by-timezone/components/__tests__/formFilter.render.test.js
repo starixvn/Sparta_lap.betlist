@@ -11,6 +11,7 @@ const formFilterPropsForRender = { ...defaultProps };
 
 const multipleSelectComponentPath = '../../../../components/multiple-select';
 const dateRangeComponentPath = '../../../../components/date-range/index';
+const userGuidePath = '../../../../components/UserGuide';
 
 describe('FormFilter ', () => {
     beforeEach(() => {
@@ -112,6 +113,31 @@ describe('FormFilter ', () => {
 
                 const { startDate, endDate, minDate, maxDate, limitedMonthRange } = dateRange.props;
                 const result = { startDate, endDate, minDate, maxDate, limitedMonthRange };
+
+                expect(result).toEqual(expectedResult);
+            })
+        })
+
+        describe('User Guide', () => {
+            beforeAll(() => {
+                jest.mock(userGuidePath, (props) => (<div {...props}></div>));
+            })
+            afterAll(() => {
+                jest.unmock(userGuidePath);
+            })
+
+            it('_renderUserGuide - component props should be correct', () => {
+                const expectedResult = {
+                    content: '',
+                    title: 'UserGuide',
+                    contentTitle: 'WinLossByTimeZone'
+                }
+
+                const formFilter = new FormFilter({ userGuideContent: ''});
+                const userGuide = formFilter._renderUserGuide();
+
+                const { content, title, contentTitle } = userGuide.props;
+                const result = { content, title, contentTitle };
 
                 expect(result).toEqual(expectedResult);
             })

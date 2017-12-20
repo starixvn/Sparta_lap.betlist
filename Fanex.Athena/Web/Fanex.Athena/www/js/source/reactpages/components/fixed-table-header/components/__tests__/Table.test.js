@@ -177,8 +177,17 @@ describe('Table ', () => {
             const body = [<Row key="body"><Cell>Body 1</Cell></Row>];
             const footer = [<Row key="footer"><Cell>Footer 1</Cell></Row>];
 
+            const options = {
+                createNodeMock: (element) => {
+                    return {
+                        offsetHeight: 1,
+                        offsetTop: 1
+                    };
+                }
+            };
+
             const props = Object.assign({}, defaultProps, { header, body, footer });
-            const table = renderer.create(<Table {...props} />);
+            const table = renderer.create(<Table {...props} />, options);
 
             const result = table.toJSON();
 
@@ -191,17 +200,45 @@ describe('Table ', () => {
             preventDefault: jest.fn()
         }
 
-        it('maxWidth of state = document.body.clientWidth - this.diffWidth - do nothing', () => {
+        it('contentHeight of state = bodyHeight of calculation - do nothing', () => {
             const table = new Table(defaultProps);
             table.setState = jest.fn();
+            table._calculateBodyHeight = jest.fn(() => defaultProps.bodyHeight);
 
             table._handleResize(event);
 
             expect(table.setState).not.toHaveBeenCalled();
         })
 
+        it('contentHeight of state = bodyHeight of calculation - do nothing', () => {
+            const table = new Table(defaultProps);
+            table.setState = jest.fn();
+            table._calculateBodyHeight = jest.fn(() => defaultProps.bodyHeight);
+
+            table._handleResize(event);
+
+            expect(table.setState).not.toHaveBeenCalled();
+        })
+
+        it('maxWidth of state = document.body.clientWidth - this.diffWidth - do nothing', () => {
+            const table = new Table(defaultProps);
+            table.setState = jest.fn();
+
+            const bodyHeight = defaultProps.bodyHeight - 1;
+            table._calculateBodyHeight = jest.fn(() => bodyHeight);
+
+            const expectedState = {
+                contentHeight: bodyHeight
+            }
+
+            table._handleResize(event);
+
+            expect(table.setState).toHaveBeenCalledWith(expectedState);
+        })
+
         it('maxWidth of state != document.body.clientWidth - this.diffWidth - setState function should be called with correct parameter', () => {
             const table = new Table(defaultProps);
+            table._calculateBodyHeight = jest.fn(() => defaultProps.bodyHeight);
             table.diffWidth = 50;
             const expectedState = {
                 maxWidth: document.body.clientWidth - table.diffWidth

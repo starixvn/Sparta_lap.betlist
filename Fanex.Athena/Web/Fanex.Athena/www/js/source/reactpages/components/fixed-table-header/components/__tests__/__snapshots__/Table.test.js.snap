@@ -47,7 +47,7 @@ exports[`Table  render columnsWidth is not null - return content that match with
     className="body-content"
     style={
       Object {
-        "maxHeight": undefined,
+        "maxHeight": 736,
         "minWidth": undefined,
         "width": -30,
       }

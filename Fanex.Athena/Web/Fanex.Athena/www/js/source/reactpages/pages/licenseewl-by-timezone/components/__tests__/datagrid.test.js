@@ -93,7 +93,16 @@ describe('DataGrid1111', () => {
             const dataGrid = new DataGrid(props);
             const content = dataGrid.render();
 
-            const result = renderer.create(content).toJSON();
+            const options = {
+                createNodeMock: (element) => {
+                    return {
+                        offsetHeight: 1,
+                        offsetTop: 1
+                    };
+                }
+            };
+
+            const result = renderer.create(content, options).toJSON();
 
             expect(result).toMatchSnapshot();
         })
