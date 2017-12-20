@@ -817,6 +817,7 @@
     <Content Include="www\js\source\reactpages\actions\baseCurrencyAction.js" />
     <Content Include="www\js\source\reactpages\actions\loaderAction.js" />
     <Content Include="www\js\source\reactpages\actions\productAction.js" />
+    <Content Include="www\js\source\reactpages\actions\userGuideAction.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\excludeTestAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\currencyAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\baseCurrencyAction.test.js" />
@@ -870,6 +871,7 @@
     <Content Include="www\js\source\reactpages\components\multiple-select\components\__tests__\Option.test.js" />
     <Content Include="www\js\source\reactpages\components\multiple-select\components\__tests__\OptionAll.test.js" />
     <Content Include="www\js\source\reactpages\components\popup\constants.js" />
+    <Content Include="www\js\source\reactpages\components\UserGuide.jsx" />
     <Content Include="www\js\source\reactpages\components\__tests__\Loader.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\NoDataTitle.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\ReportTitle.test.js" />
@@ -927,6 +929,7 @@
     <Content Include="www\js\source\reactpages\reducers\baseCurrencyReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\loaderReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\productReducer.js" />
+    <Content Include="www\js\source\reactpages\reducers\userGuideReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\excludeTestReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\baseCurrencyReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\loaderReducer.test.js" />
