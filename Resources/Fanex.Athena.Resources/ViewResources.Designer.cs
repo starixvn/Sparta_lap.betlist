@@ -3661,6 +3661,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid Charge Commission.
+        /// </summary>
+        public static string InvalidChargeCommission {
+            get {
+                return ResourceManager.GetString("InvalidChargeCommission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid parameters.
         /// </summary>
         public static string InvalidParams {

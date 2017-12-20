@@ -1,20 +1,7 @@
 ﻿"use strict";
 define(["jquery", "common/site", "./dcsbetsetting", "../common/betsetting.helper"],
     function ($, Site, DcsBetSetting, BetSettingHelper) {
-        var _count = 0;
-        var _message = [
-            "Has anyone told you not to click me ;(?",
-            "Please stop it!",
-            "I'm getting tired of you!",
-            "Ok! I will not say anything anymore",
-        ];
-        function alertNotAvailable() {
-            if (_count < _message.length) {
-                alert(_message[_count]);
-                _count++;
-            }
-        }
-    var _me = {
+       var _me = {
         initialize: function () {
             DcsBetSetting.initialize();
             _me.initEvent();
@@ -22,8 +9,7 @@ define(["jquery", "common/site", "./dcsbetsetting", "../common/betsetting.helper
 
         initEvent: function () {
             $("#btnSubmit").click(function () {
-                alertNotAvailable();
-                // _me.updateComm($(this).attr("data-cust-id"), $("#ddlCommission").val());
+                _me.updateComm($(this).attr("data-cust-id"), $("#ddlCommission").val());
             });
 
             $("#btnReset").click(function () {

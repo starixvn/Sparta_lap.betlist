@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.BetSettings
 {
+    using System.Linq;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using Extension.Utility;
@@ -25,6 +26,8 @@ namespace Fanex.Athena.Controllers.BetSettings
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
     public class ExchangeCommApiController : BaseController
     {
+        private static readonly decimal[] ValidComms = new[] { 2, 2.5m, 3, 3.5m, 4, 4.5m, 5, 5.5m, 6, 6.5m, 7 };
+
         private readonly IExchangeCommApiService _exchangeCommApiService;
 
         public ExchangeCommApiController(
@@ -48,8 +51,17 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public ActionResult UpdateComm(int custId, decimal commission)
         {
-            _exchangeCommApiService.UpdateCommission(SessionService.UserSession.UserId, custId, commission);
-            return Json(new ResultInfo { Code = 0, Message = ViewResources.UpdateCommSucessfulMsg });
+            if (!ValidComms.Contains(commission))
+            {
+                return Json(new ResultInfo { Code = 100, Message = ViewResources.InvalidChargeCommission });
+            }
+
+            var result = _exchangeCommApiService.UpdateCommission(
+                SessionService.LicenseeSession.LicenseeId,
+                SessionService.UserSession.UserId,
+                custId,
+                commission);
+            return Json(new ResultInfo { Code = 0, ExtendedData = result.ToString(), Message = ViewResources.UpdateCommSucessfulMsg });
         }
     }
 }

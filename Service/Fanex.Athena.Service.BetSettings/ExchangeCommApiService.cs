@@ -15,7 +15,7 @@ namespace Fanex.Athena.Service.BetSettings
     using Interfaces;
     using Model.Core.MetaModel.Common;
 
-    public class ExchangeCommApiService : IExchangeCommApiService
+    public class ExchangeCommApiService : BetSettingBaseService, IExchangeCommApiService
     {
         private readonly IUserLogDataAccess _userLogDataAccess;
 
@@ -37,14 +37,24 @@ namespace Fanex.Athena.Service.BetSettings
             _apiClient = apiClient ?? (ICitiXchangeClient)Activator.GetObject(typeof(ICitiXchangeClient), _appSetting.ExchangeProductApiHost);
         }
 
-        public decimal GetCommission(int custId, int currencyId)
+        public decimal GetCommission(int licenseeId, int custId, int currencyId)
         {
+            if (!HasPermissionOnData(licenseeId, custId))
+            {
+                return 0;
+            }
+
             var result = _apiClient.getProfile(custId, currencyId, Enviro.SIT);
             return result.commission;
         }
 
-        public decimal UpdateCommission(int userId, int custId, decimal commission)
+        public decimal UpdateCommission(int licenseeId, int userId, int custId, decimal commission)
         {
+            if (!HasPermissionOnData(licenseeId, custId))
+            {
+                return 0;
+            }
+
             _userLogDataAccess.WriteLog(new UserLogMetaModel
             {
                 ActionID = UserLogAction.ExchangeCommission,

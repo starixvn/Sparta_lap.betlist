@@ -2,8 +2,8 @@
 {
     public interface IExchangeCommApiService
     {
-        decimal GetCommission(int custId, int currencyId);
+        decimal GetCommission(int licenseeId, int custId, int currencyId);
 
-        decimal UpdateCommission(int userId, int custId, decimal commission);
+        decimal UpdateCommission(int licenseeId, int userId, int custId, decimal commission);
     }
 }
