@@ -334,4 +334,8 @@
     <value>Resettlement</value>
     <comment>84004</comment>
   </data>
+  <data name="Menu_77" xml:space="preserve">
+    <value>Exchange Win Loss</value>
+    <comment>86640</comment>
+  </data>
 </root>
