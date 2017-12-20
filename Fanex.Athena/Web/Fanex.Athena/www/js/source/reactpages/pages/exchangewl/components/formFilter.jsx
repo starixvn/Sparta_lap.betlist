@@ -157,24 +157,6 @@ export class FormFilter extends Component {
         </div>);
     }
 
-    _renderExcludeTestDataOption() {
-        const { excludeTestDataOption, selectedExcludeTestData } = this.props;
-
-        return (<div className='form-group'> 
-            <label className='label-text'>{LangHelper.getSingleResource('ExcludeTestData')}</label>
-            {   
-                excludeTestDataOption.map((option, i) => {
-                    const key = 'ExcludeTestData' + i;
-                    return (<span key={`Group${key}`}>
-                        <input type='radio' value={option.value} checked={selectedExcludeTestData === option.value} id={key} key={key}
-                            onChange={this.changeExcludeTestData} />
-                        <label htmlFor={key} key={`Label${key}`}>{option.label}</label>
-                    </span>)   
-                })
-            }
-        </div>);
-    }
-
     render() {
         return (
             <div className='page-filter'>
@@ -198,7 +180,13 @@ export class FormFilter extends Component {
                     </div>
 
                     <div className='col-12 col-sm-12 col-md-2 col-xl-2'>
-                        {this._renderExcludeTestDataOption()}
+                        <div className="form-group">
+                           <div className="checkbox-group">
+                                <input type="checkbox" className="checkbox" checked={this.props.isExcludeTest} id="ExcludeTest"
+                           onChange={() => this.props.changeIsExcludeTest(!this.props.isExcludeTest)} />
+                           <label style={{marginLeft: "0px"}} htmlFor="ExcludeTest">{LangHelper.getSingleResource("ExcludeTestData")}</label>
+                            </div>
+                        </div>
                     </div>
 
                     <div className='col-12 col-sm-12 col-md-2 col-xl-2'>

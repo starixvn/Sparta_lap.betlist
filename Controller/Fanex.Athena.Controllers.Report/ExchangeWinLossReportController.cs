@@ -2,17 +2,29 @@
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using Extension.Utility;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
     using Resources;
 
     public class ExchangeWinLossReportController : ReportBaseController
     {
+        private readonly IAppSettings _appSetting;
+
+        public ExchangeWinLossReportController() : this(null)
+        {
+        }
+
+        public ExchangeWinLossReportController(IAppSettings appSetting)
+        {
+            _appSetting = appSetting ?? new AppSettings();
+        }
+
         public ActionResult Index()
         {
             var viewModel = CreateViewModel();
 
-            return View("~/Views/Report/ExchangeWinLoss/Main.cshtml", viewModel);
+            return ViewForNewUI("~/Views/Report/ExchangeWinLoss/Main.cshtml", viewModel, "ExchangeWinLossReport");
         }
 
         private ExchangeWinLossViewModel CreateViewModel()
@@ -33,6 +45,8 @@
 
             return new ExchangeWinLossViewModel
             {
+                MinDate = _appSetting.HistoryDate,
+                MaxDate = _appSetting.MaxDate,
                 CurrencyList = currencyList,
                 CurrencyId = GetConvetedUSDCurrencyId(licensee.LicenseeId),
                 IsAllowedCustomerComm = licensee.IsAllowedCustomerComm,
@@ -41,11 +55,6 @@
                 {
                     { ReportByType.Daily, ViewResources.Daily },
                     { ReportByType.Monthly, ViewResources.Monthly }
-                },
-                ExcludeTestDataOption = new Dictionary<bool, string>
-                {
-                    { true, ViewResources.Yes },
-                    { false, ViewResources.No }
                 }
             };
         }
