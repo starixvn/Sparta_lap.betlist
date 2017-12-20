@@ -515,7 +515,9 @@ input[type="checkbox"].checkbox {
   z-index: 101;
   left: 0;
   right: 0;
+  top: 10%;
   max-height: 80%;
+  max-width: 80%;
   margin: auto; }
   .popup-container .flat-popup .popup-title {
     background-color: #4C6375;

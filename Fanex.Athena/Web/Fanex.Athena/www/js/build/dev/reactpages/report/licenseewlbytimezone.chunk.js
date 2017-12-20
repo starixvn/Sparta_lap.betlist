@@ -263,15 +263,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var headerContainerProps = { className: "header-content", isHeader: true };
-var Header = (0, _tableSection2.default)(headerContainerProps);
-
-var bodyContainerProps = { className: "body-content" };
-var Body = (0, _tableSection2.default)(bodyContainerProps);
-
-var footerContainerProps = { className: "footer-content" };
-var Footer = (0, _tableSection2.default)(footerContainerProps);
-
 function debounce(func, wait) {
     var timeout = void 0;
     return function () {
@@ -302,12 +293,31 @@ var Table = function (_Component) {
             if (_this.state.maxWidth !== maxWidth) {
                 _this.setState({ maxWidth: maxWidth });
             }
+
+            var bodyHeight = _this._calculateBodyHeight();
+            if (_this.state.contentHeight < bodyHeight) {
+                _this.setState({ contentHeight: bodyHeight });
+            }
         };
+
+        var headerContainerProps = { className: "header-content", isHeader: true };
+        _this.Header = (0, _tableSection2.default)(headerContainerProps);
+
+        var bodyContainerProps = { className: "body-content", getRef: function getRef(element) {
+                return _this.bodyWrapper = element;
+            } };
+        _this.Body = (0, _tableSection2.default)(bodyContainerProps);
+
+        var footerContainerProps = { className: "footer-content", getRef: function getRef(element) {
+                return _this.footerWrapper = element;
+            } };
+        _this.Footer = (0, _tableSection2.default)(footerContainerProps);
 
         _this.diffWidth = _constants.BODY_WIDTH - props.maxWidth;
         _this.columnsWidth = _this._getColumnsWidth();
         _this.state = {
-            maxWidth: props.maxWidth
+            maxWidth: props.maxWidth,
+            contentHeight: props.bodyHeight
         };
         return _this;
     }
@@ -392,6 +402,15 @@ var Table = function (_Component) {
             this.columnsWidth = this._getColumnsWidth();
         }
     }, {
+        key: '_calculateBodyHeight',
+        value: function _calculateBodyHeight() {
+            var windowHeight = window.innerHeight;
+            var footerHeight = this.footerWrapper ? this.footerWrapper.offsetHeight : 0;
+            var tableContentHeight = windowHeight - (this.bodyWrapper.offsetTop + footerHeight + _constants.PAGING_HEIGHT + 30);
+
+            return tableContentHeight;
+        }
+    }, {
         key: '_getUpdatedColumnLayout',
         value: function _getUpdatedColumnLayout() {
             var _this3 = this;
@@ -415,7 +434,6 @@ var Table = function (_Component) {
                 width = _props2.width,
                 autoWidth = _props2.autoWidth,
                 minWidth = _props2.minWidth,
-                bodyHeight = _props2.bodyHeight,
                 header = _props2.header,
                 body = _props2.body,
                 footer = _props2.footer;
@@ -431,6 +449,10 @@ var Table = function (_Component) {
             var sectionProps = { width: width, autoWidth: autoWidth, minWidth: minWidth, maxWidth: maxWidth };
             var rowLayout = _react2.default.createElement(_RowLayout2.default, { columnLayout: newColumnLayout });
 
+            var Header = this.Header;
+            var Body = this.Body;
+            var Footer = this.Footer;
+
             return _react2.default.createElement(
                 'div',
                 { className: 'table-container', style: { maxWidth: maxWidth } },
@@ -442,7 +464,7 @@ var Table = function (_Component) {
                 ),
                 body && _react2.default.createElement(
                     Body,
-                    _extends({}, sectionProps, { maxHeight: bodyHeight }),
+                    _extends({}, sectionProps, { maxHeight: this.state.contentHeight }),
                     rowLayout,
                     body
                 ),
@@ -616,11 +638,12 @@ var createTableSection = function createTableSection(extendedContainerProps, ext
                     rest = _objectWithoutProperties(_props, ['tableClass', 'width', 'autoWidth', 'maxWidth', 'minWidth', 'maxHeight']);
 
                 var isHeader = extendedContainerProps.isHeader,
-                    restContainerProps = _objectWithoutProperties(extendedContainerProps, ['isHeader']);
+                    getRef = extendedContainerProps.getRef,
+                    restContainerProps = _objectWithoutProperties(extendedContainerProps, ['isHeader', 'getRef']);
 
                 return _react2.default.createElement(
                     'div',
-                    _extends({}, rest, { style: this.containerStyle }, restContainerProps),
+                    _extends({}, rest, { style: this.containerStyle, ref: getRef }, restContainerProps),
                     _react2.default.createElement(
                         'div',
                         { className: 'table-wrapper' },
@@ -5350,6 +5373,7 @@ var GUTTER = exports.GUTTER = 15;
 var MAX_WIDTH = exports.MAX_WIDTH = BODY_WIDTH - GUTTER * 2;
 var DEFAULT_MILLISECOND_FOR_WAITING = exports.DEFAULT_MILLISECOND_FOR_WAITING = 500;
 var DEFAULT_COLUMN_WIDTH = exports.DEFAULT_COLUMN_WIDTH = 100;
+var PAGING_HEIGHT = exports.PAGING_HEIGHT = 30;
 
 /***/ }),
 
