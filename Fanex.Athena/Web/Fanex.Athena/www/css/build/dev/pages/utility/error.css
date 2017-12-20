@@ -3,7 +3,7 @@ body {
 
 .error-content {
   padding-top: 40px; }
-  .error-content img, .error-content .back {
+  .error-content img {
     margin: 10px auto;
     display: block; }
   .error-content p {
@@ -15,15 +15,14 @@ body {
     font-size: 45px; }
   .error-content .second-line {
     color: #545454; }
-  .error-content .back {
-    color: #007fea;
-    text-align: center;
+  .error-content .btn {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 3px;
     font-size: 18px;
-    line-height: 30px;
     text-decoration: none; }
-    .error-content .back .text {
-      padding: 8px;
-      border: 1px solid #007fea;
-      border-radius: 3px; }
+  .error-content .btn-submit {
+    background-color: #1C80F0;
+    color: #fff; }
 
 /*# sourceMappingURL=error.css.map*/

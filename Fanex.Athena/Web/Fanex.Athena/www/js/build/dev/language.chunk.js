@@ -15,7 +15,7 @@ module.exports = __webpack_require__(197);
 /***/ 193:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 11/6/2017 5:06:25 PM
+﻿// Generated at: 12/19/2017 3:47:38 PM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -88,6 +88,7 @@ Balance:"Balance",
 BalanceInformation:"Balance Information",
 BalanceTitle:"Balance Information - {0}",
 BANote:"BA status can only be changed on Monday from 1PM to 5PM (GMT+8)",
+BaseCurrency:"Base Currency",
 Based:"Based",
 BAStatus:"BA Status",
 BAUpdatedBy:"BA Updated By",
@@ -173,6 +174,7 @@ Confirmation:"Confirmation",
 ConfirmCommission:"Confirm Customer&apos;s Commission:",
 ConfirmPassword:"Confirm Password",
 ConvertAll:"Convert All",
+ConvertAllFiguresToBaseCurrency:"Convert all figures to Base Currency",
 ConvertTo:"Convert to",
 CopyBetSettingFrom:"Copy All Bet Setting from {0}",
 CopyBetSettingFromRacing:"Copy All Bet Setting from Racing",
@@ -195,6 +197,7 @@ Customer:"Customer",
 CustomerBalance:"Customer Balance",
 CustomerBalanceDateRangeNotification:"Date range exceeds 2 months. Please try again!",
 CustomerBetList:"Customer Bet List",
+CustomerComm:"Customer Comm",
 CustomerCommission:"Customer Commission",
 CustomerHasNeverPlayed:"This customer has never played {0}.",
 CustomerInfo:"Customer Information",
@@ -332,7 +335,6 @@ FullTime:"FullTime",
 Function:"Function",
 FunctionDeniedMsg:"Sorry, you don&apos;t have permission to access this function.",
 FunctionNoAvailableMsg:"This function was no longer available!",
-FunctionNotAvailableOldUIMsg:"This function is only supported in the new admin portal. Please switch to use our new system for better experience and stability.",
 Game:"Game",
 GameGroup:"Game Group",
 GameID:"Game ID",
@@ -356,6 +358,7 @@ GrandTotalIn:"Grand Total In",
 GreyhoundAustTote:"Greyhound Aust Tote",
 GreyhoundUK_IrishTote:"Greyhound UK/Irish Tote",
 Group:"Group",
+GroupBy:"Group By",
 GroupColor:"Group Color",
 GroupCommission:"Group commission",
 GroupCommissionlog:"Group Commission log",
@@ -399,6 +402,7 @@ HttpError_403:"Access denied",
 HttpError_404:"Page not found, please check the address",
 HttpError_Default:"Oops... you are here because of a system error, please notify the administrators",
 InactiveSinceLast:"Inactive since last",
+IncludeDrawData:"Include Draw data",
 IncorrectMaxBet:"Incorrect Max Bet",
 IncorrectMaxPerBall:"Incorrect Max Per Ball",
 IncorrectMaxPerMatch:"Incorrect Max Per Match",
@@ -474,10 +478,12 @@ Level9:"Level 9",
 Levels:"levels",
 Licensee:"Licensee",
 Licensee12Bet:"12Bet Licensee",
+LicenseeComm:"Licensee Comm",
 LicenseeFee:"Licensee Fee",
 Licenseegrossrevenuefor:"Licensee gross revenue for {0}",
 LicenseeIsNotExisted:"Not found licensee",
 LicenseeNetWin:"Licensee Net Win",
+LicenseeNetWL:"Licensee Net WL",
 LicenseeW_L:"Licensee W/L",
 LicenseeWinLoss:"Licensee Win Loss",
 LicenseeWinLossTip1:"Drill down to view data in",
@@ -943,6 +949,7 @@ WinLossByLeague:"Win Loss By Leagues",
 WinLossByProduct:"Win Loss By Products",
 WinLossByProductNote1:"Figures of Sportsbook {0} (Amount Due) are displayed in Italic and for reference only",
 WinLossByProductTitle:"Win Loss By Products, {0} --&gt; {1} - {2}",
+WinLossByTimeZone:"Win Loss By Time Zone",
 WinPlace:"Win Place",
 WinTO:"Win TO",
 Withdrawal:"Withdrawal",
@@ -963,7 +970,7 @@ YouNotChooseAnyCustomerMsg:"You did not choose any customers."
 /***/ 194:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 11/6/2017 5:06:25 PM
+﻿// Generated at: 12/19/2017 3:47:38 PM
 window._language_zh_CN = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -1774,7 +1781,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 195:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 11/6/2017 5:06:25 PM
+﻿// Generated at: 12/19/2017 3:47:38 PM
 window._language_zh_TW = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -2585,7 +2592,7 @@ YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 /***/ 196:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 11/6/2017 5:06:25 PM
+﻿// Generated at: 12/19/2017 3:47:38 PM
 window._language_zh_Hans = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -3382,7 +3389,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 197:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 11/6/2017 5:06:25 PM
+﻿// Generated at: 12/19/2017 3:47:38 PM
 window._language_ko_KR = {
 AA:"AA",
 ABComm:"AllBet 수수료",

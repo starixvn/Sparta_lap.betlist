@@ -304,6 +304,9 @@ template {
 .icon-book:before {
   content: "\E904"; }
 
+.icon-close:before {
+  content: "\E910"; }
+
 /* z-index */
 /* Table */
 /* Label Text */
