@@ -43,11 +43,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ActionCreators = undefined;
 
-var _dataHandlerAction = __webpack_require__(697);
+var _dataHandlerAction = __webpack_require__(700);
 
 var dataHandlerAction = _interopRequireWildcard(_dataHandlerAction);
 
-var _filterHandlerAction = __webpack_require__(698);
+var _filterHandlerAction = __webpack_require__(701);
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
 
@@ -297,15 +297,15 @@ var Table = function (_Component) {
 
         _this._handleResize = function (event) {
             event && event.preventDefault();
-            var maxWidth = document.body.clientWidth - _this.diffWidth;
-
-            if (_this.state.maxWidth !== maxWidth) {
-                _this.setState({ maxWidth: maxWidth });
-            }
 
             var bodyHeight = _this._calculateBodyHeight();
-            if (_this.state.contentHeight < bodyHeight) {
+            if (_this.state.contentHeight !== bodyHeight) {
                 _this.setState({ contentHeight: bodyHeight });
+            }
+
+            var maxWidth = document.body.clientWidth - _this.diffWidth;
+            if (_this.state.maxWidth !== maxWidth) {
+                _this.setState({ maxWidth: maxWidth });
             }
         };
 
@@ -5294,7 +5294,7 @@ var MomentFormat = exports.MomentFormat = {
 
 /***/ }),
 
-/***/ 695:
+/***/ 698:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5314,7 +5314,7 @@ var _reactDom = __webpack_require__(8);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _AppContainer = __webpack_require__(696);
+var _AppContainer = __webpack_require__(699);
 
 var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
@@ -5328,7 +5328,7 @@ var _reduxThunk = __webpack_require__(121);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _index = __webpack_require__(702);
+var _index = __webpack_require__(705);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -5392,7 +5392,7 @@ _reactDom2.default.render(_react2.default.createElement(App, null), document.get
 
 /***/ }),
 
-/***/ 696:
+/***/ 699:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5415,11 +5415,11 @@ var _redux = __webpack_require__(22);
 
 var _index = __webpack_require__(148);
 
-var _datagrid = __webpack_require__(699);
+var _datagrid = __webpack_require__(702);
 
 var _datagrid2 = _interopRequireDefault(_datagrid);
 
-var _formFilter = __webpack_require__(700);
+var _formFilter = __webpack_require__(703);
 
 var _formFilter2 = _interopRequireDefault(_formFilter);
 
@@ -5476,7 +5476,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 697:
+/***/ 700:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5538,7 +5538,7 @@ function setGridData(data) {
 
 /***/ }),
 
-/***/ 698:
+/***/ 701:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5583,7 +5583,7 @@ var changeConvertAll = exports.changeConvertAll = function changeConvertAll(chec
 
 /***/ }),
 
-/***/ 699:
+/***/ 702:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5925,7 +5925,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 700:
+/***/ 703:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5962,7 +5962,7 @@ var _langHelper = __webpack_require__(15);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _reportExcel = __webpack_require__(701);
+var _reportExcel = __webpack_require__(704);
 
 var _reportExcel2 = _interopRequireDefault(_reportExcel);
 
@@ -6269,7 +6269,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 701:
+/***/ 704:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6490,7 +6490,7 @@ exports.default = ReportExcel;
 
 /***/ }),
 
-/***/ 702:
+/***/ 705:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6502,11 +6502,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(22);
 
-var _dataHandlerReducer = __webpack_require__(703);
+var _dataHandlerReducer = __webpack_require__(706);
 
 var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
 
-var _filterHandlerReducer = __webpack_require__(704);
+var _filterHandlerReducer = __webpack_require__(707);
 
 var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
 
@@ -6528,7 +6528,7 @@ exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, 
 
 /***/ }),
 
-/***/ 703:
+/***/ 706:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6559,7 +6559,7 @@ var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProper
 
 /***/ }),
 
-/***/ 704:
+/***/ 707:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8390,5 +8390,5 @@ exports.default = NumberFormat;
 
 /***/ })
 
-},[695]);
+},[698]);
 //# sourceMappingURL=subsidiaryperformance.chunk.js.map
