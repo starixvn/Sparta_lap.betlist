@@ -1,0 +1,168 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Popup  render isHtml is false - popup component shows content as text 1`] = `
+<div
+  className="popup-container show"
+>
+  <div
+    className="popup-block-body"
+  />
+  <div
+    className="flat-popup"
+    style={
+      Object {
+        "height": "55%",
+        "width": "55%",
+      }
+    }
+  >
+    <div
+      className="popup-title"
+    >
+      <div
+        className="txt-title"
+      />
+      <a
+        className="popup-close"
+        href="javascript:;"
+        onClick={[Function]}
+      >
+        <i
+          className="icon-close"
+        />
+      </a>
+    </div>
+    <div
+      className="popup-content"
+    >
+      &lt;div&gt;&lt;/div&gt;
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Popup  render isHtml is true - popup component shows content as html 1`] = `
+<div
+  className="popup-container show"
+>
+  <div
+    className="popup-block-body"
+  />
+  <div
+    className="flat-popup"
+    style={
+      Object {
+        "height": "55%",
+        "width": "55%",
+      }
+    }
+  >
+    <div
+      className="popup-title"
+    >
+      <div
+        className="txt-title"
+      />
+      <a
+        className="popup-close"
+        href="javascript:;"
+        onClick={[Function]}
+      >
+        <i
+          className="icon-close"
+        />
+      </a>
+    </div>
+    <div
+      className="popup-content"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<div></div>",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`Popup  render isShow is false - popup component is hidden 1`] = `
+<div
+  className="popup-container hide"
+>
+  <div
+    className="popup-block-body"
+  />
+  <div
+    className="flat-popup"
+    style={
+      Object {
+        "height": "55%",
+        "width": "55%",
+      }
+    }
+  >
+    <div
+      className="popup-title"
+    >
+      <div
+        className="txt-title"
+      />
+      <a
+        className="popup-close"
+        href="javascript:;"
+        onClick={[Function]}
+      >
+        <i
+          className="icon-close"
+        />
+      </a>
+    </div>
+    <div
+      className="popup-content"
+    >
+      &lt;div&gt;&lt;/div&gt;
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Popup  render isShow is true - popup component is shown 1`] = `
+<div
+  className="popup-container show"
+>
+  <div
+    className="popup-block-body"
+  />
+  <div
+    className="flat-popup"
+    style={
+      Object {
+        "height": "55%",
+        "width": "55%",
+      }
+    }
+  >
+    <div
+      className="popup-title"
+    >
+      <div
+        className="txt-title"
+      />
+      <a
+        className="popup-close"
+        href="javascript:;"
+        onClick={[Function]}
+      >
+        <i
+          className="icon-close"
+        />
+      </a>
+    </div>
+    <div
+      className="popup-content"
+    >
+      &lt;div&gt;&lt;/div&gt;
+    </div>
+  </div>
+</div>
+`;

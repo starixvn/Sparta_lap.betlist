@@ -823,6 +823,7 @@
     <Content Include="www\js\source\reactpages\actions\__tests__\baseCurrencyAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\loaderAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\productAction.test.js" />
+    <Content Include="www\js\source\reactpages\actions\__tests__\userGuideAction.test.js" />
     <Content Include="www\js\source\reactpages\components\date-range\Calendar.js" />
     <Content Include="www\js\source\reactpages\components\date-range\constants.js" />
     <Content Include="www\js\source\reactpages\components\date-range\DateRange.js" />
@@ -874,7 +875,9 @@
     <Content Include="www\js\source\reactpages\components\UserGuide.jsx" />
     <Content Include="www\js\source\reactpages\components\__tests__\Loader.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\NoDataTitle.test.js" />
+    <Content Include="www\js\source\reactpages\components\__tests__\Popup.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\ReportTitle.test.js" />
+    <Content Include="www\js\source\reactpages\components\__tests__\UserGuide.test.js" />
     <Content Include="www\js\source\reactpages\constants\config.js" />
     <Content Include="www\js\source\reactpages\layouts\AppLayout.jsx" />
     <Content Include="www\js\source\reactpages\lib\excel.js" />
@@ -934,6 +937,7 @@
     <Content Include="www\js\source\reactpages\reducers\__tests__\baseCurrencyReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\loaderReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\productReducer.test.js" />
+    <Content Include="www\js\source\reactpages\reducers\__tests__\userGuideReducer.test.js" />
     <Content Include="www\js\tests\components\toast-spec.js" />
     <Content Include="www\js\tests\extensions\ajaxBinaryTransporting-spec.js" />
     <Content Include="www\js\tests\extensions\prototype-spec.js" />
@@ -2571,6 +2575,8 @@
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\index.jsx" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\__snapshots__\datagrid.test.js.snap" />
     <Content Include="www\js\source\reactpages\components\popup\Popup.jsx" />
+    <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\UserGuide.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\Popup.test.js.snap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
