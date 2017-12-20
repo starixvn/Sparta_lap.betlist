@@ -138,15 +138,15 @@ class Table extends Component {
 
     _handleResize = (event) => {
         event && event.preventDefault();
-        const maxWidth = document.body.clientWidth - this.diffWidth;
-
-        if (this.state.maxWidth !== maxWidth) {
-            this.setState({ maxWidth });
-        }
 
         const bodyHeight = this._calculateBodyHeight();
-        if (this.state.contentHeight < bodyHeight) {
+        if (this.state.contentHeight !== bodyHeight) {
             this.setState({ contentHeight: bodyHeight });
+        }
+
+        const maxWidth = document.body.clientWidth - this.diffWidth;
+        if (this.state.maxWidth !== maxWidth) {
+            this.setState({ maxWidth });
         }
     }
 
