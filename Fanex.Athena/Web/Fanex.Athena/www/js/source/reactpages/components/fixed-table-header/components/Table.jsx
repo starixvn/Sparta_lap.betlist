@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import RowLayout from './RowLayout';
 import PropTypes from 'prop-types';
 import createTableSection from './tableSection';
-import { MAX_WIDTH, DEFAULT_MILLISECOND_FOR_WAITING, DEFAULT_COLUMN_WIDTH, BODY_WIDTH, PAGING_HEIGHT } from '../constants';
+import { MAX_WIDTH, DEFAULT_MILLISECOND_FOR_WAITING, DEFAULT_COLUMN_WIDTH, BODY_WIDTH } from '../constants';
 
 function debounce(func, wait) {
     let timeout;
@@ -153,7 +153,7 @@ class Table extends Component {
     _calculateBodyHeight() {
         const windowHeight = window.innerHeight;
         const footerHeight = this.footerWrapper ? this.footerWrapper.offsetHeight : 0;
-        const tableContentHeight = windowHeight - (this.bodyWrapper.offsetTop + footerHeight + PAGING_HEIGHT + 30);
+        const tableContentHeight = windowHeight - (this.bodyWrapper.offsetTop + footerHeight + 30);
 
         return tableContentHeight;
     }
