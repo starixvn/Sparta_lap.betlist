@@ -15,3 +15,6 @@ export const TOGGLE_LOADER = "TOGGLE_LOADER";
 
 /* Exclude Test Data */
 export const CHANGE_IS_EXCLUDE_TEST = "CHANGE_IS_EXCLUDE_TEST"
+
+/* User mini guide */
+export const USER_GUIDE_CONTENT = "USER_GUIDE_CONTENT"

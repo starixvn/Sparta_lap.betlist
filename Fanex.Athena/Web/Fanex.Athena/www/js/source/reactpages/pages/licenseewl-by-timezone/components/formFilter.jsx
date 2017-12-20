@@ -10,6 +10,7 @@ import ReportExcel from '../lib/reportExcel'
 import Site from '../../../lib/site'
 import service from '../lib/service'
 import { SettingConst } from '../constants/settingConst'
+import UserGuide from '../../../components/UserGuide'
 
 const RANGE_MONTH_CONSTRAINT = 3;
 
@@ -57,8 +58,19 @@ export class FormFilter extends Component {
         });
     }
 
-    showUserGuide() {
+    showUserGuide = () => {
+        const { userGuideContent, xsrfToken } = this.props;
 
+        if (!userGuideContent || userGuideContent.length === 0) {
+            if (!xsrfToken) {
+                return;
+            }
+
+            this.props.getUserGuideContent({
+                xsrfToken: xsrfToken,  
+                resourceName: 'LicenseeWLByTimeZone'
+            });
+        }
     }
 
     changeGroupBy = (value) => {
@@ -167,6 +179,16 @@ export class FormFilter extends Component {
         )
     }
 
+    _renderUserGuide() {
+        const userGuideContent = this.props.userGuideContent;
+
+        return <UserGuide 
+            title={LangHelper.getSingleResource("UserGuide")} 
+            contentTitle={LangHelper.getSingleResource("WinLossByTimeZone")}
+            content={userGuideContent}
+            onClick={this.showUserGuide} />
+    }
+
     render() {
         return (
             <div className="page-filter">
@@ -271,7 +293,7 @@ export class FormFilter extends Component {
                     </div>
                     <div className="caret-block">
                         <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
-                        <i className="icon-book right" onClick={this.showUserGuide} title={LangHelper.getSingleResource("UserGuide")}></i>
+                        {this._renderUserGuide()}
                     </div>
                 </div>
             </div>
