@@ -21,7 +21,7 @@ export default class UserGuide extends React.Component {
 
     static defaultProps = {
         className: 'icon-book right',
-        content: null
+        content: ''
     }
 
     onClickHandler = () => {

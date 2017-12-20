@@ -41,7 +41,7 @@ export default class Popup extends React.Component {
                 </div>
                 { isHtml
                     ? (<div className='popup-content' dangerouslySetInnerHTML={{ __html: content }} />)
-                    : (<div className='popup-content'> {content} </div>)
+                    : (<div className='popup-content'>{content}</div>)
                 }
             </div>
         </div>);
