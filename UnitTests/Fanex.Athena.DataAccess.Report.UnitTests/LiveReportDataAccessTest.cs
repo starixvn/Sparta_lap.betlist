@@ -194,17 +194,13 @@
             reader.Read().Returns(true, false, true, false);
             reader.NextResult().Returns(true);
 
-            var readerDataMappingForCurrency = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
             {
-                { "Currency", "1" }, { "TurnoverUUS", 100 }, { "WinlostUUS", 200 }
+                { "Currency", "1" }, { "TurnoverUUS", 100 },
+                { "WinlostUUS", 200 }, { "bettype", "1" }, { "ProductCode", "SB" }
             };
 
-            var readerDataMappingForBettype = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "bettype", "1" }, { "TurnoverUUS", 100 }, { "WinlostUUS", 200 }, { "ProductCode", "SB" }
-            };
-
-            DataAccessTestHelper.MapReaderData(reader, readerDataMappingForCurrency, readerDataMappingForBettype);
+            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
             // Action
             var result = _dataAccess.GetDetailByCurrencyAndBettype(_metaModel, productList);

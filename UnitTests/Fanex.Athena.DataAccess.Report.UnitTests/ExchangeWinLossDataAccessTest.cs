@@ -41,7 +41,7 @@
             for (int i = 0; i < SystemConstants.BaseCurrencyList.Count; i++)
             {
                 _baseCurrencyExchangeRate.Add(SystemConstants.BaseCurrencyList[i], (i + 1) * 0.1m);
-            };
+            }
         }
 
         [OneTimeTearDown]

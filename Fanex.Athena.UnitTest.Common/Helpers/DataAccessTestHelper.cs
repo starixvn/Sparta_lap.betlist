@@ -10,23 +10,10 @@
 
     public class DataAccessTestHelper
     {
-        public static void MapReaderData(IDataReader reader, params object[] readerDataMappingList)
+        public static void MapReaderData(IDataReader reader, object readerDataMapping)
         {
-            var firstFunc = CreateMappingFunc(readerDataMappingList[0]);
-            if (readerDataMappingList.Length == 1)
-            {
-                reader[Arg.Any<string>()].Returns(firstFunc);
-                return;
-            }
-
-            var funcList = new List<Func<CallInfo, object>>();
-
-            for (int i = 1; i < readerDataMappingList.Length; i++)
-            {
-                funcList.Add(CreateMappingFunc(readerDataMappingList[i]));
-            }
-
-            reader[Arg.Any<string>()].Returns(firstFunc, funcList.ToArray());
+            var func = CreateMappingFunc(readerDataMapping);
+            reader[Arg.Any<string>()].Returns(func);
         }
 
         private static Func<CallInfo, object> CreateMappingFunc(object mappingData)
