@@ -3,16 +3,7 @@ import ReactDOM from 'react-dom';
 import RowLayout from './RowLayout';
 import PropTypes from 'prop-types';
 import createTableSection from './tableSection';
-import { MAX_WIDTH, DEFAULT_MILLISECOND_FOR_WAITING, DEFAULT_COLUMN_WIDTH, BODY_WIDTH } from '../constants';
-
-const headerContainerProps = { className: "header-content", isHeader: true };
-const Header = createTableSection(headerContainerProps);
-
-const bodyContainerProps = { className: "body-content" };
-const Body = createTableSection(bodyContainerProps);
-
-const footerContainerProps = { className: "footer-content" };
-const Footer = createTableSection(footerContainerProps);
+import { MAX_WIDTH, DEFAULT_MILLISECOND_FOR_WAITING, DEFAULT_COLUMN_WIDTH, BODY_WIDTH, PAGING_HEIGHT } from '../constants';
 
 function debounce(func, wait) {
     let timeout;
@@ -33,10 +24,20 @@ class Table extends Component {
     constructor(props) {
         super(props);
 
+        const headerContainerProps = { className: "header-content", isHeader: true };
+        this.Header = createTableSection(headerContainerProps);
+
+        const bodyContainerProps = { className: "body-content", getRef: element => this.bodyWrapper = element };
+        this.Body = createTableSection(bodyContainerProps);
+
+        const footerContainerProps = { className: "footer-content", getRef: element => this.footerWrapper = element };
+        this.Footer = createTableSection(footerContainerProps);
+
         this.diffWidth = BODY_WIDTH - props.maxWidth;
         this.columnsWidth = this._getColumnsWidth();
         this.state = {
-            maxWidth: props.maxWidth
+            maxWidth: props.maxWidth,
+            contentHeight: props.bodyHeight
         }
     }
 
@@ -70,7 +71,7 @@ class Table extends Component {
         const getWidthByCells = (cells, currentRowIndex) => {
             for (let i = 0; i < cells.length; i++) {
                 const cell = cells[i];
-                if(!cell) {
+                if (!cell) {
                     continue;
                 }
 
@@ -124,7 +125,7 @@ class Table extends Component {
 
     componentDidMount() {
         this._handleResize();
-        window.addEventListener('resize', debounce(this._handleResize))
+        window.addEventListener('resize', debounce(this._handleResize));
     }
 
     componentWillUnmount() {
@@ -134,6 +135,7 @@ class Table extends Component {
     componentWillReceiveProps(nextProps) {
         this.columnsWidth = this._getColumnsWidth();
     }
+
     _handleResize = (event) => {
         event && event.preventDefault();
         const maxWidth = document.body.clientWidth - this.diffWidth;
@@ -141,6 +143,19 @@ class Table extends Component {
         if (this.state.maxWidth !== maxWidth) {
             this.setState({ maxWidth });
         }
+
+        const bodyHeight = this._calculateBodyHeight();
+        if (this.state.contentHeight < bodyHeight) {
+            this.setState({ contentHeight: bodyHeight });
+        }
+    }
+
+    _calculateBodyHeight() {
+        const windowHeight = window.innerHeight;
+        const footerHeight = this.footerWrapper ? this.footerWrapper.offsetHeight : 0;
+        const tableContentHeight = windowHeight - (this.bodyWrapper.offsetTop + footerHeight + PAGING_HEIGHT + 30);
+
+        return tableContentHeight;
     }
 
     _getUpdatedColumnLayout() {
@@ -155,7 +170,7 @@ class Table extends Component {
     }
 
     render() {
-        const { width, autoWidth, minWidth, bodyHeight, header, body, footer } = this.props;
+        const { width, autoWidth, minWidth, header, body, footer } = this.props;
         const maxWidth = this.state.maxWidth;
 
         const newColumnLayout = this.columnWidthSum && this.columnWidthSum !== width ?
@@ -169,6 +184,10 @@ class Table extends Component {
         const sectionProps = { width, autoWidth, minWidth, maxWidth };
         const rowLayout = <RowLayout columnLayout={newColumnLayout} />;
 
+        const Header = this.Header;
+        const Body = this.Body;
+        const Footer = this.Footer;
+
         return (
             <div className="table-container" style={{ maxWidth }}>
                 <Header {...sectionProps}>
@@ -178,7 +197,7 @@ class Table extends Component {
 
                 {
                     body &&
-                    <Body {...sectionProps} maxHeight={bodyHeight}>
+                    <Body {...sectionProps} maxHeight={this.state.contentHeight}>
                         {rowLayout}
                         {body}
                     </Body>
