@@ -2,9 +2,10 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Core.Configuration;
     using DataAccess.Report;
     using DataAccess.Report.Interfaces;
+    using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.Model.Report.DTO.SubsidiaryPerformance;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report.Interfaces;
@@ -12,16 +13,36 @@
 
     public class SubsidiaryPerformanceService : ISubsidiaryPerformanceService
     {
+        private const int CacheTimeoutSeconds = 300;
+
+        private readonly IMemoryCacheService _cache;
+
         private readonly ISubsidiaryPerformanceDataAccess _subLicenseePerformanceDataAccess;
 
         public SubsidiaryPerformanceService()
         {
+            _cache = new MemoryCacheService();
             _subLicenseePerformanceDataAccess = new SubsidiaryPerformanceDataAccess();
         }
 
-        public SubsidiaryPerformanceService(ISubsidiaryPerformanceDataAccess subLicenseePerformanceDataAccess)
+        public SubsidiaryPerformanceService(ISubsidiaryPerformanceDataAccess subLicenseePerformanceDataAccess, IMemoryCacheService cache)
         {
+            _cache = cache;
             _subLicenseePerformanceDataAccess = subLicenseePerformanceDataAccess;
+        }
+
+        public IDictionary<int, string> GetSubsidiaryList(string licenseeName)
+        {
+            var cacheKey = $"SubsidiaryList_{licenseeName}";
+
+            var subsidiaryList = _cache.Get<IDictionary<int, string>>(cacheKey);
+            if (subsidiaryList == null)
+            {
+                subsidiaryList = _subLicenseePerformanceDataAccess.GetSubsidiaryList(licenseeName);
+                _cache.Set(cacheKey, subsidiaryList, CacheTimeoutSeconds);
+            }
+
+            return subsidiaryList;
         }
 
         public IEnumerable<SubsidiaryPerformanceDataModel> GetData(

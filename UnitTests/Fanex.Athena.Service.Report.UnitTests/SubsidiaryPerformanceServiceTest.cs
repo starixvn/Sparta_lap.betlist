@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Web.Script.Serialization;
     using DataAccess.Report.Interfaces;
+    using Extension.Utility.Interfaces;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
     using NSubstitute;
@@ -15,20 +16,86 @@
         private ISubsidiaryPerformanceDataAccess _dataAccess;
         private SubsidiaryPerformanceService _service;
         private JavaScriptSerializer _serializer;
+        private IMemoryCacheService _cache;
 
         [SetUp]
         public void SetUp()
         {
             _dataAccess = Substitute.For<ISubsidiaryPerformanceDataAccess>();
-            _service = new SubsidiaryPerformanceService(_dataAccess);
+            _cache = Substitute.For<IMemoryCacheService>();
+            _service = new SubsidiaryPerformanceService(_dataAccess, _cache);
             _serializer = new JavaScriptSerializer();
         }
 
         [TearDown]
         public void TearDown()
         {
+            _cache = null;
             _dataAccess = null;
             _service = null;
+        }
+
+        [Test]
+        public void GetSubsidiaryList_DataIsInCache_DoNotCallDataAccess()
+        {
+            // Arrange
+            const string LicenseeName = "12Bet";
+            var cacheKey = $"SubsidiaryList_{LicenseeName}";
+            var subsidiaryList = new Dictionary<int, string>();
+
+            _cache.Get<IDictionary<int, string>>(cacheKey).Returns(subsidiaryList);
+
+            // Action
+            _service.GetSubsidiaryList(LicenseeName);
+
+            // Assert
+            _dataAccess.DidNotReceiveWithAnyArgs().GetSubsidiaryList(LicenseeName);
+        }
+
+        [Test]
+        public void GetSubsidiaryList_DataIsNotInCache_ReturnCorrectDataAfterCallingDataAccess()
+        {
+            // Arrange
+            const string LicenseeName = "12Bet";
+            var cacheKey = $"SubsidiaryList_{LicenseeName}";
+            Dictionary<int, string> subsidiaryList = null;
+
+            _cache.Get<IDictionary<int, string>>(cacheKey).Returns(subsidiaryList);
+
+            var expectedResult = new Dictionary<int, string>
+            {
+                [1] = "Data1"
+            };
+            _dataAccess.GetSubsidiaryList(LicenseeName).Returns(expectedResult);
+
+            // Action
+            var result = _service.GetSubsidiaryList(LicenseeName);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void GetSubsidiaryList_DataIsNotInCache_SetMethodOfCacheShouldBeCalled()
+        {
+            // Arrange
+            const string LicenseeName = "12Bet";
+            var cacheKey = $"SubsidiaryList_{LicenseeName}";
+            Dictionary<int, string> subsidiaryList = null;
+
+            _cache.Get<IDictionary<int, string>>(cacheKey).Returns(subsidiaryList);
+
+            var expectedResult = new Dictionary<int, string>
+            {
+                [1] = "Data1"
+            };
+            _dataAccess.GetSubsidiaryList(LicenseeName).Returns(expectedResult);
+
+            // Action
+            _service.GetSubsidiaryList(LicenseeName);
+
+            // Assert
+            _cache.Received().Set(cacheKey, expectedResult, 300);
         }
 
         [Test]

@@ -6,6 +6,8 @@
 
     public interface ISubsidiaryPerformanceDataAccess
     {
+        IDictionary<int, string> GetSubsidiaryList(string licenseeName);
+
         IEnumerable<SubsidiaryPerformanceEntity> GetData(SubsidiaryPerformanceMetaModel metaModel, out IEnumerable<SubsidiaryPerformanceEntity> totalDataList);
     }
 }

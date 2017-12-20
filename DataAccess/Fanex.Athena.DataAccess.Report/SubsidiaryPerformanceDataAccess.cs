@@ -25,6 +25,19 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
+        public IDictionary<int, string> GetSubsidiaryList(string licenseeName)
+        {
+            const string SpName = "Lrf_SubsidiarySel";
+
+            var subsidiaryList = new Dictionary<int, string>
+            {
+                [1] = "New York",
+                [2] = "India"
+            };
+
+            return subsidiaryList;
+        }
+
         public IEnumerable<SubsidiaryPerformanceEntity> GetData(SubsidiaryPerformanceMetaModel metaModel, out IEnumerable<SubsidiaryPerformanceEntity> totalDataList)
         {
             const string SpName = "Lrf_Rpt_SubsidiaryWinloss";
