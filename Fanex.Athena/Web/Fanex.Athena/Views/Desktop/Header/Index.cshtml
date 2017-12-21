@@ -11,8 +11,11 @@
         </span>
     </a>
     <div class="page-title"><span id="page-title" class="active">@ViewResources.Balance</span></div>
-
+    <div style="margin: auto; width: 20%; text-align: center; color: black">
+        <a style="color: #f05b1f; padding: 5px 10px" href="@Url.Content("~/home/switchview?type=1")">Back to old UI</a>
+    </div>
     <div class="right-block">
+        
         <div class="navbar-avatar">
             <a class="dropdown-button" href="javascript:void(0)" data-activates="profile">
                 <img class="avatar" src="@Url.ContentLink("/www/assets/images/15.jpg")" alt="@Html.Encode(Model.UserName)">
