@@ -86,7 +86,7 @@ namespace Fanex.Athena.Service.BetSettings
             try
             {
                 _logger.Info(licenseeId + ";" + custId + ";" + commission);
-                var result = _apiClient.updateCommission(custId, (int)commission, EnvironmentMap[_appSetting.Environment]);
+                var result = _apiClient.updateCommission(custId, (int)(commission * 100), EnvironmentMap[_appSetting.Environment]);
 
                 _logger.Info(new JavaScriptSerializer().Serialize(result));
                 _userLogDataAccess.WriteLog(new UserLogMetaModel
@@ -110,7 +110,7 @@ namespace Fanex.Athena.Service.BetSettings
             return new ResultInfo<decimal>
             {
                 Code = isSuccess ? 0 : (int)status,
-                Message = isSuccess ? string.Empty : ViewResources.ErrorProcessingMsg,
+                Message = isSuccess ? ViewResources.UpdateSuccess : ViewResources.ErrorProcessingMsg,
                 ExtendedData = commission
             };
         }
