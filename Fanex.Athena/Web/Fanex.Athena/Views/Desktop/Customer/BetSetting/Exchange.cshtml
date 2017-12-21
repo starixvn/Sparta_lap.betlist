@@ -28,16 +28,16 @@ else
     <div>
         @if (Model.IsEnabled == true)
         {
-        <select data-original-value="2" id="ddlCommission" class="select">
-            @for (float i = 2; i <= 7; i += 0.5f)
+        <select data-original-value="@Model.Commission" id="ddlCommission" class="select">
+            @foreach(var value in Model.CommissionList)
             {
-                <option value="@i">@(i)%</option>
+                <option value="@value" @(value == Model.Commission ? "selected" : null) >@(value)%</option>
             }
         </select>
         }
         else
         {
-           <div style="width: 300px;border-bottom: 1px solid #ddd;color: #aaa">2%</div>
+           <div style="width: 300px;border-bottom: 1px solid #ddd;color: #aaa">@(Model.Commission)%</div>
         }
     </div>
 </div>

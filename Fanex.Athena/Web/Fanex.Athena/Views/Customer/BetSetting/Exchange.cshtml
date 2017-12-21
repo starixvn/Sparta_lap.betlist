@@ -24,10 +24,10 @@
     else
     {
     <label>@ViewResources.ChargeCommission</label>
-    <select @disabledText data-original-value="2" id="ddlCommission" style="width: 122px">
-        @for (float i = 2; i <= 7; i += 0.5f)
+    <select @disabledText data-original-value="@Model.Commission" id="ddlCommission" style="width: 122px">
+        @foreach (var value in Model.CommissionList)
         {
-            <option value="@i">@(i)%</option>
+            <option value="@value" @(value == Model.Commission ? "selected" : null)>@(value)%</option>
         }
     </select>
     }

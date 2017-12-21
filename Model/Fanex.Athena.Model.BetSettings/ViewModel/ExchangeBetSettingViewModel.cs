@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
+
 namespace Fanex.Athena.Model.BetSettings.ViewModel
 {
     public class ExchangeBetSettingViewModel : BetSettingBaseViewModel
@@ -11,5 +13,7 @@ namespace Fanex.Athena.Model.BetSettings.ViewModel
         public decimal Commission { get; set; }
 
         public bool IsNoInfo { get; set; }
+
+        public IEnumerable<decimal> CommissionList { get; set; }
     }
 }

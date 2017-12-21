@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Service.BetSettings
 {
     using System;
+    using System.Collections.Generic;
     using System.Web.Script.Serialization;
     using CitiXchangeLibrary;
     using DataAccess.Core.Common;
@@ -15,12 +16,21 @@ namespace Fanex.Athena.Service.BetSettings
     using Extension.Utility;
     using Interfaces;
     using Logging;
+    using Model.Core.Constants;
     using Model.Core.DTO.Common;
     using Model.Core.MetaModel.Common;
     using Resources;
 
     public class ExchangeCommApiService : BetSettingBaseService, IExchangeCommApiService
     {
+        private static readonly IDictionary<string, Enviro> EnvironmentMap =
+            new Dictionary<string, Enviro>(StringComparer.OrdinalIgnoreCase)
+        {
+            { SystemEnvironment.Production, Enviro.PRD },
+            { SystemEnvironment.UAT, Enviro.UAT },
+            { SystemEnvironment.SIT, Enviro.SIT }
+        };
+
         private readonly ILogger _logger;
 
         private readonly IUserLogDataAccess _userLogDataAccess;
@@ -55,7 +65,7 @@ namespace Fanex.Athena.Service.BetSettings
             try
             {
                 _logger.Info(licenseeId + ";" + custId + ";" + currencyId);
-                var result = _apiClient.getProfile(custId, 6, Enviro.SIT);
+                var result = _apiClient.getProfile(custId, 6, EnvironmentMap[_appSetting.Environment]);
                 _logger.Info(new JavaScriptSerializer().Serialize(result));
                 return new ResultInfo<decimal>
                 {
@@ -79,7 +89,7 @@ namespace Fanex.Athena.Service.BetSettings
             try
             {
                 _logger.Info(licenseeId + ";" + custId + ";" + commission);
-                var result = _apiClient.updateCommission(custId, (int)commission, Enviro.SIT);
+                var result = _apiClient.updateCommission(custId, (int)commission, EnvironmentMap[_appSetting.Environment]);
                 _logger.Info(new JavaScriptSerializer().Serialize(result));
                 _userLogDataAccess.WriteLog(new UserLogMetaModel
                 {
@@ -108,7 +118,6 @@ namespace Fanex.Athena.Service.BetSettings
             };
         }
 
-
         private static IResultInfo<decimal> CreateApiErrorResult()
         {
             return new ResultInfo<decimal>
@@ -117,6 +126,5 @@ namespace Fanex.Athena.Service.BetSettings
                 Message = ViewResources.ErrorProcessingMsg
             };
         }
-
     }
 }

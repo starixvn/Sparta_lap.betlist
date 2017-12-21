@@ -1189,7 +1189,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         updateComm: function (custId, commission) {
             $.ajax({
                 type: 'POST',
-                url: Site.resolveClientUrl('ExchangeCommApi/UpdateComm'),
+                url: Site.resolveClientUrl('ExchangeDcsBetSetting/UpdateComm'),
                 cache: false,
                 data: {
                     custid: custId,

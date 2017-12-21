@@ -21,7 +21,7 @@ define(["jquery", "common/site", "./dcsbetsetting", "../common/betsetting.helper
         updateComm: function (custId, commission) {
             $.ajax({
                 type: 'POST',
-                url: Site.resolveClientUrl('ExchangeCommApi/UpdateComm'),
+                url: Site.resolveClientUrl('ExchangeDcsBetSetting/UpdateComm'),
                 cache: false,
                 data: {
                     custid: custId,

@@ -16,7 +16,7 @@ var Exchange = (function ($) {
         updateComm: function (custId, commission) {
             $.ajax({
                 type: 'POST',
-                url: Site.resolveClientUrl('ExchangeCommApi/UpdateComm'),
+                url: Site.resolveClientUrl('ExchangeDcsBetSetting/UpdateComm'),
                 cache: false,
                 data: {
                     custid: custId,
@@ -25,7 +25,6 @@ var Exchange = (function ($) {
                 dataType: "json",
                 success: function (result) {
                     BetSetting.showUpdateSettingResult(result);
-                    Site.blockUI();
                 },
                 beforeSend: Site.blockUI,
                 complete: Site.unBlockUI
