@@ -40,12 +40,21 @@ namespace Fanex.Athena.Controllers.BetSettings
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
-            var viewModel = new BetSettingViewModel();
+            var viewModel = new ExchangeBetSettingViewModel();
             AssignRequiredProperties(viewModel, metaModel);
             const string ViewPath = "~/Views/Customer/BetSetting/Exchange.cshtml";
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             viewModel.IsEnabled = _betSettingService.GetStatus(licenseeId, metaModel.CustId, metaModel.ProductId);
-            ViewBag.Commission = _exchangeCommApiService.GetCommission(licenseeId, metaModel.CustId, metaModel.CurrencyId);
+            var apiResult = _exchangeCommApiService.GetCommission(licenseeId, metaModel.CustId, metaModel.CurrencyId);
+            if (apiResult.IsSuccessful)
+            {
+                viewModel.Commission = apiResult.ExtendedData;
+            }
+            else
+            {
+                viewModel.IsNoInfo = true;
+            }
+
             return View(ViewPath, viewModel);
         }
 

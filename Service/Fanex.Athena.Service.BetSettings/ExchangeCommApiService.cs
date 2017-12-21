@@ -15,7 +15,9 @@ namespace Fanex.Athena.Service.BetSettings
     using Extension.Utility;
     using Interfaces;
     using Logging;
+    using Model.Core.DTO.Common;
     using Model.Core.MetaModel.Common;
+    using Resources;
 
     public class ExchangeCommApiService : BetSettingBaseService, IExchangeCommApiService
     {
@@ -43,32 +45,35 @@ namespace Fanex.Athena.Service.BetSettings
             _apiClient = apiClient ?? (ICitiXchangeClient)Activator.GetObject(typeof(ICitiXchangeClient), _appSetting.ExchangeProductApiHost);
         }
 
-        public decimal GetCommission(int licenseeId, int custId, int currencyId)
+        public IResultInfo<decimal> GetCommission(int licenseeId, int custId, int currencyId)
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
-                return 0;
+                return CreateInvalidParamResult();
             }
 
             try
             {
                 _logger.Info(licenseeId + ";" + custId + ";" + currencyId);
-                var result = _apiClient.getProfile(custId, currencyId, Enviro.SIT);
+                var result = _apiClient.getProfile(custId, 6, Enviro.SIT);
                 _logger.Info(new JavaScriptSerializer().Serialize(result));
-                return result.commission;
+                return new ResultInfo<decimal>
+                {
+                    ExtendedData = result.commission
+                };
             }
             catch (Exception exception)
             {
                 _logger.Error("Exchange Api getProfile: " + exception.Message);
-                return 0;
+                return CreateApiErrorResult();
             }
         }
 
-        public decimal UpdateCommission(int licenseeId, int userId, int custId, decimal commission)
+        public IResultInfo<decimal> UpdateCommission(int licenseeId, int userId, int custId, decimal commission)
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
-                return 0;
+                return CreateInvalidParamResult();
             }
 
             try
@@ -82,13 +87,36 @@ namespace Fanex.Athena.Service.BetSettings
                     UserId = userId,
                     CustID = custId
                 });
-                return result.commission;
+                return new ResultInfo<decimal>
+                {
+                    ExtendedData = result.commission
+                };
             }
             catch (Exception exception)
             {
-                _logger.Error("Exchange Api getProfile: " + exception.Message);
-                return 0;
+                _logger.Error("Exchange Api updateCommission: " + exception.Message);
+                return CreateApiErrorResult();
             }
         }
+
+        private static IResultInfo<decimal> CreateInvalidParamResult()
+        {
+            return new ResultInfo<decimal>
+            {
+                Code = 101,
+                Message = ViewResources.InvalidParams
+            };
+        }
+
+
+        private static IResultInfo<decimal> CreateApiErrorResult()
+        {
+            return new ResultInfo<decimal>
+            {
+                Code = 102,
+                Message = ViewResources.ErrorProcessingMsg
+            };
+        }
+
     }
 }
