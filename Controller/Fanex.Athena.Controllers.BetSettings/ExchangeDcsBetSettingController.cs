@@ -8,42 +8,45 @@ namespace Fanex.Athena.Controllers.BetSettings
 {
     using System.Linq;
     using System.Web.Mvc;
-    using System.Web.SessionState;
-    using Extension.Utility;
-    using Extension.Utility.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
-    using Model.Core.DataDomain;
-    using ONEbook.UM.Filters;
+    using Model.BetSettings.MetaModel;
+    using Model.BetSettings.ViewModel;
     using Resources;
     using Service.BetSettings;
     using Service.BetSettings.Interfaces;
-    using Service.Core.Users.Interfaces;
 
-    [SessionState(SessionStateBehavior.ReadOnly)]
-    [CheckUMFilter]
-    [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
-    public class ExchangeCommApiController : BaseController
+    public class ExchangeDcsBetSettingController : BetSettingBaseController
     {
         private static readonly decimal[] ValidComms = new[] { 2, 2.5m, 3, 3.5m, 4, 4.5m, 5, 5.5m, 6, 6.5m, 7 };
 
+        private readonly IDcsBetSettingService _betSettingService;
+
         private readonly IExchangeCommApiService _exchangeCommApiService;
 
-        public ExchangeCommApiController(
-            ILanguageService languageService,
-            ISessionService sessionService,
-            IAppSettings appSetting,
-            IFileSystem fileSystem,
-            IExchangeCommApiService exchangeCommApiService)
-            : base(languageService, sessionService, appSetting, fileSystem)
+        public ExchangeDcsBetSettingController() : this(null, null)
         {
-            _exchangeCommApiService = exchangeCommApiService;
         }
 
-        public ExchangeCommApiController()
+        public ExchangeDcsBetSettingController(
+            IDcsBetSettingService betSettingService,
+            IExchangeCommApiService exchangeCommApiService)
         {
-            _exchangeCommApiService = new ExchangeCommApiService();
+            _betSettingService = betSettingService ?? new DcsBetSettingService();
+            _exchangeCommApiService = exchangeCommApiService ?? new ExchangeCommApiService();
+        }
+
+        [HttpGet]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        public ActionResult Index(BetSettingMetaModel metaModel)
+        {
+            var viewModel = new BetSettingViewModel();
+            AssignRequiredProperties(viewModel, metaModel);
+            const string ViewPath = "~/Views/Customer/BetSetting/Exchange.cshtml";
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            viewModel.IsEnabled = _betSettingService.GetStatus(licenseeId, metaModel.CustId, metaModel.ProductId);
+            ViewBag.Commission = _exchangeCommApiService.GetCommission(licenseeId, metaModel.CustId, metaModel.CurrencyId);
+            return View(ViewPath, viewModel);
         }
 
         [HttpPost]

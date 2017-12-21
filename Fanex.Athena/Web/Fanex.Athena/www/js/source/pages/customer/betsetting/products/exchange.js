@@ -31,7 +31,9 @@ define(["jquery", "common/site", "./dcsbetsetting", "../common/betsetting.helper
                 success: function (result) {
                     var messageResource = Number(result.Code) === 0 ? "MessageSuccess" : "Fail";
                     BetSettingHelper.showDialogMesage(Site.getSingleResource(messageResource), result.Message);
-                }
+                },
+                beforeSend: Site.blockUI,
+                complete: Site.unBlockUI
             });
         },
     };

@@ -109,7 +109,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExchangeCommApiController.cs" />
+    <Compile Include="ExchangeDcsBetSettingController.cs" />
     <Compile Include="KenoBetSettingController.cs" />
     <Compile Include="LiveCasinoBetSettingController.cs" />
     <Compile Include="RngCasinoBetSettingController.cs" />
