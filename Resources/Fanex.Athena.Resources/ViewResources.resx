@@ -3045,8 +3045,8 @@
   <data name="SubsidiaryPerformance" xml:space="preserve">
     <value>Subsidiary Performance</value>
   </data>
-  <data name="ConvertAll" xml:space="preserve">
-    <value>Convert All</value>
+  <data name="ConvertAllFiguresToBaseCurrency" xml:space="preserve">
+    <value>Convert all figures to Base Currency</value>
   </data>
   <data name="Subsidiary" xml:space="preserve">
     <value>Subsidiary</value>

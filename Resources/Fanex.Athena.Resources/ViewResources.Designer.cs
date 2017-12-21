@@ -1503,9 +1503,9 @@ namespace Fanex.Athena.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Convert All.
         /// </summary>
-        public static string ConvertAll {
+        public static string ConvertAllFiguresToBaseCurrency {
             get {
-                return ResourceManager.GetString("ConvertAll", resourceCulture);
+                return ResourceManager.GetString("ConvertAllFiguresToBaseCurrency", resourceCulture);
             }
         }
         
