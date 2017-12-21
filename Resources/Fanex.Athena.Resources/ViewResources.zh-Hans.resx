@@ -2541,4 +2541,36 @@
     <value>Parlay 佣金</value>
     <comment>82036</comment>
   </data>
+  <data name="WinLossByTimeZone" xml:space="preserve">
+    <value>投注时区输赢</value>
+    <comment>84932</comment>
+  </data>
+  <data name="BaseCurrency" xml:space="preserve">
+    <value>基础货币</value>
+    <comment>84932</comment>
+  </data>
+  <data name="ConvertAllFiguresToBaseCurrency" xml:space="preserve">
+    <value>将所有数据转换为基础货币</value>
+    <comment>84932</comment>
+  </data>
+  <data name="CustomerComm" xml:space="preserve">
+    <value>会员佣金</value>
+    <comment>84932</comment>
+  </data>
+  <data name="GroupBy" xml:space="preserve">
+    <value>分组方式</value>
+    <comment>84932</comment>
+  </data>
+  <data name="IncludeDrawData" xml:space="preserve">
+    <value>包含和局资料</value>
+    <comment>84932</comment>
+  </data>
+  <data name="LicenseeComm" xml:space="preserve">
+    <value>承租公司佣金</value>
+    <comment>84932</comment>
+  </data>
+  <data name="LicenseeNetWL" xml:space="preserve">
+    <value>承租公司净输赢</value>
+    <comment>84932</comment>
+  </data>
 </root>
