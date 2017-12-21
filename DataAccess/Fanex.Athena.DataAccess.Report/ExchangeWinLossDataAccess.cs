@@ -8,7 +8,6 @@
     using Core.Exception;
     using Core.Extensions;
     using Data;
-    using Extension.Helper;
     using Interfaces;
     using Model.Core.DataDomain;
     using Model.Core.ResultModel;
@@ -29,7 +28,7 @@
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel);
+                        return GetData(reader);
                     }
                 }
             }
@@ -51,7 +50,7 @@
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel);
+                        return GetData(reader);
                     }
                 }
             }
@@ -72,7 +71,7 @@
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel);
+                        return GetData(reader);
                     }
                 }
             }
@@ -84,15 +83,7 @@
 
         private static IDictionary<string, ExchangeWinLoss> InitSummaryTotal()
         {
-            var summaryTotal = new Dictionary<string, ExchangeWinLoss>();
-            foreach (var currency in SystemConstants.BaseCurrencyList)
-            {
-                summaryTotal.Add(
-                    currency,
-                    new ExchangeWinLoss());
-            }
-
-            return summaryTotal;
+            return SystemConstants.BaseCurrencyList.ToDictionary(x => x, x => new ExchangeWinLoss());
         }
 
         private static void UpdateUspParams(IObjectDb db, ExchangeWinLossMetaModel metaModel)
@@ -104,17 +95,18 @@
 
         private static void ReadSummaryTotal(IDataReader reader, IDictionary<string, ExchangeWinLoss> summaryTotal)
         {
-            foreach (var currency in SystemConstants.BaseCurrencyList)
+            foreach (var item in summaryTotal)
             {
-                var item = summaryTotal[currency];
-                item.Turnover += reader.ToDecimal("TurnOver" + currency);
-                item.NetTurnover += reader.ToDecimal("NetTurnOver" + currency);
-                item.CustomerWL += reader.ToDecimal("Winlost" + currency);
-                item.CustomerComm += reader.ToDecimal("CustComm" + currency);
-                item.LicenseeWL += reader.ToDecimal("LicenseeWinlost" + currency);
-                item.LicenseeComm += reader.ToDecimal("AgentComm" + currency);
-                item.TotalTransaction += reader.ToInt("TotalTrans" + currency);
-                item.AmountDueTo += reader.ToDecimal("AmountDueTo" + currency);
+                var currency = item.Key;
+                var detail = item.Value;
+                detail.Turnover += reader.ToDecimal("TurnOver" + currency);
+                detail.NetTurnover += reader.ToDecimal("NetTurnOver" + currency);
+                detail.CustomerWL += reader.ToDecimal("Winlost" + currency);
+                detail.CustomerComm += reader.ToDecimal("CustComm" + currency);
+                detail.LicenseeWL += reader.ToDecimal("LicenseeWinlost" + currency);
+                detail.LicenseeComm += reader.ToDecimal("AgentComm" + currency);
+                detail.TotalTransaction += reader.ToInt("TotalTrans" + currency);
+                detail.AmountDueTo += reader.ToDecimal("AmountDueTo" + currency);
             }
         }
 
@@ -140,7 +132,7 @@
             }).ToList();
         }
 
-        private ReportResultModel<ExchangeWinLoss> GetData(IDataReader reader, ExchangeWinLossMetaModel metaModel)
+        private ReportResultModel<ExchangeWinLoss> GetData(IDataReader reader)
         {
             var dataList = new List<ExchangeWinLoss>();
             var summaryTotal = InitSummaryTotal();
@@ -152,7 +144,7 @@
             {
                 var item = new ExchangeWinLoss
                 {
-                    Date = ConvertHelper.ToDateTime(reader.ToString("Winlostdate"), metaModel.ReportBy == ReportByType.Monthly),
+                    Date = reader.ToDateTime("Winlostdate"),
                     CurrencyName = reader.ToString("CurrencyName"),
                     CurrencyId = reader.ToInt("CurrencyID"),
                     ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
