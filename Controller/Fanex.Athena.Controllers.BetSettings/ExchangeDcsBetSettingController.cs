@@ -18,7 +18,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
     public class ExchangeDcsBetSettingController : BetSettingBaseController
     {
-        private static readonly decimal[] ValidComms = new[] { 2, 2.5m, 3, 3.5m, 4, 4.5m, 5, 5.5m, 6, 6.5m, 7 };
+        private static readonly double[] ValidComms = new[] { 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7 };
 
         private readonly IDcsBetSettingService _betSettingService;
 
@@ -64,7 +64,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        public ActionResult UpdateComm(int custId, decimal commission)
+        public ActionResult UpdateComm(int custId, double commission)
         {
             if (!ValidComms.Contains(commission))
             {

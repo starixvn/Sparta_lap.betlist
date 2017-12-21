@@ -4,8 +4,8 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
 {
     public interface IExchangeCommApiService
     {
-        IResultInfo<decimal> GetCommission(int licenseeId, int custId);
+        IResultInfo<double> GetCommission(int licenseeId, int custId);
 
-        IResultInfo<decimal> UpdateCommission(int licenseeId, int userId, int custId, decimal commission);
+        IResultInfo<double> UpdateCommission(int licenseeId, int userId, int custId, double commission);
     }
 }

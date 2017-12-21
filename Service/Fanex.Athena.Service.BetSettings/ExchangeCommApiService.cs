@@ -55,7 +55,7 @@ namespace Fanex.Athena.Service.BetSettings
             _apiClient = apiClient ?? (ICitiXchangeClient)Activator.GetObject(typeof(ICitiXchangeClient), _appSetting.ExchangeProductApiHost);
         }
 
-        public IResultInfo<decimal> GetCommission(int licenseeId, int custId)
+        public IResultInfo<double> GetCommission(int licenseeId, int custId)
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
@@ -67,7 +67,7 @@ namespace Fanex.Athena.Service.BetSettings
                 _logger.Info(licenseeId + ";" + custId);
                 var result = _apiClient.getProfile(custId, EnvironmentMap[_appSetting.Environment]);
                 _logger.Info(new JavaScriptSerializer().Serialize(result));
-                return CreateApiResult(result.status, result.commission);
+                return CreateApiResult(result.status, (double)result.commission);
             }
             catch (Exception exception)
             {
@@ -76,7 +76,7 @@ namespace Fanex.Athena.Service.BetSettings
             }
         }
 
-        public IResultInfo<decimal> UpdateCommission(int licenseeId, int userId, int custId, decimal commission)
+        public IResultInfo<double> UpdateCommission(int licenseeId, int userId, int custId, double commission)
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
@@ -86,7 +86,7 @@ namespace Fanex.Athena.Service.BetSettings
             try
             {
                 _logger.Info(licenseeId + ";" + custId + ";" + commission);
-                var result = _apiClient.updateCommission(custId, (int)(commission * 100), EnvironmentMap[_appSetting.Environment]);
+                var result = _apiClient.updateCommission(custId, commission, EnvironmentMap[_appSetting.Environment]);
 
                 _logger.Info(new JavaScriptSerializer().Serialize(result));
                 _userLogDataAccess.WriteLog(new UserLogMetaModel
@@ -104,10 +104,10 @@ namespace Fanex.Athena.Service.BetSettings
             }
         }
 
-        private static IResultInfo<decimal> CreateApiResult(CitiStatus status, decimal commission)
+        private static IResultInfo<double> CreateApiResult(CitiStatus status, double commission)
         {
             var isSuccess = status == CitiStatus.Success;
-            return new ResultInfo<decimal>
+            return new ResultInfo<double>
             {
                 Code = isSuccess ? 0 : (int)status,
                 Message = isSuccess ? ViewResources.UpdateSuccess : ViewResources.ErrorProcessingMsg,
@@ -115,18 +115,18 @@ namespace Fanex.Athena.Service.BetSettings
             };
         }
 
-        private static IResultInfo<decimal> CreateInvalidParamResult()
+        private static IResultInfo<double> CreateInvalidParamResult()
         {
-            return new ResultInfo<decimal>
+            return new ResultInfo<double>
             {
                 Code = 101,
                 Message = ViewResources.InvalidParams
             };
         }
 
-        private static IResultInfo<decimal> CreateApiErrorResult()
+        private static IResultInfo<double> CreateApiErrorResult()
         {
-            return new ResultInfo<decimal>
+            return new ResultInfo<double>
             {
                 Code = 102,
                 Message = ViewResources.ErrorProcessingMsg
