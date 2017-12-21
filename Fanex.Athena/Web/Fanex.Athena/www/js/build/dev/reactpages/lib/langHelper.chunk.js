@@ -44,20 +44,20 @@ exports.default = LangHelper;
 
 /***/ }),
 
-/***/ 726:
+/***/ 705:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(15);
-__webpack_require__(727);
-__webpack_require__(728);
-__webpack_require__(729);
-__webpack_require__(730);
-module.exports = __webpack_require__(731);
+__webpack_require__(706);
+__webpack_require__(707);
+__webpack_require__(708);
+__webpack_require__(709);
+module.exports = __webpack_require__(710);
 
 
 /***/ }),
 
-/***/ 727:
+/***/ 706:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1014,7 +1014,7 @@ window._language_en_US = {
 
 /***/ }),
 
-/***/ 728:
+/***/ 707:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1786,13 +1786,13 @@ window._language_ko_KR = {
 
 /***/ }),
 
-/***/ 729:
+/***/ 708:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/19/2017 3:47:38 PM
+// Generated at: 12/21/2017 11:03:29 AM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -1853,6 +1853,7 @@ window._language_zh_CN = {
   BalanceInformation: "余额信息",
   BalanceTitle: "余额信息 - {0}",
   BANote: "投注总计状态只能在周一下午1点至下午5点 (GMT +8) 进行更改",
+  BaseCurrency: "基础货币",
   Based: "基于",
   BAStatus: "BA 状态",
   BAUpdatedBy: "投注总计跟新由",
@@ -1923,6 +1924,7 @@ window._language_zh_CN = {
   Confirmation: "确认",
   ConfirmCommission: "确认会员的佣金:",
   ConfirmPassword: "确认密码",
+  ConvertAllFiguresToBaseCurrency: "将所有数据转换为基础货币",
   ConvertTo: "转换为",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
   CopyBetSettingFromRacing: "从赛马赛事复制所有投注设定",
@@ -1944,6 +1946,7 @@ window._language_zh_CN = {
   CustomerBalance: "会员余额",
   CustomerBalanceDateRangeNotification: "日期范围超过2个月. 请再试一次!",
   CustomerBetList: "会员注单",
+  CustomerComm: "会员佣金",
   CustomerCommission: "会员佣金",
   CustomerHasNeverPlayed: "This customer has never played {0}.",
   CustomerInfo: "会员资料",
@@ -2072,6 +2075,7 @@ window._language_zh_CN = {
   GreyhoundAustTote: "澳洲赛马车指南",
   GreyhoundUK_IrishTote: "英国,爱尔兰赛狗指南",
   Group: "组",
+  GroupBy: "分组方式",
   GroupColor: "组别颜色",
   GroupCommission: "佣金组别",
   GroupCommissionlog: "佣金组别日志",
@@ -2113,6 +2117,7 @@ window._language_zh_CN = {
   HttpError_404: "页面不存在, 请检查地址",
   HttpError_Default: "Oops… 您在此处基于系统错误, 请通知管理员",
   InactiveSinceLast: "自上次停用",
+  IncludeDrawData: "包含和局资料",
   IncorrectMaxBet: "不正确的最大投注",
   IncorrectMaxPerBall: "不正确的单球最大投注",
   IncorrectMaxPerMatch: "不正确的单场最大投注",
@@ -2188,8 +2193,10 @@ window._language_zh_CN = {
   Levels: "levels",
   Licensee: "承租公司",
   Licensee12Bet: "12Bet Licensee",
+  LicenseeComm: "承租公司佣金",
   LicenseeFee: "承租公司费用",
   Licenseegrossrevenuefor: "承租公司总收益为{0}",
+  LicenseeNetWL: "承租公司净输赢",
   LicenseeW_L: "承租公司输赢",
   LicenseeWinLoss: "承租公司輸贏",
   LicenseeWinLossTip1: "向下拖曳以查看数据",
@@ -2585,6 +2592,7 @@ window._language_zh_CN = {
   WinLossByProduct: "投注产品输赢",
   WinLossByProductNote1: "体育博彩之数额{0} (到期金额) 显示为斜体并仅供参考",
   WinLossByProductTitle: "投注产品输赢, {0} --&gt; {1} - {2}",
+  WinLossByTimeZone: "投注时区输赢",
   WinPlace: "独赢 位置",
   WinTO: "独赢交易额",
   Withdrawal: "提款",
@@ -2599,13 +2607,13 @@ window._language_zh_CN = {
 
 /***/ }),
 
-/***/ 730:
+/***/ 709:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/19/2017 3:47:38 PM
+// Generated at: 12/21/2017 11:03:29 AM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2666,6 +2674,7 @@ window._language_zh_Hans = {
   BalanceInformation: "余额信息",
   BalanceTitle: "余额信息 - {0}",
   BANote: "投注总计状态只能在周一下午1点至下午5点 (GMT +8) 进行更改",
+  BaseCurrency: "基础货币",
   Based: "基于",
   BAStatus: "BA 状态",
   BAUpdatedBy: "投注总计跟新由",
@@ -2726,6 +2735,7 @@ window._language_zh_Hans = {
   Confirmation: "确认",
   ConfirmCommission: "确认会员的佣金:",
   ConfirmPassword: "确认密码",
+  ConvertAllFiguresToBaseCurrency: "将所有数据转换为基础货币",
   ConvertTo: "转换为",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
   CopyBetSettingFromRacing: "从赛马赛事复制所有投注设定",
@@ -2747,6 +2757,7 @@ window._language_zh_Hans = {
   CustomerBalance: "会员余额",
   CustomerBalanceDateRangeNotification: "日期范围超过2个月. 请再试一次!",
   CustomerBetList: "会员注单",
+  CustomerComm: "会员佣金",
   CustomerCommission: "会员佣金",
   CustomerHasNeverPlayed: "This customer has never played {0}.",
   CustomerInfo: "会员资料",
@@ -2874,6 +2885,7 @@ window._language_zh_Hans = {
   GreyhoundAustTote: "澳洲赛马车指南",
   GreyhoundUK_IrishTote: "英国,爱尔兰赛狗指南",
   Group: "组",
+  GroupBy: "分组方式",
   GroupColor: "组别颜色",
   GroupCommission: "佣金组别",
   GroupCommissionlog: "佣金组别日志",
@@ -2915,6 +2927,7 @@ window._language_zh_Hans = {
   HttpError_404: "页面不存在, 请检查地址",
   HttpError_Default: "Oops… 您在此处基于系统错误, 请通知管理员",
   InactiveSinceLast: "自上次停用",
+  IncludeDrawData: "包含和局资料",
   IncorrectMaxBet: "不正确的最大投注",
   IncorrectMaxPerBall: "不正确的单球最大投注",
   IncorrectMaxPerMatch: "不正确的单场最大投注",
@@ -2990,8 +3003,10 @@ window._language_zh_Hans = {
   Levels: "levels",
   Licensee: "承租公司",
   Licensee12Bet: "12Bet Licensee",
+  LicenseeComm: "承租公司佣金",
   LicenseeFee: "承租公司费用",
   Licenseegrossrevenuefor: "承租公司总收益为{0}",
+  LicenseeNetWL: "承租公司净输赢",
   LicenseeW_L: "承租公司输赢",
   LicenseeWinLoss: "承租公司輸贏",
   LicenseeWinLossTip1: "向下拖曳以查看数据",
@@ -3384,6 +3399,7 @@ window._language_zh_Hans = {
   WinLossByProduct: "投注产品输赢",
   WinLossByProductNote1: "体育博彩之数额{0} (到期金额) 显示为斜体并仅供参考",
   WinLossByProductTitle: "投注产品输赢, {0} --&gt; {1} - {2}",
+  WinLossByTimeZone: "投注时区输赢",
   WinPlace: "独赢 位置",
   WinTO: "独赢交易额",
   Withdrawal: "提款",
@@ -3398,13 +3414,13 @@ window._language_zh_Hans = {
 
 /***/ }),
 
-/***/ 731:
+/***/ 710:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/19/2017 3:47:38 PM
+// Generated at: 12/21/2017 11:03:29 AM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3465,6 +3481,7 @@ window._language_zh_TW = {
   BalanceInformation: "餘額信息",
   BalanceTitle: "餘額信息 - {0}",
   BANote: "投注總計狀態只能在週一下午1點至下午5點 (GMT +8) 進行更改",
+  BaseCurrency: "基礎貨幣",
   Based: "基於",
   BAStatus: "BA 狀態",
   BAUpdatedBy: "投注總計跟新由",
@@ -3535,6 +3552,7 @@ window._language_zh_TW = {
   Confirmation: "確認",
   ConfirmCommission: "確認會員的佣金:",
   ConfirmPassword: "確認密碼",
+  ConvertAllFiguresToBaseCurrency: "將所有數據轉換為基礎貨幣",
   ConvertTo: "轉換為",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
   CopyBetSettingFromRacing: "從賽馬賽事複製所有投注設定",
@@ -3556,6 +3574,7 @@ window._language_zh_TW = {
   CustomerBalance: "會員餘額",
   CustomerBalanceDateRangeNotification: "日期範圍超過2個月。請再試一次!",
   CustomerBetList: "會員注單",
+  CustomerComm: "會員傭金",
   CustomerCommission: "會員佣金",
   CustomerHasNeverPlayed: "This customer has never played {0}.",
   CustomerInfo: "會員資料",
@@ -3684,6 +3703,7 @@ window._language_zh_TW = {
   GreyhoundAustTote: "澳洲賽馬車指南",
   GreyhoundUK_IrishTote: "英國,愛爾蘭賽狗指南",
   Group: "組",
+  GroupBy: "分組方式",
   GroupColor: "組別顏色",
   GroupCommission: "佣金組別",
   GroupCommissionlog: "佣金組別日誌",
@@ -3725,6 +3745,7 @@ window._language_zh_TW = {
   HttpError_404: "頁面不存在，請檢查地址",
   HttpError_Default: "Oops… 您在此處基於系統錯誤，請通知管理員",
   InactiveSinceLast: "自上次停用",
+  IncludeDrawData: "包含和局資料",
   IncorrectMaxBet: "不正確的最大投注",
   IncorrectMaxPerBall: "不正確的單球最大投注",
   IncorrectMaxPerMatch: "不正確的單場最大投注",
@@ -3800,8 +3821,10 @@ window._language_zh_TW = {
   Levels: "levels",
   Licensee: "承租公司",
   Licensee12Bet: "12Bet Licensee",
+  LicenseeComm: "承租公司傭金",
   LicenseeFee: "承租公司費用",
   Licenseegrossrevenuefor: "承租公司總收益為{0}",
+  LicenseeNetWL: "承租公司淨輸贏",
   LicenseeW_L: "承租公司輸贏",
   LicenseeWinLoss: "承租公司輸贏",
   LicenseeWinLossTip1: "向下拖曳以查看數據",
@@ -4197,6 +4220,7 @@ window._language_zh_TW = {
   WinLossByProduct: "投注產品輸贏",
   WinLossByProductNote1: "體育博彩之數額{0}（到期金額）顯示為斜體並僅供參考",
   WinLossByProductTitle: "投注產品輸贏, {0} --&gt; {1} - {2}",
+  WinLossByTimeZone: "投注時區輸贏",
   WinPlace: "獨贏 位置",
   WinTO: "獨贏交易額",
   Withdrawal: "提款",
@@ -4211,5 +4235,5 @@ window._language_zh_TW = {
 
 /***/ })
 
-},[726]);
+},[705]);
 //# sourceMappingURL=langHelper.chunk.js.map

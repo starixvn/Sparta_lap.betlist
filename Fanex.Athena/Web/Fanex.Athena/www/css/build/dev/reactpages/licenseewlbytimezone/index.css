@@ -515,7 +515,8 @@ input[type="checkbox"].checkbox {
   z-index: 101;
   left: 0;
   right: 0;
-  top: 10%;
+  top: 0;
+  bottom: 0;
   max-height: 80%;
   max-width: 80%;
   margin: auto; }
