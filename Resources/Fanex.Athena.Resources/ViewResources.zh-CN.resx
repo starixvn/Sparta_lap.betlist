@@ -2620,4 +2620,7 @@
     <value>承租公司净输赢</value>
     <comment>84932</comment>
   </data>
+  <data name="BackToOldUI" xml:space="preserve">
+    <value>回到旧版本</value>
+  </data>
 </root>
