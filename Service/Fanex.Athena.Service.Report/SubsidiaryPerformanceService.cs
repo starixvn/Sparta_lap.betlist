@@ -31,14 +31,14 @@
             _subLicenseePerformanceDataAccess = subLicenseePerformanceDataAccess;
         }
 
-        public IDictionary<int, string> GetSubsidiaryList(string licenseeName)
+        public IDictionary<int, string> GetSubsidiaryList(string licenseeName, string currencyIdList)
         {
             var cacheKey = $"SubsidiaryList_{licenseeName}";
 
             var subsidiaryList = _cache.Get<IDictionary<int, string>>(cacheKey);
             if (subsidiaryList == null)
             {
-                subsidiaryList = _subLicenseePerformanceDataAccess.GetSubsidiaryList(licenseeName);
+                subsidiaryList = _subLicenseePerformanceDataAccess.GetSubsidiaryList(licenseeName, currencyIdList);
                 _cache.Set(cacheKey, subsidiaryList, CacheTimeoutSeconds);
             }
 

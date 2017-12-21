@@ -34,7 +34,8 @@ namespace Fanex.Athena.Controllers.Report
                 userSession.Language,
                 FunctionNames.SubsidiaryPerformance);
 
-            var subsidiaryList = _service.GetSubsidiaryList(licenseeSession.LicenseeName);
+            var currencyIdList = string.Join(",", userSession.CurrencyList.Select(x => x.Key));
+            var subsidiaryList = _service.GetSubsidiaryList(licenseeSession.LicenseeName, currencyIdList);
 
             var model = new SubsidiaryPerformanceViewModel
             {

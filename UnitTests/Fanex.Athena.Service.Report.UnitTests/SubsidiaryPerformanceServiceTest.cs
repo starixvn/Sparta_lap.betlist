@@ -40,16 +40,17 @@
         {
             // Arrange
             const string LicenseeName = "12Bet";
+            const string CurrencyIdList = "1,2";
             var cacheKey = $"SubsidiaryList_{LicenseeName}";
             var subsidiaryList = new Dictionary<int, string>();
 
             _cache.Get<IDictionary<int, string>>(cacheKey).Returns(subsidiaryList);
 
             // Action
-            _service.GetSubsidiaryList(LicenseeName);
+            _service.GetSubsidiaryList(LicenseeName, CurrencyIdList);
 
             // Assert
-            _dataAccess.DidNotReceiveWithAnyArgs().GetSubsidiaryList(LicenseeName);
+            _dataAccess.DidNotReceiveWithAnyArgs().GetSubsidiaryList(LicenseeName, CurrencyIdList);
         }
 
         [Test]
@@ -57,6 +58,7 @@
         {
             // Arrange
             const string LicenseeName = "12Bet";
+            const string CurrencyIdList = "1,2";
             var cacheKey = $"SubsidiaryList_{LicenseeName}";
             Dictionary<int, string> subsidiaryList = null;
 
@@ -66,10 +68,10 @@
             {
                 [1] = "Data1"
             };
-            _dataAccess.GetSubsidiaryList(LicenseeName).Returns(expectedResult);
+            _dataAccess.GetSubsidiaryList(LicenseeName, CurrencyIdList).Returns(expectedResult);
 
             // Action
-            var result = _service.GetSubsidiaryList(LicenseeName);
+            var result = _service.GetSubsidiaryList(LicenseeName, CurrencyIdList);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -80,6 +82,7 @@
         {
             // Arrange
             const string LicenseeName = "12Bet";
+            const string CurrencyIdList = "1,2";
             var cacheKey = $"SubsidiaryList_{LicenseeName}";
             Dictionary<int, string> subsidiaryList = null;
 
@@ -89,10 +92,10 @@
             {
                 [1] = "Data1"
             };
-            _dataAccess.GetSubsidiaryList(LicenseeName).Returns(expectedResult);
+            _dataAccess.GetSubsidiaryList(LicenseeName, CurrencyIdList).Returns(expectedResult);
 
             // Action
-            _service.GetSubsidiaryList(LicenseeName);
+            _service.GetSubsidiaryList(LicenseeName, CurrencyIdList);
 
             // Assert
             _cache.Received().Set(cacheKey, expectedResult, 300);

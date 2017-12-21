@@ -35,6 +35,7 @@
     </Setting>
     <Setting Key="Lrf_SyncInternalUser" SpName="Lrf_SyncInternalUser" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="LRF_LicenseeSourcedSel" SpName="LRF_LicenseeSourcedSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_SubsidiarySel" SpName="Lrf_SubsidiarySel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
   </Function>
 
   <Function Name="Authorization">

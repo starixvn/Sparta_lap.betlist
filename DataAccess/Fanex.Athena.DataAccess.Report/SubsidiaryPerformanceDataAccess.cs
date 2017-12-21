@@ -25,15 +25,32 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public IDictionary<int, string> GetSubsidiaryList(string licenseeName)
+        public IDictionary<int, string> GetSubsidiaryList(string licenseeName, string currencyIdList)
         {
-            const string SpName = "Lrf_SubsidiarySel";
-
             var subsidiaryList = new Dictionary<int, string>
             {
-                [1] = "New York",
-                [2] = "India"
+                [-1] = "Test1",
+                [-2] = "Test2"
             };
+
+            const string SpName = "Lrf_SubsidiarySel";
+
+            using (var objectDb = this.GetObjectDb(SpName))
+            {
+                objectDb.AddInParameter("LicenseeName", DbType.String, licenseeName);
+                objectDb.AddInParameter("CurrencyIDList", DbType.String, currencyIdList);
+
+                using (var reader = objectDb.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var agentId = Convert.ToInt32(reader["AgentID"]);
+                        var operatorId = reader["OperatorID"].ToString();
+
+                        subsidiaryList.Add(agentId, operatorId);
+                    }
+                }
+            }
 
             return subsidiaryList;
         }
