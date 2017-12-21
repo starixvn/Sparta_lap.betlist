@@ -94,7 +94,7 @@ export class FormFilter extends Component {
         return subsidiaryList && subsidiaryList.length ? (
             <MultipleSelect
                 dataSource={this.props.subsidiaryList}
-                keyField={"ID"}
+                keyField={"Name"}
                 valueField={"Name"}
                 statusField={"Checked"}
                 optionAllLabel={LangHelper.getSingleResource("All")}

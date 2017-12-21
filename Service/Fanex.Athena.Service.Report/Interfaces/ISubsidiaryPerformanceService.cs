@@ -6,7 +6,7 @@
 
     public interface ISubsidiaryPerformanceService
     {
-        IDictionary<int, string> GetSubsidiaryList(string licenseeName, string currencyIdList);
+        IDictionary<int, string> GetOperatorList(string licenseeName, IEnumerable<int> currencyListByUser);
 
         IEnumerable<SubsidiaryPerformanceDataModel> GetData(
             SubsidiaryPerformanceMetaModel metaModel,

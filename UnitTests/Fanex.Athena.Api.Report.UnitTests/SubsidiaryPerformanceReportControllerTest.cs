@@ -24,6 +24,8 @@
 
         private JavaScriptSerializer _serializer;
 
+        private const string LicenseeName = "12bet";
+
         [OneTimeSetUp]
         public void SetUp()
         {
@@ -74,6 +76,9 @@
         {
             // Arrange
             var metaModel = GetMetaModel();
+
+            var currencyIdList = new Dictionary<int, string> { [-1] = "NewYork", [-2] = "India" };
+            _service.GetOperatorList(LicenseeName, Arg.Any<IEnumerable<int>>()).Returns(currencyIdList);
             IEnumerable<int> agentIdList = null;
             _sessionService.GenerateAgentListXmlByAgentIdList(Arg.Do<IEnumerable<int>>(x => agentIdList = x));
             IEnumerable<SubsidiaryPerformanceEntity> totalList = null;
@@ -272,7 +277,7 @@
                 FromDate = new DateTime(2017, 8, 30),
                 ToDate = new DateTime(2017, 8, 30),
                 ProductCodeList = "SB,BA",
-                SubsidiaryList = "123,143",
+                SubsidiaryList = "NewYork,India",
                 BaseCurrency = "USD"
             };
         }
@@ -303,7 +308,8 @@
 
             var licenseeSession = new LicenseeSession
             {
-                LicenseeId = 1
+                LicenseeId = 1,
+                LicenseeName = "12bet"
             };
 
             _sessionService.UserSession.Returns(userSession);

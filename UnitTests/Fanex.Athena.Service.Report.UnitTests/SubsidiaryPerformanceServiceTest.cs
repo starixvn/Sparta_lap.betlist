@@ -5,6 +5,7 @@
     using System.Web.Script.Serialization;
     using DataAccess.Report.Interfaces;
     using Extension.Utility.Interfaces;
+    using Model.Report.DTO;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
     using NSubstitute;
@@ -36,42 +37,54 @@
         }
 
         [Test]
-        public void GetSubsidiaryList_DataIsInCache_DoNotCallDataAccess()
+        public void GetOperatorList_DataIsInCache_DoNotCallDataAccess()
         {
             // Arrange
             const string LicenseeName = "12Bet";
-            const string CurrencyIdList = "1,2";
+            var currencyIdList = new List<int> { 1, 2 };
             var cacheKey = $"SubsidiaryList_{LicenseeName}";
             var subsidiaryList = new Dictionary<int, string>();
 
             _cache.Get<IDictionary<int, string>>(cacheKey).Returns(subsidiaryList);
 
             // Action
-            _service.GetSubsidiaryList(LicenseeName, CurrencyIdList);
+            _service.GetOperatorList(LicenseeName, currencyIdList);
 
             // Assert
-            _dataAccess.DidNotReceiveWithAnyArgs().GetSubsidiaryList(LicenseeName, CurrencyIdList);
+            _dataAccess.DidNotReceiveWithAnyArgs().GetOperatorList(LicenseeName);
         }
 
         [Test]
-        public void GetSubsidiaryList_DataIsNotInCache_ReturnCorrectDataAfterCallingDataAccess()
+        public void GetOperatorList_DataIsNotInCache_ReturnCorrectDataAfterCallingDataAccess()
         {
             // Arrange
             const string LicenseeName = "12Bet";
-            const string CurrencyIdList = "1,2";
-            var cacheKey = $"SubsidiaryList_{LicenseeName}";
-            Dictionary<int, string> subsidiaryList = null;
+            var currencyIdList = new List<int> { 1, 2 };
+            var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
 
-            _cache.Get<IDictionary<int, string>>(cacheKey).Returns(subsidiaryList);
+            IEnumerable<Operator> operatorList = null;
+            _cache.Get<IEnumerable<Operator>>(cacheKey).Returns(operatorList);
+
+            const string OperatorName = "Data1";
+            const int AgentId = 1;
+            var expectedFromDataAccess = new List<Operator>
+            {
+                new Operator
+                {
+                    AgentId = AgentId,
+                    CurrencyId = 1,
+                    OperatorName = OperatorName
+                }
+            };
+            _dataAccess.GetOperatorList(LicenseeName).Returns(expectedFromDataAccess);
 
             var expectedResult = new Dictionary<int, string>
             {
-                [1] = "Data1"
+                [AgentId] = OperatorName
             };
-            _dataAccess.GetSubsidiaryList(LicenseeName, CurrencyIdList).Returns(expectedResult);
 
             // Action
-            var result = _service.GetSubsidiaryList(LicenseeName, CurrencyIdList);
+            var result = _service.GetOperatorList(LicenseeName, currencyIdList);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -82,23 +95,30 @@
         {
             // Arrange
             const string LicenseeName = "12Bet";
-            const string CurrencyIdList = "1,2";
-            var cacheKey = $"SubsidiaryList_{LicenseeName}";
-            Dictionary<int, string> subsidiaryList = null;
+            var currencyIdList = new List<int> { 1, 2 };
+            var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
+            IEnumerable<Operator> operatorList = null;
 
-            _cache.Get<IDictionary<int, string>>(cacheKey).Returns(subsidiaryList);
+            _cache.Get<IEnumerable<Operator>>(cacheKey).Returns(operatorList);
 
-            var expectedResult = new Dictionary<int, string>
+            const string OperatorName = "Data1";
+            const int AgentId = 1;
+            var expectedFromDataAccess = new List<Operator>
             {
-                [1] = "Data1"
+                new Operator
+                {
+                    AgentId = AgentId,
+                    CurrencyId = 1,
+                    OperatorName = OperatorName
+                }
             };
-            _dataAccess.GetSubsidiaryList(LicenseeName, CurrencyIdList).Returns(expectedResult);
+            _dataAccess.GetOperatorList(LicenseeName).Returns(expectedFromDataAccess);
 
             // Action
-            _service.GetSubsidiaryList(LicenseeName, CurrencyIdList);
+            var result = _service.GetOperatorList(LicenseeName, currencyIdList);
 
             // Assert
-            _cache.Received().Set(cacheKey, expectedResult, 300);
+            _cache.Received().Set(cacheKey, expectedFromDataAccess, 300);
         }
 
         [Test]

@@ -20,5 +20,7 @@ namespace Fanex.Athena.Model.Core.DTO.Configuration
         public static readonly string MemorycacheCommonProduct = "MemoryCache_Common_Product";
 
         public static readonly string MemorycacheActiveCustomerSummaryProduct = "MemoryCache_ActiveCustomerSummary_Product";
+
+        public static readonly string MemorycacheSubsidiaryListByLicensee = "MemoryCache_SubsidiaryList_{0}";
     }
 }

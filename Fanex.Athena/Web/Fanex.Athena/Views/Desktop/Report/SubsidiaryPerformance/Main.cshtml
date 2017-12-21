@@ -10,7 +10,7 @@
     var selectedProductCode = string.Join(",", productOptions.Where(x => x.Status).Select(x => x.Code).ToArray());
     var baseCurrencyList = SystemConstants.BaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
     var subsidiaryList = Model.SubsidiaryList;
-    var selectedSubsidiary = string.Join(",", subsidiaryList.Where(x => x.Checked).Select(x => x.ID).ToArray());
+    var selectedSubsidiary = string.Join(",", subsidiaryList.Where(x => x.Checked).Select(x => x.Name).ToArray());
 
     var appSettings = new AppSettings();
     var minDate = appSettings.HistoryDate;

@@ -9,6 +9,8 @@
     using Fanex.Athena.Model.Report.DTO.SubsidiaryPerformance;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report.Interfaces;
+    using Model.Core.DTO.Configuration;
+    using Model.Report.DTO;
     using Resources;
 
     public class SubsidiaryPerformanceService : ISubsidiaryPerformanceService
@@ -31,18 +33,18 @@
             _subLicenseePerformanceDataAccess = subLicenseePerformanceDataAccess;
         }
 
-        public IDictionary<int, string> GetSubsidiaryList(string licenseeName, string currencyIdList)
+        public IDictionary<int, string> GetOperatorList(string licenseeName, IEnumerable<int> currencyListByUser)
         {
-            var cacheKey = $"SubsidiaryList_{licenseeName}";
+            var cacheKey = string.Format(CacheKey.MemorycacheSubsidiaryListByLicensee, licenseeName);
 
-            var subsidiaryList = _cache.Get<IDictionary<int, string>>(cacheKey);
-            if (subsidiaryList == null)
+            var operatorList = _cache.Get<IEnumerable<Operator>>(cacheKey);
+            if (operatorList == null)
             {
-                subsidiaryList = _subLicenseePerformanceDataAccess.GetSubsidiaryList(licenseeName, currencyIdList);
-                _cache.Set(cacheKey, subsidiaryList, CacheTimeoutSeconds);
+                operatorList = _subLicenseePerformanceDataAccess.GetOperatorList(licenseeName);
+                _cache.Set(cacheKey, operatorList, CacheTimeoutSeconds);
             }
 
-            return subsidiaryList;
+            return operatorList.Where(o => currencyListByUser.Contains(o.CurrencyId)).ToDictionary(x => x.AgentId, x => x.OperatorName);
         }
 
         public IEnumerable<SubsidiaryPerformanceDataModel> GetData(

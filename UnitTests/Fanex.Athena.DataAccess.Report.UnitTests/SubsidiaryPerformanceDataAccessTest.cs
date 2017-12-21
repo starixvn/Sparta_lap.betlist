@@ -7,6 +7,7 @@
     using Core.Configuration.Interfaces;
     using Data;
     using Model.Core.DTO.Configuration;
+    using Model.Report.DTO;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
     using NSubstitute;
@@ -21,6 +22,7 @@
         private IObjectDb _objectDb;
         private IDataReader _dataReader;
         private BalanceUp _balance;
+        private JavaScriptSerializer _serialize;
 
         [SetUp]
         public void SetUp()
@@ -37,6 +39,7 @@
 
             _objectDb = Substitute.For<IObjectDb>();
             _dataReader = Substitute.For<IDataReader>();
+            _serialize = new JavaScriptSerializer();
         }
 
         [TearDown]
@@ -49,7 +52,7 @@
         }
 
         [Test]
-        public void GetSubsidiaryList_WhenCall_PassCorrectParams()
+        public void GetOperatorList_WhenCall_PassCorrectParams()
         {
             // Arrange
             const string SpName = "Lrf_SubsidiarySel";
@@ -58,18 +61,16 @@
             _dataReader.Read().Returns(false);
 
             const string LisenseeName = "12Bet";
-            const string CurrencyIdList = "1,2";
 
             // Action
-            _dataAccess.GetSubsidiaryList(LisenseeName, CurrencyIdList);
+            _dataAccess.GetOperatorList(LisenseeName);
 
             // Assert
             _objectDb.Received().AddInParameter("LicenseeName", DbType.String, LisenseeName);
-            _objectDb.Received().AddInParameter("CurrencyIDList", DbType.String, CurrencyIdList);
         }
 
         [Test]
-        public void GetSubsidiaryList_WhenCall_ReturnCorrectData()
+        public void GetOperatorList_WhenCall_ReturnCorrectData()
         {
             // Arrange
             const string SpName = "Lrf_SubsidiarySel";
@@ -78,26 +79,34 @@
             _dataReader.Read().Returns(true, false);
 
             const string LisenseeName = "12Bet";
-            const string CurrencyIdList = "1,2";
             const int AgentId = 1234;
+            const int CurrencyId = 13;
+            const string OperatorName = "India";
 
             var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
             {
                 { "AgentID", AgentId },
-                { "OperatorID", "India" },
+                { "OperatorID", OperatorName },
+                { "Currency", CurrencyId }
             };
             DataAccessTestHelper.MapReaderData(_dataReader, readerDataMapping);
 
-            var expectedData = new Dictionary<int, string>
+            var expectedData = new List<Operator>
             {
-                [AgentId] = "India"
+                new Operator
+                {
+                    AgentId = AgentId,
+                    OperatorName = OperatorName,
+                    CurrencyId = CurrencyId
+                }
             };
+            var expectedResult = _serialize.Serialize(expectedData);
 
             // Action
-            var result = _dataAccess.GetSubsidiaryList(LisenseeName, CurrencyIdList);
+            var result = _serialize.Serialize(_dataAccess.GetOperatorList(LisenseeName));
 
             // Assert
-            Assert.That(result[AgentId], Is.EqualTo(expectedData[AgentId]));
+            Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]

@@ -38,8 +38,7 @@
         {
             if (metaModel.IsValid)
             {
-                var agentIdList = metaModel.SubsidiaryList.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                                    .Select(x => Convert.ToInt32(x));
+                var agentIdList = GetSelectedSubsidiaryList(metaModel.SubsidiaryList);
                 metaModel.AgentListXml = SessionService.GenerateAgentListXmlByAgentIdList(agentIdList);
 
                 IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
@@ -72,6 +71,18 @@
                 CustomerWinLoss = totalDataList.Sum(p => p.CustomerWinLoss),
                 SubsidiaryWinLoss = totalDataList.Sum(p => p.SubsidiaryWinLoss)
             };
+        }
+
+        private IEnumerable<int> GetSelectedSubsidiaryList(string selectedOperator)
+        {
+            var selectedOperatorList = selectedOperator.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
+            var currencyIdList = userSession.CurrencyList.Select(x => x.Key);
+            var subsidiaryData = _subsidiaryPerformanceService.GetOperatorList(licenseeSession.LicenseeName, currencyIdList);
+
+            return subsidiaryData.Where(s => selectedOperatorList.Contains(s.Value)).Select(x => Convert.ToInt32(x.Key));
         }
     }
 }

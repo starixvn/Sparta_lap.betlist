@@ -8,6 +8,7 @@
     using Core.Configuration.Interfaces;
     using Data;
     using Fanex.Athena.DataAccess.Report.Interfaces;
+    using Model.Report.DTO;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
 
@@ -25,34 +26,31 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public IDictionary<int, string> GetSubsidiaryList(string licenseeName, string currencyIdList)
+        public IEnumerable<Operator> GetOperatorList(string licenseeName)
         {
-            var subsidiaryList = new Dictionary<int, string>
-            {
-                [-1] = "Test1",
-                [-2] = "Test2"
-            };
+            var operatorList = new List<Operator>();
 
             const string SpName = "Lrf_SubsidiarySel";
 
             using (var objectDb = this.GetObjectDb(SpName))
             {
                 objectDb.AddInParameter("LicenseeName", DbType.String, licenseeName);
-                objectDb.AddInParameter("CurrencyIDList", DbType.String, currencyIdList);
 
                 using (var reader = objectDb.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        var agentId = Convert.ToInt32(reader["AgentID"]);
-                        var operatorId = reader["OperatorID"].ToString();
-
-                        subsidiaryList.Add(agentId, operatorId);
+                        operatorList.Add(new Operator
+                        {
+                            AgentId = Convert.ToInt32(reader["AgentID"]),
+                            OperatorName = reader["OperatorID"].ToString(),
+                            CurrencyId = Convert.ToInt32(reader["Currency"])
+                        });
                     }
                 }
             }
 
-            return subsidiaryList;
+            return operatorList;
         }
 
         public IEnumerable<SubsidiaryPerformanceEntity> GetData(SubsidiaryPerformanceMetaModel metaModel, out IEnumerable<SubsidiaryPerformanceEntity> totalDataList)
