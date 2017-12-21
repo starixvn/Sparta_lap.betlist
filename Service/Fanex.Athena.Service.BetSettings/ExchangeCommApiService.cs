@@ -55,7 +55,7 @@ namespace Fanex.Athena.Service.BetSettings
             _apiClient = apiClient ?? (ICitiXchangeClient)Activator.GetObject(typeof(ICitiXchangeClient), _appSetting.ExchangeProductApiHost);
         }
 
-        public IResultInfo<decimal> GetCommission(int licenseeId, int custId, int currencyId)
+        public IResultInfo<decimal> GetCommission(int licenseeId, int custId)
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
@@ -64,13 +64,10 @@ namespace Fanex.Athena.Service.BetSettings
 
             try
             {
-                _logger.Info(licenseeId + ";" + custId + ";" + currencyId);
-                var result = _apiClient.getProfile(custId, 6, EnvironmentMap[_appSetting.Environment]);
+                _logger.Info(licenseeId + ";" + custId);
+                var result = _apiClient.getProfile(custId, EnvironmentMap[_appSetting.Environment]);
                 _logger.Info(new JavaScriptSerializer().Serialize(result));
-                return new ResultInfo<decimal>
-                {
-                    ExtendedData = result.commission
-                };
+                return CreateApiResult(result.status, result.commission);
             }
             catch (Exception exception)
             {
@@ -90,6 +87,7 @@ namespace Fanex.Athena.Service.BetSettings
             {
                 _logger.Info(licenseeId + ";" + custId + ";" + commission);
                 var result = _apiClient.updateCommission(custId, (int)commission, EnvironmentMap[_appSetting.Environment]);
+
                 _logger.Info(new JavaScriptSerializer().Serialize(result));
                 _userLogDataAccess.WriteLog(new UserLogMetaModel
                 {
@@ -97,16 +95,24 @@ namespace Fanex.Athena.Service.BetSettings
                     UserId = userId,
                     CustID = custId
                 });
-                return new ResultInfo<decimal>
-                {
-                    ExtendedData = result.commission
-                };
+                return CreateApiResult(result.status, result.commission);
             }
             catch (Exception exception)
             {
                 _logger.Error("Exchange Api updateCommission: " + exception.Message);
                 return CreateApiErrorResult();
             }
+        }
+
+        private static IResultInfo<decimal> CreateApiResult(CitiStatus status, decimal commission)
+        {
+            var isSuccess = status == CitiStatus.Success;
+            return new ResultInfo<decimal>
+            {
+                Code = isSuccess ? 0 : (int)status,
+                Message = isSuccess ? string.Empty : ViewResources.ErrorProcessingMsg,
+                ExtendedData = commission
+            };
         }
 
         private static IResultInfo<decimal> CreateInvalidParamResult()

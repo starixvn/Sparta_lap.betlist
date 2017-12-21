@@ -48,7 +48,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             const string ViewPath = "~/Views/Customer/BetSetting/Exchange.cshtml";
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             viewModel.IsEnabled = _betSettingService.GetStatus(licenseeId, metaModel.CustId, metaModel.ProductId);
-            var apiResult = _exchangeCommApiService.GetCommission(licenseeId, metaModel.CustId, metaModel.CurrencyId);
+            var apiResult = _exchangeCommApiService.GetCommission(licenseeId, metaModel.CustId);
             if (apiResult.IsSuccessful)
             {
                 viewModel.Commission = apiResult.ExtendedData;
@@ -76,7 +76,7 @@ namespace Fanex.Athena.Controllers.BetSettings
                 SessionService.UserSession.UserId,
                 custId,
                 commission);
-            
+
             return Json(result);
         }
     }
