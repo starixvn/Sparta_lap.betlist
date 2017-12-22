@@ -70,6 +70,11 @@ namespace Fanex.Athena.Controllers.Forecast
             return betType == (int)BetType.OverUnder || betType == (int)BetType.FirstHalfOverUnder;
         }
 
+        private static int CalculateCurrentScore(int betType, int liveHomeScore, int liveAwayScore)
+        {
+            return IsOverUnder(betType) ? liveHomeScore + liveAwayScore : liveHomeScore - liveAwayScore;
+        }
+
         private ForecastAHViewModel GetViewModel(ForecastAHMetaModel metaModel)
         {
             var forecastHeaderParam = ForecastService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType);
@@ -80,10 +85,8 @@ namespace Fanex.Athena.Controllers.Forecast
                 /* Set default currentScore*/
                 if (Request.QueryString["CurrentScore"] == null)
                 {
-                    var isOverUnder = metaModel.BetType == (int)BetType.OverUnder || metaModel.BetType == (int)BetType.FirstHalfOverUnder;
-                    metaModel.CurrentScore = isOverUnder ?
-                        forecastHeaderParam.LiveHomeScore + forecastHeaderParam.LiveAwayScore :
-                        forecastHeaderParam.LiveHomeScore - forecastHeaderParam.LiveAwayScore;
+                    metaModel.CurrentScore = CalculateCurrentScore(
+                        metaModel.BetType, forecastHeaderParam.LiveHomeScore, forecastHeaderParam.LiveAwayScore);
                 }
 
                 var userSession = SessionService.UserSession;
