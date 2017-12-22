@@ -40,7 +40,7 @@ define(modulePath, function ($, Site, BetSettingHelper, DcsBetSetting, ExchangeB
         describe("updateComm(custId, commission)", function () {
             var custId = "1234";
             var commission = "987";
-            var url = "localhost/ExchangeCommApi/UpdateComm";
+            var url = "localhost/ExchangeDcsBetSetting/UpdateComm";
             var ajaxOption;
 
             beforeAll(function () {
