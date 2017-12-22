@@ -6124,7 +6124,8 @@ header nav {
     padding-bottom: 7px; }
     .side-nav.fixed .collapsible-body li {
       padding: 0 0 0 20px;
-      line-height: 30px; }
+      line-height: 30px;
+      position: relative; }
       .side-nav.fixed .collapsible-body li a {
         display: inline-block;
         vertical-align: middle;
@@ -6140,6 +6141,12 @@ header nav {
         color: #f05b1f; }
       .side-nav.fixed .collapsible-body li img {
         vertical-align: middle; }
+      .side-nav.fixed .collapsible-body li .new_icon {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 15px;
+        margin: auto; }
       .side-nav.fixed .collapsible-body li.active {
         background: #f05b1f; }
         .side-nav.fixed .collapsible-body li.active a {

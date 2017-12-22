@@ -42,12 +42,11 @@
                             <li>
                                 <a id="MenuItem@(subFunction.FunctionId)" href="@Url.Content("~/" + subFunction.Url)" target="main">
                                     @Html.Raw(subFunction.Name)
-
-                                    @if (subFunction.IsNew)
-                                    {
-                                        @Html.Raw("&nbsp;") <img src="@Url.ContentLink("/www/css/build/images/new_icon.gif")" alt='NEW' title='NEW' class='new_icon' />
-                                    }
                                 </a>
+                                @if (subFunction.IsNew)
+                                {
+                                    @Html.Raw("&nbsp;") <img src="@Url.ContentLink("/www/css/build/images/new_icon.gif")" alt='NEW' title='NEW' class='new_icon' />
+                                }
                             </li>
                         }
                     </ul>
