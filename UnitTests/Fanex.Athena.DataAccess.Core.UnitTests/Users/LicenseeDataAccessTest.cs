@@ -41,10 +41,9 @@
             _dataAccess.GetObjectDb(Arg.Is("Lrf_BATimeCheck")).Returns(_objectDb);
             var request = new Request { Language = "en-US" };
             var licenseeId = 1;
-            var isAllow = true;
 
             // Action
-            _dataAccess.IsAllowUpdateMemberBAStatus(request, licenseeId, out isAllow);
+            _dataAccess.IsAllowUpdateMemberBAStatus(request, licenseeId);
 
             // Assert
             _objectDb.Received().AddInParameter("langkey", DbType.String, request.Language);
@@ -57,17 +56,16 @@
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is("Lrf_BATimeCheck")).Returns(_objectDb);
-            _objectDb.GetParameterValue("isallow").Returns(false);
+            _objectDb.GetParameterValue("isallow").Returns(true);
             var request = new Request { Language = "en-US" };
             var licenseeId = 1;
-            var isAllow = true;
             ResultInfoHelper.MockResultInfo(_objectDb);
 
             // Action
-            var result = _dataAccess.IsAllowUpdateMemberBAStatus(request, licenseeId, out isAllow);
+            var result = _dataAccess.IsAllowUpdateMemberBAStatus(request, licenseeId);
 
             // Assert
-            Assert.That(isAllow, Is.False);
+            Assert.That(result.ExtendedData, Is.True);
             Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
             Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
         }

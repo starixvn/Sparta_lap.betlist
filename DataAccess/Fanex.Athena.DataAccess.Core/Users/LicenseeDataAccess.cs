@@ -19,12 +19,12 @@ namespace Fanex.Athena.DataAccess.Core.Users
 
     public class LicenseeDataAccess : BaseDataAccess, ILicenseeDataAccess
     {
-        public IResultInfo IsAllowUpdateMemberBAStatus(Request request, int licenseeId, out bool isAllow)
+        public IResultInfo<bool> IsAllowUpdateMemberBAStatus(Request request, int licenseeId)
         {
             const string UspName = "Lrf_BATimeCheck";
             try
             {
-                isAllow = false;
+                var isAllow = false;
                 using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("langkey", DbType.String, request.Language);
@@ -35,7 +35,13 @@ namespace Fanex.Athena.DataAccess.Core.Users
                     db.ExecuteNonQuery();
 
                     isAllow = Convert.ToBoolean(db.GetParameterValue("isallow"));
-                    return GetResult(db);
+                    var result = GetResult(db);
+                    return new ResultInfo<bool>
+                    {
+                        Code = result.Code,
+                        Message = result.Message,
+                        ExtendedData = isAllow
+                    };
                 }
             }
             catch (ObjectDbException sqlException)

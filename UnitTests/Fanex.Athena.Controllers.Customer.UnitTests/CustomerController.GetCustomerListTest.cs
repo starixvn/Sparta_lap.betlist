@@ -166,23 +166,18 @@
             {
                 // Arrange
                 const string BaMessage = "Message";
-                var canUpdateBa = false;
 
                 AppSettings.FakeLicenseeList.Returns(Enumerable.Empty<int>());
                 _productService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>()).Returns(new ProductAccess(new List<Product>()));
                 StubLicenseeSessionData(DefaultLicenseeSession);
                 SessionService.IsAllowedSpecialBA(DefaultUserSession).Returns(true);
-                _licenseeDataAccess.IsAllowUpdateMemberBAStatus(Arg.Any<Request>(), Arg.Any<int>(), out canUpdateBa).Returns(new ResultInfo
-                {
-                    Message = BaMessage
-                });
 
                 // Action
                 var result = (CustomerListViewModel)(controller.CustomerList() as ViewResult).Model;
 
                 // Assert
                 Assert.That(result.CanUpdateBAMessage, Is.Empty);
-                _licenseeDataAccess.DidNotReceive().IsAllowUpdateMemberBAStatus(Arg.Any<Request>(), Arg.Any<int>(), out canUpdateBa);
+                _licenseeDataAccess.DidNotReceive().IsAllowUpdateMemberBAStatus(Arg.Any<Request>(), Arg.Any<int>());
             }
         }
 
@@ -193,13 +188,11 @@
             {
                 // Arrange
                 const string BaMessage = "Message";
-                var canUpdateBa = false;
-
                 AppSettings.FakeLicenseeList.Returns(Enumerable.Empty<int>());
                 _productService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>()).Returns(new ProductAccess(new List<Product>()));
                 StubLicenseeSessionData(DefaultLicenseeSession);
                 SessionService.IsAllowedSpecialBA(DefaultUserSession).Returns(false);
-                _licenseeDataAccess.IsAllowUpdateMemberBAStatus(Arg.Any<Request>(), Arg.Any<int>(), out canUpdateBa).Returns(new ResultInfo
+                _licenseeDataAccess.IsAllowUpdateMemberBAStatus(Arg.Any<Request>(), Arg.Any<int>()).Returns(new ResultInfo<bool>
                 {
                     Message = BaMessage
                 });
@@ -219,13 +212,11 @@
             {
                 // Arrange
                 const string BaMessage = "Message";
-                var canUpdateBa = false;
-
                 AppSettings.FakeLicenseeList.Returns(Enumerable.Empty<int>());
                 _productService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>()).Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.BA } }));
                 StubLicenseeSessionData(DefaultLicenseeSession);
                 SessionService.IsAllowedSpecialBA(DefaultUserSession).Returns(false);
-                _licenseeDataAccess.IsAllowUpdateMemberBAStatus(Arg.Any<Request>(), Arg.Any<int>(), out canUpdateBa).Returns(new ResultInfo
+                _licenseeDataAccess.IsAllowUpdateMemberBAStatus(Arg.Any<Request>(), Arg.Any<int>()).Returns(new ResultInfo<bool>
                 {
                     Message = BaMessage
                 });

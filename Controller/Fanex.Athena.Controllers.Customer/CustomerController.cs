@@ -277,7 +277,8 @@ namespace Fanex.Athena.Controllers.Customer
             var canUpdateBaMessage = string.Empty;
             if (!specialBaPermission)
             {
-                var canUpdateBaResult = _licenseeDataAccess.IsAllowUpdateMemberBAStatus(request, licenseeSession.LicenseeId, out canUpdateBa);
+                var canUpdateBaResult = _licenseeDataAccess.IsAllowUpdateMemberBAStatus(request, licenseeSession.LicenseeId);
+                canUpdateBa = canUpdateBaResult.ExtendedData;
                 canUpdateBaMessage = canUpdateBaResult.Message;
             }
 
