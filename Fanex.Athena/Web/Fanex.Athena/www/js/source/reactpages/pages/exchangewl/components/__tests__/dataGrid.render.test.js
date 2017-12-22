@@ -1,7 +1,7 @@
-﻿import React from 'react'
+﻿import React from 'react';
 import { DataGrid } from '../datagrid';
 import service from '../../lib/service';
-import NumberFormat from '../../../../lib/numberFormat'
+import NumberFormat from '../../../../lib/numberFormat';
 import renderer from 'react-test-renderer';
 import { ReportLevel, ReportBy } from '../../../../constants/report';
 import { Licensee } from '../../../../constants/licensee';

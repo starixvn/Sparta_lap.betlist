@@ -48,14 +48,15 @@ export class DataGrid extends Component {
             return null;
         }
 
-        let param = this.props.params[ReportLevel.MAIN];
-        if (!param) {
+        let params = this.props.params;
+        const mainParam = params[ReportLevel.MAIN];
+        if (!mainParam) {
             return null;
         }
 
-        const drillDownDate = Report.getDrilldownDateRange(param.ReportBy, param.FromDate, param.ToDate, date);
+        const drillDownDate = Report.getDrilldownDateRange(mainParam.ReportBy, mainParam.FromDate, mainParam.ToDate, date);
         const drillDownData = { 
-            ...param,
+            ...mainParam,
             CurrencyId: currencyId,
             CurrencyName: currencyName,
             FromDate: Site.convertDateToString(moment(drillDownDate.fromDate)),
@@ -64,7 +65,6 @@ export class DataGrid extends Component {
             CustId: custId
         };
 
-        let params = this.props.params;
         params[level] = drillDownData;       
         this.props.setParams(params);
 

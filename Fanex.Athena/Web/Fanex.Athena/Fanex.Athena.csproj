@@ -2667,7 +2667,7 @@
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\formFilter.jsx" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\dataGrid.jsx" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\formFilter.test.js.snap" />
-    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\dataGrid.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\dataGrid.render.test.js.snap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
