@@ -1,19 +1,19 @@
-webpackJsonp([76],{
+webpackJsonp([75],{
 
-/***/ 485:
+/***/ 480:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(486);
+module.exports = __webpack_require__(481);
 
 
 /***/ }),
 
-/***/ 486:
+/***/ 481:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ })
 
-},[485]);
+},[480]);
 //# sourceMappingURL=settledmatchcount.chunk.js.map

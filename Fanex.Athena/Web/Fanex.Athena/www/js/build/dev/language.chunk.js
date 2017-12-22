@@ -1,21 +1,21 @@
 webpackJsonp([56],{
 
-/***/ 192:
+/***/ 195:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(193);
-__webpack_require__(194);
-__webpack_require__(195);
 __webpack_require__(196);
-module.exports = __webpack_require__(197);
+__webpack_require__(197);
+__webpack_require__(198);
+__webpack_require__(199);
+module.exports = __webpack_require__(200);
 
 
 /***/ }),
 
-/***/ 193:
+/***/ 196:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 11/6/2017 5:06:25 PM
+﻿// Generated at: 12/19/2017 3:47:38 PM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -88,6 +88,7 @@ Balance:"Balance",
 BalanceInformation:"Balance Information",
 BalanceTitle:"Balance Information - {0}",
 BANote:"BA status can only be changed on Monday from 1PM to 5PM (GMT+8)",
+BaseCurrency:"Base Currency",
 Based:"Based",
 BAStatus:"BA Status",
 BAUpdatedBy:"BA Updated By",
@@ -173,6 +174,7 @@ Confirmation:"Confirmation",
 ConfirmCommission:"Confirm Customer&apos;s Commission:",
 ConfirmPassword:"Confirm Password",
 ConvertAll:"Convert All",
+ConvertAllFiguresToBaseCurrency:"Convert all figures to Base Currency",
 ConvertTo:"Convert to",
 CopyBetSettingFrom:"Copy All Bet Setting from {0}",
 CopyBetSettingFromRacing:"Copy All Bet Setting from Racing",
@@ -195,6 +197,7 @@ Customer:"Customer",
 CustomerBalance:"Customer Balance",
 CustomerBalanceDateRangeNotification:"Date range exceeds 2 months. Please try again!",
 CustomerBetList:"Customer Bet List",
+CustomerComm:"Customer Comm",
 CustomerCommission:"Customer Commission",
 CustomerHasNeverPlayed:"This customer has never played {0}.",
 CustomerInfo:"Customer Information",
@@ -332,7 +335,6 @@ FullTime:"FullTime",
 Function:"Function",
 FunctionDeniedMsg:"Sorry, you don&apos;t have permission to access this function.",
 FunctionNoAvailableMsg:"This function was no longer available!",
-FunctionNotAvailableOldUIMsg:"This function is only supported in the new admin portal. Please switch to use our new system for better experience and stability.",
 Game:"Game",
 GameGroup:"Game Group",
 GameID:"Game ID",
@@ -356,6 +358,7 @@ GrandTotalIn:"Grand Total In",
 GreyhoundAustTote:"Greyhound Aust Tote",
 GreyhoundUK_IrishTote:"Greyhound UK/Irish Tote",
 Group:"Group",
+GroupBy:"Group By",
 GroupColor:"Group Color",
 GroupCommission:"Group commission",
 GroupCommissionlog:"Group Commission log",
@@ -399,6 +402,7 @@ HttpError_403:"Access denied",
 HttpError_404:"Page not found, please check the address",
 HttpError_Default:"Oops... you are here because of a system error, please notify the administrators",
 InactiveSinceLast:"Inactive since last",
+IncludeDrawData:"Include Draw data",
 IncorrectMaxBet:"Incorrect Max Bet",
 IncorrectMaxPerBall:"Incorrect Max Per Ball",
 IncorrectMaxPerMatch:"Incorrect Max Per Match",
@@ -474,10 +478,12 @@ Level9:"Level 9",
 Levels:"levels",
 Licensee:"Licensee",
 Licensee12Bet:"12Bet Licensee",
+LicenseeComm:"Licensee Comm",
 LicenseeFee:"Licensee Fee",
 Licenseegrossrevenuefor:"Licensee gross revenue for {0}",
 LicenseeIsNotExisted:"Not found licensee",
 LicenseeNetWin:"Licensee Net Win",
+LicenseeNetWL:"Licensee Net WL",
 LicenseeW_L:"Licensee W/L",
 LicenseeWinLoss:"Licensee Win Loss",
 LicenseeWinLossTip1:"Drill down to view data in",
@@ -944,6 +950,7 @@ WinLossByLeague:"Win Loss By Leagues",
 WinLossByProduct:"Win Loss By Products",
 WinLossByProductNote1:"Figures of Sportsbook {0} (Amount Due) are displayed in Italic and for reference only",
 WinLossByProductTitle:"Win Loss By Products, {0} --&gt; {1} - {2}",
+WinLossByTimeZone:"Win Loss By Time Zone",
 WinPlace:"Win Place",
 WinTO:"Win TO",
 Withdrawal:"Withdrawal",
@@ -961,10 +968,10 @@ YouNotChooseAnyCustomerMsg:"You did not choose any customers."
 
 /***/ }),
 
-/***/ 194:
+/***/ 197:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 11/6/2017 5:06:25 PM
+﻿// Generated at: 12/21/2017 11:03:29 AM
 window._language_zh_CN = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -1025,6 +1032,7 @@ Balance:"余额",
 BalanceInformation:"余额信息",
 BalanceTitle:"余额信息 - {0}",
 BANote:"投注总计状态只能在周一下午1点至下午5点 (GMT +8) 进行更改",
+BaseCurrency:"基础货币",
 Based:"基于",
 BAStatus:"BA 状态",
 BAUpdatedBy:"投注总计跟新由",
@@ -1095,6 +1103,7 @@ Confirm:"确认",
 Confirmation:"确认",
 ConfirmCommission:"确认会员的佣金:",
 ConfirmPassword:"确认密码",
+ConvertAllFiguresToBaseCurrency:"将所有数据转换为基础货币",
 ConvertTo:"转换为",
 CopyBetSettingFrom:"Copy All Bet Setting from {0}",
 CopyBetSettingFromRacing:"从赛马赛事复制所有投注设定",
@@ -1116,6 +1125,7 @@ Customer:"会员",
 CustomerBalance:"会员余额",
 CustomerBalanceDateRangeNotification:"日期范围超过2个月. 请再试一次!",
 CustomerBetList:"会员注单",
+CustomerComm:"会员佣金",
 CustomerCommission:"会员佣金",
 CustomerHasNeverPlayed:"This customer has never played {0}.",
 CustomerInfo:"会员资料",
@@ -1244,6 +1254,7 @@ GrandTotalIn:"累计",
 GreyhoundAustTote:"澳洲赛马车指南",
 GreyhoundUK_IrishTote:"英国,爱尔兰赛狗指南",
 Group:"组",
+GroupBy:"分组方式",
 GroupColor:"组别颜色",
 GroupCommission:"佣金组别",
 GroupCommissionlog:"佣金组别日志",
@@ -1285,6 +1296,7 @@ HttpError_403:"访问被拒绝",
 HttpError_404:"页面不存在, 请检查地址",
 HttpError_Default:"Oops… 您在此处基于系统错误, 请通知管理员",
 InactiveSinceLast:"自上次停用",
+IncludeDrawData:"包含和局资料",
 IncorrectMaxBet:"不正确的最大投注",
 IncorrectMaxPerBall:"不正确的单球最大投注",
 IncorrectMaxPerMatch:"不正确的单场最大投注",
@@ -1360,8 +1372,10 @@ Level9:"9级",
 Levels:"levels",
 Licensee:"承租公司",
 Licensee12Bet:"12Bet Licensee",
+LicenseeComm:"承租公司佣金",
 LicenseeFee:"承租公司费用",
 Licenseegrossrevenuefor:"承租公司总收益为{0}",
+LicenseeNetWL:"承租公司净输赢",
 LicenseeW_L:"承租公司输赢",
 LicenseeWinLoss:"承租公司輸贏",
 LicenseeWinLossTip1:"向下拖曳以查看数据",
@@ -1757,6 +1771,7 @@ WinLossByLeague:"Win Loss By Leagues",
 WinLossByProduct:"投注产品输赢",
 WinLossByProductNote1:"体育博彩之数额{0} (到期金额) 显示为斜体并仅供参考",
 WinLossByProductTitle:"投注产品输赢, {0} --&gt; {1} - {2}",
+WinLossByTimeZone:"投注时区输赢",
 WinPlace:"独赢 位置",
 WinTO:"独赢交易额",
 Withdrawal:"提款",
@@ -1772,10 +1787,10 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 
 /***/ }),
 
-/***/ 195:
+/***/ 198:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 11/6/2017 5:06:25 PM
+﻿// Generated at: 12/21/2017 11:03:29 AM
 window._language_zh_TW = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -1836,6 +1851,7 @@ Balance:"餘額",
 BalanceInformation:"餘額信息",
 BalanceTitle:"餘額信息 - {0}",
 BANote:"投注總計狀態只能在週一下午1點至下午5點 (GMT +8) 進行更改",
+BaseCurrency:"基礎貨幣",
 Based:"基於",
 BAStatus:"BA 狀態",
 BAUpdatedBy:"投注總計跟新由",
@@ -1906,6 +1922,7 @@ Confirm:"確認",
 Confirmation:"確認",
 ConfirmCommission:"確認會員的佣金:",
 ConfirmPassword:"確認密碼",
+ConvertAllFiguresToBaseCurrency:"將所有數據轉換為基礎貨幣",
 ConvertTo:"轉換為",
 CopyBetSettingFrom:"Copy All Bet Setting from {0}",
 CopyBetSettingFromRacing:"從賽馬賽事複製所有投注設定",
@@ -1927,6 +1944,7 @@ Customer:"會員",
 CustomerBalance:"會員餘額",
 CustomerBalanceDateRangeNotification:"日期範圍超過2個月。請再試一次!",
 CustomerBetList:"會員注單",
+CustomerComm:"會員傭金",
 CustomerCommission:"會員佣金",
 CustomerHasNeverPlayed:"This customer has never played {0}.",
 CustomerInfo:"會員資料",
@@ -2055,6 +2073,7 @@ GrandTotalIn:"累計",
 GreyhoundAustTote:"澳洲賽馬車指南",
 GreyhoundUK_IrishTote:"英國,愛爾蘭賽狗指南",
 Group:"組",
+GroupBy:"分組方式",
 GroupColor:"組別顏色",
 GroupCommission:"佣金組別",
 GroupCommissionlog:"佣金組別日誌",
@@ -2096,6 +2115,7 @@ HttpError_403:"訪問被拒絕",
 HttpError_404:"頁面不存在，請檢查地址",
 HttpError_Default:"Oops… 您在此處基於系統錯誤，請通知管理員",
 InactiveSinceLast:"自上次停用",
+IncludeDrawData:"包含和局資料",
 IncorrectMaxBet:"不正確的最大投注",
 IncorrectMaxPerBall:"不正確的單球最大投注",
 IncorrectMaxPerMatch:"不正確的單場最大投注",
@@ -2171,8 +2191,10 @@ Level9:"9級",
 Levels:"levels",
 Licensee:"承租公司",
 Licensee12Bet:"12Bet Licensee",
+LicenseeComm:"承租公司傭金",
 LicenseeFee:"承租公司費用",
 Licenseegrossrevenuefor:"承租公司總收益為{0}",
+LicenseeNetWL:"承租公司淨輸贏",
 LicenseeW_L:"承租公司輸贏",
 LicenseeWinLoss:"承租公司輸贏",
 LicenseeWinLossTip1:"向下拖曳以查看數據",
@@ -2568,6 +2590,7 @@ WinLossByLeague:"Win Loss By Leagues",
 WinLossByProduct:"投注產品輸贏",
 WinLossByProductNote1:"體育博彩之數額{0}（到期金額）顯示為斜體並僅供參考",
 WinLossByProductTitle:"投注產品輸贏, {0} --&gt; {1} - {2}",
+WinLossByTimeZone:"投注時區輸贏",
 WinPlace:"獨贏 位置",
 WinTO:"獨贏交易額",
 Withdrawal:"提款",
@@ -2583,10 +2606,10 @@ YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 
 /***/ }),
 
-/***/ 196:
+/***/ 199:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 11/6/2017 5:06:25 PM
+﻿// Generated at: 12/21/2017 11:03:29 AM
 window._language_zh_Hans = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -2647,6 +2670,7 @@ Balance:"余额",
 BalanceInformation:"余额信息",
 BalanceTitle:"余额信息 - {0}",
 BANote:"投注总计状态只能在周一下午1点至下午5点 (GMT +8) 进行更改",
+BaseCurrency:"基础货币",
 Based:"基于",
 BAStatus:"BA 状态",
 BAUpdatedBy:"投注总计跟新由",
@@ -2707,6 +2731,7 @@ Confirm:"确认",
 Confirmation:"确认",
 ConfirmCommission:"确认会员的佣金:",
 ConfirmPassword:"确认密码",
+ConvertAllFiguresToBaseCurrency:"将所有数据转换为基础货币",
 ConvertTo:"转换为",
 CopyBetSettingFrom:"Copy All Bet Setting from {0}",
 CopyBetSettingFromRacing:"从赛马赛事复制所有投注设定",
@@ -2728,6 +2753,7 @@ Customer:"会员",
 CustomerBalance:"会员余额",
 CustomerBalanceDateRangeNotification:"日期范围超过2个月. 请再试一次!",
 CustomerBetList:"会员注单",
+CustomerComm:"会员佣金",
 CustomerCommission:"会员佣金",
 CustomerHasNeverPlayed:"This customer has never played {0}.",
 CustomerInfo:"会员资料",
@@ -2855,6 +2881,7 @@ GrandTotalIn:"累计",
 GreyhoundAustTote:"澳洲赛马车指南",
 GreyhoundUK_IrishTote:"英国,爱尔兰赛狗指南",
 Group:"组",
+GroupBy:"分组方式",
 GroupColor:"组别颜色",
 GroupCommission:"佣金组别",
 GroupCommissionlog:"佣金组别日志",
@@ -2896,6 +2923,7 @@ HttpError_403:"访问被拒绝",
 HttpError_404:"页面不存在, 请检查地址",
 HttpError_Default:"Oops… 您在此处基于系统错误, 请通知管理员",
 InactiveSinceLast:"自上次停用",
+IncludeDrawData:"包含和局资料",
 IncorrectMaxBet:"不正确的最大投注",
 IncorrectMaxPerBall:"不正确的单球最大投注",
 IncorrectMaxPerMatch:"不正确的单场最大投注",
@@ -2971,8 +2999,10 @@ Level9:"9级",
 Levels:"levels",
 Licensee:"承租公司",
 Licensee12Bet:"12Bet Licensee",
+LicenseeComm:"承租公司佣金",
 LicenseeFee:"承租公司费用",
 Licenseegrossrevenuefor:"承租公司总收益为{0}",
+LicenseeNetWL:"承租公司净输赢",
 LicenseeW_L:"承租公司输赢",
 LicenseeWinLoss:"承租公司輸贏",
 LicenseeWinLossTip1:"向下拖曳以查看数据",
@@ -3365,6 +3395,7 @@ WinLossByLeague:"Win Loss By Leagues",
 WinLossByProduct:"投注产品输赢",
 WinLossByProductNote1:"体育博彩之数额{0} (到期金额) 显示为斜体并仅供参考",
 WinLossByProductTitle:"投注产品输赢, {0} --&gt; {1} - {2}",
+WinLossByTimeZone:"投注时区输赢",
 WinPlace:"独赢 位置",
 WinTO:"独赢交易额",
 Withdrawal:"提款",
@@ -3380,10 +3411,10 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 
 /***/ }),
 
-/***/ 197:
+/***/ 200:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 11/6/2017 5:06:25 PM
+﻿// Generated at: 12/19/2017 3:47:38 PM
 window._language_ko_KR = {
 AA:"AA",
 ABComm:"AllBet 수수료",
@@ -4150,5 +4181,5 @@ YouNotChooseAnyCustomerMsg:"고객을 아직 선택하지 않았습니다."
 
 /***/ })
 
-},[192]);
+},[195]);
 //# sourceMappingURL=language.chunk.js.map
