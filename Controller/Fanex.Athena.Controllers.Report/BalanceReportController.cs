@@ -6,9 +6,11 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
+    using System.Web.Hosting;
     using System.Web.Mvc;
     using DataAccess.Report;
     using DataAccess.Report.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -17,15 +19,27 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
     using Model.Report.DTO;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportBalance)]
     public class BalanceReportController : ReportBaseController
     {
         private readonly IBalanceDataAccess _balanceDataAccess;
 
-        public BalanceReportController()
+        public BalanceReportController() : this(null, null, null, null, null)
         {
-            _balanceDataAccess = new BalanceDataAccess();
+        }
+
+        public BalanceReportController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IProductService productService,
+            IBalanceDataAccess balanceDataAccess)
+            : base(languageService, sessionService, appSetting, productService)
+        {
+            _balanceDataAccess = balanceDataAccess ?? new BalanceDataAccess();
         }
 
         [HttpGet]
@@ -47,7 +61,6 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
-            metaModel.MoveBetsDay = GetBalanceUp().MoveBetsDay;
             var reportData = metaModel.IsValid
                        ? _balanceDataAccess.GetReportData(metaModel)
                        : new Balance();
@@ -69,11 +82,21 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/Balance/Main.cshtml", viewData);
         }
 
+        protected internal virtual BalanceExcel CreateExcel(
+            string templatePath,
+            ShowingOption showingOption,
+            ConvertingOption convertingOption,
+            Balance balance,
+            string date)
+        {
+            return new BalanceExcel(templatePath, showingOption, convertingOption, balance, date);
+        }
+
         private ActionResult Excel(BalanceViewModel model)
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             const string FileName = "Balance";
-            var templatePath = Server.MapPath("~/App_Data/Template/Reports/Balance.xls");
+            var templatePath = HostingEnvironment.MapPath("~/App_Data/Template/Reports/Balance.xls");
             var productAccess = this.ProductService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
 
             var convertingOption = new ConvertingOption
@@ -98,7 +121,7 @@ namespace Fanex.Athena.Controllers.Report
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
 
-            var balance = new BalanceExcel(
+            var balance = CreateExcel(
                 templatePath,
                 showingOption,
                 convertingOption,

@@ -5825,7 +5825,7 @@ header nav {
     padding: 0; }
     .site-menubar-fold .side-nav.fixed .collapsible-body li a {
       padding: 0 16px;
-      width: 100%; }
+      width: 85%; }
 
 .site-menubar-fold main {
   padding-left: 70px; }

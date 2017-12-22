@@ -15,15 +15,17 @@ function generateConfig(environment) {
 
             /*  */
             reactpages: ["react", "react-redux", "redux", "react-dom", "redux-thunk", "redux-logger", "axios",
-                "core-js/fn/object/assign", "core-js/fn/promise", "core-js/fn/array/find"
+                "core-js/fn/object/assign", "core-js/fn/promise", "core-js/fn/array/find", "moment"
             ],
-            excel: ["xlsx-style"],
+            excel: ["xlsx-style-sparta"],
           
             [`${jsPath}/subsidiaryperformance/subsidiaryperformance`]: pathConfig.scriptPaths.subsidiaryperformance,
             [`${jsPath}/lib/langHelper`]: pathConfig.scriptPaths.languageResource,
+            [`${jsPath}/report/licenseewlbytimezone`]: pathConfig.scriptPaths.licenseewlbytimezone,
             /*css*/
             [`${cssPath}/vendor`]: pathConfig.cssPaths.layout,
-            [`${cssPath}/subsidiaryperformance/index`]: pathConfig.cssPaths.subsidiaryperformance
+            [`${cssPath}/subsidiaryperformance/index`]: pathConfig.cssPaths.subsidiaryperformance,
+            [`${cssPath}/licenseewlbytimezone/index`]: pathConfig.cssPaths.licenseewlbytimezone
         },
         output: {
             path: pathConfig.projectRoot,

@@ -21,6 +21,15 @@ namespace Fanex.Athena.Extension.Utility
 
         #region Configurations
 
+        public IEnumerable<int> LicenseeOfferStatusFunction
+        {
+            get
+            {
+                var value = GetValue("LicenseeOfferStatusFunction");
+                return string.IsNullOrWhiteSpace(value) ? new int[] { } : value.Split(',').Select(n => Convert.ToInt32(n));
+            }
+        }
+
         public IEnumerable<int> FakeLicenseeList
         {
             get { return GetValue("FakeLicenseeList").Split(',').Select(n => Convert.ToInt32(n)); }

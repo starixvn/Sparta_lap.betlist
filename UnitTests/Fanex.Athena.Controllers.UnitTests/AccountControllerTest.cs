@@ -208,7 +208,6 @@
             LangService,
             SessionService,
             AppSettings,
-            FileSystem,
             _functionService,
             _userService,
             _currencyDataAccess)

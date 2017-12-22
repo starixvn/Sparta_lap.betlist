@@ -174,7 +174,6 @@
                 };
                 _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language)
                     .Returns(new ProductAccess(productList));
-                FileSystem.Exists(string.Empty).ReturnsForAnyArgs(true);
                 var dataTable = new DataTable();
                 _groupComService.GetDataForExcel(licenseeId).Returns(dataTable);
                 var excel = Substitute.ForPartsOf<CustomerCommGroupExcel>(string.Empty, dataTable, new ShowingOption());
@@ -198,7 +197,6 @@
                LangService,
                SessionService,
                AppSettings,
-               FileSystem,
                _groupComService,
                _productService);
             controller.ControllerContext = ControllerContext;

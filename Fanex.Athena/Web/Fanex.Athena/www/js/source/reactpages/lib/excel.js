@@ -1,6 +1,9 @@
-import * as XLSX from 'xlsx-style';
+import * as XLSX from 'xlsx-style-sparta';
 
 const EXCEL_TYPE = "xlsx";
+const MapExcelType = {
+    "number": "n", "string": "s", "boolean": "b", "object": "d"
+};
 
 export default class Excel {
     static export (worksheet, fileName) {
@@ -10,6 +13,11 @@ export default class Excel {
 
         var workbookOutput = XLSX.write(workbook, option);
         this.download(workbookOutput, fileName);
+    }
+
+    
+    static getCellType(value){
+        return MapExcelType[typeof value];
     }
 
     static getCellAddress(cellObject) {

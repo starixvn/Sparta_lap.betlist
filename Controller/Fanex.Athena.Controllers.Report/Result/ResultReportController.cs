@@ -8,6 +8,8 @@ namespace Fanex.Athena.Controllers.Report.Result
     using System.Net;
     using System.Web;
     using System.Web.Mvc;
+    using DataAccess.Core.Configuration;
+    using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -33,6 +35,7 @@ namespace Fanex.Athena.Controllers.Report.Result
         private const string ResultPageGetNormalSportsName = "ResultPage_GetNormalSports";
         private const int ParlayBetType = 9;
         private const int SystemParlayBetType = 29;
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
         private readonly IResultService _resultService;
         private readonly IRNGCasinoSingleWalletService _rngCasinoSingleWalletService;
 
@@ -41,14 +44,16 @@ namespace Fanex.Athena.Controllers.Report.Result
 
         #region Result-Page
 
-        public ResultReportController() : this(null, null)
+        public ResultReportController() : this(null, null, null)
         {
         }
 
         public ResultReportController(
+            IBalanceUpDataAccess balanceUpDataAccess,
             IResultService resultService,
             IRNGCasinoSingleWalletService rngCasinoSingleWalletService)
         {
+            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
             _resultService = resultService ?? new ResultService();
             _rngCasinoSingleWalletService = rngCasinoSingleWalletService ?? new RngCasinoSingleWalletService();
         }
@@ -66,7 +71,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                     IsOutRight = false,
                     IsExportExcel = false,
                     ToDate = DateTime.Now,
-                    BalanceUpDay = this.GetBalanceUp().BalanceUpDay
+                    BalanceUpDay = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay
                 }
             };
             var productAccess = ProductService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);

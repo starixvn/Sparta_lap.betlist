@@ -301,6 +301,12 @@ template {
 .icon-calendar:before {
   content: "\E90F"; }
 
+.icon-book:before {
+  content: "\E904"; }
+
+.icon-close:before {
+  content: "\E910"; }
+
 /* z-index */
 /* Table */
 /* Label Text */
@@ -352,6 +358,14 @@ a {
   height: 18px;
   cursor: pointer;
   display: inline-block; }
+
+.icon-book {
+  line-height: 18px;
+  font-size: 18px;
+  color: #066CC0;
+  cursor: pointer; }
+  .icon-book.right {
+    margin-left: 10px; }
 
 .negative {
   color: #ff0000 !important; }
@@ -634,7 +648,8 @@ a {
     display: block;
     color: #808080; }
   .form-group .checkbox-group, .form-group .button-group {
-    display: inline-block; }
+    display: inline-block;
+    margin-top: 15px; }
 
 .input-text {
   background-color: transparent;
@@ -653,8 +668,8 @@ a {
   font-size: 1.3rem;
   color: #2c2c2c; }
   .input-text:focus:not([readonly]) {
-    border-bottom: 1px solid #26a69a;
-    box-shadow: 0 1px 0 0 #26a69a; }
+    border-bottom: 1px solid #6790b0;
+    box-shadow: 0 1px 0 0 #6790b0; }
 
 /**
  * React Select

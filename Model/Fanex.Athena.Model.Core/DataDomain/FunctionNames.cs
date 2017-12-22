@@ -21,5 +21,7 @@
         public const string WinLossByProduct = "WinLossByProduct";
 
         public const string SubsidiaryPerformance = "SubsidiaryPerformance";
+
+        public const string WinLossByTimeZone = "WinLossByTimeZone";
     }
 }

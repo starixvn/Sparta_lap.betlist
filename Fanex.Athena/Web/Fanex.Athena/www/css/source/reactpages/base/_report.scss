@@ -14,6 +14,17 @@
     display: inline-block;
 }
 
+.icon-book {
+    line-height: 18px;
+    font-size: 18px;
+    color: #066CC0;
+    cursor: pointer;
+
+    &.right {
+        margin-left: 10px;
+    }
+}
+
 .negative {
     color: #ff0000 !important;
 }

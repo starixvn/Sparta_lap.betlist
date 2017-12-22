@@ -8,6 +8,8 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System;
     using System.Web.Mvc;
+    using DataAccess.Core.Configuration;
+    using DataAccess.Core.Configuration.Interfaces;
     using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Extension.Utility;
@@ -24,11 +26,18 @@ namespace Fanex.Athena.Controllers.Report
     [FunctionAuthorization(PermissionKeys.ReportRacingCommission)]
     public class RacingCommissionReportController : ReportBaseController
     {
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
+
         private readonly IRacingCommissionDataAccess _racingCommissionDataAccess;
 
-        public RacingCommissionReportController()
+        public RacingCommissionReportController() : this(null, null)
         {
-            _racingCommissionDataAccess = new RacingCommissionDataAccess();
+        }
+
+        public RacingCommissionReportController(IBalanceUpDataAccess balanceUpDataAccess, IRacingCommissionDataAccess racingCommissionDataAccess)
+        {
+            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
+            _racingCommissionDataAccess = racingCommissionDataAccess ?? new RacingCommissionDataAccess();
         }
 
         [HttpGet]
@@ -36,7 +45,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             var metaModel = new RacingCommissionMetaModel
             {
-                BalanceUpDay = GetBalanceUp().BalanceUpDay
+                BalanceUpDay = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay
             };
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;

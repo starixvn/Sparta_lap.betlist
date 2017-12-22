@@ -75,8 +75,8 @@
                 const int CustId = 200;
                 bool isClosed = true;
                 bool isSuspended = true;
-                var licenseeId = SessionService.LicenseeSession.LicenseeId.ToString();
-                AppSettings.GetValue("LicenseeOfferStatusFunction").Returns(licenseeId);
+                var licenseeId = SessionService.LicenseeSession.LicenseeId;
+                AppSettings.LicenseeOfferStatusFunction.Returns(new[] { licenseeId });
 
                 // Action
                 controller.UpdateCustStatus(CustId, isClosed, isSuspended);
@@ -86,7 +86,7 @@
                 {
                     _customerListService.Received(1).UpdateCustClosed(
                         Arg.Is<CustomerStatusMetaModel>(x =>
-                        x.LicenseeId == SessionService.LicenseeSession.LicenseeId &&
+                        x.LicenseeId == licenseeId &&
                         x.LicenseeName == SessionService.LicenseeSession.LicenseeName &&
                         x.CustId == CustId &&
                         x.IsOn == isClosed &&
@@ -97,7 +97,7 @@
 
                     _customerListService.Received(1).UpdateCustSuspend(
                         Arg.Is<CustomerStatusMetaModel>(x =>
-                        x.LicenseeId == SessionService.LicenseeSession.LicenseeId &&
+                        x.LicenseeId == licenseeId &&
                         x.LicenseeName == SessionService.LicenseeSession.LicenseeName &&
                         x.CustId == CustId &&
                         x.IsOn == isSuspended &&
@@ -300,7 +300,6 @@
                LangService,
                SessionService,
                AppSettings,
-               FileSystem,
                _customerCommService,
                _customerListService,
                _groupComService,

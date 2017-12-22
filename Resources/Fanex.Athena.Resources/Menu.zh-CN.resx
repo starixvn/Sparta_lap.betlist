@@ -352,4 +352,8 @@
   <data name="Menu_71" xml:space="preserve">
     <value>CB足彩输赢</value>
   </data>
+  <data name="Menu_76" xml:space="preserve">
+    <value>投注时区输赢</value>
+    <comment>84932</comment>
+  </data>
 </root>

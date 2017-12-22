@@ -1,17 +1,15 @@
 ﻿namespace Fanex.Athena.Controllers.Base.UnitTests
 {
-    using System.Collections.Generic;
     using System.Web.Mvc;
     using Extension.Utility;
-    using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Model.Core.MetaModel;
     using Service.Core.Users.Interfaces;
 
     public class FakeBaseController : BaseController
     {
-        internal FakeBaseController(ILanguageService languageService, ISessionService sessionService, IAppSettings appSetting, IFileSystem fileSystem)
-            : base(languageService, sessionService, appSetting, fileSystem)
+        internal FakeBaseController(ILanguageService languageService, ISessionService sessionService, IAppSettings appSetting)
+            : base(languageService, sessionService, appSetting)
         {
         }
 
@@ -23,11 +21,6 @@
         internal new void SetConvetedUSDCurrencyName(BaseMetaModel metaModel)
         {
             base.SetConvetedUSDCurrencyName(metaModel);
-        }
-
-        internal new IList<string> GetAllowLicenseesForStatusFunction()
-        {
-            return base.GetAllowLicenseesForStatusFunction();
         }
 
         internal new void Initialize(System.Web.Routing.RequestContext requestContext)

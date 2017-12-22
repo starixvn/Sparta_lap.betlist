@@ -1,6 +1,6 @@
-webpackJsonp([2],{
+webpackJsonp([3],{
 
-/***/ 29:
+/***/ 15:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44,30 +44,30 @@ exports.default = LangHelper;
 
 /***/ }),
 
-/***/ 701:
+/***/ 705:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(29);
-__webpack_require__(702);
-__webpack_require__(703);
-__webpack_require__(704);
-__webpack_require__(705);
-module.exports = __webpack_require__(706);
+__webpack_require__(15);
+__webpack_require__(706);
+__webpack_require__(707);
+__webpack_require__(708);
+__webpack_require__(709);
+module.exports = __webpack_require__(710);
 
 
 /***/ }),
 
-/***/ 702:
+/***/ 706:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 9/25/2017 2:00:48 PM
+// Generated at: 12/19/2017 3:47:38 PM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
-  ABComm: "AB Comm",
+  ABComm: "AllBet Comm",
   AccessDeniedMsg: "Sorry, You don&apos;t have permission to access this page.",
   Account: "Account",
   AccountManagement: "Account Management",
@@ -136,9 +136,9 @@ window._language_en_US = {
   BalanceInformation: "Balance Information",
   BalanceTitle: "Balance Information - {0}",
   BANote: "BA status can only be changed on Monday from 1PM to 5PM (GMT+8)",
+  BaseCurrency: "Base Currency",
   Based: "Based",
   BAStatus: "BA Status",
-  BaTurnoverReferenceNote: "BA Turnover&apos;s figures are for reference purpose only and still be included in the overall Turnover",
   BAUpdatedBy: "BA Updated By",
   BBAmtComm: "BB Amt + Comm",
   Bestviewedin: "Best viewed in",
@@ -160,7 +160,6 @@ window._language_en_US = {
   BetType: "Bet type",
   BG: "BG",
   Bingo: "Bingo",
-  BingoExcludedNote: "Bingo is not included in the report",
   BONTeamToScore: "Both/One/Neither Team To Score",
   Bonus: "Bonus",
   BoughtAmount: "Bought Amount",
@@ -223,6 +222,7 @@ window._language_en_US = {
   ConfirmCommission: "Confirm Customer&apos;s Commission:",
   ConfirmPassword: "Confirm Password",
   ConvertAll: "Convert All",
+  ConvertAllFiguresToBaseCurrency: "Convert all figures to Base Currency",
   ConvertTo: "Convert to",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
   CopyBetSettingFromRacing: "Copy All Bet Setting from Racing",
@@ -245,6 +245,7 @@ window._language_en_US = {
   CustomerBalance: "Customer Balance",
   CustomerBalanceDateRangeNotification: "Date range exceeds 2 months. Please try again!",
   CustomerBetList: "Customer Bet List",
+  CustomerComm: "Customer Comm",
   CustomerCommission: "Customer Commission",
   CustomerHasNeverPlayed: "This customer has never played {0}.",
   CustomerInfo: "Customer Information",
@@ -269,7 +270,6 @@ window._language_en_US = {
   DA: "DA",
   Daily: "Daily",
   DailyBetList: "Daily Bet List",
-  DailyBetListNoteParlayOutright: "Daily Bet List report does not include Parlay and Outright tickets.",
   DailyRacing12BetTitle: "12Bet Daily Racing Win Loss on {0} - {1}",
   DailyRacingTitle: "Daily Racing Win Loss on {1} - {2}",
   DailyRacingWinLoss: "Daily Racing Win Loss",
@@ -406,6 +406,7 @@ window._language_en_US = {
   GreyhoundAustTote: "Greyhound Aust Tote",
   GreyhoundUK_IrishTote: "Greyhound UK/Irish Tote",
   Group: "Group",
+  GroupBy: "Group By",
   GroupColor: "Group Color",
   GroupCommission: "Group commission",
   GroupCommissionlog: "Group Commission log",
@@ -449,6 +450,7 @@ window._language_en_US = {
   HttpError_404: "Page not found, please check the address",
   HttpError_Default: "Oops... you are here because of a system error, please notify the administrators",
   InactiveSinceLast: "Inactive since last",
+  IncludeDrawData: "Include Draw data",
   IncorrectMaxBet: "Incorrect Max Bet",
   IncorrectMaxPerBall: "Incorrect Max Per Ball",
   IncorrectMaxPerMatch: "Incorrect Max Per Match",
@@ -524,10 +526,12 @@ window._language_en_US = {
   Levels: "levels",
   Licensee: "Licensee",
   Licensee12Bet: "12Bet Licensee",
+  LicenseeComm: "Licensee Comm",
   LicenseeFee: "Licensee Fee",
   Licenseegrossrevenuefor: "Licensee gross revenue for {0}",
   LicenseeIsNotExisted: "Not found licensee",
   LicenseeNetWin: "Licensee Net Win",
+  LicenseeNetWL: "Licensee Net WL",
   LicenseeW_L: "Licensee W/L",
   LicenseeWinLoss: "Licensee Win Loss",
   LicenseeWinLossTip1: "Drill down to view data in",
@@ -619,6 +623,7 @@ window._language_en_US = {
   NetGaming: "Net Gaming",
   NetTurnover: "Net Turnover",
   NetworkTimeoutMsg: "Network time out. Please try again.",
+  NewAsia: "New Asia",
   NewGroup: "New Group",
   Next: "Next",
   NG: "NG",
@@ -853,7 +858,6 @@ window._language_en_US = {
   Summary: "Summary",
   Sunday: "Sunday",
   SupportForOnlyNote: "The report only supports",
-  SupportSbOnlyNote: "The report only supports for SportsBook products",
   Suspended: "Suspended",
   Symbol: "Symbol",
   SystemId: "System ID",
@@ -993,6 +997,7 @@ window._language_en_US = {
   WinLossByProduct: "Win Loss By Products",
   WinLossByProductNote1: "Figures of Sportsbook {0} (Amount Due) are displayed in Italic and for reference only",
   WinLossByProductTitle: "Win Loss By Products, {0} --&gt; {1} - {2}",
+  WinLossByTimeZone: "Win Loss By Time Zone",
   WinPlace: "Win Place",
   WinTO: "Win TO",
   Withdrawal: "Withdrawal",
@@ -1009,15 +1014,16 @@ window._language_en_US = {
 
 /***/ }),
 
-/***/ 703:
+/***/ 707:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 9/27/2017 1:40:47 PM
+// Generated at: 12/19/2017 3:47:38 PM
 window._language_ko_KR = {
   AA: "AA",
+  ABComm: "AllBet 수수료",
   AccessDeniedMsg: "죄송합니다. 이 페이지에 접근할 권한이 없습니다.",
   Account: "회계",
   AccountManagement: "회계 관리",
@@ -1070,7 +1076,6 @@ window._language_ko_KR = {
   BANote: "BA 현황은 월요일 오후 1시에서 5시사이(표준시각 + 8)에만 변경됩니다.",
   Based: "통화단위",
   BAStatus: "BA 현황",
-  BaTurnoverReferenceNote: "BA 매출의 금액은 참조일 뿐이며 총 매출에 아직 포함되어있습니다.",
   BAUpdatedBy: "BA가 업데이트",
   Bestviewedin: "에 최고로 보여진",
   BestViewResolution: "Resolution 1280x1024",
@@ -1087,7 +1092,6 @@ window._language_ko_KR = {
   BetType: "배팅 유형",
   BG: "BG",
   Bingo: "빙고",
-  BingoExcludedNote: "Bingo is not included in the report",
   BONTeamToScore: "양팀/한팀/양측 모두가 아닌 팀이 점수 획득",
   Bonus: "보너스",
   ByBetType: "배팅 유형에 따라",
@@ -1658,7 +1662,6 @@ window._language_ko_KR = {
   Summary: "요약",
   Sunday: "일요일",
   SupportForOnlyNote: "보고서는 지원만을 위한 것입니다",
-  SupportSbOnlyNote: "보고서는 스포츠북 제품만을 지원합니다",
   Suspended: "중지되다",
   Symbol: "기호",
   SystemId: "시스템 아이디",
@@ -1783,15 +1786,16 @@ window._language_ko_KR = {
 
 /***/ }),
 
-/***/ 704:
+/***/ 708:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 9/27/2017 1:40:47 PM
+// Generated at: 12/21/2017 11:03:29 AM
 window._language_zh_CN = {
   AA: "客客",
+  ABComm: "AllBet 佣金",
   AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
   Account: "账号",
   AccountManagement: "帐户管理",
@@ -1849,9 +1853,9 @@ window._language_zh_CN = {
   BalanceInformation: "余额信息",
   BalanceTitle: "余额信息 - {0}",
   BANote: "投注总计状态只能在周一下午1点至下午5点 (GMT +8) 进行更改",
+  BaseCurrency: "基础货币",
   Based: "基于",
   BAStatus: "BA 状态",
-  BaTurnoverReferenceNote: "投注总计的数额仅供参考用途及仍然包含整体的投注额",
   BAUpdatedBy: "投注总计跟新由",
   Bestviewedin: "最佳浏览",
   BestViewResolution: "Resolution 1280x1024",
@@ -1868,7 +1872,6 @@ window._language_zh_CN = {
   BetType: "投注类别",
   BG: "BG",
   Bingo: "宾果",
-  BingoExcludedNote: "Bingo is not included in the report",
   BONTeamToScore: "双方/一方/两者皆不得分",
   Bonus: "红利",
   BoughtAmount: "买的金额",
@@ -1921,6 +1924,7 @@ window._language_zh_CN = {
   Confirmation: "确认",
   ConfirmCommission: "确认会员的佣金:",
   ConfirmPassword: "确认密码",
+  ConvertAllFiguresToBaseCurrency: "将所有数据转换为基础货币",
   ConvertTo: "转换为",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
   CopyBetSettingFromRacing: "从赛马赛事复制所有投注设定",
@@ -1942,6 +1946,7 @@ window._language_zh_CN = {
   CustomerBalance: "会员余额",
   CustomerBalanceDateRangeNotification: "日期范围超过2个月. 请再试一次!",
   CustomerBetList: "会员注单",
+  CustomerComm: "会员佣金",
   CustomerCommission: "会员佣金",
   CustomerHasNeverPlayed: "This customer has never played {0}.",
   CustomerInfo: "会员资料",
@@ -2070,6 +2075,7 @@ window._language_zh_CN = {
   GreyhoundAustTote: "澳洲赛马车指南",
   GreyhoundUK_IrishTote: "英国,爱尔兰赛狗指南",
   Group: "组",
+  GroupBy: "分组方式",
   GroupColor: "组别颜色",
   GroupCommission: "佣金组别",
   GroupCommissionlog: "佣金组别日志",
@@ -2111,6 +2117,7 @@ window._language_zh_CN = {
   HttpError_404: "页面不存在, 请检查地址",
   HttpError_Default: "Oops… 您在此处基于系统错误, 请通知管理员",
   InactiveSinceLast: "自上次停用",
+  IncludeDrawData: "包含和局资料",
   IncorrectMaxBet: "不正确的最大投注",
   IncorrectMaxPerBall: "不正确的单球最大投注",
   IncorrectMaxPerMatch: "不正确的单场最大投注",
@@ -2186,8 +2193,10 @@ window._language_zh_CN = {
   Levels: "levels",
   Licensee: "承租公司",
   Licensee12Bet: "12Bet Licensee",
+  LicenseeComm: "承租公司佣金",
   LicenseeFee: "承租公司费用",
   Licenseegrossrevenuefor: "承租公司总收益为{0}",
+  LicenseeNetWL: "承租公司净输赢",
   LicenseeW_L: "承租公司输赢",
   LicenseeWinLoss: "承租公司輸贏",
   LicenseeWinLossTip1: "向下拖曳以查看数据",
@@ -2266,6 +2275,7 @@ window._language_zh_CN = {
   Name: "姓名",
   NetGaming: "Net Gaming",
   NetTurnover: "净交易额",
+  NewAsia: "新亚洲版",
   NewGroup: "新组别",
   Next: "下个",
   NG: "百练赛",
@@ -2332,6 +2342,7 @@ window._language_zh_CN = {
   P3: "3P",
   Page: "页面",
   Parlay: "混合过关",
+  ParlayComm: "Parlay 佣金",
   Password: "密码",
   PasswordChangedMsg: "密码更改！",
   PasswordConfirmErrorMsg: "密码无法确认",
@@ -2360,7 +2371,7 @@ window._language_zh_CN = {
   ProductCS: "娱乐城",
   ProductLC: "娱乐厅",
   ProductNG: "百练赛",
-  ProductRB: "赛事",
+  ProductRB: "赛马",
   ProductSB: "体育博彩",
   ProductVS: "虚拟运动",
   ProductVS2: "虚拟运动2",
@@ -2372,13 +2383,13 @@ window._language_zh_CN = {
   Q4: "4Q",
   Race: "赛事",
   Racing: "赛事",
-  RacingComm: "赛事佣金",
+  RacingComm: "赛马佣金",
   RacingCommission: "赛事佣金",
   RacingCommissionTitle: "赛事佣金,{0} --&gt; {1} - {2}",
   RacingRevenue: "赛事所得",
   RacingRevenueBalanceNote: "赛事所得:赛事相关产品所得",
-  RB: "赛事",
-  RBComm: "RB佣金",
+  RB: "赛马",
+  RBComm: "赛马佣金",
   RCCommission: "赛马赛事佣金",
   RecommendBrowserOnReportPageMsg: "若页面大小 &gt; 1,000, 请您考虑使用火狐或Chrome以获得更好的体验",
   RefNo: "参考号码",
@@ -2465,7 +2476,6 @@ window._language_zh_CN = {
   Summary: "总结",
   Sunday: "星期六",
   SupportForOnlyNote: "报告仅支持",
-  SupportSbOnlyNote: "此报告只支持体育博彩产品",
   Suspended: "暂停",
   Symbol: "符号",
   SystemId: "系统账号",
@@ -2582,6 +2592,7 @@ window._language_zh_CN = {
   WinLossByProduct: "投注产品输赢",
   WinLossByProductNote1: "体育博彩之数额{0} (到期金额) 显示为斜体并仅供参考",
   WinLossByProductTitle: "投注产品输赢, {0} --&gt; {1} - {2}",
+  WinLossByTimeZone: "投注时区输赢",
   WinPlace: "独赢 位置",
   WinTO: "独赢交易额",
   Withdrawal: "提款",
@@ -2596,15 +2607,16 @@ window._language_zh_CN = {
 
 /***/ }),
 
-/***/ 705:
+/***/ 709:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 9/27/2017 1:40:47 PM
+// Generated at: 12/21/2017 11:03:29 AM
 window._language_zh_Hans = {
   AA: "客客",
+  ABComm: "AllBet 佣金",
   AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
   Account: "账号",
   AccountManagement: "帐户管理",
@@ -2662,9 +2674,9 @@ window._language_zh_Hans = {
   BalanceInformation: "余额信息",
   BalanceTitle: "余额信息 - {0}",
   BANote: "投注总计状态只能在周一下午1点至下午5点 (GMT +8) 进行更改",
+  BaseCurrency: "基础货币",
   Based: "基于",
   BAStatus: "BA 状态",
-  BaTurnoverReferenceNote: "投注总计的数额仅供参考用途及仍然包含整体的投注额",
   BAUpdatedBy: "投注总计跟新由",
   Bestviewedin: "最佳浏览",
   BestViewResolution: "Resolution 1280x1024",
@@ -2681,7 +2693,6 @@ window._language_zh_Hans = {
   BetType: "投注类别",
   BG: "BG",
   Bingo: "宾果",
-  BingoExcludedNote: "Bingo is not included in the report",
   BONTeamToScore: "双方/一方/两者皆不得分",
   Bonus: "红利",
   ByBetType: "根据投注类型",
@@ -2724,6 +2735,7 @@ window._language_zh_Hans = {
   Confirmation: "确认",
   ConfirmCommission: "确认会员的佣金:",
   ConfirmPassword: "确认密码",
+  ConvertAllFiguresToBaseCurrency: "将所有数据转换为基础货币",
   ConvertTo: "转换为",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
   CopyBetSettingFromRacing: "从赛马赛事复制所有投注设定",
@@ -2745,6 +2757,7 @@ window._language_zh_Hans = {
   CustomerBalance: "会员余额",
   CustomerBalanceDateRangeNotification: "日期范围超过2个月. 请再试一次!",
   CustomerBetList: "会员注单",
+  CustomerComm: "会员佣金",
   CustomerCommission: "会员佣金",
   CustomerHasNeverPlayed: "This customer has never played {0}.",
   CustomerInfo: "会员资料",
@@ -2872,6 +2885,7 @@ window._language_zh_Hans = {
   GreyhoundAustTote: "澳洲赛马车指南",
   GreyhoundUK_IrishTote: "英国,爱尔兰赛狗指南",
   Group: "组",
+  GroupBy: "分组方式",
   GroupColor: "组别颜色",
   GroupCommission: "佣金组别",
   GroupCommissionlog: "佣金组别日志",
@@ -2913,6 +2927,7 @@ window._language_zh_Hans = {
   HttpError_404: "页面不存在, 请检查地址",
   HttpError_Default: "Oops… 您在此处基于系统错误, 请通知管理员",
   InactiveSinceLast: "自上次停用",
+  IncludeDrawData: "包含和局资料",
   IncorrectMaxBet: "不正确的最大投注",
   IncorrectMaxPerBall: "不正确的单球最大投注",
   IncorrectMaxPerMatch: "不正确的单场最大投注",
@@ -2988,8 +3003,10 @@ window._language_zh_Hans = {
   Levels: "levels",
   Licensee: "承租公司",
   Licensee12Bet: "12Bet Licensee",
+  LicenseeComm: "承租公司佣金",
   LicenseeFee: "承租公司费用",
   Licenseegrossrevenuefor: "承租公司总收益为{0}",
+  LicenseeNetWL: "承租公司净输赢",
   LicenseeW_L: "承租公司输赢",
   LicenseeWinLoss: "承租公司輸贏",
   LicenseeWinLossTip1: "向下拖曳以查看数据",
@@ -3067,6 +3084,7 @@ window._language_zh_Hans = {
   Name: "姓名",
   NetGaming: "Net Gaming",
   NetTurnover: "净交易额",
+  NewAsia: "新亚洲版",
   NewGroup: "新组别",
   Next: "下个",
   NG: "百练赛",
@@ -3133,6 +3151,7 @@ window._language_zh_Hans = {
   P3: "3P",
   Page: "页面",
   Parlay: "混合过关",
+  ParlayComm: "Parlay 佣金",
   Password: "密码",
   PasswordChangedMsg: "密码更改！",
   PasswordConfirmErrorMsg: "密码无法确认",
@@ -3160,7 +3179,7 @@ window._language_zh_Hans = {
   ProductCS: "娱乐城",
   ProductLC: "娱乐厅",
   ProductNG: "百练赛",
-  ProductRB: "赛事",
+  ProductRB: "赛马",
   ProductSB: "体育博彩",
   ProductVS: "虚拟运动",
   ProductVS2: "虚拟运动2",
@@ -3172,13 +3191,13 @@ window._language_zh_Hans = {
   Q4: "4Q",
   Race: "赛事",
   Racing: "赛事",
-  RacingComm: "赛事佣金",
+  RacingComm: "赛马佣金",
   RacingCommission: "赛事佣金",
   RacingCommissionTitle: "赛事佣金,{0} --&gt; {1} - {2}",
   RacingRevenue: "赛事所得",
   RacingRevenueBalanceNote: "赛事所得:赛事相关产品所得",
-  RB: "赛事",
-  RBComm: "RB佣金",
+  RB: "赛马",
+  RBComm: "赛马佣金",
   RCCommission: "赛马赛事佣金",
   RecommendBrowserOnReportPageMsg: "若页面大小 &gt; 1,000, 请您考虑使用火狐或Chrome以获得更好的体验",
   RefNo: "参考号码",
@@ -3265,7 +3284,6 @@ window._language_zh_Hans = {
   Summary: "总结",
   Sunday: "星期六",
   SupportForOnlyNote: "报告仅支持",
-  SupportSbOnlyNote: "此报告只支持体育博彩产品",
   Suspended: "暂停",
   Symbol: "符号",
   SystemId: "系统账号",
@@ -3381,6 +3399,7 @@ window._language_zh_Hans = {
   WinLossByProduct: "投注产品输赢",
   WinLossByProductNote1: "体育博彩之数额{0} (到期金额) 显示为斜体并仅供参考",
   WinLossByProductTitle: "投注产品输赢, {0} --&gt; {1} - {2}",
+  WinLossByTimeZone: "投注时区输赢",
   WinPlace: "独赢 位置",
   WinTO: "独赢交易额",
   Withdrawal: "提款",
@@ -3395,15 +3414,16 @@ window._language_zh_Hans = {
 
 /***/ }),
 
-/***/ 706:
+/***/ 710:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 9/27/2017 1:40:47 PM
+// Generated at: 12/21/2017 11:03:29 AM
 window._language_zh_TW = {
   AA: "客客",
+  ABComm: "AllBet 佣金",
   AccessDeniedMsg: "對不起，您沒有權限訪問此頁面。",
   Account: "賬號",
   AccountManagement: "帳戶管理",
@@ -3461,9 +3481,9 @@ window._language_zh_TW = {
   BalanceInformation: "餘額信息",
   BalanceTitle: "餘額信息 - {0}",
   BANote: "投注總計狀態只能在週一下午1點至下午5點 (GMT +8) 進行更改",
+  BaseCurrency: "基礎貨幣",
   Based: "基於",
   BAStatus: "BA 狀態",
-  BaTurnoverReferenceNote: "投注總計的數額僅供參考用途及仍然包含整體的投注額",
   BAUpdatedBy: "投注總計跟新由",
   Bestviewedin: "最佳瀏覽",
   BestViewResolution: "Resolution 1280x1024",
@@ -3480,7 +3500,6 @@ window._language_zh_TW = {
   BetType: "投注類別",
   BG: "BG",
   Bingo: "賓果",
-  BingoExcludedNote: "Bingo is not included in the report",
   BONTeamToScore: "雙方/一方/兩者皆不得分",
   Bonus: "紅利",
   BoughtAmount: "買的金額",
@@ -3533,6 +3552,7 @@ window._language_zh_TW = {
   Confirmation: "確認",
   ConfirmCommission: "確認會員的佣金:",
   ConfirmPassword: "確認密碼",
+  ConvertAllFiguresToBaseCurrency: "將所有數據轉換為基礎貨幣",
   ConvertTo: "轉換為",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
   CopyBetSettingFromRacing: "從賽馬賽事複製所有投注設定",
@@ -3554,6 +3574,7 @@ window._language_zh_TW = {
   CustomerBalance: "會員餘額",
   CustomerBalanceDateRangeNotification: "日期範圍超過2個月。請再試一次!",
   CustomerBetList: "會員注單",
+  CustomerComm: "會員傭金",
   CustomerCommission: "會員佣金",
   CustomerHasNeverPlayed: "This customer has never played {0}.",
   CustomerInfo: "會員資料",
@@ -3682,6 +3703,7 @@ window._language_zh_TW = {
   GreyhoundAustTote: "澳洲賽馬車指南",
   GreyhoundUK_IrishTote: "英國,愛爾蘭賽狗指南",
   Group: "組",
+  GroupBy: "分組方式",
   GroupColor: "組別顏色",
   GroupCommission: "佣金組別",
   GroupCommissionlog: "佣金組別日誌",
@@ -3723,6 +3745,7 @@ window._language_zh_TW = {
   HttpError_404: "頁面不存在，請檢查地址",
   HttpError_Default: "Oops… 您在此處基於系統錯誤，請通知管理員",
   InactiveSinceLast: "自上次停用",
+  IncludeDrawData: "包含和局資料",
   IncorrectMaxBet: "不正確的最大投注",
   IncorrectMaxPerBall: "不正確的單球最大投注",
   IncorrectMaxPerMatch: "不正確的單場最大投注",
@@ -3798,8 +3821,10 @@ window._language_zh_TW = {
   Levels: "levels",
   Licensee: "承租公司",
   Licensee12Bet: "12Bet Licensee",
+  LicenseeComm: "承租公司傭金",
   LicenseeFee: "承租公司費用",
   Licenseegrossrevenuefor: "承租公司總收益為{0}",
+  LicenseeNetWL: "承租公司淨輸贏",
   LicenseeW_L: "承租公司輸贏",
   LicenseeWinLoss: "承租公司輸贏",
   LicenseeWinLossTip1: "向下拖曳以查看數據",
@@ -3878,6 +3903,7 @@ window._language_zh_TW = {
   Name: "姓名",
   NetGaming: "Net Gaming",
   NetTurnover: "淨交易額",
+  NewAsia: "新亞洲版",
   NewGroup: "新組別",
   Next: "下個",
   NG: "百練賽",
@@ -3944,6 +3970,7 @@ window._language_zh_TW = {
   P3: "3P",
   Page: "頁面",
   Parlay: "混合過關",
+  ParlayComm: "Parlay 佣金",
   Password: "密碼",
   PasswordChangedMsg: "密碼更改！",
   PasswordConfirmErrorMsg: "密碼無法確認",
@@ -3972,7 +3999,7 @@ window._language_zh_TW = {
   ProductCS: "娛樂城",
   ProductLC: "娛樂廳",
   ProductNG: "百練賽",
-  ProductRB: "賽事",
+  ProductRB: "賽馬",
   ProductSB: "體育博彩",
   ProductVS: "虛擬運動",
   ProductVS2: "虛擬運動2",
@@ -3984,13 +4011,13 @@ window._language_zh_TW = {
   Q4: "4Q",
   Race: "賽事",
   Racing: "賽事",
-  RacingComm: "賽事佣金",
+  RacingComm: "賽馬佣金",
   RacingCommission: "賽事佣金",
   RacingCommissionTitle: "賽事佣金 ,{0} --&gt; {1} - {2}",
   RacingRevenue: "賽事所得",
   RacingRevenueBalanceNote: "賽事所得:賽事相關產品所得",
-  RB: "賽事",
-  RBComm: "RB傭金",
+  RB: "賽馬",
+  RBComm: "賽馬佣金",
   RCCommission: "赛马赛事佣金",
   RecommendBrowserOnReportPageMsg: "若頁面大小&gt; 1,000，請您考慮使用火狐或Chrome瀏覽器以獲得更好的體驗",
   RefNo: "參考號碼",
@@ -4077,7 +4104,6 @@ window._language_zh_TW = {
   Summary: "總結",
   Sunday: "星期六",
   SupportForOnlyNote: "報告僅支持",
-  SupportSbOnlyNote: "此報告只支持體育博彩產品",
   Suspended: "暫停",
   Symbol: "符號",
   SystemId: "系統帳號",
@@ -4194,6 +4220,7 @@ window._language_zh_TW = {
   WinLossByProduct: "投注產品輸贏",
   WinLossByProductNote1: "體育博彩之數額{0}（到期金額）顯示為斜體並僅供參考",
   WinLossByProductTitle: "投注產品輸贏, {0} --&gt; {1} - {2}",
+  WinLossByTimeZone: "投注時區輸贏",
   WinPlace: "獨贏 位置",
   WinTO: "獨贏交易額",
   Withdrawal: "提款",
@@ -4208,5 +4235,5 @@ window._language_zh_TW = {
 
 /***/ })
 
-},[701]);
+},[705]);
 //# sourceMappingURL=langHelper.chunk.js.map

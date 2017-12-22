@@ -4,14 +4,13 @@
     using System.Linq;
     using System.Web.Mvc;
     using System.Web.SessionState;
-    using DataAccess.Core.Configuration;
-    using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Model.Core.DTO.Common;
-    using Model.Core.DTO.Configuration;
     using Model.Core.MetaModel.Product;
     using ONEbook.UM.Filters;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
@@ -19,13 +18,21 @@
     {
         public const int PageSizeExcel = int.MaxValue - 1000;
 
-        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
         private readonly IProductService _productService;
 
         public ReportBaseController()
         {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
             _productService = new ProductService();
+        }
+
+        public ReportBaseController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IProductService productService)
+            : base(languageService, sessionService, appSetting)
+        {
+            _productService = productService ?? new ProductService();
         }
 
         protected IProductService ProductService
@@ -41,11 +48,6 @@
                 Name = i.ProductName,
                 Status = true
             }).ToList();
-        }
-
-        protected BalanceUp GetBalanceUp()
-        {
-            return _balanceUpDataAccess.GetBalanceUp();
         }
     }
 }

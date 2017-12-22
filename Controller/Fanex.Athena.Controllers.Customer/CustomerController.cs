@@ -9,14 +9,12 @@ namespace Fanex.Athena.Controllers.Customer
     using System;
     using System.Collections.Generic;
     using System.Globalization;
-    using System.IO;
     using System.Linq;
     using System.Web.Mvc;
     using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Excel.Base.Helpers;
     using Extension.Utility;
-    using Extension.Utility.Interfaces;
     using Fanex.Athena.Excel.Customer;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
@@ -78,13 +76,12 @@ namespace Fanex.Athena.Controllers.Customer
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IFileSystem fileSystem,
             ICustomerListService customerListService,
             IGroupComService groupComService,
             ILicenseeDataAccess licenseeDataAccess,
             IProductService productService)
 #pragma warning restore S107 // Methods should not have too many parameters
-            : base(languageService, sessionService, appSetting, fileSystem)
+            : base(languageService, sessionService, appSetting)
         {
             _customerListService = customerListService;
             _groupComService = groupComService;
@@ -100,14 +97,14 @@ namespace Fanex.Athena.Controllers.Customer
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var userSession = SessionService.UserSession;
             var productAccess = this._productService.GetProductAccess(licenseeId, userSession.Language);
-            var allowLicensees = GetAllowLicenseesForStatusFunction();
+            var allowLicensees = AppSettings.LicenseeOfferStatusFunction;
             var placeholderUsername = IsFakeLicensee() ? ViewResources.ExternalId : ViewResources.ExternalIdOrSystemId;
             var metaModel = new CustomerListMetaModel
             {
                 Username = userName == placeholderUsername ? string.Empty : userName,
                 GroupCommId = groupId,
                 LicenseeId = licenseeId,
-                IsShowStatusDropdown = allowLicensees.Contains(licenseeId.ToString()),
+                IsShowStatusDropdown = allowLicensees.Contains(licenseeId),
                 GridColumns = InitGridColumns(productAccess.IsAllow(Product.BA), allowLicensees),
                 OddsGroups = GetOddsGroups()
             };
@@ -131,7 +128,7 @@ namespace Fanex.Athena.Controllers.Customer
                 ViewResources.ExternalIdOrSystemId;
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
-            metaModel.IsShowStatusDropdown = GetAllowLicenseesForStatusFunction().Contains(metaModel.LicenseeId.ToString());
+            metaModel.IsShowStatusDropdown = AppSettings.LicenseeOfferStatusFunction.Contains(metaModel.LicenseeId);
             metaModel.Username = metaModel.Username == placeholderUsername ? string.Empty : metaModel.Username;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var result = _customerListService.Search(metaModel);
@@ -159,17 +156,13 @@ namespace Fanex.Athena.Controllers.Customer
             if (metaModel != null)
             {
                 var licenseeId = SessionService.LicenseeSession.LicenseeId;
-                metaModel.IsShowStatusDropdown = GetAllowLicenseesForStatusFunction().Contains(licenseeId.ToString());
+                metaModel.IsShowStatusDropdown = AppSettings.LicenseeOfferStatusFunction.Contains(licenseeId);
                 metaModel.LicenseeId = licenseeId;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
                 if (metaModel.GridColumns.Any(i => i.Checked))
                 {
                     var templatePath = Server.MapPath(@"~/App_Data/Template/Customers/CustomerList.xls");
-                    if (!FileSystem.Exists(templatePath))
-                    {
-                        throw new FileNotFoundException(templatePath);
-                    }
 
                     var model = GetCustomers(metaModel);
                     var fileName = "CustomerList_" + DateTime.Now.ToString("MM-dd-yyyy");
@@ -293,7 +286,7 @@ namespace Fanex.Athena.Controllers.Customer
             model.CanUpdateBAMessage = canUpdateBaMessage;
         }
 
-        private IEnumerable<CheckedItem> InitGridColumns(bool isAllowBA, IEnumerable<string> allowLicensees)
+        private IEnumerable<CheckedItem> InitGridColumns(bool isAllowBA, IEnumerable<int> allowLicensees)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var isFakeLicensee = IsFakeLicensee();
@@ -315,7 +308,7 @@ namespace Fanex.Athena.Controllers.Customer
                 items.Add(new CheckedItem { Name = CUSTOMERCOMM, Checked = true });
             }
 
-            if (allowLicensees.Contains(licenseeSession.LicenseeId.ToString()))
+            if (allowLicensees.Contains(licenseeSession.LicenseeId))
             {
                 items.Add(new CheckedItem { Name = STATUS, Checked = true });
             }

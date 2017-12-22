@@ -6,3 +6,9 @@ export const setSelectedProduct = (product) => {
         data: product
     };
 }
+export const setProductOptions = (productList) => {
+    return {
+        type: types.SET_PRODUCT_OPTIONS,
+        data: productList
+    };
+}

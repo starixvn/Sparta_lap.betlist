@@ -1,11 +1,11 @@
-﻿body{
+﻿body {
     background: #fff;
 }
 
 .error-content {
     padding-top: 40px;
 
-    img, .back {
+    img {
         margin: 10px auto;
         display: block;
     }
@@ -25,17 +25,16 @@
         color: #545454;
     }
 
-    .back {
-        color: #007fea;
-        text-align: center;
+    .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 3px;
         font-size: 18px;
-        line-height: 30px;
         text-decoration: none;
+    }
 
-        .text {
-            padding: 8px;
-            border: 1px solid #007fea;
-            border-radius: 3px;
-        }
+    .btn-submit {
+        background-color: #1C80F0;
+        color: #fff;
     }
 }

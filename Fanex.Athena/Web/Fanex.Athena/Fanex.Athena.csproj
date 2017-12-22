@@ -148,6 +148,18 @@
     <Reference Include="Fanex.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Logging.1.0.0.0\lib\net40\Fanex.Logging.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.Logging.Extensions, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Logging.Extensions.1.0.5\lib\net40\Fanex.Logging.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.Logging.Extensions.Database.V62, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Logging.Extensions.Database.V62.1.0.3\lib\net40\Fanex.Logging.Extensions.Database.V62.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.Logging.Extensions.Web, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Logging.Extensions.Web.1.0.5\lib\net40\Fanex.Logging.Extensions.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Fanex.Result.Core, Version=2.0.9.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.0.9.2\lib\net40\Fanex.Result.Core.dll</HintPath>
       <Private>True</Private>
@@ -454,6 +466,10 @@
     <Content Include="App_Data\UserGuide\ColossusBetsWL\en-US.htm" />
     <Content Include="App_Data\UserGuide\ColossusBetsWL\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\ColossusBetsWL\zh-TW.htm" />
+    <Content Include="App_Data\UserGuide\LicenseeWLByTimeZone\zh-Hans.htm" />
+    <Content Include="App_Data\UserGuide\LicenseeWLByTimeZone\zh-TW.htm" />
+    <Content Include="App_Data\UserGuide\LicenseeWLByTimeZone\zh-CN.htm" />
+    <Content Include="App_Data\UserGuide\LicenseeWLByTimeZone\en-US.htm" />
     <Content Include="App_Data\UserGuide\WeeklyLiveMatches\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\WeeklyLiveMatches\zh-TW.htm" />
     <Content Include="Content\BetList\Allbet.css" />
@@ -777,14 +793,21 @@
     <Content Include="Scripts\Report\customerwinloss.option.js" />
     <Content Include="Scripts\Report\customerbalance.option.js" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
+    <Content Include="www\assets\images\new-system.svg" />
+    <Content Include="www\css\build\dev\reactpages\licenseewlbytimezone\index.chunk.js" />
+    <Content Include="www\css\build\dev\reactpages\licenseewlbytimezone\index.css" />
     <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.chunk.js" />
     <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.css" />
     <Content Include="www\css\build\dev\reactpages\vendor.chunk.js" />
+    <Content Include="www\css\build\images\new_icon.gif" />
+    <Content Include="www\css\build\pro\reactpages\licenseewlbytimezone\index.css" />
     <Content Include="www\css\build\pro\reactpages\subsidiaryperformance\index.css" />
+    <Content Include="www\js\build\dev\reactpages\report\licenseewlbytimezone.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\vendors\excel.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\vendors\reactpages.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\lib\langHelper.chunk.js" />
+    <Content Include="www\js\build\pro\reactpages\report\licenseewlbytimezone.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\vendors\excel.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\vendors\reactpages.chunk.js" />
@@ -792,12 +815,18 @@
     <Content Include="www\js\source\extensions\ajaxBinaryTransporting.js" />
     <Content Include="www\js\source\helpers\datahelper.js" />
     <Content Include="www\js\source\helpers\downloader.js" />
+    <Content Include="www\js\source\reactpages\actions\excludeTestAction.js" />
+    <Content Include="www\js\source\reactpages\actions\currencyAction.js" />
     <Content Include="www\js\source\reactpages\actions\baseCurrencyAction.js" />
     <Content Include="www\js\source\reactpages\actions\loaderAction.js" />
     <Content Include="www\js\source\reactpages\actions\productAction.js" />
+    <Content Include="www\js\source\reactpages\actions\userGuideAction.js" />
+    <Content Include="www\js\source\reactpages\actions\__tests__\excludeTestAction.test.js" />
+    <Content Include="www\js\source\reactpages\actions\__tests__\currencyAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\baseCurrencyAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\loaderAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\productAction.test.js" />
+    <Content Include="www\js\source\reactpages\actions\__tests__\userGuideAction.test.js" />
     <Content Include="www\js\source\reactpages\components\date-range\Calendar.js" />
     <Content Include="www\js\source\reactpages\components\date-range\constants.js" />
     <Content Include="www\js\source\reactpages\components\date-range\DateRange.js" />
@@ -825,6 +854,14 @@
     <Content Include="Content\Plugin\Toast\toast.scss" />
     <Content Include="App_Code\GroupCommRazorHelper.cshtml" />
     <Content Include="App_Code\DesktopGroupCommRazorHelper.cshtml" />
+    <Content Include="Views\Desktop\Report\LicenseeWinLossByTimeZone\Main.cshtml" />
+    <Content Include="www\js\build\dev\reactpages\report\licenseewlbytimezone.chunk.js.map" />
+    <Content Include="www\css\source\reactpages\pages\licenseewl-by-timezone\index.scss" />
+    <Content Include="Views\Desktop\Utility\FunctionNotAvailableOldUI.cshtml" />
+    <Content Include="www\css\build\dev\reactpages\licenseewlbytimezone\index.chunk.js.map" />
+    <Content Include="www\css\build\dev\reactpages\licenseewlbytimezone\index.css.map" />
+    <Content Include="www\css\source\reactpages\components\forms\_radio-buttons.scss" />
+    <Content Include="www\css\source\reactpages\components\_popup.scss" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
@@ -837,20 +874,45 @@
     <Content Include="www\js\source\reactpages\components\fixed-table-header\constants.js" />
     <Content Include="www\js\source\reactpages\components\multiple-select\components\__tests__\Option.test.js" />
     <Content Include="www\js\source\reactpages\components\multiple-select\components\__tests__\OptionAll.test.js" />
+    <Content Include="www\js\source\reactpages\components\popup\constants.js" />
+    <Content Include="www\js\source\reactpages\components\UserGuide.jsx" />
     <Content Include="www\js\source\reactpages\components\__tests__\Loader.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\NoDataTitle.test.js" />
+    <Content Include="www\js\source\reactpages\components\__tests__\Popup.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\ReportTitle.test.js" />
+    <Content Include="www\js\source\reactpages\components\__tests__\UserGuide.test.js" />
     <Content Include="www\js\source\reactpages\constants\config.js" />
     <Content Include="www\js\source\reactpages\layouts\AppLayout.jsx" />
     <Content Include="www\js\source\reactpages\lib\excel.js" />
     <Content Include="www\js\source\reactpages\constants\excelStyle.js" />
     <Content Include="www\js\source\reactpages\lib\langHelper.js" />
+    <Content Include="www\js\source\reactpages\lib\logger.js" />
     <Content Include="www\js\source\reactpages\lib\numberFormat.js" />
     <Content Include="www\js\source\reactpages\lib\site.js" />
+    <Content Include="www\js\source\reactpages\lib\store.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\excel.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\langHelper.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\numberFormat.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\site.test.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\dataHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\filterHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\index.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\types.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\__tests__\dataHandlerAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\__tests__\filterHandlerAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\datagrid.test.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\fakeData.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\formFilter.eventhandler.test.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\formFilter.render.test.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\constants\settingConst.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\lib\reportExcel.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\lib\service.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\lib\__tests__\fakeData.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\lib\__tests__\reportExcel.test.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\lib\__tests__\service.test.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\dataHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\filterHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\dataHandlerAction.test.js" />
@@ -868,12 +930,17 @@
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\filterHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\__tests__\dataHandlerReducer.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\__tests__\filterHandlerReducer.test.js" />
-    <Content Include="www\js\source\reactpages\reducers\baseCurrency.js" />
+    <Content Include="www\js\source\reactpages\reducers\excludeTestReducer.js" />
+    <Content Include="www\js\source\reactpages\reducers\currencyReducer.js" />
+    <Content Include="www\js\source\reactpages\reducers\baseCurrencyReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\loaderReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\productReducer.js" />
-    <Content Include="www\js\source\reactpages\reducers\__tests__\baseCurrency.test.js" />
+    <Content Include="www\js\source\reactpages\reducers\userGuideReducer.js" />
+    <Content Include="www\js\source\reactpages\reducers\__tests__\excludeTestReducer.test.js" />
+    <Content Include="www\js\source\reactpages\reducers\__tests__\baseCurrencyReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\loaderReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\productReducer.test.js" />
+    <Content Include="www\js\source\reactpages\reducers\__tests__\userGuideReducer.test.js" />
     <Content Include="www\js\tests\components\toast-spec.js" />
     <Content Include="www\js\tests\extensions\ajaxBinaryTransporting-spec.js" />
     <Content Include="www\js\tests\extensions\prototype-spec.js" />
@@ -2505,6 +2572,14 @@
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\Table.test.js.snap" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\tableSection.test.js.snap" />
     <Content Include="www\js\source\reactpages\components\multiple-select\components\__tests__\__snapshots__\Option.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\AppContainer.jsx" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\datagrid.jsx" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\formFilter.jsx" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\index.jsx" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\__snapshots__\datagrid.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\popup\Popup.jsx" />
+    <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\UserGuide.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\Popup.test.js.snap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

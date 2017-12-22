@@ -7,13 +7,13 @@
         var appSettings = new AppSettings();
         @Html.AntiForgeryToken()
         //-----------------------------Hidden Field-------------------------------//
-        @Html.Hidden("BalanceUpDay", Model.Param.BalanceUpDay)
+        @Html.Hidden("BalanceUpDay", Model.BalanceUpDay)
         @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)   
         @Html.Hidden("SortDirection", Model.Param.SortDirection)
         @Html.Hidden("SortColumn", Model.Param.SortColumn)
 
         //-----------------------------Date---------------------------------------//
-        @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, Model.Param.BalanceUpDay,
+        @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, Model.BalanceUpDay,
              appSettings.MaxDate, "date-range", "date-range", 2, 3, 2, 3, true)
         <div class="new-line">
         </div>

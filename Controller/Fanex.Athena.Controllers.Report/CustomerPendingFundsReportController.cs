@@ -6,18 +6,31 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
-    using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Core.MetaModel.Product;
+    using Extension.Utility;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportCustomerPendingFunds)]
     public class CustomerPendingFundsReportController : ReportBaseController
     {
+        public CustomerPendingFundsReportController()
+        {
+        }
+
+        public CustomerPendingFundsReportController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IProductService productService)
+            : base(languageService, sessionService, appSetting, productService)
+        {
+        }
+
         [HttpGet]
         public ActionResult Index()
         {

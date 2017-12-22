@@ -3058,10 +3058,6 @@
     <value>New Asia</value>
     <comment>#85203</comment>
   </data>
-  <data name="FunctionNotAvailableOldUIMsg" xml:space="preserve">
-    <value>This function is only supported in the new admin portal. Please switch to use our new system for better experience and stability.</value>
-    <comment>85203</comment>
-  </data>
   <data name="ABComm" xml:space="preserve">
     <value>AllBet Comm</value>
     <comment>82036</comment>
@@ -3069,5 +3065,41 @@
   <data name="AB" xml:space="preserve">
     <value>AB</value>
     <comment>82036</comment>
+  </data>
+  <data name="ConvertAllFiguresToBaseCurrency" xml:space="preserve">
+    <value>Convert all figures to Base Currency</value>
+    <comment>84932</comment>
+  </data>
+  <data name="IncludeDrawData" xml:space="preserve">
+    <value>Include Draw data</value>
+    <comment>84932</comment>
+  </data>
+  <data name="BaseCurrency" xml:space="preserve">
+    <value>Base Currency</value>
+    <comment>84932</comment>
+  </data>
+  <data name="CustomerComm" xml:space="preserve">
+    <value>Customer Comm</value>
+    <comment>84932</comment>
+  </data>
+  <data name="LicenseeComm" xml:space="preserve">
+    <value>Licensee Comm</value>
+    <comment>84932</comment>
+  </data>
+  <data name="LicenseeNetWL" xml:space="preserve">
+    <value>Licensee Net WL</value>
+    <comment>84932</comment>
+  </data>
+  <data name="GroupBy" xml:space="preserve">
+    <value>Group By</value>
+    <comment>84932</comment>
+  </data>
+  <data name="WinLossByTimeZone" xml:space="preserve">
+    <value>Win Loss By Time Zone</value>
+    <comment>84932</comment>
+  </data>
+  <data name="BackToOldUI" xml:space="preserve">
+    <value>Back to old UI</value>
+    <comment>84932</comment>
   </data>
 </root>

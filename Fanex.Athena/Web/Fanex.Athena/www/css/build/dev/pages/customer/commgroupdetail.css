@@ -466,7 +466,7 @@ input[type="checkbox"] {
             background-color: #4c6375;
             color: #fff; }
 
-.input-field input[type="radio"] + label {
+input[type="radio"] + label {
   padding-left: 20px !important; }
 
 [type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {

@@ -20,7 +20,8 @@ export const bodyCellStyle = {
     center: { alignment: {...bodyTextStyle.alignment, horizontal: "center" } },
     number: { numFmt: "#,##0" },
     decimal: bodyDecimalStyle,
-    negativeDecimal: {...bodyDecimalStyle, font: { color: { rgb: "FF0000" } } }
+    negativeDecimal: {...bodyDecimalStyle, font: { color: { rgb: "FF0000" } } },
+    percent: { numFmt: '#,##0.00%' }
 }
 
 const totalTextStyle = { font: { bold: true } };
@@ -42,7 +43,9 @@ const grandTotalTextStyle = {
 const decimalGrandTotalStyle = {...grandTotalTextStyle, numFmt: "#,##0.00" };
 export const grandTotalCellStyle = {
     default: grandTotalTextStyle,
+    center: {...grandTotalTextStyle, alignment: { horizontal: "center" } },
     number: {...grandTotalTextStyle, numFmt: "#,##0" },
     decimal: decimalGrandTotalStyle,
-    negativeDecimal: {...decimalGrandTotalStyle, font: { bold: true, color: { rgb: "FF0000" } } }
+    negativeDecimal: {...decimalGrandTotalStyle, font: { bold: true, color: { rgb: "FF0000" } } },
+    percent: {...grandTotalTextStyle, numFmt: "#,##0.00%" },
 }

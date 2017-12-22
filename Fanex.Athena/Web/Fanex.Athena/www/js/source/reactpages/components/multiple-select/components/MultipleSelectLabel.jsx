@@ -36,7 +36,7 @@ export default class MultipleSelectLabel extends Component {
             displayText = `${selectedItemCount} selected`;
         }
         else if (selectedItemCount >= 1) {
-            displayText = selectedValues.join(",");
+            displayText = selectedValues.join(", ");
         }
 
         return displayText;

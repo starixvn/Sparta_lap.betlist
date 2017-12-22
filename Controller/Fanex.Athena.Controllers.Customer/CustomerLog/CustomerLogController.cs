@@ -9,7 +9,6 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
     using System.Web.Mvc;
     using System.Web.SessionState;
     using Extension.Utility;
-    using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
@@ -33,9 +32,8 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IFileSystem fileSystem,
             IProductService productService)
-            : base(languageService, sessionService, appSetting, fileSystem)
+            : base(languageService, sessionService, appSetting)
         {
             _productService = productService;
         }
