@@ -36,6 +36,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var currencyIdList = userSession.CurrencyList.Select(x => x.Key);
             var subsidiaryList = _service.GetOperatorList(licenseeSession.LicenseeName, currencyIdList);
+            var operatorNameList = subsidiaryList.Any() ? subsidiaryList.Select(x => x.Value).Distinct() : new List<string>();
 
             var model = new SubsidiaryPerformanceViewModel
             {
@@ -46,11 +47,11 @@ namespace Fanex.Athena.Controllers.Report
                     Status = true
                 }).ToList(),
 
-                SubsidiaryList = subsidiaryList.Any() ? subsidiaryList.Select(x => new CheckedItem
+                SubsidiaryList = operatorNameList.Select(x => new CheckedItem
                 {
-                    Name = x.Value,
+                    Name = x,
                     Checked = true
-                }).ToList() : new List<CheckedItem>()
+                }).ToList()
             };
 
             return View("~/Views/Report/SubsidiaryPerformance/Main.cshtml", model);

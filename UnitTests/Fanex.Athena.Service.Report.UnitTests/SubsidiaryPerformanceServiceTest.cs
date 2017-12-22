@@ -151,14 +151,25 @@
         public void GetData_WhenCall_GetCorrectReturnedData()
         {
             // Arrange
+            const string LicenseeName = "12Bet";
             var metaModel = new SubsidiaryPerformanceMetaModel
             {
                 FromDate = new DateTime(2017, 8, 30),
                 ToDate = new DateTime(2017, 8, 30),
                 ProductCodeList = "SB,BA",
                 SubsidiaryList = "123,143",
-                BaseCurrency = "EUR"
+                BaseCurrency = "EUR",
+                LicenseeName = LicenseeName
             };
+
+            var operatorList = new List<Operator>
+            {
+                new Operator { AgentId = 1234, CurrencyId = 1, OperatorName = "New York" },
+                new Operator { AgentId = 1235, CurrencyId = 2, OperatorName = "India" }
+            };
+            var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
+            _cache.Get<IEnumerable<Operator>>(cacheKey).Returns(operatorList);
+
             var fakeEntityDataList = GetFakeEntityDataList();
             IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
             var expectedResult = _serializer.Serialize(GetExpectedDataModelList());
@@ -177,17 +188,69 @@
         }
 
         [Test]
-        public void GetData_WhenCall_GetCorrectTotalDataList()
+        public void GetData_AgentIdIsNotExistInOpertorList_SubsidiaryFieldOfDataModelShouldBeEmptyString()
         {
             // Arrange
+            const string LicenseeName = "12Bet";
             var metaModel = new SubsidiaryPerformanceMetaModel
             {
                 FromDate = new DateTime(2017, 8, 30),
                 ToDate = new DateTime(2017, 8, 30),
                 ProductCodeList = "SB,BA",
                 SubsidiaryList = "123,143",
-                BaseCurrency = "EUR"
+                BaseCurrency = "EUR",
+                LicenseeName = LicenseeName
             };
+
+            var operatorList = new List<Operator>
+            {
+                new Operator { AgentId = 1230, CurrencyId = 1, OperatorName = "New York" }
+            };
+            var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
+            _cache.Get<IEnumerable<Operator>>(cacheKey).Returns(operatorList);
+
+            var fakeEntityDataList = GetFakeEntityDataList();
+            IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
+
+            var expectedData = new List<SubsidiaryPerformanceDataModel>();
+            var expectedResult = _serializer.Serialize(expectedData);
+
+            _dataAccess.GetData(metaModel, out totalDataList).Returns(x =>
+            {
+                x[1] = new List<SubsidiaryPerformanceEntity>();
+                return fakeEntityDataList;
+            });
+
+            // Action
+            var result = _serializer.Serialize(_service.GetData(metaModel, out totalDataList));
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void GetData_WhenCall_GetCorrectTotalDataList()
+        {
+            // Arrange
+            const string LicenseeName = "12Bet";
+            var metaModel = new SubsidiaryPerformanceMetaModel
+            {
+                FromDate = new DateTime(2017, 8, 30),
+                ToDate = new DateTime(2017, 8, 30),
+                ProductCodeList = "SB,BA",
+                SubsidiaryList = "123,143",
+                BaseCurrency = "EUR",
+                LicenseeName = LicenseeName
+            };
+
+            var operatorList = new List<Operator>
+            {
+                new Operator { AgentId = 1234, CurrencyId = 1, OperatorName = "New York" },
+                new Operator { AgentId = 1235, CurrencyId = 2, OperatorName = "India" }
+            };
+            var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
+            _cache.Get<IEnumerable<Operator>>(cacheKey).Returns(operatorList);
+
             var fakeEntityDataList = GetFakeEntityDataList();
             IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
             var expectedResult = _serializer.Serialize(GetExpectedTotalDataList());
@@ -197,6 +260,47 @@
                 x[1] = fakeEntityDataList;
                 return fakeEntityDataList;
             });
+
+            // Action
+            _service.GetData(metaModel, out totalDataList);
+            var result = _serializer.Serialize(totalDataList);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void GetData_AgentIdIsNotExistInOpertorList_SubsidiaryFieldOfTotalDataShouldBeEmptyString()
+        {
+            // Arrange
+            const string LicenseeName = "12Bet";
+            var metaModel = new SubsidiaryPerformanceMetaModel
+            {
+                FromDate = new DateTime(2017, 8, 30),
+                ToDate = new DateTime(2017, 8, 30),
+                ProductCodeList = "SB,BA",
+                SubsidiaryList = "123,143",
+                BaseCurrency = "EUR",
+                LicenseeName = LicenseeName
+            };
+
+            var operatorList = new List<Operator>
+            {
+                new Operator { AgentId = 1230, CurrencyId = 1, OperatorName = "New York" }
+            };
+            var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
+            _cache.Get<IEnumerable<Operator>>(cacheKey).Returns(operatorList);
+
+            var fakeEntityDataList = GetFakeEntityDataList();
+            IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
+            _dataAccess.GetData(metaModel, out totalDataList).Returns(x =>
+            {
+                x[1] = fakeEntityDataList;
+                return fakeEntityDataList;
+            });
+
+            var expectedTotalDataList = new List<SubsidiaryPerformanceEntity>();
+            var expectedResult = _serializer.Serialize(expectedTotalDataList);
 
             // Action
             _service.GetData(metaModel, out totalDataList);
@@ -268,9 +372,9 @@
 
             return new List<SubsidiaryPerformanceDataModel>
             {
-                new SubsidiaryPerformanceDataModel { Subsidiary = "1234", CurrencyName = "USD", Details = dataDetail1 },
-                new SubsidiaryPerformanceDataModel { Subsidiary = "1235", CurrencyName = "USD", Details = dataDetail2 },
-                new SubsidiaryPerformanceDataModel { Subsidiary = "1235", CurrencyName = "EUR", Details = dataDetail3 }
+                new SubsidiaryPerformanceDataModel { Subsidiary = "New York", CurrencyName = "USD", Details = dataDetail1 },
+                new SubsidiaryPerformanceDataModel { Subsidiary = "India", CurrencyName = "USD", Details = dataDetail2 },
+                new SubsidiaryPerformanceDataModel { Subsidiary = "India", CurrencyName = "EUR", Details = dataDetail3 }
             };
         }
 
@@ -280,8 +384,7 @@
             {
                 new SubsidiaryPerformanceEntity
                 {
-                    SubsidiaryId = 1234,
-                    Subsidiary = "Total 1234",
+                    Subsidiary = "Total New York",
                     CurrencyName = "Based EUR",
                     BetCount = 150,
                     Turnover = 300m,
@@ -290,8 +393,7 @@
                 },
                 new SubsidiaryPerformanceEntity
                 {
-                    SubsidiaryId = 1235,
-                    Subsidiary = "Total 1235",
+                    Subsidiary = "Total India",
                     CurrencyName = "Based EUR",
                     BetCount = 150,
                     Turnover = 300m,

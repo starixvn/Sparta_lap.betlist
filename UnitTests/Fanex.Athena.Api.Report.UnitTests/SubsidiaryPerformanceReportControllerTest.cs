@@ -16,6 +16,8 @@
     [TestFixture]
     public class SubsidiaryPerformanceReportControllerTest
     {
+        private const string LicenseeName = "12bet";
+
         private ISessionService _sessionService;
 
         private ISubsidiaryPerformanceService _service;
@@ -23,8 +25,6 @@
         private SubsidiaryPerformanceReportController _controller;
 
         private JavaScriptSerializer _serializer;
-
-        private const string LicenseeName = "12bet";
 
         [OneTimeSetUp]
         public void SetUp()

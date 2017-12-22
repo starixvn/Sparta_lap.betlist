@@ -35,14 +35,7 @@
 
         public IDictionary<int, string> GetOperatorList(string licenseeName, IEnumerable<int> currencyListByUser)
         {
-            var cacheKey = string.Format(CacheKey.MemorycacheSubsidiaryListByLicensee, licenseeName);
-
-            var operatorList = _cache.Get<IEnumerable<Operator>>(cacheKey);
-            if (operatorList == null)
-            {
-                operatorList = _subLicenseePerformanceDataAccess.GetOperatorList(licenseeName);
-                _cache.Set(cacheKey, operatorList, CacheTimeoutSeconds);
-            }
+            var operatorList = GetOperatorByLicensee(licenseeName);
 
             return operatorList.Where(o => currencyListByUser.Contains(o.CurrencyId)).ToDictionary(x => x.AgentId, x => x.OperatorName);
         }
@@ -54,20 +47,45 @@
             IEnumerable<SubsidiaryPerformanceEntity> entityTotalList = null;
             var entityDataList = _subLicenseePerformanceDataAccess.GetData(metaModel, out entityTotalList);
 
-            totalDataList = entityTotalList.Any() ?
-                GetTotalDataList(entityTotalList, metaModel.BaseCurrency.ToUpperInvariant()) : new List<SubsidiaryPerformanceEntity>();
+            if (entityDataList.Any())
+            {
+                var operatorList = GetOperatorByLicensee(metaModel.LicenseeName);
+                MapSubsidiaryColumn(entityDataList, operatorList);
+                MapSubsidiaryColumn(entityTotalList, operatorList);
 
-            return entityDataList.Any() ? GetDataModel(entityDataList) : new List<SubsidiaryPerformanceDataModel>();
+                totalDataList = GetTotalDataList(entityTotalList, metaModel.BaseCurrency.ToUpperInvariant());
+
+                return GetDataModel(entityDataList);
+            }
+
+            totalDataList = new List<SubsidiaryPerformanceEntity>();
+
+            return new List<SubsidiaryPerformanceDataModel>();
         }
 
-        private static IEnumerable<SubsidiaryPerformanceDataModel> GetDataModel(IEnumerable<SubsidiaryPerformanceEntity> entityDataList)
+        private static void MapSubsidiaryColumn(IEnumerable<SubsidiaryPerformanceEntity> entityDataList, IEnumerable<Operator> operatorList)
+        {
+            foreach (var item in entityDataList)
+            {
+                var operatorItem = operatorList.FirstOrDefault(o => o.AgentId == item.SubsidiaryId);
+                item.Subsidiary = operatorItem == null ? string.Empty : operatorItem.OperatorName;
+            }
+        }
+
+        private static IEnumerable<SubsidiaryPerformanceDataModel> GetDataModel(
+            IEnumerable<SubsidiaryPerformanceEntity> entityDataList)
         {
             var dataModelList = new List<SubsidiaryPerformanceDataModel>();
-            var groupedData = entityDataList.GroupBy(p => new { p.SubsidiaryId, p.CurrencyId });
+
+            var groupedData = entityDataList.Where(x => !string.IsNullOrEmpty(x.Subsidiary)).GroupBy(p => new { p.Subsidiary, p.CurrencyId });
 
             foreach (var summary in groupedData)
             {
-                var dataModel = new SubsidiaryPerformanceDataModel { Subsidiary = summary.Key.SubsidiaryId.ToString(), CurrencyName = summary.First().CurrencyName };
+                var dataModel = new SubsidiaryPerformanceDataModel
+                {
+                    Subsidiary = summary.Key.Subsidiary,
+                    CurrencyName = summary.First().CurrencyName
+                };
 
                 var detailList = new List<SubsidiaryPerformanceDetail>();
 
@@ -99,17 +117,18 @@
             return dataModelList;
         }
 
-        private static IEnumerable<SubsidiaryPerformanceEntity> GetTotalDataList(IEnumerable<SubsidiaryPerformanceEntity> entityTotalDataList, string baseCurrency)
+        private static IEnumerable<SubsidiaryPerformanceEntity> GetTotalDataList(
+            IEnumerable<SubsidiaryPerformanceEntity> entityTotalDataList,
+            string baseCurrency)
         {
             var totalDataList = new List<SubsidiaryPerformanceEntity>();
-            var groupedDataBySubsidiary = entityTotalDataList.GroupBy(p => p.SubsidiaryId);
+            var groupedDataBySubsidiary = entityTotalDataList.Where(x => !string.IsNullOrEmpty(x.Subsidiary)).GroupBy(p => p.Subsidiary);
 
             foreach (var item in groupedDataBySubsidiary)
             {
                 totalDataList.Add(new SubsidiaryPerformanceEntity
                 {
-                    SubsidiaryId = item.Key,
-                    Subsidiary = $"{ViewResources.Total} {item.Key.ToString()}",
+                    Subsidiary = $"{ViewResources.Total} {item.Key}",
                     CurrencyName = $"{ViewResources.Based} {baseCurrency}",
                     BetCount = item.Sum(x => x.BetCount),
                     Turnover = item.Sum(x => x.Turnover),
@@ -119,6 +138,20 @@
             }
 
             return totalDataList;
+        }
+
+        private IEnumerable<Operator> GetOperatorByLicensee(string licenseeName)
+        {
+            var cacheKey = string.Format(CacheKey.MemorycacheSubsidiaryListByLicensee, licenseeName);
+
+            var operatorList = _cache.Get<IEnumerable<Operator>>(cacheKey);
+            if (operatorList == null)
+            {
+                operatorList = _subLicenseePerformanceDataAccess.GetOperatorList(licenseeName);
+                _cache.Set(cacheKey, operatorList, CacheTimeoutSeconds);
+            }
+
+            return operatorList;
         }
     }
 }

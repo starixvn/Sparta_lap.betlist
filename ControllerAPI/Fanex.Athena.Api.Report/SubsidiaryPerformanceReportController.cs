@@ -38,7 +38,9 @@
         {
             if (metaModel.IsValid)
             {
-                var agentIdList = GetSelectedSubsidiaryList(metaModel.SubsidiaryList);
+                var licenseeName = SessionService.LicenseeSession.LicenseeName;
+                metaModel.LicenseeName = licenseeName;
+                var agentIdList = GetSelectedSubsidiaryList(metaModel.SubsidiaryList, licenseeName);
                 metaModel.AgentListXml = SessionService.GenerateAgentListXmlByAgentIdList(agentIdList);
 
                 IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
@@ -73,14 +75,13 @@
             };
         }
 
-        private IEnumerable<int> GetSelectedSubsidiaryList(string selectedOperator)
+        private IEnumerable<int> GetSelectedSubsidiaryList(string selectedOperator, string licenseeName)
         {
             var selectedOperatorList = selectedOperator.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-            var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var currencyIdList = userSession.CurrencyList.Select(x => x.Key);
-            var subsidiaryData = _subsidiaryPerformanceService.GetOperatorList(licenseeSession.LicenseeName, currencyIdList);
+            var subsidiaryData = _subsidiaryPerformanceService.GetOperatorList(licenseeName, currencyIdList);
 
             return subsidiaryData.Where(s => selectedOperatorList.Contains(s.Value)).Select(x => Convert.ToInt32(x.Key));
         }
