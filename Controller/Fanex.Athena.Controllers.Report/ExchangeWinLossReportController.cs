@@ -6,7 +6,9 @@
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
     using Resources;
+    using Web.ActionFilter;
 
+    [FunctionAuthorization(PermissionKeys.ReportExchangeWinLoss)]
     public class ExchangeWinLossReportController : ReportBaseController
     {
         private readonly IAppSettings _appSetting;

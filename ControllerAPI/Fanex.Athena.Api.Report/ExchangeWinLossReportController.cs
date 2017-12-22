@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
+    using Base.Attributes;
     using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Model.Core.DataDomain;
@@ -12,6 +13,7 @@
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
 
+    [ApiFunctionAuthorization(PermissionKeys.ReportExchangeWinLoss)]
     public class ExchangeWinLossReportController : ApiReportBaseController
     {
         private readonly IExchangeWinLossDataAccess _dataAccess;
