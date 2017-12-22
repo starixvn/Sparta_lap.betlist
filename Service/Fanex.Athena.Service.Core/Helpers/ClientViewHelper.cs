@@ -12,7 +12,6 @@
             const string linkToNewUI = "~/Views/Shared/FunctionNotAvailableOldUI.cshtml";
 
             var newUIViewPath = viewPath.Replace("Views", "Views/Desktop");
-            var existedOldUIPath = File.Exists(HttpContext.Current.Server.MapPath(viewPath));
             var existedNewUIPath = File.Exists(HttpContext.Current.Server.MapPath(newUIViewPath));
 
             if (viewtype == ClientViewType.Desktop)
@@ -23,6 +22,8 @@
                     IsNavigationView = false
                 };
             }
+
+            var existedOldUIPath = File.Exists(HttpContext.Current.Server.MapPath(viewPath));
 
             if (!existedOldUIPath && existedNewUIPath)
             {
