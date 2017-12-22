@@ -161,7 +161,7 @@ exports[`Table  render isPaging is true - return content with paging that match 
     className="body-content"
     style={
       Object {
-        "maxHeight": 736,
+        "maxHeight": 704,
         "minWidth": undefined,
         "width": -30,
       }
