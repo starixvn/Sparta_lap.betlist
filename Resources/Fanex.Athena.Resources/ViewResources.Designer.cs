@@ -1510,15 +1510,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Convert all figures to Base Currency.
-        /// </summary>
-        public static string ConvertAllFiguresToBaseCurrency {
-            get {
-                return ResourceManager.GetString("ConvertAllFiguresToBaseCurrency", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Convert to.
         /// </summary>
         public static string ConvertTo {
