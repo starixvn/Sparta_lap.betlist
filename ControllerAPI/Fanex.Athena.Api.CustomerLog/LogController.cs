@@ -27,6 +27,7 @@ namespace Fanex.Athena.Api.CustomerLog
     using Service.Core.Helpers;
     using Service.Core.Users;
     using Service.Core.Users.Interfaces;
+    using Model.Core.DTO.Common;
 
     [ApiFunctionAuthorization(PermissionKeys.CustomerInfoCustomerLog)]
     public partial class LogController : BaseApiController
@@ -181,15 +182,20 @@ namespace Fanex.Athena.Api.CustomerLog
         /// <param name="actionId">Action id.</param>
         /// <param name="viewModel">View Model.</param>
         /// <returns> HTML string.</returns>
-        private string ParseDictonaryToRazorView(int actionId, ActionViewModel viewModel)
+        private string GenerateDetailedValue(int actionId, ActionViewModel viewModel)
         {
-            var viewName = GetActionViewName(actionId);
-            var templatePath = HostingEnvironment.MapPath(viewName);
+            var viewOption = GetActionViewName(actionId);
+            if (viewOption.IsNavigationView)
+            {
+                return string.Empty;
+            }
+
+            var templatePath = HostingEnvironment.MapPath(viewOption.ViewPath);
             var template = File.ReadAllText(templatePath);
-            return Engine.Razor.RunCompile(template, viewName, model: viewModel);
+            return Engine.Razor.RunCompile(template, viewOption.ViewPath, model: viewModel);
         }
 
-        private string GetActionViewName(int actionId)
+        private ViewByOption GetActionViewName(int actionId)
         {
             var actionView = $"~/Views/Customer/CustomerLog/Action/{actionId}.cshtml";
             var userSession = _sessionService.UserSession;
@@ -238,7 +244,7 @@ namespace Fanex.Athena.Api.CustomerLog
 
                 var dictonary = GetXmlAttr(item.TrackingValue, item.TrackingValueOld);
 
-                item.Details = ParseDictonaryToRazorView(item.ActionId, new ActionViewModel { Data = dictonary, Resource = resourcesMap });
+                item.Details = GenerateDetailedValue(item.ActionId, new ActionViewModel { Data = dictonary, Resource = resourcesMap });
             }
 
             return dataList;

@@ -3,20 +3,43 @@
     using System.IO;
     using System.Web;
     using Fanex.Athena.Model.Core.DataDomain;
+    using Model.Core.DTO.Common;
 
     public static class ClientViewHelper
     {
-        public static string GetViewPath(string viewPath, ClientViewType viewtype)
+        public static ViewByOption GetViewPath(string viewPath, ClientViewType viewtype)
         {
-            var themeSuffix = viewtype == ClientViewType.Desktop ? "Desktop" : string.Empty;
+            const string linkToNewUI = "~/Views/Shared/FunctionNotAvailableOldUI.cshtml";
 
-            if (string.IsNullOrEmpty(themeSuffix) || string.IsNullOrEmpty(viewPath))
+            var newUIViewPath = viewPath.Replace("Views", "Views/Desktop");
+            var existedOldUIPath = File.Exists(HttpContext.Current.Server.MapPath(viewPath));
+            var existedNewUIPath = File.Exists(HttpContext.Current.Server.MapPath(newUIViewPath));
+
+            if (viewtype == ClientViewType.Desktop)
             {
-                return viewPath;
+                return new ViewByOption
+                {
+                    ViewPath = existedNewUIPath ? newUIViewPath : viewPath,
+                    IsNavigationView = false
+                };
             }
 
-            var newViewPath = viewPath.Replace("Views", "Views/" + themeSuffix);
-            return File.Exists(HttpContext.Current.Server.MapPath(newViewPath)) ? newViewPath : viewPath;
+            if (!existedOldUIPath && existedNewUIPath)
+            {
+                return new ViewByOption
+                {
+                    ViewPath = linkToNewUI,
+                    IsNavigationView = true
+                };
+            }
+
+            return new ViewByOption
+            {
+
+                ViewPath = viewPath,
+                IsNavigationView = false
+            };
+
         }
     }
 }

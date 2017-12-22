@@ -20,7 +20,8 @@ namespace Fanex.Athena.Controllers
     using Service.Core.Common;
     using Service.Core.Helpers;
     using Service.Core.Users;
-
+    using System.IO;
+    using System.Web;
     [CustomAuthorize]
     [XFrameOption]
     public class BaseController : Controller
@@ -90,19 +91,19 @@ namespace Fanex.Athena.Controllers
             }
         }
 
-        protected ViewResult ViewForNewUI(string viewName, object model, string returnPath)
-        {
-            var viewType = GetViewType();
-            return viewType != ClientViewType.Desktop && !string.IsNullOrEmpty(returnPath) ?
-                base.View("~/Views/Desktop/Utility/FunctionNotAvailableOldUI.cshtml", model: returnPath) :
-                View(viewName, null, model);
-        }
 
         protected override ViewResult View(string viewName, string masterName, object model)
         {
             var viewType = GetViewType();
+
             var viewByOption = ClientViewHelper.GetViewPath(viewName, viewType);
-            return base.View(viewByOption, masterName, model);
+            if (viewByOption.IsNavigationView)
+            {
+                var returnPath = $"{this.RouteData.Values["Controller"]}/{this.RouteData.Values["Action"]}";
+                return base.View(viewByOption.ViewPath, null, returnPath);
+            }
+
+            return base.View(viewByOption.ViewPath, masterName, model);
         }
 
         private IEnumerable<string> GetBaseUsdLicensees()
@@ -116,7 +117,7 @@ namespace Fanex.Athena.Controllers
             return new string[] { };
         }
 
-        private ClientViewType GetViewType()
+        protected ClientViewType GetViewType()
         {
             var userSession = SessionService.UserSession;
             return userSession != null && userSession.ViewType != ClientViewType.None ?

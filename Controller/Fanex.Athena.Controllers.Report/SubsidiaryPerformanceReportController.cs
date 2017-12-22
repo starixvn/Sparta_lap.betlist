@@ -29,7 +29,7 @@ namespace Fanex.Athena.Controllers.Report
                 }).ToList()
             };
 
-            return ViewForNewUI("~/Views/Report/SubsidiaryPerformance/Main.cshtml", model, "SubsidiaryPerformanceReport");
+            return View("~/Views/Report/SubsidiaryPerformance/Main.cshtml", model);
         }
     }
 }

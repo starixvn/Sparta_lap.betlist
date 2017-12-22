@@ -11,6 +11,7 @@
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Model.Core.DataDomain;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
@@ -49,5 +50,6 @@
                 Status = true
             }).ToList();
         }
+
     }
 }

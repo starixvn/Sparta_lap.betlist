@@ -31,7 +31,13 @@
                 userSession.ViewType : (ClientViewType)int.Parse(_appSettings.ClientViewType);
 
             var viewByOption = ClientViewHelper.GetViewPath(viewName, option);
-            return base.View(viewByOption, masterName, model);
+            if (viewByOption.IsNavigationView)
+            {
+                var returnPath = $"{this.RouteData.Values["Controller"]}/{this.RouteData.Values["Action"]}";
+                return base.View(viewByOption.ViewPath, null, returnPath);
+            }
+
+            return base.View(viewByOption.ViewPath, masterName, model);
         }
     }
 }
