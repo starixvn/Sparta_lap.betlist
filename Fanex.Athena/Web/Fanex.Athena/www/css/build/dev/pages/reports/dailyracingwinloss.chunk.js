@@ -1,19 +1,19 @@
 webpackJsonp([83],{
 
-/***/ 499:
+/***/ 496:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(500);
+module.exports = __webpack_require__(497);
 
 
 /***/ }),
 
-/***/ 500:
+/***/ 497:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ })
 
-},[499]);
+},[496]);
 //# sourceMappingURL=dailyracingwinloss.chunk.js.map

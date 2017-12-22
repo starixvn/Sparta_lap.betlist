@@ -301,11 +301,14 @@ template {
 .icon-calendar:before {
   content: "\E90F"; }
 
-.icon-arrow:before {
-  content: "\E903"; }
-
 .icon-book:before {
   content: "\E904"; }
+
+.icon-close:before {
+  content: "\E910"; }
+
+.icon-arrow:before {
+  content: "\E903"; }
 
 /* z-index */
 /* Table */
@@ -657,7 +660,8 @@ a {
     display: block;
     color: #808080; }
   .form-group .checkbox-group, .form-group .button-group {
-    display: inline-block; }
+    display: inline-block;
+    margin-top: 15px; }
 
 .input-text {
   background-color: transparent;
@@ -676,8 +680,8 @@ a {
   font-size: 1.3rem;
   color: #2c2c2c; }
   .input-text:focus:not([readonly]) {
-    border-bottom: 1px solid #26a69a;
-    box-shadow: 0 1px 0 0 #26a69a; }
+    border-bottom: 1px solid #6790b0;
+    box-shadow: 0 1px 0 0 #6790b0; }
 
 /**
  * React Select
