@@ -4,8 +4,100 @@ import service from '../../lib/service';
 import NumberFormat from '../../../../lib/numberFormat'
 import renderer from 'react-test-renderer';
 import { ReportLevel, ReportBy } from '../../../../constants/report';
+import { Licensee } from '../../../../constants/licensee';
 
-describe('DataGrid ', () => {
+const breadCrumbPath = '../../../../components/breadcrumb/Breadcrumb';
+
+describe('Render DataGrid components ', () => {
+    describe('Render Bread crumb', () => {
+        const breadcrumbText = {
+            main: 'main',
+            licensee: 'licensee',
+            customer: 'customer',
+        };
+
+        beforeAll(() => {
+            service.getBreadcrumbText = jest.fn(() => breadcrumbText);
+            jest.mock(breadCrumbPath, (props) => (<div {...props}></div>));
+        });
+
+        afterAll(() => {
+            jest.unmock(breadCrumbPath);
+        });
+
+        it('licensee is 12Bet - build customer level link', () => {
+            const props = { 
+                licenseeId: Licensee.ONE_TWO_BET,
+                gridData: {
+                    level: ReportLevel.CUSTOMER
+                }
+            };
+            const expectedResult = [{
+                label: breadcrumbText.main,
+                value: ReportLevel.MAIN,
+            },{
+                label: breadcrumbText.licensee,
+                value: ReportLevel.LICENSEE,
+            },{
+                label: breadcrumbText.customer,
+                value: ReportLevel.CUSTOMER,
+            }];
+
+            const dataGrid = new DataGrid(props);
+            const breadCrumb = dataGrid._renderBreadcrumb();
+
+            const result = breadCrumb.props.items;
+
+            expect(result).toEqual(expectedResult);
+        })
+
+        it('licensee is 12Bet - only build 2 level', () => {
+            const props = { 
+                isAllowedCustomerComm: false,
+                licenseeId: 0,
+                gridData: {
+                    level: ReportLevel.CUSTOMER
+                }
+            };
+            const expectedResult = [{
+                label: breadcrumbText.main,
+                value: ReportLevel.MAIN,
+            },{
+                label: breadcrumbText.customer,
+                value: ReportLevel.CUSTOMER,
+            }];
+
+            const dataGrid = new DataGrid(props);
+            const breadCrumb = dataGrid._renderBreadcrumb();
+
+            const result = breadCrumb.props.items;
+
+            expect(result).toEqual(expectedResult);
+        })
+
+        it('onChange - call _drillDownData method', () => {
+            const props = { 
+                isAllowedCustomerComm: false,
+                licenseeId: 0,
+                gridData: {
+                    level: ReportLevel.CUSTOMER
+                }
+            };
+            const changedItem = {
+                label: breadcrumbText.main,
+                value: ReportLevel.MAIN
+            };
+
+            const dataGrid = new DataGrid(props);
+            dataGrid._drillDownData = jest.fn();
+            const breadCrumb = dataGrid._renderBreadcrumb();
+
+            const result = breadCrumb.props.onChange(changedItem);
+
+            expect(dataGrid._drillDownData).toHaveBeenCalledWith(changedItem.value);
+        })
+    });
+
     describe('Render grid', () => {
         beforeAll(() => {
             service.getReportTitle = jest.fn(() => 'ExchangeWinLoss');
@@ -46,31 +138,81 @@ describe('DataGrid ', () => {
         });
 
         describe('Has data', () => {
-            describe('_buildHeader', () => {
-                const headerName = {
-                    index: '#',
-                    date: 'Date',
-                    month: 'Month',
-                    externalId: 'ExternalId',
-                    systemId: 'SystemId',
-                    currency: 'Currency',
-                    turnover: 'Turnover',
-                    netTurnover: 'NetTurnover',
-                    totalTransaction: 'TotalTransaction',
-                    customer: 'Customer',
-                    customerWL: 'CustomerW_L',
-                    customerComm: 'CustomerComm',
-                    total: 'Total',
-                    licensee: 'Licensee',
-                    licenseeWL: 'LicenseeW_L',
-                    amountDueTo: 'AmountDueTo',
-                    licenseeComm: 'LicenseeComm',
+            const dataItem = {
+                Date: '2017-01-01T12:00:00',
+                ExternalId: 'ExternalId',
+                SystemId: 'SystemId',
+                CurrencyName: 'CurrencyName',
+                CurrencyId: 1,
+                Turnover: 'Turnover',
+                NetTurnover: 'NetTurnover',
+                TotalTransaction: 'TotalTransaction',
+                CustomerWL: 'CustomerWL',
+                CustomerComm: 'CustomerComm',
+                CustomerWLTotal: 'CustomerWLTotal',
+                LicenseeWL: 'LicenseeWL',
+                AmountDueTo: 'AmountDueTo',
+                LicenseeComm: 'LicenseeComm',
+                LicenseeWLTotal: 'LicenseeWLTotal'
+            };
+
+            const gridData = {
+                DataList: [dataItem],
+                TotalDataList: [dataItem],
+                SummaryTotal: {
+                    'Currency': dataItem
+                }
+            };
+
+            const headerName = {
+                index: '#',
+                date: 'Date',
+                month: 'Month',
+                externalId: 'ExternalId',
+                systemId: 'SystemId',
+                currency: 'Currency',
+                turnover: 'Turnover',
+                netTurnover: 'NetTurnover',
+                totalTransaction: 'TotalTransaction',
+                customer: 'Customer',
+                customerWL: 'CustomerW_L',
+                customerComm: 'CustomerComm',
+                total: 'Total',
+                licensee: 'Licensee',
+                licenseeWL: 'LicenseeW_L',
+                amountDueTo: 'AmountDueTo',
+                licenseeComm: 'LicenseeComm',
+            };
+
+            beforeAll(() => {
+                service.getHeaderText = jest.fn(() => headerName);
+            });  
+
+            it('grid data should be rendered correctly',() => {
+                const props = { 
+                    isAllowedCustomerComm: false,
+                    licenseeId: 2,
+                    gridData: { level: ReportLevel.MAIN, data: gridData },
+                    params: [{ ReportBy: ReportBy.DAILY }]
                 };
 
-                beforeAll(() => {
-                    service.getHeaderText = jest.fn(() => headerName);
-                });                
+                const dataGrid = new DataGrid(props);
+                const content = dataGrid.render();
 
+                const options = {
+                    createNodeMock: (element) => {
+                        return {
+                            offsetHeight: 1,
+                            offsetTop: 1
+                        };
+                    }
+                };
+                const result = renderer.create(content, options).toJSON();
+
+                expect(result).toMatchSnapshot();
+            });
+
+            describe('_buildHeader', () => {              
                 it('level MAIN - render header with Date column', () => {
                     const props = {
                         isAllowedCustomerComm: false,
@@ -162,15 +304,7 @@ describe('DataGrid ', () => {
             describe('_buildBody', () => {
                 const drillDownLink = '<a>Drill down link</a>';
                 const cells = '<td>cell</td>';
-                const data = {
-                    DataList: [{
-                        Date: '2017-01-01T12:00:00',
-                        ExternalId: 'ExternalId',
-                        SystemId: 'SystemId',
-                        CurrencyName: 'CurrencyName',
-                        CurrencyId: 1
-                    }]
-                };
+                const data = gridData;
 
                 it('level MAIN - render body with Date column', () => {
                     const props = {
@@ -247,19 +381,147 @@ describe('DataGrid ', () => {
                 });
             });
 
-            describe('_buildCell', () => {
-                const item = {
-                    Turnover: 'Turnover',
-                    NetTurnover: 'NetTurnover',
-                    TotalTransaction: 'TotalTransaction',
-                    CustomerWL: 'CustomerWL',
-                    CustomerComm: 'CustomerComm',
-                    CustomerWLTotal: 'CustomerWLTotal',
-                    LicenseeWL: 'LicenseeWL',
-                    AmountDueTo: 'AmountDueTo',
-                    LicenseeComm: 'LicenseeComm',
-                    LicenseeWLTotal: 'LicenseeWLTotal'
+            describe('_buildFooter', () => {
+                const cells = '<td>cell</td>';
+                const data = gridData;
+
+                const totalText = {
+                    total: 'total',
+                    totalIn: 'totalIn'
                 };
+
+                beforeAll(() => {
+                    service.getTotalText = jest.fn(() => totalText);
+                });
+
+                it('render with correct text', () => {
+                    const props = {
+                        licenseeId: 1,
+                        gridData: { data: data }
+                    };
+                    const grid = new DataGrid(props);
+                    grid._buildCell = jest.fn( () => cells );
+                    const expectedTotalText = totalText.total;
+                    const expectedSummaryColSpan = totalText.totalIn + ' ' + Object.keys(data.SummaryTotal)[0];
+
+                    const footer = renderer.create(<div>{grid._buildFooter(ReportLevel.MAIN)}</div>);
+                    const result = footer.toJSON();
+
+                    const firstCellOfTotalRow = result.children[0].children[0];
+                    const firstCellOfSummaryRow = result.children[1].children[0];
+
+                    expect(firstCellOfTotalRow.props.title).toEqual(expectedTotalText);
+                    expect(firstCellOfSummaryRow.props.title).toEqual(expectedSummaryColSpan);
+                });
+
+                it('level MAIN - render with correct colSpan', () => {
+                    const props = {
+                        licenseeId: 1,
+                        gridData: { data: data }
+                    };
+                    const grid = new DataGrid(props);
+                    grid._buildCell = jest.fn( () => cells );
+                    const expectedTotalColSpan = 2;
+                    const expectedSummaryColSpan = 3;
+
+                    const footer = renderer.create(<div>{grid._buildFooter(ReportLevel.MAIN)}</div>);
+                    const result = footer.toJSON();
+
+                    const firstCellOfTotalRow = result.children[0].children[0];
+                    const firstCellOfSummaryRow = result.children[1].children[0];
+
+                    expect(firstCellOfTotalRow.props.colSpan).toEqual(expectedTotalColSpan);
+                    expect(firstCellOfSummaryRow.props.colSpan).toEqual(expectedSummaryColSpan);
+                });
+
+                it('level LICENSEE - render with correct colSpan', () => {
+                    const props = {
+                        licenseeId: 1,
+                        gridData: { data: data }
+                    };
+                    const grid = new DataGrid(props);
+                    grid._buildCell = jest.fn( () => cells );
+                    const expectedTotalColSpan = 2;
+                    const expectedSummaryColSpan = 3;
+
+                    const footer = renderer.create(<div>{grid._buildFooter(ReportLevel.LICENSEE)}</div>);
+                    const result = footer.toJSON();
+
+                    const firstCellOfTotalRow = result.children[0].children[0];
+                    const firstCellOfSummaryRow = result.children[1].children[0];
+
+                    expect(firstCellOfTotalRow.props.colSpan).toEqual(expectedTotalColSpan);
+                    expect(firstCellOfSummaryRow.props.colSpan).toEqual(expectedSummaryColSpan);
+                });
+
+                it('level CUSTOMER - render with correct colSpan', () => {
+                    const props = {
+                        licenseeId: 1,
+                        gridData: { data: data }
+                    };
+                    const grid = new DataGrid(props);
+                    grid._buildCell = jest.fn( () => cells );
+                    const expectedTotalColSpan = 3;
+                    const expectedSummaryColSpan = 4;
+
+                    const footer = renderer.create(<div>{grid._buildFooter(ReportLevel.CUSTOMER)}</div>);
+                    const result = footer.toJSON();
+
+                    const firstCellOfTotalRow = result.children[0].children[0];
+                    const firstCellOfSummaryRow = result.children[1].children[0];
+
+                    expect(firstCellOfTotalRow.props.colSpan).toEqual(expectedTotalColSpan);
+                    expect(firstCellOfSummaryRow.props.colSpan).toEqual(expectedSummaryColSpan);
+                });
+
+                it('level is invalid - render with correct colSpan', () => {
+                    const props = {
+                        licenseeId: 1,
+                        gridData: { data: data }
+                    };
+                    const grid = new DataGrid(props);
+                    grid._buildCell = jest.fn( () => cells );
+                    const expectedTotalColSpan = 2;
+                    const expectedSummaryColSpan = 3;
+
+                    const footer = renderer.create(<div>{grid._buildFooter(100)}</div>);
+                    const result = footer.toJSON();
+
+                    const firstCellOfTotalRow = result.children[0].children[0];
+                    const firstCellOfSummaryRow = result.children[1].children[0];
+
+                    expect(firstCellOfTotalRow.props.colSpan).toEqual(expectedTotalColSpan);
+                    expect(firstCellOfSummaryRow.props.colSpan).toEqual(expectedSummaryColSpan);
+                });
+
+                it('build total rows - return correct merged column', () => {
+                    const props = {
+                        licenseeId: 1,
+                        gridData: {
+                            data: {
+                                TotalDataList: [data.DataList[0], data.DataList[0]],
+                                SummaryTotal: {}
+                            }
+                        }
+                    };
+                    const grid = new DataGrid(props);
+                    grid._buildCell = jest.fn( () => cells );
+                    const expectedRowSpan = 2;
+
+                    const footer = renderer.create(<div>{grid._buildFooter(0)}</div>);
+                    const result = footer.toJSON();
+
+                    const firstCellOffirstRow = result.children[0].children[0];
+                    const firstCellOfSecondRow = result.children[1].children[0];
+
+                    expect(firstCellOffirstRow.props.rowSpan).toEqual(expectedRowSpan);
+                    expect(firstCellOffirstRow.props.title).toEqual(totalText.total);
+                    expect(firstCellOfSecondRow.props.title).toEqual(props.gridData.data.TotalDataList[1].CurrencyName);
+                });
+            });
+
+            describe('_buildCell', () => {
+                const item = gridData.DataList[0];
 
                 it('is allowed Customer Comm - render customer columns', () => {
                     const props = {
@@ -326,40 +588,4 @@ describe('DataGrid ', () => {
             });
         });
     });
-
-    describe('componentWillReceiveProps ', () => {
-        it('gridData update - get title report with correct parameter', () => {
-            const level = 0;
-            const dataGridProps = { 
-                gridData: { level: 0, data: { DataList: [] } },
-                params: [{ FromDate: '01/01/2017', ToDate: '02/01/2017', CurrencyName: 'USD', CurrencyId: 0 }, {}],
-                toggleLoader: jest.fn() 
-            };
-
-            const dataGrid = new DataGrid(dataGridProps);
-            const nextProps = Object.assign({}, dataGridProps, { gridData: { level: level, data: { DataList: ['change'] }}});
-
-            dataGrid.componentWillReceiveProps(nextProps);
-
-            expect(service.getReportTitle).toHaveBeenCalledWith({ 
-                fromDate: dataGridProps.params[level].FromDate, 
-                toDate: dataGridProps.params[level].ToDate }, 
-                dataGridProps.params[level].CurrencyName, 
-                dataGridProps.params[level].CurrencyId === 0);
-        })
-
-        it('gridData do not update - do not thing', () => {
-            const dataGridProps = { 
-                gridData: { level: 0, data: { DataList: [] } },
-                toggleLoader: jest.fn() 
-            };
-
-            const dataGrid = new DataGrid(dataGridProps);
-            const nextProps = Object.assign({}, dataGridProps, { selectedCurrency: 'EUR' });
-
-            dataGrid.componentWillReceiveProps(dataGridProps);
-
-            expect(dataGrid.props.toggleLoader).not.toHaveBeenCalled();
-        })
-    })
 });

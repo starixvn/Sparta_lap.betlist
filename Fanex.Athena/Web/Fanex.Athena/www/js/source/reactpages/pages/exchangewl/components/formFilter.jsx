@@ -137,7 +137,7 @@ export class FormFilter extends Component {
             value={selectedCurrency}
             options={currencyList}
             onChange={(item) => this.props.setSelectedCurrency(item)} />
-    }    
+    }
 
     _renderReportByOption() {
         const { reportByOption, selectedReportBy } = this.props;
@@ -154,6 +154,14 @@ export class FormFilter extends Component {
                     </span>)  
                 })
             }
+        </div>);
+    }
+
+    _renderExcludeTestDataCheckBox() {
+        return (<div className="checkbox-group">
+            <input type="checkbox" className="checkbox" checked={this.props.isExcludeTest} id="ExcludeTest"
+                   onChange={() => this.props.changeIsExcludeTest(!this.props.isExcludeTest)} />
+            <label style={{marginLeft: "0px"}} htmlFor="ExcludeTest">{LangHelper.getSingleResource("ExcludeTestData")}</label>
         </div>);
     }
 
@@ -181,11 +189,7 @@ export class FormFilter extends Component {
 
                     <div className='col-12 col-sm-12 col-md-2 col-xl-2'>
                         <div className="form-group">
-                           <div className="checkbox-group">
-                                <input type="checkbox" className="checkbox" checked={this.props.isExcludeTest} id="ExcludeTest"
-                           onChange={() => this.props.changeIsExcludeTest(!this.props.isExcludeTest)} />
-                           <label style={{marginLeft: "0px"}} htmlFor="ExcludeTest">{LangHelper.getSingleResource("ExcludeTestData")}</label>
-                            </div>
+                           {this._renderExcludeTestDataCheckBox()}
                         </div>
                     </div>
 

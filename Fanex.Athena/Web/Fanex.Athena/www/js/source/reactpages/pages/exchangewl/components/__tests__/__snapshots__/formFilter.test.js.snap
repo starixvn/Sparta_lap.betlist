@@ -1941,39 +1941,27 @@ exports[`FormFilter  filter component render whole component match to snapshot 1
       <div
         className="form-group"
       >
-        <label
-          className="label-text"
+        <div
+          className="checkbox-group"
         >
-          ExcludeTestData
-        </label>
-        <span>
           <input
-            checked={false}
-            id="ExcludeTestData0"
+            checked={true}
+            className="checkbox"
+            id="ExcludeTest"
             onChange={[Function]}
-            type="radio"
-            value="true"
+            type="checkbox"
           />
           <label
-            htmlFor="ExcludeTestData0"
+            htmlFor="ExcludeTest"
+            style={
+              Object {
+                "marginLeft": "0px",
+              }
+            }
           >
-            1
+            ExcludeTestData
           </label>
-        </span>
-        <span>
-          <input
-            checked={false}
-            id="ExcludeTestData1"
-            onChange={[Function]}
-            type="radio"
-            value="false"
-          />
-          <label
-            htmlFor="ExcludeTestData1"
-          >
-            2
-          </label>
-        </span>
+        </div>
       </div>
     </div>
     <div

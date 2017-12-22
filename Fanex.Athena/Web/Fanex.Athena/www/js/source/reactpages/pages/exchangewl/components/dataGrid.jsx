@@ -39,7 +39,7 @@ export class DataGrid extends Component {
                 return 2;
             case ReportLevel.CUSTOMER:
                 return 3;
-            default: return 1;
+            default: return 2;
         }
     }
 
@@ -204,7 +204,7 @@ export class DataGrid extends Component {
         let totalRows = [];
 
         const data = this.props.gridData.data.TotalDataList,
-            totalText = service.getTotalText().total,
+            totalText = service.getTotalText(),
             colSpan = this._getColSpan(level),
             rowSpan = data.length;
 
@@ -213,7 +213,7 @@ export class DataGrid extends Component {
            
             totalRows.push(
                 <Row key={`tr-total${i}`} className="fixed-table-total">
-                    {i === 0 ? <Cell title={totalText} className='center-align' rowSpan={rowSpan} colSpan={colSpan}>{totalText}</Cell> : undefined}
+                    {i === 0 ? <Cell title={totalText.total} className='center-align' rowSpan={rowSpan} colSpan={colSpan}>{totalText.total}</Cell> : undefined}
                     <Cell title={item.CurrencyName} className='center-align'>{item.CurrencyName}</Cell>
                     {this._buildCell(item)}
                 </Row>
@@ -222,7 +222,6 @@ export class DataGrid extends Component {
 
         const dataSummary = this.props.gridData.data.SummaryTotal,
             baseCurrencyList = Object.keys(dataSummary),
-            totalInText = service.getTotalText().totalIn,
             colSummarySpan = this._getColSpan(level) + 1;
 
         for (let i = baseCurrencyList.length - 1; i >= 0; i--) {
@@ -231,7 +230,7 @@ export class DataGrid extends Component {
            
             totalRows.push(
                 <Row key={`tr-grandtotal${i}`} className="fixed-table-grant-total">
-                    <Cell title={`${totalInText} ${currency}`} className='center-align' colSpan={colSummarySpan}>{`${totalInText} ${currency}`}</Cell>
+                    <Cell title={`${totalText.totalIn} ${currency}`} className='center-align' colSpan={colSummarySpan}>{`${totalText.totalIn} ${currency}`}</Cell>
                     {this._buildCell(item)}
                 </Row>
             );

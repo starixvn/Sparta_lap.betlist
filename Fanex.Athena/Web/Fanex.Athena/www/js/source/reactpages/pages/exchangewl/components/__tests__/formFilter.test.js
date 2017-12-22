@@ -6,9 +6,6 @@ import LangHelper from '../../../../lib/langHelper';
 import service from '../../lib/service';
 import ReportExcel from '../../lib/reportExcel';
 
-const selectComponentPath = 'react-select';
-const dateRangeComponentPath = '../../../../components/date-range/index';
-
 jest.mock('../../lib/reportExcel');
 
 describe('FormFilter ', () => {
@@ -19,8 +16,7 @@ describe('FormFilter ', () => {
         selectedCurrency: { value: '1', label: '1' },
         reportByOption: [{ value: '1', label: '1' }, { value: '2', label: '2' }],
         selectedReportBy: 1,
-        excludeTestDataOption: [{ value: 'true', label: '1' }, { value: 'false', label: '2' }],
-        selectedExcludeTestData: true,
+        isExcludeTest: true,
         isAllowedCustomerComm: true,
         setParams: jest.fn(),
         toggleLoader: jest.fn(),
@@ -162,7 +158,7 @@ describe('FormFilter ', () => {
                 expect(filterProps.setReportBy).toHaveBeenCalledWith(parseInt(newData));
             })
             
-            it('onChange - the new state is NaN - do not change selected report by state', () => {
+            it('onChange - the new state is NaN - do not change "selected report by" state', () => {
                 const filterProps = { ...props, setReportBy: jest.fn() };
                 const newData = 'a';
                 const event = {
@@ -176,7 +172,7 @@ describe('FormFilter ', () => {
                 expect(filterProps.setReportBy).not.toHaveBeenCalled();
             })
 
-            it('onChange - new state is the same with current state - do not change selected report by state', () => {
+            it('onChange - new state is the same with current state - do not change "selected report by" state', () => {
                 const filterProps = { ...props, setReportBy: jest.fn() };
                 const newData = '1';
                 const event = {
@@ -191,56 +187,29 @@ describe('FormFilter ', () => {
             })
         })
 
-        describe('_renderExcludeTestDataOption', () => {
+        describe('_renderExcludeTestDataCheckBox', () => {
             it('component props should be correct', () => {
-                const expectedResult = props.excludeTestDataOption.map((item) => {
-                    return {
-                        value: item.value,
-                        checked: item.value === props.selectedExcludeTestData
-                    };
-                });
-
-                const formFilter = new FormFilter(props);
-                const reportByOption = renderer.create(formFilter._renderExcludeTestDataOption()).toJSON();
-
-                let result = []
-                for (let i = 1; i <= props.reportByOption.length; i++) {
-                    const option = reportByOption.children[i];
-                    result.push({
-                        value: option.children[0].props.value,
-                        checked: option.children[0].props.checked
-                    });
+                const expectedResult = {
+                    checked: props.isExcludeTest,
+                    htmlFor: 'ExcludeTest'
                 }
 
-                expect(result).toEqual(expectedResult);
+                const formFilter = new FormFilter(props);
+                const reportByOption = renderer.create(formFilter._renderExcludeTestDataCheckBox()).toJSON();
+
+                expect(reportByOption.children[0].props.checked).toEqual(expectedResult.checked);
+                expect(reportByOption.children[1].props.htmlFor).toEqual(expectedResult.htmlFor);
             })
 
-            it('onChange - new state is not the same with current state - change selected report by state', () => {
-                const filterProps = { ...props, setExcludeTestData: jest.fn() };
-                const newData = 'false';
-                const event = {
-                    target: { value: newData }
-                };
+            it('onChange - change to new state', () => {
+                const filterProps = { ...props, changeIsExcludeTest: jest.fn() };
+                const expectedNewState = !props.isExcludeTest;
 
                 const formFilter = new FormFilter(filterProps);
-                const reportByOption = renderer.create(formFilter._renderExcludeTestDataOption()).toJSON();
-                reportByOption.children[2].children[0].props.onChange(event);
+                const reportByOption = renderer.create(formFilter._renderExcludeTestDataCheckBox()).toJSON();
+                reportByOption.children[0].props.onChange();
 
-                expect(filterProps.setExcludeTestData).toHaveBeenCalledWith(false);
-            })
-
-            it('onChange - new state is the same with current state - do not change selected report by state', () => {
-                const filterProps = { ...props, setExcludeTestData: jest.fn() };
-                const newData = 'true';
-                const event = {
-                    target: { value: newData }
-                };
-
-                const formFilter = new FormFilter(filterProps);
-                const reportByOption = renderer.create(formFilter._renderExcludeTestDataOption()).toJSON();
-                reportByOption.children[1].children[0].props.onChange(event);
-
-                expect(filterProps.setExcludeTestData).not.toHaveBeenCalled();
+                expect(filterProps.changeIsExcludeTest).toHaveBeenCalledWith(expectedNewState);
             })
         })
     });
@@ -292,7 +261,7 @@ describe('FormFilter ', () => {
                         FromDate: filterProps.dateRange.fromDate,
                         ToDate: filterProps.dateRange.toDate,
                         ReportBy: filterProps.selectedReportBy,
-                        ExcludeTestData: filterProps.selectedExcludeTestData,
+                        ExcludeTestData: filterProps.isExcludeTest,
                         Level: 0
                     }
                 };

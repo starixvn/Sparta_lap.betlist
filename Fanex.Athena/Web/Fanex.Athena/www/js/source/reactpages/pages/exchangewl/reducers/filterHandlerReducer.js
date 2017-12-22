@@ -13,18 +13,6 @@ export const selectedReportBy = createReducer({}, {
     }
 })
 
-export const excludeTestDataOption = createReducer({}, {
-    [types.GET_EXCLUDE_TESTDATA](state, action) {
-        return action.data;
-    }
-})
-
-export const selectedExcludeTestData = createReducer({}, {
-    [types.SET_EXCLUDE_TESTDATA](state, action) {
-        return action.data;
-    }
-})
-
 export const dateRange = createReducer({}, {
     [types.SET_DATE_RANGE](state, action) {
         return action.data;

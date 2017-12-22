@@ -933,7 +933,8 @@
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\types.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\__tests__\dataHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\__tests__\filterHandlerAction.test.js" />
-    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\dataGrid.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\dataGrid.method.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\dataGrid.render.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\formFilter.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\lib\reportExcel.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\lib\service.js" />

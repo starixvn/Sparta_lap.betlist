@@ -14,18 +14,6 @@ describe('filterHandlerAction', () => {
         expect(result).toEqual(expectedAction);
     })
 
-    it('setExcludeTestData - should create an correct action', () => {
-        const data = { value: 1 };
-        const expectedAction = {
-            type: types.SET_EXCLUDE_TESTDATA,
-            data: data
-        };
-
-        const result = actions.setExcludeTestData(data);
-
-        expect(result).toEqual(expectedAction);
-    })
-
     it('setDateRange - should create an correct action', () => {
         const dateRange = { startDate: '01/01/2017', endDate: '10/10/2017' };
 
