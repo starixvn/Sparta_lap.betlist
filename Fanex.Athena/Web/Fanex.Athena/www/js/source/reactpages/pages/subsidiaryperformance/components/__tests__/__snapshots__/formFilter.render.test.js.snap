@@ -2040,7 +2040,7 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
         <label
           className="label-text"
         >
-          Based
+          BaseCurrency
         </label>
         <div
           className="Select Select--single is-clearable is-searchable has-value"
@@ -2171,7 +2171,7 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
     className="row"
   >
     <div
-      className="col-12 col-md-5 col-sm-5 col-lg-5 col-xl-3"
+      className="col-12 col-md-12 col-sm-12 col-lg-6 col-xl-6"
     >
       <div
         className="form-group"
@@ -2189,7 +2189,7 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
           <label
             htmlFor="IsConvertAll"
           >
-            ConvertAll
+            ConvertAllFiguresToBaseCurrency
           </label>
         </div>
         <div

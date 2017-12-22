@@ -38,7 +38,7 @@ describe('FormFilter ', () => {
 
                 const expectedResult = {
                     dataSource: formFilterPropsForRender.subsidiaryList,
-                    keyField: "ID",
+                    keyField: "Name",
                     valueField: "Name",
                     statusField: "Checked",
                     optionAllLabel: "All",
