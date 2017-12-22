@@ -52,6 +52,7 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpGet]
+#pragma warning disable S107 // Methods should not have too many parameters
         public dynamic NumberGame(
             int page,
             int rows,
@@ -67,6 +68,7 @@ namespace Fanex.Athena.Api.BetList
             int liveIndicator,
             string sortBy = null,
             string sortOrder = null)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
@@ -97,6 +99,7 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpGet]
+#pragma warning disable S107 // Methods should not have too many parameters
         public dynamic MixParlay(
             int page,
             int rows,
@@ -114,6 +117,7 @@ namespace Fanex.Athena.Api.BetList
             string productCodeList,
             string sortBy = null,
             string sortOrder = null)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
@@ -148,6 +152,7 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpGet]
+#pragma warning disable S107 // Methods should not have too many parameters
         public dynamic Racing(
             int page,
             int rows,
@@ -163,6 +168,7 @@ namespace Fanex.Athena.Api.BetList
             string baseCurrency,
             string sortBy = null,
             string sortOrder = null)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             const string UspName = "Lrf_BetList_LiveReport_SelWinlossRacing";
 
@@ -195,6 +201,7 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpGet]
+#pragma warning disable S107 // Methods should not have too many parameters
         public dynamic VirtualSports(
             int page,
             int rows,
@@ -210,6 +217,7 @@ namespace Fanex.Athena.Api.BetList
             string baseCurrency,
             string sortBy = null,
             string sortOrder = null)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             const string UspName = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
 

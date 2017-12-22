@@ -20,6 +20,7 @@ namespace Fanex.Athena.Api.BetList
     public class DailyBetListController : ApiBetListBaseController
     {
         [HttpGet]
+#pragma warning disable S107 // Methods should not have too many parameters
         public dynamic Index(
             int page,
             int rows,
@@ -31,6 +32,7 @@ namespace Fanex.Athena.Api.BetList
             string status,
             string sortBy = null,
             string sortOrder = null)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             const string UspKey = "Lrf_BetList_SelWinlossDaily";
 

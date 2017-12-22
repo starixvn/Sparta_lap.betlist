@@ -9,7 +9,6 @@ namespace Fanex.Athena.Model.Core.Helper
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Threading;
-    using DTO.Common;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using RemotingRef;

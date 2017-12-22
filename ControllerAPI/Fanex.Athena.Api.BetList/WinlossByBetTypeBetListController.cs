@@ -14,6 +14,7 @@
     public class WinlossByBetTypeBetListController : ApiBetListBaseController
     {
         [HttpGet]
+#pragma warning disable S107 // Methods should not have too many parameters
         public dynamic Index(
             int page,
             int rows,
@@ -25,6 +26,7 @@
             int bettype,
             string sortBy = null,
             string sortOrder = null)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             if (currencyId != 0 && !SessionService.UserSession.CurrencyList.ContainsKey(currencyId))
             {

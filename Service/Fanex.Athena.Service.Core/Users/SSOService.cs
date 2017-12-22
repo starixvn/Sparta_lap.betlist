@@ -57,6 +57,7 @@ namespace Fanex.Athena.Service.Core.Users
             _keyPath = ConfigurationManager.AppSettings["SSOKeyPath"] ?? string.Empty;
         }
 
+#pragma warning disable S107 // Methods should not have too many parameters
         public SSOService(
             IHttpContextService httpContextService,
             IAuthService authService,
@@ -66,6 +67,7 @@ namespace Fanex.Athena.Service.Core.Users
             IFormsAuthenticationService formsAuthenticationService,
             string deniedPath,
             string keyPath)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             _context = httpContextService;
             _authService = authService;

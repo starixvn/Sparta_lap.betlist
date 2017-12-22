@@ -67,6 +67,7 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpGet]
+#pragma warning disable S107 // Methods should not have too many parameters
         public dynamic MixParlay(
             int page,
             int rows,
@@ -78,6 +79,7 @@ namespace Fanex.Athena.Api.BetList
             string productCodeList,
             string sortBy = null,
             string sortOrder = null)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;

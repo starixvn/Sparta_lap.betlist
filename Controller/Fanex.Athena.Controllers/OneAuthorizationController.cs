@@ -2,6 +2,7 @@
 {
     using System.Text;
     using System.Web.Mvc;
+    using Extension.Helper;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Service.Core.Users;
@@ -83,11 +84,10 @@
             return Redirect(Url.Content(returnUrl));
         }
 
-        private static bool VerifyToken(OneAuthToken tokenInfo)
+        private static bool VerifyToken(OneAuthToken token)
         {
-            return !string.IsNullOrEmpty(tokenInfo.SiteName) && tokenInfo.UserSEQ > 0
-                && !string.IsNullOrEmpty(tokenInfo.VendorID) && !string.IsNullOrEmpty(tokenInfo.UserID)
-                && !string.IsNullOrEmpty(tokenInfo.Language) && !string.IsNullOrEmpty(tokenInfo.ActionLink);
+            return token.UserSEQ > 0 && 
+                !StringHelper.IsAnyNullOrEmpty(token.SiteName, token.VendorID, token.UserID, token.Language, token.ActionLink);
         }
 
         private bool IsInternalDomain(string actionLink)

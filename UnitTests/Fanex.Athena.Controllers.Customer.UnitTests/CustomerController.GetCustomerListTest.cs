@@ -165,8 +165,6 @@
             using (var controller = CreateContoller())
             {
                 // Arrange
-                const string BaMessage = "Message";
-
                 AppSettings.FakeLicenseeList.Returns(Enumerable.Empty<int>());
                 _productService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>()).Returns(new ProductAccess(new List<Product>()));
                 StubLicenseeSessionData(DefaultLicenseeSession);

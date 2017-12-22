@@ -56,6 +56,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
+#pragma warning disable S107 // Methods should not have too many parameters
         public dynamic Index(
            WinLossByProductMetaModel metaModel,
             DateTime? fdate,
@@ -66,6 +67,7 @@ namespace Fanex.Athena.Api.Report
             int memberId = 0,
             string systemId = null,
             string currencyName = null)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             return ProcessRequest(metaModel, fdate, tdate, level, currencyId, custId, memberId, systemId, currencyName);
         }
@@ -231,6 +233,7 @@ namespace Fanex.Athena.Api.Report
            "StyleCop.CSharp.StylecopPlus.Rules",
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
+#pragma warning disable S107 // Methods should not have too many parameters
         private dynamic ProcessRequest(
             WinLossByProductMetaModel metaModel,
             DateTime? fdate,
@@ -241,6 +244,7 @@ namespace Fanex.Athena.Api.Report
             int memberId = 0,
             string systemId = null,
             string currencyName = null)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             if (!IsValidRequest(metaModel, currencyId))
             {

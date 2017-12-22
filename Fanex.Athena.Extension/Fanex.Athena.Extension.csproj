@@ -156,6 +156,7 @@
     <Compile Include="Helper\DateTimeHelper.cs" />
     <Compile Include="Helper\JSONHelper.cs" />
     <Compile Include="Helper\NumberHelper.cs" />
+    <Compile Include="Helper\StringHelper.cs" />
     <Compile Include="Utility\AppSettings.cs" />
     <Compile Include="Utility\Interfaces\IMemoryCacheService.cs" />
     <Compile Include="Utility\MemoryCacheService.cs" />
