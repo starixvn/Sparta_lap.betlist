@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Service.BetSettings.UnitTests
 {
+    using System;
     using CitiXchangeLibrary;
     using Core.Users.Interfaces;
     using DataAccess.Core.Common.Interfaces;
@@ -13,7 +14,6 @@
     {
         private const int LicenseeId = 1;
         private const int CustId = 2;
-        private const int ProductId = 3;
         private const int UserId = 4;
 
         private IAuthorizationService _authorizationService;
@@ -86,6 +86,87 @@
                 Assert.That(result.IsSuccessful, Is.EqualTo(isSuccess));
                 Assert.That(result.ExtendedData, Is.EqualTo(ExpectedComm));
                 _apiClient.Received(1).getProfile(CustId, Enviro.PRD);
+            });
+        }
+
+        [Test]
+        public void GetCommission_ApiThrowException_LogAndReturnFailedResult()
+        {
+            // Arrange
+            const string ErrorMsg = "something wrong";
+            _authorizationService.HasPermissionOnData(0, 0, 0).ReturnsForAnyArgs(true);
+            _apiClient.getProfile(0, Enviro.PRD).ReturnsForAnyArgs(x => { throw new Exception(ErrorMsg); });
+
+            // Action
+            var result = _service.GetCommission(0, 0);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _logger.Received(1).Error("Exchange Api getProfile: " + ErrorMsg);
+                Assert.That(result.IsSuccessful, Is.False);
+            });
+        }
+
+        [Test]
+        public void UpdateCommission_NotHavePerrmissonOnData_ReturnFailedResult()
+        {
+            // Arrange
+            _authorizationService.HasPermissionOnData(0, 0, 0).ReturnsForAnyArgs(false);
+
+            // Action
+            var result = _service.UpdateCommission(0, 0, 0, 0);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.IsSuccessful, Is.False);
+                _apiClient.DidNotReceiveWithAnyArgs().getProfile(0, Enviro.PRD);
+            });
+        }
+
+        [TestCase(1, true)]
+        [TestCase(0, false)]
+        [TestCase(2, false)]
+        public void UpdateCommission_HavePerrmissonOnData_ReturnCorrectResult(int returnStatus, bool isSuccess)
+        {
+            // Arrange
+            const double ExpectedComm = 999;
+            _authorizationService.HasPermissionOnData(LicenseeId, CustId, 0).Returns(true);
+            _apiClient.updateCommission(CustId, ExpectedComm, Enviro.PRD).Returns(new CommissionInfo
+            {
+                status = (CitiStatus)returnStatus,
+                commission = ExpectedComm
+            });
+
+            // Action
+            var result = _service.UpdateCommission(LicenseeId, UserId, CustId, ExpectedComm);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.IsSuccessful, Is.EqualTo(isSuccess));
+                Assert.That(result.ExtendedData, Is.EqualTo(ExpectedComm));
+                _apiClient.Received(1).updateCommission(CustId, ExpectedComm, Enviro.PRD);
+            });
+        }
+
+        [Test]
+        public void UpdateCommission_ApiThrowException_LogAndReturnFailedResult()
+        {
+            // Arrange
+            const string ErrorMsg = "something wrong";
+            _authorizationService.HasPermissionOnData(0, 0, 0).ReturnsForAnyArgs(true);
+            _apiClient.updateCommission(0, 0, Enviro.PRD).ReturnsForAnyArgs(x => { throw new Exception(ErrorMsg); });
+
+            // Action
+            var result = _service.UpdateCommission(0, 0, 0, 0);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _logger.Received(1).Error("Exchange Api updateCommission: " + ErrorMsg);
+                Assert.That(result.IsSuccessful, Is.False);
             });
         }
     }
