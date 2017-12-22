@@ -929,7 +929,7 @@
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\lib\__tests__\service.test.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\dataHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\filterHandlerReducer.js" />
-    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\index.js" />    <Content Include="www\js\source\reactpages\pages\notification\components\notification\actions\dataHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\notification\actions\general\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\notification\actions\general\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\notification\actions\general\index.js" />
@@ -987,7 +987,6 @@
     <Content Include="www\js\source\reactpages\reducers\xsrfTokenReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\excludeTestReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\baseCurrencyReducer.test.js" />
-	<Content Include="www\js\source\reactpages\reducers\__tests__\baseCurrency.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\loaderReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\productReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\userGuideReducer.test.js" />
@@ -2629,9 +2628,10 @@
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\__snapshots__\datagrid.test.js.snap" />
     <Content Include="www\js\source\reactpages\components\popup\Popup.jsx" />
     <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\UserGuide.test.js.snap" />
-    <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\Popup.test.js.snap" />    <Content Include="www\js\source\reactpages\pages\notification\components\notification\components\datagrid.jsx" />
+    <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\Popup.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\notification\components\general\datagrid.jsx" />
-    <Content Include="www\js\source\reactpages\pages\notification\components\general\formFilter.jsx" />    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\index.jsx" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\general\formFilter.jsx" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\index.jsx" />
     <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\datagrid.jsx" />
     <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\formFilter.jsx" />
     <Content Include="www\js\source\reactpages\components\CollapsibleRow.jsx" />

@@ -85,7 +85,7 @@
         "redux-logger": "^3.0.6",
         "redux-thunk": "^2.2.0",
         "resolve-url-loader": "^2.1.0",
-        "xlsx-style": "^0.8.13"
+        "xlsx-style-sparta": "^0.8.20"
     },
     "jest": {
         "testMatch": [
