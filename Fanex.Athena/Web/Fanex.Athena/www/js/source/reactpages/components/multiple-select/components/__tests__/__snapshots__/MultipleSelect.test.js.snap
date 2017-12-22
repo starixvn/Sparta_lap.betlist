@@ -3,6 +3,7 @@
 exports[`MultipleSelect  render showOptionList = false - render component with "display: none" for dropdown list 1`] = `
 <div
   className="multiple-select-container"
+  id="multiple-select-20"
 >
   <button
     className="multiple-select-default multiple-select-label"
@@ -58,6 +59,7 @@ exports[`MultipleSelect  render showOptionList = false - render component with "
 exports[`MultipleSelect  render showOptionList = true - render component with "display: block" for dropdown list 1`] = `
 <div
   className="multiple-select-container"
+  id="multiple-select-21"
 >
   <button
     className="multiple-select-default multiple-select-label"

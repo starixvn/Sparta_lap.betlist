@@ -45,7 +45,15 @@ describe('DataGrid ', () => {
                 }
             };
 
-            const dataGrid = renderer.create(<DataGrid {...props} />);
+            const options = {
+                createNodeMock: (element) => {
+                    return {
+                        offsetHeight: 1,
+                        offsetTop: 1
+                    };
+                }
+            };
+            const dataGrid = renderer.create(<DataGrid {...props} />, options);
 
             const result = dataGrid.toJSON();
 

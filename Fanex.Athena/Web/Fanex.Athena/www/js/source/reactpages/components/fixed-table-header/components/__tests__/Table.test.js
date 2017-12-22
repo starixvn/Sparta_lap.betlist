@@ -208,8 +208,16 @@ describe('Table ', () => {
                 }
             };
 
+            const options = {
+                createNodeMock: (element) => {
+                    return {
+                        offsetHeight: 1,
+                        offsetTop: 1
+                    };
+                }
+            };
             const props = Object.assign({}, defaultProps, paging, { header, body, footer });
-            const table = renderer.create(<Table {...props} />);
+            const table = renderer.create(<Table {...props} />, options);
 
             const result = table.toJSON();
 

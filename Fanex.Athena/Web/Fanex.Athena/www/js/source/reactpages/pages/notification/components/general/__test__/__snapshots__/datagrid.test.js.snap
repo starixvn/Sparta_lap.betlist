@@ -157,7 +157,7 @@ exports[`DataGrid  render  has data - render table 1`] = `
       className="body-content"
       style={
         Object {
-          "maxHeight": 540,
+          "maxHeight": 737,
           "minWidth": 650,
           "width": -30,
         }
