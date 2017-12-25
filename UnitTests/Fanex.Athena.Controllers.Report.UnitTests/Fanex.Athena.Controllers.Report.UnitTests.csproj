@@ -218,6 +218,7 @@
     <Compile Include="ActiveCustomerSummaryReportControllerTest.cs" />
     <Compile Include="LicenseeWinLossReportControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubsidiaryPerformanceReportControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Controller\Fanex.Athena.Controllers.Base\Fanex.Athena.Controllers.Base.csproj">
