@@ -21,13 +21,13 @@ namespace Fanex.Athena.Api.CustomerLog
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Model.Customer.ViewModel.CustomerLog;
     using Model.Core.DataDomain;
+    using Model.Core.DTO.Common;
     using RazorEngine;
     using RazorEngine.Templating;
     using Resources;
     using Service.Core.Helpers;
     using Service.Core.Users;
     using Service.Core.Users.Interfaces;
-    using Model.Core.DTO.Common;
 
     [ApiFunctionAuthorization(PermissionKeys.CustomerInfoCustomerLog)]
     public partial class LogController : BaseApiController

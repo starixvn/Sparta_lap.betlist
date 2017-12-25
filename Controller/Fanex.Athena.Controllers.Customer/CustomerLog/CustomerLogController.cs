@@ -14,8 +14,8 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
     using Model.Core.DataDomain;
     using ONEbook.UM.Filters;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Users.Interfaces;
     using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
@@ -34,9 +34,8 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
             ISessionService sessionService,
             IAppSettings appSetting,
             IProductService productService,
-                   IClientViewHelper clientViewHelper
-            )
-            : base(languageService, sessionService, appSetting, clientViewHelper)
+            IClientViewHelper clientViewHelper)
+        : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _productService = productService;
         }

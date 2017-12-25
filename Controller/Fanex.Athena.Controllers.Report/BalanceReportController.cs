@@ -20,8 +20,8 @@ namespace Fanex.Athena.Controllers.Report
     using Model.Core.DataDomain;
     using Model.Report.DTO;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Users.Interfaces;
     using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportBalance)]
     public class BalanceReportController : ReportBaseController
@@ -38,9 +38,8 @@ namespace Fanex.Athena.Controllers.Report
             IAppSettings appSetting,
             IProductService productService,
             IBalanceDataAccess balanceDataAccess,
-             IClientViewHelper clientViewHelper
-            )
-            : base(languageService, sessionService, appSetting, productService, clientViewHelper)
+            IClientViewHelper clientViewHelper)
+        : base(languageService, sessionService, appSetting, productService, clientViewHelper)
         {
             _balanceDataAccess = balanceDataAccess ?? new BalanceDataAccess();
         }

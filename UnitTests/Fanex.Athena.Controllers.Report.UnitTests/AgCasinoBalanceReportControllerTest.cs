@@ -46,8 +46,7 @@
                 SessionService,
                 AppSettings,
                 Substitute.For<IProductService>(),
-                ClientViewHelper
-                );
+                ClientViewHelper);
         }
     }
 }

@@ -89,7 +89,8 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            _outrightDataAccess);
+                            _outrightDataAccess,
+                            ClientViewHelper);
         }
 
         private void SepUpForService()

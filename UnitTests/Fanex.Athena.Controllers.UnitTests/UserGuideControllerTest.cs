@@ -311,7 +311,7 @@
 
         private UserGuideController CreateController()
         {
-            var controller = new UserGuideController(LangService, SessionService, AppSettings, _fileSystem, _productService)
+            var controller = new UserGuideController(LangService, SessionService, AppSettings, _fileSystem, _productService, ClientViewHelper)
             {
                 ControllerContext = ControllerContext
             };

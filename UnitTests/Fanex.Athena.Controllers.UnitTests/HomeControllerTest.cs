@@ -257,7 +257,7 @@
 
         private HomeController CreateController()
         {
-            return new HomeController(LangService, SessionService, AppSettings)
+            return new HomeController(LangService, SessionService, AppSettings, ClientViewHelper)
             {
                 ControllerContext = ControllerContext
             };

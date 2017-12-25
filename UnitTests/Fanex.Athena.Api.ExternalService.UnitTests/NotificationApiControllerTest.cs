@@ -185,8 +185,6 @@
             };
 
             NotificationMarkAsReadMetaModel passedParam = null;
-
-
             _notificationService.MarkNotificationAsRead(Arg.Do<NotificationMarkAsReadMetaModel>(x => passedParam = x))
                                 .Returns(new ResultInfo());
 

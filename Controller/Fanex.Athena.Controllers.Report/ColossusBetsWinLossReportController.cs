@@ -15,8 +15,8 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Users.Interfaces;
     using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportColossusBetsWinLoss)]
     public class ColossusBetsWinLossReportController : ReportBaseController

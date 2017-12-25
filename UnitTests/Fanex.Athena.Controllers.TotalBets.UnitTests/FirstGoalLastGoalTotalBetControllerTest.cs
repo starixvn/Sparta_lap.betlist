@@ -106,7 +106,6 @@
                             SessionService,
                             AppSettings,
                             _firstGoalLastGoalDataAccess,
-
                             ClientViewHelper);
         }
     }

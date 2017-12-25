@@ -105,7 +105,8 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            _moneyLineDataAccess);
+                            _moneyLineDataAccess,
+                            ClientViewHelper);
         }
     }
 }

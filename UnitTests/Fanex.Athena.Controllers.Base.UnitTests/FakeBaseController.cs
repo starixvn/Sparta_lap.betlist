@@ -4,12 +4,13 @@
     using Extension.Utility;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Model.Core.MetaModel;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     public class FakeBaseController : BaseController
     {
-        internal FakeBaseController(ILanguageService languageService, ISessionService sessionService, IAppSettings appSetting)
-            : base(languageService, sessionService, appSetting)
+        internal FakeBaseController(ILanguageService languageService, ISessionService sessionService, IAppSettings appSetting, IClientViewHelper clientViewHelper)
+            : base(languageService, sessionService, appSetting, clientViewHelper)
         {
         }
 

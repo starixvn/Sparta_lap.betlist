@@ -52,8 +52,7 @@
                 SessionService,
                 AppSettings,
                 productService,
-                ClientViewHelper
-                );
+                ClientViewHelper);
         }
     }
 }

@@ -27,9 +27,8 @@ namespace Fanex.Athena.Controllers.TotalBets
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper
-            )
-            : base(languageService, sessionService, appSetting, clientViewHelper)
+            IClientViewHelper clientViewHelper)
+        : base(languageService, sessionService, appSetting, clientViewHelper)
         {
         }
     }

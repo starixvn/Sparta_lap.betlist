@@ -10,9 +10,8 @@
     using ONEbook.UM.Filters;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Users.Interfaces;
-    using Model.Core.DataDomain;
     using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
@@ -32,9 +31,8 @@
             ISessionService sessionService,
             IAppSettings appSetting,
             IProductService productService,
-            IClientViewHelper clientViewHelper
-            )
-            : base(languageService, sessionService, appSetting, clientViewHelper)
+            IClientViewHelper clientViewHelper)
+        : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _productService = productService ?? new ProductService();
         }
@@ -53,6 +51,5 @@
                 Status = true
             }).ToList();
         }
-
     }
 }

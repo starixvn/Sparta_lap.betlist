@@ -61,8 +61,7 @@ namespace Fanex.Athena.Controllers.Customer
             IGroupComService groupComService,
             ILicenseeDataAccess licenseeDataAccess,
             IProductService productService,
-             IClientViewHelper clientViewHelper
-            )
+            IClientViewHelper clientViewHelper)
 #pragma warning restore S107 // Methods should not have too many parameters
             : base(languageService, sessionService, appSetting, clientViewHelper)
         {

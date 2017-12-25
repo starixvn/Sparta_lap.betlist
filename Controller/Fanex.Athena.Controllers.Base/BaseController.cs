@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Controllers
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
@@ -15,13 +14,11 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
-    using Logging;
     using Model.Core.MetaModel;
     using Service.Core.Common;
     using Service.Core.Helpers;
     using Service.Core.Users;
-    using System.IO;
-    using System.Web;
+
     [CustomAuthorize]
     [XFrameOption]
     public class BaseController : Controller
@@ -31,6 +28,7 @@ namespace Fanex.Athena.Controllers
         private readonly ISessionService _sessionService;
         private readonly IAppSettings _appSettings;
         private readonly IClientViewHelper _clientViewHelper;
+
         public BaseController() : this(null, null, null, null)
         {
         }
@@ -83,9 +81,7 @@ namespace Fanex.Athena.Controllers
             base.Initialize(requestContext);
             var currentLanguage = LangService.GetCurrentLanguage();
             LangService.SetPageCulture(currentLanguage);
-
         }
-
 
         protected override ViewResult View(string viewName, string masterName, object model)
         {

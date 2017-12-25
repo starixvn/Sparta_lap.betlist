@@ -22,9 +22,9 @@
     using Model.Core.DataDomain;
     using ONEbook.UM.Filters;
     using Resources;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Customer.Helpers;
-    using Service.Core.Helpers;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
@@ -55,9 +55,8 @@
             IAppSettings appSetting,
             IGroupComService groupComService,
             IProductService productService,
-             IClientViewHelper clientViewHelper)
-
-            : base(languageService, sessionService, appSetting, clientViewHelper)
+            IClientViewHelper clientViewHelper)
+        : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _groupComService = groupComService;
             _productService = productService;

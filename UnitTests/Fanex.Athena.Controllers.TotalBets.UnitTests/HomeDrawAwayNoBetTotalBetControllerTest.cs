@@ -89,7 +89,8 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            _homeDrawAwayNoBetDataAccess);
+                            _homeDrawAwayNoBetDataAccess,
+                            ClientViewHelper);
         }
 
         private void SepUpForService()

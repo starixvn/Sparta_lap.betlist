@@ -191,7 +191,8 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            _handicapOverUnderDataAccess);
+                            _handicapOverUnderDataAccess,
+                            ClientViewHelper);
         }
     }
 }

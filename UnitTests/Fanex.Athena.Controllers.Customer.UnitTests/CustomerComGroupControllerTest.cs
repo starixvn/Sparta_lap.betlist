@@ -198,7 +198,8 @@
                SessionService,
                AppSettings,
                _groupComService,
-               _productService);
+               _productService, 
+               ClientViewHelper);
             controller.ControllerContext = ControllerContext;
             return controller;
         }

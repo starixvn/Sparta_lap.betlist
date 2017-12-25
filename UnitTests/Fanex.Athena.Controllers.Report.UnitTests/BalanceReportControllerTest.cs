@@ -99,8 +99,7 @@
                 AppSettings,
                 productService,
                 _balanceDataAccess,
-                ClientViewHelper
-                );
+                ClientViewHelper);
         }
     }
 }

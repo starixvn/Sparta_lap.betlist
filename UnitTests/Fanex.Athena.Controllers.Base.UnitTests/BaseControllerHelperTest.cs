@@ -2,20 +2,21 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Security.Principal;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
     using Extension.Utility;
+    using Model.Core.DataDomain;
+    using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Web.RouterConfig;
-    using System.IO;
-    using Service.Core.Helpers;
-    using Model.Core.DataDomain;
 
     [TestFixture]
     public abstract class BaseControllerHelperTest
@@ -60,7 +61,11 @@
             SessionService = Substitute.For<ISessionService>();
             AppSettings = Substitute.For<IAppSettings>();
             ClientViewHelper = Substitute.For<IClientViewHelper>();
-            ClientViewHelper.GetViewPath(Arg.Any<string>(), Arg.Any<ClientViewType>()).Returns(x => x[0]);
+            ClientViewHelper.GetViewPath(Arg.Any<string>(), Arg.Any<ClientViewType>()).Returns(x => new ViewByOption
+            {
+                IsNavigationView = false,
+                ViewPath = (string)x[0]
+            });
             SetUpForContexts();
         }
 
@@ -117,14 +122,13 @@
             httpBaseContext.Server.MapPath(Arg.Any<string>()).Returns(x => (string)x[0]);
             httpBaseContext.User.Returns(principal);
 
+            var requestContext = new RequestContext(httpBaseContext, new RouteData());
+
             ControllerContext = Substitute.For<ControllerContext>();
             ControllerContext.HttpContext = httpBaseContext;
             HttpContext.Current = new HttpContext(
-                new HttpRequest("", TestingRequestDomain, ""),
-                new HttpResponse(new StringWriter())
-                );
-
-            var requestContext = new RequestContext(httpBaseContext, new RouteData());
+                new HttpRequest(string.Empty, TestingRequestDomain, string.Empty),
+                new HttpResponse(new StringWriter()));
 
             Url = new UrlHelper(requestContext, routes);
         }

@@ -109,7 +109,8 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            _halfTimeFullTimeDataAccess);
+                            _halfTimeFullTimeDataAccess,
+                            ClientViewHelper);
         }
     }
 }

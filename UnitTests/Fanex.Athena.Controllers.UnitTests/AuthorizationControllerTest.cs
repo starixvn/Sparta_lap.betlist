@@ -407,7 +407,8 @@
                _maintenanceService,
                _userService,
                _authService,
-               _formAuthenticationService)
+               _formAuthenticationService,
+               ClientViewHelper)
             {
                 ControllerContext = ControllerContext
             };

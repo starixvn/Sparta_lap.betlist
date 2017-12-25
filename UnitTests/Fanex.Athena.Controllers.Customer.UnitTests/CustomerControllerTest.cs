@@ -201,7 +201,8 @@
                 _customerListService,
                 _groupComService,
                 _licenseeDataAccess,
-                _productService);
+                _productService,
+                ClientViewHelper);
             controller.ControllerContext = ControllerContext;
 
             return controller;

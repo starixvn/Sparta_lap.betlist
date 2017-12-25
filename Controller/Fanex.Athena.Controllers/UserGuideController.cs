@@ -20,8 +20,8 @@ namespace Fanex.Athena.Controllers
     using ONEbook.UM.Filters;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Users.Interfaces;
     using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
@@ -50,9 +50,8 @@ namespace Fanex.Athena.Controllers
             IAppSettings appSetting,
             IFileSystem fileSystem,
             IProductService productService,
-                IClientViewHelper clientViewHelper
-            )
-            : base(languageService, sessionService, appSetting, clientViewHelper)
+            IClientViewHelper clientViewHelper)
+        : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _productService = productService;
             _fileSystem = fileSystem;

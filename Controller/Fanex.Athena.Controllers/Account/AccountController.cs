@@ -14,7 +14,6 @@ namespace Fanex.Athena.Controllers.Account
     using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
     using Extension.Utility;
-    using Extension.Utility.Interfaces;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
@@ -23,11 +22,11 @@ namespace Fanex.Athena.Controllers.Account
     using Resources;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
     using Service.Core.Users;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
     using Web.ActionFilter;
-    using Service.Core.Helpers;
 
     /// <summary>
     ///     TODO: Update summary.
@@ -61,9 +60,8 @@ namespace Fanex.Athena.Controllers.Account
             IFunctionService functionService,
             IUserService userService,
             ICurrencyDataAccess currencyDataAccess,
-             IClientViewHelper clientViewHelper
-            )
-            : base(languageService, sessionService, appSetting, clientViewHelper)
+            IClientViewHelper clientViewHelper)
+        : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _functionService = functionService;
             _userService = userService;

@@ -21,8 +21,8 @@
 
         public DefaultCultureBaseController() : this(null, null, null)
         {
-
         }
+
         public DefaultCultureBaseController(ISessionService sessionService, IAppSettings appSetting, IClientViewHelper clientViewHelper)
         {
             _sessionService = sessionService ?? new SessionService();

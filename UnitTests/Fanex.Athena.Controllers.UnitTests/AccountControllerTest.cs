@@ -210,7 +210,8 @@
             AppSettings,
             _functionService,
             _userService,
-            _currencyDataAccess)
+            _currencyDataAccess,
+            ClientViewHelper)
             {
                 ControllerContext = ControllerContext
             };

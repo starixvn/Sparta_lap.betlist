@@ -14,8 +14,8 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Web.ActionFilter;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Users.Interfaces;
     using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss)]
     public class LicenseeWinLossReportController : ReportBaseController
@@ -29,9 +29,8 @@ namespace Fanex.Athena.Controllers.Report
             ISessionService sessionService,
             IAppSettings appSetting,
             IProductService productService,
-              IClientViewHelper clientViewHelper
-            )
-            : base(languageService, sessionService, appSetting, productService, clientViewHelper)
+            IClientViewHelper clientViewHelper)
+        : base(languageService, sessionService, appSetting, productService, clientViewHelper)
         {
         }
 
