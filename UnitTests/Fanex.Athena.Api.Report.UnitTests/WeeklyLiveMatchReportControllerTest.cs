@@ -98,7 +98,7 @@
             {
                 CurrencyId = -1,
                 FromDate = fromDate,
-                ToDate = fromDate.AddDays((NumberOfWeek - 1) * 7)
+                ToDate = fromDate.AddDays((NumberOfWeek) * 7)
             };
 
             var data = new List<WeeklyLiveMatch>
