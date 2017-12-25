@@ -43,7 +43,8 @@ describe('service ', () => {
                 betCount: "BetCount",
                 turnover: "Turnover",
                 customerWL: "CustomerW_L",
-                subsidiaryWL_comm: "SubsidiaryWL/ Comm"
+                subsidiaryWL: "SubsidiaryWL",
+                subsidiaryComm: "Subsidiary Comm"
             }
 
             const result = service.getHeaderText();

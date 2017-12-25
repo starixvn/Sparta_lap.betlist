@@ -45,6 +45,12 @@ exports[`DataGrid  Data is not empty _buildBody - render correct body content 1`
     >
       -141.76
     </td>
+    <td
+      className="right-align"
+      title=""
+    >
+      
+    </td>
   </tr>
   <tr>
     <td
@@ -75,6 +81,12 @@ exports[`DataGrid  Data is not empty _buildBody - render correct body content 1`
       title="0.56"
     >
       0.56
+    </td>
+    <td
+      className="right-align"
+      title=""
+    >
+      
     </td>
   </tr>
 </div>
@@ -120,6 +132,12 @@ exports[`DataGrid  Data is not empty _buildGrandTotal  SubsidiaryWL is negative 
     >
       -123.98
     </td>
+    <td
+      className="right-align"
+      title=""
+    >
+      
+    </td>
   </tr>
 </div>
 `;
@@ -164,6 +182,12 @@ exports[`DataGrid  Data is not empty _buildGrandTotal  SubsidiaryWL is positive 
     >
       14,046,469.75
     </td>
+    <td
+      className="right-align"
+      title=""
+    >
+      
+    </td>
   </tr>
 </div>
 `;
@@ -207,10 +231,11 @@ exports[`DataGrid  Data is not empty _buildHeader - render correct header conten
     CustomerW_L
   </th>
   <th
-    title="SubsidiaryWL/ Comm"
-  >
-    SubsidiaryWL/ Comm
-  </th>
+    title={undefined}
+  />
+  <th
+    title={undefined}
+  />
 </tr>
 `;
 
@@ -263,49 +288,56 @@ exports[`DataGrid  Data is not empty grid data should be rendered correctly 1`] 
               <td
                 style={
                   Object {
-                    "width": "-5.88px",
+                    "width": "-3.2142857142857144px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-5.88px",
+                    "width": "-3.2142857142857144px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-7.84px",
+                    "width": "-4.285714285714286px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-5.88px",
+                    "width": "-3.2142857142857144px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-7.84px",
+                    "width": "-4.285714285714286px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-7.84px",
+                    "width": "-4.285714285714286px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-7.84px",
+                    "width": "-4.285714285714286px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-3.2142857142857144px",
                   }
                 }
               />
@@ -348,10 +380,11 @@ exports[`DataGrid  Data is not empty grid data should be rendered correctly 1`] 
                 CustomerW_L
               </th>
               <th
-                title="SubsidiaryWL/ Comm"
-              >
-                SubsidiaryWL/ Comm
-              </th>
+                title={undefined}
+              />
+              <th
+                title={undefined}
+              />
             </tr>
           </thead>
         </table>
@@ -385,49 +418,56 @@ exports[`DataGrid  Data is not empty grid data should be rendered correctly 1`] 
               <td
                 style={
                   Object {
-                    "width": "-5.88px",
+                    "width": "-3.2142857142857144px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-5.88px",
+                    "width": "-3.2142857142857144px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-7.84px",
+                    "width": "-4.285714285714286px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-5.88px",
+                    "width": "-3.2142857142857144px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-7.84px",
+                    "width": "-4.285714285714286px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-7.84px",
+                    "width": "-4.285714285714286px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-7.84px",
+                    "width": "-4.285714285714286px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-3.2142857142857144px",
                   }
                 }
               />
@@ -475,6 +515,12 @@ exports[`DataGrid  Data is not empty grid data should be rendered correctly 1`] 
               >
                 -141.76
               </td>
+              <td
+                className="right-align"
+                title=""
+              >
+                
+              </td>
             </tr>
             <tr>
               <td
@@ -505,6 +551,12 @@ exports[`DataGrid  Data is not empty grid data should be rendered correctly 1`] 
                 title="0.56"
               >
                 0.56
+              </td>
+              <td
+                className="right-align"
+                title=""
+              >
+                
               </td>
             </tr>
           </tbody>
@@ -539,49 +591,56 @@ exports[`DataGrid  Data is not empty grid data should be rendered correctly 1`] 
               <td
                 style={
                   Object {
-                    "width": "-5.88px",
+                    "width": "-3.2142857142857144px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-5.88px",
+                    "width": "-3.2142857142857144px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-7.84px",
+                    "width": "-4.285714285714286px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-5.88px",
+                    "width": "-3.2142857142857144px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-7.84px",
+                    "width": "-4.285714285714286px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-7.84px",
+                    "width": "-4.285714285714286px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-7.84px",
+                    "width": "-4.285714285714286px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-3.2142857142857144px",
                   }
                 }
               />
@@ -624,6 +683,12 @@ exports[`DataGrid  Data is not empty grid data should be rendered correctly 1`] 
               >
                 0.00
               </td>
+              <td
+                className="right-align"
+                title=""
+              >
+                
+              </td>
             </tr>
             <tr
               className="fixed-table-total"
@@ -663,6 +728,12 @@ exports[`DataGrid  Data is not empty grid data should be rendered correctly 1`] 
               >
                 -141.76
               </td>
+              <td
+                className="right-align"
+                title=""
+              >
+                
+              </td>
             </tr>
             <tr
               className="fixed-table-grant-total"
@@ -701,6 +772,12 @@ exports[`DataGrid  Data is not empty grid data should be rendered correctly 1`] 
                 title="14,046,469.75"
               >
                 14,046,469.75
+              </td>
+              <td
+                className="right-align"
+                title=""
+              >
+                
               </td>
             </tr>
           </tbody>
@@ -751,6 +828,12 @@ exports[`DataGrid  Data is not empty render correct footer content 1`] = `
     >
       0.00
     </td>
+    <td
+      className="right-align"
+      title=""
+    >
+      
+    </td>
   </tr>
   <tr
     className="fixed-table-total"
@@ -789,6 +872,12 @@ exports[`DataGrid  Data is not empty render correct footer content 1`] = `
       title="-141.76"
     >
       -141.76
+    </td>
+    <td
+      className="right-align"
+      title=""
+    >
+      
     </td>
   </tr>
   Grand Total
