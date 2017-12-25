@@ -28,29 +28,7 @@
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
-            }
-        }
-
-        public ReportResultModel<ExchangeWinLoss> GetLicenseeWinloss(ExchangeWinLossMetaModel metaModel)
-        {
-            const string UspName = "Lrf_Rpt_ExchangeWinloss_Mem";
-            try
-            {
-                using (var db = GetObjectDb(UspName))
-                {
-                    db.AddInParameter("CustID", DbType.Int32, metaModel.CustId);
-                    UpdateUspParams(db, metaModel);
-
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader);
+                        return GetData(reader, metaModel);
                     }
                 }
             }
@@ -62,6 +40,28 @@
 
         public ReportResultModel<ExchangeWinLoss> GetCustomerWinloss(ExchangeWinLossMetaModel metaModel)
         {
+            const string UspName = "Lrf_Rpt_ExchangeWinloss_Mem";
+            try
+            {
+                using (var db = GetObjectDb(UspName))
+                {
+                    db.AddInParameter("CustID", DbType.Int32, metaModel.CustId);
+                    UpdateUspParams(db, metaModel);
+
+                    using (var reader = db.ExecuteReader())
+                    {
+                        return GetData(reader, metaModel);
+                    }
+                }
+            }
+            catch (ObjectDbException sqlException)
+            {
+                throw new DataAccessException(sqlException, UspName, metaModel);
+            }
+        }
+
+        public ReportResultModel<ExchangeWinLoss> GetLicenseeWinloss(ExchangeWinLossMetaModel metaModel)
+        {
             const string UspName = "Lrf_Rpt_ExchangeWinloss_Ag";
             try
             {
@@ -71,7 +71,7 @@
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader);
+                        return GetData(reader, metaModel);
                     }
                 }
             }
@@ -132,19 +132,20 @@
             }).ToList();
         }
 
-        private ReportResultModel<ExchangeWinLoss> GetData(IDataReader reader)
+        private ReportResultModel<ExchangeWinLoss> GetData(IDataReader reader, ExchangeWinLossMetaModel metaModel)
         {
             var dataList = new List<ExchangeWinLoss>();
             var summaryTotal = InitSummaryTotal();
             var hasSystemId = reader.HasColumn("username");
             var hasExternalId = reader.HasColumn("nickname");
             var hasCustomerId = reader.HasColumn("custid");
+            var hasWinlostdate = reader.HasColumn("Winlostdate");
 
             while (reader.Read())
             {
                 var item = new ExchangeWinLoss
                 {
-                    Date = reader.ToDateTime("Winlostdate"),
+                    Date = hasWinlostdate ? reader.ToDateTime("Winlostdate") : metaModel.ToDate,
                     CurrencyName = reader.ToString("CurrencyName"),
                     CurrencyId = reader.ToInt("CurrencyID"),
                     ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
