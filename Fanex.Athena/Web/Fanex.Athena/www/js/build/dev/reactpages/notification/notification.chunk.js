@@ -711,7 +711,6 @@ var GUTTER = exports.GUTTER = 15;
 var MAX_WIDTH = exports.MAX_WIDTH = BODY_WIDTH - GUTTER * 2;
 var DEFAULT_MILLISECOND_FOR_WAITING = exports.DEFAULT_MILLISECOND_FOR_WAITING = 500;
 var DEFAULT_COLUMN_WIDTH = exports.DEFAULT_COLUMN_WIDTH = 100;
-var PAGING_HEIGHT = exports.PAGING_HEIGHT = 32;
 
 /***/ }),
 
@@ -1809,7 +1808,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { title: item.Subject, className: 'notification-content' },
+                        { className: 'notification-content' },
                         _react2.default.createElement(_CollapsibleRow2.default, {
                             subject: item.Subject,
                             content: item.Content,
@@ -2167,23 +2166,29 @@ var CollapsibleRow = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var _props = this.props,
+                subject = _props.subject,
+                content = _props.content,
+                isHtml = _props.isHtml;
+
+
             return _react2.default.createElement(
                 'div',
                 { className: this.state.isCollapse ? "collapse-item collapse" : "collapse-item" },
                 _react2.default.createElement(
                     'div',
-                    { className: 'subject-item' },
+                    { title: subject, className: 'subject-item' },
                     _react2.default.createElement(
                         'span',
                         null,
-                        this.props.subject
+                        subject
                     ),
                     _react2.default.createElement('i', { className: 'icon-arrow', onClick: this.onClick })
                 ),
-                this.props.isHtml ? _react2.default.createElement('div', { className: 'content-item', dangerouslySetInnerHTML: { __html: this.props.content } }) : _react2.default.createElement(
+                isHtml ? _react2.default.createElement('div', { className: 'content-item', dangerouslySetInnerHTML: { __html: content } }) : _react2.default.createElement(
                     'div',
                     { className: 'content-item' },
-                    this.props.content
+                    content
                 )
             );
         }

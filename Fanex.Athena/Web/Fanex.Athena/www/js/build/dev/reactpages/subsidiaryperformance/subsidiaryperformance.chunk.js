@@ -3510,7 +3510,6 @@ var GUTTER = exports.GUTTER = 15;
 var MAX_WIDTH = exports.MAX_WIDTH = BODY_WIDTH - GUTTER * 2;
 var DEFAULT_MILLISECOND_FOR_WAITING = exports.DEFAULT_MILLISECOND_FOR_WAITING = 500;
 var DEFAULT_COLUMN_WIDTH = exports.DEFAULT_COLUMN_WIDTH = 100;
-var PAGING_HEIGHT = exports.PAGING_HEIGHT = 32;
 
 /***/ }),
 
@@ -5008,7 +5007,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     { className: 'row' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2' },
+                        { className: 'col-12 col-md-3 col-sm-5 col-lg-2 col-xl-2' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -5022,7 +5021,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-4 col-sm-4 col-lg-3 col-xl-3' },
+                        { className: 'col-12 col-md-4 col-sm-6 col-lg-3 col-xl-3' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -5036,7 +5035,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-3 col-sm-3 col-lg-3 col-xl-3' },
+                        { className: 'col-12 col-md-3 col-sm-5 col-lg-3 col-xl-3' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -5050,7 +5049,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2' },
+                        { className: 'col-12 col-md-2 col-sm-4 col-lg-2 col-xl-2' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
