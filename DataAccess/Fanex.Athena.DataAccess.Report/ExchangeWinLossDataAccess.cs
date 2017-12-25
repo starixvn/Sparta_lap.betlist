@@ -105,8 +105,8 @@
                 detail.CustomerComm += reader.ToDecimal("CustComm" + currency);
                 detail.LicenseeWL += reader.ToDecimal("LicenseeWinlost" + currency);
                 detail.LicenseeComm += reader.ToDecimal("AgentComm" + currency);
-                detail.TotalTransaction += reader.ToInt("TotalTrans" + currency);
                 detail.AmountDueTo += reader.ToDecimal("AmountDueTo" + currency);
+                detail.TotalTransaction += reader.ToInt("TotalTrans");
             }
         }
 

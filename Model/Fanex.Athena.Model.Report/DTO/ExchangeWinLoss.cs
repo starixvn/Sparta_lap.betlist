@@ -20,7 +20,7 @@
 
         public decimal NetTurnover { get; set; }
 
-        public decimal TotalTransaction { get; set; }
+        public int TotalTransaction { get; set; }
 
         public decimal CustomerWL { get; set; }
 

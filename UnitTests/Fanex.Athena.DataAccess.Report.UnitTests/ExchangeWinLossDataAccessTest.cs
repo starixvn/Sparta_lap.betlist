@@ -223,8 +223,6 @@
             ConfigureReaderForResult(firstExpected, expectedList);
             ConfigureReaderForCustomerResult(firstExpected, expectedList);
 
-            expectedList.Add(firstExpected);
-
             // Action
             var result = _dataAccess.GetCustomerWinloss(_metaModel);
             var firstItem = result.DataList.First();
@@ -285,7 +283,7 @@
         {
             _reader["CurrencyName"].Returns(firstExpected.CurrencyName, expectedList.Select(x => x.CurrencyName).ToArray());
             _reader["CurrencyID"].Returns(firstExpected.CurrencyId.ToString(), expectedList.Select(x => x.CurrencyId.ToString()).ToArray());
-            _reader["TotalTrans" + baseCurrency].Returns(firstExpected.TotalTransaction.ToString(), expectedList.Select(x => x.TotalTransaction.ToString()).ToArray());
+            _reader["TotalTrans"].Returns(firstExpected.TotalTransaction.ToString(), expectedList.Select(x => x.TotalTransaction.ToString()).ToArray());
             _reader["TurnOver" + baseCurrency].Returns(
                 (firstExpected.Turnover * rate).ToString(),
                 expectedList.Select(x => (x.Turnover * rate).ToString()).ToArray());
@@ -355,7 +353,6 @@
                 CurrencyId = g.Key.CurrencyId,
                 CurrencyName = g.Key.CurrencyName,
                 Turnover = g.Sum(x => x.Turnover),
-                TotalTransaction = g.Sum(x => x.TotalTransaction),
                 CustomerWL = g.Sum(x => x.CustomerWL),
                 CustomerComm = g.Sum(x => x.CustomerComm),
                 LicenseeWL = g.Sum(x => x.LicenseeWL),
@@ -382,7 +379,6 @@
                 var expected = new ExchangeWinLoss
                 {
                     Turnover = expectedList.Sum(x => x.Turnover) * _baseCurrencyExchangeRate[currency],
-                    TotalTransaction = expectedList.Sum(x => x.TotalTransaction),
                     CustomerWL = expectedList.Sum(x => x.CustomerWL) * _baseCurrencyExchangeRate[currency],
                     CustomerComm = expectedList.Sum(x => x.CustomerComm) * _baseCurrencyExchangeRate[currency],
                     LicenseeWL = expectedList.Sum(x => x.LicenseeWL) * _baseCurrencyExchangeRate[currency],
@@ -405,7 +401,6 @@
             Assert.That(actual.CustomerComm, Is.EqualTo(expected.CustomerComm));
             Assert.That(actual.LicenseeWL, Is.EqualTo(expected.LicenseeWL));
             Assert.That(actual.LicenseeComm, Is.EqualTo(expected.LicenseeComm));
-            Assert.That(actual.TotalTransaction, Is.EqualTo(expected.TotalTransaction));
             Assert.That(actual.AmountDueTo, Is.EqualTo(expected.AmountDueTo));
         }
     }
