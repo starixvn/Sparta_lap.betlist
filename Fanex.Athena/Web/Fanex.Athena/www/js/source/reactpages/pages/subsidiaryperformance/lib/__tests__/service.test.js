@@ -25,7 +25,7 @@ describe('service ', () => {
             const toDate = "09/30/2017";
             const selectedBaseCurrency = "EUR";
 
-            const expectedResult = `SubsidiaryPerformance, ${fromDate} - ${toDate} - Viewin ${selectedBaseCurrency}`
+            const expectedResult = `SubsidiaryPerformance, ${fromDate} - ${toDate}, BaseCurrency: ${selectedBaseCurrency}`
             const dateRange = { fromDate, toDate };
 
             const result = service.getReportTitle(dateRange, selectedBaseCurrency);

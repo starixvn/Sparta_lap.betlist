@@ -7279,7 +7279,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Subsidiary WL.
+        ///   Looks up a localized string similar to Subsidiary W/L.
         /// </summary>
         public static string SubsidiaryWL {
             get {

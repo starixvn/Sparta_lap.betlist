@@ -16,9 +16,9 @@ export default class Service {
     static getReportTitle(dateRange, selectedBaseCurrency) {
         const fromDate = Site.convertDateToString(dateRange.fromDate);
         const toDate = Site.convertDateToString(dateRange.toDate);
-        const viewInByCurrency = `${LangHelper.getSingleResource("Viewin").replace("{0}", selectedBaseCurrency)}`;
+        const baseCurrency = `${LangHelper.getSingleResource("BaseCurrency")}: ${selectedBaseCurrency}`;
 
-        return `${LangHelper.getSingleResource("SubsidiaryPerformance")}, ${fromDate} - ${toDate} - ${viewInByCurrency}`;
+        return `${LangHelper.getSingleResource("SubsidiaryPerformance")}, ${fromDate} - ${toDate}, ${baseCurrency}`;
     }
 
     static getHeaderText() {
