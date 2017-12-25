@@ -796,6 +796,8 @@
     <Content Include="Scripts\Report\customerbalance.option.js" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
     <Content Include="www\assets\images\new-system.svg" />
+    <Content Include="www\css\build\dev\reactpages\exchangewl\index.chunk.js" />
+    <Content Include="www\css\build\dev\reactpages\exchangewl\index.css" />
     <Content Include="www\css\build\dev\reactpages\licenseewlbytimezone\index.chunk.js" />
     <Content Include="www\css\build\dev\reactpages\licenseewlbytimezone\index.css" />
     <Content Include="www\css\build\dev\reactpages\notification\index.chunk.js" />
@@ -806,10 +808,12 @@
     <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.css" />
     <Content Include="www\css\build\dev\reactpages\vendor.chunk.js" />
     <Content Include="www\css\build\images\new_icon.gif" />
+    <Content Include="www\css\build\pro\reactpages\exchangewl\index.css" />
     <Content Include="www\css\build\pro\reactpages\licenseewlbytimezone\index.css" />
     <Content Include="www\css\build\pro\reactpages\notification\index.chunk.js" />
     <Content Include="www\css\build\pro\reactpages\notification\index.css" />
     <Content Include="www\css\build\pro\reactpages\subsidiaryperformance\index.css" />
+    <Content Include="www\js\build\dev\reactpages\exchangewl\exchangewl.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\report\licenseewlbytimezone.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\notification\notification.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\notification\notification.chunk.js.map" />
@@ -817,6 +821,7 @@
     <Content Include="www\js\build\dev\reactpages\vendors\excel.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\vendors\reactpages.chunk.js" />
     <Content Include="www\js\build\pro\pages\customer\exchangebetsetting.chunk.js" />
+    <Content Include="www\js\build\pro\reactpages\exchangewl\exchangewl.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\lib\langHelper.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\report\licenseewlbytimezone.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\notification\notification.chunk.js" />
@@ -890,6 +895,9 @@
     <Content Include="www\js\source\reactpages\components\breadcrumb\Breadcrumb.jsx" />
     <Content Include="www\js\source\reactpages\components\breadcrumb\BreadcrumbItem.jsx" />
     <Content Include="www\css\source\reactpages\components\_breadcrumb.scss" />
+    <Content Include="www\js\build\dev\reactpages\exchangewl\exchangewl.chunk.js.map" />
+    <Content Include="www\css\build\dev\reactpages\exchangewl\index.chunk.js.map" />
+    <Content Include="www\css\build\dev\reactpages\exchangewl\index.css.map" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
