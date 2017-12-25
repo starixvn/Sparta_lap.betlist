@@ -36,12 +36,14 @@ export default class CollapsibleRow extends React.Component {
     }
 
     render() {
+        const { subject, content, isHtml } = this.props;
+
         return <div className={this.state.isCollapse ? "collapse-item collapse" : "collapse-item"}>
-                    <div className="subject-item"><span>{this.props.subject}</span><i className="icon-arrow" onClick={this.onClick}></i></div>
+                    <div title={subject} className="subject-item"><span>{subject}</span><i className="icon-arrow" onClick={this.onClick}></i></div>
                     {
-                        this.props.isHtml ? 
-                            <div className="content-item" dangerouslySetInnerHTML={{ __html: this.props.content }} /> :
-                            <div className="content-item">{this.props.content}</div>                    
+                        isHtml ? 
+                            <div className="content-item" dangerouslySetInnerHTML={{ __html: content }} /> :
+                            <div className="content-item">{content}</div>                    
                     }
                </div>
     }

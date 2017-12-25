@@ -178,13 +178,13 @@ exports[`DataGrid  render  has data - render table 1`] = `
               </td>
               <td
                 className="notification-content"
-                title="Subject"
               >
                 <div
                   className="collapse-item collapse"
                 >
                   <div
                     className="subject-item"
+                    title="Subject"
                   >
                     <span>
                       Subject

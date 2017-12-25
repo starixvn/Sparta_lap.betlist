@@ -19,14 +19,13 @@ exports[`DataGrid  _buildBody matches with Snapshot 1`] = `
   >
     01/01/2017 12:00:00 PM
   </td>
-  <td
-    title="Subject"
-  >
+  <td>
     <div
       className="collapse-item collapse"
     >
       <div
         className="subject-item"
+        title="Subject"
       >
         <span>
           Subject
@@ -157,7 +156,7 @@ exports[`DataGrid  render  has data - render table 1`] = `
       className="body-content"
       style={
         Object {
-          "maxHeight": 737,
+          "maxHeight": 705,
           "minWidth": 650,
           "width": -30,
         }
@@ -225,14 +224,13 @@ exports[`DataGrid  render  has data - render table 1`] = `
               >
                 01/01/2017 12:00:00 PM
               </td>
-              <td
-                title="Subject"
-              >
+              <td>
                 <div
                   className="collapse-item collapse"
                 >
                   <div
                     className="subject-item"
+                    title="Subject"
                   >
                     <span>
                       Subject

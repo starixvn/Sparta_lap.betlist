@@ -6,6 +6,7 @@ exports[`CollapsibleRow  onClick Class name is changed to show/hide content 1`] 
 >
   <div
     className="subject-item"
+    title="Subject"
   >
     <span>
       Subject
@@ -29,6 +30,7 @@ exports[`CollapsibleRow  onClick Class name is changed to show/hide content 2`] 
 >
   <div
     className="subject-item"
+    title="Subject"
   >
     <span>
       Subject
@@ -52,6 +54,7 @@ exports[`CollapsibleRow  onClick Class name is changed to show/hide content 3`] 
 >
   <div
     className="subject-item"
+    title="Subject"
   >
     <span>
       Subject
@@ -75,6 +78,7 @@ exports[`CollapsibleRow  onClick onExpand function is called when expanding 1`] 
 >
   <div
     className="subject-item"
+    title="Subject"
   >
     <span>
       Subject
@@ -98,6 +102,7 @@ exports[`CollapsibleRow  render isExpand = false - component is collapsed 1`] = 
 >
   <div
     className="subject-item"
+    title={undefined}
   >
     <span />
     <i
@@ -117,6 +122,7 @@ exports[`CollapsibleRow  render isExpand = true - component is expanded 1`] = `
 >
   <div
     className="subject-item"
+    title={undefined}
   >
     <span />
     <i
@@ -136,6 +142,7 @@ exports[`CollapsibleRow  render isHtml = false - component render correctly - sh
 >
   <div
     className="subject-item"
+    title="Subject"
   >
     <span>
       Subject
@@ -159,6 +166,7 @@ exports[`CollapsibleRow  render isHtml = true - component render correctly - sho
 >
   <div
     className="subject-item"
+    title="Subject"
   >
     <span>
       Subject

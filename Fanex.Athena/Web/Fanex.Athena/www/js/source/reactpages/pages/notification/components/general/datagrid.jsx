@@ -70,7 +70,7 @@ export class DataGrid extends Component {
                     <Cell title={i + 1} className="center-align">{i + 1}</Cell>
                     <Cell title={item.Type}>{item.Type}</Cell>
                     <Cell title={datetimeString} className="center-align">{datetimeString}</Cell>
-                    <Cell title={item.Subject}>
+                    <Cell>
                         <CollapsibleRow subject={item.Subject} content={item.Content} isHTML={true} />
                     </Cell>
                 </Row>)
@@ -113,7 +113,7 @@ export class DataGrid extends Component {
                 <Table
                     minWidth={650}
                     autoWidth={true}
-                    bodyHeight={540}
+                    adjustedHeight={32}
                     header={this._buildHeader()}
                     body={this._buildBody()}
                     isPaging={true}
