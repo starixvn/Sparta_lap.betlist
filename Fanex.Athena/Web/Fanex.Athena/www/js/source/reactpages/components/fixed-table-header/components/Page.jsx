@@ -15,7 +15,12 @@ export default class Page extends Component {
     }
 
     static propTypes = {
-        pageOption: PropTypes.object,
+        pageOption: PropTypes.shape({
+            PageIndex: PropTypes.number,
+            PageSize: PropTypes.number,
+            PageList: PropTypes.arrayOf(PropTypes.number),
+            TotalItem: PropTypes.number
+        }),
         onPaging: PropTypes.func
     };
 
@@ -74,7 +79,7 @@ export default class Page extends Component {
 
     _renderPageSizeSelection(isDisable, pageIndex, pageSize) {
         return (
-            <select className="pagesize-select" disabled={isDisable} value={pageSize} onChange={(e) => this.goToPage(1, e.target.value)}>
+            <select className="pagesize-select" disabled={isDisable} value={pageSize} onChange={(e) => this.goToPage(1, Number(e.target.value))}>
                 {this._renderPageSizeOption(this.props.pageOption.PageList)}
 	        </select>
         );

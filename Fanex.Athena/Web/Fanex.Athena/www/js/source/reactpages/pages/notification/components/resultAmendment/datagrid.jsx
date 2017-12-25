@@ -170,7 +170,7 @@ export class DataGrid extends Component {
 
                 <Table minWidth={650}
                        autoWidth={true}
-                       bodyHeight={540}
+                       adjustedHeight={32}
                        header={this._buildHeader()}
                        body={this._buildBody()}
                        isPaging={true}

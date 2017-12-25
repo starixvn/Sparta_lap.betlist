@@ -40,6 +40,7 @@ class Table extends Component {
             maxWidth: props.maxWidth,
             contentHeight: props.bodyHeight
         }
+        this.adjustedHeight = props.adjustedHeight;
     }
 
     static propTypes = {
@@ -53,14 +54,16 @@ class Table extends Component {
         footer: PropTypes.arrayOf(PropTypes.object),
         isPaging: PropTypes.bool,
         onPaging: PropTypes.func,
-        pageOption: PropTypes.object
+        pageOption: PropTypes.object,
+        adjustedHeight: PropTypes.number
     }
 
     static defaultProps = {
         width: MAX_WIDTH,
         maxWidth: MAX_WIDTH,
         autoWidth: true,
-        isPaging: false
+        isPaging: false,
+        adjustedHeight: 0
     }
 
     _getColumnsWidth() {
@@ -158,7 +161,7 @@ class Table extends Component {
     _calculateBodyHeight() {
         const windowHeight = window.innerHeight;
         const footerHeight = this.footerWrapper ? this.footerWrapper.offsetHeight : 0;
-        const tableContentHeight = windowHeight - (this.bodyWrapper.offsetTop + footerHeight + 30) - (this.props.isPaging ? PAGING_HEIGHT :0);
+        const tableContentHeight = windowHeight - (this.bodyWrapper.offsetTop + footerHeight + 30) - this.adjustedHeight;
 
         return tableContentHeight;
     }
