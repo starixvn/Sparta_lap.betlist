@@ -106,6 +106,7 @@
             var firstExpected = expectedList.First();
 
             ConfigureReaderForResult(firstExpected, expectedList);
+            ConfigureReaderForMainResult(firstExpected, expectedList);
 
             // Action
             var result = _dataAccess.GetMainWinloss(_metaModel);
@@ -130,8 +131,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.Received().GetObjectDb("Lrf_Rpt_ExchangeWinloss_Mem");
-                _objectDb.Received().AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
+                _dataAccess.Received().GetObjectDb("Lrf_Rpt_ExchangeWinloss_Ag");
                 _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
                 _objectDb.Received().AddInParameter("Fromdate", DbType.Date, _metaModel.FromDate.Date);
                 _objectDb.Received().AddInParameter("Todate", DbType.Date, _metaModel.ToDate.Date);
@@ -148,7 +148,7 @@
             TestDelegate result = () => _dataAccess.GetLicenseeWinloss(_metaModel);
 
             // Assert
-            Assert.Throws<DataAccessException>(result, Arg.Is<string>(x => x.Contains("Lrf_Rpt_ExchangeWinloss_Mem")));
+            Assert.Throws<DataAccessException>(result, Arg.Is<string>(x => x.Contains("Lrf_Rpt_ExchangeWinloss_Ag")));
         }
 
         [Test]
@@ -167,6 +167,8 @@
             // Action
             var result = _dataAccess.GetLicenseeWinloss(_metaModel);
             var firstItem = result.DataList.First();
+
+            firstExpected.Date = _metaModel.ToDate;
 
             // Assert
             Assert.Multiple(() =>
@@ -187,7 +189,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.Received().GetObjectDb("Lrf_Rpt_ExchangeWinloss_Ag");
+                _dataAccess.Received().GetObjectDb("Lrf_Rpt_ExchangeWinloss_Mem");
+                _objectDb.Received().AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
                 _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
                 _objectDb.Received().AddInParameter("Fromdate", DbType.Date, _metaModel.FromDate.Date);
                 _objectDb.Received().AddInParameter("Todate", DbType.Date, _metaModel.ToDate.Date);
@@ -204,7 +207,7 @@
             TestDelegate result = () => _dataAccess.GetCustomerWinloss(_metaModel);
 
             // Assert
-            Assert.Throws<DataAccessException>(result, Arg.Is<string>(x => x.Contains("Lrf_Rpt_ExchangeWinloss_Ag")));
+            Assert.Throws<DataAccessException>(result, Arg.Is<string>(x => x.Contains("Lrf_Rpt_ExchangeWinloss_Mem")));
         }
 
         [Test]
@@ -225,6 +228,8 @@
             // Action
             var result = _dataAccess.GetCustomerWinloss(_metaModel);
             var firstItem = result.DataList.First();
+
+            firstExpected.Date = _metaModel.ToDate;
 
             // Assert
             Assert.Multiple(() =>
@@ -278,7 +283,6 @@
 
         private void ConfigureDataForReader(ExchangeWinLoss firstExpected, IEnumerable<ExchangeWinLoss> expectedList, string baseCurrency, decimal rate)
         {
-            _reader["Winlostdate"].Returns(firstExpected.Date.ToString("yyyy-MM-dd"), expectedList.Select(x => x.Date.ToString("yyyy-MM-dd")).ToArray());
             _reader["CurrencyName"].Returns(firstExpected.CurrencyName, expectedList.Select(x => x.CurrencyName).ToArray());
             _reader["CurrencyID"].Returns(firstExpected.CurrencyId.ToString(), expectedList.Select(x => x.CurrencyId.ToString()).ToArray());
             _reader["TotalTrans" + baseCurrency].Returns(firstExpected.TotalTransaction.ToString(), expectedList.Select(x => x.TotalTransaction.ToString()).ToArray());
@@ -303,6 +307,14 @@
             _reader["AmountDueTo" + baseCurrency].Returns(
                 (firstExpected.AmountDueTo * rate).ToString(),
                 expectedList.Select(x => (x.AmountDueTo * rate).ToString()).ToArray());
+        }
+
+        private void ConfigureReaderForMainResult(ExchangeWinLoss firstExpected, IEnumerable<ExchangeWinLoss> expectedList)
+        {
+            _reader.FieldCount.Returns(10);
+            _reader.GetName(Arg.Any<int>()).Returns("Winlostdate");
+
+            _reader["Winlostdate"].Returns(firstExpected.Date.ToString("yyyy-MM-dd"), expectedList.Select(x => x.Date.ToString("yyyy-MM-dd")).ToArray());
         }
 
         private void ConfigureReaderForLicenseeResult(ExchangeWinLoss firstExpected, IEnumerable<ExchangeWinLoss> expectedList)
