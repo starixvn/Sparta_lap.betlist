@@ -151,7 +151,7 @@ export default class ReportExcel {
         }, {
             field: 'LicenseeWL',
             type: 'n',
-            [HEADER_SECTION]: { title: 'licenseeWL', isShow: true, index_c: level === (ReportLevel.CUSTOMER ? 7 : 6) + (isAllowedCustomerComm ? 2 : 1), index_r: HEADER_ROW_INDEX + 1 },
+            [HEADER_SECTION]: { title: 'licenseeWL', isShow: true, index_c: (level === ReportLevel.CUSTOMER ? 8 : 7) + (isAllowedCustomerComm ? 2 : 0), index_r: HEADER_ROW_INDEX + 1 },
             [MAIN_SECTION]: { isShow : true, hasNegativeStyle: true, style: { positive: bodyCellStyle.decimal, negative: bodyCellStyle.negativeDecimal }, width: 150 },
             [TOTAL_SECTION]: { isShow : true, hasNegativeStyle: true, style: { positive: totalCellStyle.decimal, negative: totalCellStyle.negativeDecimal } },
             [SUMMARYTOTAL_SECTION]: { isShow : true, hasNegativeStyle: true, style: { positive: grandTotalCellStyle.decimal, negative: grandTotalCellStyle.negativeDecimal } }
@@ -255,7 +255,7 @@ export default class ReportExcel {
 
         const keys = Object.keys(this.gridData.SummaryTotal);
         const length = keys.length;
-        for (let i = 0; i < length; i++) {
+        for (let i = length - 1; i >= 0; i--) {
             const key = keys[i];
             const data = this.gridData.SummaryTotal[key];
             
@@ -308,7 +308,7 @@ export default class ReportExcel {
         }
         
         const cellStart = Excel.getCellAddress({ r: 0, c: 0 });
-        const cellEnd = Excel.getCellAddress({ r: this.currentRowIndex, c:  this.totalColumn - 1 });
+        const cellEnd = Excel.getCellAddress({ r: this.currentRowIndex, c:  this.totalColumn });
 
         this.worksheet["!merges"] = this.mergeConfig;
         this.worksheet["!ref"] = `${cellStart}:${cellEnd}`;
