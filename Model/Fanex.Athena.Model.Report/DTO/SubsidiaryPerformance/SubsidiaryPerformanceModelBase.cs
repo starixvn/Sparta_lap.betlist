@@ -1,6 +1,6 @@
 ﻿namespace Fanex.Athena.Model.Report.DTO.SubsidiaryPerformance
 {
-    public class SubsidiaryPerformanceDetail
+    public class SubsidiaryPerformanceModelBase
     {
         public string Product { get; set; }
 
@@ -11,5 +11,7 @@
         public decimal CustomerWinLoss { get; set; }
 
         public decimal SubsidiaryWinLoss { get; set; }
+
+        public decimal SubsidiaryComm { get; set; }
     }
 }

@@ -8,6 +8,6 @@
 
         public string CurrencyName { get; set; }
 
-        public IEnumerable<SubsidiaryPerformanceDetail> Details { get; set; }
+        public IEnumerable<SubsidiaryPerformanceModelBase> Details { get; set; }
     }
 }

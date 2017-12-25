@@ -89,7 +89,8 @@
                 BetCount = Convert.ToInt32(reader["BetCount"]),
                 Turnover = Convert.ToDecimal(reader["Turnover" + baseCurrency]),
                 CustomerWinLoss = Convert.ToDecimal(reader["Winlost" + baseCurrency]),
-                SubsidiaryWinLoss = Convert.ToDecimal(reader["LicenseeWL" + baseCurrency])
+                SubsidiaryWinLoss = Convert.ToDecimal(reader["LicenseeWL" + baseCurrency]),
+                SubsidiaryComm = 0
             };
         }
 

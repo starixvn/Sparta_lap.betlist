@@ -71,7 +71,8 @@
                 BetCount = totalDataList.Sum(p => p.BetCount),
                 Turnover = totalDataList.Sum(p => p.Turnover),
                 CustomerWinLoss = totalDataList.Sum(p => p.CustomerWinLoss),
-                SubsidiaryWinLoss = totalDataList.Sum(p => p.SubsidiaryWinLoss)
+                SubsidiaryWinLoss = totalDataList.Sum(p => p.SubsidiaryWinLoss),
+                SubsidiaryComm = totalDataList.Sum(p => p.SubsidiaryComm)
             };
         }
 

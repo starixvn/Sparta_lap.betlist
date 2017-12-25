@@ -225,12 +225,12 @@
 
         private static IEnumerable<SubsidiaryPerformanceDataModel> GetFakeSummaryData()
         {
-            var detailData = new List<SubsidiaryPerformanceDetail>
+            var detailData = new List<SubsidiaryPerformanceModelBase>
             {
-                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m },
-                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m },
-                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m },
-                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m }
+                new SubsidiaryPerformanceModelBase { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m },
+                new SubsidiaryPerformanceModelBase { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m },
+                new SubsidiaryPerformanceModelBase { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m },
+                new SubsidiaryPerformanceModelBase { Product = "Sportsbook", BetCount = 50, Turnover = 100000m, CustomerWinLoss = 10000m, SubsidiaryWinLoss = -10000m }
             };
 
             return new List<SubsidiaryPerformanceDataModel>

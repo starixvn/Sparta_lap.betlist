@@ -349,25 +349,25 @@
 
         private static IEnumerable<SubsidiaryPerformanceDataModel> GetExpectedDataModelList()
         {
-            var dataDetail1 = new List<SubsidiaryPerformanceDetail>
+            var dataDetail1 = new List<SubsidiaryPerformanceModelBase>
             {
-                new SubsidiaryPerformanceDetail { Product = "All", BetCount = 150, Turnover = 300m, CustomerWinLoss = 30m, SubsidiaryWinLoss = -30m },
-                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m },
-                new SubsidiaryPerformanceDetail { Product = "BA", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m },
-                new SubsidiaryPerformanceDetail { Product = "Racing", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m }
+                new SubsidiaryPerformanceModelBase { Product = "All", BetCount = 150, Turnover = 300m, CustomerWinLoss = 30m, SubsidiaryWinLoss = -30m },
+                new SubsidiaryPerformanceModelBase { Product = "Sportsbook", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m },
+                new SubsidiaryPerformanceModelBase { Product = "BA", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m },
+                new SubsidiaryPerformanceModelBase { Product = "Racing", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m }
             };
 
-            var dataDetail2 = new List<SubsidiaryPerformanceDetail>
+            var dataDetail2 = new List<SubsidiaryPerformanceModelBase>
             {
-                new SubsidiaryPerformanceDetail { Product = "All", BetCount = 100, Turnover = 200m, CustomerWinLoss = 200m, SubsidiaryWinLoss = -200m },
-                new SubsidiaryPerformanceDetail { Product = "Racing", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m },
-                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m }
+                new SubsidiaryPerformanceModelBase { Product = "All", BetCount = 100, Turnover = 200m, CustomerWinLoss = 200m, SubsidiaryWinLoss = -200m },
+                new SubsidiaryPerformanceModelBase { Product = "Racing", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m },
+                new SubsidiaryPerformanceModelBase { Product = "Sportsbook", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m }
             };
 
-            var dataDetail3 = new List<SubsidiaryPerformanceDetail>
+            var dataDetail3 = new List<SubsidiaryPerformanceModelBase>
             {
-                new SubsidiaryPerformanceDetail { Product = "All", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m },
-                new SubsidiaryPerformanceDetail { Product = "Sportsbook", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m }
+                new SubsidiaryPerformanceModelBase { Product = "All", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m },
+                new SubsidiaryPerformanceModelBase { Product = "Sportsbook", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m }
             };
 
             return new List<SubsidiaryPerformanceDataModel>

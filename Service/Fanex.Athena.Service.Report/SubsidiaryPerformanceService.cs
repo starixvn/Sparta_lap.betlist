@@ -87,26 +87,28 @@
                     CurrencyName = summary.First().CurrencyName
                 };
 
-                var detailList = new List<SubsidiaryPerformanceDetail>();
+                var detailList = new List<SubsidiaryPerformanceModelBase>();
 
-                detailList.Add(new SubsidiaryPerformanceDetail
+                detailList.Add(new SubsidiaryPerformanceModelBase
                 {
                     Product = ViewResources.All,
                     BetCount = summary.Sum(p => p.BetCount),
                     Turnover = summary.Sum(p => p.Turnover),
                     CustomerWinLoss = summary.Sum(p => p.CustomerWinLoss),
-                    SubsidiaryWinLoss = summary.Sum(p => p.SubsidiaryWinLoss)
+                    SubsidiaryWinLoss = summary.Sum(p => p.SubsidiaryWinLoss),
+                    SubsidiaryComm = summary.Sum(p => p.SubsidiaryComm)
                 });
 
                 foreach (var detail in summary)
                 {
-                    detailList.Add(new SubsidiaryPerformanceDetail
+                    detailList.Add(new SubsidiaryPerformanceModelBase
                     {
                         Product = ViewResources.ResourceManager.GetString($"Product{detail.Product}"),
                         BetCount = detail.BetCount,
                         Turnover = detail.Turnover,
                         CustomerWinLoss = detail.CustomerWinLoss,
-                        SubsidiaryWinLoss = detail.SubsidiaryWinLoss
+                        SubsidiaryWinLoss = detail.SubsidiaryWinLoss,
+                        SubsidiaryComm = detail.SubsidiaryComm
                     });
                 }
 
@@ -133,7 +135,8 @@
                     BetCount = item.Sum(x => x.BetCount),
                     Turnover = item.Sum(x => x.Turnover),
                     CustomerWinLoss = item.Sum(x => x.CustomerWinLoss),
-                    SubsidiaryWinLoss = item.Sum(x => x.SubsidiaryWinLoss)
+                    SubsidiaryWinLoss = item.Sum(x => x.SubsidiaryWinLoss),
+                    SubsidiaryComm = item.Sum(x => x.SubsidiaryComm)
                 });
             }
 
