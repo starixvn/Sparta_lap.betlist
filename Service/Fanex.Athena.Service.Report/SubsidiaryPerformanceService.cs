@@ -99,16 +99,17 @@
                     SubsidiaryComm = summary.Sum(p => p.SubsidiaryComm)
                 });
 
-                foreach (var detail in summary)
+                var summaryDataByProduct = summary.GroupBy(p => p.Product);
+                foreach (var itemByProduct in summaryDataByProduct)
                 {
                     detailList.Add(new SubsidiaryPerformanceModelBase
                     {
-                        Product = ViewResources.ResourceManager.GetString($"Product{detail.Product}"),
-                        BetCount = detail.BetCount,
-                        Turnover = detail.Turnover,
-                        CustomerWinLoss = detail.CustomerWinLoss,
-                        SubsidiaryWinLoss = detail.SubsidiaryWinLoss,
-                        SubsidiaryComm = detail.SubsidiaryComm
+                        Product = ViewResources.ResourceManager.GetString($"Product{itemByProduct.Key}"),
+                        BetCount = itemByProduct.Sum(p => p.BetCount),
+                        Turnover = itemByProduct.Sum(p => p.Turnover),
+                        CustomerWinLoss = itemByProduct.Sum(p => p.CustomerWinLoss),
+                        SubsidiaryWinLoss = itemByProduct.Sum(p => p.SubsidiaryWinLoss),
+                        SubsidiaryComm = itemByProduct.Sum(p => p.SubsidiaryComm)
                     });
                 }
 
