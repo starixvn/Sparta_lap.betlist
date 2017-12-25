@@ -6273,7 +6273,7 @@ var ReportExcel = function () {
             }, _defineProperty(_ref14, HEADER_SECTION, { title: 'total', isShow: isAllowedCustomerComm }), _defineProperty(_ref14, MAIN_SECTION, { isShow: isAllowedCustomerComm, style: _excelStyle.bodyCellStyle.decima, width: 150 }), _defineProperty(_ref14, TOTAL_SECTION, { isShow: isAllowedCustomerComm, style: _excelStyle.totalCellStyle.decimal }), _defineProperty(_ref14, SUMMARYTOTAL_SECTION, { isShow: isAllowedCustomerComm, style: _excelStyle.grandTotalCellStyle.decimal }), _ref14), (_ref15 = {
                 field: 'LicenseeWL',
                 type: 'n'
-            }, _defineProperty(_ref15, HEADER_SECTION, { title: 'licenseeWL', isShow: true, index_c: level === (_report.ReportLevel.CUSTOMER ? 7 : 6) + (isAllowedCustomerComm ? 2 : 1), index_r: HEADER_ROW_INDEX + 1 }), _defineProperty(_ref15, MAIN_SECTION, { isShow: true, hasNegativeStyle: true, style: { positive: _excelStyle.bodyCellStyle.decimal, negative: _excelStyle.bodyCellStyle.negativeDecimal }, width: 150 }), _defineProperty(_ref15, TOTAL_SECTION, { isShow: true, hasNegativeStyle: true, style: { positive: _excelStyle.totalCellStyle.decimal, negative: _excelStyle.totalCellStyle.negativeDecimal } }), _defineProperty(_ref15, SUMMARYTOTAL_SECTION, { isShow: true, hasNegativeStyle: true, style: { positive: _excelStyle.grandTotalCellStyle.decimal, negative: _excelStyle.grandTotalCellStyle.negativeDecimal } }), _ref15), (_ref16 = {
+            }, _defineProperty(_ref15, HEADER_SECTION, { title: 'licenseeWL', isShow: true, index_c: (level === _report.ReportLevel.CUSTOMER ? 8 : 7) + (isAllowedCustomerComm ? 2 : 0), index_r: HEADER_ROW_INDEX + 1 }), _defineProperty(_ref15, MAIN_SECTION, { isShow: true, hasNegativeStyle: true, style: { positive: _excelStyle.bodyCellStyle.decimal, negative: _excelStyle.bodyCellStyle.negativeDecimal }, width: 150 }), _defineProperty(_ref15, TOTAL_SECTION, { isShow: true, hasNegativeStyle: true, style: { positive: _excelStyle.totalCellStyle.decimal, negative: _excelStyle.totalCellStyle.negativeDecimal } }), _defineProperty(_ref15, SUMMARYTOTAL_SECTION, { isShow: true, hasNegativeStyle: true, style: { positive: _excelStyle.grandTotalCellStyle.decimal, negative: _excelStyle.grandTotalCellStyle.negativeDecimal } }), _ref15), (_ref16 = {
                 field: 'AmountDueTo',
                 type: 'n'
             }, _defineProperty(_ref16, HEADER_SECTION, { title: 'amountDueTo', isShow: true }), _defineProperty(_ref16, MAIN_SECTION, { isShow: true, style: _excelStyle.bodyCellStyle.decimal, width: 150 }), _defineProperty(_ref16, TOTAL_SECTION, { isShow: true, style: _excelStyle.totalCellStyle.decimal }), _defineProperty(_ref16, SUMMARYTOTAL_SECTION, { isShow: true, style: _excelStyle.grandTotalCellStyle.decimal }), _ref16), (_ref17 = {
@@ -6361,7 +6361,7 @@ var ReportExcel = function () {
 
             var keys = Object.keys(this.gridData.SummaryTotal);
             var length = keys.length;
-            for (var i = 0; i < length; i++) {
+            for (var i = length - 1; i >= 0; i--) {
                 var key = keys[i];
                 var data = this.gridData.SummaryTotal[key];
 
@@ -6411,7 +6411,7 @@ var ReportExcel = function () {
             }
 
             var cellStart = _excel2.default.getCellAddress({ r: 0, c: 0 });
-            var cellEnd = _excel2.default.getCellAddress({ r: this.currentRowIndex, c: this.totalColumn - 1 });
+            var cellEnd = _excel2.default.getCellAddress({ r: this.currentRowIndex, c: this.totalColumn });
 
             this.worksheet["!merges"] = this.mergeConfig;
             this.worksheet["!ref"] = cellStart + ':' + cellEnd;
