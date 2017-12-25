@@ -79,16 +79,9 @@ namespace Fanex.Athena.Controllers
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
-            try
-            {
-                var currentLanguage = LangService.GetCurrentLanguage();
-                LangService.SetPageCulture(currentLanguage);
-            }
-            catch (Exception exception)
-            {
-                LogService.Error(exception.Message, exception);
-                Session.Clear();
-            }
+            var currentLanguage = LangService.GetCurrentLanguage();
+            LangService.SetPageCulture(currentLanguage);
+            
         }
 
 
