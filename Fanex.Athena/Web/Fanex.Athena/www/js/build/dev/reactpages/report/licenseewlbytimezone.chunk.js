@@ -3551,7 +3551,7 @@ var GUTTER = exports.GUTTER = 15;
 var MAX_WIDTH = exports.MAX_WIDTH = BODY_WIDTH - GUTTER * 2;
 var DEFAULT_MILLISECOND_FOR_WAITING = exports.DEFAULT_MILLISECOND_FOR_WAITING = 500;
 var DEFAULT_COLUMN_WIDTH = exports.DEFAULT_COLUMN_WIDTH = 100;
-var PAGING_HEIGHT = exports.PAGING_HEIGHT = 30;
+var PAGING_HEIGHT = exports.PAGING_HEIGHT = 32;
 
 /***/ }),
 
@@ -6452,6 +6452,7 @@ var Table = function (_Component) {
             maxWidth: props.maxWidth,
             contentHeight: props.bodyHeight
         };
+        _this.adjustedHeight = props.adjustedHeight;
         return _this;
     }
 
@@ -6539,7 +6540,7 @@ var Table = function (_Component) {
         value: function _calculateBodyHeight() {
             var windowHeight = window.innerHeight;
             var footerHeight = this.footerWrapper ? this.footerWrapper.offsetHeight : 0;
-            var tableContentHeight = windowHeight - (this.bodyWrapper.offsetTop + footerHeight + 30);
+            var tableContentHeight = windowHeight - (this.bodyWrapper.offsetTop + footerHeight + 30) - this.adjustedHeight;
 
             return tableContentHeight;
         }
@@ -6639,13 +6640,15 @@ Table.propTypes = {
     footer: _propTypes2.default.arrayOf(_propTypes2.default.object),
     isPaging: _propTypes2.default.bool,
     onPaging: _propTypes2.default.func,
-    pageOption: _propTypes2.default.object
+    pageOption: _propTypes2.default.object,
+    adjustedHeight: _propTypes2.default.number
 };
 Table.defaultProps = {
     width: _constants.MAX_WIDTH,
     maxWidth: _constants.MAX_WIDTH,
     autoWidth: true,
-    isPaging: false
+    isPaging: false,
+    adjustedHeight: 0
 };
 exports.default = Table;
 
@@ -6958,7 +6961,7 @@ var Page = function (_Component) {
             return _react2.default.createElement(
                 'select',
                 { className: 'pagesize-select', disabled: isDisable, value: pageSize, onChange: function onChange(e) {
-                        return _this2.goToPage(1, e.target.value);
+                        return _this2.goToPage(1, Number(e.target.value));
                     } },
                 this._renderPageSizeOption(this.props.pageOption.PageList)
             );
@@ -7059,7 +7062,12 @@ var Page = function (_Component) {
 }(_react.Component);
 
 Page.propTypes = {
-    pageOption: _propTypes2.default.object,
+    pageOption: _propTypes2.default.shape({
+        PageIndex: _propTypes2.default.number,
+        PageSize: _propTypes2.default.number,
+        PageList: _propTypes2.default.arrayOf(_propTypes2.default.number),
+        TotalItem: _propTypes2.default.number
+    }),
     onPaging: _propTypes2.default.func
 };
 Page.defaultProps = {
