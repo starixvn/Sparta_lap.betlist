@@ -145,28 +145,28 @@ export class FormFilter extends Component {
         return (
             <div className="page-filter">
                 <div className="row">
-                    <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-3 col-sm-5 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Subsidiary")}</label>
                             {this._renderSubsidiarySelectList()}
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-4 col-sm-4 col-lg-3 col-xl-3">
+                    <div className="col-12 col-md-4 col-sm-6 col-lg-3 col-xl-3">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Date")}</label>
                             {this._renderDateRange()}
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-3 col-sm-3 col-lg-3 col-xl-3">
+                    <div className="col-12 col-md-3 col-sm-5 col-lg-3 col-xl-3">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Product")}</label>
                             {this._renderProductSelectList()}
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-2 col-sm-4 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Based")}</label>
                             {this._renderBaseCurrencySelectList()}
