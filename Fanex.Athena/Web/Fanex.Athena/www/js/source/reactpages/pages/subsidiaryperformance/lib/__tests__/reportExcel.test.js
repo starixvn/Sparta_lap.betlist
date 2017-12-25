@@ -147,7 +147,7 @@ describe('reportExcel ', () => {
         it('worksheet should has correct value', () => {
             const expectedWorksheet = {
                 A3: { t: "s", v: "Total 858249", s: totalCellStyle.default },
-                B3: { t: "s", v: "Based EUR", s: totalCellStyle.default },
+                B3: { t: "s", v: "Based EUR", s: totalCellStyle.center },
                 C3: { t: "s", v: "", s: undefined },
                 D3: { t: "n", v: 894, s: totalCellStyle.number },
                 E3: { t: "n", v: 0.0, s: totalCellStyle.decimal },
@@ -155,7 +155,7 @@ describe('reportExcel ', () => {
                 G3: { t: "n", v: 0.0, s: totalCellStyle.decimal },
                 H3: { t: "n", v: 0, s: totalCellStyle.decimal },
                 A4: { t: "s", v: "Total 916515", s: totalCellStyle.default },
-                B4: { t: "s", v: "Based EUR", s: totalCellStyle.default },
+                B4: { t: "s", v: "Based EUR", s: totalCellStyle.center },
                 C4: { t: "s", v: "", s: undefined },
                 D4: { t: "n", v: 99, s: totalCellStyle.number },
                 E4: { t: "n", v: 0.0, s: totalCellStyle.decimal },
@@ -171,13 +171,28 @@ describe('reportExcel ', () => {
 
             expect(result).toEqual(expectedWorksheet);
         })
+
+        it('mergeConfig should has correct value', () => {
+            const currentRowIndex = DATA_ROW_INDEX;
+
+            const mergeConfig = [
+                { s: { r: currentRowIndex, c: 1 }, e: { r: currentRowIndex, c: 2 } },
+                { s: { r: currentRowIndex + 1, c: 1 }, e: { r: currentRowIndex + 1, c: 2 } }
+            ];
+
+            const reportExcel = new ReportExcel(gridData, title);
+
+            reportExcel._createFooterData();
+
+            expect(reportExcel.mergeConfig).toEqual(mergeConfig);
+        })
     })
 
     describe('_createGrandTotalData', () => {
         it('worksheet should has correct value', () => {
             const expectedWorksheet = {
                 A3: { t: "s", v: "Total", s: grandTotalCellStyle.default },
-                B3: { t: "s", v: "Based EUR", s: grandTotalCellStyle.default },
+                B3: { t: "s", v: "Based EUR", s: grandTotalCellStyle.center },
                 C3: { t: "s", v: "", s: grandTotalCellStyle.default },
                 D3: { t: "n", v: 13286376, s: grandTotalCellStyle.number },
                 E3: { t: "n", v: 405367913.09429135, s: grandTotalCellStyle.decimal },
@@ -214,7 +229,7 @@ describe('reportExcel ', () => {
                 H4: { t: "n", v: 10, s: bodyCellStyle.decimal },
 
                 A5: { t: "s", v: "Total 858249", s: totalCellStyle.default },
-                B5: { t: "s", v: "Based EUR", s: totalCellStyle.default },
+                B5: { t: "s", v: "Based EUR", s: totalCellStyle.center },
                 C5: { t: "s", v: "", s: undefined },
                 D5: { t: "n", v: 894, s: totalCellStyle.number },
                 E5: { t: "n", v: 0.0, s: totalCellStyle.decimal },
@@ -222,7 +237,7 @@ describe('reportExcel ', () => {
                 G5: { t: "n", v: 0.0, s: totalCellStyle.decimal },
                 H5: { t: "n", v: 0.0, s: totalCellStyle.decimal },
                 A6: { t: "s", v: "Total 916515", s: totalCellStyle.default },
-                B6: { t: "s", v: "Based EUR", s: totalCellStyle.default },
+                B6: { t: "s", v: "Based EUR", s: totalCellStyle.center },
                 C6: { t: "s", v: "", s: undefined },
                 D6: { t: "n", v: 99, s: totalCellStyle.number },
                 E6: { t: "n", v: 0.0, s: totalCellStyle.decimal },
@@ -231,7 +246,7 @@ describe('reportExcel ', () => {
                 H6: { t: "n", v: 0.0, s: totalCellStyle.decimal },
 
                 A7: { t: "s", v: "Total", s: grandTotalCellStyle.default },
-                B7: { t: "s", v: "Based EUR", s: grandTotalCellStyle.default },
+                B7: { t: "s", v: "Based EUR", s: grandTotalCellStyle.center },
                 C7: { t: "s", v: "", s: grandTotalCellStyle.default },
                 D7: { t: "n", v: 13286376, s: grandTotalCellStyle.number },
                 E7: { t: "n", v: 405367913.09429135, s: grandTotalCellStyle.decimal },

@@ -41,8 +41,8 @@ const columnConfigs = [{
     {
         field: fields.currencyName,
         [MAIN_SECTION_STYLE]: bodyCellStyle.center,
-        [TOTAL_SECTION_STYLE]: totalCellStyle.default,
-        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.default
+        [TOTAL_SECTION_STYLE]: totalCellStyle.center,
+        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.center
     },
     {
         field: fields.product,
@@ -149,6 +149,7 @@ export default class ReportExcel {
         const totalDataList = this.gridData.Total;
 
         for (let i = 0; i < totalDataList.length; i++) {
+            this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex, c: 2 } });
             const item = totalDataList[i];
             this._createRowByColumnIndex(item, TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARYCOMM_COLUMN_INDEX);
             this.currentRowIndex++;
@@ -156,6 +157,7 @@ export default class ReportExcel {
     }
 
     _createGrandTotalData() {
+        this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex, c: 2 } });
         const grandTotal = this.gridData.GrandTotal;
         this._createRowByColumnIndex(grandTotal, GRAND_TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARYCOMM_COLUMN_INDEX);
     }

@@ -91,8 +91,7 @@ export class DataGrid extends Component {
             return (
                 <Row className="fixed-table-total" key={`total${index}`}>
                     <Cell title={item.Subsidiary}>{item.Subsidiary}</Cell>
-                    <Cell title={item.CurrencyName}>{item.CurrencyName}</Cell>
-                    <Cell></Cell>
+                    <Cell title={item.CurrencyName} className="center-align" colSpan="2">{item.CurrencyName}</Cell>
                     <Cell title={betcount} className="right-align">{betcount}</Cell>
                     <Cell title={turnover} className="right-align">{turnover}</Cell>
                     <Cell title={customerWinLoss} className="right-align">{customerWinLoss}</Cell>
@@ -124,8 +123,7 @@ export class DataGrid extends Component {
         return (
             <Row key="grandTotal" className="fixed-table-grant-total">
                 <Cell title={grandTotal.Subsidiary}>{grandTotal.Subsidiary}</Cell>
-                <Cell title={grandTotal.CurrencyName}>{grandTotal.CurrencyName}</Cell>
-                <Cell></Cell>
+                <Cell title={grandTotal.CurrencyName} className="center-align" colSpan="2">{grandTotal.CurrencyName}</Cell>
                 <Cell title={betcount} className="right-align">{betcount}</Cell>
                 <Cell title={turnover} className="right-align">{turnover}</Cell>
                 <Cell title={customerWinLoss} className="right-align">{customerWinLoss}</Cell>

@@ -103,11 +103,12 @@ exports[`DataGrid  Data is not empty _buildGrandTotal  SubsidiaryWL is negative 
       Total
     </td>
     <td
+      className="center-align"
+      colSpan="2"
       title="Based EUR"
     >
       Based EUR
     </td>
-    <td />
     <td
       className="right-align"
       title="13,286,376"
@@ -153,11 +154,12 @@ exports[`DataGrid  Data is not empty _buildGrandTotal  SubsidiaryWL is positive 
       Total
     </td>
     <td
+      className="center-align"
+      colSpan="2"
       title="Based EUR"
     >
       Based EUR
     </td>
-    <td />
     <td
       className="right-align"
       title="13,286,376"
@@ -654,11 +656,12 @@ exports[`DataGrid  Data is not empty grid data should be rendered correctly 1`] 
                 Total 858249
               </td>
               <td
+                className="center-align"
+                colSpan="2"
                 title="Based EUR"
               >
                 Based EUR
               </td>
-              <td />
               <td
                 className="right-align"
                 title="894"
@@ -699,11 +702,12 @@ exports[`DataGrid  Data is not empty grid data should be rendered correctly 1`] 
                 Total 916515
               </td>
               <td
+                className="center-align"
+                colSpan="2"
                 title="Based EUR"
               >
                 Based EUR
               </td>
-              <td />
               <td
                 className="right-align"
                 title="99"
@@ -744,11 +748,12 @@ exports[`DataGrid  Data is not empty grid data should be rendered correctly 1`] 
                 Total
               </td>
               <td
+                className="center-align"
+                colSpan="2"
                 title="Based EUR"
               >
                 Based EUR
               </td>
-              <td />
               <td
                 className="right-align"
                 title="13,286,376"
@@ -799,11 +804,12 @@ exports[`DataGrid  Data is not empty render correct footer content 1`] = `
       Total 858249
     </td>
     <td
+      className="center-align"
+      colSpan="2"
       title="Based EUR"
     >
       Based EUR
     </td>
-    <td />
     <td
       className="right-align"
       title="894"
@@ -844,11 +850,12 @@ exports[`DataGrid  Data is not empty render correct footer content 1`] = `
       Total 916515
     </td>
     <td
+      className="center-align"
+      colSpan="2"
       title="Based EUR"
     >
       Based EUR
     </td>
-    <td />
     <td
       className="right-align"
       title="99"

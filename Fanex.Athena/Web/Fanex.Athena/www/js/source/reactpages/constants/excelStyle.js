@@ -30,7 +30,7 @@ const totalDecimalStyle = {...totalTextStyle, numFmt: "#,##0.00" };
 export const totalCellStyle = {
     default: totalTextStyle,
     rowspan: {...totalTextStyle, alignment: { horizontal: "center", vertical: "center" } },
-    center: {...totalTextStyle, alignment: { horizontal: "center" } },
+    center: {...totalTextStyle, alignment: { vertical: "center", horizontal: "center" } },
     number: {...totalTextStyle, numFmt: "#,##0" },
     decimal: totalDecimalStyle,
     negativeDecimal: {...totalDecimalStyle, font: { bold: true, color: { rgb: "FF0000" } } }
