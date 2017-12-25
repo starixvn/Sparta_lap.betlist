@@ -1,6 +1,6 @@
-webpackJsonp([3],{
+webpackJsonp([4],{
 
-/***/ 15:
+/***/ 10:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44,26 +44,26 @@ exports.default = LangHelper;
 
 /***/ }),
 
-/***/ 726:
+/***/ 715:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(15);
-__webpack_require__(727);
-__webpack_require__(728);
-__webpack_require__(729);
-__webpack_require__(730);
-module.exports = __webpack_require__(731);
+__webpack_require__(10);
+__webpack_require__(716);
+__webpack_require__(717);
+__webpack_require__(718);
+__webpack_require__(719);
+module.exports = __webpack_require__(720);
 
 
 /***/ }),
 
-/***/ 727:
+/***/ 716:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/22/2017 10:44:53 AM
+// Generated at: 12/19/2017 3:47:38 PM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -130,7 +130,6 @@ window._language_en_US = {
   BA: "BA",
   Back: "Back",
   BackToCurrentReport: "Back to current report",
-  BackToOldUI: "Back to old UI",
   BAComissionBalanceNote: "BA Commission: Licensee commission income for BA tickets.",
   BACommission: "BA Commission",
   Balance: "Balance",
@@ -195,7 +194,6 @@ window._language_en_US = {
   ChangeStatus: "Change {0}&apos;s status",
   ChangeStatusOfThisCustomerMsg: "Are you sure you want to change status of this customer?",
   Characters: "Characters",
-  ChargeCommission: "Charge Commission",
   CheckAll: "Check All",
   Checkavailability: "Check availability",
   China: "China",
@@ -356,6 +354,7 @@ window._language_en_US = {
   Event: "Event",
   Events: "Events",
   ExcelExceedRowsMsg: "This file exceeded 65535 entries. Please contact administrator for more details.",
+  ExchangeWinLoss: "Exchange Win Loss",
   ExcludeTestData: "Exclude Test Data",
   ExpiredTimeParamMsg: "The Url is expired",
   ExportToExcel: "Export To Excel",
@@ -461,7 +460,6 @@ window._language_en_US = {
   Internal: "Internal",
   InternalSystem: "Internal System",
   InvalidCaptchaMsg: "You inputed an invalid code.",
-  InvalidChargeCommission: "Invalid Charge Commission",
   InvalidParams: "Invalid parameters",
   InvalidRequestMsg: "Request is not valid",
   InvalidRequestOrNotAuthorizedMsg: "Invalid request or you are not authorized to access the requested resource!",
@@ -730,7 +728,6 @@ window._language_en_US = {
   ProductBA: "BA",
   ProductBG: "Bingo",
   ProductBT: "Bet Trade",
-  ProductBX: "Exchange",
   ProductCB: "Colossus Bets",
   ProductCO: "Cash Out",
   ProductCS: "RNG Casino",
@@ -1018,13 +1015,13 @@ window._language_en_US = {
 
 /***/ }),
 
-/***/ 728:
+/***/ 717:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/22/2017 10:44:53 AM
+// Generated at: 12/19/2017 3:47:38 PM
 window._language_ko_KR = {
   AA: "AA",
   ABComm: "AllBet 수수료",
@@ -1790,13 +1787,13 @@ window._language_ko_KR = {
 
 /***/ }),
 
-/***/ 729:
+/***/ 718:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/22/2017 10:44:53 AM
+// Generated at: 12/21/2017 11:03:29 AM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -1851,7 +1848,6 @@ window._language_zh_CN = {
   AwayNoBet: "客队(不获胜球队)",
   BA: "BA",
   BackToCurrentReport: "回到现有报告",
-  BackToOldUI: "回到旧版本",
   BAComissionBalanceNote: "投注总计佣金: 承租公司佣金所得于投注总计注单。",
   BACommission: "BA佣金",
   Balance: "余额",
@@ -2612,13 +2608,13 @@ window._language_zh_CN = {
 
 /***/ }),
 
-/***/ 730:
+/***/ 719:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/22/2017 10:44:53 AM
+// Generated at: 12/21/2017 11:03:29 AM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2673,7 +2669,6 @@ window._language_zh_Hans = {
   AwayNoBet: "客队(不获胜球队)",
   BA: "BA",
   BackToCurrentReport: "回到现有报告",
-  BackToOldUI: "回到旧版本",
   BAComissionBalanceNote: "投注总计佣金: 承租公司佣金所得于投注总计注单。",
   BACommission: "BA佣金",
   Balance: "余额",
@@ -3420,13 +3415,13 @@ window._language_zh_Hans = {
 
 /***/ }),
 
-/***/ 731:
+/***/ 720:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/22/2017 10:44:53 AM
+// Generated at: 12/21/2017 11:03:29 AM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3481,7 +3476,6 @@ window._language_zh_TW = {
   AwayNoBet: "客隊(不獲胜球隊)",
   BA: "BA",
   BackToCurrentReport: "回到現有報告",
-  BackToOldUI: "回到舊版本",
   BAComissionBalanceNote: "投注總計佣金：承租公司金所得於投注總計注單。",
   BACommission: "BA佣金",
   Balance: "餘額",
@@ -4242,5 +4236,5 @@ window._language_zh_TW = {
 
 /***/ })
 
-},[726]);
+},[715]);
 //# sourceMappingURL=langHelper.chunk.js.map
