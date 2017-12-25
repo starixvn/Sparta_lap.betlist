@@ -8,7 +8,8 @@ const headerText = {
     betCount: LangHelper.getSingleResource("BetCount"),
     turnover: LangHelper.getSingleResource("Turnover"),
     customerWL: LangHelper.getSingleResource("CustomerW_L"),
-    subsidiaryWL_comm: `${LangHelper.getSingleResource("SubsidiaryWL")}/ ${LangHelper.getSingleResource("Comm")}`
+    subsidiaryWL: `${LangHelper.getSingleResource("SubsidiaryWL")}`,
+    subsidiaryComm: `${LangHelper.getSingleResource("Subsidiary")} ${LangHelper.getSingleResource("Comm")}`
 }
 
 export default class Service {

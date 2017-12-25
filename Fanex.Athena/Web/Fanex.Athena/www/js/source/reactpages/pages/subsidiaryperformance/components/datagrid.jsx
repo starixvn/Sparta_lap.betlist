@@ -35,7 +35,8 @@ export class DataGrid extends Component {
                 <Cell colWidth={150} header={true} title={headerText.betCount}>{headerText.betCount}</Cell>
                 <Cell colWidth={200} header={true} title={headerText.turnover}>{headerText.turnover}</Cell>
                 <Cell colWidth={200} header={true} title={headerText.customerWL}>{headerText.customerWL}</Cell>
-                <Cell colWidth={200} header={true} title={headerText.subsidiaryWL_comm}>{headerText.subsidiaryWL_comm}</Cell>
+                <Cell colWidth={200} header={true} title={headerText.subsidiaryWL}>{headerText.subsidiaryWL}</Cell>
+                <Cell colWidth={150} header={true} title={headerText.subsidiaryComm}>{headerText.subsidiaryComm}</Cell>
             </Row>
         )
     }
@@ -53,7 +54,8 @@ export class DataGrid extends Component {
                 const betcount = NumberFormat.format(detail.BetCount),
                     turnover = NumberFormat.formatDecimal(detail.Turnover),
                     customerWinLoss = NumberFormat.formatDecimal(detail.CustomerWinLoss),
-                    subsidiaryWinLoss = NumberFormat.formatDecimal(detail.SubsidiaryWinLoss);
+                    subsidiaryWinLoss = NumberFormat.formatDecimal(detail.SubsidiaryWinLoss),
+                    subsidiaryComm = NumberFormat.formatDecimal(detail.SubsidiaryComm);
 
                 rows.push(
                     <Row key={`tr${i}-detail${j}`}>
@@ -66,6 +68,7 @@ export class DataGrid extends Component {
                         <Cell title={subsidiaryWinLoss} className={`right-align ${detail.SubsidiaryWinLoss < 0 ? "negative" : ""}`}>
                             {subsidiaryWinLoss}
                         </Cell>
+                        <Cell title={subsidiaryComm} className="right-align">{subsidiaryComm}</Cell>
                     </Row>
                 );
 
@@ -82,7 +85,8 @@ export class DataGrid extends Component {
             const betcount = NumberFormat.format(item.BetCount),
                 turnover = NumberFormat.formatDecimal(item.Turnover),
                 customerWinLoss = NumberFormat.formatDecimal(item.CustomerWinLoss),
-                subsidiaryWinLoss = NumberFormat.formatDecimal(item.SubsidiaryWinLoss);
+                subsidiaryWinLoss = NumberFormat.formatDecimal(item.SubsidiaryWinLoss),
+                subsidiaryComm = NumberFormat.formatDecimal(item.SubsidiaryComm);
 
             return (
                 <Row className="fixed-table-total" key={`total${index}`}>
@@ -95,6 +99,7 @@ export class DataGrid extends Component {
                     <Cell title={subsidiaryWinLoss} className={`right-align ${item.SubsidiaryWinLoss < 0 ? "negative" : ""}`}>
                         {subsidiaryWinLoss}
                     </Cell>
+                    <Cell title={subsidiaryComm} className="right-align">{subsidiaryComm}</Cell>
                 </Row>
             )
         })
@@ -113,7 +118,8 @@ export class DataGrid extends Component {
         const betcount = NumberFormat.format(grandTotal.BetCount),
             turnover = NumberFormat.formatDecimal(grandTotal.Turnover),
             customerWinLoss = NumberFormat.formatDecimal(grandTotal.CustomerWinLoss),
-            subsidiaryWinLoss = NumberFormat.formatDecimal(grandTotal.SubsidiaryWinLoss);
+            subsidiaryWinLoss = NumberFormat.formatDecimal(grandTotal.SubsidiaryWinLoss),
+            subsidiaryComm = NumberFormat.formatDecimal(grandTotal.SubsidiaryComm);
 
         return (
             <Row key="grandTotal" className="fixed-table-grant-total">
@@ -124,6 +130,7 @@ export class DataGrid extends Component {
                 <Cell title={turnover} className="right-align">{turnover}</Cell>
                 <Cell title={customerWinLoss} className="right-align">{customerWinLoss}</Cell>
                 <Cell title={subsidiaryWinLoss} className={`right-align ${subsidiaryWinLoss < 0 ? "negative" : ""}`}>{subsidiaryWinLoss}</Cell>
+                <Cell title={subsidiaryComm} className="right-align">{subsidiaryComm}</Cell>
             </Row>
         )
     }

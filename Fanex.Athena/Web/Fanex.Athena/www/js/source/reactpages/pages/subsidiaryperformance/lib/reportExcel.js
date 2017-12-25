@@ -3,7 +3,7 @@ import LangHelper from '../../../lib/langHelper'
 import { titleCellStyle, headerCellStyle, bodyCellStyle, totalCellStyle, grandTotalCellStyle } from '../../../constants/excelStyle'
 import service from '../lib/service'
 
-const COLUMN_COUNT = 7;
+const COLUMN_COUNT = 8;
 const TITLE_ROW_INDEX = 0;
 const HEADER_ROW_INDEX = 1;
 const DATA_ROW_INDEX = 2;
@@ -15,6 +15,7 @@ const BETCOUNT_COLUMN_INDEX = 3;
 const TURNOVER_COLUMN_INDEX = 4;
 const CUSTOMERWL_COLUMN_INDEX = 5;
 const SUBSIDIARYWL_COLUMN_INDEX = 6;
+const SUBSIDIARYCOMM_COLUMN_INDEX = 7;
 
 const MAIN_SECTION_STYLE = "mainSectionStyle";
 const TOTAL_SECTION_STYLE = "totalSectionStyle";
@@ -28,6 +29,7 @@ const fields = {
     turnover: "Turnover",
     customerWinLoss: "CustomerWinLoss",
     subsidiaryWinLoss: "SubsidiaryWinLoss",
+    subsidiaryComm: "SubsidiaryComm"
 }
 
 const columnConfigs = [{
@@ -69,6 +71,12 @@ const columnConfigs = [{
         [MAIN_SECTION_STYLE]: { positive: bodyCellStyle.decimal, negative: bodyCellStyle.negativeDecimal },
         [TOTAL_SECTION_STYLE]: { positive: totalCellStyle.decimal, negative: totalCellStyle.negativeDecimal },
         [GRAND_TOTAL_SECTION_STYLE]: { positive: grandTotalCellStyle.decimal, negative: grandTotalCellStyle.negativeDecimal }
+    },
+    {
+        field: fields.subsidiaryComm,
+        [MAIN_SECTION_STYLE]: bodyCellStyle.decimal,
+        [TOTAL_SECTION_STYLE]: totalCellStyle.decimal,
+        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.decimal
     }
 ]
 
@@ -131,7 +139,7 @@ export default class ReportExcel {
 
             for (let detailIndex = 0; detailIndex < details.length; detailIndex++) {
                 const detail = details[detailIndex];
-                this._createRowByColumnIndex(detail, MAIN_SECTION_STYLE, PRODUCT_COLUMN_INDEX, SUBSIDIARYWL_COLUMN_INDEX);
+                this._createRowByColumnIndex(detail, MAIN_SECTION_STYLE, PRODUCT_COLUMN_INDEX, SUBSIDIARYCOMM_COLUMN_INDEX);
                 this.currentRowIndex++;
             }
         }
@@ -142,14 +150,14 @@ export default class ReportExcel {
 
         for (let i = 0; i < totalDataList.length; i++) {
             const item = totalDataList[i];
-            this._createRowByColumnIndex(item, TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARYWL_COLUMN_INDEX);
+            this._createRowByColumnIndex(item, TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARYCOMM_COLUMN_INDEX);
             this.currentRowIndex++;
         }
     }
 
     _createGrandTotalData() {
         const grandTotal = this.gridData.GrandTotal;
-        this._createRowByColumnIndex(grandTotal, GRAND_TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARYWL_COLUMN_INDEX);
+        this._createRowByColumnIndex(grandTotal, GRAND_TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARYCOMM_COLUMN_INDEX);
     }
 
     _createExcelConfig() {
@@ -158,7 +166,7 @@ export default class ReportExcel {
 
         this.worksheet["!merges"] = this.mergeConfig;
         this.worksheet["!ref"] = `${cellStart}:${cellEnd}`;
-        const wscols = [{ wpx: 150 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }];
+        const wscols = [{ wpx: 150 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }, { wpx: 120 }];
 
         this.worksheet['!cols'] = wscols;
     }
