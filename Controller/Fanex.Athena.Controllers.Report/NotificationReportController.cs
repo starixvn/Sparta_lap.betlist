@@ -16,7 +16,7 @@
                 LicenseeName = SessionService.LicenseeSession.LicenseeName
             };
 
-            return ViewForNewUI("~/Views/Report/Notification/Notification.cshtml", model, "NotificationReport");
+            return View("~/Views/Report/Notification/Notification.cshtml", model);
         }
     }
 }
