@@ -18,6 +18,7 @@ namespace Fanex.Athena.Controllers.TotalBets
     using Model.TotalBet.ViewModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Helpers;
 
     [FunctionAuthorization(PermissionKeys.TotalBetOddEven1x2DND)]
     public class OddEvenDrawNoDrawTotalBetController : TotalBetBaseController
@@ -33,8 +34,10 @@ namespace Fanex.Athena.Controllers.TotalBets
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IOddEvenDrawNoDrawDataAccess oddEvenDrawNoDrawDataAccess)
-            : base(languageService, sessionService, appSetting)
+            IOddEvenDrawNoDrawDataAccess oddEvenDrawNoDrawDataAccess,
+              IClientViewHelper clientViewHelper
+            )
+            : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _oddEvenDrawNoDrawDataAccess = oddEvenDrawNoDrawDataAccess;
         }

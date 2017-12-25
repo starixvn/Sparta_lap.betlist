@@ -16,6 +16,7 @@ namespace Fanex.Athena.Controllers
     using Model.Core.DataDomain;
     using Service.Core.Users.Interfaces;
     using Web.ActionFilter;
+    using Service.Core.Helpers;
 
     [AuthorizeRestriction(AppMode.Self)]
     public class MenuController : BaseController
@@ -31,8 +32,10 @@ namespace Fanex.Athena.Controllers
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IFunctionService functionService)
-            : base(languageService, sessionService, appSetting)
+            IFunctionService functionService,
+                  IClientViewHelper clientViewHelper
+            )
+            : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _functionService = functionService;
         }

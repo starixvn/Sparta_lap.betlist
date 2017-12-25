@@ -17,6 +17,7 @@ namespace Fanex.Athena.Controllers.TotalBets
     using Model.TotalBet.ViewModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Helpers;
 
     [FunctionAuthorization(PermissionKeys.TotalBetOutright)]
     public class OutrightTotalBetController : TotalBetBaseController
@@ -32,8 +33,10 @@ namespace Fanex.Athena.Controllers.TotalBets
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IOutrightDataAccess outrightDataAccess)
-            : base(languageService, sessionService, appSetting)
+            IOutrightDataAccess outrightDataAccess,
+                IClientViewHelper clientViewHelper
+            )
+            : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _outrightDataAccess = outrightDataAccess;
         }

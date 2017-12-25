@@ -63,7 +63,9 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                productService);
+                productService,
+                ClientViewHelper
+                );
         }
     }
 }

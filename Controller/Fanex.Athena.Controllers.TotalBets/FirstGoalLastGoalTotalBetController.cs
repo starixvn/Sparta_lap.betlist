@@ -18,6 +18,7 @@ namespace Fanex.Athena.Controllers.TotalBets
     using Model.TotalBet.ViewModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Helpers;
 
     [FunctionAuthorization(PermissionKeys.TotalBetFirstGoalLastGoal)]
     public class FirstGoalLastGoalTotalBetController : TotalBetBaseController
@@ -33,8 +34,10 @@ namespace Fanex.Athena.Controllers.TotalBets
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IFirstGoalLastGoalDataAccess firstGoalLastGoalDataAccess)
-            : base(languageService, sessionService, appSetting)
+            IFirstGoalLastGoalDataAccess firstGoalLastGoalDataAccess,
+           IClientViewHelper clientViewHelper
+            )
+            : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _firstGoalLastGoalDataAccess = firstGoalLastGoalDataAccess;
         }

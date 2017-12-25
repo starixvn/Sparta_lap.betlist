@@ -29,6 +29,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Newtonsoft.Json;
     using Resources;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Helpers;
 
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
     public class CustomerController : BaseController
@@ -79,9 +80,11 @@ namespace Fanex.Athena.Controllers.Customer
             ICustomerListService customerListService,
             IGroupComService groupComService,
             ILicenseeDataAccess licenseeDataAccess,
-            IProductService productService)
+            IProductService productService,
+             IClientViewHelper clientViewHelper
+            )
 #pragma warning restore S107 // Methods should not have too many parameters
-            : base(languageService, sessionService, appSetting)
+            : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _customerListService = customerListService;
             _groupComService = groupComService;

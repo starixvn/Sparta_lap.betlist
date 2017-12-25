@@ -27,6 +27,7 @@ namespace Fanex.Athena.Controllers.Account
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
     using Web.ActionFilter;
+    using Service.Core.Helpers;
 
     /// <summary>
     ///     TODO: Update summary.
@@ -59,8 +60,10 @@ namespace Fanex.Athena.Controllers.Account
             IAppSettings appSetting,
             IFunctionService functionService,
             IUserService userService,
-            ICurrencyDataAccess currencyDataAccess)
-            : base(languageService, sessionService, appSetting)
+            ICurrencyDataAccess currencyDataAccess,
+             IClientViewHelper clientViewHelper
+            )
+            : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _functionService = functionService;
             _userService = userService;

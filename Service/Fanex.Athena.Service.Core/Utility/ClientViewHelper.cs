@@ -4,15 +4,26 @@
     using System.Web;
     using Fanex.Athena.Model.Core.DataDomain;
     using Model.Core.DTO.Common;
+    using Extension.Utility.Interfaces;
+    using Extension.Utility;
 
-    public static class ClientViewHelper
+    public class ClientViewHelper : IClientViewHelper
     {
-        public static ViewByOption GetViewPath(string viewPath, ClientViewType viewtype)
+        private readonly IFileSystem _file;
+        public ClientViewHelper() : this(null)
+        {
+
+        }
+        public ClientViewHelper(IFileSystem file)
+        {
+            _file = file ?? new FileSystem();
+        }
+        public ViewByOption GetViewPath(string viewPath, ClientViewType viewtype)
         {
             const string linkToNewUI = "~/Views/Shared/FunctionNotAvailableOldUI.cshtml";
 
             var newUIViewPath = viewPath.Replace("Views", "Views/Desktop");
-            var existedNewUIPath = File.Exists(HttpContext.Current.Server.MapPath(newUIViewPath));
+            var existedNewUIPath = _file.Exists(HttpContext.Current.Server.MapPath(newUIViewPath));
 
             if (viewtype == ClientViewType.Desktop)
             {
@@ -23,7 +34,7 @@
                 };
             }
 
-            var existedOldUIPath = File.Exists(HttpContext.Current.Server.MapPath(viewPath));
+            var existedOldUIPath = _file.Exists(HttpContext.Current.Server.MapPath(viewPath));
 
             if (!existedOldUIPath && existedNewUIPath)
             {

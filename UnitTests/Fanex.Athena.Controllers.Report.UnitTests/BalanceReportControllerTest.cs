@@ -98,7 +98,9 @@
                 SessionService,
                 AppSettings,
                 productService,
-                _balanceDataAccess);
+                _balanceDataAccess,
+                ClientViewHelper
+                );
         }
     }
 }

@@ -19,6 +19,7 @@ namespace Fanex.Athena.Controllers.TotalBets
     using Model.TotalBet.ViewModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Helpers;
 
     [FunctionAuthorization(PermissionKeys.TotalBetHandicapOverUnderLive)]
     public class HandicapOverUnderTotalBetController : TotalBetBaseController
@@ -34,8 +35,10 @@ namespace Fanex.Athena.Controllers.TotalBets
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IHandicapOverUnderDataAccess handicapOverUnderDataAccess)
-            : base(languageService, sessionService, appSetting)
+            IHandicapOverUnderDataAccess handicapOverUnderDataAccess,
+              IClientViewHelper clientViewHelper
+            )
+            : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _handicapOverUnderDataAccess = handicapOverUnderDataAccess;
         }

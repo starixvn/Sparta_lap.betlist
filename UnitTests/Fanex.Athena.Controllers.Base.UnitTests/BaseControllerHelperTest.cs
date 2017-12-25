@@ -14,6 +14,8 @@
     using Service.Core.Users.Interfaces;
     using Web.RouterConfig;
     using System.IO;
+    using Service.Core.Helpers;
+    using Model.Core.DataDomain;
 
     [TestFixture]
     public abstract class BaseControllerHelperTest
@@ -49,12 +51,16 @@
 
         protected IAppSettings AppSettings { get; set; }
 
+        protected IClientViewHelper ClientViewHelper { get; set; }
+
         [OneTimeSetUp]
         public virtual void FixtureSetUp()
         {
             LangService = Substitute.For<ILanguageService>();
             SessionService = Substitute.For<ISessionService>();
             AppSettings = Substitute.For<IAppSettings>();
+            ClientViewHelper = Substitute.For<IClientViewHelper>();
+            ClientViewHelper.GetViewPath(Arg.Any<string>(), Arg.Any<ClientViewType>()).Returns(x => x[0]);
             SetUpForContexts();
         }
 
@@ -66,6 +72,7 @@
             LangService = null;
             SessionService = null;
             AppSettings = null;
+            ClientViewHelper = null;
         }
 
         protected void SetUpDefaultFakeData()

@@ -30,19 +30,21 @@ namespace Fanex.Athena.Controllers
         private readonly ILanguageService _langService;
         private readonly ISessionService _sessionService;
         private readonly IAppSettings _appSettings;
-
-        public BaseController() : this(null, null, null)
+        private readonly IClientViewHelper _clientViewHelper;
+        public BaseController() : this(null, null, null, null)
         {
         }
 
         protected BaseController(
             ILanguageService languageService,
             ISessionService sessionService,
-            IAppSettings appSetting)
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper)
         {
             _langService = languageService ?? new LanguageService();
             _sessionService = sessionService ?? new SessionService();
             _appSettings = appSetting ?? new AppSettings();
+            _clientViewHelper = clientViewHelper ?? new ClientViewHelper();
         }
 
         public ILanguageService LangService
@@ -81,7 +83,7 @@ namespace Fanex.Athena.Controllers
             base.Initialize(requestContext);
             var currentLanguage = LangService.GetCurrentLanguage();
             LangService.SetPageCulture(currentLanguage);
-            
+
         }
 
 
@@ -89,7 +91,7 @@ namespace Fanex.Athena.Controllers
         {
             var viewType = GetViewType();
 
-            var viewByOption = ClientViewHelper.GetViewPath(viewName, viewType);
+            var viewByOption = _clientViewHelper.GetViewPath(viewName, viewType);
             if (viewByOption.IsNavigationView)
             {
                 var returnPath = $"{this.RouteData.Values["Controller"]}/{this.RouteData.Values["Action"]}";

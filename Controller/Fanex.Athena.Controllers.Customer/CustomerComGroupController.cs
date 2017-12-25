@@ -24,6 +24,7 @@
     using Resources;
     using Service.Core.Users.Interfaces;
     using Service.Customer.Helpers;
+    using Service.Core.Helpers;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
@@ -53,8 +54,10 @@
             ISessionService sessionService,
             IAppSettings appSetting,
             IGroupComService groupComService,
-            IProductService productService)
-            : base(languageService, sessionService, appSetting)
+            IProductService productService,
+             IClientViewHelper clientViewHelper)
+
+            : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _groupComService = groupComService;
             _productService = productService;

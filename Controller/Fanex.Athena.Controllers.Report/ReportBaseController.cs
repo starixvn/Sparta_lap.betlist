@@ -12,6 +12,7 @@
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Model.Core.DataDomain;
+    using Service.Core.Helpers;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
@@ -30,8 +31,10 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IProductService productService)
-            : base(languageService, sessionService, appSetting)
+            IProductService productService,
+            IClientViewHelper clientViewHelper
+            )
+            : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _productService = productService ?? new ProductService();
         }

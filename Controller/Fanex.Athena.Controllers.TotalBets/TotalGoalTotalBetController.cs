@@ -18,6 +18,7 @@ namespace Fanex.Athena.Controllers.TotalBets
     using Model.TotalBet.ViewModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Helpers;
 
     [FunctionAuthorization(PermissionKeys.TotalBetTotalGoal)]
     public class TotalGoalTotalBetController : TotalBetBaseController
@@ -33,8 +34,10 @@ namespace Fanex.Athena.Controllers.TotalBets
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            ITotalGoalDataAccess totalGoalDataAccess)
-            : base(languageService, sessionService, appSetting)
+            ITotalGoalDataAccess totalGoalDataAccess,
+                IClientViewHelper clientViewHelper
+            )
+            : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _totalGoalDataAccess = totalGoalDataAccess;
         }

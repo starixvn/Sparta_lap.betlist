@@ -8,6 +8,7 @@
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Web.ActionFilter;
+    using Service.Core.Helpers;
 
     [AuthorizeRestriction(AppMode.Self)]
     public class LicenseeListController : BaseController
@@ -23,8 +24,10 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            ILicenseeDataAccess licenseeDataAccess)
-            : base(languageService, sessionService, appSetting)
+            ILicenseeDataAccess licenseeDataAccess,
+            IClientViewHelper clientViewHelper
+            )
+            : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _licenseeDataAccess = licenseeDataAccess;
         }

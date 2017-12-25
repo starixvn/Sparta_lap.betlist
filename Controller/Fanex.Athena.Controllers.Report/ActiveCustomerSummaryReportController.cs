@@ -15,6 +15,7 @@ namespace Fanex.Athena.Controllers.Report
     using Model.Core.DataDomain;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Helpers;
 
     [FunctionAuthorization(PermissionKeys.ReportActiveCustomerSummary)]
     public class ActiveCustomerSummaryReportController : ReportBaseController
@@ -27,8 +28,10 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IProductService productService)
-            : base(languageService, sessionService, appSetting, productService)
+            IProductService productService,
+            IClientViewHelper clientViewHelper
+            )
+            : base(languageService, sessionService, appSetting, productService, clientViewHelper)
         {
         }
 

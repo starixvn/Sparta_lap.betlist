@@ -114,7 +114,7 @@
     <Compile Include="Common\FunctionService.cs" />
     <Compile Include="Common\FunctionStorage.cs" />
     <Compile Include="Common\Interfaces\IFunctionStorage.cs" />
-    <Compile Include="Helpers\ClientViewHelper.cs" />
+    <Compile Include="Utility\ClientViewHelper.cs" />
     <Compile Include="Users\AuthService.cs" />
     <Compile Include="Users\Interfaces\IAuthService.cs" />
     <Compile Include="Users\Interfaces\IOneBookSecurityWrapper.cs" />
@@ -143,6 +143,7 @@
     <Compile Include="Users\AuthorizationService.cs" />
     <Compile Include="Users\SessionService.cs" />
     <Compile Include="Users\UserService.cs" />
+    <Compile Include="Utility\Interfaces\IClientViewHelper.cs" />
     <Compile Include="Utility\Interfaces\IWebClientService.cs" />
     <Compile Include="Utility\Interfaces\IRSAEncryptor.cs" />
     <Compile Include="Utility\KeanOceanBusinessHelper.cs" />

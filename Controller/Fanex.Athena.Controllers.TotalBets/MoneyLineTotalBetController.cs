@@ -18,6 +18,7 @@ namespace Fanex.Athena.Controllers.TotalBets
     using Model.TotalBet.ViewModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Helpers;
 
     [FunctionAuthorization(PermissionKeys.TotalBetMoneyLine)]
     public class MoneyLineTotalBetController : TotalBetBaseController
@@ -33,8 +34,10 @@ namespace Fanex.Athena.Controllers.TotalBets
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IMoneyLineDataAccess moneyLineDataAccess)
-            : base(languageService, sessionService, appSetting)
+            IMoneyLineDataAccess moneyLineDataAccess,
+            IClientViewHelper clientViewHelper
+            )
+            : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _moneyLineDataAccess = moneyLineDataAccess;
         }

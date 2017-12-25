@@ -41,6 +41,7 @@ namespace Fanex.Athena.Api.CustomerLog
         private readonly ISessionService _sessionService;
 
         private readonly IAppSettings _appSettings;
+        private readonly IClientViewHelper _clientViewHelper;
 
         private readonly IEnumerable<int> _actionIdListForBA = new List<int> { 2401, 2403, 2801 };
 
@@ -54,6 +55,7 @@ namespace Fanex.Athena.Api.CustomerLog
             _logInLogDataAccess = new LogInLogDataAccess();
             _sessionService = new SessionService();
             _appSettings = new AppSettings();
+            _clientViewHelper = new ClientViewHelper();
         }
 
         #endregion Constructor
@@ -203,7 +205,7 @@ namespace Fanex.Athena.Api.CustomerLog
             var option = userSession != null && userSession.ViewType != ClientViewType.None ?
                 userSession.ViewType : (ClientViewType)int.Parse(_appSettings.ClientViewType);
 
-            return ClientViewHelper.GetViewPath(actionView, option);
+            return _clientViewHelper.GetViewPath(actionView, option);
         }
 
         #endregion Parse dictonary to razor view

@@ -304,7 +304,9 @@
                _customerListService,
                _groupComService,
                _licenseeDataAccess,
-               _productService)
+               _productService,
+               ClientViewHelper
+               )
             {
                 ControllerContext = ControllerContext
             };

@@ -17,6 +17,7 @@ namespace Fanex.Athena.Controllers.TotalBets
     using Model.TotalBet.ViewModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Helpers;
 
     [FunctionAuthorization(PermissionKeys.TotalBetHomeDrawAwayNoBet)]
     public class HomeDrawAwayNoBetTotalBetController : TotalBetBaseController
@@ -32,8 +33,10 @@ namespace Fanex.Athena.Controllers.TotalBets
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IHomeDrawAwayNoBetDataAccess homeDrawAwayNoBetDataAccess)
-            : base(languageService, sessionService, appSetting)
+            IHomeDrawAwayNoBetDataAccess homeDrawAwayNoBetDataAccess,
+              IClientViewHelper clientViewHelper
+            )
+            : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _homeDrawAwayNoBetDataAccess = homeDrawAwayNoBetDataAccess;
         }

@@ -15,6 +15,7 @@ namespace Fanex.Athena.Controllers.Report
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Web.ActionFilter;
+    using Service.Core.Helpers;
 
     [FunctionAuthorization(PermissionKeys.ReportCashOutWinLoss)]
     public class CashOutWinLossReportController : ReportBaseController
@@ -27,8 +28,10 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IProductService productService)
-            : base(languageService, sessionService, appSetting, productService)
+            IProductService productService,
+              IClientViewHelper clientViewHelper
+            )
+            : base(languageService, sessionService, appSetting, productService, clientViewHelper)
         {
         }
 
