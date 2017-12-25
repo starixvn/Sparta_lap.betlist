@@ -13,6 +13,7 @@
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Web.RouterConfig;
+    using System.IO;
 
     [TestFixture]
     public abstract class BaseControllerHelperTest
@@ -101,18 +102,22 @@
             var fakeIdentity = new GenericIdentity(IdentityName);
             var principal = new GenericPrincipal(fakeIdentity, null);
 
-            var httpContext = Substitute.For<HttpContextBase>();
-            httpContext.Request.ApplicationPath.Returns("/");
-            httpContext.Request.Url.Returns(new Uri(TestingRequestDomain));
-            httpContext.Request.Cookies.Returns(new HttpCookieCollection());
-            httpContext.Response.Cookies.Returns(new HttpCookieCollection());
-            httpContext.Server.MapPath(Arg.Any<string>()).Returns(x => (string)x[0]);
-            httpContext.User.Returns(principal);
+            var httpBaseContext = Substitute.For<HttpContextBase>();
+            httpBaseContext.Request.ApplicationPath.Returns("/");
+            httpBaseContext.Request.Url.Returns(new Uri(TestingRequestDomain));
+            httpBaseContext.Request.Cookies.Returns(new HttpCookieCollection());
+            httpBaseContext.Response.Cookies.Returns(new HttpCookieCollection());
+            httpBaseContext.Server.MapPath(Arg.Any<string>()).Returns(x => (string)x[0]);
+            httpBaseContext.User.Returns(principal);
 
             ControllerContext = Substitute.For<ControllerContext>();
-            ControllerContext.HttpContext = httpContext;
+            ControllerContext.HttpContext = httpBaseContext;
+            HttpContext.Current = new HttpContext(
+                new HttpRequest("", TestingRequestDomain, ""),
+                new HttpResponse(new StringWriter())
+                );
 
-            var requestContext = new RequestContext(httpContext, new RouteData());
+            var requestContext = new RequestContext(httpBaseContext, new RouteData());
 
             Url = new UrlHelper(requestContext, routes);
         }
