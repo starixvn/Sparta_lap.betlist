@@ -71,7 +71,7 @@ export default class ReportExcel {
         }, {
             field: 'Date',
             type: 's',
-            [HEADER_SECTION]: { title: reportBy === ReportBy.Daily ? 'date' : 'month', isShow: level === ReportLevel.MAIN, rowSpan: 2 },
+            [HEADER_SECTION]: { title: reportBy === ReportBy.DAILY ? 'date' : 'month', isShow: level === ReportLevel.MAIN, rowSpan: 2 },
             [MAIN_SECTION]: { isShow : level === ReportLevel.MAIN, style: bodyCellStyle.center, width: 150 },
             [TOTAL_SECTION]: { isShow : false },
             [SUMMARYTOTAL_SECTION]: { isShow : false }
