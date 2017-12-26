@@ -37,7 +37,7 @@ define(["jquery", "common/site", "./dcsbetsetting", "../common/betsetting.helper
                 beforeSend: Site.blockUI,
                 complete: Site.unBlockUI
             });
-        },
+        }
     };
 
     return _me;

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Data;
     using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
@@ -43,12 +44,8 @@
         [Test]
         public void GetDataList_WhenCall_ParametersPassedCorrectly()
         {
-            // Arrange
-            CustBalance totalData;
-            int totalRow;
-
             // Action
-            _dataAccess.GetDataList(_metaModel, out totalData, out totalRow);
+            _dataAccess.GetDataList(_metaModel);
 
             // Assert
             _objectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
@@ -87,32 +84,32 @@
                 TotalWL = 20m
             };
 
-            CustBalance totalData;
-            int totalRow;
             _reader.Read().Returns(true, false, true, false);
             _reader.NextResult().Returns(true);
             ConfigureReaderForGetDataListMethod(expectedResult);
             ConfigureReaderForTotalData(expectedTotalData);
 
             // Action
-            var result = _dataAccess.GetDataList(_metaModel, out totalData, out totalRow)[0];
+            var result = _dataAccess.GetDataList(_metaModel);
+            var firstItem = result.DataList.First();
+            var totalData = result.TotalData;
 
             // Assert
-            Assert.That(result.ExternalId, Is.EqualTo(expectedResult.ExternalId));
-            Assert.That(result.SystemId, Is.EqualTo(expectedResult.SystemId));
-            Assert.That(result.Turnover, Is.EqualTo(expectedResult.Turnover));
-            Assert.That(result.DrawGame, Is.EqualTo(expectedResult.DrawGame));
-            Assert.That(result.NetTurnover, Is.EqualTo(expectedResult.NetTurnover));
-            Assert.That(result.WinLoss, Is.EqualTo(expectedResult.WinLoss));
-            Assert.That(result.PlayerComm, Is.EqualTo(expectedResult.PlayerComm));
-            Assert.That(result.TotalWL, Is.EqualTo(expectedResult.TotalWL));
+            Assert.That(firstItem.ExternalId, Is.EqualTo(expectedResult.ExternalId));
+            Assert.That(firstItem.SystemId, Is.EqualTo(expectedResult.SystemId));
+            Assert.That(firstItem.Turnover, Is.EqualTo(expectedResult.Turnover));
+            Assert.That(firstItem.DrawGame, Is.EqualTo(expectedResult.DrawGame));
+            Assert.That(firstItem.NetTurnover, Is.EqualTo(expectedResult.NetTurnover));
+            Assert.That(firstItem.WinLoss, Is.EqualTo(expectedResult.WinLoss));
+            Assert.That(firstItem.PlayerComm, Is.EqualTo(expectedResult.PlayerComm));
+            Assert.That(firstItem.TotalWL, Is.EqualTo(expectedResult.TotalWL));
             Assert.That(totalData.Turnover, Is.EqualTo(expectedTotalData.Turnover));
             Assert.That(totalData.DrawGame, Is.EqualTo(expectedTotalData.DrawGame));
             Assert.That(totalData.NetTurnover, Is.EqualTo(expectedTotalData.NetTurnover));
             Assert.That(totalData.WinLoss, Is.EqualTo(expectedTotalData.WinLoss));
             Assert.That(totalData.PlayerComm, Is.EqualTo(expectedTotalData.PlayerComm));
             Assert.That(totalData.TotalWL, Is.EqualTo(expectedTotalData.TotalWL));
-            Assert.That(totalRow, Is.EqualTo(100));
+            Assert.That(result.TotalRows, Is.EqualTo(100));
         }
 
         private IList<ProductOption> GetProductOptions()

@@ -13,10 +13,11 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
+    using Model.Core.ResultModel;
 
     public class CustomerBalanceDataAccess : BaseDataAccess, ICustBalanceDataAccess
     {
-        public IList<CustBalance> GetDataList(CustomerBalanceMetaModel metaModel, out CustBalance totalData, out int totalRow)
+        public ReportResultModel<CustBalance> GetDataList(CustomerBalanceMetaModel metaModel)
         {
             using (var db = this.GetObjectDb("Lrf_Rpt_CustomerBalance"))
             {
@@ -33,29 +34,31 @@ namespace Fanex.Athena.DataAccess.Report
                     db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
                 }
 
-                var result = new List<CustBalance>();
+                var dataList = new List<CustBalance>();
+                CustBalance totalData = null;
+                int totalRow = 0;
                 using (var reader = db.ExecuteReader())
                 {
                     var index = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
                     while (reader.Read())
                     {
-                        result.Add(ReadDataItem(reader, index));
+                        dataList.Add(ReadDataItem(reader, index));
                         index++;
                     }
 
-                    if (result.Count > 0 && reader.NextResult() && reader.Read())
+                    if (dataList.Count > 0 && reader.NextResult() && reader.Read())
                     {
                         totalData = ReadTotalData(reader);
                         totalRow = reader.ToInt("TotalRows");
                     }
-                    else
-                    {
-                        totalData = new CustBalance();
-                        totalRow = 0;
-                    }
                 }
 
-                return result;
+                return new ReportResultModel<CustBalance>
+                {
+                    DataList = dataList,
+                    TotalData = totalData ?? new CustBalance(),
+                    TotalRows = totalRow
+                };
             }
         }
 

@@ -8,6 +8,7 @@
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Core.MetaModel.Product;
+    using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NPOI.SS.UserModel;
@@ -65,27 +66,28 @@
         public void Index_ValidModel_GetDataFromDataAccess()
         {
             // Arrange
-            CustBalance totalData;
-            int totalRows;
             var metaModel = CreateValidMetaModel();
-            var expectedData = SetUpForGettingData(metaModel, out totalData, out totalRows);
+            var expectedData = SetUpForGettingData(metaModel);
 
             // Action
             var result = _controller.Index(metaModel);
 
             // Assert
-            Assert.That(expectedData, Is.EqualTo(result.Data));
+            Assert.Multiple(() =>
+            {
+                Assert.That(expectedData.DataList, Is.EqualTo(result.Data));
+                Assert.That(expectedData.TotalData, Is.EqualTo(result.Total));
+                Assert.That(expectedData.TotalRows, Is.EqualTo(result.TotalRows));
+            });
         }
 
         [Test]
         public void Index_ExportToExcel_ExportWithCorrectData()
         {
             // Arrange
-            CustBalance totalData;
-            int totalRows;
             var metaModel = CreateValidMetaModel();
             metaModel.IsExportExcel = true;
-            var expectedDataList = SetUpForGettingData(metaModel, out totalData, out totalRows);
+            var expectedDataList = SetUpForGettingData(metaModel);
             const int PageSizeExcel = int.MaxValue - 1000;
 
             StubSingleWalletProductAccess(new string[] { Product.BA });
@@ -97,8 +99,7 @@
             _controller.CreateExcel(
                    Arg.Any<string>(),
                    Arg.Any<CustomerBalanceMetaModel>(),
-                   Arg.Any<IEnumerable<CustBalance>>(),
-                   Arg.Any<CustBalance>(),
+                   Arg.Any<ReportResultModel<CustBalance>>(),
                    Arg.Any<ShowingOption>(),
                    Arg.Any<ConvertingOption>()).ReturnsForAnyArgs(excel);
 
@@ -124,16 +125,16 @@
             };
         }
 
-        private IList<CustBalance> SetUpForGettingData(CustomerBalanceMetaModel metaModel, out CustBalance totalData, out int totalRows)
+        private ReportResultModel<CustBalance> SetUpForGettingData(CustomerBalanceMetaModel metaModel)
         {
-            var expectedData = new List<CustBalance> { new CustBalance { Index = 1 } };
-
-            _dataAccess.GetDataList(metaModel, out totalData, out totalRows).Returns(x =>
+            var expectedData = new ReportResultModel<CustBalance>
             {
-                x[1] = new CustBalance { Index = 1 };
-                x[2] = 1;
-                return expectedData;
-            });
+                TotalData = new CustBalance { Index = 1 },
+                TotalRows = 1,
+                DataList = new List<CustBalance> { new CustBalance { Index = 1 } }
+            };
+
+            _dataAccess.GetDataList(metaModel).Returns(expectedData);
 
             return expectedData;
         }

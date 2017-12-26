@@ -1205,7 +1205,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 beforeSend: Site.blockUI,
                 complete: Site.unBlockUI
             });
-        },
+        }
     };
 
     return _me;

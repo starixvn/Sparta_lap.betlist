@@ -11,6 +11,7 @@
     using Excel.Report;
     using Fanex.Athena.Api.Base.Attributes;
     using Fanex.Athena.Model.Core.DataDomain;
+    using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Service.Core.Common.Interfaces;
@@ -46,25 +47,22 @@
         protected internal virtual CustomerBalanceExcel CreateExcel(
             string templatePath,
             CustomerBalanceMetaModel metaModel,
-            IEnumerable<CustBalance> dataList,
-            CustBalance totalData,
+            ReportResultModel<CustBalance> result,
             ShowingOption showingOption,
             ConvertingOption convertingOption)
         {
-            return new CustomerBalanceExcel(templatePath, metaModel, dataList, totalData, showingOption, convertingOption);
+            return new CustomerBalanceExcel(templatePath, metaModel, result.DataList, result.TotalData, showingOption, convertingOption);
         }
 
         private dynamic ProcessRequest(CustomerBalanceMetaModel metaModel)
         {
-            CustBalance totalData;
-            int totalRows;
-            var dataList = GetData(metaModel, out totalData, out totalRows);
+            var result = GetData(metaModel);
 
             return new
             {
-                Data = dataList,
-                Total = totalData,
-                TotalRows = totalRows
+                Data = result.DataList,
+                Total = result.TotalData,
+                TotalRows = result.TotalRows
             };
         }
 
@@ -91,29 +89,30 @@
                 CurrencyName = metaModel.CurrencyName
             };
 
-            CustBalance totalData;
-            int totalRows;
             metaModel.PageIndex = 1;
             metaModel.PageSize = PageSizeExcel;
-            var dataList = GetData(metaModel, out totalData, out totalRows);
+            var result = GetData(metaModel);
 
-            var custBalanceExcel = CreateExcel(templatePath, metaModel, dataList, totalData, showingOption, convertingOption);
+            var custBalanceExcel = CreateExcel(templatePath, metaModel, result, showingOption, convertingOption);
             custBalanceExcel.Export();
 
             return ExcelStream(custBalanceExcel.Workbook, FileName);
         }
 
-        private IEnumerable<CustBalance> GetData(CustomerBalanceMetaModel metaModel, out CustBalance totalData, out int totalRow)
+        private ReportResultModel<CustBalance> GetData(CustomerBalanceMetaModel metaModel)
         {
             if (!metaModel.IsValid)
             {
-                totalData = new CustBalance();
-                totalRow = 0;
-                return new List<CustBalance>();
+                return new ReportResultModel<CustBalance>
+                {
+                    TotalData = new CustBalance(),
+                    TotalRows = 0,
+                    DataList = new List<CustBalance>()
+                };
             }
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
-            return _custBalanceDataAccess.GetDataList(metaModel, out totalData, out totalRow);
+            return _custBalanceDataAccess.GetDataList(metaModel);
         }
     }
 }
