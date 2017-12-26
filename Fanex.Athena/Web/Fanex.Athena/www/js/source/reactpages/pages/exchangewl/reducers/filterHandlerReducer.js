@@ -13,18 +13,6 @@ export const selectedReportBy = createReducer({}, {
     }
 })
 
-export const dateRange = createReducer({}, {
-    [types.SET_DATE_RANGE](state, action) {
-        return action.data;
-    }
-})
-
-export const dateConstraint = createReducer({}, {
-    [types.GET_DATE_CONSTRAINT](state, action) {
-        return action.data;
-    }
-})
-
 export const xsrfToken = createReducer({}, {
     [types.GET_XSRF_TOKEN](state, action) {
         return action.data;

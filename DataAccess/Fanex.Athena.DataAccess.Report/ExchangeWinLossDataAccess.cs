@@ -81,11 +81,6 @@
             }
         }
 
-        private static IDictionary<string, ExchangeWinLoss> InitSummaryTotal()
-        {
-            return SystemConstants.BaseCurrencyList.ToDictionary(x => x, x => new ExchangeWinLoss());
-        }
-
         private static void UpdateUspParams(IObjectDb db, ExchangeWinLossMetaModel metaModel)
         {
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
@@ -112,7 +107,7 @@
 
         private static IEnumerable<ExchangeWinLoss> CalculateTotal(IEnumerable<ExchangeWinLoss> dataList)
         {
-            if (dataList == null || !dataList.Any())
+            if (!dataList.Any())
             {
                 return new List<ExchangeWinLoss>();
             }
@@ -135,7 +130,7 @@
         private ReportResultModel<ExchangeWinLoss> GetData(IDataReader reader, ExchangeWinLossMetaModel metaModel)
         {
             var dataList = new List<ExchangeWinLoss>();
-            var summaryTotal = InitSummaryTotal();
+            var summaryTotal = SystemConstants.BaseCurrencyList.ToDictionary(x => x, x => new ExchangeWinLoss());
             var hasSystemId = reader.HasColumn("username");
             var hasExternalId = reader.HasColumn("nickname");
             var hasCustomerId = reader.HasColumn("custid");

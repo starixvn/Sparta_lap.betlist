@@ -832,6 +832,7 @@
     <Content Include="www\js\source\extensions\ajaxBinaryTransporting.js" />
     <Content Include="www\js\source\helpers\datahelper.js" />
     <Content Include="www\js\source\helpers\downloader.js" />
+    <Content Include="www\js\source\reactpages\actions\dateRangeAction.js" />
     <Content Include="www\js\source\reactpages\actions\excludeTestAction.js" />
     <Content Include="www\js\source\reactpages\actions\currencyAction.js" />
     <Content Include="www\js\source\pages\home\notification.js" />
@@ -841,6 +842,7 @@
     <Content Include="www\js\source\reactpages\actions\loaderAction.js" />
     <Content Include="www\js\source\reactpages\actions\productAction.js" />
     <Content Include="www\js\source\reactpages\actions\userGuideAction.js" />
+    <Content Include="www\js\source\reactpages\actions\__tests__\dateRangeAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\excludeTestAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\currencyAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\baseCurrencyAction.test.js" />
@@ -1005,6 +1007,7 @@
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\filterHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\__tests__\dataHandlerReducer.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\__tests__\filterHandlerReducer.test.js" />
+    <Content Include="www\js\source\reactpages\reducers\dateRangeReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\excludeTestReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\currencyReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\baseCurrencyReducer.js" />
