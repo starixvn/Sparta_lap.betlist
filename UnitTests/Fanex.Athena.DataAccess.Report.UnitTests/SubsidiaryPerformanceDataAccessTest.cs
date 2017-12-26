@@ -221,7 +221,8 @@
                     BetCount = Convert.ToInt32(readerDataMapping["BetCount"]),
                     Turnover = Convert.ToDecimal(readerDataMapping["Turnover" + baseCurrency]),
                     CustomerWinLoss = Convert.ToDecimal(readerDataMapping["Winlost" + baseCurrency]),
-                    SubsidiaryWinLoss = Convert.ToDecimal(readerDataMapping["LicenseeWL" + baseCurrency])
+                    SubsidiaryWinLoss = Convert.ToDecimal(readerDataMapping["LicenseeWL" + baseCurrency]),
+                    SubsidiaryComm = Convert.ToDecimal(readerDataMapping["SubsidiaryComm" + baseCurrency])
                 }
             };
         }
@@ -238,9 +239,11 @@
                 { "Turnover", 10000m },
                 { "Winlost", 5000m },
                 { "LicenseeWL", 2000m },
+                { "SubsidiaryComm", 10m },
                 { "Turnover" + baseCurrency, 20000m },
                 { "Winlost" + baseCurrency, 50000m },
-                { "LicenseeWL" + baseCurrency, 20000m }
+                { "LicenseeWL" + baseCurrency, 20000m },
+                { "SubsidiaryComm" + baseCurrency, 10m }
             };
         }
 

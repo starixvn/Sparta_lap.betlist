@@ -90,7 +90,7 @@
                 Turnover = Convert.ToDecimal(reader["Turnover" + baseCurrency]),
                 CustomerWinLoss = Convert.ToDecimal(reader["Winlost" + baseCurrency]),
                 SubsidiaryWinLoss = Convert.ToDecimal(reader["LicenseeWL" + baseCurrency]),
-                SubsidiaryComm = 0
+                SubsidiaryComm = Convert.ToDecimal(reader["SubsidiaryComm" + baseCurrency])
             };
         }
 

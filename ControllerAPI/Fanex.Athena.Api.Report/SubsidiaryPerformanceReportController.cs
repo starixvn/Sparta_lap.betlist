@@ -41,7 +41,7 @@
                 var licenseeName = SessionService.LicenseeSession.LicenseeName;
                 metaModel.LicenseeName = licenseeName;
                 var agentIdList = GetSelectedSubsidiaryList(metaModel.SubsidiaryList, licenseeName);
-                metaModel.AgentListXml = SessionService.GenerateAgentListXmlByAgentIdList(agentIdList);
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(agentIdList);
 
                 IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
 
@@ -76,13 +76,20 @@
             };
         }
 
-        private IEnumerable<int> GetSelectedSubsidiaryList(string selectedOperator, string licenseeName)
+        private IDictionary<int, IEnumerable<int>> GetSelectedSubsidiaryList(string selectedOperator, string licenseeName)
         {
+            var currencyAgentList = new Dictionary<int, IEnumerable<int>>();
             var selectedOperatorList = selectedOperator.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
             var subsidiaryData = _subsidiaryPerformanceService.GetOperatorList(licenseeName);
+            var dataGroupByCurrency = subsidiaryData.Where(s => selectedOperatorList.Contains(s.OperatorName)).GroupBy(x => x.CurrencyId);
 
-            return subsidiaryData.Where(s => selectedOperatorList.Contains(s.OperatorName)).Select(x => Convert.ToInt32(x.AgentId));
+            foreach (var item in dataGroupByCurrency)
+            {
+                currencyAgentList.Add(item.Key, item.Select(x => x.AgentId));
+            }
+
+            return currencyAgentList;
         }
     }
 }

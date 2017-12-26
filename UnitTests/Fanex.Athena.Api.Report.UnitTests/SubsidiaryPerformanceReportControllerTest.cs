@@ -54,7 +54,7 @@
             var metaModel = GetMetaModel();
             metaModel.AgentListXml = AgentListXml;
 
-            _sessionService.GenerateAgentListXmlByAgentIdList(Arg.Any<IEnumerable<int>>()).Returns(AgentListXml);
+            _sessionService.GenerateAgentListXml(Arg.Any<IEnumerable<int>>()).Returns(AgentListXml);
             SubsidiaryPerformanceMetaModel passedMetaModel = null;
             IEnumerable<SubsidiaryPerformanceEntity> totalList = null;
 
@@ -80,12 +80,13 @@
 
             var currencyIdList = new List<Operator>
             {
-                new Operator { AgentId = 1, OperatorName = "New York" },
-                new Operator { AgentId = 2, OperatorName = "India" }
+                new Operator { AgentId = 1, OperatorName = "New York", CurrencyId = 1 },
+                new Operator { AgentId = 3, OperatorName = "New York 2", CurrencyId = 1 },
+                new Operator { AgentId = 2, OperatorName = "India", CurrencyId = 2 }
             };
             _service.GetOperatorList(LicenseeName).Returns(currencyIdList);
-            IEnumerable<int> agentIdList = null;
-            _sessionService.GenerateAgentListXmlByAgentIdList(Arg.Do<IEnumerable<int>>(x => agentIdList = x));
+            IDictionary<int, IEnumerable<int>> currencyAgentList = null;
+            _sessionService.GenerateAgentListXml(Arg.Do<IDictionary<int, IEnumerable<int>>>(x => currencyAgentList = x));
             IEnumerable<SubsidiaryPerformanceEntity> totalList = null;
 
             _service.GetData(Arg.Any<SubsidiaryPerformanceMetaModel>(), out totalList)
@@ -99,7 +100,7 @@
             _controller.Index(metaModel);
 
             // Assert
-            Assert.That(agentIdList.Count(), Is.EqualTo(2));
+            Assert.That(currencyAgentList.Count(), Is.EqualTo(2));
         }
 
         [Test]
@@ -108,7 +109,7 @@
             // Arrange
             const string AgentListXml = "<Root><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/></Root>";
             var metaModel = GetMetaModel();
-            _sessionService.GenerateAgentListXmlByAgentIdList(Arg.Any<IEnumerable<int>>()).Returns(AgentListXml);
+            _sessionService.GenerateAgentListXml(Arg.Any<IEnumerable<int>>()).Returns(AgentListXml);
             IEnumerable<SubsidiaryPerformanceEntity> totalList;
             var expectedSummaryData = GetFakeSummaryData();
             var expectedGrandTotal = GetExpectedGrandTotal();
@@ -135,7 +136,7 @@
             // Arrange
             const string AgentListXml = "<Root><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/></Root>";
             var metaModel = GetMetaModel();
-            _sessionService.GenerateAgentListXmlByAgentIdList(Arg.Any<IEnumerable<int>>()).Returns(AgentListXml);
+            _sessionService.GenerateAgentListXml(Arg.Any<IEnumerable<int>>()).Returns(AgentListXml);
             IEnumerable<SubsidiaryPerformanceEntity> totalList;
             var expectedSummaryData = GetFakeSummaryData();
             IEnumerable<SubsidiaryPerformanceEntity> expectedTotalDataList = new List<SubsidiaryPerformanceEntity>();
