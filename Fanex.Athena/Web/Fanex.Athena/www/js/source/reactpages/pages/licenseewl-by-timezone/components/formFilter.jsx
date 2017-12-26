@@ -194,35 +194,35 @@ export class FormFilter extends Component {
             <div className="page-filter">
                 <div className="row">
 
-                    <div className="col-12 col-md-3 col-sm-3 col-lg-3 col-xl-3">
+                    <div className="col-12 col-md-4 col-sm-7 col-lg-3 col-xl-3">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Date")}</label>
                             {this._renderDateRange()}
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-2 col-sm-3 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("TimeZone")}</label>
                             {this._renderTimeZoneSelectList()}
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-2 col-sm-4 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Product")}</label>
                             {this._renderProductSelectList()}
                         </div>
                     </div>
 
-                     <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                     <div className="col-12 col-md-2 col-sm-3 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Currency")}</label>
                             {this._renderCurrencySelectList()}
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-2 col-sm-3 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("BaseCurrency")}</label>
                             {this._renderBaseCurrencySelectList()}
@@ -232,7 +232,7 @@ export class FormFilter extends Component {
                 </div>
 
                 <div className="row">
-                 <div className="col-12 col-md-3 col-sm-3 col-lg-3 col-xl-3">
+                 <div className="col-12 col-md-4 col-sm-4 col-lg-3 col-xl-3">
                         <div className="form-group">
                                <label className="label-text">{LangHelper.getSingleResource("GroupBy")}</label>
                                 <input type="radio" value={1} checked={this.props.groupBy == 1} name="GroupBy" id="GroupByProduct"
@@ -243,14 +243,14 @@ export class FormFilter extends Component {
                                 <label htmlFor="GroupByCurrency">{LangHelper.getSingleResource("Currency")}</label>
                         </div>
                 </div>
-                 <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                 <div className="col-12 col-md-2 col-sm-3 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("ReportBy")}</label>
                            {this._renderReportBySelectList()}
                            </div>
                        </div>
 
-                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-2 col-sm-3 col-lg-2 col-xl-2">
                         <div className="form-group">
                            <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={this.props.isIncludeDrawData} id="IncludeDrawData"
@@ -259,7 +259,7 @@ export class FormFilter extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-2 col-sm-4 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={(this.props.groupBy === 1 && this.props.selectedCurrency.value == 0) || this.props.isConvertAll} id="IsConvertAll"
@@ -271,7 +271,7 @@ export class FormFilter extends Component {
                         </div>
                         
                     </div>
-                     <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                     <div className="col-12 col-md-2 col-sm-3 col-lg-2 col-xl-2">
                         <div className="form-group">
                            <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={this.props.isExcludeTest} id="ExcludeTest"
