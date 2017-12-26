@@ -777,7 +777,7 @@ var _types = __webpack_require__(9);
 
 var types = _interopRequireWildcard(_types);
 
-var _createReducer2 = __webpack_require__(15);
+var _createReducer2 = __webpack_require__(14);
 
 var _createReducer3 = _interopRequireDefault(_createReducer2);
 
@@ -893,7 +893,7 @@ var GET_XSRF_TOKEN = exports.GET_XSRF_TOKEN = "GET_XSRF_TOKEN";
 
 /***/ }),
 
-/***/ 15:
+/***/ 14:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1557,7 +1557,7 @@ var _types = __webpack_require__(9);
 
 var types = _interopRequireWildcard(_types);
 
-var _createReducer3 = __webpack_require__(15);
+var _createReducer3 = __webpack_require__(14);
 
 var _createReducer4 = _interopRequireDefault(_createReducer3);
 
@@ -1592,7 +1592,7 @@ var _types = __webpack_require__(9);
 
 var types = _interopRequireWildcard(_types);
 
-var _createReducer3 = __webpack_require__(15);
+var _createReducer3 = __webpack_require__(14);
 
 var _createReducer4 = _interopRequireDefault(_createReducer3);
 
@@ -1814,7 +1814,7 @@ var _types = __webpack_require__(9);
 
 var types = _interopRequireWildcard(_types);
 
-var _createReducer3 = __webpack_require__(15);
+var _createReducer3 = __webpack_require__(14);
 
 var _createReducer4 = _interopRequireDefault(_createReducer3);
 
@@ -1849,7 +1849,7 @@ var _types = __webpack_require__(9);
 
 var types = _interopRequireWildcard(_types);
 
-var _createReducer2 = __webpack_require__(15);
+var _createReducer2 = __webpack_require__(14);
 
 var _createReducer3 = _interopRequireDefault(_createReducer2);
 
@@ -7095,7 +7095,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.gridData = undefined;
 
-var _createReducer2 = __webpack_require__(15);
+var _createReducer2 = __webpack_require__(14);
 
 var _createReducer3 = _interopRequireDefault(_createReducer2);
 
@@ -7126,7 +7126,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.dateConstraint = exports.xsrfToken = exports.isIncludeDrawData = exports.isConvertAll = exports.groupBy = exports.dateRange = exports.selectedReportBy = exports.reportByList = exports.selectedTimeZone = exports.timeZoneList = undefined;
 
-var _createReducer11 = __webpack_require__(15);
+var _createReducer11 = __webpack_require__(14);
 
 var _createReducer12 = _interopRequireDefault(_createReducer11);
 
@@ -7197,7 +7197,7 @@ var _types = __webpack_require__(9);
 
 var types = _interopRequireWildcard(_types);
 
-var _createReducer2 = __webpack_require__(15);
+var _createReducer2 = __webpack_require__(14);
 
 var _createReducer3 = _interopRequireDefault(_createReducer2);
 
@@ -7983,6 +7983,10 @@ var CHANGE_IS_EXCLUDE_TEST = exports.CHANGE_IS_EXCLUDE_TEST = "CHANGE_IS_EXCLUDE
 
 /* User mini guide */
 var USER_GUIDE_CONTENT = exports.USER_GUIDE_CONTENT = "USER_GUIDE_CONTENT";
+
+/* Date range */
+var SET_DATE_RANGE = exports.SET_DATE_RANGE = 'SET_DATE_RANGE';
+var GET_DATE_CONSTRAINT = exports.GET_DATE_CONSTRAINT = 'GET_DATE_CONSTRAINT';
 
 /***/ }),
 

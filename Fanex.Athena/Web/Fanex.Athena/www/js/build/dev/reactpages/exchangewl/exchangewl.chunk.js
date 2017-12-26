@@ -777,7 +777,7 @@ var _types = __webpack_require__(9);
 
 var types = _interopRequireWildcard(_types);
 
-var _createReducer2 = __webpack_require__(15);
+var _createReducer2 = __webpack_require__(14);
 
 var _createReducer3 = _interopRequireDefault(_createReducer2);
 
@@ -880,9 +880,6 @@ var SET_GRID_DATA = exports.SET_GRID_DATA = 'SET_GRID_DATA';
 var GET_REPORTBY = exports.GET_REPORTBY = 'GET_REPORTBY';
 var SET_REPORTBY = exports.SET_REPORTBY = 'SET_REPORTBY';
 
-var SET_DATE_RANGE = exports.SET_DATE_RANGE = 'SET_DATE_RANGE';
-var GET_DATE_CONSTRAINT = exports.GET_DATE_CONSTRAINT = 'GET_DATE_CONSTRAINT';
-
 var GET_XSRF_TOKEN = exports.GET_XSRF_TOKEN = 'GET_XSRF_TOKEN';
 
 var SET_PARAM = exports.SET_PARAM = 'SET_PARAM';
@@ -917,7 +914,7 @@ var ReportBy = exports.ReportBy = {
 
 /***/ }),
 
-/***/ 15:
+/***/ 14:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1009,7 +1006,7 @@ var _types = __webpack_require__(9);
 
 var types = _interopRequireWildcard(_types);
 
-var _createReducer3 = __webpack_require__(15);
+var _createReducer3 = __webpack_require__(14);
 
 var _createReducer4 = _interopRequireDefault(_createReducer3);
 
@@ -1044,7 +1041,7 @@ var _types = __webpack_require__(9);
 
 var types = _interopRequireWildcard(_types);
 
-var _createReducer2 = __webpack_require__(15);
+var _createReducer2 = __webpack_require__(14);
 
 var _createReducer3 = _interopRequireDefault(_createReducer2);
 
@@ -1187,9 +1184,13 @@ var _excludeTestAction = __webpack_require__(189);
 
 var excludeTestAction = _interopRequireWildcard(_excludeTestAction);
 
+var _dateRangeAction = __webpack_require__(740);
+
+var dateRangeAction = _interopRequireWildcard(_dateRangeAction);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var ActionCreators = exports.ActionCreators = Object.assign({}, dataHandlerAction, filterHandlerAction, currencyAction, loaderAction, excludeTestAction);
+var ActionCreators = exports.ActionCreators = Object.assign({}, dataHandlerAction, filterHandlerAction, currencyAction, loaderAction, excludeTestAction, dateRangeAction);
 
 /***/ }),
 
@@ -4685,7 +4686,7 @@ var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
 var _reactRedux = __webpack_require__(24);
 
-var _index = __webpack_require__(747);
+var _index = __webpack_require__(749);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -4757,11 +4758,11 @@ var _redux = __webpack_require__(17);
 
 var _index = __webpack_require__(196);
 
-var _datagrid = __webpack_require__(740);
+var _datagrid = __webpack_require__(741);
 
 var _datagrid2 = _interopRequireDefault(_datagrid);
 
-var _formFilter = __webpack_require__(745);
+var _formFilter = __webpack_require__(746);
 
 var _formFilter2 = _interopRequireDefault(_formFilter);
 
@@ -4900,7 +4901,7 @@ function setLevelGridData(data) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.setParams = exports.setDateRange = exports.setReportBy = undefined;
+exports.setParams = exports.setReportBy = undefined;
 
 var _types = __webpack_require__(130);
 
@@ -4915,6 +4916,32 @@ var setReportBy = exports.setReportBy = function setReportBy(value) {
     };
 };
 
+var setParams = exports.setParams = function setParams(value) {
+    return {
+        type: types.SET_PARAM,
+        data: value
+    };
+};
+
+/***/ }),
+
+/***/ 740:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.setDateRange = undefined;
+
+var _types = __webpack_require__(9);
+
+var types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 var setDateRange = exports.setDateRange = function setDateRange(dateRange) {
     var range = {
         fromDate: dateRange.startDate,
@@ -4927,16 +4954,9 @@ var setDateRange = exports.setDateRange = function setDateRange(dateRange) {
     };
 };
 
-var setParams = exports.setParams = function setParams(value) {
-    return {
-        type: types.SET_PARAM,
-        data: value
-    };
-};
-
 /***/ }),
 
-/***/ 740:
+/***/ 741:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4977,7 +4997,7 @@ var _service2 = _interopRequireDefault(_service);
 
 var _report = __webpack_require__(131);
 
-var _licensee = __webpack_require__(741);
+var _licensee = __webpack_require__(742);
 
 var _NoDataTitle = __webpack_require__(90);
 
@@ -4987,7 +5007,7 @@ var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _Breadcrumb = __webpack_require__(742);
+var _Breadcrumb = __webpack_require__(743);
 
 var _Breadcrumb2 = _interopRequireDefault(_Breadcrumb);
 
@@ -4995,7 +5015,7 @@ var _site = __webpack_require__(25);
 
 var _site2 = _interopRequireDefault(_site);
 
-var _report2 = __webpack_require__(744);
+var _report2 = __webpack_require__(745);
 
 var _report3 = _interopRequireDefault(_report2);
 
@@ -5510,7 +5530,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 741:
+/***/ 742:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5525,7 +5545,7 @@ var Licensee = exports.Licensee = {
 
 /***/ }),
 
-/***/ 742:
+/***/ 743:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5545,7 +5565,7 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _BreadcrumbItem = __webpack_require__(743);
+var _BreadcrumbItem = __webpack_require__(744);
 
 var _BreadcrumbItem2 = _interopRequireDefault(_BreadcrumbItem);
 
@@ -5641,7 +5661,7 @@ exports.default = BreadcrumbItem;
 
 /***/ }),
 
-/***/ 743:
+/***/ 744:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5711,7 +5731,7 @@ exports.default = BreadcrumbItem;
 
 /***/ }),
 
-/***/ 744:
+/***/ 745:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5774,7 +5794,7 @@ exports.default = Report;
 
 /***/ }),
 
-/***/ 745:
+/***/ 746:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5813,7 +5833,9 @@ var _site2 = _interopRequireDefault(_site);
 
 var _report = __webpack_require__(131);
 
-var _reportExcel = __webpack_require__(746);
+var _currency = __webpack_require__(747);
+
+var _reportExcel = __webpack_require__(748);
 
 var _reportExcel2 = _interopRequireDefault(_reportExcel);
 
@@ -5917,6 +5939,8 @@ var FormFilter = exports.FormFilter = function (_Component) {
     }, {
         key: '_getParams',
         value: function _getParams(level) {
+            var _this2 = this;
+
             if (!this.props.xsrfToken) {
                 return null;
             }
@@ -5927,10 +5951,14 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     fromDate = _props$dateRange.fromDate,
                     toDate = _props$dateRange.toDate;
 
+                var baseCurrency = _currency.BaseCurrency.find(function (x) {
+                    return x.value === _this2.props.selectedCurrency.value;
+                });
 
                 param = {
                     CurrencyId: this.props.selectedCurrency.value,
-                    CurrencyName: this.props.selectedCurrency.label,
+                    BaseCurrency: baseCurrency ? baseCurrency.text : "",
+                    CurrencyName: baseCurrency ? baseCurrency.text : this.props.selectedCurrency.label,
                     FromDate: _site2.default.convertDateToString(fromDate),
                     ToDate: _site2.default.convertDateToString(toDate),
                     ReportBy: this.props.selectedReportBy,
@@ -5966,7 +5994,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
     }, {
         key: '_renderCurrencySelectList',
         value: function _renderCurrencySelectList() {
-            var _this2 = this;
+            var _this3 = this;
 
             var _props2 = this.props,
                 currencyList = _props2.currencyList,
@@ -5978,13 +6006,13 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 value: selectedCurrency,
                 options: currencyList,
                 onChange: function onChange(item) {
-                    return _this2.props.setSelectedCurrency(item);
+                    return _this3.props.setSelectedCurrency(item);
                 } });
         }
     }, {
         key: '_renderReportByOption',
         value: function _renderReportByOption() {
-            var _this3 = this;
+            var _this4 = this;
 
             var _props3 = this.props,
                 reportByOption = _props3.reportByOption,
@@ -6005,7 +6033,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                         'span',
                         { key: 'Group' + key },
                         _react2.default.createElement('input', { type: 'radio', value: option.value, checked: selectedReportBy === option.value, id: key,
-                            onChange: _this3.changeReportBy }),
+                            onChange: _this4.changeReportBy }),
                         _react2.default.createElement(
                             'label',
                             { htmlFor: key },
@@ -6018,14 +6046,14 @@ var FormFilter = exports.FormFilter = function (_Component) {
     }, {
         key: '_renderExcludeTestDataCheckBox',
         value: function _renderExcludeTestDataCheckBox() {
-            var _this4 = this;
+            var _this5 = this;
 
             return _react2.default.createElement(
                 'div',
                 { className: 'checkbox-group' },
                 _react2.default.createElement('input', { type: 'checkbox', className: 'checkbox', checked: this.props.isExcludeTest, id: 'ExcludeTest',
                     onChange: function onChange() {
-                        return _this4.props.changeIsExcludeTest(!_this4.props.isExcludeTest);
+                        return _this5.props.changeIsExcludeTest(!_this5.props.isExcludeTest);
                     } }),
                 _react2.default.createElement(
                     'label',
@@ -6045,7 +6073,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     { className: 'row' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-sm-12 col-md-4 col-xl-3' },
+                        { className: 'col-12 col-sm-7 col-md-4 col-xl-3' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -6059,7 +6087,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-sm-12 col-md-2 col-xl-2' },
+                        { className: 'col-12 col-sm-4 col-md-2 col-xl-2' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -6073,12 +6101,12 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-sm-12 col-md-2 col-xl-2' },
+                        { className: 'col-12 col-sm-4 col-md-2 col-xl-2' },
                         this._renderReportByOption()
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-sm-12 col-md-2 col-xl-2' },
+                        { className: 'col-12 col-sm-3 col-md-2 col-xl-2' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -6087,7 +6115,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-sm-12 col-md-2 col-xl-2' },
+                        { className: 'col-12 col-sm-3 col-md-2 col-xl-2' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group button-group' },
@@ -6127,7 +6155,20 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 746:
+/***/ 747:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var BaseCurrency = exports.BaseCurrency = [{ value: -1, text: "EUR" }, { value: -2, text: "USD" }, { value: -3, text: "GBP" }];
+
+/***/ }),
+
+/***/ 748:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6243,7 +6284,7 @@ var ReportExcel = function () {
             }, _defineProperty(_ref2, HEADER_SECTION, { title: 'index', isShow: true, rowSpan: 2, index_r: HEADER_ROW_INDEX }), _defineProperty(_ref2, MAIN_SECTION, { isShow: true, style: _excelStyle.bodyCellStyle.center, width: 50 }), _defineProperty(_ref2, TOTAL_SECTION, { isShow: false }), _defineProperty(_ref2, SUMMARYTOTAL_SECTION, { isShow: false }), _ref2), (_ref3 = {
                 field: 'Date',
                 type: 's'
-            }, _defineProperty(_ref3, HEADER_SECTION, { title: reportBy === _report.ReportBy.Daily ? 'date' : 'month', isShow: level === _report.ReportLevel.MAIN, rowSpan: 2 }), _defineProperty(_ref3, MAIN_SECTION, { isShow: level === _report.ReportLevel.MAIN, style: _excelStyle.bodyCellStyle.center, width: 150 }), _defineProperty(_ref3, TOTAL_SECTION, { isShow: false }), _defineProperty(_ref3, SUMMARYTOTAL_SECTION, { isShow: false }), _ref3), (_ref4 = {
+            }, _defineProperty(_ref3, HEADER_SECTION, { title: reportBy === _report.ReportBy.DAILY ? 'date' : 'month', isShow: level === _report.ReportLevel.MAIN, rowSpan: 2 }), _defineProperty(_ref3, MAIN_SECTION, { isShow: level === _report.ReportLevel.MAIN, style: _excelStyle.bodyCellStyle.center, width: 150 }), _defineProperty(_ref3, TOTAL_SECTION, { isShow: false }), _defineProperty(_ref3, SUMMARYTOTAL_SECTION, { isShow: false }), _ref3), (_ref4 = {
                 field: 'ExternalId',
                 type: 's'
             }, _defineProperty(_ref4, HEADER_SECTION, { title: 'externalId', isShow: level === _report.ReportLevel.CUSTOMER, rowSpan: 2 }), _defineProperty(_ref4, MAIN_SECTION, { isShow: level === _report.ReportLevel.CUSTOMER, style: _excelStyle.bodyCellStyle.center, width: 150 }), _defineProperty(_ref4, TOTAL_SECTION, { isShow: false }), _defineProperty(_ref4, SUMMARYTOTAL_SECTION, { isShow: false }), _ref4), (_ref5 = {
@@ -6427,7 +6468,7 @@ exports.default = ReportExcel;
 
 /***/ }),
 
-/***/ 747:
+/***/ 749:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6439,11 +6480,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(17);
 
-var _dataHandlerReducer = __webpack_require__(748);
+var _dataHandlerReducer = __webpack_require__(750);
 
 var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
 
-var _filterHandlerReducer = __webpack_require__(749);
+var _filterHandlerReducer = __webpack_require__(751);
 
 var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
 
@@ -6459,13 +6500,17 @@ var _excludeTestReducer = __webpack_require__(193);
 
 var excludeTestReducer = _interopRequireWildcard(_excludeTestReducer);
 
+var _dateRangeReducer = __webpack_require__(752);
+
+var dateRangeReducer = _interopRequireWildcard(_dateRangeReducer);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, filterHandlerReducer, currencyReducer, loaderReducer, excludeTestReducer));
+exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, filterHandlerReducer, currencyReducer, loaderReducer, excludeTestReducer, dateRangeReducer));
 
 /***/ }),
 
-/***/ 748:
+/***/ 750:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6476,7 +6521,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.levelGridData = exports.gridData = undefined;
 
-var _createReducer3 = __webpack_require__(15);
+var _createReducer3 = __webpack_require__(14);
 
 var _createReducer4 = _interopRequireDefault(_createReducer3);
 
@@ -6500,7 +6545,7 @@ var levelGridData = exports.levelGridData = (0, _createReducer4.default)({}, _de
 
 /***/ }),
 
-/***/ 749:
+/***/ 751:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6509,11 +6554,11 @@ var levelGridData = exports.levelGridData = (0, _createReducer4.default)({}, _de
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.isAllowedCustomerComm = exports.licenseeId = exports.params = exports.xsrfToken = exports.dateConstraint = exports.dateRange = exports.selectedReportBy = exports.reportByOption = undefined;
+exports.isAllowedCustomerComm = exports.licenseeId = exports.params = exports.xsrfToken = exports.selectedReportBy = exports.reportByOption = undefined;
 
-var _createReducer9 = __webpack_require__(15);
+var _createReducer7 = __webpack_require__(14);
 
-var _createReducer10 = _interopRequireDefault(_createReducer9);
+var _createReducer8 = _interopRequireDefault(_createReducer7);
 
 var _types = __webpack_require__(130);
 
@@ -6525,35 +6570,62 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var reportByOption = exports.reportByOption = (0, _createReducer10.default)({}, _defineProperty({}, types.GET_REPORTBY, function (state, action) {
+var reportByOption = exports.reportByOption = (0, _createReducer8.default)({}, _defineProperty({}, types.GET_REPORTBY, function (state, action) {
     return action.data;
 }));
 
-var selectedReportBy = exports.selectedReportBy = (0, _createReducer10.default)({}, _defineProperty({}, types.SET_REPORTBY, function (state, action) {
+var selectedReportBy = exports.selectedReportBy = (0, _createReducer8.default)({}, _defineProperty({}, types.SET_REPORTBY, function (state, action) {
     return action.data;
 }));
 
-var dateRange = exports.dateRange = (0, _createReducer10.default)({}, _defineProperty({}, types.SET_DATE_RANGE, function (state, action) {
+var xsrfToken = exports.xsrfToken = (0, _createReducer8.default)({}, _defineProperty({}, types.GET_XSRF_TOKEN, function (state, action) {
     return action.data;
 }));
 
-var dateConstraint = exports.dateConstraint = (0, _createReducer10.default)({}, _defineProperty({}, types.GET_DATE_CONSTRAINT, function (state, action) {
+var params = exports.params = (0, _createReducer8.default)({}, _defineProperty({}, types.SET_PARAM, function (state, action) {
     return action.data;
 }));
 
-var xsrfToken = exports.xsrfToken = (0, _createReducer10.default)({}, _defineProperty({}, types.GET_XSRF_TOKEN, function (state, action) {
+var licenseeId = exports.licenseeId = (0, _createReducer8.default)({}, _defineProperty({}, types.GET_LICENSEE, function (state, action) {
     return action.data;
 }));
 
-var params = exports.params = (0, _createReducer10.default)({}, _defineProperty({}, types.SET_PARAM, function (state, action) {
+var isAllowedCustomerComm = exports.isAllowedCustomerComm = (0, _createReducer8.default)({}, _defineProperty({}, types.GET_ISALLOWED_CUSTOMERCOMM, function (state, action) {
     return action.data;
 }));
 
-var licenseeId = exports.licenseeId = (0, _createReducer10.default)({}, _defineProperty({}, types.GET_LICENSEE, function (state, action) {
+/***/ }),
+
+/***/ 752:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.dateConstraint = exports.dateRange = undefined;
+
+var _types = __webpack_require__(9);
+
+var types = _interopRequireWildcard(_types);
+
+var _createReducer3 = __webpack_require__(14);
+
+var _createReducer4 = _interopRequireDefault(_createReducer3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var dateRange = exports.dateRange = (0, _createReducer4.default)({}, _defineProperty({}, types.SET_DATE_RANGE, function (state, action) {
     return action.data;
 }));
 
-var isAllowedCustomerComm = exports.isAllowedCustomerComm = (0, _createReducer10.default)({}, _defineProperty({}, types.GET_ISALLOWED_CUSTOMERCOMM, function (state, action) {
+var dateConstraint = exports.dateConstraint = (0, _createReducer4.default)({}, _defineProperty({}, types.GET_DATE_CONSTRAINT, function (state, action) {
     return action.data;
 }));
 
@@ -7329,6 +7401,10 @@ var CHANGE_IS_EXCLUDE_TEST = exports.CHANGE_IS_EXCLUDE_TEST = "CHANGE_IS_EXCLUDE
 
 /* User mini guide */
 var USER_GUIDE_CONTENT = exports.USER_GUIDE_CONTENT = "USER_GUIDE_CONTENT";
+
+/* Date range */
+var SET_DATE_RANGE = exports.SET_DATE_RANGE = 'SET_DATE_RANGE';
+var GET_DATE_CONSTRAINT = exports.GET_DATE_CONSTRAINT = 'GET_DATE_CONSTRAINT';
 
 /***/ }),
 
