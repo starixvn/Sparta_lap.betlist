@@ -77,24 +77,19 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
         }
 
-        public User ValidateUserForLrfSystem(User requestUser, out IResultInfo resultInfo)
+        public IResultInfo<User> ValidateUserForLrfSystem(User requestUser)
         {
             const string UspName = "Lrf_UserLogin";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    AddCommonParameters(requestUser, db);
-                    db.AddInParameter("langkey", DbType.String, requestUser.Request.Language);
 
-                    var user = ReadUser(db);
-                    resultInfo = GetResult(db);
-                    return user;
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName);
+                AddCommonParameters(requestUser, db);
+                db.AddInParameter("langkey", DbType.String, requestUser.Request.Language);
+
+                var user = ReadUser(db);
+                var resultInfo = GetResult<User>(db);
+                resultInfo.ExtendedData = user;
+                return resultInfo;
             }
         }
 

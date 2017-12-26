@@ -102,15 +102,18 @@
                 Password = hashPassword
             };
 
-            IResultInfo resultInfo = null;
+            var resultInfo = new ResultInfo<User>
+            {
+                ExtendedData = outputUser
+            };
             _userDataAccess.GetByUsername("user1", Arg.Any<bool>(), Arg.Any<int>()).Returns(outputUser);
-            _authDataAccess.ValidateUserForLrfSystem(Arg.Any<User>(), out resultInfo).Returns(outputUser);
+            _authDataAccess.ValidateUserForLrfSystem(Arg.Any<User>()).Returns(resultInfo);
 
             // Action
-            var result = _authService.ValidateUserForLrfSystem(inputUser, loginToken, out resultInfo);
+            var result = _authService.ValidateUserForLrfSystem(inputUser, loginToken);
 
             // Assert
-            Assert.That(result.UserID, Is.EqualTo(outputUser.UserID));
+            Assert.That(result.ExtendedData.UserID, Is.EqualTo(outputUser.UserID));
         }
 
         [Test]
@@ -131,19 +134,18 @@
                 Password = hashPassword
             };
 
-            IResultInfo resultInfo = null;
             _userDataAccess.GetByUsername("user1", Arg.Any<bool>(), Arg.Any<int>()).Returns(outputUser);
 
             var expectedResult = new ResultInfo { Code = 104, Message = "Wrong username or password." };
 
             // Action
-            var result = _authService.ValidateUserForLrfSystem(inputUser, loginToken, out resultInfo);
+            var result = _authService.ValidateUserForLrfSystem(inputUser, loginToken);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(resultInfo.Code, Is.EqualTo(expectedResult.Code));
-                Assert.That(resultInfo.Message, Is.EqualTo(expectedResult.Message));
+                Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
+                Assert.That(result.Message, Is.EqualTo(expectedResult.Message));
             });
         }
 
@@ -160,18 +162,17 @@
                 Password = "123"
             };
 
-            IResultInfo resultInfo = null;
             _userDataAccess.GetByUsername("user1", Arg.Any<bool>(), Arg.Any<int>()).Returns(outputUser);
             var expectedResult = new ResultInfo { Code = 100, Message = "Not found user" };
 
             // Action
-            var result = _authService.ValidateUserForLrfSystem(inputUser, loginToken, out resultInfo);
+            var result = _authService.ValidateUserForLrfSystem(inputUser, loginToken);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(resultInfo.Code, Is.EqualTo(expectedResult.Code));
-                Assert.That(resultInfo.Message, Is.EqualTo(expectedResult.Message));
+                Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
+                Assert.That(result.Message, Is.EqualTo(expectedResult.Message));
             });
         }
     }
