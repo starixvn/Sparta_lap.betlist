@@ -21,11 +21,22 @@ namespace Fanex.Athena.Model.Core.DataDomain
         private static readonly ReadOnlyCollection<string> _BaseCurrencyList = new ReadOnlyCollection<string>(
             new List<string> { "EUR", "USD", "GBP" });
 
+        private static readonly ReadOnlyCollection<string> _newBaseCurrencyList = new ReadOnlyCollection<string>(
+            new List<string> { "EUR", "USD", "GBP", "MYR", "CNY", "THB", "IDR" });
+
         public static ReadOnlyCollection<string> BaseCurrencyList
         {
             get
             {
                 return _BaseCurrencyList;
+            }
+        }
+
+        public static ReadOnlyCollection<string> NewBaseCurrencyList
+        {
+            get
+            {
+                return _newBaseCurrencyList;
             }
         }
     }

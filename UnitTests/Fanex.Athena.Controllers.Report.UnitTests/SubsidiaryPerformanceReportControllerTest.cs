@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -18,6 +19,9 @@ namespace Fanex.Athena.Controllers.Report.UnitTests
     [TestFixture]
     public class SubsidiaryPerformanceReportControllerTest : BaseControllerHelperTest
     {
+        private static readonly ReadOnlyCollection<string> _baseCurrencyList = new ReadOnlyCollection<string>(
+            new List<string> { "EUR", "USD", "GBP", "MYR", "CNY", "THB", "IDR" });
+
         private const string FakeProductCode = "TestingCode";
         private const string FakeProductName = "Testing Product Name";
 
