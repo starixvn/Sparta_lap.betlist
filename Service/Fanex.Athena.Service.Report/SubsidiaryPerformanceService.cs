@@ -33,11 +33,18 @@
             _subLicenseePerformanceDataAccess = subLicenseePerformanceDataAccess;
         }
 
-        public IDictionary<int, string> GetOperatorList(string licenseeName, IEnumerable<int> currencyListByUser)
+        public IEnumerable<Operator> GetOperatorList(string licenseeName)
         {
-            var operatorList = GetOperatorByLicensee(licenseeName);
+            var cacheKey = string.Format(CacheKey.MemorycacheSubsidiaryListByLicensee, licenseeName);
 
-            return operatorList.Where(o => currencyListByUser.Contains(o.CurrencyId)).ToDictionary(x => x.AgentId, x => x.OperatorName);
+            var operatorList = _cache.Get<IEnumerable<Operator>>(cacheKey);
+            if (operatorList == null)
+            {
+                operatorList = _subLicenseePerformanceDataAccess.GetOperatorList(licenseeName);
+                _cache.Set(cacheKey, operatorList, CacheTimeoutSeconds);
+            }
+
+            return operatorList;
         }
 
         public IEnumerable<SubsidiaryPerformanceDataModel> GetData(
@@ -49,7 +56,7 @@
 
             if (entityDataList.Any())
             {
-                var operatorList = GetOperatorByLicensee(metaModel.LicenseeName);
+                var operatorList = GetOperatorList(metaModel.LicenseeName);
                 MapSubsidiaryColumn(entityDataList, operatorList);
                 MapSubsidiaryColumn(entityTotalList, operatorList);
 
@@ -142,20 +149,6 @@
             }
 
             return totalDataList;
-        }
-
-        private IEnumerable<Operator> GetOperatorByLicensee(string licenseeName)
-        {
-            var cacheKey = string.Format(CacheKey.MemorycacheSubsidiaryListByLicensee, licenseeName);
-
-            var operatorList = _cache.Get<IEnumerable<Operator>>(cacheKey);
-            if (operatorList == null)
-            {
-                operatorList = _subLicenseePerformanceDataAccess.GetOperatorList(licenseeName);
-                _cache.Set(cacheKey, operatorList, CacheTimeoutSeconds);
-            }
-
-            return operatorList;
         }
     }
 }

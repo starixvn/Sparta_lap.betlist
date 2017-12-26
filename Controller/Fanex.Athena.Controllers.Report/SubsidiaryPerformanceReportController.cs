@@ -42,10 +42,8 @@ namespace Fanex.Athena.Controllers.Report
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 FunctionNames.SubsidiaryPerformance);
-
-            var currencyIdList = userSession.CurrencyList.Select(x => x.Key);
-            var subsidiaryList = _service.GetOperatorList(licenseeSession.LicenseeName, currencyIdList);
-            var operatorNameList = subsidiaryList.Any() ? subsidiaryList.Select(x => x.Value).Distinct() : new List<string>();
+            var subsidiaryList = _service.GetOperatorList(licenseeSession.LicenseeName);
+            var operatorNameList = subsidiaryList.Any() ? subsidiaryList.Select(x => x.OperatorName).Distinct() : new List<string>();
 
             var model = new SubsidiaryPerformanceViewModel
             {

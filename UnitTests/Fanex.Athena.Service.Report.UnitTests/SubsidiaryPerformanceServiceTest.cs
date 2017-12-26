@@ -41,14 +41,13 @@
         {
             // Arrange
             const string LicenseeName = "12Bet";
-            var currencyIdList = new List<int> { 1, 2 };
             var cacheKey = $"SubsidiaryList_{LicenseeName}";
             var subsidiaryList = new Dictionary<int, string>();
 
             _cache.Get<IDictionary<int, string>>(cacheKey).Returns(subsidiaryList);
 
             // Action
-            _service.GetOperatorList(LicenseeName, currencyIdList);
+            _service.GetOperatorList(LicenseeName);
 
             // Assert
             _dataAccess.DidNotReceiveWithAnyArgs().GetOperatorList(LicenseeName);
@@ -59,7 +58,6 @@
         {
             // Arrange
             const string LicenseeName = "12Bet";
-            var currencyIdList = new List<int> { 1, 2 };
             var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
 
             IEnumerable<Operator> operatorList = null;
@@ -78,16 +76,11 @@
             };
             _dataAccess.GetOperatorList(LicenseeName).Returns(expectedFromDataAccess);
 
-            var expectedResult = new Dictionary<int, string>
-            {
-                [AgentId] = OperatorName
-            };
-
             // Action
-            var result = _service.GetOperatorList(LicenseeName, currencyIdList);
+            var result = _service.GetOperatorList(LicenseeName);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.That(result, Is.EqualTo(expectedFromDataAccess));
         }
 
         [Test]
@@ -95,7 +88,6 @@
         {
             // Arrange
             const string LicenseeName = "12Bet";
-            var currencyIdList = new List<int> { 1, 2 };
             var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
             IEnumerable<Operator> operatorList = null;
 
@@ -115,7 +107,7 @@
             _dataAccess.GetOperatorList(LicenseeName).Returns(expectedFromDataAccess);
 
             // Action
-            var result = _service.GetOperatorList(LicenseeName, currencyIdList);
+            var result = _service.GetOperatorList(LicenseeName);
 
             // Assert
             _cache.Received().Set(cacheKey, expectedFromDataAccess, 300);

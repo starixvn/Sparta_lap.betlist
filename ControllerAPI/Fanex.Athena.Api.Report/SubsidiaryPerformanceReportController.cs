@@ -80,11 +80,9 @@
         {
             var selectedOperatorList = selectedOperator.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-            var userSession = SessionService.UserSession;
-            var currencyIdList = userSession.CurrencyList.Select(x => x.Key);
-            var subsidiaryData = _subsidiaryPerformanceService.GetOperatorList(licenseeName, currencyIdList);
+            var subsidiaryData = _subsidiaryPerformanceService.GetOperatorList(licenseeName);
 
-            return subsidiaryData.Where(s => selectedOperatorList.Contains(s.Value)).Select(x => Convert.ToInt32(x.Key));
+            return subsidiaryData.Where(s => selectedOperatorList.Contains(s.OperatorName)).Select(x => Convert.ToInt32(x.AgentId));
         }
     }
 }

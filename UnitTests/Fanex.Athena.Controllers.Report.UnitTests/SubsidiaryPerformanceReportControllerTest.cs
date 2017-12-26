@@ -6,6 +6,7 @@ using Fanex.Athena.Controllers.Base.UnitTests;
 using Fanex.Athena.Model.Core.DataDomain;
 using Fanex.Athena.Model.Core.DTO.Common;
 using Fanex.Athena.Model.Core.MetaModel.Product;
+using Fanex.Athena.Model.Report.DTO;
 using Fanex.Athena.Model.Report.ViewModel;
 using Fanex.Athena.Service.Core.Common.Interfaces;
 using Fanex.Athena.Service.Report.Interfaces;
@@ -38,11 +39,11 @@ namespace Fanex.Athena.Controllers.Report.UnitTests
         [Test]
         public void Index_SubsidiaryListHasData_ReturnCorrectViewResult()
         {
-            var expectedOperatorList = new Dictionary<int, string>
+            var expectedOperatorList = new List<Operator>
             {
-                [1] = "New York",
-                [2] = "New York",
-                [3] = "India"
+                new Operator { AgentId = 1, OperatorName = "New York" },
+                new Operator { AgentId = 2, OperatorName = "New York" },
+                new Operator { AgentId = 3, OperatorName = "India" }
             };
             var expectedViewModelData = new SubsidiaryPerformanceViewModel
             {
@@ -56,7 +57,7 @@ namespace Fanex.Athena.Controllers.Report.UnitTests
         [Test]
         public void Index_SubsidiaryListHasNoData_ReturnCorrectViewResult()
         {
-            var expectedOperatorList = new Dictionary<int, string>();
+            var expectedOperatorList = new List<Operator>();
             var expectedViewModelData = new SubsidiaryPerformanceViewModel
             {
                 ProductOptionList = GetExpectedProductOptionList(),
@@ -83,12 +84,12 @@ namespace Fanex.Athena.Controllers.Report.UnitTests
             };
         }
 
-        private void TestIndexViewModel(IDictionary<int, string> expectedOperatorList, SubsidiaryPerformanceViewModel viewModelData)
+        private void TestIndexViewModel(IEnumerable<Operator> expectedOperatorList, SubsidiaryPerformanceViewModel viewModelData)
         {
             using (var controller = CreateController())
             {
                 // Arrange
-                _service.GetOperatorList(SessionService.LicenseeSession.LicenseeName, Arg.Any<IEnumerable<int>>()).Returns(expectedOperatorList);
+                _service.GetOperatorList(SessionService.LicenseeSession.LicenseeName).Returns(expectedOperatorList);
 
                 var expectedModel = _serializer.Serialize(viewModelData);
                 HttpContext.Current = GetHttpContext();

@@ -2,11 +2,12 @@
 {
     using System.Collections.Generic;
     using Fanex.Athena.Model.Report.MetaModel;
+    using Model.Report.DTO;
     using Model.Report.DTO.SubsidiaryPerformance;
 
     public interface ISubsidiaryPerformanceService
     {
-        IDictionary<int, string> GetOperatorList(string licenseeName, IEnumerable<int> currencyListByUser);
+        IEnumerable<Operator> GetOperatorList(string licenseeName);
 
         IEnumerable<SubsidiaryPerformanceDataModel> GetData(
             SubsidiaryPerformanceMetaModel metaModel,

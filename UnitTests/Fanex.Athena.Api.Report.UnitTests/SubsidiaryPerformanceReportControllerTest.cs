@@ -6,6 +6,7 @@
     using System.Web.Script.Serialization;
     using Fanex.Athena.Service.Report.Interfaces;
     using Model.Core.DTO.Users;
+    using Model.Report.DTO;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
     using NSubstitute;
@@ -77,8 +78,12 @@
             // Arrange
             var metaModel = GetMetaModel();
 
-            var currencyIdList = new Dictionary<int, string> { [-1] = "NewYork", [-2] = "India" };
-            _service.GetOperatorList(LicenseeName, Arg.Any<IEnumerable<int>>()).Returns(currencyIdList);
+            var currencyIdList = new List<Operator>
+            {
+                new Operator { AgentId = 1, OperatorName = "New York" },
+                new Operator { AgentId = 2, OperatorName = "India" }
+            };
+            _service.GetOperatorList(LicenseeName).Returns(currencyIdList);
             IEnumerable<int> agentIdList = null;
             _sessionService.GenerateAgentListXmlByAgentIdList(Arg.Do<IEnumerable<int>>(x => agentIdList = x));
             IEnumerable<SubsidiaryPerformanceEntity> totalList = null;
@@ -277,7 +282,7 @@
                 FromDate = new DateTime(2017, 8, 30),
                 ToDate = new DateTime(2017, 8, 30),
                 ProductCodeList = "SB,BA",
-                SubsidiaryList = "NewYork,India",
+                SubsidiaryList = "New York,India",
                 BaseCurrency = "USD"
             };
         }
