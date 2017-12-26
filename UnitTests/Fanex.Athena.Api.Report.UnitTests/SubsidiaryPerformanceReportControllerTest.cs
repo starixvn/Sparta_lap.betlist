@@ -73,7 +73,7 @@
         }
 
         [Test]
-        public void Index_SubsidiaryListHasValue_GenerateAgentListXmlByAgentIdListIsCalledWithCorrectParameter()
+        public void Index_SubsidiaryListHasValue_GenerateAgentListXmlIsCalledWithCorrectParameter()
         {
             // Arrange
             var metaModel = GetMetaModel();
@@ -101,6 +101,25 @@
 
             // Assert
             Assert.That(currencyAgentList.Count(), Is.EqualTo(2));
+        }
+
+        [Test]
+        public void Index_SubsidiaryListHasNoValue_ReturnEmptyResult()
+        {
+            // Arrange
+            var metaModel = GetMetaModel();
+
+            var currencyIdList = new List<Operator>();
+            _service.GetOperatorList(LicenseeName).Returns(currencyIdList);
+            var expectedResult = _serializer.Serialize(new { Data = new List<SubsidiaryPerformanceDataModel>() });
+
+            // Action
+            var resultData = _controller.Index(metaModel);
+            var result = _serializer.Serialize(resultData);
+
+            // Assert
+            _sessionService.DidNotReceiveWithAnyArgs().GenerateAgentListXml(Arg.Any<IDictionary<int, IEnumerable<int>>>());
+            Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]

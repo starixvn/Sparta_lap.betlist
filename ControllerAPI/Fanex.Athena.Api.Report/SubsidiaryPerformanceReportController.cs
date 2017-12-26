@@ -40,20 +40,24 @@
             {
                 var licenseeName = SessionService.LicenseeSession.LicenseeName;
                 metaModel.LicenseeName = licenseeName;
-                var agentIdList = GetSelectedSubsidiaryList(metaModel.SubsidiaryList, licenseeName);
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(agentIdList);
+                var agentIdListByCurrency = GetSelectedSubsidiaryList(metaModel.SubsidiaryList, licenseeName);
 
-                IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
-
-                var mainData = _subsidiaryPerformanceService.GetData(metaModel, out totalDataList);
-                var grandTotal = totalDataList.Any() ? GetGrandTotal(metaModel.BaseCurrency.ToUpperInvariant(), totalDataList) : null;
-
-                return new
+                if (agentIdListByCurrency.Any())
                 {
-                    Data = mainData,
-                    Total = totalDataList,
-                    GrandTotal = grandTotal
-                };
+                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(agentIdListByCurrency);
+
+                    IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
+
+                    var mainData = _subsidiaryPerformanceService.GetData(metaModel, out totalDataList);
+                    var grandTotal = totalDataList.Any() ? GetGrandTotal(metaModel.BaseCurrency.ToUpperInvariant(), totalDataList) : null;
+
+                    return new
+                    {
+                        Data = mainData,
+                        Total = totalDataList,
+                        GrandTotal = grandTotal
+                    };
+                }
             }
 
             return new
