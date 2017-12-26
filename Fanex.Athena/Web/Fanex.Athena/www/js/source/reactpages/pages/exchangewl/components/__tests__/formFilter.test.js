@@ -258,6 +258,29 @@ describe('FormFilter ', () => {
                     data: {
                         CurrencyId: filterProps.selectedCurrency.value,
                         CurrencyName: filterProps.selectedCurrency.label,
+                        BaseCurrency: "",
+                        FromDate: filterProps.dateRange.fromDate,
+                        ToDate: filterProps.dateRange.toDate,
+                        ReportBy: filterProps.selectedReportBy,
+                        ExcludeTestData: filterProps.isExcludeTest,
+                        Level: 0
+                    }
+                };
+
+                const result = formFilter._getParams(0);
+
+                expect(result).toEqual(expectedResult);
+            })
+
+            it('_getParams - level 0 - Currency is Base - add value for BaseCurrency prop', () => {
+                const filterProps = { ...props, xsrfToken: 'token', params: [], selectedCurrency: { value: -1, label: 'Base' } };
+                const formFilter = new FormFilter(filterProps);
+                const expectedResult = {
+                    xsrfToken: filterProps.xsrfToken,
+                    data: {
+                        CurrencyId: filterProps.selectedCurrency.value,
+                        CurrencyName: 'EUR',
+                        BaseCurrency: 'EUR',
                         FromDate: filterProps.dateRange.fromDate,
                         ToDate: filterProps.dateRange.toDate,
                         ReportBy: filterProps.selectedReportBy,
@@ -361,7 +384,8 @@ describe('FormFilter ', () => {
                     CurrencyName: 'USD',
                     CurrencyId: 0,
                     Level: 0,
-                    ReportBy: 1
+                    ReportBy: 1,
+                    BaseCurrency: 'USD'
                 };
                 const isAllowedCustomerComm = true;
                 const data = [];

@@ -6,8 +6,6 @@ const emptyState = {};
 const reducerList = [
     { name: 'reportByOption', actionType: types.GET_REPORTBY, expected: [{ value: 1 }, { value: 2 }] },
     { name: 'selectedReportBy', actionType: types.SET_REPORTBY, expected: { value: 1 } },
-    { name: 'dateRange', actionType: types.SET_DATE_RANGE, expected: { from: '01/01/2017', to: '10/10/2017' } },
-    { name: 'dateConstraint', actionType: types.GET_DATE_CONSTRAINT, expected: { from: '01/01/2017', to: '09/30/2017' } },
     { name: 'xsrfToken', actionType: types.GET_XSRF_TOKEN, expected: 'xsrfToken' },
     { name: 'licenseeId', actionType: types.GET_LICENSEE, expected: 1 },
     { name: 'isAllowedCustomerComm', actionType: types.GET_ISALLOWED_CUSTOMERCOMM, expected: false },

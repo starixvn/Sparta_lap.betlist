@@ -123,6 +123,45 @@
         }
 
         [Test]
+        public void GetMainWinloss_WhenCallWithBaseCurrencyUSD_DataConvertedToUSD()
+        {
+            // Arrange
+            _reader.Read().Returns(true, true, false);
+
+            var model = new ExchangeWinLossMetaModel
+            {
+                FromDate = DateTime.Today,
+                ToDate = DateTime.Today.AddDays(1),
+                AgentListXml = string.Empty,
+                ReportBy = 1,
+                CustId = 2,
+                BaseCurrency = "USD"
+            };
+
+            var currencyList = new[] { "EUR" };
+            var expectedList = CreateExpectedResult(currencyList, DateTime.Today);
+            var firstExpected = expectedList.First();
+
+            ConfigureReaderForResult(firstExpected, expectedList);
+            ConfigureReaderForMainResult(firstExpected, expectedList);
+
+            ConvertExpectedValueToBaseCurrency(expectedList, model.BaseCurrency.ToUpperInvariant());
+
+            // Action
+            var result = _dataAccess.GetMainWinloss(model);
+            var firstItem = result.DataList.First();
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                AssertMainResultData(result, firstExpected, expectedList, model.BaseCurrency.ToUpperInvariant());
+                Assert.That(firstItem.ExternalId, Is.Empty);
+                Assert.That(firstItem.SystemId, Is.Empty);
+                Assert.That(firstItem.CusId, Is.Zero);
+            });
+        }
+
+        [Test]
         public void GetLicenseeWinloss_WhenCall_ParametersPassedCorrectly()
         {
             // Action
@@ -333,7 +372,23 @@
             _reader["username"].Returns(firstExpected.SystemId, expectedList.Select(x => x.SystemId).ToArray());
         }
 
-        private void AssertMainResultData(ReportResultModel<ExchangeWinLoss> result, ExchangeWinLoss firstExpected, List<ExchangeWinLoss> expectedList)
+        private void ConvertExpectedValueToBaseCurrency(List<ExchangeWinLoss> expectedList, string baseCurrency)
+        {
+            foreach (var item in expectedList)
+            {
+                var exchangeRate = _baseCurrencyExchangeRate[baseCurrency];
+
+                item.Turnover = item.Turnover * exchangeRate;
+                item.CustomerWL = item.CustomerWL * exchangeRate;
+                item.CustomerComm = item.CustomerComm * exchangeRate;
+                item.LicenseeWL = item.LicenseeWL * exchangeRate;
+                item.LicenseeComm = item.LicenseeComm * exchangeRate;
+                item.AmountDueTo = item.AmountDueTo * exchangeRate;
+                item.NetTurnover = item.NetTurnover * exchangeRate;
+            }
+        }
+
+        private void AssertMainResultData(ReportResultModel<ExchangeWinLoss> result, ExchangeWinLoss firstExpected, List<ExchangeWinLoss> expectedList, string baseCurrenct = "")
         {
             var firstItem = result.DataList.First();
 
@@ -343,7 +398,7 @@
 
             AssertCommonResultData(firstItem, firstExpected);
             AssertTotalResultData(result, expectedList);
-            AssertSummaryTotalResultData(result, expectedList);
+            AssertSummaryTotalResultData(result, expectedList, baseCurrenct);
         }
 
         private void AssertTotalResultData(ReportResultModel<ExchangeWinLoss> result, IEnumerable<ExchangeWinLoss> expectedList)
@@ -370,21 +425,24 @@
             }
         }
 
-        private void AssertSummaryTotalResultData(ReportResultModel<ExchangeWinLoss> result, IEnumerable<ExchangeWinLoss> expectedList)
+        private void AssertSummaryTotalResultData(ReportResultModel<ExchangeWinLoss> result, IEnumerable<ExchangeWinLoss> expectedList, string baseCurrency)
         {
             Assert.That(result.SummaryTotal.Count, Is.EqualTo(SystemConstants.BaseCurrencyList.Count));
 
+            var exchangeBaseRate = string.IsNullOrEmpty(baseCurrency) ? 1 : _baseCurrencyExchangeRate[baseCurrency];
             foreach (var currency in SystemConstants.BaseCurrencyList)
             {
+                var exchangeRate = _baseCurrencyExchangeRate[currency];
+
                 var expected = new ExchangeWinLoss
                 {
-                    Turnover = expectedList.Sum(x => x.Turnover) * _baseCurrencyExchangeRate[currency],
-                    CustomerWL = expectedList.Sum(x => x.CustomerWL) * _baseCurrencyExchangeRate[currency],
-                    CustomerComm = expectedList.Sum(x => x.CustomerComm) * _baseCurrencyExchangeRate[currency],
-                    LicenseeWL = expectedList.Sum(x => x.LicenseeWL) * _baseCurrencyExchangeRate[currency],
-                    LicenseeComm = expectedList.Sum(x => x.LicenseeComm) * _baseCurrencyExchangeRate[currency],
-                    AmountDueTo = expectedList.Sum(x => x.AmountDueTo) * _baseCurrencyExchangeRate[currency],
-                    NetTurnover = expectedList.Sum(x => x.NetTurnover) * _baseCurrencyExchangeRate[currency],
+                    Turnover = expectedList.Sum(x => x.Turnover) * exchangeRate / exchangeBaseRate,
+                    CustomerWL = expectedList.Sum(x => x.CustomerWL) * exchangeRate / exchangeBaseRate,
+                    CustomerComm = expectedList.Sum(x => x.CustomerComm) * exchangeRate / exchangeBaseRate,
+                    LicenseeWL = expectedList.Sum(x => x.LicenseeWL) * exchangeRate / exchangeBaseRate,
+                    LicenseeComm = expectedList.Sum(x => x.LicenseeComm) * exchangeRate / exchangeBaseRate,
+                    AmountDueTo = expectedList.Sum(x => x.AmountDueTo) * exchangeRate / exchangeBaseRate,
+                    NetTurnover = expectedList.Sum(x => x.NetTurnover) * exchangeRate / exchangeBaseRate,
                 };
 
                 var actual = result.SummaryTotal[currency];

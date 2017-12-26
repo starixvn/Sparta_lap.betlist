@@ -135,6 +135,7 @@
             var hasExternalId = reader.HasColumn("nickname");
             var hasCustomerId = reader.HasColumn("custid");
             var hasWinlostdate = reader.HasColumn("Winlostdate");
+            var baseCurrency = metaModel.BaseCurrency.ToUpperInvariant();
 
             while (reader.Read())
             {
@@ -146,14 +147,14 @@
                     ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
                     SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
                     CusId = hasCustomerId ? reader.ToInt("CustID") : 0,
-                    Turnover = reader.ToDecimal("TurnOver"),
-                    NetTurnover = reader.ToDecimal("NetTurnOver"),
-                    CustomerWL = reader.ToDecimal("Winlost"),
-                    CustomerComm = reader.ToDecimal("CustComm"),
-                    LicenseeWL = reader.ToDecimal("LicenseeWinlost"),
-                    LicenseeComm = reader.ToDecimal("AgentComm"),
                     TotalTransaction = reader.ToInt("TotalTrans"),
-                    AmountDueTo = reader.ToDecimal("AmountDueTo")
+                    Turnover = reader.ToDecimal("TurnOver" + baseCurrency),
+                    NetTurnover = reader.ToDecimal("NetTurnOver" + baseCurrency),
+                    CustomerWL = reader.ToDecimal("Winlost" + baseCurrency),
+                    CustomerComm = reader.ToDecimal("CustComm" + baseCurrency),
+                    LicenseeWL = reader.ToDecimal("LicenseeWinlost" + baseCurrency),
+                    LicenseeComm = reader.ToDecimal("AgentComm" + baseCurrency),                   
+                    AmountDueTo = reader.ToDecimal("AmountDueTo" + baseCurrency)
                 };
 
                 dataList.Add(item);

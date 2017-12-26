@@ -7,6 +7,7 @@ import { DateRange } from '../../../components/date-range/index'
 import LangHelper from '../../../lib/langHelper'
 import Site from '../../../lib/site'
 import { ReportLevel } from '../../../constants/report'
+import { BaseCurrency } from '../../../constants/currency'
 import ReportExcel from '../lib/reportExcel'
 import service from '../lib/service'
 
@@ -69,10 +70,12 @@ export class FormFilter extends Component {
         let param = {};
         if (level === 0) {
             const { fromDate, toDate } = this.props.dateRange;
+            const baseCurrency = BaseCurrency.find(x => x.value === this.props.selectedCurrency.value);
 
             param = {
                 CurrencyId: this.props.selectedCurrency.value,
-                CurrencyName: this.props.selectedCurrency.label,
+                BaseCurrency: baseCurrency ? baseCurrency.text : "",
+                CurrencyName: baseCurrency ? baseCurrency.text : this.props.selectedCurrency.label,
                 FromDate: Site.convertDateToString(fromDate),
                 ToDate: Site.convertDateToString(toDate),
                 ReportBy: this.props.selectedReportBy,
@@ -169,31 +172,31 @@ export class FormFilter extends Component {
         return (
             <div className='page-filter'>
                 <div className='row'>
-                    <div className='col-12 col-sm-12 col-md-4 col-xl-3'>
+                    <div className='col-12 col-sm-7 col-md-4 col-xl-3'>
                         <div className='form-group'>
                             <label className='label-text'>{LangHelper.getSingleResource('Date')}</label>
                             {this._renderDateRange()}
                         </div>
                     </div>
 
-                     <div className='col-12 col-sm-12 col-md-2 col-xl-2'>
+                     <div className='col-12 col-sm-4 col-md-2 col-xl-2'>
                         <div className='form-group'>
                             <label className='label-text'>{LangHelper.getSingleResource('Currency')}</label>
                             {this._renderCurrencySelectList()}
                         </div>
                     </div>
 
-                    <div className='col-12 col-sm-12 col-md-2 col-xl-2'>
+                    <div className='col-12 col-sm-4 col-md-2 col-xl-2'>
                         {this._renderReportByOption()}
                     </div>
 
-                    <div className='col-12 col-sm-12 col-md-2 col-xl-2'>
+                    <div className='col-12 col-sm-3 col-md-2 col-xl-2'>
                         <div className="form-group">
                            {this._renderExcludeTestDataCheckBox()}
                         </div>
                     </div>
 
-                    <div className='col-12 col-sm-12 col-md-2 col-xl-2'>
+                    <div className='col-12 col-sm-3 col-md-2 col-xl-2'>
                         <div className='form-group button-group'>
                             <button type='button' className='btn btn-submit' onClick={this.submit}>{LangHelper.getSingleResource('Submit')}</button>
                         </div>

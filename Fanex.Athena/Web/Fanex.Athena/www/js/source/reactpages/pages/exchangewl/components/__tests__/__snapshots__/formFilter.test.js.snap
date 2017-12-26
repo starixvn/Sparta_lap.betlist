@@ -8,7 +8,7 @@ exports[`FormFilter  filter component render whole component match to snapshot 1
     className="row"
   >
     <div
-      className="col-12 col-sm-12 col-md-4 col-xl-3"
+      className="col-12 col-sm-7 col-md-4 col-xl-3"
     >
       <div
         className="form-group"
@@ -1760,7 +1760,7 @@ exports[`FormFilter  filter component render whole component match to snapshot 1
       </div>
     </div>
     <div
-      className="col-12 col-sm-12 col-md-2 col-xl-2"
+      className="col-12 col-sm-4 col-md-2 col-xl-2"
     >
       <div
         className="form-group"
@@ -1895,7 +1895,7 @@ exports[`FormFilter  filter component render whole component match to snapshot 1
       </div>
     </div>
     <div
-      className="col-12 col-sm-12 col-md-2 col-xl-2"
+      className="col-12 col-sm-4 col-md-2 col-xl-2"
     >
       <div
         className="form-group"
@@ -1936,7 +1936,7 @@ exports[`FormFilter  filter component render whole component match to snapshot 1
       </div>
     </div>
     <div
-      className="col-12 col-sm-12 col-md-2 col-xl-2"
+      className="col-12 col-sm-3 col-md-2 col-xl-2"
     >
       <div
         className="form-group"
@@ -1965,7 +1965,7 @@ exports[`FormFilter  filter component render whole component match to snapshot 1
       </div>
     </div>
     <div
-      className="col-12 col-sm-12 col-md-2 col-xl-2"
+      className="col-12 col-sm-3 col-md-2 col-xl-2"
     >
       <div
         className="form-group button-group"
