@@ -1,9 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
-    using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
-    using Model.Core.DTO.Common;
     using Model.Report.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -33,7 +31,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/AgCasinoBalance/Main.cshtml"));
+                    StringAssert.Contains("Report/AgCasinoBalance/Main.cshtml", viewResult.ViewName);
                     Assert.That(viewModel.Param.LicenseeId, Is.EqualTo(SessionService.LicenseeSession.LicenseeId));
                 });
             }
@@ -45,8 +43,8 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                Substitute.For<IProductService>(),
-                ClientViewHelper);
+                ClientViewHelper,
+                Substitute.For<IProductService>());
         }
     }
 }

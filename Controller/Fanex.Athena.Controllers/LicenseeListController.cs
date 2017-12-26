@@ -24,8 +24,8 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            ILicenseeDataAccess licenseeDataAccess,
-            IClientViewHelper clientViewHelper)
+            IClientViewHelper clientViewHelper,
+            ILicenseeDataAccess licenseeDataAccess)
         : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _licenseeDataAccess = licenseeDataAccess;

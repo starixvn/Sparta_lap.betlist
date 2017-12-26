@@ -33,8 +33,8 @@ namespace Fanex.Athena.Controllers.TotalBets
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IFirstGoalLastGoalDataAccess firstGoalLastGoalDataAccess,
-            IClientViewHelper clientViewHelper)
+            IClientViewHelper clientViewHelper,
+            IFirstGoalLastGoalDataAccess firstGoalLastGoalDataAccess)
         : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _firstGoalLastGoalDataAccess = firstGoalLastGoalDataAccess;

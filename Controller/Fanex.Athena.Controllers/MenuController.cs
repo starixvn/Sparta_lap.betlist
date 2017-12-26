@@ -31,8 +31,8 @@ namespace Fanex.Athena.Controllers
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IFunctionService functionService,
-            IClientViewHelper clientViewHelper)
+            IClientViewHelper clientViewHelper,
+            IFunctionService functionService)
         : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _functionService = functionService;

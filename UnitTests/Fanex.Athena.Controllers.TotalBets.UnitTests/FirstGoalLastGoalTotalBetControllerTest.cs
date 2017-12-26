@@ -45,7 +45,7 @@
                 var viewResult = controller.Index() as ViewResult;
 
                 // Assert
-                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/FirstGoalLastGoal/Main.cshtml"));
+                StringAssert.Contains("TotalBets/FirstGoalLastGoal/Main.cshtml", viewResult.ViewName);
             }
         }
 
@@ -105,8 +105,8 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            _firstGoalLastGoalDataAccess,
-                            ClientViewHelper);
+                            ClientViewHelper,
+                            _firstGoalLastGoalDataAccess);
         }
     }
 }

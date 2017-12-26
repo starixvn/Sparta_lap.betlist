@@ -33,8 +33,8 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IProductService productService,
-            IClientViewHelper clientViewHelper)
+            IClientViewHelper clientViewHelper,
+            IProductService productService)
         : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _productService = productService;

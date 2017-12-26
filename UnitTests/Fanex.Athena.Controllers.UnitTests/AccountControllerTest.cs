@@ -51,7 +51,7 @@
                 var result = controller.Manage() as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/Account/Manage.cshtml"));
+                StringAssert.Contains("Account/Manage.cshtml", result.ViewName);
             }
         }
 
@@ -198,7 +198,7 @@
                 var viewResult = controller.PermissionPage() as ViewResult;
 
                 // Assert
-                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Account/PermissionPage.cshtml"));
+                StringAssert.Contains("Account/PermissionPage.cshtml", viewResult.ViewName);
             }
         }
 
@@ -208,10 +208,10 @@
             LangService,
             SessionService,
             AppSettings,
+            ClientViewHelper,
             _functionService,
             _userService,
-            _currencyDataAccess,
-            ClientViewHelper)
+            _currencyDataAccess)
             {
                 ControllerContext = ControllerContext
             };

@@ -36,10 +36,10 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
             IProductService productService,
-            IBalanceDataAccess balanceDataAccess,
-            IClientViewHelper clientViewHelper)
-        : base(languageService, sessionService, appSetting, productService, clientViewHelper)
+            IBalanceDataAccess balanceDataAccess)
+        : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
             _balanceDataAccess = balanceDataAccess ?? new BalanceDataAccess();
         }

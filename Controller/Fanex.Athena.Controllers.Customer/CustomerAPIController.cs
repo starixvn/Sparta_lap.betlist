@@ -56,12 +56,12 @@ namespace Fanex.Athena.Controllers.Customer
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
             ICustomerCommService customerCommService,
             ICustomerListService customerListService,
             IGroupComService groupComService,
             ILicenseeDataAccess licenseeDataAccess,
-            IProductService productService,
-            IClientViewHelper clientViewHelper)
+            IProductService productService)
 #pragma warning restore S107 // Methods should not have too many parameters
             : base(languageService, sessionService, appSetting, clientViewHelper)
         {

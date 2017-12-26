@@ -57,10 +57,7 @@
                 var result = controller.Index(ResourceName) as ViewResult;
 
                 // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/UserGuide/Index.cshtml"));
-                });
+                StringAssert.Contains("UserGuide/Index.cshtml", result.ViewName);
             }
         }
 
@@ -311,7 +308,7 @@
 
         private UserGuideController CreateController()
         {
-            var controller = new UserGuideController(LangService, SessionService, AppSettings, _fileSystem, _productService, ClientViewHelper)
+            var controller = new UserGuideController(LangService, SessionService, AppSettings, ClientViewHelper, _fileSystem, _productService)
             {
                 ControllerContext = ControllerContext
             };

@@ -33,8 +33,8 @@ namespace Fanex.Athena.Controllers.TotalBets
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IMoneyLineDataAccess moneyLineDataAccess,
-            IClientViewHelper clientViewHelper)
+            IClientViewHelper clientViewHelper,
+            IMoneyLineDataAccess moneyLineDataAccess)
         : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _moneyLineDataAccess = moneyLineDataAccess;

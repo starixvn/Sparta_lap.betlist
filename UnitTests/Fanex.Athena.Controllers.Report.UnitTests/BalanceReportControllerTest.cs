@@ -41,7 +41,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/Balance/Main.cshtml"));
+                    StringAssert.Contains("Report/Balance/Main.cshtml", viewResult.ViewName);
                     Assert.That(viewModel.Param.LicenseeId, Is.EqualTo(SessionService.LicenseeSession.LicenseeId));
                 });
             }
@@ -97,9 +97,9 @@
                 LangService,
                 SessionService,
                 AppSettings,
+                ClientViewHelper,
                 productService,
-                _balanceDataAccess,
-                ClientViewHelper);
+                _balanceDataAccess);
         }
     }
 }

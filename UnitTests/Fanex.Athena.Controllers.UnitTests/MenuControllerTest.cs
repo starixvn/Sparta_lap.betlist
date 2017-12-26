@@ -40,7 +40,7 @@
                 var result = controller.Index() as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/Menu/Index.cshtml"));
+                StringAssert.Contains("Menu/Index.cshtml", result.ViewName);
             }
         }
 
@@ -72,7 +72,7 @@
 
         private MenuController CreateController()
         {
-            return new MenuController(LangService, SessionService, AppSettings, _functionService, ClientViewHelper);
+            return new MenuController(LangService, SessionService, AppSettings, ClientViewHelper, _functionService);
         }
     }
 }

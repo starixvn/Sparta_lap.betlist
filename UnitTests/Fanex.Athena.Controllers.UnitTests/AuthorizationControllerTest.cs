@@ -311,7 +311,7 @@
                 var result = controller.ChangePassword() as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/Authorization/ChangePass.cshtml"));
+                StringAssert.Contains("Authorization/ChangePass.cshtml", result.ViewName);
             }
         }
 
@@ -404,11 +404,11 @@
                LangService,
                SessionService,
                AppSettings,
+               ClientViewHelper,
                _maintenanceService,
                _userService,
                _authService,
-               _formAuthenticationService,
-               ClientViewHelper)
+               _formAuthenticationService)
             {
                 ControllerContext = ControllerContext
             };

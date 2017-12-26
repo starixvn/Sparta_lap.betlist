@@ -32,8 +32,8 @@ namespace Fanex.Athena.Controllers.TotalBets
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IHomeDrawAwayNoBetDataAccess homeDrawAwayNoBetDataAccess,
-            IClientViewHelper clientViewHelper)
+            IClientViewHelper clientViewHelper,
+            IHomeDrawAwayNoBetDataAccess homeDrawAwayNoBetDataAccess)
         : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _homeDrawAwayNoBetDataAccess = homeDrawAwayNoBetDataAccess;

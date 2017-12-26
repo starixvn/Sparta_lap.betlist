@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Security.Principal;
     using System.Web;
     using System.Web.Mvc;
@@ -126,9 +125,6 @@
 
             ControllerContext = Substitute.For<ControllerContext>();
             ControllerContext.HttpContext = httpBaseContext;
-            HttpContext.Current = new HttpContext(
-                new HttpRequest(string.Empty, TestingRequestDomain, string.Empty),
-                new HttpResponse(new StringWriter()));
 
             Url = new UrlHelper(requestContext, routes);
         }

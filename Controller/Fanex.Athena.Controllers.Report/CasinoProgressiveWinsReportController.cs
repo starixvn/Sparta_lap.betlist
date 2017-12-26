@@ -28,9 +28,9 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IProductService productService,
-            IClientViewHelper clientViewHelper)
-        : base(languageService, sessionService, appSetting, productService, clientViewHelper)
+            IClientViewHelper clientViewHelper,
+            IProductService productService)
+        : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
         }
 

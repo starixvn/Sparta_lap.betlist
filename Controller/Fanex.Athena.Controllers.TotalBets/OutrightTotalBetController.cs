@@ -32,8 +32,8 @@ namespace Fanex.Athena.Controllers.TotalBets
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IOutrightDataAccess outrightDataAccess,
-            IClientViewHelper clientViewHelper)
+            IClientViewHelper clientViewHelper,
+            IOutrightDataAccess outrightDataAccess)
         : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _outrightDataAccess = outrightDataAccess;

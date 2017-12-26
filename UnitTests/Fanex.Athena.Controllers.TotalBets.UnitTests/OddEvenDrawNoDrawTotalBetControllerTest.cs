@@ -45,7 +45,7 @@
                 var viewResult = controller.Index() as ViewResult;
 
                 // Assert
-                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/OddEvenDrawNoDraw/Main.cshtml"));
+                StringAssert.Contains("TotalBets/OddEvenDrawNoDraw/Main.cshtml", viewResult.ViewName);
             }
         }
 
@@ -92,8 +92,8 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            _oddEvenDrawNoDrawDataAccess,
-                            ClientViewHelper);
+                            ClientViewHelper,
+                            _oddEvenDrawNoDrawDataAccess);
         }
 
         private void SepUpForService()

@@ -53,9 +53,9 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
             IGroupComService groupComService,
-            IProductService productService,
-            IClientViewHelper clientViewHelper)
+            IProductService productService)
         : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _groupComService = groupComService;

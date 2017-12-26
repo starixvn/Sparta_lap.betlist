@@ -31,7 +31,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/AgCasinoWinLoss/Main.cshtml"));
+                    StringAssert.Contains("Report/AgCasinoWinLoss/Main.cshtml", viewResult.ViewName);
                     Assert.That(viewModel.Param.LicenseeId, Is.EqualTo(SessionService.LicenseeSession.LicenseeId));
                 });
             }
@@ -43,8 +43,8 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                Substitute.For<IProductService>(),
-                ClientViewHelper);
+                ClientViewHelper,
+                Substitute.For<IProductService>());
         }
     }
 }

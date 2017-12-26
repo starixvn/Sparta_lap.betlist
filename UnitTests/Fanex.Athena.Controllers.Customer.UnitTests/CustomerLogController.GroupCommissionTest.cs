@@ -11,13 +11,13 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var expectedViewName = "~/Views/Customer/CustomerLog/GroupCommLog/Main.cshtml";
+                const string ExpectedViewName = "Customer/CustomerLog/GroupCommLog/Main.cshtml";
 
                 // Action
                 var result = controller.GroupCommission() as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo(expectedViewName));
+                StringAssert.Contains(ExpectedViewName, result.ViewName);
             }
         }
     }

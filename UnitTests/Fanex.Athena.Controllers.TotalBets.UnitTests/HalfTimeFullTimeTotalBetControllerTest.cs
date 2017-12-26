@@ -45,7 +45,7 @@
                 var viewResult = controller.Index() as ViewResult;
 
                 // Assert
-                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/HalfTimeFullTime/Main.cshtml"));
+                StringAssert.Contains("TotalBets/HalfTimeFullTime/Main.cshtml", viewResult.ViewName);
             }
         }
 

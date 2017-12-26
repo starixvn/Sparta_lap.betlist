@@ -300,12 +300,12 @@
                LangService,
                SessionService,
                AppSettings,
+               ClientViewHelper,
                _customerCommService,
                _customerListService,
                _groupComService,
                _licenseeDataAccess,
-               _productService,
-               ClientViewHelper)
+               _productService)
             {
                 ControllerContext = ControllerContext
             };

@@ -46,7 +46,7 @@
                excelModel,
                Arg.Do<ShowingOption>(x => expetedShowingOption = x));
             excel.When(x => x.Export()).DoNotCallBase();
-            
+
             _controller.CreateExcelMember(
                 Arg.Any<string>(),
                 excelModel,

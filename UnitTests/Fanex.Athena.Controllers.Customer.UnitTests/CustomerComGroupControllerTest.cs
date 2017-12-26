@@ -69,8 +69,6 @@
                     Assert.That(controller.ViewBag.IsAllowLC, Is.EqualTo(expectedResult));
                     Assert.That(controller.ViewBag.IsAllowCS, Is.EqualTo(expectedResult));
                     Assert.That(controller.ViewBag.IsAllowAB, Is.EqualTo(expectedResult));
-
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Customer/CustomerComm/GroupCommList.cshtml"));
                 });
             }
         }
@@ -197,9 +195,9 @@
                LangService,
                SessionService,
                AppSettings,
+               ClientViewHelper,
                _groupComService,
-               _productService, 
-               ClientViewHelper);
+               _productService);
             controller.ControllerContext = ControllerContext;
             return controller;
         }

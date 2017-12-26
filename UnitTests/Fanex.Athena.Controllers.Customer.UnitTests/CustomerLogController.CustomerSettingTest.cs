@@ -17,13 +17,13 @@
             {
                 // Arrange
                 _productService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>()).Returns(new ProductAccess(new List<Product>()));
-                var expectedViewName = "~/Views/Customer/CustomerLog/CustomerSettingLog/Main.cshtml";
+                const string ExpectedViewName = "Customer/CustomerLog/CustomerSettingLog/Main.cshtml";
 
                 // Action
                 var result = controller.CustomerSetting() as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo(expectedViewName));
+                StringAssert.Contains(ExpectedViewName, result.ViewName);
             }
         }
 

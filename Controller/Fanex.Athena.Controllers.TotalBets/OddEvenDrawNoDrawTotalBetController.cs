@@ -33,8 +33,8 @@ namespace Fanex.Athena.Controllers.TotalBets
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IOddEvenDrawNoDrawDataAccess oddEvenDrawNoDrawDataAccess,
-            IClientViewHelper clientViewHelper)
+            IClientViewHelper clientViewHelper,
+            IOddEvenDrawNoDrawDataAccess oddEvenDrawNoDrawDataAccess)
         : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _oddEvenDrawNoDrawDataAccess = oddEvenDrawNoDrawDataAccess;

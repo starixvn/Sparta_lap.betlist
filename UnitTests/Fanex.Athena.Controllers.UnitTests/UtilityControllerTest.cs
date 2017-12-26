@@ -6,7 +6,6 @@
     using System.Web.Security;
     using Base.UnitTests;
     using Fanex.Athena.Resources;
-    using Model.Core.DataDomain;
     using NSubstitute;
     using NUnit.Framework;
     using ONEbook.UM.Models;
@@ -307,38 +306,6 @@
 
                 // Assert
                 Assert.That(result.Model, Is.EqualTo(ViewResources.ResourceManager.GetString(returnedMessageResourceKey)));
-            }
-        }
-
-        [Test]
-        public void View_DefaultView_ReturnDefaultViewPath()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                AppSettings.ClientViewType.Returns(ClientViewType.Default.ToString("d"));
-
-                // Action
-                var result = controller.AccessDenied() as ViewResult;
-
-                // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Utility/AccessDenied.cshtml"));
-            }
-        }
-
-        [Test]
-        public void View_NoneView_ReturnDefaultViewPath()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                AppSettings.ClientViewType.Returns(x => null);
-
-                // Action
-                var result = controller.AccessDenied() as ViewResult;
-
-                // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Utility/AccessDenied.cshtml"));
             }
         }
 

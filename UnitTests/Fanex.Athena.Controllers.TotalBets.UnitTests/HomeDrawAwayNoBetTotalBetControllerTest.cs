@@ -45,7 +45,7 @@
                 var viewResult = controller.Index() as ViewResult;
 
                 // Assert
-                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/HomeDrawAwayNoBet/Main.cshtml"));
+                StringAssert.Contains("TotalBets/HomeDrawAwayNoBet/Main.cshtml", viewResult.ViewName);
             }
         }
 
@@ -89,8 +89,8 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            _homeDrawAwayNoBetDataAccess,
-                            ClientViewHelper);
+                            ClientViewHelper,
+                            _homeDrawAwayNoBetDataAccess);
         }
 
         private void SepUpForService()

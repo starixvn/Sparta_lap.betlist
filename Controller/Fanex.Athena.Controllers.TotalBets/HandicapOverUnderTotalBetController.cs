@@ -34,8 +34,8 @@ namespace Fanex.Athena.Controllers.TotalBets
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IHandicapOverUnderDataAccess handicapOverUnderDataAccess,
-            IClientViewHelper clientViewHelper)
+            IClientViewHelper clientViewHelper,
+            IHandicapOverUnderDataAccess handicapOverUnderDataAccess)
         : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _handicapOverUnderDataAccess = handicapOverUnderDataAccess;

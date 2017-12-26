@@ -45,7 +45,7 @@
                 var viewResult = controller.Index() as ViewResult;
 
                 // Assert
-                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/Outright/Main.cshtml"));
+                StringAssert.Contains("TotalBets/Outright/Main.cshtml", viewResult.ViewName);
             }
         }
 
@@ -89,8 +89,8 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            _outrightDataAccess,
-                            ClientViewHelper);
+                            ClientViewHelper,
+                            _outrightDataAccess);
         }
 
         private void SepUpForService()
