@@ -62,7 +62,8 @@
             // Arrange
             const string AgentListXml = "<Root><Agent AgentId=\"1\" Currency=\"1\"/></Root>";
             var metaModel = CreateValidMetaModel();
-            _sessionService.GenerateAgentListXmlByAgentIdList(Arg.Any<IEnumerable<int>>()).Returns(AgentListXml);
+            metaModel.CurrencyId = 999;
+            _sessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTestData).Returns(AgentListXml);
             _dataAccess.GetData(metaModel).ReturnsForAnyArgs(new ReportResultModel<LicenseeWinLossByTimeZone>());
 
             // Action
@@ -72,7 +73,7 @@
             }
 
             // Assert
-            _dataAccess.GetData(Arg.Is<LicenseeWinLossByTimeZoneMetaModel>(x => x.AgentListXml == AgentListXml));
+            _dataAccess.Received(1).GetData(Arg.Is<LicenseeWinLossByTimeZoneMetaModel>(x => x.AgentListXml == AgentListXml));
         }
 
         [Test]

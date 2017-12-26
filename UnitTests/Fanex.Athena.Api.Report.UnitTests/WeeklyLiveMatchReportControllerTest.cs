@@ -90,7 +90,7 @@
         {
             // Arrange
             const int NumberOfWeek = 3;
-            var fromDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
+            var fromDate = new DateTime(2017, 1, 1);
             var model = new WeeklyLiveMatchMetaModel
             {
                 CurrencyId = -1,

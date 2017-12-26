@@ -6,7 +6,9 @@
 
 namespace Fanex.Athena.Api.Base
 {
+    using System;
     using System.IO;
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
@@ -84,6 +86,22 @@ namespace Fanex.Athena.Api.Base
             base.Initialize(controllerContext);
             var currentLanguage = _langService.GetCurrentLanguage();
             _langService.SetPageCulture(currentLanguage);
+        }
+
+        protected string RemoveInvalidProducts(string productCodeList, string functionProductConfigKey)
+        {
+            if (string.IsNullOrWhiteSpace(productCodeList))
+            {
+                return string.Empty;
+            }
+
+            var productList = ProductService.GetProductAccess(
+                SessionService.LicenseeSession.LicenseeId,
+                SessionService.UserSession.Language,
+                functionProductConfigKey).ProductList;
+
+            var validProductCodes = productCodeList.Split(',').Where(x => productList.Any(y => y.ProductCode.Equals(x, StringComparison.OrdinalIgnoreCase)));
+            return string.Join(",", validProductCodes.ToArray());
         }
     }
 }
