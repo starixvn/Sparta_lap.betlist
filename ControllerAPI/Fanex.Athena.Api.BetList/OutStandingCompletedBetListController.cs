@@ -18,14 +18,18 @@ namespace Fanex.Athena.Api.BetList
     [ApiFunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
     public class OutStandingCompletedBetListController : ApiBetListBaseController
     {
+        private const string BetListCustomerOutstandingName = "BetList_CustomerOutstanding";
+
         [HttpPost]
         public dynamic Index(BetListMetaModel metaModel)
         {
-            if (metaModel.CurrencyId != 0 && !SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
+            if (!metaModel.IsValid ||
+                (metaModel.CurrencyId != 0 && !SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId)))
             {
                 return null;
             }
 
+            metaModel.ProductCodeList = RemoveInvalidProducts(metaModel.ProductCodeList, BetListCustomerOutstandingName);
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             const string UspKey = "Lrf_BetList_SelAllByDate_Mem";
