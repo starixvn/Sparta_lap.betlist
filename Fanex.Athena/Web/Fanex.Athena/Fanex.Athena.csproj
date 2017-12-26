@@ -949,6 +949,7 @@
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\formFilter.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\lib\reportExcel.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\lib\service.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\lib\__tests__\reportExcel1.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\lib\__tests__\service.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\reducers\dataHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\reducers\filterHandlerReducer.js" />
