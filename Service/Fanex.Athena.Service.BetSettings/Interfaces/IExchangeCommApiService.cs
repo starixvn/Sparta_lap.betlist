@@ -6,6 +6,6 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
     {
         IResultInfo<double> GetCommission(int licenseeId, int custId);
 
-        IResultInfo<double> UpdateCommission(int licenseeId, int userId, int custId, double commission);
+        IResultInfo<double> UpdateCommission(int licenseeId, int userId, int custId, double oldCommission, double newCommission);
     }
 }

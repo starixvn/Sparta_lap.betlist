@@ -1177,7 +1177,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
         initEvent: function () {
             $("#btnSubmit").click(function () {
-                _me.updateComm($(this).attr("data-cust-id"), $("#ddlCommission").val());
+                var $dropdown = $("#ddlCommission");
+                _me.updateComm($(this).attr("data-cust-id"), $dropdown.data("original-value"), $("#ddlCommission").val());
             });
 
             $("#btnReset").click(function () {
@@ -1186,14 +1187,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             });
         },
 
-        updateComm: function (custId, commission) {
+        updateComm: function (custId, oldCommission, newCommission) {
             $.ajax({
                 type: 'POST',
                 url: Site.resolveClientUrl('ExchangeDcsBetSetting/UpdateComm'),
                 cache: false,
                 data: {
                     custid: custId,
-                    commission: commission
+                    oldCommission: oldCommission,
+                    newCommission: newCommission
                 },
                 dataType: "json",
                 success: function (result) {

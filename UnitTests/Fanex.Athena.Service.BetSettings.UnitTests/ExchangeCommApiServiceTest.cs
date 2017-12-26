@@ -3,9 +3,11 @@
     using System;
     using CitiXchangeLibrary;
     using Core.Users.Interfaces;
+    using DataAccess.Core.Common.Constants;
     using DataAccess.Core.Common.Interfaces;
     using Extension.Utility;
     using Logging;
+    using Model.Core.MetaModel.Common;
     using NSubstitute;
     using NUnit.Framework;
 
@@ -115,7 +117,7 @@
             _authorizationService.HasPermissionOnData(0, 0, 0).ReturnsForAnyArgs(false);
 
             // Action
-            var result = _service.UpdateCommission(0, 0, 0, 0);
+            var result = _service.UpdateCommission(0, 0, 0, 0, 0);
 
             // Assert
             Assert.Multiple(() =>
@@ -140,7 +142,7 @@
             });
 
             // Action
-            var result = _service.UpdateCommission(LicenseeId, UserId, CustId, ExpectedComm);
+            var result = _service.UpdateCommission(LicenseeId, UserId, CustId, 0, ExpectedComm);
 
             // Assert
             Assert.Multiple(() =>
@@ -160,13 +162,35 @@
             _apiClient.updateCommission(0, 0, Enviro.PRD).ReturnsForAnyArgs(x => { throw new Exception(ErrorMsg); });
 
             // Action
-            var result = _service.UpdateCommission(0, 0, 0, 0);
+            var result = _service.UpdateCommission(0, 0, 0, 0, 0);
 
             // Assert
             Assert.Multiple(() =>
             {
                 _logger.Received(1).Error("Exchange Api updateCommission: " + ErrorMsg);
                 Assert.That(result.IsSuccessful, Is.False);
+            });
+        }
+
+        [Test]
+        public void UpdateCommission_CallApiSuccess_CallWriteLogRunSP()
+        {
+            // Arrange
+            const double OldComm = 2.5;
+            const double NewComm = 5.5;
+            _authorizationService.HasPermissionOnData(0, 0, 0).ReturnsForAnyArgs(true);
+
+            // Action
+            var result = _service.UpdateCommission(LicenseeId, UserId, CustId, OldComm, NewComm);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _userLogDataAccess.Received(1).WriteLog(Arg.Is<UserLogMetaModel>(x =>
+                    x.ActionID == UserLogAction.ExchangeCommission &&
+                    x.UserId == UserId &&
+                    x.CustID == CustId &&
+                    x.Doing == $"<ChargeCommission OldValue='{OldComm}' NewValue='{NewComm}' />"));
             });
         }
     }

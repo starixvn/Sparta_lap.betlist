@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Model.Core.MetaModel.Common
+﻿namespace Fanex.Athena.Model.Core.MetaModel.Common
 {
     public class UserLogMetaModel
     {
@@ -15,6 +9,8 @@ namespace Fanex.Athena.Model.Core.MetaModel.Common
         public string SPName { get; set; }
 
         public int ActionID { get; set; }
+
+        public string Doing { get; set; }
 
         public string TrackingValue1 { get; set; }
 

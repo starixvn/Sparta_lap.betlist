@@ -64,9 +64,9 @@ namespace Fanex.Athena.Controllers.BetSettings
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        public ActionResult UpdateComm(int custId, double commission)
+        public ActionResult UpdateComm(int custId, double oldCommission, double newCommission)
         {
-            if (!ValidComms.Contains(commission))
+            if (!ValidComms.Contains(newCommission))
             {
                 return Json(new ResultInfo { Code = 100, Message = ViewResources.InvalidChargeCommission });
             }
@@ -75,7 +75,8 @@ namespace Fanex.Athena.Controllers.BetSettings
                 SessionService.LicenseeSession.LicenseeId,
                 SessionService.UserSession.UserId,
                 custId,
-                commission);
+                oldCommission,
+                newCommission);
 
             return Json(result);
         }

@@ -67,7 +67,6 @@ namespace Fanex.Athena.Service.BetSettings
 
             try
             {
-                _logger.Info(licenseeId + ";" + custId);
                 var result = _apiClient.getProfile(custId, EnvironmentMap[_appSetting.Environment]);
                 _logger.Info(new JavaScriptSerializer().Serialize(result));
                 return CreateApiResult(result.status, (double)result.commission);
@@ -79,7 +78,7 @@ namespace Fanex.Athena.Service.BetSettings
             }
         }
 
-        public IResultInfo<double> UpdateCommission(int licenseeId, int userId, int custId, double commission)
+        public IResultInfo<double> UpdateCommission(int licenseeId, int userId, int custId, double oldCommission, double newCommission)
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
@@ -88,15 +87,15 @@ namespace Fanex.Athena.Service.BetSettings
 
             try
             {
-                _logger.Info(licenseeId + ";" + custId + ";" + commission);
-                var result = _apiClient.updateCommission(custId, commission, EnvironmentMap[_appSetting.Environment]);
+                var result = _apiClient.updateCommission(custId, newCommission, EnvironmentMap[_appSetting.Environment]);
 
                 _logger.Info(new JavaScriptSerializer().Serialize(result));
                 _userLogDataAccess.WriteLog(new UserLogMetaModel
                 {
                     ActionID = UserLogAction.ExchangeCommission,
                     UserId = userId,
-                    CustID = custId
+                    CustID = custId,
+                    Doing = $"<ChargeCommission OldValue='{oldCommission}' NewValue='{newCommission}' />"
                 });
                 return CreateApiResult(result.status, result.commission);
             }
