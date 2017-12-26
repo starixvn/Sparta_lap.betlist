@@ -188,7 +188,7 @@
         }
 
         [Test]
-        public void GetData_AgentIdIsNotExistInOpertorList_SubsidiaryFieldOfDataModelShouldBeEmptyString()
+        public void GetData_AgentIdIsNotExistInOpertorList_ReturnEmptyResult()
         {
             // Arrange
             const string LicenseeName = "12Bet";
@@ -269,47 +269,6 @@
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
-        [Test]
-        public void GetData_AgentIdIsNotExistInOpertorList_SubsidiaryFieldOfTotalDataShouldBeEmptyString()
-        {
-            // Arrange
-            const string LicenseeName = "12Bet";
-            var metaModel = new SubsidiaryPerformanceMetaModel
-            {
-                FromDate = new DateTime(2017, 8, 30),
-                ToDate = new DateTime(2017, 8, 30),
-                ProductCodeList = "SB,BA",
-                SubsidiaryList = "123,143",
-                BaseCurrency = "EUR",
-                LicenseeName = LicenseeName
-            };
-
-            var operatorList = new List<Operator>
-            {
-                new Operator { AgentId = 1230, CurrencyId = 1, OperatorName = "New York" }
-            };
-            var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
-            _cache.Get<IEnumerable<Operator>>(cacheKey).Returns(operatorList);
-
-            var fakeEntityDataList = GetFakeEntityDataList();
-            IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
-            _dataAccess.GetData(metaModel, out totalDataList).Returns(x =>
-            {
-                x[1] = fakeEntityDataList;
-                return fakeEntityDataList;
-            });
-
-            var expectedTotalDataList = new List<SubsidiaryPerformanceEntity>();
-            var expectedResult = _serializer.Serialize(expectedTotalDataList);
-
-            // Action
-            _service.GetData(metaModel, out totalDataList);
-            var result = _serializer.Serialize(totalDataList);
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
-        }
-
         private static IEnumerable<SubsidiaryPerformanceEntity> GetFakeEntityDataList()
         {
             return new List<SubsidiaryPerformanceEntity>
@@ -343,6 +302,11 @@
                 {
                     SubsidiaryId = 1235, Subsidiary = "India", CurrencyId = 1, CurrencyName = "USD",
                     Product = "SB", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m
+                },
+                new SubsidiaryPerformanceEntity
+                {
+                    SubsidiaryId = 1235, Subsidiary = "India", CurrencyId = 1, CurrencyName = "USD",
+                    Product = "SB", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m
                 }
             };
         }
@@ -359,9 +323,9 @@
 
             var dataDetail2 = new List<SubsidiaryPerformanceModelBase>
             {
-                new SubsidiaryPerformanceModelBase { Product = "All", BetCount = 100, Turnover = 200m, CustomerWinLoss = 200m, SubsidiaryWinLoss = -200m },
+                new SubsidiaryPerformanceModelBase { Product = "All", BetCount = 150, Turnover = 300m, CustomerWinLoss = 300m, SubsidiaryWinLoss = -300m },
                 new SubsidiaryPerformanceModelBase { Product = "Racing", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m },
-                new SubsidiaryPerformanceModelBase { Product = "Sportsbook", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m }
+                new SubsidiaryPerformanceModelBase { Product = "Sportsbook", BetCount = 100, Turnover = 200m, CustomerWinLoss = 200m, SubsidiaryWinLoss = -200m }
             };
 
             var dataDetail3 = new List<SubsidiaryPerformanceModelBase>
@@ -395,10 +359,10 @@
                 {
                     Subsidiary = "Total India",
                     CurrencyName = "Based EUR",
-                    BetCount = 150,
-                    Turnover = 300m,
-                    CustomerWinLoss = 300m,
-                    SubsidiaryWinLoss = -300m
+                    BetCount = 200,
+                    Turnover = 400m,
+                    CustomerWinLoss = 400m,
+                    SubsidiaryWinLoss = -400m
                 }
             };
         }
