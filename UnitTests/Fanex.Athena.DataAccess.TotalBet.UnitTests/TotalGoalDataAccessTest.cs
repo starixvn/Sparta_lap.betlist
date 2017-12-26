@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.TotalBet.UnitTests
 {
     using System.Data;
+    using System.Linq;
     using Data;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
@@ -54,20 +55,21 @@
             ConfigureReaderForGetTotalGoalDataListMethod(expected);
 
             // Action
-            var result = _dataAccess.GetTotalGoalDataList(metaModel, out totalData)[0];
+            var resultInfo = _dataAccess.GetTotalGoalDataList(metaModel);
+            var firstItem = resultInfo.DataList.First();
 
             // Assert
-            Assert.That(result.MatchId, Is.EqualTo(expected.MatchId));
-            Assert.That(result.HomeId, Is.EqualTo(expected.HomeId));
-            Assert.That(result.AwayId, Is.EqualTo(expected.AwayId));
-            Assert.That(result.IsNeutral, Is.EqualTo(expected.IsNeutral));
-            Assert.That(result.Total01, Is.EqualTo(expected.Total01));
-            Assert.That(result.Total23, Is.EqualTo(expected.Total23));
-            Assert.That(result.Total46, Is.EqualTo(expected.Total46));
-            Assert.That(result.Total7Over, Is.EqualTo(expected.Total7Over));
-            Assert.That(result.TotalFirstHalf01, Is.EqualTo(expected.TotalFirstHalf01));
-            Assert.That(result.TotalFirstHalf23, Is.EqualTo(expected.TotalFirstHalf23));
-            Assert.That(result.Total4Over, Is.EqualTo(expected.Total4Over));
+            Assert.That(firstItem.MatchId, Is.EqualTo(expected.MatchId));
+            Assert.That(firstItem.HomeId, Is.EqualTo(expected.HomeId));
+            Assert.That(firstItem.AwayId, Is.EqualTo(expected.AwayId));
+            Assert.That(firstItem.IsNeutral, Is.EqualTo(expected.IsNeutral));
+            Assert.That(firstItem.Total01, Is.EqualTo(expected.Total01));
+            Assert.That(firstItem.Total23, Is.EqualTo(expected.Total23));
+            Assert.That(firstItem.Total46, Is.EqualTo(expected.Total46));
+            Assert.That(firstItem.Total7Over, Is.EqualTo(expected.Total7Over));
+            Assert.That(firstItem.TotalFirstHalf01, Is.EqualTo(expected.TotalFirstHalf01));
+            Assert.That(firstItem.TotalFirstHalf23, Is.EqualTo(expected.TotalFirstHalf23));
+            Assert.That(firstItem.Total4Over, Is.EqualTo(expected.Total4Over));
         }
 
         private void ConfigureReaderForGetTotalGoalDataListMethod(TotalGoal expected)

@@ -99,6 +99,10 @@
       <Project>{152EBE71-ED5C-4F5C-8817-C3AA406E16B8}</Project>
       <Name>Fanex.Athena.DataAccess.TotalBet</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
+      <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
+      <Name>Fanex.Athena.Model.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.TotalBet\Fanex.Athena.Model.TotalBet.csproj">
       <Project>{F3530308-8F06-4EA1-856A-296B27614054}</Project>
       <Name>Fanex.Athena.Model.TotalBet</Name>

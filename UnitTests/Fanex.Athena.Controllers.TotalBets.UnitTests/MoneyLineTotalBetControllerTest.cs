@@ -5,6 +5,7 @@
     using Base.UnitTests;
     using DataAccess.TotalBet.Interfaces;
     using Fanex.Athena.Controllers.TotalBets;
+    using Model.Core.ResultModel;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
@@ -54,15 +55,12 @@
         {
             using (var controller = CreateController())
             {
-                // Arrange
-                MoneyLine total;
-
                 // Action
                 var viewResult = controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as MoneyLineViewModel;
 
                 // Assert
-                _moneyLineDataAccess.ReceivedWithAnyArgs().GetMoneyLineDataList(Arg.Any<MoneyLineMetaModel>(), out total);
+                _moneyLineDataAccess.ReceivedWithAnyArgs().GetMoneyLineDataList(Arg.Any<MoneyLineMetaModel>());
                 Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
             }
         }
@@ -90,12 +88,11 @@
         {
             _moneyLineDataAccess = Substitute.For<IMoneyLineDataAccess>();
 
-            MoneyLine total;
-            _moneyLineDataAccess.GetMoneyLineDataList(Arg.Any<MoneyLineMetaModel>(), out total)
-                .Returns(x =>
+            _moneyLineDataAccess.GetMoneyLineDataList(Arg.Any<MoneyLineMetaModel>())
+                .Returns(new ReportResultModel<MoneyLine>
                 {
-                    x[1] = new MoneyLine();
-                    return new List<MoneyLine> { new MoneyLine() };
+                    TotalData = new MoneyLine(),
+                    DataList = new List<MoneyLine> { new MoneyLine() }
                 });
         }
 

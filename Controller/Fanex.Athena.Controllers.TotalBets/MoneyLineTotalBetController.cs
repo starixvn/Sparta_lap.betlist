@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.TotalBets
 {
+    using System.Linq;
     using System.Web.Mvc;
     using DataAccess.TotalBet;
     using DataAccess.TotalBet.Interfaces;
@@ -68,16 +69,15 @@ namespace Fanex.Athena.Controllers.TotalBets
 
             if (metaModel.CurrencyId == 0 || currencies.ContainsKey(metaModel.CurrencyId))
             {
-                MoneyLine totalData;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                var dataList = _moneyLineDataAccess.GetMoneyLineDataList(metaModel, out totalData);
+                var result = _moneyLineDataAccess.GetMoneyLineDataList(metaModel);
 
                 var model = new MoneyLineViewModel
                 {
                     Param = metaModel,
-                    MainData = dataList,
+                    MainData = result.DataList.ToList(),
                     CurrencyList = currencies,
-                    TotalData = totalData
+                    TotalData = result.TotalData
                 };
                 return View("~/Views/TotalBets/MoneyLine/Main.cshtml", model);
             }

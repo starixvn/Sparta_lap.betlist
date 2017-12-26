@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.TotalBet.UnitTests
 {
-    using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Data;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
@@ -36,7 +36,7 @@
         public void GetMoneyLineDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_TotalBets_Sel2021")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_TotalBets_Sel2021")).Returns(_objectDb);
             var metaModel = new MoneyLineMetaModel();
             var totalData = new MoneyLine();
             var expected = new MoneyLine
@@ -57,34 +57,35 @@
             ConfigureReaderForGetHomeDrawAwayNoBetDataListMethod(expected);
 
             // Action
-            var result = _dataAccess.GetMoneyLineDataList(metaModel, out totalData)[0];
+            var result = _dataAccess.GetMoneyLineDataList(metaModel);
+            var firstItem = result.DataList.First();
 
             // Assert
-            Assert.That(result.ShowTime, Is.EqualTo(expected.ShowTime));
-            Assert.That(result.LeagueId, Is.EqualTo(expected.LeagueId));
-            Assert.That(result.MatchId, Is.EqualTo(expected.MatchId));
-            Assert.That(result.HomeId, Is.EqualTo(expected.HomeId));
-            Assert.That(result.AwayId, Is.EqualTo(expected.AwayId));
+            Assert.That(firstItem.ShowTime, Is.EqualTo(expected.ShowTime));
+            Assert.That(firstItem.LeagueId, Is.EqualTo(expected.LeagueId));
+            Assert.That(firstItem.MatchId, Is.EqualTo(expected.MatchId));
+            Assert.That(firstItem.HomeId, Is.EqualTo(expected.HomeId));
+            Assert.That(firstItem.AwayId, Is.EqualTo(expected.AwayId));
 
-            Assert.That(result.TotalHomeFt, Is.EqualTo(expected.TotalHomeFt));
-            Assert.That(result.TotalAwayFt, Is.EqualTo(expected.TotalAwayFt));
-            Assert.That(result.ForecastHomeFt, Is.EqualTo(expected.ForecastHomeFt));
-            Assert.That(result.ForecastAwayFt, Is.EqualTo(expected.ForecastAwayFt));
+            Assert.That(firstItem.TotalHomeFt, Is.EqualTo(expected.TotalHomeFt));
+            Assert.That(firstItem.TotalAwayFt, Is.EqualTo(expected.TotalAwayFt));
+            Assert.That(firstItem.ForecastHomeFt, Is.EqualTo(expected.ForecastHomeFt));
+            Assert.That(firstItem.ForecastAwayFt, Is.EqualTo(expected.ForecastAwayFt));
 
-            Assert.That(result.TotalHomeFirstHalf, Is.EqualTo(expected.TotalHomeFirstHalf));
-            Assert.That(result.TotalAwayFirstHalf, Is.EqualTo(expected.TotalAwayFirstHalf));
-            Assert.That(result.ForecastHomeFirstHalf, Is.EqualTo(expected.ForecastHomeFirstHalf));
-            Assert.That(result.ForecastAwayFirstHalf, Is.EqualTo(expected.ForecastAwayFirstHalf));
+            Assert.That(firstItem.TotalHomeFirstHalf, Is.EqualTo(expected.TotalHomeFirstHalf));
+            Assert.That(firstItem.TotalAwayFirstHalf, Is.EqualTo(expected.TotalAwayFirstHalf));
+            Assert.That(firstItem.ForecastHomeFirstHalf, Is.EqualTo(expected.ForecastHomeFirstHalf));
+            Assert.That(firstItem.ForecastAwayFirstHalf, Is.EqualTo(expected.ForecastAwayFirstHalf));
 
-            Assert.That(result.LiveHomeScore, Is.EqualTo(expected.LiveHomeScore));
-            Assert.That(result.LiveAwayScore, Is.EqualTo(expected.LiveAwayScore));
-            Assert.That(result.LiveIndicator, Is.EqualTo(expected.LiveIndicator));
+            Assert.That(firstItem.LiveHomeScore, Is.EqualTo(expected.LiveHomeScore));
+            Assert.That(firstItem.LiveAwayScore, Is.EqualTo(expected.LiveAwayScore));
+            Assert.That(firstItem.LiveIndicator, Is.EqualTo(expected.LiveIndicator));
         }
 
         private void ConfigureReaderForGetHomeDrawAwayNoBetDataListMethod(MoneyLine expected)
         {
             _reader.Read().Returns(true, false);
-          
+
             _reader["showtime"].Returns(expected.ShowTime);
             _reader["leagueid"].Returns(expected.LeagueId);
             _reader["matchid"].Returns(expected.MatchId);
