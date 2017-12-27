@@ -33,18 +33,13 @@ namespace Fanex.Athena.Service.Report
 
         public WeeklyLiveMatchResultModel GetData(WeeklyLiveMatchMetaModel metaModel)
         {
-            if (metaModel.IsValid)
-            {
-                return this._weeklyLiveMatchDataAccess.GetDataList(metaModel);
-            }
-            else
-            {
-                return new WeeklyLiveMatchResultModel
+            return metaModel.IsValid ?
+                _weeklyLiveMatchDataAccess.GetDataList(metaModel) :
+                new WeeklyLiveMatchResultModel
                 {
                     TotalData = new int[0],
                     DataList = new List<WeeklyLiveMatch>()
                 };
-            }
         }
 
         public IEnumerable<string> GetWeekHeaders(DateTime fromDate, DateTime toDate, int numberOfWeeks)

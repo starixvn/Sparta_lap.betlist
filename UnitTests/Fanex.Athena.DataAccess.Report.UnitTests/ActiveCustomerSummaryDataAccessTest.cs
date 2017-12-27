@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Data;
     using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
@@ -45,11 +46,10 @@
         public void GetActiveCustomers_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var totalCustomer = 0;
             _objectDb.GetParameterValue("TotalActive").Returns(5);
 
             // Action
-            _dataAccess.GetActiveCustomers(_metaModel, out totalCustomer);
+            _dataAccess.GetActiveCustomers(_metaModel);
 
             // Assert
             _objectDb.AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
@@ -69,7 +69,6 @@
             var reader = Substitute.For<IDataReader>();
             _objectDb.ExecuteReader().Returns(reader);
 
-            var totalCustomer = 0;
             _objectDb.GetParameterValue("TotalActive").Returns(5);
             var expected = new ActiveCustomer
             {
@@ -79,12 +78,13 @@
             ConfigureReaderForGetActiveCustomersMethod(reader, expected);
 
             // Action
-            var result = _dataAccess.GetActiveCustomers(_metaModel, out totalCustomer)[0];
+            var result = _dataAccess.GetActiveCustomers(_metaModel);
+            var firstItem = result.DataList.First();
 
             // Assert
-            Assert.That(result.TransactionDate, Is.EqualTo(expected.TransactionDate));
-            Assert.That(result.TotalCustomer, Is.EqualTo(expected.TotalCustomer));
-            Assert.That(totalCustomer, Is.EqualTo(5));
+            Assert.That(firstItem.TransactionDate, Is.EqualTo(expected.TransactionDate));
+            Assert.That(firstItem.TotalCustomer, Is.EqualTo(expected.TotalCustomer));
+            Assert.That(result.TotalCustomer, Is.EqualTo(5));
         }
 
         private void ConfigureReaderForGetActiveCustomersMethod(IDataReader reader, ActiveCustomer expected)

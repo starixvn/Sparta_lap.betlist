@@ -14,6 +14,7 @@
     using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
+    using Model.Report.ResultModel;
     using Model.Report.ViewModel;
     using NPOI.SS.UserModel;
     using NSubstitute;
@@ -101,10 +102,9 @@
             // Arrange
             var metaModel = CreateValidMetaModel();
 
-            int totalCustomer;
-            _dataAccess.GetActiveCustomers(Arg.Any<ActiveCustomerMetaModel>(), out totalCustomer).Returns(x =>
+            _dataAccess.GetActiveCustomers(Arg.Any<ActiveCustomerMetaModel>()).Returns(new ActiveCustomerSummaryResultModel
             {
-                return new SortableList<ActiveCustomer>();
+                DataList = new SortableList<ActiveCustomer>()
             });
 
             // Action
@@ -123,51 +123,51 @@
         public void Index_ValidModelNoSorting_GetCorrectDataFromDataAccess()
         {
             // Arrange
-            int totalCustomer;
             var metaModel = CreateValidMetaModel();
-            var expectedUnSortedData = SetUpForGettingData(metaModel, out totalCustomer);
+            var expectedResult = SetUpForGettingData(metaModel);
 
             // Action
             var result = _controller.Index(metaModel);
 
             // Assert
-            Assert.That(result.Data, Is.EqualTo(expectedUnSortedData));
+            Assert.That(result.Data, Is.EqualTo(expectedResult.DataList));
+            Assert.That(result.GrantTotalCustomer, Is.EqualTo(expectedResult.TotalCustomer));
         }
 
         [Test]
         public void Index_ValidModelSortByTotalCustomer_GetCorrectDataFromDataAccess()
         {
             // Arrange
-            int totalCustomer;
             var sortBy = nameof(ActiveCustomer.TotalCustomer);
             var sortOrder = "asc";
             var metaModel = CreateValidMetaModel(sortBy: sortBy, sortOrder: sortOrder);
-            var expectedData = SetUpForGettingData(metaModel, out totalCustomer);
-            expectedData.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+            var expectedResult = SetUpForGettingData(metaModel);
+            expectedResult.DataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
 
             // Action
             var result = _controller.Index(metaModel);
 
             // Assert
-            Assert.That(result.Data, Is.EqualTo(expectedData));
+            Assert.That(result.Data, Is.EqualTo(expectedResult.DataList));
+            Assert.That(result.GrantTotalCustomer, Is.EqualTo(expectedResult.TotalCustomer));
         }
 
         [Test]
         public void Index_ValidModelSortByCustomerCount_GetCorrectDataFromDataAccess()
         {
             // Arrange
-            int totalCustomer;
             var sortBy = nameof(ActiveCustomer.CustomerCount) + "A";
             var sortOrder = "asc";
             var metaModel = CreateValidMetaModel(sortBy: sortBy, sortOrder: sortOrder);
-            var expectedData = SetUpForGettingData(metaModel, out totalCustomer);
-            expectedData.SortByDictionary("A", nameof(ActiveCustomer.CustomerCount), sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+            var expectedResult = SetUpForGettingData(metaModel);
+            expectedResult.DataList.SortByDictionary("A", nameof(ActiveCustomer.CustomerCount), sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
 
             // Action
             var result = _controller.Index(metaModel);
 
             // Assert
-            Assert.That(result.Data, Is.EqualTo(expectedData));
+            Assert.That(result.Data, Is.EqualTo(expectedResult.DataList));
+            Assert.That(result.GrantTotalCustomer, Is.EqualTo(expectedResult.TotalCustomer));
         }
 
         [TestCase(new string[] { Product.BA }, Product.BA, true, false)]
@@ -178,11 +178,10 @@
         public void Index_ExportToExcel_ExportWithCorrectData(string[] productCodeOption, string productCode, bool visibleBa, bool visibleRb)
         {
             // Arrange
-            int totalCustomer;
             var metaModel = CreateValidMetaModel(productCodeOption);
             metaModel.IsExportExcel = true;
 
-            var expectedDataList = SetUpForGettingData(metaModel, out totalCustomer);
+            var expectedResult = SetUpForGettingData(metaModel);
 
             ProductService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>()).Returns(
                 new ProductAccess(new List<Product> { new Product { ProductCode = productCode } }));
@@ -219,7 +218,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(actualViewModel.MainResult, Is.EqualTo(expectedDataList.ToList()));
+                Assert.That(actualViewModel.MainResult, Is.EqualTo(expectedResult.DataList.ToList()));
                 Assert.That(actualShowingOption.BAVisible, Is.EqualTo(visibleBa));
                 Assert.That(actualShowingOption.RBVisible, Is.EqualTo(visibleRb));
             });
@@ -275,10 +274,9 @@
             return model;
         }
 
-        private SortableList<ActiveCustomer> SetUpForGettingData(ActiveCustomerMetaModel metaModel, out int totalCustomer)
+        private ActiveCustomerSummaryResultModel SetUpForGettingData(ActiveCustomerMetaModel metaModel)
         {
-            var expectedUnSortedData = new SortableList<ActiveCustomer>();
-            var nonSortedData = new SortableList<ActiveCustomer>();
+            var unsortedData = new SortableList<ActiveCustomer>();
 
             var random = new Random();
             var total = random.Next(5, 10);
@@ -299,17 +297,18 @@
                     item.CustomerCount.Add(customerCount[j], value);
                 }
 
-                nonSortedData.Add(item);
-                expectedUnSortedData.Add(item);
+                unsortedData.Add(item);
             }
 
-            _dataAccess.GetActiveCustomers(metaModel, out totalCustomer).Returns(x =>
+            var expectResult = new ActiveCustomerSummaryResultModel
             {
-                x[1] = nonSortedData.Sum(y => y.TotalCustomer);
-                return nonSortedData;
-            });
+                TotalCustomer = unsortedData.Sum(y => y.TotalCustomer),
+                DataList = unsortedData
+            };
 
-            return expectedUnSortedData;
+            _dataAccess.GetActiveCustomers(metaModel).Returns(expectResult);
+
+            return expectResult;
         }
     }
 }

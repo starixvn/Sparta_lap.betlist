@@ -185,6 +185,7 @@
     <Compile Include="MetaModel\TurnoverMetaModel.cs" />
     <Compile Include="MetaModel\WinLossByBetTypeMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResultModel\ActiveCustomerSummaryResultModel.cs" />
     <Compile Include="ResultModel\LiveReportDetailResultModel.cs" />
     <Compile Include="ResultModel\WeeklyLiveMatchResultModel.cs" />
     <Compile Include="ResultModel\WinLossByProductResultModel.cs" />
