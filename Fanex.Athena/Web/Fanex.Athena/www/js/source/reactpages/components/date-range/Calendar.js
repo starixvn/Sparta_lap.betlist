@@ -74,16 +74,14 @@ class Calendar extends Component {
       startDate = moment.isMoment(minDate) ? minDate : moment(minDate, MomentFormat.default);
     }
     else {
-      const startMonth = 0;
-      startDate = moment([m.year() - DEFAULT_YEAR_RANGE, startMonth]);
+      startDate = moment([m.year() - DEFAULT_YEAR_RANGE, START_OF_MONTH]);
     }
 
     if (maxDate) {
       endDate = moment.isMoment(maxDate) ? maxDate : moment(maxDate, MomentFormat.default);
     }
     else {
-      const endMonth = 11;
-      endDate = moment([m.year(), endMonth]).endOf("month");
+      endDate = moment([m.year(), END_OF_MONTH]).endOf("month");
     }
 
 

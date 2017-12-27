@@ -8,6 +8,7 @@ import getTheme, { defaultClasses } from './styles.js';
 import joiningClassNames from 'classnames';
 import { MomentFormat } from './constants';
 import defaultOptions from './defaultOptions.js';
+import Overlay from '../Overlay';
 
 class DateRange extends Component {
 
@@ -211,20 +212,7 @@ class DateRange extends Component {
     const { styles } = this;
 
     const classes = { ...defaultClasses, ...classNames };
-    const yearsDiff = range.endDate.year() - range.startDate.year();
-    const monthsDiff = range.endDate.month() - range.startDate.month();
-    const diff = yearsDiff * 12 + monthsDiff;
     const calendarsCount = Number(calendars) - 1;
-
-    const dateRangeClass = joiningClassNames({
-      [classes.dateRange]: true,
-      [classes.show]: this.state.show,
-      [classes.hide]: !this.state.show
-    });
-
-    const dateRangeStyle = {
-      display: this.state.show ? "block" : "none",
-    }
 
     const buttonHandlers = {
       apply: this.handleApply,
@@ -238,51 +226,52 @@ class DateRange extends Component {
           <i className="icon icon-calendar"></i>
         </div>
 
-        <div style={onlyClasses ? undefined : { ...styles['DateRange'], ...style, ...dateRangeStyle }}
-          className={dateRangeClass}
-          ref={element => this.dateRangeContainer = element}>
-          {showRange && (
-            <PredefinedRanges
-              format={format}
-              ranges={this.ranges}
-              range={range}
-              theme={styles}
-              onSelect={this.handleSelect.bind(this)}
-              onlyClasses={onlyClasses}
-              classNames={classes}
-              locale={this.locale}
-              buttonHandlers={buttonHandlers} />
-          )}
+        <Overlay isOpening={this.state.show} onClose={this.handleCancel}>
+          <div className={classes.dateRange}
+            ref={element => this.dateRangeContainer = element}>
+            {showRange && (
+              <PredefinedRanges
+                format={format}
+                ranges={this.ranges}
+                range={range}
+                theme={styles}
+                onSelect={this.handleSelect.bind(this)}
+                onlyClasses={onlyClasses}
+                classNames={classes}
+                locale={this.locale}
+                buttonHandlers={buttonHandlers} />
+            )}
 
-          {(() => {
-            const _calendars = [];
-            for (var i = calendarsCount; i >= 0; i--) {
-              const shownDate = i == calendarsCount ? range.startDate : range.endDate;
-              _calendars.push(
-                <Calendar
-                  showMonthArrow={showMonthArrow}
-                  shownDate={shownDate}
-                  disableDaysBeforeToday={disableDaysBeforeToday}
-                  lang={lang}
-                  key={i}
-                  link={linkedCalendars && link}
-                  linkCB={this.handleLinkChange.bind(this)}
-                  range={range}
-                  format={format}
-                  firstDayOfWeek={firstDayOfWeek}
-                  theme={styles}
-                  minDate={minDate}
-                  maxDate={maxDate}
-                  onlyClasses={onlyClasses}
-                  specialDays={specialDays}
-                  classNames={classes}
-                  onChange={this.handleSelect.bind(this)}
-                  locale={this.locale} />
-              );
-            }
-            return _calendars;
-          })()}
-        </div>
+            {(() => {
+              const _calendars = [];
+              for (var i = calendarsCount; i >= 0; i--) {
+                const shownDate = i == calendarsCount ? range.startDate : range.endDate;
+                _calendars.push(
+                  <Calendar
+                    showMonthArrow={showMonthArrow}
+                    shownDate={shownDate}
+                    disableDaysBeforeToday={disableDaysBeforeToday}
+                    lang={lang}
+                    key={i}
+                    link={linkedCalendars && link}
+                    linkCB={this.handleLinkChange.bind(this)}
+                    range={range}
+                    format={format}
+                    firstDayOfWeek={firstDayOfWeek}
+                    theme={styles}
+                    minDate={minDate}
+                    maxDate={maxDate}
+                    onlyClasses={onlyClasses}
+                    specialDays={specialDays}
+                    classNames={classes}
+                    onChange={this.handleSelect.bind(this)}
+                    locale={this.locale} />
+                );
+              }
+              return _calendars;
+            })()}
+          </div>
+        </Overlay>
       </div>
     );
   }
