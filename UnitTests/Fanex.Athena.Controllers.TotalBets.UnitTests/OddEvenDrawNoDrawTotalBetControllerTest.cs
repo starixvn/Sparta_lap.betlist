@@ -4,6 +4,7 @@
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.TotalBet.Interfaces;
+    using Model.Core.ResultModel;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
@@ -54,15 +55,12 @@
         {
             using (var controller = CreateController())
             {
-                // Arrange
-                OddEvenDrawNoDraw total;
-
                 // Action
                 var viewResult = controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as OddEvenDrawNoDrawViewModel;
 
                 // Assert
-                _oddEvenDrawNoDrawDataAccess.ReceivedWithAnyArgs().GetOddEvenDrawNoDrawDataList(Arg.Any<OddEvenDrawNoDrawMetaModel>(), out total);
+                _oddEvenDrawNoDrawDataAccess.ReceivedWithAnyArgs().GetOddEvenDrawNoDrawDataList(Arg.Any<OddEvenDrawNoDrawMetaModel>());
                 Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
             }
         }
@@ -100,13 +98,12 @@
         {
             _oddEvenDrawNoDrawDataAccess = Substitute.For<IOddEvenDrawNoDrawDataAccess>();
 
-            OddEvenDrawNoDraw total;
             _oddEvenDrawNoDrawDataAccess
-                .GetOddEvenDrawNoDrawDataList(Arg.Any<OddEvenDrawNoDrawMetaModel>(), out total)
-                .Returns(x =>
+                .GetOddEvenDrawNoDrawDataList(Arg.Any<OddEvenDrawNoDrawMetaModel>())
+                .Returns(new ReportResultModel<OddEvenDrawNoDraw>
                 {
-                    x[1] = new OddEvenDrawNoDraw();
-                    return new List<OddEvenDrawNoDraw> { new OddEvenDrawNoDraw() };
+                    TotalData = new OddEvenDrawNoDraw(),
+                    DataList = new List<OddEvenDrawNoDraw> { new OddEvenDrawNoDraw() }
                 });
         }
     }

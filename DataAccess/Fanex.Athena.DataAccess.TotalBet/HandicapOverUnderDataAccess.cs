@@ -12,12 +12,13 @@ namespace Fanex.Athena.DataAccess.TotalBet
     using DataAccess.TotalBet.Interfaces;
     using Extension.Helper;
     using Fanex.Common.Extensions;
+    using Model.Core.ResultModel;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
     public class HandicapOverUnderDataAccess : BaseDataAccess, IHandicapOverUnderDataAccess
     {
-        public IList<HandicapOverUnder> GetHandicapOverUnderDataList(HandicapOverUnderMetaModel metaModel, out HandicapOverUnder totalData)
+        public ReportResultModel<HandicapOverUnder> GetHandicapOverUnderDataList(HandicapOverUnderMetaModel metaModel)
         {
             const string SpName = "Lrf_TotalBets_Sel1378";
             var uspParams = new
@@ -28,30 +29,24 @@ namespace Fanex.Athena.DataAccess.TotalBet
                 AgentList = metaModel.AgentListXml
             };
 
-            IList<HandicapOverUnder> data;
-
             using (var db = this.GetObjectDb(SpName))
             {
                 using (var reader = db.ExecuteReader(uspParams))
                 {
-                    data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    var data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
                     reader.NextResult();
-                    totalData = ReadTotalData(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    var totalData = ReadTotalData(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    return new ReportResultModel<HandicapOverUnder>
+                    {
+                        DataList = data,
+                        TotalData = totalData
+                    };
                 }
             }
-
-            return data;
         }
 
         #region Utility
 
-        /// <summary>
-        /// Get Total Score.
-        /// </summary>
-        /// <param name="reader">Data reader value.</param>
-        /// <param name="homeColumnName">Home column name value.</param>
-        /// <param name="awayColumnName">Away column name value.</param>
-        /// <returns>Total Score.</returns>
         private static decimal GetTotalScore(IDataReader reader, string homeColumnName, string awayColumnName)
         {
             var homeScore = reader.ToDecimal(homeColumnName);
@@ -60,13 +55,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
             return homeScore - awayScore;
         }
 
-        /// <summary>
-        /// Set data to list.
-        /// </summary>
-        /// <param name="reader">Data reader value.</param>
-        /// <param name="isConvert">Is Convert value.</param>
-        /// <param name="baseCurrency">Base currency value.</param>
-        /// <returns>A list of Handicap Over/Under.</returns>
         private static IList<HandicapOverUnder> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
         {
             var dataList = new List<HandicapOverUnder>();
@@ -111,13 +99,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
             return dataList;
         }
 
-        /// <summary>
-        /// Read total data.
-        /// </summary>
-        /// <param name="reader">IDataReader class.</param>
-        /// <param name="isConvert">Boolean isConvert.</param>
-        /// <param name="baseCurrency">Base currency.</param>
-        /// <returns>HandicapOverUnder data.</returns>
         private static HandicapOverUnder ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
         {
             if (!reader.Read())

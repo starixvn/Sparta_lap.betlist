@@ -5,6 +5,7 @@
     using Base.UnitTests;
     using DataAccess.TotalBet.Interfaces;
     using Fanex.Athena.Controllers.TotalBets;
+    using Model.Core.ResultModel;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
@@ -54,9 +55,6 @@
         {
             using (var controller = CreateController())
             {
-                // Arrange
-                HalfTimeFullTime total = null;
-
                 // Action
                 var viewResult = controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as HalfTimeFullTimeViewModel;
@@ -64,7 +62,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    _halfTimeFullTimeDataAccess.ReceivedWithAnyArgs().GetHalfTimeFullTimeDataList(Arg.Any<HalfTimeFullTimeMetaModel>(), out total);
+                    _halfTimeFullTimeDataAccess.ReceivedWithAnyArgs().GetHalfTimeFullTimeDataList(Arg.Any<HalfTimeFullTimeMetaModel>());
                     Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
                 });
             }
@@ -93,13 +91,12 @@
         {
             _halfTimeFullTimeDataAccess = Substitute.For<IHalfTimeFullTimeDataAccess>();
 
-            HalfTimeFullTime total;
             _halfTimeFullTimeDataAccess
-                .GetHalfTimeFullTimeDataList(Arg.Any<HalfTimeFullTimeMetaModel>(), out total)
-                .Returns(x =>
+                .GetHalfTimeFullTimeDataList(Arg.Any<HalfTimeFullTimeMetaModel>())
+                .Returns(new ReportResultModel<HalfTimeFullTime>
                 {
-                    x[1] = new HalfTimeFullTime();
-                    return new List<HalfTimeFullTime> { new HalfTimeFullTime() };
+                    TotalData = new HalfTimeFullTime(),
+                    DataList = new List<HalfTimeFullTime> { new HalfTimeFullTime() }
                 });
         }
 

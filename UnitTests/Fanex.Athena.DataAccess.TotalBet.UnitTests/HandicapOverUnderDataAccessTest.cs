@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.TotalBet.UnitTests
 {
     using System.Data;
+    using System.Linq;
     using Data;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
@@ -57,27 +58,28 @@
             ConfigureReaderForGetHandicapOverUnderDataListMethod(expected);
 
             // Action
-            var result = _dataAccess.GetHandicapOverUnderDataList(metaModel, out totalData)[0];
+            var result = _dataAccess.GetHandicapOverUnderDataList(metaModel);
+            var firstItem = result.DataList.First();
 
             // Assert
-            Assert.That(result.ShowTime, Is.EqualTo(expected.ShowTime));
-            Assert.That(result.LeagueId, Is.EqualTo(expected.LeagueId));
-            Assert.That(result.MatchId, Is.EqualTo(expected.MatchId));
-            Assert.That(result.HomeId, Is.EqualTo(expected.HomeId));
-            Assert.That(result.AwayId, Is.EqualTo(expected.AwayId));
-            Assert.That(result.LiveHomeScore, Is.EqualTo(expected.LiveHomeScore));
-            Assert.That(result.LiveAwayScore, Is.EqualTo(expected.LiveAwayScore));
-            Assert.That(result.LiveIndicator, Is.EqualTo(expected.LiveIndicator));
+            Assert.That(firstItem.ShowTime, Is.EqualTo(expected.ShowTime));
+            Assert.That(firstItem.LeagueId, Is.EqualTo(expected.LeagueId));
+            Assert.That(firstItem.MatchId, Is.EqualTo(expected.MatchId));
+            Assert.That(firstItem.HomeId, Is.EqualTo(expected.HomeId));
+            Assert.That(firstItem.AwayId, Is.EqualTo(expected.AwayId));
+            Assert.That(firstItem.LiveHomeScore, Is.EqualTo(expected.LiveHomeScore));
+            Assert.That(firstItem.LiveAwayScore, Is.EqualTo(expected.LiveAwayScore));
+            Assert.That(firstItem.LiveIndicator, Is.EqualTo(expected.LiveIndicator));
 
-            Assert.That(result.BetCountHandicap, Is.EqualTo(expected.BetCountHandicap));
-            Assert.That(result.BetCountOverUnder, Is.EqualTo(expected.BetCountOverUnder));
-            Assert.That(result.BetCountHandicap1StHalf, Is.EqualTo(expected.BetCountHandicap1StHalf));
-            Assert.That(result.BetCountOverUnder1StHalf, Is.EqualTo(expected.BetCountOverUnder1StHalf));
+            Assert.That(firstItem.BetCountHandicap, Is.EqualTo(expected.BetCountHandicap));
+            Assert.That(firstItem.BetCountOverUnder, Is.EqualTo(expected.BetCountOverUnder));
+            Assert.That(firstItem.BetCountHandicap1StHalf, Is.EqualTo(expected.BetCountHandicap1StHalf));
+            Assert.That(firstItem.BetCountOverUnder1StHalf, Is.EqualTo(expected.BetCountOverUnder1StHalf));
 
-            Assert.That(result.FullTimeHandicap, Is.EqualTo(expected.FullTimeHandicap));
-            Assert.That(result.FullTimeOverUnder, Is.EqualTo(expected.FullTimeOverUnder));
-            Assert.That(result.FirstTimeHandicap, Is.EqualTo(expected.FirstTimeHandicap));
-            Assert.That(result.FirstTimeOverUnder, Is.EqualTo(expected.FirstTimeOverUnder));
+            Assert.That(firstItem.FullTimeHandicap, Is.EqualTo(expected.FullTimeHandicap));
+            Assert.That(firstItem.FullTimeOverUnder, Is.EqualTo(expected.FullTimeOverUnder));
+            Assert.That(firstItem.FirstTimeHandicap, Is.EqualTo(expected.FirstTimeHandicap));
+            Assert.That(firstItem.FirstTimeOverUnder, Is.EqualTo(expected.FirstTimeOverUnder));
         }
 
         private void ConfigureReaderForGetHandicapOverUnderDataListMethod(HandicapOverUnder expected)

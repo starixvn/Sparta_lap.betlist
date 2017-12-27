@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.TotalBet.UnitTests
 {
-    using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Data;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
@@ -60,28 +60,29 @@
             ConfigureReaderForGetOddEventDrawNoDrawDataListMethod(expected);
 
             // Action
-            var result = _dataAccess.GetOddEvenDrawNoDrawDataList(metaModel, out totalData)[0];
+            var result = _dataAccess.GetOddEvenDrawNoDrawDataList(metaModel);
+            var firstItem = result.DataList.First();
 
             // Assert
-            Assert.That(result.ShowTime, Is.EqualTo(expected.ShowTime));
-            Assert.That(result.LeagueId, Is.EqualTo(expected.LeagueId));
-            Assert.That(result.MatchId, Is.EqualTo(expected.MatchId));
-            Assert.That(result.HomeId, Is.EqualTo(expected.HomeId));
-            Assert.That(result.AwayId, Is.EqualTo(expected.AwayId));
-            Assert.That(result.Bettype, Is.EqualTo(expected.Bettype));
-            Assert.That(result.LiveHomeScore, Is.EqualTo(expected.LiveHomeScore));
-            Assert.That(result.LiveAwayScore, Is.EqualTo(expected.LiveAwayScore));
-            Assert.That(result.LiveIndicator, Is.EqualTo(expected.LiveIndicator));
-            Assert.That(result.BetCountOddEven, Is.EqualTo(expected.BetCountOddEven));
-            Assert.That(result.BetCountOneXTwo, Is.EqualTo(expected.BetCountOneXTwo));
-            Assert.That(result.BetCountDrawNoDraw, Is.EqualTo(expected.BetCountDrawNoDraw));
-            Assert.That(result.BetCountOddEven1StHalf, Is.EqualTo(expected.BetCountOddEven1StHalf));
-            Assert.That(result.BetCountOneXTow1StHalf, Is.EqualTo(expected.BetCountOneXTow1StHalf));
-            Assert.That(result.OddEvenFt, Is.EqualTo(expected.OddEvenFt));
-            Assert.That(result.OneXTwoFt, Is.EqualTo(expected.OneXTwoFt));
-            Assert.That(result.DrawNoDraw, Is.EqualTo(expected.DrawNoDraw));
-            Assert.That(result.OddEvenFirstHalf, Is.EqualTo(expected.OddEvenFirstHalf));
-            Assert.That(result.OneXTwoFirstHalf, Is.EqualTo(expected.OneXTwoFirstHalf));
+            Assert.That(firstItem.ShowTime, Is.EqualTo(expected.ShowTime));
+            Assert.That(firstItem.LeagueId, Is.EqualTo(expected.LeagueId));
+            Assert.That(firstItem.MatchId, Is.EqualTo(expected.MatchId));
+            Assert.That(firstItem.HomeId, Is.EqualTo(expected.HomeId));
+            Assert.That(firstItem.AwayId, Is.EqualTo(expected.AwayId));
+            Assert.That(firstItem.Bettype, Is.EqualTo(expected.Bettype));
+            Assert.That(firstItem.LiveHomeScore, Is.EqualTo(expected.LiveHomeScore));
+            Assert.That(firstItem.LiveAwayScore, Is.EqualTo(expected.LiveAwayScore));
+            Assert.That(firstItem.LiveIndicator, Is.EqualTo(expected.LiveIndicator));
+            Assert.That(firstItem.BetCountOddEven, Is.EqualTo(expected.BetCountOddEven));
+            Assert.That(firstItem.BetCountOneXTwo, Is.EqualTo(expected.BetCountOneXTwo));
+            Assert.That(firstItem.BetCountDrawNoDraw, Is.EqualTo(expected.BetCountDrawNoDraw));
+            Assert.That(firstItem.BetCountOddEven1StHalf, Is.EqualTo(expected.BetCountOddEven1StHalf));
+            Assert.That(firstItem.BetCountOneXTow1StHalf, Is.EqualTo(expected.BetCountOneXTow1StHalf));
+            Assert.That(firstItem.OddEvenFt, Is.EqualTo(expected.OddEvenFt));
+            Assert.That(firstItem.OneXTwoFt, Is.EqualTo(expected.OneXTwoFt));
+            Assert.That(firstItem.DrawNoDraw, Is.EqualTo(expected.DrawNoDraw));
+            Assert.That(firstItem.OddEvenFirstHalf, Is.EqualTo(expected.OddEvenFirstHalf));
+            Assert.That(firstItem.OneXTwoFirstHalf, Is.EqualTo(expected.OneXTwoFirstHalf));
         }
 
         private void ConfigureReaderForGetOddEventDrawNoDrawDataListMethod(OddEvenDrawNoDraw expected)

@@ -6,17 +6,12 @@
 
 namespace Fanex.Athena.DataAccess.TotalBet.Interfaces
 {
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
+    using Model.Core.ResultModel;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
-    /// <summary>
-    /// Odd/Even 1X2 and Draw/No Draw interface.
-    /// </summary>
     public interface IOddEvenDrawNoDrawDataAccess
     {
-        [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", Justification = "Reviewd.")]
-        IList<OddEvenDrawNoDraw> GetOddEvenDrawNoDrawDataList(OddEvenDrawNoDrawMetaModel metaModel, out OddEvenDrawNoDraw totalData);
+        ReportResultModel<OddEvenDrawNoDraw> GetOddEvenDrawNoDrawDataList(OddEvenDrawNoDrawMetaModel metaModel);
     }
 }

@@ -5,6 +5,7 @@
     using Base.UnitTests;
     using DataAccess.TotalBet.Interfaces;
     using Fanex.Athena.Controllers.TotalBets;
+    using Model.Core.ResultModel;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
@@ -54,9 +55,6 @@
         {
             using (var controller = CreateController())
             {
-                // Arrange
-                HandicapOverUnder total;
-
                 // Action
                 var viewResult = controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as HandicapOverUnderViewModel;
@@ -64,7 +62,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    _handicapOverUnderDataAccess.ReceivedWithAnyArgs().GetHandicapOverUnderDataList(Arg.Any<HandicapOverUnderMetaModel>(), out total);
+                    _handicapOverUnderDataAccess.ReceivedWithAnyArgs().GetHandicapOverUnderDataList(Arg.Any<HandicapOverUnderMetaModel>());
                     Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
                 });
             }
@@ -175,13 +173,12 @@
         {
             _handicapOverUnderDataAccess = Substitute.For<IHandicapOverUnderDataAccess>();
 
-            HandicapOverUnder total;
             _handicapOverUnderDataAccess
-                .GetHandicapOverUnderDataList(Arg.Any<HandicapOverUnderMetaModel>(), out total)
-                .Returns(x =>
+                .GetHandicapOverUnderDataList(Arg.Any<HandicapOverUnderMetaModel>())
+                .Returns(new ReportResultModel<HandicapOverUnder>
                 {
-                    x[1] = new HandicapOverUnder();
-                    return new List<HandicapOverUnder> { new HandicapOverUnder() };
+                    TotalData = new HandicapOverUnder(),
+                    DataList = new List<HandicapOverUnder> { new HandicapOverUnder() }
                 });
         }
 

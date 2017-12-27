@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.TotalBet.UnitTests
 {
     using System.Data;
+    using System.Linq;
     using Data;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
@@ -51,23 +52,24 @@
             ConfigureReaderForGetHalfTimeFullTimeDataListMethod(expected);
 
             // Action
-            var result = _dataAccess.GetHalfTimeFullTimeDataList(metaModel, out totalData)[0];
+            var result = _dataAccess.GetHalfTimeFullTimeDataList(metaModel);
+            var firstItem = result.DataList.First();
 
             // Assert
-            Assert.That(result.MatchId, Is.EqualTo(expected.MatchId));
-            Assert.That(result.HomeId, Is.EqualTo(expected.HomeId));
-            Assert.That(result.AwayId, Is.EqualTo(expected.AwayId));
-            Assert.That(result.IsNeutral, Is.EqualTo(expected.IsNeutral));
+            Assert.That(firstItem.MatchId, Is.EqualTo(expected.MatchId));
+            Assert.That(firstItem.HomeId, Is.EqualTo(expected.HomeId));
+            Assert.That(firstItem.AwayId, Is.EqualTo(expected.AwayId));
+            Assert.That(firstItem.IsNeutral, Is.EqualTo(expected.IsNeutral));
 
-            Assert.That(result.HomeHome, Is.EqualTo(expected.HomeHome));
-            Assert.That(result.HomeDraw, Is.EqualTo(expected.HomeDraw));
-            Assert.That(result.HomeAway, Is.EqualTo(expected.HomeAway));
-            Assert.That(result.DrawHome, Is.EqualTo(expected.DrawHome));
-            Assert.That(result.DrawDraw, Is.EqualTo(expected.DrawDraw));
-            Assert.That(result.DrawAway, Is.EqualTo(expected.DrawAway));
-            Assert.That(result.AwayHome, Is.EqualTo(expected.AwayHome));
-            Assert.That(result.AwayDraw, Is.EqualTo(expected.AwayDraw));
-            Assert.That(result.AwayAway, Is.EqualTo(expected.AwayAway));
+            Assert.That(firstItem.HomeHome, Is.EqualTo(expected.HomeHome));
+            Assert.That(firstItem.HomeDraw, Is.EqualTo(expected.HomeDraw));
+            Assert.That(firstItem.HomeAway, Is.EqualTo(expected.HomeAway));
+            Assert.That(firstItem.DrawHome, Is.EqualTo(expected.DrawHome));
+            Assert.That(firstItem.DrawDraw, Is.EqualTo(expected.DrawDraw));
+            Assert.That(firstItem.DrawAway, Is.EqualTo(expected.DrawAway));
+            Assert.That(firstItem.AwayHome, Is.EqualTo(expected.AwayHome));
+            Assert.That(firstItem.AwayDraw, Is.EqualTo(expected.AwayDraw));
+            Assert.That(firstItem.AwayAway, Is.EqualTo(expected.AwayAway));
         }
 
         private void ConfigureReaderForGetHalfTimeFullTimeDataListMethod(HalfTimeFullTime expected)

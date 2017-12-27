@@ -12,12 +12,13 @@ namespace Fanex.Athena.DataAccess.TotalBet
     using DataAccess.TotalBet.Interfaces;
     using Extension.Helper;
     using Fanex.Common.Extensions;
+    using Model.Core.ResultModel;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
     public class OddEvenDrawNoDrawDataAccess : BaseDataAccess, IOddEvenDrawNoDrawDataAccess
     {
-        public IList<OddEvenDrawNoDraw> GetOddEvenDrawNoDrawDataList(OddEvenDrawNoDrawMetaModel metaModel, out OddEvenDrawNoDraw totalData)
+        public ReportResultModel<OddEvenDrawNoDraw> GetOddEvenDrawNoDrawDataList(OddEvenDrawNoDrawMetaModel metaModel)
         {
             const string SpName = "Lrf_TotalBets_Sel25";
             var uspParams = new
@@ -28,18 +29,20 @@ namespace Fanex.Athena.DataAccess.TotalBet
                 AgentList = metaModel.AgentListXml
             };
 
-            IList<OddEvenDrawNoDraw> data;
             using (var db = this.GetObjectDb(SpName))
             {
                 using (var reader = db.ExecuteReader(uspParams))
                 {
-                    data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    var data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
                     reader.NextResult();
-                    totalData = ReadTotalData(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    var totalData = ReadTotalData(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    return new ReportResultModel<OddEvenDrawNoDraw>
+                    {
+                        DataList = data,
+                        TotalData = totalData
+                    };
                 }
             }
-
-            return data;
         }
 
         private static decimal GetTotalScore(IDataReader reader, string homeColumnName, string awayColumnName)
