@@ -93,7 +93,7 @@
 
             // Assert
             _sessionService.Received().CreateNewSession(1, onuserId, "user1", true, 2, "en-US", viewType: Model.Core.DataDomain.ClientViewType.Default);
-            _formsAuthenticationService.Received().SetAuthCookie("user1", Arg.Any<bool>());
+            _formsAuthenticationService.Received().SetAuthCookie("spondemo_user1", Arg.Any<bool>());
         }
 
         [Test]
@@ -140,7 +140,7 @@
             _ssoService.SSO();
 
             // Assert
-            _formsAuthenticationService.Received(1).SetAuthCookie("user2", Arg.Any<bool>());
+            _formsAuthenticationService.Received(1).SetAuthCookie("spondemo_user2", Arg.Any<bool>());
         }
 
         private static void MockHttpContext()

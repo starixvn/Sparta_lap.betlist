@@ -144,7 +144,7 @@ namespace Fanex.Athena.Service.Core.Users
             {
                 var langService = new LanguageService();
                 langService.ChangeLanguage(languageCode);
-                _formsAuthenticationService.SetAuthCookie(userName, false);
+                _formsAuthenticationService.SetAuthCookie(licname + "_" + userName, false);
                 _context.Redirect("~/Home/Index");
                 return;
             }
@@ -160,7 +160,7 @@ namespace Fanex.Athena.Service.Core.Users
             InternalLogin(licname, userName, passWord, timeSpan, siteOutUrl, languageCode, out resultInfo);
             if (resultInfo.IsSuccessful)
             {
-                _formsAuthenticationService.SetAuthCookie(userName, false);
+                _formsAuthenticationService.SetAuthCookie(licname + "_" + userName, false);
                 _context.Redirect("~/Home/Index");
             }
             else
