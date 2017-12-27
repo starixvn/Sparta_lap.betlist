@@ -43,7 +43,7 @@ class Calendar extends Component {
     const { format, range, theme, offset, firstDayOfWeek, shownDate } = props;
 
     const date = parseInput(props.date, format, 'startOf');
-    let showDate = (shownDate || range && range['endDate'] || date).clone().add(offset, 'months');
+    let showDate = (shownDate || range && range['endDate'] || date).clone();
     const state = {
       date,
       shownDate: showDate,
@@ -57,6 +57,12 @@ class Calendar extends Component {
   componentDidMount() {
     const { onInit } = this.props;
     onInit && onInit(this.state.date);
+  }
+
+  componentWillReceiveProps(newProp) {
+    if (newProp.shownDate !== this.state.shownDate) {
+      this.setState({ shownDate: newProp.shownDate });
+    }
   }
 
   get limitedDate() {
@@ -201,12 +207,12 @@ class Calendar extends Component {
     );
   }
 
-  _isDisabledMonth(currentMonth){
+  _isDisabledMonth(currentMonth) {
     const range = this.limitedDate;
     const currentYear = this.state.shownDate.year();
 
-    return currentMonth < range.startDate.month()  && currentYear <= range.startDate.year()
-      || currentMonth > range.endDate.month()  && currentYear >= range.endDate.year();
+    return currentMonth < range.startDate.month() && currentYear <= range.startDate.year()
+      || currentMonth > range.endDate.month() && currentYear >= range.endDate.year();
   }
 
   renderYearList(classes) {

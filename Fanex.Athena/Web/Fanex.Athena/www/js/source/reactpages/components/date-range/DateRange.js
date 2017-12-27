@@ -23,8 +23,8 @@ class DateRange extends Component {
     this.locale = { ...defaultOptions.locale, ...props.locale };
     this.ranges = { ...defaultOptions.ranges(props.today), ...props.ranges };
 
-    this.currentRange = { startDate, endDate };
     this.isValid = true;
+    this.currentRange = { startDate, endDate };
 
     this.state = {
       range: { startDate, endDate },
@@ -34,9 +34,10 @@ class DateRange extends Component {
   }
 
   get dateRangeText() {
-    const date = this.currentRange;
-    if (date.startDate && date.endDate) {
-      return `${date.startDate.format(MomentFormat.default)} - ${date.endDate.format(MomentFormat.default)}`;
+    const range = this.state.range;
+    if (range.startDate && range.endDate) {
+      const { format } = this.props;
+      return `${range.startDate.format(format)} - ${range.endDate.format(format)}`;
     }
 
     return "";
@@ -47,7 +48,7 @@ class DateRange extends Component {
     this.setState({ show: true });
   }
 
-  hide() {
+  close() {
     this.setState({ show: false });
   }
 
@@ -71,8 +72,7 @@ class DateRange extends Component {
       !this.dateRangeContainer.contains(event.target);
 
     if (clickOutside && this.state.show) {
-      this.currentRange = Object.assign({}, this.state.range);
-      this.hide();
+      this.handleCancel();
     }
   }
 
@@ -110,7 +110,6 @@ class DateRange extends Component {
     if (date.startDate && date.endDate) { //Select in range
       this.step = 0;
       const showDaterange = false, triggerChange = true;
-      this.currentRange = Object.assign({}, date);
       return this.setRange(date, triggerChange, showDaterange);
     }
 
@@ -158,13 +157,17 @@ class DateRange extends Component {
     });
   }
 
-  handleApply() {
+  handleApply = () => {
     const { onClickApplyButton } = this.props;
     const range = this.state.range;
-    onClickApplyButton && onClickApplyButton(range, this.isValid);
-
     this.currentRange = Object.assign({}, range);
-    this.hide();
+    onClickApplyButton && onClickApplyButton(range, this.isValid);
+    this.close();
+  }
+
+  handleCancel = () => {
+    const show = false, triggerChange = true;
+    this.setRange(this.currentRange, triggerChange, show);
   }
 
   componentWillReceiveProps(newProps) {
@@ -188,7 +191,22 @@ class DateRange extends Component {
   }
 
   render() {
-    const { showRange, format, linkedCalendars, style, calendars, firstDayOfWeek, minDate, maxDate, classNames, onlyClasses, specialDays, lang, disableDaysBeforeToday, offsetPositive, shownDate, showMonthArrow, rangedCalendars } = this.props;
+    const {
+      showRange,
+      format,
+      linkedCalendars,
+      style,
+      calendars,
+      firstDayOfWeek,
+      minDate,
+      maxDate,
+      classNames,
+      onlyClasses,
+      specialDays,
+      lang,
+      disableDaysBeforeToday,
+      showMonthArrow } = this.props;
+
     const { range, link } = this.state;
     const { styles } = this;
 
@@ -209,8 +227,8 @@ class DateRange extends Component {
     }
 
     const buttonHandlers = {
-      apply: this.handleApply.bind(this),
-      cancel: this.hide.bind(this)
+      apply: this.handleApply,
+      cancel: this.handleCancel
     }
 
     return (
@@ -238,19 +256,15 @@ class DateRange extends Component {
 
           {(() => {
             const _calendars = [];
-            const _method = offsetPositive ? 'unshift' : 'push';
             for (var i = calendarsCount; i >= 0; i--) {
-              const offset = offsetPositive ? i : -i;
-              const realDiff = offsetPositive ? diff : -diff;
-              const realOffset = (rangedCalendars && i == calendarsCount && diff != 0) ? realDiff : offset;
-              _calendars[_method](
+              const shownDate = i == calendarsCount ? range.startDate : range.endDate;
+              _calendars.push(
                 <Calendar
                   showMonthArrow={showMonthArrow}
                   shownDate={shownDate}
                   disableDaysBeforeToday={disableDaysBeforeToday}
                   lang={lang}
                   key={i}
-                  offset={realOffset}
                   link={linkedCalendars && link}
                   linkCB={this.handleLinkChange.bind(this)}
                   range={range}
@@ -280,10 +294,8 @@ DateRange.defaultProps = {
   format: MomentFormat.default,
   calendars: 2,
   onlyClasses: true,
-  offsetPositive: false,
   classNames: {},
   specialDays: [],
-  rangedCalendars: false,
   twoStepChange: false,
   showRange: true
 }
@@ -305,9 +317,7 @@ DateRange.propTypes = {
   onChange: PropTypes.func,
   onlyClasses: PropTypes.bool,
   specialDays: PropTypes.array,
-  offsetPositive: PropTypes.bool,
   classNames: PropTypes.object,
-  rangedCalendars: PropTypes.bool,
   onClickApplyButton: PropTypes.func,
   showRange: PropTypes.bool,
   limitedMonthRange: PropTypes.number,
