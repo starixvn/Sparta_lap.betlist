@@ -13,12 +13,13 @@ namespace Fanex.Athena.DataAccess.TotalBet
     using DataAccess.TotalBet.Interfaces;
     using Extension.Helper;
     using Fanex.Common.Extensions;
+    using Model.Core.ResultModel;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
     public class FirstGoalLastGoalDataAccess : BaseDataAccess, IFirstGoalLastGoalDataAccess
     {
-        public IList<FirstGoalLastGoal> GetFirstGoalLastGoalDataList(FirstGoalLastGoalMetaModel metaModel, out FirstGoalLastGoal totalData)
+        public ReportResultModel<FirstGoalLastGoal> GetFirstGoalLastGoalDataList(FirstGoalLastGoalMetaModel metaModel)
         {
             const string SpName = "Lrf_TotalBets_Sel14";
             var uspParams = new
@@ -29,18 +30,20 @@ namespace Fanex.Athena.DataAccess.TotalBet
                 TotalRows = metaModel.TotalRows
             };
 
-            IList<FirstGoalLastGoal> data;
             using (var db = this.GetObjectDb(SpName))
             {
                 using (var reader = db.ExecuteReader(uspParams))
                 {
-                    data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    var data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
                     reader.NextResult();
-                    totalData = ReadTotalData(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    var totalData = ReadTotalData(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    return new ReportResultModel<FirstGoalLastGoal>
+                    {
+                        DataList = data,
+                        TotalData = totalData
+                    };
                 }
             }
-
-            return data;
         }
 
         #region Utility

@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.TotalBets
 {
+    using System.Linq;
     using System.Web.Mvc;
     using DataAccess.TotalBet;
     using DataAccess.TotalBet.Interfaces;
@@ -67,15 +68,14 @@ namespace Fanex.Athena.Controllers.TotalBets
             if (metaModel.CurrencyId == 0 || currencies.ContainsKey(metaModel.CurrencyId))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                FirstGoalLastGoal totalData;
-                var dataList = _firstGoalLastGoalDataAccess.GetFirstGoalLastGoalDataList(metaModel, out totalData);
+                var result = _firstGoalLastGoalDataAccess.GetFirstGoalLastGoalDataList(metaModel);
 
                 var model = new FirstGoalLastGoalViewModel
                 {
                     Param = metaModel,
-                    MainData = dataList,
+                    MainData = result.DataList.ToList(),
                     CurrencyList = currencies,
-                    TotalData = totalData
+                    TotalData = result.TotalData
                 };
 
                 return View("~/Views/TotalBets/FirstGoalLastGoal/Main.cshtml", model);

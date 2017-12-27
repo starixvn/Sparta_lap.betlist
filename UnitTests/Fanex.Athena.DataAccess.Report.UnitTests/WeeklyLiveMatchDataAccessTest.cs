@@ -38,11 +38,10 @@
                 ToDate = new DateTime(2017, 2, 2)
             };
             var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LiveMatchWeekly")).Returns(objectDb);
-            int[] totalData;
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_LiveMatchWeekly")).Returns(objectDb);
 
             // Action
-            _dataAccess.GetDataList(metaModel, out totalData);
+            _dataAccess.GetDataList(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -60,7 +59,7 @@
             // Arrange
             var reader = Substitute.For<IDataReader>();
             var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LiveMatchWeekly")).Returns(objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_LiveMatchWeekly")).Returns(objectDb);
             objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false);
             reader.FieldCount.Returns(3);
@@ -71,7 +70,6 @@
             };
 
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
-            int[] totalData;
 
             // Action
             var result = _dataAccess.GetDataList(
@@ -80,14 +78,13 @@
                     SortDirection = "asc",
                     SortColumn = "Week0",
                     BaseCurrency = "USD"
-                },
-                out totalData);
+                });
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count(), Is.EqualTo(1));
-                Assert.That(result.ElementAt(0).NumbersOfMatches, Is.EqualTo(new int[] { 100 }));
+                Assert.That(result.DataList.Count(), Is.EqualTo(1));
+                Assert.That(result.DataList.ElementAt(0).NumbersOfMatches, Is.EqualTo(new int[] { 100 }));
             });
         }
     }

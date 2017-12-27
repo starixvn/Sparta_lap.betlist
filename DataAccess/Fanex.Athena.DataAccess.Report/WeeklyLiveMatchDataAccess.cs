@@ -11,12 +11,11 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Linq;
     using Core;
-    using Core.Exception;
-    using Data;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Model.Core.Helper;
+    using Model.Report.ResultModel;
 
     public class WeeklyLiveMatchDataAccess : BaseDataAccess, IWeeklyLiveMatchDataAccess
     {
@@ -24,40 +23,32 @@ namespace Fanex.Athena.DataAccess.Report
 
         private const string CustomSortingWeekColumn = "SortingWeekValue";
 
-        public IEnumerable<WeeklyLiveMatch> GetDataList(WeeklyLiveMatchMetaModel metaModel, out int[] totalData)
+        public WeeklyLiveMatchResultModel GetDataList(WeeklyLiveMatchMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LiveMatchWeekly";
 
-            try
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
-                    db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-                    db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+                db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+                db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
+                db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+                db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return ReadData(metaModel.NumberOfWeeks, reader, metaModel.SortColumn, metaModel.SortDirection, out totalData);
-                    }
+                using (var reader = db.ExecuteReader())
+                {
+                    return ReadData(metaModel.NumberOfWeeks, reader, metaModel.SortColumn, metaModel.SortDirection);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName);
             }
         }
 
-        private static IEnumerable<WeeklyLiveMatch> ReadData(
+        private static WeeklyLiveMatchResultModel ReadData(
             int numberOfWeeks,
             IDataReader reader,
             string sortColumn,
-            string sortDirection,
-            out int[] totalData)
+            string sortDirection)
         {
             var data = new List<WeeklyLiveMatch>();
-            totalData = new int[numberOfWeeks];
+            var totalData = new int[numberOfWeeks];
             var sortingWeekIndex = -1;
             var sortColumnName = sortColumn;
             if (!string.IsNullOrEmpty(sortColumn) && sortColumn.StartsWith("Week", StringComparison.OrdinalIgnoreCase))
@@ -96,7 +87,11 @@ namespace Fanex.Athena.DataAccess.Report
             }
 
             AssignPropertyIndex(data);
-            return data;
+            return new WeeklyLiveMatchResultModel
+            {
+                DataList = data,
+                TotalData = totalData
+            };
         }
 
         private static IEnumerable<WeeklyLiveMatch> SortData(IEnumerable<WeeklyLiveMatch> data, string sortColumn, string sortDirection)

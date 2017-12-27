@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.TotalBet.UnitTests
 {
     using System.Data;
+    using System.Linq;
     using Data;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
@@ -59,26 +60,27 @@
             ConfigureReaderForGetFirstGoalLastGoalDataListMethod(expected);
 
             // Action
-            var result = _dataAccess.GetFirstGoalLastGoalDataList(metaModel, out totalData)[0];
+            var result = _dataAccess.GetFirstGoalLastGoalDataList(metaModel);
+            var firstItem = result.DataList.First();
 
             // Assert
-            Assert.That(result.LeagueId, Is.EqualTo(expected.LeagueId));
-            Assert.That(result.MatchId, Is.EqualTo(expected.MatchId));
-            Assert.That(result.ShowTime, Is.EqualTo(expected.ShowTime));
-            Assert.That(result.IsNeutral, Is.EqualTo(expected.IsNeutral));
-            Assert.That(result.HomeId, Is.EqualTo(expected.HomeId));
-            Assert.That(result.AwayId, Is.EqualTo(expected.AwayId));
+            Assert.That(firstItem.LeagueId, Is.EqualTo(expected.LeagueId));
+            Assert.That(firstItem.MatchId, Is.EqualTo(expected.MatchId));
+            Assert.That(firstItem.ShowTime, Is.EqualTo(expected.ShowTime));
+            Assert.That(firstItem.IsNeutral, Is.EqualTo(expected.IsNeutral));
+            Assert.That(firstItem.HomeId, Is.EqualTo(expected.HomeId));
+            Assert.That(firstItem.AwayId, Is.EqualTo(expected.AwayId));
 
-            Assert.That(result.HomeFirstGoal, Is.EqualTo(expected.HomeFirstGoal));
-            Assert.That(result.HomeLastGoal, Is.EqualTo(expected.HomeLastGoal));
-            Assert.That(result.AwayFirstGoal, Is.EqualTo(expected.AwayFirstGoal));
-            Assert.That(result.AwayLastGoal, Is.EqualTo(expected.AwayLastGoal));
-            Assert.That(result.NoGoal, Is.EqualTo(expected.NoGoal));
-            Assert.That(result.HomeFirstHalfFirstGoal, Is.EqualTo(expected.HomeFirstHalfFirstGoal));
-            Assert.That(result.HomeFirstHalfLastGoal, Is.EqualTo(expected.HomeFirstHalfLastGoal));
-            Assert.That(result.AwayFirstHalfFirstGoal, Is.EqualTo(expected.AwayFirstHalfFirstGoal));
-            Assert.That(result.AwayFirstHalfLastGoal, Is.EqualTo(expected.AwayFirstHalfLastGoal));
-            Assert.That(result.FirstHalfNoGoal, Is.EqualTo(expected.FirstHalfNoGoal));
+            Assert.That(firstItem.HomeFirstGoal, Is.EqualTo(expected.HomeFirstGoal));
+            Assert.That(firstItem.HomeLastGoal, Is.EqualTo(expected.HomeLastGoal));
+            Assert.That(firstItem.AwayFirstGoal, Is.EqualTo(expected.AwayFirstGoal));
+            Assert.That(firstItem.AwayLastGoal, Is.EqualTo(expected.AwayLastGoal));
+            Assert.That(firstItem.NoGoal, Is.EqualTo(expected.NoGoal));
+            Assert.That(firstItem.HomeFirstHalfFirstGoal, Is.EqualTo(expected.HomeFirstHalfFirstGoal));
+            Assert.That(firstItem.HomeFirstHalfLastGoal, Is.EqualTo(expected.HomeFirstHalfLastGoal));
+            Assert.That(firstItem.AwayFirstHalfFirstGoal, Is.EqualTo(expected.AwayFirstHalfFirstGoal));
+            Assert.That(firstItem.AwayFirstHalfLastGoal, Is.EqualTo(expected.AwayFirstHalfLastGoal));
+            Assert.That(firstItem.FirstHalfNoGoal, Is.EqualTo(expected.FirstHalfNoGoal));
         }
 
         private void ConfigureReaderForGetFirstGoalLastGoalDataListMethod(FirstGoalLastGoal expected)

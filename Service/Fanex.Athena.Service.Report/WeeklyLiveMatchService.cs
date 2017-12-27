@@ -12,10 +12,10 @@ namespace Fanex.Athena.Service.Report
     using Extension.Helper;
     using Fanex.Athena.DataAccess.Report;
     using Fanex.Athena.DataAccess.Report.Interfaces;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report.Interfaces;
+    using Model.Report.ResultModel;
 
     /// <summary>
     ///     The active customer service.
@@ -31,16 +31,19 @@ namespace Fanex.Athena.Service.Report
             this._weeklyLiveMatchDataAccess = new WeeklyLiveMatchDataAccess();
         }
 
-        public IEnumerable<WeeklyLiveMatch> GetData(WeeklyLiveMatchMetaModel metaModel, out int[] total)
+        public WeeklyLiveMatchResultModel GetData(WeeklyLiveMatchMetaModel metaModel)
         {
             if (metaModel.IsValid)
             {
-                return this._weeklyLiveMatchDataAccess.GetDataList(metaModel, out total);
+                return this._weeklyLiveMatchDataAccess.GetDataList(metaModel);
             }
             else
             {
-                total = new int[0];
-                return new List<WeeklyLiveMatch>();
+                return new WeeklyLiveMatchResultModel
+                {
+                    TotalData = new int[0],
+                    DataList = new List<WeeklyLiveMatch>()
+                };
             }
         }
 

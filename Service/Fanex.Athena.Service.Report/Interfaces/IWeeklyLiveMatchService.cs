@@ -10,12 +10,11 @@ namespace Fanex.Athena.Service.Report.Interfaces
     using System.Collections.Generic;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
+    using Model.Report.ResultModel;
 
     public interface IWeeklyLiveMatchService
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
-            Justification = "Reviewed. Suppression is OK here.")]
-        IEnumerable<WeeklyLiveMatch> GetData(WeeklyLiveMatchMetaModel metaModel, out int[] total);
+        WeeklyLiveMatchResultModel GetData(WeeklyLiveMatchMetaModel metaModel);
 
         IEnumerable<string> GetWeekHeaders(DateTime fromDate, DateTime toDate, int numberOfWeeks);
     }

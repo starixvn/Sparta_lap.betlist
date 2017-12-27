@@ -7,6 +7,7 @@
     using Fanex.Athena.Service.Report.Interfaces;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
+    using Model.Report.ResultModel;
     using NPOI.SS.UserModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -68,8 +69,10 @@
                 CurrencyId = -1
             };
 
-            int[] totalData;
-            _service.GetData(Arg.Any<WeeklyLiveMatchMetaModel>(), out totalData).Returns(Enumerable.Empty<WeeklyLiveMatch>());
+            _service.GetData(Arg.Any<WeeklyLiveMatchMetaModel>()).Returns(new WeeklyLiveMatchResultModel
+            {
+                DataList = Enumerable.Empty<WeeklyLiveMatch>()
+            });
             _service.GetWeekHeaders(Arg.Any<DateTime>(), Arg.Any<DateTime>(), Arg.Any<int>()).Returns(Enumerable.Empty<string>());
 
             // Action
@@ -98,18 +101,17 @@
                 ToDate = fromDate.AddDays((NumberOfWeek - 1) * 7)
             };
 
-            int[] totalData;
             var data = new List<WeeklyLiveMatch>
             {
                 new WeeklyLiveMatch { Index = 1, SportName = "Sport 1", NumbersOfMatches = new[] { 1, 2, 3 } },
                 new WeeklyLiveMatch { Index = 2, SportName = "Sport 2", NumbersOfMatches = new[] { 2, 3 } },
                 new WeeklyLiveMatch { Index = 3, SportName = "Sport 3", NumbersOfMatches = new[] { 3 } }
             };
-            _service.GetData(Arg.Any<WeeklyLiveMatchMetaModel>(), out totalData).Returns(x =>
+            var totalData = data.Select(d => d.Index).ToArray();
+            _service.GetData(Arg.Any<WeeklyLiveMatchMetaModel>()).Returns(new WeeklyLiveMatchResultModel
             {
-                totalData = data.Select(d => d.Index).ToArray();
-                x[1] = totalData;
-                return data;
+                TotalData = totalData,
+                DataList = data
             });
 
             var weekHeaders = new[] { "H1", "H2", "H3" };
@@ -138,8 +140,10 @@
                 IsExportExcel = true
             };
 
-            int[] totalData;
-            _service.GetData(Arg.Any<WeeklyLiveMatchMetaModel>(), out totalData).Returns(Enumerable.Empty<WeeklyLiveMatch>());
+            _service.GetData(Arg.Any<WeeklyLiveMatchMetaModel>()).Returns(new WeeklyLiveMatchResultModel
+            {
+                DataList = Enumerable.Empty<WeeklyLiveMatch>()
+            });
             _service.GetWeekHeaders(Arg.Any<DateTime>(), Arg.Any<DateTime>(), Arg.Any<int>()).Returns(Enumerable.Empty<string>());
 
             var expectedFileName = "WeeklyLiveMatches.xls";
@@ -150,8 +154,7 @@
             _controller.CreateExcel(
                 Arg.Any<string>(),
                 Arg.Any<WeeklyLiveMatchMetaModel>(),
-                Arg.Any<IEnumerable<WeeklyLiveMatch>>(),
-                Arg.Any<int[]>(),
+                Arg.Any<WeeklyLiveMatchResultModel>(),
                 Arg.Any<IEnumerable<string>>()).ReturnsForAnyArgs(excel);
 
             // Action
