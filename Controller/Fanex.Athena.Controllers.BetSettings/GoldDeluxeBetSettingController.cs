@@ -30,12 +30,12 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             var licenseeSession = SessionService.LicenseeSession;
             var viewModel = _betSettingService.GetViewModel(licenseeSession.LicenseeId, metaModel.CustId, licenseeSession.LicenseeName);
-            AssignRequiredProperties(viewModel, metaModel);
             if (viewModel == null)
             {
                 return this.Redirect("~/Utility/AccessDenied");
             }
 
+            AssignRequiredProperties(viewModel, metaModel);
             return View("~/Views/Customer/BetSetting/GoldDeluxe.cshtml", viewModel);
         }
 

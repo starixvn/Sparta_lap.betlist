@@ -37,24 +37,8 @@ namespace Fanex.Athena.Controllers.BetList
 
         private static string GetTitle(long transType)
         {
-            var title = ViewResources.ProductCS + " - " + ViewResources.BetList + " - " +
-                ViewResources.DetailTickets + " - ";
-            switch (transType)
-            {
-                case MicroGamingRngTransTypeYesterday:
-                    title += ViewResources.Yesterday;
-                    break;
-
-                case MicroGamingRngTransTypeTodayRunning:
-                    title += ViewResources.Today + " - " + ViewResources.Running;
-                    break;
-
-                default:
-                    title += ViewResources.Today + " - " + ViewResources.Settled;
-                    break;
-            }
-
-            return title;
+            var title = ViewResources.ProductCS + " - ";
+            return GetTitleByTransType(title, transType);
         }
 
         private ActionResult ExcelDetail(BetListMetaModel metaModel)

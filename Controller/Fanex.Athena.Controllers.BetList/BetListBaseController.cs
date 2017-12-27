@@ -28,10 +28,6 @@
     [CheckUMFilter]
     public class BetListBaseController : BaseController
     {
-        protected const int MicroGamingRngTransTypeYesterday = 0;
-
-        protected const int MicroGamingRngTransTypeTodayRunning = 3;
-
         protected const int PageSizeExcel = 63000;
 
         protected const int ExternalIdColumn = 1;
@@ -75,6 +71,30 @@
         protected static bool IsRacing(int betType)
         {
             return RacingBetType.Contains(betType);
+        }
+
+        protected static string GetTitleByTransType(string productTitle, long transType)
+        {
+            const int TransTypeYesterday = 0;
+            const int TransTypeTodayRunning = 3;
+
+            var title = productTitle + ViewResources.BetList + " - " + ViewResources.DetailTickets + " - ";
+            switch (transType)
+            {
+                case TransTypeYesterday:
+                    title += ViewResources.Yesterday;
+                    break;
+
+                case TransTypeTodayRunning:
+                    title += ViewResources.Today + " - " + ViewResources.Running;
+                    break;
+
+                default:
+                    title += ViewResources.Today + " - " + ViewResources.Settled;
+                    break;
+            }
+
+            return title;
         }
 
         protected static string GetViewInCurrency(int curencyId, string defaultCurrencyName)
