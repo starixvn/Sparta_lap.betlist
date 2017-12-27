@@ -47,27 +47,33 @@
             return operatorList;
         }
 
-        public IEnumerable<SubsidiaryPerformanceDataModel> GetData(
-            SubsidiaryPerformanceMetaModel metaModel,
-            out IEnumerable<SubsidiaryPerformanceEntity> totalDataList)
+        public SubsidiaryResultViewModel GetData(SubsidiaryPerformanceMetaModel metaModel)
         {
-            IEnumerable<SubsidiaryPerformanceEntity> entityTotalList = null;
-            var entityDataList = _subLicenseePerformanceDataAccess.GetData(metaModel, out entityTotalList);
+            var resultModel = _subLicenseePerformanceDataAccess.GetData(metaModel);
+            var dataList = resultModel.DataList;
 
-            if (entityDataList.Any())
+            if (dataList.Any())
             {
+                var totalDataList = resultModel.TotalDataList;
                 var operatorList = GetOperatorList(metaModel.LicenseeName);
-                MapSubsidiaryColumn(entityDataList, operatorList);
-                MapSubsidiaryColumn(entityTotalList, operatorList);
+                MapSubsidiaryColumn(dataList, operatorList);
+                MapSubsidiaryColumn(totalDataList, operatorList);
 
-                totalDataList = GetTotalDataList(entityTotalList, metaModel.BaseCurrency.ToUpperInvariant());
+                var baseCurrency = metaModel.BaseCurrency.ToUpperInvariant();
+                var totalDataResultViewModel = GetTotalDataList(totalDataList, baseCurrency);
 
-                return GetDataModel(entityDataList);
+                return new SubsidiaryResultViewModel
+                {
+                    Data = GetDataModel(dataList),
+                    Total = totalDataResultViewModel,
+                    GrandTotal = totalDataResultViewModel.Any() ? GetGrandTotal(baseCurrency, totalDataResultViewModel) : null
+                };
             }
 
-            totalDataList = new List<SubsidiaryPerformanceEntity>();
-
-            return new List<SubsidiaryPerformanceDataModel>();
+            return new SubsidiaryResultViewModel
+            {
+                Data = new List<SubsidiaryPerformanceDataModel>()
+            };
         }
 
         private static void MapSubsidiaryColumn(IEnumerable<SubsidiaryPerformanceEntity> entityDataList, IEnumerable<Operator> operatorList)
@@ -149,6 +155,20 @@
             }
 
             return totalDataList;
+        }
+
+        private static SubsidiaryPerformanceEntity GetGrandTotal(string baseCurrency, IEnumerable<SubsidiaryPerformanceEntity> totalDataList)
+        {
+            return new SubsidiaryPerformanceEntity
+            {
+                Subsidiary = ViewResources.Total,
+                CurrencyName = $"{ViewResources.Based} {baseCurrency}",
+                BetCount = totalDataList.Sum(p => p.BetCount),
+                Turnover = totalDataList.Sum(p => p.Turnover),
+                CustomerWinLoss = totalDataList.Sum(p => p.CustomerWinLoss),
+                SubsidiaryWinLoss = totalDataList.Sum(p => p.SubsidiaryWinLoss),
+                SubsidiaryComm = totalDataList.Sum(p => p.SubsidiaryComm)
+            };
         }
     }
 }

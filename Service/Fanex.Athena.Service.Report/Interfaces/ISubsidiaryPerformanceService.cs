@@ -9,8 +9,6 @@
     {
         IEnumerable<Operator> GetOperatorList(string licenseeName);
 
-        IEnumerable<SubsidiaryPerformanceDataModel> GetData(
-            SubsidiaryPerformanceMetaModel metaModel,
-            out IEnumerable<SubsidiaryPerformanceEntity> totalDataList);
+        SubsidiaryResultViewModel GetData(SubsidiaryPerformanceMetaModel metaModel);
     }
 }

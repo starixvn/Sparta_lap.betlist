@@ -8,7 +8,6 @@
     using Model.Core.DataDomain;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
-    using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Report;
@@ -34,7 +33,7 @@
         }
 
         [HttpPost]
-        public dynamic Index(SubsidiaryPerformanceMetaModel metaModel)
+        public SubsidiaryResultViewModel Index(SubsidiaryPerformanceMetaModel metaModel)
         {
             if (metaModel.IsValid)
             {
@@ -46,37 +45,13 @@
                 {
                     metaModel.AgentListXml = SessionService.GenerateAgentListXml(agentIdListByCurrency);
 
-                    IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
-
-                    var mainData = _subsidiaryPerformanceService.GetData(metaModel, out totalDataList);
-                    var grandTotal = totalDataList.Any() ? GetGrandTotal(metaModel.BaseCurrency.ToUpperInvariant(), totalDataList) : null;
-
-                    return new
-                    {
-                        Data = mainData,
-                        Total = totalDataList,
-                        GrandTotal = grandTotal
-                    };
+                    return _subsidiaryPerformanceService.GetData(metaModel);
                 }
             }
 
-            return new
+            return new SubsidiaryResultViewModel
             {
                 Data = new List<SubsidiaryPerformanceDataModel>()
-            };
-        }
-
-        private static SubsidiaryPerformanceEntity GetGrandTotal(string baseCurrency, IEnumerable<SubsidiaryPerformanceEntity> totalDataList)
-        {
-            return new SubsidiaryPerformanceEntity
-            {
-                Subsidiary = ViewResources.Total,
-                CurrencyName = $"{ViewResources.Based} {baseCurrency}",
-                BetCount = totalDataList.Sum(p => p.BetCount),
-                Turnover = totalDataList.Sum(p => p.Turnover),
-                CustomerWinLoss = totalDataList.Sum(p => p.CustomerWinLoss),
-                SubsidiaryWinLoss = totalDataList.Sum(p => p.SubsidiaryWinLoss),
-                SubsidiaryComm = totalDataList.Sum(p => p.SubsidiaryComm)
             };
         }
 

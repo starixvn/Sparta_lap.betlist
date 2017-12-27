@@ -132,6 +132,7 @@
     <Compile Include="DTO\SubsidiaryPerformance\SubsidiaryPerformanceDataModel.cs" />
     <Compile Include="DTO\SubsidiaryPerformance\SubsidiaryPerformanceEntity.cs" />
     <Compile Include="DTO\SubsidiaryPerformance\SubsidiaryPerformanceModelBase.cs" />
+    <Compile Include="DTO\SubsidiaryPerformance\SubsidiaryResultViewModel.cs" />
     <Compile Include="DTO\ThirdPartyWinLoss.cs" />
     <Compile Include="DTO\WeeklyLiveMatch.cs" />
     <Compile Include="DTO\WinLossByLeague.cs" />

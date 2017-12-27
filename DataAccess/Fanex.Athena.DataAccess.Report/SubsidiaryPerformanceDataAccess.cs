@@ -8,6 +8,7 @@
     using Core.Configuration.Interfaces;
     using Data;
     using Fanex.Athena.DataAccess.Report.Interfaces;
+    using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
@@ -53,11 +54,11 @@
             return operatorList;
         }
 
-        public IEnumerable<SubsidiaryPerformanceEntity> GetData(SubsidiaryPerformanceMetaModel metaModel, out IEnumerable<SubsidiaryPerformanceEntity> totalDataList)
+        public ReportResultModel<SubsidiaryPerformanceEntity> GetData(SubsidiaryPerformanceMetaModel metaModel)
         {
             const string SpName = "Lrf_Rpt_SubsidiaryWinloss";
             var dataList = new List<SubsidiaryPerformanceEntity>();
-            var totalDataListTemp = new List<SubsidiaryPerformanceEntity>();
+            var totalDataList = new List<SubsidiaryPerformanceEntity>();
             var baseCurrency = metaModel.ConvertAll ? metaModel.BaseCurrency : string.Empty;
             using (var objectDb = this.GetObjectDb(SpName))
             {
@@ -68,14 +69,16 @@
                     while (reader.Read())
                     {
                         dataList.Add(GetEntityData(reader, baseCurrency));
-                        totalDataListTemp.Add(GetEntityData(reader, metaModel.BaseCurrency));
+                        totalDataList.Add(GetEntityData(reader, metaModel.BaseCurrency));
                     }
                 }
             }
 
-            totalDataList = totalDataListTemp;
-
-            return dataList;
+            return new ReportResultModel<SubsidiaryPerformanceEntity>
+            {
+                DataList = dataList,
+                TotalDataList = totalDataList
+            };
         }
 
         private static SubsidiaryPerformanceEntity GetEntityData(IDataReader reader, string baseCurrency)

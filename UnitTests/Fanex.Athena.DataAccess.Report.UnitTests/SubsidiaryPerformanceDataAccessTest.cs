@@ -119,10 +119,9 @@
             _dataReader.Read().Returns(false);
 
             var metaModel = GetDefaultMetaModel();
-            IEnumerable<SubsidiaryPerformanceEntity> totalList = null;
 
             // Action
-            _dataAccess.GetData(metaModel, out totalList);
+            _dataAccess.GetData(metaModel);
 
             // Assert
             AssertParamsPassCorrectly(metaModel);
@@ -145,10 +144,9 @@
 
             var serializer = new JavaScriptSerializer();
             var expectedResult = serializer.Serialize(GetExpectedResult(readerDataMapping));
-            IEnumerable<SubsidiaryPerformanceEntity> totalList = null;
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetData(metaModel, out totalList));
+            var result = serializer.Serialize(_dataAccess.GetData(metaModel).DataList);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -171,10 +169,9 @@
 
             var serializer = new JavaScriptSerializer();
             var expectedResult = serializer.Serialize(GetExpectedResult(readerDataMapping, metaModel.BaseCurrency));
-            IEnumerable<SubsidiaryPerformanceEntity> totalList = null;
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetData(metaModel, out totalList));
+            var result = serializer.Serialize(_dataAccess.GetData(metaModel).DataList);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -187,7 +184,6 @@
             const string SpName = "Lrf_Rpt_SubsidiaryWinloss";
             _dataAccess.GetObjectDb(Arg.Is<string>(SpName)).Returns(_objectDb);
             _objectDb.ExecuteReader().Returns(_dataReader);
-            IEnumerable<SubsidiaryPerformanceEntity> totalList = null;
             var metaModel = GetDefaultMetaModel();
             metaModel.ConvertAll = false;
 
@@ -201,8 +197,8 @@
             var expectedResult = serializer.Serialize(total);
 
             // Action
-            _dataAccess.GetData(metaModel, out totalList);
-            var result = serializer.Serialize(totalList);
+            var dataResult = _dataAccess.GetData(metaModel);
+            var result = serializer.Serialize(dataResult.TotalDataList);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
