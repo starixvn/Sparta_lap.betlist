@@ -41,7 +41,7 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
             var toDate = DateTime.Now.AddDays(-2);
 
-            var metaModel = new AgCasinoBalanceMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
                 FromDate = new DateTime(toDate.Year, toDate.Month, 1),
                 ToDate = toDate,
