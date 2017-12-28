@@ -46,6 +46,11 @@ namespace Fanex.Athena.Excel.Report
         private readonly CustTurnover _total;
         private readonly string _reportTitle;
 
+        protected internal CustomerTurnoverExcel()
+            : base(string.Empty, 0, null)
+        {
+        }
+
         public CustomerTurnoverExcel(
                                      string templatePath,
                                      ShowingOption showingOption,

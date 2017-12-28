@@ -770,6 +770,7 @@
     <Content Include="Content\Report\customertbalance.css" />
     <Content Include="Content\Utility\images\UM.png" />
     <Content Include="jasmine-specs\BetList\lastbet.filter-test.js" />
+    <Content Include="jasmine-specs\Customer\BetSetting\exchange-test.js" />
     <Content Include="jasmine-specs\Customer\CustomerList\customerlist.custoption-test.js" />
     <Content Include="jasmine-specs\Helper\ProductListHelper-test.js" />
     <Content Include="jasmine-specs\Helper\downloader-test.js" />
