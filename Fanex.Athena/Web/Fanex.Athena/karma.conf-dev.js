@@ -35,8 +35,9 @@ module.exports = function (config) {
 		'Scripts/Report/report.js',
 
          // --------- Helper --------- //
-        'Scripts/Forecast/forecastpopup.js',
-        'jasmine-specs/Forecast/forecastpopup-test.js',
+         'Scripts/Customer/BetSetting/betsetting.js',
+        'Scripts/Customer/BetSetting/exchange.js',
+        'jasmine-specs/Customer/BetSetting/exchange-test.js'
         ],
         port: 9870,
         colors: true,

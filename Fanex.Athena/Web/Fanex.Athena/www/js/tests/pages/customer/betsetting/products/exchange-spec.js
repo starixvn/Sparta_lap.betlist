@@ -26,20 +26,21 @@ define(modulePath, function ($, Site, BetSettingHelper, DcsBetSetting, ExchangeB
         describe("initEvent", function () {
             it("#btnSubmit fire click event - updateComm() should be called", function () {
                 var htmlButton = '<button id="btnSubmit" data-cust-id="1234"></button>' +
-                    '<select id="ddlCommission"><option value="234"></option></select>';
+                    '<select id="ddlCommission" data-original-value="123"><option value="234"></option></select>';
                 setFixtures(htmlButton);
                 spyOn(ExchangeBetSetting, "updateComm");
 
                 ExchangeBetSetting.initEvent();
                 $("#btnSubmit").click();
 
-                expect(ExchangeBetSetting.updateComm).toHaveBeenCalledWith("1234", "234");
+                expect(ExchangeBetSetting.updateComm).toHaveBeenCalledWith("1234", 123, "234");
             });
         });
 
-        describe("updateComm(custId, commission)", function () {
+        describe("updateComm(custId, oldCommission, newCommission)", function () {
             var custId = "1234";
-            var commission = "987";
+            var oldCommission = "2.5";
+            var newCommission = "4.5"
             var url = "localhost/ExchangeDcsBetSetting/UpdateComm";
             var ajaxOption;
 
@@ -50,12 +51,12 @@ define(modulePath, function ($, Site, BetSettingHelper, DcsBetSetting, ExchangeB
             });
 
             it("ajax option should be correct", function () {
-                ExchangeBetSetting.updateComm(custId, commission);
+                ExchangeBetSetting.updateComm(custId, oldCommission, newCommission);
 
                 expect(ajaxOption.type).toBe("POST");
                 expect(ajaxOption.cache).toBe(false);
                 expect(ajaxOption.url).toBe(url);
-                expect(ajaxOption.data).toEqual({ custid: custId, commission: commission });
+                expect(ajaxOption.data).toEqual({ custid: custId, oldCommission: oldCommission, newCommission: newCommission });
                 expect(ajaxOption.dataType).toBe("json");
             });
 
@@ -64,7 +65,7 @@ define(modulePath, function ($, Site, BetSettingHelper, DcsBetSetting, ExchangeB
                 var message = "Success";
                 var response = { Code: 0, Message: message };
 
-                ExchangeBetSetting.updateComm(custId, commission);
+                ExchangeBetSetting.updateComm(custId, oldCommission, newCommission);
                 ajaxOption.success(response);
 
                 expect(BetSettingHelper.showDialogMesage).toHaveBeenCalledWith("MessageSuccess", message);
