@@ -1,63 +1,51 @@
 ﻿namespace Fanex.Athena.DataAccess.Customer.UnitTests
 {
     using System.Data;
-    using Data;
+    using Core.UnitTests.TestHelpers;
     using Model.Customer.MetaModel.CustomerLog;
     using NSubstitute;
     using NUnit.Framework;
 
-    [TestFixture]
-    public class CustomerLogDataAccessTest
+    public class CustomerLogDataAccessTest : BaseDataAccessHelperTest<CustomerLogDataAccess>
     {
-        private IObjectDb _objectDb;
-        private CustomerLogDataAccess _dataAccess;
-
-        [OneTimeSetUp]
-        public void Setup()
-        {
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<CustomerLogDataAccess>();
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-        }
-
         [Test]
         public void GetCustomerSettingList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSettingLog_Sel")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSettingLog_Sel")).Returns(ObjectDb);
             var metaModel = new CustomerLogMetaModel();
 
             // Action
-            _dataAccess.GetCustomerSettingList(metaModel);
+            DataAccess.GetCustomerSettingList(metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("UserName", DbType.String, metaModel.UserName);
-            _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-            _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-            _objectDb.Received().AddInParameter("FilterBy", DbType.Int16, metaModel.ViewById);
-            _objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("UserName", DbType.String, metaModel.UserName);
+                ObjectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+                ObjectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+                ObjectDb.Received().AddInParameter("FilterBy", DbType.Int16, metaModel.ViewById);
+                ObjectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+            });
         }
 
         [Test]
         public void GetGroupCommList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_GroupCommLog_Sel")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_GroupCommLog_Sel")).Returns(ObjectDb);
             var metaModel = new CustomerLogMetaModel();
 
             // Action
-            _dataAccess.GetGroupCommList(metaModel);
+            DataAccess.GetGroupCommList(metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-            _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-            _objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+                ObjectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+                ObjectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+            });
         }
     }
 }

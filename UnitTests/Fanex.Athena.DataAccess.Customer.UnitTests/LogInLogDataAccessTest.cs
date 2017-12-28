@@ -2,51 +2,35 @@
 {
     using System;
     using System.Data;
-    using Data;
+    using Core.UnitTests.TestHelpers;
     using Model.Customer.DTO.CustomerLog;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Helpers;
     using UnitTest.Common.NUnitExtensions;
 
-    [TestFixture]
-    public class LogInLogDataAccessTest
+    public class LogInLogDataAccessTest : BaseDataAccessHelperTest<LogInLogDataAccess>
     {
-        private IObjectDb _objectDb;
-        private LogInLogDataAccess _dataAccess;
+        private const string UspName = "Lrf_UserLog_LoginSel";
 
-        [OneTimeSetUp]
-        public void Setup()
-        {
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<LogInLogDataAccess>();
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-        }
-
-        [Test]
-        public void GetDataList_WhenCall_ParametersPassedCorrectly()
+        [TestCase("Name ", "Name")]
+        [TestCase(" ", "")]
+        public void GetDataList_WhenCall_ParametersPassedCorrectly(string userName, string expectdUserName)
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_UserLog_LoginSel")).Returns(_objectDb);
-            var licenseeId = 0;
-            var username = string.Empty;
-            var agentList = "xml";
+            const int LicenseeId = 0;
+            const string AgentList = "xml";
+
+            DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetDataList(licenseeId, username, agentList);
+            DataAccess.GetDataList(LicenseeId, userName, AgentList);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("UserName", DbType.String, string.IsNullOrEmpty(username) ? string.Empty : username.Trim());
-                _objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, licenseeId);
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, agentList);
+                ObjectDb.Received().AddInParameter("UserName", DbType.String, expectdUserName);
+                ObjectDb.Received().AddInParameter("LicenseeId", DbType.Int32, LicenseeId);
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, AgentList);
             });
         }
 
@@ -58,24 +42,19 @@
             {
                 UserName = "a",
                 CreatedDate = new DateTime(2011, 1, 1),
-                LastTxn = new DateTime(2011, 2, 2),
+                LastTxn = new DateTime(2011, 2, 2)
             };
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_UserLog_LoginSel")).Returns(_objectDb);
-            var reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader().Returns(reader);
-            reader.Read().Returns(true, false);
-
-            DataAccessTestHelper.MapReaderData(
-                reader,
-                new
-                {
-                    expectedResult.UserName,
-                    expectedResult.CreatedDate,
-                    expectedResult.LastTxn
-                });
+            DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
+            MapReaderData(new
+            {
+                expectedResult.UserName,
+                expectedResult.CreatedDate,
+                expectedResult.LastTxn
+            });
+            Reader.Read().Returns(true, false);
 
             // Action
-            var result = _dataAccess.GetDataList(0, null, null);
+            var result = DataAccess.GetDataList(0, null, null);
             var firstItem = result[0];
 
             // Assert

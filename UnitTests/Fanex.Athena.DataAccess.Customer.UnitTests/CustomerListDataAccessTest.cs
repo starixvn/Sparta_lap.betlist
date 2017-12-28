@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using Core.UnitTests.TestHelpers;
     using Customer;
-    using Data;
     using Model.Core.DTO.Common;
     using Model.Customer.MetaModel;
     using NSubstitute;
@@ -12,48 +12,34 @@
     using Resources;
     using UnitTest.Common.Helpers;
 
-    [TestFixture]
-    public class CustomerListDataAccessTest
+    public class CustomerListDataAccessTest : BaseDataAccessHelperTest<CustomerListDataAccess>
     {
-        private IObjectDb _objectDb;
-        private CustomerListDataAccess _dataAccess;
-
-        [OneTimeSetUp]
-        public void Setup()
-        {
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<CustomerListDataAccess>();
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-        }
-
         [Test]
         public void SearchCustomers_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelUserSearch")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelUserSearch")).Returns(ObjectDb);
             const int UserId = 0;
-            var userName = string.Empty;
+            const string UserName = "";
 
             // Action
-            _dataAccess.SearchCustomers(UserId, userName, string.Empty);
+            DataAccess.SearchCustomers(UserId, UserName, string.Empty);
 
             // Assert
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, UserId);
-            _objectDb.Received().AddInParameter("username", DbType.String, userName);
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, string.Empty);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("userid", DbType.Int32, UserId);
+                ObjectDb.Received().AddInParameter("username", DbType.String, UserName);
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, string.Empty);
+            });
         }
 
-        [Test]
-        public void Search_WhenCall_ParametersPassedCorrectly()
+        [TestCase("New", "New")]
+        [TestCase(null, "")]
+        public void Search_WhenCall_ParametersPassedCorrectly(string custStatus, string expectedStatusParam)
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSel")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSel")).Returns(ObjectDb);
             var metaModel = new CustomerListMetaModel
             {
                 OddsGroups = new List<CheckedItem>
@@ -61,53 +47,63 @@
                     new CheckedItem { Checked = true, Name = "A" },
                     new CheckedItem { Checked = false, Name = "B" },
                     new CheckedItem { Checked = true, Name = "C" }
-                }
+                },
+                CustStatus = custStatus
             };
 
             // Action
-            _dataAccess.Search(metaModel);
+            DataAccess.Search(metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("username", DbType.String, metaModel.Username);
-            _objectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-            _objectDb.Received().AddInParameter("PageIndex ", DbType.Int32, metaModel.PageIndex);
-            _objectDb.Received().AddInParameter("BAFilter", DbType.Int32, metaModel.BAFilter);
-            _objectDb.Received().AddInParameter("CustStatus", DbType.String, metaModel.CustStatus ?? string.Empty);
-            _objectDb.Received().AddInParameter("SpecialLevel", DbType.Int32, metaModel.SpecialLevel);
-            _objectDb.Received().AddInParameter("GroupCommId", DbType.Int32, metaModel.GroupCommId);
-            _objectDb.Received().AddInParameter("OddsGroups", DbType.String, "A,C");
-            _objectDb.Received().AddOutParameter("TotalRows", DbType.Int32, 4);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("LicenseeID", DbType.Int32, metaModel.LicenseeId);
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received().AddInParameter("username", DbType.String, metaModel.Username);
+                ObjectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
+                ObjectDb.Received().AddInParameter("PageIndex ", DbType.Int32, metaModel.PageIndex);
+                ObjectDb.Received().AddInParameter("BAFilter", DbType.Int32, metaModel.BAFilter);
+                ObjectDb.Received().AddInParameter("CustStatus", DbType.String, expectedStatusParam);
+                ObjectDb.Received().AddInParameter("SpecialLevel", DbType.Int32, metaModel.SpecialLevel);
+                ObjectDb.Received().AddInParameter("GroupCommId", DbType.Int32, metaModel.GroupCommId);
+                ObjectDb.Received().AddInParameter("OddsGroups", DbType.String, "A,C");
+                ObjectDb.Received().AddOutParameter("TotalRows", DbType.Int32, 4);
+            });
         }
 
-        [Test]
-        public void Search_WhenCall_ReturnCorrectData()
+        [TestCase(true, true)]
+        [TestCase(true, false)]
+        [TestCase(false, true)]
+        [TestCase(false, false)]
+        public void Search_WhenCall_ReturnCorrectData(bool isClosed, bool isSuspended)
         {
             // Arrange
             const int ExpectedCustId = 999;
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSel")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSel")).Returns(ObjectDb);
             var reader = Substitute.For<IDataReader>();
             reader.Read().Returns(true, false);
-            _objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
+            ObjectDb.ExecuteReader().ReturnsForAnyArgs(reader);
             DataAccessTestHelper.MapReaderData(
                 reader,
                 new
                 {
                     custid = ExpectedCustId,
-                    closed = true
+                    closed = isClosed,
+                    suspended = isSuspended
                 });
+            var expectedStatus = isClosed ? ViewResources.Closed : isSuspended ? ViewResources.Suspended : ViewResources.Open;
+
             var metaModel = new CustomerListMetaModel();
 
             // Action
-            var result = _dataAccess.Search(metaModel);
+            var result = DataAccess.Search(metaModel);
             var firstItem = result.DataList.First();
 
             // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(firstItem.CustId, Is.EqualTo(ExpectedCustId));
-                Assert.That(firstItem.Status, Is.EqualTo(ViewResources.Closed));
+                Assert.That(firstItem.Status, Is.EqualTo(expectedStatus));
             });
         }
 
@@ -115,85 +111,94 @@
         public void GetCustomerLoginInfo_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerLoginInfo")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerLoginInfo")).Returns(ObjectDb);
             const int CustId = 0;
             const int LicenseeId = 0;
 
             // Action
-            _dataAccess.GetCustomerLoginInfo(CustId, LicenseeId);
+            DataAccess.GetCustomerLoginInfo(CustId, LicenseeId);
 
             // Assert
-            _objectDb.Received().AddInParameter("custid", DbType.Int32, CustId);
-            _objectDb.Received().AddInParameter("licenseeId", DbType.Int32, LicenseeId);
+            ObjectDb.Received().AddInParameter("custid", DbType.Int32, CustId);
+            ObjectDb.Received().AddInParameter("licenseeId", DbType.Int32, LicenseeId);
         }
 
         [Test]
         public void UpdateOddsGroup_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdUgroup")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdUgroup")).Returns(ObjectDb);
             var metaModel = new CustomerOddsGroupMetaModel();
 
             // Action
-            _dataAccess.UpdateOddsGroup(metaModel);
+            DataAccess.UpdateOddsGroup(metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-            _objectDb.Received().AddInParameter("CustId", DbType.Int32, metaModel.CustId);
-            _objectDb.Received().AddInParameter("OddsGroup", DbType.String, metaModel.OddsGroup);
-            _objectDb.Received().AddInParameter("IP", DbType.String, metaModel.Ip);
-            _objectDb.Received().AddInParameter("Langkey", DbType.String, metaModel.Language);
-            _objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-            _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
+                ObjectDb.Received().AddInParameter("CustId", DbType.Int32, metaModel.CustId);
+                ObjectDb.Received().AddInParameter("OddsGroup", DbType.String, metaModel.OddsGroup);
+                ObjectDb.Received().AddInParameter("IP", DbType.String, metaModel.Ip);
+                ObjectDb.Received().AddInParameter("Langkey", DbType.String, metaModel.Language);
+                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+            });
         }
 
         [Test]
         public void UpdateCustClosed_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdClosed")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdClosed")).Returns(ObjectDb);
             var metaModel = new CustomerStatusMetaModel();
 
             // Action
-            _dataAccess.UpdateCustClosed(metaModel);
+            DataAccess.UpdateCustClosed(metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("LicenseeId", DbType.String, metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("UserId", DbType.String, metaModel.ModifyById);
-            _objectDb.Received().AddInParameter("CustId", DbType.String, metaModel.CustId);
-            _objectDb.Received().AddInParameter("Closed", DbType.String, metaModel.IsOn);
-            _objectDb.Received().AddInParameter("IP", DbType.String, metaModel.Ip);
-            _objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-            _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("LicenseeId", DbType.String, metaModel.LicenseeId);
+                ObjectDb.Received().AddInParameter("UserId", DbType.String, metaModel.ModifyById);
+                ObjectDb.Received().AddInParameter("CustId", DbType.String, metaModel.CustId);
+                ObjectDb.Received().AddInParameter("Closed", DbType.String, metaModel.IsOn);
+                ObjectDb.Received().AddInParameter("IP", DbType.String, metaModel.Ip);
+                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+            });
         }
 
         [Test]
         public void UpdateCustSuspend_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdSuspended")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdSuspended")).Returns(ObjectDb);
             var metaModel = new CustomerStatusMetaModel();
 
             // Action
-            _dataAccess.UpdateCustSuspend(metaModel);
+            DataAccess.UpdateCustSuspend(metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("LicenseeId", DbType.String, metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("LicenseeId", DbType.String, metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("UserId", DbType.String, metaModel.ModifyById);
-            _objectDb.Received().AddInParameter("CustId", DbType.String, metaModel.CustId);
-            _objectDb.Received().AddInParameter("Suspended", DbType.String, metaModel.IsOn);
-            _objectDb.Received().AddInParameter("IP", DbType.String, metaModel.Ip);
-            _objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-            _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("LicenseeId", DbType.String, metaModel.LicenseeId);
+                ObjectDb.Received().AddInParameter("LicenseeId", DbType.String, metaModel.LicenseeId);
+                ObjectDb.Received().AddInParameter("UserId", DbType.String, metaModel.ModifyById);
+                ObjectDb.Received().AddInParameter("CustId", DbType.String, metaModel.CustId);
+                ObjectDb.Received().AddInParameter("Suspended", DbType.String, metaModel.IsOn);
+                ObjectDb.Received().AddInParameter("IP", DbType.String, metaModel.Ip);
+                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+            });
         }
 
         [Test]
         public void UpdateCustomerBAStatus_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdMemberBAStatus")).Returns(_objectDb);
-            _objectDb.GetParameterValue("OddsGroup").Returns(string.Empty);
+            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdMemberBAStatus")).Returns(ObjectDb);
+            ObjectDb.GetParameterValue("OddsGroup").Returns(string.Empty);
             const int LicenseeId = 0;
             const int CustId = 0;
             const int ModifiedBy = 0;
@@ -201,23 +206,26 @@
             var request = new Request();
 
             // Action
-            _dataAccess.UpdateCustomerBAStatus(LicenseeId, CustId, ModifiedBy, AllowBA, request);
+            DataAccess.UpdateCustomerBAStatus(LicenseeId, CustId, ModifiedBy, AllowBA, request);
 
             // Assert
-            _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
-            _objectDb.Received().AddInParameter("CustID", DbType.String, CustId);
-            _objectDb.Received().AddInParameter("ModifyBy", DbType.String, ModifiedBy);
-            _objectDb.Received().AddInParameter("IsBA", DbType.Boolean, AllowBA);
-            _objectDb.Received().AddInParameter("langkey", DbType.String, request.Language);
-            _objectDb.Received().AddInParameter("IP", DbType.String, request.Ip);
-            _objectDb.Received().AddOutParameter("OddsGroup", DbType.String, 10);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
+                ObjectDb.Received().AddInParameter("CustID", DbType.String, CustId);
+                ObjectDb.Received().AddInParameter("ModifyBy", DbType.String, ModifiedBy);
+                ObjectDb.Received().AddInParameter("IsBA", DbType.Boolean, AllowBA);
+                ObjectDb.Received().AddInParameter("langkey", DbType.String, request.Language);
+                ObjectDb.Received().AddInParameter("IP", DbType.String, request.Ip);
+                ObjectDb.Received().AddOutParameter("OddsGroup", DbType.String, 10);
+            });
         }
 
         [Test]
         public void UpdateSpecialLevel_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdSpecialLevel")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdSpecialLevel")).Returns(ObjectDb);
             const int UserId = 0;
             const int CustId = 0;
             const int Level = 0;
@@ -225,36 +233,42 @@
             const string Language = "";
 
             // Action
-            _dataAccess.UpdateSpecialLevel(UserId, CustId, Level, Ip, Language);
+            DataAccess.UpdateSpecialLevel(UserId, CustId, Level, Ip, Language);
 
             // Assert
-            _objectDb.Received().AddInParameter("custid", DbType.Int32, CustId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, UserId);
-            _objectDb.Received().AddInParameter("speciallevel", DbType.Int32, Level);
-            _objectDb.Received().AddInParameter("ip", DbType.String, Ip);
-            _objectDb.Received().AddInParameter("langkey", DbType.String, Language);
-            _objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-            _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("custid", DbType.Int32, CustId);
+                ObjectDb.Received().AddInParameter("userid", DbType.Int32, UserId);
+                ObjectDb.Received().AddInParameter("speciallevel", DbType.Int32, Level);
+                ObjectDb.Received().AddInParameter("ip", DbType.String, Ip);
+                ObjectDb.Received().AddInParameter("langkey", DbType.String, Language);
+                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+            });
         }
 
         [Test]
         public void UpdateOddsGroup_WhenCallWithFiveParameters_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdOddsGroup")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdOddsGroup")).Returns(ObjectDb);
             const int UserId = 0;
             const int CustId = 0;
             const string Group = "", Ip = "", Language = "";
 
             // Action
-            _dataAccess.UpdateOddsGroup(UserId, CustId, Group, Ip, Language);
+            DataAccess.UpdateOddsGroup(UserId, CustId, Group, Ip, Language);
 
             // Assert
-            _objectDb.Received().AddInParameter("custid", DbType.Int32, CustId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, UserId);
-            _objectDb.Received().AddInParameter("oddsgroup", DbType.String, Group);
-            _objectDb.Received().AddInParameter("ip", DbType.String, Ip);
-            _objectDb.Received().AddInParameter("langkey", DbType.String, Language);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("custid", DbType.Int32, CustId);
+                ObjectDb.Received().AddInParameter("userid", DbType.Int32, UserId);
+                ObjectDb.Received().AddInParameter("oddsgroup", DbType.String, Group);
+                ObjectDb.Received().AddInParameter("ip", DbType.String, Ip);
+                ObjectDb.Received().AddInParameter("langkey", DbType.String, Language);
+            });
         }
     }
 }
