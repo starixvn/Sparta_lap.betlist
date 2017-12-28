@@ -142,8 +142,7 @@ namespace Fanex.Athena.Service.Core.Users
                 return;
             }
 
-            IResultInfo resultInfo;
-            InternalLogin(metaModel, out resultInfo);
+            var resultInfo = InternalLogin(metaModel);
             if (resultInfo.IsSuccessful)
             {
                 _formsAuthenticationService.SetAuthCookie(metaModel.IdentityName, false);
@@ -226,7 +225,7 @@ namespace Fanex.Athena.Service.Core.Users
             _context.Redirect(Util.RootPath + string.Format(_deniedPath, code));
         }
 
-        private void InternalLogin(SsoMetaModel metaModel, out IResultInfo resultInfo)
+        private IResultInfo InternalLogin(SsoMetaModel metaModel)
         {
             var requestUser = new User
             {
@@ -240,11 +239,11 @@ namespace Fanex.Athena.Service.Core.Users
                     Domain = metaModel.LoginUrl,
                 }
             };
-            IResultInfo loginResultInfo;
-            var user = _authService.ValidateInternalUser(requestUser, metaModel.LicenseeName, metaModel.TimeStamp, out loginResultInfo);
+            var resultInfo = _authService.ValidateInternalUser(requestUser, metaModel.LicenseeName, metaModel.TimeStamp);
 
-            if (loginResultInfo.IsSuccessful)
+            if (resultInfo.IsSuccessful)
             {
+                var user = resultInfo.ExtendedData;
                 _sessionService.CreateNewSession(
                     user.UserID,
                     _authService.LoginOnUser(user, _context.Session.SessionID, user.ServerId, _context.Request.UserHostAddress),
@@ -255,7 +254,7 @@ namespace Fanex.Athena.Service.Core.Users
                     viewType: ClientViewType.Default);
             }
 
-            resultInfo = loginResultInfo;
+            return resultInfo;
         }
     }
 }

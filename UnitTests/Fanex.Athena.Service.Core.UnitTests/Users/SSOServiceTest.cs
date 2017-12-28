@@ -68,13 +68,11 @@
             var timeSpan = DateTime.Now.Ticks;
             var decryptedQueryString = "licname=spondemo&username=user1&pwd=123&loginurl=null&lang=en-US&timestamp=" + timeSpan;
             _rsaEncryptor.DecryptString(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<string>()).Returns(decryptedQueryString);
-            IResultInfo resultInfo;
             var onuserId = 12345;
-            _authService.ValidateInternalUser(Arg.Any<User>(), "spondemo", timeSpan, out resultInfo)
-                .Returns(x =>
+            _authService.ValidateInternalUser(Arg.Any<User>(), "spondemo", timeSpan)
+                .Returns(new ResultInfo<User>
                 {
-                    x[3] = new ResultInfo();
-                    return new User
+                    ExtendedData = new User
                     {
                         Username = "user1",
                         UserID = 1,
@@ -83,7 +81,7 @@
                         {
                             Id = 2
                         }
-                    };
+                    }
                 });
             _authService.LoginOnUser(Arg.Any<User>(), HttpContext.Current.Session.SessionID, 999, HttpContext.Current.Request.UserHostAddress)
                 .Returns(onuserId);
@@ -116,13 +114,11 @@
             };
             _sessionService.LicenseeSession.Returns(licenseeSession);
 
-            IResultInfo resultInfo;
             var onuserId = 12345;
-            _authService.ValidateInternalUser(Arg.Any<User>(), "spondemo", timeSpan, out resultInfo)
-                .Returns(x =>
+            _authService.ValidateInternalUser(Arg.Any<User>(), "spondemo", timeSpan)
+                .Returns(new ResultInfo<User>
                 {
-                    x[3] = new ResultInfo();
-                    return new User
+                    ExtendedData = new User
                     {
                         Username = "user1",
                         UserID = 1,
@@ -131,7 +127,7 @@
                         {
                             Id = 2
                         }
-                    };
+                    }
                 });
             _authService.LoginOnUser(Arg.Any<User>(), HttpContext.Current.Session.SessionID, 999, HttpContext.Current.Request.UserHostAddress)
                 .Returns(onuserId);

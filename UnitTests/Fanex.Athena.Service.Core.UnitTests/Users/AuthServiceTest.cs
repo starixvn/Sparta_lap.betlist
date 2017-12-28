@@ -68,20 +68,23 @@
         public void ValidateInternalUser_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var outputUser = new User
+            var resultInfo = new ResultInfo<User>
             {
-                UserID = 999
+                ExtendedData = new User
+                {
+                    UserID = 999
+                }
             };
+
             var licenseeName = "spondemo";
             long timeStamp = 100;
-            IResultInfo resultInfo = null;
-            _authDataAccess.ValidateInternalUser(Arg.Any<User>(), timeStamp, licenseeName, out resultInfo).Returns(outputUser);
+            _authDataAccess.ValidateInternalUser(Arg.Any<User>(), timeStamp, licenseeName).Returns(resultInfo);
 
             // Action
-            var result = _authService.ValidateInternalUser(new User(), licenseeName, timeStamp, out resultInfo);
+            var result = _authService.ValidateInternalUser(new User(), licenseeName, timeStamp);
 
             // Assert
-            Assert.That(result.UserID, Is.EqualTo(outputUser.UserID));
+            Assert.That(result, Is.EqualTo(resultInfo));
         }
 
         [Test]

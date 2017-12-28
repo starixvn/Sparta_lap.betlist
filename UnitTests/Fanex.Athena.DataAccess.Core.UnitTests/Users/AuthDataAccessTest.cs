@@ -106,10 +106,9 @@
             };
             var licenseeName = "TestName";
             var timeStamp = TimeSpan.TicksPerMillisecond;
-            IResultInfo result = new ResultInfo();
 
             // Action
-            _dataAccess.ValidateInternalUser(requestUser, timeStamp, licenseeName, out result);
+            _dataAccess.ValidateInternalUser(requestUser, timeStamp, licenseeName);
 
             // Assert
             _objectDb.Received().AddInParameter("UserName", DbType.String, requestUser.Username);
@@ -149,7 +148,6 @@
             };
             var licenseeName = "TestName";
             var timeStamp = TimeSpan.TicksPerMillisecond;
-            IResultInfo resultInfo = new ResultInfo();
 
             var expected = GetFakeUserData();
             expected.Licensee = new Licensee { Id = 1 };
@@ -164,18 +162,18 @@
             _objectDb.GetParameterValue("ServerId").Returns(expected.ServerId);
 
             // Action
-            var result = _dataAccess.ValidateInternalUser(requestUser, timeStamp, licenseeName, out resultInfo);
+            var user = _dataAccess.ValidateInternalUser(requestUser, timeStamp, licenseeName).ExtendedData;
 
             // Assert
-            Assert.That(result.UserID, Is.EqualTo(expected.UserID));
-            Assert.That(result.Username, Is.EqualTo(expected.Username));
-            Assert.That(result.FirstName, Is.EqualTo(expected.FirstName));
-            Assert.That(result.LastName, Is.EqualTo(expected.LastName));
-            Assert.That(result.Email, Is.EqualTo(expected.Email));
-            Assert.That(result.Role, Is.EqualTo(expected.Role));
-            Assert.That(result.IsInternal, Is.EqualTo(expected.IsInternal));
-            Assert.That(result.Licensee.Id, Is.EqualTo(expected.Licensee.Id));
-            Assert.That(result.ServerId, Is.EqualTo(expected.ServerId));
+            Assert.That(user.UserID, Is.EqualTo(expected.UserID));
+            Assert.That(user.Username, Is.EqualTo(expected.Username));
+            Assert.That(user.FirstName, Is.EqualTo(expected.FirstName));
+            Assert.That(user.LastName, Is.EqualTo(expected.LastName));
+            Assert.That(user.Email, Is.EqualTo(expected.Email));
+            Assert.That(user.Role, Is.EqualTo(expected.Role));
+            Assert.That(user.IsInternal, Is.EqualTo(expected.IsInternal));
+            Assert.That(user.Licensee.Id, Is.EqualTo(expected.Licensee.Id));
+            Assert.That(user.ServerId, Is.EqualTo(expected.ServerId));
         }
 
         [Test]

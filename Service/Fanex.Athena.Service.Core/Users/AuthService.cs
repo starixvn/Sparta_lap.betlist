@@ -41,9 +41,9 @@ namespace Fanex.Athena.Service.Core.Users
             this._authenticationDataAccess.Logout(onuserId);
         }
 
-        public User ValidateInternalUser(User requestUser, string licenseeName, long timeStamp, out IResultInfo resultInfo)
+        public IResultInfo<User> ValidateInternalUser(User requestUser, string licenseeName, long timeStamp)
         {
-            return this._authenticationDataAccess.ValidateInternalUser(requestUser, timeStamp, licenseeName, out resultInfo);
+            return _authenticationDataAccess.ValidateInternalUser(requestUser, timeStamp, licenseeName);
         }
 
         public IResultInfo<User> ValidateUserForLrfSystem(User requestUser, string loginToken)
