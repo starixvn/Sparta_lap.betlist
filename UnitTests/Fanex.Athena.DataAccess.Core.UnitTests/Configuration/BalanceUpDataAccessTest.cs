@@ -1,37 +1,123 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Configuration
 {
     using System;
-    using System.Data;
     using Core.Configuration;
+    using Core.Exception;
     using Data;
+    using Extension.Utility.Interfaces;
+    using Logging;
+    using Model.Core.DTO.Configuration;
     using NSubstitute;
     using NUnit.Framework;
+    using TestHelpers;
 
-    [TestFixture]
-    public class BalanceUpDataAccessTest
+    public class BalanceUpDataAccessTest : BaseDataAccessHelperTest<BalanceUpDataAccess>
     {
+        private const string UspName = "Lrf_SelBalanceUpDay";
+
+        private ILogger _logger;
+        private IMemoryCacheService _cache;
+
+        [OneTimeSetUp]
+        public override void FixtureSetUp()
+        {
+            _logger = Substitute.For<ILogger>();
+            _cache = Substitute.For<IMemoryCacheService>();
+            DataAccess = Substitute.ForPartsOf<BalanceUpDataAccess>(_logger, _cache);
+            ObjectDb = Substitute.For<IObjectDb>();
+        }
+
+        [OneTimeTearDown]
+        public override void FixtureTearDown()
+        {
+            base.FixtureTearDown();
+
+            _logger = null;
+            _cache = null;
+        }
+
         [Test]
-        public void GetBalanceUpDay_WhenCall_DataReturnCorrectly()
+        public void GetBalanceUp_NoCache_ReturnDataFromDB()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            var reader = Substitute.For<IDataReader>();
-            var dataAccess = Substitute.ForPartsOf<BalanceUpDataAccess>();
-            dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelBalanceUpDay")).Returns(objectDb);
-            objectDb.ExecuteReader().Returns(reader);
-            reader.Read().Returns(true);
-            reader["balanceupday"].Returns("1/1/2017");
-            reader["movebetsday"].Returns("2/2/2017");
+            var balanceUpDay = new DateTime(2017, 1, 1);
+            var moveBetsDay = new DateTime(2017, 2, 2);
+            MapReaderData(new
+            {
+                balanceupday = balanceUpDay.ToString("MM/dd/yyyy"),
+                movebetsday = moveBetsDay.ToString("MM/dd/yyyy")
+            });
+            Reader.Read().Returns(true);
+            DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
+            _cache.Get<BalanceUp>(Arg.Any<string>()).Returns(x => { return null; });
 
             // Action
-            var result = dataAccess.GetBalanceUp();
+            var result = DataAccess.GetBalanceUp();
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.BalanceUpDay, Is.EqualTo(new DateTime(2017, 1, 1)));
-                Assert.That(result.MoveBetsDay, Is.EqualTo(new DateTime(2017, 2, 2)));
+                Assert.That(result.BalanceUpDay, Is.EqualTo(balanceUpDay));
+                Assert.That(result.MoveBetsDay, Is.EqualTo(moveBetsDay));
+                _cache.Received().Set(
+                    Arg.Any<string>(),
+                    Arg.Any<BalanceUp>(),
+                    Arg.Any<int>());
             });
+        }
+
+        [Test]
+        public void GetBalanceUp_NoCache_DataFromDBIsEmpty_ReturnEmptyData()
+        {
+            // Arrange
+            Reader.Read().Returns(false);
+            DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
+            _cache.Get<BalanceUp>(Arg.Any<string>()).Returns(x => { return null; });
+
+            var expectedBalanceUp = new BalanceUp();
+
+            // Action
+            var result = DataAccess.GetBalanceUp();
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.BalanceUpDay, Is.EqualTo(expectedBalanceUp.BalanceUpDay));
+                Assert.That(result.MoveBetsDay, Is.EqualTo(expectedBalanceUp.MoveBetsDay));
+            });
+        }
+
+        [Test]
+        public void GetBalanceUp_Cached_ReturnDataFromCache()
+        {
+            // Arrange
+            var balanceUp = new BalanceUp
+            {
+                BalanceUpDay = new DateTime(2017, 1, 1),
+                MoveBetsDay = new DateTime(2017, 2, 2)
+            };
+            _cache.Get<BalanceUp>(Arg.Any<string>()).Returns(balanceUp);
+
+            // Action
+            var result = DataAccess.GetBalanceUp();
+
+            // Assert
+            Assert.That(result, Is.EqualTo(balanceUp));
+        }
+
+        [Test]
+        public void GetBalanceUpDay_WhenObjectDbThrowsException_WriteLog()
+        {
+            // Arrange
+            _cache.Get<BalanceUp>(Arg.Any<string>()).Returns(x => { return null; });
+
+            DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(x => { throw new ObjectDbException(); });
+
+            // Action
+            DataAccess.GetBalanceUp();
+
+            // Assert
+            _logger.Received().Error(Arg.Is<string>(x => x.Contains(UspName)), Arg.Any<DataAccessException>());
         }
     }
 }

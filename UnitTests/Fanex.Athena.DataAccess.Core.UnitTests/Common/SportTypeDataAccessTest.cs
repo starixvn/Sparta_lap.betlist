@@ -4,8 +4,6 @@
     using System.Data;
     using System.Linq;
     using Core.Common;
-    using Core.Exception;
-    using Data;
     using NSubstitute;
     using NUnit.Framework;
     using TestHelpers;
@@ -84,17 +82,11 @@
         }
 
         [Test]
-        public void GetSportsAndProducts_WhenThrowObjectDbException_ThrowDataAccessException()
+        public void GetSportsAndProducts_WhenObjectDbThrowsException_ThrowDataAccessException()
         {
-            // Arrange
-            const string UspName = "Lrf_SelSportDetail";
-            DataAccess.GetObjectDb(UspName).Returns(x => { throw new ObjectDbException(); });
-
-            // Action
-            TestDelegate testDelegate = () => DataAccess.GetSportsAndProducts(0, string.Empty);
-
-            // Assert
-            Assert.Throws<DataAccessException>(testDelegate, Arg.Is<string>(x => x.Contains(UspName)));
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                "Lrf_SelSportDetail",
+                () => DataAccess.GetSportsAndProducts(0, string.Empty));
         }
 
         [Test]
@@ -134,17 +126,9 @@
         }
 
         [Test]
-        public void GetAllWHSports_WhenThrowObjectDbException_ThrowDataAccessException()
+        public void GetAllWHSports_WhenObjectDbThrowsException_ThrowDataAccessException()
         {
-            // Arrange
-            const string UspName = "Lrf_SportSel";
-            DataAccess.GetObjectDb(UspName).Returns(x => { throw new ObjectDbException(); });
-
-            // Action
-            TestDelegate testDelegate = () => DataAccess.GetAllWHSports();
-
-            // Assert
-            Assert.Throws<DataAccessException>(testDelegate, Arg.Is<string>(x => x.Contains(UspName)));
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException("Lrf_SportSel", () => DataAccess.GetAllWHSports());
         }
     }
 }

@@ -1,58 +1,96 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Configuration
 {
-    using System.Data;
     using Core.Configuration;
     using Data;
+    using Logging;
     using NSubstitute;
     using NUnit.Framework;
+    using TestHelpers;
 
-    [TestFixture]
-    public class MoveBetDataAccessTest
+    public class MoveBetDataAccessTest : BaseDataAccessHelperTest<MoveBetDataAccess>
     {
+        private const string UspName = "Acc_ShowNotificationWhenProcessingData";
+
+        private ILogger _logger;
+
+        [OneTimeSetUp]
+        public override void FixtureSetUp()
+        {
+            _logger = Substitute.For<ILogger>();
+            DataAccess = Substitute.ForPartsOf<MoveBetDataAccess>(_logger);
+            ObjectDb = Substitute.For<IObjectDb>();
+        }
+
+        [OneTimeTearDown]
+        public override void FixtureTearDown()
+        {
+            base.FixtureTearDown();
+
+            _logger = null;
+        }
+
         [Test]
         public void GetMoveBet_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            const string ExpectedContentEn = "hello";
-            const string ExpectedContentCs = "nee how";
-            const string ExpectedContentCh = "ne ho";
-            const string ExpectedContentCn = "nee how";
-            const string ExpectedContentTh = "sawa dee-krap";
-            const string ExpectedContentJp = "konnichi ha";
-            const string ExpectedContentKo = "ahn nyeong ha se yo";
-            const string ExpectedContentVi = "xin chao";
-
-            var reader = Substitute.For<IDataReader>();
-            reader.Read().Returns(true);
-            reader["Content_EN"].Returns(ExpectedContentEn);
-            reader["Content_CS"].Returns(ExpectedContentCs);
-            reader["Content_CH"].Returns(ExpectedContentCh);
-            reader["Content_CN"].Returns(ExpectedContentCn);
-            reader["Content_TH"].Returns(ExpectedContentTh);
-            reader["Content_JP"].Returns(ExpectedContentJp);
-            reader["Content_KO"].Returns(ExpectedContentKo);
-            reader["Content_VI"].Returns(ExpectedContentVi);
-
-            var objectDb = Substitute.For<IObjectDb>();
-            objectDb.ExecuteReader().Returns(reader);
-            var dataAccess = Substitute.ForPartsOf<MoveBetDataAccess>();
-            dataAccess.GetObjectDb(Arg.Is<string>("Acc_ShowNotificationWhenProcessingData")).Returns(objectDb);
+            var data = new
+            {
+                Content_EN = "hello",
+                Content_CS = "nee how",
+                Content_CH = "ne ho",
+                Content_CN = "nee how",
+                Content_TH = "sawa dee-krap",
+                Content_JP = "konnichi ha",
+                Content_KO = "ahn nyeong ha se yo",
+                Content_VI = "xin chao",
+            };
+            MapReaderData(data);
+            Reader.Read().Returns(true, false);
+            DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
 
             // Action
-            var result = dataAccess.GetMoveBetNotification();
+            var result = DataAccess.GetMoveBetNotification();
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.ContentByLanguage["en-US"], Is.EqualTo(ExpectedContentEn));
-                Assert.That(result.ContentByLanguage["zh-CN"], Is.EqualTo(ExpectedContentCs));
-                Assert.That(result.ContentByLanguage["zh-TW"], Is.EqualTo(ExpectedContentCh));
-                Assert.That(result.ContentByLanguage["zh-Hans"], Is.EqualTo(ExpectedContentCn));
-                Assert.That(result.ContentByLanguage["th-TH"], Is.EqualTo(ExpectedContentTh));
-                Assert.That(result.ContentByLanguage["ja-JP"], Is.EqualTo(ExpectedContentJp));
-                Assert.That(result.ContentByLanguage["ko-KR"], Is.EqualTo(ExpectedContentKo));
-                Assert.That(result.ContentByLanguage["vi-VN"], Is.EqualTo(ExpectedContentVi));
+                Assert.That(result.ContentByLanguage["en-US"], Is.EqualTo(data.Content_EN));
+                Assert.That(result.ContentByLanguage["zh-CN"], Is.EqualTo(data.Content_CS));
+                Assert.That(result.ContentByLanguage["zh-TW"], Is.EqualTo(data.Content_CH));
+                Assert.That(result.ContentByLanguage["zh-Hans"], Is.EqualTo(data.Content_CN));
+                Assert.That(result.ContentByLanguage["th-TH"], Is.EqualTo(data.Content_TH));
+                Assert.That(result.ContentByLanguage["ja-JP"], Is.EqualTo(data.Content_JP));
+                Assert.That(result.ContentByLanguage["ko-KR"], Is.EqualTo(data.Content_KO));
+                Assert.That(result.ContentByLanguage["vi-VN"], Is.EqualTo(data.Content_VI));
             });
+        }
+
+        [Test]
+        public void GetMoveBet_NoDataReturned_ReturnEmptyData()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
+            Reader.Read().Returns(false);
+
+            // Action
+            var result = DataAccess.GetMoveBetNotification();
+
+            // Assert
+            Assert.That(result.ContentByLanguage, Is.Empty);
+        }
+
+        [Test]
+        public void GetMoveBetNotification_WhenObjectDbThrowsException_WriteLog()
+        {
+            // Arrange
+            var sqlException = new ObjectDbException("Error");
+            DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(x => { throw sqlException; });
+
+            // Action
+            DataAccess.GetMoveBetNotification();
+
+            // Assert
+            _logger.Received().Error(sqlException.Message, sqlException);
         }
     }
 }

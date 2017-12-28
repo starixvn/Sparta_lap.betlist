@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.TestHelpers
 {
     using System.Data;
+    using Core.Exception;
     using Fanex.Data;
     using NSubstitute;
     using NUnit.Framework;
@@ -46,6 +47,15 @@
         protected void MapReaderData(object readerDataMapping)
         {
             DataAccessTestHelper.MapReaderData(Reader, readerDataMapping);
+        }
+
+        protected void TestException_WhenObjectDbThrowsException_ThrowDataAccessException(string uspName, TestDelegate testDelegate)
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(uspName)).Returns(x => { throw new ObjectDbException(); });
+
+            // Assert
+            Assert.Throws<DataAccessException>(testDelegate, Arg.Is<string>(x => x.Contains(uspName)));
         }
     }
 }

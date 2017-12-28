@@ -1,8 +1,8 @@
-﻿using Fanex.Athena.DataAccess.Core.Exception;
-using NUnit.Framework;
-
-namespace Fanex.Athena.DataAccess.Core.UnitTests.Exception
+﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Exception
 {
+    using Fanex.Athena.DataAccess.Core.Exception;
+    using NUnit.Framework;
+
     [TestFixture]
     public class DataAccessExceptionTest
     {
@@ -26,6 +26,8 @@ namespace Fanex.Athena.DataAccess.Core.UnitTests.Exception
         {
             // Arrange
             const string ExpectedJson = "{\"Id\":1,\"Name\":\"A\"}";
+
+            // Action
             var exception = new DataAccessException(
                 new System.Exception(),
                 string.Empty,
@@ -33,9 +35,7 @@ namespace Fanex.Athena.DataAccess.Core.UnitTests.Exception
                 {
                     Id = 1,
                     Name = "A"
-                });
-
-            // Action
+                });            
 
             // Assert
             Assert.That(exception.JsonParam, Is.EqualTo(ExpectedJson));

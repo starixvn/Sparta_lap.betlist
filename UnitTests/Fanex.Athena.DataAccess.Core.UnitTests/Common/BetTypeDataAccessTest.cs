@@ -2,8 +2,6 @@
 {
     using System.Data;
     using Core.Common;
-    using Core.Exception;
-    using Data;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
@@ -65,16 +63,11 @@
         }
 
         [Test]
-        public void GetBettypes_WhenThrowObjectDbException_ThrowDataAccessException()
+        public void GetBettypes_WhenObjectDbThrowsException_ThrowDataAccessException()
         {
-            // Arrange
-            DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(x => { throw new ObjectDbException(); });
-
-            // Action
-            TestDelegate testDelegate = () => DataAccess.GetBettypes(0, string.Empty, string.Empty);
-
-            // Assert
-            Assert.Throws<DataAccessException>(testDelegate, Arg.Is<string>(x => x.Contains(UspName)));
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                UspName,
+                () => DataAccess.GetBettypes(0, string.Empty, string.Empty));
         }
     }
 }

@@ -4,8 +4,6 @@
     using System.Data;
     using System.Linq;
     using Core.Common;
-    using Core.Exception;
-    using Data;
     using Model.Core.DTO.Users;
     using Model.Core.MetaModel.Account;
     using NSubstitute;
@@ -58,16 +56,9 @@
         }
 
         [Test]
-        public void GetCurrencies_WhenThrowObjectDbException_ThrowDataAccessException()
+        public void GetCurrencies_WhenObjectDbThrowsException_ThrowDataAccessException()
         {
-            // Arrange
-            DataAccess.GetObjectDb(Arg.Is(GetCurrenciesSp)).Returns(x => { throw new ObjectDbException(); });
-
-            // Action
-            TestDelegate testDelegate = () => DataAccess.GetCurrencies(0);
-
-            // Assert
-            Assert.Throws<DataAccessException>(testDelegate, Arg.Is<string>(x => x.Contains(GetCurrenciesSp)));
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(GetCurrenciesSp, () => DataAccess.GetCurrencies(1));
         }
 
         [Test]
@@ -121,16 +112,11 @@
         }
 
         [Test]
-        public void AssignCurrenciesByUser_WhenThrowObjectDbException_ThrowDataAccessException()
+        public void AssignCurrenciesByUser_WhenObjectDbThrowsException_ThrowDataAccessException()
         {
-            // Arrange
-            DataAccess.GetObjectDb(Arg.Is(AssignCurrenciesByUserSp)).Returns(x => { throw new ObjectDbException(); });
-
-            // Action
-            TestDelegate testDelegate = () => DataAccess.AssignCurrenciesByUser(new AssignCurrencyMetaModel());
-
-            // Assert
-            Assert.Throws<DataAccessException>(testDelegate, Arg.Is<string>(x => x.Contains(AssignCurrenciesByUserSp)));
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                AssignCurrenciesByUserSp,
+                () => DataAccess.AssignCurrenciesByUser(new AssignCurrencyMetaModel()));
         }
 
         [Test]
@@ -175,16 +161,11 @@
         }
 
         [Test]
-        public void GetCurrenciesByUser_WhenThrowObjectDbException_ThrowDataAccessException()
+        public void GetCurrenciesByUser_WhenObjectDbThrowsException_ThrowDataAccessException()
         {
-            // Arrange
-            DataAccess.GetObjectDb(Arg.Is(GetCurrenciesByUser)).Returns(x => { throw new ObjectDbException(); });
-
-            // Action
-            TestDelegate testDelegate = () => DataAccess.GetCurrenciesByUser(0, 0);
-
-            // Assert
-            Assert.Throws<DataAccessException>(testDelegate, Arg.Is<string>(x => x.Contains(GetCurrenciesByUser)));
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetCurrenciesByUser,
+                () => DataAccess.GetCurrenciesByUser(0, 0));
         }
     }
 }

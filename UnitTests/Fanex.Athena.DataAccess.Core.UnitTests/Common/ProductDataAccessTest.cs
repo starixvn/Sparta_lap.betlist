@@ -2,8 +2,6 @@
 {
     using System.Data;
     using Core.Common;
-    using Core.Exception;
-    using Data;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
@@ -66,16 +64,11 @@
         }
 
         [Test]
-        public void GetProductAccessList_WhenThrowObjectDbException_ThrowDataAccessException()
+        public void GetProductAccessList_WhenObjectDbThrowsException_ThrowDataAccessException()
         {
-            // Arrange
-            DataAccess.GetObjectDb(SpName).Returns(x => { throw new ObjectDbException(); });
-
-            // Action
-            TestDelegate testDelegate = () => DataAccess.GetProductAccessList(LicenseeId, false);
-
-            // Assert
-            Assert.Throws<DataAccessException>(testDelegate, Arg.Is<string>(x => x.Contains(SpName)));
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                SpName,
+                () => DataAccess.GetProductAccessList(LicenseeId, false));
         }
 
         private Product GetFakeProductAccess()

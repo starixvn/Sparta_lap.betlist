@@ -3,8 +3,6 @@
     using System;
     using System.Data;
     using Core.Common;
-    using Core.Exception;
-    using Data;
     using NSubstitute;
     using NUnit.Framework;
     using TestHelpers;
@@ -55,16 +53,11 @@
         }
 
         [Test]
-        public void GetExChangeRate_WhenThrowObjectDbException_ThrowDataAccessException()
+        public void GetExChangeRate_WhenObjectDbThrowsException_ThrowDataAccessException()
         {
-            // Arrange
-            DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(x => { throw new ObjectDbException(); });
-
-            // Action
-            TestDelegate testDelegate = () => DataAccess.GetExChangeRate(string.Empty, DateTime.Today);
-
-            // Assert
-            Assert.Throws<DataAccessException>(testDelegate, Arg.Is<string>(x => x.Contains(UspName)));
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                UspName,
+                () => DataAccess.GetExChangeRate(string.Empty, DateTime.Today));
         }
     }
 }
