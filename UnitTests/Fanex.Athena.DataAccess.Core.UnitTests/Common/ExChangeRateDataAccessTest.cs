@@ -3,47 +3,47 @@
     using System;
     using System.Data;
     using Core.Common;
+    using Core.Exception;
     using Data;
     using NSubstitute;
     using NUnit.Framework;
+    using TestHelpers;
 
-    [TestFixture]
-    public class ExChangeRateDataAccessTest
+    public class ExChangeRateDataAccessTest : BaseDataAccessHelperTest<ExChangeRateDataAccess>
     {
+        private const string UspName = "Lrf_GetExchangeRateByDate";
+
         [Test]
         public void GetExChangeRate_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
-            var currencyCode = "USD";
+            const string CurrencyCode = "USD";
             var datetime = new DateTime(2016, 8, 10);
-            var objectDb = Substitute.For<IObjectDb>();
-            var dataAccess = Substitute.ForPartsOf<ExChangeRateDataAccess>();
-            dataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetExchangeRateByDate")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>(UspName)).Returns(ObjectDb);
 
             // Action
-            dataAccess.GetExChangeRate(currencyCode, datetime);
+            DataAccess.GetExChangeRate(CurrencyCode, datetime);
 
             // Assert
-            objectDb.AddInParameter("CurrencyCode", DbType.String, currencyCode);
-            objectDb.AddInParameter("Date", DbType.DateTime, datetime);
+            ObjectDb.AddInParameter("CurrencyCode", DbType.String, CurrencyCode);
+            ObjectDb.AddInParameter("Date", DbType.DateTime, datetime);
         }
 
         [Test]
         public void GetExChangeRate_WhenCall_DataReturnCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            var dataAccess = Substitute.ForPartsOf<ExChangeRateDataAccess>();
-            var reader = Substitute.For<IDataReader>();
-            dataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetExchangeRateByDate")).Returns(objectDb);
-            objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
-            reader.Read().Returns(true, false);
-            reader["USD"].Returns(1);
-            reader["EUR"].Returns(2);
-            reader["GBP"].Returns(3);
+            DataAccess.GetObjectDb(Arg.Is<string>(UspName)).Returns(ObjectDb);
+            MapReaderData(new
+            {
+                Usd = 1,
+                Eur = 2,
+                Gbp = 3
+            });
+            Reader.Read().Returns(true, false);
 
             // Action
-            var result = dataAccess.GetExChangeRate(Arg.Any<string>(), Arg.Any<DateTime>());
+            var result = DataAccess.GetExChangeRate(Arg.Any<string>(), Arg.Any<DateTime>());
 
             // Assert
             Assert.Multiple(() =>
@@ -52,6 +52,19 @@
                 Assert.That(result.EUR, Is.EqualTo(2));
                 Assert.That(result.GBP, Is.EqualTo(3));
             });
+        }
+
+        [Test]
+        public void GetExChangeRate_WhenThrowObjectDbException_ThrowDataAccessException()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(x => { throw new ObjectDbException(); });
+
+            // Action
+            TestDelegate testDelegate = () => DataAccess.GetExChangeRate(string.Empty, DateTime.Today);
+
+            // Assert
+            Assert.Throws<DataAccessException>(testDelegate, Arg.Is<string>(x => x.Contains(UspName)));
         }
     }
 }

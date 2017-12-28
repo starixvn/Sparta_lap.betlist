@@ -4,69 +4,97 @@
     using System.Data;
     using System.Linq;
     using Core.Common;
+    using Core.Exception;
     using Data;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Helpers;
+    using TestHelpers;
 
-    [TestFixture]
-    public class SportTypeDataAccessTest
+    public class SportTypeDataAccessTest : BaseDataAccessHelperTest<SportTypeDataAccess>
     {
-        private IObjectDb _objectDb;
-        private SportTypeDataAccess _dataAccess;
-
-        [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<SportTypeDataAccess>();
-        }
+            base.FixtureSetUp();
 
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
+            DataAccess.GetObjectDb(Arg.Any<string>()).Returns(ObjectDb);
         }
 
         [Test]
         public void GetSportsAndProducts_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_SelSportDetail")).Returns(_objectDb);
-            var licenseeId = 1;
-            var languageCode = "en-US";
+            const int LicenseeId = 1;
+            const string LanguageCode = "en-US";
 
             // Action
-            _dataAccess.GetSportsAndProducts(licenseeId, languageCode);
-
-            // Assert
-            _objectDb.Received().AddInParameter("licenseeId", DbType.Int32, licenseeId);
-            _objectDb.Received().AddInParameter("langkey", DbType.String, languageCode);
-        }
-
-        [Test]
-        public void GetSportsAndProducts_WhenCall_DataReturnCorrectly()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_SelSportDetail")).Returns(_objectDb);
-            var reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader().Returns(reader);
-            reader.Read().Returns(true, true, false);
-            reader["ParentId"].Returns(DBNull.Value, 1);
-            reader["ID"].Returns(0);
-            reader["Name"].Returns(string.Empty);
-
-            // Action
-            var result = _dataAccess.GetSportsAndProducts(Arg.Any<int>(), Arg.Any<string>());
+            DataAccess.GetSportsAndProducts(LicenseeId, LanguageCode);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count(), Is.EqualTo(2));
-                Assert.That(result.ElementAt(0).ParentId, Is.EqualTo(-1));
-                Assert.That(result.ElementAt(1).ParentId, Is.EqualTo(1));
+                ObjectDb.Received().AddInParameter("licenseeId", DbType.Int32, LicenseeId);
+                ObjectDb.Received().AddInParameter("langkey", DbType.String, LanguageCode);
             });
+        }
+
+        [TestCase(null, null, -1)]
+        [TestCase(1, null, 1)]
+        [TestCase(2, 2, 2)]
+        public void GetSportsAndProducts_ProductIdIsValid_DataReturnCorrectly(int? parentId, int? productId, int expectedParentId)
+        {
+            // Arrange
+            MapReaderData(new
+            {
+                ID = 0,
+                Name = string.Empty
+            });
+            if (parentId.HasValue)
+            {
+                Reader["ParentId"].Returns(parentId);
+            }
+            else
+            {
+                Reader["ParentId"].Returns(DBNull.Value);
+            }
+
+            Reader.Read().Returns(true, false);
+
+            // Action
+            var result = DataAccess.GetSportsAndProducts(0, string.Empty, productId);
+
+            // Assert
+            Assert.That(result.ElementAt(0).ParentId, Is.EqualTo(expectedParentId));
+        }
+
+        [TestCase(1, 3)]
+        public void GetSportsAndProducts_ProductIdIsInValid_ReturnEmptyData(int parentId, int? productId)
+        {
+            // Arrange
+            MapReaderData(new
+            {
+                ParentId = parentId
+            });
+            Reader.Read().Returns(true, false);
+
+            // Action
+            var result = DataAccess.GetSportsAndProducts(0, string.Empty, productId);
+
+            // Assert
+            Assert.That(result, Is.Empty);
+        }
+
+        [Test]
+        public void GetSportsAndProducts_WhenThrowObjectDbException_ThrowDataAccessException()
+        {
+            // Arrange
+            const string UspName = "Lrf_SelSportDetail";
+            DataAccess.GetObjectDb(UspName).Returns(x => { throw new ObjectDbException(); });
+
+            // Action
+            TestDelegate testDelegate = () => DataAccess.GetSportsAndProducts(0, string.Empty);
+
+            // Assert
+            Assert.Throws<DataAccessException>(testDelegate, Arg.Is<string>(x => x.Contains(UspName)));
         }
 
         [Test]
@@ -74,14 +102,12 @@
         {
             // Arrange
             const int SportType = 100;
-            var reader = Substitute.For<IDataReader>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_SportsGetAll")).Returns(_objectDb);
-            _objectDb.ExecuteReader().Returns(reader);
-            reader.Read().Returns(true, false);
-            DataAccessTestHelper.MapReaderData(reader, new { Sporttype = SportType });
+
+            MapReaderData(new { Sporttype = SportType });
+            Reader.Read().Returns(true, false);
 
             // Action
-            var result = _dataAccess.GetAllSports();
+            var result = DataAccess.GetAllSports();
 
             // Assert
             Assert.That(result.ContainsKey(SportType), Is.True);
@@ -92,14 +118,12 @@
         {
             // Arrange
             const int SportType = 100;
-            var reader = Substitute.For<IDataReader>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_SportSel")).Returns(_objectDb);
-            _objectDb.ExecuteReader().Returns(reader);
-            reader.Read().Returns(true, false);
-            DataAccessTestHelper.MapReaderData(reader, new { Sporttype = SportType });
+
+            MapReaderData(new { Sporttype = SportType });
+            Reader.Read().Returns(true, false);
 
             // Action
-            var result = _dataAccess.GetAllWHSports();
+            var result = DataAccess.GetAllWHSports();
 
             // Assert
             Assert.Multiple(() =>
@@ -107,6 +131,20 @@
                 Assert.That(result.First().SportId, Is.EqualTo(0));
                 Assert.That(result.ElementAt(1).SportId, Is.EqualTo(SportType));
             });
+        }
+
+        [Test]
+        public void GetAllWHSports_WhenThrowObjectDbException_ThrowDataAccessException()
+        {
+            // Arrange
+            const string UspName = "Lrf_SportSel";
+            DataAccess.GetObjectDb(UspName).Returns(x => { throw new ObjectDbException(); });
+
+            // Action
+            TestDelegate testDelegate = () => DataAccess.GetAllWHSports();
+
+            // Assert
+            Assert.Throws<DataAccessException>(testDelegate, Arg.Is<string>(x => x.Contains(UspName)));
         }
     }
 }

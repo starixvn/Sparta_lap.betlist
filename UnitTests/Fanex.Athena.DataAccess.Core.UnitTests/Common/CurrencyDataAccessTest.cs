@@ -4,6 +4,7 @@
     using System.Data;
     using System.Linq;
     using Core.Common;
+    using Core.Exception;
     using Data;
     using Model.Core.DTO.Users;
     using Model.Core.MetaModel.Account;
@@ -11,70 +12,69 @@
     using NUnit.Framework;
     using TestHelpers;
 
-    [TestFixture]
-    public class CurrencyDataAccessTest
+    public class CurrencyDataAccessTest : BaseDataAccessHelperTest<CurrencyDataAccess>
     {
-        private IObjectDb _objectDb;
-        private CurrencyDataAccess _dataAccess;
-        private IDataReader _reader;
-
-        [OneTimeSetUp]
-        public void Setup()
-        {
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<CurrencyDataAccess>();
-            _dataAccess.When(x => x.GetObjectDb(Arg.Any<string>())).DoNotCallBase();
-            _reader = Substitute.For<IDataReader>();
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-            _reader = null;
-        }
+        private const string GetCurrenciesSp = "Lrf_SelCurrencyByLicensee";
+        private const string AssignCurrenciesByUserSp = "Lrf_CurrencyCustIns";
+        private const string GetCurrenciesByUser = "Lrf_SelCurrencyByLicenseeUser";
 
         [Test]
         public void GetCurrencies_WhenCall_ExecuteReaderMethodIsCalled()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrencyByLicensee")).Returns(_objectDb);
             const int LicenseeId = 1;
 
+            DataAccess.GetObjectDb(Arg.Is<string>(GetCurrenciesSp)).Returns(ObjectDb);
+
             // Action
-            _dataAccess.GetCurrencies(LicenseeId);
+            DataAccess.GetCurrencies(LicenseeId);
 
             // Assert
-            _objectDb.ReceivedWithAnyArgs().Query<CurrencyUser>(null);
+            ObjectDb.ReceivedWithAnyArgs().Query<CurrencyUser>(null);
         }
 
         [Test]
         public void GetCurrencies_WhenCall_DataReturnCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrencyByLicensee")).Query<CurrencyUser>()
-                .Returns(new List<CurrencyUser>
+            const int LicenseeId = 1;
+
+            ObjectDb.Query<CurrencyUser>().Returns(new List<CurrencyUser>
                 {
                     new CurrencyUser { CurrencyId = 1, AgentId = 100 },
                     new CurrencyUser { CurrencyId = 1, AgentId = 200 }
                 });
-
-            const int LicenseeId = 1;
+            DataAccess.GetObjectDb(Arg.Is<string>(GetCurrenciesSp)).Returns(ObjectDb);
 
             // Action
-            var result = _dataAccess.GetCurrencies(LicenseeId);
+            var result = DataAccess.GetCurrencies(LicenseeId);
 
             // Assert
-            Assert.That(result.Count, Is.EqualTo(1));
-            Assert.That(result[0].AgentIdList.Count(), Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(1));
+                Assert.That(result[0].AgentIdList.Count(), Is.EqualTo(2));
+            });
+        }
+
+        [Test]
+        public void GetCurrencies_WhenThrowObjectDbException_ThrowDataAccessException()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetCurrenciesSp)).Returns(x => { throw new ObjectDbException(); });
+
+            // Action
+            TestDelegate testDelegate = () => DataAccess.GetCurrencies(0);
+
+            // Assert
+            Assert.Throws<DataAccessException>(testDelegate, Arg.Is<string>(x => x.Contains(GetCurrenciesSp)));
         }
 
         [Test]
         public void AssignCurrenciesByUser_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CurrencyCustIns")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>(AssignCurrenciesByUserSp)).Returns(ObjectDb);
             var dataModel = new AssignCurrencyMetaModel
             {
                 UserId = 1,
@@ -86,32 +86,51 @@
             };
 
             // Action
-            _dataAccess.AssignCurrenciesByUser(dataModel);
+            DataAccess.AssignCurrenciesByUser(dataModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("UserID", DbType.Int32, dataModel.UserId);
-            _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, dataModel.LicenseeId);
-            _objectDb.Received().AddInParameter("CurrencyXML", DbType.String, dataModel.CurrencyList);
-            _objectDb.Received().AddInParameter("ModifyBy", DbType.Int32, dataModel.ModifyBy);
-            _objectDb.Received().AddInParameter("LangKey", DbType.String, dataModel.LangKey);
-            _objectDb.Received().AddInParameter("IP", DbType.String, dataModel.IP);
-            _objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-            _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("UserID", DbType.Int32, dataModel.UserId);
+                ObjectDb.Received().AddInParameter("LicenseeID", DbType.Int32, dataModel.LicenseeId);
+                ObjectDb.Received().AddInParameter("CurrencyXML", DbType.String, dataModel.CurrencyList);
+                ObjectDb.Received().AddInParameter("ModifyBy", DbType.Int32, dataModel.ModifyBy);
+                ObjectDb.Received().AddInParameter("LangKey", DbType.String, dataModel.LangKey);
+                ObjectDb.Received().AddInParameter("IP", DbType.String, dataModel.IP);
+                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+            });
         }
 
         [Test]
         public void AssignCurrenciesByUser_WhenCall_ResultInfoReturnCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CurrencyCustIns")).Returns(_objectDb);
-            ResultInfoHelper.MockResultInfo(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>(AssignCurrenciesByUserSp)).Returns(ObjectDb);
+            ResultInfoHelper.MockResultInfo(ObjectDb);
 
             // Action
-            var result = _dataAccess.AssignCurrenciesByUser(new AssignCurrencyMetaModel());
+            var result = DataAccess.AssignCurrenciesByUser(new AssignCurrencyMetaModel());
 
             // Assert
-            Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
-            Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
+                Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
+            });
+        }
+
+        [Test]
+        public void AssignCurrenciesByUser_WhenThrowObjectDbException_ThrowDataAccessException()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(AssignCurrenciesByUserSp)).Returns(x => { throw new ObjectDbException(); });
+
+            // Action
+            TestDelegate testDelegate = () => DataAccess.AssignCurrenciesByUser(new AssignCurrencyMetaModel());
+
+            // Assert
+            Assert.Throws<DataAccessException>(testDelegate, Arg.Is<string>(x => x.Contains(AssignCurrenciesByUserSp)));
         }
 
         [Test]
@@ -120,21 +139,24 @@
             // Arrange
             const int LicenseeId = 1;
             const int UserId = 2;
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrencyByLicenseeUser")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>(GetCurrenciesByUser)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetCurrenciesByUser(LicenseeId, UserId);
+            DataAccess.GetCurrenciesByUser(LicenseeId, UserId);
 
             // Assert
-            _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
-            _objectDb.Received().AddInParameter("UserID", DbType.Int32, UserId);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
+                ObjectDb.Received().AddInParameter("UserID", DbType.Int32, UserId);
+            });
         }
 
         [Test]
         public void GetCurrenciesByUser_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            _dataAccess.GetObjectDb("Lrf_SelCurrencyByLicenseeUser").Query<CurrencyUser>()
+            DataAccess.GetObjectDb(GetCurrenciesByUser).Query<CurrencyUser>()
                 .Returns(new List<CurrencyUser>
                 {
                     new CurrencyUser { CurrencyId = 1, AgentId = 100 },
@@ -142,11 +164,27 @@
                 });
 
             // Action
-            var currencyList = _dataAccess.GetCurrenciesByUser(0, 0);
+            var currencyList = DataAccess.GetCurrenciesByUser(0, 0);
 
             // Assert
-            Assert.That(currencyList.Count, Is.EqualTo(1));
-            Assert.That(currencyList[0].AgentIdList.Count(), Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(currencyList.Count, Is.EqualTo(1));
+                Assert.That(currencyList[0].AgentIdList.Count(), Is.EqualTo(2));
+            });
+        }
+
+        [Test]
+        public void GetCurrenciesByUser_WhenThrowObjectDbException_ThrowDataAccessException()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetCurrenciesByUser)).Returns(x => { throw new ObjectDbException(); });
+
+            // Action
+            TestDelegate testDelegate = () => DataAccess.GetCurrenciesByUser(0, 0);
+
+            // Assert
+            Assert.Throws<DataAccessException>(testDelegate, Arg.Is<string>(x => x.Contains(GetCurrenciesByUser)));
         }
     }
 }

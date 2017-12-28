@@ -3,21 +3,18 @@
     using System;
     using System.Data;
     using Core.Common;
-    using Data;
     using Model.Core.MetaModel.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using TestHelpers;
 
-    [TestFixture]
-    public class LeagueDataAccessTest
+    public class LeagueDataAccessTest : BaseDataAccessHelperTest<LeagueDataAccess>
     {
         [Test]
         public void GetLeaguesBySport_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            var dataAccess = Substitute.ForPartsOf<LeagueDataAccess>();
-            dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelLeagueBySport")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelLeagueBySport")).Returns(ObjectDb);
             var metaModel = new LeagueMetaModel
             {
                 AgentListXml = "hello",
@@ -27,13 +24,16 @@
             };
 
             // Action
-            dataAccess.GetLeaguesBySport(metaModel);
+            DataAccess.GetLeaguesBySport(metaModel);
 
             // Assert
-            objectDb.Received().AddInParameter("sportId", DbType.Int32, metaModel.SportId);
-            objectDb.Received().AddInParameter("Fromdate", DbType.DateTime, metaModel.FromDate);
-            objectDb.Received().AddInParameter("Todate", DbType.DateTime, metaModel.ToDate);
-            objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("sportId", DbType.Int32, metaModel.SportId);
+                ObjectDb.Received().AddInParameter("Fromdate", DbType.DateTime, metaModel.FromDate);
+                ObjectDb.Received().AddInParameter("Todate", DbType.DateTime, metaModel.ToDate);
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            });
         }
     }
 }
