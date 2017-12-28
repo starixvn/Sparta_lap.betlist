@@ -52,45 +52,14 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpGet]
-#pragma warning disable S107 // Methods should not have too many parameters
-        public dynamic NumberGame(
-            int page,
-            int rows,
-            int currencyId,
-            DateTime fromDate,
-            DateTime toDate,
-            decimal sumComm,
-            decimal sumLicenseeWL,
-            decimal sumPlayerComm,
-            decimal sumWinLost,
-            int totalRows,
-            string baseCurrency,
-            int liveIndicator,
-            string sortBy = null,
-            string sortOrder = null)
-#pragma warning restore S107 // Methods should not have too many parameters
+        public dynamic NumberGame([FromUri] LiveReportBetListMetaModel metaModel, int page, int rows)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
 
-            if (currencyId == 0 || currencyList.ContainsKey(currencyId))
+            if (metaModel.CurrencyId == 0 || currencyList.ContainsKey(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_LiveReport_SelWinlossNumberGame";
-                var metaModel = new LiveReportBetListMetaModel
-                {
-                    CurrencyId = currencyId,
-                    FromDate = fromDate.Date,
-                    ToDate = toDate.Date,
-                    SumComm = sumComm,
-                    SumLicenseeWL = sumLicenseeWL,
-                    SumPlayerComm = sumPlayerComm,
-                    SumWinlost = sumWinLost,
-                    TotalRows = totalRows,
-                    BaseCurrency = baseCurrency,
-                    SortBy = sortBy,
-                    SortOrder = sortOrder,
-                    LiveIndicator = liveIndicator
-                };
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 return GetPagingData(metaModel, UspKey, page, rows);
             }
@@ -99,51 +68,16 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpGet]
-#pragma warning disable S107 // Methods should not have too many parameters
-        public dynamic MixParlay(
-            int page,
-            int rows,
-            int currencyId,
-            int betType,
-            DateTime fromDate,
-            DateTime toDate,
-            decimal sumComm,
-            decimal sumLicenseeWL,
-            decimal sumPlayerComm,
-            decimal sumWinLost,
-            int totalRows,
-            string baseCurrency,
-            int liveIndicator,
-            string productCodeList,
-            string sortBy = null,
-            string sortOrder = null)
-#pragma warning restore S107 // Methods should not have too many parameters
+        public dynamic MixParlay([FromUri] LiveReportBetListMetaModel metaModel, int page, int rows)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
 
-            if (currencyId == 0 || currencyList.ContainsKey(currencyId))
+            if (metaModel.CurrencyId == 0 || currencyList.ContainsKey(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_LiveReport_SelWinlossParlay";
 
-                var metaModel = new LiveReportBetListMetaModel
-                {
-                    CurrencyId = currencyId,
-                    FromDate = fromDate.Date,
-                    ToDate = toDate.Date,
-                    SumComm = sumComm,
-                    SumLicenseeWL = sumLicenseeWL,
-                    SumPlayerComm = sumPlayerComm,
-                    SumWinlost = sumWinLost,
-                    TotalRows = totalRows,
-                    BaseCurrency = baseCurrency,
-                    SortBy = sortBy,
-                    SortOrder = sortOrder,
-                    LiveIndicator = liveIndicator,
-                    AgentListXml = SessionService.GenerateAgentListXml(currencyId),
-                    BetType = betType,
-                    ProductCodeList = productCodeList
-                };
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
                 return GetPagingData(metaModel, UspKey, page, rows);
             }
@@ -152,47 +86,15 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpGet]
-#pragma warning disable S107 // Methods should not have too many parameters
-        public dynamic Racing(
-            int page,
-            int rows,
-            int currencyId,
-            int sportType,
-            DateTime fromDate,
-            DateTime toDate,
-            decimal sumComm,
-            decimal sumLicenseeWL,
-            decimal sumPlayerComm,
-            decimal sumWinLost,
-            int totalRows,
-            string baseCurrency,
-            string sortBy = null,
-            string sortOrder = null)
-#pragma warning restore S107 // Methods should not have too many parameters
+        public dynamic Racing([FromUri] LiveReportBetListMetaModel metaModel, int page, int rows)
         {
             const string UspName = "Lrf_BetList_LiveReport_SelWinlossRacing";
 
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
 
-            if (currencyId == 0 || currencyList.ContainsKey(currencyId))
+            if (metaModel.CurrencyId == 0 || currencyList.ContainsKey(metaModel.CurrencyId))
             {
-                var metaModel = new LiveReportBetListMetaModel
-                {
-                    CurrencyId = currencyId,
-                    FromDate = fromDate.Date,
-                    ToDate = toDate.Date,
-                    SumComm = sumComm,
-                    SumLicenseeWL = sumLicenseeWL,
-                    SumPlayerComm = sumPlayerComm,
-                    SumWinlost = sumWinLost,
-                    TotalRows = totalRows,
-                    BaseCurrency = baseCurrency,
-                    SortBy = sortBy,
-                    SortOrder = sortOrder,
-                    SportType = sportType
-                };
-
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 return GetPagingData(metaModel, UspName, page, rows);
             }
@@ -201,47 +103,15 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpGet]
-#pragma warning disable S107 // Methods should not have too many parameters
-        public dynamic VirtualSports(
-            int page,
-            int rows,
-            int currencyId,
-            int sportType,
-            DateTime fromDate,
-            DateTime toDate,
-            decimal sumComm,
-            decimal sumLicenseeWL,
-            decimal sumPlayerComm,
-            decimal sumWinLost,
-            int totalRows,
-            string baseCurrency,
-            string sortBy = null,
-            string sortOrder = null)
-#pragma warning restore S107 // Methods should not have too many parameters
+        public dynamic VirtualSports([FromUri] LiveReportBetListMetaModel metaModel, int page, int rows)
         {
             const string UspName = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
 
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
 
-            if (currencyId == 0 || currencyList.ContainsKey(currencyId))
+            if (metaModel.CurrencyId == 0 || currencyList.ContainsKey(metaModel.CurrencyId))
             {
-                var metaModel = new LiveReportBetListMetaModel
-                {
-                    CurrencyId = currencyId,
-                    FromDate = fromDate.Date,
-                    ToDate = toDate.Date,
-                    SumComm = sumComm,
-                    SumLicenseeWL = sumLicenseeWL,
-                    SumPlayerComm = sumPlayerComm,
-                    SumWinlost = sumWinLost,
-                    TotalRows = totalRows,
-                    BaseCurrency = baseCurrency,
-                    SortBy = sortBy,
-                    SortOrder = sortOrder,
-                    SportType = sportType
-                };
-
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 return GetPagingData(metaModel, UspName, page, rows);
             }
