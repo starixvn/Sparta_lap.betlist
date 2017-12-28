@@ -388,7 +388,11 @@
             }
         }
 
-        private void AssertMainResultData(ReportResultModel<ExchangeWinLoss> result, ExchangeWinLoss firstExpected, List<ExchangeWinLoss> expectedList, string baseCurrenct = "")
+        private void AssertMainResultData(
+            ReportResultModel<ExchangeWinLoss> result, 
+            ExchangeWinLoss firstExpected, 
+            List<ExchangeWinLoss> expectedList, 
+            string baseCurrenct = "")
         {
             var firstItem = result.DataList.First();
 
