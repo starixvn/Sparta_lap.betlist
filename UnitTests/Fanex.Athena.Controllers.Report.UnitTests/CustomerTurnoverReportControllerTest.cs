@@ -94,7 +94,7 @@
         }
 
         [Test]
-        public void Excel_ModelIsNotValid_ReturnCorrectRedictResult()
+        public void Excel_ModelIsNotValid_ReturnCorrectRedirectResult()
         {
             using (var controller = CreateController())
             {

@@ -42,6 +42,11 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly ConvertingOption _convertingOption;
 
+        protected internal DailyRacingWinLossExcel()
+            : base(string.Empty, 0)
+        {
+        }
+
         public DailyRacingWinLossExcel(
                                        string templatePath,
                                        ConvertingOption convertingOption,
