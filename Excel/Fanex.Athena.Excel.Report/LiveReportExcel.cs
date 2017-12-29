@@ -49,6 +49,11 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly ConvertingOption _convertingOption;
 
+        protected internal LiveReportExcel()
+            : base(string.Empty, 0)
+        {
+        }
+
         public LiveReportExcel(
                                string templatePath,
                                ConvertingOption convertingOption,

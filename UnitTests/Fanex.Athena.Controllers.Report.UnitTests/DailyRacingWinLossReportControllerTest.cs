@@ -104,7 +104,7 @@
         }
 
         [Test]
-        public void IndexPost_ExportExcel_ReturnCorrectRedirectResult()
+        public void IndexPost_ExportExcel_ReturnCorrectResult()
         {
             using (var controller = CreateController())
             {
@@ -140,7 +140,7 @@
         }
 
         [Test]
-        public void IndexPost_ExportExcelLicensee12Bet_ReturnCorrectRedirectResult()
+        public void IndexPost_ExportExcelLicensee12Bet_ReturnCorrectResult()
         {
             using (var controller = CreateController())
             {

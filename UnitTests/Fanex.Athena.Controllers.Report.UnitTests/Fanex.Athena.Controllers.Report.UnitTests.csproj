@@ -127,6 +127,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="LiveReportControllerTest.cs" />
+    <Compile Include="GoldDeluxeWinLossReportControllerTest.cs" />
     <Compile Include="DailyRacingWinLossReportControllerTest.cs" />
     <Compile Include="CustomerWinLossReportControllerTest.cs" />
     <Compile Include="CustomerTurnoverReportControllerTest.cs" />
