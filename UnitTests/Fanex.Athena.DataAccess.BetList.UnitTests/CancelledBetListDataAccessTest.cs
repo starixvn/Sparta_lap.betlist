@@ -2,31 +2,20 @@
 {
     using System.Collections.Generic;
     using System.Data;
-    using Data;
+    using Core.UnitTests.TestHelpers;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
 
-    [TestFixture]
-    public class CancelledBetListDataAccessTest
+    public class CancelledBetListDataAccessTest : BaseDataAccessHelperTest<CancelledBetListDataAccess>
     {
-        private IObjectDb _objectDb;
-        private CancelledBetListDataAccess _dataAccess;
-
         [OneTimeSetUp]
-        public void SetUp()
+        public override void FixtureSetUp()
         {
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<CancelledBetListDataAccess>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_BetList_SelDeleted_UserList")).Returns(_objectDb);
-        }
+            base.FixtureSetUp();
 
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
+            DataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelDeleted_UserList")).Returns(ObjectDb);
         }
 
         [Test]
@@ -36,10 +25,10 @@
             var metaModel = GetFakeBetListMetaModel();
 
             // Action
-            _dataAccess.GetCancelBetCustList(metaModel);
+            DataAccess.GetCancelBetCustList(metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
         }
 
         [Test]
@@ -48,10 +37,10 @@
             // Arrange
             var metaModel = GetFakeBetListMetaModel();
             var expected = GetFakeDataReturn();
-            _objectDb.Query<CustomerCancelBetItem>().Returns(new List<CustomerCancelBetItem> { expected });
+            ObjectDb.Query<CustomerCancelBetItem>().Returns(new List<CustomerCancelBetItem> { expected });
 
             // Action
-            var result = _dataAccess.GetCancelBetCustList(metaModel)[0];
+            var result = DataAccess.GetCancelBetCustList(metaModel)[0];
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));

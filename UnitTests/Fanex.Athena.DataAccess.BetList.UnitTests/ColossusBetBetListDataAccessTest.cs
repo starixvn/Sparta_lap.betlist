@@ -1,59 +1,52 @@
 ﻿namespace Fanex.Athena.DataAccess.BetList.UnitTests
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Data;
+    using Core.UnitTests.TestHelpers;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Helpers;
 
-    [TestFixture]
-    public class ColossusBetBetListDataAccessTest
+    public class ColossusBetBetListDataAccessTest : BaseDataAccessHelperTest<ColossusBetBetListDataAccess>
     {
-        private IObjectDb _objectDb;
-        private ColossusBetBetListDataAccess _dataAccess;
-
-        [OneTimeSetUp]
-        public void SetUp()
-        {
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<ColossusBetBetListDataAccess>();
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-        }
+        private const string GetSiteIdSp = "Acc_CustomerSelSiteByCustId";
+        private const string GetDataSp = "Lrf_BetList_CB_Detail";
+        private const int SoldBetType = 18002;
 
         [Test]
         public void GetSiteId_WhenCall_DataReturnCorrectly()
         {
             // Arrange
-            var custId = 999;
-            var expectedSiteId = 100;
-            _dataAccess.GetObjectDb(Arg.Is<string>("Acc_CustomerSelSiteByCustId")).Returns(_objectDb);
-            _objectDb.GetParameterValue("siteid").Returns(expectedSiteId);
+            const int CustId = 999;
+            const int ExpectedSiteId = 100;
+            DataAccess.GetObjectDb(Arg.Is(GetSiteIdSp)).Returns(ObjectDb);
+            ObjectDb.GetParameterValue("siteid").Returns(ExpectedSiteId);
 
             // Action
-            var result = _dataAccess.GetSiteId(custId);
+            var result = DataAccess.GetSiteId(CustId);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("custid", DbType.Int32, custId);
-                _objectDb.Received().AddOutParameter("siteid", DbType.Int32, 0);
+                ObjectDb.Received().AddInParameter("custid", DbType.Int32, CustId);
+                ObjectDb.Received().AddOutParameter("siteid", DbType.Int32, 0);
 
-                Assert.That(result, Is.EqualTo(expectedSiteId));
+                Assert.That(result, Is.EqualTo(ExpectedSiteId));
             });
         }
 
         [Test]
-        public void GetData_WhenCall_DataReturnCorrectly()
+        public void GetSiteId_WhenObjectDbThrowsException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetSiteIdSp,
+                () => DataAccess.GetSiteId(1));
+        }
+
+        [TestCase(true, 1)]
+        [TestCase(false, 0)]
+        public void GetData_WhenCall_DataReturnCorrectly(bool isSoldBetType, decimal expectedTotalSoldWinLoss)
         {
             // Arrange
             var metaModel = new ColossusBetDetailMetaModel
@@ -63,21 +56,20 @@
                 CustId = 999,
                 RefNo = 1000
             };
-            var reader = Substitute.For<IDataReader>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_BetList_CB_Detail")).Returns(_objectDb);
-            _objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
-            reader.Read().Returns(true, false);
+            DataAccess.GetObjectDb(Arg.Is(GetDataSp)).Returns(ObjectDb);
+            Reader.Read().Returns(true, false);
 
             var readerDataMapping = new
             {
                 TransDate = "1/1/2017",
-                CommUSD = 123
+                CommUSD = 123,
+                BetType = isSoldBetType ? SoldBetType : 0,
+                WinlostUSD = isSoldBetType ? expectedTotalSoldWinLoss : 1234
             };
-
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetData(metaModel);
+            var result = DataAccess.GetData(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -86,7 +78,16 @@
                 Assert.That(result.DataList.ElementAt(0).TransDate, Is.EqualTo(new DateTime(2017, 1, 1)));
                 Assert.That(result.DataList.ElementAt(0).Commission, Is.EqualTo(123));
                 Assert.That(result.TotalComm, Is.EqualTo(123));
+                Assert.That(result.TotalSoldWinLoss, Is.EqualTo(expectedTotalSoldWinLoss));
             });
+        }
+
+        [Test]
+        public void GetData_WhenObjectDbThrowsException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetDataSp,
+                () => DataAccess.GetData(new ColossusBetDetailMetaModel()));
         }
     }
 }

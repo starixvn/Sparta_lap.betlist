@@ -2,50 +2,44 @@
 {
     using System;
     using System.Data;
-    using Data;
-    using Model.BetList.DTO;
+    using Core.UnitTests.TestHelpers;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
 
     [TestFixture]
-    public partial class BetListDataAccessTest
+    public partial class BetListDataAccessTest : BaseDataAccessHelperTest<BetListDataAccess>
     {
+        private const string GetMixParlayDetailTicketSp = "Lrf_BetList_SelParlayDetail";
+
         private readonly BetListMetaModel _metaModel;
-        private IObjectDb _objectDb;
-        private BetListDataAccess _dataAccess;
 
         public BetListDataAccessTest()
         {
             _metaModel = GetBetListMetaModel();
         }
 
-        [SetUp]
-        public void SetUp()
-        {
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<BetListDataAccess>();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-        }
-
         [Test]
         public void GetMixParlayDetailTicket_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_BetList_SelParlayDetail")).Returns(_objectDb);
-            long transId = 1;
+            const long TransId = 1;
+
+            DataAccess.GetObjectDb(Arg.Is(GetMixParlayDetailTicketSp)).Returns(ObjectDb);            
 
             // Action
-            _dataAccess.GetMixParlayDetailTicket(transId);
+            DataAccess.GetMixParlayDetailTicket(TransId);
 
             // Assert
-            _objectDb.Received().AddInParameter("TransId", DbType.Int64, transId);
+            ObjectDb.Received().AddInParameter("TransId", DbType.Int64, TransId);
+        }
+
+        [Test]
+        public void GetMixParlayDetailTicket_WhenObjectDbThrowsException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetMixParlayDetailTicketSp,
+                () => DataAccess.GetMixParlayDetailTicket(1));
         }
 
         private static BetListMetaModel GetBetListMetaModel()
