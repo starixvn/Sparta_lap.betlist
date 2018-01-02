@@ -128,6 +128,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="PlatformWinLossReportControllerTest.cs" />
     <Compile Include="MicrogamingWinlossReportControllerTest.cs" />
     <Compile Include="MatchWinLossReportControllerTest.cs" />
     <Compile Include="LiveReportControllerTest.cs" />
