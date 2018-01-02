@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DataGrid1111 Data is not empty _buildBody - render correct body content 1`] = `
+exports[`DataGrid1111 Data is not empty _buildBody - GroupByProduct - render correct body content 1`] = `
 <div>
   <tr>
     <td
@@ -13,6 +13,72 @@ exports[`DataGrid1111 Data is not empty _buildBody - render correct body content
       title="01/0001"
     >
       01/0001
+    </td>
+    <td
+      className="left-align"
+      title="Sportsbook"
+    >
+      Sportsbook
+    </td>
+    <td
+      className="right-align"
+      title="50"
+    >
+      50
+    </td>
+    <td
+      className="right-align"
+      title="26,761.00"
+    >
+      26,761.00
+    </td>
+    <td
+      className="right-align"
+      title="960.00"
+    >
+      960.00
+    </td>
+    <td
+      className="right-align "
+      title="23,646.17"
+    >
+      23,646.17
+    </td>
+    <td
+      className="right-align"
+      title="72.00"
+    >
+      72.00
+    </td>
+    <td
+      className="right-align "
+      title="22,758.17"
+    >
+      22,758.17
+    </td>
+    <td
+      className="right-align"
+      title="85.04%"
+    >
+      85.04%
+    </td>
+  </tr>
+</div>
+`;
+
+exports[`DataGrid1111 Data is not empty _buildBody - ReportByDaily - render correct body content 1`] = `
+<div>
+  <tr>
+    <td
+      className="center-align"
+    >
+      1
+    </td>
+    <td
+      className="center-align"
+      title="01/01/0001"
+    >
+      01/01/0001
     </td>
     <td
       className="center-align"
@@ -64,6 +130,402 @@ exports[`DataGrid1111 Data is not empty _buildBody - render correct body content
     </td>
   </tr>
 </div>
+`;
+
+exports[`DataGrid1111 Data is not empty _buildBody - ReportBySummary - Contain negetive value - render correct body content 1`] = `
+<div>
+  <tr>
+    <td
+      className="center-align"
+    >
+      1
+    </td>
+    <td
+      className="center-align"
+      title="01/01/0001"
+    >
+      01/01/0001
+    </td>
+    <td
+      className="center-align"
+      title="Sportsbook"
+    >
+      Sportsbook
+    </td>
+    <td
+      className="right-align"
+      title="50"
+    >
+      50
+    </td>
+    <td
+      className="right-align"
+      title="26,761.00"
+    >
+      26,761.00
+    </td>
+    <td
+      className="right-align"
+      title="960.00"
+    >
+      960.00
+    </td>
+    <td
+      className="right-align "
+      title="23,646.17"
+    >
+      23,646.17
+    </td>
+    <td
+      className="right-align"
+      title="72.00"
+    >
+      72.00
+    </td>
+    <td
+      className="right-align "
+      title="22,758.17"
+    >
+      22,758.17
+    </td>
+    <td
+      className="right-align"
+      title="85.04%"
+    >
+      85.04%
+    </td>
+  </tr>
+  <tr>
+    <td
+      className="center-align"
+    >
+      2
+    </td>
+    <td
+      className="center-align"
+      title="01/01/0001"
+    >
+      01/01/0001
+    </td>
+    <td
+      className="center-align"
+      title="Sportsbook"
+    >
+      Sportsbook
+    </td>
+    <td
+      className="right-align"
+      title="50"
+    >
+      50
+    </td>
+    <td
+      className="right-align"
+      title="26,761.00"
+    >
+      26,761.00
+    </td>
+    <td
+      className="right-align"
+      title="960.00"
+    >
+      960.00
+    </td>
+    <td
+      className="right-align negative"
+      title="-23,646.17"
+    >
+      -23,646.17
+    </td>
+    <td
+      className="right-align"
+      title="72.00"
+    >
+      72.00
+    </td>
+    <td
+      className="right-align negative"
+      title="-22,758.17"
+    >
+      -22,758.17
+    </td>
+    <td
+      className="right-align"
+      title="85.04%"
+    >
+      85.04%
+    </td>
+  </tr>
+</div>
+`;
+
+exports[`DataGrid1111 Data is not empty _buildBody - ReportBySummary - render correct body content 1`] = `
+<div>
+  <tr>
+    <td
+      className="center-align"
+    >
+      1
+    </td>
+    <td
+      className="center-align"
+      title="Sportsbook"
+    >
+      Sportsbook
+    </td>
+    <td
+      className="right-align"
+      title="50"
+    >
+      50
+    </td>
+    <td
+      className="right-align"
+      title="26,761.00"
+    >
+      26,761.00
+    </td>
+    <td
+      className="right-align"
+      title="960.00"
+    >
+      960.00
+    </td>
+    <td
+      className="right-align "
+      title="23,646.17"
+    >
+      23,646.17
+    </td>
+    <td
+      className="right-align"
+      title="72.00"
+    >
+      72.00
+    </td>
+    <td
+      className="right-align "
+      title="22,758.17"
+    >
+      22,758.17
+    </td>
+    <td
+      className="right-align"
+      title="85.04%"
+    >
+      85.04%
+    </td>
+  </tr>
+</div>
+`;
+
+exports[`DataGrid1111 Data is not empty _buildFooter - Data contain negative value - render correct footer content 1`] = `
+<div>
+  <tr
+    className="fixed-table-grant-total"
+  >
+    <td
+      className="center-align"
+      colSpan={2}
+    >
+      Totalin 
+    </td>
+    <td
+      className="right-align"
+      title="50"
+    >
+      50
+    </td>
+    <td
+      className="right-align"
+      title="130,685.74"
+    >
+      130,685.74
+    </td>
+    <td
+      className="right-align"
+      title="4,688.10"
+    >
+      4,688.10
+    </td>
+    <td
+      className="right-align negative"
+      title="-115,474.65"
+    >
+      -115,474.65
+    </td>
+    <td
+      className="right-align"
+      title="351.61"
+    >
+      351.61
+    </td>
+    <td
+      className="right-align negative"
+      title="-111,138.16"
+    >
+      -111,138.16
+    </td>
+    <td
+      className="right-align"
+      title="85.04%"
+    >
+      85.04%
+    </td>
+  </tr>
+</div>
+`;
+
+exports[`DataGrid1111 Data is not empty _buildFooter - ReportByDaily - render correct footer content 1`] = `
+<div>
+  <tr
+    className="fixed-table-grant-total"
+  >
+    <td
+      className="center-align"
+      colSpan={3}
+    >
+      Totalin 
+    </td>
+    <td
+      className="right-align"
+      title="50"
+    >
+      50
+    </td>
+    <td
+      className="right-align"
+      title="130,685.74"
+    >
+      130,685.74
+    </td>
+    <td
+      className="right-align"
+      title="4,688.10"
+    >
+      4,688.10
+    </td>
+    <td
+      className="right-align "
+      title="115,474.65"
+    >
+      115,474.65
+    </td>
+    <td
+      className="right-align"
+      title="351.61"
+    >
+      351.61
+    </td>
+    <td
+      className="right-align "
+      title="111,138.16"
+    >
+      111,138.16
+    </td>
+    <td
+      className="right-align"
+      title="85.04%"
+    >
+      85.04%
+    </td>
+  </tr>
+</div>
+`;
+
+exports[`DataGrid1111 Data is not empty _buildFooter - ReportBySummary - render correct footer content 1`] = `
+<div>
+  <tr
+    className="fixed-table-grant-total"
+  >
+    <td
+      className="center-align"
+      colSpan={2}
+    >
+      Totalin 
+    </td>
+    <td
+      className="right-align"
+      title="50"
+    >
+      50
+    </td>
+    <td
+      className="right-align"
+      title="130,685.74"
+    >
+      130,685.74
+    </td>
+    <td
+      className="right-align"
+      title="4,688.10"
+    >
+      4,688.10
+    </td>
+    <td
+      className="right-align "
+      title="115,474.65"
+    >
+      115,474.65
+    </td>
+    <td
+      className="right-align"
+      title="351.61"
+    >
+      351.61
+    </td>
+    <td
+      className="right-align "
+      title="111,138.16"
+    >
+      111,138.16
+    </td>
+    <td
+      className="right-align"
+      title="85.04%"
+    >
+      85.04%
+    </td>
+  </tr>
+</div>
+`;
+
+exports[`DataGrid1111 Data is not empty _buildHeader - ReportBySummary - render correct header content 1`] = `
+<tr
+  style={
+    Object {
+      "height": 32,
+    }
+  }
+>
+  <th
+    title="#"
+  />
+  <th
+    title={undefined}
+  />
+  <th
+    title={undefined}
+  />
+  <th
+    title={undefined}
+  />
+  <th
+    title={undefined}
+  />
+  <th
+    title={undefined}
+  />
+  <th
+    title={undefined}
+  />
+  <th
+    title={undefined}
+  />
+  <th
+    title={undefined}
+  />
+</tr>
 `;
 
 exports[`DataGrid1111 Data is not empty _buildHeader - render correct header content 1`] = `
@@ -580,63 +1042,6 @@ exports[`DataGrid1111 Data is not empty grid data should be rendered correctly 1
       </div>
     </div>
   </div>
-</div>
-`;
-
-exports[`DataGrid1111 Data is not empty render correct footer content 1`] = `
-<div>
-  <tr
-    className="fixed-table-grant-total"
-  >
-    <td
-      className="center-align"
-      colSpan={3}
-    >
-      Totalin 
-    </td>
-    <td
-      className="right-align"
-      title="50"
-    >
-      50
-    </td>
-    <td
-      className="right-align"
-      title="130,685.74"
-    >
-      130,685.74
-    </td>
-    <td
-      className="right-align"
-      title="4,688.10"
-    >
-      4,688.10
-    </td>
-    <td
-      className="right-align "
-      title="115,474.65"
-    >
-      115,474.65
-    </td>
-    <td
-      className="right-align"
-      title="351.61"
-    >
-      351.61
-    </td>
-    <td
-      className="right-align "
-      title="111,138.16"
-    >
-      111,138.16
-    </td>
-    <td
-      className="right-align"
-      title="85.04%"
-    >
-      85.04%
-    </td>
-  </tr>
 </div>
 `;
 

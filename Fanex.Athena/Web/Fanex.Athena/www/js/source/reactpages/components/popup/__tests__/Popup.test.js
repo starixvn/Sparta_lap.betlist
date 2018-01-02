@@ -1,7 +1,7 @@
 ﻿import React from 'react'
 import renderer from 'react-test-renderer'
 
-import Popup from '../popup/Popup'
+import Popup from '../Popup'
 
 describe('Popup ', () => {
     describe('render', () => {

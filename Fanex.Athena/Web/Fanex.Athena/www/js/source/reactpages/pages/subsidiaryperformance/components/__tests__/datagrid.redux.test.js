@@ -43,17 +43,14 @@ describe('connect ', () => {
         bindActionCreators.mockImplementationOnce(mockBindAction);
 
         const dispatch = {};
-        const expectedResult = [ActionCreators, dispatch];
-
         mapDispatchToProps(dispatch);
 
-        expect(mockBindAction.mock.calls[0]).toEqual(expectedResult);
+        expect(mockBindAction).toHaveBeenCalledWith(ActionCreators, dispatch);
     })
 
     it('returned function of connect should be called with correct parameter', () => {
         const DataGrid = require('../DataGrid').DataGrid;
-        const expectedResult = [DataGrid];
 
-        expect(connectMock.mock.calls[0]).toEqual(expectedResult);
+        expect(connectMock).toHaveBeenCalledWith(DataGrid);
     })
 })

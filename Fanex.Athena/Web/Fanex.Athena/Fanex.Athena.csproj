@@ -920,7 +920,7 @@
     <Content Include="www\js\source\reactpages\components\__tests__\CollapsibleRow.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\Loader.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\NoDataTitle.test.js" />
-    <Content Include="www\js\source\reactpages\components\__tests__\Popup.test.js" />
+    <Content Include="www\js\source\reactpages\components\popup\__tests__\Popup.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\ReportTitle.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\UserGuide.test.js" />
     <Content Include="www\js\source\reactpages\constants\config.js" />
@@ -966,9 +966,11 @@
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\types.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\__tests__\dataHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\__tests__\filterHandlerAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\datagrid.redux.test.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\datagrid.test.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\fakeData.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\formFilter.eventhandler.test.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\formFilter.redux.test.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\formFilter.render.test.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\constants\settingConst.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\lib\reportExcel.js" />

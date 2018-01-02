@@ -52,7 +52,7 @@ describe('FormFilter ', () => {
             });
 
             it("_renderProductSelectList - productOptions is empty - return null", () => {
-                const props = {...formFilterPropsForRender, productOptions: []};
+                const props = { ...formFilterPropsForRender, productOptions: [] };
                 const formFilter = new FormFilter(props);
                 const multipleSelectComponent = formFilter._renderProductSelectList();
 
@@ -83,7 +83,7 @@ describe('FormFilter ', () => {
             })
 
             it("_renderBaseCurrencySelectList - baseCurrencyList is empty - return null", () => {
-                const props = {...formFilterPropsForRender, baseCurrencyList: []};
+                const props = { ...formFilterPropsForRender, baseCurrencyList: [] };
                 const formFilter = new FormFilter(props);
                 const multipleSelectComponent = formFilter._renderBaseCurrencySelectList();
 
@@ -133,7 +133,7 @@ describe('FormFilter ', () => {
                     contentTitle: 'WinLossByTimeZone'
                 }
 
-                const formFilter = new FormFilter({ userGuideContent: ''});
+                const formFilter = new FormFilter({ userGuideContent: '' });
                 const userGuide = formFilter._renderUserGuide();
 
                 const { content, title, contentTitle } = userGuide.props;
@@ -144,12 +144,69 @@ describe('FormFilter ', () => {
         })
 
         describe('render whole component', () => {
-            it('match to snapshot', () => {
-                const component = renderer.create(<FormFilter {...formFilterPropsForRender}/>);
+            it('group by product - IsConverAll checkbox is disabled - match to snapshot', () => {
+                const component = renderer.create(<FormFilter {...formFilterPropsForRender} />);
 
                 const result = component.toJSON();
 
                 expect(result).toMatchSnapshot()
+            })
+
+            it('group by currency - IsConverAll checkbox is enabled - match to snapshot', () => {
+                const props = Object.assign({}, formFilterPropsForRender, { groupBy: 2 });
+                const component = renderer.create(<FormFilter {...props} />);
+
+                const result = component.toJSON();
+
+                expect(result).toMatchSnapshot()
+            })
+
+            it('GroupBy filter - onChange event fired - changeGroupBy should be called with correct parameter', () => {
+                function checkOnChangeEvent(indexRadioElement, expectedParam) {
+                    const component = renderer.create(<FormFilter {...formFilterPropsForRender} />);
+
+                    const instance = component.getInstance();
+                    instance.changeGroupBy = jest.fn();
+
+                    const tree = component.toJSON();
+                    const row2Children = tree.children[1].children;
+                    const radioElement = row2Children[0].children[0].children[indexRadioElement];
+
+                    radioElement.props.onChange();
+
+                    expect(instance.changeGroupBy).toHaveBeenCalledWith(expectedParam);
+                }
+
+                checkOnChangeEvent(3, 2);
+                checkOnChangeEvent(1, 1);
+            })
+
+            it('onChange event of IncludeDrawData checkbox - props.changeIsIncludeDrawData should be called with correct parameter', () => {
+                const component = renderer.create(<FormFilter {...formFilterPropsForRender} />);
+
+                const instance = component.getInstance();
+
+                const tree = component.toJSON();
+                const row2Children = tree.children[1].children;
+                const checkboxElement = row2Children[2].children[0].children[0].children[0];
+
+                checkboxElement.props.onChange();
+
+                expect(instance.props.changeIsIncludeDrawData).toHaveBeenCalledWith(false);
+            })
+
+            it('ExcludeTest checkbox - onChange event fired - props.changeIsExcludeTest should be called with correct parameter', () => {
+                const component = renderer.create(<FormFilter {...formFilterPropsForRender} />);
+
+                const instance = component.getInstance();
+
+                const tree = component.toJSON();
+                const row2Children = tree.children[1].children;
+                const checkboxElement = row2Children[4].children[0].children[0].children[0];
+
+                checkboxElement.props.onChange();
+
+                expect(instance.props.changeIsExcludeTest).toHaveBeenCalledWith(false);
             })
         })
     })
