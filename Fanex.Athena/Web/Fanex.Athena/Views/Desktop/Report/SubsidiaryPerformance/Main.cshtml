@@ -27,7 +27,7 @@
 }
 
 @section globaljscode{
-    window.Lrf = {
+    window.initialState = {
         productOptions: @Html.Raw(productOptions.ToJson()),
         selectedProduct: '@(selectedProductCode)',
         baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
