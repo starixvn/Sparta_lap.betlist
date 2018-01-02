@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using DataDomain;
     using DTO.Common;
     using Resources;
@@ -64,6 +63,36 @@
 
             var resourceKey = ProductNameMap[productCode];
             return ViewResources.ResourceManager.GetString(resourceKey);
+        }
+
+        public static int GetProductId(int bettype)
+        {
+            if (BetTypeHelper.IsNumberGame(bettype))
+            {
+                return ProductTypes.NumberGame;
+            }
+
+            if (BetTypeHelper.IsRacing(bettype))
+            {
+                return ProductTypes.Racing;
+            }
+
+            if (BetTypeHelper.IsLiveCasino(bettype))
+            {
+                return ProductTypes.LiveCasino;
+            }
+
+            if (BetTypeHelper.IsVirtualSports(bettype))
+            {
+                return ProductTypes.VirtualSports;
+            }
+
+            if (BetTypeHelper.IsVirtualSports2(bettype))
+            {
+                return ProductTypes.VirtualSports2;
+            }
+
+            return ProductTypes.Sportsbook;
         }
     }
 }

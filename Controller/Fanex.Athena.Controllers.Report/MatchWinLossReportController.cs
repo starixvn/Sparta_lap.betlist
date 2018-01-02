@@ -4,10 +4,12 @@
     using System.Data;
     using System.Globalization;
     using System.Linq;
+    using System.Web.Hosting;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
     using Excel.Base.Helpers;
+    using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -21,6 +23,8 @@
     using Fanex.Athena.Web.ResultExtension;
     using Fanex.Common;
     using Resources;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
     using Service.Report.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportMatchWinLoss)]
@@ -34,11 +38,18 @@
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
         private readonly IMatchWinLossService _matchWinLossService;
 
-        public MatchWinLossReportController() : this(null, null)
+        public MatchWinLossReportController() : this(null, null, null, null, null, null)
         {
         }
 
-        public MatchWinLossReportController(IBalanceUpDataAccess balanceUpDataAccess, IMatchWinLossService matchWinLossService)
+        public MatchWinLossReportController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IProductService productService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            IMatchWinLossService matchWinLossService)
+            : base(languageService, sessionService, appSetting, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
             _matchWinLossService = matchWinLossService ?? new MatchWinLossService();
@@ -147,7 +158,7 @@
 
             var licenseeSession = SessionService.LicenseeSession;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var templatePath = Server.MapPath(@"~/App_Data/Template/Reports/MatchWinLoss.xls");
+            var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/MatchWinLoss.xls");
             var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, FunctionNames.MatchWinLoss);
             var showingOption = new ShowingOption
             {
@@ -173,17 +184,22 @@
             mainTable = AddColumnsForSorting(mainTable);
             mainTable.DefaultView.Sort = $"{NewProductIdColumnName} asc, leaguename asc, matchname ASC";
             mainTable = mainTable.DefaultView.ToTable();
-            var matchWinLossExcel = new MatchWinLossExcel(
-                templatePath,
-                convertingOption,
-                showingOption,
-                mainTable,
-                reportData.Tables[1],
-                metaModel);
+            var excel = CreateExcel(templatePath, metaModel, showingOption, convertingOption, mainTable, reportData.Tables[1]);
 
-            matchWinLossExcel.Export();
+            excel.Export();
 
-            return new ExcelResult(matchWinLossExcel.Workbook, FileName);
+            return new ExcelResult(excel.Workbook, FileName);
+        }
+
+        protected internal virtual MatchWinLossExcel CreateExcel(
+            string templatePath,
+            MatchWinLossMetaModel metaModel,
+            ShowingOption showingOption,
+            ConvertingOption convertingOption,
+            DataTable mainTable,
+            DataTable totalData)
+        {
+            return new MatchWinLossExcel(templatePath, convertingOption, showingOption, mainTable, totalData, metaModel);
         }
 
         private static IDictionary<int, string> CreateLeagueList(IList<MatchWinLoss> reportData)
@@ -241,7 +257,7 @@
             foreach (DataRow row in mainTable.Rows)
             {
                 var betType = Converter.ToInt(row["bettype"]);
-                row[NewProductIdColumnName] = GetProductId(betType);
+                row[NewProductIdColumnName] = ProductHelper.GetProductId(betType);
 
                 AssignMatchName(row, betType);
 
@@ -249,36 +265,6 @@
             }
 
             return mainTable;
-        }
-
-        private static int GetProductId(int bettype)
-        {
-            if (BetTypeHelper.IsNumberGame(bettype))
-            {
-                return ProductTypes.NumberGame;
-            }
-
-            if (BetTypeHelper.IsRacing(bettype))
-            {
-                return ProductTypes.Racing;
-            }
-
-            if (BetTypeHelper.IsLiveCasino(bettype))
-            {
-                return ProductTypes.LiveCasino;
-            }
-
-            if (BetTypeHelper.IsVirtualSports(bettype))
-            {
-                return ProductTypes.VirtualSports;
-            }
-
-            if (BetTypeHelper.IsVirtualSports2(bettype))
-            {
-                return ProductTypes.VirtualSports2;
-            }
-
-            return ProductTypes.Sportsbook;
         }
 
         private static void AssignMatchName(DataRow row, int betType)
