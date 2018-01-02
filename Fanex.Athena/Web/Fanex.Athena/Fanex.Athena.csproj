@@ -1000,10 +1000,12 @@
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\dataHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\filterHandlerAction.test.js" />
-    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\datagrid.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\DataGrid.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\DataGrid.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\fakeData.js" />
-    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\formFilter.eventhandler.test.js" />
-    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\formFilter.render.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\FormFilter.eventhandler.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\FormFilter.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\FormFilter.render.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\service.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\reportExcel.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\__tests__\fakeData.js" />
@@ -1061,8 +1063,8 @@
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\index.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\types.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\AppContainer.jsx" />
-    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\datagrid.jsx" />
-    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\formFilter.jsx" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\DataGrid.jsx" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\FormFilter.jsx" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\index.js" />
     <Content Include="www\webpackconfig\build\webpack.react.base.conf.js" />
     <Content Include="www\webpackconfig\build\webpack.react.dev.conf.js" />

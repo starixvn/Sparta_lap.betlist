@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { FormFilter } from '../formFilter';
+import { FormFilter } from '../FormFilter';
 
 import Site from '../../../../lib/site';
 import LangHelper from '../../../../lib/langHelper';
