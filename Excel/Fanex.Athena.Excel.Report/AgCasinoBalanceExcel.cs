@@ -13,6 +13,7 @@ namespace Fanex.Athena.Excel.Report
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Helpers;
+    using Model.Core.DataDomain;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Model.Report.ViewModel;
@@ -45,7 +46,7 @@ namespace Fanex.Athena.Excel.Report
         // This is drill down of report
         private readonly IList<AgCasinoBalance> _casinoList;
 
-        private readonly AgCasinoBalanceMetaModel _metaModel;
+        private readonly ThirdPartyWinLossMetaModel _metaModel;
         private readonly IDictionary<string, AgCasinoBalance> _summaryTotal;
 
         private readonly ConvertingOption _convertingOption;
@@ -57,7 +58,7 @@ namespace Fanex.Athena.Excel.Report
         public AgCasinoBalanceExcel(
                 string templatePath,
                 ConvertingOption convertingOption,
-                AgCasinoBalanceMetaModel metaModel,
+                ThirdPartyWinLossMetaModel metaModel,
                 AgCasinoBalanceViewModel viewModel)
             : base(templatePath, viewModel.MainResult.Count())
         {
@@ -65,10 +66,10 @@ namespace Fanex.Athena.Excel.Report
             _metaModel = metaModel;
             _casinoList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
-            PageSize = metaModel.DrillDownLevel == 2 ? metaModel.PageSize : AgCasinoBalanceMetaModel.PageSizeExcel;
+            PageSize = metaModel.DrillDownLevel == 2 ? metaModel.PageSize : SystemConstants.PageSizeExcel;
             IsMultiSheet = true;
         }
-        
+
         protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);

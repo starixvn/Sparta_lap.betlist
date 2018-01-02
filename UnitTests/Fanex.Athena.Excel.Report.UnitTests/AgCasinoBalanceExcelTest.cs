@@ -39,7 +39,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             RowSpan = 2
         };
 
-        private static readonly AgCasinoBalanceMetaModel MetaModel = new AgCasinoBalanceMetaModel
+        private static readonly ThirdPartyWinLossMetaModel MetaModel = new ThirdPartyWinLossMetaModel
         {
             FromDate = new DateTime(2017, 1, 1),
             ToDate = new DateTime(2017, 2, 2),

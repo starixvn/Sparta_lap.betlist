@@ -26,7 +26,7 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class AgCasinoBalanceDataAccess : BaseDataAccess, IAgCasinoBalanceDataAccess
     {
-        public SortableReportResultModel<AgCasinoBalance> GetSummaryBalance(AgCasinoBalanceMetaModel metaModel)
+        public SortableReportResultModel<AgCasinoBalance> GetSummaryBalance(ThirdPartyWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_AGCasinoBalance";
             try
@@ -47,7 +47,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public SortableReportResultModel<AgCasinoBalance> GetCustomerBalanceDetail(AgCasinoBalanceMetaModel metaModel)
+        public SortableReportResultModel<AgCasinoBalance> GetCustomerBalanceDetail(ThirdPartyWinLossMetaModel metaModel)
         {
             const string UspName = "LRF_Rpt_AGCasinoBalance_Mem";
             try
@@ -55,7 +55,7 @@ namespace Fanex.Athena.DataAccess.Report
                 using (var db = GetObjectDb(UspName))
                 {
                     db.AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
-                    db.AddInParameter("pagesize", DbType.Int32, metaModel.IsExportExcel ? AgCasinoBalanceMetaModel.PageSizeExcel : metaModel.PageSize);
+                    db.AddInParameter("pagesize", DbType.Int32, metaModel.IsExportExcel ? SystemConstants.PageSizeExcel : metaModel.PageSize);
                     db.AddInParameter("pageindex", DbType.Int32, metaModel.IsExportExcel ? 1 : metaModel.PageIndex);
                     db.AddOutParameter("TotalRows", DbType.Int32, 10);
 
@@ -77,7 +77,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public SortableReportResultModel<AgCasinoBalance> GetAgentBalanceDetail(AgCasinoBalanceMetaModel metaModel)
+        public SortableReportResultModel<AgCasinoBalance> GetAgentBalanceDetail(ThirdPartyWinLossMetaModel metaModel)
         {
             const string UspName = "LRF_Rpt_AGCasinoBalance_Ag";
             try
@@ -101,7 +101,7 @@ namespace Fanex.Athena.DataAccess.Report
             Justification = "Reviewed. Suppression is OK here.")]
         private static SortableReportResultModel<AgCasinoBalance> GetData(
             IDataReader reader,
-            AgCasinoBalanceMetaModel metaModel)
+            ThirdPartyWinLossMetaModel metaModel)
         {
             var dataList = new SortableList<AgCasinoBalance>();
 
@@ -163,7 +163,7 @@ namespace Fanex.Athena.DataAccess.Report
             };
         }
 
-        private static void UpdateUspParams(IObjectDb db, AgCasinoBalanceMetaModel metaModel, bool drilldown)
+        private static void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
         {
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
