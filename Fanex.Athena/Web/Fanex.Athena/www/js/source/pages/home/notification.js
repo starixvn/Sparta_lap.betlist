@@ -34,7 +34,7 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
                     var height = popupHeight - subjectHeight - dateTimeHeight - 60;
 
                     if (height > POPUP_CONTENT_MIN_HEIGHT) {
-                        var content = $(".content", ".view-notification").height(height);
+                        $(".content", ".view-notification").height(height);
                     }
                 },
                 onClose: function () {
@@ -69,7 +69,7 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
             updateNumberLabel(data.TotalRows);
 
             var $container = $notificationDdl.find(".first-notification").parent();
-            if (data !== null && data.DataList.length > 0) {
+            if (data.DataList !== null && data.DataList.length > 0) {
                 data.DataList.forEach(function (item, index) {
                     var time = moment(item.DateTime).format("hh:mm:ss A MM/DD/YYYY");
                     var subject = item.Subject || '';
@@ -155,7 +155,6 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
             var processNotification = function () {
                 $.ajax({
                     url: apiUrl,
-                    async: false,
                     type: "GET",
                     cache: false,
                     success: function (data) {

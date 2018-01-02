@@ -137,6 +137,7 @@ define([
 
         function activeDefaultMenuItem() {
             var defaultUrl = $("#DefaultUrl").val();
+            defaultUrl = defaultUrl.replace(/\/index$/i, ''); // remove the last "/Index"
             var $menuItem = $("#left-menu .collapsible-body").find("a[href='" + defaultUrl + "']");
             $('.collapsible2').collapsibleMenu('activeMenuItem', $menuItem);
 

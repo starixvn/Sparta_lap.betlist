@@ -45,7 +45,7 @@
             var viewByOption = _clientViewHelper.GetViewPath(viewName, option);
             if (viewByOption.IsNavigationView)
             {
-                var returnPath = $"{this.RouteData.Values["Controller"]}/{this.RouteData.Values["Action"]}";
+                var returnPath = RouteData.Values["Controller"] + "/" + RouteData.Values["Action"];
                 return base.View(viewByOption.ViewPath, null, returnPath);
             }
 
