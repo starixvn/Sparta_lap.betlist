@@ -2669,7 +2669,6 @@
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\__snapshots__\datagrid.test.js.snap" />
     <Content Include="www\js\source\reactpages\components\popup\Popup.jsx" />
     <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\UserGuide.test.js.snap" />
-    <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\Popup.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\DataGrid.jsx" />
     <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\FormFilter.jsx" />
     <Content Include="www\js\source\reactpages\components\CollapsibleRow.jsx" />
