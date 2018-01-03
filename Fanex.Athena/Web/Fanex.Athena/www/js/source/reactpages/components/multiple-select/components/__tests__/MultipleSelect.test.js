@@ -130,10 +130,10 @@ describe('MultipleSelect ', () => {
             multipleSelect.onToggle();
 
             let result = callback({ showOptionList: false });
-            expect(result).toEqual({showOptionList: true});
+            expect(result).toEqual({ showOptionList: true });
 
             result = callback({ showOptionList: true });
-            expect(result).toEqual({showOptionList: false});
+            expect(result).toEqual({ showOptionList: false });
         })
     })
 
@@ -338,6 +338,48 @@ describe('MultipleSelect ', () => {
             expect(document.removeEventListener.mock.calls[0][0]).toBe('click');
 
             document.removeEventListener = originalRemoveEventListenerFunction;
+        })
+    })
+
+    describe('componentWillReceiveProps', () => {
+        it('dataSource is the same - do nothing', () => {
+            const nextProps = Object.assign({}, defaultProps);
+            const multipleSelect = new MultipleSelect(defaultProps);
+            multipleSelect.setState = jest.fn();
+
+            multipleSelect.componentWillReceiveProps(nextProps);
+
+            expect(multipleSelect.setState).not.toHaveBeenCalled();
+        })
+
+        it('dataSource is updated - setState should be called with correct parameter', () => {
+            const props = Object.assign({}, defaultProps, { dataSource: defaultDataSource });
+            const nextProps = Object.assign({}, props);
+            const multipleSelect = new MultipleSelect(defaultProps);
+            multipleSelect.setState = jest.fn();
+            multipleSelect._convertDataSourceToState = jest.fn(() => defaultDataSource);
+            multipleSelect._callBackToParent = jest.fn();
+
+            const expectedState = {
+                dataSource: defaultDataSource
+            }
+
+            multipleSelect.componentWillReceiveProps(nextProps);
+
+            expect(multipleSelect.setState).toHaveBeenCalledWith(expectedState);
+        })
+
+        it('dataSource is updated - _callBackToParent should be called with correct parameter', () => {
+            const props = Object.assign({}, defaultProps, { dataSource: defaultDataSource });
+            const nextProps = Object.assign({}, props);
+            const multipleSelect = new MultipleSelect(defaultProps);
+            multipleSelect.setState = jest.fn();
+            multipleSelect._convertDataSourceToState = jest.fn(() => defaultDataSource);
+            multipleSelect._callBackToParent = jest.fn();
+
+            multipleSelect.componentWillReceiveProps(nextProps);
+
+            expect(multipleSelect._callBackToParent).toHaveBeenCalledWith(null, defaultDataSource);
         })
     })
 })
