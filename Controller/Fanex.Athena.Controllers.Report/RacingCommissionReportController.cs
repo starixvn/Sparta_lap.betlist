@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Controllers.Report
 {
     using System;
+    using System.Web.Hosting;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
@@ -22,6 +23,8 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
     using Model.Core.ResultModel;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportRacingCommission)]
     public class RacingCommissionReportController : ReportBaseController
@@ -30,11 +33,17 @@ namespace Fanex.Athena.Controllers.Report
 
         private readonly IRacingCommissionDataAccess _racingCommissionDataAccess;
 
-        public RacingCommissionReportController() : this(null, null)
+        public RacingCommissionReportController() : this(null, null, null, null, null, null)
         {
         }
 
-        public RacingCommissionReportController(IBalanceUpDataAccess balanceUpDataAccess, IRacingCommissionDataAccess racingCommissionDataAccess)
+        public RacingCommissionReportController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IProductService productService,
+            IBalanceUpDataAccess balanceUpDataAccess, IRacingCommissionDataAccess racingCommissionDataAccess)
+            : base(languageService, sessionService, appSetting, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
             _racingCommissionDataAccess = racingCommissionDataAccess ?? new RacingCommissionDataAccess();
@@ -114,15 +123,20 @@ namespace Fanex.Athena.Controllers.Report
                 CustomerCommVisible = this.SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 
-            var templatePath = Server.MapPath("~/App_Data/Template/Reports/RacingCommission.xls");
+            var templatePath = HostingEnvironment.MapPath("~/App_Data/Template/Reports/RacingCommission.xls");
 
-            var racingWinLossExcel = new RacingCommissionExcel(
-                    templatePath,
-                    currencyConvert,
-                    showingOption,
-                    viewModel);
-            racingWinLossExcel.Export();
-            return new ExcelResult(racingWinLossExcel.Workbook, FileName);
+            var excel = CreateExcel(templatePath, viewModel, currencyConvert, showingOption);
+            excel.Export();
+            return new ExcelResult(excel.Workbook, FileName);
+        }
+
+        protected internal virtual RacingCommissionExcel CreateExcel(
+            string templatePath,
+            RacingCommissionViewModel viewModel,
+            ConvertingOption currencyConvert,
+            ShowingOption showingOption)
+        {
+            return new RacingCommissionExcel(templatePath, currencyConvert, showingOption, viewModel);
         }
     }
 }

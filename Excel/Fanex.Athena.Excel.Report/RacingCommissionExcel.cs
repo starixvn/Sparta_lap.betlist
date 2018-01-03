@@ -40,6 +40,11 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly ConvertingOption _convertingOption;
 
+        protected internal RacingCommissionExcel()
+            : base(string.Empty, 0)
+        {
+        }
+
         public RacingCommissionExcel(
                                      string templatePath,
                                      ConvertingOption convertingOption,
@@ -53,7 +58,7 @@ namespace Fanex.Athena.Excel.Report
             _total = viewModel.Total;
             IsMultiSheet = true;
         }
-        
+
         protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
