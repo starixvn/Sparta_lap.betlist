@@ -7,6 +7,7 @@ namespace Fanex.Athena.Controllers.Report.Result
     using System.Linq;
     using System.Net;
     using System.Web;
+    using System.Web.Hosting;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
@@ -27,6 +28,8 @@ namespace Fanex.Athena.Controllers.Report.Result
     using Fanex.Result.Core.Sportsbook.DTO;
     using Fanex.Result.Core.Voidbridge;
     using Resources;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
     using Service.Report.Result;
     using Service.Result.Interfaces;
 
@@ -44,14 +47,19 @@ namespace Fanex.Athena.Controllers.Report.Result
 
         #region Result-Page
 
-        public ResultReportController() : this(null, null, null)
+        public ResultReportController() : this(null, null, null, null, null, null, null)
         {
         }
 
         public ResultReportController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
             IResultService resultService,
             IRNGCasinoSingleWalletService rngCasinoSingleWalletService)
+            : base(languageService, sessionService, appSetting, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
             _resultService = resultService ?? new ResultService();
@@ -77,7 +85,7 @@ namespace Fanex.Athena.Controllers.Report.Result
             var productAccess = ProductService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
             ViewBag.IsAllowedRNG = productAccess.IsAllowBG || productAccess.IsAllowCS;
             ViewBag.IsAllowedKeno = productAccess.IsAllowKN;
-            ViewBag.IsAllowedLottery = productAccess.IsAllow(Model.Core.DataDomain.ProductTypes.Lottery);
+            ViewBag.IsAllowedLottery = productAccess.IsAllow(Product.LT);
             return View("~/Views/Report/Result/Main.cshtml", model);
         }
 
@@ -563,7 +571,7 @@ namespace Fanex.Athena.Controllers.Report.Result
             {
                 IsOutright = true,
                 ExcelTitle = ViewResources.Result,
-                ExcelTemplatePath = Server.MapPath(@"~/App_Data/Fanex.Result/"),
+                ExcelTemplatePath = HostingEnvironment.MapPath(@"~/App_Data/Fanex.Result/"),
                 LanguageCode = SessionService.UserSession.Language
             };
         }
@@ -575,7 +583,7 @@ namespace Fanex.Athena.Controllers.Report.Result
             {
                 SportType = sportType,
                 ExcelTitle = ViewResources.Result,
-                ExcelTemplatePath = Server.MapPath(@"~/App_Data/Fanex.Result/"),
+                ExcelTemplatePath = HostingEnvironment.MapPath(@"~/App_Data/Fanex.Result/"),
                 LanguageCode = SessionService.UserSession.Language,
                 VisibleDetailedLink = true,
                 VisibleFreeHeader = true,

@@ -68,8 +68,10 @@
 
         [TestCase(true, " External ID ", null)]
         [TestCase(true, "abcd", "abcd")]
+        [TestCase(true, "   ", null)]
         [TestCase(false, "  External ID or System ID ", null)]
         [TestCase(false, "External ID", "External ID")]
+        [TestCase(false, "   ", null)]
         public void Excel_WhenCall_AssignCorrectUsername(bool isFakeLicensee, string inputUserName, string expectedUserName)
         {
             using (var controller = CreateController())

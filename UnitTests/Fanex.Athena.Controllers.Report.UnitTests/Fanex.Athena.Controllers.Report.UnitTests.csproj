@@ -128,6 +128,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ResultReportControllerTest.cs" />
     <Compile Include="TurnoverReportControllerTest.cs" />
     <Compile Include="SettledMatchCountReportControllerTest.cs" />
     <Compile Include="RacingCommissionReportControllerTest.cs" />
@@ -195,6 +196,10 @@
     <ProjectReference Include="..\..\Resources\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
       <Project>{17B0022C-4902-4C61-908A-5DB81568DC3A}</Project>
       <Name>Fanex.Athena.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Casino\Fanex.Athena.Service.Casino.csproj">
+      <Project>{EFAB3719-796C-4B55-8873-D4573416F07A}</Project>
+      <Name>Fanex.Athena.Service.Casino</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
       <Project>{FCFD7434-085B-4C93-848F-E1CBCEDCC5A0}</Project>
