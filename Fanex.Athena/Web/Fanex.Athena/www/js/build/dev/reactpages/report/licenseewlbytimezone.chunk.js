@@ -7068,9 +7068,9 @@ var _reactDom = __webpack_require__(8);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _popup = __webpack_require__(727);
+var _Popup = __webpack_require__(727);
 
-var _popup2 = _interopRequireDefault(_popup);
+var _Popup2 = _interopRequireDefault(_Popup);
 
 var _propTypes = __webpack_require__(2);
 
@@ -7127,7 +7127,7 @@ var UserGuide = function (_React$Component) {
                 'div',
                 null,
                 _react2.default.createElement('i', { className: className, onClick: this.onClickHandler, title: title }),
-                _react2.default.createElement(_popup2.default, { width: '640px', height: '480px', isShow: isShow, content: content, title: contentTitle, onClose: this.onCloseHandler, isHtml: true })
+                _react2.default.createElement(_Popup2.default, { width: '640px', height: '480px', isShow: isShow, content: content, title: contentTitle, onClose: this.onCloseHandler, isHtml: true })
             );
         }
     }]);
