@@ -401,7 +401,8 @@ input[type="checkbox"].checkbox {
   .multiple-select-item label {
     margin-bottom: 0; }
 
-.button-group {
-  margin-left: 15px; }
+.form-group .button-group {
+  margin-left: 15px;
+  margin-top: 0; }
 
 /*# sourceMappingURL=index.css.map*/

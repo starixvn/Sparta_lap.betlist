@@ -1083,6 +1083,13 @@ a {
     .Select-menu-outer .Select-option.is-focused, .Select-menu-outer .Select-option.is-selected {
       background-color: #4c6375;
       color: #fff; }
+  .Select-arrow {
+    border-width: 4px 4px 2.5px;
+    border-top-color: #2c2c2c; }
+
+.is-open > .Select-control .Select-arrow {
+  border-bottom-color: #2c2c2c;
+  border-width: 0 4px 4px; }
 
 .btn:disabled, button:disabled {
   background-color: #DFDFDF !important;
