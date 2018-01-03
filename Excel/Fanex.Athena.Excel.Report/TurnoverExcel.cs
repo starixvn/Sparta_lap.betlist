@@ -55,6 +55,11 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly ConvertingOption _convertingOption;
 
+        protected internal TurnoverExcel()
+            : base(null, 0)
+        {
+        }
+
         public TurnoverExcel(
                              string templatePath,
                              ConvertingOption convertingOption,

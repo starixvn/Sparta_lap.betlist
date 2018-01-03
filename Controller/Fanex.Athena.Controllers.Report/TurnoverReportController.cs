@@ -8,18 +8,21 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web.Hosting;
     using System.Web.Mvc;
+    using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Core.MetaModel.Product;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
     using Service.Report.Interfaces;
 
@@ -28,9 +31,19 @@ namespace Fanex.Athena.Controllers.Report
     {
         private readonly ITurnoverService _turnoverService;
 
-        public TurnoverReportController()
+        public TurnoverReportController() : this(null, null, null, null, null)
         {
-            _turnoverService = new TurnoverService();
+        }
+
+        public TurnoverReportController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IProductService productService,
+            ITurnoverService turnoverService)
+            : base(languageService, sessionService, appSetting, productService)
+        {
+            _turnoverService = turnoverService ?? new TurnoverService();
         }
 
         [HttpGet]
@@ -55,7 +68,6 @@ namespace Fanex.Athena.Controllers.Report
 
             var model = new TurnoverViewModel
             {
-                ShowEmptyContent = true,
                 Param = metaModel,
                 ProductAccess = productAccess,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
@@ -99,7 +111,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             const string FileName = "Turnover";
 
-            var templatePath = Server.MapPath("~/App_Data/Template/Reports/Turnover.xls");
+            var templatePath = HostingEnvironment.MapPath("~/App_Data/Template/Reports/Turnover.xls");
 
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
 
@@ -122,11 +134,21 @@ namespace Fanex.Athena.Controllers.Report
                 viewModel.Param.BaseCurrency
                 : viewModel.CurrencyList.FirstOrDefault(a => a.Key == viewModel.Param.CurrencyId).Value;
 
-            var turnoverExcel = new TurnoverExcel(templatePath, convertingOption, showingOption, viewModel) { LicenseeId = licenseeId };
+            var excel = CreateExcel(templatePath, viewModel, convertingOption, showingOption, licenseeId);
 
-            turnoverExcel.Export();
+            excel.Export();
 
-            return new ExcelResult(turnoverExcel.Workbook, FileName);
+            return new ExcelResult(excel.Workbook, FileName);
+        }
+
+        protected internal virtual TurnoverExcel CreateExcel(
+            string templatePath, 
+            TurnoverViewModel viewModel, 
+            ConvertingOption convertingOption, 
+            ShowingOption showingOption, 
+            int licenseeId)
+        {
+            return new TurnoverExcel(templatePath, convertingOption, showingOption, viewModel) { LicenseeId = licenseeId };
         }
 
         private IDictionary<int, string> GetCurrenciesForTurnoverReport(int licenseeId)

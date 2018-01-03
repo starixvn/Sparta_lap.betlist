@@ -42,7 +42,8 @@ namespace Fanex.Athena.Controllers.Report
             ISessionService sessionService,
             IAppSettings appSetting,
             IProductService productService,
-            IBalanceUpDataAccess balanceUpDataAccess, IRacingCommissionDataAccess racingCommissionDataAccess)
+            IBalanceUpDataAccess balanceUpDataAccess, 
+            IRacingCommissionDataAccess racingCommissionDataAccess)
             : base(languageService, sessionService, appSetting, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
