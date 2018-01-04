@@ -946,6 +946,7 @@
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\__tests__\filterHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\DataGrid.method.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\DataGrid.render.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\FormFilter.redux.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\FormFilter.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\lib\reportExcel.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\lib\service.js" />
@@ -2679,8 +2680,9 @@
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\index.jsx" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\FormFilter.jsx" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\DataGrid.jsx" />
-    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\formFilter.test.js.snap" />
-    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\dataGrid.render.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\FormFilter.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\DataGrid.render.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\DataGrid.redux.test.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

@@ -24,7 +24,7 @@ describe('FormFilter ', () => {
     };
     const reportTitle = 'Report Title';
 
-    beforeEach(() => {
+    beforeAll(() => {
         LangHelper.getSingleResource = jest.fn((resource) => {
             if (resource === 'DateRangeExceedMsg') {
                 return 'DateRangeExceedMsg' + ' {0}';
@@ -33,9 +33,10 @@ describe('FormFilter ', () => {
             return resource
         });
         service.getReportTitle = jest.fn(() => reportTitle);
+        service.showErrorMsg = jest.fn();
     })
 
-    afterEach(() => {
+    afterAll(() => {
         jest.resetAllMocks();
     })
 
@@ -236,10 +237,27 @@ describe('FormFilter ', () => {
                 formFilter.submit({
                     preventDefault: jest.fn()
                 });
-
+                const actualParams = props.getGridData.mock.calls[0][0];
+                
                 expect(props.toggleLoader).toHaveBeenCalledWith(true);
-                expect(props.getGridData).toHaveBeenCalledWith(params);
+                expect(props.getGridData).toHaveBeenCalled();
+                expect(actualParams).toEqual(params);
                 expect(props.setParams).toHaveBeenCalledWith([params.data]);
+            })
+
+            it('get grid data - alert error when getting data failed', () => {
+                const formFilter = new FormFilter({ ...props, params:[] });
+                const params = { data: {} };
+                formFilter._getParams = jest.fn((level) => { return params; });
+
+                formFilter.submit({
+                    preventDefault: jest.fn()
+                });
+                const errorHandler = props.getGridData.mock.calls[0][1];
+                errorHandler();
+                
+                expect(service.showErrorMsg).toHaveBeenCalled();
+                expect(props.toggleLoader).toHaveBeenCalledWith(false);
             })
 
             it('_getParams - xsrfToken is null - retun null', () => {
@@ -326,12 +344,30 @@ describe('FormFilter ', () => {
                 const filterProps = { ...props, gridData: {} };
                 const formFilter = new FormFilter(filterProps);
                 formFilter._getParams = jest.fn((level) => { return null; });
+                formFilter._doExportExcel = jest.fn();
+                formFilter.exportExcel({
+                    preventDefault: jest.fn()
+                });
+
+                expect(formFilter._doExportExcel).not.toHaveBeenCalled();
+            })
+
+            it('get data failed - export data with correct parameter', () => {
+                const promise = Promise.reject('error');
+                const params = { data: 1 };
+
+                const filterProps = { ...props, xsrfToken: 'token', gridData: {}, exportExcel: jest.fn(() => promise) };
+                const formFilter = new FormFilter(filterProps);
+                formFilter._getParams = jest.fn((level) => { return params; });
 
                 formFilter.exportExcel({
                     preventDefault: jest.fn()
                 });
 
-                expect(props.toggleLoader).not.toHaveBeenCalled();
+                Promise.reject().catch(() => {
+                    expect(service.showErrorMsg).toHaveBeenCalled();
+                    expect(props.toggleLoader).toHaveBeenCalledWith(false);
+                });             
             })
 
             it('level 0 - export data with correct parameter', () => {

@@ -5,7 +5,7 @@ import * as actions from '../dataHandlerAction'
 import * as types from '../types'
 
 import Site from '../../../../lib/site'
-import axios from 'axios'
+import Report from '../../../../lib/report'
 
 jest.mock('axios')
 jest.mock('../../../../lib/site')
@@ -27,16 +27,15 @@ describe('filterHandlerAction', () => {
         xsrfToken: "token"
     }
 
-    const expectedHeader = {
-        'X-Requested-With': 'XMLHttpRequest',
-        '__RequestVerificationToken': params.xsrfToken
+    const fakeReportLib = {
+        then: (func) => { func(fakeResponse); return {catch: (func) => { func('Error'); }}; }
     }
-    const expectedUrl = "api/ExchangeWinLossReport/Index";
-    const expectedData = params.data;
+    const errorHandler = jest.fn();
 
-    beforeAll(() => {
-        const promise = Promise.resolve(fakeResponse);
-        axios.post = jest.fn(() => promise);
+    const expectedUrl = "api/ExchangeWinLossReport/Index";
+
+    beforeAll(() => {        
+        Report.fetchGridData = jest.fn(() => fakeReportLib);
         Site.resolveClientUrl = jest.fn((url) => url);
     })
 
@@ -50,30 +49,23 @@ describe('filterHandlerAction', () => {
                 { type: types.SET_GRID_DATA, data: { level: params.data.Level, data: fakeResponse.data } }
             ];
             const store = mockStore({ gridData: Object.assign({},  { level: params.data.Level, data: fakeResponse.data }) });
-            store.dispatch(actions.getGridData(params));
+            store.dispatch(actions.getGridData(params, errorHandler));
 
-            Promise.resolve().then(() => {
-                expect(store.getActions()).toEqual(expectedActions);
-            })
+            expect(store.getActions()).toEqual(expectedActions);
         })
 
-        it('axios.post should be called with correct parameters', () => {                       
+        it('call error handler function if failed', () => {                      
             const store = mockStore({ gridData: Object.assign({}, { level: params.data.Level, data: fakeResponse.data }) });
-            store.dispatch(actions.getGridData(params));
+            store.dispatch(actions.getGridData(params, errorHandler));
 
-            Promise.resolve().then(() => {
-                expect(axios.post).toHaveBeenCalledWith(expectedUrl, expectedData, { headers: expectedHeader });
-            })
+            expect(errorHandler).toHaveBeenCalled();       
         })
     })
 
-    it('exportExcel - axios.post should be called with correct parameters', () => {
-        const store = mockStore({ gridData: Object.assign({}, fakeResponse.data) });
-        store.dispatch(actions.exportExcel(params));
+    it('exportExcel - Report.fetchGridData should be called with correct parameters', () => {
+        actions.exportExcel(params);
 
-        Promise.resolve().then(() => {
-            expect(axios.post).toHaveBeenCalledWith(expectedUrl, expectedData, { headers: expectedHeader });
-        })
+        expect(Report.fetchGridData).toHaveBeenCalledWith(expectedUrl, params);
     })
 
     it('setGridData - should create an correct action', () => {

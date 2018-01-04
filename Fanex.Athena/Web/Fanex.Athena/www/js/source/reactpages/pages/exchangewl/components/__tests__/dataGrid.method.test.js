@@ -325,8 +325,32 @@ describe('DataGrid methods ', () => {
             dataGrid._getDrillDownParams = jest.fn(() => { return params; });
 
             dataGrid._drillDownData(level);
+            const actualParams = props.getGridData.mock.calls[0][0];
 
-            expect(props.getGridData).toHaveBeenCalledWith(params);
+            expect(props.getGridData).toHaveBeenCalled();
+            expect(actualParams).toEqual(params);
+        })
+
+        it('drill down to next level - alert error when getting data failed', () => {
+            const level = 1;           
+            const props = {
+                gridData: { level: level - 1, data: { index: 1 } },
+                toggleLoader: jest.fn(),
+                setLevelGridData: jest.fn(),
+                getGridData: jest.fn()
+            };
+            service.showErrorMsg = jest.fn();
+
+            const dataGrid = new DataGrid(props);
+            const params = { level: level };
+            dataGrid._getDrillDownParams = jest.fn(() => { return params; });
+
+            dataGrid._drillDownData(level);
+            const errorHandler = props.getGridData.mock.calls[0][1];
+            errorHandler();
+
+            expect(service.showErrorMsg).toHaveBeenCalled();
+            expect(props.toggleLoader).toHaveBeenCalledWith(false);
         })
     })
 });

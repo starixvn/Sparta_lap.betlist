@@ -9,6 +9,7 @@ const reducerList = [
     { name: 'xsrfToken', actionType: types.GET_XSRF_TOKEN, expected: 'xsrfToken' },
     { name: 'licenseeId', actionType: types.GET_LICENSEE, expected: 1 },
     { name: 'isAllowedCustomerComm', actionType: types.GET_ISALLOWED_CUSTOMERCOMM, expected: false },
+    { name: 'params', actionType: types.SET_PARAM, expected: [{ value: 1 }] }
 ]
 
 describe('filterHandlerReducer ', () => {
