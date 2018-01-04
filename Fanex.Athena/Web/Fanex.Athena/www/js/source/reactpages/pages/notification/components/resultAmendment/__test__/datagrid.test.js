@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import renderer from 'react-test-renderer';
-import { DataGrid } from '../datagrid';
+import { DataGrid } from '../DataGrid';
 import Service from '../../../lib/resultAmendmentService';
 import LangHelper from '../../../../../lib/langHelper';
 import Excel from '../../../../../lib/excel';

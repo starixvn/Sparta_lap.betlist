@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -939,10 +939,14 @@
     <Content Include="www\js\source\reactpages\pages\notification\actions\general\__tests__\filterHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\notification\actions\resultAmendment\__tests__\dataHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\notification\actions\resultAmendment\__tests__\filterHandlerAction.test.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\components\general\__test__\datagrid.test.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\components\general\__test__\formFilter.test.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\datagrid.test.js" />
-    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\formFilter.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\general\__test__\DataGrid.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\general\__test__\DataGrid.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\general\__test__\FormFilter.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\general\__test__\FormFilter.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\DataGrid.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\DataGrid.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\FormFilter.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\FormFilter.test.js" />
     <Content Include="www\js\source\reactpages\pages\notification\lib\generalService.js" />
     <Content Include="www\js\source\reactpages\pages\notification\lib\__test__\generalService.test.js" />
     <Content Include="www\js\source\reactpages\pages\notification\lib\__test__\resultAmendmentService.test.js" />
@@ -2630,11 +2634,11 @@
     <Content Include="www\js\source\reactpages\components\popup\Popup.jsx" />
     <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\UserGuide.test.js.snap" />
     <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\Popup.test.js.snap" />
-    <Content Include="www\js\source\reactpages\pages\notification\components\general\datagrid.jsx" />
-    <Content Include="www\js\source\reactpages\pages\notification\components\general\formFilter.jsx" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\general\DataGrid.jsx" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\general\FormFilter.jsx" />
     <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\index.jsx" />
-    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\datagrid.jsx" />
-    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\formFilter.jsx" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\DataGrid.jsx" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\FormFilter.jsx" />
     <Content Include="www\js\source\reactpages\components\CollapsibleRow.jsx" />
     <Content Include="www\js\source\reactpages\pages\notification\components\AppContainer.jsx" />
     <Content Include="www\js\source\reactpages\pages\notification\components\index.jsx" />

@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
-import DataGrid from './datagrid'
-import FormFilter from './formFilter'
+import DataGrid from './DataGrid'
+import FormFilter from './FormFilter'
 
 export default class ResultAmendment extends Component {
   constructor(props) {

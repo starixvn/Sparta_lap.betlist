@@ -14,7 +14,7 @@ describe('connect ', () => {
             mapDispatchToProps = mapDispatchToPropsFunc;
             return connectMock;
         });
-        require('../datagrid').default;
+        require('../DataGrid').default;
     });
 
     it('props should be mapped correctly', () => {
@@ -52,7 +52,7 @@ describe('connect ', () => {
     })
 
     it('returned function of connect should be called with correct parameter', () => {
-        const DataGrid = require('../datagrid').DataGrid;
+        const DataGrid = require('../DataGrid').DataGrid;
 
         expect(connectMock).toHaveBeenCalledWith(DataGrid);
     })

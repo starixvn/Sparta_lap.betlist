@@ -14,7 +14,7 @@ describe('connect ', () => {
             mapDispatchToProps = mapDispatchToPropsFunc;
             return connectMock;
         });
-        require('../formFilter').default;
+        require('../FormFilter').default;
     });
 
     it('props should be mapped correctly', () => {
@@ -50,7 +50,7 @@ describe('connect ', () => {
     })
 
     it('returned function of connect should be called with correct parameter', () => {
-        const FormFilter = require('../formFilter').FormFilter;
+        const FormFilter = require('../FormFilter').FormFilter;
 
         expect(connectMock).toHaveBeenCalledWith(FormFilter);
     })
