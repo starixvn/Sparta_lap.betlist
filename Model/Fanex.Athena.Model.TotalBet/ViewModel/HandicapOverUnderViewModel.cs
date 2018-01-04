@@ -17,7 +17,7 @@ namespace Fanex.Athena.Model.TotalBet.ViewModel
     {
         public HandicapOverUnderMetaModel Param { get; set; }
 
-        public IList<HandicapOverUnder> MainData { get; set; }
+        public IEnumerable<HandicapOverUnder> MainData { get; set; }
 
         public HandicapOverUnder TotalData { get; set; }
     }

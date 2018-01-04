@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.TotalBet.Interfaces;
@@ -93,10 +94,7 @@
 
             _firstGoalLastGoalDataAccess
                 .GetFirstGoalLastGoalDataList(Arg.Any<FirstGoalLastGoalMetaModel>())
-                .Returns(new ReportResultModel<FirstGoalLastGoal>
-                {
-                    DataList = new List<FirstGoalLastGoal> { new FirstGoalLastGoal() }
-                });
+                .Returns(new ReportResultModel<FirstGoalLastGoal> { DataList = new List<FirstGoalLastGoal> { new FirstGoalLastGoal() } });
         }
 
         private FirstGoalLastGoalTotalBetController CreateController()
