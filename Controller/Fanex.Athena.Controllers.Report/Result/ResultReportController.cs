@@ -18,7 +18,6 @@ namespace Fanex.Athena.Controllers.Report.Result
     using Fanex.Athena.Service.Casino;
     using Fanex.Athena.Service.Casino.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
-    using Fanex.Result.Core;
     using Fanex.Result.Core.AllBetCasino;
     using Fanex.Result.Core.Base;
     using Fanex.Result.Core.GlobalGaming;
@@ -38,8 +37,13 @@ namespace Fanex.Athena.Controllers.Report.Result
         private const string ResultPageGetNormalSportsName = "ResultPage_GetNormalSports";
         private const int ParlayBetType = 9;
         private const int SystemParlayBetType = 29;
+
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
+
+        private readonly IParserService _microGamingParserService;
+
         private readonly IResultService _resultService;
+
         private readonly IRNGCasinoSingleWalletService _rngCasinoSingleWalletService;
 
         private string _htmlResult;
@@ -47,21 +51,25 @@ namespace Fanex.Athena.Controllers.Report.Result
 
         #region Result-Page
 
-        public ResultReportController() : this(null, null, null, null, null, null, null)
+        public ResultReportController() : this(null, null, null, null, null, null, null, null)
         {
         }
 
+#pragma warning disable S107 // Methods should not have too many parameters
         public ResultReportController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
+            IParserService microGamingParserService,
             IResultService resultService,
             IRNGCasinoSingleWalletService rngCasinoSingleWalletService)
+#pragma warning restore S107 // Methods should not have too many parameters
             : base(languageService, sessionService, appSetting, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
+            _microGamingParserService = microGamingParserService ?? ParserService.Instance;
             _resultService = resultService ?? new ResultService();
             _rngCasinoSingleWalletService = rngCasinoSingleWalletService ?? new RngCasinoSingleWalletService();
         }
@@ -182,7 +190,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                 return View("~/Views/Report/Result/Popup/Main.cshtml");
             }
 
-            return this.Redirect(Util.RootPath + "Utility/Error?err=400");
+            return Redirect("~/Utility/Error?err=400");
         }
 
         [HttpGet]
@@ -190,7 +198,7 @@ namespace Fanex.Athena.Controllers.Report.Result
         {
             if (ModelState.IsValid)
             {
-                ViewBag.Data = ParserService.Instance.Parser(new MicroGaming
+                ViewBag.Data = _microGamingParserService.Parser(new MicroGaming
                 {
                     CustId = custId,
                     SiteName = SessionService.LicenseeSession.LicenseeName,
@@ -199,7 +207,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                 return View("~/Views/Report/Result/Popup/Microgaming.cshtml");
             }
 
-            return this.Redirect(Util.RootPath + "Utility/Error?err=400");
+            return Redirect("~/Utility/Error?err=400");
         }
 
         [HttpPost]
@@ -253,18 +261,18 @@ namespace Fanex.Athena.Controllers.Report.Result
             var detailedData = _resultService.GetSportsbookGameDetail(matchId);
             if (detailedData != null && detailedData.MatchId > 0)
             {
-                ViewBag.Data = ResultEngine.HtmlGameDetailParser(
+                ViewBag.Data = _resultService.HtmlGameDetailParser(
                 detailedData,
                 new ResultSetting
                 {
-                    SportType = (Fanex.Result.Core.Base.SportType)sportType,
+                    SportType = (SportType)sportType,
                     LanguageCode = SessionService.UserSession.Language
                 });
 
                 return View("~/Views/Report/Result/Popup/Main.cshtml");
             }
 
-            return this.Redirect(Util.RootPath + "Utility/Error?err=400");
+            return this.Redirect("~/Utility/Error?err=400");
         }
 
         #endregion PopUpPage
@@ -327,7 +335,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                 if (metalModel.RefNo != null)
                 {
                     var parlayData = _resultService.GetPopUpParlayMatch(metalModel.RefNo.Value);
-                    _htmlResult = ResultEngine.HtmlParser(parlayData, setting);
+                    _htmlResult = _resultService.HtmlParser(parlayData, setting);
                 }
             }
             else
@@ -363,7 +371,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                             metalModel.BetId);
                         if (dataRc != null)
                         {
-                            this._htmlResult = ResultEngine.HtmlParser(dataRc, setting);
+                            this._htmlResult = _resultService.HtmlParser(dataRc, setting);
                         }
                     }
 
@@ -377,7 +385,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                         metalModel.BetId);
                     if (dataLc != null)
                     {
-                        this._htmlResult = ResultEngine.HtmlParser(dataLc, setting);
+                        this._htmlResult = _resultService.HtmlParser(dataLc, setting);
                     }
 
                     break;
@@ -386,7 +394,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                     var dataNg = _resultService.GetPopUpNumberGameMatchs(metalModel.MatchId);
                     if (dataNg != null)
                     {
-                        _htmlResult = ResultEngine.HtmlParser(dataNg, setting);
+                        _htmlResult = _resultService.HtmlParser(dataNg, setting);
                     }
 
                     break;
@@ -395,7 +403,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                     var data = _resultService.GetPopUpMatch(metalModel.MatchId, metalModel.Bettype, metalModel.BetId);
                     if (data != null)
                     {
-                        _htmlResult = ResultEngine.HtmlParser(data, setting);
+                        _htmlResult = _resultService.HtmlParser(data, setting);
                     }
 
                     break;
@@ -465,10 +473,6 @@ namespace Fanex.Athena.Controllers.Report.Result
             return sports.Any() ? sports[0].SportId : 0;
         }
 
-        /// <summary>
-        /// Get out right data.
-        /// </summary>
-        /// <param name="metalModel">The metal model.</param>
         private void GetOutRightData(ResultMetalModel metalModel)
         {
             var setting = GetOutRightResultSetting();
@@ -483,25 +487,20 @@ namespace Fanex.Athena.Controllers.Report.Result
                 {
                     if (metalModel.IsExportExcel)
                     {
-                        this._excelStream = ResultEngine.ExcelParser(data, setting);
+                        this._excelStream = _resultService.ExcelParser(data, setting);
                     }
                     else
                     {
-                        this._htmlResult = ResultEngine.HtmlParser(data, setting);
+                        this._htmlResult = _resultService.HtmlParser(data, setting);
                     }
                 }
             }
         }
 
-        [SuppressMessage(
-           "StyleCop.CSharp.StylecopPlus.Rules",
-           "SP2101:MethodMustNotContainMoreLinesThan",
-           Justification = "Reviewed. Suppression is OK here.")]
-        [SuppressMessage(
-            "Sonar Code Smell",
-            "S1541:Methods and properties should not be too complex",
-            Justification = "OK")]
+#pragma warning disable S1541 // Methods and properties should not be too complex
+
         private void GetNormalData(ResultMetalModel metalModel)
+#pragma warning restore S1541 // Methods and properties should not be too complex
         {
             var setting = GetNormalResultSetting(metalModel);
             switch (setting.SportType)
@@ -541,11 +540,11 @@ namespace Fanex.Athena.Controllers.Report.Result
             {
                 if (isExportExcel)
                 {
-                    _excelStream = ResultEngine.ExcelParser(data, setting);
+                    _excelStream = _resultService.ExcelParser(data, setting);
                 }
                 else
                 {
-                    _htmlResult = ResultEngine.HtmlParser(data, setting);
+                    _htmlResult = _resultService.HtmlParser(data, setting);
                 }
             }
         }
@@ -555,13 +554,13 @@ namespace Fanex.Athena.Controllers.Report.Result
             if (metalModel.IsOutRight)
             {
                 var setting = GetOutRightResultSetting();
-                return ResultEngine.ExcelParser(new List<Outright>(), setting);
+                return _resultService.ExcelParser(new List<Outright>(), setting);
             }
             else
             {
                 metalModel.SportId = (int)SportType.Soccer;
                 var setting = GetNormalResultSetting(metalModel);
-                return ResultEngine.ExcelParser(new List<Sportsbook>(), setting);
+                return _resultService.ExcelParser(new List<Sportsbook>(), setting);
             }
         }
 
