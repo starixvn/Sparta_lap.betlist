@@ -1,44 +1,27 @@
 ﻿namespace Fanex.Athena.DataAccess.TotalBet.UnitTests
 {
-    using System.Data;
     using System.Linq;
-    using Data;
+    using Core.UnitTests.TestHelpers;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
 
-    [TestFixture]
-    public class OddEvenDrawNoDrawDataAccessTest
+    public class OddEvenDrawNoDrawDataAccessTest : BaseDataAccessHelperTest<OddEvenDrawNoDrawDataAccess>
     {
-        private IObjectDb _objectDb;
-        private OddEvenDrawNoDrawDataAccess _dataAccess;
-        private IDataReader _reader;
-
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<OddEvenDrawNoDrawDataAccess>();
-            _reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
-        }
+            base.FixtureSetUp();
 
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-            _reader = null;
+            DataAccess.GetObjectDb(Arg.Is("Lrf_TotalBets_Sel25")).Returns(ObjectDb);
         }
 
         [Test]
         public void GetOddEventDrawNoDrawDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_TotalBets_Sel25")).Returns(_objectDb);
             var metaModel = new OddEvenDrawNoDrawMetaModel();
-            var totalData = new OddEvenDrawNoDraw();
             var expected = new OddEvenDrawNoDraw
             {
                 ShowTime = "ShowTimeTest",
@@ -57,66 +40,112 @@
                 OddEvenFirstHalf = 8m,
                 OneXTwoFirstHalf = 6m,
             };
+            var expectedTotal = new OddEvenDrawNoDraw
+            {
+                OddEvenFt = 12m,
+                OneXTwoFt = 6m,
+                DrawNoDraw = 12m,
+                OddEvenFirstHalf = 12m,
+                OneXTwoFirstHalf = 6m,
+            };
             ConfigureReaderForGetOddEventDrawNoDrawDataListMethod(expected);
+            Reader.Read().Returns(true, false, true, false);
+            Reader.NextResult().Returns(true);
 
             // Action
-            var result = _dataAccess.GetOddEvenDrawNoDrawDataList(metaModel);
-            var firstItem = result.DataList.First();
+            var result = DataAccess.GetOddEvenDrawNoDrawDataList(metaModel);
 
             // Assert
-            Assert.That(firstItem.ShowTime, Is.EqualTo(expected.ShowTime));
-            Assert.That(firstItem.LeagueId, Is.EqualTo(expected.LeagueId));
-            Assert.That(firstItem.MatchId, Is.EqualTo(expected.MatchId));
-            Assert.That(firstItem.HomeId, Is.EqualTo(expected.HomeId));
-            Assert.That(firstItem.AwayId, Is.EqualTo(expected.AwayId));
-            Assert.That(firstItem.Bettype, Is.EqualTo(expected.Bettype));
-            Assert.That(firstItem.LiveHomeScore, Is.EqualTo(expected.LiveHomeScore));
-            Assert.That(firstItem.LiveAwayScore, Is.EqualTo(expected.LiveAwayScore));
-            Assert.That(firstItem.LiveIndicator, Is.EqualTo(expected.LiveIndicator));
-            Assert.That(firstItem.BetCountOddEven, Is.EqualTo(expected.BetCountOddEven));
-            Assert.That(firstItem.BetCountOneXTwo, Is.EqualTo(expected.BetCountOneXTwo));
-            Assert.That(firstItem.BetCountDrawNoDraw, Is.EqualTo(expected.BetCountDrawNoDraw));
-            Assert.That(firstItem.BetCountOddEven1StHalf, Is.EqualTo(expected.BetCountOddEven1StHalf));
-            Assert.That(firstItem.BetCountOneXTow1StHalf, Is.EqualTo(expected.BetCountOneXTow1StHalf));
-            Assert.That(firstItem.OddEvenFt, Is.EqualTo(expected.OddEvenFt));
-            Assert.That(firstItem.OneXTwoFt, Is.EqualTo(expected.OneXTwoFt));
-            Assert.That(firstItem.DrawNoDraw, Is.EqualTo(expected.DrawNoDraw));
-            Assert.That(firstItem.OddEvenFirstHalf, Is.EqualTo(expected.OddEvenFirstHalf));
-            Assert.That(firstItem.OneXTwoFirstHalf, Is.EqualTo(expected.OneXTwoFirstHalf));
+            Assert.Multiple(() =>
+            {
+                AssertMainData(result.DataList.ElementAt(0), expected);
+                AssertScoreData(result.TotalData, expectedTotal);
+            });
+        }
+
+        [Test]
+        public void GetOddEventDrawNoDrawDataList_NoDataReturned_ReturnEmptyData()
+        {
+            // Arrange
+            var metaModel = new OddEvenDrawNoDrawMetaModel();
+            var expectedTotal = new OddEvenDrawNoDraw();
+
+            Reader.Read().Returns(false);
+            Reader.NextResult().Returns(false);
+
+            // Action
+            var result = DataAccess.GetOddEvenDrawNoDrawDataList(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.DataList, Is.Empty);
+                AssertScoreData(result.TotalData, expectedTotal);
+            });
+        }
+
+        private void AssertMainData(OddEvenDrawNoDraw actual, OddEvenDrawNoDraw expected)
+        {
+            Assert.That(actual.ShowTime, Is.EqualTo(expected.ShowTime));
+            Assert.That(actual.LeagueId, Is.EqualTo(expected.LeagueId));
+            Assert.That(actual.MatchId, Is.EqualTo(expected.MatchId));
+            Assert.That(actual.HomeId, Is.EqualTo(expected.HomeId));
+            Assert.That(actual.AwayId, Is.EqualTo(expected.AwayId));
+            Assert.That(actual.Bettype, Is.EqualTo(expected.Bettype));
+            Assert.That(actual.LiveHomeScore, Is.EqualTo(expected.LiveHomeScore));
+            Assert.That(actual.LiveAwayScore, Is.EqualTo(expected.LiveAwayScore));
+            Assert.That(actual.LiveIndicator, Is.EqualTo(expected.LiveIndicator));
+            Assert.That(actual.BetCountOddEven, Is.EqualTo(expected.BetCountOddEven));
+            Assert.That(actual.BetCountOneXTwo, Is.EqualTo(expected.BetCountOneXTwo));
+            Assert.That(actual.BetCountDrawNoDraw, Is.EqualTo(expected.BetCountDrawNoDraw));
+            Assert.That(actual.BetCountOddEven1StHalf, Is.EqualTo(expected.BetCountOddEven1StHalf));
+            Assert.That(actual.BetCountOneXTow1StHalf, Is.EqualTo(expected.BetCountOneXTow1StHalf));
+
+            AssertScoreData(actual, expected);
+        }
+
+        private void AssertScoreData(OddEvenDrawNoDraw actual, OddEvenDrawNoDraw expected)
+        {
+            Assert.That(actual.OddEvenFt, Is.EqualTo(expected.OddEvenFt));
+            Assert.That(actual.OneXTwoFt, Is.EqualTo(expected.OneXTwoFt));
+            Assert.That(actual.DrawNoDraw, Is.EqualTo(expected.DrawNoDraw));
+            Assert.That(actual.OddEvenFirstHalf, Is.EqualTo(expected.OddEvenFirstHalf));
+            Assert.That(actual.OneXTwoFirstHalf, Is.EqualTo(expected.OneXTwoFirstHalf));
         }
 
         private void ConfigureReaderForGetOddEventDrawNoDrawDataListMethod(OddEvenDrawNoDraw expected)
         {
-            _reader.Read().Returns(true, false);
+            MapReaderData(new
+            {
+                showtime = expected.ShowTime,
+                leagueid = expected.LeagueId,
+                matchid = expected.MatchId,
+                homeID = expected.HomeId,
+                awayID = expected.AwayId,
+                bettype = expected.Bettype,
+                livehomescore = expected.LiveHomeScore,
+                liveawayscore = expected.LiveAwayScore,
+                liveindicator = expected.LiveIndicator,
 
-            _reader["showtime"].Returns(expected.ShowTime);
-            _reader["leagueid"].Returns(expected.LeagueId);
-            _reader["matchid"].Returns(expected.MatchId);
-            _reader["homeID"].Returns(expected.HomeId);
-            _reader["awayID"].Returns(expected.AwayId);
-            _reader["bettype"].Returns(expected.Bettype);
-            _reader["livehomescore"].Returns(expected.LiveHomeScore);
-            _reader["liveawayscore"].Returns(expected.LiveAwayScore);
-            _reader["liveindicator"].Returns(expected.LiveIndicator);
+                betcount_oe = expected.BetCountOddEven,
+                betcount_1x2 = expected.BetCountOneXTwo,
+                betcount_dnd = expected.BetCountDrawNoDraw,
+                betcount_oe_1st = expected.BetCountOddEven1StHalf,
+                betcount_1x2_1st = expected.BetCountOneXTow1StHalf,
 
-            _reader["betcount_oe"].Returns(expected.BetCountOddEven);
-            _reader["betcount_1x2"].Returns(expected.BetCountOneXTwo);
-            _reader["betcount_dnd"].Returns(expected.BetCountDrawNoDraw);
-            _reader["betcount_oe_1st"].Returns(expected.BetCountOddEven1StHalf);
-            _reader["betcount_1x2_1st"].Returns(expected.BetCountOneXTow1StHalf);
-
-            _reader["home_odds_OE"].Returns(10);
-            _reader["away_odds_OE"].Returns(2);
-            _reader["odds_1"].Returns(1);
-            _reader["odds_x"].Returns(2);
-            _reader["odds_2"].Returns(3);
-            _reader["home_odds_DND"].Returns(10);
-            _reader["away_odds_DND"].Returns(2);
-            _reader["home_odds_OE_1st"].Returns(10);
-            _reader["away_odds_OE_1st"].Returns(2);
-            _reader["odds_1_1st"].Returns(1);
-            _reader["odds_x_1st"].Returns(2);
-            _reader["odds_2_1st"].Returns(3);
+                home_odds_OE = 10,
+                away_odds_OE = 2,
+                odds_1 = 1,
+                odds_x = 2,
+                odds_2 = 3,
+                home_odds_DND = 10,
+                away_odds_DND = 2,
+                home_odds_OE_1st = 10,
+                away_odds_OE_1st = 2,
+                odds_1_1st = 1,
+                odds_x_1st = 2,
+                odds_2_1st = 3,
+            });
         }
     }
 }

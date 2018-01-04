@@ -1,44 +1,27 @@
 ﻿namespace Fanex.Athena.DataAccess.TotalBet.UnitTests
 {
-    using System.Data;
     using System.Linq;
-    using Data;
+    using Core.UnitTests.TestHelpers;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
 
-    [TestFixture]
-    public class TotalGoalDataAccessTest
+    public class TotalGoalDataAccessTest : BaseDataAccessHelperTest<TotalGoalDataAccess>
     {
-        private IObjectDb _objectDb;
-        private TotalGoalDataAccess _dataAccess;
-        private IDataReader _reader;
-
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<TotalGoalDataAccess>();
-            _reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
-        }
+            base.FixtureSetUp();
 
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-            _reader = null;
+            DataAccess.GetObjectDb(Arg.Is("Lrf_TotalBets_Sel6")).Returns(ObjectDb);
         }
 
         [Test]
         public void GetTotalGoalDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_TotalBets_Sel6")).Returns(_objectDb);
             var metaModel = new TotalGoalMetaModel();
-            var totalData = new TotalGoal();
             var expected = new TotalGoal
             {
                 MatchId = 1,
@@ -52,41 +35,85 @@
                 TotalFirstHalf23 = 20.5m,
                 Total4Over = 21m
             };
+            var expectedTotal = new TotalGoal
+            {
+                Total01 = expected.Total01 + expected.Total23 + expected.Total46 + expected.Total7Over,
+                TotalFirstHalf01 = expected.TotalFirstHalf01 + expected.TotalFirstHalf23 + expected.Total4Over
+            };
             ConfigureReaderForGetTotalGoalDataListMethod(expected);
+            Reader.Read().Returns(true, false, true, false);
+            Reader.NextResult().Returns(true);
 
             // Action
-            var resultInfo = _dataAccess.GetTotalGoalDataList(metaModel);
-            var firstItem = resultInfo.DataList.First();
+            var result = DataAccess.GetTotalGoalDataList(metaModel);
 
             // Assert
-            Assert.That(firstItem.MatchId, Is.EqualTo(expected.MatchId));
-            Assert.That(firstItem.HomeId, Is.EqualTo(expected.HomeId));
-            Assert.That(firstItem.AwayId, Is.EqualTo(expected.AwayId));
-            Assert.That(firstItem.IsNeutral, Is.EqualTo(expected.IsNeutral));
-            Assert.That(firstItem.Total01, Is.EqualTo(expected.Total01));
-            Assert.That(firstItem.Total23, Is.EqualTo(expected.Total23));
-            Assert.That(firstItem.Total46, Is.EqualTo(expected.Total46));
-            Assert.That(firstItem.Total7Over, Is.EqualTo(expected.Total7Over));
-            Assert.That(firstItem.TotalFirstHalf01, Is.EqualTo(expected.TotalFirstHalf01));
-            Assert.That(firstItem.TotalFirstHalf23, Is.EqualTo(expected.TotalFirstHalf23));
-            Assert.That(firstItem.Total4Over, Is.EqualTo(expected.Total4Over));
+            Assert.Multiple(() =>
+            {
+                AssertMainData(result.DataList.ElementAt(0), expected);
+                AssertTotalData(result.TotalData, expectedTotal);
+            });
+        }
+
+        [Test]
+        public void GetTotalGoalDataList_NoDataReturned_ReturnEmptyData()
+        {
+            // Arrange
+            var metaModel = new TotalGoalMetaModel();
+            var expectedTotal = new TotalGoal();
+
+            Reader.Read().Returns(false);
+            Reader.NextResult().Returns(false);
+
+            // Action
+            var result = DataAccess.GetTotalGoalDataList(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.DataList, Is.Empty);
+                AssertTotalData(result.TotalData, expectedTotal);
+            });
+        }
+
+        private void AssertMainData(TotalGoal actual, TotalGoal expected)
+        {
+            Assert.That(actual.MatchId, Is.EqualTo(expected.MatchId));
+            Assert.That(actual.HomeId, Is.EqualTo(expected.HomeId));
+            Assert.That(actual.AwayId, Is.EqualTo(expected.AwayId));
+            Assert.That(actual.IsNeutral, Is.EqualTo(expected.IsNeutral));
+
+            Assert.That(actual.Total23, Is.EqualTo(expected.Total23));
+            Assert.That(actual.Total46, Is.EqualTo(expected.Total46));
+            Assert.That(actual.Total7Over, Is.EqualTo(expected.Total7Over));
+            Assert.That(actual.TotalFirstHalf23, Is.EqualTo(expected.TotalFirstHalf23));
+            Assert.That(actual.Total4Over, Is.EqualTo(expected.Total4Over));
+
+            AssertTotalData(actual, expected);
+        }
+
+        private void AssertTotalData(TotalGoal actual, TotalGoal expected)
+        {
+            Assert.That(actual.Total01, Is.EqualTo(expected.Total01));
+            Assert.That(actual.TotalFirstHalf01, Is.EqualTo(expected.TotalFirstHalf01));
         }
 
         private void ConfigureReaderForGetTotalGoalDataListMethod(TotalGoal expected)
         {
-            _reader.Read().Returns(true, false);
-
-            _reader["matchid"].Returns(expected.MatchId);
-            _reader["homeID"].Returns(expected.HomeId);
-            _reader["awayID"].Returns(expected.AwayId);
-            _reader["isNeutral"].Returns(expected.IsNeutral);
-            _reader["total01"].Returns(expected.Total01);
-            _reader["total23"].Returns(expected.Total23);
-            _reader["total46"].Returns(expected.Total46);
-            _reader["total7over"].Returns(expected.Total7Over);
-            _reader["fhtotal01"].Returns(expected.TotalFirstHalf01);
-            _reader["fhtotal23"].Returns(expected.TotalFirstHalf23);
-            _reader["fhtotal4over"].Returns(expected.Total4Over);
+            MapReaderData(new
+            {
+                matchid = expected.MatchId,
+                homeID = expected.HomeId,
+                awayID = expected.AwayId,
+                isNeutral = expected.IsNeutral,
+                total01 = expected.Total01,
+                total23 = expected.Total23,
+                total46 = expected.Total46,
+                total7over = expected.Total7Over,
+                fhtotal01 = expected.TotalFirstHalf01,
+                fhtotal23 = expected.TotalFirstHalf23,
+                fhtotal4over = expected.Total4Over,
+            });
         }
     }
 }

@@ -1,44 +1,27 @@
 ﻿namespace Fanex.Athena.DataAccess.TotalBet.UnitTests
 {
-    using System.Data;
     using System.Linq;
-    using Data;
+    using Core.UnitTests.TestHelpers;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
 
-    [TestFixture]
-    public class MoneyLineDataAccessTest
+    public class MoneyLineDataAccessTest : BaseDataAccessHelperTest<MoneyLineDataAccess>
     {
-        private IObjectDb _objectDb;
-        private MoneyLineDataAccess _dataAccess;
-        private IDataReader _reader;
-
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<MoneyLineDataAccess>();
-            _reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
-        }
+            base.FixtureSetUp();
 
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-            _reader = null;
+            DataAccess.GetObjectDb(Arg.Is("Lrf_TotalBets_Sel2021")).Returns(ObjectDb);
         }
 
         [Test]
         public void GetMoneyLineDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_TotalBets_Sel2021")).Returns(_objectDb);
             var metaModel = new MoneyLineMetaModel();
-            var totalData = new MoneyLine();
             var expected = new MoneyLine
             {
                 ShowTime = "ShowTimeTest",
@@ -55,56 +38,95 @@
                 ForecastHomeFirstHalf = 13m
             };
             ConfigureReaderForGetHomeDrawAwayNoBetDataListMethod(expected);
+            Reader.Read().Returns(true, false, true, false);
+            Reader.NextResult().Returns(true);
 
             // Action
-            var result = _dataAccess.GetMoneyLineDataList(metaModel);
-            var firstItem = result.DataList.First();
+            var result = DataAccess.GetMoneyLineDataList(metaModel);
 
             // Assert
-            Assert.That(firstItem.ShowTime, Is.EqualTo(expected.ShowTime));
-            Assert.That(firstItem.LeagueId, Is.EqualTo(expected.LeagueId));
-            Assert.That(firstItem.MatchId, Is.EqualTo(expected.MatchId));
-            Assert.That(firstItem.HomeId, Is.EqualTo(expected.HomeId));
-            Assert.That(firstItem.AwayId, Is.EqualTo(expected.AwayId));
+            Assert.Multiple(() =>
+            {
+                AssertMainData(result.DataList.ElementAt(0), expected);
+                AssertTotalData(result.TotalData, expected);
+            });
+        }
 
-            Assert.That(firstItem.TotalHomeFt, Is.EqualTo(expected.TotalHomeFt));
-            Assert.That(firstItem.TotalAwayFt, Is.EqualTo(expected.TotalAwayFt));
-            Assert.That(firstItem.ForecastHomeFt, Is.EqualTo(expected.ForecastHomeFt));
-            Assert.That(firstItem.ForecastAwayFt, Is.EqualTo(expected.ForecastAwayFt));
+        [Test]
+        public void GetMoneyLineDataList_NoDataReturned_ReturnEmptyData()
+        {
+            // Arrange
+            var metaModel = new MoneyLineMetaModel();
+            var expected = new MoneyLine();
 
-            Assert.That(firstItem.TotalHomeFirstHalf, Is.EqualTo(expected.TotalHomeFirstHalf));
-            Assert.That(firstItem.TotalAwayFirstHalf, Is.EqualTo(expected.TotalAwayFirstHalf));
-            Assert.That(firstItem.ForecastHomeFirstHalf, Is.EqualTo(expected.ForecastHomeFirstHalf));
-            Assert.That(firstItem.ForecastAwayFirstHalf, Is.EqualTo(expected.ForecastAwayFirstHalf));
+            Reader.Read().Returns(false);
+            Reader.NextResult().Returns(false);
 
-            Assert.That(firstItem.LiveHomeScore, Is.EqualTo(expected.LiveHomeScore));
-            Assert.That(firstItem.LiveAwayScore, Is.EqualTo(expected.LiveAwayScore));
-            Assert.That(firstItem.LiveIndicator, Is.EqualTo(expected.LiveIndicator));
+            // Action
+            var result = DataAccess.GetMoneyLineDataList(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.DataList, Is.Empty);
+                AssertTotalData(result.TotalData, expected);
+            });
+        }
+
+        private void AssertMainData(MoneyLine actual, MoneyLine expected)
+        {
+            Assert.That(actual.ShowTime, Is.EqualTo(expected.ShowTime));
+            Assert.That(actual.LeagueId, Is.EqualTo(expected.LeagueId));
+            Assert.That(actual.MatchId, Is.EqualTo(expected.MatchId));
+            Assert.That(actual.HomeId, Is.EqualTo(expected.HomeId));
+            Assert.That(actual.AwayId, Is.EqualTo(expected.AwayId));
+
+            Assert.That(actual.ForecastHomeFt, Is.EqualTo(expected.ForecastHomeFt));
+            Assert.That(actual.ForecastAwayFt, Is.EqualTo(expected.ForecastAwayFt));
+
+            Assert.That(actual.ForecastHomeFirstHalf, Is.EqualTo(expected.ForecastHomeFirstHalf));
+            Assert.That(actual.ForecastAwayFirstHalf, Is.EqualTo(expected.ForecastAwayFirstHalf));
+
+            Assert.That(actual.LiveHomeScore, Is.EqualTo(expected.LiveHomeScore));
+            Assert.That(actual.LiveAwayScore, Is.EqualTo(expected.LiveAwayScore));
+            Assert.That(actual.LiveIndicator, Is.EqualTo(expected.LiveIndicator));
+
+            AssertTotalData(actual, expected);
+        }
+
+        private void AssertTotalData(MoneyLine actual, MoneyLine expected)
+        {
+            Assert.That(actual.TotalHomeFt, Is.EqualTo(expected.TotalHomeFt));
+            Assert.That(actual.TotalAwayFt, Is.EqualTo(expected.TotalAwayFt));
+
+            Assert.That(actual.TotalHomeFirstHalf, Is.EqualTo(expected.TotalHomeFirstHalf));
+            Assert.That(actual.TotalAwayFirstHalf, Is.EqualTo(expected.TotalAwayFirstHalf));
         }
 
         private void ConfigureReaderForGetHomeDrawAwayNoBetDataListMethod(MoneyLine expected)
         {
-            _reader.Read().Returns(true, false);
+            MapReaderData(new
+            {
+                showtime = expected.ShowTime,
+                leagueid = expected.LeagueId,
+                matchid = expected.MatchId,
+                homeID = expected.HomeId,
+                awayID = expected.AwayId,
 
-            _reader["showtime"].Returns(expected.ShowTime);
-            _reader["leagueid"].Returns(expected.LeagueId);
-            _reader["matchid"].Returns(expected.MatchId);
-            _reader["homeID"].Returns(expected.HomeId);
-            _reader["awayID"].Returns(expected.AwayId);
+                home_odds = expected.TotalHomeFt,
+                away_odds = expected.TotalAwayFt,
+                winlost_home = expected.ForecastHomeFt,
+                winlost_away = expected.ForecastAwayFt,
 
-            _reader["home_odds"].Returns(expected.TotalHomeFt);
-            _reader["away_odds"].Returns(expected.TotalAwayFt);
-            _reader["winlost_home"].Returns(expected.ForecastHomeFt);
-            _reader["winlost_away"].Returns(expected.ForecastAwayFt);
+                home_odds_HT = expected.TotalHomeFirstHalf,
+                away_odds_HT = expected.TotalAwayFirstHalf,
+                winlost_home_HT = expected.ForecastHomeFirstHalf,
+                winlost_away_HT = expected.ForecastAwayFirstHalf,
 
-            _reader["home_odds_HT"].Returns(expected.TotalHomeFirstHalf);
-            _reader["away_odds_HT"].Returns(expected.TotalAwayFirstHalf);
-            _reader["winlost_home_HT"].Returns(expected.ForecastHomeFirstHalf);
-            _reader["winlost_away_HT"].Returns(expected.ForecastAwayFirstHalf);
-
-            _reader["livehomescore"].Returns(expected.LiveHomeScore);
-            _reader["liveawayscore"].Returns(expected.LiveAwayScore);
-            _reader["liveindicator"].Returns(expected.LiveIndicator);
+                livehomescore = expected.LiveHomeScore,
+                liveawayscore = expected.LiveAwayScore,
+                liveindicator = expected.LiveIndicator
+            });
         }
     }
 }

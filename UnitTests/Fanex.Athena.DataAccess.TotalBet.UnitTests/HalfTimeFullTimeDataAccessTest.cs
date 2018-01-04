@@ -1,44 +1,27 @@
 ﻿namespace Fanex.Athena.DataAccess.TotalBet.UnitTests
 {
-    using System.Data;
     using System.Linq;
-    using Data;
+    using Core.UnitTests.TestHelpers;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
 
-    [TestFixture]
-    public class HalfTimeFullTimeDataAccessTest
+    public class HalfTimeFullTimeDataAccessTest : BaseDataAccessHelperTest<HalfTimeFullTimeDataAccess>
     {
-        private IObjectDb _objectDb;
-        private HalfTimeFullTimeDataAccess _dataAccess;
-        private IDataReader _reader;
-
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<HalfTimeFullTimeDataAccess>();
-            _reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
-        }
+            base.FixtureSetUp();
 
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-            _reader = null;
+            DataAccess.GetObjectDb(Arg.Is("Lrf_TotalBets_Sel16")).Returns(ObjectDb);
         }
 
         [Test]
         public void GetHalfTimeFullTimeDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_TotalBets_Sel16")).Returns(_objectDb);
             var metaModel = new HalfTimeFullTimeMetaModel();
-            var totalData = new HalfTimeFullTime();
             var expected = new HalfTimeFullTime
             {
                 MatchId = 1,
@@ -50,46 +33,83 @@
                 AwayHome = 12m
             };
             ConfigureReaderForGetHalfTimeFullTimeDataListMethod(expected);
+            Reader.Read().Returns(true, false, true, false);
+            Reader.NextResult().Returns(true);
 
             // Action
-            var result = _dataAccess.GetHalfTimeFullTimeDataList(metaModel);
-            var firstItem = result.DataList.First();
+            var result = DataAccess.GetHalfTimeFullTimeDataList(metaModel);
 
             // Assert
-            Assert.That(firstItem.MatchId, Is.EqualTo(expected.MatchId));
-            Assert.That(firstItem.HomeId, Is.EqualTo(expected.HomeId));
-            Assert.That(firstItem.AwayId, Is.EqualTo(expected.AwayId));
-            Assert.That(firstItem.IsNeutral, Is.EqualTo(expected.IsNeutral));
+            Assert.Multiple(() =>
+            {
+                AssertInfoData(result.DataList.ElementAt(0), expected);
+                AssertTotalData(result.TotalData, expected);
+            });
+        }
 
-            Assert.That(firstItem.HomeHome, Is.EqualTo(expected.HomeHome));
-            Assert.That(firstItem.HomeDraw, Is.EqualTo(expected.HomeDraw));
-            Assert.That(firstItem.HomeAway, Is.EqualTo(expected.HomeAway));
-            Assert.That(firstItem.DrawHome, Is.EqualTo(expected.DrawHome));
-            Assert.That(firstItem.DrawDraw, Is.EqualTo(expected.DrawDraw));
-            Assert.That(firstItem.DrawAway, Is.EqualTo(expected.DrawAway));
-            Assert.That(firstItem.AwayHome, Is.EqualTo(expected.AwayHome));
-            Assert.That(firstItem.AwayDraw, Is.EqualTo(expected.AwayDraw));
-            Assert.That(firstItem.AwayAway, Is.EqualTo(expected.AwayAway));
+        [Test]
+        public void GetHalfTimeFullTimeDataList_NoDataReturned_ReturnEmptyData()
+        {
+            // Arrange
+            var metaModel = new HalfTimeFullTimeMetaModel();
+            var expected = new HalfTimeFullTime();
+
+            Reader.Read().Returns(false);
+            Reader.NextResult().Returns(false);
+
+            // Action
+            var result = DataAccess.GetHalfTimeFullTimeDataList(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.DataList, Is.Empty);
+                AssertTotalData(result.TotalData, expected);
+            });
+        }
+
+        private void AssertInfoData(HalfTimeFullTime actual, HalfTimeFullTime expected)
+        {
+            Assert.That(actual.MatchId, Is.EqualTo(expected.MatchId));
+            Assert.That(actual.HomeId, Is.EqualTo(expected.HomeId));
+            Assert.That(actual.AwayId, Is.EqualTo(expected.AwayId));
+            Assert.That(actual.IsNeutral, Is.EqualTo(expected.IsNeutral));
+
+            AssertTotalData(actual, expected);
+        }
+
+        private void AssertTotalData(HalfTimeFullTime actual, HalfTimeFullTime expected)
+        {
+            Assert.That(actual.HomeHome, Is.EqualTo(expected.HomeHome));
+            Assert.That(actual.HomeDraw, Is.EqualTo(expected.HomeDraw));
+            Assert.That(actual.HomeAway, Is.EqualTo(expected.HomeAway));
+            Assert.That(actual.DrawHome, Is.EqualTo(expected.DrawHome));
+            Assert.That(actual.DrawDraw, Is.EqualTo(expected.DrawDraw));
+            Assert.That(actual.DrawAway, Is.EqualTo(expected.DrawAway));
+            Assert.That(actual.AwayHome, Is.EqualTo(expected.AwayHome));
+            Assert.That(actual.AwayDraw, Is.EqualTo(expected.AwayDraw));
+            Assert.That(actual.AwayAway, Is.EqualTo(expected.AwayAway));
         }
 
         private void ConfigureReaderForGetHalfTimeFullTimeDataListMethod(HalfTimeFullTime expected)
         {
-            _reader.Read().Returns(true, false);
+            MapReaderData(new
+            {
+                matchid = expected.MatchId,
+                isNeutral = expected.IsNeutral,
+                homeID = expected.HomeId,
+                awayID = expected.AwayId,
 
-            _reader["matchid"].Returns(expected.MatchId);
-            _reader["isNeutral"].Returns(expected.IsNeutral);
-            _reader["homeID"].Returns(expected.HomeId);
-            _reader["awayID"].Returns(expected.AwayId);
-
-            _reader["totalHH"].Returns(expected.HomeHome);
-            _reader["totalHD"].Returns(expected.HomeDraw);
-            _reader["totalHA"].Returns(expected.HomeAway);
-            _reader["totalDH"].Returns(expected.DrawHome);
-            _reader["totalDD"].Returns(expected.DrawDraw);
-            _reader["totalDA"].Returns(expected.DrawAway);
-            _reader["totalAH"].Returns(expected.AwayHome);
-            _reader["totalAD"].Returns(expected.AwayDraw);
-            _reader["totalAA"].Returns(expected.AwayAway);
+                totalHH = expected.HomeHome,
+                totalHD = expected.HomeDraw,
+                totalHA = expected.HomeAway,
+                totalDH = expected.DrawHome,
+                totalDD = expected.DrawDraw,
+                totalDA = expected.DrawAway,
+                totalAH = expected.AwayHome,
+                totalAD = expected.AwayDraw,
+                totalAA = expected.AwayAway,
+            });
         }
     }
 }
