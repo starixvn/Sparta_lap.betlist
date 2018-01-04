@@ -101,4 +101,14 @@ describe('service ', () => {
             expect(result).toEqual(expectedResult);
         })
     })
+
+    describe('showErrorMsg', () => {
+        it('alert correct message', () => {
+            window.alert = jest.fn();
+
+            service.showErrorMsg();
+
+            expect(alert).toHaveBeenCalledWith('ErrorProcessingMsg');
+        })
+    })
 })

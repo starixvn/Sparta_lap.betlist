@@ -28,7 +28,10 @@ export class FormFilter extends Component {
         }
 
         this.props.toggleLoader(true);
-        this.props.getGridData(params);
+        this.props.getGridData(params, () => {
+            service.showErrorMsg();
+            this.props.toggleLoader(false);
+        });
 
         let paramArr = this.props.params;
         paramArr[0] = params.data;       
@@ -48,7 +51,12 @@ export class FormFilter extends Component {
      
         this.props.toggleLoader(true);
         if (level === 0) {           
-            this.props.exportExcel(params).then(response => this._doExportExcel(params.data, isAllowedCustomerComm, response.data));
+            this.props.exportExcel(params)
+                .then(response => this._doExportExcel(params.data, isAllowedCustomerComm, response.data))
+                .catch(() => {
+                    service.showErrorMsg();
+                    this.props.toggleLoader(false);
+                });
         }
         else {
             this._doExportExcel(params.data, isAllowedCustomerComm, this.props.gridData.data);
@@ -111,13 +119,6 @@ export class FormFilter extends Component {
         const newValue = parseInt(event.target.value);
         if (!isNaN(newValue) && this.props.selectedReportBy !== newValue) {
             this.props.setReportBy(newValue);
-        }
-    }
-
-    changeExcludeTestData = (event) => {
-        const newValue = event.target.value === 'true';
-        if (this.props.selectedExcludeTestData !== newValue) {
-            this.props.setExcludeTestData(newValue);
         }
     }
 

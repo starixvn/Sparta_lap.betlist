@@ -54,4 +54,8 @@ export default class Service {
     static getBreadcrumbText() {
         return breadcrumbText;
     }
+
+    static showErrorMsg() {
+        alert(LangHelper.getSingleResource('ErrorProcessingMsg'));
+    }
 }

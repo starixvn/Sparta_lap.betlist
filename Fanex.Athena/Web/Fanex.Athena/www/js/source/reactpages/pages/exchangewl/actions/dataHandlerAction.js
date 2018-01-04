@@ -1,31 +1,21 @@
 ﻿import * as types from './types.js'
-import axios from 'axios'
+import Report from '../../../lib/report'
 
-import Site from '../../../lib/site'
+const relativeUrl = 'api/ExchangeWinLossReport/Index';
 
-const fetchData = (params) => {
-    const url = Site.resolveClientUrl('api/ExchangeWinLossReport/Index');
-    return axios.post(url, params.data, {
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            '__RequestVerificationToken': params.xsrfToken
-        }
-    });
-}
-
-export function getGridData(params) {
+export function getGridData(params, errorHandler) {
     return (dispatch) => {
-        fetchData(params).then(response => {
+        Report.fetchGridData(relativeUrl, params).then(response => {
             dispatch(setGridData({
                 level: params.data.Level,
                 data: response.data
             }));
-        });
+        }).catch(error => errorHandler(error));
     };
 }
 
 export function exportExcel(params) {
-    return () => fetchData(params);
+    return () => Report.fetchGridData(relativeUrl, params);
 }
 
 export function setGridData(data) {

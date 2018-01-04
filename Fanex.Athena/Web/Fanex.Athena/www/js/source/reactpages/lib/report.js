@@ -1,4 +1,16 @@
 ﻿import { ReportBy } from '../constants/report'
+import Site from './site'
+import axios from 'axios'
+
+const fetchData = (relativeUrl, params) => {
+    const url = Site.resolveClientUrl(relativeUrl);
+    return axios.post(url, params.data, {
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            '__RequestVerificationToken': params.xsrfToken
+        }
+    });
+}
 
 export default class Report {
     static getDrilldownDateRange(reportBy, fromDate, toDate, drilldownDate) {
@@ -32,5 +44,10 @@ export default class Report {
             fromDate: fdate,
             toDate: tdate
         };
+    }
+
+
+    static fetchGridData(relativeUrl, params, callBack, errorHandler) {
+        return fetchData(relativeUrl, params);
     }
 }

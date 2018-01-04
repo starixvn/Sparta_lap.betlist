@@ -26,7 +26,7 @@ export class DataGrid extends Component {
     componentWillReceiveProps(nextProps) {
         if (this.props.gridData !== nextProps.gridData) {
             const param = this.props.params[nextProps.gridData.level];
-            this.reportTitle = service.getReportTitle({ fromDate: param.FromDate, toDate: param.ToDate }, param.CurrencyName, param.CurrencyId === 0);
+            this.reportTitle = service.getReportTitle({ fromDate: param.FromDate, toDate: param.ToDate }, param.CurrencyName, param.CurrencyId === 0);            
             this.props.toggleLoader(false);
         }
     }
@@ -96,7 +96,10 @@ export class DataGrid extends Component {
             levelGridData[currentLevel] = this.props.gridData.data;
             this.props.setLevelGridData(levelGridData);
 
-            this.props.getGridData(params);
+            this.props.getGridData(params, () => {
+                service.showErrorMsg();
+                this.props.toggleLoader(false);
+            });
         }
         else {
             const data = this.props.levelGridData[level];
@@ -335,8 +338,8 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps(state) {
-    const { gridData, dateRange, selectedCurrency, selectedReportBy, excludeTestDataOption, isLoading, params, xsrfToken, levelGridData, licenseeId, isAllowedCustomerComm } = state;
-    return Object.assign({}, { gridData, dateRange, selectedCurrency, selectedReportBy, excludeTestDataOption, isLoading, params, xsrfToken, levelGridData, licenseeId, isAllowedCustomerComm });
+    const { gridData, params, xsrfToken, levelGridData, licenseeId, isAllowedCustomerComm } = state;
+    return Object.assign({}, { gridData, params, xsrfToken, levelGridData, licenseeId, isAllowedCustomerComm });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);
