@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { FormFilter } from '../formFilter';
+import { FormFilter } from '../FormFilter';
 import renderer from 'react-test-renderer';
 
 import LangHelper from '../../../../lib/langHelper';

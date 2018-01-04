@@ -944,9 +944,9 @@
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\types.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\__tests__\dataHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\__tests__\filterHandlerAction.test.js" />
-    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\dataGrid.method.test.js" />
-    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\dataGrid.render.test.js" />
-    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\formFilter.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\DataGrid.method.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\DataGrid.render.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\FormFilter.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\lib\reportExcel.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\lib\service.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\lib\__tests__\reportExcel.test.js" />
@@ -2677,8 +2677,8 @@
     <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\__snapshots__\formFilter.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\AppContainer.jsx" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\index.jsx" />
-    <Content Include="www\js\source\reactpages\pages\exchangewl\components\formFilter.jsx" />
-    <Content Include="www\js\source\reactpages\pages\exchangewl\components\dataGrid.jsx" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\FormFilter.jsx" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\DataGrid.jsx" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\formFilter.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\dataGrid.render.test.js.snap" />
   </ItemGroup>
