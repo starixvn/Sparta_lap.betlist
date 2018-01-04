@@ -116,10 +116,9 @@ describe('DateRange ', () => {
 
     describe('show/ hide', () => {
         let dateRange;
-        let stateToUpdate;
         beforeEach(() => {
             dateRange = new DateRange(defaultProps);
-            dateRange.setState = jest.fn((newState) => { stateToUpdate = newState });
+            dateRange.setState = jest.fn();
         })
 
         it('show - step should be 0', () => {
@@ -133,7 +132,7 @@ describe('DateRange ', () => {
 
             dateRange.show();
 
-            expect(stateToUpdate).toEqual(expectedState);
+            expect(dateRange.setState).toHaveBeenCalledWith(expectedState);
         })
 
         it('hide - setState should be called with correct parameter', () => {
@@ -141,7 +140,7 @@ describe('DateRange ', () => {
 
             dateRange.hide();
 
-            expect(stateToUpdate).toEqual(expectedState);
+            expect(dateRange.setState).toHaveBeenCalledWith(expectedState);
         })
     })
 
