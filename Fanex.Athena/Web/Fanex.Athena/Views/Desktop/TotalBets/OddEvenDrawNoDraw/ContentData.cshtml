@@ -4,8 +4,7 @@
     var leagueList = Model.MainData.GroupBy(x => new { x.LeagueId, x.LeagueName, x.LiveIndicator })
                             .Select(x => x.Key)
                             .OrderBy(x => x.LeagueName)
-                            .OrderByDescending(x => x.LiveIndicator)
-                            .ToList();
+                            .OrderByDescending(x => x.LiveIndicator);
     var index = 1;
 }
 

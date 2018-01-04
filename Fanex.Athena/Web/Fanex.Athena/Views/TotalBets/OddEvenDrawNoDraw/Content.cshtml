@@ -3,7 +3,7 @@
 @{
     Html.RenderPartial("~/Views/TotalBets/OddEvenDrawNoDraw/ContentHeader.cshtml");
 }
-@if (Model.MainData.Count == 0)
+@if (Model.MainData.Count() == 0)
 {
     Html.RenderPartial("~/Views/TotalBets/OddEvenDrawNoDraw/ContentNoInfo.cshtml");
 }
