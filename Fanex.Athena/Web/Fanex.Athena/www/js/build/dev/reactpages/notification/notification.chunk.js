@@ -1548,13 +1548,13 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _datagrid = __webpack_require__(723);
+var _DataGrid = __webpack_require__(723);
 
-var _datagrid2 = _interopRequireDefault(_datagrid);
+var _DataGrid2 = _interopRequireDefault(_DataGrid);
 
-var _formFilter = __webpack_require__(728);
+var _FormFilter = __webpack_require__(728);
 
-var _formFilter2 = _interopRequireDefault(_formFilter);
+var _FormFilter2 = _interopRequireDefault(_FormFilter);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1579,8 +1579,8 @@ var ResultAmendment = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_formFilter2.default, null),
-        _react2.default.createElement(_datagrid2.default, null)
+        _react2.default.createElement(_FormFilter2.default, null),
+        _react2.default.createElement(_DataGrid2.default, null)
       );
     }
   }]);
