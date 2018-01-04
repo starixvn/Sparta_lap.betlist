@@ -135,7 +135,7 @@ export class FormFilter extends Component {
     _renderCurrencySelectList() {
         const { currencyList, selectedCurrency } = this.props;
         
-        return <Select id='ddlCurrency'
+        return <Select instanceId='ddlCurrency'
             name='form-field-name'
             value={selectedCurrency}
             options={currencyList}
