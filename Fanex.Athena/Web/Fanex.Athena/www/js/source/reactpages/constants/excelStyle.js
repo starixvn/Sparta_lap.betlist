@@ -18,6 +18,7 @@ const bodyDecimalStyle = { numFmt: "#,##0.00" };
 export const bodyCellStyle = {
     rowspan: bodyTextStyle,
     center: { alignment: {...bodyTextStyle.alignment, horizontal: "center" } },
+    left: { alignment: {...bodyTextStyle.alignment, horizontal: "left" } },
     number: { numFmt: "#,##0" },
     decimal: bodyDecimalStyle,
     negativeDecimal: {...bodyDecimalStyle, font: { color: { rgb: "FF0000" } } },

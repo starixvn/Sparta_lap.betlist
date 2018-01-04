@@ -79,14 +79,14 @@ export default class ReportExcel {
             field: 'ExternalId',
             type: 's',
             [HEADER_SECTION]: { title: 'externalId', isShow: level === ReportLevel.CUSTOMER, rowSpan: 2 },
-            [MAIN_SECTION]: { isShow : level === ReportLevel.CUSTOMER, style: bodyCellStyle.center, width: 150 },
+            [MAIN_SECTION]: { isShow : level === ReportLevel.CUSTOMER, style: bodyCellStyle.left, width: 150 },
             [TOTAL_SECTION]: { isShow : false },
             [SUMMARYTOTAL_SECTION]: { isShow : false }
         }, {
             field: 'SystemId',
             type: 's',
             [HEADER_SECTION]: { title: 'systemId', isShow: level !== ReportLevel.MAIN, rowSpan: 2 },
-            [MAIN_SECTION]: { isShow : level !== ReportLevel.MAIN, style: bodyCellStyle.center, width: 150 },
+            [MAIN_SECTION]: { isShow : level !== ReportLevel.MAIN, style: bodyCellStyle.left, width: 150 },
             [TOTAL_SECTION]: { isShow : false },
             [SUMMARYTOTAL_SECTION]: { isShow : false }
         }, {
@@ -123,7 +123,7 @@ export default class ReportExcel {
             [TOTAL_SECTION]: { isShow : false },
             [SUMMARYTOTAL_SECTION]: { isShow : false }
         }, {
-            [HEADER_SECTION]: { title: 'licensee', isShow: true, rowSpan: 1, colSpan: 4 },
+            [HEADER_SECTION]: { title: 'licensee', isShow: true, colSpan: 4 },
             [MAIN_SECTION]: { isShow : false },
             [TOTAL_SECTION]: { isShow : false },
             [SUMMARYTOTAL_SECTION]: { isShow : false }

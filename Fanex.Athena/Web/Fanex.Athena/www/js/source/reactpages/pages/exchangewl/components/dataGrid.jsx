@@ -180,10 +180,10 @@ export class DataGrid extends Component {
                 <Row key={`tr-main${i}`}>
                     <Cell title={i+1} className='center-align'>{i+1}</Cell>
                     {level === ReportLevel.MAIN ? <Cell title={date} className='center-align'>{date}</Cell> : undefined}
-                    {level === ReportLevel.CUSTOMER ? <Cell title={item.ExternalId} className='center-align'>{item.ExternalId}</Cell> : undefined}
+                    {level === ReportLevel.CUSTOMER ? <Cell title={item.ExternalId} className='left-align'>{item.ExternalId}</Cell> : undefined}
                     {
                         level !== ReportLevel.MAIN
-                            ? <Cell title={item.SystemId} className='center-align'>
+                            ? <Cell title={item.SystemId} className='left-align'>
                                 {level === ReportLevel.LICENSEE ? this._renderDrillDownLink(item.SystemId, ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName) : item.SystemId}
                             </Cell>
                             : undefined
