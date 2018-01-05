@@ -1,25 +1,25 @@
 webpackJsonp([4],{
 
-/***/ 704:
+/***/ 701:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(9);
+__webpack_require__(702);
+__webpack_require__(703);
+__webpack_require__(704);
 __webpack_require__(705);
-__webpack_require__(706);
-__webpack_require__(707);
-__webpack_require__(708);
-module.exports = __webpack_require__(709);
+module.exports = __webpack_require__(706);
 
 
 /***/ }),
 
-/***/ 705:
+/***/ 702:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/19/2017 3:47:38 PM
+// Generated at: 1/5/2018 3:57:38 PM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -57,7 +57,7 @@ window._language_en_US = {
   AllBetTypes: "All Bet Types",
   AllCurrencies: "All Currencies",
   AllSites: "All Sites",
-  Amendment: "Result Amendment/Recalculation",
+  Amendment: "Resettlement",
   Amount: "Amount",
   AmountDue: "Amount Due",
   AmountDueTo: "Amount Due To",
@@ -87,6 +87,7 @@ window._language_en_US = {
   BA: "BA",
   Back: "Back",
   BackToCurrentReport: "Back to current report",
+  BackToOldUI: "Back to old UI",
   BAComissionBalanceNote: "BA Commission: Licensee commission income for BA tickets.",
   BACommission: "BA Commission",
   Balance: "Balance",
@@ -980,13 +981,13 @@ window._language_en_US = {
 
 /***/ }),
 
-/***/ 706:
+/***/ 703:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/19/2017 3:47:38 PM
+// Generated at: 1/5/2018 3:57:38 PM
 window._language_ko_KR = {
   AA: "AA",
   ABComm: "AllBet 수수료",
@@ -1752,13 +1753,13 @@ window._language_ko_KR = {
 
 /***/ }),
 
-/***/ 707:
+/***/ 704:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/21/2017 11:03:29 AM
+// Generated at: 1/5/2018 3:57:38 PM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -1788,7 +1789,7 @@ window._language_zh_CN = {
   AllBetTypes: "所有投注类型",
   AllCurrencies: "所有货币",
   AllSites: "所有网站",
-  Amendment: "赛果更改/重新结算",
+  Amendment: "重新结算",
   Amount: "金额",
   AmountDue: "应付金额",
   AmountDueTo: "应付金额",
@@ -1814,6 +1815,7 @@ window._language_zh_CN = {
   AwayNoBet: "客队(不获胜球队)",
   BA: "BA",
   BackToCurrentReport: "回到现有报告",
+  BackToOldUI: "回到旧版本",
   BAComissionBalanceNote: "投注总计佣金: 承租公司佣金所得于投注总计注单。",
   BACommission: "BA佣金",
   Balance: "余额",
@@ -1891,8 +1893,8 @@ window._language_zh_CN = {
   Confirmation: "确认",
   ConfirmCommission: "确认会员的佣金:",
   ConfirmPassword: "确认密码",
-  ConvertAllFiguresToBaseCurrency: "将所有数据转换为基础货币",
   Content: "内容",
+  ConvertAllFiguresToBaseCurrency: "将所有数据转换为基础货币",
   ConvertTo: "转换为",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
   CopyBetSettingFromRacing: "从赛马赛事复制所有投注设定",
@@ -2578,13 +2580,13 @@ window._language_zh_CN = {
 
 /***/ }),
 
-/***/ 708:
+/***/ 705:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/21/2017 11:03:29 AM
+// Generated at: 1/5/2018 3:57:38 PM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2614,7 +2616,7 @@ window._language_zh_Hans = {
   AllBetTypes: "所有投注类型",
   AllCurrencies: "所有货币",
   AllSites: "所有网站",
-  Amendment: "赛果更改/重新结算",
+  Amendment: "重新结算",
   Amount: "金额",
   AmountDue: "应付金额",
   AmountDueTo: "应付金额",
@@ -2640,6 +2642,7 @@ window._language_zh_Hans = {
   AwayNoBet: "客队(不获胜球队)",
   BA: "BA",
   BackToCurrentReport: "回到现有报告",
+  BackToOldUI: "回到旧版本",
   BAComissionBalanceNote: "投注总计佣金: 承租公司佣金所得于投注总计注单。",
   BACommission: "BA佣金",
   Balance: "余额",
@@ -2707,8 +2710,8 @@ window._language_zh_Hans = {
   Confirmation: "确认",
   ConfirmCommission: "确认会员的佣金:",
   ConfirmPassword: "确认密码",
-  ConvertAllFiguresToBaseCurrency: "将所有数据转换为基础货币",
   Content: "内容",
+  ConvertAllFiguresToBaseCurrency: "将所有数据转换为基础货币",
   ConvertTo: "转换为",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
   CopyBetSettingFromRacing: "从赛马赛事复制所有投注设定",
@@ -3390,13 +3393,13 @@ window._language_zh_Hans = {
 
 /***/ }),
 
-/***/ 709:
+/***/ 706:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/21/2017 11:03:29 AM
+// Generated at: 1/5/2018 3:57:38 PM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3426,7 +3429,7 @@ window._language_zh_TW = {
   AllBetTypes: "所有投注類型",
   AllCurrencies: "所有貨幣",
   AllSites: "所有網站",
-  Amendment: "賽果更改/重新結算",
+  Amendment: "重新結算",
   Amount: "金額",
   AmountDue: "應付金額",
   AmountDueTo: "應付金額",
@@ -3452,6 +3455,7 @@ window._language_zh_TW = {
   AwayNoBet: "客隊(不獲胜球隊)",
   BA: "BA",
   BackToCurrentReport: "回到現有報告",
+  BackToOldUI: "回到舊版本",
   BAComissionBalanceNote: "投注總計佣金：承租公司金所得於投注總計注單。",
   BACommission: "BA佣金",
   Balance: "餘額",
@@ -3529,8 +3533,8 @@ window._language_zh_TW = {
   Confirmation: "確認",
   ConfirmCommission: "確認會員的佣金:",
   ConfirmPassword: "確認密碼",
-  ConvertAllFiguresToBaseCurrency: "將所有數據轉換為基礎貨幣",
   Content: "内容",
+  ConvertAllFiguresToBaseCurrency: "將所有數據轉換為基礎貨幣",
   ConvertTo: "轉換為",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
   CopyBetSettingFromRacing: "從賽馬賽事複製所有投注設定",
@@ -4260,5 +4264,5 @@ exports.default = LangHelper;
 
 /***/ })
 
-},[704]);
+},[701]);
 //# sourceMappingURL=langHelper.chunk.js.map

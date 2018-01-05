@@ -1,6 +1,6 @@
 webpackJsonp([52],{
 
-/***/ 164:
+/***/ 161:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
@@ -44,10 +44,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 174:
+/***/ 171:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(123), __webpack_require__(164), __webpack_require__(175)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, CustomerCommGroup) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(120), __webpack_require__(161), __webpack_require__(172)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, CustomerCommGroup) {
          "use strict";
 
          function initialize(titleResource) {
@@ -266,7 +266,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 175:
+/***/ 172:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {﻿/**
@@ -627,18 +627,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 359:
+/***/ 356:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(360);
+module.exports = __webpack_require__(357);
 
 
 /***/ }),
 
-/***/ 360:
+/***/ 357:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(361)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupEdit) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(358)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupEdit) {
     "use strict";
 
     $(CustomerCommGroupEdit.initialize);
@@ -648,10 +648,10 @@ module.exports = __webpack_require__(360);
 
 /***/ }),
 
-/***/ 361:
+/***/ 358:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(174)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, CommGroupDetail) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(171)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, CommGroupDetail) {
          "use strict";
 
          var FORM_SELECTOR = "#customer-comm-group-edit";
@@ -700,5 +700,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ })
 
-},[359]);
+},[356]);
 //# sourceMappingURL=commgroupedit.chunk.js.map

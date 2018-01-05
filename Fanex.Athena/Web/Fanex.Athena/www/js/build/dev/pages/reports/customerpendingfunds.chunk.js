@@ -1,11 +1,11 @@
 webpackJsonp([32],{
 
-/***/ 122:
+/***/ 119:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <reference path="/@JSense.js" />
 ///
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(129)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(126)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
     "use strict";
     var jqGridAdditional = (function () {
         return {
@@ -457,7 +457,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
 
 /***/ }),
 
-/***/ 124:
+/***/ 121:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -661,7 +661,7 @@ jQuery.extend({
 
 /***/ }),
 
-/***/ 127:
+/***/ 124:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {;(function($){
@@ -839,7 +839,7 @@ $.extend($.jgrid,{
 
 /***/ }),
 
-/***/ 128:
+/***/ 125:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/* 
@@ -1190,7 +1190,7 @@ jQuery(this).empty();jQuery(this).addClass("scroll");jQuery(this).jqGrid(jQuery.
 
 /***/ }),
 
-/***/ 129:
+/***/ 126:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/MikeMcl/bignumber.js/LICENCE */
@@ -3935,10 +3935,10 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 
 /***/ }),
 
-/***/ 136:
+/***/ 133:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(123)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(120)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
     "use strict";
     var REPORT_BY_MONTHLY = 2;
     var LICENSEE_12BET = 1;
@@ -4100,7 +4100,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 137:
+/***/ 134:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {﻿/// <reference path="/@JSense.js" />
@@ -4889,12 +4889,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 138:
+/***/ 135:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(137)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(134)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
     var _me = {
         initProductList: function () {
             var selector = "#grid-products-multiselect";
@@ -4951,12 +4951,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 151:
+/***/ 148:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
     var $pagingContainer, $pageIndex, $pageSize;
 
     var me = {};
@@ -5131,18 +5131,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 432:
+/***/ 429:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(433);
+module.exports = __webpack_require__(430);
 
 
 /***/ }),
 
-/***/ 433:
+/***/ 430:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(434)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerPendingFunds) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(431)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerPendingFunds) {
     "use strict";
     $(CustomerPendingFunds.initialize);
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -5151,22 +5151,22 @@ module.exports = __webpack_require__(433);
 
 /***/ }),
 
-/***/ 434:
+/***/ 431:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
     __webpack_require__(1),
-    __webpack_require__(121),
+    __webpack_require__(118),
     __webpack_require__(2),
-    __webpack_require__(122),
-    __webpack_require__(435),
-    __webpack_require__(138),
-    __webpack_require__(151),
-    __webpack_require__(123),
-    __webpack_require__(136),
-    __webpack_require__(127),
-    __webpack_require__(128),
-    __webpack_require__(124)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional, CustomerPedingFundsOption, MultiSelect, PagingHelper, Popup, Report) {
+    __webpack_require__(119),
+    __webpack_require__(432),
+    __webpack_require__(135),
+    __webpack_require__(148),
+    __webpack_require__(120),
+    __webpack_require__(133),
+    __webpack_require__(124),
+    __webpack_require__(125),
+    __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional, CustomerPedingFundsOption, MultiSelect, PagingHelper, Popup, Report) {
         "use strict";
 
         var SORTING_CODE = {
@@ -5426,10 +5426,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 435:
+/***/ 432:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(122)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(119)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
         "use strict";
         var betlistLink = function (cellvalue, options, rowObject) {
             var param =
@@ -5578,5 +5578,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ })
 
-},[432]);
+},[429]);
 //# sourceMappingURL=customerpendingfunds.chunk.js.map
