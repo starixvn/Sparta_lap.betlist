@@ -772,6 +772,7 @@ var bodyDecimalStyle = { numFmt: "#,##0.00" };
 var bodyCellStyle = exports.bodyCellStyle = {
     rowspan: bodyTextStyle,
     center: { alignment: _extends({}, bodyTextStyle.alignment, { horizontal: "center" }) },
+    left: { alignment: _extends({}, bodyTextStyle.alignment, { horizontal: "left" }) },
     number: { numFmt: "#,##0" },
     decimal: bodyDecimalStyle,
     negativeDecimal: _extends({}, bodyDecimalStyle, { font: { color: { rgb: "FF0000" } } }),
@@ -1321,11 +1322,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ActionCreators = undefined;
 
-var _dataHandlerAction = __webpack_require__(739);
+var _dataHandlerAction = __webpack_require__(740);
 
 var dataHandlerAction = _interopRequireWildcard(_dataHandlerAction);
 
-var _filterHandlerAction = __webpack_require__(740);
+var _filterHandlerAction = __webpack_require__(741);
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
 
@@ -1341,7 +1342,7 @@ var _excludeTestAction = __webpack_require__(190);
 
 var excludeTestAction = _interopRequireWildcard(_excludeTestAction);
 
-var _dateRangeAction = __webpack_require__(741);
+var _dateRangeAction = __webpack_require__(742);
 
 var dateRangeAction = _interopRequireWildcard(_dateRangeAction);
 
@@ -1434,6 +1435,11 @@ var Service = function () {
         key: 'getBreadcrumbText',
         value: function getBreadcrumbText() {
             return breadcrumbText;
+        }
+    }, {
+        key: 'showErrorMsg',
+        value: function showErrorMsg() {
+            alert(_langHelper2.default.getSingleResource('ErrorProcessingMsg'));
         }
     }]);
 
@@ -3158,6 +3164,94 @@ var MomentFormat = exports.MomentFormat = {
 
 /***/ }),
 
+/***/ 414:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _report = __webpack_require__(132);
+
+var _site = __webpack_require__(25);
+
+var _site2 = _interopRequireDefault(_site);
+
+var _axios = __webpack_require__(69);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var fetchData = function fetchData(relativeUrl, params) {
+    var url = _site2.default.resolveClientUrl(relativeUrl);
+    return _axios2.default.post(url, params.data, {
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            '__RequestVerificationToken': params.xsrfToken
+        }
+    });
+};
+
+var Report = function () {
+    function Report() {
+        _classCallCheck(this, Report);
+    }
+
+    _createClass(Report, null, [{
+        key: 'getDrilldownDateRange',
+        value: function getDrilldownDateRange(reportBy, fromDate, toDate, drilldownDate) {
+            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
+            var tdate = fdate;
+
+            if (Number(reportBy) === _report.ReportBy.MONTHLY) {
+                var fday = 1;
+                var month = fdate.getMonth();
+                var year = fdate.getFullYear();
+                var orignalFDate = new Date(fromDate);
+
+                if (month === orignalFDate.getMonth()) {
+                    fday = orignalFDate.getDate();
+                }
+
+                fdate = new Date(year, month, fday, 0, 0, 0, 0);
+
+                var originalTDate = new Date(toDate);
+
+                if (month === originalTDate.getMonth()) {
+                    var tday = originalTDate.getDate();
+                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
+                } else {
+                    tdate = new Date(year, month + 1, 0);
+                }
+            }
+
+            return {
+                fromDate: fdate,
+                toDate: tdate
+            };
+        }
+    }, {
+        key: 'fetchGridData',
+        value: function fetchGridData(relativeUrl, params, callBack, errorHandler) {
+            return fetchData(relativeUrl, params);
+        }
+    }]);
+
+    return Report;
+}();
+
+exports.default = Report;
+
+/***/ }),
+
 /***/ 44:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4816,7 +4910,7 @@ exports.default = NumberFormat;
 
 /***/ }),
 
-/***/ 737:
+/***/ 738:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4836,7 +4930,7 @@ var _reactDom = __webpack_require__(7);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _AppContainer = __webpack_require__(738);
+var _AppContainer = __webpack_require__(739);
 
 var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
@@ -4891,7 +4985,7 @@ _reactDom2.default.render(_react2.default.createElement(App, null), document.get
 
 /***/ }),
 
-/***/ 738:
+/***/ 739:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4914,7 +5008,7 @@ var _redux = __webpack_require__(17);
 
 var _index = __webpack_require__(197);
 
-var _Datagrid = __webpack_require__(742);
+var _Datagrid = __webpack_require__(743);
 
 var _Datagrid2 = _interopRequireDefault(_Datagrid);
 
@@ -4975,7 +5069,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 739:
+/***/ 740:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4993,42 +5087,32 @@ var _types = __webpack_require__(131);
 
 var types = _interopRequireWildcard(_types);
 
-var _axios = __webpack_require__(69);
+var _report = __webpack_require__(414);
 
-var _axios2 = _interopRequireDefault(_axios);
-
-var _site = __webpack_require__(25);
-
-var _site2 = _interopRequireDefault(_site);
+var _report2 = _interopRequireDefault(_report);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var fetchData = function fetchData(params) {
-    var url = _site2.default.resolveClientUrl('api/ExchangeWinLossReport/Index');
-    return _axios2.default.post(url, params.data, {
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            '__RequestVerificationToken': params.xsrfToken
-        }
-    });
-};
+var relativeUrl = 'api/ExchangeWinLossReport/Index';
 
-function getGridData(params) {
+function getGridData(params, errorHandler) {
     return function (dispatch) {
-        fetchData(params).then(function (response) {
+        _report2.default.fetchGridData(relativeUrl, params).then(function (response) {
             dispatch(setGridData({
                 level: params.data.Level,
                 data: response.data
             }));
+        }).catch(function (error) {
+            return errorHandler(error);
         });
     };
 }
 
 function exportExcel(params) {
     return function () {
-        return fetchData(params);
+        return _report2.default.fetchGridData(relativeUrl, params);
     };
 }
 
@@ -5048,7 +5132,7 @@ function setLevelGridData(data) {
 
 /***/ }),
 
-/***/ 740:
+/***/ 741:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5081,7 +5165,7 @@ var setParams = exports.setParams = function setParams(value) {
 
 /***/ }),
 
-/***/ 741:
+/***/ 742:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5112,7 +5196,7 @@ var setDateRange = exports.setDateRange = function setDateRange(dateRange) {
 
 /***/ }),
 
-/***/ 742:
+/***/ 743:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5153,7 +5237,7 @@ var _service2 = _interopRequireDefault(_service);
 
 var _report = __webpack_require__(132);
 
-var _licensee = __webpack_require__(743);
+var _licensee = __webpack_require__(744);
 
 var _NoDataTitle = __webpack_require__(90);
 
@@ -5163,7 +5247,7 @@ var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _Breadcrumb = __webpack_require__(744);
+var _Breadcrumb = __webpack_require__(745);
 
 var _Breadcrumb2 = _interopRequireDefault(_Breadcrumb);
 
@@ -5171,7 +5255,7 @@ var _site = __webpack_require__(25);
 
 var _site2 = _interopRequireDefault(_site);
 
-var _report2 = __webpack_require__(746);
+var _report2 = __webpack_require__(414);
 
 var _report3 = _interopRequireDefault(_report2);
 
@@ -5254,6 +5338,8 @@ var DataGrid = exports.DataGrid = function (_Component) {
     }, {
         key: '_drillDownData',
         value: function _drillDownData(level, date, currencyId, currencyName, custId) {
+            var _this2 = this;
+
             var currentLevel = this.props.gridData.level;
 
             if (currentLevel === level || level < _report.ReportLevel.MAIN || level > _report.ReportLevel.CUSTOMER) {
@@ -5275,7 +5361,10 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 levelGridData[currentLevel] = this.props.gridData.data;
                 this.props.setLevelGridData(levelGridData);
 
-                this.props.getGridData(params);
+                this.props.getGridData(params, function () {
+                    _service2.default.showErrorMsg();
+                    _this2.props.toggleLoader(false);
+                });
             } else {
                 var data = this.props.levelGridData[level];
                 if (!data) {
@@ -5292,12 +5381,12 @@ var DataGrid = exports.DataGrid = function (_Component) {
     }, {
         key: '_renderDrillDownLink',
         value: function _renderDrillDownLink(text, level, date, currencyId, currencyName, custId) {
-            var _this2 = this;
+            var _this3 = this;
 
             return _react2.default.createElement(
                 'a',
                 { onClick: function onClick() {
-                        return _this2._drillDownData(level, date, currencyId, currencyName, custId);
+                        return _this3._drillDownData(level, date, currencyId, currencyName, custId);
                     }, href: 'javascript:;' },
                 text
             );
@@ -5460,12 +5549,12 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     ) : undefined,
                     level === _report.ReportLevel.CUSTOMER ? _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { title: item.ExternalId, className: 'center-align' },
+                        { title: item.ExternalId, className: 'left-align' },
                         item.ExternalId
                     ) : undefined,
                     level !== _report.ReportLevel.MAIN ? _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { title: item.SystemId, className: 'center-align' },
+                        { title: item.SystemId, className: 'left-align' },
                         level === _report.ReportLevel.LICENSEE ? this._renderDrillDownLink(item.SystemId, _report.ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName) : item.SystemId
                     ) : undefined,
                     _react2.default.createElement(
@@ -5592,7 +5681,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
     }, {
         key: '_renderBreadcrumb',
         value: function _renderBreadcrumb() {
-            var _this3 = this;
+            var _this4 = this;
 
             var breadcrumbText = _service2.default.getBreadcrumbText();
             var items = [{
@@ -5613,7 +5702,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
             });
 
             return _react2.default.createElement(_Breadcrumb2.default, { items: items, value: this.props.gridData.level, onChange: function onChange(item) {
-                    return _this3._drillDownData(item.value);
+                    return _this4._drillDownData(item.value);
                 } });
         }
     }, {
@@ -5668,25 +5757,20 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
     var gridData = state.gridData,
-        dateRange = state.dateRange,
-        selectedCurrency = state.selectedCurrency,
-        selectedReportBy = state.selectedReportBy,
-        excludeTestDataOption = state.excludeTestDataOption,
-        isLoading = state.isLoading,
         params = state.params,
         xsrfToken = state.xsrfToken,
         levelGridData = state.levelGridData,
         licenseeId = state.licenseeId,
         isAllowedCustomerComm = state.isAllowedCustomerComm;
 
-    return Object.assign({}, { gridData: gridData, dateRange: dateRange, selectedCurrency: selectedCurrency, selectedReportBy: selectedReportBy, excludeTestDataOption: excludeTestDataOption, isLoading: isLoading, params: params, xsrfToken: xsrfToken, levelGridData: levelGridData, licenseeId: licenseeId, isAllowedCustomerComm: isAllowedCustomerComm });
+    return Object.assign({}, { gridData: gridData, params: params, xsrfToken: xsrfToken, levelGridData: levelGridData, licenseeId: licenseeId, isAllowedCustomerComm: isAllowedCustomerComm });
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DataGrid);
 
 /***/ }),
 
-/***/ 743:
+/***/ 744:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5701,7 +5785,7 @@ var Licensee = exports.Licensee = {
 
 /***/ }),
 
-/***/ 744:
+/***/ 745:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5721,7 +5805,7 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _BreadcrumbItem = __webpack_require__(745);
+var _BreadcrumbItem = __webpack_require__(746);
 
 var _BreadcrumbItem2 = _interopRequireDefault(_BreadcrumbItem);
 
@@ -5817,7 +5901,7 @@ exports.default = BreadcrumbItem;
 
 /***/ }),
 
-/***/ 745:
+/***/ 746:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5884,69 +5968,6 @@ BreadcrumbItem.defaultProps = {
     isActive: false
 };
 exports.default = BreadcrumbItem;
-
-/***/ }),
-
-/***/ 746:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _report = __webpack_require__(132);
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Report = function () {
-    function Report() {
-        _classCallCheck(this, Report);
-    }
-
-    _createClass(Report, null, [{
-        key: "getDrilldownDateRange",
-        value: function getDrilldownDateRange(reportBy, fromDate, toDate, drilldownDate) {
-            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
-            var tdate = fdate;
-
-            if (Number(reportBy) === _report.ReportBy.MONTHLY) {
-                var fday = 1;
-                var month = fdate.getMonth();
-                var year = fdate.getFullYear();
-                var orignalFDate = new Date(fromDate);
-
-                if (month === orignalFDate.getMonth()) {
-                    fday = orignalFDate.getDate();
-                }
-
-                fdate = new Date(year, month, fday, 0, 0, 0, 0);
-
-                var originalTDate = new Date(toDate);
-
-                if (month === originalTDate.getMonth()) {
-                    var tday = originalTDate.getDate();
-                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
-                } else {
-                    tdate = new Date(year, month + 1, 0);
-                }
-            }
-
-            return {
-                fromDate: fdate,
-                toDate: tdate
-            };
-        }
-    }]);
-
-    return Report;
-}();
-
-exports.default = Report;
 
 /***/ }),
 
@@ -6027,7 +6048,10 @@ var FormFilter = exports.FormFilter = function (_Component) {
             }
 
             _this.props.toggleLoader(true);
-            _this.props.getGridData(params);
+            _this.props.getGridData(params, function () {
+                _service2.default.showErrorMsg();
+                _this.props.toggleLoader(false);
+            });
 
             var paramArr = _this.props.params;
             paramArr[0] = params.data;
@@ -6049,6 +6073,9 @@ var FormFilter = exports.FormFilter = function (_Component) {
             if (level === 0) {
                 _this.props.exportExcel(params).then(function (response) {
                     return _this._doExportExcel(params.data, isAllowedCustomerComm, response.data);
+                }).catch(function () {
+                    _service2.default.showErrorMsg();
+                    _this.props.toggleLoader(false);
                 });
             } else {
                 _this._doExportExcel(params.data, isAllowedCustomerComm, _this.props.gridData.data);
@@ -6070,13 +6097,6 @@ var FormFilter = exports.FormFilter = function (_Component) {
             var newValue = parseInt(event.target.value);
             if (!isNaN(newValue) && _this.props.selectedReportBy !== newValue) {
                 _this.props.setReportBy(newValue);
-            }
-        };
-
-        _this.changeExcludeTestData = function (event) {
-            var newValue = event.target.value === 'true';
-            if (_this.props.selectedExcludeTestData !== newValue) {
-                _this.props.setExcludeTestData(newValue);
             }
         };
 
@@ -6443,10 +6463,10 @@ var ReportExcel = function () {
             }, _defineProperty(_ref3, HEADER_SECTION, { title: reportBy === _report.ReportBy.DAILY ? 'date' : 'month', isShow: level === _report.ReportLevel.MAIN, rowSpan: 2 }), _defineProperty(_ref3, MAIN_SECTION, { isShow: level === _report.ReportLevel.MAIN, style: _excelStyle.bodyCellStyle.center, width: 150 }), _defineProperty(_ref3, TOTAL_SECTION, { isShow: false }), _defineProperty(_ref3, SUMMARYTOTAL_SECTION, { isShow: false }), _ref3), (_ref4 = {
                 field: 'ExternalId',
                 type: 's'
-            }, _defineProperty(_ref4, HEADER_SECTION, { title: 'externalId', isShow: level === _report.ReportLevel.CUSTOMER, rowSpan: 2 }), _defineProperty(_ref4, MAIN_SECTION, { isShow: level === _report.ReportLevel.CUSTOMER, style: _excelStyle.bodyCellStyle.center, width: 150 }), _defineProperty(_ref4, TOTAL_SECTION, { isShow: false }), _defineProperty(_ref4, SUMMARYTOTAL_SECTION, { isShow: false }), _ref4), (_ref5 = {
+            }, _defineProperty(_ref4, HEADER_SECTION, { title: 'externalId', isShow: level === _report.ReportLevel.CUSTOMER, rowSpan: 2 }), _defineProperty(_ref4, MAIN_SECTION, { isShow: level === _report.ReportLevel.CUSTOMER, style: _excelStyle.bodyCellStyle.left, width: 150 }), _defineProperty(_ref4, TOTAL_SECTION, { isShow: false }), _defineProperty(_ref4, SUMMARYTOTAL_SECTION, { isShow: false }), _ref4), (_ref5 = {
                 field: 'SystemId',
                 type: 's'
-            }, _defineProperty(_ref5, HEADER_SECTION, { title: 'systemId', isShow: level !== _report.ReportLevel.MAIN, rowSpan: 2 }), _defineProperty(_ref5, MAIN_SECTION, { isShow: level !== _report.ReportLevel.MAIN, style: _excelStyle.bodyCellStyle.center, width: 150 }), _defineProperty(_ref5, TOTAL_SECTION, { isShow: false }), _defineProperty(_ref5, SUMMARYTOTAL_SECTION, { isShow: false }), _ref5), (_ref6 = {
+            }, _defineProperty(_ref5, HEADER_SECTION, { title: 'systemId', isShow: level !== _report.ReportLevel.MAIN, rowSpan: 2 }), _defineProperty(_ref5, MAIN_SECTION, { isShow: level !== _report.ReportLevel.MAIN, style: _excelStyle.bodyCellStyle.left, width: 150 }), _defineProperty(_ref5, TOTAL_SECTION, { isShow: false }), _defineProperty(_ref5, SUMMARYTOTAL_SECTION, { isShow: false }), _ref5), (_ref6 = {
                 field: 'CurrencyName',
                 type: 's'
             }, _defineProperty(_ref6, HEADER_SECTION, { title: 'currency', isShow: true, rowSpan: 2 }), _defineProperty(_ref6, MAIN_SECTION, { isShow: true, style: _excelStyle.bodyCellStyle.center, width: 120 }), _defineProperty(_ref6, TOTAL_SECTION, { isShow: true, style: _excelStyle.totalCellStyle.center }), _defineProperty(_ref6, SUMMARYTOTAL_SECTION, { isShow: false }), _ref6), (_ref7 = {
@@ -6458,7 +6478,7 @@ var ReportExcel = function () {
             }, _defineProperty(_ref8, HEADER_SECTION, { title: 'netTurnover', isShow: true, rowSpan: 2 }), _defineProperty(_ref8, MAIN_SECTION, { isShow: true, style: _excelStyle.bodyCellStyle.decimal, width: 150 }), _defineProperty(_ref8, TOTAL_SECTION, { isShow: true, style: _excelStyle.totalCellStyle.decimal }), _defineProperty(_ref8, SUMMARYTOTAL_SECTION, { isShow: true, style: _excelStyle.grandTotalCellStyle.decimal }), _ref8), (_ref9 = {
                 field: 'TotalTransaction',
                 type: 'n'
-            }, _defineProperty(_ref9, HEADER_SECTION, { title: 'totalTransaction', isShow: true, rowSpan: 2 }), _defineProperty(_ref9, MAIN_SECTION, { isShow: true, style: _excelStyle.bodyCellStyle.number, width: 120 }), _defineProperty(_ref9, TOTAL_SECTION, { isShow: true, style: _excelStyle.totalCellStyle.number }), _defineProperty(_ref9, SUMMARYTOTAL_SECTION, { isShow: true, style: _excelStyle.grandTotalCellStyle.number }), _ref9), (_ref10 = {}, _defineProperty(_ref10, HEADER_SECTION, { title: isAllowedCustomerComm ? 'customer' : 'customerWL', isShow: true, rowSpan: isAllowedCustomerComm ? 1 : 2, colSpan: isAllowedCustomerComm ? 3 : 1 }), _defineProperty(_ref10, MAIN_SECTION, { isShow: false }), _defineProperty(_ref10, TOTAL_SECTION, { isShow: false }), _defineProperty(_ref10, SUMMARYTOTAL_SECTION, { isShow: false }), _ref10), (_ref11 = {}, _defineProperty(_ref11, HEADER_SECTION, { title: 'licensee', isShow: true, rowSpan: 1, colSpan: 4 }), _defineProperty(_ref11, MAIN_SECTION, { isShow: false }), _defineProperty(_ref11, TOTAL_SECTION, { isShow: false }), _defineProperty(_ref11, SUMMARYTOTAL_SECTION, { isShow: false }), _ref11), (_ref12 = {
+            }, _defineProperty(_ref9, HEADER_SECTION, { title: 'totalTransaction', isShow: true, rowSpan: 2 }), _defineProperty(_ref9, MAIN_SECTION, { isShow: true, style: _excelStyle.bodyCellStyle.number, width: 120 }), _defineProperty(_ref9, TOTAL_SECTION, { isShow: true, style: _excelStyle.totalCellStyle.number }), _defineProperty(_ref9, SUMMARYTOTAL_SECTION, { isShow: true, style: _excelStyle.grandTotalCellStyle.number }), _ref9), (_ref10 = {}, _defineProperty(_ref10, HEADER_SECTION, { title: isAllowedCustomerComm ? 'customer' : 'customerWL', isShow: true, rowSpan: isAllowedCustomerComm ? 1 : 2, colSpan: isAllowedCustomerComm ? 3 : 1 }), _defineProperty(_ref10, MAIN_SECTION, { isShow: false }), _defineProperty(_ref10, TOTAL_SECTION, { isShow: false }), _defineProperty(_ref10, SUMMARYTOTAL_SECTION, { isShow: false }), _ref10), (_ref11 = {}, _defineProperty(_ref11, HEADER_SECTION, { title: 'licensee', isShow: true, colSpan: 4 }), _defineProperty(_ref11, MAIN_SECTION, { isShow: false }), _defineProperty(_ref11, TOTAL_SECTION, { isShow: false }), _defineProperty(_ref11, SUMMARYTOTAL_SECTION, { isShow: false }), _ref11), (_ref12 = {
                 field: 'CustomerWL',
                 type: 'n'
             }, _defineProperty(_ref12, HEADER_SECTION, { title: 'customerWL', isShow: isAllowedCustomerComm, index_c: level === _report.ReportLevel.CUSTOMER ? 7 : 6, index_r: HEADER_ROW_INDEX + 1 }), _defineProperty(_ref12, MAIN_SECTION, { isShow: true, style: _excelStyle.bodyCellStyle.decimal, width: 150 }), _defineProperty(_ref12, TOTAL_SECTION, { isShow: true, style: _excelStyle.totalCellStyle.decimal }), _defineProperty(_ref12, SUMMARYTOTAL_SECTION, { isShow: true, style: _excelStyle.grandTotalCellStyle.decimal }), _ref12), (_ref13 = {
@@ -8680,5 +8700,5 @@ exports.default = DateRange;
 
 /***/ })
 
-},[737]);
+},[738]);
 //# sourceMappingURL=exchangewl.chunk.js.map

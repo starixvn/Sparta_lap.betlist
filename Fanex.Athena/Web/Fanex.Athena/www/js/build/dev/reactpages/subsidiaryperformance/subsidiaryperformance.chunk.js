@@ -772,6 +772,7 @@ var bodyDecimalStyle = { numFmt: "#,##0.00" };
 var bodyCellStyle = exports.bodyCellStyle = {
     rowspan: bodyTextStyle,
     center: { alignment: _extends({}, bodyTextStyle.alignment, { horizontal: "center" }) },
+    left: { alignment: _extends({}, bodyTextStyle.alignment, { horizontal: "left" }) },
     number: { numFmt: "#,##0" },
     decimal: bodyDecimalStyle,
     negativeDecimal: _extends({}, bodyDecimalStyle, { font: { color: { rgb: "FF0000" } } }),
@@ -1081,11 +1082,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ActionCreators = undefined;
 
-var _dataHandlerAction = __webpack_require__(708);
+var _dataHandlerAction = __webpack_require__(709);
 
 var dataHandlerAction = _interopRequireWildcard(_dataHandlerAction);
 
-var _filterHandlerAction = __webpack_require__(709);
+var _filterHandlerAction = __webpack_require__(710);
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
 
@@ -5235,7 +5236,7 @@ exports.default = NumberFormat;
 
 /***/ }),
 
-/***/ 706:
+/***/ 707:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5255,7 +5256,7 @@ var _reactDom = __webpack_require__(7);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _AppContainer = __webpack_require__(707);
+var _AppContainer = __webpack_require__(708);
 
 var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
@@ -5269,7 +5270,7 @@ var _reduxThunk = __webpack_require__(118);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _index = __webpack_require__(713);
+var _index = __webpack_require__(714);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -5333,7 +5334,7 @@ _reactDom2.default.render(_react2.default.createElement(App, null), document.get
 
 /***/ }),
 
-/***/ 707:
+/***/ 708:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5356,11 +5357,11 @@ var _redux = __webpack_require__(17);
 
 var _index = __webpack_require__(177);
 
-var _datagrid = __webpack_require__(710);
+var _datagrid = __webpack_require__(711);
 
 var _datagrid2 = _interopRequireDefault(_datagrid);
 
-var _formFilter = __webpack_require__(711);
+var _formFilter = __webpack_require__(712);
 
 var _formFilter2 = _interopRequireDefault(_formFilter);
 
@@ -5417,7 +5418,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 708:
+/***/ 709:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5479,7 +5480,7 @@ function setGridData(data) {
 
 /***/ }),
 
-/***/ 709:
+/***/ 710:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5524,7 +5525,7 @@ var changeConvertAll = exports.changeConvertAll = function changeConvertAll(chec
 
 /***/ }),
 
-/***/ 710:
+/***/ 711:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5866,7 +5867,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 711:
+/***/ 712:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5903,7 +5904,7 @@ var _langHelper = __webpack_require__(11);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _reportExcel = __webpack_require__(712);
+var _reportExcel = __webpack_require__(713);
 
 var _reportExcel2 = _interopRequireDefault(_reportExcel);
 
@@ -6210,7 +6211,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 712:
+/***/ 713:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6431,7 +6432,7 @@ exports.default = ReportExcel;
 
 /***/ }),
 
-/***/ 713:
+/***/ 714:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6443,11 +6444,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(17);
 
-var _dataHandlerReducer = __webpack_require__(714);
+var _dataHandlerReducer = __webpack_require__(715);
 
 var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
 
-var _filterHandlerReducer = __webpack_require__(715);
+var _filterHandlerReducer = __webpack_require__(716);
 
 var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
 
@@ -6469,7 +6470,7 @@ exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, 
 
 /***/ }),
 
-/***/ 714:
+/***/ 715:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6500,7 +6501,7 @@ var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProper
 
 /***/ }),
 
-/***/ 715:
+/***/ 716:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8542,5 +8543,5 @@ exports.default = DateRange;
 
 /***/ })
 
-},[706]);
+},[707]);
 //# sourceMappingURL=subsidiaryperformance.chunk.js.map
