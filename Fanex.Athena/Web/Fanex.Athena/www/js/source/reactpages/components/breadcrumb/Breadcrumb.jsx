@@ -5,45 +5,31 @@ import Item from './BreadcrumbItem';
 class BreadcrumbItem extends Component {
     constructor(props) {
         super(props);
-        
-        this.state = {
-            value: this.props.value
-        };
-        this.items = this.props.items;
     }
 
     static propTypes = {
-        items: PropTypes.arrayOf(PropTypes.object).isRequired,
+        items: PropTypes.arrayOf(PropTypes.shape({
+            label: PropTypes.string,
+            value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+        })).isRequired,
         value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         onChange: PropTypes.func
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.value !== nextProps.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
-    }
-
     onChange(item) {
-        if (this.state.value === item.value) {
+        if (this.props.value === item.value) {
             return;
         }
-
-        this.setState({
-            value: item.value
-        });
 
         this.props.onChange && this.props.onChange(item);
     }
 
     _renderItem() {
-        const value = this.state.value;
+        const { value, items } = this.props;
         let breadcrumbItems = [];
 
-        for (let i = 0; i< this.items.length; i++) {
-            const item = this.items[i];
+        for (let i = 0; i< items.length; i++) {
+            const item = items[i];
             const isActive = item.value === value;
 
             breadcrumbItems.push(

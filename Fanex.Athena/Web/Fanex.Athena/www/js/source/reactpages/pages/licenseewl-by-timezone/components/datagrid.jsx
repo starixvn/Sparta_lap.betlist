@@ -34,12 +34,14 @@ export class DataGrid extends Component {
 
     _buildHeader() {
         const headerText = service.getHeaderText(this.selectedReportBy, this.groupBy);
+
+        const reportByCell = this.selectedReportBy !== SettingConst.ReportBySummary &&
+                            <Cell colWidth={150} header={true} title={headerText.ReportBy}>{headerText.ReportBy}</Cell>
+
         return (
             <Row style={{ height: 32 }}>
                 <Cell colWidth={50} header={true} title="#">{headerText.Index}</Cell>
-                { this.selectedReportBy === SettingConst.ReportBySummary ? null :
-                    <Cell colWidth={150} header={true} title={headerText.ReportBy}>{headerText.ReportBy}</Cell> 
-                }
+                {reportByCell}
                 <Cell colWidth={150} header={true} title={headerText.GroupBy}>{headerText.GroupBy}</Cell>
                 <Cell colWidth={150} header={true} title={headerText.BetCount}>{headerText.BetCount}</Cell>
                 <Cell colWidth={200} header={true} title={headerText.Turnover}>{headerText.Turnover}</Cell>
@@ -53,28 +55,29 @@ export class DataGrid extends Component {
     }
 
     _buildBody() {
-                    const data = this.props.gridData.Data;
+        const data = this.props.gridData.Data;
                    
-                    const groupByClassName = this.groupBy === SettingConst.GroupByProduct ? "left-align" : "center-align";
+        const groupByClassName = this.groupBy === SettingConst.GroupByProduct ? "left-align" : "center-align";
                     
-                    let rows = [];
-                    for (let i = 0; i < data.length; i++) {
-                        const item = data[i];
-                        const reportBy = moment(item.ReportBy).format(this.selectedReportBy === 2 ? "MM/DD/YYYY" : "MM/YYYY"),
-                                betcount = NumberFormat.format(item.BetCount),
-                                turnover = NumberFormat.formatDecimal(item.Turnover),
-                                customerComm= NumberFormat.formatDecimal(item.CustomerComm),
-                                licenseeWL = NumberFormat.formatDecimal(item.LicenseeWinLoss),
-                                licenseeComm = NumberFormat.formatDecimal(item.LicenseeComm),
-                                licenseeNetWL = NumberFormat.formatDecimal(item.LicenseeNetWinLoss),
-                                margin = NumberFormat.formatDecimal(item.Margin) + "%";
-                        
-                        rows.push(
-                            <Row key={`tr${i}`}>
+        let rows = [];
+        for (let i = 0; i < data.length; i++) {
+            const item = data[i];
+            const reportBy = moment(item.ReportBy).format(this.selectedReportBy === 2 ? "MM/DD/YYYY" : "MM/YYYY"),
+                    betcount = NumberFormat.format(item.BetCount),
+                    turnover = NumberFormat.formatDecimal(item.Turnover),
+                    customerComm= NumberFormat.formatDecimal(item.CustomerComm),
+                    licenseeWL = NumberFormat.formatDecimal(item.LicenseeWinLoss),
+                    licenseeComm = NumberFormat.formatDecimal(item.LicenseeComm),
+                    licenseeNetWL = NumberFormat.formatDecimal(item.LicenseeNetWinLoss),
+                    margin = NumberFormat.formatDecimal(item.Margin) + "%";
+            
+            const reportByCell = this.selectedReportBy !== SettingConst.ReportBySummary &&
+                                <Cell title={reportBy} className="center-align">{reportBy}</Cell>
+            
+            rows.push(
+                <Row key={`tr${i}`}>
                     <Cell className="center-align">{i + 1}</Cell>
-                    { this.selectedReportBy === SettingConst.ReportBySummary  ? null :
-                        <Cell title={reportBy} className="center-align">{reportBy}</Cell>
-                            }
+                    {reportByCell}
                     <Cell title={item.GroupBy} className={groupByClassName}>{item.GroupBy}</Cell>
                     <Cell title={betcount} className="right-align">{betcount}</Cell>
                     <Cell title={turnover} className="right-align">{turnover}</Cell>
@@ -85,10 +88,10 @@ export class DataGrid extends Component {
                     <Cell title={margin} className="right-align">{margin}</Cell>
                 </Row>
             );
-                }
+        }
 
-    return rows;
-                }
+        return rows;
+    }
 
     _buildFooter() {
         const item = this.props.gridData.Total;
@@ -112,7 +115,7 @@ export class DataGrid extends Component {
                    <Cell title={margin} className={"right-align"}>{margin}</Cell>
                 </Row>
             )]
-                }
+    }
 
     _renderNodata() {
         return (
@@ -121,17 +124,17 @@ export class DataGrid extends Component {
                 <NoDataTitle />
             </div>
         )
-                }
+    }
 
     render() {
         const { Data } = this.props.gridData;
         if (!Data) {
             return null;
-                }
+        }
 
         if (!Data.length) {
             return this._renderNodata();
-                }
+        }
         
         return (
             <div className="result-content">
@@ -147,8 +150,8 @@ export class DataGrid extends Component {
                 />
             </div>
         );
-                }
-                }
+    }
+}
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
                 }

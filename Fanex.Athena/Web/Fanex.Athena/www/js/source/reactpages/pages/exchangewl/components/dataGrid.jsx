@@ -126,9 +126,9 @@ export class DataGrid extends Component {
         headerRows.push(
             <Row style={{ height: 32 }} key='tr-header1'>
                 <Cell colWidth={30} header={true} title={headerText.index} rowSpan='2'>{headerText.index}</Cell>
-                {level === ReportLevel.MAIN ? <Cell colWidth={100} header={true} title={reportBy === ReportBy.DAILY ? headerText.date : headerText.month} rowSpan='2'>{reportBy === ReportBy.DAILY ? headerText.date : headerText.month}</Cell> : undefined}
-                {level === ReportLevel.CUSTOMER ? <Cell colWidth={100} header={true} title={headerText.externalId} rowSpan='2'>{headerText.externalId}</Cell> : undefined}
-                {level !== ReportLevel.MAIN ? <Cell colWidth={100} header={true} title={headerText.systemId} rowSpan='2'>{headerText.systemId}</Cell> : undefined}
+                {level === ReportLevel.MAIN && <Cell colWidth={100} header={true} title={reportBy === ReportBy.DAILY ? headerText.date : headerText.month} rowSpan='2'>{reportBy === ReportBy.DAILY ? headerText.date : headerText.month}</Cell>}
+                {level === ReportLevel.CUSTOMER && <Cell colWidth={100} header={true} title={headerText.externalId} rowSpan='2'>{headerText.externalId}</Cell>}
+                {level !== ReportLevel.MAIN && <Cell colWidth={100} header={true} title={headerText.systemId} rowSpan='2'>{headerText.systemId}</Cell>}
                 <Cell colWidth={70} header={true} title={headerText.currency} rowSpan='2'>{headerText.currency}</Cell>
                 <Cell colWidth={100} header={true} title={headerText.turnover} rowSpan='2'>{headerText.turnover}</Cell>
                 <Cell colWidth={100} header={true} title={headerText.netTurnover} rowSpan='2'>{headerText.netTurnover}</Cell>
@@ -179,14 +179,13 @@ export class DataGrid extends Component {
             rows.push(
                 <Row key={`tr-main${i}`}>
                     <Cell title={i+1} className='center-align'>{i+1}</Cell>
-                    {level === ReportLevel.MAIN ? <Cell title={date} className='center-align'>{date}</Cell> : undefined}
-                    {level === ReportLevel.CUSTOMER ? <Cell title={item.ExternalId} className='left-align'>{item.ExternalId}</Cell> : undefined}
+                    {level === ReportLevel.MAIN && <Cell title={date} className='center-align'>{date}</Cell>}
+                    {level === ReportLevel.CUSTOMER && <Cell title={item.ExternalId} className='left-align'>{item.ExternalId}</Cell>}
                     {
-                        level !== ReportLevel.MAIN
-                            ? <Cell title={item.SystemId} className='left-align'>
+                        level !== ReportLevel.MAIN &&
+                            <Cell title={item.SystemId} className='left-align'>
                                 {level === ReportLevel.LICENSEE ? this._renderDrillDownLink(item.SystemId, ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName) : item.SystemId}
                             </Cell>
-                            : undefined
                     }
                     <Cell title={item.CurrencyName} className='center-align'>
                     {
@@ -216,7 +215,7 @@ export class DataGrid extends Component {
            
             totalRows.push(
                 <Row key={`tr-total${i}`} className="fixed-table-total">
-                    {i === 0 ? <Cell title={totalText.total} className='center-align' rowSpan={rowSpan} colSpan={colSpan}>{totalText.total}</Cell> : undefined}
+                    {i === 0 && <Cell title={totalText.total} className='center-align' rowSpan={rowSpan} colSpan={colSpan}>{totalText.total}</Cell>}
                     <Cell title={item.CurrencyName} className='center-align'>{item.CurrencyName}</Cell>
                     {this._buildCell(item)}
                 </Row>
@@ -259,8 +258,8 @@ export class DataGrid extends Component {
             <Cell key='netturnover' title={netTurnover} className='right-align'>{netTurnover}</Cell>,
             <Cell key='totalTransaction' title={totalTransaction} className='right-align'>{totalTransaction}</Cell>,
             <Cell key='customerWL' title={customerWL} className='right-align'>{customerWL}</Cell>,
-            this.isAllowedCustomerComm ? <Cell key='customerComm' title={customerComm} className='right-align'>{customerComm}</Cell> : undefined,
-            this.isAllowedCustomerComm ? <Cell key='customerWLTotal' title={customerWLTotal} className='right-align'>{customerWLTotal}</Cell> : undefined,
+            this.isAllowedCustomerComm && <Cell key='customerComm' title={customerComm} className='right-align'>{customerComm}</Cell>,
+            this.isAllowedCustomerComm && <Cell key='customerWLTotal' title={customerWLTotal} className='right-align'>{customerWLTotal}</Cell>,
             <Cell key='licenseeWL' title={licenseeWL} className={`right-align ${item.LicenseeWL < 0 ? 'negative' : ''}`}>{licenseeWL}</Cell>,
             <Cell key='amountDueTo' title={amountDueTo} className='right-align'>{amountDueTo}</Cell>,
             <Cell key='licenseeComm' title={licenseeComm} className='right-align'>{licenseeComm}</Cell>,
