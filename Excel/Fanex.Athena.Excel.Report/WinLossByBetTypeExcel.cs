@@ -43,6 +43,11 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly ConvertingOption _convertingOption;
 
+        protected internal WinLossByBetTypeExcel()
+            : base(string.Empty, 0)
+        {
+        }
+
         public WinLossByBetTypeExcel(
                                      string templatePath,
                                      ConvertingOption convertingOption,

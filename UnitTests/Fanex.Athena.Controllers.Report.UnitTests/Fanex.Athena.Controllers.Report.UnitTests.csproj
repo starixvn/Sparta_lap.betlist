@@ -180,6 +180,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="WinLossByLeagueReportControllerTest.cs" />
+    <Compile Include="WinLossByBetTypeReportControllerTest.cs" />
     <Compile Include="Result\ResultKenoReportControllerTest.cs" />
     <Compile Include="Result\ResultReportControllerTest.Index.cs" />
     <Compile Include="Result\ResultReportControllerTest.ResultPopup.cs" />
