@@ -6704,7 +6704,7 @@ var Table = function (_Component) {
         _this.Footer = (0, _tableSection2.default)(footerContainerProps);
 
         _this.diffWidth = _constants.BODY_WIDTH - props.maxWidth;
-        _this.columnsWidth = _this._getColumnsWidth();
+        _this.columnsWidth = _this._getColumnsWidth(props.header);
         _this.state = {
             maxWidth: props.maxWidth,
             contentHeight: props.bodyHeight
@@ -6714,10 +6714,9 @@ var Table = function (_Component) {
 
     _createClass(Table, [{
         key: '_getColumnsWidth',
-        value: function _getColumnsWidth() {
+        value: function _getColumnsWidth(headerRows) {
             var _this2 = this;
 
-            var headerRows = this.props.header;
             var headerIsArray = Array.isArray(headerRows);
             if (headerIsArray && headerRows.length === 0) {
                 return null;
@@ -6789,7 +6788,7 @@ var Table = function (_Component) {
     }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
-            this.columnsWidth = this._getColumnsWidth();
+            this.columnsWidth = this._getColumnsWidth(nextProps.header);
         }
     }, {
         key: '_calculateBodyHeight',
