@@ -184,13 +184,13 @@ export class DataGrid extends Component {
                     {
                         level !== ReportLevel.MAIN &&
                             <Cell title={item.SystemId} className='left-align'>
-                                {level === ReportLevel.LICENSEE ? this._renderDrillDownLink(item.SystemId, ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName) : item.SystemId}
+                                {level === ReportLevel.LICENSEE ? this._renderDrillDownLink(item.SystemId, ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName, item.CustId) : item.SystemId}
                             </Cell>
                     }
                     <Cell title={item.CurrencyName} className='center-align'>
                     {
                         level === ReportLevel.MAIN 
-                        ? this._renderDrillDownLink(item.CurrencyName, this.licenseeId === Licensee.ONE_TWO_BET ? ReportLevel.LICENSEE : ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName, item.CustId) 
+                        ? this._renderDrillDownLink(item.CurrencyName, this.licenseeId === Licensee.ONE_TWO_BET ? ReportLevel.LICENSEE : ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName) 
                         : item.CurrencyName
                     }
                     </Cell>

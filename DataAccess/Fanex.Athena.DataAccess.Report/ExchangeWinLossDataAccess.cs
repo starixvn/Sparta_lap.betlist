@@ -99,6 +99,7 @@
                 detail.CustomerWL += reader.ToDecimal("Winlost" + currency);
                 detail.CustomerComm += reader.ToDecimal("CustComm" + currency);
                 detail.LicenseeWL += reader.ToDecimal("LicenseeWinlost" + currency);
+                detail.LicenseeNetWL += reader.ToDecimal("LicNetWL" + currency);
                 detail.LicenseeComm += reader.ToDecimal("AgentComm" + currency);
                 detail.AmountDueTo += reader.ToDecimal("AmountDueTo" + currency);
                 detail.TotalTransaction += reader.ToInt("TotalTrans");
@@ -121,6 +122,7 @@
                 CustomerWL = g.Sum(x => x.CustomerWL),
                 CustomerComm = g.Sum(x => x.CustomerComm),
                 LicenseeWL = g.Sum(x => x.LicenseeWL),
+                LicenseeNetWL = g.Sum(x => x.LicenseeNetWL),
                 LicenseeComm = g.Sum(x => x.LicenseeComm),
                 AmountDueTo = g.Sum(x => x.AmountDueTo),
                 NetTurnover = g.Sum(x => x.NetTurnover)
@@ -146,14 +148,15 @@
                     CurrencyId = reader.ToInt("CurrencyID"),
                     ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
                     SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
-                    CusId = hasCustomerId ? reader.ToInt("CustID") : 0,
+                    CustId = hasCustomerId ? reader.ToInt("CustID") : 0,
                     TotalTransaction = reader.ToInt("TotalTrans"),
                     Turnover = reader.ToDecimal("TurnOver" + baseCurrency),
                     NetTurnover = reader.ToDecimal("NetTurnOver" + baseCurrency),
                     CustomerWL = reader.ToDecimal("Winlost" + baseCurrency),
                     CustomerComm = reader.ToDecimal("CustComm" + baseCurrency),
                     LicenseeWL = reader.ToDecimal("LicenseeWinlost" + baseCurrency),
-                    LicenseeComm = reader.ToDecimal("AgentComm" + baseCurrency),                   
+                    LicenseeNetWL = reader.ToDecimal("LicNetWL" + baseCurrency),
+                    LicenseeComm = reader.ToDecimal("AgentComm" + baseCurrency),
                     AmountDueTo = reader.ToDecimal("AmountDueTo" + baseCurrency)
                 };
 

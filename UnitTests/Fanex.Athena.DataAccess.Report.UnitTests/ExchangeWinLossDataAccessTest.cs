@@ -118,7 +118,7 @@
                 AssertMainResultData(result, firstExpected, expectedList);
                 Assert.That(firstItem.ExternalId, Is.Empty);
                 Assert.That(firstItem.SystemId, Is.Empty);
-                Assert.That(firstItem.CusId, Is.Zero);
+                Assert.That(firstItem.CustId, Is.Zero);
             });
         }
 
@@ -126,7 +126,7 @@
         public void GetMainWinloss_WhenCallWithBaseCurrencyUSD_DataConvertedToUSD()
         {
             // Arrange
-            _reader.Read().Returns(true, true, false);
+            _reader.Read().Returns(true, false, false);
 
             var model = new ExchangeWinLossMetaModel
             {
@@ -157,7 +157,7 @@
                 AssertMainResultData(result, firstExpected, expectedList, model.BaseCurrency.ToUpperInvariant());
                 Assert.That(firstItem.ExternalId, Is.Empty);
                 Assert.That(firstItem.SystemId, Is.Empty);
-                Assert.That(firstItem.CusId, Is.Zero);
+                Assert.That(firstItem.CustId, Is.Zero);
             });
         }
 
@@ -215,7 +215,7 @@
                 AssertMainResultData(result, firstExpected, expectedList);
                 Assert.That(firstItem.ExternalId, Is.Empty);
                 Assert.That(firstItem.SystemId, Is.EqualTo(firstExpected.SystemId));
-                Assert.That(firstItem.CusId, Is.EqualTo(firstExpected.CusId));
+                Assert.That(firstItem.CustId, Is.EqualTo(firstExpected.CustId));
             });
         }
 
@@ -274,7 +274,7 @@
                 AssertMainResultData(result, firstExpected, expectedList);
                 Assert.That(firstItem.ExternalId, Is.EqualTo(firstExpected.ExternalId));
                 Assert.That(firstItem.SystemId, Is.EqualTo(firstExpected.SystemId));
-                Assert.That(firstItem.CusId, Is.Zero);
+                Assert.That(firstItem.CustId, Is.Zero);
             });
         }
 
@@ -292,15 +292,16 @@
                         CurrencyId = i,
                         ExternalId = "External" + i,
                         SystemId = "System" + i,
-                        CusId = i,
-                        Turnover = i,
-                        NetTurnover = i,
-                        CustomerWL = i,
-                        CustomerComm = i,
-                        LicenseeWL = i,
-                        LicenseeComm = i,
-                        TotalTransaction = i,
-                        AmountDueTo = i
+                        CustId = i + 1,
+                        Turnover = i + 2,
+                        NetTurnover = i + 3,
+                        CustomerWL = i + 4,
+                        CustomerComm = i + 5,
+                        LicenseeWL = i + 6,
+                        LicenseeNetWL = i + 7,
+                        LicenseeComm = i + 8,
+                        TotalTransaction = i + 8,
+                        AmountDueTo = i + 10
                     });
             }
 
@@ -338,6 +339,9 @@
             _reader["LicenseeWinlost" + baseCurrency].Returns(
                 (firstExpected.LicenseeWL * rate).ToString(),
                 expectedList.Select(x => (x.LicenseeWL * rate).ToString()).ToArray());
+            _reader["LicNetWL" + baseCurrency].Returns(
+                (firstExpected.LicenseeNetWL * rate).ToString(),
+                expectedList.Select(x => (x.LicenseeNetWL * rate).ToString()).ToArray());
             _reader["AgentComm" + baseCurrency].Returns(
                 (firstExpected.LicenseeComm * rate).ToString(),
                 expectedList.Select(x => (x.LicenseeComm * rate).ToString()).ToArray());
@@ -359,7 +363,7 @@
             _reader.FieldCount.Returns(10);
             _reader.GetName(Arg.Any<int>()).Returns("username", "CustID");
 
-            _reader["CustID"].Returns(firstExpected.CusId.ToString(), expectedList.Select(x => x.CusId.ToString()).ToArray());
+            _reader["CustID"].Returns(firstExpected.CustId.ToString(), expectedList.Select(x => x.CustId.ToString()).ToArray());
             _reader["username"].Returns(firstExpected.SystemId, expectedList.Select(x => x.SystemId).ToArray());
         }
 
@@ -382,6 +386,7 @@
                 item.CustomerWL = item.CustomerWL * exchangeRate;
                 item.CustomerComm = item.CustomerComm * exchangeRate;
                 item.LicenseeWL = item.LicenseeWL * exchangeRate;
+                item.LicenseeNetWL = item.LicenseeNetWL * exchangeRate;
                 item.LicenseeComm = item.LicenseeComm * exchangeRate;
                 item.AmountDueTo = item.AmountDueTo * exchangeRate;
                 item.NetTurnover = item.NetTurnover * exchangeRate;
@@ -415,6 +420,7 @@
                 CustomerWL = g.Sum(x => x.CustomerWL),
                 CustomerComm = g.Sum(x => x.CustomerComm),
                 LicenseeWL = g.Sum(x => x.LicenseeWL),
+                LicenseeNetWL = g.Sum(x => x.LicenseeNetWL),
                 LicenseeComm = g.Sum(x => x.LicenseeComm),
                 AmountDueTo = g.Sum(x => x.AmountDueTo),
                 NetTurnover = g.Sum(x => x.NetTurnover)
@@ -444,6 +450,7 @@
                     CustomerWL = expectedList.Sum(x => x.CustomerWL) * exchangeRate / exchangeBaseRate,
                     CustomerComm = expectedList.Sum(x => x.CustomerComm) * exchangeRate / exchangeBaseRate,
                     LicenseeWL = expectedList.Sum(x => x.LicenseeWL) * exchangeRate / exchangeBaseRate,
+                    LicenseeNetWL = expectedList.Sum(x => x.LicenseeNetWL) * exchangeRate / exchangeBaseRate,
                     LicenseeComm = expectedList.Sum(x => x.LicenseeComm) * exchangeRate / exchangeBaseRate,
                     AmountDueTo = expectedList.Sum(x => x.AmountDueTo) * exchangeRate / exchangeBaseRate,
                     NetTurnover = expectedList.Sum(x => x.NetTurnover) * exchangeRate / exchangeBaseRate,
@@ -462,6 +469,7 @@
             Assert.That(actual.CustomerWL, Is.EqualTo(expected.CustomerWL));
             Assert.That(actual.CustomerComm, Is.EqualTo(expected.CustomerComm));
             Assert.That(actual.LicenseeWL, Is.EqualTo(expected.LicenseeWL));
+            Assert.That(actual.LicenseeNetWL, Is.EqualTo(expected.LicenseeNetWL));
             Assert.That(actual.LicenseeComm, Is.EqualTo(expected.LicenseeComm));
             Assert.That(actual.AmountDueTo, Is.EqualTo(expected.AmountDueTo));
         }

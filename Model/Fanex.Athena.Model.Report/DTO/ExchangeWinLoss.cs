@@ -14,7 +14,7 @@
 
         public string SystemId { get; set; }
 
-        public int CusId { get; set; }
+        public int CustId { get; set; }
 
         public decimal Turnover { get; set; }
 
@@ -36,6 +36,8 @@
 
         public decimal LicenseeWL { get; set; }
 
+        public decimal LicenseeNetWL { get; set; }
+
         public decimal AmountDueTo { get; set; }
 
         public decimal LicenseeComm { get; set; }
@@ -44,7 +46,7 @@
         {
             get
             {
-                return LicenseeWL - AmountDueTo + LicenseeComm;
+                return LicenseeNetWL + LicenseeComm;
             }
         }
     }
