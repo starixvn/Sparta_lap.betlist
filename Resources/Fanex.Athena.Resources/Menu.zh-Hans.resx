@@ -353,10 +353,11 @@
     <comment>84004</comment>
   </data>
   <data name="Menu_75" xml:space="preserve">
-    <value>赛果更改/重新结算</value>
+    <value>重新结算</value>
     <comment>84004</comment>
   </data>
   <data name="Menu_76" xml:space="preserve">
     <value>投注时区输赢</value>
     <comment>84932</comment>
-  </data></root>
+  </data>
+</root>

@@ -81,7 +81,6 @@
             li {
                 padding: 0 0 0 20px;
                 line-height: 30px;
-                position: relative;
 
                 a {
                     display: inline-block;
@@ -105,14 +104,6 @@
 
                 img {
                     vertical-align: middle;
-                }
-
-                .new_icon {
-                    position: absolute;
-                    top: 0;
-                    bottom: 0;
-                    right: 15px;
-                    margin: auto;
                 }
 
                 &.active {

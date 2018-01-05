@@ -637,15 +637,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Win Loss By Time Zone.
-        /// </summary>
-        public static string Menu_76 {
-            get {
-                return ResourceManager.GetString("Menu_76", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to NOTIFICATION.
         /// </summary>
         public static string Menu_74 {
@@ -655,11 +646,20 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Result Amendment/Recalculation.
+        ///   Looks up a localized string similar to Resettlement.
         /// </summary>
         public static string Menu_75 {
             get {
                 return ResourceManager.GetString("Menu_75", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Win Loss By Time Zone.
+        /// </summary>
+        public static string Menu_76 {
+            get {
+                return ResourceManager.GetString("Menu_76", resourceCulture);
             }
         }
         

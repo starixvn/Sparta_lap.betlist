@@ -2624,7 +2624,7 @@
     <value>回到旧版本</value>
   </data>
   <data name="Amendment" xml:space="preserve">
-    <value>赛果更改/重新结算</value>
+    <value>重新结算</value>
     <comment>84004</comment>
   </data>
   <data name="Content" xml:space="preserve">
@@ -2642,4 +2642,5 @@
   <data name="ViewNotification" xml:space="preserve">
     <value>查看通知</value>
     <comment>84004</comment>
-  </data></root>
+  </data>
+</root>

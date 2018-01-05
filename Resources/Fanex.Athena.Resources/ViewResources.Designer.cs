@@ -385,7 +385,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Result Amendment/Recalculation.
+        ///   Looks up a localized string similar to Resettlement.
         /// </summary>
         public static string Amendment {
             get {
