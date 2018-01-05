@@ -20,7 +20,7 @@ namespace Fanex.Athena.Controllers.Report
     {
         private readonly ISettledMatchCountService _settledMatchCountService;
 
-        public SettledMatchCountReportController()
+        public SettledMatchCountReportController() : this(null, null, null, null, null)
         {
         }
 
