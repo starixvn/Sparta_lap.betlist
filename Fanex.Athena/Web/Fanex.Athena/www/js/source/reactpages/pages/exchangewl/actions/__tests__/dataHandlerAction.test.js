@@ -63,7 +63,8 @@ describe('filterHandlerAction', () => {
     })
 
     it('exportExcel - Report.fetchGridData should be called with correct parameters', () => {
-        actions.exportExcel(params);
+        const store = mockStore({ gridData: {} });
+        store.dispatch(actions.exportExcel(params));
 
         expect(Report.fetchGridData).toHaveBeenCalledWith(expectedUrl, params);
     })

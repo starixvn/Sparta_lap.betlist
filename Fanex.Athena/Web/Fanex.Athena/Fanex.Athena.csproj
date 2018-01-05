@@ -849,6 +849,8 @@
     <Content Include="www\js\source\reactpages\actions\__tests__\loaderAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\productAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\userGuideAction.test.js" />
+    <Content Include="www\js\source\reactpages\components\breadcrumb\__tests__\Breadcrumb.test.js" />
+    <Content Include="www\js\source\reactpages\components\breadcrumb\__tests__\BreadcrumbItem.test.js" />
     <Content Include="www\js\source\reactpages\components\date-range\Calendar.js" />
     <Content Include="www\js\source\reactpages\components\date-range\constants.js" />
     <Content Include="www\js\source\reactpages\components\date-range\DateRange.js" />
@@ -937,6 +939,7 @@
     <Content Include="www\js\source\reactpages\lib\__tests__\excel.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\langHelper.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\numberFormat.test.js" />
+    <Content Include="www\js\source\reactpages\lib\__tests__\report.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\site.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\filterHandlerAction.js" />
