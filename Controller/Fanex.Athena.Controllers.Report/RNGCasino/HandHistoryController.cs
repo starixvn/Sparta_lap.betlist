@@ -9,9 +9,11 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Web.Hosting;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using Excel.Report.RNGCasino;
+    using Extension.Utility;
     using Fanex.Athena.Model.Casino.DTO;
     using Fanex.Athena.Model.Casino.DTO.RNGResultDetail;
     using Fanex.Athena.Model.Casino.MetaModel;
@@ -20,23 +22,28 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
     using Fanex.Athena.Service.Casino;
     using Fanex.Athena.Service.Casino.Interfaces;
     using Fanex.Athena.Web.ResultExtension;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
 
-    /// <summary>
-    ///  Hand history controller.
-    /// </summary>
     [SessionState(SessionStateBehavior.Required)]
     public class HandHistoryController : BaseController
     {
-        /// <summary>
-        /// RNG Casino Service.
-        /// </summary>
-        private readonly IRNGCasinoService _rgnCasinoService = new RNGCasinoService();
+        private readonly IRNGCasinoService _rngCasinoService;
 
-        /// <summary>
-        /// Get RNG Casino data.
-        /// </summary>
-        /// <param name="metaModel">The meta model.</param>
-        /// <returns>The data string.</returns>
+        public HandHistoryController() : this(null, null, null, null)
+        {
+        }
+
+        public HandHistoryController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IRNGCasinoService rngCasinoService)
+            : base(languageService, sessionService, appSetting)
+        {
+            _rngCasinoService = rngCasinoService ?? new RNGCasinoService();
+        }
+
         [HttpGet]
         public ActionResult RNGCasinoData(RNGCasinoResultMetaModel metaModel)
         {
@@ -52,11 +59,6 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
             return this.Json(new { Param = string.Empty, Data = string.Empty, Total = string.Empty, });
         }
 
-        /// <summary>
-        /// Load RNGCasino result page.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
         public ActionResult RNGCasino(RNGCasinoResultMetaModel metaModel)
         {
@@ -74,11 +76,6 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
             return this.View("~/Views/RNGCasino/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// RNG Casino detail.
-        /// </summary>
-        /// <param name="metaModel">The meta model.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
         public ViewResult RNGCasinoDetail(RNGCasinoResultDetailMetaModel metaModel)
         {
@@ -86,7 +83,7 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
             const string ViewPathTemplate = "~/Views/RNGCasino/RNGCasinoDetail/Group{0}.cshtml";
             var group = GetGroupByGameTypeId(metaModel.GameTypeId);
             var model = metaModel.IsValid && (metaModel.CurrencyId == 0 || this.SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
-                ? this._rgnCasinoService.GetRNGCasinoResultDetail(metaModel)
+                ? this._rngCasinoService.GetRNGCasinoResultDetail(metaModel)
                 : new CasinoHandHistoryDetailViewModel();
 
             model.Param = metaModel;
@@ -116,11 +113,6 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
             };
         }
 
-        /// <summary>
-        /// Get game type Id.
-        /// </summary>
-        /// <param name="gameTypeId">The game type Id.</param>
-        /// <returns>The game type id.</returns>
         [SuppressMessage(
               "StyleCop.CSharp.StylecopPlus.Rules",
               "SP2101:MethodMustNotContainMoreLinesThan",
@@ -238,14 +230,9 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
             }
         }
 
-        /// <summary>
-        /// Get Excel Result.
-        /// </summary>
-        /// <param name="metaModel">RNG Casino Result meta model.</param>
-        /// <returns>Excel result.</returns>
         private ActionResult GetExcelResult(RNGCasinoResultMetaModel metaModel)
         {
-            var templatePath = Server.MapPath("~/App_Data/Template/RNGCasino/HandHistory.xls");
+            var templatePath = HostingEnvironment.MapPath("~/App_Data/Template/RNGCasino/HandHistory.xls");
             metaModel.IsShowPic = false;
             var data = GetData(metaModel);
             var totalData = GetTotalData(data);
@@ -254,10 +241,19 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
                 Data = data,
             };
 
-            var excel = new HandHistoryExcel(templatePath, metaModel, viewModel, totalData);
+            var excel = CreateExcel(templatePath, metaModel, totalData, viewModel);
             excel.Export();
 
             return new ExcelResult(excel.Workbook, "CasinoHandHistory");
+        }
+
+        protected internal virtual HandHistoryExcel CreateExcel(
+            string templatePath,
+            RNGCasinoResultMetaModel metaModel,  
+            RNGCasinoResult totalData, 
+            RNGCasinoResultViewModel viewModel)
+        {
+            return new HandHistoryExcel(templatePath, metaModel, viewModel, totalData);
         }
 
         private IList<RNGCasinoResult> GetData(RNGCasinoResultMetaModel metaModel)
@@ -265,7 +261,7 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
             metaModel.BaseCurrency = metaModel.BaseCurrency ?? string.Empty;
             return metaModel.IsValid() && (metaModel.CurrencyId == BaseCurrencyType.All ||
                 SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
-                ? _rgnCasinoService.GetRNGCasinoResult(metaModel)
+                ? _rngCasinoService.GetRNGCasinoResult(metaModel)
                 : new List<RNGCasinoResult>();
         }
     }

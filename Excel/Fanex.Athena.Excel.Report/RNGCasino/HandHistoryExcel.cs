@@ -43,6 +43,11 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
         private readonly RNGCasinoResult _totalData;
         private readonly IList<RNGCasinoResult> _data;
 
+        protected internal HandHistoryExcel()
+            : base(string.Empty, 0)
+        {
+        }
+
         public HandHistoryExcel(
                     string templatePath,
                     RNGCasinoResultMetaModel metaModel,

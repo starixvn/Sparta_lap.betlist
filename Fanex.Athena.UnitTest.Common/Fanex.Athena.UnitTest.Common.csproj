@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constraints\SamePropertiesConstraint.cs" />
+    <Compile Include="Helpers\ObjectHelper.cs" />
     <Compile Include="NUnitExtensions\CustomConstraintExtensions.cs" />
     <Compile Include="NUnitExtensions\Tobe.cs" />
     <Compile Include="Helpers\DataAccessTestHelper.cs" />
