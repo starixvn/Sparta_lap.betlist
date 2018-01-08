@@ -28,12 +28,11 @@ namespace Fanex.Athena.Controllers.Report
 
             metaModel.Username = string.IsNullOrWhiteSpace(metaModel.Username) ||
                 metaModel.Username.Trim() == placeholderUsername ? null : metaModel.Username;
-            var turnoverService = new TurnoverService();
-            var dataList = turnoverService.GetDataList(metaModel);
+            var dataList = _turnoverService.GetDataList(metaModel);
 
             return Json(new
             {
-                TotalData = turnoverService.SumTotalData(dataList),
+                TotalData = _turnoverService.SumTotalData(dataList),
                 Data = dataList
             });
         }

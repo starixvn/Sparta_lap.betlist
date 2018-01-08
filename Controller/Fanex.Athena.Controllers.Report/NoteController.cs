@@ -10,10 +10,12 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.SessionState;
     using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Model.Report.ViewModel.Note;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using ONEbook.UM.Filters;
+    using Service.Core.Users.Interfaces;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
@@ -23,14 +25,24 @@ namespace Fanex.Athena.Controllers.Report
 
         private readonly IProductService _productService;
 
-        public NoteController()
+        public NoteController() : this(null, null, null, null, null)
         {
-            this._productService = new ProductService();
-            this._balanceUpDataAccess = new BalanceUpDataAccess();
+        }
+
+        public NoteController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IProductService productService,
+            IBalanceUpDataAccess balanceUpDataAccess)
+            : base(languageService, sessionService, appSetting)
+        {
+            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
+            _productService = productService ?? new ProductService();
         }
 
         [ChildActionOnly]
-        public ActionResult Index(string viewName, bool isHistory = false)
+        public ActionResult Index(string viewName)
         {
             var balanceUp = this._balanceUpDataAccess.GetBalanceUp();
             var licenseeId = this.SessionService.LicenseeSession.LicenseeId;
