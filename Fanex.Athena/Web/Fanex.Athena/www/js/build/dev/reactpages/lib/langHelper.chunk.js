@@ -987,7 +987,7 @@ window._language_en_US = {
 "use strict";
 
 
-// Generated at: 1/5/2018 3:57:38 PM
+// Generated at: 12/19/2017 3:47:38 PM
 window._language_ko_KR = {
   AA: "AA",
   ABComm: "AllBet 수수료",

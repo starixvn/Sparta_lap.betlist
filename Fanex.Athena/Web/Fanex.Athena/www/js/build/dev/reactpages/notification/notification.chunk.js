@@ -3292,21 +3292,17 @@ var Page = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (Page.__proto__ || Object.getPrototypeOf(Page)).call(this, props));
 
-        _this.onKeyUpHandle = function (e) {
+        _this.onKeyUpHandle = function (e, totalPage) {
             var code = e.keyCode ? e.keyCode : e.which;
             if (code === 13) {
                 var value = parseInt(_this.state.inputValue);
-                if (value > 0 && value <= _this.state.totalPage) {
-                    _this.goToPage(value, _this.state.pageSize);
+                if (value > 0 && value <= totalPage) {
+                    _this.goToPage(value, _this.props.pageOption.PageSize);
                 }
             }
         };
 
         _this.state = {
-            index: _this.props.pageOption.PageIndex,
-            isShow: _this.props.pageOption.TotalItem > _this.props.pageOption.PageList[0],
-            totalPage: Math.ceil(_this.props.pageOption.TotalItem / _this.props.pageOption.PageSize),
-            pageSize: _this.props.pageOption.PageSize,
             inputValue: _this.props.pageOption.PageIndex
         };
         return _this;
@@ -3315,14 +3311,14 @@ var Page = function (_Component) {
     _createClass(Page, [{
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
-            if (this.props.pageOption !== nextProps.pageOption) {
-                this._updateState(nextProps.pageOption.PageIndex, nextProps.pageOption.TotalItem > nextProps.pageOption.PageList[0], Math.ceil(nextProps.pageOption.TotalItem / nextProps.pageOption.PageSize), nextProps.pageOption.PageSize, nextProps.pageOption.PageIndex);
+            if (this.props.pageOption.PageIndex !== nextProps.pageOption.PageIndex) {
+                this._updateState(nextProps.pageOption.PageIndex);
             }
         }
     }, {
         key: 'goToPage',
         value: function goToPage(index, pageSize) {
-            this._updateState(index, null, Math.ceil(this.props.pageOption.TotalItem / pageSize), pageSize, index);
+            this._updateState(index);
             this.props.onPaging && this.props.onPaging(index, pageSize);
         }
     }, {
@@ -3334,13 +3330,9 @@ var Page = function (_Component) {
         }
     }, {
         key: '_updateState',
-        value: function _updateState(index, isShow, totalPage, pageSize, input) {
+        value: function _updateState(inputValue) {
             this.setState({
-                index: index !== null ? index : this.state.index,
-                isShow: isShow !== null ? isShow : this.state.isShow,
-                totalPage: totalPage ? totalPage : this.state.totalPage,
-                pageSize: pageSize ? pageSize : this.state.pageSize,
-                inputValue: input !== null ? input : this.state.inputValue
+                inputValue: inputValue
             });
         }
     }, {
@@ -3378,7 +3370,7 @@ var Page = function (_Component) {
         }
     }, {
         key: '_renderPageInput',
-        value: function _renderPageInput(index) {
+        value: function _renderPageInput(index, totalPage) {
             var _this4 = this;
 
             return _react2.default.createElement(
@@ -3391,13 +3383,15 @@ var Page = function (_Component) {
                 ),
                 _react2.default.createElement('input', { type: 'text', className: 'page-form', value: index, maxLength: '4', size: '2',
                     onChange: function onChange(e) {
-                        return _this4._updateState(null, null, null, null, e.target.value);
+                        return _this4._updateState(e.target.value);
                     },
-                    onKeyUp: this.onKeyUpHandle }),
+                    onKeyUp: function onKeyUp(e) {
+                        return _this4.onKeyUpHandle(e, totalPage);
+                    } }),
                 _react2.default.createElement(
                     'span',
                     null,
-                    ' of ' + this.state.totalPage,
+                    ' of ' + totalPage,
                     ' '
                 )
             );
@@ -3418,32 +3412,35 @@ var Page = function (_Component) {
         value: function render() {
             var _this5 = this;
 
-            var _state = this.state,
-                index = _state.index,
-                totalPage = _state.totalPage,
-                pageSize = _state.pageSize,
-                inputValue = _state.inputValue;
+            var _props$pageOption = this.props.pageOption,
+                PageIndex = _props$pageOption.PageIndex,
+                PageSize = _props$pageOption.PageSize,
+                TotalItem = _props$pageOption.TotalItem;
+            var inputValue = this.state.inputValue;
+
 
             var isDisable = isNaN(parseInt(inputValue));
+            var isShow = TotalItem > PageSize;
+            var totalPage = Math.ceil(TotalItem / PageSize);
 
             return _react2.default.createElement(
                 'div',
-                { className: 'page-container center-align', style: { display: '' + (this.state.isShow ? 'block' : 'none') } },
-                this._renderPageIcon("page-first", index === 1, function () {
-                    return _this5.goToPage(1, pageSize);
+                { className: 'page-container center-align', style: { display: '' + (isShow ? 'block' : 'none') } },
+                this._renderPageIcon("page-first", PageIndex === 1, function () {
+                    return _this5.goToPage(1, PageSize);
                 }),
-                this._renderPageIcon("page-prev", isDisable || index <= 1 || index > totalPage, function () {
-                    return _this5.goToPage(index - 1, pageSize);
+                this._renderPageIcon("page-prev", isDisable || PageIndex <= 1 || PageIndex > totalPage, function () {
+                    return _this5.goToPage(PageIndex - 1, PageSize);
                 }),
-                this._renderPageInput(inputValue),
-                this._renderPageIcon("page-next", isDisable || index >= totalPage || index < 1, function () {
-                    return _this5.goToPage(index + 1, pageSize);
+                this._renderPageInput(inputValue, totalPage),
+                this._renderPageIcon("page-next", isDisable || PageIndex >= totalPage || PageIndex < 1, function () {
+                    return _this5.goToPage(PageIndex + 1, PageSize);
                 }),
-                this._renderPageIcon("page-last", index === totalPage, function () {
-                    return _this5.goToPage(totalPage, pageSize);
+                this._renderPageIcon("page-last", PageIndex === totalPage, function () {
+                    return _this5.goToPage(totalPage, PageSize);
                 }),
-                this._renderPageSizeSelection(isDisable, index, pageSize),
-                this._renderPageInfo(index, pageSize, this.props.pageOption.TotalItem)
+                this._renderPageSizeSelection(isDisable, PageIndex, PageSize),
+                this._renderPageInfo(PageIndex, PageSize, TotalItem)
             );
         }
     }]);
