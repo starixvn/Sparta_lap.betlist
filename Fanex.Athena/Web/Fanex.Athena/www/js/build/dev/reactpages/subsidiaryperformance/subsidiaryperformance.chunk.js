@@ -6206,12 +6206,13 @@ var Page = function (_Component) {
             var _props$pageOption = this.props.pageOption,
                 PageIndex = _props$pageOption.PageIndex,
                 PageSize = _props$pageOption.PageSize,
-                TotalItem = _props$pageOption.TotalItem;
+                TotalItem = _props$pageOption.TotalItem,
+                PageList = _props$pageOption.PageList;
             var inputValue = this.state.inputValue;
 
 
             var isDisable = isNaN(parseInt(inputValue));
-            var isShow = TotalItem > PageSize;
+            var isShow = TotalItem > PageList[0];
             var totalPage = Math.ceil(TotalItem / PageSize);
 
             return _react2.default.createElement(
