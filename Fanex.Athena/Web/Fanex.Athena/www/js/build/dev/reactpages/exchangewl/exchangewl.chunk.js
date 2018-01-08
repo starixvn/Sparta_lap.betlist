@@ -5405,21 +5405,21 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     { colWidth: 30, header: true, title: headerText.index, rowSpan: '2' },
                     headerText.index
                 ),
-                level === _report.ReportLevel.MAIN ? _react2.default.createElement(
+                level === _report.ReportLevel.MAIN && _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { colWidth: 100, header: true, title: reportBy === _report.ReportBy.DAILY ? headerText.date : headerText.month, rowSpan: '2' },
                     reportBy === _report.ReportBy.DAILY ? headerText.date : headerText.month
-                ) : undefined,
-                level === _report.ReportLevel.CUSTOMER ? _react2.default.createElement(
+                ),
+                level === _report.ReportLevel.CUSTOMER && _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { colWidth: 100, header: true, title: headerText.externalId, rowSpan: '2' },
                     headerText.externalId
-                ) : undefined,
-                level !== _report.ReportLevel.MAIN ? _react2.default.createElement(
+                ),
+                level !== _report.ReportLevel.MAIN && _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { colWidth: 100, header: true, title: headerText.systemId, rowSpan: '2' },
                     headerText.systemId
-                ) : undefined,
+                ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { colWidth: 70, header: true, title: headerText.currency, rowSpan: '2' },
@@ -5542,25 +5542,25 @@ var DataGrid = exports.DataGrid = function (_Component) {
                         { title: i + 1, className: 'center-align' },
                         i + 1
                     ),
-                    level === _report.ReportLevel.MAIN ? _react2.default.createElement(
+                    level === _report.ReportLevel.MAIN && _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: date, className: 'center-align' },
                         date
-                    ) : undefined,
-                    level === _report.ReportLevel.CUSTOMER ? _react2.default.createElement(
+                    ),
+                    level === _report.ReportLevel.CUSTOMER && _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: item.ExternalId, className: 'left-align' },
                         item.ExternalId
-                    ) : undefined,
-                    level !== _report.ReportLevel.MAIN ? _react2.default.createElement(
+                    ),
+                    level !== _report.ReportLevel.MAIN && _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: item.SystemId, className: 'left-align' },
-                        level === _report.ReportLevel.LICENSEE ? this._renderDrillDownLink(item.SystemId, _report.ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName) : item.SystemId
-                    ) : undefined,
+                        level === _report.ReportLevel.LICENSEE ? this._renderDrillDownLink(item.SystemId, _report.ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName, item.CustId) : item.SystemId
+                    ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: item.CurrencyName, className: 'center-align' },
-                        level === _report.ReportLevel.MAIN ? this._renderDrillDownLink(item.CurrencyName, this.licenseeId === _licensee.Licensee.ONE_TWO_BET ? _report.ReportLevel.LICENSEE : _report.ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName, item.CustId) : item.CurrencyName
+                        level === _report.ReportLevel.MAIN ? this._renderDrillDownLink(item.CurrencyName, this.licenseeId === _licensee.Licensee.ONE_TWO_BET ? _report.ReportLevel.LICENSEE : _report.ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName) : item.CurrencyName
                     ),
                     this._buildCell(item)
                 ));
@@ -5584,11 +5584,11 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 totalRows.push(_react2.default.createElement(
                     _fixedTableHeader.Row,
                     { key: 'tr-total' + i, className: 'fixed-table-total' },
-                    i === 0 ? _react2.default.createElement(
+                    i === 0 && _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: totalText.total, className: 'center-align', rowSpan: rowSpan, colSpan: colSpan },
                         totalText.total
-                    ) : undefined,
+                    ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: item.CurrencyName, className: 'center-align' },
@@ -5650,15 +5650,15 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 _fixedTableHeader.Cell,
                 { key: 'customerWL', title: customerWL, className: 'right-align' },
                 customerWL
-            ), this.isAllowedCustomerComm ? _react2.default.createElement(
+            ), this.isAllowedCustomerComm && _react2.default.createElement(
                 _fixedTableHeader.Cell,
                 { key: 'customerComm', title: customerComm, className: 'right-align' },
                 customerComm
-            ) : undefined, this.isAllowedCustomerComm ? _react2.default.createElement(
+            ), this.isAllowedCustomerComm && _react2.default.createElement(
                 _fixedTableHeader.Cell,
                 { key: 'customerWLTotal', title: customerWLTotal, className: 'right-align' },
                 customerWLTotal
-            ) : undefined, _react2.default.createElement(
+            ), _react2.default.createElement(
                 _fixedTableHeader.Cell,
                 { key: 'licenseeWL', title: licenseeWL, className: 'right-align ' + (item.LicenseeWL < 0 ? 'negative' : '') },
                 licenseeWL
@@ -5823,45 +5823,29 @@ var BreadcrumbItem = function (_Component) {
     function BreadcrumbItem(props) {
         _classCallCheck(this, BreadcrumbItem);
 
-        var _this = _possibleConstructorReturn(this, (BreadcrumbItem.__proto__ || Object.getPrototypeOf(BreadcrumbItem)).call(this, props));
-
-        _this.state = {
-            value: _this.props.value
-        };
-        _this.items = _this.props.items;
-        return _this;
+        return _possibleConstructorReturn(this, (BreadcrumbItem.__proto__ || Object.getPrototypeOf(BreadcrumbItem)).call(this, props));
     }
 
     _createClass(BreadcrumbItem, [{
-        key: 'componentWillReceiveProps',
-        value: function componentWillReceiveProps(nextProps) {
-            if (this.props.value !== nextProps.value) {
-                this.setState({
-                    value: nextProps.value
-                });
-            }
-        }
-    }, {
         key: 'onChange',
         value: function onChange(item) {
-            if (this.state.value === item.value) {
+            if (this.props.value === item.value) {
                 return;
             }
-
-            this.setState({
-                value: item.value
-            });
 
             this.props.onChange && this.props.onChange(item);
         }
     }, {
         key: '_renderItem',
         value: function _renderItem() {
-            var value = this.state.value;
+            var _props = this.props,
+                value = _props.value,
+                items = _props.items;
+
             var breadcrumbItems = [];
 
-            for (var i = 0; i < this.items.length; i++) {
-                var item = this.items[i];
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
                 var isActive = item.value === value;
 
                 breadcrumbItems.push(_react2.default.createElement(_BreadcrumbItem2.default, { key: 'breadcrumb-item' + i, isActive: isActive, label: item.label, onClick: this.onChange.bind(this, item) }));
@@ -5893,7 +5877,10 @@ var BreadcrumbItem = function (_Component) {
 }(_react.Component);
 
 BreadcrumbItem.propTypes = {
-    items: _propTypes2.default.arrayOf(_propTypes2.default.object).isRequired,
+    items: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+        label: _propTypes2.default.string,
+        value: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string])
+    })).isRequired,
     value: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
     onChange: _propTypes2.default.func
 };

@@ -5930,6 +5930,13 @@ var DataGrid = exports.DataGrid = function (_Component) {
         key: '_buildHeader',
         value: function _buildHeader() {
             var headerText = _service2.default.getHeaderText(this.selectedReportBy, this.groupBy);
+
+            var reportByCell = this.selectedReportBy !== _settingConst.SettingConst.ReportBySummary && _react2.default.createElement(
+                _fixedTableHeader.Cell,
+                { colWidth: 150, header: true, title: headerText.ReportBy },
+                headerText.ReportBy
+            );
+
             return _react2.default.createElement(
                 _fixedTableHeader.Row,
                 { style: { height: 32 } },
@@ -5938,11 +5945,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     { colWidth: 50, header: true, title: '#' },
                     headerText.Index
                 ),
-                this.selectedReportBy === _settingConst.SettingConst.ReportBySummary ? null : _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { colWidth: 150, header: true, title: headerText.ReportBy },
-                    headerText.ReportBy
-                ),
+                reportByCell,
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { colWidth: 150, header: true, title: headerText.GroupBy },
@@ -6004,6 +6007,12 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     licenseeNetWL = _numberFormat2.default.formatDecimal(item.LicenseeNetWinLoss),
                     margin = _numberFormat2.default.formatDecimal(item.Margin) + "%";
 
+                var reportByCell = this.selectedReportBy !== _settingConst.SettingConst.ReportBySummary && _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { title: reportBy, className: 'center-align' },
+                    reportBy
+                );
+
                 rows.push(_react2.default.createElement(
                     _fixedTableHeader.Row,
                     { key: 'tr' + i },
@@ -6012,11 +6021,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                         { className: 'center-align' },
                         i + 1
                     ),
-                    this.selectedReportBy === _settingConst.SettingConst.ReportBySummary ? null : _react2.default.createElement(
-                        _fixedTableHeader.Cell,
-                        { title: reportBy, className: 'center-align' },
-                        reportBy
-                    ),
+                    reportByCell,
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: item.GroupBy, className: groupByClassName },
