@@ -98,11 +98,11 @@ export default class Page extends Component {
     }    
 
     render() {
-        const { PageIndex, PageSize, TotalItem } = this.props.pageOption;
+        const { PageIndex, PageSize, TotalItem, PageList } = this.props.pageOption;
         const { inputValue } = this.state;
 
         const isDisable = isNaN(parseInt(inputValue));
-        const isShow = TotalItem > PageSize;
+        const isShow = TotalItem > PageList[0];
         const totalPage = Math.ceil(TotalItem/PageSize);
 
         return (
