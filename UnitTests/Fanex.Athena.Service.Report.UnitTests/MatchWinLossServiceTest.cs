@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Data;
     using DataAccess.Report.Interfaces;
+    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -34,23 +35,15 @@
         {
             // Arrange
             var metaModel = new MatchWinLossMetaModel();
-            var dataList = new List<MatchWinLoss>();
-            dataList.Add(new MatchWinLoss
+            var dataList = new List<MatchWinLoss>
             {
-                ProductName = Product.SB
-            });
-            dataList.Add(new MatchWinLoss
-            {
-                ProductName = Product.RB
-            });
-            dataList.Add(new MatchWinLoss
-            {
-                ProductName = Product.NG
-            });
-            dataList.Add(new MatchWinLoss
-            {
-                ProductName = Product.LC
-            });
+                new MatchWinLoss { ProductName = Product.SB, IsNeutral = true },
+                new MatchWinLoss { ProductName = Product.VS2 },
+                new MatchWinLoss { ProductName = Product.VS, SportType = (int)SportType.VirtualCycling },
+                new MatchWinLoss { ProductName = Product.RB },
+                new MatchWinLoss { ProductName = Product.NG },
+                new MatchWinLoss { ProductName = Product.LC, IsNeutral = true }
+            };
 
             _dataAccess.GetDataList(metaModel).ReturnsForAnyArgs(dataList);
 

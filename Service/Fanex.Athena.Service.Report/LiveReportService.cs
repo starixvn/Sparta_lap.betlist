@@ -29,6 +29,11 @@ namespace Fanex.Athena.Service.Report
             this._liveReportDataAccess = new LiveReportDataAccess();
         }
 
+        public LiveReportService(ILiveReportDataAccess dataAccess)
+        {
+            this._liveReportDataAccess = dataAccess;
+        }
+
         public IList<LiveReport> GetLiveReportSummary(LiveReportMetaModel model)
         {
             return model.IsValid ?

@@ -31,6 +31,11 @@ namespace Fanex.Athena.Service.Report
             this._weeklyLiveMatchDataAccess = new WeeklyLiveMatchDataAccess();
         }
 
+        public WeeklyLiveMatchService(IWeeklyLiveMatchDataAccess dataAccess)
+        {
+            this._weeklyLiveMatchDataAccess = dataAccess;
+        }
+
         public WeeklyLiveMatchResultModel GetData(WeeklyLiveMatchMetaModel metaModel)
         {
             return metaModel.IsValid ?

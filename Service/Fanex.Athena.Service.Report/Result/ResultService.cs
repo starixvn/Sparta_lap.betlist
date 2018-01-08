@@ -25,6 +25,11 @@
             this._dataAccess = new ResultDataAccess();
         }
 
+        public ResultService(IResultDataAccess dataAccess)
+        {
+            this._dataAccess = dataAccess;
+        }
+
         public IList<Outright> GetOutRight(ResultMetalModel metal)
         {
             return this._dataAccess.GetOutRight(metal);
