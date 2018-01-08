@@ -85,9 +85,6 @@
 
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
-            // Freeze 2 rows title and header
-            sheet.CreateFreezePane(0, 2);
-
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
 
@@ -95,7 +92,7 @@
             sheet.CreateFreezePane(0, 2);
         }
 
-        protected void AssignSumData(ISheet sheet, int totalRow)
+        protected internal virtual void AssignSumData(ISheet sheet, int totalRow)
         {
             var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, totalRow);
 
