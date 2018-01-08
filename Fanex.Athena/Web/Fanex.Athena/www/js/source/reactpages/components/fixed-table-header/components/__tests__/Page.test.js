@@ -284,12 +284,13 @@ describe('Page ', () => {
             };
             const pageSize = 5;
             const totalPage = 3;
-            let currentPage = 1;
+            let currentPage = 2;
 
             const component = renderer.create(<Page {...props} />);
             let tree = component.toJSON();
             expect(tree).toMatchSnapshot();
 
+            currentPage = 1;
             tree.children[firstPageIndex].props.onClick();
             tree = component.toJSON();    
             expect(tree).toMatchSnapshot();
@@ -301,19 +302,18 @@ describe('Page ', () => {
             expect(tree).toMatchSnapshot();
             expect(props.onPaging).toHaveBeenLastCalledWith(currentPage, pageSize);
 
-            --currentPage;
+            currentPage = 1;
             tree.children[prevPageIndex].props.onClick();
             tree = component.toJSON();    
             expect(tree).toMatchSnapshot();
             expect(props.onPaging).toHaveBeenLastCalledWith(currentPage, pageSize);
 
-            ++currentPage;
+            currentPage = 3;
             tree.children[nextPageIndex].props.onClick();
             tree = component.toJSON();    
             expect(tree).toMatchSnapshot();
             expect(props.onPaging).toHaveBeenLastCalledWith(currentPage, pageSize);
         });
-
     });
 
     describe('PageInput', () => {
@@ -418,17 +418,15 @@ describe('Page ', () => {
                     TotalItem: 15
                 }
             };
+            const inputValue = 1;
 
             const component = new Page(props);
             component.setState = jest.fn();
 
-            component._updateState(null, false, null, null);
+            component._updateState(inputValue);
 
             expect(component.setState).toHaveBeenLastCalledWith({
-                index: 1,
-                isShow: false,
-                totalPage: 3,
-                pageSize: 5
+                inputValue: 1
             });
         });
     });
