@@ -244,7 +244,15 @@
     "FunctionKey": "CashOutWinLoss72"
   },
   {
+    "FunctionId": 73,
+    "FunctionKey": "SubsidiaryPerformance73"
+  },
+  {
     "FunctionId": 75,
     "FunctionKey": "ResultAmendment_Recalculation75"
+  },
+  {
+    "FunctionId": 76,
+    "FunctionKey": "LicenseeWinLossByTimeZone76"
   }
 ]
