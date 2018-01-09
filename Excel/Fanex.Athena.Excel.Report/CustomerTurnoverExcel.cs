@@ -8,7 +8,6 @@ namespace Fanex.Athena.Excel.Report
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Base;
     using Base.Entities;
@@ -97,26 +96,12 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
         }
 
-        /// <summary>
-        /// Assign "no info" to sheet.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="pageIndex">Start index.</param>
-        /// <returns>Row index.</returns>
-        [SuppressMessage(
-          "StyleCop.CSharp.StylecopPlus.Rules",
-          "SP2101:MethodMustNotContainMoreLinesThan",
-          Justification = "Reviewed. Suppression is OK here.")]
         protected override void AssignSheetData(ISheet sheet, int pageIndex)
         {
             var rowIndex = 0;
@@ -162,9 +147,7 @@ namespace Fanex.Athena.Excel.Report
                 row.Cells[ColumnTurnover].SetCellValue(customerTurnover.Turnover);
                 row.Cells[ColumnCustomerWl].SetCellValue(customerTurnover.CustomerWinLoss);
                 row.Cells[ColumnCustomerComm].SetCellValue(customerTurnover.CustomerComm);
-                row.Cells[ColumnCustomerTotal].SetCellValue(customerTurnover.CustomerWinLoss +
-                        customerTurnover.CustomerComm);
-
+                row.Cells[ColumnCustomerTotal].SetCellValue(customerTurnover.CustomerWinLoss + customerTurnover.CustomerComm);
                 rowIndex++;
             }
 
@@ -200,7 +183,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="totalRow">The total value.</param>
-        protected void AssignTotalRow(ISheet sheet, int totalRow)
+        protected internal virtual void AssignTotalRow(ISheet sheet, int totalRow)
         {
             var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, totalRow);
             row.Cells[ColumnCurrency].SetCellValue(string.Empty);
