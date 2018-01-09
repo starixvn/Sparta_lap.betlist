@@ -85,6 +85,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Web" />
@@ -126,7 +127,7 @@
     <Compile Include="ExchangeCommApiServiceTest.cs" />
     <Compile Include="DcsBetSettingServiceTest.cs" />
     <Compile Include="DcsBetSettingServiceTest.BetLimit.cs" />
-    <Compile Include="RngCasinoBetSettingServiceTest.GetViewModel.cs" />
+    <Compile Include="RngCasinoBetSettingServiceTest.cs" />
     <Compile Include="ThirdPartyBetSettingServiceTest.cs" />
     <Compile Include="SportsbookBetSettingServiceTest.cs" />
     <Compile Include="RacingBetSettingServiceTest.cs" />
