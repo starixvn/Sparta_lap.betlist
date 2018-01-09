@@ -15,14 +15,14 @@
 
         private IBetTypeService _betTypeService;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUp()
         {
             _betTypeDataAccess = Substitute.For<IBetTypeDataAccess>();
             _betTypeService = new BetTypeService(_betTypeDataAccess);
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDown()
         {
             _betTypeDataAccess = null;
@@ -33,7 +33,7 @@
         public void GetBettypes_WhenCall_PassCorrectParamsToDataAccess()
         {
             // Arrange
-            var expectedSportXmlString = "<products><product ID=\"1\" Sport=\"2,3\"> </product></products>";
+            const string ExpectedSportXmlString = "<products><product ID=\"1\" Sport=\"2,3\"> </product></products>";
             var sports = new List<SportProductItem>
             {
                 new SportProductItem { ParentId = -1, ID = 1 },
@@ -41,14 +41,42 @@
                 new SportProductItem { ParentId = 1, ID = 3 }
             };
 
-            var licenseeId = 1;
-            var languageCode = "en-US";
+            const int LicenseeId = 1;
+            const string LanguageCode = "en-US";
+
+            var actualSportXmlString = string.Empty;
+            _betTypeDataAccess.When(x => x.GetBettypes(LicenseeId, Arg.Any<string>(), LanguageCode))
+                .Do(x => actualSportXmlString = (string)x[1]);
 
             // Action
-            _betTypeService.GetBettypes(licenseeId, sports, languageCode);
+            _betTypeService.GetBettypes(LicenseeId, sports, LanguageCode);
 
             // Assert
-            _betTypeDataAccess.Received().GetBettypes(licenseeId, expectedSportXmlString, languageCode);
+            Assert.That(actualSportXmlString, Is.EqualTo(ExpectedSportXmlString));
+        }
+
+        [Test]
+        public void GetBettypes_NoChildSports_PassCorrectParamsToDataAccess()
+        {
+            // Arrange
+            var expectedSportXmlString = "<products><product ID=\"1\" Sport=\"1\"> </product></products>";
+            var sports = new List<SportProductItem>
+            {
+                new SportProductItem { ParentId = -1, ID = 1 }
+            };
+
+            const int LicenseeId = 1;
+            const string LanguageCode = "en-US";
+
+            var actualSportXmlString = string.Empty;
+            _betTypeDataAccess.When(x => x.GetBettypes(LicenseeId, Arg.Any<string>(), LanguageCode))
+                .Do(x => actualSportXmlString = (string)x[1]);
+
+            // Action
+            _betTypeService.GetBettypes(LicenseeId, sports, LanguageCode);
+
+            // Assert
+            _betTypeDataAccess.Received().GetBettypes(LicenseeId, expectedSportXmlString, LanguageCode);
         }
 
         [Test]
@@ -64,25 +92,45 @@
             {
                 new SportProductItem()
             };
-            var licenseeId = 1;
-            _betTypeDataAccess.GetBettypes(licenseeId, Arg.Any<string>(), Arg.Any<string>()).Returns(expectedResult);
+            const int LicenseeId = 1;
+            _betTypeDataAccess.GetBettypes(LicenseeId, Arg.Any<string>(), Arg.Any<string>()).Returns(expectedResult);
 
             // Action
-            var result = _betTypeService.GetBettypes(licenseeId, sports, Arg.Any<string>());
+            var result = _betTypeService.GetBettypes(LicenseeId, sports, Arg.Any<string>());
 
             // Assert
-            Assert.That(result[0].ID, Is.EqualTo(expectedResult[0].ID));
-            Assert.That(result[1].ID, Is.EqualTo(expectedResult[1].ID));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result[0].ID, Is.EqualTo(expectedResult[0].ID));
+                Assert.That(result[1].ID, Is.EqualTo(expectedResult[1].ID));
+            });
         }
 
         [Test]
-        public void GetBettypes_WhenCall_ReturnEmptyDataList()
+        public void GetBettypes_NoSportItem_ReturnEmptyDataList()
         {
             // Arrange
-            var licenseeId = 1;
+            const int LicenseeId = 1;
 
             // Action
-            var result = _betTypeService.GetBettypes(licenseeId, null, Arg.Any<string>());
+            var result = _betTypeService.GetBettypes(LicenseeId, null, Arg.Any<string>());
+
+            // Assert
+            Assert.That(result.Count, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void GetBettypes_InvalidLicensee_ReturnEmptyDataList()
+        {
+            // Arrange
+            const int LicenseeId = 0;
+            var sports = new List<SportProductItem>
+            {
+                new SportProductItem()
+            };
+
+            // Action
+            var result = _betTypeService.GetBettypes(LicenseeId, sports, Arg.Any<string>());
 
             // Assert
             Assert.That(result.Count, Is.EqualTo(0));

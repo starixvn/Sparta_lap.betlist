@@ -29,7 +29,7 @@
             _xmlWrapper = Substitute.For<IXDocumentWrapper>();
             _cache = Substitute.For<IMemoryCacheService>();
 
-            _productService = new ProductService(_appSettings, _productDataAccess, _xmlWrapper, _cache);
+            _productService = Substitute.ForPartsOf<ProductService>(_appSettings, _productDataAccess, _xmlWrapper, _cache);
 
             _appSettings.GetValue("FunctionAllowedProductFile").Returns(@"xml_file_path");
         }

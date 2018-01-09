@@ -21,11 +21,7 @@
 
             const string XmlContent = "<Root><Group Name=\"Default\"><Function Name = \"_Default\" Product=\"SB,DB\"></Function></Group></Root>";
 
-            _cache.Get<IEnumerable<XElement>>(Arg.Any<string>()).Returns(x => null);
-            _cache.When(x => x.Set(Arg.Any<string>(), Arg.Any<IEnumerable<XElement>>())).DoNotCallBase();
-            _cache.Get<IList<Product>>(Arg.Any<string>()).Returns(expectedResult);
-
-            _xmlWrapper.Load(Arg.Any<string>()).Returns(XDocument.Parse(XmlContent));
+            SetUpGetAllowedProducts(expectedResult, XmlContent);
 
             _productDataAccess.GetProductAccessList(LicenseeId).Returns(expectedResult);
 
@@ -33,8 +29,11 @@
             var result = _productService.GetProductAccess(LicenseeId, Arg.Any<string>());
 
             // Assert
-            Assert.That(result.IsAllow(100), Is.True);
-            Assert.That(result.IsAllow(200), Is.False);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.IsAllow(100), Is.True);
+                Assert.That(result.IsAllow(200), Is.False);
+            });
         }
 
         [Test]
@@ -49,11 +48,8 @@
 
             const string XmlContent = "<Root><Group Name=\"Default\"><Function Name = \"_Default\" Product=\"SB,DB\"></Function></Group></Root>";
 
-            _cache.Get<IEnumerable<XElement>>(Arg.Any<string>()).Returns(x => null);
-            _cache.When(x => x.Set(Arg.Any<string>(), Arg.Any<IEnumerable<XElement>>())).DoNotCallBase();
-            _cache.Get<IList<Product>>(Arg.Any<string>()).Returns(expectedResult);
+            SetUpGetAllowedProducts(expectedResult, XmlContent);
 
-            _xmlWrapper.Load(Arg.Any<string>()).Returns(XDocument.Parse(XmlContent));
             _productDataAccess.GetProductAccessList(LicenseeId).Returns(expectedResult);
             _productService.GetProductAccess(LicenseeId, Arg.Any<string>());
 
@@ -61,8 +57,11 @@
             var result = _productService.GetProductAccess(LicenseeId, Arg.Any<string>());
 
             // Assert
-            Assert.That(result.IsAllow(100), Is.True);
-            Assert.That(result.IsAllow(200), Is.False);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.IsAllow(100), Is.True);
+                Assert.That(result.IsAllow(200), Is.False);
+            });
         }
 
         [Test]
@@ -77,19 +76,19 @@
 
             const string XmlContent = "<Root></Root>";
 
-            _cache.Get<IEnumerable<XElement>>(Arg.Any<string>()).Returns(x => null);
-            _cache.When(x => x.Set(Arg.Any<string>(), Arg.Any<IEnumerable<XElement>>())).DoNotCallBase();
-            _cache.Get<IList<Product>>(Arg.Any<string>()).Returns(expectedResult);
+            SetUpGetAllowedProducts(expectedResult, XmlContent);
 
-            _xmlWrapper.Load(Arg.Any<string>()).Returns(XDocument.Parse(XmlContent));
             _productDataAccess.GetProductAccessList(LicenseeId).Returns(expectedResult);
 
             // Action
             var result = _productService.GetProductAccess(LicenseeId, Arg.Any<string>());
 
             // Assert
-            Assert.That(result.IsAllow(100), Is.True);
-            Assert.That(result.IsAllow(200), Is.True);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.IsAllow(100), Is.True);
+                Assert.That(result.IsAllow(200), Is.True);
+            });
         }
 
         [Test]
@@ -104,11 +103,7 @@
 
             const string XmlContent = "<Root><Group Name=\"Default\"><Function Name = \"ActiveCustomerSummary\" Product=\"SB,DB\"></Function></Group></Root>";
 
-            _cache.Get<IEnumerable<XElement>>(Arg.Any<string>()).Returns(x => null);
-            _cache.When(x => x.Set(Arg.Any<string>(), Arg.Any<IEnumerable<XElement>>())).DoNotCallBase();
-            _cache.Get<IList<Product>>(Arg.Any<string>()).Returns(x => null);
-
-            _xmlWrapper.Load(Arg.Any<string>()).Returns(XDocument.Parse(XmlContent));
+            SetUpGetAllowedProducts(null, XmlContent);
 
             _productDataAccess.GetProductAccessList(LicenseeId, true).Returns(expectedResult);
 
@@ -116,8 +111,38 @@
             var result = _productService.GetProductAccessForActiveCustomerSummary(LicenseeId, Arg.Any<string>());
 
             // Assert
-            Assert.That(result.IsAllow(100), Is.True);
-            Assert.That(result.IsAllow(200), Is.False);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.IsAllow(100), Is.True);
+                Assert.That(result.IsAllow(200), Is.False);
+            });
+        }
+
+        [Test]
+        public void GetProductAccessForActiveCustomerSummary_AllowedProductsIsEmpty_ReturnProductAccessList()
+        {
+            // Arrange
+            var expectedResult = new List<Product>
+            {
+                new Product { ProductID = 100, ProductCode = "SB", IsOfferedSingleWallet = true },
+                new Product { ProductID = 200, ProductCode = "ABC", IsOfferedSingleWallet = true },
+            };
+
+            const string XmlContent = "<Root><Group Name=\"Default\"><Function Name = \"ActiveCustomerSummary\" Product=\"\"></Function></Group></Root>";
+
+            SetUpGetAllowedProducts(null, XmlContent);
+
+            _productDataAccess.GetProductAccessList(LicenseeId, true).Returns(expectedResult);
+
+            // Action
+            var result = _productService.GetProductAccessForActiveCustomerSummary(LicenseeId, Arg.Any<string>());
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.IsAllow(100), Is.True);
+                Assert.That(result.IsAllow(200), Is.True);
+            });
         }
 
         [Test]
@@ -137,11 +162,8 @@
 
             const string XmlContent = "<Root><Group Name=\"Default\"><Function Name = \"ActiveCustomerSummary\" Product=\"SB,ABC\"></Function></Group></Root>";
 
-            _cache.Get<IEnumerable<XElement>>(Arg.Any<string>()).Returns(x => null);
-            _cache.When(x => x.Set(Arg.Any<string>(), Arg.Any<IEnumerable<XElement>>())).DoNotCallBase();
-            _cache.Get<IList<Product>>(Arg.Any<string>()).Returns(expectedCacheResult);
+            SetUpGetAllowedProducts(expectedCacheResult, XmlContent);
 
-            _xmlWrapper.Load(Arg.Any<string>()).Returns(XDocument.Parse(XmlContent));
             _productDataAccess.GetProductAccessList(LicenseeId, true).Returns(expectedResult);
             _productService.GetProductAccessForActiveCustomerSummary(LicenseeId, Arg.Any<string>());
 
@@ -149,8 +171,11 @@
             var result = _productService.GetProductAccessForActiveCustomerSummary(LicenseeId, Arg.Any<string>());
 
             // Assert
-            Assert.That(result.IsAllow(100), Is.True);
-            Assert.That(result.IsAllow(200), Is.False);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.IsAllow(100), Is.True);
+                Assert.That(result.IsAllow(200), Is.False);
+            });
         }
 
         [Test]
@@ -165,19 +190,19 @@
 
             const string XmlContent = "<Root></Root>";
 
-            _cache.Get<IEnumerable<XElement>>(Arg.Any<string>()).Returns(x => null);
-            _cache.When(x => x.Set(Arg.Any<string>(), Arg.Any<IEnumerable<XElement>>())).DoNotCallBase();
-            _cache.Get<IList<Product>>(Arg.Any<string>()).Returns(expectedResult);
+            SetUpGetAllowedProducts(expectedResult, XmlContent);
 
-            _xmlWrapper.Load(Arg.Any<string>()).Returns(XDocument.Parse(XmlContent));
             _productDataAccess.GetProductAccessList(LicenseeId, true).Returns(expectedResult);
 
             // Action
             var result = _productService.GetProductAccessForActiveCustomerSummary(LicenseeId, Arg.Any<string>());
 
             // Assert
-            Assert.That(result.IsAllow(100), Is.True);
-            Assert.That(result.IsAllow(200), Is.True);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.IsAllow(100), Is.True);
+                Assert.That(result.IsAllow(200), Is.True);
+            });
         }
 
         [Test]
@@ -193,11 +218,7 @@
 
             const string XmlContent = "<Root><Group Name=\"Default\"><Function Name = \"_Default\" Product=\"SB,BA\"></Function></Group></Root>";
 
-            _cache.Get<IEnumerable<XElement>>(Arg.Any<string>()).Returns(x => null);
-            _cache.When(x => x.Set(Arg.Any<string>(), Arg.Any<IEnumerable<XElement>>())).DoNotCallBase();
-            _cache.Get<IList<Product>>(Arg.Any<string>()).Returns(expectedResult);
-
-            _xmlWrapper.Load(Arg.Any<string>()).Returns(XDocument.Parse(XmlContent));
+            SetUpGetAllowedProducts(expectedResult, XmlContent);
 
             _productDataAccess.GetProductAccessList(LicenseeId).Returns(expectedResult);
 
@@ -211,6 +232,42 @@
                 Assert.That(result.IsAllow(200), Is.False);
                 Assert.That(result.IsAllow(300), Is.False);
             });
+        }
+
+        [Test]
+        public void GetSingleWalletProductAccess_WhenCall_ReturnOriginalProducts()
+        {
+            // Arrange
+            var expectedResult = new List<Product>
+            {
+                new Product { ProductID = 100, ProductCode = "SB" },
+                new Product { ProductID = 200, ProductCode = "BA" }
+            };
+
+            const string XmlContent = "<Root><Group Name=\"Default\"><Function Name = \"_Default\" Product=\"\"></Function></Group></Root>";
+
+            SetUpGetAllowedProducts(expectedResult, XmlContent);
+
+            _productDataAccess.GetProductAccessList(LicenseeId).Returns(expectedResult);
+
+            // Action
+            var result = _productService.GetSingleWalletProductAccess(LicenseeId, Arg.Any<string>());
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.IsAllow(100), Is.True);
+                Assert.That(result.IsAllow(200), Is.True);
+            });
+        }
+
+        private void SetUpGetAllowedProducts(IList<Product> expectedResult, string xmlContent)
+        {
+            _cache.Get<IEnumerable<XElement>>(Arg.Any<string>()).Returns(x => null);
+            _cache.When(x => x.Set(Arg.Any<string>(), Arg.Any<IEnumerable<XElement>>())).DoNotCallBase();
+            _cache.Get<IList<Product>>(Arg.Any<string>()).Returns(expectedResult);
+
+            _xmlWrapper.Load(Arg.Any<string>()).Returns(XDocument.Parse(xmlContent));
         }
     }
 }

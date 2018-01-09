@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Web;
     using System.Web.SessionState;
     using Core.Common.Interfaces;
@@ -10,6 +11,7 @@
     using DataAccess.Core.Common.Interfaces;
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility;
+    using Model.Core.DataDomain;
     using Model.Core.DTO;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
@@ -66,6 +68,20 @@
         }
 
         [Test]
+        public void CreateNewSession_CurrentSessionOfUserIsNull_UserSessionIsNull()
+        {
+            // Arrange
+            const string UserSessionKey = "UserSessionKey";
+
+            // Action
+            CreateDefaultNewSession();
+            HttpContext.Current.Session[UserSessionKey] = null;
+
+            // Assert
+            Assert.That(_sessionService.UserSession, Is.Null);
+        }
+
+        [Test]
         public void CreateNewSession_WhenCall_LicenseeSessionIsCreatedProperly()
         {
             // Arrange
@@ -80,8 +96,11 @@
             CreateDefaultNewSession(LicenseeId);
 
             // Assert
-            Assert.That(_sessionService.LicenseeSession.LicenseeId, Is.EqualTo(LicenseeId));
-            Assert.That(_sessionService.LicenseeSession.LicenseeName, Is.EqualTo("spondemo"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(_sessionService.LicenseeSession.LicenseeId, Is.EqualTo(LicenseeId));
+                Assert.That(_sessionService.LicenseeSession.LicenseeName, Is.EqualTo("spondemo"));
+            });
         }
 
         [Test]
@@ -127,8 +146,11 @@
             _sessionService.UpdateLiceseeSession(NewLicenseeId);
 
             // Assert
-            Assert.That(_sessionService.LicenseeSession.LicenseeId, Is.EqualTo(NewLicenseeId));
-            Assert.That(_sessionService.LicenseeSession.LicenseeName, Is.EqualTo("12bet"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(_sessionService.LicenseeSession.LicenseeId, Is.EqualTo(NewLicenseeId));
+                Assert.That(_sessionService.LicenseeSession.LicenseeName, Is.EqualTo("12bet"));
+            });
         }
 
         [Test]
@@ -149,8 +171,11 @@
             _sessionService.UpdateLiceseeSession(NewLicenseeId);
 
             // Assert
-            Assert.That(_sessionService.LicenseeSession.LicenseeId, Is.EqualTo(OldLicenseeId));
-            Assert.That(_sessionService.LicenseeSession.LicenseeName, Is.EqualTo("spondemo"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(_sessionService.LicenseeSession.LicenseeId, Is.EqualTo(OldLicenseeId));
+                Assert.That(_sessionService.LicenseeSession.LicenseeName, Is.EqualTo("spondemo"));
+            });
         }
 
         [Test]
@@ -513,18 +538,18 @@
                 new CurrencyUser
                 {
                     IsActive = true,
-                    CurrencyId = 2,
-                    CurrencyName = "EUR",
+                    CurrencyId = 20,
+                    CurrencyName = "UUS",
                     AgentId = 3,
                     AgentIdList = new int[] { 3 }
                 }
             };
             _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
             CreateDefaultNewSession();
-            var expectedResult = "<ROOT><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/><Agent AgentId=\"3\" Currency=\"2\"/></ROOT>";
+            var expectedResult = "<ROOT><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/></ROOT>";
 
             // Action
-            var result = _sessionService.GenerateAgentListXml(new int[] { 0, 1, 20 }, false);
+            var result = _sessionService.GenerateAgentListXml(new int[] { 1, 20 }, true);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -565,6 +590,41 @@
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
+        [Test]
+        public void GenerateAgentListXmlByAgentIdList_WhenCall_ReturnCorrectXmlString()
+        {
+            // Arrange
+            const int UserId = 1, LicenseeId = 1;
+            var currencyUserList = new List<CurrencyUser>
+            {
+                new CurrencyUser
+                {
+                    IsActive = true,
+                    CurrencyId = 1,
+                    CurrencyName = "USD",
+                    AgentId = 2,
+                    AgentIdList = new int[] { 1, 2 }
+                },
+                new CurrencyUser
+                {
+                    IsActive = true,
+                    CurrencyId = 20,
+                    CurrencyName = "UUS",
+                    AgentId = 3,
+                    AgentIdList = new int[] { 3 }
+                }
+            };
+            _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
+            CreateDefaultNewSession();
+            var expectedResult = "<ROOT><Agent AgentId=\"1\" Currency=\"1\"/></ROOT>";
+
+            // Action
+            var result = _sessionService.GenerateAgentListXmlByAgentIdList(new int[] { 1 });
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
         [TestCase("ASDF")]
         [TestCase("12234")]
         public void CaptchaCode_Set_ValueIsSetCorrectly(string value)
@@ -597,6 +657,122 @@
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void AssignCurrenciesToUserSession_IsNotFakeLicensee_DoNotMergeAgentListWithFakeLicenseeData()
+        {
+            // Arrange
+            _appSettings.FakeLicenseeList.Returns(Enumerable.Empty<int>());
+
+            const int LicenseeId = 1;
+            var currencyUserList = new List<CurrencyUser>
+            {
+                new CurrencyUser
+                {
+                    IsActive = true,
+                    CurrencyId = 1,
+                    AgentId = 2,
+                    AgentIdList = new int[] { 1, 2 }
+                },
+                new CurrencyUser
+                {
+                    IsActive = false,
+                    CurrencyId = 20,
+                }
+            };
+            var activeCurrencyUsers = currencyUserList.Where(x => x.IsActive);
+
+            var userSession = new UserSession();
+
+            // Action
+            _sessionService.AssignCurrenciesToUserSession(userSession, LicenseeId, currencyUserList);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(userSession.CurrencyList.Count, Is.EqualTo(activeCurrencyUsers.Count()));
+                Assert.That(userSession.CurrencyList.Keys.ElementAt(0), Is.EqualTo(activeCurrencyUsers.ElementAt(0).CurrencyId));
+                Assert.That(userSession.CurrencyAgentList.Keys.ElementAt(0), Is.EqualTo(activeCurrencyUsers.ElementAt(0).CurrencyId));
+                Assert.That(userSession.CurrencyAgentList.Values.ElementAt(0), Is.EqualTo(activeCurrencyUsers.ElementAt(0).AgentIdList));
+            });
+        }
+
+        [Test]
+        public void AssignCurrenciesToUserSession_FakeLicensee_MergeAgentListWithFakeLicenseeData()
+        {
+            // Arrange
+            const int LicenseeId = 1, UserId = 1;
+
+            _appSettings.FakeLicenseeList.Returns(new int[] { LicenseeId });
+
+            var currencyUserList = new List<CurrencyUser>
+            {
+                new CurrencyUser
+                {
+                    IsActive = true,
+                    CurrencyId = 1,
+                    AgentId = 2,
+                    AgentIdList = new int[] { 1, 2 }
+                },
+                new CurrencyUser
+                {
+                    IsActive = true,
+                    CurrencyId = 2,
+                    AgentId = 3,
+                    AgentIdList = new int[] { 1, 2 }
+                }
+            };
+            var activeCurrencyUsers = currencyUserList.Where(x => x.IsActive);
+            _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
+
+            var licenseeSourcedSettings = new List<LicenseeSourcedSetting>
+            {
+                new LicenseeSourcedSetting { SourcedCurrencyId = 1, SourcedAgentId = 3 },
+                new LicenseeSourcedSetting { SourcedCurrencyId = 10, SourcedAgentId = 1 }
+            };
+            _licenseeDataAccess.GetLicenseeSourcedSettings(LicenseeId).Returns(licenseeSourcedSettings);
+
+            var userSession = new UserSession { UserId = UserId };
+
+            // Action
+            _sessionService.AssignCurrenciesToUserSession(userSession, LicenseeId, null);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(userSession.CurrencyAgentList.Values.ElementAt(0).Contains(licenseeSourcedSettings[0].SourcedAgentId), Is.True);
+                Assert.That(userSession.CurrencyAgentList.Values.ElementAt(1).Contains(licenseeSourcedSettings[0].SourcedAgentId), Is.False);
+            });
+        }
+
+        [Test]
+        public void AssignCurrenciesToUserSession_KeenOceanLicensee_UpdateCurrencyForKeenOncean()
+        {
+            // Arrange
+            _appSettings.FakeLicenseeList.Returns(Enumerable.Empty<int>());
+
+            const int LicenseeId = LicenseeIdentity.KeenOcean;
+            var currencyUserList = new List<CurrencyUser>
+            {
+                new CurrencyUser
+                {
+                    IsActive = true,
+                    CurrencyId = CurrencyType.Hkd,
+                    CurrencyName = "USD",
+                    AgentId = 2,
+                    AgentIdList = new int[] { 1, 2 }
+                }
+            };
+            var activeCurrencyUsers = currencyUserList.Where(x => x.IsActive);
+
+            var userSession = new UserSession();
+
+            // Action
+            _sessionService.AssignCurrenciesToUserSession(userSession, LicenseeId, currencyUserList);
+
+            // Assert
+            Assert.That(userSession.CurrencyList.Values.ElementAt(0), Is.EqualTo("CNY"));
         }
 
         private static void MockHttpContext()
