@@ -168,7 +168,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected void AssignSumData(ISheet sheet, int startIndex)
+        protected internal virtual void AssignSumData(ISheet sheet, int startIndex)
         {
             var rowTotalNumber = checked(startIndex + RowContentTemplate);
 

@@ -65,6 +65,20 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         }
 
         [Test]
+        public void AssignNoInfoRow_WhenCall_CallRelevantMethods()
+        {
+            // Arrange
+            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var excel = CreateExcel();
+
+            // Action
+            excel.Public_AssignNoInfoRow(_sheet);
+
+            // Assert
+            _sheet.Received().SetTextRowValue(excel.TemplateSheet, Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>(), ViewResources.NoInfo);
+        }
+
+        [Test]
         public void AssignSheetData_WhenCall_CallSetValueCorrectly()
         {
             // Arrange

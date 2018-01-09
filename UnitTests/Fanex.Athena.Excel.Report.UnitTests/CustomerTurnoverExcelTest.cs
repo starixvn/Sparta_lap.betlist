@@ -150,7 +150,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         }
 
         [Test]
-        public void ProcessUI_SystemIdInvisible_CallHideColumnCorrectly()
+        public void ProcessUI_WhenCall_CallHideColumnCorrectly()
         {
             // Arrange
             var excel = CreateExcel();
