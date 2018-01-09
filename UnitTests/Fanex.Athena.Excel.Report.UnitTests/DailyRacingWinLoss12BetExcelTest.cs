@@ -65,7 +65,8 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void AssignHeader_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var row1 = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, ReportBase.RowHeaderTemplate);
+            var row2 = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, ReportBase.RowHeaderTemplate + 1);
             var excel = CreateExcel();
 
             // Action
@@ -75,18 +76,26 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             Assert.Multiple(() =>
             {
                 _sheet.Received().CopyRow(excel.TemplateSheet, ReportBase.RowHeaderTemplate, ReportBase.RowHeaderTemplate);
-                cell.Received(2).SetCellValue(ViewResources.Race);
-                cell.Received(1).SetCellValue(ViewResources.CustomerOverall);
-                cell.Received(1).SetCellValue(ViewResources.Licensee12Bet);
-                cell.Received(2).SetCellValue(ViewResources.AmtDueTo);
-                cell.Received(2).SetCellValue(ViewResources.WinTO);
-                cell.Received(2).SetCellValue(ViewResources.PlaceTO);
-                cell.Received(2).SetCellValue(ViewResources.WPTO);
-                cell.Received(2).SetCellValue(ViewResources.TotalTO);
-                cell.Received(1).SetCellValue(ViewResources.DividendWon);
-                cell.Received(1).SetCellValue(ViewResources.Customer + " " + ViewResources.Comm);
-                cell.Received(1).SetCellValue(ViewResources.WinLoss);
-                cell.Received(1).SetCellValue(ViewResources.Comm);
+                row1.Cells[0].Received(1).SetCellValue(ViewResources.Race);
+                row1.Cells[2].Received(1).SetCellValue(ViewResources.CustomerOverall);
+                row1.Cells[8].Received(1).SetCellValue(ViewResources.Licensee12Bet);
+                row1.Cells[14].Received(1).SetCellValue(ViewResources.AmtDueTo);
+
+                row2.Cells[1].Received(1).SetCellValue(ViewResources.Race);
+                row2.Cells[2].Received(1).SetCellValue(ViewResources.WinTO);
+                row2.Cells[3].Received(1).SetCellValue(ViewResources.PlaceTO);
+                row2.Cells[4].Received(1).SetCellValue(ViewResources.WPTO);
+                row2.Cells[5].Received(1).SetCellValue(ViewResources.TotalTO);
+                row2.Cells[6].Received(1).SetCellValue(ViewResources.DividendWon);
+                row2.Cells[7].Received(1).SetCellValue(ViewResources.Customer + " " + ViewResources.Comm);
+                row2.Cells[8].Received(1).SetCellValue(ViewResources.WinTO);
+                row2.Cells[9].Received(1).SetCellValue(ViewResources.PlaceTO);
+                row2.Cells[10].Received(1).SetCellValue(ViewResources.WPTO);
+                row2.Cells[11].Received(1).SetCellValue(ViewResources.TotalTO);
+
+                row2.Cells[12].Received(1).SetCellValue(ViewResources.WinLoss);
+                row2.Cells[13].Received(1).SetCellValue(ViewResources.Comm);
+                row2.Cells[14].Received(1).SetCellValue(ViewResources.AmtDueTo);
             });
         }
 
@@ -94,7 +103,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void AssignNoInfoRow_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
             var excel = CreateExcel();
 
             // Action

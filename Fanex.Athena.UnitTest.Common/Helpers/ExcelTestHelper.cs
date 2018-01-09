@@ -21,5 +21,22 @@ namespace Fanex.Athena.UnitTest.Common.Helpers
             sheet.GetRow(0).ReturnsForAnyArgs(row);
             return cell;
         }
+
+        public static IRow MockGetRow(ISheet sheet, int columnCount, int sourceRowIndex)
+        {
+            var row = Substitute.For<IRow>();
+            
+            var cellList = new List<ICell>();
+            for (int i = 0; i < columnCount; i++)
+            {
+                var cell = Substitute.For<ICell>();
+                cell.Row.Returns(row);
+                cellList.Add(cell);
+            }
+
+            row.Cells.ReturnsForAnyArgs(cellList);
+            sheet.GetRow(sourceRowIndex).Returns(row);
+            return row;
+        }
     }
 }
