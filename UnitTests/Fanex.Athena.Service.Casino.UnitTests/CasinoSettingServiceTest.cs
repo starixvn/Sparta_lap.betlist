@@ -1,8 +1,10 @@
-﻿namespace Fanex.Athena.Service.Customer.UnitTests
+﻿namespace Fanex.Athena.Service.Casino.UnitTests
 {
+    using System;
     using System.Data;
     using Casino;
     using Casino.Wrappers;
+    using Core.Exception;
     using NSubstitute;
     using NUnit.Framework;
 
@@ -76,6 +78,22 @@
                 _customerApiWrapper.ReceivedWithAnyArgs().UpdateCustGameTypeStakeLevel(null);
                 Assert.That(result, Is.EqualTo(expectedResult));
             });
+        }
+
+        [Test]
+        public void UpdateSetting_ApiThrowException_ThrowServiceException()
+        {
+            // Arrange
+            _customerApiWrapper.UpdateCustGameTypeStakeLevel(null).ReturnsForAnyArgs(x =>
+            {
+                throw new Exception();
+            });
+
+            // Action
+            TestDelegate result = () => _casinoSettingService.UpdateSetting(null);
+
+            // Assert
+            Assert.Throws<ServiceException>(result);
         }
 
         private void MockServices(int custId, int gameKindId, int gameTypeId, int stakeLevelId)

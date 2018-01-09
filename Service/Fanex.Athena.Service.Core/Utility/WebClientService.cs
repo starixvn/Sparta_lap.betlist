@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Service.Core.Utility
 {
     using System;
+    using System.Collections.Generic;
     using System.Net;
     using Interfaces;
 
@@ -33,6 +34,22 @@
             using (WebClient webClient = new WebClient())
             {
                 return webClient.DownloadData(url);
+            }
+        }
+
+        public string UploadString(Uri address, string parameters, IDictionary<HttpRequestHeader, string> headers)
+        {
+            using (WebClient webClient = new WebClient())
+            {
+                if (headers != null)
+                {
+                    foreach (var header in headers)
+                    {
+                        webClient.Headers[header.Key] = header.Value;
+                    }
+                }
+              
+                return webClient.UploadString(address, parameters);
             }
         }
     }
