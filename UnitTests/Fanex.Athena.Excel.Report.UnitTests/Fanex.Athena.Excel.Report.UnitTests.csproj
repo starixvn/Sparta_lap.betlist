@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="AgCasinoBalanceExcelTest.cs" />
     <Compile Include="ActiveCustomerSummaryExcelTest.cs" />
+    <Compile Include="DailyRacingWinLoss12BetExcelTest.cs" />
     <Compile Include="CustomerWinLossExcelTest.cs" />
     <Compile Include="CustomerTurnoverExcelTest.cs" />
     <Compile Include="CustomerPendingFundsExcelTest.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestableClasses\AgCasinoBalanceExcelTestable.cs" />
     <Compile Include="TestableClasses\ActiveCustomerSummaryExcelTestable.cs" />
+    <Compile Include="TestableClasses\DailyRacingWinLoss12BetExcelTestable.cs" />
     <Compile Include="TestableClasses\CustomerWinLossExcelTestable.cs" />
     <Compile Include="TestableClasses\CustomerTurnoverExcelTestable.cs" />
     <Compile Include="TestableClasses\CustomerPendingFundsExcelTestable.cs" />
