@@ -27,8 +27,7 @@
             DataAccess.GetObjectDb(Arg.Is(IsAllowUpdateMemberBAStatusSp)).Returns(ObjectDb);
 
             // Action
-            var isAllow = true;
-            DataAccess.IsAllowUpdateMemberBAStatus(request, LicenseeId, out isAllow);
+            DataAccess.IsAllowUpdateMemberBAStatus(request, LicenseeId);
 
             // Assert
             Assert.Multiple(() =>
@@ -48,13 +47,12 @@
             ResultInfoHelper.MockResultInfo(ObjectDb);
 
             // Action
-            var isAllow = true;
-            var result = DataAccess.IsAllowUpdateMemberBAStatus(new Request(), 0, out isAllow);
+            var result = DataAccess.IsAllowUpdateMemberBAStatus(new Request(), 0);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(isAllow, Is.False);
+                Assert.That(result.ExtendedData, Is.False);
                 Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
                 Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
             });
@@ -63,10 +61,9 @@
         [Test]
         public void IsAllowUpdateMemberBAStatus_WhenObjectDbThrowsException_ThrowDataAccessException()
         {
-            var isAllow = true;
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 IsAllowUpdateMemberBAStatusSp,
-                () => DataAccess.IsAllowUpdateMemberBAStatus(new Request(), 0, out isAllow));
+                () => DataAccess.IsAllowUpdateMemberBAStatus(new Request(), 0));
         }
 
         [TestCase(1, true)]
