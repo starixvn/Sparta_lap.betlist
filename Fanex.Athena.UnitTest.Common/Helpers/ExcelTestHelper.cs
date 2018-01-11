@@ -22,7 +22,7 @@ namespace Fanex.Athena.UnitTest.Common.Helpers
             return cell;
         }
 
-        public static IRow MockGetRow(ISheet sheet, int columnCount, int sourceRowIndex)
+        public static IRow MockGetRow(ISheet sheet, int columnCount, int destRowIndex)
         {
             var row = Substitute.For<IRow>();
             
@@ -35,7 +35,7 @@ namespace Fanex.Athena.UnitTest.Common.Helpers
             }
 
             row.Cells.ReturnsForAnyArgs(cellList);
-            sheet.GetRow(sourceRowIndex).Returns(row);
+            sheet.GetRow(destRowIndex).Returns(row);
             return row;
         }
     }

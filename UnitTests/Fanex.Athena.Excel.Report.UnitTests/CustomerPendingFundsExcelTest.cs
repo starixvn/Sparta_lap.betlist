@@ -17,6 +17,11 @@ namespace Fanex.Athena.Excel.Report.UnitTests
     [TestFixture]
     public class CustomerPendingFundsExcelTest
     {
+        private const int ColumnBetCount = 3;
+        private const int ColumnExternalId = 1;
+        private const int ColumnPendingFunds = 4;
+        private const int ColumnSystemId = 2;
+
         private const int ColumnCount = 5;
 
         private static readonly CustPendingFunds DataItem = new CustPendingFunds
@@ -46,7 +51,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void AssignHeader_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, ReportBase.RowHeaderTemplate);
             var excel = CreateExcel();
 
             // Action
@@ -56,11 +61,11 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             Assert.Multiple(() =>
             {
                 _sheet.Received().CopyRow(excel.TemplateSheet, ReportBase.RowHeaderTemplate, ReportBase.RowHeaderTemplate);
-                cell.Received(1).SetCellValue("#");
-                cell.Received(1).SetCellValue(ViewResources.ExternalId);
-                cell.Received(1).SetCellValue(ViewResources.SystemId);
-                cell.Received(1).SetCellValue(ViewResources.BetCount);
-                cell.Received(1).SetCellValue(ViewResources.PendingFunds);
+                row.Cells[0].Received(1).SetCellValue("#");
+                row.Cells[1].Received(1).SetCellValue(ViewResources.ExternalId);
+                row.Cells[2].Received(1).SetCellValue(ViewResources.SystemId);
+                row.Cells[3].Received(1).SetCellValue(ViewResources.BetCount);
+                row.Cells[4].Received(1).SetCellValue(ViewResources.PendingFunds);
             });
         }
 
@@ -68,7 +73,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void AssignNoInfoRow_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
             var excel = CreateExcel();
 
             // Action
@@ -82,7 +87,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void AssignSheetData_WhenCall_CallSetValueCorrectly()
         {
             // Arrange
-            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 2);
             var excel = CreateExcel();
             excel.WhenForAnyArgs(x => x.AssignSumData(Arg.Any<ISheet>(), Arg.Any<int>())).DoNotCallBase();
 
@@ -92,10 +97,11 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             // Assert
             Assert.Multiple(() =>
             {
-                cell.Received(1).SetCellValue(DataItem.ExternalId);
-                cell.Received(1).SetCellValue(DataItem.SystemId);
-                cell.Received(1).SetCellValue(DataItem.BetCounts);
-                cell.Received(1).SetCellValue(DataItem.PendingFunds);
+                row.Cells[0].Received(1).SetCellValue(1);
+                row.Cells[ColumnExternalId].Received(1).SetCellValue(DataItem.ExternalId);
+                row.Cells[ColumnSystemId].Received(1).SetCellValue(DataItem.SystemId);
+                row.Cells[ColumnBetCount].Received(1).SetCellValue(DataItem.BetCounts);
+                row.Cells[ColumnPendingFunds].Received(1).SetCellValue(DataItem.PendingFunds);
 
                 excel.Received(1).AssignSumData(Arg.Any<ISheet>(), Arg.Any<int>());
             });
@@ -144,7 +150,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         {
             // Arrange
             const int TotalRow = 100;
-            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, TotalRow);
             var excel = CreateExcel();
 
             // Action
@@ -153,9 +159,9 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             // Assert
             Assert.Multiple(() =>
             {
-                cell.Received(1).SetCellValue(ViewResources.Total);
-                cell.Received(1).SetCellValue(ExcelModel.TotalData.BetCounts);
-                cell.Received(1).SetCellValue(ExcelModel.TotalData.PendingFunds);
+                row.Cells[0].Received(1).SetCellValue(ViewResources.Total);
+                row.Cells[ColumnBetCount].Received(1).SetCellValue(ExcelModel.TotalData.BetCounts);
+                row.Cells[ColumnPendingFunds].Received(1).SetCellValue(ExcelModel.TotalData.PendingFunds);
                 _sheet.MergeCells(TotalRow, 0, TotalRow, 2);
             });
         }
