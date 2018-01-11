@@ -70,6 +70,8 @@
     <Compile Include="CasinoProgressiveWinsExcelTest.cs" />
     <Compile Include="BalanceExcelTest.cs" />
     <Compile Include="CashOutWinLossExcelTest.cs" />
+    <Compile Include="LiveReportExcelTest.cs" />
+    <Compile Include="LiveReportExcelTestable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestableClasses\AgCasinoBalanceExcelTestable.cs" />
     <Compile Include="TestableClasses\ActiveCustomerSummaryExcelTestable.cs" />
