@@ -16,7 +16,7 @@ export class AppContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.isLoading) {
+    if (this.props.isLoading && !nextProps.isLoading) {
       const { dateRange, selectedBaseCurrency } = nextProps;
       this.reportTitle = service.getReportTitle(dateRange, selectedBaseCurrency);
     }
