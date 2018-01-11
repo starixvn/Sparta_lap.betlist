@@ -5,21 +5,16 @@ import { bindActionCreators } from 'redux'
 import { Table, Row, Cell } from '../../../components/fixed-table-header'
 import LangHelper from '../../../lib/langHelper'
 import NumberFormat from '../../../lib/numberFormat'
-import ReportTitle from '../../../components/ReportTitle'
 import NoDataTitle from '../../../components/NoDataTitle'
 import service from '../lib/service'
 
 export class DataGrid extends Component {
     constructor(props) {
         super(props);
-
-        this.reportTitle = "";
     }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.gridData !== nextProps.gridData) {
-            const { dateRange, selectedBaseCurrency } = nextProps;
-            this.reportTitle = service.getReportTitle(dateRange, selectedBaseCurrency);
             this.props.toggleLoader(false);
         }
     }
@@ -133,15 +128,6 @@ export class DataGrid extends Component {
         )
     }
 
-    _renderNodata() {
-        return (
-            <div className="result-content">
-                <ReportTitle content={this.reportTitle} />
-                <NoDataTitle />
-            </div>
-        )
-    }
-
     render() {
         const { Data } = this.props.gridData;
         if (!Data) {
@@ -149,31 +135,28 @@ export class DataGrid extends Component {
         }
 
         if (!Data.length) {
-            return this._renderNodata();
+            return (<NoDataTitle />);
         }
-        
-        return (
-            <div className="result-content">
-                <ReportTitle content={this.reportTitle} />
 
-                <Table
-                    minWidth={600}
-                    autoWidth={true}
-                    bodyHeight={300}
-                    header={this._buildHeader()}
-                    body={this._buildBody()}
-                    footer={this._buildFooter()}
-                />
-            </div>
+        return (
+            <Table
+                minWidth={600}
+                autoWidth={true}
+                bodyHeight={300}
+                header={this._buildHeader()}
+                body={this._buildBody()}
+                footer={this._buildFooter()}
+            />
         );
     }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(ActionCreators, dispatch);
+    const { toggleLoader } = ActionCreators;
+    return bindActionCreators({ toggleLoader }, dispatch);
 }
 function mapStateToProps(state) {
-    const { gridData, dateRange, selectedBaseCurrency, isLoading } = state;
-    return Object.assign({}, { gridData, dateRange, selectedBaseCurrency, isLoading });
+    const { gridData } = state;
+    return { gridData };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

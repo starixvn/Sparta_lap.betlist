@@ -19,10 +19,7 @@ describe('connect ', () => {
 
     it('props should be mapped correctly', () => {
         const expectedResult = {
-            gridData: [],
-            dateRange: { fromDate: "1/1/2018", toDate: "1/2/2018" },
-            selectedBaseCurrency: "EUR",
-            isLoading: false
+            gridData: []
         }
 
         const state = {
@@ -41,11 +38,14 @@ describe('connect ', () => {
     it('bindActionCreators should be called with correct parameter', () => {
         const mockBindAction = jest.fn();
         bindActionCreators.mockImplementationOnce(mockBindAction);
+        const expectedActionCreator = {
+            toggleLoader: ActionCreators.toggleLoader
+        }
 
         const dispatch = {};
         mapDispatchToProps(dispatch);
 
-        expect(mockBindAction).toHaveBeenCalledWith(ActionCreators, dispatch);
+        expect(mockBindAction).toHaveBeenCalledWith(expectedActionCreator, dispatch);
     })
 
     it('returned function of connect should be called with correct parameter', () => {

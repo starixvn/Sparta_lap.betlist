@@ -41,12 +41,15 @@ export class FormFilter extends Component {
             return;
         }
 
-        this.props.toggleLoader(true);
         this.props.exportExcel(params).then(response => {
+            if (!response.data.Data.length) {
+                alert(LangHelper.getSingleResource("NoInfo"));
+                return;
+            }
+
             const title = service.getReportTitle(dateRange, selectedBaseCurrency);
             const excel = new ReportExcel(response.data, title);
             excel.export();
-            this.props.toggleLoader(false);
         });
     }
 
@@ -202,7 +205,7 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     const { gridData, ...rest } = state;
-    return Object.assign({}, rest);
+    return rest;
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);
