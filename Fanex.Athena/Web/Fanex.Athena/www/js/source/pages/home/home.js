@@ -136,9 +136,11 @@ define([
         }
 
         function activeDefaultMenuItem() {
-            var defaultUrl = $("#DefaultUrl").val();
+            var defaultUrl = $("#DefaultUrl").val().toLowerCase();
             defaultUrl = defaultUrl.replace(/\/index$/i, ''); // remove the last "/Index"
-            var $menuItem = $("#left-menu .collapsible-body").find("a[href='" + defaultUrl + "']");
+            var $menuItem = $("#left-menu .collapsible-body a").filter(function (index) {
+                return $(this).attr('href').toLowerCase() === defaultUrl;
+            });
             $('.collapsible2').collapsibleMenu('activeMenuItem', $menuItem);
 
             var menuItemName = $menuItem.length > 0 ? $menuItem.text() : "";

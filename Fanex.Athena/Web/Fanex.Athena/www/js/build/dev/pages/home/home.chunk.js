@@ -1779,8 +1779,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         }
 
         function activeDefaultMenuItem() {
-            var defaultUrl = $("#DefaultUrl").val();
-            var $menuItem = $("#left-menu .collapsible-body").find("a[href='" + defaultUrl + "']");
+            var defaultUrl = $("#DefaultUrl").val().toLowerCase();
+            var $menuItem = $("#left-menu .collapsible-body a").filter(function (index) {
+                return $(this).attr('href').toLowerCase() === defaultUrl;
+            });
             $('.collapsible2').collapsibleMenu('activeMenuItem', $menuItem);
 
             var menuItemName = $menuItem.length > 0 ? $menuItem.text() : "";
