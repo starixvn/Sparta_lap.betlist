@@ -11,6 +11,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
+    using TestableClasses;
     using UnitTest.Common.Helpers;
 
     public class LiveReportExcelTest
@@ -106,7 +107,7 @@
             var excel = CreateExcel();
             excel.When(x => x.ProcessUI(_sheet)).DoNotCallBase();
 
-            var noCell = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount);
+            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount);
 
             // Action
             excel.Public_AssignNoInfoRow(_sheet);
@@ -494,15 +495,16 @@
             AssignSheetData_CustomerCommVisibleIsTrue_DoNotMergeCellCustomerWL();
         }
 
-        [Test]
-        public void AssignTitle_IsNonLive_AssignCorrectTitle()
+        [TestCase(0, nameof(ViewResources.NoneLive))]
+        [TestCase(1, nameof(ViewResources.Live))]
+        [TestCase(2, nameof(ViewResources.LiveAndNonLive))]
+        [TestCase(3, "")]
+        public void AssignTitle_IsNonLive_AssignCorrectTitle(int liveIndicator, string expectedTitleKey)
         {
             // Arrange
-            var expected = ViewResources.NoneLive;
+            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount);
 
-            var titleCell = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount);
-
-            _excelModel.Param = new Model.Report.MetaModel.LiveReportMetaModel { LiveIndicator = 0 };
+            _excelModel.Param = new Model.Report.MetaModel.LiveReportMetaModel { LiveIndicator = liveIndicator };
 
             var excel = CreateExcel();
 
@@ -510,64 +512,12 @@
             excel.Public_AssignTitle(_sheet);
 
             // Assert
-            titleCell.Received().SetCellValue(Arg.Is<string>(x => x.Contains(expected)));
-        }
-
-        [Test]
-        public void AssignTitle_IsLive_AssignCorrectTitle()
-        {
-            // Arrange
-            var expected = ViewResources.Live;
-
-            var titleCell = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount);
-
-            _excelModel.Param = new Model.Report.MetaModel.LiveReportMetaModel { LiveIndicator = 1 };
-
-            var excel = CreateExcel();
-
-            // Action
-            excel.Public_AssignTitle(_sheet);
-
-            // Assert
-            titleCell.Received().SetCellValue(Arg.Is<string>(x => x.Contains(expected)));
-        }
-
-        [Test]
-        public void AssignTitle_IsLiveAndNonLive_AssignCorrectTitle()
-        {
-            // Arrange
-            var expected = ViewResources.LiveAndNonLive;
-
-            var titleCell = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount);
-
-            _excelModel.Param = new Model.Report.MetaModel.LiveReportMetaModel { LiveIndicator = 2 };
-
-            var excel = CreateExcel();
-
-            // Action
-            excel.Public_AssignTitle(_sheet);
-
-            // Assert
-            titleCell.Received().SetCellValue(Arg.Is<string>(x => x.Contains(expected)));
-        }
-
-        [Test]
-        public void AssignTitle_IsDefault_AssignCorrectTitle()
-        {
-            // Arrange
-            var expected = string.Empty;
-
-            var titleCell = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount);
-
-            _excelModel.Param = new Model.Report.MetaModel.LiveReportMetaModel { LiveIndicator = 3 };
-
-            var excel = CreateExcel();
-
-            // Action
-            excel.Public_AssignTitle(_sheet);
-
-            // Assert
-            titleCell.Received().SetCellValue(Arg.Is<string>(x => x.Contains(expected)));
+            _sheet.Received().SetTextRowValue(
+                    excel.TemplateSheet,
+                    Arg.Any<int>(),
+                    Arg.Any<int>(),
+                    Arg.Any<int>(),
+                    ViewResources.ResourceManager.GetString(expectedTitleKey));
         }
 
         [Test]

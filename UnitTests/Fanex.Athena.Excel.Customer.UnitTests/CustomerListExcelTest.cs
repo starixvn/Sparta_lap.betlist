@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Fanex.Athena.Excel.Base;
 using Fanex.Athena.Excel.Base.Extension;
 using Fanex.Athena.Excel.Customer.UnitTests.TestableClasses;
+using Fanex.Athena.Extension.Helper;
 using Fanex.Athena.Model.Core.DTO.Common;
 using Fanex.Athena.Model.Customer.DTO;
 using Fanex.Athena.Model.Customer.MetaModel;
@@ -17,6 +19,25 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
     [TestFixture]
     public class CustomerListExcelTest
     {
+        private const int RowNoInfoTemp = 4;
+        private const int RowContentTemplate = 3;
+        private const int GroupColumn = 1;
+        private const int ExternalIDColumn = 2;
+        private const int SystemIDColumn = 3;
+        private const int AvailableFundsColumn = 4;
+        private const int PendingFundColumn = 5;
+        private const int StatusColumn = 6;
+        private const int BAStatusColumn = 7;
+        private const int SpecialLevelColumn = 8;
+        private const int OddsGroupColumn = 9;
+        private const int SBCommColumn = 10;
+        private const int RCCommColumn = 11;
+        private const int NGCommColumn = 12;
+        private const int LCCommColumn = 13;
+        private const int CSCommColumn = 14;
+
+        private const int ABCommColumn = 15;
+
         private const string ReportTitle = "Customer List 123456";
         private const int ColumnCount = 17;
         private ISheet _sheet;
@@ -32,7 +53,22 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
         {
             // Arrange
             const int RowHeaderTemplate = 1;
-            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var headerTexts = new List<string>
+            {
+                "#",
+                ViewResources.Group,
+                ViewResources.ExternalId,
+                ViewResources.SystemId,
+                ViewResources.AvailableFunds,
+                ViewResources.PendingFunds,
+                ViewResources.Status,
+                ViewResources.BAStatus,
+                ViewResources.SpecialLevel,
+                ViewResources.OddsGroup,
+                ViewResources.Commission + " (%)",
+            };
+            var row1 = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, ReportBase.RowHeaderTemplate);
+            var row2 = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, ReportBase.RowHeaderTemplate + 1);
             var excel = CreateExcel();
 
             // Action
@@ -43,7 +79,17 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
             {
                 _sheet.Received().CopyRow(excel.TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
                 _sheet.Received().CopyRow(excel.TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
-                cell.ReceivedWithAnyArgs(ColumnCount).SetCellValue(string.Empty);
+                for (int i = 0; i < headerTexts.Count; i++)
+                {
+                    row1.Cells[i].Received(1).SetCellValue(headerTexts[i]);
+                }
+
+                row2.Cells[SBCommColumn].Received(1).SetCellValue(ViewResources.SB);
+                row2.Cells[RCCommColumn].Received(1).SetCellValue(ViewResources.RB);
+                row2.Cells[NGCommColumn].Received(1).SetCellValue(ViewResources.NG);
+                row2.Cells[LCCommColumn].Received(1).SetCellValue(ViewResources.LC);
+                row2.Cells[CSCommColumn].Received(1).SetCellValue(ViewResources.CS);
+                row2.Cells[ABCommColumn].Received(1).SetCellValue(ViewResources.ProductAB);
             });
         }
 
@@ -51,7 +97,7 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
         public void AssignSheetData_WhenCall_SetGroupCommAndBAStatusColumns()
         {
             // Arrange
-            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 3);
             var viewModel = new CustomerListViewModel
             {
                 IsAllowedCustomerCommission = true,
@@ -77,8 +123,8 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
             // Assert
             Assert.Multiple(() =>
             {
-                cell.Received(1).SetCellValue("GroupA");
-                cell.Received(1).SetCellValue(ViewResources.Off);
+                row.Cells[GroupColumn].Received(1).SetCellValue("GroupA");
+                row.Cells[BAStatusColumn].Received(1).SetCellValue(ViewResources.Off);
             });
         }
 
@@ -87,7 +133,7 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
         {
             // Arrange
             const int NumOfRow = 100;
-            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 0);
             var excel = CreateExcel();
             var item = new CustomerDTO
             {
@@ -96,14 +142,14 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
             };
 
             // Action
-            excel.Public_AssignCommonColumns(item, NumOfRow, cell.Row);
+            excel.Public_AssignCommonColumns(item, NumOfRow, row);
 
             // Assert
             Assert.Multiple(() =>
             {
-                cell.Received(1).SetCellValue(NumOfRow);
-                cell.Received(1).SetCellValue(item.ExternalId);
-                cell.Received(1).SetCellValue(item.SystemId);
+                row.Cells[0].Received(1).SetCellValue(NumOfRow);
+                row.Cells[ExternalIDColumn].Received(1).SetCellValue(item.ExternalId);
+                row.Cells[SystemIDColumn].Received(1).SetCellValue(item.SystemId);
             });
         }
 
@@ -111,7 +157,7 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
         public void AssignCommissionColumns_WhenCall_SetCellValueCorrectly()
         {
             // Arrange
-            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 0);
             var excel = CreateExcel();
             var item = new CustomerDTO
             {
@@ -124,17 +170,17 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
             };
 
             // Action
-            excel.Public_AssignCommissionColumns(item, cell.Row);
+            excel.Public_AssignCommissionColumns(item, row);
 
             // Assert
             Assert.Multiple(() =>
             {
-                cell.Received(1).SetCellValue("1.00");
-                cell.Received(1).SetCellValue("2.00");
-                cell.Received(1).SetCellValue("3.00");
-                cell.Received(1).SetCellValue("4.00");
-                cell.Received(1).SetCellValue("5.00");
-                cell.Received(1).SetCellValue("6.00");
+                row.Cells[SBCommColumn].Received(1).SetCellValue(item.SBComm.ToStringExt(2));
+                row.Cells[NGCommColumn].Received(1).SetCellValue(item.NGComm.ToStringExt(2));
+                row.Cells[RCCommColumn].Received(1).SetCellValue(item.RBComm.ToStringExt(2));
+                row.Cells[LCCommColumn].Received(1).SetCellValue(item.LCComm.ToStringExt(2));
+                row.Cells[CSCommColumn].Received(1).SetCellValue(item.CSComm.ToStringExt(2));
+                row.Cells[ABCommColumn].Received(1).SetCellValue(item.ABComm.ToStringExt(2));
             });
         }
 

@@ -14,6 +14,16 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
     [TestFixture]
     public class CustomerCommGroupExcelTest
     {
+        private const int ColumnDefaultGroup = 2;
+        private const int ColumnGroupName = 1;
+        private const int ColumnNgCommission = 6;
+        private const int ColumnLcCommission = 7;
+        private const int ColumnCsCommission = 8;
+        private const int ColumnNoOfCustomer = 3;
+        private const int ColumnRbCommission = 5;
+        private const int ColumnSbCommission = 4;
+        private const int ColumnAbCommission = 9;
+
         private const int ColumnCount = 10;
         private ISheet _sheet;
 
@@ -27,7 +37,7 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
         public void AssignHeader_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, ReportBase.RowHeaderTemplate);
             var excel = CreateExcel();
 
             // Action
@@ -37,7 +47,16 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
             Assert.Multiple(() =>
             {
                 _sheet.Received().CopyRow(excel.TemplateSheet, ReportBase.RowHeaderTemplate, ReportBase.RowHeaderTemplate);
-                cell.ReceivedWithAnyArgs(ColumnCount).SetCellValue(string.Empty);
+                row.Cells[0].Received(1).SetCellValue("#");
+                row.Cells[1].Received(1).SetCellValue(ViewResources.GroupName);
+                row.Cells[2].Received(1).SetCellValue(ViewResources.DefaultGroup);
+                row.Cells[3].Received(1).SetCellValue(ViewResources.NoOfCustmer);
+                row.Cells[4].Received(1).SetCellValue(ViewResources.SBComm + " (%)");
+                row.Cells[5].Received(1).SetCellValue(ViewResources.RacingComm + " (%)");
+                row.Cells[6].Received(1).SetCellValue(ViewResources.NGComm + " (%)");
+                row.Cells[7].Received(1).SetCellValue(ViewResources.LCComm + " (%)");
+                row.Cells[8].Received(1).SetCellValue(ViewResources.CSComm + " (%)");
+                row.Cells[9].Received(1).SetCellValue(ViewResources.ABComm + " (%)");
             });
         }
 
@@ -45,7 +64,7 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
         public void AssignSheetData_WhenCall_CallSetValueCorrectly()
         {
             // Arrange
-            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 2);
             var excel = CreateExcel();
 
             // Action
@@ -54,15 +73,15 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
             // Assert
             Assert.Multiple(() =>
             {
-                cell.Received(1).SetCellValue("X");
-                cell.Received(1).SetCellValue("100.00");
-                cell.Received(1).SetCellValue("200.00");
-                cell.Received(1).SetCellValue("300.00");
-                cell.Received(1).SetCellValue("400.00");
-                cell.Received(1).SetCellValue("500.00");
-                cell.Received(1).SetCellValue("600.00");
-                cell.Received(1).SetCellValue("GroupA");
-                cell.Received(1).SetCellValue(100);
+                row.Cells[ColumnGroupName].Received(1).SetCellValue("GroupA");
+                row.Cells[ColumnDefaultGroup].Received(1).SetCellValue("X");
+                row.Cells[ColumnNoOfCustomer].Received(1).SetCellValue(100);
+                row.Cells[ColumnSbCommission].Received(1).SetCellValue("100.00");
+                row.Cells[ColumnRbCommission].Received(1).SetCellValue("200.00");
+                row.Cells[ColumnNgCommission].Received(1).SetCellValue("300.00");
+                row.Cells[ColumnLcCommission].Received(1).SetCellValue("400.00");
+                row.Cells[ColumnCsCommission].Received(1).SetCellValue("500.00");
+                row.Cells[ColumnAbCommission].Received(1).SetCellValue("600.00");
             });
         }
 

@@ -32,8 +32,9 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnTotalTurnover = 9;
         private const int ColumnCustomerWl = 10;
         private const int ColumnCustomerComm = 11;
-        private const int ColumnTemplateCount = 12;
         private const int ColumnCustomerTotal = 12;
+
+        private const int ColumnTemplateCount = 12;
 
         private const int RowContentTemplate = 3;
         private const int RowNoInfoTemplate = 5;

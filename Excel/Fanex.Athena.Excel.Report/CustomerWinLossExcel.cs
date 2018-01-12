@@ -76,9 +76,9 @@ namespace Fanex.Athena.Excel.Report
 
             row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 
-            row.Cells[5].SetCellValue(ViewResources.WinLoss);
-            row.Cells[6].SetCellValue(ViewResources.Comm);
-            row.Cells[7].SetCellValue(ViewResources.Total);
+            row.Cells[ColumnCustomerWl].SetCellValue(ViewResources.WinLoss);
+            row.Cells[ColumnCustomerComm].SetCellValue(ViewResources.Comm);
+            row.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
         }
 
         protected override void AssignNoInfoRow(ISheet sheet)

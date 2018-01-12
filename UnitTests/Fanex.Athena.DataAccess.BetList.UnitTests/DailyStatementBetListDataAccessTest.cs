@@ -139,7 +139,7 @@
             });
         }
 
-        [TestCaseSource("TestCasesValue")]
+        [TestCaseSource(nameof(TestCasesValue))]
         public void GetDailyStatementData_WhenCall_DataReturnedCorrectly(dynamic testCaseData)
         {
             // Arrange

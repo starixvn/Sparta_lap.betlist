@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Excel.Report.UnitTests
+﻿namespace Fanex.Athena.Excel.Report.UnitTests.TestableClasses
 {
     using System.Collections.Generic;
     using Fanex.Athena.Excel.Base.Entities;
