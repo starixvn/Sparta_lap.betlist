@@ -25,7 +25,6 @@ describe('connect ', () => {
 
         const state = {
             licenseeId: 2,
-            levelGridData: [],
             state1: 1,
             state2: 2
         }

@@ -87,7 +87,7 @@ describe('FormFilter ', () => {
                 const newDate = { fromDate: '02/02/2017', toDate: '12/12/2017' };
 
                 const dateRange = formFilter._renderDateRange();
-                dateRange.props.onChange(newDate, true);
+                dateRange.props.onChange(newDate);
 
                 expect(filterProps.setDateRange).toHaveBeenCalledWith(newDate);
             })
@@ -242,7 +242,7 @@ describe('FormFilter ', () => {
                 expect(props.toggleLoader).toHaveBeenCalledWith(true);
                 expect(props.getGridData).toHaveBeenCalled();
                 expect(actualParams).toEqual(params);
-                expect(props.setParams).toHaveBeenCalledWith([params.data]);
+                expect(props.setParams).toHaveBeenCalledWith(params.data);
             })
 
             it('get grid data - alert error when getting data failed', () => {
@@ -268,7 +268,7 @@ describe('FormFilter ', () => {
                 expect(result).toBeNull();
             })
 
-            it('_getParams - level 0 - get data from props', () => {
+            it('_getParams - get data from props', () => {
                 const filterProps = { ...props, xsrfToken: 'token', params: [] };
                 const formFilter = new FormFilter(filterProps);
                 const expectedResult = {
@@ -285,13 +285,13 @@ describe('FormFilter ', () => {
                     }
                 };
 
-                const result = formFilter._getParams(0);
+                const result = formFilter._getParams();
 
                 expect(result).toEqual(expectedResult);
             })
 
-            it('_getParams - level 0 - Currency is Base - add value for BaseCurrency prop', () => {
-                const filterProps = { ...props, xsrfToken: 'token', params: [], selectedCurrency: { value: -1, label: 'Base' } };
+            it('_getParams - Currency is base - get correct data', () => {
+                const filterProps = { ...props, xsrfToken: 'token', params: [], selectedCurrency: { value: -1, lable: 'Base' } };
                 const formFilter = new FormFilter(filterProps);
                 const expectedResult = {
                     xsrfToken: filterProps.xsrfToken,
@@ -307,33 +307,7 @@ describe('FormFilter ', () => {
                     }
                 };
 
-                const result = formFilter._getParams(0);
-
-                expect(result).toEqual(expectedResult);
-            })
-
-            it('_getParams - level 1 - get data from props.params', () => {
-                const filterProps = { ...props, xsrfToken: 'token', params: [1, 2] };
-                const formFilter = new FormFilter(filterProps);
-                const expectedResult = {
-                    xsrfToken: filterProps.xsrfToken,
-                    data: filterProps.params[1]
-                };
-
-                const result = formFilter._getParams(1);
-
-                expect(result).toEqual(expectedResult);
-            })
-
-            it('_getParams - level 1 - level 1 param is underfined - level 0 param', () => {
-                const filterProps = { ...props, xsrfToken: 'token', params: [1] };
-                const formFilter = new FormFilter(filterProps);
-                const expectedResult = {
-                    xsrfToken: filterProps.xsrfToken,
-                    data: filterProps.params[0]
-                };
-
-                const result = formFilter._getParams(1);
+                const result = formFilter._getParams();
 
                 expect(result).toEqual(expectedResult);
             })
@@ -371,6 +345,7 @@ describe('FormFilter ', () => {
             })
 
             it('level 0 - export data with correct parameter', () => {
+                const level = 0;
                 const fakeResponse = { data: [1, 2] };
                 const promise = Promise.resolve(fakeResponse);
                 const params = { data: 1 };
@@ -385,11 +360,12 @@ describe('FormFilter ', () => {
                 });
 
                 Promise.resolve().then(() => {
-                    expect(formFilter._doExportExcel).toHaveBeenCalledWith(params.data, props.isAllowedCustomerComm, fakeResponse.data);
+                    expect(formFilter._doExportExcel).toHaveBeenCalledWith(level, params.data, props.isAllowedCustomerComm, fakeResponse.data);
                 });             
             })
 
             it('level 1 - export data with correct parameter', () => {
+                const level = 1;
                 const params = { data: 1 };
 
                 const filterProps = { ...props, xsrfToken: 'token', gridData: { level: 1, data: [] } };
@@ -401,10 +377,54 @@ describe('FormFilter ', () => {
                     preventDefault: jest.fn()
                 });
 
-                expect(formFilter._doExportExcel).toHaveBeenCalledWith(params.data, props.isAllowedCustomerComm, filterProps.gridData.data);          
+                expect(formFilter._doExportExcel).toHaveBeenCalledWith(level, params.data, props.isAllowedCustomerComm, filterProps.gridData.data);          
             })
 
-            it('_doExportExcel - call export method of Excel class', () => {
+            it('_doExportExcel - data is null - alert message', () => {
+                window.alert = jest.fn();
+
+                const formFilter = new FormFilter(props);
+                const param = {
+                    FromDate: '01/01/2017',
+                    ToDate: '01/02/2017',
+                    CurrencyName: 'USD',
+                    CurrencyId: 0,
+                    Level: 0,
+                    ReportBy: 1,
+                    BaseCurrency: 'USD'
+                };
+                const isAllowedCustomerComm = true;
+                const data = null;
+
+                formFilter._doExportExcel(0, param, isAllowedCustomerComm, data );
+
+                expect(window.alert).toHaveBeenCalledWith('NoInfo');
+            })
+
+            it('_doExportExcel - DataList is empty - call export method of Excel class', () => {
+                window.alert = jest.fn();
+
+                const formFilter = new FormFilter(props);
+                const param = {
+                    FromDate: '01/01/2017',
+                    ToDate: '01/02/2017',
+                    CurrencyName: 'USD',
+                    CurrencyId: 0,
+                    Level: 0,
+                    ReportBy: 1,
+                    BaseCurrency: 'USD'
+                };
+                const isAllowedCustomerComm = true;
+                const data = {
+                    DataList: []
+                };
+
+                formFilter._doExportExcel(0, param, isAllowedCustomerComm, data );
+
+                expect(window.alert).toHaveBeenCalledWith('NoInfo');
+            })
+
+            it('_doExportExcel - level MAIN - call export method of Excel class with correct title title', () => {
                 const exportFnMock = jest.fn();
                 const reportExcelMock = jest.fn(() => {
                     return {
@@ -424,11 +444,49 @@ describe('FormFilter ', () => {
                     BaseCurrency: 'USD'
                 };
                 const isAllowedCustomerComm = true;
-                const data = [];
+                const data = {
+                    DataList: [{
+                        Date: '2018-01-01T00:00:00'
+                    }]
+                };
 
-                formFilter._doExportExcel(param, isAllowedCustomerComm, data );
+                formFilter._doExportExcel(0, param, isAllowedCustomerComm, data );
 
+                expect(service.getReportTitle).toHaveBeenCalledWith({ fromDate: param.FromDate, toDate: param.ToDate }, param.CurrencyName, param.CurrencyId === 0);
                 expect(reportExcelMock).toHaveBeenCalledWith(data, reportTitle, param.Level, isAllowedCustomerComm, param.ReportBy);
+                expect(exportFnMock.mock.calls.length).toBe(1);
+            })
+
+            it('_doExportExcel - level is not MAIN - call export method of Excel class with correct title title', () => {
+                const exportFnMock = jest.fn();
+                const reportExcelMock = jest.fn(() => {
+                    return {
+                        export: exportFnMock
+                    }
+                });            
+                ReportExcel.mockImplementation(reportExcelMock);
+
+                const formFilter = new FormFilter(props);
+                const param = {
+                    FromDate: '01/01/2017',
+                    ToDate: '01/02/2017',
+                    CurrencyName: 'USD',
+                    CurrencyId: 0,
+                    Level: 10,
+                    ReportBy: 2,
+                    BaseCurrency: 'USD'
+                };
+                const isAllowedCustomerComm = true;
+                const firstData = { Date: '2017-01-03T00:00:00', CurrencyName: 'EUR', CurrencyId: 1 };
+                const data = {
+                    DataList: [firstData]
+                };   
+                service.getDrilldownDateRange = jest.fn((reportBy, fromDate, toDate, drilldownDate) => { return { fromDate: drilldownDate, toDate: drilldownDate };});
+
+                formFilter._doExportExcel(10, param, isAllowedCustomerComm, data );
+
+                expect(service.getReportTitle).toHaveBeenCalledWith({ fromDate: '01/03/2017', toDate: '01/03/2017' }, firstData.CurrencyName, firstData.CurrencyId === 0);
+                expect(reportExcelMock).toHaveBeenCalledWith(data, reportTitle, 10, isAllowedCustomerComm, param.ReportBy);
                 expect(exportFnMock.mock.calls.length).toBe(1);
             })
         });

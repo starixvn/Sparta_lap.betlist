@@ -22,7 +22,6 @@ describe('connect ', () => {
 			gridData: [],
 			params: [],
 			xsrfToken: 'token',
-			levelGridData: [],
 			licenseeId: 1,
 			isAllowedCustomerComm: false
 		};
@@ -31,7 +30,6 @@ describe('connect ', () => {
 			gridData: [],
 			params: [],
 			xsrfToken: 'token',
-			levelGridData: [],
 			licenseeId: 1,
 			isAllowedCustomerComm: false,
 			anotherProp: "Not included"

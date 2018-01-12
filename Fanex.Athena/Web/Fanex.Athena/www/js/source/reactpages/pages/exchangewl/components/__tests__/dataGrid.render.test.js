@@ -193,10 +193,12 @@ describe('Render DataGrid components ', () => {
                     isAllowedCustomerComm: false,
                     licenseeId: 2,
                     gridData: { level: ReportLevel.MAIN, data: gridData },
-                    params: [{ ReportBy: ReportBy.DAILY }]
+                    params: { ReportBy: ReportBy.DAILY }
                 };
 
                 const dataGrid = new DataGrid(props);
+                dataGrid.drillDownParams[ReportLevel.MAIN] = props.params;
+
                 const content = dataGrid.render();
 
                 const options = {
@@ -551,6 +553,66 @@ describe('Render DataGrid components ', () => {
 
                     expect(result.children[3].props.title).toEqual(item.CustomerWL);
                     expect(result.children[4].props.title).toEqual(item.LicenseeWL);
+                });
+
+                it('LicenseeWL value < 0 - render negative number', () => {
+                    const props = {
+                        isAllowedCustomerComm: false,
+                        licenseeId: 1
+                    };
+                    const grid = new DataGrid(props);
+                    const cell = { ...item, LicenseeWL: -1 };
+
+                    const body = renderer.create(<div>{grid._buildCell(cell)}</div>);
+                    const result = body.toJSON();
+
+                    expect(result.children[4].props.title).toEqual(cell.LicenseeWL);
+                    expect(result.children[4].props.className).toEqual('right-align negative');
+                });
+
+                it('LicenseeWL value > 0 - do not render negative number', () => {
+                    const props = {
+                        isAllowedCustomerComm: false,
+                        licenseeId: 1
+                    };
+                    const grid = new DataGrid(props);
+                    const cell = { ...item, LicenseeWL: 1 };
+
+                    const body = renderer.create(<div>{grid._buildCell(cell)}</div>);
+                    const result = body.toJSON();
+
+                    expect(result.children[4].props.title).toEqual(cell.LicenseeWL);
+                    expect(result.children[4].props.className).toEqual('right-align ');
+                });
+
+                it('LicenseeWLTotal value < 0 - render negative number', () => {
+                    const props = {
+                        isAllowedCustomerComm: false,
+                        licenseeId: 1
+                    };
+                    const grid = new DataGrid(props);
+                    const cell = { ...item, LicenseeWLTotal: -1 };
+
+                    const body = renderer.create(<div>{grid._buildCell(cell)}</div>);
+                    const result = body.toJSON();
+
+                    expect(result.children[7].props.title).toEqual(cell.LicenseeWLTotal);
+                    expect(result.children[7].props.className).toEqual('right-align negative');
+                    });
+
+                    it('LicenseeWLTotal value > 0 - do not render negative number', () => {
+                    const props = {
+                        isAllowedCustomerComm: false,
+                        licenseeId: 1
+                    };
+                    const grid = new DataGrid(props);
+                    const cell = { ...item, LicenseeWLTotal: 1 };
+
+                    const body = renderer.create(<div>{grid._buildCell(cell)}</div>);
+                    const result = body.toJSON();
+
+                    expect(result.children[7].props.title).toEqual(cell.LicenseeWLTotal);
+                    expect(result.children[7].props.className).toEqual('right-align ');
                 });
             });
 

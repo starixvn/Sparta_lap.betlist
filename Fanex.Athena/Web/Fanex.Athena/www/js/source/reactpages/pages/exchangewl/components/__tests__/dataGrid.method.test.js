@@ -13,23 +13,30 @@ describe('DataGrid methods ', () => {
 
     describe('componentWillReceiveProps ', () => {
         it('gridData update - get title report with correct parameter', () => {
-            const level = 0;
+            const level = ReportLevel.MAIN;
             const dataGridProps = { 
-                gridData: { level: 0, data: { DataList: [] } },
-                params: [{ FromDate: '01/01/2017', ToDate: '02/01/2017', CurrencyName: 'USD', CurrencyId: 0 }, {}],
+                gridData: {},                
                 toggleLoader: jest.fn() 
             };
 
             const dataGrid = new DataGrid(dataGridProps);
-            const nextProps = Object.assign({}, dataGridProps, { gridData: { level: level, data: { DataList: ['change'] }}});
+            dataGrid.drillDownParams = [dataGridProps.params];
+            const nextProps = Object.assign({}, 
+                dataGridProps, 
+                { 
+                    gridData: { level: level, data: { DataList: ['change'] } },
+                    params: { FromDate: '01/01/2017', ToDate: '02/01/2017', CurrencyName: 'USD', CurrencyId: 0 }
+                });
 
             dataGrid.componentWillReceiveProps(nextProps);
 
+            expect(dataGrid.drillDownParams[ReportLevel.MAIN]).toEqual(nextProps.params);
+
             expect(service.getReportTitle).toHaveBeenCalledWith({ 
-                fromDate: dataGridProps.params[level].FromDate, 
-                toDate: dataGridProps.params[level].ToDate }, 
-                dataGridProps.params[level].CurrencyName, 
-                dataGridProps.params[level].CurrencyId === 0);
+                fromDate: dataGrid.drillDownParams[level].FromDate, 
+                toDate: dataGrid.drillDownParams[level].ToDate }, 
+                dataGrid.drillDownParams[level].CurrencyName, 
+                dataGrid.drillDownParams[level].CurrencyId === 0);
         })
 
         it('gridData do not update - do not thing', () => {
@@ -41,9 +48,24 @@ describe('DataGrid methods ', () => {
             const dataGrid = new DataGrid(dataGridProps);
             const nextProps = Object.assign({}, dataGridProps, { selectedCurrency: 'EUR' });
 
-            dataGrid.componentWillReceiveProps(dataGridProps);
+            dataGrid.componentWillReceiveProps(nextProps);
 
             expect(dataGrid.props.toggleLoader).not.toHaveBeenCalled();
+        })
+
+        it('props.params update - update drill down params at level MAIN', () => {
+            const dataGridProps = { 
+                gridData: { level: 0, data: { DataList: [] } },
+                params: [{ FromDate: '01/01/2017', ToDate: '02/01/2017', CurrencyName: 'USD', CurrencyId: 0 }, {}],
+                toggleLoader: jest.fn() 
+            };
+
+            const dataGrid = new DataGrid(dataGridProps);
+            const nextProps = Object.assign({}, dataGridProps, { params: 'change' });
+
+            dataGrid.componentWillReceiveProps(nextProps);
+
+            expect(dataGrid.drillDownParams[ReportLevel.MAIN]).toEqual(nextProps.params);
         })
     })
 
@@ -77,8 +99,7 @@ describe('DataGrid methods ', () => {
             };
             const props = {
                 xsrfToken: 'token',
-                params: [mainParam],
-                setParams: jest.fn()
+                params: mainParam,
             };
             const level = 1, 
                 currencyId = 1, 
@@ -96,6 +117,7 @@ describe('DataGrid methods ', () => {
             };
 
             const dataGrid = new DataGrid(props);
+            dataGrid.drillDownParams[ReportLevel.MAIN] = mainParam;
 
             const result = dataGrid._getDrillDownParams(level, drillDownDate, currencyId, currencyName, custId);
 
@@ -110,8 +132,7 @@ describe('DataGrid methods ', () => {
             };
             const props = {
                 xsrfToken: 'token',
-                params: [mainParam],
-                setParams: jest.fn()
+                params: mainParam,
             };
             const level = 1, 
                 currencyId = 1, 
@@ -129,6 +150,7 @@ describe('DataGrid methods ', () => {
             };
 
             const dataGrid = new DataGrid(props);
+            dataGrid.drillDownParams[ReportLevel.MAIN] = mainParam;
 
             const result = dataGrid._getDrillDownParams(level, drillDownDate, currencyId, currencyName, custId);
 
@@ -143,8 +165,7 @@ describe('DataGrid methods ', () => {
             };
             const props = {
                 xsrfToken: 'token',
-                params: [mainParam],
-                setParams: jest.fn()
+                params: mainParam,
             };
             const level = 1, 
                 currencyId = 1, 
@@ -162,13 +183,14 @@ describe('DataGrid methods ', () => {
             };
 
             const dataGrid = new DataGrid(props);
+            dataGrid.drillDownParams[ReportLevel.MAIN] = mainParam;
 
             const result = dataGrid._getDrillDownParams(level, drillDownDate, currencyId, currencyName, custId);
 
             expect(result.data).toEqual(expectedResult);
         })
 
-        it('drill down to next level - update params state', () => {
+        it('drill down to next level - update drill down params', () => {
             const mainParam = {
                 ReportBy: ReportBy.DAILY,
                 FromDate: '01/15/2017',
@@ -176,8 +198,7 @@ describe('DataGrid methods ', () => {
             };
             const props = {
                 xsrfToken: 'token',
-                params: [mainParam],
-                setParams: jest.fn()
+                params: mainParam,
             };
             const level = 1, 
                 currencyId = 1, 
@@ -196,10 +217,11 @@ describe('DataGrid methods ', () => {
             const expectedParam = [mainParam, expectedResult];
                         
             const dataGrid = new DataGrid(props);
+            dataGrid.drillDownParams[ReportLevel.MAIN] = mainParam;
 
             const result = dataGrid._getDrillDownParams(level, drillDownDate, currencyId, currencyName, custId);
 
-            expect(props.setParams).toHaveBeenCalledWith(expectedParam);
+            expect(dataGrid.drillDownParams).toEqual(expectedParam);
         })
     })
 
@@ -264,11 +286,11 @@ describe('DataGrid methods ', () => {
             const props = {
                 gridData: { level: level + 1 },
                 toggleLoader: jest.fn(),
-                setGridData: jest.fn(),
-                levelGridData: [previousData]
+                setGridData: jest.fn(),                
             };
 
             const dataGrid = new DataGrid(props);
+            dataGrid.levelGridData = [previousData];
             dataGrid._drillDownData(level);
 
             expect(props.setGridData).toHaveBeenCalledWith({
@@ -293,13 +315,12 @@ describe('DataGrid methods ', () => {
             expect(props.toggleLoader).not.toHaveBeenCalled();
         })
 
-        it('drill down to next level - save current Grid data to props', () => {
+        it('drill down to next level - save current Grid data', () => {
             const level = 1;
             const currentData = { index: 1 };
             const props = {
                 gridData: { level: level - 1, data: currentData },
                 toggleLoader: jest.fn(),
-                setLevelGridData: jest.fn(),
                 getGridData: jest.fn()
             };
 
@@ -308,7 +329,7 @@ describe('DataGrid methods ', () => {
 
             dataGrid._drillDownData(level);
 
-            expect(props.setLevelGridData).toHaveBeenCalledWith([currentData]);
+            expect(dataGrid.levelGridData).toEqual([currentData]);
         })
 
         it('drill down to next level - call getGridData', () => {
@@ -316,7 +337,6 @@ describe('DataGrid methods ', () => {
             const props = {
                 gridData: { level: level - 1, data: { index: 1 } },
                 toggleLoader: jest.fn(),
-                setLevelGridData: jest.fn(),
                 getGridData: jest.fn()
             };
 
@@ -336,7 +356,6 @@ describe('DataGrid methods ', () => {
             const props = {
                 gridData: { level: level - 1, data: { index: 1 } },
                 toggleLoader: jest.fn(),
-                setLevelGridData: jest.fn(),
                 getGridData: jest.fn()
             };
             service.showErrorMsg = jest.fn();

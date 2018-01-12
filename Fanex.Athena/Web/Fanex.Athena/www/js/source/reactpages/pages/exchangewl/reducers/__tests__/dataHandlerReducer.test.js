@@ -15,16 +15,4 @@ describe('dataHandlerReducer ', () => {
 
         expect(result).toEqual(expectedResult);
     })
-
-    it("levelGridData", () => {
-        const expectedResult = [{ DataList: [], TotalDataList: [], SummaryTotal: {} }];
-        const action = {
-            type: types.SET_LEVEL_GRID_DATA,
-            data: expectedResult
-        }
-
-        const result = dataHandlerReducer.levelGridData(emptyState, action);
-
-        expect(result).toEqual(expectedResult);
-    })
 })

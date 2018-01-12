@@ -4,6 +4,7 @@ exports[`Render DataGrid components  Render grid Has data grid data should be re
 <div
   className="result-content"
 >
+  this._renderBreadcrumb()}
   <div
     className="report-title-container"
   >

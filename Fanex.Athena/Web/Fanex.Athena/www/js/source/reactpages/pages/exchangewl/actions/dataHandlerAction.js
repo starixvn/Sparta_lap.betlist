@@ -24,10 +24,3 @@ export function setGridData(data) {
         data: data
     };
 }
-
-export function setLevelGridData(data) {
-    return {
-        type: types.SET_LEVEL_GRID_DATA,
-        data: data
-    };
-}

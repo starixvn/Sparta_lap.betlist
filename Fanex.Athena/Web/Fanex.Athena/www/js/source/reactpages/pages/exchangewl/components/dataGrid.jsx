@@ -12,7 +12,6 @@ import NoDataTitle from '../../../components/NoDataTitle'
 import moment from 'moment'
 import Breadcrumb from '../../../components/breadcrumb/Breadcrumb'
 import Site from '../../../lib/site'
-import Report from '../../../lib/report'
 
 export class DataGrid extends Component {
     constructor(props) {
@@ -21,12 +20,19 @@ export class DataGrid extends Component {
         this.reportTitle = '';
         this.isAllowedCustomerComm = this.props.isAllowedCustomerComm;
         this.licenseeId = this.props.licenseeId;
+
+        this.levelGridData = [];
+        this.drillDownParams = [];
     }
 
     componentWillReceiveProps(nextProps) {
+        if (this.props.params !== nextProps.params) {
+            this.drillDownParams[ReportLevel.MAIN] = nextProps.params;
+        }
+
         if (this.props.gridData !== nextProps.gridData) {
-            const param = this.props.params[nextProps.gridData.level];
-            this.reportTitle = service.getReportTitle({ fromDate: param.FromDate, toDate: param.ToDate }, param.CurrencyName, param.CurrencyId === 0);            
+            const params = this.drillDownParams[nextProps.gridData.level];
+            this.reportTitle = service.getReportTitle({ fromDate: params.FromDate, toDate: params.ToDate }, params.CurrencyName, params.CurrencyId === 0);
             this.props.toggleLoader(false);
         }
     }
@@ -48,13 +54,12 @@ export class DataGrid extends Component {
             return null;
         }
 
-        let params = this.props.params;
-        const mainParam = params[ReportLevel.MAIN];
+        const mainParam = this.drillDownParams[ReportLevel.MAIN];
         if (!mainParam) {
             return null;
         }
 
-        const drillDownDate = Report.getDrilldownDateRange(mainParam.ReportBy, mainParam.FromDate, mainParam.ToDate, date);
+        const drillDownDate = service.getDrilldownDateRange(mainParam.ReportBy, mainParam.FromDate, mainParam.ToDate, date);
         const drillDownData = { 
             ...mainParam,
             CurrencyId: currencyId,
@@ -65,8 +70,7 @@ export class DataGrid extends Component {
             CustId: custId
         };
 
-        params[level] = drillDownData;       
-        this.props.setParams(params);
+        this.drillDownParams[level] = drillDownData;
 
         return {
             xsrfToken: this.props.xsrfToken,
@@ -89,12 +93,7 @@ export class DataGrid extends Component {
 
             this.props.toggleLoader(true);
 
-            let levelGridData = this.props.levelGridData;
-            if (!levelGridData) {
-                levelGridData = [];
-            }
-            levelGridData[currentLevel] = this.props.gridData.data;
-            this.props.setLevelGridData(levelGridData);
+            this.levelGridData[currentLevel] = this.props.gridData.data;
 
             this.props.getGridData(params, () => {
                 service.showErrorMsg();
@@ -102,7 +101,7 @@ export class DataGrid extends Component {
             });
         }
         else {
-            const data = this.props.levelGridData[level];
+            const data = this.levelGridData[level];
             if (!data) {
                 return;
             }
@@ -311,7 +310,7 @@ export class DataGrid extends Component {
         }
 
         const reportLevel = gridData.level;
-        const reportBy = this.props.params[ReportLevel.MAIN].ReportBy;
+        const reportBy = this.props.params.ReportBy;
 
         return (
             <div className='result-content'>
@@ -337,8 +336,8 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps(state) {
-    const { gridData, params, xsrfToken, levelGridData, licenseeId, isAllowedCustomerComm } = state;
-    return Object.assign({}, { gridData, params, xsrfToken, levelGridData, licenseeId, isAllowedCustomerComm });
+    const { gridData, params, xsrfToken, licenseeId, isAllowedCustomerComm } = state;
+    return Object.assign({}, { gridData, params, xsrfToken, licenseeId, isAllowedCustomerComm });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

@@ -10,19 +10,18 @@ import { ReportLevel } from '../../../constants/report'
 import { BaseCurrency } from '../../../constants/currency'
 import ReportExcel from '../lib/reportExcel'
 import service from '../lib/service'
+import moment from 'moment'
 
 const RANGE_MONTH_CONSTRAINT = 3;
 
 export class FormFilter extends Component {
     constructor(props) {
         super(props);
-
-        this.props.setParams([]);
     }
 
     submit = (event) => {
         event.preventDefault();
-        const params = this._getParams(0);
+        const params = this._getParams();
         if (!params) {
             return;
         }
@@ -33,9 +32,7 @@ export class FormFilter extends Component {
             this.props.toggleLoader(false);
         });
 
-        let paramArr = this.props.params;
-        paramArr[0] = params.data;       
-        this.props.setParams(paramArr);
+        this.props.setParams(params.data);
     }
 
     exportExcel = (event) => {
@@ -44,61 +41,76 @@ export class FormFilter extends Component {
         const level = this.props.gridData.level || 0;
 
         const isAllowedCustomerComm = this.props.isAllowedCustomerComm;
-        const params = this._getParams(level);
+        const params = this._getParams();
         if (!params) {
             return;
         }
      
         this.props.toggleLoader(true);
-        if (level === 0) {           
+        if (level === ReportLevel.MAIN) {            
             this.props.exportExcel(params)
-                .then(response => this._doExportExcel(params.data, isAllowedCustomerComm, response.data))
+                .then(response => this._doExportExcel(level, params.data, isAllowedCustomerComm, response.data))
                 .catch(() => {
                     service.showErrorMsg();
                     this.props.toggleLoader(false);
                 });
         }
         else {
-            this._doExportExcel(params.data, isAllowedCustomerComm, this.props.gridData.data);
+            this._doExportExcel(level, params.data, isAllowedCustomerComm, this.props.gridData.data);
         }
     }
 
-    _doExportExcel(param, isAllowedCustomerComm, data) {
-        const title = service.getReportTitle({ fromDate: param.FromDate, toDate: param.ToDate }, param.CurrencyName, param.CurrencyId === 0);
-        const excel = new ReportExcel(data, title, param.Level, isAllowedCustomerComm, param.ReportBy);
+    _doExportExcel(level, params, isAllowedCustomerComm, gridData) {
+        if (!gridData || !gridData.DataList.length) {
+            this.props.toggleLoader(false);
+            alert(LangHelper.getSingleResource("NoInfo"));
+            return;
+        }
+
+        let excelData;
+        if (level === ReportLevel.MAIN) {
+            excelData = params;
+        }
+        else {
+            const firstRow = gridData.DataList[0];
+            const drillDownDate = service.getDrilldownDateRange(params.ReportBy, params.FromDate, params.ToDate, firstRow.Date);
+
+            excelData = {
+                FromDate: Site.convertDateToString(moment(drillDownDate.fromDate)),
+                ToDate: Site.convertDateToString(moment(drillDownDate.toDate)),
+                CurrencyName: firstRow.CurrencyName,
+                CurrencyId: firstRow.CurrencyId,
+                ReportBy: params.ReportBy
+            };
+        }
+
+        const title = service.getReportTitle({ fromDate: excelData.FromDate, toDate: excelData.ToDate }, excelData.CurrencyName, excelData.CurrencyId === 0);
+        const excel = new ReportExcel(gridData, title, level, isAllowedCustomerComm, excelData.ReportBy);
         excel.export();
         this.props.toggleLoader(false);
     }
 
-    _getParams(level) {
+    _getParams() {
         if (!this.props.xsrfToken) {
             return null;
         }
 
         let param = {};
-        if (level === 0) {
-            const { fromDate, toDate } = this.props.dateRange;
-            const baseCurrency = BaseCurrency.find(x => x.value === this.props.selectedCurrency.value);
 
-            param = {
-                CurrencyId: this.props.selectedCurrency.value,
-                BaseCurrency: baseCurrency ? baseCurrency.text : "",
-                CurrencyName: baseCurrency ? baseCurrency.text : this.props.selectedCurrency.label,
-                FromDate: Site.convertDateToString(fromDate),
-                ToDate: Site.convertDateToString(toDate),
-                ReportBy: this.props.selectedReportBy,
-                ExcludeTestData: this.props.isExcludeTest,
-                Level: level
-            };
-        }
-        else {
-            let params = this.props.params;
-            param = params[level];
-            if (!param) {
-                param = params[0];
-            }
-        }
+        const { fromDate, toDate } = this.props.dateRange;
+        const baseCurrency = BaseCurrency.find(x => x.value === this.props.selectedCurrency.value);
 
+        param = {
+            CurrencyId: this.props.selectedCurrency.value,
+            BaseCurrency: baseCurrency ? baseCurrency.text : "",
+            CurrencyName: baseCurrency ? baseCurrency.text : this.props.selectedCurrency.label,
+            FromDate: Site.convertDateToString(fromDate),
+            ToDate: Site.convertDateToString(toDate),
+            ReportBy: this.props.selectedReportBy,
+            ExcludeTestData: this.props.isExcludeTest,
+            Level: 0
+        };
+        
         return {
             xsrfToken: this.props.xsrfToken,
             data: param
@@ -216,7 +228,7 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps(state) {
-    const { licenseeId, levelGridData, ...rest } = state;
+    const { licenseeId, ...rest } = state;
     return Object.assign({}, rest);
 };
 

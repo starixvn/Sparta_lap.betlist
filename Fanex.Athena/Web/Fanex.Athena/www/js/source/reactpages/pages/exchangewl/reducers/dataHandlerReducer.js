@@ -6,9 +6,3 @@ export const gridData = createReducer({}, {
         return action.data;
     }
 });
-
-export const levelGridData = createReducer({}, {
-    [types.SET_LEVEL_GRID_DATA](state, action) {
-        return action.data;
-    }
-});

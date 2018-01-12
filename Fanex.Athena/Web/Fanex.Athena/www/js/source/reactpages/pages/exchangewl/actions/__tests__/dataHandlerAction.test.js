@@ -81,16 +81,4 @@ describe('filterHandlerAction', () => {
 
         expect(actions.setGridData(data)).toEqual(expectedAction);
     })
-
-    it('setLevelGridData - should create an correct action', () => {
-        const data = [{ DataList: [] }, { DataList: [] }];
-        const expectedAction = {
-            type: types.SET_LEVEL_GRID_DATA,
-            data: data
-        };
-
-        const result = actions.setLevelGridData(data);
-
-        expect(result).toEqual(expectedAction);
-    })
 })

@@ -1,5 +1,6 @@
 import LangHelper from '../../../lib/langHelper'
 import Site from '../../../lib/site'
+import Report from '../../../lib/report'
 
 const headerText = {
     index: LangHelper.getSingleResource('#'),
@@ -57,5 +58,9 @@ export default class Service {
 
     static showErrorMsg() {
         alert(LangHelper.getSingleResource('ErrorProcessingMsg'));
+    }
+
+    static getDrilldownDateRange(reportBy, fromDate, toDate, drilldownDate) {
+        return Report.getDrilldownDateRange(reportBy, fromDate, toDate, drilldownDate)
     }
 }

@@ -1,5 +1,6 @@
 ﻿import LangHelper from '../../../../lib/langHelper'
 import Site from '../../../../lib/site'
+import Report from '../../../../lib/report'
 
 import service from '../service'
 
@@ -109,6 +110,21 @@ describe('service ', () => {
             service.showErrorMsg();
 
             expect(alert).toHaveBeenCalledWith('ErrorProcessingMsg');
+        })
+    })
+
+    describe('getDrilldownDateRange', () => {
+        it('call getDrilldownDateRange from Report', () => {
+            Report.getDrilldownDateRange = jest.fn();
+
+            const reportBy = 1;
+            const fromDate = '01/01/2017';
+            const toDate = '01/10/2017';
+            const drillDownDate = '01/05/2017';
+
+            service.getDrilldownDateRange(reportBy, fromDate, toDate, drillDownDate);
+
+            expect(Report.getDrilldownDateRange).toHaveBeenCalledWith(reportBy, fromDate, toDate, drillDownDate);
         })
     })
 })
