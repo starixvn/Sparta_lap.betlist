@@ -6,7 +6,7 @@ namespace Fanex.Athena.UnitTest.Common.Helpers
 {
     public static class ExcelTestHelper
     {
-        public static ICell MockGetRow(ISheet sheet, int columnCount)
+        public static void MockGetRow(ISheet sheet, int columnCount)
         {
             var row = Substitute.For<IRow>();
             var cell = Substitute.For<ICell>();
@@ -19,7 +19,6 @@ namespace Fanex.Athena.UnitTest.Common.Helpers
 
             row.Cells.ReturnsForAnyArgs(cellList);
             sheet.GetRow(0).ReturnsForAnyArgs(row);
-            return cell;
         }
 
         public static IRow MockGetRow(ISheet sheet, int columnCount, int destRowIndex)

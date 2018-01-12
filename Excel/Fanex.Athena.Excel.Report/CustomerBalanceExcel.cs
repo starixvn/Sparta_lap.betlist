@@ -226,7 +226,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        private void AssignTotalData(ISheet sheet, int rowTotal)
+        protected internal virtual void AssignTotalData(ISheet sheet, int rowTotal)
         {
             var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, rowTotal);
 

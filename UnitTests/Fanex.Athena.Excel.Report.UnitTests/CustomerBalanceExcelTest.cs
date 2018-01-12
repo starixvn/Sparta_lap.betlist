@@ -234,6 +234,40 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             });
         }
 
+        [Test]
+        public void AssignTotalData_WhenCall_CallSetValueCorrectly()
+        {
+            // Arrange
+            const int RowTotal = 100;
+            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, RowTotal);
+            var excel = CreateExcel();
+
+            // Action
+            excel.AssignTotalData(_sheet, RowTotal);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                row.Cells[ColumnOpeningBalance].Received(1).SetCellValue(DataItem.OpeningBalance);
+                row.Cells[ColumnDeposit].Received(1).SetCellValue(DataItem.Deposit);
+                row.Cells[ColumnWithdrawal].Received(1).SetCellValue(DataItem.Withdrawal);
+                row.Cells[ColumnBonus].Received(1).SetCellValue(DataItem.Bonus);
+                row.Cells[ColumnAdjustment].Received(1).SetCellValue(DataItem.Adjustment);
+                row.Cells[ColumnTurnOver].Received(1).SetCellValue(DataItem.Turnover);
+                row.Cells[ColumnDrawGame].Received(1).SetCellValue(DataItem.DrawGame);
+                row.Cells[ColumnNetTurnOver].Received(1).SetCellValue(DataItem.NetTurnover);
+                row.Cells[ColumnPendingFunds].Received(1).SetCellValue(DataItem.PendingFunds);
+                row.Cells[ColumnCustomerWinLoss].Received(1).SetCellValue(DataItem.WinLoss);
+                row.Cells[ColumnCustomerComm].Received(1).SetCellValue(DataItem.PlayerComm);
+                row.Cells[ColumnCustomerTotal].Received(1).SetCellValue(DataItem.WinLoss + DataItem.PlayerComm);
+                row.Cells[ColumnClosingBalance].Received(1).SetCellValue(DataItem.ClosingBalance);
+                row.Cells[ColumnAffiliateTransfer].Received(1).SetCellValue(DataItem.AffiliateTransfer);
+                row.Cells[ColumnTurnoverBa].Received(1).SetCellValue(DataItem.TurnoverBA);
+                row.Cells[ColumnCommBa].Received(1).SetCellValue(DataItem.CommBA);
+                row.Cells[ColumnAmountDueToBa].Received(1).SetCellValue(DataItem.AmountDueToBA);
+            });
+        }
+
         private static CustomerBalanceExcelTestable CreateExcel(ShowingOption showingOption = null)
         {
             var excel = Substitute.ForPartsOf<CustomerBalanceExcelTestable>(
