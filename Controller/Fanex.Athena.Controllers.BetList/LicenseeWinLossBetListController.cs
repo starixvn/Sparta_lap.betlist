@@ -8,11 +8,8 @@ namespace Fanex.Athena.Controllers.BetList
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Web.ResultExtension;
     using Resources;
     using Web.ActionFilter;
 
@@ -30,12 +27,6 @@ namespace Fanex.Athena.Controllers.BetList
             const string UspKey = "Lrf_BetList_SelWinloss_Mem";
             var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
 
-            var showingOption = new ShowingOption
-            {
-                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
-            };
-
-            // determine currency viewed in
             var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;
             var viewinCurrency = GetViewInCurrency(curencyId, metaModel.CurrencyName);
 
@@ -48,14 +39,10 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.IsFakeLicensee ? string.Empty : $"({metaModel.SystemId})",
                 viewinCurrency);
 
-            var colList = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
-
-            var excel = new BetListExcel(showingOption, metaModel.LicenseeId, colList);
-
-            var workbook = excel.Export(ticketResult, title);
+            var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
 
             var fileName = string.IsNullOrWhiteSpace(metaModel.ExcelFileName) ? "LicenseeWinLossBetList" : metaModel.ExcelFileName;
-            return new ExcelResult(workbook, fileName);
+            return ProcessExportExcel(metaModel, ticketResult, hiddenColumns, title, fileName);
         }
     }
 }

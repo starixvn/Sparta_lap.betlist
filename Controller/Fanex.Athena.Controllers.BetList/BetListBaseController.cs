@@ -3,24 +3,29 @@
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
+    using Excel.Base.Entities;
     using Excel.Base.Helpers;
+    using Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Service.BetList;
     using Fanex.Athena.Service.BetList.Interfaces;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
+    using Model.BetList.DTO;
     using Model.Core.DTO.Configuration;
     using ONEbook.UM.Filters;
     using Resources;
     using Service.Core.Users;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
+    using Web.ResultExtension;
 
     #endregion Using
 
@@ -95,6 +100,13 @@
             }
 
             return title;
+        }
+
+        protected static string GetViewInCurrency(BetListMetaModel metaModel)
+        {
+            return string.Format(
+                ViewResources.Viewin,
+                metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
         }
 
         protected static string GetViewInCurrency(int curencyId, string defaultCurrencyName)
@@ -194,6 +206,25 @@
         protected virtual ActionResult ExportExcel(BetListMetaModel metaModel)
         {
             return null;
+        }
+
+        protected ActionResult ProcessExportExcel(
+            BetListMetaModel metaModel,
+            TicketResult ticketResult,
+            IEnumerable<int> hiddenColumns,
+            string title,
+            string fileName)
+        {
+            var showingOption = new ShowingOption
+            {
+                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+            };
+
+            var excel = new BetListExcel(showingOption, metaModel.LicenseeId, hiddenColumns, metaModel.IsShowSumStake);
+
+            var workbook = excel.Export(ticketResult, title);
+
+            return new ExcelResult(workbook, fileName);
         }
 
         protected ActionResult ProcessDefaultRequest(BetListMetaModel metaModel, string viewPath)

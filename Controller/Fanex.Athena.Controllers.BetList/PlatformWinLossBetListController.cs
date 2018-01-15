@@ -10,10 +10,7 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
     using Resources;
     using Web.ActionFilter;
@@ -34,10 +31,6 @@ namespace Fanex.Athena.Controllers.BetList
             const string UspKey = "Lrf_BetList_PlatformWinLoss_Mem";
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
-            var showingOption = new ShowingOption
-            {
-                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
-            };
 
             var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;
             var viewinCurrency = GetViewInCurrency(curencyId, metaModel.CurrencyName);
@@ -53,13 +46,9 @@ namespace Fanex.Athena.Controllers.BetList
                 ViewResources.Platform + ": " + platformText,
                 viewinCurrency);
 
-            var colList = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
+            var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
 
-            var excel = new BetListExcel(showingOption, metaModel.LicenseeId, colList);
-
-            var workbook = excel.Export(ticketResult, title);
-
-            return new ExcelResult(workbook, "PlatformWinLossBetList");
+            return ProcessExportExcel(metaModel, ticketResult, hiddenColumns, title, "PlatformWinLossBetList");
         }
     }
 }

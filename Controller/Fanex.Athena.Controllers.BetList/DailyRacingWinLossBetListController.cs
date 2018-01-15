@@ -10,11 +10,8 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Web.ResultExtension;
     using Resources;
     using Web.ActionFilter;
 
@@ -34,10 +31,6 @@ namespace Fanex.Athena.Controllers.BetList
             const string UspKey = "Lrf_BetList_SelWinlostRacing";
             var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
 
-            var showingOption = new ShowingOption
-            {
-                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
-            };
             var currencyTitle = string.Format(
                 ViewResources.Viewin,
                 metaModel.CurrencyId == BaseCurrencyType.All || metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
@@ -47,11 +40,9 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.Date.ToString("MMM dd, yyyy"),
                 currencyTitle);
 
-            var excel = new BetListExcel(showingOption, metaModel.LicenseeId, new List<int> { BetEffectiveColumn });
+            var hiddenColumns = new List<int> { BetEffectiveColumn };
 
-            var workbook = excel.Export(ticketResult, title);
-
-            return new ExcelResult(workbook, "DailyRacingWinLossBetList");
+            return ProcessExportExcel(metaModel, ticketResult, hiddenColumns, title, "DailyRacingWinLossBetList");
         }
     }
 }

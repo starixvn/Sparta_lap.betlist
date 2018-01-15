@@ -110,7 +110,7 @@ namespace Fanex.Athena.Controllers.BetList
             var matchName = metaModel.HomeId > 0 && metaModel.AwayId > 0
                   ? CacheRef.GetTeamName(metaModel.HomeId) + " vs " + CacheRef.GetTeamName(metaModel.AwayId) + " - "
                   : string.Empty;
-            var currencyTitle = string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
+            var currencyTitle = GetViewInCurrency(metaModel);
 
             var title = ViewResources.BetList
                 + string.Format(

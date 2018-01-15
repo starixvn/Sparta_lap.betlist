@@ -11,12 +11,8 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Collections.Generic;
     using System.Globalization;
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Base;
-    using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Web.ResultExtension;
     using Resources;
     using Web.ActionFilter;
 
@@ -37,14 +33,7 @@ namespace Fanex.Athena.Controllers.BetList
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
 
-            var showingOption = new ShowingOption
-            {
-                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
-            };
-
-            var currencyTitle = string.Format(
-                ViewResources.Viewin,
-                metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper(CultureInfo.CurrentCulture) : metaModel.CurrencyName);
+            var currencyTitle = GetViewInCurrency(metaModel);
 
             var title = ViewResources.Customer + " " + ViewResources.BetList + string.Format(
                 " - {0} --> {1} - {2}{3} - {4}",
@@ -56,11 +45,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn };
 
-            var excel = new BetListExcel(showingOption, metaModel.LicenseeId, hiddenColumns);
-
-            var workbook = excel.Export(ticketResult, title);
-
-            return new ExcelResult(workbook, "CustomerWinLossBetList");
+            return ProcessExportExcel(metaModel, ticketResult, hiddenColumns, title, "CustomerWinLossBetList");
         }
     }
 }
