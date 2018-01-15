@@ -20,20 +20,21 @@ namespace Fanex.Athena.Excel.Report
 
     public class PlatformWinLossMemberExcel : ReportBase
     {
-        private const int ColumnAmtDueToBa = 12;
-        private const int ColumnAmtDueToRacing = 13;
-        private const int ColumnBaCommission = 10;
+        private const int ColumnExternalId = 1;
+        private const int ColumnSystemId = 2;
         private const int ColumnCurrency = 3;
+        private const int ColumnTurnover = 4;
+        private const int ColumnTotalTrans = 5;
+        private const int ColumnCustomerWl = 6;
         private const int ColumnCustomerCommission = 7;
         private const int ColumnCustomerTotal = 8;
-        private const int ColumnCustomerWl = 6;
-        private const int ColumnExternalId = 1;
         private const int ColumnLicenseeWl = 9;
+        private const int ColumnBaCommission = 10;
         private const int ColumnRacingRevenue = 11;
-        private const int ColumnSystemId = 2;
+        private const int ColumnAmtDueToBa = 12;
+        private const int ColumnAmtDueToRacing = 13;
         private const int ColumnTemplateCount = 14;
-        private const int ColumnTotalTrans = 5;
-        private const int ColumnTurnover = 4;
+
         private const int RowContentTemplate = 3;
         private const int RowNoInfoTemplate = 5;
         private const int RowTotalTemplate = 4;
@@ -102,13 +103,13 @@ namespace Fanex.Athena.Excel.Report
         protected override void AssignSheetData(ISheet sheet)
         {
             var rowIndex = 0;
-            var index = 1;
-            foreach (PlatformWinLossMember mobile in _dataList)
+            int index = 1;
+            foreach (PlatformWinLossMember item in _dataList)
             {
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
                 row.Cells[ColumnIndex].SetCellValue(index);
-                row.Cells[ColumnCurrency].SetCellValue(mobile.CurrencyName);
-                AssignCellData(row, mobile);
+                row.Cells[ColumnCurrency].SetCellValue(item.CurrencyName);
+                AssignCellData(row, item);
                 rowIndex++;
                 index++;
             }
@@ -177,7 +178,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmtDueToRacing].SetCellValue(item.AmtDueToRacing);
         }
 
-        private void AssignTotal(ISheet sheet)
+        protected internal virtual void AssignTotal(ISheet sheet)
         {
             var totalRow = _dataList.Count() + RowContentTemplate;
 
