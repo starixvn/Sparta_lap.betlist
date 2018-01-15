@@ -190,5 +190,28 @@
         {
             return this.File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
+
+        protected virtual ActionResult ExportExcel(BetListMetaModel metaModel)
+        {
+            return null;
+        }
+
+        protected ActionResult ProcessDefaultRequest(BetListMetaModel metaModel, string viewPath)
+        {
+            var model = CreateDefaultMetaModel(metaModel);
+
+            if (!model.IsExportExcel)
+            {
+                return View(viewPath, model);
+            }
+
+            if (IsValidCurrency(model.CurrencyId))
+            {
+                model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
+                return ExportExcel(model);
+            }
+
+            return EmptyExcel();
+        }
     }
 }

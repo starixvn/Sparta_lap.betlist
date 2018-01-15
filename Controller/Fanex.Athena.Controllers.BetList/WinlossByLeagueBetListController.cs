@@ -26,25 +26,10 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index(WinLossByLeagueBetListMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel) as WinLossByLeagueBetListMetaModel;
-
-            if (!model.IsExportExcel)
-            {
-                return View("~/Views/BetList/WinlossByLeague/Main.cshtml", model);
-            }
-
-            var currencyList = SessionService.UserSession.CurrencyList;
-
-            if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
-            {
-                model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
-                return Excel(model);
-            }
-
-            return EmptyExcel();
+            return ProcessDefaultRequest(metaModel, "~/Views/BetList/WinlossByLeague/Main.cshtml");
         }
 
-        private ActionResult Excel(BetListMetaModel metaModel)
+        protected override ActionResult ExportExcel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_WinlostByLeague_Mem";
             var ticketResult = BetListService.GetBetListData(metaModel, UspKey);

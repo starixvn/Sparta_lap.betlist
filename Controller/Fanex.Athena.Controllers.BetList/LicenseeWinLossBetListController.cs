@@ -6,8 +6,6 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
-    #region Using
-
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Base.Entities;
@@ -18,36 +16,16 @@ namespace Fanex.Athena.Controllers.BetList
     using Resources;
     using Web.ActionFilter;
 
-    #endregion Using
-
     [FunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss, PermissionKeys.ReportWinLossByProduct, PermissionKeys.ReportColossusBetsWinLoss)]
     public class LicenseeWinLossBetListController : BetListBaseController
     {
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-
-            if (!model.IsExportExcel)
-            {
-                return View("~/Views/BetList/LicenseeWl/Main.cshtml", model);
-            }
-
-            if (IsValidCurrency(model.CurrencyId))
-            {
-                model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
-                return Excel(model);
-            }
-
-            return EmptyExcel();
+            return ProcessDefaultRequest(metaModel, "~/Views/BetList/LicenseeWl/Main.cshtml");
         }
 
-        /// <summary>
-        /// Export excel for licensee win lost.
-        /// </summary>
-        /// <param name="metaModel">The meta model.</param>
-        /// <returns>Workbook for excel.</returns>
-        private ActionResult Excel(BetListMetaModel metaModel)
+        protected override ActionResult ExportExcel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_SelWinloss_Mem";
             var ticketResult = BetListService.GetBetListData(metaModel, UspKey);

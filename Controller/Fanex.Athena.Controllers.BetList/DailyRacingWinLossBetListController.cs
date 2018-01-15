@@ -26,24 +26,10 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-            if (model.IsExportExcel)
-            {
-                var currencyList = SessionService.UserSession.CurrencyList;
-
-                if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
-                {
-                    model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
-                    return Excel(model);
-                }
-
-                return EmptyExcel();
-            }
-
-            return View("~/Views/BetList/DailyRacingWl/Main.cshtml", model);
+            return ProcessDefaultRequest(metaModel, "~/Views/BetList/DailyRacingWl/Main.cshtml");
         }
 
-        private ActionResult Excel(BetListMetaModel metaModel)
+        protected override ActionResult ExportExcel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_SelWinlostRacing";
             var ticketResult = BetListService.GetBetListData(metaModel, UspKey);

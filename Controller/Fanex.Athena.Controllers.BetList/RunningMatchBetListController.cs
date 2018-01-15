@@ -25,30 +25,10 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-
-            if (model.IsExportExcel)
-            {
-                var currencyList = SessionService.UserSession.CurrencyList;
-
-                if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
-                {
-                    model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
-                    return Excel(model);
-                }
-
-                return EmptyExcel();
-            }
-
-            return View("~/Views/BetList/RunningBetListOfMatch/Main.cshtml", model);
+            return ProcessDefaultRequest(metaModel, "~/Views/BetList/RunningBetListOfMatch/Main.cshtml");
         }
 
-        /// <summary>
-        /// Export excel for running bet list of match.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
-        private ActionResult Excel(BetListMetaModel metaModel)
+        protected override ActionResult ExportExcel(BetListMetaModel metaModel)
         {
             var uspKey = IsRacing(metaModel.BetType)
                                               ? "Lrf_BetList_SelAllByDateHR"

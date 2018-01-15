@@ -26,22 +26,10 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-
-            if (model.IsExportExcel)
-            {
-                if (IsValidCurrency(model.CurrencyId))
-                {
-                    return Excel(model);
-                }
-
-                return EmptyExcel();
-            }
-
-            return View("~/Views/BetList/PlatformWinLoss/Main.cshtml", model);
+            return ProcessDefaultRequest(metaModel, "~/Views/BetList/PlatformWinLoss/Main.cshtml");
         }
 
-        private ActionResult Excel(BetListMetaModel metaModel)
+        protected override ActionResult ExportExcel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_PlatformWinLoss_Mem";
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
